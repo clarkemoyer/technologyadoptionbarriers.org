@@ -1,12 +1,20 @@
 export type Faq = { question: string; answer: string }
 
-// Import CMS-managed FAQs
-import faq1 from './faqs/what-is-the-organization-aiming-to-accomplish.json'
-import faq2 from './faqs/are-you-really-a-charity.json'
+// Import TABS-specific FAQs
+import faq1 from './faqs/what-is-tabs.json'
+import faq2 from './faqs/why-tabs-matters.json'
+import faq3 from './faqs/common-barriers.json'
+import faq4 from './faqs/how-to-participate.json'
+
+// Import original Free For Charity FAQs (keeping for reference during migration)
+import ffcFaq1 from './faqs/what-is-the-organization-aiming-to-accomplish.json'
+import ffcFaq2 from './faqs/are-you-really-a-charity.json'
 
 export const faqs: Faq[] = [
   faq1,
   faq2,
+  faq3,
+  faq4,
   {
     question: "What are the organization's key strategies for making this happen?",
     answer: `FFC assists by paying the full cost of the .org domain name if available. This reduces a charity's direct hard cost instantly and increases adoption of many other formal IT systems at very low cost per charity (~$16.50 per year).
