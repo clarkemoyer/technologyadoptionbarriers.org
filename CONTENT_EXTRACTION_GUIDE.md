@@ -56,6 +56,7 @@ console.log([...document.querySelectorAll('a')].map(a => ({
 ### Step 3: Save Complete Page
 
 **Method 1: Browser Save (Recommended)**
+
 1. Right-click on the page
 2. Select "Save As" or "Save Page As"
 3. Choose "Web Page, Complete" or "HTML Complete"
@@ -63,6 +64,7 @@ console.log([...document.querySelectorAll('a')].map(a => ({
 5. This saves HTML + all assets in a folder
 
 **Method 2: Using wget (Linux/Mac/WSL)**
+
 ```bash
 # Install wget if needed
 # Ubuntu/Debian: sudo apt-get install wget
@@ -77,6 +79,7 @@ wget --mirror --page-requisites --adjust-extension --convert-links \
 ```
 
 **Method 3: Using HTTrack (Windows/Mac/Linux)**
+
 ```bash
 # Install HTTrack from https://www.httrack.com/
 
@@ -94,31 +97,37 @@ Create a content inventory file (e.g., `content-inventory.md`) with this structu
 # Content Inventory: technologyadoptionbarriers.org
 
 ## Hero Section
+
 **Location:** Top of page
 **Headline:** [Copy exact text]
 **Subheadline:** [Copy exact text]
-**CTA Buttons:** 
+**CTA Buttons:**
+
 - Button 1: "[Text]" → [URL]
 - Button 2: "[Text]" → [URL]
-**Background Image:** [filename if any]
-**Hero Image:** [filename]
+  **Background Image:** [filename if any]
+  **Hero Image:** [filename]
 
 ## Mission/About Section
+
 **Location:** Below hero
 **Heading:** [Copy exact text]
 **Body Text:**
 [Copy complete text]
 
 **Images:**
+
 - Image 1: [filename]
 
 ## [Next Section Name]
+
 ...continue for each section...
 ```
 
 ### Step 5: Download All Images
 
 **Manual Method:**
+
 1. Right-click on each image
 2. Select "Save Image As"
 3. Save to `/tmp/extracted-images/`
@@ -126,6 +135,7 @@ Create a content inventory file (e.g., `content-inventory.md`) with this structu
 5. Document original filenames and alt text
 
 **Automated Method:**
+
 ```bash
 # In browser Developer Tools Console:
 // Get all unique image URLs
@@ -137,6 +147,7 @@ wget -i image-urls.txt -P /tmp/extracted-images/
 ```
 
 **Image Processing:**
+
 ```bash
 # Convert images to WebP for optimization (requires imagemagick)
 cd /tmp/extracted-images/
@@ -180,8 +191,11 @@ Check for JSON-LD structured data:
 
 ```javascript
 // In browser console:
-console.log([...document.querySelectorAll('script[type="application/ld+json"]')]
-  .map(s => JSON.parse(s.textContent)));
+console.log(
+  [...document.querySelectorAll('script[type="application/ld+json"]')].map((s) =>
+    JSON.parse(s.textContent)
+  )
+)
 ```
 
 ### Step 8: Test Extracted Content
@@ -231,26 +245,32 @@ For each content section, create a file with this structure:
 **Component Target:** src/components/home-page/[Component]/
 
 ## Visual Reference
+
 [Screenshot filename: section-screenshot.png]
 
 ## Content
 
 ### Heading
+
 [Exact heading text]
 
 ### Body Text
+
 [Exact body text, preserving formatting]
 
 ### Lists (if any)
+
 - Item 1
 - Item 2
 - Item 3
 
 ### Links
+
 - [Link text](URL) - Description
 - [Link text](URL) - Description
 
 ### Images
+
 - **hero-image.jpg**
   - Alt text: [alt text]
   - Dimensions: 1200x800
@@ -258,17 +278,20 @@ For each content section, create a file with this structure:
   - Notes: Main focal point
 
 ### Buttons/CTAs
+
 - **Button 1:** "[Text]"
   - Action: [Navigation, Form, External link]
   - Target: [URL or section ID]
   - Style: [Primary, Secondary, etc.]
 
 ## Implementation Notes
+
 - [Any special considerations]
 - [Layout or positioning requirements]
 - [Responsive behavior notes]
 
 ## Styling
+
 - Background color: [color code]
 - Text color: [color code]
 - Font sizes: [list any specific sizes]
@@ -278,7 +301,9 @@ For each content section, create a file with this structure:
 ## Special Considerations
 
 ### Forms
+
 If the site has forms:
+
 1. Document all form fields (name, type, required/optional)
 2. Note validation rules
 3. Document submission endpoint/action
@@ -286,13 +311,16 @@ If the site has forms:
 5. Test form submission to understand backend
 
 ### Dynamic Content
+
 If content loads dynamically:
+
 1. Scroll through entire page to trigger lazy loading
 2. Wait for all content to load
 3. Use browser Developer Tools → Network tab to identify API endpoints
 4. Document API structure for potential future integration
 
 ### Videos
+
 1. Identify video hosting platform (YouTube, Vimeo, self-hosted)
 2. Document video IDs or URLs
 3. Note embed settings (autoplay, controls, etc.)
@@ -300,6 +328,7 @@ If content loads dynamically:
 5. For self-hosted videos, may need special permission to download
 
 ### Animations
+
 1. Note any animated elements
 2. Document animation triggers (scroll, click, hover)
 3. Describe animation behavior
@@ -331,33 +360,33 @@ Save as `extract-text.js` and run in browser console:
 ```javascript
 // Extract all visible text by section
 function extractTextContent() {
-  const sections = document.querySelectorAll('section, article, div[class*="section"]');
-  const content = [];
-  
+  const sections = document.querySelectorAll('section, article, div[class*="section"]')
+  const content = []
+
   sections.forEach((section, index) => {
-    const id = section.id || `section-${index}`;
-    const heading = section.querySelector('h1, h2, h3, h4, h5, h6')?.textContent.trim();
-    const paragraphs = [...section.querySelectorAll('p')].map(p => p.textContent.trim());
-    
+    const id = section.id || `section-${index}`
+    const heading = section.querySelector('h1, h2, h3, h4, h5, h6')?.textContent.trim()
+    const paragraphs = [...section.querySelectorAll('p')].map((p) => p.textContent.trim())
+
     content.push({
       id,
       heading,
       paragraphs,
-      html: section.innerHTML
-    });
-  });
-  
-  return content;
+      html: section.innerHTML,
+    })
+  })
+
+  return content
 }
 
 // Run and download as JSON
-const siteContent = extractTextContent();
-const blob = new Blob([JSON.stringify(siteContent, null, 2)], { type: 'application/json' });
-const url = URL.createObjectURL(blob);
-const a = document.createElement('a');
-a.href = url;
-a.download = 'site-content.json';
-a.click();
+const siteContent = extractTextContent()
+const blob = new Blob([JSON.stringify(siteContent, null, 2)], { type: 'application/json' })
+const url = URL.createObjectURL(blob)
+const a = document.createElement('a')
+a.href = url
+a.download = 'site-content.json'
+a.click()
 ```
 
 ### Extract Color Palette
@@ -365,22 +394,20 @@ a.click();
 ```javascript
 // Extract computed colors from all elements
 function extractColors() {
-  const elements = document.querySelectorAll('*');
-  const colors = new Set();
-  
-  elements.forEach(el => {
-    const style = window.getComputedStyle(el);
-    colors.add(style.backgroundColor);
-    colors.add(style.color);
-    colors.add(style.borderColor);
-  });
-  
-  return [...colors]
-    .filter(c => c && c !== 'rgba(0, 0, 0, 0)' && c !== 'transparent')
-    .sort();
+  const elements = document.querySelectorAll('*')
+  const colors = new Set()
+
+  elements.forEach((el) => {
+    const style = window.getComputedStyle(el)
+    colors.add(style.backgroundColor)
+    colors.add(style.color)
+    colors.add(style.borderColor)
+  })
+
+  return [...colors].filter((c) => c && c !== 'rgba(0, 0, 0, 0)' && c !== 'transparent').sort()
 }
 
-console.log('Color Palette:', extractColors());
+console.log('Color Palette:', extractColors())
 ```
 
 ### Extract Font Families
@@ -388,18 +415,18 @@ console.log('Color Palette:', extractColors());
 ```javascript
 // Extract all fonts used
 function extractFonts() {
-  const elements = document.querySelectorAll('*');
-  const fonts = new Set();
-  
-  elements.forEach(el => {
-    const style = window.getComputedStyle(el);
-    fonts.add(style.fontFamily);
-  });
-  
-  return [...fonts].sort();
+  const elements = document.querySelectorAll('*')
+  const fonts = new Set()
+
+  elements.forEach((el) => {
+    const style = window.getComputedStyle(el)
+    fonts.add(style.fontFamily)
+  })
+
+  return [...fonts].sort()
 }
 
-console.log('Font Families:', extractFonts());
+console.log('Font Families:', extractFonts())
 ```
 
 ## Next Steps
@@ -417,15 +444,19 @@ After content extraction is complete:
 ## Troubleshooting
 
 ### Issue: JavaScript-heavy site, content not visible in saved HTML
+
 **Solution:** Use browser Developer Tools to wait for all content to load, then use "Print to PDF" or screenshot tools.
 
 ### Issue: Images have authentication or hotlink protection
+
 **Solution:** Contact site owner for image access, or take screenshots and recreate graphics.
 
 ### Issue: Can't access certain pages
+
 **Solution:** Check robots.txt, try Wayback Machine, or contact site administrator.
 
 ### Issue: Dynamic content changes on each visit
+
 **Solution:** Document variations, decide on canonical version, may need to note this is dynamic.
 
 ## Help & Support
@@ -440,6 +471,7 @@ If you encounter issues during content extraction:
 ---
 
 **See Also:**
+
 - [MIGRATION_STATUS.md](./MIGRATION_STATUS.md) - Track migration progress
 - [README.md](./README.md) - Development setup and commands
 - [CONTRIBUTING.md](./CONTRIBUTING.md) - Contribution guidelines

@@ -1,6 +1,6 @@
 # Content Migration Status: technologyadoptionbarriers.org
 
-**Last Updated:** December 19, 2024  
+**Last Updated:** December 19, 2025  
 **Live Site:** https://technologyadoptionbarriers.org/  
 **Target Repository:** This Next.js React application
 
@@ -15,11 +15,13 @@ Based on research, the technologyadoptionbarriers.org website contains:
 **Primary Purpose:** Technology Adoption Barriers Survey (TABS) - researching and understanding barriers organizations face when adopting new technologies
 
 **Key Pages Identified:**
+
 - Homepage: https://technologyadoptionbarriers.org/
 - Barriers Page: https://technologyadoptionbarriers.org/barriers/
 - Technology Adoption Models: https://technologyadoptionbarriers.org/technology-adoption-models/
 
 **Main Themes:**
+
 1. **Technology Adoption Barriers Survey (TABS)** - Central project collecting insights from leaders
 2. **Get Involved** - Participate in survey, donate, volunteer, sponsor
 3. **Key Barriers Covered:**
@@ -33,6 +35,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
    - Setting clear objectives
 
 **Frameworks Mentioned:**
+
 - Technology Acceptance Model (TAM)
 - Everett Rogers' Diffusion of Innovations
 - Three overlapping domains: organizational (strategy/operations), user (psychology/change management), consumer (market needs/UX)
@@ -40,12 +43,14 @@ Based on research, the technologyadoptionbarriers.org website contains:
 ## Migration Strategy
 
 ### Phase 1: Content Inventory & Analysis
+
 - [ ] Access and document all pages from live site
 - [ ] Catalog all content sections, text, and media
 - [ ] Identify unique content vs. template boilerplate
 - [ ] Document site structure and navigation
 
 ### Phase 2: Content Extraction
+
 - [ ] Extract homepage content
 - [ ] Extract all page content (if multi-page)
 - [ ] Download and catalog all images and media
@@ -53,6 +58,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - [ ] Extract SEO metadata (titles, descriptions, keywords)
 
 ### Phase 3: Content Adaptation
+
 - [ ] Map live site structure to React components
 - [ ] Create/update data files for dynamic content
 - [ ] Adapt text content to match React component structure
@@ -60,6 +66,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - [ ] Update navigation and internal links
 
 ### Phase 4: Implementation
+
 - [ ] Implement homepage content
 - [ ] Implement additional pages (if applicable)
 - [ ] Update site metadata and SEO
@@ -67,6 +74,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - [ ] Test all content rendering
 
 ### Phase 5: Validation & Testing
+
 - [ ] Visual comparison with live site
 - [ ] Test all links (internal and external)
 - [ ] Verify responsive design on all breakpoints
@@ -79,6 +87,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 ### Homepage Sections
 
 #### Hero Section
+
 - [ ] **Status:** Not Started
 - [ ] Extract hero headline
 - [ ] Extract hero subheadline/description
@@ -88,6 +97,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** Currently shows Free For Charity content
 
 #### Mission/About Section
+
 - [ ] **Status:** Not Started
 - [ ] Extract mission statement
 - [ ] Extract organizational description
@@ -97,6 +107,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** Currently shows Free For Charity mission
 
 #### Key Barriers/Topics Section
+
 - [x] **Status:** In Progress - Data structure created
 - [x] Created barriers data file with 10 key barriers
 - [x] Organized barriers into 4 categories (Financial, Technical, Organizational, Psychological)
@@ -109,6 +120,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** Initial data structure based on web research. 10 barriers identified across 4 categories.
 
 #### Content/Articles Section
+
 - [ ] **Status:** Not Started
 - [ ] Extract any articles or blog posts
 - [ ] Document article structure and format
@@ -118,6 +130,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** May not exist on live site
 
 #### Resources Section
+
 - [ ] **Status:** Not Started
 - [ ] Extract resource listings
 - [ ] Extract resource descriptions and links
@@ -127,6 +140,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** May not exist on live site
 
 #### Testimonials/Case Studies
+
 - [ ] **Status:** Not Started
 - [ ] Extract testimonials or case studies
 - [ ] Document authors/organizations
@@ -136,6 +150,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** Can adapt existing testimonial structure
 
 #### FAQ Section
+
 - [x] **Status:** In Progress - Initial FAQs created
 - [x] Create initial TABS-related FAQs based on web research
 - [ ] Extract complete FAQ list from live site when accessible
@@ -146,6 +161,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** Initial 4 FAQs created from research. Need to verify against live site content when accessible.
 
 #### Team/Contact Section
+
 - [ ] **Status:** Not Started
 - [ ] Extract team member information
 - [ ] Download team photos
@@ -156,6 +172,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** Need to replace Free For Charity team with relevant info
 
 #### Footer Content
+
 - [ ] **Status:** Not Started
 - [ ] Extract footer links
 - [ ] Extract contact information
@@ -167,6 +184,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 ### Additional Pages
 
 #### About Page
+
 - [ ] **Status:** Not Started / N/A
 - [ ] Extract about page content (if exists as separate page)
 - [ ] Download about page images
@@ -174,6 +192,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** May be integrated into homepage or separate route
 
 #### Contact Page
+
 - [ ] **Status:** Not Started / N/A
 - [ ] Extract contact information
 - [ ] Document contact form fields (if exists)
@@ -182,6 +201,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** May be integrated into homepage or separate route
 
 #### Resources/Articles Pages
+
 - [ ] **Status:** Not Started / N/A
 - [ ] Extract individual resource/article pages
 - [ ] Document page templates
@@ -192,6 +212,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 ### Media Assets
 
 #### Images
+
 - [ ] **Status:** Not Started
 - [ ] Catalog all images used on live site
 - [ ] Download high-resolution versions
@@ -202,6 +223,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** Use consistent naming convention
 
 #### Icons/SVGs
+
 - [ ] **Status:** Not Started
 - [ ] Extract all icons and SVGs
 - [ ] Optimize SVG files
@@ -210,6 +232,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** Consider using icon library if many icons
 
 #### Videos
+
 - [ ] **Status:** Not Started / N/A
 - [ ] Download any video content
 - [ ] Convert to web-optimized formats
@@ -220,6 +243,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 ### Site Configuration
 
 #### Metadata & SEO
+
 - [ ] **Status:** Not Started
 - [ ] Update site title
 - [ ] Update site description
@@ -231,6 +255,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** Currently set to Free For Charity branding
 
 #### Navigation
+
 - [ ] **Status:** Not Started
 - [ ] Update navigation menu items
 - [ ] Update navigation links
@@ -239,6 +264,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** Adapt to Technology Adoption Barriers structure
 
 #### Domain Configuration
+
 - [ ] **Status:** Not Started
 - [ ] Update CNAME file
 - [ ] Configure custom domain
@@ -247,6 +273,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** Currently set to ffcworkingsite1.org
 
 #### Analytics & Tracking
+
 - [ ] **Status:** Not Started
 - [ ] Configure Google Tag Manager (if used)
 - [ ] Update tracking IDs
@@ -257,6 +284,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 ### Data Files
 
 #### FAQs
+
 - [ ] **Status:** Not Started
 - [ ] Replace Free For Charity FAQs
 - [ ] Create Technology Adoption Barriers FAQs
@@ -265,6 +293,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** Currently has 6+ FFC FAQs
 
 #### Team Members
+
 - [ ] **Status:** Not Started
 - [ ] Replace Free For Charity team
 - [ ] Add Technology Adoption Barriers team/contributors
@@ -273,6 +302,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - **Notes:** Currently has FFC team members
 
 #### Testimonials
+
 - [ ] **Status:** Not Started
 - [ ] Replace Free For Charity testimonials (if applicable)
 - [ ] Add relevant testimonials for TAB site
@@ -315,6 +345,7 @@ For each content section extracted, document:
 
 ```markdown
 ### [Section Name]
+
 **Source URL:** [URL of section]
 **Last Updated:** [Date]
 **Extracted By:** [Name]
@@ -326,10 +357,12 @@ For each content section extracted, document:
 [Copy main content here]
 
 **Images:**
+
 - Image 1: [filename], [alt text], [dimensions]
 - Image 2: [filename], [alt text], [dimensions]
 
 **Links:**
+
 - [Link text] → [Destination URL]
 
 **Notes:**
@@ -340,16 +373,16 @@ For each content section extracted, document:
 
 This table maps live site sections to React components:
 
-| Live Site Section | Component Path | Data Files | Status |
-|------------------|----------------|------------|--------|
-| Hero/Header | `src/components/home-page/Hero/` | - | Not Started |
-| Mission/About | `src/components/home-page/Mission/` | - | Not Started |
-| Key Barriers | TBD (adapt Our-Programs?) | TBD | Not Started |
-| FAQs | `src/components/home-page/FrequentlyAskedQuestions/` | `src/data/faqs/` | Not Started |
-| Team/Contact | `src/components/home-page/TheFreeForCharityTeam/` | `src/data/team/` | Not Started |
-| Testimonials | `src/components/home/Testimonials/` | `src/data/testimonials/` | Not Started |
-| Footer | `src/components/footer/` | - | Not Started |
-| Navigation | `src/components/header/` | - | Not Started |
+| Live Site Section | Component Path                                       | Data Files               | Status      |
+| ----------------- | ---------------------------------------------------- | ------------------------ | ----------- |
+| Hero/Header       | `src/components/home-page/Hero/`                     | -                        | Not Started |
+| Mission/About     | `src/components/home-page/Mission/`                  | -                        | Not Started |
+| Key Barriers      | TBD (adapt Our-Programs?)                            | TBD                      | Not Started |
+| FAQs              | `src/components/home-page/FrequentlyAskedQuestions/` | `src/data/faqs/`         | Not Started |
+| Team/Contact      | `src/components/home-page/TheFreeForCharityTeam/`    | `src/data/team/`         | Not Started |
+| Testimonials      | `src/components/home/Testimonials/`                  | `src/data/testimonials/` | Not Started |
+| Footer            | `src/components/footer/`                             | -                        | Not Started |
+| Navigation        | `src/components/header/`                             | -                        | Not Started |
 
 ## Testing Checklist
 
@@ -372,6 +405,7 @@ After content migration:
 **Target Completion Date:** TBD
 
 ### Milestones
+
 - [ ] **Week 1:** Content inventory and extraction complete
 - [ ] **Week 2:** Core content sections migrated (Hero, Mission, Key Barriers)
 - [ ] **Week 3:** Supporting content migrated (FAQs, Team, Resources)
@@ -380,11 +414,13 @@ After content migration:
 ## Notes & Decisions
 
 ### Content Adaptations
+
 - Document any decisions to deviate from live site structure
 - Note any content that is intentionally omitted or restructured
 - Track any new content added that wasn't on live site
 
 ### Technical Considerations
+
 - Using Next.js App Router (latest version)
 - Static site generation for GitHub Pages hosting
 - Image optimization using WebP format
@@ -392,6 +428,7 @@ After content migration:
 - Accessibility compliance (WCAG 2.1 AA)
 
 ### Open Questions
+
 - [ ] Is the live site a single-page application or multi-page?
 - [ ] What is the primary purpose/goal of the Technology Adoption Barriers site?
 - [ ] Who is the target audience?
@@ -402,22 +439,25 @@ After content migration:
 ## Resources
 
 ### Helpful Links
+
 - **Live Site:** https://technologyadoptionbarriers.org/
 - **Repository:** https://github.com/clarkemoyer/technologyadoptionbarriers.org
 - **Archive.org:** https://web.archive.org/web/*/technologyadoptionbarriers.org
 - **Template Source:** Based on Free For Charity Next.js template
 
 ### Documentation
+
 - See `README.md` for development setup and commands
 - See `QUICK_START.md` for getting started guide
 - See `RESPONSIVE_DESIGN.md` for responsive design guidelines
 - See `TESTING.md` for testing procedures
 
 ### Contact
+
 For questions about content or migration approach, contact the repository owner or open an issue.
 
 ---
 
 **Migration Status Summary:** 0% Complete (0/50+ items completed)
 
-**Last Review:** December 19, 2024
+**Last Review:** December 19, 2025

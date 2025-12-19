@@ -6,10 +6,6 @@ import faq2 from './faqs/why-tabs-matters.json'
 import faq3 from './faqs/common-barriers.json'
 import faq4 from './faqs/how-to-participate.json'
 
-// Import original Free For Charity FAQs (keeping for reference during migration)
-import ffcFaq1 from './faqs/what-is-the-organization-aiming-to-accomplish.json'
-import ffcFaq2 from './faqs/are-you-really-a-charity.json'
-
 export const faqs: Faq[] = [
   faq1,
   faq2,

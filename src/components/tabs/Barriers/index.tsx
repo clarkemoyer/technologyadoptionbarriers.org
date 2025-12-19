@@ -1,13 +1,13 @@
 import React from 'react'
-import { barriers, barrierCategories, getBarriersByCategory } from '@/data/barriers'
+import { barriers, barrierCategories } from '@/data/barriers'
 
 /**
  * Barriers Component - Displays Technology Adoption Barriers
- * 
+ *
  * This component showcases the key barriers to technology adoption
  * as identified by the TABS research. Barriers are organized by category
  * for easy navigation and understanding.
- * 
+ *
  * TODO: Once live site is accessible, update styling to match live site design
  * TODO: Add icons/imagery from live site
  * TODO: Verify content matches live site exactly
@@ -28,16 +28,16 @@ const Barriers = () => {
           </p>
         </div>
 
-        {/* Category Tabs or Filter (placeholder) */}
+        {/* Category Labels (non-interactive) */}
         <div className="flex flex-wrap justify-center gap-[10px] mb-[40px]">
           {barrierCategories.map((category) => (
-            <button
+            <div
               key={category.id}
-              className="px-[20px] py-[10px] rounded-[25px] bg-white border-2 border-[#2E6F8E] text-[#2E6F8E] hover:bg-[#2E6F8E] hover:text-white transition-colors duration-300"
+              className="px-[20px] py-[10px] rounded-[25px] bg-white border-2 border-[#2E6F8E] text-[#2E6F8E]"
               title={category.description}
             >
               {category.name}
-            </button>
+            </div>
           ))}
         </div>
 
@@ -99,8 +99,10 @@ const Barriers = () => {
             Help us understand and overcome these barriers
           </p>
           <a
-            href="#survey"
+            href="https://technologyadoptionbarriers.org/"
             className="inline-block px-[40px] py-[15px] bg-[#F57C20] text-white text-[18px] font-semibold rounded-[30px] hover:bg-[#d66a1a] transition-colors duration-300"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Take the TABS Survey
           </a>
