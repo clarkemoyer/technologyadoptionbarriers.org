@@ -41,7 +41,7 @@ const Statistics = () => {
               </svg>
             </div>
             <h3 className="text-[20px] font-semibold text-gray-900 mb-[10px]">Surveys Completed</h3>
-            <div className="text-[48px] font-bold text-blue-600 mb-[10px]">TBD</div>
+            <div className="text-[48px] font-bold text-blue-600 mb-[10px]">0</div>
             <p className="text-[14px] text-gray-600">Responses collected from leaders</p>
           </div>
 
@@ -65,7 +65,7 @@ const Statistics = () => {
               </svg>
             </div>
             <h3 className="text-[20px] font-semibold text-gray-900 mb-[10px]">$ Raised</h3>
-            <div className="text-[48px] font-bold text-green-600 mb-[10px]">$TBD</div>
+            <div className="text-[48px] font-bold text-green-600 mb-[10px]">$0</div>
             <p className="text-[14px] text-gray-600">Supporting research initiatives</p>
           </div>
 
@@ -89,7 +89,7 @@ const Statistics = () => {
               </svg>
             </div>
             <h3 className="text-[20px] font-semibold text-gray-900 mb-[10px]">Hours Volunteered</h3>
-            <div className="text-[48px] font-bold text-purple-600 mb-[10px]">TBD</div>
+            <div className="text-[48px] font-bold text-purple-600 mb-[10px]">0</div>
             <p className="text-[14px] text-gray-600">Contributed by researchers</p>
           </div>
         </div>
