@@ -29,6 +29,8 @@ const GetInvolved = () => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  role="img"
+                  aria-label="Survey document icon"
                 >
                   <path
                     strokeLinecap="round"
@@ -47,7 +49,9 @@ const GetInvolved = () => {
               many types of organizational leaders as possible to provide the best insights.
             </p>
             <a
-              href="#survey"
+              href="https://technologyadoptionbarriers.org/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="block text-center px-[30px] py-[12px] bg-blue-600 text-white rounded-[25px] hover:bg-blue-700 transition-colors duration-300"
             >
               Take Survey
@@ -63,6 +67,8 @@ const GetInvolved = () => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  role="img"
+                  aria-label="Donation funding icon"
                 >
                   <path
                     strokeLinecap="round"
@@ -81,7 +87,9 @@ const GetInvolved = () => {
               or become a sponsor of the TABS Survey.
             </p>
             <a
-              href="#donate"
+              href="https://technologyadoptionbarriers.org/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="block text-center px-[30px] py-[12px] bg-green-600 text-white rounded-[25px] hover:bg-green-700 transition-colors duration-300"
             >
               Donate Now
@@ -97,6 +105,8 @@ const GetInvolved = () => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  role="img"
+                  aria-label="Volunteer group icon"
                 >
                   <path
                     strokeLinecap="round"
@@ -115,7 +125,9 @@ const GetInvolved = () => {
               Volunteer today to help with research and analysis.
             </p>
             <a
-              href="#volunteer"
+              href="https://technologyadoptionbarriers.org/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="block text-center px-[30px] py-[12px] bg-purple-600 text-white rounded-[25px] hover:bg-purple-700 transition-colors duration-300"
             >
               Volunteer

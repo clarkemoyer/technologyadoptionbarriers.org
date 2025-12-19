@@ -156,15 +156,3 @@ export const barrierCategories = [
     description: 'Change resistance and fear-related barriers',
   },
 ] as const
-
-// Helper function to get barriers by category
-export function getBarriersByCategory(
-  category: 'financial' | 'technical' | 'organizational' | 'psychological'
-): Barrier[] {
-  return barriers.filter((b) => b.category === category)
-}
-
-// Helper function to get barrier by ID
-export function getBarrierById(id: string): Barrier | undefined {
-  return barriers.find((b) => b.id === id)
-}

@@ -11,10 +11,11 @@ const Statistics = () => {
         {/* Section Header */}
         <div className="text-center mb-[60px]">
           <h2 className="text-[40px] lg:text-[48px] font-bold text-gray-900 mb-[20px]">
-            Survey Statistics Since 2025
+            Survey Statistics
           </h2>
           <p className="text-[18px] lg:text-[20px] text-gray-700 max-w-[800px] mx-auto">
-            Track our progress and impact in understanding technology adoption barriers
+            Track our progress and impact in understanding technology adoption barriers. This is a
+            new initiative launching in 2025.
           </p>
         </div>
 
@@ -28,6 +29,8 @@ const Statistics = () => {
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                role="img"
+                aria-label="Survey completion icon"
               >
                 <path
                   strokeLinecap="round"
@@ -50,6 +53,8 @@ const Statistics = () => {
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                role="img"
+                aria-label="Funding raised icon"
               >
                 <path
                   strokeLinecap="round"
@@ -72,6 +77,8 @@ const Statistics = () => {
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                role="img"
+                aria-label="Hours volunteered icon"
               >
                 <path
                   strokeLinecap="round"
@@ -93,7 +100,9 @@ const Statistics = () => {
             Statistics are updated regularly as we collect more data
           </p>
           <a
-            href="#survey"
+            href="https://technologyadoptionbarriers.org/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block px-[40px] py-[15px] bg-blue-600 text-white text-[18px] font-semibold rounded-[30px] hover:bg-blue-700 transition-colors duration-300"
           >
             Contribute to Our Research

@@ -32,7 +32,9 @@ const Hero = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-[20px]">
             <a
-              href="#survey"
+              href="https://technologyadoptionbarriers.org/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-[40px] py-[18px] bg-white text-blue-700 text-[18px] font-semibold rounded-[30px] hover:bg-gray-100 transition-colors duration-300"
             >
               Take the Survey
