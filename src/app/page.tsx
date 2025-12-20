@@ -1,12 +1,10 @@
 import React from 'react'
-// import HomePage from './Home/page'
-import HomePage from '@/app/home-page'
+import TABSHome from '@/app/tabs-home'
 
 const page = () => {
   return (
     <div>
-      {/* <HomePage /> */}
-      <HomePage />
+      <TABSHome />
     </div>
   )
 }

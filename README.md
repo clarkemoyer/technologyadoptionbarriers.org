@@ -1,15 +1,20 @@
-# Free For Charity Website
+# Technology Adoption Barriers Website
 
-Single-page Next.js 16.0.7 website built with App Router for Free For Charity nonprofit organization.
+Single-page Next.js 16.0.7 website built with App Router, based on the Free For Charity template.
 
-## 🎉 Phase 5 Implementation Complete
+## 🚧 Content Migration In Progress
 
-**Status:** ✅ All critical gaps closed. Repository now has enterprise-grade tooling, comprehensive testing, and professional documentation.
+**Status:** ⚠️ Template repository being adapted for Technology Adoption Barriers content.
 
-**Quick Links:**
+**Migration Documentation:**
 
-- 📚 [Quick Start Guide](./QUICK_START.md) - Get set up in 5 minutes
-- 📋 [Site Improvements Summary](./SITE_IMPROVEMENTS.md) - See what was implemented (13 of 19 gaps closed)
+- 📊 **[MIGRATION_STATUS.md](./MIGRATION_STATUS.md)** - **START HERE** - Complete migration tracking and checklist
+- 📋 [Content Extraction Guide](./CONTENT_EXTRACTION_GUIDE.md) - Step-by-step guide for extracting content from live site
+- 🎯 [Quick Start Guide](./QUICK_START.md) - Get development environment set up in 5 minutes
+
+**Additional Documentation:**
+
+- 📋 [Site Improvements Summary](./SITE_IMPROVEMENTS.md) - Template features and capabilities
 - 🧪 [Testing Guide](./TESTING.md) - Unit + E2E + Accessibility tests
 - 🎨 [Responsive Design Guide](./RESPONSIVE_DESIGN.md) - Mobile-first design principles
 - 📝 [Naming Conventions](./NAMING_CONVENTIONS.md) - **Required**: kebab-case for SEO (Google-recommended)
@@ -17,9 +22,14 @@ Single-page Next.js 16.0.7 website built with App Router for Free For Charity no
 - 🔗 [External Dependencies](./EXTERNAL_DEPENDENCIES.md) - Third-party services and integrations
 - 🏥 [Community Health Files](./COMMUNITY_HEALTH_FILES.md) - Complete guide to GitHub navigation and documentation
 
-## Organization
+## About This Repository
 
-**Free For Charity** is a 501(c)(3) nonprofit organization (EIN: 46-2471893) dedicated to supporting other nonprofits.
+This repository contains the Technology Adoption Barriers website, built using the Free For Charity Next.js template. The site is currently undergoing content migration from the live https://technologyadoptionbarriers.org/ site.
+
+### Template Origin
+
+**Original Template:** Free For Charity Single Page Template  
+**Template Organization:** Free For Charity is a 501(c)(3) nonprofit organization (EIN: 46-2471893) dedicated to supporting other nonprofits.
 
 ## CNCF-Compliant Open Source Project
 
@@ -47,7 +57,17 @@ This repository follows **Cloud Native Computing Foundation (CNCF)** standards f
 
 ## Purpose
 
-Free For Charity connects students, professionals, and businesses with nonprofits to reduce operating costs and increase impact. By providing free web hosting, domain names, Microsoft 365 grants assistance, and consulting services, we help nonprofits put more resources back into their charitable missions.
+**Technology Adoption Barriers** focuses on documenting and addressing the challenges that individuals, businesses, and organizations face when trying to adopt new technologies. The site covers key barriers including cost, complexity, lack of awareness, fear of change, compatibility issues, infrastructure limitations, skill gaps, and security concerns.
+
+### Content Migration Status
+
+🚧 **Current Phase:** Content extraction and migration from live site  
+📊 **Progress:** 0% Complete - See [MIGRATION_STATUS.md](./MIGRATION_STATUS.md) for detailed checklist  
+🎯 **Next Steps:** Extract content from https://technologyadoptionbarriers.org/ using [Content Extraction Guide](./CONTENT_EXTRACTION_GUIDE.md)
+
+### Template Purpose (Original)
+
+The underlying template is from Free For Charity, which connects students, professionals, and businesses with nonprofits to reduce operating costs and increase impact.
 
 ## Main Calls-to-Action
 

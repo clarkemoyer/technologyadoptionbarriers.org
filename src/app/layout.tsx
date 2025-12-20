@@ -19,21 +19,21 @@ import {
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ffcworkingsite1.org'),
+  metadataBase: new URL('https://technologyadoptionbarriers.org'),
   title: {
-    default: 'Free For Charity | Reduce Costs, Increase Impact',
-    template: '%s | Free For Charity',
+    default: "Technology Adoption Barriers Survey (TABS) | What's in your way?",
+    template: '%s | TABS',
   },
   description:
-    'Free For Charity connects students, professionals, and businesses with nonprofits to reduce costs and increase revenues—putting more resources back into their missions.',
+    'Technology Adoption Barriers Survey (TABS) collects insights from organizational leaders to identify and overcome obstacles to technology adoption. Know the Barriers, Break the Barriers.',
   keywords: [
-    'nonprofit',
-    'charity',
-    'volunteer',
-    'donate',
-    'free hosting',
-    'domains',
-    'Microsoft 365',
+    'technology adoption',
+    'barriers',
+    'survey',
+    'research',
+    'organizational leadership',
+    'technology adoption barriers',
+    'TABS',
   ],
   robots: {
     index: true,
@@ -51,26 +51,26 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    url: 'https://ffcworkingsite1.org/',
-    siteName: 'Free For Charity',
-    title: 'Free For Charity | Reduce Costs, Increase Impact',
+    url: 'https://technologyadoptionbarriers.org/',
+    siteName: 'Technology Adoption Barriers Survey',
+    title: "Technology Adoption Barriers Survey (TABS) | What's in your way?",
     description:
-      'Connecting students, professionals, and businesses with nonprofits to reduce costs and increase revenues.',
+      'TABS collects insights from organizational leaders to identify and overcome obstacles to technology adoption.',
     images: [
       {
         url: '/web-app-manifest-512x512.png',
         width: 512,
         height: 512,
-        alt: 'Free For Charity',
+        alt: 'Technology Adoption Barriers Survey',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@freeforcharity',
-    title: 'Free For Charity | Reduce Costs, Increase Impact',
+    site: '@tabs_survey',
+    title: "Technology Adoption Barriers Survey (TABS) | What's in your way?",
     description:
-      'Connecting students, professionals, and businesses with nonprofits to reduce costs and increase revenues.',
+      'TABS collects insights from organizational leaders to identify and overcome obstacles to technology adoption.',
     images: ['/web-app-manifest-512x512.png'],
   },
   icons: {

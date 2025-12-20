@@ -4,83 +4,46 @@ import { test, expect } from '@playwright/test'
  * Image Loading Tests
  *
  * These tests verify that images load correctly when the site is built.
- * The tests check that images in the header and hero section are visible
- * and load properly with successful HTTP responses.
+ * The tests check that images in the header load properly.
  *
- * Note: The hero image is a local asset (/Images/figma-hero-img.png) that
- * should load correctly in all deployment scenarios including GitHub Pages.
+ * Note: The TABS homepage uses SVG icons instead of hero images, so we
+ * focus on testing header logo loading.
  */
 
 test.describe('Image Loading', () => {
-  test('images should load correctly and be visible', async ({ page }) => {
+  test('header logo should load correctly and be visible', async ({ page }) => {
     // Navigate to the homepage
     await page.goto('/')
 
-    // Find the logo images
-    const headerLogo = page.locator('header a[href="/"] img[alt="Free For Charity"]')
-    const heroImage = page.locator('img[alt="Hero image"]')
+    // Find the first logo image in the header
+    const headerLogo = page.locator('header img').first()
 
-    // Verify both images are visible (meaning they loaded successfully)
+    // Verify the logo is visible (meaning it loaded successfully)
     await expect(headerLogo).toBeVisible()
-    await expect(heroImage).toBeVisible()
 
     // Verify the header logo has a src attribute
     const headerSrc = await headerLogo.getAttribute('src')
     expect(headerSrc).toBeTruthy()
-
-    // Verify the hero image has a src attribute
-    const heroSrc = await heroImage.getAttribute('src')
-    expect(heroSrc).toBeTruthy()
   })
 
-  test('hero image should load from local assets', async ({ page }) => {
-    // Listen for image requests
-    const imageRequests: Array<{ url: string; status: number }> = []
-
-    page.on('response', (response) => {
-      if (response.url().includes('figma-hero-img')) {
-        imageRequests.push({
-          url: response.url(),
-          status: response.status(),
-        })
-      }
-    })
-
+  test('TABS hero section should be present without requiring images', async ({ page }) => {
     // Navigate to the homepage
     await page.goto('/')
 
-    // Wait for hero image to be visible
-    const heroImage = page.locator('img[alt="Hero image"]')
-    await expect(heroImage).toBeVisible()
+    // The TABS hero section uses text and SVG icons, not images
+    // Verify the hero section is present by checking for the main heading
+    const heroHeading = page.locator('h1:has-text("Technology Adoption Barriers Survey")')
+    await expect(heroHeading).toBeVisible()
 
-    // Verify at least one image request was made for the hero image
-    expect(imageRequests.length).toBeGreaterThan(0)
-
-    // Verify all image requests returned 200 OK
-    for (const request of imageRequests) {
-      expect(request.status).toBe(200)
-    }
+    // Verify the hero section has the expected background styling
+    const heroSection = page.locator('section#hero')
+    await expect(heroSection).toBeVisible()
   })
 
-  // Temporarily disabled: This test checks natural dimensions which don't work reliably in CI
-  // The test passes locally but fails on GitHub Actions
-  // TODO: Investigate why naturalWidth/naturalHeight return 0 in CI despite image being visible
-  test.skip('images have natural dimensions indicating successful load', async ({ page }) => {
-    // Navigate to the homepage
-    await page.goto('/')
-
-    // Find the hero image
-    const heroImage = page.locator('img[alt="Hero image"]')
-
-    // Wait for the image to be visible
-    await expect(heroImage).toBeVisible()
-
-    // Verify the image has loaded by checking it has natural dimensions
-    const naturalWidth = await heroImage.evaluate((img: HTMLImageElement) => img.naturalWidth)
-    const naturalHeight = await heroImage.evaluate((img: HTMLImageElement) => img.naturalHeight)
-
-    // The image should have dimensions greater than 0 if loaded correctly
-    expect(naturalWidth).toBeGreaterThan(0)
-    expect(naturalHeight).toBeGreaterThan(0)
+  // TABS homepage uses SVG icons instead of raster images
+  // Skip the image-specific loading test as it's not applicable
+  test.skip('hero image loading test - not applicable to TABS', async ({ page }) => {
+    // This test is skipped because the TABS homepage uses SVG icons
+    // instead of raster hero images that need to be loaded
   })
 })
