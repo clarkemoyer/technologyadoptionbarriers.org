@@ -1,57 +1,47 @@
 import { test, expect } from '@playwright/test'
 
 /**
- * Logo and Image Visibility Tests
+ * Logo and TABS Homepage Tests
  *
- * These tests verify that critical images are present and visible on the homepage:
- * 1. Header logo (top left corner) - validates the Free For Charity branding
- * 2. Hero section image - validates the decorative hero image is displayed
+ * These tests verify critical elements are present on the TABS homepage:
+ * 1. Header logo (top left corner) - validates site branding
+ * 2. TABS hero section - validates the main heading is displayed
  *
- * Note: The current implementation uses:
- * - Header logo: External image from freeforcharity.org with alt="Free For Charity"
- * - Hero image: Local image /Images/figma-hero-img.png with alt="Hero image"
+ * Note: This site now displays Technology Adoption Barriers Survey (TABS) content
+ * instead of the original Free For Charity template content.
  */
 
-test.describe('Logo and Image Visibility', () => {
+test.describe('Logo and TABS Homepage', () => {
   test('should display logo in header', async ({ page }) => {
     // Navigate to the homepage
     await page.goto('/')
 
-    // Find the logo in the Header
-    // The logo is in a Link element that points to "/" with img alt="Free For Charity"
-    const headerLogo = page.locator('header a[href="/"] img[alt="Free For Charity"]')
+    // Find any logo in the header (the header should have a logo image)
+    const headerLogo = page.locator('header img').first()
 
-    // Verify the logo exists
+    // Verify a logo exists and is visible
     await expect(headerLogo).toBeVisible()
-
-    // Verify the logo has the correct alt text
-    await expect(headerLogo).toHaveAttribute('alt', 'Free For Charity')
   })
 
-  test('should display hero section image', async ({ page }) => {
+  test('should display TABS hero section heading', async ({ page }) => {
     // Navigate to the homepage
     await page.goto('/')
 
-    // Find the hero image
-    const heroImage = page.locator('img[alt="Hero image"]')
+    // Find the main TABS heading
+    const tabsHeading = page.locator('h1:has-text("Technology Adoption Barriers Survey")')
 
-    // Verify the image exists
-    await expect(heroImage).toBeVisible()
-
-    // Verify the image has the correct alt text
-    await expect(heroImage).toHaveAttribute('alt', 'Hero image')
+    // Verify the heading exists and is visible
+    await expect(tabsHeading).toBeVisible()
   })
 
-  test('both header logo and hero image should be present on the same page', async ({ page }) => {
+  test('should display TABS tagline', async ({ page }) => {
     // Navigate to the homepage
     await page.goto('/')
 
-    // Find both images
-    const headerLogo = page.locator('header a[href="/"] img[alt="Free For Charity"]')
-    const heroImage = page.locator('img[alt="Hero image"]')
+    // Find the TABS tagline
+    const tagline = page.locator('text=Know the Barriers, Break the Barriers')
 
-    // Verify both are visible simultaneously
-    await expect(headerLogo).toBeVisible()
-    await expect(heroImage).toBeVisible()
+    // Verify the tagline is visible
+    await expect(tagline).toBeVisible()
   })
 })
