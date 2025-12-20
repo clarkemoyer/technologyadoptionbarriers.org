@@ -162,9 +162,9 @@ If you can provide:
 1. ✅ Site HTML and assets
 2. ✅ Screenshots of all pages
 3. ✅ Content documentation
-4. ✅ Access credentials (if needed)
+4. ❌ Access credentials (if needed) — **do not** post passwords, API keys, hosting/FTP credentials, or other secrets in GitHub issues. Coordinate any required access credentials via a secure, out-of-band channel (for example, encrypted email, a password manager share, or repository secrets/scoped tokens).
 
-Please update this issue or create a new issue with the "content extraction" label.
+Please update this issue or create a new issue with the "content extraction" label for non-sensitive materials only; coordinate any required access credentials via a secure, out-of-band channel rather than posting them in issues.
 
 ---
 
