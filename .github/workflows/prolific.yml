@@ -18,6 +18,10 @@ concurrency:
   group: 'prolific-data-collection'
   cancel-in-progress: false
 
+# Explicit permissions for GITHUB_TOKEN
+permissions:
+  contents: read
+
 jobs:
   collect-survey-data:
     name: Collect Prolific Survey Data
