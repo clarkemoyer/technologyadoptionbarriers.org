@@ -1,0 +1,186 @@
+name: Prolific Survey Data Collection
+
+on:
+  # Run on schedule (every Monday at 9 AM UTC)
+  schedule:
+    - cron: '0 9 * * 1'
+
+  # Allow manual trigger from Actions tab
+  workflow_dispatch:
+    inputs:
+      study_id:
+        description: 'Specific Study ID to query (optional - leave blank to list all studies)'
+        required: false
+        type: string
+
+# Prevent concurrent runs
+concurrency:
+  group: 'prolific-data-collection'
+  cancel-in-progress: false
+
+jobs:
+  collect-survey-data:
+    name: Collect Prolific Survey Data
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify Prolific API token
+        run: |
+          if [ -z "${{ secrets.TABS_PROLIFIC_TOKEN }}" ]; then
+            echo "Error: TABS_PROLIFIC_TOKEN secret is not set in the prolific-prod environment"
+            exit 1
+          fi
+          echo "✅ Prolific API token is configured"
+
+      - name: Create data collection script
+        run: |
+          cat > collect-prolific-data.mjs << 'EOF'
+          import {
+            getCurrentUser,
+            listStudies,
+            getStudyStatistics,
+            exportSubmissionsCSV,
+          } from './src/lib/prolific-api.ts';
+
+          const API_TOKEN = process.env.PROLIFIC_API_TOKEN;
+          const STUDY_ID = process.env.STUDY_ID;
+
+          async function main() {
+            try {
+              console.log('🔍 Connecting to Prolific API...\n');
+
+              // Get current user info
+              const user = await getCurrentUser(API_TOKEN);
+              console.log('✅ Connected as:', user.name, `(${user.email})`);
+              console.log('User ID:', user.id);
+              console.log('Username:', user.username);
+              console.log('');
+
+              if (STUDY_ID) {
+                // Query specific study
+                console.log(`📊 Fetching data for study: ${STUDY_ID}\n`);
+                const stats = await getStudyStatistics(STUDY_ID, API_TOKEN);
+
+                console.log('Study Details:');
+                console.log('  Name:', stats.study.name);
+                console.log('  Internal Name:', stats.study.internal_name);
+                console.log('  Status:', stats.study.status);
+                console.log('  Description:', stats.study.description);
+                console.log('  External URL:', stats.study.external_study_url);
+                console.log('  Total Places:', stats.study.total_available_places);
+                console.log('  Places Taken:', stats.study.places_taken);
+                console.log('  Reward:', stats.study.reward, 'pence');
+                console.log('  Average Reward/Hour:', stats.study.average_reward_per_hour, 'pence');
+                console.log('  Maximum Time Allowed:', stats.study.maximum_allowed_time, 'seconds');
+                console.log('  Created At:', stats.study.created_at);
+                if (stats.study.published_at) {
+                  console.log('  Published At:', stats.study.published_at);
+                }
+                if (stats.study.completed_at) {
+                  console.log('  Completed At:', stats.study.completed_at);
+                }
+                console.log('');
+
+                console.log('Submission Statistics:');
+                console.log('  Total Submissions:', stats.totalSubmissions);
+                console.log('  Completed:', stats.completedSubmissions);
+                console.log('  Approved:', stats.approvedSubmissions);
+                console.log('  Rejected:', stats.rejectedSubmissions);
+                console.log('  Awaiting Review:', stats.awaitingReviewSubmissions);
+                if (stats.averageTimeMinutes !== null) {
+                  console.log('  Average Time:', stats.averageTimeMinutes.toFixed(2), 'minutes');
+                }
+                console.log('');
+
+                // Export CSV
+                const csv = await exportSubmissionsCSV(STUDY_ID, API_TOKEN);
+                console.log('📄 Submissions CSV Export:');
+                console.log(csv);
+              } else {
+                // List all studies
+                console.log('📋 Fetching all studies...\n');
+                const studiesResponse = await listStudies(API_TOKEN);
+
+                console.log(`Found ${studiesResponse.results.length} studies:\n`);
+
+                for (const study of studiesResponse.results) {
+                  console.log('─'.repeat(80));
+                  console.log('Study ID:', study.id);
+                  console.log('Name:', study.name);
+                  console.log('Internal Name:', study.internal_name);
+                  console.log('Status:', study.status);
+                  console.log('Places:', `${study.places_taken}/${study.total_available_places}`);
+                  console.log('Reward:', study.reward, 'pence');
+                  console.log('Created:', study.created_at);
+                  console.log('');
+                }
+
+                console.log('─'.repeat(80));
+                console.log('');
+                console.log('💡 Tip: To get detailed statistics for a specific study, run:');
+                console.log('   gh workflow run prolific.yml -f study_id=<STUDY_ID>');
+              }
+
+              console.log('\n✅ Data collection completed successfully');
+            } catch (error) {
+              console.error('❌ Error collecting Prolific data:', error);
+              if (error.response) {
+                console.error('API Response:', JSON.stringify(error.response, null, 2));
+              }
+              process.exit(1);
+            }
+          }
+
+          main();
+          EOF
+
+      - name: Run data collection
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id }}
+        run: |
+          echo "Starting Prolific data collection..."
+          echo "Study ID: ${STUDY_ID:-'all studies'}"
+          echo ""
+          node --loader ts-node/esm collect-prolific-data.mjs
+
+      - name: Cleanup
+        if: always()
+        run: rm -f collect-prolific-data.mjs
+
+      - name: Summary
+        if: success()
+        run: |
+          echo "### ✅ Prolific Data Collection Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Data has been successfully collected from the Prolific API." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -n "${{ inputs.study_id }}" ]; then
+            echo "**Study ID:** ${{ inputs.study_id }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "**Mode:** Listed all studies" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Check the job logs above for detailed information." >> $GITHUB_STEP_SUMMARY
+
+      - name: Error summary
+        if: failure()
+        run: |
+          echo "### ❌ Prolific Data Collection Failed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "An error occurred while collecting data from the Prolific API." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Please check the job logs above for error details." >> $GITHUB_STEP_SUMMARY
