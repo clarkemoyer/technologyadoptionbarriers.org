@@ -28,7 +28,7 @@ test.describe('Logo and TABS Homepage', () => {
     await page.goto('/')
 
     // Find the main TABS heading
-    const tabsHeading = page.locator('h1:has-text("Technology Adoption Barriers Survey")')
+    const tabsHeading = page.locator('h1:has-text("The TABS Project")')
 
     // Verify the heading exists and is visible
     await expect(tabsHeading).toBeVisible()
@@ -39,7 +39,7 @@ test.describe('Logo and TABS Homepage', () => {
     await page.goto('/')
 
     // Find the TABS tagline
-    const tagline = page.locator('text=Know the Barriers, Break the Barriers')
+    const tagline = page.locator('text=Know the Barriers. Break the Barriers.')
 
     // Verify the tagline is visible
     await expect(tagline).toBeVisible()

@@ -6,9 +6,11 @@ const index = () => {
       <div className="pb-[3px] pt-[27px] w-[90%] lg:w-[80%] mx-auto flex flex-col md:flex-row gap-[40px] md:gap-[0px]">
         <div className="w-full md:w-[38.2%] mr-[32px]">
           <div className="rounded-[15px] overflow-hidden shadow-[0px_2px_18px_0px_rgba(0,0,0,0.3)] w-full">
-            <img
+            <Image
               src="/Images/About-FFC-Hosting.webp"
               alt="Example"
+              width={600} // Approximate width
+              height={400} // Approximate height
               className="w-full h-auto object-cover"
             />
           </div>

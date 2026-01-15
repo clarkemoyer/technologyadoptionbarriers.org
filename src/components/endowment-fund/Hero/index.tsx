@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const Index = () => {
   return (
@@ -31,9 +32,11 @@ const Index = () => {
 
         {/* Image Section */}
         <div className="flex justify-center md:justify-start pt-[50px] md:pt-[64px]">
-          <img
+          <Image
             src="/Images/hero-img.webp"
             alt="Person signing donation agreement"
+            width={512}
+            height={341}
             className="w-full max-w-[512px] rounded-[6px] shadow-2xl object-cover"
           />
         </div>

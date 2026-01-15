@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface GeneralDonationCardProps {
   title: string
@@ -30,7 +31,13 @@ const GeneralDonationCard: React.FC<GeneralDonationCardProps> = ({
 
       {/* Image */}
       <div className="flex justify-center">
-        <img src={img} alt="Donation image" className="h-12 w-auto object-contain" />
+        <Image
+          src={img}
+          alt="Donation image"
+          width={48}
+          height={48}
+          className="h-12 w-auto object-contain"
+        />
       </div>
     </Link>
   )
