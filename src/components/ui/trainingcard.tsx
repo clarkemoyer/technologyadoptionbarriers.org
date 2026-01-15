@@ -1,6 +1,7 @@
 // components/ui/TrainingCard.tsx
 'use client'
 import React from 'react'
+import Image from 'next/image'
 
 interface TrainingCardProps {
   src: string
@@ -14,7 +15,7 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ src, heading, text }) => {
       {/* Icon */}
       <div className="mb-6 flex justify-center">
         <div className="w-20 h-20 flex items-center justify-center">
-          <img src={src} alt={heading} className="w-20 h-20" />
+          <Image src={src} alt={heading} width={80} height={80} className="w-20 h-20 icon-img" />
         </div>
       </div>
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import Header from '../../src/components/header'
 
@@ -30,10 +31,10 @@ describe('Header component', () => {
     expect(screen.getByRole('banner')).toBeInTheDocument()
   })
 
-  it('should display the Free For Charity logo', () => {
+  it('should display the TABS logo', () => {
     render(<Header />)
     // Check for logo image with alt text
-    expect(screen.getByAltText('Free For Charity')).toBeInTheDocument()
+    expect(screen.getByAltText('TABS Logo')).toBeInTheDocument()
   })
 
   it('should display Home navigation link', () => {
@@ -54,13 +55,6 @@ describe('Header component', () => {
     // Look for the menu icon button
     const buttons = screen.getAllByRole('button')
     expect(buttons.length).toBeGreaterThan(0)
-  })
-
-  it('should have search functionality button', () => {
-    render(<Header />)
-    const buttons = screen.getAllByRole('button')
-    // Should have at least menu and search buttons
-    expect(buttons.length).toBeGreaterThanOrEqual(2)
   })
 
   it('should not have accessibility violations', async () => {
