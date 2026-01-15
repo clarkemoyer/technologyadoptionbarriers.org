@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       base_url:
-        description: "Qualtrics base URL, e.g. https://yourdatacenter.qualtrics.com (overrides environment var QUALTRICS_BASE_URL)"
+        description: 'Qualtrics base URL, e.g. https://yourdatacenter.qualtrics.com (overrides environment var QUALTRICS_BASE_URL)'
         required: false
         type: string
       survey_id:
-        description: "Qualtrics Survey ID to fetch (overrides environment var QUALTRICS_SURVEY_ID)"
+        description: 'Qualtrics Survey ID to fetch (overrides environment var QUALTRICS_SURVEY_ID)'
         required: false
         type: string
 
