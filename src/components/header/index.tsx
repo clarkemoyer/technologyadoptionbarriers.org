@@ -6,10 +6,12 @@ import { FiMenu } from 'react-icons/fi'
 import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
 import { motion, AnimatePresence } from 'framer-motion'
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 interface MenuItem {
   label: string
   path: string
+  submenu?: MenuItem[]
 }
 
 const SCROLL_OFFSET = 100
@@ -22,13 +24,20 @@ const Header: React.FC = () => {
 
   const menuItems: MenuItem[] = useMemo(
     () => [
-      { label: 'Home', path: '/#hero' },
-      { label: 'Mission', path: '/#mission' },
-      { label: 'Programs', path: '/#programs' },
-      { label: 'Volunteer', path: '/#volunteer' },
-      { label: 'Donate', path: '/#donate' },
-      { label: 'FAQ', path: '/#faq' },
-      { label: 'Team', path: '/#team' },
+      { label: 'Home', path: '/' },
+      { label: 'Take the TABS', path: 'https://smeal.qualtrics.com/jfe/form/SV_0PRpizHAb9P7vXk' },
+      { label: 'Tech Adoption Barriers', path: '/barriers' },
+      {
+        label: 'Technology Adoption Models',
+        path: '/technology-adoption-models',
+        submenu: [
+          { label: 'Article 1: The Landscape', path: '/technology-adoption-models' },
+          { label: 'Article 1: User’s Journey', path: '/technology-adoption-models/users-journey' },
+          { label: 'Article 1.1: Foundational Theories', path: '/technology-adoption-models/foundational-theories' },
+          { label: 'Article 2: Organization’s Playbook', path: '/technology-adoption-models/organizations-playbook' },
+        ],
+      },
+      { label: 'Media', path: '/media' },
     ],
     []
   )
@@ -85,9 +94,8 @@ const Header: React.FC = () => {
   return (
     <header
       id="header"
-      className={`w-full bg-white shadow-sm fixed top-0 left-0 right-0 z-50 flex items-center transition-all duration-300 ${
-        isScrolled ? 'h-[55px]' : 'h-[80px]'
-      }`}
+      className={`w-full bg-white shadow-sm fixed top-0 left-0 right-0 z-50 flex items-center transition-all duration-300 ${isScrolled ? 'h-[55px]' : 'h-[80px]'
+        }`}
     >
       <div className="w-full">
         <div className="mx-auto max-w-[1080px]">
@@ -98,9 +106,9 @@ const Header: React.FC = () => {
             >
               <Link href="/" onClick={handleLinkClick} className="block">
                 <img
-                  src="https://freeforcharity.org/wp-content/uploads/2024/04/Screenshot_145.png"
-                  alt="Free For Charity"
-                  className={`transition-all duration-300 ${isScrolled ? 'h-7' : 'h-11'}`}
+                  src={basePath + '/Images/TABS-Logo-Full.png'}
+                  alt="TABS Logo"
+                  className={`transition-all duration-300 ${isScrolled ? 'h-10' : 'h-16'}`}
                 />
               </Link>
             </div>
@@ -116,11 +124,10 @@ const Header: React.FC = () => {
                         <Link
                           href={item.path}
                           onClick={handleLinkClick}
-                          className={`flex items-center px-3 py-2 text-[14px] transition-colors duration-200 ${
-                            isActive(item.path)
-                              ? 'text-blue-600'
-                              : 'text-gray-600 hover:text-gray-500'
-                          }`}
+                          className={`flex items-center px-3 py-2 text-[14px] transition-colors duration-200 ${isActive(item.path)
+                            ? 'text-blue-600'
+                            : 'text-gray-600 hover:text-gray-500'
+                            }`}
                         >
                           {item.label}
                         </Link>
@@ -184,9 +191,8 @@ const Header: React.FC = () => {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className={`lg:hidden absolute left-0 w-full overflow-hidden z-40 ${
-              isScrolled ? 'top-[53px]' : 'top-[77px]'
-            }`}
+            className={`lg:hidden absolute left-0 w-full overflow-hidden z-40 ${isScrolled ? 'top-[53px]' : 'top-[77px]'
+              }`}
           >
             <div
               className={`max-w-[700px] mx-auto px-6 py-4 bg-white border-t-[3px] border-[#2EA3F2] shadow-[0_2px_5px_rgba(0,0,0,0.1)] max-h-[80vh] overflow-auto`}
@@ -197,11 +203,10 @@ const Header: React.FC = () => {
                     <Link
                       href={item.path}
                       onClick={handleLinkClick}
-                      className={`block px-4 py-2 rounded-lg text-sm font-[600] ${
-                        isActive(item.path)
-                          ? 'bg-blue-50 text-blue-600'
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`}
+                      className={`block px-4 py-2 rounded-lg text-sm font-[600] ${isActive(item.path)
+                        ? 'bg-blue-50 text-blue-600'
+                        : 'text-gray-700 hover:bg-gray-100'
+                        }`}
                     >
                       {item.label}
                     </Link>
