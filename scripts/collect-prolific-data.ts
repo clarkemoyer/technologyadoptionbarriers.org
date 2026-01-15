@@ -5,7 +5,14 @@ import {
   exportSubmissionsCSV,
 } from '../src/lib/prolific-api'
 
-const API_TOKEN = process.env.PROLIFIC_API_TOKEN!
+const rawApiToken = process.env.PROLIFIC_API_TOKEN
+
+if (!rawApiToken) {
+  console.error('Error: PROLIFIC_API_TOKEN environment variable is required')
+  process.exit(1)
+}
+
+const API_TOKEN: string = rawApiToken
 const STUDY_ID = process.env.STUDY_ID
 
 async function main() {
@@ -85,10 +92,11 @@ async function main() {
     }
 
     console.log('\n✅ Data collection completed successfully')
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('❌ Error collecting Prolific data:', error)
-    if (error.response) {
-      console.error('API Response:', JSON.stringify(error.response, null, 2))
+    if (error && typeof error === 'object' && 'response' in error) {
+      const response = (error as { response: unknown }).response
+      console.error('API Response:', JSON.stringify(response, null, 2))
     }
     process.exit(1)
   }

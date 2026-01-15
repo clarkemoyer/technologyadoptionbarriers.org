@@ -279,7 +279,7 @@ export async function getStudyStatistics(
       }
 
       if (s.time_taken != null) {
-        acc.timeSumSeconds += s.time_taken!
+        acc.timeSumSeconds += s.time_taken
         acc.timeCount += 1
       }
 
