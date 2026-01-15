@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       base_url:
-        description: "Qualtrics base URL, e.g. https://yourdatacenter.qualtrics.com (overrides environment var QUALTRICS_BASE_URL)"
+        description: 'Qualtrics base URL, e.g. https://yourdatacenter.qualtrics.com (overrides environment var QUALTRICS_BASE_URL)'
         required: false
         type: string
       survey_id:
-        description: "Qualtrics Survey ID to fetch (overrides environment var QUALTRICS_SURVEY_ID)"
+        description: 'Optional Survey ID to fetch (overrides environment var QUALTRICS_SURVEY_ID). If omitted, the workflow uses the first survey from /surveys.'
         required: false
         type: string
 
@@ -47,11 +47,6 @@ jobs:
             exit 1
           fi
 
-          if [[ -z "${SURVEY_ID}" ]]; then
-            echo "Missing survey id. Set env var QUALTRICS_SURVEY_ID in GitHub Environment QUALTRICS-prod (Variables), or pass workflow input survey_id."
-            exit 1
-          fi
-
           echo "BASE_URL=${BASE_URL}" >> "$GITHUB_ENV"
           echo "SURVEY_ID=${SURVEY_ID}" >> "$GITHUB_ENV"
 
@@ -75,6 +70,17 @@ jobs:
           echo "::group::Survey list summary"
           jq '{meta, resultCount: (.result.elements | length), firstFive: (.result.elements[0:5] | map({id, name, ownerId}))}' surveys.json
           echo "::endgroup::"
+
+          if [[ -z "${SURVEY_ID:-}" ]]; then
+            survey_id=$(jq -r '.result.elements[0].id // empty' surveys.json)
+            if [[ -z "$survey_id" ]]; then
+              echo "Could not auto-select a survey id from /surveys. Provide workflow input survey_id or set QUALTRICS_SURVEY_ID in environment variables."
+              exit 1
+            fi
+
+            echo "Auto-selected SURVEY_ID=$survey_id"
+            echo "SURVEY_ID=$survey_id" >> "$GITHUB_ENV"
+          fi
 
       - name: Fetch survey metadata
         shell: bash
