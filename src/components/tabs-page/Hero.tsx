@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="relative w-full py-[100px] lg:py-[120px] bg-gradient-to-br from-blue-600 to-blue-800 overflow-hidden"
+      className="relative w-full py-[100px] lg:py-[120px] bg-[#F7F9F9] overflow-hidden"
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
@@ -38,17 +38,17 @@ const Hero = () => {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-[48px] lg:text-[64px] font-bold leading-[1.2] mb-[30px]">
-            Technology Adoption Barriers Survey
+          <h1 className="text-[48px] lg:text-[64px] font-bold leading-[1.2] mb-[30px] font-serif text-[#0E7162]">
+            Technology Adoption Barriers Survey.
           </h1>
 
           {/* Tagline */}
-          <p className="text-[24px] lg:text-[28px] font-medium mb-[40px] max-w-[800px]">
-            Know the Barriers, Break the Barriers
+          <p className="text-[24px] lg:text-[28px] font-medium mb-[40px] max-w-[800px] text-[#666666]">
+            Know the Barriers, Break the Barriers:
           </p>
 
           {/* Description */}
-          <p className="text-[18px] lg:text-[20px] leading-[1.6] mb-[50px] max-w-[900px] opacity-90">
+          <p className="text-[18px] lg:text-[20px] leading-[1.6] mb-[50px] max-w-[900px] opacity-90 text-gray-700">
             Technology Adoption Barriers Survey (TABS) collects insights from organizational leaders
             to identify and overcome obstacles to technology adoption. Help us understand
             what&apos;s in your way.
@@ -57,12 +57,12 @@ const Hero = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-[20px] justify-center lg:justify-start">
             <a
-              href="https://smeal.qualtrics.com/jfe/form/SV_0PRpizHAb9P7vXk"
+              href="https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-[40px] py-[18px] bg-white text-blue-700 text-[18px] font-semibold rounded-[30px] hover:bg-gray-100 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="px-[40px] py-[18px] bg-[#26C699] text-white text-[18px] font-semibold rounded-[30px] hover:bg-[#1fa680] hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
-              Take the Survey
+              Take the TABS
             </a>
             <a
               href="#get-involved"
@@ -78,7 +78,7 @@ const Hero = () => {
           <div className="relative aspect-video bg-black rounded-[20px] overflow-hidden shadow-2xl border-4 border-white/20 group">
             <video
               className="w-full h-full object-cover"
-              poster="/Images/figma-hero-img.webp"
+              poster="/Images/TABS-Logo-Full.png"
               controls
             >
               <source src="/videos/The_TABS_Project.mp4" type="video/mp4" />

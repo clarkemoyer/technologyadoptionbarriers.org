@@ -99,9 +99,8 @@ const Barriers = () => {
             Help us understand and overcome these barriers
           </p>
           <a
-            href="https://technologyadoptionbarriers.org/"
             className="inline-block px-[40px] py-[15px] bg-[#F57C20] text-white text-[18px] font-semibold rounded-[30px] hover:bg-[#d66a1a] transition-colors duration-300"
-            target="_blank"
+            href="https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO"
             rel="noopener noreferrer"
           >
             Take the TABS Survey

@@ -1,12 +1,9 @@
 import React from 'react'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
 
 const ModelsPage = () => {
   return (
     <>
-      <Header />
-      <main className="pt-[80px] bg-gray-50">
+      <main className="pt-[80px]">
         <div className="bg-blue-700 py-[80px] text-white text-center">
           <h1 className="text-[48px] lg:text-[56px] font-bold max-w-[1000px] mx-auto px-4">
             The Landscape of Technology Adoption Models & Frameworks
@@ -96,7 +93,6 @@ const ModelsPage = () => {
           </section>
         </article>
       </main>
-      <Footer />
     </>
   )
 }

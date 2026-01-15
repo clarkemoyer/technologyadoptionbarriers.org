@@ -4,7 +4,6 @@ import GetInvolved from '@/components/tabs-page/GetInvolved'
 import Statistics from '@/components/tabs-page/Statistics'
 import Impact from '@/components/tabs-page/Impact'
 import Barriers from '@/components/tabs/Barriers'
-import FrequentlyAskedQuestions from '@/components/home-page/FrequentlyAskedQuestions'
 import Contact from '@/components/tabs-page/Contact'
 import SectionDivider from '@/components/tabs-page/SectionDivider'
 
@@ -26,7 +25,6 @@ const TABSHome = () => {
       <SectionDivider variant="gradient" />
       <Barriers />
       <SectionDivider variant="simple" />
-      <FrequentlyAskedQuestions />
       <Contact />
     </div>
   )
