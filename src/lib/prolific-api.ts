@@ -273,7 +273,7 @@ export async function getStudyStatistics(
   const submissionsWithTime = submissions.filter((s) => s.time_taken != null)
   const averageTimeMinutes =
     submissionsWithTime.length > 0
-      ? submissionsWithTime.reduce((sum, s) => sum + (s.time_taken || 0), 0) /
+      ? submissionsWithTime.reduce((sum, s) => sum + s.time_taken!, 0) /
         submissionsWithTime.length /
         60 // Convert seconds to minutes
       : null
