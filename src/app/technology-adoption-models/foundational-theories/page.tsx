@@ -22,13 +22,13 @@ const FoundationalTheoriesPage = () => {
             <div>
               <h2 className="text-[24px] font-bold mb-2">Diffusion of Innovations (DOI)</h2>
               <p className="text-gray-700">
-                Everett Rogers' classic model of how ideas spread through cultures.
+                Everett Rogers&apos; classic model of how ideas spread through cultures.
               </p>
             </div>
             <div>
               <h2 className="text-[24px] font-bold mb-2">Technology Acceptance Model (TAM)</h2>
               <p className="text-gray-700">
-                Fred Davis' model focused on Perceived Usefulness and Perceived Ease of Use.
+                Fred Davis&apos; model focused on Perceived Usefulness and Perceived Ease of Use.
               </p>
             </div>
             <div>

@@ -14,7 +14,7 @@ const UsersJourneyPage = () => {
         </div>
         <article className="max-w-[800px] mx-auto py-[60px] px-6 text-[18px] leading-relaxed">
           <p className="mb-6">
-            This branch focuses on the individual's experience with technology. We explore the
+            This branch focuses on the individual&apos;s experience with technology. We explore the
             psychological factors, ease of use, and perceived usefulness that drive an employee to
             either embrace or resist a new tool.
           </p>

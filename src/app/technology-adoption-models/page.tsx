@@ -12,8 +12,8 @@ const ModelsPage = () => {
             The Landscape of Technology Adoption Models & Frameworks
           </h1>
           <p className="text-[22px] mt-6 italic opacity-90 max-w-[800px] mx-auto px-4">
-            "Getting a new idea adopted, even when it has obvious advantages, is often very
-            difficult." — Everett M. Rogers
+            &quot;Getting a new idea adopted, even when it has obvious advantages, is often very
+            difficult.&quot; — Everett M. Rogers
           </p>
         </div>
 

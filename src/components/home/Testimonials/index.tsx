@@ -41,32 +41,17 @@ const testimonials: Testimonial[] = [
 ]
 
 const TestimonialSlider: React.FC = () => {
-  const [swiperInstance, setSwiperInstance] = useState<SwiperInstance | null>(null)
+  const swiperRef = useRef<SwiperInstance | null>(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const prevRef = useRef<HTMLButtonElement>(null)
   const nextRef = useRef<HTMLButtonElement>(null)
-
-  useEffect(() => {
-    if (swiperInstance && prevRef.current && nextRef.current) {
-      if (swiperInstance.params.navigation) {
-        const navigationParams = swiperInstance.params.navigation as {
-          prevEl?: HTMLElement | null
-          nextEl?: HTMLElement | null
-        }
-        navigationParams.prevEl = prevRef.current
-        navigationParams.nextEl = nextRef.current
-      }
-      swiperInstance.navigation.init()
-      swiperInstance.navigation.update()
-    }
-  }, [swiperInstance])
 
   const handleSlideChange = (swiper: SwiperInstance) => {
     setActiveIndex(swiper.activeIndex)
   }
 
   const handleDotClick = (index: number) => {
-    swiperInstance?.slideTo(index)
+    swiperRef.current?.slideTo(index)
   }
 
   return (
@@ -77,8 +62,12 @@ const TestimonialSlider: React.FC = () => {
         <div className="relative">
           <Swiper
             modules={[Navigation, Autoplay]}
-            onSwiper={setSwiperInstance}
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
             onSlideChange={handleSlideChange}
+            navigation={{
+              prevEl: '.testimonial-prev',
+              nextEl: '.testimonial-next',
+            }}
             spaceBetween={30}
             slidesPerView={1}
             loop={true}
@@ -136,7 +125,7 @@ const TestimonialSlider: React.FC = () => {
           <button
             ref={prevRef}
             disabled={activeIndex === 0}
-            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center text-gray-600 hover:text-gray-800 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+            className="testimonial-prev absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center text-gray-600 hover:text-gray-800 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
             aria-label="Previous testimonial"
           >
             <MdOutlineArrowBackIos className="w-6 h-6" />
@@ -146,7 +135,7 @@ const TestimonialSlider: React.FC = () => {
           <button
             ref={nextRef}
             disabled={activeIndex === testimonials.length - 1}
-            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center text-gray-600 hover:text-gray-800 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+            className="testimonial-next absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center text-gray-600 hover:text-gray-800 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
             aria-label="Next testimonial"
           >
             <MdOutlineArrowForwardIos className="w-6 h-6" />

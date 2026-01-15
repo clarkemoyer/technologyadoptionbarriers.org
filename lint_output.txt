@@ -1,0 +1,69 @@
+﻿
+> free-for-charity@0.1.0 lint
+> eslint
+
+
+C:\AntiGravity\technologyadoptionbarriers.org\src\components\endowment-fund\Hero\index.tsx
+  34:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\AntiGravity\technologyadoptionbarriers.org\src\components\free-charity-web-hosting\About-FFC-Hosting\index.tsx
+  9:13  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\AntiGravity\technologyadoptionbarriers.org\src\components\header\index.tsx
+  115:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\AntiGravity\technologyadoptionbarriers.org\src\components\home\Testimonials\index.tsx
+   73:25  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+C:\AntiGravity\technologyadoptionbarriers.org\src\components\home\Testimonials\index.tsx:73:25
+  71 |             }}
+  72 |             onSlideChange={handleSlideChange}
+> 73 |             navigation={{
+     |                         ^
+> 74 |               prevEl: prevRef.current,
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 75 |               nextEl: nextRef.current,
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 76 |             }}
+     | ^^^^^^^^^^^^^^ Cannot access ref value during render
+  77 |             spaceBetween={30}
+  78 |             slidesPerView={1}
+  79 |             loop={true}  react-hooks/refs
+   74:23  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+C:\AntiGravity\technologyadoptionbarriers.org\src\components\home\Testimonials\index.tsx:74:23
+  72 |             onSlideChange={handleSlideChange}
+  73 |             navigation={{
+> 74 |               prevEl: prevRef.current,
+     |                       ^^^^^^^^^^^^^^^ Cannot access ref value during render
+  75 |               nextEl: nextRef.current,
+  76 |             }}
+  77 |             spaceBetween={30}                                                                                                                                                                                                  react-hooks/refs
+   75:23  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+C:\AntiGravity\technologyadoptionbarriers.org\src\components\home\Testimonials\index.tsx:75:23
+  73 |             navigation={{
+  74 |               prevEl: prevRef.current,
+> 75 |               nextEl: nextRef.current,
+     |                       ^^^^^^^^^^^^^^^ Cannot access ref value during render
+  76 |             }}
+  77 |             spaceBetween={30}
+  78 |             slidesPerView={1}                                                                                                                                                                                                                  react-hooks/refs
+  157:76  error  Insert `ΓÅÄ┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           prettier/prettier
+  158:1   error  Delete `┬╖┬╖`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          prettier/prettier
+
+C:\AntiGravity\technologyadoptionbarriers.org\src\components\ui\General-Donation-Card.tsx
+  33:9  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\AntiGravity\technologyadoptionbarriers.org\src\components\ui\trainingcard.tsx
+  17:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+Γ£û 10 problems (5 errors, 5 warnings)
+  2 errors and 0 warnings potentially fixable with the `--fix` option.
+
