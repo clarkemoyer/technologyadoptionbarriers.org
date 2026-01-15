@@ -259,24 +259,43 @@ export async function getStudyStatistics(
 
   const submissions = submissionsResponse.results
 
-  const completedSubmissions = submissions.filter(
-    (s) => s.status === 'APPROVED' || s.status === 'REJECTED'
-  ).length
+  const {
+    completedSubmissions,
+    approvedSubmissions,
+    rejectedSubmissions,
+    awaitingReviewSubmissions,
+    timeSumSeconds,
+    timeCount,
+  } = submissions.reduce(
+    (acc, s) => {
+      if (s.status === 'APPROVED') {
+        acc.approvedSubmissions += 1
+        acc.completedSubmissions += 1
+      } else if (s.status === 'REJECTED') {
+        acc.rejectedSubmissions += 1
+        acc.completedSubmissions += 1
+      } else if (s.status === 'AWAITING REVIEW') {
+        acc.awaitingReviewSubmissions += 1
+      }
 
-  const approvedSubmissions = submissions.filter((s) => s.status === 'APPROVED').length
+      if (s.time_taken != null) {
+        acc.timeSumSeconds += s.time_taken!
+        acc.timeCount += 1
+      }
 
-  const rejectedSubmissions = submissions.filter((s) => s.status === 'REJECTED').length
+      return acc
+    },
+    {
+      completedSubmissions: 0,
+      approvedSubmissions: 0,
+      rejectedSubmissions: 0,
+      awaitingReviewSubmissions: 0,
+      timeSumSeconds: 0,
+      timeCount: 0,
+    }
+  )
 
-  const awaitingReviewSubmissions = submissions.filter((s) => s.status === 'AWAITING REVIEW').length
-
-  // Calculate average time from submissions with time_taken data
-  const submissionsWithTime = submissions.filter((s) => s.time_taken != null)
-  const averageTimeMinutes =
-    submissionsWithTime.length > 0
-      ? submissionsWithTime.reduce((sum, s) => sum + s.time_taken!, 0) /
-        submissionsWithTime.length /
-        60 // Convert seconds to minutes
-      : null
+  const averageTimeMinutes = timeCount > 0 ? timeSumSeconds / timeCount / 60 : null
 
   return {
     study,
@@ -287,6 +306,35 @@ export async function getStudyStatistics(
     awaitingReviewSubmissions,
     averageTimeMinutes,
   }
+}
+
+/**
+ * Escape a CSV field value by wrapping it in quotes if it contains special characters
+ * and escaping existing quotes by doubling them.
+ *
+ * @param value - The value to escape
+ * @returns The escaped value, quoted if necessary
+ */
+function escapeCsvField(value: string): string {
+  if (value == null || value === '') {
+    return ''
+  }
+
+  const stringValue = String(value)
+
+  // Check if the value contains special characters that require quoting
+  const needsQuoting =
+    stringValue.includes(',') ||
+    stringValue.includes('"') ||
+    stringValue.includes('\n') ||
+    stringValue.includes('\r')
+
+  if (!needsQuoting) {
+    return stringValue
+  }
+
+  // Escape quotes by doubling them and wrap the entire value in quotes
+  return `"${stringValue.replace(/"/g, '""')}"`
 }
 
 /**
@@ -308,15 +356,15 @@ export async function exportSubmissionsCSV(studyId: string, apiToken: string): P
   const headers = ['id', 'participant_id', 'status', 'started_at', 'completed_at', 'time_taken']
   const csvLines = [headers.join(',')]
 
-  // CSV rows
+  // CSV rows with proper escaping
   for (const submission of submissions) {
     const row = [
-      submission.id,
-      submission.participant_id,
-      submission.status,
-      submission.started_at,
-      submission.completed_at || '',
-      submission.time_taken?.toString() || '',
+      escapeCsvField(submission.id),
+      escapeCsvField(submission.participant_id),
+      escapeCsvField(submission.status),
+      escapeCsvField(submission.started_at),
+      escapeCsvField(submission.completed_at || ''),
+      escapeCsvField(submission.time_taken?.toString() || ''),
     ]
     csvLines.push(row.join(','))
   }

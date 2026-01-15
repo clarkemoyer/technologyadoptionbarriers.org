@@ -418,6 +418,96 @@ describe('Prolific API Client', () => {
 
       expect(result).toBe('id,participant_id,status,started_at,completed_at,time_taken\n')
     })
+
+    it('should properly escape CSV fields with commas', async () => {
+      const mockSubmissions: PaginatedResponse<Submission> = {
+        results: [
+          {
+            id: 'sub-1',
+            participant_id: 'participant,with,commas',
+            study_id: mockStudyId,
+            status: 'APPROVED',
+            started_at: '2024-01-05T10:00:00Z',
+            completed_at: '2024-01-05T10:15:00Z',
+            time_taken: 900,
+          },
+        ],
+        meta: {
+          count: 1,
+          next: null,
+          previous: null,
+        },
+      }
+
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockSubmissions,
+      })
+
+      const result = await exportSubmissionsCSV(mockStudyId, mockApiToken)
+
+      expect(result).toContain('"participant,with,commas"')
+    })
+
+    it('should properly escape CSV fields with quotes', async () => {
+      const mockSubmissions: PaginatedResponse<Submission> = {
+        results: [
+          {
+            id: 'sub-1',
+            participant_id: 'participant"with"quotes',
+            study_id: mockStudyId,
+            status: 'APPROVED',
+            started_at: '2024-01-05T10:00:00Z',
+            completed_at: '2024-01-05T10:15:00Z',
+            time_taken: 900,
+          },
+        ],
+        meta: {
+          count: 1,
+          next: null,
+          previous: null,
+        },
+      }
+
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockSubmissions,
+      })
+
+      const result = await exportSubmissionsCSV(mockStudyId, mockApiToken)
+
+      expect(result).toContain('"participant""with""quotes"')
+    })
+
+    it('should properly escape CSV fields with newlines', async () => {
+      const mockSubmissions: PaginatedResponse<Submission> = {
+        results: [
+          {
+            id: 'sub-1',
+            participant_id: 'participant\nwith\nnewlines',
+            study_id: mockStudyId,
+            status: 'APPROVED',
+            started_at: '2024-01-05T10:00:00Z',
+            completed_at: '2024-01-05T10:15:00Z',
+            time_taken: 900,
+          },
+        ],
+        meta: {
+          count: 1,
+          next: null,
+          previous: null,
+        },
+      }
+
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockSubmissions,
+      })
+
+      const result = await exportSubmissionsCSV(mockStudyId, mockApiToken)
+
+      expect(result).toContain('"participant\nwith\nnewlines"')
+    })
   })
 
   describe('Error handling', () => {
