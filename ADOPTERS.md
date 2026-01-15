@@ -37,8 +37,8 @@ If you're using this template, we'd love to hear from you! Add your organization
 
 ## Adopters List
 
-### [Free For Charity](https://ffcworkingsite1.org)
-
+### [Free For Charity](https://technologyadoptionbarriers.org)
+- **Live Site**: [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org)
 - **Type**: 501(c)(3) Nonprofit Organization
 - **Location**: Tucson, Arizona, USA
 - **EIN**: 46-2471893

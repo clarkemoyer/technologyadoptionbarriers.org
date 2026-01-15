@@ -16,8 +16,8 @@ const Hero = () => {
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-white rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
       </div>
 
-      <div className="w-[90%] mx-auto max-w-[1280px] relative z-10">
-        <div className="flex flex-col items-center text-center text-white">
+      <div className="flex flex-col lg:flex-row items-center gap-[60px]">
+        <div className="flex-1 text-center lg:text-left text-white">
           {/* Badge/Label */}
           <div className="inline-flex items-center gap-[10px] px-[20px] py-[8px] bg-white/20 backdrop-blur-sm rounded-[20px] mb-[30px] border border-white/30">
             <svg
@@ -55,9 +55,9 @@ const Hero = () => {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-[20px]">
+          <div className="flex flex-col sm:flex-row gap-[20px] justify-center lg:justify-start">
             <a
-              href="https://technologyadoptionbarriers.org/"
+              href="https://smeal.qualtrics.com/jfe/form/SV_0PRpizHAb9P7vXk"
               target="_blank"
               rel="noopener noreferrer"
               className="px-[40px] py-[18px] bg-white text-blue-700 text-[18px] font-semibold rounded-[30px] hover:bg-gray-100 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
@@ -70,6 +70,20 @@ const Hero = () => {
             >
               Get Involved
             </a>
+          </div>
+        </div>
+
+        {/* Video Section */}
+        <div className="flex-1 w-full max-w-[600px]">
+          <div className="relative aspect-video bg-black rounded-[20px] overflow-hidden shadow-2xl border-4 border-white/20 group">
+            <video
+              className="w-full h-full object-cover"
+              poster="/Images/figma-hero-img.webp"
+              controls
+            >
+              <source src="/videos/The_TABS_Project.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
       </div>
