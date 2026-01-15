@@ -21,10 +21,12 @@ const Footer: React.FC = () => {
 
           <div className="space-y-4">
             <p className="text-gray-400 text-[18px]">
-              Technology Adoption Barriers Survey (TABS) is a research initiative led by Clarke Moyer.
+              Technology Adoption Barriers Survey (TABS) is a research initiative led by Clarke
+              Moyer.
             </p>
             <p className="text-gray-400 text-[18px]">
-              Special thanks to Smeal College of Business and the PSU DBA program for their support in this research.
+              Special thanks to Smeal College of Business and the PSU DBA program for their support
+              in this research.
             </p>
           </div>
         </div>
@@ -34,7 +36,10 @@ const Footer: React.FC = () => {
           <ul className="space-y-2 text-sm" id="lato-font">
             {[
               { name: 'Home', href: '/' },
-              { name: 'Take the TABS', href: 'https://smeal.qualtrics.com/jfe/form/SV_0PRpizHAb9P7vXk' },
+              {
+                name: 'Take the TABS',
+                href: 'https://smeal.qualtrics.com/jfe/form/SV_0PRpizHAb9P7vXk',
+              },
               { name: 'Tech Adoption Barriers', href: '/barriers' },
               { name: 'Technology Adoption Models', href: '/technology-adoption-models' },
               { name: 'Media', href: '/media' },
