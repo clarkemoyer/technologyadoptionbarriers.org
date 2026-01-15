@@ -39,16 +39,6 @@ jobs:
             exit 1
           fi
 
-          if [[ -z "${QUALTRICS_USERID:-}" ]]; then
-            echo "Missing secret QUALTRICS_USERID in environment QUALTRICS-prod"
-            exit 1
-          fi
-
-          if [[ -z "${QUALTRICS_USERNAME:-}" ]]; then
-            echo "Missing secret QUALTRICS_USERNAME in environment QUALTRICS-prod"
-            exit 1
-          fi
-
           BASE_URL="${INPUT_BASE_URL:-${QUALTRICS_BASE_URL:-}}"
           SURVEY_ID="${INPUT_SURVEY_ID:-${QUALTRICS_SURVEY_ID:-}}"
 
