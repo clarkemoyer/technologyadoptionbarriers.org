@@ -100,5 +100,26 @@ jobs:
           fi
 
           echo "::group::Survey response summary"
-          jq '{meta, resultKeys: (.result | keys), result: (.result | {id, name, ownerId, creationDate, lastModified})}' survey.json
+          jq '{
+            meta,
+            resultKeys: (.result | keys),
+            survey: (.result | {
+              id,
+              name,
+              organizationId,
+              isActive,
+              creationDate,
+              lastModifiedDate,
+              responseCounts
+            }),
+            computed: {
+              totalResponses: (
+                .result.responseCounts.responses //
+                .result.responseCounts.totalResponses //
+                .result.responseCounts.completedResponses //
+                .result.responseCounts.finishedResponses //
+                null
+              )
+            }
+          }' survey.json
           echo "::endgroup::"
