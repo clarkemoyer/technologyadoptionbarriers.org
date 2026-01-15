@@ -46,9 +46,6 @@ jobs:
         env:
           CI: true
 
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
-
       - name: Build Next.js site
         run: npm run build
         # Note: Do NOT set NEXT_PUBLIC_BASE_PATH here
@@ -56,25 +53,11 @@ jobs:
         # E2E tests need to run against a build without basePath since the test server
         # (serve -s out) doesn't understand basePath routing
 
-      - name: Run E2E tests
-        run: npm run test:e2e -- --reporter=line,html
-        env:
-          CI: true
-
-      - name: Upload Playwright report
-        if: always()
+      - name: Upload built site (for E2E)
         uses: actions/upload-artifact@v5
         with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 7
-
-      - name: Upload Playwright test results
-        if: always()
-        uses: actions/upload-artifact@v5
-        with:
-          name: playwright-test-results
-          path: test-results/
+          name: built-site-out
+          path: out/
           retention-days: 7
 
       - name: Upload build artifacts (for debugging)
@@ -85,4 +68,57 @@ jobs:
           path: |
             .next/
             out/
+          retention-days: 7
+
+  e2e:
+    name: E2E (Playwright) shard ${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+    runs-on: ubuntu-latest
+    needs: test-and-build
+    strategy:
+      fail-fast: false
+      matrix:
+        shardTotal: [4]
+        shardIndex: [1, 2, 3, 4]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download built site
+        uses: actions/download-artifact@v5
+        with:
+          name: built-site-out
+          path: out/
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E tests (sharded)
+        run: npm run test:e2e -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1 --reporter=line,html
+        env:
+          CI: true
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: playwright-report-shard-${{ matrix.shardIndex }}-of-${{ matrix.shardTotal }}
+          path: playwright-report/
+          retention-days: 7
+
+      - name: Upload Playwright test results
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: playwright-test-results-shard-${{ matrix.shardIndex }}-of-${{ matrix.shardTotal }}
+          path: test-results/
           retention-days: 7
