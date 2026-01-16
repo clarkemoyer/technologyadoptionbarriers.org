@@ -62,10 +62,7 @@ test.describe('Mobile Header Spacing', () => {
     await expect(menuButton).toBeVisible()
     await menuButton.click()
 
-    // Wait for menu to open
-    await page.waitForTimeout(500) // Wait for animation
-
-    // Verify menu items are visible
+    // Wait for menu to open by checking if menu items are visible
     const homeLink = page.getByRole('link', { name: 'Home' }).first()
     await expect(homeLink).toBeVisible()
 
