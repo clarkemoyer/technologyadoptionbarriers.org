@@ -16,7 +16,7 @@ import { barriers, barrierCategories } from '@/data/barriers'
 const Barriers = () => {
   return (
     <section id="barriers" className="w-full py-[80px] bg-gray-50">
-      <div className="w-[90%] mx-auto max-w-[1280px]">
+      <div className="w-[90%] mx-auto max-w-[4096px]">
         {/* Section Header */}
         <div className="text-center mb-[60px]">
           <h2 className="text-[40px] lg:text-[48px] font-bold text-[#113563] mb-[20px]">

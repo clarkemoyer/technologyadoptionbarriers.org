@@ -140,7 +140,7 @@ const Header: React.FC = () => {
       }`}
     >
       <div className="w-full">
-        <div className="mx-auto max-w-[1080px]">
+        <div className="mx-auto max-w-[4096px]">
           <div className="flex items-center px-2 transition-all duration-300">
             {/* Logo */}
             <div
@@ -280,7 +280,7 @@ const Header: React.FC = () => {
               isScrolled ? 'top-[55px]' : 'top-[80px]'
             }`}
           >
-            <div className="max-w-[1080px] mx-auto px-6 py-8">
+            <div className="max-w-[4096px] mx-auto px-6 py-8">
               <div className="grid grid-cols-3 gap-8">
                 {/* Column 1: Root */}
                 <div>

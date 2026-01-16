@@ -11,7 +11,7 @@ const MediaPage = () => {
 
         {/* Video Section */}
         <section className="py-[60px] bg-gray-50">
-          <div className="w-[90%] mx-auto max-w-[1000px]">
+          <div className="w-[90%] mx-auto max-w-[4096px]">
             <div className="relative aspect-video bg-black rounded-[20px] overflow-hidden shadow-2xl border-4 border-white/20 group">
               <video
                 className="w-full h-full object-contain"
@@ -27,7 +27,7 @@ const MediaPage = () => {
             </p>
           </div>
         </section>
-        <section className="py-[100px] w-[90%] mx-auto max-w-[1280px]">
+        <section className="py-[100px] w-[90%] mx-auto max-w-[4096px]">
           <div className="bg-white p-[60px] rounded-[20px] shadow-xl text-center">
             <h2 className="text-[32px] font-bold mb-[20px]">Media Inquiries</h2>
             <p className="text-[20px] text-gray-700 mb-[40px]">

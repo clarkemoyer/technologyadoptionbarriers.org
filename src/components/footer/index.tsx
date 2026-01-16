@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
     <footer className="w-full bg-black text-white">
       {/* Disclaimer Block - Matches Live Site "NOTE" sections */}
       <div className="bg-black py-[40px] px-[20px] md:px-[60px] border-b border-gray-800">
-        <div className="max-w-[1080px] mx-auto space-y-[20px] text-[14px] md:text-[16px] text-gray-300">
+        <div className="max-w-[4096px] mx-auto space-y-[20px] text-[14px] md:text-[16px] text-gray-300">
           <p>
             <strong className="text-white">NOTE:</strong> Content on this site has used AI. This
             includes video, audio, image, and text generation capabilities from multiple models.
@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
 
       {/* Navigation and Copyright */}
       <div className="py-[40px] px-[20px] bg-black">
-        <div className="max-w-[1080px] mx-auto flex flex-col items-center gap-[20px]">
+        <div className="max-w-[4096px] mx-auto flex flex-col items-center gap-[20px]">
           {/* Navigation Links */}
           <ul className="flex flex-wrap justify-center gap-[20px] md:gap-[40px] text-[16px] font-medium">
             {[
