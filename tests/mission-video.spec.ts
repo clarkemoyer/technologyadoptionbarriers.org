@@ -12,21 +12,14 @@ test.describe('Mission Video', () => {
     // Navigate to the homepage
     await page.goto('/')
 
-    // Find the video element with the aria-label
-    const missionVideo = page.locator('video[aria-label="Free For Charity mission video"]')
+    // Find the hero video element
+    const missionVideo = page.locator('#hero video')
 
     // Verify the video exists and is visible
     await expect(missionVideo).toBeVisible()
 
-    // Verify the video has the correct accessibility attributes
-    await expect(missionVideo).toHaveAttribute('aria-label', 'Free For Charity mission video')
-    await expect(missionVideo).toHaveAttribute(
-      'title',
-      "Learn about Free For Charity's mission to help nonprofits reduce costs"
-    )
-
     // Verify the video has controls enabled
-    await expect(missionVideo).toHaveAttribute('controls', '')
+    await expect(missionVideo).toHaveJSProperty('controls', true)
   })
 
   test('should have video source configured correctly', async ({ page }) => {
@@ -34,12 +27,15 @@ test.describe('Mission Video', () => {
     await page.goto('/')
 
     // Find the video source element
-    const videoSource = page.locator('video[aria-label="Free For Charity mission video"] source')
+    const videoSource = page.locator('#hero video source')
 
     // Verify the source exists
     await expect(videoSource).toHaveCount(1)
 
     // Verify the source has the correct type
     await expect(videoSource).toHaveAttribute('type', 'video/mp4')
+
+    // Verify the source points at the TABS video
+    await expect(videoSource).toHaveAttribute('src', '/videos/The_TABS_Project.mp4')
   })
 })

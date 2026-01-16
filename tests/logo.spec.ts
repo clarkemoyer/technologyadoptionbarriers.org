@@ -8,7 +8,7 @@ import { test, expect } from '@playwright/test'
  * 2. TABS hero section - validates the main heading is displayed
  *
  * Note: This site now displays Technology Adoption Barriers Survey (TABS) content
- * instead of the original Free For Charity template content.
+ * instead of older template content.
  */
 
 test.describe('Logo and TABS Homepage', () => {
@@ -16,8 +16,8 @@ test.describe('Logo and TABS Homepage', () => {
     // Navigate to the homepage
     await page.goto('/')
 
-    // Find any logo in the header (the header should have a logo image)
-    const headerLogo = page.locator('header img').first()
+    // Find the logo in the header
+    const headerLogo = page.getByRole('img', { name: 'TABS Logo' })
 
     // Verify a logo exists and is visible
     await expect(headerLogo).toBeVisible()
@@ -27,8 +27,11 @@ test.describe('Logo and TABS Homepage', () => {
     // Navigate to the homepage
     await page.goto('/')
 
-    // Find the main TABS heading
-    const tabsHeading = page.locator('h1:has-text("The TABS Project")')
+    // Find the main hero heading
+    const tabsHeading = page.getByRole('heading', {
+      level: 1,
+      name: /Technology Adoption Barriers Survey/i,
+    })
 
     // Verify the heading exists and is visible
     await expect(tabsHeading).toBeVisible()
@@ -39,7 +42,7 @@ test.describe('Logo and TABS Homepage', () => {
     await page.goto('/')
 
     // Find the TABS tagline
-    const tagline = page.locator('text=Know the Barriers. Break the Barriers.')
+    const tagline = page.getByText(/Know the Barriers, Break the Barriers/i)
 
     // Verify the tagline is visible
     await expect(tagline).toBeVisible()
