@@ -1,11 +1,20 @@
 import React from 'react'
 import Image from 'next/image'
 
+// Reusable className constants for consistent styling
+const ARTICLE_CLASSES =
+  'max-w-[800px] lg:max-w-[900px] xl:max-w-[1000px] 2xl:max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 pb-12 sm:pb-20 text-base sm:text-lg lg:text-xl xl:text-[22px] 2xl:text-2xl leading-relaxed text-gray-800 font-serif'
+const H1_CLASSES =
+  'text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#145044] mb-4 sm:mb-8 leading-tight'
+const H2_CLASSES =
+  'text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#145044] mb-3 sm:mb-4'
+const H3_CLASSES = 'text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-2'
+
 const ModelsPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
-      <article className="max-w-[800px] lg:max-w-[900px] xl:max-w-[1000px] 2xl:max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 pb-12 sm:pb-20 text-base sm:text-lg lg:text-xl xl:text-[22px] 2xl:text-2xl leading-relaxed text-gray-800 font-serif">
-        <h1 className="text-[28px] sm:text-[32px] md:text-[38px] lg:text-[44px] xl:text-[48px] 2xl:text-[56px] font-bold text-[#145044] mb-4 sm:mb-8 leading-tight">
+      <article className={ARTICLE_CLASSES}>
+        <h1 className={H1_CLASSES}>
           Article 1: The Landscape of Technology Adoption Models & Frameworks
         </h1>
 
@@ -34,9 +43,7 @@ const ModelsPage = () => {
         </p>
 
         <section className="mb-10">
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[40px] 2xl:text-[44px] font-bold text-[#145044] mb-3 sm:mb-4">
-            Defining the Domain: A Trifecta of Adoption
-          </h2>
+          <h2 className={H2_CLASSES}>Defining the Domain: A Trifecta of Adoption</h2>
           <p className="mb-3 sm:mb-6">
             To truly understand technology adoption, we must move beyond a simple
             user-versus-organization dichotomy. A more accurate model considers three distinct but
@@ -54,9 +61,7 @@ const ModelsPage = () => {
             />
           </div>
 
-          <h3 className="text-xl font-bold text-gray-900 mb-2">
-            1. Organizational Adoption: The C-Suite Focus Area
-          </h3>
+          <h3 className={H3_CLASSES}>1. Organizational Adoption: The C-Suite Focus Area</h3>
           <p className="mb-3 sm:mb-6">
             At the apex of the trifecta is the macro-level, firm-centric view. This is the realm of
             strategy and operations, where the C-Suite makes high-stakes decisions. The central
@@ -68,9 +73,7 @@ const ModelsPage = () => {
             under which all other adoption activities occur.
           </p>
 
-          <h3 className="text-xl font-bold text-gray-900 mb-2">
-            2. User Adoption: The Internal Challenge
-          </h3>
+          <h3 className={H3_CLASSES}>2. User Adoption: The Internal Challenge</h3>
           <p className="mb-3 sm:mb-6">
             This domain focuses on the micro-level, employee-centric view within the organization’s
             walls. This is the realm of psychology, change management, and human-computer
@@ -84,9 +87,7 @@ const ModelsPage = () => {
             syntheses [8].
           </p>
 
-          <h3 className="text-xl font-bold text-gray-900 mb-2">
-            3. Consumer Adoption: The External Challenge
-          </h3>
+          <h3 className={H3_CLASSES}>3. Consumer Adoption: The External Challenge</h3>
           <p>
             Distinct from internal users, this domain focuses on the external market. This is the
             world of marketing, product design, and consumer behavior. The question shifts to: What
@@ -100,9 +101,7 @@ const ModelsPage = () => {
         </section>
 
         <section className="mb-6 sm:mb-10">
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[40px] 2xl:text-[44px] font-bold text-[#145044] mb-3 sm:mb-4">
-            A Note on Terminology: Model vs. Framework
-          </h2>
+          <h2 className={H2_CLASSES}>A Note on Terminology: Model vs. Framework</h2>
           <p className="mb-3 sm:mb-4">
             Before proceeding, it is useful to clarify two terms that are central to this series:
             model and framework. For our purposes, a model (like TAM or UTAUT) is a descriptive and
@@ -117,9 +116,7 @@ const ModelsPage = () => {
         </section>
 
         <section className="mb-6 sm:mb-10">
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[40px] 2xl:text-[44px] font-bold text-[#145044] mb-3 sm:mb-4">
-            A Sneak Peek: Charting the Intellectual History
-          </h2>
+          <h2 className={H2_CLASSES}>A Sneak Peek: Charting the Intellectual History</h2>
           <p className="mb-3 sm:mb-4">
             These three domains have spawned their own rich intellectual histories, which this
             series will explore in detail.
@@ -142,9 +139,7 @@ const ModelsPage = () => {
         </section>
 
         <section className="mb-6 sm:mb-10">
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[40px] 2xl:text-[44px] font-bold text-[#145044] mb-3 sm:mb-4">
-            Series Roadmap: How to Navigate This Series
-          </h2>
+          <h2 className={H2_CLASSES}>Series Roadmap: How to Navigate This Series</h2>
           <p className="mb-3 sm:mb-6">
             This article serves as the trunk of our intellectual tree. The following diagram
             provides a visual roadmap for the entire series, illustrating the key models and
@@ -187,9 +182,7 @@ const ModelsPage = () => {
         </section>
 
         <section className="mb-6 sm:mb-10 bg-gray-50 p-4 sm:p-6 rounded-lg border border-gray-100">
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[40px] 2xl:text-[44px] font-bold text-[#145044] mb-3 sm:mb-4">
-            The Complete Series: A Glance Ahead
-          </h2>
+          <h2 className={H2_CLASSES}>The Complete Series: A Glance Ahead</h2>
           <div className="space-y-4 sm:space-y-6">
             <div>
               <h3 className="font-bold text-gray-900 mb-2">
@@ -240,7 +233,7 @@ const ModelsPage = () => {
 
         <section className="pt-8 border-t border-gray-200">
           <h2 className="text-[20px] font-bold text-gray-900 mb-4">References</h2>
-          <ol className="list-decimal pl-5 text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-[22px] text-gray-600 space-y-3 lg:space-y-4 font-sans">
+          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 lg:space-y-4 font-sans">
             <li>Rogers, E. M. (2003). Diffusion of Innovations (5th ed.). Free Press.</li>
             <li>
               Tornatzky, L. G., & Fleischer, M. (1990). The Processes of Technological Innovation.
