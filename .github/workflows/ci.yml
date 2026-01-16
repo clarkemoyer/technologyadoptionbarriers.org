@@ -102,10 +102,17 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
+      - name: Diagnostic - base path env
+        run: |
+          echo "NEXT_PUBLIC_BASE_PATH=${NEXT_PUBLIC_BASE_PATH:-<unset>}"
+          echo "CI=${CI:-<unset>}"
+
       - name: Run E2E tests (sharded)
         run: npm run test:e2e -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1 --reporter=line,html
         env:
           CI: true
+          # Keep Playwright baseURL consistent with the build job (which does not set basePath)
+          NEXT_PUBLIC_BASE_PATH: ''
 
       - name: Upload Playwright report
         if: always()

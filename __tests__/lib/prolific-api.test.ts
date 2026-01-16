@@ -109,6 +109,44 @@ describe('Prolific API Client', () => {
       expect(result.results).toHaveLength(1)
       expect(result.results[0].status).toBe('ACTIVE')
     })
+
+    it('should normalize date_created into created_at when created_at is missing', async () => {
+      const mockStudies = {
+        results: [
+          {
+            id: 'study-1',
+            name: 'Test Study 1',
+            internal_name: 'test-study-1',
+            description: 'A test study',
+            external_study_url: 'https://example.com/study',
+            status: 'ACTIVE',
+            total_available_places: 100,
+            places_taken: 50,
+            average_reward_per_hour: 12.5,
+            average_time_taken: 600,
+            maximum_allowed_time: 3600,
+            reward: 250,
+            device_compatibility: ['desktop', 'mobile'],
+            peripheral_requirements: [],
+            date_created: '2024-01-01T00:00:00Z',
+          },
+        ],
+        meta: {
+          count: 1,
+          next: null,
+          previous: null,
+        },
+      }
+
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockStudies,
+      })
+
+      const result = await listStudies(mockApiToken)
+
+      expect(result.results[0].created_at).toBe('2024-01-01T00:00:00Z')
+    })
   })
 
   describe('getStudy', () => {
@@ -145,6 +183,37 @@ describe('Prolific API Client', () => {
         `https://api.prolific.com/api/v1/studies/${mockStudyId}/`,
         expect.any(Object)
       )
+    })
+
+    it('should normalize date_created into created_at when created_at is missing', async () => {
+      const mockStudy = {
+        id: mockStudyId,
+        name: 'Test Study',
+        internal_name: 'test-study',
+        description: 'A test study',
+        external_study_url: 'https://example.com/study',
+        status: 'COMPLETED',
+        total_available_places: 100,
+        places_taken: 100,
+        average_reward_per_hour: 12.5,
+        average_time_taken: 600,
+        maximum_allowed_time: 3600,
+        reward: 250,
+        device_compatibility: ['desktop'],
+        peripheral_requirements: [],
+        date_created: '2024-01-01T00:00:00Z',
+        published_at: '2024-01-02T00:00:00Z',
+        completed_at: '2024-01-10T00:00:00Z',
+      }
+
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockStudy,
+      })
+
+      const result = await getStudy(mockStudyId, mockApiToken)
+
+      expect(result.created_at).toBe('2024-01-01T00:00:00Z')
     })
   })
 

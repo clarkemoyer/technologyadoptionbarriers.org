@@ -47,9 +47,27 @@ export interface Study {
   reward: number
   device_compatibility: string[]
   peripheral_requirements: string[]
-  created_at: string
+  created_at?: string
   published_at?: string
   completed_at?: string
+}
+
+function normalizeStudy(study: Study & Record<string, unknown>): Study {
+  const createdCandidate =
+    (typeof study.created_at === 'string' && study.created_at) ||
+    (typeof (study as Record<string, unknown>).date_created === 'string' &&
+      ((study as Record<string, unknown>).date_created as string)) ||
+    (typeof (study as Record<string, unknown>).datetime_created === 'string' &&
+      ((study as Record<string, unknown>).datetime_created as string)) ||
+    (typeof (study as Record<string, unknown>).created === 'string' &&
+      ((study as Record<string, unknown>).created as string)) ||
+    (typeof (study as Record<string, unknown>).createdAt === 'string' &&
+      ((study as Record<string, unknown>).createdAt as string))
+
+  return {
+    ...study,
+    created_at: createdCandidate || study.created_at,
+  }
 }
 
 /**
@@ -186,7 +204,15 @@ export async function getCurrentUser(apiToken: string): Promise<{
  * @returns Promise resolving to a list of studies
  */
 export async function listStudies(apiToken: string): Promise<PaginatedResponse<Study>> {
-  return makeApiRequest('/studies/', apiToken)
+  const data = await makeApiRequest<PaginatedResponse<Study & Record<string, unknown>>>(
+    '/studies/',
+    apiToken
+  )
+
+  return {
+    ...data,
+    results: data.results.map(normalizeStudy),
+  }
 }
 
 /**
@@ -197,7 +223,11 @@ export async function listStudies(apiToken: string): Promise<PaginatedResponse<S
  * @returns Promise resolving to study details
  */
 export async function getStudy(studyId: string, apiToken: string): Promise<Study> {
-  return makeApiRequest(`/studies/${studyId}/`, apiToken)
+  const data = await makeApiRequest<Study & Record<string, unknown>>(
+    `/studies/${studyId}/`,
+    apiToken
+  )
+  return normalizeStudy(data)
 }
 
 /**

@@ -59,21 +59,6 @@ jobs:
           echo ""
           npx --no-install tsx scripts/collect-prolific-data.ts
 
-      - name: Summary
-        if: success()
-        run: |
-          echo "### ✅ Prolific Data Collection Complete" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Data has been successfully collected from the Prolific API." >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          if [ -n "${{ inputs.study_id }}" ]; then
-            echo "**Study ID:** ${{ inputs.study_id }}" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "**Mode:** Listed all studies" >> $GITHUB_STEP_SUMMARY
-          fi
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Check the job logs above for detailed information." >> $GITHUB_STEP_SUMMARY
-
       - name: Error summary
         if: failure()
         run: |
