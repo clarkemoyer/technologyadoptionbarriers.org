@@ -35,7 +35,10 @@ test.describe('Footer Social Links', () => {
     // Verify GitHub link is present
     const gitHubLink = page.locator('footer a[aria-label="GitHub"]')
     await expect(gitHubLink).toBeVisible()
-    await expect(gitHubLink).toHaveAttribute('href', 'https://github.com/clarkemoyer/technologyadoptionbarriers.org')
+    await expect(gitHubLink).toHaveAttribute(
+      'href',
+      'https://github.com/clarkemoyer/technologyadoptionbarriers.org'
+    )
   })
 
   test('should have social media icons', async ({ page }) => {
