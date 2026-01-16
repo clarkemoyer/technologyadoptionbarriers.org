@@ -60,8 +60,10 @@ const UsersJourneyPage = () => {
         </section>
 
         <section className="pt-8 border-t border-gray-200">
-          <h2 className="text-[20px] font-bold text-gray-900 mb-4">References</h2>
-          <ol className="list-decimal pl-5 text-[14px] text-gray-600 space-y-3 font-sans">
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
+            References
+          </h2>
+          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 lg:space-y-4 font-sans">
             <li>
               Fishbein, M., & Ajzen, I. (1975). Belief, Attitude, Intention, and Behavior: An
               Introduction to Theory and Research. Addison-Wesley.
