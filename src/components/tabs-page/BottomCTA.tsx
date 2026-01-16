@@ -9,19 +9,6 @@ const BottomCTA = () => {
     >
       <div className="w-[90%] mx-auto max-w-[1080px] text-center relative z-10">
         {/* Neon Logo Effect placeholder - using text style or image if available */}
-        <div className="mb-[40px] flex justify-center">
-          {/* If we have the neon logo asset, we'd use it here. For now, text styled to match. 
-               The browser agent said "Neon TABS logo graphic". 
-               I'll use the main logo with a glow effect if extracting asset isn't easy, 
-               but ideally uses TABS-Logo-Full with filter. */}
-          <Image
-            src="/Images/TABS-Logo-Full.png"
-            alt="TABS Logo"
-            width={300}
-            height={120}
-            className="brightness-0 invert drop-shadow-[0_0_15px_rgba(46,163,242,0.8)]"
-          />
-        </div>
 
         <h2 className="text-[48px] font-bold mb-[20px] font-serif tracking-wide">
           Get in Touch. Get Involved.
