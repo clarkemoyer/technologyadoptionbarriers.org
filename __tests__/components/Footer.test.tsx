@@ -14,6 +14,35 @@ describe('Footer component', () => {
     expect(footer).toBeInTheDocument()
   })
 
+  it('should display "Get in Touch. Get Involved." heading', () => {
+    render(<Footer />)
+    const heading = screen.getByRole('heading', { name: /get in touch.*get involved/i })
+    expect(heading).toBeInTheDocument()
+  })
+
+  it('should display contact information', () => {
+    render(<Footer />)
+    expect(screen.getByText(/state college pa/i)).toBeInTheDocument()
+    const phoneLink = screen.getByRole('link', { name: /520.*222.*8104/i })
+    expect(phoneLink).toHaveAttribute('href', 'tel:5202228104')
+  })
+
+  it('should display CTA buttons in contact section', () => {
+    render(<Footer />)
+    const takeTabsLinks = screen.getAllByRole('link', { name: /take the tabs/i })
+    // There should be 2: one in contact section, one in navigation
+    expect(takeTabsLinks.length).toBeGreaterThanOrEqual(1)
+    // Check that at least one has the correct href
+    const validLink = takeTabsLinks.find(
+      (link) =>
+        link.getAttribute('href') === 'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO'
+    )
+    expect(validLink).toBeDefined()
+
+    const donateLink = screen.getByRole('link', { name: /make a donation/i })
+    expect(donateLink).toBeInTheDocument()
+  })
+
   it('should display the current year in copyright', () => {
     render(<Footer />)
     const currentYear = new Date().getFullYear()
@@ -38,8 +67,33 @@ describe('Footer component', () => {
     )
   })
 
-  // Email link removed in simplified footer design
-  // it('should have email contact link', () => { ... })
+  it('should have policy links', () => {
+    render(<Footer />)
+    expect(screen.getByRole('link', { name: /cookie policy/i })).toHaveAttribute(
+      'href',
+      '/cookie-policy'
+    )
+    expect(screen.getByRole('link', { name: /privacy policy/i })).toHaveAttribute(
+      'href',
+      '/privacy-policy'
+    )
+    expect(screen.getByRole('link', { name: /terms of service/i })).toHaveAttribute(
+      'href',
+      '/terms-of-service'
+    )
+    expect(screen.getByRole('link', { name: /donation policy/i })).toHaveAttribute(
+      'href',
+      '/donation-policy'
+    )
+    expect(screen.getByRole('link', { name: /vulnerability disclosure/i })).toHaveAttribute(
+      'href',
+      '/vulnerability-disclosure-policy'
+    )
+    expect(screen.getByRole('link', { name: /security acknowledgements/i })).toHaveAttribute(
+      'href',
+      '/security-acknowledgements'
+    )
+  })
 
   it('should not have accessibility violations', async () => {
     const { container } = render(<Footer />)

@@ -6,12 +6,12 @@ import DonationCards from '@/components/tabs-page/DonationCards'
 import Statistics from '@/components/tabs-page/Statistics'
 import MissionOverview from '@/components/tabs-page/MissionOverview'
 import SimplePitch from '@/components/tabs-page/SimplePitch'
-import BottomCTA from '@/components/tabs-page/BottomCTA'
 
 /**
  * TABS Homepage
  * 1:1 Parity with Live Site (technologyadoptionbarriers.org)
- * Strict structural alignment: Hero -> Teal -> Involved -> Donations -> Stats -> Mission -> Pitch -> BottomCTA
+ * Structural alignment: Hero -> Teal -> Involved -> Donations -> Stats -> Mission -> Pitch
+ * Note: BottomCTA has been merged into the Footer component
  */
 const TABSHome = () => {
   return (
@@ -23,7 +23,6 @@ const TABSHome = () => {
       <Statistics />
       <MissionOverview />
       <SimplePitch />
-      <BottomCTA />
     </div>
   )
 }
