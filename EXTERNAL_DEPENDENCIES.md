@@ -1,6 +1,6 @@
 # External Dependencies and Third-Party Services
 
-**Last Updated:** December 9, 2024
+**Last Updated:** January 15, 2026
 
 This document provides a comprehensive list of all external dependencies and third-party services used by the Free For Charity website. This includes both direct integrations (services we explicitly configure) and transitive dependencies (services loaded by our direct integrations).
 
@@ -151,6 +151,43 @@ Third-party services we use may load additional services. While we cannot exhaus
 - **Meta/Facebook:** Various tracking and analytics services
 - **Microsoft Services:** Forms backend, authentication, cloud services
 - **Content Delivery Networks (CDNs):** For serving third-party scripts and assets
+
+### Research & Survey Platform
+
+#### 8. Prolific API
+
+- **Purpose:** Survey participant recruitment and data collection
+- **API Base URL:** `https://api.prolific.com/api/v1/`
+- **Implementation:**
+  - API Client: `src/lib/prolific-api.ts`
+  - GitHub Workflow: `.github/workflows/prolific.yml`
+  - Documentation: `PROLIFIC_INTEGRATION.md`
+- **Authentication:** API token stored in GitHub environment `prolific-prod` as secret `TABS_PROLIFIC_TOKEN`
+- **Data Collected:** Study data, participant submissions, completion statistics
+- **User Control:** Server-side only, no client-side tracking
+- **Usage:** Automated data collection via GitHub Actions (scheduled weekly, manual trigger available)
+- **Privacy Policy:** https://www.prolific.com/privacy-policy
+- **API Documentation:** https://docs.prolific.com/api-reference/introduction/basic
+- **Features:**
+  - List and query research studies
+  - Track participant submissions and completion rates
+  - Export submission data as CSV
+  - Calculate study statistics and metrics
+  - Automated weekly data collection
+- **Security:** API token secured in GitHub Secrets, server-side only, no client exposure
+
+**Technical Details:**
+
+- **Integration Type:** Server-side API integration via GitHub Actions
+- **Authentication Method:** Bearer token (Token-based authentication)
+- **Data Flow:** One-way (repository → Prolific API for querying data)
+- **Frequency:** Weekly scheduled runs (Mondays at 9 AM UTC) + manual on-demand
+- **Privacy Considerations:**
+  - No participant personal data is collected (Prolific provides anonymous participant IDs)
+  - All API calls are server-side from GitHub Actions
+  - No client-side tracking or cookies
+  - API token secured in encrypted GitHub environment secrets
+  - Follows GDPR and data protection best practices
 
 ## Development Dependencies
 

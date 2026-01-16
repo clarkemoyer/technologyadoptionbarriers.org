@@ -56,6 +56,7 @@
     "linkinator": "^7.5.3",
     "prettier": "^3.8.0",
     "tailwindcss": "^4.1.12",
+    "tsx": "^4.21.0",
     "typescript": "5.9.3"
   },
   "overrides": {
