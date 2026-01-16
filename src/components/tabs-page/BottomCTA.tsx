@@ -3,7 +3,10 @@ import Image from 'next/image'
 
 const BottomCTA = () => {
   return (
-    <section className="w-full py-[100px] bg-[#1a2b4b] text-white relative overflow-hidden">
+    <section
+      id="contact"
+      className="w-full py-[100px] bg-[#1a2b4b] text-white relative overflow-hidden"
+    >
       <div className="w-[90%] mx-auto max-w-[1080px] text-center relative z-10">
         {/* Neon Logo Effect placeholder - using text style or image if available */}
         <div className="mb-[40px] flex justify-center">
@@ -39,7 +42,9 @@ const BottomCTA = () => {
             <span className="text-blue-400 block text-[14px] uppercase tracking-wider mb-1">
               Phone
             </span>
-            Call Us: (520) 222 8104
+            <a href="tel:5202228104" className="hover:text-blue-300 transition-colors">
+              Call Us: (520) 222 8104
+            </a>
           </div>
         </div>
 

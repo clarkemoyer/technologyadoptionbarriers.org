@@ -17,7 +17,8 @@ test.describe('Logo and TABS Homepage', () => {
     await page.goto('/')
 
     // Find the logo in the header
-    const headerLogo = page.getByRole('img', { name: 'TABS Logo' })
+    // Use :near or specific header container if possible, or just first one
+    const headerLogo = page.locator('header').getByRole('img', { name: 'TABS Logo' }).first()
 
     // Verify a logo exists and is visible
     await expect(headerLogo).toBeVisible()
