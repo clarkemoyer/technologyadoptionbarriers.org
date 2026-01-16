@@ -17,8 +17,8 @@ test.describe('Footer Copyright Notice', () => {
     // Get the current year
     const currentYear = new Date().getFullYear()
 
-    // Find the footer paragraph containing the copyright text
-    const footerText = page.locator('footer p:has-text("All Rights Are Reserved")')
+    // Find the footer paragraph containing the copyright symbol/year
+    const footerText = page.locator('footer p').filter({ hasText: '©' }).first()
 
     // Verify the copyright notice is visible
     await expect(footerText).toBeVisible()
@@ -26,25 +26,16 @@ test.describe('Footer Copyright Notice', () => {
     // Verify it contains the copyright symbol and current year
     await expect(footerText).toContainText(`© ${currentYear}`)
 
-    // Verify the complete copyright text is present
-    await expect(footerText).toContainText(
-      'All Rights Are Reserved by Free For Charity a US 501c3 Non Profit'
-    )
+    // Verify the site-specific copyright copy
+    await expect(footerText).toContainText('Clarke Moyer')
+    await expect(footerText).toContainText('all rights reserved')
+    await expect(footerText).toContainText('PSU DBA')
   })
 
-  test('should display link to freeforcharity.org in copyright notice', async ({ page }) => {
+  test('should not reference freeforcharity.org in footer', async ({ page }) => {
     // Navigate to the homepage
     await page.goto('/')
 
-    // Find the link within the copyright notice
-    const copyrightLink = page.locator(
-      'footer p:has-text("All Rights Are Reserved") a[href="https://freeforcharity.org"]'
-    )
-
-    // Verify the link is visible
-    await expect(copyrightLink).toBeVisible()
-
-    // Verify the link text
-    await expect(copyrightLink).toContainText('https://freeforcharity.org')
+    await expect(page.locator('footer')).not.toContainText('freeforcharity.org')
   })
 })

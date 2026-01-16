@@ -53,7 +53,7 @@ export default defineConfig({
   // Opt out of parallel tests on CI
   workers: process.env.CI ? 1 : undefined,
   // Reporter to use
-  reporter: 'html',
+  reporter: process.env.CI ? [['line'], ['html', { open: 'never' }]] : 'html',
 
   use: {
     // Base URL for tests

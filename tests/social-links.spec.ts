@@ -27,42 +27,18 @@ test.describe('Footer Social Links', () => {
     // Navigate to the homepage
     await page.goto('/')
 
-    // Verify Facebook link is present
-    const facebookLink = page.locator('footer a[href*="facebook.com/freeforcharity"]')
-    await expect(facebookLink).toBeVisible()
-    await expect(facebookLink).toHaveAttribute('aria-label', 'Facebook')
-
-    // Verify X (Twitter) link is present
-    const twitterLink = page.locator('footer a[href*="x.com/freeforcharity1"]')
-    await expect(twitterLink).toBeVisible()
-    await expect(twitterLink).toHaveAttribute('aria-label', 'X (Twitter)')
-
     // Verify LinkedIn link is present
-    const linkedInLink = page.locator('footer a[href*="linkedin.com/company/freeforcharity"]')
+    const linkedInLink = page.locator('footer a[aria-label="LinkedIn"]')
     await expect(linkedInLink).toBeVisible()
     await expect(linkedInLink).toHaveAttribute('aria-label', 'LinkedIn')
-
-    // Verify GitHub link is present
-    const githubLink = page.locator(
-      'footer a[href*="github.com/FreeForCharity/FFC_Single_Page_Template"]'
-    )
-    await expect(githubLink).toBeVisible()
-    await expect(githubLink).toHaveAttribute('aria-label', 'GitHub')
+    await expect(linkedInLink).toHaveAttribute('href', 'https://www.linkedin.com/in/clarkemoyer/')
   })
 
-  test('should have exactly 4 social media icons', async ({ page }) => {
+  test('should have exactly 1 social media icon', async ({ page }) => {
     // Navigate to the homepage
     await page.goto('/')
 
-    // Count all social media links in the footer
-    // They are identified by having target="_blank" and being in the footer's social links section
-
-    // We should have exactly 4 social icons: Facebook, X (Twitter), LinkedIn, GitHub
-    // Note: This count might be higher due to other external links in footer
-    // So let's be more specific and count only links with aria-label containing social platform names
-    const socialMediaLinks = page.locator(
-      'footer a[aria-label="Facebook"], footer a[aria-label="X (Twitter)"], footer a[aria-label="LinkedIn"], footer a[aria-label="GitHub"]'
-    )
-    await expect(socialMediaLinks).toHaveCount(4)
+    const socialMediaLinks = page.locator('footer a[aria-label="LinkedIn"]')
+    await expect(socialMediaLinks).toHaveCount(1)
   })
 })
