@@ -6,7 +6,7 @@
 
 **Last Updated:** December 2025  
 **Status:** Active Tracking  
-**Repository:** FreeForCharity/FFC_Single_Page_Template
+**Repository:** technologyadoptionbarriers.org
 
 ---
 
@@ -223,7 +223,7 @@ npm audit fix --force
 - **Scope:** GitHub Actions workflow dependencies
 - **Strategy:** Grouped updates for easier review
 
-**Current Dependabot PRs:** Check [Pull Requests tab](https://github.com/FreeForCharity/FFC_Single_Page_Template/pulls)
+**Current Dependabot PRs:** Check [Pull Requests tab](../../pulls)
 
 ### Pending Dependency Updates
 

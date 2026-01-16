@@ -1,5 +1,5 @@
 ﻿
-> free-for-charity@0.1.0 lint
+> technologyadoptionbarriers-org@0.1.0 lint
 > eslint
 
 

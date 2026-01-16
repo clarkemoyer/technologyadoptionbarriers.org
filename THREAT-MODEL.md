@@ -1,10 +1,10 @@
 # Threat Model
 
-This document outlines the security threat model for the Free For Charity website, identifying potential security risks, trust boundaries, and mitigation strategies for our technology stack.
+This document outlines the security threat model for the Technology Adoption Barriers (TABS) website, identifying potential security risks, trust boundaries, and mitigation strategies for our technology stack.
 
 ## Overview
 
-The Free For Charity website is a static Next.js application deployed to GitHub Pages. As a nonprofit organization, we prioritize protecting our reputation, maintaining service availability, and ensuring the security of our community.
+The TABS website is a static Next.js application deployed to GitHub Pages. We prioritize protecting our reputation, maintaining service availability, and ensuring the security of our community.
 
 ## System Architecture
 
@@ -18,7 +18,7 @@ The Free For Charity website is a static Next.js application deployed to GitHub 
 
 2. **Hosting and Deployment**
    - GitHub Pages (static hosting)
-   - Custom domain: ffcworkingsite1.org
+   - Custom domain: technologyadoptionbarriers.org
    - GitHub Actions CI/CD pipeline
 
 3. **Development Pipeline**

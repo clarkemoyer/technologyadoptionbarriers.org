@@ -62,8 +62,8 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement at:
 
 **Clarke Moyer**  
-Founder, Free For Charity  
-Email: clarkemoyer@freeforcharity.org  
+Maintainer, Technology Adoption Barriers (TABS)  
+Email: clarke@technologyadoptionbarriers.org  
 Phone: 520-222-8104 (text preferred)
 
 All complaints will be reviewed and investigated promptly and fairly.

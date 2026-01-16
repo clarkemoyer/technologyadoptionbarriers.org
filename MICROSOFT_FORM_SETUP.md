@@ -80,10 +80,4 @@ After updating the URL, test the popup by:
 
 ## Old URLs Replaced
 
-The following old application URLs have been removed:
-
-- `https://freeforcharity.org/hub/cart.php?a=confproduct&i=0` (501c3)
-- `https://freeforcharity.org/hub/cart.php?a=confproduct&i=1` (Pre-501c3)
-- `https://freeforcharity.org/hub/cart.php?a=confproduct&i=8` (Hosting)
-
-All now use a single unified application form.
+Legacy application URLs have been removed. All application links now use a single unified Microsoft Form.

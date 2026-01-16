@@ -42,7 +42,7 @@ jobs:
       - name: Build site
         run: npm run build
         env:
-          NEXT_PUBLIC_BASE_PATH: /FFC_Single_Page_Template
+          NEXT_PUBLIC_BASE_PATH: ''
 
       - name: Run Lighthouse CI
         run: |

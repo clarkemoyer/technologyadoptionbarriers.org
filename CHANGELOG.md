@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the Free For Charity Website Template will be documented in this file.
+All notable changes to the Technology Adoption Barriers (TABS) website will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -26,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial release of Free For Charity Website Template
+- Initial release of the Technology Adoption Barriers (TABS) website
 - Next.js 16.0.7 single-page application with App Router
 - TypeScript implementation throughout
 - Tailwind CSS for styling
@@ -83,5 +83,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automated testing in CI
 - Merge queue verification
 
-[unreleased]: https://github.com/FreeForCharity/FFC_Single_Page_Template/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/FreeForCharity/FFC_Single_Page_Template/releases/tag/v0.1.0
+[unreleased]: https://github.com/<your-org>/<your-repo>/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/<your-org>/<your-repo>/releases/tag/v0.1.0

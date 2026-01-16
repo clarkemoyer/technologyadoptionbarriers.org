@@ -1,6 +1,6 @@
 # Lighthouse CI - Performance Monitoring
 
-This document explains how to use Lighthouse CI to monitor the performance, accessibility, SEO, and best practices of the Free For Charity website.
+This document explains how to use Lighthouse CI to monitor the performance, accessibility, SEO, and best practices of the Technology Adoption Barriers (TABS) website.
 
 ## Table of Contents
 
@@ -578,4 +578,4 @@ This prevents unnecessary runs and saves CI/CD resources.
 
 ---
 
-**Questions?** Open an issue or contact the maintainers at hello@freeforcharity.org
+**Questions?** Open an issue or contact the maintainers at contact@technologyadoptionbarriers.org

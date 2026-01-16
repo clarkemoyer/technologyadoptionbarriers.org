@@ -1,6 +1,6 @@
 # Contributors
 
-Thank you to all the people who have contributed to the Free For Charity website project! 🎉
+Thank you to all the people who have contributed to the Technology Adoption Barriers (TABS) website project!
 
 This document recognizes everyone who has helped make this project better through code, documentation, reviews, testing, feedback, and more.
 
@@ -27,9 +27,9 @@ Contributors are recognized in several ways:
 **Clarke Moyer** ([@clarkemoyer](https://github.com/clarkemoyer))
 
 - **Role**: Founder, Lead Maintainer, Project Owner
-- **Email**: clarkemoyer@freeforcharity.org
+- **Email**: clarke@technologyadoptionbarriers.org
 - **Contributions**: Project vision, architecture, initial codebase, ongoing maintenance
-- **Organization**: Free For Charity (501(c)(3) nonprofit)
+- **Organization**: Technology Adoption Barriers (TABS)
 
 ### Active Contributors
 
@@ -99,7 +99,7 @@ _Last updated: December 13, 2025_
 - **Pull Requests**: See GitHub Insights
 - **Issues Closed**: See GitHub Insights
 
-_Note: For current statistics, visit the repository's [Insights tab](https://github.com/FreeForCharity/FFC_Single_Page_Template/pulse) or [Contributors page](https://github.com/FreeForCharity/FFC_Single_Page_Template/graphs/contributors) on GitHub._
+_Note: For current statistics, visit the repository's Insights tab or Contributors page on GitHub._
 
 ## Recognition Guidelines
 
@@ -173,7 +173,6 @@ Special recognition for significant contributions:
 
 ### Founding Supporters
 
-- **Free For Charity Board of Directors** - Strategic guidance and nonprofit governance
 - **Early testers and reviewers** - Providing valuable feedback
 
 ### Technology Partners
@@ -203,8 +202,8 @@ All contributors are expected to:
 
 If you have questions about contributor recognition:
 
-- **Email**: clarkemoyer@freeforcharity.org
-- **GitHub Discussions**: [Ask a question](https://github.com/FreeForCharity/FFC_Single_Page_Template/discussions)
+- **Email**: contact@technologyadoptionbarriers.org
+- **GitHub Discussions**: https://github.com/<your-org>/<your-repo>/discussions
 - **Support Guide**: [SUPPORT.md](./SUPPORT.md)
 
 ## Updates to This Document
@@ -226,11 +225,11 @@ This contributors document follows CNCF best practices for:
 
 ---
 
-**Thank you to everyone who contributes to making Free For Charity's mission possible!** 💙
+**Thank you to everyone who contributes to making Technology Adoption Barriers (TABS) better!**
 
-Your work helps nonprofits reduce operating costs and focus more resources on their charitable missions.
+Your work helps improve clarity, accessibility, and usefulness for people navigating technology adoption challenges.
 
 ---
 
 **Last Updated**: December 13, 2025  
-**Maintained By**: Free For Charity Maintainers
+**Maintained By**: Technology Adoption Barriers (TABS) Maintainers

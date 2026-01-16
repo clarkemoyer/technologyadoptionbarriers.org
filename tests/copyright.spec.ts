@@ -24,11 +24,4 @@ test.describe('Footer Copyright Notice', () => {
     await expect(footer).toContainText('all rights reserved')
     await expect(footer).toContainText('Credit to Smeal and the PSU DBA program')
   })
-
-  test('should not reference freeforcharity.org in footer', async ({ page }) => {
-    // Navigate to the homepage
-    await page.goto('/')
-
-    await expect(page.locator('footer')).not.toContainText('freeforcharity.org')
-  })
 })

@@ -2,7 +2,7 @@
 
 **Last Updated:** December 9, 2024
 
-This guide provides step-by-step instructions for implementing the Facebook Events integration on the Free For Charity homepage. Follow this guide after reviewing `FACEBOOK_EVENTS_REQUIREMENTS.md`.
+This guide provides step-by-step instructions for implementing the Facebook Events integration on the Technology Adoption Barriers (TABS) homepage. Follow this guide after reviewing `FACEBOOK_EVENTS_REQUIREMENTS.md`.
 
 ## Table of Contents
 
@@ -18,10 +18,10 @@ This guide provides step-by-step instructions for implementing the Facebook Even
 Before starting implementation, ensure you have:
 
 - [x] Read and understood `FACEBOOK_EVENTS_REQUIREMENTS.md`
-- [x] Confirmed Free For Charity Facebook page URL: `https://www.facebook.com/freeforcharity`
+- [x] Confirmed project Facebook page URL: `https://www.facebook.com/<your-page>`
 - [x] Verified Facebook page has upcoming events posted
 - [x] Development environment set up (Node.js 20.x, npm)
-- [x] Access to repository: `FreeForCharity/FFC_Single_Page_Template`
+- [x] Access to repository: `technologyadoptionbarriers.org`
 - [x] Reviewed existing cookie consent implementation in `src/components/cookie-consent/index.tsx`
 
 ## Phase 1: Facebook Page Plugin Implementation
@@ -30,7 +30,7 @@ This is the **recommended approach** for the initial implementation. It's simple
 
 ### Step 1: Create the Events Section Component
 
-Create a new component at `src/components/home-page/Events/index.tsx`:
+Create a new component at `src/components/tabs-page/Events.tsx`:
 
 ```typescript
 'use client'
@@ -112,7 +112,7 @@ const Events: React.FC = () => {
           <p className="text-[20px] lg:text-[25px] font-[400]" id="lato-font">
             Join us for upcoming volunteer opportunities, training sessions, and community events.{' '}
             <a
-              href="https://www.facebook.com/freeforcharity"
+              href="https://www.facebook.com/<your-page>"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#2EA3F2] hover:underline"
@@ -126,7 +126,7 @@ const Events: React.FC = () => {
           <div className="flex justify-center">
             <div
               className="fb-page"
-              data-href="https://www.facebook.com/freeforcharity"
+              data-href="https://www.facebook.com/<your-page>"
               data-tabs="events"
               data-width="500"
               data-height="600"
@@ -136,10 +136,10 @@ const Events: React.FC = () => {
               data-show-facepile="false"
             >
               <blockquote
-                cite="https://www.facebook.com/freeforcharity"
+                cite="https://www.facebook.com/<your-page>"
                 className="fb-xfbml-parse-ignore"
               >
-                <a href="https://www.facebook.com/freeforcharity">Free For Charity</a>
+                <a href="https://www.facebook.com/<your-page>">TABS</a>
               </blockquote>
             </div>
           </div>
@@ -176,41 +176,37 @@ export default Events
 
 ### Step 2: Add Events Section to Homepage
 
-Update `src/app/home-page/index.tsx` to include the Events section:
+Update `src/app/tabs-home/index.tsx` to include the Events section:
 
 ```typescript
 import React from 'react'
-import Hero from '@/components/home-page/Hero'
-import Mission from '@/components/home-page/Mission'
-import SupportFreeForCharity from '@/components/home-page/SupportFreeForCharity'
-import EndowmentFeatures from '@/components/home-page/Endowment-Features'
-import OurPrograms from '@/components/home-page/Our-Programs'
-import VolunteerwithUs from '@/components/home-page/Volunteer-with-Us'
-import Results2023 from '@/components/home-page/Results-2023'
-import Testimonials from '@/components/home/Testimonials'
-import TheFreeForCharityTeam from '@/components/home-page/TheFreeForCharityTeam'
-import FrequentlyAskedQuestions from '@/components/home-page/FrequentlyAskedQuestions'
-import Events from '@/components/home-page/Events' // Add this import
+import Hero from '@/components/tabs-page/Hero'
+import TealValueProp from '@/components/tabs-page/TealValueProp'
+import GetInvolved from '@/components/tabs-page/GetInvolved'
+import DonationCards from '@/components/tabs-page/DonationCards'
+import Statistics from '@/components/tabs-page/Statistics'
+import MissionOverview from '@/components/tabs-page/MissionOverview'
+import SimplePitch from '@/components/tabs-page/SimplePitch'
+import BottomCTA from '@/components/tabs-page/BottomCTA'
+import Events from '@/components/tabs-page/Events' // Add this import
 
-const index = () => {
+const TABSHome = () => {
   return (
-    <div>
+    <div className="scroll-smooth">
       <Hero />
-      <Mission />
-      <Results2023 />
-      <Testimonials />
-      <VolunteerwithUs />
+      <TealValueProp />
+      <GetInvolved />
       <Events /> {/* Add this line */}
-      <SupportFreeForCharity />
-      <EndowmentFeatures />
-      <OurPrograms />
-      <FrequentlyAskedQuestions />
-      <TheFreeForCharityTeam />
+      <DonationCards />
+      <Statistics />
+      <MissionOverview />
+      <SimplePitch />
+      <BottomCTA />
     </div>
   )
 }
 
-export default index
+export default TABSHome
 ```
 
 ### Step 3: Update Cookie Consent Component
@@ -353,7 +349,7 @@ Find the "Direct Integrations" section and add after the Meta Pixel entry:
 ```markdown
 #### 8. Facebook Page Plugin (Events)
 
-- **Purpose:** Display upcoming events from Free For Charity Facebook page
+- **Purpose:** Display upcoming events from the project's Facebook page
 - **Implementation:** Embedded widget via iframe
 - **Domain:** `www.facebook.com`, `connect.facebook.net`
 - **Load Strategy:** Conditional (only after marketing cookie consent)
@@ -374,7 +370,6 @@ To improve performance, we preconnect to frequently used domains:
 // src/app/layout.tsx
 <link rel="preconnect" href="https://www.googletagmanager.com" />
 <link rel="preconnect" href="https://connect.facebook.net" /> {/* Add if not present */}
-<link rel="preconnect" href="https://ffcsites.org" />
 <link rel="preconnect" href="https://www.zeffy.com" />
 <link rel="preconnect" href="https://widgets.guidestar.org" />
 ```
@@ -457,7 +452,7 @@ test.describe('Facebook Events Section', () => {
     await page.locator('#events').scrollIntoViewIfNeeded()
 
     // Find link to Facebook page
-    const fbLink = page.locator('#events a[href*="facebook.com/freeforcharity"]').first()
+    const fbLink = page.locator('#events a[href*="facebook.com/<your-page>"]').first()
     await expect(fbLink).toBeVisible()
 
     // Verify link opens in new tab
@@ -546,16 +541,16 @@ These steps must be completed **outside the codebase** before implementation:
 #### 1. Create Facebook Developer Account
 
 1. Go to [Facebook for Developers](https://developers.facebook.com/)
-2. Log in with Free For Charity Facebook account credentials
+2. Log in with the project's Facebook account credentials
 3. Click "My Apps" in the top navigation
 4. Click "Create App"
 
 #### 2. Create Facebook App
 
 1. **Choose App Type:** Select "Business"
-2. **App Name:** "Free For Charity Events Integration"
-3. **App Contact Email:** Use privacy@freeforcharity.org or clarkemoyer@freeforcharity.org
-4. **Business Account:** Select or create Free For Charity business account
+2. **App Name:** "TABS Events Integration"
+3. **App Contact Email:** Use contact@technologyadoptionbarriers.org
+4. **Business Account:** Select or create the appropriate business account
 5. Click "Create App"
 
 #### 3. Configure App Settings
@@ -563,14 +558,14 @@ These steps must be completed **outside the codebase** before implementation:
 1. Go to App Dashboard
 2. Navigate to **Settings > Basic**
 3. Note your **App ID** and **App Secret** (keep these secure)
-4. Add **App Domains:** `ffcworkingsite1.org`, `freeforcharity.github.io`
-5. Add **Privacy Policy URL:** `https://ffcworkingsite1.org/privacy-policy`
-6. Add **Terms of Service URL:** `https://ffcworkingsite1.org/terms-of-service`
+4. Add **App Domains:** `technologyadoptionbarriers.org`
+5. Add **Privacy Policy URL:** `https://technologyadoptionbarriers.org/privacy-policy`
+6. Add **Terms of Service URL:** `https://technologyadoptionbarriers.org/terms-of-service`
 7. Save changes
 
 #### 4. Get Page Access Token
 
-**Important:** You must be an admin of the Free For Charity Facebook page.
+**Important:** You must be an admin of the project's Facebook page.
 
 1. Go to [Graph API Explorer](https://developers.facebook.com/tools/explorer/)
 2. Select your app from the dropdown
@@ -584,7 +579,7 @@ These steps must be completed **outside the codebase** before implementation:
 #### 5. Get Page ID
 
 1. In Graph API Explorer, make a request to `/me/accounts`
-2. Find Free For Charity page in the response
+2. Find your Facebook Page in the response
 3. Copy the **Page ID** (numeric ID)
 
 #### 6. Exchange for Long-Lived Page Access Token
@@ -914,7 +909,7 @@ const Events: React.FC = async () => {
               No upcoming events at this time. Check back soon!
             </p>
             <a
-              href="https://www.facebook.com/freeforcharity"
+              href="https://www.facebook.com/<your-page>"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#2EA3F2] hover:underline text-lg mt-4 inline-block"
@@ -1009,7 +1004,7 @@ The GitHub Actions workflow will:
 
 ### Verify Deployment
 
-1. Visit https://ffcworkingsite1.org
+1. Visit https://technologyadoptionbarriers.org
 2. Scroll to Events section
 3. Test cookie consent flow
 4. Verify events load correctly
@@ -1124,8 +1119,8 @@ Set up monitoring for:
 
 **Technical Issues:**
 
-- Repository: https://github.com/FreeForCharity/FFC_Single_Page_Template/issues
-- Email: clarkemoyer@freeforcharity.org
+- Repository: ../../issues
+- Email: contact@technologyadoptionbarriers.org
 
 **Facebook Developer Support:**
 
@@ -1134,7 +1129,7 @@ Set up monitoring for:
 
 **Privacy/Legal Questions:**
 
-- Email: privacy@freeforcharity.org
+- Email: clarke@technologyadoptionbarriers.org
 
 ---
 

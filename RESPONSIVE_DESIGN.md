@@ -428,6 +428,6 @@ When adding new components or modifying existing ones:
 ---
 
 **Last Updated**: 2025-12-03  
-**Repository**: FreeForCharity/FFC_Single_Page_Template  
+**Repository**: technologyadoptionbarriers.org  
 **Node.js**: 20.x (validated with v20.19.6)  
-**Maintainer**: FreeForCharity Development Team
+**Maintainer**: Technology Adoption Barriers (TABS) maintainers

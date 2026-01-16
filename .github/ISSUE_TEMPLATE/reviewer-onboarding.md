@@ -38,7 +38,7 @@ Please check all areas you reviewed:
 
 ## Review Environment
 
-**Live Site URL:** [https://ffcworkingsite1.org](https://ffcworkingsite1.org)
+**Live Site URL:** [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org)
 
 **Browser(s) Used:**
 
@@ -162,4 +162,4 @@ Before closing this review issue:
 
 ---
 
-**Thank you for taking the time to review the Free For Charity website! Your fresh perspective helps us identify issues and opportunities we might have missed. Welcome to the team!**
+**Thank you for taking the time to review the Technology Adoption Barriers (TABS) website! Your fresh perspective helps us identify issues and opportunities we might have missed. Welcome to the team!**

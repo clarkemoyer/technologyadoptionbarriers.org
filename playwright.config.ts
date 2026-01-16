@@ -47,8 +47,8 @@ function findChromiumExecutable(): string | undefined {
 }
 
 /**
- * Playwright configuration for Free For Charity web application
- * Tests run against the built static site served locally
+ * Playwright configuration for Technology Adoption Barriers (TABS).
+ * Tests run against the built static site served locally.
  */
 export default defineConfig({
   testDir: './tests',
