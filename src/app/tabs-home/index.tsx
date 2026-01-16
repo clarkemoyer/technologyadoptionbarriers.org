@@ -15,7 +15,7 @@ import BottomCTA from '@/components/tabs-page/BottomCTA'
  */
 const TABSHome = () => {
   return (
-    <div className="scroll-smooth">
+    <div className="scroll-smooth pt-[80px]">
       <Hero />
       <TealValueProp />
       <GetInvolved />
