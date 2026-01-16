@@ -1,6 +1,5 @@
 import React from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 
 const ModelsPage = () => {
   return (
@@ -94,14 +93,16 @@ const ModelsPage = () => {
           <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
             A Note on Terminology: Model vs. Framework
           </h2>
-          <p>
+          <p className="mb-4">
             Before proceeding, it is useful to clarify two terms that are central to this series:
             model and framework. For our purposes, a model (like TAM or UTAUT) is a descriptive and
             predictive tool. It seeks to explain a phenomenon by identifying key variables and their
-            relationships to answer why an individual might adopt a technology. In contrast, a
-            framework (like TOGAF or the AWS CAF) is prescriptive. It provides a structure or a set
-            of best practices to guide action, answering how an organization should go about
-            implementing technology.
+            relationships to answer why an individual might adopt a technology.
+          </p>
+          <p>
+            In contrast, a framework (like TOGAF or the AWS CAF) is prescriptive. It provides a
+            structure or a set of best practices to guide action, answering how an organization
+            should go about implementing technology.
           </p>
         </section>
 
@@ -153,21 +154,18 @@ const ModelsPage = () => {
             </div>
           </figure>
 
-          <ul className="list-disc pl-6 space-y-4 mb-6">
-            <li>
-              <strong>Branch 1: The User’s & Consumer’s Journey</strong> will delve into the
-              evolution of individual acceptance models, covering both the internal employee and the
-              external customer. We will trace the path from foundational psychological theories,
-              through the game-changing simplicity of TAM, to the comprehensive unified theories of
-              today.
-            </li>
-            <li>
-              <strong>Branch 2: The Organization’s Playbook</strong> will explore the frameworks
-              that guide firm-level adoption. We will examine the core strategic theories, the rise
-              of maturity models for process improvement, and the modern, prescriptive frameworks
-              for navigating complex cloud, cybersecurity, and AI transformations.
-            </li>
-          </ul>
+          <p className="mb-4">
+            Branch 1: The User’s & Consumer’s Journey will delve into the evolution of individual
+            acceptance models, covering both the internal employee and the external customer. We
+            will trace the path from foundational psychological theories, through the game-changing
+            simplicity of TAM, to the comprehensive unified theories of today.
+          </p>
+          <p className="mb-6">
+            Branch 2: The Organization’s Playbook will explore the frameworks that guide firm-level
+            adoption. We will examine the core strategic theories, the rise of maturity models for
+            process improvement, and the modern, prescriptive frameworks for navigating complex
+            cloud, cybersecurity, and AI transformations.
+          </p>
           <p>
             By understanding the interplay between the organization’s strategic intent, the internal
             user’s acceptance, and the external consumer’s choice, we can begin to build that
@@ -188,67 +186,44 @@ const ModelsPage = () => {
                 Branch 1: The User’s Journey – Evolution of Individual Technology Acceptance & Use
                 Models
               </h3>
-              <ul className="list-disc pl-5 space-y-1 text-sm text-blue-700">
-                <li>
-                  <Link
-                    href="/technology-adoption-models/users-journey"
-                    className="hover:underline"
-                  >
-                    Article 2: Branch Introduction – The User’s Journey
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/technology-adoption-models/foundational-theories"
-                    className="hover:underline"
-                  >
-                    Article 3: The Bedrock – Foundational Theories That Shaped Tech Acceptance
-                  </Link>
-                </li>
-                <li>
+              <div className="space-y-1 text-sm text-gray-800 font-sans">
+                <p>Article 2: Branch Introduction – The User’s Journey</p>
+                <p>Article 3: The Bedrock – Foundational Theories That Shaped Tech Acceptance</p>
+                <p>
                   Article 4: The Game Changer – A Deep Dive into the Technology Acceptance Model
                   (TAM)
-                </li>
-                <li>
+                </p>
+                <p>
                   Article 5: Expanding the Classic – The Evolution to TAM 2, TAM 3, and C-TAM-TPB
-                </li>
-                <li>
+                </p>
+                <p>
                   Article 6: The Grand Unification – The Unified Theory of Acceptance and Use of
                   Technology (UTAUT)
-                </li>
-                <li>
-                  Article 7: Beyond the Office – UTAUT2, Consumer Context, and Modern Syntheses
-                </li>
-                <li>Article 8: Context is King – Specialized Individual Adoption Models</li>
-                <li>Article 9: Are you Ready? The Role of Technology Readiness (TRI & TRAM)</li>
-              </ul>
+                </p>
+                <p>Article 7: Beyond the Office – UTAUT2, Consumer Context, and Modern Syntheses</p>
+                <p>Article 8: Context is King – Specialized Individual Adoption Models</p>
+                <p>Article 9: Are you Ready? The Role of Technology Readiness (TRI & TRAM)</p>
+              </div>
             </div>
             <div>
               <h3 className="font-bold text-gray-900 mb-2">
                 Branch 2: The Organization’s Playbook – Evolution of Organizational Technology
                 Acceptance & Use Models
               </h3>
-              <ul className="list-disc pl-5 space-y-1 text-sm text-blue-700">
-                <li>
-                  <Link
-                    href="/technology-adoption-models/organizations-playbook"
-                    className="hover:underline"
-                  >
-                    Article 10: Branch Introduction – The Organization’s Playbook
-                  </Link>
-                </li>
-                <li>
+              <div className="space-y-1 text-sm text-gray-800 font-sans">
+                <p>Article 10: Branch Introduction – The Organization’s Playbook</p>
+                <p>
                   Article 11: The Strategic Lens – Foundational Theories for Organizational Adoption
-                </li>
-                <li>Article 12: From Chaos to Control – A Guide to Maturity Models</li>
-                <li>Article 13: Managing the Lifecycle – The Gartner Hype Cycle</li>
-                <li>
+                </p>
+                <p>Article 12: From Chaos to Control – A Guide to Maturity Models</p>
+                <p>Article 13: Managing the Lifecycle – The Gartner Hype Cycle</p>
+                <p>
                   Article 14: The Blueprint for Enterprise – A Survey of Architecture Frameworks
-                </li>
-                <li>Article 15: The Modern Mandate – Frameworks for Cybersecurity and Risk</li>
-                <li>Article 16: The Cloud Revolution – Prescriptive Adoption Frameworks</li>
-                <li>Article 17: The AI Frontier – Frameworks for Adopting AI, ML, and GenAI</li>
-              </ul>
+                </p>
+                <p>Article 15: The Modern Mandate – Frameworks for Cybersecurity and Risk</p>
+                <p>Article 16: The Cloud Revolution – Prescriptive Adoption Frameworks</p>
+                <p>Article 17: The AI Frontier – Frameworks for Adopting AI, ML, and GenAI</p>
+              </div>
             </div>
           </div>
         </section>
