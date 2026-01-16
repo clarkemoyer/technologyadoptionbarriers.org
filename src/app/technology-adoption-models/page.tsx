@@ -4,8 +4,8 @@ import Image from 'next/image'
 const ModelsPage = () => {
   return (
     <main className="pt-[120px] min-h-screen bg-white">
-      <article className="max-w-[800px] mx-auto px-6 pb-20 text-[18px] leading-relaxed text-gray-800 font-serif">
-        <h1 className="text-[32px] md:text-[42px] font-bold text-[#145044] mb-8 leading-tight">
+      <article className="max-w-[800px] mx-auto px-4 sm:px-6 pb-20 text-[16px] sm:text-[18px] leading-relaxed text-gray-800 font-serif">
+        <h1 className="text-[28px] sm:text-[32px] md:text-[42px] font-bold text-[#145044] mb-8 leading-tight">
           Article 1: The Landscape of Technology Adoption Models & Frameworks
         </h1>
 
@@ -34,7 +34,7 @@ const ModelsPage = () => {
         </p>
 
         <section className="mb-10">
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
+          <h2 className="text-[20px] sm:text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
             Defining the Domain: A Trifecta of Adoption
           </h2>
           <p className="mb-6">
@@ -43,6 +43,16 @@ const ModelsPage = () => {
             overlapping domains: Organizational Adoption, User Adoption, and Consumer Adoption.
             Successful technology integration requires a strategy that addresses all three.
           </p>
+
+          <div className="my-10">
+            <Image
+              src="/Images/articles/Tech-Adoption-Triangle.png"
+              alt="The Tech Adoption Triangle: Organizational, User, and Consumer Adoption"
+              width={1024}
+              height={1024}
+              className="w-full h-auto rounded-lg shadow-sm"
+            />
+          </div>
 
           <h3 className="text-xl font-bold text-gray-900 mb-2">
             1. Organizational Adoption: The C-Suite Focus Area
@@ -90,7 +100,7 @@ const ModelsPage = () => {
         </section>
 
         <section className="mb-10">
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
+          <h2 className="text-[20px] sm:text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
             A Note on Terminology: Model vs. Framework
           </h2>
           <p className="mb-4">
@@ -107,7 +117,7 @@ const ModelsPage = () => {
         </section>
 
         <section className="mb-10">
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
+          <h2 className="text-[20px] sm:text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
             A Sneak Peek: Charting the Intellectual History
           </h2>
           <p className="mb-4">
@@ -132,7 +142,7 @@ const ModelsPage = () => {
         </section>
 
         <section className="mb-10">
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
+          <h2 className="text-[20px] sm:text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
             Series Roadmap: How to Navigate This Series
           </h2>
           <p className="mb-6">
@@ -177,7 +187,7 @@ const ModelsPage = () => {
         </section>
 
         <section className="mb-10 bg-gray-50 p-6 rounded-lg border border-gray-100">
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
+          <h2 className="text-[20px] sm:text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
             The Complete Series: A Glance Ahead
           </h2>
           <div className="space-y-6">
