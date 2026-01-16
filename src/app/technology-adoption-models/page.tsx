@@ -151,9 +151,6 @@ const ModelsPage = () => {
                 className="w-full h-auto rounded-lg shadow-sm"
               />
             </div>
-            <figcaption className="text-center text-sm text-gray-500 mt-2 italic">
-              Fig 2. The evolutionary roadmap of technology adoption theories.
-            </figcaption>
           </figure>
 
           <ul className="list-disc pl-6 space-y-4 mb-6">
