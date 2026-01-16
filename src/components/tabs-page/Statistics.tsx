@@ -7,7 +7,7 @@ import React from 'react'
 const Statistics = () => {
   return (
     <section id="statistics" className="w-full py-[80px] bg-white">
-      <div className="w-[90%] mx-auto max-w-[1280px]">
+      <div className="w-[90%] mx-auto max-w-[4096px]">
         {/* Statistics Grid - No cards, just text */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[40px] text-center">
           {/* Surveys Completed */}

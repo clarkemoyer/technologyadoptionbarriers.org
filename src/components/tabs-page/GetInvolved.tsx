@@ -7,7 +7,7 @@ import React from 'react'
 const GetInvolved = () => {
   return (
     <section id="get-involved" className="w-full py-[60px] bg-white">
-      <div className="w-[90%] mx-auto max-w-[1080px] text-center">
+      <div className="w-[90%] mx-auto max-w-[4096px] text-center">
         <h2 className="text-[42px] font-bold text-gray-900 mb-[20px] font-serif">
           How You Can Get Involved
         </h2>

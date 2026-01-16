@@ -7,7 +7,7 @@ import React from 'react'
 const Hero = () => {
   return (
     <section id="hero" className="w-full bg-[#f4f7f6] py-[60px] lg:py-[100px]">
-      <div className="w-[90%] mx-auto max-w-[1240px]">
+      <div className="w-[90%] mx-auto max-w-[4096px]">
         <div className="flex flex-col lg:flex-row items-start gap-[40px] lg:gap-[60px]">
           {/* Left Column: Text */}
           <div className="flex-1 w-full lg:w-1/2">

@@ -7,7 +7,7 @@ const BottomCTA = () => {
       id="contact"
       className="w-full py-[100px] bg-[#1a2b4b] text-white relative overflow-hidden"
     >
-      <div className="w-[90%] mx-auto max-w-[1080px] text-center relative z-10">
+      <div className="w-[90%] mx-auto max-w-[4096px] text-center relative z-10">
         {/* Neon Logo Effect placeholder - using text style or image if available */}
 
         <h2 className="text-[48px] font-bold mb-[20px] font-serif tracking-wide">
