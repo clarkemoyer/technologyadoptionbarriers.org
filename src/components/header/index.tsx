@@ -106,7 +106,7 @@ const Header: React.FC = () => {
       if (event.key === 'Escape' && isMegaMenuOpen) {
         setIsMegaMenuOpen(false)
         // Return focus to the button
-        megaMenuButtonRef.current?.querySelector('a')?.focus()
+        megaMenuButtonRef.current?.querySelector('button')?.focus()
       }
     }
 
@@ -118,6 +118,8 @@ const Header: React.FC = () => {
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false)
     setIsMegaMenuOpen(false)
+    setIsMobileBranch1Open(false)
+    setIsMobileBranch2Open(false)
   }
 
   const isActive = (path: string) => {
@@ -174,6 +176,7 @@ const Header: React.FC = () => {
                           <button
                             onClick={toggleMegaMenu}
                             onMouseEnter={() => setIsMegaMenuOpen(true)}
+                            onFocus={() => setIsMegaMenuOpen(true)}
                             className={`flex items-center px-3 py-2 text-[14px] transition-colors duration-200 ${
                               isActive(item.path)
                                 ? 'text-blue-600'
@@ -380,6 +383,7 @@ const Header: React.FC = () => {
                           <button
                             onClick={() => setIsMobileBranch1Open(!isMobileBranch1Open)}
                             className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                            aria-expanded={isMobileBranch1Open}
                           >
                             <span className="text-[13px]">
                               {technologyAdoptionModelsSeries.branches[0].title}
@@ -431,6 +435,7 @@ const Header: React.FC = () => {
                           <button
                             onClick={() => setIsMobileBranch2Open(!isMobileBranch2Open)}
                             className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                            aria-expanded={isMobileBranch2Open}
                           >
                             <span className="text-[13px]">
                               {technologyAdoptionModelsSeries.branches[1].title}

@@ -166,7 +166,10 @@ test.describe('Series Pages - Content Verification', () => {
   test('root page should load with correct title', async ({ page }) => {
     await page.goto(technologyAdoptionModelsSeries.root.slug)
     await expect(
-      page.getByRole('heading', { level: 1, name: /The Landscape of Technology Adoption Models/i })
+      page.getByRole('heading', {
+        level: 1,
+        name: /Article 1: The Landscape of Technology Adoption Models & Frameworks/i,
+      })
     ).toBeVisible()
   })
 
