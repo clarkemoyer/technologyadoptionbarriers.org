@@ -1,20 +1,19 @@
 import React from 'react'
 import Link from 'next/link'
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 const UsersJourneyPage = () => {
   return (
-    <main className="pt-[120px] min-h-screen bg-white">
-      <article className="max-w-[800px] mx-auto px-6 pb-20 text-[18px] leading-relaxed text-gray-800 font-serif">
-        <h1 className="text-[32px] md:text-[42px] font-bold text-[#145044] mb-8 leading-tight">
-          Article 1: Branch Introduction – The User’s Journey
-        </h1>
+    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+      <article className={ARTICLE_CLASSES}>
+        <h1 className={H1_CLASSES}>Article 1: Branch Introduction – The User’s Journey</h1>
 
         <section className="mb-10 text-gray-800">
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             This narrative provides the structure for the articles to come. Our exploration of the
             user’s journey is organized as follows:
           </p>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             First, we’ll look at the foundational theories. Then, we’ll do a deep dive into TAM, the
             model that changed everything. From there, we’ll explore its direct successors before
             examining the ambitious UTAUT model that sought to unify the field. After establishing
@@ -22,7 +21,7 @@ const UsersJourneyPage = () => {
             consumer context, explore specialized models where context is king, and finally,
             consider the crucial role of an individual’s innate readiness for technology.
           </p>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             This journey will provide a comprehensive understanding of how the field has evolved,
             from its psychological roots to the sophisticated, unified models used today. In our
             next article, we will begin at the beginning, with a deep dive into the bedrock theories
@@ -31,9 +30,7 @@ const UsersJourneyPage = () => {
         </section>
 
         <section className="mb-10 bg-gray-50 p-6 rounded-lg border border-gray-100">
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
-            The Complete Branch: A Glance Ahead
-          </h2>
+          <h2 className={H2_CLASSES}>The Complete Branch: A Glance Ahead</h2>
           <ul className="list-disc pl-5 space-y-1 text-sm text-blue-700 font-sans">
             <li>
               <Link
