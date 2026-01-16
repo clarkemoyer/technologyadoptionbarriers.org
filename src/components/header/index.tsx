@@ -33,14 +33,17 @@ const Header: React.FC = () => {
         path: '/technology-adoption-models',
         submenu: [
           { label: 'Article 1: The Landscape', path: '/technology-adoption-models' },
-          { label: 'Article 1: User’s Journey', path: '/technology-adoption-models/users-journey' },
+          {
+            label: 'Article 1: User’s Journey',
+            path: '/article-1-branch-introduction-the-users-journey',
+          },
           {
             label: 'Article 1.1: Foundational Theories',
-            path: '/technology-adoption-models/foundational-theories',
+            path: '/article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance',
           },
           {
             label: 'Article 2: Organization’s Playbook',
-            path: '/technology-adoption-models/organizations-playbook',
+            path: '/article-2-branch-introduction-the-organizations-playbook',
           },
         ],
       },
