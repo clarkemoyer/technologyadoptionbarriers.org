@@ -57,7 +57,7 @@ jobs:
           echo "Starting Prolific data collection..."
           echo "Study ID: ${STUDY_ID:-'all studies'}"
           echo ""
-          npx tsx scripts/collect-prolific-data.ts
+          npx --no-install tsx scripts/collect-prolific-data.ts
 
       - name: Summary
         if: success()
