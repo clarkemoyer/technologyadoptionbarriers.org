@@ -4,13 +4,13 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 const FoundationalTheoriesPage = () => {
   return (
-    <main className="pt-20 sm:pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
           Article 1.1: The Bedrock – Foundational Theories That Shaped Tech Acceptance
         </h1>
 
-        <section className="mb-6 sm:mb-6 sm:mb-10 text-gray-800">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <p className="mb-3 sm:mb-6">
             Before the Technology Acceptance Model (TAM) provided a focused lens for information
             systems research, the study of why people choose to use a new technology was grounded in

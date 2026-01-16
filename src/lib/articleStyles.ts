@@ -10,7 +10,7 @@ export const ARTICLE_CLASSES = `
 `
 
 export const H1_CLASSES = `
-  text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl
+  text-2xl sm:text-3xl md:text-4xl xl:text-5xl
   font-bold text-[#145044]
   mb-4 sm:mb-8
   leading-tight

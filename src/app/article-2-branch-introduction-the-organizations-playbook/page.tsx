@@ -5,10 +5,8 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 const OrganizationsPlaybookPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
-      <article className="{ARTICLE_CLASSES}">
-        <h1 className="{H1_CLASSES}">
-          Article 2: Branch Introduction – The Organization’s Playbook
-        </h1>
+      <article className={ARTICLE_CLASSES}>
+        <h1 className={H1_CLASSES}>Article 2: Branch Introduction – The Organization’s Playbook</h1>
 
         <section className="mb-6 sm:mb-10 text-gray-800">
           <p className="mb-3 sm:mb-6">
@@ -27,7 +25,7 @@ const OrganizationsPlaybookPage = () => {
             of strategy.
           </p>
 
-          <h2 className="{H2_CLASSES}">The Strategic Imperative: Beyond User Clicks</h2>
+          <h2 className={H2_CLASSES}>The Strategic Imperative: Beyond User Clicks</h2>
           <p className="mb-3 sm:mb-6">
             Organizational adoption is a fundamentally different challenge from individual
             acceptance. While still deeply linked with the foundational theories of DOI and IDT [1],
@@ -41,7 +39,7 @@ const OrganizationsPlaybookPage = () => {
             strategic decisions.
           </p>
 
-          <h2 className="{H2_CLASSES}">From Theory to Frameworks: A Narrative Arc</h2>
+          <h2 className={H2_CLASSES}>From Theory to Frameworks: A Narrative Arc</h2>
           <p className="mb-3 sm:mb-6">
             The evolution of organizational adoption guidance follows a distinct path, moving from
             high-level academic theories that explain the “why” to detailed, prescriptive frameworks
@@ -100,7 +98,7 @@ const OrganizationsPlaybookPage = () => {
             </li>
           </ul>
 
-          <h2 className="{H2_CLASSES}">Roadmap for this Branch</h2>
+          <h2 className={H2_CLASSES}>Roadmap for this Branch</h2>
           <p className="mb-3 sm:mb-6">
             This narrative arc provides the structure for the articles in this branch. Our
             exploration of the organization’s playbook is organized as follows:
@@ -124,7 +122,7 @@ const OrganizationsPlaybookPage = () => {
         </section>
 
         <section className="mb-10 bg-gray-50 p-6 rounded-lg border border-gray-100">
-          <h2 className="{H2_CLASSES}">Series Navigation</h2>
+          <h2 className={H2_CLASSES}>Series Navigation</h2>
           <ul className="list-disc pl-5 space-y-1 text-sm text-blue-700 font-sans">
             <li>Article 2: Branch Introduction – The Organization’s Playbook</li>
             <li>
