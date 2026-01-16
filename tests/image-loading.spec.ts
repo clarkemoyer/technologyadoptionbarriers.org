@@ -32,7 +32,10 @@ test.describe('Image Loading', () => {
 
     // The TABS hero section uses text and SVG icons, not images
     // Verify the hero section is present by checking for the main heading
-    const heroHeading = page.locator('h1:has-text("The TABS Project")')
+    const heroHeading = page.getByRole('heading', {
+      level: 1,
+      name: /Technology Adoption Barriers Survey/i,
+    })
     await expect(heroHeading).toBeVisible()
   })
 

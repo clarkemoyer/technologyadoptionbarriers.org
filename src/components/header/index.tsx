@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { FiMenu } from 'react-icons/fi'
 import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
@@ -25,7 +26,7 @@ const Header: React.FC = () => {
   const menuItems: MenuItem[] = useMemo(
     () => [
       { label: 'Home', path: '/' },
-      { label: 'Take the TABS', path: 'https://smeal.qualtrics.com/jfe/form/SV_0PRpizHAb9P7vXk' },
+      { label: 'Take the TABS', path: 'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO' },
       { label: 'Tech Adoption Barriers', path: '/barriers' },
       {
         label: 'Technology Adoption Models',
@@ -112,10 +113,15 @@ const Header: React.FC = () => {
               className={`transition-all duration-300 ${isScrolled ? 'w-[110px]' : 'w-[150px]'}`}
             >
               <Link href="/" onClick={handleLinkClick} className="block">
-                <img
+                <Image
                   src={basePath + '/Images/TABS-Logo-Full.png'}
                   alt="TABS Logo"
-                  className={`transition-all duration-300 ${isScrolled ? 'h-10' : 'h-16'}`}
+                  width={150}
+                  height={64}
+                  priority
+                  className={`transition-all duration-300 object-contain ${
+                    isScrolled ? 'h-10 w-auto' : 'h-16 w-auto'
+                  }`}
                 />
               </Link>
             </div>
@@ -127,7 +133,7 @@ const Header: React.FC = () => {
                 <nav className="hidden lg:block transition-all duration-300">
                   <ul className="flex items-center space-x-[1px] font-navbar font-[600]">
                     {menuItems.map((item, index) => (
-                      <li key={index} className="relative py-6">
+                      <li key={index} className="relative py-6 group">
                         <Link
                           href={item.path}
                           onClick={handleLinkClick}
@@ -138,7 +144,37 @@ const Header: React.FC = () => {
                           }`}
                         >
                           {item.label}
+                          {item.submenu && (
+                            <svg
+                              className="w-4 h-4 ml-1 transition-transform group-hover:rotate-180"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M19 9l-7 7-7-7"
+                              />
+                            </svg>
+                          )}
                         </Link>
+                        {item.submenu && (
+                          <ul className="absolute left-0 top-[80%] hidden group-hover:block w-[250px] bg-white shadow-lg rounded-md border border-gray-100 py-2 z-50">
+                            {item.submenu.map((sub, subIdx) => (
+                              <li key={subIdx}>
+                                <Link
+                                  href={sub.path}
+                                  onClick={handleLinkClick}
+                                  className="block px-4 py-2 text-[13px] text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                >
+                                  {sub.label}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </li>
                     ))}
                   </ul>

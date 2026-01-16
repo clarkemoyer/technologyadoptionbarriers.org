@@ -1,11 +1,8 @@
 import React from 'react'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
 
 const FoundationalTheoriesPage = () => {
   return (
     <>
-      <Header />
       <main className="pt-[80px]">
         <div className="bg-blue-600 py-[60px] text-white text-center">
           <h1 className="text-[40px] font-bold px-4">
@@ -37,10 +34,26 @@ const FoundationalTheoriesPage = () => {
                 Explaining how attitudes and social norms influence adoption intent.
               </p>
             </div>
+            <div>
+              <h2 className="text-[24px] font-bold mb-2">
+                Unified Theory of Acceptance and Use of Technology (UTAUT)
+              </h2>
+              <p className="text-gray-700">
+                A comprehensive framework combining elements from eight previous models.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-[24px] font-bold mb-2">
+                Technology-Organization-Environment (TOE)
+              </h2>
+              <p className="text-gray-700">
+                A framework for understanding organizational adoption based on technological,
+                organizational, and environmental contexts.
+              </p>
+            </div>
           </div>
         </article>
       </main>
-      <Footer />
     </>
   )
 }

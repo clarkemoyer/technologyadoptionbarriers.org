@@ -1,11 +1,8 @@
 import React from 'react'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
 
 const UsersJourneyPage = () => {
   return (
     <>
-      <Header />
       <main className="pt-[80px]">
         <div className="bg-blue-600 py-[60px] text-white text-center">
           <h1 className="text-[40px] font-bold px-4">
@@ -29,7 +26,6 @@ const UsersJourneyPage = () => {
           </div>
         </article>
       </main>
-      <Footer />
     </>
   )
 }

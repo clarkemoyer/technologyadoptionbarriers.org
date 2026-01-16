@@ -1,0 +1,115 @@
+name: Update Qualtrics Survey Metrics
+
+on:
+  workflow_dispatch:
+    inputs:
+      survey_id:
+        description: 'Optional Survey ID (defaults to QUALTRICS_SURVEY_ID env var, else first survey returned by /surveys)'
+        required: false
+        type: string
+  schedule:
+    - cron: '17 3 * * *'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-metrics:
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    env:
+      QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+      QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+      QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+      INPUT_SURVEY_ID: ${{ inputs.survey_id }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch metrics from Qualtrics
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${QUALTRICS_API_TOKEN:-}" ]]; then
+            echo "Missing secret QUALTRICS_API_TOKEN in environment qualtrics-prod"
+            exit 1
+          fi
+
+          if [[ -z "${QUALTRICS_BASE_URL:-}" ]]; then
+            echo "Missing env var QUALTRICS_BASE_URL in environment qualtrics-prod"
+            exit 1
+          fi
+
+          BASE_URL="${QUALTRICS_BASE_URL%/}"
+          SURVEY_ID="${INPUT_SURVEY_ID:-${QUALTRICS_SURVEY_ID:-}}"
+
+          if [[ -z "${SURVEY_ID}" ]]; then
+            url="${BASE_URL}/API/v3/surveys"
+            http_code=$(curl -sS -o surveys.json -w "%{http_code}" \
+              -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+              -H "Accept: application/json" \
+              "$url")
+
+            if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+              echo "Request failed (HTTP $http_code): $url"
+              head -c 4000 surveys.json || true
+              exit 1
+            fi
+
+            SURVEY_ID=$(jq -r '.result.elements[0].id // empty' surveys.json)
+            if [[ -z "$SURVEY_ID" ]]; then
+              echo "Could not auto-select a survey id from /surveys. Set QUALTRICS_SURVEY_ID or pass workflow input survey_id."
+              exit 1
+            fi
+          fi
+
+          url="${BASE_URL}/API/v3/surveys/${SURVEY_ID}"
+          http_code=$(curl -sS -o survey.json -w "%{http_code}" \
+            -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+            -H "Accept: application/json" \
+            "$url")
+
+          if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+            echo "Request failed (HTTP $http_code): $url"
+            head -c 4000 survey.json || true
+            exit 1
+          fi
+
+          collected_at=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          survey_name=$(jq -r '.result.name // ""' survey.json)
+          org_id=$(jq -r '.result.organizationId // ""' survey.json)
+          response_counts=$(jq -c '.result.responseCounts // {}' survey.json)
+
+          mkdir -p src/data
+          jq -n \
+            --arg collectedAt "$collected_at" \
+            --arg baseUrl "$BASE_URL" \
+            --arg surveyId "$SURVEY_ID" \
+            --arg surveyName "$survey_name" \
+            --arg orgId "$org_id" \
+            --argjson responseCounts "$response_counts" \
+            '{
+              collectedAt: $collectedAt,
+              baseUrl: $baseUrl,
+              survey: {
+                id: $surveyId,
+                name: $surveyName,
+                organizationId: $orgId
+              },
+              responseCounts: $responseCounts,
+              metrics: ($responseCounts | to_entries | map({metric: .key, value: .value}) | sort_by(.metric))
+            }' > src/data/qualtrics-metrics.json
+
+      - name: Create pull request with updated metrics
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'Update Qualtrics survey metrics'
+          title: 'Update Qualtrics survey metrics'
+          body: |
+            Automated update of `src/data/qualtrics-metrics.json` from the Qualtrics API.
+
+            Each response count type is stored as its own metric for charting.
+          branch: chore/qualtrics-metrics
+          delete-branch: true
