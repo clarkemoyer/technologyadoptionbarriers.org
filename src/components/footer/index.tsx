@@ -11,6 +11,11 @@ const Footer: React.FC = () => {
   const currentYear = React.useMemo(() => new Date().getFullYear(), [])
   const socialLinks = [
     { icon: FaLinkedinIn, href: 'https://www.linkedin.com/in/clarkemoyer/', label: 'LinkedIn' },
+    {
+      icon: FaGithub,
+      href: 'https://github.com/clarkemoyer/technologyadoptionbarriers.org',
+      label: 'GitHub',
+    },
   ]
   return (
     <footer className="w-full bg-black text-white">
@@ -63,17 +68,20 @@ const Footer: React.FC = () => {
             program.
           </div>
 
-          {/* Social Icon (LinkedIn) - Kept as it was on live site footer if present, else just nav */}
+          {/* Social Icons */}
           <div className="flex gap-4">
-            <a
-              href="https://www.linkedin.com/in/clarkemoyer/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="text-white hover:text-[#26C699] transition-colors"
-            >
-              <FaLinkedinIn className="w-5 h-5" />
-            </a>
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={link.label}
+                className="text-white hover:text-[#26C699] transition-colors"
+              >
+                <link.icon className="w-5 h-5" />
+              </a>
+            ))}
           </div>
         </div>
       </div>
