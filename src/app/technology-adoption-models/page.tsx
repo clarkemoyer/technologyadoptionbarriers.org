@@ -1,20 +1,21 @@
 import React from 'react'
 import Image from 'next/image'
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 
 const ModelsPage = () => {
   return (
-    <main className="pt-[120px] min-h-screen bg-white">
-      <article className="max-w-[800px] mx-auto px-4 sm:px-6 pb-20 text-[16px] sm:text-[18px] leading-relaxed text-gray-800 font-serif">
-        <h1 className="text-[28px] sm:text-[32px] md:text-[42px] font-bold text-[#145044] mb-8 leading-tight">
+    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+      <article className={ARTICLE_CLASSES}>
+        <h1 className={H1_CLASSES}>
           Article 1: The Landscape of Technology Adoption Models & Frameworks
         </h1>
 
-        <p className="mb-6">
+        <p className="mb-3 sm:mb-6">
           “Getting a new idea adopted, even when it has obvious advantages, is often very
           difficult.” — Everett M. Rogers, Diffusion of Innovations [1]
         </p>
 
-        <p className="mb-6">
+        <p className="mb-3 sm:mb-6">
           In the sprawling archives of modern business, a peculiar graveyard is filled with the
           ghosts of brilliant technologies. These are the technically superior platforms that
           failed, the powerful enterprise systems that gathered digital dust, and the innovative
@@ -34,17 +35,15 @@ const ModelsPage = () => {
         </p>
 
         <section className="mb-10">
-          <h2 className="text-[20px] sm:text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
-            Defining the Domain: A Trifecta of Adoption
-          </h2>
-          <p className="mb-6">
+          <h2 className={H2_CLASSES}>Defining the Domain: A Trifecta of Adoption</h2>
+          <p className="mb-3 sm:mb-6">
             To truly understand technology adoption, we must move beyond a simple
             user-versus-organization dichotomy. A more accurate model considers three distinct but
             overlapping domains: Organizational Adoption, User Adoption, and Consumer Adoption.
             Successful technology integration requires a strategy that addresses all three.
           </p>
 
-          <div className="my-10">
+          <div className="my-6 sm:my-10">
             <Image
               src="/Images/articles/Tech-Adoption-Triangle.png"
               alt="The Tech Adoption Triangle: Organizational, User, and Consumer Adoption"
@@ -54,10 +53,8 @@ const ModelsPage = () => {
             />
           </div>
 
-          <h3 className="text-xl font-bold text-gray-900 mb-2">
-            1. Organizational Adoption: The C-Suite Focus Area
-          </h3>
-          <p className="mb-6">
+          <h3 className={H3_CLASSES}>1. Organizational Adoption: The C-Suite Focus Area</h3>
+          <p className="mb-3 sm:mb-6">
             At the apex of the trifecta is the macro-level, firm-centric view. This is the realm of
             strategy and operations, where the C-Suite makes high-stakes decisions. The central
             question here is: How does our organization decide to invest in, implement, and
@@ -68,10 +65,8 @@ const ModelsPage = () => {
             under which all other adoption activities occur.
           </p>
 
-          <h3 className="text-xl font-bold text-gray-900 mb-2">
-            2. User Adoption: The Internal Challenge
-          </h3>
-          <p className="mb-6">
+          <h3 className={H3_CLASSES}>2. User Adoption: The Internal Challenge</h3>
+          <p className="mb-3 sm:mb-6">
             This domain focuses on the micro-level, employee-centric view within the organization’s
             walls. This is the realm of psychology, change management, and human-computer
             interaction. The core inquiry is: What cognitive and social drivers lead our employees
@@ -84,9 +79,7 @@ const ModelsPage = () => {
             syntheses [8].
           </p>
 
-          <h3 className="text-xl font-bold text-gray-900 mb-2">
-            3. Consumer Adoption: The External Challenge
-          </h3>
+          <h3 className={H3_CLASSES}>3. Consumer Adoption: The External Challenge</h3>
           <p>
             Distinct from internal users, this domain focuses on the external market. This is the
             world of marketing, product design, and consumer behavior. The question shifts to: What
@@ -99,11 +92,9 @@ const ModelsPage = () => {
           </p>
         </section>
 
-        <section className="mb-10">
-          <h2 className="text-[20px] sm:text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
-            A Note on Terminology: Model vs. Framework
-          </h2>
-          <p className="mb-4">
+        <section className="mb-6 sm:mb-10">
+          <h2 className={H2_CLASSES}>A Note on Terminology: Model vs. Framework</h2>
+          <p className="mb-3 sm:mb-4">
             Before proceeding, it is useful to clarify two terms that are central to this series:
             model and framework. For our purposes, a model (like TAM or UTAUT) is a descriptive and
             predictive tool. It seeks to explain a phenomenon by identifying key variables and their
@@ -116,11 +107,9 @@ const ModelsPage = () => {
           </p>
         </section>
 
-        <section className="mb-10">
-          <h2 className="text-[20px] sm:text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
-            A Sneak Peek: Charting the Intellectual History
-          </h2>
-          <p className="mb-4">
+        <section className="mb-6 sm:mb-10">
+          <h2 className={H2_CLASSES}>A Sneak Peek: Charting the Intellectual History</h2>
+          <p className="mb-3 sm:mb-4">
             These three domains have spawned their own rich intellectual histories, which this
             series will explore in detail.
           </p>
@@ -141,18 +130,16 @@ const ModelsPage = () => {
           </p>
         </section>
 
-        <section className="mb-10">
-          <h2 className="text-[20px] sm:text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
-            Series Roadmap: How to Navigate This Series
-          </h2>
-          <p className="mb-6">
+        <section className="mb-6 sm:mb-10">
+          <h2 className={H2_CLASSES}>Series Roadmap: How to Navigate This Series</h2>
+          <p className="mb-3 sm:mb-6">
             This article serves as the trunk of our intellectual tree. The following diagram
             provides a visual roadmap for the entire series, illustrating the key models and
             frameworks we will cover and the intellectual journey a reader will take. From here, the
             series splits into two main branches, each containing a sequence of deep-dive articles.
           </p>
 
-          <figure className="my-10">
+          <figure className="my-6 sm:my-10">
             <div className="relative w-full h-auto">
               <Image
                 src="/Images/articles/Series-Roadmap.png"
@@ -186,11 +173,9 @@ const ModelsPage = () => {
           </p>
         </section>
 
-        <section className="mb-10 bg-gray-50 p-6 rounded-lg border border-gray-100">
-          <h2 className="text-[20px] sm:text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
-            The Complete Series: A Glance Ahead
-          </h2>
-          <div className="space-y-6">
+        <section className="mb-6 sm:mb-10 bg-gray-50 p-4 sm:p-6 rounded-lg border border-gray-100">
+          <h2 className={H2_CLASSES}>The Complete Series: A Glance Ahead</h2>
+          <div className="space-y-4 sm:space-y-6">
             <div>
               <h3 className="font-bold text-gray-900 mb-2">
                 Branch 1: The User’s Journey – Evolution of Individual Technology Acceptance & Use
@@ -240,7 +225,7 @@ const ModelsPage = () => {
 
         <section className="pt-8 border-t border-gray-200">
           <h2 className="text-[20px] font-bold text-gray-900 mb-4">References</h2>
-          <ol className="list-decimal pl-5 text-[14px] text-gray-600 space-y-3 font-sans">
+          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 lg:space-y-4 font-sans">
             <li>Rogers, E. M. (2003). Diffusion of Innovations (5th ed.). Free Press.</li>
             <li>
               Tornatzky, L. G., & Fleischer, M. (1990). The Processes of Technological Innovation.

@@ -1,23 +1,22 @@
 import React from 'react'
 import Link from 'next/link'
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 const OrganizationsPlaybookPage = () => {
   return (
-    <main className="pt-[120px] min-h-screen bg-white">
-      <article className="max-w-[800px] mx-auto px-6 pb-20 text-[18px] leading-relaxed text-gray-800 font-serif">
-        <h1 className="text-[32px] md:text-[42px] font-bold text-[#145044] mb-8 leading-tight">
-          Article 2: Branch Introduction – The Organization’s Playbook
-        </h1>
+    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+      <article className={ARTICLE_CLASSES}>
+        <h1 className={H1_CLASSES}>Article 2: Branch Introduction – The Organization’s Playbook</h1>
 
-        <section className="mb-10 text-gray-800">
-          <p className="mb-6">
+        <section className="mb-6 sm:mb-10 text-gray-800">
+          <p className="mb-3 sm:mb-6">
             Having thoroughly explored the psychological and cognitive drivers of the individual’s
             adoption journey, we now pivot our focus from the micro to the macro. We ascend from the
             user’s desktop to the C-Suite, shifting our lens from the personal calculus of
             acceptance to the strategic imperatives of the organization. Welcome to the second major
             branch of our series: The Organization’s Playbook.
           </p>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             Here, the central question is no longer “Will an individual use this technology?” but
             rather, “How does our organization decide to invest in, implement, and integrate a
             technology to achieve strategic goals?” This is the realm of high-stakes capital
@@ -26,10 +25,8 @@ const OrganizationsPlaybookPage = () => {
             of strategy.
           </p>
 
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4 mt-8">
-            The Strategic Imperative: Beyond User Clicks
-          </h2>
-          <p className="mb-6">
+          <h2 className={H2_CLASSES}>The Strategic Imperative: Beyond User Clicks</h2>
+          <p className="mb-3 sm:mb-6">
             Organizational adoption is a fundamentally different challenge from individual
             acceptance. While still deeply linked with the foundational theories of DOI and IDT [1],
             it is a deliberate, top-down, and resource-intensive endeavor. The decision to deploy a
@@ -42,10 +39,8 @@ const OrganizationsPlaybookPage = () => {
             strategic decisions.
           </p>
 
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4 mt-8">
-            From Theory to Frameworks: A Narrative Arc
-          </h2>
-          <p className="mb-6">
+          <h2 className={H2_CLASSES}>From Theory to Frameworks: A Narrative Arc</h2>
+          <p className="mb-3 sm:mb-6">
             The evolution of organizational adoption guidance follows a distinct path, moving from
             high-level academic theories that explain the “why” to detailed, prescriptive frameworks
             that dictate the “how.”
@@ -103,25 +98,23 @@ const OrganizationsPlaybookPage = () => {
             </li>
           </ul>
 
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4 mt-8">
-            Roadmap for this Branch
-          </h2>
-          <p className="mb-6">
+          <h2 className={H2_CLASSES}>Roadmap for this Branch</h2>
+          <p className="mb-3 sm:mb-6">
             This narrative arc provides the structure for the articles in this branch. Our
             exploration of the organization’s playbook is organized as follows:
           </p>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             We will begin by exploring the core strategic theories that guide organizational tech
             decisions. Next, we will delve into maturity models for improving processes. We will
             then survey frameworks for managing enterprise architecture and risk, before concluding
             with the highly practical, modern frameworks for cloud and AI adoption.
           </p>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             This journey will illuminate the tools and conceptual models that executives,
             strategists, and enterprise architects use to steer their organizations through the
             complex and ever-changing technology landscape.
           </p>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             Ultimately, this journey seeks to answer a critical question for the modern enterprise:
             How do organizations build a coherent playbook that bridges the gap between high-level
             strategic theory and the complex, on-the-ground reality of digital transformation?
@@ -129,9 +122,7 @@ const OrganizationsPlaybookPage = () => {
         </section>
 
         <section className="mb-10 bg-gray-50 p-6 rounded-lg border border-gray-100">
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
-            Series Navigation
-          </h2>
+          <h2 className={H2_CLASSES}>Series Navigation</h2>
           <ul className="list-disc pl-5 space-y-1 text-sm text-blue-700 font-sans">
             <li>Article 2: Branch Introduction – The Organization’s Playbook</li>
             <li>
