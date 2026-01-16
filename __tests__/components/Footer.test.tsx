@@ -20,20 +20,14 @@ describe('Footer component', () => {
     expect(screen.getByText(new RegExp(currentYear.toString()))).toBeInTheDocument()
   })
 
-  it('should display TABS credit in footer', () => {
+  it('should display credit in footer', () => {
     render(<Footer />)
-    const credits = screen.getAllByText(/Technology Adoption Barriers Survey/i)
+    const credits = screen.getAllByText(/Clarke Moyer/i)
     expect(credits.length).toBeGreaterThan(0)
   })
 
-  it('should have email contact link', () => {
-    render(<Footer />)
-    const emailLink = screen.getByText(/clarke@technologyadoptionbarriers.org/i)
-    expect(emailLink.closest('a')).toHaveAttribute(
-      'href',
-      'mailto:clarke@technologyadoptionbarriers.org'
-    )
-  })
+  // Email link removed in simplified footer design
+  // it('should have email contact link', () => { ... })
 
   it('should not have accessibility violations', async () => {
     const { container } = render(<Footer />)
