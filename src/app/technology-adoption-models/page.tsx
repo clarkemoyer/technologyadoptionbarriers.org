@@ -10,6 +10,30 @@ const ModelsPage = () => {
           Article 1: The Landscape of Technology Adoption Models & Frameworks
         </h1>
 
+        <p className="mb-6">
+          “Getting a new idea adopted, even when it has obvious advantages, is often very
+          difficult.” — Everett M. Rogers, Diffusion of Innovations [1]
+        </p>
+
+        <p className="mb-6">
+          In the sprawling archives of modern business, a peculiar graveyard is filled with the
+          ghosts of brilliant technologies. These are the technically superior platforms that
+          failed, the powerful enterprise systems that gathered digital dust, and the innovative
+          tools that never delivered on their transformative promise. Their epitaphs all point to a
+          single, crucial oversight: invention / procurement is not the same as adoption.
+        </p>
+
+        <p className="mb-6">
+          Welcome to a multi-part blog series dedicated to exploring this critical landscape. Our
+          central question is this: What is the bridge between a technology’s potential and its
+          realized value? The answer is not a single blueprint but a complex interplay of human
+          psychology, organizational strategy, and market dynamics. This series is designed to serve
+          as your comprehensive guide, charting the intellectual history and practical application
+          of the most influential technology adoption models and frameworks. We will journey from
+          the foundational theories of social psychology to the prescriptive, actionable playbooks
+          used by today’s leading cloud and AI providers.
+        </p>
+
         <section className="mb-10">
           <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
             Defining the Domain: A Trifecta of Adoption
@@ -21,87 +45,63 @@ const ModelsPage = () => {
             Successful technology integration requires a strategy that addresses all three.
           </p>
 
-          <div className="my-[40px]">
-            <Image
-              src="/Images/articles/Tech-Adoption-Triangle.png"
-              alt="The Tech Adoption Triangle: Organizational, User, and Consumer Adoption"
-              width={800}
-              height={500}
-              className="w-full h-auto rounded-lg shadow-md"
-            />
-          </div>
+          <h3 className="text-xl font-bold text-gray-900 mb-2">
+            1. Organizational Adoption: The C-Suite Focus Area
+          </h3>
+          <p className="mb-6">
+            At the apex of the trifecta is the macro-level, firm-centric view. This is the realm of
+            strategy and operations, where the C-Suite makes high-stakes decisions. The central
+            question here is: How does our organization decide to invest in, implement, and
+            integrate a technology to achieve strategic goals? This perspective examines the
+            powerful forces at play—such as competitive and environmental pressures [2], the search
+            for a sustainable advantage through strategic resource allocation [3], and the immense
+            challenge of re-engineering established workflows [4]. It is the strategic umbrella
+            under which all other adoption activities occur.
+          </p>
 
-          <figure className="my-10">
-            <div className="relative w-full h-auto">
-              <Image
-                src="/Images/articles/Trifecta-of-Adoption.png"
-                alt="Trifecta of Technology Adoption: Organizational, User, and Consumer"
-                width={1024}
-                height={1024}
-                className="w-full h-auto rounded-lg shadow-sm"
-              />
-            </div>
-            <figcaption className="text-center text-sm text-gray-500 mt-2 italic">
-              Fig 1. The three domains of technology adoption.
-            </figcaption>
-          </figure>
+          <h3 className="text-xl font-bold text-gray-900 mb-2">
+            2. User Adoption: The Internal Challenge
+          </h3>
+          <p className="mb-6">
+            This domain focuses on the micro-level, employee-centric view within the organization’s
+            walls. This is the realm of psychology, change management, and human-computer
+            interaction. The core inquiry is: What cognitive and social drivers lead our employees
+            to intend to use, and then actually use, a new system to perform their jobs? This
+            perspective dissects the personal calculus of an employee evaluating a new CRM, an
+            engineer learning a new development platform, or a project manager using a new
+            collaboration tool. It is a deeply human-centric view, focused on attitudes, beliefs,
+            and intentions that are precursors to behavior, as captured in foundational theories [5,
+            6], influential models like the Technology Acceptance Model (TAM) [7], and their major
+            syntheses [8].
+          </p>
 
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                1. Organizational Adoption: The C-Suite Focus Area
-              </h3>
-              <p>
-                <strong>Question:</strong> How does the firm decide to procure and deploy a
-                technology?
-                <br />
-                This domain is concerned with strategic alignment, resource allocation, and value
-                generation. It is the realm of the CIO and CTO. Frameworks here (like TOGAF or the
-                AWS Cloud Adoption Framework) are prescriptive—they tell the organization{' '}
-                <em>how</em> to execute.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                2. User Adoption: The Internal Challenge
-              </h3>
-              <p>
-                <strong>Question:</strong> Will employees actually use the tool?
-                <br />
-                Once a technology is deployed, it succeeds or fails at the desk of the individual
-                employee. Models here (like TAM and UTAUT) focus on psychology—perceived usefulness
-                and ease of use.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                3. Consumer Adoption: The External Challenge
-              </h3>
-              <p>
-                <strong>Question:</strong> Will the market buy it?
-                <br />
-                This domain adds market forces to the equation. Factors like price value, hedonic
-                motivation (fun), and habit become critical drivers alongside utility.
-              </p>
-            </div>
-          </div>
+          <h3 className="text-xl font-bold text-gray-900 mb-2">
+            3. Consumer Adoption: The External Challenge
+          </h3>
+          <p>
+            Distinct from internal users, this domain focuses on the external market. This is the
+            world of marketing, product design, and consumer behavior. The question shifts to: What
+            motivates an external customer to adopt and integrate our technology into their lives?
+            This involves understanding market needs, pricing, user experience (UX), and the social
+            dynamics of consumer choice [1]. Whether it’s a new mobile app, a smart home device, or
+            a SaaS platform for small businesses, the drivers here—such as hedonic motivation and
+            price value—are fundamentally different from those in a mandatory corporate environment
+            [9].
+          </p>
         </section>
 
         <section className="mb-10">
           <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
             A Note on Terminology: Model vs. Framework
           </h2>
-          <p className="mb-4">
-            Before proceeding, it is useful to clarify two terms that are central to this series:{' '}
-            <strong>model</strong> and <strong>framework</strong>. For our purposes, a model (like
-            TAM or UTAUT) is a <em>descriptive and predictive</em> tool. It seeks to explain a
-            phenomenon by identifying key variables and their relationships to answer <em>why</em>{' '}
-            an individual might adopt a technology.
-          </p>
           <p>
-            In contrast, a framework (like TOGAF or the AWS CAF) is <em>prescriptive</em>. It
-            provides a structure or a set of best practices to guide action, answering <em>how</em>{' '}
-            an organization should go about implementing technology.
+            Before proceeding, it is useful to clarify two terms that are central to this series:
+            model and framework. For our purposes, a model (like TAM or UTAUT) is a descriptive and
+            predictive tool. It seeks to explain a phenomenon by identifying key variables and their
+            relationships to answer why an individual might adopt a technology. In contrast, a
+            framework (like TOGAF or the AWS CAF) is prescriptive. It provides a structure or a set
+            of best practices to guide action, answering how an organization should go about
+            implementing technology.
           </p>
         </section>
 
@@ -114,20 +114,19 @@ const ModelsPage = () => {
             series will explore in detail.
           </p>
           <p className="mb-4">
-            The study of <strong>User and Consumer Adoption</strong> grew out of broad social
-            psychology theories. Researchers refined these into focused models like the influential
-            Technology Acceptance Model (TAM) [7] to explain the internal user’s journey, and later
-            extended them with concepts like Hedonic Motivation and Price Value to better understand
-            the consumer’s decision [9].
+            The study of User and Consumer Adoption grew out of broad social psychology theories.
+            Researchers refined these into focused models like the influential Technology Acceptance
+            Model (TAM) [7] to explain the internal user’s journey, and later extended them with
+            concepts like Hedonic Motivation and Price Value to better understand the consumer’s
+            decision [9].
           </p>
           <p>
-            The study of <strong>Organizational Adoption</strong>, by contrast, has its roots in
-            strategic management. Early frameworks provided a high-level lens for understanding why
-            a firm might adopt a technology. This has since evolved into a landscape of highly
-            practical, prescriptive frameworks from standards bodies like The Open Group (TOGAF)
-            [10] and major technology vendors like Amazon Web Services (AWS Cloud Adoption
-            Framework) [11], which provide detailed guidance on how to execute these complex
-            strategic initiatives.
+            The study of Organizational Adoption, by contrast, has its roots in strategic
+            management. Early frameworks provided a high-level lens for understanding why a firm
+            might adopt a technology. This has since evolved into a landscape of highly practical,
+            prescriptive frameworks from standards bodies like The Open Group (TOGAF) [10] and major
+            technology vendors like Amazon Web Services (AWS Cloud Adoption Framework) [11], which
+            provide detailed guidance on how to execute these complex strategic initiatives.
           </p>
         </section>
 
