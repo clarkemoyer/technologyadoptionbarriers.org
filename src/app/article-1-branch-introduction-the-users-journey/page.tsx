@@ -37,7 +37,7 @@ const UsersJourneyPage = () => {
           <ul className="list-disc pl-5 space-y-1 text-sm text-blue-700 font-sans">
             <li>
               <Link
-                href="/technology-adoption-models/foundational-theories"
+                href="/article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance"
                 className="hover:underline"
               >
                 Article 1.1: The Bedrock – Foundational Theories That Shaped Tech Acceptance
