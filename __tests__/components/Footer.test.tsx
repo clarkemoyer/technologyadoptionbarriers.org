@@ -26,6 +26,18 @@ describe('Footer component', () => {
     expect(credits.length).toBeGreaterThan(0)
   })
 
+  it('should have social media links', () => {
+    render(<Footer />)
+    const linkedIn = screen.getByLabelText('LinkedIn')
+    expect(linkedIn).toHaveAttribute('href', 'https://www.linkedin.com/in/clarkemoyer/')
+
+    const github = screen.getByLabelText('GitHub')
+    expect(github).toHaveAttribute(
+      'href',
+      'https://github.com/clarkemoyer/technologyadoptionbarriers.org'
+    )
+  })
+
   // Email link removed in simplified footer design
   // it('should have email contact link', () => { ... })
 

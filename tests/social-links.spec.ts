@@ -30,15 +30,22 @@ test.describe('Footer Social Links', () => {
     // Verify LinkedIn link is present
     const linkedInLink = page.locator('footer a[aria-label="LinkedIn"]')
     await expect(linkedInLink).toBeVisible()
-    await expect(linkedInLink).toHaveAttribute('aria-label', 'LinkedIn')
     await expect(linkedInLink).toHaveAttribute('href', 'https://www.linkedin.com/in/clarkemoyer/')
+
+    // Verify GitHub link is present
+    const gitHubLink = page.locator('footer a[aria-label="GitHub"]')
+    await expect(gitHubLink).toBeVisible()
+    await expect(gitHubLink).toHaveAttribute('href', 'https://github.com/clarkemoyer/technologyadoptionbarriers.org')
   })
 
-  test('should have exactly 1 social media icon', async ({ page }) => {
+  test('should have social media icons', async ({ page }) => {
     // Navigate to the homepage
     await page.goto('/')
 
-    const socialMediaLinks = page.locator('footer a[aria-label="LinkedIn"]')
-    await expect(socialMediaLinks).toHaveCount(1)
+    const linkedIn = page.locator('footer a[aria-label="LinkedIn"]')
+    const gitHub = page.locator('footer a[aria-label="GitHub"]')
+
+    await expect(linkedIn).toHaveCount(1)
+    await expect(gitHub).toHaveCount(1)
   })
 })
