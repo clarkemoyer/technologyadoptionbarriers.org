@@ -1,6 +1,14 @@
 import { defineConfig, devices } from '@playwright/test'
 import { execFileSync } from 'child_process'
 
+function normalizeBasePath(value: string | undefined): string {
+  if (!value) return ''
+  const trimmed = value.trim()
+  if (!trimmed) return ''
+  const withLeadingSlash = trimmed.startsWith('/') ? trimmed : `/${trimmed}`
+  return withLeadingSlash.replace(/\/+$/, '')
+}
+
 /**
  * Finds the system Chromium browser executable.
  *
@@ -57,7 +65,7 @@ export default defineConfig({
 
   use: {
     // Base URL for tests
-    baseURL: 'http://localhost:3000',
+    baseURL: `http://localhost:3000${normalizeBasePath(process.env.NEXT_PUBLIC_BASE_PATH)}`,
     // Collect trace when retrying the failed test
     trace: 'on-first-retry',
   },
