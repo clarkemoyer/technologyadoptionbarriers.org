@@ -39,11 +39,14 @@ const BottomCTA = () => {
           </div>
           <div className="hidden md:block w-[1px] h-[40px] bg-blue-800"></div>
           <div>
-            <span className="text-blue-400 block text-[14px] uppercase tracking-wider mb-1">
+            <span className="text-blue-400 block text-[14px] uppercase tracking-wider mb-1 font-sans">
               Phone
             </span>
-            <a href="tel:5202228104" className="hover:text-blue-300 transition-colors">
-              Call Us: (520) 222 8104
+            <a
+              href="tel:5202228104"
+              className="hover:text-blue-300 transition-colors font-sans text-[16px] font-bold"
+            >
+              (520) 222 8104
             </a>
           </div>
         </div>

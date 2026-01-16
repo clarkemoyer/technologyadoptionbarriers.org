@@ -13,7 +13,8 @@ const GetInvolved = () => {
         </h2>
 
         {/* Phone Number - Key missing element restoring from live site */}
-        <p className="text-[24px] font-bold text-[#0E7162] mb-[20px]">(571) 257-6411</p>
+        <p className="text-[20px] text-gray-700 mb-[5px]">Call or Text Clarke Moyer at</p>
+        <p className="text-[24px] font-bold text-[#26C699] mb-[20px] font-serif">520-222-8104</p>
 
         <p className="text-[20px] text-gray-700 max-w-[800px] mx-auto leading-[1.6]">
           Support technology adoption research through participation, funding, or volunteering.

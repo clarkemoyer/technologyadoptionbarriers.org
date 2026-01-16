@@ -13,27 +13,28 @@ const Footer: React.FC = () => {
     { icon: FaLinkedinIn, href: 'https://www.linkedin.com/in/clarkemoyer/', label: 'LinkedIn' },
   ]
   return (
-    <footer className="bg-black text-white">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-12 px-4 md:px-6 lg:px-8">
-        {/* Column 1: Credits */}
-        <div className="space-y-6 px-4 sm:px-0">
-          <h3 className="text-[28px] text-white">Credits</h3>
-
-          <div className="space-y-4">
-            <p className="text-gray-400 text-[18px]">
-              Technology Adoption Barriers Survey (TABS) is a research initiative led by Clarke
-              Moyer.
-            </p>
-            <p className="text-gray-400 text-[18px]">
-              Special thanks to Smeal College of Business and the PSU DBA program for their support
-              in this research.
-            </p>
-          </div>
+    <footer className="w-full bg-black text-white">
+      {/* Disclaimer Block - Matches Live Site "NOTE" sections */}
+      <div className="bg-black py-[40px] px-[20px] md:px-[60px] border-b border-gray-800">
+        <div className="max-w-[1080px] mx-auto space-y-[20px] text-[14px] md:text-[16px] text-gray-300">
+          <p>
+            <strong className="text-white">NOTE:</strong> Content on this site has used AI. This
+            includes video, audio, image, and text generation capabilities from multiple models.
+            Reach out to Clarke Moyer at 520-222-8104 with any questions on methods.
+          </p>
+          <p>
+            <strong className="text-white">NOTE:</strong> This project is in Draft. Not all items
+            have been fully validated or property cited. If you find any gaps in citation or content
+            issues, please reach out to Clarke Moyer 520-222-8104
+          </p>
         </div>
+      </div>
 
-        {/* Column 2: Quick Links */}
-        <div className="space-y-6 px-4 sm:px-0">
-          <ul className="space-y-2 text-sm" id="lato-font">
+      {/* Navigation and Copyright */}
+      <div className="py-[40px] px-[20px] bg-black">
+        <div className="max-w-[1080px] mx-auto flex flex-col items-center gap-[20px]">
+          {/* Navigation Links */}
+          <ul className="flex flex-wrap justify-center gap-[20px] md:gap-[40px] text-[16px] font-medium">
             {[
               { name: 'Home', href: '/' },
               {
@@ -48,86 +49,33 @@ const Footer: React.FC = () => {
                 <Link
                   href={link.href}
                   target={link.href.startsWith('http') ? '_blank' : undefined}
-                  className="hover:text-[#F58C23] transition-all text-[16px] font-[500]"
+                  className="hover:text-[#26C699] transition-colors"
                 >
                   {link.name}
                 </Link>
               </li>
             ))}
           </ul>
-        </div>
 
-        {/* Column 3: Contact Us */}
-        <div className="space-y-6 px-4 sm:px-0">
-          <h3 className="text-[28px] text-white">Contact Us</h3>
+          {/* Copyright */}
+          <div className="text-center text-gray-500 text-[14px] mt-[20px]">
+            © {currentYear} Clarke Moyer all rights reserved. Credit to Smeal and the PSU DBA
+            program.
+          </div>
 
-          <div className="space-y-4 text-sm">
-            <div className="flex items-start gap-3">
-              <Mail className="w-10 h-10 text-orange-500 flex-shrink-0 mt-0.5" />
-              <div>
-                <p className="font-[500] text-[22px]">E-mail</p>
-                <a
-                  href="mailto:clarke@technologyadoptionbarriers.org"
-                  className="font-[500] text-[15px] hover:text-cyan-400 transition-colors break-all"
-                  id="aria-font"
-                >
-                  clarke@technologyadoptionbarriers.org
-                </a>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <Phone className="w-10 h-10 text-orange-500 flex-shrink-0 mt-0.5" />
-              <div>
-                <p className="font-[500] text-[22px]">Call Us Today</p>
-                <a
-                  href="tel:5202228104"
-                  className="font-[500] text-[16px] hover:text-cyan-400 transition-colors"
-                  id="aria-font"
-                >
-                  (520) 222-8104
-                </a>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <MapPin className="w-10 h-10 text-orange-500 flex-shrink-0 mt-0.5" />
-              <div>
-                <p className="font-[500] text-[22px]">Research Office</p>
-                <p className="font-[500] text-[16px]" id="aria-font">
-                  Technology Adoption Barriers Survey
-                  <br />
-                  Pennsylvania State University
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-3 pt-4">
-              {socialLinks.map(({ icon: Icon, href, label }, index) => (
-                <a
-                  key={index}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="bg-orange-500 p-2 rounded-full hover:bg-orange-600 transition-colors"
-                >
-                  <Icon className="w-6 h-6 text-white" />
-                </a>
-              ))}
-            </div>
+          {/* Social Icon (LinkedIn) - Kept as it was on live site footer if present, else just nav */}
+          <div className="flex gap-4">
+            <a
+              href="https://www.linkedin.com/in/clarkemoyer/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="text-white hover:text-[#26C699] transition-colors"
+            >
+              <FaLinkedinIn className="w-5 h-5" />
+            </a>
           </div>
         </div>
-      </div>
-
-      {/* Bottom Bar */}
-      <div
-        className="mt-12 py-6 px-4 border-t border-gray-800 text-center text-[18px] font-[500] w-full"
-        id="aria-font"
-      >
-        <p>
-          © {currentYear} Clarke Moyer all rights reserved. Credit to Smeal and the PSU DBA program.
-        </p>
       </div>
     </footer>
   )
