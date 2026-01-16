@@ -21,6 +21,16 @@ const ModelsPage = () => {
             Successful technology integration requires a strategy that addresses all three.
           </p>
 
+          <div className="my-[40px]">
+            <Image
+              src="/Images/articles/Tech-Adoption-Triangle.png"
+              alt="The Tech Adoption Triangle: Organizational, User, and Consumer Adoption"
+              width={800}
+              height={500}
+              className="w-full h-auto rounded-lg shadow-md"
+            />
+          </div>
+
           <figure className="my-10">
             <div className="relative w-full h-auto">
               <Image
