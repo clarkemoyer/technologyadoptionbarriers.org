@@ -17,19 +17,12 @@ test.describe('Footer Copyright Notice', () => {
     // Get the current year
     const currentYear = new Date().getFullYear()
 
-    // Find the footer paragraph containing the copyright symbol/year
-    const footerText = page.locator('footer p').filter({ hasText: '©' }).first()
-
-    // Verify the copyright notice is visible
-    await expect(footerText).toBeVisible()
-
-    // Verify it contains the copyright symbol and current year
-    await expect(footerText).toContainText(`© ${currentYear}`)
-
-    // Verify the site-specific copyright copy
-    await expect(footerText).toContainText('Clarke Moyer')
-    await expect(footerText).toContainText('all rights reserved')
-    await expect(footerText).toContainText('PSU DBA')
+    // Verify footer contains the copyright text
+    const footer = page.locator('footer')
+    await expect(footer).toBeVisible()
+    await expect(footer).toContainText(`© ${currentYear} Clarke Moyer`)
+    await expect(footer).toContainText('all rights reserved')
+    await expect(footer).toContainText('Credit to Smeal and the PSU DBA program')
   })
 
   test('should not reference freeforcharity.org in footer', async ({ page }) => {
