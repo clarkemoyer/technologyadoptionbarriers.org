@@ -54,7 +54,7 @@ jobs:
         # (serve -s out) doesn't understand basePath routing
 
       - name: Upload built site (for E2E)
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: built-site-out
           path: out/
@@ -62,7 +62,7 @@ jobs:
 
       - name: Upload build artifacts (for debugging)
         if: failure()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: build-output
           path: |
@@ -109,7 +109,7 @@ jobs:
 
       - name: Upload Playwright report
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: playwright-report-shard-${{ matrix.shardIndex }}-of-${{ matrix.shardTotal }}
           path: playwright-report/
@@ -117,7 +117,7 @@ jobs:
 
       - name: Upload Playwright test results
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: playwright-test-results-shard-${{ matrix.shardIndex }}-of-${{ matrix.shardTotal }}
           path: test-results/
