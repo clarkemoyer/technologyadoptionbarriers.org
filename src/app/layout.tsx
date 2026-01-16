@@ -125,7 +125,7 @@ export default function RootLayout({
         <GoogleTagManagerNoScript />
         {/* <PopupProvider> */}
         <Header />
-        <main className="pt-[80px]">{children}</main>
+        {children}
         <Footer />
         <CookieConsent />
         {/* <PopupsRootClient /> */}

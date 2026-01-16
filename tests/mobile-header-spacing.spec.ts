@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 
 /**
  * Test to ensure mobile header doesn't overlap with page content
- * This validates the fix for: https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/XXX
+ * This validates the fix for mobile menu overlapping homepage text
  */
 test.describe('Mobile Header Spacing', () => {
   test('should have proper spacing between fixed header and main content on mobile', async ({
@@ -21,18 +21,11 @@ test.describe('Mobile Header Spacing', () => {
     const header = page.locator('header#header')
     await expect(header).toBeVisible()
 
-    // Get the main content element
-    const main = page.locator('main')
-    await expect(main).toBeVisible()
-
-    // Get bounding boxes
+    // Get bounding box for header
     const headerBox = await header.boundingBox()
-    const mainBox = await main.boundingBox()
-
     expect(headerBox).not.toBeNull()
-    expect(mainBox).not.toBeNull()
 
-    if (headerBox && mainBox) {
+    if (headerBox) {
       // Verify the hero heading is visible and not behind the header
       const heroHeading = page.getByRole('heading', {
         name: 'Technology Adoption Barriers Survey.',
@@ -45,7 +38,7 @@ test.describe('Mobile Header Spacing', () => {
 
       if (heroBox) {
         // Hero heading should be below the fixed header
-        // The header height is 80px, and with pt-[80px] on main,
+        // The header height is 80px, and with pt-[80px] on the homepage wrapper,
         // the content should start at least at y=80
         expect(heroBox.y).toBeGreaterThanOrEqual(80)
 
@@ -111,15 +104,12 @@ test.describe('Mobile Header Spacing', () => {
       await page.waitForLoadState('networkidle')
 
       const header = page.locator('header#header')
-      const main = page.locator('main')
 
       const headerBox = await header.boundingBox()
-      const mainBox = await main.boundingBox()
 
       expect(headerBox, `Header should be visible on ${viewport.name}`).not.toBeNull()
-      expect(mainBox, `Main content should be visible on ${viewport.name}`).not.toBeNull()
 
-      if (headerBox && mainBox) {
+      if (headerBox) {
         // Verify the hero heading starts below the header
         const heroHeading = page.getByRole('heading', {
           name: 'Technology Adoption Barriers Survey.',
