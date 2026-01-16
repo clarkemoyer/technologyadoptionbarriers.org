@@ -14,11 +14,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'staging.freeforcharity.org',
-      },
-      {
-        protocol: 'https',
-        hostname: 'freeforcharity.org',
+        hostname: 'technologyadoptionbarriers.org',
       },
       {
         protocol: 'https',

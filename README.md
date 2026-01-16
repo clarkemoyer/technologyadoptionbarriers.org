@@ -1,6 +1,6 @@
 # Technology Adoption Barriers Website
 
-Single-page Next.js 16.0.7 website built with App Router, based on the Free For Charity template.
+Single-page Next.js 16.0.7 website built with App Router for Technology Adoption Barriers (TABS).
 
 ## 🚧 Content Migration In Progress
 
@@ -24,12 +24,7 @@ Single-page Next.js 16.0.7 website built with App Router, based on the Free For 
 
 ## About This Repository
 
-This repository contains the Technology Adoption Barriers website, built using the Free For Charity Next.js template. The site is currently undergoing content migration from the live https://technologyadoptionbarriers.org/ site.
-
-### Template Origin
-
-**Original Template:** Free For Charity Single Page Template  
-**Template Organization:** Free For Charity is a 501(c)(3) nonprofit organization (EIN: 46-2471893) dedicated to supporting other nonprofits.
+This repository contains the Technology Adoption Barriers (TABS) website.
 
 ## CNCF-Compliant Open Source Project
 
@@ -53,7 +48,7 @@ This repository follows **Cloud Native Computing Foundation (CNCF)** standards f
 
 **Why CNCF Alignment?** Following CNCF standards strengthens project credibility, simplifies onboarding of contributors, and prepares us for cloud-native ecosystem integrations. It demonstrates our commitment to open source best practices and professional project management.
 
-**Primary Contact**: Clarke Moyer ([@clarkemoyer](https://github.com/clarkemoyer)) - clarkemoyer@freeforcharity.org
+**Primary Contact**: Clarke Moyer ([@clarkemoyer](https://github.com/clarkemoyer)) - contact@technologyadoptionbarriers.org
 
 ## Purpose
 
@@ -65,10 +60,6 @@ This repository follows **Cloud Native Computing Foundation (CNCF)** standards f
 📊 **Progress:** 0% Complete - See [MIGRATION_STATUS.md](./MIGRATION_STATUS.md) for detailed checklist  
 🎯 **Next Steps:** Extract content from https://technologyadoptionbarriers.org/ using [Content Extraction Guide](./CONTENT_EXTRACTION_GUIDE.md)
 
-### Template Purpose (Original)
-
-The underlying template is from Free For Charity, which connects students, professionals, and businesses with nonprofits to reduce operating costs and increase impact.
-
 ## Main Calls-to-Action
 
 The site features two primary CTAs accessible throughout the experience via global popups:
@@ -78,7 +69,7 @@ The site features two primary CTAs accessible throughout the experience via glob
 
 ## Deployment
 
-- **Live Site**: [http://staging.technologyadoptionbarriers.org](http://staging.technologyadoptionbarriers.org)
+- **Live Site**: [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org)
 - **GitHub Pages**: [https://clarkemoyer.github.io/technologyadoptionbarriers.org/](https://clarkemoyer.github.io/technologyadoptionbarriers.org/)
 - **Hosting**: GitHub Pages
 - **Deployment**: Automated via GitHub Actions on push to `main` branch
@@ -94,7 +85,8 @@ The site is live and fully functional with the following features:
 - Core navigation and layout (mobile and desktop responsive)
 - SEO optimization (metadata, sitemap, robots.txt)
 - Static site generation and deployment pipeline
-- All 7 policy pages created and linked (Privacy Policy, Cookie Policy, Terms of Service, Donation Policy, Free For Charity Donation Policy, Vulnerability Disclosure Policy, Security Acknowledgements)
+- All 6 policy pages created and linked (Privacy Policy, Cookie Policy, Terms of Service, Donation Policy, Vulnerability Disclosure Policy, Security Acknowledgements)
+
 - Social media links configured (Facebook, Twitter/X, LinkedIn, GitHub)
 - Footer links fully functional with proper destinations
 - Contact information complete (email, phone, addresses)
@@ -112,7 +104,7 @@ The site is live and fully functional with the following features:
 
 ## Overview
 
-This is a single-page website with **100+ component files** organized into multiple sections that showcase Free For Charity's programs, services, and resources. The homepage is composed of scrollable sections (Hero, Mission, Programs, Team, FAQ, etc.), with 7 additional policy pages for legal content. The site includes a global popup system for donations and volunteer signups (codebase includes the infrastructure, though the popups are currently commented out in `layout.tsx`).
+This is a single-page website with **100+ component files** organized into multiple sections that present TABS content, resources, and supporting pages. The homepage is composed of scrollable sections, with additional policy pages for legal content. The site includes a global popup system for donations and volunteer signups (codebase includes the infrastructure, though the popups are currently commented out in `layout.tsx`).
 
 ### Site Structure
 
@@ -139,7 +131,6 @@ The main page (`/`) is a single-page application composed of scrollable sections
 - Cookie Policy (`/cookie-policy`)
 - Terms of Service (`/terms-of-service`)
 - Donation Policy (`/donation-policy`)
-- Free For Charity Donation Policy (`/free-for-charity-donation-policy`)
 - Vulnerability Disclosure Policy (`/vulnerability-disclosure-policy`)
 - Security Acknowledgements (`/security-acknowledgements`)
 
@@ -402,9 +393,9 @@ The following enhancements could further improve the test suite:
 
 Preview deployments allow reviewers to see and test changes in a live environment before merging, without needing to clone the repository or run it locally. This is especially valuable for non-technical reviewers.
 
-#### Recommended Options for Nonprofits: Vercel vs Cloudflare Pages
+#### Recommended Options: Vercel vs Cloudflare Pages
 
-For Free For Charity as a nonprofit organization, we evaluated the best preview deployment platforms based on free tier sustainability and features.
+We evaluated the best preview deployment platforms based on free tier sustainability and features.
 
 **Platform Comparison for Nonprofits:**
 
@@ -425,7 +416,7 @@ For Free For Charity as a nonprofit organization, we evaluated the best preview 
 
 **🏆 Recommendation: Cloudflare Pages**
 
-For Free For Charity, **Cloudflare Pages is the better choice** for these reasons:
+For this project, **Cloudflare Pages is a strong default choice** for these reasons:
 
 1. **Most Likely to Stay Free Long-Term**
    - Cloudflare's business model is built on enterprise customers, not small sites
@@ -477,7 +468,7 @@ Both platforms provide identical workflows:
 
 **Coexistence with GitHub Pages:**
 
-- Keep GitHub Pages for production (ffcworkingsite1.org)
+- Keep GitHub Pages for production (custom domain if configured)
 - Use Cloudflare Pages or Vercel for PR previews only
 - No conflicts between systems
 
@@ -497,8 +488,8 @@ Both platforms provide identical workflows:
    - Build command: `npm run build`
    - Build output directory: `out`
    - Environment variables: Leave `NEXT_PUBLIC_BASE_PATH` unset
-     - GitHub Pages needs `/FFC_Single_Page_Template` for subdirectory routing
-     - Cloudflare Pages deploys to root, no basePath needed
+     - GitHub Pages with a custom domain deploys to root, no basePath needed
+     - GitHub Pages without a custom domain may need `NEXT_PUBLIC_BASE_PATH=/<repo-name>`
 
 4. **Enable Preview Deployments**
    - In project settings → Builds & deployments
@@ -513,8 +504,8 @@ Both platforms provide identical workflows:
 **Result**: Every PR will have a comment like:
 
 ```
-✅ Preview deployed to https://abc123.ffc-template.pages.dev
-🔗 Production: https://ffc-template.pages.dev
+✅ Preview deployed to https://abc123.preview.pages.dev
+🔗 Production: https://your-site.pages.dev
 ```
 
 #### Setting Up Vercel (Alternative)
@@ -539,7 +530,7 @@ Vercel automatically enables PR preview deployments and comments.
 
 ## Key Features
 
-- **Single-Page Architecture:** One main scrollable page with multiple sections plus 7 policy pages
+- **Single-Page Architecture:** One main scrollable page with multiple sections plus 6 policy pages
 - **Component Library:** 112 component files organized by feature/section
 - **Responsive Navigation:** Mobile and desktop navigation with Header/Footer components
 - **Cookie Consent System:** GDPR-compliant cookie consent management
@@ -573,7 +564,6 @@ src/
 │   ├── home-page/                             # Homepage sections (single-page structure)
 │   ├── cookie-policy/                         # Cookie Policy page
 │   ├── donation-policy/                       # Donation Policy page
-│   ├── free-for-charity-donation-policy/      # Free For Charity Donation Policy page
 │   ├── privacy-policy/                        # Privacy Policy page
 │   ├── security-acknowledgements/             # Security Acknowledgements page
 │   ├── terms-of-service/                      # Terms of Service page
@@ -617,7 +607,7 @@ src/
 
 ## Site Improvements & Capability Gaps
 
-A comprehensive technical analysis comparing this repository to sister sites (freeforcharity-web, ffcadmin.org, KCCF-web) is available in **[SITE_IMPROVEMENTS.md](./SITE_IMPROVEMENTS.md)**.
+A comprehensive technical analysis comparing this repository to related sites is available in **[SITE_IMPROVEMENTS.md](./SITE_IMPROVEMENTS.md)**.
 
 This document identifies:
 
@@ -695,7 +685,7 @@ We welcome new contributors and believe fresh perspectives are invaluable! **You
 
 Use our **Reviewer Onboarding template** to document your findings:
 
-[**Create Reviewer Onboarding Issue**](https://github.com/FreeForCharity/FFC_Single_Page_Template/issues/new?assignees=&labels=documentation%2Creview%2Conboarding&template=reviewer-onboarding.md)
+[**Create Reviewer Onboarding Issue**](../../issues/new?assignees=&labels=documentation%2Creview%2Conboarding&template=reviewer-onboarding.md)
 
 The template guides you through:
 
@@ -717,7 +707,7 @@ Once your review is complete:
 - Start contributing code improvements
 - Help review other contributions
 
-**Ready to help make Free For Charity better? Start your review today!**
+**Ready to help improve Technology Adoption Barriers (TABS)? Start your review today!**
 
 ---
 

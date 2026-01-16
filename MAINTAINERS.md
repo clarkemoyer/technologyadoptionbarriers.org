@@ -1,17 +1,17 @@
 # Maintainers
 
-This document lists the maintainers of the Free For Charity website repository, their roles, and areas of responsibility.
+This document lists the maintainers of the Technology Adoption Barriers (TABS) website repository, their roles, and areas of responsibility.
 
 ## Project Leadership
 
 ### Founder and Lead Maintainer
 
 **Clarke Moyer**  
-Founder, Free For Charity
+Founder, Technology Adoption Barriers (TABS)
 
 - **Role**: Founder, Lead Maintainer, Project Owner
 - **GitHub**: [@clarkemoyer](https://github.com/clarkemoyer)
-- **Email**: clarkemoyer@freeforcharity.org
+- **Email**: clarke@technologyadoptionbarriers.org
 - **Phone**: 520-222-8104 (text preferred)
 - **Scope**: All areas of the project
 - **Responsibilities**:
@@ -22,17 +22,17 @@ Founder, Free For Charity
   - Community leadership
   - Maintainer appointments
 
-## Free For Charity Team
+## TABS Team
 
-The Free For Charity organization includes additional team members and board members who contribute to the project's success:
+The Technology Adoption Barriers (TABS) project includes additional team members who contribute to the project's success:
 
-- **Free For Charity Board of Directors**
+- **Project Leadership / Stakeholders**
   - Organizational governance
   - Strategic oversight
   - Policy decisions
   - Nonprofit compliance
 
-- **Free For Charity Development Team**
+- **Contributors / Development Team**
   - Code contributions
   - Feature development
   - Bug fixes
@@ -111,7 +111,7 @@ We welcome contributors who demonstrate:
 - Consistent high-quality contributions
 - Understanding of the codebase
 - Positive community interactions
-- Alignment with Free For Charity's mission
+- Alignment with the Technology Adoption Barriers (TABS) mission
 
 See [GOVERNANCE.md](./GOVERNANCE.md) for the full maintainer appointment process.
 
@@ -142,11 +142,11 @@ For maintainer-related questions:
 - **General inquiries**: Open a GitHub Discussion
 - **Contribution questions**: See [CONTRIBUTING.md](./CONTRIBUTING.md)
 - **Security issues**: See [SECURITY.md](./SECURITY.md)
-- **Code of Conduct violations**: Contact Clarke Moyer at clarkemoyer@freeforcharity.org
+- **Code of Conduct violations**: Contact the maintainers at contact@technologyadoptionbarriers.org
 
 ## Acknowledgments
 
-We appreciate all maintainers' time and dedication to making Free For Charity's mission possible. Maintainers volunteer their time to support nonprofits and strengthen the open-source community.
+We appreciate all maintainers' time and dedication to making the Technology Adoption Barriers (TABS) mission possible.
 
 For a complete list of all contributors (including maintainers), see [CONTRIBUTORS.md](./CONTRIBUTORS.md).
 

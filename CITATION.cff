@@ -2,7 +2,7 @@
 # Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: Free For Charity Website Template
+title: Technology Adoption Barriers (TABS) Website
 message: >-
   If you use this software, please cite it using the
   metadata from this file.
@@ -10,24 +10,21 @@ type: software
 authors:
   - given-names: Clarke
     family-names: Moyer
-    email: clarkemoyer@freeforcharity.org
-    affiliation: Free For Charity
-repository-code: 'https://github.com/FreeForCharity/FFC_Single_Page_Template'
-url: 'https://ffcworkingsite1.org'
+    email: clarke@technologyadoptionbarriers.org
+    affiliation: Technology Adoption Barriers (TABS)
+repository-code: 'https://github.com/<your-org>/technologyadoptionbarriers.org'
+url: 'https://technologyadoptionbarriers.org'
 abstract: >-
-  Single-page Next.js 16.0.7 website template built with App
-  Router for Free For Charity nonprofit organization. This
-  template provides a professional, accessible, and
-  performant foundation for nonprofit websites, featuring
-  global popups for donations and volunteer applications,
-  comprehensive testing, and GitHub Pages deployment
-  support.
+  Single-page Next.js website built with the App Router for the
+  Technology Adoption Barriers (TABS) project. Provides a
+  professional, accessible, and performant foundation for a
+  static site with comprehensive documentation and testing.
 keywords:
-  - nonprofit
-  - charity
+  - technology-adoption
+  - research
+  - barriers
   - nextjs
   - website-template
-  - 501c3
   - typescript
   - tailwindcss
   - accessibility

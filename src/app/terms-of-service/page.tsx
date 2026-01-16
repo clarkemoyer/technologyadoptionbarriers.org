@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | Free For Charity',
-  description: 'Terms of Service for Free For Charity website',
+  title: 'Terms of Service | Technology Adoption Barriers (TABS)',
+  description: 'Terms of Service for the Technology Adoption Barriers (TABS) website',
 }
 
 export default function TermsOfService() {
@@ -17,7 +17,7 @@ export default function TermsOfService() {
 
           {/* Main Title */}
           <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">
-            Free For Charity Terms of Service
+            Technology Adoption Barriers (TABS) Terms of Service
           </h1>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">&nbsp;</p>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">&nbsp;</p>
@@ -29,11 +29,11 @@ export default function TermsOfService() {
             Introduction
           </h1>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            Welcome to Free For Charity! These Terms of Service (“Terms”) govern your access to and
-            use of our website, services, and platforms (collectively, “Services”), provided by Free
-            For Charity (“we,” “us,” or “our”). By accessing or using our Services, you agree to be
-            bound by these Terms. If you do not agree to these Terms, please do not use our
-            Services.
+            Welcome to Technology Adoption Barriers (TABS)! These Terms of Service (“Terms”) govern
+            your access to and use of our website, services, and platforms (collectively,
+            “Services”), provided by Technology Adoption Barriers (TABS) (“we,” “us,” or “our”). By
+            accessing or using our Services, you agree to be bound by these Terms. If you do not
+            agree to these Terms, please do not use our Services.
           </p>
 
           {/* Eligibility */}
@@ -83,23 +83,23 @@ export default function TermsOfService() {
               Collecting or storing personal data about other users without their consent.
             </li>
             <li className="text-[14px] text-[#666] leading-[24px] font-[500]">
-              Using the Services to solicit funds outside the scope of Free For Charity’s mission.
+              Using the Services to solicit funds outside the scope of this website.
             </li>
           </ul>
 
           {/* Donations */}
           <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">Donations</h1>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            All donations made to Free For Charity are voluntary and non-refundable. By making a
-            donation, you agree to our Donation Policy, which is incorporated by reference into
-            these Terms.
+            Any donations made through this website are voluntary and non-refundable except where
+            required by applicable law. By making a donation, you agree to our Donation Policy,
+            which is incorporated by reference into these Terms.
           </p>
 
           {/* Payments */}
           <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">Payments</h1>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            All payments made to Free For Charity are voluntary and non-refundable. No refunds will
-            be given due to the nonprofit nature of Free For Charity.
+            Any payments made through this website are voluntary and non-refundable except where
+            required by applicable law.
           </p>
 
           {/* Intellectual Property */}
@@ -110,9 +110,9 @@ export default function TermsOfService() {
           <h2 className="text-[26px] text-[#333] pb-[10px] leading-[26px] font-[500]">Ownership</h2>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
             All content, trademarks, logos, and other intellectual property included in our Services
-            are the property of Free For Charity or its licensors. You agree not to use, reproduce,
-            distribute, or create derivative works based on our intellectual property without our
-            express written consent.
+            are the property of Technology Adoption Barriers (TABS) or its licensors. You agree not
+            to use, reproduce, distribute, or create derivative works based on our intellectual
+            property without our express written consent.
           </p>
 
           <h2 className="text-[26px] text-[#333] pb-[10px] leading-[26px] font-[500]">
@@ -137,10 +137,11 @@ export default function TermsOfService() {
           </h1>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
             Our Services may contain links to third-party websites or services that are not owned or
-            controlled by Free For Charity. We are not responsible for the content, privacy
-            policies, or practices of any third-party websites or services. You acknowledge and
-            agree that Free For Charity shall not be liable for any damages or loss caused by or in
-            connection with your use of any third-party websites or services.
+            controlled by Technology Adoption Barriers (TABS). We are not responsible for the
+            content, privacy policies, or practices of any third-party websites or services. You
+            acknowledge and agree that Technology Adoption Barriers (TABS) shall not be liable for
+            any damages or loss caused by or in connection with your use of any third-party websites
+            or services.
           </p>
 
           {/* Disclaimer of Warranties */}
@@ -148,12 +149,12 @@ export default function TermsOfService() {
             Disclaimer of Warranties
           </h1>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            Our Services are provided on an “as is” and “as available” basis. Free For Charity makes
-            no representations or warranties of any kind, express or implied, regarding the use or
-            the results of our Services in terms of accuracy, reliability, or otherwise. Free For
-            Charity disclaims all warranties, express or implied, including, but not limited to,
-            implied warranties of merchantability, fitness for a particular purpose, and
-            non-infringement.
+            Our Services are provided on an “as is” and “as available” basis. Technology Adoption
+            Barriers (TABS) makes no representations or warranties of any kind, express or implied,
+            regarding the use or the results of our Services in terms of accuracy, reliability, or
+            otherwise. Technology Adoption Barriers (TABS) disclaims all warranties, express or
+            implied, including, but not limited to, implied warranties of merchantability, fitness
+            for a particular purpose, and non-infringement.
           </p>
 
           {/* Limitation of Liability */}
@@ -161,10 +162,10 @@ export default function TermsOfService() {
             Limitation of Liability
           </h1>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            To the fullest extent permitted by law, Free For Charity shall not be liable for any
-            indirect, incidental, special, consequential, or punitive damages, or any loss of
-            profits or revenues, whether incurred directly or indirectly, or any loss of data, use,
-            goodwill, or other intangible losses, resulting from:
+            To the fullest extent permitted by law, Technology Adoption Barriers (TABS) shall not be
+            liable for any indirect, incidental, special, consequential, or punitive damages, or any
+            loss of profits or revenues, whether incurred directly or indirectly, or any loss of
+            data, use, goodwill, or other intangible losses, resulting from:
           </p>
           <ul className="list-inside ml-[1.5em] space-y-[4px]">
             <li className="text-[14px] text-[#666] leading-[24px] font-[500]">
@@ -188,11 +189,11 @@ export default function TermsOfService() {
             Indemnification
           </h1>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            You agree to indemnify, defend, and hold harmless Free For Charity, its officers,
-            directors, employees, and agents, from and against any and all claims, liabilities,
-            damages, losses, and expenses, including reasonable attorneys’ fees, arising out of or
-            in any way connected with your access to or use of our Services, or your violation of
-            these Terms.
+            You agree to indemnify, defend, and hold harmless Technology Adoption Barriers (TABS),
+            its officers, directors, employees, and agents, from and against any and all claims,
+            liabilities, damages, losses, and expenses, including reasonable attorneys’ fees,
+            arising out of or in any way connected with your access to or use of our Services, or
+            your violation of these Terms.
           </p>
 
           {/* Governing Law */}
@@ -232,19 +233,23 @@ export default function TermsOfService() {
             If you have any questions about these Terms, please contact us at:
           </p>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            Free For Charity
+            Technology Adoption Barriers (TABS)
           </p>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
             Email:{' '}
-            <a href="mailto:clarkemoyer@freeforcharity.org" className="text-[#007bff] underline">
-              clarkemoyer@freeforcharity.org
+            <a
+              href="mailto:contact@technologyadoptionbarriers.org"
+              className="text-[#007bff] underline"
+            >
+              contact@technologyadoptionbarriers.org
             </a>
           </p>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
             Phone: 520-222-8104
           </p>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            Thank you for supporting Free For Charity and for complying with these Terms of Service.
+            Thank you for using Technology Adoption Barriers (TABS) and for complying with these
+            Terms of Service.
           </p>
         </div>
       </div>

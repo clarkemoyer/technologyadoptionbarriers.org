@@ -539,6 +539,6 @@ For issues or questions about Dependabot:
 
 **Configuration Version**: 1.0  
 **Last Updated**: 2025-12-03  
-**Repository**: FreeForCharity/FFC_Single_Page_Template  
+**Repository**: technologyadoptionbarriers.org  
 **Node.js**: 20.x (validated with v20.19.6)  
-**Maintained By**: FreeForCharity Team
+**Maintained By**: Technology Adoption Barriers (TABS) maintainers

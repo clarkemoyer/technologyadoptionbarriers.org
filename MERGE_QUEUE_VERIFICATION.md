@@ -43,7 +43,7 @@ Based on the provided screenshots and GitHub API data, here's what happened when
 - **Status:** ✅ Completed successfully
 - **Workflow:** Deploy to GitHub Pages
 - **Trigger:** `workflow_run` (after CI completed)
-- **Environment Variable:** `NEXT_PUBLIC_BASE_PATH=/FFC_Single_Page_Template`
+- **Environment Variable:** `NEXT_PUBLIC_BASE_PATH` (set to `/your-repo-name` for GitHub Pages deployments, or empty for custom-domain root deployments)
 - **Steps Executed:**
   - Build with Next.js for GitHub Pages
   - Deploy to GitHub Pages environment
@@ -243,8 +243,8 @@ The temporary 1-second workflow runs observed in the screenshots are expected be
 ### Commit Information
 
 - **SHA:** 038851c79adc2a42ac7fe1616a35862b475de729
-- **Message:** "Merge pull request #83 from FreeForCharity/copilot/update-readme-documentation"
-- **Author:** Clarke Moyer <clarkemoyer@freeforcharity.org>
+- **Message:** "Merge pull request #83 from copilot/update-readme-documentation"
+- **Author:** Clarke Moyer <clarke@technologyadoptionbarriers.org>
 - **Date:** December 7, 2024 01:54:54 UTC
 - **Tree:** 4c11e2e9c0cfa15e083738d161d80dc5b9f7fcad
 

@@ -1,6 +1,6 @@
 # Google Tag Manager (GTM) Component
 
-This component implements Google Tag Manager integration for the Free For Charity website.
+This component implements Google Tag Manager integration for the Technology Adoption Barriers (TABS) website.
 
 ## Overview
 
@@ -17,7 +17,7 @@ Google Tag Manager (GTM) is a tag management system that allows you to manage an
 
 - ✅ Standard GTM implementation following Google's guidelines
 - ✅ Initializes `dataLayer` before GTM loads
-- ✅ Uses Next.js Script component with `afterInteractive` strategy
+- ✅ Uses Next.js `Script` component with `lazyOnload` strategy
 - ✅ Includes noscript fallback for accessibility
 - ✅ Integrates with existing cookie consent system
 - ✅ GTM ID hardcoded directly in component (no environment variable needed)
@@ -28,7 +28,7 @@ Google Tag Manager (GTM) is a tag management system that allows you to manage an
 
 The GTM container ID is hardcoded directly in the component file. To update it:
 
-1. Open `src/components/GoogleTagManager/index.tsx`
+1. Open `src/components/google-tag-manager/index.tsx`
 2. Update the `GTM_ID` constant with your actual GTM container ID:
 
 ```tsx
@@ -43,7 +43,7 @@ Replace `GTM-XXXXXXX` with your actual GTM container ID from Google Tag Manager 
 The component is automatically integrated into the root layout (`src/app/layout.tsx`):
 
 ```tsx
-import GoogleTagManager, { GoogleTagManagerNoScript } from './../components/GoogleTagManager'
+import GoogleTagManager, { GoogleTagManagerNoScript } from './../components/google-tag-manager'
 
 export default function RootLayout({ children }) {
   return (
@@ -64,9 +64,9 @@ export default function RootLayout({ children }) {
 
 ### 1. Script Injection
 
-The GTM script is loaded using Next.js's `Script` component with the `afterInteractive` strategy, which means:
+The GTM script is loaded using Next.js's `Script` component with the `lazyOnload` strategy, which means:
 
-- The script loads after the page becomes interactive
+- The script loads after the browser finishes loading the page
 - It doesn't block the initial page load
 - It's optimal for analytics and marketing tags
 
@@ -94,29 +94,18 @@ For users with JavaScript disabled, the component includes an iframe fallback th
 
 ## Testing
 
-Comprehensive tests are available in `tests/google-tag-manager.spec.ts`:
+There is no dedicated GTM E2E test file in this repo right now. If you add one, good coverage includes:
 
-```bash
-# Run GTM tests
-npm run test:e2e -- tests/google-tag-manager.spec.ts
-```
-
-Test coverage includes:
-
-- ✅ DataLayer initialization
-- ✅ GTM script loading
-- ✅ Noscript fallback presence
-- ✅ Event pushing to dataLayer
-- ✅ Cookie consent integration
+- DataLayer initialization
+- GTM script loading (`#gtm-script`)
+- Noscript fallback presence
+- Cookie consent integration behavior
 
 ## Deployment
 
 ### GitHub Pages Deployment
 
-The site automatically deploys to GitHub Pages via `.github/workflows/nextjs.yml`. The GTM implementation works on both:
-
-1. **Custom domain**: https://www.ffcworkingsite1.org
-2. **GitHub Pages**: https://freeforcharity.github.io/FFC_Single_Page_Template/
+The GTM implementation works with static exports and GitHub Pages deployments.
 
 The GTM ID is hardcoded in the component, so no additional configuration is needed for deployment.
 
@@ -175,7 +164,7 @@ In GTM, use Preview mode to:
 The GTM implementation is optimized for performance:
 
 - Uses Next.js Script component for optimal loading
-- Loads after page becomes interactive (doesn't block rendering)
+- Loads after the page finishes loading (doesn't block rendering)
 - DataLayer is initialized early to capture events
 - Minimal overhead (~7-10KB for GTM container)
 
@@ -183,7 +172,7 @@ The GTM implementation is optimized for performance:
 
 ### GTM Not Loading
 
-1. Verify the GTM ID in `src/components/GoogleTagManager/index.tsx` is correct
+1. Verify the GTM ID in `src/components/google-tag-manager/index.tsx` is correct
 
 2. Check GTM ID format (should be `GTM-XXXXXXX`)
 
@@ -209,7 +198,7 @@ Note: Ad blockers may prevent GTM from loading. This is expected behavior and af
 
 To change the GTM container ID:
 
-1. Open `src/components/GoogleTagManager/index.tsx`
+1. Open `src/components/google-tag-manager/index.tsx`
 2. Update the `GTM_ID` constant:
    ```tsx
    const GTM_ID = 'GTM-NEW1234' // Your new GTM ID

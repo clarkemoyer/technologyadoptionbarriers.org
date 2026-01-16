@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This document explains how the Free For Charity website is deployed to GitHub Pages and provides troubleshooting guidance for deployment issues.
+This document explains how the Technology Adoption Barriers (TABS) website is deployed and provides troubleshooting guidance for deployment issues.
 
 ## Table of Contents
 
@@ -17,10 +17,10 @@ This document explains how the Free For Charity website is deployed to GitHub Pa
 
 ## Overview
 
-The Free For Charity website is a static Next.js application deployed to GitHub Pages. The site is accessible at:
+The TABS website is a static Next.js application deployed as a static export. The site is accessible at:
 
-- **GitHub Pages URL**: https://freeforcharity.github.io/FFC_Single_Page_Template/
-- **Custom Domain**: https://ffcworkingsite1.org
+- **Custom Domain**: https://technologyadoptionbarriers.org
+- **GitHub Pages URL (optional)**: https://<user>.github.io/technologyadoptionbarriers.org/
 
 ### Technology Stack
 
@@ -52,7 +52,7 @@ This generates a static site in the `./out` directory that can be served by any 
 
 The site uses the `assetPath()` helper function (located in `src/lib/assetPath.ts`) to handle assets correctly for both:
 
-1. **GitHub Pages subpath deployment**: `/FFC_Single_Page_Template/`
+1. **GitHub Pages subpath deployment**: `/technologyadoptionbarriers.org/`
 2. **Custom domain deployment**: Root path `/`
 
 The helper uses the `NEXT_PUBLIC_BASE_PATH` environment variable to determine the correct asset path.
@@ -112,7 +112,7 @@ The actual steps performed by the deploy workflow are:
 
 ```yaml
 env:
-  NEXT_PUBLIC_BASE_PATH: /FFC_Single_Page_Template
+  NEXT_PUBLIC_BASE_PATH: /technologyadoptionbarriers.org
 ```
 
 This ensures images and assets work correctly at the GitHub Pages subpath.
@@ -141,8 +141,8 @@ While automated deployment is recommended, you can also deploy manually if neede
 1. **Clone the repository** (if not already done):
 
    ```bash
-   git clone https://github.com/FreeForCharity/FFC_Single_Page_Template.git
-   cd FFC_Single_Page_Template
+   git clone <your-repo-url>
+   cd technologyadoptionbarriers.org
    ```
 
 2. **Install dependencies**:
@@ -162,7 +162,7 @@ While automated deployment is recommended, you can also deploy manually if neede
 4. **Build the site** with the correct base path:
 
    ```bash
-   NEXT_PUBLIC_BASE_PATH=/FFC_Single_Page_Template npm run build
+   NEXT_PUBLIC_BASE_PATH=/technologyadoptionbarriers.org npm run build
    ```
 
 5. **Verify the build**:
@@ -207,13 +207,13 @@ If using a custom domain:
 1. **Add a CNAME file** to the `public` directory with your domain:
 
    ```
-   ffcworkingsite1.org
+   technologyadoptionbarriers.org
    ```
 
 2. **Configure DNS records** at your domain provider:
    - **Type**: CNAME
    - **Name**: www (or @)
-   - **Value**: freeforcharity.github.io
+   - **Value**: <user>.github.io
 
 3. **Enable HTTPS** in GitHub Pages settings (automatic with custom domain)
 
@@ -252,7 +252,7 @@ Environment variables are set in the workflow file:
 - name: Build with Next.js
   run: npm run build
   env:
-    NEXT_PUBLIC_BASE_PATH: /FFC_Single_Page_Template
+    NEXT_PUBLIC_BASE_PATH: /technologyadoptionbarriers.org
 ```
 
 ### Local Development
@@ -365,12 +365,12 @@ To test the built site locally before deploying:
 
 ```bash
 # Build with GitHub Pages configuration
-NEXT_PUBLIC_BASE_PATH=/FFC_Single_Page_Template npm run build
+NEXT_PUBLIC_BASE_PATH=/technologyadoptionbarriers.org npm run build
 
 # Serve the built site
 npm run preview
 
-# Open http://localhost:3000/FFC_Single_Page_Template in your browser
+# Open http://localhost:3000/technologyadoptionbarriers.org in your browser
 ```
 
 This simulates how the site will behave on GitHub Pages.
@@ -458,4 +458,4 @@ Before merging to main (which triggers deployment):
 
 ---
 
-**Questions?** Open an issue or contact the maintainers at hello@freeforcharity.org
+**Questions?** Open an issue or contact the maintainers at contact@technologyadoptionbarriers.org

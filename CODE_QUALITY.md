@@ -1,6 +1,6 @@
 # Code Quality Standards
 
-This document outlines the code quality standards, tools, and best practices for the Free For Charity project.
+This document outlines the code quality standards, tools, and best practices for the Technology Adoption Barriers (TABS) project.
 
 ## Table of Contents
 
@@ -523,7 +523,7 @@ NEXT_PUBLIC_API_KEY=your-key-here
 
 ```env
 # .env (can be committed)
-NEXT_PUBLIC_APP_NAME=Free For Charity
+NEXT_PUBLIC_APP_NAME=Technology Adoption Barriers
 ```
 
 ### Content Security Policy
@@ -613,10 +613,10 @@ If you have questions about code quality standards:
 2. Review existing code for examples
 3. Ask in pull request reviews
 4. Open a discussion on GitHub
-5. Contact maintainers at hello@freeforcharity.org
+5. Contact maintainers at contact@technologyadoptionbarriers.org
 
 ---
 
 **Last Updated**: 2025-12-03  
-**Repository**: FreeForCharity/FFC_Single_Page_Template  
+**Repository**: Technology Adoption Barriers (TABS)  
 **Node.js**: 20.x (validated with v20.19.6)

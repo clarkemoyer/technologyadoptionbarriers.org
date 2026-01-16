@@ -5,7 +5,7 @@
 
 ## Executive Summary
 
-**Finding:** HubSpot tracking scripts are **NOT directly implemented** in the Free For Charity application codebase. The HubSpot cookies are being loaded indirectly through **Microsoft Forms** embedded iframes.
+**Finding:** HubSpot tracking scripts are **NOT directly implemented** in the Technology Adoption Barriers (TABS) codebase. The HubSpot cookies are being loaded indirectly through **Microsoft Forms** embedded iframes.
 
 **Source:** Microsoft Forms iframe (`https://forms.office.com/r/vePxGq6JqG`) used in the charity application form modal.
 
@@ -69,7 +69,7 @@ Microsoft Forms (part of Microsoft 365) uses various third-party services for:
 - **Analytics:** Form completion tracking
 - **User Experience:** Form interaction monitoring
 
-This is standard behavior for Microsoft Forms and is **outside the control** of the Free For Charity application.
+This is standard behavior for Microsoft Forms and is **outside the control** of the Technology Adoption Barriers (TABS) application.
 
 ### 4. Other Third-Party Integrations Found
 
@@ -91,7 +91,6 @@ The application **does** intentionally integrate with the following third-party 
 
 ```typescript
 <link rel="preconnect" href="https://www.googletagmanager.com" />
-<link rel="preconnect" href="https://ffcsites.org" />
 <link rel="preconnect" href="https://www.zeffy.com" />
 <link rel="preconnect" href="https://widgets.guidestar.org" />
 ```
@@ -99,7 +98,6 @@ The application **does** intentionally integrate with the following third-party 
 **Purpose:**
 
 - `googletagmanager.com` - Google Tag Manager for analytics
-- `ffcsites.org` - Free For Charity hosted sites
 - `zeffy.com` - Donation platform (embedded via functional cookies)
 - `guidestar.org` - Charity transparency widget
 
@@ -285,13 +283,13 @@ This form is:
 - Hosted by Microsoft
 - Controlled by Microsoft's infrastructure
 - Subject to Microsoft's privacy policies
-- Not under Free For Charity's direct control
+- Not under the application's direct control
 
 ---
 
 ## Conclusion
 
-**HubSpot is NOT directly used by Free For Charity.** The HubSpot tracking identified in the page speed report originates from Microsoft Forms, which is an external third-party service embedded via iframe.
+**HubSpot is NOT directly used by Technology Adoption Barriers (TABS).** The HubSpot tracking identified in the page speed report originates from Microsoft Forms, which is an external third-party service embedded via iframe.
 
 **Action Items:**
 

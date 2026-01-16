@@ -1,6 +1,6 @@
-# Free For Charity Web Application
+# Technology Adoption Barriers (TABS) Web Application
 
-Free For Charity is a Next.js 16.0.7 single-page static website that connects students, professionals, and businesses with nonprofits to reduce operating costs and increase impact. Built with TypeScript, Tailwind CSS, and configured for static export to GitHub Pages.
+Technology Adoption Barriers (TABS) is a Next.js single-page static website built with TypeScript and configured for static export to GitHub Pages.
 
 **ALWAYS reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.**
 
@@ -93,7 +93,7 @@ To test the GitHub Pages deployment locally with basePath:
 
 ```bash
 # Build with basePath for GitHub Pages
-NEXT_PUBLIC_BASE_PATH=/FFC_Single_Page_Template npm run build
+NEXT_PUBLIC_BASE_PATH=/<your-repo> npm run build
 
 # Preview the site
 npm run preview
@@ -139,7 +139,6 @@ src/
 │   ├── home-page/                             # Homepage components (formerly Figma-Home-page)
 │   ├── cookie-policy/                         # Cookie Policy page
 │   ├── donation-policy/                       # Donation Policy page
-│   ├── free-for-charity-donation-policy/      # Free For Charity Donation Policy page
 │   ├── privacy-policy/                        # Privacy Policy page
 │   ├── security-acknowledgements/             # Security Acknowledgements page
 │   ├── terms-of-service/                      # Terms of Service page
@@ -256,14 +255,11 @@ import { assetPath } from "../lib/assetPath";
 
 **Why this is needed:**
 
-- Custom domain (ffcworkingsite1.org): images at `/my-image.png`
-- GitHub Pages: images at `/FFC_Single_Page_Template/my-image.png`
+- Custom domain (technologyadoptionbarriers.org): images at `/my-image.png`
+- GitHub Pages: images at `/<repo-name>/my-image.png`
 - The helper automatically handles both scenarios based on the `NEXT_PUBLIC_BASE_PATH` environment variable
 
-**Files using assetPath:**
-
-- `src/app/components/NavBar.tsx` - Logo in navigation
-- `src/app/page.tsx` - Logo in hero section
+**Implementation note:** The helper is defined in `src/lib/assetPath.ts` and can be used in `<img>` tags when assets must work under a GitHub Pages base path.
 
 ### Deployment Process
 
@@ -271,15 +267,15 @@ The site auto-deploys to GitHub Pages via `.github/workflows/deploy.yml` when pu
 
 1. Node.js 20 setup
 2. `npm ci` for clean install
-3. `NEXT_PUBLIC_BASE_PATH=/FFC_Single_Page_Template` is set for GitHub Pages deployment
+3. `NEXT_PUBLIC_BASE_PATH=/<repo-name>` is set for GitHub Pages deployment
 4. `next build` builds the site with proper basePath
 5. Playwright tests run to validate the build
 6. Static files deployed from `./out` directory
 
 **Dual Deployment:**
 
-- **Custom domain**: https://ffcworkingsite1.org (CNAME configured, no basePath needed)
-- **GitHub Pages**: https://freeforcharity.github.io/FFC_Single_Page_Template/ (basePath required)
+- **Custom domain**: https://technologyadoptionbarriers.org (CNAME configured, no basePath needed)
+- **GitHub Pages**: https://<org>.github.io/<repo>/ (basePath required)
 
 ## Known Issues and Limitations
 
@@ -342,7 +338,7 @@ This repository includes a comprehensive set of GitHub-recognized community heal
 
 To verify files are recognized by GitHub:
 
-1. Visit: https://github.com/FreeForCharity/FFC_Single_Page_Template/community
+1. Visit: https://github.com/<your-org>/<your-repo>/community
 2. Check navigation tabs on mobile (README, Code of conduct, Contributing, License, Security, More)
 3. Look for "Sponsor" button in repository header
 4. Look for "Cite this repository" button
@@ -380,7 +376,7 @@ npm run build        # 20 seconds when fonts disabled
 npm run preview      # http://localhost:3000
 
 # Test GitHub Pages deployment locally
-NEXT_PUBLIC_BASE_PATH=/FFC_Single_Page_Template npm run build
+NEXT_PUBLIC_BASE_PATH=/<your-repo> npm run build
 npm run preview      # Test with basePath
 
 # File structure overview

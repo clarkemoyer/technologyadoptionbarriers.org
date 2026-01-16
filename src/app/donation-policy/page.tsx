@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Donation Policy | Free For Charity',
-  description: 'Donation Policy for Free For Charity website',
+  title: 'Donation Policy | Technology Adoption Barriers (TABS)',
+  description: 'Donation Policy for the Technology Adoption Barriers (TABS) website',
 }
 
 export default function DonationPolicy() {
@@ -22,22 +22,23 @@ export default function DonationPolicy() {
             Tax Deductibility
           </h2>
           <p>
-            Free For Charity is a qualified 501(c)(3) nonprofit organization (EIN: 46-2471893).
-            Donations are tax-deductible to the full extent allowed by law.
+            Donations made through the Technology Adoption Barriers (TABS) website may or may not be
+            tax-deductible, depending on your circumstances and the way the donation is processed.
+            Please consult your tax advisor for guidance.
           </p>
 
           <h2 className="font-[var(--font-faustina)] text-[32px] leading-[40px] mt-8 mb-4">
             Use of Donations
           </h2>
           <p>
-            Donations support our mission to reduce costs and increase revenues for nonprofits by
-            providing:
+            Donations support the Technology Adoption Barriers (TABS) mission and help cover costs
+            associated with operating and improving the site, including:
           </p>
           <ul>
-            <li>Free domain registration and hosting services</li>
-            <li>Technology consultation and support</li>
-            <li>Volunteer coordination and training</li>
-            <li>Administrative costs necessary to operate our programs</li>
+            <li>Survey and research operations</li>
+            <li>Website hosting and maintenance</li>
+            <li>Content development and analysis</li>
+            <li>Administrative costs necessary to operate the site</li>
           </ul>
 
           <h2 className="font-[var(--font-faustina)] text-[32px] leading-[40px] mt-8 mb-4">
@@ -45,7 +46,7 @@ export default function DonationPolicy() {
           </h2>
           <p>
             Donations are processed securely through our payment partners. You will receive a
-            receipt for tax purposes via email after your donation is processed.
+            confirmation email after your donation is processed.
           </p>
 
           <h2 className="font-[var(--font-faustina)] text-[32px] leading-[40px] mt-8 mb-4">
@@ -71,10 +72,10 @@ export default function DonationPolicy() {
           <p>
             Email:{' '}
             <a
-              href="mailto:clarkemoyer@freeforcharity.org"
+              href="mailto:contact@technologyadoptionbarriers.org"
               className="text-primary hover:underline"
             >
-              clarkemoyer@freeforcharity.org
+              contact@technologyadoptionbarriers.org
             </a>
             <br />
             Phone: (520) 222-8104

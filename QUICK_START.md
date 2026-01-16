@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-Get up and running with the FFC Single Page Template in 5 minutes.
+Get up and running with the Technology Adoption Barriers Survey (TABS) site in 5 minutes.
 
 ## Prerequisites
 
@@ -13,8 +13,8 @@ Get up and running with the FFC Single Page Template in 5 minutes.
 ### 1. Clone the Repository (30 seconds)
 
 ```bash
-git clone https://github.com/FreeForCharity/FFC_Single_Page_Template.git
-cd FFC_Single_Page_Template
+git clone <your-repo-url>
+cd <your-repo-folder>
 ```
 
 ### 2. Install Dependencies (17 seconds)
@@ -33,7 +33,7 @@ npm run dev
 
 **Open**: [http://localhost:3000](http://localhost:3000)
 
-**Expected**: Site loads with FFC homepage
+**Expected**: Site loads with the TABS homepage
 
 ### 4. Verify Setup (2 minutes)
 
@@ -136,16 +136,16 @@ git push origin feature/your-feature-name
 ## Project Structure (Quick Reference)
 
 ```
-FFC_Single_Page_Template/
+technologyadoptionbarriers.org/
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx          # Root layout with metadata
 │   │   ├── page.tsx            # Homepage
 │   │   └── globals.css         # Global styles
 │   ├── components/             # All UI components
-│   │   ├── Header/             # Navigation header
-│   │   ├── Footer/             # Footer component
-│   │   ├── CookieConsent/      # Cookie consent banner
+│   │   ├── header/             # Navigation header
+│   │   ├── footer/             # Footer component
+│   │   ├── cookie-consent/     # Cookie consent banner
 │   │   └── ...                 # 80+ other components
 │   ├── lib/
 │   │   └── assetPath.ts        # GitHub Pages asset helper
@@ -165,10 +165,9 @@ FFC_Single_Page_Template/
 | ------------------------ | ------------------------------------- |
 | `src/app/page.tsx`       | Homepage content                      |
 | `src/app/layout.tsx`     | Site-wide layout and metadata         |
-| `src/components/Header/` | Navigation and mobile menu            |
-| `src/components/Footer/` | Footer with links and copyright       |
+| `src/components/header/` | Navigation and mobile menu            |
+| `src/components/footer/` | Footer with links and copyright       |
 | `next.config.ts`         | Next.js configuration (static export) |
-| `tailwind.config.ts`     | Tailwind CSS configuration            |
 | `package.json`           | Dependencies and scripts              |
 | `.prettierrc.json`       | Prettier formatting rules             |
 | `commitlint.config.js`   | Commit message format rules           |
@@ -203,7 +202,7 @@ NEXT_PUBLIC_GTM_ID=
 Open `src/app/page.tsx` and find the hero section:
 
 ```tsx
-<h1 className="text-4xl font-bold">Free For Charity</h1>
+<h1 className="text-4xl font-bold">Technology Adoption Barriers (TABS)</h1>
 ```
 
 Change the text, save, and see it update instantly in your browser!
@@ -354,8 +353,8 @@ Now that you're set up, check out:
 
 ## Getting Help
 
-- **Issues**: [GitHub Issues](https://github.com/FreeForCharity/FFC_Single_Page_Template/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/FreeForCharity/FFC_Single_Page_Template/discussions)
+- **Issues**: [GitHub Issues](../../issues)
+- **Discussions**: [GitHub Discussions](../../discussions)
 - **Documentation**: Check the `*.md` files in the repository root
 
 ---

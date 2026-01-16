@@ -1,16 +1,16 @@
 # Project Governance
 
-This document outlines the governance model for the Free For Charity website repository, including decision-making processes, maintainer roles, and community participation guidelines.
+This document outlines the governance model for the Technology Adoption Barriers (TABS) website repository, including decision-making processes, maintainer roles, and community participation guidelines.
 
 ## Overview
 
-Free For Charity (FFC) is a 501(c)(3) nonprofit organization (EIN: 46-2471893) committed to open-source principles and transparent governance. This repository follows a benevolent dictatorship model with collaborative decision-making for technical matters.
+Technology Adoption Barriers (TABS) is committed to open-source principles and transparent governance. This repository follows a benevolent dictatorship model with collaborative decision-making for technical matters.
 
 ## Organization Structure
 
-### Free For Charity Board
+### Project Steering
 
-The Free For Charity organization is governed by its nonprofit board of directors, which has ultimate authority over organizational policy, legal matters, and strategic direction.
+The project may be supported by a small group of stakeholders who provide direction on priorities, content, and policy. Technical decisions are handled through the maintainer process described below.
 
 ### Project Leadership
 
@@ -32,7 +32,7 @@ The project is led by the **Founder** and **Board of Directors**, with day-to-da
 
 **Contact**:
 
-- Email: clarkemoyer@freeforcharity.org
+- Email: clarke@technologyadoptionbarriers.org
 - Phone: 520-222-8104 (text preferred)
 
 ### Maintainers
@@ -111,7 +111,7 @@ Contributors may be invited to become maintainers based on:
 - Demonstrated ability to review code effectively
 - Positive community interactions
 - Commitment to the Code of Conduct
-- Alignment with Free For Charity's mission
+- Alignment with the Technology Adoption Barriers (TABS) mission
 
 **Process**:
 
@@ -198,7 +198,7 @@ Primary communication platform:
 
 For private or sensitive matters:
 
-- Founder: clarkemoyer@freeforcharity.org
+- Founder: clarke@technologyadoptionbarriers.org
 - Security: See [SECURITY.md](./SECURITY.md)
 
 ### Response Times

@@ -33,7 +33,7 @@ Our README includes:
 
 - Project description and purpose
 - Quick links to all major documentation
-- Organization information (501(c)(3) nonprofit)
+- Organization information
 - CNCF compliance statement
 - Technical stack overview
 
@@ -46,7 +46,7 @@ Our README includes:
 Our license:
 
 - Apache 2.0 open source license
-- Copyright by Free For Charity (EIN: 46-2471893)
+- Copyright by Technology Adoption Barriers (TABS)
 - Full text of Apache 2.0 terms
 
 #### ✅ CODE_OF_CONDUCT.md
@@ -252,7 +252,7 @@ GitHub displays files in this order:
 
 To verify all community health files are properly recognized:
 
-1. Visit the repository on GitHub: https://github.com/FreeForCharity/FFC_Single_Page_Template
+1. Visit the repository on GitHub: https://github.com/<your-org>/<your-repo>
 2. Check for navigation tabs (mobile) or sidebar links (desktop)
 3. Look for the "Sponsor" button (indicates FUNDING.yml is recognized)
 4. Create a new issue to see issue templates
@@ -265,7 +265,7 @@ GitHub provides a community standards checklist at:
 `https://github.com/[owner]/[repo]/community`
 
 For this repository:  
-https://github.com/FreeForCharity/FFC_Single_Page_Template/community
+https://github.com/<your-org>/<your-repo>/community
 
 This checklist shows which files are present and recognized.
 
@@ -309,10 +309,10 @@ Follow these conventions:
 
 For questions about community health files or documentation:
 
-- **Email**: clarkemoyer@freeforcharity.org
-- **Create an issue**: [Documentation issue](https://github.com/FreeForCharity/FFC_Single_Page_Template/issues/new?template=documentation.md)
+- **Email**: contact@technologyadoptionbarriers.org
+- **Create an issue**: [Documentation issue](https://github.com/<your-org>/<your-repo>/issues/new?template=documentation.md)
 
 ---
 
 **Last Updated:** December 2025  
-**Maintained By:** Free For Charity (@clarkemoyer)
+**Maintained By:** Technology Adoption Barriers (TABS) (@clarkemoyer)
