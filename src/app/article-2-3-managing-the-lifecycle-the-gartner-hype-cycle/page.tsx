@@ -1,7 +1,15 @@
 import React from 'react'
+import type { Metadata } from 'next'
 
 import SeriesNavigation from '@/components/series-navigation'
 import { ARTICLE_CLASSES, H1_CLASSES } from '@/lib/articleStyles'
+
+export const metadata: Metadata = {
+  title: 'Article 2.3: Managing the Lifecycle — The Gartner Hype Cycle (Coming Soon)',
+  description:
+    'Coming soon: how the Gartner Hype Cycle explains expectations, maturity, and adoption timing for emerging technologies.',
+}
+
 const Article23Page = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">

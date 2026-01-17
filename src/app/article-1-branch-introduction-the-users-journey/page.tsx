@@ -1,6 +1,13 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
+
+export const metadata: Metadata = {
+  title: 'Article 1: Branch Introduction — The User’s Journey',
+  description:
+    'Branch introduction to the evolution of individual technology acceptance and use models, from foundational theories through TAM, UTAUT, and specialized adoption frameworks.',
+}
 
 const UsersJourneyPage = () => {
   return (

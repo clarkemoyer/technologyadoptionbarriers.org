@@ -1,6 +1,13 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
+
+export const metadata: Metadata = {
+  title: 'Article 2: Branch Introduction — The Organization’s Playbook',
+  description:
+    'Branch introduction to organizational technology adoption frameworks, covering strategy, maturity models, hype cycles, enterprise architecture, security, cloud adoption, and AI adoption.',
+}
 
 const OrganizationsPlaybookPage = () => {
   return (

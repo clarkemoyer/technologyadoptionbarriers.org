@@ -1,7 +1,16 @@
 import React from 'react'
+import type { Metadata } from 'next'
 
 import SeriesNavigation from '@/components/series-navigation'
 import { ARTICLE_CLASSES, H1_CLASSES } from '@/lib/articleStyles'
+
+export const metadata: Metadata = {
+  title:
+    'Article 2.1: The Strategic Lens — Foundational Theories for Organizational Adoption (Coming Soon)',
+  description:
+    'Coming soon: foundational theories that explain technology adoption at the organizational level, including strategic and institutional drivers.',
+}
+
 const Article21Page = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">

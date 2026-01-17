@@ -1,6 +1,13 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
+
+export const metadata: Metadata = {
+  title: 'Article 1.1: The Bedrock — Foundational Theories That Shaped Tech Acceptance',
+  description:
+    'An overview of pre-TAM theories that laid the groundwork for technology acceptance research, including key constructs that influenced later adoption models.',
+}
 
 const FoundationalTheoriesPage = () => {
   return (

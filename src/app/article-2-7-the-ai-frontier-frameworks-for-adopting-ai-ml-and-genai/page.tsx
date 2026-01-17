@@ -1,7 +1,15 @@
 import React from 'react'
+import type { Metadata } from 'next'
 
 import SeriesNavigation from '@/components/series-navigation'
 import { ARTICLE_CLASSES, H1_CLASSES } from '@/lib/articleStyles'
+
+export const metadata: Metadata = {
+  title: 'Article 2.7: The AI Frontier — Frameworks for Adopting AI/ML/GenAI (Coming Soon)',
+  description:
+    'Coming soon: organizational frameworks for adopting AI, ML, and GenAI, including governance, risk, and capability building.',
+}
+
 const Article27Page = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">

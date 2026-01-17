@@ -1,7 +1,14 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
+
+export const metadata: Metadata = {
+  title: 'Technology Adoption Models & Frameworks — Series Overview',
+  description:
+    'A multi-part series exploring the most influential technology adoption models and frameworks, from foundational theories to modern enterprise, cloud, and AI playbooks.',
+}
 
 const ModelsPage = () => {
   return (
