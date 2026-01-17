@@ -275,9 +275,14 @@ test.describe('In-page Series Navigation - Responsive rendering', () => {
 
     await expect(page.getByRole('heading', { name: /Series navigation/i })).toBeVisible()
 
+    const seriesNav = page.getByRole('navigation', {
+      name: /Technology Adoption Models series navigation/i,
+    })
+    await expect(seriesNav).toBeVisible()
+
     const branchTitle = technologyAdoptionModelsSeries.branches[0].title
-    await expect(page.getByRole('button', { name: branchTitle })).toBeVisible()
-    await expect(page.getByRole('link', { name: branchTitle })).toHaveCount(0)
+    await expect(seriesNav.locator('summary').filter({ hasText: branchTitle })).toBeVisible()
+    await expect(seriesNav.getByRole('link', { name: branchTitle })).toHaveCount(0)
   })
 
   test('desktop: renders branch title links instead of accordion summary buttons', async ({
@@ -289,8 +294,13 @@ test.describe('In-page Series Navigation - Responsive rendering', () => {
     await expect(page.getByRole('heading', { name: /Series navigation/i })).toBeVisible()
     await expect(page.getByRole('link', { name: /Jump to current branch section/i })).toBeVisible()
 
+    const seriesNav = page.getByRole('navigation', {
+      name: /Technology Adoption Models series navigation/i,
+    })
+    await expect(seriesNav).toBeVisible()
+
     const branchTitle = technologyAdoptionModelsSeries.branches[0].title
     await expect(page.getByRole('link', { name: branchTitle }).first()).toBeVisible()
-    await expect(page.getByRole('button', { name: branchTitle })).toHaveCount(0)
+    await expect(seriesNav.locator('summary').filter({ hasText: branchTitle })).toBeHidden()
   })
 })
