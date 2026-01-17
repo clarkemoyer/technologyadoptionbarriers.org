@@ -8,15 +8,15 @@ const OrganizationsPlaybookPage = () => {
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Article 2: Branch Introduction – The Organization’s Playbook</h1>
 
-        <section className="mb-6 sm:mb-10 text-gray-800">
-          <p className="mb-3 sm:mb-6">
+        <section className="mb-10 text-gray-800">
+          <p className="mb-6">
             Having thoroughly explored the psychological and cognitive drivers of the individual’s
             adoption journey, we now pivot our focus from the micro to the macro. We ascend from the
             user’s desktop to the C-Suite, shifting our lens from the personal calculus of
             acceptance to the strategic imperatives of the organization. Welcome to the second major
             branch of our series: The Organization’s Playbook.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className="mb-6">
             Here, the central question is no longer “Will an individual use this technology?” but
             rather, “How does our organization decide to invest in, implement, and integrate a
             technology to achieve strategic goals?” This is the realm of high-stakes capital
@@ -24,9 +24,11 @@ const OrganizationsPlaybookPage = () => {
             If the user’s journey is a story of psychology, the organization’s playbook is a story
             of strategy.
           </p>
+        </section>
 
+        <section className="mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>The Strategic Imperative: Beyond User Clicks</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className="mb-6">
             Organizational adoption is a fundamentally different challenge from individual
             acceptance. While still deeply linked with the foundational theories of DOI and IDT [1],
             it is a deliberate, top-down, and resource-intensive endeavor. The decision to deploy a
@@ -38,9 +40,11 @@ const OrganizationsPlaybookPage = () => {
             the frameworks and models that leaders use to navigate these high-risk, high-reward
             strategic decisions.
           </p>
+        </section>
 
+        <section className="mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>From Theory to Frameworks: A Narrative Arc</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className="mb-6">
             The evolution of organizational adoption guidance follows a distinct path, moving from
             high-level academic theories that explain the “why” to detailed, prescriptive frameworks
             that dictate the “how.”
@@ -97,9 +101,11 @@ const OrganizationsPlaybookPage = () => {
               governance, and responsible AI principles.
             </li>
           </ul>
+        </section>
 
+        <section className="mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>Roadmap for this Branch</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className="mb-6">
             This narrative arc provides the structure for the articles in this branch. Our
             exploration of the organization’s playbook is organized as follows:
           </p>
@@ -124,8 +130,10 @@ const OrganizationsPlaybookPage = () => {
         <SeriesNavigation />
 
         <section className="pt-8 border-t border-gray-200">
-          <h2 className="text-[20px] font-bold text-gray-900 mb-4">References</h2>
-          <ol className="list-decimal pl-5 text-[14px] text-gray-600 space-y-3 font-sans">
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
+            References
+          </h2>
+          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 lg:space-y-4 font-sans">
             <li>Rogers, E. M. (1962). Diffusion of Innovations. Free Press of Glencoe.</li>
             <li>
               Tornatzky, L. G., & Fleischer, M. (1990). The Processes of Technological Innovation.
@@ -166,7 +174,8 @@ const OrganizationsPlaybookPage = () => {
             <li>The Open Group. (2018). The TOGAF® Standard, Version 9.2. Van Haren Publishing.</li>
             <li>
               National Institute of Standards and Technology. (2018). Risk Management Framework for
-              Information Systems and Organizations (NIST SP 800-37, Rev. 2).{' '}
+              Information Systems and Organizations: A System Life Cycle Approach for Security and
+              Privacy (NIST Special Publication 800-37, Rev. 2).{' '}
               <a
                 href="https://doi.org/10.6028/NIST.SP.800-37r2"
                 target="_blank"
@@ -198,6 +207,18 @@ const OrganizationsPlaybookPage = () => {
                 className="text-blue-600 hover:underline"
               >
                 https://aws.amazon.com/professional-services/CAF/
+              </a>
+            </li>
+            <li>
+              Microsoft. (n.d.). Get started with the AI adoption framework for the Microsoft Cloud.
+              Microsoft Learn. Retrieved from{' '}
+              <a
+                href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/ai-strategy-and-planning"
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/ai-strategy-and-planning
               </a>
             </li>
           </ol>
