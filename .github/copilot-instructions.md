@@ -400,4 +400,14 @@ ls -la .github/      # GitHub workflows and configs
 2. **Cache issues**: Delete `.next` directory and rebuild
 3. **Font rendering**: Expected to fail without workaround applied
 
+### GitHub CLI Issues
+
+1. **"No commits between..." error when creating PR**:
+   - **Symptoms**: `gh pr create` fails with validation errors about no commits.
+   - **Fix**: The CLI may be confused about the default repository context. Run:
+     ```bash
+     gh repo set-default <owner>/<repo>
+     ```
+   - **Verify**: Ensure you have pushed at least one commit (even an empty one) to your feature branch before creating the PR.
+
 Remember: **NEVER CANCEL** long-running commands. **ALWAYS** test manually after changes. **ALWAYS** apply Google Fonts workaround before building.
