@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 
 /**
  * Contact Section Visibility Tests
- * Verifies the TABS homepage Contact section.
+ * Verifies the contact section in the footer (formerly BottomCTA, now merged into Footer).
  */
 test.describe('Contact Visibility', () => {
   test.beforeEach(async ({ page }) => {
@@ -10,7 +10,7 @@ test.describe('Contact Visibility', () => {
     await page.waitForLoadState('domcontentloaded')
   })
 
-  test('should render the BottomCTA section', async ({ page }) => {
+  test('should render the contact section in footer', async ({ page }) => {
     const section = page.locator('#contact')
     await expect(section).toBeAttached()
     await section.scrollIntoViewIfNeeded()

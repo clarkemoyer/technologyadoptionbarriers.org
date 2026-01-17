@@ -1,49 +1,59 @@
-# Technology Adoption Barriers (TABS) Web Application
+## Repo-specific Copilot instructions (TABS)
 
-Technology Adoption Barriers (TABS) is a Next.js single-page static website built with TypeScript and configured for static export to GitHub Pages.
+### Workflow (Issue → PR → merge)
 
-**ALWAYS reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.**
+- Start every change from a GitHub Issue; open a PR that references the Issue (no direct commits to `main`).
+- All commits land via PR merge (merge queue is enabled); don’t bypass PR review.
+- Pushing new commits to a PR can trigger GitHub Copilot review sessions; address Copilot + human review comments before merging. See `COPILOT_AUTOFIX_GUIDE.md`.
+- CI/merge queue runs formatting, lint, unit tests, build, and Playwright E2E; see `MERGE_QUEUE_VERIFICATION.md`.
 
-## Working Effectively
+### Big picture
 
-### Environment Setup
+- Next.js App Router + TypeScript, statically exported (`output: 'export'`); see `next.config.ts`.
+- Root shell: `src/app/layout.tsx` (Header/Footer/CookieConsent + GTM). Homepage: `src/app/page.tsx` → `src/app/tabs-home`.
+- App routes are in `src/app/*` and must use kebab-case folders (URLs/SEO).
 
-- **Node.js Version**: Requires Node.js 20.x (validated with v20.19.5)
-- **Package Manager**: Uses npm with package-lock.json
+### Local dev + pre-push checks
 
-### Bootstrap and Build Process
+- Install: `npm install`
+- Dev: `npm run dev`
+- Format (fix before pushing): `npm run format` (CI enforces `npm run format:check`).
+- Lint: `npm run lint` (some warnings are acceptable; don’t introduce new errors).
+- Unit tests: `npm test` (Jest, see `__tests__/`).
+- Build: `npm run build` (writes `out/`).
+- Preview: `npm run preview` (serves `out/` on port 3000).
+- E2E: `npm run test:e2e` (Playwright runs against `npm run preview`; see `playwright.config.ts`).
 
-**Build Process**
+### Prevent common CI breaks (do this before pushing / merge-queue)
 
-- `npm run build` -- Builds the static site successfully (~30 seconds)
-- Google Fonts are NOT used in this project (imports have been removed)
-- Build generates 12 static pages (1 homepage + 7 policy pages + 1 not-found page + 2 metadata files: sitemap.xml, robots.txt)
-- NEVER CANCEL. Set timeout to 180+ seconds for safety.
+- Run in this order:
+  1. `npm run format` (avoids CI `format:check` failures)
+  2. `npm run lint` (fix errors; don’t add new ones)
+  3. `npm test` (includes `jest-axe` accessibility checks; ARIA/name issues fail here — see `__tests__/components/*.test.tsx`)
+  4. `npm run build` (static export must succeed)
+  5. `npm run test:e2e` (Playwright runs against `npm run preview`)
+- If you’re working with a GitHub Pages basePath locally, match CI by running E2E with an empty basePath: `NEXT_PUBLIC_BASE_PATH='' npm run test:e2e`.
+- When Copilot review flags ARIA/a11y issues, fix them immediately (typical fixes: `aria-label` on icon-only buttons, correct `role`/focus handling in dialogs, descriptive `alt` text). PR template has an Accessibility checklist in `.github/PULL_REQUEST_TEMPLATE.md`.
 
-### Core Commands and Timings
+### GitHub Pages basePath + assets
 
-1. `npm install` -- takes ~17 seconds. NEVER CANCEL. Set timeout to 60+ seconds.
-2. `npm run lint` -- takes ~2 seconds. Produces 8 warnings about img tags and React hooks (expected). Set timeout to 30+ seconds.
-3. `npm run build` -- takes ~30 seconds. NEVER CANCEL. Set timeout to 180+ seconds.
-4. `npm run dev` -- starts in ~1 second with turbopack. NEVER CANCEL. Set timeout to 30+ seconds.
-5. `npm run preview` -- serves built static files. NEVER CANCEL. Set timeout to 30+ seconds.
+- GitHub Pages uses `NEXT_PUBLIC_BASE_PATH` → `basePath` + `assetPrefix` in `next.config.ts`.
+- Make asset URLs basePath-safe using one of the existing patterns:
+  - `assetPath('/Images/...')` from `src/lib/assetPath.ts`
+  - `const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''` then `basePath + '/Images/…'` (example: `src/components/header/index.tsx`).
 
-### Development Workflow
+### Analytics + consent
 
-```bash
-# Install dependencies (17 seconds)
-npm install
+- GTM always loads (`src/components/google-tag-manager/index.tsx`).
+- Cookie consent gates GA/Clarity/Meta Pixel and pushes `consent_update` to `window.dataLayer` (`src/components/cookie-consent/index.tsx`). If reviews flag ARIA/accessibility issues, fix them and re-run checks.
 
-# Start development server (1 second startup)
-npm run dev
-# Visit http://localhost:3000
+### Known constraint: restricted network builds
 
-# Lint code (2 seconds, 8 warnings expected)
-npm run lint
+- `next/font/google` is used (`src/lib/fonts.ts`); restricted networks can break `npm run build` if `fonts.googleapis.com` is blocked.
 
-# Build for production (30 seconds)
-npm run build
+### Intentional “inactive” feature
 
+<<<<<<< HEAD
 # Preview built site
 npm run preview
 # Visit http://localhost:3000
@@ -400,4 +410,17 @@ ls -la .github/      # GitHub workflows and configs
 2. **Cache issues**: Delete `.next` directory and rebuild
 3. **Font rendering**: Expected to fail without workaround applied
 
+### GitHub CLI Issues
+
+1. **"No commits between..." error when creating PR**:
+   - **Symptoms**: `gh pr create` fails with validation errors about no commits.
+   - **Fix**: The CLI may be confused about the default repository context. Run:
+     ```bash
+     gh repo set-default <owner>/<repo>
+     ```
+   - **Verify**: Ensure you have pushed at least one commit (even an empty one) to your feature branch before creating the PR.
+
 Remember: **NEVER CANCEL** long-running commands. **ALWAYS** test manually after changes. **ALWAYS** apply Google Fonts workaround before building.
+=======
+- Global popup system is currently commented out in `src/app/layout.tsx` (PopupProvider/PopupsRootClient).
+>>>>>>> 38231785a07c793802e5df3e79d0a7da3eeeb3bb

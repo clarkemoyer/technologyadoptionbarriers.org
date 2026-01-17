@@ -1,13 +1,12 @@
 import React from 'react'
-import Link from 'next/link'
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import SeriesNavigation from '@/components/series-navigation'
 
 const UsersJourneyPage = () => {
   return (
-    <main className="pt-[120px] min-h-screen bg-white">
-      <article className="max-w-[800px] mx-auto px-6 pb-20 text-[18px] leading-relaxed text-gray-800 font-serif">
-        <h1 className="text-[32px] md:text-[42px] font-bold text-[#145044] mb-8 leading-tight">
-          Article 1: Branch Introduction – The User’s Journey
-        </h1>
+    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+      <article className={ARTICLE_CLASSES}>
+        <h1 className={H1_CLASSES}>Article 1: Branch Introduction – The User’s Journey</h1>
 
         <section className="mb-10 text-gray-800">
           <p className="mb-6">
@@ -108,7 +107,7 @@ const UsersJourneyPage = () => {
             This narrative provides the structure for the articles to come. Our exploration of the
             user’s journey is organized as follows:
           </p>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             First, we’ll look at the foundational theories. Then, we’ll do a deep dive into TAM, the
             model that changed everything. From there, we’ll explore its direct successors before
             examining the ambitious UTAUT model that sought to unify the field. After establishing
@@ -116,7 +115,7 @@ const UsersJourneyPage = () => {
             consumer context, explore specialized models where context is king, and finally,
             consider the crucial role of an individual’s innate readiness for technology.
           </p>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             This journey will provide a comprehensive understanding of how the field has evolved,
             from its psychological roots to the sophisticated, unified models used today. In our
             next article, we will begin at the beginning, with a deep dive into the bedrock theories
@@ -124,38 +123,13 @@ const UsersJourneyPage = () => {
           </p>
         </section>
 
-        <section className="mb-10 bg-gray-50 p-6 rounded-lg border border-gray-100">
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
-            The Complete Branch: A Glance Ahead
-          </h2>
-          <ul className="list-disc pl-5 space-y-1 text-sm text-blue-700 font-sans">
-            <li>
-              <Link
-                href="/technology-adoption-models/foundational-theories"
-                className="hover:underline"
-              >
-                Article 1.1: The Bedrock – Foundational Theories That Shaped Tech Acceptance
-              </Link>
-            </li>
-            <li>
-              Article 1.2: The Game Changer – A Deep Dive into the Technology Acceptance Model (TAM)
-            </li>
-            <li>
-              Article 1.3: Expanding the Classic – The Evolution to TAM 2, TAM 3, and C-TAM-TPB
-            </li>
-            <li>
-              Article 1.4: The Grand Unification – The Unified Theory of Acceptance and Use of
-              Technology (UTAUT)
-            </li>
-            <li>Article 1.5: Beyond the Office – UTAUT2, Consumer Context, and Modern Syntheses</li>
-            <li>Article 1.6: Context is King – Specialized Individual Adoption Models</li>
-            <li>Article 1.7: Are You Ready? The Role of Technology Readiness (TRI & TRAM)</li>
-          </ul>
-        </section>
+        <SeriesNavigation />
 
         <section className="pt-8 border-t border-gray-200">
-          <h2 className="text-[20px] font-bold text-gray-900 mb-4">References</h2>
-          <ol className="list-decimal pl-5 text-[14px] text-gray-600 space-y-3 font-sans">
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
+            References
+          </h2>
+          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 lg:space-y-4 font-sans">
             <li>
               Fishbein, M., & Ajzen, I. (1975). Belief, Attitude, Intention, and Behavior: An
               Introduction to Theory and Research. Addison-Wesley.
