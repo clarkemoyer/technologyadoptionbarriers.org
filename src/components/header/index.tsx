@@ -341,6 +341,19 @@ const Header: React.FC = () => {
                   </ul>
                 </div>
               </div>
+
+              {/* Bibliography Link */}
+              {technologyAdoptionModelsSeries.bibliography && (
+                <div className="mt-6 pt-4 border-t border-gray-200">
+                  <Link
+                    href={technologyAdoptionModelsSeries.bibliography.slug}
+                    onClick={handleLinkClick}
+                    className="inline-block text-[14px] font-bold text-[#145044] hover:text-blue-600"
+                  >
+                    📚 {technologyAdoptionModelsSeries.bibliography.title}
+                  </Link>
+                </div>
+              )}
             </div>
           </motion.div>
         )}
@@ -481,6 +494,19 @@ const Header: React.FC = () => {
                             </ul>
                           )}
                         </div>
+
+                        {/* Bibliography Link in Mobile */}
+                        {technologyAdoptionModelsSeries.bibliography && (
+                          <div className="ml-4 mt-2">
+                            <Link
+                              href={technologyAdoptionModelsSeries.bibliography.slug}
+                              onClick={handleLinkClick}
+                              className="block px-4 py-2 text-[12px] font-semibold text-[#145044] hover:bg-blue-50 rounded"
+                            >
+                              📚 {technologyAdoptionModelsSeries.bibliography.title}
+                            </Link>
+                          </div>
+                        )}
                       </div>
                     ) : (
                       <Link

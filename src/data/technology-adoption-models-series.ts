@@ -27,6 +27,10 @@ export interface SeriesStructure {
     slug: string
   }
   branches: SeriesBranch[]
+  bibliography?: {
+    title: string
+    slug: string
+  }
 }
 
 export const technologyAdoptionModelsSeries: SeriesStructure = {
@@ -125,4 +129,8 @@ export const technologyAdoptionModelsSeries: SeriesStructure = {
       ],
     },
   ],
+  bibliography: {
+    title: 'Series Bibliography',
+    slug: '/article-bibliography-comprehensive-series-bibliography',
+  },
 }
