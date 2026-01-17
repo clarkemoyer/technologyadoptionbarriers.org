@@ -1,6 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import SeriesNavigation from '@/components/series-navigation'
 
 const OrganizationsPlaybookPage = () => {
   return (
@@ -121,21 +121,7 @@ const OrganizationsPlaybookPage = () => {
           </p>
         </section>
 
-        <section className="mb-10 bg-gray-50 p-6 rounded-lg border border-gray-100">
-          <h2 className={H2_CLASSES}>Series Navigation</h2>
-          <ul className="list-disc pl-5 space-y-1 text-sm text-blue-700 font-sans">
-            <li>Article 2: Branch Introduction – The Organization’s Playbook</li>
-            <li>
-              Article 2.1: The Strategic Lens – Foundational Theories for Organizational Adoption
-            </li>
-            <li>Article 2.2: From Chaos to Control – A Guide to Maturity Models</li>
-            <li>Article 2.3: Managing the Lifecycle – The Gartner Hype Cycle</li>
-            <li>Article 2.4: The Blueprint for Enterprise – A Survey of Architecture Frameworks</li>
-            <li>Article 2.5: The Modern Mandate – Frameworks for Cybersecurity and Risk</li>
-            <li>Article 2.6: The Cloud Revolution – Prescriptive Adoption Frameworks</li>
-            <li>Article 2.7: The AI Frontier – Frameworks for Adopting AI, ML, and GenAI</li>
-          </ul>
-        </section>
+        <SeriesNavigation />
 
         <section className="pt-8 border-t border-gray-200">
           <h2 className="text-[20px] font-bold text-gray-900 mb-4">References</h2>
