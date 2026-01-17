@@ -1,1 +1,16 @@
-{"result":{"elements":[{"id":"SV_bkMopd73A8fzfwO","name":"Technology Adoption Barriers Survey","ownerId":"UR_7V6HqVB2glRN1u6","lastModified":"2025-10-17T15:04:01Z","creationDate":"2025-05-05T13:07:52Z","isActive":true}],"nextPage":null},"meta":{"requestId":"94e22b65-d2a6-4616-a329-eff498de4f14","httpStatus":"200 - OK"}}
+{
+  "result": {
+    "elements": [
+      {
+        "id": "SV_bkMopd73A8fzfwO",
+        "name": "Technology Adoption Barriers Survey",
+        "ownerId": "UR_7V6HqVB2glRN1u6",
+        "lastModified": "2025-10-17T15:04:01Z",
+        "creationDate": "2025-05-05T13:07:52Z",
+        "isActive": true
+      }
+    ],
+    "nextPage": null
+  },
+  "meta": { "requestId": "94e22b65-d2a6-4616-a329-eff498de4f14", "httpStatus": "200 - OK" }
+}
