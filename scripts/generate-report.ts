@@ -91,7 +91,7 @@ async function generateReport() {
 ${rows
   .map((row: ReportRow) => {
     if (!row.metricValues || !row.dimensionValues) return ''
-    const [activeUsers, newUsers, sessions, views] = row.metricValues
+    const [activeUsers, , sessions, views] = row.metricValues
     const path = row.dimensionValues[0]?.value || '/'
     return `| \`${path}\` | ${views?.value || 0} | ${activeUsers?.value || 0} | ${sessions?.value || 0} |`
   })

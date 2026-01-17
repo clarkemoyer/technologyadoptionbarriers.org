@@ -75,9 +75,9 @@ The site features two primary CTAs accessible throughout the experience via glob
 
 ## Development Status
 
-**Current Status: Production Ready ✅**
+**Current Status: Live in Production ✅**
 
-The site is live and fully functional with the following features:
+The site is live at [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org) and fully functional with the following features:
 
 ✅ **Complete and Functional:**
 
@@ -89,8 +89,7 @@ The site is live and fully functional with the following features:
 - Social media links configured (Facebook, Twitter/X, LinkedIn, GitHub)
 - Footer links fully functional with proper destinations
 - Contact information complete (email, phone, addresses)
-- Deployed to live domain: [http://staging.technologyadoptionbarriers.org](http://staging.technologyadoptionbarriers.org)
-- Dual deployment: Custom domain and GitHub Pages
+- Deployed to production apex domain: [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org)
 
 ⚠️ **Known Limitations:**
 
@@ -674,7 +673,7 @@ We welcome new contributors and believe fresh perspectives are invaluable! **You
 
 #### How to Get Started
 
-1. **Explore the live site:** [http://staging.technologyadoptionbarriers.org](http://staging.technologyadoptionbarriers.org)
+1. **Explore the live site:** [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org)
 2. **Test thoroughly:** Try all features, navigation, and responsive behavior
 3. **Document findings:** Create a review issue using our template
 4. **Report issues:** File separate issues for bugs and enhancements you discover
