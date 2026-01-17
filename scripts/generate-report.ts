@@ -23,6 +23,7 @@ async function generateReport() {
         'screenPageViews',
         'eventCount',
       ],
+      metricAggregations: ['TOTAL'],
       dimensions: ['date', 'pagePath'],
     })
 

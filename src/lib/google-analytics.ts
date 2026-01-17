@@ -46,6 +46,7 @@ export class GoogleAnalyticsClient {
       metrics = ['activeUsers'],
       limit,
       orderBys,
+      metricAggregations,
     } = options
 
     try {
@@ -61,6 +62,7 @@ export class GoogleAnalyticsClient {
         metrics: metrics.map((m) => ({ name: m })),
         limit,
         orderBys,
+        metricAggregations,
       })
 
       return response
