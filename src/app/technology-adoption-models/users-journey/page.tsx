@@ -11,6 +11,100 @@ const UsersJourneyPage = () => {
 
         <section className="mb-10 text-gray-800">
           <p className="mb-6">
+            In our introductory article, we established the landscape of technology adoption through
+            the lens of a trifecta: Organizational, User, and Consumer Adoption. We positioned
+            Organizational Adoption—the C-Suite’s strategic focus—as the apex. We now turn our
+            attention to the other two domains, which together form the deeply human side of the
+            adoption equation: the internal employee’s decision to use a new system and the external
+            customer’s choice to integrate a technology into their lives.
+          </p>
+          <p className="mb-6">
+            This branch of our series, The User’s Journey, delves into the rich intellectual history
+            of individual technology acceptance and use. We will explore the evolution of the models
+            designed to explain and predict the most fundamental of behaviors: the decision by a
+            person to either embrace or reject a new technology.
+          </p>
+        </section>
+
+        <section className="mb-10 text-gray-800">
+          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
+            The Core Question: Deconstructing the “Acceptance” Decision
+          </h2>
+          <p className="mb-6">
+            At the heart of this entire field of study lies a foundational puzzle: What are the key
+            cognitive levers that determine whether an individual will accept and use a new
+            technology? Is it a purely rational calculation of costs and benefits? Is it the
+            influence of peers and managers? Or is it a deeper, more personal assessment of one’s
+            own capabilities and the intrinsic enjoyment derived from the experience?
+          </p>
+          <p className="mb-6">
+            The answer, as decades of research have shown, is a complex interplay of all these
+            factors. Understanding this decision-making process is not merely an academic exercise;
+            it is critical for realizing the value of any technological investment. A perfectly
+            designed enterprise system is worthless if employees refuse to use it, and a
+            groundbreaking consumer app will fail if customers do not see its value or find it too
+            difficult to learn. This branch traces the scholarly quest to identify, measure, and
+            understand these critical human factors.
+          </p>
+        </section>
+
+        <section className="mb-10 text-gray-800">
+          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
+            From Psychology to Practice: A Narrative Arc
+          </h2>
+          <p className="mb-6">
+            The intellectual history of individual adoption models follows a clear and fascinating
+            narrative arc, moving from the general to the specific and from fragmentation to
+            synthesis.
+          </p>
+          <ul className="list-disc pl-5 space-y-4 mb-6">
+            <li>
+              <strong>The Foundational “Grandparents”:</strong> The earliest attempts to model this
+              behavior did not originate in information systems research but drew from a rich
+              tapestry of established theories. Social psychology gave us the powerful
+              intention-behavior link through the Theory of Reasoned Action (TRA) [1] and the Theory
+              of Planned Behavior (TPB) [2]. Sociology provided the Diffusion of Innovations (DOI)
+              Theory [3], which described how ideas spread through social systems. Other key
+              building blocks included Social Cognitive Theory (SCT) [4], which highlighted the role
+              of self-efficacy, and the Motivational Model (MM) [5], which explored intrinsic
+              drivers for technology use. These culminated in early hybrid models like the Model of
+              PC Utilization (MPCU) [6], which attempted to synthesize these diverse perspectives.
+            </li>
+            <li>
+              <strong>The Watershed Moment:</strong> The field was revolutionized by the development
+              of the Technology Acceptance Model (TAM) [7]. It offered a powerful and, crucially,
+              parsimonious explanation for technology use, focusing on two core beliefs: Perceived
+              Usefulness and Perceived Ease of Use. For decades, TAM became the dominant theoretical
+              lens for researchers.
+            </li>
+            <li>
+              <strong>Expansion and Unification:</strong> Following TAM’s success, the next period
+              was characterized by expansion and refinement. Researchers extended the original model
+              to increase its explanatory power, resulting in TAM 2 [8] and TAM 3 [9]. This era of
+              energetic model-building eventually culminated in a landmark effort to synthesize the
+              core elements of eight competing models into a single, Unified Theory of Acceptance
+              and Use of Technology (UTAUT) [10].
+            </li>
+            <li>
+              <strong>Broadening the Lens: Context and Personality:</strong> With a unified model
+              established for organizational users, research began to branch out. Scholars adapted
+              the unified theory for the consumer world, resulting in UTAUT2 [11], which added
+              crucial constructs like hedonic motivation and price value. Concurrently, other
+              researchers argued that general models were insufficient, developing specialized
+              frameworks like the Task-Technology Fit (TTF) Model [12], which emphasizes the
+              alignment of a tool with a user’s specific job functions. Finally, another stream of
+              research looked inward, proposing that adoption is heavily influenced by an
+              individual’s innate personality traits toward technology, leading to the Technology
+              Readiness Index (TRI) [13].
+            </li>
+          </ul>
+        </section>
+
+        <section className="mb-10 text-gray-800">
+          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
+            Roadmap for this Branch
+          </h2>
+          <p className="mb-6">
             This narrative provides the structure for the articles to come. Our exploration of the
             user’s journey is organized as follows:
           </p>
