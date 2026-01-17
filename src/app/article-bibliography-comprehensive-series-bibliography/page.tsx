@@ -1,5 +1,12 @@
+import type { Metadata } from 'next'
 import React from 'react'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+
+export const metadata: Metadata = {
+  title: 'Comprehensive Series Bibliography: Foundations of Technology Adoption',
+  description:
+    'Definitive, exhaustive bibliography for the “Technology Adoption Models” series, covering individual user journeys and organizational playbooks with fully cited APA references.',
+}
 
 const BibliographyPage = () => {
   return (
