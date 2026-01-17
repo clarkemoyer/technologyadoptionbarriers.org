@@ -20,13 +20,21 @@ Google Tag Manager (GTM) is a tag management system that allows you to manage an
 - ✅ Uses Next.js `Script` component with `lazyOnload` strategy
 - ✅ Includes noscript fallback for accessibility
 - ✅ Integrates with existing cookie consent system
-- ✅ GTM ID hardcoded directly in component (no environment variable needed)
+- ✅ GTM ID configured via environment variable `NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID`
 
 ## Configuration
 
 ### Setting Your GTM ID
 
-The GTM container ID is hardcoded directly in the component file. To update it:
+The GTM container ID is managed via the `NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID` environment variable.
+
+### Local Development / Fallback
+
+The component includes a default fallback ID (`GTM-P5GBFCTL`) for development convenience if the environment variable is not set.
+
+### Production
+
+Ensure the `NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID` repository variable is set in GitHub Settings > Secrets and variables > Actions > Variables.
 
 1. Open `src/components/google-tag-manager/index.tsx`
 2. Update the `GTM_ID` constant with your actual GTM container ID:
