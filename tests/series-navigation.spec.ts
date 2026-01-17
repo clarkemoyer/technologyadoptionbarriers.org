@@ -259,7 +259,9 @@ test.describe('Placeholder Pages - Coming Soon', () => {
       expect(h1Text).toContain(article.title)
 
       // Verify "Coming soon" text is present
-      await expect(page.getByText(/Coming soon/i)).toBeVisible()
+      await expect(
+        page.locator('main').getByText('Coming soon', { exact: true }).first()
+      ).toBeVisible()
     })
   }
 })

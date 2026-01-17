@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import SeriesNavigation from '@/components/series-navigation'
+import { ARTICLE_CLASSES, H1_CLASSES } from '@/lib/articleStyles'
 const Article25Page = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -9,6 +10,7 @@ const Article25Page = () => {
           Article 2.5: The Modern Mandate – Frameworks for Cybersecurity and Risk
         </h1>
         <p className="text-[20px] text-gray-600">Coming soon</p>
+        <SeriesNavigation />
       </article>
     </main>
   )

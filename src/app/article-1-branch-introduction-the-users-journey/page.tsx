@@ -1,6 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import SeriesNavigation from '@/components/series-navigation'
 
 const UsersJourneyPage = () => {
   return (
@@ -29,32 +29,7 @@ const UsersJourneyPage = () => {
           </p>
         </section>
 
-        <section className="mb-10 bg-gray-50 p-6 rounded-lg border border-gray-100">
-          <h2 className={H2_CLASSES}>The Complete Branch: A Glance Ahead</h2>
-          <ul className="list-disc pl-5 space-y-1 text-sm text-blue-700 font-sans">
-            <li>
-              <Link
-                href="/article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance"
-                className="hover:underline"
-              >
-                Article 1.1: The Bedrock – Foundational Theories That Shaped Tech Acceptance
-              </Link>
-            </li>
-            <li>
-              Article 1.2: The Game Changer – A Deep Dive into the Technology Acceptance Model (TAM)
-            </li>
-            <li>
-              Article 1.3: Expanding the Classic – The Evolution to TAM 2, TAM 3, and C-TAM-TPB
-            </li>
-            <li>
-              Article 1.4: The Grand Unification – The Unified Theory of Acceptance and Use of
-              Technology (UTAUT)
-            </li>
-            <li>Article 1.5: Beyond the Office – UTAUT2, Consumer Context, and Modern Syntheses</li>
-            <li>Article 1.6: Context is King – Specialized Individual Adoption Models</li>
-            <li>Article 1.7: Are You Ready? The Role of Technology Readiness (TRI & TRAM)</li>
-          </ul>
-        </section>
+        <SeriesNavigation />
 
         <section className="pt-8 border-t border-gray-200">
           <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">

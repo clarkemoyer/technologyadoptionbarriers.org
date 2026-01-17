@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import React from 'react'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
   title: 'Comprehensive Series Bibliography: Foundations of Technology Adoption',
@@ -15,6 +16,8 @@ const BibliographyPage = () => {
         <h1 className={H1_CLASSES}>
           Comprehensive Series Bibliography: Foundations of Technology Adoption
         </h1>
+
+        <SeriesNavigation className="mt-6" />
 
         {/* Executive Summary */}
         <section className="mb-8 sm:mb-12">

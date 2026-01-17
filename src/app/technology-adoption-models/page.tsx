@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
+import SeriesNavigation from '@/components/series-navigation'
 
 const ModelsPage = () => {
   return (
@@ -173,55 +174,7 @@ const ModelsPage = () => {
           </p>
         </section>
 
-        <section className="mb-6 sm:mb-10 bg-gray-50 p-4 sm:p-6 rounded-lg border border-gray-100">
-          <h2 className={H2_CLASSES}>The Complete Series: A Glance Ahead</h2>
-          <div className="space-y-4 sm:space-y-6">
-            <div>
-              <h3 className="font-bold text-gray-900 mb-2">
-                Branch 1: The User’s Journey – Evolution of Individual Technology Acceptance & Use
-                Models
-              </h3>
-              <div className="space-y-1 text-sm text-gray-800 font-sans">
-                <p>Article 2: Branch Introduction – The User’s Journey</p>
-                <p>Article 3: The Bedrock – Foundational Theories That Shaped Tech Acceptance</p>
-                <p>
-                  Article 4: The Game Changer – A Deep Dive into the Technology Acceptance Model
-                  (TAM)
-                </p>
-                <p>
-                  Article 5: Expanding the Classic – The Evolution to TAM 2, TAM 3, and C-TAM-TPB
-                </p>
-                <p>
-                  Article 6: The Grand Unification – The Unified Theory of Acceptance and Use of
-                  Technology (UTAUT)
-                </p>
-                <p>Article 7: Beyond the Office – UTAUT2, Consumer Context, and Modern Syntheses</p>
-                <p>Article 8: Context is King – Specialized Individual Adoption Models</p>
-                <p>Article 9: Are you Ready? The Role of Technology Readiness (TRI & TRAM)</p>
-              </div>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-900 mb-2">
-                Branch 2: The Organization’s Playbook – Evolution of Organizational Technology
-                Acceptance & Use Models
-              </h3>
-              <div className="space-y-1 text-sm text-gray-800 font-sans">
-                <p>Article 10: Branch Introduction – The Organization’s Playbook</p>
-                <p>
-                  Article 11: The Strategic Lens – Foundational Theories for Organizational Adoption
-                </p>
-                <p>Article 12: From Chaos to Control – A Guide to Maturity Models</p>
-                <p>Article 13: Managing the Lifecycle – The Gartner Hype Cycle</p>
-                <p>
-                  Article 14: The Blueprint for Enterprise – A Survey of Architecture Frameworks
-                </p>
-                <p>Article 15: The Modern Mandate – Frameworks for Cybersecurity and Risk</p>
-                <p>Article 16: The Cloud Revolution – Prescriptive Adoption Frameworks</p>
-                <p>Article 17: The AI Frontier – Frameworks for Adopting AI, ML, and GenAI</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <SeriesNavigation />
 
         <section className="pt-8 border-t border-gray-200">
           <h2 className="text-[20px] font-bold text-gray-900 mb-4">References</h2>
