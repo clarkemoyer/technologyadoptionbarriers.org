@@ -270,8 +270,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - [ ] Configure custom domain
 - [ ] Update metadataBase URL
 - **File:** `public/CNAME`, `src/app/layout.tsx`
-- **Live Site**: [http://staging.technologyadoptionbarriers.org](http://staging.technologyadoptionbarriers.org)
-- **GitHub Pages**: [https://clarkemoyer.github.io/technologyadoptionbarriers.org/](https://clarkemoyer.github.io/technologyadoptionbarriers.org/)
+- **Live Site**: [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org)
 
 #### Analytics & Tracking
 

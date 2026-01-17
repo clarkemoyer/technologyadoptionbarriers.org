@@ -10,10 +10,6 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'staging.technologyadoptionbarriers.org',
-      },
-      {
-        protocol: 'https',
         hostname: 'technologyadoptionbarriers.org',
       },
       {

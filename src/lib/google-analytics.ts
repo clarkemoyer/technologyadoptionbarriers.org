@@ -44,9 +44,6 @@ export class GoogleAnalyticsClient {
       endDate = 'today',
       dimensions = [],
       metrics = ['activeUsers'],
-      limit,
-      orderBys,
-      metricAggregations,
     } = options
 
     try {
@@ -60,9 +57,6 @@ export class GoogleAnalyticsClient {
         ],
         dimensions: dimensions.map((d) => ({ name: d })),
         metrics: metrics.map((m) => ({ name: m })),
-        limit,
-        orderBys,
-        metricAggregations,
       })
 
       return response
