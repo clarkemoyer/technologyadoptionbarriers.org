@@ -27,10 +27,10 @@ describe('SeriesNavigation component', () => {
 
     for (const branch of technologyAdoptionModelsSeries.branches) {
       expect(
-        screen.getByRole('link', {
+        screen.getAllByRole('link', {
           name: new RegExp(branch.title, 'i'),
-        })
-      ).toBeInTheDocument()
+        }).length
+      ).toBeGreaterThan(0)
     }
 
     expect(
@@ -46,11 +46,11 @@ describe('SeriesNavigation component', () => {
 
     render(<SeriesNavigation />)
 
-    const currentLink = screen.getByRole('link', { name: currentArticle.title })
-    expect(currentLink).toHaveAttribute('aria-current', 'page')
+    const currentLinks = screen.getAllByRole('link', { name: currentArticle.title })
+    expect(currentLinks.some((link) => link.getAttribute('aria-current') === 'page')).toBe(true)
   })
 
-  it('should render coming-soon items as non-clickable text', () => {
+  it('should render coming-soon items as links (to allow flow testing)', () => {
     // Use a published page as the current route
     mockedUsePathname.mockReturnValue(technologyAdoptionModelsSeries.branches[0].articles[0].slug)
 
@@ -61,8 +61,15 @@ describe('SeriesNavigation component', () => {
     // Title should be present...
     expect(screen.getAllByText(comingSoon.title).length).toBeGreaterThan(0)
 
-    // ...but not rendered as a link.
-    expect(screen.queryByRole('link', { name: comingSoon.title })).not.toBeInTheDocument()
+    // ...and now rendered as a link.
+    const comingSoonLinks = screen.getAllByRole('link', {
+      name: /Article 1\.2: The Game Changer/i,
+    })
+    expect(comingSoonLinks.length).toBeGreaterThan(0)
+    expect(comingSoonLinks.some((link) => link.getAttribute('href') === comingSoon.slug)).toBe(true)
+
+    // Coming soon label should still be visible.
+    expect(screen.getAllByText(/Coming soon/i).length).toBeGreaterThan(0)
   })
 
   it('should not have accessibility violations', async () => {

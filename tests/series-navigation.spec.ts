@@ -265,3 +265,42 @@ test.describe('Placeholder Pages - Coming Soon', () => {
     })
   }
 })
+
+test.describe('In-page Series Navigation - Responsive rendering', () => {
+  test('mobile: renders branch accordions (summary buttons) instead of branch title links', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 667 })
+    await page.goto(technologyAdoptionModelsSeries.branches[0].articles[0].slug)
+
+    await expect(page.getByRole('heading', { name: /Series navigation/i })).toBeVisible()
+
+    const seriesNav = page.getByRole('navigation', {
+      name: /Technology Adoption Models series navigation/i,
+    })
+    await expect(seriesNav).toBeVisible()
+
+    const branchTitle = technologyAdoptionModelsSeries.branches[0].title
+    await expect(seriesNav.locator('summary').filter({ hasText: branchTitle })).toBeVisible()
+    await expect(seriesNav.getByRole('link', { name: branchTitle })).toHaveCount(0)
+  })
+
+  test('desktop: renders branch title links instead of accordion summary buttons', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 720 })
+    await page.goto(technologyAdoptionModelsSeries.branches[0].articles[0].slug)
+
+    await expect(page.getByRole('heading', { name: /Series navigation/i })).toBeVisible()
+    await expect(page.getByRole('link', { name: /Jump to current branch section/i })).toBeVisible()
+
+    const seriesNav = page.getByRole('navigation', {
+      name: /Technology Adoption Models series navigation/i,
+    })
+    await expect(seriesNav).toBeVisible()
+
+    const branchTitle = technologyAdoptionModelsSeries.branches[0].title
+    await expect(page.getByRole('link', { name: branchTitle }).first()).toBeVisible()
+    await expect(seriesNav.locator('summary').filter({ hasText: branchTitle })).toBeHidden()
+  })
+})
