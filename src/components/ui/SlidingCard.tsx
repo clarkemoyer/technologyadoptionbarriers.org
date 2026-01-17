@@ -54,7 +54,7 @@ export default function SlidingCard({
   }
 
   return (
-    <section className={`py-[30px] w-[80%] mx-auto max-w-[1080px] bg-white ${className}`}>
+    <section className={`py-[30px] w-[80%] mx-auto max-w-[4096px] bg-white ${className}`}>
       <div className={`flex ${flexDirection} items-start gap-[59px]`}>
         {/* Image */}
         <div ref={imageRef} className="flex-1 flex justify-start overflow-hidden">

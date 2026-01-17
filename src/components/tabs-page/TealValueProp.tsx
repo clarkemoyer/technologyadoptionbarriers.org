@@ -3,7 +3,7 @@ import React from 'react'
 const TealValueProp = () => {
   return (
     <section className="w-full py-[80px] bg-[#0E7162] text-white">
-      <div className="w-[90%] mx-auto max-w-[1080px]">
+      <div className="w-[90%] mx-auto max-w-[4096px]">
         <h2 className="text-[36px] font-bold mb-[30px] font-serif">
           Technology Adoption Barriers Survey (TABS)
         </h2>

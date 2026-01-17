@@ -3,7 +3,7 @@ import React from 'react'
 const MissionOverview = () => {
   return (
     <section className="w-full py-[80px] bg-white text-gray-800">
-      <div className="w-[90%] mx-auto max-w-[1280px] grid grid-cols-1 lg:grid-cols-2 gap-[60px]">
+      <div className="w-[90%] mx-auto max-w-[4096px] grid grid-cols-1 lg:grid-cols-2 gap-[60px]">
         {/* Column 1: What We Do */}
         <div>
           <h2 className="text-[32px] font-bold text-[#113563] mb-[25px] font-serif border-b-4 border-[#F57C20] inline-block pb-2">

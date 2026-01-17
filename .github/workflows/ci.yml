@@ -5,6 +5,9 @@ on:
   pull_request:
     branches: ['main']
 
+  # Runs on merge queue temporary branches (required if merge queue is enabled)
+  merge_group:
+
   # Runs on pushes to main (before deploy)
   push:
     branches: ['main']

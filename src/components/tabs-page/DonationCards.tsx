@@ -33,7 +33,7 @@ const DonationCards = () => {
 
   return (
     <section className="w-full py-[80px] bg-gray-50">
-      <div className="w-[90%] mx-auto max-w-[1280px] grid grid-cols-1 md:grid-cols-3 gap-[30px]">
+      <div className="w-[90%] mx-auto max-w-[4096px] grid grid-cols-1 md:grid-cols-3 gap-[30px]">
         {cards.map((card, index) => (
           <div
             key={index}
