@@ -54,10 +54,14 @@
 ### Intentional “inactive” feature
 
 <<<<<<< HEAD
+
 # Preview built site
+
 npm run preview
+
 # Visit http://localhost:3000
-```
+
+````
 
 ## Validation Requirements
 
@@ -91,7 +95,7 @@ npm run test:headed
 
 # Run tests with UI
 npm run test:ui
-```
+````
 
 **Test Suites:**
 
@@ -420,7 +424,7 @@ ls -la .github/      # GitHub workflows and configs
      ```
    - **Verify**: Ensure you have pushed at least one commit (even an empty one) to your feature branch before creating the PR.
 
-Remember: **NEVER CANCEL** long-running commands. **ALWAYS** test manually after changes. **ALWAYS** apply Google Fonts workaround before building.
-=======
+# Remember: **NEVER CANCEL** long-running commands. **ALWAYS** test manually after changes. **ALWAYS** apply Google Fonts workaround before building.
+
 - Global popup system is currently commented out in `src/app/layout.tsx` (PopupProvider/PopupsRootClient).
->>>>>>> 38231785a07c793802e5df3e79d0a7da3eeeb3bb
+  > > > > > > > 38231785a07c793802e5df3e79d0a7da3eeeb3bb
