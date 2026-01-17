@@ -1,12 +1,26 @@
 # GitHub Merge Queue Verification Report
 
+## Status update (as of 2026-01-17)
+
+This file contains a **historical verification report** (Dec 2024) showing that a merge-queue-style flow worked at that time.
+
+**Current repo configuration is different:**
+
+- The default branch is governed by a GitHub **Ruleset** named **“Protect Main”** (not classic “branch protection”).
+- **Merge queue is NOT currently enabled** (no merge-queue rule is present in the ruleset).
+- GitHub Actions checks still run on PRs, but **required status checks are not currently enforced by rules/rulesets**.
+
+If you want merge queue behavior today, see **“How to enable merge queue”** below.
+
 **Date:** December 7, 2024  
 **PR Analyzed:** #83 - "Update README documentation"  
 **Commit:** 038851c79adc2a42ac7fe1616a35862b475de729
 
 ## Executive Summary
 
-✅ **The GitHub merge queue integration is working correctly.** All workflows executed successfully in the proper order, and the merge queue bot managed the entire process automatically.
+✅ **This historical merge queue verification was successful** (Dec 2024). All workflows executed successfully in the proper order, and the merge queue bot managed the process automatically.
+
+⚠️ **Note:** This does not guarantee merge queue is enabled today (see “Status update”).
 
 ## Workflow Execution Timeline
 
@@ -209,7 +223,12 @@ The merge queue integration is functioning exactly as designed:
 
 If you want to further optimize the workflow:
 
-1. **Add Merge Queue Configuration**: Consider customizing merge queue behavior through Repository Settings → General → Pull Requests → Merge Queue (batch size, required checks, merge method, etc.)
+1. **Enable Merge Queue (current GitHub UI)**: Merge queue is enabled from branch rules, not “General”. Use:
+
+- **Settings → Rules → Rulesets** (recommended), or
+- **Settings → Branches → Branch protection rules** (classic)
+
+Then enable **Require merge queue** on the ruleset/rule that targets the base branch.
 
 2. **Deployment Protection Rules**: Add environment protection rules in GitHub Settings → Environments → github-pages if you want manual approval gates
 
@@ -226,6 +245,51 @@ The GitHub merge queue successfully managed PR #83's merge process. All workflow
 The temporary 1-second workflow runs observed in the screenshots are expected behavior from the concurrency control, not errors. They represent workflows that were cancelled because a newer commit superseded them.
 
 **No action is required.** The system is operating as designed.
+
+---
+
+## How to enable merge queue (current guidance)
+
+### 1) Confirm feature availability
+
+Per GitHub documentation, merge queues are available for:
+
+- **Public repositories owned by an organization**, or
+- **Private repositories owned by organizations using GitHub Enterprise Cloud**
+
+If this repository is owned by a **personal account**, merge queue may not be available unless the repo is moved under an organization.
+
+### 2) Enable it via Rulesets (recommended)
+
+1. Open **Settings → Rules → Rulesets**.
+2. Create or edit a ruleset that targets the default branch (for example `main`).
+3. Add/enable:
+   - **Pull request** rule (already present today in “Protect Main”).
+   - **Require merge queue** rule.
+   - (Recommended) **Required status checks** for the checks you want gating merges.
+4. Choose merge method (squash/merge/rebase) and any merge queue settings (concurrency, timeouts).
+
+### 3) Update CI workflows to support merge queue
+
+If you require GitHub Actions checks in a merge queue, your required workflow(s) must trigger on the `merge_group` event, otherwise the merge queue will wait forever for checks that never run.
+
+Example (minimum):
+
+```yaml
+on:
+  pull_request:
+  merge_group:
+```
+
+Apply this to the workflow(s) that publish the required checks (typically CI).
+
+### Personal repo vs organization repo
+
+- **Personal repo**: merge queue may not be available. If it isn’t, the best alternative is:
+  - keep using PRs + auto-merge,
+  - enforce required checks using Rulesets/branch protections,
+  - optionally require “up to date” branches to reduce broken-main risk.
+- **Organization repo**: merge queue is commonly available for public repos. Org/enterprise policy may restrict who can enable it (usually requires repo admin) and may restrict merge methods.
 
 ---
 
