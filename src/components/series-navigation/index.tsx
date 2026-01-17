@@ -23,21 +23,29 @@ const normalizePath = (pathname: string) => {
 
 const isComingSoon = (item: LinkState) => item.status === 'coming-soon'
 
-const isLinkable = (item: LinkState) => Boolean(item.slug) && !isComingSoon(item)
+const isLinkable = (item: LinkState) => Boolean(item.slug)
 
 const NavRowItem = ({
   item,
   isCurrent,
   label,
+  variant = 'default',
 }: {
   item: LinkState
   isCurrent: boolean
   label: string
+  variant?: 'default' | 'prominent'
 }) => {
   const baseClasses =
-    'inline-flex items-center rounded px-2 py-1 text-sm font-sans transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+    variant === 'prominent'
+      ? 'inline-flex items-center rounded px-3 py-2 text-base sm:text-lg font-sans font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+      : 'inline-flex items-center rounded px-2 py-1 text-sm font-sans transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
 
-  const currentClasses = isCurrent ? 'bg-blue-50 text-blue-900' : 'text-blue-700 hover:bg-blue-50'
+  const currentClasses = isCurrent
+    ? 'bg-blue-50 text-blue-900'
+    : isComingSoon(item)
+      ? 'text-gray-700 hover:bg-gray-100'
+      : 'text-blue-700 hover:bg-blue-50'
 
   if (!isLinkable(item)) {
     return (
@@ -83,10 +91,11 @@ const BranchListItem = ({ item, isCurrent }: { item: LinkState; isCurrent: boole
   return (
     <Link
       href={item.slug!}
-      className={`${common} ${isCurrent ? 'font-semibold text-gray-900 underline decoration-2 decoration-blue-500' : 'text-blue-700 hover:underline'}`}
+      className={`${common} ${isCurrent ? 'font-semibold text-gray-900 underline decoration-2 decoration-blue-500' : isComingSoon(item) ? 'text-gray-700 hover:underline' : 'text-blue-700 hover:underline'}`}
       aria-current={isCurrent ? 'page' : undefined}
     >
       {item.title}
+      {isComingSoon(item) ? <span className="ml-1 text-gray-600">(Coming soon)</span> : null}
     </Link>
   )
 }
@@ -136,15 +145,8 @@ const SeriesNavigation = ({ className }: { className?: string }) => {
             label="Series root"
             item={{ title: root.title, slug: root.slug, status: 'published' }}
             isCurrent={normalizePath(root.slug) === currentPath}
+            variant="prominent"
           />
-
-          {currentBranch ? (
-            <NavRowItem
-              label="Branch root"
-              item={{ title: currentBranch.title, slug: currentBranch.slug, status: 'published' }}
-              isCurrent={normalizePath(currentBranch.slug) === currentPath}
-            />
-          ) : null}
 
           {bibliography ? (
             <NavRowItem
