@@ -4,7 +4,14 @@ import { technologyAdoptionModelsSeries } from '@/data/technology-adoption-model
 export const dynamic = 'force-static'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'http://staging.technologyadoptionbarriers.org'
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://technologyadoptionbarriers.org')
+    .trim()
+    .replace(/\/$/, '')
+
+  const basePathRaw = (process.env.NEXT_PUBLIC_BASE_PATH || '').trim()
+  const basePath = basePathRaw ? `/${basePathRaw.replace(/^\/+/, '').replace(/\/+$/, '')}` : ''
+
+  const baseUrl = `${siteUrl}${basePath}`
   const now = new Date()
 
   // Build sitemap entries from series data
@@ -16,6 +23,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    // Bibliography
+    ...(technologyAdoptionModelsSeries.bibliography
+      ? [
+          {
+            url: `${baseUrl}${technologyAdoptionModelsSeries.bibliography.slug}`,
+            lastModified: now,
+            changeFrequency: 'monthly' as const,
+            priority: 0.6,
+          },
+        ]
+      : []),
     // Branch introductions
     ...technologyAdoptionModelsSeries.branches.map((branch) => ({
       url: `${baseUrl}${branch.slug}`,

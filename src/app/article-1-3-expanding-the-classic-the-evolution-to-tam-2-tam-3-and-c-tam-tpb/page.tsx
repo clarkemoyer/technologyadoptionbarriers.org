@@ -1,7 +1,15 @@
 import React from 'react'
+import type { Metadata } from 'next'
 
 import SeriesNavigation from '@/components/series-navigation'
 import { ARTICLE_CLASSES, H1_CLASSES } from '@/lib/articleStyles'
+
+export const metadata: Metadata = {
+  title: 'Article 1.3: Expanding the Classic — TAM2, TAM3, and C-TAM-TPB (Coming Soon)',
+  description:
+    'Coming soon: how TAM evolved through TAM2, TAM3, and C-TAM-TPB to incorporate social influence, experience, and behavioral control.',
+}
+
 const Article13Page = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
