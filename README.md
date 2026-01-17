@@ -70,8 +70,7 @@ The site features two primary CTAs accessible throughout the experience via glob
 ## Deployment
 
 - **Live Site**: [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org)
-- **GitHub Pages**: [https://clarkemoyer.github.io/technologyadoptionbarriers.org/](https://clarkemoyer.github.io/technologyadoptionbarriers.org/)
-- **Hosting**: GitHub Pages
+- **Hosting**: GitHub Pages (apex domain)
 - **Deployment**: Automated via GitHub Actions on push to `main` branch
 
 ## Development Status
@@ -638,8 +637,7 @@ The site is configured for static export and deployed to GitHub Pages:
 
 **Production:**
 
-- Live at: [http://staging.technologyadoptionbarriers.org](http://staging.technologyadoptionbarriers.org)
-- GitHub Pages URL: [https://clarkemoyer.github.io/technologyadoptionbarriers.org/](https://clarkemoyer.github.io/technologyadoptionbarriers.org/)
+- Live at: [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org)
 - Deployment: Automatic via GitHub Actions (`.github/workflows/deploy.yml`)
 - Trigger: Push to `main` branch
 - Build output: Static files in `./out` directory

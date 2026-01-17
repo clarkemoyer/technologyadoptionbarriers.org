@@ -76,7 +76,7 @@ async function generateReport() {
 | Page | Views | Users | Sessions |
 | :--- | :--- | :--- | :--- |
 ${rows
-  .map((row) => {
+  .map((row: any) => {
     if (!row.metricValues || !row.dimensionValues) return ''
     const [activeUsers, newUsers, sessions, views] = row.metricValues
     const path = row.dimensionValues[0]?.value || '/'

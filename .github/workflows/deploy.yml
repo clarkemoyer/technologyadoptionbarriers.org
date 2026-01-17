@@ -64,8 +64,8 @@ jobs:
       - name: Build with Next.js
         run: npm run build
         env:
-          # Set basePath for GitHub Pages deployment
-          # This ensures images and assets work correctly at the subpath
+          # Empty basePath for apex domain deployment (technologyadoptionbarriers.org)
+          # Assets are served from root path /
           NEXT_PUBLIC_BASE_PATH: ''
           NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID: ${{ vars.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID }}
 
