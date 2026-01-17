@@ -197,7 +197,7 @@ const ModelsPage = () => {
               <a
                 href="https://doi.org/10.1177/014920639101700108"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.1177/014920639101700108
@@ -217,7 +217,7 @@ const ModelsPage = () => {
               <a
                 href="https://doi.org/10.1016/0749-5978(91)90020-T"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.1016/0749-5978(91)90020-T
@@ -229,7 +229,7 @@ const ModelsPage = () => {
               <a
                 href="https://doi.org/10.2307/249008"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.2307/249008
@@ -241,7 +241,7 @@ const ModelsPage = () => {
               <a
                 href="https://doi.org/10.2307/30036540"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.2307/30036540
@@ -254,7 +254,7 @@ const ModelsPage = () => {
               <a
                 href="https://doi.org/10.2307/41410412"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.2307/41410412
@@ -265,7 +265,7 @@ const ModelsPage = () => {
               <a
                 href="https://pubs.opengroup.org/architecture/togaf9-doc/arch/"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://pubs.opengroup.org/architecture/togaf9-doc/arch/
@@ -277,7 +277,7 @@ const ModelsPage = () => {
               <a
                 href="https://aws.amazon.com/professional-services/CAF/"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://aws.amazon.com/professional-services/CAF/

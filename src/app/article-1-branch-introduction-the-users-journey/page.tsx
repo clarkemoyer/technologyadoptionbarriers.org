@@ -147,7 +147,7 @@ const UsersJourneyPage = () => {
               <a
                 href="https://doi.org/10.1016/0749-5978(91)90020-T"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.1016/0749-5978(91)90020-T
@@ -165,7 +165,7 @@ const UsersJourneyPage = () => {
               <a
                 href="https://doi.org/10.1111/j.1559-1816.1992.tb00945.x"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.1111/j.1559-1816.1992.tb00945.x
@@ -177,7 +177,7 @@ const UsersJourneyPage = () => {
               <a
                 href="https://doi.org/10.2307/249443"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.2307/249443
@@ -189,7 +189,7 @@ const UsersJourneyPage = () => {
               <a
                 href="https://doi.org/10.2307/249008"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.2307/249008
@@ -201,7 +201,7 @@ const UsersJourneyPage = () => {
               <a
                 href="https://doi.org/10.1287/mnsc.46.2.186.11926"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.1287/mnsc.46.2.186.11926
@@ -213,7 +213,7 @@ const UsersJourneyPage = () => {
               <a
                 href="https://doi.org/10.1111/j.1540-5915.2008.00192.x"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.1111/j.1540-5915.2008.00192.x
@@ -225,7 +225,7 @@ const UsersJourneyPage = () => {
               <a
                 href="https://doi.org/10.2307/30036540"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.2307/30036540
@@ -238,7 +238,7 @@ const UsersJourneyPage = () => {
               <a
                 href="https://doi.org/10.2307/41410412"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.2307/41410412
@@ -250,7 +250,7 @@ const UsersJourneyPage = () => {
               <a
                 href="https://doi.org/10.2307/249244"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.2307/249244
@@ -263,7 +263,7 @@ const UsersJourneyPage = () => {
               <a
                 href="https://doi.org/10.1177/109467050024001"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.1177/109467050024001

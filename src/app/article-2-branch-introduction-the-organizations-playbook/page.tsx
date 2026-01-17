@@ -152,7 +152,7 @@ const OrganizationsPlaybookPage = () => {
               <a
                 href="https://doi.org/10.1177/014920639101700108"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.1177/014920639101700108
@@ -172,7 +172,7 @@ const OrganizationsPlaybookPage = () => {
               <a
                 href="https://www.cambridge.org/core/books/how-to-make-the-right-decision-in-a-crisis/A3B8C1D6F0E0F9B9A7A7B7B8E5F0E6F0"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://www.cambridge.org/core/books/how-to-make-the-right-decision-in-a-crisis/A3B8C1D6F0E0F9B9A7A7B7B8E5F0E6F0
@@ -186,7 +186,7 @@ const OrganizationsPlaybookPage = () => {
               <a
                 href="https://doi.org/10.6028/NIST.SP.800-37r2"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.6028/NIST.SP.800-37r2
@@ -198,7 +198,7 @@ const OrganizationsPlaybookPage = () => {
               <a
                 href="https://dodcio.defense.gov/CMMC/"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://dodcio.defense.gov/CMMC/
@@ -210,7 +210,7 @@ const OrganizationsPlaybookPage = () => {
               <a
                 href="https://aws.amazon.com/professional-services/CAF/"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://aws.amazon.com/professional-services/CAF/
@@ -222,7 +222,7 @@ const OrganizationsPlaybookPage = () => {
               <a
                 href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/ai-strategy-and-planning"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/ai-strategy-and-planning

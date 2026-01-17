@@ -226,7 +226,7 @@ const FoundationalTheoriesPage = () => {
               <a
                 href="https://doi.org/10.1016/0749-5978(91)90020-T"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.1016/0749-5978(91)90020-T
@@ -243,7 +243,7 @@ const FoundationalTheoriesPage = () => {
               <a
                 href="https://doi.org/10.1111/j.1559-1816.1992.tb00945.x"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.1111/j.1559-1816.1992.tb00945.x
@@ -255,7 +255,7 @@ const FoundationalTheoriesPage = () => {
               <a
                 href="https://doi.org/10.2307/249443"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.2307/249443
