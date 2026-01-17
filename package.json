@@ -19,6 +19,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@google-analytics/data": "^5.2.1",
     "framer-motion": "^12.26.2",
     "lightningcss": "^1.30.2",
     "lucide-react": "^0.562.0",
