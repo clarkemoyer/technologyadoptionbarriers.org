@@ -27,10 +27,10 @@ describe('SeriesNavigation component', () => {
 
     for (const branch of technologyAdoptionModelsSeries.branches) {
       expect(
-        screen.getByRole('link', {
+        screen.getAllByRole('link', {
           name: new RegExp(branch.title, 'i'),
-        })
-      ).toBeInTheDocument()
+        }).length
+      ).toBeGreaterThan(0)
     }
 
     expect(
@@ -46,8 +46,8 @@ describe('SeriesNavigation component', () => {
 
     render(<SeriesNavigation />)
 
-    const currentLink = screen.getByRole('link', { name: currentArticle.title })
-    expect(currentLink).toHaveAttribute('aria-current', 'page')
+    const currentLinks = screen.getAllByRole('link', { name: currentArticle.title })
+    expect(currentLinks.some((link) => link.getAttribute('aria-current') === 'page')).toBe(true)
   })
 
   it('should render coming-soon items as links (to allow flow testing)', () => {

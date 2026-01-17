@@ -157,15 +157,65 @@ const SeriesNavigation = ({ className }: { className?: string }) => {
           ) : null}
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        {/* Mobile: collapsible branches to avoid a long scroll */}
+        <div className="md:hidden space-y-3">
+          {branches.map((branch) => {
+            const isBranchActive =
+              normalizePath(branch.slug) === currentPath ||
+              branch.articles.some((article) => normalizePath(article.slug) === currentPath)
+
+            return (
+              <details
+                key={branch.id}
+                open={isBranchActive}
+                className="rounded border border-gray-200 bg-white"
+              >
+                <summary className="cursor-pointer list-none px-3 py-2 font-sans font-semibold text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                  {branch.title}
+                </summary>
+                <div className="px-3 pb-3">
+                  <div className="mt-2 text-sm font-sans">
+                    <span className="font-semibold text-gray-900">Branch introduction:</span>{' '}
+                    <BranchListItem
+                      item={{
+                        title: 'Read the branch introduction',
+                        slug: branch.slug,
+                        status: 'published',
+                      }}
+                      isCurrent={normalizePath(branch.slug) === currentPath}
+                    />
+                  </div>
+
+                  <ul className="mt-3 space-y-1 text-sm font-sans">
+                    {branch.articles.map((article) => (
+                      <li key={article.id}>
+                        <BranchListItem
+                          item={{
+                            title: article.title,
+                            slug: article.slug,
+                            status: article.status,
+                          }}
+                          isCurrent={normalizePath(article.slug) === currentPath}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </details>
+            )
+          })}
+        </div>
+
+        {/* Desktop: two-column grid */}
+        <div className="hidden md:grid gap-6 md:grid-cols-2">
           {branches.map((branch) => (
-            <div key={branch.id}>
-              <div className="font-bold text-gray-900">
+            <section key={branch.id} aria-label={branch.title}>
+              <h3 className="font-bold text-gray-900">
                 <BranchListItem
                   item={{ title: branch.title, slug: branch.slug, status: 'published' }}
                   isCurrent={normalizePath(branch.slug) === currentPath}
                 />
-              </div>
+              </h3>
               <ul className="mt-2 space-y-1 text-sm font-sans">
                 {branch.articles.map((article) => (
                   <li key={article.id}>
@@ -176,7 +226,7 @@ const SeriesNavigation = ({ className }: { className?: string }) => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </section>
           ))}
         </div>
 
