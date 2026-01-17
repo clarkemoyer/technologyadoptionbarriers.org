@@ -53,8 +53,6 @@
 
 ### Intentional “inactive” feature
 
-<<<<<<< HEAD
-
 # Preview built site
 
 npm run preview
@@ -427,4 +425,3 @@ ls -la .github/      # GitHub workflows and configs
 # Remember: **NEVER CANCEL** long-running commands. **ALWAYS** test manually after changes. **ALWAYS** apply Google Fonts workaround before building.
 
 - Global popup system is currently commented out in `src/app/layout.tsx` (PopupProvider/PopupsRootClient).
-  > > > > > > > 38231785a07c793802e5df3e79d0a7da3eeeb3bb
