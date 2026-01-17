@@ -67,6 +67,7 @@ jobs:
           # Set basePath for GitHub Pages deployment
           # This ensures images and assets work correctly at the subpath
           NEXT_PUBLIC_BASE_PATH: ''
+          NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID: ${{ vars.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID }}
 
       - name: Upload artifact for Pages
         uses: actions/upload-pages-artifact@v4
