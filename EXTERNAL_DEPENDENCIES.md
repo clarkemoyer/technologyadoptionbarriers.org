@@ -141,7 +141,7 @@ These are third-party services loaded by our direct integrations. We do not dire
 - **Privacy Policy:** https://legal.hubspot.com/privacy-policy
 - **Note:** This is a Microsoft-controlled service, not directly integrated by the TABS codebase
 
-**Discovery:** Identified through page speed analysis. See [HUBSPOT_INVESTIGATION.md](./HUBSPOT_INVESTIGATION.md) for full investigation report.
+**Discovery:** Identified through page speed analysis.
 
 ### Other Potential Transitive Dependencies
 
@@ -337,7 +337,6 @@ For questions about our external dependencies or privacy practices:
 - [Privacy Policy](/privacy-policy) - How we handle user data
 - [Cookie Policy](/cookie-policy) - Detailed cookie information
 - [Security Policy](./SECURITY.md) - Security practices and reporting
-- [HubSpot Investigation](./HUBSPOT_INVESTIGATION.md) - Detailed analysis of HubSpot usage
 
 ## Updates to This Document
 
