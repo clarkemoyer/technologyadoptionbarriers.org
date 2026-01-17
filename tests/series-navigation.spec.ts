@@ -265,3 +265,32 @@ test.describe('Placeholder Pages - Coming Soon', () => {
     })
   }
 })
+
+test.describe('In-page Series Navigation - Responsive rendering', () => {
+  test('mobile: renders branch accordions (summary buttons) instead of branch title links', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 667 })
+    await page.goto(technologyAdoptionModelsSeries.branches[0].articles[0].slug)
+
+    await expect(page.getByRole('heading', { name: /Series navigation/i })).toBeVisible()
+
+    const branchTitle = technologyAdoptionModelsSeries.branches[0].title
+    await expect(page.getByRole('button', { name: branchTitle })).toBeVisible()
+    await expect(page.getByRole('link', { name: branchTitle })).toHaveCount(0)
+  })
+
+  test('desktop: renders branch title links instead of accordion summary buttons', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 720 })
+    await page.goto(technologyAdoptionModelsSeries.branches[0].articles[0].slug)
+
+    await expect(page.getByRole('heading', { name: /Series navigation/i })).toBeVisible()
+    await expect(page.getByRole('link', { name: /Jump to current branch section/i })).toBeVisible()
+
+    const branchTitle = technologyAdoptionModelsSeries.branches[0].title
+    await expect(page.getByRole('link', { name: branchTitle }).first()).toBeVisible()
+    await expect(page.getByRole('button', { name: branchTitle })).toHaveCount(0)
+  })
+})

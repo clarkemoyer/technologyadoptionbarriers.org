@@ -25,6 +25,8 @@ const isComingSoon = (item: LinkState) => item.status === 'coming-soon'
 
 const isLinkable = (item: LinkState) => Boolean(item.slug)
 
+const branchAnchorId = (branchId: string) => `series-nav-${branchId}`
+
 const NavRowItem = ({
   item,
   isCurrent,
@@ -113,6 +115,8 @@ const SeriesNavigation = ({ className }: { className?: string }) => {
         branch.articles.some((article) => normalizePath(article.slug) === currentPath)
     ) || null
 
+  const currentBranchAnchor = currentBranch ? branchAnchorId(currentBranch.id) : null
+
   const previousNext = React.useMemo(() => {
     if (!currentBranch) return null
 
@@ -157,6 +161,14 @@ const SeriesNavigation = ({ className }: { className?: string }) => {
           ) : null}
         </div>
 
+        {currentBranchAnchor ? (
+          <div className="text-sm font-sans">
+            <a href={`#${currentBranchAnchor}`} className="text-blue-700 hover:underline">
+              Jump to current branch section
+            </a>
+          </div>
+        ) : null}
+
         {/* Mobile: collapsible branches to avoid a long scroll */}
         <div className="md:hidden space-y-3">
           {branches.map((branch) => {
@@ -167,11 +179,17 @@ const SeriesNavigation = ({ className }: { className?: string }) => {
             return (
               <details
                 key={branch.id}
+                id={branchAnchorId(branch.id)}
                 open={isBranchActive}
                 className="rounded border border-gray-200 bg-white"
               >
                 <summary className="cursor-pointer list-none px-3 py-2 font-sans font-semibold text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-                  {branch.title}
+                  <span className="flex items-center justify-between gap-2">
+                    <span>{branch.title}</span>
+                    <span aria-hidden="true" className="text-gray-500">
+                      ▾
+                    </span>
+                  </span>
                 </summary>
                 <div className="px-3 pb-3">
                   <div className="mt-2 text-sm font-sans">
@@ -209,7 +227,7 @@ const SeriesNavigation = ({ className }: { className?: string }) => {
         {/* Desktop: two-column grid */}
         <div className="hidden md:grid gap-6 md:grid-cols-2">
           {branches.map((branch) => (
-            <section key={branch.id} aria-label={branch.title}>
+            <section key={branch.id} id={branchAnchorId(branch.id)} aria-label={branch.title}>
               <h3 className="font-bold text-gray-900">
                 <BranchListItem
                   item={{ title: branch.title, slug: branch.slug, status: 'published' }}
