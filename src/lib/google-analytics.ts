@@ -5,6 +5,9 @@ interface GAReportOptions {
   endDate?: string
   dimensions?: string[]
   metrics?: string[]
+  limit?: number
+  orderBys?: Array<{ metric?: { metricName: string }; desc?: boolean }>
+  metricAggregations?: Array<'TOTAL' | 'MINIMUM' | 'MAXIMUM' | 'COUNT'>
 }
 
 export class GoogleAnalyticsClient {
@@ -44,10 +47,13 @@ export class GoogleAnalyticsClient {
       endDate = 'today',
       dimensions = [],
       metrics = ['activeUsers'],
+      limit,
+      orderBys,
+      metricAggregations,
     } = options
 
     try {
-      const [response] = await this.client.runReport({
+      const response = await this.client.runReport({
         property: `properties/${this.propertyId}`,
         dateRanges: [
           {
@@ -57,9 +63,12 @@ export class GoogleAnalyticsClient {
         ],
         dimensions: dimensions.map((d) => ({ name: d })),
         metrics: metrics.map((m) => ({ name: m })),
+        limit,
+        orderBys,
+        metricAggregations: metricAggregations as any,
       })
 
-      return response
+      return response[0]
     } catch (error) {
       console.error('Failed to fetch GA data:', error)
       throw error
