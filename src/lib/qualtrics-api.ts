@@ -70,8 +70,9 @@ async function makeApiRequest<T>(
         // Surface JSON parsing issues clearly for successful responses with context
         const errorMessage =
           parseError instanceof Error ? parseError.message : 'Unknown parsing error'
+        const preview = responseText.slice(0, Math.min(responseText.length, 200))
         throw new Error(
-          `Failed to parse successful API response as JSON: ${errorMessage}. Response text: ${responseText.substring(0, 200)}...`
+          `Failed to parse successful API response as JSON: ${errorMessage}. Response text: ${preview}${responseText.length > 200 ? '...' : ''}`
         )
       }
     }
