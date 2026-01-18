@@ -82,12 +82,12 @@ The TABS website uses Stripe for PCI-compliant donation processing. The integrat
 
 Add the following secrets to the `stripe-prod` environment:
 
-| Secret Name                                    | Value                          | Description                                             |
-| ---------------------------------------------- | ------------------------------ | ------------------------------------------------------- |
-| `STRIPE_SECRET_KEY`                            | `sk_live_...` or `sk_test_...` | Stripe secret API key (for GitHub Actions verification) |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`           | `pk_live_...` or `pk_test_...` | Stripe publishable key                                  |
-| `NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID`         | `https://buy.stripe.com/...`   | One-time donation payment link URL                      |
-| `NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID` | `https://buy.stripe.com/...`   | Monthly donation payment link URL                       |
+| Secret Name                                            | Value                          | Description                                             |
+| ------------------------------------------------------ | ------------------------------ | ------------------------------------------------------- |
+| `STRIPE_SECRET_KEY`                                    | `sk_live_...` or `sk_test_...` | Stripe secret API key (for GitHub Actions verification) |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`                   | `pk_live_...` or `pk_test_...` | Stripe publishable key                                  |
+| `NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL`         | `https://buy.stripe.com/...`   | One-time donation payment link URL                      |
+| `NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL` | `https://buy.stripe.com/...`   | Monthly donation payment link URL                       |
 
 **To add secrets:**
 
@@ -110,8 +110,8 @@ Edit `.env.local` and add your Stripe test keys:
 ```env
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_publishable_key
 STRIPE_SECRET_KEY=sk_test_your_secret_key
-NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID=https://buy.stripe.com/test_your_onetime_link
-NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID=https://buy.stripe.com/test_your_monthly_link
+NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL=https://buy.stripe.com/test_your_onetime_link
+NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL=https://buy.stripe.com/test_your_monthly_link
 ```
 
 **Important**: Never commit `.env.local` to version control. It's already in `.gitignore`.
@@ -197,7 +197,7 @@ Monitor donations in the Stripe Dashboard:
 
 1. Check browser console for errors
 2. Verify Stripe keys are correctly configured
-3. Ensure price IDs match products in Stripe Dashboard
+3. Ensure payment link URLs are valid and start with https://
 
 ### Redirect to Stripe fails
 
@@ -209,7 +209,7 @@ Monitor donations in the Stripe Dashboard:
 
 1. Verify all secrets are added to the `stripe-prod` environment
 2. Check secret names match exactly (case-sensitive)
-3. Ensure keys start with correct prefixes (`pk_`, `sk_`, `price_`)
+3. Ensure API keys start with `pk_` / `sk_` and payment link URLs start with `https://`
 
 ## Security Best Practices
 

@@ -15,10 +15,10 @@ export interface StripeDonateButtonProps {
   label: string
 
   /**
-   * Optional Stripe Price ID
+   * Optional Stripe Payment Link URL
    * If not provided, will use the default from environment variables
    */
-  priceId?: string
+  paymentLinkUrl?: string
 
   /**
    * Custom CSS classes for styling
@@ -54,7 +54,7 @@ export interface StripeDonateButtonProps {
 export const StripeDonateButton: React.FC<StripeDonateButtonProps> = ({
   type,
   label,
-  priceId,
+  paymentLinkUrl,
   className = '',
   onDonateStart,
   onDonateError,
@@ -91,7 +91,7 @@ export const StripeDonateButton: React.FC<StripeDonateButtonProps> = ({
       // Redirect to Stripe Checkout
       await redirectToCheckout({
         type,
-        priceId,
+        paymentLinkUrl,
       })
       // Note: If redirect succeeds, user will leave the page
       // If they return (e.g., by clicking back), visibilitychange event will reset loading

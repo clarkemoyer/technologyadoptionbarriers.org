@@ -6,33 +6,6 @@
  * that can be created in the Stripe Dashboard.
  */
 
-import { loadStripe, Stripe } from '@stripe/stripe-js'
-
-/**
- * Singleton instance of Stripe
- * Ensures we only initialize Stripe once
- */
-let stripePromise: Promise<Stripe | null> | null = null
-
-/**
- * Get or initialize the Stripe instance
- * Uses the publishable key from environment variables
- */
-export const getStripe = (): Promise<Stripe | null> => {
-  if (!stripePromise) {
-    const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-
-    if (!publishableKey) {
-      console.error('Stripe publishable key is not configured')
-      return Promise.resolve(null)
-    }
-
-    stripePromise = loadStripe(publishableKey)
-  }
-
-  return stripePromise
-}
-
 /**
  * Donation types
  */
@@ -43,11 +16,14 @@ export enum DonationType {
 
 /**
  * Configuration for donation checkout
+ *
+ * For static sites, paymentLinkUrl should be a full Stripe Payment Link URL
+ * (e.g., https://buy.stripe.com/...) created in the Stripe Dashboard.
  */
 export interface DonationConfig {
   type: DonationType
   amount?: number // Optional: for custom amounts (future enhancement)
-  priceId?: string // Stripe Price ID for preset amounts
+  paymentLinkUrl?: string // Stripe Payment Link URL
 }
 
 /**
@@ -66,29 +42,36 @@ export const redirectToCheckout = async (config: DonationConfig): Promise<void> 
   // Determine the payment link based on donation type
   let paymentLinkUrl: string | undefined
 
-  if (config.priceId) {
-    // If a specific price ID is provided, construct the payment link URL
-    // Note: This requires the payment link to be created in Stripe Dashboard
-    paymentLinkUrl = config.priceId
+  if (config.paymentLinkUrl) {
+    // If a specific payment link URL is provided, use it
+    paymentLinkUrl = config.paymentLinkUrl
   } else {
     // Use the environment-configured payment links
     paymentLinkUrl =
       config.type === DonationType.MONTHLY
-        ? process.env.NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID
-        : process.env.NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID
+        ? process.env.NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL
+        : process.env.NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL
   }
 
   if (!paymentLinkUrl) {
+    const envVar =
+      config.type === DonationType.MONTHLY
+        ? 'NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL'
+        : 'NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL'
+    const otherEnvVar =
+      config.type === DonationType.MONTHLY
+        ? 'NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL'
+        : 'NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL'
+
     throw new Error(
-      `No payment link configured for ${config.type} donation. Please configure NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID in your environment variables.`
+      `No payment link configured for ${config.type} donation. Please configure ${envVar} in your environment variables (the other donation type uses ${otherEnvVar}).`
     )
   }
 
-  // If it's a price ID (starts with price_), we need to construct a payment link
-  // For static sites, this should be a full payment link URL instead
-  if (paymentLinkUrl.startsWith('price_')) {
+  // Validate it's a proper URL
+  if (!paymentLinkUrl.startsWith('https://')) {
     throw new Error(
-      `Static sites require Stripe Payment Links (URLs), not Price IDs. Please create a Payment Link in your Stripe Dashboard and use the full URL instead of "${paymentLinkUrl}".`
+      `Invalid payment link URL: "${paymentLinkUrl}". Payment links must start with https:// (e.g., https://buy.stripe.com/...).`
     )
   }
 

@@ -51,7 +51,7 @@ export default function DonationCancelled() {
             </Link>
 
             <Link
-              href="/#donate"
+              href="/"
               className="inline-block px-8 py-3 bg-[#F57C20] text-white text-lg font-bold rounded hover:bg-[#d66a1a] transition-colors"
             >
               Try Again

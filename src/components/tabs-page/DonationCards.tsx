@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import StripeDonateButton from '@/components/stripe-donate-button'
 import { DonationType } from '@/lib/stripe'
@@ -22,7 +20,7 @@ const DonationCards = () => {
       description:
         'This is the general fund to help the survey run and maintain the listings for the annual survey participants.',
       buttonText: 'Donate Now',
-      buttonLink: 'https://technologyadoptionbarriers.org/#', // Fallback if Stripe not configured
+      buttonLink: 'https://technologyadoptionbarriers.org/#',
       useStripe: true,
       donationType: DonationType.ONE_TIME,
       bgColor: 'bg-[#113563]',

@@ -62,8 +62,8 @@ jobs:
         env:
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
-          NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID: ${{ secrets.NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID }}
-          NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID: ${{ secrets.NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID }}
+          NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL: ${{ secrets.NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL }}
+          NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL: ${{ secrets.NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL }}
         run: |
           echo "Verifying Stripe configuration..."
 
@@ -88,42 +88,54 @@ jobs:
             exit 1
           fi
 
+          # Verify payment link URLs are configured
+          if [ -z "$NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL" ]; then
+            echo "Error: NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL secret is not set in the stripe-prod environment"
+            exit 1
+          fi
+
+          if [ -z "$NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL" ]; then
+            echo "Error: NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL secret is not set in the stripe-prod environment"
+            exit 1
+          fi
+
+          # Check payment link URLs start with https://
+          if [[ ! "$NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL" =~ ^https:// ]]; then
+            echo "Error: One-time donation payment link must start with https://"
+            exit 1
+          fi
+
+          if [[ ! "$NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL" =~ ^https:// ]]; then
+            echo "Error: Monthly donation payment link must start with https://"
+            exit 1
+          fi
+
           echo "✅ Environment configuration is valid"
 
       - name: Test Stripe API connection
         if: ${{ inputs.check_products }}
         env:
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-          NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID: ${{ secrets.NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID }}
-          NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID: ${{ secrets.NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID }}
+          NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL: ${{ secrets.NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL }}
+          NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL: ${{ secrets.NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL }}
         run: |
           echo "Testing Stripe API connection..."
 
           # Test API connection by listing products
-          npx --yes stripe-cli products list --api-key "$STRIPE_SECRET_KEY" > /dev/null 2>&1 || {
-            echo "Warning: Could not connect to Stripe API. Skipping product verification."
-            exit 0
-          }
+          if ! npx --yes stripe-cli products list --api-key "$STRIPE_SECRET_KEY" > /dev/null 2>&1; then
+            echo "Error: Could not connect to Stripe API. Please check your STRIPE_SECRET_KEY."
+            exit 1
+          fi
 
           echo "✅ Stripe API connection successful"
 
-          # Verify payment link URLs are configured
-          if [ -n "$NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID" ]; then
-            echo "One-time donation payment link configured: ${NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID:0:30}..."
-            
-            # Check if it's a valid payment link URL
-            if [[ ! "$NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID" =~ ^https:// ]]; then
-              echo "Warning: One-time donation link should be a full URL (https://...)"
-            fi
+          # Display configured payment link URLs
+          if [ -n "$NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL" ]; then
+            echo "One-time donation payment link configured: ${NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL:0:40}..."
           fi
 
-          if [ -n "$NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID" ]; then
-            echo "Recurring donation payment link configured: ${NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID:0:30}..."
-            
-            # Check if it's a valid payment link URL
-            if [[ ! "$NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID" =~ ^https:// ]]; then
-              echo "Warning: Recurring donation link should be a full URL (https://...)"
-            fi
+          if [ -n "$NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL" ]; then
+            echo "Recurring donation payment link configured: ${NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL:0:40}..."
           fi
 
       - name: Success summary

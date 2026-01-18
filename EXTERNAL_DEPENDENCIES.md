@@ -101,11 +101,10 @@ These are services we directly integrate into our application code.
 
 - **Purpose:** Primary payment processing platform for donations
 - **Implementation:**
-  - Client library: `@stripe/stripe-js`
   - Component: `src/components/stripe-donate-button/index.tsx`
   - Utility: `src/lib/stripe.ts`
   - GitHub Workflow: `.github/workflows/stripe-verify.yml`
-- **Domains:** `js.stripe.com`, `checkout.stripe.com`
+- **Domains:** `buy.stripe.com` (primary)
 - **Preconnect:** Configured in `src/app/layout.tsx`
 - **Authentication:** API keys stored in GitHub environment `stripe-prod` as secrets
 - **Data Collected:** Payment transaction data (processed on Stripe's servers)
