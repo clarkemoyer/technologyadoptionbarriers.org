@@ -62,17 +62,21 @@ async function makeApiRequest<T>(
       )
     }
 
-    let data: any = {}
+    let data: unknown = {}
     if (responseText) {
       try {
         data = JSON.parse(responseText)
       } catch (parseError) {
-        // Surface JSON parsing issues clearly for successful responses
-        throw parseError
+        // Surface JSON parsing issues clearly for successful responses with context
+        const errorMessage =
+          parseError instanceof Error ? parseError.message : 'Unknown parsing error'
+        throw new Error(
+          `Failed to parse successful API response as JSON: ${errorMessage}. Response text: ${responseText.substring(0, 200)}...`
+        )
       }
     }
 
-    return data.result as T
+    return (data as { result?: T }).result as T
   } catch (error) {
     if (error instanceof Error) {
       // Preserve original error and stack trace
