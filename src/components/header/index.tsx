@@ -34,6 +34,7 @@ const Header: React.FC = () => {
       { label: 'Home', path: '/' },
       { label: 'Take the TABS', path: 'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO' },
       { label: 'Tech Adoption Barriers', path: '/barriers' },
+      { label: 'The Making of TABS', path: '/making-of-tabs' },
       {
         label: 'Technology Adoption Models',
         path: '/technology-adoption-models',
