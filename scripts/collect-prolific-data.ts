@@ -5,7 +5,8 @@ import {
   exportSubmissionsCSV,
 } from '../src/lib/prolific-api'
 
-import { appendFileSync } from 'node:fs'
+import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs'
+import path from 'node:path'
 
 const rawApiToken = process.env.PROLIFIC_API_TOKEN
 
@@ -16,6 +17,21 @@ if (!rawApiToken) {
 
 const API_TOKEN: string = rawApiToken
 const STUDY_ID = process.env.STUDY_ID
+
+function envFlag(name: string, defaultValue: boolean = false): boolean {
+  const value = process.env[name]
+  if (value === undefined) return defaultValue
+  const normalized = value.trim().toLowerCase()
+  if (normalized === '') return defaultValue
+  return ['1', 'true', 'yes', 'y', 'on'].includes(normalized)
+}
+
+function envInt(name: string, defaultValue: number): number {
+  const value = process.env[name]
+  if (value === undefined) return defaultValue
+  const parsed = Number.parseInt(value, 10)
+  return Number.isFinite(parsed) ? parsed : defaultValue
+}
 
 function appendGithubStepSummary(markdown: string) {
   const summaryPath = process.env.GITHUB_STEP_SUMMARY
@@ -49,8 +65,9 @@ function percent(numerator: number, denominator: number): string {
 
 function csvPreview(csv: string, maxLines: number): { preview: string; totalLines: number } {
   const lines = csv.trimEnd().split(/\r?\n/)
+  const safeMaxLines = Math.max(0, maxLines)
   return {
-    preview: lines.slice(0, Math.max(1, maxLines)).join('\n'),
+    preview: safeMaxLines === 0 ? '' : lines.slice(0, safeMaxLines).join('\n'),
     totalLines: lines.length,
   }
 }
@@ -113,17 +130,35 @@ async function main() {
       }
       console.log('')
 
-      // Export CSV
-      const csv = await exportSubmissionsCSV(STUDY_ID, API_TOKEN)
-      console.log('📄 Submissions CSV Export:')
-      console.log(csv)
+      const exportCsv = envFlag('PROLIFIC_EXPORT_CSV', false)
+      const csvPreviewLines = envInt('PROLIFIC_CSV_PREVIEW_LINES', 0)
+      const csvOutputPath = process.env.PROLIFIC_CSV_OUTPUT_PATH
+
+      let csvInfo: { preview: string; totalLines: number } | null = null
+      let csvSavedTo: string | null = null
+
+      if (exportCsv) {
+        const csv = await exportSubmissionsCSV(STUDY_ID, API_TOKEN)
+        csvInfo = csvPreview(csv, csvPreviewLines)
+
+        const runnerTemp = process.env.RUNNER_TEMP || process.cwd()
+        const targetPath =
+          csvOutputPath || path.join(runnerTemp, `prolific-${STUDY_ID}-submissions.csv`)
+
+        mkdirSync(path.dirname(targetPath), { recursive: true })
+        writeFileSync(targetPath, csv, 'utf8')
+        csvSavedTo = targetPath
+
+        console.log('📄 Submissions CSV exported to file (not printed).')
+      } else {
+        console.log('📄 Submissions CSV export is disabled (CI-safe default).')
+      }
 
       const completion = `${stats.study.places_taken}/${stats.study.total_available_places}`
       const completionPct = percent(stats.study.places_taken, stats.study.total_available_places)
       const createdAt = formatIsoMaybe(stats.study.created_at)
       const publishedAt = formatIsoMaybe(stats.study.published_at)
       const completedAt = formatIsoMaybe(stats.study.completed_at)
-      const csvInfo = csvPreview(csv, 20)
 
       appendGithubStepSummary(
         [
@@ -167,16 +202,26 @@ async function main() {
           '',
           '### CSV Export',
           '',
-          `- **Rows (including header):** ${csvInfo.totalLines}`,
-          '',
-          '<details>',
-          '<summary>Preview (first 20 lines)</summary>',
-          '',
-          '```csv',
-          csvInfo.preview,
-          '```',
-          '',
-          '</details>',
+          `- **Enabled:** ${exportCsv ? 'Yes' : 'No'}`,
+          exportCsv
+            ? `- **Saved to:** ${mdEscape(csvSavedTo || '(unknown)')}`
+            : '- **Saved to:** (not generated)',
+          exportCsv && csvInfo
+            ? `- **Rows (including header):** ${csvInfo.totalLines}`
+            : '- **Rows (including header):** —',
+          exportCsv && csvInfo && csvPreviewLines > 0
+            ? [
+                '',
+                '<details>',
+                `<summary>Preview (first ${csvPreviewLines} lines)</summary>`,
+                '',
+                '```csv',
+                csvInfo.preview,
+                '```',
+                '',
+                '</details>',
+              ].join('\n')
+            : '',
           '',
         ].join('\n')
       )
