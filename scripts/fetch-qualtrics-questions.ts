@@ -1,5 +1,6 @@
 import { getSurveyQuestions } from '../src/lib/qualtrics-api'
 import { appendFileSync } from 'node:fs'
+import striptags from 'striptags'
 
 const API_TOKEN = process.env.QUALTRICS_API_TOKEN
 const BASE_URL = process.env.QUALTRICS_BASE_URL
@@ -21,7 +22,7 @@ function appendGithubStepSummary(markdown: string) {
 }
 
 function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>?/gm, '')
+  return striptags(html)
 }
 
 async function main() {
