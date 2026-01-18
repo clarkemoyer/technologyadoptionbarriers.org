@@ -1,4 +1,6 @@
-import { BetaAnalyticsDataClient } from '@google-analytics/data'
+import { BetaAnalyticsDataClient, protos } from '@google-analytics/data'
+
+type MetricAggregation = protos.google.analytics.data.v1beta.MetricAggregation
 
 interface GAReportOptions {
   startDate?: string
@@ -7,7 +9,7 @@ interface GAReportOptions {
   metrics?: string[]
   limit?: number
   orderBys?: Array<{ metric?: { metricName: string }; desc?: boolean }>
-  metricAggregations?: Array<'TOTAL' | 'MINIMUM' | 'MAXIMUM' | 'COUNT'>
+  metricAggregations?: MetricAggregation[]
 }
 
 export class GoogleAnalyticsClient {
@@ -65,7 +67,7 @@ export class GoogleAnalyticsClient {
         metrics: metrics.map((m) => ({ name: m })),
         limit,
         orderBys,
-        metricAggregations: metricAggregations as any,
+        metricAggregations,
       })
 
       return response[0]

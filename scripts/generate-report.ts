@@ -1,6 +1,9 @@
 import { gaClient } from '../src/lib/google-analytics'
+import { protos } from '@google-analytics/data'
 import fs from 'fs'
 import path from 'path'
+
+const MetricAggregation = protos.google.analytics.data.v1beta.MetricAggregation
 
 interface MetricValue {
   value?: string
@@ -36,7 +39,7 @@ async function generateReport() {
         'screenPageViews',
         'eventCount',
       ],
-      metricAggregations: ['TOTAL'],
+      metricAggregations: [MetricAggregation.TOTAL],
       dimensions: ['date', 'pagePath'],
     })
 
