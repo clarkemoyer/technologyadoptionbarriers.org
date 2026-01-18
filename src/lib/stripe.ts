@@ -93,7 +93,12 @@ export const redirectToCheckout = async (config: DonationConfig): Promise<void> 
   }
 
   // Redirect to the Stripe Payment Link
-  window.location.href = paymentLinkUrl
+  // Use window.location.assign for better browser compatibility
+  if (typeof window !== 'undefined') {
+    window.location.assign(paymentLinkUrl)
+  } else {
+    throw new Error('Cannot redirect: window is not available (SSR environment)')
+  }
 }
 
 /**

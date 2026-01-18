@@ -62,6 +62,21 @@ export const StripeDonateButton: React.FC<StripeDonateButtonProps> = ({
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  // Reset loading state when component becomes visible again
+  // This handles the case when user navigates back from Stripe
+  React.useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        setIsLoading(false)
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [])
+
   const handleDonate = async () => {
     try {
       setIsLoading(true)
@@ -75,6 +90,8 @@ export const StripeDonateButton: React.FC<StripeDonateButtonProps> = ({
         type,
         priceId,
       })
+      // Note: If redirect succeeds, user will leave the page
+      // If they return (e.g., by clicking back), visibilitychange event will reset loading
     } catch (err) {
       const error = err instanceof Error ? err : new Error('Failed to initialize donation')
       console.error('Donation error:', error)

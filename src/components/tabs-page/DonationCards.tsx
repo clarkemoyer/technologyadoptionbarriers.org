@@ -54,9 +54,9 @@ const DonationCards = () => {
               {card.description}
             </p>
             <div>
-              {card.useStripe ? (
+              {card.useStripe && card.donationType ? (
                 <StripeDonateButton
-                  type={card.donationType!}
+                  type={card.donationType}
                   label={card.buttonText}
                   className={`inline-block px-[25px] py-[12px] rounded-[30px] font-bold text-[16px] transition-all duration-300 transform hover:scale-105 ${card.btnConfig}`}
                 />
