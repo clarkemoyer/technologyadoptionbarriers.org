@@ -4,8 +4,19 @@ import React from 'react'
 import StripeDonateButton from '@/components/stripe-donate-button'
 import { DonationType } from '@/lib/stripe'
 
+interface DonationCard {
+  title: string
+  description: string
+  buttonText: string
+  buttonLink: string
+  useStripe: boolean
+  donationType?: DonationType
+  bgColor: string
+  btnConfig: string
+}
+
 const DonationCards = () => {
-  const cards = [
+  const cards: DonationCard[] = [
     {
       title: 'Donate to the general fund',
       description:

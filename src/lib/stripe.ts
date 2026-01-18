@@ -119,8 +119,23 @@ export const isValidPaymentLink = (url: string): boolean => {
 
 /**
  * Create a Stripe Checkout Session (for server-side integration if needed in the future)
- * Note: This requires API routes which are not available in static export mode
- * This is here for reference and future use if the site moves to server-side rendering
+ *
+ * Note: This interface is provided for future use if the site migrates from static export
+ * to server-side rendering (SSR). With SSR, you can create checkout sessions programmatically
+ * via API routes instead of using pre-configured Payment Links.
+ *
+ * This is here for reference and future use if the site moves to server-side rendering.
+ *
+ * @example
+ * ```typescript
+ * // Future API route example (requires SSR)
+ * const sessionConfig: CheckoutSessionConfig = {
+ *   priceId: 'price_xxx',
+ *   mode: 'payment',
+ *   successUrl: `${origin}/donation-success`,
+ *   cancelUrl: `${origin}/donation-cancelled`
+ * }
+ * ```
  */
 export interface CheckoutSessionConfig {
   priceId: string

@@ -65,14 +65,17 @@ export const StripeDonateButton: React.FC<StripeDonateButtonProps> = ({
   // Reset loading state when component becomes visible again
   // This handles the case when user navigates back from Stripe
   React.useEffect(() => {
+    let isMounted = true
+
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
+      if (document.visibilityState === 'visible' && isMounted) {
         setIsLoading(false)
       }
     }
 
     document.addEventListener('visibilitychange', handleVisibilityChange)
     return () => {
+      isMounted = false
       document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
   }, [])
