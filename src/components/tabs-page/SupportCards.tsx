@@ -1,20 +1,20 @@
 import React from 'react'
 
-const DonationCards = () => {
+const SupportCards = () => {
   const cards = [
     {
-      title: 'Donate to the general fund',
+      title: 'Support the Research',
       description:
-        'This is the general fund to help the survey run and maintain the listings for the annual survey participants.',
-      buttonText: 'Donate Now',
-      buttonLink: 'https://technologyadoptionbarriers.org/#', // Update with real link if available
+        'Your financial contribution helps us run the survey and maintain the listings for annual survey participants.',
+      buttonText: 'Contribute Now',
+      buttonLink: 'https://github.com/sponsors/clarkemoyer',
       bgColor: 'bg-[#113563]',
       btnConfig: 'bg-[#F57C20] text-white hover:bg-[#d66a1a]',
     },
     {
-      title: 'Donate as a Sponsor',
+      title: 'Become a Sponsor',
       description:
-        'Sponsorship is a great way to contribute to research and support our business insights.',
+        'Sponsorship is a great way to support research and gain valuable business insights.',
       buttonText: 'Contact Us',
       buttonLink: 'mailto:clarke@technologyadoptionbarriers.org',
       bgColor: 'bg-[#0E7162]',
@@ -23,7 +23,7 @@ const DonationCards = () => {
     {
       title: 'Become a Supporting Researcher',
       description:
-        'We need more than money to run the survey we need people and skills like yours. Volunteer today to help.',
+        'We need more than money to run the survey—we need people and skills like yours. Volunteer today to help.',
       buttonText: 'Volunteer Today',
       buttonLink: 'mailto:clarke@technologyadoptionbarriers.org',
       bgColor: 'bg-[#5FB38D]',
@@ -48,6 +48,8 @@ const DonationCards = () => {
             <div>
               <a
                 href={card.buttonLink}
+                target={card.buttonLink.startsWith('http') ? '_blank' : undefined}
+                rel={card.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
                 className={`inline-block px-[25px] py-[12px] rounded-[30px] font-bold text-[16px] transition-all duration-300 transform hover:scale-105 ${card.btnConfig}`}
               >
                 {card.buttonText}
@@ -60,4 +62,4 @@ const DonationCards = () => {
   )
 }
 
-export default DonationCards
+export default SupportCards

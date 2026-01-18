@@ -39,8 +39,8 @@ describe('Footer component', () => {
     )
     expect(validLink).toBeDefined()
 
-    const donateLink = screen.getByRole('link', { name: /make a donation/i })
-    expect(donateLink).toBeInTheDocument()
+    const supportLink = screen.getByRole('link', { name: /support tabs/i })
+    expect(supportLink).toBeInTheDocument()
   })
 
   it('should display the current year in copyright', () => {
@@ -81,9 +81,9 @@ describe('Footer component', () => {
       'href',
       '/terms-of-service'
     )
-    expect(screen.getByRole('link', { name: /donation policy/i })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /contribution policy/i })).toHaveAttribute(
       'href',
-      '/donation-policy'
+      '/contribution-policy'
     )
     expect(screen.getByRole('link', { name: /vulnerability disclosure/i })).toHaveAttribute(
       'href',
