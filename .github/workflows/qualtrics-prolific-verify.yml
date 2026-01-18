@@ -148,7 +148,8 @@ jobs:
           has_session_id=false
           has_completion_redirect_marker=false
 
-          if grep -q "assets\.prolific\.com/assets/js/qualtrics/qualtrics\.min\.js" "$qsf_path"; then
+          # Qualtrics exports are JSON; URLs may appear with escaped slashes (e.g. \/).
+          if grep -Eq 'assets\.prolific\.com(\\/|/)assets(\\/|/)js(\\/|/)qualtrics(\\/|/)qualtrics\.min\.js' "$qsf_path"; then
             has_prolific_script=true
           fi
 
@@ -164,7 +165,7 @@ jobs:
             has_session_id=true
           fi
 
-          if grep -q "app\.prolific\.com/submissions/complete\?cc=" "$qsf_path"; then
+          if grep -Eq 'app\.prolific\.com(\\/|/)submissions(\\/|/)complete\?cc=' "$qsf_path"; then
             has_completion_redirect_marker=true
           fi
 
@@ -179,18 +180,34 @@ jobs:
           echo "| Completion redirect marker present (cc=...) | ${has_completion_redirect_marker} |" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
 
+          has_errors=false
+
           if [[ "$has_prolific_script" != "true" ]]; then
             echo "::error::Missing Prolific authenticity script marker in survey export." >&2
-            exit 1
+            has_errors=true
           fi
 
-          if [[ "$has_prolific_pid" != "true" || "$has_study_id" != "true" || "$has_session_id" != "true" ]]; then
-            echo "::error::Missing one or more required Embedded Data fields (PROLIFIC_PID/STUDY_ID/SESSION_ID) in survey export." >&2
-            exit 1
+          if [[ "$has_prolific_pid" != "true" ]]; then
+            echo "::error::Missing Embedded Data field marker: PROLIFIC_PID" >&2
+            has_errors=true
+          fi
+
+          if [[ "$has_study_id" != "true" ]]; then
+            echo "::error::Missing Embedded Data field marker: STUDY_ID" >&2
+            has_errors=true
+          fi
+
+          if [[ "$has_session_id" != "true" ]]; then
+            echo "::error::Missing Embedded Data field marker: SESSION_ID" >&2
+            has_errors=true
           fi
 
           if [[ "$has_completion_redirect_marker" != "true" ]]; then
             echo "::error::Missing Prolific completion redirect marker (app.prolific.com/submissions/complete?cc=...) in survey export." >&2
+            has_errors=true
+          fi
+
+          if [[ "$has_errors" == "true" ]]; then
             exit 1
           fi
 
