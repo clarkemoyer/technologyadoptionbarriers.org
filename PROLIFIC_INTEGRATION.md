@@ -1,6 +1,6 @@
 # Prolific API Integration
 
-**Last Updated:** January 15, 2026
+**Last Updated:** January 18, 2026
 
 This document describes the Prolific API integration for collecting and managing survey data from the Prolific platform.
 
@@ -11,6 +11,8 @@ This document describes the Prolific API integration for collecting and managing
 - [API Client Library](#api-client-library)
 - [GitHub Actions Workflow](#github-actions-workflow)
 - [Setup Instructions](#setup-instructions)
+- [Qualtrics ↔ Prolific Survey Setup](#qualtrics--prolific-survey-setup)
+- [Qualtrics ↔ Prolific Verification Workflow](#qualtrics--prolific-verification-workflow)
 - [Usage Examples](#usage-examples)
 - [API Features](#api-features)
 - [Security Considerations](#security-considerations)
@@ -168,11 +170,10 @@ The workflow file (`.github/workflows/prolific.yml`) automates data collection f
 
 The workflow outputs:
 
-- User information (name, email, ID)
+- User information (non-sensitive)
 - Study list (if no study ID provided)
-- Study details (if study ID provided)
-- Submission statistics
-- CSV export of submissions (if study ID provided)
+- Study details and submission statistics (no raw row-level identifiers)
+- Optional CSV export to a file/artifact (opt-in; not printed to logs)
 
 ## Setup Instructions
 
@@ -205,6 +206,76 @@ Run the workflow manually to verify setup:
 4. Leave study ID blank to list all studies
 5. Click **"Run workflow"**
 6. Check the workflow run logs for successful connection
+
+## Qualtrics ↔ Prolific Survey Setup
+
+This section covers the **Qualtrics-side configuration** needed for a Prolific study that launches a Qualtrics survey and requires:
+
+- Prolific URL parameters stored in Qualtrics as Embedded Data: `PROLIFIC_PID`, `STUDY_ID`, `SESSION_ID`
+- End-of-survey redirect back to Prolific (completion URL)
+- Prolific “Authenticity checks (beta)” script injected into the Qualtrics survey header
+
+### 1. Embedded Data fields (Survey Flow)
+
+1. Open the survey in Qualtrics.
+2. Go to **Survey Flow**.
+3. Add an **Embedded Data** element near the top (typically at the very beginning of the flow).
+4. Add these fields (exact names):
+   - `PROLIFIC_PID`
+   - `STUDY_ID`
+   - `SESSION_ID`
+5. Save the Survey Flow.
+
+Notes:
+
+- Prolific appends these as URL parameters when participants launch your survey.
+- Qualtrics needs the fields present so the values are captured/stored.
+
+### 2. Completion redirect back to Prolific
+
+1. In Qualtrics, open **Survey Flow** (or the appropriate “End of Survey” options for your account).
+2. Configure the end-of-survey action to **redirect to a URL**.
+3. Set the redirect URL to Prolific’s completion URL:
+   - `https://app.prolific.com/submissions/complete?cc=<YOUR_COMPLETION_CODE>`
+
+Security note:
+
+- Treat the completion code as sensitive (don’t commit it to the repo; don’t paste it into public logs).
+
+### 3. Prolific authenticity checks script (Qualtrics header)
+
+If you are using Prolific’s “Authenticity checks (beta)”, ensure the Prolific-provided Qualtrics script is placed in the **survey header** (not a question block) per Prolific instructions.
+
+After editing, make sure the survey is saved and any required publish/activate step is completed.
+
+## Qualtrics ↔ Prolific Verification Workflow
+
+This repo includes an API-only verification workflow that checks the survey definition for:
+
+- Prolific authenticity script marker
+- Embedded Data field markers (`PROLIFIC_PID`, `STUDY_ID`, `SESSION_ID`)
+- Prolific completion redirect marker (`app.prolific.com/submissions/complete?cc=`)
+
+Workflow: [​.github/workflows/qualtrics-prolific-verify.yml](.github/workflows/qualtrics-prolific-verify.yml)
+
+### How to run
+
+From the GitHub UI:
+
+1. Go to **Actions** → **Verify Qualtrics ↔ Prolific Survey Setup**
+2. Click **Run workflow**
+3. Optionally provide a `survey_id` input (otherwise it uses `QUALTRICS_SURVEY_ID` from the `qualtrics-prod` environment)
+
+From the GitHub CLI:
+
+```bash
+gh workflow run qualtrics-prolific-verify.yml
+```
+
+### Expected result
+
+- If configured correctly: the workflow passes.
+- If not: the workflow fails and lists exactly which marker(s) are missing.
 
 ## Usage Examples
 
