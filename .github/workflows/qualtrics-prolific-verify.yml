@@ -1,0 +1,197 @@
+name: Verify Qualtrics ↔ Prolific Survey Setup
+
+on:
+  workflow_dispatch:
+    inputs:
+      survey_id:
+        description: 'Optional Survey ID (defaults to QUALTRICS_SURVEY_ID env var)'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    env:
+      QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+      QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+      QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+      INPUT_SURVEY_ID: ${{ inputs.survey_id }}
+    steps:
+      - name: Verify Qualtrics configuration (API-only)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${QUALTRICS_API_TOKEN:-}" ]]; then
+            echo "Missing secret QUALTRICS_API_TOKEN in environment qualtrics-prod" >&2
+            exit 1
+          fi
+
+          if [[ -z "${QUALTRICS_BASE_URL:-}" ]]; then
+            echo "Missing env var QUALTRICS_BASE_URL in environment qualtrics-prod" >&2
+            exit 1
+          fi
+
+          BASE_URL="${QUALTRICS_BASE_URL%/}"
+          SURVEY_ID="${INPUT_SURVEY_ID:-${QUALTRICS_SURVEY_ID:-}}"
+
+          if [[ -z "${SURVEY_ID}" ]]; then
+            echo "Missing survey id. Set QUALTRICS_SURVEY_ID or pass workflow input survey_id." >&2
+            exit 1
+          fi
+
+          TMP_DIR="${RUNNER_TEMP:-/tmp}"
+          START_JSON="$TMP_DIR/qualtrics-export-start.json"
+          STATUS_JSON="$TMP_DIR/qualtrics-export-status.json"
+          ZIP_PATH="$TMP_DIR/qualtrics-survey-export.zip"
+          OUT_DIR="$TMP_DIR/qualtrics-survey-export"
+
+          echo "## Qualtrics ↔ Prolific Verification" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Survey ID:** ${SURVEY_ID}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Base URL:** ${BASE_URL}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Mode:** API-only (no live survey traffic)" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          # Attempt to export the survey definition (QSF). This avoids loading the live survey.
+          # NOTE: Qualtrics export APIs can be asynchronous; we poll for completion.
+          EXPORT_URL="$BASE_URL/API/v3/surveys/${SURVEY_ID}/export"
+          http_code=$(curl -sS -o "$START_JSON" -w "%{http_code}" \
+            -X POST \
+            -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+            -H "Accept: application/json" \
+            -H "Content-Type: application/json" \
+            -d '{"format":"qsf"}' \
+            "$EXPORT_URL" || true)
+
+          if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+            echo "::error::Failed to start survey export (HTTP $http_code): $EXPORT_URL" >&2
+            echo "This workflow expects the Qualtrics Survey Export API to be enabled for your brand." >&2
+            echo "" >&2
+            head -c 2000 "$START_JSON" || true
+            exit 1
+          fi
+
+          progress_id=$(jq -r '.result.progressId // .result.id // empty' "$START_JSON")
+          if [[ -z "${progress_id}" ]]; then
+            echo "::error::Could not read progressId from export start response." >&2
+            exit 1
+          fi
+
+          file_id=""
+          for attempt in $(seq 1 30); do
+            STATUS_URL="$BASE_URL/API/v3/surveys/${SURVEY_ID}/export/${progress_id}"
+            http_code=$(curl -sS -o "$STATUS_JSON" -w "%{http_code}" \
+              -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+              -H "Accept: application/json" \
+              "$STATUS_URL" || true)
+
+            if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+              echo "::error::Export status check failed (HTTP $http_code): $STATUS_URL" >&2
+              head -c 2000 "$STATUS_JSON" || true
+              exit 1
+            fi
+
+            status=$(jq -r '.result.status // .result.state // empty' "$STATUS_JSON")
+            file_id=$(jq -r '.result.fileId // .result.file_id // empty' "$STATUS_JSON")
+
+            if [[ "${status}" == "complete" || "${status}" == "completed" ]]; then
+              break
+            fi
+
+            if [[ "${status}" == "failed" ]]; then
+              echo "::error::Qualtrics export failed." >&2
+              exit 1
+            fi
+
+            sleep 2
+          done
+
+          if [[ -z "${file_id}" ]]; then
+            # Some Qualtrics brands return fileId only after completion; try reading it one more time.
+            file_id=$(jq -r '.result.fileId // .result.file_id // empty' "$STATUS_JSON")
+          fi
+
+          if [[ -z "${file_id}" ]]; then
+            echo "::error::Export did not return a fileId after polling." >&2
+            exit 1
+          fi
+
+          FILE_URL="$BASE_URL/API/v3/surveys/${SURVEY_ID}/export/${file_id}/file"
+          http_code=$(curl -sS -L -o "$ZIP_PATH" -w "%{http_code}" \
+            -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+            "$FILE_URL" || true)
+
+          if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+            echo "::error::Failed to download export file (HTTP $http_code): $FILE_URL" >&2
+            exit 1
+          fi
+
+          rm -rf "$OUT_DIR"
+          mkdir -p "$OUT_DIR"
+          unzip -q "$ZIP_PATH" -d "$OUT_DIR"
+
+          qsf_path=$(find "$OUT_DIR" -maxdepth 3 -type f -name "*.qsf" -print -quit)
+          if [[ -z "${qsf_path}" ]]; then
+            echo "::error::Could not find a .qsf file in the exported archive." >&2
+            exit 1
+          fi
+
+          # Checks (do NOT print file contents)
+          has_prolific_script=false
+          has_prolific_pid=false
+          has_study_id=false
+          has_session_id=false
+          has_completion_redirect_marker=false
+
+          if grep -q "assets\.prolific\.com/assets/js/qualtrics/qualtrics\.min\.js" "$qsf_path"; then
+            has_prolific_script=true
+          fi
+
+          if grep -q "PROLIFIC_PID" "$qsf_path"; then
+            has_prolific_pid=true
+          fi
+
+          if grep -q "STUDY_ID" "$qsf_path"; then
+            has_study_id=true
+          fi
+
+          if grep -q "SESSION_ID" "$qsf_path"; then
+            has_session_id=true
+          fi
+
+          if grep -q "app\.prolific\.com/submissions/complete\?cc=" "$qsf_path"; then
+            has_completion_redirect_marker=true
+          fi
+
+          echo "### Checks" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Check | Result |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Prolific authenticity script marker present | ${has_prolific_script} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Embedded Data field present: PROLIFIC_PID | ${has_prolific_pid} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Embedded Data field present: STUDY_ID | ${has_study_id} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Embedded Data field present: SESSION_ID | ${has_session_id} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Completion redirect marker present (cc=...) | ${has_completion_redirect_marker} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          if [[ "$has_prolific_script" != "true" ]]; then
+            echo "::error::Missing Prolific authenticity script marker in survey export." >&2
+            exit 1
+          fi
+
+          if [[ "$has_prolific_pid" != "true" || "$has_study_id" != "true" || "$has_session_id" != "true" ]]; then
+            echo "::error::Missing one or more required Embedded Data fields (PROLIFIC_PID/STUDY_ID/SESSION_ID) in survey export." >&2
+            exit 1
+          fi
+
+          if [[ "$has_completion_redirect_marker" != "true" ]]; then
+            echo "::error::Missing Prolific completion redirect marker (app.prolific.com/submissions/complete?cc=...) in survey export." >&2
+            exit 1
+          fi
+
+          echo "✅ Verification passed."
