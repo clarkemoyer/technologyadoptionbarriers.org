@@ -1,6 +1,22 @@
 import { gaClient } from '../src/lib/google-analytics'
+import { protos } from '@google-analytics/data'
 import fs from 'fs'
 import path from 'path'
+
+const MetricAggregation = protos.google.analytics.data.v1beta.MetricAggregation
+
+interface MetricValue {
+  value?: string
+}
+
+interface DimensionValue {
+  value?: string
+}
+
+interface ReportRow {
+  metricValues?: MetricValue[]
+  dimensionValues?: DimensionValue[]
+}
 
 async function generateReport() {
   try {
@@ -23,7 +39,7 @@ async function generateReport() {
         'screenPageViews',
         'eventCount',
       ],
-      metricAggregations: ['TOTAL'],
+      metricAggregations: [MetricAggregation.TOTAL],
       dimensions: ['date', 'pagePath'],
     })
 
@@ -76,9 +92,9 @@ async function generateReport() {
 | Page | Views | Users | Sessions |
 | :--- | :--- | :--- | :--- |
 ${rows
-  .map((row) => {
+  .map((row: ReportRow) => {
     if (!row.metricValues || !row.dimensionValues) return ''
-    const [activeUsers, newUsers, sessions, views] = row.metricValues
+    const [activeUsers, , sessions, views] = row.metricValues
     const path = row.dimensionValues[0]?.value || '/'
     return `| \`${path}\` | ${views?.value || 0} | ${activeUsers?.value || 0} | ${sessions?.value || 0} |`
   })

@@ -19,8 +19,7 @@ This document explains how the Technology Adoption Barriers (TABS) website is de
 
 The TABS website is a static Next.js application deployed as a static export. The site is accessible at:
 
-- **Custom Domain**: https://technologyadoptionbarriers.org
-- **GitHub Pages URL (optional)**: https://<user>.github.io/technologyadoptionbarriers.org/
+- **Production Domain**: https://technologyadoptionbarriers.org (apex domain)
 
 ### Technology Stack
 
@@ -50,12 +49,9 @@ This generates a static site in the `./out` directory that can be served by any 
 
 ### Asset Path Handling
 
-The site uses the `assetPath()` helper function (located in `src/lib/assetPath.ts`) to handle assets correctly for both:
+The site is deployed at the apex domain (/) and all assets are served from the root path.
 
-1. **GitHub Pages subpath deployment**: `/technologyadoptionbarriers.org/`
-2. **Custom domain deployment**: Root path `/`
-
-The helper uses the `NEXT_PUBLIC_BASE_PATH` environment variable to determine the correct asset path.
+The `assetPath()` helper function (located in `src/lib/assetPath.ts`) supports the `NEXT_PUBLIC_BASE_PATH` environment variable for compatibility with different deployment scenarios, but for production deployment to technologyadoptionbarriers.org, this value is empty and assets are served from `/`.
 
 ---
 
@@ -112,10 +108,10 @@ The actual steps performed by the deploy workflow are:
 
 ```yaml
 env:
-  NEXT_PUBLIC_BASE_PATH: /technologyadoptionbarriers.org
+  NEXT_PUBLIC_BASE_PATH: ''
 ```
 
-This ensures images and assets work correctly at the GitHub Pages subpath.
+This ensures the site is built for the apex domain with assets served from the root path.
 
 ### Viewing Deployment Status
 
@@ -159,10 +155,10 @@ While automated deployment is recommended, you can also deploy manually if neede
    npm run test:e2e
    ```
 
-4. **Build the site** with the correct base path:
+4. **Build the site** for production:
 
    ```bash
-   NEXT_PUBLIC_BASE_PATH=/technologyadoptionbarriers.org npm run build
+   npm run build
    ```
 
 5. **Verify the build**:
@@ -178,16 +174,16 @@ While automated deployment is recommended, you can also deploy manually if neede
    # Typically done through the GitHub Actions workflow
    ```
 
-### Building for Custom Domain
+### Building for Production (Apex Domain)
 
-If deploying to a custom domain (no basePath needed):
+The production build deploys to the apex domain with no basePath:
 
 ```bash
 npm run build
 npm run preview
 ```
 
-The site will be built without a base path, making all assets available at the root.
+The site will be built for the root path, making all assets available at `/`.
 
 ---
 
@@ -202,24 +198,24 @@ The site will be built without a base path, making all assets available at the r
 
 ### Custom Domain Setup
 
-If using a custom domain:
+The production site uses the apex domain technologyadoptionbarriers.org:
 
-1. **Add a CNAME file** to the `public` directory with your domain:
+1. **CNAME file** in the `public` directory contains:
 
    ```
    technologyadoptionbarriers.org
    ```
 
-2. **Configure DNS records** at your domain provider:
-   - **Type**: CNAME
-   - **Name**: www (or @)
-   - **Value**: <user>.github.io
+2. **DNS records** configured at domain provider:
+   - **A records** pointing to GitHub Pages IPs (185.199.108-111.153)
+   - **AAAA records** for IPv6 support
+   - **CNAME record** for www subdomain (redirects to apex)
 
-3. **Enable HTTPS** in GitHub Pages settings (automatic with custom domain)
+3. **HTTPS enabled** in GitHub Pages settings (automatic with custom domain)
 
-4. **Update environment variables** if needed:
-   - Remove or leave empty `NEXT_PUBLIC_BASE_PATH` for custom domains
-   - GitHub Actions should detect custom domain and adjust automatically
+4. **Environment variables**:
+   - `NEXT_PUBLIC_BASE_PATH` is empty for apex domain deployment
+   - Site is built and served from root path `/`
 
 ### DNS Propagation
 
@@ -237,12 +233,13 @@ After configuring DNS:
 
 These variables are embedded during the build process:
 
-| Variable                         | Purpose                    | Default           | Required |
-| -------------------------------- | -------------------------- | ----------------- | -------- |
-| `NEXT_PUBLIC_BASE_PATH`          | Base path for GitHub Pages | (empty)           | No       |
-| `NEXT_PUBLIC_GA_MEASUREMENT_ID`  | Google Analytics ID        | `G-XXXXXXXXXX`    | No       |
-| `NEXT_PUBLIC_META_PIXEL_ID`      | Meta Pixel ID              | `XXXXXXXXXXXXXXX` | No       |
-| `NEXT_PUBLIC_CLARITY_PROJECT_ID` | Microsoft Clarity ID       | `XXXXXXXXXX`      | No       |
+| Variable                         | Purpose                     | Default                                  | Required |
+| -------------------------------- | --------------------------- | ---------------------------------------- | -------- |
+| `NEXT_PUBLIC_BASE_PATH`          | Base path for deployment    | (empty)                                  | No       |
+| `NEXT_PUBLIC_SITE_URL`           | Site URL for sitemap/robots | `https://technologyadoptionbarriers.org` | No       |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID`  | Google Analytics ID         | `G-XXXXXXXXXX`                           | No       |
+| `NEXT_PUBLIC_META_PIXEL_ID`      | Meta Pixel ID               | `XXXXXXXXXXXXXXX`                        | No       |
+| `NEXT_PUBLIC_CLARITY_PROJECT_ID` | Microsoft Clarity ID        | `XXXXXXXXXX`                             | No       |
 
 ### Setting Environment Variables in GitHub Actions
 
@@ -252,7 +249,7 @@ Environment variables are set in the workflow file:
 - name: Build with Next.js
   run: npm run build
   env:
-    NEXT_PUBLIC_BASE_PATH: /technologyadoptionbarriers.org
+    NEXT_PUBLIC_BASE_PATH: ''
 ```
 
 ### Local Development
@@ -260,8 +257,11 @@ Environment variables are set in the workflow file:
 For local development, create a `.env.local` file:
 
 ```env
-# Optional: Set basePath for testing GitHub Pages locally
+# Optional: Set basePath for testing (leave empty for apex domain)
 NEXT_PUBLIC_BASE_PATH=
+
+# Optional: Site URL for sitemap and robots.txt
+NEXT_PUBLIC_SITE_URL=https://technologyadoptionbarriers.org
 
 # Optional: Analytics IDs (only loaded with user consent)
 NEXT_PUBLIC_GA_MEASUREMENT_ID=
@@ -361,19 +361,19 @@ To view detailed deployment logs:
 
 ### Testing Deployments Locally
 
-To test the built site locally before deploying:
+To test the built site locally:
 
 ```bash
-# Build with GitHub Pages configuration
-NEXT_PUBLIC_BASE_PATH=/technologyadoptionbarriers.org npm run build
+# Build for production (apex domain)
+npm run build
 
 # Serve the built site
 npm run preview
 
-# Open http://localhost:3000/technologyadoptionbarriers.org in your browser
+# Open http://localhost:3000 in your browser
 ```
 
-This simulates how the site will behave on GitHub Pages.
+This simulates how the site will behave on the production apex domain.
 
 ---
 

@@ -30,5 +30,5 @@
     "src/components/UI/BlogCard.tsx",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "scripts"]
 }
