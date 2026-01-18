@@ -75,9 +75,17 @@ async function makeApiRequest<T>(
           `Failed to parse successful API response as JSON: ${errorMessage}. Response text: ${preview}${responseText.length > 200 ? '...' : ''}`
         )
       }
+    } else {
+      // Successful response with no body is unexpected when a result is required
+      throw new Error('Qualtrics API returned an empty response body for a successful request')
     }
 
-    return (data as { result?: T }).result as T
+    const typedData = data as { result?: T }
+    if (typedData.result === undefined) {
+      throw new Error('Qualtrics API response is missing the expected "result" property')
+    }
+
+    return typedData.result
   } catch (error) {
     if (error instanceof Error) {
       // Preserve original error and stack trace
