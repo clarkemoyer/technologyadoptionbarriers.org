@@ -9,6 +9,7 @@ import { RxCross2 } from 'react-icons/rx'
 import { motion, AnimatePresence } from 'framer-motion'
 import { technologyAdoptionModelsSeries } from '@/data/technology-adoption-models-series'
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+const TAKE_TABS_URL = 'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO'
 
 interface MenuItem {
   label: string
@@ -32,7 +33,6 @@ const Header: React.FC = () => {
   const menuItems: MenuItem[] = useMemo(
     () => [
       { label: 'Home', path: '/' },
-      { label: 'Take the TABS', path: 'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO' },
       { label: 'Tech Adoption Barriers', path: '/barriers' },
       {
         label: 'Technology Adoption Models',
@@ -135,7 +135,7 @@ const Header: React.FC = () => {
   return (
     <header
       id="header"
-      className={`w-full bg-white shadow-sm fixed top-0 left-0 right-0 z-50 flex items-center transition-all duration-300 ${
+      className={`w-full bg-white shadow-sm sticky top-0 z-50 flex items-center transition-all duration-300 ${
         isScrolled ? 'h-[55px]' : 'h-[80px]'
       }`}
     >
@@ -163,8 +163,18 @@ const Header: React.FC = () => {
             {/* Menu or Search */}
             {!isSearchOpen ? (
               <div className="flex items-center justify-end sm:pl-[50px] md:pl-[70px] w-full">
+                {/* Primary CTA (always visible, incl. mobile) */}
+                <a
+                  href={TAKE_TABS_URL}
+                  onClick={handleLinkClick}
+                  data-testid="header-take-tabs-cta"
+                  className="order-3 inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:px-4 sm:text-[14px]"
+                >
+                  Take the TABS
+                </a>
+
                 {/* Desktop Menu */}
-                <nav className="hidden lg:block transition-all duration-300">
+                <nav className="order-1 hidden lg:block transition-all duration-300">
                   <ul className="flex items-center space-x-[1px] font-navbar font-[600]">
                     {menuItems.map((item, index) => (
                       <li
@@ -182,7 +192,7 @@ const Header: React.FC = () => {
                                 ? 'text-blue-600'
                                 : 'text-gray-600 hover:text-gray-500'
                             }`}
-                            aria-expanded={isMegaMenuOpen}
+                            aria-expanded={isMegaMenuOpen ? 'true' : 'false'}
                             aria-controls="mega-menu"
                           >
                             {item.label}
@@ -219,7 +229,7 @@ const Header: React.FC = () => {
                 </nav>
 
                 {/* Search Icon */}
-                <div className="hidden lg:flex items-center">
+                <div className="order-2 hidden lg:flex items-center">
                   <button
                     onClick={handleSearchToggle}
                     className="p-2 text-gray-600 hover:text-blue-600 transition-colors"
@@ -232,7 +242,7 @@ const Header: React.FC = () => {
                 {/* Mobile Menu Button */}
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="lg:hidden p-2 text-gray-600 hover:text-blue-600"
+                  className="order-2 lg:hidden p-2 text-gray-600 hover:text-blue-600"
                   aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                 >
                   {isMobileMenuOpen ? (
@@ -244,21 +254,32 @@ const Header: React.FC = () => {
               </div>
             ) : (
               // Search Input
-              <div className="w-full max-w-[750px] ml-auto flex items-center justify-between transition-all duration-300">
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="w-full px-4 py-2 focus:outline-none"
-                  autoFocus
-                  aria-label="Search input"
-                />
-                <button
-                  onClick={handleSearchToggle}
-                  className="ml-2 p-2 text-gray-600"
-                  aria-label="Close search"
+              <div className="w-full flex items-center justify-end gap-2 transition-all duration-300">
+                <div className="order-1 w-full max-w-[750px] flex items-center justify-between">
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    className="w-full px-4 py-2 focus:outline-none"
+                    autoFocus
+                    aria-label="Search input"
+                  />
+                  <button
+                    onClick={handleSearchToggle}
+                    className="ml-2 p-2 text-gray-600"
+                    aria-label="Close search"
+                  >
+                    <RxCross2 className="cursor-pointer h-5 w-5" />
+                  </button>
+                </div>
+
+                <a
+                  href={TAKE_TABS_URL}
+                  onClick={handleLinkClick}
+                  data-testid="header-take-tabs-cta"
+                  className="order-2 inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:px-4 sm:text-[14px]"
                 >
-                  <RxCross2 className="cursor-pointer h-5 w-5" />
-                </button>
+                  Take the TABS
+                </a>
               </div>
             )}
           </div>
@@ -396,7 +417,7 @@ const Header: React.FC = () => {
                           <button
                             onClick={() => setIsMobileBranch1Open(!isMobileBranch1Open)}
                             className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                            aria-expanded={isMobileBranch1Open}
+                            aria-expanded={isMobileBranch1Open ? 'true' : 'false'}
                           >
                             <span className="text-[13px]">
                               {technologyAdoptionModelsSeries.branches[0].title}
@@ -448,7 +469,7 @@ const Header: React.FC = () => {
                           <button
                             onClick={() => setIsMobileBranch2Open(!isMobileBranch2Open)}
                             className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                            aria-expanded={isMobileBranch2Open}
+                            aria-expanded={isMobileBranch2Open ? 'true' : 'false'}
                           >
                             <span className="text-[13px]">
                               {technologyAdoptionModelsSeries.branches[1].title}

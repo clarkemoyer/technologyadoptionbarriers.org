@@ -5,6 +5,9 @@ interface GAReportOptions {
   endDate?: string
   dimensions?: string[]
   metrics?: string[]
+  limit?: number
+  orderBys?: unknown
+  metricAggregations?: unknown
 }
 
 export class GoogleAnalyticsClient {
@@ -50,7 +53,7 @@ export class GoogleAnalyticsClient {
     } = options
 
     try {
-      const [response] = await this.client.runReport({
+      const result = await this.client.runReport({
         property: `properties/${this.propertyId}`,
         dateRanges: [
           {
@@ -63,9 +66,10 @@ export class GoogleAnalyticsClient {
         limit,
         orderBys,
         metricAggregations,
-      })
+      } as any)
 
-      return response
+      const response = Array.isArray(result) ? result[0] : result
+      return response as any
     } catch (error) {
       console.error('Failed to fetch GA data:', error)
       throw error
