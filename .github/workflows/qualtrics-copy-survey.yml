@@ -62,6 +62,10 @@ jobs:
           TMP_DIR="${RUNNER_TEMP:-/tmp}"
           SURVEY_JSON="$TMP_DIR/qualtrics-survey.json"
           COPY_JSON="$TMP_DIR/qualtrics-copy.json"
+          DEF_JSON="$TMP_DIR/qualtrics-survey-definition.json"
+          DEF_BODY_JSON="$TMP_DIR/qualtrics-survey-definition-body.json"
+          CREATE_JSON="$TMP_DIR/qualtrics-survey-create.json"
+          APPLY_JSON="$TMP_DIR/qualtrics-survey-apply-definition.json"
           CURL_ERR="$TMP_DIR/qualtrics-curl.err"
 
           echo "## Qualtrics Survey Copy" >> "$GITHUB_STEP_SUMMARY"
@@ -96,9 +100,83 @@ jobs:
           default_name="${source_name} (Copy ${timestamp})"
           new_name="${INPUT_NEW_SURVEY_NAME:-$default_name}"
 
+          # Fetch the source survey definition (prefer direct definition endpoints).
+          # This is the same approach used in the verify workflow, since some brands 404 on export APIs.
+          def_source=""
+          definition_url_1="$BASE_URL/API/v3/survey-definitions/${SOURCE_SURVEY_ID}"
+          definition_url_2="$BASE_URL/API/v3/surveys/${SOURCE_SURVEY_ID}/definition"
+
+          for url in "$definition_url_1" "$definition_url_2"; do
+            set +e
+            def_code=$(curl -sS -o "$DEF_JSON" -w "%{http_code}" \
+              -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+              -H "Accept: application/json" \
+              "$url" 2>"$CURL_ERR")
+            def_exit=$?
+            set -e
+
+            if ! [[ "$def_code" =~ ^[0-9]{3}$ ]]; then
+              def_code="000"
+            fi
+
+            if [[ "$def_exit" -eq 0 && "$def_code" -ge 200 && "$def_code" -lt 300 ]]; then
+              def_source="$url"
+              break
+            fi
+          done
+
+          if [[ -z "$def_source" ]]; then
+            echo "::error::Could not fetch source survey definition (tried definition endpoints; export not attempted)." >&2
+            echo "- $definition_url_1" >&2
+            echo "- $definition_url_2" >&2
+            if [[ -s "$CURL_ERR" ]]; then
+              echo "" >&2
+              echo "Last curl error (truncated):" >&2
+              tail -c 2000 "$CURL_ERR" 2>/dev/null || true
+            fi
+            exit 1
+          fi
+
           # Try known/likely Qualtrics copy endpoints. Different brands can expose different operations.
           # We keep responses in a file and avoid printing them to logs.
           LAST_CURL_EXIT=0
+          api_call() {
+            local method="$1"
+            local url="$2"
+            local data="$3"
+            local content_type="$4"
+            local out_file="$5"
+            local http_code
+
+            local args=(
+              -sS
+              -o "$out_file"
+              -w "%{http_code}"
+              -X "$method"
+              -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}"
+              -H "Accept: application/json"
+            )
+
+            if [[ -n "$content_type" ]]; then
+              args+=( -H "Content-Type: ${content_type}" )
+            fi
+
+            if [[ -n "$data" ]]; then
+              args+=( --data-binary "$data" )
+            fi
+
+            set +e
+            http_code=$(curl "${args[@]}" "$url" 2>"$CURL_ERR")
+            LAST_CURL_EXIT=$?
+            set -e
+
+            if ! [[ "$http_code" =~ ^[0-9]{3}$ ]]; then
+              http_code="000"
+            fi
+
+            echo "$http_code"
+          }
+
           try_copy() {
             local url="$1"
             local data="$2"
@@ -175,6 +253,79 @@ jobs:
             fi
           fi
 
+          # Fallback: API-only "clone" via create-survey + apply-definition.
+          # If /copy-like endpoints are not supported in this tenant, we attempt:
+          # 1) POST /surveys to create a new empty survey
+          # 2) PUT /survey-definitions/{newId} or PUT /surveys/{newId}/definition with the source definition
+          fallback_attempted=()
+          new_survey_id_fallback=""
+
+          record_fallback_attempt() {
+            local url="$1"
+            local http_code="$2"
+            local curl_exit="$3"
+            local meta_status
+            local meta_message
+            meta_status=$(jq -r '.meta.httpStatus // empty' "$APPLY_JSON" 2>/dev/null || true)
+            meta_message=$(jq -r '.meta.error.errorMessage // empty' "$APPLY_JSON" 2>/dev/null || true)
+            fallback_attempted+=("${url} | HTTP ${http_code} | curl ${curl_exit}${meta_status:+ | ${meta_status}}${meta_message:+ | ${meta_message}}")
+          }
+
+          if [[ -z "$new_survey_id" ]]; then
+            create_url="$BASE_URL/API/v3/surveys"
+            create_payload="{\"name\":\"${new_name}\"}"
+            http_code=$(api_call "POST" "$create_url" "$create_payload" "application/json" "$CREATE_JSON")
+            # capture create attempt details using CREATE_JSON meta
+            create_meta_status=$(jq -r '.meta.httpStatus // empty' "$CREATE_JSON" 2>/dev/null || true)
+            create_meta_message=$(jq -r '.meta.error.errorMessage // empty' "$CREATE_JSON" 2>/dev/null || true)
+            fallback_attempted+=("${create_url} (create) | HTTP ${http_code} | curl ${LAST_CURL_EXIT}${create_meta_status:+ | ${create_meta_status}}${create_meta_message:+ | ${create_meta_message}}")
+
+            if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
+              new_survey_id_fallback=$(jq -r '.result.id // .result.surveyId // .result.surveyID // .result.SurveyID // empty' "$CREATE_JSON")
+            fi
+
+            if [[ -n "$new_survey_id_fallback" ]]; then
+              # Extract the definition body. Different endpoints may return different shapes.
+              # Prefer .result if present, otherwise use the whole file.
+              if jq -e '.result' "$DEF_JSON" >/dev/null 2>&1; then
+                jq '.result' "$DEF_JSON" > "$DEF_BODY_JSON"
+              else
+                cp "$DEF_JSON" "$DEF_BODY_JSON"
+              fi
+
+              # Best-effort: update common SurveyID fields to the new survey id.
+              tmp_def="$TMP_DIR/qualtrics-survey-definition-updated.json"
+              jq --arg newId "$new_survey_id_fallback" '
+                (.. | objects | select(has("SurveyID")) | .SurveyID) |= $newId
+                | (.. | objects | select(has("surveyId")) | .surveyId) |= $newId
+                | (.. | objects | select(has("surveyID")) | .surveyID) |= $newId
+              ' "$DEF_BODY_JSON" > "$tmp_def" 2>/dev/null || cp "$DEF_BODY_JSON" "$tmp_def"
+              mv "$tmp_def" "$DEF_BODY_JSON"
+
+              apply_url_1="$BASE_URL/API/v3/survey-definitions/${new_survey_id_fallback}"
+              http_code=$(api_call "PUT" "$apply_url_1" "@$DEF_BODY_JSON" "application/json" "$APPLY_JSON")
+              record_fallback_attempt "$apply_url_1 (apply)" "$http_code" "$LAST_CURL_EXIT"
+
+              if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+                apply_url_2="$BASE_URL/API/v3/surveys/${new_survey_id_fallback}/definition"
+                http_code=$(api_call "PUT" "$apply_url_2" "@$DEF_BODY_JSON" "application/json" "$APPLY_JSON")
+                record_fallback_attempt "$apply_url_2 (apply)" "$http_code" "$LAST_CURL_EXIT"
+              fi
+
+              # If apply succeeded (2xx), accept fallback id as the new survey id.
+              if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
+                new_survey_id="$new_survey_id_fallback"
+              else
+                # Best-effort cleanup: delete the newly created survey to avoid leaving junk.
+                delete_url="$BASE_URL/API/v3/surveys/${new_survey_id_fallback}"
+                http_code_delete=$(api_call "DELETE" "$delete_url" "" "" "$APPLY_JSON")
+                delete_meta_status=$(jq -r '.meta.httpStatus // empty' "$APPLY_JSON" 2>/dev/null || true)
+                delete_meta_message=$(jq -r '.meta.error.errorMessage // empty' "$APPLY_JSON" 2>/dev/null || true)
+                fallback_attempted+=("${delete_url} (cleanup) | HTTP ${http_code_delete} | curl ${LAST_CURL_EXIT}${delete_meta_status:+ | ${delete_meta_status}}${delete_meta_message:+ | ${delete_meta_message}}")
+              fi
+            fi
+          fi
+
           echo "### Result" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
 
@@ -184,6 +335,14 @@ jobs:
             for a in "${attempted[@]}"; do
               echo "- $a" >&2
             done
+
+            if [[ ${#fallback_attempted[@]} -gt 0 ]]; then
+              echo "" >&2
+              echo "Fallback attempt results (create + apply definition):" >&2
+              for a in "${fallback_attempted[@]}"; do
+                echo "- $a" >&2
+              done
+            fi
             if [[ -s "$CURL_ERR" ]]; then
               echo "" >&2
               echo "Last curl error (truncated):" >&2
@@ -195,6 +354,13 @@ jobs:
             for a in "${attempted[@]}"; do
               echo "  - ${a}" >> "$GITHUB_STEP_SUMMARY"
             done
+
+            if [[ ${#fallback_attempted[@]} -gt 0 ]]; then
+              echo "- **Fallback attempt results:**" >> "$GITHUB_STEP_SUMMARY"
+              for a in "${fallback_attempted[@]}"; do
+                echo "  - ${a}" >> "$GITHUB_STEP_SUMMARY"
+              done
+            fi
             exit 1
           fi
 
