@@ -62,6 +62,7 @@ jobs:
           TMP_DIR="${RUNNER_TEMP:-/tmp}"
           SURVEY_JSON="$TMP_DIR/qualtrics-survey.json"
           COPY_JSON="$TMP_DIR/qualtrics-copy.json"
+          CURL_ERR="$TMP_DIR/qualtrics-curl.err"
 
           echo "## Qualtrics Survey Copy" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
@@ -71,14 +72,22 @@ jobs:
 
           # Fetch the source survey name (safe metadata) for default naming.
           survey_url="${BASE_URL}/API/v3/surveys/${SOURCE_SURVEY_ID}"
+          set +e
           http_code=$(curl -sS -o "$SURVEY_JSON" -w "%{http_code}" \
             -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
             -H "Accept: application/json" \
-            "$survey_url" || true)
+            "$survey_url" 2>"$CURL_ERR")
+          curl_exit=$?
+          set -e
 
-          if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+          if ! [[ "$http_code" =~ ^[0-9]{3}$ ]]; then
+            http_code="000"
+          fi
+
+          if [[ "$curl_exit" -ne 0 || "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
             echo "::error::Failed to fetch source survey metadata (HTTP $http_code): $survey_url" >&2
-            head -c 2000 "$SURVEY_JSON" || true
+            echo "curl exit code: $curl_exit" >&2
+            tail -c 2000 "$CURL_ERR" 2>/dev/null || true
             exit 1
           fi
 
@@ -89,10 +98,12 @@ jobs:
 
           # Try known/likely Qualtrics copy endpoints. Different brands can expose different operations.
           # We keep responses in a file and avoid printing them to logs.
+          LAST_CURL_EXIT=0
           try_copy() {
             local url="$1"
             local data="$2"
             local content_type="$3"
+            local http_code
 
             local args=(
               -sS
@@ -111,39 +122,44 @@ jobs:
               args+=( -d "$data" )
             fi
 
-            curl "${args[@]}" "$url" || true
+            set +e
+            http_code=$(curl "${args[@]}" "$url" 2>"$CURL_ERR")
+            LAST_CURL_EXIT=$?
+            set -e
+
+            if ! [[ "$http_code" =~ ^[0-9]{3}$ ]]; then
+              http_code="000"
+            fi
+            echo "$http_code"
           }
 
           new_survey_id=""
           attempted=()
 
+          record_attempt() {
+            local url="$1"
+            local http_code="$2"
+            local curl_exit="$3"
+            local meta_status
+            local meta_message
+            meta_status=$(jq -r '.meta.httpStatus // empty' "$COPY_JSON" 2>/dev/null || true)
+            meta_message=$(jq -r '.meta.error.errorMessage // empty' "$COPY_JSON" 2>/dev/null || true)
+            attempted+=("${url} | HTTP ${http_code} | curl ${curl_exit}${meta_status:+ | ${meta_status}}${meta_message:+ | ${meta_message}}")
+          }
+
           # 1) POST /surveys/{id}/copy with JSON body
           url1="${BASE_URL}/API/v3/surveys/${SOURCE_SURVEY_ID}/copy"
-          attempted+=("$url1")
           http_code=$(try_copy "$url1" "{\"name\":\"${new_name}\"}" "application/json")
+          record_attempt "$url1" "$http_code" "$LAST_CURL_EXIT"
           if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
             new_survey_id=$(jq -r '.result.id // .result.surveyId // .result.surveyID // empty' "$COPY_JSON")
-          fi
-
-          # 2) POST /surveys/{id}/copy with querystring
-          if [[ -z "$new_survey_id" ]]; then
-            url2="${BASE_URL}/API/v3/surveys/${SOURCE_SURVEY_ID}/copy?name=$(python3 -c 'import os,urllib.parse; print(urllib.parse.quote(os.environ["INPUT_NEW_SURVEY_NAME"]))' 2>/dev/null || true)"
-            if [[ "$url2" == *"name=" ]]; then
-              # python3 might not be available; fall back to raw name (best-effort).
-              url2="${BASE_URL}/API/v3/surveys/${SOURCE_SURVEY_ID}/copy?name=${new_name}"
-            fi
-            attempted+=("${BASE_URL}/API/v3/surveys/${SOURCE_SURVEY_ID}/copy?name=…")
-            http_code=$(try_copy "$url2" "" "")
-            if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
-              new_survey_id=$(jq -r '.result.id // .result.surveyId // .result.surveyID // empty' "$COPY_JSON")
-            fi
           fi
 
           # 3) POST /surveys/{id}/duplicate with JSON body
           if [[ -z "$new_survey_id" ]]; then
             url3="${BASE_URL}/API/v3/surveys/${SOURCE_SURVEY_ID}/duplicate"
-            attempted+=("$url3")
             http_code=$(try_copy "$url3" "{\"name\":\"${new_name}\"}" "application/json")
+            record_attempt "$url3" "$http_code" "$LAST_CURL_EXIT"
             if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
               new_survey_id=$(jq -r '.result.id // .result.surveyId // .result.surveyID // empty' "$COPY_JSON")
             fi
@@ -152,8 +168,8 @@ jobs:
           # 4) POST /surveys/{id}/clone with JSON body
           if [[ -z "$new_survey_id" ]]; then
             url4="${BASE_URL}/API/v3/surveys/${SOURCE_SURVEY_ID}/clone"
-            attempted+=("$url4")
             http_code=$(try_copy "$url4" "{\"name\":\"${new_name}\"}" "application/json")
+            record_attempt "$url4" "$http_code" "$LAST_CURL_EXIT"
             if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
               new_survey_id=$(jq -r '.result.id // .result.surveyId // .result.surveyID // empty' "$COPY_JSON")
             fi
@@ -164,18 +180,20 @@ jobs:
 
           if [[ -z "$new_survey_id" ]]; then
             echo "::error::Could not create a survey copy via available API endpoints." >&2
-            echo "Tried endpoints:" >&2
-            for u in "${attempted[@]}"; do
-              echo "- $u" >&2
+            echo "Attempt results:" >&2
+            for a in "${attempted[@]}"; do
+              echo "- $a" >&2
             done
-            echo "" >&2
-            echo "Last response (truncated):" >&2
-            head -c 2000 "$COPY_JSON" || true
+            if [[ -s "$CURL_ERR" ]]; then
+              echo "" >&2
+              echo "Last curl error (truncated):" >&2
+              tail -c 2000 "$CURL_ERR" 2>/dev/null || true
+            fi
 
             echo "- **Status:** failed" >> "$GITHUB_STEP_SUMMARY"
-            echo "- **Tried endpoints:**" >> "$GITHUB_STEP_SUMMARY"
-            for u in "${attempted[@]}"; do
-              echo "  - ${u}" >> "$GITHUB_STEP_SUMMARY"
+            echo "- **Attempt results:**" >> "$GITHUB_STEP_SUMMARY"
+            for a in "${attempted[@]}"; do
+              echo "  - ${a}" >> "$GITHUB_STEP_SUMMARY"
             done
             exit 1
           fi
