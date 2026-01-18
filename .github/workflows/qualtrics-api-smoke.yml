@@ -19,7 +19,7 @@ jobs:
   qualtrics-smoke:
     name: Qualtrics API smoke
     runs-on: ubuntu-latest
-    environment: QUALTRICS-prod
+    environment: qualtrics-prod
     env:
       QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
       QUALTRICS_USERID: ${{ secrets.QUALTRICS_USERID }}

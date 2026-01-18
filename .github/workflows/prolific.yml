@@ -52,7 +52,7 @@ jobs:
       - name: Run data collection
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
-          STUDY_ID: ${{ inputs.study_id }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
         run: |
           echo "Starting Prolific data collection..."
           echo "Study ID: ${STUDY_ID:-'all studies'}"
