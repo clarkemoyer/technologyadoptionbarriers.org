@@ -125,7 +125,7 @@ jobs:
           echo "::endgroup::"
 
       - name: Fetch Survey Questions (New Script)
-        run: npx --no-install tsx scripts/fetch-qualtrics-questions.ts
+        run: npx -y tsx scripts/fetch-qualtrics-questions.ts
         env:
           QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
           QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
