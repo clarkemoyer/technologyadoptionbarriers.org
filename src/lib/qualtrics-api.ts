@@ -62,26 +62,26 @@ async function makeApiRequest<T>(
       )
     }
 
-    let data: unknown = {}
-    if (responseText) {
-      try {
-        data = JSON.parse(responseText)
-      } catch (parseError) {
-        // Surface JSON parsing issues clearly for successful responses with context
-        const errorMessage =
-          parseError instanceof Error ? parseError.message : 'Unknown parsing error'
-        const preview = responseText.slice(0, 200)
-        throw new Error(
-          `Failed to parse successful API response as JSON: ${errorMessage}. Response text: ${preview}${responseText.length > 200 ? '...' : ''}`
-        )
-      }
-    } else {
+    if (!responseText) {
       // Successful response with no body is unexpected when a result is required
       throw new Error('Qualtrics API returned an empty response body for a successful request')
     }
 
+    let data: unknown
+    try {
+      data = JSON.parse(responseText)
+    } catch (parseError) {
+      // Surface JSON parsing issues clearly for successful responses with context
+      const errorMessage =
+        parseError instanceof Error ? parseError.message : 'Unknown parsing error'
+      const preview = responseText.slice(0, 200)
+      throw new Error(
+        `Failed to parse successful API response as JSON: ${errorMessage}. Response text: ${preview}${responseText.length > 200 ? '...' : ''}`
+      )
+    }
+
     const typedData = data as { result?: T }
-    if (typedData.result === undefined) {
+    if (typedData.result === undefined || typedData.result === null) {
       throw new Error('Qualtrics API response is missing the expected "result" property')
     }
 
