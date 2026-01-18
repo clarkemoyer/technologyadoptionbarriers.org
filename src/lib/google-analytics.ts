@@ -1,4 +1,6 @@
-import { BetaAnalyticsDataClient } from '@google-analytics/data'
+import { BetaAnalyticsDataClient, protos } from '@google-analytics/data'
+
+type MetricAggregation = protos.google.analytics.data.v1beta.MetricAggregation
 
 interface GAReportOptions {
   startDate?: string
@@ -6,8 +8,8 @@ interface GAReportOptions {
   dimensions?: string[]
   metrics?: string[]
   limit?: number
-  orderBys?: unknown
-  metricAggregations?: unknown
+  orderBys?: Array<{ metric?: { metricName: string }; desc?: boolean }>
+  metricAggregations?: MetricAggregation[]
 }
 
 export class GoogleAnalyticsClient {
@@ -53,7 +55,7 @@ export class GoogleAnalyticsClient {
     } = options
 
     try {
-      const result = await this.client.runReport({
+      const response = await this.client.runReport({
         property: `properties/${this.propertyId}`,
         dateRanges: [
           {
@@ -67,9 +69,7 @@ export class GoogleAnalyticsClient {
         orderBys,
         metricAggregations,
       } as any)
-
-      const response = Array.isArray(result) ? result[0] : result
-      return response as any
+      return response[0]
     } catch (error) {
       console.error('Failed to fetch GA data:', error)
       throw error

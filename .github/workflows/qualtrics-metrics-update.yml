@@ -100,17 +100,61 @@ jobs:
               },
               responseCounts: $responseCounts,
               metrics: ($responseCounts | to_entries | map({metric: .key, value: .value}) | sort_by(.metric))
-            }' > src/data/qualtrics-metrics.json
+            }' > temp-qualtrics-metrics.json
 
-      - name: Commit and push changes
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add src/data/qualtrics-metrics.json
-          # Check for changes
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "chore: update qualtrics metrics [skip ci]"
-            git push
+          # --- VALIDATION STEP ---
+          echo "Validating new metrics..."
+
+          # 1. Check if valid JSON
+          if ! jq -e . temp-qualtrics-metrics.json >/dev/null; then
+            echo "::error::Generated file is invalid JSON."
+            exit 1
           fi
+
+          # 2. Check for empty metrics
+          metric_count=$(jq '.metrics | length' temp-qualtrics-metrics.json)
+          if [[ "$metric_count" -eq 0 ]]; then
+            echo "::error::No metrics found in response."
+            exit 1
+          fi
+
+          # 3. Check for regression (Total responses should not decrease)
+          if [[ -f "src/data/qualtrics-metrics.json" ]]; then
+            old_count=$(jq '.responseCounts | to_entries | map(.value) | add // 0' src/data/qualtrics-metrics.json)
+            new_count=$(jq '.responseCounts | to_entries | map(.value) | add // 0' temp-qualtrics-metrics.json)
+            
+            echo "Total Responses: Old=$old_count, New=$new_count"
+            
+            if [[ "$new_count" -lt "$old_count" ]]; then
+              echo "::error::Regression detected: New response count ($new_count) is lower than existing count ($old_count)."
+              exit 1
+            fi
+          fi
+
+          # If we got here, validation passed. Move file to final location.
+          mv temp-qualtrics-metrics.json src/data/qualtrics-metrics.json
+          echo "Validation passed. File updated."
+
+      - name: Create pull request with updated metrics
+        id: cpr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'Update Qualtrics survey metrics'
+          title: 'Update Qualtrics survey metrics'
+          body: |
+            Automated update of `src/data/qualtrics-metrics.json` from the Qualtrics API.
+
+            Each response count type is stored as its own metric for charting.
+
+            **Validation Passed:**
+            - JSON Integrity Verified.
+            - Metrics Data Present.
+            - No Regression in Total Response Counts.
+          branch: chore/qualtrics-metrics
+          delete-branch: true
+
+      - name: Enable Pull Request Automerge
+        if: steps.cpr.outputs.created == 'true'
+        run: gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
