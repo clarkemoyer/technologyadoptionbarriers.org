@@ -43,6 +43,16 @@ describe('Header component', () => {
     expect(screen.getByText('Home')).toBeInTheDocument()
   })
 
+  it("should display 'Take the TABS' primary CTA link", () => {
+    render(<Header />)
+
+    const cta = screen.getByTestId('header-take-tabs-cta')
+    expect(cta).toBeInTheDocument()
+    expect(cta).toHaveAccessibleName('Take the TABS')
+    expect(cta).toHaveAttribute('href', 'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO')
+    expect(cta).not.toHaveClass('hidden')
+  })
+
   it('should have navigation links', () => {
     render(<Header />)
     // Check that navigation has at least some links
