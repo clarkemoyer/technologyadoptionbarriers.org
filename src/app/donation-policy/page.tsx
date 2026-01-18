@@ -45,8 +45,14 @@ export default function DonationPolicy() {
             Donation Processing
           </h2>
           <p>
-            Donations are processed securely through our payment partners. You will receive a
-            confirmation email after your donation is processed.
+            Donations are processed securely through Stripe, our payment processing partner. Stripe
+            is a PCI Level 1 certified service provider, ensuring the highest level of security for
+            your payment information. All payment data is processed on Stripe&apos;s secure servers
+            - no credit card information is stored on our systems.
+          </p>
+          <p className="mt-4">
+            You will receive a confirmation email from Stripe after your donation is processed. For
+            questions about your donation or payment processing, please contact us.
           </p>
 
           <h2 className="font-[var(--font-faustina)] text-[32px] leading-[40px] mt-8 mb-4">

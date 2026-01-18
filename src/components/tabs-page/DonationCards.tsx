@@ -1,4 +1,8 @@
+'use client'
+
 import React from 'react'
+import StripeDonateButton from '@/components/stripe-donate-button'
+import { DonationType } from '@/lib/stripe'
 
 const DonationCards = () => {
   const cards = [
@@ -7,7 +11,9 @@ const DonationCards = () => {
       description:
         'This is the general fund to help the survey run and maintain the listings for the annual survey participants.',
       buttonText: 'Donate Now',
-      buttonLink: 'https://technologyadoptionbarriers.org/#', // Update with real link if available
+      buttonLink: 'https://technologyadoptionbarriers.org/#', // Fallback if Stripe not configured
+      useStripe: true,
+      donationType: DonationType.ONE_TIME,
       bgColor: 'bg-[#113563]',
       btnConfig: 'bg-[#F57C20] text-white hover:bg-[#d66a1a]',
     },
@@ -17,6 +23,7 @@ const DonationCards = () => {
         'Sponsorship is a great way to contribute to research and support our business insights.',
       buttonText: 'Contact Us',
       buttonLink: 'mailto:clarke@technologyadoptionbarriers.org',
+      useStripe: false,
       bgColor: 'bg-[#0E7162]',
       btnConfig: 'bg-white text-[#0E7162] hover:bg-gray-100',
     },
@@ -26,6 +33,7 @@ const DonationCards = () => {
         'We need more than money to run the survey we need people and skills like yours. Volunteer today to help.',
       buttonText: 'Volunteer Today',
       buttonLink: 'mailto:clarke@technologyadoptionbarriers.org',
+      useStripe: false,
       bgColor: 'bg-[#5FB38D]',
       btnConfig: 'bg-white text-[#5FB38D] hover:bg-gray-100',
     },
@@ -46,12 +54,20 @@ const DonationCards = () => {
               {card.description}
             </p>
             <div>
-              <a
-                href={card.buttonLink}
-                className={`inline-block px-[25px] py-[12px] rounded-[30px] font-bold text-[16px] transition-all duration-300 transform hover:scale-105 ${card.btnConfig}`}
-              >
-                {card.buttonText}
-              </a>
+              {card.useStripe ? (
+                <StripeDonateButton
+                  type={card.donationType!}
+                  label={card.buttonText}
+                  className={`inline-block px-[25px] py-[12px] rounded-[30px] font-bold text-[16px] transition-all duration-300 transform hover:scale-105 ${card.btnConfig}`}
+                />
+              ) : (
+                <a
+                  href={card.buttonLink}
+                  className={`inline-block px-[25px] py-[12px] rounded-[30px] font-bold text-[16px] transition-all duration-300 transform hover:scale-105 ${card.btnConfig}`}
+                >
+                  {card.buttonText}
+                </a>
+              )}
             </div>
           </div>
         ))}

@@ -39,8 +39,9 @@ describe('Footer component', () => {
     )
     expect(validLink).toBeDefined()
 
-    const donateLink = screen.getByRole('link', { name: /make a donation/i })
-    expect(donateLink).toBeInTheDocument()
+    // Donate button is now a Stripe button component, not a link
+    const donateButton = screen.getByRole('button', { name: /make a donation/i })
+    expect(donateButton).toBeInTheDocument()
   })
 
   it('should display the current year in copyright', () => {

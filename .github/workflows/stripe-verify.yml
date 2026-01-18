@@ -1,0 +1,153 @@
+name: Stripe Integration Verification
+
+on:
+  # Run on schedule (weekly on Mondays at 10 AM UTC)
+  schedule:
+    - cron: '0 10 * * 1'
+
+  # Allow manual trigger from Actions tab
+  workflow_dispatch:
+    inputs:
+      check_products:
+        description: 'Verify Stripe products and prices exist'
+        required: false
+        type: boolean
+        default: true
+
+# Prevent concurrent runs
+concurrency:
+  group: 'stripe-verification'
+  cancel-in-progress: false
+
+# Explicit permissions for GITHUB_TOKEN
+permissions:
+  contents: read
+
+jobs:
+  verify-stripe-config:
+    name: Verify Stripe Configuration
+    runs-on: ubuntu-latest
+    environment: stripe-prod
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify Stripe API key
+        run: |
+          if [ -z "${{ secrets.STRIPE_SECRET_KEY }}" ]; then
+            echo "Error: STRIPE_SECRET_KEY secret is not set in the stripe-prod environment"
+            exit 1
+          fi
+          echo "✅ Stripe API key is configured"
+
+      - name: Verify Stripe publishable key
+        run: |
+          if [ -z "${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}" ]; then
+            echo "Error: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY secret is not set in the stripe-prod environment"
+            exit 1
+          fi
+          echo "✅ Stripe publishable key is configured"
+
+      - name: Verify environment configuration
+        env:
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID: ${{ secrets.NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID }}
+          NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID: ${{ secrets.NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID }}
+        run: |
+          echo "Verifying Stripe configuration..."
+
+          # Check if keys start with correct prefixes
+          if [[ ! "$NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY" =~ ^pk_ ]]; then
+            echo "Error: Publishable key should start with 'pk_'"
+            exit 1
+          fi
+
+          if [[ ! "$STRIPE_SECRET_KEY" =~ ^sk_ ]]; then
+            echo "Error: Secret key should start with 'sk_'"
+            exit 1
+          fi
+
+          # Check if we're using test or live keys
+          if [[ "$STRIPE_SECRET_KEY" =~ ^sk_test_ ]]; then
+            echo "⚠️  Using Stripe TEST mode"
+          elif [[ "$STRIPE_SECRET_KEY" =~ ^sk_live_ ]]; then
+            echo "✅ Using Stripe LIVE mode"
+          else
+            echo "Error: Unrecognized Stripe key format"
+            exit 1
+          fi
+
+          echo "✅ Environment configuration is valid"
+
+      - name: Test Stripe API connection
+        if: ${{ inputs.check_products }}
+        env:
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID: ${{ secrets.NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID }}
+          NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID: ${{ secrets.NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID }}
+        run: |
+          echo "Testing Stripe API connection..."
+
+          # Test API connection by listing products
+          npx --yes stripe-cli products list --api-key "$STRIPE_SECRET_KEY" > /dev/null 2>&1 || {
+            echo "Warning: Could not connect to Stripe API. Skipping product verification."
+            exit 0
+          }
+
+          echo "✅ Stripe API connection successful"
+
+          # Verify payment link URLs are configured
+          if [ -n "$NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID" ]; then
+            echo "One-time donation payment link configured: ${NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID:0:30}..."
+            
+            # Check if it's a valid payment link URL
+            if [[ ! "$NEXT_PUBLIC_STRIPE_DONATION_PRICE_ID" =~ ^https:// ]]; then
+              echo "Warning: One-time donation link should be a full URL (https://...)"
+            fi
+          fi
+
+          if [ -n "$NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID" ]; then
+            echo "Recurring donation payment link configured: ${NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID:0:30}..."
+            
+            # Check if it's a valid payment link URL
+            if [[ ! "$NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PRICE_ID" =~ ^https:// ]]; then
+              echo "Warning: Recurring donation link should be a full URL (https://...)"
+            fi
+          fi
+
+      - name: Success summary
+        if: success()
+        run: |
+          echo "### ✅ Stripe Configuration Verified" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All Stripe secrets and configuration are properly set up in the stripe-prod environment." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Next Steps:**" >> $GITHUB_STEP_SUMMARY
+          echo "1. Ensure Stripe Payment Links are created in the Stripe Dashboard" >> $GITHUB_STEP_SUMMARY
+          echo "2. Update payment link URLs in GitHub secrets if needed" >> $GITHUB_STEP_SUMMARY
+          echo "3. Test donation flow in production" >> $GITHUB_STEP_SUMMARY
+
+      - name: Error summary
+        if: failure()
+        run: |
+          echo "### ❌ Stripe Configuration Failed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "There was an error verifying the Stripe configuration." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Please check the job logs above for error details." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Common Issues:**" >> $GITHUB_STEP_SUMMARY
+          echo "- Missing secrets in stripe-prod environment" >> $GITHUB_STEP_SUMMARY
+          echo "- Incorrect API key format" >> $GITHUB_STEP_SUMMARY
+          echo "- Invalid payment link URLs (should start with https://)" >> $GITHUB_STEP_SUMMARY

@@ -6,6 +6,8 @@ import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react'
 
 import { FaFacebookF, FaLinkedinIn, FaGithub } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
+import StripeDonateButton from '@/components/stripe-donate-button'
+import { DonationType } from '@/lib/stripe'
 
 const Footer: React.FC = () => {
   const currentYear = React.useMemo(() => new Date().getFullYear(), [])
@@ -72,14 +74,11 @@ const Footer: React.FC = () => {
             >
               TAKE THE TABS
             </a>
-            <a
-              href="https://github.com/sponsors/clarkemoyer"
-              target="_blank"
-              rel="noopener noreferrer"
+            <StripeDonateButton
+              type={DonationType.ONE_TIME}
+              label="MAKE A DONATION"
               className="px-[40px] py-[18px] bg-[#2EA3F2] text-white text-[18px] font-bold rounded-[4px] hover:bg-[#2589cc] transition-all duration-300 uppercase tracking-widest"
-            >
-              MAKE A DONATION
-            </a>
+            />
           </div>
         </div>
       </div>

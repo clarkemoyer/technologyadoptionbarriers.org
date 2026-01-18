@@ -97,18 +97,53 @@ These are services we directly integrate into our application code.
 
 ### Donation Platform
 
-#### 7. Zeffy
+#### 7. Stripe
 
-- **Purpose:** Zero-fee donation processing platform
+- **Purpose:** Primary payment processing platform for donations
+- **Implementation:**
+  - Client library: `@stripe/stripe-js`
+  - Component: `src/components/stripe-donate-button/index.tsx`
+  - Utility: `src/lib/stripe.ts`
+  - GitHub Workflow: `.github/workflows/stripe-verify.yml`
+- **Domains:** `js.stripe.com`, `checkout.stripe.com`
+- **Preconnect:** Configured in `src/app/layout.tsx`
+- **Authentication:** API keys stored in GitHub environment `stripe-prod` as secrets
+- **Data Collected:** Payment transaction data (processed on Stripe's servers)
+- **User Control:** Users voluntarily provide payment information during checkout
+- **PCI Compliance:** Fully PCI-compliant - all payment data is processed on Stripe's hosted checkout page; no card data touches our servers
+- **Privacy Policy:** https://stripe.com/privacy
+- **Security:** Stripe is Level 1 PCI DSS certified
+- **Features:**
+  - One-time donations
+  - Recurring monthly donations (subscriptions)
+  - Secure checkout hosted by Stripe
+  - Email receipts automatically sent to donors
+
+**Technical Details:**
+
+- **Integration Type:** Client-side redirect to Stripe Checkout (hosted payment page)
+- **Payment Methods:** Credit cards, debit cards, and other Stripe-supported payment methods
+- **Data Flow:** User initiates donation → Redirect to Stripe Checkout → Payment processed on Stripe → User redirected back to success/cancel page
+- **Privacy Considerations:**
+  - No payment card data is collected or stored by our application
+  - All payment processing occurs on Stripe's PCI-compliant servers
+  - Stripe collects payment information, email address, and billing details
+  - Users receive email receipts from Stripe
+  - Compliance with GDPR and international data protection regulations
+
+#### 8. Zeffy
+
+- **Purpose:** Alternative zero-fee donation processing platform (legacy)
 - **Implementation:** Embedded widget
 - **Domain:** `www.zeffy.com`
 - **Preconnect:** Configured in `src/app/layout.tsx`
 - **Data Collected:** Donation transaction data
 - **Privacy Policy:** https://www.zeffy.com/privacy
+- **Status:** Maintained for backwards compatibility; Stripe is now the primary donation platform
 
 ### Transparency & Validation
 
-#### 8. GuideStar (Candid)
+#### 9. GuideStar (Candid)
 
 - **Purpose:** Display charity transparency seal
 - **Implementation:** Widget embedded in footer
@@ -119,7 +154,7 @@ These are services we directly integrate into our application code.
 
 ### External Volunteer Platforms
 
-#### 9. Idealist.org
+#### 10. Idealist.org
 
 - **Purpose:** Volunteer opportunity listings
 - **Implementation:** Link to external profile
@@ -154,7 +189,7 @@ Third-party services we use may load additional services. While we cannot exhaus
 
 ### Research & Survey Platform
 
-#### 8. Prolific API
+#### 11. Prolific API
 
 - **Purpose:** Survey participant recruitment and data collection
 - **API Base URL:** `https://api.prolific.com/api/v1/`
