@@ -45,6 +45,7 @@ jobs:
           fi
 
           TMP_DIR="${RUNNER_TEMP:-/tmp}"
+          DEF_JSON="$TMP_DIR/qualtrics-survey-definition.json"
           START_JSON="$TMP_DIR/qualtrics-export-start.json"
           STATUS_JSON="$TMP_DIR/qualtrics-export-status.json"
           ZIP_PATH="$TMP_DIR/qualtrics-survey-export.zip"
@@ -57,89 +58,123 @@ jobs:
           echo "- **Mode:** API-only (no live survey traffic)" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
 
-          # Attempt to export the survey definition (QSF). This avoids loading the live survey.
-          # NOTE: Qualtrics export APIs can be asynchronous; we poll for completion.
-          EXPORT_URL="$BASE_URL/API/v3/surveys/${SURVEY_ID}/export"
-          http_code=$(curl -sS -o "$START_JSON" -w "%{http_code}" \
-            -X POST \
-            -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
-            -H "Accept: application/json" \
-            -H "Content-Type: application/json" \
-            -d '{"format":"qsf"}' \
-            "$EXPORT_URL" || true)
+          # Prefer fetching the survey definition directly. Some Qualtrics brands return 404
+          # for the Survey Export API even when normal /surveys endpoints work.
+          scan_path=""
+          scan_source=""
 
-          if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
-            echo "::error::Failed to start survey export (HTTP $http_code): $EXPORT_URL" >&2
-            echo "This workflow expects the Qualtrics Survey Export API to be enabled for your brand." >&2
-            echo "" >&2
-            head -c 2000 "$START_JSON" || true
-            exit 1
-          fi
+          definition_url_1="$BASE_URL/API/v3/survey-definitions/${SURVEY_ID}"
+          definition_url_2="$BASE_URL/API/v3/surveys/${SURVEY_ID}/definition"
 
-          progress_id=$(jq -r '.result.progressId // .result.id // empty' "$START_JSON")
-          if [[ -z "${progress_id}" ]]; then
-            echo "::error::Could not read progressId from export start response." >&2
-            exit 1
-          fi
-
-          file_id=""
-          for attempt in $(seq 1 30); do
-            STATUS_URL="$BASE_URL/API/v3/surveys/${SURVEY_ID}/export/${progress_id}"
-            http_code=$(curl -sS -o "$STATUS_JSON" -w "%{http_code}" \
+          for url in "$definition_url_1" "$definition_url_2"; do
+            http_code=$(curl -sS -o "$DEF_JSON" -w "%{http_code}" \
               -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
               -H "Accept: application/json" \
-              "$STATUS_URL" || true)
+              "$url" || true)
 
-            if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
-              echo "::error::Export status check failed (HTTP $http_code): $STATUS_URL" >&2
-              head -c 2000 "$STATUS_JSON" || true
-              exit 1
-            fi
-
-            status=$(jq -r '.result.status // .result.state // empty' "$STATUS_JSON")
-            file_id=$(jq -r '.result.fileId // .result.file_id // empty' "$STATUS_JSON")
-
-            if [[ "${status}" == "complete" || "${status}" == "completed" ]]; then
+            if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
+              scan_path="$DEF_JSON"
+              scan_source="$url"
               break
             fi
+          done
 
-            if [[ "${status}" == "failed" ]]; then
-              echo "::error::Qualtrics export failed." >&2
+          if [[ -z "${scan_path}" ]]; then
+            # Fallback: export the survey definition (QSF). This avoids loading the live survey.
+            # NOTE: Qualtrics export APIs can be asynchronous; we poll for completion.
+            EXPORT_URL="$BASE_URL/API/v3/surveys/${SURVEY_ID}/export"
+            http_code=$(curl -sS -o "$START_JSON" -w "%{http_code}" \
+              -X POST \
+              -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+              -H "Accept: application/json" \
+              -H "Content-Type: application/json" \
+              -d '{"format":"qsf"}' \
+              "$EXPORT_URL" || true)
+
+            if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+              echo "::error::Failed to fetch survey definition and could not start survey export (HTTP $http_code): $EXPORT_URL" >&2
+              echo "Survey definition endpoints tried:" >&2
+              echo "- $definition_url_1" >&2
+              echo "- $definition_url_2" >&2
+              echo "Export endpoint:" >&2
+              echo "- $EXPORT_URL" >&2
+              echo "" >&2
+              # Error bodies for 404/401/403 should not include survey contents; keep small.
+              head -c 2000 "$START_JSON" || true
               exit 1
             fi
 
-            sleep 2
-          done
+            progress_id=$(jq -r '.result.progressId // .result.id // empty' "$START_JSON")
+            if [[ -z "${progress_id}" ]]; then
+              echo "::error::Could not read progressId from export start response." >&2
+              exit 1
+            fi
 
-          if [[ -z "${file_id}" ]]; then
-            # Some Qualtrics brands return fileId only after completion; try reading it one more time.
-            file_id=$(jq -r '.result.fileId // .result.file_id // empty' "$STATUS_JSON")
+            file_id=""
+            for attempt in $(seq 1 30); do
+              STATUS_URL="$BASE_URL/API/v3/surveys/${SURVEY_ID}/export/${progress_id}"
+              http_code=$(curl -sS -o "$STATUS_JSON" -w "%{http_code}" \
+                -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+                -H "Accept: application/json" \
+                "$STATUS_URL" || true)
+
+              if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+                echo "::error::Export status check failed (HTTP $http_code): $STATUS_URL" >&2
+                head -c 2000 "$STATUS_JSON" || true
+                exit 1
+              fi
+
+              status=$(jq -r '.result.status // .result.state // empty' "$STATUS_JSON")
+              file_id=$(jq -r '.result.fileId // .result.file_id // empty' "$STATUS_JSON")
+
+              if [[ "${status}" == "complete" || "${status}" == "completed" ]]; then
+                break
+              fi
+
+              if [[ "${status}" == "failed" ]]; then
+                echo "::error::Qualtrics export failed." >&2
+                exit 1
+              fi
+
+              sleep 2
+            done
+
+            if [[ -z "${file_id}" ]]; then
+              # Some Qualtrics brands return fileId only after completion; try reading it one more time.
+              file_id=$(jq -r '.result.fileId // .result.file_id // empty' "$STATUS_JSON")
+            fi
+
+            if [[ -z "${file_id}" ]]; then
+              echo "::error::Export did not return a fileId after polling." >&2
+              exit 1
+            fi
+
+            FILE_URL="$BASE_URL/API/v3/surveys/${SURVEY_ID}/export/${file_id}/file"
+            http_code=$(curl -sS -L -o "$ZIP_PATH" -w "%{http_code}" \
+              -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+              "$FILE_URL" || true)
+
+            if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+              echo "::error::Failed to download export file (HTTP $http_code): $FILE_URL" >&2
+              exit 1
+            fi
+
+            rm -rf "$OUT_DIR"
+            mkdir -p "$OUT_DIR"
+            unzip -q "$ZIP_PATH" -d "$OUT_DIR"
+
+            qsf_path=$(find "$OUT_DIR" -maxdepth 3 -type f -name "*.qsf" -print -quit)
+            if [[ -z "${qsf_path}" ]]; then
+              echo "::error::Could not find a .qsf file in the exported archive." >&2
+              exit 1
+            fi
+
+            scan_path="$qsf_path"
+            scan_source="$EXPORT_URL"
           fi
 
-          if [[ -z "${file_id}" ]]; then
-            echo "::error::Export did not return a fileId after polling." >&2
-            exit 1
-          fi
-
-          FILE_URL="$BASE_URL/API/v3/surveys/${SURVEY_ID}/export/${file_id}/file"
-          http_code=$(curl -sS -L -o "$ZIP_PATH" -w "%{http_code}" \
-            -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
-            "$FILE_URL" || true)
-
-          if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
-            echo "::error::Failed to download export file (HTTP $http_code): $FILE_URL" >&2
-            exit 1
-          fi
-
-          rm -rf "$OUT_DIR"
-          mkdir -p "$OUT_DIR"
-          unzip -q "$ZIP_PATH" -d "$OUT_DIR"
-
-          qsf_path=$(find "$OUT_DIR" -maxdepth 3 -type f -name "*.qsf" -print -quit)
-          if [[ -z "${qsf_path}" ]]; then
-            echo "::error::Could not find a .qsf file in the exported archive." >&2
-            exit 1
-          fi
+          echo "- **Definition source:** ${scan_source}" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
 
           # Checks (do NOT print file contents)
           has_prolific_script=false
@@ -149,23 +184,23 @@ jobs:
           has_completion_redirect_marker=false
 
           # Qualtrics exports are JSON; URLs may appear with escaped slashes (e.g. \/).
-          if grep -Eq 'assets\.prolific\.com(\\/|/)assets(\\/|/)js(\\/|/)qualtrics(\\/|/)qualtrics\.min\.js' "$qsf_path"; then
+          if grep -Eq 'assets\.prolific\.com(\\/|/)assets(\\/|/)js(\\/|/)qualtrics(\\/|/)qualtrics\.min\.js' "$scan_path"; then
             has_prolific_script=true
           fi
 
-          if grep -q "PROLIFIC_PID" "$qsf_path"; then
+          if grep -q "PROLIFIC_PID" "$scan_path"; then
             has_prolific_pid=true
           fi
 
-          if grep -q "STUDY_ID" "$qsf_path"; then
+          if grep -q "STUDY_ID" "$scan_path"; then
             has_study_id=true
           fi
 
-          if grep -q "SESSION_ID" "$qsf_path"; then
+          if grep -q "SESSION_ID" "$scan_path"; then
             has_session_id=true
           fi
 
-          if grep -Eq 'app\.prolific\.com(\\/|/)submissions(\\/|/)complete\?cc=' "$qsf_path"; then
+          if grep -Eq 'app\.prolific\.com(\\/|/)submissions(\\/|/)complete\?cc=' "$scan_path"; then
             has_completion_redirect_marker=true
           fi
 
