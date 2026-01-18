@@ -32,6 +32,10 @@ jobs:
         run: |
           set -euo pipefail
 
+          TMP_DIR="${RUNNER_TEMP:-/tmp}"
+          SURVEYS_JSON="$TMP_DIR/qualtrics-surveys.json"
+          SURVEY_JSON="$TMP_DIR/qualtrics-survey.json"
+
           if [[ -z "${QUALTRICS_API_TOKEN:-}" ]]; then
             echo "Missing secret QUALTRICS_API_TOKEN in environment qualtrics-prod"
             exit 1
@@ -47,18 +51,18 @@ jobs:
 
           if [[ -z "${SURVEY_ID}" ]]; then
             url="${BASE_URL}/API/v3/surveys"
-            http_code=$(curl -sS -o surveys.json -w "%{http_code}" \
+            http_code=$(curl -sS -o "$SURVEYS_JSON" -w "%{http_code}" \
               -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
               -H "Accept: application/json" \
               "$url")
 
             if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
               echo "Request failed (HTTP $http_code): $url"
-              head -c 4000 surveys.json || true
+              head -c 4000 "$SURVEYS_JSON" || true
               exit 1
             fi
 
-            SURVEY_ID=$(jq -r '.result.elements[0].id // empty' surveys.json)
+            SURVEY_ID=$(jq -r '.result.elements[0].id // empty' "$SURVEYS_JSON")
             if [[ -z "$SURVEY_ID" ]]; then
               echo "Could not auto-select a survey id from /surveys. Set QUALTRICS_SURVEY_ID or pass workflow input survey_id."
               exit 1
@@ -66,21 +70,21 @@ jobs:
           fi
 
           url="${BASE_URL}/API/v3/surveys/${SURVEY_ID}"
-          http_code=$(curl -sS -o survey.json -w "%{http_code}" \
+          http_code=$(curl -sS -o "$SURVEY_JSON" -w "%{http_code}" \
             -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
             -H "Accept: application/json" \
             "$url")
 
           if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
             echo "Request failed (HTTP $http_code): $url"
-            head -c 4000 survey.json || true
+            head -c 4000 "$SURVEY_JSON" || true
             exit 1
           fi
 
           collected_at=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          survey_name=$(jq -r '.result.name // ""' survey.json)
-          org_id=$(jq -r '.result.organizationId // ""' survey.json)
-          response_counts=$(jq -c '.result.responseCounts // {}' survey.json)
+          survey_name=$(jq -r '.result.name // ""' "$SURVEY_JSON")
+          org_id=$(jq -r '.result.organizationId // ""' "$SURVEY_JSON")
+          response_counts=$(jq -c '.result.responseCounts // {}' "$SURVEY_JSON")
 
           mkdir -p src/data
           jq -n \
