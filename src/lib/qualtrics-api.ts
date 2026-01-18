@@ -44,17 +44,54 @@ async function makeApiRequest<T>(
       headers,
     })
 
-    const data = await response.json()
+    const responseText = await response.text()
 
     if (!response.ok) {
+      let errorBody: unknown = responseText
+      try {
+        // Attempt to parse error body as JSON, but fall back to plain text if it fails
+        errorBody = responseText ? JSON.parse(responseText) : {}
+      } catch {
+        // Keep errorBody as plain text
+      }
+
       throw new Error(
-        `API request failed: ${response.status} ${response.statusText} - ${JSON.stringify(data)}`
+        `API request failed: ${response.status} ${response.statusText} - ${
+          typeof errorBody === 'string' ? errorBody : JSON.stringify(errorBody)
+        }`
       )
     }
 
-    return data.result as T
+    if (!responseText) {
+      // Successful response with no body is unexpected when a result is required
+      throw new Error('Qualtrics API returned an empty response body for a successful request')
+    }
+
+    let data: unknown
+    try {
+      data = JSON.parse(responseText)
+    } catch (parseError) {
+      // Surface JSON parsing issues clearly for successful responses with context
+      const errorMessage =
+        parseError instanceof Error ? parseError.message : 'Unknown parsing error'
+      const preview = responseText.slice(0, 200)
+      throw new Error(
+        `Failed to parse successful API response as JSON: ${errorMessage}. Response text: ${preview}${responseText.length > 200 ? '...' : ''}`
+      )
+    }
+
+    const typedData = data as { result?: T }
+    if (typedData.result === undefined || typedData.result === null) {
+      throw new Error('Qualtrics API response is missing the expected "result" property')
+    }
+
+    return typedData.result
   } catch (error) {
-    throw new Error(error instanceof Error ? error.message : 'Unknown error occurred')
+    if (error instanceof Error) {
+      // Preserve original error and stack trace
+      throw error
+    }
+    throw new Error('Unknown error occurred while making Qualtrics API request')
   }
 }
 

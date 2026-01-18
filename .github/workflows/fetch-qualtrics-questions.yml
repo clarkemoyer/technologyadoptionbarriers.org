@@ -15,7 +15,7 @@ jobs:
   fetch-questions:
     name: Fetch Survey Questions
     runs-on: ubuntu-latest
-    environment: quartrics-prod
+    environment: qualtrics-prod
     env:
       QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
       QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
