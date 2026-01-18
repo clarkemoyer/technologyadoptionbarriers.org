@@ -22,21 +22,22 @@ export default function ContributionPolicy() {
             Important Notice About Tax Deductibility
           </h2>
           <p>
-            The Technology Adoption Barriers (TABS) project is <strong>not a 501(c)(3) organization</strong> or 
-            a state-level nonprofit entity. Contributions made to TABS are <strong>not tax-deductible</strong> as 
-            charitable donations. We do not offer any goods or services in exchange for contributions.
+            The Technology Adoption Barriers (TABS) project is{' '}
+            <strong>not a 501(c)(3) organization</strong> or a state-level nonprofit entity.
+            Contributions made to TABS are <strong>not tax-deductible</strong> as charitable
+            donations. We do not offer any goods or services in exchange for contributions.
           </p>
           <p>
-            TABS operates as a not-for-profit research activity. Any funds received are used solely to support 
-            the research mission and operational costs of the project.
+            TABS operates as a not-for-profit research activity. Any funds received are used solely
+            to support the research mission and operational costs of the project.
           </p>
 
           <h2 className="font-[var(--font-faustina)] text-[32px] leading-[40px] mt-8 mb-4">
             Use of Contributions
           </h2>
           <p>
-            Contributions support the Technology Adoption Barriers (TABS) research mission and help cover costs
-            associated with operating and improving the project, including:
+            Contributions support the Technology Adoption Barriers (TABS) research mission and help
+            cover costs associated with operating and improving the project, including:
           </p>
           <ul>
             <li>Survey and research operations</li>
@@ -57,16 +58,16 @@ export default function ContributionPolicy() {
             Refund Policy
           </h2>
           <p>
-            We generally do not provide refunds for contributions. However, if you believe an error has
-            occurred, please contact us within 30 days of your contribution.
+            We generally do not provide refunds for contributions. However, if you believe an error
+            has occurred, please contact us within 30 days of your contribution.
           </p>
 
           <h2 className="font-[var(--font-faustina)] text-[32px] leading-[40px] mt-8 mb-4">
             Privacy
           </h2>
           <p>
-            Contributor information is kept confidential and will not be shared with third parties except
-            as required by law.
+            Contributor information is kept confidential and will not be shared with third parties
+            except as required by law.
           </p>
 
           <h2 className="font-[var(--font-faustina)] text-[32px] leading-[40px] mt-8 mb-4">
