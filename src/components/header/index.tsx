@@ -168,7 +168,7 @@ const Header: React.FC = () => {
                   href={TAKE_TABS_URL}
                   onClick={handleLinkClick}
                   data-testid="header-take-tabs-cta"
-                  className="order-3 inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:px-4 sm:text-[14px]"
+                  className="order-3 inline-flex shrink-0 items-center whitespace-nowrap rounded-md bg-blue-600 px-3 py-2 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:px-4 sm:text-[14px]"
                 >
                   Take the TABS
                 </a>
@@ -276,7 +276,7 @@ const Header: React.FC = () => {
                   href={TAKE_TABS_URL}
                   onClick={handleLinkClick}
                   data-testid="header-take-tabs-cta"
-                  className="order-2 inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:px-4 sm:text-[14px]"
+                  className="order-2 inline-flex shrink-0 items-center whitespace-nowrap rounded-md bg-blue-600 px-3 py-2 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:px-4 sm:text-[14px]"
                 >
                   Take the TABS
                 </a>
