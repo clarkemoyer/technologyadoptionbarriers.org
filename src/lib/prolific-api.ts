@@ -52,10 +52,10 @@ export interface Study {
   completed_at?: string
   filters?: Array<{
     filter_id: string
-    selected_values?: any[]
+    selected_values?: unknown[]
     selected_range?: { min?: number; max?: number }
   }>
-  eligibility_requirements?: any[]
+  eligibility_requirements?: unknown[]
 }
 
 function normalizeStudy(study: Study & Record<string, unknown>): Study {

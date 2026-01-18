@@ -44,17 +44,41 @@ async function makeApiRequest<T>(
       headers,
     })
 
-    const data = await response.json()
+    const responseText = await response.text()
 
     if (!response.ok) {
+      let errorBody: unknown = responseText
+      try {
+        // Attempt to parse error body as JSON, but fall back to plain text if it fails
+        errorBody = responseText ? JSON.parse(responseText) : {}
+      } catch {
+        // Keep errorBody as plain text
+      }
+
       throw new Error(
-        `API request failed: ${response.status} ${response.statusText} - ${JSON.stringify(data)}`
+        `API request failed: ${response.status} ${response.statusText} - ${
+          typeof errorBody === 'string' ? errorBody : JSON.stringify(errorBody)
+        }`
       )
+    }
+
+    let data: any = {}
+    if (responseText) {
+      try {
+        data = JSON.parse(responseText)
+      } catch (parseError) {
+        // Surface JSON parsing issues clearly for successful responses
+        throw parseError
+      }
     }
 
     return data.result as T
   } catch (error) {
-    throw new Error(error instanceof Error ? error.message : 'Unknown error occurred')
+    if (error instanceof Error) {
+      // Preserve original error and stack trace
+      throw error
+    }
+    throw new Error('Unknown error occurred while making Qualtrics API request')
   }
 }
 
