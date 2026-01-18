@@ -29,11 +29,21 @@ const DonationCards = () => {
       bgColor: 'bg-[#5FB38D]',
       btnConfig: 'bg-white text-[#5FB38D] hover:bg-gray-100',
     },
+    {
+      title: 'Support our Research',
+      description:
+        'Use the TABS dataset in your research. Request secure access once approved by IRB to help advance technology adoption research and contribute to papers and dissertations.',
+      buttonText: 'Request Dataset Access',
+      buttonLink:
+        'mailto:clarke@technologyadoptionbarriers.org?subject=TABS%20Dataset%20Access%20Request',
+      bgColor: 'bg-[#2EA3F2]',
+      btnConfig: 'bg-white text-[#2EA3F2] hover:bg-gray-100',
+    },
   ]
 
   return (
     <section className="w-full py-[80px] bg-gray-50">
-      <div className="w-[90%] mx-auto max-w-[4096px] grid grid-cols-1 md:grid-cols-3 gap-[30px]">
+      <div className="w-[90%] mx-auto max-w-[4096px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[30px]">
         {cards.map((card, index) => (
           <div
             key={index}
