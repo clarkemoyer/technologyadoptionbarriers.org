@@ -1,0 +1,190 @@
+name: Copy Qualtrics Survey (API)
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_survey_id:
+        description: 'Optional source Survey ID (defaults to QUALTRICS_SURVEY_ID env var)'
+        required: false
+        type: string
+      new_survey_name:
+        description: 'Optional name for the new survey copy (default: "<source name> (Copy <UTC timestamp>)")'
+        required: false
+        type: string
+      confirm:
+        description: 'Type COPY to confirm creating a new survey in Qualtrics'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  copy:
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    env:
+      QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+      QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+      QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+      INPUT_SOURCE_SURVEY_ID: ${{ inputs.source_survey_id }}
+      INPUT_NEW_SURVEY_NAME: ${{ inputs.new_survey_name }}
+      INPUT_CONFIRM: ${{ inputs.confirm }}
+    steps:
+      - name: Copy Qualtrics survey via API
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "${INPUT_CONFIRM}" != "COPY" ]]; then
+            echo "::error::Confirmation missing. Re-run with input confirm=COPY." >&2
+            exit 1
+          fi
+
+          if [[ -z "${QUALTRICS_API_TOKEN:-}" ]]; then
+            echo "::error::Missing secret QUALTRICS_API_TOKEN in environment qualtrics-prod" >&2
+            exit 1
+          fi
+
+          if [[ -z "${QUALTRICS_BASE_URL:-}" ]]; then
+            echo "::error::Missing env var QUALTRICS_BASE_URL in environment qualtrics-prod" >&2
+            exit 1
+          fi
+
+          BASE_URL="${QUALTRICS_BASE_URL%/}"
+          SOURCE_SURVEY_ID="${INPUT_SOURCE_SURVEY_ID:-${QUALTRICS_SURVEY_ID:-}}"
+
+          if [[ -z "${SOURCE_SURVEY_ID}" ]]; then
+            echo "::error::Missing source survey id. Set QUALTRICS_SURVEY_ID or pass workflow input source_survey_id." >&2
+            exit 1
+          fi
+
+          TMP_DIR="${RUNNER_TEMP:-/tmp}"
+          SURVEY_JSON="$TMP_DIR/qualtrics-survey.json"
+          COPY_JSON="$TMP_DIR/qualtrics-copy.json"
+
+          echo "## Qualtrics Survey Copy" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Source Survey ID:** ${SOURCE_SURVEY_ID}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Base URL:** ${BASE_URL}" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          # Fetch the source survey name (safe metadata) for default naming.
+          survey_url="${BASE_URL}/API/v3/surveys/${SOURCE_SURVEY_ID}"
+          http_code=$(curl -sS -o "$SURVEY_JSON" -w "%{http_code}" \
+            -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+            -H "Accept: application/json" \
+            "$survey_url" || true)
+
+          if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+            echo "::error::Failed to fetch source survey metadata (HTTP $http_code): $survey_url" >&2
+            head -c 2000 "$SURVEY_JSON" || true
+            exit 1
+          fi
+
+          source_name=$(jq -r '.result.name // ""' "$SURVEY_JSON")
+          timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          default_name="${source_name} (Copy ${timestamp})"
+          new_name="${INPUT_NEW_SURVEY_NAME:-$default_name}"
+
+          # Try known/likely Qualtrics copy endpoints. Different brands can expose different operations.
+          # We keep responses in a file and avoid printing them to logs.
+          try_copy() {
+            local url="$1"
+            local data="$2"
+            local content_type="$3"
+
+            local args=(
+              -sS
+              -o "$COPY_JSON"
+              -w "%{http_code}"
+              -X POST
+              -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}"
+              -H "Accept: application/json"
+            )
+
+            if [[ -n "$content_type" ]]; then
+              args+=( -H "Content-Type: ${content_type}" )
+            fi
+
+            if [[ -n "$data" ]]; then
+              args+=( -d "$data" )
+            fi
+
+            curl "${args[@]}" "$url" || true
+          }
+
+          new_survey_id=""
+          attempted=()
+
+          # 1) POST /surveys/{id}/copy with JSON body
+          url1="${BASE_URL}/API/v3/surveys/${SOURCE_SURVEY_ID}/copy"
+          attempted+=("$url1")
+          http_code=$(try_copy "$url1" "{\"name\":\"${new_name}\"}" "application/json")
+          if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
+            new_survey_id=$(jq -r '.result.id // .result.surveyId // .result.surveyID // empty' "$COPY_JSON")
+          fi
+
+          # 2) POST /surveys/{id}/copy with querystring
+          if [[ -z "$new_survey_id" ]]; then
+            url2="${BASE_URL}/API/v3/surveys/${SOURCE_SURVEY_ID}/copy?name=$(python3 -c 'import os,urllib.parse; print(urllib.parse.quote(os.environ["INPUT_NEW_SURVEY_NAME"]))' 2>/dev/null || true)"
+            if [[ "$url2" == *"name=" ]]; then
+              # python3 might not be available; fall back to raw name (best-effort).
+              url2="${BASE_URL}/API/v3/surveys/${SOURCE_SURVEY_ID}/copy?name=${new_name}"
+            fi
+            attempted+=("${BASE_URL}/API/v3/surveys/${SOURCE_SURVEY_ID}/copy?name=…")
+            http_code=$(try_copy "$url2" "" "")
+            if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
+              new_survey_id=$(jq -r '.result.id // .result.surveyId // .result.surveyID // empty' "$COPY_JSON")
+            fi
+          fi
+
+          # 3) POST /surveys/{id}/duplicate with JSON body
+          if [[ -z "$new_survey_id" ]]; then
+            url3="${BASE_URL}/API/v3/surveys/${SOURCE_SURVEY_ID}/duplicate"
+            attempted+=("$url3")
+            http_code=$(try_copy "$url3" "{\"name\":\"${new_name}\"}" "application/json")
+            if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
+              new_survey_id=$(jq -r '.result.id // .result.surveyId // .result.surveyID // empty' "$COPY_JSON")
+            fi
+          fi
+
+          # 4) POST /surveys/{id}/clone with JSON body
+          if [[ -z "$new_survey_id" ]]; then
+            url4="${BASE_URL}/API/v3/surveys/${SOURCE_SURVEY_ID}/clone"
+            attempted+=("$url4")
+            http_code=$(try_copy "$url4" "{\"name\":\"${new_name}\"}" "application/json")
+            if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
+              new_survey_id=$(jq -r '.result.id // .result.surveyId // .result.surveyID // empty' "$COPY_JSON")
+            fi
+          fi
+
+          echo "### Result" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          if [[ -z "$new_survey_id" ]]; then
+            echo "::error::Could not create a survey copy via available API endpoints." >&2
+            echo "Tried endpoints:" >&2
+            for u in "${attempted[@]}"; do
+              echo "- $u" >&2
+            done
+            echo "" >&2
+            echo "Last response (truncated):" >&2
+            head -c 2000 "$COPY_JSON" || true
+
+            echo "- **Status:** failed" >> "$GITHUB_STEP_SUMMARY"
+            echo "- **Tried endpoints:**" >> "$GITHUB_STEP_SUMMARY"
+            for u in "${attempted[@]}"; do
+              echo "  - ${u}" >> "$GITHUB_STEP_SUMMARY"
+            done
+            exit 1
+          fi
+
+          echo "::notice::Created Qualtrics survey copy: ${new_survey_id}"
+          echo "- **Status:** success" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **New Survey ID:** ${new_survey_id}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **New Survey Name:** ${new_name}" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Next steps:" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Set GitHub Environment var qualtrics-prod → QUALTRICS_SURVEY_ID=${new_survey_id}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Update the Prolific study’s external URL to point at the new survey link" >> "$GITHUB_STEP_SUMMARY"
