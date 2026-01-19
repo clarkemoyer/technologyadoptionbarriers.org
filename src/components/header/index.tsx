@@ -122,7 +122,7 @@ const Header: React.FC = () => {
   const handleSearch = () => {
     if (!searchQuery.trim()) return
     const query = encodeURIComponent(`site:technologyadoptionbarriers.org ${searchQuery}`)
-    window.open(`https://www.google.com/search?q=${query}`, '_blank')
+    window.open(`https://www.google.com/search?q=${query}`, '_blank', 'noopener,noreferrer')
     setIsSearchOpen(false)
     setSearchQuery('')
   }
