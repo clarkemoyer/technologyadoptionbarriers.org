@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
     { name: 'Cookie Policy', href: '/cookie-policy' },
     { name: 'Privacy Policy', href: '/privacy-policy' },
     { name: 'Terms of Service', href: '/terms-of-service' },
-    { name: 'Donation Policy', href: '/donation-policy' },
+    { name: 'Contribution Policy', href: '/contribution-policy' },
     { name: 'Vulnerability Disclosure', href: '/vulnerability-disclosure-policy' },
     { name: 'Security Acknowledgements', href: '/security-acknowledgements' },
   ]
