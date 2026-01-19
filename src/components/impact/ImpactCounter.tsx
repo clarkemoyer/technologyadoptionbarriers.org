@@ -3,7 +3,7 @@
 import React from 'react'
 import impactData from '../../data/impact.json'
 
-// Only show if we have valid data
+// Only show if we have valid data (CI Trigger)
 const showStats =
   impactData && (parseInt(impactData.activeUsers) > 0 || parseInt(impactData.pageViews) > 0)
 
