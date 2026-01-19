@@ -88,6 +88,7 @@ describe('Prolific API Client', () => {
             device_compatibility: ['desktop', 'mobile'],
             peripheral_requirements: [],
             filters: [],
+            eligibility_requirements: [],
             created_at: '2024-01-01T00:00:00Z',
             published_at: '2024-01-02T00:00:00Z',
           },
@@ -148,6 +149,44 @@ describe('Prolific API Client', () => {
 
       expect(result.results[0].created_at).toBe('2024-01-01T00:00:00Z')
     })
+
+    it('should normalize filters to empty array when filters is missing', async () => {
+      const mockStudies = {
+        results: [
+          {
+            id: 'study-1',
+            name: 'Test Study 1',
+            internal_name: 'test-study-1',
+            description: 'A test study',
+            external_study_url: 'https://example.com/study',
+            status: 'ACTIVE',
+            total_available_places: 100,
+            places_taken: 50,
+            average_reward_per_hour: 12.5,
+            average_time_taken: 600,
+            maximum_allowed_time: 3600,
+            reward: 250,
+            device_compatibility: ['desktop', 'mobile'],
+            peripheral_requirements: [],
+            created_at: '2024-01-01T00:00:00Z',
+          },
+        ],
+        meta: {
+          count: 1,
+          next: null,
+          previous: null,
+        },
+      }
+
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockStudies,
+      })
+
+      const result = await listStudies(mockApiToken)
+
+      expect(result.results[0].filters).toEqual([])
+    })
   })
 
   describe('getStudy', () => {
@@ -168,6 +207,7 @@ describe('Prolific API Client', () => {
         device_compatibility: ['desktop'],
         peripheral_requirements: [],
         filters: [],
+        eligibility_requirements: [],
         created_at: '2024-01-01T00:00:00Z',
         published_at: '2024-01-02T00:00:00Z',
         completed_at: '2024-01-10T00:00:00Z',
@@ -307,6 +347,7 @@ describe('Prolific API Client', () => {
         device_compatibility: ['desktop'],
         peripheral_requirements: [],
         filters: [],
+        eligibility_requirements: [],
         created_at: '2024-01-01T00:00:00Z',
         published_at: '2024-01-02T00:00:00Z',
         completed_at: '2024-01-10T00:00:00Z',
@@ -396,6 +437,8 @@ describe('Prolific API Client', () => {
         reward: 250,
         device_compatibility: ['desktop'],
         peripheral_requirements: [],
+        filters: [],
+        eligibility_requirements: [],
         created_at: '2024-01-01T00:00:00Z',
       }
 

@@ -107,7 +107,7 @@ async function main() {
         console.log('  Filters:')
         stats.study.filters.forEach((f) => {
           console.log(
-            `    - ${f.filter_id}: ${JSON.stringify(f.selected_values || f.selected_range)}`
+            `    - ${f.filter_id}: ${JSON.stringify(f.selected_values ?? f.selected_range)}`
           )
         })
       }

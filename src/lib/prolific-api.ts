@@ -74,6 +74,7 @@ function normalizeStudy(study: Study & Record<string, unknown>): Study {
     ...study,
     created_at: createdCandidate || study.created_at,
     filters: study.filters || [],
+    eligibility_requirements: study.eligibility_requirements || [],
   }
 }
 
