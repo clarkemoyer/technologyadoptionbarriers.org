@@ -26,7 +26,6 @@ async function sendEmail() {
     const sessions = totals[2]?.value || '0'
     const views = totals[4]?.value || '0'
 
-    console.log('DEBUG: Configuring Gmail Transport...')
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
