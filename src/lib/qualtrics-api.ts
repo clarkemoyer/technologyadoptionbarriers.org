@@ -55,10 +55,21 @@ async function makeApiRequest<T>(
         // Keep errorBody as plain text
       }
 
+      let errorBodyStr: string
+      if (typeof errorBody === 'string') {
+        errorBodyStr = errorBody
+      } else {
+        try {
+          errorBodyStr = JSON.stringify(errorBody)
+        } catch {
+          errorBodyStr = '[unserializable error body]'
+        }
+      }
+      if (errorBodyStr.length > 500) {
+        errorBodyStr = `${errorBodyStr.slice(0, 500)}...`
+      }
       throw new Error(
-        `API request failed: ${response.status} ${response.statusText} - ${
-          typeof errorBody === 'string' ? errorBody : JSON.stringify(errorBody)
-        }`
+        `API request failed: ${response.status} ${response.statusText} - ${errorBodyStr}`
       )
     }
 

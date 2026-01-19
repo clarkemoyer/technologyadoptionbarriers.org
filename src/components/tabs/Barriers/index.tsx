@@ -64,11 +64,13 @@ const Barriers = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="block w-full pl-12 pr-4 py-4 bg-white border border-gray-200 rounded-[30px] shadow-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              aria-label="Search barriers by name or description"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
                 className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600"
+                aria-label="Clear search query"
               >
                 <RxCross2 className="h-5 w-5" />
               </button>
@@ -81,11 +83,10 @@ const Barriers = () => {
               <button
                 key={category.id}
                 onClick={() => handleCategoryClick(category.id)}
-                className={`px-[20px] py-[10px] rounded-[25px] border-2 transition-all duration-300 font-medium ${
-                  activeCategory === category.id
+                className={`px-[20px] py-[10px] rounded-[25px] border-2 transition-all duration-300 font-medium ${activeCategory === category.id
                     ? 'bg-[#2E6F8E] border-[#2E6F8E] text-white shadow-md transform scale-105'
                     : 'bg-white border-[#2E6F8E] text-[#2E6F8E] hover:bg-blue-50'
-                }`}
+                  }`}
                 title={category.description}
               >
                 {category.name}
@@ -117,15 +118,14 @@ const Barriers = () => {
                 {/* Category Badge */}
                 <div className="mb-[15px]">
                   <span
-                    className={`inline-block px-[12px] py-[4px] rounded-[15px] text-[12px] font-semibold uppercase ${
-                      barrier.category === 'financial'
+                    className={`inline-block px-[12px] py-[4px] rounded-[15px] text-[12px] font-semibold uppercase ${barrier.category === 'financial'
                         ? 'bg-green-100 text-green-800'
                         : barrier.category === 'technical'
                           ? 'bg-blue-100 text-blue-800'
                           : barrier.category === 'organizational'
                             ? 'bg-purple-100 text-purple-800'
                             : 'bg-orange-100 text-orange-800'
-                    }`}
+                      }`}
                   >
                     {barrier.category}
                   </span>
