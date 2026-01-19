@@ -108,13 +108,13 @@ async function generateReport() {
 | Page | Views | Users | Sessions |
 | :--- | :--- | :--- | :--- |
 ${rows
-            .map((row: any) => {
-              if (!row.metricValues || !row.dimensionValues) return ''
-              const [activeUsers, , sessions, views] = row.metricValues
-              const path = row.dimensionValues[0]?.value || '/'
-              return `| \`${path}\` | ${views?.value || 0} | ${activeUsers?.value || 0} | ${sessions?.value || 0} |`
-            })
-            .join('\n')}
+  .map((row: any) => {
+    if (!row.metricValues || !row.dimensionValues) return ''
+    const [activeUsers, , sessions, views] = row.metricValues
+    const path = row.dimensionValues[0]?.value || '/'
+    return `| \`${path}\` | ${views?.value || 0} | ${activeUsers?.value || 0} | ${sessions?.value || 0} |`
+  })
+  .join('\n')}
 
 > *Full granular data available in the [exported JSON artifact](#).*
       `
