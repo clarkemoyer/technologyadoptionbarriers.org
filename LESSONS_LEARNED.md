@@ -4,7 +4,22 @@
 
 This document captures key lessons learned during the development and evolution of this site. It serves as institutional knowledge for current and future contributors.
 
-**Last Updated**: 2025-12-03
+**Last Updated**: 2026-01-19
+
+---
+
+## January 2026: Automation & PR Hygiene
+
+### What Worked Well
+
+- Keeping automation auth simple (API tokens like `X-API-TOKEN`) improved reliability versus more complex auth/MCP approaches.
+- Small, focused PRs made repeated Copilot review cycles manageable and kept issue tracking accurate.
+- Treating GitHub Step Summary as a best-effort UX improvement (never a required output) prevented brittle CI failures.
+
+### What Didn’t Work
+
+- Assuming GitHub Actions environment secrets are available to local tools/processes led to avoidable setup confusion.
+- Interactive CLI “watch” modes can be terminal-dependent (pager/alternate-buffer); polling via `gh api` is more robust.
 
 ---
 

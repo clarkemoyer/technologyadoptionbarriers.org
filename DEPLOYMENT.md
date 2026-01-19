@@ -120,6 +120,19 @@ This ensures the site is built for the apex domain with assets served from the r
 3. Review the status of each step
 4. Check logs if any step fails
 
+### Watching GitHub Actions runs (CLI)
+
+Some terminals can behave poorly with interactive watch commands (pager/alternate-buffer). For a reliable CLI approach, use the lightweight polling script:
+
+```powershell
+powershell -File scripts/watch-gh-run.ps1 -Repo clarkemoyer/technologyadoptionbarriers.org -RunId <RUN_ID>
+```
+
+Optional parameters:
+
+- `-IntervalSeconds` (default: 15)
+- `-MaxMinutes` (default: 20)
+
 ---
 
 ## Manual Deployment
