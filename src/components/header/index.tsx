@@ -281,14 +281,14 @@ const Header: React.FC = () => {
                   />
                   <button
                     onClick={handleSearch}
-                    className="ml-2 p-2 text-gray-600"
+                    className="ml-2 p-2 text-gray-600 hover:text-blue-600 transition-colors"
                     aria-label="Submit search"
                   >
                     <LiaSearchSolid className="cursor-pointer h-5 w-5" />
                   </button>
                   <button
                     onClick={handleSearchToggle}
-                    className="ml-2 p-2 text-gray-600"
+                    className="ml-2 p-2 text-gray-600 hover:text-blue-600 transition-colors"
                     aria-label="Close search"
                   >
                     <RxCross2 className="cursor-pointer h-5 w-5" />
