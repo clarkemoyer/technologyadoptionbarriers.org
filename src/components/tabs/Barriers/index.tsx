@@ -120,16 +120,17 @@ const Barriers = () => {
                 <div className="mb-[15px]">
                   <span
                     className={`inline-block px-[12px] py-[4px] rounded-[15px] text-[12px] font-semibold uppercase ${
-                      barrier.category === 'financial'
-                        ? 'bg-green-100 text-green-800'
-                        : barrier.category === 'technical'
-                          ? 'bg-blue-100 text-blue-800'
-                          : barrier.category === 'organizational'
-                            ? 'bg-purple-100 text-purple-800'
+                      barrier.category === 'organizational-cultural'
+                        ? 'bg-purple-100 text-purple-800'
+                        : barrier.category === 'resource-skill'
+                          ? 'bg-green-100 text-green-800'
+                          : barrier.category === 'strategic-operational'
+                            ? 'bg-blue-100 text-blue-800'
                             : 'bg-orange-100 text-orange-800'
                     }`}
                   >
-                    {barrier.category}
+                    {barrierCategories.find((cat) => cat.id === barrier.category)?.name ||
+                      barrier.category}
                   </span>
                 </div>
 
