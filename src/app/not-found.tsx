@@ -25,7 +25,14 @@ export default function NotFound() {
         <div className="my-8 relative mx-auto max-w-[500px]">
           <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-8 shadow-lg">
             {/* ASCII Art of a broken computer/failed adoption */}
-            <pre className="text-[12px] md:text-[16px] font-mono text-[#333] overflow-x-auto">
+            <span className="sr-only">
+              Illustration of a broken computer displaying error 404 with the message resistance to
+              change
+            </span>
+            <pre
+              className="text-[12px] md:text-[16px] font-mono text-[#333] overflow-x-auto"
+              aria-hidden="true"
+            >
               {`
     _______________
    |  _________  |
@@ -82,7 +89,7 @@ export default function NotFound() {
             href="/"
             className="inline-block px-8 py-4 bg-[#007bff] text-white text-[16px] font-[600] rounded-lg hover:bg-[#0056b3] transition-colors duration-300 shadow-md hover:shadow-lg"
           >
-            Return to Home (No Barriers Here!)
+            Return to Home
           </Link>
           <Link
             href="/barriers"
