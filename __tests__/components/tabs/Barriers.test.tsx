@@ -100,7 +100,8 @@ describe('Barriers component', () => {
       render(<Barriers />)
 
       barrierCategories.forEach((category) => {
-        expect(screen.getByText(category.name)).toBeInTheDocument()
+        const buttons = screen.getAllByRole('button', { name: new RegExp(category.name, 'i') })
+        expect(buttons.length).toBeGreaterThan(0)
       })
     })
 
@@ -108,7 +109,9 @@ describe('Barriers component', () => {
       render(<Barriers />)
 
       barrierCategories.forEach((category) => {
-        const button = screen.getByText(category.name).closest('button')
+        const button = screen.getByRole('button', {
+          name: new RegExp(`Filter by ${category.name}`, 'i'),
+        })
         expect(button).toHaveAttribute(
           'aria-label',
           expect.stringContaining(`Filter by ${category.name}`)
@@ -119,13 +122,16 @@ describe('Barriers component', () => {
     it('should filter barriers by category when clicked', () => {
       render(<Barriers />)
 
-      // Click on Financial category
-      const financialButton = screen.getByText('Financial').closest('button')
-      fireEvent.click(financialButton!)
+      // Click on first category
+      const firstCategory = barrierCategories[0]
+      const categoryButton = screen.getByRole('button', {
+        name: new RegExp(`Filter by ${firstCategory.name}`, 'i'),
+      })
+      fireEvent.click(categoryButton)
 
-      // Should show financial barriers
-      const financialBarriers = barriers.filter((b) => b.category === 'financial')
-      financialBarriers.forEach((barrier) => {
+      // Should show barriers from that category
+      const categoryBarriers = barriers.filter((b) => b.category === firstCategory.id)
+      categoryBarriers.forEach((barrier) => {
         expect(screen.getByText(barrier.name)).toBeInTheDocument()
       })
     })
@@ -133,37 +139,43 @@ describe('Barriers component', () => {
     it('should toggle category filter when clicked again', () => {
       render(<Barriers />)
 
-      const financialButton = screen.getByText('Financial').closest('button')
+      const firstCategory = barrierCategories[0]
+      const categoryButton = screen.getByRole('button', {
+        name: new RegExp(`Filter by ${firstCategory.name}`, 'i'),
+      })
 
       // Click to activate
-      fireEvent.click(financialButton!)
+      fireEvent.click(categoryButton)
 
       // Should have aria-label indicating it's selected
-      expect(financialButton).toHaveAttribute(
+      expect(categoryButton).toHaveAttribute(
         'aria-label',
         expect.stringContaining('currently selected')
       )
 
       // Click again to deactivate
-      fireEvent.click(financialButton!)
+      fireEvent.click(categoryButton)
 
       // Should no longer have 'currently selected' in aria-label
-      expect(financialButton).toHaveAttribute('aria-label', 'Filter by Financial')
+      expect(categoryButton).toHaveAttribute('aria-label', `Filter by ${firstCategory.name}`)
     })
 
     it('should update active state visual styling when category is selected', () => {
       render(<Barriers />)
 
-      const financialButton = screen.getByText('Financial').closest('button')
+      const firstCategory = barrierCategories[0]
+      const categoryButton = screen.getByRole('button', {
+        name: new RegExp(`Filter by ${firstCategory.name}`, 'i'),
+      })
 
       // Initially should not have active styling
-      expect(financialButton).not.toHaveClass('bg-[#2E6F8E]')
+      expect(categoryButton).not.toHaveClass('bg-[#2E6F8E]')
 
       // Click to activate
-      fireEvent.click(financialButton!)
+      fireEvent.click(categoryButton)
 
       // Should have active styling
-      expect(financialButton).toHaveClass('bg-[#2E6F8E]')
+      expect(categoryButton).toHaveClass('bg-[#2E6F8E]')
     })
   })
 
@@ -172,15 +184,18 @@ describe('Barriers component', () => {
       render(<Barriers />)
 
       // Activate category filter
-      const technicalButton = screen.getByText('Technical').closest('button')
-      fireEvent.click(technicalButton!)
+      const firstCategory = barrierCategories[0]
+      const categoryButton = screen.getByRole('button', {
+        name: new RegExp(`Filter by ${firstCategory.name}`, 'i'),
+      })
+      fireEvent.click(categoryButton)
 
-      // Also search
+      // Also search for a term that appears in some barriers
       const searchInput = screen.getByPlaceholderText('Search barriers...')
-      fireEvent.change(searchInput, { target: { value: 'complexity' } })
+      fireEvent.change(searchInput, { target: { value: 'change' } })
 
-      // At least check that non-matching barriers are not shown
-      const otherBarriers = barriers.filter((b) => b.category !== 'technical')
+      // At least check that barriers from other categories are not shown
+      const otherBarriers = barriers.filter((b) => b.category !== firstCategory.id)
       otherBarriers.forEach((barrier) => {
         expect(screen.queryByText(barrier.name)).not.toBeInTheDocument()
       })
@@ -195,8 +210,11 @@ describe('Barriers component', () => {
       expect(screen.queryByText('Clear all filters')).not.toBeInTheDocument()
 
       // Activate a category filter
-      const financialButton = screen.getByText('Financial').closest('button')
-      fireEvent.click(financialButton!)
+      const firstCategory = barrierCategories[0]
+      const categoryButton = screen.getByRole('button', {
+        name: new RegExp(`Filter by ${firstCategory.name}`, 'i'),
+      })
+      fireEvent.click(categoryButton)
 
       // Should now show clear all filters
       expect(screen.getByText('Clear all filters')).toBeInTheDocument()
@@ -229,8 +247,11 @@ describe('Barriers component', () => {
       const searchInput = screen.getByPlaceholderText('Search barriers...')
       fireEvent.change(searchInput, { target: { value: 'cost' } })
 
-      const financialButton = screen.getByText('Financial').closest('button')
-      fireEvent.click(financialButton!)
+      const firstCategory = barrierCategories[0]
+      const categoryButton = screen.getByRole('button', {
+        name: new RegExp(`Filter by ${firstCategory.name}`, 'i'),
+      })
+      fireEvent.click(categoryButton)
 
       // Click clear all filters
       const clearButton = screen.getByText('Clear all filters').closest('button')
@@ -238,7 +259,7 @@ describe('Barriers component', () => {
 
       // Both filters should be cleared
       expect(searchInput).toHaveValue('')
-      expect(financialButton).not.toHaveClass('bg-[#2E6F8E]')
+      expect(categoryButton).not.toHaveClass('bg-[#2E6F8E]')
     })
   })
 
@@ -296,11 +317,12 @@ describe('Barriers component', () => {
     it('should display barrier categories with correct styling', () => {
       render(<Barriers />)
 
-      // Check that category badges are displayed
-      const categoryBadges = screen.getAllByText(
-        /financial|technical|organizational|psychological/i
-      )
-      expect(categoryBadges.length).toBeGreaterThan(0)
+      // Check that category badges for all defined categories are displayed
+      barrierCategories.forEach((category) => {
+        const categoryElements = screen.getAllByText(category.name)
+        // Should have at least the filter button with this name
+        expect(categoryElements.length).toBeGreaterThan(0)
+      })
     })
 
     it('should display barrier examples when available', () => {
@@ -341,8 +363,11 @@ describe('Barriers component', () => {
       const searchInput = screen.getByPlaceholderText('Search barriers...')
       fireEvent.change(searchInput, { target: { value: 'cost' } })
 
-      const financialButton = screen.getByText('Financial').closest('button')
-      fireEvent.click(financialButton!)
+      const firstCategory = barrierCategories[0]
+      const categoryButton = screen.getByRole('button', {
+        name: new RegExp(`Filter by ${firstCategory.name}`, 'i'),
+      })
+      fireEvent.click(categoryButton)
 
       const results = await axe(container)
       expect(results).toHaveNoViolations()
