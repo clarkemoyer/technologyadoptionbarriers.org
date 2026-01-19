@@ -12,9 +12,9 @@ on:
   pull_request:
     branches: ['main']
 
-  # Run weekly on Monday at 9:00 AM UTC
+  # Run weekly on Monday at 2:00 AM UTC (off-peak hours)
   schedule:
-    - cron: '0 9 * * 1'
+    - cron: '0 2 * * 1'
 
   # Allow manual trigger
   workflow_dispatch:

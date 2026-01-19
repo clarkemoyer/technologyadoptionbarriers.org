@@ -89,7 +89,8 @@ Lighthouse CI runs automatically:
    - Only runs on the main branch to avoid duplicate runs on PRs
 2. **On pull requests** to the main branch (with results posted as PR comments)
    - Runs once per PR to provide feedback before merging
-3. **Weekly** on Monday at 9:00 AM UTC (via `schedule` trigger)
+3. **Weekly** on Monday at 2:00 AM UTC (via `schedule` trigger)
+   - Runs during off-peak hours to minimize impact on site traffic
    - Monitors site performance over time
    - Catches any degradation not caused by code changes
 4. **On manual trigger** from the Actions tab
@@ -597,7 +598,7 @@ _Note: Scores for all 30 pages will be available after the next Lighthouse CI ru
 
 - After each deployment to main branch
 - On every pull request to main branch
-- Weekly on Monday at 9:00 AM UTC
+- Weekly on Monday at 2:00 AM UTC (off-peak hours)
 
 **Report Retention**: 30 days in GitHub Actions artifacts
 
