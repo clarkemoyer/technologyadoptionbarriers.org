@@ -130,8 +130,8 @@ const MediaPage = () => {
             <div className="mt-6 bg-white rounded-2xl border border-gray-200 p-6">
               <h2 className="text-xl font-bold">Transcript & Captions</h2>
               <p className="mt-2 text-gray-700">
-                Captions are enabled in the player. A full transcript is in progress; if you need an
-                accessible transcript immediately, please email{' '}
+                Captions are enabled in the player. A full, verified transcript is in progress. You
+                can download the current transcript draft below, or email{' '}
                 <a
                   className="text-blue-700 underline"
                   href="mailto:contact@technologyadoptionbarriers.org"
@@ -141,6 +141,16 @@ const MediaPage = () => {
                 .
               </p>
               <p className="mt-3 text-sm text-gray-600">
+                Transcript draft:{' '}
+                <a
+                  className="text-blue-700 underline"
+                  href={assetPath('/press-kit/The_TABS_Project.transcript.txt')}
+                  download
+                >
+                  The_TABS_Project.transcript.txt
+                </a>
+              </p>
+              <p className="mt-2 text-sm text-gray-600">
                 Download the video:{' '}
                 <a
                   className="text-blue-700 underline"
@@ -319,6 +329,46 @@ const MediaPage = () => {
                           download
                         >
                           The_TABS_Project.mp4
+                        </a>
+                      </li>
+                      <li>
+                        Transcript (draft):{' '}
+                        <a
+                          className="text-blue-700 underline"
+                          href={assetPath('/press-kit/The_TABS_Project.transcript.txt')}
+                          download
+                        >
+                          The_TABS_Project.transcript.txt
+                        </a>
+                      </li>
+                      <li>
+                        Media FAQ (text):{' '}
+                        <a
+                          className="text-blue-700 underline"
+                          href={assetPath('/press-kit/TABS-Media-FAQ.txt')}
+                          download
+                        >
+                          TABS-Media-FAQ.txt
+                        </a>
+                      </li>
+                      <li>
+                        Brand guidelines (text):{' '}
+                        <a
+                          className="text-blue-700 underline"
+                          href={assetPath('/press-kit/TABS-Brand-Guidelines.txt')}
+                          download
+                        >
+                          TABS-Brand-Guidelines.txt
+                        </a>
+                      </li>
+                      <li>
+                        Spokespeople (text):{' '}
+                        <a
+                          className="text-blue-700 underline"
+                          href={assetPath('/press-kit/TABS-Spokespeople.txt')}
+                          download
+                        >
+                          TABS-Spokespeople.txt
                         </a>
                       </li>
                     </ul>
