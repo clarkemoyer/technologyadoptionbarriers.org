@@ -1,13 +1,13 @@
 'use client'
 
 import React, { useState } from 'react'
-import { redirectToCheckout, DonationType } from '@/lib/stripe'
+import { redirectToCheckout, ContributionType } from '@/lib/stripe'
 
-export interface StripeDonateButtonProps {
+export interface StripeContributeButtonProps {
   /**
-   * Type of donation (one-time or recurring)
+   * Type of contribution (one-time or recurring)
    */
-  type: DonationType
+  type: ContributionType
 
   /**
    * Button text
@@ -26,38 +26,38 @@ export interface StripeDonateButtonProps {
   className?: string
 
   /**
-   * Callback when donation process starts
+   * Callback when contribution process starts
    */
-  onDonateStart?: () => void
+  onContributeStart?: () => void
 
   /**
-   * Callback when donation process fails
+   * Callback when contribution process fails
    */
-  onDonateError?: (error: Error) => void
+  onContributeError?: (error: Error) => void
 }
 
 /**
- * Stripe-powered donation button component
+ * Stripe-powered contribution button component
  *
- * This component provides a PCI-compliant way to accept donations by redirecting
+ * This component provides a PCI-compliant way to accept contributions by redirecting
  * to Stripe's hosted checkout page. No payment card data touches our servers.
  *
  * @example
  * ```tsx
- * <StripeDonateButton
- *   type={DonationType.ONE_TIME}
- *   label="Donate Now"
+ * <StripeContributeButton
+ *   type={ContributionType.ONE_TIME}
+ *   label="Contribute Now"
  *   className="bg-blue-500 text-white px-4 py-2 rounded"
  * />
  * ```
  */
-export const StripeDonateButton: React.FC<StripeDonateButtonProps> = ({
+export const StripeContributeButton: React.FC<StripeContributeButtonProps> = ({
   type,
   label,
   paymentLinkUrl,
   className = '',
-  onDonateStart,
-  onDonateError,
+  onContributeStart,
+  onContributeError,
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -80,13 +80,13 @@ export const StripeDonateButton: React.FC<StripeDonateButtonProps> = ({
     }
   }, [])
 
-  const handleDonate = async () => {
+  const handleContribute = async () => {
     try {
       setIsLoading(true)
       setError(null)
 
       // Call the optional callback
-      onDonateStart?.()
+      onContributeStart?.()
 
       // Redirect to Stripe Checkout
       await redirectToCheckout({
@@ -96,18 +96,18 @@ export const StripeDonateButton: React.FC<StripeDonateButtonProps> = ({
       // Note: If redirect succeeds, user will leave the page
       // If they return (e.g., by clicking back), visibilitychange event will reset loading
     } catch (err) {
-      const error = err instanceof Error ? err : new Error('Failed to initialize donation')
-      console.error('Donation error:', error)
+      const error = err instanceof Error ? err : new Error('Failed to initialize contribution')
+      console.error('Contribution error:', error)
       setError(error.message)
-      onDonateError?.(error)
+      onContributeError?.(error)
       setIsLoading(false)
     }
   }
 
   return (
-    <div className="stripe-donate-button-container">
+    <div className="stripe-contribute-button-container">
       <button
-        onClick={handleDonate}
+        onClick={handleContribute}
         disabled={isLoading}
         className={`${className} ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
         aria-label={label}
@@ -124,4 +124,9 @@ export const StripeDonateButton: React.FC<StripeDonateButtonProps> = ({
   )
 }
 
-export default StripeDonateButton
+export default StripeContributeButton
+
+// Legacy export for backward compatibility
+export { StripeContributeButton as StripeDonateButton }
+export type StripeDonateButtonProps = StripeContributeButtonProps
+export { ContributionType as DonationType }

@@ -7,39 +7,39 @@
  */
 
 /**
- * Donation types
+ * Contribution types
  */
-export enum DonationType {
+export enum ContributionType {
   ONE_TIME = 'one_time',
   MONTHLY = 'monthly',
 }
 
 /**
- * Configuration for donation checkout
+ * Configuration for contribution checkout
  *
  * For static sites, paymentLinkUrl should be a full Stripe Payment Link URL
  * (e.g., https://buy.stripe.com/...) created in the Stripe Dashboard.
  */
-export interface DonationConfig {
-  type: DonationType
+export interface ContributionConfig {
+  type: ContributionType
   amount?: number // Optional: for custom amounts (future enhancement)
   paymentLinkUrl?: string // Stripe Payment Link URL
 }
 
 /**
- * Redirect to Stripe Checkout for donation
+ * Redirect to Stripe Checkout for contribution
  * This is PCI-compliant as payment details are collected on Stripe's hosted page
  *
  * For static sites, we use Payment Links created in the Stripe Dashboard
  *
- * @param config - Donation configuration
+ * @param config - Contribution configuration
  * @returns Promise that resolves when redirecting to checkout
  */
-export const redirectToCheckout = async (config: DonationConfig): Promise<void> => {
+export const redirectToCheckout = async (config: ContributionConfig): Promise<void> => {
   // For static sites, we use Stripe Payment Links
   // These are pre-configured checkout URLs created in the Stripe Dashboard
 
-  // Determine the payment link based on donation type
+  // Determine the payment link based on contribution type
   let paymentLinkUrl: string | undefined
 
   if (config.paymentLinkUrl) {
@@ -48,30 +48,30 @@ export const redirectToCheckout = async (config: DonationConfig): Promise<void> 
   } else {
     // Use the environment-configured payment links
     paymentLinkUrl =
-      config.type === DonationType.MONTHLY
+      config.type === ContributionType.MONTHLY
         ? process.env.NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL
         : process.env.NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL
   }
 
   if (!paymentLinkUrl) {
     const envVar =
-      config.type === DonationType.MONTHLY
+      config.type === ContributionType.MONTHLY
         ? 'NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL'
         : 'NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL'
     const otherEnvVar =
-      config.type === DonationType.MONTHLY
+      config.type === ContributionType.MONTHLY
         ? 'NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL'
         : 'NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL'
 
     throw new Error(
-      `No payment link configured for ${config.type} donation. Please configure ${envVar} in your environment variables (the other donation type uses ${otherEnvVar}).`
+      `No payment link configured for ${config.type} contribution. Please configure ${envVar} in your environment variables (the other contribution type uses ${otherEnvVar}).`
     )
   }
 
-  // Validate it's a proper URL
-  if (!paymentLinkUrl.startsWith('https://')) {
+  // Validate it's a proper Stripe URL
+  if (!isValidPaymentLink(paymentLinkUrl)) {
     throw new Error(
-      `Invalid payment link URL: "${paymentLinkUrl}". Payment links must start with https:// (e.g., https://buy.stripe.com/...).`
+      `Invalid payment link URL: "${paymentLinkUrl}". Payment links must be Stripe-hosted URLs (e.g., https://buy.stripe.com/... or https://checkout.stripe.com/...).`
     )
   }
 
@@ -90,15 +90,16 @@ export const redirectToCheckout = async (config: DonationConfig): Promise<void> 
 export const isValidPaymentLink = (url: string): boolean => {
   try {
     const parsedUrl = new URL(url)
-    return (
-      parsedUrl.hostname === 'buy.stripe.com' ||
-      parsedUrl.hostname === 'checkout.stripe.com' ||
-      parsedUrl.hostname.endsWith('.stripe.com')
-    )
+    // Only allow Stripe-hosted checkout domains for security
+    return parsedUrl.hostname === 'buy.stripe.com' || parsedUrl.hostname === 'checkout.stripe.com'
   } catch {
     return false
   }
 }
+
+// Legacy exports for backward compatibility
+export { ContributionType as DonationType }
+export type { ContributionConfig as DonationConfig }
 
 /**
  * Create a Stripe Checkout Session (for server-side integration if needed in the future)
@@ -115,8 +116,8 @@ export const isValidPaymentLink = (url: string): boolean => {
  * const sessionConfig: CheckoutSessionConfig = {
  *   priceId: 'price_xxx',
  *   mode: 'payment',
- *   successUrl: `${origin}/donation-success`,
- *   cancelUrl: `${origin}/donation-cancelled`
+ *   successUrl: `${origin}/contribution-success`,
+ *   cancelUrl: `${origin}/contribution-cancelled`
  * }
  * ```
  */

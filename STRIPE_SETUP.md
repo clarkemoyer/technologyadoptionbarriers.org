@@ -4,12 +4,12 @@ This document provides step-by-step instructions for setting up the Stripe payme
 
 ## Overview
 
-The TABS website uses Stripe for PCI-compliant donation processing. The integration supports:
+The TABS website uses Stripe for PCI-compliant contribution processing. The integration supports:
 
-- **One-time donations**: Single payment donations
-- **Recurring donations**: Monthly subscription donations
+- **One-time contributions**: Single payment contributions
+- **Recurring contributions**: Monthly subscription contributions
 - **PCI Compliance**: All payment data is processed on Stripe's secure servers
-- **Automatic receipts**: Donors receive email receipts from Stripe
+- **Automatic receipts**: Contributors receive email receipts from Stripe
 
 ## Prerequisites
 
@@ -23,23 +23,24 @@ The TABS website uses Stripe for PCI-compliant donation processing. The integrat
 
 1. Sign up for a Stripe account at [https://stripe.com](https://stripe.com)
 2. Navigate to **Developers > API keys** in the Stripe Dashboard
-3. Copy your **Publishable key** (starts with `pk_`)
-4. Copy your **Secret key** (starts with `sk_`)
+3. Copy your **Secret key** (starts with `sk_`)
 
-**Important**: Use test keys (`pk_test_...` and `sk_test_...`) for development and live keys (`pk_live_...` and `sk_live_...`) for production.
+**Important**: Use test keys (`sk_test_...`) for development and live keys (`sk_live_...`) for production.
+
+**Note**: The publishable key is not required for this integration since we use direct Payment Link redirects.
 
 ### 2. Create Stripe Products and Payment Links
 
 **Important for Static Sites**: Since this is a static Next.js site, we use Stripe Payment Links instead of creating checkout sessions programmatically.
 
-#### One-Time Donation Payment Link
+#### One-Time Contribution Payment Link
 
 1. Go to **Payment Links** in the Stripe Dashboard
 2. Click **+ New**
 3. Configure the payment link:
    - **Product**: Create a new product or select existing
-     - **Name**: "One-Time Donation"
-     - **Description**: "Support TABS research with a one-time donation"
+     - **Name**: "One-Time Contribution"
+     - **Description**: "Support TABS research with a one-time contribution"
    - **Price**: Enter your default amount (e.g., $25.00)
    - **Payment method types**: Select Credit card, Debit card, and any other desired methods
    - **After payment**: Redirect to a specific page
@@ -48,14 +49,14 @@ The TABS website uses Stripe for PCI-compliant donation processing. The integrat
 4. Click **Create link**
 5. Copy the **Payment link URL** (e.g., `https://buy.stripe.com/xxxxxxxxxxxxx`)
 
-#### Monthly Recurring Donation Payment Link
+#### Monthly Recurring Contribution Payment Link
 
 1. Go to **Payment Links** in the Stripe Dashboard
 2. Click **+ New**
 3. Configure the payment link:
    - **Product**: Create a new product or select existing
-     - **Name**: "Monthly Recurring Donation"
-     - **Description**: "Support TABS research with a monthly donation"
+     - **Name**: "Monthly Recurring Contribution"
+     - **Description**: "Support TABS research with a monthly contribution"
    - **Price**: Enter your default amount (e.g., $10.00)
    - **Recurring**: Yes
    - **Billing period**: Monthly
@@ -85,9 +86,8 @@ Add the following secrets to the `stripe-prod` environment:
 | Secret Name                                            | Value                          | Description                                             |
 | ------------------------------------------------------ | ------------------------------ | ------------------------------------------------------- |
 | `STRIPE_SECRET_KEY`                                    | `sk_live_...` or `sk_test_...` | Stripe secret API key (for GitHub Actions verification) |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`                   | `pk_live_...` or `pk_test_...` | Stripe publishable key                                  |
-| `NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL`         | `https://buy.stripe.com/...`   | One-time donation payment link URL                      |
-| `NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL` | `https://buy.stripe.com/...`   | Monthly donation payment link URL                       |
+| `NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL`         | `https://buy.stripe.com/...`   | One-time contribution payment link URL                  |
+| `NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL` | `https://buy.stripe.com/...`   | Monthly contribution payment link URL                   |
 
 **To add secrets:**
 
@@ -105,10 +105,9 @@ For local development and testing, create a `.env.local` file in the project roo
 cp .env.example .env.local
 ```
 
-Edit `.env.local` and add your Stripe test keys:
+Edit `.env.local` and add your Stripe test credentials:
 
 ```env
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_publishable_key
 STRIPE_SECRET_KEY=sk_test_your_secret_key
 NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL=https://buy.stripe.com/test_your_onetime_link
 NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL=https://buy.stripe.com/test_your_monthly_link
@@ -180,36 +179,36 @@ To receive real-time notifications about donation events:
 4. Select events to listen for (e.g., `checkout.session.completed`)
 5. Copy the **Signing secret** and add it to GitHub secrets as `STRIPE_WEBHOOK_SECRET`
 
-**Note**: Webhooks require a server-side endpoint, which is not available in static export mode. This is optional and not required for basic donation functionality.
+**Note**: Webhooks require a server-side endpoint, which is not available in static export mode. This is optional and not required for basic contribution functionality.
 
 ## Monitoring and Analytics
 
-Monitor donations in the Stripe Dashboard:
+Monitor contributions in the Stripe Dashboard:
 
 1. **Payments**: View all successful payments
-2. **Customers**: View donor information
-3. **Subscriptions**: View active recurring donations
+2. **Customers**: View contributor information
+3. **Subscriptions**: View active recurring contributions
 4. **Reports**: Generate financial reports
 
 ## Troubleshooting
 
-### Donation button doesn't work
+### Contribution button doesn't work
 
 1. Check browser console for errors
-2. Verify Stripe keys are correctly configured
-3. Ensure payment link URLs are valid and start with https://
+2. Verify Stripe secret key is correctly configured
+3. Ensure payment link URLs are valid Stripe domains (buy.stripe.com or checkout.stripe.com)
 
 ### Redirect to Stripe fails
 
-1. Verify `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` is set correctly
-2. Check that the key starts with `pk_`
-3. Ensure the key matches the environment (test vs. live)
+1. Verify payment link URLs are set correctly
+2. Ensure URLs start with `https://`
+3. Confirm URLs point to buy.stripe.com or checkout.stripe.com
 
 ### GitHub Actions workflow fails
 
 1. Verify all secrets are added to the `stripe-prod` environment
 2. Check secret names match exactly (case-sensitive)
-3. Ensure API keys start with `pk_` / `sk_` and payment link URLs start with `https://`
+3. Ensure API key starts with `sk_` and payment link URLs start with `https://`
 
 ## Security Best Practices
 

@@ -50,18 +50,9 @@ jobs:
           fi
           echo "✅ Stripe API key is configured"
 
-      - name: Verify Stripe publishable key
-        run: |
-          if [ -z "${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}" ]; then
-            echo "Error: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY secret is not set in the stripe-prod environment"
-            exit 1
-          fi
-          echo "✅ Stripe publishable key is configured"
-
       - name: Verify environment configuration
         env:
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
           NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL: ${{ secrets.NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL }}
           NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL: ${{ secrets.NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL }}
         run: |
@@ -113,17 +104,17 @@ jobs:
           echo "✅ Environment configuration is valid"
 
       - name: Test Stripe API connection
-        if: ${{ inputs.check_products }}
+        if: ${{ github.event_name == 'schedule' || inputs.check_products }}
         env:
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-          NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL: ${{ secrets.NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL }}
-          NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL: ${{ secrets.NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL }}
         run: |
           echo "Testing Stripe API connection..."
 
-          # Test API connection by listing products
-          if ! npx --yes stripe-cli products list --api-key "$STRIPE_SECRET_KEY" > /dev/null 2>&1; then
-            echo "Error: Could not connect to Stripe API. Please check your STRIPE_SECRET_KEY."
+          # Test API connection by calling the Stripe REST API
+          STATUS_CODE=$(curl -sS -o /dev/null -w "%{http_code}" -u "$STRIPE_SECRET_KEY": https://api.stripe.com/v1/account)
+
+          if [ "$STATUS_CODE" -ne 200 ]; then
+            echo "Error: Could not connect to Stripe API (status code: $STATUS_CODE). Please check your STRIPE_SECRET_KEY."
             exit 1
           fi
 

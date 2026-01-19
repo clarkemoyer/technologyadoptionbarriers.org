@@ -189,7 +189,10 @@ export default function CookiePolicy() {
                     <td className="py-2 pr-4 text-[#666]">
                       Secure payment processing and checkout
                     </td>
-                    <td className="py-2 text-[#666]">When donate button is clicked</td>
+                    <td className="py-2 text-[#666]">
+                      When a contribution button (e.g., &quot;Contribute Now&quot; / &quot;Support
+                      TABS&quot;) is clicked
+                    </td>
                   </tr>
                 </tbody>
               </table>
