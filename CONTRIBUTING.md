@@ -661,9 +661,6 @@ npm run lint
 
 # To bypass hooks (NOT RECOMMENDED - only for emergencies)
 git commit --no-verify -m "your message"
-
-# If you need to bypass hooks in an emergency (NOT RECOMMENDED)
-git commit --no-verify -m "your message"
 ```
 
 **Note**: Husky git hooks are automatically installed when you run `npm install`.

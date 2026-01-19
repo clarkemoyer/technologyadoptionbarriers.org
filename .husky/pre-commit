@@ -7,7 +7,7 @@ npm run format || {
 }
 
 # Stage the formatted files
-git add -u || {
+git add . || {
   echo "❌ Failed to stage formatted files."
   exit 1
 }

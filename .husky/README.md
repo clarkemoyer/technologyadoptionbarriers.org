@@ -131,14 +131,16 @@ The pre-commit hook ensures code is formatted before it even reaches CI, saving 
 
 ## Benefits for AI Agents
 
-The automatic formatting in the pre-commit hook is especially beneficial for AI agents (like GitHub Copilot, Gemini, etc.):
+The automatic formatting in the pre-commit hook helps ensure code quality for AI-assisted development:
 
 - **AI agents don't always format code perfectly** - The hook ensures consistency
 - **Automatic correction** - No need for AI to "remember" to run prettier
-- **Works in all environments** - Whether AI commits locally or via API
+- **Works for local git commits** - Any local commit (human or AI-assisted) gets formatted
 - **Prevents CI failures** - Formatting issues are caught before pushing
 
-This addresses the issue where AI agents would push code without running prettier first!
+**Important Note**: Pre-commit hooks only run for local git commits. Commits made via GitHub's web interface, API, or other remote methods will not trigger the hook. In such cases, CI formatting checks provide a safety net.
+
+This addresses the issue where AI agents making local commits would push code without proper formatting!
 
 ## More Information
 
