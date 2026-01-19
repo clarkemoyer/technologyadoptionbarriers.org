@@ -84,6 +84,57 @@ npx tsc --noEmit
 - Use type guards for type narrowing
 - Leverage TypeScript's strict mode
 
+### Prettier
+
+**Purpose**: Automated code formatting to ensure consistent style
+
+**Configuration**: `.prettierrc.json`, `.prettierignore`
+
+**Automatic Formatting**:
+
+Code formatting is **automatically handled by the pre-commit hook**. You don't need to manually format your code before committing.
+
+```bash
+# Manual formatting (usually not needed due to pre-commit hook)
+npm run format
+
+# Check formatting without fixing
+npm run format:check
+```
+
+**Prettier Configuration**:
+
+```json
+{
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "printWidth": 100,
+  "arrowParens": "always",
+  "endOfLine": "lf"
+}
+```
+
+**Integration with Git Hooks**:
+
+Prettier is integrated with the pre-commit hook (via Husky):
+
+1. **Pre-commit hook** runs automatically before every commit
+2. Prettier formats all staged files
+3. Formatted files are automatically re-staged
+4. Your commit proceeds with properly formatted code
+
+**No manual intervention required!** Just make your changes and commit—formatting happens automatically.
+
+**Key Benefits**:
+
+- **Zero configuration** for developers after `npm install`
+- **Consistent code style** across all contributors
+- **Prevents formatting debates** in code reviews
+- **AI agent compliance** - Even AI-generated commits are automatically formatted
+- **CI/CD safety** - Formatting is enforced before code reaches CI
+
 ### Jest + React Testing Library
 
 **Purpose**: Automated testing for components and utilities
