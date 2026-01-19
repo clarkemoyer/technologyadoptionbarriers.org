@@ -34,7 +34,7 @@ export default function CookieConsent() {
   const [showPreferences, setShowPreferences] = useState(false)
   const [preferences, setPreferences] = useState<CookiePreferences>({
     necessary: true, // Always true, cannot be changed
-    functional: true, // Always true, cannot be changed - includes Stripe and Zeffy donation processing
+    functional: true, // Always true, cannot be changed - includes Stripe and Zeffy contribution processing
     analytics: false,
     marketing: false,
   })
@@ -303,7 +303,7 @@ export default function CookieConsent() {
   const handleDeclineAll = () => {
     const onlyNecessary: CookiePreferences = {
       necessary: true,
-      functional: true, // Functional cookies (Stripe/Zeffy) are always enabled for donations
+      functional: true, // Functional cookies (Stripe/Zeffy) are always enabled for contributions
       analytics: false,
       marketing: false,
     }
@@ -410,11 +410,11 @@ export default function CookieConsent() {
               </div>
               <p className="text-sm text-gray-600 mb-2">
                 These cookies enable enhanced functionality and features that are essential for our
-                core services. This includes our donation processing and application form systems
+                core services. This includes our contribution processing and application form systems
                 which require cookies to function properly.
               </p>
               <p className="text-xs text-gray-500">
-                Services: Stripe (Payment Processing), Zeffy (Legacy Donation Processing), Microsoft
+                Services: Stripe (Payment Processing), Zeffy (Legacy Contribution Processing), Microsoft
                 Forms (Application Forms - may include HubSpot analytics)
               </p>
             </div>

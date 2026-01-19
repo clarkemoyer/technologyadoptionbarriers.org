@@ -3,15 +3,15 @@ import Link from 'next/link'
 import { XCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Donation Cancelled | Technology Adoption Barriers (TABS)',
-  description: 'Your donation was cancelled.',
+  title: 'Contribution Cancelled | Technology Adoption Barriers (TABS)',
+  description: 'Your contribution was cancelled.',
   robots: {
     index: false, // Don't index cancel pages
     follow: false,
   },
 }
 
-export default function DonationCancelled() {
+export default function ContributionCancelled() {
   return (
     <main className="ffc-container py-16">
       <div className="max-w-2xl mx-auto text-center">
@@ -20,11 +20,11 @@ export default function DonationCancelled() {
         </div>
 
         <h1 className="font-[var(--font-faustina)] text-[48px] leading-[60px] mb-6 text-gray-700">
-          Donation Cancelled
+          Contribution Cancelled
         </h1>
 
         <div className="prose max-w-none font-[var(--font-lato)] text-[18px] leading-[28px]">
-          <p className="text-xl mb-4">Your donation was not completed.</p>
+          <p className="text-xl mb-4">Your contribution was not completed.</p>
 
           <p className="mb-6">
             No charges have been made to your payment method. If you experienced any issues or have

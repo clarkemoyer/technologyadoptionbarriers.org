@@ -66,6 +66,10 @@ jobs:
           DEF_BODY_JSON="$TMP_DIR/qualtrics-survey-definition-body.json"
           CREATE_JSON="$TMP_DIR/qualtrics-survey-create.json"
           APPLY_JSON="$TMP_DIR/qualtrics-survey-apply-definition.json"
+          EXPORT_START_JSON="$TMP_DIR/qualtrics-export-start.json"
+          EXPORT_STATUS_JSON="$TMP_DIR/qualtrics-export-status.json"
+          EXPORT_ZIP="$TMP_DIR/qualtrics-export.zip"
+          EXPORT_DIR="$TMP_DIR/qualtrics-export"
           CURL_ERR="$TMP_DIR/qualtrics-curl.err"
 
           echo "## Qualtrics Survey Copy" >> "$GITHUB_STEP_SUMMARY"
@@ -254,9 +258,10 @@ jobs:
           fi
 
           # Fallback: API-only "clone" via create-survey + apply-definition.
-          # If /copy-like endpoints are not supported in this tenant, we attempt:
-          # 1) POST /surveys to create a new empty survey
-          # 2) PUT /survey-definitions/{newId} or PUT /surveys/{newId}/definition with the source definition
+          # If /copy-like endpoints are not supported in this tenant, we attempt an API-only import flow.
+          # This tenant rejects application/json for POST /surveys and requires multipart/form-data.
+          # We try to import using the source definition payload first; if that fails, we optionally
+          # try exporting a QSF (if available) and importing that.
           fallback_attempted=()
           new_survey_id_fallback=""
 
@@ -271,58 +276,156 @@ jobs:
             fallback_attempted+=("${url} | HTTP ${http_code} | curl ${curl_exit}${meta_status:+ | ${meta_status}}${meta_message:+ | ${meta_message}}")
           }
 
-          if [[ -z "$new_survey_id" ]]; then
-            create_url="$BASE_URL/API/v3/surveys"
-            create_payload="{\"name\":\"${new_name}\"}"
-            http_code=$(api_call "POST" "$create_url" "$create_payload" "application/json" "$CREATE_JSON")
-            # capture create attempt details using CREATE_JSON meta
+          import_survey() {
+            local file_path="$1"
+            local note="$2"
+            local http_code
+
+            # Qualtrics import endpoint expects multipart/form-data.
+            # We avoid printing bodies; only capture HTTP code and meta error info.
+            set +e
+            http_code=$(curl -sS -o "$CREATE_JSON" -w "%{http_code}" \
+              -X POST \
+              -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+              -H "Accept: application/json" \
+              -F "file=@${file_path}" \
+              -F "name=${new_name}" \
+              "$BASE_URL/API/v3/surveys" 2>"$CURL_ERR")
+            LAST_CURL_EXIT=$?
+            set -e
+
+            if ! [[ "$http_code" =~ ^[0-9]{3}$ ]]; then
+              http_code="000"
+            fi
+
             create_meta_status=$(jq -r '.meta.httpStatus // empty' "$CREATE_JSON" 2>/dev/null || true)
             create_meta_message=$(jq -r '.meta.error.errorMessage // empty' "$CREATE_JSON" 2>/dev/null || true)
-            fallback_attempted+=("${create_url} (create) | HTTP ${http_code} | curl ${LAST_CURL_EXIT}${create_meta_status:+ | ${create_meta_status}}${create_meta_message:+ | ${create_meta_message}}")
+            fallback_attempted+=("$BASE_URL/API/v3/surveys (import ${note}) | HTTP ${http_code} | curl ${LAST_CURL_EXIT}${create_meta_status:+ | ${create_meta_status}}${create_meta_message:+ | ${create_meta_message}}")
 
             if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
               new_survey_id_fallback=$(jq -r '.result.id // .result.surveyId // .result.surveyID // .result.SurveyID // empty' "$CREATE_JSON")
             fi
+          }
+
+          export_qsf() {
+            # Best-effort export to QSF (if this tenant supports the export API).
+            local export_url="$BASE_URL/API/v3/surveys/${SOURCE_SURVEY_ID}/export"
+
+            set +e
+            start_code=$(curl -sS -o "$EXPORT_START_JSON" -w "%{http_code}" \
+              -X POST \
+              -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+              -H "Accept: application/json" \
+              -H "Content-Type: application/json" \
+              -d '{"format":"qsf"}' \
+              "$export_url" 2>"$CURL_ERR")
+            start_exit=$?
+            set -e
+
+            if ! [[ "$start_code" =~ ^[0-9]{3}$ ]]; then
+              start_code="000"
+            fi
+
+            export_meta_status=$(jq -r '.meta.httpStatus // empty' "$EXPORT_START_JSON" 2>/dev/null || true)
+            export_meta_message=$(jq -r '.meta.error.errorMessage // empty' "$EXPORT_START_JSON" 2>/dev/null || true)
+            fallback_attempted+=("${export_url} (export start) | HTTP ${start_code} | curl ${start_exit}${export_meta_status:+ | ${export_meta_status}}${export_meta_message:+ | ${export_meta_message}}")
+
+            if [[ "$start_exit" -ne 0 || "$start_code" -lt 200 || "$start_code" -ge 300 ]]; then
+              return 1
+            fi
+
+            progress_id=$(jq -r '.result.progressId // .result.id // empty' "$EXPORT_START_JSON")
+            if [[ -z "$progress_id" ]]; then
+              return 1
+            fi
+
+            file_id=""
+            for attempt in $(seq 1 30); do
+              status_url="$BASE_URL/API/v3/surveys/${SOURCE_SURVEY_ID}/export/${progress_id}"
+              set +e
+              status_code=$(curl -sS -o "$EXPORT_STATUS_JSON" -w "%{http_code}" \
+                -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+                -H "Accept: application/json" \
+                "$status_url" 2>"$CURL_ERR")
+              status_exit=$?
+              set -e
+
+              if ! [[ "$status_code" =~ ^[0-9]{3}$ ]]; then
+                status_code="000"
+              fi
+
+              if [[ "$status_exit" -ne 0 || "$status_code" -lt 200 || "$status_code" -ge 300 ]]; then
+                return 1
+              fi
+
+              status=$(jq -r '.result.status // .result.state // empty' "$EXPORT_STATUS_JSON")
+              file_id=$(jq -r '.result.fileId // .result.file_id // empty' "$EXPORT_STATUS_JSON")
+              if [[ "$status" == "complete" || "$status" == "completed" ]]; then
+                break
+              fi
+              if [[ "$status" == "failed" ]]; then
+                return 1
+              fi
+              sleep 2
+            done
+
+            if [[ -z "$file_id" ]]; then
+              file_id=$(jq -r '.result.fileId // .result.file_id // empty' "$EXPORT_STATUS_JSON")
+            fi
+            if [[ -z "$file_id" ]]; then
+              return 1
+            fi
+
+            file_url="$BASE_URL/API/v3/surveys/${SOURCE_SURVEY_ID}/export/${file_id}/file"
+            set +e
+            file_code=$(curl -sS -L -o "$EXPORT_ZIP" -w "%{http_code}" \
+              -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+              "$file_url" 2>"$CURL_ERR")
+            file_exit=$?
+            set -e
+
+            if ! [[ "$file_code" =~ ^[0-9]{3}$ ]]; then
+              file_code="000"
+            fi
+            fallback_attempted+=("${file_url} (export download) | HTTP ${file_code} | curl ${file_exit}")
+
+            if [[ "$file_exit" -ne 0 || "$file_code" -lt 200 || "$file_code" -ge 300 ]]; then
+              return 1
+            fi
+
+            rm -rf "$EXPORT_DIR"
+            mkdir -p "$EXPORT_DIR"
+            unzip -q "$EXPORT_ZIP" -d "$EXPORT_DIR" || return 1
+            qsf_path=$(find "$EXPORT_DIR" -maxdepth 4 -type f -name "*.qsf" -print -quit)
+            if [[ -z "$qsf_path" ]]; then
+              return 1
+            fi
+
+            echo "$qsf_path"
+            return 0
+          }
+
+          if [[ -z "$new_survey_id" ]]; then
+            # Extract the definition body to a standalone file for import.
+            if jq -e '.result' "$DEF_JSON" >/dev/null 2>&1; then
+              jq '.result' "$DEF_JSON" > "$DEF_BODY_JSON"
+            else
+              cp "$DEF_JSON" "$DEF_BODY_JSON"
+            fi
+
+            # Attempt import using definition payload.
+            import_survey "$DEF_BODY_JSON" "definition"
+
+            # If import failed, try exporting a QSF (if available) and import that.
+            if [[ -z "$new_survey_id_fallback" ]]; then
+              qsf_path=$(export_qsf || true)
+              if [[ -n "$qsf_path" ]]; then
+                import_survey "$qsf_path" "qsf"
+              fi
+            fi
 
             if [[ -n "$new_survey_id_fallback" ]]; then
-              # Extract the definition body. Different endpoints may return different shapes.
-              # Prefer .result if present, otherwise use the whole file.
-              if jq -e '.result' "$DEF_JSON" >/dev/null 2>&1; then
-                jq '.result' "$DEF_JSON" > "$DEF_BODY_JSON"
-              else
-                cp "$DEF_JSON" "$DEF_BODY_JSON"
-              fi
-
-              # Best-effort: update common SurveyID fields to the new survey id.
-              tmp_def="$TMP_DIR/qualtrics-survey-definition-updated.json"
-              jq --arg newId "$new_survey_id_fallback" '
-                (.. | objects | select(has("SurveyID")) | .SurveyID) |= $newId
-                | (.. | objects | select(has("surveyId")) | .surveyId) |= $newId
-                | (.. | objects | select(has("surveyID")) | .surveyID) |= $newId
-              ' "$DEF_BODY_JSON" > "$tmp_def" 2>/dev/null || cp "$DEF_BODY_JSON" "$tmp_def"
-              mv "$tmp_def" "$DEF_BODY_JSON"
-
-              apply_url_1="$BASE_URL/API/v3/survey-definitions/${new_survey_id_fallback}"
-              http_code=$(api_call "PUT" "$apply_url_1" "@$DEF_BODY_JSON" "application/json" "$APPLY_JSON")
-              record_fallback_attempt "$apply_url_1 (apply)" "$http_code" "$LAST_CURL_EXIT"
-
-              if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
-                apply_url_2="$BASE_URL/API/v3/surveys/${new_survey_id_fallback}/definition"
-                http_code=$(api_call "PUT" "$apply_url_2" "@$DEF_BODY_JSON" "application/json" "$APPLY_JSON")
-                record_fallback_attempt "$apply_url_2 (apply)" "$http_code" "$LAST_CURL_EXIT"
-              fi
-
-              # If apply succeeded (2xx), accept fallback id as the new survey id.
-              if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
-                new_survey_id="$new_survey_id_fallback"
-              else
-                # Best-effort cleanup: delete the newly created survey to avoid leaving junk.
-                delete_url="$BASE_URL/API/v3/surveys/${new_survey_id_fallback}"
-                http_code_delete=$(api_call "DELETE" "$delete_url" "" "" "$APPLY_JSON")
-                delete_meta_status=$(jq -r '.meta.httpStatus // empty' "$APPLY_JSON" 2>/dev/null || true)
-                delete_meta_message=$(jq -r '.meta.error.errorMessage // empty' "$APPLY_JSON" 2>/dev/null || true)
-                fallback_attempted+=("${delete_url} (cleanup) | HTTP ${http_code_delete} | curl ${LAST_CURL_EXIT}${delete_meta_status:+ | ${delete_meta_status}}${delete_meta_message:+ | ${delete_meta_message}}")
-              fi
+              new_survey_id="$new_survey_id_fallback"
             fi
           fi
 

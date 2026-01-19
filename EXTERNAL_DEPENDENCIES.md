@@ -95,11 +95,11 @@ These are services we directly integrate into our application code.
 - **Privacy Policy:** https://privacy.microsoft.com/
 - **Important:** Microsoft Forms may load additional third-party services (see Transitive Dependencies)
 
-### Donation Platform
+### Contribution Platform
 
 #### 7. Stripe
 
-- **Purpose:** Primary payment processing platform for donations
+- **Purpose:** Primary payment processing platform for contributions
 - **Implementation:**
   - Component: `src/components/stripe-donate-button/index.tsx`
   - Utility: `src/lib/stripe.ts`
@@ -113,8 +113,8 @@ These are services we directly integrate into our application code.
 - **Privacy Policy:** https://stripe.com/privacy
 - **Security:** Stripe is Level 1 PCI DSS certified
 - **Features:**
-  - One-time donations
-  - Recurring monthly donations (subscriptions)
+  - One-time contributions
+  - Recurring monthly contributions (subscriptions)
   - Secure checkout hosted by Stripe
   - Email receipts automatically sent to donors
 
@@ -122,7 +122,7 @@ These are services we directly integrate into our application code.
 
 - **Integration Type:** Client-side redirect to Stripe Checkout (hosted payment page)
 - **Payment Methods:** Credit cards, debit cards, and other Stripe-supported payment methods
-- **Data Flow:** User initiates donation → Redirect to Stripe Checkout → Payment processed on Stripe → User redirected back to success/cancel page
+- **Data Flow:** User initiates contribution → Redirect to Stripe Checkout → Payment processed on Stripe → User redirected back to success/cancel page
 - **Privacy Considerations:**
   - No payment card data is collected or stored by our application
   - All payment processing occurs on Stripe's PCI-compliant servers
@@ -136,9 +136,9 @@ These are services we directly integrate into our application code.
 - **Implementation:** Embedded widget
 - **Domain:** `www.zeffy.com`
 - **Preconnect:** Configured in `src/app/layout.tsx`
-- **Data Collected:** Donation transaction data
+- **Purpose:** Alternative zero-fee contribution processing platform (legacy)
 - **Privacy Policy:** https://www.zeffy.com/privacy
-- **Status:** Maintained for backwards compatibility; Stripe is now the primary donation platform
+- **Status:** Maintained for backwards compatibility; Stripe is now the primary contribution platform
 
 ### Transparency & Validation
 
@@ -271,7 +271,7 @@ See `package.json` for complete list of development dependencies.
 
 #### Functional Cookies (Always Active)
 
-- Zeffy donation forms
+- Zeffy contribution forms
 - Microsoft Forms (when opened)
 - Essential website features
 
@@ -292,7 +292,7 @@ See `package.json` for complete list of development dependencies.
 - **Analytics Data:** Varies by service (typically 14-26 months)
 - **Form Submissions:** Stored by Microsoft Forms per their retention policy
 - **Cookie Preferences:** 12 months
-- **Donation Data:** Managed by Zeffy per their privacy policy
+- **Contribution Data:** Managed by Zeffy per their privacy policy
 
 ### User Rights
 

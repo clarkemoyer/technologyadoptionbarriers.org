@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
     { name: 'Cookie Policy', href: '/cookie-policy' },
     { name: 'Privacy Policy', href: '/privacy-policy' },
     { name: 'Terms of Service', href: '/terms-of-service' },
-    { name: 'Donation Policy', href: '/donation-policy' },
+    { name: 'Contribution Policy', href: '/contribution-policy' },
     { name: 'Vulnerability Disclosure', href: '/vulnerability-disclosure-policy' },
     { name: 'Security Acknowledgements', href: '/security-acknowledgements' },
   ]
@@ -76,7 +76,7 @@ const Footer: React.FC = () => {
             </a>
             <StripeDonateButton
               type={DonationType.ONE_TIME}
-              label="MAKE A DONATION"
+              label="SUPPORT TABS"
               className="px-[40px] py-[18px] bg-[#2EA3F2] text-white text-[18px] font-bold rounded-[4px] hover:bg-[#2589cc] transition-all duration-300 uppercase tracking-widest"
             />
           </div>
@@ -110,6 +110,7 @@ const Footer: React.FC = () => {
                 name: 'Take the TABS',
                 href: 'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO',
               },
+              { name: 'Get Involved', href: '/get-involved' },
               { name: 'Tech Adoption Barriers', href: '/barriers' },
               { name: 'Technology Adoption Models', href: '/technology-adoption-models' },
               { name: 'Media', href: '/media' },

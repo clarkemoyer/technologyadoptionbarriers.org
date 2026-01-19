@@ -3,15 +3,15 @@ import Link from 'next/link'
 import { CheckCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Donation Successful | Technology Adoption Barriers (TABS)',
-  description: 'Thank you for your generous donation to support TABS research.',
+  title: 'Contribution Successful | Technology Adoption Barriers (TABS)',
+  description: 'Thank you for your generous contribution to support TABS research.',
   robots: {
     index: false, // Don't index success pages
     follow: false,
   },
 }
 
-export default function DonationSuccess() {
+export default function ContributionSuccess() {
   return (
     <main className="ffc-container py-16">
       <div className="max-w-2xl mx-auto text-center">
@@ -24,7 +24,7 @@ export default function DonationSuccess() {
         </h1>
 
         <div className="prose max-w-none font-[var(--font-lato)] text-[18px] leading-[28px]">
-          <p className="text-xl mb-4">Your donation has been successfully processed.</p>
+          <p className="text-xl mb-4">Your contribution has been successfully processed.</p>
 
           <p className="mb-6">
             We are grateful for your support of the Technology Adoption Barriers (TABS) research
@@ -35,12 +35,12 @@ export default function DonationSuccess() {
           <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
             <p className="text-sm text-blue-800">
               <strong>Confirmation Email:</strong> You will receive a confirmation email from Stripe
-              with your donation receipt shortly.
+              with your contribution receipt shortly.
             </p>
           </div>
 
           <p className="mb-8">
-            If you have any questions about your donation, please contact us at{' '}
+            If you have any questions about your contribution, please contact us at{' '}
             <a
               href="mailto:contact@technologyadoptionbarriers.org"
               className="text-primary hover:underline"

@@ -39,9 +39,9 @@ describe('Footer component', () => {
     )
     expect(validLink).toBeDefined()
 
-    // Donate button is now a Stripe button component, not a link
-    const donateButton = screen.getByRole('button', { name: /make a donation/i })
-    expect(donateButton).toBeInTheDocument()
+    // Contribute button is now a Stripe button component, not a link
+    const contributeButton = screen.getByRole('button', { name: /support tabs/i })
+    expect(contributeButton).toBeInTheDocument()
   })
 
   it('should display the current year in copyright', () => {
@@ -82,9 +82,9 @@ describe('Footer component', () => {
       'href',
       '/terms-of-service'
     )
-    expect(screen.getByRole('link', { name: /donation policy/i })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /contribution policy/i })).toHaveAttribute(
       'href',
-      '/donation-policy'
+      '/contribution-policy'
     )
     expect(screen.getByRole('link', { name: /vulnerability disclosure/i })).toHaveAttribute(
       'href',
