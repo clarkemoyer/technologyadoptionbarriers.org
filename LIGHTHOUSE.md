@@ -86,42 +86,27 @@ Lighthouse CI runs automatically:
 
 1. **After successful deployment** to the main branch (via `workflow_run` trigger)
    - Triggers after the "Deploy to GitHub Pages" workflow completes successfully
-   - Only runs on the main branch to avoid duplicate runs on PRs
-2. **On pull requests** to the main branch (with results posted as PR comments)
-   - Runs once per PR to provide feedback before merging
-3. **Weekly** on Monday at 2:00 AM UTC (via `schedule` trigger)
+   - Automatically discovers and audits all HTML pages in the build
+2. **Weekly** on Monday at 2:00 AM UTC (via `schedule` trigger)
    - Runs during off-peak hours to minimize impact on site traffic
+   - Automatically discovers new pages added since the last run
    - Monitors site performance over time
    - Catches any degradation not caused by code changes
-4. **On manual trigger** from the Actions tab
-5. **Multiple runs per page** (3 runs) to calculate and report median scores
+3. **On manual trigger** from the Actions tab
+4. **Multiple runs per page** (3 runs) to calculate and report median scores
 
-> **Note**: The workflow is configured to avoid duplicate runs. PRs trigger only via the `pull_request` event, while main branch deployments trigger only via the `workflow_run` event.
+> **Note**: Pages are automatically discovered from the `out/` directory during each run, so new pages are automatically included in audits without manual configuration updates.
 
 ### Viewing CI Results
-
-#### In Pull Request Comments
-
-When Lighthouse runs on a pull request, it automatically posts a comprehensive comment showing:
-
-- **Median scores** for each category (Performance, Accessibility, Best Practices, SEO)
-- **Visual indicators** (🟢 Good, 🟡 Needs Improvement, 🔴 Poor)
-- **Threshold comparison** showing if scores meet configured thresholds
-- **Summary status** indicating if all thresholds are met
-
-The comment includes a table for each audited page with:
-
-- Current scores vs. thresholds
-- Pass/warn indicators (✅/⚠️)
-- Links to download detailed reports
 
 #### In GitHub Actions Logs
 
 1. Go to the **Actions** tab in the repository
 2. Look for **"Lighthouse CI"** workflow runs
 3. Click on a workflow run to see the detailed logs
-4. Check the **"Display Lighthouse Results Summary"** step for scores
-5. View all individual run scores in the console output
+4. Check the **"Discover pages and generate Lighthouse config"** step to see which pages were found
+5. Check the **"Display Lighthouse Results Summary"** step for scores
+6. View all individual run scores in the console output
 
 #### Downloading Reports
 
@@ -135,9 +120,30 @@ The comment includes a table for each audited page with:
    - Accessibility issues (if any)
    - SEO checks
 
-### Configuration File
+### Configuration
 
-The Lighthouse CI configuration is in `lighthouserc.json`:
+#### Automatic Page Discovery
+
+The Lighthouse CI workflow **automatically discovers all HTML pages** in the `out/` directory before each run. This means:
+
+- **No manual configuration needed** when adding new pages
+- Pages are discovered dynamically by scanning for `*.html` files
+- The configuration file (`lighthouserc.json`) is generated on-the-fly during CI runs
+- Currently includes all ~30 pages (articles, policy pages, and other content)
+
+The automatic discovery script:
+
+1. Scans the `out/` directory after building the site
+2. Finds all `.html` files (excluding internal Next.js files starting with `_`)
+3. Converts file paths to `http://localhost/` URLs
+4. Generates a `lighthouserc.json` configuration file
+5. Runs Lighthouse CI with the discovered pages
+
+#### Static Configuration (For Local Testing)
+
+For local testing, you can use the checked-in `lighthouserc.json` file which contains a static list of pages. However, the CI workflow ignores this file and generates its own configuration dynamically.
+
+**Example structure**:
 
 ```json
 {
@@ -147,44 +153,21 @@ The Lighthouse CI configuration is in `lighthouserc.json`:
       "url": [
         "http://localhost/index.html",
         "http://localhost/barriers.html",
-        "http://localhost/barriers/survey-stats.html",
-        "http://localhost/contribution-policy.html",
-        "http://localhost/cookie-policy.html",
-        "http://localhost/get-involved.html",
-        "http://localhost/making-of-tabs.html",
-        "http://localhost/media.html",
-        "http://localhost/privacy-policy.html",
-        "http://localhost/security-acknowledgements.html",
-        "http://localhost/technology-adoption-models.html",
-        "http://localhost/terms-of-service.html",
-        "http://localhost/vulnerability-disclosure-policy.html",
-        "http://localhost/article-1-branch-introduction-the-users-journey.html",
-        "http://localhost/article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance.html",
-        "http://localhost/article-1-2-the-game-changer-a-deep-dive-into-the-technology-acceptance-model-tam.html",
-        "http://localhost/article-1-3-expanding-the-classic-the-evolution-to-tam-2-tam-3-and-c-tam-tpb.html",
-        "http://localhost/article-1-4-the-grand-unification-the-unified-theory-of-acceptance-and-use-of-technology-utaut.html",
-        "http://localhost/article-1-5-beyond-the-office-utaut2-consumer-context-and-modern-syntheses.html",
-        "http://localhost/article-1-6-context-is-king-specialized-individual-adoption-models.html",
-        "http://localhost/article-1-7-are-you-ready-the-role-of-technology-readiness-tri-and-tram.html",
-        "http://localhost/article-2-branch-introduction-the-organizations-playbook.html",
-        "http://localhost/article-2-1-the-strategic-lens-foundational-theories-for-organizational-adoption.html",
-        "http://localhost/article-2-2-from-chaos-to-control-a-guide-to-maturity-models.html",
-        "http://localhost/article-2-3-managing-the-lifecycle-the-gartner-hype-cycle.html",
-        "http://localhost/article-2-4-the-blueprint-for-enterprise-a-survey-of-architecture-frameworks.html",
-        "http://localhost/article-2-5-the-modern-mandate-frameworks-for-cybersecurity-and-risk.html",
-        "http://localhost/article-2-6-the-cloud-revolution-prescriptive-adoption-frameworks.html",
-        "http://localhost/article-2-7-the-ai-frontier-frameworks-for-adopting-ai-ml-and-genai.html",
-        "http://localhost/article-bibliography-comprehensive-series-bibliography.html"
+        ...
       ],
       "numberOfRuns": 3
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["warn", { "minScore": 0.55 }],
+        "categories:accessibility": ["warn", { "minScore": 0.9 }],
+        "categories:best-practices": ["warn", { "minScore": 0.65 }],
+        "categories:seo": ["warn", { "minScore": 0.95 }]
+      }
     }
   }
 }
 ```
-
-**Important**: URLs should point to the actual `.html` files in the `out` directory. Next.js static export generates flat HTML files at the root level. All 30 pages of the site are now monitored by Lighthouse CI.
-
-You can add more pages to audit by adding URLs to the `url` array. To see which pages are generated, check the `out/` directory after running `npm run build`.
 
 ---
 
@@ -563,7 +546,7 @@ The Lighthouse CI is integrated into the deployment pipeline with the following 
 The Lighthouse workflow only runs when:
 
 - The deployment workflow succeeded (for main branch)
-- A pull request is opened/updated (for PRs)
+- Weekly schedule triggers (Monday 2 AM UTC)
 - Manually triggered (for on-demand audits)
 
 This prevents unnecessary runs and saves CI/CD resources.
@@ -574,7 +557,11 @@ This prevents unnecessary runs and saves CI/CD resources.
 
 **Last Updated**: 2026-01-19
 
-**Pages Monitored**: 30 pages covering all site content (homepage, articles, policy pages, and other pages)
+**Pages Monitored**: ~31 pages (automatically discovered from build output)
+
+- Includes homepage, 18 articles, 5 policy pages, and other content pages
+- Pages are discovered automatically during each CI run
+- New pages are automatically included without manual configuration
 
 **Current Performance Scores**:
 
@@ -585,7 +572,7 @@ This prevents unnecessary runs and saves CI/CD resources.
 | Privacy Policy   | 85-86% 🟢   | 96% 🟢        | 71% 🟡         | 100% 🟢 |
 | Terms of Service | 84-86% 🟢   | 94% 🟢        | 71% 🟡         | 100% 🟢 |
 
-_Note: Scores for all 30 pages will be available after the next Lighthouse CI run._
+_Note: Scores for all discovered pages are available in the workflow artifacts after each CI run._
 
 **Recent Performance Improvements** (December 2025):
 
@@ -597,8 +584,14 @@ _Note: Scores for all 30 pages will be available after the next Lighthouse CI ru
 **Monitoring Frequency**:
 
 - After each deployment to main branch
-- On every pull request to main branch
 - Weekly on Monday at 2:00 AM UTC (off-peak hours)
+- On-demand via manual trigger
+
+**Automatic Page Discovery**:
+
+- Pages are discovered automatically during each CI run
+- No manual configuration needed when adding new pages
+- Currently monitoring ~31 pages across the entire site
 
 **Report Retention**: 30 days in GitHub Actions artifacts
 
