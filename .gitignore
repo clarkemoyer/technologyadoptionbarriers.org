@@ -34,6 +34,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# Temporary release-notes artifacts
+tmp_release_notes_*.md
+tmp_release_notes_generated.md
+
 # env files (can opt-in for committing if needed)
 .env*
 
