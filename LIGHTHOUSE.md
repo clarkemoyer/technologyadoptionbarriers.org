@@ -129,7 +129,7 @@ The Lighthouse CI workflow **automatically discovers all HTML pages** in the `ou
 - **No manual configuration needed** when adding new pages
 - Pages are discovered dynamically by scanning for `*.html` files
 - The configuration file (`lighthouserc.json`) is generated on-the-fly during CI runs
-- Currently includes all ~30 pages (articles, policy pages, and other content)
+- Currently includes all ~31 pages (articles, policy pages, and other content including 404.html)
 
 The automatic discovery script:
 
