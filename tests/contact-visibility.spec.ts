@@ -43,7 +43,7 @@ test.describe('Contact Visibility', () => {
     )
     await expect(takeTheTabs).toHaveAttribute('target', '_blank')
 
-    const donateLink = section.getByRole('link', { name: /make a donation/i })
-    await expect(donateLink).toBeVisible()
+    const supportLink = section.getByRole('link', { name: /support tabs/i })
+    await expect(supportLink).toBeVisible()
   })
 })

@@ -68,8 +68,7 @@ export class GoogleAnalyticsClient {
         limit,
         orderBys,
         metricAggregations,
-      })
-
+      } as any)
       return response[0]
     } catch (error) {
       console.error('Failed to fetch GA data:', error)
