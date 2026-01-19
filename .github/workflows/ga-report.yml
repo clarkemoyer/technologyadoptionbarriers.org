@@ -10,6 +10,8 @@ jobs:
   generate-report:
     runs-on: ubuntu-latest
     environment: google-prod
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -29,6 +31,24 @@ jobs:
           GA_PROPERTY_ID: ${{ secrets.GA_PROPERTY_ID }}
           GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
           GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+
+      - name: Commit and Push Impact Stats
+        run: |
+          # Configure git for the bot
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+          # Stage the impact data file
+          git add src/data/impact.json
+
+          # Check if there are changes; if yes, commit and push
+          if git diff --staged --quiet; then
+            echo "No changes to impact stats."
+          else
+            echo "Impact stats changed. Committing and pushing..."
+            git commit -m "chore: update public impact stats"
+            git push
+          fi
 
       - name: Send Email Report
         if: success()
