@@ -31,6 +31,7 @@ This document tracks user-facing improvements and planned enhancements for the T
 - **Media page**: Add a short press-kit section (one-paragraph project summary + contact email)
 - **Barriers page**: Add filters/search if the barrier list grows
 - **Models pages**: Add a “reading progress” / table-of-contents sidebar for long articles
+- **Qualtrics MCP reliability**: Improve end-to-end MCP usability (OAuth/transport quirks currently prevent stable use of survey tools in VS Code; consider documenting a known-good flow or adding a local proxy/adapter)
 
 ---
 
