@@ -138,6 +138,7 @@ The automatic discovery script:
 3. Converts file paths to `http://localhost/` URLs
 4. Generates a `lighthouserc.json` configuration file
 5. Runs Lighthouse CI with the discovered pages
+6. Currently discovers ~31 pages (includes 404.html)
 
 #### Static Configuration (For Local Testing)
 

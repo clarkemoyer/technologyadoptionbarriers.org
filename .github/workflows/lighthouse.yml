@@ -55,6 +55,12 @@ jobs:
             sed 's|^|http://localhost/|' | \
             sort)
 
+          # Check if any pages were found
+          if [ -z "$urls" ]; then
+            echo "❌ Error: No HTML pages found in out/ directory"
+            exit 1
+          fi
+
           page_count=$(echo "$urls" | wc -l)
           echo "📄 Found $page_count pages to audit"
 
@@ -67,16 +73,12 @@ jobs:
                 "url": [
           EOF
 
-          # Add URLs as JSON array items
-          first=true
-          for url in $urls; do
-            if [ "$first" = true ]; then
-              echo "          \"$url\"" >> lighthouserc.json
-              first=false
-            else
-              echo "          ,\"$url\"" >> lighthouserc.json
-            fi
-          done
+          # Add URLs as JSON array items (comma-separated)
+          echo "$urls" | awk '{
+            if (NR > 1) printf ",\n"
+            printf "          \"%s\"", $0
+          }' >> lighthouserc.json
+          echo "" >> lighthouserc.json
 
           # Close the JSON structure
           cat >> lighthouserc.json << 'EOF'
