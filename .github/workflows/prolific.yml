@@ -79,7 +79,7 @@ jobs:
 
       - name: Upload CSV artifact
         if: ${{ inputs.export_csv && inputs.upload_csv_artifact }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: prolific-submissions-csv
           path: ${{ runner.temp }}/prolific-submissions.csv
