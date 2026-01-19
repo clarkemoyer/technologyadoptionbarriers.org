@@ -103,6 +103,14 @@ async function main() {
       console.log('  Name:', stats.study.name)
       console.log('  Internal Name:', stats.study.internal_name)
       console.log('  Status:', stats.study.status)
+      if (stats.study.filters && stats.study.filters.length > 0) {
+        console.log('  Filters:')
+        stats.study.filters.forEach((f) => {
+          console.log(
+            `    - ${f.filter_id}: ${JSON.stringify(f.selected_values || f.selected_range)}`
+          )
+        })
+      }
       console.log('  Description:', stats.study.description)
       console.log('  External URL:', stats.study.external_study_url)
       console.log('  Total Places:', stats.study.total_available_places)
