@@ -24,6 +24,7 @@ async function main() {
     console.log(`Found ${questions.length} questions:\n`)
 
     const summaryRows = []
+    const openEndedPlaceholder = '<li><em>Open ended</em></li>'
 
     for (const q of questions) {
       const cleanText = stripHtml(q.QuestionText)
@@ -41,7 +42,7 @@ async function main() {
       console.log('')
 
       summaryRows.push(
-        `| **${mdEscape(q.QuestionID)}** | ${mdEscape(cleanText)} | <ul>${choicesText || '(Open Ended)'}</ul> |`
+        `| **${mdEscape(q.QuestionID)}** | ${mdEscape(cleanText)} | <ul>${choicesText || openEndedPlaceholder}</ul> |`
       )
     }
 

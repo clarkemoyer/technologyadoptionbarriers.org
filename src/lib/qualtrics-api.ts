@@ -22,7 +22,20 @@ export interface QualtricsSurveyDefinition {
 }
 
 /**
- * Make an authenticated request to the Qualtrics API
+ * Make an authenticated HTTP request to the Qualtrics API.
+ *
+ * This helper wraps `fetch` to:
+ * - Normalize the base URL and endpoint into a full request URL.
+ * - Attach the required `X-API-TOKEN` header for Qualtrics authentication.
+ * - Enforce JSON responses and provide helpful error messages for common failure modes.
+ *
+ * @template T - The expected shape of the `result` property in a successful JSON response.
+ * @param endpoint - The Qualtrics API endpoint path (for example, `/API/v3/survey-definitions/{surveyId}/questions`).
+ * @param apiToken - The Qualtrics API token used for authentication.
+ * @param baseUrl - The base URL for the Qualtrics data center (for example, `https://iad1.qualtrics.com`).
+ * @param options - Additional `fetch` options, such as HTTP method, body, or extra headers.
+ * @returns A promise that resolves with the parsed JSON response typed as {@link T}.
+ * @throws {Error} If the network request fails, the response is non-OK, the response body is empty, or the JSON cannot be parsed.
  */
 async function makeApiRequest<T>(
   endpoint: string,
@@ -110,8 +123,15 @@ async function makeApiRequest<T>(
 }
 
 /**
- * Get questions for a specific survey
- * Endpoint: /API/v3/survey-definitions/{surveyId}/questions
+ * Get questions for a specific survey.
+ *
+ * Endpoint: `/API/v3/survey-definitions/{surveyId}/questions`
+ *
+ * @param surveyId - The Qualtrics survey ID whose questions should be retrieved.
+ * @param apiToken - The Qualtrics API token used for authentication.
+ * @param baseUrl - The base URL of the Qualtrics data center API (for example, `https://iad1.qualtrics.com`).
+ * @returns A promise that resolves to the survey definition containing all questions keyed by question ID.
+ * @throws {Error} If the Qualtrics API request fails, returns a non-2xx response, or the response cannot be parsed.
  */
 export async function getSurveyQuestions(
   surveyId: string,
