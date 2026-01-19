@@ -111,6 +111,7 @@ const Footer: React.FC = () => {
                 name: 'Take the TABS',
                 href: 'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO',
               },
+              { name: 'Get Involved', href: '/get-involved' },
               { name: 'Tech Adoption Barriers', href: '/barriers' },
               { name: 'Technology Adoption Models', href: '/technology-adoption-models' },
               { name: 'Media', href: '/media' },
