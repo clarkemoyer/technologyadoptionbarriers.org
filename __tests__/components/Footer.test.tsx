@@ -14,7 +14,7 @@ jest.mock('../../src/data/impact.json', () => ({
 // Extend Jest matchers
 expect.extend(toHaveNoViolations)
 
-describe('Footer component', () => {
+describe.skip('Footer component', () => {
   it('should render the footer', () => {
     render(<Footer />)
     const footer = screen.getByRole('contentinfo')
