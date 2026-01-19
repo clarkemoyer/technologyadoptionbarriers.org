@@ -137,12 +137,12 @@ The repository includes a GitHub Actions workflow that verifies the Stripe confi
    npm run preview
    ```
 
-2. Navigate to the donation section
-3. Click **Donate Now**
+2. Navigate to the **Support TABS** contribution section
+3. Click **Contribute Now**
 4. You should be redirected to Stripe Checkout
-5. Complete a test donation using Stripe test card: `4242 4242 4242 4242`
+5. Complete a test contribution using Stripe test card: `4242 4242 4242 4242`
 6. Verify you're redirected to the success page
-7. Check Stripe Dashboard for the payment
+7. Check Stripe Dashboard to confirm the test contribution appears correctly
 
 ## Stripe Test Cards
 

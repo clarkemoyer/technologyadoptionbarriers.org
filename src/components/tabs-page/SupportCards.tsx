@@ -1,6 +1,6 @@
 import React from 'react'
 import StripeDonateButton from '@/components/stripe-donate-button'
-import { DonationType } from '@/lib/stripe'
+import { ContributionType } from '@/lib/stripe'
 
 const SupportCards = () => {
   const cards = [
@@ -11,7 +11,7 @@ const SupportCards = () => {
       buttonText: 'Contribute Now',
       buttonLink: 'https://github.com/sponsors/clarkemoyer',
       useStripe: true,
-      donationType: DonationType.ONE_TIME,
+      contributionType: ContributionType.ONE_TIME,
       bgColor: 'bg-[#113563]',
       btnConfig: 'bg-[#F57C20] text-white hover:bg-[#d66a1a]',
     },
@@ -63,9 +63,9 @@ const SupportCards = () => {
                 {card.description}
               </p>
               <div>
-                {card.useStripe && card.donationType ? (
+                {card.useStripe && card.contributionType ? (
                   <StripeDonateButton
-                    type={card.donationType}
+                    type={card.contributionType}
                     label={card.buttonText}
                     className={`inline-block px-[25px] py-[12px] rounded-[30px] font-bold text-[16px] transition-all duration-300 transform hover:scale-105 ${card.btnConfig}`}
                   />

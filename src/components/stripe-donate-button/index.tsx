@@ -107,6 +107,7 @@ export const StripeContributeButton: React.FC<StripeContributeButtonProps> = ({
   return (
     <div className="stripe-contribute-button-container">
       <button
+        type="button"
         onClick={handleContribute}
         disabled={isLoading}
         className={`${className} ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}

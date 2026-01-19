@@ -107,6 +107,8 @@ jobs:
         if: ${{ github.event_name == 'schedule' || inputs.check_products }}
         env:
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL: ${{ secrets.NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL }}
+          NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL: ${{ secrets.NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL }}
         run: |
           echo "Testing Stripe API connection..."
 
