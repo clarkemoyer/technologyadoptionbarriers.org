@@ -1,16 +1,20 @@
 #!/bin/sh
-# Auto-format code before committing
-echo "🔧 Running prettier to format code..."
+# Auto-format staged files before committing
+echo "🔧 Running prettier to format staged code..."
+
+# Get list of staged files before formatting
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM)
+
+# Run prettier on all files (existing behavior)
 npm run format || {
   echo "❌ Failed to run prettier. Please check your installation."
   exit 1
 }
 
-# Stage the formatted files
-git add . || {
-  echo "❌ Failed to stage formatted files."
-  exit 1
-}
+# Re-stage only the files that were originally staged
+if [ -n "$STAGED_FILES" ]; then
+  echo "$STAGED_FILES" | xargs git add 2>/dev/null || true
+fi
 
 # Run linting
 npm run lint || {

@@ -10,10 +10,11 @@ This directory contains Git hooks managed by [Husky](https://typicode.github.io/
 
 **What it does**:
 
-1. **Runs Prettier** to auto-format all staged files according to `.prettierrc.json`
-2. **Re-stages formatted files** so the formatted version is committed
-3. **Runs ESLint** to check for code quality issues
-4. **Blocks the commit** if linting errors are found
+1. **Captures list of staged files** before formatting
+2. **Runs Prettier** to auto-format all files according to `.prettierrc.json`
+3. **Re-stages originally staged files** that were modified by prettier
+4. **Runs ESLint** to check for code quality issues
+5. **Blocks the commit** if linting errors are found
 
 **Developer Experience**:
 
