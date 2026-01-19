@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import Barriers from '../../../src/components/tabs/Barriers'
@@ -178,14 +178,6 @@ describe('Barriers component', () => {
       // Also search
       const searchInput = screen.getByPlaceholderText('Search barriers...')
       fireEvent.change(searchInput, { target: { value: 'complexity' } })
-
-      // Should only show technical barriers that match search
-      const visibleBarriers = barriers.filter(
-        (b) =>
-          b.category === 'technical' &&
-          (b.name.toLowerCase().includes('complexity') ||
-            b.description.toLowerCase().includes('complexity'))
-      )
 
       // At least check that non-matching barriers are not shown
       const otherBarriers = barriers.filter((b) => b.category !== 'technical')
