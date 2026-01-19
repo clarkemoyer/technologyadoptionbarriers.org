@@ -1,0 +1,12 @@
+Technology Adoption Barriers Survey (TABS) — Boilerplate Variants
+
+50-word boilerplate
+TABS is a research initiative that studies organizational barriers to adopting new technologies. By gathering perspectives from leaders and practitioners, TABS aims to produce actionable insights that help organizations prioritize interventions and improve the likelihood that technology investments deliver value.
+
+100-word boilerplate
+The Technology Adoption Barriers Survey (TABS) is a research initiative focused on understanding the real-world barriers organizations face when adopting new technologies. Barriers to adoption can reduce the value of technology investments and negatively affect an enterprise’s ability to obtain or maintain competitive advantage. TABS gathers perspectives from senior leaders and practitioners to build updated, empirically grounded insights on what blocks successful adoption and what organizational capabilities enable it.
+
+200-word boilerplate
+The Technology Adoption Barriers Survey (TABS) is a research initiative focused on understanding the real-world barriers organizations face when adopting new technologies. While technology choices matter, adoption outcomes often hinge on organizational factors such as incentives, processes, skills, leadership alignment, and change management. Barriers to adoption can reduce the value of technology investments and negatively affect an enterprise’s ability to obtain or maintain competitive advantage.
+
+TABS gathers perspectives from senior leaders and practitioners to build updated, empirically grounded insights on what blocks successful adoption and what organizational capabilities enable it. The goal is to help organizations identify priority areas for intervention, benchmark against aggregated insights, and improve the likelihood that technology investments deliver value. Learn more at https://technologyadoptionbarriers.org.
