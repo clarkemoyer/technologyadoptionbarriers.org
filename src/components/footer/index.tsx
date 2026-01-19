@@ -6,6 +6,7 @@ import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react'
 
 import { FaFacebookF, FaLinkedinIn, FaGithub } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
+// import { ImpactCounter } from '../impact/ImpactCounter'
 
 const Footer: React.FC = () => {
   const currentYear = React.useMemo(() => new Date().getFullYear(), [])
@@ -160,11 +161,15 @@ const Footer: React.FC = () => {
                 rel="noopener noreferrer"
                 aria-label={link.label}
                 className="text-white hover:text-[#26C699] transition-colors"
+                aria-disabled={link.href === ''}
               >
                 <link.icon className="w-5 h-5" />
               </a>
             ))}
           </div>
+
+          {/* Public Impact Stats - Temporarily disabled due to CI build issues */}
+          {/* <ImpactCounter /> */}
         </div>
       </div>
     </footer>
