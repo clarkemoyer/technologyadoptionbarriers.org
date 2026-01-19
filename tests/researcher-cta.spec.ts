@@ -39,15 +39,19 @@ test.describe('Support our Research CTA', () => {
     await page.setViewportSize({ width: 1280, height: 720 })
     await page.goto('/')
 
-    const cards = page.locator('section.bg-gray-50 > div > div')
-    await expect(cards).toHaveCount(4)
+    // Use semantic selectors to count cards by their headings
+    const cardHeadings = page.locator('h3').filter({
+      hasText:
+        /Donate to the general fund|Donate as a Sponsor|Become a Supporting Researcher|Support our Research/,
+    })
+    await expect(cardHeadings).toHaveCount(4)
 
     // Mobile view - all cards should still be visible
     await page.setViewportSize({ width: 375, height: 667 })
     await page.goto('/')
 
     await expect(page.getByRole('heading', { name: 'Support our Research' })).toBeVisible()
-    await expect(cards).toHaveCount(4)
+    await expect(cardHeadings).toHaveCount(4)
   })
 
   test('researcher CTA button should be clickable', async ({ page }) => {
