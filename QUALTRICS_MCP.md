@@ -31,7 +31,12 @@ This repo keeps:
 - [mcp.json.example](mcp.json.example): a generic `mcpServers` template (works in many MCP clients).
 - [.vscode/mcp.json.example](.vscode/mcp.json.example): a VS Code `.vscode/mcp.json` template using `servers`.
 
-The VS Code template also includes the GitHub remote MCP server (`github`) so you can use GitHub + Qualtrics MCP side-by-side in the same workspace.
+To use GitHub + Qualtrics MCP side-by-side in VS Code:
+
+- Install the GitHub MCP server via the VS Code MCP Marketplace (recommended). This registers a `github` server automatically.
+- Keep `.vscode/mcp.json` for Qualtrics only (so you don’t accidentally define `github` twice).
+
+If you prefer a single-file VS Code config (no Marketplace install), you can start from [.vscode/mcp.with-github.json.example](.vscode/mcp.with-github.json.example).
 
 ### OAuth (recommended)
 

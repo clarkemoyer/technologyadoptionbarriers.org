@@ -1,5 +1,9 @@
 {
   "servers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
     "qualtrics-surveys": {
       "type": "http",
       "url": "https://<your-qualtrics-host>/API/mcp/survey-crud",
