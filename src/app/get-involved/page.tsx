@@ -30,6 +30,27 @@ const GetInvolvedPage = () => {
       },
     },
     {
+      id: 'use-dataset',
+      title: 'Use TABS Data in Your Research',
+      icon: '📊',
+      description:
+        'We encourage researchers to use the TABS dataset to conduct original research, testing hypotheses beyond basic descriptive statistics. Request secure access to the dataset once approved by your IRB to contribute to papers and dissertations.',
+      whoShouldParticipate:
+        'Academic researchers, doctoral students, and research institutions with IRB approval seeking to study technology adoption barriers and organizational capabilities.',
+      commitment: 'IRB approval required; research timeline varies by project',
+      benefits: [
+        'Access to unique longitudinal dataset on technology adoption',
+        'Opportunity to publish original research',
+        'Contribute to advancing the field',
+        'Be counted in TABS research impact tracking',
+      ],
+      cta: {
+        text: 'Request Dataset Access',
+        link: 'mailto:clarke@technologyadoptionbarriers.org?subject=TABS%20Dataset%20Access%20Request',
+        color: 'bg-[#2EA3F2] hover:bg-[#2589cc]',
+      },
+    },
+    {
       id: 'contribute-general',
       title: 'Contribute to the General Fund',
       icon: '💵',
@@ -88,27 +109,6 @@ const GetInvolvedPage = () => {
         text: 'Volunteer Your Skills',
         link: 'mailto:clarke@technologyadoptionbarriers.org?subject=TABS%20Volunteer%20Inquiry',
         color: 'bg-[#5FB38D] hover:bg-[#4d9671]',
-      },
-    },
-    {
-      id: 'use-dataset',
-      title: 'Use TABS Data in Your Research',
-      icon: '📊',
-      description:
-        'We encourage researchers to use the TABS dataset to conduct original research, testing hypotheses beyond basic descriptive statistics. Request secure access to the dataset once approved by your IRB to contribute to papers and dissertations.',
-      whoShouldParticipate:
-        'Academic researchers, doctoral students, and research institutions with IRB approval seeking to study technology adoption barriers and organizational capabilities.',
-      commitment: 'IRB approval required; research timeline varies by project',
-      benefits: [
-        'Access to unique longitudinal dataset on technology adoption',
-        'Opportunity to publish original research',
-        'Contribute to advancing the field',
-        'Be counted in TABS research impact tracking',
-      ],
-      cta: {
-        text: 'Request Dataset Access',
-        link: 'mailto:clarke@technologyadoptionbarriers.org?subject=TABS%20Dataset%20Access%20Request',
-        color: 'bg-[#2EA3F2] hover:bg-[#2589cc]',
       },
     },
   ]

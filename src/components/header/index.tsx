@@ -41,6 +41,7 @@ const Header: React.FC = () => {
         hasMegaMenu: true,
       },
       { label: 'Media', path: '/media' },
+      { label: 'Get Involved', path: '/get-involved' },
     ],
     []
   )
