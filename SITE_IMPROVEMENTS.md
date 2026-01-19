@@ -37,8 +37,12 @@ This document tracks user-facing improvements and planned enhancements for the T
 
 - **Share page (/share)**: A dedicated page with QR code + share links for live presentations.
 - **Social sharing**: One-click share buttons on Articles and Barriers.
-- **Barrier micro-interactions** (risky): “Do you face this?” interactions that can funnel into the survey; requires careful privacy/UX review.
-- **Persona landing pages** (risky): Targeted pages for CIO/CTO/CEO, practitioners, and change-management audiences (ensure messaging remains evidence-based and avoids hard-coded demographics).
+- **Barrier micro-interactions** (needs careful design): “Do you face this?” prompts on barrier cards to funnel into the survey.
+  - Goal: increase completion by showing immediate relevance.
+  - Considerations: avoid dark-pattern UX; if click events are tracked, ensure cookie-consent gating + clear disclosure; be mindful of priming/response bias if we later correlate clicks to survey outcomes.
+- **Persona landing pages** (needs careful design): Targeted pages for CIO/CTO/CEO, practitioners, and change-management audiences explaining why the survey is valuable for each role.
+  - This aligns with the survey’s first demographics question (Q1_Role), so the role segmentation is explicit and can be analyzed in results.
+  - Considerations: keep claims evidence-based; avoid implying we track role before the survey; keep copy consistent across personas to reduce sampling/selection bias.
 
 ---
 
