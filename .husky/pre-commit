@@ -1,7 +1,14 @@
 #!/bin/sh
-# Run formatting check first
-npm run format:check || {
-  echo "❌ Code formatting issues detected. Please run 'npm run format' to fix."
+# Auto-format code before committing
+echo "🔧 Running prettier to format code..."
+npm run format || {
+  echo "❌ Failed to run prettier. Please check your installation."
+  exit 1
+}
+
+# Stage the formatted files
+git add -u || {
+  echo "❌ Failed to stage formatted files."
   exit 1
 }
 
@@ -11,4 +18,4 @@ npm run lint || {
   exit 1
 }
 
-echo "✅ Pre-commit checks passed!"
+echo "✅ Pre-commit checks passed! Code has been formatted."
