@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { assetPath } from '@/lib/assetPath'
 
 export const metadata: Metadata = {
   title: '404 - Page Not Found | Technology Adoption Barriers (TABS)',
