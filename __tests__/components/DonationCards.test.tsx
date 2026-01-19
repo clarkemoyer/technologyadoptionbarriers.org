@@ -11,31 +11,27 @@ describe('DonationCards component', () => {
   it('should render all four donation cards', () => {
     render(<DonationCards />)
 
-    // Check for all four card titles
-    expect(screen.getByText('Donate to the general fund')).toBeInTheDocument()
-    expect(screen.getByText('Donate as a Sponsor')).toBeInTheDocument()
-    expect(screen.getByText('Become a Supporting Researcher')).toBeInTheDocument()
-    expect(screen.getByText('Support our Research')).toBeInTheDocument()
+    // Check for all four card titles with updated names
+    expect(screen.getByText('Donate to Support TABS')).toBeInTheDocument()
+    expect(screen.getByText('Become a Sponsor')).toBeInTheDocument()
+    expect(screen.getByText('Volunteer Your Skills')).toBeInTheDocument()
+    expect(screen.getByText('Use Our Dataset')).toBeInTheDocument()
   })
 
   it('should display the researcher CTA with correct content', () => {
     render(<DonationCards />)
 
     // Check title
-    expect(screen.getByText('Support our Research')).toBeInTheDocument()
+    expect(screen.getByText('Use Our Dataset')).toBeInTheDocument()
 
     // Check description contains key terms
-    expect(screen.getByText(/TABS dataset/i)).toBeInTheDocument()
-    expect(screen.getByText(/IRB/i)).toBeInTheDocument()
-    expect(screen.getByText(/papers and dissertations/i)).toBeInTheDocument()
+    expect(screen.getByText(/Researchers/i)).toBeInTheDocument()
+    expect(screen.getByText(/IRB-approved dataset access/i)).toBeInTheDocument()
 
     // Check button
-    const datasetButton = screen.getByRole('link', { name: /request dataset access/i })
+    const datasetButton = screen.getByRole('link', { name: /request access/i })
     expect(datasetButton).toBeInTheDocument()
-    expect(datasetButton).toHaveAttribute(
-      'href',
-      'mailto:clarke@technologyadoptionbarriers.org?subject=TABS%20Dataset%20Access%20Request'
-    )
+    expect(datasetButton).toHaveAttribute('href', '/get-involved#use-dataset')
   })
 
   it('should display all CTA buttons with correct links', () => {
@@ -43,15 +39,28 @@ describe('DonationCards component', () => {
 
     const donateButton = screen.getByRole('link', { name: /donate now/i })
     expect(donateButton).toBeInTheDocument()
+    expect(donateButton).toHaveAttribute('href', 'https://github.com/sponsors/clarkemoyer')
 
-    const contactButtons = screen.getAllByRole('link', { name: /contact us/i })
-    expect(contactButtons.length).toBeGreaterThan(0)
+    const learnMoreButton = screen.getByRole('link', { name: /learn more/i })
+    expect(learnMoreButton).toBeInTheDocument()
+    expect(learnMoreButton).toHaveAttribute('href', '/get-involved#sponsor')
 
-    const volunteerButton = screen.getByRole('link', { name: /volunteer today/i })
+    // Use more specific text for the volunteer button to avoid matching "See All Ways to Get Involved"
+    const volunteerButton = screen.getByRole('link', { name: 'Get Involved' })
     expect(volunteerButton).toBeInTheDocument()
+    expect(volunteerButton).toHaveAttribute('href', '/get-involved#volunteer')
 
-    const datasetButton = screen.getByRole('link', { name: /request dataset access/i })
-    expect(datasetButton).toBeInTheDocument()
+    const requestAccessButton = screen.getByRole('link', { name: /request access/i })
+    expect(requestAccessButton).toBeInTheDocument()
+    expect(requestAccessButton).toHaveAttribute('href', '/get-involved#use-dataset')
+  })
+
+  it('should display link to full Get Involved page', () => {
+    render(<DonationCards />)
+
+    const allWaysLink = screen.getByRole('link', { name: /see all ways to get involved/i })
+    expect(allWaysLink).toBeInTheDocument()
+    expect(allWaysLink).toHaveAttribute('href', '/get-involved')
   })
 
   it('should not have accessibility violations', async () => {
