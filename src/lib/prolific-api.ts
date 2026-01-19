@@ -50,6 +50,12 @@ export interface Study {
   created_at?: string
   published_at?: string
   completed_at?: string
+  filters?: Array<{
+    filter_id: string
+    selected_values?: unknown[]
+    selected_range?: { min?: number; max?: number }
+  }>
+  eligibility_requirements?: unknown[]
 }
 
 function normalizeStudy(study: Study & Record<string, unknown>): Study {
@@ -67,6 +73,7 @@ function normalizeStudy(study: Study & Record<string, unknown>): Study {
   return {
     ...study,
     created_at: createdCandidate || study.created_at,
+    filters: study.filters || [],
   }
 }
 
