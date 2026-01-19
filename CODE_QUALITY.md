@@ -121,9 +121,9 @@ npm run format:check
 Prettier is integrated with the pre-commit hook (via Husky):
 
 1. **Pre-commit hook** runs automatically before every commit
-2. Prettier formats all staged files
-3. Formatted files are automatically re-staged
-4. Your commit proceeds with properly formatted code
+2. Prettier runs over the entire repository (e.g., `prettier --write .`), so it may format both staged and unstaged files
+3. Only the files that were originally staged before the hook ran are automatically re-staged after formatting
+4. Your commit proceeds with properly formatted versions of the files you had staged
 
 **No manual intervention required!** Just make your changes and commit—formatting happens automatically.
 

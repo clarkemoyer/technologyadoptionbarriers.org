@@ -645,8 +645,8 @@ git commit -m "feat: implement user authentication
 **How the pre-commit hook works:**
 
 1. When you run `git commit`, the pre-commit hook automatically runs
-2. Prettier formats all changed files according to the project's style rules
-3. Formatted files are automatically staged
+2. Prettier formats the codebase according to the project's style rules (it runs on all files, not just the ones you changed)
+3. Only the files that were originally staged are re-staged after formatting
 4. ESLint checks for code quality issues
 5. If linting passes, your commit proceeds; if it fails, the commit is blocked
 
