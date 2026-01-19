@@ -12,14 +12,18 @@ on:
   pull_request:
     branches: ['main']
 
+  # Run weekly on Monday at 9:00 AM UTC
+  schedule:
+    - cron: '0 9 * * 1'
+
   # Allow manual trigger
   workflow_dispatch:
 
 # Only run if the deployment was successful
 jobs:
   lighthouse:
-    # Only run on successful deployment, PR, or manual trigger
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || github.event_name == 'pull_request' }}
+    # Only run on successful deployment, PR, scheduled run, or manual trigger
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || github.event_name == 'pull_request' || github.event_name == 'schedule' }}
     runs-on: ubuntu-latest
 
     permissions:

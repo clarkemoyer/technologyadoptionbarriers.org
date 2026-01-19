@@ -89,8 +89,11 @@ Lighthouse CI runs automatically:
    - Only runs on the main branch to avoid duplicate runs on PRs
 2. **On pull requests** to the main branch (with results posted as PR comments)
    - Runs once per PR to provide feedback before merging
-3. **On manual trigger** from the Actions tab
-4. **Multiple runs per page** (3 runs) to calculate and report median scores
+3. **Weekly** on Monday at 9:00 AM UTC (via `schedule` trigger)
+   - Monitors site performance over time
+   - Catches any degradation not caused by code changes
+4. **On manual trigger** from the Actions tab
+5. **Multiple runs per page** (3 runs) to calculate and report median scores
 
 > **Note**: The workflow is configured to avoid duplicate runs. PRs trigger only via the `pull_request` event, while main branch deployments trigger only via the `workflow_run` event.
 
@@ -142,9 +145,35 @@ The Lighthouse CI configuration is in `lighthouserc.json`:
       "staticDistDir": "./out",
       "url": [
         "http://localhost/index.html",
+        "http://localhost/barriers.html",
+        "http://localhost/barriers/survey-stats.html",
+        "http://localhost/contribution-policy.html",
         "http://localhost/cookie-policy.html",
+        "http://localhost/get-involved.html",
+        "http://localhost/making-of-tabs.html",
+        "http://localhost/media.html",
         "http://localhost/privacy-policy.html",
-        "http://localhost/terms-of-service.html"
+        "http://localhost/security-acknowledgements.html",
+        "http://localhost/technology-adoption-models.html",
+        "http://localhost/terms-of-service.html",
+        "http://localhost/vulnerability-disclosure-policy.html",
+        "http://localhost/article-1-branch-introduction-the-users-journey.html",
+        "http://localhost/article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance.html",
+        "http://localhost/article-1-2-the-game-changer-a-deep-dive-into-the-technology-acceptance-model-tam.html",
+        "http://localhost/article-1-3-expanding-the-classic-the-evolution-to-tam-2-tam-3-and-c-tam-tpb.html",
+        "http://localhost/article-1-4-the-grand-unification-the-unified-theory-of-acceptance-and-use-of-technology-utaut.html",
+        "http://localhost/article-1-5-beyond-the-office-utaut2-consumer-context-and-modern-syntheses.html",
+        "http://localhost/article-1-6-context-is-king-specialized-individual-adoption-models.html",
+        "http://localhost/article-1-7-are-you-ready-the-role-of-technology-readiness-tri-and-tram.html",
+        "http://localhost/article-2-branch-introduction-the-organizations-playbook.html",
+        "http://localhost/article-2-1-the-strategic-lens-foundational-theories-for-organizational-adoption.html",
+        "http://localhost/article-2-2-from-chaos-to-control-a-guide-to-maturity-models.html",
+        "http://localhost/article-2-3-managing-the-lifecycle-the-gartner-hype-cycle.html",
+        "http://localhost/article-2-4-the-blueprint-for-enterprise-a-survey-of-architecture-frameworks.html",
+        "http://localhost/article-2-5-the-modern-mandate-frameworks-for-cybersecurity-and-risk.html",
+        "http://localhost/article-2-6-the-cloud-revolution-prescriptive-adoption-frameworks.html",
+        "http://localhost/article-2-7-the-ai-frontier-frameworks-for-adopting-ai-ml-and-genai.html",
+        "http://localhost/article-bibliography-comprehensive-series-bibliography.html"
       ],
       "numberOfRuns": 3
     }
@@ -152,7 +181,7 @@ The Lighthouse CI configuration is in `lighthouserc.json`:
 }
 ```
 
-**Important**: URLs should point to the actual `.html` files in the `out` directory. Next.js static export generates flat HTML files at the root level. This site has a single homepage with sections (About Us, Donate, Volunteer) rather than separate pages for those features. However, the policy pages are separate routes that generate individual HTML files.
+**Important**: URLs should point to the actual `.html` files in the `out` directory. Next.js static export generates flat HTML files at the root level. All 30 pages of the site are now monitored by Lighthouse CI.
 
 You can add more pages to audit by adding URLs to the `url` array. To see which pages are generated, check the `out/` directory after running `npm run build`.
 
@@ -542,9 +571,9 @@ This prevents unnecessary runs and saves CI/CD resources.
 
 ## Current Status
 
-**Last Updated**: 2025-12-06
+**Last Updated**: 2026-01-19
 
-**Pages Monitored**: 4 key pages (Homepage, Cookie Policy, Privacy Policy, Terms of Service)
+**Pages Monitored**: 30 pages covering all site content (homepage, articles, policy pages, and other pages)
 
 **Current Performance Scores**:
 
@@ -554,6 +583,8 @@ This prevents unnecessary runs and saves CI/CD resources.
 | Cookie Policy    | 84-86% 🟢   | 95% 🟢        | 71% 🟡         | 100% 🟢 |
 | Privacy Policy   | 85-86% 🟢   | 96% 🟢        | 71% 🟡         | 100% 🟢 |
 | Terms of Service | 84-86% 🟢   | 94% 🟢        | 71% 🟡         | 100% 🟢 |
+
+_Note: Scores for all 30 pages will be available after the next Lighthouse CI run._
 
 **Recent Performance Improvements** (December 2025):
 
@@ -566,6 +597,7 @@ This prevents unnecessary runs and saves CI/CD resources.
 
 - After each deployment to main branch
 - On every pull request to main branch
+- Weekly on Monday at 9:00 AM UTC
 
 **Report Retention**: 30 days in GitHub Actions artifacts
 
