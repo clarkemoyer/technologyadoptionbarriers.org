@@ -51,6 +51,13 @@ next-env.d.ts
 # Sensitive local keys
 ga-key.json
 
+# Generated local artifacts (do not commit)
+ga-report-*.json
+lint_output.txt
+test_output*.txt
+survey.json
+surveys.json
+
 # MCP config (local machine / tokens)
 mcp.json
 .vscode/mcp.json

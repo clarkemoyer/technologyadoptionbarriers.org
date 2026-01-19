@@ -33,7 +33,14 @@ This document tracks user-facing improvements and planned enhancements for the T
 - **Models pages**: Add a “reading progress” / table-of-contents sidebar for long articles
 - **Qualtrics MCP reliability**: Improve end-to-end MCP usability (OAuth/transport quirks currently prevent stable use of survey tools in VS Code; consider documenting a known-good flow or adding a local proxy/adapter)
 
+## Survey Growth & Engagement (Ideas)
+
+- **Share page (/share)**: A dedicated page with QR code + share links for live presentations.
+- **Social sharing**: One-click share buttons on Articles and Barriers.
+- **Barrier micro-interactions** (risky): “Do you face this?” interactions that can funnel into the survey; requires careful privacy/UX review.
+- **Persona landing pages** (risky): Targeted pages for CIO/CTO/CEO, practitioners, and change-management audiences (ensure messaging remains evidence-based and avoids hard-coded demographics).
+
 ---
 
-**Last Updated**: 2026-01-16  
+**Last Updated**: 2026-01-19  
 **Repository**: technologyadoptionbarriers.org
