@@ -39,8 +39,8 @@ describe('Footer component', () => {
     )
     expect(validLink).toBeDefined()
 
-    const donateLink = screen.getByRole('link', { name: /make a donation/i })
-    expect(donateLink).toBeInTheDocument()
+    const supportLink = screen.getByRole('link', { name: /support tabs/i })
+    expect(supportLink).toBeInTheDocument()
   })
 
   it('should display the current year in copyright', () => {

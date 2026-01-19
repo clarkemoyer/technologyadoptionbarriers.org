@@ -78,7 +78,7 @@ const Footer: React.FC = () => {
               rel="noopener noreferrer"
               className="px-[40px] py-[18px] bg-[#2EA3F2] text-white text-[18px] font-bold rounded-[4px] hover:bg-[#2589cc] transition-all duration-300 uppercase tracking-widest"
             >
-              MAKE A DONATION
+              SUPPORT TABS
             </a>
           </div>
         </div>
