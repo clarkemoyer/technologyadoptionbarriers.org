@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-01-19
+
 ### Added
 
 - Community health files for better GitHub integration
@@ -21,6 +23,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - CITATION.cff for academic citation
   - CHANGELOG.md for release tracking
   - COMMUNITY_HEALTH_FILES.md for community health documentation
+
+### Changed
+
+- Automation and integrations: added and hardened Qualtrics/Prolific automation workflows and supporting scripts
+- Site UX: refined header CTAs and introduced Google site search
+- Testing: expanded unit + E2E coverage and improved stability
 
 ## [0.1.0] - 2025-12-11
 
