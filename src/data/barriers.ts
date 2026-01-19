@@ -11,7 +11,8 @@ export type Barrier = {
 }
 
 // Technology Adoption Barriers - Official TABS Survey Questions
-// Source: TABS Survey Question on Technology Adoption Barriers
+// Source: TABS Survey (https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO)
+// Question: "Which of the following barriers to technology adoption does your organization face?"
 export const barriers: Barrier[] = [
   // Organizational & Cultural Resistance
   {
