@@ -104,9 +104,9 @@ export default function CookiePolicy() {
             <strong>3.2 Functional Cookies (Always Active)</strong>
           </p>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            These cookies enable essential functionality such as contribution processing and application
-            forms. They are necessary for these services to work and cannot be disabled if you wish
-            to use these features.
+            These cookies enable essential functionality such as contribution processing and
+            application forms. They are necessary for these services to work and cannot be disabled
+            if you wish to use these features.
           </p>
 
           {/* Microsoft Forms */}
@@ -170,9 +170,9 @@ export default function CookiePolicy() {
           <div className="bg-gray-50 p-4 rounded-lg mb-4">
             <h4 className="font-semibold mb-2 text-[#333]">Stripe Payment Processing</h4>
             <p className="text-sm mb-2 text-[#666]">
-              PCI-compliant payment processing platform for secure contribution processing. All payment
-              data is processed on Stripe&apos;s servers - no credit card information is stored on
-              our systems.
+              PCI-compliant payment processing platform for secure contribution processing. All
+              payment data is processed on Stripe&apos;s servers - no credit card information is
+              stored on our systems.
             </p>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -215,8 +215,8 @@ export default function CookiePolicy() {
           <div className="bg-gray-50 p-4 rounded-lg mb-4">
             <h4 className="font-semibold mb-2 text-[#333]">Zeffy Contribution Platform (Legacy)</h4>
             <p className="text-sm mb-2 text-[#666]">
-              Zero-fee contribution processing platform. Maintained for backwards compatibility; Stripe
-              is now our primary contribution platform.
+              Zero-fee contribution processing platform. Maintained for backwards compatibility;
+              Stripe is now our primary contribution platform.
             </p>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -230,7 +230,9 @@ export default function CookiePolicy() {
                 <tbody>
                   <tr>
                     <td className="py-2 pr-4 font-mono text-[#666]">Zeffy</td>
-                    <td className="py-2 pr-4 text-[#666]">Contribution form and payment processing</td>
+                    <td className="py-2 pr-4 text-[#666]">
+                      Contribution form and payment processing
+                    </td>
                     <td className="py-2 text-[#666]">Embedded on contribution section</td>
                   </tr>
                 </tbody>
