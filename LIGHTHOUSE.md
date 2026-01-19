@@ -560,7 +560,7 @@ This prevents unnecessary runs and saves CI/CD resources.
 
 **Pages Monitored**: ~31 pages (automatically discovered from build output)
 
-- Includes homepage, 18 articles, 5 policy pages, and other content pages
+- Includes homepage, 17 articles, 6 policy pages, and other content pages
 - Pages are discovered automatically during each CI run
 - New pages are automatically included without manual configuration
 
