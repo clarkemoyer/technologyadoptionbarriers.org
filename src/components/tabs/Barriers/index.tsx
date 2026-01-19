@@ -89,6 +89,7 @@ const Barriers = () => {
                     : 'bg-white border-[#2E6F8E] text-[#2E6F8E] hover:bg-blue-50'
                 }`}
                 title={category.description}
+                aria-label={`Filter by ${category.name}${activeCategory === category.id ? ', currently selected' : ''}`}
               >
                 {category.name}
               </button>
@@ -101,6 +102,7 @@ const Barriers = () => {
               <button
                 onClick={clearFilters}
                 className="text-sm text-gray-500 hover:text-red-500 underline transition-colors"
+                aria-label="Clear all search and category filters"
               >
                 Clear all filters
               </button>
@@ -170,6 +172,7 @@ const Barriers = () => {
             <button
               onClick={clearFilters}
               className="mt-6 px-6 py-2 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-colors"
+              aria-label="Clear all search and category filters"
             >
               Clear filters
             </button>
