@@ -30,43 +30,17 @@ jobs:
           GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
           GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
 
+      - name: Send Email Report
+        if: success()
+        run: npx tsx scripts/send-report-email.ts
+        env:
+          GOOGLE_PROJECT_OWNER_EMAIL: ${{ secrets.GOOGLE_PROJECT_OWNER_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          REPORT_RECIPIENT_EMAIL: ${{ secrets.REPORT_RECIPIENT_EMAIL }}
+
       - name: Upload Report Artifact
         uses: actions/upload-artifact@v6
         with:
           name: google-analytics-report
           path: reports/*.json
-          retention-days: 1
-
-  send-email:
-    needs: generate-report
-    runs-on: ubuntu-latest
-    environment: microsoft-prod
-    if: success()
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Download Report Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: google-analytics-report
-          path: reports
-
-      - name: Send Email Report
-        run: npx tsx scripts/send-report-email.ts
-        env:
-          SMTP_HOST: 'smtp.office365.com'
-          SMTP_PORT: '587'
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}
-          SMTP_FROM: 'technologyadoptionbarriers@outlook.com'
-          REPORT_RECIPIENT_EMAIL: ${{ secrets.REPORT_RECIPIENT_EMAIL }}
+          retention-days: 30

@@ -27,17 +27,15 @@ async function sendEmail() {
     const views = totals[4]?.value || '0'
 
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.office365.com',
-      port: parseInt(process.env.SMTP_PORT || '587'),
-      secure: false, // true for 465, false for other ports
+      service: 'gmail',
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        user: process.env.GOOGLE_PROJECT_OWNER_EMAIL,
+        pass: process.env.GMAIL_APP_PASSWORD,
       },
     })
 
     const mailOptions = {
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
+      from: process.env.GOOGLE_PROJECT_OWNER_EMAIL,
       to: process.env.REPORT_RECIPIENT_EMAIL || 'clarke@technologyadoptionbarriers.org',
       subject: `📊 TABS Weekly Analytics Report - ${new Date().toISOString().split('T')[0]}`,
       html: `
@@ -72,8 +70,8 @@ async function sendEmail() {
       `,
     }
 
-    if (!process.env.SMTP_PASS) {
-      console.warn('SMTP_PASS not set. Skipping email send (dry run).')
+    if (!process.env.GMAIL_APP_PASSWORD) {
+      console.warn('GMAIL_APP_PASSWORD not set. Skipping email send (dry run).')
       console.log('Would have sent email to:', mailOptions.to)
       return
     }
