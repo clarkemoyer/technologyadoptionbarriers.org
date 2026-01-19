@@ -58,6 +58,22 @@ async function generateReport() {
     console.log(`Report generated successfully: ${filepath}`)
     console.log(`Rows fetched: ${response.rowCount || 0}`)
 
+    // --- Generate Public Impact Stats ---
+    const publicStatsPath = path.join(process.cwd(), 'src', 'data', 'impact.json')
+    const t = response.totals?.[0]
+    const publicStats = {
+      updatedAt: new Date().toISOString(),
+      activeUsers: t?.metricValues?.[0]?.value || '0',
+      pageViews: t?.metricValues?.[4]?.value || '0',
+    }
+    // Ensure directory exists
+    const dataDir = path.join(process.cwd(), 'src', 'data')
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true })
+    }
+    fs.writeFileSync(publicStatsPath, JSON.stringify(publicStats, null, 2))
+    console.log(`Public impact stats saved to: ${publicStatsPath}`)
+
     // --- Generate GitHub Step Summary ---
     if (process.env.GITHUB_STEP_SUMMARY) {
       console.log('Generating GitHub Step Summary...')
@@ -92,13 +108,13 @@ async function generateReport() {
 | Page | Views | Users | Sessions |
 | :--- | :--- | :--- | :--- |
 ${rows
-  .map((row: ReportRow) => {
-    if (!row.metricValues || !row.dimensionValues) return ''
-    const [activeUsers, , sessions, views] = row.metricValues
-    const path = row.dimensionValues[0]?.value || '/'
-    return `| \`${path}\` | ${views?.value || 0} | ${activeUsers?.value || 0} | ${sessions?.value || 0} |`
-  })
-  .join('\n')}
+            .map((row: any) => {
+              if (!row.metricValues || !row.dimensionValues) return ''
+              const [activeUsers, , sessions, views] = row.metricValues
+              const path = row.dimensionValues[0]?.value || '/'
+              return `| \`${path}\` | ${views?.value || 0} | ${activeUsers?.value || 0} | ${sessions?.value || 0} |`
+            })
+            .join('\n')}
 
 > *Full granular data available in the [exported JSON artifact](#).*
       `
