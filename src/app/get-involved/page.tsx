@@ -95,7 +95,7 @@ const GetInvolvedPage = () => {
       title: 'Use TABS Data in Your Research',
       icon: '📊',
       description:
-        'We encourage researchers to use the TABS dataset to conduct original research, proving effects beyond basic descriptive statistics. Request secure access to the dataset once approved by your IRB to contribute to papers and dissertations.',
+        'We encourage researchers to use the TABS dataset to conduct original research, testing hypotheses beyond basic descriptive statistics. Request secure access to the dataset once approved by your IRB to contribute to papers and dissertations.',
       whoShouldParticipate:
         'Academic researchers, doctoral students, and research institutions with IRB approval seeking to study technology adoption barriers and organizational capabilities.',
       commitment: 'IRB approval required; research timeline varies by project',
@@ -147,6 +147,7 @@ const GetInvolvedPage = () => {
             {opportunities.map((opportunity, index) => (
               <div
                 key={opportunity.id}
+                id={opportunity.id}
                 className={`bg-gray-50 rounded-[12px] p-[40px] shadow-md hover:shadow-lg transition-shadow ${
                   index % 2 === 1 ? 'bg-blue-50' : ''
                 }`}
@@ -154,7 +155,11 @@ const GetInvolvedPage = () => {
                 <div className="flex flex-col md:flex-row gap-[30px]">
                   {/* Icon and Title */}
                   <div className="md:w-1/3">
-                    <div className="text-[64px] mb-[10px]">{opportunity.icon}</div>
+                    <div className="text-[64px] mb-[10px]">
+                      <span role="img" aria-label={`${opportunity.title} icon`}>
+                        {opportunity.icon}
+                      </span>
+                    </div>
                     <h3 className="text-[28px] font-bold text-gray-900 mb-[15px]">
                       {opportunity.title}
                     </h3>

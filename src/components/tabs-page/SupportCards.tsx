@@ -75,7 +75,13 @@ const SupportCards = () => {
             className="inline-flex items-center gap-[10px] text-[18px] font-semibold text-[#1a2b4b] hover:text-[#2EA3F2] transition-colors"
           >
             See All Ways to Get Involved
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

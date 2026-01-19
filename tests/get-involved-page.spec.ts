@@ -106,7 +106,6 @@ test.describe('Get Involved Page', () => {
 
     // Scroll to footer
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
-    await page.waitForTimeout(500)
 
     // Click Get Involved link in footer (the 4th link in the navigation list)
     const footerLinks = page.locator('footer ul li').filter({ hasText: 'Get Involved' })
