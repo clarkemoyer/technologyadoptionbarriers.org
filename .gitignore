@@ -65,3 +65,9 @@ surveys.json
 # MCP config (local machine / tokens)
 mcp.json
 .vscode/mcp.json
+
+# Local transcription intermediates
+.tmp/
+
+# Local Python environment
+.venv/

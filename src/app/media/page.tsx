@@ -130,18 +130,18 @@ const MediaPage = () => {
             <div className="mt-6 bg-white rounded-2xl border border-gray-200 p-6">
               <h2 className="text-xl font-bold">Transcript & Captions</h2>
               <p className="mt-2 text-gray-700">
-                Captions are enabled in the player. A full, verified transcript is in progress. You
-                can download the current transcript draft below, or email{' '}
+                Captions are enabled in the player. You can download the transcript below (it is
+                auto-generated and may contain errors), or email{' '}
                 <a
                   className="text-blue-700 underline"
                   href="mailto:contact@technologyadoptionbarriers.org"
                 >
                   contact@technologyadoptionbarriers.org
-                </a>
-                .
+                </a>{' '}
+                with corrections.
               </p>
               <p className="mt-3 text-sm text-gray-600">
-                Transcript draft:{' '}
+                Transcript:{' '}
                 <a
                   className="text-blue-700 underline"
                   href={assetPath('/press-kit/The_TABS_Project.transcript.txt')}
@@ -332,7 +332,7 @@ const MediaPage = () => {
                         </a>
                       </li>
                       <li>
-                        Transcript (draft):{' '}
+                        Transcript (auto-generated):{' '}
                         <a
                           className="text-blue-700 underline"
                           href={assetPath('/press-kit/The_TABS_Project.transcript.txt')}
