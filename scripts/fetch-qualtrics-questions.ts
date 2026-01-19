@@ -1,4 +1,5 @@
 import { getSurveyQuestions } from '../src/lib/qualtrics-api'
+import { stripHtml } from '../src/lib/stripHtml'
 import { appendFileSync } from 'node:fs'
 
 const API_TOKEN = process.env.QUALTRICS_API_TOKEN
@@ -12,19 +13,17 @@ if (!API_TOKEN || !BASE_URL || !SURVEY_ID) {
   process.exit(1)
 }
 
+/**
+ * Append Markdown content to the GitHub Actions Step Summary.
+ *
+ * No-op when `GITHUB_STEP_SUMMARY` is not set (e.g., local runs).
+ */
 function appendGithubStepSummary(markdown: string) {
   const summaryPath = process.env.GITHUB_STEP_SUMMARY
   if (!summaryPath) {
     return
   }
   appendFileSync(summaryPath, markdown)
-}
-
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
 }
 
 async function main() {

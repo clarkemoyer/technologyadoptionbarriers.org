@@ -58,4 +58,32 @@ describe('Qualtrics API Client', () => {
       /missing the expected "result" property/i
     )
   })
+
+  it('throws with helpful context when a successful response has an empty body', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      text: async () => '',
+    })
+
+    try {
+      await getSurveyQuestions(mockSurveyId, mockApiToken, mockBaseUrl)
+      throw new Error('Expected getSurveyQuestions to throw')
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error)
+      expect((error as Error).message).toMatch(/empty response body/i)
+      expect((error as Error).message).toMatch(/Endpoint:/i)
+      expect((error as Error).message).toMatch(/URL:/i)
+    }
+  })
+
+  it('throws with a useful error when a successful response returns invalid JSON', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      text: async () => 'not-json',
+    })
+
+    await expect(getSurveyQuestions(mockSurveyId, mockApiToken, mockBaseUrl)).rejects.toThrow(
+      /Failed to parse successful API response as JSON/i
+    )
+  })
 })

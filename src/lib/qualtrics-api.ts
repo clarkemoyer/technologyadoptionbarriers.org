@@ -76,7 +76,9 @@ async function makeApiRequest<T>(
 
     if (!responseText) {
       // Successful response with no body is unexpected when a result is required
-      throw new Error('Qualtrics API returned an empty response body for a successful request')
+      throw new Error(
+        `Qualtrics API returned an empty response body for a successful request. Endpoint: ${endpoint}, URL: ${url}`
+      )
     }
 
     let data: unknown

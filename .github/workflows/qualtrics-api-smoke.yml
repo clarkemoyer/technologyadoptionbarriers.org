@@ -19,7 +19,7 @@ jobs:
   qualtrics-smoke:
     name: Qualtrics API smoke
     runs-on: ubuntu-latest
-    environment: QUALTRICS-prod
+    environment: qualtrics-prod
     env:
       QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
       QUALTRICS_USERID: ${{ secrets.QUALTRICS_USERID }}
@@ -35,7 +35,7 @@ jobs:
           set -euo pipefail
 
           if [[ -z "${QUALTRICS_API_TOKEN:-}" ]]; then
-            echo "Missing secret QUALTRICS_API_TOKEN in environment QUALTRICS-prod"
+            echo "Missing secret QUALTRICS_API_TOKEN in environment qualtrics-prod"
             exit 1
           fi
 
@@ -43,7 +43,7 @@ jobs:
           SURVEY_ID="${INPUT_SURVEY_ID:-${QUALTRICS_SURVEY_ID:-}}"
 
           if [[ -z "${BASE_URL}" ]]; then
-            echo "Missing Qualtrics base URL. Set env var QUALTRICS_BASE_URL in GitHub Environment QUALTRICS-prod (Variables), or pass workflow input base_url."
+            echo "Missing Qualtrics base URL. Set env var QUALTRICS_BASE_URL in GitHub Environment qualtrics-prod (Variables), or pass workflow input base_url."
             exit 1
           fi
 
