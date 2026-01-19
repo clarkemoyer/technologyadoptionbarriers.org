@@ -63,11 +63,13 @@ const Barriers = () => {
               placeholder="Search barriers..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              aria-label="Search barriers by name or description"
               className="block w-full pl-12 pr-4 py-4 bg-white border border-gray-200 rounded-[30px] shadow-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
+                aria-label="Clear search query"
                 className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600"
               >
                 <RxCross2 className="h-5 w-5" />
