@@ -99,7 +99,7 @@ jobs:
         run: npm ci
 
       - name: Download built site
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v7
         with:
           name: built-site-out
           path: out/
