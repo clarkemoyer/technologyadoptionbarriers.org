@@ -1,7 +1,23 @@
 {
-  "mcpServers": {
+  "servers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
     "qualtrics-surveys": {
-      "url": "https://by-brand.iad1.qualtrics.com/API/mcp/survey-crud"
+      "type": "http",
+      "url": "https://<your-qualtrics-host>/API/mcp/survey-crud",
+      "headers": {
+        "Authorization": "Bearer ${input:qualtrics_oauth_token}"
+      }
     }
-  }
+  },
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "qualtrics_oauth_token",
+      "description": "Qualtrics OAuth access token (Bearer)",
+      "password": true
+    }
+  ]
 }
