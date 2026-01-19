@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { outfit, plusJakartaSans, firaCode } from '@/lib/fonts'
-import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'TABS Presentation',
@@ -15,12 +14,7 @@ export default function PresentationLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        />
-      </head>
+      <head />
       <body
         className={[outfit.variable, plusJakartaSans.variable, firaCode.variable].join(' ')}
         style={{

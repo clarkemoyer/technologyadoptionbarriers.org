@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react'
-import type { Metadata } from 'next'
+import { FaBug, FaCodeBranch, FaEnvelope, FaPhone, FaScroll, FaFolderOpen } from 'react-icons/fa'
+import { FaFileInvoiceDollar } from 'react-icons/fa6'
 import './presentation.css'
 
 const TABSPresentationPage = () => {
@@ -53,11 +54,11 @@ const TABSPresentationPage = () => {
             </p>
             <div>
               <a href="mailto:cbm6118@psu.edu" className="contact-link">
-                <i className="fa-solid fa-envelope"></i> cbm6118@psu.edu
+                <FaEnvelope /> cbm6118@psu.edu
               </a>
               <span className="separator">|</span>
               <a href="tel:5202228104" className="contact-link">
-                <i className="fa-solid fa-phone"></i> 520-222-8104
+                <FaPhone /> 520-222-8104
               </a>
             </div>
           </div>
@@ -74,7 +75,7 @@ const TABSPresentationPage = () => {
           <div className="two-column tiled">
             <div>
               <h3>
-                <i className="fa-solid fa-bug bug-icon"></i> The Bug (Challenge)
+                <FaBug className="bug-icon" /> The Bug (Challenge)
               </h3>
               <p>
                 <strong>Error:</strong> Organizations fail to adopt essential technologies despite
@@ -87,7 +88,7 @@ const TABSPresentationPage = () => {
             </div>
             <div>
               <h3>
-                <i className="fa-solid fa-code-branch branch-icon"></i> The Patch (Solution)
+                <FaCodeBranch className="branch-icon" /> The Patch (Solution)
               </h3>
               <p>
                 <strong>TABS v1.0:</strong> A longitudinal, open-access intelligence tool to
@@ -150,21 +151,21 @@ const TABSPresentationPage = () => {
           <div className="tiled-content">
             <div className="tile">
               <div className="icon">
-                <i className="fa-solid fa-scroll"></i>
+                <FaScroll />
               </div>
               <h3>Theory</h3>
               <p>Academic models (TAM, TOE) exist but are abstract.</p>
             </div>
             <div className="tile paywall-tile">
               <div className="icon">
-                <i className="fa-solid fa-file-invoice-dollar paywall-icon"></i>
+                <FaFileInvoiceDollar className="paywall-icon" />
               </div>
               <h3>Paywalls</h3>
               <p>Industry benchmarks locked behind consultancy fees.</p>
             </div>
             <div className="tile open-source-tile">
               <div className="icon">
-                <i className="fa-solid fa-folder-open open-source-icon"></i>
+                <FaFolderOpen className="open-source-icon" />
               </div>
               <h3>Open Source</h3>
               <p>Our mission: Democratize adoption data for all.</p>

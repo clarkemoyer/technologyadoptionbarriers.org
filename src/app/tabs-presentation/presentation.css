@@ -1,3 +1,9 @@
+/* HIDE SITE HEADER AND FOOTER FOR PRESENTATION */
+#header,
+footer {
+  display: none !important;
+}
+
 /* PRESENTATION WRAPPER */
 .presentation-wrapper {
   background-color: #0f172a;
@@ -10,6 +16,12 @@
   align-items: center;
   overflow: hidden;
   padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
 }
 
 /* SLIDE CONTAINER STYLES */
