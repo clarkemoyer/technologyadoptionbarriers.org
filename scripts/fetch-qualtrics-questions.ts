@@ -26,6 +26,14 @@ function appendGithubStepSummary(markdown: string) {
   appendFileSync(summaryPath, markdown)
 }
 
+function mdEscape(text: string): string {
+  return text.replace(/[\\|\n\r]/g, (match) => {
+    if (match === '\\') return '\\\\'
+    if (match === '|') return '\\|'
+    return ' '
+  })
+}
+
 async function main() {
   try {
     console.log(`🔍 Connecting to Qualtrics API (${BASE_URL})...`)
@@ -48,13 +56,13 @@ async function main() {
         const choices = Object.values(q.Choices).map((c) => `    - ${stripHtml(c.Display)}`)
         choices.forEach((c) => console.log(c))
         choicesText = Object.values(q.Choices)
-          .map((c) => `<li>${stripHtml(c.Display)}</li>`)
+          .map((c) => `<li>${mdEscape(stripHtml(c.Display))}</li>`)
           .join('')
       }
       console.log('')
 
       summaryRows.push(
-        `| **${q.QuestionID}** | ${cleanText} | <ul>${choicesText || '(Open Ended)'}</ul> |`
+        `| **${mdEscape(q.QuestionID)}** | ${mdEscape(cleanText)} | <ul>${choicesText || '(Open Ended)'}</ul> |`
       )
     }
 
@@ -62,7 +70,7 @@ async function main() {
       [
         '## Qualtrics Survey Questions',
         '',
-        `**Survey ID:** ${SURVEY_ID}`,
+        `**Survey ID:** ${mdEscape(SURVEY_ID)}`,
         `**Total Questions:** ${questions.length}`,
         '',
         '| ID | Question | Choices |',

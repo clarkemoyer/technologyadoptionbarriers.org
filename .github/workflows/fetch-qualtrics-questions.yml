@@ -24,6 +24,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      - name: Verify Qualtrics configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${QUALTRICS_API_TOKEN:-}" ]]; then
+            echo "ERROR: QUALTRICS_API_TOKEN is not set. Configure this secret in the 'qualtrics-prod' environment." >&2
+            exit 1
+          fi
+
+          if [[ -z "${QUALTRICS_BASE_URL:-}" ]]; then
+            echo "ERROR: QUALTRICS_BASE_URL is not set. Configure this variable in the 'qualtrics-prod' environment." >&2
+            exit 1
+          fi
+
+          if [[ -z "${QUALTRICS_SURVEY_ID:-}" ]]; then
+            echo "ERROR: QUALTRICS_SURVEY_ID is not set. Configure this variable in the 'qualtrics-prod' environment or pass workflow input survey_id." >&2
+            exit 1
+          fi
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -35,3 +55,15 @@ jobs:
 
       - name: Fetch Questions
         run: npx --no-install tsx scripts/fetch-qualtrics-questions.ts
+
+      - name: Add failure summary
+        if: failure()
+        shell: bash
+        run: |
+          {
+            echo "## Fetch Qualtrics Questions workflow failed"
+            echo
+            echo "- Ensure the \\\`QUALTRICS_API_TOKEN\\\` secret is configured for the 'qualtrics-prod' environment."
+            echo "- Ensure \\\`QUALTRICS_BASE_URL\\\` and \\\`QUALTRICS_SURVEY_ID\\\` are set as environment variables (or pass workflow input \\\`survey_id\\\`)."
+            echo "- Review the logs for details (Fetch Questions step)."
+          } >> "$GITHUB_STEP_SUMMARY"
