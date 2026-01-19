@@ -4,6 +4,7 @@
       "type": "http",
       "url": "https://<your-qualtrics-host>/API/mcp/survey-crud",
       "headers": {
+        "Accept": "application/json, text/event-stream",
         "Authorization": "Bearer ${input:qualtrics_oauth_token}"
       }
     }

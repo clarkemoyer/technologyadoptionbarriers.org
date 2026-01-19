@@ -229,6 +229,53 @@ jobs:
             attempted+=("${url} | HTTP ${http_code} | curl ${curl_exit}${meta_status:+ | ${meta_status}}${meta_message:+ | ${meta_message}}")
           }
 
+          # 0) Official copy mechanism: POST /surveys with X-Copy-Source header
+          # Docs: Copy Survey is performed by POSTing /surveys with X-Copy-Source: <surveyId>
+          # and (optionally) a JSON body containing a new name.
+          url0="${BASE_URL}/API/v3/surveys"
+          set +e
+          http_code=$(curl -sS -o "$COPY_JSON" -w "%{http_code}" \
+            -X POST \
+            -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+            -H "Accept: application/json" \
+            -H "Content-Type: application/json" \
+            -H "X-Copy-Source: ${SOURCE_SURVEY_ID}" \
+            -d "{\"projectName\":\"${new_name}\"}" \
+            "$url0" 2>"$CURL_ERR")
+          LAST_CURL_EXIT=$?
+          set -e
+
+          if ! [[ "$http_code" =~ ^[0-9]{3}$ ]]; then
+            http_code="000"
+          fi
+
+          record_attempt "$url0 (X-Copy-Source)" "$http_code" "$LAST_CURL_EXIT"
+          if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
+            new_survey_id=$(jq -r '.result.id // .result.surveyId // .result.surveyID // empty' "$COPY_JSON")
+          fi
+
+          # Retry copy with no body (some tenants reject JSON bodies for copy operations).
+          if [[ -z "$new_survey_id" ]]; then
+            set +e
+            http_code=$(curl -sS -o "$COPY_JSON" -w "%{http_code}" \
+              -X POST \
+              -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+              -H "Accept: application/json" \
+              -H "X-Copy-Source: ${SOURCE_SURVEY_ID}" \
+              "$url0" 2>"$CURL_ERR")
+            LAST_CURL_EXIT=$?
+            set -e
+
+            if ! [[ "$http_code" =~ ^[0-9]{3}$ ]]; then
+              http_code="000"
+            fi
+
+            record_attempt "$url0 (X-Copy-Source, no body)" "$http_code" "$LAST_CURL_EXIT"
+            if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
+              new_survey_id=$(jq -r '.result.id // .result.surveyId // .result.surveyID // empty' "$COPY_JSON")
+            fi
+          fi
+
           # 1) POST /surveys/{id}/copy with JSON body
           url1="${BASE_URL}/API/v3/surveys/${SOURCE_SURVEY_ID}/copy"
           http_code=$(try_copy "$url1" "{\"name\":\"${new_name}\"}" "application/json")
