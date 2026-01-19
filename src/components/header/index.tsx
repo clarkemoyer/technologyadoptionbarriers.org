@@ -27,6 +27,7 @@ const Header: React.FC = () => {
   const [isMobileBranch1Open, setIsMobileBranch1Open] = useState(false)
   const [isMobileBranch2Open, setIsMobileBranch2Open] = useState(false)
   const [activeSection, setActiveSection] = useState<string>('')
+  const [searchQuery, setSearchQuery] = useState('')
   const megaMenuRef = useRef<HTMLDivElement>(null)
   const megaMenuButtonRef = useRef<HTMLLIElement>(null)
 
@@ -117,6 +118,16 @@ const Header: React.FC = () => {
   }, [isMegaMenuOpen])
 
   const handleSearchToggle = () => setIsSearchOpen(!isSearchOpen)
+
+  const handleSearch = () => {
+    if (!searchQuery.trim()) return
+    const hostname = window.location.hostname || 'technologyadoptionbarriers.org'
+    const query = encodeURIComponent(`site:${hostname} ${searchQuery}`)
+    window.open(`https://www.google.com/search?q=${query}`, '_blank')
+    setIsSearchOpen(false)
+    setSearchQuery('')
+  }
+
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false)
     setIsMegaMenuOpen(false)
@@ -263,11 +274,21 @@ const Header: React.FC = () => {
                     placeholder="Search..."
                     className="w-full px-4 py-2 focus:outline-none"
                     autoFocus
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                     aria-label="Search input"
                   />
                   <button
+                    onClick={handleSearch}
+                    className="ml-2 p-2 text-gray-600 hover:text-blue-600 transition-colors"
+                    aria-label="Submit search"
+                  >
+                    <LiaSearchSolid className="cursor-pointer h-5 w-5" />
+                  </button>
+                  <button
                     onClick={handleSearchToggle}
-                    className="ml-2 p-2 text-gray-600"
+                    className="ml-2 p-2 text-gray-600 hover:text-blue-600 transition-colors"
                     aria-label="Close search"
                   >
                     <RxCross2 className="cursor-pointer h-5 w-5" />
