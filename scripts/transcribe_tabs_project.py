@@ -22,7 +22,7 @@ def format_vtt_timestamp(seconds: float) -> str:
     hours = int(seconds // 3600)
     minutes = int((seconds % 3600) // 60)
     secs = seconds % 60
-    return f"{hours:02d}:{minutes:02d}:{secs:06.3f}".replace(".", ".")
+    return f"{hours:02d}:{minutes:02d}:{secs:06.3f}"
 
 
 def run_ffmpeg_extract_audio(*, ffmpeg_exe: Path, input_video: Path, output_wav: Path) -> None:
@@ -43,14 +43,12 @@ def run_ffmpeg_extract_audio(*, ffmpeg_exe: Path, input_video: Path, output_wav:
         str(output_wav),
     ]
 
-    completed = subprocess.run(cmd, capture_output=True, text=True)
-    if completed.returncode != 0:
+    try:
+        subprocess.run(cmd, capture_output=True, text=True, check=True)
+    except subprocess.CalledProcessError as exc:
         raise RuntimeError(
-            "ffmpeg failed\n\nSTDOUT:\n"
-            + completed.stdout
-            + "\n\nSTDERR:\n"
-            + completed.stderr
-        )
+            "ffmpeg failed\n\nSTDOUT:\n" + (exc.stdout or "") + "\n\nSTDERR:\n" + (exc.stderr or "")
+        ) from exc
 
 
 def write_transcript(*, output_txt: Path, segments: list[Segment], header_lines: list[str]) -> None:

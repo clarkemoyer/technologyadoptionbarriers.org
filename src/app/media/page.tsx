@@ -224,11 +224,14 @@ const MediaPage = () => {
                   <div>
                     <h3 className="text-lg font-semibold">Boilerplate (100 words)</h3>
                     <p className="mt-2 text-gray-700 leading-relaxed">
-                      Barriers to technology adoption can negatively affect an enterprise’s ability
-                      to obtain or maintain competitive advantage. TABS gathers perspectives from
-                      senior leaders and practitioners to build updated, empirically grounded
-                      insights on what blocks successful adoption and what organizational
-                      capabilities enable it.
+                      The Technology Adoption Barriers Survey (TABS) is a research initiative
+                      focused on understanding the real-world barriers organizations face when
+                      adopting new technologies. Barriers to adoption can reduce the value of
+                      technology investments and negatively affect an enterprise’s ability to obtain
+                      or maintain competitive advantage. TABS gathers perspectives from senior
+                      leaders and practitioners to build updated, empirically grounded insights on
+                      what blocks successful adoption and what organizational capabilities enable
+                      it.
                     </p>
                   </div>
 
