@@ -5,7 +5,9 @@ import {
   exportSubmissionsCSV,
 } from '../src/lib/prolific-api'
 
-import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs'
+import { appendGithubStepSummary, mdEscape } from '../src/lib/github-utils'
+
+import { mkdirSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 
 const rawApiToken = process.env.PROLIFIC_API_TOKEN
@@ -31,22 +33,6 @@ function envInt(name: string, defaultValue: number): number {
   if (value === undefined) return defaultValue
   const parsed = Number.parseInt(value, 10)
   return Number.isFinite(parsed) ? parsed : defaultValue
-}
-
-function appendGithubStepSummary(markdown: string) {
-  const summaryPath = process.env.GITHUB_STEP_SUMMARY
-  if (!summaryPath) {
-    return
-  }
-  appendFileSync(summaryPath, markdown)
-}
-
-function mdEscape(text: string): string {
-  return text.replace(/[\\|\n\r]/g, (match) => {
-    if (match === '\\') return '\\\\'
-    if (match === '|') return '\\|'
-    return ' '
-  })
 }
 
 function formatIsoMaybe(value: unknown): string {

@@ -1,6 +1,6 @@
 import { getSurveyQuestions } from '../src/lib/qualtrics-api'
 import { stripHtml } from '../src/lib/stripHtml'
-import { appendFileSync } from 'node:fs'
+import { appendGithubStepSummary, mdEscape } from '../src/lib/github-utils'
 
 const API_TOKEN = process.env.QUALTRICS_API_TOKEN
 const BASE_URL = process.env.QUALTRICS_BASE_URL
@@ -11,27 +11,6 @@ if (!API_TOKEN || !BASE_URL || !SURVEY_ID) {
     'Error: Missing environment variables (QUALTRICS_API_TOKEN, QUALTRICS_BASE_URL, QUALTRICS_SURVEY_ID)'
   )
   process.exit(1)
-}
-
-/**
- * Append Markdown content to the GitHub Actions Step Summary.
- *
- * No-op when `GITHUB_STEP_SUMMARY` is not set (e.g., local runs).
- */
-function appendGithubStepSummary(markdown: string) {
-  const summaryPath = process.env.GITHUB_STEP_SUMMARY
-  if (!summaryPath) {
-    return
-  }
-  appendFileSync(summaryPath, markdown)
-}
-
-function mdEscape(text: string): string {
-  return text.replace(/[\\|\n\r]/g, (match) => {
-    if (match === '\\') return '\\\\'
-    if (match === '|') return '\\|'
-    return ' '
-  })
 }
 
 async function main() {
