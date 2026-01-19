@@ -212,6 +212,18 @@ We strive for the following response times:
 
 Note: These are goals, not guarantees. We're a small nonprofit with limited resources.
 
+## Project Accounts and Access
+
+### Google Services Access
+
+Access to Google services (Google Analytics, Google Tag Manager) is managed through the following accounts:
+
+- **technologyadoptionbarriers@gmail.com**: Primary account for this project.
+- **clarkemoyer@freeforcharity.org**: Organizational account for FreeForCharity.
+- **clarkemoyer@gmail.com**: Personal account for Clarke Moyer. This email is strictly private and **must not be made public** or used for public-facing communications.
+
+All three accounts hold Administrator roles to ensure redundancy and access continuity.
+
 ## Code of Conduct Enforcement
 
 The [Code of Conduct](./CODE_OF_CONDUCT.md) is enforced by:
