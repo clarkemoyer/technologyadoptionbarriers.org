@@ -1,313 +1,247 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:01.000
-Alright.
+00:00:00.000 --> 00:00:05.160
+Alright, let's dive in. Today we're talking about a brand new research project that's
 
-00:00:01.000 --> 00:00:02.000
-Let's dive in.
+00:00:05.160 --> 00:00:09.180
+aimed at cracking one of the toughest, most expensive problems in the business world.
 
-00:00:02.000 --> 00:00:06.240
-Today we're talking about a brand new research project that's aimed at cracking one of
+00:00:09.420 --> 00:00:14.660
+I mean, we've all seen this happen, right? A company sinks millions into some shiny new
 
-00:00:06.240 --> 00:00:09.280
-the toughest, most expensive problems in the business world.
+00:00:14.660 --> 00:00:21.900
+system, a new platform, a set of tools, and it just fizzles. It gets bogged down, people
 
-00:00:09.280 --> 00:00:11.720
-I mean, we've all seen this happen, right?
+00:00:21.900 --> 00:00:27.760
+resist it, and it never quite delivers on that big promise. It's a massive, frustrating
 
-00:00:11.720 --> 00:00:18.320
-A company sinks millions into some shiny new system, a new platform, a new set of tools,
+00:00:27.760 --> 00:00:32.720
+issue that hits pretty much every organization out there. And let's be clear, the stakes here
 
-00:00:18.320 --> 00:00:20.160
-and it just fizzles.
+00:00:32.720 --> 00:00:37.060
+are incredibly high. As Clark Moyer, who's leading this project, puts it,
 
-00:00:20.160 --> 00:00:24.880
-It gets bogged down, people resist it, and it never quite delivers on that big
+00:00:37.340 --> 00:00:42.480
+this isn't just about wasted cash. When you fail to adopt new tech, you risk losing your
 
-00:00:24.880 --> 00:00:25.880
-promise.
+00:00:42.480 --> 00:00:47.760
+competitive edge. And in the worst-case scenario, you could become obsolete. Now, you might be
 
-00:00:26.040 --> 00:00:31.080
-It's a massive, frustrating issue that hits pretty much every organization out there.
+00:00:47.760 --> 00:00:53.900
+thinking, haven't people studied this for years? And yeah, they have. But here's the thing. A lot
 
-00:00:31.080 --> 00:00:34.920
-And let's be clear, the stakes here are incredibly high.
+00:00:53.900 --> 00:00:58.660
+of that research is siloed, or it just doesn't capture the big-picture view from the senior
 
-00:00:34.920 --> 00:00:39.740
-As Clark Moyer, who's leading this project, puts it, this isn't just about wasted cash.
+00:00:58.660 --> 00:01:03.980
+leaders who are actually making these multi-million-dollar calls. There's a huge blind spot in our
 
-00:00:39.740 --> 00:00:43.760
-When you fail to adopt new tech, you risk losing your competitive edge, and in the
+00:01:03.980 --> 00:01:08.560
+understanding. So if the old playbooks aren't cutting it anymore, how do you actually design
 
-00:00:43.760 --> 00:00:46.640
-worst-case scenario, you could become obsolete.
+00:01:08.560 --> 00:01:13.200
+something that gets to the real root of the problem? You go straight to the source. The
 
-00:00:46.640 --> 00:00:51.140
-Now, you might be thinking, haven't people studied this for years?
+00:01:13.200 --> 00:01:18.940
+TABS Project hones in on the C-suite and the senior execs, you know, the CEOs, the CIOs,
 
-00:00:51.140 --> 00:00:52.480
-And yeah, they have.
+00:01:18.940 --> 00:01:23.140
+the folks who have that 30,000-foot view of everything happening in their organization.
 
-00:00:52.480 --> 00:00:53.600
-But here's the thing.
-
-00:00:53.600 --> 00:00:58.000
-A lot of that research is siloed, or it just doesn't capture the big-picture view
-
-00:00:58.000 --> 00:01:02.240
-from the senior leaders who are actually making these multi-million-dollar calls.
-
-00:01:02.240 --> 00:01:04.920
-There's a huge blind spot in our understanding.
-
-00:01:04.920 --> 00:01:08.880
-So if the old playbooks aren't cutting it anymore, how do you actually design something
-
-00:01:08.880 --> 00:01:11.140
-that gets to the real root of the problem?
-
-00:01:11.140 --> 00:01:13.120
-You go straight to the source.
-
-00:01:13.120 --> 00:01:16.740
-The TABs project hones in on the C-suite and the senior execs.
-
-00:01:16.740 --> 00:01:21.880
-You know, the CEOs, the CIOs, the folks who have that 30,000-foot view of everything
-
-00:01:21.880 --> 00:01:23.840
-happening in their organization.
-
-00:01:23.840 --> 00:01:26.100
+00:01:23.480 --> 00:01:25.560
 And this is the tool they built to do it.
 
-00:01:26.100 --> 00:01:31.440
+00:01:25.960 --> 00:01:30.580
 It's called the Technology Adoption Barrier Survey, or TABs for short.
 
-00:01:31.440 --> 00:01:35.960
+00:01:31.080 --> 00:01:35.680
 It's a new diagnostic specifically designed to pull out those high-level insights
 
-00:01:35.960 --> 00:01:37.880
+00:01:35.680 --> 00:01:37.660
 and really map out what's going on.
 
-00:01:37.880 --> 00:01:40.620
-OK, so let's pop the hood on this thing.
+00:01:37.720 --> 00:01:40.120
+Okay, so let's pop the hood on this thing.
 
-00:01:40.620 --> 00:01:44.480
+00:01:40.480 --> 00:01:44.060
 How does this survey actually dig in and uncover these insights?
 
-00:01:44.480 --> 00:01:48.780
+00:01:44.620 --> 00:01:48.200
 Well, it's all broken down into a three-part diagnostic.
 
-00:01:48.780 --> 00:01:53.900
+00:01:48.200 --> 00:01:53.540
 To really get the full picture, it deconstructs the problem into three logical chunks.
 
-00:01:53.900 --> 00:01:57.020
+00:01:54.020 --> 00:01:56.560
 First, you've got to pinpoint the actual barriers.
 
-00:01:57.020 --> 00:02:00.780
+00:01:57.060 --> 00:02:00.240
 Next, you assess how ready the organization is for the change.
 
-00:02:00.780 --> 00:02:04.580
+00:02:00.620 --> 00:02:04.200
 And finally, you measure the maturity of the company's core processes.
 
-00:02:04.580 --> 00:02:06.340
+00:02:04.720 --> 00:02:05.920
 Let's dig into each one.
 
-00:02:06.340 --> 00:02:09.540
+00:02:06.060 --> 00:02:08.780
 Part one is all about finding the roadblocks.
 
-00:02:09.540 --> 00:02:12.960
+00:02:09.400 --> 00:02:12.240
 It gets leaders to rate all those classic hurdles.
 
-00:02:12.960 --> 00:02:13.960
+00:02:12.780 --> 00:02:13.540
 You know the ones.
 
-00:02:13.960 --> 00:02:17.900
-Employees digging their heels in, the sticker shock of the new tech, the nightmare
+00:02:13.720 --> 00:02:15.100
+Employees digging their heels in.
 
-00:02:17.900 --> 00:02:20.580
-of making it play nice with your old systems.
+00:02:15.360 --> 00:02:16.880
+The sticker shock of the new tech.
 
-00:02:20.580 --> 00:02:25.660
-Or maybe it's something bigger, like nobody even knows what the strategy is.
+00:02:16.880 --> 00:02:22.640
+The nightmare of making it play nice with your old systems, or maybe it's something bigger like
 
-00:02:25.660 --> 00:02:28.020
-These are the pain points we all recognize.
+00:02:22.640 --> 00:02:28.420
+nobody even knows what the strategy is. These are the pain points we all recognize. But you know
 
-00:02:28.020 --> 00:02:31.640
-But you know, just spotting the problems isn't enough.
+00:02:28.420 --> 00:02:35.100
+just spotting the problems isn't enough. Part two is all about readiness. Is your organization
 
-00:02:31.640 --> 00:02:34.380
-Part two is all about readiness.
+00:02:35.100 --> 00:02:40.660
+actually set up to handle this change? Is the vision from the top crystal clear? Is your culture
 
-00:02:34.380 --> 00:02:37.700
-Is your organization actually set up to handle this change?
+00:02:40.660 --> 00:02:45.780
+open to trying new things? Do you have the right people with the right skills? This part is
 
-00:02:37.700 --> 00:02:40.140
-Is the vision from the top crystal clear?
+00:02:45.780 --> 00:02:51.600
+basically a checkup on your capacity for success. And this brings us to the third and maybe the most
 
-00:02:40.140 --> 00:02:42.860
-Is your culture open to trying new things?
+00:02:51.600 --> 00:02:57.900
+powerful part, measuring maturity. This goes way deeper than readiness. It asks leaders to rate
 
-00:02:42.860 --> 00:02:45.380
-Do you have the right people with the right skills?
+00:02:57.900 --> 00:03:03.320
+their organization's processes on this five-level scale. Are you at level one where everything is
 
-00:02:45.380 --> 00:02:49.020
-This part is basically a checkup on your capacity for success.
+00:03:03.320 --> 00:03:08.280
+kind of chaotic and reactive? Or are you all the way up at level five where you're proactively
 
-00:02:49.020 --> 00:02:54.740
-And this brings us to the third and maybe the most powerful part, measuring maturity.
+00:03:08.280 --> 00:03:14.020
+innovating and always improving? This really gets to the heart of how ingrained your good habits
 
-00:02:54.740 --> 00:02:56.760
-This goes way deeper than readiness.
+00:03:14.020 --> 00:03:20.220
+are. Now, a tool this ambitious can't just appear out of thin air, right? It needs to be built on
 
-00:02:56.760 --> 00:03:01.640
-It asks leaders to rate their organization's processes on this five-level scale.
+00:03:20.220 --> 00:03:26.740
+something solid. And the TABS project is absolutely built on a mountain of foundational research.
 
-00:03:01.640 --> 00:03:05.340
-Are you at level one, where everything is kind of chaotic and reactive?
+00:03:27.080 --> 00:03:33.260
+This is what's so important to understand. The TABs survey isn't just some random checklist
 
-00:03:05.340 --> 00:03:09.240
-Or are you all the way up at level five, where you're proactively innovating and
+00:03:33.260 --> 00:03:40.780
+someone dreamed up. It's the end results of over 60 years of deep academic work on how people
 
-00:03:09.240 --> 00:03:10.740
-always improving?
+00:03:40.780 --> 00:03:45.240
+and, by extension, entire organizations adopt new stuff.
 
-00:03:10.740 --> 00:03:14.540
-This really gets to the heart of how ingrained your good habits are.
-
-00:03:14.700 --> 00:03:19.020
-Now, a tool this ambitious can't just appear out of thin air, right?
-
-00:03:19.020 --> 00:03:21.780
-It needs to be built on something solid.
-
-00:03:21.780 --> 00:03:27.060
-And the TABs project is absolutely built on a mountain of foundational research.
-
-00:03:27.060 --> 00:03:30.060
-This is what's so important to understand.
-
-00:03:30.060 --> 00:03:35.020
-The TABs survey isn't just some random checklist someone dreamed up.
-
-00:03:35.020 --> 00:03:41.220
-It's the end results of over 60 years of deep academic work on how people,
-
-00:03:41.220 --> 00:03:45.420
-and by extension, entire organizations, adopt new stuff.
-
-00:03:45.420 --> 00:03:49.260
+00:03:45.340 --> 00:03:48.600
 You can literally trace the family tree of these ideas.
 
-00:03:49.260 --> 00:03:53.500
+00:03:49.180 --> 00:03:52.840
 It started way back in the 60s with the diffusion of innovations theory.
 
-00:03:53.500 --> 00:03:56.660
+00:03:53.420 --> 00:03:56.280
 Then, in the 80s, we got the technology acceptance model,
 
-00:03:56.660 --> 00:04:00.140
+00:03:56.560 --> 00:03:59.500
 which focused on whether people thought something was useful and easy.
 
-00:04:00.140 --> 00:04:04.620
-The unified theory in 2003 pulled a bunch of these ideas together.
+00:04:00.040 --> 00:04:03.380
+The unified theory in 2003 pulled a bunch of these
 
-00:04:04.620 --> 00:04:07.140
-And now, TABs is taking all of that and
+00:04:03.380 --> 00:04:06.900
+ideas together. And now, TABs is taking all of that
 
-00:04:07.140 --> 00:04:11.020
-turning it into a practical modern tool for today's leaders.
+00:04:06.900 --> 00:04:10.560
+and turning it into a practical, modern tool for today's leaders.
 
-00:04:11.020 --> 00:04:14.780
-So, we've got all this history, all this research.
+00:04:10.780 --> 00:04:14.260
+So we've got all this history, all this research.
 
-00:04:14.780 --> 00:04:17.780
+00:04:14.680 --> 00:04:17.120
 But what's the point of collecting all this data?
 
-00:04:17.780 --> 00:04:20.660
+00:04:17.720 --> 00:04:20.140
 Well, the goal isn't just to write another paper.
 
-00:04:20.660 --> 00:04:24.660
+00:04:20.520 --> 00:04:24.240
 It's to turn all of that data into insights you can actually use.
 
-00:04:24.660 --> 00:04:28.420
-Yeah, the whole project was built from the very beginning to have
+00:04:24.640 --> 00:04:27.760
+Yeah, the whole project was built from the very beginning
 
-00:04:28.420 --> 00:04:30.780
-factical real world value.
+00:04:27.760 --> 00:04:30.180
+to have practical, real-world value.
 
-00:04:30.780 --> 00:04:34.340
-It's all about closing that gap between a dusty academic theory and
+00:04:30.660 --> 00:04:33.980
+It's all about closing that gap between a dusty academic theory
 
-00:04:34.340 --> 00:04:37.180
-the tough decisions leaders have to make every single day.
+00:04:33.980 --> 00:04:36.960
+and the tough decisions leaders have to make every single day.
 
-00:04:37.180 --> 00:04:38.660
+00:04:37.120 --> 00:04:38.280
 So what's the big payoff?
 
-00:04:38.660 --> 00:04:40.420
+00:04:38.580 --> 00:04:39.940
 Well, it's huge.
 
-00:04:40.420 --> 00:04:43.620
-For starters, it's going to give you industry benchmarks so
+00:04:39.940 --> 00:04:45.420
+For starters, it's going to give you industry benchmarks so you can finally see how you stack up.
 
-00:04:43.620 --> 00:04:45.980
-you can finally see how you stack up.
-
-00:04:45.980 --> 00:04:50.060
+00:04:45.900 --> 00:04:49.340
 It'll help leaders zero in on exactly where they need to focus their attention.
 
-00:04:50.060 --> 00:04:55.260
-And because they plan to do this every year, it will create this amazing GPS for
+00:04:49.940 --> 00:04:52.280
+And because they plan to do this every year,
 
-00:04:55.260 --> 00:04:58.100
-navigating change, spotting trends, and
+00:04:52.660 --> 00:04:56.340
+it will create this amazing GPS for navigating change,
 
-00:04:58.100 --> 00:05:01.700
-helping everyone build more adaptive, innovative cultures.
+00:04:56.740 --> 00:05:01.180
+spotting trends, and helping everyone build more adaptive, innovative cultures.
 
-00:05:01.700 --> 00:05:04.500
-All right, so let's make this personal for a second.
+00:05:01.600 --> 00:05:03.900
+Alright, so let's make this personal for a second.
 
-00:05:04.500 --> 00:05:06.300
-Let's turn the camera around and
+00:05:04.400 --> 00:05:08.960
+Let's turn the camera around and think about what's going on in your own organization.
 
-00:05:06.300 --> 00:05:09.220
-think about what's going on in your own organization.
+00:05:08.960 --> 00:05:14.420
+You know, the real power of a survey like this is in the questions it forces you to ask.
 
-00:05:09.700 --> 00:05:14.980
-The real power of a survey like this is in the questions it forces you to ask.
-
-00:05:14.980 --> 00:05:17.740
+00:05:15.000 --> 00:05:16.920
 So think about it for your own company.
 
-00:05:17.740 --> 00:05:22.960
-To what extent is a play it safe risk averse culture holding you back?
+00:05:17.760 --> 00:05:22.140
+To what extent is a play-it-safe, risk-averse culture holding you back?
 
-00:05:22.960 --> 00:05:27.260
-And be honest, how mature is your ability to handle the human side of
+00:05:22.840 --> 00:05:27.620
+And be honest, how mature is your ability to handle the human side of change?
 
-00:05:27.260 --> 00:05:27.780
-change?
-
-00:05:28.860 --> 00:05:31.580
+00:05:28.580 --> 00:05:31.200
 Just thinking through these questions is valuable.
 
-00:05:31.580 --> 00:05:35.260
+00:05:31.480 --> 00:05:34.560
 And that really brings us to the final bottom line question.
 
-00:05:35.260 --> 00:05:37.820
+00:05:35.160 --> 00:05:37.120
 Let's just cut through all the noise for a second.
 
-00:05:37.820 --> 00:05:39.780
-In your world, at your company,
+00:05:37.120 --> 00:05:42.260
+In your world, at your company, what is the single biggest barrier holding you back?
 
-00:05:39.780 --> 00:05:42.780
-what is the single biggest barrier holding you back?
-
-00:05:42.780 --> 00:05:46.620
+00:05:42.680 --> 00:05:45.840
 Is it the tech, the money, the culture, the leadership?
 
-00:05:46.620 --> 00:05:50.460
+00:05:46.400 --> 00:05:50.480
 Because answering that, that's the first real step to actually fixing it.

@@ -135,6 +135,12 @@ def main() -> int:
         language=args.language,
         vad_filter=True,
         beam_size=5,
+        temperature=0.0,
+        best_of=1,
+        condition_on_previous_text=False,
+        repetition_penalty=1.1,
+        no_repeat_ngram_size=3,
+        hallucination_silence_threshold=1.0,
     )
 
     segments: list[Segment] = []
