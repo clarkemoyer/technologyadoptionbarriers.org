@@ -18,11 +18,11 @@ test.describe('Support our Research CTA', () => {
     await expect(datasetButton).toHaveAttribute('href', '/get-involved#use-dataset')
   })
 
-  test('should display all four donation cards with updated titles', async ({ page }) => {
+  test('should display all four support cards with updated titles', async ({ page }) => {
     await page.goto('/')
 
     // Check all four card titles are visible with new names
-    await expect(page.getByRole('heading', { name: 'Donate to Support TABS' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Support the Research' })).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Become a Sponsor' })).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Volunteer Your Skills' })).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Use Our Dataset' })).toBeVisible()
@@ -43,7 +43,7 @@ test.describe('Support our Research CTA', () => {
 
     // Use semantic selectors to count cards by their headings
     const cardHeadings = page.locator('h3').filter({
-      hasText: /Donate to Support TABS|Become a Sponsor|Volunteer Your Skills|Use Our Dataset/,
+      hasText: /Support the Research|Become a Sponsor|Volunteer Your Skills|Use Our Dataset/,
     })
     await expect(cardHeadings).toHaveCount(4)
 

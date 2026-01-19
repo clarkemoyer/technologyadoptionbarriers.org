@@ -30,21 +30,21 @@ const GetInvolvedPage = () => {
       },
     },
     {
-      id: 'donate-general',
-      title: 'Donate to the General Fund',
+      id: 'contribute-general',
+      title: 'Contribute to the General Fund',
       icon: '💵',
       description:
-        'Support the ongoing operation of the TABS survey. Your donation helps us maintain the survey platform, manage participant listings, and disseminate annual findings to the research community.',
+        'Support the ongoing operation of the TABS survey. Your financial contribution helps us maintain the survey platform, manage participant listings, and disseminate annual findings to the research community.',
       whoShouldParticipate:
         'Anyone who believes in the value of research-driven insights into technology adoption.',
-      commitment: 'One-time or recurring donation of any amount',
+      commitment: 'One-time or recurring contribution of any amount',
       benefits: [
         'Enable continued free access to survey insights',
         'Support annual data collection and analysis',
         'Help maintain research infrastructure',
       ],
       cta: {
-        text: 'Donate Now',
+        text: 'Contribute Now',
         link: 'https://github.com/sponsors/clarkemoyer',
         color: 'bg-[#113563] hover:bg-[#0d2a4f]',
       },

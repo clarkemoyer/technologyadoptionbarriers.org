@@ -1,12 +1,12 @@
 import React from 'react'
 
-const DonationCards = () => {
+const SupportCards = () => {
   const cards = [
     {
-      title: 'Donate to Support TABS',
+      title: 'Support the Research',
       description:
-        'Help fund the ongoing operation of the survey, maintain the platform, and disseminate research findings to the community.',
-      buttonText: 'Donate Now',
+        'Your financial contribution helps us run the survey, maintain the platform, and disseminate research findings to the community.',
+      buttonText: 'Contribute Now',
       buttonLink: 'https://github.com/sponsors/clarkemoyer',
       bgColor: 'bg-[#113563]',
       btnConfig: 'bg-[#F57C20] text-white hover:bg-[#d66a1a]',
@@ -58,6 +58,8 @@ const DonationCards = () => {
               <div>
                 <a
                   href={card.buttonLink}
+                  target={card.buttonLink.startsWith('http') ? '_blank' : undefined}
+                  rel={card.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
                   className={`inline-block px-[25px] py-[12px] rounded-[30px] font-bold text-[16px] transition-all duration-300 transform hover:scale-105 ${card.btnConfig}`}
                 >
                   {card.buttonText}
@@ -88,4 +90,4 @@ const DonationCards = () => {
   )
 }
 
-export default DonationCards
+export default SupportCards

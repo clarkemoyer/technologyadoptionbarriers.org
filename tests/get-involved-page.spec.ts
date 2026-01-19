@@ -18,7 +18,9 @@ test.describe('Get Involved Page', () => {
 
     // Check all opportunity titles
     await expect(page.getByRole('heading', { name: 'Take the TABS Survey' })).toBeVisible()
-    await expect(page.getByRole('heading', { name: 'Donate to the General Fund' })).toBeVisible()
+    await expect(
+      page.getByRole('heading', { name: 'Contribute to the General Fund' })
+    ).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Become a Sponsor' })).toBeVisible()
     await expect(
       page.getByRole('heading', { name: 'Volunteer to Help TABS Operations' })
@@ -39,10 +41,13 @@ test.describe('Get Involved Page', () => {
       'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO'
     )
 
-    // Check donate link
-    const donateButton = page.getByRole('link', { name: 'Donate Now' })
-    await expect(donateButton).toBeVisible()
-    await expect(donateButton).toHaveAttribute('href', 'https://github.com/sponsors/clarkemoyer')
+    // Check contribute link
+    const contributeButton = page.getByRole('link', { name: 'Contribute Now' })
+    await expect(contributeButton).toBeVisible()
+    await expect(contributeButton).toHaveAttribute(
+      'href',
+      'https://github.com/sponsors/clarkemoyer'
+    )
 
     // Check sponsor link
     const sponsorButton = page.getByRole('link', { name: 'Discuss Sponsorship' })
