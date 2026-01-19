@@ -43,7 +43,8 @@ test.describe('Contact Visibility', () => {
     )
     await expect(takeTheTabs).toHaveAttribute('target', '_blank')
 
-    const supportLink = section.getByRole('link', { name: /support tabs/i })
-    await expect(supportLink).toBeVisible()
+    // Support TABS is now a Stripe button, not a link
+    const supportButton = section.getByRole('button', { name: /support tabs/i })
+    await expect(supportButton).toBeVisible()
   })
 })

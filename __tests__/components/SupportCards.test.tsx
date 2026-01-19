@@ -37,9 +37,9 @@ describe('SupportCards component', () => {
   it('should display all CTA buttons with correct links', () => {
     render(<SupportCards />)
 
-    const contributeButton = screen.getByRole('link', { name: /contribute now/i })
+    // Contribute Now is now a Stripe button, not a link
+    const contributeButton = screen.getByRole('button', { name: /contribute now/i })
     expect(contributeButton).toBeInTheDocument()
-    expect(contributeButton).toHaveAttribute('href', 'https://github.com/sponsors/clarkemoyer')
 
     const learnMoreButton = screen.getByRole('link', { name: /learn more/i })
     expect(learnMoreButton).toBeInTheDocument()

@@ -104,9 +104,9 @@ export default function CookiePolicy() {
             <strong>3.2 Functional Cookies (Always Active)</strong>
           </p>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            These cookies enable essential functionality such as donation processing and application
-            forms. They are necessary for these services to work and cannot be disabled if you wish
-            to use these features.
+            These cookies enable essential functionality such as contribution processing and
+            application forms. They are necessary for these services to work and cannot be disabled
+            if you wish to use these features.
           </p>
 
           {/* Microsoft Forms */}
@@ -166,11 +166,60 @@ export default function CookiePolicy() {
             </p>
           </div>
 
+          {/* Stripe */}
+          <div className="bg-gray-50 p-4 rounded-lg mb-4">
+            <h4 className="font-semibold mb-2 text-[#333]">Stripe Payment Processing</h4>
+            <p className="text-sm mb-2 text-[#666]">
+              PCI-compliant payment processing platform for secure contribution processing. All
+              payment data is processed on Stripe&apos;s servers - no credit card information is
+              stored on our systems.
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left py-2 pr-4 text-[#333]">Service</th>
+                    <th className="text-left py-2 pr-4 text-[#333]">Purpose</th>
+                    <th className="text-left py-2 text-[#333]">Load Trigger</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="py-2 pr-4 font-mono text-[#666]">Stripe</td>
+                    <td className="py-2 pr-4 text-[#666]">
+                      Secure payment processing and checkout
+                    </td>
+                    <td className="py-2 text-[#666]">
+                      When a contribution button (e.g., &quot;Contribute Now&quot; / &quot;Support
+                      TABS&quot;) is clicked
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs mt-2 text-gray-600">
+              Privacy Policy:{' '}
+              <a
+                href="https://stripe.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://stripe.com/privacy
+              </a>
+            </p>
+            <p className="text-xs mt-2 text-gray-600">
+              <strong>Security:</strong> Stripe is PCI DSS Level 1 certified, the highest level of
+              security certification in the payments industry.
+            </p>
+          </div>
+
           {/* Zeffy */}
           <div className="bg-gray-50 p-4 rounded-lg mb-4">
-            <h4 className="font-semibold mb-2 text-[#333]">Zeffy Donation Platform</h4>
+            <h4 className="font-semibold mb-2 text-[#333]">Zeffy Contribution Platform (Legacy)</h4>
             <p className="text-sm mb-2 text-[#666]">
-              Zero-fee donation processing platform embedded on our website to accept donations.
+              Zero-fee contribution processing platform. Maintained for backwards compatibility;
+              Stripe is now our primary contribution platform.
             </p>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -184,8 +233,10 @@ export default function CookiePolicy() {
                 <tbody>
                   <tr>
                     <td className="py-2 pr-4 font-mono text-[#666]">Zeffy</td>
-                    <td className="py-2 pr-4 text-[#666]">Donation form and payment processing</td>
-                    <td className="py-2 text-[#666]">Embedded on donation section</td>
+                    <td className="py-2 pr-4 text-[#666]">
+                      Contribution form and payment processing
+                    </td>
+                    <td className="py-2 text-[#666]">Embedded on contribution section</td>
                   </tr>
                 </tbody>
               </table>

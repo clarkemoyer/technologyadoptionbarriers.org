@@ -1,0 +1,158 @@
+name: Stripe Integration Verification
+
+on:
+  # Run on schedule (weekly on Mondays at 10 AM UTC)
+  schedule:
+    - cron: '0 10 * * 1'
+
+  # Allow manual trigger from Actions tab
+  workflow_dispatch:
+    inputs:
+      check_products:
+        description: 'Verify Stripe products and prices exist'
+        required: false
+        type: boolean
+        default: true
+
+# Prevent concurrent runs
+concurrency:
+  group: 'stripe-verification'
+  cancel-in-progress: false
+
+# Explicit permissions for GITHUB_TOKEN
+permissions:
+  contents: read
+
+jobs:
+  verify-stripe-config:
+    name: Verify Stripe Configuration
+    runs-on: ubuntu-latest
+    environment: stripe-prod
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify Stripe API key
+        run: |
+          if [ -z "${{ secrets.STRIPE_SECRET_KEY }}" ]; then
+            echo "Error: STRIPE_SECRET_KEY secret is not set in the stripe-prod environment"
+            exit 1
+          fi
+          echo "✅ Stripe API key is configured"
+
+      - name: Verify environment configuration
+        env:
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL: ${{ secrets.NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL }}
+          NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL: ${{ secrets.NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL }}
+        run: |
+          echo "Verifying Stripe configuration..."
+
+          # Check if keys start with correct prefixes
+          if [[ ! "$NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY" =~ ^pk_ ]]; then
+            echo "Error: Publishable key should start with 'pk_'"
+            exit 1
+          fi
+
+          if [[ ! "$STRIPE_SECRET_KEY" =~ ^sk_ ]]; then
+            echo "Error: Secret key should start with 'sk_'"
+            exit 1
+          fi
+
+          # Check if we're using test or live keys
+          if [[ "$STRIPE_SECRET_KEY" =~ ^sk_test_ ]]; then
+            echo "⚠️  Using Stripe TEST mode"
+          elif [[ "$STRIPE_SECRET_KEY" =~ ^sk_live_ ]]; then
+            echo "✅ Using Stripe LIVE mode"
+          else
+            echo "Error: Unrecognized Stripe key format"
+            exit 1
+          fi
+
+          # Verify payment link URLs are configured
+          if [ -z "$NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL" ]; then
+            echo "Error: NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL secret is not set in the stripe-prod environment"
+            exit 1
+          fi
+
+          if [ -z "$NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL" ]; then
+            echo "Error: NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL secret is not set in the stripe-prod environment"
+            exit 1
+          fi
+
+          # Check payment link URLs start with https://
+          if [[ ! "$NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL" =~ ^https:// ]]; then
+            echo "Error: One-time donation payment link must start with https://"
+            exit 1
+          fi
+
+          if [[ ! "$NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL" =~ ^https:// ]]; then
+            echo "Error: Monthly donation payment link must start with https://"
+            exit 1
+          fi
+
+          echo "✅ Environment configuration is valid"
+
+      - name: Test Stripe API connection
+        if: ${{ github.event_name == 'schedule' || inputs.check_products }}
+        env:
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL: ${{ secrets.NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL }}
+          NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL: ${{ secrets.NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL }}
+        run: |
+          echo "Testing Stripe API connection..."
+
+          # Test API connection by calling the Stripe REST API
+          STATUS_CODE=$(curl -sS -o /dev/null -w "%{http_code}" -u "$STRIPE_SECRET_KEY": https://api.stripe.com/v1/account)
+
+          if [ "$STATUS_CODE" -ne 200 ]; then
+            echo "Error: Could not connect to Stripe API (status code: $STATUS_CODE). Please check your STRIPE_SECRET_KEY."
+            exit 1
+          fi
+
+          echo "✅ Stripe API connection successful"
+
+          # Display configured payment link URLs
+          if [ -n "$NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL" ]; then
+            echo "One-time donation payment link configured: ${NEXT_PUBLIC_STRIPE_DONATION_PAYMENT_LINK_URL:0:40}..."
+          fi
+
+          if [ -n "$NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL" ]; then
+            echo "Recurring donation payment link configured: ${NEXT_PUBLIC_STRIPE_MONTHLY_DONATION_PAYMENT_LINK_URL:0:40}..."
+          fi
+
+      - name: Success summary
+        if: success()
+        run: |
+          echo "### ✅ Stripe Configuration Verified" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All Stripe secrets and configuration are properly set up in the stripe-prod environment." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Next Steps:**" >> $GITHUB_STEP_SUMMARY
+          echo "1. Ensure Stripe Payment Links are created in the Stripe Dashboard" >> $GITHUB_STEP_SUMMARY
+          echo "2. Update payment link URLs in GitHub secrets if needed" >> $GITHUB_STEP_SUMMARY
+          echo "3. Test donation flow in production" >> $GITHUB_STEP_SUMMARY
+
+      - name: Error summary
+        if: failure()
+        run: |
+          echo "### ❌ Stripe Configuration Failed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "There was an error verifying the Stripe configuration." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Please check the job logs above for error details." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Common Issues:**" >> $GITHUB_STEP_SUMMARY
+          echo "- Missing secrets in stripe-prod environment" >> $GITHUB_STEP_SUMMARY
+          echo "- Incorrect API key format" >> $GITHUB_STEP_SUMMARY
+          echo "- Invalid payment link URLs (should start with https://)" >> $GITHUB_STEP_SUMMARY
