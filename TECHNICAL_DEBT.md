@@ -295,6 +295,24 @@ These are internal code quality improvements that don't affect user experience:
 
 ---
 
+## Feature Workarounds
+
+### 1. ImpactCounter Visual Component (Disabled)
+
+**Issue:** The visual component `<ImpactCounter />` in the Footer caused persistent "Exit Code 1" build failures in the CI/CD pipeline (Next.js/Turbopack) on the `main` branch, despite passing locally.
+
+**Current State (January 2026):**
+
+- **Backend Enabled:** Data collection via `ga-report.yml` is active and auto-commits to `src/data/impact.json`.
+- **Frontend Disabled:** The component import and usage are commented out in `src/components/footer/index.tsx`.
+
+**Resolution Plan:**
+
+- Investigate CI-specific Next.js build constraints regarding dynamic JSON imports.
+- Re-enable component once stable.
+
+---
+
 ## Architecture Decisions
 
 ### Intentionally Not Implemented
