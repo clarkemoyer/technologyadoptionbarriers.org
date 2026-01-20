@@ -8,7 +8,7 @@ This document provides instructions for IDE-integrated AI coding agents working 
 - **Framework**: Next.js App Router with static export for GitHub Pages
 - **Languages**: TypeScript, React, Tailwind CSS
 - **Testing**: Jest (unit tests), Playwright (E2E), jest-axe (accessibility)
-- **CI/CD**: GitHub Actions with merge queue
+- **CI/CD**: GitHub Actions with automated code review
 - **Deployment**: GitHub Pages (custom domain: technologyadoptionbarriers.org)
 - **External APIs**: Qualtrics API (survey management), Prolific API (participant data)
 - **MCP Servers**: Qualtrics MCP, GitHub MCP (IDE-integrated only)
@@ -21,7 +21,10 @@ This document provides instructions for IDE-integrated AI coding agents working 
 2. **Create a branch**: `git checkout -b type/descriptive-name` (e.g., `feat/add-section`, `fix/navigation-bug`)
 3. **Make focused changes** - Keep PRs small and targeted
 4. **Link to issue** - Reference the issue in PR description (e.g., "Closes #42")
-5. **All commits via PR merge** - Merge queue is enabled
+5. **Mark PR as ready for review** - This automatically triggers Copilot code review
+6. **Address review comments** - Fix issues identified by automated and human reviewers
+7. **Resolve review threads** - Use GitHub CLI (`gh pr review`) or web UI to mark comments as resolved
+8. **Merge after approval** - PRs merge to `main` after all reviews are addressed and CI passes
 
 ### Pre-Commit Checklist (Run in Order)
 

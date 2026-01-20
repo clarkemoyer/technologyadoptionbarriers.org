@@ -318,8 +318,19 @@ When you push to a PR, GitHub Actions runs:
 5. **E2E tests**: `npm run test:e2e` (must pass)
 6. **CodeQL**: Security scanning
 7. **Lighthouse**: Performance monitoring
+8. **Copilot Code Review**: Automatically triggered when PR is marked ready for review
 
-**Merge queue** is enabled - all checks must pass before merge.
+**All checks must pass and reviews must be addressed before merge.**
+
+### Code Review Process
+
+1. **Automatic trigger**: When you mark a PR as "Ready for review", Copilot automatically reviews your code
+2. **Review comments**: Address all comments from automated and human reviewers
+3. **Resolve threads**: Mark review comments as resolved using:
+   - GitHub web UI: Click "Resolve conversation" after addressing the issue
+   - GitHub CLI: `gh pr review <pr-number> --approve` or `gh pr comment <pr-number> --body "Fixed in <commit>"`
+4. **Re-request review**: After making changes, request another review if needed
+5. **Final approval**: Merge after all reviews are addressed and CI passes
 
 ## Git Workflow
 
@@ -350,11 +361,13 @@ git commit -m "chore: update dependencies"
 3. Push to GitHub
 4. Open PR with template from `.github/PULL_REQUEST_TEMPLATE.md`
 5. Link to issue: "Closes #42"
-6. Wait for CI to pass
-7. Address review comments
-8. Merge via merge queue
+6. Mark PR as "Ready for review" (triggers automatic Copilot code review)
+7. Wait for CI to pass
+8. Address all review comments from Copilot and human reviewers
+9. Resolve review threads using GitHub UI or CLI (`gh pr review`)
+10. Merge after all reviews are approved and CI passes
 
-**Never commit directly to `main`** - all changes via PR.
+**Never commit directly to `main`** - all changes via PR with code review.
 
 ## Performance Considerations
 

@@ -79,16 +79,18 @@ import { assetPath } from "@/lib/assetPath";
 
 **Reason:** The site deploys to two places (custom domain and GitHub Pages). The helper ensures images work in both locations.
 
-### Rule #4: No Direct Commits to Main
+### Rule #4: Follow the Code Review Workflow
 
-All changes go through Pull Requests:
+All changes go through Pull Requests with automated code review:
 
 1. Create a feature branch (`git checkout -b feat/my-feature`)
 2. Make your changes
 3. Push and open a PR
-4. Link to the issue in PR description
-5. Wait for CI to pass
-6. Merge via merge queue
+4. Mark PR as "Ready for review" - **this automatically triggers Copilot code review**
+5. Address all review comments (automated and human)
+6. Resolve review threads using GitHub UI or `gh pr review` command
+7. Wait for all CI checks to pass
+8. Merge after reviews are approved
 
 ## Quick Start Guide
 
@@ -366,25 +368,42 @@ test: add E2E tests for donation flow
 5. **Push**: `git push origin feat/my-feature`
 6. **Open PR**: Use template in `.github/PULL_REQUEST_TEMPLATE.md`
 7. **Link issue**: Add "Closes #X" in PR description
-8. **Wait for CI**: GitHub Actions runs all checks
-9. **Fix issues**: If CI fails, fix and push again
-10. **Merge**: Via merge queue after approval
+8. **Mark ready**: Set PR to "Ready for review" - **automatically triggers Copilot code review**
+9. **Wait for CI**: GitHub Actions runs all checks
+10. **Address reviews**: Fix issues identified by Copilot and human reviewers
+11. **Resolve threads**: Use GitHub UI "Resolve conversation" or `gh pr review` CLI
+12. **Merge**: After all reviews approved and CI passes
 
 ## CI/CD Pipeline
 
 When you push, GitHub Actions automatically runs:
 
-| Check         | Command                | Must Pass?           |
-| ------------- | ---------------------- | -------------------- |
-| Formatting    | `npm run format:check` | ✅ Yes               |
-| Linting       | `npm run lint`         | ✅ Yes (errors only) |
-| Unit Tests    | `npm test`             | ✅ Yes               |
-| Build         | `npm run build`        | ✅ Yes               |
-| E2E Tests     | `npm run test:e2e`     | ✅ Yes               |
-| Security Scan | CodeQL                 | ✅ Yes               |
-| Performance   | Lighthouse             | ⚠️ Advisory          |
+| Check               | Command                | Must Pass?           |
+| ------------------- | ---------------------- | -------------------- |
+| Formatting          | `npm run format:check` | ✅ Yes               |
+| Linting             | `npm run lint`         | ✅ Yes (errors only) |
+| Unit Tests          | `npm test`             | ✅ Yes               |
+| Build               | `npm run build`        | ✅ Yes               |
+| E2E Tests           | `npm run test:e2e`     | ✅ Yes               |
+| Security Scan       | CodeQL                 | ✅ Yes               |
+| Performance         | Lighthouse             | ⚠️ Advisory          |
+| **Copilot Review**  | Automatic              | ⚠️ Address comments  |
 
-**All checks must pass** before your PR can merge.
+**All checks must pass and reviews must be addressed** before your PR can merge.
+
+### Code Review Process
+
+**Automatic Trigger:** When you mark a PR as "Ready for review", Copilot automatically analyzes your code.
+
+**How to handle reviews:**
+
+1. **Read review comments** - Copilot and human reviewers will provide feedback
+2. **Make fixes** - Address each comment by updating your code
+3. **Resolve threads** - After fixing, mark conversations as resolved:
+   - **GitHub UI**: Click "Resolve conversation" button
+   - **GitHub CLI**: `gh pr review <pr-number> --comment -b "Fixed in commit abc1234"`
+4. **Re-request review** - If you made significant changes, request another review
+5. **Get approval** - All reviewers must approve before merge
 
 ## Deployment Process
 
