@@ -1,0 +1,34 @@
+{
+  "mcpServers": {
+    "github": {
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
+    "qualtrics-surveys": {
+      "url": "https://by-brand.iad1.qualtrics.com/API/mcp/survey-crud",
+      "headers": {
+        "Accept": "application/json, text/event-stream",
+        "Authorization": "Bearer ${QUALTRICS_OAUTH_TOKEN}"
+      }
+    },
+    "google-cloud": {
+      "command": "npx",
+      "args": ["-y", "gcloud-mcp"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org"
+      ]
+    },
+    "next-devtools": {
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest"]
+    }
+  }
+}
