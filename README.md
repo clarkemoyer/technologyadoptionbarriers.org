@@ -22,6 +22,7 @@ Single-page Next.js 16.0.7 website built with App Router for Technology Adoption
 - 🔗 [External Dependencies](./EXTERNAL_DEPENDENCIES.md) - Third-party services and integrations
 - 🏥 [Community Health Files](./COMMUNITY_HEALTH_FILES.md) - Complete guide to GitHub navigation and documentation
 - 🔧 [MCP Servers](./MCP_SERVERS.md) - Model Context Protocol servers for coding agents
+- ⚡ [MCP Quick Reference](./MCP_QUICK_REFERENCE.md) - Quick reference for MCP server usage
 
 ## About This Repository
 

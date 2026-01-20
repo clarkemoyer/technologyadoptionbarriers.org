@@ -224,6 +224,22 @@ npx @playwright/mcp@latest
 npx gcloud-mcp
 ```
 
+## Validating MCP Configuration
+
+A validation script is provided to test the MCP configuration:
+
+```bash
+# Run the validation script
+bash scripts/validate-mcp-config.sh
+```
+
+The script checks:
+- JSON syntax validity
+- Configuration structure
+- HTTP server connectivity (GitHub and Qualtrics MCP)
+- Required tools installation (node, npm, npx, jq)
+- Environment variables setup
+
 ## Adding New MCP Servers
 
 To add additional MCP servers:
@@ -237,7 +253,7 @@ To add additional MCP servers:
 
 3. Document the server in this file (MCP_SERVERS.md)
 
-4. Test the configuration
+4. Test the configuration using `bash scripts/validate-mcp-config.sh`
 
 5. Commit changes following the repository's contribution guidelines
 
