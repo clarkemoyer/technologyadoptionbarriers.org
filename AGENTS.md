@@ -282,18 +282,20 @@ Automatic deployment on push to `main` via `.github/workflows/deploy.yml`:
 
 ### External API Integrations
 
-This repository integrates with three external API environments, accessible via **GitHub Actions workflows** with environment-specific secrets:
+This repository integrates with external API environments, accessible via **GitHub Actions workflows** with environment-specific secrets:
 
 #### GitHub Environments Overview
 
-| Environment      | Purpose                    | Secrets Used                                         |
-| ---------------- | -------------------------- | ---------------------------------------------------- |
-| `qualtrics-prod` | Survey management          | `QUALTRICS_API_TOKEN`, `QUALTRICS_BASE_URL`          |
-| `prolific-prod`  | Participant data           | `TABS_PROLIFIC_TOKEN`                                |
-| `google-prod`    | Analytics reporting        | `GA_PROPERTY_ID`, `GOOGLE_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PRIVATE_KEY`, `GMAIL_APP_PASSWORD` |
-| `github-pages`   | Deployment (built-in)      | Automatic GitHub token                               |
+| Environment        | Purpose                    | Secrets/Variables | Status                  |
+| ------------------ | -------------------------- | ----------------- | ----------------------- |
+| `qualtrics-prod`   | Survey management          | 7 secrets, 4 vars | ✅ Active (5 workflows) |
+| `prolific-prod`    | Participant data           | 2 secrets, 3 vars | ✅ Active (2 workflows) |
+| `google-prod`      | Analytics reporting        | 6 secrets         | ✅ Active (1 workflow)  |
+| `microsoft-prod`   | Forms integration          | 1 secret          | ⚠️ Configured (future)  |
+| `stripe-prod`      | Payment processing         | 1 secret          | ⚠️ Configured (future)  |
+| `github-pages`     | Deployment (built-in)      | Auto token        | ✅ Active (deployment)  |
 
-**Note**: These environments are only available in GitHub Actions CI/CD. Local development requires separate credential setup.
+**Note**: Active environments are used in GitHub Actions workflows. Configured environments have secrets set up for future integrations or manual operations. Local development requires separate credential setup.
 
 #### Qualtrics API v3 (REST)
 

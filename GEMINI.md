@@ -778,15 +778,19 @@ npx tsx scripts/generate-report.ts
 
 All APIs use **GitHub environment secrets** for credential management:
 
-| Environment      | API Used            | Secrets Required                                     | Active Workflows                       |
-| ---------------- | ------------------- | ---------------------------------------------------- | -------------------------------------- |
-| **qualtrics-prod** | Qualtrics API v3    | `QUALTRICS_API_TOKEN`<br>`QUALTRICS_BASE_URL`        | 5 workflows:<br>- Copy surveys<br>- Update metrics<br>- Fetch questions<br>- API smoke test<br>- Prolific verification |
-| **prolific-prod**  | Prolific API v1     | `TABS_PROLIFIC_TOKEN`                                | 2 workflows:<br>- Weekly data collection<br>- Prolific verification |
-| **google-prod**    | Google Analytics v1 | `GA_PROPERTY_ID`<br>`GOOGLE_SERVICE_ACCOUNT_EMAIL`<br>`GOOGLE_PRIVATE_KEY`<br>`GMAIL_APP_PASSWORD`<br>`GOOGLE_PROJECT_OWNER_EMAIL`<br>`REPORT_RECIPIENT_EMAIL` | 1 workflow:<br>- Daily analytics report |
-| **github-pages**   | GitHub Pages        | Automatic `GITHUB_TOKEN`                             | 1 workflow:<br>- Site deployment |
+| Environment        | API/Service         | Secrets/Variables | Status & Workflows                                   |
+| ------------------ | ------------------- | ----------------- | ---------------------------------------------------- |
+| **qualtrics-prod** | Qualtrics API v3    | 7 secrets, 4 vars | ✅ **Active** - 5 workflows:<br>• Copy surveys<br>• Update metrics<br>• Fetch questions<br>• API smoke test<br>• Prolific verification |
+| **prolific-prod**  | Prolific API v1     | 2 secrets, 3 vars | ✅ **Active** - 2 workflows:<br>• Weekly data collection<br>• Prolific verification |
+| **google-prod**    | Google Analytics v1 | 6 secrets         | ✅ **Active** - 1 workflow:<br>• Daily analytics report |
+| **microsoft-prod** | Microsoft Forms     | 1 secret          | ⚠️ **Configured** (future integration)               |
+| **stripe-prod**    | Payment processing  | 1 secret          | ⚠️ **Configured** (future integration)               |
+| **github-pages**   | GitHub Pages        | Auto token        | ✅ **Active** - Site deployment                      |
 
 **Key points:**
-- ✅ Environments are **only accessible in GitHub Actions**
+- ✅ **Active** environments are used in GitHub Actions workflows
+- ⚠️ **Configured** environments have secrets set up for future integrations or manual operations
+- ✅ All environments are **only accessible in GitHub Actions**
 - ✅ Local development requires separate credential setup
 - ✅ All secrets are encrypted and never exposed in logs
 - ✅ Use environment variables locally, never commit tokens

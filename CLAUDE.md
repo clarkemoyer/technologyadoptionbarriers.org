@@ -547,14 +547,16 @@ const response = await gaClient.runReport({
 
 All external API integrations use **GitHub environment secrets** for secure credential management:
 
-| Environment      | API                     | Secrets                                              | Workflows                          |
-| ---------------- | ----------------------- | ---------------------------------------------------- | ---------------------------------- |
-| `qualtrics-prod` | Qualtrics API v3        | `QUALTRICS_API_TOKEN`, `QUALTRICS_BASE_URL`          | 5 workflows (copy, metrics, fetch) |
-| `prolific-prod`  | Prolific API v1         | `TABS_PROLIFIC_TOKEN`                                | 2 workflows (collect, verify)      |
-| `google-prod`    | Google Analytics Data   | `GA_PROPERTY_ID`, `GOOGLE_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PRIVATE_KEY`, `GMAIL_APP_PASSWORD` | 1 workflow (daily report)          |
-| `github-pages`   | GitHub Pages deployment | Automatic `GITHUB_TOKEN`                             | Deploy workflow                    |
+| Environment        | API/Service             | Secrets/Variables     | Status                          |
+| ------------------ | ----------------------- | --------------------- | ------------------------------- |
+| `qualtrics-prod`   | Qualtrics API v3        | 7 secrets, 4 vars     | ✅ Active (5 workflows)         |
+| `prolific-prod`    | Prolific API v1         | 2 secrets, 3 vars     | ✅ Active (2 workflows)         |
+| `google-prod`      | Google Analytics Data   | 6 secrets             | ✅ Active (daily report)        |
+| `microsoft-prod`   | Microsoft Forms         | 1 secret              | ⚠️ Configured (future use)      |
+| `stripe-prod`      | Payment processing      | 1 secret              | ⚠️ Configured (future use)      |
+| `github-pages`     | GitHub Pages deployment | Auto token            | ✅ Active (deployment)          |
 
-**Important**: These environments are **only accessible in GitHub Actions**. Local development requires setting up separate credentials via environment variables or MCP configurations.
+**Important**: Active environments are used in GitHub Actions workflows. Configured environments have secrets set up for future integrations or manual operations. All environments are **only accessible in GitHub Actions**. Local development requires setting up separate credentials via environment variables or MCP configurations.
 
 ### Security: API Token Management
 
