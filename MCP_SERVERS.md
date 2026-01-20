@@ -1,23 +1,65 @@
 # MCP Servers Configuration
 
-This document describes the Model Context Protocol (MCP) servers configured for this repository to enhance coding agent capabilities.
+This document describes the Model Context Protocol (MCP) servers configured for this repository.
+
+## Configuration Types
+
+There are **two different MCP configuration approaches** for this repository:
+
+### 1. GitHub Copilot Agent (Recommended for GitHub UI)
+
+For use with **GitHub Copilot coding agent in the GitHub UI**, configuration is done through repository settings, not through committed files.
+
+**📖 See:** [GITHUB_COPILOT_AGENT_SETUP.md](./GITHUB_COPILOT_AGENT_SETUP.md) for complete setup instructions.
+
+**Key differences:**
+
+- Configuration entered in GitHub Settings UI (**Settings** > **Copilot** > **Coding agent**)
+- Requires `type`, `tools`, and proper environment secret format
+- Environment secrets must be prefixed with `COPILOT_MCP_`
+- Supports `type: "local"`, `"http"`, or `"sse"`
+
+### 2. IDE-Based MCP (For Local Development)
+
+For use with **VS Code, IDEs, and local MCP clients**, configuration is in `.copilot/mcp-config.json` and `.vscode/mcp.json`.
+
+**Key differences:**
+
+- Configuration file committed to repository
+- Simpler format without `type` or `tools` fields
+- Environment variables use different patterns (`${VAR}` or inputs)
+
+---
 
 ## What is MCP?
 
 Model Context Protocol (MCP) is an open standard that enables large language models (LLMs) and AI coding agents to interact with external tools, resources, and data sources in a standardized way. MCP servers expose specific capabilities that coding agents can use to perform tasks more effectively.
 
-## Configuration Location
-
-MCP servers are configured in `.copilot/mcp-config.json` at the repository level. This configuration is automatically discovered by GitHub Copilot and other MCP-compatible coding agents.
-
 ## Configured MCP Servers
+
+This repository has **6 MCP servers** configured for both GitHub Copilot Agent and IDE use:
 
 ### 1. GitHub MCP (Required)
 
 **Purpose:** Provides access to GitHub repository operations, workflows, issues, pull requests, and more.
 
+**For GitHub Copilot Agent:**
+
+```json
+{
+  "github-mcp-server": {
+    "type": "http",
+    "url": "https://api.githubcopilot.com/mcp/readonly",
+    "tools": ["*"],
+    "headers": {
+      "X-MCP-Toolsets": "repos,issues,users,pull_requests,code_security,secret_protection,actions,web_search"
+    }
+  }
+}
+```
+
 **Server Type:** Remote HTTP  
-**URL:** `https://api.githubcopilot.com/mcp/`
+**URL:** `https://api.githubcopilot.com/mcp/readonly` (or `/mcp/` for full access)
 
 **Capabilities:**
 
@@ -63,6 +105,24 @@ MCP servers are configured in `.copilot/mcp-config.json` at the repository level
 ### 3. Google Cloud MCP (Required)
 
 **Purpose:** Provides access to Google Cloud Platform services, including Google Analytics Data API.
+
+**For GitHub Copilot Agent:**
+
+```json
+{
+  "google-cloud": {
+    "type": "local",
+    "command": "npx",
+    "args": ["-y", "gcloud-mcp"],
+    "tools": ["*"],
+    "env": {
+      "GOOGLE_SERVICE_ACCOUNT_EMAIL": "COPILOT_MCP_GOOGLE_SERVICE_ACCOUNT_EMAIL",
+      "GOOGLE_PRIVATE_KEY": "COPILOT_MCP_GOOGLE_PRIVATE_KEY",
+      "GA_PROPERTY_ID": "COPILOT_MCP_GA_PROPERTY_ID"
+    }
+  }
+}
+```
 
 **Server Type:** Local command (gcloud CLI wrapper)  
 **Package:** `gcloud-mcp`

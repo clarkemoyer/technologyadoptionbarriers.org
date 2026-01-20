@@ -1,34 +1,54 @@
 {
   "mcpServers": {
-    "github": {
-      "url": "https://api.githubcopilot.com/mcp/"
+    "github-mcp-server": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/readonly",
+      "tools": ["*"],
+      "headers": {
+        "X-MCP-Toolsets": "repos,issues,users,pull_requests,code_security,secret_protection,actions,web_search"
+      }
     },
     "qualtrics-surveys": {
+      "type": "http",
       "url": "https://by-brand.iad1.qualtrics.com/API/mcp/survey-crud",
+      "tools": ["*"],
       "headers": {
         "Accept": "application/json, text/event-stream",
-        "Authorization": "Bearer ${QUALTRICS_OAUTH_TOKEN}"
+        "Authorization": "Bearer $COPILOT_MCP_QUALTRICS_OAUTH_TOKEN"
       }
     },
     "google-cloud": {
+      "type": "local",
       "command": "npx",
-      "args": ["-y", "gcloud-mcp"]
+      "args": ["-y", "gcloud-mcp"],
+      "tools": ["*"],
+      "env": {
+        "GOOGLE_SERVICE_ACCOUNT_EMAIL": "COPILOT_MCP_GOOGLE_SERVICE_ACCOUNT_EMAIL",
+        "GOOGLE_PRIVATE_KEY": "COPILOT_MCP_GOOGLE_PRIVATE_KEY",
+        "GA_PROPERTY_ID": "COPILOT_MCP_GA_PROPERTY_ID"
+      }
     },
     "playwright": {
+      "type": "local",
       "command": "npx",
-      "args": ["-y", "@playwright/mcp@latest"]
+      "args": ["-y", "@playwright/mcp@latest"],
+      "tools": ["*"]
     },
     "filesystem": {
+      "type": "local",
       "command": "npx",
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
         "/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org"
-      ]
+      ],
+      "tools": ["*"]
     },
     "next-devtools": {
+      "type": "local",
       "command": "npx",
-      "args": ["-y", "next-devtools-mcp@latest"]
+      "args": ["-y", "next-devtools-mcp@latest"],
+      "tools": ["*"]
     }
   }
 }
