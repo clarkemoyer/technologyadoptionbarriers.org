@@ -5,7 +5,9 @@ import {
   exportSubmissionsCSV,
 } from '../src/lib/prolific-api'
 
-import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs'
+import { appendGithubStepSummary, mdEscape } from '../src/lib/github-utils'
+
+import { mkdirSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 
 const rawApiToken = process.env.PROLIFIC_API_TOKEN
@@ -31,22 +33,6 @@ function envInt(name: string, defaultValue: number): number {
   if (value === undefined) return defaultValue
   const parsed = Number.parseInt(value, 10)
   return Number.isFinite(parsed) ? parsed : defaultValue
-}
-
-function appendGithubStepSummary(markdown: string) {
-  const summaryPath = process.env.GITHUB_STEP_SUMMARY
-  if (!summaryPath) {
-    return
-  }
-  appendFileSync(summaryPath, markdown)
-}
-
-function mdEscape(text: string): string {
-  return text.replace(/[\\|\n\r]/g, (match) => {
-    if (match === '\\') return '\\\\'
-    if (match === '|') return '\\|'
-    return ' '
-  })
 }
 
 function formatIsoMaybe(value: unknown): string {
@@ -103,6 +89,14 @@ async function main() {
       console.log('  Name:', stats.study.name)
       console.log('  Internal Name:', stats.study.internal_name)
       console.log('  Status:', stats.study.status)
+      if (stats.study.filters && stats.study.filters.length > 0) {
+        console.log('  Filters:')
+        stats.study.filters.forEach((f) => {
+          console.log(
+            `    - ${f.filter_id}: ${JSON.stringify(f.selected_values || f.selected_range)}`
+          )
+        })
+      }
       console.log('  Description:', stats.study.description)
       console.log('  External URL:', stats.study.external_study_url)
       console.log('  Total Places:', stats.study.total_available_places)

@@ -34,6 +34,13 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# Temporary release-notes artifacts
+tmp_release_notes_*.md
+tmp_release_notes_generated.md
+
+# CI log files
+ci_log*.txt
+
 # env files (can opt-in for committing if needed)
 .env*
 
@@ -51,6 +58,19 @@ next-env.d.ts
 # Sensitive local keys
 ga-key.json
 
+# Generated local artifacts (do not commit)
+ga-report-*.json
+lint_output.txt
+test_output*.txt
+survey.json
+surveys.json
+
 # MCP config (local machine / tokens)
 mcp.json
 .vscode/mcp.json
+
+# Local transcription intermediates
+.tmp/
+
+# Local Python environment
+.venv/

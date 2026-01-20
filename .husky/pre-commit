@@ -1,9 +1,24 @@
 #!/bin/sh
-# Run formatting check first
-npm run format:check || {
-  echo "❌ Code formatting issues detected. Please run 'npm run format' to fix."
-  exit 1
-}
+# Auto-format code before committing
+
+# Check if there are any staged files
+if ! git diff --cached --quiet; then
+  echo "🔧 Running prettier to format code..."
+  
+  # Run prettier on all files (formats entire repository)
+  npm run format || {
+    echo "❌ Failed to run prettier. Please check your installation."
+    exit 1
+  }
+
+  # Re-stage files that were originally staged
+  # Use null-terminated output to handle filenames with spaces/special characters
+  git diff --cached --name-only --diff-filter=ACMR -z | xargs -0 git add
+  if [ $? -ne 0 ]; then
+    echo "❌ Failed to re-stage some formatted files. Please run 'git add' manually and retry the commit."
+    exit 1
+  fi
+fi
 
 # Run linting
 npm run lint || {
@@ -11,4 +26,4 @@ npm run lint || {
   exit 1
 }
 
-echo "✅ Pre-commit checks passed!"
+echo "✅ Pre-commit checks passed."

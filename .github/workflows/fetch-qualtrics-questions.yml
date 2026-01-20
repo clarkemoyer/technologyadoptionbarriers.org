@@ -1,0 +1,69 @@
+name: Fetch Qualtrics Questions
+
+on:
+  workflow_dispatch:
+    inputs:
+      survey_id:
+        description: 'Optional Survey ID to override environment default'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  fetch-questions:
+    name: Fetch Survey Questions
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    env:
+      QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+      QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+      QUALTRICS_SURVEY_ID: ${{ inputs.survey_id || vars.QUALTRICS_SURVEY_ID }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Verify Qualtrics configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${QUALTRICS_API_TOKEN:-}" ]]; then
+            echo "ERROR: QUALTRICS_API_TOKEN is not set. Configure this secret in the 'qualtrics-prod' environment." >&2
+            exit 1
+          fi
+
+          if [[ -z "${QUALTRICS_BASE_URL:-}" ]]; then
+            echo "ERROR: QUALTRICS_BASE_URL is not set. Configure this variable in the 'qualtrics-prod' environment." >&2
+            exit 1
+          fi
+
+          if [[ -z "${QUALTRICS_SURVEY_ID:-}" ]]; then
+            echo "ERROR: QUALTRICS_SURVEY_ID is not set. Configure this variable in the 'qualtrics-prod' environment or pass workflow input survey_id." >&2
+            exit 1
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch Questions
+        run: npx --no-install tsx scripts/fetch-qualtrics-questions.ts
+
+      - name: Add failure summary
+        if: failure()
+        shell: bash
+        run: |
+          {
+            echo "## Fetch Qualtrics Questions workflow failed"
+            echo
+            echo '- Ensure the `QUALTRICS_API_TOKEN` secret is configured for the `qualtrics-prod` environment.'
+            echo '- Ensure `QUALTRICS_BASE_URL` and `QUALTRICS_SURVEY_ID` are set as environment variables (or pass workflow input `survey_id`).'
+            echo "- Review the logs for details (Fetch Questions step)."
+          } >> "$GITHUB_STEP_SUMMARY"

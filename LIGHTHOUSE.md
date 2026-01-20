@@ -86,38 +86,27 @@ Lighthouse CI runs automatically:
 
 1. **After successful deployment** to the main branch (via `workflow_run` trigger)
    - Triggers after the "Deploy to GitHub Pages" workflow completes successfully
-   - Only runs on the main branch to avoid duplicate runs on PRs
-2. **On pull requests** to the main branch (with results posted as PR comments)
-   - Runs once per PR to provide feedback before merging
+   - Automatically discovers and audits all HTML pages in the build
+2. **Weekly** on Monday at 2:00 AM UTC (via `schedule` trigger)
+   - Runs during off-peak hours to minimize impact on site traffic
+   - Automatically discovers new pages added since the last run
+   - Monitors site performance over time
+   - Catches any degradation not caused by code changes
 3. **On manual trigger** from the Actions tab
 4. **Multiple runs per page** (3 runs) to calculate and report median scores
 
-> **Note**: The workflow is configured to avoid duplicate runs. PRs trigger only via the `pull_request` event, while main branch deployments trigger only via the `workflow_run` event.
+> **Note**: Pages are automatically discovered from the `out/` directory during each run, so new pages are automatically included in audits without manual configuration updates.
 
 ### Viewing CI Results
-
-#### In Pull Request Comments
-
-When Lighthouse runs on a pull request, it automatically posts a comprehensive comment showing:
-
-- **Median scores** for each category (Performance, Accessibility, Best Practices, SEO)
-- **Visual indicators** (🟢 Good, 🟡 Needs Improvement, 🔴 Poor)
-- **Threshold comparison** showing if scores meet configured thresholds
-- **Summary status** indicating if all thresholds are met
-
-The comment includes a table for each audited page with:
-
-- Current scores vs. thresholds
-- Pass/warn indicators (✅/⚠️)
-- Links to download detailed reports
 
 #### In GitHub Actions Logs
 
 1. Go to the **Actions** tab in the repository
 2. Look for **"Lighthouse CI"** workflow runs
 3. Click on a workflow run to see the detailed logs
-4. Check the **"Display Lighthouse Results Summary"** step for scores
-5. View all individual run scores in the console output
+4. Check the **"Discover pages and generate Lighthouse config"** step to see which pages were found
+5. Check the **"Display Lighthouse Results Summary"** step for scores
+6. View all individual run scores in the console output
 
 #### Downloading Reports
 
@@ -131,9 +120,31 @@ The comment includes a table for each audited page with:
    - Accessibility issues (if any)
    - SEO checks
 
-### Configuration File
+### Configuration
 
-The Lighthouse CI configuration is in `lighthouserc.json`:
+#### Automatic Page Discovery
+
+The Lighthouse CI workflow **automatically discovers all HTML pages** in the `out/` directory before each run. This means:
+
+- **No manual configuration needed** when adding new pages
+- Pages are discovered dynamically by scanning for `*.html` files
+- The configuration file (`lighthouserc.json`) is generated on-the-fly during CI runs
+- Currently includes all ~31 pages (articles, policy pages, and other content including 404.html)
+
+The automatic discovery script:
+
+1. Scans the `out/` directory after building the site
+2. Finds all `.html` files (excluding internal Next.js files starting with `_`)
+3. Converts file paths to `http://localhost/` URLs
+4. Generates a `lighthouserc.json` configuration file
+5. Runs Lighthouse CI with the discovered pages
+6. Currently discovers ~31 pages (includes 404.html)
+
+#### Static Configuration (For Local Testing)
+
+For local testing, you can use the checked-in `lighthouserc.json` file which contains a static list of pages. However, the CI workflow ignores this file and generates its own configuration dynamically.
+
+**Example structure**:
 
 ```json
 {
@@ -142,19 +153,22 @@ The Lighthouse CI configuration is in `lighthouserc.json`:
       "staticDistDir": "./out",
       "url": [
         "http://localhost/index.html",
-        "http://localhost/cookie-policy.html",
-        "http://localhost/privacy-policy.html",
-        "http://localhost/terms-of-service.html"
+        "http://localhost/barriers.html",
+        ...
       ],
       "numberOfRuns": 3
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["warn", { "minScore": 0.55 }],
+        "categories:accessibility": ["warn", { "minScore": 0.9 }],
+        "categories:best-practices": ["warn", { "minScore": 0.65 }],
+        "categories:seo": ["warn", { "minScore": 0.95 }]
+      }
     }
   }
 }
 ```
-
-**Important**: URLs should point to the actual `.html` files in the `out` directory. Next.js static export generates flat HTML files at the root level. This site has a single homepage with sections (About Us, Donate, Volunteer) rather than separate pages for those features. However, the policy pages are separate routes that generate individual HTML files.
-
-You can add more pages to audit by adding URLs to the `url` array. To see which pages are generated, check the `out/` directory after running `npm run build`.
 
 ---
 
@@ -533,7 +547,7 @@ The Lighthouse CI is integrated into the deployment pipeline with the following 
 The Lighthouse workflow only runs when:
 
 - The deployment workflow succeeded (for main branch)
-- A pull request is opened/updated (for PRs)
+- Weekly schedule triggers (Monday 2 AM UTC)
 - Manually triggered (for on-demand audits)
 
 This prevents unnecessary runs and saves CI/CD resources.
@@ -542,9 +556,13 @@ This prevents unnecessary runs and saves CI/CD resources.
 
 ## Current Status
 
-**Last Updated**: 2025-12-06
+**Last Updated**: 2026-01-19
 
-**Pages Monitored**: 4 key pages (Homepage, Cookie Policy, Privacy Policy, Terms of Service)
+**Pages Monitored**: ~31 pages (automatically discovered from build output)
+
+- Includes homepage, 17 articles, 6 policy pages, and other content pages
+- Pages are discovered automatically during each CI run
+- New pages are automatically included without manual configuration
 
 **Current Performance Scores**:
 
@@ -554,6 +572,8 @@ This prevents unnecessary runs and saves CI/CD resources.
 | Cookie Policy    | 84-86% 🟢   | 95% 🟢        | 71% 🟡         | 100% 🟢 |
 | Privacy Policy   | 85-86% 🟢   | 96% 🟢        | 71% 🟡         | 100% 🟢 |
 | Terms of Service | 84-86% 🟢   | 94% 🟢        | 71% 🟡         | 100% 🟢 |
+
+_Note: Scores for all discovered pages are available in the workflow artifacts after each CI run._
 
 **Recent Performance Improvements** (December 2025):
 
@@ -565,7 +585,14 @@ This prevents unnecessary runs and saves CI/CD resources.
 **Monitoring Frequency**:
 
 - After each deployment to main branch
-- On every pull request to main branch
+- Weekly on Monday at 2:00 AM UTC (off-peak hours)
+- On-demand via manual trigger
+
+**Automatic Page Discovery**:
+
+- Pages are discovered automatically during each CI run
+- No manual configuration needed when adding new pages
+- Currently monitoring ~31 pages across the entire site
 
 **Report Retention**: 30 days in GitHub Actions artifacts
 

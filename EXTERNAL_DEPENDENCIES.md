@@ -27,7 +27,7 @@ These are services we directly integrate into our application code.
 #### 1. Google Tag Manager (GTM)
 
 - **Purpose:** Tag management system for analytics and marketing pixels
-- **GTM ID:** `GTM-TQ5H8HPR`
+- **GTM ID:** `GTM-P5GBFCTL`
 - **Implementation:** `src/components/google-tag-manager/index.tsx`
 - **Load Strategy:** `lazyOnload` for better performance
 - **Data Collected:** Page views, user interactions, custom events
@@ -38,6 +38,7 @@ These are services we directly integrate into our application code.
 
 - **Purpose:** Website traffic and user behavior analytics
 - **Implementation:** Loaded via cookie consent when user accepts analytics cookies
+- **Measurement ID:** `G-WQT4S7PKRE`
 - **Location:** `src/components/cookie-consent/index.tsx`
 - **Data Collected:** Page views, session duration, user demographics, device information
 - **User Control:** Requires explicit user consent via cookie banner

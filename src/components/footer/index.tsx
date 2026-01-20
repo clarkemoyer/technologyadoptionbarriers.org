@@ -7,7 +7,8 @@ import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react'
 import { FaFacebookF, FaLinkedinIn, FaGithub } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import StripeDonateButton from '@/components/stripe-donate-button'
-import { DonationType } from '@/lib/stripe'
+import { ContributionType } from '@/lib/stripe'
+// import { ImpactCounter } from '../impact/ImpactCounter'
 
 const Footer: React.FC = () => {
   const currentYear = React.useMemo(() => new Date().getFullYear(), [])
@@ -75,7 +76,7 @@ const Footer: React.FC = () => {
               TAKE THE TABS
             </a>
             <StripeDonateButton
-              type={DonationType.ONE_TIME}
+              type={ContributionType.ONE_TIME}
               label="SUPPORT TABS"
               className="px-[40px] py-[18px] bg-[#2EA3F2] text-white text-[18px] font-bold rounded-[4px] hover:bg-[#2589cc] transition-all duration-300 uppercase tracking-widest"
             />
@@ -159,11 +160,15 @@ const Footer: React.FC = () => {
                 rel="noopener noreferrer"
                 aria-label={link.label}
                 className="text-white hover:text-[#26C699] transition-colors"
+                aria-disabled={link.href === ''}
               >
                 <link.icon className="w-5 h-5" />
               </a>
             ))}
           </div>
+
+          {/* Public Impact Stats - Temporarily disabled due to CI build issues */}
+          {/* <ImpactCounter /> */}
         </div>
       </div>
     </footer>
