@@ -11,6 +11,7 @@ Repository-level MCP server configuration for GitHub Copilot and other MCP-compa
 This file defines which MCP servers are available to coding agents working on this repository. It is automatically discovered by GitHub Copilot.
 
 **Important:**
+
 - This file is committed to the repository for team-wide consistency
 - Environment variables referenced (e.g., `${QUALTRICS_OAUTH_TOKEN}`) must be configured locally
 - See [MCP_SERVERS.md](../MCP_SERVERS.md) for complete documentation

@@ -20,6 +20,7 @@ MCP servers are configured in `.copilot/mcp-config.json` at the repository level
 **URL:** `https://api.githubcopilot.com/mcp/`
 
 **Capabilities:**
+
 - Repository management and navigation
 - Issue and pull request operations
 - GitHub Actions workflow management
@@ -40,6 +41,7 @@ MCP servers are configured in `.copilot/mcp-config.json` at the repository level
 **URL:** `https://by-brand.iad1.qualtrics.com/API/mcp/survey-crud`
 
 **Capabilities:**
+
 - Survey CRUD operations (Create, Read, Update, Delete)
 - Question management
 - Response data access
@@ -48,6 +50,7 @@ MCP servers are configured in `.copilot/mcp-config.json` at the repository level
 **Authentication:** OAuth Bearer token via `QUALTRICS_OAUTH_TOKEN` environment variable
 
 **Important Notes:**
+
 - Requires OAuth access token
 - Uses Server-Sent Events (SSE) transport
 - Replace hostname with your Qualtrics brand/cluster hostname
@@ -65,17 +68,20 @@ MCP servers are configured in `.copilot/mcp-config.json` at the repository level
 **Package:** `gcloud-mcp`
 
 **Capabilities:**
+
 - Google Analytics Data API access
 - Google Cloud service management
 - GCP resource operations
 - Service account authentication
 
 **Authentication:** Uses Google service account credentials from environment:
+
 - `GOOGLE_SERVICE_ACCOUNT_EMAIL`
 - `GOOGLE_PRIVATE_KEY`
 - `GA_PROPERTY_ID`
 
 **Usage Example:**
+
 - Query Google Analytics metrics
 - Access GA4 reporting data
 - Manage GCP resources
@@ -92,6 +98,7 @@ MCP servers are configured in `.copilot/mcp-config.json` at the repository level
 **Package:** `@playwright/mcp`
 
 **Capabilities:**
+
 - Browser automation (Chrome, Firefox, WebKit, Edge)
 - E2E test execution and debugging
 - Web scraping and data extraction
@@ -101,6 +108,7 @@ MCP servers are configured in `.copilot/mcp-config.json` at the repository level
 **Authentication:** None required
 
 **Usage Example:**
+
 - Run and debug E2E tests
 - Automate browser interactions
 - Generate test scripts
@@ -118,6 +126,7 @@ MCP servers are configured in `.copilot/mcp-config.json` at the repository level
 **Package:** `@modelcontextprotocol/server-filesystem`
 
 **Capabilities:**
+
 - Read/write files
 - Create/list/delete directories
 - Move files and directories
@@ -125,12 +134,14 @@ MCP servers are configured in `.copilot/mcp-config.json` at the repository level
 - Get file metadata
 
 **Security:**
+
 - Access restricted to repository directory only
 - Path: `/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org`
 
 **Authentication:** None required (path-based security)
 
 **Usage Example:**
+
 - Navigate repository structure
 - Read and modify source files
 - Search codebase
@@ -148,6 +159,7 @@ MCP servers are configured in `.copilot/mcp-config.json` at the repository level
 **Package:** `next-devtools-mcp`
 
 **Capabilities:**
+
 - Application runtime insights
 - Live error detection and logs
 - Page metadata and route analysis
@@ -156,10 +168,12 @@ MCP servers are configured in `.copilot/mcp-config.json` at the repository level
 - Project structure and configuration access
 
 **Requirements:**
+
 - Next.js v16+ (currently using v16.1.3)
 - Development server must be running (`npm run dev`)
 
 **Usage Example:**
+
 - Analyze application structure
 - Debug runtime errors
 - Understand routing configuration
@@ -174,11 +188,13 @@ MCP servers are configured in `.copilot/mcp-config.json` at the repository level
 The following environment variables are required for specific MCP servers:
 
 ### Qualtrics MCP
+
 ```bash
 QUALTRICS_OAUTH_TOKEN=<your-oauth-access-token>
 ```
 
 ### Google Cloud MCP
+
 ```bash
 GOOGLE_SERVICE_ACCOUNT_EMAIL=<service-account-email>
 GOOGLE_PRIVATE_KEY=<service-account-private-key>
@@ -186,6 +202,7 @@ GA_PROPERTY_ID=<google-analytics-property-id>
 ```
 
 **Security Note:** Never commit these credentials to the repository. Use:
+
 - GitHub Actions secrets for CI/CD
 - Local environment variables or `.env` files (gitignored) for development
 - VS Code input prompts for interactive use
@@ -234,6 +251,7 @@ bash scripts/validate-mcp-config.sh
 ```
 
 The script checks:
+
 - JSON syntax validity
 - Configuration structure
 - HTTP server connectivity (GitHub and Qualtrics MCP)
@@ -260,21 +278,25 @@ To add additional MCP servers:
 ## Troubleshooting
 
 ### Server Not Found
+
 - Ensure the server package is installed or accessible via `npx`
 - Check that the command and args are correct
 - Verify network connectivity for remote servers
 
 ### Authentication Failures
+
 - Verify environment variables are set correctly
 - Check token/credential expiration
 - Review server-specific authentication requirements
 
 ### Connection Timeouts
+
 - For Qualtrics MCP: Ensure your MCP client supports Server-Sent Events (SSE)
 - For remote servers: Check network connectivity and firewall rules
 - For local servers: Ensure required packages can be installed
 
 ### Server Initialization Hangs
+
 - Check server logs for errors
 - Verify all required environment variables are set
 - Try restarting the MCP client or coding agent
