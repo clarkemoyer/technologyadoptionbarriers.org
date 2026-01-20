@@ -1,0 +1,22 @@
+Technology Adoption Barriers Survey (TABS) — Press Kit (Text)
+
+Website
+https://technologyadoptionbarriers.org
+
+Media Contact
+contact@technologyadoptionbarriers.org
+
+Project Summary
+The Technology Adoption Barriers Survey (TABS) is a research initiative focused on understanding the real-world barriers organizations face when adopting new technologies. TABS is designed to help leaders identify priority areas for intervention, benchmark against aggregated insights, and improve the likelihood that technology investments deliver value.
+
+Key Messages
+- Technology adoption succeeds or fails based on organizational barriers—not just tools.
+- TABS gathers perspectives from leaders and practitioners to surface practical barriers and enabling capabilities.
+- The goal is actionable insight: prioritize interventions, reduce waste, and increase the odds that technology investments deliver value.
+
+Links
+- Survey: https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO
+- GitHub: https://github.com/clarkemoyer/technologyadoptionbarriers.org
+
+Notes
+If you need accessible formats (captions/transcript, large print, etc.), email contact@technologyadoptionbarriers.org.

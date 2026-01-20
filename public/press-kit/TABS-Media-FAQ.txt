@@ -1,0 +1,26 @@
+Technology Adoption Barriers Survey (TABS) — Media FAQ
+
+What is TABS?
+TABS (Technology Adoption Barriers Survey) is a research initiative focused on understanding the real-world barriers organizations face when adopting new technologies. The goal is actionable insight that helps leaders prioritize interventions and improve the likelihood that technology investments deliver value.
+
+Who is this for?
+TABS is designed for organizational leaders and practitioners involved in selecting, implementing, or operating technology.
+
+What does TABS publish?
+TABS plans to publish aggregated insights and research updates. Individual responses are not published on this site.
+
+How can I participate?
+Take the survey here:
+https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO
+
+Is the website open source?
+Yes. The website and supporting automation are maintained in GitHub:
+https://github.com/clarkemoyer/technologyadoptionbarriers.org
+
+How should I cite TABS?
+For citation metadata, see CITATION.cff in the GitHub repository:
+https://github.com/clarkemoyer/technologyadoptionbarriers.org/blob/main/CITATION.cff
+
+I need a transcript/captions for the project video.
+We provide caption support in the embedded player. If you need an accessible transcript immediately, email:
+contact@technologyadoptionbarriers.org
