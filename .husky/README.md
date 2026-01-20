@@ -29,7 +29,7 @@ This directory contains Git hooks managed by [Husky](https://typicode.github.io/
 
 ```
 🔧 Running prettier to format code...
-✅ Pre-commit checks passed! Code has been formatted.
+✅ Pre-commit checks passed.
 ```
 
 ### `commit-msg`
