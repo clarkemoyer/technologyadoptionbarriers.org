@@ -2,6 +2,12 @@
 node_modules
 package-lock.json
 
+# Local Python environment
+.venv
+
+# Local temp artifacts
+.tmp
+
 # Build output
 .next
 out
