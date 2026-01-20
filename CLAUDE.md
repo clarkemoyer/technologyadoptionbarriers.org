@@ -12,6 +12,8 @@ You're working on a **Next.js 16.0.7 + TypeScript** website for Technology Adopt
 - Production URL: https://technologyadoptionbarriers.org
 - All changes go through PR workflow (no direct commits to `main`)
 - CI enforces formatting, linting, tests, and accessibility checks
+- **External APIs**: Qualtrics (surveys), Prolific (participant data)
+- **MCP Integration**: Qualtrics MCP and GitHub MCP available in IDE
 
 ## Your Strengths in This Context
 
@@ -360,6 +362,211 @@ git commit -m "chore: update dependencies"
 - **Optimize images**: Use appropriate formats and sizes before adding
 - **Lazy load when possible**: Use dynamic imports for large components
 - **Monitor Lighthouse scores**: CI runs Lighthouse on every PR
+
+## IDE-Specific Capabilities
+
+### Terminal Access (Your Advantage!)
+
+As an IDE-integrated agent in VS Code/Antigravity, **you have terminal/CLI access** that cloud agents don't:
+
+**You can run commands directly:**
+
+```bash
+# Development workflow
+npm run dev              # Start dev server
+npm test                 # Run tests with output
+npm run build            # Build and see detailed output
+
+# Git operations
+git status               # Check working tree
+git diff                 # See changes
+git log --oneline -10    # Recent commits
+
+# TypeScript scripts
+npx tsx scripts/collect-prolific-data.ts
+npx tsx scripts/fetch-qualtrics-questions.ts
+
+# API testing
+curl -H "X-API-TOKEN: $TOKEN" \
+  "https://datacenter.qualtrics.com/API/v3/surveys"
+```
+
+**Use this to your advantage:**
+
+- Debug test failures with full output
+- Validate builds before committing
+- Explore git history for context
+- Test API connectivity locally
+
+### MCP (Model Context Protocol) Integration
+
+You can connect to MCP servers for enhanced capabilities:
+
+#### Qualtrics MCP Server
+
+**Survey management via MCP tools:**
+
+- **Setup**: Copy `.vscode/mcp.json.example` to `.vscode/mcp.json`
+- **Host**: `https://<your-qualtrics-datacenter>/API/mcp/survey-crud`
+- **Auth**: OAuth 2.0 (VS Code prompts for token)
+- **Transport**: HTTP with Server-Sent Events (SSE)
+
+**Capabilities:**
+
+- List all surveys in account
+- Get survey metadata and definitions
+- Copy surveys between projects
+- Export survey definitions (QSF format)
+- Import surveys from QSF files
+
+**Example use cases:**
+
+- "Show me all surveys with 'TABS' in the name"
+- "Get the definition for survey ID SV_abc123"
+- "Copy survey SV_xyz789 to a new project"
+
+**Documentation**: [qualtrics-mcp.md](./qualtrics-mcp.md)
+
+#### GitHub MCP Server
+
+**Repository management via MCP:**
+
+- **Setup**: Install from VS Code MCP Marketplace
+- **Host**: `https://api.githubcopilot.com/mcp/`
+- **Auth**: Handled by VS Code GitHub integration
+
+**Capabilities:**
+
+- Search code across repositories
+- Create/update issues
+- Manage pull requests
+- Access GitHub Actions logs
+
+**Example use cases:**
+
+- "Find all usages of assetPath in this repo"
+- "Show recent issues labeled 'bug'"
+- "Get the latest CI run status"
+
+### External API Access
+
+#### Qualtrics REST API v3
+
+**For operations not covered by MCP:**
+
+- **Base URL**: `https://<datacenter>.qualtrics.com/API/v3`
+- **Auth**: `X-API-TOKEN` header
+- **Client**: `src/lib/qualtrics-api.ts`
+
+**Common operations:**
+
+```bash
+# List surveys
+curl -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
+  "$QUALTRICS_BASE_URL/API/v3/surveys"
+
+# Copy survey (API-supported method)
+curl -X POST \
+  -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
+  -H "X-Copy-Source: SV_source123" \
+  -H "Content-Type: application/json" \
+  -d '{"projectName":"Copied Survey"}' \
+  "$QUALTRICS_BASE_URL/API/v3/surveys"
+```
+
+**Documentation**: [qualtrics-api-cheatsheet.md](./qualtrics-api-cheatsheet.md)
+
+#### Prolific API v1
+
+**Participant recruitment and study data:**
+
+- **Base URL**: `https://api.prolific.com/api/v1/`
+- **Auth**: `Authorization: Token <token>` header
+- **Client**: `src/lib/prolific-api.ts`
+
+**Functions in TypeScript client:**
+
+```typescript
+import { getCurrentUser, listStudies, getStudy } from '@/lib/prolific-api';
+
+// Verify token
+const user = await getCurrentUser(apiToken);
+
+// List all studies
+const studies = await listStudies(apiToken);
+
+// Get study details
+const study = await getStudy(apiToken, studyId);
+```
+
+**Documentation**: [PROLIFIC_INTEGRATION.md](./PROLIFIC_INTEGRATION.md)
+
+#### Google Analytics Data API v1
+
+**Analytics reporting and impact metrics:**
+
+- **Base URL**: Google Analytics Data API (via `@google-analytics/data` SDK)
+- **Auth**: Service account credentials (email + private key)
+- **Client**: `src/lib/google-analytics.ts`
+- **Environment**: `google-prod` (GitHub Actions)
+
+**Functions in TypeScript client:**
+
+```typescript
+import { gaClient } from '@/lib/google-analytics';
+
+// Fetch analytics report
+const response = await gaClient.runReport({
+  startDate: '28daysAgo',
+  endDate: 'today',
+  metrics: ['activeUsers', 'sessions', 'engagementRate'],
+  dimensions: ['date', 'pagePath'],
+});
+```
+
+**Workflow**: `.github/workflows/ga-report.yml` (daily at 00:00 UTC)
+
+**Scripts**:
+- `scripts/generate-report.ts` - Fetch GA data, save to `reports/` and `src/data/impact.json`
+- `scripts/send-report-email.ts` - Email report to stakeholders
+
+### GitHub Environments Summary
+
+All external API integrations use **GitHub environment secrets** for secure credential management:
+
+| Environment      | API                     | Secrets                                              | Workflows                          |
+| ---------------- | ----------------------- | ---------------------------------------------------- | ---------------------------------- |
+| `qualtrics-prod` | Qualtrics API v3        | `QUALTRICS_API_TOKEN`, `QUALTRICS_BASE_URL`          | 5 workflows (copy, metrics, fetch) |
+| `prolific-prod`  | Prolific API v1         | `TABS_PROLIFIC_TOKEN`                                | 2 workflows (collect, verify)      |
+| `google-prod`    | Google Analytics Data   | `GA_PROPERTY_ID`, `GOOGLE_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PRIVATE_KEY`, `GMAIL_APP_PASSWORD` | 1 workflow (daily report)          |
+| `github-pages`   | GitHub Pages deployment | Automatic `GITHUB_TOKEN`                             | Deploy workflow                    |
+
+**Important**: These environments are **only accessible in GitHub Actions**. Local development requires setting up separate credentials via environment variables or MCP configurations.
+
+### Security: API Token Management
+
+⚠️ **Critical security rules:**
+
+- **NEVER commit tokens**: API tokens are stored in GitHub Secrets (environment-specific)
+- **Local testing**: Use environment variables or MCP OAuth (never hardcode)
+- **MCP configs**: All `.vscode/mcp.json` and `mcp.json` are gitignored
+- **Templates only**: Only `.example` files are committed
+
+**Setting up local tokens (for terminal testing):**
+
+```bash
+# Option 1: Shell environment (session-only)
+export QUALTRICS_API_TOKEN="your-token-here"
+export QUALTRICS_BASE_URL="https://your-dc.qualtrics.com"
+export PROLIFIC_API_TOKEN="your-token-here"
+export GA_PROPERTY_ID="properties/123456789"
+export GOOGLE_SERVICE_ACCOUNT_EMAIL="service@project.iam.gserviceaccount.com"
+export GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+
+# Option 2: VS Code MCP (recommended for Qualtrics/GitHub)
+# Copy .vscode/mcp.json.example to .vscode/mcp.json
+# VS Code will prompt for OAuth tokens when connecting
+```
 
 ## Resources
 
