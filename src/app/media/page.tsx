@@ -332,12 +332,7 @@ const MediaPage = () => {
                     <ul className="mt-2 list-disc pl-5 text-gray-700 space-y-1.5">
                       <li>
                         Presentation:{' '}
-                        <a
-                          className="text-blue-700 underline"
-                          href="/tabs-presentation"
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
+                        <a className="text-blue-700 underline" href="/tabs-presentation">
                           View Interactive Slides
                         </a>
                       </li>
