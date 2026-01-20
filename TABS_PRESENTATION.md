@@ -69,7 +69,7 @@ Three custom fonts are loaded via Next.js font optimization:
 
 ### External Dependencies
 
-- **Font Awesome 6.5.1**: Icon library (loaded from CDN)
+- **react-icons**: Icon library (icons bundled with the app, not loaded from a CDN)
 
 ## Development
 
