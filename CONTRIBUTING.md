@@ -140,6 +140,25 @@ You can choose among available AI models using Copilot's model selector feature.
 
 **Note:** Access to alternative AI providers may require specific subscription tiers. GitHub Copilot Individual provides access to core models, while GitHub Copilot Business and Enterprise may offer additional model options. Check your GitHub Copilot subscription details and the [GitHub Copilot documentation](https://docs.github.com/copilot) for currently available models.
 
+### IDE-Integrated Agent Instructions
+
+For developers using AI agents directly in their IDE (VS Code, Antigravity, etc.), we provide model-specific instruction files:
+
+- **[AGENTS.md](./AGENTS.md)** - General instructions for all IDE-integrated AI coding agents
+- **[CLAUDE.md](./CLAUDE.md)** - Anthropic Claude-specific instructions and best practices
+- **[GEMINI.md](./GEMINI.md)** - Google Gemini-specific instructions and best practices
+
+These files provide tailored guidance for each AI model, including:
+
+- Repository-specific conventions and patterns
+- Pre-commit validation steps
+- Common tasks and examples
+- Known issues and workarounds
+- Testing requirements
+- Accessibility guidelines
+
+**We recommend reviewing the appropriate agent instruction file** before starting work to ensure you follow project-specific conventions and make the most of your AI assistant's capabilities.
+
 ---
 
 ## Reviewer Onboarding
