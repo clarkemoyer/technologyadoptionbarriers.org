@@ -10,7 +10,7 @@ This directory contains Git hooks managed by [Husky](https://typicode.github.io/
 
 **What it does**:
 
-1. **Captures list of staged files** before formatting (including renamed files)
+1. **Identifies the list of staged files using `git diff`** before formatting (including renamed files)
 2. **Runs Prettier** via `npm run format` (which executes `prettier --write .`) to auto-format **all files in the repository** according to `.prettierrc.json`
 3. **Re-stages only the files that were originally staged** before formatting (so your commit contents stay scoped to what you staged)
 4. **Runs ESLint** to check for code quality issues
