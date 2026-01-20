@@ -1,6 +1,6 @@
 # Gemini Agent Instructions for TABS
 
-Hey Gemini! Welcome to the Technology Adoption Barriers (TABS) repository. This guide will help you contribute effectively to this Next.js + TypeScript nonprofit website project.
+Hey Gemini! Whether you're working in VS Code or Antigravity, welcome to the Technology Adoption Barriers (TABS) repository. This guide will help you contribute effectively to this Next.js + TypeScript nonprofit website project.
 
 ## Project at a Glance
 
