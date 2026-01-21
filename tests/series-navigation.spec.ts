@@ -141,9 +141,9 @@ test.describe('Series Navigation - Desktop Mega Menu', () => {
 
 test.describe('Series Navigation - Mobile Accordion', () => {
   test.beforeEach(async ({ page }) => {
+    await page.goto('/')
     // Set mobile viewport
     await page.setViewportSize({ width: 375, height: 667 })
-    await page.goto('/')
 
     // Dismiss cookie consent banner so it can't intercept mobile menu clicks.
     // The banner may appear after hydration, so wait briefly for it.
