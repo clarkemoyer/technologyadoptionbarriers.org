@@ -36,6 +36,7 @@ const Header: React.FC = () => {
       { label: 'Home', path: '/' },
       { label: 'Tech Adoption Barriers', path: '/barriers' },
       { label: 'The Making of TABS', path: '/making-of-tabs' },
+      { label: 'TABS Presentation', path: '/making-of-tabs/tabs-presentation' },
       {
         label: 'Technology Adoption Models',
         path: '/technology-adoption-models',

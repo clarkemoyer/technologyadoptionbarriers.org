@@ -2,6 +2,7 @@ import React from 'react'
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
+import { assetPath } from '@/lib/assetPath'
 
 export const metadata: Metadata = {
   title: 'The Making of TABS',
@@ -27,6 +28,43 @@ const MakingOfTabsPage = () => {
             and methodologies— we employ to bring TABS to life. From the survey instrument itself to
             the analytics that help us understand our audience, every component plays a critical
             role.
+          </p>
+        </section>
+
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>TABS Presentation</h2>
+          <p className="mb-4">
+            We maintain an interactive presentation that explains the project mission, key
+            challenges, and roadmap. You can view it here, or open it full-screen.
+          </p>
+
+          <div className="mb-4 flex flex-wrap gap-3">
+            <Link
+              className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+              href="/making-of-tabs/tabs-presentation"
+            >
+              View presentation page
+            </Link>
+            <a
+              className="inline-flex items-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+              href={assetPath('/tabs-presentation')}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Open full-screen
+            </a>
+          </div>
+
+          <div className="aspect-video w-full overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+            <iframe
+              title="TABS Presentation"
+              src={assetPath('/tabs-presentation')}
+              className="h-full w-full"
+              loading="lazy"
+            />
+          </div>
+          <p className="mt-3 text-sm text-gray-600">
+            Tip: click inside the presentation before using keyboard navigation.
           </p>
         </section>
 

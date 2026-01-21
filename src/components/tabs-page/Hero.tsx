@@ -1,4 +1,5 @@
 import React from 'react'
+import { assetPath } from '@/lib/assetPath'
 
 /**
  * TABS Hero Section
@@ -38,14 +39,22 @@ const Hero = () => {
               </li>
             </ul>
 
-            <a
-              href="https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-[35px] py-[15px] bg-[#26C699] text-white text-[18px] font-bold rounded-[4px] hover:bg-[#1fa680] transition-colors"
-            >
-              TAKE THE TABS
-            </a>
+            <div className="flex flex-wrap gap-3">
+              <a
+                href="https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-[35px] py-[15px] bg-[#26C699] text-white text-[18px] font-bold rounded-[4px] hover:bg-[#1fa680] transition-colors"
+              >
+                TAKE THE TABS
+              </a>
+              <a
+                href={assetPath('/making-of-tabs/tabs-presentation')}
+                className="inline-block px-[35px] py-[15px] bg-white text-[#145044] text-[18px] font-bold rounded-[4px] border border-[#145044]/30 hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145044] focus-visible:ring-offset-2"
+              >
+                VIEW PRESENTATION
+              </a>
+            </div>
           </div>
 
           {/* Right Column: Video */}
