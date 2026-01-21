@@ -306,8 +306,6 @@ const Header: React.FC = () => {
                               <div
                                 id="making-of-menu"
                                 ref={makingOfMenuRef}
-                                onMouseEnter={() => setIsMakingOfMenuOpen(true)}
-                                onMouseLeave={() => setIsMakingOfMenuOpen(false)}
                                 className="absolute left-0 top-full w-64 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
                               >
                                 <ul className="py-2">
