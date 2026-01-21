@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { FaBug, FaCodeBranch, FaEnvelope, FaPhone, FaScroll, FaFolderOpen } from 'react-icons/fa'
 import { FaFileInvoiceDollar } from 'react-icons/fa6'
+import { assetPath } from '@/lib/assetPath'
 import './presentation.css'
 
 const TABSPresentationPage = () => {
@@ -38,6 +39,14 @@ const TABSPresentationPage = () => {
 
   return (
     <div className="presentation-wrapper">
+      <nav className="return-nav" aria-label="Return navigation">
+        <a className="return-link" href={assetPath('/')}>
+          ← Home
+        </a>
+        <a className="return-link" href={assetPath('/media')}>
+          Media
+        </a>
+      </nav>
       {/* Slide 1: Title Slide */}
       <div className={`slide-container ${currentSlide === 1 ? 'active' : ''}`} id="slide1">
         <div style={{ textAlign: 'center' }}>
