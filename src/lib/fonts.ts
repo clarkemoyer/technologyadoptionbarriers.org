@@ -7,6 +7,9 @@ import {
   Fauna_One,
   Montserrat,
   Cinzel,
+  Outfit,
+  Plus_Jakarta_Sans,
+  Fira_Code,
 } from 'next/font/google'
 
 // Configure fonts with proper subsets and display strategy
@@ -64,4 +67,25 @@ export const cinzel = Cinzel({
   display: 'swap',
   variable: '--font-cinzel',
   weight: ['400', '500', '600', '700'],
+})
+
+export const outfit = Outfit({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-outfit',
+  weight: ['300', '400', '600', '700'],
+})
+
+export const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-plus-jakarta-sans',
+  weight: ['400', '500', '700'],
+})
+
+export const firaCode = Fira_Code({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-fira-code',
+  weight: ['400', '500'],
 })
