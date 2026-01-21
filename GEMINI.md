@@ -378,16 +378,16 @@ test: add E2E tests for donation flow
 
 When you push, GitHub Actions automatically runs:
 
-| Check               | Command                | Must Pass?           |
-| ------------------- | ---------------------- | -------------------- |
-| Formatting          | `npm run format:check` | ✅ Yes               |
-| Linting             | `npm run lint`         | ✅ Yes (errors only) |
-| Unit Tests          | `npm test`             | ✅ Yes               |
-| Build               | `npm run build`        | ✅ Yes               |
-| E2E Tests           | `npm run test:e2e`     | ✅ Yes               |
-| Security Scan       | CodeQL                 | ✅ Yes               |
-| Performance         | Lighthouse             | ⚠️ Advisory          |
-| **Copilot Review**  | Automatic              | ⚠️ Address comments  |
+| Check              | Command                | Must Pass?           |
+| ------------------ | ---------------------- | -------------------- |
+| Formatting         | `npm run format:check` | ✅ Yes               |
+| Linting            | `npm run lint`         | ✅ Yes (errors only) |
+| Unit Tests         | `npm test`             | ✅ Yes               |
+| Build              | `npm run build`        | ✅ Yes               |
+| E2E Tests          | `npm run test:e2e`     | ✅ Yes               |
+| Security Scan      | CodeQL                 | ✅ Yes               |
+| Performance        | Lighthouse             | ⚠️ Advisory          |
+| **Copilot Review** | Automatic              | ⚠️ Address comments  |
 
 **All checks must pass and reviews must be addressed** before your PR can merge.
 
@@ -651,12 +651,12 @@ curl -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
 
 **For advanced survey operations:**
 
-| What                  | How                                               |
-| --------------------- | ------------------------------------------------- |
-| **Base URL**          | `https://<datacenter>.qualtrics.com/API/v3`      |
-| **Authentication**    | Header: `X-API-TOKEN: <your-token>`              |
-| **Client Library**    | `src/lib/qualtrics-api.ts`                        |
-| **Used in workflows** | Copy surveys, update metrics, fetch questions     |
+| What                  | How                                                          |
+| --------------------- | ------------------------------------------------------------ |
+| **Base URL**          | `https://<datacenter>.qualtrics.com/API/v3`                  |
+| **Authentication**    | Header: `X-API-TOKEN: <your-token>`                          |
+| **Client Library**    | `src/lib/qualtrics-api.ts`                                   |
+| **Used in workflows** | Copy surveys, update metrics, fetch questions                |
 | **Documentation**     | [qualtrics-api-cheatsheet.md](./qualtrics-api-cheatsheet.md) |
 
 **Example (terminal):**
@@ -683,12 +683,12 @@ curl -X POST \
 
 **For participant data:**
 
-| What                  | How                                      |
-| --------------------- | ---------------------------------------- |
-| **Base URL**          | `https://api.prolific.com/api/v1/`       |
-| **Authentication**    | Header: `Authorization: Token <token>`   |
-| **Client Library**    | `src/lib/prolific-api.ts`                |
-| **Used in workflows** | Collect study data weekly                |
+| What                  | How                                                  |
+| --------------------- | ---------------------------------------------------- |
+| **Base URL**          | `https://api.prolific.com/api/v1/`                   |
+| **Authentication**    | Header: `Authorization: Token <token>`               |
+| **Client Library**    | `src/lib/prolific-api.ts`                            |
+| **Used in workflows** | Collect study data weekly                            |
 | **Documentation**     | [PROLIFIC_INTEGRATION.md](./PROLIFIC_INTEGRATION.md) |
 
 **Available functions:**
@@ -700,16 +700,16 @@ import {
   getStudy,
   listStudySubmissions,
   exportSubmissionsCSV,
-} from '@/lib/prolific-api';
+} from '@/lib/prolific-api'
 
 // Verify your token works
-const user = await getCurrentUser(apiToken);
+const user = await getCurrentUser(apiToken)
 
 // Get all your studies
-const studies = await listStudies(apiToken);
+const studies = await listStudies(apiToken)
 
 // Get specific study
-const study = await getStudy(apiToken, 'study-id-123');
+const study = await getStudy(apiToken, 'study-id-123')
 ```
 
 **Example (terminal):**
@@ -731,19 +731,19 @@ curl -H "Authorization: Token $PROLIFIC_API_TOKEN" \
 
 **What it does:** Collect analytics and impact metrics
 
-| What                  | How                                      |
-| --------------------- | ---------------------------------------- |
-| **API Type**          | Google Analytics Data API v1             |
-| **SDK**               | `@google-analytics/data` NPM package     |
-| **Authentication**    | Service account (email + private key)    |
-| **Client Library**    | `src/lib/google-analytics.ts`            |
-| **Environment**       | `google-prod` (GitHub Actions only)      |
-| **Used in workflows** | Daily analytics report (00:00 UTC)       |
+| What                  | How                                   |
+| --------------------- | ------------------------------------- |
+| **API Type**          | Google Analytics Data API v1          |
+| **SDK**               | `@google-analytics/data` NPM package  |
+| **Authentication**    | Service account (email + private key) |
+| **Client Library**    | `src/lib/google-analytics.ts`         |
+| **Environment**       | `google-prod` (GitHub Actions only)   |
+| **Used in workflows** | Daily analytics report (00:00 UTC)    |
 
 **Available functions:**
 
 ```typescript
-import { gaClient } from '@/lib/google-analytics';
+import { gaClient } from '@/lib/google-analytics'
 
 // Fetch analytics report
 const response = await gaClient.runReport({
@@ -751,10 +751,11 @@ const response = await gaClient.runReport({
   endDate: 'today',
   metrics: ['activeUsers', 'sessions', 'engagementRate'],
   dimensions: ['date', 'pagePath'],
-});
+})
 ```
 
 **Scripts:**
+
 - `scripts/generate-report.ts` - Fetch GA data and update impact metrics
 - `scripts/send-report-email.ts` - Email daily report to stakeholders
 
@@ -778,16 +779,17 @@ npx tsx scripts/generate-report.ts
 
 All APIs use **GitHub environment secrets** for credential management:
 
-| Environment        | API/Service         | Secrets/Variables | Status & Workflows                                   |
-| ------------------ | ------------------- | ----------------- | ---------------------------------------------------- |
+| Environment        | API/Service         | Secrets/Variables | Status & Workflows                                                                                                                     |
+| ------------------ | ------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | **qualtrics-prod** | Qualtrics API v3    | 7 secrets, 4 vars | ✅ **Active** - 5 workflows:<br>• Copy surveys<br>• Update metrics<br>• Fetch questions<br>• API smoke test<br>• Prolific verification |
-| **prolific-prod**  | Prolific API v1     | 2 secrets, 3 vars | ✅ **Active** - 2 workflows:<br>• Weekly data collection<br>• Prolific verification |
-| **google-prod**    | Google Analytics v1 | 6 secrets         | ✅ **Active** - 1 workflow:<br>• Daily analytics report |
-| **microsoft-prod** | Microsoft Forms     | 1 secret          | ⚠️ **Configured** (future integration)               |
-| **stripe-prod**    | Payment processing  | 1 secret          | ⚠️ **Configured** (future integration)               |
-| **github-pages**   | GitHub Pages        | Auto token        | ✅ **Active** - Site deployment                      |
+| **prolific-prod**  | Prolific API v1     | 2 secrets, 3 vars | ✅ **Active** - 2 workflows:<br>• Weekly data collection<br>• Prolific verification                                                    |
+| **google-prod**    | Google Analytics v1 | 6 secrets         | ✅ **Active** - 1 workflow:<br>• Daily analytics report                                                                                |
+| **microsoft-prod** | Microsoft Forms     | 1 secret          | ⚠️ **Configured** (future integration)                                                                                                 |
+| **stripe-prod**    | Payment processing  | 1 secret          | ⚠️ **Configured** (future integration)                                                                                                 |
+| **github-pages**   | GitHub Pages        | Auto token        | ✅ **Active** - Site deployment                                                                                                        |
 
 **Key points:**
+
 - ✅ **Active** environments are used in GitHub Actions workflows
 - ⚠️ **Configured** environments have secrets set up for future integrations or manual operations
 - ✅ All environments are **only accessible in GitHub Actions**
@@ -799,13 +801,13 @@ All APIs use **GitHub environment secrets** for credential management:
 
 ⚠️ **Critical security rules:**
 
-| What                        | Where/How                                                      |
-| --------------------------- | -------------------------------------------------------------- |
-| **API tokens in CI**        | GitHub Secrets in environment-specific configs                 |
-| **API tokens locally**      | Environment variables (never committed)                        |
-| **MCP configs**             | `.vscode/mcp.json` and `mcp.json` (both gitignored)            |
-| **What you can commit**     | Only `.example` template files                                 |
-| **If you leak a token**     | Revoke immediately in the service (Qualtrics/Prolific/Google) |
+| What                    | Where/How                                                     |
+| ----------------------- | ------------------------------------------------------------- |
+| **API tokens in CI**    | GitHub Secrets in environment-specific configs                |
+| **API tokens locally**  | Environment variables (never committed)                       |
+| **MCP configs**         | `.vscode/mcp.json` and `mcp.json` (both gitignored)           |
+| **What you can commit** | Only `.example` template files                                |
+| **If you leak a token** | Revoke immediately in the service (Qualtrics/Prolific/Google) |
 
 **Safe local setup:**
 

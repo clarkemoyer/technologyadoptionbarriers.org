@@ -500,16 +500,16 @@ curl -X POST \
 **Functions in TypeScript client:**
 
 ```typescript
-import { getCurrentUser, listStudies, getStudy } from '@/lib/prolific-api';
+import { getCurrentUser, listStudies, getStudy } from '@/lib/prolific-api'
 
 // Verify token
-const user = await getCurrentUser(apiToken);
+const user = await getCurrentUser(apiToken)
 
 // List all studies
-const studies = await listStudies(apiToken);
+const studies = await listStudies(apiToken)
 
 // Get study details
-const study = await getStudy(apiToken, studyId);
+const study = await getStudy(apiToken, studyId)
 ```
 
 **Documentation**: [PROLIFIC_INTEGRATION.md](./PROLIFIC_INTEGRATION.md)
@@ -526,7 +526,7 @@ const study = await getStudy(apiToken, studyId);
 **Functions in TypeScript client:**
 
 ```typescript
-import { gaClient } from '@/lib/google-analytics';
+import { gaClient } from '@/lib/google-analytics'
 
 // Fetch analytics report
 const response = await gaClient.runReport({
@@ -534,12 +534,13 @@ const response = await gaClient.runReport({
   endDate: 'today',
   metrics: ['activeUsers', 'sessions', 'engagementRate'],
   dimensions: ['date', 'pagePath'],
-});
+})
 ```
 
 **Workflow**: `.github/workflows/ga-report.yml` (daily at 00:00 UTC)
 
 **Scripts**:
+
 - `scripts/generate-report.ts` - Fetch GA data, save to `reports/` and `src/data/impact.json`
 - `scripts/send-report-email.ts` - Email report to stakeholders
 
@@ -547,14 +548,14 @@ const response = await gaClient.runReport({
 
 All external API integrations use **GitHub environment secrets** for secure credential management:
 
-| Environment        | API/Service             | Secrets/Variables     | Status                          |
-| ------------------ | ----------------------- | --------------------- | ------------------------------- |
-| `qualtrics-prod`   | Qualtrics API v3        | 7 secrets, 4 vars     | ✅ Active (5 workflows)         |
-| `prolific-prod`    | Prolific API v1         | 2 secrets, 3 vars     | ✅ Active (2 workflows)         |
-| `google-prod`      | Google Analytics Data   | 6 secrets             | ✅ Active (daily report)        |
-| `microsoft-prod`   | Microsoft Forms         | 1 secret              | ⚠️ Configured (future use)      |
-| `stripe-prod`      | Payment processing      | 1 secret              | ⚠️ Configured (future use)      |
-| `github-pages`     | GitHub Pages deployment | Auto token            | ✅ Active (deployment)          |
+| Environment      | API/Service             | Secrets/Variables | Status                     |
+| ---------------- | ----------------------- | ----------------- | -------------------------- |
+| `qualtrics-prod` | Qualtrics API v3        | 7 secrets, 4 vars | ✅ Active (5 workflows)    |
+| `prolific-prod`  | Prolific API v1         | 2 secrets, 3 vars | ✅ Active (2 workflows)    |
+| `google-prod`    | Google Analytics Data   | 6 secrets         | ✅ Active (daily report)   |
+| `microsoft-prod` | Microsoft Forms         | 1 secret          | ⚠️ Configured (future use) |
+| `stripe-prod`    | Payment processing      | 1 secret          | ⚠️ Configured (future use) |
+| `github-pages`   | GitHub Pages deployment | Auto token        | ✅ Active (deployment)     |
 
 **Important**: Active environments are used in GitHub Actions workflows. Configured environments have secrets set up for future integrations or manual operations. All environments are **only accessible in GitHub Actions**. Local development requires setting up separate credentials via environment variables or MCP configurations.
 

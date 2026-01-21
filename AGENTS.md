@@ -237,6 +237,7 @@ Automatic deployment on push to `main` via `.github/workflows/deploy.yml`:
 - File operations: Create, edit, search files directly
 
 **Use terminal access to:**
+
 - Validate builds locally before committing
 - Debug test failures with detailed output
 - Run custom scripts for data collection
@@ -260,6 +261,7 @@ Automatic deployment on push to `main` via `.github/workflows/deploy.yml`:
   - Import surveys
 
 **Setup:**
+
 1. Copy `.vscode/mcp.json.example` to `.vscode/mcp.json`
 2. Replace `<your-qualtrics-host>` with your Qualtrics datacenter
 3. VS Code will prompt for OAuth token when first connecting
@@ -286,14 +288,14 @@ This repository integrates with external API environments, accessible via **GitH
 
 #### GitHub Environments Overview
 
-| Environment        | Purpose                    | Secrets/Variables | Status                  |
-| ------------------ | -------------------------- | ----------------- | ----------------------- |
-| `qualtrics-prod`   | Survey management          | 7 secrets, 4 vars | ✅ Active (5 workflows) |
-| `prolific-prod`    | Participant data           | 2 secrets, 3 vars | ✅ Active (2 workflows) |
-| `google-prod`      | Analytics reporting        | 6 secrets         | ✅ Active (1 workflow)  |
-| `microsoft-prod`   | Forms integration          | 1 secret          | ⚠️ Configured (future)  |
-| `stripe-prod`      | Payment processing         | 1 secret          | ⚠️ Configured (future)  |
-| `github-pages`     | Deployment (built-in)      | Auto token        | ✅ Active (deployment)  |
+| Environment      | Purpose               | Secrets/Variables | Status                  |
+| ---------------- | --------------------- | ----------------- | ----------------------- |
+| `qualtrics-prod` | Survey management     | 7 secrets, 4 vars | ✅ Active (5 workflows) |
+| `prolific-prod`  | Participant data      | 2 secrets, 3 vars | ✅ Active (2 workflows) |
+| `google-prod`    | Analytics reporting   | 6 secrets         | ✅ Active (1 workflow)  |
+| `microsoft-prod` | Forms integration     | 1 secret          | ⚠️ Configured (future)  |
+| `stripe-prod`    | Payment processing    | 1 secret          | ⚠️ Configured (future)  |
+| `github-pages`   | Deployment (built-in) | Auto token        | ✅ Active (deployment)  |
 
 **Note**: Active environments are used in GitHub Actions workflows. Configured environments have secrets set up for future integrations or manual operations. Local development requires separate credential setup.
 
@@ -315,6 +317,7 @@ This repository integrates with external API environments, accessible via **GitH
   - `.github/workflows/qualtrics-prolific-verify.yml` - Cross-platform verification
 
 **Local Testing (IDE agents only):**
+
 ```bash
 # Example: List surveys (requires QUALTRICS_API_TOKEN env var)
 curl -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
@@ -337,6 +340,7 @@ curl -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
   - `.github/workflows/qualtrics-prolific-verify.yml` - Cross-platform verification
 
 **Functions available:**
+
 - `getCurrentUser()` - Verify token
 - `listStudies()` - List all studies
 - `getStudy(id)` - Get study details
@@ -344,6 +348,7 @@ curl -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
 - `exportSubmissionsCSV(id)` - Export data
 
 **Local Testing (IDE agents only):**
+
 ```bash
 # Example: Get current user (requires PROLIFIC_API_TOKEN)
 curl -H "Authorization: Token $PROLIFIC_API_TOKEN" \
@@ -375,7 +380,7 @@ curl -H "Authorization: Token $PROLIFIC_API_TOKEN" \
 **Functions in TypeScript client:**
 
 ```typescript
-import { gaClient } from '@/lib/google-analytics';
+import { gaClient } from '@/lib/google-analytics'
 
 // Fetch analytics report
 const response = await gaClient.runReport({
@@ -383,10 +388,11 @@ const response = await gaClient.runReport({
   endDate: 'today',
   metrics: ['activeUsers', 'sessions', 'engagementRate'],
   dimensions: ['date', 'pagePath'],
-});
+})
 ```
 
 **Local Testing (IDE agents only):**
+
 ```bash
 # Example: Test GA API (requires service account credentials)
 export GA_PROPERTY_ID="properties/123456789"
