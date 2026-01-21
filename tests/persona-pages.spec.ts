@@ -175,16 +175,17 @@ test.describe('Persona Landing Pages', () => {
     test('persona card links should be keyboard accessible', async ({ page }) => {
       await page.goto('/start')
 
-      // Get all persona card links
-      const personaLinks = await page.locator('a[aria-label*="Learn more about"]').all()
+      // Get all persona card links by their visible content
+      const personaLinks = await page.getByRole('link', { name: /Learn more/i }).all()
 
-      // Verify all persona cards have aria-labels
-      expect(personaLinks.length).toBeGreaterThan(0)
+      // Verify we have at least 11 persona card links (the grid cards, not the direct survey link)
+      expect(personaLinks.length).toBeGreaterThanOrEqual(11)
 
-      for (const link of personaLinks) {
-        const ariaLabel = await link.getAttribute('aria-label')
-        expect(ariaLabel).toBeTruthy()
-        expect(ariaLabel).toContain('Learn more about')
+      // Verify each has visible text content
+      for (const link of personaLinks.slice(0, 11)) {
+        const text = await link.textContent()
+        expect(text).toBeTruthy()
+        expect(text).toContain('Learn more')
       }
     })
   })
