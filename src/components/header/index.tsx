@@ -15,6 +15,10 @@ interface MenuItem {
   label: string
   path: string
   hasMegaMenu?: boolean
+  children?: Array<{
+    label: string
+    path: string
+  }>
 }
 
 const SCROLL_OFFSET = 100
@@ -24,19 +28,29 @@ const Header: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false)
+  const [isMakingOfMenuOpen, setIsMakingOfMenuOpen] = useState(false)
   const [isMobileBranch1Open, setIsMobileBranch1Open] = useState(false)
   const [isMobileBranch2Open, setIsMobileBranch2Open] = useState(false)
+  const [isMobileMakingOfOpen, setIsMobileMakingOfOpen] = useState(false)
   const [activeSection, setActiveSection] = useState<string>('')
   const [searchQuery, setSearchQuery] = useState('')
   const megaMenuRef = useRef<HTMLDivElement>(null)
   const megaMenuButtonRef = useRef<HTMLLIElement>(null)
+  const makingOfMenuRef = useRef<HTMLDivElement>(null)
+  const makingOfMenuButtonRef = useRef<HTMLLIElement>(null)
 
   const menuItems: MenuItem[] = useMemo(
     () => [
       { label: 'Home', path: '/' },
       { label: 'Tech Adoption Barriers', path: '/barriers' },
-      { label: 'The Making of TABS', path: '/making-of-tabs' },
-      { label: 'TABS Presentation', path: '/making-of-tabs/tabs-presentation' },
+      {
+        label: 'The Making of TABS',
+        path: '/making-of-tabs',
+        children: [
+          { label: 'Overview', path: '/making-of-tabs' },
+          { label: 'TABS Presentation', path: '/making-of-tabs/tabs-presentation' },
+        ],
+      },
       {
         label: 'Technology Adoption Models',
         path: '/technology-adoption-models',
@@ -98,11 +112,21 @@ const Header: React.FC = () => {
       ) {
         setIsMegaMenuOpen(false)
       }
+
+      if (
+        isMakingOfMenuOpen &&
+        makingOfMenuRef.current &&
+        !makingOfMenuRef.current.contains(event.target as Node) &&
+        makingOfMenuButtonRef.current &&
+        !makingOfMenuButtonRef.current.contains(event.target as Node)
+      ) {
+        setIsMakingOfMenuOpen(false)
+      }
     }
 
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [isMegaMenuOpen])
+  }, [isMegaMenuOpen, isMakingOfMenuOpen])
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -112,11 +136,16 @@ const Header: React.FC = () => {
         // Return focus to the button
         megaMenuButtonRef.current?.querySelector('button')?.focus()
       }
+
+      if (event.key === 'Escape' && isMakingOfMenuOpen) {
+        setIsMakingOfMenuOpen(false)
+        makingOfMenuButtonRef.current?.querySelector('button')?.focus()
+      }
     }
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isMegaMenuOpen])
+  }, [isMegaMenuOpen, isMakingOfMenuOpen])
 
   const handleSearchToggle = () => setIsSearchOpen(!isSearchOpen)
 
@@ -132,8 +161,10 @@ const Header: React.FC = () => {
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false)
     setIsMegaMenuOpen(false)
+    setIsMakingOfMenuOpen(false)
     setIsMobileBranch1Open(false)
     setIsMobileBranch2Open(false)
+    setIsMobileMakingOfOpen(false)
   }
 
   const isActive = (path: string) => {
@@ -144,6 +175,12 @@ const Header: React.FC = () => {
 
   const toggleMegaMenu = () => {
     setIsMegaMenuOpen(!isMegaMenuOpen)
+    setIsMakingOfMenuOpen(false)
+  }
+
+  const toggleMakingOfMenu = () => {
+    setIsMakingOfMenuOpen(!isMakingOfMenuOpen)
+    setIsMegaMenuOpen(false)
   }
 
   return (
@@ -194,7 +231,19 @@ const Header: React.FC = () => {
                       <li
                         key={index}
                         className="relative py-6"
-                        ref={item.hasMegaMenu ? megaMenuButtonRef : null}
+                        ref={
+                          item.hasMegaMenu
+                            ? megaMenuButtonRef
+                            : item.children?.length
+                              ? makingOfMenuButtonRef
+                              : null
+                        }
+                        onMouseEnter={() => {
+                          if (item.children?.length) setIsMakingOfMenuOpen(true)
+                        }}
+                        onMouseLeave={() => {
+                          if (item.children?.length) setIsMakingOfMenuOpen(false)
+                        }}
                       >
                         {item.hasMegaMenu ? (
                           <button
@@ -224,6 +273,57 @@ const Header: React.FC = () => {
                               />
                             </svg>
                           </button>
+                        ) : item.children?.length ? (
+                          <>
+                            <button
+                              onClick={toggleMakingOfMenu}
+                              onFocus={() => setIsMakingOfMenuOpen(true)}
+                              className={`flex items-center px-3 py-2 text-[14px] transition-colors duration-200 ${
+                                isActive(item.path)
+                                  ? 'text-blue-600'
+                                  : 'text-gray-600 hover:text-gray-500'
+                              }`}
+                              aria-expanded={isMakingOfMenuOpen ? 'true' : 'false'}
+                              aria-controls="making-of-menu"
+                            >
+                              {item.label}
+                              <svg
+                                className={`w-4 h-4 ml-1 transition-transform ${isMakingOfMenuOpen ? 'rotate-180' : ''}`}
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M19 9l-7 7-7-7"
+                                />
+                              </svg>
+                            </button>
+
+                            {isMakingOfMenuOpen && (
+                              <div
+                                id="making-of-menu"
+                                ref={makingOfMenuRef}
+                                className="absolute left-0 top-full w-64 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
+                              >
+                                <ul className="py-2">
+                                  {item.children.map((child) => (
+                                    <li key={child.path}>
+                                      <Link
+                                        href={child.path}
+                                        onClick={handleLinkClick}
+                                        className="block px-4 py-2 text-[13px] text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                      >
+                                        {child.label}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </>
                         ) : (
                           <Link
                             href={item.path}
@@ -551,6 +651,46 @@ const Header: React.FC = () => {
                               📚 {technologyAdoptionModelsSeries.bibliography.title}
                             </Link>
                           </div>
+                        )}
+                      </div>
+                    ) : item.children?.length ? (
+                      <div>
+                        <button
+                          onClick={() => setIsMobileMakingOfOpen(!isMobileMakingOfOpen)}
+                          className="w-full flex items-center justify-between px-4 py-2 rounded-lg text-sm font-[600] text-gray-700 hover:bg-gray-100"
+                          aria-expanded={isMobileMakingOfOpen ? 'true' : 'false'}
+                          aria-controls="mobile-making-of-menu"
+                        >
+                          <span>{item.label}</span>
+                          <svg
+                            className={`w-4 h-4 transition-transform ${isMobileMakingOfOpen ? 'rotate-180' : ''}`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        </button>
+
+                        {isMobileMakingOfOpen && (
+                          <ul id="mobile-making-of-menu" className="ml-4 mt-1 space-y-1">
+                            {item.children.map((child) => (
+                              <li key={child.path}>
+                                <Link
+                                  href={child.path}
+                                  onClick={handleLinkClick}
+                                  className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                >
+                                  {child.label}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
                         )}
                       </div>
                     ) : (
