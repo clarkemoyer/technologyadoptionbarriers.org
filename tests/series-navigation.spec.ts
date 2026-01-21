@@ -141,9 +141,24 @@ test.describe('Series Navigation - Desktop Mega Menu', () => {
 
 test.describe('Series Navigation - Mobile Accordion', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/')
     // Set mobile viewport
     await page.setViewportSize({ width: 375, height: 667 })
+    await page.goto('/')
+
+    // Dismiss cookie consent banner so it can't intercept mobile menu clicks.
+    // The banner may appear after hydration, so wait briefly for it.
+    await page.waitForLoadState('networkidle')
+
+    const cookieBanner = page.locator('[role="region"][aria-label="Cookie consent notice"]')
+    const cookieBannerAppeared = await cookieBanner
+      .waitFor({ state: 'visible', timeout: 2000 })
+      .then(() => true)
+      .catch(() => false)
+
+    if (cookieBannerAppeared) {
+      await cookieBanner.getByRole('button', { name: 'Decline All' }).click()
+      await expect(cookieBanner).toBeHidden({ timeout: 5000 })
+    }
   })
 
   test('should open mobile menu and show accordion', async ({ page }) => {

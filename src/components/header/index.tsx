@@ -306,7 +306,7 @@ const Header: React.FC = () => {
                               <div
                                 id="making-of-menu"
                                 ref={makingOfMenuRef}
-                                className="absolute left-0 top-full mt-2 w-64 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
+                                className="absolute left-0 top-full w-64 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
                               >
                                 <ul className="py-2">
                                   {item.children.map((child) => (
