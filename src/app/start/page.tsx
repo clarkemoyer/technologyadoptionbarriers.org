@@ -44,6 +44,7 @@ const StartPage = () => {
               <Link
                 key={persona.id}
                 href={`/start/${persona.slug}`}
+                aria-label={`Learn more about ${persona.title}`}
                 className="group bg-white border-2 border-gray-200 rounded-[12px] p-[30px] hover:border-[#2583ab] hover:shadow-lg transition-all duration-300"
               >
                 <div className="flex flex-col h-full">

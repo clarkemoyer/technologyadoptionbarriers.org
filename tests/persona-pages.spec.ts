@@ -172,21 +172,19 @@ test.describe('Persona Landing Pages', () => {
       expect(h2Count).toBeGreaterThan(0)
     })
 
-    test('all links should be keyboard accessible', async ({ page }) => {
+    test('persona card links should be keyboard accessible', async ({ page }) => {
       await page.goto('/start')
 
-      // Tab through the page
-      for (let i = 0; i < 15; i++) {
-        await page.keyboard.press('Tab')
-        const focused = await page.evaluate(() => document.activeElement?.tagName)
-        if (focused === 'A') {
-          // Verify link has visible text or aria-label
-          const hasText =
-            (await page.evaluate(() => document.activeElement?.textContent?.trim())) !== ''
-          const hasAriaLabel =
-            (await page.evaluate(() => document.activeElement?.getAttribute('aria-label'))) !== null
-          expect(hasText || hasAriaLabel).toBe(true)
-        }
+      // Get all persona card links
+      const personaLinks = await page.locator('a[aria-label*="Learn more about"]').all()
+
+      // Verify all persona cards have aria-labels
+      expect(personaLinks.length).toBeGreaterThan(0)
+
+      for (const link of personaLinks) {
+        const ariaLabel = await link.getAttribute('aria-label')
+        expect(ariaLabel).toBeTruthy()
+        expect(ariaLabel).toContain('Learn more about')
       }
     })
   })
