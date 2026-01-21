@@ -88,7 +88,7 @@ All changes go through Pull Requests with automated code review:
 3. Push and open a PR
 4. Mark PR as "Ready for review" - **this automatically triggers Copilot code review**
 5. Address all review comments (automated and human)
-6. Resolve review threads using GitHub UI or `gh pr review` command
+6. Resolve review threads using GitHub UI or GitHub CLI: `gh pr review <pr-number> --approve` or `gh pr comment <pr-number> --body "Fixed in <commit>"`
 7. Wait for all CI checks to pass
 8. Merge after reviews are approved
 
