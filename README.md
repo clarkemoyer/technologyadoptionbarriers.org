@@ -22,6 +22,12 @@ Single-page Next.js 16.0.7 website built with App Router for Technology Adoption
 - 🔗 [External Dependencies](./EXTERNAL_DEPENDENCIES.md) - Third-party services and integrations
 - 🏥 [Community Health Files](./COMMUNITY_HEALTH_FILES.md) - Complete guide to GitHub navigation and documentation
 
+**AI Agent Instructions:**
+
+- 🤖 [AGENTS.md](./AGENTS.md) - General instructions for IDE-integrated AI agents
+- 🧠 [CLAUDE.md](./CLAUDE.md) - Anthropic Claude-specific instructions for VS Code/Antigravity
+- 💎 [GEMINI.md](./GEMINI.md) - Google Gemini-specific instructions for VS Code/Antigravity
+
 ## About This Repository
 
 This repository contains the Technology Adoption Barriers (TABS) website.
