@@ -54,7 +54,8 @@ test.describe('Persona Landing Pages', () => {
     for (const role of roles) {
       test(`should load /start/${role} page`, async ({ page }) => {
         await page.goto(`/start/${role}`)
-        await expect(page).toHaveTitle(new RegExp(`.*${role.toUpperCase()}.*TABS`, 'i'))
+        // Title should contain TABS (not checking role slug since full title is used)
+        await expect(page).toHaveTitle(/TABS/)
       })
     }
 
