@@ -86,8 +86,8 @@ const ForOrganizationsPage = () => {
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Your members receive comprehensive reports and benchmarking data that help them make
-                better technology decisions. They gain insights into industry trends and compare
-                their challenges against peers.
+                better technology decisions. They gain actionable insights into industry trends and
+                can compare their organization&apos;s challenges against peers across sectors.
               </p>
             </div>
 
@@ -102,7 +102,8 @@ const ForOrganizationsPage = () => {
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Position your organization as a leader in understanding technology adoption
-                challenges. Access exclusive data and insights to share with your community.
+                challenges. Access exclusive research findings and insights to share with your
+                community through publications, events, and member communications.
               </p>
             </div>
 

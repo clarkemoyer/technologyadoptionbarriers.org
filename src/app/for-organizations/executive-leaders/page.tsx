@@ -13,7 +13,7 @@ const ExecutiveLeadersPage = () => {
     {
       name: 'YPO',
       fullName: "Young Presidents' Organization",
-      focus: 'Chief executives and business leaders under 45',
+      focus: 'Chief executives who became leaders before age 45 and their global network',
       url: 'https://www.ypo.org/',
     },
     {
