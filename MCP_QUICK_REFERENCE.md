@@ -25,11 +25,29 @@ jq '.mcpServers | keys[]' .copilot/mcp-config.json
 
 ## Required Environment Variables
 
+### For GitHub Copilot Agent (Repository Settings UI)
+
+When using GitHub Copilot Agent, environment secrets must use the `COPILOT_MCP_` prefix and be created in the `copilot` environment:
+
 ```bash
 # Qualtrics MCP
-export QUALTRICS_OAUTH_TOKEN="your-oauth-token"
+export COPILOT_MCP_QUALTRICS_OAUTH_TOKEN="your-oauth-token"
 
 # Google Cloud MCP
+export COPILOT_MCP_GOOGLE_SERVICE_ACCOUNT_EMAIL="your-service-account@project.iam.gserviceaccount.com"
+export COPILOT_MCP_GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+export COPILOT_MCP_GA_PROPERTY_ID="123456789"
+```
+
+### For IDE/Local Development (Optional)
+
+Some IDEs may support local environment variables without the `COPILOT_MCP_` prefix:
+
+```bash
+# Qualtrics MCP (IDE-local)
+export QUALTRICS_OAUTH_TOKEN="your-oauth-token"
+
+# Google Cloud MCP (IDE-local)
 export GOOGLE_SERVICE_ACCOUNT_EMAIL="your-service-account@project.iam.gserviceaccount.com"
 export GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
 export GA_PROPERTY_ID="123456789"
@@ -37,7 +55,7 @@ export GA_PROPERTY_ID="123456789"
 
 **Security:** Never commit these values. Use:
 
-- GitHub Actions secrets for CI/CD
+- GitHub environment secrets (with `COPILOT_MCP_` prefix) for GitHub Copilot Agent
 - Local `.env` file (gitignored) for development
 - VS Code input prompts for interactive use
 

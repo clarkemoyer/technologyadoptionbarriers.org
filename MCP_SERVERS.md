@@ -25,9 +25,9 @@ For use with **VS Code, IDEs, and local MCP clients**, configuration is in `.cop
 
 **Key differences:**
 
-- Configuration file committed to repository
-- Simpler format without `type` or `tools` fields
-- Environment variables use different patterns (`${VAR}` or inputs)
+- Configuration file committed to the repository (checked into source control)
+- Uses the same GitHub Copilot Agent MCP server format (including `type`, `tools`, and `COPILOT_MCP_`-prefixed environment variables)
+- IDEs may additionally support substituting environment variables or IDE-specific inputs (for example `${VAR}`), but the underlying JSON schema matches the Copilot Agent format
 
 ---
 
@@ -247,13 +247,35 @@ This repository has **6 MCP servers** configured for both GitHub Copilot Agent a
 
 The following environment variables are required for specific MCP servers:
 
-### Qualtrics MCP
+### For GitHub Copilot Agent (Repository Settings UI)
+
+When configuring MCP servers in GitHub Settings (**Settings** > **Copilot** > **Coding agent**), use these environment secret names (must be created in the `copilot` environment):
+
+#### Qualtrics MCP
+
+```bash
+COPILOT_MCP_QUALTRICS_OAUTH_TOKEN=<your-oauth-access-token>
+```
+
+#### Google Cloud MCP
+
+```bash
+COPILOT_MCP_GOOGLE_SERVICE_ACCOUNT_EMAIL=<service-account-email>
+COPILOT_MCP_GOOGLE_PRIVATE_KEY=<service-account-private-key>
+COPILOT_MCP_GA_PROPERTY_ID=<google-analytics-property-id>
+```
+
+### For IDE/Local Development (Optional)
+
+Some IDEs may support local environment variables without the `COPILOT_MCP_` prefix:
+
+#### Qualtrics MCP
 
 ```bash
 QUALTRICS_OAUTH_TOKEN=<your-oauth-access-token>
 ```
 
-### Google Cloud MCP
+#### Google Cloud MCP
 
 ```bash
 GOOGLE_SERVICE_ACCOUNT_EMAIL=<service-account-email>
@@ -263,7 +285,7 @@ GA_PROPERTY_ID=<google-analytics-property-id>
 
 **Security Note:** Never commit these credentials to the repository. Use:
 
-- GitHub Actions secrets for CI/CD
+- GitHub Actions secrets (with `COPILOT_MCP_` prefix) for GitHub Copilot Agent
 - Local environment variables or `.env` files (gitignored) for development
 - VS Code input prompts for interactive use
 

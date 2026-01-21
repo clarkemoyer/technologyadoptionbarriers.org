@@ -13,6 +13,33 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 cd "$REPO_ROOT"
 
+# Check for required tools first
+echo "🔧 Checking Required Tools:"
+echo "--------------------------"
+
+check_tool() {
+    if command -v "$1" > /dev/null 2>&1; then
+        echo "  ✓ $1 is installed"
+        return 0
+    else
+        echo "  ✗ $1 is not installed (required for validation)"
+        return 1
+    fi
+}
+
+if ! check_tool "jq"; then
+    echo ""
+    echo "❌ Error: jq is required for MCP configuration validation"
+    echo "Please install jq: https://stedolan.github.io/jq/download/"
+    exit 1
+fi
+
+check_tool "node" || true
+check_tool "npm" || true
+check_tool "npx" || true
+
+echo ""
+
 # Check if config file exists
 if [ ! -f "$CONFIG_FILE" ]; then
     echo "❌ Error: MCP configuration file not found at $CONFIG_FILE"
@@ -117,10 +144,10 @@ check_env_var() {
 
 # These are optional - not everyone will have them set locally
 echo "  (Note: These are optional and may not be set in all environments)"
-check_env_var "QUALTRICS_OAUTH_TOKEN" "Qualtrics MCP" || true
-check_env_var "GOOGLE_SERVICE_ACCOUNT_EMAIL" "Google Cloud MCP" || true
-check_env_var "GOOGLE_PRIVATE_KEY" "Google Cloud MCP" || true
-check_env_var "GA_PROPERTY_ID" "Google Cloud MCP" || true
+check_env_var "COPILOT_MCP_QUALTRICS_OAUTH_TOKEN" "Qualtrics MCP" || true
+check_env_var "COPILOT_MCP_GOOGLE_SERVICE_ACCOUNT_EMAIL" "Google Cloud MCP" || true
+check_env_var "COPILOT_MCP_GOOGLE_PRIVATE_KEY" "Google Cloud MCP" || true
+check_env_var "COPILOT_MCP_GA_PROPERTY_ID" "Google Cloud MCP" || true
 
 echo ""
 
