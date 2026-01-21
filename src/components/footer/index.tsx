@@ -6,7 +6,7 @@ import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react'
 
 import { FaFacebookF, FaLinkedinIn, FaGithub } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
-import { ImpactCounter } from '../impact/ImpactCounter'
+// import { ImpactCounter } from '../impact/ImpactCounter'
 
 const Footer: React.FC = () => {
   const currentYear = React.useMemo(() => new Date().getFullYear(), [])
@@ -168,8 +168,8 @@ const Footer: React.FC = () => {
             ))}
           </div>
 
-          {/* Public Impact Stats */}
-          <ImpactCounter />
+          {/* Public Impact Stats - Temporarily disabled due to CI build issues */}
+          {/* <ImpactCounter /> */}
         </div>
       </div>
     </footer>

@@ -140,6 +140,25 @@ You can choose among available AI models using Copilot's model selector feature.
 
 **Note:** Access to alternative AI providers may require specific subscription tiers. GitHub Copilot Individual provides access to core models, while GitHub Copilot Business and Enterprise may offer additional model options. Check your GitHub Copilot subscription details and the [GitHub Copilot documentation](https://docs.github.com/copilot) for currently available models.
 
+### IDE-Integrated Agent Instructions
+
+For developers using AI agents directly in their IDE (VS Code, Antigravity, etc.), we provide model-specific instruction files:
+
+- **[AGENTS.md](./AGENTS.md)** - General instructions for all IDE-integrated AI coding agents
+- **[CLAUDE.md](./CLAUDE.md)** - Anthropic Claude-specific instructions and best practices
+- **[GEMINI.md](./GEMINI.md)** - Google Gemini-specific instructions and best practices
+
+These files provide tailored guidance for each AI model, including:
+
+- Repository-specific conventions and patterns
+- Pre-commit validation steps
+- Common tasks and examples
+- Known issues and workarounds
+- Testing requirements
+- Accessibility guidelines
+
+**We recommend reviewing the appropriate agent instruction file** before starting work to ensure you follow project-specific conventions and make the most of your AI assistant's capabilities.
+
 ---
 
 ## Reviewer Onboarding
@@ -377,6 +396,8 @@ Starting your contribution journey with a fresh review:
    ```bash
    npm install
    ```
+
+   **Note:** This command also sets up Git hooks (via Husky) that will automatically format your code before commits.
 
 5. **Start the development server**:
 
@@ -631,24 +652,33 @@ git commit -m "feat: implement user authentication
 **Git hooks are configured to enforce code quality standards:**
 
 - **Pre-commit hook**: Runs before every commit
-  - Checks code formatting with Prettier
+  - **Automatically formats** code with Prettier
+  - Auto-stages formatted files
   - Runs ESLint to catch errors
-  - Prevents commits with formatting or linting issues
+  - Prevents commits with linting issues
 - **Commit-msg hook**: Validates commit message format
   - Enforces conventional commit format
   - Ensures commit messages follow the type format above
   - Prevents commits with improperly formatted messages
 
+**How the pre-commit hook works:**
+
+1. When you run `git commit`, the pre-commit hook automatically runs
+2. Prettier formats the codebase according to the project's style rules (it runs on all files, not just the ones you changed)
+3. Only the files that were originally staged are re-staged after formatting
+4. ESLint checks for code quality issues
+5. If linting passes, your commit proceeds; if it fails, the commit is blocked
+
+**No manual formatting needed!** The pre-commit hook handles code formatting automatically. You only need to fix linting errors if the hook reports them.
+
 **If a hook fails:**
 
 ```bash
-# Fix formatting issues
-npm run format
-
-# Check linting
+# The pre-commit hook will have already formatted your code
+# You only need to fix linting errors if they occur
 npm run lint
 
-# If you need to bypass hooks in an emergency (NOT RECOMMENDED)
+# To bypass hooks (NOT RECOMMENDED - only for emergencies)
 git commit --no-verify -m "your message"
 ```
 

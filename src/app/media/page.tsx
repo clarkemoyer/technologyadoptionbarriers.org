@@ -116,7 +116,7 @@ const MediaPage = () => {
               </p>
               <div className="mt-8 flex justify-center">
                 <a
-                  href="/tabs-presentation"
+                  href={assetPath('/tabs-presentation')}
                   className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 inline-flex items-center gap-2"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -133,7 +133,6 @@ const MediaPage = () => {
             </div>
           </div>
         </section>
-
         {/* Video Section */}
         <section id="video" className="py-16 bg-gray-50 scroll-mt-[120px]">
           <div className="mx-auto w-[90%] max-w-6xl">
@@ -332,7 +331,10 @@ const MediaPage = () => {
                     <ul className="mt-2 list-disc pl-5 text-gray-700 space-y-1.5">
                       <li>
                         Presentation:{' '}
-                        <a className="text-blue-700 underline" href="/tabs-presentation">
+                        <a
+                          className="text-blue-700 underline"
+                          href={assetPath('/tabs-presentation')}
+                        >
                           View Interactive Slides
                         </a>
                       </li>
