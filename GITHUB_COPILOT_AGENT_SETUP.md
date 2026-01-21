@@ -91,11 +91,7 @@ Before configuring MCP servers, set up the required environment secrets. Only se
     "filesystem": {
       "type": "local",
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org"
-      ],
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
       "tools": ["*"]
     },
     "next-devtools": {

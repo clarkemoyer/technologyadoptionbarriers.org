@@ -107,27 +107,6 @@ fi
 
 echo ""
 
-# Check for required tools
-echo "🔧 Checking Required Tools:"
-echo "--------------------------"
-
-check_tool() {
-    if command -v "$1" > /dev/null 2>&1; then
-        echo "  ✓ $1 is installed"
-        return 0
-    else
-        echo "  ⚠ $1 is not installed (required for some MCP servers)"
-        return 1
-    fi
-}
-
-check_tool "node"
-check_tool "npm"
-check_tool "npx"
-check_tool "jq"
-
-echo ""
-
 # Check for environment variables
 echo "🔐 Checking Environment Variables:"
 echo "----------------------------------"

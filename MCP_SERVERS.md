@@ -89,7 +89,7 @@ This repository has **6 MCP servers** configured for both GitHub Copilot Agent a
 - Response data access
 - Survey distribution
 
-**Authentication:** OAuth Bearer token via `QUALTRICS_OAUTH_TOKEN` environment variable
+**Authentication:** OAuth Bearer token via the `COPILOT_MCP_QUALTRICS_OAUTH_TOKEN` GitHub environment secret (referenced as `Bearer $COPILOT_MCP_QUALTRICS_OAUTH_TOKEN` in the MCP config)
 
 **Important Notes:**
 
@@ -196,7 +196,7 @@ This repository has **6 MCP servers** configured for both GitHub Copilot Agent a
 **Security:**
 
 - Access restricted to repository directory only
-- Path: `/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org`
+- Path: `.` (repository root; portable across local dev, CI, and GitHub Copilot Agent)
 
 **Authentication:** None required (path-based security)
 
