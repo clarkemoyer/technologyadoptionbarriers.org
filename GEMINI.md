@@ -401,7 +401,7 @@ When you push, GitHub Actions automatically runs:
 2. **Make fixes** - Address each comment by updating your code
 3. **Resolve threads** - After fixing, mark conversations as resolved:
    - **GitHub UI**: Click "Resolve conversation" button
-   - **GitHub CLI**: `gh pr review <pr-number> --comment -b "Fixed in commit abc1234"`
+   - **GitHub CLI**: `gh pr comment <pr-number> --body "Fixed in <commit>"`
 4. **Re-request review** - If you made significant changes, request another review
 5. **Get approval** - All reviewers must approve before merge
 
