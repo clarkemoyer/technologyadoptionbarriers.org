@@ -120,6 +120,22 @@ Some exports are handled via an async job:
 
 If your tenant returns 404 for these export endpoints, prefer the “definition” endpoints above.
 
+## Survey Flow (Embedded Data, End of Survey)
+
+Some survey configuration (like Survey Flow Embedded Data fields and End-of-Survey redirects) can be managed via the Survey Flow endpoints.
+
+### Fetch survey flow
+
+- `GET /survey-definitions/{surveyId}/flow`
+
+### Update survey flow
+
+- `PUT /survey-definitions/{surveyId}/flow`
+
+In this repo, live Prolific ↔ Qualtrics integration changes can be applied via:
+
+- `.github/workflows/qualtrics-prolific-apply.yml`
+
 ## Import survey
 
 The import endpoint expects `multipart/form-data`.

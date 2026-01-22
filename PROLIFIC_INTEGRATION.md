@@ -277,6 +277,32 @@ gh workflow run qualtrics-prolific-verify.yml
 - If configured correctly: the workflow passes.
 - If not: the workflow fails and lists exactly which marker(s) are missing.
 
+## Apply Qualtrics ↔ Prolific config (LIVE)
+
+If you want to apply the required Qualtrics-side configuration **via API** (rather than clicking in the Qualtrics UI), use the live apply workflow:
+
+- Workflow: [.github/workflows/qualtrics-prolific-apply.yml](.github/workflows/qualtrics-prolific-apply.yml)
+
+What it does (API-only):
+
+- Ensures Survey Flow contains Embedded Data fields: `PROLIFIC_PID`, `STUDY_ID`, `SESSION_ID`
+- Ensures end-of-survey completion redirect points at Prolific: `https://app.prolific.com/submissions/complete?cc=...`
+- Optionally attempts to inject the Prolific authenticity-checks script into the survey header (from a secret)
+
+Required GitHub Environment secrets (in `qualtrics-prod`):
+
+- `QUALTRICS_API_TOKEN` (already used by other Qualtrics workflows)
+- `PROLIFIC_COMPLETION_CODE_SUCCESS` (copy from `prolific-prod` to `qualtrics-prod` so this workflow can set the redirect URL)
+
+Optional secret (in `qualtrics-prod`):
+
+- `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT` (the Prolific-provided Qualtrics script; keep out of git and logs)
+
+Safety notes:
+
+- This workflow modifies the **live** survey configuration. Run it only with an explicit `confirm=APPLY`.
+- Secrets and full survey payloads are not printed to logs; only high-level status and markers are reported.
+
 ## Annual survey rollover (10-year data collection)
 
 This project runs a long-term (multi-year) data collection effort. To reduce yearly admin work, this repo includes GitHub Actions automation to:
