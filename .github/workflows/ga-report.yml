@@ -6,12 +6,14 @@ on:
     - cron: '0 0 * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   generate-report:
     runs-on: ubuntu-latest
     environment: google-prod
-    permissions:
-      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -32,28 +34,24 @@ jobs:
           GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
           GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
 
-      - name: Commit and Push Impact Stats
-        run: |
-          # Configure git for the bot
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-          # Stage the impact data file
-          git add src/data/impact.json
-
-          # Check if there are changes; if yes, commit and push
-          if git diff --staged --quiet; then
-            echo "No changes to impact stats."
-          else
-            echo "Impact stats changed. Committing and pushing..."
-            git commit -m "chore: update public impact stats"
+      - name: Create pull request with updated impact stats
+        id: cpr
+        uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: 'chore: update public impact stats'
+          title: 'Update Google Analytics impact stats'
+          body: |
+            Automated update of `src/data/impact.json` from the Google Analytics Data API.
             
-            # Pull latest changes to handle race condition
-            git pull --rebase origin main
-            
-            # Push the changes
-            git push
-          fi
+            This PR contains the latest impact metrics from the daily GA report.
+          branch: chore/ga-impact-stats
+          delete-branch: true
+
+      - name: Enable Pull Request Automerge
+        if: steps.cpr.outputs.created == 'true'
+        run: gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Send Email Report
         if: success()
