@@ -115,6 +115,8 @@ const Footer: React.FC = () => {
               { name: 'Get Involved', href: '/get-involved' },
               { name: 'Tech Adoption Barriers', href: '/barriers' },
               { name: 'Technology Adoption Models', href: '/technology-adoption-models' },
+              { name: 'See Yourself', href: '/start' },
+              { name: 'For Organizations', href: '/for-organizations' },
               { name: 'Media', href: '/media' },
             ].map((link) => (
               <li key={link.name}>
