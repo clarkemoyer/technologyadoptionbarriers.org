@@ -2,7 +2,6 @@ import React from 'react'
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
-import { assetPath } from '@/lib/assetPath'
 
 export const metadata: Metadata = {
   title: 'The CMO Survey: Inspiring TABS',
@@ -28,6 +27,54 @@ const CMOSurveyPage = () => {
             This page explores how The CMO Survey&apos;s proven methodology, longitudinal approach,
             and commitment to open access have shaped the development and vision of TABS.
           </p>
+        </section>
+
+        <section className="mb-12 bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Facts: The CMO Survey</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="font-semibold text-blue-900 mb-2">Timeline</h3>
+              <ul className="space-y-2 text-gray-800">
+                <li>
+                  <strong>Launched:</strong> 2008
+                </li>
+                <li>
+                  <strong>Frequency:</strong> Biannual (February &amp; August)
+                </li>
+                <li>
+                  <strong>Total Surveys:</strong> 30+ editions over 15+ years
+                </li>
+                <li>
+                  <strong>Respondents:</strong> 10,000+ marketing leaders surveyed
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-blue-900 mb-2">Impact &amp; Reach</h3>
+              <ul className="space-y-2 text-gray-800">
+                <li>
+                  <strong>Citation Count:</strong> 1,000+ academic citations
+                </li>
+                <li>
+                  <strong>Media Coverage:</strong> Wall Street Journal, Forbes, Bloomberg
+                </li>
+                <li>
+                  <strong>Industries:</strong> B2B, B2C, Product &amp; Service sectors
+                </li>
+                <li>
+                  <strong>Website:</strong>{' '}
+                  <a
+                    href="https://cmosurvey.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 underline"
+                  >
+                    cmosurvey.org
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </section>
 
         <section className="mb-12 text-gray-800">
@@ -227,6 +274,126 @@ const CMOSurveyPage = () => {
             <li>Academics studying technology adoption and innovation diffusion</li>
             <li>Vendors understanding market barriers to their solutions</li>
             <li>Policymakers shaping technology-related regulations and incentives</li>
+          </ul>
+        </section>
+
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>CMO Survey vs TABS: Side-by-Side Comparison</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse border border-gray-300 text-sm">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="border border-gray-300 px-4 py-3 text-left font-semibold">
+                    Aspect
+                  </th>
+                  <th className="border border-gray-300 px-4 py-3 text-left font-semibold">
+                    The CMO Survey
+                  </th>
+                  <th className="border border-gray-300 px-4 py-3 text-left font-semibold">TABS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-3 font-medium">Launch Year</td>
+                  <td className="border border-gray-300 px-4 py-3">2008</td>
+                  <td className="border border-gray-300 px-4 py-3">2024</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-3 font-medium">Frequency</td>
+                  <td className="border border-gray-300 px-4 py-3">Biannual (Feb &amp; Aug)</td>
+                  <td className="border border-gray-300 px-4 py-3">Annual</td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-3 font-medium">Target Audience</td>
+                  <td className="border border-gray-300 px-4 py-3">CMOs, VPs of Marketing</td>
+                  <td className="border border-gray-300 px-4 py-3">
+                    CIOs, CTOs, VPs of Technology, IT Directors
+                  </td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-3 font-medium">Primary Focus</td>
+                  <td className="border border-gray-300 px-4 py-3">
+                    Marketing spending, strategy, performance
+                  </td>
+                  <td className="border border-gray-300 px-4 py-3">
+                    Technology adoption barriers, readiness, maturity
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-3 font-medium">
+                    Data Access Model
+                  </td>
+                  <td className="border border-gray-300 px-4 py-3">Open Access (Free)</td>
+                  <td className="border border-gray-300 px-4 py-3">Open Access (Free)</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-3 font-medium">
+                    Academic Foundation
+                  </td>
+                  <td className="border border-gray-300 px-4 py-3">
+                    Duke, Northwestern, other top business schools
+                  </td>
+                  <td className="border border-gray-300 px-4 py-3">
+                    Penn State Smeal, TAM/TOE framework
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-3 font-medium">
+                    Longitudinal Design
+                  </td>
+                  <td className="border border-gray-300 px-4 py-3">✓ 15+ years of trend data</td>
+                  <td className="border border-gray-300 px-4 py-3">
+                    ✓ Year-over-year comparisons planned
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className="mb-12 bg-green-50 border-l-4 border-green-600 p-6 rounded-r-lg">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Key Takeaways</h2>
+          <ul className="space-y-3 text-gray-800">
+            <li className="flex items-start">
+              <span className="text-green-600 font-bold mr-3">✓</span>
+              <span>
+                <strong>Proven Track Record:</strong> The CMO Survey&apos;s 15+ year success
+                demonstrates that longitudinal, open-access research can become an industry standard
+                and trusted benchmark.
+              </span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-green-600 font-bold mr-3">✓</span>
+              <span>
+                <strong>Leadership Insights Matter:</strong> Surveying C-suite executives provides
+                strategic perspectives that operational surveys cannot capture, making the data more
+                valuable for decision-makers.
+              </span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-green-600 font-bold mr-3">✓</span>
+              <span>
+                <strong>Open Access Drives Impact:</strong> Making all findings freely available
+                democratizes access to critical intelligence and expands the research&apos;s reach
+                and influence.
+              </span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-green-600 font-bold mr-3">✓</span>
+              <span>
+                <strong>Academic Rigor Builds Credibility:</strong> Grounding surveys in established
+                frameworks and peer-reviewed methodologies ensures reliability and trust among
+                academics and practitioners alike.
+              </span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-green-600 font-bold mr-3">✓</span>
+              <span>
+                <strong>TABS Adapts the Model:</strong> While following The CMO Survey&apos;s proven
+                approach, TABS tailors it for technology adoption research with broader C-suite
+                coverage and agility for rapid tech evolution.
+              </span>
+            </li>
           </ul>
         </section>
 
