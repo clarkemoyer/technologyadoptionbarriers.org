@@ -1,24 +1,27 @@
 # MCP Servers Setup Complete ✅
 
 **Date:** January 21, 2026  
-**Issue:** Establish MCP servers at the Repo Level For Coding Agents
+**Issues:** #162, #173 — Establish MCP servers for coding agents
+
 
 ## Configuration Summary
 
-Successfully configured **6 Model Context Protocol (MCP) servers** to enhance coding agent capabilities in this repository.
+Successfully configured a consistent set of Model Context Protocol (MCP) servers for both:
+
+- GitHub Copilot coding agent in the GitHub UI
+- Local development (VS Code)
 
 ### Configured Servers
 
-1. **GitHub MCP** (Required) - Repository operations, CI/CD, issues, PRs
-2. **Qualtrics MCP** (Required) - Survey management and data collection
-3. **Google Cloud MCP** (Required) - Google Analytics API and GCP services
-4. **Playwright MCP** - Browser automation and E2E testing
-5. **Filesystem MCP** - Secure file operations within repository
-6. **Next.js Devtools MCP** - Next.js application insights
+Primary set:
+
+1. **GitHub MCP** - Repository operations, CI/CD, issues, PRs
+2. **Qualtrics MCP** - Survey management and data collection
+3. **Microsoft Learn MCP** - Official docs + code samples
 
 ### Files Created
 
-- `.copilot/mcp-config.json` - MCP server configuration
+- `.copilot/mcp-config.json` - Reference MCP server configuration (for local tooling)
 - `.copilot/README.md` - Configuration directory overview
 - `MCP_SERVERS.md` - Comprehensive documentation (9.3KB)
 - `MCP_QUICK_REFERENCE.md` - Quick reference guide (2.8KB)
@@ -37,7 +40,9 @@ Successfully configured **6 Model Context Protocol (MCP) servers** to enhance co
 
 ### Usage
 
-GitHub Copilot and other MCP-compatible coding agents will automatically discover and use the configuration at `.copilot/mcp-config.json`.
+GitHub Copilot **coding agent in the GitHub UI** uses repository settings (**Settings** > **Copilot** > **Coding agent**).
+
+`.copilot/mcp-config.json` is kept as a reference config and for local validation.
 
 **Validate configuration:**
 
@@ -59,7 +64,7 @@ jq '.mcpServers | keys[]' .copilot/mcp-config.json
 
 ### Next Steps
 
-1. Set up required environment variables for Qualtrics and Google Cloud MCP
+1. Set up required environment variables for Qualtrics MCP (and optional GitHub PAT)
 2. Test MCP servers with GitHub Copilot or other MCP-compatible tools
 3. Customize Qualtrics hostname if needed
 4. Review and customize server configurations as needed

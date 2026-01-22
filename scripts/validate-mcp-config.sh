@@ -87,12 +87,20 @@ else
     echo "⚠ Not reachable (network or auth required)"
 fi
 
+# Test Microsoft Learn MCP
+echo -n "  • Microsoft Learn MCP: "
+if curl -s -I --max-time 5 "https://learn.microsoft.com/api/mcp" > /dev/null 2>&1; then
+    echo "✓ Reachable"
+else
+    echo "⚠ Not reachable (network required)"
+fi
+
 # Test Qualtrics MCP (note: will fail without auth, but we can check if endpoint exists)
 echo -n "  • Qualtrics MCP: "
 QUALTRICS_URL=$(jq -r '.mcpServers["qualtrics-surveys"].url' "$CONFIG_FILE")
 if [ "$QUALTRICS_URL" != "null" ]; then
     # Replace template with actual hostname if available
-    if [[ "$QUALTRICS_URL" == *"<your-qualtrics-host>"* ]]; then
+    if [[ "$QUALTRICS_URL" == *"<your-qualtrics-host>"* ]] || [[ "$QUALTRICS_URL" == *"by-brand.iad1.qualtrics.com"* ]]; then
         echo "⚠ Placeholder URL detected - needs customization"
     else
         if curl -s -I --max-time 5 "$QUALTRICS_URL" > /dev/null 2>&1; then
@@ -124,9 +132,7 @@ check_env_var() {
 # These are optional - not everyone will have them set locally
 echo "  (Note: These are optional and may not be set in all environments)"
 check_env_var "COPILOT_MCP_QUALTRICS_OAUTH_TOKEN" "Qualtrics MCP" || true
-check_env_var "COPILOT_MCP_GOOGLE_SERVICE_ACCOUNT_EMAIL" "Google Cloud MCP" || true
-check_env_var "COPILOT_MCP_GOOGLE_PRIVATE_KEY" "Google Cloud MCP" || true
-check_env_var "COPILOT_MCP_GA_PROPERTY_ID" "Google Cloud MCP" || true
+check_env_var "COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN" "GitHub MCP (PAT)" || true
 
 echo ""
 

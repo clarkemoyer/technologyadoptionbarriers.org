@@ -21,13 +21,12 @@ For use with **GitHub Copilot coding agent in the GitHub UI**, configuration is 
 
 ### 2. IDE-Based MCP (For Local Development)
 
-For use with **VS Code, IDEs, and local MCP clients**, configuration is in `.copilot/mcp-config.json` and `.vscode/mcp.json`.
+For use with **VS Code and local MCP clients**, configuration is done on your machine.
 
-**Key differences:**
+In this repo, we use two patterns:
 
-- Configuration file committed to the repository (checked into source control)
-- Uses the same GitHub Copilot Agent MCP server format (including `type`, `tools`, and `COPILOT_MCP_`-prefixed environment variables)
-- IDEs may additionally support substituting environment variables or IDE-specific inputs (for example `${VAR}`), but the underlying JSON schema matches the Copilot Agent format
+- `.vscode/mcp.json` (VS Code format) for local dev. This file is **gitignored**.
+- `.copilot/mcp-config.json` as a **reference** `mcpServers` config and for running the validation script.
 
 ---
 
@@ -37,19 +36,23 @@ Model Context Protocol (MCP) is an open standard that enables large language mod
 
 ## Configured MCP Servers
 
-This repository has **6 MCP servers** configured for both GitHub Copilot Agent and IDE use:
+This repository’s current “primary” MCP server set is:
 
-### 1. GitHub MCP (Required)
+- GitHub MCP (remote)
+- Qualtrics MCP (remote, SSE)
+- Microsoft Learn MCP (remote)
+
+### 1. GitHub MCP
 
 **Purpose:** Provides access to GitHub repository operations, workflows, issues, pull requests, and more.
 
-**For GitHub Copilot Agent:**
+**For GitHub Copilot Agent (GitHub UI):**
 
 ```json
 {
-  "github-mcp-server": {
+  "github": {
     "type": "http",
-    "url": "https://api.githubcopilot.com/mcp/readonly",
+    "url": "https://api.githubcopilot.com/mcp/",
     "tools": ["*"],
     "headers": {
       "X-MCP-Toolsets": "repos,issues,users,pull_requests,code_security,secret_protection,actions,web_search"
@@ -59,7 +62,7 @@ This repository has **6 MCP servers** configured for both GitHub Copilot Agent a
 ```
 
 **Server Type:** Remote HTTP  
-**URL:** `https://api.githubcopilot.com/mcp/readonly` (or `/mcp/` for full access)
+**URL:** `https://api.githubcopilot.com/mcp/` (the `/readonly` variant is read-only)
 
 **Capabilities:**
 
@@ -69,7 +72,10 @@ This repository has **6 MCP servers** configured for both GitHub Copilot Agent a
 - Code search and navigation
 - Commit and branch operations
 
-**Authentication:** Handled automatically by GitHub Copilot
+**Authentication:**
+
+- GitHub Copilot provides baseline access.
+- If you need broader scope or write operations outside the default limits, add an `Authorization: Bearer $COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN` header in GitHub UI config.
 
 **Documentation:** [GitHub MCP Documentation](https://docs.github.com/en/copilot)
 
@@ -79,8 +85,8 @@ This repository has **6 MCP servers** configured for both GitHub Copilot Agent a
 
 **Purpose:** Manages Qualtrics surveys and data collection operations.
 
-**Server Type:** Remote HTTP with OAuth  
-**URL:** `https://by-brand.iad1.qualtrics.com/API/mcp/survey-crud`
+**Server Type:** Remote HTTP with OAuth + SSE  
+**URL:** `https://<your-qualtrics-host>/API/mcp/survey-crud`
 
 **Capabilities:**
 
@@ -98,150 +104,37 @@ This repository has **6 MCP servers** configured for both GitHub Copilot Agent a
 - Replace hostname with your Qualtrics brand/cluster hostname
 - See `qualtrics-mcp.md` for detailed setup instructions
 
+Example Qualtrics MCP URL (used during this repo’s setup):
+
+- `https://smeal.yul1.qualtrics.com/API/mcp/survey-crud`
+
 **Documentation:** See `qualtrics-mcp.md` in repository root
 
 ---
 
-### 3. Google Cloud MCP (Required)
+### 3. Microsoft Learn MCP
 
-**Purpose:** Provides access to Google Cloud Platform services, including Google Analytics Data API.
+**Purpose:** Quick access to official Microsoft documentation and code samples.
 
-**For GitHub Copilot Agent:**
-
-```json
-{
-  "google-cloud": {
-    "type": "local",
-    "command": "npx",
-    "args": ["-y", "gcloud-mcp"],
-    "tools": ["*"],
-    "env": {
-      "GOOGLE_SERVICE_ACCOUNT_EMAIL": "COPILOT_MCP_GOOGLE_SERVICE_ACCOUNT_EMAIL",
-      "GOOGLE_PRIVATE_KEY": "COPILOT_MCP_GOOGLE_PRIVATE_KEY",
-      "GA_PROPERTY_ID": "COPILOT_MCP_GA_PROPERTY_ID"
-    }
-  }
-}
-```
-
-**Server Type:** Local command (gcloud CLI wrapper)  
-**Package:** `gcloud-mcp`
+**Server Type:** Remote HTTP  
+**URL:** `https://learn.microsoft.com/api/mcp`
 
 **Capabilities:**
 
-- Google Analytics Data API access
-- Google Cloud service management
-- GCP resource operations
-- Service account authentication
+- Search Microsoft Learn docs
+- Fetch full Learn pages
+- Find official code samples
 
-**Authentication:** Uses Google service account credentials from environment:
-
-- `GOOGLE_SERVICE_ACCOUNT_EMAIL`
-- `GOOGLE_PRIVATE_KEY`
-- `GA_PROPERTY_ID`
-
-**Usage Example:**
-
-- Query Google Analytics metrics
-- Access GA4 reporting data
-- Manage GCP resources
-
-**Documentation:** [Google Cloud MCP GitHub](https://github.com/googleapis/gcloud-mcp)
+**Authentication:** None
 
 ---
 
-### 4. Playwright MCP
+## Optional local servers (VS Code)
 
-**Purpose:** Browser automation and end-to-end testing capabilities.
+These are useful locally in VS Code, but are not part of the GitHub UI “primary 3” set:
 
-**Server Type:** Local command  
-**Package:** `@playwright/mcp`
-
-**Capabilities:**
-
-- Browser automation (Chrome, Firefox, WebKit, Edge)
-- E2E test execution and debugging
-- Web scraping and data extraction
-- Accessibility tree navigation
-- Screenshot and video capture
-
-**Authentication:** None required
-
-**Usage Example:**
-
-- Run and debug E2E tests
-- Automate browser interactions
-- Generate test scripts
-- Debug test failures
-
-**Documentation:** [Playwright MCP on npm](https://www.npmjs.com/package/@playwright/mcp)
-
----
-
-### 5. Filesystem MCP
-
-**Purpose:** Secure file system operations within the repository.
-
-**Server Type:** Local command  
-**Package:** `@modelcontextprotocol/server-filesystem`
-
-**Capabilities:**
-
-- Read/write files
-- Create/list/delete directories
-- Move files and directories
-- Search files by name or content
-- Get file metadata
-
-**Security:**
-
-- Access restricted to repository directory only
-- Path: `.` (repository root; portable across local dev, CI, and GitHub Copilot Agent)
-
-**Authentication:** None required (path-based security)
-
-**Usage Example:**
-
-- Navigate repository structure
-- Read and modify source files
-- Search codebase
-- File operations during development
-
-**Documentation:** [Filesystem MCP on npm](https://www.npmjs.com/package/@modelcontextprotocol/server-filesystem)
-
----
-
-### 6. Next.js Devtools MCP
-
-**Purpose:** Provides insights into Next.js application structure, runtime, and configuration.
-
-**Server Type:** Local command  
-**Package:** `next-devtools-mcp`
-
-**Capabilities:**
-
-- Application runtime insights
-- Live error detection and logs
-- Page metadata and route analysis
-- Server actions inspection
-- Component tree analysis
-- Project structure and configuration access
-
-**Requirements:**
-
-- Next.js v16+ (currently using v16.1.3)
-- Development server must be running (`npm run dev`)
-
-**Usage Example:**
-
-- Analyze application structure
-- Debug runtime errors
-- Understand routing configuration
-- Inspect server components and actions
-
-**Documentation:** [Next.js MCP Server Guide](https://nextjs.org/docs/app/guides/mcp)
-
----
+- Playwright MCP (browser automation)
+- MarkItDown MCP (convert content to Markdown)
 
 ## Environment Variables
 
@@ -257,12 +150,10 @@ When configuring MCP servers in GitHub Settings (**Settings** > **Copilot** > **
 COPILOT_MCP_QUALTRICS_OAUTH_TOKEN=<your-oauth-access-token>
 ```
 
-#### Google Cloud MCP
+#### GitHub MCP (Optional)
 
 ```bash
-COPILOT_MCP_GOOGLE_SERVICE_ACCOUNT_EMAIL=<service-account-email>
-COPILOT_MCP_GOOGLE_PRIVATE_KEY=<service-account-private-key>
-COPILOT_MCP_GA_PROPERTY_ID=<google-analytics-property-id>
+COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN=<your-github-pat>
 ```
 
 ### For IDE/Local Development (Optional)
@@ -275,14 +166,6 @@ Some IDEs may support local environment variables without the `COPILOT_MCP_` pre
 QUALTRICS_OAUTH_TOKEN=<your-oauth-access-token>
 ```
 
-#### Google Cloud MCP
-
-```bash
-GOOGLE_SERVICE_ACCOUNT_EMAIL=<service-account-email>
-GOOGLE_PRIVATE_KEY=<service-account-private-key>
-GA_PROPERTY_ID=<google-analytics-property-id>
-```
-
 **Security Note:** Never commit these credentials to the repository. Use:
 
 - GitHub Actions secrets (with `COPILOT_MCP_` prefix) for GitHub Copilot Agent
@@ -293,7 +176,7 @@ GA_PROPERTY_ID=<google-analytics-property-id>
 
 ### With GitHub Copilot
 
-GitHub Copilot automatically discovers and uses MCP servers configured in `.copilot/mcp-config.json`. No additional setup is required beyond configuring environment variables.
+For the **GitHub Copilot coding agent in the GitHub UI**, MCP servers are configured in the repository settings UI. See [GITHUB_COPILOT_AGENT_SETUP.md](./GITHUB_COPILOT_AGENT_SETUP.md).
 
 ### With VS Code
 
@@ -314,13 +197,10 @@ You can test MCP server connectivity manually:
 curl -i https://api.githubcopilot.com/mcp/
 
 # Test Qualtrics MCP (replace with your hostname)
-curl -i https://by-brand.iad1.qualtrics.com/API/mcp/survey-crud
+curl -i https://<your-qualtrics-host>/API/mcp/survey-crud
 
-# Install and test Playwright MCP
-npx @playwright/mcp@latest
-
-# Install and test Google Cloud MCP
-npx gcloud-mcp
+# Test Microsoft Learn MCP
+curl -i https://learn.microsoft.com/api/mcp
 ```
 
 ## Validating MCP Configuration
@@ -349,7 +229,7 @@ To add additional MCP servers:
    - [MCP Examples](https://modelcontextprotocol.io/examples)
    - [npm MCP packages](https://www.npmjs.com/search?q=%40modelcontextprotocol)
 
-2. Add the server configuration to `.copilot/mcp-config.json`
+2. Add the server configuration to `.copilot/mcp-config.json` (reference)
 
 3. Document the server in this file (MCP_SERVERS.md)
 
@@ -398,13 +278,14 @@ To add additional MCP servers:
    - Use environment variables or secure vaults for local development
 
 2. **Filesystem Access:**
-   - Filesystem MCP is restricted to the repository directory only
-   - Review all file operations performed by coding agents
+   - In VS Code, MCP servers run locally and may have file access depending on the server.
+   - Review all file operations performed by coding agents.
 
 3. **External Services:**
-   - MCP servers can access external services (GitHub, Qualtrics, Google Cloud)
-   - Review and approve all operations that modify data or resources
-   - Monitor API usage and rate limits
+
+- MCP servers can access external services (GitHub, Qualtrics, Microsoft Learn)
+- Review and approve all operations that modify data or resources
+- Monitor API usage and rate limits
 
 4. **Third-Party Servers:**
    - Only add MCP servers from trusted sources

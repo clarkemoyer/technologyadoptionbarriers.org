@@ -6,14 +6,14 @@ This directory contains GitHub Copilot and MCP (Model Context Protocol) configur
 
 ### mcp-config.json
 
-Repository-level MCP server configuration for GitHub Copilot and other MCP-compatible coding agents.
+Repository-level MCP server configuration for MCP-compatible coding agents and local tooling.
 
-This file defines which MCP servers are available to coding agents working on this repository. It is automatically discovered by GitHub Copilot.
+GitHub Copilot’s **coding agent in the GitHub UI** uses the repository settings UI (not committed files) as the source of truth. This file is kept as a reference configuration and for local validation.
 
 **Important:**
 
 - This file is committed to the repository for team-wide consistency
-- Environment variables referenced (e.g., `$COPILOT_MCP_QUALTRICS_OAUTH_TOKEN`) must be configured locally
+- Environment variables referenced (e.g., `$COPILOT_MCP_QUALTRICS_OAUTH_TOKEN`) must be configured in your environment (local) or as GitHub Environment secrets (for the GitHub UI coding agent)
 - See [MCP_SERVERS.md](../MCP_SERVERS.md) for complete documentation
 
 **Security Note:**
@@ -38,10 +38,7 @@ See [GITHUB_COPILOT_AGENT_SETUP.md](../GITHUB_COPILOT_AGENT_SETUP.md) for more i
 
 1. **GitHub MCP** - Repository and GitHub operations
 2. **Qualtrics MCP** - Survey management
-3. **Google Cloud MCP** - Google Analytics and GCP services
-4. **Playwright MCP** - Browser automation and E2E testing
-5. **Filesystem MCP** - Secure file operations
-6. **Next.js Devtools MCP** - Next.js app insights
+3. **Microsoft Learn MCP** - Official docs + code samples
 
 See [MCP_SERVERS.md](../MCP_SERVERS.md) for detailed documentation on each server.
 

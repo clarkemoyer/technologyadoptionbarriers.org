@@ -2,7 +2,11 @@
   "servers": {
     "github": {
       "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/"
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "X-MCP-Toolsets": "repos,issues,users,pull_requests,code_security,secret_protection,actions,web_search",
+        "Authorization": "Bearer ${input:github_pat}"
+      }
     },
     "qualtrics-surveys": {
       "type": "http",
@@ -14,6 +18,12 @@
     }
   },
   "inputs": [
+    {
+      "type": "promptString",
+      "id": "github_pat",
+      "description": "GitHub Personal Access Token (PAT) used as a Bearer token for the GitHub MCP server",
+      "password": true
+    },
     {
       "type": "promptString",
       "id": "qualtrics_oauth_token",

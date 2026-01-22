@@ -14,14 +14,11 @@ jq '.mcpServers | keys[]' .copilot/mcp-config.json
 
 ## MCP Servers Summary
 
-| Server           | Type    | Purpose                                   | Auth Required   |
-| ---------------- | ------- | ----------------------------------------- | --------------- |
-| GitHub           | HTTP    | Repository operations, CI/CD, issues, PRs | Automatic       |
-| Qualtrics        | HTTP    | Survey management                         | OAuth token     |
-| Google Cloud     | Command | Google Analytics API, GCP services        | Service account |
-| Playwright       | Command | Browser automation, E2E testing           | None            |
-| Filesystem       | Command | File operations within repo               | None            |
-| Next.js Devtools | Command | Next.js app insights                      | None            |
+| Server          | Type | Purpose                                   | Auth Required |
+| --------------- | ---- | ----------------------------------------- | ------------- |
+| GitHub          | HTTP | Repository operations, CI/CD, issues, PRs | Optional PAT  |
+| Qualtrics       | HTTP | Survey management                         | OAuth token   |
+| Microsoft Learn | HTTP | Official docs + code samples              | None          |
 
 ## Required Environment Variables
 
@@ -33,10 +30,8 @@ When using GitHub Copilot Agent, environment secrets must use the `COPILOT_MCP_`
 # Qualtrics MCP
 export COPILOT_MCP_QUALTRICS_OAUTH_TOKEN="your-oauth-token"
 
-# Google Cloud MCP
-export COPILOT_MCP_GOOGLE_SERVICE_ACCOUNT_EMAIL="your-service-account@project.iam.gserviceaccount.com"
-export COPILOT_MCP_GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
-export COPILOT_MCP_GA_PROPERTY_ID="123456789"
+# GitHub MCP (optional)
+export COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN="your-github-pat"
 ```
 
 ### For IDE/Local Development (Optional)
@@ -46,11 +41,6 @@ Some IDEs may support local environment variables without the `COPILOT_MCP_` pre
 ```bash
 # Qualtrics MCP (IDE-local)
 export QUALTRICS_OAUTH_TOKEN="your-oauth-token"
-
-# Google Cloud MCP (IDE-local)
-export GOOGLE_SERVICE_ACCOUNT_EMAIL="your-service-account@project.iam.gserviceaccount.com"
-export GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
-export GA_PROPERTY_ID="123456789"
 ```
 
 **Security:** Never commit these values. Use:
@@ -70,19 +60,19 @@ curl -i https://api.githubcopilot.com/mcp/
 ### Test Qualtrics MCP Connectivity
 
 ```bash
-curl -i https://by-brand.iad1.qualtrics.com/API/mcp/survey-crud
+curl -i https://<your-qualtrics-host>/API/mcp/survey-crud
 ```
 
-### Install Playwright MCP Locally
+Example used during this repo’s setup:
 
 ```bash
-npx @playwright/mcp@latest
+curl -i https://smeal.yul1.qualtrics.com/API/mcp/survey-crud
 ```
 
-### Install Google Cloud MCP Locally
+### Test Microsoft Learn MCP Connectivity
 
 ```bash
-npx gcloud-mcp
+curl -i https://learn.microsoft.com/api/mcp
 ```
 
 ### View MCP Configuration

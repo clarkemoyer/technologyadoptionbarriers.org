@@ -30,17 +30,6 @@ Before configuring MCP servers, set up the required environment secrets. Only se
 - Secret name: `COPILOT_MCP_QUALTRICS_OAUTH_TOKEN`
 - Value: Your Qualtrics OAuth access token
 
-**For Google Cloud MCP:**
-
-- Secret name: `COPILOT_MCP_GOOGLE_SERVICE_ACCOUNT_EMAIL`
-- Value: Your Google service account email
-
-- Secret name: `COPILOT_MCP_GOOGLE_PRIVATE_KEY`
-- Value: Your Google service account private key
-
-- Secret name: `COPILOT_MCP_GA_PROPERTY_ID`
-- Value: Your Google Analytics property ID
-
 **For GitHub MCP (Optional - for wider access):**
 
 - Secret name: `COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN`
@@ -54,50 +43,27 @@ Before configuring MCP servers, set up the required environment secrets. Only se
 ```json
 {
   "mcpServers": {
-    "github-mcp-server": {
+    "github": {
       "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/readonly",
+      "url": "https://api.githubcopilot.com/mcp/",
       "tools": ["*"],
       "headers": {
-        "X-MCP-Toolsets": "repos,issues,users,pull_requests,code_security,secret_protection,actions,web_search"
+        "X-MCP-Toolsets": "repos,issues,users,pull_requests,code_security,secret_protection,actions,web_search",
+        "Authorization": "Bearer $COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN"
       }
     },
     "qualtrics-surveys": {
       "type": "http",
-      "url": "https://by-brand.iad1.qualtrics.com/API/mcp/survey-crud",
+      "url": "https://<your-qualtrics-host>/API/mcp/survey-crud",
       "tools": ["*"],
       "headers": {
         "Accept": "application/json, text/event-stream",
         "Authorization": "Bearer $COPILOT_MCP_QUALTRICS_OAUTH_TOKEN"
       }
     },
-    "google-cloud": {
-      "type": "local",
-      "command": "npx",
-      "args": ["-y", "gcloud-mcp"],
-      "tools": ["*"],
-      "env": {
-        "GOOGLE_SERVICE_ACCOUNT_EMAIL": "COPILOT_MCP_GOOGLE_SERVICE_ACCOUNT_EMAIL",
-        "GOOGLE_PRIVATE_KEY": "COPILOT_MCP_GOOGLE_PRIVATE_KEY",
-        "GA_PROPERTY_ID": "COPILOT_MCP_GA_PROPERTY_ID"
-      }
-    },
-    "playwright": {
-      "type": "local",
-      "command": "npx",
-      "args": ["-y", "@playwright/mcp@latest"],
-      "tools": ["*"]
-    },
-    "filesystem": {
-      "type": "local",
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
-      "tools": ["*"]
-    },
-    "next-devtools": {
-      "type": "local",
-      "command": "npx",
-      "args": ["-y", "next-devtools-mcp@latest"],
+    "microsoft-learn": {
+      "type": "http",
+      "url": "https://learn.microsoft.com/api/mcp",
       "tools": ["*"]
     }
   }
@@ -113,19 +79,20 @@ Before configuring MCP servers, set up the required environment secrets. Only se
 
 ```json
 {
-  "github-mcp-server": {
+  "github": {
     "type": "http",
-    "url": "https://api.githubcopilot.com/mcp/readonly",
+    "url": "https://api.githubcopilot.com/mcp/",
     "tools": ["*"],
     "headers": {
-      "X-MCP-Toolsets": "repos,issues,users,pull_requests,code_security,secret_protection,actions,web_search"
+      "X-MCP-Toolsets": "repos,issues,users,pull_requests,code_security,secret_protection,actions,web_search",
+      "Authorization": "Bearer $COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN"
     }
   }
 }
 ```
 
 - **Type:** HTTP (remote server)
-- **URL:** GitHub's built-in MCP server (read-only by default)
+- **URL:** GitHub's hosted MCP server (`/mcp/` is full; `/readonly` is read-only)
 - **Tools:** All tools (`["*"]`)
 - **Toolsets:** Specifies which GitHub capabilities to enable
   - `repos` - Repository operations
@@ -137,27 +104,7 @@ Before configuring MCP servers, set up the required environment secrets. Only se
   - `actions` - GitHub Actions workflows
   - `web_search` - Web search capabilities
 
-**Optional: For wider GitHub access beyond current repository:**
-
-To allow Copilot to access data outside the current repository, you can provide a personal access token:
-
-1. Create a fine-grained personal access token with read-only permissions on specific repositories
-2. Add it as a secret: `COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN`
-3. Update the configuration:
-
-```json
-{
-  "github-mcp-server": {
-    "type": "http",
-    "url": "https://api.githubcopilot.com/mcp/readonly",
-    "tools": ["*"],
-    "headers": {
-      "X-MCP-Toolsets": "repos,issues,users,pull_requests,code_security,secret_protection,actions,web_search",
-      "Authorization": "Bearer $COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN"
-    }
-  }
-}
-```
+If you do not want to use a PAT, remove the `Authorization` header.
 
 ### Qualtrics MCP Server
 
@@ -165,7 +112,7 @@ To allow Copilot to access data outside the current repository, you can provide 
 {
   "qualtrics-surveys": {
     "type": "http",
-    "url": "https://by-brand.iad1.qualtrics.com/API/mcp/survey-crud",
+    "url": "https://<your-qualtrics-host>/API/mcp/survey-crud",
     "tools": ["*"],
     "headers": {
       "Accept": "application/json, text/event-stream",
@@ -176,95 +123,31 @@ To allow Copilot to access data outside the current repository, you can provide 
 ```
 
 - **Type:** HTTP (remote server with OAuth)
-- **URL:** Replace `by-brand.iad1.qualtrics.com` with your Qualtrics brand/cluster hostname
+- **URL:** Replace `<your-qualtrics-host>` with your Qualtrics brand/cluster hostname
 - **Tools:** All tools (`["*"]`)
 - **Headers:**
   - `Accept`: Required for Server-Sent Events (SSE) support
   - `Authorization`: References the `COPILOT_MCP_QUALTRICS_OAUTH_TOKEN` environment secret
 
-**Note:** The URL placeholder `by-brand.iad1.qualtrics.com` must be replaced with your actual Qualtrics hostname before saving the configuration.
+**Note:** The URL placeholder `<your-qualtrics-host>` must be replaced with your actual Qualtrics hostname before saving the configuration.
 
-### Google Cloud MCP Server
-
-```json
-{
-  "google-cloud": {
-    "type": "local",
-    "command": "npx",
-    "args": ["-y", "gcloud-mcp"],
-    "tools": ["*"],
-    "env": {
-      "GOOGLE_SERVICE_ACCOUNT_EMAIL": "COPILOT_MCP_GOOGLE_SERVICE_ACCOUNT_EMAIL",
-      "GOOGLE_PRIVATE_KEY": "COPILOT_MCP_GOOGLE_PRIVATE_KEY",
-      "GA_PROPERTY_ID": "COPILOT_MCP_GA_PROPERTY_ID"
-    }
-  }
-}
-```
-
-- **Type:** Local (command-based)
-- **Command:** `npx -y gcloud-mcp`
-- **Tools:** All tools (`["*"]`)
-- **Environment Variables:** Maps local env vars to GitHub environment secrets
-  - `GOOGLE_SERVICE_ACCOUNT_EMAIL` → `COPILOT_MCP_GOOGLE_SERVICE_ACCOUNT_EMAIL`
-  - `GOOGLE_PRIVATE_KEY` → `COPILOT_MCP_GOOGLE_PRIVATE_KEY`
-  - `GA_PROPERTY_ID` → `COPILOT_MCP_GA_PROPERTY_ID`
-
-### Playwright MCP Server
+### Microsoft Learn MCP Server
 
 ```json
 {
-  "playwright": {
-    "type": "local",
-    "command": "npx",
-    "args": ["-y", "@playwright/mcp@latest"],
+  "microsoft-learn": {
+    "type": "http",
+    "url": "https://learn.microsoft.com/api/mcp",
     "tools": ["*"]
   }
 }
 ```
 
-- **Type:** Local (command-based)
-- **Command:** `npx -y @playwright/mcp@latest`
+- **Type:** HTTP (remote)
 - **Tools:** All tools (`["*"]`)
-- **Authentication:** None required
+- **Authentication:** None
 
-### Filesystem MCP Server
-
-```json
-{
-  "filesystem": {
-    "type": "local",
-    "command": "npx",
-    "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
-    "tools": ["*"]
-  }
-}
-```
-
-- **Type:** Local (command-based)
-- **Command:** `npx -y @modelcontextprotocol/server-filesystem`
-- **Tools:** All tools (`["*"]`)
-- **Path Restriction:** Scoped to repository root directory
-- **Authentication:** None required (path-based security)
-
-### Next.js Devtools MCP Server
-
-```json
-{
-  "next-devtools": {
-    "type": "local",
-    "command": "npx",
-    "args": ["-y", "next-devtools-mcp@latest"],
-    "tools": ["*"]
-  }
-}
-```
-
-- **Type:** Local (command-based)
-- **Command:** `npx -y next-devtools-mcp@latest`
-- **Tools:** All tools (`["*"]`)
-- **Authentication:** None required
-- **Requirement:** Next.js dev server must be running
+This server provides search/fetch tooling over Microsoft Learn docs and official code samples.
 
 ## Understanding the Configuration Format
 
@@ -273,9 +156,10 @@ To allow Copilot to access data outside the current repository, you can provide 
 Every MCP server configuration must include:
 
 1. **`type`** - One of:
-   - `"local"` - Command-based server running locally
-   - `"http"` - Remote HTTP server
-   - `"sse"` - Server-Sent Events server
+
+- `"local"` - Command-based server running locally (requires runner support)
+- `"http"` - Remote HTTP server
+- `"sse"` - Server-Sent Events server
 
 2. **`tools`** - Array of tool names or `["*"]` for all tools
    - Strongly recommended to allowlist specific read-only tools
@@ -290,6 +174,8 @@ For `type: "local"`:
 - **`env`** (optional) - Environment variables mapping:
   - Key: Variable name for the MCP server
   - Value: GitHub environment secret name (must start with `COPILOT_MCP_`)
+
+Note: this repository currently uses only **remote** MCP servers in the GitHub UI config.
 
 ### Remote Server Fields
 
@@ -359,6 +245,7 @@ Examples:
 
 - `https://contoso.sjc1.qualtrics.com/API/mcp/survey-crud`
 - `https://acme.eu.qualtrics.com/API/mcp/survey-crud`
+- `https://smeal.yul1.qualtrics.com/API/mcp/survey-crud` (example used during this repo’s setup)
 
 ## Validation
 

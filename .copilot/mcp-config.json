@@ -1,49 +1,26 @@
 {
   "mcpServers": {
-    "github-mcp-server": {
+    "github": {
       "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/readonly",
+      "url": "https://api.githubcopilot.com/mcp/",
       "tools": ["*"],
       "headers": {
-        "X-MCP-Toolsets": "repos,issues,users,pull_requests,code_security,secret_protection,actions,web_search"
+        "X-MCP-Toolsets": "repos,issues,users,pull_requests,code_security,secret_protection,actions,web_search",
+        "Authorization": "Bearer $COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN"
       }
     },
     "qualtrics-surveys": {
       "type": "http",
-      "url": "https://by-brand.iad1.qualtrics.com/API/mcp/survey-crud",
+      "url": "https://<your-qualtrics-host>/API/mcp/survey-crud",
       "tools": ["*"],
       "headers": {
         "Accept": "application/json, text/event-stream",
         "Authorization": "Bearer $COPILOT_MCP_QUALTRICS_OAUTH_TOKEN"
       }
     },
-    "google-cloud": {
-      "type": "local",
-      "command": "npx",
-      "args": ["-y", "gcloud-mcp"],
-      "tools": ["*"],
-      "env": {
-        "GOOGLE_SERVICE_ACCOUNT_EMAIL": "COPILOT_MCP_GOOGLE_SERVICE_ACCOUNT_EMAIL",
-        "GOOGLE_PRIVATE_KEY": "COPILOT_MCP_GOOGLE_PRIVATE_KEY",
-        "GA_PROPERTY_ID": "COPILOT_MCP_GA_PROPERTY_ID"
-      }
-    },
-    "playwright": {
-      "type": "local",
-      "command": "npx",
-      "args": ["-y", "@playwright/mcp@latest"],
-      "tools": ["*"]
-    },
-    "filesystem": {
-      "type": "local",
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
-      "tools": ["*"]
-    },
-    "next-devtools": {
-      "type": "local",
-      "command": "npx",
-      "args": ["-y", "next-devtools-mcp@latest"],
+    "microsoft-learn": {
+      "type": "http",
+      "url": "https://learn.microsoft.com/api/mcp",
       "tools": ["*"]
     }
   }
