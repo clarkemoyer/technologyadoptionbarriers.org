@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react'
 import { barriers, barrierCategories } from '@/data/barriers'
+import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
 
@@ -187,7 +188,7 @@ const Barriers = () => {
           </p>
           <a
             className="inline-block px-[40px] py-[15px] bg-[#F57C20] text-white text-[18px] font-semibold rounded-[30px] hover:bg-[#d66a1a] transition-colors duration-300"
-            href="https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO"
+            href={TABS_WEBSITE_QUALTRICS_SURVEY_URL}
             rel="noopener noreferrer"
           >
             Take the TABS Survey

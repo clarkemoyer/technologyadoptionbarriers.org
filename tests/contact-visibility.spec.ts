@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '../src/lib/tabs-survey'
 
 /**
  * Contact Section Visibility Tests
@@ -37,10 +38,7 @@ test.describe('Contact Visibility', () => {
 
     const takeTheTabs = section.getByRole('link', { name: /take the tabs/i })
     await expect(takeTheTabs).toBeVisible()
-    await expect(takeTheTabs).toHaveAttribute(
-      'href',
-      'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO'
-    )
+    await expect(takeTheTabs).toHaveAttribute('href', TABS_WEBSITE_QUALTRICS_SURVEY_URL)
     await expect(takeTheTabs).toHaveAttribute('target', '_blank')
 
     const supportLink = section.getByRole('link', { name: /support tabs/i })

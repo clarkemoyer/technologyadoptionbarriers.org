@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '../src/lib/tabs-survey'
 
 test.describe('Get Involved Page', () => {
   test('should load get-involved page successfully', async ({ page }) => {
@@ -36,10 +37,7 @@ test.describe('Get Involved Page', () => {
     // Check survey link
     const surveyButton = page.getByRole('link', { name: 'Take the Survey' })
     await expect(surveyButton).toBeVisible()
-    await expect(surveyButton).toHaveAttribute(
-      'href',
-      'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO'
-    )
+    await expect(surveyButton).toHaveAttribute('href', TABS_WEBSITE_QUALTRICS_SURVEY_URL)
 
     // Check contribute link
     const contributeButton = page.getByRole('link', { name: 'Contribute Now' })

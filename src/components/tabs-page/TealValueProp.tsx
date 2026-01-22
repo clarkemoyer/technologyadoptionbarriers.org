@@ -1,4 +1,5 @@
 import React from 'react'
+import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
 const TealValueProp = () => {
   return (
@@ -30,7 +31,7 @@ const TealValueProp = () => {
 
         <div className="mt-[40px]">
           <a
-            href="https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO"
+            href={TABS_WEBSITE_QUALTRICS_SURVEY_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block px-[40px] py-[20px] border-2 border-white text-white text-[20px] font-bold rounded-[50px] hover:bg-white hover:text-[#0E7162] transition-colors duration-300 uppercase tracking-wide"

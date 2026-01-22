@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import React from 'react'
 import { assetPath } from '@/lib/assetPath'
+import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
 export const metadata: Metadata = {
   title: 'Media',
@@ -288,7 +289,7 @@ const MediaPage = () => {
                         Survey:{' '}
                         <a
                           className="text-blue-700 underline"
-                          href="https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO"
+                          href={TABS_WEBSITE_QUALTRICS_SURVEY_URL}
                           rel="noopener noreferrer"
                           target="_blank"
                         >

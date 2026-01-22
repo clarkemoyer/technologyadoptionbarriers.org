@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import Footer from '../../src/components/footer'
+import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '../../src/lib/tabs-survey'
 
 // Mock impact data to avoid import issues and ensure consistent data
 jest.mock('../../src/data/impact.json', () => ({
@@ -41,8 +42,7 @@ describe.skip('Footer component', () => {
     expect(takeTabsLinks.length).toBeGreaterThanOrEqual(1)
     // Check that at least one has the correct href
     const validLink = takeTabsLinks.find(
-      (link) =>
-        link.getAttribute('href') === 'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO'
+      (link) => link.getAttribute('href') === TABS_WEBSITE_QUALTRICS_SURVEY_URL
     )
     expect(validLink).toBeDefined()
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { assetPath } from '@/lib/assetPath'
+import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
 /**
  * TABS Hero Section
@@ -41,7 +42,7 @@ const Hero = () => {
 
             <div className="flex flex-wrap gap-3">
               <a
-                href="https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO"
+                href={TABS_WEBSITE_QUALTRICS_SURVEY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-[35px] py-[15px] bg-[#26C699] text-white text-[18px] font-bold rounded-[4px] hover:bg-[#1fa680] transition-colors"

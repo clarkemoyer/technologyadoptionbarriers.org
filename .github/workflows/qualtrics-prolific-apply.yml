@@ -7,6 +7,15 @@ on:
         description: 'Optional Survey ID (defaults to QUALTRICS_SURVEY_ID env var)'
         required: false
         type: string
+      publish_after_apply:
+        description: 'Attempt to publish a new survey definition version via API after applying changes'
+        required: false
+        type: boolean
+        default: false
+      publish_confirm:
+        description: 'If publish_after_apply is true, type PUBLISH to confirm publishing via API'
+        required: false
+        type: string
       apply_authenticity_script:
         description: 'Apply Prolific authenticity script from secret PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT (recommended)'
         required: false
@@ -31,8 +40,10 @@ jobs:
       INPUT_SURVEY_ID: ${{ inputs.survey_id }}
       INPUT_CONFIRM: ${{ inputs.confirm }}
       PROLIFIC_COMPLETION_CODE_SUCCESS: ${{ secrets.PROLIFIC_COMPLETION_CODE_SUCCESS }}
+      PROLIFIC_COMPLETION_URL: ${{ secrets.PROLIFIC_COMPLETION_URL }}
       PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT: ${{ inputs.apply_authenticity_script && secrets.PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT || '' }}
       QUALTRICS_PROLIFIC_CONFIRM: APPLY
+      QUALTRICS_PROLIFIC_PUBLISH: ${{ inputs.publish_after_apply && inputs.publish_confirm || '' }}
     steps:
       - name: Guardrails
         shell: bash
@@ -54,10 +65,16 @@ jobs:
             exit 1
           fi
 
-          if [[ -z "${PROLIFIC_COMPLETION_CODE_SUCCESS:-}" ]]; then
-            echo "::error::Missing secret PROLIFIC_COMPLETION_CODE_SUCCESS in environment qualtrics-prod" >&2
-            echo "Copy it from prolific-prod to qualtrics-prod to run this workflow safely." >&2
+          if [[ -z "${PROLIFIC_COMPLETION_URL:-}" && -z "${PROLIFIC_COMPLETION_CODE_SUCCESS:-}" ]]; then
+            echo "::error::Missing Prolific completion redirect. Add secret PROLIFIC_COMPLETION_URL (preferred) or PROLIFIC_COMPLETION_CODE_SUCCESS in environment qualtrics-prod" >&2
             exit 1
+          fi
+
+          if [[ "${{ inputs.publish_after_apply }}" == "true" ]]; then
+            if [[ "${{ inputs.publish_confirm || '' }}" != "PUBLISH" ]]; then
+              echo "::error::Publish confirmation missing. Re-run with publish_confirm=PUBLISH." >&2
+              exit 1
+            fi
           fi
 
       - name: Checkout repository
@@ -82,6 +99,7 @@ jobs:
         shell: bash
         env:
           QUALTRICS_SURVEY_ID: ${{ env.INPUT_SURVEY_ID || env.QUALTRICS_SURVEY_ID }}
+          EXPECT_AUTH_SCRIPT: ${{ inputs.apply_authenticity_script }}
         run: |
           set -euo pipefail
 
@@ -90,6 +108,7 @@ jobs:
 
           TMP_DIR="${RUNNER_TEMP:-/tmp}"
           DEF_JSON="$TMP_DIR/qualtrics-survey-definition.json"
+          OPTIONS_JSON="$TMP_DIR/qualtrics-survey-options.json"
           START_JSON="$TMP_DIR/qualtrics-export-start.json"
           STATUS_JSON="$TMP_DIR/qualtrics-export-status.json"
           ZIP_PATH="$TMP_DIR/qualtrics-survey-export.zip"
@@ -100,6 +119,32 @@ jobs:
           echo "- **Survey ID:** ${SURVEY_ID}" >> "$GITHUB_STEP_SUMMARY"
           echo "- **Base URL:** ${BASE_URL}" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          has_prolific_script_from_options=false
+          has_redirect_termination_from_options=false
+          has_completion_redirect_template_from_options=false
+
+          options_url="$BASE_URL/API/v3/survey-definitions/${SURVEY_ID}/options"
+          http_code=$(curl -sS -o "$OPTIONS_JSON" -w "%{http_code}" \
+            -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+            -H "Accept: application/json" \
+            "$options_url" || true)
+
+          if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
+            if jq -r '.result.Header // ""' "$OPTIONS_JSON" | grep -Eq 'assets\.prolific\.com/.*/qualtrics/qualtrics\.min\.js'; then
+              has_prolific_script_from_options=true
+            fi
+
+            if jq -r '.result.SurveyTermination // ""' "$OPTIONS_JSON" | grep -Eq '^(Redirect|redirect)$'; then
+              has_redirect_termination_from_options=true
+            fi
+
+            if jq -r '.result.EOSRedirectURL // ""' "$OPTIONS_JSON" | grep -Eq '\\$\\{e://Field/COMPLETE_URL\\}'; then
+              has_completion_redirect_template_from_options=true
+            fi
+          else
+            echo "::warning::Could not fetch survey options (HTTP $http_code): $options_url" >&2
+          fi
 
           scan_path=""
           scan_source=""
@@ -209,10 +254,17 @@ jobs:
           has_prolific_pid=false
           has_study_id=false
           has_session_id=false
-          has_completion_redirect_marker=false
+          has_source=false
+          has_complete_url=false
 
-          if grep -Eq 'assets\.prolific\.com(\\/|/)assets(\\/|/)js(\\/|/)qualtrics(\\/|/)qualtrics\.min\.js' "$scan_path"; then
+          if [[ "$has_prolific_script_from_options" == "true" ]]; then
             has_prolific_script=true
+          fi
+
+          if [[ "$has_prolific_script" != "true" ]]; then
+            if grep -Eq 'assets\.prolific\.com(\\/|/)assets(\\/|/)js(\\/|/)qualtrics(\\/|/)qualtrics\.min\.js' "$scan_path"; then
+              has_prolific_script=true
+            fi
           fi
 
           if grep -q "PROLIFIC_PID" "$scan_path"; then
@@ -227,8 +279,12 @@ jobs:
             has_session_id=true
           fi
 
-          if grep -Eq 'app\.prolific\.com(\\/|/)submissions(\\/|/)complete\?cc=' "$scan_path"; then
-            has_completion_redirect_marker=true
+          if grep -q "SOURCE" "$scan_path"; then
+            has_source=true
+          fi
+
+          if grep -q "COMPLETE_URL" "$scan_path"; then
+            has_complete_url=true
           fi
 
           echo "### Checks" >> "$GITHUB_STEP_SUMMARY"
@@ -236,16 +292,19 @@ jobs:
           echo "| Check | Result |" >> "$GITHUB_STEP_SUMMARY"
           echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
           echo "| Prolific authenticity script marker present | ${has_prolific_script} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Options: SurveyTermination is Redirect | ${has_redirect_termination_from_options} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Options: EOSRedirectURL is ${e://Field/COMPLETE_URL} | ${has_completion_redirect_template_from_options} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Embedded Data field present: PROLIFIC_PID | ${has_prolific_pid} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Embedded Data field present: STUDY_ID | ${has_study_id} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Embedded Data field present: SESSION_ID | ${has_session_id} |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Completion redirect marker present (cc=...) | ${has_completion_redirect_marker} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Embedded Data field present: SOURCE | ${has_source} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Embedded Data field present: COMPLETE_URL | ${has_complete_url} |" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
 
           has_errors=false
 
-          if [[ "$has_prolific_script" != "true" ]]; then
-            echo "::error::Missing Prolific authenticity script marker in survey definition." >&2
+          if [[ "${EXPECT_AUTH_SCRIPT}" == "true" && "$has_prolific_script" != "true" ]]; then
+            echo "::error::Missing Prolific authenticity script marker in survey definition/options." >&2
             has_errors=true
           fi
 
@@ -264,8 +323,23 @@ jobs:
             has_errors=true
           fi
 
-          if [[ "$has_completion_redirect_marker" != "true" ]]; then
-            echo "::error::Missing Prolific completion redirect marker (app.prolific.com/submissions/complete?cc=...) in survey definition." >&2
+          if [[ "$has_source" != "true" ]]; then
+            echo "::error::Missing Embedded Data field marker: SOURCE" >&2
+            has_errors=true
+          fi
+
+          if [[ "$has_complete_url" != "true" ]]; then
+            echo "::error::Missing Embedded Data field marker: COMPLETE_URL" >&2
+            has_errors=true
+          fi
+
+          if [[ "$has_redirect_termination_from_options" != "true" ]]; then
+            echo "::error::Options SurveyTermination is not Redirect." >&2
+            has_errors=true
+          fi
+
+          if [[ "$has_completion_redirect_template_from_options" != "true" ]]; then
+            echo "::error::Options EOSRedirectURL is not set to ${e://Field/COMPLETE_URL}." >&2
             has_errors=true
           fi
 

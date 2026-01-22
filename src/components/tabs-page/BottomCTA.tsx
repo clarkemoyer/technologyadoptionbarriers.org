@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'next/image'
+import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
 const BottomCTA = () => {
   return (
@@ -40,7 +40,7 @@ const BottomCTA = () => {
 
         <div className="flex flex-col sm:flex-row justify-center gap-[20px]">
           <a
-            href="https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO"
+            href={TABS_WEBSITE_QUALTRICS_SURVEY_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="px-[40px] py-[18px] bg-[#F57C20] text-white text-[18px] font-bold rounded-[4px] hover:bg-[#d66a1a] transition-all duration-300 uppercase tracking-widest"

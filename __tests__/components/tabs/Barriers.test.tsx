@@ -4,6 +4,7 @@ import '@testing-library/jest-dom'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import Barriers from '../../../src/components/tabs/Barriers'
 import { barriers, barrierCategories } from '../../../src/data/barriers'
+import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '../../../src/lib/tabs-survey'
 
 // Extend Jest matchers
 expect.extend(toHaveNoViolations)
@@ -332,10 +333,7 @@ describe('Barriers component', () => {
 
       const ctaLink = screen.getByRole('link', { name: /Take the TABS Survey/i })
       expect(ctaLink).toBeInTheDocument()
-      expect(ctaLink).toHaveAttribute(
-        'href',
-        'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO'
-      )
+      expect(ctaLink).toHaveAttribute('href', TABS_WEBSITE_QUALTRICS_SURVEY_URL)
     })
   })
 
