@@ -42,7 +42,7 @@ jobs:
           title: 'Update Google Analytics impact stats'
           body: |
             Automated update of `src/data/impact.json` from the Google Analytics Data API.
-            
+
             This PR contains the latest impact metrics from the daily GA report.
           branch: chore/ga-impact-stats
           delete-branch: true
