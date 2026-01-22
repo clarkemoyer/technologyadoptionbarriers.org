@@ -47,6 +47,11 @@ jobs:
           else
             echo "Impact stats changed. Committing and pushing..."
             git commit -m "chore: update public impact stats"
+            
+            # Pull latest changes to handle race condition
+            git pull --rebase origin main
+            
+            # Push the changes
             git push
           fi
 
