@@ -122,7 +122,9 @@ function getRefCommitISO(ref: string): string {
 }
 
 function toDateOnly(iso: string): string {
-  return iso.split('T')[0]
+  // GitHub search operates on dates (not datetimes). Always derive the date in UTC
+  // so refs with a timezone offset don't truncate to the previous/next day.
+  return new Date(iso).toISOString().slice(0, 10)
 }
 
 function listCommitAuthors(from: string, to: string): { humans: string[]; bots: string[] } {
@@ -184,7 +186,8 @@ function listMergedPRs(repo: string, startISO: string, endISO: string): ReleaseN
   const filtered = parsed
     .filter((pr) => {
       const merged = new Date(pr.mergedAt).getTime()
-      return merged >= start && merged <= end
+      // We want (from..to], not [from..to].
+      return merged > start && merged <= end
     })
     .sort((a, b) => new Date(b.mergedAt).getTime() - new Date(a.mergedAt).getTime())
 
@@ -222,7 +225,8 @@ function listClosedIssues(repo: string, startISO: string, endISO: string): Relea
   const filtered = parsed
     .filter((issue) => {
       const closed = new Date(issue.closedAt).getTime()
-      return closed >= start && closed <= end
+      // We want (from..to], not [from..to].
+      return closed > start && closed <= end
     })
     .sort((a, b) => new Date(b.closedAt).getTime() - new Date(a.closedAt).getTime())
 
