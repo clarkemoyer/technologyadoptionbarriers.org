@@ -290,7 +290,7 @@ This repository integrates with external API environments, accessible via **GitH
 
 | Environment      | Purpose               | Secrets/Variables | Status                  |
 | ---------------- | --------------------- | ----------------- | ----------------------- |
-| `qualtrics-prod` | Survey management     | 7 secrets, 4 vars | ✅ Active (5 workflows) |
+| `qualtrics-prod` | Survey management     | 7 secrets, 5 vars | ✅ Active (5 workflows) |
 | `prolific-prod`  | Participant data      | 2 secrets, 3 vars | ✅ Active (2 workflows) |
 | `google-prod`    | Analytics reporting   | 6 secrets         | ✅ Active (1 workflow)  |
 | `microsoft-prod` | Forms integration     | 1 secret          | ⚠️ Configured (future)  |
@@ -308,13 +308,18 @@ This repository integrates with external API environments, accessible via **GitH
 - **Client Library**: `src/lib/qualtrics-api.ts` (TypeScript)
 - **GitHub Secrets**:
   - `QUALTRICS_API_TOKEN` - API authentication token
+- **GitHub Variables**:
   - `QUALTRICS_BASE_URL` - Base URL for API requests
+  - `QUALTRICS_SURVEY_ID` - Active survey ID used by automation
+  - `QUALTRICS_COPY_DESTINATION_OWNER` - Optional; required by some tenants for API-based copy (sent as `X-Copy-Destination-Owner`)
 - **Used in workflows**:
   - `.github/workflows/qualtrics-copy-survey.yml` - Copy surveys
   - `.github/workflows/qualtrics-metrics-update.yml` - Update metrics
   - `.github/workflows/fetch-qualtrics-questions.yml` - Fetch questions
   - `.github/workflows/qualtrics-api-smoke.yml` - Connectivity test
   - `.github/workflows/qualtrics-prolific-verify.yml` - Cross-platform verification
+
+These workflows are designed to reduce manual administration for long-running (multi-year) survey data collection (for example, doing a yearly survey “rollover” by copying the prior year’s survey via API).
 
 **Local Testing (IDE agents only):**
 

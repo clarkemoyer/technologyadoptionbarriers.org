@@ -57,6 +57,29 @@ Notes:
 
 - There can be a delay before the new survey appears in the Qualtrics UI.
 - If the caller doesn’t have copy/edit permissions for the source survey, copy can fail even if the survey appears in list endpoints.
+- Some tenants require `X-Copy-Destination-Owner` (the workflow in this repo derives it from the source survey’s `ownerId`).
+
+## Annual survey rollover (10-year collection)
+
+This repo supports a low-effort “yearly rollover” workflow for long-running (multi-year) data collection:
+
+1. Copy the active survey to a new “year N” survey via API.
+2. Update the environment variable used by automation to point at the new survey.
+3. Update the Prolific study external URL to point at the new survey link.
+
+This reduces admin effort because the yearly survey creation + verification can be done from GitHub Actions, without manual Qualtrics export/import.
+
+In this repo:
+
+- Survey copy: `.github/workflows/qualtrics-copy-survey.yml`
+- Qualtrics ↔ Prolific verification: `.github/workflows/qualtrics-prolific-verify.yml`
+
+Suggested yearly sequence:
+
+1. Run the copy workflow.
+2. Update GitHub Environment `qualtrics-prod` → `QUALTRICS_SURVEY_ID` to the new Survey ID.
+3. Run the verification workflow against the new Survey ID.
+4. Update the Prolific study to point at the new survey link.
 
 ## Survey definition / export
 
@@ -131,3 +154,5 @@ curl -sS \
 - Copy survey workflow: `.github/workflows/qualtrics-copy-survey.yml`
 - Connectivity + metadata smoke test: `.github/workflows/qualtrics-api-smoke.yml`
 - Metrics update automation: `.github/workflows/qualtrics-metrics-update.yml`
+
+If you’re troubleshooting or validating credentials, run the smoke test first.

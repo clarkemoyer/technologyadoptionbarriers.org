@@ -27,6 +27,7 @@ jobs:
       QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
       QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
       QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+      QUALTRICS_COPY_DESTINATION_OWNER: ${{ vars.QUALTRICS_COPY_DESTINATION_OWNER }}
       INPUT_SOURCE_SURVEY_ID: ${{ inputs.source_survey_id }}
       INPUT_NEW_SURVEY_NAME: ${{ inputs.new_survey_name }}
       INPUT_CONFIRM: ${{ inputs.confirm }}
@@ -62,10 +63,7 @@ jobs:
           TMP_DIR="${RUNNER_TEMP:-/tmp}"
           SURVEY_JSON="$TMP_DIR/qualtrics-survey.json"
           COPY_JSON="$TMP_DIR/qualtrics-copy.json"
-          DEF_JSON="$TMP_DIR/qualtrics-survey-definition.json"
-          DEF_BODY_JSON="$TMP_DIR/qualtrics-survey-definition-body.json"
           CREATE_JSON="$TMP_DIR/qualtrics-survey-create.json"
-          APPLY_JSON="$TMP_DIR/qualtrics-survey-apply-definition.json"
           EXPORT_START_JSON="$TMP_DIR/qualtrics-export-start.json"
           EXPORT_STATUS_JSON="$TMP_DIR/qualtrics-export-status.json"
           EXPORT_ZIP="$TMP_DIR/qualtrics-export.zip"
@@ -100,46 +98,17 @@ jobs:
           fi
 
           source_name=$(jq -r '.result.name // ""' "$SURVEY_JSON")
+          source_owner_id=$(jq -r '.result.ownerId // .result.ownerID // empty' "$SURVEY_JSON")
           timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           default_name="${source_name} (Copy ${timestamp})"
           new_name="${INPUT_NEW_SURVEY_NAME:-$default_name}"
 
-          # Fetch the source survey definition (prefer direct definition endpoints).
-          # This is the same approach used in the verify workflow, since some brands 404 on export APIs.
-          def_source=""
-          definition_url_1="$BASE_URL/API/v3/survey-definitions/${SOURCE_SURVEY_ID}"
-          definition_url_2="$BASE_URL/API/v3/surveys/${SOURCE_SURVEY_ID}/definition"
+          # Some Qualtrics tenants require X-Copy-Destination-Owner when using the official copy mechanism.
+          # Default to the source survey's ownerId when available.
+          DESTINATION_OWNER="${QUALTRICS_COPY_DESTINATION_OWNER:-${source_owner_id:-}}"
 
-          for url in "$definition_url_1" "$definition_url_2"; do
-            set +e
-            def_code=$(curl -sS -o "$DEF_JSON" -w "%{http_code}" \
-              -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
-              -H "Accept: application/json" \
-              "$url" 2>"$CURL_ERR")
-            def_exit=$?
-            set -e
-
-            if ! [[ "$def_code" =~ ^[0-9]{3}$ ]]; then
-              def_code="000"
-            fi
-
-            if [[ "$def_exit" -eq 0 && "$def_code" -ge 200 && "$def_code" -lt 300 ]]; then
-              def_source="$url"
-              break
-            fi
-          done
-
-          if [[ -z "$def_source" ]]; then
-            echo "::error::Could not fetch source survey definition (tried definition endpoints; export not attempted)." >&2
-            echo "- $definition_url_1" >&2
-            echo "- $definition_url_2" >&2
-            if [[ -s "$CURL_ERR" ]]; then
-              echo "" >&2
-              echo "Last curl error (truncated):" >&2
-              tail -c 2000 "$CURL_ERR" 2>/dev/null || true
-            fi
-            exit 1
-          fi
+          echo "- **Destination Owner (for copy header):** ${DESTINATION_OWNER:-<empty>}" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
 
           # Try known/likely Qualtrics copy endpoints. Different brands can expose different operations.
           # We keep responses in a file and avoid printing them to logs.
@@ -240,6 +209,7 @@ jobs:
             -H "Accept: application/json" \
             -H "Content-Type: application/json" \
             -H "X-Copy-Source: ${SOURCE_SURVEY_ID}" \
+            ${DESTINATION_OWNER:+-H "X-Copy-Destination-Owner: ${DESTINATION_OWNER}"} \
             -d "{\"projectName\":\"${new_name}\"}" \
             "$url0" 2>"$CURL_ERR")
           LAST_CURL_EXIT=$?
@@ -262,6 +232,8 @@ jobs:
               -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
               -H "Accept: application/json" \
               -H "X-Copy-Source: ${SOURCE_SURVEY_ID}" \
+              ${DESTINATION_OWNER:+-H "X-Copy-Destination-Owner: ${DESTINATION_OWNER}"} \
+              -H "Content-Length: 0" \
               "$url0" 2>"$CURL_ERR")
             LAST_CURL_EXIT=$?
             set -e
@@ -304,77 +276,47 @@ jobs:
             fi
           fi
 
-          # Fallback: API-only "clone" via create-survey + apply-definition.
-          # If /copy-like endpoints are not supported in this tenant, we attempt an API-only import flow.
-          # This tenant rejects application/json for POST /surveys and requires multipart/form-data.
-          # We try to import using the source definition payload first; if that fails, we optionally
-          # try exporting a QSF (if available) and importing that.
+          # Fallback: export QSF + import QSF.
+          # If /copy-like endpoints are not supported in this tenant, we attempt an API-only export/import flow.
+          # Note: Qualtrics import expects a supported survey file format (typically QSF/TXT/DOC).
           fallback_attempted=()
           new_survey_id_fallback=""
-
-          record_fallback_attempt() {
-            local url="$1"
-            local http_code="$2"
-            local curl_exit="$3"
-            local meta_status
-            local meta_message
-            meta_status=$(jq -r '.meta.httpStatus // empty' "$APPLY_JSON" 2>/dev/null || true)
-            meta_message=$(jq -r '.meta.error.errorMessage // empty' "$APPLY_JSON" 2>/dev/null || true)
-            fallback_attempted+=("${url} | HTTP ${http_code} | curl ${curl_exit}${meta_status:+ | ${meta_status}}${meta_message:+ | ${meta_message}}")
-          }
 
           import_survey() {
             local file_path="$1"
             local note="$2"
             local http_code
 
-            local upload_filename
-            local upload_mime
-
-            # Some Qualtrics tenants validate the uploaded file's mime type and/or filename
-            # extension. We try a few common options to maximize compatibility.
-            #
-            # We default to a .qsf filename even if the payload isn't a QSF.
-            upload_filename="survey.qsf"
-
-            # Default mime list: most-specific to least-specific.
-            # (We keep this local so it can be adjusted without affecting other calls.)
-            local -a mime_candidates=(
-              "application/vnd.qualtrics.survey.qsf"
-              "application/octet-stream"
-              "application/json"
-            )
+            # Some Qualtrics tenants validate the uploaded file's mime type and/or filename extension.
+            # This import endpoint expects a supported survey file type; we force QSF here.
+            local upload_filename="survey.qsf"
+            local upload_mime="application/vnd.qualtrics.survey.qsf"
 
             # Qualtrics import endpoint expects multipart/form-data.
             # We avoid printing bodies; only capture HTTP code and meta error info.
-            for upload_mime in "${mime_candidates[@]}"; do
-              set +e
-              http_code=$(curl -sS -o "$CREATE_JSON" -w "%{http_code}" \
-                -X POST \
-                -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
-                -H "Accept: application/json" \
-                -F "file=@${file_path};filename=${upload_filename};type=${upload_mime}" \
-                -F "name=${new_name}" \
-                "$BASE_URL/API/v3/surveys" 2>"$CURL_ERR")
-              LAST_CURL_EXIT=$?
-              set -e
+            set +e
+            http_code=$(curl -sS -o "$CREATE_JSON" -w "%{http_code}" \
+              -X POST \
+              -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+              -H "Accept: application/json" \
+              -F "file=@${file_path};filename=${upload_filename};type=${upload_mime}" \
+              -F "name=${new_name}" \
+              -F "contentType=${upload_mime}" \
+              "$BASE_URL/API/v3/surveys" 2>"$CURL_ERR")
+            LAST_CURL_EXIT=$?
+            set -e
 
-              if ! [[ "$http_code" =~ ^[0-9]{3}$ ]]; then
-                http_code="000"
-              fi
+            if ! [[ "$http_code" =~ ^[0-9]{3}$ ]]; then
+              http_code="000"
+            fi
 
-              create_meta_status=$(jq -r '.meta.httpStatus // empty' "$CREATE_JSON" 2>/dev/null || true)
-              create_meta_message=$(jq -r '.meta.error.errorMessage // empty' "$CREATE_JSON" 2>/dev/null || true)
-              fallback_attempted+=("$BASE_URL/API/v3/surveys (import ${note}; mime ${upload_mime}) | HTTP ${http_code} | curl ${LAST_CURL_EXIT}${create_meta_status:+ | ${create_meta_status}}${create_meta_message:+ | ${create_meta_message}}")
+            create_meta_status=$(jq -r '.meta.httpStatus // empty' "$CREATE_JSON" 2>/dev/null || true)
+            create_meta_message=$(jq -r '.meta.error.errorMessage // empty' "$CREATE_JSON" 2>/dev/null || true)
+            fallback_attempted+=("$BASE_URL/API/v3/surveys (import ${note}; mime ${upload_mime}) | HTTP ${http_code} | curl ${LAST_CURL_EXIT}${create_meta_status:+ | ${create_meta_status}}${create_meta_message:+ | ${create_meta_message}}")
 
-              if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
-                new_survey_id_fallback=$(jq -r '.result.id // .result.surveyId // .result.surveyID // .result.SurveyID // empty' "$CREATE_JSON")
-              fi
-
-              if [[ -n "$new_survey_id_fallback" ]]; then
-                break
-              fi
-            done
+            if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
+              new_survey_id_fallback=$(jq -r '.result.id // .result.surveyId // .result.surveyID // .result.SurveyID // empty' "$CREATE_JSON")
+            fi
           }
 
           export_qsf() {
@@ -476,29 +418,17 @@ jobs:
           }
 
           if [[ -z "$new_survey_id" ]]; then
-            # Extract the definition body to a standalone file for import.
-            if jq -e '.result' "$DEF_JSON" >/dev/null 2>&1; then
-              jq '.result' "$DEF_JSON" > "$DEF_BODY_JSON"
-            else
-              cp "$DEF_JSON" "$DEF_BODY_JSON"
-            fi
-
-            # Attempt import using definition payload.
-            import_survey "$DEF_BODY_JSON" "definition"
-
-            # If import failed, try exporting a QSF (if available) and import that.
-            if [[ -z "$new_survey_id_fallback" ]]; then
-              qsf_path_file="$TMP_DIR/qualtrics-export-qsf-path.txt"
-              rm -f "$qsf_path_file" || true
-              if export_qsf >"$qsf_path_file"; then
-                qsf_path=$(cat "$qsf_path_file" 2>/dev/null || true)
-                if [[ -n "$qsf_path" ]]; then
-                  import_survey "$qsf_path" "qsf"
-                fi
-              else
-                # export_qsf writes details to fallback_attempted; keep going.
-                true
+            # Export a QSF (if this tenant supports export) and import it back as a new survey.
+            qsf_path_file="$TMP_DIR/qualtrics-export-qsf-path.txt"
+            rm -f "$qsf_path_file" || true
+            if export_qsf >"$qsf_path_file"; then
+              qsf_path=$(cat "$qsf_path_file" 2>/dev/null || true)
+              if [[ -n "$qsf_path" ]]; then
+                import_survey "$qsf_path" "qsf"
               fi
+            else
+              # export_qsf writes details to fallback_attempted; keep going.
+              true
             fi
 
             if [[ -n "$new_survey_id_fallback" ]]; then
@@ -518,7 +448,7 @@ jobs:
 
             if [[ ${#fallback_attempted[@]} -gt 0 ]]; then
               echo "" >&2
-              echo "Fallback attempt results (create + apply definition):" >&2
+              echo "Fallback attempt results (export QSF + import QSF):" >&2
               for a in "${fallback_attempted[@]}"; do
                 echo "- $a" >&2
               done

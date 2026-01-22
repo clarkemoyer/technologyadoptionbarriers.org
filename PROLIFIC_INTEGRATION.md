@@ -277,6 +277,27 @@ gh workflow run qualtrics-prolific-verify.yml
 - If configured correctly: the workflow passes.
 - If not: the workflow fails and lists exactly which marker(s) are missing.
 
+## Annual survey rollover (10-year data collection)
+
+This project runs a long-term (multi-year) data collection effort. To reduce yearly admin work, this repo includes GitHub Actions automation to:
+
+1. Create a new “yearly copy” of the active Qualtrics survey via API.
+2. Verify the Qualtrics survey still has the required Prolific integration markers.
+
+### Recommended yearly sequence
+
+1. Run the Qualtrics API smoke test (quick credential/connectivity check):
+   - Workflow: [​.github/workflows/qualtrics-api-smoke.yml](.github/workflows/qualtrics-api-smoke.yml)
+2. Create the new survey copy:
+   - Workflow: [​.github/workflows/qualtrics-copy-survey.yml](.github/workflows/qualtrics-copy-survey.yml)
+   - Result: outputs a new Survey ID in the workflow summary.
+3. Update GitHub Environment `qualtrics-prod` → `QUALTRICS_SURVEY_ID` to the new Survey ID.
+4. Re-run verification against the new Survey ID:
+   - Workflow: [​.github/workflows/qualtrics-prolific-verify.yml](.github/workflows/qualtrics-prolific-verify.yml)
+5. Update the Prolific study’s external URL to point at the new Qualtrics survey link.
+
+This workflow-first approach reduces manual steps in Qualtrics and helps keep each year’s survey setup consistent.
+
 ## Usage Examples
 
 ### List All Studies
