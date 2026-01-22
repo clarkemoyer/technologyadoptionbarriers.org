@@ -27,6 +27,7 @@ jobs:
       QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
       QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
       QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+      QUALTRICS_COPY_DESTINATION_OWNER: ${{ vars.QUALTRICS_COPY_DESTINATION_OWNER }}
       INPUT_SOURCE_SURVEY_ID: ${{ inputs.source_survey_id }}
       INPUT_NEW_SURVEY_NAME: ${{ inputs.new_survey_name }}
       INPUT_CONFIRM: ${{ inputs.confirm }}
@@ -97,9 +98,17 @@ jobs:
           fi
 
           source_name=$(jq -r '.result.name // ""' "$SURVEY_JSON")
+          source_owner_id=$(jq -r '.result.ownerId // .result.ownerID // empty' "$SURVEY_JSON")
           timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           default_name="${source_name} (Copy ${timestamp})"
           new_name="${INPUT_NEW_SURVEY_NAME:-$default_name}"
+
+          # Some Qualtrics tenants require X-Copy-Destination-Owner when using the official copy mechanism.
+          # Default to the source survey's ownerId when available.
+          DESTINATION_OWNER="${QUALTRICS_COPY_DESTINATION_OWNER:-${source_owner_id:-}}"
+
+          echo "- **Destination Owner (for copy header):** ${DESTINATION_OWNER:-<empty>}" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
 
           # Try known/likely Qualtrics copy endpoints. Different brands can expose different operations.
           # We keep responses in a file and avoid printing them to logs.
@@ -200,6 +209,7 @@ jobs:
             -H "Accept: application/json" \
             -H "Content-Type: application/json" \
             -H "X-Copy-Source: ${SOURCE_SURVEY_ID}" \
+            ${DESTINATION_OWNER:+-H "X-Copy-Destination-Owner: ${DESTINATION_OWNER}"} \
             -d "{\"projectName\":\"${new_name}\"}" \
             "$url0" 2>"$CURL_ERR")
           LAST_CURL_EXIT=$?
@@ -222,6 +232,8 @@ jobs:
               -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
               -H "Accept: application/json" \
               -H "X-Copy-Source: ${SOURCE_SURVEY_ID}" \
+              ${DESTINATION_OWNER:+-H "X-Copy-Destination-Owner: ${DESTINATION_OWNER}"} \
+              -H "Content-Length: 0" \
               "$url0" 2>"$CURL_ERR")
             LAST_CURL_EXIT=$?
             set -e
