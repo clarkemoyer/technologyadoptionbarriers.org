@@ -21,6 +21,9 @@ Single-page Next.js 16.0.7 website built with App Router for Technology Adoption
 - 🤖 [Copilot Autofix Guide](./COPILOT_AUTOFIX_GUIDE.md) - Understanding GitHub Copilot automated checks
 - 🔗 [External Dependencies](./EXTERNAL_DEPENDENCIES.md) - Third-party services and integrations
 - 🏥 [Community Health Files](./COMMUNITY_HEALTH_FILES.md) - Complete guide to GitHub navigation and documentation
+- 🔧 [GitHub Copilot Agent MCP Setup](./GITHUB_COPILOT_AGENT_SETUP.md) - **Configure MCP servers in GitHub UI**
+- 📖 [MCP Servers Reference](./MCP_SERVERS.md) - Model Context Protocol servers documentation
+- ⚡ [MCP Quick Reference](./MCP_QUICK_REFERENCE.md) - Quick reference for MCP server usage
 
 **AI Agent Instructions:**
 

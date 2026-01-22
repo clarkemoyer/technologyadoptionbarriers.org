@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "tools": ["*"],
+      "headers": {
+        "X-MCP-Toolsets": "repos,issues,users,pull_requests,code_security,secret_protection,actions,web_search",
+        "Authorization": "Bearer $COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN"
+      }
+    },
+    "qualtrics-surveys": {
+      "type": "http",
+      "url": "https://<your-qualtrics-host>/API/mcp/survey-crud",
+      "tools": ["*"],
+      "headers": {
+        "Accept": "application/json, text/event-stream",
+        "Authorization": "Bearer $COPILOT_MCP_QUALTRICS_OAUTH_TOKEN"
+      }
+    },
+    "microsoft-learn": {
+      "type": "http",
+      "url": "https://learn.microsoft.com/api/mcp",
+      "tools": ["*"]
+    }
+  }
+}

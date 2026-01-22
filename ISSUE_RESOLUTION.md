@@ -133,6 +133,43 @@ npm install
    npm run build
    ```
 
+### Issue: MCP (Copilot/VS Code) tools not working
+
+**Symptoms**:
+
+- Copilot coding agent says MCP config is invalid
+- VS Code MCP server never finishes initializing
+- GitHub MCP appears read-only
+- Qualtrics MCP calls hang on `initialize`
+
+**Solutions**:
+
+1. **GitHub Copilot coding agent requires `tools` per server**
+
+   In GitHub Settings (**Settings** > **Copilot** > **Coding agent**), each server must include a `tools` array (commonly `"tools": ["*"]`).
+
+2. **Use the correct GitHub hosted MCP endpoint**
+   - Full: `https://api.githubcopilot.com/mcp/`
+   - Read-only: `https://api.githubcopilot.com/mcp/readonly`
+
+   If you need broader access, configure an optional PAT header:
+   - Secret: `COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN`
+   - Header: `Authorization: Bearer $COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN`
+
+3. **Qualtrics MCP requires OAuth + SSE headers**
+
+   Qualtrics MCP endpoints typically expect:
+   - `Authorization: Bearer <oauth_access_token>`
+   - `Accept: application/json, text/event-stream`
+
+   If your MCP client does not support Server-Sent Events (SSE), it can appear stuck waiting for `initialize`.
+
+**References**:
+
+- [MCP servers guide](./MCP_SERVERS.md)
+- [GitHub UI coding agent setup](./GITHUB_COPILOT_AGENT_SETUP.md)
+- [Qualtrics MCP guide](./qualtrics-mcp.md)
+
 ---
 
 ## Build Issues

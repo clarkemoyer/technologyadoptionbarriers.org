@@ -4,6 +4,11 @@ MCP is experimental and subject to change.
 
 Qualtrics provides MCP servers that expose MCP tools for each JSON-based endpoint in their API reference. Non-JSON APIs are not supported.
 
+See also:
+
+- [MCP_SERVERS.md](./MCP_SERVERS.md) (overall MCP setup)
+- [GITHUB_COPILOT_AGENT_SETUP.md](./GITHUB_COPILOT_AGENT_SETUP.md) (GitHub UI coding agent config)
+
 ## Repo policy (important)
 
 - Do not commit access tokens or real MCP configs.
@@ -74,8 +79,8 @@ This repo keeps:
 
 To use GitHub + Qualtrics MCP side-by-side in VS Code:
 
-- Install the GitHub MCP server via the VS Code MCP Marketplace (recommended). This registers a `github` server automatically.
-- Keep `.vscode/mcp.json` for Qualtrics only (so you don’t accidentally define `github` twice).
+- If you already have a built-in/Marketplace GitHub MCP server registered, avoid defining a second `github` server name in `.vscode/mcp.json`.
+- If you want **GitHub write support** in VS Code, configure the hosted GitHub MCP endpoint with a PAT and `X-MCP-Toolsets` header (see `.vscode/mcp.with-github.json.example`).
 
 If you prefer a single-file VS Code config (no Marketplace install), you can start from [.vscode/mcp.with-github.json.example](.vscode/mcp.with-github.json.example).
 
