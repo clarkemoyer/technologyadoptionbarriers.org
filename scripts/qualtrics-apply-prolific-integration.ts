@@ -55,21 +55,6 @@ function unwrapResult(value: unknown): unknown {
   return value
 }
 
-function deepFindKey(obj: unknown, key: string): unknown | undefined {
-  if (!obj || typeof obj !== 'object') return undefined
-
-  if (Object.prototype.hasOwnProperty.call(obj, key)) {
-    return (obj as Record<string, unknown>)[key]
-  }
-
-  for (const value of Object.values(obj as Record<string, unknown>)) {
-    const found = deepFindKey(value, key)
-    if (found !== undefined) return found
-  }
-
-  return undefined
-}
-
 function deepFindFirstStringKey(
   obj: unknown,
   keys: string[]
@@ -390,7 +375,7 @@ function ensureCompletionRedirectInOptions(
 
   return {
     updated: prevTermination !== 'Redirect' || prevUrl !== redirectUrlTemplate,
-    optionsObj,
+    optionsObj: unwrapped,
   }
 }
 
@@ -632,7 +617,7 @@ async function main() {
 
   if (!prolificCompletionUrl) {
     throw new Error(
-      'Missing Prolific completion redirect configuration. Provide PROLIFIC_COMPLETION_URL/PROLIFIC_COMPLETION_CODE_SUCCESS, or ensure the current survey options EOSRedirectURL already contains the Prolific completion URL.'
+      'Missing Prolific completion redirect configuration. Provide PROLIFIC_COMPLETION_URL/PROLIFIC_COMPLETION_CODE_SUCCESS in the GitHub Actions environment qualtrics-prod, or ensure the current survey options EOSRedirectURL already contains the Prolific completion URL.'
     )
   }
 

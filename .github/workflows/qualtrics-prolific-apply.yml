@@ -90,21 +90,31 @@ jobs:
         run: npm ci
 
       - name: Apply integration to survey (API)
-        env:
-          QUALTRICS_SURVEY_ID: ${{ env.INPUT_SURVEY_ID || env.QUALTRICS_SURVEY_ID }}
+        shell: bash
         run: |
+          set -euo pipefail
+
+          export QUALTRICS_SURVEY_ID="${INPUT_SURVEY_ID:-${QUALTRICS_SURVEY_ID:-}}"
+          if [[ -z "${QUALTRICS_SURVEY_ID}" ]]; then
+            echo "::error::Missing survey id. Provide inputs.survey_id or set QUALTRICS_SURVEY_ID in environment qualtrics-prod." >&2
+            exit 1
+          fi
+
           npx --no-install tsx scripts/qualtrics-apply-prolific-integration.ts
 
       - name: Verify configuration (API-only)
         shell: bash
         env:
-          QUALTRICS_SURVEY_ID: ${{ env.INPUT_SURVEY_ID || env.QUALTRICS_SURVEY_ID }}
           EXPECT_AUTH_SCRIPT: ${{ inputs.apply_authenticity_script }}
         run: |
           set -euo pipefail
 
           BASE_URL="${QUALTRICS_BASE_URL%/}"
-          SURVEY_ID="${QUALTRICS_SURVEY_ID}"
+          SURVEY_ID="${INPUT_SURVEY_ID:-${QUALTRICS_SURVEY_ID:-}}"
+          if [[ -z "${SURVEY_ID}" ]]; then
+            echo "::error::Missing survey id. Provide inputs.survey_id or set QUALTRICS_SURVEY_ID in environment qualtrics-prod." >&2
+            exit 1
+          fi
 
           TMP_DIR="${RUNNER_TEMP:-/tmp}"
           DEF_JSON="$TMP_DIR/qualtrics-survey-definition.json"
@@ -308,6 +318,10 @@ jobs:
             has_errors=true
           fi
 
+          if [[ "${EXPECT_AUTH_SCRIPT}" != "true" && "$has_prolific_script" != "true" ]]; then
+            echo "::warning::Prolific authenticity script marker not found (apply_authenticity_script=false)." >&2
+          fi
+
           if [[ "$has_prolific_pid" != "true" ]]; then
             echo "::error::Missing Embedded Data field marker: PROLIFIC_PID" >&2
             has_errors=true
@@ -352,12 +366,18 @@ jobs:
       - name: Next steps
         if: always()
         shell: bash
+        env:
+          APPLY_AUTH_SCRIPT: ${{ inputs.apply_authenticity_script }}
         run: |
           set -euo pipefail
           echo "## Apply Summary" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "- **Survey ID:** ${INPUT_SURVEY_ID:-${QUALTRICS_SURVEY_ID:-<missing>}}" >> "$GITHUB_STEP_SUMMARY"
           echo "- **Flow updates:** Embedded Data + completion redirect" >> "$GITHUB_STEP_SUMMARY"
-          echo "- **Header script:** ${{ inputs.apply_authenticity_script && 'attempted (from secret)' || 'skipped' }}" >> "$GITHUB_STEP_SUMMARY"
+          if [[ "${APPLY_AUTH_SCRIPT}" == "true" ]]; then
+            echo "- **Header script:** attempted (from secret)" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "- **Header script:** skipped" >> "$GITHUB_STEP_SUMMARY"
+          fi
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "Run 'Verify Qualtrics ↔ Prolific Survey Setup' after this for definitive marker checks." >> "$GITHUB_STEP_SUMMARY"
