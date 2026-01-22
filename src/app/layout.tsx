@@ -3,6 +3,7 @@ import './globals.css'
 import Header from './../components/header'
 import Footer from './../components/footer'
 import CookieConsent from './../components/cookie-consent'
+import ClarityRouteTracker from './../components/clarity-route-tracker'
 import GoogleTagManager, { GoogleTagManagerNoScript } from './../components/google-tag-manager'
 import {
   openSans,
@@ -123,6 +124,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <GoogleTagManagerNoScript />
+        <ClarityRouteTracker />
         {/* <PopupProvider> */}
         <Header />
         {children}
