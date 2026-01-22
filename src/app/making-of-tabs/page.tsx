@@ -25,7 +25,7 @@ const MakingOfTabsPage = () => {
           </p>
           <p className="mb-6">
             This page provides an overview of the &quot;stack&quot;—the collection of technologies
-            and methodologies— we employ to bring TABS to life. From the survey instrument itself to
+            and methodologies—we employ to bring TABS to life. From the survey instrument itself to
             the analytics that help us understand our audience, every component plays a critical
             role.
           </p>
