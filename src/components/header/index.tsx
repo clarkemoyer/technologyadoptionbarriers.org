@@ -49,6 +49,7 @@ const Header: React.FC = () => {
         children: [
           { label: 'Overview', path: '/making-of-tabs' },
           { label: 'TABS Presentation', path: '/making-of-tabs/tabs-presentation' },
+          { label: 'The CMO Survey', path: '/making-of-tabs/cmo-survey' },
         ],
       },
       {
