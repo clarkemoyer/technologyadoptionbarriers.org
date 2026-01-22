@@ -30,7 +30,8 @@ export default function ClarityRouteTracker() {
     if (typeof window.clarity === 'function') {
       // Get the full URL including basePath
       const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
-      const fullPath = basePath ? basePath + pathname : pathname
+      // Normalize the path to avoid double slashes
+      const fullPath = basePath && pathname !== '/' ? basePath + pathname : basePath || pathname
 
       // Notify Clarity of the page view
       // Using 'set' command with 'page' parameter to update the current page URL

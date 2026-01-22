@@ -7,6 +7,9 @@ jest.mock('next/navigation', () => ({
   usePathname: jest.fn(),
 }))
 
+// Type for window with clarity
+type WindowWithClarity = Window & { clarity?: (command: string, ...args: string[]) => void }
+
 describe('ClarityRouteTracker', () => {
   const mockUsePathname = usePathname as jest.Mock
 
@@ -15,13 +18,12 @@ describe('ClarityRouteTracker', () => {
     jest.clearAllMocks()
 
     // Mock window.clarity
-    ;(window as Window & { clarity?: (command: string, ...args: string[]) => void }).clarity =
-      jest.fn()
+    ;(window as WindowWithClarity).clarity = jest.fn()
   })
 
   afterEach(() => {
     // Clean up window.clarity after each test
-    delete (window as Window & { clarity?: (command: string, ...args: string[]) => void }).clarity
+    delete (window as WindowWithClarity).clarity
   })
 
   it('should render without crashing', () => {
@@ -67,7 +69,7 @@ describe('ClarityRouteTracker', () => {
   })
 
   it('should not throw if clarity is not loaded', () => {
-    delete (window as Window & { clarity?: (command: string, ...args: string[]) => void }).clarity
+    delete (window as WindowWithClarity).clarity
     mockUsePathname.mockReturnValue('/test')
 
     expect(() => {
@@ -91,5 +93,22 @@ describe('ClarityRouteTracker', () => {
     expect(window.clarity).toHaveBeenCalledWith('set', 'page', '/page2')
 
     expect(window.clarity).toHaveBeenCalledTimes(3) // Initial + 2 updates
+  })
+
+  it('should handle basePath with root pathname correctly (no double slashes)', () => {
+    const basePath = '/my-app'
+    const originalBasePath = process.env.NEXT_PUBLIC_BASE_PATH
+
+    // Set the environment variable
+    process.env.NEXT_PUBLIC_BASE_PATH = basePath
+    mockUsePathname.mockReturnValue('/')
+
+    render(<ClarityRouteTracker />)
+
+    // Should return basePath only (not /my-app/)
+    expect(window.clarity).toHaveBeenCalledWith('set', 'page', basePath)
+
+    // Restore original value
+    process.env.NEXT_PUBLIC_BASE_PATH = originalBasePath
   })
 })
