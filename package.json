@@ -9,6 +9,7 @@
     "lint": "eslint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "release:notes": "tsx scripts/generate-release-notes.ts",
     "check-links": "linkinator ./out --recurse --config .linkinatorrc.json",
     "test": "jest",
     "test:watch": "jest --watch",
