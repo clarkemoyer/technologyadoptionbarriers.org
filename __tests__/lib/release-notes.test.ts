@@ -43,8 +43,8 @@ describe('renderReleaseNotesMarkdown', () => {
     expect(md).toContain('## 3. External Integrations')
     expect(md).toContain('## Contributors')
     expect(md).toContain('## Lessons Learned')
-    expect(md).toContain('## Merged pull requests (newest → oldest)')
-    expect(md).toContain('## Closed issues included (newest → oldest)')
+    expect(md).toContain('## Merged pull requests (newest &rarr; oldest)')
+    expect(md).toContain('## Closed issues included (newest &rarr; oldest)')
 
     expect(md).toContain('- [#123](https://github.com/org/repo/pull/123) - chore: update deps')
     expect(md).toContain(
