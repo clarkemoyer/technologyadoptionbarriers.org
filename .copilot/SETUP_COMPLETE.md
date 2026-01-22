@@ -3,7 +3,6 @@
 **Date:** January 21, 2026  
 **Issues:** #162, #173 — Establish MCP servers for coding agents
 
-
 ## Configuration Summary
 
 Successfully configured a consistent set of Model Context Protocol (MCP) servers for both:
