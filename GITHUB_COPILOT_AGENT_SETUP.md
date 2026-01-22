@@ -235,11 +235,7 @@ To allow Copilot to access data outside the current repository, you can provide 
   "filesystem": {
     "type": "local",
     "command": "npx",
-    "args": [
-      "-y",
-      "@modelcontextprotocol/server-filesystem",
-      "/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org"
-    ],
+    "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
     "tools": ["*"]
   }
 }
