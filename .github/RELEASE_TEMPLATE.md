@@ -57,11 +57,11 @@
 -
 -
 
-## Merged pull requests (newest → oldest)
+## Merged pull requests (newest &rarr; oldest)
 
 -
 
-## Closed issues included (newest → oldest)
+## Closed issues included (newest &rarr; oldest)
 
 -
 
