@@ -157,8 +157,8 @@ const CMOSurveyPage = () => {
             <h3 className={H3_CLASSES}>2. Leadership-Centric Approach</h3>
             <p className="mb-4">
               The CMO Survey demonstrates the value of gathering insights directly from
-              decision-makers. TABS follows this model by targeting senior leadership roles (CIOs,
-              CTOs, VPs of Technology, IT Directors) who shape their organizations&apos; technology
+              decision-makers. TABS follows this model by targeting the full C-suite (CEO, CFO, CIO,
+              CISO, COO, CMO, CTO, CSO, CHRO, CRO) who shape their organizations&apos; technology
               strategies. This focus ensures that our data reflects:
             </p>
             <ul className="list-disc list-inside mb-4 space-y-2 text-gray-800">
@@ -194,8 +194,9 @@ const CMOSurveyPage = () => {
             </p>
             <ul className="list-disc list-inside mb-4 space-y-2 text-gray-800">
               <li>
-                Survey design informed by Technology Acceptance Model (TAM) and
-                Technology-Organization-Environment (TOE) framework
+                Survey design informed by Technology Acceptance Model (TAM),
+                Technology-Organization-Environment (TOE) framework, and Unified Theory of
+                Acceptance and Use of Technology (UTAUT)
               </li>
               <li>Questions validated through pilot testing and expert review</li>
               <li>Data analysis following peer-reviewed statistical methodologies</li>
@@ -244,18 +245,21 @@ const CMOSurveyPage = () => {
           <div className="mb-8">
             <h3 className={H3_CLASSES}>Broader Leadership Perspective</h3>
             <p className="mb-4">
-              While The CMO Survey focuses on marketing executives, TABS includes a wider range of
-              technology leadership roles (CIO, CTO, CISO, VP Engineering, VP IT) to capture the
-              diverse perspectives that influence technology adoption decisions.
+              While The CMO Survey focuses on marketing executives, TABS includes the full C-suite
+              (CEO, CFO, CIO, CISO, COO, CMO, CTO, CSO, CHRO, CRO) to capture how barriers are
+              perceived differently across the leadership of organizations vs single leader types.
             </p>
           </div>
 
           <div className="mb-8">
             <h3 className={H3_CLASSES}>Rapid Technology Evolution</h3>
             <p className="mb-4">
-              Technology evolves faster than many other business domains. TABS is designed to be
-              agile, with the ability to incorporate questions about emerging technologies (AI,
-              quantum computing, edge computing) as they become relevant to organizational strategy.
+              This section explores factors that may hinder the adoption of new, strategically
+              important technologies. Your candid assessment of these potential barriers within your
+              organization over the past 12 months is vital. Understanding these challenges from
+              your leadership perspective will help identify common obstacles across organizations
+              and inform strategies for more effective technology integration and innovation. Please
+              rate the extent to which each factor has posed a barrier.
             </p>
           </div>
         </section>
@@ -269,7 +273,10 @@ const CMOSurveyPage = () => {
             adoption research, TABS aims to provide similar value to:
           </p>
           <ul className="list-disc list-inside mb-6 space-y-2 text-gray-800">
-            <li>Technology leaders seeking to benchmark their organizations</li>
+            <li>
+              Organization leaders who effect technology adoption seeking to benchmark their
+              organizations
+            </li>
             <li>Consultants advising clients on digital transformation</li>
             <li>Academics studying technology adoption and innovation diffusion</li>
             <li>Vendors understanding market barriers to their solutions</li>
@@ -296,7 +303,7 @@ const CMOSurveyPage = () => {
                 <tr>
                   <td className="border border-gray-300 px-4 py-3 font-medium">Launch Year</td>
                   <td className="border border-gray-300 px-4 py-3">2008</td>
-                  <td className="border border-gray-300 px-4 py-3">2024</td>
+                  <td className="border border-gray-300 px-4 py-3">2026</td>
                 </tr>
                 <tr className="bg-gray-50">
                   <td className="border border-gray-300 px-4 py-3 font-medium">Frequency</td>
@@ -307,7 +314,7 @@ const CMOSurveyPage = () => {
                   <td className="border border-gray-300 px-4 py-3 font-medium">Target Audience</td>
                   <td className="border border-gray-300 px-4 py-3">CMOs, VPs of Marketing</td>
                   <td className="border border-gray-300 px-4 py-3">
-                    CIOs, CTOs, VPs of Technology, IT Directors
+                    Full C-Suite (CEO, CFO, CIO, CISO, COO, CMO, CTO, CSO, CHRO, CRO)
                   </td>
                 </tr>
                 <tr className="bg-gray-50">
@@ -316,7 +323,7 @@ const CMOSurveyPage = () => {
                     Marketing spending, strategy, performance
                   </td>
                   <td className="border border-gray-300 px-4 py-3">
-                    Technology adoption barriers, readiness, maturity
+                    Perceived Technology adoption barriers, readiness, maturity
                   </td>
                 </tr>
                 <tr>
