@@ -16,5 +16,14 @@ console.error = (...args) => {
   if (messageStr.includes('ForwardRef(LinkComponent)') && messageStr.includes('act(')) {
     return
   }
-  originalError(...args)
+
+  // Avoid printing potentially sensitive values passed as non-string args.
+  // (Also keeps CodeQL happy: we intentionally do not forward raw args.)
+  const redacted = messageStr
+    .replace(/access_token=[^&\s]+/gi, 'access_token=[REDACTED]')
+    .replace(/refresh_token=[^&\s]+/gi, 'refresh_token=[REDACTED]')
+    .replace(/client_secret=[^&\s]+/gi, 'client_secret=[REDACTED]')
+    .replace(/authorization:\s*bearer\s+[^\s]+/gi, 'authorization: bearer [REDACTED]')
+
+  originalError(redacted)
 }

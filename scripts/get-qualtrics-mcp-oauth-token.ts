@@ -78,17 +78,19 @@ async function postForm(
   try {
     json = JSON.parse(text)
   } catch {
-    throw new Error(
-      `Token endpoint did not return JSON (HTTP ${res.status}): ${text.slice(0, 200)}`
-    )
+    throw new Error(`Token endpoint did not return JSON (HTTP ${res.status})`)
   }
 
   if (!res.ok) {
-    throw new Error(`Token request failed (HTTP ${res.status}): ${text}`)
+    const obj = json as Record<string, unknown>
+    const err = typeof obj.error === 'string' ? obj.error : 'token_request_failed'
+    const desc = typeof obj.error_description === 'string' ? obj.error_description : ''
+    const suffix = desc ? `: ${desc}` : ''
+    throw new Error(`Token request failed (HTTP ${res.status}): ${err}${suffix}`)
   }
 
   if (!json || typeof json !== 'object') {
-    throw new Error(`Token endpoint returned non-object JSON: ${text}`)
+    throw new Error('Token endpoint returned non-object JSON')
   }
 
   return json as Record<string, unknown>
@@ -130,17 +132,19 @@ async function postFormWithBasicAuth(
   try {
     json = JSON.parse(text)
   } catch {
-    throw new Error(
-      `Token endpoint did not return JSON (HTTP ${res.status}): ${text.slice(0, 200)}`
-    )
+    throw new Error(`Token endpoint did not return JSON (HTTP ${res.status})`)
   }
 
   if (!res.ok) {
-    throw new Error(`Token request failed (HTTP ${res.status}): ${text}`)
+    const obj = json as Record<string, unknown>
+    const err = typeof obj.error === 'string' ? obj.error : 'token_request_failed'
+    const desc = typeof obj.error_description === 'string' ? obj.error_description : ''
+    const suffix = desc ? `: ${desc}` : ''
+    throw new Error(`Token request failed (HTTP ${res.status}): ${err}${suffix}`)
   }
 
   if (!json || typeof json !== 'object') {
-    throw new Error(`Token endpoint returned non-object JSON: ${text}`)
+    throw new Error('Token endpoint returned non-object JSON')
   }
 
   return json as Record<string, unknown>
@@ -672,9 +676,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error(
-    '❌ Failed to get Qualtrics MCP OAuth token:',
-    err instanceof Error ? err.message : err
-  )
+  console.error('❌ Failed to get Qualtrics MCP OAuth token (details redacted).')
   process.exit(1)
 })
