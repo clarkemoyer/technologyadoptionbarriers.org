@@ -6,6 +6,8 @@ import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react'
 
 import { FaFacebookF, FaLinkedinIn, FaGithub } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
+import { personaNavigation } from '@/data/persona-navigation'
+import { technologyAdoptionModelsSeries } from '@/data/technology-adoption-models-series'
 // import { ImpactCounter } from '../impact/ImpactCounter'
 
 const Footer: React.FC = () => {
@@ -104,32 +106,110 @@ const Footer: React.FC = () => {
       {/* Navigation and Copyright */}
       <div className="py-[40px] px-[20px] md:px-[60px] bg-black">
         <div className="max-w-[4096px] mx-auto flex flex-col items-center gap-[20px]">
-          {/* Navigation Links */}
-          <ul className="flex flex-wrap justify-center gap-[20px] md:gap-[40px] text-[16px] font-medium">
-            {[
-              { name: 'Home', href: '/' },
-              {
-                name: 'Take the TABS',
-                href: 'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO',
-              },
-              { name: 'Get Involved', href: '/get-involved' },
-              { name: 'Tech Adoption Barriers', href: '/barriers' },
-              { name: 'Technology Adoption Models', href: '/technology-adoption-models' },
-              { name: 'See Yourself', href: '/start' },
-              { name: 'For Organizations', href: '/for-organizations' },
-              { name: 'Media', href: '/media' },
-            ].map((link) => (
-              <li key={link.name}>
+          {/* Navigation Links Grid */}
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-left mb-8 border-b border-gray-800 pb-8">
+            {/* Main Navigation */}
+            <div className="flex flex-col gap-2">
+              <h3 className="text-[#26C699] font-bold uppercase tracking-wider text-sm mb-2">
+                Main
+              </h3>
+              <Link href="/" className="text-gray-400 hover:text-white text-sm py-1">
+                Home
+              </Link>
+              <a
+                href="https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-white text-sm py-1"
+              >
+                Take the TABS
+              </a>
+              <Link href="/get-involved" className="text-gray-400 hover:text-white text-sm py-1">
+                Get Involved
+              </Link>
+              <Link href="/barriers" className="text-gray-400 hover:text-white text-sm py-1">
+                Barriers
+              </Link>
+              <Link href="/media" className="text-gray-400 hover:text-white text-sm py-1">
+                Media
+              </Link>
+            </div>
+
+            {/* See Yourself: Leaders */}
+            <div className="flex flex-col gap-2">
+              <h3 className="text-[#26C699] font-bold uppercase tracking-wider text-sm mb-2">
+                For Leaders
+              </h3>
+              <Link
+                href={personaNavigation.columns.individuals.path || '/start'}
+                className="text-gray-400 hover:text-white text-sm py-1 font-semibold"
+              >
+                Overview
+              </Link>
+              {personaNavigation.columns.individuals.links.map((link) => (
                 <Link
-                  href={link.href}
-                  target={link.href.startsWith('http') ? '_blank' : undefined}
-                  className="hover:text-[#26C699] transition-colors"
+                  key={link.path}
+                  href={link.path}
+                  className="text-gray-400 hover:text-white text-sm py-1"
                 >
-                  {link.name}
+                  {link.label}
                 </Link>
-              </li>
-            ))}
-          </ul>
+              ))}
+            </div>
+
+            {/* See Yourself: Organizations */}
+            <div className="flex flex-col gap-2">
+              <h3 className="text-[#26C699] font-bold uppercase tracking-wider text-sm mb-2">
+                For Organizations
+              </h3>
+              <Link
+                href={personaNavigation.columns.organizations.path || '/for-organizations'}
+                className="text-gray-400 hover:text-white text-sm py-1 font-semibold"
+              >
+                Overview
+              </Link>
+              {personaNavigation.columns.organizations.links.map((link) => (
+                <Link
+                  key={link.path}
+                  href={link.path}
+                  target={link.isExternal ? '_blank' : undefined}
+                  rel={link.isExternal ? 'noopener noreferrer' : undefined}
+                  className="text-gray-400 hover:text-white text-sm py-1"
+                >
+                  {link.label}
+                  {link.isExternal && <span className="ml-1 text-[10px]">↗</span>}
+                </Link>
+              ))}
+            </div>
+
+            {/* Models & Research */}
+            <div className="flex flex-col gap-2">
+              <h3 className="text-[#26C699] font-bold uppercase tracking-wider text-sm mb-2">
+                Models & Research
+              </h3>
+              <Link
+                href={technologyAdoptionModelsSeries.root.slug}
+                className="text-gray-400 hover:text-white text-sm py-1 font-semibold"
+              >
+                Series Overview
+              </Link>
+              {technologyAdoptionModelsSeries.branches.map((branch) => (
+                <Link
+                  key={branch.slug}
+                  href={branch.slug}
+                  className="text-gray-400 hover:text-white text-sm py-1 block"
+                >
+                  {branch.title.split('–')[0].trim()}
+                </Link>
+              ))}
+              <Link
+                href={technologyAdoptionModelsSeries.bibliography!.slug}
+                className="text-gray-400 hover:text-white text-sm py-1"
+              >
+                Bibliography
+              </Link>
+            </div>
+          </div>
 
           {/* Policy Links */}
           <div className="w-full border-t border-gray-800 pt-[20px] mt-[10px]">
