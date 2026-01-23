@@ -53,6 +53,14 @@ const Header: React.FC = () => {
         ],
       },
       {
+        label: 'See Yourself',
+        path: '/start',
+        children: [
+          { label: 'Overview', path: '/start' },
+          { label: 'For Organizations', path: '/for-organizations' },
+        ],
+      },
+      {
         label: 'Technology Adoption Models',
         path: '/technology-adoption-models',
         hasMegaMenu: true,
