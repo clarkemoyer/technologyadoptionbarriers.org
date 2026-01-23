@@ -541,13 +541,25 @@ const Header: React.FC = () => {
                     <ul className="space-y-2">
                       {personaNavigation.columns.individuals.links.map((link) => (
                         <li key={link.path}>
-                          <Link
-                            href={link.path}
-                            onClick={handleLinkClick}
-                            className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
-                          >
-                            {link.label}
-                          </Link>
+                          {link.isExternal ? (
+                            <a
+                              href={link.path}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              {link.label} ↗
+                            </a>
+                          ) : (
+                            <Link
+                              href={link.path}
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              {link.label}
+                            </Link>
+                          )}
                         </li>
                       ))}
                     </ul>
@@ -565,13 +577,25 @@ const Header: React.FC = () => {
                     <ul className="space-y-2">
                       {personaNavigation.columns.organizations.links.map((link) => (
                         <li key={link.path}>
-                          <Link
-                            href={link.path}
-                            onClick={handleLinkClick}
-                            className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
-                          >
-                            {link.label}
-                          </Link>
+                          {link.isExternal ? (
+                            <a
+                              href={link.path}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              {link.label} ↗
+                            </a>
+                          ) : (
+                            <Link
+                              href={link.path}
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              {link.label}
+                            </Link>
+                          )}
                         </li>
                       ))}
                     </ul>
@@ -787,13 +811,25 @@ const Header: React.FC = () => {
                                 <ul className="mt-1 space-y-1">
                                   {personaNavigation.columns.individuals.links.map((link) => (
                                     <li key={link.path}>
-                                      <Link
-                                        href={link.path}
-                                        onClick={handleLinkClick}
-                                        className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
-                                      >
-                                        {link.label}
-                                      </Link>
+                                      {link.isExternal ? (
+                                        <a
+                                          href={link.path}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          onClick={() => setIsMobileMenuOpen(false)}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {link.label} ↗
+                                        </a>
+                                      ) : (
+                                        <Link
+                                          href={link.path}
+                                          onClick={handleLinkClick}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {link.label}
+                                        </Link>
+                                      )}
                                     </li>
                                   ))}
                                 </ul>
@@ -832,13 +868,25 @@ const Header: React.FC = () => {
                                 <ul className="mt-1 space-y-1">
                                   {personaNavigation.columns.organizations.links.map((link) => (
                                     <li key={link.path}>
-                                      <Link
-                                        href={link.path}
-                                        onClick={handleLinkClick}
-                                        className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
-                                      >
-                                        {link.label}
-                                      </Link>
+                                      {link.isExternal ? (
+                                        <a
+                                          href={link.path}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          onClick={() => setIsMobileMenuOpen(false)}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {link.label} ↗
+                                        </a>
+                                      ) : (
+                                        <Link
+                                          href={link.path}
+                                          onClick={handleLinkClick}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {link.label}
+                                        </Link>
+                                      )}
                                     </li>
                                   ))}
                                 </ul>
