@@ -41,9 +41,9 @@ jobs:
       INPUT_CONFIRM: ${{ inputs.confirm }}
       PROLIFIC_COMPLETION_CODE_SUCCESS: ${{ secrets.PROLIFIC_COMPLETION_CODE_SUCCESS }}
       PROLIFIC_COMPLETION_URL: ${{ secrets.PROLIFIC_COMPLETION_URL }}
-      PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT: ${{ inputs.apply_authenticity_script && secrets.PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT || '' }}
+      PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT: ${{ inputs.apply_authenticity_script == 'true' && secrets.PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT || '' }}
       QUALTRICS_PROLIFIC_CONFIRM: APPLY
-      QUALTRICS_PROLIFIC_PUBLISH: ${{ inputs.publish_after_apply && inputs.publish_confirm || '' }}
+      QUALTRICS_PROLIFIC_PUBLISH: ${{ inputs.publish_after_apply == 'true' && inputs.publish_confirm || '' }}
     steps:
       - name: Guardrails
         shell: bash
@@ -303,7 +303,7 @@ jobs:
           echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
           echo "| Prolific authenticity script marker present | ${has_prolific_script} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Options: SurveyTermination is Redirect | ${has_redirect_termination_from_options} |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Options: EOSRedirectURL is ${e://Field/COMPLETE_URL} | ${has_completion_redirect_template_from_options} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Options: EOSRedirectURL is \${e://Field/COMPLETE_URL} | ${has_completion_redirect_template_from_options} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Embedded Data field present: PROLIFIC_PID | ${has_prolific_pid} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Embedded Data field present: STUDY_ID | ${has_study_id} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Embedded Data field present: SESSION_ID | ${has_session_id} |" >> "$GITHUB_STEP_SUMMARY"
@@ -353,7 +353,7 @@ jobs:
           fi
 
           if [[ "$has_completion_redirect_template_from_options" != "true" ]]; then
-            echo "::error::Options EOSRedirectURL is not set to ${e://Field/COMPLETE_URL}." >&2
+            echo "::error::Options EOSRedirectURL is not set to \${e://Field/COMPLETE_URL}." >&2
             has_errors=true
           fi
 
