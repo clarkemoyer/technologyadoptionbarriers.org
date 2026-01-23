@@ -105,9 +105,10 @@ test.describe('Get Involved Page', () => {
     // Scroll to footer
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
 
-    // Click Get Involved link in footer (the 4th link in the navigation list)
-    const footerLinks = page.locator('footer ul li').filter({ hasText: 'Get Involved' })
-    const footerLink = footerLinks.getByRole('link', { name: 'Get Involved' })
+    // Click Get Involved link in footer
+    const footerLink = page
+      .locator('footer')
+      .getByRole('link', { name: 'Get Involved', exact: true })
     await expect(footerLink).toBeVisible()
     await footerLink.click()
 
