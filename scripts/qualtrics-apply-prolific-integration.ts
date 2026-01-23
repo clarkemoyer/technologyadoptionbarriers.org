@@ -481,18 +481,6 @@ function iterFlowElements(elements: unknown, visit: (el: FlowElement) => void) {
   }
 }
 
-function getNextFlowId(rootFlow: unknown): string {
-  let maxNumeric = 0
-  iterFlowElements(rootFlow, (el) => {
-    const id = typeof el.FlowID === 'string' ? el.FlowID : ''
-    const m = /^FL_(\d+)$/.exec(id)
-    if (!m) return
-    const n = Number(m[1])
-    if (Number.isFinite(n) && n > maxNumeric) maxNumeric = n
-  })
-  return `FL_${maxNumeric + 1}`
-}
-
 function findFirstEmbeddedDataElement(flow: unknown): FlowElement | null {
   let found: FlowElement | null = null
   iterFlowElements(flow, (el) => {
@@ -869,7 +857,7 @@ async function main() {
   console.log(
     lockDownRedirect
       ? `Redirect mode: SurveyTermination=Redirect and EOSRedirectURL=${redirectUrlTemplate} (Survey Flow locks COMPLETE_URL to either Prolific completion or ${websiteCompletionUrl}).`
-      : 'Redirect mode: SurveyTermination=Redirect and EOSRedirectURL=${e://Field/COMPLETE_URL} (default COMPLETE_URL points to Prolific completion; website links override COMPLETE_URL to point at the site completion page).'
+      : `Redirect mode: SurveyTermination=Redirect and EOSRedirectURL=${redirectUrlTemplate} (default COMPLETE_URL points to ${websiteCompletionUrl}; Prolific links should provide COMPLETE_URL pointing to the Prolific completion URL).`
   )
 }
 

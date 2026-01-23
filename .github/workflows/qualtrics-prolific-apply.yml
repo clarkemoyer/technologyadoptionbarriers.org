@@ -20,7 +20,7 @@ on:
         description: 'Apply Prolific authenticity script from secret PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT (recommended)'
         required: false
         type: boolean
-        default: false
+        default: true
       lock_down_redirect:
         description: 'Lock down COMPLETE_URL in Survey Flow so only Prolific + website completion URLs are possible (recommended)'
         required: false
@@ -73,6 +73,11 @@ jobs:
 
           if [[ -z "${PROLIFIC_COMPLETION_URL:-}" && -z "${PROLIFIC_COMPLETION_CODE_SUCCESS:-}" ]]; then
             echo "::error::Missing Prolific completion redirect. Add secret PROLIFIC_COMPLETION_URL (preferred) or PROLIFIC_COMPLETION_CODE_SUCCESS in environment qualtrics-prod" >&2
+            exit 1
+          fi
+
+          if [[ "${{ inputs.apply_authenticity_script }}" == "true" && -z "${PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT:-}" ]]; then
+            echo "::error::apply_authenticity_script=true but secret PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT is missing/empty in environment qualtrics-prod" >&2
             exit 1
           fi
 

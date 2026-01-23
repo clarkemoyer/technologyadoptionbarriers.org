@@ -249,8 +249,12 @@ Notes:
 
 How it works:
 
-- If the respondent arrives without a `COMPLETE_URL` parameter, `COMPLETE_URL` defaults to the Prolific completion URL (set by automation) so Prolific can keep its existing External Study URL unchanged.
-- Website links should override `COMPLETE_URL` to point to the website completion page.
+- With **redirect lockdown enabled** (`lock_down_redirect=true`), respondents do **not** need to pass `COMPLETE_URL` at all.
+  - Survey Flow overwrites `COMPLETE_URL` to the Prolific completion URL when `PROLIFIC_PID` is present.
+  - Otherwise `COMPLETE_URL` remains the website completion page.
+- With **redirect lockdown disabled**, `COMPLETE_URL` comes from the inbound survey link.
+  - Prolific links should pass `COMPLETE_URL` pointing to the Prolific completion URL.
+  - Website links should pass `COMPLETE_URL` pointing to the website completion page.
 
 Security note:
 
@@ -263,7 +267,8 @@ Security note:
 
 Recommended Prolific External URL format:
 
-- Use the Qualtrics survey link, with Prolific placeholders and extra parameters:
+- Use the Qualtrics survey link, with Prolific placeholders and extra parameters.
+- If you have **redirect lockdown enabled**, you can omit `COMPLETE_URL` entirely.
   - `PROLIFIC_PID={{%PROLIFIC_PID%}}`
   - `STUDY_ID={{%STUDY_ID%}}`
   - `SESSION_ID={{%SESSION_ID%}}`
@@ -343,7 +348,10 @@ What it does (API-only):
 - Ensures Embedded Data fields exist: `PROLIFIC_PID`, `STUDY_ID`, `SESSION_ID`, `SOURCE`, `COMPLETE_URL`
 - Ensures end-of-survey redirect is enabled and points to `${e://Field/COMPLETE_URL}`
 - Sets default `SOURCE=unknown`
-- Sets default `COMPLETE_URL` to the Prolific completion URL (preserves Prolific behavior)
+- Sets default `COMPLETE_URL` to the website completion page (safe default for non‑Prolific traffic)
+- If `lock_down_redirect=true`, Survey Flow will overwrite `COMPLETE_URL` at runtime to one of two allowlisted destinations:
+  - Prolific completion URL (when `PROLIFIC_PID` is present)
+  - Website completion URL (default)
 - Optionally injects the Prolific authenticity-checks script into the survey header (from a secret)
 
 Required GitHub Environment secrets (in `qualtrics-prod`):
@@ -352,7 +360,7 @@ Required GitHub Environment secrets (in `qualtrics-prod`):
 
 Optional GitHub Environment variables (in `qualtrics-prod`):
 
-- None (website/non‑Prolific traffic should pass `COMPLETE_URL` in the survey link)
+- `TABS_WEBSITE_COMPLETE_URL` (optional override for the website completion page; defaults to `https://technologyadoptionbarriers.org/survey-complete`)
 
 Optional secret (in `qualtrics-prod`):
 

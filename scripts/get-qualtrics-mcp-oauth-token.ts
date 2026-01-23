@@ -22,14 +22,6 @@ type ClientCredentials = {
   client_secret: string
 }
 
-function requiredEnvOneOf(names: string[]): string {
-  for (const name of names) {
-    const value = (process.env[name] || '').trim()
-    if (value) return value
-  }
-  throw new Error(`Missing required env var (one of): ${names.join(', ')}`)
-}
-
 function env(name: string, fallback = ''): string {
   return (process.env[name] || fallback).trim()
 }
@@ -675,7 +667,7 @@ async function main() {
   console.log(`Wrote: ${outputPath}`)
 }
 
-main().catch((err) => {
+main().catch(() => {
   console.error('❌ Failed to get Qualtrics MCP OAuth token (details redacted).')
   process.exit(1)
 })
