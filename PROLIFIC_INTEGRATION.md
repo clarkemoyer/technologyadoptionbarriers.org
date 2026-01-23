@@ -255,7 +255,11 @@ How it works:
 Security note:
 
 - Treat Prolific completion codes as sensitive (don’t commit them to the repo; don’t paste them into public logs).
-- Using `${e://Field/COMPLETE_URL}` makes the survey an **open redirect** if you accept arbitrary `COMPLETE_URL` values from inbound URLs. Mitigation: only ever set `COMPLETE_URL` to known-safe destinations (e.g., `https://app.prolific.com/submissions/complete?...` or `https://technologyadoptionbarriers.org/survey-complete`). If your Qualtrics tenant supports it, prefer setting/overwriting `COMPLETE_URL` inside Survey Flow based on `SOURCE` so a crafted link can’t force a redirect to an attacker-controlled domain.
+- Using `${e://Field/COMPLETE_URL}` can become an **open redirect** if you accept arbitrary `COMPLETE_URL` values from inbound URLs.
+  - Recommended mitigation: enable **redirect lockdown** in the LIVE apply workflow (`lock_down_redirect=true`). This overwrites `COMPLETE_URL` in **Survey Flow** to one of two allowlisted destinations:
+    - Prolific completion URL (when `PROLIFIC_PID` is present)
+    - Website completion URL (default)
+  - With redirect lockdown enabled, inbound links do not need to pass `COMPLETE_URL` at all (and passing it has no effect).
 
 Recommended Prolific External URL format:
 

@@ -5,6 +5,13 @@ type HttpResult = {
   json: unknown | null
 }
 
+type FlowElement = Record<string, unknown>
+
+function parseBoolEnv(name: string): boolean {
+  const raw = (process.env[name] || '').trim().toLowerCase()
+  return raw === '1' || raw === 'true' || raw === 'yes' || raw === 'on'
+}
+
 function summarizeHttpError(result: HttpResult): string {
   const json = result.json
   const metaError =
@@ -254,6 +261,159 @@ function ensureHeaderScriptInOptions(
   return { updated: true, optionsObj }
 }
 
+function iterFlowElements(elements: unknown, visit: (el: FlowElement) => void) {
+  if (!Array.isArray(elements)) return
+  for (const item of elements) {
+    if (!item || typeof item !== 'object') continue
+    const el = item as FlowElement
+    visit(el)
+    if ('Flow' in el) iterFlowElements(el.Flow, visit)
+  }
+}
+
+function getNextFlowId(rootFlow: unknown): string {
+  let maxNumeric = 0
+  iterFlowElements(rootFlow, (el) => {
+    const id = typeof el.FlowID === 'string' ? el.FlowID : ''
+    const m = /^FL_(\d+)$/.exec(id)
+    if (!m) return
+    const n = Number(m[1])
+    if (Number.isFinite(n) && n > maxNumeric) maxNumeric = n
+  })
+  return `FL_${maxNumeric + 1}`
+}
+
+function detectBranchLogicShape(rootFlow: unknown): 'numericKeys' | 'booleanExpression' {
+  let found: 'numericKeys' | 'booleanExpression' | null = null
+  iterFlowElements(rootFlow, (el) => {
+    if (found) return
+    if (typeof el.Type !== 'string' || el.Type !== 'Branch') return
+    const logic = el.BranchLogic
+    if (!logic || typeof logic !== 'object') return
+    const rec = logic as Record<string, unknown>
+    if (typeof rec.Type === 'string') {
+      found = 'booleanExpression'
+      return
+    }
+    if (Object.keys(rec).some((k) => /^\d+$/.test(k))) {
+      found = 'numericKeys'
+      return
+    }
+  })
+  return found || 'numericKeys'
+}
+
+function isEmbeddedDataSet(el: FlowElement, field: string, value: string): boolean {
+  if (el.Type !== 'EmbeddedData') return false
+  const embedded = el.EmbeddedData
+  if (!Array.isArray(embedded)) return false
+  for (const item of embedded) {
+    if (!item || typeof item !== 'object') continue
+    const rec = item as Record<string, unknown>
+    const f =
+      typeof rec.Field === 'string' ? rec.Field : typeof rec.Name === 'string' ? rec.Name : ''
+    const v = typeof rec.Value === 'string' ? rec.Value : ''
+    if (f === field && v === value) return true
+  }
+  return false
+}
+
+function ensureRedirectLockdownInFlow(
+  flowObj: unknown,
+  params: { prolificCompletionUrl: string; websiteCompletionUrl: string }
+): { updated: boolean; flowObj: unknown } {
+  const unwrapped = unwrapResult(flowObj)
+  if (!unwrapped || typeof unwrapped !== 'object') {
+    throw new Error('Survey flow response was not an object')
+  }
+
+  const root = unwrapped as Record<string, unknown>
+  const flow = root.Flow
+  if (!Array.isArray(flow)) {
+    throw new Error('Survey flow response did not contain a Flow array')
+  }
+
+  const { prolificCompletionUrl, websiteCompletionUrl } = params
+  const branchLogicShape = detectBranchLogicShape(flow)
+
+  let hasWebsiteSetter = false
+  let hasProlificBranchSetter = false
+
+  iterFlowElements(flow, (el) => {
+    if (!hasWebsiteSetter && isEmbeddedDataSet(el, 'COMPLETE_URL', websiteCompletionUrl)) {
+      hasWebsiteSetter = true
+    }
+    if (!hasProlificBranchSetter && isEmbeddedDataSet(el, 'COMPLETE_URL', prolificCompletionUrl)) {
+      // This might be anywhere; we only use it as a heuristic for idempotency.
+      hasProlificBranchSetter = true
+    }
+  })
+
+  const newElements: Array<unknown> = []
+  let updated = false
+
+  if (!hasWebsiteSetter) {
+    newElements.push({
+      Type: 'EmbeddedData',
+      FlowID: getNextFlowId(flow),
+      EmbeddedData: [
+        {
+          Field: 'COMPLETE_URL',
+          Value: websiteCompletionUrl,
+          SetEmbeddedDataFromPanel: false,
+        },
+      ],
+    })
+    updated = true
+  }
+
+  if (!hasProlificBranchSetter) {
+    const branchLogic =
+      branchLogicShape === 'booleanExpression'
+        ? {
+            Type: 'BooleanExpression',
+            LeftOperand: { Type: 'EmbeddedData', Field: 'PROLIFIC_PID' },
+            Operator: 'IsNotEmpty',
+          }
+        : {
+            '0': {
+              '0': {
+                LogicType: 'EmbeddedData',
+                LeftOperand: 'e://Field/PROLIFIC_PID',
+                Operator: 'IsNotEmpty',
+              },
+            },
+          }
+
+    newElements.push({
+      Type: 'Branch',
+      FlowID: getNextFlowId(flow),
+      Description: 'TABS: lock down COMPLETE_URL for Prolific',
+      BranchLogic: branchLogic,
+      Flow: [
+        {
+          Type: 'EmbeddedData',
+          FlowID: getNextFlowId(flow),
+          EmbeddedData: [
+            {
+              Field: 'COMPLETE_URL',
+              Value: prolificCompletionUrl,
+              SetEmbeddedDataFromPanel: false,
+            },
+          ],
+        },
+      ],
+    })
+    updated = true
+  }
+
+  if (updated) {
+    root.Flow = [...newElements, ...flow]
+  }
+
+  return { updated, flowObj: unwrapped }
+}
+
 async function main() {
   const confirm = process.env.QUALTRICS_PROLIFIC_CONFIRM || ''
   if (confirm !== 'APPLY') {
@@ -268,12 +428,20 @@ async function main() {
 
   const authenticityScript = process.env.PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT || ''
 
+  const lockDownRedirect = parseBoolEnv('QUALTRICS_PROLIFIC_LOCK_DOWN_REDIRECT')
+  const websiteCompletionUrl =
+    (process.env.TABS_WEBSITE_COMPLETE_URL || '').trim() ||
+    'https://technologyadoptionbarriers.org/survey-complete'
+
   const redirectUrlTemplate = '${e://Field/COMPLETE_URL}'
 
   // Fetch options early so we can preserve existing Prolific completion behavior even when
   // PROLIFIC_COMPLETION_URL/PROLIFIC_COMPLETION_CODE_SUCCESS are not available locally.
   const optionsGetUrls = [`${baseUrl}/API/v3/survey-definitions/${surveyId}/options`]
   const optionsPutUrls = [`${baseUrl}/API/v3/survey-definitions/${surveyId}/options`]
+
+  const flowGetUrls = [`${baseUrl}/API/v3/survey-definitions/${surveyId}/flow`]
+  const flowPutUrls = [`${baseUrl}/API/v3/survey-definitions/${surveyId}/flow`]
 
   const optionsGet = await getFirstOk(optionsGetUrls, apiToken)
   console.log(`Options GET: ${optionsGet.status} ${optionsGet.url}`)
@@ -301,6 +469,29 @@ async function main() {
     throw new Error(
       'Missing Prolific completion redirect configuration. Provide PROLIFIC_COMPLETION_URL/PROLIFIC_COMPLETION_CODE_SUCCESS in the GitHub Actions environment qualtrics-prod, or ensure the current survey options EOSRedirectURL already contains the Prolific completion URL.'
     )
+  }
+
+  // 0) Optional: lock down COMPLETE_URL inside Survey Flow so inbound links cannot force arbitrary redirects.
+  // This makes the redirect effectively allowlisted to two destinations:
+  // - Prolific completion URL (when PROLIFIC_PID is present)
+  // - Website completion URL (default)
+  if (lockDownRedirect) {
+    const flowGet = await getFirstOk(flowGetUrls, apiToken)
+    console.log(`Flow GET: ${flowGet.status} ${flowGet.url}`)
+    const flowJson = flowGet.json
+    if (!flowJson) {
+      throw new Error(`Flow GET did not return JSON: ${flowGet.url} (HTTP ${flowGet.status})`)
+    }
+
+    const flowUpdate = ensureRedirectLockdownInFlow(flowJson, {
+      prolificCompletionUrl,
+      websiteCompletionUrl,
+    })
+
+    if (flowUpdate.updated) {
+      const flowPut = await putFirstOk(flowPutUrls, apiToken, unwrapResult(flowUpdate.flowObj))
+      console.log(`Flow PUT: ${flowPut.status} ${flowPut.url}`)
+    }
   }
 
   // 1) Ensure Embedded Data fields exist (supported endpoint)
@@ -374,7 +565,9 @@ async function main() {
     "Reminder: some Qualtrics tenants require a manual 'Publish' in the Qualtrics UI before changes affect the anonymous link respondent experience."
   )
   console.log(
-    'Redirect mode: SurveyTermination=Redirect and EOSRedirectURL=${e://Field/COMPLETE_URL} (default COMPLETE_URL points to Prolific completion; website links override COMPLETE_URL to point at the site completion page).'
+    lockDownRedirect
+      ? `Redirect mode: SurveyTermination=Redirect and EOSRedirectURL=${redirectUrlTemplate} (Survey Flow locks COMPLETE_URL to either Prolific completion or ${websiteCompletionUrl}).`
+      : 'Redirect mode: SurveyTermination=Redirect and EOSRedirectURL=${e://Field/COMPLETE_URL} (default COMPLETE_URL points to Prolific completion; website links override COMPLETE_URL to point at the site completion page).'
   )
 }
 

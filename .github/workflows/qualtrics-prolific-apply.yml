@@ -21,6 +21,11 @@ on:
         required: false
         type: boolean
         default: false
+      lock_down_redirect:
+        description: 'Lock down COMPLETE_URL in Survey Flow so only Prolific + website completion URLs are possible (recommended)'
+        required: false
+        type: boolean
+        default: false
       confirm:
         description: 'Type APPLY to confirm modifying the LIVE survey configuration'
         required: true
@@ -42,6 +47,7 @@ jobs:
       PROLIFIC_COMPLETION_CODE_SUCCESS: ${{ secrets.PROLIFIC_COMPLETION_CODE_SUCCESS }}
       PROLIFIC_COMPLETION_URL: ${{ secrets.PROLIFIC_COMPLETION_URL }}
       PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT: ${{ inputs.apply_authenticity_script == 'true' && secrets.PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT || '' }}
+      QUALTRICS_PROLIFIC_LOCK_DOWN_REDIRECT: ${{ inputs.lock_down_redirect }}
       QUALTRICS_PROLIFIC_CONFIRM: APPLY
       QUALTRICS_PROLIFIC_PUBLISH: ${{ inputs.publish_after_apply == 'true' && inputs.publish_confirm || '' }}
     steps:
