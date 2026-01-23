@@ -76,6 +76,17 @@ surveys.json
 mcp.json
 .vscode/mcp.json
 
+# Local Qualtrics MCP OAuth tokens (do not commit)
+.vscode/qualtrics-oauth-token*.json
+qualtrics-oauth-token*.json
+
+# Local Qualtrics MCP client credentials (do not commit)
+.vscode/qualtrics-mcp-client*.json
+qualtrics-mcp-client*.json
+
+# Local Qualtrics Survey Flow snapshots (debugging)
+.vscode/qualtrics-flow*.json
+
 # Local transcription intermediates
 .tmp/
 

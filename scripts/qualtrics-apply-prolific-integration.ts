@@ -7,12 +7,192 @@ type HttpResult = {
 
 type FlowElement = Record<string, unknown>
 
+import fs from 'node:fs'
+import path from 'node:path'
+
+type QualtricsAuth =
+  | { kind: 'api-token'; apiToken: string }
+  | { kind: 'oauth-bearer'; accessToken: string }
+
 function parseBoolEnv(name: string): boolean {
   const raw = (process.env[name] || '').trim().toLowerCase()
   return raw === '1' || raw === 'true' || raw === 'yes' || raw === 'on'
 }
 
+function envString(name: string): string {
+  return (process.env[name] || '').trim()
+}
+
+function findAccessTokenFromCacheFile(cacheFile: string): string | null {
+  if (!fs.existsSync(cacheFile)) return null
+
+  let raw: string
+  try {
+    raw = fs.readFileSync(cacheFile, { encoding: 'utf8' })
+  } catch {
+    return null
+  }
+
+  let parsed: unknown
+  try {
+    parsed = raw ? JSON.parse(raw) : null
+  } catch {
+    return null
+  }
+
+  if (!parsed || typeof parsed !== 'object') return null
+  const rec = parsed as Record<string, unknown>
+
+  const topLevel = rec.access_token
+  if (typeof topLevel === 'string' && topLevel.trim()) return topLevel.trim()
+
+  const tokenObj = rec.token
+  if (typeof tokenObj === 'string' && tokenObj.trim()) return tokenObj.trim()
+  if (tokenObj && typeof tokenObj === 'object') {
+    const nested = (tokenObj as Record<string, unknown>).access_token
+    if (typeof nested === 'string' && nested.trim()) return nested.trim()
+  }
+
+  return null
+}
+
+function resolveQualtricsAuth(): QualtricsAuth {
+  const apiToken = envString('QUALTRICS_API_TOKEN')
+  if (apiToken) return { kind: 'api-token', apiToken }
+
+  const bearer = envString('QUALTRICS_OAUTH_TOKEN')
+  if (bearer) return { kind: 'oauth-bearer', accessToken: bearer }
+
+  const cacheFile =
+    envString('QUALTRICS_OAUTH_TOKEN_FILE') ||
+    path.join(process.cwd(), '.vscode', 'qualtrics-oauth-token.local.json')
+  const cached = findAccessTokenFromCacheFile(cacheFile)
+  if (cached) return { kind: 'oauth-bearer', accessToken: cached }
+
+  throw new Error(
+    'Missing Qualtrics auth. Provide QUALTRICS_API_TOKEN (X-API-TOKEN) or QUALTRICS_OAUTH_TOKEN (Bearer), or mint a token into .vscode/qualtrics-oauth-token.local.json'
+  )
+}
+
+function parseSurveyInfoFromUrl(surveyUrl: string): { baseUrl: string; surveyId: string } {
+  const u = new URL(surveyUrl)
+  const m = /\/jfe\/form\/(SV_[A-Za-z0-9]+)/.exec(u.pathname)
+  if (!m) throw new Error(`Could not parse survey id from URL: ${surveyUrl}`)
+  return { baseUrl: u.origin, surveyId: m[1] }
+}
+
+function getDefaultSurveyInfoFromRepo(): { baseUrl: string; surveyId: string } | null {
+  const candidateFile = path.join(process.cwd(), 'src', 'lib', 'tabs-survey.ts')
+  if (!fs.existsSync(candidateFile)) return null
+  const content = fs.readFileSync(candidateFile, { encoding: 'utf8' })
+  const m = /TABS_QUALTRICS_ANONYMOUS_SURVEY_URL\s*=\s*['"]([^'"]+)['"]/m.exec(content)
+  if (!m) return null
+  try {
+    return parseSurveyInfoFromUrl(m[1])
+  } catch {
+    return null
+  }
+}
+
+type BranchLogicStyle =
+  | 'tenant-array'
+  | 'tenant-boolean-list'
+  | 'boolean-expression'
+  | 'single-numeric'
+  | 'double-numeric'
+  | 'typed-double-numeric'
+
+function parseBranchLogicStyle(): BranchLogicStyle {
+  const raw = envString('QUALTRICS_PROLIFIC_BRANCHLOGIC_STYLE').toLowerCase()
+  if (raw === 'tenant-array' || raw === 'array' || raw === 'tabs-tenant-array') {
+    return 'tenant-array'
+  }
+  if (raw === 'tenant' || raw === 'tenant-boolean-list' || raw === 'tabs-tenant') {
+    return 'tenant-boolean-list'
+  }
+  if (raw === 'boolean' || raw === 'boolean-expression' || raw === 'expr')
+    return 'boolean-expression'
+  if (raw === 'single' || raw === 'single-numeric') return 'single-numeric'
+  if (raw === 'double' || raw === 'double-numeric') return 'double-numeric'
+  if (raw === 'typed-double' || raw === 'typed-double-numeric') return 'typed-double-numeric'
+  // Default to the known-good schema for this tenant (observed via flow dump).
+  return 'tenant-array'
+}
+
+function buildProlificPresentBranchLogic(style: BranchLogicStyle): Record<string, unknown> {
+  const tenantAtom = {
+    Type: 'Expression',
+    LogicType: 'EmbeddedField',
+    LeftOperand: 'e://Field/PROLIFIC_PID',
+    Operator: 'NotEmpty',
+    RightOperand: '',
+  }
+
+  const legacyAtom = {
+    LogicType: 'EmbeddedData',
+    LeftOperand: 'e://Field/PROLIFIC_PID',
+    Operator: 'IsNotEmpty',
+    RightOperand: '',
+  }
+
+  if (style === 'tenant-array') {
+    return {
+      Type: 'BooleanExpression',
+      '0': [tenantAtom],
+    }
+  }
+
+  if (style === 'tenant-boolean-list') {
+    return {
+      // Some tenants model this as a BooleanExpression container.
+      Type: 'BooleanExpression',
+      // Keep this as an object-of-objects (no arrays) for broader compatibility.
+      '0': { '0': legacyAtom },
+    }
+  }
+
+  if (style === 'boolean-expression') {
+    return {
+      Type: 'BooleanExpression',
+      LeftOperand: { Type: 'EmbeddedData', Field: 'PROLIFIC_PID' },
+      Operator: 'IsNotEmpty',
+    }
+  }
+
+  if (style === 'single-numeric') {
+    return { '0': legacyAtom }
+  }
+
+  if (style === 'double-numeric') {
+    return { '0': { '0': legacyAtom } }
+  }
+
+  if (style === 'typed-double-numeric') {
+    const branchLogicType = envString('QUALTRICS_PROLIFIC_BRANCHLOGIC_TYPE') || 'If'
+    return { Type: branchLogicType, '0': { '0': legacyAtom } }
+  }
+
+  // Fallback: return the atom, though most tenants reject this.
+  return legacyAtom
+}
+
+function createFlowIdAllocator(rootFlow: unknown): () => string {
+  let maxNumeric = 0
+  iterFlowElements(rootFlow, (el) => {
+    const id = typeof el.FlowID === 'string' ? el.FlowID : ''
+    const m = /^FL_(\d+)$/.exec(id)
+    if (!m) return
+    const n = Number(m[1])
+    if (Number.isFinite(n) && n > maxNumeric) maxNumeric = n
+  })
+  return () => {
+    maxNumeric += 1
+    return `FL_${maxNumeric}`
+  }
+}
+
 function summarizeHttpError(result: HttpResult): string {
+  const maxLen = 2000
   const json = result.json
   const metaError =
     json && typeof json === 'object'
@@ -32,7 +212,7 @@ function summarizeHttpError(result: HttpResult): string {
     if (msg) {
       // If the meta error is generic, include a short body snippet too.
       if (msg === 'The request was invalid.' && text && text !== msg) {
-        const snippet = text.length > 240 ? `${text.slice(0, 240)}…` : text
+        const snippet = text.length > maxLen ? `${text.slice(0, maxLen)}…` : text
         return `${msg} ${snippet}`
       }
       return msg
@@ -41,15 +221,7 @@ function summarizeHttpError(result: HttpResult): string {
 
   const text = (result.bodyText || '').trim()
   if (!text) return ''
-  return text.length > 240 ? `${text.slice(0, 240)}…` : text
-}
-
-function requiredEnv(name: string): string {
-  const value = process.env[name]
-  if (!value) {
-    throw new Error(`Missing required env var: ${name}`)
-  }
-  return value
+  return text.length > maxLen ? `${text.slice(0, maxLen)}…` : text
 }
 
 function unwrapResult(value: unknown): unknown {
@@ -72,12 +244,17 @@ function containsString(obj: unknown, needle: string): boolean {
 async function httpJson(
   method: 'GET' | 'PUT' | 'POST',
   url: string,
-  apiToken: string,
+  auth: QualtricsAuth,
   body?: unknown
 ): Promise<HttpResult> {
   const headers: Record<string, string> = {
-    'X-API-TOKEN': apiToken,
     Accept: 'application/json',
+  }
+
+  if (auth.kind === 'api-token') {
+    headers['X-API-TOKEN'] = auth.apiToken
+  } else {
+    headers.Authorization = `Bearer ${auth.accessToken}`
   }
 
   let bodyString: string | undefined
@@ -104,11 +281,11 @@ async function httpJson(
   return { url, status: res.status, bodyText, json }
 }
 
-async function getFirstOk(urls: string[], apiToken: string): Promise<HttpResult> {
+async function getFirstOk(urls: string[], auth: QualtricsAuth): Promise<HttpResult> {
   const attempts: Array<{ url: string; status: number; error?: string }> = []
   let last: HttpResult | null = null
   for (const url of urls) {
-    const result = await httpJson('GET', url, apiToken)
+    const result = await httpJson('GET', url, auth)
     attempts.push({ url: result.url, status: result.status, error: summarizeHttpError(result) })
     last = result
     if (result.status >= 200 && result.status < 300) return result
@@ -123,11 +300,11 @@ async function getFirstOk(urls: string[], apiToken: string): Promise<HttpResult>
   )
 }
 
-async function putFirstOk(urls: string[], apiToken: string, body: unknown): Promise<HttpResult> {
+async function putFirstOk(urls: string[], auth: QualtricsAuth, body: unknown): Promise<HttpResult> {
   const attempts: Array<{ url: string; status: number; error?: string }> = []
   let last: HttpResult | null = null
   for (const url of urls) {
-    const result = await httpJson('PUT', url, apiToken, body)
+    const result = await httpJson('PUT', url, auth, body)
     attempts.push({ url: result.url, status: result.status, error: summarizeHttpError(result) })
     last = result
     if (result.status >= 200 && result.status < 300) return result
@@ -142,11 +319,15 @@ async function putFirstOk(urls: string[], apiToken: string, body: unknown): Prom
   )
 }
 
-async function postFirstOk(urls: string[], apiToken: string, body: unknown): Promise<HttpResult> {
+async function postFirstOk(
+  urls: string[],
+  auth: QualtricsAuth,
+  body: unknown
+): Promise<HttpResult> {
   const attempts: Array<{ url: string; status: number; error?: string }> = []
   let last: HttpResult | null = null
   for (const url of urls) {
-    const result = await httpJson('POST', url, apiToken, body)
+    const result = await httpJson('POST', url, auth, body)
     attempts.push({ url: result.url, status: result.status, error: summarizeHttpError(result) })
     last = result
     if (result.status >= 200 && result.status < 300) return result
@@ -218,6 +399,35 @@ function getProlificCompletionUrlFromSurvey(surveyObj: unknown): string | null {
   return null
 }
 
+function getProlificCompletionUrlFromFlow(flowObj: unknown): string | null {
+  const unwrapped = unwrapResult(flowObj)
+  if (!unwrapped || typeof unwrapped !== 'object') return null
+
+  const root = unwrapped as Record<string, unknown>
+  const flow = root.Flow
+  if (!Array.isArray(flow)) return null
+
+  let found: string | null = null
+  iterFlowElements(flow, (el) => {
+    if (found) return
+    if (el.Type !== 'EmbeddedData') return
+    const embedded = el.EmbeddedData
+    if (!Array.isArray(embedded)) return
+    for (const item of embedded) {
+      if (!item || typeof item !== 'object') continue
+      const rec = item as Record<string, unknown>
+      if (rec.Field !== 'COMPLETE_URL') continue
+      const value = typeof rec.Value === 'string' ? rec.Value.trim() : ''
+      if (value.includes('app.prolific.com/submissions/complete?cc=')) {
+        found = value
+        return
+      }
+    }
+  })
+
+  return found
+}
+
 function ensureCompletionRedirectInOptions(
   optionsObj: unknown,
   redirectUrlTemplate: string
@@ -283,39 +493,39 @@ function getNextFlowId(rootFlow: unknown): string {
   return `FL_${maxNumeric + 1}`
 }
 
-function detectBranchLogicShape(rootFlow: unknown): 'numericKeys' | 'booleanExpression' {
-  let found: 'numericKeys' | 'booleanExpression' | null = null
-  iterFlowElements(rootFlow, (el) => {
+function findFirstEmbeddedDataElement(flow: unknown): FlowElement | null {
+  let found: FlowElement | null = null
+  iterFlowElements(flow, (el) => {
     if (found) return
-    if (typeof el.Type !== 'string' || el.Type !== 'Branch') return
-    const logic = el.BranchLogic
-    if (!logic || typeof logic !== 'object') return
-    const rec = logic as Record<string, unknown>
-    if (typeof rec.Type === 'string') {
-      found = 'booleanExpression'
-      return
-    }
-    if (Object.keys(rec).some((k) => /^\d+$/.test(k))) {
-      found = 'numericKeys'
-      return
-    }
+    if (el.Type === 'EmbeddedData') found = el
   })
-  return found || 'numericKeys'
+  return found
 }
 
-function isEmbeddedDataSet(el: FlowElement, field: string, value: string): boolean {
-  if (el.Type !== 'EmbeddedData') return false
-  const embedded = el.EmbeddedData
-  if (!Array.isArray(embedded)) return false
+function findEmbeddedDataItem(
+  embeddedDataElement: FlowElement,
+  field: string
+): Record<string, unknown> | null {
+  const embedded = embeddedDataElement.EmbeddedData
+  if (!Array.isArray(embedded)) return null
   for (const item of embedded) {
     if (!item || typeof item !== 'object') continue
     const rec = item as Record<string, unknown>
-    const f =
-      typeof rec.Field === 'string' ? rec.Field : typeof rec.Name === 'string' ? rec.Name : ''
-    const v = typeof rec.Value === 'string' ? rec.Value : ''
-    if (f === field && v === value) return true
+    const f = typeof rec.Field === 'string' ? rec.Field : ''
+    if (f === field) return rec
   }
-  return false
+  return null
+}
+
+function looksLikeEmbeddedDataValue(
+  embeddedDataElement: FlowElement,
+  field: string,
+  predicate: (value: string) => boolean
+): boolean {
+  const item = findEmbeddedDataItem(embeddedDataElement, field)
+  if (!item) return false
+  const value = typeof item.Value === 'string' ? item.Value : ''
+  return predicate(value)
 }
 
 function ensureRedirectLockdownInFlow(
@@ -334,81 +544,159 @@ function ensureRedirectLockdownInFlow(
   }
 
   const { prolificCompletionUrl, websiteCompletionUrl } = params
-  const branchLogicShape = detectBranchLogicShape(flow)
 
-  let hasWebsiteSetter = false
-  let hasProlificBranchSetter = false
+  const allocFlowId = createFlowIdAllocator(flow)
 
-  iterFlowElements(flow, (el) => {
-    if (!hasWebsiteSetter && isEmbeddedDataSet(el, 'COMPLETE_URL', websiteCompletionUrl)) {
-      hasWebsiteSetter = true
-    }
-    if (!hasProlificBranchSetter && isEmbeddedDataSet(el, 'COMPLETE_URL', prolificCompletionUrl)) {
-      // This might be anywhere; we only use it as a heuristic for idempotency.
-      hasProlificBranchSetter = true
-    }
-  })
-
-  const newElements: Array<unknown> = []
-  let updated = false
-
-  if (!hasWebsiteSetter) {
-    newElements.push({
-      Type: 'EmbeddedData',
-      FlowID: getNextFlowId(flow),
-      EmbeddedData: [
-        {
-          Field: 'COMPLETE_URL',
-          Value: websiteCompletionUrl,
-          SetEmbeddedDataFromPanel: false,
-        },
-      ],
-    })
-    updated = true
+  const existingEmbeddedDataEl = findFirstEmbeddedDataElement(flow)
+  if (!existingEmbeddedDataEl) {
+    throw new Error('Could not find an EmbeddedData element in Survey Flow')
   }
 
-  if (!hasProlificBranchSetter) {
-    const branchLogic =
-      branchLogicShape === 'booleanExpression'
-        ? {
-            Type: 'BooleanExpression',
-            LeftOperand: { Type: 'EmbeddedData', Field: 'PROLIFIC_PID' },
-            Operator: 'IsNotEmpty',
-          }
-        : {
-            '0': {
-              '0': {
-                LogicType: 'EmbeddedData',
-                LeftOperand: 'e://Field/PROLIFIC_PID',
-                Operator: 'IsNotEmpty',
-              },
-            },
-          }
+  const completeUrlTemplate = findEmbeddedDataItem(existingEmbeddedDataEl, 'COMPLETE_URL')
+  if (!completeUrlTemplate) {
+    throw new Error('Could not find COMPLETE_URL in existing Survey Flow EmbeddedData element')
+  }
 
-    newElements.push({
-      Type: 'Branch',
-      FlowID: getNextFlowId(flow),
-      Description: 'TABS: lock down COMPLETE_URL for Prolific',
-      BranchLogic: branchLogic,
-      Flow: [
+  const optionsTemplate =
+    existingEmbeddedDataEl.Options && typeof existingEmbeddedDataEl.Options === 'object'
+      ? existingEmbeddedDataEl.Options
+      : { VarTypes: 'Yes' }
+
+  // Idempotency check: ensure the *top-level* Flow contains exactly one COMPLETE_URL assignment,
+  // and that it is the website completion URL.
+  const alreadyHasOnlyWebsiteDefaultsInTopLevelFlow = (() => {
+    const values: string[] = []
+    for (const item of flow) {
+      if (!item || typeof item !== 'object') continue
+      const el = item as FlowElement
+      if (el.Type !== 'EmbeddedData') continue
+      const embedded = el.EmbeddedData
+      if (!Array.isArray(embedded)) continue
+      for (const row of embedded) {
+        if (!row || typeof row !== 'object') continue
+        const rec = row as Record<string, unknown>
+        if (rec.Field !== 'COMPLETE_URL') continue
+        const v = typeof rec.Value === 'string' ? rec.Value.trim() : ''
+        if (v) values.push(v)
+      }
+    }
+    return values.length >= 1 && values.every((v) => v === websiteCompletionUrl)
+  })()
+
+  const alreadyHasProlificBranchSetter = (() => {
+    let found = false
+    iterFlowElements(flow, (el) => {
+      if (found) return
+      if (el.Type !== 'Branch') return
+      const branchFlow = (el as Record<string, unknown>).Flow
+      if (!Array.isArray(branchFlow)) return
+      for (const child of branchFlow) {
+        if (!child || typeof child !== 'object') continue
+        const childEl = child as FlowElement
+        if (childEl.Type !== 'EmbeddedData') continue
+        if (
+          looksLikeEmbeddedDataValue(childEl, 'COMPLETE_URL', (v) =>
+            v.includes('app.prolific.com/submissions/complete?cc=')
+          )
+        ) {
+          found = true
+          return
+        }
+      }
+    })
+    return found
+  })()
+
+  const newElements: Array<unknown> = []
+  const debugAddedElements: Array<Record<string, unknown>> = []
+  let updated = false
+
+  if (!alreadyHasOnlyWebsiteDefaultsInTopLevelFlow) {
+    let firstEmbeddedData = true
+    for (const item of flow) {
+      if (!item || typeof item !== 'object') continue
+      const el = item as FlowElement
+      if (el.Type !== 'EmbeddedData') continue
+
+      const embedded = el.EmbeddedData
+      if (!Array.isArray(embedded)) continue
+
+      const filtered = embedded.filter((row) => {
+        if (!row || typeof row !== 'object') return true
+        const rec = row as Record<string, unknown>
+        return rec.Field !== 'COMPLETE_URL'
+      })
+
+      if (filtered.length !== embedded.length) {
+        el.EmbeddedData = filtered
+        updated = true
+      }
+
+      if (firstEmbeddedData) {
+        firstEmbeddedData = false
+        const websiteRow = {
+          ...completeUrlTemplate,
+          Field: 'COMPLETE_URL',
+          Value: websiteCompletionUrl,
+        }
+        el.EmbeddedData = [websiteRow, ...(el.EmbeddedData as Array<unknown>)]
+        updated = true
+        debugAddedElements.push({
+          Type: el.Type,
+          FlowID: el.FlowID,
+          Description: 'TABS: normalized top-level COMPLETE_URL default',
+          EmbeddedData: el.EmbeddedData,
+        })
+      }
+    }
+  }
+
+  if (!alreadyHasProlificBranchSetter) {
+    const prolificSetter: FlowElement = {
+      Type: 'EmbeddedData',
+      FlowID: allocFlowId(),
+      Options: optionsTemplate,
+      EmbeddedData: [
         {
-          Type: 'EmbeddedData',
-          FlowID: getNextFlowId(flow),
-          EmbeddedData: [
-            {
-              Field: 'COMPLETE_URL',
-              Value: prolificCompletionUrl,
-              SetEmbeddedDataFromPanel: false,
-            },
-          ],
+          ...completeUrlTemplate,
+          Field: 'COMPLETE_URL',
+          Value: prolificCompletionUrl,
         },
       ],
+    }
+
+    // Qualtrics tenants differ in how they represent BranchLogic. Default to a flat
+    // object (LogicType/LeftOperand/Operator/RightOperand) and allow override via
+    // QUALTRICS_PROLIFIC_BRANCHLOGIC_STYLE.
+    const branchLogicStyle = parseBranchLogicStyle()
+    const branch: FlowElement = {
+      Type: 'Branch',
+      FlowID: allocFlowId(),
+      Description: 'TABS: lock down COMPLETE_URL for Prolific',
+      BranchLogic: buildProlificPresentBranchLogic(branchLogicStyle),
+      Flow: [prolificSetter],
+    }
+
+    newElements.push(branch)
+    debugAddedElements.push({
+      Type: branch.Type,
+      FlowID: branch.FlowID,
+      Description: branch.Description,
+      BranchLogic: branch.BranchLogic,
+      Flow: branch.Flow,
     })
     updated = true
   }
 
   if (updated) {
     root.Flow = [...newElements, ...flow]
+  }
+
+  const debug = parseBoolEnv('QUALTRICS_PROLIFIC_DEBUG_FLOW_PUT')
+  if (debug && debugAddedElements.length > 0) {
+    // Keep output minimal; this is only the new elements we are prepending.
+    console.log('Debug (Flow PUT) - new elements:')
+    console.log(JSON.stringify(debugAddedElements, null, 2))
   }
 
   return { updated, flowObj: unwrapped }
@@ -422,9 +710,15 @@ async function main() {
 
   const publishConfirm = (process.env.QUALTRICS_PROLIFIC_PUBLISH || '').trim()
 
-  const apiToken = requiredEnv('QUALTRICS_API_TOKEN')
-  const baseUrl = requiredEnv('QUALTRICS_BASE_URL').replace(/\/$/, '')
-  const surveyId = requiredEnv('QUALTRICS_SURVEY_ID')
+  const auth = resolveQualtricsAuth()
+
+  const fallback = getDefaultSurveyInfoFromRepo() || {
+    baseUrl: 'https://smeal.qualtrics.com',
+    surveyId: 'SV_bkMopd73A8fzfwO',
+  }
+
+  const baseUrl = (envString('QUALTRICS_BASE_URL') || fallback.baseUrl).replace(/\/$/, '')
+  const surveyId = envString('QUALTRICS_SURVEY_ID') || fallback.surveyId
 
   const authenticityScript = process.env.PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT || ''
 
@@ -443,7 +737,7 @@ async function main() {
   const flowGetUrls = [`${baseUrl}/API/v3/survey-definitions/${surveyId}/flow`]
   const flowPutUrls = [`${baseUrl}/API/v3/survey-definitions/${surveyId}/flow`]
 
-  const optionsGet = await getFirstOk(optionsGetUrls, apiToken)
+  const optionsGet = await getFirstOk(optionsGetUrls, auth)
   console.log(`Options GET: ${optionsGet.status} ${optionsGet.url}`)
   const optionsJson = optionsGet.json
   if (!optionsJson) {
@@ -460,9 +754,17 @@ async function main() {
   // and read the default value of the COMPLETE_URL embedded data field.
   if (!prolificCompletionUrl) {
     const surveyGetUrls = [`${baseUrl}/API/v3/surveys/${surveyId}`]
-    const surveyGet = await getFirstOk(surveyGetUrls, apiToken)
+    const surveyGet = await getFirstOk(surveyGetUrls, auth)
     console.log(`Survey GET: ${surveyGet.status} ${surveyGet.url}`)
     prolificCompletionUrl = getProlificCompletionUrlFromSurvey(surveyGet.json)
+  }
+
+  // If the default COMPLETE_URL is no longer the Prolific URL (by design), fall back to
+  // scanning the Survey Flow for the Branch setter value.
+  if (!prolificCompletionUrl) {
+    const flowGet = await getFirstOk(flowGetUrls, auth)
+    console.log(`Flow GET (Prolific URL fallback): ${flowGet.status} ${flowGet.url}`)
+    prolificCompletionUrl = getProlificCompletionUrlFromFlow(flowGet.json)
   }
 
   if (!prolificCompletionUrl) {
@@ -476,7 +778,7 @@ async function main() {
   // - Prolific completion URL (when PROLIFIC_PID is present)
   // - Website completion URL (default)
   if (lockDownRedirect) {
-    const flowGet = await getFirstOk(flowGetUrls, apiToken)
+    const flowGet = await getFirstOk(flowGetUrls, auth)
     console.log(`Flow GET: ${flowGet.status} ${flowGet.url}`)
     const flowJson = flowGet.json
     if (!flowJson) {
@@ -489,7 +791,7 @@ async function main() {
     })
 
     if (flowUpdate.updated) {
-      const flowPut = await putFirstOk(flowPutUrls, apiToken, unwrapResult(flowUpdate.flowObj))
+      const flowPut = await putFirstOk(flowPutUrls, auth, unwrapResult(flowUpdate.flowObj))
       console.log(`Flow PUT: ${flowPut.status} ${flowPut.url}`)
     }
   }
@@ -499,8 +801,8 @@ async function main() {
     const postUrls = [`${baseUrl}/API/v3/surveys/${surveyId}/embeddeddatafields`]
     const body = embedFieldsBody()
     const completeField = body.embeddedDataFields.find((f) => f.key === 'COMPLETE_URL')
-    if (completeField) completeField.value = prolificCompletionUrl
-    const res = await postFirstOk(postUrls, apiToken, body)
+    if (completeField) completeField.value = websiteCompletionUrl
+    const res = await postFirstOk(postUrls, auth, body)
     console.log(`EmbeddedDataFields POST: ${res.status} ${res.url}`)
   }
 
@@ -512,7 +814,7 @@ async function main() {
     if (redirectUpdate.updated || headerUpdate.updated) {
       const optionsPut = await putFirstOk(
         optionsPutUrls,
-        apiToken,
+        auth,
         unwrapResult(headerUpdate.optionsObj)
       )
       console.log(`Options PUT: ${optionsPut.status} ${optionsPut.url}`)
@@ -534,7 +836,7 @@ async function main() {
     const publishAttempts: Array<{ url: string; status: number; error?: string | null }> = []
     let last: HttpResult | null = null
     for (const url of publishUrls) {
-      const result = await httpJson('POST', url, apiToken, publishBody)
+      const result = await httpJson('POST', url, auth, publishBody)
       publishAttempts.push({
         url: result.url,
         status: result.status,
