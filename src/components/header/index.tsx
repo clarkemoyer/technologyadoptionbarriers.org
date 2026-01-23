@@ -9,6 +9,7 @@ import { RxCross2 } from 'react-icons/rx'
 import { motion, AnimatePresence } from 'framer-motion'
 import { technologyAdoptionModelsSeries } from '@/data/technology-adoption-models-series'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
+import { personaNavigation } from '@/data/persona-navigation'
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const TAKE_TABS_URL = TABS_WEBSITE_QUALTRICS_SURVEY_URL
 
@@ -16,6 +17,7 @@ interface MenuItem {
   label: string
   path: string
   hasMegaMenu?: boolean
+  megaMenuId?: string
   children?: Array<{
     label: string
     path: string
@@ -28,10 +30,13 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false)
+  const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null)
+  const isMegaMenuOpen = activeMegaMenu !== null // Computed property for backward compatibility/readability
   const [isMakingOfMenuOpen, setIsMakingOfMenuOpen] = useState(false)
   const [isMobileBranch1Open, setIsMobileBranch1Open] = useState(false)
   const [isMobileBranch2Open, setIsMobileBranch2Open] = useState(false)
+  const [isMobileIndividualsOpen, setIsMobileIndividualsOpen] = useState(false)
+  const [isMobileOrganizationsOpen, setIsMobileOrganizationsOpen] = useState(false)
   const [isMobileMakingOfOpen, setIsMobileMakingOfOpen] = useState(false)
   const [activeSection, setActiveSection] = useState<string>('')
   const [searchQuery, setSearchQuery] = useState('')
@@ -50,12 +55,20 @@ const Header: React.FC = () => {
         children: [
           { label: 'Overview', path: '/making-of-tabs' },
           { label: 'TABS Presentation', path: '/making-of-tabs/tabs-presentation' },
+          { label: 'The CMO Survey', path: '/making-of-tabs/cmo-survey' },
         ],
+      },
+      {
+        label: 'See Yourself',
+        path: '/start',
+        hasMegaMenu: true,
+        megaMenuId: 'personas',
       },
       {
         label: 'Technology Adoption Models',
         path: '/technology-adoption-models',
         hasMegaMenu: true,
+        megaMenuId: 'models',
       },
       { label: 'Media', path: '/media' },
       { label: 'Get Involved', path: '/get-involved' },
@@ -105,13 +118,13 @@ const Header: React.FC = () => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        isMegaMenuOpen &&
+        activeMegaMenu &&
         megaMenuRef.current &&
         !megaMenuRef.current.contains(event.target as Node) &&
         megaMenuButtonRef.current &&
         !megaMenuButtonRef.current.contains(event.target as Node)
       ) {
-        setIsMegaMenuOpen(false)
+        setActiveMegaMenu(null)
       }
 
       if (
@@ -132,8 +145,8 @@ const Header: React.FC = () => {
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isMegaMenuOpen) {
-        setIsMegaMenuOpen(false)
+      if (event.key === 'Escape' && activeMegaMenu) {
+        setActiveMegaMenu(null)
         // Return focus to the button
         megaMenuButtonRef.current?.querySelector('button')?.focus()
       }
@@ -161,10 +174,12 @@ const Header: React.FC = () => {
 
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false)
-    setIsMegaMenuOpen(false)
+    setActiveMegaMenu(null)
     setIsMakingOfMenuOpen(false)
     setIsMobileBranch1Open(false)
     setIsMobileBranch2Open(false)
+    setIsMobileIndividualsOpen(false)
+    setIsMobileOrganizationsOpen(false)
     setIsMobileMakingOfOpen(false)
   }
 
@@ -174,14 +189,18 @@ const Header: React.FC = () => {
     return activeSection === sectionId
   }
 
-  const toggleMegaMenu = () => {
-    setIsMegaMenuOpen(!isMegaMenuOpen)
+  const toggleMegaMenu = (id: string) => {
+    if (activeMegaMenu === id) {
+      setActiveMegaMenu(null)
+    } else {
+      setActiveMegaMenu(id)
+    }
     setIsMakingOfMenuOpen(false)
   }
 
   const toggleMakingOfMenu = () => {
     setIsMakingOfMenuOpen(!isMakingOfMenuOpen)
-    setIsMegaMenuOpen(false)
+    setActiveMegaMenu(null)
   }
 
   return (
@@ -248,20 +267,24 @@ const Header: React.FC = () => {
                       >
                         {item.hasMegaMenu ? (
                           <button
-                            onClick={toggleMegaMenu}
-                            onMouseEnter={() => setIsMegaMenuOpen(true)}
-                            onFocus={() => setIsMegaMenuOpen(true)}
+                            onClick={() => toggleMegaMenu(item.megaMenuId || '')}
+                            onMouseEnter={() =>
+                              item.megaMenuId && setActiveMegaMenu(item.megaMenuId)
+                            }
+                            onFocus={() => item.megaMenuId && setActiveMegaMenu(item.megaMenuId)}
                             className={`flex items-center px-3 py-2 text-[14px] transition-colors duration-200 ${
-                              isActive(item.path)
+                              isActive(item.path) || activeMegaMenu === item.megaMenuId
                                 ? 'text-blue-600'
                                 : 'text-gray-600 hover:text-gray-500'
                             }`}
-                            aria-expanded={isMegaMenuOpen ? 'true' : 'false'}
+                            aria-expanded={activeMegaMenu === item.megaMenuId ? 'true' : 'false'}
                             aria-controls="mega-menu"
                           >
                             {item.label}
                             <svg
-                              className={`w-4 h-4 ml-1 transition-transform ${isMegaMenuOpen ? 'rotate-180' : ''}`}
+                              className={`w-4 h-4 ml-1 transition-transform ${
+                                activeMegaMenu === item.megaMenuId ? 'rotate-180' : ''
+                              }`}
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
@@ -413,7 +436,7 @@ const Header: React.FC = () => {
 
       {/* Desktop Mega Menu */}
       <AnimatePresence>
-        {isMegaMenuOpen && (
+        {activeMegaMenu && (
           <motion.div
             id="mega-menu"
             ref={megaMenuRef}
@@ -421,75 +444,168 @@ const Header: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            onMouseLeave={() => setIsMegaMenuOpen(false)}
+            onMouseLeave={() => setActiveMegaMenu(null)}
             className={`hidden lg:block absolute left-0 w-full bg-white border-t border-gray-100 shadow-lg z-40 ${
               isScrolled ? 'top-[55px]' : 'top-[80px]'
             }`}
           >
             <div className="max-w-[4096px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-8">
-              <div className="grid grid-cols-3 gap-8">
-                {/* Column 1: Root */}
-                <div>
-                  <Link
-                    href={technologyAdoptionModelsSeries.root.slug}
-                    onClick={handleLinkClick}
-                    className="block text-[16px] font-bold text-[#145044] hover:text-blue-600 mb-4"
-                  >
-                    {technologyAdoptionModelsSeries.root.title}
-                  </Link>
-                </div>
+              {activeMegaMenu === 'models' && (
+                <div className="grid grid-cols-3 gap-8">
+                  {/* Column 1: Root */}
+                  <div>
+                    <Link
+                      href={technologyAdoptionModelsSeries.root.slug}
+                      onClick={handleLinkClick}
+                      className="block text-[16px] font-bold text-[#145044] hover:text-blue-600 mb-4"
+                    >
+                      {technologyAdoptionModelsSeries.root.title}
+                    </Link>
+                  </div>
 
-                {/* Column 2: Branch 1 */}
-                <div>
-                  <Link
-                    href={technologyAdoptionModelsSeries.branches[0].slug}
-                    onClick={handleLinkClick}
-                    className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
-                  >
-                    {technologyAdoptionModelsSeries.branches[0].title}
-                  </Link>
-                  <ul className="space-y-2">
-                    {technologyAdoptionModelsSeries.branches[0].articles.map((article) => (
-                      <li key={article.id}>
-                        <Link
-                          href={article.slug}
-                          onClick={handleLinkClick}
-                          className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
-                        >
-                          {article.title}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                  {/* Column 2: Branch 1 */}
+                  <div>
+                    <Link
+                      href={technologyAdoptionModelsSeries.branches[0].slug}
+                      onClick={handleLinkClick}
+                      className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                    >
+                      {technologyAdoptionModelsSeries.branches[0].title}
+                    </Link>
+                    <ul className="space-y-2">
+                      {technologyAdoptionModelsSeries.branches[0].articles.map((article) => (
+                        <li key={article.id}>
+                          <Link
+                            href={article.slug}
+                            onClick={handleLinkClick}
+                            className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                          >
+                            {article.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                {/* Column 3: Branch 2 */}
-                <div>
-                  <Link
-                    href={technologyAdoptionModelsSeries.branches[1].slug}
-                    onClick={handleLinkClick}
-                    className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
-                  >
-                    {technologyAdoptionModelsSeries.branches[1].title}
-                  </Link>
-                  <ul className="space-y-2">
-                    {technologyAdoptionModelsSeries.branches[1].articles.map((article) => (
-                      <li key={article.id}>
-                        <Link
-                          href={article.slug}
-                          onClick={handleLinkClick}
-                          className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
-                        >
-                          {article.title}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                  {/* Column 3: Branch 2 */}
+                  <div>
+                    <Link
+                      href={technologyAdoptionModelsSeries.branches[1].slug}
+                      onClick={handleLinkClick}
+                      className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                    >
+                      {technologyAdoptionModelsSeries.branches[1].title}
+                    </Link>
+                    <ul className="space-y-2">
+                      {technologyAdoptionModelsSeries.branches[1].articles.map((article) => (
+                        <li key={article.id}>
+                          <Link
+                            href={article.slug}
+                            onClick={handleLinkClick}
+                            className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                          >
+                            {article.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
+              )}
 
-              {/* Bibliography Link */}
-              {technologyAdoptionModelsSeries.bibliography && (
+              {activeMegaMenu === 'personas' && (
+                <div className="grid grid-cols-3 gap-8">
+                  {/* Column 1: Root */}
+                  <div>
+                    <Link
+                      href={personaNavigation.root.path}
+                      onClick={handleLinkClick}
+                      className="block text-[16px] font-bold text-[#145044] hover:text-blue-600 mb-4"
+                    >
+                      {personaNavigation.root.title}
+                    </Link>
+                    <p className="text-sm text-gray-600 max-w-xs">
+                      See yourself in the survey. Explore how TABS relates to your specific role or
+                      organization type.
+                    </p>
+                  </div>
+
+                  {/* Column 2: Individuals */}
+                  <div>
+                    <Link
+                      href={personaNavigation.columns.individuals.path || '#'}
+                      onClick={handleLinkClick}
+                      className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                    >
+                      {personaNavigation.columns.individuals.title}
+                    </Link>
+                    <ul className="space-y-2">
+                      {personaNavigation.columns.individuals.links.map((link) => (
+                        <li key={link.path}>
+                          {link.isExternal ? (
+                            <a
+                              href={link.path}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              {link.label} ↗
+                            </a>
+                          ) : (
+                            <Link
+                              href={link.path}
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              {link.label}
+                            </Link>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Column 3: Organizations */}
+                  <div>
+                    <Link
+                      href={personaNavigation.columns.organizations.path || '#'}
+                      onClick={handleLinkClick}
+                      className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                    >
+                      {personaNavigation.columns.organizations.title}
+                    </Link>
+                    <ul className="space-y-2">
+                      {personaNavigation.columns.organizations.links.map((link) => (
+                        <li key={link.path}>
+                          {link.isExternal ? (
+                            <a
+                              href={link.path}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              {link.label} ↗
+                            </a>
+                          ) : (
+                            <Link
+                              href={link.path}
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              {link.label}
+                            </Link>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {/* Bibliography Link (Specific to Models) */}
+              {activeMegaMenu === 'models' && technologyAdoptionModelsSeries.bibliography && (
                 <div className="mt-6 pt-4 border-t border-gray-200">
                   <Link
                     href={technologyAdoptionModelsSeries.bibliography.slug}
@@ -537,121 +653,247 @@ const Header: React.FC = () => {
                           {item.label}
                         </Link>
 
-                        {/* Branch 1: User's Journey */}
-                        <div className="ml-4 mt-2">
-                          <button
-                            onClick={() => setIsMobileBranch1Open(!isMobileBranch1Open)}
-                            className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                            aria-expanded={isMobileBranch1Open ? 'true' : 'false'}
-                          >
-                            <span className="text-[13px]">
-                              {technologyAdoptionModelsSeries.branches[0].title}
-                            </span>
-                            <svg
-                              className={`w-4 h-4 transition-transform ${isMobileBranch1Open ? 'rotate-180' : ''}`}
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M19 9l-7 7-7-7"
-                              />
-                            </svg>
-                          </button>
-                          {isMobileBranch1Open && (
-                            <ul className="mt-1 space-y-1">
-                              <li>
-                                <Link
-                                  href={technologyAdoptionModelsSeries.branches[0].slug}
-                                  onClick={handleLinkClick}
-                                  className="block px-4 py-1 text-[12px] text-blue-700 hover:bg-blue-50 rounded"
+                        {/* MODELS MEGA MENU MOBILE */}
+                        {item.megaMenuId === 'models' && (
+                          <>
+                            {/* Branch 1: User's Journey */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() => setIsMobileBranch1Open(!isMobileBranch1Open)}
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileBranch1Open ? 'true' : 'false'}
+                              >
+                                <span className="text-[13px]">
+                                  {technologyAdoptionModelsSeries.branches[0].title}
+                                </span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileBranch1Open ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
                                 >
-                                  Branch Introduction
-                                </Link>
-                              </li>
-                              {technologyAdoptionModelsSeries.branches[0].articles.map(
-                                (article) => (
-                                  <li key={article.id}>
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileBranch1Open && (
+                                <ul className="mt-1 space-y-1">
+                                  <li>
                                     <Link
-                                      href={article.slug}
+                                      href={technologyAdoptionModelsSeries.branches[0].slug}
                                       onClick={handleLinkClick}
-                                      className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                      className="block px-4 py-1 text-[12px] text-blue-700 hover:bg-blue-50 rounded"
                                     >
-                                      {article.title}
+                                      Branch Introduction
                                     </Link>
                                   </li>
-                                )
+                                  {technologyAdoptionModelsSeries.branches[0].articles.map(
+                                    (article) => (
+                                      <li key={article.id}>
+                                        <Link
+                                          href={article.slug}
+                                          onClick={handleLinkClick}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {article.title}
+                                        </Link>
+                                      </li>
+                                    )
+                                  )}
+                                </ul>
                               )}
-                            </ul>
-                          )}
-                        </div>
+                            </div>
 
-                        {/* Branch 2: Organization's Playbook */}
-                        <div className="ml-4 mt-2">
-                          <button
-                            onClick={() => setIsMobileBranch2Open(!isMobileBranch2Open)}
-                            className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                            aria-expanded={isMobileBranch2Open ? 'true' : 'false'}
-                          >
-                            <span className="text-[13px]">
-                              {technologyAdoptionModelsSeries.branches[1].title}
-                            </span>
-                            <svg
-                              className={`w-4 h-4 transition-transform ${isMobileBranch2Open ? 'rotate-180' : ''}`}
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M19 9l-7 7-7-7"
-                              />
-                            </svg>
-                          </button>
-                          {isMobileBranch2Open && (
-                            <ul className="mt-1 space-y-1">
-                              <li>
-                                <Link
-                                  href={technologyAdoptionModelsSeries.branches[1].slug}
-                                  onClick={handleLinkClick}
-                                  className="block px-4 py-1 text-[12px] text-blue-700 hover:bg-blue-50 rounded"
+                            {/* Branch 2: Organization's Playbook */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() => setIsMobileBranch2Open(!isMobileBranch2Open)}
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileBranch2Open ? 'true' : 'false'}
+                              >
+                                <span className="text-[13px]">
+                                  {technologyAdoptionModelsSeries.branches[1].title}
+                                </span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileBranch2Open ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
                                 >
-                                  Branch Introduction
-                                </Link>
-                              </li>
-                              {technologyAdoptionModelsSeries.branches[1].articles.map(
-                                (article) => (
-                                  <li key={article.id}>
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileBranch2Open && (
+                                <ul className="mt-1 space-y-1">
+                                  <li>
                                     <Link
-                                      href={article.slug}
+                                      href={technologyAdoptionModelsSeries.branches[1].slug}
                                       onClick={handleLinkClick}
-                                      className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                      className="block px-4 py-1 text-[12px] text-blue-700 hover:bg-blue-50 rounded"
                                     >
-                                      {article.title}
+                                      Branch Introduction
                                     </Link>
                                   </li>
-                                )
+                                  {technologyAdoptionModelsSeries.branches[1].articles.map(
+                                    (article) => (
+                                      <li key={article.id}>
+                                        <Link
+                                          href={article.slug}
+                                          onClick={handleLinkClick}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {article.title}
+                                        </Link>
+                                      </li>
+                                    )
+                                  )}
+                                </ul>
                               )}
-                            </ul>
-                          )}
-                        </div>
+                            </div>
 
-                        {/* Bibliography Link in Mobile */}
-                        {technologyAdoptionModelsSeries.bibliography && (
-                          <div className="ml-4 mt-2">
-                            <Link
-                              href={technologyAdoptionModelsSeries.bibliography.slug}
-                              onClick={handleLinkClick}
-                              className="block px-4 py-2 text-[12px] font-semibold text-[#145044] hover:bg-blue-50 rounded"
-                            >
-                              📚 {technologyAdoptionModelsSeries.bibliography.title}
-                            </Link>
-                          </div>
+                            {/* Bibliography Link in Mobile */}
+                            {technologyAdoptionModelsSeries.bibliography && (
+                              <div className="ml-4 mt-2">
+                                <Link
+                                  href={technologyAdoptionModelsSeries.bibliography.slug}
+                                  onClick={handleLinkClick}
+                                  className="block px-4 py-2 text-[12px] font-semibold text-[#145044] hover:bg-blue-50 rounded"
+                                >
+                                  📚 {technologyAdoptionModelsSeries.bibliography.title}
+                                </Link>
+                              </div>
+                            )}
+                          </>
+                        )}
+
+                        {/* PERSONAS MEGA MENU MOBILE */}
+                        {item.megaMenuId === 'personas' && (
+                          <>
+                            {/* Individuals */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() => setIsMobileIndividualsOpen(!isMobileIndividualsOpen)}
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileIndividualsOpen ? 'true' : 'false'}
+                              >
+                                <span className="text-[13px]">
+                                  {personaNavigation.columns.individuals.title}
+                                </span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileIndividualsOpen ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileIndividualsOpen && (
+                                <ul className="mt-1 space-y-1">
+                                  {personaNavigation.columns.individuals.links.map((link) => (
+                                    <li key={link.path}>
+                                      {link.isExternal ? (
+                                        <a
+                                          href={link.path}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          onClick={() => setIsMobileMenuOpen(false)}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {link.label} ↗
+                                        </a>
+                                      ) : (
+                                        <Link
+                                          href={link.path}
+                                          onClick={handleLinkClick}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {link.label}
+                                        </Link>
+                                      )}
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+
+                            {/* Organizations */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() =>
+                                  setIsMobileOrganizationsOpen(!isMobileOrganizationsOpen)
+                                }
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileOrganizationsOpen ? 'true' : 'false'}
+                              >
+                                <span className="text-[13px]">
+                                  {personaNavigation.columns.organizations.title}
+                                </span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileOrganizationsOpen ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileOrganizationsOpen && (
+                                <ul className="mt-1 space-y-1">
+                                  {personaNavigation.columns.organizations.links.map((link) => (
+                                    <li key={link.path}>
+                                      {link.isExternal ? (
+                                        <a
+                                          href={link.path}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          onClick={() => setIsMobileMenuOpen(false)}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {link.label} ↗
+                                        </a>
+                                      ) : (
+                                        <Link
+                                          href={link.path}
+                                          onClick={handleLinkClick}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {link.label}
+                                        </Link>
+                                      )}
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          </>
                         )}
                       </div>
                     ) : item.children?.length ? (
