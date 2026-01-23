@@ -8,9 +8,10 @@ import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
 import { motion, AnimatePresence } from 'framer-motion'
 import { technologyAdoptionModelsSeries } from '@/data/technology-adoption-models-series'
+import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 import { personaNavigation } from '@/data/persona-navigation'
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const TAKE_TABS_URL = 'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO'
+const TAKE_TABS_URL = TABS_WEBSITE_QUALTRICS_SURVEY_URL
 
 interface MenuItem {
   label: string

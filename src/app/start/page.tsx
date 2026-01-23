@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { personas } from '@/lib/personas'
+import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
 export const metadata: Metadata = {
   title: 'Find Your Role | TABS Survey',
@@ -71,7 +72,7 @@ const StartPage = () => {
               role, and you can select the option that best fits your position.
             </p>
             <a
-              href="https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO"
+              href={TABS_WEBSITE_QUALTRICS_SURVEY_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-[40px] py-[16px] bg-[#F57C20] text-white text-[18px] font-bold rounded-[6px] hover:bg-[#d66a1a] transition-all duration-300 uppercase tracking-wide"

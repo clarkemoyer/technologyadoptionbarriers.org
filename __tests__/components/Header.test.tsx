@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import Header from '../../src/components/header'
+import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '../../src/lib/tabs-survey'
 
 // Extend Jest matchers
 expect.extend(toHaveNoViolations)
@@ -49,7 +50,7 @@ describe('Header component', () => {
     const cta = screen.getByTestId('header-take-tabs-cta')
     expect(cta).toBeInTheDocument()
     expect(cta).toHaveAccessibleName('Take the TABS')
-    expect(cta).toHaveAttribute('href', 'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO')
+    expect(cta).toHaveAttribute('href', TABS_WEBSITE_QUALTRICS_SURVEY_URL)
     expect(cta).not.toHaveClass('hidden')
   })
 

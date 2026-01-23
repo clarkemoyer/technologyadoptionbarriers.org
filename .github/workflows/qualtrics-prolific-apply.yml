@@ -1,4 +1,4 @@
-name: Verify Qualtrics ↔ Prolific Survey Setup
+name: Apply Prolific ↔ Qualtrics Survey Integration (LIVE)
 
 on:
   workflow_dispatch:
@@ -7,12 +7,35 @@ on:
         description: 'Optional Survey ID (defaults to QUALTRICS_SURVEY_ID env var)'
         required: false
         type: string
+      publish_after_apply:
+        description: 'Attempt to publish a new survey definition version via API after applying changes'
+        required: false
+        type: boolean
+        default: false
+      publish_confirm:
+        description: 'If publish_after_apply is true, type PUBLISH to confirm publishing via API'
+        required: false
+        type: string
+      apply_authenticity_script:
+        description: 'Apply Prolific authenticity script from secret PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT (recommended)'
+        required: false
+        type: boolean
+        default: true
+      lock_down_redirect:
+        description: 'Lock down COMPLETE_URL in Survey Flow so only Prolific + website completion URLs are possible (recommended)'
+        required: false
+        type: boolean
+        default: false
+      confirm:
+        description: 'Type APPLY to confirm modifying the LIVE survey configuration'
+        required: true
+        type: string
 
 permissions:
   contents: read
 
 jobs:
-  verify:
+  apply:
     runs-on: ubuntu-latest
     environment: qualtrics-prod
     env:
@@ -20,27 +43,87 @@ jobs:
       QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
       QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
       INPUT_SURVEY_ID: ${{ inputs.survey_id }}
+      INPUT_CONFIRM: ${{ inputs.confirm }}
+      PROLIFIC_COMPLETION_CODE_SUCCESS: ${{ secrets.PROLIFIC_COMPLETION_CODE_SUCCESS }}
+      PROLIFIC_COMPLETION_URL: ${{ secrets.PROLIFIC_COMPLETION_URL }}
+      PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT: ${{ inputs.apply_authenticity_script == 'true' && secrets.PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT || '' }}
+      QUALTRICS_PROLIFIC_LOCK_DOWN_REDIRECT: ${{ inputs.lock_down_redirect }}
+      QUALTRICS_PROLIFIC_CONFIRM: APPLY
+      QUALTRICS_PROLIFIC_PUBLISH: ${{ inputs.publish_after_apply == 'true' && inputs.publish_confirm || '' }}
     steps:
-      - name: Verify Qualtrics configuration (API-only)
+      - name: Guardrails
         shell: bash
         run: |
           set -euo pipefail
 
+          if [[ "${INPUT_CONFIRM}" != "APPLY" ]]; then
+            echo "::error::Confirmation missing. Re-run with input confirm=APPLY." >&2
+            exit 1
+          fi
+
           if [[ -z "${QUALTRICS_API_TOKEN:-}" ]]; then
-            echo "Missing secret QUALTRICS_API_TOKEN in environment qualtrics-prod" >&2
+            echo "::error::Missing secret QUALTRICS_API_TOKEN in environment qualtrics-prod" >&2
             exit 1
           fi
 
           if [[ -z "${QUALTRICS_BASE_URL:-}" ]]; then
-            echo "Missing env var QUALTRICS_BASE_URL in environment qualtrics-prod" >&2
+            echo "::error::Missing env var QUALTRICS_BASE_URL in environment qualtrics-prod" >&2
             exit 1
           fi
 
+          if [[ -z "${PROLIFIC_COMPLETION_URL:-}" && -z "${PROLIFIC_COMPLETION_CODE_SUCCESS:-}" ]]; then
+            echo "::error::Missing Prolific completion redirect. Add secret PROLIFIC_COMPLETION_URL (preferred) or PROLIFIC_COMPLETION_CODE_SUCCESS in environment qualtrics-prod" >&2
+            exit 1
+          fi
+
+          if [[ "${{ inputs.apply_authenticity_script }}" == "true" && -z "${PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT:-}" ]]; then
+            echo "::error::apply_authenticity_script=true but secret PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT is missing/empty in environment qualtrics-prod" >&2
+            exit 1
+          fi
+
+          if [[ "${{ inputs.publish_after_apply }}" == "true" ]]; then
+            if [[ "${{ inputs.publish_confirm || '' }}" != "PUBLISH" ]]; then
+              echo "::error::Publish confirmation missing. Re-run with publish_confirm=PUBLISH." >&2
+              exit 1
+            fi
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Apply integration to survey (API)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          export QUALTRICS_SURVEY_ID="${INPUT_SURVEY_ID:-${QUALTRICS_SURVEY_ID:-}}"
+          if [[ -z "${QUALTRICS_SURVEY_ID}" ]]; then
+            echo "::error::Missing survey id. Provide inputs.survey_id or set QUALTRICS_SURVEY_ID in environment qualtrics-prod." >&2
+            exit 1
+          fi
+
+          npx --no-install tsx scripts/qualtrics-apply-prolific-integration.ts
+
+      - name: Verify configuration (API-only)
+        shell: bash
+        env:
+          EXPECT_AUTH_SCRIPT: ${{ inputs.apply_authenticity_script }}
+        run: |
+          set -euo pipefail
+
           BASE_URL="${QUALTRICS_BASE_URL%/}"
           SURVEY_ID="${INPUT_SURVEY_ID:-${QUALTRICS_SURVEY_ID:-}}"
-
           if [[ -z "${SURVEY_ID}" ]]; then
-            echo "Missing survey id. Set QUALTRICS_SURVEY_ID or pass workflow input survey_id." >&2
+            echo "::error::Missing survey id. Provide inputs.survey_id or set QUALTRICS_SURVEY_ID in environment qualtrics-prod." >&2
             exit 1
           fi
 
@@ -52,17 +135,15 @@ jobs:
           ZIP_PATH="$TMP_DIR/qualtrics-survey-export.zip"
           OUT_DIR="$TMP_DIR/qualtrics-survey-export"
 
-          echo "## Qualtrics ↔ Prolific Verification" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Qualtrics ↔ Prolific Verification (post-apply)" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "- **Survey ID:** ${SURVEY_ID}" >> "$GITHUB_STEP_SUMMARY"
           echo "- **Base URL:** ${BASE_URL}" >> "$GITHUB_STEP_SUMMARY"
-          echo "- **Mode:** API-only (no live survey traffic)" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
 
-          # Always try to read survey options (Header + EOS redirect config).
           has_prolific_script_from_options=false
-          has_completion_redirect_from_options=false
           has_redirect_termination_from_options=false
+          has_completion_redirect_template_from_options=false
 
           options_url="$BASE_URL/API/v3/survey-definitions/${SURVEY_ID}/options"
           http_code=$(curl -sS -o "$OPTIONS_JSON" -w "%{http_code}" \
@@ -71,27 +152,21 @@ jobs:
             "$options_url" || true)
 
           if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
-            # Script marker: look for Prolific Qualtrics loader.
             if jq -r '.result.Header // ""' "$OPTIONS_JSON" | grep -Eq 'assets\.prolific\.com/.*/qualtrics/qualtrics\.min\.js'; then
               has_prolific_script_from_options=true
             fi
 
-            # Redirect marker: EOSRedirectURL should use piped text so Prolific vs non-Prolific
-            # respondents can be redirected differently.
-            if jq -r '.result.EOSRedirectURL // ""' "$OPTIONS_JSON" | grep -Eq '\$\{e://Field/COMPLETE_URL\}'; then
-              has_completion_redirect_from_options=true
-            fi
-
-            # Termination mode must be Redirect in some tenants.
             if jq -r '.result.SurveyTermination // ""' "$OPTIONS_JSON" | grep -Eq '^(Redirect|redirect)$'; then
               has_redirect_termination_from_options=true
+            fi
+
+            if jq -r '.result.EOSRedirectURL // ""' "$OPTIONS_JSON" | grep -Eq '\\$\\{e://Field/COMPLETE_URL\\}'; then
+              has_completion_redirect_template_from_options=true
             fi
           else
             echo "::warning::Could not fetch survey options (HTTP $http_code): $options_url" >&2
           fi
 
-          # Prefer fetching the survey definition directly. Some Qualtrics brands return 404
-          # for the Survey Export API even when normal /surveys endpoints work.
           scan_path=""
           scan_source=""
 
@@ -112,8 +187,6 @@ jobs:
           done
 
           if [[ -z "${scan_path}" ]]; then
-            # Fallback: export the survey definition (QSF). This avoids loading the live survey.
-            # NOTE: Qualtrics export APIs can be asynchronous; we poll for completion.
             EXPORT_URL="$BASE_URL/API/v3/surveys/${SURVEY_ID}/export"
             http_code=$(curl -sS -o "$START_JSON" -w "%{http_code}" \
               -X POST \
@@ -125,14 +198,6 @@ jobs:
 
             if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
               echo "::error::Failed to fetch survey definition and could not start survey export (HTTP $http_code): $EXPORT_URL" >&2
-              echo "Survey definition endpoints tried:" >&2
-              echo "- $definition_url_1" >&2
-              echo "- $definition_url_2" >&2
-              echo "Export endpoint:" >&2
-              echo "- $EXPORT_URL" >&2
-              echo "" >&2
-              # Error bodies for 404/401/403 should not include survey contents; keep small.
-              head -c 2000 "$START_JSON" || true
               exit 1
             fi
 
@@ -152,7 +217,6 @@ jobs:
 
               if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
                 echo "::error::Export status check failed (HTTP $http_code): $STATUS_URL" >&2
-                head -c 2000 "$STATUS_JSON" || true
                 exit 1
               fi
 
@@ -172,7 +236,6 @@ jobs:
             done
 
             if [[ -z "${file_id}" ]]; then
-              # Some Qualtrics brands return fileId only after completion; try reading it one more time.
               file_id=$(jq -r '.result.fileId // .result.file_id // empty' "$STATUS_JSON")
             fi
 
@@ -208,7 +271,6 @@ jobs:
           echo "- **Definition source:** ${scan_source}" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
 
-          # Checks (do NOT print file contents)
           has_prolific_script=false
           has_prolific_pid=false
           has_study_id=false
@@ -216,13 +278,14 @@ jobs:
           has_source=false
           has_complete_url=false
 
-          # Qualtrics exports are JSON; URLs may appear with escaped slashes (e.g. \/).
-          if grep -Eq 'assets\.prolific\.com(\\/|/)assets(\\/|/)js(\\/|/)qualtrics(\\/|/)qualtrics\.min\.js' "$scan_path"; then
+          if [[ "$has_prolific_script_from_options" == "true" ]]; then
             has_prolific_script=true
           fi
 
-          if [[ "$has_prolific_script_from_options" == "true" ]]; then
-            has_prolific_script=true
+          if [[ "$has_prolific_script" != "true" ]]; then
+            if grep -Eq 'assets\.prolific\.com(\\/|/)assets(\\/|/)js(\\/|/)qualtrics(\\/|/)qualtrics\.min\.js' "$scan_path"; then
+              has_prolific_script=true
+            fi
           fi
 
           if grep -q "PROLIFIC_PID" "$scan_path"; then
@@ -245,94 +308,13 @@ jobs:
             has_complete_url=true
           fi
 
-          # If definition endpoints work but don't surface embedded data markers, fall back to QSF export.
-          if [[ "$scan_source" == "$definition_url_1" || "$scan_source" == "$definition_url_2" ]]; then
-            if [[ "$has_prolific_pid" != "true" || "$has_study_id" != "true" || "$has_session_id" != "true" || "$has_source" != "true" || "$has_complete_url" != "true" ]]; then
-              echo "::notice::Definition source did not include all embedded data markers; falling back to QSF export for verification." >&2
-
-              EXPORT_URL="$BASE_URL/API/v3/surveys/${SURVEY_ID}/export"
-              http_code=$(curl -sS -o "$START_JSON" -w "%{http_code}" \
-                -X POST \
-                -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
-                -H "Accept: application/json" \
-                -H "Content-Type: application/json" \
-                -d '{"format":"qsf"}' \
-                "$EXPORT_URL" || true)
-
-              if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
-                progress_id=$(jq -r '.result.progressId // .result.id // empty' "$START_JSON")
-                if [[ -z "${progress_id}" ]]; then
-                  echo "::warning::Could not read progressId from export start response; keeping definition-based scan." >&2
-                else
-                  file_id=""
-                  for attempt in $(seq 1 30); do
-                    STATUS_URL="$BASE_URL/API/v3/surveys/${SURVEY_ID}/export/${progress_id}"
-                    http_code=$(curl -sS -o "$STATUS_JSON" -w "%{http_code}" \
-                      -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
-                      -H "Accept: application/json" \
-                      "$STATUS_URL" || true)
-
-                    if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
-                      break
-                    fi
-
-                    status=$(jq -r '.result.status // .result.state // empty' "$STATUS_JSON")
-                    file_id=$(jq -r '.result.fileId // .result.file_id // empty' "$STATUS_JSON")
-
-                    if [[ "${status}" == "complete" || "${status}" == "completed" ]]; then
-                      break
-                    fi
-                    if [[ "${status}" == "failed" ]]; then
-                      break
-                    fi
-
-                    sleep 2
-                  done
-
-                  if [[ -n "${file_id}" ]]; then
-                    FILE_URL="$BASE_URL/API/v3/surveys/${SURVEY_ID}/export/${file_id}/file"
-                    http_code=$(curl -sS -L -o "$ZIP_PATH" -w "%{http_code}" \
-                      -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
-                      "$FILE_URL" || true)
-
-                    if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
-                      rm -rf "$OUT_DIR"
-                      mkdir -p "$OUT_DIR"
-                      unzip -q "$ZIP_PATH" -d "$OUT_DIR"
-                      qsf_path=$(find "$OUT_DIR" -maxdepth 3 -type f -name "*.qsf" -print -quit)
-
-                      if [[ -n "${qsf_path}" ]]; then
-                        scan_path="$qsf_path"
-                        scan_source="$EXPORT_URL"
-
-                        # Recompute embedded data checks from exported QSF.
-                        has_prolific_pid=false
-                        has_study_id=false
-                        has_session_id=false
-                        has_source=false
-                        has_complete_url=false
-                        if grep -q "PROLIFIC_PID" "$scan_path"; then has_prolific_pid=true; fi
-                        if grep -q "STUDY_ID" "$scan_path"; then has_study_id=true; fi
-                        if grep -q "SESSION_ID" "$scan_path"; then has_session_id=true; fi
-                        if grep -q "SOURCE" "$scan_path"; then has_source=true; fi
-                        if grep -q "COMPLETE_URL" "$scan_path"; then has_complete_url=true; fi
-                      fi
-                    fi
-                  fi
-                fi
-              else
-                echo "::warning::Could not start QSF export (HTTP $http_code); keeping definition-based scan." >&2
-              fi
-            fi
-          fi
-
           echo "### Checks" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "| Check | Result |" >> "$GITHUB_STEP_SUMMARY"
           echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
           echo "| Prolific authenticity script marker present | ${has_prolific_script} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Options: SurveyTermination is Redirect | ${has_redirect_termination_from_options} |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Options: EOSRedirectURL is ${e://Field/COMPLETE_URL} | ${has_completion_redirect_from_options} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Options: EOSRedirectURL is \${e://Field/COMPLETE_URL} | ${has_completion_redirect_template_from_options} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Embedded Data field present: PROLIFIC_PID | ${has_prolific_pid} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Embedded Data field present: STUDY_ID | ${has_study_id} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Embedded Data field present: SESSION_ID | ${has_session_id} |" >> "$GITHUB_STEP_SUMMARY"
@@ -342,9 +324,13 @@ jobs:
 
           has_errors=false
 
-          if [[ "$has_prolific_script" != "true" ]]; then
-            echo "::error::Missing Prolific authenticity script marker in survey export." >&2
+          if [[ "${EXPECT_AUTH_SCRIPT}" == "true" && "$has_prolific_script" != "true" ]]; then
+            echo "::error::Missing Prolific authenticity script marker in survey definition/options." >&2
             has_errors=true
+          fi
+
+          if [[ "${EXPECT_AUTH_SCRIPT}" != "true" && "$has_prolific_script" != "true" ]]; then
+            echo "::warning::Prolific authenticity script marker not found (apply_authenticity_script=false)." >&2
           fi
 
           if [[ "$has_prolific_pid" != "true" ]]; then
@@ -372,8 +358,13 @@ jobs:
             has_errors=true
           fi
 
-          if [[ "$has_completion_redirect_from_options" != "true" ]]; then
-            echo "::error::Options EOSRedirectURL is not set to ${e://Field/COMPLETE_URL}." >&2
+          if [[ "$has_redirect_termination_from_options" != "true" ]]; then
+            echo "::error::Options SurveyTermination is not Redirect." >&2
+            has_errors=true
+          fi
+
+          if [[ "$has_completion_redirect_template_from_options" != "true" ]]; then
+            echo "::error::Options EOSRedirectURL is not set to \${e://Field/COMPLETE_URL}." >&2
             has_errors=true
           fi
 
@@ -382,3 +373,22 @@ jobs:
           fi
 
           echo "✅ Verification passed."
+
+      - name: Next steps
+        if: always()
+        shell: bash
+        env:
+          APPLY_AUTH_SCRIPT: ${{ inputs.apply_authenticity_script }}
+        run: |
+          set -euo pipefail
+          echo "## Apply Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Survey ID:** ${INPUT_SURVEY_ID:-${QUALTRICS_SURVEY_ID:-<missing>}}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Flow updates:** Embedded Data + completion redirect" >> "$GITHUB_STEP_SUMMARY"
+          if [[ "${APPLY_AUTH_SCRIPT}" == "true" ]]; then
+            echo "- **Header script:** attempted (from secret)" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "- **Header script:** skipped" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Run 'Verify Qualtrics ↔ Prolific Survey Setup' after this for definitive marker checks." >> "$GITHUB_STEP_SUMMARY"

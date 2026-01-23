@@ -212,49 +212,109 @@ Run the workflow manually to verify setup:
 This section covers the **Qualtrics-side configuration** needed for a Prolific study that launches a Qualtrics survey and requires:
 
 - Prolific URL parameters stored in Qualtrics as Embedded Data: `PROLIFIC_PID`, `STUDY_ID`, `SESSION_ID`
-- End-of-survey redirect back to Prolific (completion URL)
+- Support for **non‑Prolific respondents** (e.g., users coming from our website) while still capturing responses
+- Conditional end-of-survey redirect:
+  - Prolific respondents → redirect back to Prolific completion URL
+  - Website/other respondents → redirect to a website completion page
 - Prolific “Authenticity checks (beta)” script injected into the Qualtrics survey header
 
-### 1. Embedded Data fields (Survey Flow)
+### 1. Embedded Data fields
 
-1. Open the survey in Qualtrics.
-2. Go to **Survey Flow**.
-3. Add an **Embedded Data** element near the top (typically at the very beginning of the flow).
-4. Add these fields (exact names):
-   - `PROLIFIC_PID`
-   - `STUDY_ID`
-   - `SESSION_ID`
-5. Save the Survey Flow.
+Add these Embedded Data fields (exact names):
+
+- `PROLIFIC_PID`
+- `STUDY_ID`
+- `SESSION_ID`
+- `SOURCE`
+- `COMPLETE_URL`
+
+You can add them via **Survey Flow** (Embedded Data element near the top) or rely on the automation in this repo (recommended).
 
 Notes:
 
 - Prolific appends these as URL parameters when participants launch your survey.
 - Qualtrics needs the fields present so the values are captured/stored.
+- `SOURCE` is used to tag where the respondent came from (e.g., `prolific`, `website`, `unknown`).
+- `COMPLETE_URL` is used to drive the end-of-survey redirect destination.
 
-### 2. Completion redirect back to Prolific
+### 2. Conditional completion redirect (Prolific + website)
 
-1. In Qualtrics, open **Survey Flow** (or the appropriate “End of Survey” options for your account).
-2. Configure the end-of-survey action to **redirect to a URL**.
-3. Set the redirect URL to Prolific’s completion URL:
-   - `https://app.prolific.com/submissions/complete?cc=<YOUR_COMPLETION_CODE>`
+1. In Qualtrics, configure the end-of-survey action to **Redirect to a URL**.
+2. Set the redirect URL to the following piped text (exact string):
+   - `${e://Field/COMPLETE_URL}`
+
+Notes:
+
+- Some Qualtrics tenants expose this as **Survey Options** fields (`SurveyTermination` + `EOSRedirectURL`) rather than a Survey Flow element. In our tenant, the API-validated termination value is `Redirect` (capital R) and the redirect URL is stored in `EOSRedirectURL`.
+
+How it works:
+
+- With **redirect lockdown enabled** (`lock_down_redirect=true`), respondents do **not** need to pass `COMPLETE_URL` at all.
+  - Survey Flow overwrites `COMPLETE_URL` to the Prolific completion URL when `PROLIFIC_PID` is present.
+  - Otherwise `COMPLETE_URL` remains the website completion page.
+- With **redirect lockdown disabled**, `COMPLETE_URL` comes from the inbound survey link.
+  - Prolific links should pass `COMPLETE_URL` pointing to the Prolific completion URL.
+  - Website links should pass `COMPLETE_URL` pointing to the website completion page.
 
 Security note:
 
-- Treat the completion code as sensitive (don’t commit it to the repo; don’t paste it into public logs).
+- Treat Prolific completion codes as sensitive (don’t commit them to the repo; don’t paste them into public logs).
+- Using `${e://Field/COMPLETE_URL}` can become an **open redirect** if you accept arbitrary `COMPLETE_URL` values from inbound URLs.
+  - Recommended mitigation: enable **redirect lockdown** in the LIVE apply workflow (`lock_down_redirect=true`). This overwrites `COMPLETE_URL` in **Survey Flow** to one of two allowlisted destinations:
+    - Prolific completion URL (when `PROLIFIC_PID` is present)
+    - Website completion URL (default)
+  - With redirect lockdown enabled, inbound links do not need to pass `COMPLETE_URL` at all (and passing it has no effect).
+
+Recommended Prolific External URL format:
+
+- Use the Qualtrics survey link, with Prolific placeholders and extra parameters.
+- If you have **redirect lockdown enabled**, you can omit `COMPLETE_URL` entirely.
+  - `PROLIFIC_PID={{%PROLIFIC_PID%}}`
+  - `STUDY_ID={{%STUDY_ID%}}`
+  - `SESSION_ID={{%SESSION_ID%}}`
+  - `SOURCE=prolific`
+  - `COMPLETE_URL=<URL-encoded Prolific completion URL>`
+
+Example (line breaks for readability):
+
+```text
+https://<your-dc>.qualtrics.com/jfe/form/<SURVEY_ID>
+   ?PROLIFIC_PID={{%PROLIFIC_PID%}}
+   &STUDY_ID={{%STUDY_ID%}}
+   &SESSION_ID={{%SESSION_ID%}}
+   &SOURCE=prolific
+   &COMPLETE_URL=https%3A%2F%2Fapp.prolific.com%2Fsubmissions%2Fcomplete%3Fcc%3D<YOUR_CODE>
+```
+
+Recommended website link format:
+
+- Use `SOURCE=TABS_Website` and pass `COMPLETE_URL` pointing to the website completion page.
 
 ### 3. Prolific authenticity checks script (Qualtrics header)
 
 If you are using Prolific’s “Authenticity checks (beta)”, ensure the Prolific-provided Qualtrics script is placed in the **survey header** (not a question block) per Prolific instructions.
 
+Automation note (recommended):
+
+- Store the entire script as a single secret named `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT`.
+- The apply tooling will inject it into the survey header when that secret is present (or when the workflow input `apply_authenticity_script` is enabled in GitHub Actions).
+
 After editing, make sure the survey is saved and any required publish/activate step is completed.
+
+Important: In some Qualtrics tenants, API changes update the editor/draft configuration but do **not** immediately affect the anonymous link respondent experience until you click **Publish** in the Qualtrics UI.
+
+If you want to probe whether your tenant supports publishing via API, try these local scripts (they prompt for tokens; nothing is committed):
+
+- List versions (read-only): [scripts/qualtrics-list-survey-versions.prompt.ps1](scripts/qualtrics-list-survey-versions.prompt.ps1)
+- Attempt publish (writes; requires typing `PUBLISH`): [scripts/qualtrics-publish-survey-version.prompt.ps1](scripts/qualtrics-publish-survey-version.prompt.ps1)
 
 ## Qualtrics ↔ Prolific Verification Workflow
 
 This repo includes an API-only verification workflow that checks the survey definition for:
 
-- Prolific authenticity script marker
-- Embedded Data field markers (`PROLIFIC_PID`, `STUDY_ID`, `SESSION_ID`)
-- Prolific completion redirect marker (`app.prolific.com/submissions/complete?cc=`)
+- Survey termination is Redirect and end-of-survey redirect is data-driven: `EOSRedirectURL=${e://Field/COMPLETE_URL}`
+- Embedded Data fields exist: `PROLIFIC_PID`, `STUDY_ID`, `SESSION_ID`, `SOURCE`, `COMPLETE_URL`
+- Prolific authenticity script marker (only when configured/enabled)
 
 Workflow: [​.github/workflows/qualtrics-prolific-verify.yml](.github/workflows/qualtrics-prolific-verify.yml)
 
@@ -276,6 +336,45 @@ gh workflow run qualtrics-prolific-verify.yml
 
 - If configured correctly: the workflow passes.
 - If not: the workflow fails and lists exactly which marker(s) are missing.
+
+## Apply Qualtrics ↔ Prolific config (LIVE)
+
+If you want to apply the required Qualtrics-side configuration **via API** (rather than clicking in the Qualtrics UI), use the live apply workflow:
+
+- Workflow: [.github/workflows/qualtrics-prolific-apply.yml](.github/workflows/qualtrics-prolific-apply.yml)
+
+What it does (API-only):
+
+- Ensures Embedded Data fields exist: `PROLIFIC_PID`, `STUDY_ID`, `SESSION_ID`, `SOURCE`, `COMPLETE_URL`
+- Ensures end-of-survey redirect is enabled and points to `${e://Field/COMPLETE_URL}`
+- Sets default `SOURCE=unknown`
+- Sets default `COMPLETE_URL` to the website completion page (safe default for non‑Prolific traffic)
+- If `lock_down_redirect=true`, Survey Flow will overwrite `COMPLETE_URL` at runtime to one of two allowlisted destinations:
+  - Prolific completion URL (when `PROLIFIC_PID` is present)
+  - Website completion URL (default)
+- Optionally injects the Prolific authenticity-checks script into the survey header (from a secret)
+
+Required GitHub Environment secrets (in `qualtrics-prod`):
+
+- `QUALTRICS_API_TOKEN` (already used by other Qualtrics workflows)
+
+Optional GitHub Environment variables (in `qualtrics-prod`):
+
+- `TABS_WEBSITE_COMPLETE_URL` (optional override for the website completion page; defaults to `https://technologyadoptionbarriers.org/survey-complete`)
+
+Optional secret (in `qualtrics-prod`):
+
+- `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT` (the Prolific-provided Qualtrics script; keep out of git and logs)
+
+Safety notes:
+
+- This workflow modifies the **live** survey configuration. Run it only with an explicit `confirm=APPLY`.
+- Secrets and full survey payloads are not printed to logs; only high-level status and markers are reported.
+
+Publishing note:
+
+- Some tenants require a separate **Publish** step for respondent-facing behavior to update.
+- The workflow supports an optional publish attempt via API: set `publish_after_apply=true` and `publish_confirm=PUBLISH`.
 
 ## Annual survey rollover (10-year data collection)
 

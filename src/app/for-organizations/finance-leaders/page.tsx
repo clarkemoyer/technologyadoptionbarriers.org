@@ -1,6 +1,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
 export const metadata: Metadata = {
   title: 'For Finance Leaders | TABS',
@@ -316,7 +317,7 @@ const FinanceLeadersPage = () => {
               Start Partnership Discussion
             </a>
             <a
-              href="https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO"
+              href={TABS_WEBSITE_QUALTRICS_SURVEY_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-[40px] py-[18px] border-2 border-white text-white rounded-[6px] font-bold text-[18px] hover:bg-white hover:text-green-900 transition-colors"

@@ -3,6 +3,8 @@
  * Maps to Q1_Role choices in the Qualtrics instrument
  */
 
+import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
+
 export interface PersonaConfig {
   id: string
   slug: string
@@ -14,7 +16,7 @@ export interface PersonaConfig {
   surveyUrl: string
 }
 
-export const SURVEY_URL = 'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO'
+export const SURVEY_URL = TABS_WEBSITE_QUALTRICS_SURVEY_URL
 
 export const personas: PersonaConfig[] = [
   {

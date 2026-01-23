@@ -1,5 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
+import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
 export const metadata: Metadata = {
   title: 'Get Involved | TABS',
@@ -25,7 +26,7 @@ const GetInvolvedPage = () => {
       ],
       cta: {
         text: 'Take the Survey',
-        link: 'https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO',
+        link: TABS_WEBSITE_QUALTRICS_SURVEY_URL,
         color: 'bg-[#F57C20] hover:bg-[#d66a1a]',
       },
     },

@@ -38,6 +38,16 @@ yarn-error.log*
 tmp_release_notes_*.md
 tmp_release_notes_generated.md
 
+# Local Qualtrics/Prolific debug artifacts (may contain secrets)
+tmp_options_put*.json
+tmp_options_put_error*.txt
+tmp_definition.json
+
+# Local Qualtrics/Prolific helper scripts (may contain secrets)
+scripts/local-secret-store.ps1
+scripts/*.local.ps1
+scripts/*.prompt.ps1
+
 # env files (can opt-in for committing if needed)
 .env*
 
@@ -65,6 +75,17 @@ surveys.json
 # MCP config (local machine / tokens)
 mcp.json
 .vscode/mcp.json
+
+# Local Qualtrics MCP OAuth tokens (do not commit)
+.vscode/qualtrics-oauth-token*.json
+qualtrics-oauth-token*.json
+
+# Local Qualtrics MCP client credentials (do not commit)
+.vscode/qualtrics-mcp-client*.json
+qualtrics-mcp-client*.json
+
+# Local Qualtrics Survey Flow snapshots (debugging)
+.vscode/qualtrics-flow*.json
 
 # Local transcription intermediates
 .tmp/
