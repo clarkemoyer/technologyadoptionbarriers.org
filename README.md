@@ -20,6 +20,7 @@ The TABS website is live and serving users at [https://technologyadoptionbarrier
 
 - 🎯 [Quick Start Guide](./QUICK_START.md) - Get development environment set up in 5 minutes
 - 👋 [Onboarding Guide](./ONBOARDING.md) - **NEW CONTRIBUTORS START HERE** - Complete onboarding for new team members
+- 📑 [Documentation Index](./DOCUMENTATION_INDEX.md) - **COMPLETE DOCUMENTATION GUIDE** - Find any documentation quickly
 - 📖 [MCP Servers Guide](./MCP_SERVERS.md) - Model Context Protocol integrations (Qualtrics, GitHub, Microsoft Learn)
 - 🔧 [API Integration Guide](./API_INTEGRATION_GUIDE.md) - Qualtrics, Prolific, and Google Analytics APIs
 
