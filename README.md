@@ -2,13 +2,14 @@
 
 **Production Site:** [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org) ✅
 
-Multi-page Next.js 16.0.7 website built with App Router for Technology Adoption Barriers (TABS). The site is **live in production** with 40+ pages, comprehensive content, and full API integrations.
+Multi-page Next.js 16.x website built with App Router for Technology Adoption Barriers (TABS). The site is **live in production** with 40+ pages, comprehensive content, and full API integrations.
 
 ## 🎉 Production Status - LIVE
 
 **Current Status:** ✅ **Fully Operational in Production**
 
 The TABS website is live and serving users at [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org) with:
+
 - 40+ pages of content including homepage, articles, policies, and interactive features
 - Full Qualtrics survey integration for data collection
 - Prolific API integration for participant management
@@ -76,9 +77,10 @@ The TABS website includes **40+ pages** organized across multiple content areas:
   - **Survey Stats** (`/barriers/survey-stats`) - Survey statistics and insights
 - **Technology Adoption Models** (`/technology-adoption-models`) - Academic frameworks and models
 
-### Article Series (15 articles)
+### Article Series (17 routes)
 
-**Branch 1: The User's Journey** - Individual adoption theories
+**Branch 1: The User's Journey** - Individual adoption theories (8 routes)
+
 - `/article-1-branch-introduction-the-users-journey`
 - `/article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance`
 - `/article-1-2-the-game-changer-a-deep-dive-into-the-technology-acceptance-model-tam`
@@ -88,7 +90,8 @@ The TABS website includes **40+ pages** organized across multiple content areas:
 - `/article-1-6-context-is-king-specialized-individual-adoption-models`
 - `/article-1-7-are-you-ready-the-role-of-technology-readiness-tri-and-tram`
 
-**Branch 2: The Organization's Playbook** - Enterprise adoption frameworks
+**Branch 2: The Organization's Playbook** - Enterprise adoption frameworks (8 routes)
+
 - `/article-2-branch-introduction-the-organizations-playbook`
 - `/article-2-1-the-strategic-lens-foundational-theories-for-organizational-adoption`
 - `/article-2-2-from-chaos-to-control-a-guide-to-maturity-models`
@@ -98,7 +101,8 @@ The TABS website includes **40+ pages** organized across multiple content areas:
 - `/article-2-6-the-cloud-revolution-prescriptive-adoption-frameworks`
 - `/article-2-7-the-ai-frontier-frameworks-for-adopting-ai-ml-and-genai`
 
-**Supporting Article**
+**Supporting Article** (1 route)
+
 - `/article-bibliography-comprehensive-series-bibliography` - Complete bibliography
 
 ### For Organizations Section
@@ -170,6 +174,7 @@ TABS integrates with multiple external APIs to automate survey management, parti
 **Purpose:** Survey management, question fetching, metrics updates, and survey lifecycle automation
 
 **Key Features:**
+
 - Survey copying for annual rollover (10-year data collection plan)
 - Automated survey configuration (Embedded Data fields, End-of-Survey redirects)
 - Question inventory and metadata extraction
@@ -178,10 +183,12 @@ TABS integrates with multiple external APIs to automate survey management, parti
 **Client Library:** `src/lib/qualtrics-api.ts`
 
 **GitHub Environment:** `qualtrics-prod`
+
 - Secrets: `QUALTRICS_API_TOKEN`
 - Variables: `QUALTRICS_BASE_URL`, `QUALTRICS_SURVEY_ID`, `QUALTRICS_COPY_DESTINATION_OWNER`
 
 **Workflows:**
+
 - `.github/workflows/qualtrics-copy-survey.yml` - Annual survey rollover
 - `.github/workflows/qualtrics-prolific-apply.yml` - Configure Prolific integration
 - `.github/workflows/qualtrics-prolific-verify.yml` - Verify Prolific setup
@@ -196,6 +203,7 @@ TABS integrates with multiple external APIs to automate survey management, parti
 **Purpose:** Participant recruitment and study data collection from Prolific platform
 
 **Key Features:**
+
 - Weekly automated data collection (Mondays 9 AM UTC)
 - Study and submission management
 - Participant data export (CSV format)
@@ -204,10 +212,12 @@ TABS integrates with multiple external APIs to automate survey management, parti
 **Client Library:** `src/lib/prolific-api.ts`
 
 **GitHub Environment:** `prolific-prod`
+
 - Secrets: `TABS_PROLIFIC_TOKEN`
-- Variables: `PROLIFIC_STUDY_ID`, `PROLIFIC_STUDY_NAME`
+- Variables: `PROLIFIC_STUDY_ID`
 
 **Workflows:**
+
 - `.github/workflows/prolific.yml` - Weekly data collection
 
 **Documentation:** [Prolific Integration Guide](./PROLIFIC_INTEGRATION.md)
@@ -217,6 +227,7 @@ TABS integrates with multiple external APIs to automate survey management, parti
 **Purpose:** Analytics reporting and impact metrics collection
 
 **Key Features:**
+
 - Daily analytics report generation (00:00 UTC)
 - Email delivery to stakeholders
 - Impact metrics updates (`src/data/impact.json`)
@@ -225,12 +236,15 @@ TABS integrates with multiple external APIs to automate survey management, parti
 **Client Library:** `src/lib/google-analytics.ts`
 
 **GitHub Environment:** `google-prod`
+
 - Secrets: `GA_PROPERTY_ID`, `GOOGLE_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PRIVATE_KEY`, `GMAIL_APP_PASSWORD`, `GOOGLE_PROJECT_OWNER_EMAIL`, `REPORT_RECIPIENT_EMAIL`
 
 **Workflows:**
+
 - `.github/workflows/ga-report.yml` - Daily analytics report
 
 **Scripts:**
+
 - `scripts/generate-report.ts` - Generate analytics report
 - `scripts/send-report-email.ts` - Email report to stakeholders
 
@@ -239,12 +253,14 @@ TABS integrates with multiple external APIs to automate survey management, parti
 The site uses a sophisticated integration between Qualtrics surveys and Prolific participant recruitment:
 
 **Setup Requirements:**
+
 - Embedded Data fields: `PROLIFIC_PID`, `STUDY_ID`, `SESSION_ID`, `SOURCE`, `COMPLETE_URL`
 - Conditional end-of-survey redirect based on source (Prolific vs. website)
 - Prolific authenticity checks script injection
 - Redirect lockdown for security (prevents open redirects)
 
 **Annual Survey Rollover Process:**
+
 1. Run `qualtrics-copy-survey.yml` to create new year survey
 2. Update `QUALTRICS_SURVEY_ID` environment variable
 3. Run `qualtrics-prolific-verify.yml` to verify setup
@@ -257,11 +273,13 @@ The site uses a sophisticated integration between Qualtrics surveys and Prolific
 MCP provides standardized interfaces for AI coding agents to interact with external tools:
 
 **Configured MCP Servers:**
+
 1. **GitHub MCP** - Repository operations, issues, PRs, workflows
 2. **Qualtrics MCP** - Survey CRUD operations via OAuth + SSE
 3. **Microsoft Learn MCP** - Official Microsoft documentation access
 
 **Setup Guides:**
+
 - [MCP Servers Documentation](./MCP_SERVERS.md) - Complete MCP configuration
 - [Qualtrics MCP Guide](./qualtrics-mcp.md) - OAuth setup and usage
 - [GitHub Copilot Agent Setup](./GITHUB_COPILOT_AGENT_SETUP.md) - GitHub UI configuration
@@ -280,6 +298,7 @@ MCP provides standardized interfaces for AI coding agents to interact with exter
 This project benefits from **Free for Charity's** generous program providing free domain names and technology services to qualified nonprofit organizations. Free for Charity supports charitable causes by offering essential web infrastructure at no cost.
 
 **Services Provided:**
+
 - Custom domain name (technologyadoptionbarriers.org)
 - Domain management and DNS services
 - Technical support for nonprofit technology needs
@@ -295,9 +314,10 @@ We are grateful for Free for Charity's support of our mission to document and ad
 The TABS website is fully operational at [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org) with:
 
 ✅ **Complete Features:**
+
 - 40+ pages of comprehensive content (homepage, articles, policies, interactive features)
 - Full Qualtrics survey integration for data collection
-- Prolific API integration for participant management  
+- Prolific API integration for participant management
 - Google Analytics Data API for automated reporting
 - Microsoft Clarity for user behavior analytics
 - Responsive design (mobile, tablet, desktop)

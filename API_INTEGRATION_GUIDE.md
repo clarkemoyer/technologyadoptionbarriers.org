@@ -25,6 +25,7 @@ The TABS project integrates with three primary external APIs:
 3. **Google Analytics Data API v1** - Analytics reporting and impact metrics
 
 All APIs are accessed through:
+
 - **GitHub Actions workflows** for automation (using environment-specific secrets)
 - **TypeScript client libraries** for programmatic access
 - **MCP servers** for AI coding agent integration (where available)
@@ -43,10 +44,10 @@ The Qualtrics REST API v3 enables automated survey management for long-term (10-
 ### Base URL
 
 ```
-https://<your-datacenter>.qualtrics.com/API/v3
+https://<your-datacenter>.qualtrics.com
 ```
 
-Replace `<your-datacenter>` with your Qualtrics brand/cluster hostname (e.g., `smeal.yul1.qualtrics.com`, `by-brand.iad1.qualtrics.com`).
+Replace `<your-datacenter>` with your Qualtrics brand/cluster hostname (e.g., `smeal.yul1.qualtrics.com`, `by-brand.iad1.qualtrics.com`). The API client automatically appends `/API/v3` to the base URL for API requests.
 
 ### Authentication
 
@@ -62,6 +63,7 @@ curl -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
 **Location:** `src/lib/qualtrics-api.ts`
 
 **Available Functions:**
+
 - `listSurveys()` - List all surveys in account
 - `getSurvey(surveyId)` - Get survey metadata
 - `copySurvey(sourceSurveyId, projectName)` - Copy survey for annual rollover
@@ -73,14 +75,17 @@ curl -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
 ### GitHub Environment: `qualtrics-prod`
 
 **Required Secrets:**
+
 - `QUALTRICS_API_TOKEN` - API authentication token
 
 **Required Variables:**
+
 - `QUALTRICS_BASE_URL` - Base URL (e.g., `https://smeal.yul1.qualtrics.com`)
 - `QUALTRICS_SURVEY_ID` - Active survey ID for automation
 - `QUALTRICS_COPY_DESTINATION_OWNER` - Owner ID for survey copies (some tenants require this)
 
 **Optional Secrets:**
+
 - `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT` - Prolific authenticity checks script
 - `TABS_WEBSITE_COMPLETE_URL` - Survey completion page URL
 
@@ -93,6 +98,7 @@ curl -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
 **Purpose:** Create a new survey copy for the next data collection year
 
 **Usage:**
+
 ```bash
 # Via GitHub UI
 Actions → Qualtrics Survey Copy → Run workflow
@@ -114,6 +120,7 @@ gh workflow run qualtrics-copy-survey.yml \
 **Purpose:** Apply Qualtrics-side configuration for Prolific integration via API
 
 **What it configures:**
+
 - Embedded Data fields: `PROLIFIC_PID`, `STUDY_ID`, `SESSION_ID`, `SOURCE`, `COMPLETE_URL`
 - End-of-survey redirect to `${e://Field/COMPLETE_URL}`
 - Default `SOURCE=unknown` and `COMPLETE_URL` pointing to website completion page
@@ -121,6 +128,7 @@ gh workflow run qualtrics-copy-survey.yml \
 - Optional Prolific authenticity script injection
 
 **Usage:**
+
 ```bash
 # Via GitHub UI
 Actions → Apply Qualtrics ↔ Prolific Config (LIVE) → Run workflow
@@ -145,12 +153,14 @@ gh workflow run qualtrics-prolific-apply.yml \
 **Purpose:** Verify Qualtrics survey has required Prolific integration markers
 
 **Checks:**
+
 - Survey termination is Redirect
 - End-of-survey redirect URL is `${e://Field/COMPLETE_URL}`
 - Embedded Data fields exist
 - Prolific authenticity script (if configured)
 
 **Usage:**
+
 ```bash
 # Via GitHub UI
 Actions → Verify Qualtrics ↔ Prolific Survey Setup → Run workflow
@@ -169,6 +179,7 @@ gh workflow run qualtrics-prolific-verify.yml
 **Purpose:** Update survey metrics and metadata
 
 **Usage:**
+
 ```bash
 gh workflow run qualtrics-metrics-update.yml
 ```
@@ -180,6 +191,7 @@ gh workflow run qualtrics-metrics-update.yml
 **Purpose:** Extract survey questions and metadata
 
 **Usage:**
+
 ```bash
 gh workflow run fetch-qualtrics-questions.yml
 ```
@@ -191,6 +203,7 @@ gh workflow run fetch-qualtrics-questions.yml
 **Purpose:** Quick connectivity and credential verification
 
 **Usage:**
+
 ```bash
 # Run this first to verify setup
 gh workflow run qualtrics-api-smoke.yml
@@ -203,11 +216,13 @@ gh workflow run qualtrics-api-smoke.yml
 The recommended sequence for yearly survey rollover:
 
 1. **Test Connectivity**
+
    ```bash
    gh workflow run qualtrics-api-smoke.yml
    ```
 
 2. **Copy Survey**
+
    ```bash
    gh workflow run qualtrics-copy-survey.yml \
      -f destination_survey_name="TABS Survey 2026"
@@ -218,11 +233,13 @@ The recommended sequence for yearly survey rollover:
    - Update `QUALTRICS_SURVEY_ID` to new survey ID
 
 4. **Verify Configuration**
+
    ```bash
    gh workflow run qualtrics-prolific-verify.yml
    ```
 
 5. **Apply Prolific Integration (if needed)**
+
    ```bash
    gh workflow run qualtrics-prolific-apply.yml \
      -f confirm=APPLY \
@@ -271,6 +288,7 @@ curl -H "Authorization: Token $PROLIFIC_API_TOKEN" \
 **Location:** `src/lib/prolific-api.ts`
 
 **Available Functions:**
+
 - `getCurrentUser(apiToken)` - Verify token and get user info
 - `listStudies(apiToken)` - List all studies
 - `getStudy(studyId, apiToken)` - Get study details
@@ -282,11 +300,14 @@ curl -H "Authorization: Token $PROLIFIC_API_TOKEN" \
 ### GitHub Environment: `prolific-prod`
 
 **Required Secrets:**
-- `TABS_PROLIFIC_TOKEN` - Prolific API token
 
-**Optional Variables:**
+- `TABS_PROLIFIC_TOKEN` - Prolific API token (mapped to `PROLIFIC_API_TOKEN` in workflows)
+
+**Required Variables:**
+
 - `PROLIFIC_STUDY_ID` - Default study ID for workflows
-- `PROLIFIC_STUDY_NAME` - Study name for documentation
+
+> **Note:** The Prolific API documentation and code examples refer to an environment variable named `PROLIFIC_API_TOKEN`. In this repository, the GitHub environment secret must be created as `TABS_PROLIFIC_TOKEN`; the workflow `.github/workflows/prolific.yml` maps that secret into the `PROLIFIC_API_TOKEN` environment variable for use in jobs.
 
 ### Automated Workflows
 
@@ -299,6 +320,7 @@ curl -H "Authorization: Token $PROLIFIC_API_TOKEN" \
 **Purpose:** Automated weekly collection of study and submission data
 
 **Usage:**
+
 ```bash
 # Manual run with default study
 gh workflow run prolific.yml
@@ -308,6 +330,7 @@ gh workflow run prolific.yml -f study_id=<study-id>
 ```
 
 **Output:**
+
 - User information (non-sensitive)
 - Study metadata and status
 - Submission statistics (approval rates, timing)
@@ -358,6 +381,7 @@ const response = await gaClient.runReport({
 **Location:** `src/lib/google-analytics.ts`
 
 **Key Features:**
+
 - Pre-configured `gaClient` with service account authentication
 - Helper functions for common report types
 - Error handling and retry logic
@@ -365,12 +389,15 @@ const response = await gaClient.runReport({
 ### GitHub Environment: `google-prod`
 
 **Required Secrets:**
-- `GA_PROPERTY_ID` - Google Analytics 4 property ID (format: `properties/123456789`)
+
+- `GA_PROPERTY_ID` - Raw numeric Google Analytics 4 property ID (e.g., `123456789`, without `properties/` prefix)
 - `GOOGLE_SERVICE_ACCOUNT_EMAIL` - Service account email
 - `GOOGLE_PRIVATE_KEY` - Service account private key (PEM format)
 - `GMAIL_APP_PASSWORD` - Gmail app password for email delivery
 - `GOOGLE_PROJECT_OWNER_EMAIL` - Email sender address
 - `REPORT_RECIPIENT_EMAIL` - Report recipient address
+
+> **Important:** `GA_PROPERTY_ID` should be the raw numeric property ID only (e.g., `123456789`). The client library automatically prepends `properties/` when making API calls. Including the prefix will cause API calls to fail with `properties/properties/...`.
 
 ### Automated Workflows
 
@@ -383,12 +410,14 @@ const response = await gaClient.runReport({
 **Purpose:** Generate and email daily analytics report
 
 **Usage:**
+
 ```bash
 # Manual run
 gh workflow run ga-report.yml
 ```
 
 **Output:**
+
 - `reports/ga-report-YYYY-MM-DD.json` - Full report data
 - `src/data/impact.json` - Public-facing metrics
 - Email sent to stakeholders with summary
@@ -398,10 +427,12 @@ gh workflow run ga-report.yml
 **Location:** `scripts/`
 
 **Available Scripts:**
+
 - `generate-report.ts` - Fetch GA data and generate report
 - `send-report-email.ts` - Email report to stakeholders
 
 **Local Usage:**
+
 ```bash
 # Set environment variables
 export GA_PROPERTY_ID="properties/123456789"
@@ -431,6 +462,7 @@ npx tsx scripts/send-report-email.ts
 ⚠️ **CRITICAL:** Never commit API tokens or credentials to the repository
 
 **What NOT to commit:**
+
 - API tokens
 - OAuth access tokens
 - Private keys
@@ -438,6 +470,7 @@ npx tsx scripts/send-report-email.ts
 - Client secrets
 
 **Safe storage locations:**
+
 - GitHub Actions environment secrets (for CI/CD)
 - Local environment variables (for development)
 - MCP OAuth prompts (for interactive use)
@@ -447,6 +480,7 @@ npx tsx scripts/send-report-email.ts
 All API credentials are stored as GitHub Actions environment secrets:
 
 **Creating Environment Secrets:**
+
 1. Go to repository Settings → Environments
 2. Select environment (e.g., `qualtrics-prod`)
 3. Click "Add secret"
@@ -454,6 +488,7 @@ All API credentials are stored as GitHub Actions environment secrets:
 5. Click "Add secret"
 
 **Accessing in Workflows:**
+
 ```yaml
 - name: Use API
   env:
@@ -469,6 +504,7 @@ All API credentials are stored as GitHub Actions environment secrets:
 For local testing, use environment variables (never commit them):
 
 **Option 1: Session-only (recommended)**
+
 ```bash
 # Set for current session
 export QUALTRICS_API_TOKEN="your-token"
@@ -476,6 +512,7 @@ export QUALTRICS_BASE_URL="https://your-dc.qualtrics.com"
 ```
 
 **Option 2: Shell profile (persistent)**
+
 ```bash
 # Add to ~/.bashrc or ~/.zshrc (DO NOT commit this file)
 export QUALTRICS_API_TOKEN="your-token"
@@ -483,6 +520,7 @@ export QUALTRICS_BASE_URL="https://your-dc.qualtrics.com"
 ```
 
 **Option 3: MCP OAuth (for Qualtrics)**
+
 ```bash
 # Copy MCP example config
 cp .vscode/mcp.json.example .vscode/mcp.json
@@ -507,17 +545,18 @@ Regularly rotate API tokens for security:
 
 All external APIs use GitHub environment secrets for secure credential management:
 
-| Environment      | API/Service             | Secrets               | Variables                  | Status                  |
-| ---------------- | ----------------------- | --------------------- | -------------------------- | ----------------------- |
-| `qualtrics-prod` | Qualtrics API v3        | 7 secrets             | 4 variables                | ✅ Active (6 workflows) |
-| `prolific-prod`  | Prolific API v1         | 2 secrets             | 3 variables                | ✅ Active (2 workflows) |
-| `google-prod`    | Google Analytics Data   | 6 secrets             | -                          | ✅ Active (1 workflow)  |
-| `microsoft-prod` | Microsoft Forms         | 1 secret              | -                          | ⚠️ Configured (future)  |
-| `stripe-prod`    | Payment processing      | 1 secret              | -                          | ⚠️ Configured (future)  |
-| `github-pages`   | GitHub Pages deployment | Auto token            | -                          | ✅ Active (deployment)  |
-| `copilot`        | MCP servers             | MCP-prefixed secrets  | -                          | ✅ Active (MCP servers) |
+| Environment      | API/Service             | Secrets              | Variables   | Status                  |
+| ---------------- | ----------------------- | -------------------- | ----------- | ----------------------- |
+| `qualtrics-prod` | Qualtrics API v3        | 7 secrets            | 4 variables | ✅ Active (6 workflows) |
+| `prolific-prod`  | Prolific API v1         | 2 secrets            | 3 variables | ✅ Active (2 workflows) |
+| `google-prod`    | Google Analytics Data   | 6 secrets            | -           | ✅ Active (1 workflow)  |
+| `microsoft-prod` | Microsoft Forms         | 1 secret             | -           | ⚠️ Configured (future)  |
+| `stripe-prod`    | Payment processing      | 1 secret             | -           | ⚠️ Configured (future)  |
+| `github-pages`   | GitHub Pages deployment | Auto token           | -           | ✅ Active (deployment)  |
+| `copilot`        | MCP servers             | MCP-prefixed secrets | -           | ✅ Active (MCP servers) |
 
 **Legend:**
+
 - ✅ **Active** - Used in GitHub Actions workflows
 - ⚠️ **Configured** - Secrets set up for future integrations
 - All environments are **only accessible in GitHub Actions**
@@ -530,14 +569,17 @@ All external APIs use GitHub environment secrets for secure credential managemen
 ### Workflow Triggers
 
 **Schedule-based:**
+
 - Prolific data collection: Weekly (Mondays 9 AM UTC)
 - Google Analytics report: Daily (00:00 UTC)
 
 **Manual dispatch:**
+
 - All workflows support `workflow_dispatch` for manual triggering
 - Use GitHub UI or `gh workflow run` command
 
 **Event-based:**
+
 - CI/CD workflows: Push to `main`, pull request events
 - CodeQL: Weekly security scans
 
@@ -556,11 +598,13 @@ All external APIs use GitHub environment secrets for secure credential managemen
 ### Setting Up Local Environment
 
 1. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 2. **Set environment variables:**
+
    ```bash
    # Qualtrics
    export QUALTRICS_API_TOKEN="your-token"
@@ -571,13 +615,14 @@ All external APIs use GitHub environment secrets for secure credential managemen
    export PROLIFIC_API_TOKEN="your-token"
    export PROLIFIC_STUDY_ID="your-study-id"
 
-   # Google Analytics
-   export GA_PROPERTY_ID="properties/123456789"
+   # Google Analytics (raw numeric ID only, no "properties/" prefix)
+   export GA_PROPERTY_ID="123456789"
    export GOOGLE_SERVICE_ACCOUNT_EMAIL="service@project.iam.gserviceaccount.com"
    export GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
    ```
 
 3. **Test API connectivity:**
+
    ```bash
    # Qualtrics
    curl -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
@@ -589,6 +634,7 @@ All external APIs use GitHub environment secrets for secure credential managemen
    ```
 
 4. **Run TypeScript scripts:**
+
    ```bash
    # Qualtrics
    npx tsx scripts/qualtrics-list-survey-versions.prompt.ps1
@@ -603,6 +649,7 @@ All external APIs use GitHub environment secrets for secure credential managemen
 ### Using Client Libraries
 
 **Qualtrics:**
+
 ```typescript
 import { listSurveys, copySurvey } from '@/lib/qualtrics-api'
 
@@ -617,6 +664,7 @@ console.log(`Created survey: ${newSurvey.id}`)
 ```
 
 **Prolific:**
+
 ```typescript
 import { getCurrentUser, listStudies } from '@/lib/prolific-api'
 
@@ -630,6 +678,7 @@ console.log(`Found ${studies.results.length} studies`)
 ```
 
 **Google Analytics:**
+
 ```typescript
 import { gaClient } from '@/lib/google-analytics'
 
@@ -654,11 +703,13 @@ console.log(response.rows)
 **Symptom:** API requests return 401 or "Invalid token"
 
 **Causes:**
+
 - Token expired or deleted
 - Token not set in environment/secrets
 - Wrong token for environment (dev vs. prod)
 
 **Solutions:**
+
 - Verify token in service dashboard (Qualtrics, Prolific, Google Cloud)
 - Check GitHub environment secrets are set correctly
 - Generate new token if expired
@@ -669,11 +720,13 @@ console.log(response.rows)
 **Symptom:** Qualtrics API returns "Survey not found"
 
 **Causes:**
+
 - Wrong survey ID
 - Survey deleted or archived
 - User doesn't have access to survey
 
 **Solutions:**
+
 - Verify survey ID in Qualtrics UI
 - Check survey ownership and permissions
 - Use `listSurveys()` to find correct survey ID
@@ -683,11 +736,13 @@ console.log(response.rows)
 **Symptom:** Prolific API returns "Study not found"
 
 **Causes:**
+
 - Wrong study ID
 - Study belongs to different workspace
 - Token doesn't have access
 
 **Solutions:**
+
 - Verify study ID in Prolific dashboard
 - Check token workspace permissions
 - Use `listStudies()` to find correct study ID
@@ -697,11 +752,13 @@ console.log(response.rows)
 **Symptom:** GA API returns "Property not found"
 
 **Causes:**
+
 - Wrong property ID format
 - Service account not granted access
 - Property doesn't exist
 
 **Solutions:**
+
 - Verify property ID format: `properties/123456789`
 - Grant service account "Viewer" role in GA4 property settings
 - Check property exists in Google Analytics UI
@@ -711,11 +768,13 @@ console.log(response.rows)
 **Symptom:** Workflow fails with "environment not found" or "secret not set"
 
 **Causes:**
+
 - Environment not created
 - Secret not added to environment
 - Workflow referencing wrong environment
 
 **Solutions:**
+
 - Create environment in Settings → Environments
 - Add required secrets to environment
 - Verify workflow YAML uses correct environment name
@@ -725,10 +784,12 @@ console.log(response.rows)
 **Symptom:** API returns 429 or rate limit errors
 
 **Causes:**
+
 - Too many requests in short time
 - Workflow running too frequently
 
 **Solutions:**
+
 - Reduce workflow frequency
 - Add delays between API calls
 - Contact API provider for rate limit increase
@@ -747,18 +808,22 @@ Or set repository secret `ACTIONS_STEP_DEBUG` to `true`.
 ### Getting Help
 
 **Qualtrics:**
+
 - Qualtrics Support: https://www.qualtrics.com/support/
 - API Documentation: https://api.qualtrics.com/
 
 **Prolific:**
+
 - Prolific Support: support@prolific.com
 - API Documentation: https://docs.prolific.com/
 
 **Google Analytics:**
+
 - Google Analytics Support: https://support.google.com/analytics/
 - API Documentation: https://developers.google.com/analytics/devguides/reporting/data/v1
 
 **This Project:**
+
 - GitHub Issues: https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues
 - Email: contact@technologyadoptionbarriers.org
 
@@ -783,6 +848,7 @@ Or set repository secret `ACTIONS_STEP_DEBUG` to `true`.
 ### Internal Workflows
 
 All workflows are in `.github/workflows/`:
+
 - `qualtrics-*.yml` - Qualtrics API workflows (6 files)
 - `prolific.yml` - Prolific data collection
 - `ga-report.yml` - Google Analytics reporting

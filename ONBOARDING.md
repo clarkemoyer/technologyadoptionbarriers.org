@@ -27,6 +27,7 @@ This guide will help you get started as a contributor to the TABS website, wheth
 TABS originated as a **Culminating Research Project (CRP) for the Smeal College of Business Doctor of Business Administration (DBA) program** at Penn State University. The project is led by **Clarke Moyer** as the primary researcher, with a CRP defense scheduled for **May 7, 2026**. A CRP is similar to a dissertation but is specific to doctoral programs (as distinct from PhD programs, which use the term "dissertation").
 
 The DBA program at Smeal emphasizes applied research that bridges academic theory and business practice. TABS embodies this philosophy by:
+
 - Conducting rigorous academic research on technology adoption barriers
 - Translating research findings into practical resources for organizations
 - Building an open-source platform that serves both academic and practitioner communities
@@ -35,6 +36,7 @@ The DBA program at Smeal emphasizes applied research that bridges academic theor
 ### Our Mission
 
 We focus on understanding barriers including:
+
 - Cost and financial constraints
 - Complexity and technical challenges
 - Lack of awareness and understanding
@@ -47,6 +49,7 @@ We focus on understanding barriers including:
 ### Project Scope
 
 The TABS website serves as:
+
 - **Research platform** - Publishing academic research on technology adoption
 - **Resource hub** - Providing frameworks and tools for organizations
 - **Data collection** - Gathering insights through surveys and studies
@@ -60,6 +63,7 @@ Get up and running quickly with these essential steps:
 ### 1. Prerequisites
 
 Ensure you have:
+
 - **Node.js 20.x** - [Download](https://nodejs.org/)
 - **Git** - [Download](https://git-scm.com/)
 - **A code editor** - We recommend [VS Code](https://code.visualstudio.com/)
@@ -107,17 +111,20 @@ All checks should pass (16 warnings are expected and documented).
 ### Technology Stack
 
 **Frontend:**
-- **Next.js 16.0.7** - React framework with App Router
+
+- **Next.js 16.x** - React framework with App Router
 - **TypeScript** - Type-safe JavaScript
 - **Tailwind CSS** - Utility-first CSS framework
 - **Static Export** - `output: 'export'` for GitHub Pages
 
 **Infrastructure:**
+
 - **GitHub Pages** - Hosting platform
 - **GitHub Actions** - CI/CD automation
 - **Free for Charity** - Domain name provider
 
 **APIs & Integrations:**
+
 - **Qualtrics API v3** - Survey management
 - **Prolific API v1** - Participant recruitment
 - **Google Analytics Data API v1** - Analytics reporting
@@ -128,6 +135,7 @@ All checks should pass (16 warnings are expected and documented).
 The site includes **40+ pages** organized into:
 
 **Core Pages:**
+
 - Homepage with hero, mission, FAQ, team sections
 - TABS Home - Research initiative overview
 - Get Involved - Participation opportunities
@@ -135,14 +143,17 @@ The site includes **40+ pages** organized into:
 - Technology Adoption Models - Academic frameworks
 
 **Article Series (15 articles):**
+
 - Branch 1: The User's Journey (8 articles on individual adoption)
 - Branch 2: The Organization's Playbook (7 articles on enterprise adoption)
 - Bibliography - Comprehensive references
 
 **For Organizations (5 pages):**
+
 - Executive, Finance, Operations, Technology leaders
 
 **Supporting Pages:**
+
 - Start Your Journey (interactive)
 - Making of TABS (behind the scenes)
 - Media resources
@@ -181,6 +192,7 @@ TABS Website (Static Next.js)
 ### Recommended Tools
 
 **Code Editor:**
+
 - **VS Code** (recommended) with extensions:
   - ESLint
   - Prettier
@@ -188,11 +200,13 @@ TABS Website (Static Next.js)
   - GitLens
 
 **Terminal:**
+
 - **Git Bash** (Windows)
 - **Terminal** (macOS/Linux)
 - **Windows Terminal** (Windows 11)
 
 **Browser:**
+
 - **Chrome** or **Edge** (DevTools support)
 - Chrome extensions: React Developer Tools
 
@@ -212,12 +226,14 @@ code .
 
 1. **Fork the repository** (if you're an external contributor)
 2. **Clone your fork:**
+
    ```bash
    git clone https://github.com/YOUR-USERNAME/technologyadoptionbarriers.org.git
    cd technologyadoptionbarriers.org
    ```
 
 3. **Add upstream remote:**
+
    ```bash
    git remote add upstream https://github.com/clarkemoyer/technologyadoptionbarriers.org.git
    ```
@@ -299,7 +315,7 @@ technologyadoptionbarriers.org/
 │   └── lib/                     # Library tests
 │
 ├── .github/
-│   └── workflows/               # GitHub Actions (13 workflows)
+│   └── workflows/               # GitHub Actions (12 workflows)
 │       ├── ci.yml               # CI pipeline
 │       ├── deploy.yml           # Deployment
 │       ├── qualtrics-*.yml      # Qualtrics workflows (6)
@@ -336,6 +352,7 @@ TABS integrates with three primary external APIs. Understanding these helps you 
 **Purpose:** Survey management and data collection
 
 **Key Features:**
+
 - Annual survey rollover (10-year data collection plan)
 - Automated survey configuration
 - Question extraction and metadata
@@ -344,6 +361,7 @@ TABS integrates with three primary external APIs. Understanding these helps you 
 **Documentation:** [API Integration Guide](./API_INTEGRATION_GUIDE.md#qualtrics-api-v3)
 
 **Workflows:**
+
 - `qualtrics-copy-survey.yml` - Copy surveys for annual rollover
 - `qualtrics-prolific-apply.yml` - Configure Prolific integration
 - `qualtrics-prolific-verify.yml` - Verify integration setup
@@ -355,6 +373,7 @@ TABS integrates with three primary external APIs. Understanding these helps you 
 **Purpose:** Participant recruitment and study management
 
 **Key Features:**
+
 - Weekly automated data collection (Mondays 9 AM UTC)
 - Study and submission management
 - Participant data export (CSV)
@@ -363,6 +382,7 @@ TABS integrates with three primary external APIs. Understanding these helps you 
 **Documentation:** [Prolific Integration Guide](./PROLIFIC_INTEGRATION.md)
 
 **Workflows:**
+
 - `prolific.yml` - Weekly data collection
 
 **Client Library:** `src/lib/prolific-api.ts`
@@ -372,6 +392,7 @@ TABS integrates with three primary external APIs. Understanding these helps you 
 **Purpose:** Analytics reporting and impact metrics
 
 **Key Features:**
+
 - Daily analytics report generation (00:00 UTC)
 - Email delivery to stakeholders
 - Impact metrics updates (`src/data/impact.json`)
@@ -380,6 +401,7 @@ TABS integrates with three primary external APIs. Understanding these helps you 
 **Documentation:** [API Integration Guide](./API_INTEGRATION_GUIDE.md#google-analytics-data-api-v1)
 
 **Workflows:**
+
 - `ga-report.yml` - Daily analytics reporting
 
 **Client Library:** `src/lib/google-analytics.ts`
@@ -389,6 +411,7 @@ TABS integrates with three primary external APIs. Understanding these helps you 
 **MCP servers** provide standardized interfaces for AI coding agents:
 
 **Configured Servers:**
+
 1. **GitHub MCP** - Repository operations, issues, PRs, workflows
 2. **Qualtrics MCP** - Survey CRUD via OAuth + SSE
 3. **Microsoft Learn MCP** - Official Microsoft documentation
@@ -413,6 +436,7 @@ We follow the [Contributor Covenant 2.1](./CODE_OF_CONDUCT.md). Please read and 
 We welcome contributions in several areas:
 
 **Code:**
+
 - Bug fixes
 - Feature development
 - Performance improvements
@@ -420,24 +444,28 @@ We welcome contributions in several areas:
 - Test coverage
 
 **Content:**
+
 - Research articles
 - Barriers documentation
 - Case studies
 - Resource guides
 
 **Documentation:**
+
 - API documentation
 - Setup guides
 - Tutorials
 - Translations
 
 **Design:**
+
 - UI/UX improvements
 - Accessibility
 - Responsive design
 - Visual assets
 
 **Testing:**
+
 - Unit tests
 - E2E tests
 - Accessibility tests
@@ -451,6 +479,7 @@ We welcome contributions in several areas:
    - Comment that you're working on it
 
 2. **Create a feature branch**
+
    ```bash
    git checkout -b feat/your-feature-name
    # or
@@ -463,6 +492,7 @@ We welcome contributions in several areas:
    - Update documentation
 
 4. **Test locally**
+
    ```bash
    npm run format    # Auto-fix formatting
    npm run lint      # Check for errors
@@ -472,6 +502,7 @@ We welcome contributions in several areas:
    ```
 
 5. **Commit with conventional commits**
+
    ```bash
    git add .
    git commit -m "feat: add new barrier category filter"
@@ -489,36 +520,42 @@ We welcome contributions in several areas:
    - `chore:` - Maintenance
 
 6. **Push and create PR**
+
    ```bash
    git push origin feat/your-feature-name
    ```
-   
+
    Then create a Pull Request on GitHub.
 
 ### Code Style Guidelines
 
 **Naming Conventions:**
+
 - **Folders:** `kebab-case` (e.g., `for-organizations`, `article-1-1`)
 - **Components:** `PascalCase` (e.g., `Header`, `FooterSection`)
 - **Functions:** `camelCase` (e.g., `getData`, `formatDate`)
 - **Constants:** `SCREAMING_SNAKE_CASE` (e.g., `API_BASE_URL`)
 
 **Why kebab-case for folders?**
+
 - SEO best practice (Google recommends hyphens in URLs)
 - Better readability
 - Screen reader friendly
 
 **TypeScript:**
+
 - Use strong typing (avoid `any`)
 - Define interfaces for props
 - Use type annotations
 
 **React:**
+
 - Functional components only
 - Use hooks (useState, useEffect, etc.)
 - Follow React best practices
 
 **Tailwind CSS:**
+
 - Mobile-first responsive design
 - Use utility classes
 - Extract components for repeated patterns
@@ -528,23 +565,27 @@ We welcome contributions in several areas:
 ### Running Tests
 
 **All tests:**
+
 ```bash
 npm test              # Unit tests
 npm run test:e2e      # E2E tests (requires build)
 ```
 
 **Individual test files:**
+
 ```bash
 npm test Header                    # Specific test
 npm run test:e2e tests/logo.spec.ts  # Specific E2E test
 ```
 
 **Watch mode (for development):**
+
 ```bash
 npm run test:watch    # Unit tests re-run on changes
 ```
 
 **Coverage:**
+
 ```bash
 npm run test:coverage  # Generate coverage report
 ```
@@ -552,6 +593,7 @@ npm run test:coverage  # Generate coverage report
 ### Writing Tests
 
 **Unit Test Example:**
+
 ```typescript
 // __tests__/components/MyComponent.test.tsx
 import { render, screen } from '@testing-library/react'
@@ -566,6 +608,7 @@ describe('MyComponent', () => {
 ```
 
 **Accessibility Test:**
+
 ```typescript
 import { axe, toHaveNoViolations } from 'jest-axe'
 
@@ -579,6 +622,7 @@ it('has no accessibility violations', async () => {
 ```
 
 **E2E Test Example:**
+
 ```typescript
 // tests/my-feature.spec.ts
 import { test, expect } from '@playwright/test'
@@ -604,6 +648,7 @@ Before submitting PR:
 ### Before Submitting
 
 **Pre-submission checklist:**
+
 - [ ] All tests pass (`npm test` + `npm run test:e2e`)
 - [ ] Code is formatted (`npm run format`)
 - [ ] No linting errors (`npm run lint`)
@@ -615,6 +660,7 @@ Before submitting PR:
 ### Creating the PR
 
 1. **Push your branch:**
+
    ```bash
    git push origin feat/your-feature-name
    ```
@@ -654,6 +700,7 @@ Before submitting PR:
 **Celebrate!** 🎉 You've contributed to TABS!
 
 **Next steps:**
+
 - Delete your feature branch (optional)
 - Update your local main branch
 - Find another issue to work on
@@ -693,17 +740,20 @@ git push origin --delete feat/your-feature-name
 ### Documentation
 
 **Getting Started:**
+
 - [README.md](./README.md) - Project overview
 - [QUICK_START.md](./QUICK_START.md) - 5-minute setup
 - [CONTRIBUTING.md](./CONTRIBUTING.md) - Detailed contribution guide
 
 **Technical:**
+
 - [API Integration Guide](./API_INTEGRATION_GUIDE.md) - API documentation
 - [TESTING.md](./TESTING.md) - Testing guide
 - [RESPONSIVE_DESIGN.md](./RESPONSIVE_DESIGN.md) - Design guide
 - [NAMING_CONVENTIONS.md](./NAMING_CONVENTIONS.md) - Naming rules
 
 **Process:**
+
 - [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) - Community standards
 - [GOVERNANCE.md](./GOVERNANCE.md) - Decision-making
 - [SECURITY.md](./SECURITY.md) - Security practices
@@ -711,23 +761,28 @@ git push origin --delete feat/your-feature-name
 ### External Resources
 
 **Next.js:**
+
 - [Next.js Documentation](https://nextjs.org/docs)
 - [App Router Guide](https://nextjs.org/docs/app)
 - [Static Export](https://nextjs.org/docs/app/building-your-application/deploying/static-exports)
 
 **React:**
+
 - [React Documentation](https://react.dev/)
 - [React Hooks](https://react.dev/reference/react)
 
 **TypeScript:**
+
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
 - [TypeScript with React](https://react-typescript-cheatsheet.netlify.app/)
 
 **Tailwind CSS:**
+
 - [Tailwind Documentation](https://tailwindcss.com/docs)
 - [Responsive Design](https://tailwindcss.com/docs/responsive-design)
 
 **Testing:**
+
 - [Jest Documentation](https://jestjs.io/docs/getting-started)
 - [React Testing Library](https://testing-library.com/react)
 - [Playwright Documentation](https://playwright.dev/)
@@ -735,16 +790,19 @@ git push origin --delete feat/your-feature-name
 ### Learning Resources
 
 **Beginner:**
+
 - [Next.js Learn](https://nextjs.org/learn) - Interactive tutorial
 - [React Tutorial](https://react.dev/learn) - Official React tutorial
 - [TypeScript for Beginners](https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html)
 
 **Intermediate:**
+
 - [Next.js Blog Tutorial](https://nextjs.org/learn/basics/create-nextjs-app)
 - [Advanced React Patterns](https://kentcdodds.com/blog/advanced-react-component-patterns)
 - [Testing Best Practices](https://kentcdodds.com/blog/common-mistakes-with-react-testing-library)
 
 **Advanced:**
+
 - [Next.js Performance](https://nextjs.org/docs/app/building-your-application/optimizing)
 - [Accessibility Guide](https://www.w3.org/WAI/WCAG21/quickref/)
 - [Static Site Optimization](https://web.dev/fast/)
@@ -754,6 +812,7 @@ git push origin --delete feat/your-feature-name
 ### Common Issues
 
 **Build fails:**
+
 ```bash
 # Clear cache and reinstall
 rm -rf .next node_modules package-lock.json
@@ -762,6 +821,7 @@ npm run build
 ```
 
 **Tests fail:**
+
 ```bash
 # Reinstall Playwright browsers
 npx playwright install --with-deps chromium
@@ -771,6 +831,7 @@ npm run test:e2e
 ```
 
 **Git issues:**
+
 ```bash
 # Sync with upstream
 git fetch upstream
@@ -780,15 +841,18 @@ git rebase upstream/main
 ### Where to Ask
 
 **Technical questions:**
+
 - GitHub Discussions (preferred)
 - GitHub Issues (for bugs)
 - Email (for private questions)
 
 **Content questions:**
+
 - GitHub Discussions
 - Email
 
 **Security questions:**
+
 - See [SECURITY.md](./SECURITY.md)
 - Email: contact@technologyadoptionbarriers.org
 
@@ -797,6 +861,7 @@ git rebase upstream/main
 **Thank you for your interest in contributing to TABS!** 🙏
 
 Your contributions help us:
+
 - Advance research on technology adoption
 - Provide resources to organizations
 - Build a stronger community
