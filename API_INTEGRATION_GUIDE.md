@@ -47,7 +47,7 @@ The Qualtrics REST API v3 enables automated survey management for long-term (10-
 https://<your-datacenter>.qualtrics.com
 ```
 
-Replace `<your-datacenter>` with your Qualtrics brand/cluster hostname (e.g., `smeal.yul1.qualtrics.com`, `by-brand.iad1.qualtrics.com`). The API client automatically appends `/API/v3` to the base URL for API requests.
+Replace `<your-datacenter>` with your Qualtrics brand/cluster hostname (e.g., `smeal.yul1.qualtrics.com`, `by-brand.iad1.qualtrics.com`). Do not include `/API/v3` in this base URL; the client library and examples below include `/API/v3` in their endpoint paths.
 
 ### Authentication
 
@@ -64,13 +64,15 @@ curl -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
 
 **Available Functions:**
 
-- `listSurveys()` - List all surveys in account
-- `getSurvey(surveyId)` - Get survey metadata
-- `copySurvey(sourceSurveyId, projectName)` - Copy survey for annual rollover
-- `getSurveyDefinition(surveyId)` - Get complete survey definition
-- `getSurveyFlow(surveyId)` - Get Survey Flow configuration
-- `updateSurveyFlow(surveyId, flowData)` - Update Survey Flow
-- `insertEmbeddedData(surveyId, fields)` - Add Embedded Data fields
+```typescript
+import { getSurveyQuestions } from '@/lib/qualtrics-api'
+```
+
+Currently, `src/lib/qualtrics-api.ts` exports only:
+
+- `getSurveyQuestions(surveyId, apiToken, baseUrl)` - Fetch all questions and basic metadata for a given survey
+
+> **Note**: Higher-level Qualtrics management operations (e.g., listing/copying surveys, updating Survey Flow, inserting Embedded Data) are implemented in GitHub Actions workflows and helper scripts, not in `src/lib/qualtrics-api.ts`. See the [Workflow Automation](#workflow-automation) section for details.
 
 ### GitHub Environment: `qualtrics-prod`
 
@@ -554,7 +556,7 @@ All external APIs use GitHub environment secrets for secure credential managemen
 
 | Environment      | API/Service             | Secrets              | Variables   | Status                  |
 | ---------------- | ----------------------- | -------------------- | ----------- | ----------------------- |
-| `qualtrics-prod` | Qualtrics API v3        | 7 secrets            | 3 variables | ✅ Active (6 workflows) |
+| `qualtrics-prod` | Qualtrics API v3        | 6 secrets            | 3 variables | ✅ Active (6 workflows) |
 | `prolific-prod`  | Prolific API v1         | 1 secret             | 1 variable  | ✅ Active (1 workflow)  |
 | `google-prod`    | Google Analytics Data   | 6 secrets            | -           | ✅ Active (1 workflow)  |
 | `microsoft-prod` | Microsoft Forms         | 1 secret             | -           | ⚠️ Configured (future)  |

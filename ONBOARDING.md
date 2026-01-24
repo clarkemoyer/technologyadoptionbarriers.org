@@ -274,7 +274,7 @@ technologyadoptionbarriers.org/
 │   │   ├── layout.tsx           # Root layout
 │   │   ├── page.tsx             # Homepage
 │   │   ├── globals.css          # Global styles
-│   │   ├── article-*/           # Article pages (15 articles)
+│   │   ├── article-*/           # Article pages (17 routes)
 │   │   ├── barriers/            # Barriers section
 │   │   ├── for-organizations/   # Org resources (5 pages)
 │   │   ├── making-of-tabs/      # Behind the scenes
