@@ -666,6 +666,10 @@ const token = process.env.QUALTRICS_API_TOKEN
 const baseUrl = process.env.QUALTRICS_BASE_URL
 const surveyId = 'SV_yourSurveyId'
 
+if (!token || !baseUrl) {
+  throw new Error('QUALTRICS_API_TOKEN and QUALTRICS_BASE_URL must be set')
+}
+
 const questions = await getSurveyQuestions(surveyId, token, baseUrl)
 console.log(`Loaded ${questions.length} questions for survey ${surveyId}`)
 ```
@@ -676,6 +680,10 @@ console.log(`Loaded ${questions.length} questions for survey ${surveyId}`)
 import { getCurrentUser, listStudies } from '@/lib/prolific-api'
 
 const token = process.env.PROLIFIC_API_TOKEN
+
+if (!token) {
+  throw new Error('PROLIFIC_API_TOKEN must be set')
+}
 
 const user = await getCurrentUser(token)
 console.log(`Connected as: ${user.name}`)
@@ -736,7 +744,11 @@ console.log(response.rows)
 
 - Verify survey ID in Qualtrics UI
 - Check survey ownership and permissions
-- Use `listSurveys()` to find correct survey ID
+- List available surveys using the Qualtrics API:
+  ```bash
+  curl -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
+       "https://$QUALTRICS_DATA_CENTER_ID.qualtrics.com/API/v3/surveys"
+  ```
 
 #### 3. Study Not Found (404 Not Found)
 
