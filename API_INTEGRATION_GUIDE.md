@@ -747,7 +747,7 @@ console.log(response.rows)
 - List available surveys using the Qualtrics API:
   ```bash
   curl -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
-       "https://$QUALTRICS_DATA_CENTER_ID.qualtrics.com/API/v3/surveys"
+       "$QUALTRICS_BASE_URL/API/v3/surveys"
   ```
 
 #### 3. Study Not Found (404 Not Found)

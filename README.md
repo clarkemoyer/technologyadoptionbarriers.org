@@ -183,7 +183,7 @@ TABS integrates with multiple external APIs to automate survey management, parti
 
 **GitHub Environment:** `qualtrics-prod`
 
-- Secrets: `QUALTRICS_API_TOKEN`
+- Secrets: `QUALTRICS_API_TOKEN`, `PROLIFIC_COMPLETION_URL`, `PROLIFIC_COMPLETION_CODE_SUCCESS`, `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT`, `QUALTRICS_USERID`, `QUALTRICS_USERNAME` (see [API Integration Guide](./API_INTEGRATION_GUIDE.md) for details)
 - Variables: `QUALTRICS_BASE_URL`, `QUALTRICS_SURVEY_ID`, `QUALTRICS_COPY_DESTINATION_OWNER`
 
 **Workflows:**
