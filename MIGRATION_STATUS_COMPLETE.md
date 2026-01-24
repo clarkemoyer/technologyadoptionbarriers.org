@@ -127,7 +127,7 @@ TABS is a **Culminating Research Project (CRP) for the Smeal College of Business
 
 ### Frontend
 
-- ✅ Next.js 16.0.7 with App Router
+- ✅ Next.js 16.x with App Router
 - ✅ TypeScript (strict mode)
 - ✅ Tailwind CSS for styling
 - ✅ Static site generation (`output: 'export'`)
@@ -137,7 +137,7 @@ TABS is a **Culminating Research Project (CRP) for the Smeal College of Business
 ### Backend & APIs
 
 - ✅ Qualtrics API v3 integration (6 workflows)
-- ✅ Prolific API v1 integration (2 workflows)
+- ✅ Prolific API v1 integration (1 workflow)
 - ✅ Google Analytics Data API v1 (1 workflow)
 - ✅ MCP servers (Qualtrics, GitHub, Microsoft Learn)
 

@@ -27,7 +27,6 @@ The TABS website is live and serving users at [https://technologyadoptionbarrier
 
 **Core Documentation:**
 
-- 👋 [Onboarding Guide](./ONBOARDING.md) - **NEW CONTRIBUTORS START HERE** - Complete guide for new team members
 - 🧪 [Testing Guide](./TESTING.md) - Unit + E2E + Accessibility tests
 - 🎨 [Responsive Design Guide](./RESPONSIVE_DESIGN.md) - Mobile-first design principles
 - 📝 [Naming Conventions](./NAMING_CONVENTIONS.md) - **Required**: kebab-case for SEO (Google-recommended)

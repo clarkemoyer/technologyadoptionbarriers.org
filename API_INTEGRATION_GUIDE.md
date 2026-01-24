@@ -78,6 +78,12 @@ curl -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
 
 - `QUALTRICS_API_TOKEN` - API authentication token
 
+**Prolific Integration Secrets (required for Prolific workflows):**
+
+- **One of:**
+  - `PROLIFIC_COMPLETION_URL` - Prolific completion URL used for redirect on successful survey completion (preferred)
+  - `PROLIFIC_COMPLETION_CODE_SUCCESS` - Prolific completion code used when a URL is not provided
+
 **Required Variables:**
 
 - `QUALTRICS_BASE_URL` - Base URL (e.g., `https://smeal.yul1.qualtrics.com`)
@@ -86,8 +92,9 @@ curl -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
 
 **Optional Secrets:**
 
-- `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT` - Prolific authenticity checks script
-- `TABS_WEBSITE_COMPLETE_URL` - Survey completion page URL
+- `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT` - Prolific authenticity checks script (required only if authenticity checks are enabled)
+- `QUALTRICS_USERID` - Qualtrics user ID (used by smoke-test workflows)
+- `QUALTRICS_USERNAME` - Qualtrics username (used by smoke-test workflows)
 
 ### Automated Workflows
 
@@ -435,7 +442,7 @@ gh workflow run ga-report.yml
 
 ```bash
 # Set environment variables
-export GA_PROPERTY_ID="properties/123456789"
+export GA_PROPERTY_ID="123456789"
 export GOOGLE_SERVICE_ACCOUNT_EMAIL="service@project.iam.gserviceaccount.com"
 export GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
 
@@ -547,8 +554,8 @@ All external APIs use GitHub environment secrets for secure credential managemen
 
 | Environment      | API/Service             | Secrets              | Variables   | Status                  |
 | ---------------- | ----------------------- | -------------------- | ----------- | ----------------------- |
-| `qualtrics-prod` | Qualtrics API v3        | 7 secrets            | 4 variables | ✅ Active (6 workflows) |
-| `prolific-prod`  | Prolific API v1         | 2 secrets            | 3 variables | ✅ Active (2 workflows) |
+| `qualtrics-prod` | Qualtrics API v3        | 7 secrets            | 3 variables | ✅ Active (6 workflows) |
+| `prolific-prod`  | Prolific API v1         | 1 secret             | 1 variable  | ✅ Active (1 workflow)  |
 | `google-prod`    | Google Analytics Data   | 6 secrets            | -           | ✅ Active (1 workflow)  |
 | `microsoft-prod` | Microsoft Forms         | 1 secret             | -           | ⚠️ Configured (future)  |
 | `stripe-prod`    | Payment processing      | 1 secret             | -           | ⚠️ Configured (future)  |
@@ -637,7 +644,7 @@ All external APIs use GitHub environment secrets for secure credential managemen
 
    ```bash
    # Qualtrics
-   npx tsx scripts/qualtrics-list-survey-versions.prompt.ps1
+   npx tsx scripts/fetch-qualtrics-questions.ts
 
    # Prolific
    npx tsx scripts/collect-prolific-data.ts
@@ -759,7 +766,7 @@ console.log(response.rows)
 
 **Solutions:**
 
-- Verify property ID format: `properties/123456789`
+- Verify property ID: use the raw numeric ID (e.g., `123456789`), not prefixed with `properties/` — the client library prepends that internally
 - Grant service account "Viewer" role in GA4 property settings
 - Check property exists in Google Analytics UI
 

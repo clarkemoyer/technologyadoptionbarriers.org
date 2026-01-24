@@ -142,10 +142,10 @@ The site includes **40+ pages** organized into:
 - Barriers - Technology adoption barriers
 - Technology Adoption Models - Academic frameworks
 
-**Article Series (15 articles):**
+**Article Series (17 routes: 14 articles + 2 branch intros + 1 bibliography):**
 
-- Branch 1: The User's Journey (8 articles on individual adoption)
-- Branch 2: The Organization's Playbook (7 articles on enterprise adoption)
+- Branch 1: The User's Journey (introduction + 7 articles on individual adoption)
+- Branch 2: The Organization's Playbook (introduction + 7 articles on enterprise adoption)
 - Bibliography - Comprehensive references
 
 **For Organizations (5 pages):**
