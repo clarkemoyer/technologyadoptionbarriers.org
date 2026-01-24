@@ -8,6 +8,10 @@
 
 The Technology Adoption Barriers (TABS) website migration is **complete**. The site is fully operational at https://technologyadoptionbarriers.org/ with 40+ pages, comprehensive content, and full API integrations.
 
+### Academic Research Context
+
+TABS is a **culminating research project for the Smeal College of Business Doctor of Business Administration (DBA) program** at Penn State University. The project is led by **Clarke Moyer** as the primary researcher, with a dissertation defense scheduled for **May 7, 2026**. This research initiative combines rigorous academic inquiry with practical application, creating a platform that serves both scholarly and practitioner communities.
+
 ## Migration Summary
 
 ### ✅ Site Status: LIVE

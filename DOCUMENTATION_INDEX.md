@@ -4,6 +4,10 @@
 
 This index provides a comprehensive guide to all documentation in the TABS repository, organized by audience and purpose.
 
+## About TABS
+
+**Technology Adoption Barriers (TABS)** is a culminating research project for the **Smeal College of Business Doctor of Business Administration (DBA) program** at Penn State University. Led by **Clarke Moyer** as the primary researcher, with a dissertation defense scheduled for **May 7, 2026**, this project combines rigorous academic research with practical application in technology adoption.
+
 ## Quick Navigation
 
 - [🚀 Getting Started](#getting-started)
@@ -37,6 +41,7 @@ This index provides a comprehensive guide to all documentation in the TABS repos
    - Quick command reference
 
 3. **[README.md](./README.md)** (43KB) - **PROJECT OVERVIEW**
+   - Academic research foundation (Smeal DBA program)
    - Production status
    - Complete page inventory (40+ pages)
    - API integrations overview
@@ -48,7 +53,7 @@ This index provides a comprehensive guide to all documentation in the TABS repos
 
 **Learn About TABS:**
 - [TABS Presentation](./TABS_PRESENTATION.md) - Research overview
-- [Migration Status Complete](./MIGRATION_STATUS_COMPLETE.md) - Site completion summary
+- [Migration Status Complete](./MIGRATION_STATUS_COMPLETE.md) - Site completion summary and academic context
 
 ---
 

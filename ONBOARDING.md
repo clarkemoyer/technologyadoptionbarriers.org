@@ -22,6 +22,16 @@ This guide will help you get started as a contributor to the TABS website, wheth
 
 **Technology Adoption Barriers (TABS)** is a research initiative documenting and addressing the challenges that individuals, businesses, and organizations face when adopting new technologies.
 
+### Academic Research Foundation
+
+TABS originated as a **culminating research project (CRP) for the Smeal College of Business Doctor of Business Administration (DBA) program** at Penn State University. The project is led by **Clarke Moyer** as the primary researcher, with a dissertation defense scheduled for **May 7, 2026**.
+
+The DBA program at Smeal emphasizes applied research that bridges academic theory and business practice. TABS embodies this philosophy by:
+- Conducting rigorous academic research on technology adoption barriers
+- Translating research findings into practical resources for organizations
+- Building an open-source platform that serves both academic and practitioner communities
+- Demonstrating how scholarly work can create real-world impact
+
 ### Our Mission
 
 We focus on understanding barriers including:
@@ -41,6 +51,7 @@ The TABS website serves as:
 - **Resource hub** - Providing frameworks and tools for organizations
 - **Data collection** - Gathering insights through surveys and studies
 - **Community** - Connecting researchers, practitioners, and organizations
+- **Academic contribution** - Supporting the Smeal DBA culminating research project
 
 ## Quick Start (5 Minutes)
 
