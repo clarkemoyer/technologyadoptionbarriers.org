@@ -660,16 +660,14 @@ All external APIs use GitHub environment secrets for secure credential managemen
 **Qualtrics:**
 
 ```typescript
-import { listSurveys, copySurvey } from '@/lib/qualtrics-api'
+import { getSurveyQuestions } from '@/lib/qualtrics-api'
 
 const token = process.env.QUALTRICS_API_TOKEN
 const baseUrl = process.env.QUALTRICS_BASE_URL
+const surveyId = 'SV_yourSurveyId'
 
-const surveys = await listSurveys(token, baseUrl)
-console.log(`Found ${surveys.length} surveys`)
-
-const newSurvey = await copySurvey('SV_source', 'New Survey Name', token, baseUrl)
-console.log(`Created survey: ${newSurvey.id}`)
+const questions = await getSurveyQuestions(surveyId, token, baseUrl)
+console.log(`Loaded ${questions.length} questions for survey ${surveyId}`)
 ```
 
 **Prolific:**
