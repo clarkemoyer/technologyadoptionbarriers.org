@@ -19,23 +19,27 @@ The TABS website is live and serving users at [https://technologyadoptionbarrier
 **Get Started:**
 
 - 🎯 [Quick Start Guide](./QUICK_START.md) - Get development environment set up in 5 minutes
+- 👋 [Onboarding Guide](./ONBOARDING.md) - **NEW CONTRIBUTORS START HERE** - Complete onboarding for new team members
 - 📖 [MCP Servers Guide](./MCP_SERVERS.md) - Model Context Protocol integrations (Qualtrics, GitHub, Microsoft Learn)
-- 🔧 [API Integration Guide](#api-integrations) - Qualtrics, Prolific, and Google Analytics APIs
+- 🔧 [API Integration Guide](./API_INTEGRATION_GUIDE.md) - Qualtrics, Prolific, and Google Analytics APIs
 
 **Core Documentation:**
 
+- 👋 [Onboarding Guide](./ONBOARDING.md) - **NEW CONTRIBUTORS START HERE** - Complete guide for new team members
 - 🧪 [Testing Guide](./TESTING.md) - Unit + E2E + Accessibility tests
 - 🎨 [Responsive Design Guide](./RESPONSIVE_DESIGN.md) - Mobile-first design principles
 - 📝 [Naming Conventions](./NAMING_CONVENTIONS.md) - **Required**: kebab-case for SEO (Google-recommended)
 - 🤖 [Copilot Autofix Guide](./COPILOT_AUTOFIX_GUIDE.md) - Understanding GitHub Copilot automated checks
 - 🏥 [Community Health Files](./COMMUNITY_HEALTH_FILES.md) - Complete guide to GitHub navigation and documentation
+- 📊 [Migration Status](./MIGRATION_STATUS_COMPLETE.md) - Migration completion summary
 
 **API & Integration Documentation:**
 
-- 📊 [Qualtrics API Cheat Sheet](./qualtrics-api-cheatsheet.md) - REST API v3 endpoints and examples
+- 📖 [API Integration Guide](./API_INTEGRATION_GUIDE.md) - **COMPREHENSIVE** - Complete API setup and usage guide
+- 📊 [Qualtrics API Cheat Sheet](./qualtrics-api-cheatsheet.md) - REST API v3 quick reference
 - 🔧 [Qualtrics MCP Guide](./qualtrics-mcp.md) - Model Context Protocol for survey management
 - 👥 [Prolific Integration](./PROLIFIC_INTEGRATION.md) - Participant recruitment and data collection
-- 📈 [Google Analytics Integration](#google-analytics-data-api) - Analytics reporting automation
+- 📈 [Google Analytics Integration](./API_INTEGRATION_GUIDE.md#google-analytics-data-api-v1) - Analytics reporting automation
 - 🔗 [External Dependencies](./EXTERNAL_DEPENDENCIES.md) - All third-party services
 
 **AI Agent Instructions:**
