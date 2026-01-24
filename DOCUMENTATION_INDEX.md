@@ -6,7 +6,7 @@ This index provides a comprehensive guide to all documentation in the TABS repos
 
 ## About TABS
 
-**Technology Adoption Barriers (TABS)** is a culminating research project for the **Smeal College of Business Doctor of Business Administration (DBA) program** at Penn State University. Led by **Clarke Moyer** as the primary researcher, with a dissertation defense scheduled for **May 7, 2026**, this project combines rigorous academic research with practical application in technology adoption.
+**Technology Adoption Barriers (TABS)** is a Culminating Research Project (CRP) for the **Smeal College of Business Doctor of Business Administration (DBA) program** at Penn State University. Led by **Clarke Moyer** as the primary researcher, with a CRP defense scheduled for **May 7, 2026**, this project combines rigorous academic research with practical application in technology adoption. A CRP is similar to a dissertation but is specific to doctoral programs (as distinct from PhD programs, which use the term "dissertation").
 
 ## Quick Navigation
 

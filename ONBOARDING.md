@@ -24,7 +24,7 @@ This guide will help you get started as a contributor to the TABS website, wheth
 
 ### Academic Research Foundation
 
-TABS originated as a **culminating research project (CRP) for the Smeal College of Business Doctor of Business Administration (DBA) program** at Penn State University. The project is led by **Clarke Moyer** as the primary researcher, with a dissertation defense scheduled for **May 7, 2026**.
+TABS originated as a **Culminating Research Project (CRP) for the Smeal College of Business Doctor of Business Administration (DBA) program** at Penn State University. The project is led by **Clarke Moyer** as the primary researcher, with a CRP defense scheduled for **May 7, 2026**. A CRP is similar to a dissertation but is specific to doctoral programs (as distinct from PhD programs, which use the term "dissertation").
 
 The DBA program at Smeal emphasizes applied research that bridges academic theory and business practice. TABS embodies this philosophy by:
 - Conducting rigorous academic research on technology adoption barriers

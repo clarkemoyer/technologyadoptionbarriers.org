@@ -10,7 +10,7 @@ The Technology Adoption Barriers (TABS) website migration is **complete**. The s
 
 ### Academic Research Context
 
-TABS is a **culminating research project for the Smeal College of Business Doctor of Business Administration (DBA) program** at Penn State University. The project is led by **Clarke Moyer** as the primary researcher, with a dissertation defense scheduled for **May 7, 2026**. This research initiative combines rigorous academic inquiry with practical application, creating a platform that serves both scholarly and practitioner communities.
+TABS is a **Culminating Research Project (CRP) for the Smeal College of Business Doctor of Business Administration (DBA) program** at Penn State University. The project is led by **Clarke Moyer** as the primary researcher, with a CRP defense scheduled for **May 7, 2026**. A CRP is similar to a dissertation but is specific to doctoral programs (as distinct from PhD programs, which use the term "dissertation"). This research initiative combines rigorous academic inquiry with practical application, creating a platform that serves both scholarly and practitioner communities.
 
 ## Migration Summary
 
