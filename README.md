@@ -859,8 +859,10 @@ This document identifies:
 ## Common Tasks
 
 - Update homepage content: edit `src/app/page.tsx`
-- Change CTA copy: update text in components under `src/app/components`
+- Update components: edit files in `src/components/` directory
 - Adjust SEO: edit `metadata` in `src/app/layout.tsx`
+- Add new pages: create new directories in `src/app/` with `page.tsx` files
+- Update sitemap: edit `src/app/sitemap.ts` when adding new pages
 
 ## Deployment Details
 
