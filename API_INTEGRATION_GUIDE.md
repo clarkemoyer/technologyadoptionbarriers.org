@@ -670,8 +670,9 @@ if (!token || !baseUrl) {
   throw new Error('QUALTRICS_API_TOKEN and QUALTRICS_BASE_URL must be set')
 }
 
-const questions = await getSurveyQuestions(surveyId, token, baseUrl)
-console.log(`Loaded ${questions.length} questions for survey ${surveyId}`)
+const surveyDefinition = await getSurveyQuestions(surveyId, token, baseUrl)
+const questionCount = Object.keys(surveyDefinition.Questions ?? {}).length
+console.log(`Loaded ${questionCount} questions for survey ${surveyId}`)
 ```
 
 **Prolific:**

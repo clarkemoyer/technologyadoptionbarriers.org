@@ -574,8 +574,8 @@ npm run test:e2e      # E2E tests (requires build)
 **Individual test files:**
 
 ```bash
-npm test Header                    # Specific test
-npm run test:e2e tests/logo.spec.ts  # Specific E2E test
+npm test -- Header                    # Specific test
+npm run test:e2e -- tests/logo.spec.ts  # Specific E2E test
 ```
 
 **Watch mode (for development):**
