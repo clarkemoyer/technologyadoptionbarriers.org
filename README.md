@@ -826,11 +826,18 @@ src/
 │   └── technology-adoption-models-series.ts   # Article series data
 │
 ├── lib/                                       # Utility functions
+│   ├── articleStyles.ts                       # Article styling utilities
 │   ├── assetPath.ts                           # Helper for GitHub Pages basePath
-│   ├── qualtrics-api.ts                       # Qualtrics API client
-│   ├── prolific-api.ts                        # Prolific API client
+│   ├── fonts.ts                               # Font configuration
+│   ├── github-utils.ts                        # GitHub API utilities
 │   ├── google-analytics.ts                    # Google Analytics client
-│   └── fonts.ts                               # Font configuration
+│   ├── personas.ts                            # Role-based persona utilities
+│   ├── prolific-api.ts                        # Prolific API client
+│   ├── qualtrics-api.ts                       # Qualtrics API client
+│   ├── qualtricsStats.ts                      # Qualtrics statistics utilities
+│   ├── release-notes.ts                       # Release notes utilities
+│   ├── stripHtml.ts                           # HTML stripping utility
+│   └── tabs-survey.ts                         # TABS survey utilities
 │
 └── public/                                    # Static assets (icons, images, fonts)
 ```
