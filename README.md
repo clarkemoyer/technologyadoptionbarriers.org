@@ -1,39 +1,143 @@
 # Technology Adoption Barriers Website
 
-Single-page Next.js 16.0.7 website built with App Router for Technology Adoption Barriers (TABS).
+**Production Site:** [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org) ✅
 
-## 🚧 Content Migration In Progress
+Multi-page Next.js 16.x website built with App Router for Technology Adoption Barriers (TABS). The site is **live in production** with 40+ pages, comprehensive content, and full API integrations.
 
-**Status:** ⚠️ Template repository being adapted for Technology Adoption Barriers content.
+## 🎉 Production Status - LIVE
 
-**Migration Documentation:**
+**Current Status:** ✅ **Fully Operational in Production**
 
-- 📊 **[MIGRATION_STATUS.md](./MIGRATION_STATUS.md)** - **START HERE** - Complete migration tracking and checklist
-- 📋 [Content Extraction Guide](./CONTENT_EXTRACTION_GUIDE.md) - Step-by-step guide for extracting content from live site
+The TABS website is live and serving users at [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org) with:
+
+- 40+ pages of content including homepage, articles, policies, and interactive features
+- Full Qualtrics survey integration for data collection
+- Prolific API integration for participant management
+- Google Analytics tracking and reporting
+- Microsoft Clarity for user behavior analytics
+- Responsive design for mobile, tablet, and desktop
+
+**Get Started:**
+
 - 🎯 [Quick Start Guide](./QUICK_START.md) - Get development environment set up in 5 minutes
+- 👋 [Onboarding Guide](./ONBOARDING.md) - **NEW CONTRIBUTORS START HERE** - Complete onboarding for new team members
+- 📑 [Documentation Index](./DOCUMENTATION_INDEX.md) - **COMPLETE DOCUMENTATION GUIDE** - Find any documentation quickly
+- 📖 [MCP Servers Guide](./MCP_SERVERS.md) - Model Context Protocol integrations (Qualtrics, GitHub, Microsoft Learn)
+- 🔧 [API Integration Guide](./API_INTEGRATION_GUIDE.md) - Qualtrics, Prolific, and Google Analytics APIs
 
-**Additional Documentation:**
+**Core Documentation:**
 
-- 📋 [Site Improvements Summary](./SITE_IMPROVEMENTS.md) - Template features and capabilities
 - 🧪 [Testing Guide](./TESTING.md) - Unit + E2E + Accessibility tests
 - 🎨 [Responsive Design Guide](./RESPONSIVE_DESIGN.md) - Mobile-first design principles
 - 📝 [Naming Conventions](./NAMING_CONVENTIONS.md) - **Required**: kebab-case for SEO (Google-recommended)
 - 🤖 [Copilot Autofix Guide](./COPILOT_AUTOFIX_GUIDE.md) - Understanding GitHub Copilot automated checks
-- 🔗 [External Dependencies](./EXTERNAL_DEPENDENCIES.md) - Third-party services and integrations
 - 🏥 [Community Health Files](./COMMUNITY_HEALTH_FILES.md) - Complete guide to GitHub navigation and documentation
-- 🔧 [GitHub Copilot Agent MCP Setup](./GITHUB_COPILOT_AGENT_SETUP.md) - **Configure MCP servers in GitHub UI**
-- 📖 [MCP Servers Reference](./MCP_SERVERS.md) - Model Context Protocol servers documentation
-- ⚡ [MCP Quick Reference](./MCP_QUICK_REFERENCE.md) - Quick reference for MCP server usage
+- 📊 [Migration Status](./MIGRATION_STATUS_COMPLETE.md) - Migration completion summary
+
+**API & Integration Documentation:**
+
+- 📖 [API Integration Guide](./API_INTEGRATION_GUIDE.md) - **COMPREHENSIVE** - Complete API setup and usage guide
+- 📊 [Qualtrics API Cheat Sheet](./qualtrics-api-cheatsheet.md) - REST API v3 quick reference
+- 🔧 [Qualtrics MCP Guide](./qualtrics-mcp.md) - Model Context Protocol for survey management
+- 👥 [Prolific Integration](./PROLIFIC_INTEGRATION.md) - Participant recruitment and data collection
+- 📈 [Google Analytics Integration](./API_INTEGRATION_GUIDE.md#google-analytics-data-api-v1) - Analytics reporting automation
+- 🔗 [External Dependencies](./EXTERNAL_DEPENDENCIES.md) - All third-party services
 
 **AI Agent Instructions:**
 
 - 🤖 [AGENTS.md](./AGENTS.md) - General instructions for IDE-integrated AI agents
-- 🧠 [CLAUDE.md](./CLAUDE.md) - Anthropic Claude-specific instructions for VS Code/Antigravity
-- 💎 [GEMINI.md](./GEMINI.md) - Google Gemini-specific instructions for VS Code/Antigravity
+- 🧠 [CLAUDE.md](./CLAUDE.md) - Anthropic Claude-specific instructions
+- 💎 [GEMINI.md](./GEMINI.md) - Google Gemini-specific instructions
 
 ## About This Repository
 
-This repository contains the Technology Adoption Barriers (TABS) website.
+This repository contains the **Technology Adoption Barriers (TABS)** website - a comprehensive research platform documenting technology adoption challenges and providing resources for organizations navigating technology change.
+
+### Academic Research Foundation
+
+**TABS is a Culminating Research Project (CRP) for the Smeal College of Business Doctor of Business Administration (DBA) program** at Penn State University. This research initiative is led by **Clarke Moyer** as the primary researcher, with a scheduled CRP defense on **May 7, 2026**. A CRP is similar to a dissertation but is specific to doctoral programs (as distinct from PhD programs, which use the term "dissertation").
+
+The project represents rigorous academic research into technology adoption barriers, combining theoretical frameworks with practical insights to advance both scholarly understanding and real-world applications. The DBA program at Smeal emphasizes applied research that bridges the gap between academic theory and business practice, making TABS an ideal platform for disseminating research findings while providing actionable resources for organizations.
+
+### Mission
+
+TABS focuses on understanding and addressing barriers that individuals, businesses, and organizations face when adopting new technologies, including cost, complexity, lack of awareness, fear of change, compatibility issues, infrastructure limitations, skill gaps, and security concerns.
+
+## Site Structure - Complete Page Inventory
+
+The TABS website includes **40+ pages** organized across multiple content areas:
+
+### Homepage & Core Pages
+
+- **Homepage** (`/`) - Main landing page with hero, mission, programs overview, FAQ, and team sections
+- **Get Involved** (`/get-involved`) - Participation opportunities (survey, donate, volunteer, sponsor)
+- **Barriers** (`/barriers`) - Comprehensive barriers documentation
+  - **Survey Stats** (`/barriers/survey-stats`) - Survey statistics and insights
+- **Technology Adoption Models** (`/technology-adoption-models`) - Academic frameworks and models
+
+### Article Series (17 routes)
+
+**Branch 1: The User's Journey** - Individual adoption theories (8 routes)
+
+- `/article-1-branch-introduction-the-users-journey`
+- `/article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance`
+- `/article-1-2-the-game-changer-a-deep-dive-into-the-technology-acceptance-model-tam`
+- `/article-1-3-expanding-the-classic-the-evolution-to-tam-2-tam-3-and-c-tam-tpb`
+- `/article-1-4-the-grand-unification-the-unified-theory-of-acceptance-and-use-of-technology-utaut`
+- `/article-1-5-beyond-the-office-utaut2-consumer-context-and-modern-syntheses`
+- `/article-1-6-context-is-king-specialized-individual-adoption-models`
+- `/article-1-7-are-you-ready-the-role-of-technology-readiness-tri-and-tram`
+
+**Branch 2: The Organization's Playbook** - Enterprise adoption frameworks (8 routes)
+
+- `/article-2-branch-introduction-the-organizations-playbook`
+- `/article-2-1-the-strategic-lens-foundational-theories-for-organizational-adoption`
+- `/article-2-2-from-chaos-to-control-a-guide-to-maturity-models`
+- `/article-2-3-managing-the-lifecycle-the-gartner-hype-cycle`
+- `/article-2-4-the-blueprint-for-enterprise-a-survey-of-architecture-frameworks`
+- `/article-2-5-the-modern-mandate-frameworks-for-cybersecurity-and-risk`
+- `/article-2-6-the-cloud-revolution-prescriptive-adoption-frameworks`
+- `/article-2-7-the-ai-frontier-frameworks-for-adopting-ai-ml-and-genai`
+
+**Supporting Article** (1 route)
+
+- `/article-bibliography-comprehensive-series-bibliography` - Complete bibliography
+
+### For Organizations Section
+
+- **For Organizations** (`/for-organizations`) - Resources for different leadership roles
+  - **Executive Leaders** (`/for-organizations/executive-leaders`)
+  - **Finance Leaders** (`/for-organizations/finance-leaders`)
+  - **Operations Leaders** (`/for-organizations/operations-leaders`)
+  - **Technology Leaders** (`/for-organizations/technology-leaders`)
+
+### Start Your Journey
+
+- **Start** (`/start`) - Interactive starting point
+  - **Role-specific** (`/start/[role]`) - Dynamic role-based guidance
+
+### Making of TABS
+
+- **Making of TABS** (`/making-of-tabs`) - Behind the scenes
+  - **CMO Survey** (`/making-of-tabs/cmo-survey`) - CMO Survey methodology
+  - **TABS Presentation** (`/making-of-tabs/tabs-presentation`) - Presentation materials
+
+### Media & Presentations
+
+- **Media** (`/media`) - Press kit and media resources
+- **TABS Presentation** (`/tabs-presentation`) - Public presentation
+
+### Legal & Policy Pages (7 pages)
+
+- **Privacy Policy** (`/privacy-policy`) - GDPR-compliant privacy policy
+- **Cookie Policy** (`/cookie-policy`) - Cookie usage and consent
+- **Terms of Service** (`/terms-of-service`) - Terms and conditions
+- **Contribution Policy** (`/contribution-policy`) - How to contribute
+- **Vulnerability Disclosure Policy** (`/vulnerability-disclosure-policy`) - Security reporting
+- **Security Acknowledgements** (`/security-acknowledgements`) - Security contributors
+- **Survey Complete** (`/survey-complete`) - Post-survey completion page
+
+**Total Pages:** 40+ pages with rich content and interactive features
 
 ## CNCF-Compliant Open Source Project
 
@@ -59,89 +163,166 @@ This repository follows **Cloud Native Computing Foundation (CNCF)** standards f
 
 **Primary Contact**: Clarke Moyer ([@clarkemoyer](https://github.com/clarkemoyer)) - contact@technologyadoptionbarriers.org
 
-## Purpose
+## API Integrations
 
-**Technology Adoption Barriers** focuses on documenting and addressing the challenges that individuals, businesses, and organizations face when trying to adopt new technologies. The site covers key barriers including cost, complexity, lack of awareness, fear of change, compatibility issues, infrastructure limitations, skill gaps, and security concerns.
+TABS integrates with multiple external APIs to automate survey management, participant recruitment, and analytics reporting:
 
-### Content Migration Status
+### Qualtrics API v3 (REST)
 
-🚧 **Current Phase:** Content extraction and migration from live site  
-📊 **Progress:** 0% Complete - See [MIGRATION_STATUS.md](./MIGRATION_STATUS.md) for detailed checklist  
-🎯 **Next Steps:** Extract content from https://technologyadoptionbarriers.org/ using [Content Extraction Guide](./CONTENT_EXTRACTION_GUIDE.md)
+**Purpose:** Survey management, question fetching, metrics updates, and survey lifecycle automation
 
-## Main Calls-to-Action
+**Key Features:**
 
-The site features two primary CTAs accessible throughout the experience via global popups:
+- Survey copying for annual rollover (10-year data collection plan)
+- Automated survey configuration (Embedded Data fields, End-of-Survey redirects)
+- Question inventory and metadata extraction
+- API connectivity testing and validation
 
-- **Donate**: Support our mission with financial contributions
-- **Volunteer**: Join our team of skilled volunteers helping nonprofits
+**Client Library:** `src/lib/qualtrics-api.ts`
+
+**GitHub Environment:** `qualtrics-prod`
+
+- Secrets: `QUALTRICS_API_TOKEN`, `PROLIFIC_COMPLETION_URL`, `PROLIFIC_COMPLETION_CODE_SUCCESS`, `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT`, `QUALTRICS_USERID`, `QUALTRICS_USERNAME` (see [API Integration Guide](./API_INTEGRATION_GUIDE.md) for details)
+- Variables: `QUALTRICS_BASE_URL`, `QUALTRICS_SURVEY_ID`, `QUALTRICS_COPY_DESTINATION_OWNER`
+
+**Workflows:**
+
+- `.github/workflows/qualtrics-copy-survey.yml` - Annual survey rollover
+- `.github/workflows/qualtrics-prolific-apply.yml` - Configure Prolific integration
+- `.github/workflows/qualtrics-prolific-verify.yml` - Verify Prolific setup
+- `.github/workflows/qualtrics-metrics-update.yml` - Update survey metrics
+- `.github/workflows/fetch-qualtrics-questions.yml` - Extract questions
+- `.github/workflows/qualtrics-api-smoke.yml` - Connectivity test
+
+**Documentation:** [Qualtrics API Cheat Sheet](./qualtrics-api-cheatsheet.md)
+
+### Prolific API v1 (REST)
+
+**Purpose:** Participant recruitment and study data collection from Prolific platform
+
+**Key Features:**
+
+- Weekly automated data collection (Mondays 9 AM UTC)
+- Study and submission management
+- Participant data export (CSV format)
+- Statistics and approval rates
+
+**Client Library:** `src/lib/prolific-api.ts`
+
+**GitHub Environment:** `prolific-prod`
+
+- Secrets: `TABS_PROLIFIC_TOKEN`
+- Variables: `PROLIFIC_STUDY_ID`
+
+**Workflows:**
+
+- `.github/workflows/prolific.yml` - Weekly data collection
+
+**Documentation:** [Prolific Integration Guide](./PROLIFIC_INTEGRATION.md)
+
+### Google Analytics Data API v1
+
+**Purpose:** Analytics reporting and impact metrics collection
+
+**Key Features:**
+
+- Daily analytics report generation (00:00 UTC)
+- Email delivery to stakeholders
+- Impact metrics updates (`src/data/impact.json`)
+- Session data, engagement rates, page paths
+
+**Client Library:** `src/lib/google-analytics.ts`
+
+**GitHub Environment:** `google-prod`
+
+- Secrets: `GA_PROPERTY_ID`, `GOOGLE_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PRIVATE_KEY`, `GMAIL_APP_PASSWORD`, `GOOGLE_PROJECT_OWNER_EMAIL`, `REPORT_RECIPIENT_EMAIL`
+
+**Workflows:**
+
+- `.github/workflows/ga-report.yml` - Daily analytics report
+
+**Scripts:**
+
+- `scripts/generate-report.ts` - Generate analytics report
+- `scripts/send-report-email.ts` - Email report to stakeholders
+
+### Qualtrics ↔ Prolific Integration
+
+The site uses a sophisticated integration between Qualtrics surveys and Prolific participant recruitment:
+
+**Setup Requirements:**
+
+- Embedded Data fields: `PROLIFIC_PID`, `STUDY_ID`, `SESSION_ID`, `SOURCE`, `COMPLETE_URL`
+- Conditional end-of-survey redirect based on source (Prolific vs. website)
+- Prolific authenticity checks script injection
+- Redirect lockdown for security (prevents open redirects)
+
+**Annual Survey Rollover Process:**
+
+1. Run `qualtrics-copy-survey.yml` to create new year survey
+2. Update `QUALTRICS_SURVEY_ID` environment variable
+3. Run `qualtrics-prolific-verify.yml` to verify setup
+4. Update Prolific study external URL
+
+**Documentation:** See [Prolific Integration Guide](./PROLIFIC_INTEGRATION.md) for detailed setup
+
+### Model Context Protocol (MCP) Servers
+
+MCP provides standardized interfaces for AI coding agents to interact with external tools:
+
+**Configured MCP Servers:**
+
+1. **GitHub MCP** - Repository operations, issues, PRs, workflows
+2. **Qualtrics MCP** - Survey CRUD operations via OAuth + SSE
+3. **Microsoft Learn MCP** - Official Microsoft documentation access
+
+**Setup Guides:**
+
+- [MCP Servers Documentation](./MCP_SERVERS.md) - Complete MCP configuration
+- [Qualtrics MCP Guide](./qualtrics-mcp.md) - OAuth setup and usage
+- [GitHub Copilot Agent Setup](./GITHUB_COPILOT_AGENT_SETUP.md) - GitHub UI configuration
 
 ## Deployment
 
 - **Live Site**: [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org)
 - **Hosting**: GitHub Pages (apex domain)
 - **Deployment**: Automated via GitHub Actions on push to `main` branch
+- **Custom Domain**: Provided by Free for Charity (see acknowledgment below)
+
+## Free for Charity Acknowledgment
+
+**Domain Name & Services:** [https://www.freeforcharity.com](https://www.freeforcharity.com)
+
+This project benefits from **Free for Charity's** generous program providing free domain names and technology services to qualified nonprofit organizations. Free for Charity supports charitable causes by offering essential web infrastructure at no cost.
+
+**Services Provided:**
+
+- Custom domain name (technologyadoptionbarriers.org)
+- Domain management and DNS services
+- Technical support for nonprofit technology needs
+
+We are grateful for Free for Charity's support of our mission to document and address technology adoption barriers. Their commitment to empowering nonprofits through free technology services makes projects like TABS possible.
+
+**Learn More:** If you represent a nonprofit organization, visit [Free for Charity](https://www.freeforcharity.com) to see if you qualify for their program.
 
 ## Development Status
 
-**Current Status: Live in Production ✅**
+**Current Status: ✅ Live in Production**
 
-The site is live at [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org) and fully functional with the following features:
+The TABS website is fully operational at [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org) with:
 
-✅ **Complete and Functional:**
+✅ **Complete Features:**
 
-- Core navigation and layout (mobile and desktop responsive)
+- 40+ pages of comprehensive content (homepage, articles, policies, interactive features)
+- Full Qualtrics survey integration for data collection
+- Prolific API integration for participant management
+- Google Analytics Data API for automated reporting
+- Microsoft Clarity for user behavior analytics
+- Responsive design (mobile, tablet, desktop)
 - SEO optimization (metadata, sitemap, robots.txt)
 - Static site generation and deployment pipeline
-- All 6 policy pages created and linked (Privacy Policy, Cookie Policy, Terms of Service, Donation Policy, Vulnerability Disclosure Policy, Security Acknowledgements)
-
-- Social media links configured (Facebook, Twitter/X, LinkedIn, GitHub)
-- Footer links fully functional with proper destinations
-- Contact information complete (email, phone, addresses)
-- Deployed to production apex domain: [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org)
-
-⚠️ **Known Limitations:**
-
-- Global Donate and Volunteer popups present in codebase but currently commented out in `layout.tsx`
-- 6 placeholder links remain in non-critical locations:
-  - 2 program application CTAs in "Ready to Get Started Now?" section (501c3 and Pre-501c3 onboarding links)
-  - 4 informational links in onboarding documentation (domain management and contact references)
-- Contact sections are informational only (no form submission backend)
-- Footer includes a Google+ social media link (service shut down in April 2019 - link should be removed or replaced)
-
-## Overview
-
-This is a single-page website with **100+ component files** organized into multiple sections that present TABS content, resources, and supporting pages. The homepage is composed of scrollable sections, with additional policy pages for legal content. The site includes a global popup system for donations and volunteer signups (codebase includes the infrastructure, though the popups are currently commented out in `layout.tsx`).
-
-### Site Structure
-
-**IMPORTANT:** When new pages or sections are added, explicitly list them here. Keep this documentation up to date.
-
-**Homepage (Single Page Application):**
-
-The main page (`/`) is a single-page application composed of scrollable sections:
-
-- Hero section
-- Mission statement
-- 2023 Results
-- Testimonials
-- Volunteer call-to-action
-- Support/Donate section
-- Endowment Fund features
-- Programs overview
-- Frequently Asked Questions
-- Team section
-
-**Legal & Policy Pages (7 Separate Routes):**
-
-- Privacy Policy (`/privacy-policy`)
-- Cookie Policy (`/cookie-policy`)
-- Terms of Service (`/terms-of-service`)
-- Donation Policy (`/donation-policy`)
-- Vulnerability Disclosure Policy (`/vulnerability-disclosure-policy`)
-- Security Acknowledgements (`/security-acknowledgements`)
-
-**Note:** All the program information, services, guides, and content are presented as sections within the single-page homepage rather than as separate page routes.
+- GDPR-compliant privacy and cookie policies
+- Automated CI/CD via GitHub Actions
 
 ## Tech Stack
 
@@ -537,8 +718,8 @@ Vercel automatically enables PR preview deployments and comments.
 
 ## Key Features
 
-- **Single-Page Architecture:** One main scrollable page with multiple sections plus 6 policy pages
-- **Component Library:** 112 component files organized by feature/section
+- **Multi-Page Architecture:** 40+ pages built with Next.js App Router including homepage, article series, legal/policy pages, and interactive features
+- **Component Library:** Reusable React components organized by feature
 - **Responsive Navigation:** Mobile and desktop navigation with Header/Footer components
 - **Cookie Consent System:** GDPR-compliant cookie consent management
 - **SEO Optimization:**
@@ -547,16 +728,10 @@ Vercel automatically enables PR preview deployments and comments.
   - Robots configuration: `src/app/robots.ts`
 - **Static Site Generation:** Full static export for GitHub Pages deployment
 - **TypeScript:** Full TypeScript implementation for type safety
-- **Modern Styling:** Tailwind CSS 4.x with utility-first approach
+- **Modern Styling:** Tailwind CSS with utility-first approach
 - **Animation:** Framer Motion for smooth transitions
 - **Icons:** Lucide React and React Icons libraries
 - **Carousels:** Swiper for image carousels and sliders
-
-**Note:**
-
-- This is a single-page application where all main content is displayed on one scrollable page with navigation anchors
-- Global Donate/Volunteer popup system is present in codebase but currently commented out in `layout.tsx`
-- Components are organized by feature/section but rendered within the single homepage
 
 ## Project Structure
 
@@ -564,51 +739,106 @@ Vercel automatically enables PR preview deployments and comments.
 
 ```
 src/
-├── app/                                        # Next.js App Router
-│   ├── page.tsx                               # Main entry point (loads homepage)
+├── app/                                        # Next.js App Router (40+ pages)
+│   ├── page.tsx                               # Homepage
 │   ├── layout.tsx                             # Root layout with global config
+│   ├── not-found.tsx                          # 404 page
 │   ├── globals.css                            # Global styles
-│   ├── home-page/                             # Homepage sections (single-page structure)
-│   ├── cookie-policy/                         # Cookie Policy page
-│   ├── donation-policy/                       # Donation Policy page
-│   ├── privacy-policy/                        # Privacy Policy page
-│   ├── security-acknowledgements/             # Security Acknowledgements page
-│   ├── terms-of-service/                      # Terms of Service page
-│   ├── vulnerability-disclosure-policy/       # Vulnerability Disclosure Policy page
 │   ├── sitemap.ts                             # Dynamic sitemap generation
-│   └── robots.ts                              # Robots.txt configuration
-├── components/                                # Reusable components (112 component files)
+│   ├── robots.ts                              # Robots.txt configuration
+│   │
+│   ├── article-1-branch-introduction-the-users-journey/  # Branch 1: User's Journey
+│   ├── article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance/
+│   ├── article-1-2-the-game-changer-a-deep-dive-into-the-technology-acceptance-model-tam/
+│   ├── article-1-3-expanding-the-classic-the-evolution-to-tam-2-tam-3-and-c-tam-tpb/
+│   ├── article-1-4-the-grand-unification-the-unified-theory-of-acceptance-and-use-of-technology-utaut/
+│   ├── article-1-5-beyond-the-office-utaut2-consumer-context-and-modern-syntheses/
+│   ├── article-1-6-context-is-king-specialized-individual-adoption-models/
+│   ├── article-1-7-are-you-ready-the-role-of-technology-readiness-tri-and-tram/
+│   │
+│   ├── article-2-branch-introduction-the-organizations-playbook/  # Branch 2: Organization's Playbook
+│   ├── article-2-1-the-strategic-lens-foundational-theories-for-organizational-adoption/
+│   ├── article-2-2-from-chaos-to-control-a-guide-to-maturity-models/
+│   ├── article-2-3-managing-the-lifecycle-the-gartner-hype-cycle/
+│   ├── article-2-4-the-blueprint-for-enterprise-a-survey-of-architecture-frameworks/
+│   ├── article-2-5-the-modern-mandate-frameworks-for-cybersecurity-and-risk/
+│   ├── article-2-6-the-cloud-revolution-prescriptive-adoption-frameworks/
+│   ├── article-2-7-the-ai-frontier-frameworks-for-adopting-ai-ml-and-genai/
+│   │
+│   ├── article-bibliography-comprehensive-series-bibliography/  # Series bibliography
+│   │
+│   ├── barriers/                              # Barriers documentation
+│   │   ├── page.tsx
+│   │   └── survey-stats/                      # Survey statistics
+│   │
+│   ├── for-organizations/                     # Resources for organizations
+│   │   ├── page.tsx
+│   │   ├── executive-leaders/
+│   │   ├── finance-leaders/
+│   │   ├── operations-leaders/
+│   │   └── technology-leaders/
+│   │
+│   ├── making-of-tabs/                        # Behind the scenes
+│   │   ├── page.tsx
+│   │   ├── cmo-survey/
+│   │   └── tabs-presentation/
+│   │
+│   ├── start/                                 # Interactive starting point
+│   │   ├── page.tsx
+│   │   └── [role]/                           # Dynamic role-based routing
+│   │
+│   ├── get-involved/                          # Participation opportunities
+│   ├── media/                                 # Press kit and media resources
+│   ├── survey-complete/                       # Post-survey completion
+│   ├── tabs-home/                             # TABS component (not a route)
+│   ├── tabs-presentation/                     # Presentation materials
+│   ├── technology-adoption-models/            # Academic frameworks
+│   │
+│   ├── contribution-policy/                   # Legal & Policy Pages
+│   ├── cookie-policy/
+│   ├── privacy-policy/
+│   ├── security-acknowledgements/
+│   ├── terms-of-service/
+│   └── vulnerability-disclosure-policy/
+│
+├── components/                                # Reusable React components
 │   ├── header/                               # Site header/navigation
 │   ├── footer/                               # Site footer
 │   ├── cookie-consent/                        # Cookie consent banner
 │   ├── google-tag-manager/                    # Analytics integration
-│   ├── ui/                                    # Reusable UI components
-│   ├── home-page/                             # Homepage-specific components
-│   ├── home/                                  # Alternative home components
-│   ├── domains/                               # Domain-related components
-│   ├── donate/                                # Donation components
-│   ├── volunteer/                             # Volunteer components
-│   ├── 501c3/                                 # 501c3 charity components
-│   ├── about-us/                              # About page components
-│   ├── charity-validation-guide/              # Charity validation guide components
-│   ├── contact-us/                            # Contact form components
-│   ├── endowment-fund/                        # Endowment fund components
-│   ├── free-charity-web-hosting/              # Web hosting program components
-│   ├── guidestar-guide/                       # GuideStar guide components
-│   ├── help-for-charities/                    # Help resources
-│   ├── online-impacts-onboarding/             # Online impacts onboarding components
-│   ├── pre501c3/                              # Pre-501c3 charity components
-│   ├── service-delivery-stages/               # Service delivery stages components
-│   ├── techstack/                             # Technology stack components
-│   ├── tools-for-success/                     # Tools and resources
-│   ├── volunteer-proving-ground/              # Volunteer proving ground components
-│   └── web-developer-training-guide/          # Web developer training guide components
+│   ├── clarity-route-tracker/                 # Microsoft Clarity tracking
+│   ├── series-navigation/                     # Article series navigation
+│   ├── survey-stats/                          # Qualtrics survey statistics
+│   ├── impact/                                # Impact metrics display
+│   ├── tabs/                                  # TABS-specific components
+│   ├── tabs-page/                             # Homepage TABS section components
+│   ├── charity-validation-guide/              # Charity validation components
+│   └── ui/                                    # Reusable UI components
+│
 ├── data/                                      # Static content
 │   ├── faqs/                                  # FAQ JSON files
 │   ├── team/                                  # Team member data
-│   └── testimonials/                          # Testimonial data
+│   ├── testimonials/                          # Testimonial data
+│   ├── barriers.ts                            # Barriers data
+│   ├── impact.json                            # Impact metrics
+│   ├── persona-navigation.ts                  # Role-based navigation
+│   ├── qualtrics-metrics.json                 # Survey metrics
+│   └── technology-adoption-models-series.ts   # Article series data
+│
 ├── lib/                                       # Utility functions
-│   └── assetPath.ts                           # Helper for GitHub Pages basePath support
+│   ├── articleStyles.ts                       # Article styling utilities
+│   ├── assetPath.ts                           # Helper for GitHub Pages basePath
+│   ├── fonts.ts                               # Font configuration
+│   ├── github-utils.ts                        # GitHub API utilities
+│   ├── google-analytics.ts                    # Google Analytics client
+│   ├── personas.ts                            # Role-based persona utilities
+│   ├── prolific-api.ts                        # Prolific API client
+│   ├── qualtrics-api.ts                       # Qualtrics API client
+│   ├── qualtricsStats.ts                      # Qualtrics statistics utilities
+│   ├── release-notes.ts                       # Release notes utilities
+│   ├── stripHtml.ts                           # HTML stripping utility
+│   └── tabs-survey.ts                         # TABS survey utilities
+│
 └── public/                                    # Static assets (icons, images, fonts)
 ```
 
@@ -636,8 +866,10 @@ This document identifies:
 ## Common Tasks
 
 - Update homepage content: edit `src/app/page.tsx`
-- Change CTA copy: update text in components under `src/app/components`
+- Update components: edit files in `src/components/` directory
 - Adjust SEO: edit `metadata` in `src/app/layout.tsx`
+- Add new pages: create new directories in `src/app/` with `page.tsx` files
+- Update sitemap: edit `src/app/sitemap.ts` when adding new pages
 
 ## Deployment Details
 
