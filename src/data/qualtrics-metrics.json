@@ -1,5 +1,5 @@
 {
-  "collectedAt": "2026-01-22T03:54:25Z",
+  "collectedAt": "2026-01-25T03:58:11Z",
   "baseUrl": "https://yul1.qualtrics.com",
   "survey": {
     "id": "SV_bkMopd73A8fzfwO",
@@ -7,14 +7,14 @@
     "organizationId": "smeal"
   },
   "responseCounts": {
-    "auditable": 8,
+    "auditable": 15,
     "generated": 501,
     "deleted": 0
   },
   "metrics": [
     {
       "metric": "auditable",
-      "value": 8
+      "value": 15
     },
     {
       "metric": "deleted",
