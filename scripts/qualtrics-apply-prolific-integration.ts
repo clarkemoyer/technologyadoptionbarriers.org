@@ -598,12 +598,25 @@ function ensureRedirectLockdownInFlow(
   const debugAddedElements: Array<Record<string, unknown>> = []
   let updated = false
 
-  const getTopLevelEmbeddedDataIndex = () =>
-    flow.findIndex((item) => {
-      if (!item || typeof item !== 'object') return false
+  type FlowRef = { parent: Array<unknown>; index: number; el: FlowElement }
+
+  const findFirstWithParent = (
+    elements: unknown,
+    predicate: (el: FlowElement) => boolean
+  ): FlowRef | null => {
+    if (!Array.isArray(elements)) return null
+    for (let i = 0; i < elements.length; i++) {
+      const item = elements[i]
+      if (!item || typeof item !== 'object') continue
       const el = item as FlowElement
-      return el.Type === 'EmbeddedData'
-    })
+      if (predicate(el)) return { parent: elements, index: i, el }
+      if ('Flow' in el) {
+        const nested = findFirstWithParent(el.Flow, predicate)
+        if (nested) return nested
+      }
+    }
+    return null
+  }
 
   const branchSetsCompleteUrlToProlific = (branchEl: FlowElement): boolean => {
     const branchFlow = (branchEl as Record<string, unknown>).Flow
@@ -627,31 +640,39 @@ function ensureRedirectLockdownInFlow(
   // element, it may evaluate before PROLIFIC_PID is populated from the querystring.
   // Fix by moving the existing Branch to immediately after the first top-level EmbeddedData.
   if (alreadyHasProlificBranchSetter) {
-    const branchIndex = flow.findIndex((item) => {
-      if (!item || typeof item !== 'object') return false
-      const el = item as FlowElement
+    const embeddedRef = findFirstWithParent(flow, (el) => el.Type === 'EmbeddedData')
+    const branchRef = findFirstWithParent(flow, (el) => {
       if (el.Type !== 'Branch') return false
       if (el.Description === 'TABS: lock down COMPLETE_URL for Prolific') return true
       return branchSetsCompleteUrlToProlific(el)
     })
 
-    const embeddedIndexBefore = getTopLevelEmbeddedDataIndex()
+    if (embeddedRef && branchRef) {
+      const sameParent = embeddedRef.parent === branchRef.parent
+      const branchBeforeEmbedded = sameParent && branchRef.index < embeddedRef.index
 
-    if (branchIndex >= 0 && embeddedIndexBefore >= 0 && branchIndex < embeddedIndexBefore) {
-      const [branchEl] = flow.splice(branchIndex, 1)
-      const embeddedIndexAfter = getTopLevelEmbeddedDataIndex()
-      if (embeddedIndexAfter >= 0) {
-        flow.splice(embeddedIndexAfter + 1, 0, branchEl)
-        updated = true
-        debugAddedElements.push({
-          Type: 'Branch',
-          FlowID: (branchEl as FlowElement).FlowID,
-          Description: 'TABS: moved Prolific COMPLETE_URL lockdown branch after EmbeddedData',
-        })
-      } else {
-        // If somehow we lost the EmbeddedData element, fall back to prepending.
-        flow.unshift(branchEl)
-        updated = true
+      // Move branch into the embedded-data container if needed, immediately after EmbeddedData.
+      if (!sameParent || branchBeforeEmbedded) {
+        const [branchEl] = (branchRef.parent as Array<unknown>).splice(branchRef.index, 1)
+        // Re-find embedded ref since indices may have shifted.
+        const embeddedRefAfter = findFirstWithParent(flow, (el) => el.Type === 'EmbeddedData')
+        if (embeddedRefAfter) {
+          ;(embeddedRefAfter.parent as Array<unknown>).splice(
+            embeddedRefAfter.index + 1,
+            0,
+            branchEl
+          )
+          updated = true
+          debugAddedElements.push({
+            Type: 'Branch',
+            FlowID: (branchEl as FlowElement).FlowID,
+            Description: 'TABS: moved Prolific COMPLETE_URL lockdown branch after EmbeddedData',
+          })
+        } else {
+          // If we somehow can't find EmbeddedData anymore, put the branch back at the start.
+          flow.unshift(branchEl)
+          updated = true
+        }
       }
     }
   }
@@ -726,11 +747,11 @@ function ensureRedirectLockdownInFlow(
     // Many Qualtrics tenants only populate querystring → embedded data during the
     // EmbeddedData Flow element. If we put the Branch first, PROLIFIC_PID may not
     // be available yet, and the condition will always evaluate false.
-    const topLevelEmbeddedDataIndex = getTopLevelEmbeddedDataIndex()
-    if (topLevelEmbeddedDataIndex >= 0) {
-      flow.splice(topLevelEmbeddedDataIndex + 1, 0, branch)
+    const embeddedRef = findFirstWithParent(flow, (el) => el.Type === 'EmbeddedData')
+    if (embeddedRef) {
+      ;(embeddedRef.parent as Array<unknown>).splice(embeddedRef.index + 1, 0, branch)
     } else {
-      // Fallback: if no top-level EmbeddedData exists (unexpected), prepend.
+      // Fallback: if no EmbeddedData exists (unexpected), prepend to root.
       flow.unshift(branch)
     }
 

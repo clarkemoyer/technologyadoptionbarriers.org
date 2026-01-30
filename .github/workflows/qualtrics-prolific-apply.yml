@@ -155,6 +155,9 @@ jobs:
             "$options_url" || true)
 
           if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
+            eos_redirect_url=$(jq -r '.result.EOSRedirectURL // ""' "$OPTIONS_JSON")
+            echo "- **Options: EOSRedirectURL:** ${eos_redirect_url}" >> "$GITHUB_STEP_SUMMARY"
+
             if jq -r '.result.Header // ""' "$OPTIONS_JSON" | grep -Eq 'assets\.prolific\.com/.*/qualtrics/qualtrics\.min\.js'; then
               has_prolific_script_from_options=true
             fi
