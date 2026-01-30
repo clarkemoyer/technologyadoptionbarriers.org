@@ -598,6 +598,64 @@ function ensureRedirectLockdownInFlow(
   const debugAddedElements: Array<Record<string, unknown>> = []
   let updated = false
 
+  const getTopLevelEmbeddedDataIndex = () =>
+    flow.findIndex((item) => {
+      if (!item || typeof item !== 'object') return false
+      const el = item as FlowElement
+      return el.Type === 'EmbeddedData'
+    })
+
+  const branchSetsCompleteUrlToProlific = (branchEl: FlowElement): boolean => {
+    const branchFlow = (branchEl as Record<string, unknown>).Flow
+    if (!Array.isArray(branchFlow)) return false
+    for (const child of branchFlow) {
+      if (!child || typeof child !== 'object') continue
+      const childEl = child as FlowElement
+      if (childEl.Type !== 'EmbeddedData') continue
+      if (
+        looksLikeEmbeddedDataValue(childEl, 'COMPLETE_URL', (v) =>
+          v.includes('app.prolific.com/submissions/complete?cc=')
+        )
+      ) {
+        return true
+      }
+    }
+    return false
+  }
+
+  // If a Prolific lockdown Branch already exists but is placed *before* the first EmbeddedData
+  // element, it may evaluate before PROLIFIC_PID is populated from the querystring.
+  // Fix by moving the existing Branch to immediately after the first top-level EmbeddedData.
+  if (alreadyHasProlificBranchSetter) {
+    const branchIndex = flow.findIndex((item) => {
+      if (!item || typeof item !== 'object') return false
+      const el = item as FlowElement
+      if (el.Type !== 'Branch') return false
+      if (el.Description === 'TABS: lock down COMPLETE_URL for Prolific') return true
+      return branchSetsCompleteUrlToProlific(el)
+    })
+
+    const embeddedIndexBefore = getTopLevelEmbeddedDataIndex()
+
+    if (branchIndex >= 0 && embeddedIndexBefore >= 0 && branchIndex < embeddedIndexBefore) {
+      const [branchEl] = flow.splice(branchIndex, 1)
+      const embeddedIndexAfter = getTopLevelEmbeddedDataIndex()
+      if (embeddedIndexAfter >= 0) {
+        flow.splice(embeddedIndexAfter + 1, 0, branchEl)
+        updated = true
+        debugAddedElements.push({
+          Type: 'Branch',
+          FlowID: (branchEl as FlowElement).FlowID,
+          Description: 'TABS: moved Prolific COMPLETE_URL lockdown branch after EmbeddedData',
+        })
+      } else {
+        // If somehow we lost the EmbeddedData element, fall back to prepending.
+        flow.unshift(branchEl)
+        updated = true
+      }
+    }
+  }
+
   if (!alreadyHasOnlyWebsiteDefaultsInTopLevelFlow) {
     let firstEmbeddedData = true
     for (const item of flow) {
@@ -668,11 +726,7 @@ function ensureRedirectLockdownInFlow(
     // Many Qualtrics tenants only populate querystring → embedded data during the
     // EmbeddedData Flow element. If we put the Branch first, PROLIFIC_PID may not
     // be available yet, and the condition will always evaluate false.
-    const topLevelEmbeddedDataIndex = flow.findIndex((item) => {
-      if (!item || typeof item !== 'object') return false
-      const el = item as FlowElement
-      return el.Type === 'EmbeddedData'
-    })
+    const topLevelEmbeddedDataIndex = getTopLevelEmbeddedDataIndex()
     if (topLevelEmbeddedDataIndex >= 0) {
       flow.splice(topLevelEmbeddedDataIndex + 1, 0, branch)
     } else {
