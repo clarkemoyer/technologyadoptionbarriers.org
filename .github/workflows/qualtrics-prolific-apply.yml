@@ -46,10 +46,11 @@ jobs:
       INPUT_CONFIRM: ${{ inputs.confirm }}
       PROLIFIC_COMPLETION_CODE_SUCCESS: ${{ secrets.PROLIFIC_COMPLETION_CODE_SUCCESS }}
       PROLIFIC_COMPLETION_URL: ${{ secrets.PROLIFIC_COMPLETION_URL }}
-      PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT: ${{ inputs.apply_authenticity_script == 'true' && secrets.PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT || '' }}
-      QUALTRICS_PROLIFIC_LOCK_DOWN_REDIRECT: ${{ inputs.lock_down_redirect }}
+      PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT: ${{ github.event.inputs.apply_authenticity_script == 'true' && secrets.PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT || '' }}
+      QUALTRICS_PROLIFIC_LOCK_DOWN_REDIRECT: ${{ github.event.inputs.lock_down_redirect }}
       QUALTRICS_PROLIFIC_CONFIRM: APPLY
-      QUALTRICS_PROLIFIC_PUBLISH: ${{ inputs.publish_after_apply == 'true' && inputs.publish_confirm || '' }}
+      QUALTRICS_PROLIFIC_PUBLISH: ${{ github.event.inputs.publish_after_apply == 'true' && github.event.inputs.publish_confirm || '' }}
+      QUALTRICS_PROLIFIC_PUBLISH_DESCRIPTION: ${{ github.event.inputs.publish_after_apply == 'true' && format('TABS publish via GitHub Actions run {0} ({1})', github.run_id, github.sha) || '' }}
     steps:
       - name: Guardrails
         shell: bash
