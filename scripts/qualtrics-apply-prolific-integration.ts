@@ -516,6 +516,43 @@ function looksLikeEmbeddedDataValue(
   return predicate(value)
 }
 
+function dedupeEmbeddedDataRows(embeddedDataElement: FlowElement): boolean {
+  const embedded = embeddedDataElement.EmbeddedData
+  if (!Array.isArray(embedded)) return false
+
+  const seen = new Set<string>()
+  const deduped: Array<unknown> = []
+  let changed = false
+
+  for (const row of embedded) {
+    if (!row || typeof row !== 'object') {
+      deduped.push(row)
+      continue
+    }
+
+    const rec = row as Record<string, unknown>
+    const field = typeof rec.Field === 'string' ? rec.Field.trim() : ''
+    if (!field) {
+      deduped.push(row)
+      continue
+    }
+
+    if (seen.has(field)) {
+      changed = true
+      continue
+    }
+
+    seen.add(field)
+    deduped.push(row)
+  }
+
+  if (changed) {
+    embeddedDataElement.EmbeddedData = deduped
+  }
+
+  return changed
+}
+
 function ensureRedirectLockdownInFlow(
   flowObj: unknown,
   params: { prolificCompletionUrl: string; websiteCompletionUrl: string }
@@ -539,6 +576,13 @@ function ensureRedirectLockdownInFlow(
   if (!existingEmbeddedDataEl) {
     throw new Error('Could not find an EmbeddedData element in Survey Flow')
   }
+
+  // Clean up accidental duplicates inside EmbeddedData elements.
+  // This prevents the Qualtrics UI from showing long repeated lists of the same fields.
+  iterFlowElements(flow, (el) => {
+    if (el.Type !== 'EmbeddedData') return
+    if (dedupeEmbeddedDataRows(el)) updated = true
+  })
 
   const completeUrlTemplate = findEmbeddedDataItem(existingEmbeddedDataEl, 'COMPLETE_URL')
   if (!completeUrlTemplate) {
@@ -690,7 +734,8 @@ function ensureRedirectLockdownInFlow(
       const filtered = embedded.filter((row) => {
         if (!row || typeof row !== 'object') return true
         const rec = row as Record<string, unknown>
-        return rec.Field !== 'COMPLETE_URL'
+        const field = typeof rec.Field === 'string' ? rec.Field.trim() : ''
+        return field !== 'COMPLETE_URL'
       })
 
       if (filtered.length !== embedded.length) {
@@ -706,6 +751,11 @@ function ensureRedirectLockdownInFlow(
           Value: websiteCompletionUrl,
         }
         el.EmbeddedData = [websiteRow, ...(el.EmbeddedData as Array<unknown>)]
+        // Ensure we didn't just reintroduce duplicates.
+        if (dedupeEmbeddedDataRows(el)) {
+          // If dedupe removed rows, we still consider this updated.
+          updated = true
+        }
         updated = true
         debugAddedElements.push({
           Type: el.Type,
