@@ -516,6 +516,15 @@ function looksLikeEmbeddedDataValue(
   return predicate(value)
 }
 
+function normalizeEmbeddedFieldName(raw: string): string {
+  // Qualtrics Flow JSON sometimes ends up with invisible whitespace characters (e.g. zero-width)
+  // which makes naive string comparisons fail while the UI looks identical.
+  return raw
+    .replace(/[\s\u200B\u200C\u200D\uFEFF]/g, '')
+    .trim()
+    .toUpperCase()
+}
+
 function dedupeEmbeddedDataRows(embeddedDataElement: FlowElement): boolean {
   const embedded = embeddedDataElement.EmbeddedData
   if (!Array.isArray(embedded)) return false
@@ -531,7 +540,8 @@ function dedupeEmbeddedDataRows(embeddedDataElement: FlowElement): boolean {
     }
 
     const rec = row as Record<string, unknown>
-    const field = typeof rec.Field === 'string' ? rec.Field.trim() : ''
+    const fieldRaw = typeof rec.Field === 'string' ? rec.Field : ''
+    const field = fieldRaw ? normalizeEmbeddedFieldName(fieldRaw) : ''
     if (!field) {
       deduped.push(row)
       continue
@@ -551,6 +561,41 @@ function dedupeEmbeddedDataRows(embeddedDataElement: FlowElement): boolean {
   }
 
   return changed
+}
+
+function removeFieldsFromEmbeddedDataRows(
+  embeddedDataElement: FlowElement,
+  fieldsToRemove: ReadonlySet<string>
+): { changed: boolean; isEmpty: boolean } {
+  const embedded = embeddedDataElement.EmbeddedData
+  if (!Array.isArray(embedded)) return { changed: false, isEmpty: false }
+
+  const filtered: Array<unknown> = []
+  let changed = false
+
+  for (const row of embedded) {
+    if (!row || typeof row !== 'object') {
+      filtered.push(row)
+      continue
+    }
+
+    const rec = row as Record<string, unknown>
+    const fieldRaw = typeof rec.Field === 'string' ? rec.Field : ''
+    const field = fieldRaw ? normalizeEmbeddedFieldName(fieldRaw) : ''
+
+    if (field && fieldsToRemove.has(field)) {
+      changed = true
+      continue
+    }
+
+    filtered.push(row)
+  }
+
+  if (changed) {
+    embeddedDataElement.EmbeddedData = filtered
+  }
+
+  return { changed, isEmpty: filtered.length === 0 }
 }
 
 function ensureRedirectLockdownInFlow(
@@ -586,6 +631,41 @@ function ensureRedirectLockdownInFlow(
     if (el.Type !== 'EmbeddedData') return
     if (dedupeEmbeddedDataRows(el)) updated = true
   })
+
+  // Consolidate Prolific tracking fields into the first *top-level* EmbeddedData element.
+  // Qualtrics shows each top-level EmbeddedData element as a separate "Set Embedded Data" block.
+  // Over time, repeated apply/manual edits can accumulate extra blocks that only repeat these fields.
+  // Keeping just one avoids UI clutter and prevents accidental later overwrites.
+  const prolificTrackingFields = new Set<string>([
+    'PROLIFIC_PID',
+    'STUDY_ID',
+    'SESSION_ID',
+    'SOURCE',
+    'COMPLETE_URL',
+  ])
+
+  let firstTopLevelEmbeddedSeen = false
+  for (let i = 0; i < flow.length; i++) {
+    const item = flow[i]
+    if (!item || typeof item !== 'object') continue
+    const el = item as FlowElement
+    if (el.Type !== 'EmbeddedData') continue
+
+    if (!firstTopLevelEmbeddedSeen) {
+      firstTopLevelEmbeddedSeen = true
+      continue
+    }
+
+    const { changed, isEmpty } = removeFieldsFromEmbeddedDataRows(el, prolificTrackingFields)
+    if (changed) updated = true
+
+    // If this element became empty (meaning it only contained duplicated Prolific fields), remove it.
+    if (isEmpty) {
+      flow.splice(i, 1)
+      i -= 1
+      updated = true
+    }
+  }
 
   const completeUrlTemplate = findEmbeddedDataItem(existingEmbeddedDataEl, 'COMPLETE_URL')
   if (!completeUrlTemplate) {
