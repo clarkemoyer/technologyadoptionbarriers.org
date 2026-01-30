@@ -68,7 +68,8 @@ jobs:
           WEBSITE_COMPLETE_URL_ENC="$(urlencode "$WEBSITE_COMPLETE_URL")"
 
           # Intentionally a placeholder: Prolific completion codes are sensitive.
-          PROLIFIC_COMPLETE_URL_PLACEHOLDER='https://app.prolific.com/submissions/complete?cc=<YOUR_CODE>'
+          # Avoid angle brackets here (some systems sanitize them), so the URL remains usable for manual tests.
+          PROLIFIC_COMPLETE_URL_PLACEHOLDER='https://app.prolific.com/submissions/complete?cc=YOUR_CODE_HERE'
           PROLIFIC_COMPLETE_URL_PLACEHOLDER_ENC="$(urlencode "$PROLIFIC_COMPLETE_URL_PLACEHOLDER")"
 
           echo "### Manual end-to-end test links" >> "$GITHUB_STEP_SUMMARY"
