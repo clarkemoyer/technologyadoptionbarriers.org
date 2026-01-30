@@ -71,9 +71,12 @@ jobs:
             exit 1
           fi
 
+          # Prefer providing Prolific completion secrets, but do not hard-fail if missing.
+          # The apply script can often infer the current Prolific completion URL from existing
+          # survey options / embedded data defaults / flow. If it can't, it will fail later with
+          # a more specific error.
           if [[ -z "${PROLIFIC_COMPLETION_URL:-}" && -z "${PROLIFIC_COMPLETION_CODE_SUCCESS:-}" ]]; then
-            echo "::error::Missing Prolific completion redirect. Add secret PROLIFIC_COMPLETION_URL (preferred) or PROLIFIC_COMPLETION_CODE_SUCCESS in environment qualtrics-prod" >&2
-            exit 1
+            echo "::warning::Missing Prolific completion redirect secrets (PROLIFIC_COMPLETION_URL / PROLIFIC_COMPLETION_CODE_SUCCESS). Will attempt to infer from the existing survey configuration." >&2
           fi
 
           if [[ "${{ inputs.apply_authenticity_script }}" == "true" && -z "${PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT:-}" ]]; then
