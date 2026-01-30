@@ -595,7 +595,6 @@ function ensureRedirectLockdownInFlow(
     return found
   })()
 
-  const newElements: Array<unknown> = []
   const debugAddedElements: Array<Record<string, unknown>> = []
   let updated = false
 
@@ -665,7 +664,22 @@ function ensureRedirectLockdownInFlow(
       Flow: [prolificSetter],
     }
 
-    newElements.push(branch)
+    // IMPORTANT: Insert this *after* the first top-level EmbeddedData element.
+    // Many Qualtrics tenants only populate querystring → embedded data during the
+    // EmbeddedData Flow element. If we put the Branch first, PROLIFIC_PID may not
+    // be available yet, and the condition will always evaluate false.
+    const topLevelEmbeddedDataIndex = flow.findIndex((item) => {
+      if (!item || typeof item !== 'object') return false
+      const el = item as FlowElement
+      return el.Type === 'EmbeddedData'
+    })
+    if (topLevelEmbeddedDataIndex >= 0) {
+      flow.splice(topLevelEmbeddedDataIndex + 1, 0, branch)
+    } else {
+      // Fallback: if no top-level EmbeddedData exists (unexpected), prepend.
+      flow.unshift(branch)
+    }
+
     debugAddedElements.push({
       Type: branch.Type,
       FlowID: branch.FlowID,
@@ -677,7 +691,7 @@ function ensureRedirectLockdownInFlow(
   }
 
   if (updated) {
-    root.Flow = [...newElements, ...flow]
+    root.Flow = flow
   }
 
   const debug = parseBoolEnv('QUALTRICS_PROLIFIC_DEBUG_FLOW_PUT')
