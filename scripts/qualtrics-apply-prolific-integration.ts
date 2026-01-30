@@ -577,6 +577,9 @@ function ensureRedirectLockdownInFlow(
     throw new Error('Could not find an EmbeddedData element in Survey Flow')
   }
 
+  const debugAddedElements: Array<Record<string, unknown>> = []
+  let updated = false
+
   // Clean up accidental duplicates inside EmbeddedData elements.
   // This prevents the Qualtrics UI from showing long repeated lists of the same fields.
   iterFlowElements(flow, (el) => {
@@ -638,9 +641,6 @@ function ensureRedirectLockdownInFlow(
     })
     return found
   })()
-
-  const debugAddedElements: Array<Record<string, unknown>> = []
-  let updated = false
 
   type FlowRef = { parent: Array<unknown>; index: number; el: FlowElement }
 
