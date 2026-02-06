@@ -46,10 +46,11 @@ jobs:
       INPUT_CONFIRM: ${{ inputs.confirm }}
       PROLIFIC_COMPLETION_CODE_SUCCESS: ${{ secrets.PROLIFIC_COMPLETION_CODE_SUCCESS }}
       PROLIFIC_COMPLETION_URL: ${{ secrets.PROLIFIC_COMPLETION_URL }}
-      PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT: ${{ inputs.apply_authenticity_script == 'true' && secrets.PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT || '' }}
-      QUALTRICS_PROLIFIC_LOCK_DOWN_REDIRECT: ${{ inputs.lock_down_redirect }}
+      PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT: ${{ github.event.inputs.apply_authenticity_script == 'true' && secrets.PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT || '' }}
+      QUALTRICS_PROLIFIC_LOCK_DOWN_REDIRECT: ${{ github.event.inputs.lock_down_redirect }}
       QUALTRICS_PROLIFIC_CONFIRM: APPLY
-      QUALTRICS_PROLIFIC_PUBLISH: ${{ inputs.publish_after_apply == 'true' && inputs.publish_confirm || '' }}
+      QUALTRICS_PROLIFIC_PUBLISH: ${{ github.event.inputs.publish_after_apply == 'true' && github.event.inputs.publish_confirm || '' }}
+      QUALTRICS_PROLIFIC_PUBLISH_DESCRIPTION: ${{ github.event.inputs.publish_after_apply == 'true' && format('TABS publish via GitHub Actions run {0} ({1})', github.run_id, github.sha) || '' }}
     steps:
       - name: Guardrails
         shell: bash
@@ -71,9 +72,12 @@ jobs:
             exit 1
           fi
 
+          # Prefer providing Prolific completion secrets, but do not hard-fail if missing.
+          # The apply script can often infer the current Prolific completion URL from existing
+          # survey options / embedded data defaults / flow. If it can't, it will fail later with
+          # a more specific error.
           if [[ -z "${PROLIFIC_COMPLETION_URL:-}" && -z "${PROLIFIC_COMPLETION_CODE_SUCCESS:-}" ]]; then
-            echo "::error::Missing Prolific completion redirect. Add secret PROLIFIC_COMPLETION_URL (preferred) or PROLIFIC_COMPLETION_CODE_SUCCESS in environment qualtrics-prod" >&2
-            exit 1
+            echo "::warning::Missing Prolific completion redirect secrets (PROLIFIC_COMPLETION_URL / PROLIFIC_COMPLETION_CODE_SUCCESS). Will attempt to infer from the existing survey configuration." >&2
           fi
 
           if [[ "${{ inputs.apply_authenticity_script }}" == "true" && -z "${PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT:-}" ]]; then
@@ -152,6 +156,10 @@ jobs:
             "$options_url" || true)
 
           if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
+            eos_redirect_url=$(jq -r '.result.EOSRedirectURL // ""' "$OPTIONS_JSON")
+            echo "- **Options: EOSRedirectURL:** ${eos_redirect_url}" >> "$GITHUB_STEP_SUMMARY"
+            echo "Options EOSRedirectURL: ${eos_redirect_url}"
+
             if jq -r '.result.Header // ""' "$OPTIONS_JSON" | grep -Eq 'assets\.prolific\.com/.*/qualtrics/qualtrics\.min\.js'; then
               has_prolific_script_from_options=true
             fi
@@ -160,7 +168,7 @@ jobs:
               has_redirect_termination_from_options=true
             fi
 
-            if jq -r '.result.EOSRedirectURL // ""' "$OPTIONS_JSON" | grep -Eq '\\$\\{e://Field/COMPLETE_URL\\}'; then
+            if jq -r '.result.EOSRedirectURL // ""' "$OPTIONS_JSON" | grep -Eq '\$\{e://Field/COMPLETE_URL\}'; then
               has_completion_redirect_template_from_options=true
             fi
           else

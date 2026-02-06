@@ -59,6 +59,34 @@ jobs:
           echo "- **Mode:** API-only (no live survey traffic)" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
 
+          # Provide deterministic links for manual end-to-end validation.
+          SURVEY_LINK_BASE="$BASE_URL/jfe/form/${SURVEY_ID}"
+          WEBSITE_COMPLETE_URL="${TABS_WEBSITE_COMPLETE_URL:-https://technologyadoptionbarriers.org/survey-complete}"
+          urlencode() {
+            python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1], safe=''))" "$1"
+          }
+          WEBSITE_COMPLETE_URL_ENC="$(urlencode "$WEBSITE_COMPLETE_URL")"
+
+          # Intentionally a placeholder: Prolific completion codes are sensitive.
+          # Avoid angle brackets here (some systems sanitize them), so the URL remains usable for manual tests.
+          PROLIFIC_COMPLETE_URL_PLACEHOLDER='https://app.prolific.com/submissions/complete?cc=YOUR_CODE_HERE'
+          PROLIFIC_COMPLETE_URL_PLACEHOLDER_ENC="$(urlencode "$PROLIFIC_COMPLETE_URL_PLACEHOLDER")"
+
+          echo "### Manual end-to-end test links" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "If you enabled **redirect lockdown** in the LIVE apply workflow, inbound \\"COMPLETE_URL\\" is ignored (only \\"PROLIFIC_PID\\" presence matters)." >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Website/direct:**" >> "$GITHUB_STEP_SUMMARY"
+          echo '```text' >> "$GITHUB_STEP_SUMMARY"
+          echo "${SURVEY_LINK_BASE}?SOURCE=TABS_Website&COMPLETE_URL=${WEBSITE_COMPLETE_URL_ENC}" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Prolific-sim (placeholder COMPLETE_URL):**" >> "$GITHUB_STEP_SUMMARY"
+          echo '```text' >> "$GITHUB_STEP_SUMMARY"
+          echo "${SURVEY_LINK_BASE}?PROLIFIC_PID=TEST_PID&STUDY_ID=TEST_STUDY&SESSION_ID=TEST_SESSION&SOURCE=prolific&COMPLETE_URL=${PROLIFIC_COMPLETE_URL_PLACEHOLDER_ENC}" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
           # Always try to read survey options (Header + EOS redirect config).
           has_prolific_script_from_options=false
           has_completion_redirect_from_options=false
@@ -332,7 +360,7 @@ jobs:
           echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
           echo "| Prolific authenticity script marker present | ${has_prolific_script} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Options: SurveyTermination is Redirect | ${has_redirect_termination_from_options} |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Options: EOSRedirectURL is ${e://Field/COMPLETE_URL} | ${has_completion_redirect_from_options} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Options: EOSRedirectURL is \${e://Field/COMPLETE_URL} | ${has_completion_redirect_from_options} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Embedded Data field present: PROLIFIC_PID | ${has_prolific_pid} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Embedded Data field present: STUDY_ID | ${has_study_id} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Embedded Data field present: SESSION_ID | ${has_session_id} |" >> "$GITHUB_STEP_SUMMARY"
@@ -373,7 +401,7 @@ jobs:
           fi
 
           if [[ "$has_completion_redirect_from_options" != "true" ]]; then
-            echo "::error::Options EOSRedirectURL is not set to ${e://Field/COMPLETE_URL}." >&2
+            echo "::error::Options EOSRedirectURL is not set to \${e://Field/COMPLETE_URL}." >&2
             has_errors=true
           fi
 

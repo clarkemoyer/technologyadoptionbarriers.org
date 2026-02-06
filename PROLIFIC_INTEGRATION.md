@@ -318,6 +318,8 @@ This repo includes an API-only verification workflow that checks the survey defi
 
 Workflow: [​.github/workflows/qualtrics-prolific-verify.yml](.github/workflows/qualtrics-prolific-verify.yml)
 
+The workflow summary also prints two deterministic **manual end-to-end test URLs** (website/direct + Prolific-sim) to validate completion redirects after you apply changes.
+
 ### How to run
 
 From the GitHub UI:

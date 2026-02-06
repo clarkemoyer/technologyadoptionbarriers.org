@@ -516,6 +516,88 @@ function looksLikeEmbeddedDataValue(
   return predicate(value)
 }
 
+function normalizeEmbeddedFieldName(raw: string): string {
+  // Qualtrics Flow JSON sometimes ends up with invisible whitespace characters (e.g. zero-width)
+  // which makes naive string comparisons fail while the UI looks identical.
+  return raw
+    .replace(/[\s\u200B\u200C\u200D\uFEFF]/g, '')
+    .trim()
+    .toUpperCase()
+}
+
+function dedupeEmbeddedDataRows(embeddedDataElement: FlowElement): boolean {
+  const embedded = embeddedDataElement.EmbeddedData
+  if (!Array.isArray(embedded)) return false
+
+  const seen = new Set<string>()
+  const deduped: Array<unknown> = []
+  let changed = false
+
+  for (const row of embedded) {
+    if (!row || typeof row !== 'object') {
+      deduped.push(row)
+      continue
+    }
+
+    const rec = row as Record<string, unknown>
+    const fieldRaw = typeof rec.Field === 'string' ? rec.Field : ''
+    const field = fieldRaw ? normalizeEmbeddedFieldName(fieldRaw) : ''
+    if (!field) {
+      deduped.push(row)
+      continue
+    }
+
+    if (seen.has(field)) {
+      changed = true
+      continue
+    }
+
+    seen.add(field)
+    deduped.push(row)
+  }
+
+  if (changed) {
+    embeddedDataElement.EmbeddedData = deduped
+  }
+
+  return changed
+}
+
+function removeFieldsFromEmbeddedDataRows(
+  embeddedDataElement: FlowElement,
+  fieldsToRemove: ReadonlySet<string>
+): { changed: boolean; isEmpty: boolean } {
+  const embedded = embeddedDataElement.EmbeddedData
+  if (!Array.isArray(embedded)) return { changed: false, isEmpty: false }
+
+  const filtered: Array<unknown> = []
+  let changed = false
+
+  for (const row of embedded) {
+    if (!row || typeof row !== 'object') {
+      filtered.push(row)
+      continue
+    }
+
+    const rec = row as Record<string, unknown>
+    const fieldRaw = typeof rec.Field === 'string' ? rec.Field : ''
+    const field = fieldRaw ? normalizeEmbeddedFieldName(fieldRaw) : ''
+
+    if (field && fieldsToRemove.has(field)) {
+      changed = true
+      continue
+    }
+
+    filtered.push(row)
+  }
+
+  if (changed) {
+    embeddedDataElement.EmbeddedData = filtered
+  }
+
+  return { changed, isEmpty: filtered.length === 0 }
+}
+
 function ensureRedirectLockdownInFlow(
   flowObj: unknown,
   params: { prolificCompletionUrl: string; websiteCompletionUrl: string }
@@ -538,6 +620,51 @@ function ensureRedirectLockdownInFlow(
   const existingEmbeddedDataEl = findFirstEmbeddedDataElement(flow)
   if (!existingEmbeddedDataEl) {
     throw new Error('Could not find an EmbeddedData element in Survey Flow')
+  }
+
+  const debugAddedElements: Array<Record<string, unknown>> = []
+  let updated = false
+
+  // Clean up accidental duplicates inside EmbeddedData elements.
+  // This prevents the Qualtrics UI from showing long repeated lists of the same fields.
+  iterFlowElements(flow, (el) => {
+    if (el.Type !== 'EmbeddedData') return
+    if (dedupeEmbeddedDataRows(el)) updated = true
+  })
+
+  // Consolidate Prolific tracking fields into the first *top-level* EmbeddedData element.
+  // Qualtrics shows each top-level EmbeddedData element as a separate "Set Embedded Data" block.
+  // Over time, repeated apply/manual edits can accumulate extra blocks that only repeat these fields.
+  // Keeping just one avoids UI clutter and prevents accidental later overwrites.
+  const prolificTrackingFields = new Set<string>([
+    'PROLIFIC_PID',
+    'STUDY_ID',
+    'SESSION_ID',
+    'SOURCE',
+    'COMPLETE_URL',
+  ])
+
+  let firstTopLevelEmbeddedSeen = false
+  for (let i = 0; i < flow.length; i++) {
+    const item = flow[i]
+    if (!item || typeof item !== 'object') continue
+    const el = item as FlowElement
+    if (el.Type !== 'EmbeddedData') continue
+
+    if (!firstTopLevelEmbeddedSeen) {
+      firstTopLevelEmbeddedSeen = true
+      continue
+    }
+
+    const { changed, isEmpty } = removeFieldsFromEmbeddedDataRows(el, prolificTrackingFields)
+    if (changed) updated = true
+
+    // If this element became empty (meaning it only contained duplicated Prolific fields), remove it.
+    if (isEmpty) {
+      flow.splice(i, 1)
+      i -= 1
+      updated = true
+    }
   }
 
   const completeUrlTemplate = findEmbeddedDataItem(existingEmbeddedDataEl, 'COMPLETE_URL')
@@ -595,9 +722,84 @@ function ensureRedirectLockdownInFlow(
     return found
   })()
 
-  const newElements: Array<unknown> = []
-  const debugAddedElements: Array<Record<string, unknown>> = []
-  let updated = false
+  type FlowRef = { parent: Array<unknown>; index: number; el: FlowElement }
+
+  const findFirstWithParent = (
+    elements: unknown,
+    predicate: (el: FlowElement) => boolean
+  ): FlowRef | null => {
+    if (!Array.isArray(elements)) return null
+    for (let i = 0; i < elements.length; i++) {
+      const item = elements[i]
+      if (!item || typeof item !== 'object') continue
+      const el = item as FlowElement
+      if (predicate(el)) return { parent: elements, index: i, el }
+      if ('Flow' in el) {
+        const nested = findFirstWithParent(el.Flow, predicate)
+        if (nested) return nested
+      }
+    }
+    return null
+  }
+
+  const branchSetsCompleteUrlToProlific = (branchEl: FlowElement): boolean => {
+    const branchFlow = (branchEl as Record<string, unknown>).Flow
+    if (!Array.isArray(branchFlow)) return false
+    for (const child of branchFlow) {
+      if (!child || typeof child !== 'object') continue
+      const childEl = child as FlowElement
+      if (childEl.Type !== 'EmbeddedData') continue
+      if (
+        looksLikeEmbeddedDataValue(childEl, 'COMPLETE_URL', (v) =>
+          v.includes('app.prolific.com/submissions/complete?cc=')
+        )
+      ) {
+        return true
+      }
+    }
+    return false
+  }
+
+  // If a Prolific lockdown Branch already exists but is placed *before* the first EmbeddedData
+  // element, it may evaluate before PROLIFIC_PID is populated from the querystring.
+  // Fix by moving the existing Branch to immediately after the first top-level EmbeddedData.
+  if (alreadyHasProlificBranchSetter) {
+    const embeddedRef = findFirstWithParent(flow, (el) => el.Type === 'EmbeddedData')
+    const branchRef = findFirstWithParent(flow, (el) => {
+      if (el.Type !== 'Branch') return false
+      if (el.Description === 'TABS: lock down COMPLETE_URL for Prolific') return true
+      return branchSetsCompleteUrlToProlific(el)
+    })
+
+    if (embeddedRef && branchRef) {
+      const sameParent = embeddedRef.parent === branchRef.parent
+      const branchBeforeEmbedded = sameParent && branchRef.index < embeddedRef.index
+
+      // Move branch into the embedded-data container if needed, immediately after EmbeddedData.
+      if (!sameParent || branchBeforeEmbedded) {
+        const [branchEl] = (branchRef.parent as Array<unknown>).splice(branchRef.index, 1)
+        // Re-find embedded ref since indices may have shifted.
+        const embeddedRefAfter = findFirstWithParent(flow, (el) => el.Type === 'EmbeddedData')
+        if (embeddedRefAfter) {
+          ;(embeddedRefAfter.parent as Array<unknown>).splice(
+            embeddedRefAfter.index + 1,
+            0,
+            branchEl
+          )
+          updated = true
+          debugAddedElements.push({
+            Type: 'Branch',
+            FlowID: (branchEl as FlowElement).FlowID,
+            Description: 'TABS: moved Prolific COMPLETE_URL lockdown branch after EmbeddedData',
+          })
+        } else {
+          // If we somehow can't find EmbeddedData anymore, put the branch back at the start.
+          flow.unshift(branchEl)
+          updated = true
+        }
+      }
+    }
+  }
 
   if (!alreadyHasOnlyWebsiteDefaultsInTopLevelFlow) {
     let firstEmbeddedData = true
@@ -612,7 +814,8 @@ function ensureRedirectLockdownInFlow(
       const filtered = embedded.filter((row) => {
         if (!row || typeof row !== 'object') return true
         const rec = row as Record<string, unknown>
-        return rec.Field !== 'COMPLETE_URL'
+        const field = typeof rec.Field === 'string' ? rec.Field.trim() : ''
+        return field !== 'COMPLETE_URL'
       })
 
       if (filtered.length !== embedded.length) {
@@ -628,6 +831,11 @@ function ensureRedirectLockdownInFlow(
           Value: websiteCompletionUrl,
         }
         el.EmbeddedData = [websiteRow, ...(el.EmbeddedData as Array<unknown>)]
+        // Ensure we didn't just reintroduce duplicates.
+        if (dedupeEmbeddedDataRows(el)) {
+          // If dedupe removed rows, we still consider this updated.
+          updated = true
+        }
         updated = true
         debugAddedElements.push({
           Type: el.Type,
@@ -665,7 +873,18 @@ function ensureRedirectLockdownInFlow(
       Flow: [prolificSetter],
     }
 
-    newElements.push(branch)
+    // IMPORTANT: Insert this *after* the first top-level EmbeddedData element.
+    // Many Qualtrics tenants only populate querystring → embedded data during the
+    // EmbeddedData Flow element. If we put the Branch first, PROLIFIC_PID may not
+    // be available yet, and the condition will always evaluate false.
+    const embeddedRef = findFirstWithParent(flow, (el) => el.Type === 'EmbeddedData')
+    if (embeddedRef) {
+      ;(embeddedRef.parent as Array<unknown>).splice(embeddedRef.index + 1, 0, branch)
+    } else {
+      // Fallback: if no EmbeddedData exists (unexpected), prepend to root.
+      flow.unshift(branch)
+    }
+
     debugAddedElements.push({
       Type: branch.Type,
       FlowID: branch.FlowID,
@@ -677,13 +896,13 @@ function ensureRedirectLockdownInFlow(
   }
 
   if (updated) {
-    root.Flow = [...newElements, ...flow]
+    root.Flow = flow
   }
 
   const debug = parseBoolEnv('QUALTRICS_PROLIFIC_DEBUG_FLOW_PUT')
   if (debug && debugAddedElements.length > 0) {
-    // Keep output minimal; this is only the new elements we are prepending.
-    console.log('Debug (Flow PUT) - new elements:')
+    // Keep output minimal; this only includes elements we added or moved.
+    console.log('Debug (Flow PUT) - added/moved elements:')
     console.log(JSON.stringify(debugAddedElements, null, 2))
   }
 
