@@ -901,8 +901,8 @@ function ensureRedirectLockdownInFlow(
 
   const debug = parseBoolEnv('QUALTRICS_PROLIFIC_DEBUG_FLOW_PUT')
   if (debug && debugAddedElements.length > 0) {
-    // Keep output minimal; this is only the new elements we are prepending.
-    console.log('Debug (Flow PUT) - new elements:')
+    // Keep output minimal; this only includes elements we added or moved.
+    console.log('Debug (Flow PUT) - added/moved elements:')
     console.log(JSON.stringify(debugAddedElements, null, 2))
   }
 
