@@ -621,6 +621,17 @@ function ensureRedirectLockdownInFlow(
   const websiteSourceValue = 'TABS_Website'
   const prolificSourceValue = 'prolific'
 
+  const makeEmbeddedRow = (field: string, value: string): Record<string, unknown> => {
+    // Some Qualtrics tenants require each EmbeddedData row to include Type + Description.
+    // Keep this minimal but valid.
+    return {
+      Description: field,
+      Type: 'Text',
+      Field: field,
+      Value: value,
+    }
+  }
+
   let firstTopLevelEmbeddedDataEl: FlowElement | null = (() => {
     for (const item of flow) {
       if (!item || typeof item !== 'object') continue
@@ -644,12 +655,12 @@ function ensureRedirectLockdownInFlow(
       Options: { VarTypes: 'Yes' },
       EmbeddedData: [
         // These are intentionally blank so they can be set from Panel or URL.
-        { Field: 'PROLIFIC_PID', Value: '' },
-        { Field: 'STUDY_ID', Value: '' },
-        { Field: 'SESSION_ID', Value: '' },
+        makeEmbeddedRow('PROLIFIC_PID', ''),
+        makeEmbeddedRow('STUDY_ID', ''),
+        makeEmbeddedRow('SESSION_ID', ''),
         // Default to website; Prolific branch overrides.
-        { Field: 'SOURCE', Value: websiteSourceValue },
-        { Field: 'COMPLETE_URL', Value: websiteCompletionUrl },
+        makeEmbeddedRow('SOURCE', websiteSourceValue),
+        makeEmbeddedRow('COMPLETE_URL', websiteCompletionUrl),
       ],
     }
     flow.unshift(embeddedDataEl)
@@ -744,12 +755,15 @@ function ensureRedirectLockdownInFlow(
 
   const completeUrlTemplate =
     findEmbeddedDataItem(firstTopLevelEmbeddedDataEl, 'COMPLETE_URL') ||
-    ({ Field: 'COMPLETE_URL', Value: '' } as Record<string, unknown>)
+    makeEmbeddedRow('COMPLETE_URL', '')
 
   const sourceTemplate =
     findEmbeddedDataItem(firstTopLevelEmbeddedDataEl, 'SOURCE') ||
     findEmbeddedDataItem(existingEmbeddedDataEl, 'SOURCE') ||
-    ({ ...completeUrlTemplate, Field: 'SOURCE', Value: '' } as Record<string, unknown>)
+    ({ ...makeEmbeddedRow('SOURCE', ''), ...(completeUrlTemplate || {}) } as Record<
+      string,
+      unknown
+    >)
 
   const optionsTemplate =
     existingEmbeddedDataEl.Options && typeof existingEmbeddedDataEl.Options === 'object'
