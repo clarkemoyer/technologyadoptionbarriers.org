@@ -350,7 +350,8 @@ function embedFieldsBody(): {
       { key: 'PROLIFIC_PID', value: '', type: 'textSet' },
       { key: 'STUDY_ID', value: '', type: 'textSet' },
       { key: 'SESSION_ID', value: '', type: 'textSet' },
-      { key: 'SOURCE', value: 'unknown', type: 'textSet' },
+      // Default to website; Prolific traffic is detected in Survey Flow and overrides to `prolific`.
+      { key: 'SOURCE', value: 'TABS_Website', type: 'textSet' },
       {
         key: 'COMPLETE_URL',
         // Placeholder; populated in main() once we determine the correct default completion URL.
@@ -620,7 +621,7 @@ function ensureRedirectLockdownInFlow(
   const websiteSourceValue = 'TABS_Website'
   const prolificSourceValue = 'prolific'
 
-  const firstTopLevelEmbeddedDataEl = (() => {
+  let firstTopLevelEmbeddedDataEl: FlowElement | null = (() => {
     for (const item of flow) {
       if (!item || typeof item !== 'object') continue
       const el = item as FlowElement
@@ -631,13 +632,73 @@ function ensureRedirectLockdownInFlow(
 
   const allocFlowId = createFlowIdAllocator(flow)
 
-  const existingEmbeddedDataEl = findFirstEmbeddedDataElement(flow)
-  if (!existingEmbeddedDataEl || !firstTopLevelEmbeddedDataEl) {
-    throw new Error('Could not find an EmbeddedData element in Survey Flow')
+  let existingEmbeddedDataEl = findFirstEmbeddedDataElement(flow)
+
+  // If the survey flow is empty (common after manual cleanup), recreate the minimal elements.
+  // We need at least one EmbeddedData element so Qualtrics reliably populates querystring
+  // parameters into embedded data (tenant-dependent behavior).
+  if (!firstTopLevelEmbeddedDataEl) {
+    const embeddedDataEl: FlowElement = {
+      Type: 'EmbeddedData',
+      FlowID: allocFlowId(),
+      Options: { VarTypes: 'Yes' },
+      EmbeddedData: [
+        // These are intentionally blank so they can be set from Panel or URL.
+        { Field: 'PROLIFIC_PID', Value: '' },
+        { Field: 'STUDY_ID', Value: '' },
+        { Field: 'SESSION_ID', Value: '' },
+        // Default to website; Prolific branch overrides.
+        { Field: 'SOURCE', Value: websiteSourceValue },
+        { Field: 'COMPLETE_URL', Value: websiteCompletionUrl },
+      ],
+    }
+    flow.unshift(embeddedDataEl)
+    firstTopLevelEmbeddedDataEl = embeddedDataEl
+    existingEmbeddedDataEl = embeddedDataEl
+  }
+
+  if (!existingEmbeddedDataEl) {
+    existingEmbeddedDataEl = firstTopLevelEmbeddedDataEl
   }
 
   const debugAddedElements: Array<Record<string, unknown>> = []
   let updated = false
+
+  // Remove redundant Prolific-related branches that set SOURCE/COMPLETE_URL.
+  // These can accumulate due to repeated apply runs or manual edits, and they confuse debugging.
+  const branchSetsFieldNonEmpty = (branchEl: FlowElement, field: string): boolean => {
+    const branchFlow = (branchEl as Record<string, unknown>).Flow
+    if (!Array.isArray(branchFlow)) return false
+
+    let found = false
+    iterFlowElements(branchFlow, (el) => {
+      if (found) return
+      if (el.Type !== 'EmbeddedData') return
+      const item = findEmbeddedDataItem(el, field)
+      const value = item && typeof item.Value === 'string' ? item.Value.trim() : ''
+      if (value) found = true
+    })
+    return found
+  }
+
+  for (let i = 0; i < flow.length; i++) {
+    const item = flow[i]
+    if (!item || typeof item !== 'object') continue
+    const el = item as FlowElement
+    if (el.Type !== 'Branch') continue
+
+    const shouldRemove =
+      typeof el.Description === 'string' &&
+      el.Description.trim() === 'TABS: lock down COMPLETE_URL for Prolific'
+        ? true
+        : branchSetsFieldNonEmpty(el, 'SOURCE') || branchSetsFieldNonEmpty(el, 'COMPLETE_URL')
+
+    if (shouldRemove) {
+      flow.splice(i, 1)
+      i -= 1
+      updated = true
+    }
+  }
 
   // Clean up accidental duplicates inside EmbeddedData elements.
   // This prevents the Qualtrics UI from showing long repeated lists of the same fields.
@@ -681,15 +742,14 @@ function ensureRedirectLockdownInFlow(
     }
   }
 
-  const completeUrlTemplate = findEmbeddedDataItem(firstTopLevelEmbeddedDataEl, 'COMPLETE_URL')
-  if (!completeUrlTemplate) {
-    throw new Error('Could not find COMPLETE_URL in existing Survey Flow EmbeddedData element')
-  }
+  const completeUrlTemplate =
+    findEmbeddedDataItem(firstTopLevelEmbeddedDataEl, 'COMPLETE_URL') ||
+    ({ Field: 'COMPLETE_URL', Value: '' } as Record<string, unknown>)
 
   const sourceTemplate =
     findEmbeddedDataItem(firstTopLevelEmbeddedDataEl, 'SOURCE') ||
     findEmbeddedDataItem(existingEmbeddedDataEl, 'SOURCE') ||
-    ({ ...completeUrlTemplate, Field: 'SOURCE' } as Record<string, unknown>)
+    ({ ...completeUrlTemplate, Field: 'SOURCE', Value: '' } as Record<string, unknown>)
 
   const optionsTemplate =
     existingEmbeddedDataEl.Options && typeof existingEmbeddedDataEl.Options === 'object'
@@ -759,6 +819,21 @@ function ensureRedirectLockdownInFlow(
       controlledFields
     )
     if (changed) updated = true
+
+    // Ensure tracking fields exist so Qualtrics can populate them from Panel/URL.
+    const trackingFields = ['PROLIFIC_PID', 'STUDY_ID', 'SESSION_ID']
+    for (const field of trackingFields) {
+      const item = findEmbeddedDataItem(firstTopLevelEmbeddedDataEl, field)
+      if (item) continue
+      const template = { ...completeUrlTemplate, Field: field, Value: '' }
+      firstTopLevelEmbeddedDataEl.EmbeddedData = [
+        template,
+        ...(Array.isArray(firstTopLevelEmbeddedDataEl.EmbeddedData)
+          ? firstTopLevelEmbeddedDataEl.EmbeddedData
+          : []),
+      ]
+      updated = true
+    }
 
     const websiteSourceRow = {
       ...sourceTemplate,
