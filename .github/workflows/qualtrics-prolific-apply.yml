@@ -17,7 +17,7 @@ on:
         required: false
         type: string
       apply_authenticity_script:
-        description: 'Apply Prolific authenticity script from secret PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT (recommended)'
+        description: 'Apply Prolific authenticity script from environment variable PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT (recommended)'
         required: false
         type: boolean
         default: true
@@ -46,7 +46,7 @@ jobs:
       INPUT_CONFIRM: ${{ inputs.confirm }}
       PROLIFIC_COMPLETION_CODE_SUCCESS: ${{ secrets.PROLIFIC_COMPLETION_CODE_SUCCESS }}
       PROLIFIC_COMPLETION_URL: ${{ secrets.PROLIFIC_COMPLETION_URL }}
-      PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT: ${{ github.event.inputs.apply_authenticity_script == 'true' && secrets.PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT || '' }}
+      PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT: ${{ github.event.inputs.apply_authenticity_script == 'true' && vars.PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT || '' }}
       QUALTRICS_PROLIFIC_LOCK_DOWN_REDIRECT: ${{ github.event.inputs.lock_down_redirect }}
       QUALTRICS_PROLIFIC_CONFIRM: APPLY
       QUALTRICS_PROLIFIC_PUBLISH: ${{ github.event.inputs.publish_after_apply == 'true' && github.event.inputs.publish_confirm || '' }}
@@ -81,7 +81,7 @@ jobs:
           fi
 
           if [[ "${{ inputs.apply_authenticity_script }}" == "true" && -z "${PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT:-}" ]]; then
-            echo "::error::apply_authenticity_script=true but secret PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT is missing/empty in environment qualtrics-prod" >&2
+            echo "::error::apply_authenticity_script=true but environment variable PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT is missing/empty in environment qualtrics-prod" >&2
             exit 1
           fi
 
