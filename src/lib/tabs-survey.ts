@@ -10,6 +10,8 @@ export const TABS_QUALTRICS_ANONYMOUS_SURVEY_URL =
 
 export const TABS_SURVEY_WEBSITE_SOURCE = 'TABS_Website'
 
+export const TABS_SURVEY_PROLIFIC_SOURCE = 'prolific'
+
 export const TABS_SURVEY_COMPLETE_PAGE_URL =
   'https://technologyadoptionbarriers.org/survey-complete'
 
@@ -24,4 +26,25 @@ export function buildTabsQualtricsSurveyUrl(params: Record<string, string>): str
 export const TABS_WEBSITE_QUALTRICS_SURVEY_URL = buildTabsQualtricsSurveyUrl({
   SOURCE: TABS_SURVEY_WEBSITE_SOURCE,
   COMPLETE_URL: TABS_SURVEY_COMPLETE_PAGE_URL,
+})
+
+export type ProlificSurveyParams = {
+  PROLIFIC_PID: string
+  STUDY_ID: string
+  SESSION_ID: string
+}
+
+export function buildProlificQualtricsSurveyUrl(params: ProlificSurveyParams): string {
+  return buildTabsQualtricsSurveyUrl({
+    ...params,
+    SOURCE: TABS_SURVEY_PROLIFIC_SOURCE,
+  })
+}
+
+// Safe to ship publicly: uses deterministic test IDs.
+// The Qualtrics Survey Flow enforces the Prolific completion redirect URL.
+export const TABS_PROLIFIC_SIM_QUALTRICS_SURVEY_URL = buildProlificQualtricsSurveyUrl({
+  PROLIFIC_PID: 'tabs_prolific_web',
+  STUDY_ID: 'tabs_prolific_web',
+  SESSION_ID: 'tabs_prolific_web',
 })
