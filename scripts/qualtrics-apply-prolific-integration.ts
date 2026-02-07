@@ -494,13 +494,15 @@ function findEmbeddedDataItem(
   embeddedDataElement: FlowElement,
   field: string
 ): Record<string, unknown> | null {
+  const target = normalizeEmbeddedFieldName(field)
   const embedded = embeddedDataElement.EmbeddedData
   if (!Array.isArray(embedded)) return null
   for (const item of embedded) {
     if (!item || typeof item !== 'object') continue
     const rec = item as Record<string, unknown>
-    const f = typeof rec.Field === 'string' ? rec.Field : ''
-    if (f === field) return rec
+    const fRaw = typeof rec.Field === 'string' ? rec.Field : ''
+    const f = fRaw ? normalizeEmbeddedFieldName(fRaw) : ''
+    if (f && f === target) return rec
   }
   return null
 }
@@ -615,10 +617,22 @@ function ensureRedirectLockdownInFlow(
 
   const { prolificCompletionUrl, websiteCompletionUrl } = params
 
+  const websiteSourceValue = 'TABS_Website'
+  const prolificSourceValue = 'prolific'
+
+  const firstTopLevelEmbeddedDataEl = (() => {
+    for (const item of flow) {
+      if (!item || typeof item !== 'object') continue
+      const el = item as FlowElement
+      if (el.Type === 'EmbeddedData') return el
+    }
+    return null
+  })()
+
   const allocFlowId = createFlowIdAllocator(flow)
 
   const existingEmbeddedDataEl = findFirstEmbeddedDataElement(flow)
-  if (!existingEmbeddedDataEl) {
+  if (!existingEmbeddedDataEl || !firstTopLevelEmbeddedDataEl) {
     throw new Error('Could not find an EmbeddedData element in Survey Flow')
   }
 
@@ -667,36 +681,20 @@ function ensureRedirectLockdownInFlow(
     }
   }
 
-  const completeUrlTemplate = findEmbeddedDataItem(existingEmbeddedDataEl, 'COMPLETE_URL')
+  const completeUrlTemplate = findEmbeddedDataItem(firstTopLevelEmbeddedDataEl, 'COMPLETE_URL')
   if (!completeUrlTemplate) {
     throw new Error('Could not find COMPLETE_URL in existing Survey Flow EmbeddedData element')
   }
+
+  const sourceTemplate =
+    findEmbeddedDataItem(firstTopLevelEmbeddedDataEl, 'SOURCE') ||
+    findEmbeddedDataItem(existingEmbeddedDataEl, 'SOURCE') ||
+    ({ ...completeUrlTemplate, Field: 'SOURCE' } as Record<string, unknown>)
 
   const optionsTemplate =
     existingEmbeddedDataEl.Options && typeof existingEmbeddedDataEl.Options === 'object'
       ? existingEmbeddedDataEl.Options
       : { VarTypes: 'Yes' }
-
-  // Idempotency check: ensure the *top-level* Flow contains exactly one COMPLETE_URL assignment,
-  // and that it is the website completion URL.
-  const alreadyHasOnlyWebsiteDefaultsInTopLevelFlow = (() => {
-    const values: string[] = []
-    for (const item of flow) {
-      if (!item || typeof item !== 'object') continue
-      const el = item as FlowElement
-      if (el.Type !== 'EmbeddedData') continue
-      const embedded = el.EmbeddedData
-      if (!Array.isArray(embedded)) continue
-      for (const row of embedded) {
-        if (!row || typeof row !== 'object') continue
-        const rec = row as Record<string, unknown>
-        if (rec.Field !== 'COMPLETE_URL') continue
-        const v = typeof rec.Value === 'string' ? rec.Value.trim() : ''
-        if (v) values.push(v)
-      }
-    }
-    return values.length >= 1 && values.every((v) => v === websiteCompletionUrl)
-  })()
 
   const alreadyHasProlificBranchSetter = (() => {
     let found = false
@@ -721,6 +719,73 @@ function ensureRedirectLockdownInFlow(
     })
     return found
   })()
+
+  const findFirstProlificSetterEmbeddedDataEl = (): FlowElement | null => {
+    let found: FlowElement | null = null
+    iterFlowElements(flow, (el) => {
+      if (found) return
+      if (el.Type !== 'EmbeddedData') return
+      if (
+        looksLikeEmbeddedDataValue(el, 'COMPLETE_URL', (v) =>
+          v.includes('app.prolific.com/submissions/complete?cc=')
+        )
+      ) {
+        found = el
+      }
+    })
+    return found
+  }
+
+  const prolificSetterEl = findFirstProlificSetterEmbeddedDataEl()
+
+  // Enforce two-source model:
+  // - Website traffic defaults: SOURCE=TABS_Website, COMPLETE_URL=<website>
+  // - Prolific traffic (PROLIFIC_PID present): SOURCE=prolific, COMPLETE_URL=<prolific>
+  // Remove SOURCE/COMPLETE_URL assignments everywhere except:
+  // - the first top-level EmbeddedData (website defaults)
+  // - the Prolific branch setter EmbeddedData (prolific overrides)
+  const controlledFields = new Set<string>(['SOURCE', 'COMPLETE_URL'])
+  iterFlowElements(flow, (el) => {
+    if (el.Type !== 'EmbeddedData') return
+    if (el === prolificSetterEl) return
+    const { changed } = removeFieldsFromEmbeddedDataRows(el, controlledFields)
+    if (changed) updated = true
+  })
+
+  // Ensure website defaults exist on the first top-level EmbeddedData element.
+  {
+    const { changed } = removeFieldsFromEmbeddedDataRows(
+      firstTopLevelEmbeddedDataEl,
+      controlledFields
+    )
+    if (changed) updated = true
+
+    const websiteSourceRow = {
+      ...sourceTemplate,
+      Field: 'SOURCE',
+      Value: websiteSourceValue,
+    }
+    const websiteCompleteRow = {
+      ...completeUrlTemplate,
+      Field: 'COMPLETE_URL',
+      Value: websiteCompletionUrl,
+    }
+
+    firstTopLevelEmbeddedDataEl.EmbeddedData = [
+      websiteSourceRow,
+      websiteCompleteRow,
+      ...(Array.isArray(firstTopLevelEmbeddedDataEl.EmbeddedData)
+        ? firstTopLevelEmbeddedDataEl.EmbeddedData
+        : []),
+    ]
+    if (dedupeEmbeddedDataRows(firstTopLevelEmbeddedDataEl)) updated = true
+
+    debugAddedElements.push({
+      Type: firstTopLevelEmbeddedDataEl.Type,
+      FlowID: firstTopLevelEmbeddedDataEl.FlowID,
+      Description: 'TABS: enforced website SOURCE/COMPLETE_URL defaults',
+    })
+  }
 
   type FlowRef = { parent: Array<unknown>; index: number; el: FlowElement }
 
@@ -801,50 +866,25 @@ function ensureRedirectLockdownInFlow(
     }
   }
 
-  if (!alreadyHasOnlyWebsiteDefaultsInTopLevelFlow) {
-    let firstEmbeddedData = true
-    for (const item of flow) {
-      if (!item || typeof item !== 'object') continue
-      const el = item as FlowElement
-      if (el.Type !== 'EmbeddedData') continue
+  // If a Prolific setter already exists, ensure it also sets SOURCE=prolific.
+  if (prolificSetterEl) {
+    const { changed } = removeFieldsFromEmbeddedDataRows(prolificSetterEl, controlledFields)
+    if (changed) updated = true
 
-      const embedded = el.EmbeddedData
-      if (!Array.isArray(embedded)) continue
-
-      const filtered = embedded.filter((row) => {
-        if (!row || typeof row !== 'object') return true
-        const rec = row as Record<string, unknown>
-        const field = typeof rec.Field === 'string' ? rec.Field.trim() : ''
-        return field !== 'COMPLETE_URL'
-      })
-
-      if (filtered.length !== embedded.length) {
-        el.EmbeddedData = filtered
-        updated = true
-      }
-
-      if (firstEmbeddedData) {
-        firstEmbeddedData = false
-        const websiteRow = {
-          ...completeUrlTemplate,
-          Field: 'COMPLETE_URL',
-          Value: websiteCompletionUrl,
-        }
-        el.EmbeddedData = [websiteRow, ...(el.EmbeddedData as Array<unknown>)]
-        // Ensure we didn't just reintroduce duplicates.
-        if (dedupeEmbeddedDataRows(el)) {
-          // If dedupe removed rows, we still consider this updated.
-          updated = true
-        }
-        updated = true
-        debugAddedElements.push({
-          Type: el.Type,
-          FlowID: el.FlowID,
-          Description: 'TABS: normalized top-level COMPLETE_URL default',
-          EmbeddedData: el.EmbeddedData,
-        })
-      }
-    }
+    prolificSetterEl.EmbeddedData = [
+      {
+        ...sourceTemplate,
+        Field: 'SOURCE',
+        Value: prolificSourceValue,
+      },
+      {
+        ...completeUrlTemplate,
+        Field: 'COMPLETE_URL',
+        Value: prolificCompletionUrl,
+      },
+    ]
+    if (dedupeEmbeddedDataRows(prolificSetterEl)) updated = true
+    updated = true
   }
 
   if (!alreadyHasProlificBranchSetter) {
@@ -853,6 +893,11 @@ function ensureRedirectLockdownInFlow(
       FlowID: allocFlowId(),
       Options: optionsTemplate,
       EmbeddedData: [
+        {
+          ...sourceTemplate,
+          Field: 'SOURCE',
+          Value: prolificSourceValue,
+        },
         {
           ...completeUrlTemplate,
           Field: 'COMPLETE_URL',
