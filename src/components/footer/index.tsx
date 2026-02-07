@@ -3,7 +3,10 @@
 import React from 'react'
 import Link from 'next/link'
 import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react'
-import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
+import {
+  TABS_PROLIFIC_SIM_QUALTRICS_SURVEY_URL,
+  TABS_WEBSITE_QUALTRICS_SURVEY_URL,
+} from '@/lib/tabs-survey'
 
 import { FaFacebookF, FaLinkedinIn, FaGithub } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
@@ -124,6 +127,14 @@ const Footer: React.FC = () => {
                 className="text-gray-400 hover:text-white text-sm py-1"
               >
                 Take the TABS
+              </a>
+              <a
+                href={TABS_PROLIFIC_SIM_QUALTRICS_SURVEY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1 inline-flex w-fit items-center rounded-full border border-[#26C699] px-3 py-1 text-xs font-semibold text-[#26C699] transition-colors hover:bg-[#26C699] hover:text-black"
+              >
+                Prolific participant? Start survey
               </a>
               <Link href="/get-involved" className="text-gray-400 hover:text-white text-sm py-1">
                 Get Involved
