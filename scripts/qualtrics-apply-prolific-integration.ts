@@ -626,7 +626,7 @@ function ensureRedirectLockdownInFlow(
     // Keep this minimal but valid.
     return {
       Description: field,
-      Type: 'Text',
+      Type: 'EmbeddedData',
       Field: field,
       Value: value,
     }
