@@ -191,7 +191,7 @@ Specific Risks Identified:
 □ Performance/scalability limitations
 □ Integration challenges with modern systems
 
-Other risks: ****\*\*****\*\*****\*\*****\_\_\_\_****\*\*****\*\*****\*\*****
+Other risks: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ---
 
