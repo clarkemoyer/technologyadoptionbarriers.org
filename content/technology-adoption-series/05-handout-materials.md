@@ -99,7 +99,7 @@ WARNING SIGNS:
 THREE CRITICAL QUESTIONS FOR ANY PROJECT:
 
 1. Where does this technology sit in the lifecycle?
-   (And where will it be in 5 years?)
+   (And where will it be over the long term?)
 
 2. What architecture approach enables voluntary adoption?
    (Given lifecycle position and user needs)
@@ -164,7 +164,7 @@ Design for voluntary adoption from day one, not as an afterthought.
 THREE QUESTIONS TO ASK ON EVERY PROJECT:
 
 1. Where does this technology sit in the lifecycle?
-   (Now and in 5 years?)
+   (Now and over the long term?)
 
 2. What architecture approach enables voluntary adoption?
    (Given lifecycle position and user needs?)
@@ -370,7 +370,7 @@ THREE QUESTIONS FOR YOUR NEXT PROJECT
 Before starting your next technology initiative, ask:
 
 1. Where does this technology sit in the lifecycle?
-   (And where will it be in 5 years?)
+   (And where will it be over the long term?)
 
 2. What architecture approach enables voluntary adoption?
    (Given lifecycle position and user needs?)

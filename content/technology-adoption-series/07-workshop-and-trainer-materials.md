@@ -119,7 +119,7 @@ Action Planning:
 
 - Focus on concrete, achievable next steps
 - Assign owners and dates
-- Schedule follow-up session (30-60 days out)
+- Schedule follow-up session (set an appropriate interval)
 - Get leadership commitment if needed
 
 Closing:
@@ -131,19 +131,19 @@ Closing:
 
 FOLLOW-UP ACTIONS:
 
-Within 1 week:
+Soon after:
 
 - Send workshop summary and action items
 - Distribute all materials
 - Schedule follow-up check-in
 
-Within 30 days:
+Within the first month:
 
 - Check on action item progress
 - Provide coaching/support as needed
 - Address barriers that emerged
 
-Within 90 days:
+Within the first quarter:
 
 - Conduct follow-up workshop
 - Review progress on action items
@@ -166,8 +166,8 @@ Technology Setup:
 Timing Adjustments:
 
 - Add 15 minutes total for technical transitions
-- Shorten sessions by 10% (virtual fatigue)
-- Build in more frequent breaks (every 60 min)
+- Shorten sessions slightly (virtual fatigue)
+- Build in regular breaks
 
 Engagement Techniques:
 
@@ -179,7 +179,7 @@ Engagement Techniques:
 
 Materials:
 
-- Send digital packet 48 hours before
+- Send digital packet a couple days before
 - Use collaborative documents (Google Docs, Office 365)
 - Create shared folder with all resources
 - Record session (with permission) for reference
@@ -355,17 +355,17 @@ Materials Management:
 
 Certification Requirements:
 
-- □ Observed full workshop delivery (4 hours)
+- □ Observed full workshop delivery (full session)
 - □ Co-facilitated workshop with mentor
 - □ Solo facilitated workshop with observation
-- □ Passed knowledge assessment (85% or higher)
-- □ Received positive participant feedback (4.0/5.0 or higher)
+- □ Passed knowledge assessment (define pass threshold)
+- □ Received positive participant feedback (define threshold)
 - □ Completed train-the-trainer session
 
 Ongoing Requirements:
 
-- □ Facilitate minimum 2 workshops per year
-- □ Update content quarterly (lifecycle examples)
+- □ Facilitate workshops on a regular cadence
+- □ Update content regularly (lifecycle examples)
 - □ Participate in trainer community
 - □ Maintain industry knowledge
 - □ Collect and share best practices
@@ -385,7 +385,7 @@ PRESENTATION READINESS CHECKLIST
 CONTENT VERIFICATION:
 
 - □ All slides reviewed and current
-- □ Technology lifecycle examples updated (check quarterly)
+- □ Technology lifecycle examples updated (check regularly)
 - □ Case study metrics current (if using real data)
 - □ Backup slides prepared and accessible
 - □ Q&A preparation guide reviewed
@@ -404,7 +404,7 @@ TECHNICAL SETUP:
 
 MATERIALS PREPARED:
 
-- □ Handouts printed (1 per participant + 10% extra)
+- □ Handouts printed (one per participant, plus a few extra)
   - One-page quick reference
   - Technology lifecycle assessment template
   - Slide deck summary card
@@ -464,29 +464,29 @@ Immediate Metrics (Day of Presentation):
 PARTICIPANT ENGAGEMENT:
 
 - □ Attendance rate (% registered who attended)
-  Target: >80%
+  Target: define threshold
 
 - □ Participation rate (% asking questions/participating)
-  Target: >50%
+  Target: define threshold
 
 - □ Session rating (immediate feedback)
-  Target: 4.0/5.0 or higher
+  Target: define threshold
 
 - □ "Would recommend" rate
-  Target: >85%
+  Target: define threshold
 
 KNOWLEDGE ASSESSMENT:
 
 - □ Pre/post knowledge quiz (if used)
-  Target: 30% improvement
+  Target: define threshold
 
 - □ Concept understanding (spot check during session)
-  Target: 75% can explain key concepts
+  Target: define threshold
 
 - □ Practical application (workshop exercises)
-  Target: 80% complete successfully
+  Target: define threshold
 
-Short-Term Metrics (2-4 Weeks Post-Presentation):
+Short-Term Metrics (A few weeks post-presentation):
 
 MATERIAL USAGE:
 
@@ -509,7 +509,7 @@ ORGANIZATIONAL IMPACT:
 - □ Policy/process changes proposed
 - □ Budget allocations for lifecycle management
 
-Long-Term Metrics (3-6 Months Post-Presentation):
+Long-Term Metrics (A few months post-presentation):
 
 ADOPTION SUCCESS:
 
@@ -554,7 +554,7 @@ Immediate Debrief (Same Day):
 - □ What would you change next time?
 - □ Did timing work? What needed more/less time?
 
-Feedback Analysis (Within 1 Week):
+Feedback Analysis (Soon after):
 
 - □ Review participant feedback forms
 - □ Identify common themes
@@ -563,7 +563,7 @@ Feedback Analysis (Within 1 Week):
 - □ Add new examples/case studies
 - □ Refine unclear slides
 
-Content Updates (Quarterly):
+Content Updates (Regular cadence):
 
 - □ Update technology lifecycle examples
   (Technologies move stages constantly)
@@ -573,7 +573,7 @@ Content Updates (Quarterly):
 - □ Review and update Q&A guide
 - □ Check all external links still valid
 
-Major Revisions (Annually):
+Major Revisions (Periodic):
 
 - □ Comprehensive content review
 - □ Incorporate lessons learned from year
@@ -591,7 +591,7 @@ For organizations with multiple presenters/trainers:
 
 Establish Regular Touchpoints:
 
-Monthly Sync (1 hour):
+Monthly Sync (timeboxed):
 
 Agenda:
 
@@ -602,7 +602,7 @@ Agenda:
 - Identify common customization needs
 - Plan upcoming presentations
 
-Quarterly Deep Dive (2 hours):
+Quarterly Deep Dive (timeboxed):
 
 Agenda:
 
@@ -613,7 +613,7 @@ Agenda:
 - Success metrics review
 - Best practice sharing
 
-Annual Summit (Half day):
+Annual Summit (work session):
 
 Agenda:
 
@@ -651,7 +651,7 @@ Communication Channels:
 
 From Presentation to Organizational Practice:
 
-Phase 1: Awareness (Months 1-3)
+Phase 1: Awareness (Early)
 
 Activities:
 
@@ -662,11 +662,11 @@ Activities:
 
 Success Criteria:
 
-- 80% of technical staff exposed to framework
+- Most technical staff exposed to the framework
 - Leadership endorsement received
 - Materials widely distributed
 
-Phase 2: Adoption (Months 4-6)
+Phase 2: Adoption (Next)
 
 Activities:
 
@@ -677,11 +677,11 @@ Activities:
 
 Success Criteria:
 
-- 50% of new projects use lifecycle assessment
+- Many new projects use lifecycle assessment
 - Architecture reviews reference framework
-- 3+ certified internal facilitators
+- Multiple certified internal facilitators
 
-Phase 3: Integration (Months 7-12)
+Phase 3: Integration (Institutionalize)
 
 Activities:
 
@@ -692,12 +692,12 @@ Activities:
 
 Success Criteria:
 
-- 100% of new projects assessed
+- All new projects assessed
 - Governance process updated
 - Portfolio lifecycle visibility
 - Metrics tracked organization-wide
 
-Phase 4: Optimization (Year 2+)
+Phase 4: Optimization (Ongoing)
 
 Activities:
 
@@ -747,7 +747,7 @@ Three Questions Framework:
 
 Every technology decision should answer:
 
-1. Where does this technology sit in the lifecycle? (And where will it be in 5 years?)
+1. Where does this technology sit in the lifecycle? (And where will it be over the long term?)
 2. What architecture approach enables voluntary adoption? (Given lifecycle position and user needs)
 3. Am I designing with users or for users? (Have I validated with real users?)
 

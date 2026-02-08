@@ -9,7 +9,7 @@ Opening (2-3 minutes):
 "Good [morning/afternoon], everyone. Thank you for joining this session on Technology Adoption.
 Before we dive in, let me ask you a question: How many of you have seen technology that was successfully deployed but never actually used?
 [Pause for hands/responses]
-Yeah, I thought so. We've all been there. Millions of dollars invested, successful deployment by every traditional metric, and then... nothing. It sits on a shelf, or users find creative workarounds to avoid using it.
+Yeah, I thought so. We've all been there. Significant investment, successful deployment by every traditional metric, and then... nothing. It sits on a shelf, or users find creative workarounds to avoid using it.
 Today, we're going to talk about why that happens and, more importantly, how to prevent it.
 Over the next [X] minutes, we're going to cover three critical areas:
 
@@ -36,7 +36,7 @@ And that lifecycle position directly constrains your architecture choices. You c
 • Cloud Agnostic gives you portability across platforms when you need consistency and flexibility
 Each architecture approach has different adoption implications. Each creates different development decisions that cascade through your project.
 Then we walked through lifecycle planning - because adoption isn't a deployment checkbox, it's something you plan for in design, development, deployment, and sustainment. At every phase, you're asking: 'How does this affect voluntary adoption?'
-Finally, we looked at what success looks like with real metrics and a real case study. We saw how lifecycle positioning, architecture approach, and user-centered design come together to create voluntary adoption - 85% active usage, voluntary expansion requests, and users serving as advocates.
+Finally, we looked at what success looks like with illustrative metrics and an example case study. We saw how lifecycle positioning, architecture approach, and user-centered design come together to create voluntary adoption - high sustained usage, voluntary expansion requests, and users serving as advocates.
 So here's what I want you to take away:
 First: Technology adoption isn't what happens after you build something. It's what you plan for from the very first design discussion. The architectural decisions you make at the beginning determine the development decisions that follow, which determine whether users will voluntarily adopt what you build.
 Second: Your lifecycle positioning is strategic, not just technical. It determines your management methods, your architecture approaches, your solution selection, and most critically, your adoption potential. Choose Leading Edge to Mainstream for the best balance of innovation and adoption.
@@ -45,7 +45,7 @@ Fourth: Avoid involuntary adoption whenever possible. It creates resistance, wor
 And finally: Measure what matters. Don't just track deployment metrics - track user adoption metrics. Active usage, voluntary expansion, user advocacy. Those are the signs of real success.
 I'll leave you with the three questions I mentioned. The next time you begin a project, ask yourself:
 
-1. Where does this technology sit in the lifecycle - and where will it be in 5 years? Am I in the Leading Edge to Mainstream sweet spot, or am I taking on unnecessary risk or technical debt?
+1. Where does this technology sit in the lifecycle - and where will it be over the long term? Am I in the Leading Edge to Mainstream sweet spot, or am I taking on unnecessary risk or technical debt?
 2. What architecture approach will enable voluntary adoption given my lifecycle position? Does Cloud Enabling, Cloud Native, or Cloud Agnostic make the most sense for my users and their workflows?
 3. Am I designing with users or just for users? Have I included them in requirements? Do I understand their workflows? Am I demonstrating clear value?
    Answer those honestly, and you'll avoid the expensive mistake of building something nobody wants to use.

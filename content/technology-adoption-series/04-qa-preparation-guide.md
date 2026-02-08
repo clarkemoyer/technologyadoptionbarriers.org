@@ -22,7 +22,7 @@ Distinguish between R&D projects and operational capability delivery. Bleeding E
 What successful organizations do is monitor Bleeding Edge in their R&D work, but they deploy Leading Edge to Mainstream for actual capabilities. By the time something is in user hands for production work, the technology has matured enough to support reliable operations.
 Help leadership understand the adoption implications. Bleeding Edge means you likely can't find trained users, documentation is sparse, vendor support is minimal or non-existent, and the technology might pivot or disappear entirely. That's fine for research, but it's a recipe for adoption failure in operations.
 If they're really committed to being innovative, show them that you can be innovative in how you use Leading Edge technology, not just in choosing the newest possible tech stack. Modern Kubernetes architectures, for example, enable plenty of innovation without the instability of Bleeding Edge.
-Frame it in risk terms: 'We can innovate with Leading Edge and have 70% chance of adoption success, or we can chase Bleeding Edge and have 10% chance of adoption success. Which risk profile makes sense for this mission-critical capability?'"
+Frame it in risk terms: 'We can innovate with Leading Edge and materially improve our odds of adoption success, or we can chase Bleeding Edge and accept a much higher risk of adoption failure. Which risk profile makes sense for this mission-critical capability?'"
 
 ---
 
@@ -119,7 +119,7 @@ See how one architecture decision creates dozens of downstream impacts?
 • Vendor Relationships: From single-vendor (Cloud Native on one cloud) to multi-vendor (Cloud Agnostic)
 In our case study on Slide 14, we chose Cloud Native with Cloud Agnostic elements because:
 
-1. The 10x performance improvement justified the learning curve (voluntary adoption potential)
+1. A clear, material performance improvement justified the learning curve (voluntary adoption potential)
 2. Multi-environment requirements demanded portability
 3. We positioned technologies in Leading Edge → Mainstream (Kubernetes = Mainstream, multi-cluster management = Leading Edge)
    Those architecture choices then determined:
@@ -135,7 +135,7 @@ In our case study on Slide 14, we chose Cloud Native with Cloud Agnostic element
 ## Q: "What do you do when you inherit a system that's already at End of Support?"
 
 A: "This is unfortunately very common. It's a crisis management situation, but there's a systematic approach. Let me walk you through it:
-Immediate Actions (Week 1):
+Immediate Actions (First week):
 
 1. Security Triage
    o Identify critical vulnerabilities with no patches
@@ -154,7 +154,7 @@ Immediate Actions (Week 1):
    o What systems depend on this?
    o What data flows exist?
    o What business processes would break if it fails?
-   Short-Term (0-6 months):
+   Short-Term (Near term):
 5. Risk Documentation
    o Brief leadership on the risk exposure
    o Get formal risk acceptance if continuing
@@ -168,7 +168,7 @@ Immediate Actions (Week 1):
    o Be transparent about risks and timeline
    o Set expectations for eventual migration
    o Build user support for modernization
-   Medium-Term (6-18 months):
+   Medium-Term (Mid term):
 8. Replacement Selection
    o Identify modern equivalent in Mainstream lifecycle
    o Evaluate using Leading Edge → Mainstream positioning
@@ -185,7 +185,7 @@ Immediate Actions (Week 1):
     o Demonstrate benefits of new system where possible
     o Provide extensive training and support
     o Acknowledge disruption honestly
-    Long-Term (18+ months):
+    Long-Term (Long term):
 11. Complete Migration
     o Execute parallel operations period
     o Validate data integrity and functionality
@@ -218,7 +218,7 @@ Immediate Actions (Week 1):
 ## Q: "How does this framework apply to AI/ML technologies?"
 
 A: "AI/ML is actually a perfect example of why lifecycle positioning matters so much. The AI/ML landscape right now is spread across the entire lifecycle spectrum, and making the wrong choice can kill adoption.
-Current AI/ML Lifecycle (2025):
+Current AI/ML Lifecycle (Snapshot — update as needed):
 Bleeding Edge:
 • Experimental architectures from recent papers
 • Cutting-edge foundation models
@@ -308,58 +308,57 @@ AI/ML-Specific Considerations:
 A: "This is a classic challenge - balancing short-term cost pressure with long-term sustainability. Here's how to frame it:
 Reframe the Cost Discussion:
 Don't say: 'We need to avoid Bleeding Edge because it's risky'
-Instead say: 'Here's the total cost comparison over 5 years:
+Instead say: 'Here's the total cost comparison over a multi-year horizon:
 Option A: Bleeding Edge (lowest initial cost):
 • Initial: $X
 • Support costs (self-support required): $Y/year
-• Migration costs (in 2-3 years when it fails): $Z
-• Total 5-year cost: $X + 5Y + Z
+• Migration costs (if an early, unplanned migration is forced): $Z
+• Total cost: $X + (support over time) + (migration)
 • Adoption risk: Very High (likely failure)
 • Business impact of failure: $[mission impact]
 Option B: Leading Edge to Mainstream (higher initial, lower total):
-• Initial: $X + 20%
+• Initial: $X + (modest premium)
 • Support costs (vendor support available): $Y/2 per year
-• Migration costs (in 8-10 years, planned): $Z/2
-• Total 5-year cost: $X + 20% + 2.5Y + 0
+• Migration costs (planned lifecycle refresh): $Z/2
+• Total cost: $X + (support over time) + (planned refresh)
 • Adoption risk: Low (proven success pattern)
-• Business impact: Positive ROI from year 2
+• Business impact: Positive ROI over time
 When you include:
 • Self-support costs for immature technology
 • Failed adoption costs (wasted deployment + redo)
 • Emergency migration costs
 • Business opportunity costs
 • Risk of security incidents
-Leading Edge to Mainstream is almost always cheaper over any reasonable time horizon.'
+Leading Edge to Mainstream is often cheaper over any reasonable time horizon.'
 Use These Data Points:
-• Industry research shows:
-o 70% of Bleeding Edge adoptions fail within 2 years
-o Failed technology adoption costs 3-5x the initial investment
-o Mainstream technology has 40% lower TCO over 5 years
-o Involuntary adoption reduces productivity by 15-30% during transition
-• Security/Compliance angle:
-o End of Support technology increases security incident risk by 300%
-o Compliance violations can cost $[relevant fines]
-o Insurance premiums may increase for known technical debt
+• Use your own org data first (incidents, outages, missed delivery, support cost)
+• If you use industry research, cite the source and reuse the exact wording the source supports
+• Categories that usually resonate:
+o Adoption risk (likelihood and impact)
+o Cost of self-support vs vendor/community support
+o Cost of emergency migration vs planned refresh
+o Productivity disruption during transitions
+o Security/compliance exposure from unsupported technology
 • Talent/HR angle:
 o Leading Edge skills are available in job market
 o Bleeding Edge requires expensive contractors
 o Trending Behind skills increasingly hard to find
 o Developer satisfaction drops with outdated tech (retention risk)
 Tell This Story:
-'Let me share what happened at [anonymized organization]. They chose a Bleeding Edge container platform to save $50K initial cost. Within 18 months:
-• Spent $200K on contractors to support it
-• Experienced 3 major outages due to immaturity
-• Users refused to adopt it (created workarounds)
-• Had to migrate to Mainstream Kubernetes anyway
-• Total cost: $500K vs. $120K if they'd chosen Kubernetes initially
-• Lost 2 years of progress
+'Let me share what happened at [anonymized organization]. They chose a Bleeding Edge container platform to save a relatively small amount up front. Within a year or two:
+• They spent heavily on specialized contractors to keep it running
+• They experienced repeated outages due to immaturity
+• Users resisted adoption (created workarounds)
+• They had to migrate to a Mainstream platform anyway
+• The total cost was far higher than a lifecycle-aware choice
+• They lost substantial time and momentum
 That's the real cost of not being lifecycle-aware.'
 Propose a Risk Framework:
 'Let's agree on decision criteria:
 For mission-critical capabilities with broad user adoption needs: → Mainstream only (proven, supported, low risk)
 For important capabilities with specialized users: → Leading Edge to Mainstream (innovation with safety net)
 For experimental/R&D work only: → Leading Edge to Bleeding Edge acceptable (learning, not production)
-For any technology: → Monitor lifecycle position quarterly → Trigger modernization planning when trending toward Trending Behind → Budget 10-15% for lifecycle management
+For any technology: → Monitor lifecycle position regularly → Trigger modernization planning when trending toward Trending Behind → Budget explicitly for lifecycle management
 This way we're strategic about risk vs. innovation, not just chasing lowest initial cost.'
 Bottom Line Message:
 'We can pay a little more now for lifecycle-aware selection, or we can pay a lot more later for failed adoption and emergency migrations. Plus we avoid the business impact of technology that users won't adopt or that fails at critical moments.
@@ -372,22 +371,21 @@ The question isn't whether we can afford to position strategically in the lifecy
 A: "This is a real constraint many organizations face. The good news is that user involvement doesn't have to be expensive or time-consuming to be effective. Here's a pragmatic approach:
 Minimum Viable User Involvement:
 Design Phase (Critical - Don't Skip):
-• 5 representative users, 2 hours each = 10 hours total
-• Do: Requirements validation workshop
+• A handful of representative users for a short requirements validation workshop
 • Ask: 'What are your top 3 pain points with current approach?'
 • Validate: 'If we built X, would it solve problem Y?'
 • Impact: Prevents building the wrong thing (saves thousands of hours later)
 Development Phase:
-• 3 users, 1 hour every 2 weeks = 6 hours per sprint
+• A small user panel with short, regular feedback sessions
 • Do: Show working prototypes, get feedback
 • Focus: 'Can you complete task X with this interface?'
 • Impact: Catches usability issues when they're cheap to fix
 Pre-Deployment:
-• 5-10 early adopters, pilot period
+• Early adopters for a pilot period
 • Do: Real usage in real environment
 • Monitor: Actual usage patterns, pain points
 • Impact: Identifies adoption blockers before full rollout
-Total time investment: ~50-75 hours of user time Cost of not doing it: Failed adoption = 100% waste of project
+Total time investment: A manageable amount of user time. Cost of not doing it: Failed adoption can waste the project.
 Efficient User Involvement Techniques:
 
 1. Asynchronous Feedback:
@@ -427,7 +425,7 @@ Efficient User Involvement Techniques:
    o Launch a smaller MVP with clear adoption metrics
    o Instrument usage (task completion, drop-off points, support tickets)
    o Create a lightweight feedback loop (short survey + office hours)
-   o Commit to a small, fixed cadence of improvements (e.g., monthly)
+   o Commit to a small, fixed cadence of improvements
 
 Key Message:
 "Even when resources are tight, a small amount of deliberate user involvement is the cheapest insurance you can buy against building the wrong thing. The goal isn't perfection — it's reducing adoption risk with the minimum effective effort."

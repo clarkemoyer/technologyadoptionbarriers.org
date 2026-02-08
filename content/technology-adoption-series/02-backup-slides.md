@@ -8,7 +8,7 @@
 
 **Content**
 
-REAL-WORLD TECHNOLOGY LIFECYCLE EXAMPLES (Current State - 2025):
+REAL-WORLD TECHNOLOGY LIFECYCLE EXAMPLES (Current snapshot — update as needed):
 
 **CONTAINER ORCHESTRATION:**
 
@@ -17,7 +17,7 @@ REAL-WORLD TECHNOLOGY LIFECYCLE EXAMPLES (Current State - 2025):
 ├─ Leading Edge: K3s, MicroK8s for edge, GitOps patterns (Argo, Flux)
 ├─ MAINSTREAM: Kubernetes, managed Kubernetes services
 ├─ Trending Behind: Docker Swarm, Apache Mesos
-├─ End of Support: Kubernetes 1.24 and earlier
+├─ End of Support: Older, unsupported Kubernetes releases
 └─ Obsolete: CoreOS Fleet, first-generation container platforms
 ```
 
@@ -39,7 +39,7 @@ REAL-WORLD TECHNOLOGY LIFECYCLE EXAMPLES (Current State - 2025):
 ├─ Leading Edge: Go for cloud infrastructure, TypeScript
 ├─ MAINSTREAM: Python, Java, JavaScript/Node.js
 ├─ Trending Behind: Perl, Ruby for new cloud projects
-├─ End of Support: Python 2.7
+├─ End of Support: Deprecated runtimes (e.g., Python 2.x)
 └─ Obsolete: Legacy languages for cloud-native applications
 ```
 
@@ -74,7 +74,7 @@ Kubernetes Choice:
 - ✅ Solutions: Broad ecosystem (Helm, Operators, service mesh options)
 - ✅ Development: Large talent pool, extensive training available
 - ✅ User Adoption: Familiar to many users, voluntary adoption likely
-- ✅ Lifecycle: 5-10 year support horizon, clear upgrade path
+- ✅ Lifecycle: Multi-year support runway, clear upgrade path
 - ✅ Integration: Integrates with modern cloud-native ecosystem
 
 Docker Swarm Choice:
@@ -84,7 +84,7 @@ Docker Swarm Choice:
 - ❌ Solutions: Minimal new tooling, migration common
 - ❌ Development: Shrinking talent pool, limited training resources
 - ❌ User Adoption: Hard to find users with experience, resistance likely
-- ❌ Lifecycle: Uncertain future, probable forced migration within 2-3 years
+- ❌ Lifecycle: Uncertain future, probable forced migration in a relatively short timeframe
 - ❌ Integration: Ecosystem moving away, compatibility concerns
 
 ---
@@ -126,7 +126,7 @@ TECHNOLOGY SELECTION PRINCIPLES:
 - ✅ Enable all three architecture approaches (Enabling, Native, Agnostic)
 - ✅ Meet security and compliance requirements
 - ✅ Strong vendor/community support and talent pools
-- ✅ Long-term support commitments (5-10 year horizons)
+- ✅ Long-term support commitments (multi-year horizons)
 - ✅ Broad integration ecosystem
 
 WHY THESE LIFECYCLE POSITIONS?
@@ -361,7 +361,7 @@ WHAT TO DO WHEN YOU INHERIT END OF SUPPORT SYSTEMS:
 
 This is unfortunately common in many organizations. Here's a systematic approach:
 
-IMMEDIATE ACTIONS (Week 1):
+IMMEDIATE ACTIONS (First week):
 
 1. **Security Triage**
    - Identify critical vulnerabilities with no patches available
@@ -381,7 +381,7 @@ IMMEDIATE ACTIONS (Week 1):
    - What data flows in/out?
    - What business processes are affected?
 
-SHORT-TERM STRATEGY (0-6 months):
+SHORT-TERM STRATEGY (Near term):
 
 1. **Risk Documentation**
    - Make leadership aware of risks
@@ -401,7 +401,7 @@ SHORT-TERM STRATEGY (0-6 months):
    - Be transparent about risks and timeline
    - Set expectations for eventual migration
 
-MEDIUM-TERM STRATEGY (6-18 months):
+MEDIUM-TERM STRATEGY (Mid term):
 
 1. **Replacement Selection**
    - Identify modern equivalent in Mainstream lifecycle
@@ -423,7 +423,7 @@ MEDIUM-TERM STRATEGY (6-18 months):
    - Demonstrate benefits of new system if possible
    - Provide extensive training and support
 
-LONG-TERM STRATEGY (18+ months):
+LONG-TERM STRATEGY (Long term):
 
 1. **Complete Migration**
    - Move to Mainstream technology (proven, supported)
@@ -438,7 +438,7 @@ LONG-TERM STRATEGY (18+ months):
 3. **Lifecycle Monitoring**
    - Implement proactive monitoring for new system
    - Plan for modernization before reaching End of Support again
-   - Establish lifecycle review cadence (annual minimum)
+   - Establish a lifecycle review cadence
 
 CRITICAL ADOPTION INSIGHT FOR FORCED MIGRATIONS:
 
@@ -457,7 +457,7 @@ PREVENTION FOR THE FUTURE:
 
 The best strategy is never getting to End of Support in the first place:
 
-- ✓ Proactive lifecycle monitoring (review quarterly)
+- ✓ Proactive lifecycle monitoring (review regularly)
 - ✓ Start planning modernization when technology moves from Mainstream toward Trending Behind
 - ✓ Budget for lifecycle management, not just initial deployment
 - ✓ Build organizational culture of lifecycle awareness
@@ -480,12 +480,12 @@ WARNING SIGNS TO WATCH:
 
 AI/ML PRESENTS UNIQUE LIFECYCLE CHALLENGES:
 
-CURRENT AI/ML LIFECYCLE LANDSCAPE (2025):
+CURRENT AI/ML LIFECYCLE LANDSCAPE (Snapshot — update as needed):
 
 BLEEDING EDGE:
 
 - Experimental model architectures from recent research
-- Cutting-edge foundation models (GPT-5, etc.)
+- Cutting-edge foundation models (new releases)
 - Unproven frameworks and approaches
 - Risk: Too unstable for production enterprise use
 
@@ -494,7 +494,7 @@ LEADING EDGE:
 - Stable ML frameworks (PyTorch, TensorFlow - matured here)
 - MLOps patterns and platforms
 - Cloud-native ML platforms
-- Established foundation models (GPT-4, Claude, etc.)
+- Established foundation models (widely deployed families)
 - ✅ RECOMMENDED FOCUS for new AI/ML capabilities
 
 MAINSTREAM:

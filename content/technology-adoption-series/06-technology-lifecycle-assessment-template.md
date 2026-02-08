@@ -40,11 +40,11 @@ Based on the criteria below, assess the current lifecycle stage:
 
 Indicators:
 
-- Released within last 6-12 months
+- Released recently (roughly within the last year)
 - Limited production deployments
-- Rapid version changes (weekly/monthly major releases)
+- Rapid version changes (frequent breaking releases)
 - Sparse documentation
-- Small community (<1000 contributors)
+- Small community (limited contributor base)
 - Few job postings requiring this skill
 - Vendor/project unclear on long-term commitment
 
@@ -52,11 +52,11 @@ Indicators:
 
 Indicators:
 
-- Released 1-3 years ago, gaining traction
+- Established but still maturing, gaining traction
 - Growing production adoption across industry
-- Regular but stable releases (quarterly)
+- Regular but stable releases
 - Documentation improving rapidly
-- Active, growing community (1000-10,000 contributors)
+- Active, growing community
 - Increasing job postings
 - Clear vendor/project roadmap
 - Conference talks and training emerging
@@ -65,11 +65,11 @@ Indicators:
 
 Indicators:
 
-- Established for 3+ years
+- Established for multiple years
 - Widely adopted across industry
-- Stable release cadence (semi-annual/annual)
+- Predictable release cadence
 - Comprehensive documentation
-- Large, mature community (10,000+ contributors)
+- Large, mature community
 - Many job postings and training programs
 - Multiple vendors/support options
 - Considered "standard" or "default choice"
@@ -124,7 +124,7 @@ What evidence supports your lifecycle assessment?
 Community Activity:
 
 GitHub stars: **\_\_\_\_** Contributors: **\_\_\_\_** Recent commits: **\_\_\_\_**
-Stack Overflow questions (last month): **\_\_\_\_**
+Stack Overflow questions (recent period): **\_\_\_\_**
 
 Vendor Commitment:
 
@@ -149,13 +149,13 @@ Market trend: □ Growing □ Stable □ Declining
 
 Where do you expect this technology to be in:
 
-1 year: □ Bleeding Edge □ Leading Edge □ Mainstream
+Near term: □ Bleeding Edge □ Leading Edge □ Mainstream
 □ Trending Behind □ End of Support □ End of Life
 
-3 years: □ Bleeding Edge □ Leading Edge □ Mainstream
+Mid term: □ Bleeding Edge □ Leading Edge □ Mainstream
 □ Trending Behind □ End of Support □ End of Life
 
-5 years: □ Bleeding Edge □ Leading Edge □ Mainstream
+Long term: □ Bleeding Edge □ Leading Edge □ Mainstream
 □ Trending Behind □ End of Support □ End of Life
 
 What factors influence this trajectory?
@@ -219,9 +219,9 @@ If LEADING EDGE (Current Assessment):
 If MAINSTREAM (Current Assessment):
 
 □ Continue current approach
-□ Standard lifecycle monitoring (quarterly review)
+□ Standard lifecycle monitoring (regular review cadence)
 □ Watch for signs of trending behind
-□ Budget for eventual modernization (5-10 year horizon)
+□ Budget for eventual modernization (multi-year horizon)
 
 If TRENDING BEHIND (Current Assessment):
 
@@ -235,7 +235,7 @@ If END OF SUPPORT or worse (Current Assessment):
 
 □ URGENT - Emergency migration required
 □ Identify replacement: **\*\***\_\_\_**\*\***
-□ Migration timeline (target < 12 months): **\*\***\_\_\_**\*\***
+□ Migration timeline (target: define window, e.g., under 12 months): **\*\***\_\_\_**\*\***
 □ Document security risks and mitigation
 □ Brief leadership on risk exposure
 □ Allocate emergency budget: **\*\***\_\_\_**\*\***
@@ -244,8 +244,8 @@ If END OF SUPPORT or worse (Current Assessment):
 
 ## ACTION PLAN
 
-Priority: □ Critical (< 3 months) □ High (3-6 months)
-□ Medium (6-12 months) □ Low (> 12 months)
+Priority: □ Critical (immediate) □ High (soon)
+□ Medium (planned) □ Low (backlog)
 
 Action Items:
 
