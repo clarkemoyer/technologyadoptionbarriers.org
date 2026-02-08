@@ -369,7 +369,7 @@ THE "SWEET SPOT": LEADING EDGE → MAINSTREAM
 - ✅ Growing community and vendor support
 - ✅ Manageable risk for enterprise environments
 - ✅ Strong voluntary adoption potential
-- ✅ Long support lifecycle ahead (5-10 years)
+- ✅ Typically more stable support runway than newer alternatives
 - ✅ Talent pool available and growing
 - ✅ Modern architectural patterns established
 - ✅ Best tool for the job philosophy
@@ -377,7 +377,7 @@ THE "SWEET SPOT": LEADING EDGE → MAINSTREAM
 LIFECYCLE AWARENESS IN PROJECT PLANNING:
 
 - Where is this technology TODAY?
-- Where will it be in 2 years? 5 years? 10 years?
+- Where will it be in the near term, mid term, and long term?
 - What's our exit strategy if it trends behind?
 - How do we position for voluntary user adoption?
 
@@ -591,7 +591,7 @@ Adoption Must Be Considered Throughout the Entire Lifecycle:
 **Speaker Notes:**
 
 - "Adoption isn't a deployment checkbox - it's lifecycle-long"
-- "User input at design phase is 100x cheaper than fixing adoption problems post-deployment"
+- "User input early is far cheaper than fixing adoption problems post-deployment"
 - "Every phase should ask: How does this affect voluntary adoption?"
 - "Notice how lifecycle awareness appears in every phase - technology doesn't stand still"
 - "This is where architectural decisions flow into development decisions"
@@ -611,7 +611,7 @@ adoption needs, specific development decisions follow:
 
 **CLOUD NATIVE ADOPTION REQUIREMENTS → DEVELOPMENT DECISIONS:**
 
-- User needs 10x performance improvement → Microservices architecture required
+- User needs a major performance improvement → Architecture and scaling strategy must support it
 - Distributed deployment needed → Container orchestration expertise required
 - Graceful degradation required → Circuit breaker patterns, health checks
 - Multi-environment consistency → Infrastructure as Code, GitOps workflows
@@ -794,7 +794,7 @@ WHAT TO MEASURE WHEN:
 
 **Content**
 
-PROJECT EXAMPLE: Enterprise Data Processing System
+PROJECT EXAMPLE (Illustrative / Composite): Enterprise Data Processing System
 
 THE CHALLENGE:
 
@@ -809,7 +809,7 @@ LIFECYCLE & ARCHITECTURE DECISIONS:
 - Technology Lifecycle Position: Leading Edge → Mainstream
   - Kubernetes (Mainstream), multi-cluster management (Leading Edge)
 - Architecture Approach: Cloud Native with Cloud Agnostic elements
-  - New system justified by 10x performance improvement
+  - New system justified by a clear, material improvement in outcomes
   - Multi-cluster enables distributed deployment
 - Platform Selection: Container orchestration on Kubernetes
 - Rationale:
@@ -820,23 +820,23 @@ LIFECYCLE & ARCHITECTURE DECISIONS:
 
 ADOPTION STRATEGY (Voluntary Focus):
 
-- Early user involvement: 5 operators in design phase
+- Early user involvement: Small, representative user group in the design phase
 - Built for existing workflows: Maintained familiar data visualization
-- Clear value proposition: 10x faster processing, 50% less manual work
-- Voluntary pilot program: 10 early adopters across 2 business units
+- Clear value proposition: Meaningfully faster processing and less manual work
+- Voluntary pilot program: Start with a small pilot cohort across multiple groups
 - Iterative feedback loops: Bi-weekly user testing during development
 - Role-based training: Not one-size-fits-all, tailored to user roles
 - Phased rollout: Pilot → Expanded pilot → Voluntary requests → Full deployment
 
 OUTCOMES:
 
-- 85% of target users actively using within 6 months
-- 60% reduction in time for critical decision cycle
-- 23 user-requested features implemented (active engagement)
-- Voluntary expansion: 3 additional business units requested access
+- High sustained usage within the first few months
+- Significant reduction in time-to-decision and manual effort
+- Ongoing user-requested improvements (active engagement)
+- Voluntary expansion: Additional groups requested access
 - Users serving as advocates to peer organizations
-- Zero workarounds observed (users trust the system)
-- 95% user satisfaction score
+- Minimal workarounds observed (users trust the system)
+- Strong user satisfaction and positive feedback
 
 DEVELOPMENT DECISIONS THAT FLOWED FROM ADOPTION:
 
@@ -858,19 +858,17 @@ adoption requirements, not just technical requirements.
 **Visual:** Journey map showing progression
 
 ```text
-Month 1-2:    Design with 5 users
+Phase 1:      Design with representative users
               ↓ (Requirements validated)
-Month 3-6:    Development with bi-weekly user testing
+Phase 2:      Development with frequent user testing
               ↓ (Iterative feedback)
-Month 7-8:    Pilot with 10 early adopters
+Phase 3:      Pilot with early adopters
               ↓ (Positive feedback, feature requests)
-Month 9-10:   Expanded pilot (50 users)
-              ↓ (High satisfaction, voluntary expansion requests)
-Month 11-12:  Additional unit deployments (voluntary)
-              ↓ (Users advocating to peers)
-Month 13+:    Scaled adoption (200+ users)
+Phase 4:      Expand as demand grows (voluntary)
+              ↓ (Advocacy to peers)
+Phase 5:      Scaled adoption
               Self-sustaining growth
-              User-driven feature roadmap
+              User-driven roadmap
 ```
 
 **Speaker Notes:**
