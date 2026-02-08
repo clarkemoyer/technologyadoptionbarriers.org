@@ -9,8 +9,8 @@ This folder contains a cleaned (deduplicated) Markdown version of the provided *
 
 ## Files
 
-- [01-core-presentation-deck.md](./01-core-presentation-deck.md)
-- [02-backup-slides.md](./02-backup-slides.md)
+- [01-core-presentation-deck.md](./01-core-presentation-deck.md) (core 16 slides + Q&A transition + backup slide appendix)
+- [02-backup-slides.md](./02-backup-slides.md) (pointer to the appendix above; kept to avoid breaking links)
 - [03-opening-and-closing-scripts.md](./03-opening-and-closing-scripts.md)
 - [04-qa-preparation-guide.md](./04-qa-preparation-guide.md)
 - [05-handout-materials.md](./05-handout-materials.md)
