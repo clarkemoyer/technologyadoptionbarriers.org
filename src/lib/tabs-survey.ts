@@ -35,10 +35,9 @@ export type ProlificSurveyParams = {
 }
 
 export function buildProlificQualtricsSurveyUrl(params: ProlificSurveyParams): string {
-  return buildTabsQualtricsSurveyUrl({
-    ...params,
-    SOURCE: TABS_SURVEY_PROLIFIC_SOURCE,
-  })
+  // Prolific provides PROLIFIC_PID/STUDY_ID/SESSION_ID only.
+  // Survey Flow sets SOURCE/COMPLETE_URL based on PROLIFIC_PID presence.
+  return buildTabsQualtricsSurveyUrl({ ...params })
 }
 
 // Safe to ship publicly: uses deterministic test IDs.

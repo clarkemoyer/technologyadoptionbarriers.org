@@ -429,6 +429,20 @@ function getProlificCompletionUrlFromFlow(flowObj: unknown): string | null {
   return found
 }
 
+function appendRawQueryParam(url: string, rawParam: string): string {
+  const trimmed = rawParam.trim()
+  if (!trimmed) return url
+  return url.includes('?') ? `${url}&${trimmed}` : `${url}?${trimmed}`
+}
+
+function ensureResponseIdInCompletionUrl(url: string): string {
+  // Don't double-add.
+  if (url.includes('rid=${e://Field/ResponseID}')) return url
+  if (/[?&]rid=/.test(url)) return url
+  // IMPORTANT: do not URL-encode Qualtrics piped text.
+  return appendRawQueryParam(url, 'rid=${e://Field/ResponseID}')
+}
+
 function ensureCompletionRedirectInOptions(
   optionsObj: unknown,
   redirectUrlTemplate: string
@@ -1064,9 +1078,10 @@ async function main() {
   const authenticityScript = process.env.PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT || ''
 
   const lockDownRedirect = parseBoolEnv('QUALTRICS_PROLIFIC_LOCK_DOWN_REDIRECT')
-  const websiteCompletionUrl =
+  const websiteCompletionUrlBase =
     (process.env.TABS_WEBSITE_COMPLETE_URL || '').trim() ||
     'https://technologyadoptionbarriers.org/survey-complete'
+  const websiteCompletionUrl = ensureResponseIdInCompletionUrl(websiteCompletionUrlBase)
 
   const redirectUrlTemplate = '${e://Field/COMPLETE_URL}'
 
@@ -1099,6 +1114,8 @@ async function main() {
     console.log(`Survey GET: ${surveyGet.status} ${surveyGet.url}`)
     prolificCompletionUrl = getProlificCompletionUrlFromSurvey(surveyGet.json)
   }
+
+  prolificCompletionUrl = ensureResponseIdInCompletionUrl(prolificCompletionUrl)
 
   // If the default COMPLETE_URL is no longer the Prolific URL (by design), fall back to
   // scanning the Survey Flow for the Branch setter value.
