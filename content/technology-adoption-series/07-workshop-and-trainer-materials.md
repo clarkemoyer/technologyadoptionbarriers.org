@@ -51,7 +51,7 @@ Session 3: Architecture & Adoption (45 minutes)
 - Present Slides 10-11
 - Three architecture approaches
 - Lifecycle-to-architecture connection
-- Case study discussion (Slide 14)
+- Case study discussion (Slide 15)
 
 Session 4: Hands-On Assessment (60 minutes)
 

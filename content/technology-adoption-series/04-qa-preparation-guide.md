@@ -117,7 +117,7 @@ See how one architecture decision creates dozens of downstream impacts?
 • User Adoption Risk: Cloud Enabling lowest (familiar), Cloud Native higher (new UX), Cloud Agnostic medium (consistency)
 • Cost Profile: Different capex/opex models for each
 • Vendor Relationships: From single-vendor (Cloud Native on one cloud) to multi-vendor (Cloud Agnostic)
-In our case study on Slide 14, we chose Cloud Native with Cloud Agnostic elements because:
+In our case study on Slide 15, we chose Cloud Native with Cloud Agnostic elements because:
 
 1. A clear, material performance improvement justified the learning curve (voluntary adoption potential)
 2. Multi-environment requirements demanded portability
