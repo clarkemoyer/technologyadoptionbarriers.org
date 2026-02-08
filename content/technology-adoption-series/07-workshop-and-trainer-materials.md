@@ -330,14 +330,6 @@ Skills Demonstration:
 
 - □ Co-facilitated workshop with certified trainer
 - □ Successfully presented all 16 core slides
-- □ Facilitate
-
-TRAINER CERTIFICATION CHECKLIST (CONTINUED)
-
-Skills Demonstration (CONTINUED):
-
-- □ Co-facilitated workshop with certified trainer
-- □ Successfully presented all 16 core slides
 - □ Facilitated group exercises effectively
 - □ Handled Q&A confidently
 - □ Managed time effectively
@@ -378,9 +370,9 @@ Ongoing Requirements:
 - □ Maintain industry knowledge
 - □ Collect and share best practices
 
-Certified By: ********\_\_\_\_******** Date: ******\_\_******
+Certified By: **\*\*\*\***\_\_\_\_**\*\*\*\*** Date: **\*\***\_\_**\*\***
 
-Certification Valid Through: ******\_\_******
+Certification Valid Through: **\*\***\_\_**\*\***
 
 ---
 

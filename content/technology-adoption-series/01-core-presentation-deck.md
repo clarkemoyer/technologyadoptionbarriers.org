@@ -893,6 +893,12 @@ BEST PRACTICES FOR ADOPTION SUCCESS:
 - "Every one of these practices prevents projects from becoming expensive shelf-ware"
 - "This is how successful organizations ensure technology actually gets used"
 
+---
+
+### Slide 16: "Wrap-Up, Next Questions & Q&A"
+
+**Content**
+
 Closing Statement:
 
 "So to wrap up: Technology adoption isn't what happens after you build something - it's what you plan for from the very first design discussion.

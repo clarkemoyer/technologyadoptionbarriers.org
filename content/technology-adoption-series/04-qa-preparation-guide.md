@@ -351,7 +351,7 @@ Tell This Story:
 • Experienced 3 major outages due to immaturity
 • Users refused to adopt it (created workarounds)
 • Had to migrate to Mainstream Kubernetes anyway
-• Total cost: 500Kvs.500Kvs.120K if they'd chosen Kubernetes initially
+• Total cost: $500K vs. $120K if they'd chosen Kubernetes initially
 • Lost 2 years of progress
 That's the real cost of not being lifecycle-aware.'
 Propose a Risk Framework:
