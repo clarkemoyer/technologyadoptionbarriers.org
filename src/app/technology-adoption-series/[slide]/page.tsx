@@ -1508,6 +1508,46 @@ export default async function TechnologyAdoptionSeriesSlidePage({ params }: Page
           <RenderMarkdownNodes nodes={contentNodes} slideNumber={slide.number} />
         </section>
 
+        <nav
+          aria-label="Slide navigation"
+          className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-t border-gray-200 pt-6"
+        >
+          <div className="flex items-center gap-3">
+            {prev ? (
+              <Link
+                href={`/technology-adoption-series/${prev.segment}`}
+                className="inline-flex items-center rounded border border-gray-300 px-3 py-2 text-sm text-gray-800 hover:bg-gray-50"
+              >
+                Previous: Slide {prev.number}
+              </Link>
+            ) : (
+              <span className="inline-flex items-center rounded border border-gray-200 px-3 py-2 text-sm text-gray-400">
+                Previous
+              </span>
+            )}
+
+            {next ? (
+              <Link
+                href={`/technology-adoption-series/${next.segment}`}
+                className="inline-flex items-center rounded border border-gray-300 px-3 py-2 text-sm text-gray-800 hover:bg-gray-50"
+              >
+                Next: Slide {next.number}
+              </Link>
+            ) : (
+              <span className="inline-flex items-center rounded border border-gray-200 px-3 py-2 text-sm text-gray-400">
+                Next
+              </span>
+            )}
+          </div>
+
+          <Link
+            href="/technology-adoption-series"
+            className="text-sm text-blue-700 hover:underline"
+          >
+            Back to series overview
+          </Link>
+        </nav>
+
         <TeachingSeriesNavigation className="mt-10" />
       </article>
     </main>

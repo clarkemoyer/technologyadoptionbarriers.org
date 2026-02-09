@@ -39,6 +39,7 @@ const Header: React.FC = () => {
   const [isMobileTeachingPart1Open, setIsMobileTeachingPart1Open] = useState(false)
   const [isMobileTeachingPart2Open, setIsMobileTeachingPart2Open] = useState(false)
   const [isMobileTeachingPart3Open, setIsMobileTeachingPart3Open] = useState(false)
+  const [isMobileTeachingBackupOpen, setIsMobileTeachingBackupOpen] = useState(false)
   const [isMobileIndividualsOpen, setIsMobileIndividualsOpen] = useState(false)
   const [isMobileOrganizationsOpen, setIsMobileOrganizationsOpen] = useState(false)
   const [isMobileMakingOfOpen, setIsMobileMakingOfOpen] = useState(false)
@@ -48,6 +49,16 @@ const Header: React.FC = () => {
   const megaMenuButtonRef = useRef<HTMLLIElement>(null)
   const makingOfMenuRef = useRef<HTMLDivElement>(null)
   const makingOfMenuButtonRef = useRef<HTMLLIElement>(null)
+
+  const teachingSeriesPart3CoreSlides = useMemo(
+    () => technologyAdoptionTeachingSeries.parts[2].slides.filter((s) => !s.isOptional),
+    []
+  )
+
+  const teachingSeriesBackupSlides = useMemo(
+    () => technologyAdoptionTeachingSeries.parts[2].slides.filter((s) => s.isOptional),
+    []
+  )
 
   const menuItems: MenuItem[] = useMemo(
     () => [
@@ -191,6 +202,7 @@ const Header: React.FC = () => {
     setIsMobileTeachingPart1Open(false)
     setIsMobileTeachingPart2Open(false)
     setIsMobileTeachingPart3Open(false)
+    setIsMobileTeachingBackupOpen(false)
     setIsMobileIndividualsOpen(false)
     setIsMobileOrganizationsOpen(false)
     setIsMobileMakingOfOpen(false)
@@ -290,7 +302,7 @@ const Header: React.FC = () => {
                                 ? 'text-blue-600'
                                 : 'text-gray-600 hover:text-gray-500'
                             }`}
-                            aria-expanded={activeMegaMenu === item.megaMenuId ? 'true' : 'false'}
+                            aria-expanded={activeMegaMenu === item.megaMenuId}
                             aria-controls="mega-menu"
                           >
                             {item.label}
@@ -320,7 +332,7 @@ const Header: React.FC = () => {
                                   ? 'text-blue-600'
                                   : 'text-gray-600 hover:text-gray-500'
                               }`}
-                              aria-expanded={isMakingOfMenuOpen ? 'true' : 'false'}
+                              aria-expanded={isMakingOfMenuOpen}
                               aria-controls="making-of-menu"
                             >
                               {item.label}
@@ -535,7 +547,7 @@ const Header: React.FC = () => {
                     {technologyAdoptionTeachingSeries.root.title}
                   </Link>
 
-                  <div className="grid grid-cols-3 gap-8">
+                  <div className="grid grid-cols-4 gap-8">
                     <div>
                       <Link
                         href={technologyAdoptionTeachingSeries.root.slug}
@@ -591,7 +603,7 @@ const Header: React.FC = () => {
                         {technologyAdoptionTeachingSeries.parts[2].title}
                       </Link>
                       <ul className="space-y-2">
-                        {technologyAdoptionTeachingSeries.parts[2].slides.map((s) => (
+                        {teachingSeriesPart3CoreSlides.map((s) => (
                           <li key={s.id}>
                             <Link
                               href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
@@ -599,9 +611,30 @@ const Header: React.FC = () => {
                               className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
                             >
                               Slide {s.number}: {s.title}
-                              {s.isOptional ? (
-                                <span className="text-gray-600"> (Optional)</span>
-                              ) : null}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div>
+                      <Link
+                        href={technologyAdoptionTeachingSeries.root.slug}
+                        onClick={handleLinkClick}
+                        className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                      >
+                        Backup slides
+                      </Link>
+                      <ul className="space-y-2">
+                        {teachingSeriesBackupSlides.map((s) => (
+                          <li key={s.id}>
+                            <Link
+                              href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              Slide {s.number}: {s.title}
+                              <span className="text-gray-600"> (Optional)</span>
                             </Link>
                           </li>
                         ))}
@@ -759,7 +792,7 @@ const Header: React.FC = () => {
                               <button
                                 onClick={() => setIsMobileBranch1Open(!isMobileBranch1Open)}
                                 className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                                aria-expanded={isMobileBranch1Open ? 'true' : 'false'}
+                                aria-expanded={isMobileBranch1Open}
                               >
                                 <span className="text-[13px]">
                                   {technologyAdoptionModelsSeries.branches[0].title}
@@ -813,7 +846,7 @@ const Header: React.FC = () => {
                               <button
                                 onClick={() => setIsMobileBranch2Open(!isMobileBranch2Open)}
                                 className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                                aria-expanded={isMobileBranch2Open ? 'true' : 'false'}
+                                aria-expanded={isMobileBranch2Open}
                               >
                                 <span className="text-[13px]">
                                   {technologyAdoptionModelsSeries.branches[1].title}
@@ -887,7 +920,7 @@ const Header: React.FC = () => {
                                   setIsMobileTeachingPart1Open(!isMobileTeachingPart1Open)
                                 }
                                 className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                                aria-expanded={isMobileTeachingPart1Open ? 'true' : 'false'}
+                                aria-expanded={isMobileTeachingPart1Open}
                               >
                                 <span className="text-[13px]">
                                   {technologyAdoptionTeachingSeries.parts[0].title}
@@ -932,7 +965,7 @@ const Header: React.FC = () => {
                                   setIsMobileTeachingPart2Open(!isMobileTeachingPart2Open)
                                 }
                                 className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                                aria-expanded={isMobileTeachingPart2Open ? 'true' : 'false'}
+                                aria-expanded={isMobileTeachingPart2Open}
                               >
                                 <span className="text-[13px]">
                                   {technologyAdoptionTeachingSeries.parts[1].title}
@@ -977,7 +1010,7 @@ const Header: React.FC = () => {
                                   setIsMobileTeachingPart3Open(!isMobileTeachingPart3Open)
                                 }
                                 className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                                aria-expanded={isMobileTeachingPart3Open ? 'true' : 'false'}
+                                aria-expanded={isMobileTeachingPart3Open}
                               >
                                 <span className="text-[13px]">
                                   {technologyAdoptionTeachingSeries.parts[2].title}
@@ -1000,7 +1033,7 @@ const Header: React.FC = () => {
                               </button>
                               {isMobileTeachingPart3Open && (
                                 <ul className="mt-1 space-y-1">
-                                  {technologyAdoptionTeachingSeries.parts[2].slides.map((s) => (
+                                  {teachingSeriesPart3CoreSlides.map((s) => (
                                     <li key={s.id}>
                                       <Link
                                         href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
@@ -1008,9 +1041,50 @@ const Header: React.FC = () => {
                                         className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
                                       >
                                         Slide {s.number}: {s.title}
-                                        {s.isOptional ? (
-                                          <span className="text-gray-600"> (Optional)</span>
-                                        ) : null}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+
+                            {/* Backup slides */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() =>
+                                  setIsMobileTeachingBackupOpen(!isMobileTeachingBackupOpen)
+                                }
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileTeachingBackupOpen}
+                              >
+                                <span className="text-[13px]">Backup slides</span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileTeachingBackupOpen ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileTeachingBackupOpen && (
+                                <ul className="mt-1 space-y-1">
+                                  {teachingSeriesBackupSlides.map((s) => (
+                                    <li key={s.id}>
+                                      <Link
+                                        href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
+                                        onClick={handleLinkClick}
+                                        className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                      >
+                                        Slide {s.number}: {s.title}
+                                        <span className="text-gray-600"> (Optional)</span>
                                       </Link>
                                     </li>
                                   ))}
@@ -1028,7 +1102,7 @@ const Header: React.FC = () => {
                               <button
                                 onClick={() => setIsMobileIndividualsOpen(!isMobileIndividualsOpen)}
                                 className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                                aria-expanded={isMobileIndividualsOpen ? 'true' : 'false'}
+                                aria-expanded={isMobileIndividualsOpen}
                               >
                                 <span className="text-[13px]">
                                   {personaNavigation.columns.individuals.title}
@@ -1085,7 +1159,7 @@ const Header: React.FC = () => {
                                   setIsMobileOrganizationsOpen(!isMobileOrganizationsOpen)
                                 }
                                 className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                                aria-expanded={isMobileOrganizationsOpen ? 'true' : 'false'}
+                                aria-expanded={isMobileOrganizationsOpen}
                               >
                                 <span className="text-[13px]">
                                   {personaNavigation.columns.organizations.title}
@@ -1142,7 +1216,7 @@ const Header: React.FC = () => {
                         <button
                           onClick={() => setIsMobileMakingOfOpen(!isMobileMakingOfOpen)}
                           className="w-full flex items-center justify-between px-4 py-2 rounded-lg text-sm font-[600] text-gray-700 hover:bg-gray-100"
-                          aria-expanded={isMobileMakingOfOpen ? 'true' : 'false'}
+                          aria-expanded={isMobileMakingOfOpen}
                           aria-controls="mobile-making-of-menu"
                         >
                           <span>{item.label}</span>
