@@ -8,7 +8,10 @@ import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
 import { motion, AnimatePresence } from 'framer-motion'
 import { technologyAdoptionModelsSeries } from '@/data/technology-adoption-models-series'
-import { technologyAdoptionTeachingSeries } from '@/data/technology-adoption-teaching-series'
+import {
+  technologyAdoptionTeachingSeries,
+  technologyAdoptionTeachingSeriesResources,
+} from '@/data/technology-adoption-teaching-series'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 import { personaNavigation } from '@/data/persona-navigation'
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -40,6 +43,7 @@ const Header: React.FC = () => {
   const [isMobileTeachingPart2Open, setIsMobileTeachingPart2Open] = useState(false)
   const [isMobileTeachingPart3Open, setIsMobileTeachingPart3Open] = useState(false)
   const [isMobileTeachingBackupOpen, setIsMobileTeachingBackupOpen] = useState(false)
+  const [isMobileTeachingResourcesOpen, setIsMobileTeachingResourcesOpen] = useState(false)
   const [isMobileIndividualsOpen, setIsMobileIndividualsOpen] = useState(false)
   const [isMobileOrganizationsOpen, setIsMobileOrganizationsOpen] = useState(false)
   const [isMobileMakingOfOpen, setIsMobileMakingOfOpen] = useState(false)
@@ -203,6 +207,7 @@ const Header: React.FC = () => {
     setIsMobileTeachingPart2Open(false)
     setIsMobileTeachingPart3Open(false)
     setIsMobileTeachingBackupOpen(false)
+    setIsMobileTeachingResourcesOpen(false)
     setIsMobileIndividualsOpen(false)
     setIsMobileOrganizationsOpen(false)
     setIsMobileMakingOfOpen(false)
@@ -640,6 +645,23 @@ const Header: React.FC = () => {
                         ))}
                       </ul>
                     </div>
+                  </div>
+
+                  <div>
+                    <div className="block text-[14px] font-bold text-gray-900 mb-3">Resources</div>
+                    <ul className="space-y-2">
+                      {technologyAdoptionTeachingSeriesResources.map((resource) => (
+                        <li key={resource.id}>
+                          <Link
+                            href={`${technologyAdoptionTeachingSeries.root.slug}/${resource.segment}`}
+                            onClick={handleLinkClick}
+                            className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                          >
+                            {resource.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               )}
@@ -1085,6 +1107,49 @@ const Header: React.FC = () => {
                                       >
                                         Slide {s.number}: {s.title}
                                         <span className="text-gray-600"> (Optional)</span>
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+
+                            {/* Resources */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() =>
+                                  setIsMobileTeachingResourcesOpen(!isMobileTeachingResourcesOpen)
+                                }
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileTeachingResourcesOpen}
+                              >
+                                <span className="text-[13px]">Resources</span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileTeachingResourcesOpen ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileTeachingResourcesOpen && (
+                                <ul className="mt-1 space-y-1">
+                                  {technologyAdoptionTeachingSeriesResources.map((resource) => (
+                                    <li key={resource.id}>
+                                      <Link
+                                        href={`${technologyAdoptionTeachingSeries.root.slug}/${resource.segment}`}
+                                        onClick={handleLinkClick}
+                                        className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                      >
+                                        {resource.title}
                                       </Link>
                                     </li>
                                   ))}

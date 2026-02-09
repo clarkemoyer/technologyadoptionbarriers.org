@@ -3,7 +3,10 @@ import Link from 'next/link'
 
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import TeachingSeriesNavigation from '@/components/teaching-series-navigation'
-import { technologyAdoptionTeachingSeries } from '@/data/technology-adoption-teaching-series'
+import {
+  technologyAdoptionTeachingSeries,
+  technologyAdoptionTeachingSeriesResources,
+} from '@/data/technology-adoption-teaching-series'
 
 export const metadata: Metadata = {
   title: 'Technology Adoption Teaching Series — Overview',
@@ -51,6 +54,25 @@ export default async function TechnologyAdoptionSeriesPage() {
               </section>
             ))}
           </div>
+        </section>
+
+        <section className="mb-10">
+          <h2 className={H2_CLASSES}>Resources</h2>
+          <p className="mb-4 text-gray-700">
+            Supporting materials for facilitators and participants.
+          </p>
+          <ul className="list-disc pl-6 space-y-2">
+            {technologyAdoptionTeachingSeriesResources.map((resource) => (
+              <li key={resource.id}>
+                <Link
+                  href={`${root.slug}/${resource.segment}`}
+                  className="text-blue-700 hover:underline"
+                >
+                  {resource.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <TeachingSeriesNavigation />

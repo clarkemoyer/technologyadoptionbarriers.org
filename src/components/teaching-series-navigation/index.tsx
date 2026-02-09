@@ -4,7 +4,10 @@ import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { technologyAdoptionTeachingSeries } from '@/data/technology-adoption-teaching-series'
+import {
+  technologyAdoptionTeachingSeries,
+  technologyAdoptionTeachingSeriesResources,
+} from '@/data/technology-adoption-teaching-series'
 import { H2_CLASSES } from '@/lib/articleStyles'
 
 type LinkState = {
@@ -78,6 +81,12 @@ const TeachingSeriesNavigation = ({ className }: { className?: string }) => {
   const currentPath = normalizePath(pathname)
 
   const { root, parts } = technologyAdoptionTeachingSeries
+  const resources = technologyAdoptionTeachingSeriesResources.map((r) => ({
+    title: r.title,
+    slug: `${root.slug}/${r.segment}`,
+    status: r.status,
+    id: r.id,
+  }))
 
   const flatSlides = parts.flatMap((part) =>
     part.slides.map((s) => ({
@@ -98,6 +107,7 @@ const TeachingSeriesNavigation = ({ className }: { className?: string }) => {
   const previousNext = (() => {
     const items: LinkState[] = [
       { title: 'Series overview', slug: root.slug, status: 'published' },
+      ...resources.map((r) => ({ title: r.title, slug: r.slug, status: r.status })),
       ...flatSlides.map((s) => ({
         title: `Slide ${s.number}: ${s.title}`,
         slug: s.slug,
@@ -192,6 +202,36 @@ const TeachingSeriesNavigation = ({ className }: { className?: string }) => {
             </div>
           </section>
         </div>
+
+        <section className="mt-6" aria-label="Resources">
+          <h3 className="font-bold text-gray-900">Resources</h3>
+          <div className="mt-2">
+            {resources.length ? (
+              <ul className="space-y-1 text-sm font-sans">
+                {resources.map((r) => {
+                  const isCurrent = normalizePath(r.slug || '') === currentPath
+                  return (
+                    <li key={r.id}>
+                      <Link
+                        href={r.slug!}
+                        className={`rounded px-1 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
+                          isCurrent
+                            ? 'font-semibold text-gray-900 underline decoration-2 decoration-blue-500'
+                            : 'text-blue-700 hover:underline'
+                        }`}
+                        aria-current={isCurrent ? 'page' : undefined}
+                      >
+                        {r.title}
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            ) : (
+              <div className="text-sm text-gray-700">No resources.</div>
+            )}
+          </div>
+        </section>
 
         {previousNext ? (
           <div className="mt-6 pt-4 border-t border-gray-200 flex flex-col gap-2 sm:flex-row sm:justify-between">

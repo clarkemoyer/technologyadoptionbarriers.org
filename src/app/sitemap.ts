@@ -1,6 +1,9 @@
 import type { MetadataRoute } from 'next'
 import { technologyAdoptionModelsSeries } from '@/data/technology-adoption-models-series'
-import { technologyAdoptionTeachingSeries } from '@/data/technology-adoption-teaching-series'
+import {
+  technologyAdoptionTeachingSeries,
+  technologyAdoptionTeachingSeriesResources,
+} from '@/data/technology-adoption-teaching-series'
 
 export const dynamic = 'force-static'
 
@@ -60,6 +63,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+    ...technologyAdoptionTeachingSeriesResources.map((resource) => ({
+      url: `${baseUrl}${technologyAdoptionTeachingSeries.root.slug}/${resource.segment}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    })),
     ...technologyAdoptionTeachingSeries.parts.flatMap((part) =>
       part.slides.map((slide) => ({
         url: `${baseUrl}${technologyAdoptionTeachingSeries.root.slug}/${slide.segment}`,

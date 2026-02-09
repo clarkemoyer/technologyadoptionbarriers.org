@@ -25,6 +25,14 @@ export interface TeachingSeriesPart {
   slides: TeachingSeriesSlide[]
 }
 
+export interface TeachingSeriesResource {
+  id: string
+  title: string
+  segment: string
+  sourceFile: string
+  status?: 'published' | 'coming-soon'
+}
+
 export interface TeachingSeriesStructure {
   root: {
     title: string
@@ -106,3 +114,41 @@ export const technologyAdoptionTeachingSeries: TeachingSeriesStructure = {
     },
   ],
 }
+
+export const technologyAdoptionTeachingSeriesResources: TeachingSeriesResource[] = [
+  {
+    id: 'opening-and-closing-scripts',
+    title: 'Opening and closing scripts',
+    segment: 'opening-and-closing-scripts',
+    sourceFile: '03-opening-and-closing-scripts.md',
+    status: 'published',
+  },
+  {
+    id: 'qa-preparation-guide',
+    title: 'Q&A preparation guide',
+    segment: 'qa-preparation-guide',
+    sourceFile: '04-qa-preparation-guide.md',
+    status: 'published',
+  },
+  {
+    id: 'handout-materials',
+    title: 'Handout materials',
+    segment: 'handout-materials',
+    sourceFile: '05-handout-materials.md',
+    status: 'published',
+  },
+  {
+    id: 'technology-lifecycle-assessment-template',
+    title: 'Technology lifecycle assessment template',
+    segment: 'technology-lifecycle-assessment-template',
+    sourceFile: '06-technology-lifecycle-assessment-template.md',
+    status: 'published',
+  },
+  {
+    id: 'workshop-and-trainer-materials',
+    title: 'Workshop and trainer materials',
+    segment: 'workshop-and-trainer-materials',
+    sourceFile: '07-workshop-and-trainer-materials.md',
+    status: 'published',
+  },
+]

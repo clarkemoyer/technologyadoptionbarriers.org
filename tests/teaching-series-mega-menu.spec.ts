@@ -1,5 +1,8 @@
 import { test, expect, type Page } from '@playwright/test'
-import { technologyAdoptionTeachingSeries } from '../src/data/technology-adoption-teaching-series'
+import {
+  technologyAdoptionTeachingSeries,
+  technologyAdoptionTeachingSeriesResources,
+} from '../src/data/technology-adoption-teaching-series'
 
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -61,6 +64,9 @@ test.describe('Teaching Series - Header Mega Menu', () => {
     await expect(megaMenu.getByRole('link', { name: part1Title })).toBeVisible()
 
     await expect(megaMenu.getByRole('link', { name: /Slide 1:/i })).toBeVisible()
+
+    const firstResource = technologyAdoptionTeachingSeriesResources[0]
+    await expect(megaMenu.getByRole('link', { name: firstResource.title })).toBeVisible()
   })
 
   test('mobile: teaching series is accessible from hamburger menu', async ({ page }) => {
@@ -88,5 +94,12 @@ test.describe('Teaching Series - Header Mega Menu', () => {
     await expect(
       page.getByRole('link', { name: new RegExp(`Slide ${firstSlide.number}:`, 'i') })
     ).toBeVisible()
+
+    const resourcesButton = page.getByRole('button', { name: /^Resources$/i })
+    await expect(resourcesButton).toBeVisible()
+    await resourcesButton.click()
+
+    const firstResource = technologyAdoptionTeachingSeriesResources[0]
+    await expect(page.getByRole('link', { name: firstResource.title })).toBeVisible()
   })
 })
