@@ -56,8 +56,7 @@ test.describe('Teaching Series - Header Mega Menu', () => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
 
     await seedCookieConsent(page)
-    await page.goto('/')
-    await page.waitForLoadState('networkidle')
+    await page.goto('/', { waitUntil: 'domcontentloaded' })
 
     const megaMenu = await openTeachingMegaMenu(page)
 
@@ -81,8 +80,7 @@ test.describe('Teaching Series - Header Mega Menu', () => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
 
     await seedCookieConsent(page)
-    await page.goto('/')
-    await page.waitForLoadState('networkidle')
+    await page.goto('/', { waitUntil: 'domcontentloaded' })
 
     await page.getByRole('button', { name: /open menu/i }).click()
 

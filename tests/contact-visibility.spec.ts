@@ -7,8 +7,7 @@ import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '../src/lib/tabs-survey'
  */
 test.describe('Contact Visibility', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/')
-    await page.waitForLoadState('domcontentloaded')
+    await page.goto('/', { waitUntil: 'domcontentloaded' })
   })
 
   test('should render the contact section in footer', async ({ page }) => {
