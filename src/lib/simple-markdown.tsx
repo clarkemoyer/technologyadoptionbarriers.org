@@ -147,6 +147,47 @@ export const parseSimpleMarkdown = (markdown: string): MarkdownNode[] => {
   const lines = markdown.split(/\r?\n/)
   const nodes: MarkdownNode[] = []
 
+  const getUlMarker = (value: string): 'dash' | 'dot' | 'o' | null => {
+    if (/^[-*]\s+/.test(value)) return 'dash'
+    if (/^•\s+/.test(value)) return 'dot'
+    if (/^o\s+/.test(value)) return 'o'
+    return null
+  }
+
+  const stripUlMarker = (value: string, marker: NonNullable<ReturnType<typeof getUlMarker>>) => {
+    if (marker === 'dash') return value.replace(/^[-*]\s+/, '')
+    if (marker === 'dot') return value.replace(/^•\s+/, '')
+    return value.replace(/^o\s+/, '')
+  }
+
+  const isStartOfTable = (lineIndex: number) => {
+    if (lineIndex < 0 || lineIndex >= lines.length) return false
+    const current = lines[lineIndex].trim()
+    if (!current.includes('|')) return false
+    const next = lines[lineIndex + 1]?.trim()
+    if (!next) return false
+    return Boolean(next.match(/^\|?\s*[-: ]+\|/))
+  }
+
+  const isBlockStart = (lineIndex: number) => {
+    if (lineIndex < 0 || lineIndex >= lines.length) return false
+    const value = lines[lineIndex].trim()
+    if (!value) return true
+
+    if (/^(-{3,}|\*{3,}|_{3,})$/.test(value)) return true
+    if (/^(#{2,4})\s+(.+)$/.test(value)) return true
+    if (/^\*\*(.+?)\*\*$/.test(value)) return true
+    if (/^\*\*Visual:\*\*\s*(.+)\s*$/i.test(value)) return true
+    if (/^!\[(.*?)\]\(([^\s)]+)(?:\s+"([^"]+)")?\)\s*$/.test(value)) return true
+    if (/^```(\w+)?\s*$/.test(value)) return true
+    if (value.startsWith('>')) return true
+    if (isStartOfTable(lineIndex)) return true
+    if (getUlMarker(value)) return true
+    if (/^\d+\.\s+/.test(value)) return true
+
+    return false
+  }
+
   let i = 0
   while (i < lines.length) {
     const line = lines[i]
@@ -273,11 +314,15 @@ export const parseSimpleMarkdown = (markdown: string): MarkdownNode[] => {
       }
     }
 
-    // Unordered list
-    if (/^[-*]\s+/.test(trimmed)) {
+    // Unordered list (supports common deck bullets: -, *, •, and 'o')
+    const ulMarker = getUlMarker(trimmed)
+    if (ulMarker) {
       const items: string[] = []
-      while (i < lines.length && /^[-*]\s+/.test(lines[i].trim())) {
-        items.push(lines[i].trim().replace(/^[-*]\s+/, ''))
+      while (i < lines.length) {
+        const current = lines[i].trim()
+        const currentMarker = getUlMarker(current)
+        if (!currentMarker || currentMarker !== ulMarker) break
+        items.push(stripUlMarker(current, ulMarker))
         i += 1
       }
       nodes.push({ type: 'ul', items })
@@ -298,7 +343,7 @@ export const parseSimpleMarkdown = (markdown: string): MarkdownNode[] => {
     // Paragraph (consume until blank line)
     const paragraphLines: string[] = [trimmed]
     i += 1
-    while (i < lines.length && lines[i].trim()) {
+    while (i < lines.length && lines[i].trim() && !isBlockStart(i)) {
       paragraphLines.push(lines[i].trim())
       i += 1
     }
@@ -361,8 +406,8 @@ export function RenderMarkdownNodes({
         if (node.type === 'ul') {
           return (
             <ul key={idx} className="list-disc pl-5 space-y-2 font-sans">
-              {node.items.map((item) => (
-                <li key={item}>{renderInline(item)}</li>
+              {node.items.map((item, itemIdx) => (
+                <li key={`${idx}-${itemIdx}`}>{renderInline(item)}</li>
               ))}
             </ul>
           )
