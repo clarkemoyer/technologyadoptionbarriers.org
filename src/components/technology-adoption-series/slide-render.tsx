@@ -381,44 +381,191 @@ export const TechnologyAdoptionSeriesSlideVisual = ({
   }
 
   if (slideNumber === 6) {
+    const sw = 10 // scale down stroke width from 4k version (20 -> 10)
+    // Sized for 640 x 360 card (roughly 16:9)
+    // Scale factor approx 0.4 from 1600x900
+    // Centering in 640x360:
+    // Left Center: 180, 180
+    // Right Center: 460, 180
+    // Radius: 90
+
     return (
       <VisualCard title="Visual">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto w-full flex justify-center bg-slate-900 rounded p-4">
           <svg
-            viewBox="0 0 640 260"
+            viewBox="0 0 640 360"
+            className="w-full max-w-full"
             role="img"
-            aria-label="Technology lifecycle curve"
-            className="w-full"
+            aria-label="Lifecycle Cycles"
+            style={{ maxHeight: '400px' }}
           >
-            <rect x="0" y="0" width="640" height="260" fill="white" />
-            <path d="M60 210 L60 40" stroke="#D1D5DB" strokeWidth="2" />
-            <path d="M60 210 L610 210" stroke="#D1D5DB" strokeWidth="2" />
+            <defs>
+              <marker
+                id="arrow-amber-sm"
+                markerWidth="3"
+                markerHeight="3"
+                refX="1.5"
+                refY="1.5"
+                orient="auto"
+                fill="#fbbf24"
+              >
+                <path d="M0,0 L0,3 L3,1.5 z" />
+              </marker>
+              <marker
+                id="arrow-green-sm"
+                markerWidth="3"
+                markerHeight="3"
+                refX="1.5"
+                refY="1.5"
+                orient="auto"
+                fill="#22c55e"
+              >
+                <path d="M0,0 L0,3 L3,1.5 z" />
+              </marker>
+              <marker
+                id="arrow-lightgreen-sm"
+                markerWidth="3"
+                markerHeight="3"
+                refX="1.5"
+                refY="1.5"
+                orient="auto"
+                fill="#86efac"
+              >
+                <path d="M0,0 L0,3 L3,1.5 z" />
+              </marker>
+              <marker
+                id="arrow-orange-sm"
+                markerWidth="3"
+                markerHeight="3"
+                refX="1.5"
+                refY="1.5"
+                orient="auto"
+                fill="#ea580c"
+              >
+                <path d="M0,0 L0,3 L3,1.5 z" />
+              </marker>
+              <marker
+                id="arrow-red-sm"
+                markerWidth="3"
+                markerHeight="3"
+                refX="1.5"
+                refY="1.5"
+                orient="auto"
+                fill="#dc2626"
+              >
+                <path d="M0,0 L0,3 L3,1.5 z" />
+              </marker>
+              <marker
+                id="arrow-conn-sm"
+                markerWidth="4"
+                markerHeight="4"
+                refX="3"
+                refY="2"
+                orient="auto"
+                fill="#94a3b8"
+              >
+                <path d="M0,0 L0,4 L4,2 z" />
+              </marker>
+            </defs>
+
+            {/* Scale: Left Center (180, 180), R=88. Right Center (460, 180) */}
+
+            {/* LEFT CYCLE */}
+            {/* Bleeding: Start (172, 92) -> End (92, 172) */}
             <path
-              d="M80 190 C 150 60, 240 60, 300 120 S 420 230, 560 200"
+              d="M 172 93 A 88 88 0 0 0 92 172"
               fill="none"
-              stroke="#1F2937"
-              strokeWidth="3"
+              stroke="#fbbf24"
+              strokeWidth={sw}
+              markerEnd="url(#arrow-amber-sm)"
             />
-            {[
-              { x: 110, y: 120, label: 'Bleeding' },
-              { x: 210, y: 80, label: 'Leading' },
-              { x: 320, y: 130, label: 'Mainstream' },
-              { x: 440, y: 190, label: 'Trending' },
-              { x: 520, y: 205, label: 'End of support' },
-            ].map((p) => (
-              <g key={p.label}>
-                <circle cx={p.x} cy={p.y} r="6" fill="#111827" />
-                <text x={p.x + 10} y={p.y + 4} fontSize="12" fill="#111827">
-                  {p.label}
-                </text>
-              </g>
-            ))}
-            <text x="8" y="60" fontSize="12" fill="#6B7280">
-              Risk
+            <text x="100" y="70" fontSize="16" fontWeight="bold" fill="#fbbf24" textAnchor="middle">
+              Bleeding Edge
             </text>
-            <text x="560" y="248" fontSize="12" fill="#6B7280">
-              Time
+
+            {/* Leading: Start (92, 188) -> End (172, 268) */}
+            <path
+              d="M 92 188 A 88 88 0 0 0 172 267"
+              fill="none"
+              stroke="#22c55e"
+              strokeWidth={sw}
+              markerEnd="url(#arrow-green-sm)"
+            />
+            <text x="70" y="250" fontSize="16" fontWeight="bold" fill="#22c55e" textAnchor="end">
+              Leading Edge
             </text>
+
+            {/* Mainstream: Start (188, 268) -> End (268, 188) */}
+            <path
+              d="M 188 267 A 88 88 0 0 0 268 188"
+              fill="none"
+              stroke="#86efac"
+              strokeWidth={sw}
+              markerEnd="url(#arrow-lightgreen-sm)"
+            />
+            <text
+              x="240"
+              y="310"
+              fontSize="16"
+              fontWeight="bold"
+              fill="#86efac"
+              textAnchor="middle"
+            >
+              Mainstream
+            </text>
+
+            {/* RIGHT CYCLE */}
+            {/* Trending Behind: Start (468, 92) -> End (548, 172) */}
+            <path
+              d="M 468 93 A 88 88 0 0 1 548 172"
+              fill="none"
+              stroke="#fbbf24"
+              strokeWidth={sw}
+              markerEnd="url(#arrow-amber-sm)"
+            />
+            <text x="540" y="70" fontSize="16" fontWeight="bold" fill="#fbbf24" textAnchor="middle">
+              Trending Behind
+            </text>
+
+            {/* End of Support: Start (548, 188) -> End (468, 268) */}
+            <path
+              d="M 548 188 A 88 88 0 0 1 468 267"
+              fill="none"
+              stroke="#ea580c"
+              strokeWidth={sw}
+              markerEnd="url(#arrow-orange-sm)"
+            />
+            <text x="570" y="250" fontSize="16" fontWeight="bold" fill="#ea580c" textAnchor="start">
+              End of Support
+            </text>
+
+            {/* End of Life: Start (452, 268) -> End (372, 188) */}
+            <path
+              d="M 452 267 A 88 88 0 0 1 372 188"
+              fill="none"
+              stroke="#dc2626"
+              strokeWidth={sw}
+              markerEnd="url(#arrow-red-sm)"
+            />
+            <text
+              x="400"
+              y="310"
+              fontSize="16"
+              fontWeight="bold"
+              fill="#dc2626"
+              textAnchor="middle"
+            >
+              End of Life
+            </text>
+
+            {/* Connection: Mainstream End (268, 188) to Trending Start (468, 92)? No, approx. */}
+            <path
+              d="M 288 200 L 352 136"
+              stroke="#94a3b8"
+              strokeWidth="10"
+              strokeOpacity="0.3"
+              markerEnd="url(#arrow-conn-sm)"
+            />
           </svg>
         </div>
       </VisualCard>

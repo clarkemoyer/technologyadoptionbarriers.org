@@ -61,29 +61,46 @@ export default async function TechnologyAdoptionSeriesPage() {
             />
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center gap-3">
-            <Link
-              href="/technology-adoption-series/presentation"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-slate-800"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="h-4 w-4"
-                aria-hidden="true"
+          <div className="mt-4 grid gap-3">
+            <div className="flex flex-wrap items-center gap-3">
+              <Link
+                href="/technology-adoption-series/presentation"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-slate-800"
               >
-                <path d="M13.28 7.78l3.22-3.22v2.69a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.69l-3.22 3.22a.75.75 0 001.06 1.06zM2 17.25v-4.5a.75.75 0 011.5 0v2.69l3.22-3.22a.75.75 0 011.06 1.06L4.56 16.5h2.69a.75.75 0 010 1.5h-4.5a.75.75 0 01-.75-.75zM2 2.75A.75.75 0 012.75 2h4.5a.75.75 0 010 1.5H4.56l3.22 3.22a.75.75 0 01-1.06 1.06L3.5 4.56v2.69a.75.75 0 01-1.5 0v-4.5zm14.5 0a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.69l-3.22 3.22a.75.75 0 001.06 1.06l3.22-3.22v2.69a.75.75 0 001.5 0v-4.5z" />
-              </svg>
-              Open fullscreen slide deck
-            </Link>
-            <span className="text-sm text-gray-500">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="h-4 w-4"
+                  aria-hidden="true"
+                >
+                  <path d="M13.28 7.78l3.22-3.22v2.69a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.69l-3.22 3.22a.75.75 0 001.06 1.06zM2 17.25v-4.5a.75.75 0 011.5 0v2.69l3.22-3.22a.75.75 0 011.06 1.06L4.56 16.5h2.69a.75.75 0 010 1.5h-4.5a.75.75 0 01-.75-.75zM2 2.75A.75.75 0 012.75 2h4.5a.75.75 0 010 1.5H4.56l3.22 3.22a.75.75 0 01-1.06 1.06L3.5 4.56v2.69a.75.75 0 01-1.5 0v-4.5zm14.5 0a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.69l-3.22 3.22a.75.75 0 001.06 1.06l3.22-3.22v2.69a.75.75 0 001.5 0v-4.5z" />
+                </svg>
+                Launch Standard (HD)
+              </Link>
+              <Link
+                href="/technology-adoption-series/presentation/4k"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-indigo-500"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="h-4 w-4"
+                  aria-hidden="true"
+                >
+                  <path d="M13.28 7.78l3.22-3.22v2.69a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.69l-3.22 3.22a.75.75 0 001.06 1.06zM2 17.25v-4.5a.75.75 0 011.5 0v2.69l3.22-3.22a.75.75 0 011.06 1.06L4.56 16.5h2.69a.75.75 0 010 1.5h-4.5a.75.75 0 01-.75-.75zM2 2.75A.75.75 0 012.75 2h4.5a.75.75 0 010 1.5H4.56l3.22 3.22a.75.75 0 01-1.06 1.06L3.5 4.56v2.69a.75.75 0 01-1.5 0v-4.5zm14.5 0a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.69l-3.22 3.22a.75.75 0 001.06 1.06l3.22-3.22v2.69a.75.75 0 001.5 0v-4.5z" />
+                </svg>
+                Launch High-Res (4K)
+              </Link>
+            </div>
+            <p className="text-sm text-gray-500">
               Use arrow keys or swipe to navigate &middot; Press{' '}
               <kbd className="rounded border border-gray-300 bg-gray-100 px-1.5 py-0.5 text-xs font-mono">
                 ?
               </kbd>{' '}
               for all shortcuts
-            </span>
+            </p>
           </div>
         </section>
 

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import React, { type ReactNode } from 'react'
 
 /* ────────────────────────────────────────────────────────────
    Dark-native visual components for the fullscreen presenter.
@@ -233,7 +233,7 @@ function Visual4() {
   )
 }
 
-function Visual5() {
+function Visual5({ mode }: { mode?: 'hd' | '4k' }) {
   const pillars = [
     { title: 'Research & Development', desc: 'Innovation and exploration', accent: false },
     {
@@ -247,157 +247,228 @@ function Visual5() {
       accent: false,
     },
   ]
+  const is4k = mode === '4k'
+
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-4">
+    <div
+      className={`flex h-full items-center justify-center gap-4 ${is4k ? 'flex-row gap-12' : 'flex-col'}`}
+    >
       {pillars.map((p, i) => (
-        <div key={p.title}>
-          <Card
-            className={`w-full max-w-xl text-center ${p.accent ? 'border-cyan-500/40 bg-cyan-950/30' : ''}`}
-          >
-            <CardLabel>{p.title}</CardLabel>
-            <CardBody>{p.desc}</CardBody>
-          </Card>
-          {i < pillars.length - 1 ? <DownArrow /> : null}
-        </div>
+        <React.Fragment key={p.title}>
+          <div className={`${is4k ? 'flex-1 h-full max-h-[600px] flex items-stretch' : 'w-full'}`}>
+            <Card
+              className={`${is4k ? 'w-full h-full flex flex-col justify-center gap-8 border-4 p-12' : 'w-full max-w-xl'} text-center ${p.accent ? 'border-cyan-500/40 bg-cyan-950/30' : ''}`}
+            >
+              <CardLabel>{p.title}</CardLabel>
+              <CardBody>{p.desc}</CardBody>
+            </Card>
+          </div>
+          {i < pillars.length - 1 ? (
+            is4k ? (
+              <div className="flex items-center text-slate-500 text-6xl">→</div>
+            ) : (
+              <DownArrow />
+            )
+          ) : null}
+        </React.Fragment>
       ))}
     </div>
   )
 }
 
 function Visual6() {
-  /* Dual-curve lifecycle chart:
-     - Cyan dashed = Innovation Potential (peaks early, declines)
-     - Amber solid = Adoption Risk (U-shaped: high at both extremes, lowest at Mainstream)
-     - Green shaded zone = Target "sweet spot" (Leading Edge → Mainstream)
-     Data validated against Slide 7 risk table:
-       Bleeding Edge=Very High, Leading=High, Mainstream=Low,
-       Trending Behind=Medium, End of Support=High–Very High */
-  const stages = [
-    { x: 120, label: 'Bleeding Edge', sub: 'Experimental' },
-    { x: 230, label: 'Leading Edge', sub: 'Proven concepts' },
-    { x: 350, label: 'Mainstream', sub: 'Stable & adopted' },
-    { x: 470, label: 'Trending Behind', sub: 'Declining' },
-    { x: 580, label: 'End of Support', sub: 'Migrate' },
-  ]
-  // Innovation curve (peaks early, declines) — Y values in SVG coords (lower Y = higher value)
-  const innovY = [55, 75, 155, 215, 240]
-  // Risk curve (U-shaped) — Y values (lower Y = higher risk)
-  const riskY = [60, 130, 225, 160, 70]
+  const sw = 20
+  // Standard 16:9 Canvas (1600 x 900)
+  // Left Center
+  const cL = { x: 450, y: 450 }
+  // Right Center
+  const cR = { x: 1150, y: 450 }
+  const r = 220
 
-  const innovPath = `M${stages[0].x} ${innovY[0]} C${stages[0].x + 40} ${innovY[0]},${stages[1].x - 40} ${innovY[1]},${stages[1].x} ${innovY[1]} C${stages[1].x + 60} ${innovY[1] + 20},${stages[2].x - 60} ${innovY[2]},${stages[2].x} ${innovY[2]} C${stages[2].x + 60} ${innovY[2] + 15},${stages[3].x - 60} ${innovY[3]},${stages[3].x} ${innovY[3]} C${stages[3].x + 50} ${innovY[3] + 10},${stages[4].x - 50} ${innovY[4]},${stages[4].x} ${innovY[4]}`
-  const riskPath = `M${stages[0].x} ${riskY[0]} C${stages[0].x + 50} ${riskY[0] + 30},${stages[1].x - 50} ${riskY[1]},${stages[1].x} ${riskY[1]} C${stages[1].x + 60} ${riskY[1] + 40},${stages[2].x - 60} ${riskY[2]},${stages[2].x} ${riskY[2]} C${stages[2].x + 60} ${riskY[2] - 30},${stages[3].x - 60} ${riskY[3]},${stages[3].x} ${riskY[3]} C${stages[3].x + 50} ${riskY[3] - 40},${stages[4].x - 50} ${riskY[4]},${stages[4].x} ${riskY[4]}`
+  // Text Sizes (SVG scale)
+  const tsLg = 42 // Main labels
+  const tsMd = 36 // Secondary
 
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-4">
+    <div className="relative flex h-full w-full items-center justify-center">
       <svg
-        viewBox="0 0 700 310"
-        className="w-full max-w-4xl"
+        viewBox="0 0 1600 900"
+        className="h-full w-full"
         role="img"
-        aria-label="Technology lifecycle: innovation potential vs adoption risk showing Leading Edge to Mainstream as target zone"
+        style={{ maxHeight: '100%', maxWidth: '100%' }}
+        aria-label="Lifecycle Cycles"
       >
         <defs>
-          <linearGradient id="sweetSpotGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.12" />
-            <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.03" />
-          </linearGradient>
+          <marker
+            id="arrow-amber"
+            markerWidth="3"
+            markerHeight="3"
+            refX="1.5"
+            refY="1.5"
+            orient="auto"
+            fill="#fbbf24"
+          >
+            <path d="M0,0 L0,3 L3,1.5 z" />
+          </marker>
+          <marker
+            id="arrow-green"
+            markerWidth="3"
+            markerHeight="3"
+            refX="1.5"
+            refY="1.5"
+            orient="auto"
+            fill="#22c55e"
+          >
+            <path d="M0,0 L0,3 L3,1.5 z" />
+          </marker>
+          <marker
+            id="arrow-lightgreen"
+            markerWidth="3"
+            markerHeight="3"
+            refX="1.5"
+            refY="1.5"
+            orient="auto"
+            fill="#86efac"
+          >
+            <path d="M0,0 L0,3 L3,1.5 z" />
+          </marker>
+          <marker
+            id="arrow-orange"
+            markerWidth="3"
+            markerHeight="3"
+            refX="1.5"
+            refY="1.5"
+            orient="auto"
+            fill="#ea580c"
+          >
+            <path d="M0,0 L0,3 L3,1.5 z" />
+          </marker>
+          <marker
+            id="arrow-red"
+            markerWidth="3"
+            markerHeight="3"
+            refX="1.5"
+            refY="1.5"
+            orient="auto"
+            fill="#dc2626"
+          >
+            <path d="M0,0 L0,3 L3,1.5 z" />
+          </marker>
+          <marker
+            id="arrow-conn"
+            markerWidth="4"
+            markerHeight="4"
+            refX="3"
+            refY="2"
+            orient="auto"
+            fill="#94a3b8"
+          >
+            <path d="M0,0 L0,4 L4,2 z" />
+          </marker>
         </defs>
-        {/* Axes */}
-        <line x1="70" y1="255" x2="630" y2="255" stroke="#334155" strokeWidth="1.5" />
-        <line x1="70" y1="255" x2="70" y2="30" stroke="#334155" strokeWidth="1.5" />
-        <text x="18" y="28" fontSize="11" fill="#64748b">
-          High
-        </text>
-        <text x="18" y="255" fontSize="11" fill="#64748b">
-          Low
-        </text>
-        {/* Sweet spot zone (Leading Edge → Mainstream) */}
-        <rect
-          x={stages[1].x - 15}
-          y="40"
-          width={stages[2].x - stages[1].x + 30}
-          height="210"
-          rx="8"
-          fill="url(#sweetSpotGrad)"
-          stroke="#22d3ee"
-          strokeWidth="1"
-          strokeDasharray="4 3"
-          strokeOpacity="0.4"
+
+        {/* --- LEFT CYCLE (Innovation) --- */}
+        {/* Arc 1: Bleeding Edge (Top -> Left) */}
+        {/* Start (450, 230) -> End (230, 450) */}
+        <path
+          d="M 430 232 A 220 220 0 0 0 232 430"
+          fill="none"
+          stroke="#fbbf24"
+          strokeWidth={sw}
+          markerEnd="url(#arrow-amber)"
         />
-        <text
-          x={(stages[1].x + stages[2].x) / 2}
-          y="52"
-          textAnchor="middle"
-          fontSize="11"
-          fontWeight="600"
-          fill="#22d3ee"
-          opacity="0.7"
-        >
-          TARGET ZONE
+        <text x="250" y="180" fontSize={tsLg} fontWeight="bold" fill="#fbbf24" textAnchor="middle">
+          Bleeding Edge
         </text>
-        {/* Innovation curve (cyan dashed) */}
-        <path d={innovPath} fill="none" stroke="#22d3ee" strokeWidth="2.5" strokeDasharray="8 4" />
-        {/* Risk curve (amber solid) */}
-        <path d={riskPath} fill="none" stroke="#f59e0b" strokeWidth="2.5" />
-        {/* Stage markers on both curves */}
-        {stages.map((s, i) => (
-          <g key={s.label}>
-            {/* Innovation dot */}
-            <circle cx={s.x} cy={innovY[i]} r="5" fill="#0f172a" stroke="#22d3ee" strokeWidth="2" />
-            {/* Risk dot */}
-            <circle cx={s.x} cy={riskY[i]} r="5" fill="#0f172a" stroke="#f59e0b" strokeWidth="2" />
-            {/* Stage label below x-axis */}
-            <text
-              x={s.x}
-              y="272"
-              textAnchor="middle"
-              fontSize="11.5"
-              fontWeight="600"
-              fill="#e2e8f0"
-            >
-              {s.label}
-            </text>
-            <text x={s.x} y="286" textAnchor="middle" fontSize="10" fill="#94a3b8">
-              {s.sub}
-            </text>
-          </g>
-        ))}
-        {/* Legend */}
-        <line
-          x1="80"
-          y1="300"
-          x2="105"
-          y2="300"
-          stroke="#22d3ee"
-          strokeWidth="2.5"
-          strokeDasharray="6 3"
+
+        {/* Arc 2: Leading Edge (Left -> Bottom) */}
+        {/* Start (230, 470) -> End (430, 668) */}
+        <path
+          d="M 232 470 A 220 220 0 0 0 430 668"
+          fill="none"
+          stroke="#22c55e"
+          strokeWidth={sw}
+          markerEnd="url(#arrow-green)"
         />
-        <text x="110" y="304" fontSize="11" fill="#94a3b8">
-          Innovation Potential
+        <text x="180" y="620" fontSize={tsLg} fontWeight="bold" fill="#22c55e" textAnchor="end">
+          Leading Edge
         </text>
-        <line x1="260" y1="300" x2="285" y2="300" stroke="#f59e0b" strokeWidth="2.5" />
-        <text x="290" y="304" fontSize="11" fill="#94a3b8">
-          Adoption Risk
-        </text>
-        <rect
-          x="420"
-          y="294"
-          width="14"
-          height="10"
-          rx="2"
-          fill="#22d3ee"
-          fillOpacity="0.15"
-          stroke="#22d3ee"
-          strokeWidth="0.5"
-          strokeOpacity="0.4"
+
+        {/* Arc 3: Mainstream (Bottom -> Right) */}
+        {/* Start (470, 668) -> End (668, 470) */}
+        <path
+          d="M 470 668 A 220 220 0 0 0 668 470"
+          fill="none"
+          stroke="#86efac"
+          strokeWidth={sw}
+          markerEnd="url(#arrow-lightgreen)"
         />
-        <text x="440" y="304" fontSize="11" fill="#94a3b8">
-          Sweet Spot
+        <text x="600" y="780" fontSize={tsLg} fontWeight="bold" fill="#86efac" textAnchor="middle">
+          Mainstream
         </text>
+
+        {/* --- RIGHT CYCLE (Legacy) --- */}
+        {/* Arc 4: Trending Behind (Top -> Right) */}
+        {/* Start (1150, 230) -> End (1368, 430) */}
+        <path
+          d="M 1170 232 A 220 220 0 0 1 1368 430"
+          fill="none"
+          stroke="#fbbf24"
+          strokeWidth={sw}
+          markerEnd="url(#arrow-amber)"
+        />
+        <text x="1350" y="180" fontSize={tsLg} fontWeight="bold" fill="#fbbf24" textAnchor="middle">
+          Trending Behind
+        </text>
+
+        {/* Arc 5: End of Support (Right -> Bottom) */}
+        {/* Start (1368, 470) -> End (1170, 668) */}
+        <path
+          d="M 1368 470 A 220 220 0 0 1 1170 668"
+          fill="none"
+          stroke="#ea580c"
+          strokeWidth={sw}
+          markerEnd="url(#arrow-orange)"
+        />
+        <text x="1420" y="620" fontSize={tsLg} fontWeight="bold" fill="#ea580c" textAnchor="start">
+          End of Support
+        </text>
+
+        {/* Arc 6: End of Life (Bottom -> Left) */}
+        {/* Start (1130, 668) -> End (932, 470) */}
+        <path
+          d="M 1130 668 A 220 220 0 0 1 932 470"
+          fill="none"
+          stroke="#dc2626"
+          strokeWidth={sw}
+          markerEnd="url(#arrow-red)"
+        />
+        <text x="1000" y="780" fontSize={tsLg} fontWeight="bold" fill="#dc2626" textAnchor="middle">
+          End of Life
+        </text>
+        <text x="1000" y="825" fontSize={tsMd} fontWeight="bold" fill="#dc2626" textAnchor="middle">
+          / Obsolete
+        </text>
+
+        {/* Central Connector Arrow: Mainstream End (near 668, 470) to Trending Behind Start (near 1170, 230) */}
+        {/* Let's draw it from x=700, y=500 to x=900, y=300? */}
+        <path
+          d="M 720 500 L 880 340"
+          stroke="#94a3b8"
+          strokeWidth="24"
+          strokeOpacity="0.3"
+          markerEnd="url(#arrow-conn)"
+        />
       </svg>
-      <div className="text-center text-base text-slate-400">
-        Risk is <span className="font-semibold text-amber-300">U-shaped</span> — highest at both
-        extremes. The <span className="font-semibold text-cyan-400">Leading Edge → Mainstream</span>{' '}
-        zone balances innovation with manageable risk.
+
+      {/* Central Text Box Overlay */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] bg-slate-900/95 text-slate-100 px-8 py-8 border border-slate-700 shadow-2xl text-center rounded-2xl backdrop-blur-md">
+        <p className="font-bold text-2xl leading-relaxed">
+          Where you want to sit in the competitive pool affects your{' '}
+          <span className="text-cyan-400">Management Methods</span>,{' '}
+          <span className="text-cyan-400">Architecture</span>, and{' '}
+          <span className="text-cyan-400">Solutions</span>
+        </p>
       </div>
     </div>
   )
@@ -1195,7 +1266,7 @@ function Visual23() {
 
 // ── Public export ──────────────────────────────────────────
 
-const VISUAL_MAP: Record<number, () => ReactNode> = {
+const VISUAL_MAP: Record<number, React.ComponentType<{ mode?: 'hd' | '4k' }>> = {
   1: Visual1,
   2: Visual2,
   3: Visual3,
@@ -1222,8 +1293,18 @@ const VISUAL_MAP: Record<number, () => ReactNode> = {
   24: Visual24,
 }
 
-export function PresentationVisual({ slideNumber }: { slideNumber: number }) {
+export function PresentationVisual({
+  slideNumber,
+  mode = 'hd',
+}: {
+  slideNumber: number
+  mode?: 'hd' | '4k'
+}) {
   const Component = VISUAL_MAP[slideNumber]
   if (!Component) return null
-  return <Component />
+  return (
+    <div className={mode === '4k' ? 'visual-4k-scale h-full w-full' : 'h-full w-full'}>
+      <Component mode={mode} />
+    </div>
+  )
 }
