@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback, useEffect, useMemo, useRef } from 'react'
+import Link from 'next/link'
 import { parseSimpleMarkdown, RenderMarkdownNodes, type MarkdownNode } from '@/lib/simple-markdown'
 import { splitTechnologyAdoptionSeriesSlideSections } from '@/components/technology-adoption-series/slide-render'
 import { PresentationVisual } from './presentation-visuals'
@@ -82,23 +83,30 @@ function isVisualDescription(node: MarkdownNode): boolean {
 function isStatement(node: MarkdownNode): boolean {
   if (node.type !== 'paragraph') return false
   const c = node.text
+  // Only match known statement prefixes — avoid capturing label-style bold lines
+  // like "**Technology Adoption Definition:**" which end with a colon.
+  if (/^\*\*.*:\*?\*?$/.test(c.trim())) return false
   return (
     /^\*\*Key (Question|Insight|Takeaway|Point)/i.test(c) ||
     c.startsWith('⚠️') ||
-    /^\*\*(WARNING|AVOID|REMEMBER|CRITICAL)/i.test(c) ||
-    // Short bold-only paragraph
-    (c.length < 120 && c.startsWith('**') && c.endsWith('**'))
+    /^\*\*(WARNING|AVOID|REMEMBER|CRITICAL)/i.test(c)
   )
 }
 
 function extractStatementText(raw: string): string {
-  return raw
+  let text = raw
     .replace(/^\*\*Key (Question|Insight|Takeaway|Point):\*?\*?\s*/i, '')
     .replace(/^\*\*WARNING:\*?\*?\s*/i, '⚠️ ')
     .replace(/^\*\*(.*)\*\*$/, '$1')
     .replace(/^⚠️\s*\*?\*?/, '⚠️ ')
     .replace(/\*\*/g, '')
     .trim()
+  // Strip surrounding quotes to avoid double-quoting in StatementFrame
+  text = text
+    .replace(/^["\u201C\u201D]+/, '')
+    .replace(/["\u201C\u201D]+$/, '')
+    .trim()
+  return text
 }
 
 function estimateNodeSize(node: MarkdownNode): number {
@@ -119,6 +127,27 @@ function splitLargeList(node: MarkdownNode, max: number): MarkdownNode[] {
     chunks.push({ ...node, items: node.items.slice(i, i + max) })
   }
   return chunks
+}
+
+/** Split an oversize paragraph or blockquote into multiple nodes so no
+ *  single frame renders with clipped / overflowed content. */
+function splitOversizeNode(node: MarkdownNode): MarkdownNode[] {
+  if (node.type === 'paragraph' && node.text.length > MAX_FRAME_SIZE) {
+    const words = node.text.split(/\s+/)
+    const mid = Math.ceil(words.length / 2)
+    return [
+      { type: 'paragraph', text: words.slice(0, mid).join(' ') },
+      { type: 'paragraph', text: words.slice(mid).join(' ') },
+    ]
+  }
+  if (node.type === 'blockquote' && node.lines.length > 4) {
+    const mid = Math.ceil(node.lines.length / 2)
+    return [
+      { type: 'blockquote', lines: node.lines.slice(0, mid) },
+      { type: 'blockquote', lines: node.lines.slice(mid) },
+    ]
+  }
+  return [node]
 }
 
 // ── Frame expansion ──────────────────────────────────────────────────
@@ -222,13 +251,17 @@ function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFr
         flushChunk()
       }
 
-      const nodeSize = estimateNodeSize(node)
-      if (currentSize + nodeSize > MAX_FRAME_SIZE && currentChunk.length > 0) {
-        flushChunk()
+      // Split oversize single nodes (long paragraphs / blockquotes)
+      // so content is never clipped by overflow-hidden.
+      const parts = splitOversizeNode(node)
+      for (const part of parts) {
+        const nodeSize = estimateNodeSize(part)
+        if (currentSize + nodeSize > MAX_FRAME_SIZE && currentChunk.length > 0) {
+          flushChunk()
+        }
+        currentChunk.push(part)
+        currentSize += nodeSize
       }
-
-      currentChunk.push(node)
-      currentSize += nodeSize
     }
     flushChunk()
 
@@ -242,9 +275,9 @@ function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFr
       })
     }
 
-    // ── Visual frame (only if the markdown describes a visual AND we
-    //    have a dark-native component for it) ──
-    if (hasVisualDesc && SLIDES_WITH_VISUALS.has(slide.number)) {
+    // ── Visual frame — always show if we have a dark-native component,
+    //    regardless of whether the markdown has a Visual: description ──
+    if (SLIDES_WITH_VISUALS.has(slide.number)) {
       frames.push({
         type: 'visual',
         sourceSlide: slide.number,
@@ -398,6 +431,8 @@ function VisualFrame({ frame }: { frame: PresentationFrame }) {
 
 function StatementFrame({ frame }: { frame: PresentationFrame }) {
   const isWarning = frame.statement?.startsWith('⚠️')
+  // Only add decorative quotes when the statement isn't already quoted
+  const alreadyQuoted = /^["\u201C]/.test(frame.statement ?? '')
   return (
     <div className="flex h-full flex-col items-center justify-center text-center">
       <div className="mb-6 text-sm font-semibold tracking-wider uppercase text-cyan-400/50">
@@ -407,6 +442,10 @@ function StatementFrame({ frame }: { frame: PresentationFrame }) {
         <div className="max-w-4xl text-3xl font-bold leading-snug text-amber-300 lg:text-5xl">
           {frame.statement}
         </div>
+      ) : alreadyQuoted ? (
+        <blockquote className="max-w-4xl text-3xl font-semibold leading-snug text-white lg:text-5xl">
+          {frame.statement}
+        </blockquote>
       ) : (
         <blockquote className="max-w-4xl text-3xl font-semibold leading-snug text-white lg:text-5xl">
           &ldquo;{frame.statement}&rdquo;
@@ -428,6 +467,21 @@ export default function PresentationClient({
   const toggleFullscreen = useKeyboardNavigation(frames.length, setCurrentIdx)
 
   const frame = frames[currentIdx]
+  const [showHelp, setShowHelp] = useState(false)
+
+  // ── Keyboard shortcut help (toggle with ?) ──
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === '?') {
+        e.preventDefault()
+        setShowHelp((h) => !h)
+      } else if (e.key === 'Escape' && showHelp) {
+        setShowHelp(false)
+      }
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [showHelp])
 
   // ── Touch navigation ──
   const touchStart = useRef(0)
@@ -480,8 +534,48 @@ export default function PresentationClient({
         />
       </div>
 
-      {/* Frame content area */}
-      <div className="flex-1 overflow-hidden px-12 py-8 lg:px-20 lg:py-12">{renderFrame()}</div>
+      {/* Frame content area with fade transition */}
+      <div className="flex-1 overflow-hidden px-12 py-8 lg:px-20 lg:py-12">
+        <div
+          key={currentIdx}
+          className="h-full animate-[fadeIn_0.3s_ease-out]"
+          style={{ animationFillMode: 'both' }}
+        >
+          {renderFrame()}
+        </div>
+      </div>
+
+      {/* Keyboard shortcut overlay */}
+      {showHelp ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+          onClick={() => setShowHelp(false)}
+          role="dialog"
+          aria-label="Keyboard shortcuts"
+        >
+          <div className="w-full max-w-md rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-2xl">
+            <h3 className="mb-4 text-lg font-bold text-white">Keyboard Shortcuts</h3>
+            <div className="space-y-2 text-base text-slate-300">
+              {[
+                ['→ / Space / PageDown', 'Next frame'],
+                ['← / PageUp', 'Previous frame'],
+                ['Home', 'First frame'],
+                ['End', 'Last frame'],
+                ['F', 'Toggle fullscreen'],
+                ['?', 'Toggle this help'],
+                ['Esc', 'Close help'],
+              ].map(([key, desc]) => (
+                <div key={key} className="flex items-center justify-between">
+                  <kbd className="rounded bg-slate-800 px-2 py-0.5 font-mono text-sm text-cyan-300">
+                    {key}
+                  </kbd>
+                  <span className="text-slate-400">{desc}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {/* Navigation bar */}
       <nav
@@ -489,6 +583,12 @@ export default function PresentationClient({
         aria-label="Presentation navigation"
       >
         <div className="flex items-center gap-3">
+          <Link
+            href="/technology-adoption-series"
+            className="rounded-lg bg-slate-800/60 px-3 py-2 text-sm font-semibold text-slate-400 transition-colors hover:bg-slate-700 hover:text-slate-200"
+          >
+            ← Series
+          </Link>
           <button
             onClick={() => setCurrentIdx((c) => Math.max(c - 1, 0))}
             disabled={currentIdx === 0}
@@ -514,13 +614,22 @@ export default function PresentationClient({
           ) : null}
         </div>
 
-        <button
-          onClick={toggleFullscreen}
-          className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700"
-          aria-label="Toggle fullscreen"
-        >
-          ⛶ Fullscreen
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setShowHelp(true)}
+            className="rounded-lg bg-slate-800 px-3 py-2 text-sm font-semibold text-slate-400 transition-colors hover:bg-slate-700 hover:text-slate-200"
+            aria-label="Show keyboard shortcuts"
+          >
+            ?
+          </button>
+          <button
+            onClick={toggleFullscreen}
+            className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700"
+            aria-label="Toggle fullscreen"
+          >
+            ⛶ Fullscreen
+          </button>
+        </div>
       </nav>
     </div>
   )
