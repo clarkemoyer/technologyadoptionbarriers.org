@@ -363,6 +363,20 @@ export function TechnologyAdoptionSeriesPresentationClient({
   const visualViewportClasses =
     'h-full overflow-hidden rounded-xl border border-slate-800 bg-slate-900/20 p-5 sm:p-6'
 
+  const visualThemeClasses =
+    '[&_.bg-white]:bg-slate-900/40 [&_.bg-gray-50]:bg-slate-900/30 [&_.bg-gray-100]:bg-slate-900/30 ' +
+    '[&_.border-gray-200]:border-slate-700/60 [&_.border-gray-300]:border-slate-700/60 ' +
+    '[&_.text-gray-900]:text-slate-100 [&_.text-gray-800]:text-slate-100 [&_.text-gray-700]:text-slate-200/80 ' +
+    '[&_.text-gray-600]:text-slate-200/80 [&_.text-gray-500]:text-slate-200/70 ' +
+    '[&_.shadow]:shadow-none [&_.shadow-sm]:shadow-none [&_.shadow-md]:shadow-none [&_.shadow-lg]:shadow-none ' +
+    '[&_.ring-1]:ring-slate-700/60 [&_.ring-gray-200]:ring-slate-700/60 [&_.ring-gray-300]:ring-slate-700/60 ' +
+    '[&_.text-green-700]:text-green-300 [&_.text-red-700]:text-red-300 [&_.text-amber-700]:text-amber-300 ' +
+    '[&_.fill-gray-200]:fill-slate-700/60 [&_.fill-gray-700]:fill-slate-200 ' +
+    '[&_.bg-green-50]:bg-green-950/30 [&_.border-green-200]:border-green-400/30 [&_.text-green-800]:text-green-200 ' +
+    '[&_.bg-amber-50]:bg-amber-950/30 [&_.border-amber-200]:border-amber-400/30 [&_.text-amber-800]:text-amber-200 ' +
+    '[&_.bg-red-50]:bg-red-950/30 [&_.border-red-200]:border-red-400/30 [&_.text-red-800]:text-red-200 ' +
+    '[& a]:text-sky-300 [& a:hover]:text-sky-200'
+
   const visualNode =
     hasVisual && currentSlide ? (
       <TechnologyAdoptionSeriesSlideVisual
@@ -439,7 +453,7 @@ export function TechnologyAdoptionSeriesPresentationClient({
                   visualFirst ? 'lg:order-1' : 'lg:order-2'
                 } h-full overflow-hidden`}
               >
-                <div className={visualViewportClasses}>{visualNode}</div>
+                <div className={`${visualViewportClasses} ${visualThemeClasses}`}>{visualNode}</div>
               </div>
 
               <div
@@ -460,7 +474,7 @@ export function TechnologyAdoptionSeriesPresentationClient({
             </div>
           ) : showVisual ? (
             <div className="h-full overflow-hidden">
-              <div className={visualViewportClasses}>{visualNode}</div>
+              <div className={`${visualViewportClasses} ${visualThemeClasses}`}>{visualNode}</div>
             </div>
           ) : (
             <div ref={textViewportRef} className={textViewportClasses}>
