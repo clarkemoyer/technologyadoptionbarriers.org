@@ -3,6 +3,8 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 
+import './presentation.css'
+
 import { parseSimpleMarkdown, type MarkdownNode } from '@/lib/simple-markdown'
 import {
   TechnologyAdoptionSeriesSlideMarkdown,
@@ -51,6 +53,12 @@ const useKeyboardNavigation = (handlers: {
 
 const stripVisualNodes = (nodes: MarkdownNode[]) => nodes.filter((node) => node.type !== 'visual')
 
+const toDisplayTitle = (rawTitle: string) => {
+  // Removes common numeric prefixes so the slide title doesn't include numbering.
+  // Examples: "1. Title" → "Title", "01 - Title" → "Title"
+  return rawTitle.replace(/^\s*\d+\s*(?:[.\-:)]+\s+|\s+)/, '').trim()
+}
+
 export function TechnologyAdoptionSeriesPresentationClient({
   slides,
 }: {
@@ -95,97 +103,71 @@ export function TechnologyAdoptionSeriesPresentationClient({
   }, [currentSlide])
 
   return (
-    <div ref={wrapperRef} className="fixed inset-0 z-[9999] bg-slate-950" aria-label="Presentation">
-      <nav className="fixed left-4 top-4 z-10 flex flex-wrap gap-2" aria-label="Return navigation">
-        <Link
-          href="/technology-adoption-series"
-          className="rounded-full border border-slate-600 bg-slate-950/70 px-3 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-200"
-        >
+    <div ref={wrapperRef} className="presentation-wrapper" aria-label="Presentation">
+      <nav className="return-nav" aria-label="Return navigation">
+        <Link href="/technology-adoption-series" className="return-link">
           ← Series
         </Link>
-        <Link
-          href="/"
-          className="rounded-full border border-slate-600 bg-slate-950/70 px-3 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-200"
-        >
+        <Link href="/" className="return-link">
           Home
         </Link>
       </nav>
 
-      <div className="flex min-h-screen items-center justify-center p-4">
-        <section
-          className="flex h-[720px] w-[1280px] max-h-[calc(100vh-160px)] max-w-full flex-col overflow-hidden rounded-2xl bg-white text-gray-900 shadow-2xl"
-          aria-label="Slide"
-        >
-          <header className="border-b border-gray-200 px-6 py-4">
-            <div className="flex flex-wrap items-baseline justify-between gap-3">
-              <div>
-                <div className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                  Technology Adoption Teaching Series
-                </div>
-                <h1 className="mt-1 text-2xl font-bold text-gray-900">
-                  {currentSlide
-                    ? `Slide ${currentSlide.number}: ${currentSlide.title}`
-                    : 'Loading slides…'}
-                </h1>
-              </div>
-              <div className="text-sm font-semibold text-gray-700">
-                {totalSlides ? `${currentSlideIdx + 1} / ${totalSlides}` : null}
-              </div>
-            </div>
-          </header>
+      <section className="slide-container" aria-label="Slide">
+        <header>
+          <div className="slide-meta">Technology Adoption Teaching Series</div>
+          <h1 className="slide-title">
+            <span>{currentSlide ? toDisplayTitle(currentSlide.title) : 'Loading slides…'}</span>
+          </h1>
+        </header>
 
-          <div className="grid flex-1 grid-cols-1 gap-6 overflow-hidden p-6 lg:grid-cols-2">
-            <div className="h-full overflow-hidden">
-              <div className="h-full overflow-y-auto pr-2">
-                {currentSlide ? (
-                  <TechnologyAdoptionSeriesSlideMarkdown
-                    nodes={contentNodes}
-                    slideNumber={currentSlide.number}
-                    variant="presentation"
-                  />
-                ) : (
-                  <p className="text-gray-700">Loading…</p>
-                )}
-              </div>
-            </div>
-
-            <div className="h-full overflow-hidden">
-              <div className="h-full overflow-y-auto pl-2">
-                {currentSlide ? (
-                  <TechnologyAdoptionSeriesSlideVisual slideNumber={currentSlide.number} />
-                ) : null}
-              </div>
+        <div className="content-area">
+          <div className="panel" aria-label="Slide content">
+            <div className="panel-scroll">
+              {currentSlide ? (
+                <TechnologyAdoptionSeriesSlideMarkdown
+                  nodes={contentNodes}
+                  slideNumber={currentSlide.number}
+                  variant="presentation"
+                />
+              ) : null}
             </div>
           </div>
-        </section>
-      </div>
 
-      <div className="fixed bottom-4 right-4 z-10 flex flex-wrap items-center gap-2">
-        <button
-          type="button"
-          onClick={goPrev}
-          disabled={currentSlideIdx <= 0}
-          className="rounded-lg border border-slate-600 bg-slate-950/70 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-900 disabled:opacity-40"
-        >
+          <div className="panel" aria-label="Slide visual">
+            <div className="panel-scroll">
+              {currentSlide ? (
+                <TechnologyAdoptionSeriesSlideVisual slideNumber={currentSlide.number} />
+              ) : null}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="controls" aria-label="Slide controls">
+        <button type="button" onClick={goPrev} disabled={currentSlideIdx <= 0} className="nav-btn">
           Prev
         </button>
         <button
           type="button"
           onClick={goNext}
           disabled={currentSlideIdx >= totalSlides - 1}
-          className="rounded-lg border border-slate-600 bg-slate-950/70 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-900 disabled:opacity-40"
+          className="nav-btn"
         >
           Next
         </button>
+        <div className="slide-counter" aria-label="Slide counter">
+          {totalSlides ? `${currentSlideIdx + 1} / ${totalSlides}` : null}
+        </div>
         <button
           type="button"
           onClick={toggleFullscreen}
-          className="rounded-lg border border-slate-600 bg-slate-950/70 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-900"
+          className="nav-btn"
           aria-label="Toggle fullscreen (F)"
         >
           Full screen
         </button>
-        <div className="hidden text-xs text-slate-300 sm:block" aria-label="Keyboard shortcuts">
+        <div className="shortcuts" aria-label="Keyboard shortcuts">
           Keys: ←/→, Space, F
         </div>
       </div>

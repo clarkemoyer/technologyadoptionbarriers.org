@@ -14,16 +14,13 @@ export default function TechnologyAdoptionSeriesPresentationLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <head />
-      <body
-        className={[outfit.variable, plusJakartaSans.variable, firaCode.variable].join(' ')}
-        style={{
-          fontFamily: 'var(--font-plus-jakarta-sans), sans-serif',
-        }}
-      >
-        {children}
-      </body>
-    </html>
+    <div
+      className={[outfit.variable, plusJakartaSans.variable, firaCode.variable].join(' ')}
+      style={{
+        fontFamily: 'var(--font-plus-jakarta-sans), sans-serif',
+      }}
+    >
+      {children}
+    </div>
   )
 }
