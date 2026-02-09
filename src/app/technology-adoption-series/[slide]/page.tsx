@@ -105,6 +105,102 @@ const AdoptionFrictionBar = ({ value }: { value: number }) => {
   )
 }
 
+const InlineDiagramCard = ({ children }: { children: ReactNode }) => (
+  <div className="rounded border border-gray-200 bg-white p-4">{children}</div>
+)
+
+type TreeRow = {
+  key: string
+  value?: string
+  bullets: string[]
+}
+
+const isTreeDiagramText = (value: string) => /[├└]─/.test(value)
+
+const toneForLifecycleStage = (stage: string): 'good' | 'warn' | 'bad' => {
+  const normalized = stage.trim().toLowerCase()
+  if (normalized.includes('mainstream')) return 'good'
+  if (normalized.includes('leading')) return 'warn'
+  if (normalized.includes('bleeding')) return 'bad'
+  if (normalized.includes('trending')) return 'warn'
+  if (normalized.includes('end of support')) return 'bad'
+  if (normalized.includes('end of life')) return 'bad'
+  if (normalized.includes('obsolete')) return 'bad'
+  return 'warn'
+}
+
+const TreeDiagram = ({ code, label }: { code: string; label?: string }) => {
+  const lines = code.split(/\r?\n/)
+
+  const rows: TreeRow[] = []
+  let current: TreeRow | null = null
+
+  for (const rawLine of lines) {
+    const line = rawLine.replace(/\s+$/, '')
+    const trimmed = line.trim()
+    if (!trimmed) continue
+    if (trimmed === '│') continue
+
+    const branchMatch = trimmed.match(/^[├└]─\s*(.+?)(?::\s*(.+))?$/)
+    if (branchMatch) {
+      const key = (branchMatch[1] || '').trim()
+      const value = (branchMatch[2] || '').trim() || undefined
+      current = { key, value, bullets: [] }
+      rows.push(current)
+      continue
+    }
+
+    const bulletMatch = trimmed.match(/^([│\s]*)•\s+(.+)$/)
+    if (bulletMatch && current) {
+      current.bullets.push(bulletMatch[2].trim())
+      continue
+    }
+
+    // Fallback: attach unknown lines as bullets if possible
+    if (current) {
+      current.bullets.push(trimmed)
+    } else {
+      rows.push({ key: trimmed, bullets: [] })
+    }
+  }
+
+  const looksLikeLifecycleStages = rows.some((r) =>
+    /bleeding edge|leading edge|mainstream|trending behind|end of support|obsolete|end of life/i.test(
+      r.key
+    )
+  )
+
+  return (
+    <InlineDiagramCard>
+      {label ? <div className="text-sm font-semibold text-gray-900 mb-3">{label}</div> : null}
+      <div className="space-y-3">
+        {rows.map((row) => (
+          <div
+            key={`${row.key}-${row.value ?? ''}`}
+            className="rounded border border-gray-200 bg-gray-50 p-3"
+          >
+            <div className="flex flex-wrap items-start gap-2">
+              {looksLikeLifecycleStages ? (
+                <Badge tone={toneForLifecycleStage(row.key)}>{row.key}</Badge>
+              ) : (
+                <div className="text-sm font-semibold text-gray-900">{row.key}</div>
+              )}
+              {row.value ? <div className="text-sm text-gray-700">{row.value}</div> : null}
+            </div>
+            {row.bullets.length ? (
+              <ul className="mt-2 list-disc pl-5 text-sm text-gray-700 space-y-1">
+                {row.bullets.map((b) => (
+                  <li key={b}>{b}</li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        ))}
+      </div>
+    </InlineDiagramCard>
+  )
+}
+
 const SlideVisual = ({ slideNumber }: { slideNumber: number }) => {
   if (slideNumber === 1) {
     const steps = ['Evaluation', 'Selection', 'Integration', 'Deployment', 'Sustained Use']
@@ -1291,6 +1387,10 @@ const RenderMarkdownNodes = ({
         }
 
         if (node.type === 'code') {
+          if (node.lang === 'text' && isTreeDiagramText(node.code) && slideNumber >= 17) {
+            return <TreeDiagram key={idx} code={node.code} />
+          }
+
           return (
             <pre
               key={idx}
