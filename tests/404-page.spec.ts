@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 test.describe('404 Not Found Page', () => {
   test('should display 404 page for non-existent routes', async ({ page }) => {
     // Navigate to a non-existent page
-    await page.goto('/this-page-does-not-exist')
+    await page.goto('/this-page-does-not-exist', { waitUntil: 'domcontentloaded' })
 
     // Check the page title
     await expect(page).toHaveTitle(/404 - Page Not Found/)
@@ -44,7 +44,7 @@ test.describe('404 Not Found Page', () => {
 
   test('should allow navigation back to home from 404 page', async ({ page }) => {
     // Navigate to a non-existent page
-    await page.goto('/non-existent-page')
+    await page.goto('/non-existent-page', { waitUntil: 'domcontentloaded' })
 
     // Click the "Return to Home" button
     await page.click('a:has-text("Return to Home")')
@@ -58,7 +58,7 @@ test.describe('404 Not Found Page', () => {
 
   test('should allow navigation to barriers page from 404 page', async ({ page }) => {
     // Navigate to a non-existent page
-    await page.goto('/another-missing-page')
+    await page.goto('/another-missing-page', { waitUntil: 'domcontentloaded' })
 
     // Click the "Learn About Real Barriers" button
     await page.click('a:has-text("Learn About Real Barriers")')

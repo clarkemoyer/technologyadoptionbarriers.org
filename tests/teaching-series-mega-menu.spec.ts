@@ -45,6 +45,27 @@ async function openTeachingMegaMenu(page: Page) {
   return megaMenu
 }
 
+async function openMobileMenu(page: Page) {
+  const openMenuButton = page.getByRole('button', { name: /open menu/i })
+  await expect(openMenuButton).toBeVisible()
+
+  const banner = page.getByRole('banner')
+  const homeLinkInMenu = banner.getByRole('link', { name: /^Home$/ })
+
+  // Mobile menu is client-side state; give hydration a couple chances.
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    await openMenuButton.click()
+
+    if (await homeLinkInMenu.isVisible().catch(() => false)) {
+      return
+    }
+
+    await page.waitForTimeout(750)
+  }
+
+  await expect(homeLinkInMenu).toBeVisible({ timeout: 10000 })
+}
+
 test.describe('Teaching Series - Header Mega Menu', () => {
   test('desktop: opens mega menu and shows parts + first slide', async ({ page }) => {
     test.skip(
@@ -56,8 +77,7 @@ test.describe('Teaching Series - Header Mega Menu', () => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
 
     await seedCookieConsent(page)
-    await page.goto('/')
-    await page.waitForLoadState('networkidle')
+    await page.goto('/', { waitUntil: 'domcontentloaded' })
 
     const megaMenu = await openTeachingMegaMenu(page)
 
@@ -81,10 +101,9 @@ test.describe('Teaching Series - Header Mega Menu', () => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
 
     await seedCookieConsent(page)
-    await page.goto('/')
-    await page.waitForLoadState('networkidle')
+    await page.goto('/', { waitUntil: 'domcontentloaded' })
 
-    await page.getByRole('button', { name: /open menu/i }).click()
+    await openMobileMenu(page)
 
     const teachingSeriesLink = page.getByRole('link', {
       name: /Technology Adoption Teaching Series/i,

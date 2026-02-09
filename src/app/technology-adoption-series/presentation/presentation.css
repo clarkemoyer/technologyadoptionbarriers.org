@@ -1,0 +1,18 @@
+/*
+  Presentation styling for the Technology Adoption Teaching Series deck.
+
+  Note: This is route-scoped (imported only by the presentation client), so it
+  won't affect the rest of the site.
+*/
+
+/* Hide site chrome for presenting */
+#header,
+footer {
+  display: none !important;
+}
+
+.measure-host {
+  position: absolute;
+  left: -10000px;
+  top: 0;
+}

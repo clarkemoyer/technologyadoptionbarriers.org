@@ -140,14 +140,36 @@ test.describe('Series Navigation - Desktop Mega Menu', () => {
 })
 
 test.describe('Series Navigation - Mobile Accordion', () => {
+  async function openMobileMenu(page: any) {
+    const openMenuButton = page.getByRole('button', { name: /open menu/i })
+    await expect(openMenuButton).toBeVisible()
+
+    const banner = page.getByRole('banner')
+    const homeLinkInMenu = banner.getByRole('link', { name: /^Home$/ })
+
+    // Mobile menu is client-side state; give hydration a couple chances.
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      await openMenuButton.click()
+
+      if (await homeLinkInMenu.isVisible().catch(() => false)) {
+        return
+      }
+
+      await page.waitForTimeout(750)
+    }
+
+    await expect(homeLinkInMenu).toBeVisible({ timeout: 10000 })
+  }
+
   test.beforeEach(async ({ page }) => {
-    await page.goto('/')
     // Set mobile viewport
     await page.setViewportSize({ width: 375, height: 667 })
 
+    await page.goto('/', { waitUntil: 'domcontentloaded' })
+
     // Dismiss cookie consent banner so it can't intercept mobile menu clicks.
     // The banner may appear after hydration, so wait briefly for it.
-    await page.waitForLoadState('networkidle')
+    await page.waitForTimeout(250)
 
     const cookieBanner = page.locator('[role="region"][aria-label="Cookie consent notice"]')
     const cookieBannerAppeared = await cookieBanner
@@ -162,16 +184,7 @@ test.describe('Series Navigation - Mobile Accordion', () => {
   })
 
   test('should open mobile menu and show accordion', async ({ page }) => {
-    // Wait for page to load and hydrate
-    await page.waitForLoadState('networkidle')
-
-    // Open mobile menu
-    const mobileMenuButton = page.getByRole('button', { name: /Open menu/i })
-    await expect(mobileMenuButton).toBeVisible()
-    await mobileMenuButton.click()
-
-    // Wait a bit for animation
-    await page.waitForTimeout(500)
+    await openMobileMenu(page)
 
     // Verify Technology Adoption Models link is visible
     const seriesLink = page.getByRole('link', { name: /Technology Adoption Models/i }).first()
@@ -179,39 +192,45 @@ test.describe('Series Navigation - Mobile Accordion', () => {
   })
 
   test('should expand Branch 1 accordion in mobile menu', async ({ page }) => {
-    // Open mobile menu
-    const mobileMenuButton = page.getByRole('button', { name: /Open menu/i })
-    await mobileMenuButton.click()
+    await openMobileMenu(page)
 
     // Find and click Branch 1 accordion button
     const branch1Button = page.getByRole('button', {
       name: new RegExp(technologyAdoptionModelsSeries.branches[0].title, 'i'),
     })
+    await expect(branch1Button).toBeVisible()
     await branch1Button.click()
+    await expect(branch1Button).toHaveAttribute('aria-expanded', 'true')
 
     // Verify articles are visible
-    await expect(page.getByRole('link', { name: /Article 1\.1: The Bedrock/i })).toBeVisible()
-    await expect(page.getByRole('link', { name: /Article 1\.2: The Game Changer/i })).toBeVisible()
+    const article11 = page.getByRole('link', { name: /Article 1\.1: The Bedrock/i })
+    await article11.scrollIntoViewIfNeeded()
+    await expect(article11).toBeVisible()
+
+    const article12 = page.getByRole('link', { name: /Article 1\.2: The Game Changer/i })
+    await article12.scrollIntoViewIfNeeded()
+    await expect(article12).toBeVisible()
   })
 
   test('should expand Branch 2 accordion in mobile menu', async ({ page }) => {
-    // Open mobile menu
-    const mobileMenuButton = page.getByRole('button', { name: /Open menu/i })
-    await mobileMenuButton.click()
+    await openMobileMenu(page)
 
     // Find and click Branch 2 accordion button
     const branch2Button = page.getByRole('button', {
       name: new RegExp(technologyAdoptionModelsSeries.branches[1].title, 'i'),
     })
+    await expect(branch2Button).toBeVisible()
     await branch2Button.click()
+    await expect(branch2Button).toHaveAttribute('aria-expanded', 'true')
 
     // Verify articles are visible
-    await expect(
-      page.getByRole('link', { name: /Article 2\.1: The Strategic Lens/i })
-    ).toBeVisible()
-    await expect(
-      page.getByRole('link', { name: /Article 2\.2: From Chaos to Control/i })
-    ).toBeVisible()
+    const article21 = page.getByRole('link', { name: /Article 2\.1: The Strategic Lens/i })
+    await article21.scrollIntoViewIfNeeded()
+    await expect(article21).toBeVisible()
+
+    const article22 = page.getByRole('link', { name: /Article 2\.2: From Chaos to Control/i })
+    await article22.scrollIntoViewIfNeeded()
+    await expect(article22).toBeVisible()
   })
 })
 
