@@ -8,6 +8,10 @@ import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
 import { motion, AnimatePresence } from 'framer-motion'
 import { technologyAdoptionModelsSeries } from '@/data/technology-adoption-models-series'
+import {
+  technologyAdoptionTeachingSeries,
+  technologyAdoptionTeachingSeriesResources,
+} from '@/data/technology-adoption-teaching-series'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 import { personaNavigation } from '@/data/persona-navigation'
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -35,15 +39,42 @@ const Header: React.FC = () => {
   const [isMakingOfMenuOpen, setIsMakingOfMenuOpen] = useState(false)
   const [isMobileBranch1Open, setIsMobileBranch1Open] = useState(false)
   const [isMobileBranch2Open, setIsMobileBranch2Open] = useState(false)
+  const [mobileTeachingPartsOpen, setMobileTeachingPartsOpen] = useState<Record<string, boolean>>(
+    {}
+  )
+  const [isMobileTeachingBackupOpen, setIsMobileTeachingBackupOpen] = useState(false)
+  const [isMobileTeachingResourcesOpen, setIsMobileTeachingResourcesOpen] = useState(false)
   const [isMobileIndividualsOpen, setIsMobileIndividualsOpen] = useState(false)
   const [isMobileOrganizationsOpen, setIsMobileOrganizationsOpen] = useState(false)
   const [isMobileMakingOfOpen, setIsMobileMakingOfOpen] = useState(false)
   const [activeSection, setActiveSection] = useState<string>('')
   const [searchQuery, setSearchQuery] = useState('')
   const megaMenuRef = useRef<HTMLDivElement>(null)
-  const megaMenuButtonRef = useRef<HTMLLIElement>(null)
+  const activeMegaMenuButtonRef = useRef<HTMLLIElement | null>(null)
   const makingOfMenuRef = useRef<HTMLDivElement>(null)
   const makingOfMenuButtonRef = useRef<HTMLLIElement>(null)
+
+  useEffect(() => {
+    if (!activeMegaMenu) activeMegaMenuButtonRef.current = null
+  }, [activeMegaMenu])
+
+  const teachingSeriesParts = useMemo(() => technologyAdoptionTeachingSeries.parts, [])
+
+  const teachingSeriesCoreSlidesByPart = useMemo(
+    () =>
+      technologyAdoptionTeachingSeries.parts.map((part) =>
+        part.slides.filter((slide) => !slide.isOptional)
+      ),
+    []
+  )
+
+  const teachingSeriesBackupSlides = useMemo(
+    () =>
+      technologyAdoptionTeachingSeries.parts.flatMap((part) =>
+        part.slides.filter((slide) => slide.isOptional)
+      ),
+    []
+  )
 
   const menuItems: MenuItem[] = useMemo(
     () => [
@@ -69,6 +100,12 @@ const Header: React.FC = () => {
         path: '/technology-adoption-models',
         hasMegaMenu: true,
         megaMenuId: 'models',
+      },
+      {
+        label: 'Technology Adoption Teaching Series',
+        path: '/technology-adoption-series',
+        hasMegaMenu: true,
+        megaMenuId: 'teaching-series',
       },
       { label: 'Media', path: '/media' },
       { label: 'Get Involved', path: '/get-involved' },
@@ -121,8 +158,8 @@ const Header: React.FC = () => {
         activeMegaMenu &&
         megaMenuRef.current &&
         !megaMenuRef.current.contains(event.target as Node) &&
-        megaMenuButtonRef.current &&
-        !megaMenuButtonRef.current.contains(event.target as Node)
+        activeMegaMenuButtonRef.current &&
+        !activeMegaMenuButtonRef.current.contains(event.target as Node)
       ) {
         setActiveMegaMenu(null)
       }
@@ -140,7 +177,7 @@ const Header: React.FC = () => {
 
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [isMegaMenuOpen, isMakingOfMenuOpen])
+  }, [activeMegaMenu, isMakingOfMenuOpen])
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -148,7 +185,7 @@ const Header: React.FC = () => {
       if (event.key === 'Escape' && activeMegaMenu) {
         setActiveMegaMenu(null)
         // Return focus to the button
-        megaMenuButtonRef.current?.querySelector('button')?.focus()
+        activeMegaMenuButtonRef.current?.querySelector('button')?.focus()
       }
 
       if (event.key === 'Escape' && isMakingOfMenuOpen) {
@@ -159,7 +196,7 @@ const Header: React.FC = () => {
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isMegaMenuOpen, isMakingOfMenuOpen])
+  }, [activeMegaMenu, isMakingOfMenuOpen])
 
   const handleSearchToggle = () => setIsSearchOpen(!isSearchOpen)
 
@@ -178,9 +215,19 @@ const Header: React.FC = () => {
     setIsMakingOfMenuOpen(false)
     setIsMobileBranch1Open(false)
     setIsMobileBranch2Open(false)
+    setMobileTeachingPartsOpen({})
+    setIsMobileTeachingBackupOpen(false)
+    setIsMobileTeachingResourcesOpen(false)
     setIsMobileIndividualsOpen(false)
     setIsMobileOrganizationsOpen(false)
     setIsMobileMakingOfOpen(false)
+  }
+
+  const toggleMobileTeachingPart = (partId: string) => {
+    setMobileTeachingPartsOpen((prev) => ({
+      ...prev,
+      [partId]: !prev[partId],
+    }))
   }
 
   const isActive = (path: string) => {
@@ -253,7 +300,11 @@ const Header: React.FC = () => {
                         className="relative py-6"
                         ref={
                           item.hasMegaMenu
-                            ? megaMenuButtonRef
+                            ? (node) => {
+                                if (activeMegaMenu === item.megaMenuId) {
+                                  activeMegaMenuButtonRef.current = node
+                                }
+                              }
                             : item.children?.length
                               ? makingOfMenuButtonRef
                               : null
@@ -277,7 +328,7 @@ const Header: React.FC = () => {
                                 ? 'text-blue-600'
                                 : 'text-gray-600 hover:text-gray-500'
                             }`}
-                            aria-expanded={activeMegaMenu === item.megaMenuId ? 'true' : 'false'}
+                            aria-expanded={activeMegaMenu === item.megaMenuId}
                             aria-controls="mega-menu"
                           >
                             {item.label}
@@ -307,7 +358,7 @@ const Header: React.FC = () => {
                                   ? 'text-blue-600'
                                   : 'text-gray-600 hover:text-gray-500'
                               }`}
-                              aria-expanded={isMakingOfMenuOpen ? 'true' : 'false'}
+                              aria-expanded={isMakingOfMenuOpen}
                               aria-controls="making-of-menu"
                             >
                               {item.label}
@@ -444,7 +495,6 @@ const Header: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            onMouseLeave={() => setActiveMegaMenu(null)}
             className={`hidden lg:block absolute left-0 w-full bg-white border-t border-gray-100 shadow-lg z-40 ${
               isScrolled ? 'top-[55px]' : 'top-[80px]'
             }`}
@@ -505,6 +555,86 @@ const Header: React.FC = () => {
                             className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
                           >
                             {article.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {activeMegaMenu === 'teaching-series' && (
+                <div className="space-y-6">
+                  <Link
+                    href={technologyAdoptionTeachingSeries.root.slug}
+                    onClick={handleLinkClick}
+                    className="block text-[16px] font-bold text-[#145044] hover:text-blue-600"
+                  >
+                    {technologyAdoptionTeachingSeries.root.title}
+                  </Link>
+
+                  <div className="grid grid-cols-4 gap-8">
+                    {teachingSeriesParts.map((part, partIdx) => (
+                      <div key={part.id}>
+                        <Link
+                          href={technologyAdoptionTeachingSeries.root.slug}
+                          onClick={handleLinkClick}
+                          className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                        >
+                          {part.title}
+                        </Link>
+                        <ul className="space-y-2">
+                          {(teachingSeriesCoreSlidesByPart[partIdx] ?? []).map((slide) => (
+                            <li key={slide.id}>
+                              <Link
+                                href={`${technologyAdoptionTeachingSeries.root.slug}/${slide.segment}`}
+                                onClick={handleLinkClick}
+                                className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                              >
+                                Slide {slide.number}: {slide.title}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+
+                    <div>
+                      <Link
+                        href={technologyAdoptionTeachingSeries.root.slug}
+                        onClick={handleLinkClick}
+                        className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                      >
+                        Backup slides
+                      </Link>
+                      <ul className="space-y-2">
+                        {teachingSeriesBackupSlides.map((slide) => (
+                          <li key={slide.id}>
+                            <Link
+                              href={`${technologyAdoptionTeachingSeries.root.slug}/${slide.segment}`}
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              Slide {slide.number}: {slide.title}
+                              <span className="text-gray-600"> (Optional)</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="block text-[14px] font-bold text-gray-900 mb-3">Resources</div>
+                    <ul className="space-y-2">
+                      {technologyAdoptionTeachingSeriesResources.map((resource) => (
+                        <li key={resource.id}>
+                          <Link
+                            href={`${technologyAdoptionTeachingSeries.root.slug}/${resource.segment}`}
+                            onClick={handleLinkClick}
+                            className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                          >
+                            {resource.title}
                           </Link>
                         </li>
                       ))}
@@ -661,7 +791,7 @@ const Header: React.FC = () => {
                               <button
                                 onClick={() => setIsMobileBranch1Open(!isMobileBranch1Open)}
                                 className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                                aria-expanded={isMobileBranch1Open ? 'true' : 'false'}
+                                aria-expanded={isMobileBranch1Open}
                               >
                                 <span className="text-[13px]">
                                   {technologyAdoptionModelsSeries.branches[0].title}
@@ -715,7 +845,7 @@ const Header: React.FC = () => {
                               <button
                                 onClick={() => setIsMobileBranch2Open(!isMobileBranch2Open)}
                                 className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                                aria-expanded={isMobileBranch2Open ? 'true' : 'false'}
+                                aria-expanded={isMobileBranch2Open}
                               >
                                 <span className="text-[13px]">
                                   {technologyAdoptionModelsSeries.branches[1].title}
@@ -779,6 +909,147 @@ const Header: React.FC = () => {
                           </>
                         )}
 
+                        {/* TEACHING SERIES MEGA MENU MOBILE */}
+                        {item.megaMenuId === 'teaching-series' && (
+                          <>
+                            {teachingSeriesParts.map((part, partIdx) => {
+                              const isOpen = Boolean(mobileTeachingPartsOpen[part.id])
+
+                              return (
+                                <div key={part.id} className="ml-4 mt-2">
+                                  <button
+                                    onClick={() => toggleMobileTeachingPart(part.id)}
+                                    className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                    aria-expanded={isOpen}
+                                  >
+                                    <span className="text-[13px]">{part.title}</span>
+                                    <svg
+                                      className={`w-4 h-4 transition-transform ${
+                                        isOpen ? 'rotate-180' : ''
+                                      }`}
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M19 9l-7 7-7-7"
+                                      />
+                                    </svg>
+                                  </button>
+
+                                  {isOpen && (
+                                    <ul className="mt-1 space-y-1">
+                                      {(teachingSeriesCoreSlidesByPart[partIdx] ?? []).map(
+                                        (slide) => (
+                                          <li key={slide.id}>
+                                            <Link
+                                              href={`${technologyAdoptionTeachingSeries.root.slug}/${slide.segment}`}
+                                              onClick={handleLinkClick}
+                                              className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                            >
+                                              Slide {slide.number}: {slide.title}
+                                            </Link>
+                                          </li>
+                                        )
+                                      )}
+                                    </ul>
+                                  )}
+                                </div>
+                              )
+                            })}
+
+                            {/* Backup slides */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() =>
+                                  setIsMobileTeachingBackupOpen(!isMobileTeachingBackupOpen)
+                                }
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileTeachingBackupOpen}
+                              >
+                                <span className="text-[13px]">Backup slides</span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileTeachingBackupOpen ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileTeachingBackupOpen && (
+                                <ul className="mt-1 space-y-1">
+                                  {teachingSeriesBackupSlides.map((s) => (
+                                    <li key={s.id}>
+                                      <Link
+                                        href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
+                                        onClick={handleLinkClick}
+                                        className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                      >
+                                        Slide {s.number}: {s.title}
+                                        <span className="text-gray-600"> (Optional)</span>
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+
+                            {/* Resources */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() =>
+                                  setIsMobileTeachingResourcesOpen(!isMobileTeachingResourcesOpen)
+                                }
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileTeachingResourcesOpen}
+                              >
+                                <span className="text-[13px]">Resources</span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileTeachingResourcesOpen ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileTeachingResourcesOpen && (
+                                <ul className="mt-1 space-y-1">
+                                  {technologyAdoptionTeachingSeriesResources.map((resource) => (
+                                    <li key={resource.id}>
+                                      <Link
+                                        href={`${technologyAdoptionTeachingSeries.root.slug}/${resource.segment}`}
+                                        onClick={handleLinkClick}
+                                        className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                      >
+                                        {resource.title}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          </>
+                        )}
+
                         {/* PERSONAS MEGA MENU MOBILE */}
                         {item.megaMenuId === 'personas' && (
                           <>
@@ -787,7 +1058,7 @@ const Header: React.FC = () => {
                               <button
                                 onClick={() => setIsMobileIndividualsOpen(!isMobileIndividualsOpen)}
                                 className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                                aria-expanded={isMobileIndividualsOpen ? 'true' : 'false'}
+                                aria-expanded={isMobileIndividualsOpen}
                               >
                                 <span className="text-[13px]">
                                   {personaNavigation.columns.individuals.title}
@@ -844,7 +1115,7 @@ const Header: React.FC = () => {
                                   setIsMobileOrganizationsOpen(!isMobileOrganizationsOpen)
                                 }
                                 className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                                aria-expanded={isMobileOrganizationsOpen ? 'true' : 'false'}
+                                aria-expanded={isMobileOrganizationsOpen}
                               >
                                 <span className="text-[13px]">
                                   {personaNavigation.columns.organizations.title}
@@ -901,7 +1172,7 @@ const Header: React.FC = () => {
                         <button
                           onClick={() => setIsMobileMakingOfOpen(!isMobileMakingOfOpen)}
                           className="w-full flex items-center justify-between px-4 py-2 rounded-lg text-sm font-[600] text-gray-700 hover:bg-gray-100"
-                          aria-expanded={isMobileMakingOfOpen ? 'true' : 'false'}
+                          aria-expanded={isMobileMakingOfOpen}
                           aria-controls="mobile-making-of-menu"
                         >
                           <span>{item.label}</span>
