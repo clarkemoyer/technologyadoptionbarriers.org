@@ -150,7 +150,7 @@ const Header: React.FC = () => {
 
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [isMegaMenuOpen, isMakingOfMenuOpen])
+  }, [activeMegaMenu, isMakingOfMenuOpen])
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -169,7 +169,7 @@ const Header: React.FC = () => {
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isMegaMenuOpen, isMakingOfMenuOpen])
+  }, [activeMegaMenu, isMakingOfMenuOpen])
 
   const handleSearchToggle = () => setIsSearchOpen(!isSearchOpen)
 
@@ -457,7 +457,6 @@ const Header: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            onMouseLeave={() => setActiveMegaMenu(null)}
             className={`hidden lg:block absolute left-0 w-full bg-white border-t border-gray-100 shadow-lg z-40 ${
               isScrolled ? 'top-[55px]' : 'top-[80px]'
             }`}
