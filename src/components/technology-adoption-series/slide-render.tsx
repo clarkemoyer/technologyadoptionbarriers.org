@@ -50,9 +50,11 @@ const IconWarn = ({ title }: { title: string }) => (
   </svg>
 )
 
-const VisualCard = ({ title, children }: { title: string; children: ReactNode }) => (
-  <section className="rounded border border-gray-200 bg-gray-50 p-4" aria-label={title}>
-    <h3 className="text-[16px] font-semibold text-gray-900 mb-3">{title}</h3>
+const VisualCard = ({ title, children }: { title?: string; children: ReactNode }) => (
+  <section
+    className="rounded border border-gray-200 bg-gray-50 p-4"
+    aria-label={title?.trim() ? title : 'Slide visual'}
+  >
     {children}
   </section>
 )

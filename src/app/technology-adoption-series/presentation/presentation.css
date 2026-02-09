@@ -179,8 +179,13 @@ footer {
 
 .panel-scroll {
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
   padding-right: 8px;
+}
+
+/* Keep visuals from causing horizontal scroll */
+.presentation-wrapper * {
+  max-width: 100%;
 }
 
 /* Keep markdown typography presentation-friendly, but scoped */
