@@ -10,9 +10,8 @@ This folder contains a cleaned (deduplicated) Markdown version of the provided *
 ## Files
 
 - [01-core-presentation-deck.md](./01-core-presentation-deck.md) (single slide deck: core 16 slides + Q&A transition + optional deep-dive slides)
-- (Note: there is intentionally no 02-\* file in this series; numbering continues with 03.)
-- [03-opening-and-closing-scripts.md](./03-opening-and-closing-scripts.md)
-- [04-qa-preparation-guide.md](./04-qa-preparation-guide.md)
-- [05-handout-materials.md](./05-handout-materials.md)
-- [06-technology-lifecycle-assessment-template.md](./06-technology-lifecycle-assessment-template.md)
-- [07-workshop-and-trainer-materials.md](./07-workshop-and-trainer-materials.md)
+- [02-opening-and-closing-scripts.md](./02-opening-and-closing-scripts.md)
+- [03-qa-preparation-guide.md](./03-qa-preparation-guide.md)
+- [04-handout-materials.md](./04-handout-materials.md)
+- [05-technology-lifecycle-assessment-template.md](./05-technology-lifecycle-assessment-template.md)
+- [06-workshop-and-trainer-materials.md](./06-workshop-and-trainer-materials.md)
