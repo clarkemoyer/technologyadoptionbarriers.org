@@ -6,6 +6,7 @@ import type { ReactNode } from 'react'
 import { ARTICLE_CLASSES, H1_CLASSES } from '@/lib/articleStyles'
 import { assetPath } from '@/lib/assetPath'
 import {
+  getTechnologyAdoptionSeriesPrevNext,
   getTechnologyAdoptionSeriesSlideBySegment,
   getTechnologyAdoptionSeriesSlides,
 } from '@/lib/technology-adoption-series'
@@ -1479,10 +1480,10 @@ export default async function TechnologyAdoptionSeriesSlidePage({ params }: Page
     (slideNumber ? slides.find((s) => s.number === slideNumber) : null)
   if (!slide) notFound()
 
-  const currentIndex = slides.findIndex((s) => s.number === slide.number)
-  const prev = currentIndex > 0 ? slides[currentIndex - 1] : null
-  const next =
-    currentIndex >= 0 && currentIndex < slides.length - 1 ? slides[currentIndex + 1] : null
+  const currentHref = `/technology-adoption-series/${slide.segment}`
+  const prevNext = await getTechnologyAdoptionSeriesPrevNext(currentHref)
+  const prev = prevNext?.prev ?? null
+  const next = prevNext?.next ?? null
 
   const sections = splitSections(slide.contentMarkdown)
   const contentNodes = parseSimpleMarkdown(sections.content)
@@ -1497,7 +1498,9 @@ export default async function TechnologyAdoptionSeriesSlidePage({ params }: Page
           <span className="mx-2" aria-hidden="true">
             /
           </span>
-          <span aria-current="page">Slide {slide.number}</span>
+          <span aria-current="page">
+            Slide {slide.number}: {slide.title}
+          </span>
         </nav>
 
         <h1 className={H1_CLASSES}>
@@ -1509,16 +1512,16 @@ export default async function TechnologyAdoptionSeriesSlidePage({ params }: Page
         </section>
 
         <nav
-          aria-label="Slide navigation"
+          aria-label="Series navigation"
           className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-t border-gray-200 pt-6"
         >
           <div className="flex items-center gap-3">
             {prev ? (
               <Link
-                href={`/technology-adoption-series/${prev.segment}`}
+                href={prev.href}
                 className="inline-flex items-center rounded border border-gray-300 px-3 py-2 text-sm text-gray-800 hover:bg-gray-50"
               >
-                Previous: Slide {prev.number}
+                Previous: {prev.title}
               </Link>
             ) : (
               <span className="inline-flex items-center rounded border border-gray-200 px-3 py-2 text-sm text-gray-400">
@@ -1528,10 +1531,10 @@ export default async function TechnologyAdoptionSeriesSlidePage({ params }: Page
 
             {next ? (
               <Link
-                href={`/technology-adoption-series/${next.segment}`}
+                href={next.href}
                 className="inline-flex items-center rounded border border-gray-300 px-3 py-2 text-sm text-gray-800 hover:bg-gray-50"
               >
-                Next: Slide {next.number}
+                Next: {next.title}
               </Link>
             ) : (
               <span className="inline-flex items-center rounded border border-gray-200 px-3 py-2 text-sm text-gray-400">

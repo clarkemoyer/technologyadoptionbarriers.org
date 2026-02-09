@@ -5,8 +5,8 @@ import { ARTICLE_CLASSES, H1_CLASSES } from '@/lib/articleStyles'
 import TeachingSeriesNavigation from '@/components/teaching-series-navigation'
 import { parseSimpleMarkdown, RenderMarkdownNodes } from '@/lib/simple-markdown'
 import {
+  getTechnologyAdoptionSeriesPrevNext,
   getTechnologyAdoptionSeriesResourceBySegment,
-  getTechnologyAdoptionSeriesResources,
 } from '@/lib/technology-adoption-series'
 
 export const dynamic = 'force-static'
@@ -15,10 +15,10 @@ export async function TechnologyAdoptionSeriesResourcePage({ segment }: { segmen
   const resource = await getTechnologyAdoptionSeriesResourceBySegment(segment)
   if (!resource) notFound()
 
-  const resources = await getTechnologyAdoptionSeriesResources()
-  const index = resources.findIndex((r) => r.segment === resource.segment)
-  const prev = index > 0 ? resources[index - 1] : null
-  const next = index >= 0 && index < resources.length - 1 ? resources[index + 1] : null
+  const currentHref = `/technology-adoption-series/${resource.segment}`
+  const prevNext = await getTechnologyAdoptionSeriesPrevNext(currentHref)
+  const prev = prevNext?.prev ?? null
+  const next = prevNext?.next ?? null
 
   const nodes = parseSimpleMarkdown(resource.contentMarkdown)
 
@@ -42,13 +42,13 @@ export async function TechnologyAdoptionSeriesResourcePage({ segment }: { segmen
         </section>
 
         <nav
-          aria-label="Resource navigation"
+          aria-label="Series navigation"
           className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-t border-gray-200 pt-6"
         >
           <div className="flex items-center gap-3">
             {prev ? (
               <Link
-                href={`/technology-adoption-series/${prev.segment}`}
+                href={prev.href}
                 className="inline-flex items-center rounded border border-gray-300 px-3 py-2 text-sm text-gray-800 hover:bg-gray-50"
               >
                 Previous: {prev.title}
@@ -61,7 +61,7 @@ export async function TechnologyAdoptionSeriesResourcePage({ segment }: { segmen
 
             {next ? (
               <Link
-                href={`/technology-adoption-series/${next.segment}`}
+                href={next.href}
                 className="inline-flex items-center rounded border border-gray-300 px-3 py-2 text-sm text-gray-800 hover:bg-gray-50"
               >
                 Next: {next.title}

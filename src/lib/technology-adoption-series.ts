@@ -4,7 +4,10 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
 import { normalizeQuotedTitle, slugify } from '@/lib/slugify'
-import { technologyAdoptionTeachingSeriesResources } from '@/data/technology-adoption-teaching-series'
+import {
+  technologyAdoptionTeachingSeries,
+  technologyAdoptionTeachingSeriesResources,
+} from '@/data/technology-adoption-teaching-series'
 
 export type TechnologyAdoptionSeriesSlide = {
   number: number
@@ -18,6 +21,13 @@ export type TechnologyAdoptionSeriesResource = {
   title: string
   segment: string
   contentMarkdown: string
+}
+
+export type TechnologyAdoptionSeriesNavItem = {
+  id: string
+  kind: 'overview' | 'resource' | 'slide'
+  title: string
+  href: string
 }
 
 const SERIES_DECK_PATH = path.join(
@@ -110,4 +120,55 @@ export async function getTechnologyAdoptionSeriesResources(): Promise<
 export async function getTechnologyAdoptionSeriesResourceBySegment(segment: string) {
   const resources = await getTechnologyAdoptionSeriesResources()
   return resources.find((resource) => resource.segment === segment) || null
+}
+
+const normalizeHref = (href: string) => {
+  const trimmed = href.trim()
+  if (!trimmed) return ''
+  const withLeadingSlash = trimmed.startsWith('/') ? trimmed : `/${trimmed}`
+  return withLeadingSlash.length > 1 ? withLeadingSlash.replace(/\/+$/, '') : withLeadingSlash
+}
+
+export async function getTechnologyAdoptionSeriesNavItems(): Promise<
+  TechnologyAdoptionSeriesNavItem[]
+> {
+  const rootSlug = technologyAdoptionTeachingSeries.root.slug
+
+  const resources = await getTechnologyAdoptionSeriesResources()
+  const slides = await getTechnologyAdoptionSeriesSlides()
+
+  return [
+    {
+      id: 'overview',
+      kind: 'overview',
+      title: 'Series overview',
+      href: rootSlug,
+    },
+    ...resources.map((resource) => ({
+      id: `resource:${resource.segment}`,
+      kind: 'resource' as const,
+      title: resource.title,
+      href: `${rootSlug}/${resource.segment}`,
+    })),
+    ...slides.map((slide) => ({
+      id: `slide:${slide.number}`,
+      kind: 'slide' as const,
+      title: `Slide ${slide.number}: ${slide.title}`,
+      href: `${rootSlug}/${slide.segment}`,
+    })),
+  ]
+}
+
+export async function getTechnologyAdoptionSeriesPrevNext(currentHref: string) {
+  const normalizedCurrent = normalizeHref(currentHref)
+  const items = await getTechnologyAdoptionSeriesNavItems()
+  const normalizedItems = items.map((item) => ({ ...item, href: normalizeHref(item.href) }))
+
+  const index = normalizedItems.findIndex((item) => item.href === normalizedCurrent)
+  if (index === -1) return null
+
+  return {
+    prev: index > 0 ? normalizedItems[index - 1] : null,
+    next: index < normalizedItems.length - 1 ? normalizedItems[index + 1] : null,
+  }
 }
