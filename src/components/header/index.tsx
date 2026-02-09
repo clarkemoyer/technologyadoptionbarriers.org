@@ -8,6 +8,7 @@ import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
 import { motion, AnimatePresence } from 'framer-motion'
 import { technologyAdoptionModelsSeries } from '@/data/technology-adoption-models-series'
+import { technologyAdoptionTeachingSeries } from '@/data/technology-adoption-teaching-series'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 import { personaNavigation } from '@/data/persona-navigation'
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -35,6 +36,9 @@ const Header: React.FC = () => {
   const [isMakingOfMenuOpen, setIsMakingOfMenuOpen] = useState(false)
   const [isMobileBranch1Open, setIsMobileBranch1Open] = useState(false)
   const [isMobileBranch2Open, setIsMobileBranch2Open] = useState(false)
+  const [isMobileTeachingPart1Open, setIsMobileTeachingPart1Open] = useState(false)
+  const [isMobileTeachingPart2Open, setIsMobileTeachingPart2Open] = useState(false)
+  const [isMobileTeachingPart3Open, setIsMobileTeachingPart3Open] = useState(false)
   const [isMobileIndividualsOpen, setIsMobileIndividualsOpen] = useState(false)
   const [isMobileOrganizationsOpen, setIsMobileOrganizationsOpen] = useState(false)
   const [isMobileMakingOfOpen, setIsMobileMakingOfOpen] = useState(false)
@@ -70,6 +74,7 @@ const Header: React.FC = () => {
         hasMegaMenu: true,
         megaMenuId: 'models',
       },
+      { label: 'Technology Adoption Series', path: '/technology-adoption-series' },
       { label: 'Media', path: '/media' },
       { label: 'Get Involved', path: '/get-involved' },
     ],
@@ -178,6 +183,9 @@ const Header: React.FC = () => {
     setIsMakingOfMenuOpen(false)
     setIsMobileBranch1Open(false)
     setIsMobileBranch2Open(false)
+    setIsMobileTeachingPart1Open(false)
+    setIsMobileTeachingPart2Open(false)
+    setIsMobileTeachingPart3Open(false)
     setIsMobileIndividualsOpen(false)
     setIsMobileOrganizationsOpen(false)
     setIsMobileMakingOfOpen(false)
@@ -513,6 +521,92 @@ const Header: React.FC = () => {
                 </div>
               )}
 
+              {activeMegaMenu === 'teaching-series' && (
+                <div className="space-y-6">
+                  <Link
+                    href={technologyAdoptionTeachingSeries.root.slug}
+                    onClick={handleLinkClick}
+                    className="block text-[16px] font-bold text-[#145044] hover:text-blue-600"
+                  >
+                    {technologyAdoptionTeachingSeries.root.title}
+                  </Link>
+
+                  <div className="grid grid-cols-3 gap-8">
+                    <div>
+                      <Link
+                        href={technologyAdoptionTeachingSeries.root.slug}
+                        onClick={handleLinkClick}
+                        className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                      >
+                        {technologyAdoptionTeachingSeries.parts[0].title}
+                      </Link>
+                      <ul className="space-y-2">
+                        {technologyAdoptionTeachingSeries.parts[0].slides.map((s) => (
+                          <li key={s.id}>
+                            <Link
+                              href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              Slide {s.number}: {s.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div>
+                      <Link
+                        href={technologyAdoptionTeachingSeries.root.slug}
+                        onClick={handleLinkClick}
+                        className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                      >
+                        {technologyAdoptionTeachingSeries.parts[1].title}
+                      </Link>
+                      <ul className="space-y-2">
+                        {technologyAdoptionTeachingSeries.parts[1].slides.map((s) => (
+                          <li key={s.id}>
+                            <Link
+                              href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              Slide {s.number}: {s.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div>
+                      <Link
+                        href={technologyAdoptionTeachingSeries.root.slug}
+                        onClick={handleLinkClick}
+                        className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                      >
+                        {technologyAdoptionTeachingSeries.parts[2].title}
+                      </Link>
+                      <ul className="space-y-2">
+                        {technologyAdoptionTeachingSeries.parts[2].slides.map((s) => (
+                          <li key={s.id}>
+                            <Link
+                              href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              Slide {s.number}: {s.title}
+                              {s.isOptional ? (
+                                <span className="text-gray-600"> (Optional)</span>
+                              ) : null}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {activeMegaMenu === 'personas' && (
                 <div className="grid grid-cols-3 gap-8">
                   {/* Column 1: Root */}
@@ -776,6 +870,149 @@ const Header: React.FC = () => {
                                 </Link>
                               </div>
                             )}
+                          </>
+                        )}
+
+                        {/* TEACHING SERIES MEGA MENU MOBILE */}
+                        {item.megaMenuId === 'teaching-series' && (
+                          <>
+                            {/* Part 1 */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() =>
+                                  setIsMobileTeachingPart1Open(!isMobileTeachingPart1Open)
+                                }
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileTeachingPart1Open ? 'true' : 'false'}
+                              >
+                                <span className="text-[13px]">
+                                  {technologyAdoptionTeachingSeries.parts[0].title}
+                                </span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileTeachingPart1Open ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileTeachingPart1Open && (
+                                <ul className="mt-1 space-y-1">
+                                  {technologyAdoptionTeachingSeries.parts[0].slides.map((s) => (
+                                    <li key={s.id}>
+                                      <Link
+                                        href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
+                                        onClick={handleLinkClick}
+                                        className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                      >
+                                        Slide {s.number}: {s.title}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+
+                            {/* Part 2 */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() =>
+                                  setIsMobileTeachingPart2Open(!isMobileTeachingPart2Open)
+                                }
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileTeachingPart2Open ? 'true' : 'false'}
+                              >
+                                <span className="text-[13px]">
+                                  {technologyAdoptionTeachingSeries.parts[1].title}
+                                </span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileTeachingPart2Open ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileTeachingPart2Open && (
+                                <ul className="mt-1 space-y-1">
+                                  {technologyAdoptionTeachingSeries.parts[1].slides.map((s) => (
+                                    <li key={s.id}>
+                                      <Link
+                                        href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
+                                        onClick={handleLinkClick}
+                                        className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                      >
+                                        Slide {s.number}: {s.title}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+
+                            {/* Part 3 */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() =>
+                                  setIsMobileTeachingPart3Open(!isMobileTeachingPart3Open)
+                                }
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileTeachingPart3Open ? 'true' : 'false'}
+                              >
+                                <span className="text-[13px]">
+                                  {technologyAdoptionTeachingSeries.parts[2].title}
+                                </span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileTeachingPart3Open ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileTeachingPart3Open && (
+                                <ul className="mt-1 space-y-1">
+                                  {technologyAdoptionTeachingSeries.parts[2].slides.map((s) => (
+                                    <li key={s.id}>
+                                      <Link
+                                        href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
+                                        onClick={handleLinkClick}
+                                        className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                      >
+                                        Slide {s.number}: {s.title}
+                                        {s.isOptional ? (
+                                          <span className="text-gray-600"> (Optional)</span>
+                                        ) : null}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
                           </>
                         )}
 
