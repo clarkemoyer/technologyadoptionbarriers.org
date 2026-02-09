@@ -74,7 +74,12 @@ const Header: React.FC = () => {
         hasMegaMenu: true,
         megaMenuId: 'models',
       },
-      { label: 'Technology Adoption Series', path: '/technology-adoption-series' },
+      {
+        label: 'Technology Adoption Series',
+        path: '/technology-adoption-series',
+        hasMegaMenu: true,
+        megaMenuId: 'teaching-series',
+      },
       { label: 'Media', path: '/media' },
       { label: 'Get Involved', path: '/get-involved' },
     ],
