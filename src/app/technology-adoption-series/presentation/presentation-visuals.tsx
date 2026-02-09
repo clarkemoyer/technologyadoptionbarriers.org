@@ -265,62 +265,140 @@ function Visual5() {
 }
 
 function Visual6() {
+  /* Dual-curve lifecycle chart:
+     - Cyan dashed = Innovation Potential (peaks early, declines)
+     - Amber solid = Adoption Risk (U-shaped: high at both extremes, lowest at Mainstream)
+     - Green shaded zone = Target "sweet spot" (Leading Edge → Mainstream)
+     Data validated against Slide 7 risk table:
+       Bleeding Edge=Very High, Leading=High, Mainstream=Low,
+       Trending Behind=Medium, End of Support=High–Very High */
+  const stages = [
+    { x: 120, label: 'Bleeding Edge', sub: 'Experimental' },
+    { x: 230, label: 'Leading Edge', sub: 'Proven concepts' },
+    { x: 350, label: 'Mainstream', sub: 'Stable & adopted' },
+    { x: 470, label: 'Trending Behind', sub: 'Declining' },
+    { x: 580, label: 'End of Support', sub: 'Migrate' },
+  ]
+  // Innovation curve (peaks early, declines) — Y values in SVG coords (lower Y = higher value)
+  const innovY = [55, 75, 155, 215, 240]
+  // Risk curve (U-shaped) — Y values (lower Y = higher risk)
+  const riskY = [60, 130, 225, 160, 70]
+
+  const innovPath = `M${stages[0].x} ${innovY[0]} C${stages[0].x + 40} ${innovY[0]},${stages[1].x - 40} ${innovY[1]},${stages[1].x} ${innovY[1]} C${stages[1].x + 60} ${innovY[1] + 20},${stages[2].x - 60} ${innovY[2]},${stages[2].x} ${innovY[2]} C${stages[2].x + 60} ${innovY[2] + 15},${stages[3].x - 60} ${innovY[3]},${stages[3].x} ${innovY[3]} C${stages[3].x + 50} ${innovY[3] + 10},${stages[4].x - 50} ${innovY[4]},${stages[4].x} ${innovY[4]}`
+  const riskPath = `M${stages[0].x} ${riskY[0]} C${stages[0].x + 50} ${riskY[0] + 30},${stages[1].x - 50} ${riskY[1]},${stages[1].x} ${riskY[1]} C${stages[1].x + 60} ${riskY[1] + 40},${stages[2].x - 60} ${riskY[2]},${stages[2].x} ${riskY[2]} C${stages[2].x + 60} ${riskY[2] - 30},${stages[3].x - 60} ${riskY[3]},${stages[3].x} ${riskY[3]} C${stages[3].x + 50} ${riskY[3] - 40},${stages[4].x - 50} ${riskY[4]},${stages[4].x} ${riskY[4]}`
+
   return (
-    <div className="flex h-full items-center justify-center">
+    <div className="flex h-full flex-col items-center justify-center gap-4">
       <svg
-        viewBox="0 0 700 300"
+        viewBox="0 0 700 310"
         className="w-full max-w-4xl"
         role="img"
-        aria-label="Technology lifecycle curve"
+        aria-label="Technology lifecycle: innovation potential vs adoption risk showing Leading Edge to Mainstream as target zone"
       >
         <defs>
-          <linearGradient id="lcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.6" />
-            <stop offset="50%" stopColor="#22d3ee" stopOpacity="0.15" />
-            <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.05" />
+          <linearGradient id="sweetSpotGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.12" />
+            <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.03" />
           </linearGradient>
         </defs>
         {/* Axes */}
-        <line x1="70" y1="250" x2="670" y2="250" stroke="#334155" strokeWidth="1.5" />
-        <line x1="70" y1="250" x2="70" y2="30" stroke="#334155" strokeWidth="1.5" />
-        {/* Area fill */}
-        <path
-          d="M90 220 C170 60,260 60,340 130 S480 260,620 240 L620 250 L90 250 Z"
-          fill="url(#lcGrad)"
-        />
-        {/* Curve */}
-        <path
-          d="M90 220 C170 60,260 60,340 130 S480 260,620 240"
-          fill="none"
+        <line x1="70" y1="255" x2="630" y2="255" stroke="#334155" strokeWidth="1.5" />
+        <line x1="70" y1="255" x2="70" y2="30" stroke="#334155" strokeWidth="1.5" />
+        <text x="18" y="28" fontSize="11" fill="#64748b">
+          High
+        </text>
+        <text x="18" y="255" fontSize="11" fill="#64748b">
+          Low
+        </text>
+        {/* Sweet spot zone (Leading Edge → Mainstream) */}
+        <rect
+          x={stages[1].x - 15}
+          y="40"
+          width={stages[2].x - stages[1].x + 30}
+          height="210"
+          rx="8"
+          fill="url(#sweetSpotGrad)"
           stroke="#22d3ee"
-          strokeWidth="3"
+          strokeWidth="1"
+          strokeDasharray="4 3"
+          strokeOpacity="0.4"
         />
-        {/* Points */}
-        {[
-          { x: 130, y: 130, label: 'Bleeding Edge', sub: 'High risk' },
-          { x: 230, y: 75, label: 'Leading Edge', sub: 'Innovation' },
-          { x: 350, y: 140, label: 'Mainstream', sub: 'Stable' },
-          { x: 480, y: 220, label: 'Trending Behind', sub: 'Declining' },
-          { x: 580, y: 238, label: 'End of Support', sub: 'Migrate' },
-        ].map((p) => (
-          <g key={p.label}>
-            <circle cx={p.x} cy={p.y} r="7" fill="#0f172a" stroke="#22d3ee" strokeWidth="2" />
-            <text x={p.x + 14} y={p.y - 6} fontSize="13" fontWeight="600" fill="#e2e8f0">
-              {p.label}
+        <text
+          x={(stages[1].x + stages[2].x) / 2}
+          y="52"
+          textAnchor="middle"
+          fontSize="11"
+          fontWeight="600"
+          fill="#22d3ee"
+          opacity="0.7"
+        >
+          TARGET ZONE
+        </text>
+        {/* Innovation curve (cyan dashed) */}
+        <path d={innovPath} fill="none" stroke="#22d3ee" strokeWidth="2.5" strokeDasharray="8 4" />
+        {/* Risk curve (amber solid) */}
+        <path d={riskPath} fill="none" stroke="#f59e0b" strokeWidth="2.5" />
+        {/* Stage markers on both curves */}
+        {stages.map((s, i) => (
+          <g key={s.label}>
+            {/* Innovation dot */}
+            <circle cx={s.x} cy={innovY[i]} r="5" fill="#0f172a" stroke="#22d3ee" strokeWidth="2" />
+            {/* Risk dot */}
+            <circle cx={s.x} cy={riskY[i]} r="5" fill="#0f172a" stroke="#f59e0b" strokeWidth="2" />
+            {/* Stage label below x-axis */}
+            <text
+              x={s.x}
+              y="272"
+              textAnchor="middle"
+              fontSize="11.5"
+              fontWeight="600"
+              fill="#e2e8f0"
+            >
+              {s.label}
             </text>
-            <text x={p.x + 14} y={p.y + 10} fontSize="11" fill="#94a3b8">
-              {p.sub}
+            <text x={s.x} y="286" textAnchor="middle" fontSize="10" fill="#94a3b8">
+              {s.sub}
             </text>
           </g>
         ))}
-        {/* Axis labels */}
-        <text x="20" y="50" fontSize="12" fill="#64748b">
-          Risk / Innovation
+        {/* Legend */}
+        <line
+          x1="80"
+          y1="300"
+          x2="105"
+          y2="300"
+          stroke="#22d3ee"
+          strokeWidth="2.5"
+          strokeDasharray="6 3"
+        />
+        <text x="110" y="304" fontSize="11" fill="#94a3b8">
+          Innovation Potential
         </text>
-        <text x="620" y="275" fontSize="12" fill="#64748b">
-          Time →
+        <line x1="260" y1="300" x2="285" y2="300" stroke="#f59e0b" strokeWidth="2.5" />
+        <text x="290" y="304" fontSize="11" fill="#94a3b8">
+          Adoption Risk
+        </text>
+        <rect
+          x="420"
+          y="294"
+          width="14"
+          height="10"
+          rx="2"
+          fill="#22d3ee"
+          fillOpacity="0.15"
+          stroke="#22d3ee"
+          strokeWidth="0.5"
+          strokeOpacity="0.4"
+        />
+        <text x="440" y="304" fontSize="11" fill="#94a3b8">
+          Sweet Spot
         </text>
       </svg>
+      <div className="text-center text-base text-slate-400">
+        Risk is <span className="font-semibold text-amber-300">U-shaped</span> — highest at both
+        extremes. The <span className="font-semibold text-cyan-400">Leading Edge → Mainstream</span>{' '}
+        zone balances innovation with manageable risk.
+      </div>
     </div>
   )
 }
