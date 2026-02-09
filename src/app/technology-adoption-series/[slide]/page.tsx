@@ -1154,6 +1154,23 @@ const parseSimpleMarkdown = (markdown: string): MarkdownNode[] => {
     let cursor = startIndex
     const items: MarkdownListItem[] = []
 
+    const parseUnindentedOSubBullets = (): MarkdownNode | null => {
+      const childItems: MarkdownListItem[] = []
+      while (cursor < lines.length) {
+        const candidate = getListStart(lines[cursor])
+        if (!candidate) break
+        if (candidate.kind !== 'ul') break
+        if (candidate.indent !== start.indent) break
+        if (candidate.marker !== 'o') break
+
+        childItems.push({ text: candidate.text })
+        cursor += 1
+      }
+
+      if (!childItems.length) return null
+      return { type: 'ul', items: childItems }
+    }
+
     while (cursor < lines.length) {
       const current = getListStart(lines[cursor])
       if (!current) break
@@ -1190,6 +1207,17 @@ const parseSimpleMarkdown = (markdown: string): MarkdownNode[] => {
       }
 
       items.push(item)
+
+      // Deck-style outline heuristic:
+      // When a list item ends with ':' and the next list items are unindented
+      // `o ...` bullets, treat them as a nested sub-list.
+      if (start.kind === 'ul' && item.text.trim().endsWith(':') && cursor < lines.length) {
+        const next = getListStart(lines[cursor])
+        if (next && next.kind === 'ul' && next.indent === start.indent && next.marker === 'o') {
+          const sub = parseUnindentedOSubBullets()
+          if (sub) item.children = [...(item.children ?? []), sub]
+        }
+      }
     }
 
     const node: Extract<MarkdownNode, { type: 'ul' | 'ol' }> =
