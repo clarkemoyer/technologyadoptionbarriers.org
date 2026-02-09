@@ -2,11 +2,18 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import { parseSimpleMarkdown } from '@/lib/simple-markdown'
+import { slugify } from '@/lib/slugify'
+import {
+  TechnologyAdoptionSeriesSlideMarkdown,
+  splitTechnologyAdoptionSeriesSlideSections,
+} from '@/components/technology-adoption-series/slide-render'
 import TeachingSeriesNavigation from '@/components/teaching-series-navigation'
 import {
   technologyAdoptionTeachingSeries,
   technologyAdoptionTeachingSeriesResources,
 } from '@/data/technology-adoption-teaching-series'
+import { getTechnologyAdoptionSeriesSlides } from '@/lib/technology-adoption-series'
 
 export const metadata: Metadata = {
   title: 'Technology Adoption Teaching Series — Overview',
@@ -18,6 +25,15 @@ export const dynamic = 'force-static'
 
 export default async function TechnologyAdoptionSeriesPage() {
   const { root, parts } = technologyAdoptionTeachingSeries
+  const slides = await getTechnologyAdoptionSeriesSlides()
+
+  const coreSlides = slides.filter((slide) => slide.number <= 16)
+  const optionalSlides = slides.filter((slide) => slide.number > 16)
+
+  const anchorForSlide = (slideNumber: number, title: string) => {
+    const suffix = slideNumber >= 17 ? `-optional-${slugify(title)}` : ''
+    return `slide-${slideNumber}${suffix}`
+  }
 
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -53,6 +69,163 @@ export default async function TechnologyAdoptionSeriesPage() {
                 </ol>
               </section>
             ))}
+          </div>
+        </section>
+
+        <section className="mb-10" aria-label="Slide deck">
+          <h2 className={H2_CLASSES}>Slide deck</h2>
+          <p className="mb-6 text-gray-700">
+            A complete, business-and-engineering focused deck view of the series. Each slide below
+            is rendered from the same source content as the individual slide pages, including the
+            diagrams and visual blocks.
+          </p>
+
+          <div className="space-y-10">
+            {coreSlides.map((slide) => {
+              const sections = splitTechnologyAdoptionSeriesSlideSections(slide.contentMarkdown)
+              const contentNodes = parseSimpleMarkdown(sections.content)
+              const speakerNodes = sections.speakerNotes
+                ? parseSimpleMarkdown(sections.speakerNotes)
+                : []
+              const transitionNodes = sections.transition
+                ? parseSimpleMarkdown(sections.transition)
+                : []
+
+              return (
+                <section
+                  key={slide.segment}
+                  id={anchorForSlide(slide.number, slide.title)}
+                  className="scroll-mt-24"
+                  aria-label={`Slide ${slide.number}: ${slide.title}`}
+                >
+                  <div className="flex flex-wrap items-baseline justify-between gap-3">
+                    <h3 className="text-xl font-bold text-gray-900">
+                      Slide {slide.number}: {slide.title}
+                    </h3>
+                    <Link
+                      href={`${root.slug}/${slide.segment}`}
+                      className="text-sm text-blue-700 hover:underline"
+                    >
+                      Open slide page
+                    </Link>
+                  </div>
+
+                  <div className="mt-4">
+                    <TechnologyAdoptionSeriesSlideMarkdown
+                      nodes={contentNodes}
+                      slideNumber={slide.number}
+                    />
+                  </div>
+
+                  {speakerNodes.length ? (
+                    <details className="mt-6 rounded border border-gray-200 bg-gray-50">
+                      <summary className="cursor-pointer px-4 py-3 text-sm font-semibold text-gray-900">
+                        Speaker notes
+                      </summary>
+                      <div className="px-4 pb-4">
+                        <TechnologyAdoptionSeriesSlideMarkdown
+                          nodes={speakerNodes}
+                          slideNumber={slide.number}
+                        />
+                      </div>
+                    </details>
+                  ) : null}
+
+                  {transitionNodes.length ? (
+                    <details className="mt-4 rounded border border-gray-200 bg-gray-50">
+                      <summary className="cursor-pointer px-4 py-3 text-sm font-semibold text-gray-900">
+                        Transition
+                      </summary>
+                      <div className="px-4 pb-4">
+                        <TechnologyAdoptionSeriesSlideMarkdown
+                          nodes={transitionNodes}
+                          slideNumber={slide.number}
+                        />
+                      </div>
+                    </details>
+                  ) : null}
+                </section>
+              )
+            })}
+
+            {optionalSlides.length ? (
+              <details className="rounded border border-gray-200 bg-gray-50 p-4">
+                <summary className="cursor-pointer text-sm font-semibold text-gray-900">
+                  Optional deep dives (Slides 17–24)
+                </summary>
+                <div className="mt-6 space-y-10">
+                  {optionalSlides.map((slide) => {
+                    const sections = splitTechnologyAdoptionSeriesSlideSections(
+                      slide.contentMarkdown
+                    )
+                    const contentNodes = parseSimpleMarkdown(sections.content)
+                    const speakerNodes = sections.speakerNotes
+                      ? parseSimpleMarkdown(sections.speakerNotes)
+                      : []
+                    const transitionNodes = sections.transition
+                      ? parseSimpleMarkdown(sections.transition)
+                      : []
+
+                    return (
+                      <section
+                        key={slide.segment}
+                        id={anchorForSlide(slide.number, slide.title)}
+                        className="scroll-mt-24"
+                        aria-label={`Slide ${slide.number}: ${slide.title}`}
+                      >
+                        <div className="flex flex-wrap items-baseline justify-between gap-3">
+                          <h3 className="text-xl font-bold text-gray-900">
+                            Slide {slide.number}: {slide.title}{' '}
+                            <span className="text-gray-600">(Optional)</span>
+                          </h3>
+                          <Link
+                            href={`${root.slug}/${slide.segment}`}
+                            className="text-sm text-blue-700 hover:underline"
+                          >
+                            Open slide page
+                          </Link>
+                        </div>
+
+                        <div className="mt-4">
+                          <TechnologyAdoptionSeriesSlideMarkdown
+                            nodes={contentNodes}
+                            slideNumber={slide.number}
+                          />
+                        </div>
+
+                        {speakerNodes.length ? (
+                          <details className="mt-6 rounded border border-gray-200 bg-white">
+                            <summary className="cursor-pointer px-4 py-3 text-sm font-semibold text-gray-900">
+                              Speaker notes
+                            </summary>
+                            <div className="px-4 pb-4">
+                              <TechnologyAdoptionSeriesSlideMarkdown
+                                nodes={speakerNodes}
+                                slideNumber={slide.number}
+                              />
+                            </div>
+                          </details>
+                        ) : null}
+
+                        {transitionNodes.length ? (
+                          <details className="mt-4 rounded border border-gray-200 bg-white">
+                            <summary className="cursor-pointer px-4 py-3 text-sm font-semibold text-gray-900">
+                              Transition
+                            </summary>
+                            <div className="px-4 pb-4">
+                              <TechnologyAdoptionSeriesSlideMarkdown
+                                nodes={transitionNodes}
+                                slideNumber={slide.number}
+                              />
+                            </div>
+                          </details>
+                        ) : null}
+                      </section>
+                    )
+                  })}
+                </div>
+              </details>
+            ) : null}
           </div>
         </section>
 
