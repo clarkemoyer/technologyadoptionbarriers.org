@@ -1427,13 +1427,35 @@ const RenderMarkdownNodes = ({
 
 export const dynamic = 'force-static'
 
+const pad2 = (value: number) => String(value).padStart(2, '0')
+
+const legacySegmentsForSlide = (slideNumber: number) => {
+  const withoutPad = `slide-${slideNumber}`
+  const withPad = `slide-${pad2(slideNumber)}`
+  return [withoutPad, withPad]
+}
+
+const slideNumberFromSegment = (segment: string) => {
+  const match = segment.match(/^slide-(\d{1,2})(?:\b|[-/])/i)
+  if (!match) return null
+  const number = Number(match[1])
+  return Number.isFinite(number) ? number : null
+}
+
 type PageProps = {
   params: Promise<{ slide: string }>
 }
 
 export async function generateStaticParams() {
   const slides = await getTechnologyAdoptionSeriesSlides()
-  return slides.map((slide) => ({ slide: slide.segment }))
+  const allSegments = new Set<string>()
+
+  for (const slide of slides) {
+    allSegments.add(slide.segment)
+    for (const legacy of legacySegmentsForSlide(slide.number)) allSegments.add(legacy)
+  }
+
+  return Array.from(allSegments).map((segment) => ({ slide: segment }))
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -1451,10 +1473,13 @@ export default async function TechnologyAdoptionSeriesSlidePage({ params }: Page
   const { slide: segment } = await params
 
   const slides = await getTechnologyAdoptionSeriesSlides()
-  const slide = slides.find((s) => s.segment === segment) || null
+  const slideNumber = slideNumberFromSegment(segment)
+  const slide =
+    slides.find((s) => s.segment === segment) ||
+    (slideNumber ? slides.find((s) => s.number === slideNumber) : null)
   if (!slide) notFound()
 
-  const currentIndex = slides.findIndex((s) => s.segment === segment)
+  const currentIndex = slides.findIndex((s) => s.number === slide.number)
   const prev = currentIndex > 0 ? slides[currentIndex - 1] : null
   const next =
     currentIndex >= 0 && currentIndex < slides.length - 1 ? slides[currentIndex + 1] : null
