@@ -495,8 +495,10 @@ const Header: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className={`hidden lg:block absolute left-0 w-full bg-white border-t border-gray-100 shadow-lg z-40 ${
-              isScrolled ? 'top-[55px]' : 'top-[80px]'
+            className={`hidden lg:block absolute left-0 w-full bg-white border-t border-gray-100 shadow-lg z-40 overflow-y-auto overscroll-contain ${
+              isScrolled
+                ? 'top-[55px] max-h-[calc(100vh-55px)]'
+                : 'top-[80px] max-h-[calc(100vh-80px)]'
             }`}
           >
             <div className="max-w-[4096px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-8">
@@ -573,7 +575,7 @@ const Header: React.FC = () => {
                     {technologyAdoptionTeachingSeries.root.title}
                   </Link>
 
-                  <div className="grid grid-cols-4 gap-8">
+                  <div className="grid grid-cols-3 gap-8 xl:grid-cols-5">
                     {teachingSeriesParts.map((part, partIdx) => (
                       <div key={part.id}>
                         <Link
@@ -622,23 +624,25 @@ const Header: React.FC = () => {
                         ))}
                       </ul>
                     </div>
-                  </div>
 
-                  <div>
-                    <div className="block text-[14px] font-bold text-gray-900 mb-3">Resources</div>
-                    <ul className="space-y-2">
-                      {technologyAdoptionTeachingSeriesResources.map((resource) => (
-                        <li key={resource.id}>
-                          <Link
-                            href={`${technologyAdoptionTeachingSeries.root.slug}/${resource.segment}`}
-                            onClick={handleLinkClick}
-                            className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
-                          >
-                            {resource.title}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                    <div>
+                      <div className="block text-[14px] font-bold text-gray-900 mb-3">
+                        Resources
+                      </div>
+                      <ul className="space-y-2">
+                        {technologyAdoptionTeachingSeriesResources.map((resource) => (
+                          <li key={resource.id}>
+                            <Link
+                              href={`${technologyAdoptionTeachingSeries.root.slug}/${resource.segment}`}
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              {resource.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               )}
