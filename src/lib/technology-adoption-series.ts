@@ -3,7 +3,8 @@ import 'server-only'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
-import { normalizeQuotedTitle, slugify } from '@/lib/slugify'
+import { normalizeQuotedTitle } from '@/lib/slugify'
+import { buildTeachingSeriesSlideSegment } from '@/lib/technology-adoption-teaching-series-segment'
 import {
   technologyAdoptionTeachingSeries,
   technologyAdoptionTeachingSeriesResources,
@@ -39,14 +40,7 @@ const SERIES_DECK_PATH = path.join(
 
 const SERIES_RESOURCES_DIR = path.join(process.cwd(), 'content', 'technology-adoption-series')
 
-const pad2 = (value: number) => String(value).padStart(2, '0')
-
 const normalizeSlideTitle = (rawTitle: string) => normalizeQuotedTitle(rawTitle)
-
-const buildSegment = (slideNumber: number, slideTitle: string) => {
-  const titleSlug = slugify(slideTitle)
-  return `slide-${pad2(slideNumber)}-${titleSlug || `slide-${pad2(slideNumber)}`}`
-}
 
 const stripTrailingSeparator = (markdown: string) => markdown.replace(/\n---\n\s*$/, '').trim()
 
@@ -86,7 +80,7 @@ export async function getTechnologyAdoptionSeriesSlides(): Promise<
         return {
           number,
           title,
-          segment: buildSegment(number, title),
+          segment: buildTeachingSeriesSlideSegment(number, title),
           contentMarkdown,
         }
       })

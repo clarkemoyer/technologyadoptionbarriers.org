@@ -8,7 +8,11 @@
  * - Sitemap generation
  */
 
-import { normalizeQuotedTitle, slugify } from '@/lib/slugify'
+import {
+  buildTeachingSeriesSlideId,
+  buildTeachingSeriesSlideSegment,
+} from '@/lib/technology-adoption-teaching-series-segment'
+import { normalizeQuotedTitle } from '@/lib/slugify'
 
 export interface TeachingSeriesSlide {
   id: string
@@ -41,13 +45,6 @@ export interface TeachingSeriesStructure {
   parts: TeachingSeriesPart[]
 }
 
-const pad2 = (value: number) => String(value).padStart(2, '0')
-
-const buildSegment = (slideNumber: number, slideTitle: string) => {
-  const titleSlug = slugify(slideTitle)
-  return `slide-${pad2(slideNumber)}-${titleSlug || `slide-${pad2(slideNumber)}`}`
-}
-
 const slide = (
   number: number,
   rawTitle: string,
@@ -55,10 +52,10 @@ const slide = (
 ): TeachingSeriesSlide => {
   const title = normalizeQuotedTitle(rawTitle)
   return {
-    id: `slide-${pad2(number)}`,
+    id: buildTeachingSeriesSlideId(number),
     number,
     title,
-    segment: buildSegment(number, title),
+    segment: buildTeachingSeriesSlideSegment(number, title),
     status: opts?.status ?? 'published',
     isOptional: opts?.isOptional ?? false,
   }

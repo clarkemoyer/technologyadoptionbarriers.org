@@ -558,8 +558,8 @@ const SlideVisual = ({ slideNumber }: { slideNumber: number }) => {
             <div key={col.title} className="rounded border border-gray-200 bg-white p-4">
               <div className="text-sm font-semibold text-gray-900">{col.title}</div>
               <ul className="mt-2 list-disc pl-5 text-sm text-gray-700 space-y-1">
-                {col.notes.map((n) => (
-                  <li key={n}>{n}</li>
+                {col.notes.map((n, idx) => (
+                  <li key={`${col.title}-${idx}`}>{n}</li>
                 ))}
               </ul>
               <div className="mt-3">
@@ -885,7 +885,7 @@ const SlideVisual = ({ slideNumber }: { slideNumber: number }) => {
       <VisualCard title="Visual">
         <ol className="border-l border-gray-200 pl-4 space-y-3">
           {phases.map((p, idx) => (
-            <li key={p} className="relative">
+            <li key={idx} className="relative">
               <span
                 className="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full border border-gray-300 bg-white"
                 aria-hidden="true"
@@ -917,7 +917,7 @@ const SlideVisual = ({ slideNumber }: { slideNumber: number }) => {
       <VisualCard title="Visual">
         <ol className="grid gap-2 sm:grid-cols-2">
           {items.map((item, idx) => (
-            <li key={item} className="rounded border border-gray-200 bg-white p-3">
+            <li key={idx} className="rounded border border-gray-200 bg-white p-3">
               <div className="flex items-start gap-2">
                 <span
                   className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded bg-gray-100 text-xs font-semibold text-gray-700"
