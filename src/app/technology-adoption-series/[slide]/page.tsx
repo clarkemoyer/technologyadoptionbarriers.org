@@ -15,8 +15,8 @@ import TeachingSeriesNavigation from '@/components/teaching-series-navigation'
 type MarkdownNode =
   | { type: 'heading'; level: 2 | 3 | 4; text: string }
   | { type: 'paragraph'; text: string }
-  | { type: 'ul'; items: string[] }
-  | { type: 'ol'; items: string[] }
+  | { type: 'ul'; items: MarkdownListItem[] }
+  | { type: 'ol'; items: MarkdownListItem[] }
   | { type: 'blockquote'; lines: string[] }
   | { type: 'hr' }
   | { type: 'visual'; description: string }
@@ -24,6 +24,11 @@ type MarkdownNode =
   | { type: 'table'; header: string[]; rows: string[][] }
   | { type: 'code'; lang?: string; code: string }
   | { type: 'pre'; text: string }
+
+type MarkdownListItem = {
+  text: string
+  children?: MarkdownNode[]
+}
 
 const IconCheck = ({ title }: { title: string }) => (
   <svg
@@ -1097,6 +1102,102 @@ const parseSimpleMarkdown = (markdown: string): MarkdownNode[] => {
   const lines = markdown.split(/\r?\n/)
   const nodes: MarkdownNode[] = []
 
+  const getIndent = (value: string) => {
+    const match = value.match(/^\s*/)
+    return match ? match[0].length : 0
+  }
+
+  const getUlMarker = (value: string): 'dash' | 'dot' | 'o' | null => {
+    if (/^[-*]\s+/.test(value)) return 'dash'
+    if (/^•\s+/.test(value)) return 'dot'
+    if (/^o\s+/.test(value)) return 'o'
+    return null
+  }
+
+  const stripUlMarker = (value: string, marker: NonNullable<ReturnType<typeof getUlMarker>>) => {
+    if (marker === 'dash') return value.replace(/^[-*]\s+/, '')
+    if (marker === 'dot') return value.replace(/^•\s+/, '')
+    return value.replace(/^o\s+/, '')
+  }
+
+  const getListStart = (
+    value: string
+  ):
+    | { kind: 'ul'; indent: number; marker: 'dash' | 'dot' | 'o'; text: string }
+    | { kind: 'ol'; indent: number; text: string }
+    | null => {
+    const indent = getIndent(value)
+    const leftTrimmed = value.trimStart()
+
+    const ulMarker = getUlMarker(leftTrimmed)
+    if (ulMarker) {
+      return {
+        kind: 'ul',
+        indent,
+        marker: ulMarker,
+        text: stripUlMarker(leftTrimmed, ulMarker),
+      }
+    }
+
+    const olMatch = leftTrimmed.match(/^(\d+)\.\s+(.+)$/)
+    if (olMatch) {
+      return { kind: 'ol', indent, text: olMatch[2] }
+    }
+
+    return null
+  }
+
+  const parseListBlock = (
+    startIndex: number,
+    start: NonNullable<ReturnType<typeof getListStart>>
+  ): { node: Extract<MarkdownNode, { type: 'ul' | 'ol' }>; nextIndex: number } => {
+    let cursor = startIndex
+    const items: MarkdownListItem[] = []
+
+    while (cursor < lines.length) {
+      const current = getListStart(lines[cursor])
+      if (!current) break
+      if (current.kind !== start.kind) break
+      if (current.indent !== start.indent) break
+
+      const item: MarkdownListItem = { text: current.text }
+      cursor += 1
+
+      while (cursor < lines.length) {
+        const raw = lines[cursor]
+        if (!raw.trim()) {
+          cursor += 1
+          continue
+        }
+
+        const nextIndent = getIndent(raw)
+        const nextStart = getListStart(raw)
+
+        if (nextIndent > start.indent && nextStart) {
+          const parsed = parseListBlock(cursor, nextStart)
+          item.children = [...(item.children ?? []), parsed.node]
+          cursor = parsed.nextIndex
+          continue
+        }
+
+        if (nextIndent > start.indent && !nextStart) {
+          item.text = `${item.text} ${raw.trim()}`
+          cursor += 1
+          continue
+        }
+
+        break
+      }
+
+      items.push(item)
+    }
+
+    const node: Extract<MarkdownNode, { type: 'ul' | 'ol' }> =
+      start.kind === 'ul' ? { type: 'ul', items } : { type: 'ol', items }
+
+    return { node, nextIndex: cursor }
+  }
+
   let i = 0
   while (i < lines.length) {
     const line = lines[i]
@@ -1232,25 +1333,12 @@ const parseSimpleMarkdown = (markdown: string): MarkdownNode[] => {
       continue
     }
 
-    // Unordered list
-    if (/^[-*]\s+/.test(trimmed)) {
-      const items: string[] = []
-      while (i < lines.length && /^[-*]\s+/.test(lines[i].trim())) {
-        items.push(lines[i].trim().replace(/^[-*]\s+/, ''))
-        i += 1
-      }
-      nodes.push({ type: 'ul', items })
-      continue
-    }
-
-    // Ordered list
-    if (/^\d+\.\s+/.test(trimmed)) {
-      const items: string[] = []
-      while (i < lines.length && /^\d+\.\s+/.test(lines[i].trim())) {
-        items.push(lines[i].trim().replace(/^\d+\.\s+/, ''))
-        i += 1
-      }
-      nodes.push({ type: 'ol', items })
+    // Lists (indentation-aware, supports nested lists and deck bullets)
+    const listStart = getListStart(line)
+    if (listStart) {
+      const parsed = parseListBlock(i, listStart)
+      nodes.push(parsed.node)
+      i = parsed.nextIndex
       continue
     }
 
@@ -1312,8 +1400,15 @@ const RenderMarkdownNodes = ({
         if (node.type === 'ul') {
           return (
             <ul key={idx} className="list-disc pl-5 space-y-2 font-sans">
-              {node.items.map((item) => (
-                <li key={item}>{renderInline(item)}</li>
+              {node.items.map((item, itemIdx) => (
+                <li key={`${idx}-${itemIdx}`}>
+                  {renderInline(item.text)}
+                  {item.children?.length ? (
+                    <div className="mt-2">
+                      <RenderMarkdownNodes nodes={item.children} slideNumber={slideNumber} />
+                    </div>
+                  ) : null}
+                </li>
               ))}
             </ul>
           )
@@ -1322,8 +1417,15 @@ const RenderMarkdownNodes = ({
         if (node.type === 'ol') {
           return (
             <ol key={idx} className="list-decimal pl-5 space-y-2 font-sans">
-              {node.items.map((item) => (
-                <li key={item}>{renderInline(item)}</li>
+              {node.items.map((item, itemIdx) => (
+                <li key={`${idx}-${itemIdx}`}>
+                  {renderInline(item.text)}
+                  {item.children?.length ? (
+                    <div className="mt-2">
+                      <RenderMarkdownNodes nodes={item.children} slideNumber={slideNumber} />
+                    </div>
+                  ) : null}
+                </li>
               ))}
             </ol>
           )

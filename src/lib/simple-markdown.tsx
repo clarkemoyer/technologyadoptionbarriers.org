@@ -6,8 +6,8 @@ import { assetPath } from '@/lib/assetPath'
 export type MarkdownNode =
   | { type: 'heading'; level: 2 | 3 | 4; text: string }
   | { type: 'paragraph'; text: string }
-  | { type: 'ul'; items: string[] }
-  | { type: 'ol'; items: string[] }
+  | { type: 'ul'; items: MarkdownListItem[] }
+  | { type: 'ol'; items: MarkdownListItem[] }
   | { type: 'blockquote'; lines: string[] }
   | { type: 'hr' }
   | { type: 'visual'; description: string }
@@ -19,6 +19,11 @@ export type MarkdownNode =
     }
   | { type: 'code'; lang: string; code: string }
   | { type: 'pre'; text: string }
+
+export type MarkdownListItem = {
+  text: string
+  children?: MarkdownNode[]
+}
 
 type InlineToken =
   | { kind: 'text'; value: string }
@@ -146,6 +151,104 @@ const renderInline = (value: string) => {
 export const parseSimpleMarkdown = (markdown: string): MarkdownNode[] => {
   const lines = markdown.split(/\r?\n/)
   const nodes: MarkdownNode[] = []
+
+  const getIndent = (value: string) => {
+    const match = value.match(/^\s*/)
+    return match ? match[0].length : 0
+  }
+
+  const getListStart = (
+    value: string
+  ):
+    | {
+        kind: 'ul'
+        indent: number
+        marker: 'dash' | 'dot' | 'o'
+        text: string
+      }
+    | {
+        kind: 'ol'
+        indent: number
+        text: string
+      }
+    | null => {
+    const indent = getIndent(value)
+    const leftTrimmed = value.trimStart()
+
+    const ulMarker = getUlMarker(leftTrimmed)
+    if (ulMarker) {
+      return {
+        kind: 'ul',
+        indent,
+        marker: ulMarker,
+        text: stripUlMarker(leftTrimmed, ulMarker),
+      }
+    }
+
+    const olMatch = leftTrimmed.match(/^(\d+)\.\s+(.+)$/)
+    if (olMatch) {
+      return { kind: 'ol', indent, text: olMatch[2] }
+    }
+
+    return null
+  }
+
+  const parseListBlock = (
+    startIndex: number,
+    start: NonNullable<ReturnType<typeof getListStart>>
+  ): { node: Extract<MarkdownNode, { type: 'ul' | 'ol' }>; nextIndex: number } => {
+    let cursor = startIndex
+    const items: MarkdownListItem[] = []
+
+    while (cursor < lines.length) {
+      const current = getListStart(lines[cursor])
+      if (!current) break
+      if (current.kind !== start.kind) break
+      if (current.indent !== start.indent) break
+
+      const item: MarkdownListItem = { text: current.text }
+      cursor += 1
+
+      // Capture nested lists and continuation lines for this item.
+      while (cursor < lines.length) {
+        const raw = lines[cursor]
+        if (!raw.trim()) {
+          cursor += 1
+          continue
+        }
+
+        const nextIndent = getIndent(raw)
+        const nextStart = getListStart(raw)
+
+        if (nextIndent > start.indent && nextStart) {
+          const parsed = parseListBlock(cursor, nextStart)
+          item.children = [...(item.children ?? []), parsed.node]
+          cursor = parsed.nextIndex
+          continue
+        }
+
+        if (nextIndent > start.indent && !nextStart) {
+          item.text = `${item.text} ${raw.trim()}`
+          cursor += 1
+          continue
+        }
+
+        break
+      }
+
+      items.push(item)
+    }
+
+    const node: Extract<MarkdownNode, { type: 'ul' | 'ol' }> =
+      start.kind === 'ul'
+        ? { type: 'ul', items }
+        : {
+            type: 'ol',
+            items,
+          }
+
+    return { node, nextIndex: cursor }
+  }
 
   const getUlMarker = (value: string): 'dash' | 'dot' | 'o' | null => {
     if (/^[-*]\s+/.test(value)) return 'dash'
@@ -314,29 +417,24 @@ export const parseSimpleMarkdown = (markdown: string): MarkdownNode[] => {
       }
     }
 
-    // Unordered list (supports common deck bullets: -, *, •, and 'o')
-    const ulMarker = getUlMarker(trimmed)
-    if (ulMarker) {
-      const items: string[] = []
-      while (i < lines.length) {
-        const current = lines[i].trim()
-        const currentMarker = getUlMarker(current)
-        if (!currentMarker || currentMarker !== ulMarker) break
-        items.push(stripUlMarker(current, ulMarker))
+    // Pipe blocks that are not a real markdown table (common in ASCII diagrams)
+    if (trimmed.includes('|') && !isStartOfTable(i)) {
+      const tableLines: string[] = [line]
+      i += 1
+      while (i < lines.length && lines[i].trim() && lines[i].includes('|') && !isStartOfTable(i)) {
+        tableLines.push(lines[i])
         i += 1
       }
-      nodes.push({ type: 'ul', items })
+      nodes.push({ type: 'pre', text: tableLines.join('\n').trimEnd() })
       continue
     }
 
-    // Ordered list
-    if (/^\d+\.\s+/.test(trimmed)) {
-      const items: string[] = []
-      while (i < lines.length && /^\d+\.\s+/.test(lines[i].trim())) {
-        items.push(lines[i].trim().replace(/^\d+\.\s+/, ''))
-        i += 1
-      }
-      nodes.push({ type: 'ol', items })
+    // Lists (indentation-aware, supports nested lists)
+    const listStart = getListStart(line)
+    if (listStart) {
+      const parsed = parseListBlock(i, listStart)
+      nodes.push(parsed.node)
+      i = parsed.nextIndex
       continue
     }
 
@@ -371,13 +469,15 @@ export function RenderMarkdownNodes({
   nodes,
   renderVisual,
   renderCodeBlock,
+  compact,
 }: {
   nodes: MarkdownNode[]
   renderVisual?: (description: string) => ReactNode
   renderCodeBlock?: (node: Extract<MarkdownNode, { type: 'code' }>) => ReactNode | null
+  compact?: boolean
 }) {
   return (
-    <div className="space-y-4">
+    <div className={compact ? 'space-y-2' : 'space-y-4'}>
       {nodes.map((node, idx) => {
         if (node.type === 'heading') {
           const Tag = node.level === 2 ? 'h2' : node.level === 3 ? 'h3' : 'h4'
@@ -407,7 +507,19 @@ export function RenderMarkdownNodes({
           return (
             <ul key={idx} className="list-disc pl-5 space-y-2 font-sans">
               {node.items.map((item, itemIdx) => (
-                <li key={`${idx}-${itemIdx}`}>{renderInline(item)}</li>
+                <li key={`${idx}-${itemIdx}`}>
+                  {renderInline(item.text)}
+                  {item.children?.length ? (
+                    <div className="mt-2">
+                      <RenderMarkdownNodes
+                        nodes={item.children}
+                        renderVisual={renderVisual}
+                        renderCodeBlock={renderCodeBlock}
+                        compact
+                      />
+                    </div>
+                  ) : null}
+                </li>
               ))}
             </ul>
           )
@@ -416,8 +528,20 @@ export function RenderMarkdownNodes({
         if (node.type === 'ol') {
           return (
             <ol key={idx} className="list-decimal pl-5 space-y-2 font-sans">
-              {node.items.map((item) => (
-                <li key={item}>{renderInline(item)}</li>
+              {node.items.map((item, itemIdx) => (
+                <li key={`${idx}-${itemIdx}`}>
+                  {renderInline(item.text)}
+                  {item.children?.length ? (
+                    <div className="mt-2">
+                      <RenderMarkdownNodes
+                        nodes={item.children}
+                        renderVisual={renderVisual}
+                        renderCodeBlock={renderCodeBlock}
+                        compact
+                      />
+                    </div>
+                  ) : null}
+                </li>
               ))}
             </ol>
           )
