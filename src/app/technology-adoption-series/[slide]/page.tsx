@@ -99,9 +99,16 @@ const Badge = ({ children, tone }: { children: ReactNode; tone: 'good' | 'warn' 
 const AdoptionFrictionBar = ({ value }: { value: number }) => {
   const pct = Math.max(0, Math.min(100, value))
   return (
-    <div className="h-2 w-full rounded bg-gray-200" aria-label={`Adoption friction ${pct}%`}>
-      <div className="h-2 rounded bg-gray-700" style={{ width: `${pct}%` }} />
-    </div>
+    <svg
+      role="img"
+      aria-label={`Adoption friction ${pct}%`}
+      viewBox="0 0 100 4"
+      preserveAspectRatio="none"
+      className="h-2 w-full"
+    >
+      <rect x="0" y="0" width="100" height="4" rx="2" className="fill-gray-200" />
+      <rect x="0" y="0" width={`${pct}`} height="4" rx="2" className="fill-gray-700" />
+    </svg>
   )
 }
 
@@ -1059,6 +1066,10 @@ const splitSections = (markdown: string) => {
   for (const line of lines) {
     const trimmed = line.trim()
 
+    if (/^\*\*Content\*\*\s*$/i.test(trimmed) || /^\*\*Content:\*\*\s*$/i.test(trimmed)) {
+      continue
+    }
+
     if (/^\*\*Speaker Notes:\*\*\s*$/i.test(trimmed)) {
       section = 'speaker'
       continue
@@ -1450,8 +1461,6 @@ export default async function TechnologyAdoptionSeriesSlidePage({ params }: Page
 
   const sections = splitSections(slide.contentMarkdown)
   const contentNodes = parseSimpleMarkdown(sections.content)
-  const notesNodes = sections.speakerNotes ? parseSimpleMarkdown(sections.speakerNotes) : []
-  const transitionNodes = sections.transition ? parseSimpleMarkdown(sections.transition) : []
 
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -1470,59 +1479,11 @@ export default async function TechnologyAdoptionSeriesSlidePage({ params }: Page
           Slide {slide.number}: {slide.title}
         </h1>
 
-        <TeachingSeriesNavigation />
-
         <section className="mb-10">
-          <h2 className="text-[20px] font-bold text-gray-900 mb-4">Slide content</h2>
           <RenderMarkdownNodes nodes={contentNodes} slideNumber={slide.number} />
         </section>
 
-        {notesNodes.length ? (
-          <section className="mb-10">
-            <h2 className="text-[20px] font-bold text-gray-900 mb-4">Speaker notes</h2>
-            <RenderMarkdownNodes nodes={notesNodes} slideNumber={slide.number} />
-          </section>
-        ) : null}
-
-        {transitionNodes.length ? (
-          <section className="mb-10">
-            <h2 className="text-[20px] font-bold text-gray-900 mb-4">Transition</h2>
-            <RenderMarkdownNodes nodes={transitionNodes} slideNumber={slide.number} />
-          </section>
-        ) : null}
-
-        <nav
-          className="mt-10 pt-6 border-t border-gray-200 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
-          aria-label="Slide navigation"
-        >
-          <div className="text-sm">
-            <span className="font-semibold text-gray-900">Previous:</span>{' '}
-            {prev ? (
-              <Link
-                href={`/technology-adoption-series/${prev.segment}`}
-                className="text-blue-700 hover:underline"
-              >
-                Slide {prev.number}: {prev.title}
-              </Link>
-            ) : (
-              <span className="text-gray-600">None</span>
-            )}
-          </div>
-
-          <div className="text-sm">
-            <span className="font-semibold text-gray-900">Next:</span>{' '}
-            {next ? (
-              <Link
-                href={`/technology-adoption-series/${next.segment}`}
-                className="text-blue-700 hover:underline"
-              >
-                Slide {next.number}: {next.title}
-              </Link>
-            ) : (
-              <span className="text-gray-600">None</span>
-            )}
-          </div>
-        </nav>
+        <TeachingSeriesNavigation className="mt-10" />
       </article>
     </main>
   )
