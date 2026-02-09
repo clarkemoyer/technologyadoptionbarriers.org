@@ -39,9 +39,9 @@ const Header: React.FC = () => {
   const [isMakingOfMenuOpen, setIsMakingOfMenuOpen] = useState(false)
   const [isMobileBranch1Open, setIsMobileBranch1Open] = useState(false)
   const [isMobileBranch2Open, setIsMobileBranch2Open] = useState(false)
-  const [isMobileTeachingPart1Open, setIsMobileTeachingPart1Open] = useState(false)
-  const [isMobileTeachingPart2Open, setIsMobileTeachingPart2Open] = useState(false)
-  const [isMobileTeachingPart3Open, setIsMobileTeachingPart3Open] = useState(false)
+  const [mobileTeachingPartsOpen, setMobileTeachingPartsOpen] = useState<Record<string, boolean>>(
+    {}
+  )
   const [isMobileTeachingBackupOpen, setIsMobileTeachingBackupOpen] = useState(false)
   const [isMobileTeachingResourcesOpen, setIsMobileTeachingResourcesOpen] = useState(false)
   const [isMobileIndividualsOpen, setIsMobileIndividualsOpen] = useState(false)
@@ -215,14 +215,19 @@ const Header: React.FC = () => {
     setIsMakingOfMenuOpen(false)
     setIsMobileBranch1Open(false)
     setIsMobileBranch2Open(false)
-    setIsMobileTeachingPart1Open(false)
-    setIsMobileTeachingPart2Open(false)
-    setIsMobileTeachingPart3Open(false)
+    setMobileTeachingPartsOpen({})
     setIsMobileTeachingBackupOpen(false)
     setIsMobileTeachingResourcesOpen(false)
     setIsMobileIndividualsOpen(false)
     setIsMobileOrganizationsOpen(false)
     setIsMobileMakingOfOpen(false)
+  }
+
+  const toggleMobileTeachingPart = (partId: string) => {
+    setMobileTeachingPartsOpen((prev) => ({
+      ...prev,
+      [partId]: !prev[partId],
+    }))
   }
 
   const isActive = (path: string) => {
@@ -907,140 +912,54 @@ const Header: React.FC = () => {
                         {/* TEACHING SERIES MEGA MENU MOBILE */}
                         {item.megaMenuId === 'teaching-series' && (
                           <>
-                            {/* Part 1 */}
-                            <div className="ml-4 mt-2">
-                              <button
-                                onClick={() =>
-                                  setIsMobileTeachingPart1Open(!isMobileTeachingPart1Open)
-                                }
-                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                                aria-expanded={isMobileTeachingPart1Open}
-                              >
-                                <span className="text-[13px]">
-                                  {technologyAdoptionTeachingSeries.parts[0].title}
-                                </span>
-                                <svg
-                                  className={`w-4 h-4 transition-transform ${
-                                    isMobileTeachingPart1Open ? 'rotate-180' : ''
-                                  }`}
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M19 9l-7 7-7-7"
-                                  />
-                                </svg>
-                              </button>
-                              {isMobileTeachingPart1Open && (
-                                <ul className="mt-1 space-y-1">
-                                  {(teachingSeriesCoreSlidesByPart[0] ?? []).map((s) => (
-                                    <li key={s.id}>
-                                      <Link
-                                        href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
-                                        onClick={handleLinkClick}
-                                        className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
-                                      >
-                                        Slide {s.number}: {s.title}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
-                            </div>
+                            {teachingSeriesParts.map((part, partIdx) => {
+                              const isOpen = Boolean(mobileTeachingPartsOpen[part.id])
 
-                            {/* Part 2 */}
-                            <div className="ml-4 mt-2">
-                              <button
-                                onClick={() =>
-                                  setIsMobileTeachingPart2Open(!isMobileTeachingPart2Open)
-                                }
-                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                                aria-expanded={isMobileTeachingPart2Open}
-                              >
-                                <span className="text-[13px]">
-                                  {technologyAdoptionTeachingSeries.parts[1].title}
-                                </span>
-                                <svg
-                                  className={`w-4 h-4 transition-transform ${
-                                    isMobileTeachingPart2Open ? 'rotate-180' : ''
-                                  }`}
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M19 9l-7 7-7-7"
-                                  />
-                                </svg>
-                              </button>
-                              {isMobileTeachingPart2Open && (
-                                <ul className="mt-1 space-y-1">
-                                  {(teachingSeriesCoreSlidesByPart[1] ?? []).map((s) => (
-                                    <li key={s.id}>
-                                      <Link
-                                        href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
-                                        onClick={handleLinkClick}
-                                        className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
-                                      >
-                                        Slide {s.number}: {s.title}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
-                            </div>
+                              return (
+                                <div key={part.id} className="ml-4 mt-2">
+                                  <button
+                                    onClick={() => toggleMobileTeachingPart(part.id)}
+                                    className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                    aria-expanded={isOpen}
+                                  >
+                                    <span className="text-[13px]">{part.title}</span>
+                                    <svg
+                                      className={`w-4 h-4 transition-transform ${
+                                        isOpen ? 'rotate-180' : ''
+                                      }`}
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M19 9l-7 7-7-7"
+                                      />
+                                    </svg>
+                                  </button>
 
-                            {/* Part 3 */}
-                            <div className="ml-4 mt-2">
-                              <button
-                                onClick={() =>
-                                  setIsMobileTeachingPart3Open(!isMobileTeachingPart3Open)
-                                }
-                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
-                                aria-expanded={isMobileTeachingPart3Open}
-                              >
-                                <span className="text-[13px]">
-                                  {technologyAdoptionTeachingSeries.parts[2].title}
-                                </span>
-                                <svg
-                                  className={`w-4 h-4 transition-transform ${
-                                    isMobileTeachingPart3Open ? 'rotate-180' : ''
-                                  }`}
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M19 9l-7 7-7-7"
-                                  />
-                                </svg>
-                              </button>
-                              {isMobileTeachingPart3Open && (
-                                <ul className="mt-1 space-y-1">
-                                  {(teachingSeriesCoreSlidesByPart[2] ?? []).map((s) => (
-                                    <li key={s.id}>
-                                      <Link
-                                        href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
-                                        onClick={handleLinkClick}
-                                        className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
-                                      >
-                                        Slide {s.number}: {s.title}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
-                            </div>
+                                  {isOpen && (
+                                    <ul className="mt-1 space-y-1">
+                                      {(teachingSeriesCoreSlidesByPart[partIdx] ?? []).map(
+                                        (slide) => (
+                                          <li key={slide.id}>
+                                            <Link
+                                              href={`${technologyAdoptionTeachingSeries.root.slug}/${slide.segment}`}
+                                              onClick={handleLinkClick}
+                                              className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                            >
+                                              Slide {slide.number}: {slide.title}
+                                            </Link>
+                                          </li>
+                                        )
+                                      )}
+                                    </ul>
+                                  )}
+                                </div>
+                              )
+                            })}
 
                             {/* Backup slides */}
                             <div className="ml-4 mt-2">

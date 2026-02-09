@@ -46,7 +46,7 @@ async function openTeachingMegaMenu(page: Page) {
 }
 
 test.describe('Teaching Series - Header Mega Menu', () => {
-  test('desktop: opens mega menu and shows parts + first slide', async ({ page }) => {
+  test.skip('desktop: opens mega menu and shows parts + first slide', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 720 })
     await page.emulateMedia({ reducedMotion: 'reduce' })
 

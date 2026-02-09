@@ -139,8 +139,24 @@ export async function getTechnologyAdoptionSeriesResources(): Promise<
 }
 
 export async function getTechnologyAdoptionSeriesResourceBySegment(segment: string) {
-  const resources = await getTechnologyAdoptionSeriesResources()
-  return resources.find((resource) => resource.segment === segment) || null
+  if (resourcesCache) {
+    const resources = await resourcesCache
+    const cached = resources.find((resource) => resource.segment === segment)
+    if (cached) return cached
+  }
+
+  const resource = technologyAdoptionTeachingSeriesResources.find((r) => r.segment === segment)
+  if (!resource) return null
+
+  const filePath = path.join(SERIES_RESOURCES_DIR, resource.sourceFile)
+  const contentMarkdown = (await readFile(filePath, 'utf8')).trim()
+
+  return {
+    id: resource.id,
+    title: resource.title,
+    segment: resource.segment,
+    contentMarkdown,
+  }
 }
 
 const normalizeHref = (href: string) => {
