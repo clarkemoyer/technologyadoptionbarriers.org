@@ -1,11 +1,11 @@
-# Optional Backup Slides (For Q&A)
+# Optional Deep-Dive Slides (Merged)
 
-These backup slides have been merged into the main deck as an appendix to keep a single source of truth.
+This file is retained for compatibility, but the slide deck is now a single file.
 
 Use the combined deck here:
 
 - [01-core-presentation-deck.md](./01-core-presentation-deck.md)
 
-Jump directly to the appendix section:
+Jump directly to the optional deep-dive slides section:
 
-- [Appendix: Optional Backup Slides (For Q&A)](./01-core-presentation-deck.md#appendix-optional-backup-slides-for-qa)
+- [OPTIONAL DEEP-DIVE SLIDES (For Q&A)](./01-core-presentation-deck.md#optional-deep-dive-slides-for-qa)

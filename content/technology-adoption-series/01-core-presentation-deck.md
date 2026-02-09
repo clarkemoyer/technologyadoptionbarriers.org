@@ -2,7 +2,7 @@
 
 For Software Community of Interest - GENERAL VERSION
 
-Total: 16 Core Slides + Q&A Transition + Optional Backup Slides (Appendix)
+Total: 24 Slides (16 core + Q&A transition + 7 optional deep-dive slides)
 
 ---
 
@@ -1011,7 +1011,7 @@ This framework provides the foundation for transforming technology projects from
 
 ## END OF CORE 16-SLIDE PRESENTATION
 
-The next slide is a Q&A transition. After that, use the appendix backup slides only as needed.
+The next slide is a Q&A transition. After that, use the optional deep-dive slides only as needed.
 
 ---
 
@@ -1021,30 +1021,30 @@ The next slide is a Q&A transition. After that, use the appendix backup slides o
 
 Q&A
 
-If questions come up that need a deeper dive, these optional backup topics are available:
+If questions come up that need a deeper dive, these optional slides are available:
 
-1. [Backup Slide 1: Technology Lifecycle Examples in Practice](#backup-slide-1-technology-lifecycle-examples-in-practice)
-2. [Backup Slide 2: Common Cloud Platform Technologies](#backup-slide-2-common-cloud-platform-technologies)
-3. [Backup Slide 3: Technology Selection Framework](#backup-slide-3-technology-selection-framework)
-4. [Backup Slide 4: Anti-Patterns in Technology Adoption](#backup-slide-4-anti-patterns-in-technology-adoption)
-5. [Backup Slide 5: Organizational vs User Adoption Deep Dive](#backup-slide-5-organizational-vs-user-adoption-deep-dive)
-6. [Backup Slide 6: Handling Inherited Legacy Systems](#backup-slide-6-handling-inherited-legacy-systems)
-7. [Backup Slide 7: AI/ML Technology Adoption Considerations](#backup-slide-7-aiml-technology-adoption-considerations)
+1. [Slide 18 (Optional): Technology Lifecycle Examples in Practice](#slide-18-optional-technology-lifecycle-examples-in-practice)
+2. [Slide 19 (Optional): Common Cloud Platform Technologies](#slide-19-optional-common-cloud-platform-technologies)
+3. [Slide 20 (Optional): Technology Selection Framework](#slide-20-optional-technology-selection-framework)
+4. [Slide 21 (Optional): Anti-Patterns in Technology Adoption](#slide-21-optional-anti-patterns-in-technology-adoption)
+5. [Slide 22 (Optional): Organizational vs User Adoption Deep Dive](#slide-22-optional-organizational-vs-user-adoption-deep-dive)
+6. [Slide 23 (Optional): Handling Inherited Legacy Systems](#slide-23-optional-handling-inherited-legacy-systems)
+7. [Slide 24 (Optional): AI/ML Technology Adoption Considerations](#slide-24-optional-aiml-technology-adoption-considerations)
 
 **Speaker Notes:**
 
-- "Happy to take questions. If a question maps to a deeper topic, I’ll jump to the relevant optional slide in the appendix."
-- "These backup slides are for discussion only; we won’t cover them unless they’re useful for the room."
+- "Happy to take questions. If a question maps to a deeper topic, I’ll jump to the relevant optional slide later in the deck."
+- "These optional deep-dive slides are for discussion only; we won’t cover them unless they’re useful for the room."
 
 ---
 
-## Appendix: Optional Backup Slides (For Q&A)
+## OPTIONAL DEEP-DIVE SLIDES (For Q&A)
 
 These slides are optional topics to support Q&A. They are not part of the core 16-slide delivery.
 
 ---
 
-### Backup Slide 1: "Technology Lifecycle Examples in Practice"
+### Slide 18 (Optional): "Technology Lifecycle Examples in Practice"
 
 **Content**
 
@@ -1129,7 +1129,7 @@ Docker Swarm Choice:
 
 ---
 
-### Backup Slide 2: "Common Cloud Platform Technologies"
+### Slide 19 (Optional): "Common Cloud Platform Technologies"
 
 **Content**
 
@@ -1179,7 +1179,7 @@ WHY THESE LIFECYCLE POSITIONS?
 
 ---
 
-### Backup Slide 3: "Technology Selection Framework"
+### Slide 20 (Optional): "Technology Selection Framework"
 
 **Content**
 
@@ -1240,7 +1240,7 @@ and enables flexible architecture approaches.
 
 ---
 
-### Backup Slide 4: "Anti-Patterns in Technology Adoption"
+### Slide 21 (Optional): "Anti-Patterns in Technology Adoption"
 
 **Content**
 
@@ -1310,7 +1310,7 @@ Each of these anti-patterns leads to adoption failure and shelf-ware.
 
 ---
 
-### Backup Slide 5: "Organizational vs User Adoption Deep Dive"
+### Slide 22 (Optional): "Organizational vs User Adoption Deep Dive"
 
 **Content**
 
@@ -1393,7 +1393,7 @@ ORGANIZATIONAL + VOLUNTARY USER ADOPTION:
 
 ---
 
-### Backup Slide 6: "Handling Inherited Legacy Systems"
+### Slide 23 (Optional): "Handling Inherited Legacy Systems"
 
 **Content**
 
@@ -1514,7 +1514,7 @@ WARNING SIGNS TO WATCH:
 
 ---
 
-### Backup Slide 7: "AI/ML Technology Adoption Considerations"
+### Slide 24 (Optional): "AI/ML Technology Adoption Considerations"
 
 **Content**
 
