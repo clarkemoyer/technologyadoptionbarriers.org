@@ -11,9 +11,9 @@ import './presentation.css'
 /* ====================================================================
    Frame-expansion presenter
    ====================================================================
-   Instead of paginating within a slide, we expand 24 source slides
-   into ~80-120 "frames" so every screen shows ONE clear piece of
-   information, optimised for 1080p / 4K full-screen viewing.
+   Source slides are expanded into frames for full-screen viewing.
+   Content is chunked to fill each frame with substantial information
+   rather than fragmenting into many sparse screens.
    ==================================================================== */
 
 // ── Types ────────────────────────────────────────────────────────────
@@ -68,8 +68,8 @@ const SLIDES_WITH_VISUALS = new Set([
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
 ])
 
-const MAX_FRAME_SIZE = 400 // estimated chars before splitting
-const MAX_LIST_ITEMS = 4
+const MAX_FRAME_SIZE = 1800 // estimated chars — fill frames with substantial content
+const MAX_LIST_ITEMS = 10
 
 // ── Helpers ──────────────────────────────────────────────────────────
 
@@ -195,25 +195,15 @@ function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFr
       }
     }
 
-    // ── Slide title frame ──
-    frames.push({
-      type: 'slide-title',
-      sourceSlide: slide.number,
-      title: slide.title,
-    })
-
     // ── Chunk text nodes into content frames ──
+    // Collect chunks locally so we can merge orphans before pushing.
     let currentChunk: MarkdownNode[] = []
     let currentSize = 0
+    const slideChunks: MarkdownNode[][] = []
 
     const flushChunk = () => {
       if (currentChunk.length > 0) {
-        frames.push({
-          type: 'content',
-          sourceSlide: slide.number,
-          title: slide.title,
-          nodes: [...currentChunk],
-        })
+        slideChunks.push([...currentChunk])
         currentChunk = []
         currentSize = 0
       }
@@ -223,12 +213,7 @@ function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFr
       // Tables get their own frame
       if (node.type === 'table') {
         flushChunk()
-        frames.push({
-          type: 'content',
-          sourceSlide: slide.number,
-          title: slide.title,
-          nodes: [node],
-        })
+        slideChunks.push([node])
         continue
       }
 
@@ -236,18 +221,13 @@ function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFr
       if ((node.type === 'ul' || node.type === 'ol') && node.items.length > MAX_LIST_ITEMS) {
         flushChunk()
         for (const part of splitLargeList(node, MAX_LIST_ITEMS)) {
-          frames.push({
-            type: 'content',
-            sourceSlide: slide.number,
-            title: slide.title,
-            nodes: [part],
-          })
+          slideChunks.push([part])
         }
         continue
       }
 
-      // Headings start a new chunk when an existing one is open
-      if (node.type === 'heading' && currentChunk.length > 0) {
+      // Only flush at headings when current chunk is already substantial
+      if (node.type === 'heading' && currentSize > 800) {
         flushChunk()
       }
 
@@ -264,6 +244,25 @@ function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFr
       }
     }
     flushChunk()
+
+    // ── Merge orphan chunks (< 200 chars) into previous chunk ──
+    for (let i = slideChunks.length - 1; i > 0; i--) {
+      const chunkSize = slideChunks[i].reduce((s, n) => s + estimateNodeSize(n), 0)
+      if (chunkSize < 200) {
+        slideChunks[i - 1].push(...slideChunks[i])
+        slideChunks.splice(i, 1)
+      }
+    }
+
+    // ── Push content frames ──
+    for (const chunk of slideChunks) {
+      frames.push({
+        type: 'content',
+        sourceSlide: slide.number,
+        title: slide.title,
+        nodes: chunk,
+      })
+    }
 
     // ── Statement frames ──
     for (const stmt of statements) {
