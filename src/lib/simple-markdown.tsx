@@ -32,9 +32,9 @@ type InlineToken =
   | { kind: 'code'; value: string }
   | { kind: 'link'; label: string; href: string }
 
-const tokenizeInline = (value: string): InlineToken[] => {
+const tokenizeInline = (value: string | null | undefined): InlineToken[] => {
   const tokens: InlineToken[] = []
-  let remaining = value
+  let remaining = value ?? ''
 
   while (remaining.length) {
     const codeMatch = remaining.match(/`([^`]+)`/)
@@ -102,7 +102,7 @@ const tokenizeInline = (value: string): InlineToken[] => {
   return tokens
 }
 
-const renderInline = (value: string) => {
+const renderInline = (value: string | null | undefined) => {
   const tokens = tokenizeInline(value)
   return tokens.map((t, idx) => {
     if (t.kind === 'text') return <span key={idx}>{t.value}</span>

@@ -81,7 +81,7 @@ export const technologyAdoptionTeachingSeries: TeachingSeriesStructure = {
       id: 'part-2',
       title: 'Part 2: Strategic Approaches & Lifecycle Planning',
       slides: [
-        slide(5, 'The Technology Adoption Framework'),
+        slide(5, 'A Strategic Approach to Technology Adoption'),
         slide(6, 'Technology Lifecycle Positioning'),
         slide(7, 'Lifecycle Position Drives Everything You Build'),
         slide(8, 'Strategic Lifecycle Positioning'),

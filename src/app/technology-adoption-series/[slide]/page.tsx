@@ -5,30 +5,13 @@ import type { ReactNode } from 'react'
 
 import { ARTICLE_CLASSES, H1_CLASSES } from '@/lib/articleStyles'
 import { assetPath } from '@/lib/assetPath'
+import { parseSimpleMarkdown, RenderMarkdownNodes } from '@/lib/simple-markdown'
 import {
   getTechnologyAdoptionSeriesPrevNext,
   getTechnologyAdoptionSeriesSlideBySegment,
   getTechnologyAdoptionSeriesSlides,
 } from '@/lib/technology-adoption-series'
 import TeachingSeriesNavigation from '@/components/teaching-series-navigation'
-
-type MarkdownNode =
-  | { type: 'heading'; level: 2 | 3 | 4; text: string }
-  | { type: 'paragraph'; text: string }
-  | { type: 'ul'; items: MarkdownListItem[] }
-  | { type: 'ol'; items: MarkdownListItem[] }
-  | { type: 'blockquote'; lines: string[] }
-  | { type: 'hr' }
-  | { type: 'visual'; description: string }
-  | { type: 'image'; alt: string; src: string; title?: string }
-  | { type: 'table'; header: string[]; rows: string[][] }
-  | { type: 'code'; lang?: string; code: string }
-  | { type: 'pre'; text: string }
-
-type MarkdownListItem = {
-  text: string
-  children?: MarkdownNode[]
-}
 
 const IconCheck = ({ title }: { title: string }) => (
   <svg
@@ -942,125 +925,6 @@ const SlideVisual = ({ slideNumber }: { slideNumber: number }) => {
   return null
 }
 
-const resolveImageSrc = (src: string) => {
-  const trimmed = src.trim()
-  if (!trimmed) return trimmed
-  if (/^https?:\/\//i.test(trimmed)) return trimmed
-  if (trimmed.startsWith('/')) return assetPath(trimmed)
-  return trimmed
-}
-
-type InlineToken =
-  | { type: 'text'; value: string }
-  | { type: 'strong'; value: string }
-  | { type: 'em'; value: string }
-  | { type: 'code'; value: string }
-  | { type: 'link'; href: string; label: string }
-
-const tokenizeInline = (input: string): InlineToken[] => {
-  const tokens: InlineToken[] = []
-
-  let i = 0
-  while (i < input.length) {
-    const remaining = input.slice(i)
-
-    // Inline code
-    if (remaining.startsWith('`')) {
-      const end = remaining.indexOf('`', 1)
-      if (end > 0) {
-        tokens.push({ type: 'code', value: remaining.slice(1, end) })
-        i += end + 1
-        continue
-      }
-    }
-
-    // Bold
-    if (remaining.startsWith('**')) {
-      const end = remaining.indexOf('**', 2)
-      if (end > 1) {
-        tokens.push({ type: 'strong', value: remaining.slice(2, end) })
-        i += end + 2
-        continue
-      }
-    }
-
-    // Italic
-    if (remaining.startsWith('*') && !remaining.startsWith('**')) {
-      const end = remaining.indexOf('*', 1)
-      if (end > 0) {
-        tokens.push({ type: 'em', value: remaining.slice(1, end) })
-        i += end + 1
-        continue
-      }
-    }
-
-    // Link
-    if (remaining.startsWith('[')) {
-      const closeLabel = remaining.indexOf(']')
-      const openHref = closeLabel >= 0 ? remaining.indexOf('(', closeLabel) : -1
-      const closeHref = openHref >= 0 ? remaining.indexOf(')', openHref) : -1
-      if (closeLabel > 0 && openHref === closeLabel + 1 && closeHref > openHref + 1) {
-        const label = remaining.slice(1, closeLabel)
-        const href = remaining.slice(openHref + 1, closeHref)
-        tokens.push({ type: 'link', href, label })
-        i += closeHref + 1
-        continue
-      }
-    }
-
-    // Plain text (consume until next special char)
-    const nextSpecial = remaining.search(/[`*\[]/)
-    if (nextSpecial === -1) {
-      tokens.push({ type: 'text', value: remaining })
-      break
-    }
-
-    if (nextSpecial > 0) {
-      tokens.push({ type: 'text', value: remaining.slice(0, nextSpecial) })
-      i += nextSpecial
-      continue
-    }
-
-    tokens.push({ type: 'text', value: remaining[0] })
-    i += 1
-  }
-
-  return tokens
-}
-
-const renderInline = (text: string): ReactNode => {
-  const tokens = tokenizeInline(text)
-
-  return (
-    <>
-      {tokens.map((token, idx) => {
-        if (token.type === 'text') return <span key={idx}>{token.value}</span>
-        if (token.type === 'strong') return <strong key={idx}>{token.value}</strong>
-        if (token.type === 'em') return <em key={idx}>{token.value}</em>
-        if (token.type === 'code') {
-          return (
-            <code key={idx} className="rounded bg-gray-100 px-1 py-0.5 text-[0.95em]">
-              {token.value}
-            </code>
-          )
-        }
-
-        const isExternal = /^https?:\/\//i.test(token.href)
-        return (
-          <Link
-            key={idx}
-            href={token.href}
-            className="text-blue-700 hover:underline"
-            {...(isExternal ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
-          >
-            {token.label}
-          </Link>
-        )
-      })}
-    </>
-  )
-}
-
 const splitSections = (markdown: string) => {
   const lines = markdown.split(/\r?\n/)
   const content: string[] = []
@@ -1073,15 +937,19 @@ const splitSections = (markdown: string) => {
     const trimmed = line.trim()
 
     if (/^\*\*Content\*\*\s*$/i.test(trimmed) || /^\*\*Content:\*\*\s*$/i.test(trimmed)) {
+      section = 'content'
       continue
     }
 
-    if (/^\*\*Speaker Notes:\*\*\s*$/i.test(trimmed)) {
+    if (
+      /^\*\*Speaker Notes\*\*\s*$/i.test(trimmed) ||
+      /^\*\*Speaker Notes:\*\*\s*$/i.test(trimmed)
+    ) {
       section = 'speaker'
       continue
     }
 
-    if (/^\*\*Transition:\*\*\s*$/i.test(trimmed)) {
+    if (/^\*\*Transition\*\*\s*$/i.test(trimmed) || /^\*\*Transition:\*\*\s*$/i.test(trimmed)) {
       section = 'transition'
       continue
     }
@@ -1091,468 +959,37 @@ const splitSections = (markdown: string) => {
     if (section === 'transition') transition.push(line)
   }
 
+  const joinAndTrim = (value: string[]) => value.join('\n').trim()
+
   return {
-    content: content.join('\n').trim(),
-    speakerNotes: speakerNotes.join('\n').trim(),
-    transition: transition.join('\n').trim(),
+    content: joinAndTrim(content),
+    speakerNotes: joinAndTrim(speakerNotes) || null,
+    transition: joinAndTrim(transition) || null,
   }
 }
 
-const parseSimpleMarkdown = (markdown: string): MarkdownNode[] => {
-  const lines = markdown.split(/\r?\n/)
-  const nodes: MarkdownNode[] = []
-
-  const getIndent = (value: string) => {
-    const match = value.match(/^\s*/)
-    return match ? match[0].length : 0
-  }
-
-  const getUlMarker = (value: string): 'dash' | 'dot' | 'o' | null => {
-    if (/^[-*]\s+/.test(value)) return 'dash'
-    if (/^•\s+/.test(value)) return 'dot'
-    if (/^o\s+/.test(value)) return 'o'
-    return null
-  }
-
-  const stripUlMarker = (value: string, marker: NonNullable<ReturnType<typeof getUlMarker>>) => {
-    if (marker === 'dash') return value.replace(/^[-*]\s+/, '')
-    if (marker === 'dot') return value.replace(/^•\s+/, '')
-    return value.replace(/^o\s+/, '')
-  }
-
-  const getListStart = (
-    value: string
-  ):
-    | { kind: 'ul'; indent: number; marker: 'dash' | 'dot' | 'o'; text: string }
-    | { kind: 'ol'; indent: number; text: string }
-    | null => {
-    const indent = getIndent(value)
-    const leftTrimmed = value.trimStart()
-
-    const ulMarker = getUlMarker(leftTrimmed)
-    if (ulMarker) {
-      return {
-        kind: 'ul',
-        indent,
-        marker: ulMarker,
-        text: stripUlMarker(leftTrimmed, ulMarker),
-      }
-    }
-
-    const olMatch = leftTrimmed.match(/^(\d+)\.\s+(.+)$/)
-    if (olMatch) {
-      return { kind: 'ol', indent, text: olMatch[2] }
-    }
-
-    return null
-  }
-
-  const parseListBlock = (
-    startIndex: number,
-    start: NonNullable<ReturnType<typeof getListStart>>
-  ): { node: Extract<MarkdownNode, { type: 'ul' | 'ol' }>; nextIndex: number } => {
-    let cursor = startIndex
-    const items: MarkdownListItem[] = []
-
-    const parseUnindentedOSubBullets = (): MarkdownNode | null => {
-      const childItems: MarkdownListItem[] = []
-      while (cursor < lines.length) {
-        const candidate = getListStart(lines[cursor])
-        if (!candidate) break
-        if (candidate.kind !== 'ul') break
-        if (candidate.indent !== start.indent) break
-        if (candidate.marker !== 'o') break
-
-        childItems.push({ text: candidate.text })
-        cursor += 1
-      }
-
-      if (!childItems.length) return null
-      return { type: 'ul', items: childItems }
-    }
-
-    while (cursor < lines.length) {
-      const current = getListStart(lines[cursor])
-      if (!current) break
-      if (current.kind !== start.kind) break
-      if (current.indent !== start.indent) break
-
-      const item: MarkdownListItem = { text: current.text }
-      cursor += 1
-
-      while (cursor < lines.length) {
-        const raw = lines[cursor]
-        if (!raw.trim()) {
-          cursor += 1
-          continue
-        }
-
-        const nextIndent = getIndent(raw)
-        const nextStart = getListStart(raw)
-
-        if (nextIndent > start.indent && nextStart) {
-          const parsed = parseListBlock(cursor, nextStart)
-          item.children = [...(item.children ?? []), parsed.node]
-          cursor = parsed.nextIndex
-          continue
-        }
-
-        if (nextIndent > start.indent && !nextStart) {
-          item.text = `${item.text} ${raw.trim()}`
-          cursor += 1
-          continue
-        }
-
-        break
-      }
-
-      items.push(item)
-
-      // Deck-style outline heuristic:
-      // When a list item ends with ':' and the next list items are unindented
-      // `o ...` bullets, treat them as a nested sub-list.
-      if (start.kind === 'ul' && item.text.trim().endsWith(':') && cursor < lines.length) {
-        const next = getListStart(lines[cursor])
-        if (next && next.kind === 'ul' && next.indent === start.indent && next.marker === 'o') {
-          const sub = parseUnindentedOSubBullets()
-          if (sub) item.children = [...(item.children ?? []), sub]
-        }
-      }
-    }
-
-    const node: Extract<MarkdownNode, { type: 'ul' | 'ol' }> =
-      start.kind === 'ul' ? { type: 'ul', items } : { type: 'ol', items }
-
-    return { node, nextIndex: cursor }
-  }
-
-  let i = 0
-  while (i < lines.length) {
-    const line = lines[i]
-    const trimmed = line.trim()
-
-    if (!trimmed) {
-      i += 1
-      continue
-    }
-
-    // Horizontal rule
-    if (/^(-{3,}|\*{3,}|_{3,})$/.test(trimmed)) {
-      nodes.push({ type: 'hr' })
-      i += 1
-      continue
-    }
-
-    // ATX headings
-    const headingMatch = trimmed.match(/^(#{2,4})\s+(.+)$/)
-    if (headingMatch) {
-      const level = headingMatch[1].length as 2 | 3 | 4
-      nodes.push({ type: 'heading', level, text: headingMatch[2].trim() })
-      i += 1
-      continue
-    }
-
-    // Bold-only lines (common in the deck): treat as headings
-    const boldLineMatch = trimmed.match(/^\*\*(.+?)\*\*$/)
-    if (boldLineMatch) {
-      nodes.push({ type: 'heading', level: 3, text: boldLineMatch[1].trim() })
-      i += 1
-      continue
-    }
-
-    // Visual marker: render as a dedicated visual node (the live page will generate the visual)
-    const visualMatch = trimmed.match(/^\*\*Visual:\*\*\s*(.+)\s*$/i)
-    if (visualMatch) {
-      nodes.push({ type: 'visual', description: visualMatch[1].trim() })
-      i += 1
-
-      // Consume the immediate diagram block after the marker (code fence or table),
-      // since we render an actual visual component instead.
-      while (i < lines.length && !lines[i].trim()) i += 1
-
-      if (i < lines.length && lines[i].trim().startsWith('```')) {
-        i += 1
-        while (i < lines.length && !lines[i].trim().startsWith('```')) i += 1
-        if (i < lines.length) i += 1
-      } else if (i < lines.length && lines[i].trim().includes('|')) {
-        // Consume markdown table block if present
-        while (i < lines.length && lines[i].trim().includes('|') && lines[i].trim()) i += 1
-      }
-
-      continue
-    }
-
-    // Image-only line
-    const imageMatch = trimmed.match(/^!\[(.*?)\]\(([^\s)]+)(?:\s+"([^"]+)")?\)\s*$/)
-    if (imageMatch) {
-      nodes.push({
-        type: 'image',
-        alt: imageMatch[1] || 'Image',
-        src: imageMatch[2],
-        title: imageMatch[3] || undefined,
-      })
-      i += 1
-      continue
-    }
-
-    // Code fence
-    if (trimmed.startsWith('```')) {
-      const lang = trimmed.replace(/```/g, '').trim() || undefined
-      const codeLines: string[] = []
-      i += 1
-      while (i < lines.length && !lines[i].trim().startsWith('```')) {
-        codeLines.push(lines[i])
-        i += 1
-      }
-      // Skip closing fence
-      if (i < lines.length) i += 1
-      nodes.push({ type: 'code', lang, code: codeLines.join('\n').trimEnd() })
-      continue
-    }
-
-    // Markdown tables
-    if (trimmed.includes('|') && /^\|?.*\|.*\|?$/.test(trimmed)) {
-      const headerLine = trimmed
-      const separatorLine = lines[i + 1]?.trim() || ''
-
-      if (separatorLine && /^\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?$/.test(separatorLine)) {
-        const readCells = (row: string) =>
-          row
-            .trim()
-            .replace(/^\|/, '')
-            .replace(/\|$/, '')
-            .split('|')
-            .map((cell) => cell.trim())
-
-        const header = readCells(headerLine)
-        const rows: string[][] = []
-
-        i += 2
-        while (i < lines.length) {
-          const row = lines[i].trim()
-          if (!row || !row.includes('|')) break
-          rows.push(readCells(row))
-          i += 1
-        }
-
-        nodes.push({ type: 'table', header, rows })
-        continue
-      }
-
-      // Fallback: treat as preformatted (ASCII diagrams)
-      const tableLines: string[] = [line]
-      i += 1
-      while (i < lines.length && lines[i].trim().includes('|') && lines[i].trim()) {
-        tableLines.push(lines[i])
-        i += 1
-      }
-      nodes.push({ type: 'pre', text: tableLines.join('\n').trimEnd() })
-      continue
-    }
-
-    // Blockquote
-    if (trimmed.startsWith('>')) {
-      const quoteLines: string[] = []
-      while (i < lines.length && lines[i].trim().startsWith('>')) {
-        quoteLines.push(lines[i].trim().replace(/^>\s?/, ''))
-        i += 1
-      }
-      nodes.push({ type: 'blockquote', lines: quoteLines })
-      continue
-    }
-
-    // Lists (indentation-aware, supports nested lists and deck bullets)
-    const listStart = getListStart(line)
-    if (listStart) {
-      const parsed = parseListBlock(i, listStart)
-      nodes.push(parsed.node)
-      i = parsed.nextIndex
-      continue
-    }
-
-    // Paragraph (consume until blank line)
-    const paragraphLines: string[] = [trimmed]
-    i += 1
-    while (i < lines.length && lines[i].trim()) {
-      paragraphLines.push(lines[i].trim())
-      i += 1
-    }
-    nodes.push({ type: 'paragraph', text: paragraphLines.join(' ') })
-  }
-
-  return nodes
-}
-
-const RenderMarkdownNodes = ({
+const SlideMarkdown = ({
   nodes,
   slideNumber,
 }: {
-  nodes: MarkdownNode[]
+  nodes: Parameters<typeof RenderMarkdownNodes>[0]['nodes']
   slideNumber: number
 }) => {
   return (
-    <div className="space-y-4">
-      {nodes.map((node, idx) => {
-        if (node.type === 'heading') {
-          const Tag = node.level === 2 ? 'h2' : node.level === 3 ? 'h3' : 'h4'
-          const className =
-            node.level === 2
-              ? 'text-[22px] font-bold text-gray-900'
-              : node.level === 3
-                ? 'text-[18px] font-bold text-gray-900'
-                : 'text-[16px] font-semibold text-gray-900'
+    <RenderMarkdownNodes
+      nodes={nodes}
+      renderVisual={() => <SlideVisual slideNumber={slideNumber} />}
+      renderCodeBlock={(node) => {
+        const lang = node.lang.trim().toLowerCase()
+        const isPlainText = lang === '' || lang === 'text' || lang === 'plaintext'
 
-          return (
-            <Tag key={idx} className={className}>
-              {renderInline(node.text)}
-            </Tag>
-          )
+        if (isPlainText && isTreeDiagramText(node.code) && slideNumber >= 17) {
+          return <TreeDiagram code={node.code} />
         }
 
-        if (node.type === 'paragraph') {
-          return (
-            <p key={idx} className="font-sans">
-              {renderInline(node.text)}
-            </p>
-          )
-        }
-
-        if (node.type === 'visual') {
-          return (
-            <div key={idx}>
-              <SlideVisual slideNumber={slideNumber} />
-            </div>
-          )
-        }
-
-        if (node.type === 'ul') {
-          return (
-            <ul key={idx} className="list-disc pl-5 space-y-2 font-sans">
-              {node.items.map((item, itemIdx) => (
-                <li key={`${idx}-${itemIdx}`}>
-                  {renderInline(item.text)}
-                  {item.children?.length ? (
-                    <div className="mt-2">
-                      <RenderMarkdownNodes nodes={item.children} slideNumber={slideNumber} />
-                    </div>
-                  ) : null}
-                </li>
-              ))}
-            </ul>
-          )
-        }
-
-        if (node.type === 'ol') {
-          return (
-            <ol key={idx} className="list-decimal pl-5 space-y-2 font-sans">
-              {node.items.map((item, itemIdx) => (
-                <li key={`${idx}-${itemIdx}`}>
-                  {renderInline(item.text)}
-                  {item.children?.length ? (
-                    <div className="mt-2">
-                      <RenderMarkdownNodes nodes={item.children} slideNumber={slideNumber} />
-                    </div>
-                  ) : null}
-                </li>
-              ))}
-            </ol>
-          )
-        }
-
-        if (node.type === 'blockquote') {
-          return (
-            <blockquote
-              key={idx}
-              className="rounded border border-gray-200 bg-gray-50 p-4 text-gray-800"
-            >
-              <div className="space-y-2">
-                {node.lines.map((line, lineIdx) => (
-                  <p key={lineIdx} className="font-sans">
-                    {renderInline(line)}
-                  </p>
-                ))}
-              </div>
-            </blockquote>
-          )
-        }
-
-        if (node.type === 'hr') {
-          return <hr key={idx} className="border-gray-200" />
-        }
-
-        if (node.type === 'image') {
-          const src = resolveImageSrc(node.src)
-          return (
-            <figure key={idx} className="rounded border border-gray-200 bg-gray-50 p-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt={node.alt} className="mx-auto max-h-[520px] w-auto max-w-full" />
-              {node.title ? (
-                <figcaption className="mt-2 text-sm text-gray-600 text-center">
-                  {node.title}
-                </figcaption>
-              ) : null}
-            </figure>
-          )
-        }
-
-        if (node.type === 'table') {
-          return (
-            <div key={idx} className="overflow-x-auto rounded border border-gray-200">
-              <table className="min-w-full border-collapse text-sm">
-                <thead className="bg-gray-50">
-                  <tr>
-                    {node.header.map((cell, cellIdx) => (
-                      <th
-                        key={cellIdx}
-                        scope="col"
-                        className="border-b border-gray-200 px-3 py-2 text-left font-semibold text-gray-900"
-                      >
-                        {renderInline(cell)}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {node.rows.map((row, rowIdx) => (
-                    <tr key={rowIdx} className={rowIdx % 2 ? 'bg-white' : 'bg-gray-50/30'}>
-                      {row.map((cell, cellIdx) => (
-                        <td key={cellIdx} className="border-b border-gray-200 px-3 py-2 align-top">
-                          {renderInline(cell)}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )
-        }
-
-        if (node.type === 'code') {
-          if (node.lang === 'text' && isTreeDiagramText(node.code) && slideNumber >= 17) {
-            return <TreeDiagram key={idx} code={node.code} />
-          }
-
-          return (
-            <pre
-              key={idx}
-              className="overflow-x-auto rounded border border-gray-200 bg-gray-50 p-4 text-sm"
-            >
-              <code>{node.code}</code>
-            </pre>
-          )
-        }
-
-        return (
-          <pre
-            key={idx}
-            className="overflow-x-auto rounded border border-gray-200 bg-gray-50 p-4 text-sm whitespace-pre-wrap"
-          >
-            {node.text}
-          </pre>
-        )
-      })}
-    </div>
+        return null
+      }}
+    />
   )
 }
 
@@ -1590,7 +1027,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slide: segment } = await params
+  const { slide: segment } = await Promise.resolve(params)
 
   const slides = await getTechnologyAdoptionSeriesSlides()
   const slideNumber = slideNumberFromSegment(segment)
@@ -1606,7 +1043,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function TechnologyAdoptionSeriesSlidePage({ params }: PageProps) {
-  const { slide: segment } = await params
+  const { slide: segment } = await Promise.resolve(params)
 
   const slides = await getTechnologyAdoptionSeriesSlides()
   const slideNumber = slideNumberFromSegment(segment)
@@ -1645,7 +1082,7 @@ export default async function TechnologyAdoptionSeriesSlidePage({ params }: Page
         </h1>
 
         <section className="mb-10">
-          <RenderMarkdownNodes nodes={contentNodes} slideNumber={slide.number} />
+          <SlideMarkdown nodes={contentNodes} slideNumber={slide.number} />
         </section>
 
         {speakerNodes.length ? (
@@ -1654,7 +1091,7 @@ export default async function TechnologyAdoptionSeriesSlidePage({ params }: Page
               Speaker notes
             </summary>
             <div className="px-4 pb-4">
-              <RenderMarkdownNodes nodes={speakerNodes} slideNumber={slide.number} />
+              <SlideMarkdown nodes={speakerNodes} slideNumber={slide.number} />
             </div>
           </details>
         ) : null}
@@ -1665,7 +1102,7 @@ export default async function TechnologyAdoptionSeriesSlidePage({ params }: Page
               Transition
             </summary>
             <div className="px-4 pb-4">
-              <RenderMarkdownNodes nodes={transitionNodes} slideNumber={slide.number} />
+              <SlideMarkdown nodes={transitionNodes} slideNumber={slide.number} />
             </div>
           </details>
         ) : null}

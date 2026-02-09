@@ -367,9 +367,9 @@ Ongoing Requirements:
 - [ ] Maintain industry knowledge
 - [ ] Collect and share best practices
 
-Certified By: \***\*\_\_\_\_\*\*** Date: **/**/\_\_\_\_
+Certified By: \***\*\*\*\*\***\_\***\*\*\*\*\*** Date: \_**\_/\_\_**/\_\_\_\_
 
-Certification Valid Through: **/**/\_\_\_\_
+Certification Valid Through: \_**\_/\_\_**/\_\_\_\_
 
 ---
 

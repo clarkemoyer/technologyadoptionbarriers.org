@@ -46,7 +46,12 @@ async function openTeachingMegaMenu(page: Page) {
 }
 
 test.describe('Teaching Series - Header Mega Menu', () => {
-  test.skip('desktop: opens mega menu and shows parts + first slide', async ({ page }) => {
+  test('desktop: opens mega menu and shows parts + first slide', async ({ page }) => {
+    test.skip(
+      true,
+      'Desktop mega-menu hydration/animation can be flaky in static builds; see tests/series-navigation.spec.ts for context.'
+    )
+
     await page.setViewportSize({ width: 1280, height: 720 })
     await page.emulateMedia({ reducedMotion: 'reduce' })
 
