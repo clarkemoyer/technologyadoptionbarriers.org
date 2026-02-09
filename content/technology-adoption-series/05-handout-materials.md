@@ -264,7 +264,7 @@ Frameworks:
 
 Tools:
 
-- Analytics platforms (segment, amplitude, mixpanel)
+- Analytics platforms (Segment, Amplitude, Mixpanel)
 - User feedback tools (UserVoice, ProductBoard)
 - Usage monitoring (application performance monitoring)
 
@@ -382,17 +382,17 @@ NEXT STEPS & SUPPORT
 
 We offer several ways to support your technology adoption initiatives:
 
-□ Technology Lifecycle Assessment
-Evaluate your current technology portfolio's lifecycle position
+- [ ] Technology Lifecycle Assessment
+      Evaluate your current technology portfolio's lifecycle position
 
-□ Architecture Consulting
-Determine the right architecture approach for your needs
+- [ ] Architecture Consulting
+      Determine the right architecture approach for your needs
 
-□ Adoption Strategy Development
-Plan for voluntary user adoption from design through sustainment
+- [ ] Adoption Strategy Development
+      Plan for voluntary user adoption from design through sustainment
 
-□ Workshop Facilitation
-Team workshops to apply this framework to your projects
+- [ ] Workshop Facilitation
+      Team workshops to apply this framework to your projects
 
 Interested? Reply to this email or contact:
 [Contact information]

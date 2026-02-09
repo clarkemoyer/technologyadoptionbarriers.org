@@ -159,7 +159,7 @@ If conducting virtually:
 Technology Setup:
 
 - Video conferencing platform (Zoom, Teams, WebEx)
-- Virtual whiteboard (Miro, Mural, Jamboard)
+- Virtual whiteboard (Miro, Mural, FigJam)
 - Polling tool (built-in or Slido, Mentimeter)
 - Breakout rooms for group exercises
 
@@ -312,67 +312,65 @@ TECHNOLOGY ADOPTION FRAMEWORK - TRAINER CHECKLIST
 
 Prerequisites:
 
-- □ Completed full workshop as participant
-- □ 3+ years experience in technology leadership or architecture
-- □ Understanding of cloud technologies and DevOps practices
-- □ Strong presentation and facilitation skills
+- [ ] Completed full workshop as participant
+- [ ] 3+ years experience in technology leadership or architecture
+- [ ] Understanding of cloud technologies and DevOps practices
+- [ ] Strong presentation and facilitation skills
 
 Knowledge Requirements:
 
-- □ Can explain two levels of adoption (organizational vs. user)
-- □ Can describe all seven lifecycle stages with examples
-- □ Can explain all three architecture approaches
-- □ Can articulate lifecycle-to-architecture connections
-- □ Can facilitate lifecycle assessment process
-- □ Knows how to handle common objections
+- [ ] Can explain two levels of adoption (organizational vs. user)
+- [ ] Can describe all seven lifecycle stages with examples
+- [ ] Can explain all three architecture approaches
+- [ ] Can articulate lifecycle-to-architecture connections
+- [ ] Can facilitate lifecycle assessment process
+- [ ] Knows how to handle common objections
 
 Skills Demonstration:
 
-- □ Co-facilitated workshop with certified trainer
-- □ Successfully presented all 16 core slides
-- □ Facilitated group exercises effectively
-- □ Handled Q&A confidently
-- □ Managed time effectively
-- □ Adapted content for specific audience
-- □ Demonstrated ability to customize case studies
+- [ ] Facilitated group exercises effectively
+- [ ] Handled Q&A confidently
+- [ ] Managed time effectively
+- [ ] Adapted content for specific audience
+- [ ] Demonstrated ability to customize case studies
 
 Delivery Skills:
 
-- □ Clear, engaging presentation style
-- □ Manages group dynamics effectively
-- □ Handles difficult questions professionally
-- □ Keeps sessions on time and on topic
-- □ Creates inclusive learning environment
-- □ Adapts to virtual and in-person formats
+- [ ] Clear, engaging presentation style
+- [ ] Manages group dynamics effectively
+- [ ] Handles difficult questions professionally
+- [ ] Keeps sessions on time and on topic
+- [ ] Creates inclusive learning environment
+- [ ] Adapts to virtual and in-person formats
 
 Materials Management:
 
-- □ Can customize slides for specific industries
-- □ Knows when to use backup slides
-- □ Maintains current technology lifecycle examples
-- □ Updates case studies with recent data
-- □ Manages handouts and assessments
+- [ ] Can customize slides for specific industries
+- [ ] Knows when to use backup slides
+- [ ] Maintains current technology lifecycle examples
+- [ ] Updates case studies with recent data
+- [ ] Manages handouts and assessments
 
 Certification Requirements:
 
-- □ Observed full workshop delivery (full session)
-- □ Co-facilitated workshop with mentor
-- □ Solo facilitated workshop with observation
-- □ Passed knowledge assessment (define pass threshold)
-- □ Received positive participant feedback (define threshold)
-- □ Completed train-the-trainer session
+- [ ] Observed full workshop delivery (full session)
+- [ ] Co-facilitated workshop with mentor
+- [ ] Solo facilitated workshop with observation
+- [ ] Passed knowledge assessment (define pass threshold)
+- [ ] Received positive participant feedback (define threshold)
+- [ ] Completed train-the-trainer session
 
 Ongoing Requirements:
 
-- □ Facilitate workshops on a regular cadence
-- □ Update content regularly (lifecycle examples)
-- □ Participate in trainer community
-- □ Maintain industry knowledge
-- □ Collect and share best practices
+- [ ] Facilitate workshops on a regular cadence
+- [ ] Update content regularly (lifecycle examples)
+- [ ] Participate in trainer community
+- [ ] Maintain industry knowledge
+- [ ] Collect and share best practices
 
-Certified By: **\*\*\*\***\_\_\_\_**\*\*\*\*** Date: **\*\***\_\_**\*\***
+Certified By: \***\*\_\_\_\_\*\*** Date: **/**/\_\_\_\_
 
-Certification Valid Through: **\*\***\_\_**\*\***
+Certification Valid Through: **/**/\_\_\_\_
 
 ---
 
@@ -384,74 +382,74 @@ PRESENTATION READINESS CHECKLIST
 
 CONTENT VERIFICATION:
 
-- □ All slides reviewed and current
-- □ Technology lifecycle examples updated (check regularly)
-- □ Case study metrics current (if using real data)
-- □ Backup slides prepared and accessible
-- □ Q&A preparation guide reviewed
-- □ Custom content prepared (if industry-specific)
+- [ ] All slides reviewed and current
+- [ ] Technology lifecycle examples updated (check regularly)
+- [ ] Case study metrics current (if using real data)
+- [ ] Backup slides prepared and accessible
+- [ ] Q&A preparation guide reviewed
+- [ ] Custom content prepared (if industry-specific)
 
 TECHNICAL SETUP:
 
-- □ Presentation file loaded on laptop
-- □ Backup copy on USB drive
-- □ PDF version prepared (in case of compatibility issues)
-- □ Presenter notes accessible
-- □ Remote clicker/pointer tested
-- □ Video/audio tested (if virtual)
-- □ Internet connection verified (if needed)
-- □ Backup internet option identified
+- [ ] Presentation file loaded on laptop
+- [ ] Backup copy on USB drive
+- [ ] PDF version prepared (in case of compatibility issues)
+- [ ] Presenter notes accessible
+- [ ] Remote clicker/pointer tested
+- [ ] Video/audio tested (if virtual)
+- [ ] Internet connection verified (if needed)
+- [ ] Backup internet option identified
 
 MATERIALS PREPARED:
 
-- □ Handouts printed (one per participant, plus a few extra)
+- [ ] Handouts printed (one per participant, plus a few extra)
   - One-page quick reference
   - Technology lifecycle assessment template
   - Slide deck summary card
-- □ Feedback forms printed (or digital link ready)
-- □ Sign-in sheet prepared (if tracking attendance)
-- □ Name tents/badges (if needed)
+- [ ] Feedback forms printed (or digital link ready)
+- [ ] Sign-in sheet prepared (if tracking attendance)
+- [ ] Name tents/badges (if needed)
 
 ROOM/ENVIRONMENT SETUP:
 
-- □ Room booked and confirmed
-- □ Seating arrangement appropriate for audience size
-- □ Projector/screen tested
-- □ Audio system tested (if using)
-- □ Whiteboard/flip chart available
-- □ Markers available and working
-- □ Water for presenter
-- □ Clock/timer visible
+- [ ] Room booked and confirmed
+- [ ] Seating arrangement appropriate for audience size
+- [ ] Projector/screen tested
+- [ ] Audio system tested (if using)
+- [ ] Whiteboard/flip chart available
+- [ ] Markers available and working
+- [ ] Water for presenter
+- [ ] Clock/timer visible
 
 PARTICIPANT PREPARATION:
 
-- □ Reminder email sent (if appropriate)
-- □ Pre-reading materials sent (if any)
-- □ Dial-in/join instructions sent (if virtual)
-- □ Parking/building access information sent (if in-person)
+- [ ] Reminder email sent (if appropriate)
+- [ ] Pre-reading materials sent (if any)
+- [ ] Dial-in/join instructions sent (if virtual)
+- [ ] Parking/building access information sent (if in-person)
 
 FACILITATOR PREPARATION:
 
-- □ Opening script reviewed
-- □ Closing script reviewed
-- □ Key transition points identified
-- □ Time allocations confirmed for each section
-- □ Backup examples prepared for each lifecycle stage
-- □ Anticipated questions reviewed
+- [ ] Opening script reviewed
+- [ ] Closing script reviewed
+- [ ] Key transition points identified
+- [ ] Time allocations confirmed for each section
+- [ ] Backup examples prepared for each lifecycle stage
+- [ ] Anticipated questions reviewed
 
 CONTINGENCY PLANS:
 
-- □ Backup presentation method identified
-- □ Technical support contact available
-- □ Alternative examples prepared
-- □ Shortened version ready (if time cut short)
-- □ Extended content ready (if extra time available)
+- [ ] Backup presentation method identified
+- [ ] Technical support contact available
+- [ ] Alternative examples prepared
+- [ ] Shortened version ready (if time cut short)
+- [ ] Extended content ready (if extra time available)
 
 FINAL REVIEW:
 
-- □ Deep breath - you're prepared!
-- □ Positive mindset - you're helping people succeed
-- □ Audience-focused - this is about their learning
+- [ ] Deep breath - you're prepared!
+- [ ] Positive mindset - you're helping people succeed
+- [ ] Audience-focused - this is about their learning
 
 ---
 
@@ -463,81 +461,81 @@ Immediate Metrics (Day of Presentation):
 
 PARTICIPANT ENGAGEMENT:
 
-- □ Attendance rate (% registered who attended)
-  Target: define threshold
+- [ ] Attendance rate (% registered who attended)
+      Target: define threshold
 
-- □ Participation rate (% asking questions/participating)
-  Target: define threshold
+- [ ] Participation rate (% asking questions/participating)
+      Target: define threshold
 
-- □ Session rating (immediate feedback)
-  Target: define threshold
+- [ ] Session rating (immediate feedback)
+      Target: define threshold
 
-- □ "Would recommend" rate
-  Target: define threshold
+- [ ] "Would recommend" rate
+      Target: define threshold
 
 KNOWLEDGE ASSESSMENT:
 
-- □ Pre/post knowledge quiz (if used)
-  Target: define threshold
+- [ ] Pre/post knowledge quiz (if used)
+      Target: define threshold
 
-- □ Concept understanding (spot check during session)
-  Target: define threshold
+- [ ] Concept understanding (spot check during session)
+      Target: define threshold
 
-- □ Practical application (workshop exercises)
-  Target: define threshold
+- [ ] Practical application (workshop exercises)
+      Target: define threshold
 
 Short-Term Metrics (A few weeks post-presentation):
 
 MATERIAL USAGE:
 
-- □ Downloads of additional resources
-- □ Requests for follow-up consultation
-- □ Technology lifecycle assessments completed
-- □ Questions/discussions via email
+- [ ] Downloads of additional resources
+- [ ] Requests for follow-up consultation
+- [ ] Technology lifecycle assessments completed
+- [ ] Questions/discussions via email
 
 BEHAVIOR CHANGE:
 
-- □ Projects incorporating lifecycle assessment
-- □ Teams requesting architecture consultation
-- □ User involvement in design phases
-- □ Adoption metrics being tracked
+- [ ] Projects incorporating lifecycle assessment
+- [ ] Teams requesting architecture consultation
+- [ ] User involvement in design phases
+- [ ] Adoption metrics being tracked
 
 ORGANIZATIONAL IMPACT:
 
-- □ Lifecycle reviews added to project gates
-- □ Training requests for additional teams
-- □ Policy/process changes proposed
-- □ Budget allocations for lifecycle management
+- [ ] Lifecycle reviews added to project gates
+- [ ] Training requests for additional teams
+- [ ] Policy/process changes proposed
+- [ ] Budget allocations for lifecycle management
 
 Long-Term Metrics (A few months post-presentation):
 
 ADOPTION SUCCESS:
 
-- □ Reduction in "shelf-ware" projects
-- □ Increase in voluntary user adoption rates
-- □ Earlier user involvement in projects
-- □ Proactive lifecycle management
+- [ ] Reduction in "shelf-ware" projects
+- [ ] Increase in voluntary user adoption rates
+- [ ] Earlier user involvement in projects
+- [ ] Proactive lifecycle management
 
 RISK REDUCTION:
 
-- □ Fewer End-of-Support surprises
-- □ Reduced security incidents from outdated tech
-- □ Better technology refresh planning
-- □ Fewer emergency migrations
+- [ ] Fewer End-of-Support surprises
+- [ ] Reduced security incidents from outdated tech
+- [ ] Better technology refresh planning
+- [ ] Fewer emergency migrations
 
 ORGANIZATIONAL MATURITY:
 
-- □ Lifecycle awareness in project planning
-- □ Architecture decisions tied to adoption strategy
-- □ User-centered design becoming standard
-- □ Metrics focus shifting from deployment to adoption
+- [ ] Lifecycle awareness in project planning
+- [ ] Architecture decisions tied to adoption strategy
+- [ ] User-centered design becoming standard
+- [ ] Metrics focus shifting from deployment to adoption
 
 FINANCIAL IMPACT:
 
-- □ Reduced waste on failed adoptions
-- □ Better technology investment decisions
-- □ Lower total cost of ownership
-- □ Improved ROI on technology investments
+- [ ] Reduced waste on failed adoptions
+- [ ] Better technology investment decisions
+- [ ] Lower total cost of ownership
+- [ ] Improved ROI on technology investments
 
 ---
 
@@ -547,41 +545,41 @@ After Each Presentation:
 
 Immediate Debrief (Same Day):
 
-- □ What went well?
-- □ What confused participants?
-- □ Which examples resonated most?
-- □ Which questions came up repeatedly?
-- □ What would you change next time?
-- □ Did timing work? What needed more/less time?
+- [ ] What went well?
+- [ ] What confused participants?
+- [ ] Which examples resonated most?
+- [ ] Which questions came up repeatedly?
+- [ ] What would you change next time?
+- [ ] Did timing work? What needed more/less time?
 
 Feedback Analysis (Soon after):
 
-- □ Review participant feedback forms
-- □ Identify common themes
-- □ Note suggestions for improvement
-- □ Update content based on feedback
-- □ Add new examples/case studies
-- □ Refine unclear slides
+- [ ] Review participant feedback forms
+- [ ] Identify common themes
+- [ ] Note suggestions for improvement
+- [ ] Update content based on feedback
+- [ ] Add new examples/case studies
+- [ ] Refine unclear slides
 
 Content Updates (Regular cadence):
 
-- □ Update technology lifecycle examples
-  (Technologies move stages constantly)
-- □ Refresh case studies with current data
-- □ Add new backup slides for emerging topics
-- □ Update industry customizations
-- □ Review and update Q&A guide
-- □ Check all external links still valid
+- [ ] Update technology lifecycle examples
+      (Technologies move stages constantly)
+- [ ] Refresh case studies with current data
+- [ ] Add new backup slides for emerging topics
+- [ ] Update industry customizations
+- [ ] Review and update Q&A guide
+- [ ] Check all external links still valid
 
 Major Revisions (Periodic):
 
-- □ Comprehensive content review
-- □ Incorporate lessons learned from year
-- □ Update industry trends and examples
-- □ Refresh visual design if needed
-- □ Add new sections based on demand
-- □ Archive outdated backup slides
-- □ Update certification requirements
+- [ ] Comprehensive content review
+- [ ] Incorporate lessons learned from year
+- [ ] Update industry trends and examples
+- [ ] Refresh visual design if needed
+- [ ] Add new sections based on demand
+- [ ] Archive outdated backup slides
+- [ ] Update certification requirements
 
 ---
 
@@ -628,22 +626,22 @@ Shared Resources:
 
 Create Central Repository:
 
-- □ Master slide deck (with version control)
-- □ Backup slides library
-- □ Case study database
-- □ Industry customizations
-- □ Q&A knowledge base
-- □ Facilitator tips and tricks
-- □ Participant feedback summary
-- □ Technology lifecycle tracking spreadsheet
+- [ ] Master slide deck (with version control)
+- [ ] Backup slides library
+- [ ] Case study database
+- [ ] Industry customizations
+- [ ] Q&A knowledge base
+- [ ] Facilitator tips and tricks
+- [ ] Participant feedback summary
+- [ ] Technology lifecycle tracking spreadsheet
 
 Communication Channels:
 
-- □ Slack/Teams channel for quick questions
-- □ Email list for announcements
-- □ Shared calendar for presentations
-- □ Document repository (SharePoint, Drive)
-- □ Video library of exemplar deliveries
+- [ ] Slack/Teams channel for quick questions
+- [ ] Email list for announcements
+- [ ] Shared calendar for presentations
+- [ ] Document repository (SharePoint, Drive)
+- [ ] Video library of exemplar deliveries
 
 ---
 

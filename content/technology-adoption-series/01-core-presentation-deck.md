@@ -1,6 +1,6 @@
 # Complete Technology Adoption Presentation Deck
 
-For Software Community of Interest - GENERAL VERSION
+General Version
 
 Total: 24 Slides (16 core + Q&A transition + 7 optional deep-dive slides)
 
@@ -156,7 +156,7 @@ Common Causes of Failed Adoption:
 
 ## PART 2: STRATEGIC APPROACHES & LIFECYCLE PLANNING (8 slides)
 
-### Slide 5: "The Technology Adoption Framework"
+### Slide 5: "A Strategic Approach to Technology Adoption"
 
 **Content**
 

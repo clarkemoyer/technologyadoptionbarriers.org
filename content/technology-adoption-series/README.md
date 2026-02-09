@@ -10,6 +10,7 @@ This folder contains a cleaned (deduplicated) Markdown version of the provided *
 ## Files
 
 - [01-core-presentation-deck.md](./01-core-presentation-deck.md) (single slide deck: core 16 slides + Q&A transition + optional deep-dive slides)
+- (Note: there is intentionally no 02-\* file in this series; numbering continues with 03.)
 - [03-opening-and-closing-scripts.md](./03-opening-and-closing-scripts.md)
 - [04-qa-preparation-guide.md](./04-qa-preparation-guide.md)
 - [05-handout-materials.md](./05-handout-materials.md)
