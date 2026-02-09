@@ -53,8 +53,6 @@ const useKeyboardNavigation = (handlers: {
   }, [onNext, onPrev, onToggleFullscreen])
 }
 
-const stripVisualNodes = (nodes: MarkdownNode[]) => nodes.filter((node) => node.type !== 'visual')
-
 const toDisplayTitle = (rawTitle: string) => {
   // Removes common numeric prefixes so the slide title doesn't include numbering.
   // Examples: "1. Title" → "Title", "01 - Title" → "Title"
@@ -153,7 +151,7 @@ export function TechnologyAdoptionSeriesPresentationClient({
   const [measureSize, setMeasureSize] = useState<{ width: number; height: number } | null>(null)
   const [paginationSizeKey, setPaginationSizeKey] = useState(0)
   const wrapperRef = useRef<HTMLDivElement | null>(null)
-  const contentViewportRef = useRef<HTMLDivElement | null>(null)
+  const textViewportRef = useRef<HTMLDivElement | null>(null)
   const measureViewportRef = useRef<HTMLDivElement | null>(null)
   const requestedPageRef = useRef<'first' | 'last'>('first')
   const paginationTokenRef = useRef(0)
@@ -214,11 +212,52 @@ export function TechnologyAdoptionSeriesPresentationClient({
   const contentNodes = useMemo(() => {
     if (!currentSlide) return []
     const sections = splitTechnologyAdoptionSeriesSlideSections(currentSlide.contentMarkdown)
-    return stripVisualNodes(parseSimpleMarkdown(sections.content))
+    return parseSimpleMarkdown(sections.content)
   }, [currentSlide])
 
+  const { textNodes, visualDescriptions } = useMemo(() => {
+    const visuals: string[] = []
+    const textOnly: MarkdownNode[] = []
+
+    for (const node of contentNodes) {
+      if (node.type === 'visual') {
+        if (node.description.trim()) visuals.push(node.description.trim())
+        continue
+      }
+      textOnly.push(node)
+    }
+
+    return { textNodes: textOnly, visualDescriptions: visuals }
+  }, [contentNodes])
+
+  const visualDescription = visualDescriptions.join(' · ')
+  const hasVisual = visualDescriptions.length > 0
+  const visualFirst = (currentSlide?.number ?? 0) % 2 === 1
+
+  const approxTextSize = useMemo(() => {
+    return textNodes.reduce((acc, node) => {
+      if (node.type === 'paragraph') return acc + node.text.length
+      if (node.type === 'heading') return acc + node.text.length
+      if (node.type === 'blockquote') return acc + node.lines.join(' ').length
+      if (node.type === 'ul' || node.type === 'ol') return acc + node.items.length * 40
+      if (node.type === 'table') return acc + node.rows.length * 40
+      if (node.type === 'code') return acc + node.code.length
+      if (node.type === 'pre') return acc + node.text.length
+      if (node.type === 'image') return acc + 200
+      return acc
+    }, 0)
+  }, [textNodes])
+
+  const layoutMode = useMemo(() => {
+    if (!hasVisual) return 'single'
+    if (textNodes.length === 0) return 'visual-only'
+    if (approxTextSize < 480) return 'visual-dominant'
+    if (approxTextSize > 1200) return 'text-dominant'
+    return 'balanced'
+  }, [approxTextSize, hasVisual, textNodes.length])
+
   useEffect(() => {
-    const viewport = contentViewportRef.current
+    const viewport = textViewportRef.current
     if (!viewport) return
 
     setMeasureSize({ width: viewport.clientWidth, height: viewport.clientHeight })
@@ -241,6 +280,9 @@ export function TechnologyAdoptionSeriesPresentationClient({
       return
     }
 
+    measureViewport.style.width = `${measureSize.width}px`
+    measureViewport.style.height = `${measureSize.height}px`
+
     const token = paginationTokenRef.current + 1
     paginationTokenRef.current = token
 
@@ -252,7 +294,7 @@ export function TechnologyAdoptionSeriesPresentationClient({
     }
 
     const run = async () => {
-      const workingNodes = [...contentNodes]
+      const workingNodes = [...textNodes]
       const computedPages: MarkdownNode[][] = []
       let start = 0
 
@@ -311,33 +353,117 @@ export function TechnologyAdoptionSeriesPresentationClient({
     }
 
     void run()
-  }, [contentNodes, currentSlideIdx, measureSize, paginationSizeKey])
+  }, [currentSlideIdx, measureSize, paginationSizeKey, textNodes])
 
-  const pageNodes = pages.length ? pages[Math.min(currentPageIdx, pages.length - 1)] : contentNodes
+  const pageNodes = pages.length ? pages[Math.min(currentPageIdx, pages.length - 1)] : textNodes
   const totalPages = pages.length
 
+  const textViewportClasses =
+    'h-full overflow-hidden rounded-xl border border-slate-800 bg-slate-900/30 p-5 sm:p-6'
+  const visualViewportClasses =
+    'h-full overflow-hidden rounded-xl border border-slate-800 bg-slate-900/20 p-5 sm:p-6'
+
+  const visualNode =
+    hasVisual && currentSlide ? (
+      <TechnologyAdoptionSeriesSlideVisual
+        slideNumber={currentSlide.number}
+        description={visualDescription}
+      />
+    ) : null
+
+  const showVisual = Boolean(visualNode)
+  const showText = pageNodes.length > 0
+
+  const visualColSpan =
+    layoutMode === 'visual-dominant'
+      ? 'lg:col-span-7'
+      : layoutMode === 'text-dominant'
+        ? 'lg:col-span-4'
+        : 'lg:col-span-6'
+
+  const textColSpan =
+    layoutMode === 'visual-dominant'
+      ? 'lg:col-span-5'
+      : layoutMode === 'text-dominant'
+        ? 'lg:col-span-8'
+        : 'lg:col-span-6'
+
   return (
-    <div ref={wrapperRef} className="presentation-wrapper" aria-label="Presentation">
-      <nav className="return-nav" aria-label="Return navigation">
-        <Link href="/technology-adoption-series" className="return-link">
+    <div
+      ref={wrapperRef}
+      className="fixed inset-0 z-[9999] overflow-hidden bg-slate-950 text-slate-50 antialiased"
+      aria-label="Presentation"
+    >
+      <nav
+        className="fixed left-4 top-4 z-20 flex items-center gap-2"
+        aria-label="Return navigation"
+      >
+        <Link
+          href="/technology-adoption-series"
+          className="rounded-full border border-slate-700 bg-slate-900/60 px-3 py-2 text-xs font-semibold text-slate-100 hover:bg-slate-900"
+        >
           ← Series
         </Link>
-        <Link href="/" className="return-link">
+        <Link
+          href="/"
+          className="rounded-full border border-slate-700 bg-slate-900/60 px-3 py-2 text-xs font-semibold text-slate-100 hover:bg-slate-900"
+        >
           Home
         </Link>
       </nav>
 
-      <section className="slide-container" aria-label="Slide">
-        <header>
-          <div className="slide-meta">Technology Adoption Teaching Series</div>
-          <h1 className="slide-title">
-            <span>{currentSlide ? toDisplayTitle(currentSlide.title) : 'Loading slides…'}</span>
-          </h1>
+      <section
+        className="mx-auto flex h-full w-full max-w-[1900px] flex-col px-4 pb-24 pt-16"
+        aria-label="Slide"
+      >
+        <header className="px-1">
+          <div className="text-xs font-semibold uppercase tracking-widest text-slate-300">
+            Technology Adoption Teaching Series
+          </div>
+          <div className="mt-2 flex items-end justify-between gap-4">
+            <h1 className="text-balance text-3xl font-bold tracking-tight text-slate-50 sm:text-4xl lg:text-5xl">
+              {currentSlide ? toDisplayTitle(currentSlide.title) : 'Loading slides…'}
+            </h1>
+            <div className="hidden shrink-0 text-xs font-semibold text-slate-400 sm:block">
+              &lt;deck /&gt;
+            </div>
+          </div>
+          <div className="mt-4 h-px w-full bg-slate-800" />
         </header>
 
-        <div className="content-area">
-          <div className="panel" aria-label="Slide content">
-            <div ref={contentViewportRef} className="panel-scroll">
+        <div className="mt-6 flex-1 overflow-hidden" aria-label="Slide content">
+          {showVisual && showText ? (
+            <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-12 lg:gap-6">
+              <div
+                className={`${visualColSpan} ${
+                  visualFirst ? 'lg:order-1' : 'lg:order-2'
+                } h-full overflow-hidden`}
+              >
+                <div className={visualViewportClasses}>{visualNode}</div>
+              </div>
+
+              <div
+                className={`${textColSpan} ${
+                  visualFirst ? 'lg:order-2' : 'lg:order-1'
+                } h-full overflow-hidden`}
+              >
+                <div ref={textViewportRef} className={textViewportClasses}>
+                  {currentSlide ? (
+                    <TechnologyAdoptionSeriesSlideMarkdown
+                      nodes={pageNodes}
+                      slideNumber={currentSlide.number}
+                      variant="presentation"
+                    />
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          ) : showVisual ? (
+            <div className="h-full overflow-hidden">
+              <div className={visualViewportClasses}>{visualNode}</div>
+            </div>
+          ) : (
+            <div ref={textViewportRef} className={textViewportClasses}>
               {currentSlide ? (
                 <TechnologyAdoptionSeriesSlideMarkdown
                   nodes={pageNodes}
@@ -346,53 +472,52 @@ export function TechnologyAdoptionSeriesPresentationClient({
                 />
               ) : null}
             </div>
-          </div>
-
-          <div className="panel" aria-label="Slide visual">
-            <div className="panel-scroll">
-              {currentSlide ? (
-                <TechnologyAdoptionSeriesSlideVisual slideNumber={currentSlide.number} />
-              ) : null}
-            </div>
-          </div>
+          )}
         </div>
       </section>
 
-      <div className="controls" aria-label="Slide controls">
-        <button type="button" onClick={goPrev} disabled={currentSlideIdx <= 0} className="nav-btn">
+      <div
+        className="fixed bottom-4 right-4 z-20 flex flex-wrap items-center justify-end gap-2"
+        aria-label="Slide controls"
+      >
+        <button
+          type="button"
+          onClick={goPrev}
+          disabled={currentSlideIdx <= 0}
+          className="rounded-md border border-slate-700 bg-slate-900/60 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-900 disabled:opacity-40"
+        >
           Prev
         </button>
         <button
           type="button"
           onClick={goNext}
           disabled={currentSlideIdx >= totalSlides - 1}
-          className="nav-btn"
+          className="rounded-md border border-slate-700 bg-slate-900/60 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-900 disabled:opacity-40"
         >
           Next
         </button>
-        <div className="slide-counter" aria-label="Slide counter">
+        <div className="px-2 text-sm font-semibold text-slate-200" aria-label="Slide counter">
           {totalSlides ? `${currentSlideIdx + 1} / ${totalSlides}` : null}
           {totalPages > 1 ? ` · ${currentPageIdx + 1}/${totalPages}` : ''}
         </div>
         <button
           type="button"
           onClick={toggleFullscreen}
-          className="nav-btn"
+          className="rounded-md border border-slate-700 bg-slate-900/60 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-900"
           aria-label="Toggle fullscreen (F)"
         >
           Full screen
         </button>
-        <div className="shortcuts" aria-label="Keyboard shortcuts">
+        <div
+          className="hidden text-xs font-semibold text-slate-400 sm:block"
+          aria-label="Keyboard shortcuts"
+        >
           Keys: ←/→, Space, F
         </div>
       </div>
 
-      <div className="panel" aria-hidden="true" style={{ position: 'absolute', left: '-10000px' }}>
-        <div
-          ref={measureViewportRef}
-          className="panel-scroll"
-          style={{ width: measureSize?.width ?? 640, height: measureSize?.height ?? 360 }}
-        >
+      <div aria-hidden="true" className="measure-host">
+        <div ref={measureViewportRef} className={textViewportClasses}>
           {currentSlide ? (
             <TechnologyAdoptionSeriesSlideMarkdown
               nodes={measureNodes}

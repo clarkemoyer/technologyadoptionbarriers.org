@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import { assetPath } from '@/lib/assetPath'
 import { parseSimpleMarkdown } from '@/lib/simple-markdown'
 import { slugify } from '@/lib/slugify'
 import {
@@ -40,6 +41,27 @@ export default async function TechnologyAdoptionSeriesPage() {
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Technology Adoption Teaching Series</h1>
 
+        <section className="mt-6 mb-10" aria-label="Embedded slide deck">
+          <div className="aspect-video w-full overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+            <iframe
+              title="Technology Adoption Teaching Series slide deck"
+              src={assetPath('/technology-adoption-series/presentation')}
+              className="h-full w-full"
+              loading="lazy"
+            />
+          </div>
+
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <Link
+              href="/technology-adoption-series/presentation"
+              className="inline-flex items-center justify-center rounded border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50"
+            >
+              Open fullscreen slide deck
+            </Link>
+            <span className="text-sm text-gray-600">(Tip: click inside deck for keys)</span>
+          </div>
+        </section>
+
         <p className="mb-6">
           This series turns the presentation deck into a set of standalone articles. Each page is
           one “slide” worth of content, expanded into a readable reference you can share, link to,
@@ -72,23 +94,12 @@ export default async function TechnologyAdoptionSeriesPage() {
           </div>
         </section>
 
-        <section className="mb-10" aria-label="Slide deck">
-          <h2 className={H2_CLASSES}>Slide deck</h2>
+        <section className="mb-10" aria-label="Slide-by-slide content">
+          <h2 className={H2_CLASSES}>Slide-by-slide reference</h2>
           <p className="mb-6 text-gray-700">
-            A complete, business-and-engineering focused deck view of the series. Each slide below
-            is rendered from the same source content as the individual slide pages, including the
-            diagrams and visual blocks.
+            Each slide below is rendered from the same source content as the full-screen deck. Use
+            this section when you want to read, search, or link to specific slide content.
           </p>
-
-          <div className="mb-8 flex flex-wrap items-center gap-3">
-            <Link
-              href="/technology-adoption-series/presentation"
-              className="inline-flex items-center justify-center rounded border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50"
-            >
-              Open fullscreen slide deck
-            </Link>
-            <span className="text-sm text-gray-600">(Use ←/→, Space, and F)</span>
-          </div>
 
           <div className="space-y-10">
             {coreSlides.map((slide) => {

@@ -187,7 +187,13 @@ const TreeDiagram = ({ code, label }: { code: string; label?: string }) => {
   )
 }
 
-export const TechnologyAdoptionSeriesSlideVisual = ({ slideNumber }: { slideNumber: number }) => {
+export const TechnologyAdoptionSeriesSlideVisual = ({
+  slideNumber,
+  description,
+}: {
+  slideNumber: number
+  description?: string
+}) => {
   if (slideNumber === 1) {
     const steps = ['Evaluation', 'Selection', 'Integration', 'Deployment', 'Sustained Use']
     return (
@@ -1087,6 +1093,14 @@ export const TechnologyAdoptionSeriesSlideVisual = ({ slideNumber }: { slideNumb
     )
   }
 
+  if (description?.trim()) {
+    return (
+      <VisualCard title={description}>
+        <div className="text-sm text-gray-700">{description}</div>
+      </VisualCard>
+    )
+  }
+
   return null
 }
 
@@ -1145,7 +1159,9 @@ export const TechnologyAdoptionSeriesSlideMarkdown = ({
   return (
     <RenderMarkdownNodes
       nodes={nodes}
-      renderVisual={() => <TechnologyAdoptionSeriesSlideVisual slideNumber={slideNumber} />}
+      renderVisual={(description) => (
+        <TechnologyAdoptionSeriesSlideVisual slideNumber={slideNumber} description={description} />
+      )}
       renderCodeBlock={(node) => {
         const lang = node.lang.trim().toLowerCase()
         const isPlainText = lang === '' || lang === 'text' || lang === 'plaintext'

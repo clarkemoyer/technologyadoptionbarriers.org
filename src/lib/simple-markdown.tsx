@@ -516,14 +516,14 @@ export function RenderMarkdownNodes({
           const className =
             node.level === 2
               ? isPresentation
-                ? 'text-[26px] sm:text-[30px] font-bold text-gray-900'
+                ? 'text-[26px] sm:text-[30px] font-bold text-slate-50'
                 : 'text-[22px] sm:text-[26px] font-bold text-gray-900'
               : node.level === 3
                 ? isPresentation
-                  ? 'text-[20px] sm:text-[22px] font-bold text-gray-900'
+                  ? 'text-[20px] sm:text-[22px] font-bold text-slate-50'
                   : 'text-[18px] sm:text-[20px] font-bold text-gray-900'
                 : isPresentation
-                  ? 'text-[18px] font-semibold text-gray-900'
+                  ? 'text-[18px] font-semibold text-slate-50'
                   : 'text-[16px] font-semibold text-gray-900'
 
           return (
@@ -539,7 +539,7 @@ export function RenderMarkdownNodes({
               key={idx}
               className={
                 isPresentation
-                  ? 'text-[18px] sm:text-[20px] text-gray-800 leading-relaxed font-sans'
+                  ? 'text-[18px] sm:text-[20px] text-slate-200 leading-relaxed font-sans'
                   : 'text-gray-800 leading-relaxed font-sans'
               }
             >
@@ -554,7 +554,7 @@ export function RenderMarkdownNodes({
               key={idx}
               className={
                 isPresentation
-                  ? 'list-disc pl-5 space-y-1.5 font-sans text-[18px] sm:text-[20px]'
+                  ? 'list-disc pl-5 space-y-1.5 font-sans text-[18px] sm:text-[20px] text-slate-200'
                   : 'list-disc pl-5 space-y-2 font-sans'
               }
             >
@@ -584,7 +584,7 @@ export function RenderMarkdownNodes({
               key={idx}
               className={
                 isPresentation
-                  ? 'list-decimal pl-5 space-y-1.5 font-sans text-[18px] sm:text-[20px]'
+                  ? 'list-decimal pl-5 space-y-1.5 font-sans text-[18px] sm:text-[20px] text-slate-200'
                   : 'list-decimal pl-5 space-y-2 font-sans'
               }
             >
@@ -612,7 +612,11 @@ export function RenderMarkdownNodes({
           return (
             <blockquote
               key={idx}
-              className="rounded border border-gray-200 bg-gray-50 p-4 text-gray-800"
+              className={
+                isPresentation
+                  ? 'rounded border border-slate-700 bg-slate-900/30 p-4 text-slate-200'
+                  : 'rounded border border-gray-200 bg-gray-50 p-4 text-gray-800'
+              }
             >
               <div className="space-y-2">
                 {node.lines.map((line, lineIdx) => (
@@ -626,7 +630,9 @@ export function RenderMarkdownNodes({
         }
 
         if (node.type === 'hr') {
-          return <hr key={idx} className="border-gray-200" />
+          return (
+            <hr key={idx} className={isPresentation ? 'border-slate-700' : 'border-gray-200'} />
+          )
         }
 
         if (node.type === 'visual') {
@@ -649,11 +655,24 @@ export function RenderMarkdownNodes({
         if (node.type === 'image') {
           const src = resolveImageSrc(node.src)
           return (
-            <figure key={idx} className="rounded border border-gray-200 bg-gray-50 p-3">
+            <figure
+              key={idx}
+              className={
+                isPresentation
+                  ? 'rounded border border-slate-700 bg-slate-900/30 p-3'
+                  : 'rounded border border-gray-200 bg-gray-50 p-3'
+              }
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={src} alt={node.alt} className="mx-auto max-h-[520px] w-auto max-w-full" />
               {node.title ? (
-                <figcaption className="mt-2 text-sm text-gray-600 text-center">
+                <figcaption
+                  className={
+                    isPresentation
+                      ? 'mt-2 text-sm text-slate-300 text-center'
+                      : 'mt-2 text-sm text-gray-600 text-center'
+                  }
+                >
                   {node.title}
                 </figcaption>
               ) : null}
