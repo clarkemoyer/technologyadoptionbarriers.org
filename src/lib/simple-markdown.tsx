@@ -498,12 +498,16 @@ export function RenderMarkdownNodes({
   renderVisual,
   renderCodeBlock,
   compact,
+  variant,
 }: {
   nodes: MarkdownNode[]
   renderVisual?: (description: string) => ReactNode
   renderCodeBlock?: (node: Extract<MarkdownNode, { type: 'code' }>) => ReactNode | null
   compact?: boolean
+  variant?: 'article' | 'presentation'
 }) {
+  const isPresentation = variant === 'presentation'
+
   return (
     <div className={compact ? 'space-y-2' : 'space-y-4'}>
       {nodes.map((node, idx) => {
@@ -511,10 +515,16 @@ export function RenderMarkdownNodes({
           const Tag = node.level === 2 ? 'h2' : node.level === 3 ? 'h3' : 'h4'
           const className =
             node.level === 2
-              ? 'text-[22px] sm:text-[26px] font-bold text-gray-900'
+              ? isPresentation
+                ? 'text-[26px] sm:text-[30px] font-bold text-gray-900'
+                : 'text-[22px] sm:text-[26px] font-bold text-gray-900'
               : node.level === 3
-                ? 'text-[18px] sm:text-[20px] font-bold text-gray-900'
-                : 'text-[16px] font-semibold text-gray-900'
+                ? isPresentation
+                  ? 'text-[20px] sm:text-[22px] font-bold text-gray-900'
+                  : 'text-[18px] sm:text-[20px] font-bold text-gray-900'
+                : isPresentation
+                  ? 'text-[18px] font-semibold text-gray-900'
+                  : 'text-[16px] font-semibold text-gray-900'
 
           return (
             <Tag key={idx} className={`${className} font-sans`}>
@@ -525,7 +535,14 @@ export function RenderMarkdownNodes({
 
         if (node.type === 'paragraph') {
           return (
-            <p key={idx} className="text-gray-800 leading-relaxed font-sans">
+            <p
+              key={idx}
+              className={
+                isPresentation
+                  ? 'text-[18px] sm:text-[20px] text-gray-800 leading-relaxed font-sans'
+                  : 'text-gray-800 leading-relaxed font-sans'
+              }
+            >
               {renderInline(node.text)}
             </p>
           )
@@ -533,7 +550,14 @@ export function RenderMarkdownNodes({
 
         if (node.type === 'ul') {
           return (
-            <ul key={idx} className="list-disc pl-5 space-y-2 font-sans">
+            <ul
+              key={idx}
+              className={
+                isPresentation
+                  ? 'list-disc pl-5 space-y-1.5 font-sans text-[18px] sm:text-[20px]'
+                  : 'list-disc pl-5 space-y-2 font-sans'
+              }
+            >
               {node.items.map((item, itemIdx) => (
                 <li key={`${idx}-${itemIdx}`}>
                   {renderInline(item.text)}
@@ -544,6 +568,7 @@ export function RenderMarkdownNodes({
                         renderVisual={renderVisual}
                         renderCodeBlock={renderCodeBlock}
                         compact
+                        variant={variant}
                       />
                     </div>
                   ) : null}
@@ -555,7 +580,14 @@ export function RenderMarkdownNodes({
 
         if (node.type === 'ol') {
           return (
-            <ol key={idx} className="list-decimal pl-5 space-y-2 font-sans">
+            <ol
+              key={idx}
+              className={
+                isPresentation
+                  ? 'list-decimal pl-5 space-y-1.5 font-sans text-[18px] sm:text-[20px]'
+                  : 'list-decimal pl-5 space-y-2 font-sans'
+              }
+            >
               {node.items.map((item, itemIdx) => (
                 <li key={`${idx}-${itemIdx}`}>
                   {renderInline(item.text)}
@@ -566,6 +598,7 @@ export function RenderMarkdownNodes({
                         renderVisual={renderVisual}
                         renderCodeBlock={renderCodeBlock}
                         compact
+                        variant={variant}
                       />
                     </div>
                   ) : null}

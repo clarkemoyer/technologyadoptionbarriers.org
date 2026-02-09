@@ -1134,9 +1134,11 @@ export const splitTechnologyAdoptionSeriesSlideSections = (markdown: string) => 
 export const TechnologyAdoptionSeriesSlideMarkdown = ({
   nodes,
   slideNumber,
+  variant,
 }: {
   nodes: Parameters<typeof RenderMarkdownNodes>[0]['nodes']
   slideNumber: number
+  variant?: Parameters<typeof RenderMarkdownNodes>[0]['variant']
 }) => {
   return (
     <RenderMarkdownNodes
@@ -1152,6 +1154,7 @@ export const TechnologyAdoptionSeriesSlideMarkdown = ({
 
         return null
       }}
+      variant={variant}
     />
   )
 }

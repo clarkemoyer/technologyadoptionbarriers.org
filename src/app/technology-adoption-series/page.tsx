@@ -80,6 +80,16 @@ export default async function TechnologyAdoptionSeriesPage() {
             diagrams and visual blocks.
           </p>
 
+          <div className="mb-8 flex flex-wrap items-center gap-3">
+            <Link
+              href="/technology-adoption-series/presentation"
+              className="inline-flex items-center justify-center rounded border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50"
+            >
+              Open fullscreen slide deck
+            </Link>
+            <span className="text-sm text-gray-600">(Use ←/→, Space, and F)</span>
+          </div>
+
           <div className="space-y-10">
             {coreSlides.map((slide) => {
               const sections = splitTechnologyAdoptionSeriesSlideSections(slide.contentMarkdown)
