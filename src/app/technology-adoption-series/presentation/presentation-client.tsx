@@ -1,546 +1,527 @@
 'use client'
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import Link from 'next/link'
-
+import { useState, useCallback, useEffect, useMemo, useRef } from 'react'
+import { parseSimpleMarkdown, RenderMarkdownNodes, type MarkdownNode } from '@/lib/simple-markdown'
+import { splitTechnologyAdoptionSeriesSlideSections } from '@/components/technology-adoption-series/slide-render'
+import { PresentationVisual } from './presentation-visuals'
+import type { TechnologyAdoptionSeriesSlide } from '@/lib/technology-adoption-series'
 import './presentation.css'
 
-import { parseSimpleMarkdown, type MarkdownNode } from '@/lib/simple-markdown'
-import {
-  TechnologyAdoptionSeriesSlideMarkdown,
-  TechnologyAdoptionSeriesSlideVisual,
-  splitTechnologyAdoptionSeriesSlideSections,
-} from '@/components/technology-adoption-series/slide-render'
+/* ====================================================================
+   Frame-expansion presenter
+   ====================================================================
+   Instead of paginating within a slide, we expand 24 source slides
+   into ~80-120 "frames" so every screen shows ONE clear piece of
+   information, optimised for 1080p / 4K full-screen viewing.
+   ==================================================================== */
 
-type PresentationSlide = {
-  number: number
+// ── Types ────────────────────────────────────────────────────────────
+
+type FrameType = 'deck-title' | 'section' | 'slide-title' | 'content' | 'visual' | 'statement'
+
+interface PresentationFrame {
+  type: FrameType
+  /** Source slide number (0 = synthetic deck-title) */
+  sourceSlide: number
+  /** Display title */
   title: string
-  segment: string
-  contentMarkdown: string
+  /** Markdown nodes for 'content' frames */
+  nodes?: MarkdownNode[]
+  /** Centred text for 'statement' frames */
+  statement?: string
+  /** Section label / title / count for 'section' frames */
+  sectionLabel?: string
+  sectionTitle?: string
+  sectionSlideCount?: string
 }
 
-const raf = () => new Promise<void>((resolve) => requestAnimationFrame(() => resolve()))
+// ── Constants ────────────────────────────────────────────────────────
 
-const useKeyboardNavigation = (handlers: {
-  onNext: () => void
-  onPrev: () => void
-  onToggleFullscreen: () => void
-}) => {
-  const { onNext, onPrev, onToggleFullscreen } = handlers
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'ArrowRight' || event.key === ' ') {
-        event.preventDefault()
-        onNext()
-        return
-      }
-
-      if (event.key === 'ArrowLeft') {
-        event.preventDefault()
-        onPrev()
-        return
-      }
-
-      if (event.key.toLowerCase() === 'f') {
-        event.preventDefault()
-        onToggleFullscreen()
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [onNext, onPrev, onToggleFullscreen])
+/** Source slides that begin a new section. */
+const SECTIONS: Record<number, { label: string; title: string; count: string }> = {
+  1: {
+    label: 'PART 1',
+    title: 'What is Technology Adoption?',
+    count: '4 slides',
+  },
+  5: {
+    label: 'PART 2',
+    title: 'Strategic Approaches & Lifecycle Planning',
+    count: '8 slides',
+  },
+  13: {
+    label: 'PART 3',
+    title: 'Outcomes of Adoption',
+    count: '4 slides',
+  },
+  17: { label: 'Q & A', title: 'Questions & Answers', count: '' },
+  18: {
+    label: 'OPTIONAL',
+    title: 'Deep-Dive Slides',
+    count: '7 slides',
+  },
 }
 
-const toDisplayTitle = (rawTitle: string) => {
-  // Removes common numeric prefixes so the slide title doesn't include numbering.
-  // Examples: "1. Title" → "Title", "01 - Title" → "Title"
-  return rawTitle.replace(/^\s*\d+\s*(?:[.\-:)]+\s+|\s+)/, '').trim()
+/** Slides that have a dark-native visual component. */
+const SLIDES_WITH_VISUALS = new Set([
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 24,
+])
+
+const MAX_FRAME_SIZE = 400 // estimated chars before splitting
+const MAX_LIST_ITEMS = 4
+
+// ── Helpers ──────────────────────────────────────────────────────────
+
+function isVisualDescription(node: MarkdownNode): boolean {
+  // The parser can emit { type: 'visual' } or a blockquote starting
+  // with "**Visual:"
+  if (node.type === 'visual') return true
+  return node.type === 'blockquote' && node.lines.some((l) => /^\*?\*?Visual\b/i.test(l))
 }
 
-const splitOversizeNode = async (args: {
-  node: MarkdownNode
-  measure: (nodes: MarkdownNode[]) => Promise<boolean>
-}): Promise<MarkdownNode[]> => {
-  const { node, measure } = args
-
-  if (node.type === 'ul' || node.type === 'ol') {
-    const items = node.items
-    if (items.length <= 1) return [node]
-
-    let low = 1
-    let high = items.length
-    let best = 1
-
-    while (low <= high) {
-      const mid = Math.floor((low + high) / 2)
-      const candidate: MarkdownNode = { ...node, items: items.slice(0, mid) }
-      const fits = await measure([candidate])
-
-      if (fits) {
-        best = mid
-        low = mid + 1
-      } else {
-        high = mid - 1
-      }
-    }
-
-    const first: MarkdownNode = { ...node, items: items.slice(0, best) }
-    const rest = items.slice(best)
-    if (!rest.length) return [first]
-    return [first, { ...node, items: rest }]
-  }
-
-  if (node.type === 'table') {
-    if (node.rows.length <= 1) return [node]
-
-    let low = 1
-    let high = node.rows.length
-    let best = 1
-
-    while (low <= high) {
-      const mid = Math.floor((low + high) / 2)
-      const candidate: MarkdownNode = { ...node, rows: node.rows.slice(0, mid) }
-      const fits = await measure([candidate])
-      if (fits) {
-        best = mid
-        low = mid + 1
-      } else {
-        high = mid - 1
-      }
-    }
-
-    const first: MarkdownNode = { ...node, rows: node.rows.slice(0, best) }
-    const restRows = node.rows.slice(best)
-    if (!restRows.length) return [first]
-    return [first, { ...node, rows: restRows }]
-  }
-
-  if (node.type === 'paragraph') {
-    const words = node.text.trim().split(/\s+/)
-    if (words.length <= 18) return [node]
-    const mid = Math.ceil(words.length / 2)
-    return [
-      { type: 'paragraph', text: words.slice(0, mid).join(' ') },
-      { type: 'paragraph', text: words.slice(mid).join(' ') },
-    ]
-  }
-
-  if (node.type === 'blockquote') {
-    if (node.lines.length <= 2) return [node]
-    const mid = Math.ceil(node.lines.length / 2)
-    return [
-      { type: 'blockquote', lines: node.lines.slice(0, mid) },
-      { type: 'blockquote', lines: node.lines.slice(mid) },
-    ]
-  }
-
-  return [node]
+function isStatement(node: MarkdownNode): boolean {
+  if (node.type !== 'paragraph') return false
+  const c = node.text
+  return (
+    /^\*\*Key (Question|Insight|Takeaway|Point)/i.test(c) ||
+    c.startsWith('⚠️') ||
+    /^\*\*(WARNING|AVOID|REMEMBER|CRITICAL)/i.test(c) ||
+    // Short bold-only paragraph
+    (c.length < 120 && c.startsWith('**') && c.endsWith('**'))
+  )
 }
 
-export function TechnologyAdoptionSeriesPresentationClient({
-  slides,
-}: {
-  slides: PresentationSlide[]
-}) {
-  const [currentSlideIdx, setCurrentSlideIdx] = useState(0)
-  const [currentPageIdx, setCurrentPageIdx] = useState(0)
-  const [pages, setPages] = useState<MarkdownNode[][]>([])
-  const [measureNodes, setMeasureNodes] = useState<MarkdownNode[]>([])
-  const [measureSize, setMeasureSize] = useState<{ width: number; height: number } | null>(null)
-  const [paginationSizeKey, setPaginationSizeKey] = useState(0)
-  const wrapperRef = useRef<HTMLDivElement | null>(null)
-  const textViewportRef = useRef<HTMLDivElement | null>(null)
-  const measureViewportRef = useRef<HTMLDivElement | null>(null)
-  const requestedPageRef = useRef<'first' | 'last'>('first')
-  const paginationTokenRef = useRef(0)
-  const currentPageIdxRef = useRef(0)
+function extractStatementText(raw: string): string {
+  return raw
+    .replace(/^\*\*Key (Question|Insight|Takeaway|Point):\*?\*?\s*/i, '')
+    .replace(/^\*\*WARNING:\*?\*?\s*/i, '⚠️ ')
+    .replace(/^\*\*(.*)\*\*$/, '$1')
+    .replace(/^⚠️\s*\*?\*?/, '⚠️ ')
+    .replace(/\*\*/g, '')
+    .trim()
+}
 
-  useEffect(() => {
-    currentPageIdxRef.current = currentPageIdx
-  }, [currentPageIdx])
+function estimateNodeSize(node: MarkdownNode): number {
+  if (node.type === 'heading') return 100
+  if (node.type === 'paragraph') return node.text.length
+  if (node.type === 'ul' || node.type === 'ol') return node.items.length * 80
+  if (node.type === 'table') return 500
+  if (node.type === 'blockquote') return node.lines.length * 60
+  if (node.type === 'code') return 300
+  return 80
+}
 
-  const totalSlides = slides.length
-  const currentSlide = slides[currentSlideIdx]
+function splitLargeList(node: MarkdownNode, max: number): MarkdownNode[] {
+  if (node.type !== 'ul' && node.type !== 'ol') return [node]
+  if (node.items.length <= max) return [node]
+  const chunks: MarkdownNode[] = []
+  for (let i = 0; i < node.items.length; i += max) {
+    chunks.push({ ...node, items: node.items.slice(i, i + max) })
+  }
+  return chunks
+}
 
-  const goNext = useCallback(() => {
-    const totalPages = pages.length
-    if (totalPages > 1 && currentPageIdx < totalPages - 1) {
-      setCurrentPageIdx((idx) => Math.min(idx + 1, totalPages - 1))
-      return
-    }
+// ── Frame expansion ──────────────────────────────────────────────────
 
-    requestedPageRef.current = 'first'
-    setPages([])
-    setMeasureNodes([])
-    setCurrentSlideIdx((idx) => Math.min(idx + 1, Math.max(0, totalSlides - 1)))
-    setCurrentPageIdx(0)
-  }, [currentPageIdx, pages.length, totalSlides])
+function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFrame[] {
+  const frames: PresentationFrame[] = []
 
-  const goPrev = useCallback(() => {
-    if (pages.length > 1 && currentPageIdx > 0) {
-      setCurrentPageIdx((idx) => Math.max(0, idx - 1))
-      return
-    }
-
-    requestedPageRef.current = 'last'
-    setPages([])
-    setMeasureNodes([])
-    setCurrentSlideIdx((idx) => Math.max(0, idx - 1))
-    setCurrentPageIdx(0)
-  }, [currentPageIdx, pages.length])
-
-  const toggleFullscreen = useCallback(() => {
-    const element = wrapperRef.current
-    if (!element) return
-
-    if (document.fullscreenElement) {
-      void document.exitFullscreen()
-      return
-    }
-
-    void element.requestFullscreen()
-  }, [])
-
-  useKeyboardNavigation({
-    onNext: goNext,
-    onPrev: goPrev,
-    onToggleFullscreen: toggleFullscreen,
+  // ── Deck title frame ──
+  frames.push({
+    type: 'deck-title',
+    sourceSlide: 0,
+    title: 'Technology Adoption Teaching Series',
   })
 
-  const contentNodes = useMemo(() => {
-    if (!currentSlide) return []
-    const sections = splitTechnologyAdoptionSeriesSlideSections(currentSlide.contentMarkdown)
-    return parseSimpleMarkdown(sections.content)
-  }, [currentSlide])
-
-  const { textNodes, visualDescriptions } = useMemo(() => {
-    const visuals: string[] = []
-    const textOnly: MarkdownNode[] = []
-
-    for (const node of contentNodes) {
-      if (node.type === 'visual') {
-        if (node.description.trim()) visuals.push(node.description.trim())
-        continue
-      }
-      textOnly.push(node)
+  for (const slide of slides) {
+    // ── Section divider ──
+    const sec = SECTIONS[slide.number]
+    if (sec) {
+      frames.push({
+        type: 'section',
+        sourceSlide: slide.number,
+        title: sec.title,
+        sectionLabel: sec.label,
+        sectionTitle: sec.title,
+        sectionSlideCount: sec.count,
+      })
     }
 
-    return { textNodes: textOnly, visualDescriptions: visuals }
-  }, [contentNodes])
+    // ── Parse content ──
+    const { content } = splitTechnologyAdoptionSeriesSlideSections(slide.contentMarkdown)
+    const rawNodes = parseSimpleMarkdown(content)
 
-  const visualDescription = visualDescriptions.join(' · ')
-  const hasVisual = visualDescriptions.length > 0
-  const visualFirst = (currentSlide?.number ?? 0) % 2 === 1
+    // Separate visuals, statements, regular text
+    const textNodes: MarkdownNode[] = []
+    const statements: string[] = []
+    let hasVisualDesc = false
 
-  const approxTextSize = useMemo(() => {
-    return textNodes.reduce((acc, node) => {
-      if (node.type === 'paragraph') return acc + node.text.length
-      if (node.type === 'heading') return acc + node.text.length
-      if (node.type === 'blockquote') return acc + node.lines.join(' ').length
-      if (node.type === 'ul' || node.type === 'ol') return acc + node.items.length * 40
-      if (node.type === 'table') return acc + node.rows.length * 40
-      if (node.type === 'code') return acc + node.code.length
-      if (node.type === 'pre') return acc + node.text.length
-      if (node.type === 'image') return acc + 200
-      return acc
-    }, 0)
-  }, [textNodes])
+    for (const node of rawNodes) {
+      if (isVisualDescription(node)) {
+        hasVisualDesc = true
+      } else if (isStatement(node)) {
+        statements.push(extractStatementText(node.type === 'paragraph' ? node.text : ''))
+      } else {
+        textNodes.push(node)
+      }
+    }
 
-  const layoutMode = useMemo(() => {
-    if (!hasVisual) return 'single'
-    if (textNodes.length === 0) return 'visual-only'
-    if (approxTextSize < 480) return 'visual-dominant'
-    if (approxTextSize > 1200) return 'text-dominant'
-    return 'balanced'
-  }, [approxTextSize, hasVisual, textNodes.length])
-
-  useEffect(() => {
-    const viewport = textViewportRef.current
-    if (!viewport) return
-
-    setMeasureSize({ width: viewport.clientWidth, height: viewport.clientHeight })
-
-    if (typeof ResizeObserver === 'undefined') return
-
-    const ro = new ResizeObserver(() => {
-      setMeasureSize({ width: viewport.clientWidth, height: viewport.clientHeight })
-      setPaginationSizeKey((key) => key + 1)
+    // ── Slide title frame ──
+    frames.push({
+      type: 'slide-title',
+      sourceSlide: slide.number,
+      title: slide.title,
     })
 
-    ro.observe(viewport)
-    return () => ro.disconnect()
-  }, [currentSlideIdx])
+    // ── Chunk text nodes into content frames ──
+    let currentChunk: MarkdownNode[] = []
+    let currentSize = 0
+
+    const flushChunk = () => {
+      if (currentChunk.length > 0) {
+        frames.push({
+          type: 'content',
+          sourceSlide: slide.number,
+          title: slide.title,
+          nodes: [...currentChunk],
+        })
+        currentChunk = []
+        currentSize = 0
+      }
+    }
+
+    for (const node of textNodes) {
+      // Tables get their own frame
+      if (node.type === 'table') {
+        flushChunk()
+        frames.push({
+          type: 'content',
+          sourceSlide: slide.number,
+          title: slide.title,
+          nodes: [node],
+        })
+        continue
+      }
+
+      // Split large lists
+      if ((node.type === 'ul' || node.type === 'ol') && node.items.length > MAX_LIST_ITEMS) {
+        flushChunk()
+        for (const part of splitLargeList(node, MAX_LIST_ITEMS)) {
+          frames.push({
+            type: 'content',
+            sourceSlide: slide.number,
+            title: slide.title,
+            nodes: [part],
+          })
+        }
+        continue
+      }
+
+      // Headings start a new chunk when an existing one is open
+      if (node.type === 'heading' && currentChunk.length > 0) {
+        flushChunk()
+      }
+
+      const nodeSize = estimateNodeSize(node)
+      if (currentSize + nodeSize > MAX_FRAME_SIZE && currentChunk.length > 0) {
+        flushChunk()
+      }
+
+      currentChunk.push(node)
+      currentSize += nodeSize
+    }
+    flushChunk()
+
+    // ── Statement frames ──
+    for (const stmt of statements) {
+      frames.push({
+        type: 'statement',
+        sourceSlide: slide.number,
+        title: slide.title,
+        statement: stmt,
+      })
+    }
+
+    // ── Visual frame (only if the markdown describes a visual AND we
+    //    have a dark-native component for it) ──
+    if (hasVisualDesc && SLIDES_WITH_VISUALS.has(slide.number)) {
+      frames.push({
+        type: 'visual',
+        sourceSlide: slide.number,
+        title: slide.title,
+      })
+    }
+  }
+
+  return frames
+}
+
+// ── Keyboard / touch navigation ──────────────────────────────────────
+
+function useKeyboardNavigation(
+  total: number,
+  setCurrent: React.Dispatch<React.SetStateAction<number>>
+) {
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {})
+    } else {
+      document.exitFullscreen().catch(() => {})
+    }
+  }, [])
 
   useEffect(() => {
-    // Paginate slide content so we never need scrollbars in fullscreen.
-    const measureViewport = measureViewportRef.current
-    if (!measureViewport || !measureSize) {
-      return
-    }
-
-    measureViewport.style.width = `${measureSize.width}px`
-    measureViewport.style.height = `${measureSize.height}px`
-
-    const token = paginationTokenRef.current + 1
-    paginationTokenRef.current = token
-
-    const measure = async (nodesToMeasure: MarkdownNode[]) => {
-      setMeasureNodes(nodesToMeasure)
-      await raf()
-      if (paginationTokenRef.current !== token) return false
-      return measureViewport.scrollHeight <= measureViewport.clientHeight
-    }
-
-    const run = async () => {
-      const workingNodes = [...textNodes]
-      const computedPages: MarkdownNode[][] = []
-      let start = 0
-
-      while (start < workingNodes.length) {
-        let end = start
-        let lastGood = start
-
-        while (end < workingNodes.length) {
-          end += 1
-          const fits = await measure(workingNodes.slice(start, end))
-          if (paginationTokenRef.current !== token) return
-
-          if (fits) {
-            lastGood = end
-          } else {
-            break
-          }
-        }
-
-        if (lastGood === start) {
-          const node = workingNodes[start]
-          const split = await splitOversizeNode({ node, measure })
-          if (paginationTokenRef.current !== token) return
-
-          if (split.length > 1) {
-            computedPages.push([split[0]])
-            const remainder = split.slice(1)
-            workingNodes.splice(start + 1, 0, ...remainder)
-            start += 1
-            continue
-          }
-
-          computedPages.push([node])
-          start += 1
-          continue
-        }
-
-        computedPages.push(workingNodes.slice(start, lastGood))
-        start = lastGood
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault()
+        setCurrent((c) => Math.min(c + 1, total - 1))
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault()
+        setCurrent((c) => Math.max(c - 1, 0))
+      } else if (e.key === 'Home') {
+        e.preventDefault()
+        setCurrent(0)
+      } else if (e.key === 'End') {
+        e.preventDefault()
+        setCurrent(total - 1)
+      } else if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault()
+        toggleFullscreen()
       }
-
-      setPages(computedPages.length ? computedPages : [workingNodes])
-
-      const desired = requestedPageRef.current
-      if (desired === 'last') {
-        setCurrentPageIdx(Math.max(0, computedPages.length - 1))
-        requestedPageRef.current = 'first'
-        return
-      }
-
-      const clamped = Math.min(
-        currentPageIdxRef.current,
-        Math.max(0, (computedPages.length ? computedPages.length : 1) - 1)
-      )
-      setCurrentPageIdx(clamped)
     }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [total, setCurrent, toggleFullscreen])
 
-    void run()
-  }, [currentSlideIdx, measureSize, paginationSizeKey, textNodes])
+  return toggleFullscreen
+}
 
-  const pageNodes = pages.length ? pages[Math.min(currentPageIdx, pages.length - 1)] : textNodes
-  const totalPages = pages.length
+// ── Frame renderers ──────────────────────────────────────────────────
 
-  const textViewportClasses =
-    'h-full overflow-hidden rounded-xl border border-slate-800 bg-slate-900/30 p-5 sm:p-6'
-  const visualViewportClasses =
-    'h-full overflow-hidden rounded-xl border border-slate-800 bg-slate-900/20 p-5 sm:p-6'
+/** Tailwind selector overrides that make rendered markdown work on a
+ *  dark background at presentation scale. Applied to ContentFrame. */
+const proseOverrides = [
+  '[&_h1]:text-4xl [&_h1]:font-bold [&_h1]:text-white [&_h1]:mb-4',
+  '[&_h2]:text-3xl [&_h2]:font-bold [&_h2]:text-white [&_h2]:mb-4',
+  '[&_h3]:text-2xl [&_h3]:font-bold [&_h3]:text-white [&_h3]:mb-3',
+  '[&_h4]:text-xl  [&_h4]:font-bold [&_h4]:text-white [&_h4]:mb-3',
+  '[&_p]:text-xl  [&_p]:leading-relaxed [&_p]:text-slate-200 [&_p]:mb-4 lg:[&_p]:text-2xl',
+  '[&_li]:text-xl [&_li]:leading-relaxed [&_li]:text-slate-200 lg:[&_li]:text-2xl',
+  '[&_ul]:space-y-3 [&_ul]:pl-6',
+  '[&_ol]:space-y-3 [&_ol]:pl-6',
+  '[&_strong]:text-white [&_strong]:font-bold',
+  '[&_em]:text-cyan-300',
+  '[&_code]:text-cyan-300 [&_code]:bg-slate-800 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded',
+  '[&_table]:w-full [&_table]:border-collapse [&_table]:rounded-xl [&_table]:overflow-hidden',
+  '[&_th]:bg-slate-800/80 [&_th]:px-4 [&_th]:py-3 [&_th]:text-left [&_th]:text-base [&_th]:font-bold [&_th]:text-slate-300',
+  '[&_td]:px-4 [&_td]:py-2.5 [&_td]:text-base [&_td]:text-slate-200 [&_td]:border-t [&_td]:border-slate-700/50',
+  '[&_blockquote]:border-l-4 [&_blockquote]:border-cyan-500/40 [&_blockquote]:pl-4 [&_blockquote]:text-xl [&_blockquote]:italic [&_blockquote]:text-slate-300',
+  '[&_a]:text-cyan-400 [&_a]:underline',
+].join(' ')
 
-  const visualThemeClasses =
-    '[&_.bg-white]:bg-slate-900/40 [&_.bg-gray-50]:bg-slate-900/30 [&_.bg-gray-100]:bg-slate-900/30 ' +
-    '[&_.border-gray-200]:border-slate-700/60 [&_.border-gray-300]:border-slate-700/60 ' +
-    '[&_.text-gray-900]:text-slate-100 [&_.text-gray-800]:text-slate-100 [&_.text-gray-700]:text-slate-200/80 ' +
-    '[&_.text-gray-600]:text-slate-200/80 [&_.text-gray-500]:text-slate-200/70 ' +
-    '[&_.shadow]:shadow-none [&_.shadow-sm]:shadow-none [&_.shadow-md]:shadow-none [&_.shadow-lg]:shadow-none ' +
-    '[&_.ring-1]:ring-slate-700/60 [&_.ring-gray-200]:ring-slate-700/60 [&_.ring-gray-300]:ring-slate-700/60 ' +
-    '[&_.text-green-700]:text-green-300 [&_.text-red-700]:text-red-300 [&_.text-amber-700]:text-amber-300 ' +
-    '[&_.fill-gray-200]:fill-slate-700/60 [&_.fill-gray-700]:fill-slate-200 ' +
-    '[&_.bg-green-50]:bg-green-950/30 [&_.border-green-200]:border-green-400/30 [&_.text-green-800]:text-green-200 ' +
-    '[&_.bg-amber-50]:bg-amber-950/30 [&_.border-amber-200]:border-amber-400/30 [&_.text-amber-800]:text-amber-200 ' +
-    '[&_.bg-red-50]:bg-red-950/30 [&_.border-red-200]:border-red-400/30 [&_.text-red-800]:text-red-200 ' +
-    '[& a]:text-sky-300 [& a:hover]:text-sky-200'
+function DeckTitleFrame() {
+  return (
+    <div className="flex h-full flex-col items-center justify-center text-center">
+      <div className="mb-4 text-lg font-semibold tracking-widest uppercase text-cyan-400">
+        Teaching Series
+      </div>
+      <h1 className="text-5xl font-extrabold leading-tight text-white lg:text-7xl">
+        Technology Adoption
+      </h1>
+      <p className="mt-6 max-w-2xl text-xl leading-relaxed text-slate-300 lg:text-2xl">
+        A Strategic Framework for Understanding and Implementing Technology Change
+      </p>
+      <div className="mt-10 text-base text-slate-500">
+        Technology Adoption Barriers &middot; technologyadoptionbarriers.org
+      </div>
+    </div>
+  )
+}
 
-  const visualNode =
-    hasVisual && currentSlide ? (
-      <TechnologyAdoptionSeriesSlideVisual
-        slideNumber={currentSlide.number}
-        description={visualDescription}
-      />
-    ) : null
+function SectionFrame({ frame }: { frame: PresentationFrame }) {
+  return (
+    <div className="flex h-full flex-col items-center justify-center text-center">
+      <div className="mb-6 inline-flex items-center gap-3">
+        <div className="h-px w-16 bg-cyan-500/40" />
+        <span className="text-lg font-bold tracking-widest uppercase text-cyan-400">
+          {frame.sectionLabel}
+        </span>
+        <div className="h-px w-16 bg-cyan-500/40" />
+      </div>
+      <h2 className="text-4xl font-extrabold text-white lg:text-6xl">{frame.sectionTitle}</h2>
+      {frame.sectionSlideCount ? (
+        <div className="mt-4 text-lg text-slate-400">{frame.sectionSlideCount}</div>
+      ) : null}
+    </div>
+  )
+}
 
-  const showVisual = Boolean(visualNode)
-  const showText = pageNodes.length > 0
+function SlideTitleFrame({ frame }: { frame: PresentationFrame }) {
+  return (
+    <div className="flex h-full flex-col items-center justify-center text-center">
+      <div className="mb-4 text-base font-semibold text-cyan-400/60">Slide {frame.sourceSlide}</div>
+      <h2 className="max-w-4xl text-4xl font-extrabold leading-tight text-white lg:text-6xl">
+        {frame.title}
+      </h2>
+    </div>
+  )
+}
 
-  const visualColSpan =
-    layoutMode === 'visual-dominant'
-      ? 'lg:col-span-7'
-      : layoutMode === 'text-dominant'
-        ? 'lg:col-span-4'
-        : 'lg:col-span-6'
+function ContentFrame({ frame }: { frame: PresentationFrame }) {
+  if (!frame.nodes?.length) return null
+  return (
+    <div className="flex h-full flex-col justify-center px-4">
+      <div className="mb-6 text-sm font-semibold tracking-wider uppercase text-cyan-400/50">
+        {frame.title}
+      </div>
+      <div className={proseOverrides}>
+        <RenderMarkdownNodes nodes={frame.nodes} variant="presentation" />
+      </div>
+    </div>
+  )
+}
 
-  const textColSpan =
-    layoutMode === 'visual-dominant'
-      ? 'lg:col-span-5'
-      : layoutMode === 'text-dominant'
-        ? 'lg:col-span-8'
-        : 'lg:col-span-6'
+function VisualFrame({ frame }: { frame: PresentationFrame }) {
+  return (
+    <div className="flex h-full flex-col">
+      <div className="mb-4 text-sm font-semibold tracking-wider uppercase text-cyan-400/50">
+        {frame.title}
+      </div>
+      <div className="flex flex-1 items-center justify-center">
+        <div className="h-full w-full">
+          <PresentationVisual slideNumber={frame.sourceSlide} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function StatementFrame({ frame }: { frame: PresentationFrame }) {
+  const isWarning = frame.statement?.startsWith('⚠️')
+  return (
+    <div className="flex h-full flex-col items-center justify-center text-center">
+      <div className="mb-6 text-sm font-semibold tracking-wider uppercase text-cyan-400/50">
+        {frame.title}
+      </div>
+      {isWarning ? (
+        <div className="max-w-4xl text-3xl font-bold leading-snug text-amber-300 lg:text-5xl">
+          {frame.statement}
+        </div>
+      ) : (
+        <blockquote className="max-w-4xl text-3xl font-semibold leading-snug text-white lg:text-5xl">
+          &ldquo;{frame.statement}&rdquo;
+        </blockquote>
+      )}
+    </div>
+  )
+}
+
+// ── Main component ───────────────────────────────────────────────────
+
+export default function PresentationClient({
+  slides,
+}: {
+  slides: TechnologyAdoptionSeriesSlide[]
+}) {
+  const frames = useMemo(() => expandToFrames(slides), [slides])
+  const [currentIdx, setCurrentIdx] = useState(0)
+  const toggleFullscreen = useKeyboardNavigation(frames.length, setCurrentIdx)
+
+  const frame = frames[currentIdx]
+
+  // ── Touch navigation ──
+  const touchStart = useRef(0)
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStart.current = e.touches[0].clientX
+  }, [])
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      const diff = touchStart.current - e.changedTouches[0].clientX
+      if (Math.abs(diff) > 60) {
+        if (diff > 0) setCurrentIdx((c) => Math.min(c + 1, frames.length - 1))
+        else setCurrentIdx((c) => Math.max(c - 1, 0))
+      }
+    },
+    [frames.length]
+  )
+
+  // ── Frame renderer ──
+  const renderFrame = () => {
+    switch (frame.type) {
+      case 'deck-title':
+        return <DeckTitleFrame />
+      case 'section':
+        return <SectionFrame frame={frame} />
+      case 'slide-title':
+        return <SlideTitleFrame frame={frame} />
+      case 'content':
+        return <ContentFrame frame={frame} />
+      case 'visual':
+        return <VisualFrame frame={frame} />
+      case 'statement':
+        return <StatementFrame frame={frame} />
+    }
+  }
+
+  const progress = ((currentIdx + 1) / frames.length) * 100
 
   return (
     <div
-      ref={wrapperRef}
-      className="technology-adoption-series-presentation fixed inset-0 z-[9999] overflow-hidden bg-slate-950 text-slate-50 antialiased"
-      aria-label="Presentation"
+      className="presentation-root flex h-[100dvh] w-full flex-col overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      tabIndex={0}
     >
-      <nav
-        className="fixed left-4 top-4 z-20 flex items-center gap-2"
-        aria-label="Return navigation"
-      >
-        <Link
-          href="/technology-adoption-series"
-          className="rounded-full border border-slate-700 bg-slate-900/60 px-3 py-2 text-xs font-semibold text-slate-100 hover:bg-slate-900"
-        >
-          ← Series
-        </Link>
-        <Link
-          href="/"
-          className="rounded-full border border-slate-700 bg-slate-900/60 px-3 py-2 text-xs font-semibold text-slate-100 hover:bg-slate-900"
-        >
-          Home
-        </Link>
-      </nav>
-
-      <section
-        className="mx-auto flex h-full w-full max-w-[1900px] flex-col px-4 pb-24 pt-16"
-        aria-label="Slide"
-      >
-        <header className="px-1">
-          <div className="text-xs font-semibold uppercase tracking-widest text-slate-300">
-            Technology Adoption Teaching Series
-          </div>
-          <div className="mt-2 flex items-end justify-between gap-4">
-            <h1 className="text-balance text-3xl font-bold tracking-tight text-slate-50 sm:text-4xl lg:text-5xl">
-              {currentSlide ? toDisplayTitle(currentSlide.title) : 'Loading slides…'}
-            </h1>
-            <div className="hidden shrink-0 text-xs font-semibold text-slate-400 sm:block">
-              &lt;deck /&gt;
-            </div>
-          </div>
-          <div className="mt-4 h-px w-full bg-slate-800" />
-        </header>
-
-        <div className="mt-6 flex-1 overflow-hidden" aria-label="Slide content">
-          {showVisual && showText ? (
-            <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-12 lg:gap-6">
-              <div
-                className={`${visualColSpan} ${
-                  visualFirst ? 'lg:order-1' : 'lg:order-2'
-                } h-full overflow-hidden`}
-              >
-                <div className={`${visualViewportClasses} ${visualThemeClasses}`}>{visualNode}</div>
-              </div>
-
-              <div
-                className={`${textColSpan} ${
-                  visualFirst ? 'lg:order-2' : 'lg:order-1'
-                } h-full overflow-hidden`}
-              >
-                <div ref={textViewportRef} className={textViewportClasses}>
-                  {currentSlide ? (
-                    <TechnologyAdoptionSeriesSlideMarkdown
-                      nodes={pageNodes}
-                      slideNumber={currentSlide.number}
-                      variant="presentation"
-                    />
-                  ) : null}
-                </div>
-              </div>
-            </div>
-          ) : showVisual ? (
-            <div className="h-full overflow-hidden">
-              <div className={`${visualViewportClasses} ${visualThemeClasses}`}>{visualNode}</div>
-            </div>
-          ) : (
-            <div ref={textViewportRef} className={textViewportClasses}>
-              {currentSlide ? (
-                <TechnologyAdoptionSeriesSlideMarkdown
-                  nodes={pageNodes}
-                  slideNumber={currentSlide.number}
-                  variant="presentation"
-                />
-              ) : null}
-            </div>
-          )}
-        </div>
-      </section>
-
-      <div
-        className="fixed bottom-4 right-4 z-20 flex flex-wrap items-center justify-end gap-2"
-        aria-label="Slide controls"
-      >
-        <button
-          type="button"
-          onClick={goPrev}
-          disabled={currentSlideIdx <= 0}
-          className="rounded-md border border-slate-700 bg-slate-900/60 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-900 disabled:opacity-40"
-        >
-          Prev
-        </button>
-        <button
-          type="button"
-          onClick={goNext}
-          disabled={currentSlideIdx >= totalSlides - 1}
-          className="rounded-md border border-slate-700 bg-slate-900/60 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-900 disabled:opacity-40"
-        >
-          Next
-        </button>
-        <div className="px-2 text-sm font-semibold text-slate-200" aria-label="Slide counter">
-          {totalSlides ? `${currentSlideIdx + 1} / ${totalSlides}` : null}
-          {totalPages > 1 ? ` · ${currentPageIdx + 1}/${totalPages}` : ''}
-        </div>
-        <button
-          type="button"
-          onClick={toggleFullscreen}
-          className="rounded-md border border-slate-700 bg-slate-900/60 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-900"
-          aria-label="Toggle fullscreen (F)"
-        >
-          Full screen
-        </button>
+      {/* Thin progress bar */}
+      <div className="h-1 w-full bg-slate-800">
         <div
-          className="hidden text-xs font-semibold text-slate-400 sm:block"
-          aria-label="Keyboard shortcuts"
-        >
-          Keys: ←/→, Space, F
-        </div>
+          className="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-300"
+          style={{ width: `${progress}%` }}
+        />
       </div>
 
-      <div aria-hidden="true" className="measure-host">
-        <div ref={measureViewportRef} className={textViewportClasses}>
-          {currentSlide ? (
-            <TechnologyAdoptionSeriesSlideMarkdown
-              nodes={measureNodes}
-              slideNumber={currentSlide.number}
-              variant="presentation"
-            />
+      {/* Frame content area */}
+      <div className="flex-1 overflow-hidden px-12 py-8 lg:px-20 lg:py-12">{renderFrame()}</div>
+
+      {/* Navigation bar */}
+      <nav
+        className="flex items-center justify-between border-t border-slate-800 px-6 py-3"
+        aria-label="Presentation navigation"
+      >
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setCurrentIdx((c) => Math.max(c - 1, 0))}
+            disabled={currentIdx === 0}
+            className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700 disabled:opacity-30"
+            aria-label="Previous frame"
+          >
+            ← Prev
+          </button>
+          <button
+            onClick={() => setCurrentIdx((c) => Math.min(c + 1, frames.length - 1))}
+            disabled={currentIdx === frames.length - 1}
+            className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700 disabled:opacity-30"
+            aria-label="Next frame"
+          >
+            Next →
+          </button>
+        </div>
+
+        <div className="text-sm text-slate-500">
+          {currentIdx + 1} / {frames.length}
+          {frame.sourceSlide > 0 ? (
+            <span className="ml-2 text-slate-600">&middot; Slide {frame.sourceSlide}</span>
           ) : null}
         </div>
-      </div>
+
+        <button
+          onClick={toggleFullscreen}
+          className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700"
+          aria-label="Toggle fullscreen"
+        >
+          ⛶ Fullscreen
+        </button>
+      </nav>
     </div>
   )
 }
