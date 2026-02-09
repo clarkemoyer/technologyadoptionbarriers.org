@@ -50,46 +50,60 @@ const buildSegment = (slideNumber: number, slideTitle: string) => {
 
 const stripTrailingSeparator = (markdown: string) => markdown.replace(/\n---\n\s*$/, '').trim()
 
+let slidesCache: Promise<TechnologyAdoptionSeriesSlide[]> | null = null
+let resourcesCache: Promise<TechnologyAdoptionSeriesResource[]> | null = null
+
 export async function getTechnologyAdoptionSeriesSlides(): Promise<
   TechnologyAdoptionSeriesSlide[]
 > {
-  const file = await readFile(SERIES_DECK_PATH, 'utf8')
+  if (!slidesCache) {
+    slidesCache = (async () => {
+      const file = await readFile(SERIES_DECK_PATH, 'utf8')
 
-  const slideHeadingRegex = /^###\s+Slide\s+(\d+)(?:\s+\(Optional\))?:\s*(.+?)\s*$/gm
-  const matches = Array.from(file.matchAll(slideHeadingRegex))
+      const slideHeadingRegex = /^###\s+Slide\s+(\d+)(?:\s+\(Optional\))?:\s*(.+?)\s*$/gm
+      const matches = Array.from(file.matchAll(slideHeadingRegex))
 
-  if (matches.length === 0) {
-    throw new Error(
-      'No slides found in technology adoption series deck. Expected headings like: "### Slide 1: ..."'
-    )
+      if (matches.length === 0) {
+        throw new Error(
+          'No slides found in technology adoption series deck. Expected headings like: "### Slide 1: ..."'
+        )
+      }
+
+      const slides: TechnologyAdoptionSeriesSlide[] = matches.map((match, index) => {
+        const number = Number(match[1])
+        const rawTitle = match[2]
+        const title = normalizeSlideTitle(rawTitle)
+
+        const headingStart = match.index ?? 0
+        const headingEnd = headingStart + match[0].length
+
+        const nextHeadingStart = matches[index + 1]?.index ?? file.length
+
+        const rawSlice = file.slice(headingEnd, nextHeadingStart)
+
+        const contentMarkdown = stripTrailingSeparator(rawSlice)
+
+        return {
+          number,
+          title,
+          segment: buildSegment(number, title),
+          contentMarkdown,
+        }
+      })
+
+      // Sort defensively in case the markdown file is reordered.
+      slides.sort((a, b) => a.number - b.number)
+
+      return slides
+    })()
+
+    slidesCache = slidesCache.catch((error) => {
+      slidesCache = null
+      throw error
+    })
   }
 
-  const slides: TechnologyAdoptionSeriesSlide[] = matches.map((match, index) => {
-    const number = Number(match[1])
-    const rawTitle = match[2]
-    const title = normalizeSlideTitle(rawTitle)
-
-    const headingStart = match.index ?? 0
-    const headingEnd = headingStart + match[0].length
-
-    const nextHeadingStart = matches[index + 1]?.index ?? file.length
-
-    const rawSlice = file.slice(headingEnd, nextHeadingStart)
-
-    const contentMarkdown = stripTrailingSeparator(rawSlice)
-
-    return {
-      number,
-      title,
-      segment: buildSegment(number, title),
-      contentMarkdown,
-    }
-  })
-
-  // Sort defensively in case the markdown file is reordered.
-  slides.sort((a, b) => a.number - b.number)
-
-  return slides
+  return slidesCache
 }
 
 export async function getTechnologyAdoptionSeriesSlideBySegment(segment: string) {
@@ -100,21 +114,28 @@ export async function getTechnologyAdoptionSeriesSlideBySegment(segment: string)
 export async function getTechnologyAdoptionSeriesResources(): Promise<
   TechnologyAdoptionSeriesResource[]
 > {
-  const resources: TechnologyAdoptionSeriesResource[] = []
+  if (!resourcesCache) {
+    resourcesCache = Promise.all(
+      technologyAdoptionTeachingSeriesResources.map(async (resource) => {
+        const filePath = path.join(SERIES_RESOURCES_DIR, resource.sourceFile)
+        const contentMarkdown = (await readFile(filePath, 'utf8')).trim()
 
-  for (const resource of technologyAdoptionTeachingSeriesResources) {
-    const filePath = path.join(SERIES_RESOURCES_DIR, resource.sourceFile)
-    const contentMarkdown = (await readFile(filePath, 'utf8')).trim()
+        return {
+          id: resource.id,
+          title: resource.title,
+          segment: resource.segment,
+          contentMarkdown,
+        }
+      })
+    )
 
-    resources.push({
-      id: resource.id,
-      title: resource.title,
-      segment: resource.segment,
-      contentMarkdown,
+    resourcesCache = resourcesCache.catch((error) => {
+      resourcesCache = null
+      throw error
     })
   }
 
-  return resources
+  return resourcesCache
 }
 
 export async function getTechnologyAdoptionSeriesResourceBySegment(segment: string) {
@@ -134,8 +155,10 @@ export async function getTechnologyAdoptionSeriesNavItems(): Promise<
 > {
   const rootSlug = technologyAdoptionTeachingSeries.root.slug
 
-  const resources = await getTechnologyAdoptionSeriesResources()
-  const slides = await getTechnologyAdoptionSeriesSlides()
+  const [resources, slides] = await Promise.all([
+    getTechnologyAdoptionSeriesResources(),
+    getTechnologyAdoptionSeriesSlides(),
+  ])
 
   return [
     {

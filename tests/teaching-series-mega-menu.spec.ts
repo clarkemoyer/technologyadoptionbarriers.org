@@ -23,7 +23,9 @@ async function seedCookieConsent(page: Page) {
 }
 
 async function openTeachingMegaMenu(page: Page) {
-  const megaMenuButton = page.getByRole('button', { name: /Technology Adoption Series/i })
+  const megaMenuButton = page.getByRole('button', {
+    name: /Technology Adoption Teaching Series/i,
+  })
   await expect(megaMenuButton).toBeVisible()
 
   const megaMenu = page.locator('#mega-menu')
@@ -79,7 +81,9 @@ test.describe('Teaching Series - Header Mega Menu', () => {
 
     await page.getByRole('button', { name: /open menu/i }).click()
 
-    const teachingSeriesLink = page.getByRole('link', { name: /Technology Adoption Series/i })
+    const teachingSeriesLink = page.getByRole('link', {
+      name: /Technology Adoption Teaching Series/i,
+    })
     await expect(teachingSeriesLink).toBeVisible()
 
     const part1Title = technologyAdoptionTeachingSeries.parts[0].title

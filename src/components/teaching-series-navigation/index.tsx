@@ -81,30 +81,42 @@ const TeachingSeriesNavigation = ({ className }: { className?: string }) => {
   const currentPath = normalizePath(pathname)
 
   const { root, parts } = technologyAdoptionTeachingSeries
-  const resources = technologyAdoptionTeachingSeriesResources.map((r) => ({
-    title: r.title,
-    slug: `${root.slug}/${r.segment}`,
-    status: r.status,
-    id: r.id,
-  }))
-
-  const flatSlides = parts.flatMap((part) =>
-    part.slides.map((s) => ({
-      ...s,
-      slug: `${root.slug}/${s.segment}`,
-    }))
+  const resources = React.useMemo(
+    () =>
+      technologyAdoptionTeachingSeriesResources.map((r) => ({
+        title: r.title,
+        slug: `${root.slug}/${r.segment}`,
+        status: r.status,
+        id: r.id,
+      })),
+    [root.slug]
   )
 
-  const mainDeckParts = parts
-    .map((part) => ({
-      ...part,
-      slides: part.slides.filter((s) => !s.isOptional),
-    }))
-    .filter((part) => part.slides.length > 0)
+  const flatSlides = React.useMemo(
+    () =>
+      parts.flatMap((part) =>
+        part.slides.map((s) => ({
+          ...s,
+          slug: `${root.slug}/${s.segment}`,
+        }))
+      ),
+    [parts, root.slug]
+  )
 
-  const backupSlides = flatSlides.filter((s) => s.isOptional)
+  const mainDeckParts = React.useMemo(
+    () =>
+      parts
+        .map((part) => ({
+          ...part,
+          slides: part.slides.filter((s) => !s.isOptional),
+        }))
+        .filter((part) => part.slides.length > 0),
+    [parts]
+  )
 
-  const previousNext = (() => {
+  const backupSlides = React.useMemo(() => flatSlides.filter((s) => s.isOptional), [flatSlides])
+
+  const previousNext = React.useMemo(() => {
     const items: LinkState[] = [
       { title: 'Series overview', slug: root.slug, status: 'published' },
       ...resources.map((r) => ({ title: r.title, slug: r.slug, status: r.status })),
@@ -122,7 +134,7 @@ const TeachingSeriesNavigation = ({ className }: { className?: string }) => {
       prev: currentIndex > 0 ? items[currentIndex - 1] : null,
       next: currentIndex < items.length - 1 ? items[currentIndex + 1] : null,
     }
-  })()
+  }, [currentPath, flatSlides, resources, root.slug])
 
   return (
     <section

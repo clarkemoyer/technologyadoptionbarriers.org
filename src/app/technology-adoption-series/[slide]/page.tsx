@@ -187,9 +187,9 @@ const TreeDiagram = ({ code, label }: { code: string; label?: string }) => {
     <InlineDiagramCard>
       {label ? <div className="text-sm font-semibold text-gray-900 mb-3">{label}</div> : null}
       <div className="space-y-3">
-        {rows.map((row) => (
+        {rows.map((row, rowIdx) => (
           <div
-            key={`${row.key}-${row.value ?? ''}`}
+            key={`${row.key}-${row.value ?? ''}-${rowIdx}`}
             className="rounded border border-gray-200 bg-gray-50 p-3"
           >
             <div className="flex flex-wrap items-start gap-2">
@@ -202,8 +202,8 @@ const TreeDiagram = ({ code, label }: { code: string; label?: string }) => {
             </div>
             {row.bullets.length ? (
               <ul className="mt-2 list-disc pl-5 text-sm text-gray-700 space-y-1">
-                {row.bullets.map((b) => (
-                  <li key={b}>{b}</li>
+                {row.bullets.map((b, bulletIdx) => (
+                  <li key={`${rowIdx}-${bulletIdx}`}>{b}</li>
                 ))}
               </ul>
             ) : null}
@@ -1574,7 +1574,7 @@ const slideNumberFromSegment = (segment: string) => {
 }
 
 type PageProps = {
-  params: Promise<{ slide: string }>
+  params: { slide: string } | Promise<{ slide: string }>
 }
 
 export async function generateStaticParams() {
@@ -1591,7 +1591,12 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slide: segment } = await params
-  const slide = await getTechnologyAdoptionSeriesSlideBySegment(segment)
+
+  const slides = await getTechnologyAdoptionSeriesSlides()
+  const slideNumber = slideNumberFromSegment(segment)
+  const slide =
+    slides.find((s) => s.segment === segment) ||
+    (slideNumber ? slides.find((s) => s.number === slideNumber) : null)
   if (!slide) return {}
 
   return {

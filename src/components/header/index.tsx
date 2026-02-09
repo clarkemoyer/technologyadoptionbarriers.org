@@ -50,17 +50,29 @@ const Header: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('')
   const [searchQuery, setSearchQuery] = useState('')
   const megaMenuRef = useRef<HTMLDivElement>(null)
-  const megaMenuButtonRef = useRef<HTMLLIElement>(null)
+  const activeMegaMenuButtonRef = useRef<HTMLLIElement | null>(null)
   const makingOfMenuRef = useRef<HTMLDivElement>(null)
   const makingOfMenuButtonRef = useRef<HTMLLIElement>(null)
 
-  const teachingSeriesPart3CoreSlides = useMemo(
-    () => technologyAdoptionTeachingSeries.parts[2].slides.filter((s) => !s.isOptional),
+  useEffect(() => {
+    if (!activeMegaMenu) activeMegaMenuButtonRef.current = null
+  }, [activeMegaMenu])
+
+  const teachingSeriesParts = useMemo(() => technologyAdoptionTeachingSeries.parts, [])
+
+  const teachingSeriesCoreSlidesByPart = useMemo(
+    () =>
+      technologyAdoptionTeachingSeries.parts.map((part) =>
+        part.slides.filter((slide) => !slide.isOptional)
+      ),
     []
   )
 
   const teachingSeriesBackupSlides = useMemo(
-    () => technologyAdoptionTeachingSeries.parts[2].slides.filter((s) => s.isOptional),
+    () =>
+      technologyAdoptionTeachingSeries.parts.flatMap((part) =>
+        part.slides.filter((slide) => slide.isOptional)
+      ),
     []
   )
 
@@ -90,7 +102,7 @@ const Header: React.FC = () => {
         megaMenuId: 'models',
       },
       {
-        label: 'Technology Adoption Series',
+        label: 'Technology Adoption Teaching Series',
         path: '/technology-adoption-series',
         hasMegaMenu: true,
         megaMenuId: 'teaching-series',
@@ -146,8 +158,8 @@ const Header: React.FC = () => {
         activeMegaMenu &&
         megaMenuRef.current &&
         !megaMenuRef.current.contains(event.target as Node) &&
-        megaMenuButtonRef.current &&
-        !megaMenuButtonRef.current.contains(event.target as Node)
+        activeMegaMenuButtonRef.current &&
+        !activeMegaMenuButtonRef.current.contains(event.target as Node)
       ) {
         setActiveMegaMenu(null)
       }
@@ -173,7 +185,7 @@ const Header: React.FC = () => {
       if (event.key === 'Escape' && activeMegaMenu) {
         setActiveMegaMenu(null)
         // Return focus to the button
-        megaMenuButtonRef.current?.querySelector('button')?.focus()
+        activeMegaMenuButtonRef.current?.querySelector('button')?.focus()
       }
 
       if (event.key === 'Escape' && isMakingOfMenuOpen) {
@@ -283,7 +295,11 @@ const Header: React.FC = () => {
                         className="relative py-6"
                         ref={
                           item.hasMegaMenu
-                            ? megaMenuButtonRef
+                            ? (node) => {
+                                if (activeMegaMenu === item.megaMenuId) {
+                                  activeMegaMenuButtonRef.current = node
+                                }
+                              }
                             : item.children?.length
                               ? makingOfMenuButtonRef
                               : null
@@ -553,74 +569,30 @@ const Header: React.FC = () => {
                   </Link>
 
                   <div className="grid grid-cols-4 gap-8">
-                    <div>
-                      <Link
-                        href={technologyAdoptionTeachingSeries.root.slug}
-                        onClick={handleLinkClick}
-                        className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
-                      >
-                        {technologyAdoptionTeachingSeries.parts[0].title}
-                      </Link>
-                      <ul className="space-y-2">
-                        {technologyAdoptionTeachingSeries.parts[0].slides.map((s) => (
-                          <li key={s.id}>
-                            <Link
-                              href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
-                              onClick={handleLinkClick}
-                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
-                            >
-                              Slide {s.number}: {s.title}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div>
-                      <Link
-                        href={technologyAdoptionTeachingSeries.root.slug}
-                        onClick={handleLinkClick}
-                        className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
-                      >
-                        {technologyAdoptionTeachingSeries.parts[1].title}
-                      </Link>
-                      <ul className="space-y-2">
-                        {technologyAdoptionTeachingSeries.parts[1].slides.map((s) => (
-                          <li key={s.id}>
-                            <Link
-                              href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
-                              onClick={handleLinkClick}
-                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
-                            >
-                              Slide {s.number}: {s.title}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div>
-                      <Link
-                        href={technologyAdoptionTeachingSeries.root.slug}
-                        onClick={handleLinkClick}
-                        className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
-                      >
-                        {technologyAdoptionTeachingSeries.parts[2].title}
-                      </Link>
-                      <ul className="space-y-2">
-                        {teachingSeriesPart3CoreSlides.map((s) => (
-                          <li key={s.id}>
-                            <Link
-                              href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
-                              onClick={handleLinkClick}
-                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
-                            >
-                              Slide {s.number}: {s.title}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    {teachingSeriesParts.map((part, partIdx) => (
+                      <div key={part.id}>
+                        <Link
+                          href={technologyAdoptionTeachingSeries.root.slug}
+                          onClick={handleLinkClick}
+                          className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                        >
+                          {part.title}
+                        </Link>
+                        <ul className="space-y-2">
+                          {(teachingSeriesCoreSlidesByPart[partIdx] ?? []).map((slide) => (
+                            <li key={slide.id}>
+                              <Link
+                                href={`${technologyAdoptionTeachingSeries.root.slug}/${slide.segment}`}
+                                onClick={handleLinkClick}
+                                className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                              >
+                                Slide {slide.number}: {slide.title}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
 
                     <div>
                       <Link
@@ -631,14 +603,14 @@ const Header: React.FC = () => {
                         Backup slides
                       </Link>
                       <ul className="space-y-2">
-                        {teachingSeriesBackupSlides.map((s) => (
-                          <li key={s.id}>
+                        {teachingSeriesBackupSlides.map((slide) => (
+                          <li key={slide.id}>
                             <Link
-                              href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
+                              href={`${technologyAdoptionTeachingSeries.root.slug}/${slide.segment}`}
                               onClick={handleLinkClick}
                               className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
                             >
-                              Slide {s.number}: {s.title}
+                              Slide {slide.number}: {slide.title}
                               <span className="text-gray-600"> (Optional)</span>
                             </Link>
                           </li>
@@ -965,7 +937,7 @@ const Header: React.FC = () => {
                               </button>
                               {isMobileTeachingPart1Open && (
                                 <ul className="mt-1 space-y-1">
-                                  {technologyAdoptionTeachingSeries.parts[0].slides.map((s) => (
+                                  {(teachingSeriesCoreSlidesByPart[0] ?? []).map((s) => (
                                     <li key={s.id}>
                                       <Link
                                         href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
@@ -1010,7 +982,7 @@ const Header: React.FC = () => {
                               </button>
                               {isMobileTeachingPart2Open && (
                                 <ul className="mt-1 space-y-1">
-                                  {technologyAdoptionTeachingSeries.parts[1].slides.map((s) => (
+                                  {(teachingSeriesCoreSlidesByPart[1] ?? []).map((s) => (
                                     <li key={s.id}>
                                       <Link
                                         href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
@@ -1055,7 +1027,7 @@ const Header: React.FC = () => {
                               </button>
                               {isMobileTeachingPart3Open && (
                                 <ul className="mt-1 space-y-1">
-                                  {teachingSeriesPart3CoreSlides.map((s) => (
+                                  {(teachingSeriesCoreSlidesByPart[2] ?? []).map((s) => (
                                     <li key={s.id}>
                                       <Link
                                         href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
