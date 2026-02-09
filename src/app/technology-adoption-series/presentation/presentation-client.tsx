@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useEffect, useMemo, useRef } from 'react'
+import { useState, useCallback, useEffect, useMemo, useRef, createContext, useContext } from 'react'
 import Link from 'next/link'
 import { parseSimpleMarkdown, RenderMarkdownNodes, type MarkdownNode } from '@/lib/simple-markdown'
 import { splitTechnologyAdoptionSeriesSlideSections } from '@/components/technology-adoption-series/slide-render'
@@ -19,6 +19,12 @@ import './presentation.css'
 // ── Types ────────────────────────────────────────────────────────────
 
 type FrameType = 'deck-title' | 'section' | 'slide-title' | 'content' | 'visual' | 'statement'
+export type PresentationMode = 'hd' | '4k'
+
+const PresentationModeContext = createContext<PresentationMode>('hd')
+export function usePresentationMode() {
+  return useContext(PresentationModeContext)
+}
 
 interface PresentationFrame {
   type: FrameType
@@ -363,9 +369,7 @@ function getSectionLabel(sourceSlide: number): string {
 
 // ── Frame renderers ──────────────────────────────────────────────────
 
-/** Tailwind selector overrides that make rendered markdown work on a
- *  dark background at presentation scale. Applied to ContentFrame. */
-const proseOverrides = [
+const proseOverridesHd = [
   '[&_h1]:text-4xl [&_h1]:font-bold [&_h1]:text-white [&_h1]:mb-4',
   '[&_h2]:text-3xl [&_h2]:font-bold [&_h2]:text-white [&_h2]:mb-4',
   '[&_h3]:text-2xl [&_h3]:font-bold [&_h3]:text-white [&_h3]:mb-3',
@@ -384,7 +388,43 @@ const proseOverrides = [
   '[&_a]:text-cyan-400 [&_a]:underline',
 ].join(' ')
 
+const proseOverrides4k = [
+  '[&_h1]:text-7xl [&_h1]:font-bold [&_h1]:text-white [&_h1]:mb-8',
+  '[&_h2]:text-6xl [&_h2]:font-bold [&_h2]:text-white [&_h2]:mb-8',
+  '[&_h3]:text-5xl [&_h3]:font-bold [&_h3]:text-white [&_h3]:mb-6',
+  '[&_h4]:text-4xl [&_h4]:font-bold [&_h4]:text-white [&_h4]:mb-6',
+  '[&_p]:text-4xl  [&_p]:leading-relaxed [&_p]:text-slate-200 [&_p]:mb-8',
+  '[&_li]:text-4xl [&_li]:leading-relaxed [&_li]:text-slate-200',
+  '[&_ul]:space-y-6 [&_ul]:pl-12',
+  '[&_ol]:space-y-6 [&_ol]:pl-12',
+  '[&_strong]:text-white [&_strong]:font-bold',
+  '[&_em]:text-cyan-300',
+  '[&_code]:text-cyan-300 [&_code]:bg-slate-800 [&_code]:px-2 [&_code]:py-1 [&_code]:rounded',
+  '[&_table]:w-full [&_table]:border-collapse [&_table]:rounded-2xl [&_table]:overflow-hidden',
+  '[&_th]:bg-slate-800/80 [&_th]:px-8 [&_th]:py-6 [&_th]:text-left [&_th]:text-3xl [&_th]:font-bold [&_th]:text-slate-300',
+  '[&_td]:px-8 [&_td]:py-5 [&_td]:text-3xl [&_td]:text-slate-200 [&_td]:border-t [&_td]:border-slate-700/50',
+  '[&_blockquote]:border-l-8 [&_blockquote]:border-cyan-500/40 [&_blockquote]:pl-8 [&_blockquote]:text-4xl [&_blockquote]:italic [&_blockquote]:text-slate-300',
+  '[&_a]:text-cyan-400 [&_a]:underline',
+].join(' ')
+
 function DeckTitleFrame() {
+  const mode = useContext(PresentationModeContext)
+  if (mode === '4k') {
+    return (
+      <div className="flex h-full flex-col items-center justify-center text-center p-12">
+        <div className="mb-8 text-3xl font-semibold tracking-widest uppercase text-cyan-400">
+          Teaching Series
+        </div>
+        <h1 className="text-8xl font-extrabold leading-tight text-white">Technology Adoption</h1>
+        <p className="mt-12 max-w-5xl text-4xl leading-relaxed text-slate-300">
+          A Strategic Framework for Understanding and Implementing Technology Change
+        </p>
+        <div className="mt-16 text-2xl text-slate-500">
+          Technology Adoption Barriers &middot; technologyadoptionbarriers.org
+        </div>
+      </div>
+    )
+  }
   return (
     <div className="flex h-full flex-col items-center justify-center text-center">
       <div className="mb-4 text-lg font-semibold tracking-widest uppercase text-cyan-400">
@@ -404,6 +444,24 @@ function DeckTitleFrame() {
 }
 
 function SectionFrame({ frame }: { frame: PresentationFrame }) {
+  const mode = useContext(PresentationModeContext)
+  if (mode === '4k') {
+    return (
+      <div className="flex h-full flex-col items-center justify-center text-center">
+        <div className="mb-10 inline-flex items-center gap-6">
+          <div className="h-0.5 w-32 bg-cyan-500/40" />
+          <span className="text-3xl font-bold tracking-widest uppercase text-cyan-400">
+            {frame.sectionLabel}
+          </span>
+          <div className="h-0.5 w-32 bg-cyan-500/40" />
+        </div>
+        <h2 className="text-8xl font-extrabold text-white">{frame.sectionTitle}</h2>
+        {frame.sectionSlideCount ? (
+          <div className="mt-8 text-3xl text-slate-400">{frame.sectionSlideCount}</div>
+        ) : null}
+      </div>
+    )
+  }
   return (
     <div className="flex h-full flex-col items-center justify-center text-center">
       <div className="mb-6 inline-flex items-center gap-3">
@@ -422,6 +480,19 @@ function SectionFrame({ frame }: { frame: PresentationFrame }) {
 }
 
 function SlideTitleFrame({ frame }: { frame: PresentationFrame }) {
+  const mode = useContext(PresentationModeContext)
+  if (mode === '4k') {
+    return (
+      <div className="flex h-full flex-col items-center justify-center text-center">
+        <div className="mb-8 text-3xl font-semibold text-cyan-400/60">
+          Slide {frame.sourceSlide}
+        </div>
+        <h2 className="max-w-[90%] text-8xl font-extrabold leading-tight text-white">
+          {frame.title}
+        </h2>
+      </div>
+    )
+  }
   return (
     <div className="flex h-full flex-col items-center justify-center text-center">
       <div className="mb-4 text-base font-semibold text-cyan-400/60">Slide {frame.sourceSlide}</div>
@@ -433,13 +504,31 @@ function SlideTitleFrame({ frame }: { frame: PresentationFrame }) {
 }
 
 function ContentFrame({ frame }: { frame: PresentationFrame }) {
+  const mode = useContext(PresentationModeContext)
   if (!frame.nodes?.length) return null
+
+  if (mode === '4k') {
+    return (
+      <div
+        className="flex h-full flex-col justify-center px-12 presentation-4k-content"
+        data-slide={frame.sourceSlide}
+      >
+        <div className="mb-10 text-2xl font-semibold tracking-wider uppercase text-cyan-400/50">
+          {frame.title}
+        </div>
+        <div className={proseOverrides4k}>
+          <RenderMarkdownNodes nodes={frame.nodes} variant="presentation" />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="flex h-full flex-col justify-center px-4">
       <div className="mb-6 text-sm font-semibold tracking-wider uppercase text-cyan-400/50">
         {frame.title}
       </div>
-      <div className={proseOverrides}>
+      <div className={proseOverridesHd}>
         <RenderMarkdownNodes nodes={frame.nodes} variant="presentation" />
       </div>
     </div>
@@ -447,14 +536,17 @@ function ContentFrame({ frame }: { frame: PresentationFrame }) {
 }
 
 function VisualFrame({ frame }: { frame: PresentationFrame }) {
+  const mode = useContext(PresentationModeContext)
   return (
     <div className="flex h-full flex-col">
       <div className="mb-4 text-sm font-semibold tracking-wider uppercase text-cyan-400/50">
         {frame.title}
       </div>
-      <div className="flex flex-1 items-center justify-center">
-        <div className="h-full w-full">
-          <PresentationVisual slideNumber={frame.sourceSlide} />
+      <div className="flex flex-1 items-center justify-center presentation-visual-container">
+        <div
+          className={`h-full w-full flex items-center justify-center ${mode === '4k' ? 'p-12' : ''}`}
+        >
+          <PresentationVisual slideNumber={frame.sourceSlide} mode={mode} />
         </div>
       </div>
     </div>
@@ -492,12 +584,79 @@ function StatementFrame({ frame }: { frame: PresentationFrame }) {
   )
 }
 
+function PresentationFooter({
+  currentSlide,
+  totalSlides,
+}: {
+  currentSlide: number
+  totalSlides: number
+}) {
+  const sections = Object.entries(SECTIONS)
+    .map(([startSlide, data]) => ({
+      start: parseInt(startSlide),
+      label: data.label,
+      title: data.title,
+    }))
+    .sort((a, b) => a.start - b.start)
+
+  // Calculate section ranges
+  const sectionRanges = sections.map((sec, i) => {
+    const nextSec = sections[i + 1]
+    const end = nextSec ? nextSec.start - 1 : 100 // Assume generous max for last section
+    return { ...sec, end }
+  })
+
+  const currentSectionIdx = sectionRanges.findIndex(
+    (s) => currentSlide >= s.start && currentSlide <= s.end
+  )
+
+  const mode = useContext(PresentationModeContext)
+
+  return (
+    <div
+      className={`w-full bg-slate-950 border-t border-slate-800 ${mode === '4k' ? 'h-24' : 'h-16'}`}
+    >
+      <div className="flex h-full items-center px-6 gap-2">
+        {sectionRanges.map((sec, i) => {
+          const isActive = i === currentSectionIdx
+          const isPast = i < currentSectionIdx
+
+          return (
+            <div
+              key={sec.start}
+              className={`flex flex-1 flex-col justify-center h-full px-2 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-40'}`}
+            >
+              {/* Bar */}
+              <div
+                className={`w-full mb-2 rounded-full transition-all duration-300 ${
+                  mode === '4k' ? 'h-3' : 'h-1.5'
+                } ${isActive ? 'bg-cyan-500' : isPast ? 'bg-cyan-900' : 'bg-slate-800'}`}
+              />
+
+              {/* Label */}
+              <div
+                className={`font-semibold uppercase truncate transition-all duration-300 ${
+                  mode === '4k' ? 'text-xl' : 'text-xs'
+                } ${isActive ? 'text-cyan-400' : 'text-slate-500'}`}
+              >
+                {sec.label}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 // ── Main component ───────────────────────────────────────────────────
 
 export default function PresentationClient({
   slides,
+  mode = 'hd',
 }: {
   slides: TechnologyAdoptionSeriesSlide[]
+  mode?: PresentationMode
 }) {
   const frames = useMemo(() => expandToFrames(slides), [slides])
   const [currentIdx, setCurrentIdx] = useState(0)
@@ -555,132 +714,139 @@ export default function PresentationClient({
   const progress = ((currentIdx + 1) / frames.length) * 100
 
   return (
-    <div
-      className="presentation-root flex h-[100dvh] w-full flex-col overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      tabIndex={0}
-    >
-      {/* Thin progress bar */}
-      <div className="h-1 w-full bg-slate-800">
-        <div
-          className="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-300"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-
-      {/* Frame content area with fade transition */}
-      <div className="flex-1 overflow-hidden px-12 py-8 lg:px-20 lg:py-12">
-        <div
-          key={currentIdx}
-          className="h-full animate-[fadeIn_0.3s_ease-out] motion-reduce:animate-none"
-          style={{ animationFillMode: 'both' }}
-        >
-          {renderFrame()}
-        </div>
-        {/* Screen-reader announcement for frame changes */}
-        <div className="sr-only" aria-live="polite" aria-atomic="true">
-          Frame {currentIdx + 1} of {frames.length}
-          {frame.sourceSlide > 0 ? `, Slide ${frame.sourceSlide}` : ''}
-          {sectionLabel ? `, ${sectionLabel}` : ''}
-        </div>
-      </div>
-
-      {/* Keyboard shortcut overlay */}
-      {showHelp ? (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
-          onClick={() => setShowHelp(false)}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Keyboard shortcuts"
-        >
+    <PresentationModeContext.Provider value={mode}>
+      <div
+        className={`presentation-root flex h-[100dvh] w-full flex-col overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 ${
+          mode === '4k' ? 'mode-4k' : ''
+        }`}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        tabIndex={0}
+      >
+        {/* Thin progress bar */}
+        <div className="h-1 w-full bg-slate-800">
           <div
-            className="w-full max-w-md rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
+            className="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-300"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+
+        {/* Frame content area with fade transition */}
+        <div className="flex-1 overflow-hidden px-12 py-8 lg:px-20 lg:py-12">
+          <div
+            key={currentIdx}
+            className="h-full animate-[fadeIn_0.3s_ease-out] motion-reduce:animate-none"
+            style={{ animationFillMode: 'both' }}
           >
-            <h3 className="mb-4 text-lg font-bold text-white">Keyboard Shortcuts</h3>
-            <div className="space-y-2 text-base text-slate-300">
-              {[
-                ['→ / Space / PageDown', 'Next frame'],
-                ['← / PageUp', 'Previous frame'],
-                ['Home', 'First frame'],
-                ['End', 'Last frame'],
-                ['F', 'Toggle fullscreen'],
-                ['?', 'Toggle this help'],
-                ['Esc', 'Close help'],
-              ].map(([key, desc]) => (
-                <div key={key} className="flex items-center justify-between">
-                  <kbd className="rounded bg-slate-800 px-2 py-0.5 font-mono text-sm text-cyan-300">
-                    {key}
-                  </kbd>
-                  <span className="text-slate-400">{desc}</span>
-                </div>
-              ))}
-            </div>
+            {renderFrame()}
+          </div>
+          {/* Screen-reader announcement for frame changes */}
+          <div className="sr-only" aria-live="polite" aria-atomic="true">
+            Frame {currentIdx + 1} of {frames.length}
+            {frame.sourceSlide > 0 ? `, Slide ${frame.sourceSlide}` : ''}
+            {sectionLabel ? `, ${sectionLabel}` : ''}
           </div>
         </div>
-      ) : null}
 
-      {/* Navigation bar */}
-      <nav
-        className="flex items-center justify-between border-t border-slate-800 px-6 py-3"
-        aria-label="Presentation navigation"
-      >
-        <div className="flex items-center gap-3">
-          <Link
-            href="/technology-adoption-series"
-            className="rounded-lg bg-slate-800/60 px-3 py-2 text-sm font-semibold text-slate-400 transition-colors hover:bg-slate-700 hover:text-slate-200"
-          >
-            ← Series
-          </Link>
-          <button
-            onClick={() => setCurrentIdx((c) => Math.max(c - 1, 0))}
-            disabled={currentIdx === 0}
-            className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700 disabled:opacity-30"
-            aria-label="Previous frame"
-          >
-            ← Prev
-          </button>
-          <button
-            onClick={() => setCurrentIdx((c) => Math.min(c + 1, frames.length - 1))}
-            disabled={currentIdx === frames.length - 1}
-            className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700 disabled:opacity-30"
-            aria-label="Next frame"
-          >
-            Next →
-          </button>
-        </div>
+        {/* Global Footer Navigation */}
+        <PresentationFooter currentSlide={frame.sourceSlide} totalSlides={frames.length} />
 
-        <div className="text-sm text-slate-500">
-          {sectionLabel ? (
-            <span className="mr-2 font-semibold tracking-wide text-cyan-400/60">
-              {sectionLabel}
-            </span>
-          ) : null}
-          {currentIdx + 1} / {frames.length}
-          {frame.sourceSlide > 0 ? (
-            <span className="ml-2 text-slate-600">&middot; Slide {frame.sourceSlide}</span>
-          ) : null}
-        </div>
+        {/* Keyboard shortcut overlay */}
+        {showHelp ? (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+            onClick={() => setShowHelp(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Keyboard shortcuts"
+          >
+            <div
+              className="w-full max-w-md rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 className="mb-4 text-lg font-bold text-white">Keyboard Shortcuts</h3>
+              <div className="space-y-2 text-base text-slate-300">
+                {[
+                  ['→ / Space / PageDown', 'Next frame'],
+                  ['← / PageUp', 'Previous frame'],
+                  ['Home', 'First frame'],
+                  ['End', 'Last frame'],
+                  ['F', 'Toggle fullscreen'],
+                  ['?', 'Toggle this help'],
+                  ['Esc', 'Close help'],
+                ].map(([key, desc]) => (
+                  <div key={key} className="flex items-center justify-between">
+                    <kbd className="rounded bg-slate-800 px-2 py-0.5 font-mono text-sm text-cyan-300">
+                      {key}
+                    </kbd>
+                    <span className="text-slate-400">{desc}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : null}
 
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setShowHelp(true)}
-            className="rounded-lg bg-slate-800 px-3 py-2 text-sm font-semibold text-slate-400 transition-colors hover:bg-slate-700 hover:text-slate-200"
-            aria-label="Show keyboard shortcuts"
-          >
-            ?
-          </button>
-          <button
-            onClick={toggleFullscreen}
-            className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700"
-            aria-label="Toggle fullscreen"
-          >
-            ⛶ Fullscreen
-          </button>
-        </div>
-      </nav>
-    </div>
+        {/* Navigation bar */}
+        <nav
+          className="flex items-center justify-between border-t border-slate-800 px-6 py-3"
+          aria-label="Presentation navigation"
+        >
+          <div className="flex items-center gap-3">
+            <Link
+              href="/technology-adoption-series"
+              className="rounded-lg bg-slate-800/60 px-3 py-2 text-sm font-semibold text-slate-400 transition-colors hover:bg-slate-700 hover:text-slate-200"
+            >
+              ← Series
+            </Link>
+            <button
+              onClick={() => setCurrentIdx((c) => Math.max(c - 1, 0))}
+              disabled={currentIdx === 0}
+              className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700 disabled:opacity-30"
+              aria-label="Previous frame"
+            >
+              ← Prev
+            </button>
+            <button
+              onClick={() => setCurrentIdx((c) => Math.min(c + 1, frames.length - 1))}
+              disabled={currentIdx === frames.length - 1}
+              className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700 disabled:opacity-30"
+              aria-label="Next frame"
+            >
+              Next →
+            </button>
+          </div>
+
+          <div className="text-sm text-slate-500">
+            {sectionLabel ? (
+              <span className="mr-2 font-semibold tracking-wide text-cyan-400/60">
+                {sectionLabel}
+              </span>
+            ) : null}
+            {currentIdx + 1} / {frames.length}
+            {frame.sourceSlide > 0 ? (
+              <span className="ml-2 text-slate-600">&middot; Slide {frame.sourceSlide}</span>
+            ) : null}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowHelp(true)}
+              className="rounded-lg bg-slate-800 px-3 py-2 text-sm font-semibold text-slate-400 transition-colors hover:bg-slate-700 hover:text-slate-200"
+              aria-label="Show keyboard shortcuts"
+            >
+              ?
+            </button>
+            <button
+              onClick={toggleFullscreen}
+              className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700"
+              aria-label="Toggle fullscreen"
+            >
+              ⛶ Fullscreen
+            </button>
+          </div>
+        </nav>
+      </div>
+    </PresentationModeContext.Provider>
   )
 }

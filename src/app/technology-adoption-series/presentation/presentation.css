@@ -21,3 +21,183 @@ footer,
     transform: translateY(0);
   }
 }
+
+/* 4K Mode Overrides (applied when root has .mode-4k) */
+
+/* Relax width constraints */
+.mode-4k .max-w-md,
+.mode-4k .max-w-lg,
+.mode-4k .max-w-xl,
+.mode-4k .max-w-2xl,
+.mode-4k .max-w-3xl,
+.mode-4k .max-w-4xl,
+.mode-4k .max-w-5xl,
+.mode-4k .max-w-6xl {
+  max-width: 90% !important;
+}
+
+/* Ensure SVG containers can grow */
+.mode-4k .presentation-visual-container {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+}
+
+/* Force full width for 4K content */
+.mode-4k .presentation-4k-content {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.mode-4k .presentation-4k-content > * {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Ensure deep children in prose like blockquotes or wrapped lists expand */
+.mode-4k .presentation-4k-content blockquote {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.mode-4k .presentation-4k-content ul,
+.mode-4k .presentation-4k-content ol {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Scale up text for 4K */
+.mode-4k .text-xs {
+  font-size: 1rem !important;
+  line-height: 1.5rem !important;
+}
+
+/* Slide 6 Specific: Split specific detailed definition lists into columns */
+.mode-4k .presentation-4k-content[data-slide='6'] ul {
+  columns: 2;
+  column-gap: 6rem;
+}
+.mode-4k .presentation-4k-content[data-slide='6'] li {
+  break-inside: avoid;
+  margin-bottom: 3rem;
+}
+/* Slide 5 Specific: Ensure it uses full width if needed */
+.mode-4k .presentation-4k-content[data-slide='5'] {
+  width: 100% !important;
+}
+
+.mode-4k .text-sm {
+  font-size: 1.25rem !important;
+  line-height: 1.75rem !important;
+}
+.mode-4k .text-base {
+  font-size: 1.5rem !important;
+  line-height: 2rem !important;
+}
+.mode-4k .text-lg {
+  font-size: 1.875rem !important;
+  line-height: 2.25rem !important;
+}
+.mode-4k .text-xl {
+  font-size: 2.25rem !important;
+  line-height: 2.5rem !important;
+}
+.mode-4k .text-2xl {
+  font-size: 3rem !important;
+  line-height: 1 !important;
+}
+.mode-4k .text-3xl {
+  font-size: 3.75rem !important;
+  line-height: 1 !important;
+}
+.mode-4k .text-4xl {
+  font-size: 4.5rem !important;
+  line-height: 1 !important;
+}
+.mode-4k .text-5xl {
+  font-size: 6rem !important;
+  line-height: 1 !important;
+}
+.mode-4k .text-6xl {
+  font-size: 7rem !important;
+  line-height: 1 !important;
+}
+.mode-4k .text-7xl {
+  font-size: 8rem !important;
+  line-height: 1 !important;
+}
+
+/* Scale visuals layout dependencies */
+.mode-4k .gap-3 {
+  gap: 1.5rem !important;
+}
+.mode-4k .gap-4 {
+  gap: 2rem !important;
+}
+.mode-4k .gap-6 {
+  gap: 3rem !important;
+}
+.mode-4k .p-4 {
+  padding: 2rem !important;
+}
+.mode-4k .p-5 {
+  padding: 2.5rem !important;
+}
+.mode-4k .p-6 {
+  padding: 3rem !important;
+}
+.mode-4k .px-4 {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+.mode-4k .py-3 {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+.mode-4k .py-8 {
+  padding-top: 4rem !important;
+  padding-bottom: 4rem !important;
+}
+.mode-4k .px-12 {
+  padding-left: 6rem !important;
+  padding-right: 6rem !important;
+}
+
+/* Margins */
+.mode-4k .mb-4 {
+  margin-bottom: 2rem !important;
+}
+.mode-4k .mb-6 {
+  margin-bottom: 3rem !important;
+}
+.mode-4k .mb-8 {
+  margin-bottom: 4rem !important;
+}
+.mode-4k .mb-10 {
+  margin-bottom: 5rem !important;
+}
+.mode-4k .mt-6 {
+  margin-top: 3rem !important;
+}
+.mode-4k .mt-10 {
+  margin-top: 5rem !important;
+}
+.mode-4k .mt-12 {
+  margin-top: 6rem !important;
+}
+
+/* Specific component scaling */
+.mode-4k .h-16 {
+  height: 8rem !important;
+  width: 8rem !important;
+} /* Big icon circles */
+.mode-4k .h-10 {
+  height: 5rem !important;
+  width: 5rem !important;
+} /* Badges */
+.mode-4k .border {
+  border-width: 2px !important;
+}
+.mode-4k .border-l-4 {
+  border-left-width: 8px !important;
+} /* Blockquotes */
