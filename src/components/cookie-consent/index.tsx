@@ -349,6 +349,7 @@ export default function CookieConsent() {
   if (showPreferences) {
     return (
       <div
+        data-cookie-consent
         className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
         role="dialog"
         aria-modal="true"
@@ -490,6 +491,7 @@ export default function CookieConsent() {
 
   return (
     <div
+      data-cookie-consent
       className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t-2 border-gray-200 shadow-2xl"
       role="region"
       aria-label="Cookie consent notice"

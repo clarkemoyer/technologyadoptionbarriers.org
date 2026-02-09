@@ -1,18 +1,23 @@
 /*
   Presentation styling for the Technology Adoption Teaching Series deck.
-
-  Note: This is route-scoped (imported only by the presentation client), so it
-  won't affect the rest of the site.
+  Route-scoped (imported only by the presentation client).
 */
 
-/* Hide site chrome for presenting */
+/* Hide site chrome when presenting */
 #header,
-footer {
+footer,
+[data-cookie-consent] {
   display: none !important;
 }
 
-.measure-host {
-  position: absolute;
-  left: -10000px;
-  top: 0;
+/* Frame fade-in transition */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
