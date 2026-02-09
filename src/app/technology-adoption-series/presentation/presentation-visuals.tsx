@@ -892,6 +892,229 @@ function Visual24() {
   )
 }
 
+// ── Visual components for optional deep-dives (18–23) ──────
+
+function Visual18() {
+  const examples = [
+    { category: 'Container Orchestration', mainstream: 'Kubernetes', behind: 'Docker Swarm' },
+    { category: 'IaC', mainstream: 'Terraform / Ansible', behind: 'Chef / Puppet' },
+    { category: 'Languages', mainstream: 'Python / Java / JS', behind: 'Perl / Ruby (cloud)' },
+    { category: 'CI/CD', mainstream: 'GitLab CI / GitHub Actions', behind: 'Travis CI' },
+  ]
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="w-full max-w-4xl overflow-hidden rounded-xl border border-slate-700/50">
+        <table className="w-full border-collapse text-left">
+          <thead>
+            <tr className="bg-slate-800/80">
+              <th className="px-5 py-4 text-base font-bold text-slate-300">Category</th>
+              <th className="px-5 py-4 text-base font-bold text-emerald-400">Mainstream ✅</th>
+              <th className="px-5 py-4 text-base font-bold text-amber-400">Trending Behind ⚠️</th>
+            </tr>
+          </thead>
+          <tbody>
+            {examples.map((r, i) => (
+              <tr key={r.category} className={i % 2 === 0 ? 'bg-slate-800/30' : 'bg-slate-800/50'}>
+                <td className="px-5 py-3.5 text-base font-semibold text-white">{r.category}</td>
+                <td className="px-5 py-3.5 text-base text-slate-200">{r.mainstream}</td>
+                <td className="px-5 py-3.5 text-base text-slate-200">{r.behind}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+function Visual19() {
+  const tiers = [
+    {
+      title: 'Public Cloud',
+      stage: 'Mainstream',
+      items: ['AWS', 'Azure', 'Google Cloud'],
+      tone: 'good' as const,
+    },
+    {
+      title: 'Private / On-Prem',
+      stage: 'Mainstream',
+      items: ['vSphere', 'OpenStack', 'Nutanix'],
+      tone: 'good' as const,
+    },
+    {
+      title: 'Container Platforms',
+      stage: 'Mainstream → Leading',
+      items: ['Kubernetes', 'Managed K8s', 'Edge K8s'],
+      tone: 'info' as const,
+    },
+    {
+      title: 'Multi-Cloud Mgmt',
+      stage: 'Leading Edge',
+      items: ['Multi-cluster', 'Cross-cloud', 'Unified CP'],
+      tone: 'info' as const,
+    },
+  ]
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="grid w-full max-w-4xl grid-cols-2 gap-4">
+        {tiers.map((t) => (
+          <Card key={t.title}>
+            <div className="flex items-center justify-between">
+              <CardLabel>{t.title}</CardLabel>
+              <Badge tone={t.tone}>{t.stage}</Badge>
+            </div>
+            <ul className="mt-3 space-y-1.5 text-base text-slate-300">
+              {t.items.map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span
+                    className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400"
+                    aria-hidden="true"
+                  />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </Card>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function Visual20() {
+  const categories = [
+    {
+      title: 'Open Source (FOSS)',
+      examples: 'K8s, Terraform, Linux',
+      tone: 'good' as const,
+      note: 'Innovation + no lock-in',
+    },
+    {
+      title: 'Gov / Enterprise',
+      examples: 'FedRAMP, compliance tools',
+      tone: 'info' as const,
+      note: 'Compliance-driven',
+    },
+    {
+      title: 'COTS',
+      examples: 'Enterprise platforms',
+      tone: 'info' as const,
+      note: 'Rapid capability',
+    },
+    {
+      title: 'Custom / Bespoke',
+      examples: 'Internal development',
+      tone: 'warn' as const,
+      note: 'Full control + risk',
+    },
+  ]
+  return (
+    <div className="flex h-full flex-col items-center justify-center gap-6">
+      <div className="grid w-full max-w-4xl grid-cols-2 gap-4">
+        {categories.map((c) => (
+          <Card key={c.title}>
+            <div className="flex items-center justify-between">
+              <CardLabel>{c.title}</CardLabel>
+              <Badge tone={c.tone}>{c.note}</Badge>
+            </div>
+            <CardBody>{c.examples}</CardBody>
+          </Card>
+        ))}
+      </div>
+      <div className="text-center text-base text-slate-400">
+        <span className="font-semibold text-cyan-400">&ldquo;Best tool for the job&rdquo;</span> —
+        evaluate based on mission, lifecycle position, and adoption implications.
+      </div>
+    </div>
+  )
+}
+
+function Visual22() {
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="grid w-full max-w-4xl grid-cols-2 gap-6">
+        <Card className="border-cyan-500/30">
+          <CardLabel>Organizational Adoption</CardLabel>
+          <CardBody>Leadership deploys &amp; makes available</CardBody>
+          <div className="mt-4 space-y-2">
+            <Metric tone="good" label="Deployment status" value="Completed" />
+            <Metric tone="good" label="Budget" value="On target" />
+            <Metric tone="bad" label="User engagement" value="Unknown" />
+          </div>
+          <div className="mt-3 rounded border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-sm text-amber-300">
+            ⚠️ Stopping here = shelf-ware
+          </div>
+        </Card>
+        <Card className="border-emerald-500/30">
+          <CardLabel>+ Voluntary User Adoption</CardLabel>
+          <CardBody>Users choose to use &amp; advocate</CardBody>
+          <div className="mt-4 space-y-2">
+            <Metric tone="good" label="Active usage" value="High" />
+            <Metric tone="good" label="Task completion" value="Rising" />
+            <Metric tone="good" label="Expansion requests" value="Growing" />
+          </div>
+          <div className="mt-3 rounded border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300">
+            ✅ Both levels = real ROI
+          </div>
+        </Card>
+      </div>
+    </div>
+  )
+}
+
+function Visual23() {
+  const phases = [
+    { label: 'Immediate', note: 'Security triage + isolation', tone: 'bad' as const },
+    {
+      label: 'Short-term',
+      note: 'Risk documentation + self-support assessment',
+      tone: 'warn' as const,
+    },
+    {
+      label: 'Mid-term',
+      note: 'Replacement selection + migration architecture',
+      tone: 'info' as const,
+    },
+    { label: 'Long-term', note: 'Complete migration + decommission', tone: 'good' as const },
+  ]
+  return (
+    <div className="flex h-full flex-col items-center justify-center gap-6">
+      <div className="w-full max-w-2xl space-y-0">
+        {phases.map((p, i) => (
+          <div key={i} className="flex items-start gap-4">
+            <div className="flex flex-col items-center">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-cyan-500 bg-cyan-950/40 text-sm font-bold text-cyan-300">
+                {i + 1}
+              </div>
+              {i < phases.length - 1 ? <div className="h-8 w-px bg-slate-700" /> : null}
+            </div>
+            <div className="pb-6">
+              <div className="flex items-center gap-3">
+                <div className="text-lg font-bold text-white">{p.label}</div>
+                <Badge tone={p.tone}>
+                  {p.tone === 'bad'
+                    ? 'Urgent'
+                    : p.tone === 'warn'
+                      ? 'Plan'
+                      : p.tone === 'info'
+                        ? 'Execute'
+                        : 'Complete'}
+                </Badge>
+              </div>
+              <div className="text-sm text-slate-400">{p.note}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="text-center text-base text-slate-400">
+        Legacy migration is{' '}
+        <span className="font-semibold text-amber-300">involuntary adoption</span> —
+        over-communicate, train extensively, and move fast.
+      </div>
+    </div>
+  )
+}
+
 // ── Public export ──────────────────────────────────────────
 
 const VISUAL_MAP: Record<number, () => ReactNode> = {
@@ -912,7 +1135,12 @@ const VISUAL_MAP: Record<number, () => ReactNode> = {
   15: Visual15,
   16: Visual16,
   17: Visual17,
+  18: Visual18,
+  19: Visual19,
+  20: Visual20,
   21: Visual21,
+  22: Visual22,
+  23: Visual23,
   24: Visual24,
 }
 

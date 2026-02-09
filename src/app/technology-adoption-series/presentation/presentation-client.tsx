@@ -65,7 +65,7 @@ const SECTIONS: Record<number, { label: string; title: string; count: string }> 
 
 /** Slides that have a dark-native visual component. */
 const SLIDES_WITH_VISUALS = new Set([
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 24,
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
 ])
 
 const MAX_FRAME_SIZE = 400 // estimated chars before splitting
@@ -293,7 +293,9 @@ function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFr
 
 function useKeyboardNavigation(
   total: number,
-  setCurrent: React.Dispatch<React.SetStateAction<number>>
+  setCurrent: React.Dispatch<React.SetStateAction<number>>,
+  helpOpenRef: React.RefObject<boolean>,
+  setShowHelp: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   const toggleFullscreen = useCallback(() => {
     if (!document.fullscreenElement) {
@@ -305,6 +307,24 @@ function useKeyboardNavigation(
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      // Help overlay toggle — always active
+      if (e.key === '?') {
+        e.preventDefault()
+        setShowHelp((h) => !h)
+        return
+      }
+      if (e.key === 'Escape') {
+        if (helpOpenRef.current) {
+          setShowHelp(false)
+          return
+        }
+        // Escape outside help does nothing
+        return
+      }
+
+      // Block all navigation when help overlay is open
+      if (helpOpenRef.current) return
+
       if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
         e.preventDefault()
         setCurrent((c) => Math.min(c + 1, total - 1))
@@ -324,9 +344,22 @@ function useKeyboardNavigation(
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [total, setCurrent, toggleFullscreen])
+  }, [total, setCurrent, toggleFullscreen, helpOpenRef, setShowHelp])
 
   return toggleFullscreen
+}
+
+/** Resolve the current section label for the nav bar. */
+function getSectionLabel(sourceSlide: number): string {
+  if (sourceSlide === 0) return ''
+  // Walk SECTIONS in descending order to find the section this slide belongs to
+  const sectionStarts = Object.keys(SECTIONS)
+    .map(Number)
+    .sort((a, b) => b - a)
+  for (const start of sectionStarts) {
+    if (sourceSlide >= start) return SECTIONS[start].label
+  }
+  return ''
 }
 
 // ── Frame renderers ──────────────────────────────────────────────────
@@ -439,8 +472,13 @@ function StatementFrame({ frame }: { frame: PresentationFrame }) {
         {frame.title}
       </div>
       {isWarning ? (
-        <div className="max-w-4xl text-3xl font-bold leading-snug text-amber-300 lg:text-5xl">
-          {frame.statement}
+        <div className="flex max-w-4xl flex-col items-center gap-4">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-amber-500/20 text-4xl">
+            ⚠️
+          </div>
+          <div className="text-3xl font-bold leading-snug text-amber-300 lg:text-5xl">
+            {frame.statement?.replace(/^⚠️\s*/, '')}
+          </div>
         </div>
       ) : alreadyQuoted ? (
         <blockquote className="max-w-4xl text-3xl font-semibold leading-snug text-white lg:text-5xl">
@@ -464,24 +502,22 @@ export default function PresentationClient({
 }) {
   const frames = useMemo(() => expandToFrames(slides), [slides])
   const [currentIdx, setCurrentIdx] = useState(0)
-  const toggleFullscreen = useKeyboardNavigation(frames.length, setCurrentIdx)
+  const [showHelp, setShowHelp] = useState(false)
+  const helpOpenRef = useRef(false)
+  // Keep ref in sync so the keyboard handler (which captures the ref
+  // object, not the boolean) can read the latest value.
+  useEffect(() => {
+    helpOpenRef.current = showHelp
+  }, [showHelp])
+  const toggleFullscreen = useKeyboardNavigation(
+    frames.length,
+    setCurrentIdx,
+    helpOpenRef,
+    setShowHelp
+  )
 
   const frame = frames[currentIdx]
-  const [showHelp, setShowHelp] = useState(false)
-
-  // ── Keyboard shortcut help (toggle with ?) ──
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === '?') {
-        e.preventDefault()
-        setShowHelp((h) => !h)
-      } else if (e.key === 'Escape' && showHelp) {
-        setShowHelp(false)
-      }
-    }
-    window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
-  }, [showHelp])
+  const sectionLabel = useMemo(() => getSectionLabel(frame.sourceSlide), [frame.sourceSlide])
 
   // ── Touch navigation ──
   const touchStart = useRef(0)
@@ -491,7 +527,7 @@ export default function PresentationClient({
   const handleTouchEnd = useCallback(
     (e: React.TouchEvent) => {
       const diff = touchStart.current - e.changedTouches[0].clientX
-      if (Math.abs(diff) > 60) {
+      if (Math.abs(diff) > 80) {
         if (diff > 0) setCurrentIdx((c) => Math.min(c + 1, frames.length - 1))
         else setCurrentIdx((c) => Math.max(c - 1, 0))
       }
@@ -538,10 +574,16 @@ export default function PresentationClient({
       <div className="flex-1 overflow-hidden px-12 py-8 lg:px-20 lg:py-12">
         <div
           key={currentIdx}
-          className="h-full animate-[fadeIn_0.3s_ease-out]"
+          className="h-full animate-[fadeIn_0.3s_ease-out] motion-reduce:animate-none"
           style={{ animationFillMode: 'both' }}
         >
           {renderFrame()}
+        </div>
+        {/* Screen-reader announcement for frame changes */}
+        <div className="sr-only" aria-live="polite" aria-atomic="true">
+          Frame {currentIdx + 1} of {frames.length}
+          {frame.sourceSlide > 0 ? `, Slide ${frame.sourceSlide}` : ''}
+          {sectionLabel ? `, ${sectionLabel}` : ''}
         </div>
       </div>
 
@@ -551,9 +593,13 @@ export default function PresentationClient({
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
           onClick={() => setShowHelp(false)}
           role="dialog"
+          aria-modal="true"
           aria-label="Keyboard shortcuts"
         >
-          <div className="w-full max-w-md rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-2xl">
+          <div
+            className="w-full max-w-md rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
             <h3 className="mb-4 text-lg font-bold text-white">Keyboard Shortcuts</h3>
             <div className="space-y-2 text-base text-slate-300">
               {[
@@ -608,6 +654,11 @@ export default function PresentationClient({
         </div>
 
         <div className="text-sm text-slate-500">
+          {sectionLabel ? (
+            <span className="mr-2 font-semibold tracking-wide text-cyan-400/60">
+              {sectionLabel}
+            </span>
+          ) : null}
           {currentIdx + 1} / {frames.length}
           {frame.sourceSlide > 0 ? (
             <span className="ml-2 text-slate-600">&middot; Slide {frame.sourceSlide}</span>
