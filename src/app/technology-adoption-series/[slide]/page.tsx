@@ -1622,6 +1622,8 @@ export default async function TechnologyAdoptionSeriesSlidePage({ params }: Page
 
   const sections = splitSections(slide.contentMarkdown)
   const contentNodes = parseSimpleMarkdown(sections.content)
+  const speakerNodes = sections.speakerNotes ? parseSimpleMarkdown(sections.speakerNotes) : []
+  const transitionNodes = sections.transition ? parseSimpleMarkdown(sections.transition) : []
 
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -1645,6 +1647,28 @@ export default async function TechnologyAdoptionSeriesSlidePage({ params }: Page
         <section className="mb-10">
           <RenderMarkdownNodes nodes={contentNodes} slideNumber={slide.number} />
         </section>
+
+        {speakerNodes.length ? (
+          <details className="mb-6 rounded border border-gray-200 bg-gray-50">
+            <summary className="cursor-pointer px-4 py-3 text-sm font-semibold text-gray-900">
+              Speaker notes
+            </summary>
+            <div className="px-4 pb-4">
+              <RenderMarkdownNodes nodes={speakerNodes} slideNumber={slide.number} />
+            </div>
+          </details>
+        ) : null}
+
+        {transitionNodes.length ? (
+          <details className="mb-10 rounded border border-gray-200 bg-gray-50">
+            <summary className="cursor-pointer px-4 py-3 text-sm font-semibold text-gray-900">
+              Transition
+            </summary>
+            <div className="px-4 pb-4">
+              <RenderMarkdownNodes nodes={transitionNodes} slideNumber={slide.number} />
+            </div>
+          </details>
+        ) : null}
 
         <nav
           aria-label="Series navigation"
