@@ -40,8 +40,7 @@ Session 2: Technology Lifecycle Positioning (60 minutes)
 
 - Present Slides 6-9
 - Deep dive: Lifecycle stages and implications
-- Interactive exercise: Place common technologies on lifecycle curve
-  o Kubernetes, Docker Swarm, VMware, Python 2 vs 3, etc.
+- Interactive exercise: Place common technologies on lifecycle curve - Kubernetes, Docker Swarm, VMware, Python 2 vs 3, etc.
 - Discussion: How does lifecycle position affect your decisions?
 
 Lunch (45 minutes)
