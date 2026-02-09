@@ -453,11 +453,13 @@ function Visual6() {
         {/* Central Connector Arrow: Mainstream End (near 668, 470) to Trending Behind Start (near 1170, 230) */}
         {/* Let's draw it from x=700, y=500 to x=900, y=300? */}
         <path
-          d="M 720 500 L 880 340"
+          d="M 668 470 C 850 470, 1000 230, 1170 232"
+          fill="none"
           stroke="#94a3b8"
-          strokeWidth="24"
-          strokeOpacity="0.3"
+          strokeWidth="4"
+          strokeDasharray="12 12"
           markerEnd="url(#arrow-conn)"
+          opacity="0.6"
         />
       </svg>
 
@@ -498,19 +500,19 @@ function Visual7() {
         <table className="w-full border-collapse text-left">
           <thead>
             <tr className="bg-slate-800/80">
-              <th className="px-5 py-4 text-base font-bold text-slate-300">Lifecycle Stage</th>
-              <th className="px-5 py-4 text-base font-bold text-slate-300">Adoption Risk</th>
-              <th className="px-5 py-4 text-base font-bold text-slate-300">Posture</th>
+              <th className="px-4 py-2 text-base font-bold text-slate-300">Lifecycle Stage</th>
+              <th className="px-4 py-2 text-base font-bold text-slate-300">Adoption Risk</th>
+              <th className="px-4 py-2 text-base font-bold text-slate-300">Posture</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((r, i) => (
               <tr key={r.stage} className={i % 2 === 0 ? 'bg-slate-800/30' : 'bg-slate-800/50'}>
-                <td className="px-5 py-3.5 text-base font-semibold text-white">{r.stage}</td>
-                <td className="px-5 py-3.5">
+                <td className="px-4 py-2.5 text-base font-semibold text-white">{r.stage}</td>
+                <td className="px-4 py-2.5">
                   <Badge tone={r.tone}>{r.risk}</Badge>
                 </td>
-                <td className="px-5 py-3.5 text-base text-slate-300">{r.posture}</td>
+                <td className="px-4 py-2.5 text-base text-slate-300">{r.posture}</td>
               </tr>
             ))}
           </tbody>

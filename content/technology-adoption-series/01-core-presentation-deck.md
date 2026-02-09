@@ -206,47 +206,17 @@ Adoption decisions cascade into all subsequent development and integration work.
 **Content**
 
 TECHNOLOGY LIFECYCLE STAGES
+(Where you sit determines your management, architecture, and solutions)
 
-```text
-├─ BLEEDING EDGE
-│  The very forefront of technological development
-│  • Experimental, unproven, high risk
-│  • Rapid change, limited support
-│  • Few practitioners, sparse documentation
-│
-├─ LEADING EDGE
-│  The forefront or vanguard of technological development
-│  • Proven concepts, early adoption phase
-│  • Evolving standards, growing community
-│  • Innovation opportunity, managed risk
-│
-├─ MAINSTREAM
-│  Ideas, attitudes, or activities regarded as normal or conventional
-│  • Widely adopted, stable, well-understood
-│  • Mature tooling, extensive support
-│  • Lower risk, predictable outcomes
-│
-├─ TRENDING BEHIND
-│  Developing and becoming less common
-│  • Declining usage, newer alternatives exist
-│  • Support diminishing, talent pool shrinking
-│  • Legacy concerns emerging
-│
-├─ END OF SUPPORT
-│  Company/community ceases active support
-│  • No updates, security patches, or bug fixes
-│  • Must self-support or migrate
-│  • Increasing technical debt
-│
-├─ END OF LIFE
-│  Final stages of product existence
-│  • No longer maintained by anyone
-│  • Incompatible with modern systems
-│  • Migration mandatory
-│
-└─ OBSOLETE
-   No longer produced or used; out of date
-```
+**BLEEDING EDGE:** Forefront of development. Experimental, unproven, high risk. Monitor only.
+
+**LEADING EDGE:** Proven concepts, early adoption. Innovation with managed risk. **Target Zone.**
+
+**MAINSTREAM:** Widely adopted, stable, mature tooling. Predictable outcomes. **Target Zone.**
+
+**TRENDING BEHIND:** Declining usage, newer alternatives exist. Legacy concerns emerging.
+
+**END OF SUPPORT / LIFE:** No updates, security patches, or bug fixes. Migration mandatory.
 
 **Visual:** Lifecycle curve
 
