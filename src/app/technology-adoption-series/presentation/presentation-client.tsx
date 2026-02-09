@@ -391,7 +391,7 @@ export function TechnologyAdoptionSeriesPresentationClient({
   return (
     <div
       ref={wrapperRef}
-      className="fixed inset-0 z-[9999] overflow-hidden bg-slate-950 text-slate-50 antialiased"
+      className="technology-adoption-series-presentation fixed inset-0 z-[9999] overflow-hidden bg-slate-950 text-slate-50 antialiased"
       aria-label="Presentation"
     >
       <nav
