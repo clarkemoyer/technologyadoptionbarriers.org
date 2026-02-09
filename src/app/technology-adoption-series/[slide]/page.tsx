@@ -4,11 +4,9 @@ import { notFound } from 'next/navigation'
 import type { ReactNode } from 'react'
 
 import { ARTICLE_CLASSES, H1_CLASSES } from '@/lib/articleStyles'
-import { assetPath } from '@/lib/assetPath'
 import { parseSimpleMarkdown, RenderMarkdownNodes } from '@/lib/simple-markdown'
 import {
   getTechnologyAdoptionSeriesPrevNext,
-  getTechnologyAdoptionSeriesSlideBySegment,
   getTechnologyAdoptionSeriesSlides,
 } from '@/lib/technology-adoption-series'
 import TeachingSeriesNavigation from '@/components/teaching-series-navigation'
