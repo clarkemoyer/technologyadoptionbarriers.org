@@ -685,7 +685,29 @@ These aren't just technical capabilities - they're adoption enablers.
 When technology works in user environments and fits user workflows,
 voluntary adoption follows naturally.
 
-**Visual:** Three capabilities with adoption impact annotations and icons
+**Visual:** Enabling Capabilities Stack
+
+```text
+      ┌────────────────────────────────────────────────────────┐
+      │             ADOPTION ENABLING CAPABILITIES             │
+      └───────────────────────────┬────────────────────────────┘
+                                  │
+          ┌───────────────────────┴────────────────────────┐
+          │                                                │
+  ┌───────▼───────┐        ┌───────▼───────┐        ┌───────▼───────┐
+  │   GRACEFUL    │        │   SCALABLE    │        │   RESILIENT   │
+  │  DEGRADATION  │        │  DEPLOYMENT   │        │  OPERATIONS   │
+  │               │        │               │        │               │
+  │ "Fails safely"│        │ "Goes where   │        │ "Works under  │
+  │               │        │  users are"   │        │   pressure"   │
+  └───────┬───────┘        └───────┬───────┘        └───────┬───────┘
+          │                        │                        │
+          └────────────────────────┼────────────────────────┘
+                                   │
+                     ┌─────────────▼─────────────┐
+                     │    USER TRUST & RELIANCE  │
+                     └───────────────────────────┘
+```
 
 **Speaker Notes:**
 
@@ -746,7 +768,27 @@ WHAT TO MEASURE WHEN:
 - Deployment Phase: Early adopter satisfaction, voluntary expansion requests
 - Sustainment Phase: Active usage, feature requests, advocacy rates
 
-**Visual:** Dashboard-style metrics visualization with green (success) and red (warning) indicators
+**Visual:** Success vs Warning Signals Dashboard
+
+```text
+  ┌─────────────────────────────────┐      ┌─────────────────────────────────┐
+  │         SUCCESS SIGNALS         │      │         WARNING SIGNALS         │
+  │             (Healthy)           │      │           (Unhealthy)           │
+  ├─────────────────────────────────┤      ├─────────────────────────────────┤
+  │                                 │      │                                 │
+  │  Usage Rate:        [██████] HI │      │  Usage Rate:        [█     ] LO │
+  │                                 │      │                                 │
+  │  Task Completion:   [  ➚   ] UP │      │  Help Tickets:      [  ➙   ] -- │
+  │                                 │      │                                 │
+  │  User Sentiment:    [  ☺   ] POS│      │  Workarounds:       [  ➚   ] UP │
+  │                                 │      │                                 │
+  │  Method:            Voluntary   │      │  Method:            Mandated    │
+  │                                 │      │                                 │
+  └─────────────────────────────────┘      └─────────────────────────────────┘
+                   ▲                                        ▲
+                   │                                        │
+           "PULL" ADOPTION                          "PUSH" ADOPTION
+```
 
 **Speaker Notes:**
 
@@ -922,7 +964,31 @@ BEST PRACTICES FOR ADOPTION SUCCESS:
     - Development decisions flow from adoption requirements
     - Success = sustained voluntary usage, not deployment completion
 
-**Visual:** Numbered list with icons, emphasis on lifecycle integration throughout
+**Visual:** The Adoption Checklist
+
+```text
+  ╔═══════════════════════════════════════════════════════════════════╗
+  ║                 ADOPTION BEST PRACTICES CHECKLIST                 ║
+  ╠═══════════════════════════════════════════════════════════════════╣
+  ║                                                                   ║
+  ║  STRATEGY & PLANNING                                              ║
+  ║  [✓] 1. Position in Right Lifecycle Stage (Leading -> Mainstream) ║
+  ║  [✓] 2. Choose Architecture for Adoption                          ║
+  ║  [✓] 3. Plan for Entire Lifecycle                                 ║
+  ║                                                                   ║
+  ║  DESIGN & EXECUTION                                               ║
+  ║  [✓] 4. Design WITH Users (Not just for them)                     ║
+  ║  [✓] 5. Demonstrate Clear, Immediate Value                        ║
+  ║  [✓] 6. Minimize Behavior Change                                  ║
+  ║  [✓] 7. Use Phased Rollout with Champions                         ║
+  ║                                                                   ║
+  ║  MONITORING & SUSTAINMENT                                         ║
+  ║  [✓] 8. Avoid Involuntary Adoption                                ║
+  ║  [✓] 9. Measure What Matters (Usage > Uptime)                     ║
+  ║  [✓] 10. Prevent Shelf-ware                                       ║
+  ║                                                                   ║
+  ╚═══════════════════════════════════════════════════════════════════╝
+```
 
 **Speaker Notes:**
 
@@ -983,7 +1049,22 @@ This framework provides the foundation for transforming technology projects from
 
 The next slide is a Q&A transition. After that, use the optional deep-dive slides only as needed.
 
----
+**Visual:** Q&A Transition Card
+
+```text
+        .--------------------------------------------------.
+        |                                                  |
+        |               Q U E S T I O N S                  |
+        |                       &                          |
+        |                A N S W E R S                     |
+        |                                                  |
+        |          Type: [ Discussion ]                    |
+        |          Time: [ Open       ]                    |
+        |                                                  |
+        |    (Optional Deep Dives Available Below)         |
+        |      ↓                          ↓                |
+        '--------------------------------------------------'
+```
 
 ### Slide 17 (Optional): "Q&A and Optional Deep Dives"
 
@@ -1139,13 +1220,29 @@ TECHNOLOGY SELECTION PRINCIPLES:
 - ✅ Long-term support commitments (multi-year horizons)
 - ✅ Broad integration ecosystem
 
-WHY THESE LIFECYCLE POSITIONS?
+**Visual:** Cloud Platform Tiers
 
-- Stability for mission-critical operations
-- Innovation opportunity with managed risk
-- Strong voluntary adoption potential
-- Sustainable talent acquisition
-- Vendor support and ecosystem maturity
+```text
+           ┌──────────────────────────────────────────────┐
+           │            MULTI-CLOUD MANAGEMENT            │
+           │           (Leading Edge -> Mainstream)       │
+           │  [Multi-Cluster]  [Cross-Cloud]  [Unified]   │
+           └──────────────────────┬───────────────────────┘
+                                  │
+           ┌──────────────────────▼───────────────────────┐
+           │             CONTAINER PLATFORMS              │
+           │           (Mainstream -> Leading)            │
+           │        [Kubernetes]  [Managed K8s]           │
+           └──────────────────────┬───────────────────────┘
+                                  │
+         ┌────────────────────────┴────────────────────────┐
+         │                                                 │
+ ┌───────▼───────┐                                 ┌───────▼───────┐
+ │ PUBLIC CLOUD  │                                 │   ON-PREM     │
+ │ (Mainstream)  │                                 │  (Mainstream) │
+ │ [AWS/GCP/Az]  │                                 │ [VMware/Open] │
+ └───────────────┘                                 └───────────────┘
+```
 
 ---
 
@@ -1205,8 +1302,27 @@ We don't mandate a single category. Evaluate based on:
 - ✓ Integration with existing systems
 - ✓ Talent availability
 
-This approach aligns with Leading Edge → Mainstream positioning
-and enables flexible architecture approaches.
+**Visual:** Sourcing Strategy Quadrants
+
+```text
+                  CONTROL / RISK
+                        ▲
+        (High)          │          (Low)
+           ┌────────────┴────────────┐
+           │                         │
+  CUSTOM   │  Build It    │  Buy It  │  COTS
+ (Unique)  │  (Bespoke)   │ (Vendor) │ (Standard)
+           │              │          │
+           ├──────────────┼──────────┤
+           │              │          │
+GOV/ENT    │  Compliance  │ Community│  OPEN SOURCE
+(Specific) │  (FedRAMP)   │  (FOSS)  │ (Universal)
+           │              │          │
+           └────────────┬────────────┘
+                        │
+                        ▼
+                 SPEED / UTILITY
+```
 
 ---
 
@@ -1276,7 +1392,22 @@ COMMON ADOPTION ANTI-PATTERNS TO AVOID:
     - ❌ No user-focused guidance
     - ✅ Instead: User documentation throughout development
 
-Each of these anti-patterns leads to adoption failure and shelf-ware.
+**Visual:** The Anti-Pattern Graveyard
+
+```text
+      ⚠️  ADOPTION ANTI-PATTERNS  ⚠️
+
+  1. "Build it and they will come"   -->  ⛔ GHOST TOWN
+  2. "Tech for tech's sake"          -->  ⛔ SOLUTION IN SEARCH OF PROBLEM
+  3. "One size fits all"             -->  ⛔ USER FRUSTRATION
+  4. "Big Bang deployment"           -->  ⛔ CATASTROPHIC FAILURE
+  5. "Set it and forget it"          -->  ⛔ ROT & DECAY
+  6. "The Mandate"                   -->  ⛔ MALICIOUS COMPLIANCE
+  7. "Vendor Lock-in"                -->  ⛔ DEAD END
+  8. "Ignoring lifecycle"            -->  ⛔ OBSOLESCENCE
+  9. "Feature obsession"             -->  ⛔ BLOATWARE
+ 10. "Docs as afterthought"          -->  ⛔ UNUSABLE
+```
 
 ---
 
@@ -1445,10 +1576,35 @@ LONG-TERM STRATEGY (Long term):
    - Archive data per retention requirements
    - Document lessons learned
 
-3. **Lifecycle Monitoring**
-   - Implement proactive monitoring for new system
-   - Plan for modernization before reaching End of Support again
-   - Establish a lifecycle review cadence
+**Visual:** Legacy Migration Timeline
+
+```text
+     [ END OF SUPPORT DETECTED ]
+              │
+              ▼
+  PHASE 1: I M M E D I A T E  (Triage)
+  ┌──────────────────────────────────────────────┐
+  │ 🛑 Security Triage   │ 🔒 System Isolation   │
+  └──────────────────────────────────────────────┘
+              │
+              ▼
+  PHASE 2: S H O R T - T E R M  (Stabilize)
+  ┌──────────────────────────────────────────────┐
+  │ 📝 Risk Docs         │ 🛠️ Self-Support Plan  │
+  └──────────────────────────────────────────────┘
+              │
+              ▼
+  PHASE 3: M I D - T E R M  (Architect)
+  ┌──────────────────────────────────────────────┐
+  │ 🏗️ Select Replacement│ 🔄 Data Strategy      │
+  └──────────────────────────────────────────────┘
+              │
+              ▼
+  PHASE 4: L O N G - T E R M  (Execute)
+  ┌───────────────────────┬──────────────────────┐
+  │ 🚀 Complete Migration │ ⚰️ Decommission Old  │
+  └───────────────────────┴──────────────────────┘
+```
 
 CRITICAL ADOPTION INSIGHT FOR FORCED MIGRATIONS:
 
@@ -1585,13 +1741,30 @@ USER ADOPTION METRICS FOR AI/ML:
 - Feedback quality (users helping improve model)
 - Expansion requests (users wanting model for additional use cases)
 
-WARNING SIGNS:
+**Visual:** AI Adoption Trust Filter
 
-- ✗ High override rates (users don't trust predictions)
-- ✗ Minimal model usage despite availability
-- ✗ Users reverting to manual processes
-- ✗ Complaints about "black box" decisions
-- ✗ Accuracy metrics declining over time
+```text
+      INPUT: AI PREDICTIONS / MODELS
+                  │
+                  ▼
+      ┌───────────────────────────┐
+      │  TRUST BARRIER #1         │
+      │  "Is it explainable?"     │
+      └───────────┬───────────────┘
+                  │ NO = RO REJECT
+      ┌───────────▼───────────────┐
+      │  TRUST BARRIER #2         │
+      │  "Is it accurate?"        │
+      └───────────┬───────────────┘
+                  │ NO = IGNORE
+      ┌───────────▼───────────────┐
+      │  TRUST BARRIER #3         │
+      │  "Does it help me?"       │
+      └───────────┬───────────────┘
+                  │ NO = BYPASS
+                  ▼
+      OUTPUT: VOLUNTARY ADOPTION
+```
 
 KEY INSIGHT:
 
