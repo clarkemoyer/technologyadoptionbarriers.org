@@ -1268,41 +1268,55 @@ function Visual23() {
 
 // ── Public export ──────────────────────────────────────────
 
-const VISUAL_MAP: Record<number, React.ComponentType<{ mode?: 'hd' | '4k' }>> = {
-  1: Visual1,
-  2: Visual2,
-  3: Visual3,
-  4: Visual4,
-  5: Visual5,
-  6: Visual6,
-  7: Visual7,
-  8: Visual8,
-  9: Visual9,
-  10: Visual10,
-  11: Visual11,
-  12: Visual12,
-  13: Visual13,
-  14: Visual14,
-  15: Visual15,
-  16: Visual16,
-  17: Visual17,
-  18: Visual18,
-  19: Visual19,
-  20: Visual20,
-  21: Visual21,
-  22: Visual22,
-  23: Visual23,
-  24: Visual24,
+// ── Public export ──────────────────────────────────────────
+
+export interface VisualDef {
+  number: number
+  id: string
+  component: React.ComponentType<{ mode?: 'hd' | '4k' }>
 }
 
-export function PresentationVisual({
-  slideNumber,
-  mode = 'hd',
-}: {
-  slideNumber: number
-  mode?: 'hd' | '4k'
-}) {
-  const Component = VISUAL_MAP[slideNumber]
+export const VISUAL_CONFIG: VisualDef[] = [
+  { number: 1, id: 'adoption-process-flow', component: Visual1 },
+  { number: 2, id: 'adoption-framework-layers', component: Visual2 },
+  { number: 3, id: 'voluntary-vs-involuntary-table', component: Visual3 },
+  { number: 4, id: 'shelfware-vs-adopted-comparison', component: Visual4 },
+  { number: 5, id: 'strategic-adoption-pillars', component: Visual5 },
+  { number: 6, id: 'technology-lifecycle-positioning-diagram', component: Visual6 },
+  { number: 7, id: 'lifecycle-stages-matrix', component: Visual7 },
+  { number: 8, id: 'strategic-positioning-target', component: Visual8 },
+  { number: 9, id: 'architecture-approaches-comparison', component: Visual9 },
+  { number: 10, id: 'lifecycle-architecture-mapping', component: Visual10 },
+  { number: 11, id: 'lifecycle-planning-loop', component: Visual11 },
+  { number: 12, id: 'adoption-driven-decisions-flow', component: Visual12 },
+  { number: 13, id: 'adoption-enabling-capabilities', component: Visual13 },
+  { number: 14, id: 'adoption-success-metrics', component: Visual14 },
+  { number: 15, id: 'phased-adoption-roadmap', component: Visual15 },
+  { number: 16, id: 'adoption-best-practices-checklist', component: Visual16 },
+  { number: 17, id: 'qa-transition-card', component: Visual17 },
+  { number: 18, id: 'deep-dive-tech-stack-comparison', component: Visual18 },
+  { number: 19, id: 'deep-dive-cloud-tiers', component: Visual19 },
+  { number: 20, id: 'deep-dive-sourcing-strategy', component: Visual20 },
+  { number: 21, id: 'deep-dive-anti-patterns', component: Visual21 },
+  { number: 22, id: 'deep-dive-roi-analysis', component: Visual22 },
+  { number: 23, id: 'deep-dive-legacy-migration', component: Visual23 },
+  { number: 24, id: 'deep-dive-ai-friction', component: Visual24 },
+]
+
+export const VISUAL_REGISTRY = Object.fromEntries(
+  VISUAL_CONFIG.map((v) => [v.id, v.component])
+) as Record<string, React.ComponentType<{ mode?: 'hd' | '4k' }>>
+
+/**
+ * Mapping of Slide Number (which corresponds to Visual Number in this deck) to Visual ID.
+ * This is used by the client to resolve which visual to show for a given slide.
+ */
+export const SLIDE_TO_VISUAL_ID = Object.fromEntries(
+  VISUAL_CONFIG.map((v) => [v.number, v.id])
+) as Record<number, string>
+
+export function PresentationVisual({ id, mode = 'hd' }: { id: string; mode?: 'hd' | '4k' }) {
+  const Component = VISUAL_REGISTRY[id]
   if (!Component) return null
   return (
     <div className={mode === '4k' ? 'visual-4k-scale h-full w-full' : 'h-full w-full'}>
