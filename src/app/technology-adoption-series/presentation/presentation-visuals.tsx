@@ -59,7 +59,6 @@ const FrictionBar = ({ value, label }: { value: number; label?: string }) => {
         </div>
       ) : null}
       <div className="h-2.5 w-full overflow-hidden rounded-full bg-slate-700/60">
-        {/* eslint-disable-next-line */}
         <div
           className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400"
           style={{ width: `${pct}%` }}
