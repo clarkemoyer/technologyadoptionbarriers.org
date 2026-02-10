@@ -59,6 +59,7 @@ const FrictionBar = ({ value, label }: { value: number; label?: string }) => {
         </div>
       ) : null}
       <div className="h-2.5 w-full overflow-hidden rounded-full bg-slate-700/60">
+        {/* eslint-disable-next-line */}
         <div
           className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400"
           style={{ width: `${pct}%` }}
@@ -908,10 +909,6 @@ function Visual25() {
   const sw = 20
   // Standard 16:9 Canvas (1600 x 900)
   // Left Center
-  const cL = { x: 450, y: 450 }
-  // Right Center
-  const cR = { x: 1150, y: 450 }
-  const r = 220
 
   // Text Sizes (SVG scale)
   const tsLg = 42 // Main labels
@@ -921,209 +918,8 @@ function Visual25() {
     <div className="relative flex h-full w-full items-center justify-center">
       <svg
         viewBox="0 0 1600 900"
-        className="h-full w-full"
+        className="h-full w-full max-h-full max-w-full"
         role="img"
-        style={{ maxHeight: '100%', maxWidth: '100%' }}
-        aria-label="Lifecycle Cycles"
-      >
-        <defs>
-          <marker
-            id="arrow-amber"
-            markerWidth="3"
-            markerHeight="3"
-            refX="1.5"
-            refY="1.5"
-            orient="auto"
-            fill="#fbbf24"
-          >
-            <path d="M0,0 L0,3 L3,1.5 z" />
-          </marker>
-          <marker
-            id="arrow-green"
-            markerWidth="3"
-            markerHeight="3"
-            refX="1.5"
-            refY="1.5"
-            orient="auto"
-            fill="#22c55e"
-          >
-            <path d="M0,0 L0,3 L3,1.5 z" />
-          </marker>
-          <marker
-            id="arrow-lightgreen"
-            markerWidth="3"
-            markerHeight="3"
-            refX="1.5"
-            refY="1.5"
-            orient="auto"
-            fill="#86efac"
-          >
-            <path d="M0,0 L0,3 L3,1.5 z" />
-          </marker>
-          <marker
-            id="arrow-orange"
-            markerWidth="3"
-            markerHeight="3"
-            refX="1.5"
-            refY="1.5"
-            orient="auto"
-            fill="#ea580c"
-          >
-            <path d="M0,0 L0,3 L3,1.5 z" />
-          </marker>
-          <marker
-            id="arrow-red"
-            markerWidth="3"
-            markerHeight="3"
-            refX="1.5"
-            refY="1.5"
-            orient="auto"
-            fill="#dc2626"
-          >
-            <path d="M0,0 L0,3 L3,1.5 z" />
-          </marker>
-          <marker
-            id="arrow-conn"
-            markerWidth="4"
-            markerHeight="4"
-            refX="3"
-            refY="2"
-            orient="auto"
-            fill="#94a3b8"
-          >
-            <path d="M0,0 L0,4 L4,2 z" />
-          </marker>
-        </defs>
-
-        {/* --- LEFT CYCLE (Innovation) --- */}
-        {/* Arc 1: Bleeding Edge (Top -> Left) */}
-        {/* Start (450, 230) -> End (230, 450) */}
-        <path
-          d="M 430 232 A 220 220 0 0 0 232 430"
-          fill="none"
-          stroke="#fbbf24"
-          strokeWidth={sw}
-          markerEnd="url(#arrow-amber)"
-        />
-        <text x="250" y="180" fontSize={tsLg} fontWeight="bold" fill="#fbbf24" textAnchor="middle">
-          Bleeding Edge
-        </text>
-
-        {/* Arc 2: Leading Edge (Left -> Bottom) */}
-        {/* Start (230, 470) -> End (430, 668) */}
-        <path
-          d="M 232 470 A 220 220 0 0 0 430 668"
-          fill="none"
-          stroke="#22c55e"
-          strokeWidth={sw}
-          markerEnd="url(#arrow-green)"
-        />
-        <text x="180" y="620" fontSize={tsLg} fontWeight="bold" fill="#22c55e" textAnchor="end">
-          Leading Edge
-        </text>
-
-        {/* Arc 3: Mainstream (Bottom -> Right) */}
-        {/* Start (470, 668) -> End (668, 470) */}
-        <path
-          d="M 470 668 A 220 220 0 0 0 668 470"
-          fill="none"
-          stroke="#86efac"
-          strokeWidth={sw}
-          markerEnd="url(#arrow-lightgreen)"
-        />
-        <text x="600" y="780" fontSize={tsLg} fontWeight="bold" fill="#86efac" textAnchor="middle">
-          Mainstream
-        </text>
-
-        {/* --- RIGHT CYCLE (Legacy) --- */}
-        {/* Arc 4: Trending Behind (Top -> Right) */}
-        {/* Start (1150, 230) -> End (1368, 430) */}
-        <path
-          d="M 1170 232 A 220 220 0 0 1 1368 430"
-          fill="none"
-          stroke="#fbbf24"
-          strokeWidth={sw}
-          markerEnd="url(#arrow-amber)"
-        />
-        <text x="1350" y="180" fontSize={tsLg} fontWeight="bold" fill="#fbbf24" textAnchor="middle">
-          Trending Behind
-        </text>
-
-        {/* Arc 5: End of Support (Right -> Bottom) */}
-        {/* Start (1368, 470) -> End (1170, 668) */}
-        <path
-          d="M 1368 470 A 220 220 0 0 1 1170 668"
-          fill="none"
-          stroke="#ea580c"
-          strokeWidth={sw}
-          markerEnd="url(#arrow-orange)"
-        />
-        <text x="1420" y="620" fontSize={tsLg} fontWeight="bold" fill="#ea580c" textAnchor="start">
-          End of Support
-        </text>
-
-        {/* Arc 6: End of Life (Bottom -> Left) */}
-        {/* Start (1130, 668) -> End (932, 470) */}
-        <path
-          d="M 1130 668 A 220 220 0 0 1 932 470"
-          fill="none"
-          stroke="#dc2626"
-          strokeWidth={sw}
-          markerEnd="url(#arrow-red)"
-        />
-        <text x="1000" y="780" fontSize={tsLg} fontWeight="bold" fill="#dc2626" textAnchor="middle">
-          End of Life
-        </text>
-        <text x="1000" y="825" fontSize={tsMd} fontWeight="bold" fill="#dc2626" textAnchor="middle">
-          / Obsolete
-        </text>
-
-        {/* Central Connector Arrow: Mainstream End (near 668, 470) to Trending Behind Start (near 1170, 230) */}
-        {/* Let's draw it from x=700, y=500 to x=900, y=300? */}
-        <path
-          d="M 668 470 C 850 470, 1000 230, 1170 232"
-          fill="none"
-          stroke="#94a3b8"
-          strokeWidth="4"
-          strokeDasharray="12 12"
-          markerEnd="url(#arrow-conn)"
-          opacity="0.6"
-        />
-      </svg>
-
-      {/* Central Text Box Overlay */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] bg-slate-900/95 text-slate-100 px-8 py-8 border border-slate-700 shadow-2xl text-center rounded-2xl backdrop-blur-md">
-        <p className="font-bold text-2xl leading-relaxed">
-          Where you want to sit in the competitive pool affects your{' '}
-          <span className="text-cyan-400">Management Methods</span>,{' '}
-          <span className="text-cyan-400">Architecture</span>, and{' '}
-          <span className="text-cyan-400">Solutions</span>
-        </p>
-      </div>
-    </div>
-  )
-}
-
-function Visual25() {
-  const sw = 20
-  // Standard 16:9 Canvas (1600 x 900)
-  // Left Center
-  const cL = { x: 450, y: 450 }
-  // Right Center
-  const cR = { x: 1150, y: 450 }
-  const r = 220
-
-  // Text Sizes (SVG scale)
-  const tsLg = 42 // Main labels
-  const tsMd = 36 // Secondary
-
-  return (
-    <div className="relative flex h-full w-full items-center justify-center">
-      <svg
-        viewBox="0 0 1600 900"
-        className="h-full w-full"
-        role="img"
-        style={{ maxHeight: '100%', maxWidth: '100%' }}
         aria-label="Lifecycle Cycles"
       >
         <defs>
