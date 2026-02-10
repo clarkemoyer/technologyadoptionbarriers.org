@@ -142,7 +142,21 @@ Common Causes of Failed Adoption:
 
 ✅ Successful adoption requires planning from day one
 
-**Visual:** "Shelf-ware" icon with X's, transition to checkmark
+**Visual:** Shelf-ware vs Adopted Comparison
+
+```text
+    SHELF-WARE (Failed)          ADOPTED (Successful)
+    ┌─────────────────┐          ┌─────────────────┐
+    │                 │          │                 │
+    │     [  X  ]     │          │     [  ✓  ]     │
+    │                 │          │                 │
+    │   Unused Tech   │          │   Active Tech   │
+    │                 │          │                 │
+    └─────────────────┘          └─────────────────┘
+          |                            |
+          ▼                            ▼
+      "Push" Only                  "Pull" & Push
+```
 
 **Speaker Notes:**
 
@@ -188,7 +202,20 @@ THREE CORE PILLARS:
 Adoption is the bridge between innovation and operational capability.
 Adoption decisions cascade into all subsequent development and integration work.
 
-**Visual:** Three pillars with Technology Adoption highlighted, arrows showing flow
+**Visual:** Strategic Adoption Pillars
+
+```text
+      ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
+      │  RESEARCH &  │    │  TECHNOLOGY  │    │  TECHNOLOGY  │
+      │  DEVELOPMENT │    │   ADOPTION   │    │  INTEGRATION │
+      └──────┬───────┘    └──────┬───────┘    └──────┬───────┘
+             │                   │                   │
+             │           (THE BRIDGE)            │
+             └───────────────────┼───────────────────┘
+                                 │
+                                 ▼
+                        OPERATIONAL CAPABILITY
+```
 
 **Speaker Notes:**
 
