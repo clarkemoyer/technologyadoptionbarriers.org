@@ -25,9 +25,13 @@ BUT the complete journey from evaluation to sustained operational use
 **Visual:** Simple flow diagram
 
 ```text
-Evaluation → Selection → Integration → Deployment → Sustained Use
-                                                          ↑
-                                                    (Adoption Success)
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│  Evaluation → Selection → Integration → Deployment → Sustained Use      │
+│                                                          ↑              │
+│                                                    (Adoption Success)   │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
 ```
 
 **Speaker Notes:**
@@ -107,13 +111,17 @@ Two Critical Levels of Adoption:
 
 **Visual:** Comparison table
 
-| Factor                 | Voluntary ✅        | Involuntary ⚠️                 |
-| ---------------------- | ------------------- | ------------------------------ |
-| User Engagement        | High                | Low                            |
-| Training Effectiveness | Self-motivated      | Forced compliance              |
-| Innovation/Feedback    | Active contribution | Minimal                        |
-| Sustainability         | Self-sustaining     | Requires enforcement           |
-| Organizational Risk    | Low                 | High (workarounds, resistance) |
+```text
+┌────────────────────────┬─────────────────────┬────────────────────────────────┐
+│ Factor                 │ Voluntary ✅        │ Involuntary ⚠️                 │
+├────────────────────────┼─────────────────────┼────────────────────────────────┤
+│ User Engagement        │ High                │ Low                            │
+│ Training Effectiveness │ Self-motivated      │ Forced compliance              │
+│ Innovation/Feedback    │ Active contribution │ Minimal                        │
+│ Sustainability         │ Self-sustaining     │ Requires enforcement           │
+│ Organizational Risk    │ Low                 │ High (workarounds, resistance) │
+└────────────────────────┴─────────────────────┴────────────────────────────────┘
+```
 
 **Speaker Notes:**
 
@@ -248,23 +256,25 @@ TECHNOLOGY LIFECYCLE STAGES
 **Visual:** Lifecycle curve
 
 ```text
-     Innovation/Risk
-          ↑
-     High │    ●Bleeding
-          │   ╱ ╲
-          │  ╱   ●Leading
-          │ ╱     ╲
-          │╱       ╲
-     Med  │         ●Mainstream
-          │          ╲
-          │           ╲●Trending Behind
-          │            ╲
-     Low  │             ●End of Support
-          │              ●End of Life
-          │               ●Obsolete
-          └─────────────────────────────→ Time
-
-          ←Adoption Rate High────────Low→
+     ┌─────────────────────────────────────────────────────────────┐
+     │ Innovation/Risk                                             │
+     │      ↑                                                      │
+     │ High │    ●Bleeding                                         │
+     │      │   ╱ ╲                                                │
+     │      │  ╱   ●Leading                                        │
+     │      │ ╱     ╲                                              │
+     │      │╱       ╲                                             │
+     │ Med  │         ●Mainstream                                  │
+     │      │          ╲                                           │
+     │      │           ╲●Trending Behind                          │
+     │      │            ╲                                         │
+     │ Low  │             ●End of Support                          │
+     │      │              ●End of Life                            │
+     │      │               ●Obsolete                              │
+     │      └─────────────────────────────→ Time                   │
+     │                                                             │
+     │      ←Adoption Rate High────────Low→                        │
+     └─────────────────────────────────────────────────────────────┘
 ```
 
 **Speaker Notes:**
@@ -293,36 +303,39 @@ WHERE YOU SIT IN THE COMPETITIVE POOL AFFECTS:
 **Visual:** Comprehensive Decision Matrix
 
 ```text
-Lifecycle Stage    Management Method                           Architecture Approach                          Solution Selection                                  User Adoption Risk
-BLEEDING EDGE      • Experimental/R&D                          • Modular/replaceable                          • Open source cutting-edge                         ⚠️ VERY HIGH
-                  • Rapid iteration                            • Abstraction layers                            • Direct from source                               Involuntary adoption likely to fail
-                  • Prototype mindset                          • Fail-fast design                               • Custom builds
-                  • High monitoring                             • Isolated testing                              • Limited vendor support
-
-LEADING EDGE       • Agile development                          • Cloud Native ideal                            • Emerging solutions                               ⚠️ HIGH
-                  • Continuous learning                         • Modern patterns                               • Early vendor partnerships                        Requires strong value demonstration
-                  • Community engagement                        • Container-first                               • Open standards
-                  • Change anticipation                         • Progressive adoption                          • Custom extensions
-
-MAINSTREAM         • Standard SDLC                              • Cloud Enabling or Cloud Native                • Mature solutions                                 ✅ LOW
-                  • Predictable delivery                        • Proven patterns                               • Vendor support available                         Voluntary adoption more likely
-                  • Best practices                              • Well-documented                               • Many integration options
-                  • Vendor relationships                         •                                            • Training readily available
-
-TRENDING BEHIND    • Maintenance mode                           • Cloud Enabling focus                          • Legacy solutions                                 ⚠️ MEDIUM
-                  • Modernization planning                      • Lift-and-shift                                • Dwindling vendor support                         Users may resist change
-                  • Migration roadmaps                          • Bridge to modern                              • Community support
-                  • Risk mitigation                              • Dual-run scenarios                            • Migration tools
-
-END OF SUPPORT     • Crisis management                          • Emergency modernization                        • Must replace                                     ⚠️ HIGH
-or older           • Urgent migration                           • Replacement planning                          • Self-maintained forks                            Forced migration = involuntary adoption
-                  • Self-support burden                         • Data extraction focus                         • Reverse engineering
-                  • Security concerns                            • Parallel system deployment                    • Modern alternatives
-
-END OF LIFE        • Forced migration                           • Complete redesign                              • Modern replacements                              ⚠️ VERY HIGH
-                  • System replacement                          • Greenfield opportunity                         • No backward compatibility                        Major disruption inevitable
-                  • Data preservation                           • Cannot continue as-is                          • Total technology refresh
-                  • Continuity planning                          • Modern stack required                         • New training required
+┌──────────────────┬─────────────────────────────┬───────────────────────────────┬───────────────────────────────┬─────────────────────────────────────┐
+│ Lifecycle Stage  │ Management Method           │ Architecture Approach         │ Solution Selection            │ User Adoption Risk                  │
+├──────────────────┼─────────────────────────────┼───────────────────────────────┼───────────────────────────────┼─────────────────────────────────────┤
+│ BLEEDING EDGE    │ • Experimental/R&D          │ • Modular/replaceable         │ • Open source cutting-edge    │ ⚠️ VERY HIGH                        │
+│                  │ • Rapid iteration           │ • Abstraction layers          │ • Direct from source          │ Involuntary adoption likely to fail │
+│                  │ • Prototype mindset         │ • Fail-fast design            │ • Custom builds               │                                     │
+│                  │ • High monitoring           │ • Isolated testing            │ • Limited vendor support      │                                     │
+├──────────────────┼─────────────────────────────┼───────────────────────────────┼───────────────────────────────┼─────────────────────────────────────┤
+│ LEADING EDGE     │ • Agile development         │ • Cloud Native ideal          │ • Emerging solutions          │ ⚠️ HIGH                             │
+│                  │ • Continuous learning       │ • Modern patterns             │ • Early vendor partnerships   │ Requires strong value demonstration │
+│                  │ • Community engagement      │ • Container-first             │ • Open standards              │                                     │
+│                  │ • Change anticipation       │ • Progressive adoption        │ • Custom extensions           │                                     │
+├──────────────────┼─────────────────────────────┼───────────────────────────────┼───────────────────────────────┼─────────────────────────────────────┤
+│ MAINSTREAM       │ • Standard SDLC             │ • Cloud Enabling/Native       │ • Mature solutions            │ ✅ LOW                              │
+│                  │ • Predictable delivery      │ • Proven patterns             │ • Vendor support available    │ Voluntary adoption more likely      │
+│                  │ • Best practices            │ • Well-documented             │ • Many integration options    │                                     │
+│                  │ • Vendor relationships      │                               │ • Training readily available  │                                     │
+├──────────────────┼─────────────────────────────┼───────────────────────────────┼───────────────────────────────┼─────────────────────────────────────┤
+│ TRENDING BEHIND  │ • Maintenance mode          │ • Cloud Enabling focus        │ • Legacy solutions            │ ⚠️ MEDIUM                           │
+│                  │ • Modernization planning    │ • Lift-and-shift              │ • Dwindling vendor support    │ Users may resist change             │
+│                  │ • Migration roadmaps        │ • Bridge to modern            │ • Community support           │                                     │
+│                  │ • Risk mitigation           │ • Dual-run scenarios          │ • Migration tools             │                                     │
+├──────────────────┼─────────────────────────────┼───────────────────────────────┼───────────────────────────────┼─────────────────────────────────────┤
+│ END OF SUPPORT   │ • Crisis management         │ • Emergency modernization     │ • Must replace                │ ⚠️ HIGH                             │
+│ or older         │ • Urgent migration          │ • Replacement planning        │ • Self-maintained forks       │ Forced migration = Involuntary      │
+│                  │ • Self-support burden       │ • Data extraction focus       │ • Reverse engineering         │                                     │
+│                  │ • Security concerns         │ • Parallel system deployment  │ • Modern alternatives         │                                     │
+├──────────────────┼─────────────────────────────┼───────────────────────────────┼───────────────────────────────┼─────────────────────────────────────┤
+│ END OF LIFE      │ • Forced migration          │ • Complete redesign           │ • Modern replacements         │ ⚠️ VERY HIGH                        │
+│                  │ • System replacement        │ • Greenfield opportunity      │ • No backward compatibility   │ Major disruption inevitable         │
+│                  │ • Data preservation         │ • Cannot continue as-is       │ • Total technology refresh    │                                     │
+│                  │ • Continuity planning       │ • Modern stack required       │ • New training required       │                                     │
+└──────────────────┴─────────────────────────────┴───────────────────────────────┴───────────────────────────────┴─────────────────────────────────────┘
 ```
 
 **Speaker Notes:**
@@ -440,19 +453,19 @@ Three Architecture Approaches - Each with Different Adoption Implications:
 **Visual:** Three columns with adoption friction indicators
 
 ```text
-Cloud Enabling          Cloud Native           Cloud Agnostic
-     ↓                       ↓                       ↓
-Refactoring            Microservices          Portability
-Containerization       12-Factor Apps         Abstraction
-API Wrapping          Kubernetes Patterns     Multi-Platform IaC
-     ↓                       ↓                       ↓
-[███░░] Adoption       [████░] Adoption       [███░░] Adoption
-Friction: Lower        Friction: Higher       Friction: Lower
-                       (if new UX)            (consistency)
-     ↓                       ↓                       ↓
-Lower Risk            Highest Performance     Maximum Flexibility
-Longer Timeline       Steeper Learning        Higher Complexity
-Incremental Cost      Infrastructure Req.     Strategic Investment
+     Cloud Enabling          Cloud Native           Cloud Agnostic
+          ↓                       ↓                       ↓
+     Refactoring            Microservices          Portability
+    Containerization       12-Factor Apps         Abstraction
+      API Wrapping        Kubernetes Patterns     Multi-Platform IaC
+          ↓                       ↓                       ↓
+   [███░░] Adoption        [████░] Adoption        [███░░] Adoption
+   Friction: Lower         Friction: Higher        Friction: Lower
+                           (if new UX)             (consistency)
+          ↓                       ↓                       ↓
+      Lower Risk          Highest Performance     Maximum Flexibility
+   Longer Timeline         Steeper Learning        Higher Complexity
+    Incremental Cost      Infrastructure Req.      Strategic Investment
 ```
 
 **Speaker Notes:**
@@ -481,19 +494,19 @@ HOW LIFECYCLE STAGE INFLUENCES ARCHITECTURE APPROACH:
 │                  │ (no legacy)     │ VERY HIGH RISK  │ (immature)      │
 │                  │                 │ R&D only        │                 │
 ├──────────────────┼─────────────────┼─────────────────┼─────────────────┤
-│ LEADING EDGE     │ Modernize with  │ ✅ IDEAL FIT   │ Emerging        │
+│ LEADING EDGE     │ Modernize with  │ ✅ IDEAL FIT    │ Emerging        │
 │                  │ new tech        │ Modern patterns │ patterns        │
 │                  │ Hybrid approach │ Innovation room │ Use with care   │
 ├──────────────────┼─────────────────┼─────────────────┼─────────────────┤
-│ MAINSTREAM       │ ✅ IDEAL FIT   │ ✅ IDEAL FIT   │ ✅ IDEAL FIT   │
+│ MAINSTREAM       │ ✅ IDEAL FIT    │ ✅ IDEAL FIT    │ ✅ IDEAL FIT    │
 │                  │ Well-supported  │ Proven patterns │ Mature tools    │
 │                  │ Lower risk      │ Best practices  │ Multi-platform  │
 ├──────────────────┼─────────────────┼─────────────────┼─────────────────┤
-│ TRENDING BEHIND  │ ✅ PRIMARY USE │ Avoid starting  │ Can help        │
+│ TRENDING BEHIND  │ ✅ PRIMARY USE  │ Avoid starting  │ Can help        │
 │                  │ Modernization   │ new projects    │ bridge legacy   │
 │                  │ path needed     │ here            │ to modern       │
 ├──────────────────┼─────────────────┼─────────────────┼─────────────────┤
-│ END OF SUPPORT   │ ⚠️ URGENT      │ Replace         │ Migration       │
+│ END OF SUPPORT   │ ⚠️ URGENT       │ Replace         │ Migration       │
 │ or older         │ Must migrate    │ entirely        │ tool            │
 └──────────────────┴─────────────────┴─────────────────┴─────────────────┘
 ```
@@ -568,21 +581,21 @@ Adoption Must Be Considered Throughout the Entire Lifecycle:
 **Visual:** Circular lifecycle with "User Input + Lifecycle Awareness" at center
 
 ```text
-        ┌──────────┐
-        │  DESIGN  │◄──┐
-        └────┬─────┘   │
-             │         │
-        ┌────▼─────┐   │  USER INPUT +
-        │  DEVELOP │   │  LIFECYCLE
-        └────┬─────┘   │  AWARENESS
-             │         │  (Continuous)
-        ┌────▼─────┐   │
-        │  DEPLOY  │   │
-        └────┬─────┘   │
-             │         │
-        ┌────▼─────┐   │
-        │ SUSTAIN  │───┘
-        └──────────┘
+         ┌──────────┐
+         │  DESIGN  │◄──┐
+         └────┬─────┘   │
+              │         │
+         ┌────▼─────┐   │  USER INPUT +
+         │  DEVELOP │   │  LIFECYCLE
+         └────┬─────┘   │  AWARENESS
+              │         │  (Continuous)
+         ┌────▼─────┐   │
+         │  DEPLOY  │   │
+         └────┬─────┘   │
+              │         │
+         ┌────▼─────┐   │
+         │ SUSTAIN  │───┘
+         └──────────┘
 ```
 
 **Speaker Notes:**
@@ -648,12 +661,14 @@ adoption strategy.
 **Visual:** Decision flow diagram showing cascade from adoption to development
 
 ```text
-Adoption Need → Lifecycle Position → Architecture Approach → Development Decisions
-   ↓                 ↓                   ↓                    ↓
-Distributed        Leading Edge         Cloud Native          Kubernetes
-Deployment                                               Microservices
-                             Service Mesh
-                             Observability
+    ┌───────────────────────────────────────────────────────────────────────────────────┐
+    │ Adoption Need → Lifecycle Position → Architecture Approach → Development Decisions│
+    │    ↓                 ↓                   ↓                    ↓                   │
+    │ Distributed        Leading Edge         Cloud Native          Kubernetes          │
+    │ Deployment                                               Microservices            │
+    │                              Service Mesh                                         │
+    │                              Observability                                        │
+    └───────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 **Speaker Notes:**
@@ -897,17 +912,19 @@ adoption requirements, not just technical requirements.
 **Visual:** Journey map showing progression
 
 ```text
-Phase 1:      Design with representative users
-              ↓ (Requirements validated)
-Phase 2:      Development with frequent user testing
-              ↓ (Iterative feedback)
-Phase 3:      Pilot with early adopters
-              ↓ (Positive feedback, feature requests)
-Phase 4:      Expand as demand grows (voluntary)
-              ↓ (Advocacy to peers)
-Phase 5:      Scaled adoption
-              Self-sustaining growth
-              User-driven roadmap
+┌────────────────────────────────────────────────────────┐
+│ Phase 1:      Design with representative users         │
+│               ↓ (Requirements validated)               │
+│ Phase 2:      Development with frequent user testing   │
+│               ↓ (Iterative feedback)                   │
+│ Phase 3:      Pilot with early adopters                │
+│               ↓ (Positive feedback, feature requests)  │
+│ Phase 4:      Expand as demand grows (voluntary)       │
+│               ↓ (Advocacy to peers)                    │
+│ Phase 5:      Scaled adoption                          │
+│               Self-sustaining growth                   │
+│               User-driven roadmap                      │
+└────────────────────────────────────────────────────────┘
 ```
 
 **Speaker Notes:**
@@ -1131,56 +1148,66 @@ REAL-WORLD TECHNOLOGY LIFECYCLE EXAMPLES (Current snapshot — update as needed)
 **CONTAINER ORCHESTRATION:**
 
 ```text
-├─ Bleeding Edge: WebAssembly-based orchestration, experimental schedulers
-├─ Leading Edge: K3s, MicroK8s for edge, GitOps patterns (Argo, Flux)
-├─ MAINSTREAM: Kubernetes, managed Kubernetes services
-├─ Trending Behind: Docker Swarm, Apache Mesos
-├─ End of Support: Older, unsupported Kubernetes releases
-└─ Obsolete: CoreOS Fleet, first-generation container platforms
+┌────────────────────────────────────────────────────────────────────────────┐
+│ ├─ Bleeding Edge: WebAssembly-based orchestration, experimental schedulers │
+│ ├─ Leading Edge: K3s, MicroK8s for edge, GitOps patterns (Argo, Flux)      │
+│ ├─ MAINSTREAM: Kubernetes, managed Kubernetes services                     │
+│ ├─ Trending Behind: Docker Swarm, Apache Mesos                             │
+│ ├─ End of Support: Older, unsupported Kubernetes releases                  │
+│ └─ Obsolete: CoreOS Fleet, first-generation container platforms            │
+└────────────────────────────────────────────────────────────────────────────┘
 ```
 
 **INFRASTRUCTURE AS CODE:**
 
 ```text
-├─ Bleeding Edge: Emerging IaC languages, experimental tools
-├─ Leading Edge: Crossplane, advanced Terraform patterns
-├─ MAINSTREAM: Terraform, Ansible, CloudFormation
-├─ Trending Behind: Chef, Puppet for cloud infrastructure
-├─ End of Support: Custom bash deployment scripts
-└─ Obsolete: Manual infrastructure provisioning
+┌──────────────────────────────────────────────────────────────┐
+│ ├─ Bleeding Edge: Emerging IaC languages, experimental tools │
+│ ├─ Leading Edge: Crossplane, advanced Terraform patterns     │
+│ ├─ MAINSTREAM: Terraform, Ansible, CloudFormation            │
+│ ├─ Trending Behind: Chef, Puppet for cloud infrastructure    │
+│ ├─ End of Support: Custom bash deployment scripts            │
+│ └─ Obsolete: Manual infrastructure provisioning              │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 **PROGRAMMING LANGUAGES FOR CLOUD-NATIVE:**
 
 ```text
-├─ Bleeding Edge: Rust for cloud systems (emerging rapidly)
-├─ Leading Edge: Go for cloud infrastructure, TypeScript
-├─ MAINSTREAM: Python, Java, JavaScript/Node.js
-├─ Trending Behind: Perl, Ruby for new cloud projects
-├─ End of Support: Deprecated runtimes (e.g., Python 2.x)
-└─ Obsolete: Legacy languages for cloud-native applications
+┌───────────────────────────────────────────────────────────────┐
+│ ├─ Bleeding Edge: Rust for cloud systems (emerging rapidly)   │
+│ ├─ Leading Edge: Go for cloud infrastructure, TypeScript      │
+│ ├─ MAINSTREAM: Python, Java, JavaScript/Node.js               │
+│ ├─ Trending Behind: Perl, Ruby for new cloud projects         │
+│ ├─ End of Support: Deprecated runtimes (e.g., Python 2.x)     │
+│ └─ Obsolete: Legacy languages for cloud-native applications   │
+└───────────────────────────────────────────────────────────────┘
 ```
 
 **CI/CD PLATFORMS:**
 
 ```text
-├─ Bleeding Edge: Next-generation pipeline tools
-├─ Leading Edge: GitHub Actions, Tekton, Argo Workflows
-├─ MAINSTREAM: GitLab CI, Jenkins (modern), major cloud CI/CD services
-├─ Trending Behind: Travis CI, Jenkins (traditional configurations)
-├─ End of Support: First-generation CI platforms
-└─ Obsolete: Manual build and deployment processes
+┌─────────────────────────────────────────────────────────────────────────┐
+│ ├─ Bleeding Edge: Next-generation pipeline tools                        │
+│ ├─ Leading Edge: GitHub Actions, Tekton, Argo Workflows                 │
+│ ├─ MAINSTREAM: GitLab CI, Jenkins (modern), major cloud CI/CD services  │
+│ ├─ Trending Behind: Travis CI, Jenkins (traditional configurations)     │
+│ ├─ End of Support: First-generation CI platforms                        │
+│ └─ Obsolete: Manual build and deployment processes                      │
+└─────────────────────────────────────────────────────────────────────────┘
 ```
 
 **SERVICE MESH:**
 
 ```text
-├─ Bleeding Edge: Ambient mesh, eBPF-based solutions
-├─ Leading Edge: Cilium, Linkerd
-├─ MAINSTREAM: Istio
-├─ Trending Behind: First-generation service mesh implementations
-├─ End of Support: Custom proxy solutions
-└─ Obsolete: Manual service-to-service communication management
+┌─────────────────────────────────────────────────────────────────────┐
+│ ├─ Bleeding Edge: Ambient mesh, eBPF-based solutions                │
+│ ├─ Leading Edge: Cilium, Linkerd                                    │
+│ ├─ MAINSTREAM: Istio                                                │
+│ ├─ Trending Behind: First-generation service mesh implementations   │
+│ ├─ End of Support: Custom proxy solutions                           │
+│ └─ Obsolete: Manual service-to-service communication management     │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
 **IMPACT EXAMPLE: Choosing Kubernetes (Mainstream) vs Docker Swarm (Trending Behind)**
@@ -1422,18 +1449,20 @@ COMMON ADOPTION ANTI-PATTERNS TO AVOID:
 **Visual:** The Anti-Pattern Graveyard
 
 ```text
-      ⚠️  ADOPTION ANTI-PATTERNS  ⚠️
-
-  1. "Build it and they will come"   -->  ⛔ GHOST TOWN
-  2. "Tech for tech's sake"          -->  ⛔ SOLUTION IN SEARCH OF PROBLEM
-  3. "One size fits all"             -->  ⛔ USER FRUSTRATION
-  4. "Big Bang deployment"           -->  ⛔ CATASTROPHIC FAILURE
-  5. "Set it and forget it"          -->  ⛔ ROT & DECAY
-  6. "The Mandate"                   -->  ⛔ MALICIOUS COMPLIANCE
-  7. "Vendor Lock-in"                -->  ⛔ DEAD END
-  8. "Ignoring lifecycle"            -->  ⛔ OBSOLESCENCE
-  9. "Feature obsession"             -->  ⛔ BLOATWARE
- 10. "Docs as afterthought"          -->  ⛔ UNUSABLE
+      ┌──────────────────────────────────────────────────┐
+      │       ⚠️  ADOPTION ANTI-PATTERNS  ⚠️             │
+      │                                                  │
+      │   1. "Build it and they will come"   -->  ⛔     │
+      │   2. "Tech for tech's sake"          -->  ⛔     │
+      │   3. "One size fits all"             -->  ⛔     │
+      │   4. "Big Bang deployment"           -->  ⛔     │
+      │   5. "Set it and forget it"          -->  ⛔     │
+      │   6. "The Mandate"                   -->  ⛔     │
+      │   7. "Vendor Lock-in"                -->  ⛔     │
+      │   8. "Ignoring lifecycle"            -->  ⛔     │
+      │   9. "Feature obsession"             -->  ⛔     │
+      │  10. "Docs as afterthought"          -->  ⛔     │
+      └──────────────────────────────────────────────────┘
 ```
 
 ---
@@ -1447,27 +1476,29 @@ UNDERSTANDING THE TWO LEVELS OF ADOPTION:
 **ORGANIZATIONAL ADOPTION:**
 
 ```text
-│
-├─ Decision Makers: Leadership, program managers, technical authorities
-├─ Focus: Capability delivery, budget, compliance, risk management
-├─ Metrics: Deployment status, infrastructure readiness, policy compliance
-├─ Timeline: Often measured in quarters or fiscal years
-├─ Success Criteria: "We deployed the technology on time and on budget"
-│
-└─ Common Mistake: Stopping here and declaring success
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ ├─ Decision Makers: Leadership, program managers, technical authorities     │
+│ ├─ Focus: Capability delivery, budget, compliance, risk management          │
+│ ├─ Metrics: Deployment status, infrastructure readiness, policy compliance  │
+│ ├─ Timeline: Often measured in quarters or fiscal years                     │
+│ ├─ Success Criteria: "We deployed the technology on time and on budget"     │
+│ │                                                                           │
+│ └─ Common Mistake: Stopping here and declaring success                      │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
 **USER ADOPTION:**
 
 ```text
-│
-├─ Decision Makers: Individual end users (often not consulted in org adoption)
-├─ Focus: Daily workflows, ease of use, immediate value
-├─ Metrics: Actual usage, task completion, satisfaction, advocacy
-├─ Timeline: Measured in days and weeks of actual use
-├─ Success Criteria: "This makes my job easier and I choose to use it"
-│
-└─ Reality Check: This is where most "successful" deployments fail
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ├─ Decision Makers: Individual end users (often not consulted in org adopt)  │
+│ ├─ Focus: Daily workflows, ease of use, immediate value                      │
+│ ├─ Metrics: Actual usage, task completion, satisfaction, advocacy            │
+│ ├─ Timeline: Measured in days and weeks of actual use                        │
+│ ├─ Success Criteria: "This makes my job easier and I choose to use it"       │
+│ │                                                                            │
+│ └─ Reality Check: This is where most "successful" deployments fail           │
+└──────────────────────────────────────────────────────────────────────────────┘
 ```
 
 THE GAP:
@@ -1480,21 +1511,22 @@ Organizational adoption can happen WITHOUT user adoption
 THE BRIDGE:
 
 ```text
-│
-├─ Voluntary User Adoption:
-│   • Users see value and choose to use the technology
-│   • High engagement and advocacy
-│   • Self-sustaining adoption
-│   • Mission capability realized
-│   • ROI achieved
-│
-└─ Involuntary User Adoption:
-    • Users forced to use without buy-in
-    • Resistance and workarounds
-    • Minimal compliance only
-    • Requires constant enforcement
-    • Mission capability degraded
-    • Negative ROI (compliance cost > value)
+┌─────────────────────────────────────────────────────────┐
+│ ├─ Voluntary User Adoption:                             │
+│ │   • Users see value and choose to use the technology  │
+│ │   • High engagement and advocacy                      │
+│ │   • Self-sustaining adoption                          │
+│ │   • Mission capability realized                       │
+│ │   • ROI achieved                                      │
+│ │                                                       │
+│ └─ Involuntary User Adoption:                           │
+│     • Users forced to use without buy-in                │
+│     • Resistance and workarounds                        │
+│     • Minimal compliance only                           │
+│     • Requires constant enforcement                     │
+│     • Mission capability degraded                       │
+│     • Negative ROI (compliance cost > value)            │
+└─────────────────────────────────────────────────────────┘
 ```
 
 KEY INSIGHT:
@@ -1606,31 +1638,33 @@ LONG-TERM STRATEGY (Long term):
 **Visual:** Legacy Migration Timeline
 
 ```text
-     [ END OF SUPPORT DETECTED ]
-              │
-              ▼
-  PHASE 1: I M M E D I A T E  (Triage)
-  ┌──────────────────────────────────────────────┐
-  │ 🛑 Security Triage   │ 🔒 System Isolation   │
-  └──────────────────────────────────────────────┘
-              │
-              ▼
-  PHASE 2: S H O R T - T E R M  (Stabilize)
-  ┌──────────────────────────────────────────────┐
-  │ 📝 Risk Docs         │ 🛠️ Self-Support Plan  │
-  └──────────────────────────────────────────────┘
-              │
-              ▼
-  PHASE 3: M I D - T E R M  (Architect)
-  ┌──────────────────────────────────────────────┐
-  │ 🏗️ Select Replacement│ 🔄 Data Strategy      │
-  └──────────────────────────────────────────────┘
-              │
-              ▼
-  PHASE 4: L O N G - T E R M  (Execute)
-  ┌───────────────────────┬──────────────────────┐
-  │ 🚀 Complete Migration │ ⚰️ Decommission Old  │
-  └───────────────────────┴──────────────────────┘
+┌────────────────────────────────────────────────┐
+│     [ END OF SUPPORT DETECTED ]                │
+│              │                                 │
+│              ▼                                 │
+│  PHASE 1: I M M E D I A T E  (Triage)          │
+│  ┌──────────────────────────────────────────┐  │
+│  │ 🛑 Security Triage   │ 🔒 System Isolation │  │
+│  └──────────────────────────────────────────┘  │
+│              │                                 │
+│              ▼                                 │
+│  PHASE 2: S H O R T - T E R M  (Stabilize)     │
+│  ┌──────────────────────────────────────────┐  │
+│  │ 📝 Risk Docs         │ 🛠️ Self-Support Plan│  │
+│  └──────────────────────────────────────────┘  │
+│              │                                 │
+│              ▼                                 │
+│  PHASE 3: M I D - T E R M  (Architect)         │
+│  ┌──────────────────────────────────────────┐  │
+│  │ 🏗️ Select Replacement│ 🔄 Data Strategy    │  │
+│  └──────────────────────────────────────────┘  │
+│              │                                 │
+│              ▼                                 │
+│  PHASE 4: L O N G - T E R M  (Execute)         │
+│  ┌───────────────────────┬──────────────────┐  │
+│  │ 🚀 Complete Migration │ ⚰️ Decommission   │  │
+│  └───────────────────────┴──────────────────┘  │
+└────────────────────────────────────────────────┘
 ```
 
 CRITICAL ADOPTION INSIGHT FOR FORCED MIGRATIONS:
@@ -1771,26 +1805,30 @@ USER ADOPTION METRICS FOR AI/ML:
 **Visual:** AI Adoption Trust Filter
 
 ```text
-      INPUT: AI PREDICTIONS / MODELS
-                  │
-                  ▼
-      ┌───────────────────────────┐
-      │  TRUST BARRIER #1         │
-      │  "Is it explainable?"     │
-      └───────────┬───────────────┘
-                  │ NO = RO REJECT
-      ┌───────────▼───────────────┐
-      │  TRUST BARRIER #2         │
-      │  "Is it accurate?"        │
-      └───────────┬───────────────┘
-                  │ NO = IGNORE
-      ┌───────────▼───────────────┐
-      │  TRUST BARRIER #3         │
-      │  "Does it help me?"       │
-      └───────────┬───────────────┘
-                  │ NO = BYPASS
-                  ▼
-      OUTPUT: VOLUNTARY ADOPTION
+      ┌─────────────────────────────────┐
+      │ INPUT: AI PREDICTIONS / MODELS  │
+      └──────────────┬──────────────────┘
+                     │
+                     ▼
+         ┌───────────────────────────┐
+         │  TRUST BARRIER #1         │
+         │  "Is it explainable?"     │
+         └───────────┬───────────────┘
+                     │ NO = REJECT
+         ┌───────────▼───────────────┐
+         │  TRUST BARRIER #2         │
+         │  "Is it accurate?"        │
+         └───────────┬───────────────┘
+                     │ NO = IGNORE
+         ┌───────────▼───────────────┐
+         │  TRUST BARRIER #3         │
+         │  "Does it help me?"       │
+         └───────────┬───────────────┘
+                     │ NO = BYPASS
+                     ▼
+         ┌───────────────────────────┐
+         │ OUTPUT: VOLUNTARY ADOPTION│
+         └───────────────────────────┘
 ```
 
 KEY INSIGHT:
