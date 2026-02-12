@@ -222,12 +222,20 @@ End of Support   -->  Wrap & Trap / Retire
     slideNumber: 13,
     part: 'Part 4: Execution & Metrics',
     ascii: `
-1. Graceful Degradation
-   - System works even when parts fail.
-2. Scalable Deployment
-   - Can grow from 10 to 10k users.
-3. Resilient Operations
-   - Self-healing, automated recovery.
+    ┌─────────────────────────┐
+    │ 1. Graceful Degradation │
+    │    (Fails Safely)       │
+    └──────────────┬──────────┘
+                   │
+    ┌──────────────▼──────────┐
+    │ 2. Scalable Deployment  │
+    │    (10 -> 10k Users)    │
+    └──────────────┬──────────┘
+                   │
+    ┌──────────────▼──────────┐
+    │ 3. Resilient Operations │
+    │    (Self-Healing)       │
+    └─────────────────────────┘
     `,
   },
   {
@@ -236,10 +244,13 @@ End of Support   -->  Wrap & Trap / Retire
     slideNumber: 14,
     part: 'Part 4: Execution & Metrics',
     ascii: `
-SUCCESS SIGNALS ✅           WARNING SIGNALS ⚠️
-- Active Usage               - High Availability / Low Usage
-- Task Completion            - Increasing Workarounds
-- User Satisfaction          - Shadow IT Growth
+     SUCCESS SIGNALS ✅             WARNING SIGNALS ⚠️
+    ┌───────────────────┐          ┌────────────────────┐
+    │ - Active Usage    │          │ - Low Usage        │
+    │ - Task Completion │          │ - Workarounds      │
+    │ - User Sat (CSAT) │          │ - Shadow IT        │
+    │ - Advocacy (NPS)  │          │ - Compliance Only  │
+    └───────────────────┘          └────────────────────┘
     `,
   },
   {
@@ -264,16 +275,20 @@ Phase 3: Scale
     slideNumber: 16,
     part: 'Part 4: Execution & Metrics',
     ascii: `
-[ ] 1. Identify valid user need
-[ ] 2. Choose right lifecycle stage
-[ ] 3. Select matching architecture
-[ ] 4. Design for adoption (UX)
-[ ] 5. Plan for support & training
-[ ] 6. Define success metrics
-[ ] 7. Pilot before scaling
-[ ] 8. Monitor for shelf-ware
-[ ] 9. Iterate based on feedback
-[ ] 10. Plan exit strategy
+    ┌──────────────────────────────────────────────┐
+    │  ADOPTION BEST PRACTICES CHECKLIST           │
+    ├──────────────────────────────────────────────┤
+    │ [x] 1. Identify valid user need              │
+    │ [x] 2. Choose right lifecycle stage          │
+    │ [x] 3. Select matching architecture          │
+    │ [x] 4. Design for adoption (UX)              │
+    │ [x] 5. Plan for support & training           │
+    │ [x] 6. Define success metrics                │
+    │ [x] 7. Pilot before scaling                  │
+    │ [x] 8. Monitor for shelf-ware                │
+    │ [x] 9. Iterate based on feedback             │
+    │ [x] 10. Plan exit strategy                   │
+    └──────────────────────────────────────────────┘
     `,
   },
 
@@ -315,12 +330,16 @@ Languages     | Python / Go / JS  | Perl / PHP (Legacy)
     slideNumber: 19,
     part: 'Part 5: Deep Dives',
     ascii: `
-1. SaaS (Software)
-   - Salesforce, M365
-2. PaaS (Platform)
-   - Heroku, Google App Engine
-3. IaaS (Infrastructure)
-   - AWS EC2, Azure VMs
+        [ SaaS (Software) ]
+        (Salesforce, M365)
+              │
+              ▼
+        [ PaaS (Platform) ]
+        (Heroku, Google App Engine)
+              │
+              ▼
+    [ IaaS (Infrastructure) ]
+    (AWS EC2, Azure VMs)
     `,
   },
   {
@@ -329,12 +348,13 @@ Languages     | Python / Go / JS  | Perl / PHP (Legacy)
     slideNumber: 20,
     part: 'Part 5: Deep Dives',
     ascii: `
-- Build (Custom)
-  - Competitive advantage, specific needs.
-- Buy (COTS/SaaS)
-  - Commodity functions, speed to market.
-- Partner (Outsource)
-  - Non-core competency, cost reduction.
+    ┌─────────────┐   ┌─────────────┐   ┌─────────────┐
+    │    BUILD    │   │     BUY     │   │   PARTNER   │
+    │  (Custom)   │   │ (COTS/SaaS) │   │ (Outsource) │
+    ├─────────────┤   ├─────────────┤   ├─────────────┤
+    │ Competitive │   │ Commodity   │   │ Non-Core    │
+    │ Advantage   │   │ Speed       │   │ Cost Save   │
+    └─────────────┘   └─────────────┘   └─────────────┘
     `,
   },
   {
@@ -343,11 +363,15 @@ Languages     | Python / Go / JS  | Perl / PHP (Legacy)
     slideNumber: 21,
     part: 'Part 5: Deep Dives',
     ascii: `
-❌ "Big Bang" Deployment
-❌ Resume Driven Development
-❌ Analysis Paralysis
-❌ Not Invented Here (NIH)
-❌ Golden Hammer (One tool for all)
+    ┌───────────────────────────────┐
+    │  🚫  ANTI-PATTERN GRAVEYARD   │
+    ├───────────────────────────────┤
+    │ 1. "Big Bang" Deployment      │
+    │ 2. Resume Driven Development  │
+    │ 3. Analysis Paralysis         │
+    │ 4. Not Invented Here (NIH)    │
+    │ 5. Golden Hammer (One Tool)   │
+    └───────────────────────────────┘
     `,
   },
   {
@@ -370,11 +394,19 @@ Languages     | Python / Go / JS  | Perl / PHP (Legacy)
     slideNumber: 23,
     part: 'Part 5: Deep Dives',
     ascii: `
-1. Encapsulate (API Wrapper)
-2. Rehost (Lift & Shift)
-3. Replatform (Managed DBs)
-4. Refactor (Cloud Native)
-5. Retire (Turn off)
+    [ 1. Encapsulate ] (API Wrapper)
+           │
+           ▼
+    [ 2. Rehost      ] (Lift & Shift)
+           │
+           ▼
+    [ 3. Replatform  ] (Managed DBs)
+           │
+           ▼
+    [ 4. Refactor    ] (Cloud Native)
+           │
+           ▼
+    [ 5. Retire      ] (Turn Off)
     `,
   },
   {
@@ -383,10 +415,19 @@ Languages     | Python / Go / JS  | Perl / PHP (Legacy)
     slideNumber: 24,
     part: 'Part 5: Deep Dives',
     ascii: `
-High Friction  [ Security / Privacy ]
-               [ Ethics / Bias      ]
-               [ Skills Gap         ]
-Low Friction   [ Chatbots / Copilot ]
+    [ HIGH FRICTION ]
+    ┌────────────────────────┐
+    │ - Security / Privacy   │
+    │ - Ethics / Bias        │
+    │ - Skills Gap           │
+    └──────────┬─────────────┘
+               │
+               ▼
+    ┌────────────────────────┐
+    │ - Chatbots / Copilot   │
+    │ - Summarization        │
+    └────────────────────────┘
+    [ LOW FRICTION ]
     `,
   },
   {

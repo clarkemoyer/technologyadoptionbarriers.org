@@ -48,28 +48,28 @@ All visuals follow a strict naming convention: `VisualXX_FriendlyName`.
 
 | Slide  | Visual ID                           | Standard Name                         | Modern | ASCII | Purpose                    |
 | :----- | :---------------------------------- | :------------------------------------ | :----: | :---: | :------------------------- |
-| **13** | `adoption-enabling-capabilities`    | **Visual 13 - Enabling Capabilities** |   ✅   |  📝   | Key capabilities list      |
-| **14** | `adoption-success-metrics`          | **Visual 14 - Success Metrics**       |   ✅   |  📝   | Success vs Warning signals |
+| **13** | `adoption-enabling-capabilities`    | **Visual 13 - Enabling Capabilities** |   ✅   |  ✅   | Key capabilities list      |
+| **14** | `adoption-success-metrics`          | **Visual 14 - Success Metrics**       |   ✅   |  ✅   | Success vs Warning signals |
 | **15** | `phased-adoption-roadmap`           | **Visual 15 - Phased Roadmap**        |   ✅   |  ✅   | 5-phase journey map        |
-| **16** | `adoption-best-practices-checklist` | **Visual 16 - Best Practices**        |   ✅   |  📝   | 10-point checklist         |
+| **16** | `adoption-best-practices-checklist` | **Visual 16 - Best Practices**        |   ✅   |  ✅   | 10-point checklist         |
 
 ### Transition (Slide 17)
 
 | Slide  | Visual ID            | Standard Name                 | Modern | ASCII | Purpose                     |
 | :----- | :------------------- | :---------------------------- | :----: | :---: | :-------------------------- |
-| **17** | `qa-transition-card` | **Visual 17 - QA Transition** |   ✅   |  ❌   | Simple Q&A transition slide |
+| **17** | `qa-transition-card` | **Visual 17 - QA Transition** |   ✅   |  ✅   | Simple Q&A transition slide |
 
 ### Part 5: Deep Dives (Slides 18-25)
 
 | Slide  | Visual ID                         | Standard Name                         | Modern | ASCII | Purpose                                        |
 | :----- | :-------------------------------- | :------------------------------------ | :----: | :---: | :--------------------------------------------- |
-| **18** | `deep-dive-tech-stack-comparison` | **Visual 18 - Tech Stack Comparison** |   ✅   |  📝   | Hierarchical tech stack lists                  |
-| **19** | `deep-dive-cloud-tiers`           | **Visual 19 - Cloud Tiers**           |   ✅   |  📝   | Cloud platform examples                        |
-| **20** | `deep-dive-sourcing-strategy`     | **Visual 20 - Sourcing Strategy**     |   ✅   |  📝   | Sourcing categories                            |
-| **21** | `deep-dive-anti-patterns`         | **Visual 21 - Anti-Patterns**         |   ✅   |  📝   | List of 10 anti-patterns                       |
+| **18** | `deep-dive-tech-stack-comparison` | **Visual 18 - Tech Stack Comparison** |   ✅   |  ✅   | Hierarchical tech stack lists                  |
+| **19** | `deep-dive-cloud-tiers`           | **Visual 19 - Cloud Tiers**           |   ✅   |  ✅   | Cloud platform examples                        |
+| **20** | `deep-dive-sourcing-strategy`     | **Visual 20 - Sourcing Strategy**     |   ✅   |  ✅   | Sourcing categories                            |
+| **21** | `deep-dive-anti-patterns`         | **Visual 21 - Anti-Patterns**         |   ✅   |  ✅   | List of 10 anti-patterns                       |
 | **22** | `deep-dive-roi-analysis`          | **Visual 22 - ROI Analysis**          |   ✅   |  ✅   | Org vs User adoption gap diagram               |
-| **23** | `deep-dive-legacy-migration`      | **Visual 23 - Legacy Migration**      |   ✅   |  📝   | Migration strategy steps                       |
-| **24** | `deep-dive-ai-friction`           | **Visual 24 - AI Friction**           |   ✅   |  📝   | AI lifecycle stages                            |
+| **23** | `deep-dive-legacy-migration`      | **Visual 23 - Legacy Migration**      |   ✅   |  ✅   | Migration strategy steps                       |
+| **24** | `deep-dive-ai-friction`           | **Visual 24 - AI Friction**           |   ✅   |  ✅   | AI lifecycle stages                            |
 | **25** | `deep-dive-lifecycle-cycles`      | **Visual 25 - Lifecycle Cycles**      |   ✅   |  ✅   | Innovation vs Legacy gravity wells             |
 | **26** | `deep-dive-trifecta-model`        | **Visual 26 - The Trifecta**          |   ✅   |  ✅   | Triangle model of Org, User, Consumer adoption |
 

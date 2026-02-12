@@ -205,11 +205,34 @@
 
 # Visual 13 - Enabling Capabilities (ASCII)
 
-Use structured text list in deck.
+```text
+    ┌─────────────────────────┐
+    │ 1. Graceful Degradation │
+    │    (Fails Safely)       │
+    └──────────────┬──────────┘
+                   │
+    ┌──────────────▼──────────┐
+    │ 2. Scalable Deployment  │
+    │    (10 -> 10k Users)    │
+    └──────────────┬──────────┘
+                   │
+    ┌──────────────▼──────────┐
+    │ 3. Resilient Operations │
+    │    (Self-Healing)       │
+    └─────────────────────────┘
+```
 
 # Visual 14 - Adoption Success Metrics (ASCII)
 
-Use structured text list in deck.
+```text
+     SUCCESS SIGNALS ✅             WARNING SIGNALS ⚠️
+    ┌───────────────────┐          ┌────────────────────┐
+    │ - Active Usage    │          │ - Low Usage        │
+    │ - Task Completion │          │ - Workarounds      │
+    │ - User Sat (CSAT) │          │ - Shadow IT        │
+    │ - Advocacy (NPS)  │          │ - Compliance Only  │
+    └───────────────────┘          └────────────────────┘
+```
 
 # Visual 15 - Journey Map (ASCII)
 
@@ -231,7 +254,22 @@ Use structured text list in deck.
 
 # Visual 16 - Adoption Best Practices (ASCII)
 
-Use structured text list in deck.
+```text
+    ┌──────────────────────────────────────────────┐
+    │  ADOPTION BEST PRACTICES CHECKLIST           │
+    ├──────────────────────────────────────────────┤
+    │ [x] 1. Identify valid user need              │
+    │ [x] 2. Choose right lifecycle stage          │
+    │ [x] 3. Select matching architecture          │
+    │ [x] 4. Design for adoption (UX)              │
+    │ [x] 5. Plan for support & training           │
+    │ [x] 6. Define success metrics                │
+    │ [x] 7. Pilot before scaling                  │
+    │ [x] 8. Monitor for shelf-ware                │
+    │ [x] 9. Iterate based on feedback             │
+    │ [x] 10. Plan exit strategy                   │
+    └──────────────────────────────────────────────┘
+```
 
 # Visual 17 - Q&A Transition (ASCII)
 
@@ -265,36 +303,43 @@ Use structured text list in deck.
 
 # Visual 19 - Cloud Tiers (ASCII)
 
-Use structured text list in deck.
+```text
+        [ SaaS (Software) ]
+        (Salesforce, M365)
+              │
+              ▼
+        [ PaaS (Platform) ]
+        (Heroku, Google App Engine)
+              │
+              ▼
+    [ IaaS (Infrastructure) ]
+    (AWS EC2, Azure VMs)
+```
 
 # Visual 20 - Sourcing Strategy (ASCII)
 
 ```text
-      [ Open Source ]  [ Commercial ]
-            │               │
-      ┌─────┴─────┐   ┌─────┴─────┐
-      │ Community │   │  Vendor   │
-      │  Driven   │   │ Supported │
-      └───────────┘   └───────────┘
+    ┌─────────────┐   ┌─────────────┐   ┌─────────────┐
+    │    BUILD    │   │     BUY     │   │   PARTNER   │
+    │  (Custom)   │   │ (COTS/SaaS) │   │ (Outsource) │
+    ├─────────────┤   ├─────────────┤   ├─────────────┤
+    │ Competitive │   │ Commodity   │   │ Non-Core    │
+    │ Advantage   │   │ Speed       │   │ Cost Save   │
+    └─────────────┘   └─────────────┘   └─────────────┘
 ```
 
 # Visual 21 - Anti-Pattern Graveyard (ASCII)
 
 ```text
-      ┌──────────────────────────────────────────────────┐
-      │       ⚠️  ADOPTION ANTI-PATTERNS  ⚠️             │
-      │                                                  │
-      │   1. "Build it and they will come"   -->  ⛔     │
-      │   2. "Tech for tech's sake"          -->  ⛔     │
-      │   3. "One size fits all"             -->  ⛔     │
-      │   4. "Big Bang deployment"           -->  ⛔     │
-      │   5. "Set it and forget it"          -->  ⛔     │
-      │   6. "The Mandate"                   -->  ⛔     │
-      │   7. "Vendor Lock-in"                -->  ⛔     │
-      │   8. "Ignoring lifecycle"            -->  ⛔     │
-      │   9. "Feature obsession"             -->  ⛔     │
-      │  10. "Docs as afterthought"          -->  ⛔     │
-      └──────────────────────────────────────────────────┘
+    ┌───────────────────────────────┐
+    │  🚫  ANTI-PATTERN GRAVEYARD   │
+    ├───────────────────────────────┤
+    │ 1. "Big Bang" Deployment      │
+    │ 2. Resume Driven Development  │
+    │ 3. Analysis Paralysis         │
+    │ 4. Not Invented Here (NIH)    │
+    │ 5. Golden Hammer (One Tool)   │
+    └───────────────────────────────┘
 ```
 
 # Visual 22 - ROI Analysis (ASCII)
@@ -335,65 +380,43 @@ Use structured text list in deck.
 │     • Requires constant enforcement                     │
 │     • Mission capability degraded                       │
 │     • Negative ROI (compliance cost > value)            │
-└─────────────────────────────────────────────────────────┘
+│ └─────────────────────────────────────────────────────────┘
 ```
 
 # Visual 23 - Legacy Migration Timeline (ASCII)
 
 ```text
-┌────────────────────────────────────────────────┐
-│     [ END OF SUPPORT DETECTED ]                │
-│              │                                 │
-│              ▼                                 │
-│  PHASE 1: I M M E D I A T E  (Triage)          │
-│  ┌──────────────────────────────────────────┐  │
-│  │ 🛑 Security Triage   │ 🔒 System Isolation │  │
-│  └──────────────────────────────────────────┘  │
-│              │                                 │
-│              ▼                                 │
-│  PHASE 2: S H O R T - T E R M  (Stabilize)     │
-│  ┌──────────────────────────────────────────┐  │
-│  │ 📝 Risk Docs         │ 🛠️ Self-Support Plan│  │
-│  └──────────────────────────────────────────┘  │
-│              │                                 │
-│              ▼                                 │
-│  PHASE 3: M I D - T E R M  (Architect)         │
-│  ┌──────────────────────────────────────────┐  │
-│  │ 🏗️ Select Replacement│ 🔄 Data Strategy    │  │
-│  └──────────────────────────────────────────┘  │
-│              │                                 │
-│              ▼                                 │
-│  PHASE 4: L O N G - T E R M  (Execute)         │
-│  ┌───────────────────────┬──────────────────┐  │
-│  │ 🚀 Complete Migration │ ⚰️ Decommission   │  │
-│  └───────────────────────┴──────────────────┘  │
-└────────────────────────────────────────────────┘
+    [ 1. Encapsulate ] (API Wrapper)
+           │
+           ▼
+    [ 2. Rehost      ] (Lift & Shift)
+           │
+           ▼
+    [ 3. Replatform  ] (Managed DBs)
+           │
+           ▼
+    [ 4. Refactor    ] (Cloud Native)
+           │
+           ▼
+    [ 5. Retire      ] (Turn Off)
 ```
 
 # Visual 24 - AI Adoption Trust Filter (ASCII)
 
 ```text
-                     │ INPUT: TECH DEPLOYMENT
-                     ▼
-         ┌───────────┬───────────────┐
-         │  TRUST BARRIER #1         │
-         │  "Do I understand it?"    │
-         └───────────┬───────────────┘
-                     │ NO = REJECT
-         ┌───────────▼───────────────┐
-         │  TRUST BARRIER #2         │
-         │  "Is it accurate?"        │
-         └───────────┬───────────────┘
-                     │ NO = IGNORE
-         ┌───────────▼───────────────┐
-         │  TRUST BARRIER #3         │
-         │  "Does it help me?"       │
-         └───────────┬───────────────┘
-                     │ NO = BYPASS
-                     ▼
-         ┌───────────────────────────┐
-         │ OUTPUT: VOLUNTARY ADOPTION│
-         └───────────────────────────┘
+    [ HIGH FRICTION ]
+    ┌────────────────────────┐
+    │ - Security / Privacy   │
+    │ - Ethics / Bias        │
+    │ - Skills Gap           │
+    └──────────┬─────────────┘
+               │
+               ▼
+    ┌────────────────────────┐
+    │ - Chatbots / Copilot   │
+    │ - Summarization        │
+    └────────────────────────┘
+    [ LOW FRICTION ]
 ```
 
 # Visual 25 - Lifecycle Cycles (ASCII)
@@ -409,7 +432,7 @@ Use structured text list in deck.
      │       ▼         ▼          │      │       ▼         ▼          │
      │ [Leading]     [Mainstream] │      │ [End of Suppt] [End of Life]│
      │ (Emerging)     (Stable)    │      │    (Risk)       (Hazard)   │
-     └────────────────────────────┘      └────────────────────────────┘
+     │      └────────────────────────────┘      └────────────────────────────┘
 ```
 
 # Visual 26 - The Trifecta of Adoption (ASCII)
