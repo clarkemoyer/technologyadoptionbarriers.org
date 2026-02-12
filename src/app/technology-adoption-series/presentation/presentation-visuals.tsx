@@ -120,9 +120,9 @@ const IconWarn = () => (
   </svg>
 )
 
-// ── Per-slide visuals ──────────────────────────────────────
+// ── PART 1: DEFINITIONS & FRAMEWORK (Slides 1-4) ─────────────────────
 
-function Visual1() {
+function Visual01_AdoptionProcessFlow() {
   const steps = ['Evaluation', 'Selection', 'Integration', 'Deployment', 'Sustained Use']
   return (
     <div className="flex h-full flex-col items-center justify-center gap-8">
@@ -144,7 +144,7 @@ function Visual1() {
   )
 }
 
-function Visual2() {
+function Visual02_FrameworkLayers() {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-6">
       <Card className="w-full max-w-xl border-cyan-500/30 text-center">
@@ -166,7 +166,7 @@ function Visual2() {
   )
 }
 
-function Visual3() {
+function Visual03_VoluntaryVsInvoluntaryTable() {
   const rows = [
     { factor: 'User Engagement', vol: 'High', invol: 'Low' },
     { factor: 'Training Effectiveness', vol: 'Self-motivated', invol: 'Forced compliance' },
@@ -200,7 +200,7 @@ function Visual3() {
   )
 }
 
-function Visual4() {
+function Visual04_ShelfwareVsAdoptedComparison() {
   return (
     <div className="flex h-full items-center justify-center">
       <div className="grid w-full max-w-3xl grid-cols-2 gap-6">
@@ -233,7 +233,9 @@ function Visual4() {
   )
 }
 
-function Visual5({ mode }: { mode?: 'hd' | '4k' }) {
+// ── PART 2: STRATEGY & LIFECYCLE (Slides 5-8) ────────────────────────
+
+function Visual05_StrategicAdoptionPillars({ mode }: { mode?: 'hd' | '4k' }) {
   const pillars = [
     { title: 'Research & Development', desc: 'Innovation and exploration', accent: false },
     {
@@ -276,7 +278,7 @@ function Visual5({ mode }: { mode?: 'hd' | '4k' }) {
   )
 }
 
-function Visual6({ mode }: { mode?: 'hd' | '4k' }) {
+function Visual06_TechnologyLifecyclePositioningDiagram({ mode }: { mode?: 'hd' | '4k' }) {
   return (
     <div className="flex h-full items-center justify-center">
       <svg
@@ -337,7 +339,7 @@ function Visual6({ mode }: { mode?: 'hd' | '4k' }) {
   )
 }
 
-function Visual7() {
+function Visual07_LifecycleStagesMatrix() {
   const rows: Array<{
     stage: string
     risk: string
@@ -383,7 +385,7 @@ function Visual7() {
   )
 }
 
-function Visual8() {
+function Visual08_StrategicPositioningTarget() {
   return (
     <div className="flex h-full items-center justify-center">
       <svg
@@ -448,7 +450,7 @@ function Visual8() {
   )
 }
 
-function Visual9() {
+function Visual09_ArchitectureApproachesComparison() {
   const cols = [
     {
       title: 'Cloud Enabling',
@@ -497,7 +499,7 @@ function Visual9() {
   )
 }
 
-function Visual10() {
+function Visual10_LifecycleArchitectureMapping() {
   const toneIcon = (t: 'good' | 'warn' | 'bad') =>
     t === 'good' ? <IconCheck /> : t === 'warn' ? <IconWarn /> : <IconX />
   const toneLabel = (t: 'good' | 'warn' | 'bad') =>
@@ -550,7 +552,7 @@ function Visual10() {
   )
 }
 
-function Visual11() {
+function Visual11_LifecyclePlanningLoop() {
   return (
     <div className="flex h-full items-center justify-center">
       <svg
@@ -655,7 +657,7 @@ function Visual11() {
   )
 }
 
-function Visual12() {
+function Visual12_AdoptionDrivenDecisionsFlow() {
   const stages = ['Adoption Need', 'Lifecycle Position', 'Architecture Approach', 'Dev Decisions']
   return (
     <div className="flex h-full flex-col items-center justify-center gap-6">
@@ -680,7 +682,9 @@ function Visual12() {
   )
 }
 
-function Visual13() {
+// ── PART 4: EXECUTION & METRICS (Slides 13-16) ───────────────────────
+
+function Visual13_AdoptionEnablingCapabilities() {
   const cards = [
     {
       title: 'Graceful Degradation',
@@ -721,7 +725,7 @@ function Metric({ tone, label, value }: { tone: 'good' | 'bad'; label: string; v
   )
 }
 
-function Visual14() {
+function Visual14_AdoptionSuccessMetrics() {
   return (
     <div className="flex h-full items-center justify-center">
       <div className="grid w-full max-w-3xl grid-cols-2 gap-6">
@@ -746,7 +750,7 @@ function Visual14() {
   )
 }
 
-function Visual15() {
+function Visual15_PhasedAdoptionRoadmap() {
   const phases = [
     { label: 'Design with representative users', note: 'Requirements validated' },
     { label: 'Develop with frequent user testing', note: 'Iterative feedback' },
@@ -776,7 +780,7 @@ function Visual15() {
   )
 }
 
-function Visual16() {
+function Visual16_AdoptionBestPracticesChecklist() {
   const items = [
     'Right lifecycle stage',
     'Architecture for adoption',
@@ -805,7 +809,9 @@ function Visual16() {
   )
 }
 
-function Visual17() {
+// ── TRANSITION (Slide 17) ────────────────────────────────────────────
+
+function Visual17_QaTransitionCard() {
   return (
     <div className="flex h-full items-center justify-center">
       <div className="grid w-full max-w-3xl grid-cols-2 gap-6">
@@ -824,7 +830,7 @@ function Visual17() {
   )
 }
 
-function Visual21() {
+function Visual21_DeepDiveAntiPatterns() {
   const avoid = ['Big bang deployment', 'Mandates as strategy', 'No user input', 'Ignore lifecycle']
   const doInstead = [
     'Pilot + iterate',
@@ -874,7 +880,7 @@ function Visual21() {
   )
 }
 
-function Visual24() {
+function Visual24_DeepDiveAiFriction() {
   const stages = [
     { title: 'Bleeding Edge', friction: 90 },
     { title: 'Leading Edge', friction: 55 },
@@ -904,7 +910,7 @@ function Visual24() {
   )
 }
 
-function Visual25() {
+function Visual25_DeepDiveLifecycleCycles() {
   const sw = 20
   // Standard 16:9 Canvas (1600 x 900)
   // Left Center
@@ -1101,7 +1107,7 @@ function Visual25() {
 
 // ── Visual components for optional deep-dives (18–23) ──────
 
-function Visual18() {
+function Visual18_DeepDiveTechStackComparison() {
   const examples = [
     { category: 'Container Orchestration', mainstream: 'Kubernetes', behind: 'Docker Swarm' },
     { category: 'IaC', mainstream: 'Terraform / Ansible', behind: 'Chef / Puppet' },
@@ -1134,7 +1140,7 @@ function Visual18() {
   )
 }
 
-function Visual19() {
+function Visual19_DeepDiveCloudTiers() {
   const tiers = [
     {
       title: 'Public Cloud',
@@ -1188,7 +1194,7 @@ function Visual19() {
   )
 }
 
-function Visual20() {
+function Visual20_DeepDiveSourcingStrategy() {
   const categories = [
     {
       title: 'Open Source (FOSS)',
@@ -1236,7 +1242,7 @@ function Visual20() {
   )
 }
 
-function Visual22() {
+function Visual22_DeepDiveRoiAnalysis() {
   return (
     <div className="flex h-full items-center justify-center">
       <div className="grid w-full max-w-4xl grid-cols-2 gap-6">
@@ -1269,7 +1275,7 @@ function Visual22() {
   )
 }
 
-function Visual23() {
+function Visual23_DeepDiveLegacyMigration() {
   const phases = [
     { label: 'Immediate', note: 'Security triage + isolation', tone: 'bad' as const },
     {
@@ -1324,6 +1330,100 @@ function Visual23() {
 
 // ── Public export ──────────────────────────────────────────
 
+function Visual26_DeepDiveTrifectaModel() {
+  // Triangle coordinates
+  // Top (Organization): Yellow
+  // Bottom Left (User): Blue
+  // Bottom Right (Consumer): Green
+  // Center (Technology): Red inverted
+
+  // Canvas 1600x900
+  // Center X = 800
+  // Top Y = 100
+  // Triangle Height ~ 700
+  // Side length ~ 800
+
+  // Vertices for main triangle
+  const top = { x: 800, y: 100 }
+  const botLeft = { x: 400, y: 800 }
+  const botRight = { x: 1200, y: 800 }
+
+  // Midpoints
+  const midLeft = { x: (top.x + botLeft.x) / 2, y: (top.y + botLeft.y) / 2 } // 600, 450
+  const midRight = { x: (top.x + botRight.x) / 2, y: (top.y + botRight.y) / 2 } // 1000, 450
+  const midBot = { x: (botLeft.x + botRight.x) / 2, y: (botLeft.y + botRight.y) / 2 } // 800, 800
+
+  return (
+    <div className="flex h-full items-center justify-center">
+      <svg
+        viewBox="0 0 1600 900"
+        className="h-full w-full max-h-full max-w-full"
+        role="img"
+        aria-label="The Trifecta of Adoption"
+      >
+        {/* Top Triangle - Organization (Yellow) */}
+        <path
+          d={`M${top.x},${top.y} L${midRight.x},${midRight.y} L${midLeft.x},${midLeft.y} Z`}
+          fill="#facc15" // yellow-400
+          stroke="white"
+          strokeWidth="4"
+        />
+        <text x="800" y="320" textAnchor="middle" fill="#713f12" fontSize="32" fontWeight="bold">
+          Organization Adoption (1)
+        </text>
+        <text x="800" y="360" textAnchor="middle" fill="#713f12" fontSize="28" fontStyle="italic">
+          C-Suite Focus Area
+        </text>
+
+        {/* Bottom Left Triangle - User (Blue) */}
+        <path
+          d={`M${midLeft.x},${midLeft.y} L${midBot.x},${midBot.y} L${botLeft.x},${botLeft.y} Z`}
+          fill="#67e8f9" // cyan-300 (adjust to match blue-ish)
+          stroke="white"
+          strokeWidth="4"
+        />
+        <text x="600" y="680" textAnchor="middle" fill="#0f4a5a" fontSize="32" fontWeight="bold">
+          User Adoption (2)
+        </text>
+        <text x="600" y="720" textAnchor="middle" fill="#0f4a5a" fontSize="28" fontStyle="italic">
+          Internal
+        </text>
+
+        {/* Bottom Right Triangle - Consumer (Green) */}
+        <path
+          d={`M${midRight.x},${midRight.y} L${botRight.x},${botRight.y} L${midBot.x},${midBot.y} Z`}
+          fill="#86efac" // green-300
+          stroke="white"
+          strokeWidth="4"
+        />
+        <text x="1000" y="680" textAnchor="middle" fill="#14532d" fontSize="32" fontWeight="bold">
+          Consumer Adoption (3)
+        </text>
+        <text x="1000" y="720" textAnchor="middle" fill="#14532d" fontSize="28" fontStyle="italic">
+          External
+        </text>
+
+        {/* Center Triangle - Technology (Red/Orange) */}
+        <path
+          d={`M${midLeft.x},${midLeft.y} L${midRight.x},${midRight.y} L${midBot.x},${midBot.y} Z`}
+          fill="#ea580c" // orange-600
+          stroke="white"
+          strokeWidth="4"
+        />
+        <text x="800" y="550" textAnchor="middle" fill="white" fontSize="36" fontWeight="bold">
+          Technology
+        </text>
+        <text x="800" y="590" textAnchor="middle" fill="white" fontSize="36" fontWeight="bold">
+          Adoption
+        </text>
+        <text x="800" y="630" textAnchor="middle" fill="white" fontSize="28">
+          (1, 2, 3)
+        </text>
+      </svg>
+    </div>
+  )
+}
+
 // ── Public export ──────────────────────────────────────────
 
 export interface VisualDef {
@@ -1333,31 +1433,79 @@ export interface VisualDef {
 }
 
 export const VISUAL_CONFIG: VisualDef[] = [
-  { number: 1, id: 'adoption-process-flow', component: Visual1 },
-  { number: 2, id: 'adoption-framework-layers', component: Visual2 },
-  { number: 3, id: 'voluntary-vs-involuntary-table', component: Visual3 },
-  { number: 4, id: 'shelfware-vs-adopted-comparison', component: Visual4 },
-  { number: 5, id: 'strategic-adoption-pillars', component: Visual5 },
-  { number: 6, id: 'technology-lifecycle-positioning-diagram', component: Visual6 },
-  { number: 7, id: 'lifecycle-stages-matrix', component: Visual7 },
-  { number: 8, id: 'strategic-positioning-target', component: Visual8 },
-  { number: 9, id: 'architecture-approaches-comparison', component: Visual9 },
-  { number: 10, id: 'lifecycle-architecture-mapping', component: Visual10 },
-  { number: 11, id: 'lifecycle-planning-loop', component: Visual11 },
-  { number: 12, id: 'adoption-driven-decisions-flow', component: Visual12 },
-  { number: 13, id: 'adoption-enabling-capabilities', component: Visual13 },
-  { number: 14, id: 'adoption-success-metrics', component: Visual14 },
-  { number: 15, id: 'phased-adoption-roadmap', component: Visual15 },
-  { number: 16, id: 'adoption-best-practices-checklist', component: Visual16 },
-  { number: 17, id: 'qa-transition-card', component: Visual17 },
-  { number: 18, id: 'deep-dive-tech-stack-comparison', component: Visual18 },
-  { number: 19, id: 'deep-dive-cloud-tiers', component: Visual19 },
-  { number: 20, id: 'deep-dive-sourcing-strategy', component: Visual20 },
-  { number: 21, id: 'deep-dive-anti-patterns', component: Visual21 },
-  { number: 22, id: 'deep-dive-roi-analysis', component: Visual22 },
-  { number: 23, id: 'deep-dive-legacy-migration', component: Visual23 },
-  { number: 24, id: 'deep-dive-ai-friction', component: Visual24 },
-  { number: 25, id: 'deep-dive-lifecycle-cycles', component: Visual25 },
+  // ── PART 1: DEFINITIONS & FRAMEWORK (Slides 1-4) ─────────────────────
+  { number: 1, id: 'adoption-process-flow', component: Visual01_AdoptionProcessFlow },
+  { number: 2, id: 'adoption-framework-layers', component: Visual02_FrameworkLayers },
+  {
+    number: 3,
+    id: 'voluntary-vs-involuntary-table',
+    component: Visual03_VoluntaryVsInvoluntaryTable,
+  },
+  {
+    number: 4,
+    id: 'shelfware-vs-adopted-comparison',
+    component: Visual04_ShelfwareVsAdoptedComparison,
+  },
+
+  // ── PART 2: STRATEGY & LIFECYCLE (Slides 5-8) ────────────────────────
+  { number: 5, id: 'strategic-adoption-pillars', component: Visual05_StrategicAdoptionPillars },
+  {
+    number: 6,
+    id: 'technology-lifecycle-positioning-diagram',
+    component: Visual06_TechnologyLifecyclePositioningDiagram,
+  },
+  { number: 7, id: 'lifecycle-stages-matrix', component: Visual07_LifecycleStagesMatrix },
+  { number: 8, id: 'strategic-positioning-target', component: Visual08_StrategicPositioningTarget },
+
+  // ── PART 3: ARCHITECTURE & DECISIONS (Slides 9-12) ───────────────────
+  {
+    number: 9,
+    id: 'architecture-approaches-comparison',
+    component: Visual09_ArchitectureApproachesComparison,
+  },
+  {
+    number: 10,
+    id: 'lifecycle-architecture-mapping',
+    component: Visual10_LifecycleArchitectureMapping,
+  },
+  { number: 11, id: 'lifecycle-planning-loop', component: Visual11_LifecyclePlanningLoop },
+  {
+    number: 12,
+    id: 'adoption-driven-decisions-flow',
+    component: Visual12_AdoptionDrivenDecisionsFlow,
+  },
+
+  // ── PART 4: EXECUTION & METRICS (Slides 13-16) ───────────────────────
+  {
+    number: 13,
+    id: 'adoption-enabling-capabilities',
+    component: Visual13_AdoptionEnablingCapabilities,
+  },
+  { number: 14, id: 'adoption-success-metrics', component: Visual14_AdoptionSuccessMetrics },
+  { number: 15, id: 'phased-adoption-roadmap', component: Visual15_PhasedAdoptionRoadmap },
+  {
+    number: 16,
+    id: 'adoption-best-practices-checklist',
+    component: Visual16_AdoptionBestPracticesChecklist,
+  },
+
+  // ── TRANSITION (Slide 17) ────────────────────────────────────────────
+  { number: 17, id: 'qa-transition-card', component: Visual17_QaTransitionCard },
+
+  // ── PART 5: DEEP DIVES (Slides 18-25) ────────────────────────────────
+  {
+    number: 18,
+    id: 'deep-dive-tech-stack-comparison',
+    component: Visual18_DeepDiveTechStackComparison,
+  },
+  { number: 19, id: 'deep-dive-cloud-tiers', component: Visual19_DeepDiveCloudTiers },
+  { number: 20, id: 'deep-dive-sourcing-strategy', component: Visual20_DeepDiveSourcingStrategy },
+  { number: 21, id: 'deep-dive-anti-patterns', component: Visual21_DeepDiveAntiPatterns },
+  { number: 22, id: 'deep-dive-roi-analysis', component: Visual22_DeepDiveRoiAnalysis },
+  { number: 23, id: 'deep-dive-legacy-migration', component: Visual23_DeepDiveLegacyMigration },
+  { number: 24, id: 'deep-dive-ai-friction', component: Visual24_DeepDiveAiFriction },
+  { number: 25, id: 'deep-dive-lifecycle-cycles', component: Visual25_DeepDiveLifecycleCycles },
+  { number: 26, id: 'deep-dive-trifecta-model', component: Visual26_DeepDiveTrifectaModel },
 ]
 
 export const VISUAL_REGISTRY = Object.fromEntries(
