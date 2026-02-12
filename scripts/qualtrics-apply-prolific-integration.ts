@@ -124,7 +124,7 @@ function buildProlificPresentBranchLogic(style: BranchLogicStyle): Record<string
     Type: 'Expression',
     LogicType: 'EmbeddedField',
     LeftOperand: 'e://Field/PROLIFIC_PID',
-    Operator: 'NotEmpty',
+    Operator: 'IsNotEmpty',
     RightOperand: '',
   }
 
