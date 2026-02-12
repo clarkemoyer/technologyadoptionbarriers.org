@@ -120,9 +120,9 @@ const IconWarn = () => (
   </svg>
 )
 
-// ── Per-slide visuals ──────────────────────────────────────
+// ── PART 1: DEFINITIONS & FRAMEWORK (Slides 1-4) ─────────────────────
 
-function Visual1() {
+function Visual01_AdoptionProcessFlow() {
   const steps = ['Evaluation', 'Selection', 'Integration', 'Deployment', 'Sustained Use']
   return (
     <div className="flex h-full flex-col items-center justify-center gap-8">
@@ -144,7 +144,7 @@ function Visual1() {
   )
 }
 
-function Visual2() {
+function Visual02_FrameworkLayers() {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-6">
       <Card className="w-full max-w-xl border-cyan-500/30 text-center">
@@ -166,7 +166,7 @@ function Visual2() {
   )
 }
 
-function Visual3() {
+function Visual03_VoluntaryVsInvoluntaryTable() {
   const rows = [
     { factor: 'User Engagement', vol: 'High', invol: 'Low' },
     { factor: 'Training Effectiveness', vol: 'Self-motivated', invol: 'Forced compliance' },
@@ -200,7 +200,7 @@ function Visual3() {
   )
 }
 
-function Visual4() {
+function Visual04_ShelfwareVsAdoptedComparison() {
   return (
     <div className="flex h-full items-center justify-center">
       <div className="grid w-full max-w-3xl grid-cols-2 gap-6">
@@ -233,7 +233,9 @@ function Visual4() {
   )
 }
 
-function Visual5({ mode }: { mode?: 'hd' | '4k' }) {
+// ── PART 2: STRATEGY & LIFECYCLE (Slides 5-8) ────────────────────────
+
+function Visual05_StrategicAdoptionPillars({ mode }: { mode?: 'hd' | '4k' }) {
   const pillars = [
     { title: 'Research & Development', desc: 'Innovation and exploration', accent: false },
     {
@@ -276,14 +278,642 @@ function Visual5({ mode }: { mode?: 'hd' | '4k' }) {
   )
 }
 
-function Visual6() {
+function Visual06_TechnologyLifecyclePositioningDiagram({ mode }: { mode?: 'hd' | '4k' }) {
+  return (
+    <div className="flex h-full items-center justify-center">
+      <svg
+        viewBox="0 0 700 300"
+        className="w-full max-w-4xl"
+        role="img"
+        aria-label="Technology lifecycle curve"
+      >
+        <defs>
+          <linearGradient id="lcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.6" />
+            <stop offset="50%" stopColor="#22d3ee" stopOpacity="0.15" />
+            <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.05" />
+          </linearGradient>
+        </defs>
+        {/* Axes */}
+        <line x1="70" y1="250" x2="670" y2="250" stroke="#334155" strokeWidth="1.5" />
+        <line x1="70" y1="250" x2="70" y2="30" stroke="#334155" strokeWidth="1.5" />
+        {/* Area fill */}
+        <path
+          d="M90 220 C170 60,260 60,340 130 S480 260,620 240 L620 250 L90 250 Z"
+          fill="url(#lcGrad)"
+        />
+        {/* Curve */}
+        <path
+          d="M90 220 C170 60,260 60,340 130 S480 260,620 240"
+          fill="none"
+          stroke="#22d3ee"
+          strokeWidth="3"
+        />
+        {/* Points */}
+        {[
+          { x: 130, y: 130, label: 'Bleeding Edge', sub: 'High risk' },
+          { x: 230, y: 75, label: 'Leading Edge', sub: 'Innovation' },
+          { x: 350, y: 140, label: 'Mainstream', sub: 'Stable' },
+          { x: 480, y: 220, label: 'Trending Behind', sub: 'Declining' },
+          { x: 580, y: 238, label: 'End of Support', sub: 'Migrate' },
+        ].map((p) => (
+          <g key={p.label}>
+            <circle cx={p.x} cy={p.y} r="7" fill="#0f172a" stroke="#22d3ee" strokeWidth="2" />
+            <text x={p.x + 14} y={p.y - 6} fontSize="13" fontWeight="600" fill="#e2e8f0">
+              {p.label}
+            </text>
+            <text x={p.x + 14} y={p.y + 10} fontSize="11" fill="#94a3b8">
+              {p.sub}
+            </text>
+          </g>
+        ))}
+        {/* Axis labels */}
+        <text x="20" y="50" fontSize="12" fill="#64748b">
+          Risk / Innovation
+        </text>
+        <text x="620" y="275" fontSize="12" fill="#64748b">
+          Time →
+        </text>
+      </svg>
+    </div>
+  )
+}
+
+function Visual07_LifecycleStagesMatrix() {
+  const rows: Array<{
+    stage: string
+    risk: string
+    tone: 'good' | 'warn' | 'bad'
+    posture: string
+  }> = [
+    { stage: 'Bleeding Edge', risk: 'Very High', tone: 'bad', posture: 'R&D only' },
+    {
+      stage: 'Leading Edge',
+      risk: 'High',
+      tone: 'warn',
+      posture: 'Modern patterns, innovation room',
+    },
+    { stage: 'Mainstream', risk: 'Low', tone: 'good', posture: 'Best practices, predictable' },
+    { stage: 'Trending Behind', risk: 'Medium', tone: 'warn', posture: 'Modernization planning' },
+    { stage: 'End of Support+', risk: 'High–Very High', tone: 'bad', posture: 'Forced migration' },
+  ]
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="w-full max-w-3xl overflow-hidden rounded-xl border border-slate-700/50">
+        <table className="w-full border-collapse text-left">
+          <thead>
+            <tr className="bg-slate-800/80">
+              <th className="px-4 py-2 text-base font-bold text-slate-300">Lifecycle Stage</th>
+              <th className="px-4 py-2 text-base font-bold text-slate-300">Adoption Risk</th>
+              <th className="px-4 py-2 text-base font-bold text-slate-300">Posture</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r, i) => (
+              <tr key={r.stage} className={i % 2 === 0 ? 'bg-slate-800/30' : 'bg-slate-800/50'}>
+                <td className="px-4 py-2.5 text-base font-semibold text-white">{r.stage}</td>
+                <td className="px-4 py-2.5">
+                  <Badge tone={r.tone}>{r.risk}</Badge>
+                </td>
+                <td className="px-4 py-2.5 text-base text-slate-300">{r.posture}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+function Visual08_StrategicPositioningTarget() {
+  return (
+    <div className="flex h-full items-center justify-center">
+      <svg
+        viewBox="0 0 560 300"
+        className="w-full max-w-2xl"
+        role="img"
+        aria-label="Target zone: leading edge to mainstream"
+      >
+        {/* Outer ring */}
+        <rect
+          x="30"
+          y="20"
+          width="500"
+          height="260"
+          rx="20"
+          fill="#1e293b"
+          stroke="#334155"
+          strokeWidth="1.5"
+        />
+        <text x="50" y="48" fontSize="13" fill="#64748b">
+          Bleeding Edge — monitor only
+        </text>
+        {/* Middle ring */}
+        <rect
+          x="80"
+          y="65"
+          width="400"
+          height="170"
+          rx="16"
+          fill="#0f172a"
+          stroke="#22d3ee"
+          strokeWidth="1"
+          strokeDasharray="6 4"
+        />
+        <text x="100" y="88" fontSize="14" fontWeight="600" fill="#22d3ee">
+          Leading Edge — target ✅
+        </text>
+        {/* Inner ring */}
+        <rect
+          x="150"
+          y="110"
+          width="260"
+          height="80"
+          rx="14"
+          fill="#164e63"
+          fillOpacity="0.3"
+          stroke="#22d3ee"
+          strokeWidth="2"
+        />
+        <text x="195" y="155" fontSize="16" fontWeight="700" fill="#22d3ee">
+          Mainstream — target ✅
+        </text>
+        {/* Bottom label */}
+        <text x="100" y="225" fontSize="13" fill="#64748b">
+          Trending Behind — cloud enabling only
+        </text>
+        <text x="50" y="265" fontSize="13" fill="#475569">
+          End of Support — avoid / migrate
+        </text>
+      </svg>
+    </div>
+  )
+}
+
+function Visual09_ArchitectureApproachesComparison() {
+  const cols = [
+    {
+      title: 'Cloud Enabling',
+      friction: 35,
+      items: ['Refactoring', 'Containerization', 'API wrapping'],
+      note: 'Lower disruption',
+    },
+    {
+      title: 'Cloud Native',
+      friction: 75,
+      items: ['Microservices', '12-factor apps', 'K8s patterns'],
+      note: 'Highest performance',
+    },
+    {
+      title: 'Cloud Agnostic',
+      friction: 40,
+      items: ['Portability', 'Abstraction', 'Multi-platform IaC'],
+      note: 'Maximum flexibility',
+    },
+  ]
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="grid w-full max-w-4xl grid-cols-3 gap-5">
+        {cols.map((c) => (
+          <Card key={c.title}>
+            <CardLabel>{c.title}</CardLabel>
+            <ul className="mt-3 space-y-1.5 text-base text-slate-300">
+              {c.items.map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span
+                    className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400"
+                    aria-hidden="true"
+                  />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-4">
+              <FrictionBar value={c.friction} label="Adoption friction" />
+            </div>
+            <div className="mt-2 text-sm font-semibold text-slate-400">{c.note}</div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function Visual10_LifecycleArchitectureMapping() {
+  const toneIcon = (t: 'good' | 'warn' | 'bad') =>
+    t === 'good' ? <IconCheck /> : t === 'warn' ? <IconWarn /> : <IconX />
+  const toneLabel = (t: 'good' | 'warn' | 'bad') =>
+    t === 'good' ? 'Ideal' : t === 'warn' ? 'Caution' : 'Avoid'
+  const toneBg = (t: 'good' | 'warn' | 'bad') =>
+    t === 'good' ? 'bg-emerald-500/10' : t === 'warn' ? 'bg-amber-500/10' : 'bg-red-500/10'
+
+  const data: Array<{
+    stage: string
+    ce: 'good' | 'warn' | 'bad'
+    cn: 'good' | 'warn' | 'bad'
+    ca: 'good' | 'warn' | 'bad'
+  }> = [
+    { stage: 'Bleeding Edge', ce: 'bad', cn: 'warn', ca: 'bad' },
+    { stage: 'Leading Edge', ce: 'warn', cn: 'good', ca: 'warn' },
+    { stage: 'Mainstream', ce: 'good', cn: 'good', ca: 'good' },
+    { stage: 'Trending Behind', ce: 'good', cn: 'bad', ca: 'warn' },
+    { stage: 'End of Support', ce: 'warn', cn: 'bad', ca: 'warn' },
+  ]
+
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="w-full max-w-4xl overflow-hidden rounded-xl border border-slate-700/50">
+        <table className="w-full border-collapse text-left">
+          <thead>
+            <tr className="bg-slate-800/80">
+              <th className="px-4 py-3 text-base font-bold text-slate-300">Lifecycle</th>
+              <th className="px-4 py-3 text-base font-bold text-slate-300">Cloud Enabling</th>
+              <th className="px-4 py-3 text-base font-bold text-slate-300">Cloud Native</th>
+              <th className="px-4 py-3 text-base font-bold text-slate-300">Cloud Agnostic</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((r, i) => (
+              <tr key={r.stage} className={i % 2 === 0 ? 'bg-slate-800/30' : 'bg-slate-800/50'}>
+                <td className="px-4 py-3 text-base font-semibold text-white">{r.stage}</td>
+                {([r.ce, r.cn, r.ca] as const).map((t, j) => (
+                  <td key={j} className={`px-4 py-3 ${toneBg(t)}`}>
+                    <div className="flex items-center gap-2 text-sm font-semibold text-slate-200">
+                      {toneIcon(t)} {toneLabel(t)}
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+function Visual11_LifecyclePlanningLoop() {
+  return (
+    <div className="flex h-full items-center justify-center">
+      <svg
+        viewBox="0 0 640 300"
+        className="w-full max-w-3xl"
+        role="img"
+        aria-label="Lifecycle loop: design → develop → deploy → sustain"
+      >
+        <defs>
+          <marker
+            id="pArrow"
+            markerWidth="10"
+            markerHeight="10"
+            refX="8"
+            refY="3"
+            orient="auto"
+            markerUnits="strokeWidth"
+          >
+            <path d="M0,0 L0,6 L9,3 z" fill="#22d3ee" />
+          </marker>
+        </defs>
+        {/* Boxes */}
+        {[
+          { x: 80, y: 40, label: 'Design' },
+          { x: 420, y: 40, label: 'Develop' },
+          { x: 420, y: 180, label: 'Deploy' },
+          { x: 80, y: 180, label: 'Sustain' },
+        ].map((n) => (
+          <g key={n.label}>
+            <rect
+              x={n.x}
+              y={n.y}
+              width="140"
+              height="70"
+              rx="14"
+              fill="#1e293b"
+              stroke="#334155"
+              strokeWidth="1.5"
+            />
+            <text
+              x={n.x + 70}
+              y={n.y + 42}
+              textAnchor="middle"
+              fontSize="16"
+              fontWeight="600"
+              fill="#e2e8f0"
+            >
+              {n.label}
+            </text>
+          </g>
+        ))}
+        {/* Center circle */}
+        <circle
+          cx="320"
+          cy="145"
+          r="56"
+          fill="#164e63"
+          fillOpacity="0.3"
+          stroke="#22d3ee"
+          strokeWidth="1.5"
+        />
+        <text x="320" y="132" textAnchor="middle" fontSize="13" fontWeight="600" fill="#22d3ee">
+          User Input
+        </text>
+        <text x="320" y="150" textAnchor="middle" fontSize="13" fontWeight="600" fill="#22d3ee">
+          + Lifecycle
+        </text>
+        <text x="320" y="168" textAnchor="middle" fontSize="13" fontWeight="600" fill="#22d3ee">
+          Awareness
+        </text>
+        {/* Arrows */}
+        <path
+          d="M220 75 L420 75"
+          stroke="#22d3ee"
+          strokeWidth="2"
+          fill="none"
+          markerEnd="url(#pArrow)"
+        />
+        <path
+          d="M490 110 L490 180"
+          stroke="#22d3ee"
+          strokeWidth="2"
+          fill="none"
+          markerEnd="url(#pArrow)"
+        />
+        <path
+          d="M420 215 L220 215"
+          stroke="#22d3ee"
+          strokeWidth="2"
+          fill="none"
+          markerEnd="url(#pArrow)"
+        />
+        <path
+          d="M150 180 L150 110"
+          stroke="#22d3ee"
+          strokeWidth="2"
+          fill="none"
+          markerEnd="url(#pArrow)"
+        />
+      </svg>
+    </div>
+  )
+}
+
+function Visual12_AdoptionDrivenDecisionsFlow() {
+  const stages = ['Adoption Need', 'Lifecycle Position', 'Architecture Approach', 'Dev Decisions']
+  return (
+    <div className="flex h-full flex-col items-center justify-center gap-6">
+      <div className="flex flex-wrap items-center justify-center gap-3">
+        {stages.map((s, i) => (
+          <div key={s} className="flex items-center gap-3">
+            <Card className="text-center">
+              <div className="text-base font-bold text-white">{s}</div>
+            </Card>
+            {i < stages.length - 1 ? <Arrow /> : null}
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-3 gap-3">
+        {['Kubernetes', 'Microservices', 'Observability'].map((item) => (
+          <Card key={item} className="text-center">
+            <div className="text-sm font-semibold text-cyan-300">{item}</div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ── PART 4: EXECUTION & METRICS (Slides 13-16) ───────────────────────
+
+function Visual13_AdoptionEnablingCapabilities() {
+  const cards = [
+    {
+      title: 'Graceful Degradation',
+      body: 'Users trust the system — it fails safely and recovers quickly.',
+    },
+    { title: 'Scalable Deployment', body: 'Deploy where users operate, not vice versa.' },
+    {
+      title: 'Resilient Operations',
+      body: 'Works in degraded conditions — no workarounds needed.',
+    },
+  ]
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="grid w-full max-w-4xl grid-cols-3 gap-5">
+        {cards.map((c) => (
+          <Card key={c.title} className="border-cyan-500/20">
+            <CardLabel>{c.title}</CardLabel>
+            <CardBody>{c.body}</CardBody>
+          </Card>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function Metric({ tone, label, value }: { tone: 'good' | 'bad'; label: string; value: string }) {
+  return (
+    <div className="rounded-lg border border-slate-700/50 bg-slate-800/40 p-3">
+      <div className="flex items-center gap-2">
+        <span
+          className={`h-2.5 w-2.5 rounded-full ${tone === 'good' ? 'bg-emerald-400' : 'bg-red-400'}`}
+          aria-hidden="true"
+        />
+        <span className="text-base font-semibold text-white">{label}</span>
+      </div>
+      <div className="mt-1 text-sm text-slate-300">{value}</div>
+    </div>
+  )
+}
+
+function Visual14_AdoptionSuccessMetrics() {
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="grid w-full max-w-3xl grid-cols-2 gap-6">
+        <div>
+          <div className="mb-3 text-lg font-bold text-emerald-400">Success Signals</div>
+          <div className="space-y-3">
+            <Metric tone="good" label="Active usage rate" value="High" />
+            <Metric tone="good" label="Task completion vs workarounds" value="Rising" />
+            <Metric tone="good" label="User satisfaction" value="Positive" />
+          </div>
+        </div>
+        <div>
+          <div className="mb-3 text-lg font-bold text-red-400">Warning Signals</div>
+          <div className="space-y-3">
+            <Metric tone="bad" label="Availability vs usage" value="High / Low" />
+            <Metric tone="bad" label="Workarounds / shadow IT" value="Increasing" />
+            <Metric tone="bad" label="Help desk tickets" value="Constant basics" />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Visual15_PhasedAdoptionRoadmap() {
+  const phases = [
+    { label: 'Design with representative users', note: 'Requirements validated' },
+    { label: 'Develop with frequent user testing', note: 'Iterative feedback' },
+    { label: 'Pilot with early adopters', note: 'Positive feedback' },
+    { label: 'Expand as demand grows (voluntary)', note: 'Advocacy to peers' },
+    { label: 'Scaled adoption — self-sustaining', note: 'User-driven roadmap' },
+  ]
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="w-full max-w-2xl space-y-0">
+        {phases.map((p, i) => (
+          <div key={i} className="flex items-start gap-4">
+            <div className="flex flex-col items-center">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-cyan-500 bg-cyan-950/40 text-sm font-bold text-cyan-300">
+                {i + 1}
+              </div>
+              {i < phases.length - 1 ? <div className="h-8 w-px bg-slate-700" /> : null}
+            </div>
+            <div className="pb-6">
+              <div className="text-lg font-bold text-white">{p.label}</div>
+              <div className="text-sm text-slate-400">{p.note}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function Visual16_AdoptionBestPracticesChecklist() {
+  const items = [
+    'Right lifecycle stage',
+    'Architecture for adoption',
+    'Design with users',
+    'Demonstrate immediate value',
+    'Minimize behavior change',
+    'Phased rollout with champions',
+    'Plan the full lifecycle',
+    'Avoid involuntary adoption',
+    'Measure what matters',
+    'Shelf-ware helps nobody',
+  ]
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="grid w-full max-w-3xl grid-cols-2 gap-3">
+        {items.map((item, idx) => (
+          <Card key={idx} className="flex items-start gap-3">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-500/20 text-sm font-bold text-cyan-300">
+              {idx + 1}
+            </span>
+            <span className="text-base font-semibold text-white">{item}</span>
+          </Card>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ── TRANSITION (Slide 17) ────────────────────────────────────────────
+
+function Visual17_QaTransitionCard() {
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="grid w-full max-w-3xl grid-cols-2 gap-6">
+        <Card className="text-center">
+          <CardLabel>Q&A</CardLabel>
+          <CardBody>Capture questions, then route deeper topics to optional slides.</CardBody>
+        </Card>
+        <Card className="text-center">
+          <CardLabel>Deep Dives</CardLabel>
+          <CardBody>
+            Lifecycle examples, platforms, selection, anti-patterns, legacy, AI/ML.
+          </CardBody>
+        </Card>
+      </div>
+    </div>
+  )
+}
+
+function Visual21_DeepDiveAntiPatterns() {
+  const avoid = ['Big bang deployment', 'Mandates as strategy', 'No user input', 'Ignore lifecycle']
+  const doInstead = [
+    'Pilot + iterate',
+    'Build value proposition',
+    'Design with users',
+    'Plan modernization',
+  ]
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="grid w-full max-w-3xl grid-cols-2 gap-6">
+        <Card className="border-red-500/30">
+          <div className="flex items-center gap-2">
+            <IconX />
+            <CardLabel>Avoid</CardLabel>
+          </div>
+          <ul className="mt-3 space-y-2 text-base text-slate-300">
+            {avoid.map((a) => (
+              <li key={a} className="flex items-start gap-2">
+                <span
+                  className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400"
+                  aria-hidden="true"
+                />
+                {a}
+              </li>
+            ))}
+          </ul>
+        </Card>
+        <Card className="border-emerald-500/30">
+          <div className="flex items-center gap-2">
+            <IconCheck />
+            <CardLabel>Do Instead</CardLabel>
+          </div>
+          <ul className="mt-3 space-y-2 text-base text-slate-300">
+            {doInstead.map((d) => (
+              <li key={d} className="flex items-start gap-2">
+                <span
+                  className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400"
+                  aria-hidden="true"
+                />
+                {d}
+              </li>
+            ))}
+          </ul>
+        </Card>
+      </div>
+    </div>
+  )
+}
+
+function Visual24_DeepDiveAiFriction() {
+  const stages = [
+    { title: 'Bleeding Edge', friction: 90 },
+    { title: 'Leading Edge', friction: 55 },
+    { title: 'Mainstream', friction: 30 },
+    { title: 'Trending Behind', friction: 65 },
+  ]
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="w-full max-w-2xl space-y-4">
+        {stages.map((s) => (
+          <Card key={s.title}>
+            <div className="flex items-center justify-between">
+              <CardLabel>{s.title}</CardLabel>
+            </div>
+            <div className="mt-3">
+              <FrictionBar value={s.friction} label="AI/ML adoption friction" />
+            </div>
+          </Card>
+        ))}
+        <div className="mt-2 text-center text-base text-slate-400">
+          Adoption depends on <span className="font-semibold text-cyan-400">trust</span>,{' '}
+          <span className="font-semibold text-cyan-400">explainability</span>, and governance — not
+          just model accuracy.
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Visual25_DeepDiveLifecycleCycles() {
   const sw = 20
   // Standard 16:9 Canvas (1600 x 900)
   // Left Center
-  const cL = { x: 450, y: 450 }
-  // Right Center
-  const cR = { x: 1150, y: 450 }
-  const r = 220
 
   // Text Sizes (SVG scale)
   const tsLg = 42 // Main labels
@@ -293,9 +923,8 @@ function Visual6() {
     <div className="relative flex h-full w-full items-center justify-center">
       <svg
         viewBox="0 0 1600 900"
-        className="h-full w-full"
+        className="h-full w-full max-h-full max-w-full"
         role="img"
-        style={{ maxHeight: '100%', maxWidth: '100%' }}
         aria-label="Lifecycle Cycles"
       >
         <defs>
@@ -453,11 +1082,13 @@ function Visual6() {
         {/* Central Connector Arrow: Mainstream End (near 668, 470) to Trending Behind Start (near 1170, 230) */}
         {/* Let's draw it from x=700, y=500 to x=900, y=300? */}
         <path
-          d="M 720 500 L 880 340"
+          d="M 668 470 C 850 470, 1000 230, 1170 232"
+          fill="none"
           stroke="#94a3b8"
-          strokeWidth="24"
-          strokeOpacity="0.3"
+          strokeWidth="4"
+          strokeDasharray="12 12"
           markerEnd="url(#arrow-conn)"
+          opacity="0.6"
         />
       </svg>
 
@@ -474,576 +1105,9 @@ function Visual6() {
   )
 }
 
-function Visual7() {
-  const rows: Array<{
-    stage: string
-    risk: string
-    tone: 'good' | 'warn' | 'bad'
-    posture: string
-  }> = [
-    { stage: 'Bleeding Edge', risk: 'Very High', tone: 'bad', posture: 'R&D only' },
-    {
-      stage: 'Leading Edge',
-      risk: 'High',
-      tone: 'warn',
-      posture: 'Modern patterns, innovation room',
-    },
-    { stage: 'Mainstream', risk: 'Low', tone: 'good', posture: 'Best practices, predictable' },
-    { stage: 'Trending Behind', risk: 'Medium', tone: 'warn', posture: 'Modernization planning' },
-    { stage: 'End of Support+', risk: 'High–Very High', tone: 'bad', posture: 'Forced migration' },
-  ]
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="w-full max-w-3xl overflow-hidden rounded-xl border border-slate-700/50">
-        <table className="w-full border-collapse text-left">
-          <thead>
-            <tr className="bg-slate-800/80">
-              <th className="px-5 py-4 text-base font-bold text-slate-300">Lifecycle Stage</th>
-              <th className="px-5 py-4 text-base font-bold text-slate-300">Adoption Risk</th>
-              <th className="px-5 py-4 text-base font-bold text-slate-300">Posture</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r, i) => (
-              <tr key={r.stage} className={i % 2 === 0 ? 'bg-slate-800/30' : 'bg-slate-800/50'}>
-                <td className="px-5 py-3.5 text-base font-semibold text-white">{r.stage}</td>
-                <td className="px-5 py-3.5">
-                  <Badge tone={r.tone}>{r.risk}</Badge>
-                </td>
-                <td className="px-5 py-3.5 text-base text-slate-300">{r.posture}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  )
-}
-
-function Visual8() {
-  return (
-    <div className="flex h-full items-center justify-center">
-      <svg
-        viewBox="0 0 560 300"
-        className="w-full max-w-2xl"
-        role="img"
-        aria-label="Target zone: leading edge to mainstream"
-      >
-        {/* Outer ring */}
-        <rect
-          x="30"
-          y="20"
-          width="500"
-          height="260"
-          rx="20"
-          fill="#1e293b"
-          stroke="#334155"
-          strokeWidth="1.5"
-        />
-        <text x="50" y="48" fontSize="13" fill="#64748b">
-          Bleeding Edge — monitor only
-        </text>
-        {/* Middle ring */}
-        <rect
-          x="80"
-          y="65"
-          width="400"
-          height="170"
-          rx="16"
-          fill="#0f172a"
-          stroke="#22d3ee"
-          strokeWidth="1"
-          strokeDasharray="6 4"
-        />
-        <text x="100" y="88" fontSize="14" fontWeight="600" fill="#22d3ee">
-          Leading Edge — target ✅
-        </text>
-        {/* Inner ring */}
-        <rect
-          x="150"
-          y="110"
-          width="260"
-          height="80"
-          rx="14"
-          fill="#164e63"
-          fillOpacity="0.3"
-          stroke="#22d3ee"
-          strokeWidth="2"
-        />
-        <text x="195" y="155" fontSize="16" fontWeight="700" fill="#22d3ee">
-          Mainstream — target ✅
-        </text>
-        {/* Bottom label */}
-        <text x="100" y="225" fontSize="13" fill="#64748b">
-          Trending Behind — cloud enabling only
-        </text>
-        <text x="50" y="265" fontSize="13" fill="#475569">
-          End of Support — avoid / migrate
-        </text>
-      </svg>
-    </div>
-  )
-}
-
-function Visual9() {
-  const cols = [
-    {
-      title: 'Cloud Enabling',
-      friction: 35,
-      items: ['Refactoring', 'Containerization', 'API wrapping'],
-      note: 'Lower disruption',
-    },
-    {
-      title: 'Cloud Native',
-      friction: 75,
-      items: ['Microservices', '12-factor apps', 'K8s patterns'],
-      note: 'Highest performance',
-    },
-    {
-      title: 'Cloud Agnostic',
-      friction: 40,
-      items: ['Portability', 'Abstraction', 'Multi-platform IaC'],
-      note: 'Maximum flexibility',
-    },
-  ]
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="grid w-full max-w-4xl grid-cols-3 gap-5">
-        {cols.map((c) => (
-          <Card key={c.title}>
-            <CardLabel>{c.title}</CardLabel>
-            <ul className="mt-3 space-y-1.5 text-base text-slate-300">
-              {c.items.map((item) => (
-                <li key={item} className="flex items-start gap-2">
-                  <span
-                    className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400"
-                    aria-hidden="true"
-                  />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-4">
-              <FrictionBar value={c.friction} label="Adoption friction" />
-            </div>
-            <div className="mt-2 text-sm font-semibold text-slate-400">{c.note}</div>
-          </Card>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function Visual10() {
-  const toneIcon = (t: 'good' | 'warn' | 'bad') =>
-    t === 'good' ? <IconCheck /> : t === 'warn' ? <IconWarn /> : <IconX />
-  const toneLabel = (t: 'good' | 'warn' | 'bad') =>
-    t === 'good' ? 'Ideal' : t === 'warn' ? 'Caution' : 'Avoid'
-  const toneBg = (t: 'good' | 'warn' | 'bad') =>
-    t === 'good' ? 'bg-emerald-500/10' : t === 'warn' ? 'bg-amber-500/10' : 'bg-red-500/10'
-
-  const data: Array<{
-    stage: string
-    ce: 'good' | 'warn' | 'bad'
-    cn: 'good' | 'warn' | 'bad'
-    ca: 'good' | 'warn' | 'bad'
-  }> = [
-    { stage: 'Bleeding Edge', ce: 'bad', cn: 'warn', ca: 'bad' },
-    { stage: 'Leading Edge', ce: 'warn', cn: 'good', ca: 'warn' },
-    { stage: 'Mainstream', ce: 'good', cn: 'good', ca: 'good' },
-    { stage: 'Trending Behind', ce: 'good', cn: 'bad', ca: 'warn' },
-    { stage: 'End of Support', ce: 'warn', cn: 'bad', ca: 'warn' },
-  ]
-
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="w-full max-w-4xl overflow-hidden rounded-xl border border-slate-700/50">
-        <table className="w-full border-collapse text-left">
-          <thead>
-            <tr className="bg-slate-800/80">
-              <th className="px-4 py-3 text-base font-bold text-slate-300">Lifecycle</th>
-              <th className="px-4 py-3 text-base font-bold text-slate-300">Cloud Enabling</th>
-              <th className="px-4 py-3 text-base font-bold text-slate-300">Cloud Native</th>
-              <th className="px-4 py-3 text-base font-bold text-slate-300">Cloud Agnostic</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((r, i) => (
-              <tr key={r.stage} className={i % 2 === 0 ? 'bg-slate-800/30' : 'bg-slate-800/50'}>
-                <td className="px-4 py-3 text-base font-semibold text-white">{r.stage}</td>
-                {([r.ce, r.cn, r.ca] as const).map((t, j) => (
-                  <td key={j} className={`px-4 py-3 ${toneBg(t)}`}>
-                    <div className="flex items-center gap-2 text-sm font-semibold text-slate-200">
-                      {toneIcon(t)} {toneLabel(t)}
-                    </div>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  )
-}
-
-function Visual11() {
-  return (
-    <div className="flex h-full items-center justify-center">
-      <svg
-        viewBox="0 0 640 300"
-        className="w-full max-w-3xl"
-        role="img"
-        aria-label="Lifecycle loop: design → develop → deploy → sustain"
-      >
-        <defs>
-          <marker
-            id="pArrow"
-            markerWidth="10"
-            markerHeight="10"
-            refX="8"
-            refY="3"
-            orient="auto"
-            markerUnits="strokeWidth"
-          >
-            <path d="M0,0 L0,6 L9,3 z" fill="#22d3ee" />
-          </marker>
-        </defs>
-        {/* Boxes */}
-        {[
-          { x: 80, y: 40, label: 'Design' },
-          { x: 420, y: 40, label: 'Develop' },
-          { x: 420, y: 180, label: 'Deploy' },
-          { x: 80, y: 180, label: 'Sustain' },
-        ].map((n) => (
-          <g key={n.label}>
-            <rect
-              x={n.x}
-              y={n.y}
-              width="140"
-              height="70"
-              rx="14"
-              fill="#1e293b"
-              stroke="#334155"
-              strokeWidth="1.5"
-            />
-            <text
-              x={n.x + 70}
-              y={n.y + 42}
-              textAnchor="middle"
-              fontSize="16"
-              fontWeight="600"
-              fill="#e2e8f0"
-            >
-              {n.label}
-            </text>
-          </g>
-        ))}
-        {/* Center circle */}
-        <circle
-          cx="320"
-          cy="145"
-          r="56"
-          fill="#164e63"
-          fillOpacity="0.3"
-          stroke="#22d3ee"
-          strokeWidth="1.5"
-        />
-        <text x="320" y="132" textAnchor="middle" fontSize="13" fontWeight="600" fill="#22d3ee">
-          User Input
-        </text>
-        <text x="320" y="150" textAnchor="middle" fontSize="13" fontWeight="600" fill="#22d3ee">
-          + Lifecycle
-        </text>
-        <text x="320" y="168" textAnchor="middle" fontSize="13" fontWeight="600" fill="#22d3ee">
-          Awareness
-        </text>
-        {/* Arrows */}
-        <path
-          d="M220 75 L420 75"
-          stroke="#22d3ee"
-          strokeWidth="2"
-          fill="none"
-          markerEnd="url(#pArrow)"
-        />
-        <path
-          d="M490 110 L490 180"
-          stroke="#22d3ee"
-          strokeWidth="2"
-          fill="none"
-          markerEnd="url(#pArrow)"
-        />
-        <path
-          d="M420 215 L220 215"
-          stroke="#22d3ee"
-          strokeWidth="2"
-          fill="none"
-          markerEnd="url(#pArrow)"
-        />
-        <path
-          d="M150 180 L150 110"
-          stroke="#22d3ee"
-          strokeWidth="2"
-          fill="none"
-          markerEnd="url(#pArrow)"
-        />
-      </svg>
-    </div>
-  )
-}
-
-function Visual12() {
-  const stages = ['Adoption Need', 'Lifecycle Position', 'Architecture Approach', 'Dev Decisions']
-  return (
-    <div className="flex h-full flex-col items-center justify-center gap-6">
-      <div className="flex flex-wrap items-center justify-center gap-3">
-        {stages.map((s, i) => (
-          <div key={s} className="flex items-center gap-3">
-            <Card className="text-center">
-              <div className="text-base font-bold text-white">{s}</div>
-            </Card>
-            {i < stages.length - 1 ? <Arrow /> : null}
-          </div>
-        ))}
-      </div>
-      <div className="grid grid-cols-3 gap-3">
-        {['Kubernetes', 'Microservices', 'Observability'].map((item) => (
-          <Card key={item} className="text-center">
-            <div className="text-sm font-semibold text-cyan-300">{item}</div>
-          </Card>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function Visual13() {
-  const cards = [
-    {
-      title: 'Graceful Degradation',
-      body: 'Users trust the system — it fails safely and recovers quickly.',
-    },
-    { title: 'Scalable Deployment', body: 'Deploy where users operate, not vice versa.' },
-    {
-      title: 'Resilient Operations',
-      body: 'Works in degraded conditions — no workarounds needed.',
-    },
-  ]
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="grid w-full max-w-4xl grid-cols-3 gap-5">
-        {cards.map((c) => (
-          <Card key={c.title} className="border-cyan-500/20">
-            <CardLabel>{c.title}</CardLabel>
-            <CardBody>{c.body}</CardBody>
-          </Card>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function Metric({ tone, label, value }: { tone: 'good' | 'bad'; label: string; value: string }) {
-  return (
-    <div className="rounded-lg border border-slate-700/50 bg-slate-800/40 p-3">
-      <div className="flex items-center gap-2">
-        <span
-          className={`h-2.5 w-2.5 rounded-full ${tone === 'good' ? 'bg-emerald-400' : 'bg-red-400'}`}
-          aria-hidden="true"
-        />
-        <span className="text-base font-semibold text-white">{label}</span>
-      </div>
-      <div className="mt-1 text-sm text-slate-300">{value}</div>
-    </div>
-  )
-}
-
-function Visual14() {
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="grid w-full max-w-3xl grid-cols-2 gap-6">
-        <div>
-          <div className="mb-3 text-lg font-bold text-emerald-400">Success Signals</div>
-          <div className="space-y-3">
-            <Metric tone="good" label="Active usage rate" value="High" />
-            <Metric tone="good" label="Task completion vs workarounds" value="Rising" />
-            <Metric tone="good" label="User satisfaction" value="Positive" />
-          </div>
-        </div>
-        <div>
-          <div className="mb-3 text-lg font-bold text-red-400">Warning Signals</div>
-          <div className="space-y-3">
-            <Metric tone="bad" label="Availability vs usage" value="High / Low" />
-            <Metric tone="bad" label="Workarounds / shadow IT" value="Increasing" />
-            <Metric tone="bad" label="Help desk tickets" value="Constant basics" />
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function Visual15() {
-  const phases = [
-    { label: 'Design with representative users', note: 'Requirements validated' },
-    { label: 'Develop with frequent user testing', note: 'Iterative feedback' },
-    { label: 'Pilot with early adopters', note: 'Positive feedback' },
-    { label: 'Expand as demand grows (voluntary)', note: 'Advocacy to peers' },
-    { label: 'Scaled adoption — self-sustaining', note: 'User-driven roadmap' },
-  ]
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="w-full max-w-2xl space-y-0">
-        {phases.map((p, i) => (
-          <div key={i} className="flex items-start gap-4">
-            <div className="flex flex-col items-center">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-cyan-500 bg-cyan-950/40 text-sm font-bold text-cyan-300">
-                {i + 1}
-              </div>
-              {i < phases.length - 1 ? <div className="h-8 w-px bg-slate-700" /> : null}
-            </div>
-            <div className="pb-6">
-              <div className="text-lg font-bold text-white">{p.label}</div>
-              <div className="text-sm text-slate-400">{p.note}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function Visual16() {
-  const items = [
-    'Right lifecycle stage',
-    'Architecture for adoption',
-    'Design with users',
-    'Demonstrate immediate value',
-    'Minimize behavior change',
-    'Phased rollout with champions',
-    'Plan the full lifecycle',
-    'Avoid involuntary adoption',
-    'Measure what matters',
-    'Shelf-ware helps nobody',
-  ]
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="grid w-full max-w-3xl grid-cols-2 gap-3">
-        {items.map((item, idx) => (
-          <Card key={idx} className="flex items-start gap-3">
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-500/20 text-sm font-bold text-cyan-300">
-              {idx + 1}
-            </span>
-            <span className="text-base font-semibold text-white">{item}</span>
-          </Card>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function Visual17() {
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="grid w-full max-w-3xl grid-cols-2 gap-6">
-        <Card className="text-center">
-          <CardLabel>Q&A</CardLabel>
-          <CardBody>Capture questions, then route deeper topics to optional slides.</CardBody>
-        </Card>
-        <Card className="text-center">
-          <CardLabel>Deep Dives</CardLabel>
-          <CardBody>
-            Lifecycle examples, platforms, selection, anti-patterns, legacy, AI/ML.
-          </CardBody>
-        </Card>
-      </div>
-    </div>
-  )
-}
-
-function Visual21() {
-  const avoid = ['Big bang deployment', 'Mandates as strategy', 'No user input', 'Ignore lifecycle']
-  const doInstead = [
-    'Pilot + iterate',
-    'Build value proposition',
-    'Design with users',
-    'Plan modernization',
-  ]
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="grid w-full max-w-3xl grid-cols-2 gap-6">
-        <Card className="border-red-500/30">
-          <div className="flex items-center gap-2">
-            <IconX />
-            <CardLabel>Avoid</CardLabel>
-          </div>
-          <ul className="mt-3 space-y-2 text-base text-slate-300">
-            {avoid.map((a) => (
-              <li key={a} className="flex items-start gap-2">
-                <span
-                  className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400"
-                  aria-hidden="true"
-                />
-                {a}
-              </li>
-            ))}
-          </ul>
-        </Card>
-        <Card className="border-emerald-500/30">
-          <div className="flex items-center gap-2">
-            <IconCheck />
-            <CardLabel>Do Instead</CardLabel>
-          </div>
-          <ul className="mt-3 space-y-2 text-base text-slate-300">
-            {doInstead.map((d) => (
-              <li key={d} className="flex items-start gap-2">
-                <span
-                  className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400"
-                  aria-hidden="true"
-                />
-                {d}
-              </li>
-            ))}
-          </ul>
-        </Card>
-      </div>
-    </div>
-  )
-}
-
-function Visual24() {
-  const stages = [
-    { title: 'Bleeding Edge', friction: 90 },
-    { title: 'Leading Edge', friction: 55 },
-    { title: 'Mainstream', friction: 30 },
-    { title: 'Trending Behind', friction: 65 },
-  ]
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="w-full max-w-2xl space-y-4">
-        {stages.map((s) => (
-          <Card key={s.title}>
-            <div className="flex items-center justify-between">
-              <CardLabel>{s.title}</CardLabel>
-            </div>
-            <div className="mt-3">
-              <FrictionBar value={s.friction} label="AI/ML adoption friction" />
-            </div>
-          </Card>
-        ))}
-        <div className="mt-2 text-center text-base text-slate-400">
-          Adoption depends on <span className="font-semibold text-cyan-400">trust</span>,{' '}
-          <span className="font-semibold text-cyan-400">explainability</span>, and governance — not
-          just model accuracy.
-        </div>
-      </div>
-    </div>
-  )
-}
-
 // ── Visual components for optional deep-dives (18–23) ──────
 
-function Visual18() {
+function Visual18_DeepDiveTechStackComparison() {
   const examples = [
     { category: 'Container Orchestration', mainstream: 'Kubernetes', behind: 'Docker Swarm' },
     { category: 'IaC', mainstream: 'Terraform / Ansible', behind: 'Chef / Puppet' },
@@ -1076,7 +1140,7 @@ function Visual18() {
   )
 }
 
-function Visual19() {
+function Visual19_DeepDiveCloudTiers() {
   const tiers = [
     {
       title: 'Public Cloud',
@@ -1130,7 +1194,7 @@ function Visual19() {
   )
 }
 
-function Visual20() {
+function Visual20_DeepDiveSourcingStrategy() {
   const categories = [
     {
       title: 'Open Source (FOSS)',
@@ -1178,7 +1242,7 @@ function Visual20() {
   )
 }
 
-function Visual22() {
+function Visual22_DeepDiveRoiAnalysis() {
   return (
     <div className="flex h-full items-center justify-center">
       <div className="grid w-full max-w-4xl grid-cols-2 gap-6">
@@ -1211,7 +1275,7 @@ function Visual22() {
   )
 }
 
-function Visual23() {
+function Visual23_DeepDiveLegacyMigration() {
   const phases = [
     { label: 'Immediate', note: 'Security triage + isolation', tone: 'bad' as const },
     {
@@ -1266,41 +1330,198 @@ function Visual23() {
 
 // ── Public export ──────────────────────────────────────────
 
-const VISUAL_MAP: Record<number, React.ComponentType<{ mode?: 'hd' | '4k' }>> = {
-  1: Visual1,
-  2: Visual2,
-  3: Visual3,
-  4: Visual4,
-  5: Visual5,
-  6: Visual6,
-  7: Visual7,
-  8: Visual8,
-  9: Visual9,
-  10: Visual10,
-  11: Visual11,
-  12: Visual12,
-  13: Visual13,
-  14: Visual14,
-  15: Visual15,
-  16: Visual16,
-  17: Visual17,
-  18: Visual18,
-  19: Visual19,
-  20: Visual20,
-  21: Visual21,
-  22: Visual22,
-  23: Visual23,
-  24: Visual24,
+function Visual26_DeepDiveTrifectaModel() {
+  // Triangle coordinates
+  // Top (Organization): Yellow
+  // Bottom Left (User): Blue
+  // Bottom Right (Consumer): Green
+  // Center (Technology): Red inverted
+
+  // Canvas 1600x900
+  // Center X = 800
+  // Top Y = 100
+  // Triangle Height ~ 700
+  // Side length ~ 800
+
+  // Vertices for main triangle
+  const top = { x: 800, y: 100 }
+  const botLeft = { x: 400, y: 800 }
+  const botRight = { x: 1200, y: 800 }
+
+  // Midpoints
+  const midLeft = { x: (top.x + botLeft.x) / 2, y: (top.y + botLeft.y) / 2 } // 600, 450
+  const midRight = { x: (top.x + botRight.x) / 2, y: (top.y + botRight.y) / 2 } // 1000, 450
+  const midBot = { x: (botLeft.x + botRight.x) / 2, y: (botLeft.y + botRight.y) / 2 } // 800, 800
+
+  return (
+    <div className="flex h-full items-center justify-center">
+      <svg
+        viewBox="0 0 1600 900"
+        className="h-full w-full max-h-full max-w-full"
+        role="img"
+        aria-label="The Trifecta of Adoption"
+      >
+        {/* Top Triangle - Organization (Yellow) */}
+        <path
+          d={`M${top.x},${top.y} L${midRight.x},${midRight.y} L${midLeft.x},${midLeft.y} Z`}
+          fill="#facc15" // yellow-400
+          stroke="white"
+          strokeWidth="4"
+        />
+        <text x="800" y="320" textAnchor="middle" fill="#713f12" fontSize="32" fontWeight="bold">
+          Organization Adoption (1)
+        </text>
+        <text x="800" y="360" textAnchor="middle" fill="#713f12" fontSize="28" fontStyle="italic">
+          C-Suite Focus Area
+        </text>
+
+        {/* Bottom Left Triangle - User (Blue) */}
+        <path
+          d={`M${midLeft.x},${midLeft.y} L${midBot.x},${midBot.y} L${botLeft.x},${botLeft.y} Z`}
+          fill="#67e8f9" // cyan-300 (adjust to match blue-ish)
+          stroke="white"
+          strokeWidth="4"
+        />
+        <text x="600" y="680" textAnchor="middle" fill="#0f4a5a" fontSize="32" fontWeight="bold">
+          User Adoption (2)
+        </text>
+        <text x="600" y="720" textAnchor="middle" fill="#0f4a5a" fontSize="28" fontStyle="italic">
+          Internal
+        </text>
+
+        {/* Bottom Right Triangle - Consumer (Green) */}
+        <path
+          d={`M${midRight.x},${midRight.y} L${botRight.x},${botRight.y} L${midBot.x},${midBot.y} Z`}
+          fill="#86efac" // green-300
+          stroke="white"
+          strokeWidth="4"
+        />
+        <text x="1000" y="680" textAnchor="middle" fill="#14532d" fontSize="32" fontWeight="bold">
+          Consumer Adoption (3)
+        </text>
+        <text x="1000" y="720" textAnchor="middle" fill="#14532d" fontSize="28" fontStyle="italic">
+          External
+        </text>
+
+        {/* Center Triangle - Technology (Red/Orange) */}
+        <path
+          d={`M${midLeft.x},${midLeft.y} L${midRight.x},${midRight.y} L${midBot.x},${midBot.y} Z`}
+          fill="#ea580c" // orange-600
+          stroke="white"
+          strokeWidth="4"
+        />
+        <text x="800" y="550" textAnchor="middle" fill="white" fontSize="36" fontWeight="bold">
+          Technology
+        </text>
+        <text x="800" y="590" textAnchor="middle" fill="white" fontSize="36" fontWeight="bold">
+          Adoption
+        </text>
+        <text x="800" y="630" textAnchor="middle" fill="white" fontSize="28">
+          (1, 2, 3)
+        </text>
+      </svg>
+    </div>
+  )
 }
 
-export function PresentationVisual({
-  slideNumber,
-  mode = 'hd',
-}: {
-  slideNumber: number
-  mode?: 'hd' | '4k'
-}) {
-  const Component = VISUAL_MAP[slideNumber]
+// ── Public export ──────────────────────────────────────────
+
+export interface VisualDef {
+  number: number
+  id: string
+  component: React.ComponentType<{ mode?: 'hd' | '4k' }>
+}
+
+export const VISUAL_CONFIG: VisualDef[] = [
+  // ── PART 1: DEFINITIONS & FRAMEWORK (Slides 1-4) ─────────────────────
+  { number: 1, id: 'adoption-process-flow', component: Visual01_AdoptionProcessFlow },
+  { number: 2, id: 'adoption-framework-layers', component: Visual02_FrameworkLayers },
+  {
+    number: 3,
+    id: 'voluntary-vs-involuntary-table',
+    component: Visual03_VoluntaryVsInvoluntaryTable,
+  },
+  {
+    number: 4,
+    id: 'shelfware-vs-adopted-comparison',
+    component: Visual04_ShelfwareVsAdoptedComparison,
+  },
+
+  // ── PART 2: STRATEGY & LIFECYCLE (Slides 5-8) ────────────────────────
+  { number: 5, id: 'strategic-adoption-pillars', component: Visual05_StrategicAdoptionPillars },
+  {
+    number: 6,
+    id: 'technology-lifecycle-positioning-diagram',
+    component: Visual06_TechnologyLifecyclePositioningDiagram,
+  },
+  { number: 7, id: 'lifecycle-stages-matrix', component: Visual07_LifecycleStagesMatrix },
+  { number: 8, id: 'strategic-positioning-target', component: Visual08_StrategicPositioningTarget },
+
+  // ── PART 3: ARCHITECTURE & DECISIONS (Slides 9-12) ───────────────────
+  {
+    number: 9,
+    id: 'architecture-approaches-comparison',
+    component: Visual09_ArchitectureApproachesComparison,
+  },
+  {
+    number: 10,
+    id: 'lifecycle-architecture-mapping',
+    component: Visual10_LifecycleArchitectureMapping,
+  },
+  { number: 11, id: 'lifecycle-planning-loop', component: Visual11_LifecyclePlanningLoop },
+  {
+    number: 12,
+    id: 'adoption-driven-decisions-flow',
+    component: Visual12_AdoptionDrivenDecisionsFlow,
+  },
+
+  // ── PART 4: EXECUTION & METRICS (Slides 13-16) ───────────────────────
+  {
+    number: 13,
+    id: 'adoption-enabling-capabilities',
+    component: Visual13_AdoptionEnablingCapabilities,
+  },
+  { number: 14, id: 'adoption-success-metrics', component: Visual14_AdoptionSuccessMetrics },
+  { number: 15, id: 'phased-adoption-roadmap', component: Visual15_PhasedAdoptionRoadmap },
+  {
+    number: 16,
+    id: 'adoption-best-practices-checklist',
+    component: Visual16_AdoptionBestPracticesChecklist,
+  },
+
+  // ── TRANSITION (Slide 17) ────────────────────────────────────────────
+  { number: 17, id: 'qa-transition-card', component: Visual17_QaTransitionCard },
+
+  // ── PART 5: DEEP DIVES (Slides 18-25) ────────────────────────────────
+  {
+    number: 18,
+    id: 'deep-dive-tech-stack-comparison',
+    component: Visual18_DeepDiveTechStackComparison,
+  },
+  { number: 19, id: 'deep-dive-cloud-tiers', component: Visual19_DeepDiveCloudTiers },
+  { number: 20, id: 'deep-dive-sourcing-strategy', component: Visual20_DeepDiveSourcingStrategy },
+  { number: 21, id: 'deep-dive-anti-patterns', component: Visual21_DeepDiveAntiPatterns },
+  { number: 22, id: 'deep-dive-roi-analysis', component: Visual22_DeepDiveRoiAnalysis },
+  { number: 23, id: 'deep-dive-legacy-migration', component: Visual23_DeepDiveLegacyMigration },
+  { number: 24, id: 'deep-dive-ai-friction', component: Visual24_DeepDiveAiFriction },
+  { number: 25, id: 'deep-dive-lifecycle-cycles', component: Visual25_DeepDiveLifecycleCycles },
+  { number: 26, id: 'deep-dive-trifecta-model', component: Visual26_DeepDiveTrifectaModel },
+]
+
+export const VISUAL_REGISTRY = Object.fromEntries(
+  VISUAL_CONFIG.map((v) => [v.id, v.component])
+) as Record<string, React.ComponentType<{ mode?: 'hd' | '4k' }>>
+
+/**
+ * Mapping of Slide Number (which corresponds to Visual Number in this deck) to Visual ID.
+ * This is used by the client to resolve which visual to show for a given slide.
+ */
+export const SLIDE_TO_VISUAL_ID = Object.fromEntries(
+  VISUAL_CONFIG.map((v) => [v.number, v.id])
+) as Record<number, string>
+
+export function PresentationVisual({ id, mode = 'hd' }: { id: string; mode?: 'hd' | '4k' }) {
+  const Component = VISUAL_REGISTRY[id]
   if (!Component) return null
   return (
     <div className={mode === '4k' ? 'visual-4k-scale h-full w-full' : 'h-full w-full'}>

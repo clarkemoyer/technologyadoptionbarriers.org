@@ -165,35 +165,35 @@ footer,
 
 /* Margins */
 .mode-4k .mb-4 {
-  margin-bottom: 2rem !important;
+  margin-bottom: 1rem !important;
 }
 .mode-4k .mb-6 {
-  margin-bottom: 3rem !important;
+  margin-bottom: 2rem !important;
 }
 .mode-4k .mb-8 {
-  margin-bottom: 4rem !important;
+  margin-bottom: 2.5rem !important;
 }
 .mode-4k .mb-10 {
-  margin-bottom: 5rem !important;
+  margin-bottom: 3.5rem !important;
 }
 .mode-4k .mt-6 {
-  margin-top: 3rem !important;
+  margin-top: 2rem !important;
 }
 .mode-4k .mt-10 {
-  margin-top: 5rem !important;
+  margin-top: 3.5rem !important;
 }
 .mode-4k .mt-12 {
-  margin-top: 6rem !important;
+  margin-top: 4rem !important;
 }
 
 /* Specific component scaling */
 .mode-4k .h-16 {
-  height: 8rem !important;
-  width: 8rem !important;
+  height: 6rem !important;
+  width: 6rem !important;
 } /* Big icon circles */
 .mode-4k .h-10 {
-  height: 5rem !important;
-  width: 5rem !important;
+  height: 4rem !important;
+  width: 4rem !important;
 } /* Badges */
 .mode-4k .border {
   border-width: 2px !important;

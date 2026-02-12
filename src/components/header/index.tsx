@@ -641,6 +641,15 @@ const Header: React.FC = () => {
                             </Link>
                           </li>
                         ))}
+                        <li>
+                          <Link
+                            href="/technology-adoption-series/visual-gallery"
+                            onClick={handleLinkClick}
+                            className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                          >
+                            ✨ Visual Gallery
+                          </Link>
+                        </li>
                       </ul>
                     </div>
                   </div>

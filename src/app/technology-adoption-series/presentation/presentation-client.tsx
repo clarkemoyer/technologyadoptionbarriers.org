@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useMemo, useRef, createContext, useCo
 import Link from 'next/link'
 import { parseSimpleMarkdown, RenderMarkdownNodes, type MarkdownNode } from '@/lib/simple-markdown'
 import { splitTechnologyAdoptionSeriesSlideSections } from '@/components/technology-adoption-series/slide-render'
-import { PresentationVisual } from './presentation-visuals'
+import { PresentationVisual, SLIDE_TO_VISUAL_ID } from './presentation-visuals'
 import type { TechnologyAdoptionSeriesSlide } from '@/lib/technology-adoption-series'
 import './presentation.css'
 
@@ -68,11 +68,6 @@ const SECTIONS: Record<number, { label: string; title: string; count: string }> 
     count: '7 slides',
   },
 }
-
-/** Slides that have a dark-native visual component. */
-const SLIDES_WITH_VISUALS = new Set([
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-])
 
 const MAX_FRAME_SIZE = 1800 // estimated chars — fill frames with substantial content
 const MAX_LIST_ITEMS = 10
@@ -282,11 +277,14 @@ function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFr
 
     // ── Visual frame — always show if we have a dark-native component,
     //    regardless of whether the markdown has a Visual: description ──
-    if (SLIDES_WITH_VISUALS.has(slide.number)) {
+    const visualId = SLIDE_TO_VISUAL_ID[slide.number]
+    if (visualId) {
       frames.push({
         type: 'visual',
         sourceSlide: slide.number,
         title: slide.title,
+        // @ts-ignore - attaching extra prop to frame for visual lookup
+        visualId: visualId,
       })
     }
   }
@@ -537,6 +535,10 @@ function ContentFrame({ frame }: { frame: PresentationFrame }) {
 
 function VisualFrame({ frame }: { frame: PresentationFrame }) {
   const mode = useContext(PresentationModeContext)
+  // @ts-ignore - reading visualID from frame
+  const visualId = frame.visualId
+  if (!visualId) return null
+
   return (
     <div className="flex h-full flex-col">
       <div className="mb-4 text-sm font-semibold tracking-wider uppercase text-cyan-400/50">
@@ -546,7 +548,7 @@ function VisualFrame({ frame }: { frame: PresentationFrame }) {
         <div
           className={`h-full w-full flex items-center justify-center ${mode === '4k' ? 'p-12' : ''}`}
         >
-          <PresentationVisual slideNumber={frame.sourceSlide} mode={mode} />
+          <PresentationVisual id={visualId} mode={mode} />
         </div>
       </div>
     </div>
