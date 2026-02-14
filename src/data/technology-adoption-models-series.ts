@@ -56,7 +56,7 @@ export const technologyAdoptionModelsSeries: SeriesStructure = {
           title:
             'Article 1.2: The Game Changer – A Deep Dive into the Technology Acceptance Model (TAM)',
           slug: '/article-1-2-the-game-changer-a-deep-dive-into-the-technology-acceptance-model-tam',
-          status: 'coming-soon',
+          status: 'published',
         },
         {
           id: 'article-1-3',
