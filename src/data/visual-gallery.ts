@@ -104,19 +104,19 @@ export const VISUAL_GALLERY_DATA: VisualGalleryItem[] = [
     slideNumber: 6,
     part: 'Part 2: Strategy & Lifecycle',
     ascii: `
-       Adoption Rate
-            ▲
-            │        [ Mainstream ]
-            │       /              \\
-            │      /                \\
-            │     /                  \\
-   [Early]  │    /                    \\    [Late]
-      │     │   /                      \\     │
-      ▼     │  /                        \\    ▼
-Bleeding ──┼─┼──────────────────────────┼────┼── End of Life
-Edge       │ Leading                 Trailing
-            │ Edge                    Edge
-            └──────────────────────────────────▶ Time
+                    ┌─── TARGET ZONE ───┐
+     High │  ╲.                         .╱
+          │   ╲ Innovation (dashed)    ╱ Risk (solid)
+          │    ╲.     ╱╲             ╱
+          │     ╲.  ╱    ╲         ╱
+          │      ╲╱        ╲     ╱
+          │     ╱ ╲          ╲ ╱
+     Low  │   ╱    ╲...       ╲...
+          └──────────────────────────────▶ Time
+          Bleeding  Leading  Main-  Trending  End of
+          Edge      Edge     stream Behind    Support
+
+     --- Innovation Potential   ─── Adoption Risk
     `,
   },
   {

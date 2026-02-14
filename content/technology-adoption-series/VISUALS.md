@@ -28,12 +28,12 @@ All visuals follow a strict naming convention: `VisualXX_FriendlyName`.
 
 ### Part 2: Strategy & Lifecycle (Slides 5-8)
 
-| Slide | Visual ID                                  | Standard Name                                | Modern | ASCII | Purpose                                |
-| :---- | :----------------------------------------- | :------------------------------------------- | :----: | :---: | :------------------------------------- |
-| **5** | `strategic-adoption-pillars`               | **Visual 05 - Strategic Adoption Pillars**   |   ✅   |  ✅   | 3-column pillar diagram                |
-| **6** | `technology-lifecycle-positioning-diagram` | **Visual 06 - Lifecycle Positioning**        |   ✅   |  ✅   | Comprehensive Bell Curve               |
-| **7** | `lifecycle-stages-matrix`                  | **Visual 07 - Lifecycle Stages Matrix**      |   ✅   |  ✅   | Detailed risk/posture matrix           |
-| **8** | `strategic-positioning-target`             | **Visual 08 - Strategic Positioning Target** |   ✅   |  ✅   | Simplified curve showing "Target Zone" |
+| Slide | Visual ID                                  | Standard Name                                | Modern | ASCII | Purpose                                  |
+| :---- | :----------------------------------------- | :------------------------------------------- | :----: | :---: | :--------------------------------------- |
+| **5** | `strategic-adoption-pillars`               | **Visual 05 - Strategic Adoption Pillars**   |   ✅   |  ✅   | 3-column pillar diagram                  |
+| **6** | `technology-lifecycle-positioning-diagram` | **Visual 06 - Lifecycle Positioning**        |   ✅   |  ✅   | Dual-curve: Innovation Potential vs Risk |
+| **7** | `lifecycle-stages-matrix`                  | **Visual 07 - Lifecycle Stages Matrix**      |   ✅   |  ✅   | Detailed risk/posture matrix             |
+| **8** | `strategic-positioning-target`             | **Visual 08 - Strategic Positioning Target** |   ✅   |  ✅   | Simplified curve showing "Target Zone"   |
 
 ### Part 3: Architecture & Decisions (Slides 9-12)
 
