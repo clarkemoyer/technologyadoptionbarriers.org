@@ -2,6 +2,8 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   output: 'export',
+  // Ensure URLs work with both trailing and non-trailing slashes
+  trailingSlash: true,
   // Images configuration
   images: {
     // This allows all images, local or external, to load without optimization
