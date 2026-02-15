@@ -50,26 +50,23 @@ describe('SeriesNavigation component', () => {
     expect(currentLinks.some((link) => link.getAttribute('aria-current') === 'page')).toBe(true)
   })
 
-  it('should render coming-soon items as links (to allow flow testing)', () => {
+  it('should render all published articles as links', () => {
     // Use a published page as the current route
     mockedUsePathname.mockReturnValue(technologyAdoptionModelsSeries.branches[0].articles[0].slug)
 
     render(<SeriesNavigation />)
 
-    const comingSoon = technologyAdoptionModelsSeries.branches[0].articles[1]
+    const article = technologyAdoptionModelsSeries.branches[0].articles[1]
 
     // Title should be present...
-    expect(screen.getAllByText(comingSoon.title).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(article.title).length).toBeGreaterThan(0)
 
-    // ...and now rendered as a link.
-    const comingSoonLinks = screen.getAllByRole('link', {
+    // ...and rendered as a link.
+    const articleLinks = screen.getAllByRole('link', {
       name: /Article 1\.2: The Game Changer/i,
     })
-    expect(comingSoonLinks.length).toBeGreaterThan(0)
-    expect(comingSoonLinks.some((link) => link.getAttribute('href') === comingSoon.slug)).toBe(true)
-
-    // Coming soon label should still be visible.
-    expect(screen.getAllByText(/Coming soon/i).length).toBeGreaterThan(0)
+    expect(articleLinks.length).toBeGreaterThan(0)
+    expect(articleLinks.some((link) => link.getAttribute('href') === article.slug)).toBe(true)
   })
 
   it('should not have accessibility violations', async () => {
