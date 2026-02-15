@@ -15,7 +15,7 @@ test.describe('Support our Research CTA', () => {
     // Verify the CTA button is present and has correct link to get-involved page
     const datasetButton = page.getByRole('link', { name: /request access/i })
     await expect(datasetButton).toBeVisible()
-    await expect(datasetButton).toHaveAttribute('href', '/get-involved#use-dataset')
+    await expect(datasetButton).toHaveAttribute('href', '/get-involved/#use-dataset')
   })
 
   test('should display all four support cards with updated titles', async ({ page }) => {
@@ -33,7 +33,7 @@ test.describe('Support our Research CTA', () => {
 
     const getInvolvedLink = page.getByRole('link', { name: /see all ways to get involved/i })
     await expect(getInvolvedLink).toBeVisible()
-    await expect(getInvolvedLink).toHaveAttribute('href', '/get-involved')
+    await expect(getInvolvedLink).toHaveAttribute('href', '/get-involved/')
   })
 
   test('should render cards in responsive grid layout', async ({ page }) => {

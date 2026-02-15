@@ -93,7 +93,7 @@ test.describe('Get Involved Page', () => {
     await getInvolvedLink.click()
 
     // Should navigate to get-involved page
-    await expect(page).toHaveURL('/get-involved')
+    await expect(page).toHaveURL('/get-involved/')
     await expect(
       page.getByRole('heading', { name: 'Get Involved with TABS', level: 1 })
     ).toBeVisible()
@@ -113,7 +113,7 @@ test.describe('Get Involved Page', () => {
     await footerLink.click()
 
     // Should navigate to get-involved page
-    await expect(page).toHaveURL('/get-involved')
+    await expect(page).toHaveURL('/get-involved/')
   })
 
   test('should display detailed information for each opportunity', async ({ page }) => {

@@ -520,7 +520,7 @@ export default function CookiePolicy() {
           </ol>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
             For more information about how we handle your personal data, please see our{' '}
-            <a href="/privacy-policy" className="text-blue-600 hover:underline">
+            <a href="/privacy-policy/" className="text-blue-600 hover:underline">
               Privacy Policy
             </a>
             .

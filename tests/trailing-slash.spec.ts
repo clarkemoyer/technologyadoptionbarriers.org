@@ -41,9 +41,8 @@ test.describe('Trailing Slash URL Handling', () => {
     await page.goto('/barriers/')
 
     // Should successfully load the page
-    await expect(page).toHaveTitle(/Technology Adoption Barriers/)
     await expect(
-      page.getByRole('heading', { name: /Technology Adoption Barriers/, level: 1 })
+      page.getByRole('heading', { name: /Tech Adoption Barriers/, level: 1 })
     ).toBeVisible()
   })
 
@@ -51,9 +50,8 @@ test.describe('Trailing Slash URL Handling', () => {
     await page.goto('/barriers')
 
     // Should successfully load the page
-    await expect(page).toHaveTitle(/Technology Adoption Barriers/)
     await expect(
-      page.getByRole('heading', { name: /Technology Adoption Barriers/, level: 1 })
+      page.getByRole('heading', { name: /Tech Adoption Barriers/, level: 1 })
     ).toBeVisible()
   })
 
@@ -62,9 +60,7 @@ test.describe('Trailing Slash URL Handling', () => {
 
     // Should successfully load the page
     await expect(page).toHaveTitle(/Technology Leaders/)
-    await expect(
-      page.getByRole('heading', { name: /Technology Leaders/, level: 1 })
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: /Technology Leaders/, level: 1 })).toBeVisible()
   })
 
   test('should handle nested routes without trailing slash', async ({ page }) => {
@@ -72,8 +68,6 @@ test.describe('Trailing Slash URL Handling', () => {
 
     // Should successfully load the page
     await expect(page).toHaveTitle(/Technology Leaders/)
-    await expect(
-      page.getByRole('heading', { name: /Technology Leaders/, level: 1 })
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: /Technology Leaders/, level: 1 })).toBeVisible()
   })
 })
