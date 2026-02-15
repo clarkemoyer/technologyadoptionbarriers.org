@@ -6,7 +6,7 @@ import SeriesNavigation from '@/components/series-navigation'
 export const metadata: Metadata = {
   title: 'Article 2.1a: A Resource-Based View (RBV) – Wernerfelt 1984',
   description:
-    'An exploration of Wernerfelt&rsquo;s Resource-Based View of the firm, a foundational framework for understanding how organizational resources and capabilities drive competitive advantage and strategic technology adoption.',
+    "An exploration of Wernerfelt's Resource-Based View of the firm, a foundational framework for understanding how organizational resources and capabilities drive competitive advantage and strategic technology adoption.",
 }
 
 const ResourceBasedViewPage = () => {
