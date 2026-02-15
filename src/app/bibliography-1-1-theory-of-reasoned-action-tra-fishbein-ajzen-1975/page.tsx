@@ -51,23 +51,19 @@ const BibliographyArticlePage = () => {
             toward objects, behaviors, or institutions were remarkably poor predictors of their
             actual behavior. People might express favorable attitudes toward environmental
             protection yet not recycle. They might endorse exercise and healthy eating yet maintain
-            sedentary lifestyles
-          </p>
-
-          <p className="mb-4">
-            and poor diets. This attitude-behavior gap puzzled researchers and limited the practical
-            applicability of attitude research. Fishbein and Ajzen’s fundamental insight was that
-            the problem lay not in attitudes themselves but in the level of specificity at which
-            attitudes were measured. Most attitude research assessed general attitudes toward
-            general targets, then attempted to predict specific behaviors. Their revolutionary
-            proposition was that behavior is most directly predicted not by attitudes but by
-            behavioral intentions—an individual’s conscious plan or decision to perform a behavior.
-            The development of TRA was driven by both theoretical and practical considerations.
-            Theoretically, Fishbein and Ajzen sought to construct a parsimonious model identifying
-            the minimal set of variables necessary to predict behavior. They proposed that
-            behavioral intention—the immediate antecedent of behavior—is determined by exactly two
-            factors: (1) the individual’s attitude toward the specific behavior and (2) the
-            individual’s subjective norm regarding that behavior (perceived social pressure to
+            sedentary lifestyles and poor diets. This attitude-behavior gap puzzled researchers and
+            limited the practical applicability of attitude research. Fishbein and Ajzen’s
+            fundamental insight was that the problem lay not in attitudes themselves but in the
+            level of specificity at which attitudes were measured. Most attitude research assessed
+            general attitudes toward general targets, then attempted to predict specific behaviors.
+            Their revolutionary proposition was that behavior is most directly predicted not by
+            attitudes but by behavioral intentions—an individual’s conscious plan or decision to
+            perform a behavior. The development of TRA was driven by both theoretical and practical
+            considerations. Theoretically, Fishbein and Ajzen sought to construct a parsimonious
+            model identifying the minimal set of variables necessary to predict behavior. They
+            proposed that behavioral intention—the immediate antecedent of behavior—is determined by
+            exactly two factors: (1) the individual’s attitude toward the specific behavior and (2)
+            the individual’s subjective norm regarding that behavior (perceived social pressure to
             perform or not perform the behavior). This elegant parsimony represented a significant
             theoretical advance—rather than invoking numerous psychological and social variables,
             TRA suggested that behavior stems from these two primary determinants. The model also
@@ -147,22 +143,18 @@ const BibliographyArticlePage = () => {
             (contraception, weight management, health-seeking), environmental behaviors (energy
             conservation, recycling), organizational behaviors (performance, attendance), consumer
             behaviors (product purchase, brand choice), social behaviors (helping, aggression), and
-            technology adoption. This breadth
-          </p>
-
-          <p className="mb-4">
-            suggested the model captured generalizable mechanisms operating across contexts.
-            Cross-cultural research: Studies in different countries and cultural contexts found that
-            attitudes and subjective norms predicted intentions across cultures, though sometimes
-            the relative importance of attitudes versus subjective norms varied. This cultural
-            validation strengthened claims about generalizability. Longitudinal studies: Extended
-            studies tracking behavior over months and years found that intentions measured early
-            predicted behavior long afterward, suggesting the model captured stable psychological
-            states related to enduring behavioral patterns rather than momentary impulses.
-            Meta-analytic evidence: Meta-analyses aggregating results across numerous independent
-            studies consistently found strong relationships between intentions and behavior, and
-            between attitudes/subjective norms and intentions. These meta-analytic summaries
-            provided robust evidence for external validity across the collective research
+            technology adoption. This breadth suggested the model captured generalizable mechanisms
+            operating across contexts. Cross-cultural research: Studies in different countries and
+            cultural contexts found that attitudes and subjective norms predicted intentions across
+            cultures, though sometimes the relative importance of attitudes versus subjective norms
+            varied. This cultural validation strengthened claims about generalizability.
+            Longitudinal studies: Extended studies tracking behavior over months and years found
+            that intentions measured early predicted behavior long afterward, suggesting the model
+            captured stable psychological states related to enduring behavioral patterns rather than
+            momentary impulses. Meta-analytic evidence: Meta-analyses aggregating results across
+            numerous independent studies consistently found strong relationships between intentions
+            and behavior, and between attitudes/subjective norms and intentions. These meta-analytic
+            summaries provided robust evidence for external validity across the collective research
             literature. Technology adoption applications: As the model was applied to technology
             adoption specifically, studies found that intentions to use information technology
             predicted actual technology adoption, proficiency development, and sustained usage. This
@@ -208,66 +200,60 @@ const BibliographyArticlePage = () => {
             Providing adequate time for attitude and norm development before behavior is expected
             increases the likelihood of strong behavioral intentions and hence successful adoption.
             Target audience segmentation: Organizations can segment potential adopters based on
-            their attitudes and subjective norms, providing tailored
-          </p>
-
-          <p className="mb-4">
-            approaches to those with low intentions. High-intention individuals may need minimal
-            support, while low-intention individuals require more substantial intervention.
-            Stakeholder engagement: The model emphasizes involving stakeholders whose opinions
-            influence others’ subjective norms—peer leaders, supervisors, respected colleagues.
-            Their engagement with technology adoption promotes favorable subjective norms and
-            stronger adoption intentions. Benefit communication: TRA guides communication about
-            technology benefits. By clarifying positive consequences (improving productivity,
-            enabling new capabilities, enhancing career prospects), organizations enhance attitudes
-            and adoption intentions. What does the model measure? The Theory of Reasoned Action
-            measures specific psychological and behavioral variables: Behavioral intention: The core
-            outcome variable is behavioral intention— the individual’s conscious intention or plan
-            to perform or not perform a specific behavior. This represents a conscious decision or
-            commitment regarding whether to adopt a technology. TRA measures intention as a
-            psychological construct using intention scales asking about willingness, plans, and
-            likelihood of performing the behavior. Attitude toward the behavior: Rather than general
-            attitudes, TRA measures specific attitudes toward performing the behavior. For
-            technology adoption, this means measuring overall evaluation of the behavior “using
-            technology X” rather than attitudes toward technology in general. Attitude encompasses
-            the person’s beliefs about consequences weighted by evaluations of those consequences.
-            Subjective norm: TRA measures perceived social pressure regarding the behavior—what the
-            individual believes important others think about whether the behavior should be
-            performed and how motivated the individual is to comply with those others’ opinions.
-            This captures both descriptive norms (what others do) and injunctive norms (what others
-            think should be done). Behavioral beliefs: The model measures specific beliefs about
-            consequences of performing the behavior and evaluations of those consequences. For
-            technology adoption, this includes beliefs about whether
-          </p>
-
-          <p className="mb-4">
-            adoption will improve work efficiency, enhance career prospects, increase complexity,
-            require significant learning, etc. Normative beliefs: The model measures beliefs about
-            whether specific important people or groups approve of the behavior and the individual’s
-            motivation to comply with each. This captures whose opinions influence adoption
-            decisions. Actual behavior: Ultimately, TRA measures actual behavior—whether the
-            individual adopts the technology, the extent and nature of adoption, and persistence of
-            adoption. The model’s fundamental premise is that intentions predict actual behavior.
-            Volitional control: While not part of the core model, some variants measure perceived
-            volitional control—the individual’s sense that performing or not performing the behavior
-            is within their control. This addresses limitations of the core model. What are the main
-            strengths of the model? TRA possesses several significant strengths explaining its
-            foundational role in technology adoption literature: Parsimonious theoretical structure:
-            TRA elegantly reduces behavioral prediction to two primary variables—attitude and
-            subjective norm. This parsimony makes the model theoretically elegant and practically
-            manageable. Rather than invoking numerous psychological and social variables, TRA
-            identifies the minimal sufficient set for predicting intention. Strong empirical
-            support: Decades of research consistently demonstrate strong relationships between
-            attitudes/subjective norms and intentions, and between intentions and behavior.
-            Meta-analyses confirm these relationships hold across diverse populations, behaviors,
-            and contexts. Few theories in social psychology possess such robust empirical support.
-            Explicit causal mechanism: Unlike theories identifying correlates of behavior, TRA
-            specifies explicit causal relationships: beliefs shape attitudes and norms, which
-            determine intentions, which produce behavior. This causal specification enables tests of
-            mediation and mechanisms. Intention as proximal predictor: By inserting intention
-            between distal beliefs/attitudes and behavior, TRA explains why attitudes are often weak
-            predictors of behavior—intentions are the proximal psychological mechanism. This
-            represents genuine theoretical advance in understanding attitude-behavior relationships.
+            their attitudes and subjective norms, providing tailored approaches to those with low
+            intentions. High-intention individuals may need minimal support, while low-intention
+            individuals require more substantial intervention. Stakeholder engagement: The model
+            emphasizes involving stakeholders whose opinions influence others’ subjective norms—peer
+            leaders, supervisors, respected colleagues. Their engagement with technology adoption
+            promotes favorable subjective norms and stronger adoption intentions. Benefit
+            communication: TRA guides communication about technology benefits. By clarifying
+            positive consequences (improving productivity, enabling new capabilities, enhancing
+            career prospects), organizations enhance attitudes and adoption intentions. What does
+            the model measure? The Theory of Reasoned Action measures specific psychological and
+            behavioral variables: Behavioral intention: The core outcome variable is behavioral
+            intention— the individual’s conscious intention or plan to perform or not perform a
+            specific behavior. This represents a conscious decision or commitment regarding whether
+            to adopt a technology. TRA measures intention as a psychological construct using
+            intention scales asking about willingness, plans, and likelihood of performing the
+            behavior. Attitude toward the behavior: Rather than general attitudes, TRA measures
+            specific attitudes toward performing the behavior. For technology adoption, this means
+            measuring overall evaluation of the behavior “using technology X” rather than attitudes
+            toward technology in general. Attitude encompasses the person’s beliefs about
+            consequences weighted by evaluations of those consequences. Subjective norm: TRA
+            measures perceived social pressure regarding the behavior—what the individual believes
+            important others think about whether the behavior should be performed and how motivated
+            the individual is to comply with those others’ opinions. This captures both descriptive
+            norms (what others do) and injunctive norms (what others think should be done).
+            Behavioral beliefs: The model measures specific beliefs about consequences of performing
+            the behavior and evaluations of those consequences. For technology adoption, this
+            includes beliefs about whether adoption will improve work efficiency, enhance career
+            prospects, increase complexity, require significant learning, etc. Normative beliefs:
+            The model measures beliefs about whether specific important people or groups approve of
+            the behavior and the individual’s motivation to comply with each. This captures whose
+            opinions influence adoption decisions. Actual behavior: Ultimately, TRA measures actual
+            behavior—whether the individual adopts the technology, the extent and nature of
+            adoption, and persistence of adoption. The model’s fundamental premise is that
+            intentions predict actual behavior. Volitional control: While not part of the core
+            model, some variants measure perceived volitional control—the individual’s sense that
+            performing or not performing the behavior is within their control. This addresses
+            limitations of the core model. What are the main strengths of the model? TRA possesses
+            several significant strengths explaining its foundational role in technology adoption
+            literature: Parsimonious theoretical structure: TRA elegantly reduces behavioral
+            prediction to two primary variables—attitude and subjective norm. This parsimony makes
+            the model theoretically elegant and practically manageable. Rather than invoking
+            numerous psychological and social variables, TRA identifies the minimal sufficient set
+            for predicting intention. Strong empirical support: Decades of research consistently
+            demonstrate strong relationships between attitudes/subjective norms and intentions, and
+            between intentions and behavior. Meta-analyses confirm these relationships hold across
+            diverse populations, behaviors, and contexts. Few theories in social psychology possess
+            such robust empirical support. Explicit causal mechanism: Unlike theories identifying
+            correlates of behavior, TRA specifies explicit causal relationships: beliefs shape
+            attitudes and norms, which determine intentions, which produce behavior. This causal
+            specification enables tests of mediation and mechanisms. Intention as proximal
+            predictor: By inserting intention between distal beliefs/attitudes and behavior, TRA
+            explains why attitudes are often weak predictors of behavior—intentions are the proximal
+            psychological mechanism. This represents genuine theoretical advance in understanding
+            attitude-behavior relationships.
           </p>
 
           <p className="mb-4">
@@ -298,9 +284,6 @@ const BibliographyArticlePage = () => {
             non-volitional constraints operate. Attitude-behavior gap: Even with TRA’s refinements,
             substantial attitude- behavior gaps persist. Individuals with favorable intentions
             sometimes don’t adopt technology due to circumstances, habit, inertia, or competing
-          </p>
-
-          <p className="mb-4">
             intentions. TRA’s predictive power, while strong, leaves substantial variance
             unexplained. Limited attention to implementation barriers: TRA focuses on psychological
             variables determining intentions but provides less guidance about implementation
@@ -358,43 +341,36 @@ const BibliographyArticlePage = () => {
             without specifying mediating mechanisms. TRA explicitly specified that intention
             mediates between beliefs and behavior, providing testable mechanisms. Toward explicit
             causal chains: While some earlier work sketched relationships between variables, TRA
-            provided explicit causal chains: beliefs
-          </p>
-
-          <p className="mb-4">
-            determine attitudes/norms, which determine intentions, which determine behavior. This
-            explicit sequencing enabled causal testing. Beyond demographic prediction: Demographic
-            characteristics (age, gender, socioeconomic status) sometimes predicted behavior better
-            than attitudes. TRA suggested that demographic effects operate through psychological
-            pathways—demography influences attitudes/norms, which determine intentions and behavior.
-            Toward psychological mechanism focus: TRA shifted focus from correlational prediction to
-            identifying psychological mechanisms. Understanding why people intend to behave in
-            certain ways proved more valuable than simply predicting who would behave that way.
-            Toward practical intervention: By specifying that intentions determine behavior, and
-            intentions result from attitudes and norms, TRA made behavior change actionable. Rather
-            than attempting to change behavior directly, practitioners could change attitudes and
-            norms to alter intentions. 6. Barriers Identification Section What Barriers to
-            Technology Adoption does the model identify? The Theory of Reasoned Action identifies
-            barriers to technology adoption operating through two primary psychological pathways:
-            Unfavorable attitudes toward technology adoption: The most fundamental barrier TRA
-            identifies is negative attitudes toward adopting the technology. This barrier
-            encompasses negative evaluations of adoption consequences—beliefs that technology
-            adoption will create problems (increased complexity, reduced autonomy, job
-            displacement), will not produce valued benefits (skepticism about productivity
-            improvements or career benefits), or will require unacceptable effort. Individuals may
-            believe that adopting technology demands excessive learning effort, creates anxiety, or
-            disrupts established work patterns. These negative evaluations of adoption consequences
-            produce unfavorable attitudes. Negative subjective norms regarding adoption: Beyond
-            individual attitudes, unfavorable subjective norms create adoption barriers. When
-            individuals perceive that respected colleagues, supervisors, or referent groups do not
-            support technology adoption—or worse, actively discourage it —subjective norms
-            discourage adoption intentions. This barrier operates even if the individual personally
-            holds favorable attitudes. Negative
-          </p>
-
-          <p className="mb-4">
-            subjective norms can stem from genuine norms (if adoption is genuinely not supported) or
-            from misperceptions about what others think. Conflict between attitudes and norms: When
+            provided explicit causal chains: beliefs determine attitudes/norms, which determine
+            intentions, which determine behavior. This explicit sequencing enabled causal testing.
+            Beyond demographic prediction: Demographic characteristics (age, gender, socioeconomic
+            status) sometimes predicted behavior better than attitudes. TRA suggested that
+            demographic effects operate through psychological pathways—demography influences
+            attitudes/norms, which determine intentions and behavior. Toward psychological mechanism
+            focus: TRA shifted focus from correlational prediction to identifying psychological
+            mechanisms. Understanding why people intend to behave in certain ways proved more
+            valuable than simply predicting who would behave that way. Toward practical
+            intervention: By specifying that intentions determine behavior, and intentions result
+            from attitudes and norms, TRA made behavior change actionable. Rather than attempting to
+            change behavior directly, practitioners could change attitudes and norms to alter
+            intentions. 6. Barriers Identification Section What Barriers to Technology Adoption does
+            the model identify? The Theory of Reasoned Action identifies barriers to technology
+            adoption operating through two primary psychological pathways: Unfavorable attitudes
+            toward technology adoption: The most fundamental barrier TRA identifies is negative
+            attitudes toward adopting the technology. This barrier encompasses negative evaluations
+            of adoption consequences—beliefs that technology adoption will create problems
+            (increased complexity, reduced autonomy, job displacement), will not produce valued
+            benefits (skepticism about productivity improvements or career benefits), or will
+            require unacceptable effort. Individuals may believe that adopting technology demands
+            excessive learning effort, creates anxiety, or disrupts established work patterns. These
+            negative evaluations of adoption consequences produce unfavorable attitudes. Negative
+            subjective norms regarding adoption: Beyond individual attitudes, unfavorable subjective
+            norms create adoption barriers. When individuals perceive that respected colleagues,
+            supervisors, or referent groups do not support technology adoption—or worse, actively
+            discourage it —subjective norms discourage adoption intentions. This barrier operates
+            even if the individual personally holds favorable attitudes. Negative subjective norms
+            can stem from genuine norms (if adoption is genuinely not supported) or from
+            misperceptions about what others think. Conflict between attitudes and norms: When
             attitudes and subjective norms conflict—the individual likes the technology but believes
             important others disapprove—the resulting weaker intention produces lower adoption
             probability. This conflicted state creates psychological tension reducing adoption
@@ -449,38 +425,34 @@ const BibliographyArticlePage = () => {
             broadly supported, highlighting colleagues’ positive experiences, and correcting myths
             about organizational resistance all address this barrier. Build perceived organizational
             support: By allocating resources to training, support systems, and implementation
-            infrastructure, leaders
-          </p>
-
-          <p className="mb-4">
-            demonstrate commitment to adoption. This support communicates that the organization
-            values adoption and expects it, influencing subjective norms. Provide multiple
-            information channels: Since not all individuals are influenced by identical information
-            sources, leaders should employ diverse communication channels—email, meetings, training,
-            peer mentoring, leadership communication—to reach different individuals and reinforce
-            adoption-favorable attitudes and norms. Frame adoption as aligned with organizational
-            values: Leaders can connect technology adoption to organizational values and identity.
-            If the organization values innovation, efficiency, customer service, or continuous
-            improvement, connecting technology adoption to these values leverages existing value
-            systems to support adoption intentions. Involve opinion leaders and influencers: Rather
-            than relying solely on formal authority, leaders should identify and engage opinion
-            leaders whose views disproportionately influence colleagues. These influencers’ support
-            for adoption powerfully influences subjective norms. Create expectation alignment:
-            Leaders should ensure that individuals understand organizational expectations regarding
-            technology adoption. Clear expectations shape subjective norms—when adoption is clearly
-            expected and valued, norms support adoption. Provide resources removing non-volitional
-            barriers: While TRA doesn’t explicitly address non-volitional constraints, leaders can
-            reduce these by ensuring adequate training, technical support, system compatibility,
-            policy support, and implementation time. Removing these barriers permits intentions to
-            translate to behavior. Time implementation appropriately: Leaders should provide
-            adequate time for attitude and norm development before expecting adoption behavior.
-            Rushing implementation before intentions have developed undermines adoption success.
-            Monitor intention development: By assessing employees’ adoption intentions early,
-            leaders can identify where additional intervention is needed. Low intentions signal that
-            attitude or norm interventions haven’t yet succeeded. Sustain reinforcement: Leaders
-            should maintain reinforcement of adoption-supporting attitudes and norms throughout
-            implementation. Sustained communication, continued visibility of organizational
-            leadership
+            infrastructure, leaders demonstrate commitment to adoption. This support communicates
+            that the organization values adoption and expects it, influencing subjective norms.
+            Provide multiple information channels: Since not all individuals are influenced by
+            identical information sources, leaders should employ diverse communication
+            channels—email, meetings, training, peer mentoring, leadership communication—to reach
+            different individuals and reinforce adoption-favorable attitudes and norms. Frame
+            adoption as aligned with organizational values: Leaders can connect technology adoption
+            to organizational values and identity. If the organization values innovation,
+            efficiency, customer service, or continuous improvement, connecting technology adoption
+            to these values leverages existing value systems to support adoption intentions. Involve
+            opinion leaders and influencers: Rather than relying solely on formal authority, leaders
+            should identify and engage opinion leaders whose views disproportionately influence
+            colleagues. These influencers’ support for adoption powerfully influences subjective
+            norms. Create expectation alignment: Leaders should ensure that individuals understand
+            organizational expectations regarding technology adoption. Clear expectations shape
+            subjective norms—when adoption is clearly expected and valued, norms support adoption.
+            Provide resources removing non-volitional barriers: While TRA doesn’t explicitly address
+            non-volitional constraints, leaders can reduce these by ensuring adequate training,
+            technical support, system compatibility, policy support, and implementation time.
+            Removing these barriers permits intentions to translate to behavior. Time implementation
+            appropriately: Leaders should provide adequate time for attitude and norm development
+            before expecting adoption behavior. Rushing implementation before intentions have
+            developed undermines adoption success. Monitor intention development: By assessing
+            employees’ adoption intentions early, leaders can identify where additional intervention
+            is needed. Low intentions signal that attitude or norm interventions haven’t yet
+            succeeded. Sustain reinforcement: Leaders should maintain reinforcement of
+            adoption-supporting attitudes and norms throughout implementation. Sustained
+            communication, continued visibility of organizational leadership
           </p>
 
           <p className="mt-8 text-sm italic text-gray-600">

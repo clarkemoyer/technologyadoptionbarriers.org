@@ -232,31 +232,28 @@ const BibliographyArticlePage = () => {
             utilization becomes the priority. Implementation should reduce barriers to use—training,
             support, and access. 2.Manage Expectations Realistically: For systems with poor fit,
             managers should not expect performance improvements from increased use. The authors note
-            that “heavy utilization of poorly-fitting systems
-          </p>
-
-          <p className="mb-4">
-            may actually reduce productivity by forcing work processes through inadequate
-            technology.” 3.Consider Alternative Technologies: For tasks where no adequate technology
-            fit exists, organizations should either modify tasks to match available technology or
-            seek alternative technologies rather than implementing poor-fitting systems and
-            expecting adoption to solve the problem. Performance Improvement Strategy The model
-            suggests that performance improvement requires attention to both fit and utilization:
-            1.Fit-First Approach: “If poor task-technology fit exists, increasing use will not
-            improve performance and may harm it by forcing workarounds and inefficient processes.”
-            Therefore, before increasing utilization, ensure fit is adequate. 2.Iterative System
-            Improvement: If systems are already implemented but provide poor fit, organizations
-            should: Modify system configuration or customization to improve fit Redesign tasks to
-            better align with system capabilities Replace systems if fit cannot be improved
-            3.Utilization Focus for Good-Fit Systems: For systems with adequate fit, training,
-            support, and incentive programs to increase utilization will yield performance benefits.
-            Role of Technology Characteristics The model’s finding that system quality independently
-            predicts performance (beyond fit effects) suggests that organizations should: 1.Maintain
-            System Reliability: Even well-fitting systems fail to improve performance if they are
-            unreliable or difficult to use. System quality matters independently. 2.Invest in User
-            Interfaces: Technology characteristics like ease of learning influence both utilization
-            and direct performance. Investments in user interface design, training effectiveness,
-            and support quality yield performance benefits.
+            that “heavy utilization of poorly-fitting systems may actually reduce productivity by
+            forcing work processes through inadequate technology.” 3.Consider Alternative
+            Technologies: For tasks where no adequate technology fit exists, organizations should
+            either modify tasks to match available technology or seek alternative technologies
+            rather than implementing poor-fitting systems and expecting adoption to solve the
+            problem. Performance Improvement Strategy The model suggests that performance
+            improvement requires attention to both fit and utilization: 1.Fit-First Approach: “If
+            poor task-technology fit exists, increasing use will not improve performance and may
+            harm it by forcing workarounds and inefficient processes.” Therefore, before increasing
+            utilization, ensure fit is adequate. 2.Iterative System Improvement: If systems are
+            already implemented but provide poor fit, organizations should: Modify system
+            configuration or customization to improve fit Redesign tasks to better align with system
+            capabilities Replace systems if fit cannot be improved 3.Utilization Focus for Good-Fit
+            Systems: For systems with adequate fit, training, support, and incentive programs to
+            increase utilization will yield performance benefits. Role of Technology Characteristics
+            The model’s finding that system quality independently predicts performance (beyond fit
+            effects) suggests that organizations should: 1.Maintain System Reliability: Even
+            well-fitting systems fail to improve performance if they are unreliable or difficult to
+            use. System quality matters independently. 2.Invest in User Interfaces: Technology
+            characteristics like ease of learning influence both utilization and direct performance.
+            Investments in user interface design, training effectiveness, and support quality yield
+            performance benefits.
           </p>
 
           <p className="mb-4">
@@ -348,35 +345,31 @@ const BibliographyArticlePage = () => {
             Sample: The 25-organization, 784-person design provides substantially stronger external
             validity than single-organization studies. The diversity of organizations and tasks
             strengthens generalization claims. 4.Objective and Subjective Performance Measures: The
-            inclusion of both system-log-derived objective performance measures and self-
-          </p>
-
-          <p className="mb-4">
-            reported subjective measures strengthens validity. Convergence between measurement
-            approaches provides confidence in findings. 5.Novel Fit Operationalization: Rather than
-            treating fit as an implicit assumption, the authors explicitly operationalize
-            task-technology fit through multi-item scales. The 16-item fit scale with alpha = .96
-            provides reliable measurement of a previously unmeasured construct. 6.Sophisticated
-            Model Specification: The model examines both direct effects from fit to performance and
-            indirect effects through utilization. This mechanistic complexity reveals that fit
-            influences performance through multiple pathways. 7.Disconfirmation of Adoption-Centric
-            View: By demonstrating that utilization (r = .24) predicts performance more weakly than
-            fit (r = .67), the research challenges adoption-focused frameworks and suggests
-            theoretical reorientation toward performance. 8.Practical Actionability: The model
-            provides clear guidance for organizations about technology selection, implementation,
-            and performance management. Unlike purely descriptive models, this framework allows
-            actionable decisions. 9.Distinction Between System Quality and Fit: By showing that
-            system quality independently predicts performance beyond fit effects, the model
-            clarifies that multiple pathways exist to performance improvement, preventing
-            oversimplification. 10.Temporal Considerations: While primarily cross-sectional, the
-            authors address temporal concerns through time-lagged analysis, strengthening causal
-            inference. 11.Alternative Explanation Testing: The authors test and rule out social
-            desirability bias, selection bias, and alternative explanations, improving confidence in
-            findings. 12.Intuitive Theoretical Logic: The core insight—that technology impact
-            depends on match between tasks and capabilities—is theoretically intuitive while
-            empirically demonstrating substantial effect sizes. What are the main weaknesses of the
-            model? Despite significant strengths, the Task-Technology Fit model has notable
-            limitations:
+            inclusion of both system-log-derived objective performance measures and self- reported
+            subjective measures strengthens validity. Convergence between measurement approaches
+            provides confidence in findings. 5.Novel Fit Operationalization: Rather than treating
+            fit as an implicit assumption, the authors explicitly operationalize task-technology fit
+            through multi-item scales. The 16-item fit scale with alpha = .96 provides reliable
+            measurement of a previously unmeasured construct. 6.Sophisticated Model Specification:
+            The model examines both direct effects from fit to performance and indirect effects
+            through utilization. This mechanistic complexity reveals that fit influences performance
+            through multiple pathways. 7.Disconfirmation of Adoption-Centric View: By demonstrating
+            that utilization (r = .24) predicts performance more weakly than fit (r = .67), the
+            research challenges adoption-focused frameworks and suggests theoretical reorientation
+            toward performance. 8.Practical Actionability: The model provides clear guidance for
+            organizations about technology selection, implementation, and performance management.
+            Unlike purely descriptive models, this framework allows actionable decisions.
+            9.Distinction Between System Quality and Fit: By showing that system quality
+            independently predicts performance beyond fit effects, the model clarifies that multiple
+            pathways exist to performance improvement, preventing oversimplification. 10.Temporal
+            Considerations: While primarily cross-sectional, the authors address temporal concerns
+            through time-lagged analysis, strengthening causal inference. 11.Alternative Explanation
+            Testing: The authors test and rule out social desirability bias, selection bias, and
+            alternative explanations, improving confidence in findings. 12.Intuitive Theoretical
+            Logic: The core insight—that technology impact depends on match between tasks and
+            capabilities—is theoretically intuitive while empirically demonstrating substantial
+            effect sizes. What are the main weaknesses of the model? Despite significant strengths,
+            the Task-Technology Fit model has notable limitations:
           </p>
 
           <p className="mb-4">

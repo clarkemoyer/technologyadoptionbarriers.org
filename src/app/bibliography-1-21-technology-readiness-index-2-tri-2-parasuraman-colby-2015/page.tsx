@@ -66,26 +66,23 @@ const BibliographyArticlePage = () => {
             contexts. Some items that had been included in the preliminary 28-item scale but
             eliminated during the original refinement process contained themes that later research
             suggested warranted inclusion. The broader challenge was that scale items that had not
-            specifically referenced technologies might be losing relevance
-          </p>
-
-          <p className="mb-4">
-            or that respondents were interpreting items differently than originally intended as the
-            technology environment evolved. An inherent challenge with a scale measuring technology
-            readiness is that technology itself changes over time, creating tension between
-            maintaining measurement consistency across time and ensuring the scale’s continued
-            relevance. The authors recognized that while the core constructs underlying technology
-            readiness (Optimism, Innovativeness, Discomfort, and Insecurity) remained valid, the
-            scale needed adjustment to capture emerging technology themes and remain resonant with
-            contemporary populations. Additionally, the authors sought to streamline the scale. The
-            original 36- item instrument, while psychometrically sound, was lengthy for survey
-            applications. Researchers and practitioners often preferred shorter instruments that
-            could be incorporated into larger survey batteries or administered in contexts where
-            survey length was constrained. The goal was to develop a more concise version that would
-            retain the reliability and validity of the original while reducing respondent burden.
-            The motivation also included addressing feedback from extensive use of TRI 1.0. The
-            authors had received numerous academic licenses for TRI 1.0 use across 127 countries and
-            in translations to local languages. This widespread application revealed specific issues
+            specifically referenced technologies might be losing relevance or that respondents were
+            interpreting items differently than originally intended as the technology environment
+            evolved. An inherent challenge with a scale measuring technology readiness is that
+            technology itself changes over time, creating tension between maintaining measurement
+            consistency across time and ensuring the scale’s continued relevance. The authors
+            recognized that while the core constructs underlying technology readiness (Optimism,
+            Innovativeness, Discomfort, and Insecurity) remained valid, the scale needed adjustment
+            to capture emerging technology themes and remain resonant with contemporary populations.
+            Additionally, the authors sought to streamline the scale. The original 36- item
+            instrument, while psychometrically sound, was lengthy for survey applications.
+            Researchers and practitioners often preferred shorter instruments that could be
+            incorporated into larger survey batteries or administered in contexts where survey
+            length was constrained. The goal was to develop a more concise version that would retain
+            the reliability and validity of the original while reducing respondent burden. The
+            motivation also included addressing feedback from extensive use of TRI 1.0. The authors
+            had received numerous academic licenses for TRI 1.0 use across 127 countries and in
+            translations to local languages. This widespread application revealed specific issues
             through researcher feedback. Some items were unclear or ambiguous in translation. Some
             dimensions appeared to function differently across cultural contexts. Some statements
             were becoming dated or less relevant. The authors sought to incorporate insights from
@@ -99,41 +96,37 @@ const BibliographyArticlePage = () => {
             internal validity throughout the process. The first phase was qualitative and
             exploratory, designed to identify potential new items and validate the continued
             relevance of the core constructs. This phase consisted of an interactive discussion with
-            consumers on an online
-          </p>
-
-          <p className="mb-4">
-            platform called OpinionPond. The researchers created a social media-style discussion
-            forum where US adults participated in extended conversations about technology adoption
-            and use. Approximately 317 comments were gathered from forum participants discussing
-            technology motivators, inhibitors, and various aspects of technology adoption. The
-            qualitative research examined what respondents believed were “cutting-edge” technologies
-            in both personal and occupational spheres, what motivated them to try new technologies,
-            and what made them hesitant about new technology adoption. Thematic analysis of these
-            qualitative discussions identified key themes: technology as improving quality of life,
-            staying connected, communications and relationships, cost barriers, security and safety
-            concerns, dependency concerns, and distraction concerns. These themes were compared
-            against the original TRI dimensions to identify content that was still relevant and
-            content requiring updating. Following this exploratory phase, the second phase was
-            quantitative and involved developing new items that reflected contemporary technology
-            themes while maintaining the original four dimensions. The authors reviewed the original
-            36 TRI items and identified potential items for refinement based on the qualitative
-            research findings and feedback from extensive use. Fifteen new items were added to
-            capture contemporary technology themes, resulting in a 45-item preliminary scale for
-            testing. The quantitative phase employed both mail and online surveys of a
-            representative cross-section of US adults. The survey was administered with randomized
-            presentation of the 45 items (with two versions created to minimize order effects). A
-            total of 524 usable questionnaires were obtained. The sample was carefully weighted for
-            demographic characteristics including gender, age, education, and income to reflect the
-            US population accurately. Factor analysis was conducted to assess the dimensional
-            structure of the preliminary scale. Using Varimax rotation and examining eigenvalues, a
-            four-factor solution emerged that explained 44% of the total variance across items.
-            Principal component factor analysis confirmed a four-factor structure consistent with
-            the original TRI model. Reliability coefficients (Cronbach’s alpha) were computed for
-            each dimension, ranging from .68 to .90 across the four factors. Internal consistency
-            analysis examined item-to-total correlations and factor loadings. Items with weak
-            loadings (below .30), ambiguous cross-loadings, or low item-to-total correlations were
-            identified for potential elimination.
+            consumers on an online platform called OpinionPond. The researchers created a social
+            media-style discussion forum where US adults participated in extended conversations
+            about technology adoption and use. Approximately 317 comments were gathered from forum
+            participants discussing technology motivators, inhibitors, and various aspects of
+            technology adoption. The qualitative research examined what respondents believed were
+            “cutting-edge” technologies in both personal and occupational spheres, what motivated
+            them to try new technologies, and what made them hesitant about new technology adoption.
+            Thematic analysis of these qualitative discussions identified key themes: technology as
+            improving quality of life, staying connected, communications and relationships, cost
+            barriers, security and safety concerns, dependency concerns, and distraction concerns.
+            These themes were compared against the original TRI dimensions to identify content that
+            was still relevant and content requiring updating. Following this exploratory phase, the
+            second phase was quantitative and involved developing new items that reflected
+            contemporary technology themes while maintaining the original four dimensions. The
+            authors reviewed the original 36 TRI items and identified potential items for refinement
+            based on the qualitative research findings and feedback from extensive use. Fifteen new
+            items were added to capture contemporary technology themes, resulting in a 45-item
+            preliminary scale for testing. The quantitative phase employed both mail and online
+            surveys of a representative cross-section of US adults. The survey was administered with
+            randomized presentation of the 45 items (with two versions created to minimize order
+            effects). A total of 524 usable questionnaires were obtained. The sample was carefully
+            weighted for demographic characteristics including gender, age, education, and income to
+            reflect the US population accurately. Factor analysis was conducted to assess the
+            dimensional structure of the preliminary scale. Using Varimax rotation and examining
+            eigenvalues, a four-factor solution emerged that explained 44% of the total variance
+            across items. Principal component factor analysis confirmed a four-factor structure
+            consistent with the original TRI model. Reliability coefficients (Cronbach’s alpha) were
+            computed for each dimension, ranging from .68 to .90 across the four factors. Internal
+            consistency analysis examined item-to-total correlations and factor loadings. Items with
+            weak loadings (below .30), ambiguous cross-loadings, or low item-to-total correlations
+            were identified for potential elimination.
           </p>
 
           <p className="mb-4">
@@ -198,40 +191,37 @@ const BibliographyArticlePage = () => {
             derived from the original 36-item TRI 1.0 data provided evidence of the validity of the
             revised instrument. Cross-context validity was demonstrated through comparison of
             segment characteristics across different technology product categories. The segmentation
-            pattern remained consistent whether examining adoption of
-          </p>
-
-          <p className="mb-4">
-            specific technologies (smartphones, tablets, portable media players) or broad behavioral
-            categories (online transactions, social media use). This consistency across contexts
-            supported the external validity of the scale as a generalizable measure of technology
-            readiness. Construct validity was further supported through analysis of the relationship
-            between TR and social media engagement. Higher-TR consumers significantly differed from
-            lower-TR consumers in their engagement with social media platforms (t = 4.16, p &lt;
-            .001). The relationship between TR and social media engagement was significant (r =
-            0.20), with higher-TR consumers showing significantly higher incidence of social media
-            use, consistent with theoretical expectations. The scale also showed valid relationships
-            with demographic and lifestyle characteristics. Demographic analysis revealed
-            significant differences among the five TR-based segments in terms of age, education,
-            ethnicity, employment status, and technology-profession employment. These demographic
-            differences were consistent with theoretical expectations (e.g., higher-TR explorers and
-            pioneers tended to be younger and more educated; lower-TR skeptics and avoiders tended
-            to be older and less educated). How is the model intended to be used in practice? TRI
-            2.0 was explicitly designed for practical marketing and business applications while
-            maintaining research utility. The primary application is customer segmentation based on
-            technology readiness profiles. The five- segment solution (Skeptics, Explorers,
-            Avoiders, Pioneers, Hesitators) provides a practical typology for understanding customer
-            populations and developing differentiated marketing strategies. Rather than assuming all
-            customers have similar technology attitudes and needs, organizations can identify which
-            segments exist in their customer base and what proportions they represent. For each
-            identified segment, the model instructs organizations to develop tailored marketing
-            approaches. Explorers—characterized by high motivation and low inhibition—respond to
-            messages emphasizing innovation, cutting-edge features, and technological
-            sophistication. These early adopters should receive information about advanced
-            functionality and serve as target users for new feature rollouts. Skeptics—characterized
-            by detached ambivalence—require messages emphasizing reliability, proven track record,
-            ease of use, and support availability. These customers are unmoved by technology
-            innovation rhetoric and require reassurance that the system is trustworthy and simple.
+            pattern remained consistent whether examining adoption of specific technologies
+            (smartphones, tablets, portable media players) or broad behavioral categories (online
+            transactions, social media use). This consistency across contexts supported the external
+            validity of the scale as a generalizable measure of technology readiness. Construct
+            validity was further supported through analysis of the relationship between TR and
+            social media engagement. Higher-TR consumers significantly differed from lower-TR
+            consumers in their engagement with social media platforms (t = 4.16, p &lt; .001). The
+            relationship between TR and social media engagement was significant (r = 0.20), with
+            higher-TR consumers showing significantly higher incidence of social media use,
+            consistent with theoretical expectations. The scale also showed valid relationships with
+            demographic and lifestyle characteristics. Demographic analysis revealed significant
+            differences among the five TR-based segments in terms of age, education, ethnicity,
+            employment status, and technology-profession employment. These demographic differences
+            were consistent with theoretical expectations (e.g., higher-TR explorers and pioneers
+            tended to be younger and more educated; lower-TR skeptics and avoiders tended to be
+            older and less educated). How is the model intended to be used in practice? TRI 2.0 was
+            explicitly designed for practical marketing and business applications while maintaining
+            research utility. The primary application is customer segmentation based on technology
+            readiness profiles. The five- segment solution (Skeptics, Explorers, Avoiders, Pioneers,
+            Hesitators) provides a practical typology for understanding customer populations and
+            developing differentiated marketing strategies. Rather than assuming all customers have
+            similar technology attitudes and needs, organizations can identify which segments exist
+            in their customer base and what proportions they represent. For each identified segment,
+            the model instructs organizations to develop tailored marketing approaches.
+            Explorers—characterized by high motivation and low inhibition—respond to messages
+            emphasizing innovation, cutting-edge features, and technological sophistication. These
+            early adopters should receive information about advanced functionality and serve as
+            target users for new feature rollouts. Skeptics—characterized by detached
+            ambivalence—require messages emphasizing reliability, proven track record, ease of use,
+            and support availability. These customers are unmoved by technology innovation rhetoric
+            and require reassurance that the system is trustworthy and simple.
           </p>
 
           <p className="mb-4">
@@ -296,15 +286,12 @@ const BibliographyArticlePage = () => {
             maintains the four fundamental dimensions of the original TRI while streamlining the
             measurement items and updating content to reflect contemporary technology landscapes.
             Optimism (4 items): A positive view of technology and a belief that it offers increased
-            control, flexibility, and efficiency. Items reflect beliefs that new
-          </p>
-
-          <p className="mb-4">
-            technologies contribute to better quality of life, give more freedom and mobility, make
-            life more productive, and provide access to new entertainment and services.
-            Innovativeness (4 items): A tendency to be a technology pioneer and thought leader.
-            Items reflect being sought for advice on technologies, acquiring new technology early,
-            enjoying technological challenges, and staying current with technological developments.
+            control, flexibility, and efficiency. Items reflect beliefs that new technologies
+            contribute to better quality of life, give more freedom and mobility, make life more
+            productive, and provide access to new entertainment and services. Innovativeness (4
+            items): A tendency to be a technology pioneer and thought leader. Items reflect being
+            sought for advice on technologies, acquiring new technology early, enjoying
+            technological challenges, and staying current with technological developments.
             Discomfort (4 items): A perceived lack of control and feeling overwhelmed by technology.
             Items reflect concerns about technical support quality, technology systems being too
             complex, difficulty when troubleshooting problems, and finding technology systems that
@@ -360,38 +347,34 @@ const BibliographyArticlePage = () => {
             to the motivator dimensions. While the scale still meets acceptable standards for
             convergent validity, the inhibitor dimensions show lower internal consistency than
             ideal. The authors note in their analysis that “the subscales for the inhibitor
-            dimensions of discomfort and insecurity are somewhat weak on some
-          </p>
-
-          <p className="mb-4">
-            psychometric criteria, especially while these dimensions do represent a set of
-            homogeneous attributes.” This suggests room for further refinement of these dimensions.
-            Third, TRI 2.0 does not address context-specific variations in technology readiness.
-            While one strength is that it measures general technology readiness, a limitation is
-            that consumers may have different readiness levels for different technology categories
-            (e.g., high for entertainment technologies but low for financial technologies). The
-            general measure cannot capture these context-specific variations. Fourth, the
-            five-segment solution, while practically useful, represents one particular clustering of
-            the continuous underlying dimensions. Different clustering approaches or number of
-            segments might yield different practical classifications. The segments are not fixed
-            discrete categories but probabilistic classifications based on combinations of scores on
-            the four dimensions. Fifth, the scale remains dependent on self-reported beliefs and
-            attitudes, subject to social desirability bias and potential misalignment between stated
-            readiness and actual behavior. In some contexts, consumers may overstate their actual
-            technology comfort or adoption intention. Sixth, some demographic and psychographic
-            characteristics show very different levels of TR (age, education, employment in
-            technology-related fields), suggesting demographic composition significantly influences
-            population-level TR. This means organizations comparing TR results across different
-            sample populations must account for demographic differences that may confound pure TR
-            effects. Seventh, the cross-cultural applicability, while a strength of TRI 1.0, has not
-            been as extensively documented for TRI 2.0. While the scale has been translated and used
-            globally, formal psychometric validation across multiple countries and cultures has not
-            been comprehensively reported. How does this model differ from older models? TRI 2.0
-            differs from the original TRI 1.0 primarily in parsimony and contemporary relevance. The
-            16-item TRI 2.0 captures the same underlying four dimensions as the 36-item TRI 1.0, but
-            with substantially greater efficiency. The factor structure, dimensional relationships,
-            and segmentation utility remain conceptually equivalent, but measurement is more
-            efficient.
+            dimensions of discomfort and insecurity are somewhat weak on some psychometric criteria,
+            especially while these dimensions do represent a set of homogeneous attributes.” This
+            suggests room for further refinement of these dimensions. Third, TRI 2.0 does not
+            address context-specific variations in technology readiness. While one strength is that
+            it measures general technology readiness, a limitation is that consumers may have
+            different readiness levels for different technology categories (e.g., high for
+            entertainment technologies but low for financial technologies). The general measure
+            cannot capture these context-specific variations. Fourth, the five-segment solution,
+            while practically useful, represents one particular clustering of the continuous
+            underlying dimensions. Different clustering approaches or number of segments might yield
+            different practical classifications. The segments are not fixed discrete categories but
+            probabilistic classifications based on combinations of scores on the four dimensions.
+            Fifth, the scale remains dependent on self-reported beliefs and attitudes, subject to
+            social desirability bias and potential misalignment between stated readiness and actual
+            behavior. In some contexts, consumers may overstate their actual technology comfort or
+            adoption intention. Sixth, some demographic and psychographic characteristics show very
+            different levels of TR (age, education, employment in technology-related fields),
+            suggesting demographic composition significantly influences population-level TR. This
+            means organizations comparing TR results across different sample populations must
+            account for demographic differences that may confound pure TR effects. Seventh, the
+            cross-cultural applicability, while a strength of TRI 1.0, has not been as extensively
+            documented for TRI 2.0. While the scale has been translated and used globally, formal
+            psychometric validation across multiple countries and cultures has not been
+            comprehensively reported. How does this model differ from older models? TRI 2.0 differs
+            from the original TRI 1.0 primarily in parsimony and contemporary relevance. The 16-item
+            TRI 2.0 captures the same underlying four dimensions as the 36-item TRI 1.0, but with
+            substantially greater efficiency. The factor structure, dimensional relationships, and
+            segmentation utility remain conceptually equivalent, but measurement is more efficient.
           </p>
 
           <p className="mb-4">
@@ -423,9 +406,6 @@ const BibliographyArticlePage = () => {
             systems are invasive or intrusive into personal life. These discomfort-based barriers
             manifest in multiple ways. Some consumers worry about pressing the wrong buttons or
             making mistakes when using technology. Others feel overwhelmed by the learning curve
-          </p>
-
-          <p className="mb-4">
             required to use new systems. Still others fear appearing incompetent if they cannot
             quickly figure out how to use technology. The discomfort barrier is particularly salient
             for older consumers or those with limited prior technology experience, who may lack
@@ -456,14 +436,10 @@ const BibliographyArticlePage = () => {
             cost-conscious consumers. The earlier TRI research had identified that “the high cost of
             acquiring these [technologies] is actually very discouraging” for some consumers. While
             TRI 2.0 doesn’t directly measure cost sensitivity, consumers with low income or high
-            cost
-          </p>
-
-          <p className="mb-4">
-            concerns may delay or avoid technology adoption regardless of their attitudes toward
-            technology. Social barriers also emerged in the research. Some consumers feel social
-            pressure to adopt technologies that are becoming commonplace in their social circles,
-            creating stress between their personal comfort level and social expectations.
+            cost concerns may delay or avoid technology adoption regardless of their attitudes
+            toward technology. Social barriers also emerged in the research. Some consumers feel
+            social pressure to adopt technologies that are becoming commonplace in their social
+            circles, creating stress between their personal comfort level and social expectations.
             Conversely, some consumers are isolated from technology adoption if they lack peer
             groups adopting similar technologies. Difference in technology adoption from peers can
             create social discomfort or feelings of being “left behind.” Knowledge and experience

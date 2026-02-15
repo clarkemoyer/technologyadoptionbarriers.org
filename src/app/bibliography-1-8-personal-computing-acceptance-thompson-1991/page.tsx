@@ -100,39 +100,36 @@ const BibliographyArticlePage = () => {
             consequences (.17), affect (.48), social factors (.19), and facilitating conditions
             (.07), indicating appropriate independence while showing expected relationships. The
             model’s path coefficients were tested for statistical significance using jackknifing
-            procedures, which do not assume normality. Four of six
-          </p>
-
-          <p className="mb-4">
-            hypothesized relationships were statistically significant at p &lt; .01 level, providing
-            strong evidence for the model’s internal structure. How was the model’s external
-            validity tested? External validity testing was limited in this research, which the
-            authors explicitly acknowledged. The study was conducted with participants from a single
-            organization, which represents a significant limitation to generalizability. The
-            researchers noted that future tests of the theory across multiple organizations were
-            needed to establish whether results would generalize to other contexts. However, the
-            authors did take steps to address external validity within their single-organization
-            context. They selected participants across different job levels and positions,
-            recognizing that PC utilization might vary by role and responsibility. They
-            distinguished between job-related factors (how a PC fits one’s job tasks) and individual
-            perceptions, attempting to capture variance across different job contexts within the
-            organization. The study measured actual utilization behavior through self-reported usage
-            patterns rather than relying on intentions or beliefs alone, which strengthened external
-            validity relative to intention-based models. Usage was operationalized through multiple
-            indicators: number of visits to the computing facility, time spent using personal
-            computers, and frequency of use in job-related tasks. The researchers also collected
-            data on respondents’ previous experience with personal computers. They recognized that
-            experience might influence the relationships between antecedents and utilization
-            behavior. By examining experience as a potential moderating variable, they attempted to
-            understand whether the model’s predictive patterns held across users with different
-            levels of familiarity with technology. The relatively large sample size for a single
-            organization (n=286) provided adequate statistical power for detecting relationships.
-            The researchers explicitly stated that one limitation was that “the respondents were
-            from one organization… [hence] the generalizability of these results to other
-            organizations remains to be determined.” This acknowledgment demonstrates appropriate
-            caution about external validity claims. How is the model intended to be used in
-            practice? Thompson et al.  provided extensive managerial implications for how
-            organizations could apply the model to enhance PC adoption and utilization.
+            procedures, which do not assume normality. Four of six hypothesized relationships were
+            statistically significant at p &lt; .01 level, providing strong evidence for the model’s
+            internal structure. How was the model’s external validity tested? External validity
+            testing was limited in this research, which the authors explicitly acknowledged. The
+            study was conducted with participants from a single organization, which represents a
+            significant limitation to generalizability. The researchers noted that future tests of
+            the theory across multiple organizations were needed to establish whether results would
+            generalize to other contexts. However, the authors did take steps to address external
+            validity within their single-organization context. They selected participants across
+            different job levels and positions, recognizing that PC utilization might vary by role
+            and responsibility. They distinguished between job-related factors (how a PC fits one’s
+            job tasks) and individual perceptions, attempting to capture variance across different
+            job contexts within the organization. The study measured actual utilization behavior
+            through self-reported usage patterns rather than relying on intentions or beliefs alone,
+            which strengthened external validity relative to intention-based models. Usage was
+            operationalized through multiple indicators: number of visits to the computing facility,
+            time spent using personal computers, and frequency of use in job-related tasks. The
+            researchers also collected data on respondents’ previous experience with personal
+            computers. They recognized that experience might influence the relationships between
+            antecedents and utilization behavior. By examining experience as a potential moderating
+            variable, they attempted to understand whether the model’s predictive patterns held
+            across users with different levels of familiarity with technology. The relatively large
+            sample size for a single organization (n=286) provided adequate statistical power for
+            detecting relationships. The researchers explicitly stated that one limitation was that
+            “the respondents were from one organization… [hence] the generalizability of these
+            results to other organizations remains to be determined.” This acknowledgment
+            demonstrates appropriate caution about external validity claims. How is the model
+            intended to be used in practice? Thompson et al.  provided extensive managerial
+            implications for how organizations could apply the model to enhance PC adoption and
+            utilization.
           </p>
 
           <p className="mb-4">
@@ -220,35 +217,32 @@ const BibliographyArticlePage = () => {
             model’s finding that complexity perception negatively influences utilization (path =
             -.14) is intuitive and validates a widely held assumption while also quantifying its
             magnitude. 8.Integration of personal and organizational factors: The model synthesizes
-            individual attitudes, social context, job characteristics, and
-          </p>
-
-          <p className="mb-4">
-            organizational support systems, recognizing that utilization is determined by factors at
-            multiple levels. What are the main weaknesses of the model? Despite its strengths, the
-            Thompson model has notable limitations: 1.Single-organization design: The most
-            significant limitation acknowledged by the authors is that all data came from one
-            organization. This severely constrains external validity and generalizability. PC
-            adoption patterns, social norms, job characteristics, and organizational culture vary
-            substantially across industries and organizations, making it unclear whether findings
-            would replicate elsewhere. 2.Limited operationalization of facilitating conditions: The
-            authors acknowledge that facilitating conditions were operationalized narrowly as
-            “technical support,” but the theory should encompass broader resource factors. They note
-            that “we only measured one aspect of facilitating conditions” and that “other measures
-            of facilitating conditions should have been used, such as access to a PC or ease of
-            purchasing software or hardware upgrades.” This incomplete operationalization may
-            explain the non-significant effect of facilitating conditions. 3.Low reliability for
-            complexity scale: The complexity construct had the lowest Cronbach’s alpha (.60), below
-            the conventional .70 threshold, indicating measurement issues. The authors note the
-            “relatively poor reliabilities” and state that “future studies should develop stronger
-            measures” for complexity. 4.Non-significant relationships for some major constructs: Two
-            hypothesized relationships were not statistically significant: the direct paths from
-            affect to utilization (.02) and facilitating conditions to utilization (-.04). This
-            contrasts with prior technology acceptance research and suggests either model
-            misspecification or contextual differences. 5.Low R² for affect and facilitating
-            conditions: The indirect paths through job fit and long-term consequences suggest these
-            variables may be more important than direct effects, but the theory did not adequately
-            specify these indirect mechanisms.
+            individual attitudes, social context, job characteristics, and organizational support
+            systems, recognizing that utilization is determined by factors at multiple levels. What
+            are the main weaknesses of the model? Despite its strengths, the Thompson model has
+            notable limitations: 1.Single-organization design: The most significant limitation
+            acknowledged by the authors is that all data came from one organization. This severely
+            constrains external validity and generalizability. PC adoption patterns, social norms,
+            job characteristics, and organizational culture vary substantially across industries and
+            organizations, making it unclear whether findings would replicate elsewhere. 2.Limited
+            operationalization of facilitating conditions: The authors acknowledge that facilitating
+            conditions were operationalized narrowly as “technical support,” but the theory should
+            encompass broader resource factors. They note that “we only measured one aspect of
+            facilitating conditions” and that “other measures of facilitating conditions should have
+            been used, such as access to a PC or ease of purchasing software or hardware upgrades.”
+            This incomplete operationalization may explain the non-significant effect of
+            facilitating conditions. 3.Low reliability for complexity scale: The complexity
+            construct had the lowest Cronbach’s alpha (.60), below the conventional .70 threshold,
+            indicating measurement issues. The authors note the “relatively poor reliabilities” and
+            state that “future studies should develop stronger measures” for complexity.
+            4.Non-significant relationships for some major constructs: Two hypothesized
+            relationships were not statistically significant: the direct paths from affect to
+            utilization (.02) and facilitating conditions to utilization (-.04). This contrasts with
+            prior technology acceptance research and suggests either model misspecification or
+            contextual differences. 5.Low R² for affect and facilitating conditions: The indirect
+            paths through job fit and long-term consequences suggest these variables may be more
+            important than direct effects, but the theory did not adequately specify these indirect
+            mechanisms.
           </p>
 
           <p className="mb-4">
@@ -337,39 +331,36 @@ const BibliographyArticlePage = () => {
             adoption. The barrier operates through social pressure and normative influence—if
             respected others do not use PCs, individuals question whether adoption is appropriate.
             5.Insufficient Facilitating Conditions: Although facilitating conditions did not show a
-            significant direct effect on utilization (path = -.04), the
-          </p>
-
-          <p className="mb-4">
-            authors recognize this as a measurement issue rather than evidence that support is
-            unimportant. The barrier here involves inadequate training opportunities, insufficient
-            technical support, poor accessibility to computing resources, and lack of assistance in
-            adopting systems. The authors emphasize that “technical support provided by the
-            organization appears to be only one type of facilitating condition; others include the
-            ease with which software or hardware upgrades can be purchased or the extent to which
-            home computers are an advantage in the job package.” 6.Negative Perceptions of
-            Consequences: Long-term consequences showed a significant effect on utilization (.10, p
-            &lt; .01). When employees perceive that PC use will not lead to tangible
-            benefits—improved job performance, career advancement, productivity gains, or
-            professional development—they have little incentive to invest effort in learning and
-            using systems. The barrier manifests as skepticism about ROI, doubts about productivity
-            improvements, and uncertainty about career relevance. 7.Organizational and Job Context
-            Misalignment: Beyond job fit, broader organizational factors create barriers. The
-            authors discuss how “certain factors that have a significant influence on EUC success”
-            relate to organizational context. If organizational structures, performance evaluation
-            systems, or job designs do not reward or recognize PC usage, adoption remains low even
-            when systems are technically sound. 8.Experience Gaps: While not explicitly modeled, the
-            authors identify that inexperience with personal computers creates barriers. They
-            hypothesize that “experience influences expected consequences of behaviors. The
-            influence of experience on expected consequences could be tested by comparing the paths
-            in the model across samples of experienced and inexperienced PC users.” New PC users may
-            perceive higher complexity, less favorable job fit, and fewer positive consequences
-            until experience accumulates. The model reveals that barriers operate at multiple
-            levels. Individual perceptions of complexity and affect represent cognitive-affective
-            barriers. Social norms and peer behavior create social barriers. Organizational support
-            systems and actual job requirements create contextual barriers. Addressing adoption
-            barriers therefore requires multi-level interventions targeting individual cognitions,
-            social influences, and organizational structures simultaneously.
+            significant direct effect on utilization (path = -.04), the authors recognize this as a
+            measurement issue rather than evidence that support is unimportant. The barrier here
+            involves inadequate training opportunities, insufficient technical support, poor
+            accessibility to computing resources, and lack of assistance in adopting systems. The
+            authors emphasize that “technical support provided by the organization appears to be
+            only one type of facilitating condition; others include the ease with which software or
+            hardware upgrades can be purchased or the extent to which home computers are an
+            advantage in the job package.” 6.Negative Perceptions of Consequences: Long-term
+            consequences showed a significant effect on utilization (.10, p &lt; .01). When
+            employees perceive that PC use will not lead to tangible benefits—improved job
+            performance, career advancement, productivity gains, or professional development—they
+            have little incentive to invest effort in learning and using systems. The barrier
+            manifests as skepticism about ROI, doubts about productivity improvements, and
+            uncertainty about career relevance. 7.Organizational and Job Context Misalignment:
+            Beyond job fit, broader organizational factors create barriers. The authors discuss how
+            “certain factors that have a significant influence on EUC success” relate to
+            organizational context. If organizational structures, performance evaluation systems, or
+            job designs do not reward or recognize PC usage, adoption remains low even when systems
+            are technically sound. 8.Experience Gaps: While not explicitly modeled, the authors
+            identify that inexperience with personal computers creates barriers. They hypothesize
+            that “experience influences expected consequences of behaviors. The influence of
+            experience on expected consequences could be tested by comparing the paths in the model
+            across samples of experienced and inexperienced PC users.” New PC users may perceive
+            higher complexity, less favorable job fit, and fewer positive consequences until
+            experience accumulates. The model reveals that barriers operate at multiple levels.
+            Individual perceptions of complexity and affect represent cognitive-affective barriers.
+            Social norms and peer behavior create social barriers. Organizational support systems
+            and actual job requirements create contextual barriers. Addressing adoption barriers
+            therefore requires multi-level interventions targeting individual cognitions, social
+            influences, and organizational structures simultaneously.
           </p>
 
           <p className="mb-4">
@@ -398,20 +389,17 @@ const BibliographyArticlePage = () => {
             demonstrate job relevance; (4) modify job descriptions to incorporate PC-dependent
             responsibilities when appropriate. The authors emphasize that “communication aimed at
             increasing the awareness of potential applications of PC technology for current job
-            positions may influence the perception of job fit.” This suggests leaders
-          </p>
-
-          <p className="mb-4">
-            must be explicit and proactive in helping employees understand application relevance.
-            For Social Factor Barriers: Given that social factors showed the strongest direct effect
-            on utilization (.22), the authors strongly recommend leveraging organizational
-            champions: “Visible organizational members to use PCs may be an effective way of
-            championing use throughout the organization.” More specifically, leaders should: (1)
-            identify and empower early adopters and opinion leaders; (2) publicize the successes of
-            enthusiastic PC users; (3) involve respected managers and subject matter experts in
-            promotion efforts; (4) create peer learning communities where experienced users support
-            newcomers; (5) establish organizational norms supporting PC adoption through visible
-            leadership endorsement. The model suggests that “social factors may also be a partially
+            positions may influence the perception of job fit.” This suggests leaders must be
+            explicit and proactive in helping employees understand application relevance. For Social
+            Factor Barriers: Given that social factors showed the strongest direct effect on
+            utilization (.22), the authors strongly recommend leveraging organizational champions:
+            “Visible organizational members to use PCs may be an effective way of championing use
+            throughout the organization.” More specifically, leaders should: (1) identify and
+            empower early adopters and opinion leaders; (2) publicize the successes of enthusiastic
+            PC users; (3) involve respected managers and subject matter experts in promotion
+            efforts; (4) create peer learning communities where experienced users support newcomers;
+            (5) establish organizational norms supporting PC adoption through visible leadership
+            endorsement. The model suggests that “social factors may also be a partially
             controllable factor; for example, it may be possible to influence norms by publicizing
             the successes of early adopters of technology.” Leaders can shape social norms through
             deliberate communication and visibility management. For Facilitating Conditions:
@@ -427,36 +415,33 @@ const BibliographyArticlePage = () => {
             note that their operationalization was limited and that organizations should address
             facilitating conditions more comprehensively than their study measured. For Affect
             Barriers: While affect showed no significant direct effect in the Thompson model (unlike
-            in some other contexts), the authors acknowledge that emotional
-          </p>
-
-          <p className="mb-4">
-            acceptance matters. They note that “PCs are seen simply as tools, and not as technology
-            to be liked or disliked,” suggesting that affect may be context- dependent. Leaders
-            addressing affect should: (1) destigmatize technology for those with computer anxiety;
-            (2) provide positive experiences through hands-on learning in low-pressure environments;
-            (3) highlight enjoyable aspects of computing; (4) normalize emotion around technology
-            adoption by acknowledging that comfort takes time. For Experience-Based Barriers: The
-            authors highlight that “experience influences expected consequences of behaviors” and
-            recommend tracking how expectations and utilization patterns change over time. Leaders
-            should: (1) implement longitudinal tracking of user adoption curves; (2) provide ongoing
-            support recognizing that barriers and facilitators change as experience accumulates; (3)
-            expect initial underutilization while users gain competence; (4) design career
-            development pathways that build computing skills progressively. Integrated, Multi-Level
-            Approach: Critically, the authors argue that “future research on computer utilization
-            within the IS context can productively use Triandis’ work as a frame of reference.” They
-            recommend that managers understand multiple barrier types operate simultaneously. No
-            single intervention addresses all barriers. Instead, “organizations seeking to enhance
-            PC adoption should target multiple intervention points.” The authors specifically
-            emphasize that “technical support provided by the organization appears to be only one
-            type of facilitating condition” and that “if the organization has positive norms
-            concerning PC use, it would be disposed to providing technical support.” This indicates
-            that social support and organizational norms must be established alongside technical
-            infrastructure. The model suggests that successful PC adoption requires: coordinated
-            attention to complexity reduction through training, clear communication about job fit
-            and task relevance, cultivation of organizational champions and peer support, provision
-            of technical resources and support, and management of long-term expectations about
-            benefits and career implications.
+            in some other contexts), the authors acknowledge that emotional acceptance matters. They
+            note that “PCs are seen simply as tools, and not as technology to be liked or disliked,”
+            suggesting that affect may be context- dependent. Leaders addressing affect should: (1)
+            destigmatize technology for those with computer anxiety; (2) provide positive
+            experiences through hands-on learning in low-pressure environments; (3) highlight
+            enjoyable aspects of computing; (4) normalize emotion around technology adoption by
+            acknowledging that comfort takes time. For Experience-Based Barriers: The authors
+            highlight that “experience influences expected consequences of behaviors” and recommend
+            tracking how expectations and utilization patterns change over time. Leaders should: (1)
+            implement longitudinal tracking of user adoption curves; (2) provide ongoing support
+            recognizing that barriers and facilitators change as experience accumulates; (3) expect
+            initial underutilization while users gain competence; (4) design career development
+            pathways that build computing skills progressively. Integrated, Multi-Level Approach:
+            Critically, the authors argue that “future research on computer utilization within the
+            IS context can productively use Triandis’ work as a frame of reference.” They recommend
+            that managers understand multiple barrier types operate simultaneously. No single
+            intervention addresses all barriers. Instead, “organizations seeking to enhance PC
+            adoption should target multiple intervention points.” The authors specifically emphasize
+            that “technical support provided by the organization appears to be only one type of
+            facilitating condition” and that “if the organization has positive norms concerning PC
+            use, it would be disposed to providing technical support.” This indicates that social
+            support and organizational norms must be established alongside technical infrastructure.
+            The model suggests that successful PC adoption requires: coordinated attention to
+            complexity reduction through training, clear communication about job fit and task
+            relevance, cultivation of organizational champions and peer support, provision of
+            technical resources and support, and management of long-term expectations about benefits
+            and career implications.
           </p>
 
           <p className="mb-4">
@@ -476,10 +461,10 @@ const BibliographyArticlePage = () => {
             attitudes, and interpersonal behavior. Nebraska Symposium on Motivation, 1979. Lincoln,
             NE: University of Nebraska Press. 3.Davis, F. D. (1989). Perceived usefulness, ease of
             use, and user acceptance of information technology. MIS Quarterly, 13(3), 319-340.
-            4.Davis, F. D., Bagozzi, R. P ., & Warsaw, P . R. (1989). User acceptance of computer
+            4.Davis, F. D., Bagozzi, R. P., & Warsaw, P. R. (1989). User acceptance of computer
             technology: A comparison of two theoretical models. Management Science, 35(8), 982-1003.
             5.Fishbein, M., & Ajzen, I. (1975). Belief, attitude, intention and behavior: An
-            introduction to theory and research. Reading, MA: Addison-Wesley. 6.Porter, L. W ., &
+            introduction to theory and research. Reading, MA: Addison-Wesley. 6.Porter, L. W., &
             Lawler, E. E. (1968). Managerial attitudes and performance. Homewood, IL: Irwin-Dorsey.
           </p>
 

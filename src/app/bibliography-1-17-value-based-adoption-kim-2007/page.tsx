@@ -74,9 +74,6 @@ const BibliographyArticlePage = () => {
             values influence adoption. The authors noted that while consumer behavior research had
             extensively documented the importance of personal values in consumer decision-making,
             technology adoption literature had largely neglected this dimension. The VAM model
-          </p>
-
-          <p className="mb-4">
             sought to integrate personal values theory with technology adoption research.
             Additionally, the authors recognized that different market segments adopt technologies
             for fundamentally different reasons reflecting different value systems. Some consumers
@@ -137,19 +134,15 @@ const BibliographyArticlePage = () => {
             benefits, and adoption intention. Path analysis examined whether personal values
             influenced adoption intention both directly and through value-based benefits. The
             analysis tested whether value-based benefits mediated effects of personal values on
-            adoption
-          </p>
-
-          <p className="mb-4">
-            intention. Standardized path coefficients and their significance levels indicated the
-            strength and significance of proposed relationships. Multiple model specifications were
-            tested to identify the optimal structural configuration. Alternative models tested
-            included: (1) direct effects only (personal values directly influencing adoption), (2)
-            indirect effects only (personal values influencing adoption only through value-based
-            benefits), and (3) both direct and indirect effects (the proposed model). Comparison of
-            model fit indices indicated which specification provided superior fit. The model
-            examined whether different personal values showed different effects on adoption. The
-            research tested whether some values more strongly influenced adoption than others,
+            adoption intention. Standardized path coefficients and their significance levels
+            indicated the strength and significance of proposed relationships. Multiple model
+            specifications were tested to identify the optimal structural configuration. Alternative
+            models tested included: (1) direct effects only (personal values directly influencing
+            adoption), (2) indirect effects only (personal values influencing adoption only through
+            value-based benefits), and (3) both direct and indirect effects (the proposed model).
+            Comparison of model fit indices indicated which specification provided superior fit. The
+            model examined whether different personal values showed different effects on adoption.
+            The research tested whether some values more strongly influenced adoption than others,
             revealing a hierarchy of value importance in adoption decisions. Values with stronger
             effects on adoption intention were identified as more salient in mobile internet
             adoption decisions. Internal validity was further supported through examination of the
@@ -204,28 +197,25 @@ const BibliographyArticlePage = () => {
             usage patterns focused on communication and relationship maintenance; pleasure-motivated
             users showed usage patterns focused on entertainment and games. The model also
             demonstrated validity through its ability to explain adoption heterogeneity. Traditional
-            TAM-based research had noted that some
-          </p>
-
-          <p className="mb-4">
-            consumers adopted despite low perceived usefulness/ease of use perceptions, and some did
-            not adopt despite high perceived usefulness/ease of use perceptions. The value-based
-            model provided explanations for this heterogeneity by showing that consumers with
-            different value systems made adoption decisions through different decision-making
-            processes. How is the model intended to be used in practice? The VAM model was designed
-            for practical application in marketing strategy, product development, and customer
-            segmentation for technology providers. The primary application is value-based market
-            segmentation that recognizes different consumer segments adopt technologies for
-            fundamentally different reasons reflecting different personal values. Organizations
-            should use VAM to identify which personal values are most salient drivers of adoption
-            for their target market. Rather than assuming all consumers evaluate technologies the
-            same way, organizations should understand whether their market emphasizes achievement
-            values (efficiency, productivity), social values (connection, relationships), or hedonic
-            values (pleasure, enjoyment). This understanding informs what benefits to emphasize in
-            marketing and what features to prioritize in product development. The model instructs
-            organizations to develop differentiated marketing strategies for different value-based
-            segments. For achievement-motivated consumers, marketing should emphasize efficiency
-            gains, productivity improvements, and success-enabling features. For socially-motivated
+            TAM-based research had noted that some consumers adopted despite low perceived
+            usefulness/ease of use perceptions, and some did not adopt despite high perceived
+            usefulness/ease of use perceptions. The value-based model provided explanations for this
+            heterogeneity by showing that consumers with different value systems made adoption
+            decisions through different decision-making processes. How is the model intended to be
+            used in practice? The VAM model was designed for practical application in marketing
+            strategy, product development, and customer segmentation for technology providers. The
+            primary application is value-based market segmentation that recognizes different
+            consumer segments adopt technologies for fundamentally different reasons reflecting
+            different personal values. Organizations should use VAM to identify which personal
+            values are most salient drivers of adoption for their target market. Rather than
+            assuming all consumers evaluate technologies the same way, organizations should
+            understand whether their market emphasizes achievement values (efficiency,
+            productivity), social values (connection, relationships), or hedonic values (pleasure,
+            enjoyment). This understanding informs what benefits to emphasize in marketing and what
+            features to prioritize in product development. The model instructs organizations to
+            develop differentiated marketing strategies for different value-based segments. For
+            achievement-motivated consumers, marketing should emphasize efficiency gains,
+            productivity improvements, and success-enabling features. For socially-motivated
             consumers, marketing should emphasize connection capabilities, relationship maintenance,
             and community features. For pleasure-motivated consumers, marketing should emphasize
             entertainment value, enjoyment, and fun features. Organizations should use VAM to
@@ -236,25 +226,21 @@ const BibliographyArticlePage = () => {
             customer segments whose values align with the benefits the technology naturally
             provides. The model suggests that organizations should assess personal values of
             different market segments to understand adoption barriers. For some segments, low
-            adoption may reflect value-benefit misalignment rather than
-          </p>
-
-          <p className="mb-4">
-            genuinely low usefulness or ease of use. The solution then is not improving
-            functionality but repositioning how the technology delivers value to customers’ personal
-            values. Organizations should use VAM to inform product design decisions. If a
-            significant market segment holds strong social values, product development should
-            include strong social and communication features even if these increase system
-            complexity. If achievement-oriented segments are important, efficiency and productivity
-            features should be prioritized. The model instructs organizations to consider what
-            values they want their brand and product to represent. Mobile internet services
-            positioned around efficiency, productivity, and achievement appeal to
-            achievement-oriented consumers. Services positioned around friendship, connection, and
-            community appeal to socially-oriented consumers. Services positioned around
-            entertainment and enjoyment appeal to pleasure-oriented consumers. Organizations should
-            consciously choose which values to emphasize based on strategic positioning decisions.
-            For pricing and service tier strategy, VAM suggests organizations might develop
-            differentiated service levels for different value segments. Achievement-oriented
+            adoption may reflect value-benefit misalignment rather than genuinely low usefulness or
+            ease of use. The solution then is not improving functionality but repositioning how the
+            technology delivers value to customers’ personal values. Organizations should use VAM to
+            inform product design decisions. If a significant market segment holds strong social
+            values, product development should include strong social and communication features even
+            if these increase system complexity. If achievement-oriented segments are important,
+            efficiency and productivity features should be prioritized. The model instructs
+            organizations to consider what values they want their brand and product to represent.
+            Mobile internet services positioned around efficiency, productivity, and achievement
+            appeal to achievement-oriented consumers. Services positioned around friendship,
+            connection, and community appeal to socially-oriented consumers. Services positioned
+            around entertainment and enjoyment appeal to pleasure-oriented consumers. Organizations
+            should consciously choose which values to emphasize based on strategic positioning
+            decisions. For pricing and service tier strategy, VAM suggests organizations might
+            develop differentiated service levels for different value segments. Achievement-oriented
             customers might be willing to pay premium prices for professional features and
             efficiency enhancements. Social-oriented customers might value affordable family plans.
             Pleasure-oriented customers might be attracted to entertainment packages. Value-based
@@ -269,29 +255,26 @@ const BibliographyArticlePage = () => {
             and social responsibility. Positioning technology as environmentally sustainable or
             socially beneficial appeals to this value segment. The model instructs organizations
             that value-based adoption requires understanding customer motivation. Customer research
-            should investigate
-          </p>
-
-          <p className="mb-4">
-            not just functional needs but personal values and goals. In-depth interviews,
-            ethnographic research, and values assessment tools help organizations understand what
-            drives different customer segments. For employee sales and support teams, the model
-            suggests training employees to understand which customers are motivated by which values.
-            Salespeople should be able to tailor their value propositions to customer values rather
-            than using one-size-fits-all messaging. An achievement- oriented customer needs
-            different messaging than a socially-oriented customer, and this differentiation requires
-            salespeople who understand value motivation. Organizations should use VAM to develop
-            customer personas that go beyond demographics to include personal values. Rather than
-            just “women aged 25-35,” personas might describe “achievement-oriented professionals
-            seeking efficiency and success” or “socially-connected individuals prioritizing
-            relationships and community.” Value-based personas better inform product and marketing
-            decisions. The model instructs organizations that understanding value-based adoption is
-            particularly important during market growth phases. Early adopters often have different
-            values than mainstream or late adopters. To expand market penetration beyond early
-            adopters, organizations must understand what values drive different customer segments
-            and develop strategies appealing to broader value diversity. Organizations implementing
-            the model should recognize that personal values are relatively stable characteristics.
-            Unlike satisfaction or perceived usefulness which can fluctuate, personal values remain
+            should investigate not just functional needs but personal values and goals. In-depth
+            interviews, ethnographic research, and values assessment tools help organizations
+            understand what drives different customer segments. For employee sales and support
+            teams, the model suggests training employees to understand which customers are motivated
+            by which values. Salespeople should be able to tailor their value propositions to
+            customer values rather than using one-size-fits-all messaging. An achievement- oriented
+            customer needs different messaging than a socially-oriented customer, and this
+            differentiation requires salespeople who understand value motivation. Organizations
+            should use VAM to develop customer personas that go beyond demographics to include
+            personal values. Rather than just “women aged 25-35,” personas might describe
+            “achievement-oriented professionals seeking efficiency and success” or
+            “socially-connected individuals prioritizing relationships and community.” Value-based
+            personas better inform product and marketing decisions. The model instructs
+            organizations that understanding value-based adoption is particularly important during
+            market growth phases. Early adopters often have different values than mainstream or late
+            adopters. To expand market penetration beyond early adopters, organizations must
+            understand what values drive different customer segments and develop strategies
+            appealing to broader value diversity. Organizations implementing the model should
+            recognize that personal values are relatively stable characteristics. Unlike
+            satisfaction or perceived usefulness which can fluctuate, personal values remain
             relatively constant. This suggests that value-based segmentation provides stable target
             markets for long-term strategy rather than fluctuating based on short-term satisfaction
             or perception changes. What does the model measure? The Value-Based Adoption of Mobile
@@ -424,38 +407,34 @@ const BibliographyArticlePage = () => {
             dependence. For Socially-Motivated Consumers (valuing connection, community,
             relationships), the barrier is technology that fails to facilitate or enhance social
             connection. A mobile internet service positioned purely on productivity may fail to
-            appeal to socially-motivated consumers if it doesn’t
-          </p>
-
-          <p className="mb-4">
-            emphasize relationship maintenance or community features. The barrier is perceived
-            inability to fulfill social needs. For Pleasure-Motivated Consumers (valuing enjoyment,
-            entertainment, fun), the barrier is technology perceived as utilitarian drudgery without
-            enjoyment value. Services positioned as “serious” tools for work may not appeal to
-            pleasure-motivated consumers. The barrier is perceived lack of fun or entertainment
-            value. For Security-Focused Consumers (valuing safety, stability, protection), the
-            barrier is technology that creates perceived security risks or instability. Privacy
-            concerns, financial risks, or system unreliability create barriers regardless of
-            benefits offered. The barrier is fundamentally the perceived threat posed by the
-            technology. The research identified that Lack of Value-Benefit Recognition represents a
-            significant barrier. Some consumers might benefit from mobile internet in ways aligned
-            with their values but do not recognize these benefits. For example, an
-            achievement-oriented individual might not recognize how mobile internet enables
-            productivity in their particular work context. The barrier here is not misalignment but
-            failure to perceive alignment that actually exists. This barrier is addressed through
-            education and demonstration rather than product changes. Competing Value Priorities can
-            create barriers. Some individuals hold multiple values that are not simultaneously
-            satisfiable through a single technology choice. For example, an individual valuing both
-            security and autonomy might see mobile internet as requiring a trade-off between these
-            values. The barrier is the perceived conflict between values. Value Conflicts with
-            Broader Life Values represent another barrier. Some individuals might value family time
-            and tradition strongly, and perceive mobile internet as undermining these values by
-            creating constant connectivity and distraction from family. The barrier reflects
-            conflict between technology adoption and broader value systems. The research also
-            identified Limited Awareness of Value-Relevant Features as a barrier. Some mobile
-            internet services offer benefits aligned with consumer values but do not prominently
-            highlight these benefits. For example, a service might have excellent privacy
-            protections (security benefit) but not advertise these features, meaning
+            appeal to socially-motivated consumers if it doesn’t emphasize relationship maintenance
+            or community features. The barrier is perceived inability to fulfill social needs. For
+            Pleasure-Motivated Consumers (valuing enjoyment, entertainment, fun), the barrier is
+            technology perceived as utilitarian drudgery without enjoyment value. Services
+            positioned as “serious” tools for work may not appeal to pleasure-motivated consumers.
+            The barrier is perceived lack of fun or entertainment value. For Security-Focused
+            Consumers (valuing safety, stability, protection), the barrier is technology that
+            creates perceived security risks or instability. Privacy concerns, financial risks, or
+            system unreliability create barriers regardless of benefits offered. The barrier is
+            fundamentally the perceived threat posed by the technology. The research identified that
+            Lack of Value-Benefit Recognition represents a significant barrier. Some consumers might
+            benefit from mobile internet in ways aligned with their values but do not recognize
+            these benefits. For example, an achievement-oriented individual might not recognize how
+            mobile internet enables productivity in their particular work context. The barrier here
+            is not misalignment but failure to perceive alignment that actually exists. This barrier
+            is addressed through education and demonstration rather than product changes. Competing
+            Value Priorities can create barriers. Some individuals hold multiple values that are not
+            simultaneously satisfiable through a single technology choice. For example, an
+            individual valuing both security and autonomy might see mobile internet as requiring a
+            trade-off between these values. The barrier is the perceived conflict between values.
+            Value Conflicts with Broader Life Values represent another barrier. Some individuals
+            might value family time and tradition strongly, and perceive mobile internet as
+            undermining these values by creating constant connectivity and distraction from family.
+            The barrier reflects conflict between technology adoption and broader value systems. The
+            research also identified Limited Awareness of Value-Relevant Features as a barrier. Some
+            mobile internet services offer benefits aligned with consumer values but do not
+            prominently highlight these benefits. For example, a service might have excellent
+            privacy protections (security benefit) but not advertise these features, meaning
             security-conscious consumers don’t recognize the value-benefit alignment.
           </p>
 

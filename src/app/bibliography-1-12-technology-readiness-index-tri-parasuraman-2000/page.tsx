@@ -22,10 +22,10 @@ const BibliographyArticlePage = () => {
               <strong>Model Name:</strong> Technology Readiness Index
             </p>
             <p>
-              <strong>Authors:</strong> A. Parasuraman,
+              <strong>Authors:</strong> A. Parasuraman
             </p>
             <p>
-              <strong>Publication Date:</strong> 2000 * Official Article
+              <strong>Publication Date:</strong> 2000
             </p>
           </div>
         </section>
@@ -74,39 +74,36 @@ const BibliographyArticlePage = () => {
             centered on enabling companies to identify which customers might be most receptive to
             technology-based offerings and which customer segments would require different types of
             support and reassurance. The measurement instrument was designed to assess people’s
-            general beliefs about technology and their
-          </p>
-
-          <p className="mb-4">
-            propensity to embrace it for accomplishing goals in both home and work settings. This
-            broader approach recognized that technology readiness exists at the individual level as
-            an enduring characteristic that does not vary significantly in the short term in
-            response to specific stimuli. How was the model’s internal validity tested? The internal
-            validity of the TRI was rigorously tested through multiple stages of factor analytical
-            and structural validation procedures. The preliminary 28-item scale was subjected to
-            exploratory factor analysis using data from the Sallie Mae study, which resulted in a
-            four-factor structure that was consistent with theoretical expectations. The analysis
-            employed varimax rotation and examined factor loadings, with items requiring loadings of
-            at least 0.3 to be retained. The four sub-dimensions of the TRI emerged with clear
-            factor structures: Optimism (10 items), Innovativeness (5 items), Discomfort (8 items),
-            and Insecurity (5 items). These four dimensions proved reliable, with Cronbach’s alpha
-            coefficients of .78 for Optimism, .82 for Innovativeness, .79 for Discomfort, and .72
-            for Insecurity across different studies. The internal consistency was further validated
-            through confirmatory factor analysis on the full 36-item TRI scale, which demonstrated
-            that the measurement model fit the data reasonably well. Content validity was addressed
-            through the comprehensive qualitative research phase, which ensured that the scale items
-            accurately represented the domain of technology readiness as conceptualized. The items
-            were developed to reflect the eight technology paradoxes identified in the qualitative
-            research and were refined based on feedback from subject matter experts and extensive
-            pretesting. The qualitative phase captured the multidimensional nature of technology
-            readiness through an iterative process where focus group responses were analyzed and
-            synthesized to identify key themes. Construct validity was established through multiple
-            mechanisms. First, the four-factor structure was consistent across the various studies,
-            demonstrating the stability of the underlying construct. The correlations between the
-            four dimensions were examined, showing moderate relationships that indicated the
-            dimensions were related but distinct aspects of technology readiness. Analysis showed
-            correlations of .01 between Optimism and Innovativeness (indicating near independence)
-            and moderate correlations with the inhibitor dimensions (Discomfort and
+            general beliefs about technology and their propensity to embrace it for accomplishing
+            goals in both home and work settings. This broader approach recognized that technology
+            readiness exists at the individual level as an enduring characteristic that does not
+            vary significantly in the short term in response to specific stimuli. How was the
+            model’s internal validity tested? The internal validity of the TRI was rigorously tested
+            through multiple stages of factor analytical and structural validation procedures. The
+            preliminary 28-item scale was subjected to exploratory factor analysis using data from
+            the Sallie Mae study, which resulted in a four-factor structure that was consistent with
+            theoretical expectations. The analysis employed varimax rotation and examined factor
+            loadings, with items requiring loadings of at least 0.3 to be retained. The four
+            sub-dimensions of the TRI emerged with clear factor structures: Optimism (10 items),
+            Innovativeness (5 items), Discomfort (8 items), and Insecurity (5 items). These four
+            dimensions proved reliable, with Cronbach’s alpha coefficients of .78 for Optimism, .82
+            for Innovativeness, .79 for Discomfort, and .72 for Insecurity across different studies.
+            The internal consistency was further validated through confirmatory factor analysis on
+            the full 36-item TRI scale, which demonstrated that the measurement model fit the data
+            reasonably well. Content validity was addressed through the comprehensive qualitative
+            research phase, which ensured that the scale items accurately represented the domain of
+            technology readiness as conceptualized. The items were developed to reflect the eight
+            technology paradoxes identified in the qualitative research and were refined based on
+            feedback from subject matter experts and extensive pretesting. The qualitative phase
+            captured the multidimensional nature of technology readiness through an iterative
+            process where focus group responses were analyzed and synthesized to identify key
+            themes. Construct validity was established through multiple mechanisms. First, the
+            four-factor structure was consistent across the various studies, demonstrating the
+            stability of the underlying construct. The correlations between the four dimensions were
+            examined, showing moderate relationships that indicated the dimensions were related but
+            distinct aspects of technology readiness. Analysis showed correlations of .01 between
+            Optimism and Innovativeness (indicating near independence) and moderate correlations
+            with the inhibitor dimensions (Discomfort and
           </p>
 
           <p className="mb-4">
@@ -172,39 +169,35 @@ const BibliographyArticlePage = () => {
             appropriate channels, ensuring higher satisfaction and reduced frustration. In human
             resources contexts, the TRI was proposed for use in assessing employee technology
             readiness. The scale could identify employees who were deficient on either criterion
-            (high in technical skills but low in
-          </p>
-
-          <p className="mb-4">
-            technology readiness, or vice versa), allowing organizations to design more effective
-            training and support programs. This was particularly relevant for customer-facing
-            employees who needed to not only have technical skills but also feel confident and
-            competent with technology-based service systems. The practical application framework
-            suggested that organizations should: (1) assess their customer base’s overall TR and
-            identify the distribution of TR levels, (2) understand the relationship between TR and
-            their customers’ technology-based product/service adoption patterns, (3) examine whether
-            distinct customer segments with different TR profiles existed in their market, and (4)
-            develop differentiated strategies for different TR segments. This data-driven approach
-            would enable organizations to more effectively manage the technology-customer interface
-            and improve overall customer satisfaction with technology-based service offerings.
-            Companies were also encouraged to use the TRI to monitor changes in customer TR over
-            time. As technologies evolved and became more prevalent in society, customers’ overall
-            TR might increase or the relative composition of TR segments might shift. Longitudinal
-            monitoring would help organizations anticipate market changes and adjust their
-            strategies accordingly. What does the model measure? The Technology Readiness Index
-            measures individuals’ propensity to embrace and use new technologies for accomplishing
-            goals in home life and at work. It assesses an overall state of mind resulting from a
-            gestalt of mental enablers and inhibitors that collectively determine a person’s
-            predisposition to use new technologies. Specifically, the TRI measures four
-            sub-dimensions of technology readiness: 1.Optimism (10 items): A positive view of
-            technology and a belief that it offers people increased control, flexibility, and
-            efficiency in their lives. Optimistic individuals believe that technology makes life
-            easier, provides freedom of mobility, makes them more productive, and offers
-            convenience. 2.Innovativeness (5 items): A tendency to be a technology pioneer and
-            thought leader. Innovative individuals come to others for advice on new technologies,
-            are among the first in their circle of friends to acquire new technology, can usually
-            figure out new high-tech products without help, keep up with technological developments,
-            and enjoy the challenge of figuring out high-tech gadgets.
+            (high in technical skills but low in technology readiness, or vice versa), allowing
+            organizations to design more effective training and support programs. This was
+            particularly relevant for customer-facing employees who needed to not only have
+            technical skills but also feel confident and competent with technology-based service
+            systems. The practical application framework suggested that organizations should: (1)
+            assess their customer base’s overall TR and identify the distribution of TR levels, (2)
+            understand the relationship between TR and their customers’ technology-based
+            product/service adoption patterns, (3) examine whether distinct customer segments with
+            different TR profiles existed in their market, and (4) develop differentiated strategies
+            for different TR segments. This data-driven approach would enable organizations to more
+            effectively manage the technology-customer interface and improve overall customer
+            satisfaction with technology-based service offerings. Companies were also encouraged to
+            use the TRI to monitor changes in customer TR over time. As technologies evolved and
+            became more prevalent in society, customers’ overall TR might increase or the relative
+            composition of TR segments might shift. Longitudinal monitoring would help organizations
+            anticipate market changes and adjust their strategies accordingly. What does the model
+            measure? The Technology Readiness Index measures individuals’ propensity to embrace and
+            use new technologies for accomplishing goals in home life and at work. It assesses an
+            overall state of mind resulting from a gestalt of mental enablers and inhibitors that
+            collectively determine a person’s predisposition to use new technologies. Specifically,
+            the TRI measures four sub-dimensions of technology readiness: 1.Optimism (10 items): A
+            positive view of technology and a belief that it offers people increased control,
+            flexibility, and efficiency in their lives. Optimistic individuals believe that
+            technology makes life easier, provides freedom of mobility, makes them more productive,
+            and offers convenience. 2.Innovativeness (5 items): A tendency to be a technology
+            pioneer and thought leader. Innovative individuals come to others for advice on new
+            technologies, are among the first in their circle of friends to acquire new technology,
+            can usually figure out new high-tech products without help, keep up with technological
+            developments, and enjoy the challenge of figuring out high-tech gadgets.
           </p>
 
           <p className="mb-4">
@@ -300,39 +293,36 @@ const BibliographyArticlePage = () => {
             this person inherently disposed to adopt technologies in general?” The TRI is
             multidimensional with four distinct factors, whereas TAM originally operated with two
             primary dimensions (perceived usefulness and ease of use). This gives the TRI greater
-            complexity and ability to capture the
-          </p>
-
-          <p className="mb-4">
-            paradoxical nature of technology attitudes—the simultaneous presence of positive and
-            negative beliefs. The TRI explicitly acknowledges and measures inhibitor dimensions
-            (Discomfort and Insecurity), reflecting the finding that technology adoption is
-            influenced not just by positive motivations but also by negative concerns and anxieties.
-            Most prior models focused primarily on positive drivers of adoption, potentially missing
-            important sources of resistance. The TRI emerged from and explicitly addresses the
-            “technology paradoxes” identified in consumer research—the contradictions and paradoxes
-            that characterize how consumers view technology. Older models did not systematically
-            address these paradoxes. The TRI’s conceptual foundation in these paradoxes makes it
-            more grounded in consumer psychology. Additionally, the TRI was designed to function as
-            a segmentation and targeting tool for marketers and companies, a practical application
-            focus that distinguished it from academic models primarily designed to explain variance
-            in technology acceptance. The ability to identify customer segments with different
-            technology readiness profiles and to develop differentiated strategies was central to
-            the TRI’s design intent. 6. Barriers Identification Section: What Barriers to Technology
-            Adoption does the model identify? The Technology Readiness Index identifies two primary
-            categories of barriers to technology adoption: psychological inhibitors and
-            dispositional limitations. Understanding these barriers is crucial for organizations
-            seeking to facilitate technology adoption among reluctant customers. The first major
-            barrier is Discomfort with technology, which manifests as a perceived lack of control
-            over technology and a feeling of being overwhelmed by technological systems. The TRI
-            research identified that consumers experience anxiety about complex interfaces, worry
-            that they might break or misuse technology, and feel intimidated by the learning curve
-            required to use new systems. Discomfort includes specific concerns such as: technical
-            support lines not explaining things in understandable terms; worry that technology
-            systems are not designed for ordinary people; fear of pressing the wrong buttons;
-            frustration when having trouble with gadgets while others are watching; concerns that
-            new technology breaks down or gets disconnected too quickly; worries about having to
-            become dependent on technology; and general anxiety about technological complexity.
+            complexity and ability to capture the paradoxical nature of technology attitudes—the
+            simultaneous presence of positive and negative beliefs. The TRI explicitly acknowledges
+            and measures inhibitor dimensions (Discomfort and Insecurity), reflecting the finding
+            that technology adoption is influenced not just by positive motivations but also by
+            negative concerns and anxieties. Most prior models focused primarily on positive drivers
+            of adoption, potentially missing important sources of resistance. The TRI emerged from
+            and explicitly addresses the “technology paradoxes” identified in consumer research—the
+            contradictions and paradoxes that characterize how consumers view technology. Older
+            models did not systematically address these paradoxes. The TRI’s conceptual foundation
+            in these paradoxes makes it more grounded in consumer psychology. Additionally, the TRI
+            was designed to function as a segmentation and targeting tool for marketers and
+            companies, a practical application focus that distinguished it from academic models
+            primarily designed to explain variance in technology acceptance. The ability to identify
+            customer segments with different technology readiness profiles and to develop
+            differentiated strategies was central to the TRI’s design intent. 6. Barriers
+            Identification Section: What Barriers to Technology Adoption does the model identify?
+            The Technology Readiness Index identifies two primary categories of barriers to
+            technology adoption: psychological inhibitors and dispositional limitations.
+            Understanding these barriers is crucial for organizations seeking to facilitate
+            technology adoption among reluctant customers. The first major barrier is Discomfort
+            with technology, which manifests as a perceived lack of control over technology and a
+            feeling of being overwhelmed by technological systems. The TRI research identified that
+            consumers experience anxiety about complex interfaces, worry that they might break or
+            misuse technology, and feel intimidated by the learning curve required to use new
+            systems. Discomfort includes specific concerns such as: technical support lines not
+            explaining things in understandable terms; worry that technology systems are not
+            designed for ordinary people; fear of pressing the wrong buttons; frustration when
+            having trouble with gadgets while others are watching; concerns that new technology
+            breaks down or gets disconnected too quickly; worries about having to become dependent
+            on technology; and general anxiety about technological complexity.
           </p>
 
           <p className="mb-4">
@@ -365,11 +355,8 @@ const BibliographyArticlePage = () => {
             adoption resistance. The effort and disruption required to change established habits
             represents a barrier, particularly for older consumers or those with long-standing
             behavioral routines. Fear of displacement or obsolescence emerged as a subtle but
-            significant barrier for some individuals. Some consumers feared that relying
-          </p>
-
-          <p className="mb-4">
-            on technology might make them dependent in unhealthy ways or that their own skills might
+            significant barrier for some individuals. Some consumers feared that relying on
+            technology might make them dependent in unhealthy ways or that their own skills might
             become less valued if machines could perform similar functions. This represents a deeper
             psychological barrier beyond simple discomfort or insecurity. What does the model
             instruct leaders to do in order to reduce these barriers? The TRI provides specific
@@ -470,22 +457,22 @@ const BibliographyArticlePage = () => {
             for Developing Better Measures of Marketing Constructs.” Journal of Marketing Research,
             vol.  16, no. 1, pp. 64-73. 4.Cowles, D., and Crosby, L. A. (1990). “Consumer
             Perceptions of Interactive Media in Service Marketing Encounters.” Service Industries
-            Journal, vol. 10, no. 4, pp. 521-540. 5.Dabholkar, P . A. (1996). “Consumer Evaluations
+            Journal, vol. 10, no. 4, pp. 521-540. 5.Dabholkar, P. A. (1996). “Consumer Evaluations
             of New Technology- Based Self-Service Options.” Journal of the Academy of Marketing
-            Science, vol. 24, no. 3, pp. 201-212. 6.Dabholkar, P . A., and Bagozzi, R. P . (2002).
-            “An Attitudinal Model of Technology-Based Self-Service.” Journal of the Academy of
-            Marketing Science, vol. 30, no. 3, pp. 184-201. 7.Davis, F. D. (1989). “Perceived
-            Usefulness, Perceived Ease of Use, and User Acceptance of Information Technology.” MIS
-            Quarterly, vol.  13, no. 3, pp. 319-340. 8.Eastlick, M. A. (1996). “Consumer Intention
-            to Adopt Interactive Teleshopping.” Marketing Science Institute working paper, no.
-            96-113. 9.Mick, D. G., and Fournier, S. (1998). “Paradoxes of Technology: Consumer
-            Cognizance, Emotions, and Coping Strategies.” Journal of Consumer Research, vol.  25,
-            no. 2, pp. 123-143. 10.Parasuraman, A., and Colby, C. L. (1997). “Correlates and
-            Consequences of Consumer Attitudes Toward Retail Technologies and Shopping.” Journal of
-            Retailing, vol.  73, no. 2, pp. 161-180. 11.Rogers, E. M. (2003). Diffusion of
-            Innovations (5th ed.). Free Press. 12.Zalthaml, V . A., Parasuraman, A., and Malhotra,
-            A. (2002). “Service Quality Delivery Through Web Sites.” Journal of the Academy of
-            Marketing Science, vol.  30, no. 4, pp. 362-375.
+            Science, vol. 24, no. 3, pp. 201-212. 6.Dabholkar, P. A., and Bagozzi, R. P. (2002). “An
+            Attitudinal Model of Technology-Based Self-Service.” Journal of the Academy of Marketing
+            Science, vol. 30, no. 3, pp. 184-201. 7.Davis, F. D. (1989). “Perceived Usefulness,
+            Perceived Ease of Use, and User Acceptance of Information Technology.” MIS Quarterly,
+            vol.  13, no. 3, pp. 319-340. 8.Eastlick, M. A. (1996). “Consumer Intention to Adopt
+            Interactive Teleshopping.” Marketing Science Institute working paper, no. 96-113.
+            9.Mick, D. G., and Fournier, S. (1998). “Paradoxes of Technology: Consumer Cognizance,
+            Emotions, and Coping Strategies.” Journal of Consumer Research, vol.  25, no. 2,
+            pp. 123-143. 10.Parasuraman, A., and Colby, C. L. (1997). “Correlates and Consequences
+            of Consumer Attitudes Toward Retail Technologies and Shopping.” Journal of Retailing,
+            vol.  73, no. 2, pp. 161-180. 11.Rogers, E. M. (2003). Diffusion of Innovations (5th
+            ed.). Free Press. 12.Zalthaml, V. A., Parasuraman, A., and Malhotra, A. (2002). “Service
+            Quality Delivery Through Web Sites.” Journal of the Academy of Marketing Science, vol.
+             30, no. 4, pp. 362-375.
           </p>
 
           <p className="mt-8 text-sm italic text-gray-600">

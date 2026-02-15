@@ -19,7 +19,7 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
-              <strong>Model Name:</strong> Understanding Information Technology Usage: A Test of
+              <strong>Model Name:</strong> Decomposed Theory of Planned Behavior (DTPB)
             </p>
             <p>
               <strong>Authors:</strong> Shirley Taylor, Peter A. Todd
@@ -35,7 +35,7 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
-              Taylor, S., & Todd, P . A. (1995). Understanding information technology usage: A test
+              Taylor, S., & Todd, P. A. (1995). Understanding information technology usage: A test
               of competing models. Information Systems Research, 6(2), 144-176.
             </p>
           </div>
@@ -72,55 +72,49 @@ const BibliographyArticlePage = () => {
             outperform Davis’s simpler TAM. They hypothesized that “the TPB and an extended TAM
             model would predict usage better than a simple TAM model” because additional constructs
             capture neglected influences. They posited that understanding IT adoption required
-            examining not only individual
-          </p>
-
-          <p className="mb-4">
-            perceptions of technology (PU and PEOU) but also social influences, control factors,
-            consequences, and motivational variables. The research was conducted using two distinct
-            technologies in two organizational contexts: email use among MBA students and new
-            information system adoption among academic faculty. This multi-technology, multi-context
-            approach allowed the authors to examine whether findings generalized across different IT
-            adoption scenarios. How was the model’s internal validity tested? Taylor and Todd
-            employed rigorous quantitative methodology with two separate studies to establish
-            internal validity: Study 1: Email Adoption Among MBA Students The researchers surveyed
-            108 MBA students who were required to use email as part of their program. They measured
-            seven core constructs through multi-item scales: Perceived Usefulness (PU): Five items
-            measuring whether email would improve job/academic performance, with Cronbach’s alpha =
-            .94 Perceived Ease of Use (PEOU): Four items assessing perceived learning difficulty and
-            ease of interaction, alpha = .88 Attitude Toward Use: Three items measuring overall
-            evaluations of email, alpha = .93 Subjective Norm: Four items measuring perceived social
-            pressure to use email, alpha = .75 Perceived Behavioral Control (PBC): Four items
-            assessing ability and resources for email use, alpha = .87 Behavioral Intention: Three
-            items measuring intent to use, alpha = .93 Actual Usage: Measured directly through email
-            system logs, providing objective behavioral data The researchers established internal
-            validity through multiple techniques: Convergent and Discriminant Validity: The authors
-            examined factor loadings and construct correlations. All measurement items loaded
-            significantly on their hypothesized constructs (t-values &gt; 2.0), and constructs
-            showed appropriate correlations with one another—related
-          </p>
-
-          <p className="mb-4">
-            enough to indicate common underlying domain but distinct enough to represent separate
-            dimensions. Scale Reliability: Cronbach’s alpha coefficients ranged from .75 to .94,
-            demonstrating acceptable reliability. The relatively high alphas indicated that
-            measurement items consistently measured each construct. Measurement Model Assessment:
-            The authors compared structural equation model specifications using LISREL. They tested
-            whether observed variables loaded appropriately on latent constructs and whether the
-            measurement model fit adequately before examining structural relationships. Study 2: New
-            Information System Among Faculty A second study with 223 academic faculty members
-            adopting a new information system allowed replication and generalization testing:
-            Perceived Usefulness: Five items, alpha = .89 Perceived Ease of Use: Four items, alpha =
-            .81 Subjective Norm: Four items, alpha = .78 Perceived Behavioral Control: Four items,
-            alpha = .74 Behavioral Intention: Three items, alpha = .95 Actual Usage: Three items
-            measuring frequency and intensity of use, alpha = .78 Cross-Study Validity: The
-            consistency of measurement approaches across studies allowed meta-analytic comparison of
-            path coefficients and model structures. Similar patterns across different technologies
-            and populations strengthened internal validity evidence. Structural Model Testing: For
-            each study, the authors tested multiple competing structural models using LISREL and
-            examined multiple goodness-of-fit indices: Chi-square (χ²) values and associated
-            p-values Adjusted goodness-of-fit index (AGFI) Comparative fit index (CFI) Root mean
-            square error of approximation (RMSEA) Standardized root mean square residual (SRMR)
+            examining not only individual perceptions of technology (PU and PEOU) but also social
+            influences, control factors, consequences, and motivational variables. The research was
+            conducted using two distinct technologies in two organizational contexts: email use
+            among MBA students and new information system adoption among academic faculty. This
+            multi-technology, multi-context approach allowed the authors to examine whether findings
+            generalized across different IT adoption scenarios. How was the model’s internal
+            validity tested? Taylor and Todd employed rigorous quantitative methodology with two
+            separate studies to establish internal validity: Study 1: Email Adoption Among MBA
+            Students The researchers surveyed 108 MBA students who were required to use email as
+            part of their program. They measured seven core constructs through multi-item scales:
+            Perceived Usefulness (PU): Five items measuring whether email would improve job/academic
+            performance, with Cronbach’s alpha = .94 Perceived Ease of Use (PEOU): Four items
+            assessing perceived learning difficulty and ease of interaction, alpha = .88 Attitude
+            Toward Use: Three items measuring overall evaluations of email, alpha = .93 Subjective
+            Norm: Four items measuring perceived social pressure to use email, alpha = .75 Perceived
+            Behavioral Control (PBC): Four items assessing ability and resources for email use,
+            alpha = .87 Behavioral Intention: Three items measuring intent to use, alpha = .93
+            Actual Usage: Measured directly through email system logs, providing objective
+            behavioral data The researchers established internal validity through multiple
+            techniques: Convergent and Discriminant Validity: The authors examined factor loadings
+            and construct correlations. All measurement items loaded significantly on their
+            hypothesized constructs (t-values &gt; 2.0), and constructs showed appropriate
+            correlations with one another—related enough to indicate common underlying domain but
+            distinct enough to represent separate dimensions. Scale Reliability: Cronbach’s alpha
+            coefficients ranged from .75 to .94, demonstrating acceptable reliability. The
+            relatively high alphas indicated that measurement items consistently measured each
+            construct. Measurement Model Assessment: The authors compared structural equation model
+            specifications using LISREL. They tested whether observed variables loaded appropriately
+            on latent constructs and whether the measurement model fit adequately before examining
+            structural relationships. Study 2: New Information System Among Faculty A second study
+            with 223 academic faculty members adopting a new information system allowed replication
+            and generalization testing: Perceived Usefulness: Five items, alpha = .89 Perceived Ease
+            of Use: Four items, alpha = .81 Subjective Norm: Four items, alpha = .78 Perceived
+            Behavioral Control: Four items, alpha = .74 Behavioral Intention: Three items, alpha =
+            .95 Actual Usage: Three items measuring frequency and intensity of use, alpha = .78
+            Cross-Study Validity: The consistency of measurement approaches across studies allowed
+            meta-analytic comparison of path coefficients and model structures. Similar patterns
+            across different technologies and populations strengthened internal validity evidence.
+            Structural Model Testing: For each study, the authors tested multiple competing
+            structural models using LISREL and examined multiple goodness-of-fit indices: Chi-square
+            (χ²) values and associated p-values Adjusted goodness-of-fit index (AGFI) Comparative
+            fit index (CFI) Root mean square error of approximation (RMSEA) Standardized root mean
+            square residual (SRMR)
           </p>
 
           <p className="mb-4">
@@ -430,36 +424,32 @@ const BibliographyArticlePage = () => {
             for complex organizational systems where benefits depend on broader adoption and
             integration. This skepticism reduces perceived usefulness and thereby intention to use.
             •Comparison to Existing Workflows: When established workflows are familiar and
-            functional, new systems must demonstrate substantial
-          </p>
-
-          <p className="mb-4">
-            improvement to be perceived as useful. If improvement is marginal, users perceive low
-            usefulness despite objective functionality. 2. Perceived Ease of Use Barriers (Cognitive
-            and Technical Barriers) The model identifies perceived difficulty as a significant
-            barrier. Perceived Ease of Use affects adoption through multiple pathways: •High
-            Learning Curves: Systems perceived as difficult to learn create adoption resistance. The
-            model shows that PEOU influences Attitude (path = .45 in Study 1, .40 in Study 2) and
-            indirectly influences usefulness perceptions. Users who perceive steep learning curves
-            may avoid engaging sufficiently to discover usefulness. •Complex Interfaces:
-            Non-intuitive system design that does not align with mental models creates PEOU
-            barriers. Users must expend effort learning system logic that is unnecessarily
-            complicated. The negative path from PEOU to Usefulness (path = -.49 in Study 1, -.51 in
-            Study 2, indicating that more complex systems are perceived as less useful) suggests
-            that complex systems undermine both adoption paths. •Inadequate Training and Support:
-            Without accessible training and technical support, users face high barriers to
-            developing competence. The model’s findings about PEOU suggest that barriers to learning
-            will significantly constrain adoption. •System Instability or Technical Problems: If
-            systems are unstable, unreliable, or frequently unavailable, users perceive low ease of
-            use despite objectively straightforward interfaces. Technical issues compound learning
-            burdens. •Insufficient Documentation and Help Resources: When reference materials are
-            unclear or help systems are unhelpful, users perceive higher difficulty in system
-            operation. 3. Social Influence Barriers (Normative and Social Barriers) The model
-            identifies negative subjective norms as significant adoption barriers: •Peer Resistance
-            or Skepticism: When respected colleagues resist or question system adoption, social
-            norms inhibit individual adoption. The model shows subjective norm significantly
-            predicts behavioral intention (path = .13 in Study 1, .16 in Study 2), suggesting that
-            peer opposition constitutes a barrier.
+            functional, new systems must demonstrate substantial improvement to be perceived as
+            useful. If improvement is marginal, users perceive low usefulness despite objective
+            functionality. 2. Perceived Ease of Use Barriers (Cognitive and Technical Barriers) The
+            model identifies perceived difficulty as a significant barrier. Perceived Ease of Use
+            affects adoption through multiple pathways: •High Learning Curves: Systems perceived as
+            difficult to learn create adoption resistance. The model shows that PEOU influences
+            Attitude (path = .45 in Study 1, .40 in Study 2) and indirectly influences usefulness
+            perceptions. Users who perceive steep learning curves may avoid engaging sufficiently to
+            discover usefulness. •Complex Interfaces: Non-intuitive system design that does not
+            align with mental models creates PEOU barriers. Users must expend effort learning system
+            logic that is unnecessarily complicated. The negative path from PEOU to Usefulness (path
+            = -.49 in Study 1, -.51 in Study 2, indicating that more complex systems are perceived
+            as less useful) suggests that complex systems undermine both adoption paths. •Inadequate
+            Training and Support: Without accessible training and technical support, users face high
+            barriers to developing competence. The model’s findings about PEOU suggest that barriers
+            to learning will significantly constrain adoption. •System Instability or Technical
+            Problems: If systems are unstable, unreliable, or frequently unavailable, users perceive
+            low ease of use despite objectively straightforward interfaces. Technical issues
+            compound learning burdens. •Insufficient Documentation and Help Resources: When
+            reference materials are unclear or help systems are unhelpful, users perceive higher
+            difficulty in system operation. 3. Social Influence Barriers (Normative and Social
+            Barriers) The model identifies negative subjective norms as significant adoption
+            barriers: •Peer Resistance or Skepticism: When respected colleagues resist or question
+            system adoption, social norms inhibit individual adoption. The model shows subjective
+            norm significantly predicts behavioral intention (path = .13 in Study 1, .16 in Study
+            2), suggesting that peer opposition constitutes a barrier.
           </p>
 
           <p className="mt-8 text-sm italic text-gray-600">

@@ -35,7 +35,7 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
-              Ram, S. (1987). A model of innovation resistance. In P . F. Schwepker & J. F. Hair
+              Ram, S. (1987). A model of innovation resistance. In P. F. Schwepker & J. F. Hair
               (Eds.), Research in Consumer Behavior, 4, 213-239. JAI Press.
             </p>
           </div>
@@ -46,19 +46,16 @@ const BibliographyArticlePage = () => {
           <p className="mb-4">
             Why was the model made? Sundaresan Ram developed the Innovation Resistance Model to
             address a critical gap in innovation adoption research. Prior research, particularly
-            Rogers’ highly influential Diffusion of Innovations theory, focused
-          </p>
-
-          <p className="mb-4">
-            extensively on understanding why some innovations diffuse rapidly through populations
-            while others diffuse slowly or not at all. However, the theoretical emphasis had
-            centered on innovation characteristics and diffusion processes, with less systematic
-            attention to why individuals resist innovations despite their objective benefits. Ram
-            recognized that most innovation adoption literature implicitly assumed that innovations
-            offered clear advantages and that diffusion represented a natural, inevitable process.
-            Those who resisted were often portrayed as conservative, cautious, or behind the times.
-            However, Ram hypothesized that innovation resistance was not a simple personality trait
-            or conservative bias but rather a rational response to perceived risks and costs that
+            Rogers’ highly influential Diffusion of Innovations theory, focused extensively on
+            understanding why some innovations diffuse rapidly through populations while others
+            diffuse slowly or not at all. However, the theoretical emphasis had centered on
+            innovation characteristics and diffusion processes, with less systematic attention to
+            why individuals resist innovations despite their objective benefits. Ram recognized that
+            most innovation adoption literature implicitly assumed that innovations offered clear
+            advantages and that diffusion represented a natural, inevitable process. Those who
+            resisted were often portrayed as conservative, cautious, or behind the times. However,
+            Ram hypothesized that innovation resistance was not a simple personality trait or
+            conservative bias but rather a rational response to perceived risks and costs that
             innovations introduced. The motivation emerged from observing that technically superior
             products and services sometimes failed in markets while technically inferior solutions
             succeeded. The Betamax videocassette recorder, for example, offered better technical
@@ -131,16 +128,13 @@ const BibliographyArticlePage = () => {
             findings showed that resistance could occur even when benefits were objectively present
             and well-communicated, when resistance factors remained high. This demonstrated that the
             multi-factor resistance model better explained adoption decisions than
-            single-benefit-focused models. Internal Consistency of Theoretical Framework
-          </p>
-
-          <p className="mb-4">
-            The model demonstrates internal consistency in showing how resistance factors operate
-            together: Innovations creating high functional risk may overcome resistance through
-            improved communication reducing perception of uncertainty Innovations creating high
-            social risk may overcome resistance through reframing adoption as fashionable or
-            socially appropriate Innovations creating high economic risk may overcome resistance
-            through pricing changes, financing options, or value demonstration Innovations creating
+            single-benefit-focused models. Internal Consistency of Theoretical Framework The model
+            demonstrates internal consistency in showing how resistance factors operate together:
+            Innovations creating high functional risk may overcome resistance through improved
+            communication reducing perception of uncertainty Innovations creating high social risk
+            may overcome resistance through reframing adoption as fashionable or socially
+            appropriate Innovations creating high economic risk may overcome resistance through
+            pricing changes, financing options, or value demonstration Innovations creating
             psychological risk may require positioning or marketing reframing to align with adopter
             self-concepts The logical consistency of these paths—showing how each resistance type
             suggests different mitigation strategies—provides theoretical validity evidence.
@@ -356,63 +350,55 @@ const BibliographyArticlePage = () => {
             psychological risks, the model recognizes that adoption decisions are complex and
             multifaceted. Single-factor models miss important resistance sources. 5.Cross-Domain
             Applicability: The framework applies to consumer innovations, organizational
-            technologies, public health innovations, and
-          </p>
-
-          <p className="mb-4">
-            social innovations. The generality across domains suggests fundamental principles.
-            6.Empirical Support Across Innovations: The model has been tested with diverse
-            innovations, and consistent support for the four resistance dimensions across different
-            product categories strengthens confidence in the framework. 7.Recognition of
-            Heterogeneous Resistance: The model acknowledges that different individuals have
-            different resistance profiles—what creates strong resistance for one person may create
-            weak resistance for another. This heterogeneity insight prevents oversimplification.
-            8.Integration with Consumer Behavior Theory: Grounding in established consumer behavior
-            concepts (perceived risk, cost-benefit analysis, identity theory) provides theoretical
-            rigor beyond empirical discovery. 9.Practical Utility for Innovation Marketing: The
-            model directly translates to practical marketing and implementation strategies.
-            Organizations can use the framework to guide launch planning, marketing messaging, and
-            change management. 10.Prevention-Oriented Perspective: By identifying resistance factors
-            early, organizations can design innovations or implementation approaches to minimize
-            resistance, rather than attempting to overcome resistance post-hoc. What are the main
-            weaknesses of the model? Despite its strengths, the Innovation Resistance Model has
-            notable limitations: 1.Limited Explicit Theoretical Integration: While Ram grounds work
-            in consumer behavior theory, explicit theoretical foundations for why these four
-            specific risk dimensions are fundamental could be stronger. Why these four versus
-            others? 2.Measurement Operationalization Variations: Different studies operationalize
-            the resistance dimensions variably. Standardized measurement scales would strengthen the
-            research base and allow meta-analysis across studies. 3.Relative Weight Unspecified: The
-            model does not specify how to weight different resistance dimensions. Do all four
-            dimensions equally
-          </p>
-
-          <p className="mb-4">
-            influence adoption, or do some carry greater weight? Weighting schemes are context- and
-            population-dependent but not theoretically specified. 4.Moderation Effects
-            Underexplored: The model does not comprehensively address how individual differences
-            moderate relationships between resistance and adoption. The same resistance level might
-            have different adoption effects for different individuals. 5.Dynamic Resistance
-            Processes Underspecified: The model presents resistance as relatively static snapshot.
-            How resistance evolves over time as individuals learn about innovations or as social
-            norms change is less developed. 6.Interaction Effects Unclear: While the model
-            identifies four independent risk types, their interactions are not fully specified. Does
-            high functional risk combined with high economic risk have multiplicative effects beyond
-            additive? 7.Measurement Challenges: Self-reported risk perceptions are subject to social
-            desirability bias. Individuals may hesitate to admit resistance, instead providing
-            rationalized explanations. Objective measurement of actual resistance determinants
-            remains challenging. 8.Implementation Evidence Limited: While the model provides
-            prescriptive guidance, empirical evidence validating whether specific mitigation
-            strategies actually reduce identified resistance types is limited. The link between
-            diagnosis and treatment effectiveness could be stronger. 9.Adoption Versus Sustained Use
-            Distinction: The model emphasizes initial adoption decisions. How resistance factors
-            affect sustained use, discontinuation, and long-term outcomes is less developed.
-            10.Organizational Context Factors Underspecified: For organizational technology
-            adoption, organizational culture, management style, and structural factors that
-            influence resistance are not fully integrated into the theoretical framework.
-            11.Innovation Characteristics Underspecified: Beyond noting that different innovations
-            create different resistance profiles, the model does not fully specify which innovation
-            characteristics generate which resistance types. This mechanistic understanding would
-            strengthen predictive capacity.
+            technologies, public health innovations, and social innovations. The generality across
+            domains suggests fundamental principles. 6.Empirical Support Across Innovations: The
+            model has been tested with diverse innovations, and consistent support for the four
+            resistance dimensions across different product categories strengthens confidence in the
+            framework. 7.Recognition of Heterogeneous Resistance: The model acknowledges that
+            different individuals have different resistance profiles—what creates strong resistance
+            for one person may create weak resistance for another. This heterogeneity insight
+            prevents oversimplification. 8.Integration with Consumer Behavior Theory: Grounding in
+            established consumer behavior concepts (perceived risk, cost-benefit analysis, identity
+            theory) provides theoretical rigor beyond empirical discovery. 9.Practical Utility for
+            Innovation Marketing: The model directly translates to practical marketing and
+            implementation strategies. Organizations can use the framework to guide launch planning,
+            marketing messaging, and change management. 10.Prevention-Oriented Perspective: By
+            identifying resistance factors early, organizations can design innovations or
+            implementation approaches to minimize resistance, rather than attempting to overcome
+            resistance post-hoc. What are the main weaknesses of the model? Despite its strengths,
+            the Innovation Resistance Model has notable limitations: 1.Limited Explicit Theoretical
+            Integration: While Ram grounds work in consumer behavior theory, explicit theoretical
+            foundations for why these four specific risk dimensions are fundamental could be
+            stronger. Why these four versus others? 2.Measurement Operationalization Variations:
+            Different studies operationalize the resistance dimensions variably. Standardized
+            measurement scales would strengthen the research base and allow meta-analysis across
+            studies. 3.Relative Weight Unspecified: The model does not specify how to weight
+            different resistance dimensions. Do all four dimensions equally influence adoption, or
+            do some carry greater weight? Weighting schemes are context- and population-dependent
+            but not theoretically specified. 4.Moderation Effects Underexplored: The model does not
+            comprehensively address how individual differences moderate relationships between
+            resistance and adoption. The same resistance level might have different adoption effects
+            for different individuals. 5.Dynamic Resistance Processes Underspecified: The model
+            presents resistance as relatively static snapshot. How resistance evolves over time as
+            individuals learn about innovations or as social norms change is less developed.
+            6.Interaction Effects Unclear: While the model identifies four independent risk types,
+            their interactions are not fully specified. Does high functional risk combined with high
+            economic risk have multiplicative effects beyond additive? 7.Measurement Challenges:
+            Self-reported risk perceptions are subject to social desirability bias. Individuals may
+            hesitate to admit resistance, instead providing rationalized explanations. Objective
+            measurement of actual resistance determinants remains challenging. 8.Implementation
+            Evidence Limited: While the model provides prescriptive guidance, empirical evidence
+            validating whether specific mitigation strategies actually reduce identified resistance
+            types is limited. The link between diagnosis and treatment effectiveness could be
+            stronger. 9.Adoption Versus Sustained Use Distinction: The model emphasizes initial
+            adoption decisions. How resistance factors affect sustained use, discontinuation, and
+            long-term outcomes is less developed. 10.Organizational Context Factors Underspecified:
+            For organizational technology adoption, organizational culture, management style, and
+            structural factors that influence resistance are not fully integrated into the
+            theoretical framework. 11.Innovation Characteristics Underspecified: Beyond noting that
+            different innovations create different resistance profiles, the model does not fully
+            specify which innovation characteristics generate which resistance types. This
+            mechanistic understanding would strengthen predictive capacity.
           </p>
 
           <p className="mt-8 text-sm italic text-gray-600">

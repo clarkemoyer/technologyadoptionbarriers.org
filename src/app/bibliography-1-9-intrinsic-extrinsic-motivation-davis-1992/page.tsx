@@ -5,7 +5,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 export const metadata: Metadata = {
   title: 'Bibliography: Intrinsic & Extrinsic Motivation – Davis et al. (1992)',
   description:
-    'Deep dive into Extrinsic and Intrinsic Motivation Framework for Technology by Fred D. Davis, Richard P . Bagozzi, and Paul R. Warshaw (1992), exploring its foundational contributions to technology adoption research.',
+    'Deep dive into Extrinsic and Intrinsic Motivation Framework for Technology by Fred D. Davis, Richard P. Bagozzi, and Paul R. Warshaw (1992), exploring its foundational contributions to technology adoption research.',
 }
 
 const BibliographyArticlePage = () => {
@@ -23,7 +23,7 @@ const BibliographyArticlePage = () => {
               Technology
             </p>
             <p>
-              <strong>Authors:</strong> Fred D. Davis, Richard P . Bagozzi, and Paul R. Warshaw
+              <strong>Authors:</strong> Fred D. Davis, Richard P. Bagozzi, and Paul R. Warshaw
             </p>
             <p>
               <strong>Publication Date:</strong> 1992
@@ -36,7 +36,7 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
-              Davis, F. D., Bagozzi, R. P ., & Warshaw, P . R. (1992). Extrinsic and intrinsic
+              Davis, F. D., Bagozzi, R. P., & Warshaw, P. R. (1992). Extrinsic and intrinsic
               motivation to use computers in the workplace. Journal of Applied Social Psychology, 22
               (14), 1111–1132.
             </p>
@@ -126,37 +126,33 @@ const BibliographyArticlePage = () => {
             added predictive power beyond TAM constructs supported the framework’s theoretical
             innovation. Application across user populations: The framework was tested with different
             user populations in organizational settings, demonstrating consistency of
-            intrinsic-extrinsic motivation distinctions across groups. This
-          </p>
-
-          <p className="mb-4">
-            population consistency suggested the framework captured fundamental aspects of
-            motivation rather than group-specific phenomena. How was the model’s external validity
-            tested? External validity was established through application across diverse technology
-            contexts and organizational settings: Multiple computer applications: The framework was
-            applied to various computer applications used in workplaces including office
-            productivity tools and specialized organizational systems. Demonstrating that intrinsic
-            motivation influenced adoption across different application types suggested
-            generalizability beyond any single technology context. Different organizational
-            contexts: Application across different organizational environments and industry sectors
-            provided evidence for external validity. The distinction between intrinsic and extrinsic
-            motivation appeared consistent whether organizations emphasized performance metrics,
-            organizational cultures emphasized innovation and engagement, or organizations operated
-            in traditional hierarchical structures. Diverse user populations: Testing with different
-            user groups (administrative staff, professionals, managers, technical specialists)
-            demonstrated that extrinsic-intrinsic motivation distinctions applied consistently
-            across educational backgrounds, job types, and organizational positions. This population
-            diversity suggested robust external validity rather than effects limited to particular
-            user types. Real organizational usage: Application in actual organizational settings
-            where real technologies addressed real work demands provided evidence for external
-            validity in ecologically meaningful contexts. Results from authentic organizational
-            technology adoption proved more convincing than laboratory studies using simulated
-            systems. Behavioral prediction validity: The framework demonstrated that measured
-            motivations predicted actual technology usage patterns. This behavioral prediction
-            validity provided evidence that intrinsic and extrinsic motivation measures validly
-            captured forces actually driving usage decisions. Relationships between measured
-            motivation and actual behavior suggested real-world applicability beyond correlational
-            associations.
+            intrinsic-extrinsic motivation distinctions across groups. This population consistency
+            suggested the framework captured fundamental aspects of motivation rather than
+            group-specific phenomena. How was the model’s external validity tested? External
+            validity was established through application across diverse technology contexts and
+            organizational settings: Multiple computer applications: The framework was applied to
+            various computer applications used in workplaces including office productivity tools and
+            specialized organizational systems. Demonstrating that intrinsic motivation influenced
+            adoption across different application types suggested generalizability beyond any single
+            technology context. Different organizational contexts: Application across different
+            organizational environments and industry sectors provided evidence for external
+            validity. The distinction between intrinsic and extrinsic motivation appeared consistent
+            whether organizations emphasized performance metrics, organizational cultures emphasized
+            innovation and engagement, or organizations operated in traditional hierarchical
+            structures. Diverse user populations: Testing with different user groups (administrative
+            staff, professionals, managers, technical specialists) demonstrated that
+            extrinsic-intrinsic motivation distinctions applied consistently across educational
+            backgrounds, job types, and organizational positions. This population diversity
+            suggested robust external validity rather than effects limited to particular user types.
+            Real organizational usage: Application in actual organizational settings where real
+            technologies addressed real work demands provided evidence for external validity in
+            ecologically meaningful contexts. Results from authentic organizational technology
+            adoption proved more convincing than laboratory studies using simulated systems.
+            Behavioral prediction validity: The framework demonstrated that measured motivations
+            predicted actual technology usage patterns. This behavioral prediction validity provided
+            evidence that intrinsic and extrinsic motivation measures validly captured forces
+            actually driving usage decisions. Relationships between measured motivation and actual
+            behavior suggested real-world applicability beyond correlational associations.
           </p>
 
           <p className="mb-4">
@@ -283,43 +279,36 @@ const BibliographyArticlePage = () => {
             motivation drives initial adoption but intrinsic motivation sustains long-term usage.
             This temporal insight has important implications: implementations emphasizing extrinsic
             benefits might achieve initial adoption but fail to sustain usage unless intrinsic
-            motivation
-          </p>
-
-          <p className="mb-4">
-            develops. Understanding this dynamic enables implementation approaches supporting
-            intrinsic motivation development. Grounding in broader motivation theory: The framework
-            builds on established psychological theories of motivation, importing theoretical
-            credibility from broader motivation science. The extrinsic-intrinsic distinction
-            reflects long-standing motivation theory perspectives, suggesting this distinction
-            captures fundamental aspects of human motivation. Expansion of Technology Acceptance
-            Model: Rather than replacing TAM, the framework complements it by adding intrinsic
-            motivation to TAM’s extrinsic motivation constructs. This complementary relationship
-            maintains TAM’s parsimony and proven effectiveness while addressing documented
-            limitations. The framework can be viewed as TAM extension rather than fundamental
-            challenge. What are the main weaknesses of the model? Despite significant strengths, the
-            extrinsic-intrinsic motivation framework has notable limitations: Limited attention to
-            motivation interaction mechanisms: While the framework identifies both extrinsic and
-            intrinsic motivation as important, it provides limited specification of how these
-            motivation types interact. Cognitive evaluation theory suggests that extrinsic rewards
-            can undermine intrinsic motivation, but the framework provides limited investigation of
-            whether extrinsic motivation approaches implemented in organizations actually undermine
-            intrinsic motivation development. The interaction mechanisms deserve deeper theoretical
-            explication. Insufficient attention to individual differences in motivation: The
-            framework treats intrinsic motivation as universal—assuming all potential adopters could
-            find technology enjoyable if designed appropriately. However, individual differences in
-            stimulation preferences, engagement styles, and enjoyment capacities likely vary
-            substantially. Some individuals inherently find technology engaging while others find it
-            tedious regardless of design. The framework provides limited attention to how individual
-            differences moderate intrinsic motivation or predict who will find particular
-            technologies intrinsically motivating. Underspecified relationships between intrinsic
-            motivation and system characteristics: The framework identifies intrinsic motivation as
-            important but provides limited specification of which system characteristics enhance
-            intrinsic motivation. The authors suggest that engagement and
-          </p>
-
-          <p className="mb-4">
-            interest matter, but detailed guidance on designing for intrinsic motivation remains
+            motivation develops. Understanding this dynamic enables implementation approaches
+            supporting intrinsic motivation development. Grounding in broader motivation theory: The
+            framework builds on established psychological theories of motivation, importing
+            theoretical credibility from broader motivation science. The extrinsic-intrinsic
+            distinction reflects long-standing motivation theory perspectives, suggesting this
+            distinction captures fundamental aspects of human motivation. Expansion of Technology
+            Acceptance Model: Rather than replacing TAM, the framework complements it by adding
+            intrinsic motivation to TAM’s extrinsic motivation constructs. This complementary
+            relationship maintains TAM’s parsimony and proven effectiveness while addressing
+            documented limitations. The framework can be viewed as TAM extension rather than
+            fundamental challenge. What are the main weaknesses of the model? Despite significant
+            strengths, the extrinsic-intrinsic motivation framework has notable limitations: Limited
+            attention to motivation interaction mechanisms: While the framework identifies both
+            extrinsic and intrinsic motivation as important, it provides limited specification of
+            how these motivation types interact. Cognitive evaluation theory suggests that extrinsic
+            rewards can undermine intrinsic motivation, but the framework provides limited
+            investigation of whether extrinsic motivation approaches implemented in organizations
+            actually undermine intrinsic motivation development. The interaction mechanisms deserve
+            deeper theoretical explication. Insufficient attention to individual differences in
+            motivation: The framework treats intrinsic motivation as universal—assuming all
+            potential adopters could find technology enjoyable if designed appropriately. However,
+            individual differences in stimulation preferences, engagement styles, and enjoyment
+            capacities likely vary substantially. Some individuals inherently find technology
+            engaging while others find it tedious regardless of design. The framework provides
+            limited attention to how individual differences moderate intrinsic motivation or predict
+            who will find particular technologies intrinsically motivating. Underspecified
+            relationships between intrinsic motivation and system characteristics: The framework
+            identifies intrinsic motivation as important but provides limited specification of which
+            system characteristics enhance intrinsic motivation. The authors suggest that engagement
+            and interest matter, but detailed guidance on designing for intrinsic motivation remains
             limited. What system features create engagement for spreadsheet applications? Which
             design principles enhance intrinsic motivation for security software users find
             inherently boring? The relationship between specific design choices and intrinsic
@@ -347,71 +336,64 @@ const BibliographyArticlePage = () => {
             substantially across contexts and technologies. What creates engagement for some
             technologies (games, creative tools) might not create engagement for others (compliance
             software, security tools). The generalizability of intrinsic motivation measures across
-            all technology
-          </p>
-
-          <p className="mb-4">
-            contexts remains uncertain. Context-specific operationalization of intrinsic motivation
-            might improve the framework’s applicability. How does this model differ from older
-            models? The extrinsic-intrinsic motivation framework represented significant advancement
-            from prior technology adoption models: Explicit inclusion of intrinsic motivation
-            dimension: While earlier motivation theory recognized intrinsic motivation importance,
-            the Technology Acceptance Model focused exclusively on extrinsic motivation (usefulness
-            and ease of use). The framework’s fundamental innovation was explicitly incorporating
-            intrinsic motivation alongside extrinsic motivation, recognizing that comprehensive
-            adoption understanding requires both. This addition overcame TAM’s limitation of
-            focusing narrowly on instrumental benefits. Affect-inclusive adoption understanding:
-            Earlier technology adoption models, including TAM, treated adoption as primarily
-            cognitive-behavioral phenomenon: individuals form beliefs about technology, develop
-            attitudes, form intentions, and act. The framework elevated affective dimensions
-            (enjoyment, interest, engagement) to theoretical prominence alongside cognition. This
-            recognition that affect substantially influences adoption represented important
-            conceptual advancement. Distinction from purely behavioral models: Earlier purely
-            behavioral adoption models treated technology adoption as response to performance
-            benefits or task requirements, overlooking that users might adopt because they enjoy
-            technology independent of instrumental benefits. The framework recognized that some
-            adoption results from intrinsic satisfaction rather than extrinsic benefit optimization.
-            Conceptual advance over reward-focused adoption approaches: Earlier organizational
-            implementation approaches emphasized extrinsic rewards, incentives, and performance
-            metrics to drive adoption. The framework suggested that exclusive emphasis on external
-            rewards might prove suboptimal, that intrinsic motivation development should be valued
-            alongside extrinsic incentives. This represented important conceptual shift toward more
-            holistic motivation understanding. Recognition of technology experience quality: Earlier
-            models focused on system functionality and user beliefs about that functionality. The
-            framework emphasized that technology adoption depends also on the quality of user
-            experience itself—how engaging, enjoyable, and satisfying
-          </p>
-
-          <p className="mb-4">
-            the interaction proves. This shifted focus from functionality to user experience,
-            recognizing these as distinct dimensions affecting adoption. Temporal sophistication:
-            Earlier models treated adoption intentions and behavior as relatively concurrent
-            phenomena. The framework suggested that motivation types differ temporally: extrinsic
-            motivation may drive initial adoption but intrinsic motivation sustains long-term usage.
-            This temporal sophistication provided more nuanced understanding of adoption dynamics
-            across time. 6. Barriers Identification Section What Barriers to Technology Adoption
-            does the model identify? The Extrinsic and Intrinsic Motivation framework identifies
-            barriers to technology adoption organized around two distinct but interrelated
-            motivation dimensions: Extrinsic motivation barriers: The framework identifies that low
-            perceived usefulness creates adoption barriers when workers question whether technology
-            will enhance performance or productivity. These extrinsic barriers parallel those
-            identified in TAM: technologies perceived as offering minimal performance benefits face
-            adoption resistance. Workers accustomed to achieving adequate performance through
-            existing processes perceive limited motivation to adopt technologies offering marginal
-            improvement. Extrinsic barriers additionally include perceived ease of use concerns:
-            technologies perceived as requiring excessive effort, extensive training, or disrupting
-            work processes encounter resistance even when usefulness is acknowledged. The effort
-            burden appears unwarranted relative to benefits, creating overall extrinsic motivation
-            deficiency. Intrinsic motivation barriers: The framework identifies a distinct barrier
-            category: technologies that users perceive as boring, unstimulating, or unengaging
-            create adoption barriers through intrinsic motivation deficit. Even if technologies
-            offer clear performance benefits (high extrinsic motivation) and require manageable
-            effort (favorable ease perception), users finding technology inherently uninteresting
-            experience reduced motivation for sustained adoption. Technologies with poor user
-            experiences —unattractive interfaces, unresponsive interactions, or frustrating
-            workflows—undermine intrinsic motivation. Tasks involving repetitive, routine computer
-            work might offer no novelty or engagement opportunity, creating intrinsic motivation
-            barriers regardless of instrumental benefits.
+            all technology contexts remains uncertain. Context-specific operationalization of
+            intrinsic motivation might improve the framework’s applicability. How does this model
+            differ from older models? The extrinsic-intrinsic motivation framework represented
+            significant advancement from prior technology adoption models: Explicit inclusion of
+            intrinsic motivation dimension: While earlier motivation theory recognized intrinsic
+            motivation importance, the Technology Acceptance Model focused exclusively on extrinsic
+            motivation (usefulness and ease of use). The framework’s fundamental innovation was
+            explicitly incorporating intrinsic motivation alongside extrinsic motivation,
+            recognizing that comprehensive adoption understanding requires both. This addition
+            overcame TAM’s limitation of focusing narrowly on instrumental benefits.
+            Affect-inclusive adoption understanding: Earlier technology adoption models, including
+            TAM, treated adoption as primarily cognitive-behavioral phenomenon: individuals form
+            beliefs about technology, develop attitudes, form intentions, and act. The framework
+            elevated affective dimensions (enjoyment, interest, engagement) to theoretical
+            prominence alongside cognition. This recognition that affect substantially influences
+            adoption represented important conceptual advancement. Distinction from purely
+            behavioral models: Earlier purely behavioral adoption models treated technology adoption
+            as response to performance benefits or task requirements, overlooking that users might
+            adopt because they enjoy technology independent of instrumental benefits. The framework
+            recognized that some adoption results from intrinsic satisfaction rather than extrinsic
+            benefit optimization. Conceptual advance over reward-focused adoption approaches:
+            Earlier organizational implementation approaches emphasized extrinsic rewards,
+            incentives, and performance metrics to drive adoption. The framework suggested that
+            exclusive emphasis on external rewards might prove suboptimal, that intrinsic motivation
+            development should be valued alongside extrinsic incentives. This represented important
+            conceptual shift toward more holistic motivation understanding. Recognition of
+            technology experience quality: Earlier models focused on system functionality and user
+            beliefs about that functionality. The framework emphasized that technology adoption
+            depends also on the quality of user experience itself—how engaging, enjoyable, and
+            satisfying the interaction proves. This shifted focus from functionality to user
+            experience, recognizing these as distinct dimensions affecting adoption. Temporal
+            sophistication: Earlier models treated adoption intentions and behavior as relatively
+            concurrent phenomena. The framework suggested that motivation types differ temporally:
+            extrinsic motivation may drive initial adoption but intrinsic motivation sustains
+            long-term usage. This temporal sophistication provided more nuanced understanding of
+            adoption dynamics across time. 6. Barriers Identification Section What Barriers to
+            Technology Adoption does the model identify? The Extrinsic and Intrinsic Motivation
+            framework identifies barriers to technology adoption organized around two distinct but
+            interrelated motivation dimensions: Extrinsic motivation barriers: The framework
+            identifies that low perceived usefulness creates adoption barriers when workers question
+            whether technology will enhance performance or productivity. These extrinsic barriers
+            parallel those identified in TAM: technologies perceived as offering minimal performance
+            benefits face adoption resistance. Workers accustomed to achieving adequate performance
+            through existing processes perceive limited motivation to adopt technologies offering
+            marginal improvement. Extrinsic barriers additionally include perceived ease of use
+            concerns: technologies perceived as requiring excessive effort, extensive training, or
+            disrupting work processes encounter resistance even when usefulness is acknowledged. The
+            effort burden appears unwarranted relative to benefits, creating overall extrinsic
+            motivation deficiency. Intrinsic motivation barriers: The framework identifies a
+            distinct barrier category: technologies that users perceive as boring, unstimulating, or
+            unengaging create adoption barriers through intrinsic motivation deficit. Even if
+            technologies offer clear performance benefits (high extrinsic motivation) and require
+            manageable effort (favorable ease perception), users finding technology inherently
+            uninteresting experience reduced motivation for sustained adoption. Technologies with
+            poor user experiences —unattractive interfaces, unresponsive interactions, or
+            frustrating workflows—undermine intrinsic motivation. Tasks involving repetitive,
+            routine computer work might offer no novelty or engagement opportunity, creating
+            intrinsic motivation barriers regardless of instrumental benefits.
           </p>
 
           <p className="mb-4">
@@ -479,9 +461,6 @@ const BibliographyArticlePage = () => {
             visibility, or accomplishment recognition. Provide mastery and skill development
             opportunities: Leaders should ensure that technology adoption provides opportunities for
             users to develop competence and mastery. Rather than providing minimal training ensuring
-          </p>
-
-          <p className="mb-4">
             only basic functionality, leaders should offer extended learning enabling users to
             develop advanced capabilities and expertise. Progressive challenges enabling skill
             advancement create engagement. Recognition of increasing mastery (certifications,
