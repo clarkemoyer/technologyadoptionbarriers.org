@@ -1,10 +1,9 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
-import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
-  title: 'Article 2.1a: A Resource-Based View (RBV) – Wernerfelt 1984',
+  title: 'Bibliography: A Resource-Based View (RBV) – Wernerfelt (1984)',
   description:
     "An exploration of Wernerfelt's Resource-Based View of the firm, a foundational framework for understanding how organizational resources and capabilities drive competitive advantage and strategic technology adoption.",
 }
@@ -13,7 +12,9 @@ const ResourceBasedViewPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Article 2.1a: A Resource-Based View (RBV) – Wernerfelt 1984</h1>
+        <h1 className={H1_CLASSES}>
+          Bibliography: A Resource-Based View (RBV) &ndash; Wernerfelt (1984)
+        </h1>
 
         <section className="mb-6 sm:mb-10 text-gray-800">
           <p className="mb-3 sm:mb-6">
@@ -373,8 +374,6 @@ const ResourceBasedViewPage = () => {
             frameworks for understanding organizational technology readiness and adoption capacity.
           </p>
         </section>
-
-        <SeriesNavigation />
 
         <section className="pt-8 border-t border-gray-200">
           <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
