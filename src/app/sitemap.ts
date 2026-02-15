@@ -38,6 +38,133 @@ export default function sitemap(): MetadataRoute.Sitemap {
           },
         ]
       : []),
+    // Individual Bibliography Articles (21 models)
+    {
+      url: `${baseUrl}/bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-2-diffusion-of-innovations-rogers`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-3-social-cognitive-theory-sct-bandura-1986`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-4-model-of-innovation-resistance-ram-sheth-1989`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-5-status-quo-bias-samuelson-zeckhauser-1988`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-6-technology-acceptance-model-tam-davis-1989`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-8-personal-computing-acceptance-thompson-1991`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-9-intrinsic-extrinsic-motivation-davis-1992`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-10-decomposed-tpb-taylor-todd-1995`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-11-task-technology-fit-ttf-goodhue-thompson-1995`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-12-technology-readiness-index-tri-parasuraman-2000`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-13-technology-acceptance-model-2-tam2-venkatesh-davis-2000`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-14-expectation-confirmation-model-ecm-bhattacherjee-2001`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-15-unified-theory-utaut-venkatesh-2003`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-16-math-venkatesh-brown-2001`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-17-value-based-adoption-kim-2007`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-18-tram-lin-2007`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-19-technology-acceptance-model-3-tam3-venkatesh-bala-2008`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-20-utaut2-venkatesh-2012`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-1-21-technology-readiness-index-2-tri-2-parasuraman-colby-2015`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
     // Branch introductions
     ...technologyAdoptionModelsSeries.branches.map((branch) => ({
       url: `${baseUrl}${branch.slug}`,
