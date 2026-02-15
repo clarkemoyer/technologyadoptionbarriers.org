@@ -296,8 +296,8 @@ If you are using Prolific’s “Authenticity checks (beta)”, ensure the Proli
 
 Automation note (recommended):
 
-- Store the entire script as a single secret named `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT`.
-- The apply tooling will inject it into the survey header when that secret is present (or when the workflow input `apply_authenticity_script` is enabled in GitHub Actions).
+- Store the entire script tag as an environment variable named `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT` in the `qualtrics-prod` GitHub environment (it is not a secret — the tag contains only a public URL).
+- The apply tooling will inject it into the survey header when that variable is present and the workflow input `apply_authenticity_script` is enabled in GitHub Actions.
 
 After editing, make sure the survey is saved and any required publish/activate step is completed.
 
@@ -364,9 +364,9 @@ Optional GitHub Environment variables (in `qualtrics-prod`):
 
 - `TABS_WEBSITE_COMPLETE_URL` (optional override for the website completion page; defaults to `https://technologyadoptionbarriers.org/survey-complete`)
 
-Optional secret (in `qualtrics-prod`):
+Optional variable (in `qualtrics-prod`):
 
-- `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT` (the Prolific-provided Qualtrics script; keep out of git and logs)
+- `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT` (the Prolific-provided Qualtrics script tag; stored as a variable since it contains only a public URL)
 
 Safety notes:
 

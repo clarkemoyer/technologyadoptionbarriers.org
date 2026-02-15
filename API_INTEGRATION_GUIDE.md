@@ -92,9 +92,9 @@ Currently, `src/lib/qualtrics-api.ts` exports only:
 - `QUALTRICS_SURVEY_ID` - Active survey ID for automation
 - `QUALTRICS_COPY_DESTINATION_OWNER` - Owner ID for survey copies (some tenants require this)
 
-**Optional Secrets:**
+**Optional Variables:**
 
-- `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT` - Prolific authenticity checks script (required only if authenticity checks are enabled)
+- `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT` - Prolific authenticity checks script tag (required only if authenticity checks are enabled; not a secret — contains only a public URL)
 - `QUALTRICS_USERID` - Qualtrics user ID (used by smoke-test workflows)
 - `QUALTRICS_USERNAME` - Qualtrics username (used by smoke-test workflows)
 
