@@ -16,7 +16,7 @@ const SupportCards = () => {
       description:
         "Gain visibility while supporting research. Show your organization's commitment to advancing technology adoption insights.",
       buttonText: 'Learn More',
-      buttonLink: '/get-involved#sponsor',
+      buttonLink: '/get-involved/#sponsor',
       bgColor: 'bg-[#0E7162]',
       btnConfig: 'bg-white text-[#0E7162] hover:bg-gray-100',
     },
@@ -25,7 +25,7 @@ const SupportCards = () => {
       description:
         'Help us run the survey, analyze data, or improve the website. Use your expertise to support TABS operations.',
       buttonText: 'Get Involved',
-      buttonLink: '/get-involved#volunteer',
+      buttonLink: '/get-involved/#volunteer',
       bgColor: 'bg-[#5FB38D]',
       btnConfig: 'bg-white text-[#5FB38D] hover:bg-gray-100',
     },
@@ -34,7 +34,7 @@ const SupportCards = () => {
       description:
         'Researchers: Access TABS data for your studies. Advance research beyond descriptive statistics with IRB-approved dataset access.',
       buttonText: 'Request Access',
-      buttonLink: '/get-involved#use-dataset',
+      buttonLink: '/get-involved/#use-dataset',
       bgColor: 'bg-[#2EA3F2]',
       btnConfig: 'bg-white text-[#2EA3F2] hover:bg-gray-100',
     },
@@ -71,7 +71,7 @@ const SupportCards = () => {
         {/* Link to full Get Involved page */}
         <div className="text-center mt-[40px]">
           <a
-            href="/get-involved"
+            href="/get-involved/"
             className="inline-flex items-center gap-[10px] text-[18px] font-semibold text-[#1a2b4b] hover:text-[#2EA3F2] transition-colors"
           >
             See All Ways to Get Involved

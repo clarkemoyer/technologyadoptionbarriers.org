@@ -35,7 +35,7 @@ test.describe('404 Not Found Page', () => {
     // Check for the "Learn About Real Barriers" button
     const barriersButton = page.locator('a:has-text("Learn About Real Barriers")')
     await expect(barriersButton).toBeVisible()
-    await expect(barriersButton).toHaveAttribute('href', '/barriers')
+    await expect(barriersButton).toHaveAttribute('href', '/barriers/')
 
     // Check for the humorous quote at the bottom
     const quote = page.locator('text=The only thing worse than a 404 error')
@@ -64,9 +64,9 @@ test.describe('404 Not Found Page', () => {
     await page.click('a:has-text("Learn About Real Barriers")')
 
     // Wait for navigation
-    await page.waitForURL('/barriers')
+    await page.waitForURL('/barriers/')
 
     // Verify we're on the barriers page
-    await expect(page).toHaveURL('/barriers')
+    await expect(page).toHaveURL('/barriers/')
   })
 })

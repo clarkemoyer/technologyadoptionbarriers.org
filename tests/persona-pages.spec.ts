@@ -32,7 +32,7 @@ test.describe('Persona Landing Pages', () => {
 
     test('should have working links to persona pages', async ({ page }) => {
       const ceoLink = page.getByRole('link', { name: /CEO.*Learn more/i })
-      await expect(ceoLink).toHaveAttribute('href', '/start/ceo')
+      await expect(ceoLink).toHaveAttribute('href', '/start/ceo/')
     })
 
     test('should display alternative CTA for direct survey access', async ({ page }) => {
@@ -84,7 +84,7 @@ test.describe('Persona Landing Pages', () => {
       // Check for "Not your role?" link
       const backLink = page.getByRole('link', { name: /Not your role.*See all roles/i })
       await expect(backLink).toBeVisible()
-      await expect(backLink).toHaveAttribute('href', '/start')
+      await expect(backLink).toHaveAttribute('href', '/start/')
     })
 
     test('should display CTO persona page correctly', async ({ page }) => {
@@ -120,7 +120,7 @@ test.describe('Persona Landing Pages', () => {
       const backLink = page.getByRole('link', { name: /Not your role.*See all roles/i })
       await backLink.click()
 
-      await page.waitForURL('/start')
+      await page.waitForURL('/start/')
       await expect(page.getByRole('heading', { name: /See Yourself in the Survey/i })).toBeVisible()
     })
 
@@ -130,7 +130,7 @@ test.describe('Persona Landing Pages', () => {
       const cfoLink = page.getByRole('link', { name: /CFO.*Learn more/i })
       await cfoLink.click()
 
-      await page.waitForURL('/start/cfo')
+      await page.waitForURL('/start/cfo/')
       await expect(
         page.getByRole('heading', { name: /Chief Financial Officer/i, level: 1 })
       ).toBeVisible()
@@ -143,7 +143,7 @@ test.describe('Persona Landing Pages', () => {
         name: /Learn more about TABS and how to get involved/i,
       })
       await expect(getInvolvedLink).toBeVisible()
-      await expect(getInvolvedLink).toHaveAttribute('href', '/get-involved')
+      await expect(getInvolvedLink).toHaveAttribute('href', '/get-involved/')
     })
   })
 
