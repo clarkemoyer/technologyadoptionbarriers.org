@@ -290,7 +290,7 @@ This repository integrates with external API environments, accessible via **GitH
 
 | Environment      | Purpose               | Secrets/Variables | Status                  |
 | ---------------- | --------------------- | ----------------- | ----------------------- |
-| `qualtrics-prod` | Survey management     | 7 secrets, 5 vars | ✅ Active (5 workflows) |
+| `qualtrics-prod` | Survey management     | 6 secrets, 6 vars | ✅ Active (5 workflows) |
 | `prolific-prod`  | Participant data      | 2 secrets, 3 vars | ✅ Active (2 workflows) |
 | `google-prod`    | Analytics reporting   | 6 secrets         | ✅ Active (1 workflow)  |
 | `microsoft-prod` | Forms integration     | 1 secret          | ⚠️ Configured (future)  |
