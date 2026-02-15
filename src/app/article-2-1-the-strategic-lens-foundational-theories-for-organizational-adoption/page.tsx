@@ -6,7 +6,7 @@ import { ARTICLE_CLASSES, H1_CLASSES } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title:
-    'Article 2.1: The Strategic Lens — Foundational Theories for Organizational Adoption (Coming Soon)',
+    'Article 2.1: The Strategic Lens – Foundational Theories for Organizational Adoption (Coming Soon)',
   description:
     'Coming soon: foundational theories that explain technology adoption at the organizational level, including strategic and institutional drivers.',
 }

@@ -56,39 +56,39 @@ export const technologyAdoptionModelsSeries: SeriesStructure = {
           title:
             'Article 1.2: The Game Changer – A Deep Dive into the Technology Acceptance Model (TAM)',
           slug: '/article-1-2-the-game-changer-a-deep-dive-into-the-technology-acceptance-model-tam',
-          status: 'coming-soon',
+          status: 'published',
         },
         {
           id: 'article-1-3',
           title:
             'Article 1.3: Expanding the Classic – The Evolution to TAM 2, TAM 3, and C-TAM-TPB',
           slug: '/article-1-3-expanding-the-classic-the-evolution-to-tam-2-tam-3-and-c-tam-tpb',
-          status: 'coming-soon',
+          status: 'published',
         },
         {
           id: 'article-1-4',
           title:
             'Article 1.4: The Grand Unification – The Unified Theory of Acceptance and Use of Technology (UTAUT)',
           slug: '/article-1-4-the-grand-unification-the-unified-theory-of-acceptance-and-use-of-technology-utaut',
-          status: 'coming-soon',
+          status: 'published',
         },
         {
           id: 'article-1-5',
           title: 'Article 1.5: Beyond the Office – UTAUT2, Consumer Context, and Modern Syntheses',
           slug: '/article-1-5-beyond-the-office-utaut2-consumer-context-and-modern-syntheses',
-          status: 'coming-soon',
+          status: 'published',
         },
         {
           id: 'article-1-6',
           title: 'Article 1.6: Context is King – Specialized Individual Adoption Models',
           slug: '/article-1-6-context-is-king-specialized-individual-adoption-models',
-          status: 'coming-soon',
+          status: 'published',
         },
         {
           id: 'article-1-7',
           title: 'Article 1.7: Are You Ready? The Role of Technology Readiness (TRI & TRAM)',
           slug: '/article-1-7-are-you-ready-the-role-of-technology-readiness-tri-and-tram',
-          status: 'coming-soon',
+          status: 'published',
         },
       ],
     },
