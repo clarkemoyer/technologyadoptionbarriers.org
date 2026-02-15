@@ -106,24 +106,6 @@ export const technologyAdoptionModelsSeries: SeriesStructure = {
           status: 'coming-soon',
         },
         {
-          id: 'article-2-1a',
-          title: 'Article 2.1a: A Resource-Based View (RBV) – Wernerfelt 1984',
-          slug: '/article-2-1a-resource-based-view-rbv-wernerfelt-1984',
-          status: 'published',
-        },
-        {
-          id: 'article-2-1b',
-          title: 'Article 2.1b: VRIO Framework – Barney 1991',
-          slug: '/article-2-1b-vrio-framework-barney-1991',
-          status: 'published',
-        },
-        {
-          id: 'article-2-1c',
-          title: 'Article 2.1c: Dynamic Capabilities Framework – Teece, Pisano, & Shuen 1997',
-          slug: '/article-2-1c-dynamic-capabilities-teece-1997',
-          status: 'published',
-        },
-        {
           id: 'article-2-2',
           title: 'Article 2.2: From Chaos to Control – A Guide to Maturity Models',
           slug: '/article-2-2-from-chaos-to-control-a-guide-to-maturity-models',

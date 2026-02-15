@@ -165,6 +165,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    // Organizational Bibliography Articles (3 models)
+    {
+      url: `${baseUrl}/bibliography-2-1-resource-based-view-rbv-wernerfelt-1984`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-2-vrio-framework-barney-1991`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-3-dynamic-capabilities-teece-1997`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
     // Branch introductions
     ...technologyAdoptionModelsSeries.branches.map((branch) => ({
       url: `${baseUrl}${branch.slug}`,

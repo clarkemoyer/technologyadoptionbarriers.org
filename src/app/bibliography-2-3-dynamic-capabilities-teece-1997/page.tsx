@@ -1,10 +1,9 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
-import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
-  title: 'Article 2.1c: Dynamic Capabilities Framework – Teece, Pisano, & Shuen 1997',
+  title: 'Bibliography: Dynamic Capabilities Framework – Teece, Pisano, & Shuen (1997)',
   description:
     'An exploration of the Dynamic Capabilities Framework and how it extends the Resource-Based View to address sustained competitive advantage in rapidly changing, turbulent environments through organizational sensing, seizing, and transformation.',
 }
@@ -14,7 +13,7 @@ const DynamicCapabilitiesPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Article 2.1c: Dynamic Capabilities Framework – Teece, Pisano, & Shuen 1997
+          Bibliography: Dynamic Capabilities Framework &ndash; Teece, Pisano, &amp; Shuen (1997)
         </h1>
 
         <section className="mb-6 sm:mb-10 text-gray-800">
@@ -420,8 +419,6 @@ const DynamicCapabilitiesPage = () => {
             build capacity for future technology adoption and organizational adaptation.
           </p>
         </section>
-
-        <SeriesNavigation />
 
         <section className="pt-8 border-t border-gray-200">
           <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">

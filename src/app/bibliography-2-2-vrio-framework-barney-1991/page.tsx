@@ -1,10 +1,9 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
-import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
-  title: 'Article 2.1b: VRIO Framework – Barney 1991',
+  title: 'Bibliography: VRIO Framework – Barney (1991)',
   description:
     "An exploration of Jay Barney's VRIO Framework for analyzing firm resources and sustained competitive advantage, providing practical criteria for evaluating which organizational capabilities drive technology adoption success.",
 }
@@ -13,7 +12,7 @@ const VRIOFrameworkPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Article 2.1b: VRIO Framework – Barney 1991</h1>
+        <h1 className={H1_CLASSES}>Bibliography: VRIO Framework &ndash; Barney (1991)</h1>
 
         <section className="mb-6 sm:mb-10 text-gray-800">
           <p className="mb-3 sm:mb-6">
@@ -499,8 +498,6 @@ const VRIOFrameworkPage = () => {
             success.
           </p>
         </section>
-
-        <SeriesNavigation />
 
         <section className="pt-8 border-t border-gray-200">
           <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
