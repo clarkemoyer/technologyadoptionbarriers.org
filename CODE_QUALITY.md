@@ -1,6 +1,6 @@
 # Code Quality Standards
 
-This document outlines the code quality standards, tools, and best practices for the Technology Adoption Barriers (TABS) project.
+This document outlines the code quality standards, tools, and best practices for the Technology Adoption Barriers Survey (TABS) project.
 
 ## Table of Contents
 
@@ -669,5 +669,5 @@ If you have questions about code quality standards:
 ---
 
 **Last Updated**: 2025-12-03  
-**Repository**: Technology Adoption Barriers (TABS)  
+**Repository**: Technology Adoption Barriers Survey (TABS)  
 **Node.js**: 20.x (validated with v20.19.6)

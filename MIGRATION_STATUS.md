@@ -252,7 +252,7 @@ Based on research, the technologyadoptionbarriers.org website contains:
 - [ ] Update Twitter Card metadata
 - [ ] Configure favicon and app icons
 - **File:** `src/app/layout.tsx`
-- **Notes:** Ensure metadata matches Technology Adoption Barriers (TABS).
+- **Notes:** Ensure metadata matches Technology Adoption Barriers Survey (TABS).
 
 #### Navigation
 
@@ -440,7 +440,7 @@ After content migration:
 - **Live Site:** https://technologyadoptionbarriers.org/
 - **Repository:** https://github.com/clarkemoyer/technologyadoptionbarriers.org
 - **Archive.org:** https://web.archive.org/web/*/technologyadoptionbarriers.org
-- **Template Source:** Based on a Next.js static export starter, adapted for Technology Adoption Barriers (TABS)
+- **Template Source:** Based on a Next.js static export starter, adapted for Technology Adoption Barriers Survey (TABS)
 
 ### Documentation
 

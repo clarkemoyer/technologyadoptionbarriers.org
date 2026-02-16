@@ -46,7 +46,7 @@ Our README includes:
 Our license:
 
 - Apache 2.0 open source license
-- Copyright by Technology Adoption Barriers (TABS)
+- Copyright by Technology Adoption Barriers Survey (TABS)
 - Full text of Apache 2.0 terms
 
 #### ✅ CODE_OF_CONDUCT.md
@@ -315,4 +315,4 @@ For questions about community health files or documentation:
 ---
 
 **Last Updated:** December 2025  
-**Maintained By:** Technology Adoption Barriers (TABS) (@clarkemoyer)
+**Maintained By:** Technology Adoption Barriers Survey (TABS) (@clarkemoyer)

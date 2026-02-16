@@ -2,7 +2,7 @@
 
 **Production Site:** [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org) ✅
 
-Multi-page Next.js 16.x website built with App Router for Technology Adoption Barriers (TABS). The site is **live in production** with 40+ pages, comprehensive content, and full API integrations.
+Multi-page Next.js 16.x website built with App Router for Technology Adoption Barriers Survey (TABS). The site is **live in production** with 40+ pages, comprehensive content, and full API integrations.
 
 ## 🎉 Production Status - LIVE
 
@@ -51,7 +51,7 @@ The TABS website is live and serving users at [https://technologyadoptionbarrier
 
 ## About This Repository
 
-This repository contains the **Technology Adoption Barriers (TABS)** website - a comprehensive research platform documenting technology adoption challenges and providing resources for organizations navigating technology change.
+This repository contains the **Technology Adoption Barriers Survey (TABS)** website - a comprehensive research platform documenting technology adoption challenges and providing resources for organizations navigating technology change.
 
 ### Academic Research Foundation
 
@@ -945,7 +945,7 @@ Once your review is complete:
 - Start contributing code improvements
 - Help review other contributions
 
-**Ready to help improve Technology Adoption Barriers (TABS)? Start your review today!**
+**Ready to help improve Technology Adoption Barriers Survey (TABS)? Start your review today!**
 
 ---
 

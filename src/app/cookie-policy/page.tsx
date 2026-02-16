@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Cookie Policy | Technology Adoption Barriers (TABS)',
-  description: 'Cookie Policy for the Technology Adoption Barriers (TABS) website',
+  title: 'Cookie Policy | Technology Adoption Barriers Survey (TABS)',
+  description: 'Cookie Policy for the Technology Adoption Barriers Survey (TABS) website',
 }
 
 // Update this date when the policy changes

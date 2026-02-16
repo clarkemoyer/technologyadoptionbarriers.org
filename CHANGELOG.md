@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the Technology Adoption Barriers (TABS) website will be documented in this file.
+All notable changes to the Technology Adoption Barriers Survey (TABS) website will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -34,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial release of the Technology Adoption Barriers (TABS) website
+- Initial release of the Technology Adoption Barriers Survey (TABS) website
 - Next.js 16.0.7 single-page application with App Router
 - TypeScript implementation throughout
 - Tailwind CSS for styling

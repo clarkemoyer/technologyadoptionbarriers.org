@@ -1,6 +1,6 @@
 # Contributors
 
-Thank you to all the people who have contributed to the Technology Adoption Barriers (TABS) website project!
+Thank you to all the people who have contributed to the Technology Adoption Barriers Survey (TABS) website project!
 
 This document recognizes everyone who has helped make this project better through code, documentation, reviews, testing, feedback, and more.
 
@@ -29,7 +29,7 @@ Contributors are recognized in several ways:
 - **Role**: Founder, Lead Maintainer, Project Owner
 - **Email**: clarke@technologyadoptionbarriers.org
 - **Contributions**: Project vision, architecture, initial codebase, ongoing maintenance
-- **Organization**: Technology Adoption Barriers (TABS)
+- **Organization**: Technology Adoption Barriers Survey (TABS)
 
 ### Active Contributors
 
@@ -225,11 +225,11 @@ This contributors document follows CNCF best practices for:
 
 ---
 
-**Thank you to everyone who contributes to making Technology Adoption Barriers (TABS) better!**
+**Thank you to everyone who contributes to making Technology Adoption Barriers Survey (TABS) better!**
 
 Your work helps improve clarity, accessibility, and usefulness for people navigating technology adoption challenges.
 
 ---
 
 **Last Updated**: December 13, 2025  
-**Maintained By**: Technology Adoption Barriers (TABS) Maintainers
+**Maintained By**: Technology Adoption Barriers Survey (TABS) Maintainers

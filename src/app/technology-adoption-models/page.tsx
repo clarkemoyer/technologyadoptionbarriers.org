@@ -1,6 +1,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import { assetPath } from '@/lib/assetPath'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
 
@@ -53,7 +54,7 @@ const ModelsPage = () => {
 
           <div className="my-6 sm:my-10">
             <Image
-              src="/Images/articles/Tech-Adoption-Triangle.png"
+              src={assetPath('/Images/articles/Tech-Adoption-Triangle.png')}
               alt="The Tech Adoption Triangle: Organizational, User, and Consumer Adoption"
               width={1024}
               height={1024}
@@ -150,7 +151,7 @@ const ModelsPage = () => {
           <figure className="my-6 sm:my-10">
             <div className="relative w-full h-auto">
               <Image
-                src="/Images/articles/Series-Roadmap.png"
+                src={assetPath('/Images/articles/Series-Roadmap.png')}
                 alt="Series Roadmap: Evolutionary Tree of Technology Adoption Models"
                 width={1024}
                 height={600}

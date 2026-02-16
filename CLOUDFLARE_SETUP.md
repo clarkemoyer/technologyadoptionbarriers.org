@@ -360,4 +360,4 @@ After configuring Cloudflare:
 
 **Last Updated:** 2025-12-05
 
-For questions or issues, contact Technology Adoption Barriers (TABS) at contact@technologyadoptionbarriers.org
+For questions or issues, contact Technology Adoption Barriers Survey (TABS) at contact@technologyadoptionbarriers.org

@@ -2,7 +2,7 @@
 
 **Last Updated:** January 15, 2026
 
-This document provides a comprehensive list of all external dependencies and third-party services used by the Technology Adoption Barriers (TABS) website. This includes both direct integrations (services we explicitly configure) and transitive dependencies (services loaded by our direct integrations).
+This document provides a comprehensive list of all external dependencies and third-party services used by the Technology Adoption Barriers Survey (TABS) website. This includes both direct integrations (services we explicitly configure) and transitive dependencies (services loaded by our direct integrations).
 
 ## Table of Contents
 

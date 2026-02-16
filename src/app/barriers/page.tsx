@@ -1,5 +1,12 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import Barriers from '@/components/tabs/Barriers'
+
+export const metadata: Metadata = {
+  title: 'Technology Adoption Barriers',
+  description:
+    'Explore the key barriers to technology adoption identified through the TABS research. Understand the obstacles organizations face when implementing new technology.',
+}
 
 const BarriersPage = () => {
   return (

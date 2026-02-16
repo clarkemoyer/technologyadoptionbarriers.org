@@ -1,6 +1,13 @@
+import type { Metadata } from 'next'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import QualtricsSurveyStats from '@/components/survey-stats/qualtrics-survey-stats'
+
+export const metadata: Metadata = {
+  title: 'Survey Statistics',
+  description:
+    'Live survey metrics and response data from the Technology Adoption Barriers Survey (TABS), pulled from Qualtrics via GitHub Actions.',
+}
 
 export default function SurveyStatsPage() {
   return (

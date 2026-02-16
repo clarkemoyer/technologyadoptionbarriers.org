@@ -6,7 +6,7 @@
 
 ## Overview
 
-The Technology Adoption Barriers (TABS) website migration is **complete**. The site is fully operational at https://technologyadoptionbarriers.org/ with 40+ pages, comprehensive content, and full API integrations.
+The Technology Adoption Barriers Survey (TABS) website migration is **complete**. The site is fully operational at https://technologyadoptionbarriers.org/ with 40+ pages, comprehensive content, and full API integrations.
 
 ### Academic Research Context
 

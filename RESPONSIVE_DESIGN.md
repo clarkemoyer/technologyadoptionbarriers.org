@@ -430,4 +430,4 @@ When adding new components or modifying existing ones:
 **Last Updated**: 2025-12-03  
 **Repository**: technologyadoptionbarriers.org  
 **Node.js**: 20.x (validated with v20.19.6)  
-**Maintainer**: Technology Adoption Barriers (TABS) maintainers
+**Maintainer**: Technology Adoption Barriers Survey (TABS) maintainers

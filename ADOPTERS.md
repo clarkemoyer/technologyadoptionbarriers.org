@@ -1,6 +1,6 @@
 # Adopters
 
-This document tracks organizations and individuals who have adopted, forked, or deployed this Technology Adoption Barriers (TABS) website template. Sharing your adoption helps build community, demonstrates the template's value, and allows us to better support users.
+This document tracks organizations and individuals who have adopted, forked, or deployed this Technology Adoption Barriers Survey (TABS) website template. Sharing your adoption helps build community, demonstrates the template's value, and allows us to better support users.
 
 ## Purpose
 
@@ -37,7 +37,7 @@ If you're using this template, we'd love to hear from you! Add your organization
 
 ## Adopters List
 
-### [Technology Adoption Barriers (TABS)](https://technologyadoptionbarriers.org)
+### [Technology Adoption Barriers Survey (TABS)](https://technologyadoptionbarriers.org)
 
 - **Live Site**: [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org)
 - **Type**: Research / Information Site
@@ -95,7 +95,7 @@ As the adopter community grows, we encourage:
 - Contributing bug fixes and features
 - Providing feedback on the template
 
-Thank you for being part of the Technology Adoption Barriers (TABS) community!
+Thank you for being part of the Technology Adoption Barriers Survey (TABS) community!
 
 ---
 

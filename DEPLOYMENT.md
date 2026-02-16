@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This document explains how the Technology Adoption Barriers (TABS) website is deployed and provides troubleshooting guidance for deployment issues.
+This document explains how the Technology Adoption Barriers Survey (TABS) website is deployed and provides troubleshooting guidance for deployment issues.
 
 ## Table of Contents
 
