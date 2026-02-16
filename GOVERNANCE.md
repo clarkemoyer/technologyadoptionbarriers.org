@@ -1,10 +1,10 @@
 # Project Governance
 
-This document outlines the governance model for the Technology Adoption Barriers (TABS) website repository, including decision-making processes, maintainer roles, and community participation guidelines.
+This document outlines the governance model for the Technology Adoption Barriers Survey (TABS) website repository, including decision-making processes, maintainer roles, and community participation guidelines.
 
 ## Overview
 
-Technology Adoption Barriers (TABS) is committed to open-source principles and transparent governance. This repository follows a benevolent dictatorship model with collaborative decision-making for technical matters.
+Technology Adoption Barriers Survey (TABS) is committed to open-source principles and transparent governance. This repository follows a benevolent dictatorship model with collaborative decision-making for technical matters.
 
 ## Organization Structure
 
@@ -111,7 +111,7 @@ Contributors may be invited to become maintainers based on:
 - Demonstrated ability to review code effectively
 - Positive community interactions
 - Commitment to the Code of Conduct
-- Alignment with the Technology Adoption Barriers (TABS) mission
+- Alignment with the Technology Adoption Barriers Survey (TABS) mission
 
 **Process**:
 

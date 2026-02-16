@@ -162,4 +162,4 @@ Before closing this review issue:
 
 ---
 
-**Thank you for taking the time to review the Technology Adoption Barriers (TABS) website! Your fresh perspective helps us identify issues and opportunities we might have missed. Welcome to the team!**
+**Thank you for taking the time to review the Technology Adoption Barriers Survey (TABS) website! Your fresh perspective helps us identify issues and opportunities we might have missed. Welcome to the team!**

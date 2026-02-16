@@ -1,6 +1,6 @@
 # Support
 
-Thank you for using the Technology Adoption Barriers (TABS) project! This document provides information on how to get help and support.
+Thank you for using the Technology Adoption Barriers Survey (TABS) project! This document provides information on how to get help and support.
 
 ## 📧 Getting Help
 
@@ -71,4 +71,4 @@ Please note that this project may be maintained by a small team, so response tim
 
 ---
 
-**Thank you for supporting Technology Adoption Barriers (TABS)!**
+**Thank you for supporting Technology Adoption Barriers Survey (TABS)!**

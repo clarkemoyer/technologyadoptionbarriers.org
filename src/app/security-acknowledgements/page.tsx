@@ -3,8 +3,9 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Security Acknowledgements | Technology Adoption Barriers (TABS)',
-  description: 'Security Acknowledgements for the Technology Adoption Barriers (TABS) website',
+  title: 'Security Acknowledgements | Technology Adoption Barriers Survey (TABS)',
+  description:
+    'Security Acknowledgements for the Technology Adoption Barriers Survey (TABS) website',
 }
 
 const index = () => {
@@ -16,9 +17,9 @@ const index = () => {
             Security Acknowledgements
           </h2>
           <p className="mb-[20px] pb-[10px] text-[14px] font-[500] leading-[25px] text-[#666]">
-            Technology Adoption Barriers (TABS) would like to extend our sincere gratitude to the
-            following security researchers for their invaluable contributions in helping us keep our
-            platform safe. By responsibly disclosing vulnerabilities, they have played a crucial
+            Technology Adoption Barriers Survey (TABS) would like to extend our sincere gratitude to
+            the following security researchers for their invaluable contributions in helping us keep
+            our platform safe. By responsibly disclosing vulnerabilities, they have played a crucial
             role in protecting our users and our data.
           </p>
           <div

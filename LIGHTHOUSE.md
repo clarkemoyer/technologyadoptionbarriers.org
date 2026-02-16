@@ -1,6 +1,6 @@
 # Lighthouse CI - Performance Monitoring
 
-This document explains how to use Lighthouse CI to monitor the performance, accessibility, SEO, and best practices of the Technology Adoption Barriers (TABS) website.
+This document explains how to use Lighthouse CI to monitor the performance, accessibility, SEO, and best practices of the Technology Adoption Barriers Survey (TABS) website.
 
 ## Table of Contents
 

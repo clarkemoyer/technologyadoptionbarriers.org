@@ -1,6 +1,6 @@
-# Contributing to Technology Adoption Barriers (TABS)
+# Contributing to Technology Adoption Barriers Survey (TABS)
 
-Thank you for your interest in contributing to Technology Adoption Barriers (TABS)! This document provides guidelines and instructions for contributing to the project.
+Thank you for your interest in contributing to Technology Adoption Barriers Survey (TABS)! This document provides guidelines and instructions for contributing to the project.
 
 ## Table of Contents
 
@@ -169,7 +169,7 @@ These files provide tailored guidance for each AI model, including:
 
 ### What is a Fresh Review?
 
-A fresh review is a comprehensive evaluation of the live Technology Adoption Barriers (TABS) website from a new user's perspective. As a new reviewer, your first contribution will be to:
+A fresh review is a comprehensive evaluation of the live Technology Adoption Barriers Survey (TABS) website from a new user's perspective. As a new reviewer, your first contribution will be to:
 
 1. **Explore the live application** thoroughly
 2. **Document your findings** - both positive and negative
@@ -187,7 +187,7 @@ This approach helps you:
 
 #### Step 1: Visit the Live Site
 
-Start by exploring the live Technology Adoption Barriers (TABS) website:
+Start by exploring the live Technology Adoption Barriers Survey (TABS) website:
 
 - **Production Site:** [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org)
 - **GitHub Pages:** https://<your-org>.github.io/<your-repo>/ (if enabled)
@@ -358,7 +358,7 @@ Starting your contribution journey with a fresh review:
 4. Report individual issues you discover
 5. Engage with the team on your findings
 
-**Thank you for helping make Technology Adoption Barriers (TABS) better! Your fresh perspective is valuable.**
+**Thank you for helping make Technology Adoption Barriers Survey (TABS) better! Your fresh perspective is valuable.**
 
 ---
 
@@ -825,7 +825,7 @@ All contributors will be recognized in multiple ways:
 
 We value all contributions, whether code, documentation, design, testing, or community support. Visit our [CONTRIBUTORS.md](./CONTRIBUTORS.md) page to see all the amazing people who have helped make this project possible.
 
-Thank you for helping make Technology Adoption Barriers (TABS) better!
+Thank you for helping make Technology Adoption Barriers Survey (TABS) better!
 
 ---
 

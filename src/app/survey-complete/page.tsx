@@ -3,7 +3,8 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Survey Complete | TABS',
-  description: 'Thank you for participating in the Technology Adoption Barriers (TABS) survey.',
+  description:
+    'Thank you for participating in the Technology Adoption Barriers Survey (TABS) survey.',
 }
 
 export default function SurveyCompletePage() {

@@ -1,4 +1,4 @@
-# Agent Instructions for Technology Adoption Barriers (TABS)
+# Agent Instructions for Technology Adoption Barriers Survey (TABS)
 
 This document provides instructions for IDE-integrated AI coding agents working on the Technology Adoption Barriers repository.
 

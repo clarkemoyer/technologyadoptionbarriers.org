@@ -1,6 +1,6 @@
 # Testing Guide
 
-This guide helps you test the Technology Adoption Barriers (TABS) web application, including content management and automated UI tests.
+This guide helps you test the Technology Adoption Barriers Survey (TABS) web application, including content management and automated UI tests.
 
 ## Quick Test Checklist
 

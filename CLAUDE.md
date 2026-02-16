@@ -1,6 +1,6 @@
 # Claude Agent Instructions for TABS
 
-Welcome, Claude! This document provides specific instructions for working on the Technology Adoption Barriers (TABS) repository using Anthropic Claude in VS Code or Antigravity.
+Welcome, Claude! This document provides specific instructions for working on the Technology Adoption Barriers Survey (TABS) repository using Anthropic Claude in VS Code or Antigravity.
 
 ## About This Project
 

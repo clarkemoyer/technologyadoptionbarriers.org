@@ -1,13 +1,13 @@
 # Maintainers
 
-This document lists the maintainers of the Technology Adoption Barriers (TABS) website repository, their roles, and areas of responsibility.
+This document lists the maintainers of the Technology Adoption Barriers Survey (TABS) website repository, their roles, and areas of responsibility.
 
 ## Project Leadership
 
 ### Founder and Lead Maintainer
 
 **Clarke Moyer**  
-Founder, Technology Adoption Barriers (TABS)
+Founder, Technology Adoption Barriers Survey (TABS)
 
 - **Role**: Founder, Lead Maintainer, Project Owner
 - **GitHub**: [@clarkemoyer](https://github.com/clarkemoyer)
@@ -24,7 +24,7 @@ Founder, Technology Adoption Barriers (TABS)
 
 ## TABS Team
 
-The Technology Adoption Barriers (TABS) project includes additional team members who contribute to the project's success:
+The Technology Adoption Barriers Survey (TABS) project includes additional team members who contribute to the project's success:
 
 - **Project Leadership / Stakeholders**
   - Organizational governance
@@ -111,7 +111,7 @@ We welcome contributors who demonstrate:
 - Consistent high-quality contributions
 - Understanding of the codebase
 - Positive community interactions
-- Alignment with the Technology Adoption Barriers (TABS) mission
+- Alignment with the Technology Adoption Barriers Survey (TABS) mission
 
 See [GOVERNANCE.md](./GOVERNANCE.md) for the full maintainer appointment process.
 
@@ -146,7 +146,7 @@ For maintainer-related questions:
 
 ## Acknowledgments
 
-We appreciate all maintainers' time and dedication to making the Technology Adoption Barriers (TABS) mission possible.
+We appreciate all maintainers' time and dedication to making the Technology Adoption Barriers Survey (TABS) mission possible.
 
 For a complete list of all contributors (including maintainers), see [CONTRIBUTORS.md](./CONTRIBUTORS.md).
 

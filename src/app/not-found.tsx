@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: '404 - Page Not Found | Technology Adoption Barriers (TABS)',
+  title: '404 - Page Not Found | Technology Adoption Barriers Survey (TABS)',
   description:
     'Oops! This page could not be found. Looks like we hit a technology adoption barrier.',
 }

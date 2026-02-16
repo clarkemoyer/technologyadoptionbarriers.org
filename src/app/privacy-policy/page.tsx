@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Technology Adoption Barriers (TABS)',
-  description: 'Privacy Policy for the Technology Adoption Barriers (TABS) website',
+  title: 'Privacy Policy | Technology Adoption Barriers Survey (TABS)',
+  description: 'Privacy Policy for the Technology Adoption Barriers Survey (TABS) website',
 }
 
 export default function PrivacyPolicy() {
@@ -27,7 +27,7 @@ export default function PrivacyPolicy() {
             </li>
           </ol>
           <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            At Technology Adoption Barriers (TABS), accessible from
+            At Technology Adoption Barriers Survey (TABS), accessible from
             https://technologyadoptionbarriers.org, your privacy is one of our primary concerns.
             This Privacy Policy document contains types of information we collect and record, and
             how we use it. By using our website, you hereby consent to our Privacy Policy and agree
@@ -155,7 +155,7 @@ export default function PrivacyPolicy() {
             <li className="text-[14px] text-[#666] leading-[24px] font-[500]">
               <strong>Additional Third-Party Services:</strong> Microsoft Forms may use additional
               services (including HubSpot) for form analytics and feedback collection. These are
-              controlled by Microsoft, not Technology Adoption Barriers (TABS).
+              controlled by Microsoft, not Technology Adoption Barriers Survey (TABS).
             </li>
             <li className="text-[14px] text-[#666] leading-[24px] font-[500]">
               <strong>Privacy Policy:</strong> Review Microsoft&apos;s privacy practices at{' '}

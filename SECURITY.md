@@ -1,6 +1,6 @@
 # Security Documentation
 
-This document outlines the security measures implemented in the Technology Adoption Barriers (TABS) repository to protect code quality, maintain integrity, and ensure safe collaboration.
+This document outlines the security measures implemented in the Technology Adoption Barriers Survey (TABS) repository to protect code quality, maintain integrity, and ensure safe collaboration.
 
 ## Branch Protection Rules
 
