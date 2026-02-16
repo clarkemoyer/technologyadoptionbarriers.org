@@ -1,8 +1,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
-
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title:
@@ -24,10 +23,10 @@ const Article14Page = () => {
           <h2 className={H2_CLASSES}>Opening Narrative</h2>
           <p className="mb-3 sm:mb-6">
             By the early 2000s, the technology adoption research landscape resembled what scholars
-            called &amp;ldquo;model soup.&amp;rdquo; For nearly three decades, researchers had
-            developed, refined, and championed various theoretical frameworks to explain why some
-            employees embraced new technologies while others resisted. The Technology Acceptance
-            Model dominated in some circles. The Theory of Planned Behavior held sway in others. The
+            called &ldquo;model soup.&rdquo; For nearly three decades, researchers had developed,
+            refined, and championed various theoretical frameworks to explain why some employees
+            embraced new technologies while others resisted. The Technology Acceptance Model
+            dominated in some circles. The Theory of Planned Behavior held sway in others. The
             Diffusion of Innovations perspective offered its own compelling logic. Meanwhile,
             researchers continued proposing new models–the Motivational Model, the Combined TAM-TPB,
             the Model of PC Utilization, Social Cognitive Theory applications.
@@ -208,15 +207,13 @@ const Article14Page = () => {
             rather, it reveals the underlying structure beneath apparent complexity.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Performance Expectancy: The Strongest Predictor
-          </h3>
+          <h3 className={H3_CLASSES}>Performance Expectancy: The Strongest Predictor</h3>
           <p className="mb-3 sm:mb-6">
             <strong>Performance expectancy</strong> represents the degree to which individuals
             believe that using a system will help them attain gains in job performance. This
             construct synthesizes several seemingly different variables from preceding models:
           </p>
-          <ul className="list-disc ml-6 sm:ml-8 mb-3 sm:mb-6 space-y-2">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>Perceived usefulness from TAM and related technology acceptance models</li>
             <li>Extrinsic motivation from the Motivational Model</li>
             <li>Relative advantage from Diffusion of Innovations Theory</li>
@@ -241,20 +238,18 @@ const Article14Page = () => {
             Why does performance expectancy dominate? The answer lies in rational self-interest
             grounded in human motivation. When individuals assess whether to adopt new
             technology–particularly in organizational contexts where adoption is consequential for
-            work effectiveness–they fundamentally ask: &amp;ldquo;Will this help me perform my job
-            better?&amp;rdquo; Technology offering clear performance advantages overcomes adoption
+            work effectiveness–they fundamentally ask: &ldquo;Will this help me perform my job
+            better?&rdquo; Technology offering clear performance advantages overcomes adoption
             barriers. Technology perceived as performance-neutral or performance-negative faces
             formidable adoption resistance regardless of other favorable characteristics.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Effort Expectancy: The Experience-Moderated Variable
-          </h3>
+          <h3 className={H3_CLASSES}>Effort Expectancy: The Experience-Moderated Variable</h3>
           <p className="mb-3 sm:mb-6">
             <strong>Effort expectancy</strong> represents the degree of ease associated with system
             use. This construct synthesizes:
           </p>
-          <ul className="list-disc ml-6 sm:ml-8 mb-3 sm:mb-6 space-y-2">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>Perceived ease of use from TAM</li>
             <li>Complexity from the Model of PC Utilization</li>
             <li>Ease of use from Innovation Diffusion Theory</li>
@@ -264,7 +259,7 @@ const Article14Page = () => {
             Effort expectancy represents the second-strongest predictor of adoption intention.
             However, its effect is distinctly moderated by user experience and age. Inexperienced
             users and older workers emphasize effort expectations heavily in adoption decisions.
-            They ask: &amp;ldquo;Will I be able to learn and use this system?&amp;rdquo; For these
+            They ask: &ldquo;Will I be able to learn and use this system?&rdquo; For these
             populations, technology perceived as difficult or complex faces substantial resistance.
           </p>
           <p className="mb-3 sm:mb-6">
@@ -285,14 +280,12 @@ const Article14Page = () => {
             adoption.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Social Influence: Context-Dependent and Mandate-Moderated
-          </h3>
+          <h3 className={H3_CLASSES}>Social Influence: Context-Dependent and Mandate-Moderated</h3>
           <p className="mb-3 sm:mb-6">
             <strong>Social influence</strong> represents the degree to which individuals perceive
             that important others believe they should use a new system. This construct synthesizes:
           </p>
-          <ul className="list-disc ml-6 sm:ml-8 mb-3 sm:mb-6 space-y-2">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>Subjective norms from the Theory of Reasoned Action and TAM</li>
             <li>Social factors from the Model of PC Utilization</li>
             <li>Image concerns from extended TAM research</li>
@@ -323,15 +316,13 @@ const Article14Page = () => {
             makes resistance costly.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Facilitating Conditions: The Enabler of Actual Use
-          </h3>
+          <h3 className={H3_CLASSES}>Facilitating Conditions: The Enabler of Actual Use</h3>
           <p className="mb-3 sm:mb-6">
             <strong>Facilitating conditions</strong> represent the degree to which individuals
             believe that organizational and technical infrastructure exist to support use of the
             system. This construct synthesizes:
           </p>
-          <ul className="list-disc ml-6 sm:ml-8 mb-3 sm:mb-6 space-y-2">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>Perceived behavioral control from the Theory of Planned Behavior</li>
             <li>External control variables from various adoption models</li>
             <li>Compatibility from Diffusion of Innovations</li>
@@ -368,9 +359,7 @@ const Article14Page = () => {
             populations and contexts. Four moderating variables prove particularly significant:
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Gender: Differential Emphasis on Adoption Drivers
-          </h3>
+          <h3 className={H3_CLASSES}>Gender: Differential Emphasis on Adoption Drivers</h3>
           <p className="mb-3 sm:mb-6">
             Research reveals that gender moderates multiple relationships in the adoption model.
             Males place relatively greater emphasis on performance expectancy in adoption
@@ -392,15 +381,13 @@ const Article14Page = () => {
             uncertainty rather than fundamental technology preferences.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Age: The Digital Divide Mechanism
-          </h3>
+          <h3 className={H3_CLASSES}>Age: The Digital Divide Mechanism</h3>
           <p className="mb-3 sm:mb-6">
             Age significantly moderates multiple adoption relationships. Older users place greater
             emphasis on effort expectancy and facilitating conditions, reflecting both potentially
             reduced prior technology experience and greater concerns about capability to master new
-            systems. Older workers worry: &amp;ldquo;Can I really learn this?&amp;rdquo; This
-            concern carries substantial psychological weight.
+            systems. Older workers worry: &ldquo;Can I really learn this?&rdquo; This concern
+            carries substantial psychological weight.
           </p>
           <p className="mb-3 sm:mb-6">
             Younger users emphasize effort expectancy less and performance expectancy more. They
@@ -423,9 +410,7 @@ const Article14Page = () => {
             differences.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Experience: The Confidence Transformation
-          </h3>
+          <h3 className={H3_CLASSES}>Experience: The Confidence Transformation</h3>
           <p className="mb-3 sm:mb-6">
             User experience fundamentally transforms the adoption process. Inexperienced users
             emphasize effort expectancy and facilitating conditions more heavily–they focus on
@@ -449,9 +434,7 @@ const Article14Page = () => {
             high value on understanding performance advantages.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Voluntariness of Use: When Adoption Becomes Optional
-          </h3>
+          <h3 className={H3_CLASSES}>Voluntariness of Use: When Adoption Becomes Optional</h3>
           <p className="mb-3 sm:mb-6">
             Whether system use is mandatory or voluntary significantly affects adoption
             relationships. In mandatory use contexts, social influence exerts stronger direct
@@ -460,10 +443,10 @@ const Article14Page = () => {
           </p>
           <p className="mb-3 sm:mb-6">
             In voluntary contexts, performance and effort expectancy become relatively more salient.
-            Individuals feel free to ask: &amp;ldquo;Do I personally want this?&amp;rdquo; rather
-            than &amp;ldquo;What are others expecting?&amp;rdquo; The absence of organizational
-            mandate places adoption decision-making on individual benefit-cost calculation rather
-            than on conformity to organizational expectation.
+            Individuals feel free to ask: &ldquo;Do I personally want this?&rdquo; rather than
+            &ldquo;What are others expecting?&rdquo; The absence of organizational mandate places
+            adoption decision-making on individual benefit-cost calculation rather than on
+            conformity to organizational expectation.
           </p>
           <p className="mb-3 sm:mb-6">
             This moderation demonstrates that adoption is fundamentally social and contextual. The
@@ -511,9 +494,7 @@ const Article14Page = () => {
             Significance and Limitations: Assessing UTAUT&apos;s Contribution and Boundaries
           </h2>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Theoretical Significance
-          </h3>
+          <h3 className={H3_CLASSES}>Theoretical Significance</h3>
           <p className="mb-3 sm:mb-6">
             UTAUT made several major theoretical contributions that reshaped technology adoption
             thinking:
@@ -547,14 +528,12 @@ const Article14Page = () => {
             context-specific patterns.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Practical Significance
-          </h3>
+          <h3 className={H3_CLASSES}>Practical Significance</h3>
           <p className="mb-3 sm:mb-6">
             For practitioners, UTAUT provided a comprehensive framework for adoption strategy
             development:
           </p>
-          <ul className="list-disc ml-6 sm:ml-8 mb-3 sm:mb-6 space-y-2">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
               Organizations could identify that performance expectancy was the primary adoption
               driver, justifying substantial effort in demonstrating technology value and business
@@ -578,9 +557,7 @@ const Article14Page = () => {
             implementation guidance.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Limitations and Boundaries
-          </h3>
+          <h3 className={H3_CLASSES}>Limitations and Boundaries</h3>
           <p className="mb-3 sm:mb-6">
             Despite UTAUT&apos;s significance, limitations qualify its scope and applicability:
           </p>

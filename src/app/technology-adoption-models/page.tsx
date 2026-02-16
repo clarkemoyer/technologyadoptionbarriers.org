@@ -31,7 +31,7 @@ const ModelsPage = () => {
           single, crucial oversight: invention / procurement is not the same as adoption.
         </p>
 
-        <p className="mb-6">
+        <p className="mb-3 sm:mb-6">
           Welcome to a multi-part blog series dedicated to exploring this critical landscape. Our
           central question is this: What is the bridge between a technology’s potential and its
           realized value? The answer is not a single blueprint but a complex interplay of human
@@ -42,7 +42,7 @@ const ModelsPage = () => {
           used by today’s leading cloud and AI providers.
         </p>
 
-        <section className="mb-10">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>Defining the Domain: A Trifecta of Adoption</h2>
           <p className="mb-3 sm:mb-6">
             To truly understand technology adoption, we must move beyond a simple
@@ -88,7 +88,7 @@ const ModelsPage = () => {
           </p>
 
           <h3 className={H3_CLASSES}>3. Consumer Adoption: The External Challenge</h3>
-          <p>
+          <p className="mb-3 sm:mb-6">
             Distinct from internal users, this domain focuses on the external market. This is the
             world of marketing, product design, and consumer behavior. The question shifts to: What
             motivates an external customer to adopt and integrate our technology into their lives?
@@ -100,35 +100,35 @@ const ModelsPage = () => {
           </p>
         </section>
 
-        <section className="mb-6 sm:mb-10">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>A Note on Terminology: Model vs. Framework</h2>
-          <p className="mb-3 sm:mb-4">
+          <p className="mb-3 sm:mb-6">
             Before proceeding, it is useful to clarify two terms that are central to this series:
             model and framework. For our purposes, a model (like TAM or UTAUT) is a descriptive and
             predictive tool. It seeks to explain a phenomenon by identifying key variables and their
             relationships to answer why an individual might adopt a technology.
           </p>
-          <p>
+          <p className="mb-3 sm:mb-6">
             In contrast, a framework (like TOGAF or the AWS CAF) is prescriptive. It provides a
             structure or a set of best practices to guide action, answering how an organization
             should go about implementing technology.
           </p>
         </section>
 
-        <section className="mb-6 sm:mb-10">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>A Sneak Peek: Charting the Intellectual History</h2>
-          <p className="mb-3 sm:mb-4">
+          <p className="mb-3 sm:mb-6">
             These three domains have spawned their own rich intellectual histories, which this
             series will explore in detail.
           </p>
-          <p className="mb-4">
+          <p className="mb-3 sm:mb-6">
             The study of User and Consumer Adoption grew out of broad social psychology theories.
             Researchers refined these into focused models like the influential Technology Acceptance
             Model (TAM) [7] to explain the internal user’s journey, and later extended them with
             concepts like Hedonic Motivation and Price Value to better understand the consumer’s
             decision [9].
           </p>
-          <p>
+          <p className="mb-3 sm:mb-6">
             The study of Organizational Adoption, by contrast, has its roots in strategic
             management. Early frameworks provided a high-level lens for understanding why a firm
             might adopt a technology. This has since evolved into a landscape of highly practical,
@@ -138,7 +138,7 @@ const ModelsPage = () => {
           </p>
         </section>
 
-        <section className="mb-6 sm:mb-10">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>Series Roadmap: How to Navigate This Series</h2>
           <p className="mb-3 sm:mb-6">
             This article serves as the trunk of our intellectual tree. The following diagram
@@ -159,19 +159,19 @@ const ModelsPage = () => {
             </div>
           </figure>
 
-          <p className="mb-4">
+          <p className="mb-3 sm:mb-6">
             Branch 1: The User’s &amp; Consumer’s Journey will delve into the evolution of
             individual acceptance models, covering both the internal employee and the external
             customer. We will trace the path from foundational psychological theories, through the
             game-changing simplicity of TAM, to the comprehensive unified theories of today.
           </p>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             Branch 2: The Organization’s Playbook will explore the frameworks that guide firm-level
             adoption. We will examine the core strategic theories, the rise of maturity models for
             process improvement, and the modern, prescriptive frameworks for navigating complex
             cloud, cybersecurity, and AI transformations.
           </p>
-          <p>
+          <p className="mb-3 sm:mb-6">
             By understanding the interplay between the organization’s strategic intent, the internal
             user’s acceptance, and the external consumer’s choice, we can begin to build that
             critical bridge between technological potential and realized value. As we embark on this

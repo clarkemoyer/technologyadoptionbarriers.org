@@ -41,7 +41,7 @@ const FoundationalTheoriesPage = () => {
             innovation spreads through a social system over time. DOI describes the process by which
             individuals and organizations adopt new ideas, products, or practices.
           </p>
-          <p className="mb-3 sm:mb-4">
+          <p className="mb-3 sm:mb-6">
             Its most enduring contribution to the field is the identification of five key perceived
             attributes of an innovation that influence its rate of adoption:
           </p>
@@ -102,7 +102,7 @@ const FoundationalTheoriesPage = () => {
             behavior is their behavioral intention–their subjective probability that they will
             perform the behavior in question.
           </p>
-          <p className="mb-3 sm:mb-4">This intention, in turn, is determined by two key factors:</p>
+          <p className="mb-3 sm:mb-6">This intention, in turn, is determined by two key factors:</p>
           <ol className="list-decimal pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
               <strong>Attitude Toward the Behavior:</strong> The individual’s positive or negative

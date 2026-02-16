@@ -1,8 +1,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
-
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title: 'Article 1.5: Beyond the Office – UTAUT2, Consumer Context, and Modern Syntheses',
@@ -79,17 +78,17 @@ const Article15Page = () => {
             management platform, or deploys updated collaboration tools, employees typically have
             limited choice about whether to use these systems. Management has decided adoption will
             occur. Resources flow toward implementation. Training capacity is allocated. Help desk
-            support is established. Individuals ask not &amp;ldquo;Should I adopt this?&amp;rdquo;
-            but rather &amp;ldquo;How do I succeed with this system?&amp;rdquo; and &amp;ldquo;How
-            do I adapt my work to use this new tool?&amp;rdquo;
+            support is established. Individuals ask not &ldquo;Should I adopt this?&rdquo; but
+            rather &ldquo;How do I succeed with this system?&rdquo; and &ldquo;How do I adapt my
+            work to use this new tool?&rdquo;
           </p>
           <p className="mb-3 sm:mb-6">
             <strong>Consumer contexts</strong> involve voluntary, self-directed adoption. When a
             potential customer considers adopting a new mobile app, social media platform, streaming
             service, or smart home device, they pose fundamentally different questions. There is no
             organizational mandate, no allocated training resources, no dedicated support
-            infrastructure. The potential user must decide: &amp;ldquo;Do I want this? Is this worth
-            my money, my time, my data?&amp;rdquo; Adoption depends entirely on whether the consumer
+            infrastructure. The potential user must decide: &ldquo;Do I want this? Is this worth my
+            money, my time, my data?&rdquo; Adoption depends entirely on whether the consumer
             perceives personal benefits exceeding personal costs.
           </p>
           <p className="mb-3 sm:mb-6">
@@ -203,9 +202,7 @@ const Article15Page = () => {
             addressing consumer-specific adoption dynamics:
           </p>
 
-          <h3 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-gray-900 mt-6 sm:mt-8">
-            Hedonic Motivation
-          </h3>
+          <h3 className={H3_CLASSES}>Hedonic Motivation</h3>
           <p className="mb-3 sm:mb-6">
             <strong>Hedonic Motivation</strong> represents the fun and enjoyment associated with
             technology use. This construct acknowledges that consumer technologies often provide
@@ -241,9 +238,7 @@ const Article15Page = () => {
             understanding.
           </p>
 
-          <h3 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-gray-900 mt-6 sm:mt-8">
-            Price Value
-          </h3>
+          <h3 className={H3_CLASSES}>Price Value</h3>
           <p className="mb-3 sm:mb-6">
             <strong>Price Value</strong> represents consumers&apos; cognitive trade-off between
             perceived benefits and monetary costs. This construct addresses a dimension virtually
@@ -289,9 +284,7 @@ const Article15Page = () => {
             hidden costs (data charges, accessory requirements, upgrade pressures) accumulate.
           </p>
 
-          <h3 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-gray-900 mt-6 sm:mt-8">
-            Habit
-          </h3>
+          <h3 className={H3_CLASSES}>Habit</h3>
           <p className="mb-3 sm:mb-6">
             <strong>Habit</strong> represents the extent to which behaviors become automatic through
             learning. This construct addresses a critical consumer adoption reality: sustained use
@@ -352,7 +345,7 @@ const Article15Page = () => {
             habit–into a comprehensive model of consumer technology adoption. The framework proposes
             that:
           </p>
-          <ul className="list-disc ml-6 sm:ml-8 space-y-2 mb-3 sm:mb-6">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
               <strong>Behavioral intention</strong> is shaped by performance expectancy, effort
               expectancy, social influence, hedonic motivation, and price value.

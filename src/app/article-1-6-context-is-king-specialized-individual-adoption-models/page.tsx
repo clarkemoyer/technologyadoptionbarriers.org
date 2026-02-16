@@ -1,8 +1,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
-
-import SeriesNavigation from '@/components/series-navigation'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
+import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
   title: 'Article 1.6: Context is King – Specialized Individual Adoption Models',
@@ -97,7 +96,7 @@ const Article16Page = () => {
             measure adoption success through utilization rates–how many employees use the system,
             how frequently, how extensively. But Goodhue and Thompson demonstrated that utilization
             without fit is largely wasted effort. A person forced to conduct their work through an
-            inadequate system may become more &amp;ldquo;efficient&amp;rdquo; at working around its
+            inadequate system may become more &ldquo;efficient&rdquo; at working around its
             limitations, but the technology itself provides little performance benefit.
           </p>
 
@@ -118,11 +117,11 @@ const Article16Page = () => {
           <h3 className={H3_CLASSES}>Implications for Practice</h3>
           <p className="mb-3 sm:mb-6">
             What makes TTF particularly valuable for practitioners is that it reframes technology
-            selection and implementation decisions. Rather than asking &amp;ldquo;Will our employees
-            adopt this system?&amp;rdquo; or &amp;ldquo;Do users perceive this as useful and easy to
-            use?&amp;rdquo;, the TTF framework demands asking &amp;ldquo;Does this system actually
-            support the specific work our users perform?&amp;rdquo; This shifts focus from adoption
-            metrics to impact metrics, from activity to outcomes.
+            selection and implementation decisions. Rather than asking &ldquo;Will our employees
+            adopt this system?&rdquo; or &ldquo;Do users perceive this as useful and easy to
+            use?&rdquo;, the TTF framework demands asking &ldquo;Does this system actually support
+            the specific work our users perform?&rdquo; This shifts focus from adoption metrics to
+            impact metrics, from activity to outcomes.
           </p>
           <p className="mb-3 sm:mb-6">
             For organizations, the implications are profound. Technology selection should prioritize
@@ -257,15 +256,14 @@ const Article16Page = () => {
           <h3 className={H3_CLASSES}>A Fundamental Shift: From Utility to Values</h3>
           <p className="mb-3 sm:mb-6">
             This represents a profound shift in how we understand adoption. The TAM framework asks
-            &amp;ldquo;Is this useful and easy?&amp;rdquo; VAM asks &amp;ldquo;Does this support
-            what I care about?&amp;rdquo; Different individuals adopt the same technology for
-            fundamentally different reasons reflecting different value systems. One person adopts
-            mobile internet to increase productivity and success at work (achievement values).
-            Another adopts to maintain relationships with distant family members (benevolence and
-            connection values). A third adopts for entertainment and enjoyment (hedonic values). A
-            fourth adopts to maintain independence and autonomy (self-direction values). A fifth
-            refuses to adopt out of concerns that constant connectivity undermines family time
-            (traditional values).
+            &ldquo;Is this useful and easy?&rdquo; VAM asks &ldquo;Does this support what I care
+            about?&rdquo; Different individuals adopt the same technology for fundamentally
+            different reasons reflecting different value systems. One person adopts mobile internet
+            to increase productivity and success at work (achievement values). Another adopts to
+            maintain relationships with distant family members (benevolence and connection values).
+            A third adopts for entertainment and enjoyment (hedonic values). A fourth adopts to
+            maintain independence and autonomy (self-direction values). A fifth refuses to adopt out
+            of concerns that constant connectivity undermines family time (traditional values).
           </p>
 
           <h3 className={H3_CLASSES}>Schwartz&apos;s Theory of Human Values</h3>

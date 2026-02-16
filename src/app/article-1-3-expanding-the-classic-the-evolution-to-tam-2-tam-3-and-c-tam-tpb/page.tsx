@@ -1,8 +1,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
-
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title: 'Article 1.3: Expanding the Classic – The Evolution to TAM 2, TAM 3, and C-TAM-TPB',
@@ -57,19 +56,17 @@ const Article13Page = () => {
             by organizational context, system characteristics, and social influences.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Social Influence Processes
-          </h3>
+          <h3 className={H3_CLASSES}>Social Influence Processes</h3>
           <p className="mb-3 sm:mb-6">
             TAM 2 identified that social influences shape perceived usefulness through two distinct
             mechanisms:
           </p>
           <p className="mb-3 sm:mb-6">
             <strong>Subjective Norm:</strong> This represents what users believe important others
-            think they should do. A manager saying &amp;ldquo;this system is important for our
-            department&amp;rdquo; or colleagues saying &amp;ldquo;I am finding this really
-            useful&amp;rdquo; creates normative pressure that shapes usefulness perceptions. But
-            critically, the research showed that this influence operates through two pathways.
+            think they should do. A manager saying &ldquo;this system is important for our
+            department&rdquo; or colleagues saying &ldquo;I am finding this really useful&rdquo;
+            creates normative pressure that shapes usefulness perceptions. But critically, the
+            research showed that this influence operates through two pathways.
           </p>
           <p className="mb-3 sm:mb-6">
             First, there is direct normative pressure–the social force itself. When important
@@ -92,9 +89,7 @@ const Article13Page = () => {
             benefits changed, but because the status implications increase its value.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Cognitive Instrumental Processes
-          </h3>
+          <h3 className={H3_CLASSES}>Cognitive Instrumental Processes</h3>
           <p className="mb-3 sm:mb-6">
             Beyond social influences, TAM 2 identified three organizational and task-related factors
             shaping perceived usefulness:
@@ -124,9 +119,7 @@ const Article13Page = () => {
             substantially because users and observers directly observe the improvements.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Temporal Dynamics: Experience Matters
-          </h3>
+          <h3 className={H3_CLASSES}>Temporal Dynamics: Experience Matters</h3>
           <p className="mb-3 sm:mb-6">
             TAM 2 made an important temporal discovery: the relationships between constructs change
             as users gain experience with systems.
@@ -155,13 +148,10 @@ const Article13Page = () => {
             understanding of what determines how difficult users perceive systems to be.[3]
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Anchors: Individual Capability and Control Beliefs
-          </h3>
+          <h3 className={H3_CLASSES}>Anchors: Individual Capability and Control Beliefs</h3>
           <p className="mb-3 sm:mb-6">
-            TAM 3 identified three constructs that form the &amp;ldquo;anchors&amp;rdquo; for
-            perceived ease of use–foundational factors determining how easily users perceive system
-            use:
+            TAM 3 identified three constructs that form the &ldquo;anchors&rdquo; for perceived ease
+            of use–foundational factors determining how easily users perceive system use:
           </p>
           <p className="mb-3 sm:mb-6">
             <strong>Computer Self-Efficacy:</strong> This represents individual confidence in
@@ -207,9 +197,7 @@ const Article13Page = () => {
             systems are perceived as easier (because they are engaging and compelling).
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Adjustments: System Design and Experience
-          </h3>
+          <h3 className={H3_CLASSES}>Adjustments: System Design and Experience</h3>
           <p className="mb-3 sm:mb-6">
             TAM 3 also identified factors that adjust perceived ease of use during use:
           </p>
@@ -227,9 +215,7 @@ const Article13Page = () => {
             central, they are partially shaped by objective design quality.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            System Design Characteristics
-          </h3>
+          <h3 className={H3_CLASSES}>System Design Characteristics</h3>
           <p className="mb-3 sm:mb-6">
             TAM 3 specified that several design features directly influence perceived ease of use:
           </p>
@@ -264,9 +250,7 @@ const Article13Page = () => {
             TAM&apos;s belief structures with TPB&apos;s recognition of behavioral control.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Structure of the Integrated Model
-          </h3>
+          <h3 className={H3_CLASSES}>Structure of the Integrated Model</h3>
           <p className="mb-3 sm:mb-6">
             The integrated model maintains TAM&apos;s core constructs (Perceived Usefulness,
             Perceived Ease of Use, Attitude) but adds TPB&apos;s dimensions:
@@ -292,9 +276,7 @@ const Article13Page = () => {
             These operate together in predicting behavioral intention, which predicts actual usage.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Comparative Performance
-          </h3>
+          <h3 className={H3_CLASSES}>Comparative Performance</h3>
           <p className="mb-3 sm:mb-6">
             Importantly, the integrated model addressed a key research question: Does TAM or TPB
             provide superior explanation?
@@ -316,9 +298,7 @@ const Article13Page = () => {
             support and ensure adequate resources.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            The Decomposed Model Perspective
-          </h3>
+          <h3 className={H3_CLASSES}>The Decomposed Model Perspective</h3>
           <p className="mb-3 sm:mb-6">
             An important aspect of the Taylor and Todd research was the decomposition of constructs
             into more specific dimensions. Rather than treating perceived usefulness as monolithic,
@@ -336,9 +316,7 @@ const Article13Page = () => {
             while dramatically expanding its explanatory scope. Several patterns emerge:
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            The Importance of External Factors
-          </h3>
+          <h3 className={H3_CLASSES}>The Importance of External Factors</h3>
           <p className="mb-3 sm:mb-6">
             TAM suggested that user perceptions determine adoption. TAM 2 and 3 revealed that user
             perceptions do not emerge randomly–they are shaped by organizational context, system
@@ -351,9 +329,7 @@ const Article13Page = () => {
             that drive adoption.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Temporal Dynamics Matter
-          </h3>
+          <h3 className={H3_CLASSES}>Temporal Dynamics Matter</h3>
           <p className="mb-3 sm:mb-6">
             TAM 2&apos;s temporal findings revealed that adoption is not a static psychological
             state but a dynamic process. What influences adoption in week one differs from week
@@ -365,9 +341,7 @@ const Article13Page = () => {
             aligned with how adoption processes unfold.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Context-Dependency of Relationships
-          </h3>
+          <h3 className={H3_CLASSES}>Context-Dependency of Relationships</h3>
           <p className="mb-3 sm:mb-6">
             The integrated TAM-TPB model revealed that organizational context (mandatory vs.
             voluntary) moderates which factors dominate adoption. This context-dependency extends
@@ -379,9 +353,7 @@ const Article13Page = () => {
             to specific contexts.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            The Persisting Primacy of Perceived Usefulness
-          </h3>
+          <h3 className={H3_CLASSES}>The Persisting Primacy of Perceived Usefulness</h3>
           <p className="mb-3 sm:mb-6">
             Throughout all these extensions, one finding remained remarkably consistent: perceived
             usefulness is the strongest predictor of adoption. Whether measured directly or through
@@ -395,9 +367,7 @@ const Article13Page = () => {
             be the primary focus.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Moving Beyond Extensions: The Next Challenges
-          </h3>
+          <h3 className={H3_CLASSES}>Moving Beyond Extensions: The Next Challenges</h3>
           <p className="mb-3 sm:mb-6">
             By 2008, with TAM 3, the TAM research program had become remarkably comprehensive. The
             core model was enhanced with explanations of determinants, integration with alternative
@@ -442,8 +412,8 @@ const Article13Page = () => {
             and how they interact with organizational and social contexts.
           </p>
           <p className="mb-3 sm:mb-6">
-            None of these extensions invalidated TAM. Instead, they answered &amp;ldquo;yes,
-            but&amp;hellip;&amp;rdquo; to TAM&apos;s core findings. Yes, perceived usefulness drives
+            None of these extensions invalidated TAM. Instead, they answered &ldquo;yes,
+            but&hellip;&rdquo; to TAM&apos;s core findings. Yes, perceived usefulness drives
             adoption, but organizational factors shape that perception. Yes, ease of use influences
             adoption, but its influence changes as users gain experience. Yes, individual beliefs
             matter, but social and organizational contexts shape those beliefs.

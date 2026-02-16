@@ -1,8 +1,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
-
-import SeriesNavigation from '@/components/series-navigation'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
+import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
   title: 'Article 1.7: Are You Ready? – The Role of Technology Readiness (TRI &amp; TRAM)',
@@ -60,8 +59,8 @@ const Article17Page = () => {
             (optimistic) while also fearing its complexity and security risks (discomfort and
             insecurity). Someone might be excited about innovation (innovative) while doubting
             whether technology actually works as promised (insecurity). These internal
-            contradictions, which Parasuraman termed &amp;ldquo;technology paradoxes,&amp;rdquo;
-            cannot be captured by single-dimensional measures of technology attitudes.
+            contradictions, which Parasuraman termed &ldquo;technology paradoxes,&rdquo; cannot be
+            captured by single-dimensional measures of technology attitudes.
           </p>
 
           <h3 className={H3_CLASSES}>The Eight Technology Paradoxes</h3>
@@ -72,7 +71,7 @@ const Article17Page = () => {
             groups and survey data, Parasuraman identified eight fundamental paradoxes in how
             consumers view technology:
           </p>
-          <ul className="list-disc list-inside mb-3 sm:mb-6 space-y-2">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
               <strong>Freedom versus enslavement</strong>–technology offers freedom and flexibility,
               yet creates dependency and loss of autonomy.
@@ -213,7 +212,7 @@ const Article17Page = () => {
             identifying five distinct consumer segments with different technology readiness
             profiles:
           </p>
-          <ul className="list-disc list-inside mb-3 sm:mb-6 space-y-2">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
               <strong>Skeptics (38% of consumers)</strong>–detached and cautious about technology,
               neither optimistic nor particularly innovative, low in both motivation dimensions.

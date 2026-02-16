@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES } from '@/lib/articleStyles'
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
@@ -15,8 +15,8 @@ const UsersJourneyPage = () => {
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Article 1: Branch Introduction – The User’s Journey</h1>
 
-        <section className="mb-10 text-gray-800">
-          <p className="mb-6">
+        <section className="mb-6 sm:mb-10 text-gray-800">
+          <p className="mb-3 sm:mb-6">
             In our introductory article, we established the landscape of technology adoption through
             the lens of a trifecta: Organizational, User, and Consumer Adoption. We positioned
             Organizational Adoption–the C-Suite’s strategic focus–as the apex. We now turn our
@@ -24,7 +24,7 @@ const UsersJourneyPage = () => {
             adoption equation: the internal employee’s decision to use a new system and the external
             customer’s choice to integrate a technology into their lives.
           </p>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             This branch of our series, The User’s Journey, delves into the rich intellectual history
             of individual technology acceptance and use. We will explore the evolution of the models
             designed to explain and predict the most fundamental of behaviors: the decision by a
@@ -32,18 +32,18 @@ const UsersJourneyPage = () => {
           </p>
         </section>
 
-        <section className="mb-10 text-gray-800">
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
+        <section className="mb-6 sm:mb-10 text-gray-800">
+          <h2 className={H2_CLASSES}>
             The Core Question: Deconstructing the “Acceptance” Decision
           </h2>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             At the heart of this entire field of study lies a foundational puzzle: What are the key
             cognitive levers that determine whether an individual will accept and use a new
             technology? Is it a purely rational calculation of costs and benefits? Is it the
             influence of peers and managers? Or is it a deeper, more personal assessment of one’s
             own capabilities and the intrinsic enjoyment derived from the experience?
           </p>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             The answer, as decades of research have shown, is a complex interplay of all these
             factors. Understanding this decision-making process is not merely an academic exercise;
             it is critical for realizing the value of any technological investment. A perfectly
@@ -54,16 +54,14 @@ const UsersJourneyPage = () => {
           </p>
         </section>
 
-        <section className="mb-10 text-gray-800">
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
-            From Psychology to Practice: A Narrative Arc
-          </h2>
-          <p className="mb-6">
+        <section className="mb-6 sm:mb-10 text-gray-800">
+          <h2 className={H2_CLASSES}>From Psychology to Practice: A Narrative Arc</h2>
+          <p className="mb-3 sm:mb-6">
             The intellectual history of individual adoption models follows a clear and fascinating
             narrative arc, moving from the general to the specific and from fragmentation to
             synthesis.
           </p>
-          <ul className="list-disc pl-5 space-y-4 mb-6">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
               <strong>The Foundational “Grandparents”:</strong> The earliest attempts to model this
               behavior did not originate in information systems research but drew from a rich
@@ -106,11 +104,9 @@ const UsersJourneyPage = () => {
           </ul>
         </section>
 
-        <section className="mb-10 text-gray-800">
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
-            Roadmap for this Branch
-          </h2>
-          <p className="mb-6">
+        <section className="mb-6 sm:mb-10 text-gray-800">
+          <h2 className={H2_CLASSES}>Roadmap for this Branch</h2>
+          <p className="mb-3 sm:mb-6">
             This narrative provides the structure for the articles to come. Our exploration of the
             user’s journey is organized as follows:
           </p>

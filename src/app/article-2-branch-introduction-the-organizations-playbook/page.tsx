@@ -15,15 +15,15 @@ const OrganizationsPlaybookPage = () => {
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Article 2: Branch Introduction – The Organization’s Playbook</h1>
 
-        <section className="mb-10 text-gray-800">
-          <p className="mb-6">
+        <section className="mb-6 sm:mb-10 text-gray-800">
+          <p className="mb-3 sm:mb-6">
             Having thoroughly explored the psychological and cognitive drivers of the individual’s
             adoption journey, we now pivot our focus from the micro to the macro. We ascend from the
             user’s desktop to the C-Suite, shifting our lens from the personal calculus of
             acceptance to the strategic imperatives of the organization. Welcome to the second major
             branch of our series: The Organization’s Playbook.
           </p>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             Here, the central question is no longer “Will an individual use this technology?” but
             rather, “How does our organization decide to invest in, implement, and integrate a
             technology to achieve strategic goals?” This is the realm of high-stakes capital
@@ -33,9 +33,9 @@ const OrganizationsPlaybookPage = () => {
           </p>
         </section>
 
-        <section className="mb-10 text-gray-800">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>The Strategic Imperative: Beyond User Clicks</h2>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             Organizational adoption is a fundamentally different challenge from individual
             acceptance. While still deeply linked with the foundational theories of DOI and IDT [1],
             it is a deliberate, top-down, and resource-intensive endeavor. The decision to deploy a
@@ -49,14 +49,14 @@ const OrganizationsPlaybookPage = () => {
           </p>
         </section>
 
-        <section className="mb-10 text-gray-800">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>From Theory to Frameworks: A Narrative Arc</h2>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             The evolution of organizational adoption guidance follows a distinct path, moving from
             high-level academic theories that explain the “why” to detailed, prescriptive frameworks
             that dictate the “how.”
           </p>
-          <ul className="list-disc pl-5 space-y-4 mb-6">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
               <strong>The Strategic “Why”:</strong> The intellectual foundation for organizational
               adoption lies in strategic management theory. Foundational frameworks like the
@@ -110,9 +110,9 @@ const OrganizationsPlaybookPage = () => {
           </ul>
         </section>
 
-        <section className="mb-10 text-gray-800">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>Roadmap for this Branch</h2>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             This narrative arc provides the structure for the articles in this branch. Our
             exploration of the organization’s playbook is organized as follows:
           </p>
