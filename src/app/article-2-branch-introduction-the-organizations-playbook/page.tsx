@@ -4,7 +4,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
-  title: 'Article 2: Branch Introduction — The Organization’s Playbook',
+  title: 'Article 2: Branch Introduction – The Organization’s Playbook',
   description:
     'Branch introduction to organizational technology adoption frameworks, covering strategy, maturity models, hype cycles, enterprise architecture, security, cloud adoption, and AI adoption.',
 }
@@ -140,11 +140,11 @@ const OrganizationsPlaybookPage = () => {
           <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
             References
           </h2>
-          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 lg:space-y-4 font-sans">
+          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 font-sans">
             <li>Rogers, E. M. (1962). Diffusion of Innovations. Free Press of Glencoe.</li>
             <li>
-              Tornatzky, L. G., & Fleischer, M. (1990). The Processes of Technological Innovation.
-              Lexington Books.
+              Tornatzky, L. G., &amp; Fleischer, M. (1990). The Processes of Technological
+              Innovation. Lexington Books.
             </li>
             <li>
               Barney, J. (1991). Firm resources and sustained competitive advantage. Journal of
@@ -159,16 +159,16 @@ const OrganizationsPlaybookPage = () => {
               </a>
             </li>
             <li>
-              Paulk, M. C., Curtis, B., Chrissis, M. B., & Weber, C. V. (1993). Capability Maturity
-              Model for Software, Version 1.1. Carnegie Mellon University.
+              Paulk, M. C., Curtis, B., Chrissis, M. B., &amp; Weber, C. V. (1993). Capability
+              Maturity Model for Software, Version 1.1. Carnegie Mellon University.
             </li>
             <li>
               Curley, M. (2016). The IT Capability Maturity Framework™ (IT-CMF™) 2nd Edition. Van
               Haren Publishing.
             </li>
             <li>
-              Pollock, N., & Williams, R. (2016). How to Make the Right Decision in a Crisis: The
-              Rationality of Following the Herd. Cambridge University Press.{' '}
+              Pollock, N., &amp; Williams, R. (2016). How to Make the Right Decision in a Crisis:
+              The Rationality of Following the Herd. Cambridge University Press.{' '}
               <a
                 href="https://www.cambridge.org/core/books/how-to-make-the-right-decision-in-a-crisis/A3B8C1D6F0E0F9B9A7A7B7B8E5F0E6F0"
                 target="_blank"

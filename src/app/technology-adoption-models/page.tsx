@@ -5,7 +5,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/artic
 import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
-  title: 'Technology Adoption Models & Frameworks — Series Overview',
+  title: 'Technology Adoption Models &amp; Frameworks – Series Overview',
   description:
     'A multi-part series exploring the most influential technology adoption models and frameworks, from foundational theories to modern enterprise, cloud, and AI playbooks.',
 }
@@ -15,12 +15,12 @@ const ModelsPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Article 1: The Landscape of Technology Adoption Models & Frameworks
+          Article 1: The Landscape of Technology Adoption Models &amp; Frameworks
         </h1>
 
         <p className="mb-3 sm:mb-6">
           “Getting a new idea adopted, even when it has obvious advantages, is often very
-          difficult.” — Everett M. Rogers, Diffusion of Innovations [1]
+          difficult.” – Everett M. Rogers, Diffusion of Innovations [1]
         </p>
 
         <p className="mb-3 sm:mb-6">
@@ -67,7 +67,7 @@ const ModelsPage = () => {
             strategy and operations, where the C-Suite makes high-stakes decisions. The central
             question here is: How does our organization decide to invest in, implement, and
             integrate a technology to achieve strategic goals? This perspective examines the
-            powerful forces at play—such as competitive and environmental pressures [2], the search
+            powerful forces at play–such as competitive and environmental pressures [2], the search
             for a sustainable advantage through strategic resource allocation [3], and the immense
             challenge of re-engineering established workflows [4]. It is the strategic umbrella
             under which all other adoption activities occur.
@@ -94,8 +94,8 @@ const ModelsPage = () => {
             motivates an external customer to adopt and integrate our technology into their lives?
             This involves understanding market needs, pricing, user experience (UX), and the social
             dynamics of consumer choice [1]. Whether it’s a new mobile app, a smart home device, or
-            a SaaS platform for small businesses, the drivers here—such as hedonic motivation and
-            price value—are fundamentally different from those in a mandatory corporate environment
+            a SaaS platform for small businesses, the drivers here–such as hedonic motivation and
+            price value–are fundamentally different from those in a mandatory corporate environment
             [9].
           </p>
         </section>
@@ -160,10 +160,10 @@ const ModelsPage = () => {
           </figure>
 
           <p className="mb-4">
-            Branch 1: The User’s & Consumer’s Journey will delve into the evolution of individual
-            acceptance models, covering both the internal employee and the external customer. We
-            will trace the path from foundational psychological theories, through the game-changing
-            simplicity of TAM, to the comprehensive unified theories of today.
+            Branch 1: The User’s &amp; Consumer’s Journey will delve into the evolution of
+            individual acceptance models, covering both the internal employee and the external
+            customer. We will trace the path from foundational psychological theories, through the
+            game-changing simplicity of TAM, to the comprehensive unified theories of today.
           </p>
           <p className="mb-6">
             Branch 2: The Organization’s Playbook will explore the frameworks that guide firm-level
@@ -184,12 +184,14 @@ const ModelsPage = () => {
         <SeriesNavigation />
 
         <section className="pt-8 border-t border-gray-200">
-          <h2 className="text-[20px] font-bold text-gray-900 mb-4">References</h2>
-          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 lg:space-y-4 font-sans">
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
+            References
+          </h2>
+          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 font-sans">
             <li>Rogers, E. M. (2003). Diffusion of Innovations (5th ed.). Free Press.</li>
             <li>
-              Tornatzky, L. G., & Fleischer, M. (1990). The Processes of Technological Innovation.
-              Lexington Books.
+              Tornatzky, L. G., &amp; Fleischer, M. (1990). The Processes of Technological
+              Innovation. Lexington Books.
             </li>
             <li>
               Barney, J. (1991). Firm resources and sustained competitive advantage. Journal of
@@ -204,11 +206,11 @@ const ModelsPage = () => {
               </a>
             </li>
             <li>
-              Hammer, M., & Champy, J. (1993). Reengineering the Corporation: A Manifesto for
+              Hammer, M., &amp; Champy, J. (1993). Reengineering the Corporation: A Manifesto for
               Business Revolution. Harper Business.
             </li>
             <li>
-              Fishbein, M., & Ajzen, I. (1975). Belief, Attitude, Intention, and Behavior: An
+              Fishbein, M., &amp; Ajzen, I. (1975). Belief, Attitude, Intention, and Behavior: An
               Introduction to Theory and Research. Addison-Wesley.
             </li>
             <li>
@@ -236,8 +238,8 @@ const ModelsPage = () => {
               </a>
             </li>
             <li>
-              Venkatesh, V., Morris, M. G., Davis, G. B., & Davis, F. D. (2003). User acceptance of
-              information technology: Toward a unified view. MIS Quarterly, 27(3), 425-478.{' '}
+              Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
+              of information technology: Toward a unified view. MIS Quarterly, 27(3), 425-478.{' '}
               <a
                 href="https://doi.org/10.2307/30036540"
                 target="_blank"
@@ -248,7 +250,7 @@ const ModelsPage = () => {
               </a>
             </li>
             <li>
-              Venkatesh, V., Thong, J. Y. L., & Xu, X. (2012). Consumer acceptance and use of
+              Venkatesh, V., Thong, J. Y. L., &amp; Xu, X. (2012). Consumer acceptance and use of
               information technology: Extending the unified theory of acceptance and use of
               technology. MIS Quarterly, 36(1), 157–178.{' '}
               <a

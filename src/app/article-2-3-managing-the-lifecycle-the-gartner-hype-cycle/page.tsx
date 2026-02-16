@@ -18,7 +18,7 @@ const Article23Page = () => {
         <section className="mb-6 sm:mb-10 text-gray-800">
           <p className="mb-3 sm:mb-6">
             Every year, technology executives face a version of the same challenge: they receive
-            pitches for emerging technologies—artificial intelligence, blockchain, edge computing,
+            pitches for emerging technologies–artificial intelligence, blockchain, edge computing,
             quantum computing, metaverse platforms. Consultants highlight how these technologies are
             &quot;transformative.&quot; Competitors appear to be investing. Industry analysts
             publish glowing reports about future potential. The pressure to invest builds. Yet
@@ -30,7 +30,7 @@ const Article23Page = () => {
             How should leaders think about technology maturity when facing inevitable hype around
             emerging technologies? How can they distinguish between technologies that represent
             genuine opportunities and those that are oversold? How should they pace investment in
-            emerging technologies—moving fast enough to avoid missing important shifts, but not so
+            emerging technologies–moving fast enough to avoid missing important shifts, but not so
             fast that they waste capital on technologies that never deliver practical value?
           </p>
           <p className="mb-3 sm:mb-6">
@@ -60,7 +60,7 @@ const Article23Page = () => {
             conference and consultant presentation. Investment flows. Yet reality typically lags
             vision. Many announced projects fail. Products often underperform expectations. During
             this phase, expectations become increasingly disconnected from reality. Consultants and
-            vendors have incentives to increase hype—generating buzz drives business.
+            vendors have incentives to increase hype–generating buzz drives business.
           </p>
           <p className="mb-3 sm:mb-6">
             <strong>Trough of Disillusionment:</strong> Expectations collide with reality. Failed
@@ -110,7 +110,7 @@ const Article23Page = () => {
           </p>
           <p className="mb-3 sm:mb-6">
             <strong>Pragmatic Followers:</strong> Organizations in moderately competitive
-            environments may strategically invest in the Slope of Enlightenment phase—after initial
+            environments may strategically invest in the Slope of Enlightenment phase–after initial
             hype has subsided, successful applications have emerged, and implementation knowledge is
             more available, but before the technology is completely mature and commoditized. This
             timing allows organizations to adopt proven approaches, benefit from available
@@ -142,7 +142,7 @@ const Article23Page = () => {
             Not all technologies follow the Hype Cycle path. Some genuinely transformative
             technologies move more directly from Innovation Trigger toward adoption without a severe
             Trough of Disillusionment. Some overhyped technologies never make it through the Trough
-            to genuine productivity—they collapse completely and never recover. The timing of each
+            to genuine productivity–they collapse completely and never recover. The timing of each
             phase is unpredictable. Some technologies spend years at peak expectations. Others drop
             quickly into disillusionment.
           </p>
@@ -276,8 +276,8 @@ const Article23Page = () => {
             strategy and risk tolerance.
           </p>
           <p className="mb-3 sm:mb-6">
-            Leaders who manage emerging technologies strategically—using Hype Cycle thinking
-            alongside strategic frameworks like TOE, RBV, and dynamic capabilities—position their
+            Leaders who manage emerging technologies strategically–using Hype Cycle thinking
+            alongside strategic frameworks like TOE, RBV, and dynamic capabilities–position their
             organizations to harness genuinely valuable technologies while avoiding the costs of
             hype-driven investments in technologies that never deliver practical value.
           </p>
@@ -297,21 +297,21 @@ const Article23Page = () => {
                 href="https://www.gartner.com/en/research/methodologies/gartner-hype-cycle"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#145044] underline"
+                className="text-blue-600 hover:underline"
               >
                 https://www.gartner.com/en/research/methodologies/gartner-hype-cycle
               </a>
             </li>
             <li>
-              Linden, A., & Fenn, J. (2003). Understanding Gartner&apos;s Hype Cycles. Gartner.
+              Linden, A., &amp; Fenn, J. (2003). Understanding Gartner&apos;s Hype Cycles. Gartner.
             </li>
             <li>Rogers, E. M. (1962). Diffusion of innovations. Free Press.</li>
             <li>
-              Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation.
-              Lexington Books.
+              Tornatzky, L. G., &amp; Fleischer, M. (1990). The processes of technological
+              innovation. Lexington Books.
             </li>
             <li>
-              Teece, D. J., Pisano, G., & Shuen, A. (1997). Dynamic capabilities and strategic
+              Teece, D. J., Pisano, G., &amp; Shuen, A. (1997). Dynamic capabilities and strategic
               management. Strategic Management Journal, 18(S1), 509-533.
             </li>
           </ol>

@@ -24,18 +24,19 @@ const BibliographyPage = () => {
           <h2 className={H2_CLASSES}>Executive Summary</h2>
           <p className="mb-4">
             This bibliography serves as the definitive, exhaustive scholarly record for the
-            &ldquo;Technology Adoption Models&rdquo; series. It consolidates every intellectual
-            foundation identified in the project&rsquo;s research database, bifurcated into the{' '}
-            <strong>Individual User&rsquo;s Journey</strong> (Branch 1) and the{' '}
-            <strong>Organization&rsquo;s Playbook</strong> (Branch 2).
+            &amp;ldquo;Technology Adoption Models&amp;rdquo; series. It consolidates every
+            intellectual foundation identified in the project&amp;rsquo;s research database,
+            bifurcated into the <strong>Individual User&amp;rsquo;s Journey</strong> (Branch 1) and
+            the <strong>Organization&amp;rsquo;s Playbook</strong> (Branch 2).
           </p>
           <p className="mb-4">
             For doctoral-level researchers, this document provides the complete longitudinal record
             of theory evolution, ensuring no seminal work from the source RIS datasets is omitted.
             For executive leadership, it establishes a high-fidelity audit trail for every framework
             and standard referenced in the strategic roadmap. Every entry is meticulously
-            synchronized with the project&rsquo;s Zotero database, utilizing the exact persistent
-            identifiers (URLs) and specific access dates (Y2 metadata) provided in the source files.
+            synchronized with the project&amp;rsquo;s Zotero database, utilizing the exact
+            persistent identifiers (URLs) and specific access dates (Y2 metadata) provided in the
+            source files.
           </p>
         </section>
 
@@ -55,8 +56,8 @@ const BibliographyPage = () => {
             <li>
               <strong>Inventory Dashboard (Quick Scan):</strong> Located immediately below, this
               section provides a high-level list of all unique titles and authors in a side-by-side
-              comparison. Use this for a fast &ldquo;at-a-glance&rdquo; verification of the scope
-              and coverage of each track.
+              comparison. Use this for a fast &amp;ldquo;at-a-glance&amp;rdquo; verification of the
+              scope and coverage of each track.
             </li>
             <li>
               <strong>Detailed APA Reference Lists:</strong> Located further down, these sections
@@ -80,7 +81,7 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">1. Theory of Reasoned Action</div>
-              <div className="text-sm text-gray-600">Fishbein & Ajzen (1975)</div>
+              <div className="text-sm text-gray-600">Fishbein &amp; Ajzen (1975)</div>
             </a>
             <a
               href="/bibliography-1-2-diffusion-of-innovations-rogers"
@@ -101,14 +102,14 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">4. Innovation Resistance</div>
-              <div className="text-sm text-gray-600">Ram & Sheth (1989)</div>
+              <div className="text-sm text-gray-600">Ram &amp; Sheth (1989)</div>
             </a>
             <a
               href="/bibliography-1-5-status-quo-bias-samuelson-zeckhauser-1988"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">5. Status Quo Bias</div>
-              <div className="text-sm text-gray-600">Samuelson & Zeckhauser (1988)</div>
+              <div className="text-sm text-gray-600">Samuelson &amp; Zeckhauser (1988)</div>
             </a>
             <a
               href="/bibliography-1-6-technology-acceptance-model-tam-davis-1989"
@@ -143,14 +144,14 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">10. Decomposed TPB</div>
-              <div className="text-sm text-gray-600">Taylor & Todd (1995)</div>
+              <div className="text-sm text-gray-600">Taylor &amp; Todd (1995)</div>
             </a>
             <a
               href="/bibliography-1-11-task-technology-fit-ttf-goodhue-thompson-1995"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">11. Task-Technology Fit</div>
-              <div className="text-sm text-gray-600">Goodhue & Thompson (1995)</div>
+              <div className="text-sm text-gray-600">Goodhue &amp; Thompson (1995)</div>
             </a>
             <a
               href="/bibliography-1-12-technology-readiness-index-tri-parasuraman-2000"
@@ -164,7 +165,7 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">13. TAM2</div>
-              <div className="text-sm text-gray-600">Venkatesh & Davis (2000)</div>
+              <div className="text-sm text-gray-600">Venkatesh &amp; Davis (2000)</div>
             </a>
             <a
               href="/bibliography-1-14-expectation-confirmation-model-ecm-bhattacherjee-2001"
@@ -185,7 +186,7 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">16. MATH</div>
-              <div className="text-sm text-gray-600">Venkatesh & Brown (2001)</div>
+              <div className="text-sm text-gray-600">Venkatesh &amp; Brown (2001)</div>
             </a>
             <a
               href="/bibliography-1-17-value-based-adoption-kim-2007"
@@ -206,7 +207,7 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">19. TAM3</div>
-              <div className="text-sm text-gray-600">Venkatesh & Bala (2008)</div>
+              <div className="text-sm text-gray-600">Venkatesh &amp; Bala (2008)</div>
             </a>
             <a
               href="/bibliography-1-20-utaut2-venkatesh-2012"
@@ -220,7 +221,7 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">21. TRI 2.0</div>
-              <div className="text-sm text-gray-600">Parasuraman & Colby (2015)</div>
+              <div className="text-sm text-gray-600">Parasuraman &amp; Colby (2015)</div>
             </a>
           </div>
         </section>
@@ -233,14 +234,14 @@ const BibliographyPage = () => {
               <thead>
                 <tr className="bg-gray-100">
                   <th className="border border-gray-300 px-3 py-2 text-left font-bold">
-                    Track 1: The Individual User&rsquo;s Journey (n=21)
+                    Track 1: The Individual User&amp;rsquo;s Journey (n=21)
                     <br />
                     <span className="text-xs font-normal">
                       Verified against Individual RIS export.
                     </span>
                   </th>
                   <th className="border border-gray-300 px-3 py-2 text-left font-bold">
-                    Track 2: The Organization&rsquo;s Playbook (n=21)
+                    Track 2: The Organization&amp;rsquo;s Playbook (n=21)
                     <br />
                     <span className="text-xs font-normal">Verified against Org RIS export.</span>
                   </th>
