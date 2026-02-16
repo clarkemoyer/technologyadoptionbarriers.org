@@ -4,7 +4,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
-  title: 'Article 1: Branch Introduction — The User’s Journey',
+  title: 'Article 1: Branch Introduction – The User’s Journey',
   description:
     'Branch introduction to the evolution of individual technology acceptance and use models, from foundational theories through TAM, UTAUT, and specialized adoption frameworks.',
 }
@@ -15,16 +15,16 @@ const UsersJourneyPage = () => {
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Article 1: Branch Introduction – The User’s Journey</h1>
 
-        <section className="mb-10 text-gray-800">
-          <p className="mb-6">
+        <section className="mb-6 sm:mb-10 text-gray-800">
+          <p className="mb-3 sm:mb-6">
             In our introductory article, we established the landscape of technology adoption through
             the lens of a trifecta: Organizational, User, and Consumer Adoption. We positioned
-            Organizational Adoption—the C-Suite’s strategic focus—as the apex. We now turn our
+            Organizational Adoption–the C-Suite’s strategic focus–as the apex. We now turn our
             attention to the other two domains, which together form the deeply human side of the
             adoption equation: the internal employee’s decision to use a new system and the external
             customer’s choice to integrate a technology into their lives.
           </p>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             This branch of our series, The User’s Journey, delves into the rich intellectual history
             of individual technology acceptance and use. We will explore the evolution of the models
             designed to explain and predict the most fundamental of behaviors: the decision by a
@@ -32,18 +32,18 @@ const UsersJourneyPage = () => {
           </p>
         </section>
 
-        <section className="mb-10 text-gray-800">
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
+        <section className="mb-6 sm:mb-10 text-gray-800">
+          <h2 className={H2_CLASSES}>
             The Core Question: Deconstructing the “Acceptance” Decision
           </h2>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             At the heart of this entire field of study lies a foundational puzzle: What are the key
             cognitive levers that determine whether an individual will accept and use a new
             technology? Is it a purely rational calculation of costs and benefits? Is it the
             influence of peers and managers? Or is it a deeper, more personal assessment of one’s
             own capabilities and the intrinsic enjoyment derived from the experience?
           </p>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             The answer, as decades of research have shown, is a complex interplay of all these
             factors. Understanding this decision-making process is not merely an academic exercise;
             it is critical for realizing the value of any technological investment. A perfectly
@@ -54,16 +54,14 @@ const UsersJourneyPage = () => {
           </p>
         </section>
 
-        <section className="mb-10 text-gray-800">
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
-            From Psychology to Practice: A Narrative Arc
-          </h2>
-          <p className="mb-6">
+        <section className="mb-6 sm:mb-10 text-gray-800">
+          <h2 className={H2_CLASSES}>From Psychology to Practice: A Narrative Arc</h2>
+          <p className="mb-3 sm:mb-6">
             The intellectual history of individual adoption models follows a clear and fascinating
             narrative arc, moving from the general to the specific and from fragmentation to
             synthesis.
           </p>
-          <ul className="list-disc pl-5 space-y-4 mb-6">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
               <strong>The Foundational “Grandparents”:</strong> The earliest attempts to model this
               behavior did not originate in information systems research but drew from a rich
@@ -106,11 +104,9 @@ const UsersJourneyPage = () => {
           </ul>
         </section>
 
-        <section className="mb-10 text-gray-800">
-          <h2 className="text-[24px] md:text-[28px] font-bold text-[#145044] mb-4">
-            Roadmap for this Branch
-          </h2>
-          <p className="mb-6">
+        <section className="mb-6 sm:mb-10 text-gray-800">
+          <h2 className={H2_CLASSES}>Roadmap for this Branch</h2>
+          <p className="mb-3 sm:mb-6">
             This narrative provides the structure for the articles to come. Our exploration of the
             user’s journey is organized as follows:
           </p>
@@ -136,9 +132,9 @@ const UsersJourneyPage = () => {
           <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
             References
           </h2>
-          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 lg:space-y-4 font-sans">
+          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 font-sans">
             <li>
-              Fishbein, M., & Ajzen, I. (1975). Belief, Attitude, Intention, and Behavior: An
+              Fishbein, M., &amp; Ajzen, I. (1975). Belief, Attitude, Intention, and Behavior: An
               Introduction to Theory and Research. Addison-Wesley.
             </li>
             <li>
@@ -159,7 +155,7 @@ const UsersJourneyPage = () => {
               theory. Prentice-Hall.
             </li>
             <li>
-              Davis, F. D., Bagozzi, R. P., & Warshaw, P. R. (1992). Extrinsic and intrinsic
+              Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1992). Extrinsic and intrinsic
               motivation to use computers in the workplace. Journal of Applied Social Psychology,
               22(14), 1111-1132.{' '}
               <a
@@ -172,8 +168,8 @@ const UsersJourneyPage = () => {
               </a>
             </li>
             <li>
-              Thompson, R. L., Higgins, C. A., & Howell, J. M. (1991). Personal computing: Toward a
-              conceptual model of utilization. MIS Quarterly, 15(1), 125-143.{' '}
+              Thompson, R. L., Higgins, C. A., &amp; Howell, J. M. (1991). Personal computing:
+              Toward a conceptual model of utilization. MIS Quarterly, 15(1), 125-143.{' '}
               <a
                 href="https://doi.org/10.2307/249443"
                 target="_blank"
@@ -196,7 +192,7 @@ const UsersJourneyPage = () => {
               </a>
             </li>
             <li>
-              Venkatesh, V., & Davis, F. D. (2000). A theoretical extension of the technology
+              Venkatesh, V., &amp; Davis, F. D. (2000). A theoretical extension of the technology
               acceptance model: Four longitudinal field studies. Management Science, 46(2), 186-204.{' '}
               <a
                 href="https://doi.org/10.1287/mnsc.46.2.186.11926"
@@ -208,8 +204,8 @@ const UsersJourneyPage = () => {
               </a>
             </li>
             <li>
-              Venkatesh, V., & Bala, H. (2008). Technology acceptance model 3 and a research agenda
-              on interventions. Decision Sciences, 39(2), 273-315.{' '}
+              Venkatesh, V., &amp; Bala, H. (2008). Technology acceptance model 3 and a research
+              agenda on interventions. Decision Sciences, 39(2), 273-315.{' '}
               <a
                 href="https://doi.org/10.1111/j.1540-5915.2008.00192.x"
                 target="_blank"
@@ -220,8 +216,8 @@ const UsersJourneyPage = () => {
               </a>
             </li>
             <li>
-              Venkatesh, V., Morris, M. G., Davis, G. B., & Davis, F. D. (2003). User acceptance of
-              information technology: Toward a unified view. MIS Quarterly, 27(3), 425-478.{' '}
+              Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
+              of information technology: Toward a unified view. MIS Quarterly, 27(3), 425-478.{' '}
               <a
                 href="https://doi.org/10.2307/30036540"
                 target="_blank"
@@ -232,7 +228,7 @@ const UsersJourneyPage = () => {
               </a>
             </li>
             <li>
-              Venkatesh, V., Thong, J. Y. L., & Xu, X. (2012). Consumer acceptance and use of
+              Venkatesh, V., Thong, J. Y. L., &amp; Xu, X. (2012). Consumer acceptance and use of
               information technology: Extending the unified theory of acceptance and use of
               technology. MIS Quarterly, 36(1), 157–178.{' '}
               <a
@@ -245,7 +241,7 @@ const UsersJourneyPage = () => {
               </a>
             </li>
             <li>
-              Goodhue, D. L., & Thompson, R. L. (1995). Task-technology fit and individual
+              Goodhue, D. L., &amp; Thompson, R. L. (1995). Task-technology fit and individual
               performance. MIS Quarterly, 19(2), 213-236.{' '}
               <a
                 href="https://doi.org/10.2307/249244"
