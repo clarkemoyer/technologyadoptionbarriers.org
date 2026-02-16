@@ -4,7 +4,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
-  title: 'Article 2: Branch Introduction — The Organization’s Playbook',
+  title: 'Article 2: Branch Introduction – The Organization’s Playbook',
   description:
     'Branch introduction to organizational technology adoption frameworks, covering strategy, maturity models, hype cycles, enterprise architecture, security, cloud adoption, and AI adoption.',
 }
@@ -15,15 +15,15 @@ const OrganizationsPlaybookPage = () => {
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Article 2: Branch Introduction – The Organization’s Playbook</h1>
 
-        <section className="mb-10 text-gray-800">
-          <p className="mb-6">
+        <section className="mb-6 sm:mb-10 text-gray-800">
+          <p className="mb-3 sm:mb-6">
             Having thoroughly explored the psychological and cognitive drivers of the individual’s
             adoption journey, we now pivot our focus from the micro to the macro. We ascend from the
             user’s desktop to the C-Suite, shifting our lens from the personal calculus of
             acceptance to the strategic imperatives of the organization. Welcome to the second major
             branch of our series: The Organization’s Playbook.
           </p>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             Here, the central question is no longer “Will an individual use this technology?” but
             rather, “How does our organization decide to invest in, implement, and integrate a
             technology to achieve strategic goals?” This is the realm of high-stakes capital
@@ -33,9 +33,9 @@ const OrganizationsPlaybookPage = () => {
           </p>
         </section>
 
-        <section className="mb-10 text-gray-800">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>The Strategic Imperative: Beyond User Clicks</h2>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             Organizational adoption is a fundamentally different challenge from individual
             acceptance. While still deeply linked with the foundational theories of DOI and IDT [1],
             it is a deliberate, top-down, and resource-intensive endeavor. The decision to deploy a
@@ -49,14 +49,14 @@ const OrganizationsPlaybookPage = () => {
           </p>
         </section>
 
-        <section className="mb-10 text-gray-800">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>From Theory to Frameworks: A Narrative Arc</h2>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             The evolution of organizational adoption guidance follows a distinct path, moving from
             high-level academic theories that explain the “why” to detailed, prescriptive frameworks
             that dictate the “how.”
           </p>
-          <ul className="list-disc pl-5 space-y-4 mb-6">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
               <strong>The Strategic “Why”:</strong> The intellectual foundation for organizational
               adoption lies in strategic management theory. Foundational frameworks like the
@@ -110,9 +110,9 @@ const OrganizationsPlaybookPage = () => {
           </ul>
         </section>
 
-        <section className="mb-10 text-gray-800">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>Roadmap for this Branch</h2>
-          <p className="mb-6">
+          <p className="mb-3 sm:mb-6">
             This narrative arc provides the structure for the articles in this branch. Our
             exploration of the organization’s playbook is organized as follows:
           </p>
@@ -140,11 +140,11 @@ const OrganizationsPlaybookPage = () => {
           <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
             References
           </h2>
-          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 lg:space-y-4 font-sans">
+          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 font-sans">
             <li>Rogers, E. M. (1962). Diffusion of Innovations. Free Press of Glencoe.</li>
             <li>
-              Tornatzky, L. G., & Fleischer, M. (1990). The Processes of Technological Innovation.
-              Lexington Books.
+              Tornatzky, L. G., &amp; Fleischer, M. (1990). The Processes of Technological
+              Innovation. Lexington Books.
             </li>
             <li>
               Barney, J. (1991). Firm resources and sustained competitive advantage. Journal of
@@ -159,16 +159,16 @@ const OrganizationsPlaybookPage = () => {
               </a>
             </li>
             <li>
-              Paulk, M. C., Curtis, B., Chrissis, M. B., & Weber, C. V. (1993). Capability Maturity
-              Model for Software, Version 1.1. Carnegie Mellon University.
+              Paulk, M. C., Curtis, B., Chrissis, M. B., &amp; Weber, C. V. (1993). Capability
+              Maturity Model for Software, Version 1.1. Carnegie Mellon University.
             </li>
             <li>
               Curley, M. (2016). The IT Capability Maturity Framework™ (IT-CMF™) 2nd Edition. Van
               Haren Publishing.
             </li>
             <li>
-              Pollock, N., & Williams, R. (2016). How to Make the Right Decision in a Crisis: The
-              Rationality of Following the Herd. Cambridge University Press.{' '}
+              Pollock, N., &amp; Williams, R. (2016). How to Make the Right Decision in a Crisis:
+              The Rationality of Following the Herd. Cambridge University Press.{' '}
               <a
                 href="https://www.cambridge.org/core/books/how-to-make-the-right-decision-in-a-crisis/A3B8C1D6F0E0F9B9A7A7B7B8E5F0E6F0"
                 target="_blank"

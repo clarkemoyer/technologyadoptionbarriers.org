@@ -4,7 +4,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
-  title: 'Article 1.1: The Bedrock — Foundational Theories That Shaped Tech Acceptance',
+  title: 'Article 1.1: The Bedrock – Foundational Theories That Shaped Tech Acceptance',
   description:
     'An overview of pre-TAM theories that laid the groundwork for technology acceptance research, including key constructs that influenced later adoption models.',
 }
@@ -24,7 +24,7 @@ const FoundationalTheoriesPage = () => {
             a broader and more diverse set of foundational theories. These “grandparent” models,
             drawn from sociology, social psychology, and management, provided the essential
             intellectual DNA for everything that followed. To understand the evolution of adoption
-            research, we must first appreciate this bedrock—the core constructs and perspectives
+            research, we must first appreciate this bedrock–the core constructs and perspectives
             that early researchers adapted to the specific challenge of technology use.
           </p>
           <p className="mb-3 sm:mb-6">
@@ -41,7 +41,7 @@ const FoundationalTheoriesPage = () => {
             innovation spreads through a social system over time. DOI describes the process by which
             individuals and organizations adopt new ideas, products, or practices.
           </p>
-          <p className="mb-3 sm:mb-4">
+          <p className="mb-3 sm:mb-6">
             Its most enduring contribution to the field is the identification of five key perceived
             attributes of an innovation that influence its rate of adoption:
           </p>
@@ -99,10 +99,10 @@ const FoundationalTheoriesPage = () => {
             Developed by Fishbein and Ajzen [2], the Theory of Reasoned Action was a landmark
             general theory in social psychology designed to explain the specifics of individual
             behavior. Its central premise is that the most immediate predictor of a person’s
-            behavior is their behavioral intention—their subjective probability that they will
+            behavior is their behavioral intention–their subjective probability that they will
             perform the behavior in question.
           </p>
-          <p className="mb-3 sm:mb-4">This intention, in turn, is determined by two key factors:</p>
+          <p className="mb-3 sm:mb-6">This intention, in turn, is determined by two key factors:</p>
           <ol className="list-decimal pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
               <strong>Attitude Toward the Behavior:</strong> The individual’s positive or negative
@@ -119,7 +119,7 @@ const FoundationalTheoriesPage = () => {
             TRA’s primary contribution was its elegant causal chain: beliefs influence attitudes and
             subjective norms, which together shape intentions, which in turn lead to behavior. It
             established the critical role of intention as a mediator and provided the basic
-            two-pronged structure—personal attitude and social influence—that would become a staple
+            two-pronged structure–personal attitude and social influence–that would become a staple
             of future adoption models.
           </p>
 
@@ -139,8 +139,8 @@ const FoundationalTheoriesPage = () => {
           <p className="mb-3 sm:mb-6">
             PBC influences behavior directly and indirectly by influencing behavioral intention.
             This addition was profoundly important for technology adoption research, as it formally
-            introduced the concepts of self-efficacy and facilitating conditions—barriers and
-            enablers—into the dominant theoretical model.
+            introduced the concepts of self-efficacy and facilitating conditions–barriers and
+            enablers–into the dominant theoretical model.
           </p>
 
           <h2 className={H2_CLASSES}>Social Cognitive Theory (SCT)</h2>
@@ -164,7 +164,7 @@ const FoundationalTheoriesPage = () => {
             </li>
           </ol>
           <p className="mb-3 sm:mb-6">
-            A key contribution of SCT to technology adoption was its emphasis on self-efficacy—an
+            A key contribution of SCT to technology adoption was its emphasis on self-efficacy–an
             individual’s belief in their own capability to execute the actions required to achieve a
             specific goal. This concept is a more refined version of TPB’s Perceived Behavioral
             Control and became a cornerstone construct in many subsequent models.
@@ -200,7 +200,7 @@ const FoundationalTheoriesPage = () => {
             TPB, to create a more comprehensive model.
           </p>
           <p className="mb-3 sm:mb-6">
-            The MPCU is significant not for its dominance—it was soon overshadowed—but for its role
+            The MPCU is significant not for its dominance–it was soon overshadowed–but for its role
             as a conceptual bridge. It demonstrated the value of integrating multiple theoretical
             perspectives and tailoring them to the specific context of computer use, setting the
             stage for the parsimonious and powerful model that would come to define the field: the
@@ -217,7 +217,7 @@ const FoundationalTheoriesPage = () => {
           <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 font-sans">
             <li>Rogers, E. M. (1962). Diffusion of Innovations. Free Press of Glencoe.</li>
             <li>
-              Fishbein, M., & Ajzen, I. (1975). Belief, Attitude, Intention, and Behavior: An
+              Fishbein, M., &amp; Ajzen, I. (1975). Belief, Attitude, Intention, and Behavior: An
               Introduction to Theory and Research. Addison-Wesley.
             </li>
             <li>
@@ -237,7 +237,7 @@ const FoundationalTheoriesPage = () => {
               theory. Prentice-Hall.
             </li>
             <li>
-              Davis, F. D., Bagozzi, R. P., & Warshaw, P. R. (1992). Extrinsic and intrinsic
+              Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1992). Extrinsic and intrinsic
               motivation to use computers in the workplace. Journal of Applied Social Psychology,
               22(14), 1111-1132.{' '}
               <a
@@ -250,8 +250,8 @@ const FoundationalTheoriesPage = () => {
               </a>
             </li>
             <li>
-              Thompson, R. L., Higgins, C. A., & Howell, J. M. (1991). Personal computing: Toward a
-              conceptual model of utilization. MIS Quarterly, 15(1), 125-143.{' '}
+              Thompson, R. L., Higgins, C. A., &amp; Howell, J. M. (1991). Personal computing:
+              Toward a conceptual model of utilization. MIS Quarterly, 15(1), 125-143.{' '}
               <a
                 href="https://doi.org/10.2307/249443"
                 target="_blank"
