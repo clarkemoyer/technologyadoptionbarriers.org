@@ -1,14 +1,13 @@
 import React from 'react'
 import type { Metadata } from 'next'
-
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title:
-    'Article 1.4: The Grand Unification — The Unified Theory of Acceptance and Use of Technology (UTAUT)',
+    'Article 1.4: The Grand Unification – The Unified Theory of Acceptance and Use of Technology (UTAUT)',
   description:
-    'A comprehensive exploration of UTAUT&apos;s development, structure, and significance as a major synthesis of eight prominent technology adoption models, revealing how performance expectancy, effort expectancy, social influence, and facilitating conditions drive technology adoption across diverse user populations.',
+    "A comprehensive exploration of UTAUT's development, structure, and significance as a major synthesis of eight prominent technology adoption models, revealing how performance expectancy, effort expectancy, social influence, and facilitating conditions drive technology adoption across diverse user populations.",
 }
 
 const Article14Page = () => {
@@ -29,7 +28,7 @@ const Article14Page = () => {
             embraced new technologies while others resisted. The Technology Acceptance Model
             dominated in some circles. The Theory of Planned Behavior held sway in others. The
             Diffusion of Innovations perspective offered its own compelling logic. Meanwhile,
-            researchers continued proposing new models—the Motivational Model, the Combined TAM-TPB,
+            researchers continued proposing new models–the Motivational Model, the Combined TAM-TPB,
             the Model of PC Utilization, Social Cognitive Theory applications.
           </p>
           <p className="mb-3 sm:mb-6">
@@ -48,14 +47,14 @@ const Article14Page = () => {
             theories in information systems research. By systematically reviewing eight major
             adoption theories, conducting extensive empirical testing across organizations, and
             identifying core variables that unified seemingly disparate frameworks, these
-            researchers developed the Unified Theory of Acceptance and Use of Technology—UTAUT.
+            researchers developed the Unified Theory of Acceptance and Use of Technology–UTAUT.
           </p>
           <p className="mb-3 sm:mb-6">
             Their work demonstrated something remarkable: beneath the surface complexity of eight
             different models, a fundamental coherence existed. Different theories using different
             language were, in essence, measuring the same underlying constructs. The models could be
             integrated into a parsimonious framework explaining 70% of variance in adoption
-            intention—substantially better than traditional single-model approaches. But UTAUT did
+            intention–substantially better than traditional single-model approaches. But UTAUT did
             more than unify existing theory. It illuminated how adoption processes varied across
             different users and contexts through systematic examination of moderating variables. The
             result transformed technology adoption from a fragmented theoretical landscape into an
@@ -80,14 +79,14 @@ const Article14Page = () => {
           <p className="mb-3 sm:mb-6">
             Yet other traditions offered competing visions. The{' '}
             <strong>Theory of Planned Behavior</strong> emphasized that perceived behavioral
-            control—individuals&apos; confidence in their ability to execute behaviors—was critical
+            control–individuals&apos; confidence in their ability to execute behaviors–was critical
             alongside attitudes and subjective norms. This framework produced evidence that
             behavioral control sometimes exceeded ease of use in predictive power. Was TAM missing
             something fundamental?
           </p>
           <p className="mb-3 sm:mb-6">
             The <strong>Diffusion of Innovations</strong> perspective, rooted in Rogers&apos;s
-            classic framework, emphasized characteristics of innovations themselves—relative
+            classic framework, emphasized characteristics of innovations themselves–relative
             advantage, compatibility, complexity, trialability, and observability. This approach
             examined how innovation characteristics determined diffusion rates across populations
             and over time. Yet it seemed to focus on macro-level patterns and innovation properties
@@ -98,10 +97,10 @@ const Article14Page = () => {
             intrinsic-extrinsic motivation theory into technology adoption, proposing that both
             practical motivations (extrinsic rewards) and inherent enjoyment (intrinsic motivation)
             drove adoption. This suggested that hedonic dimensions mattered alongside utilitarian
-            concerns—a critical insight that TAM and related models minimized.
+            concerns–a critical insight that TAM and related models minimized.
           </p>
           <p className="mb-3 sm:mb-6">
-            The <strong>Model of PC Utilization</strong> emphasized technology fit—whether
+            The <strong>Model of PC Utilization</strong> emphasized technology fit–whether
             innovations matched job requirements and task demands. It highlighted complexity not
             merely as a perceptual variable but as an objective characteristic of systems, and
             incorporated job relevance as a primary adoption driver. This perspective suggested
@@ -117,7 +116,7 @@ const Article14Page = () => {
           <p className="mb-3 sm:mb-6">
             <strong>Social Cognitive Theory</strong>, emphasizing self-efficacy and personal agency,
             suggested that individuals&apos; confidence in their capability to use technology
-            successfully was central to adoption—potentially distinct from perceived ease of use.
+            successfully was central to adoption–potentially distinct from perceived ease of use.
             The theory further emphasized how social influences shaped both efficacy beliefs and
             behavior through observational learning and vicarious experience.
           </p>
@@ -159,7 +158,7 @@ const Article14Page = () => {
           </p>
           <p className="mb-3 sm:mb-6">
             The <strong>Theory of Planned Behavior</strong> extended TRA by adding perceived
-            behavioral control—individuals&apos; confidence in their ability to perform behaviors.
+            behavioral control–individuals&apos; confidence in their ability to perform behaviors.
             TPB recognized that intentions do not always translate to behavior; perceived capability
             to execute intentions was required. Some individuals might intend to use technology but
             believe themselves incapable, preventing use.
@@ -191,7 +190,7 @@ const Article14Page = () => {
           </p>
           <p className="mb-3 sm:mb-6">
             <strong>Social Cognitive Theory</strong>, developed by Bandura, contributed
-            self-efficacy theory—individuals&apos; confidence in their capability to execute
+            self-efficacy theory–individuals&apos; confidence in their capability to execute
             specific tasks. SCT emphasized that personal agency, efficacy beliefs, and
             self-regulation determined behavior alongside external influences.
           </p>
@@ -208,15 +207,13 @@ const Article14Page = () => {
             rather, it reveals the underlying structure beneath apparent complexity.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Performance Expectancy: The Strongest Predictor
-          </h3>
+          <h3 className={H3_CLASSES}>Performance Expectancy: The Strongest Predictor</h3>
           <p className="mb-3 sm:mb-6">
             <strong>Performance expectancy</strong> represents the degree to which individuals
             believe that using a system will help them attain gains in job performance. This
             construct synthesizes several seemingly different variables from preceding models:
           </p>
-          <ul className="list-disc ml-6 sm:ml-8 mb-3 sm:mb-6 space-y-2">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>Perceived usefulness from TAM and related technology acceptance models</li>
             <li>Extrinsic motivation from the Motivational Model</li>
             <li>Relative advantage from Diffusion of Innovations Theory</li>
@@ -232,7 +229,7 @@ const Article14Page = () => {
             The research demonstrates compelling consistency: across diverse organizations,
             technology types, and user populations, performance expectancy consistently emerges as{' '}
             <strong>the strongest predictor of intention to use technology</strong>. The effect size
-            is robust—performance expectancy influences adoption intention more powerfully than any
+            is robust–performance expectancy influences adoption intention more powerfully than any
             other variable. This consistency across 40 years of technology adoption research,
             despite using different terminology and theoretical frameworks, provided powerful
             evidence that the various models had identified the same fundamental driver.
@@ -240,21 +237,19 @@ const Article14Page = () => {
           <p className="mb-3 sm:mb-6">
             Why does performance expectancy dominate? The answer lies in rational self-interest
             grounded in human motivation. When individuals assess whether to adopt new
-            technology—particularly in organizational contexts where adoption is consequential for
-            work effectiveness—they fundamentally ask: &ldquo;Will this help me perform my job
+            technology–particularly in organizational contexts where adoption is consequential for
+            work effectiveness–they fundamentally ask: &ldquo;Will this help me perform my job
             better?&rdquo; Technology offering clear performance advantages overcomes adoption
             barriers. Technology perceived as performance-neutral or performance-negative faces
             formidable adoption resistance regardless of other favorable characteristics.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Effort Expectancy: The Experience-Moderated Variable
-          </h3>
+          <h3 className={H3_CLASSES}>Effort Expectancy: The Experience-Moderated Variable</h3>
           <p className="mb-3 sm:mb-6">
             <strong>Effort expectancy</strong> represents the degree of ease associated with system
             use. This construct synthesizes:
           </p>
-          <ul className="list-disc ml-6 sm:ml-8 mb-3 sm:mb-6 space-y-2">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>Perceived ease of use from TAM</li>
             <li>Complexity from the Model of PC Utilization</li>
             <li>Ease of use from Innovation Diffusion Theory</li>
@@ -273,7 +268,7 @@ const Article14Page = () => {
             willing to invest effort in learning if performance benefits justify the investment.
             This moderation effect illuminates why organizations implementing complex enterprise
             systems sometimes see dramatically different adoption patterns across employee age
-            groups—not because older workers are inherently less capable, but because effort
+            groups–not because older workers are inherently less capable, but because effort
             expectancy carries greater psychological weight in their adoption calculus.
           </p>
           <p className="mb-3 sm:mb-6">
@@ -285,14 +280,12 @@ const Article14Page = () => {
             adoption.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Social Influence: Context-Dependent and Mandate-Moderated
-          </h3>
+          <h3 className={H3_CLASSES}>Social Influence: Context-Dependent and Mandate-Moderated</h3>
           <p className="mb-3 sm:mb-6">
             <strong>Social influence</strong> represents the degree to which individuals perceive
             that important others believe they should use a new system. This construct synthesizes:
           </p>
-          <ul className="list-disc ml-6 sm:ml-8 mb-3 sm:mb-6 space-y-2">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>Subjective norms from the Theory of Reasoned Action and TAM</li>
             <li>Social factors from the Model of PC Utilization</li>
             <li>Image concerns from extended TAM research</li>
@@ -301,7 +294,7 @@ const Article14Page = () => {
           <p className="mb-3 sm:mb-6">
             Social influence demonstrates a direct effect on behavioral intention, though this
             effect is substantially moderated by context and voluntariness of use. In mandatory
-            adoption contexts—situations where organizational policy requires system use—social
+            adoption contexts–situations where organizational policy requires system use–social
             influence exerts stronger direct effects. When the organization mandates adoption,
             social pressure reinforces organizational requirement, creating powerful normative
             pressure toward use.
@@ -315,23 +308,21 @@ const Article14Page = () => {
           </p>
           <p className="mb-3 sm:mb-6">
             This moderation reveals that social influence operates through organizational and social
-            pressure. When institutional requirements align with social norms—when everyone else is
-            expected to use a system because the organization requires it—social pressure supports
+            pressure. When institutional requirements align with social norms–when everyone else is
+            expected to use a system because the organization requires it–social pressure supports
             adoption. When adoption remains voluntary and private, the same social influence exerts
             weaker effects. This insight explains why some organizational technology adoption occurs
             not because individuals genuinely prefer adoption but because institutional pressure
             makes resistance costly.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Facilitating Conditions: The Enabler of Actual Use
-          </h3>
+          <h3 className={H3_CLASSES}>Facilitating Conditions: The Enabler of Actual Use</h3>
           <p className="mb-3 sm:mb-6">
             <strong>Facilitating conditions</strong> represent the degree to which individuals
             believe that organizational and technical infrastructure exist to support use of the
             system. This construct synthesizes:
           </p>
-          <ul className="list-disc ml-6 sm:ml-8 mb-3 sm:mb-6 space-y-2">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>Perceived behavioral control from the Theory of Planned Behavior</li>
             <li>External control variables from various adoption models</li>
             <li>Compatibility from Diffusion of Innovations</li>
@@ -354,7 +345,7 @@ const Article14Page = () => {
             prevent translating intention into behavior.
           </p>
           <p className="mb-3 sm:mb-6">
-            Facilitating conditions thus operate as enablers or constraints—organizational
+            Facilitating conditions thus operate as enablers or constraints–organizational
             prerequisites that permit intention to translate into actual behavior. Organizations
             cannot assume that favorable attitudes and intentions automatically generate use
             behavior; they must ensure that infrastructure, support, and resources enable intended
@@ -368,13 +359,11 @@ const Article14Page = () => {
             populations and contexts. Four moderating variables prove particularly significant:
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Gender: Differential Emphasis on Adoption Drivers
-          </h3>
+          <h3 className={H3_CLASSES}>Gender: Differential Emphasis on Adoption Drivers</h3>
           <p className="mb-3 sm:mb-6">
             Research reveals that gender moderates multiple relationships in the adoption model.
             Males place relatively greater emphasis on performance expectancy in adoption
-            decisions—when considering technology, men typically prioritize performance benefits and
+            decisions–when considering technology, men typically prioritize performance benefits and
             relative advantage. They appear more willing to adopt technology perceived as beneficial
             even if effort expectancy is moderate.
           </p>
@@ -392,9 +381,7 @@ const Article14Page = () => {
             uncertainty rather than fundamental technology preferences.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Age: The Digital Divide Mechanism
-          </h3>
+          <h3 className={H3_CLASSES}>Age: The Digital Divide Mechanism</h3>
           <p className="mb-3 sm:mb-6">
             Age significantly moderates multiple adoption relationships. Older users place greater
             emphasis on effort expectancy and facilitating conditions, reflecting both potentially
@@ -409,7 +396,7 @@ const Article14Page = () => {
           </p>
           <p className="mb-3 sm:mb-6">
             Age also moderates social influence effects. Younger users appear somewhat more
-            susceptible to social influence in adoption decisions—peer adoption and social norms
+            susceptible to social influence in adoption decisions–peer adoption and social norms
             affect younger user choices more strongly than older users. This effect likely reflects
             younger individuals&apos; greater embeddedness in peer networks and their social
             reference group orientations.
@@ -423,12 +410,10 @@ const Article14Page = () => {
             differences.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Experience: The Confidence Transformation
-          </h3>
+          <h3 className={H3_CLASSES}>Experience: The Confidence Transformation</h3>
           <p className="mb-3 sm:mb-6">
             User experience fundamentally transforms the adoption process. Inexperienced users
-            emphasize effort expectancy and facilitating conditions more heavily—they focus on
+            emphasize effort expectancy and facilitating conditions more heavily–they focus on
             whether they can manage learning and whether organizational support will be available.
             They demonstrate greater anxiety about capability and greater reliance on external
             support.
@@ -449,9 +434,7 @@ const Article14Page = () => {
             high value on understanding performance advantages.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Voluntariness of Use: When Adoption Becomes Optional
-          </h3>
+          <h3 className={H3_CLASSES}>Voluntariness of Use: When Adoption Becomes Optional</h3>
           <p className="mb-3 sm:mb-6">
             Whether system use is mandatory or voluntary significantly affects adoption
             relationships. In mandatory use contexts, social influence exerts stronger direct
@@ -511,9 +494,7 @@ const Article14Page = () => {
             Significance and Limitations: Assessing UTAUT&apos;s Contribution and Boundaries
           </h2>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Theoretical Significance
-          </h3>
+          <h3 className={H3_CLASSES}>Theoretical Significance</h3>
           <p className="mb-3 sm:mb-6">
             UTAUT made several major theoretical contributions that reshaped technology adoption
             thinking:
@@ -547,14 +528,12 @@ const Article14Page = () => {
             context-specific patterns.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Practical Significance
-          </h3>
+          <h3 className={H3_CLASSES}>Practical Significance</h3>
           <p className="mb-3 sm:mb-6">
             For practitioners, UTAUT provided a comprehensive framework for adoption strategy
             development:
           </p>
-          <ul className="list-disc ml-6 sm:ml-8 mb-3 sm:mb-6 space-y-2">
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
               Organizations could identify that performance expectancy was the primary adoption
               driver, justifying substantial effort in demonstrating technology value and business
@@ -569,8 +548,8 @@ const Article14Page = () => {
               visible management support and peer adoption campaigns
             </li>
             <li>
-              Organizations could ensure that facilitating conditions—training capacity, technical
-              support, system integration, and infrastructure—matched ambitious adoption timelines
+              Organizations could ensure that facilitating conditions–training capacity, technical
+              support, system integration, and infrastructure–matched ambitious adoption timelines
             </li>
           </ul>
           <p className="mb-3 sm:mb-6">
@@ -578,9 +557,7 @@ const Article14Page = () => {
             implementation guidance.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Limitations and Boundaries
-          </h3>
+          <h3 className={H3_CLASSES}>Limitations and Boundaries</h3>
           <p className="mb-3 sm:mb-6">
             Despite UTAUT&apos;s significance, limitations qualify its scope and applicability:
           </p>
@@ -634,7 +611,7 @@ const Article14Page = () => {
           </p>
           <p className="mb-3 sm:mb-6">
             <strong>Training and Support Planning:</strong> Recognize that effort expectancy
-            concerns—particularly among older and less-experienced workers—justify substantial
+            concerns–particularly among older and less-experienced workers–justify substantial
             training and support investment. User support should not be an afterthought; it should
             be proportionate to the complexity of systems and the experience levels of user
             populations.
@@ -693,16 +670,18 @@ const Article14Page = () => {
             endpoint. Subsequent work would extend the framework to consumer contexts (UTAUT2),
             examine specific technologies and domains, and continue refining understanding of how
             adoption processes unfold. The journey from fragmentation to synthesis to extension
-            demonstrates how science progresses—not through revolutionary breaks with the past, but
+            demonstrates how science progresses–not through revolutionary breaks with the past, but
             through cumulative integration that reveals deeper patterns beneath surface complexity.
           </p>
         </section>
 
         <SeriesNavigation />
 
-        <section className="mb-6 sm:mb-10 text-gray-800">
-          <h2 className={H2_CLASSES}>References</h2>
-          <ol className="list-decimal ml-6 sm:ml-8 space-y-3 sm:space-y-4">
+        <section className="pt-8 border-t border-gray-200">
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
+            References
+          </h2>
+          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 font-sans">
             <li>
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
               of information technology: Toward a unified view. <em>MIS Quarterly, 27</em>(3),
@@ -711,7 +690,7 @@ const Article14Page = () => {
                 href="https://doi.org/10.2307/30036540"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 underline"
+                className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.2307/30036540
               </a>
@@ -723,7 +702,7 @@ const Article14Page = () => {
                 href="https://doi.org/10.2307/249008"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 underline"
+                className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.2307/249008
               </a>
@@ -735,7 +714,7 @@ const Article14Page = () => {
                 href="https://doi.org/10.1016/0749-5978(91)90020-T"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 underline"
+                className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.1016/0749-5978(91)90020-T
               </a>
@@ -755,7 +734,7 @@ const Article14Page = () => {
                 href="https://doi.org/10.2307/249443"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 underline"
+                className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.2307/249443
               </a>
@@ -768,7 +747,7 @@ const Article14Page = () => {
                 href="https://doi.org/10.1111/j.1559-1816.1992.tb00945.x"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 underline"
+                className="text-blue-600 hover:underline"
               >
                 https://doi.org/10.1111/j.1559-1816.1992.tb00945.x
               </a>
