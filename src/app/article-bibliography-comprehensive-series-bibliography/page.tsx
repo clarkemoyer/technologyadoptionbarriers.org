@@ -1,5 +1,5 @@
-import type { Metadata } from 'next'
 import React from 'react'
+import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
 
@@ -20,16 +20,16 @@ const BibliographyPage = () => {
         <SeriesNavigation className="mt-6" />
 
         {/* Executive Summary */}
-        <section className="mb-8 sm:mb-12">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>Executive Summary</h2>
-          <p className="mb-4">
+          <p className="mb-3 sm:mb-6">
             This bibliography serves as the definitive, exhaustive scholarly record for the
             &ldquo;Technology Adoption Models&rdquo; series. It consolidates every intellectual
             foundation identified in the project&rsquo;s research database, bifurcated into the{' '}
             <strong>Individual User&rsquo;s Journey</strong> (Branch 1) and the{' '}
             <strong>Organization&rsquo;s Playbook</strong> (Branch 2).
           </p>
-          <p className="mb-4">
+          <p className="mb-3 sm:mb-6">
             For doctoral-level researchers, this document provides the complete longitudinal record
             of theory evolution, ensuring no seminal work from the source RIS datasets is omitted.
             For executive leadership, it establishes a high-fidelity audit trail for every framework
@@ -40,13 +40,13 @@ const BibliographyPage = () => {
         </section>
 
         {/* How to Use This Bibliography */}
-        <section className="mb-8 sm:mb-12">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>How to Use This Bibliography</h2>
-          <p className="mb-4">
+          <p className="mb-3 sm:mb-6">
             To facilitate rapid navigation and deep verification, this document is structured into
             three distinct sections:
           </p>
-          <ol className="list-decimal ml-6 mb-4 space-y-2">
+          <ol className="list-decimal pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
               <strong>Individual Model Articles:</strong> New dedicated pages for each of the 21
               individual technology adoption models, featuring detailed histories, methodologies,
@@ -69,7 +69,7 @@ const BibliographyPage = () => {
         {/* Individual Model Articles */}
         <section className="mb-8 sm:mb-12 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-2 border-blue-200">
           <h2 className={H2_CLASSES}>📚 Individual Model Articles (New!)</h2>
-          <p className="mb-4">
+          <p className="mb-3 sm:mb-6">
             Each of the 21 individual technology adoption models now has its own dedicated article
             page. Click any model below to explore its history, methodology, validation, and impact
             on the field.
@@ -80,7 +80,7 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">1. Theory of Reasoned Action</div>
-              <div className="text-sm text-gray-600">Fishbein & Ajzen (1975)</div>
+              <div className="text-sm text-gray-600">Fishbein &amp; Ajzen (1975)</div>
             </a>
             <a
               href="/bibliography-1-2-diffusion-of-innovations-rogers"
@@ -101,14 +101,14 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">4. Innovation Resistance</div>
-              <div className="text-sm text-gray-600">Ram & Sheth (1989)</div>
+              <div className="text-sm text-gray-600">Ram &amp; Sheth (1989)</div>
             </a>
             <a
               href="/bibliography-1-5-status-quo-bias-samuelson-zeckhauser-1988"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">5. Status Quo Bias</div>
-              <div className="text-sm text-gray-600">Samuelson & Zeckhauser (1988)</div>
+              <div className="text-sm text-gray-600">Samuelson &amp; Zeckhauser (1988)</div>
             </a>
             <a
               href="/bibliography-1-6-technology-acceptance-model-tam-davis-1989"
@@ -143,14 +143,14 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">10. Decomposed TPB</div>
-              <div className="text-sm text-gray-600">Taylor & Todd (1995)</div>
+              <div className="text-sm text-gray-600">Taylor &amp; Todd (1995)</div>
             </a>
             <a
               href="/bibliography-1-11-task-technology-fit-ttf-goodhue-thompson-1995"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">11. Task-Technology Fit</div>
-              <div className="text-sm text-gray-600">Goodhue & Thompson (1995)</div>
+              <div className="text-sm text-gray-600">Goodhue &amp; Thompson (1995)</div>
             </a>
             <a
               href="/bibliography-1-12-technology-readiness-index-tri-parasuraman-2000"
@@ -164,7 +164,7 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">13. TAM2</div>
-              <div className="text-sm text-gray-600">Venkatesh & Davis (2000)</div>
+              <div className="text-sm text-gray-600">Venkatesh &amp; Davis (2000)</div>
             </a>
             <a
               href="/bibliography-1-14-expectation-confirmation-model-ecm-bhattacherjee-2001"
@@ -185,7 +185,7 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">16. MATH</div>
-              <div className="text-sm text-gray-600">Venkatesh & Brown (2001)</div>
+              <div className="text-sm text-gray-600">Venkatesh &amp; Brown (2001)</div>
             </a>
             <a
               href="/bibliography-1-17-value-based-adoption-kim-2007"
@@ -206,7 +206,7 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">19. TAM3</div>
-              <div className="text-sm text-gray-600">Venkatesh & Bala (2008)</div>
+              <div className="text-sm text-gray-600">Venkatesh &amp; Bala (2008)</div>
             </a>
             <a
               href="/bibliography-1-20-utaut2-venkatesh-2012"
@@ -220,13 +220,13 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">21. TRI 2.0</div>
-              <div className="text-sm text-gray-600">Parasuraman & Colby (2015)</div>
+              <div className="text-sm text-gray-600">Parasuraman &amp; Colby (2015)</div>
             </a>
           </div>
         </section>
 
         {/* Inventory Dashboard */}
-        <section className="mb-8 sm:mb-12">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>Inventory Dashboard</h2>
           <div className="overflow-x-auto -mx-4 sm:mx-0">
             <table className="min-w-full border-collapse border border-gray-300 text-sm sm:text-base">
@@ -422,7 +422,7 @@ const BibliographyPage = () => {
         </section>
 
         {/* Track 1 References */}
-        <section className="mb-8 sm:mb-12">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>Detailed APA Reference List: Track 1 (Individual)</h2>
           <div className="space-y-4">
             <p className="pl-8 -indent-8">
@@ -530,7 +530,7 @@ const BibliographyPage = () => {
         </section>
 
         {/* Track 2 References */}
-        <section className="mb-8 sm:mb-12">
+        <section className="mb-6 sm:mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>Detailed APA Reference List: Track 2 (Organization)</h2>
           <div className="space-y-4">
             <p className="pl-8 -indent-8">
@@ -635,6 +635,8 @@ const BibliographyPage = () => {
             </p>
           </div>
         </section>
+
+        <SeriesNavigation className="mt-6" />
       </article>
     </main>
   )
