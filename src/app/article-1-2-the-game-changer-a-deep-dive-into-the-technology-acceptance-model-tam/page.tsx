@@ -1,11 +1,10 @@
 import React from 'react'
 import type { Metadata } from 'next'
-
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Article 1.2: The Game Changer — A Deep Dive into TAM',
+  title: 'Article 1.2: The Game Changer – A Deep Dive into the Technology Acceptance Model (TAM)',
   description:
     'A comprehensive examination of the Technology Acceptance Model (TAM), exploring how perceived usefulness and ease of use drive technology adoption.',
 }
@@ -31,13 +30,13 @@ const Article12Page = () => {
           <p className="mb-3 sm:mb-6">
             This was the situation facing information systems professionals throughout the 1980s.
             Organizations could point to numerous examples of technically adequate systems that
-            faced user rejection. The failure was not technical—it was behavioral. Yet the existing
+            faced user rejection. The failure was not technical–it was behavioral. Yet the existing
             frameworks for understanding technology adoption were either too generic or too
             scattered to provide actionable guidance.
           </p>
           <p className="mb-3 sm:mb-6">
             Fred Davis recognized this gap and posed a deceptively simple question: What if we could
-            predict user acceptance by understanding what users actually think about technology—not
+            predict user acceptance by understanding what users actually think about technology–not
             what technicians think about it?
           </p>
           <p className="mb-3 sm:mb-6">
@@ -52,7 +51,7 @@ const Article12Page = () => {
           <p className="mb-3 sm:mb-6">
             Before Davis developed TAM, information systems researchers drew heavily from behavioral
             science, particularly from the Theory of Reasoned Action (TRA) developed by Fishbein and
-            Ajzen. TRA was theoretically elegant and empirically validated—it explained how beliefs
+            Ajzen. TRA was theoretically elegant and empirically validated–it explained how beliefs
             shape attitudes, which shape intentions, which drive behavior. The framework applied to
             everything from voting decisions to smoking cessation.
           </p>
@@ -62,12 +61,12 @@ const Article12Page = () => {
             dozens of outcome beliefs: Would this system improve job performance? Reduce stress?
             Enhance status? Create technical problems? Damage relationships? The list was endless,
             and different researchers identified different beliefs as important in different
-            contexts. The result was theoretical fragmentation—no clear, consistent understanding of
+            contexts. The result was theoretical fragmentation–no clear, consistent understanding of
             which beliefs actually mattered for technology adoption.
           </p>
           <p className="mb-3 sm:mb-6">
             Moreover, TRA operated at high levels of abstraction. Its outcome beliefs were
-            generic—applicable to any behavior. But technology adoption involves specific cognitive
+            generic–applicable to any behavior. But technology adoption involves specific cognitive
             concerns that do not apply to other behavioral domains. When people evaluate whether to
             adopt technology, they care about very particular things: Will it make my work faster?
             Will it be hard to learn? These technology-specific dimensions got lost in the generic
@@ -104,14 +103,12 @@ const Article12Page = () => {
           <p className="mb-3 sm:mb-6">
             This combination of simplicity and power explains TAM&apos;s enduring influence. In the
             1980s, many researchers sought to make models more complex and comprehensive. Davis did
-            the opposite—and it worked better.
+            the opposite–and it worked better.
           </p>
 
           <h2 className={H2_CLASSES}>The Core Constructs: Usefulness and Ease</h2>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Perceived Usefulness: The Performance Dimension
-          </h3>
+          <h3 className={H3_CLASSES}>Perceived Usefulness: The Performance Dimension</h3>
           <p className="mb-3 sm:mb-6">
             Perceived Usefulness is defined as &ldquo;the degree to which a person believes that
             using a particular system would enhance his or her job performance.&rdquo; [1]
@@ -135,7 +132,7 @@ const Article12Page = () => {
             <li>Reduce the time required for important tasks</li>
           </ul>
           <p className="mb-3 sm:mb-6">
-            What&apos;s critical is that usefulness is <em>subjective</em>—it is not about objective
+            What&apos;s critical is that usefulness is <em>subjective</em>–it is not about objective
             system quality but about user perceptions of quality. Two systems with identical
             objective capabilities might produce different usefulness perceptions depending on how
             users understand their impact. This perception-based focus proves invaluable because
@@ -143,9 +140,7 @@ const Article12Page = () => {
             when they cannot instantly improve technical capabilities.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Perceived Ease of Use: The Effort Dimension
-          </h3>
+          <h3 className={H3_CLASSES}>Perceived Ease of Use: The Effort Dimension</h3>
           <p className="mb-3 sm:mb-6">
             Perceived Ease of Use is defined as &ldquo;the degree to which a person believes that
             using a particular system would be free of effort.&rdquo; [1]
@@ -196,9 +191,7 @@ const Article12Page = () => {
             adoption:
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Perceived Ease of Use → Perceived Usefulness
-          </h3>
+          <h3 className={H3_CLASSES}>Perceived Ease of Use → Perceived Usefulness</h3>
           <p className="mb-3 sm:mb-6">
             This pathway reflects a psychological principle: systems that are easier to use are
             perceived as more useful. Why? Because easier systems enable better performance. If a
@@ -214,12 +207,12 @@ const Article12Page = () => {
             functionality is fixed, improving its user interface can increase perceived usefulness.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
+          <h3 className={H3_CLASSES}>
             Perceived Usefulness and Perceived Ease of Use → Attitude Toward Using
           </h3>
           <p className="mb-3 sm:mb-6">
             Both beliefs shape the overall affective and evaluative response to technology. Users
-            develop attitudes—favorable or unfavorable orientations—based on what they believe about
+            develop attitudes–favorable or unfavorable orientations–based on what they believe about
             the system.
           </p>
           <p className="mb-3 sm:mb-6">
@@ -231,22 +224,18 @@ const Article12Page = () => {
             they will not tolerate effort for minimal benefit.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Attitude Toward Using → Behavioral Intention to Use
-          </h3>
+          <h3 className={H3_CLASSES}>Attitude Toward Using → Behavioral Intention to Use</h3>
           <p className="mb-3 sm:mb-6">
-            Attitude influences intention—the stated plan or readiness to use the technology. People
+            Attitude influences intention–the stated plan or readiness to use the technology. People
             intending to use systems are more likely to actually use them. This pathway reflects the
             psychological principle that attitudes guide intentions, and intentions guide behavior.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Behavioral Intention to Use → Actual System Usage
-          </h3>
+          <h3 className={H3_CLASSES}>Behavioral Intention to Use → Actual System Usage</h3>
           <p className="mb-3 sm:mb-6">
             Finally, behavioral intention predicts actual usage. The stronger the intention to use a
             system, the more likely users are to actually use it. This represents perhaps TAM&apos;s
-            most important validation: it does not just predict what people say they intend to do—it
+            most important validation: it does not just predict what people say they intend to do–it
             predicts actual behavior.
           </p>
           <p className="mb-3 sm:mb-6">
@@ -259,7 +248,7 @@ const Article12Page = () => {
           <h2 className={H2_CLASSES}>The Empirical Foundation: Why TAM Was Validated</h2>
           <p className="mb-3 sm:mb-6">
             TAM&apos;s influence stems partly from its intuitive logic, but primarily from solid
-            empirical validation. Davis did not simply propose the model—he rigorously tested it
+            empirical validation. Davis did not simply propose the model–he rigorously tested it
             across multiple information systems with different user populations.
           </p>
           <p className="mb-3 sm:mb-6">
@@ -272,7 +261,7 @@ const Article12Page = () => {
           <p className="mb-3 sm:mb-6">
             Critically, Davis measured actual system usage through system logs rather than relying
             on self-reported usage. Users&apos; stated intentions to use systems correlated with
-            their actual usage behavior—validating that TAM predicts meaningful behavioral outcomes,
+            their actual usage behavior–validating that TAM predicts meaningful behavioral outcomes,
             not just what people say they will do.
           </p>
           <p className="mb-3 sm:mb-6">
@@ -286,20 +275,16 @@ const Article12Page = () => {
             TAM&apos;s dominance in technology adoption research stemmed from several factors:
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Explanatory Power
-          </h3>
+          <h3 className={H3_CLASSES}>Explanatory Power</h3>
           <p className="mb-3 sm:mb-6">
             TAM explains substantial variance in adoption outcomes with just two core constructs. In
             Davis&apos;s studies, perceived usefulness and ease of use explained approximately 50%
-            of the variance in usage intentions—a substantial amount given the complexity of human
+            of the variance in usage intentions–a substantial amount given the complexity of human
             behavior. Most importantly, this explanatory power proved consistent across different
             technologies and user groups.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Theoretical Rigor
-          </h3>
+          <h3 className={H3_CLASSES}>Theoretical Rigor</h3>
           <p className="mb-3 sm:mb-6">
             Unlike ad hoc adoption frameworks developed without theoretical grounding, TAM was
             explicitly derived from established behavioral science (TRA). This gave it credibility
@@ -307,29 +292,23 @@ const Article12Page = () => {
             to the model.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Practical Applicability
-          </h3>
+          <h3 className={H3_CLASSES}>Practical Applicability</h3>
           <p className="mb-3 sm:mb-6">
             Organizations could actually use TAM. IT managers could assess users&apos; perceived
             usefulness and ease of use, diagnose which dimension created barriers, and design
-            targeted interventions. The model did not just describe adoption—it predicted which
+            targeted interventions. The model did not just describe adoption–it predicted which
             interventions would work.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Simplicity
-          </h3>
+          <h3 className={H3_CLASSES}>Simplicity</h3>
           <p className="mb-3 sm:mb-6">
             TAM was simple enough that IT professionals without behavioral science training could
             understand and apply it. This accessibility accelerated adoption in practice.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Consistency
-          </h3>
+          <h3 className={H3_CLASSES}>Consistency</h3>
           <p className="mb-3 sm:mb-6">
-            TAM worked across diverse technologies—email, file managers, spreadsheets, word
+            TAM worked across diverse technologies–email, file managers, spreadsheets, word
             processors, and many others. The generalizability across systems suggested that TAM
             captured fundamental aspects of technology adoption rather than technology-specific
             quirks.
@@ -346,9 +325,7 @@ const Article12Page = () => {
             theoretical evolution:
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Construct Breadth
-          </h3>
+          <h3 className={H3_CLASSES}>Construct Breadth</h3>
           <p className="mb-3 sm:mb-6">
             TAM focuses narrowly on user perceptions of usefulness and ease. But other factors
             influence adoption: social influences from colleagues and managers, trust in technology
@@ -357,9 +334,7 @@ const Article12Page = () => {
             incomplete explanation of adoption variance.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Causal Mechanism Specificity
-          </h3>
+          <h3 className={H3_CLASSES}>Causal Mechanism Specificity</h3>
           <p className="mb-3 sm:mb-6">
             TAM specifies that ease of use influences usefulness perceptions, but provides limited
             theoretical explanation of why or when this relationship holds. In some contexts, system
@@ -367,9 +342,7 @@ const Article12Page = () => {
             enough. The mechanisms deserve deeper theoretical explication.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Organizational Context
-          </h3>
+          <h3 className={H3_CLASSES}>Organizational Context</h3>
           <p className="mb-3 sm:mb-6">
             TAM focuses on individual psychology while largely ignoring organizational factors.
             System implementation quality, organizational support structures, change management
@@ -377,19 +350,15 @@ const Article12Page = () => {
             attention in the basic TAM framework.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Individual Differences
-          </h3>
+          <h3 className={H3_CLASSES}>Individual Differences</h3>
           <p className="mb-3 sm:mb-6">
             TAM assumes identical psychological processes across all users. But individuals differ
             in technology anxiety, prior experience, cognitive abilities, and learning preferences.
-            These differences moderate TAM relationships—individuals with high computer anxiety
+            These differences moderate TAM relationships–individuals with high computer anxiety
             might perceive ease of use very differently than tech-savvy users.
           </p>
 
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            Implementation Gaps
-          </h3>
+          <h3 className={H3_CLASSES}>Implementation Gaps</h3>
           <p className="mb-3 sm:mb-6">
             TAM assumes that favorable beliefs translate into usage. But substantial gaps can exist
             between intentions and integrated work practices. A user might believe a system is
@@ -399,7 +368,7 @@ const Article12Page = () => {
           <p className="mb-3 sm:mb-6">
             These limitations were not defects in TAM but rather natural boundaries of any model.
             Recognizing these boundaries, subsequent researchers developed extensions addressing
-            them. TAM was not replaced—it was enhanced. Understanding these extensions requires
+            them. TAM was not replaced–it was enhanced. Understanding these extensions requires
             understanding what TAM established and what remained to be explained.
           </p>
 
@@ -411,8 +380,8 @@ const Article12Page = () => {
             accounts to testable predictive frameworks.
           </p>
           <p className="mb-3 sm:mb-6">
-            The model&apos;s core insight—that user adoption depends on perceptions of usefulness
-            and ease of use, mediated through attitudes and intentions—remains valid decades later.
+            The model&apos;s core insight–that user adoption depends on perceptions of usefulness
+            and ease of use, mediated through attitudes and intentions–remains valid decades later.
             Every major technology adoption model developed after TAM either incorporates these
             constructs or explicitly positions itself relative to them.
           </p>
@@ -424,8 +393,8 @@ const Article12Page = () => {
             system with reasonable effort (ease of use), and adoption will follow.
           </p>
           <p className="mb-3 sm:mb-6">
-            The model&apos;s evolution—expanding to address organizational factors, social
-            influences, individual differences, and implementation contexts—did not invalidate TAM.
+            The model&apos;s evolution–expanding to address organizational factors, social
+            influences, individual differences, and implementation contexts–did not invalidate TAM.
             It completed the picture that Davis&apos;s original work began to paint.
           </p>
         </section>
@@ -450,7 +419,7 @@ const Article12Page = () => {
               </a>
             </li>
             <li>
-              Fishbein, M., & Ajzen, I. (1975). Belief, attitude, intention, and behavior: An
+              Fishbein, M., &amp; Ajzen, I. (1975). Belief, attitude, intention, and behavior: An
               introduction to theory and research. Addison-Wesley.
             </li>
             <li>
