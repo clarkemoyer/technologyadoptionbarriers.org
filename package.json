@@ -50,7 +50,7 @@
     "@types/jest": "^30.0.0",
     "@types/jest-axe": "^3.5.9",
     "@types/node": "^25",
-    "@types/nodemailer": "^7.0.9",
+    "@types/nodemailer": "^7.0.10",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
