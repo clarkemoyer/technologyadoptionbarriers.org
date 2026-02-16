@@ -4,6 +4,7 @@ import {
   technologyAdoptionTeachingSeries,
   technologyAdoptionTeachingSeriesResources,
 } from '@/data/technology-adoption-teaching-series'
+import { personas } from '@/lib/personas'
 
 export const dynamic = 'force-static'
 
@@ -232,6 +233,76 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 1,
     },
+    // Barriers pages
+    {
+      url: `${baseUrl}/barriers`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/barriers/survey-stats`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    // Start / persona pages
+    {
+      url: `${baseUrl}/start`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    ...personas.map((p) => ({
+      url: `${baseUrl}/start/${p.slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+    // Get Involved & Media
+    {
+      url: `${baseUrl}/get-involved`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/media`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    // For Organizations
+    {
+      url: `${baseUrl}/for-organizations`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/for-organizations/executive-leaders`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/for-organizations/finance-leaders`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/for-organizations/operations-leaders`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/for-organizations/technology-leaders`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
     // Making of TABS pages
     {
       url: `${baseUrl}/making-of-tabs`,
@@ -250,6 +321,43 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    // Legal / policy pages
+    {
+      url: `${baseUrl}/contribution-policy`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/cookie-policy`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/privacy-policy`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/security-acknowledgements`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/terms-of-service`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/vulnerability-disclosure-policy`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3,
     },
     ...seriesEntries,
     ...teachingSeriesEntries,

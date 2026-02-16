@@ -2,7 +2,7 @@
 # Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: Technology Adoption Barriers (TABS) Website
+title: Technology Adoption Barriers Survey (TABS) Website
 message: >-
   If you use this software, please cite it using the
   metadata from this file.
@@ -11,12 +11,12 @@ authors:
   - given-names: Clarke
     family-names: Moyer
     email: clarke@technologyadoptionbarriers.org
-    affiliation: Technology Adoption Barriers (TABS)
-repository-code: 'https://github.com/<your-org>/technologyadoptionbarriers.org'
+    affiliation: Technology Adoption Barriers Survey (TABS)
+repository-code: 'https://github.com/clarkemoyer/technologyadoptionbarriers.org'
 url: 'https://technologyadoptionbarriers.org'
 abstract: >-
-  Single-page Next.js website built with the App Router for the
-  Technology Adoption Barriers (TABS) project. Provides a
+  Multi-page Next.js website built with the App Router for the
+  Technology Adoption Barriers Survey (TABS) project. Provides a
   professional, accessible, and performant foundation for a
   static site with comprehensive documentation and testing.
 keywords:
@@ -30,5 +30,5 @@ keywords:
   - accessibility
   - open-source
 license: Apache-2.0
-version: 0.1.0
-date-released: '2025-12-11'
+version: 0.3.0
+date-released: '2026-02-16'
