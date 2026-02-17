@@ -12,7 +12,7 @@ import {
 import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
-  title: 'Article 1: Branch Introduction – The User's Journey',
+  title: "Article 1: Branch Introduction – The User's Journey",
   description:
     'Branch introduction to the evolution of individual technology acceptance and use models, from foundational theories through TAM, UTAUT, and specialized adoption frameworks.',
 }
@@ -29,14 +29,14 @@ const UsersJourneyPage = () => {
             the lens of a trifecta: Organizational, User, and Consumer Adoption. We positioned
             Organizational Adoption–the C-Suite's strategic focus–as the apex. We now turn our
             attention to the other two domains, which together form the deeply human side of the
-            adoption equation: the internal employee's decision to use a new system and the
-            external customer's choice to integrate a technology into their lives.
+            adoption equation: the internal employee's decision to use a new system and the external
+            customer's choice to integrate a technology into their lives.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            This branch of our series, The User's Journey, delves into the rich intellectual
-            history of individual technology acceptance and use. We will explore the evolution of
-            the models designed to explain and predict the most fundamental of behaviors: the
-            decision by a person to either embrace or reject a new technology.
+            This branch of our series, The User's Journey, delves into the rich intellectual history
+            of individual technology acceptance and use. We will explore the evolution of the models
+            designed to explain and predict the most fundamental of behaviors: the decision by a
+            person to either embrace or reject a new technology.
           </p>
         </section>
 
@@ -71,8 +71,8 @@ const UsersJourneyPage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>The Foundational “Grandparents”:</strong> The earliest attempts to model
-              this behavior did not originate in information systems research but drew from a rich
+              <strong>The Foundational “Grandparents”:</strong> The earliest attempts to model this
+              behavior did not originate in information systems research but drew from a rich
               tapestry of established theories. Social psychology gave us the powerful
               intention-behavior link through the Theory of Reasoned Action (TRA) [1] and the Theory
               of Planned Behavior (TPB) [2]. Sociology provided the Diffusion of Innovations (DOI)
@@ -119,12 +119,12 @@ const UsersJourneyPage = () => {
             user's journey is organized as follows:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            First, we'll look at the foundational theories. Then, we'll do a deep dive into TAM,
-            the model that changed everything. From there, we'll explore its direct successors
-            before examining the ambitious UTAUT model that sought to unify the field. After
-            establishing this core lineage, our focus will broaden to see how these theories were
-            adapted for the consumer context, explore specialized models where context is king, and
-            finally, consider the crucial role of an individual's innate readiness for technology.
+            First, we'll look at the foundational theories. Then, we'll do a deep dive into TAM, the
+            model that changed everything. From there, we'll explore its direct successors before
+            examining the ambitious UTAUT model that sought to unify the field. After establishing
+            this core lineage, our focus will broaden to see how these theories were adapted for the
+            consumer context, explore specialized models where context is king, and finally,
+            consider the crucial role of an individual's innate readiness for technology.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             This journey will provide a comprehensive understanding of how the field has evolved,
