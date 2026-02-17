@@ -61,6 +61,7 @@ function AccordionItem({
         id={panelId}
         role="region"
         aria-labelledby={buttonId}
+        hidden={!isOpen}
         className={`overflow-hidden transition-all duration-200 ${
           isOpen ? 'max-h-[500px] opacity-100 pb-5 px-1' : 'max-h-0 opacity-0'
         }`}
@@ -75,14 +76,12 @@ function AccordionItem({
 /*  Category Card                                                      */
 /* ------------------------------------------------------------------ */
 function CategoryCard({
-  id: catId,
   title,
   icon,
   isActive,
   count,
   onClick,
 }: {
-  id: string
   title: string
   icon: string
   isActive: boolean
@@ -93,7 +92,7 @@ function CategoryCard({
     <button
       onClick={onClick}
       aria-pressed={isActive}
-      className={`flex items-center gap-3 px-4 py-3 rounded-[10px] text-left text-[15px] font-medium transition-all w-full ${
+      className={`flex items-center gap-3 px-4 py-3 rounded-[10px] text-left text-[15px] font-medium transition-all w-auto whitespace-nowrap lg:w-full ${
         isActive
           ? 'bg-tabs-teal-deep text-white shadow-md'
           : 'bg-gray-50 text-gray-700 hover:bg-gray-100 hover:shadow-sm'
@@ -258,7 +257,6 @@ export default function FaqPageClient() {
                 {faqCategories.map((cat) => (
                   <CategoryCard
                     key={cat.id}
-                    id={cat.id}
                     title={cat.title}
                     icon={cat.icon}
                     isActive={activeCategory === cat.id}
