@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Technology Adoption Models article series — 18 research articles across 2 branches with scholarly content from peer-reviewed PDFs
+- Technology Adoption Models article series — 16 research articles across 2 branches with scholarly content from peer-reviewed PDFs
 - 24 individual bibliography article pages created from PDF extraction
 - Persona navigation with mega menu — "See Yourself in the Survey" landing pages for 11 roles
 - Comprehensive FAQ page with accordion sections

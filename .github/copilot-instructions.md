@@ -133,7 +133,7 @@ npm test     # Run automated tests (requires build first)
 - **SEO Optimized**: Comprehensive metadata in `layout.tsx`, sitemap (149+ routes), and robots.txt
 - **GitHub Pages Image Support**: Assets use `assetPath()` helper to handle basePath for GitHub Pages deployment
 - **Teaching Series**: Presentation viewer with 4K support, handout materials, workshop guides
-- **Article Series**: 18 research articles across two branches with shared styling via `articleStyles.ts`
+- **Article Series**: 16 research articles across two branches (plus root landing and bibliography pages) with shared styling via `articleStyles.ts`
 - **Bibliography Pages**: 24 auto-generated bibliography entries with structured citations
 
 ### Project Structure
