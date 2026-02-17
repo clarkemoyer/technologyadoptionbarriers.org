@@ -65,7 +65,7 @@ export default function ToolCard({ logo, title, description, link }: ToolCardPro
           href={link}
           target="_blank"
           rel="noopener noreferrer"
-          className="relative group inline-flex items-center justify-center gap-2 px-[30px] py-[6px] text-white border border-tabs-orange rounded-[10px] text-[18px] bg-tabs-orange transition-all duration-300 ease-in-out shadow-md leading-[31px] font-[600] hover:shadow-[0px_12px_18px_-6px_#f27022]"
+          className="relative group inline-flex items-center justify-center gap-2 px-[30px] py-[6px] text-white border border-tabs-orange rounded-[10px] text-[18px] bg-tabs-orange transition-all duration-300 ease-in-out shadow-md leading-[31px] font-[600] hover:shadow-[0px_12px_18px_-6px_var(--tabs-orange)]"
           id="montserrat-font"
         >
           <span className="transition-all duration-300 group-hover:translate-x-1">Get Started</span>
