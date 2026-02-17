@@ -30,7 +30,7 @@ const ExecutiveLeadersPage = () => {
     },
     {
       name: 'Chief',
-      fullName: 'Chief Executive Group',
+      fullName: 'Chief',
       focus: 'Women in executive leadership',
       url: 'https://chief.com/',
     },
@@ -65,7 +65,7 @@ const ExecutiveLeadersPage = () => {
             For Executive Leaders
           </h1>
           <p className="text-[24px] text-purple-100 mb-[15px] font-semibold">
-            CEO â€¢ President â€¢ Board Members â€¢ Managing Directors â€¢ Business Owners
+            CEO • President • Board Members • Managing Directors • Business Owners
           </p>
           <p className="text-[18px] text-purple-100 max-w-[900px] leading-[1.6]">
             Support your members in setting strategic direction for technology adoption and
@@ -176,7 +176,7 @@ const ExecutiveLeadersPage = () => {
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Position themselves as forward-thinking leaders by contributing to and leveraging
-                cutting-edge research on technology adoption.
+                research on technology adoption.
               </p>
             </div>
           </div>

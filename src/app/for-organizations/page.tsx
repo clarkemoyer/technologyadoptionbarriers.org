@@ -61,7 +61,7 @@ const ForOrganizationsPage = () => {
           </h1>
           <p className="text-[20px] md:text-[24px] text-blue-100 max-w-[900px] mx-auto leading-[1.6]">
             Provide your members with valuable insights into technology adoption barriers while
-            contributing to groundbreaking research.
+            contributing to academic research.
           </p>
         </div>
       </section>

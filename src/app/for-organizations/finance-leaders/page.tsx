@@ -59,7 +59,7 @@ const FinanceLeadersPage = () => {
             For Finance Leaders
           </h1>
           <p className="text-[24px] text-green-100 mb-[15px] font-semibold">
-            CFO â€¢ Controller â€¢ VP Finance â€¢ Treasurer â€¢ Financial Planning & Analysis
+            CFO • Controller • VP Finance • Treasurer • Financial Planning & Analysis
           </p>
           <p className="text-[18px] text-green-100 max-w-[900px] leading-[1.6]">
             Support your members in understanding technology investment barriers and demonstrating
