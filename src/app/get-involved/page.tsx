@@ -12,7 +12,7 @@ const GetInvolvedPage = () => {
     {
       id: 'take-survey',
       title: 'Take the TABS Survey',
-      icon: 'ðŸ“‹',
+      icon: '📋',
       description:
         'The most direct way to contribute is by participating in the survey. Your insights as a senior leader help identify common technology adoption barriers and create valuable benchmarks for the industry.',
       whoShouldParticipate:
@@ -32,7 +32,7 @@ const GetInvolvedPage = () => {
     {
       id: 'use-dataset',
       title: 'Use TABS Data in Your Research',
-      icon: 'ðŸ“Š',
+      icon: '📊',
       description:
         'We encourage researchers to use the TABS dataset to conduct original research, testing hypotheses beyond basic descriptive statistics. As the dataset grows, qualified researchers may request access subject to IRB approval and a data-sharing agreement.',
       whoShouldParticipate:
@@ -73,7 +73,7 @@ const GetInvolvedPage = () => {
     {
       id: 'sponsor',
       title: 'Become a Sponsor',
-      icon: 'ðŸ¤',
+      icon: '🤝',
       description:
         "Sponsorship provides significant support while demonstrating your organization's commitment to advancing technology adoption research and business insights.",
       whoShouldParticipate:
@@ -93,7 +93,7 @@ const GetInvolvedPage = () => {
     {
       id: 'volunteer',
       title: 'Volunteer to Help TABS Operations',
-      icon: 'ðŸ™‹',
+      icon: '🙋',
       description:
         'We need more than contributions — we need skilled people to help run the survey, analyze data, improve the website, and support TABS operations. Use your skills to advance technology adoption research.',
       whoShouldParticipate:
