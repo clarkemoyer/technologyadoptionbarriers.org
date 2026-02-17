@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Technology Acceptance Model 2 (TAM2) â€“ Venkatesh & Davis (2000)',
+  title: 'Bibliography: Technology Acceptance Model 2 (TAM2) – Venkatesh & Davis (2000)',
   description:
     'Deep dive into the Technology Acceptance Model 2 (TAM2) by Viswanath Venkatesh and Fred D. Davis (2000), exploring social influence and cognitive instrumental processes that determine perceived usefulness in technology adoption.',
 }

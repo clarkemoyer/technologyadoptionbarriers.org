@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Expectation-Confirmation Model (ECM) â€“ Bhattacherjee (2001)',
+  title: 'Bibliography: Expectation-Confirmation Model (ECM) – Bhattacherjee (2001)',
   description:
     'Deep dive into Expectation-Confirmation Model of Information Systems by Anol Bhattacherjee (2001), exploring its foundational contributions to technology adoption research.',
 }
@@ -11,9 +11,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>
-          Expectation-Confirmation Model (ECM) â€“ Bhattacherjee (2001)
-        </h1>
+        <h1 className={H1_CLASSES}>Expectation-Confirmation Model (ECM) – Bhattacherjee (2001)</h1>
 
         {/* Model Identification */}
         <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
@@ -52,8 +50,8 @@ const BibliographyArticlePage = () => {
             addressed what determines whether users continue using systems after initial acceptance.
             This distinction is crucial because long-term viability of information systems depends
             on continued use rather than first-time adoption. The motivation for creating ECM-ISC
-            emerged from recognizing that system discontinuanceâ€”users stopping use after initial
-            adoptionâ€”represents a significant problem in business-to-consumer electronic commerce
+            emerged from recognizing that system discontinuance—users stopping use after initial
+            adoption—represents a significant problem in business-to-consumer electronic commerce
             and information systems implementation. For Internet service providers (ISPs), online
             retailers, online banks, online travel agencies, and other information system providers,
             acquiring new customers may cost as much as five times more than retaining existing
@@ -80,9 +78,9 @@ const BibliographyArticlePage = () => {
           </p>
 
           <p className="mb-4">
-            How was the modelâ€™s internal validity tested? Bhattacherjee employed a rigorous
-            empirical research methodology to test ECM-ISCâ€™s internal validity. The study involved
-            a cross-sectional field survey of online banking users, providing data about their
+            How was the model’s internal validity tested? Bhattacherjee employed a rigorous
+            empirical research methodology to test ECM-ISC’s internal validity. The study involved a
+            cross-sectional field survey of online banking users, providing data about their
             information systems continuance intentions and the hypothesized antecedents of those
             intentions. The sample consisted of 1,000 online customers randomly selected from the
             customer database of a large national bank in the United States. These customers were
@@ -92,23 +90,23 @@ const BibliographyArticlePage = () => {
             diverse household income levels and professions. This sampling strategy ensured data
             collection from actual users with meaningful experience using the system. The research
             instrument measured four key constructs identified in the theoretical model: IS
-            continuance intention (usersâ€™ intention to continue using the online banking system),
-            satisfaction (usersâ€™ affective response to prior online banking use), perceived
-            usefulness (usersâ€™ perception of expected benefits from continued banking system use),
-            and confirmation (usersâ€™ perception of congruence between expectations and actual
-            system performance). Measurement development involved careful operationalization of
-            constructs using established scales from information systems and consumer behavior
-            literature. IS continuance intention was measured using items adapted from Mathiesonâ€™s
-            (1991) behavioral intention scale, modified to capture usersâ€™ intentions to continue
-            using online banking rather than initially accepting it. Satisfaction was measured using
-            Spreng et al.â€™s (1996) overall satisfaction scale, employing seven-point scales with
+            continuance intention (users’ intention to continue using the online banking system),
+            satisfaction (users’ affective response to prior online banking use), perceived
+            usefulness (users’ perception of expected benefits from continued banking system use),
+            and confirmation (users’ perception of congruence between expectations and actual system
+            performance). Measurement development involved careful operationalization of constructs
+            using established scales from information systems and consumer behavior literature. IS
+            continuance intention was measured using items adapted from Mathieson’s (1991)
+            behavioral intention scale, modified to capture users’ intentions to continue using
+            online banking rather than initially accepting it. Satisfaction was measured using
+            Spreng et al.’s (1996) overall satisfaction scale, employing seven-point scales with
             semantic differential items (very dissatisfied/very satisfied, disappointed/pleased,
             etc.). This scale measured affective responses to online banking use. Perceived
-            usefulness was adapted from Davis et al.â€™s (1989) perceived usefulness scale,
-            originally developed in information technology acceptance research. Items assessed
-            usersâ€™ perceptions of expected benefits from continued online banking use, including
+            usefulness was adapted from Davis et al.’s (1989) perceived usefulness scale, originally
+            developed in information technology acceptance research. Items assessed users’
+            perceptions of expected benefits from continued online banking use, including
             performance, productivity, and effectiveness. Confirmation was operationalized using a
-            new scale developed specifically for this study, measuring usersâ€™ perceptions of
+            new scale developed specifically for this study, measuring users’ perceptions of
             congruence between pre-consumption expectations and post-consumption actual performance.
             Items assessed whether online banking performed well, lived up to expectations, and
             provided the features and functions expected. The measurement scales demonstrated
@@ -122,7 +120,7 @@ const BibliographyArticlePage = () => {
             whether perceived usefulness influences satisfaction through a different pathway, and
             whether both satisfaction and perceived usefulness influence continuance intentions. The
             empirical analysis examined whether these hypothesized relationships were statistically
-            significant and in the predicted directions. How was the modelâ€™s external validity
+            significant and in the predicted directions. How was the model’s external validity
             tested? Bhattacherjee addressed external validity through several approaches. First, the
             choice of online banking as the research context provided ecological validity. Unlike
             laboratory settings or purely hypothetical scenarios, the study examined actual users
@@ -144,7 +142,7 @@ const BibliographyArticlePage = () => {
             across domains enhances confidence in generalizability. Fourth, Bhattacherjee notes that
             findings in the online banking context may apply to other information-intensive
             business-to-consumer electronic commerce settings. While online banking provided the
-            specific test context, the modelâ€™s logical structure suggests applicability to other
+            specific test context, the model’s logical structure suggests applicability to other
             electronic services, online retailers, online travel services, and similar contexts
             where users make decisions about continued engagement with information systems. How is
             the model intended to be used in practice? The ECM-ISC model provides critical guidance
@@ -154,68 +152,68 @@ const BibliographyArticlePage = () => {
             intentions. Practitioners should focus on ensuring that information systems provide
             clear, tangible benefits aligned with user expectations. System functionality should
             address user needs effectively and should be designed to deliver demonstrable value in
-            usersâ€™ primary activities. For online banking, this might mean ensuring systems
-            provide efficient account management, clear access to financial information, and
-            convenient transaction capabilities. For other information systems, this translates to
-            designing features and functionality that users recognize as valuable for their
-            purposes. For expectation management and user communication, the model emphasizes the
-            critical role of confirmation (whether actual performance matches prior expectations).
-            Practitioners should set realistic expectations about system capabilities and
-            performance. Marketing communications and system introductions should communicate
-            clearly what systems will and will not do, avoiding overpromising capabilities. System
-            documentation and training should prepare users realistically for their experiences with
-            systems. Bhattacherjee notes that disappointment resulting from unconfirmed expectations
-            directly undermines continuance intentions, making expectation management critical. For
-            user satisfaction focus, the model identifies satisfaction as a central driver of
-            continuance intentions. Practitioners should actively work to enhance user satisfaction
-            through system design, support, and service quality. Creating positive user experiences
-            matters not only for initial adoption but critically for sustained use. This suggests
-            that organizational investment in user support, training, and system responsiveness to
-            user concerns pays dividends in reduced discontinuance. For understanding user
-            retention, the model provides a diagnostic framework for identifying why users
-            discontinue systems. If discontinuance is occurring, practitioners can assess whether
-            the problem lies with confirmation (system performance not meeting expectations),
-            satisfaction (negative user experiences), or perceived usefulness (users not seeing
-            value in continued use). This diagnostic understanding can guide corrective actions. For
-            market segmentation and targeted retention efforts, the model suggests that retention
-            strategies should address confirmation and satisfaction. Users experiencing
-            disappointment due to unconfirmed expectations should receive additional support,
-            training, or system modifications to address gaps between expectations and actual
-            performance. Users with low satisfaction should be targeted with service improvements or
-            enhanced support. Users doubting perceived usefulness might benefit from training
-            focused on identifying and leveraging valuable system capabilities. For understanding
-            the relationship between acceptance and continuance, the model illustrates that initial
-            acceptance does not guarantee continuance. Organizations implementing new systems should
-            anticipate that some initial accepters will discontinue use and should design retention
-            strategies accordingly. This is particularly important in consumer-focused electronic
-            commerce contexts where discontinuance rates can be substantial. What does the model
-            measure? ECM-ISC measures four primary constructs representing the psychological and
-            affective processes underlying information systems continuance decisions: Expectation,
-            measured at the pre-consumption stage (t1), represents usersâ€™ prior beliefs about
-            system capabilities, expected performance, and anticipated benefits from system use.
-            This construct captures the baseline against which users later evaluate actual system
-            performance. Perceived performance (also called perceived usefulness in the model)
-            represents usersâ€™ post-consumption evaluation of system benefits and capabilities.
-            This post-consumption (ex post) variable assesses whether the system delivers the value
-            and functionality users expected. Items measure whether the system performs well,
-            provides useful capabilities, and contributes to productivity or effectiveness.
-            Confirmation represents the critical linkage between expectations and post- consumption
-            evaluation. This construct measures the extent to which users perceive congruence
-            between their expectations and the systemâ€™s actual performance. High confirmation
-            exists when performance meets or exceeds expectations, whereas low or negative
-            confirmation occurs when performance falls short of expectations. Satisfaction measures
-            usersâ€™ affective response to system use and their overall evaluative judgments about
-            the experience. Rather than capturing utilitarian judgments about system functionality,
-            satisfaction captures emotional responsesâ€”whether the experience was pleasant, whether
-            outcomes were satisfactory, and whether the user feels satisfied with the system
-            overall. IS continuance intention measures usersâ€™ behavioral intentions regarding
-            sustained use of the system. This construct captures whether users intend to continue
-            using the system in the future, predict they will continue use, and expect to maintain
-            their relationship with the system over time. This post-continuance behavioral intention
-            represents the modelâ€™s primary dependent variable. The model also captures
-            theoretically derived relationships among these constructs. The structural relationships
-            reveal how expectations shape perceptions of confirmation, how confirmation influences
-            both satisfaction and perceived usefulness, how perceived usefulness directly influences
+            users’ primary activities. For online banking, this might mean ensuring systems provide
+            efficient account management, clear access to financial information, and convenient
+            transaction capabilities. For other information systems, this translates to designing
+            features and functionality that users recognize as valuable for their purposes. For
+            expectation management and user communication, the model emphasizes the critical role of
+            confirmation (whether actual performance matches prior expectations). Practitioners
+            should set realistic expectations about system capabilities and performance. Marketing
+            communications and system introductions should communicate clearly what systems will and
+            will not do, avoiding overpromising capabilities. System documentation and training
+            should prepare users realistically for their experiences with systems. Bhattacherjee
+            notes that disappointment resulting from unconfirmed expectations directly undermines
+            continuance intentions, making expectation management critical. For user satisfaction
+            focus, the model identifies satisfaction as a central driver of continuance intentions.
+            Practitioners should actively work to enhance user satisfaction through system design,
+            support, and service quality. Creating positive user experiences matters not only for
+            initial adoption but critically for sustained use. This suggests that organizational
+            investment in user support, training, and system responsiveness to user concerns pays
+            dividends in reduced discontinuance. For understanding user retention, the model
+            provides a diagnostic framework for identifying why users discontinue systems. If
+            discontinuance is occurring, practitioners can assess whether the problem lies with
+            confirmation (system performance not meeting expectations), satisfaction (negative user
+            experiences), or perceived usefulness (users not seeing value in continued use). This
+            diagnostic understanding can guide corrective actions. For market segmentation and
+            targeted retention efforts, the model suggests that retention strategies should address
+            confirmation and satisfaction. Users experiencing disappointment due to unconfirmed
+            expectations should receive additional support, training, or system modifications to
+            address gaps between expectations and actual performance. Users with low satisfaction
+            should be targeted with service improvements or enhanced support. Users doubting
+            perceived usefulness might benefit from training focused on identifying and leveraging
+            valuable system capabilities. For understanding the relationship between acceptance and
+            continuance, the model illustrates that initial acceptance does not guarantee
+            continuance. Organizations implementing new systems should anticipate that some initial
+            accepters will discontinue use and should design retention strategies accordingly. This
+            is particularly important in consumer-focused electronic commerce contexts where
+            discontinuance rates can be substantial. What does the model measure? ECM-ISC measures
+            four primary constructs representing the psychological and affective processes
+            underlying information systems continuance decisions: Expectation, measured at the
+            pre-consumption stage (t1), represents users’ prior beliefs about system capabilities,
+            expected performance, and anticipated benefits from system use. This construct captures
+            the baseline against which users later evaluate actual system performance. Perceived
+            performance (also called perceived usefulness in the model) represents users’
+            post-consumption evaluation of system benefits and capabilities. This post-consumption
+            (ex post) variable assesses whether the system delivers the value and functionality
+            users expected. Items measure whether the system performs well, provides useful
+            capabilities, and contributes to productivity or effectiveness. Confirmation represents
+            the critical linkage between expectations and post- consumption evaluation. This
+            construct measures the extent to which users perceive congruence between their
+            expectations and the system’s actual performance. High confirmation exists when
+            performance meets or exceeds expectations, whereas low or negative confirmation occurs
+            when performance falls short of expectations. Satisfaction measures users’ affective
+            response to system use and their overall evaluative judgments about the experience.
+            Rather than capturing utilitarian judgments about system functionality, satisfaction
+            captures emotional responses—whether the experience was pleasant, whether outcomes were
+            satisfactory, and whether the user feels satisfied with the system overall. IS
+            continuance intention measures users’ behavioral intentions regarding sustained use of
+            the system. This construct captures whether users intend to continue using the system in
+            the future, predict they will continue use, and expect to maintain their relationship
+            with the system over time. This post-continuance behavioral intention represents the
+            model’s primary dependent variable. The model also captures theoretically derived
+            relationships among these constructs. The structural relationships reveal how
+            expectations shape perceptions of confirmation, how confirmation influences both
+            satisfaction and perceived usefulness, how perceived usefulness directly influences
             satisfaction, and how both satisfaction and perceived usefulness influence continuance
             intentions. What are the main strengths of the model? ECM-ISC demonstrates several
             substantial strengths: First, the model addresses a critical practical problem neglected
@@ -230,30 +228,30 @@ const BibliographyArticlePage = () => {
             consumer behavior theory (Expectation-Confirmation Theory) to information systems
             contexts. By grounding the model in expectation- confirmation principles with
             demonstrated empirical support across consumer product domains, Bhattacherjee provides
-            strong theoretical justification for the modelâ€™s predictions. The approach of adapting
+            strong theoretical justification for the model’s predictions. The approach of adapting
             established theory rather than proposing entirely novel mechanisms strengthens the
-            theoretical foundation. Third, the modelâ€™s structure elegantly captures the
+            theoretical foundation. Third, the model’s structure elegantly captures the
             psychological processes distinguishing acceptance from continuance. By explicitly
             incorporating expectation, confirmation, and post-consumption satisfaction, the model
             articulates how actual use experience reshapes initial acceptance judgments. This
-            progression from expectation through confirmation to satisfaction represents the
-            userâ€™s psychological journey as they accumulate actual experience. Fourth, the model
-            provides a clear diagnostic framework for practitioners. By identifying confirmation,
-            satisfaction, and perceived usefulness as key continuance drivers, the model guides
-            practitioners toward specific improvement strategies. Organizations can diagnose whether
+            progression from expectation through confirmation to satisfaction represents the user’s
+            psychological journey as they accumulate actual experience. Fourth, the model provides a
+            clear diagnostic framework for practitioners. By identifying confirmation, satisfaction,
+            and perceived usefulness as key continuance drivers, the model guides practitioners
+            toward specific improvement strategies. Organizations can diagnose whether
             discontinuance problems stem from unconfirmed expectations, low satisfaction, or low
             perceived usefulness and can target interventions accordingly. Fifth, the empirical
             validation through a field study of actual online banking users demonstrates practical
             applicability. Unlike laboratory studies, this approach examines real users making
             genuine continuance decisions about systems they actively use. This methodological
-            choice strengthens confidence in the modelâ€™s real-world relevance. Sixth, the model
+            choice strengthens confidence in the model’s real-world relevance. Sixth, the model
             successfully integrates both cognitive (perceived usefulness, confirmation) and
             affective (satisfaction) variables in predicting continuance. This integration
             recognizes that information systems decisions involve both rational evaluation and
             emotional response, providing a more complete understanding of continuance determinants
             than models focusing solely on utility considerations. What are the main weaknesses of
             the model? ECM-ISC also exhibits limitations affecting its scope and applicability:
-            First, the modelâ€™s reliance on a single context (online banking) limits
+            First, the model’s reliance on a single context (online banking) limits
             generalizability. While expectation-confirmation principles should apply broadly,
             specific confirmatory evidence comes from one industry and one technology platform.
             Discontinuance drivers may differ for other types of information systems (such as
@@ -261,7 +259,7 @@ const BibliographyArticlePage = () => {
             expectations, and satisfaction drivers differ from online banking. Second, the model may
             not adequately capture the complexity of post- adoption decision-making. The
             cross-sectional research design measures intentions at a single point in time rather
-            than observing actual continuance decisions over longer periods. Usersâ€™ actual
+            than observing actual continuance decisions over longer periods. Users’ actual
             continuation or discontinuation decisions, measured prospectively, might reveal
             different patterns than stated intentions measured retrospectively. Third, the model
             does not examine potential moderating factors that might affect the relationships among
@@ -270,19 +268,19 @@ const BibliographyArticlePage = () => {
             alternative systems. The model treats relationships as universal rather than examining
             contingencies. Fourth, the model may underspecify how perceived usefulness influences
             continuance intentions. While TAM research established that perceived usefulness is a
-            primary technology acceptance driver, ECM-ISCâ€™s finding that satisfaction mediated the
+            primary technology acceptance driver, ECM-ISC’s finding that satisfaction mediated the
             effect of perceived usefulness suggests indirect effects. However, in continuance
             contexts, direct effects of perceived usefulness (recognizing ongoing benefits) might
             also matter, particularly for system users who are pragmatically oriented. Fifth, the
             measurement of confirmation through belief-based items (system performed well, met
-            expectations) may not fully capture usersâ€™ actual performance experiences. Objective
+            expectations) may not fully capture users’ actual performance experiences. Objective
             measures of system performance or user outcomes might reveal different patterns than
             subjective perceptions of confirmation. Sixth, the model does not examine switching
             costs, lock-in effects, or behavioral inertia, which may influence continuance decisions
             independently of satisfaction and perceived usefulness. Users might continue using
             systems despite low satisfaction or perceived usefulness if switching costs are high or
             if inertia (habitual continuation) operates psychologically. Seventh, the model may not
-            adequately address how usersâ€™ continuance decisions involve anticipated future use
+            adequately address how users’ continuance decisions involve anticipated future use
             rather than merely past experience.
           </p>
 
@@ -291,8 +289,8 @@ const BibliographyArticlePage = () => {
             satisfaction even if past experiences were disappointing. How does this model differ
             from older models? ECM-ISC represents an important theoretical shift in several
             dimensions: First, ECM-ISC addresses a different decision stage than prior acceptance
-            models. TAM and related models focused on initial adoptionâ€”the decision to begin using
-            systems. ECM-ISC examines continuanceâ€”the decision to maintain use after initial
+            models. TAM and related models focused on initial adoption—the decision to begin using
+            systems. ECM-ISC examines continuance—the decision to maintain use after initial
             adoption. This temporal shift acknowledges that different psychological processes govern
             initial adoption versus sustained use. Second, ECM-ISC incorporates actual use
             experience as fundamental, whereas acceptance models operated with limited experience
@@ -303,7 +301,7 @@ const BibliographyArticlePage = () => {
             represents a fundamental shift. Third, ECM-ISC explicitly integrates expectation and
             confirmation processes absent from TAM. Rather than treating perceived usefulness and
             ease of use as independent judgment dimensions, ECM-ISC roots these judgments in whether
-            actual performance confirms prior expectations. This framing acknowledges that usersâ€™
+            actual performance confirms prior expectations. This framing acknowledges that users’
             post-adoption perceptions are shaped by prior expectations and the degree to which
             actual experience matches those expectations. Fourth, ECM-ISC prioritizes satisfaction
             as a critical mediating variable between performance confirmation and continuance
@@ -318,36 +316,35 @@ const BibliographyArticlePage = () => {
           </p>
 
           <p className="mb-4">
-            Sixth, ECM-ISCâ€™s focus on continuation (rather than initial adoption) implies
-            different intervention strategies. Acceptance-focused interventions emphasize early
-            impressions, initial training, and reducing adoption barriers. Continuance-focused
-            interventions emphasize confirming expectations, maintaining satisfaction, and
-            delivering sustained value. 6. Barriers Identification Section: What Barriers to
-            Technology Adoption does the model identify? While ECM-ISCâ€™s primary focus is
-            information systems continuance rather than initial adoption, the model implicitly
-            identifies barriers to sustained use (continuance barriers) that prevent continued
-            adoption: Unconfirmed expectations represent a fundamental barrier to system
-            continuance. When information systems do not perform as expected, when actual
-            capabilities fall short of prior beliefs, or when anticipated benefits fail to
-            materialize, users experience disconfirmation. This unmet expectation gap creates
-            dissatisfaction and undermines continuance intentions. The barrier operates through
-            disappointmentâ€”users who expected strong performance but encounter mediocre
-            functionality, who expected easy systems but find them complex, or who expected
-            substantial benefits but observe minimal improvement will discontinue use. The modelâ€™s
-            empirical evidence demonstrates that confirmation is a significant predictor of both
-            satisfaction and continued use intentions, indicating that unconfirmed expectations
-            constitute a powerful barrier to continuance. Low satisfaction and negative user
-            experiences represent direct barriers to continued system use. Even when expectations
-            are confirmed, users who have negative emotional responses to systemsâ€”who experience
-            frustration, dissatisfaction, or irritationâ€”will be inclined to discontinue. The model
-            identifies satisfaction as a central driver of continuance intentions, suggesting that
-            dissatisfactory user experiences constitute a significant barrier. Dissatisfaction might
-            stem from poor interface design, inadequate system reliability, insufficient
-            responsiveness to user needs, poor customer support, or generally frustrating
-            interactions with systems. Perceived lack of usefulness represents another significant
-            barrier. Systems users do not perceive as usefulâ€”that do not deliver tangible
-            benefits, do not improve task performance, do not contribute to productivity, and do not
-            provide clear valueâ€”face discontinuance risk. The model identifies perceived
+            Sixth, ECM-ISC’s focus on continuation (rather than initial adoption) implies different
+            intervention strategies. Acceptance-focused interventions emphasize early impressions,
+            initial training, and reducing adoption barriers. Continuance-focused interventions
+            emphasize confirming expectations, maintaining satisfaction, and delivering sustained
+            value. 6. Barriers Identification Section: What Barriers to Technology Adoption does the
+            model identify? While ECM-ISC’s primary focus is information systems continuance rather
+            than initial adoption, the model implicitly identifies barriers to sustained use
+            (continuance barriers) that prevent continued adoption: Unconfirmed expectations
+            represent a fundamental barrier to system continuance. When information systems do not
+            perform as expected, when actual capabilities fall short of prior beliefs, or when
+            anticipated benefits fail to materialize, users experience disconfirmation. This unmet
+            expectation gap creates dissatisfaction and undermines continuance intentions. The
+            barrier operates through disappointment—users who expected strong performance but
+            encounter mediocre functionality, who expected easy systems but find them complex, or
+            who expected substantial benefits but observe minimal improvement will discontinue use.
+            The model’s empirical evidence demonstrates that confirmation is a significant predictor
+            of both satisfaction and continued use intentions, indicating that unconfirmed
+            expectations constitute a powerful barrier to continuance. Low satisfaction and negative
+            user experiences represent direct barriers to continued system use. Even when
+            expectations are confirmed, users who have negative emotional responses to systems—who
+            experience frustration, dissatisfaction, or irritation—will be inclined to discontinue.
+            The model identifies satisfaction as a central driver of continuance intentions,
+            suggesting that dissatisfactory user experiences constitute a significant barrier.
+            Dissatisfaction might stem from poor interface design, inadequate system reliability,
+            insufficient responsiveness to user needs, poor customer support, or generally
+            frustrating interactions with systems. Perceived lack of usefulness represents another
+            significant barrier. Systems users do not perceive as useful—that do not deliver
+            tangible benefits, do not improve task performance, do not contribute to productivity,
+            and do not provide clear value—face discontinuance risk. The model identifies perceived
             usefulness as an independent predictor of continuance intentions, suggesting that users
             who fail to see ongoing benefits from system use will discontinue. This barrier is
             particularly significant when systems require sustained effort or time commitment to
@@ -357,7 +354,7 @@ const BibliographyArticlePage = () => {
             continue using one system involves implicit comparison to alternatives. If users become
             aware of superior alternatives that would better meet their needs, are easier to use, or
             are less expensive, they face incentive to switch. The barrier operates through relative
-            comparisonâ€”even systems providing confirmed expectations and adequate satisfaction may
+            comparison—even systems providing confirmed expectations and adequate satisfaction may
             be abandoned if better alternatives become available. Inadequate expectation management
             represents an indirect barrier to continuance. Systems with marketing communications or
             pre-use descriptions promising capabilities that actual systems do not deliver create
@@ -365,7 +362,7 @@ const BibliographyArticlePage = () => {
             might discontinue when they discover actual systems differ from expectations. This
             barrier stems not from system inadequacy per se but from misalignment between what
             systems promise and what they deliver. Declining perceived usefulness over time
-            represents a barrier capturing the reality that usersâ€™ perceptions of system benefits
+            represents a barrier capturing the reality that users’ perceptions of system benefits
             may decline as they become familiar with systems. Initially, systems may seem remarkably
             useful; with continued use, novelty wears off and perceived usefulness may stabilize at
             lower levels. Users experiencing this perceived usefulness decline may discontinue if
@@ -403,14 +400,14 @@ const BibliographyArticlePage = () => {
             recognize independently. Third, organizational communication should emphasize and
             reinforce the benefits users derive from system use. Highlighting success stories,
             demonstrating ROI, and showcasing how systems contribute to work effectiveness or life
-            improvement helps sustain usersâ€™ perceived usefulness. Fourth, system improvements
+            improvement helps sustain users’ perceived usefulness. Fourth, system improvements
             should focus on increasing the value users derive, whether through new features,
             improved functionality, or integration with complementary tools. To address declining
             perceived usefulness over time, leaders should implement ongoing improvement and
             enhancement strategies. Rather than assuming systems remain static and adequate once
             deployed, organizations should continuously enhance systems based on user needs and
             changing circumstances. Regular updates introducing valuable new functionality help
-            maintain usersâ€™ perception that systems continue providing increasing value.
+            maintain users’ perception that systems continue providing increasing value.
             Communication about improvements and enhancements reminds users of the ongoing value
             systems provide. To reduce the risk that superior alternatives will lure away users,
             leaders should work to maintain competitive advantage and value proposition. This
@@ -422,8 +419,8 @@ const BibliographyArticlePage = () => {
             confirmation-satisfaction linkage, leaders should actively work to ensure actual system
             performance confirms and preferably exceeds user expectations. This requires ongoing
             attention to system reliability, functionality, and performance. Issues that undermine
-            usersâ€™ perception that systems perform as expected should be addressed promptly.
-            Leaders should communicate honestly about system limitations, ensuring users understand
+            users’ perception that systems perform as expected should be addressed promptly. Leaders
+            should communicate honestly about system limitations, ensuring users understand
             realistic performance parameters. When systems cannot meet certain expectations, leaders
             should acknowledge this transparently rather than allowing disappointment to arise when
             users discover limitations through use. The model suggests that information systems
@@ -445,18 +442,18 @@ const BibliographyArticlePage = () => {
             of a Technology Adoption literature review series: 1. A Model of Adoption of Technology
             in Households: Brown and Venkatesh, 2005 2. Understanding Information Systems
             Continuance: An Expectation- Confirmation Model (Bhattacherjee, 2001) 3. Status Quo Bias
-            in Decision Making (Samuelson and Zeckhauser, 1988) References 1.Ajzen, I. â€œThe Theory
-            of Planned Behavior.â€ Organizational Behavior and Human Decision Processes 50, no. 2
-            (1991): 179-211. 2.Bhattacherjee, A. â€œUnderstanding Information Systems Continuance:
-            An Expectation-Confirmation Model.â€ MIS Quarterly 25, no. 3 (2001): 351- 370. 3.Davis,
-            F. D. â€œPerceived Usefulness, Perceived Ease of Use, and User Acceptance of Information
-            Technology.â€ MIS Quarterly 13, no. 3 (1989): 319-340. 4.Davis, F. D., Bagozzi, R. P.,
-            and Warshaw, P. R. â€œUser Acceptance of Computer Technology: A Comparison of Two
-            Theoretical Models.â€ Management Science 35, no. 8 (1989): 982-1003. 5.Oliver, R. L.
-            â€œA Cognitive Model of the Antecedents and Consequences of Satisfaction Decisions.â€
-            Journal of Marketing Research 17, no. 4 (1980): 460-469. 6.Mathieson, K. â€œPredicting
-            User Intentions: Comparing the Technology Acceptance Model with the Theory of Planned
-            Behavior.â€ Information Systems Research 2, no. 3 (1991): 173-191.
+            in Decision Making (Samuelson and Zeckhauser, 1988) References 1.Ajzen, I. “The Theory
+            of Planned Behavior.” Organizational Behavior and Human Decision Processes 50, no. 2
+            (1991): 179-211. 2.Bhattacherjee, A. “Understanding Information Systems Continuance: An
+            Expectation-Confirmation Model.” MIS Quarterly 25, no. 3 (2001): 351- 370. 3.Davis, F.
+            D. “Perceived Usefulness, Perceived Ease of Use, and User Acceptance of Information
+            Technology.” MIS Quarterly 13, no. 3 (1989): 319-340. 4.Davis, F. D., Bagozzi, R. P.,
+            and Warshaw, P. R. “User Acceptance of Computer Technology: A Comparison of Two
+            Theoretical Models.” Management Science 35, no. 8 (1989): 982-1003. 5.Oliver, R. L. “A
+            Cognitive Model of the Antecedents and Consequences of Satisfaction Decisions.” Journal
+            of Marketing Research 17, no. 4 (1980): 460-469. 6.Mathieson, K. “Predicting User
+            Intentions: Comparing the Technology Acceptance Model with the Theory of Planned
+            Behavior.” Information Systems Research 2, no. 3 (1991): 173-191.
           </p>
 
           <p className="mt-8 text-sm italic text-gray-600">
