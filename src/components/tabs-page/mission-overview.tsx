@@ -1,5 +1,3 @@
-import React from 'react'
-
 const MissionOverview = () => {
   return (
     <section className="w-full py-[80px] bg-white text-gray-800">
@@ -56,7 +54,7 @@ const MissionOverview = () => {
               Our mission at TABS (Technology Adoption Barriers Survey) is to advance the
               understanding and practice of technology adoption within organizations. We aim to
               address the critical problem that barriers to technology adoption can negatively
-              affect an enterprise’s ability to obtain or maintain competitive advantage,
+              affect an enterpriseâ€™s ability to obtain or maintain competitive advantage,
               potentially leading to loss of market share or even obsolescence.
             </p>
             <ul className="list-none space-y-4">
@@ -64,12 +62,12 @@ const MissionOverview = () => {
                 <strong className="text-[#0E7162]">
                   Assessment of Organizational Technology Readiness:
                 </strong>{' '}
-                We evaluate an organization’s current capabilities and preparedness to effectively
+                We evaluate an organizationâ€™s current capabilities and preparedness to effectively
                 leverage new technologies. This assessment covers multiple dimensions, such as the
-                clarity of leadership’s vision for technology, alignment of technology strategy with
-                organizational goals, effectiveness of IT governance structures, cultural openness
-                to change, availability of skilled personnel, adequacy of IT infrastructure, and
-                maturity of data governance policies.
+                clarity of leadershipâ€™s vision for technology, alignment of technology strategy
+                with organizational goals, effectiveness of IT governance structures, cultural
+                openness to change, availability of skilled personnel, adequacy of IT
+                infrastructure, and maturity of data governance policies.
               </li>
               <li>
                 <strong className="text-[#0E7162]">

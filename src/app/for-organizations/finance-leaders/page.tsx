@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
@@ -53,14 +52,14 @@ const FinanceLeadersPage = () => {
               href="/for-organizations"
               className="text-green-200 hover:text-white transition-colors text-[16px]"
             >
-              ← Back to All Organizations
+              â† Back to All Organizations
             </Link>
           </div>
           <h1 className="text-[48px] md:text-[56px] font-bold mb-[20px] font-serif">
             For Finance Leaders
           </h1>
           <p className="text-[24px] text-green-100 mb-[15px] font-semibold">
-            CFO • Controller • VP Finance • Treasurer • Financial Planning & Analysis
+            CFO â€¢ Controller â€¢ VP Finance â€¢ Treasurer â€¢ Financial Planning & Analysis
           </p>
           <p className="text-[18px] text-green-100 max-w-[900px] leading-[1.6]">
             Support your members in understanding technology investment barriers and demonstrating
@@ -80,7 +79,7 @@ const FinanceLeadersPage = () => {
             <div className="bg-green-50 p-[30px] rounded-[12px] border-2 border-green-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="ROI">
-                  💰
+                  ðŸ’°
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">
@@ -96,7 +95,7 @@ const FinanceLeadersPage = () => {
             <div className="bg-green-50 p-[30px] rounded-[12px] border-2 border-green-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Budget">
-                  📊
+                  ðŸ“Š
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">Budget Planning</h3>
@@ -109,7 +108,7 @@ const FinanceLeadersPage = () => {
             <div className="bg-green-50 p-[30px] rounded-[12px] border-2 border-green-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Risk">
-                  ⚖️
+                  âš–ï¸
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">Risk Assessment</h3>
@@ -136,7 +135,7 @@ const FinanceLeadersPage = () => {
           <div className="grid md:grid-cols-2 gap-[30px]">
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                💼 Investment Justification Data
+                ðŸ’¼ Investment Justification Data
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Access industry benchmarks and insights that help justify technology investments to
@@ -146,7 +145,7 @@ const FinanceLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                📈 ROI Improvement Insights
+                ðŸ“ˆ ROI Improvement Insights
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Understand common barriers that prevent technology initiatives from delivering
@@ -156,7 +155,7 @@ const FinanceLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                🎯 Peer Benchmarking
+                ðŸŽ¯ Peer Benchmarking
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Compare their organization&apos;s technology adoption challenges against industry
@@ -166,7 +165,7 @@ const FinanceLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                🤝 IT-Finance Alignment
+                ðŸ¤ IT-Finance Alignment
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Gain insights that improve collaboration with technology teams by understanding
@@ -209,7 +208,7 @@ const FinanceLeadersPage = () => {
                     rel="noopener noreferrer"
                     className="inline-block px-[25px] py-[12px] bg-green-600 hover:bg-green-700 text-white rounded-[6px] font-semibold text-[14px] transition-colors text-center md:text-left whitespace-nowrap"
                   >
-                    Visit Website →
+                    Visit Website â†’
                   </a>
                 </div>
               </div>
@@ -247,7 +246,7 @@ const FinanceLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 1">
-                  1️⃣
+                  1ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Initial Contact</h3>
@@ -260,7 +259,7 @@ const FinanceLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 2">
-                  2️⃣
+                  2ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Receive Materials</h3>
@@ -273,7 +272,7 @@ const FinanceLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 3">
-                  3️⃣
+                  3ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Promote Survey</h3>
@@ -286,7 +285,7 @@ const FinanceLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 4">
-                  4️⃣
+                  4ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Share Insights</h3>

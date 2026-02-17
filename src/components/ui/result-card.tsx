@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import AnimatedNumber from '@/components/ui/AnimatedNumber'
+import AnimatedNumber from '@/components/ui/animated-number'
 
 interface ResultCardProps {
   title: string

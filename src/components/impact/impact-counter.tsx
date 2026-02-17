@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import impactData from '@/data/impact.json'
 
 // Only show if we have valid data (CI Trigger)

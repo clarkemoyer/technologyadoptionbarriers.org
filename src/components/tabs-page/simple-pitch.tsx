@@ -1,5 +1,3 @@
-import React from 'react'
-
 const SimplePitch = () => {
   return (
     <section className="w-full py-[80px] bg-[#5FB38D] text-white">

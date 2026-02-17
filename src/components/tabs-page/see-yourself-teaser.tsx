@@ -1,4 +1,3 @@
-import React from 'react'
 import Link from 'next/link'
 
 const SeeYourselfTeaser = () => {
@@ -11,7 +10,7 @@ const SeeYourselfTeaser = () => {
               See Yourself in the Survey
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed max-w-2xl">
-              Explore how TABS relates specifically to your role—whether you’re a CEO, CIO, or
+              Explore how TABS relates specifically to your roleâ€”whether youâ€™re a CEO, CIO, or
               leading specific functions. Discover the impact you can make.
             </p>
           </div>

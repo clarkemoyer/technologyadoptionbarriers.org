@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { axe, toHaveNoViolations } from 'jest-axe'
-import SupportCards from '../../src/components/tabs-page/SupportCards'
+import SupportCards from '../../src/components/tabs-page/support-cards'
 
 // Extend Jest matchers
 expect.extend(toHaveNoViolations)

@@ -1,4 +1,3 @@
-import React from 'react'
 import { assetPath } from '@/lib/assetPath'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
@@ -32,7 +31,7 @@ const Hero = () => {
                 obsolescence.
               </li>
               <li className="text-[18px] text-gray-700 leading-relaxed">
-                There’s a continuous need for{' '}
+                Thereâ€™s a continuous need for{' '}
                 <strong className="font-bold">
                   updated insights, especially from senior leadership
                 </strong>

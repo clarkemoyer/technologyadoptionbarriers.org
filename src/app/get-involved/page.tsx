@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Metadata } from 'next'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
@@ -13,7 +12,7 @@ const GetInvolvedPage = () => {
     {
       id: 'take-survey',
       title: 'Take the TABS Survey',
-      icon: '📋',
+      icon: 'ðŸ“‹',
       description:
         'The most direct way to contribute is by participating in the survey. Your insights as a senior leader help identify common technology adoption barriers and create valuable benchmarks for the industry.',
       whoShouldParticipate:
@@ -33,7 +32,7 @@ const GetInvolvedPage = () => {
     {
       id: 'use-dataset',
       title: 'Use TABS Data in Your Research',
-      icon: '📊',
+      icon: 'ðŸ“Š',
       description:
         'We encourage researchers to use the TABS dataset to conduct original research, testing hypotheses beyond basic descriptive statistics. Request secure access to the dataset once approved by your IRB to contribute to papers and dissertations.',
       whoShouldParticipate:
@@ -54,7 +53,7 @@ const GetInvolvedPage = () => {
     {
       id: 'contribute-general',
       title: 'Contribute to the General Fund',
-      icon: '💵',
+      icon: 'ðŸ’µ',
       description:
         'Support the ongoing operation of the TABS survey. Your financial contribution helps us maintain the survey platform, manage participant listings, and disseminate annual findings to the research community.',
       whoShouldParticipate:
@@ -74,7 +73,7 @@ const GetInvolvedPage = () => {
     {
       id: 'sponsor',
       title: 'Become a Sponsor',
-      icon: '🤝',
+      icon: 'ðŸ¤',
       description:
         "Sponsorship provides significant support while gaining visibility and demonstrating your organization's commitment to advancing technology adoption research and business insights.",
       whoShouldParticipate:
@@ -94,7 +93,7 @@ const GetInvolvedPage = () => {
     {
       id: 'volunteer',
       title: 'Volunteer to Help TABS Operations',
-      icon: '🙋',
+      icon: 'ðŸ™‹',
       description:
         'We need more than funding - we need skilled people to help run the survey, analyze data, improve the website, and support TABS operations. Use your skills to advance technology adoption research.',
       whoShouldParticipate:

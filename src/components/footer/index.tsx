@@ -12,7 +12,7 @@ import { FaFacebookF, FaLinkedinIn, FaGithub } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { personaNavigation } from '@/data/persona-navigation'
 import { technologyAdoptionModelsSeries } from '@/data/technology-adoption-models-series'
-// import { ImpactCounter } from '../impact/ImpactCounter'
+// import { ImpactCounter } from '../impact/impact-counter'
 
 const Footer: React.FC = () => {
   const currentYear = React.useMemo(() => new Date().getFullYear(), [])
