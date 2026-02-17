@@ -259,7 +259,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     })),
-    // Get Involved & Media
+    // FAQ, Get Involved & Media
+    {
+      url: `${baseUrl}/faq`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
     {
       url: `${baseUrl}/get-involved`,
       lastModified: now,

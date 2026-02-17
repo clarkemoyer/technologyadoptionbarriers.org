@@ -108,6 +108,7 @@ const Header: React.FC = () => {
         megaMenuId: 'teaching-series',
       },
       { label: 'Media', path: '/media' },
+      { label: 'FAQ', path: '/faq' },
       { label: 'Get Involved', path: '/get-involved' },
     ],
     []

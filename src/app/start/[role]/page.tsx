@@ -121,7 +121,7 @@ export default async function RolePage({ params }: Props) {
             >
               Take the TABS Survey
             </a>
-            <p className="text-[14px] text-blue-200 mt-[20px]">Takes approximately 15-20 minutes</p>
+            <p className="text-[14px] text-blue-200 mt-[20px]">Takes approximately 20-25 minutes</p>
           </div>
 
           {/* Additional Info */}
