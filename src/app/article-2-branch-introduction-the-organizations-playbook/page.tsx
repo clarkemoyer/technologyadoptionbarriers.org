@@ -175,15 +175,15 @@ const OrganizationsPlaybookPage = () => {
               Van Haren Publishing.
             </li>
             <li>
-              Pollock, N., &amp; Williams, R. (2016). How to Make the Right Decision in a Crisis:
-              The Rationality of Following the Herd. Cambridge University Press.{' '}
+              Pollock, N., &amp; Williams, R. (2016). How Industry Analysts Shape the Digital
+              Future. Oxford University Press.{' '}
               <a
-                href="https://www.cambridge.org/core/books/how-to-make-the-right-decision-in-a-crisis/A3B8C1D6F0E0F9B9A7A7B7B8E5F0E6F0"
+                href="https://doi.org/10.1093/acprof:oso/9780198704621.001.0001"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
-                https://www.cambridge.org/core/books/how-to-make-the-right-decision-in-a-crisis/A3B8C1D6F0E0F9B9A7A7B7B8E5F0E6F0
+                https://doi.org/10.1093/acprof:oso/9780198704621.001.0001
               </a>
             </li>
             <li>
