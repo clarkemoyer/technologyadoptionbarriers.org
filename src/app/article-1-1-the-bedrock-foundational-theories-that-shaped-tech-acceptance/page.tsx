@@ -1,6 +1,16 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import {
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+  BODY_LIST_CLASSES,
+  BODY_OL_CLASSES,
+  REFERENCES_H2_CLASSES,
+  REFERENCES_OL_CLASSES,
+} from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
@@ -17,8 +27,8 @@ const FoundationalTheoriesPage = () => {
           Article 1.1: The Bedrock – Foundational Theories That Shaped Tech Acceptance
         </h1>
 
-        <section className="mb-6 sm:mb-10 text-gray-800">
-          <p className="mb-3 sm:mb-6">
+        <section className={SECTION_CLASSES}>
+          <p className={PARAGRAPH_CLASSES}>
             Before the Technology Acceptance Model (TAM) provided a focused lens for information
             systems research, the study of why people choose to use a new technology was grounded in
             a broader and more diverse set of foundational theories. These “grandparent” models,
@@ -27,25 +37,25 @@ const FoundationalTheoriesPage = () => {
             research, we must first appreciate this bedrock–the core constructs and perspectives
             that early researchers adapted to the specific challenge of technology use.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             This article analyzes the key pre-TAM theories, explaining their core constructs and how
             they collectively laid the groundwork for the more specialized models that now define
             the field.
           </p>
 
           <h2 className={H2_CLASSES}>Diffusion of Innovations (DOI) Theory</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Originating from a sociological perspective, Everett Rogers’ Diffusion of Innovations
             Theory [1] is one of the oldest and most influential theories in the field. It is not
             focused on a single adoption decision but on the macro-level process of how an
             innovation spreads through a social system over time. DOI describes the process by which
             individuals and organizations adopt new ideas, products, or practices.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Its most enduring contribution to the field is the identification of five key perceived
             attributes of an innovation that influence its rate of adoption:
           </p>
-          <ol className="list-decimal pl-5 space-y-2 mb-6 font-sans text-base">
+          <ol className={BODY_OL_CLASSES}>
             <li>
               <strong>Relative Advantage:</strong> The degree to which an innovation is perceived as
               better than the idea it supersedes.
@@ -67,11 +77,11 @@ const FoundationalTheoriesPage = () => {
               visible to others.
             </li>
           </ol>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Beyond these attributes, DOI is renowned for categorizing adopters based on their
             propensity to adopt innovations. The categories are:
           </p>
-          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
+          <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Innovators (2.5%):</strong> Venturesome risk-takers who are the very first to
               adopt an innovation.
@@ -95,15 +105,17 @@ const FoundationalTheoriesPage = () => {
           </ul>
 
           <h2 className={H2_CLASSES}>Theory of Reasoned Action (TRA)</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Developed by Fishbein and Ajzen [2], the Theory of Reasoned Action was a landmark
             general theory in social psychology designed to explain the specifics of individual
             behavior. Its central premise is that the most immediate predictor of a person’s
             behavior is their behavioral intention–their subjective probability that they will
             perform the behavior in question.
           </p>
-          <p className="mb-3 sm:mb-6">This intention, in turn, is determined by two key factors:</p>
-          <ol className="list-decimal pl-5 space-y-2 mb-6 font-sans text-base">
+          <p className={PARAGRAPH_CLASSES}>
+            This intention, in turn, is determined by two key factors:
+          </p>
+          <ol className={BODY_OL_CLASSES}>
             <li>
               <strong>Attitude Toward the Behavior:</strong> The individual’s positive or negative
               feelings about performing the behavior. This is shaped by their behavioral beliefs
@@ -115,7 +127,7 @@ const FoundationalTheoriesPage = () => {
               (e.g., “My manager and respected colleagues think I should use this new software”).
             </li>
           </ol>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             TRA’s primary contribution was its elegant causal chain: beliefs influence attitudes and
             subjective norms, which together shape intentions, which in turn lead to behavior. It
             established the critical role of intention as a mediator and provided the basic
@@ -124,19 +136,19 @@ const FoundationalTheoriesPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Theory of Planned Behavior (TPB)</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             A decade and a half after TRA, Ajzen extended his own model to address a significant
             limitation: its assumption that behaviors are under a person’s complete volitional
             control. The resulting Theory of Planned Behavior [3] kept the core structure of TRA but
             added a critical third determinant of behavioral intention:
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>1. Perceived Behavioral Control (PBC):</strong> An individual’s perception of
             the ease or difficulty of performing the behavior. This construct accounts for the
             presence or absence of requisite resources and opportunities (e.g., “I have the time,
             training, and technical support needed to learn this system”).
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             PBC influences behavior directly and indirectly by influencing behavioral intention.
             This addition was profoundly important for technology adoption research, as it formally
             introduced the concepts of self-efficacy and facilitating conditions–barriers and
@@ -144,13 +156,13 @@ const FoundationalTheoriesPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Social Cognitive Theory (SCT)</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             While TRA and TPB focused on a linear path from belief to behavior, Bandura’s Social
             Cognitive Theory [4] proposed a more dynamic model of triadic reciprocal determinism.
             SCT posits that behavior is the result of a continuous interaction between three
             factors:
           </p>
-          <ol className="list-decimal pl-5 space-y-2 mb-6 font-sans text-base">
+          <ol className={BODY_OL_CLASSES}>
             <li>
               <strong>Personal Factors:</strong> An individual’s cognitive, affective, and
               biological attributes (e.g., self-efficacy, knowledge).
@@ -163,7 +175,7 @@ const FoundationalTheoriesPage = () => {
               <strong>Behavior:</strong> The individual’s actions.
             </li>
           </ol>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             A key contribution of SCT to technology adoption was its emphasis on self-efficacy–an
             individual’s belief in their own capability to execute the actions required to achieve a
             specific goal. This concept is a more refined version of TPB’s Perceived Behavioral
@@ -171,12 +183,12 @@ const FoundationalTheoriesPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Motivational Model (MM)</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             While many theories focused on instrumental drivers, the Motivational Model, as applied
             by Davis, Bagozzi, and Warshaw [5], highlighted a different set of drivers. Drawing from
             Self-Determination Theory, the MM argues that behavior is also influenced by:
           </p>
-          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
+          <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Extrinsic Motivation:</strong> The drive to perform a behavior because it is
               perceived to be instrumental in achieving valued outcomes (e.g., usefulness).
@@ -187,19 +199,19 @@ const FoundationalTheoriesPage = () => {
               enjoyment).
             </li>
           </ul>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The MM’s crucial contribution was the formal introduction of intrinsic motivation, or
             perceived enjoyment, as a direct determinant of technology use.
           </p>
 
           <h2 className={H2_CLASSES}>Model of PC Utilization (MPCU)</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The Model of PC Utilization [6] represents a key early attempt to move from general
             theories to a specific model of information systems use. Thompson, Higgins, and Howell
             synthesized constructs from several of the theories mentioned above, including DOI and
             TPB, to create a more comprehensive model.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The MPCU is significant not for its dominance–it was soon overshadowed–but for its role
             as a conceptual bridge. It demonstrated the value of integrating multiple theoretical
             perspectives and tailoring them to the specific context of computer use, setting the
@@ -211,10 +223,8 @@ const FoundationalTheoriesPage = () => {
         <SeriesNavigation />
 
         <section className="pt-8 border-t border-gray-200">
-          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-            References
-          </h2>
-          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 font-sans">
+          <h2 className={REFERENCES_H2_CLASSES}>References</h2>
+          <ol className={REFERENCES_OL_CLASSES}>
             <li>Rogers, E. M. (1962). Diffusion of Innovations. Free Press of Glencoe.</li>
             <li>
               Fishbein, M., &amp; Ajzen, I. (1975). Belief, Attitude, Intention, and Behavior: An

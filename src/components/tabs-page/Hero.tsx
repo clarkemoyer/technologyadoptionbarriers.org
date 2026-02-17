@@ -63,10 +63,10 @@ const Hero = () => {
             <div className="relative aspect-video w-full bg-black rounded shadow-lg overflow-hidden">
               <video
                 className="w-full h-full object-cover"
-                poster="/Images/TABS-Logo-Full.png"
+                poster={assetPath('/Images/TABS-Logo-Full.png')}
                 controls
               >
-                <source src="/videos/The_TABS_Project.mp4" type="video/mp4" />
+                <source src={assetPath('/videos/The_TABS_Project.mp4')} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>

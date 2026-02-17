@@ -34,6 +34,8 @@ export const PARAGRAPH_CLASSES = `mb-3 sm:mb-6`
 
 export const BODY_LIST_CLASSES = `list-disc pl-5 space-y-2 mb-6 font-sans text-base`
 
+export const BODY_OL_CLASSES = `list-decimal pl-5 space-y-2 mb-6 font-sans text-base`
+
 export const REFERENCES_H2_CLASSES = `text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4`
 
 export const REFERENCES_OL_CLASSES = `list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 font-sans`

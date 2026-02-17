@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState, useRef, useLayoutEffect } from 'react'
-import Image from 'next/image'
 
 interface AccordionItemProps {
   title: string

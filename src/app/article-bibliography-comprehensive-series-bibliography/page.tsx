@@ -1,6 +1,13 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import {
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+  BODY_OL_CLASSES,
+} from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
@@ -20,16 +27,16 @@ const BibliographyPage = () => {
         <SeriesNavigation className="mt-6" />
 
         {/* Executive Summary */}
-        <section className="mb-6 sm:mb-10 text-gray-800">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Executive Summary</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             This bibliography serves as the definitive, exhaustive scholarly record for the
             &ldquo;Technology Adoption Models&rdquo; series. It consolidates every intellectual
             foundation identified in the project&rsquo;s research database, bifurcated into the{' '}
             <strong>Individual User&rsquo;s Journey</strong> (Branch 1) and the{' '}
             <strong>Organization&rsquo;s Playbook</strong> (Branch 2).
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             For doctoral-level researchers, this document provides the complete longitudinal record
             of theory evolution, ensuring no seminal work from the source RIS datasets is omitted.
             For executive leadership, it establishes a high-fidelity audit trail for every framework
@@ -40,13 +47,13 @@ const BibliographyPage = () => {
         </section>
 
         {/* How to Use This Bibliography */}
-        <section className="mb-6 sm:mb-10 text-gray-800">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>How to Use This Bibliography</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             To facilitate rapid navigation and deep verification, this document is structured into
             three distinct sections:
           </p>
-          <ol className="list-decimal pl-5 space-y-2 mb-6 font-sans text-base">
+          <ol className={BODY_OL_CLASSES}>
             <li>
               <strong>Individual Model Articles:</strong> New dedicated pages for each of the 21
               individual technology adoption models, featuring detailed histories, methodologies,
@@ -69,7 +76,7 @@ const BibliographyPage = () => {
         {/* Individual Model Articles */}
         <section className="mb-8 sm:mb-12 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-2 border-blue-200">
           <h2 className={H2_CLASSES}>📚 Individual Model Articles (New!)</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Each of the 21 individual technology adoption models now has its own dedicated article
             page. Click any model below to explore its history, methodology, validation, and impact
             on the field.
@@ -226,7 +233,7 @@ const BibliographyPage = () => {
         </section>
 
         {/* Inventory Dashboard */}
-        <section className="mb-6 sm:mb-10 text-gray-800">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Inventory Dashboard</h2>
           <div className="overflow-x-auto -mx-4 sm:mx-0">
             <table className="min-w-full border-collapse border border-gray-300 text-sm sm:text-base">
@@ -422,7 +429,7 @@ const BibliographyPage = () => {
         </section>
 
         {/* Track 1 References */}
-        <section className="mb-6 sm:mb-10 text-gray-800">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Detailed APA Reference List: Track 1 (Individual)</h2>
           <div className="space-y-4">
             <p className="pl-8 -indent-8">
@@ -530,7 +537,7 @@ const BibliographyPage = () => {
         </section>
 
         {/* Track 2 References */}
-        <section className="mb-6 sm:mb-10 text-gray-800">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Detailed APA Reference List: Track 2 (Organization)</h2>
           <div className="space-y-4">
             <p className="pl-8 -indent-8">

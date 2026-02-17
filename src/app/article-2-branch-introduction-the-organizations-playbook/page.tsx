@@ -1,6 +1,15 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import {
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+  BODY_LIST_CLASSES,
+  REFERENCES_H2_CLASSES,
+  REFERENCES_OL_CLASSES,
+} from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
@@ -15,15 +24,15 @@ const OrganizationsPlaybookPage = () => {
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Article 2: Branch Introduction – The Organization’s Playbook</h1>
 
-        <section className="mb-6 sm:mb-10 text-gray-800">
-          <p className="mb-3 sm:mb-6">
+        <section className={SECTION_CLASSES}>
+          <p className={PARAGRAPH_CLASSES}>
             Having thoroughly explored the psychological and cognitive drivers of the individual’s
             adoption journey, we now pivot our focus from the micro to the macro. We ascend from the
             user’s desktop to the C-Suite, shifting our lens from the personal calculus of
             acceptance to the strategic imperatives of the organization. Welcome to the second major
             branch of our series: The Organization’s Playbook.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Here, the central question is no longer “Will an individual use this technology?” but
             rather, “How does our organization decide to invest in, implement, and integrate a
             technology to achieve strategic goals?” This is the realm of high-stakes capital
@@ -33,9 +42,9 @@ const OrganizationsPlaybookPage = () => {
           </p>
         </section>
 
-        <section className="mb-6 sm:mb-10 text-gray-800">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>The Strategic Imperative: Beyond User Clicks</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Organizational adoption is a fundamentally different challenge from individual
             acceptance. While still deeply linked with the foundational theories of DOI and IDT [1],
             it is a deliberate, top-down, and resource-intensive endeavor. The decision to deploy a
@@ -49,14 +58,14 @@ const OrganizationsPlaybookPage = () => {
           </p>
         </section>
 
-        <section className="mb-6 sm:mb-10 text-gray-800">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>From Theory to Frameworks: A Narrative Arc</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The evolution of organizational adoption guidance follows a distinct path, moving from
             high-level academic theories that explain the “why” to detailed, prescriptive frameworks
             that dictate the “how.”
           </p>
-          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
+          <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>The Strategic “Why”:</strong> The intellectual foundation for organizational
               adoption lies in strategic management theory. Foundational frameworks like the
@@ -110,24 +119,24 @@ const OrganizationsPlaybookPage = () => {
           </ul>
         </section>
 
-        <section className="mb-6 sm:mb-10 text-gray-800">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Roadmap for this Branch</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             This narrative arc provides the structure for the articles in this branch. Our
             exploration of the organization’s playbook is organized as follows:
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             We will begin by exploring the core strategic theories that guide organizational tech
             decisions. Next, we will delve into maturity models for improving processes. We will
             then survey frameworks for managing enterprise architecture and risk, before concluding
             with the highly practical, modern frameworks for cloud and AI adoption.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             This journey will illuminate the tools and conceptual models that executives,
             strategists, and enterprise architects use to steer their organizations through the
             complex and ever-changing technology landscape.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Ultimately, this journey seeks to answer a critical question for the modern enterprise:
             How do organizations build a coherent playbook that bridges the gap between high-level
             strategic theory and the complex, on-the-ground reality of digital transformation?
@@ -137,10 +146,8 @@ const OrganizationsPlaybookPage = () => {
         <SeriesNavigation />
 
         <section className="pt-8 border-t border-gray-200">
-          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-            References
-          </h2>
-          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 font-sans">
+          <h2 className={REFERENCES_H2_CLASSES}>References</h2>
+          <ol className={REFERENCES_OL_CLASSES}>
             <li>Rogers, E. M. (1962). Diffusion of Innovations. Free Press of Glencoe.</li>
             <li>
               Tornatzky, L. G., &amp; Fleischer, M. (1990). The Processes of Technological

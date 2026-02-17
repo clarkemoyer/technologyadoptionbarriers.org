@@ -1,6 +1,15 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import {
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+  BODY_LIST_CLASSES,
+  REFERENCES_H2_CLASSES,
+  REFERENCES_OL_CLASSES,
+} from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
@@ -15,8 +24,8 @@ const UsersJourneyPage = () => {
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Article 1: Branch Introduction – The User’s Journey</h1>
 
-        <section className="mb-6 sm:mb-10 text-gray-800">
-          <p className="mb-3 sm:mb-6">
+        <section className={SECTION_CLASSES}>
+          <p className={PARAGRAPH_CLASSES}>
             In our introductory article, we established the landscape of technology adoption through
             the lens of a trifecta: Organizational, User, and Consumer Adoption. We positioned
             Organizational Adoption–the C-Suite’s strategic focus–as the apex. We now turn our
@@ -24,7 +33,7 @@ const UsersJourneyPage = () => {
             adoption equation: the internal employee’s decision to use a new system and the external
             customer’s choice to integrate a technology into their lives.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             This branch of our series, The User’s Journey, delves into the rich intellectual history
             of individual technology acceptance and use. We will explore the evolution of the models
             designed to explain and predict the most fundamental of behaviors: the decision by a
@@ -32,18 +41,18 @@ const UsersJourneyPage = () => {
           </p>
         </section>
 
-        <section className="mb-6 sm:mb-10 text-gray-800">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>
             The Core Question: Deconstructing the “Acceptance” Decision
           </h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             At the heart of this entire field of study lies a foundational puzzle: What are the key
             cognitive levers that determine whether an individual will accept and use a new
             technology? Is it a purely rational calculation of costs and benefits? Is it the
             influence of peers and managers? Or is it a deeper, more personal assessment of one’s
             own capabilities and the intrinsic enjoyment derived from the experience?
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The answer, as decades of research have shown, is a complex interplay of all these
             factors. Understanding this decision-making process is not merely an academic exercise;
             it is critical for realizing the value of any technological investment. A perfectly
@@ -54,14 +63,14 @@ const UsersJourneyPage = () => {
           </p>
         </section>
 
-        <section className="mb-6 sm:mb-10 text-gray-800">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>From Psychology to Practice: A Narrative Arc</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The intellectual history of individual adoption models follows a clear and fascinating
             narrative arc, moving from the general to the specific and from fragmentation to
             synthesis.
           </p>
-          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
+          <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>The Foundational “Grandparents”:</strong> The earliest attempts to model this
               behavior did not originate in information systems research but drew from a rich
@@ -104,13 +113,13 @@ const UsersJourneyPage = () => {
           </ul>
         </section>
 
-        <section className="mb-6 sm:mb-10 text-gray-800">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Roadmap for this Branch</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             This narrative provides the structure for the articles to come. Our exploration of the
             user’s journey is organized as follows:
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             First, we’ll look at the foundational theories. Then, we’ll do a deep dive into TAM, the
             model that changed everything. From there, we’ll explore its direct successors before
             examining the ambitious UTAUT model that sought to unify the field. After establishing
@@ -118,7 +127,7 @@ const UsersJourneyPage = () => {
             consumer context, explore specialized models where context is king, and finally,
             consider the crucial role of an individual’s innate readiness for technology.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             This journey will provide a comprehensive understanding of how the field has evolved,
             from its psychological roots to the sophisticated, unified models used today. In our
             next article, we will begin at the beginning, with a deep dive into the bedrock theories
@@ -129,10 +138,8 @@ const UsersJourneyPage = () => {
         <SeriesNavigation />
 
         <section className="pt-8 border-t border-gray-200">
-          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-            References
-          </h2>
-          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 font-sans">
+          <h2 className={REFERENCES_H2_CLASSES}>References</h2>
+          <ol className={REFERENCES_OL_CLASSES}>
             <li>
               Fishbein, M., &amp; Ajzen, I. (1975). Belief, Attitude, Intention, and Behavior: An
               Introduction to Theory and Research. Addison-Wesley.
