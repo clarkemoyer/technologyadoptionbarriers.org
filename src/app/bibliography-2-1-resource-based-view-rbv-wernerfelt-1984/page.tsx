@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: A Resource-Based View (RBV) â€“ Wernerfelt (1984)',
+  title: 'Bibliography: A Resource-Based View (RBV) – Wernerfelt (1984)',
   description:
     "An exploration of Wernerfelt's Resource-Based View of the firm, a foundational framework for understanding how organizational resources and capabilities drive competitive advantage and strategic technology adoption.",
 }
@@ -234,7 +234,7 @@ const ResourceBasedViewPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Tautological Tendencies:</strong> Critics have noted that the framework can
-            become somewhat circularâ€”resources that lead to superior performance are explained as
+            become somewhat circular—resources that lead to superior performance are explained as
             being rare and inimitable, but the only evidence that resources are rare and inimitable
             is that they lead to superior performance. This circularity makes the framework
             difficult to falsify empirically and can reduce its predictive power.
