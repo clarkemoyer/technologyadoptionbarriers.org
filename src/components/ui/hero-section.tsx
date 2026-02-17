@@ -23,14 +23,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <section
       className="w-full flex items-center overflow-hidden pt-[80px]
-             bg-[linear-gradient(320deg,_#2584AD_48%,_#ffffff_48%)]
-             md:bg-[linear-gradient(320deg,_#f58c23_48%,_#ffffff_48%)]"
+             bg-[linear-gradient(320deg,_var(--tabs-primary)_48%,_#ffffff_48%)]
+             md:bg-[linear-gradient(320deg,_var(--tabs-orange)_48%,_#ffffff_48%)]"
     >
       <div className="w-[90%] max-w-[100%] mx-auto pt-[90px] pb-[90px]">
         <div className="flex flex-col lg:flex-row gap-[40px] lg:gap-[0px]">
           {/* Left: Text Content */}
           <div className="w-full lg:w-[40%]">
-            <h1 className="text-[#f27022] text-[40px] md:text-[60px] font-[600] leading-[60px] md:leading-[78px] mb-[3px]">
+            <h1 className="text-tabs-orange text-[40px] md:text-[60px] font-[600] leading-[60px] md:leading-[78px] mb-[3px]">
               {heading}
             </h1>
             <p

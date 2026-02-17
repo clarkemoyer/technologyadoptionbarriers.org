@@ -7,7 +7,11 @@ interface TransparentbtnProps {
   color?: string // new color prop
 }
 
-const Transparentbtn: React.FC<TransparentbtnProps> = ({ text, href, color = '#2ea3f2' }) => {
+const Transparentbtn: React.FC<TransparentbtnProps> = ({
+  text,
+  href,
+  color = 'var(--tabs-blue)',
+}) => {
   return (
     <div>
       <a

@@ -26,7 +26,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ number, title, children }
   const toggle = () => setIsOpen(!isOpen)
 
   return (
-    <div className="mb-5 border border-[#1c6e92] rounded-[10px] overflow-hidden">
+    <div className="mb-5 border border-tabs-primary rounded-[10px] overflow-hidden">
       {/* Header */}
       <button
         onClick={toggle}
@@ -47,9 +47,9 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ number, title, children }
         {/* Icon container with fixed width */}
         <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
           {isOpen ? (
-            <FaMinus className="w-5 h-5 text-white bg-[#1c6e92] p-1 rounded-full transition-transform duration-300" />
+            <FaMinus className="w-5 h-5 text-white bg-tabs-primary p-1 rounded-full transition-transform duration-300" />
           ) : (
-            <FaPlus className="w-5 h-5 text-white bg-[#1c6e92] p-1 rounded-full transition-transform duration-300" />
+            <FaPlus className="w-5 h-5 text-white bg-tabs-primary p-1 rounded-full transition-transform duration-300" />
           )}
         </span>
       </button>

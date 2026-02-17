@@ -49,7 +49,7 @@ const BecomePartOfOurMissionCard: React.FC<BecomePartOfOurMissionCardProps> = ({
     text-white border-2 border-white
     rounded-[8px] text-[18px] font-[500] leading-[31px]
     px-[20px] py-[6px]
-    bg-[linear-gradient(130deg,#0d7ff8_0%,#59a5f7_100%)]
+    bg-[linear-gradient(130deg,var(--tabs-link)_0%,var(--tabs-blue)_100%)]
     flex items-center justify-center
     transition-all duration-300 ease-in-out
     hover:border-transparent hover:scale-x-110

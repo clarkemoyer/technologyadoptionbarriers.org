@@ -21,7 +21,7 @@ const AddressCard: React.FC<AddressCardProps> = ({ imageSrc, heading, descriptio
 
       {/* Description - supports line breaks */}
       <p
-        className="text-[18px] font-[600] leading-[24px] text-[#666] whitespace-pre-line"
+        className="text-[18px] font-[600] leading-[24px] text-gray-500 whitespace-pre-line"
         id="lato-font"
       >
         {description}

@@ -89,9 +89,9 @@ const ApplicationFormButton: React.FC<ApplicationFormButtonProps> = ({
       <button
         onClick={openPopup}
         className={`
-          rounded-[20px] border-[5px] border-[#2A6682] flex items-center justify-center 
+          rounded-[20px] border-[5px] border-tabs-primary flex items-center justify-center 
           text-black font-[400] text-[25px] px-[28px] py-[16px] 
-          hover:bg-[#2A6682] hover:text-white transition-all duration-300
+          hover:bg-tabs-primary hover:text-white transition-all duration-300
           ${className}
         `}
         id="lato-font"
@@ -146,7 +146,7 @@ const ApplicationFormButton: React.FC<ApplicationFormButtonProps> = ({
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-white rounded-lg z-20">
                 <div className="relative">
                   {/* Animated spinner */}
-                  <div className="w-16 h-16 border-4 border-[#2A6682] border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-16 h-16 border-4 border-tabs-primary border-t-transparent rounded-full animate-spin"></div>
                 </div>
                 <p className="mt-4 text-lg text-gray-600 font-medium">
                   Loading application form...

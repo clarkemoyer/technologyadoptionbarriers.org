@@ -55,7 +55,7 @@ const IconTextCard: React.FC<IconTextCardProps> = ({ icon, iconLabel = 'icon', t
       <div
         ref={cardRef}
         className={`
-          text-[#277CA0] flex items-center justify-center mb-[30px]
+          text-tabs-primary flex items-center justify-center mb-[30px]
           ${isVisible ? 'animate-fadeTop opacity-100' : 'opacity-0'}
         `}
         aria-label={iconLabel}

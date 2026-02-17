@@ -4,7 +4,7 @@ const BottomCTA = () => {
   return (
     <section
       id="contact"
-      className="w-full py-[100px] bg-[#1a2b4b] text-white relative overflow-hidden"
+      className="w-full py-[100px] bg-tabs-navy-bg text-white relative overflow-hidden"
     >
       <div className="w-[90%] mx-auto max-w-[4096px] text-center relative z-10">
         {/* Neon Logo Effect placeholder - using text style or image if available */}
@@ -42,13 +42,13 @@ const BottomCTA = () => {
             href={TABS_WEBSITE_QUALTRICS_SURVEY_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-[40px] py-[18px] bg-[#F57C20] text-white text-[18px] font-bold rounded-[4px] hover:bg-[#d66a1a] transition-all duration-300 uppercase tracking-widest"
+            className="px-[40px] py-[18px] bg-tabs-orange text-white text-[18px] font-bold rounded-[4px] hover:bg-tabs-orange-hover transition-all duration-300 uppercase tracking-widest"
           >
             TAKE THE TABS
           </a>
           <a
             href="#"
-            className="px-[40px] py-[18px] bg-[#2EA3F2] text-white text-[18px] font-bold rounded-[4px] hover:bg-[#2589cc] transition-all duration-300 uppercase tracking-widest"
+            className="px-[40px] py-[18px] bg-tabs-blue text-white text-[18px] font-bold rounded-[4px] hover:bg-tabs-blue-hover transition-all duration-300 uppercase tracking-widest"
           >
             MAKE A DONATION
           </a>

@@ -160,13 +160,13 @@ describe('Barriers component', () => {
       const categoryButton = screen.getByText(category.name, { selector: 'button' })
 
       // Initially should not have active styling
-      expect(categoryButton).not.toHaveClass('bg-[#2E6F8E]')
+      expect(categoryButton).not.toHaveClass('bg-tabs-teal')
 
       // Click to activate
       fireEvent.click(categoryButton)
 
       // Should have active styling
-      expect(categoryButton).toHaveClass('bg-[#2E6F8E]')
+      expect(categoryButton).toHaveClass('bg-tabs-teal')
     })
   })
 
@@ -250,7 +250,7 @@ describe('Barriers component', () => {
 
       // Both filters should be cleared
       expect(searchInput).toHaveValue('')
-      expect(categoryButton).not.toHaveClass('bg-[#2E6F8E]')
+      expect(categoryButton).not.toHaveClass('bg-tabs-teal')
     })
   })
 

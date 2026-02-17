@@ -4,7 +4,7 @@ const MissionOverview = () => {
       <div className="w-[90%] mx-auto max-w-[4096px] grid grid-cols-1 lg:grid-cols-2 gap-[60px]">
         {/* Column 1: What We Do */}
         <div>
-          <h2 className="text-[32px] font-bold text-[#113563] mb-[25px] font-serif border-b-4 border-[#F57C20] inline-block pb-2">
+          <h2 className="text-[32px] font-bold text-tabs-navy mb-[25px] font-serif border-b-4 border-tabs-orange inline-block pb-2">
             What We Do
           </h2>
           <div className="text-[17px] leading-[1.8] space-y-4">
@@ -46,7 +46,7 @@ const MissionOverview = () => {
 
         {/* Column 2: Our Mission */}
         <div>
-          <h2 className="text-[32px] font-bold text-[#113563] mb-[25px] font-serif border-b-4 border-[#F57C20] inline-block pb-2">
+          <h2 className="text-[32px] font-bold text-tabs-navy mb-[25px] font-serif border-b-4 border-tabs-orange inline-block pb-2">
             Our Mission
           </h2>
           <div className="text-[17px] leading-[1.8] space-y-4">
@@ -59,7 +59,7 @@ const MissionOverview = () => {
             </p>
             <ul className="list-none space-y-4">
               <li>
-                <strong className="text-[#0E7162]">
+                <strong className="text-tabs-teal">
                   Assessment of Organizational Technology Readiness:
                 </strong>{' '}
                 We evaluate an organizationâ€™s current capabilities and preparedness to effectively
@@ -70,7 +70,7 @@ const MissionOverview = () => {
                 infrastructure, and maturity of data governance policies.
               </li>
               <li>
-                <strong className="text-[#0E7162]">
+                <strong className="text-tabs-teal">
                   Exploration of Organizational Capability Maturity:
                 </strong>{' '}
                 We assess the perceived maturity of key organizational capabilities that underpin

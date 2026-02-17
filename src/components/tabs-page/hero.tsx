@@ -7,15 +7,15 @@ import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
  */
 const Hero = () => {
   return (
-    <section id="hero" className="w-full bg-[#f4f7f6] py-[60px] lg:py-[100px]">
+    <section id="hero" className="w-full bg-gray-50 py-[60px] lg:py-[100px]">
       <div className="w-[90%] mx-auto max-w-[4096px]">
         <div className="flex flex-col lg:flex-row items-start gap-[40px] lg:gap-[60px]">
           {/* Left Column: Text */}
           <div className="flex-1 w-full lg:w-1/2">
-            <h1 className="text-[42px] lg:text-[54px] font-bold text-[#145044] mb-[10px] leading-tight font-serif">
+            <h1 className="text-[42px] lg:text-[54px] font-bold text-tabs-teal-deep mb-[10px] leading-tight font-serif">
               Technology Adoption Barriers Survey.
             </h1>
-            <h2 className="text-[28px] lg:text-[32px] font-bold text-[#145044] mb-[30px] font-serif">
+            <h2 className="text-[28px] lg:text-[32px] font-bold text-tabs-teal-deep mb-[30px] font-serif">
               Know the Barriers, Break the Barriers:
             </h2>
 
@@ -44,13 +44,13 @@ const Hero = () => {
                 href={TABS_WEBSITE_QUALTRICS_SURVEY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block px-[35px] py-[15px] bg-[#26C699] text-white text-[18px] font-bold rounded-[4px] hover:bg-[#1fa680] transition-colors"
+                className="inline-block px-[35px] py-[15px] bg-tabs-teal-bright text-white text-[18px] font-bold rounded-[4px] hover:bg-tabs-teal-bright-hover transition-colors"
               >
                 TAKE THE TABS
               </a>
               <a
                 href={assetPath('/making-of-tabs/tabs-presentation')}
-                className="inline-block px-[35px] py-[15px] bg-white text-[#145044] text-[18px] font-bold rounded-[4px] border border-[#145044]/30 hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145044] focus-visible:ring-offset-2"
+                className="inline-block px-[35px] py-[15px] bg-white text-tabs-teal-deep text-[18px] font-bold rounded-[4px] border border-tabs-teal-deep/30 hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tabs-teal-deep focus-visible:ring-offset-2"
               >
                 VIEW PRESENTATION
               </a>

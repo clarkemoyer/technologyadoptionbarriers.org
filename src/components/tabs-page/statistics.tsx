@@ -18,7 +18,7 @@ const Statistics = () => {
             <h3 className="text-[32px] font-bold text-gray-900 mb-[10px] font-serif">
               Surveys Completed
             </h3>
-            <div className="text-[60px] font-bold text-[#2EA3F2] mb-[5px] leading-none">
+            <div className="text-[60px] font-bold text-tabs-blue mb-[5px] leading-none">
               {surveysCompleted.toLocaleString()}
             </div>
           </div>
@@ -26,7 +26,7 @@ const Statistics = () => {
           {/* Funds Raised */}
           <div>
             <h3 className="text-[32px] font-bold text-gray-900 mb-[10px] font-serif">$ Raised</h3>
-            <div className="text-[60px] font-bold text-[#F57C20] mb-[5px] leading-none">$0</div>
+            <div className="text-[60px] font-bold text-tabs-orange mb-[5px] leading-none">$0</div>
           </div>
 
           {/* Hours Volunteered */}
@@ -34,7 +34,7 @@ const Statistics = () => {
             <h3 className="text-[32px] font-bold text-gray-900 mb-[10px] font-serif">
               Hours Volunteered
             </h3>
-            <div className="text-[60px] font-bold text-[#5FB38D] mb-[5px] leading-none">0</div>
+            <div className="text-[60px] font-bold text-tabs-green mb-[5px] leading-none">0</div>
           </div>
         </div>
       </div>

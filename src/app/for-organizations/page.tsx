@@ -54,7 +54,7 @@ const ForOrganizationsPage = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#1a2b4b] to-[#2d4a73] text-white py-[80px]">
+      <section className="bg-gradient-to-b from-tabs-navy-bg to-slate-600 text-white py-[80px]">
         <div className="w-[90%] mx-auto max-w-[1200px] text-center">
           <h1 className="text-[48px] md:text-[56px] font-bold mb-[20px] font-serif">
             Partner with TABS
@@ -261,7 +261,7 @@ const ForOrganizationsPage = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="bg-[#0E7162] text-white py-[80px]">
+      <section className="bg-tabs-teal text-white py-[80px]">
         <div className="w-[90%] mx-auto max-w-[800px] text-center">
           <h2 className="text-[40px] font-bold mb-[20px] font-serif">
             Ready to Partner with TABS?
@@ -273,13 +273,13 @@ const ForOrganizationsPage = () => {
           <div className="flex flex-col sm:flex-row gap-[20px] justify-center">
             <a
               href="mailto:clarke@technologyadoptionbarriers.org?subject=TABS%20Partnership%20Inquiry"
-              className="inline-block px-[40px] py-[18px] bg-white text-[#0E7162] rounded-[6px] font-bold text-[18px] hover:bg-gray-100 transition-colors"
+              className="inline-block px-[40px] py-[18px] bg-white text-tabs-teal rounded-[6px] font-bold text-[18px] hover:bg-gray-100 transition-colors"
             >
               Contact Us About Partnership
             </a>
             <a
               href="/get-involved"
-              className="inline-block px-[40px] py-[18px] border-2 border-white text-white rounded-[6px] font-bold text-[18px] hover:bg-white hover:text-[#0E7162] transition-colors"
+              className="inline-block px-[40px] py-[18px] border-2 border-white text-white rounded-[6px] font-bold text-[18px] hover:bg-white hover:text-tabs-teal transition-colors"
             >
               View All Ways to Support
             </a>

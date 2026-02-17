@@ -23,7 +23,7 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ src, heading, text }) => {
       <h3 className="font-semibold text-2xl leading-tight text-black mb-3">{heading}</h3>
 
       {/* Text */}
-      <p className="font-[600] text-[18px] leading-[24px] text-[#666]" id="lato-font">
+      <p className="font-[600] text-[18px] leading-[24px] text-gray-500" id="lato-font">
         {text}
       </p>
     </div>

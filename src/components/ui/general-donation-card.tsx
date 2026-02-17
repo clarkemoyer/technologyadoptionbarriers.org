@@ -25,7 +25,7 @@ const GeneralDonationCard: React.FC<GeneralDonationCardProps> = ({
       <h1 className="text-[30px] font-[700] leading-[30px] text-center pb-[10px]">{title}</h1>
 
       {/* Description */}
-      <p className="text-[18px] font-[500] leading-[24px] text-center text-[#666] pb-[1em]">
+      <p className="text-[18px] font-[500] leading-[24px] text-center text-gray-500 pb-[1em]">
         {description}
       </p>
 

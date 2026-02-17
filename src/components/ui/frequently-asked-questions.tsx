@@ -72,12 +72,12 @@ const FrequentlyAskedQuestions: React.FC<AccordionItemProps> = ({ title, childre
 
       {/* Content */}
       <div
-        className={`border-b-[2px] border-[#B7B7B7] overflow-hidden transition-all duration-800 ease-in-out`}
+        className={`border-b-[2px] border-gray-400 overflow-hidden transition-all duration-800 ease-in-out`}
         style={{ maxHeight: height }}
       >
         <div
           ref={contentRef}
-          className="px-4 pb-4 pt-2 transition-colors duration-300 text-[#555555] text-[20px] md:text-[25px] font-[400]"
+          className="px-4 pb-4 pt-2 transition-colors duration-300 text-gray-600 text-[20px] md:text-[25px] font-[400]"
           id="lato-font"
         >
           {children}

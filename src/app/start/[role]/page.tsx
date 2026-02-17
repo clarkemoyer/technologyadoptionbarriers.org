@@ -42,7 +42,7 @@ export default async function RolePage({ params }: Props) {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#1a2b4b] to-[#2d4a73] text-white py-[80px]">
+      <section className="bg-gradient-to-b from-tabs-navy-bg to-slate-600 text-white py-[80px]">
         <div className="w-[90%] mx-auto max-w-[1200px]">
           <div className="mb-[30px]">
             <Link
@@ -74,7 +74,7 @@ export default async function RolePage({ params }: Props) {
               <ul className="space-y-[20px]">
                 {persona.whyItMatters.map((reason, index) => (
                   <li key={index} className="flex items-start">
-                    <span className="text-[#2583ab] text-[24px] mr-[15px] mt-[5px] flex-shrink-0">
+                    <span className="text-tabs-primary text-[24px] mr-[15px] mt-[5px] flex-shrink-0">
                       ✓
                     </span>
                     <span className="text-[18px] text-gray-800 leading-[1.6]">{reason}</span>
@@ -93,10 +93,10 @@ export default async function RolePage({ params }: Props) {
               {persona.whatYouGet.map((benefit, index) => (
                 <div
                   key={index}
-                  className="bg-white border-2 border-gray-200 rounded-[12px] p-[30px] hover:border-[#2583ab] transition-colors"
+                  className="bg-white border-2 border-gray-200 rounded-[12px] p-[30px] hover:border-tabs-primary transition-colors"
                 >
                   <div className="flex items-start">
-                    <span className="text-[#F57C20] text-[24px] mr-[15px] mt-[5px] flex-shrink-0">
+                    <span className="text-tabs-orange text-[24px] mr-[15px] mt-[5px] flex-shrink-0">
                       →
                     </span>
                     <span className="text-[16px] text-gray-800 leading-[1.6]">{benefit}</span>
@@ -107,7 +107,7 @@ export default async function RolePage({ params }: Props) {
           </div>
 
           {/* CTA Section */}
-          <div className="bg-gradient-to-r from-[#2583ab] to-[#2d4a73] rounded-[12px] p-[50px] text-center text-white">
+          <div className="bg-gradient-to-r from-tabs-primary to-slate-600 rounded-[12px] p-[50px] text-center text-white">
             <h2 className="text-[36px] font-bold mb-[20px] font-serif">Ready to Participate?</h2>
             <p className="text-[18px] text-blue-100 mb-[30px] max-w-[600px] mx-auto">
               Your insights will help advance our understanding of technology adoption barriers and
@@ -117,7 +117,7 @@ export default async function RolePage({ params }: Props) {
               href={persona.surveyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-[50px] py-[18px] bg-[#F57C20] text-white text-[20px] font-bold rounded-[6px] hover:bg-[#d66a1a] transition-all duration-300 uppercase tracking-wide shadow-lg hover:shadow-xl"
+              className="inline-block px-[50px] py-[18px] bg-tabs-orange text-white text-[20px] font-bold rounded-[6px] hover:bg-tabs-orange-hover transition-all duration-300 uppercase tracking-wide shadow-lg hover:shadow-xl"
             >
               Take the TABS Survey
             </a>
@@ -131,7 +131,7 @@ export default async function RolePage({ params }: Props) {
             </p>
             <Link
               href="/get-involved"
-              className="text-[#2583ab] font-semibold hover:underline text-[16px]"
+              className="text-tabs-primary font-semibold hover:underline text-[16px]"
             >
               Learn more about TABS and how to get involved
             </Link>

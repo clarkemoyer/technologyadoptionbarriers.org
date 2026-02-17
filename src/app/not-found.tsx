@@ -13,10 +13,10 @@ export default function NotFound() {
       <div className="py-[27px] w-[90%] md:w-[80%] max-w-[800px] mx-auto text-center">
         {/* Error Code */}
         <div className="mb-8">
-          <h1 className="text-[120px] md:text-[180px] font-[700] text-[#333] leading-none mb-4">
+          <h1 className="text-[120px] md:text-[180px] font-[700] text-gray-800 leading-none mb-4">
             404
           </h1>
-          <div className="text-[24px] md:text-[32px] font-[600] text-[#666] mb-2">
+          <div className="text-[24px] md:text-[32px] font-[600] text-gray-500 mb-2">
             Technology Adoption Barrier Detected! 🚧
           </div>
         </div>
@@ -30,7 +30,7 @@ export default function NotFound() {
               change
             </span>
             <pre
-              className="text-[12px] md:text-[16px] font-mono text-[#333] overflow-x-auto"
+              className="text-[12px] md:text-[16px] font-mono text-gray-800 overflow-x-auto"
               aria-hidden="true"
             >
               {`
@@ -58,16 +58,16 @@ export default function NotFound() {
 
         {/* Humorous Message */}
         <div className="my-8 space-y-4">
-          <h2 className="text-[26px] md:text-[32px] font-[700] text-[#333] mb-4">
+          <h2 className="text-[26px] md:text-[32px] font-[700] text-gray-800 mb-4">
             Looks Like This Page Resisted Being Adopted! 😅
           </h2>
-          <p className="text-[16px] md:text-[18px] text-[#666] leading-[28px] font-[500] mb-4">
+          <p className="text-[16px] md:text-[18px] text-gray-500 leading-[28px] font-[500] mb-4">
             Just like many organizations face barriers when adopting new technology, this page seems
             to have faced its own adoption challenges... and lost the battle.
           </p>
           <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 my-6 text-left">
-            <p className="text-[14px] md:text-[16px] text-[#666] leading-[24px]">
-              <strong className="text-[#333]">Common causes of this barrier include:</strong>
+            <p className="text-[14px] md:text-[16px] text-gray-500 leading-[24px]">
+              <strong className="text-gray-800">Common causes of this barrier include:</strong>
               <br />
               • The page moved to a new URL without proper change management
               <br />
@@ -77,7 +77,7 @@ export default function NotFound() {
               <br />• Poor URL architecture planning (a classic adoption barrier!)
             </p>
           </div>
-          <p className="text-[16px] md:text-[18px] text-[#666] leading-[28px] font-[500]">
+          <p className="text-[16px] md:text-[18px] text-gray-500 leading-[28px] font-[500]">
             Don&apos;t worry though – unlike failed technology adoption, we can help you find your
             way!
           </p>
@@ -87,20 +87,20 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
           <Link
             href="/"
-            className="inline-block px-8 py-4 bg-[#007bff] text-white text-[16px] font-[600] rounded-lg hover:bg-[#0056b3] transition-colors duration-300 shadow-md hover:shadow-lg"
+            className="inline-block px-8 py-4 bg-tabs-link text-white text-[16px] font-[600] rounded-lg hover:bg-tabs-link-hover transition-colors duration-300 shadow-md hover:shadow-lg"
           >
             Return to Home
           </Link>
           <Link
             href="/barriers"
-            className="inline-block px-8 py-4 bg-[#6c757d] text-white text-[16px] font-[600] rounded-lg hover:bg-[#5a6268] transition-colors duration-300 shadow-md hover:shadow-lg"
+            className="inline-block px-8 py-4 bg-gray-500 text-white text-[16px] font-[600] rounded-lg hover:bg-gray-600 transition-colors duration-300 shadow-md hover:shadow-lg"
           >
             Learn About Real Barriers
           </Link>
         </div>
 
         {/* Additional Humor */}
-        <div className="mt-12 text-[14px] text-[#999] italic">
+        <div className="mt-12 text-[14px] text-gray-400 italic">
           <p>
             &quot;The only thing worse than a 404 error is trying to implement an ERP system without
             proper training.&quot;
