@@ -140,7 +140,7 @@ npm test     # Run automated tests (requires build first)
 
 **Note: Folder structure uses consistent kebab-case naming. All folders MUST use kebab-case.**
 
-**IMPORTANT:** When updating this structure, ALWAYS show all items fully. When new pages or folders are added, explicitly list them here. Do NOT use placeholders like `[other policy pages]` or `[other feature folders]` - show the actual folder names.
+**IMPORTANT:** When updating this structure, generally show all items fully. When new pages or folders are added, explicitly list them here. For large, sequentially numbered sets of pages (e.g., `article-1-1` through `article-1-7` or `bibliography-1-1` through `bibliography-1-21`), you may use explicit ranges instead of listing every item. Do NOT use vague placeholders like `[other policy pages]` or `[other feature folders]` — show the actual folder names or a clear numeric range.
 
 ```
 src/
@@ -426,8 +426,8 @@ npm run lint         # 2 seconds, should be clean (0 warnings)
 npm test             # Run Jest unit tests (124 tests, 17 suites)
 npm run build        # Build first (required for E2E tests)
 npm run test:e2e     # Run Playwright E2E tests
-npm run test:headed  # Run Playwright in headed mode
-npm run test:ui      # Run Playwright with UI
+npm run test:e2e:headed  # Run Playwright in headed mode
+npm run test:e2e:ui      # Run Playwright with UI
 
 # Production (requires font workaround)
 npm run build        # 20 seconds when fonts disabled

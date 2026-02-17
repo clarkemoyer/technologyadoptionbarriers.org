@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Header mega menu now scrollable with fixed alignment issues
 - "For Organizations" mega menu updated with category pages
 - Trailing slash support — URLs with and without trailing slashes now resolve correctly
-- 12 Dependabot dependency updates merged (Next.js 16.1.5, framer-motion 12.33.0, etc.)
+- 12 Dependabot dependency updates merged (Next.js 16.1.x, framer-motion 12.33.x, etc.)
 
 ### Fixed
 

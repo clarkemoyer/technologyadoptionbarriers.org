@@ -402,7 +402,7 @@ Tests run automatically on every push to main via GitHub Actions before deployme
 - ✅ Runs automatically during build process
 - ✅ Currently reports **0 errors and 0 warnings**
 
-As of v0.3.0, all previously-acceptable warnings (`@next/next/no-img-element` and React Hooks warnings from deleted legacy components) have been resolved by removing the legacy code.
+As of website release v0.3.0 (a Git tag / GitHub Release, separate from the `package.json` version), all previously-acceptable warnings (`@next/next/no-img-element` and React Hooks warnings from deleted legacy components) have been resolved by removing the legacy code.
 
 **Running `npm run lint` should produce a clean output.** If new warnings appear, fix them before pushing.
 
