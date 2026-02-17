@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 const OperationsLeadersPage = () => {
   const organizations = [
     {
-      name: 'APICS',
-      fullName: 'Association for Supply Chain Management',
+      name: 'ASCM',
+      fullName: 'Association for Supply Chain Management (formerly APICS)',
       focus: 'Supply chain and operations professionals',
       url: 'https://www.ascm.org/',
     },
@@ -59,7 +59,7 @@ const OperationsLeadersPage = () => {
             For Operations Leaders
           </h1>
           <p className="text-[24px] text-orange-100 mb-[15px] font-semibold">
-            COO â€¢ VP Operations â€¢ Supply Chain Leaders â€¢ Manufacturing Leaders
+            COO • VP Operations • Supply Chain Leaders • Manufacturing Leaders
           </p>
           <p className="text-[18px] text-orange-100 max-w-[900px] leading-[1.6]">
             Support your members in understanding technology implementation barriers and optimizing
