@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines the responsive design principles, breakpoints, and testing strategies used in the FFC Single Page Template. The site is built with a mobile-first approach using Tailwind CSS v4.1.12.
+This document outlines the responsive design principles, breakpoints, and testing strategies used in the Technology Adoption Barriers Survey (TABS) project. The site is built with a mobile-first approach using Tailwind CSS v4.1.12.
 
 ## Design Philosophy
 

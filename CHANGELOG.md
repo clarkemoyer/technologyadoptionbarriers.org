@@ -7,6 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-02-16
+
+### Added
+
+- Technology Adoption Models article series — 18 research articles across 2 branches with scholarly content from peer-reviewed PDFs
+- 24 individual bibliography article pages created from PDF extraction
+- Persona navigation with mega menu — "See Yourself in the Survey" landing pages for 11 roles
+- Comprehensive FAQ page with accordion sections
+- Teaching series pages — educational resources for the Technology Adoption series
+- Full 25-slide presentation deck with 4K visuals and ASCII art gallery
+- CMO Survey influence page under Making of TABS
+- Prolific–Qualtrics live participant recruitment pipeline on production survey
+- Prolific footer survey link for participant recruitment
+
+### Changed
+
+- Article style normalization — shared constants (`articleStyles.ts`) for consistent typography across all articles
+- Visual naming system refactored from numeric IDs to semantic names
+- Header mega menu now scrollable with fixed alignment issues
+- "For Organizations" mega menu updated with category pages
+- Trailing slash support — URLs with and without trailing slashes now resolve correctly
+- 12 Dependabot dependency updates merged (Next.js 16.1.5, framer-motion 12.33.0, etc.)
+
+### Fixed
+
+- Qualtrics Flow EmbeddedData schema and Type field corrected for PUT validation
+- Qualtrics COMPLETE_URL now passes ResponseID in completion redirect
+- Prolific `IsNotEmpty` branch logic evaluation corrected for proper survey routing
+- GA report workflow race condition fixed by switching to `create-pull-request` action
+- Release notes generator date-range and HTML entity fixes
+
+### Removed
+
+- Legacy FFC-era components (20+ deleted component directories)
+- All stale ESLint warnings resolved (16 → 0) by removing legacy code
+
 ## [0.2.0] - 2026-01-19
 
 ### Added
@@ -91,5 +127,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automated testing in CI
 - Merge queue verification
 
-[unreleased]: https://github.com/<your-org>/<your-repo>/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/<your-org>/<your-repo>/releases/tag/v0.1.0
+[unreleased]: https://github.com/clarkemoyer/technologyadoptionbarriers.org/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/clarkemoyer/technologyadoptionbarriers.org/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/clarkemoyer/technologyadoptionbarriers.org/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/clarkemoyer/technologyadoptionbarriers.org/releases/tag/v0.1.0

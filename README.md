@@ -400,44 +400,13 @@ Tests run automatically on every push to main via GitHub Actions before deployme
 
 - ✅ Next.js core-web-vitals and TypeScript rules enabled
 - ✅ Runs automatically during build process
-- ⚠️ Currently reports 16 warnings - see details below
+- ✅ Currently reports **0 errors and 0 warnings**
 
-**ESLint Warning Details:**
+As of v0.3.0, all previously-acceptable warnings (`@next/next/no-img-element` and React Hooks warnings from deleted legacy components) have been resolved by removing the legacy code.
 
-The ESLint warnings fall into three categories:
+**Running `npm run lint` should produce a clean output.** If new warnings appear, fix them before pushing.
 
-1. **`@next/next/no-img-element` warnings (6 occurrences)** - ⚠️ ACCEPTABLE for this project
-   - Files: `header/index.tsx`, `footer/index.tsx`, `endowment-fund/Hero/index.tsx`, `free-charity-web-hosting/About-FFC-Hosting/index.tsx`, `ui/General-Donation-Card.tsx`, `ui/trainingcard.tsx`
-   - Issue: Using `<img>` tags instead of Next.js `<Image />` component
-   - Why acceptable: This project uses static export (`output: "export"` in `next.config.ts`), which is incompatible with Next.js Image Optimization. We use the `assetPath()` helper to ensure images work correctly on both custom domain and GitHub Pages basePath.
-   - Alternative fix: Could suppress these specific warnings or migrate to a custom image component
-   - Website impact: Images load correctly but without automatic optimization (WebP conversion, lazy loading). For a static nonprofit site with modest image usage, this is an acceptable tradeoff.
-
-2. **React Hooks warnings - `react-hooks/set-state-in-effect` (6 occurrences)** - ⚠️ ACCEPTABLE but could be improved
-   - Files: Various accordion components (`Accordion.tsx`, `AccordionBold.tsx`, `Frequently-Asked-Questions.tsx`, `OrangeFaqItem.tsx`, `free-charity-web-hosting/FAQs/index.tsx`) and `cookie-consent/index.tsx`
-   - Issue: Calling `setState` synchronously within `useEffect` when animating accordion height or loading preferences
-   - Why acceptable: These components work correctly and don't cause performance issues in practice
-   - Recommended fix: Use `useLayoutEffect` instead of `useEffect` for DOM measurements, or use CSS transitions with `max-height`
-   - Website impact: Accordion animations work correctly. May cause minor cascading renders but not noticeable to users.
-
-3. **React Hooks warnings - Other (4 occurrences)** - ⚠️ ACCEPTABLE but could be improved
-   - `react-hooks/exhaustive-deps` (2 occurrences): Missing dependencies in `useEffect`
-     - Files: `free-charity-web-hosting/ClientTestimonials/index.tsx`, `ui/CallToActionCard.tsx`
-     - Impact: Effects may not re-run when dependencies change, but current implementation works as intended
-   - `react-hooks/immutability` (2 occurrences): Direct mutation of state values
-     - Files: `free-charity-web-hosting/ClientTestimonials/index.tsx`, `home/Testimonials/index.tsx`
-     - Issue: Modifying Swiper navigation params directly instead of using setter
-     - Impact: Works correctly but violates React best practices
-   - These are technical debt items that don't affect functionality but should be addressed in future refactoring
-
-**Summary:**
-
-- 6 warnings are acceptable by design (static export constraint)
-- 10 warnings are technical debt that don't affect functionality
-- All warnings have been reviewed and determined to be non-blocking
-- Website functions correctly despite these warnings
-
-**For detailed technical debt tracking:** See [TECHNICAL_DEBT.md](./TECHNICAL_DEBT.md) for comprehensive documentation of all technical debt items, including these React Hooks warnings, security vulnerabilities, and future refactoring plans.
+**For technical debt tracking:** See [TECHNICAL_DEBT.md](./TECHNICAL_DEBT.md) for documentation of technical debt items, security vulnerabilities, and future refactoring plans.
 
 **TypeScript** (`tsconfig.json`)
 
@@ -739,7 +708,7 @@ Vercel automatically enables PR preview deployments and comments.
 
 ```
 src/
-├── app/                                        # Next.js App Router (40+ pages)
+├── app/                                        # Next.js App Router (149+ pages)
 │   ├── page.tsx                               # Homepage
 │   ├── layout.tsx                             # Root layout with global config
 │   ├── not-found.tsx                          # 404 page
@@ -787,12 +756,25 @@ src/
 │   │   ├── page.tsx
 │   │   └── [role]/                           # Dynamic role-based routing
 │   │
+│   ├── bibliography-1-1-... through bibliography-1-21-.../  # 21 Branch 1 bibliography pages
+│   ├── bibliography-2-1-... through bibliography-2-3-.../   # 3 Branch 2 bibliography pages
+│   │
 │   ├── get-involved/                          # Participation opportunities
 │   ├── media/                                 # Press kit and media resources
 │   ├── survey-complete/                       # Post-survey completion
-│   ├── tabs-home/                             # TABS component (not a route)
-│   ├── tabs-presentation/                     # Presentation materials
+│   ├── tabs-home/                             # Homepage components
+│   ├── tabs-presentation/                     # Standalone presentation page
 │   ├── technology-adoption-models/            # Academic frameworks
+│   ├── technology-adoption-series/            # Teaching series hub
+│   │   ├── [slide]/                          # Dynamic slide viewer
+│   │   ├── presentation/                     # Presentation viewer
+│   │   │   └── 4k/                          # 4K presentation
+│   │   ├── handout-materials/
+│   │   ├── opening-and-closing-scripts/
+│   │   ├── qa-preparation-guide/
+│   │   ├── technology-lifecycle-assessment-template/
+│   │   ├── visual-gallery/
+│   │   └── workshop-and-trainer-materials/
 │   │
 │   ├── contribution-policy/                   # Legal & Policy Pages
 │   ├── cookie-policy/
@@ -810,23 +792,30 @@ src/
 │   ├── series-navigation/                     # Article series navigation
 │   ├── survey-stats/                          # Qualtrics survey statistics
 │   ├── impact/                                # Impact metrics display
-│   ├── tabs/                                  # TABS-specific components
-│   ├── tabs-page/                             # Homepage TABS section components
+│   ├── tabs/                                  # TABS survey component
+│   ├── tabs-page/                             # Homepage TABS section
+│   ├── teaching-series-navigation/            # Teaching series navigation
+│   ├── technology-adoption-series/            # Teaching series components
 │   ├── charity-validation-guide/              # Charity validation components
 │   └── ui/                                    # Reusable UI components
 │
 ├── data/                                      # Static content
 │   ├── faqs/                                  # FAQ JSON files
-│   ├── team/                                  # Team member data
-│   ├── testimonials/                          # Testimonial data
+│   ├── faqs.ts                                # FAQ data aggregation
+│   ├── team/                                  # Team member JSON files
+│   ├── team.ts                                # Team data aggregation
+│   ├── testimonials/                          # Testimonial JSON files
+│   ├── testimonials.ts                        # Testimonial data aggregation
 │   ├── barriers.ts                            # Barriers data
 │   ├── impact.json                            # Impact metrics
 │   ├── persona-navigation.ts                  # Role-based navigation
 │   ├── qualtrics-metrics.json                 # Survey metrics
-│   └── technology-adoption-models-series.ts   # Article series data
+│   ├── technology-adoption-models-series.ts   # Article series data
+│   ├── technology-adoption-teaching-series.ts # Teaching series data
+│   └── visual-gallery.ts                      # Visual gallery data
 │
 ├── lib/                                       # Utility functions
-│   ├── articleStyles.ts                       # Article styling utilities
+│   ├── articleStyles.ts                       # Shared article page styling constants
 │   ├── assetPath.ts                           # Helper for GitHub Pages basePath
 │   ├── fonts.ts                               # Font configuration
 │   ├── github-utils.ts                        # GitHub API utilities
@@ -836,8 +825,12 @@ src/
 │   ├── qualtrics-api.ts                       # Qualtrics API client
 │   ├── qualtricsStats.ts                      # Qualtrics statistics utilities
 │   ├── release-notes.ts                       # Release notes utilities
+│   ├── simple-markdown.tsx                    # Markdown rendering utility
+│   ├── slugify.ts                             # URL slug generation
 │   ├── stripHtml.ts                           # HTML stripping utility
-│   └── tabs-survey.ts                         # TABS survey utilities
+│   ├── tabs-survey.ts                         # TABS survey utilities
+│   ├── technology-adoption-series.ts          # Article series utilities
+│   └── technology-adoption-teaching-series-segment.ts  # Teaching series utilities
 │
 └── public/                                    # Static assets (icons, images, fonts)
 ```
@@ -897,7 +890,7 @@ npm run preview  # Preview at http://localhost:3000
 - Static export configuration in `next.config.ts` supports GitHub Pages deployment with basePath
 - Cookie consent implementation tracks user preferences in localStorage
 - All images use `unoptimized` setting for static export compatibility
-- ESLint warnings about `<img>` tags are expected and acceptable for static export configuration
+- ESLint currently reports 0 errors and 0 warnings
 
 ## Contributing
 

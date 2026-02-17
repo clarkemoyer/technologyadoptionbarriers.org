@@ -127,68 +127,123 @@ npm test     # Run automated tests (requires build first)
 
 ### Key Features
 
-- **Global Popup System**: Centralized Donate/Volunteer modals accessible from any component
-  - Provider: `src/app/components/PopupProvider.tsx`
-  - Mount: `src/app/components/PopupsRootClient.tsx`
-  - Buttons: `DonateButton.tsx`, `VolunteerButton.tsx`
-- **Mobile Navigation**: Slide-out panel with overlay in `NavBar.tsx`
+- **Multi-page static site**: 149+ pages covering research articles, bibliography, teaching series, organizational resources, and more
+- **Mobile Navigation**: Slide-out panel with overlay in `src/components/header/index.tsx`
 - **Static Export**: Configured for GitHub Pages deployment via `next.config.ts`
-- **SEO Optimized**: Comprehensive metadata in `layout.tsx`, sitemap, and robots.txt
+- **SEO Optimized**: Comprehensive metadata in `layout.tsx`, sitemap (149+ routes), and robots.txt
 - **GitHub Pages Image Support**: Assets use `assetPath()` helper to handle basePath for GitHub Pages deployment
+- **Teaching Series**: Presentation viewer with 4K support, handout materials, workshop guides
+- **Article Series**: 18 research articles across two branches with shared styling via `articleStyles.ts`
+- **Bibliography Pages**: 24 auto-generated bibliography entries with structured citations
 
 ### Project Structure
 
-**Note: Folder structure was refactored to use consistent kebab-case naming and remove redundant suffixes.**
+**Note: Folder structure uses consistent kebab-case naming. All folders MUST use kebab-case.**
 
 **IMPORTANT:** When updating this structure, ALWAYS show all items fully. When new pages or folders are added, explicitly list them here. Do NOT use placeholders like `[other policy pages]` or `[other feature folders]` - show the actual folder names.
 
 ```
 src/
-├── app/                                        # Next.js app directory
-│   ├── page.tsx                               # Main homepage entry point
+├── app/                                        # Next.js App Router (149+ pages)
+│   ├── page.tsx                               # Homepage entry point
 │   ├── layout.tsx                             # Root layout with metadata, providers
+│   ├── not-found.tsx                          # 404 page
 │   ├── globals.css                            # Global styles
-│   ├── home-page/                             # Homepage components (formerly Figma-Home-page)
-│   ├── cookie-policy/                         # Cookie Policy page
-│   ├── donation-policy/                       # Donation Policy page
-│   ├── privacy-policy/                        # Privacy Policy page
-│   ├── security-acknowledgements/             # Security Acknowledgements page
-│   ├── terms-of-service/                      # Terms of Service page
-│   ├── vulnerability-disclosure-policy/       # Vulnerability Disclosure Policy page
 │   ├── sitemap.ts                             # Dynamic sitemap generation
-│   └── robots.ts                              # Robots.txt configuration
-├── components/                                # All UI components (kebab-case naming)
+│   ├── robots.ts                              # Robots.txt configuration
+│   │
+│   ├── tabs-home/                             # Homepage components
+│   ├── barriers/                              # Barriers documentation
+│   │   └── survey-stats/                      # Survey statistics
+│   ├── start/                                 # Interactive starting point
+│   │   └── [role]/                           # Dynamic persona-based routing (11 roles)
+│   ├── get-involved/                          # Participation opportunities
+│   ├── media/                                 # Press kit and media resources
+│   ├── survey-complete/                       # Post-survey completion
+│   ├── for-organizations/                     # Resources for organizations
+│   │   ├── executive-leaders/
+│   │   ├── finance-leaders/
+│   │   ├── operations-leaders/
+│   │   └── technology-leaders/
+│   ├── making-of-tabs/                        # Behind the scenes
+│   │   ├── cmo-survey/
+│   │   └── tabs-presentation/
+│   ├── technology-adoption-models/            # Academic frameworks
+│   ├── technology-adoption-series/            # Teaching series hub
+│   │   ├── [slide]/                          # Dynamic slide viewer
+│   │   ├── presentation/                     # Presentation viewer
+│   │   │   └── 4k/                          # 4K presentation
+│   │   ├── handout-materials/
+│   │   ├── opening-and-closing-scripts/
+│   │   ├── qa-preparation-guide/
+│   │   ├── technology-lifecycle-assessment-template/
+│   │   ├── visual-gallery/
+│   │   └── workshop-and-trainer-materials/
+│   ├── tabs-presentation/                     # Standalone presentation page
+│   │
+│   ├── article-1-branch-introduction-.../     # Branch 1: User's Journey (1 intro + 7 articles)
+│   ├── article-1-1-... through article-1-7-.../
+│   ├── article-2-branch-introduction-.../     # Branch 2: Organization's Playbook (1 intro + 7 articles)
+│   ├── article-2-1-... through article-2-7-.../
+│   ├── article-bibliography-.../              # Series bibliography
+│   ├── bibliography-1-1-... through bibliography-1-21-.../  # 21 Branch 1 bibliography pages
+│   ├── bibliography-2-1-... through bibliography-2-3-.../   # 3 Branch 2 bibliography pages
+│   │
+│   ├── contribution-policy/                   # Legal & Policy Pages
+│   ├── cookie-policy/
+│   ├── privacy-policy/
+│   ├── security-acknowledgements/
+│   ├── terms-of-service/
+│   └── vulnerability-disclosure-policy/
+│
+├── components/                                # Reusable React components (kebab-case naming)
 │   ├── header/                               # Site header/navigation
 │   ├── footer/                               # Site footer
 │   ├── cookie-consent/                        # Cookie consent banner
 │   ├── google-tag-manager/                    # Analytics integration
-│   ├── ui/                                    # Reusable UI components
-│   ├── home-page/                             # Homepage-specific components
-│   ├── home/                                  # Alternative home components
-│   ├── domains/                               # Domain-related components
-│   ├── donate/                                # Donation components
-│   ├── volunteer/                             # Volunteer components
-│   ├── 501c3/                                 # 501c3 charity components
-│   ├── about-us/                              # About page components
-│   ├── charity-validation-guide/              # Charity validation guide components
-│   ├── contact-us/                            # Contact form components
-│   ├── endowment-fund/                        # Endowment fund components
-│   ├── free-charity-web-hosting/              # Web hosting program components
-│   ├── guidestar-guide/                       # GuideStar guide components
-│   ├── help-for-charities/                    # Help resources
-│   ├── online-impacts-onboarding/             # Online impacts onboarding components
-│   ├── pre501c3/                              # Pre-501c3 charity components
-│   ├── service-delivery-stages/               # Service delivery stages components
-│   ├── techstack/                             # Technology stack components
-│   ├── tools-for-success/                     # Tools and resources
-│   ├── volunteer-proving-ground/              # Volunteer proving ground components
-│   └── web-developer-training-guide/          # Web developer training guide components
+│   ├── clarity-route-tracker/                 # Microsoft Clarity tracking
+│   ├── impact/                                # Impact metrics display
+│   ├── series-navigation/                     # Article series navigation
+│   ├── survey-stats/                          # Qualtrics survey statistics
+│   ├── tabs/                                  # TABS survey component
+│   ├── tabs-page/                             # Homepage TABS section
+│   ├── teaching-series-navigation/            # Teaching series navigation
+│   ├── technology-adoption-series/            # Teaching series components
+│   ├── charity-validation-guide/              # Charity validation components
+│   └── ui/                                    # Reusable UI components
+│
 ├── data/                                      # Static content
 │   ├── faqs/                                  # FAQ JSON files
-│   ├── team/                                  # Team member data
-│   └── testimonials/                          # Testimonial data
+│   ├── faqs.ts                                # FAQ data aggregation
+│   ├── team/                                  # Team member JSON files
+│   ├── team.ts                                # Team data aggregation
+│   ├── testimonials/                          # Testimonial JSON files
+│   ├── testimonials.ts                        # Testimonial data aggregation
+│   ├── barriers.ts                            # Barriers data
+│   ├── impact.json                            # Impact metrics
+│   ├── persona-navigation.ts                  # Role-based navigation
+│   ├── qualtrics-metrics.json                 # Survey metrics
+│   ├── technology-adoption-models-series.ts   # Article series data
+│   ├── technology-adoption-teaching-series.ts # Teaching series data
+│   └── visual-gallery.ts                      # Visual gallery data
+│
 └── lib/                                       # Utility functions
-    └── assetPath.ts                           # Helper for GitHub Pages basePath support
+    ├── articleStyles.ts                       # Shared article page styling constants
+    ├── assetPath.ts                           # Helper for GitHub Pages basePath
+    ├── fonts.ts                               # Font configuration
+    ├── github-utils.ts                        # GitHub API utilities
+    ├── google-analytics.ts                    # Google Analytics client
+    ├── personas.ts                            # Role-based persona utilities
+    ├── prolific-api.ts                        # Prolific API client
+    ├── qualtrics-api.ts                       # Qualtrics API client
+    ├── qualtricsStats.ts                      # Qualtrics statistics utilities
+    ├── release-notes.ts                       # Release notes utilities
+    ├── simple-markdown.tsx                    # Markdown rendering utility
+    ├── slugify.ts                             # URL slug generation
+    ├── stripHtml.ts                           # HTML stripping utility
+    ├── tabs-survey.ts                         # TABS survey utilities
+    ├── technology-adoption-series.ts          # Article series utilities
+    └── technology-adoption-teaching-series-segment.ts  # Teaching series segment utilities
 ```
 
 **Naming Conventions:**
@@ -235,10 +290,11 @@ src/
 ### Content Updates
 
 - **Homepage content**: Edit `src/app/page.tsx`
-- **Navigation links**: Update `src/app/components/NavBar.tsx`
-- **Team information**: Modify `src/app/data/team.ts`
-- **FAQ content**: Update `src/app/data/faqs.ts`
-- **Testimonials**: Edit `src/app/data/testimonials.ts`
+- **Navigation links**: Update `src/components/header/index.tsx`
+- **Team information**: Modify `src/data/team/` JSON files and `src/data/team.ts`
+- **FAQ content**: Update `src/data/faqs/` JSON files and `src/data/faqs.ts`
+- **Testimonials**: Edit `src/data/testimonials/` JSON files and `src/data/testimonials.ts`
+- **Article series**: Edit `src/app/article-*` page files; shared styles in `src/lib/articleStyles.ts`
 
 ### SEO and Metadata
 
@@ -300,22 +356,11 @@ The site auto-deploys to GitHub Pages via `.github/workflows/deploy.yml` when pu
 
 ### ESLint Warnings
 
-The project currently has 16 ESLint warnings. All have been reviewed and are acceptable:
+The project currently passes ESLint with **0 errors and 0 warnings**.
 
-**1. `@next/next/no-img-element` warnings (6 occurrences)** - ✅ ACCEPTABLE
+As of v0.3.0, all previously-acceptable warnings (stale `@next/next/no-img-element` and React Hooks warnings from deleted FFC-era components) have been resolved by removing the legacy code.
 
-- **Files**: `header/index.tsx`, `footer/index.tsx`, `endowment-fund/Hero/index.tsx`, `free-charity-web-hosting/About-FFC-Hosting/index.tsx`, `ui/General-Donation-Card.tsx`, `ui/trainingcard.tsx`
-- **Cause**: Using `<img>` tags instead of Next.js `<Image />` component
-- **Why acceptable**: Static export (`output: "export"`) is incompatible with Next.js Image Optimization. We use `assetPath()` helper to ensure images work on GitHub Pages.
-- **Impact**: Images load correctly but without automatic optimization
-
-**2. React Hooks warnings (10 occurrences)** - ⚠️ ACCEPTABLE but technical debt
-
-- `react-hooks/set-state-in-effect` (6): Setting state in `useEffect` for accordion animations and cookie consent - works correctly
-- `react-hooks/exhaustive-deps` (2): Missing effect dependencies - intentional for current implementation
-- `react-hooks/immutability` (2): Direct mutation in Swiper setup - works correctly but violates best practices
-
-**Running `npm run lint` will show these warnings - this is expected and does not indicate a problem.**
+**Running `npm run lint` should produce a clean output.** If new warnings appear, fix them before pushing.
 
 ## GitHub Community Health Files
 
@@ -375,13 +420,14 @@ npm install          # 17 seconds
 
 # Development
 npm run dev          # http://localhost:3000 (1 second startup)
-npm run lint         # 2 seconds, warnings expected
+npm run lint         # 2 seconds, should be clean (0 warnings)
 
 # Testing
-npm run build        # Build first (required for tests)
-npm test             # Run Playwright tests
-npm run test:headed  # Run tests in headed mode
-npm run test:ui      # Run tests with Playwright UI
+npm test             # Run Jest unit tests (124 tests, 17 suites)
+npm run build        # Build first (required for E2E tests)
+npm run test:e2e     # Run Playwright E2E tests
+npm run test:headed  # Run Playwright in headed mode
+npm run test:ui      # Run Playwright with UI
 
 # Production (requires font workaround)
 npm run build        # 20 seconds when fonts disabled
@@ -423,5 +469,3 @@ ls -la .github/      # GitHub workflows and configs
    - **Verify**: Ensure you have pushed at least one commit (even an empty one) to your feature branch before creating the PR.
 
 # Remember: **NEVER CANCEL** long-running commands. **ALWAYS** test manually after changes. **ALWAYS** apply Google Fonts workaround before building.
-
-- Global popup system is currently commented out in `src/app/layout.tsx` (PopupProvider/PopupsRootClient).
