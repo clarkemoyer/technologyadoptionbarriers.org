@@ -19,9 +19,7 @@ test.describe('Get Involved Page', () => {
 
     // Check all opportunity titles
     await expect(page.getByRole('heading', { name: 'Take the TABS Survey' })).toBeVisible()
-    await expect(
-      page.getByRole('heading', { name: 'Support This Research' })
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Support This Research' })).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Become a Sponsor' })).toBeVisible()
     await expect(
       page.getByRole('heading', { name: 'Volunteer to Help TABS Operations' })
