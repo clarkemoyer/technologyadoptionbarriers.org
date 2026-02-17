@@ -4,7 +4,7 @@ import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 export const metadata: Metadata = {
   title: 'Get Involved | TABS',
   description:
-    'Discover all the ways you can support the Technology Adoption Barriers Survey (TABS) - from taking the survey to volunteering, donating, or using our dataset in your research.',
+    'Discover all the ways you can support the Technology Adoption Barriers Survey (TABS) - from taking the survey to volunteering, contributing, or using our dataset in your research.',
 }
 
 const GetInvolvedPage = () => {
@@ -136,7 +136,7 @@ const GetInvolvedPage = () => {
               Ways to Contribute
             </h2>
             <p className="text-[18px] text-gray-700 max-w-[800px] mx-auto leading-[1.6]">
-              Whether you have 20 minutes to take the survey, resources to donate, skills to
+              Whether you have 20 minutes to take the survey, resources to contribute, skills to
               volunteer, or research interests to pursue - there&apos;s a way for you to make an
               impact.
             </p>
