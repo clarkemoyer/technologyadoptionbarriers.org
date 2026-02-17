@@ -51,14 +51,13 @@ export default function TermsOfService() {
           </h1>
 
           <h2 className="text-[26px] text-gray-800 pb-[10px] leading-[26px] font-[500]">
-            Account Registration
+            Survey Participation
           </h2>
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
-            To access certain features of our Services, you may be required to register for an
-            account. You agree to provide accurate, current, and complete information during the
-            registration process and to update such information to keep it accurate, current, and
-            complete. You are responsible for safeguarding your password and for any activities or
-            actions under your account.
+            Certain features of our Services, such as research surveys, may require you to provide
+            information through third-party platforms (e.g., Qualtrics, Prolific). You agree to
+            provide accurate and truthful information when participating. Your participation in
+            surveys is voluntary, and you may withdraw at any time.
           </p>
 
           <h2 className="text-[26px] text-gray-800 pb-[10px] leading-[26px] font-[500]">
@@ -87,13 +86,14 @@ export default function TermsOfService() {
             </li>
           </ul>
 
-          {/* Donations */}
+          {/* Contributions */}
           <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">
-            Donations
+            Contributions
           </h1>
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
-            Any donations made through this website are voluntary and non-refundable except where
-            required by applicable law. By making a donation, you agree to our Donation Policy,
+            Any contributions made through this website are voluntary and generally non-refundable
+            except where required by applicable law. Contributions to TABS are not tax-deductible as
+            charitable donations. By making a contribution, you agree to our Contribution Policy,
             which is incorporated by reference into these Terms.
           </p>
 
@@ -206,7 +206,7 @@ export default function TermsOfService() {
           </h1>
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             These Terms shall be governed by and construed in accordance with the laws of the United
-            States and the State of North Carolina, without regard to its conflict of law
+            States and the Commonwealth of Pennsylvania, without regard to its conflict of law
             principles.
           </p>
 

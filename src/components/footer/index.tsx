@@ -101,7 +101,7 @@ const Footer: React.FC = () => {
           </p>
           <p>
             <strong className="text-white">NOTE:</strong> This project is in Draft. Not all items
-            have been fully validated or property cited. If you find any gaps in citation or content
+            have been fully validated or properly cited. If you find any gaps in citation or content
             issues, please reach out to Clarke Moyer 520-222-8104
           </p>
         </div>
