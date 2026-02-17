@@ -6,7 +6,7 @@ const SeeYourselfTeaser = () => {
       <div className="w-[90%] mx-auto max-w-[4096px]">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="flex-1">
-            <h2 className="text-[32px] md:text-[38px] font-bold text-[#145044] mb-4 font-serif">
+            <h2 className="text-[32px] md:text-[38px] font-bold text-tabs-teal-deep mb-4 font-serif">
               See Yourself in the Survey
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed max-w-2xl">
@@ -17,7 +17,7 @@ const SeeYourselfTeaser = () => {
           <div>
             <Link
               href="/start"
-              className="inline-flex items-center justify-center px-8 py-4 bg-[#26C699] text-white text-lg font-bold rounded-lg hover:bg-[#1fa680] transition-colors shadow-sm"
+              className="inline-flex items-center justify-center px-8 py-4 bg-tabs-teal-bright text-white text-lg font-bold rounded-lg hover:bg-tabs-teal-bright-hover transition-colors shadow-sm"
             >
               Find Your Role
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

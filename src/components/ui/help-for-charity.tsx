@@ -18,7 +18,7 @@ const InfoSection: React.FC<SectionProps> = ({
   return (
     <div style={{ backgroundColor: bg }}>
       <div className="py-[0px]">
-        <h1 className={`text-[#f27022] text-[28px] font-[700] mb-[15px] text-${titleAlign}`}>
+        <h1 className={`text-tabs-orange text-[28px] font-[700] mb-[15px] text-${titleAlign}`}>
           {title}
         </h1>
         <p className={`text-[18px] font-[500] text-black text-${descriptionAlign}`} id="lato-font">

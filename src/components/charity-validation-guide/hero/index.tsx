@@ -4,14 +4,14 @@ export default function CharityValidationGuide() {
   return (
     <div className="pt-40 pb-12 bg-white min-h-screen" id="aria-font">
       <div className="w-[90%] mx-auto md:max-w-[80%]">
-        <h1 className="text-[30px] font-[500] text-[#333] mb-[30px] leading-[30px]">
+        <h1 className="text-[30px] font-[500] text-gray-800 mb-[30px] leading-[30px]">
           Charity Validation Guide: Ensuring Mutual Benefit Through Comprehensive Validation
           Processes
         </h1>
 
         <section className="">
-          <h2 className="text-[26px] font-[500] text-[#333] pb-[5px]">Introduction</h2>
-          <p className="text-[14px] font-[500] text-[#666] leading-[24px] pb-[1em]">
+          <h2 className="text-[26px] font-[500] text-gray-800 pb-[5px]">Introduction</h2>
+          <p className="text-[14px] font-[500] text-gray-500 leading-[24px] pb-[1em]">
             Effective validation of charitable entities is not only pivotal for the credibility and
             integrity of the charity but also brings significant value to both the validating
             organization and the charity being validated. This expanded guide delves into the mutual
@@ -21,17 +21,17 @@ export default function CharityValidationGuide() {
         </section>
 
         <section className="pb-[1em]">
-          <h2 className="text-[22px] font-[500] text-[#333] pb-[5px]">
+          <h2 className="text-[22px] font-[500] text-gray-800 pb-[5px]">
             External Trusted Validation Sources
           </h2>
           <ol className="list-decimal list-inside">
-            <li className="text-[14px] font-[500] text-[#666] leading-[24px]">
-              <strong className="text-[#666] text-[14px] font-[700]">
+            <li className="text-[14px] font-[500] text-gray-500 leading-[24px]">
+              <strong className="text-gray-500 text-[14px] font-[700]">
                 501c3 Status Verification via GuideStar (Only Approves 501c3)
               </strong>
               <ol className="list-decimal list-inside ml-8 mt-2 space-y-1">
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Our Benefit:</strong> By
+                  <strong className="text-gray-500 text-[14px] font-[700]">Our Benefit:</strong> By
                   using the GuideStar profile for 501c3 status verification, our organization aligns
                   itself with a respected authority in non-profit transparency. This association
                   strengthens our reputation as a diligent and responsible entity in the
@@ -41,7 +41,7 @@ export default function CharityValidationGuide() {
                   </span>
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">
+                  <strong className="text-gray-500 text-[14px] font-[700]">
                     Charityâ€™s Benefit:
                   </strong>{' '}
                   For the charity, achieving validation through GuideStar enhances its credibility
@@ -51,13 +51,13 @@ export default function CharityValidationGuide() {
               </ol>
             </li>
 
-            <li className="text-[14px] font-[500] text-[#666] leading-[24px]">
-              <strong className="text-[#666] text-[14px] font-[700]">
+            <li className="text-[14px] font-[500] text-gray-500 leading-[24px]">
+              <strong className="text-gray-500 text-[14px] font-[700]">
                 TechSoup Validation for Legal Entity Confirmation (Approves both 501c3 and Global)
               </strong>
               <ol className="list-decimal list-inside ml-8 mt-2 space-y-1">
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Our Benefit:</strong>{' '}
+                  <strong className="text-gray-500 text-[14px] font-[700]">Our Benefit:</strong>{' '}
                   TechSoup validation reflects positively on our diligence and thoroughness.{' '}
                   <p className="font-[700] underline">
                     It also demonstrates that other â€œcharities for charitiesâ€ exist that charge
@@ -65,7 +65,7 @@ export default function CharityValidationGuide() {
                   </p>
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">
+                  <strong className="text-gray-500 text-[14px] font-[700]">
                     Charityâ€™s Benefit:
                   </strong>{' '}
                   Charities benefit from TechSoupâ€™s validation by gaining access to a network of
@@ -77,13 +77,13 @@ export default function CharityValidationGuide() {
               </ol>
             </li>
 
-            <li className="text-[14px] font-[500] text-[#666] leading-[24px]">
-              <strong className="text-[#666] text-[14px] font-[700]">
+            <li className="text-[14px] font-[500] text-gray-500 leading-[24px]">
+              <strong className="text-gray-500 text-[14px] font-[700]">
                 VolunteerMatch Engagement for Validation (Only approves 501c3)
               </strong>
               <ol className="list-decimal list-inside ml-8 mt-2 space-y-1">
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Our Benefit:</strong>{' '}
+                  <strong className="text-gray-500 text-[14px] font-[700]">Our Benefit:</strong>{' '}
                   Involving VolunteerMatch in the validation process shows our organizationâ€™s
                   dedication to community engagement and active volunteerism. This partnership
                   broadens our scope beyond financial and legal metrics to include on-ground
@@ -94,7 +94,7 @@ export default function CharityValidationGuide() {
                   </p>
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">
+                  <strong className="text-gray-500 text-[14px] font-[700]">
                     Charityâ€™s Benefit:
                   </strong>{' '}
                   For charities, being validated through VolunteerMatch can enhance their reputation
@@ -104,13 +104,13 @@ export default function CharityValidationGuide() {
               </ol>
             </li>
 
-            <li className="text-[14px] font-[500] text-[#666] leading-[24px]">
-              <strong className="text-[#666] text-[14px] font-[700]">
+            <li className="text-[14px] font-[500] text-gray-500 leading-[24px]">
+              <strong className="text-gray-500 text-[14px] font-[700]">
                 Verified Nonprofit Facebook Page (Approves both 501c3 and Global)
               </strong>
               <ol className="list-decimal list-inside ml-8 mt-2 space-y-1">
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Our Benefit:</strong>{' '}
+                  <strong className="text-gray-500 text-[14px] font-[700]">Our Benefit:</strong>{' '}
                   Requiring charities to have a verified nonprofit Facebook page ensures they
                   maintain a professional and transparent digital presence. This step reflects our
                   organizationâ€™s commitment to modern communication standards and social media
@@ -121,7 +121,7 @@ export default function CharityValidationGuide() {
                   </p>
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">
+                  <strong className="text-gray-500 text-[14px] font-[700]">
                     Charityâ€™s Benefit:
                   </strong>{' '}
                   For charities, a verified Facebook page not only enhances their online credibility
@@ -132,13 +132,13 @@ export default function CharityValidationGuide() {
               </ol>
             </li>
 
-            <li className="text-[14px] font-[500] text-[#666] leading-[24px]">
-              <strong className="text-[#666] text-[14px] font-[700]">
+            <li className="text-[14px] font-[500] text-gray-500 leading-[24px]">
+              <strong className="text-gray-500 text-[14px] font-[700]">
                 Email Services Hosted by Microsoft (Approves both 501c3 and Global)
               </strong>
               <ol className="list-decimal list-inside ml-8 mt-2 space-y-1">
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Our Benefit:</strong>{' '}
+                  <strong className="text-gray-500 text-[14px] font-[700]">Our Benefit:</strong>{' '}
                   Mandating that charities host their email services with established providers like
                   Microsoft underscores our emphasis on operational security and efficiency. It
                   demonstrates our recognition of the importance of reliable and secure digital
@@ -148,7 +148,7 @@ export default function CharityValidationGuide() {
                   </p>
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">
+                  <strong className="text-gray-500 text-[14px] font-[700]">
                     Charityâ€™s Benefit:
                   </strong>{' '}
                   By using professional email services provided by Microsoft, charities gain access
@@ -160,14 +160,14 @@ export default function CharityValidationGuide() {
               </ol>
             </li>
 
-            <li className="text-[14px] font-[500] text-[#666] leading-[24px]">
-              <strong className="text-[#666] text-[14px] font-[700]">
+            <li className="text-[14px] font-[500] text-gray-500 leading-[24px]">
+              <strong className="text-gray-500 text-[14px] font-[700]">
                 Use of WHMCS System and PayPal for Further Validation (Approves both 501c3 and
                 Global)
               </strong>
               <ol className="list-decimal list-inside ml-8 mt-2 space-y-1">
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Our Benefit:</strong> The
+                  <strong className="text-gray-500 text-[14px] font-[700]">Our Benefit:</strong> The
                   integration of WHMCS and PayPal in our validation process exhibits our focus on
                   financial integrity and operational security. This approach reassures our
                   stakeholders of our comprehensive and modern validation methods that are required
@@ -178,7 +178,7 @@ export default function CharityValidationGuide() {
                   </p>
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">
+                  <strong className="text-gray-500 text-[14px] font-[700]">
                     Charityâ€™s Benefit:
                   </strong>{' '}
                   Charities gain by demonstrating their capability to handle financial transactions
@@ -192,21 +192,23 @@ export default function CharityValidationGuide() {
         </section>
 
         <section className="pb-[1em]">
-          <h2 className="text-[22px] font-[500] text-[#333] pb-[5px]">Internal Validation Steps</h2>
+          <h2 className="text-[22px] font-[500] text-gray-800 pb-[5px]">
+            Internal Validation Steps
+          </h2>
           <ol start={7} className="list-decimal list-inside text-gray-700">
-            <li className="text-[14px] font-[500] text-[#666] leading-[24px]">
-              <strong className="text-[#666] text-[14px] font-[700]">
+            <li className="text-[14px] font-[500] text-gray-500 leading-[24px]">
+              <strong className="text-gray-500 text-[14px] font-[700]">
                 Cost / Funding Analysis for Small Charities
               </strong>
               <ol className="list-decimal list-inside ml-8 mt-2 space-y-1">
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Our Benefit:</strong>{' '}
+                  <strong className="text-gray-500 text-[14px] font-[700]">Our Benefit:</strong>{' '}
                   Conducting cost analysis for charities showcases our attention to detail and our
                   commitment to supporting charities of all sizes. This approach reflects our
                   inclusivity and thorough understanding of the non-profit sectorâ€™s diversity.
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">
+                  <strong className="text-gray-500 text-[14px] font-[700]">
                     Charityâ€™s Benefit:
                   </strong>{' '}
                   Smaller charities can use this analysis to showcase their resourcefulness and
@@ -216,20 +218,20 @@ export default function CharityValidationGuide() {
               </ol>
             </li>
 
-            <li className="text-[14px] font-[500] text-[#666] leading-[24px]">
-              <strong className="text-[#666] text-[14px] font-[700]">
+            <li className="text-[14px] font-[500] text-gray-500 leading-[24px]">
+              <strong className="text-gray-500 text-[14px] font-[700]">
                 Content Review of Charity Websites Form Responses
               </strong>
               <ol className="list-decimal list-inside ml-8 mt-2 space-y-1">
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Our Benefit:</strong>{' '}
+                  <strong className="text-gray-500 text-[14px] font-[700]">Our Benefit:</strong>{' '}
                   Reviewing the content of charity websites form responses demonstrates our holistic
                   approach to validation, ensuring that charities align in practice and
                   communication with their missions. This thoroughness adds depth to our validation
                   process.
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">
+                  <strong className="text-gray-500 text-[14px] font-[700]">
                     Charityâ€™s Benefit:
                   </strong>{' '}
                   A charity benefits from this review by receiving feedback on their public
@@ -239,16 +241,16 @@ export default function CharityValidationGuide() {
               </ol>
             </li>
 
-            <li className="text-[14px] font-[500] text-[#666] leading-[24px]">
-              <strong className="text-[#666] text-[14px] font-[700]">
+            <li className="text-[14px] font-[500] text-gray-500 leading-[24px]">
+              <strong className="text-gray-500 text-[14px] font-[700]">
                 Target Demographic Assessment
               </strong>
-              <a href="https://sdgs.un.org/goals" className="text-[#56A3F4]">
+              <a href="https://sdgs.un.org/goals" className="text-tabs-blue">
                 (THE 17 GOALS | Sustainable Development (un.org))
               </a>
               <ol className="list-decimal list-inside ml-8 mt-2 space-y-1">
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Our Benefit:</strong>{' '}
+                  <strong className="text-gray-500 text-[14px] font-[700]">Our Benefit:</strong>{' '}
                   Assessing a charityâ€™s focus on specific demographics or underserved communities
                   underscores our dedication to impact-driven philanthropy. This reflects our
                   understanding of the complexities and nuances in the non-profit sector. We check
@@ -256,13 +258,13 @@ export default function CharityValidationGuide() {
                   pages National Taxonomy of Exempt Entities (NTEE) Code IRS 1040 Legal status{' '}
                   <a
                     href="https://nccs.urban.org/publication/irs-activity-codes"
-                    className="text-[#56A3F4]"
+                    className="text-tabs-blue"
                   >
                     (IRS Activity Codes | National Center for Charitable Statistics (urban.org))
                   </a>
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">
+                  <strong className="text-gray-500 text-[14px] font-[700]">
                     Charityâ€™s Benefit:
                   </strong>{' '}
                   Charities benefit by highlighting their specialized impact and commitment to
@@ -275,8 +277,8 @@ export default function CharityValidationGuide() {
         </section>
 
         <section className="mb-10">
-          <h2 className="text-[26px] font-[500] text-[#333] pb-[5px]">Conclusion</h2>
-          <p className="text-[14px] font-[500] text-[#666] leading-[24px]">
+          <h2 className="text-[26px] font-[500] text-gray-800 pb-[5px]">Conclusion</h2>
+          <p className="text-[14px] font-[500] text-gray-500 leading-[24px]">
             The mutual benefits of a comprehensive charity validation process are clear. For the
             validating organization, it enhances credibility, thoroughness, and a reputation for
             integrity. For charities, it offers opportunities for growth, improved operations, and

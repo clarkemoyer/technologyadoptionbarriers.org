@@ -2,16 +2,40 @@
 @import 'tailwindcss';
 
 :root {
-  /* Brand tokens */
-  --ffc-primary: #2a6682;
-  --ffc-accent: #f58629;
-  --ffc-yellow: #f5c045;
-  --ffc-black: #000000;
-  --ffc-white: #ffffff;
+  /* ── TABS Brand Color Palette ───────────────────────────────────────
+   * Canonical brand colors — use Tailwind tokens (e.g. bg-tabs-orange)
+   * instead of hardcoded hex values in components.
+   * ─────────────────────────────────────────────────────────────────── */
+
+  /* Orange — primary action color (buttons, CTAs) */
+  --tabs-orange: #f57c20;
+  --tabs-orange-hover: #d66a1a;
+
+  /* Blue — bright accent (stats, secondary buttons) */
+  --tabs-blue: #2ea3f2;
+  --tabs-blue-hover: #2589cc;
+
+  /* Navy — dark headings, dark backgrounds */
+  --tabs-navy: #113563;
+  --tabs-navy-bg: #1a2b4b;
+
+  /* Teal — mission / growth / nature tones */
+  --tabs-teal-deep: #145044;
+  --tabs-teal: #0e7162;
+  --tabs-teal-bright: #26c699;
+  --tabs-teal-bright-hover: #1fa680;
+  --tabs-green: #5fb38d;
+
+  /* Primary — legacy FFC mid-blue, used in some buttons/accents */
+  --tabs-primary: #2a6682;
+
+  /* Link — standard link blue */
+  --tabs-link: #2563eb;
+  --tabs-link-hover: #1d4ed8;
 
   /* Layout */
-  --ffc-container: 1248px;
-  --ffc-radius-xl: 20px;
+  --tabs-container: 1248px;
+  --tabs-radius-xl: 20px;
 }
 
 html,
@@ -20,15 +44,40 @@ body {
 }
 
 @theme inline {
-  /* Tailwind design tokens mapped to brand variables */
-  --color-primary: var(--ffc-primary);
-  --color-accent: var(--ffc-accent);
-  --color-yellow: var(--ffc-yellow);
-  --color-ink: var(--ffc-black);
-  --color-paper: var(--ffc-white);
+  /* ── Tailwind design tokens mapped to brand variables ────────────── */
 
-  --radius-xl: var(--ffc-radius-xl);
-  --container: var(--ffc-container);
+  /* Orange (action/CTA) */
+  --color-tabs-orange: var(--tabs-orange);
+  --color-tabs-orange-hover: var(--tabs-orange-hover);
+
+  /* Blue (bright accent) */
+  --color-tabs-blue: var(--tabs-blue);
+  --color-tabs-blue-hover: var(--tabs-blue-hover);
+
+  /* Navy (dark headings/backgrounds) */
+  --color-tabs-navy: var(--tabs-navy);
+  --color-tabs-navy-bg: var(--tabs-navy-bg);
+
+  /* Teal (mission/growth) */
+  --color-tabs-teal-deep: var(--tabs-teal-deep);
+  --color-tabs-teal: var(--tabs-teal);
+  --color-tabs-teal-bright: var(--tabs-teal-bright);
+  --color-tabs-teal-bright-hover: var(--tabs-teal-bright-hover);
+  --color-tabs-green: var(--tabs-green);
+
+  /* Primary & Link */
+  --color-tabs-primary: var(--tabs-primary);
+  --color-tabs-link: var(--tabs-link);
+  --color-tabs-link-hover: var(--tabs-link-hover);
+
+  /* Semantic aliases (backward compat) */
+  --color-primary: var(--tabs-primary);
+  --color-accent: var(--tabs-orange);
+  --color-ink: #000000;
+  --color-paper: #ffffff;
+
+  --radius-xl: var(--tabs-radius-xl);
+  --container: var(--tabs-container);
 
   /* Fonts (provided via next/font and CSS variables on <body>) */
   --font-serif-display: var(--font-faustina);

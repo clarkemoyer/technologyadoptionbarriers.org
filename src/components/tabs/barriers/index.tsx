@@ -43,7 +43,7 @@ const Barriers = () => {
       <div className="w-[90%] mx-auto max-w-[4096px]">
         {/* Section Header */}
         <div className="text-center mb-[60px]">
-          <h2 className="text-[40px] lg:text-[48px] font-bold text-[#113563] mb-[20px]">
+          <h2 className="text-[40px] lg:text-[48px] font-bold text-tabs-navy mb-[20px]">
             Technology Adoption Barriers
           </h2>
           <p className="text-[18px] lg:text-[20px] text-gray-700 max-w-[800px] mx-auto">
@@ -86,8 +86,8 @@ const Barriers = () => {
                 onClick={() => handleCategoryClick(category.id)}
                 className={`px-[20px] py-[10px] rounded-[25px] border-2 transition-all duration-300 font-medium ${
                   activeCategory === category.id
-                    ? 'bg-[#2E6F8E] border-[#2E6F8E] text-white shadow-md transform scale-105'
-                    : 'bg-white border-[#2E6F8E] text-[#2E6F8E] hover:bg-blue-50'
+                    ? 'bg-tabs-teal border-tabs-teal text-white shadow-md transform scale-105'
+                    : 'bg-white border-tabs-teal text-tabs-teal hover:bg-blue-50'
                 }`}
                 title={category.description}
                 aria-label={`Filter by ${category.name}${activeCategory === category.id ? ', currently selected' : ''}`}
@@ -138,7 +138,7 @@ const Barriers = () => {
                 </div>
 
                 {/* Barrier Name */}
-                <h3 className="text-[24px] font-bold text-[#113563] mb-[15px]">{barrier.name}</h3>
+                <h3 className="text-[24px] font-bold text-tabs-navy mb-[15px]">{barrier.name}</h3>
 
                 {/* Description */}
                 <p className="text-[16px] text-gray-700 mb-[15px] leading-[1.6]">
@@ -148,13 +148,13 @@ const Barriers = () => {
                 {/* Examples (if available) */}
                 {barrier.examples && barrier.examples.length > 0 && (
                   <div className="mt-[20px]">
-                    <h4 className="text-[14px] font-semibold text-[#2E6F8E] mb-[10px]">
+                    <h4 className="text-[14px] font-semibold text-tabs-teal mb-[10px]">
                       Common Examples:
                     </h4>
                     <ul className="space-y-[8px]">
                       {barrier.examples.map((example, idx) => (
                         <li key={idx} className="text-[14px] text-gray-600 flex items-start">
-                          <span className="text-[#F57C20] mr-[8px] mt-[2px]">•</span>
+                          <span className="text-tabs-orange mr-[8px] mt-[2px]">•</span>
                           <span>{example}</span>
                         </li>
                       ))}
@@ -187,7 +187,7 @@ const Barriers = () => {
             Help us understand and overcome these barriers
           </p>
           <a
-            className="inline-block px-[40px] py-[15px] bg-[#F57C20] text-white text-[18px] font-semibold rounded-[30px] hover:bg-[#d66a1a] transition-colors duration-300"
+            className="inline-block px-[40px] py-[15px] bg-tabs-orange text-white text-[18px] font-semibold rounded-[30px] hover:bg-tabs-orange-hover transition-colors duration-300"
             href={TABS_WEBSITE_QUALTRICS_SURVEY_URL}
             rel="noopener noreferrer"
           >

@@ -2,7 +2,7 @@ import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
 const TealValueProp = () => {
   return (
-    <section className="w-full py-[80px] bg-[#0E7162] text-white">
+    <section className="w-full py-[80px] bg-tabs-teal text-white">
       <div className="w-[90%] mx-auto max-w-[4096px]">
         <h2 className="text-[36px] font-bold mb-[30px] font-serif">
           Technology Adoption Barriers Survey (TABS)
@@ -33,7 +33,7 @@ const TealValueProp = () => {
             href={TABS_WEBSITE_QUALTRICS_SURVEY_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-[40px] py-[20px] border-2 border-white text-white text-[20px] font-bold rounded-[50px] hover:bg-white hover:text-[#0E7162] transition-colors duration-300 uppercase tracking-wide"
+            className="inline-block px-[40px] py-[20px] border-2 border-white text-white text-[20px] font-bold rounded-[50px] hover:bg-white hover:text-tabs-teal transition-colors duration-300 uppercase tracking-wide"
           >
             Take The Survey Now (In Draft)
           </a>

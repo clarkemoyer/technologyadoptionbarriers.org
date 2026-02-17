@@ -26,7 +26,7 @@ const GetInvolvedPage = () => {
       cta: {
         text: 'Take the Survey',
         link: TABS_WEBSITE_QUALTRICS_SURVEY_URL,
-        color: 'bg-[#F57C20] hover:bg-[#d66a1a]',
+        color: 'bg-tabs-orange hover:bg-tabs-orange-hover',
       },
     },
     {
@@ -47,7 +47,7 @@ const GetInvolvedPage = () => {
       cta: {
         text: 'Request Dataset Access',
         link: 'mailto:clarke@technologyadoptionbarriers.org?subject=TABS%20Dataset%20Access%20Request',
-        color: 'bg-[#2EA3F2] hover:bg-[#2589cc]',
+        color: 'bg-tabs-blue hover:bg-tabs-blue-hover',
       },
     },
     {
@@ -67,7 +67,7 @@ const GetInvolvedPage = () => {
       cta: {
         text: 'Contribute Now',
         link: 'https://github.com/sponsors/clarkemoyer',
-        color: 'bg-[#113563] hover:bg-[#0d2a4f]',
+        color: 'bg-tabs-navy hover:bg-tabs-navy-bg',
       },
     },
     {
@@ -87,7 +87,7 @@ const GetInvolvedPage = () => {
       cta: {
         text: 'Discuss Sponsorship',
         link: 'mailto:clarke@technologyadoptionbarriers.org?subject=TABS%20Sponsorship%20Inquiry',
-        color: 'bg-[#0E7162] hover:bg-[#0b5a4e]',
+        color: 'bg-tabs-teal hover:bg-tabs-teal-deep',
       },
     },
     {
@@ -108,7 +108,7 @@ const GetInvolvedPage = () => {
       cta: {
         text: 'Volunteer Your Skills',
         link: 'mailto:clarke@technologyadoptionbarriers.org?subject=TABS%20Volunteer%20Inquiry',
-        color: 'bg-[#5FB38D] hover:bg-[#4d9671]',
+        color: 'bg-tabs-green hover:bg-tabs-green',
       },
     },
   ]
@@ -116,7 +116,7 @@ const GetInvolvedPage = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#1a2b4b] to-[#2d4a73] text-white py-[80px]">
+      <section className="bg-gradient-to-b from-tabs-navy-bg to-slate-600 text-white py-[80px]">
         <div className="w-[90%] mx-auto max-w-[1200px] text-center">
           <h1 className="text-[48px] md:text-[56px] font-bold mb-[20px] font-serif">
             Get Involved with TABS
@@ -218,7 +218,7 @@ const GetInvolvedPage = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="bg-[#1a2b4b] text-white py-[60px]">
+      <section className="bg-tabs-navy-bg text-white py-[60px]">
         <div className="w-[90%] mx-auto max-w-[800px] text-center">
           <h2 className="text-[36px] font-bold mb-[20px] font-serif">
             Have Questions? Let&apos;s Talk.
@@ -226,7 +226,7 @@ const GetInvolvedPage = () => {
           <p className="text-[18px] text-blue-100 mb-[10px]">Call or Text Clarke Moyer</p>
           <a
             href="tel:5202228104"
-            className="text-[32px] font-bold text-[#26C699] hover:text-[#1fa884] transition-colors block mb-[30px]"
+            className="text-[32px] font-bold text-tabs-teal-bright hover:text-tabs-teal-bright-hover transition-colors block mb-[30px]"
           >
             (520) 222-8104
           </a>

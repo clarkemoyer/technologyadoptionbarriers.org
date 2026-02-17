@@ -26,7 +26,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ number, title, children }
   const toggle = () => setIsOpen(!isOpen)
 
   return (
-    <div className="mb-5 border-[6px] border-[#0C71C3] rounded-[25px] overflow-hidden">
+    <div className="mb-5 border-[6px] border-tabs-link rounded-[25px] overflow-hidden">
       {/* Header */}
       <button
         onClick={toggle}
@@ -38,7 +38,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ number, title, children }
         {/* Text takes remaining space */}
         <span
           className={`font-[500] text-[20px] md:text-[26px] flex-1 pr-3 transition-colors duration-300 ${
-            isOpen ? 'text-[#333]' : 'text-[#666]'
+            isOpen ? 'text-gray-800' : 'text-gray-500'
           }`}
           id="aria-font"
         >
@@ -48,9 +48,9 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ number, title, children }
         {/* Icon container with fixed width */}
         <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
           {isOpen ? (
-            <FaMinus className="w-5 h-5 text-white bg-[#1c6e92] p-1 rounded-full transition-transform duration-300" />
+            <FaMinus className="w-5 h-5 text-white bg-tabs-primary p-1 rounded-full transition-transform duration-300" />
           ) : (
-            <FaPlus className="w-5 h-5 text-white bg-[#1c6e92] p-1 rounded-full transition-transform duration-300" />
+            <FaPlus className="w-5 h-5 text-white bg-tabs-primary p-1 rounded-full transition-transform duration-300" />
           )}
         </span>
       </button>

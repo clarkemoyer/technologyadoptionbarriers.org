@@ -17,7 +17,7 @@ export default function StepCard({
     <div
       className={`
         bg-white rounded-[8px] shadow-[0px_2px_18px_0px_rgba(0,0,0,0.3)] 
-        border-l-[8px] border-[#0d7ff8]
+        border-l-[8px] border-tabs-link
         p-[20px] text-center mx-auto
         ${className}
       `}

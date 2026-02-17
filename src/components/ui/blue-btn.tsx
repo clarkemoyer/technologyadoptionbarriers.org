@@ -23,8 +23,8 @@ const BlueBtn: React.FC<BlueBtnProps> = ({ children = 'Learn More', href, ...pro
         shadow-[0px_12px_18px_-6px_rgba(0,0,0,0)]
         hover:shadow-[0px_12px_18px_-4px_rgba(255,105,0,0.8)]
         transition-all duration-300 ease-in-out
-        text-white border border-[#2583ab] rounded-[10px]
-        text-[18px] font-semibold bg-[#2583ab]
+        text-white border border-tabs-primary rounded-[10px]
+        text-[18px] font-semibold bg-tabs-primary
         flex items-center justify-center
       "
       id="montserrat-font"

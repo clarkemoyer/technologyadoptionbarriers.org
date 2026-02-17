@@ -11,14 +11,14 @@ export const ARTICLE_CLASSES = `
 
 export const H1_CLASSES = `
   text-2xl sm:text-3xl md:text-4xl xl:text-5xl
-  font-bold text-[#145044]
+  font-bold text-tabs-teal-deep
   mb-4 sm:mb-8
   leading-tight
 `
 
 export const H2_CLASSES = `
   text-xl sm:text-2xl md:text-3xl lg:text-4xl
-  font-bold text-[#145044]
+  font-bold text-tabs-teal-deep
   mb-3 sm:mb-4
 `
 
