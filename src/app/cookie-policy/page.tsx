@@ -113,9 +113,9 @@ export default function CookiePolicy() {
           <div className="bg-gray-50 p-4 rounded-lg mb-4">
             <h4 className="font-semibold mb-2 text-gray-800">Microsoft Forms</h4>
             <p className="text-sm mb-2 text-gray-500">
-              Used for our charity application form. Microsoft Forms may load additional third-party
-              services (including HubSpot) for form analytics and feedback collection. These
-              services are controlled by Microsoft.
+              Used for our research project application form. Microsoft Forms may load additional
+              third-party services (including HubSpot) for form analytics and feedback collection.
+              These services are controlled by Microsoft.
             </p>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -129,7 +129,7 @@ export default function CookiePolicy() {
                 <tbody>
                   <tr className="border-b">
                     <td className="py-2 pr-4 font-mono text-gray-500">Microsoft Forms</td>
-                    <td className="py-2 pr-4 text-gray-500">Charity application form processing</td>
+                    <td className="py-2 pr-4 text-gray-500">Research project form processing</td>
                     <td className="py-2 text-gray-500">When application modal opened</td>
                   </tr>
                   <tr>
