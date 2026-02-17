@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'

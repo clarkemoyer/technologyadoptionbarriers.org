@@ -1,7 +1,5 @@
 'use client'
 
-import React from 'react'
-
 export default function CharityValidationGuide() {
   return (
     <div className="pt-40 pb-12 bg-white min-h-screen" id="aria-font">
@@ -43,7 +41,9 @@ export default function CharityValidationGuide() {
                   </span>
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Charity’s Benefit:</strong>{' '}
+                  <strong className="text-[#666] text-[14px] font-[700]">
+                    Charityâ€™s Benefit:
+                  </strong>{' '}
                   For the charity, achieving validation through GuideStar enhances its credibility
                   and visibility. It reassures donors and stakeholders of its legal compliance and
                   ethical standing, potentially increasing funding opportunities.
@@ -60,13 +60,15 @@ export default function CharityValidationGuide() {
                   <strong className="text-[#666] text-[14px] font-[700]">Our Benefit:</strong>{' '}
                   TechSoup validation reflects positively on our diligence and thoroughness.{' '}
                   <p className="font-[700] underline">
-                    It also demonstrates that other “charities for charities” exist that charge high
-                    fees for services that we can offer for free if they qualify.
+                    It also demonstrates that other â€œcharities for charitiesâ€ exist that charge
+                    high fees for services that we can offer for free if they qualify.
                   </p>
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Charity’s Benefit:</strong>{' '}
-                  Charities benefit from TechSoup’s validation by gaining access to a network of
+                  <strong className="text-[#666] text-[14px] font-[700]">
+                    Charityâ€™s Benefit:
+                  </strong>{' '}
+                  Charities benefit from TechSoupâ€™s validation by gaining access to a network of
                   technology resources and support. This validation can help them improve their
                   operational efficiency and tech capabilities, essential for modern non-profits.
                   One core service here is the QuickBooks discount can only be obtained from
@@ -82,7 +84,7 @@ export default function CharityValidationGuide() {
               <ol className="list-decimal list-inside ml-8 mt-2 space-y-1">
                 <li>
                   <strong className="text-[#666] text-[14px] font-[700]">Our Benefit:</strong>{' '}
-                  Involving VolunteerMatch in the validation process shows our organization’s
+                  Involving VolunteerMatch in the validation process shows our organizationâ€™s
                   dedication to community engagement and active volunteerism. This partnership
                   broadens our scope beyond financial and legal metrics to include on-ground
                   impacts.{' '}
@@ -92,7 +94,9 @@ export default function CharityValidationGuide() {
                   </p>
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Charity’s Benefit:</strong>{' '}
+                  <strong className="text-[#666] text-[14px] font-[700]">
+                    Charityâ€™s Benefit:
+                  </strong>{' '}
                   For charities, being validated through VolunteerMatch can enhance their reputation
                   as active community participants. It can lead to an increase in volunteer
                   engagement and a stronger connection with local communities.
@@ -109,7 +113,7 @@ export default function CharityValidationGuide() {
                   <strong className="text-[#666] text-[14px] font-[700]">Our Benefit:</strong>{' '}
                   Requiring charities to have a verified nonprofit Facebook page ensures they
                   maintain a professional and transparent digital presence. This step reflects our
-                  organization’s commitment to modern communication standards and social media
+                  organizationâ€™s commitment to modern communication standards and social media
                   engagement, which is increasingly important in the digital era.{' '}
                   <p className="font-[700] underline">
                     It also validates the public information of the charity matches what was
@@ -117,7 +121,9 @@ export default function CharityValidationGuide() {
                   </p>
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Charity’s Benefit:</strong>{' '}
+                  <strong className="text-[#666] text-[14px] font-[700]">
+                    Charityâ€™s Benefit:
+                  </strong>{' '}
                   For charities, a verified Facebook page not only enhances their online credibility
                   but also expands their outreach and engagement capabilities. It provides a
                   platform for effective communication with supporters, increased visibility for
@@ -142,7 +148,9 @@ export default function CharityValidationGuide() {
                   </p>
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Charity’s Benefit:</strong>{' '}
+                  <strong className="text-[#666] text-[14px] font-[700]">
+                    Charityâ€™s Benefit:
+                  </strong>{' '}
                   By using professional email services provided by Microsoft, charities gain access
                   to a suite of tools that enhance their productivity and collaboration
                   capabilities. It ensures a higher level of security and professionalism in their
@@ -163,14 +171,16 @@ export default function CharityValidationGuide() {
                   integration of WHMCS and PayPal in our validation process exhibits our focus on
                   financial integrity and operational security. This approach reassures our
                   stakeholders of our comprehensive and modern validation methods that are required
-                  in the “Know Your Customer” US laws.{' '}
+                  in the â€œKnow Your Customerâ€ US laws.{' '}
                   <p className="font-[700] underline">
                     It also reduces all spam, requests into the system as it requires account
-                    creation that can’t be done by bots.
+                    creation that canâ€™t be done by bots.
                   </p>
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Charity’s Benefit:</strong>{' '}
+                  <strong className="text-[#666] text-[14px] font-[700]">
+                    Charityâ€™s Benefit:
+                  </strong>{' '}
                   Charities gain by demonstrating their capability to handle financial transactions
                   securely and efficiently. This can build donor confidence and facilitate smoother
                   financial operations. This also is needed to accept funds on the website via a
@@ -193,10 +203,12 @@ export default function CharityValidationGuide() {
                   <strong className="text-[#666] text-[14px] font-[700]">Our Benefit:</strong>{' '}
                   Conducting cost analysis for charities showcases our attention to detail and our
                   commitment to supporting charities of all sizes. This approach reflects our
-                  inclusivity and thorough understanding of the non-profit sector’s diversity.
+                  inclusivity and thorough understanding of the non-profit sectorâ€™s diversity.
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Charity’s Benefit:</strong>{' '}
+                  <strong className="text-[#666] text-[14px] font-[700]">
+                    Charityâ€™s Benefit:
+                  </strong>{' '}
                   Smaller charities can use this analysis to showcase their resourcefulness and
                   financial prudence. It can also guide them in optimizing their operations, making
                   them more appealing to frugal donors.
@@ -217,7 +229,9 @@ export default function CharityValidationGuide() {
                   process.
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Charity’s Benefit:</strong>{' '}
+                  <strong className="text-[#666] text-[14px] font-[700]">
+                    Charityâ€™s Benefit:
+                  </strong>{' '}
                   A charity benefits from this review by receiving feedback on their public
                   messaging and alignment with their mission. This can enhance their public image
                   and help attract supporters who are aligned with their cause.
@@ -235,7 +249,7 @@ export default function CharityValidationGuide() {
               <ol className="list-decimal list-inside ml-8 mt-2 space-y-1">
                 <li>
                   <strong className="text-[#666] text-[14px] font-[700]">Our Benefit:</strong>{' '}
-                  Assessing a charity’s focus on specific demographics or underserved communities
+                  Assessing a charityâ€™s focus on specific demographics or underserved communities
                   underscores our dedication to impact-driven philanthropy. This reflects our
                   understanding of the complexities and nuances in the non-profit sector. We check
                   this based on self-reported data in the Intake Forms and the GuideStar profile
@@ -248,7 +262,9 @@ export default function CharityValidationGuide() {
                   </a>
                 </li>
                 <li>
-                  <strong className="text-[#666] text-[14px] font-[700]">Charity’s Benefit:</strong>{' '}
+                  <strong className="text-[#666] text-[14px] font-[700]">
+                    Charityâ€™s Benefit:
+                  </strong>{' '}
                   Charities benefit by highlighting their specialized impact and commitment to
                   serving niche or marginalized communities. This can attract donors and volunteers
                   who are passionate about these specific causes.

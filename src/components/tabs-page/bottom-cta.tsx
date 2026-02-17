@@ -1,4 +1,3 @@
-import React from 'react'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
 const BottomCTA = () => {

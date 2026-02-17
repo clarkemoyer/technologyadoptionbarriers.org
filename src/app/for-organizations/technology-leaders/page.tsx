@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 const TechnologyLeadersPage = () => {
   const organizations = [
     {
-      name: '(ISC)²',
+      name: '(ISC)Â²',
       fullName: 'International Information System Security Certification Consortium',
       focus: 'Cybersecurity professionals and CISOs',
       url: 'https://www.isc2.org/',
@@ -59,14 +58,14 @@ const TechnologyLeadersPage = () => {
               href="/for-organizations"
               className="text-blue-200 hover:text-white transition-colors text-[16px]"
             >
-              ← Back to All Organizations
+              â† Back to All Organizations
             </Link>
           </div>
           <h1 className="text-[48px] md:text-[56px] font-bold mb-[20px] font-serif">
             For Technology Leaders
           </h1>
           <p className="text-[24px] text-blue-100 mb-[15px] font-semibold">
-            CTO • CIO • CISO • VP of Engineering • VP of Technology
+            CTO â€¢ CIO â€¢ CISO â€¢ VP of Engineering â€¢ VP of Technology
           </p>
           <p className="text-[18px] text-blue-100 max-w-[900px] leading-[1.6]">
             Support your members in understanding and overcoming technology adoption barriers while
@@ -86,7 +85,7 @@ const TechnologyLeadersPage = () => {
             <div className="bg-blue-50 p-[30px] rounded-[12px] border-2 border-blue-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Digital transformation">
-                  🚀
+                  ðŸš€
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">
@@ -102,7 +101,7 @@ const TechnologyLeadersPage = () => {
             <div className="bg-blue-50 p-[30px] rounded-[12px] border-2 border-blue-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Security">
-                  🔒
+                  ðŸ”’
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">
@@ -118,7 +117,7 @@ const TechnologyLeadersPage = () => {
             <div className="bg-blue-50 p-[30px] rounded-[12px] border-2 border-blue-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Benchmarking">
-                  📊
+                  ðŸ“Š
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">Peer Benchmarking</h3>
@@ -146,7 +145,7 @@ const TechnologyLeadersPage = () => {
           <div className="grid md:grid-cols-2 gap-[30px]">
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                📈 Comprehensive Benchmark Reports
+                ðŸ“ˆ Comprehensive Benchmark Reports
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Receive detailed reports showing how their organization&apos;s technology adoption
@@ -157,7 +156,7 @@ const TechnologyLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                🎯 Strategic Planning Insights
+                ðŸŽ¯ Strategic Planning Insights
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Gain data-driven insights to inform technology roadmaps, prioritize initiatives, and
@@ -167,7 +166,7 @@ const TechnologyLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                🤝 Stakeholder Communication Tools
+                ðŸ¤ Stakeholder Communication Tools
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Access industry-validated data to communicate with boards, executives, and teams
@@ -177,7 +176,7 @@ const TechnologyLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                🔬 Contribute to Research
+                ðŸ”¬ Contribute to Research
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Help build a longitudinal dataset that advances understanding of technology adoption
@@ -220,7 +219,7 @@ const TechnologyLeadersPage = () => {
                     rel="noopener noreferrer"
                     className="inline-block px-[25px] py-[12px] bg-blue-600 hover:bg-blue-700 text-white rounded-[6px] font-semibold text-[14px] transition-colors text-center md:text-left whitespace-nowrap"
                   >
-                    Visit Website →
+                    Visit Website â†’
                   </a>
                 </div>
               </div>
@@ -258,7 +257,7 @@ const TechnologyLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 1">
-                  1️⃣
+                  1ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Initial Contact</h3>
@@ -271,7 +270,7 @@ const TechnologyLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 2">
-                  2️⃣
+                  2ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Receive Materials</h3>
@@ -284,7 +283,7 @@ const TechnologyLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 3">
-                  3️⃣
+                  3ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Promote Survey</h3>
@@ -297,7 +296,7 @@ const TechnologyLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 4">
-                  4️⃣
+                  4ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Share Insights</h3>

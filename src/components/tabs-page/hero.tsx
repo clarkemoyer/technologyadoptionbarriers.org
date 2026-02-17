@@ -1,4 +1,3 @@
-import React from 'react'
 import { assetPath } from '@/lib/assetPath'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
@@ -32,7 +31,7 @@ const Hero = () => {
                 obsolescence.
               </li>
               <li className="text-[18px] text-gray-700 leading-relaxed">
-                There’s a continuous need for{' '}
+                Thereâ€™s a continuous need for{' '}
                 <strong className="font-bold">
                   updated insights, especially from senior leadership
                 </strong>
@@ -63,10 +62,10 @@ const Hero = () => {
             <div className="relative aspect-video w-full bg-black rounded shadow-lg overflow-hidden">
               <video
                 className="w-full h-full object-cover"
-                poster="/Images/TABS-Logo-Full.png"
+                poster={assetPath('/Images/TABS-Logo-Full.png')}
                 controls
               >
-                <source src="/videos/The_TABS_Project.mp4" type="video/mp4" />
+                <source src={assetPath('/videos/The_TABS_Project.mp4')} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>

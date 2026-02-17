@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
@@ -24,9 +23,9 @@ const MakingOfTabsPage = () => {
             availability requires a suite of specialized tools and services.
           </p>
           <p className="mb-6">
-            This page provides an overview of the &quot;stack&quot;—the collection of technologies
-            and methodologies—we employ to bring TABS to life. From the survey instrument itself to
-            the analytics that help us understand our audience, every component plays a critical
+            This page provides an overview of the &quot;stack&quot;â€”the collection of technologies
+            and methodologiesâ€”we employ to bring TABS to life. From the survey instrument itself
+            to the analytics that help us understand our audience, every component plays a critical
             role.
           </p>
         </section>
@@ -88,7 +87,7 @@ const MakingOfTabsPage = () => {
               To reach a diverse and representative sample of organizational leaders, we partner
               with <strong>Prolific</strong>. Unlike traditional survey panels, Prolific specializes
               in high-quality academic research. It enables us to pre-screen participants based on
-              specific criteria—such as job seniority and industry sector—ensuring that our data
+              specific criteriaâ€”such as job seniority and industry sectorâ€”ensuring that our data
               reflects the true voice of decision-makers.
             </p>
           </div>

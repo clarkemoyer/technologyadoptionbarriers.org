@@ -1,9 +1,17 @@
-import React from 'react'
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import {
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+  BODY_LIST_CLASSES,
+  REFERENCES_H2_CLASSES,
+  REFERENCES_OL_CLASSES,
+} from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: VRIO Framework – Barney (1991)',
+  title: 'Bibliography: VRIO Framework â€“ Barney (1991)',
   description:
     "An exploration of Jay Barney's VRIO Framework for analyzing firm resources and sustained competitive advantage, providing practical criteria for evaluating which organizational capabilities drive technology adoption success.",
 }
@@ -14,17 +22,17 @@ const VRIOFrameworkPage = () => {
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Bibliography: VRIO Framework &ndash; Barney (1991)</h1>
 
-        <section className="mb-6 sm:mb-10 text-gray-800">
-          <p className="mb-3 sm:mb-6">
+        <section className={SECTION_CLASSES}>
+          <p className={PARAGRAPH_CLASSES}>
             In 1991, Jay B. Barney published &ldquo;Firm Resources and Sustained Competitive
             Advantage&rdquo; in the Journal of Management, creating what would become one of the
             most widely applied frameworks in strategic management: the VRIO Framework. Building on
             Wernerfelt&rsquo;s 1984 Resource-Based View, Barney addressed a critical gap that had
-            limited the practical application of resource-based thinking—the lack of clear,
+            limited the practical application of resource-based thinkingâ€”the lack of clear,
             operational criteria for determining which resources truly create sustained competitive
             advantage.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The VRIO Framework transforms abstract resource-based theory into a practical analytical
             tool by asking four systematic questions about any organizational resource: Is it
             Valuable? Is it Rare? Is it difficult to Imitate? Is the Organization structured to
@@ -34,7 +42,7 @@ const VRIOFrameworkPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Barney developed the VRIO framework to address critical gaps in how the Resource-Based
             View could be applied practically by organizational leaders. While Wernerfelt&rsquo;s
             1984 Resource-Based View had provided a compelling theoretical argument that firms
@@ -42,26 +50,26 @@ const VRIOFrameworkPage = () => {
             the framework lacked clear, operational criteria for determining which resources should
             be considered strategically significant.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The fundamental question Barney sought to answer was:{' '}
             <em>
               What characteristics must a firm&rsquo;s resources and capabilities possess in order
               to create sustained competitive advantage?
             </em>{' '}
-            This was not merely a theoretical question—it was deeply practical. Managers needed
+            This was not merely a theoretical questionâ€”it was deeply practical. Managers needed
             guidance on which resources deserved significant investment, which capabilities should
             be the focus of organizational development, and which resources represented true
             strategic advantages versus simply competencies that all industry competitors possessed.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Without systematic criteria for resource evaluation, the RBV framework risked being
             dismissed as too vague and theoretical for practical application. Barney responded to
-            criticism that RBV frameworks lacked falsifiability and precision—that any resource
+            criticism that RBV frameworks lacked falsifiability and precisionâ€”that any resource
             leading to superior performance could be retroactively labeled as rare and inimitable,
             making the theory tautological. By specifying conditions more precisely and creating an
             operational framework, Barney made the RBV more rigorous and applicable.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The motivation also reflected a recognition that firms often have difficulty
             distinguishing between resources that create temporary competitive advantage (advantages
             that competitors can readily replicate) versus resources that create sustained
@@ -74,7 +82,7 @@ const VRIOFrameworkPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>The Four VRIO Criteria</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The VRIO Framework evaluates organizational resources and capabilities through four
             sequential questions, each building on the previous one to determine the competitive
             implications of a resource:
@@ -84,15 +92,15 @@ const VRIOFrameworkPage = () => {
             1. Value: Does the Resource Enable the Firm to Respond to Environmental Opportunities or
             Threats?
           </h3>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             A resource is valuable when it enables a firm to exploit opportunities or neutralize
             threats in its environment. This criterion directly addresses whether a resource
             contributes to competitive positioning in the firm&rsquo;s specific market context.
-            Resources that do not create value—that do not help the firm increase revenues, decrease
-            costs, or improve competitive positioning—represent competitive disadvantages regardless
-            of their other characteristics.
+            Resources that do not create valueâ€”that do not help the firm increase revenues,
+            decrease costs, or improve competitive positioningâ€”represent competitive disadvantages
+            regardless of their other characteristics.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Value is context-dependent: a resource valuable in one competitive environment may not
             be valuable in another. For example, advanced manufacturing automation may be highly
             valuable in high-volume, standardized production but less valuable in highly customized,
@@ -104,14 +112,14 @@ const VRIOFrameworkPage = () => {
             2. Rarity: Is Control of the Resource Currently Limited to a Small Number of Competing
             Firms?
           </h3>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             A resource is rare when few competitors possess it. Resources that are valuable but
-            widely available in the industry do not create competitive advantage—they create
+            widely available in the industry do not create competitive advantageâ€”they create
             competitive parity. All firms possessing the resource can neutralize competitive threats
             or exploit opportunities equally, meaning the resource becomes a requirement for
             competing but not a source of advantage.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Rarity exists on a spectrum. The fewer competitors possessing a resource, the greater
             the potential competitive advantage. However, rarity alone is insufficient for sustained
             advantage if competitors can readily acquire or develop the resource once they recognize
@@ -122,12 +130,12 @@ const VRIOFrameworkPage = () => {
             3. Imitability: Do Firms Without the Resource Face a Cost Disadvantage in Obtaining or
             Developing It?
           </h3>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             A resource is difficult to imitate when competitors cannot easily replicate it, even
             after recognizing its value. Barney identifies several conditions that make resources
             difficult to imitate:
           </p>
-          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
+          <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Unique Historical Conditions:</strong> The resource was developed under unique
               historical circumstances that cannot be recreated. For example, a firm&rsquo;s
@@ -144,7 +152,7 @@ const VRIOFrameworkPage = () => {
               cannot easily reproduce.
             </li>
           </ul>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Resources that are difficult to imitate provide sustained competitive advantage because
             competitors face cost or feasibility disadvantages in replication. Even when competitors
             recognize the value and rarity of a resource, high imitation costs protect the
@@ -154,16 +162,16 @@ const VRIOFrameworkPage = () => {
           <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
             4. Organization: Is the Firm Organized to Capture the Value from the Resource?
           </h3>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The final criterion recognizes that possessing valuable, rare, and inimitable resources
             is insufficient for competitive advantage if the organization lacks complementary
             systems, structures, and processes to exploit those resources. An organization must have
             appropriate reporting structures, management control systems, compensation policies, and
             organizational culture to effectively deploy its resources.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             This criterion distinguishes the VRIO framework from earlier RBV formulations by
-            explicitly recognizing that resources do not automatically create advantage—the
+            explicitly recognizing that resources do not automatically create advantageâ€”the
             organization must be configured to capture value from its resources. Firms with
             valuable, rare, and inimitable resources may still fail to achieve competitive advantage
             if organizational dysfunction, poor coordination, or misaligned incentives prevent
@@ -171,11 +179,11 @@ const VRIOFrameworkPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Competitive Implications of the VRIO Framework</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The VRIO Framework predicts specific competitive outcomes based on how resources perform
             against the four criteria:
           </p>
-          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
+          <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Not Valuable:</strong> Resources that fail the value criterion represent
               competitive disadvantages. The firm should divest or restructure these resources.
@@ -207,13 +215,13 @@ const VRIOFrameworkPage = () => {
           </ul>
 
           <h2 className={H2_CLASSES}>Application to Technology Adoption</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             While the VRIO Framework was developed for general strategic resource analysis, it
             provides powerful insights for technology adoption decisions. Organizations can apply
             VRIO criteria to evaluate whether adopting specific technologies will create competitive
             advantage:
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Value Assessment:</strong> Does the technology address genuine competitive
             threats or opportunities in our specific market context? Technologies valuable for
             competitors may not be valuable for firms in different competitive positions or serving
@@ -221,13 +229,13 @@ const VRIOFrameworkPage = () => {
             enable them to increase revenues, decrease costs, or improve competitive positioning
             rather than adopting technologies simply because competitors have done so.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Rarity Assessment:</strong> How many competitors already possess or can easily
             acquire this technology? Technologies that are widely available or easily purchasable
             create competitive parity rather than advantage. First-mover advantage in technology
             adoption may be temporary if competitors can quickly match the technology.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Imitability Assessment:</strong> What barriers prevent competitors from
             replicating our use of this technology? The technology itself may be easily imitable,
             but the organizational expertise in deploying the technology, the complementary
@@ -236,7 +244,7 @@ const VRIOFrameworkPage = () => {
             focus on building distinctive capabilities around technology deployment rather than
             assuming the technology itself provides sustained advantage.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Organization Assessment:</strong> Do we have the organizational structures,
             management systems, personnel expertise, and cultural alignment to effectively exploit
             this technology? Many technology adoption failures occur not because the technology
@@ -245,11 +253,11 @@ const VRIOFrameworkPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Strengths of the VRIO Framework</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The VRIO Framework possesses several significant strengths that have contributed to its
             enduring influence on strategic management and technology adoption:
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Operational Clarity and Practical Accessibility:</strong> The framework&rsquo;s
             greatest strength is its transformation of abstract resource-based theory into a
             practical analytical tool. The four VRIO questions are clear, systematic, and accessible
@@ -257,7 +265,7 @@ const VRIOFrameworkPage = () => {
             framework to evaluate their resources and capabilities, making resource-based thinking
             actionable for strategic decision-making.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Systematic Evaluation Process:</strong> The framework provides a structured
             analytical process that prevents organizations from overlooking critical dimensions of
             resource value. By requiring sequential evaluation through all four criteria, the
@@ -265,23 +273,23 @@ const VRIOFrameworkPage = () => {
             advantage or assuming valuable resources will create advantage without appropriate
             organizational exploitation.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Emphasis on Sustained Advantage:</strong> Unlike frameworks focusing on
             immediate competitive positioning, VRIO explicitly addresses sustainability. The
             framework helps organizations distinguish between temporary advantages that competitors
             will quickly replicate and sustained advantages that provide long-term strategic value.
             This temporal perspective is crucial for strategic investment decisions.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Recognition of Organizational Complementarities:</strong> The Organization
             criterion represents a significant advancement over earlier RBV formulations by
             explicitly recognizing that resources do not automatically create advantage. The
             framework acknowledges that effective resource deployment requires appropriate
             organizational structures, management systems, and capabilities. This recognition helps
-            organizations understand why resource acquisition alone is insufficient—they must also
+            organizations understand why resource acquisition alone is insufficientâ€”they must also
             develop organizational capacity to exploit resources.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Flexibility Across Resource Types:</strong> The framework applies equally to
             tangible resources (physical assets, technology, equipment) and intangible resources
             (brand reputation, organizational culture, personnel expertise, processes). This
@@ -290,11 +298,11 @@ const VRIOFrameworkPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Limitations and Critiques</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Despite its considerable strengths, the VRIO Framework exhibits certain limitations that
             scholars and practitioners should understand:
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Limited Dynamic Perspective:</strong> The framework focuses on evaluating
             existing resources rather than addressing how organizations develop new resources or
             adapt existing resources to changing environments. In rapidly changing markets, the
@@ -302,16 +310,16 @@ const VRIOFrameworkPage = () => {
             current resource endowments. The framework provides limited guidance on resource
             development processes or dynamic capability building.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Difficulty in Imitation Assessment:</strong> Determining whether resources are
-            truly difficult to imitate can be challenging in practice. Causal ambiguity—one source
-            of imitation difficulty—means even the firm possessing the resource may not fully
+            truly difficult to imitate can be challenging in practice. Causal ambiguityâ€”one source
+            of imitation difficultyâ€”means even the firm possessing the resource may not fully
             understand why it creates value or whether competitors could replicate it. Organizations
             may overestimate the inimitability of their resources because they underestimate
             competitors&rsquo; capabilities or fail to recognize alternative approaches competitors
             might develop.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Static Competitive Analysis:</strong> The framework evaluates resources at a
             point in time but provides limited guidance on how competitive environments change or
             how resource value evolves. Resources that are rare today may become common tomorrow as
@@ -319,7 +327,7 @@ const VRIOFrameworkPage = () => {
             explicitly address how organizations should monitor and respond to these competitive
             dynamics.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Limited Attention to Resource Integration:</strong> While the Organization
             criterion acknowledges the need for appropriate organizational structures, the framework
             provides limited guidance on how multiple resources should be integrated and coordinated
@@ -327,14 +335,14 @@ const VRIOFrameworkPage = () => {
             from how diverse resources are orchestrated together rather than from individual
             resources in isolation.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Potential for Tautological Reasoning:</strong> Critics note that the framework
-            can become somewhat circular—resources that lead to superior performance are identified
-            as meeting VRIO criteria, but the primary evidence that resources meet VRIO criteria is
-            that they lead to superior performance. This circularity can reduce the
+            can become somewhat circularâ€”resources that lead to superior performance are
+            identified as meeting VRIO criteria, but the primary evidence that resources meet VRIO
+            criteria is that they lead to superior performance. This circularity can reduce the
             framework&rsquo;s predictive power and make it difficult to falsify empirically.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Measurement and Valuation Challenges:</strong> The framework does not provide
             clear mechanisms for quantifying resource value or predicting the magnitude of
             competitive advantage particular resources will generate. While the framework identifies
@@ -343,12 +351,12 @@ const VRIOFrameworkPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Barriers to Technology Adoption Identified</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The VRIO Framework, while not explicitly framed as an adoption barriers theory,
             identifies several critical barriers that organizations face when attempting to adopt
             new technologies or develop new capabilities:
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Value Realization Barriers:</strong> Technologies may fail to create value in
             the organization&rsquo;s specific context even if they theoretically create value
             elsewhere. A technology that creates value for competitors or in other industries may
@@ -357,7 +365,7 @@ const VRIOFrameworkPage = () => {
             to discover the technology does not create competitive value in their specific market
             and business model.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Rarity and Competitive Supply Barriers:</strong> When new technologies are
             readily available to competitors, adoption will not create competitive advantage. Even
             if an organization successfully adopts a new technology, if competitors can purchase or
@@ -366,7 +374,7 @@ const VRIOFrameworkPage = () => {
             adoption may be temporary or nonexistent if the technology is easily accessible to
             competitors.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Organizational Integration and Implementation Barriers:</strong> The
             Organization dimension explicitly identifies that organizations may fail to structure
             themselves appropriately to capture value from technologies they adopt. An organization
@@ -375,7 +383,7 @@ const VRIOFrameworkPage = () => {
             organizational barriers can prevent technology adoption from generating the competitive
             value the technology theoretically provides.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Causal Ambiguity and Learning Barriers:</strong> When organizations adopt new
             technologies but face causal ambiguity about why the technologies create value, they
             struggle to refine implementation, transfer knowledge to new contexts, or adapt the
@@ -383,7 +391,7 @@ const VRIOFrameworkPage = () => {
             deep understanding of the adopted technology, limiting their ability to configure
             technologies for their specific context or troubleshoot problems.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Social Complexity and Organizational Change Barriers:</strong> Technologies
             embedded in complex social relationships and organizational cultures are difficult to
             implement. Technologies requiring changes to how organizational members interact,
@@ -391,7 +399,7 @@ const VRIOFrameworkPage = () => {
             practices. Personnel may resist technologies that change familiar work patterns, require
             new skill development, or alter established organizational relationships.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Path Dependence and Historical Barriers:</strong> Organizations develop along
             historical paths, building capabilities and systems incrementally. When new technologies
             require fundamentally different organizational capabilities or processes that conflict
@@ -401,29 +409,29 @@ const VRIOFrameworkPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Strategic Guidance for Leaders</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The VRIO Framework provides clear strategic guidance that organizational leaders can
             employ to reduce barriers to technology adoption and ensure that adopted technologies
             create sustained competitive advantage:
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Conduct VRIO Assessments Before Technology Adoption:</strong> Leaders should
             systematically assess technologies using VRIO criteria before committing to adoption. Is
             the technology valuable in our specific competitive context? Does it address real
-            competitive threats or opportunities? Is it rare—do competitors already have it or can
+            competitive threats or opportunities? Is it rareâ€”do competitors already have it or can
             they easily acquire it? Can competitors imitate or substitute for the technology? Is our
             organization structured to capture advantage from the technology? This prospective VRIO
             assessment helps identify whether technology adoption is likely to create competitive
             advantage or merely provide competitive parity.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Map Competitive Technology Context:</strong> Rather than evaluating technologies
             in isolation, leaders should map the competitive landscape to understand what
             technologies competitors possess and are developing. This competitive context analysis
             directly addresses the Rarity and Imitability dimensions of VRIO, clarifying whether
             adoption will create competitive advantage or merely parity.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Assess and Develop Complementary Organizational Capabilities:</strong> Leaders
             must assess whether the organization possesses the systems, structures, incentives, and
             personnel necessary to capture advantage from the technology. If these organizational
@@ -431,7 +439,7 @@ const VRIOFrameworkPage = () => {
             process through restructuring, creating appropriate incentive systems, investing in
             training, establishing monitoring systems, and modifying organizational culture.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Build Distinctive Organizational Capabilities Around Technology:</strong> While
             competitors may eventually imitate the technology itself, leaders should build
             distinctive organizational capabilities and expertise in technology deployment that
@@ -439,7 +447,7 @@ const VRIOFrameworkPage = () => {
             to technology deployment and optimization, leaders can create sustained competitive
             advantage even if the technology itself becomes commoditized.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Plan Staged Implementation Aligned with Organizational Readiness:</strong>{' '}
             Rather than attempting wholesale technology implementation immediately, leaders should
             plan staged implementation that aligns with organizational readiness. Early stages might
@@ -447,7 +455,7 @@ const VRIOFrameworkPage = () => {
             organization to build mastery progressively and reducing the barrier of attempting too
             much change too quickly.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Invest in Personnel Development and Expertise Building:</strong> To address
             knowledge transfer and expertise barriers, leaders should invest substantially in
             developing personnel capabilities through external experts, training programs,
@@ -457,14 +465,14 @@ const VRIOFrameworkPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Influence and Legacy</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Barney&rsquo;s VRIO Framework has become one of the most widely taught and applied
             strategic frameworks in business education and practice. Its clear structure and
             practical applicability have made it a standard tool for strategic resource analysis in
             organizations worldwide. The framework has influenced subsequent strategic management
             research and practice in several ways:
           </p>
-          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
+          <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Dynamic Capabilities Framework (Teece, Pisano, &amp; Shuen, 1997):</strong>{' '}
               Extended VRIO by addressing its static limitations, focusing on organizational
@@ -487,7 +495,7 @@ const VRIOFrameworkPage = () => {
               recognize, assimilate, and apply external knowledge.
             </li>
           </ul>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             For technology adoption research specifically, the VRIO Framework provided crucial
             insights into why some organizations successfully adopt new technologies while others
             struggle. It highlighted that technology adoption is not merely a matter of purchasing
@@ -500,10 +508,8 @@ const VRIOFrameworkPage = () => {
         </section>
 
         <section className="pt-8 border-t border-gray-200">
-          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-            References
-          </h2>
-          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 font-sans">
+          <h2 className={REFERENCES_H2_CLASSES}>References</h2>
+          <ol className={REFERENCES_OL_CLASSES}>
             <li>
               Barney, J. B. (1991). Firm resources and sustained competitive advantage. Journal of
               Management, 17(1), 99-120.{' '}

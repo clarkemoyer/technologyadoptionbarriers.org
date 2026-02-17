@@ -1,10 +1,17 @@
-import React from 'react'
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import {
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+  REFERENCES_H2_CLASSES,
+  REFERENCES_OL_CLASSES,
+} from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
-  title: 'Article 2.3: Managing the Lifecycle – The Gartner Hype Cycle',
+  title: 'Article 2.3: Managing the Lifecycle â€“ The Gartner Hype Cycle',
   description:
     'How the Gartner Hype Cycle explains expectations, maturity, and adoption timing for emerging technologies, and how leaders can use it as a strategic decision tool.',
 }
@@ -13,12 +20,14 @@ const Article23Page = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Article 2.3: Managing the Lifecycle – The Gartner Hype Cycle</h1>
+        <h1 className={H1_CLASSES}>
+          Article 2.3: Managing the Lifecycle â€“ The Gartner Hype Cycle
+        </h1>
 
-        <section className="mb-6 sm:mb-10 text-gray-800">
-          <p className="mb-3 sm:mb-6">
+        <section className={SECTION_CLASSES}>
+          <p className={PARAGRAPH_CLASSES}>
             Every year, technology executives face a version of the same challenge: they receive
-            pitches for emerging technologies–artificial intelligence, blockchain, edge computing,
+            pitches for emerging technologiesâ€“artificial intelligence, blockchain, edge computing,
             quantum computing, metaverse platforms. Consultants highlight how these technologies are
             &quot;transformative.&quot; Competitors appear to be investing. Industry analysts
             publish glowing reports about future potential. The pressure to invest builds. Yet
@@ -26,14 +35,14 @@ const Article23Page = () => {
             technologies frequently fail, and that betting wrong on technology direction can drain
             resources without delivering value.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             How should leaders think about technology maturity when facing inevitable hype around
             emerging technologies? How can they distinguish between technologies that represent
             genuine opportunities and those that are oversold? How should they pace investment in
-            emerging technologies–moving fast enough to avoid missing important shifts, but not so
+            emerging technologiesâ€“moving fast enough to avoid missing important shifts, but not so
             fast that they waste capital on technologies that never deliver practical value?
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The Gartner Hype Cycle provides a practical framework for thinking about this challenge
             [1][2][3]. Rather than assuming all technologies follow a single adoption trajectory,
             the Hype Cycle proposes that emerging technologies move through predictable phases of
@@ -42,10 +51,10 @@ const Article23Page = () => {
           </p>
 
           <h2 className={H2_CLASSES}>The Five Phases: Understanding Technological Maturity</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The Gartner Hype Cycle identifies five distinct phases in technology maturation [1][2]:
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Innovation Trigger:</strong> A breakthrough occurs or early prototype is
             developed capturing media and industry attention. The technology appears to offer
             transformative potential. Early adopters and futurists become excited about
@@ -53,16 +62,16 @@ const Article23Page = () => {
             applications are limited, and uncertainty about actual practical value is high. Yet
             potential seems enormous.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Peak of Inflated Expectations:</strong> Media coverage explodes. Success stories
             generate excitement. Startups multiply offering products based on the technology.
             Established firms announce major investments. The technology appears in every industry
             conference and consultant presentation. Investment flows. Yet reality typically lags
             vision. Many announced projects fail. Products often underperform expectations. During
             this phase, expectations become increasingly disconnected from reality. Consultants and
-            vendors have incentives to increase hype–generating buzz drives business.
+            vendors have incentives to increase hypeâ€“generating buzz drives business.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Trough of Disillusionment:</strong> Expectations collide with reality. Failed
             projects are publicized. Products that performed poorly are abandoned. Media interest
             shifts elsewhere, coverage declining sharply. Investment enthusiasm cools. Startups fail
@@ -71,7 +80,7 @@ const Article23Page = () => {
             difficult for technology enthusiasts and investors. The technology that seemed to offer
             unlimited potential now seems overhyped and disappointing.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Slope of Enlightenment:</strong> Surviving vendors consolidate. Real-world
             applications and use cases clarify. Organizations learn from earlier projects what works
             and what does not. Incremental improvements continue. The technology finds applications
@@ -81,7 +90,7 @@ const Article23Page = () => {
             Organizations making investments during this phase can often achieve value while
             avoiding the costs of very early adoption.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Plateau of Productivity:</strong> The technology becomes mainstream. Broad
             adoption occurs. Practical applications are well-established. The technology becomes
             part of the normal technology landscape rather than an emerging novelty. Vendors
@@ -94,12 +103,12 @@ const Article23Page = () => {
           <h2 className={H2_CLASSES}>
             Strategic Application: When to Invest in Emerging Technologies
           </h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The Hype Cycle suggests important strategic implications for technology investment
             decisions. Different organizations with different competitive strategies should make
             different timing decisions about adopting emerging technologies.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Early Adopters in Competitive Fields:</strong> Organizations in intensely
             competitive environments where first-mover advantage is critical may need to invest
             during the Peak of Inflated Expectations, despite high uncertainty. The cost of being
@@ -108,15 +117,16 @@ const Article23Page = () => {
             experiments, and expecting that most early investments will not succeed as hoped, but
             some will provide crucial advantage.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Pragmatic Followers:</strong> Organizations in moderately competitive
-            environments may strategically invest in the Slope of Enlightenment phase–after initial
-            hype has subsided, successful applications have emerged, and implementation knowledge is
-            more available, but before the technology is completely mature and commoditized. This
-            timing allows organizations to adopt proven approaches, benefit from available
-            expertise, and achieve competitive advantage before the technology becomes universal.
+            environments may strategically invest in the Slope of Enlightenment phaseâ€“after
+            initial hype has subsided, successful applications have emerged, and implementation
+            knowledge is more available, but before the technology is completely mature and
+            commoditized. This timing allows organizations to adopt proven approaches, benefit from
+            available expertise, and achieve competitive advantage before the technology becomes
+            universal.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Follower Organizations:</strong> Organizations in stable or slowly changing
             competitive environments may wisely wait until the Plateau of Productivity phase. By
             this point, technology implementation is proven, costs have declined through competition
@@ -124,7 +134,7 @@ const Article23Page = () => {
             competitive advantage from adoption, but implementation will be straightforward and
             reliable.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Avoiding the Trough:</strong> The Hype Cycle suggests that organizations should
             be especially cautious about major technology commitments during the Peak of Inflated
             Expectations. The combination of high uncertainty, widespread failures, and sharp
@@ -132,21 +142,21 @@ const Article23Page = () => {
           </p>
 
           <h2 className={H2_CLASSES}>The Limitation: The Hype Cycle is Not Predictive</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             An important caveat: while the Gartner Hype Cycle provides a useful framework for
             thinking about technology maturation, it is not as empirically validated as some
             academic models, and the specific timing and severity of cycles varies significantly
             across technologies and contexts [2][3].
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Not all technologies follow the Hype Cycle path. Some genuinely transformative
             technologies move more directly from Innovation Trigger toward adoption without a severe
             Trough of Disillusionment. Some overhyped technologies never make it through the Trough
-            to genuine productivity–they collapse completely and never recover. The timing of each
+            to genuine productivityâ€“they collapse completely and never recover. The timing of each
             phase is unpredictable. Some technologies spend years at peak expectations. Others drop
             quickly into disillusionment.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Furthermore, the Hype Cycle may apply differently across industries, organizational
             contexts, and use cases. A technology in the Trough of Disillusionment for one industry
             application might be on the Slope of Enlightenment for a different application.
@@ -154,7 +164,7 @@ const Article23Page = () => {
             while finding genuine productivity and value in specific use cases such as supply chain
             tracking and identity verification.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Understanding these limitations, the Hype Cycle is valuable not as a prediction tool,
             but as a framework for thinking about technology maturity and making timing decisions
             about adoption. It helps organizations recognize that hype and reality often diverge,
@@ -164,7 +174,7 @@ const Article23Page = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Connecting to Other Frameworks: The Hype Cycle in Context</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The Hype Cycle complements the strategic and maturity frameworks discussed in previous
             articles. The Technology-Organization-Environment (TOE) framework helps organizations
             assess whether adopting a specific technology makes sense given their technological,
@@ -174,14 +184,14 @@ const Article23Page = () => {
             in turbulent environments, organizations need capability to continuously assess and
             adopt emerging technologies.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The Hype Cycle adds an additional layer: recognizing that technology maturity itself
             follows predictable patterns. Even if a technology will eventually prove valuable,
             timing matters. Investing too early in immature technologies creates implementation
             difficulty and failure risk. Investing too late means missing competitive advantage
             windows.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Effective technology strategy requires integrating these frameworks. Organizations
             should ask: Does this technology align with our competitive strategy and distinctive
             capabilities? Does it fit our technological, organizational, and environmental context?
@@ -191,36 +201,36 @@ const Article23Page = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Practical Framework: The Hype Cycle as Decision Tool</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Leaders contemplating investments in emerging technologies can use the Hype Cycle
             framework as part of disciplined decision-making:
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Identify Technology Maturity Phase:</strong> First, attempt to assess where an
             emerging technology sits in the Hype Cycle. Is media coverage at a peak, with ubiquitous
             hype? Or has coverage cooled as early implementation challenges emerged? Are vendors
             consolidating around proven approaches? This assessment provides context for
             understanding the likely evolution ahead.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Assess Business Case Alignment:</strong> Regardless of where a technology sits
             in the Hype Cycle, assess whether the technology addresses genuine business needs.
             Hype-driven investments in technologies that do not actually solve business problems
             typically fail.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Determine Strategic Timing Requirements:</strong> Assess whether your
             competitive strategy requires early adoption. Are you competing on innovation and speed,
             where early advantage is critical? Or are you competing on execution excellence and
             cost, where waiting for mature, proven technology is acceptable?
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Plan for Technology Trough:</strong> If investing in technologies approaching or
             at the Peak of Inflated Expectations, explicitly plan for the Trough of Disillusionment.
             Budget multiple experiments recognizing most will fail. Build organizational tolerance
             for failure and learning.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Monitor and Adjust:</strong> As technologies move through the Hype Cycle, plans
             should adjust. Technologies you expected to mature quickly may instead decline into the
             Trough more deeply than anticipated. Conversely, technologies may emerge from the Trough
@@ -229,7 +239,7 @@ const Article23Page = () => {
           </p>
 
           <h2 className={H2_CLASSES}>The Human Element: Why Hype Exists and Persists</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Understanding why technology hype exists helps leaders navigate it more effectively.
             Hype emerges from several sources. First, genuine uncertainty: emerging technologies
             have truly uncertain futures. Reasonable people can disagree about potential. Second,
@@ -238,19 +248,19 @@ const Article23Page = () => {
             hype (generates demand for advice), journalists benefit from hype (extreme stories
             generate attention). Numerous actors have incentives to amplify hype.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Third, psychology: humans are drawn to stories of transformative change. Belief that
             technology will solve important problems is appealing. During peak hype, it is easier to
             get funding and organizational support for investments framed as riding the wave of
             transformation.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Fourth, power dynamics: adopting emerging technologies can be a way for particular
             leaders or functions to gain influence. An executive who champions an emerging
             technology that eventually succeeds gains credit for visionary thinking. These power
             dynamics can drive technology adoption decisions independent of business case.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Leaders who understand these forces can make more disciplined decisions. Recognizing
             that incentives favor hype helps leaders be skeptical of breathless promotion.
             Recognizing that hype serves psychological and political needs helps leaders create
@@ -258,7 +268,7 @@ const Article23Page = () => {
           </p>
 
           <h2 className={H2_CLASSES}>From Hype to Reality</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The Gartner Hype Cycle provides a valuable framework for thinking about technology
             maturity and investment timing. It recognizes that technology adoption is not a binary
             event but an unfolding process moving through predictable phases. It acknowledges that
@@ -266,7 +276,7 @@ const Article23Page = () => {
             value and mature adoption require moving through hype and disillusionment to actual
             productivity.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The framework does not predict specific technology timelines or identify winners from
             losers. It does not replace disciplined strategic analysis or thorough business case
             development. What it does provide is awareness that technology narratives shift
@@ -275,9 +285,9 @@ const Article23Page = () => {
             making deliberate decisions about whether that phase aligns with their competitive
             strategy and risk tolerance.
           </p>
-          <p className="mb-3 sm:mb-6">
-            Leaders who manage emerging technologies strategically–using Hype Cycle thinking
-            alongside strategic frameworks like TOE, RBV, and dynamic capabilities–position their
+          <p className={PARAGRAPH_CLASSES}>
+            Leaders who manage emerging technologies strategicallyâ€“using Hype Cycle thinking
+            alongside strategic frameworks like TOE, RBV, and dynamic capabilitiesâ€“position their
             organizations to harness genuinely valuable technologies while avoiding the costs of
             hype-driven investments in technologies that never deliver practical value.
           </p>
@@ -286,10 +296,8 @@ const Article23Page = () => {
         <SeriesNavigation />
 
         <section className="pt-8 border-t border-gray-200">
-          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-            References
-          </h2>
-          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 font-sans">
+          <h2 className={REFERENCES_H2_CLASSES}>References</h2>
+          <ol className={REFERENCES_OL_CLASSES}>
             <li>Fenn, J. (1995). When to leap on the hype cycle. Gartner.</li>
             <li>
               Gartner. (2025). Gartner Hype Cycle research methodology. Retrieved from{' '}

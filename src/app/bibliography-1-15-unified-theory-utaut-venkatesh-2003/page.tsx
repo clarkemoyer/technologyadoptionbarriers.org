@@ -1,10 +1,9 @@
-import React from 'react'
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title:
-    'Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) – Venkatesh et al. (2003)',
+    'Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) â€“ Venkatesh et al. (2003)',
   description:
     'Deep dive into the Unified Theory of Acceptance and Use of Technology (UTAUT) by Venkatesh, Morris, Davis, and Davis (2003), a landmark synthesis of eight competing technology adoption models into a single unified framework.',
 }
@@ -484,7 +483,7 @@ const BibliographyArticlePage = () => {
             href="/article-bibliography-comprehensive-series-bibliography/"
             className="text-blue-600 hover:text-blue-800 underline"
           >
-            ← Back to Complete Bibliography
+            â† Back to Complete Bibliography
           </a>
         </section>
       </article>

@@ -1,4 +1,3 @@
-import React from 'react'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
 const TealValueProp = () => {
@@ -18,7 +17,7 @@ const TealValueProp = () => {
           </p>
           <p>
             Completing the survey offers you a structured chance to reflect on your own
-            organization’s technology challenges and strengths. In return for your participation,
+            organizationâ€™s technology challenges and strengths. In return for your participation,
             you will receive summary reports and key findings from the combined data. These insights
             will serve as valuable benchmarks, offering you a clearer picture of trends and
             challenges relevant to your industry and role. Your input directly helps to create a

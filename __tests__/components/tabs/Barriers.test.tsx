@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { axe, toHaveNoViolations } from 'jest-axe'
-import Barriers from '../../../src/components/tabs/Barriers'
+import Barriers from '../../../src/components/tabs/barriers'
 import { barriers, barrierCategories } from '../../../src/data/barriers'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '../../../src/lib/tabs-survey'
 

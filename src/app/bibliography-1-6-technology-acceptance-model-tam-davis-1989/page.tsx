@@ -1,9 +1,8 @@
-import React from 'react'
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Technology Acceptance Model (TAM) – Davis (1989)',
+  title: 'Bibliography: Technology Acceptance Model (TAM) â€“ Davis (1989)',
   description:
     'Deep dive into Technology Acceptance Model by Fred D. Davis (1989), exploring its foundational contributions to technology adoption research.',
 }
@@ -12,7 +11,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Technology Acceptance Model (TAM) – Davis (1989)</h1>
+        <h1 className={H1_CLASSES}>Technology Acceptance Model (TAM) â€“ Davis (1989)</h1>
 
         {/* Model Identification */}
         <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
@@ -36,7 +35,7 @@ const BibliographyArticlePage = () => {
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
-              of information technology. MIS Quarterly, 13 (3), 319–340.
+              of information technology. MIS Quarterly, 13 (3), 319â€“340.
             </p>
           </div>
         </section>
@@ -77,10 +76,10 @@ const BibliographyArticlePage = () => {
             from general behavioral attitude models. By identifying these specific belief categories
             as particularly influential for technology acceptance, TAM provided a parsimonious,
             focused model explaining technology acceptance while maintaining grounding in
-            established behavioral theory. How was the model’s internal validity tested? Davis
-            established the Technology Acceptance Model’s internal validity through multiple
+            established behavioral theory. How was the modelâ€™s internal validity tested? Davis
+            established the Technology Acceptance Modelâ€™s internal validity through multiple
             validation approaches: Theoretical derivation from established theory: TAM built
-            directly on the Theory of Reasoned Action, maintaining TRA’s core structure (attitudes
+            directly on the Theory of Reasoned Action, maintaining TRAâ€™s core structure (attitudes
             determining intentions determining behavior) while specializing it to technology
             acceptance. By deriving TAM from TRA, Davis imported the theoretical validity of the
             broader behavioral framework. However, Davis specialized TRA by identifying perceived
@@ -89,14 +88,14 @@ const BibliographyArticlePage = () => {
             adequately explain technology acceptance attitudes. Operationalization of key
             constructs: Davis provided explicit measurement scales for perceived usefulness,
             perceived ease of use, attitudes toward technology use, behavioral intention to use, and
-            actual system usage. The perceived usefulness scale assessed users’ beliefs that using a
-            system would enhance work performance. The perceived ease of use scale assessed users’
-            beliefs that using a system would be effortless. Attitude items assessed overall
-            favorable/unfavorable evaluations of technology use. Behavioral intention items assessed
-            plans to use technology. Usage was measured through actual system usage logs when
-            available. This explicit operationalization enabled precise measurement and replication.
-            Validation with multiple information systems: Davis validated TAM using two different
-            information systems: email and file managers within a single organization. By
+            actual system usage. The perceived usefulness scale assessed usersâ€™ beliefs that using
+            a system would enhance work performance. The perceived ease of use scale assessed
+            usersâ€™ beliefs that using a system would be effortless. Attitude items assessed
+            overall favorable/unfavorable evaluations of technology use. Behavioral intention items
+            assessed plans to use technology. Usage was measured through actual system usage logs
+            when available. This explicit operationalization enabled precise measurement and
+            replication. Validation with multiple information systems: Davis validated TAM using two
+            different information systems: email and file managers within a single organization. By
             demonstrating that perceived usefulness and perceived ease of use predicted user
             acceptance across different systems, Davis provided evidence that TAM captured
             fundamental aspects of technology acceptance rather than system-specific phenomena. The
@@ -113,38 +112,39 @@ const BibliographyArticlePage = () => {
             of the same construct correlated strongly. Discriminant validity analysis examined
             whether measures of different constructs remained appropriately distinct. These validity
             assessments provided evidence that measures validly operationalized the theoretical
-            constructs. How was the model’s external validity tested? The Technology Acceptance
-            Model’s external validity was established through application across diverse
+            constructs. How was the modelâ€™s external validity tested? The Technology Acceptance
+            Modelâ€™s external validity was established through application across diverse
             technological systems and contexts: Multiple information systems: Davis validated TAM
             across email systems and file managers, demonstrating applicability across different
             information technologies. Email represented communication and productivity tools, while
             file managers represented basic system utilities. Showing consistent relationships
-            across different technological domains suggested the model’s generalizability beyond any
-            single system type. Different user populations: Davis examined TAM with different
-            organizational populations—demonstrating that the fundamental relationships held across
-            different user groups, suggesting broad applicability rather than population-specific
-            effects. Organizational context: Validation in actual organizational settings (rather
-            than laboratory contexts) using real systems and authentic work tasks provided evidence
-            for external validity in ecologically valid contexts. Results from field studies in
-            actual organizations carry greater confidence regarding real-world applicability than
-            laboratory studies. Usage measurement: Davis demonstrated relationships between measured
-            intentions and actual system usage, providing evidence that attitudinal measures
-            successfully predicted meaningful behavioral outcomes. Some attitude studies show weak
-            relationships between attitudes and behavior; Davis’s demonstration that perceived
-            usefulness, ease of use, and attitudes significantly predicted actual usage provided
-            external validity evidence for behavioral prediction. Longitudinal validation: Davis
-            validated TAM using longitudinal data collection, assessing the same users at multiple
-            time points. This temporal validation demonstrated that prior beliefs about usefulness
-            and ease of use predicted subsequent usage, strengthening causal inference and external
-            validity evidence beyond cross-sectional correlation. How is the model intended to be
-            used in practice? Davis designed the Technology Acceptance Model as both research
-            framework and practical tool for predicting and improving technology acceptance:
+            across different technological domains suggested the modelâ€™s generalizability beyond
+            any single system type. Different user populations: Davis examined TAM with different
+            organizational populationsâ€”demonstrating that the fundamental relationships held
+            across different user groups, suggesting broad applicability rather than
+            population-specific effects. Organizational context: Validation in actual organizational
+            settings (rather than laboratory contexts) using real systems and authentic work tasks
+            provided evidence for external validity in ecologically valid contexts. Results from
+            field studies in actual organizations carry greater confidence regarding real-world
+            applicability than laboratory studies. Usage measurement: Davis demonstrated
+            relationships between measured intentions and actual system usage, providing evidence
+            that attitudinal measures successfully predicted meaningful behavioral outcomes. Some
+            attitude studies show weak relationships between attitudes and behavior; Davisâ€™s
+            demonstration that perceived usefulness, ease of use, and attitudes significantly
+            predicted actual usage provided external validity evidence for behavioral prediction.
+            Longitudinal validation: Davis validated TAM using longitudinal data collection,
+            assessing the same users at multiple time points. This temporal validation demonstrated
+            that prior beliefs about usefulness and ease of use predicted subsequent usage,
+            strengthening causal inference and external validity evidence beyond cross-sectional
+            correlation. How is the model intended to be used in practice? Davis designed the
+            Technology Acceptance Model as both research framework and practical tool for predicting
+            and improving technology acceptance:
           </p>
 
           <p className="mb-4">
             User acceptance prediction: Information systems organizations can use TAM to predict
             which newly developed or acquired information technologies will achieve user acceptance.
-            By measuring potential users’ perceived usefulness and perceived ease of use before or
+            By measuring potential usersâ€™ perceived usefulness and perceived ease of use before or
             shortly after technology introduction, organizations can forecast acceptance likelihood.
             High perceived usefulness and ease of use predict strong acceptance; low values predict
             acceptance problems. This predictive capability enables organizations to anticipate
@@ -164,7 +164,7 @@ const BibliographyArticlePage = () => {
             intuitive interfaces, minimizing required keystrokes, providing helpful feedback, and
             ensuring minimal training requirements. Developers should also ensure functionality
             directly addresses user needs, enhancing performance on important work dimensions rather
-            than offering capabilities users don’t value. Implementation strategy development:
+            than offering capabilities users donâ€™t value. Implementation strategy development:
             Organizations can use TAM to design technology implementation strategies maximizing
             acceptance. By first assessing baseline perceived usefulness and ease of use before
             implementation, organizations identify which barrier types require addressing.
@@ -189,65 +189,65 @@ const BibliographyArticlePage = () => {
             despite high technical capability may need redesign or implementation strategies
             addressing perception gaps before deployment. What does the model measure? The
             Technology Acceptance Model operationalizes several key measurement constructs:
-            Perceived usefulness: Measured through multi-item scales assessing users’ beliefs that
+            Perceived usefulness: Measured through multi-item scales assessing usersâ€™ beliefs that
             using a system enhances work performance. Items capture perceptions that system use
             improves job performance, increases work productivity, enhances work effectiveness, and
-            makes work more efficient. Perceived usefulness represents outcome expectations—beliefs
-            that technology adoption produces valued consequences (improved performance, greater
-            productivity, enhanced effectiveness). Perceived ease of use: Measured through
-            multi-item scales assessing users’ beliefs that using a system requires minimal
-            cognitive and physical effort. Items assess perceptions that learning a system is easy,
-            that interaction with a system is clear and understandable, that the system is easy to
-            operate, and that using the system flexibly becomes easy. Perceived ease of use
-            represents effort expectations—beliefs that technology use requires moderate rather than
-            excessive learning or effort. Attitude toward using the system: Measured through
-            multi-item evaluative scales assessing overall favorable or unfavorable evaluations of
-            system use. Attitude captures holistic evaluations of whether using technology is
-            good/bad, harmful/beneficial, or unpleasant/pleasant. Attitudes represent overall
-            affective and evaluative responses to technology use.
+            makes work more efficient. Perceived usefulness represents outcome
+            expectationsâ€”beliefs that technology adoption produces valued consequences (improved
+            performance, greater productivity, enhanced effectiveness). Perceived ease of use:
+            Measured through multi-item scales assessing usersâ€™ beliefs that using a system
+            requires minimal cognitive and physical effort. Items assess perceptions that learning a
+            system is easy, that interaction with a system is clear and understandable, that the
+            system is easy to operate, and that using the system flexibly becomes easy. Perceived
+            ease of use represents effort expectationsâ€”beliefs that technology use requires
+            moderate rather than excessive learning or effort. Attitude toward using the system:
+            Measured through multi-item evaluative scales assessing overall favorable or unfavorable
+            evaluations of system use. Attitude captures holistic evaluations of whether using
+            technology is good/bad, harmful/beneficial, or unpleasant/pleasant. Attitudes represent
+            overall affective and evaluative responses to technology use.
           </p>
 
           <p className="mb-4">
-            Behavioral intention to use: Measured through items assessing users’ plans, likelihood,
-            or expectations to use systems. Behavioral intention captures the readiness to use
-            technology, the stated likelihood of using technology, or the plan to use technology in
-            the future. Actual system usage: Measured through system usage logs (amount of time
-            using system, frequency of use, breadth of features used) or user self- report of usage
-            frequency. Actual usage represents meaningful behavioral outcomes—whether favorable
-            beliefs and intentions translated into actual technology utilization. What are the main
-            strengths of the model? The Technology Acceptance Model possesses several considerable
-            strengths: Theoretical parsimony: TAM provides parsimonious explanation of technology
-            acceptance through two primary belief categories (perceived usefulness and ease of use).
-            This economy of constructs makes the model relatively simple to understand, measure, and
-            apply compared to models incorporating numerous factors. The parsimony does not
-            sacrifice explanatory power—these two constructs explain substantial variance in
-            technology acceptance. This combination of simplicity and explanatory power makes TAM
-            remarkably practical and implementable. Technology-specific operationalization: Unlike
-            generic behavioral models treating technology adoption identically to other behaviors,
-            TAM identifies specific beliefs central to technology acceptance. By focusing on
-            usefulness and ease of use rather than generic outcome beliefs, TAM captures what
-            actually matters for technology decisions. Users evaluating technologies ask
-            specifically about performance impacts and effort requirements. TAM directly
-            operationalizes these technology-specific concerns. Grounding in established behavioral
-            theory: TAM builds on the Theory of Reasoned Action, inheriting the theoretical rigor
-            and empirical support of TRA while specializing it to technology contexts. This
-            grounding in established behavioral theory provides theoretical credibility and
-            connection to the broader behavioral science literature. Empirical validation: Davis
-            provided solid empirical evidence supporting TAM. Validation across multiple systems,
-            demonstration of relationships between attitudes and usage, and longitudinal prediction
-            of behavior provided confidence in TAM’s validity. The solid empirical foundation
-            distinguished TAM from purely theoretical models lacking validation. Practical
-            applicability: TAM provides clear guidance for predicting and improving technology
-            acceptance. Organizations can measure perceived usefulness and ease of use, diagnose
-            barriers, and design interventions. The practical utility made TAM immediately valuable
-            for IS professionals, enabling evidence-based technology acceptance management.
-            Successful prediction of behavior: Unlike many attitude studies showing weak
+            Behavioral intention to use: Measured through items assessing usersâ€™ plans,
+            likelihood, or expectations to use systems. Behavioral intention captures the readiness
+            to use technology, the stated likelihood of using technology, or the plan to use
+            technology in the future. Actual system usage: Measured through system usage logs
+            (amount of time using system, frequency of use, breadth of features used) or user self-
+            report of usage frequency. Actual usage represents meaningful behavioral
+            outcomesâ€”whether favorable beliefs and intentions translated into actual technology
+            utilization. What are the main strengths of the model? The Technology Acceptance Model
+            possesses several considerable strengths: Theoretical parsimony: TAM provides
+            parsimonious explanation of technology acceptance through two primary belief categories
+            (perceived usefulness and ease of use). This economy of constructs makes the model
+            relatively simple to understand, measure, and apply compared to models incorporating
+            numerous factors. The parsimony does not sacrifice explanatory powerâ€”these two
+            constructs explain substantial variance in technology acceptance. This combination of
+            simplicity and explanatory power makes TAM remarkably practical and implementable.
+            Technology-specific operationalization: Unlike generic behavioral models treating
+            technology adoption identically to other behaviors, TAM identifies specific beliefs
+            central to technology acceptance. By focusing on usefulness and ease of use rather than
+            generic outcome beliefs, TAM captures what actually matters for technology decisions.
+            Users evaluating technologies ask specifically about performance impacts and effort
+            requirements. TAM directly operationalizes these technology-specific concerns. Grounding
+            in established behavioral theory: TAM builds on the Theory of Reasoned Action,
+            inheriting the theoretical rigor and empirical support of TRA while specializing it to
+            technology contexts. This grounding in established behavioral theory provides
+            theoretical credibility and connection to the broader behavioral science literature.
+            Empirical validation: Davis provided solid empirical evidence supporting TAM. Validation
+            across multiple systems, demonstration of relationships between attitudes and usage, and
+            longitudinal prediction of behavior provided confidence in TAMâ€™s validity. The solid
+            empirical foundation distinguished TAM from purely theoretical models lacking
+            validation. Practical applicability: TAM provides clear guidance for predicting and
+            improving technology acceptance. Organizations can measure perceived usefulness and ease
+            of use, diagnose barriers, and design interventions. The practical utility made TAM
+            immediately valuable for IS professionals, enabling evidence-based technology acceptance
+            management. Successful prediction of behavior: Unlike many attitude studies showing weak
             attitude-behavior relationships, TAM demonstrated that measured attitudes successfully
             predicted actual technology usage. This behavioral prediction validity distinguishes TAM
             and strengthens confidence in its practical utility. Clear conceptual distinction: The
             clear distinction between perceived ease of use (effort required) and perceived
             usefulness (performance benefits) represents conceptual clarity. These distinct
-            constructs address different decision dimensions—people care about both whether
+            constructs address different decision dimensionsâ€”people care about both whether
             technology works and whether it requires excessive effort. Separating these concerns
             enables nuanced understanding of technology acceptance drivers. Applicability across
             diverse technologies: TAM successfully predicted acceptance for both communication
@@ -263,7 +263,7 @@ const BibliographyArticlePage = () => {
             technology anxiety or experience, and external constraints. By excluding these
             constructs, TAM provides incomplete explanation of technology acceptance variance.
             Studies incorporating additional constructs often find they explain variance beyond
-            TAM’s core constructs.
+            TAMâ€™s core constructs.
           </p>
 
           <p className="mb-4">
@@ -305,7 +305,7 @@ const BibliographyArticlePage = () => {
             TAM was developed and validated in professional information systems contexts.
             Applicability to consumer technologies, home information systems, or personal
             technologies remains less established. Consumer technology decisions involve different
-            considerations than workplace technology adoption. TAM’s applicability generalizing
+            considerations than workplace technology adoption. TAMâ€™s applicability generalizing
             beyond professional contexts requires additional validation. Limited attention to
             implementation factors: TAM focuses on belief formation but provides limited
             specification of how successful implementation translates beliefs into actual integrated
@@ -322,10 +322,10 @@ const BibliographyArticlePage = () => {
             constructs central to technology decisions. Specialization of general behavioral theory:
             Earlier IS research either developed purely descriptive accounts of technology
             acceptance factors or attempted applying general behavior models without specialization.
-            Davis’s fundamental innovation was taking the Theory of Reasoned Action—a general
-            behavioral framework—and specializing it to technology contexts by identifying perceived
-            usefulness and ease of use as the primary beliefs shaping technology attitudes. This
-            specialization combined theoretical rigor with practical relevance.
+            Davisâ€™s fundamental innovation was taking the Theory of Reasoned Actionâ€”a general
+            behavioral frameworkâ€”and specializing it to technology contexts by identifying
+            perceived usefulness and ease of use as the primary beliefs shaping technology
+            attitudes. This specialization combined theoretical rigor with practical relevance.
           </p>
 
           <p className="mb-4">
@@ -351,7 +351,7 @@ const BibliographyArticlePage = () => {
             This explicit attention to psychological mediation represented conceptual advancement
             over purely structural or characteristic-based models. Longitudinal behavioral
             prediction: Earlier attitude studies typically examined cross-sectional relationships.
-            Davis demonstrated longitudinal prediction—measured attitudes predicting subsequent
+            Davis demonstrated longitudinal predictionâ€”measured attitudes predicting subsequent
             actual usage months later. This temporal validation distinguished TAM from studies
             showing attitudes and behavior correlate but unable to establish temporal precedence. 6.
             Barriers Identification Section What Barriers to Technology Adoption does the model
@@ -361,23 +361,23 @@ const BibliographyArticlePage = () => {
 
           <p className="mb-4">
             Perceived usefulness barriers: The model identifies that users fail to adopt
-            technologies when they perceive low usefulness—when they question whether technology
+            technologies when they perceive low usefulnessâ€”when they question whether technology
             adoption will enhance work performance or productivity. Perceived usefulness barriers
             include beliefs that technology adoption does not address important work needs. Users
-            adopting technology that solves problems they don’t experience or adds capabilities they
-            don’t require develop low usefulness perceptions. For example, workers in jobs not
-            involving data analysis perceive spreadsheet technology as low usefulness. Technologies
-            addressing specific job types but not others create use barriers within organizations.
-            Usefulness barriers additionally emerge from beliefs that technology adoption offers
-            minimal performance benefits relative to current practices. Users whose existing
-            processes prove reasonably efficient perceive new technology as offering marginal
-            improvement. Technologies requiring substantial learning and transition to achieve
-            modest performance gains encounter usefulness barriers. Usefulness barriers include poor
-            integration with work requirements and workflows. Technology designed for different work
-            contexts, industries, or user needs creates usefulness barriers. Systems designed for
-            office professionals prove low-usefulness for field workers or creative professionals
-            with different work processes. Usefulness barriers further include beliefs that
-            technology adoption introduces unintended negative consequences reducing overall
+            adopting technology that solves problems they donâ€™t experience or adds capabilities
+            they donâ€™t require develop low usefulness perceptions. For example, workers in jobs
+            not involving data analysis perceive spreadsheet technology as low usefulness.
+            Technologies addressing specific job types but not others create use barriers within
+            organizations. Usefulness barriers additionally emerge from beliefs that technology
+            adoption offers minimal performance benefits relative to current practices. Users whose
+            existing processes prove reasonably efficient perceive new technology as offering
+            marginal improvement. Technologies requiring substantial learning and transition to
+            achieve modest performance gains encounter usefulness barriers. Usefulness barriers
+            include poor integration with work requirements and workflows. Technology designed for
+            different work contexts, industries, or user needs creates usefulness barriers. Systems
+            designed for office professionals prove low-usefulness for field workers or creative
+            professionals with different work processes. Usefulness barriers further include beliefs
+            that technology adoption introduces unintended negative consequences reducing overall
             usefulness. Technology adoption might improve some work dimensions while creating
             problems in others. Systems increasing productivity but reducing work enjoyment,
             increasing monitoring, or fragmenting social collaboration create usefulness barriers
@@ -426,7 +426,7 @@ const BibliographyArticlePage = () => {
             technology malfunction, data loss, or security breaches represent ease of use barriers
             when users worry about effort required to manage these risks. Concerns about supervisor
             support or peer adoption represent usefulness and ease barriers through social
-            demonstration: when important others haven’t adopted, users doubt usefulness or ease.
+            demonstration: when important others havenâ€™t adopted, users doubt usefulness or ease.
             What does the model instruct leaders to do in order to reduce these barriers? The
             Technology Acceptance Model provides explicit guidance for leaders designing
             interventions to reduce technology adoption barriers: Establish perceived usefulness
@@ -438,11 +438,11 @@ const BibliographyArticlePage = () => {
             to specific user populations. Leaders should provide access to demonstrations enabling
             potential users to observe technology in operation. Leaders should share testimonials
             and case studies from comparable users in similar work contexts showing performance
-            improvements. Leaders should quantify benefits using performance metrics: “Users of this
-            system reduce data entry time by 30%” or “Organizations implementing this system report
-            15% productivity improvements.” Quantified benefits prove more persuasive than general
-            claims. Leaders should tailor benefit demonstrations to specific user needs and job
-            requirements. Salespeople care about benefits enhancing customer relationships;
+            improvements. Leaders should quantify benefits using performance metrics: â€œUsers of
+            this system reduce data entry time by 30%â€ or â€œOrganizations implementing this system
+            report 15% productivity improvements.â€ Quantified benefits prove more persuasive than
+            general claims. Leaders should tailor benefit demonstrations to specific user needs and
+            job requirements. Salespeople care about benefits enhancing customer relationships;
             accountants care about benefits improving accuracy; managers care about benefits
             providing visibility. Matching benefit demonstrations to specific role concerns
             increases persuasiveness. Address specific usefulness concerns: Leaders should conduct
@@ -499,7 +499,7 @@ const BibliographyArticlePage = () => {
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
-            ← Back to Complete Bibliography
+            â† Back to Complete Bibliography
           </a>
         </section>
       </article>

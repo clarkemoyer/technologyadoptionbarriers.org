@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
@@ -348,9 +347,9 @@ const CMOSurveyPage = () => {
                   <td className="border border-gray-300 px-4 py-3 font-medium">
                     Longitudinal Design
                   </td>
-                  <td className="border border-gray-300 px-4 py-3">✓ 15+ years of trend data</td>
+                  <td className="border border-gray-300 px-4 py-3">âœ“ 15+ years of trend data</td>
                   <td className="border border-gray-300 px-4 py-3">
-                    ✓ Year-over-year comparisons planned
+                    âœ“ Year-over-year comparisons planned
                   </td>
                 </tr>
               </tbody>
@@ -362,7 +361,7 @@ const CMOSurveyPage = () => {
           <h2 className="text-xl font-bold text-gray-900 mb-4">Key Takeaways</h2>
           <ul className="space-y-3 text-gray-800">
             <li className="flex items-start">
-              <span className="text-green-600 font-bold mr-3">✓</span>
+              <span className="text-green-600 font-bold mr-3">âœ“</span>
               <span>
                 <strong>Proven Track Record:</strong> The CMO Survey&apos;s 15+ year success
                 demonstrates that longitudinal, open-access research can become an industry standard
@@ -370,7 +369,7 @@ const CMOSurveyPage = () => {
               </span>
             </li>
             <li className="flex items-start">
-              <span className="text-green-600 font-bold mr-3">✓</span>
+              <span className="text-green-600 font-bold mr-3">âœ“</span>
               <span>
                 <strong>Leadership Insights Matter:</strong> Surveying C-suite executives provides
                 strategic perspectives that operational surveys cannot capture, making the data more
@@ -378,7 +377,7 @@ const CMOSurveyPage = () => {
               </span>
             </li>
             <li className="flex items-start">
-              <span className="text-green-600 font-bold mr-3">✓</span>
+              <span className="text-green-600 font-bold mr-3">âœ“</span>
               <span>
                 <strong>Open Access Drives Impact:</strong> Making all findings freely available
                 democratizes access to critical intelligence and expands the research&apos;s reach
@@ -386,7 +385,7 @@ const CMOSurveyPage = () => {
               </span>
             </li>
             <li className="flex items-start">
-              <span className="text-green-600 font-bold mr-3">✓</span>
+              <span className="text-green-600 font-bold mr-3">âœ“</span>
               <span>
                 <strong>Academic Rigor Builds Credibility:</strong> Grounding surveys in established
                 frameworks and peer-reviewed methodologies ensures reliability and trust among
@@ -394,7 +393,7 @@ const CMOSurveyPage = () => {
               </span>
             </li>
             <li className="flex items-start">
-              <span className="text-green-600 font-bold mr-3">✓</span>
+              <span className="text-green-600 font-bold mr-3">âœ“</span>
               <span>
                 <strong>TABS Adapts the Model:</strong> While following The CMO Survey&apos;s proven
                 approach, TABS tailors it for technology adoption research with broader C-suite

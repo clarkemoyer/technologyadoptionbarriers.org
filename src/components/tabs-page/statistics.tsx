@@ -1,5 +1,3 @@
-import React from 'react'
-
 import metricsData from '@/data/qualtrics-metrics.json'
 import { getSurveysCompletedCount } from '@/lib/qualtricsStats'
 

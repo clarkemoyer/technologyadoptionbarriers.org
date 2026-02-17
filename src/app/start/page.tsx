@@ -1,4 +1,3 @@
-import React from 'react'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { personas } from '@/lib/personas'
@@ -54,7 +53,7 @@ const StartPage = () => {
                   <p className="text-[16px] text-gray-600 mb-[5px]">{persona.title}</p>
                   <div className="mt-auto pt-[15px]">
                     <span className="text-[#2583ab] font-semibold text-[14px] group-hover:underline">
-                      Learn more →
+                      Learn more â†’
                     </span>
                   </div>
                 </div>

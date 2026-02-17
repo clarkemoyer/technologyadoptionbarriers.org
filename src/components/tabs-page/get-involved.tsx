@@ -1,5 +1,3 @@
-import React from 'react'
-
 /**
  * Get Involved Section
  * Simple text section matching live site

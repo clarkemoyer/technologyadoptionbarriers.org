@@ -1,9 +1,8 @@
-import React from 'react'
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Social Cognitive Theory (SCT) – Bandura (1986)',
+  title: 'Bibliography: Social Cognitive Theory (SCT) â€“ Bandura (1986)',
   description:
     'Deep dive into Social Cognitive Theory (SCT) by Albert Bandura (1986), exploring its foundational contributions to technology adoption research.',
 }
@@ -12,7 +11,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Social Cognitive Theory (SCT) – Bandura (1986)</h1>
+        <h1 className={H1_CLASSES}>Social Cognitive Theory (SCT) â€“ Bandura (1986)</h1>
 
         {/* Model Identification */}
         <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
@@ -50,88 +49,90 @@ const BibliographyArticlePage = () => {
             factors or personal factors in isolation. Bandura observed that human behavior,
             learning, and motivation could not be adequately explained by focusing exclusively on
             either external environmental determinants or internal cognitive processes. The
-            development of SCT was driven by Bandura’s research observations that people’s behavior,
-            cognition, and environment exist in constant interaction—what he termed “triadic
-            reciprocal determinism.” This framework emerged from decades of social learning research
-            that demonstrated individuals are neither passive products of their environment nor
-            entirely autonomous agents acting independently of their surroundings. Bandura sought to
-            create a theory that could explain why individuals with similar skills, knowledge, and
-            environmental opportunities demonstrated vastly different adoption behaviors toward new
-            technologies and other behavioral changes. The specific timing of SCT’s 1986 formulation
-            coincided with emerging questions in organizational psychology about technology adoption
-            in workplace settings. As personal computers and new information systems began
-            widespread organizational deployment in the 1980s, researchers and practitioners
-            struggled to explain the variance in adoption rates among similar users. Bandura’s SCT
-            provided a theoretical lens for understanding these differences through the concept of
-            self-efficacy—an individual’s belief in their capability to execute the behaviors
-            necessary to produce specific outcomes. How was the model’s internal validity tested?
-            SCT’s internal validity was established through rigorous longitudinal and experimental
-            research spanning decades, though Bandura’s 1986 book primarily synthesizes and
-            theoretically consolidates earlier empirical work rather than presenting a single
-            validation study. The theory’s internal validity rests on several converging lines of
-            evidence: Experimental manipulation studies: Bandura and colleagues conducted controlled
-            experiments where self-efficacy beliefs were systematically manipulated through various
-            means (mastery experiences, vicarious experiences, verbal persuasion, and physiological
-            state manipulation), demonstrating that these manipulations produced predicted changes
-            in behavior and persistence. These experiments validated that self-efficacy functioned
-            as a causal mechanism rather than merely a correlate of behavior change. Path analytic
-            studies: Research employing path analysis demonstrated that the relationships between
-            perceived self-efficacy, outcome expectations, and behavioral choices operated as the
-            theory predicted, with self-efficacy often serving as a more proximal predictor of
-            behavior than outcome expectations—a counterintuitive finding that strengthened internal
-            validity claims. Mechanism validation: Studies specifically tested the proposed
-            mechanisms through which self-efficacy operates (effort expended, thought patterns,
-            emotional reactions), validating that these intermediate processes functioned as
-            theoretically predicted. Longitudinal designs: Extended studies tracking individuals
-            over time demonstrated that self-efficacy beliefs measured at time one predicted
-            behavioral adoption, persistence, and outcomes at subsequent measurement points, even
-            after controlling for prior achievement and actual ability. Triangulation across
-            domains: The theory’s validity was strengthened by demonstrating consistent
-            relationships between self-efficacy and behavior across diverse domains—phobia
-            treatment, academic performance, health behaviors, organizational settings, and
-            technology adoption—suggesting robust internal mechanisms rather than domain-specific
-            artifacts. The internal validity of SCT benefited from what might be called “theoretical
-            coherence”—the theory’s core mechanisms explained not only technology adoption but also
-            numerous other behavioral domains, suggesting the underlying mechanisms were capturing
-            fundamental psychological processes rather than superficial correlations.
+            development of SCT was driven by Banduraâ€™s research observations that peopleâ€™s
+            behavior, cognition, and environment exist in constant interactionâ€”what he termed
+            â€œtriadic reciprocal determinism.â€ This framework emerged from decades of social
+            learning research that demonstrated individuals are neither passive products of their
+            environment nor entirely autonomous agents acting independently of their surroundings.
+            Bandura sought to create a theory that could explain why individuals with similar
+            skills, knowledge, and environmental opportunities demonstrated vastly different
+            adoption behaviors toward new technologies and other behavioral changes. The specific
+            timing of SCTâ€™s 1986 formulation coincided with emerging questions in organizational
+            psychology about technology adoption in workplace settings. As personal computers and
+            new information systems began widespread organizational deployment in the 1980s,
+            researchers and practitioners struggled to explain the variance in adoption rates among
+            similar users. Banduraâ€™s SCT provided a theoretical lens for understanding these
+            differences through the concept of self-efficacyâ€”an individualâ€™s belief in their
+            capability to execute the behaviors necessary to produce specific outcomes. How was the
+            modelâ€™s internal validity tested? SCTâ€™s internal validity was established through
+            rigorous longitudinal and experimental research spanning decades, though Banduraâ€™s
+            1986 book primarily synthesizes and theoretically consolidates earlier empirical work
+            rather than presenting a single validation study. The theoryâ€™s internal validity rests
+            on several converging lines of evidence: Experimental manipulation studies: Bandura and
+            colleagues conducted controlled experiments where self-efficacy beliefs were
+            systematically manipulated through various means (mastery experiences, vicarious
+            experiences, verbal persuasion, and physiological state manipulation), demonstrating
+            that these manipulations produced predicted changes in behavior and persistence. These
+            experiments validated that self-efficacy functioned as a causal mechanism rather than
+            merely a correlate of behavior change. Path analytic studies: Research employing path
+            analysis demonstrated that the relationships between perceived self-efficacy, outcome
+            expectations, and behavioral choices operated as the theory predicted, with
+            self-efficacy often serving as a more proximal predictor of behavior than outcome
+            expectationsâ€”a counterintuitive finding that strengthened internal validity claims.
+            Mechanism validation: Studies specifically tested the proposed mechanisms through which
+            self-efficacy operates (effort expended, thought patterns, emotional reactions),
+            validating that these intermediate processes functioned as theoretically predicted.
+            Longitudinal designs: Extended studies tracking individuals over time demonstrated that
+            self-efficacy beliefs measured at time one predicted behavioral adoption, persistence,
+            and outcomes at subsequent measurement points, even after controlling for prior
+            achievement and actual ability. Triangulation across domains: The theoryâ€™s validity
+            was strengthened by demonstrating consistent relationships between self-efficacy and
+            behavior across diverse domainsâ€”phobia treatment, academic performance, health
+            behaviors, organizational settings, and technology adoptionâ€”suggesting robust internal
+            mechanisms rather than domain-specific artifacts. The internal validity of SCT benefited
+            from what might be called â€œtheoretical coherenceâ€â€”the theoryâ€™s core mechanisms
+            explained not only technology adoption but also numerous other behavioral domains,
+            suggesting the underlying mechanisms were capturing fundamental psychological processes
+            rather than superficial correlations.
           </p>
 
           <p className="mb-4">
-            How was the model’s external validity tested? SCT achieved remarkable external validity
-            through several approaches: Cross-cultural research: Studies conducted across diverse
-            cultural contexts (individualistic and collectivistic cultures, developed and developing
-            nations) demonstrated that self-efficacy’s relationship to behavior persisted across
-            cultural boundaries, though the sources of self- efficacy and the importance of
-            different factors sometimes varied by culture. This cross-cultural validation
-            significantly strengthened claims about the theory’s generalizability. Longitudinal
-            field studies: Rather than relying solely on laboratory experiments, researchers tested
-            SCT in naturalistic organizational settings, educational environments, health contexts,
-            and technology implementation scenarios. These field studies demonstrated that
-            self-efficacy predicted real- world adoption behaviors and outcomes over extended
-            periods. Diverse populations: SCT’s validity was tested across age groups (children
-            through elderly adults), socioeconomic statuses, educational levels, and professional
-            backgrounds. Consistent relationships between self- efficacy and technology adoption
-            emerged across these diverse populations, supporting external validity.
-            Technology-specific validation: As digital technologies proliferated, researchers
-            specifically tested self-efficacy’s predictive power for various technology adoption
-            scenarios—computer adoption, internet usage, software implementation, mobile technology
-            adoption—consistently finding that computer self-efficacy predicted adoption behaviors
-            in these technology-specific contexts. Real-world implementation outcomes: Studies
-            tracking actual technology implementation in organizations demonstrated that employees’
-            self-efficacy beliefs predicted not just adoption intentions but actual usage behaviors,
-            proficiency development, and sustainability of technology use over time. This
-            demonstrated practical external validity rather than merely predicting intentions or
-            short-term behaviors. Longitudinal persistence: External validity was particularly
-            strong regarding the theory’s ability to predict long-term behavioral change. SCT- based
-            interventions designed to enhance self-efficacy produced behavioral changes that
-            persisted months and years later, demonstrating the theory explained enduring behavioral
-            shifts rather than momentary compliance.
+            How was the modelâ€™s external validity tested? SCT achieved remarkable external
+            validity through several approaches: Cross-cultural research: Studies conducted across
+            diverse cultural contexts (individualistic and collectivistic cultures, developed and
+            developing nations) demonstrated that self-efficacyâ€™s relationship to behavior
+            persisted across cultural boundaries, though the sources of self- efficacy and the
+            importance of different factors sometimes varied by culture. This cross-cultural
+            validation significantly strengthened claims about the theoryâ€™s generalizability.
+            Longitudinal field studies: Rather than relying solely on laboratory experiments,
+            researchers tested SCT in naturalistic organizational settings, educational
+            environments, health contexts, and technology implementation scenarios. These field
+            studies demonstrated that self-efficacy predicted real- world adoption behaviors and
+            outcomes over extended periods. Diverse populations: SCTâ€™s validity was tested across
+            age groups (children through elderly adults), socioeconomic statuses, educational
+            levels, and professional backgrounds. Consistent relationships between self- efficacy
+            and technology adoption emerged across these diverse populations, supporting external
+            validity. Technology-specific validation: As digital technologies proliferated,
+            researchers specifically tested self-efficacyâ€™s predictive power for various
+            technology adoption scenariosâ€”computer adoption, internet usage, software
+            implementation, mobile technology adoptionâ€”consistently finding that computer
+            self-efficacy predicted adoption behaviors in these technology-specific contexts.
+            Real-world implementation outcomes: Studies tracking actual technology implementation in
+            organizations demonstrated that employeesâ€™ self-efficacy beliefs predicted not just
+            adoption intentions but actual usage behaviors, proficiency development, and
+            sustainability of technology use over time. This demonstrated practical external
+            validity rather than merely predicting intentions or short-term behaviors. Longitudinal
+            persistence: External validity was particularly strong regarding the theoryâ€™s ability
+            to predict long-term behavioral change. SCT- based interventions designed to enhance
+            self-efficacy produced behavioral changes that persisted months and years later,
+            demonstrating the theory explained enduring behavioral shifts rather than momentary
+            compliance.
           </p>
 
           <p className="mb-4">
             How is the model intended to be used in practice? SCT provides practitioners with a
             diagnostic and interventional framework for technology adoption in several ways:
-            Diagnostic assessment: Organizations can assess employees’ self-efficacy regarding new
+            Diagnostic assessment: Organizations can assess employeesâ€™ self-efficacy regarding new
             technologies before or during implementation, identifying which individuals or groups
             may struggle with adoption. This diagnostic capability enables targeted support
             allocation rather than one-size-fits-all training approaches. Intervention design: The
@@ -142,31 +143,31 @@ const BibliographyArticlePage = () => {
             Verbal persuasion through encouragement and coaching from credible mentors or trainers,
             and (4) Managing physiological and emotional states through stress reduction, ensuring
             trainings reduce anxiety rather than creating pressure. Training program enhancement:
-            Rather than generic “technology training,” SCT-based training programs deliberately
+            Rather than generic â€œtechnology training,â€ SCT-based training programs deliberately
             structure experiences to build self-efficacy. This means designing training with
             graduated difficulty levels, incorporating peer modeling and testimonials, providing
             expert coaching and encouragement, and managing the emotional climate during training.
             Change management: During organizational technology implementations, leaders can apply
             SCT by recognizing that adoption resistance often reflects low self-efficacy rather than
-            resistance to change itself. This reframes change management from “overcoming
-            resistance” to “building confidence and capability.” Individual support strategy: For
-            employees struggling with technology adoption, managers can apply SCT by determining
+            resistance to change itself. This reframes change management from â€œovercoming
+            resistanceâ€ to â€œbuilding confidence and capability.â€ Individual support strategy:
+            For employees struggling with technology adoption, managers can apply SCT by determining
             whether the barrier is (1) lack of actual skills (addressed through skill training), (2)
             low confidence despite adequate skills (addressed through encouragement and vicarious
             experiences), or (3) emotional/physiological barriers (addressed through anxiety
             management and stress reduction). Organizational policy: Organizations can structure
-            technology implementation policies to support self-efficacy development—providing
+            technology implementation policies to support self-efficacy developmentâ€”providing
             adequate training time, allowing peer-to-peer learning, assigning mentors, starting with
             less critical systems to build confidence, and recognizing that adoption timelines must
             accommodate self-efficacy development rather than rushing implementation. Ongoing
             support infrastructure: SCT suggests that sustainable technology adoption requires
-            ongoing mechanisms for efficacy building— not just initial training. This supports
+            ongoing mechanisms for efficacy buildingâ€” not just initial training. This supports
             creating help desk systems, peer learning communities, advanced training for capability
             development, and creating opportunities for employees to experience mastery as they
             progress with technology use. What does the model measure? SCT is fundamentally a theory
             of behavior and the psychological mechanisms underlying behavior, but within technology
             adoption contexts, it specifically measures: Self-efficacy regarding technology use: The
-            core construct measures an individual’s confidence in their capability to execute
+            core construct measures an individualâ€™s confidence in their capability to execute
             technology-related tasks. This includes domain-specific self-efficacies such as computer
             self- efficacy (belief in ability to accomplish computer-related tasks) and task-
             specific self-efficacies (belief in ability to accomplish particular software operations
@@ -225,34 +226,34 @@ const BibliographyArticlePage = () => {
             (people shape their circumstances), environmental influence (circumstances shape
             people), and behavioral feedback loops (behavior shapes both self-perceptions and
             environments). This theoretical elegance facilitates widespread research application.
-            Distinction between efficacy and outcome expectations: SCT’s separation of self-efficacy
-            (can I do this?) from outcome expectations (if I do this, will it produce valued
-            outcomes?) distinguishes two psychologically distinct belief systems. This distinction
-            proved crucial for technology adoption research, as individuals might believe a
-            technology will be beneficial (positive outcome expectations) but doubt their personal
-            capability (low self-efficacy), producing non-adoption despite favorable attitudes
-            toward the technology. What are the main weaknesses of the model? Despite its strengths,
-            SCT presents notable limitations for technology adoption research: Self-efficacy as
-            retrospective/post-hoc measure: Critics note that self- efficacy beliefs are often
-            measured after behavior begins or simultaneously with it, creating difficulty in
-            establishing temporal precedence and distinguishing cause from effect. While Bandura’s
-            laboratory studies employed prospective designs, field studies of technology adoption
-            often measure self-efficacy after adoption decisions are made, raising questions about
-            whether low self-efficacy causes non-adoption or results from it. Limited attention to
-            technology characteristics: SCT emphasizes personal and environmental factors but gives
-            relatively little attention to how technology features, design, complexity, and
-            usability characteristics influence adoption. Two technologies with identical personal
-            and environmental support may show different adoption patterns based on their inherent
-            usability. This limitation led to its combination with theories emphasizing technology
-            characteristics (as in TAM). Incomplete model of environmental factors: While SCT
-            acknowledges environmental influence through triadic reciprocal determinism, it provides
-            less specific guidance about which environmental factors matter most for technology
-            adoption. Organizational culture, incentive systems, implementation quality, and
-            industry factors receive less theoretical attention than personal efficacy beliefs.
-            Insufficient attention to non-volitional barriers: SCT assumes behavior flows from
-            beliefs and environmental support, but technology adoption sometimes fails due to
+            Distinction between efficacy and outcome expectations: SCTâ€™s separation of
+            self-efficacy (can I do this?) from outcome expectations (if I do this, will it produce
+            valued outcomes?) distinguishes two psychologically distinct belief systems. This
+            distinction proved crucial for technology adoption research, as individuals might
+            believe a technology will be beneficial (positive outcome expectations) but doubt their
+            personal capability (low self-efficacy), producing non-adoption despite favorable
+            attitudes toward the technology. What are the main weaknesses of the model? Despite its
+            strengths, SCT presents notable limitations for technology adoption research:
+            Self-efficacy as retrospective/post-hoc measure: Critics note that self- efficacy
+            beliefs are often measured after behavior begins or simultaneously with it, creating
+            difficulty in establishing temporal precedence and distinguishing cause from effect.
+            While Banduraâ€™s laboratory studies employed prospective designs, field studies of
+            technology adoption often measure self-efficacy after adoption decisions are made,
+            raising questions about whether low self-efficacy causes non-adoption or results from
+            it. Limited attention to technology characteristics: SCT emphasizes personal and
+            environmental factors but gives relatively little attention to how technology features,
+            design, complexity, and usability characteristics influence adoption. Two technologies
+            with identical personal and environmental support may show different adoption patterns
+            based on their inherent usability. This limitation led to its combination with theories
+            emphasizing technology characteristics (as in TAM). Incomplete model of environmental
+            factors: While SCT acknowledges environmental influence through triadic reciprocal
+            determinism, it provides less specific guidance about which environmental factors matter
+            most for technology adoption. Organizational culture, incentive systems, implementation
+            quality, and industry factors receive less theoretical attention than personal efficacy
+            beliefs. Insufficient attention to non-volitional barriers: SCT assumes behavior flows
+            from beliefs and environmental support, but technology adoption sometimes fails due to
             resource constraints, incompatibility with existing systems, or organizational decisions
-            beyond individual control. The theory’s focus on efficacy and choice makes it less
+            beyond individual control. The theoryâ€™s focus on efficacy and choice makes it less
             equipped to address these non- volitional barriers. Measurement challenges:
             Self-efficacy proves difficult to measure validly and reliably. It can be overly general
             (computer self-efficacy) or overly specific (efficacy for this particular feature), and
@@ -269,66 +270,66 @@ const BibliographyArticlePage = () => {
             guidance on ethical dimensions: SCT focuses on effectiveness in achieving behavioral
             change but provides minimal guidance on ethical considerations. High self-efficacy and
             effective persuasion techniques can promote adoption of technologies that may not serve
-            individuals’ long-term interests, raising questions about manipulation and autonomy that
-            SCT addresses less thoroughly. How does this model differ from older models? SCT
+            individualsâ€™ long-term interests, raising questions about manipulation and autonomy
+            that SCT addresses less thoroughly. How does this model differ from older models? SCT
             represented a significant theoretical advance over preceding psychological approaches to
             behavior change: Beyond behaviorism: Classical behaviorist approaches explained behavior
             as determined by environmental reinforcement and punishment. Individuals were
             essentially passive responders to environmental contingencies. SCT retained
-            behaviorism’s recognition that environment shapes behavior but rejected strict
-            environmental determinism by emphasizing individuals’ cognitive processing,
+            behaviorismâ€™s recognition that environment shapes behavior but rejected strict
+            environmental determinism by emphasizing individualsâ€™ cognitive processing,
             goal-setting, self-regulation, and beliefs about their capabilities. This cognitive
             dimension proved crucial for understanding technology adoption, where perceived
             capability often matters more than actual environmental reinforcement. Beyond pure
             cognitivism: Earlier cognitive theories sometimes overemphasized internal thought
             processes, treating the environment as largely a backdrop for cognitive processing. SCT
-            recognized reciprocal causality—cognitions shape behavior and environments, but behavior
-            and environments also shape cognitions. This reciprocal perspective better captures
-            technology adoption, where initial experience using technology feeds back to modify
-            self-efficacy beliefs, which subsequently influence further adoption. Beyond social
-            learning theory: Bandura’s own earlier social learning theory (1977) emphasized learning
-            through observation and modeling. SCT retained these social learning mechanisms but
-            embedded them within a broader theoretical framework addressing multiple sources of
+            recognized reciprocal causalityâ€”cognitions shape behavior and environments, but
+            behavior and environments also shape cognitions. This reciprocal perspective better
+            captures technology adoption, where initial experience using technology feeds back to
+            modify self-efficacy beliefs, which subsequently influence further adoption. Beyond
+            social learning theory: Banduraâ€™s own earlier social learning theory (1977) emphasized
+            learning through observation and modeling. SCT retained these social learning mechanisms
+            but embedded them within a broader theoretical framework addressing multiple sources of
             efficacy beliefs and the mechanisms through which efficacy influences behavior choice,
             effort, and persistence. This expansion provided greater explanatory depth. Beyond
             narrow attitude theories: Earlier attitude research often assumed that favorable
             attitudes automatically produce behavior. SCT distinguished between attitudes about an
             outcome (outcome expectations) and confidence in personal capability (self-efficacy),
-            recognizing that positive attitudes don’t automatically translate to behavior if
+            recognizing that positive attitudes donâ€™t automatically translate to behavior if
             self-efficacy is low. This distinction proved particularly relevant for technology
-            adoption, where many people hold favorable attitudes toward technologies yet don’t adopt
-            them due to low confidence in their ability to use them.
+            adoption, where many people hold favorable attitudes toward technologies yet donâ€™t
+            adopt them due to low confidence in their ability to use them.
           </p>
 
           <p className="mb-4">
             Integration of personal agency: Unlike deterministic models viewing humans as products
-            of circumstances, SCT emphasized “agentic perspective”—individuals actively shape their
-            circumstances, set goals, regulate behavior, and create their own development pathways.
-            For technology adoption, this agentic perspective recognizes that individuals are not
-            passive recipients of technology but active agents who choose whether and how to engage
-            with technology based on their beliefs and circumstances. Specification of change
+            of circumstances, SCT emphasized â€œagentic perspectiveâ€â€”individuals actively shape
+            their circumstances, set goals, regulate behavior, and create their own development
+            pathways. For technology adoption, this agentic perspective recognizes that individuals
+            are not passive recipients of technology but active agents who choose whether and how to
+            engage with technology based on their beliefs and circumstances. Specification of change
             mechanisms: While earlier theories often identified predictors of behavior without
             specifying mechanisms of change, SCT provided detailed mechanisms through which
             self-efficacy develops (via four specific sources) and operates (through choice, effort,
             persistence, and thought patterns). This specificity made SCT more actionable for
             intervention design. Temporal dynamics: SCT provided greater attention to temporal
-            dynamics of behavior change—how initial self-efficacy enables initial attempts, how
+            dynamics of behavior changeâ€”how initial self-efficacy enables initial attempts, how
             success experiences build efficacy for future challenges, and how this cycle of
             effort-success-efficacy-greater-effort creates sustained behavior change. Earlier models
             provided less guidance on these temporal processes. 6. Barriers Identification Section
             What Barriers to Technology Adoption does the model identify? SCT identifies barriers to
             technology adoption operating at several levels: Low self-efficacy: The primary barrier
-            SCT identifies is insufficient confidence in one’s ability to accomplish
+            SCT identifies is insufficient confidence in oneâ€™s ability to accomplish
             technology-related tasks. This barrier operates independently from actual
-            ability—individuals with adequate skills may not adopt technology due to doubts about
+            abilityâ€”individuals with adequate skills may not adopt technology due to doubts about
             their capabilities. Low self-efficacy produces adoption barriers through reduced
             willingness to attempt technology use, reduced effort when encountering difficulties,
             and heightened anxiety during technology learning. Negative outcome expectations: Even
             if individuals feel capable (high self-efficacy), low outcome expectations create
-            barriers. If individuals believe that adopting a technology won’t produce valued
-            outcomes— whether in terms of work efficiency, career advancement, social acceptance, or
-            other valued consequences—they may rationally choose non-adoption despite being capable
-            of using the technology.
+            barriers. If individuals believe that adopting a technology wonâ€™t produce valued
+            outcomesâ€” whether in terms of work efficiency, career advancement, social acceptance,
+            or other valued consequencesâ€”they may rationally choose non-adoption despite being
+            capable of using the technology.
           </p>
 
           <p className="mb-4">
@@ -350,13 +351,13 @@ const BibliographyArticlePage = () => {
             Individuals experiencing technology anxiety face adoption barriers even when other
             conditions favor adoption. Environmental barriers beyond individual control: SCT
             acknowledges that adoption can be blocked by circumstances beyond individual
-            psychology—inadequate training resources, insufficient time allocated for learning, lack
-            of access to technology, incompatibility with existing systems, or organizational
+            psychologyâ€”inadequate training resources, insufficient time allocated for learning,
+            lack of access to technology, incompatibility with existing systems, or organizational
             policies discouraging adoption. These environmental barriers operate independently from
-            self-efficacy. Misalignment between personal and organizational goals: When individuals’
-            outcome expectations (what they expect from technology adoption) misalign with
-            organizational outcomes, barriers emerge. If an individual anticipates technology will
-            displace their work or reduce their influence, low outcome expectations may produce
+            self-efficacy. Misalignment between personal and organizational goals: When
+            individualsâ€™ outcome expectations (what they expect from technology adoption) misalign
+            with organizational outcomes, barriers emerge. If an individual anticipates technology
+            will displace their work or reduce their influence, low outcome expectations may produce
             adoption resistance despite adequate self-efficacy. What does the model instruct leaders
             to do in order to reduce these barriers? SCT provides specific guidance for leaders
             seeking to reduce technology adoption barriers:
@@ -380,7 +381,7 @@ const BibliographyArticlePage = () => {
             competent instructors, pairing struggling employees with mentors, providing constructive
             feedback that emphasizes capability development, and ensuring leaders visibly support
             and encourage technology adoption. The credibility of the persuader
-            matters—encouragement from respected leaders proves more efficacious than generic
+            mattersâ€”encouragement from respected leaders proves more efficacious than generic
             exhortation. Manage emotional states and reduce anxiety: Organizations should actively
             reduce anxiety and negative emotional responses to technology learning. This involves
             creating low-pressure learning environments, allowing adequate learning time without
@@ -398,12 +399,12 @@ const BibliographyArticlePage = () => {
 
           <p className="mb-4">
             Set clear, valued outcome expectations: Leaders should transparently communicate why
-            technology adoption matters organizationally and personally—how it will improve work
+            technology adoption matters organizationally and personallyâ€”how it will improve work
             quality, efficiency, career prospects, or other valued outcomes. When outcome
             expectations align with genuine organizational benefits and personal career development,
             employees more readily invest in building self-efficacy. Create sustained support
             infrastructure: Rather than treating technology adoption as a time-limited training
-            event, leaders should create sustained support structures—ongoing access to training,
+            event, leaders should create sustained support structuresâ€”ongoing access to training,
             help desk systems, peer learning communities, champions for different technologies, and
             continued opportunities for efficacy building as employees encounter new features or
             applications. Efficacy development is ongoing rather than a one-time event. Customize
@@ -483,7 +484,7 @@ const BibliographyArticlePage = () => {
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
-            ← Back to Complete Bibliography
+            â† Back to Complete Bibliography
           </a>
         </section>
       </article>

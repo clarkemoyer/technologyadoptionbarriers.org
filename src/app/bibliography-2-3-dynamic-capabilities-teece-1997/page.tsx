@@ -1,9 +1,16 @@
-import React from 'react'
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import {
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+  REFERENCES_H2_CLASSES,
+  REFERENCES_OL_CLASSES,
+} from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Dynamic Capabilities Framework – Teece, Pisano, & Shuen (1997)',
+  title: 'Bibliography: Dynamic Capabilities Framework â€“ Teece, Pisano, & Shuen (1997)',
   description:
     'An exploration of the Dynamic Capabilities Framework and how it extends the Resource-Based View to address sustained competitive advantage in rapidly changing, turbulent environments through organizational sensing, seizing, and transformation.',
 }
@@ -16,8 +23,8 @@ const DynamicCapabilitiesPage = () => {
           Bibliography: Dynamic Capabilities Framework &ndash; Teece, Pisano, &amp; Shuen (1997)
         </h1>
 
-        <section className="mb-6 sm:mb-10 text-gray-800">
-          <p className="mb-3 sm:mb-6">
+        <section className={SECTION_CLASSES}>
+          <p className={PARAGRAPH_CLASSES}>
             In 1997, David J. Teece, Gary Pisano, and Amy Shuen published &ldquo;Dynamic
             Capabilities and Strategic Management&rdquo; in the Strategic Management Journal,
             creating what would become one of the most influential frameworks for understanding
@@ -28,7 +35,7 @@ const DynamicCapabilitiesPage = () => {
             were inadequate for explaining sustained competitive advantage when competitive
             environments change rapidly and unpredictably.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The fundamental insight of the Dynamic Capabilities Framework is that sustained
             competitive advantage in turbulent environments requires more than simply possessing
             valuable, rare, and inimitable resources. Organizations must continuously develop new
@@ -40,7 +47,7 @@ const DynamicCapabilitiesPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Why Was the Framework Created?</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Teece, Pisano, and Shuen developed the Dynamic Capabilities Framework to address
             critical gaps in how the Resource-Based View and VRIO frameworks explained competitive
             advantage in rapidly changing industries. While Wernerfelt and Barney had provided
@@ -48,7 +55,7 @@ const DynamicCapabilitiesPage = () => {
             firm resources, their frameworks gave insufficient attention to how firms continuously
             renew, reconfigure, and transform resources as competitive environments change.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The authors observed that many firms possessing valuable, rare, inimitable resources
             found those resources becoming obsolete as industries evolved, technologies changed, and
             competitive dynamics shifted. Sony&rsquo;s capabilities in transistor technology, which
@@ -59,17 +66,17 @@ const DynamicCapabilitiesPage = () => {
             advantage required not merely possessing valuable resources but continuously developing
             new resources and capabilities as environments changed.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The framework was motivated by recognition that in hypercompetitive industries,
             technological turbulence, and rapidly changing markets (exemplified by the information
             technology, telecommunications, and biotechnology sectors), traditional competitive
             advantage grounded in stable, inimitable resource positions was insufficient. Firms
-            needed different capabilities—not just the ability to exploit existing resources but the
-            ability to sense market opportunities and threats, to seize opportunities through
+            needed different capabilitiesâ€”not just the ability to exploit existing resources but
+            the ability to sense market opportunities and threats, to seize opportunities through
             organizational restructuring, and to continuously reconfigure organizational assets and
             resources in response to environmental change.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Additionally, the framework was motivated by observation that many firms failed to adapt
             as environments changed because they were locked into existing capabilities and
             resources. What Teece and colleagues termed &ldquo;organizational rigidities&rdquo; or
@@ -81,7 +88,7 @@ const DynamicCapabilitiesPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>The Three Core Dynamic Capabilities</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The Dynamic Capabilities Framework identifies three fundamental organizational
             capabilities that enable sustained adaptation in turbulent environments:
           </p>
@@ -89,14 +96,14 @@ const DynamicCapabilitiesPage = () => {
           <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
             1. Sensing: Identifying and Assessing Market Opportunities and Threats
           </h3>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Sensing capability refers to the organizational capacity to identify, monitor, and
             assess market opportunities and technological possibilities before they become obvious
             to the entire market. Rather than simply responding to competitive threats or market
             demands that are already evident, organizations with strong sensing capabilities
             anticipate future market needs and technological possibilities.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Effective sensing requires establishing systems and processes for monitoring
             technological developments, tracking customer needs and preferences, conducting market
             research, and maintaining awareness of competitors&rsquo; activities and strategic
@@ -106,7 +113,7 @@ const DynamicCapabilitiesPage = () => {
             become obvious to the entire market, enabling first-mover advantages and strategic
             flexibility.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             For technology adoption specifically, sensing capability involves monitoring emerging
             technologies, understanding how technologies might address organizational needs,
             evaluating technology maturity and readiness, and assessing when emerging technologies
@@ -116,7 +123,7 @@ const DynamicCapabilitiesPage = () => {
           <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
             2. Seizing: Mobilizing Resources to Capture Value from Opportunities
           </h3>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Seizing capability refers to the organizational capacity to quickly develop products,
             services, or business models that address identified opportunities. Organizations that
             sense opportunities but lack seizing capabilities fail to convert those insights into
@@ -125,7 +132,7 @@ const DynamicCapabilitiesPage = () => {
             marketing and customer development capabilities, and decision-making structures that
             enable fast action.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Seizing capability depends on organizational structures that facilitate rapid
             decision-making, cross-functional collaboration, and resource mobilization.
             Organizations with rigid hierarchies, slow decision-making processes, strong functional
@@ -134,7 +141,7 @@ const DynamicCapabilitiesPage = () => {
             seizing of opportunities through fast decision-making, resource flexibility, and
             collaborative processes.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             In the context of technology adoption, seizing capability involves the ability to pilot
             new technologies quickly, secure organizational resources and commitment for technology
             initiatives, integrate new technologies with existing systems and processes, and scale
@@ -144,14 +151,14 @@ const DynamicCapabilitiesPage = () => {
           <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
             3. Transforming: Reconfiguring Assets and Organizational Structures
           </h3>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Transforming capability (also called reconfiguring capability) refers to the
             organizational capacity to reconfigure organizational assets, structures, and processes
             as competitive environments change. Organizations lacking transforming capabilities find
             themselves constrained by historical asset configurations and strategic directions,
             unable to adapt as environments change.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Effective transforming capability involves organizational redesign, restructuring, and
             change management capabilities; capabilities for retraining personnel to develop new
             skills; capabilities for divesting businesses or assets that no longer fit the
@@ -159,7 +166,7 @@ const DynamicCapabilitiesPage = () => {
             technologies and integrating them into organizational operations; and capabilities for
             evolving organizational culture and values as strategic direction changes.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             For technology adoption, transforming capability includes the ability to redesign
             business processes around new technologies, develop new organizational roles and skills
             to support new technologies, retire legacy systems and processes that are being
@@ -167,21 +174,22 @@ const DynamicCapabilitiesPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>From Static Resources to Dynamic Adaptation</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The Dynamic Capabilities Framework represents a fundamental evolution in strategic
             management thinking, shifting focus from what resources the organization currently
             possesses to how organizations develop new resources and transform existing resources as
             environments change. This shift from static to dynamic represents a fundamental
-            reorientation—from what the organization has to what the organization can do and become.
+            reorientationâ€”from what the organization has to what the organization can do and
+            become.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             While earlier frameworks focused on resource stocks (what the organization possesses),
             the Dynamic Capabilities Framework emphasizes capability processes (how the organization
             develops, integrates, and deploys resources). The distinction is important: two
             organizations might possess similar resource stocks but differ dramatically in their
             capacity to continuously renew and reconfigure those resources.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The framework also shifts from pursuing sustainable advantage to pursuing dynamic
             adaptation. While Barney&rsquo;s VRIO framework focused on creating sustained
             competitive advantage by developing resources that competitors cannot imitate, the
@@ -192,7 +200,7 @@ const DynamicCapabilitiesPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Application to Technology Adoption</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The Dynamic Capabilities Framework provides crucial insights for technology adoption in
             organizations operating in rapidly changing technological environments. Technology
             adoption is not merely a matter of purchasing systems or implementing tools, but
@@ -205,7 +213,7 @@ const DynamicCapabilitiesPage = () => {
           <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
             Sensing Technological Opportunities
           </h3>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Organizations should develop capabilities for monitoring emerging technologies, tracking
             technological developments, conducting technology assessments, and understanding how
             technologies might address organizational needs. This involves establishing
@@ -218,7 +226,7 @@ const DynamicCapabilitiesPage = () => {
           <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
             Seizing Technology Implementation Opportunities
           </h3>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Organizations should develop capabilities for rapidly piloting new technologies,
             evaluating technology performance and fit with organizational needs, securing resources
             and organizational commitment for promising technologies, and scaling successful pilots
@@ -232,7 +240,7 @@ const DynamicCapabilitiesPage = () => {
           <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
             Transforming Organizations Around New Technologies
           </h3>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Organizations should develop capabilities for redesigning business processes to leverage
             new technologies, developing new organizational roles and skills, retiring legacy
             systems and processes, and managing organizational change and resistance. This involves
@@ -243,7 +251,7 @@ const DynamicCapabilitiesPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Organizational Learning and Path Dependence</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The framework places learning and knowledge development at the center of sustained
             competitive advantage. Organizations that systematically learn from experience, capture
             learning in organizational routines and processes, and continuously improve their
@@ -251,9 +259,9 @@ const DynamicCapabilitiesPage = () => {
             learning. This emphasis on learning as central to competitive advantage represents an
             important contribution to strategic management thinking.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             However, the framework also acknowledges the constraints imposed by path
-            dependence—organizational capabilities and competitive positions are shaped by
+            dependenceâ€”organizational capabilities and competitive positions are shaped by
             historical development paths and previous resource commitments. Some capabilities can be
             readily changed while others are constrained by historical choices, investments, and
             organizational commitments. Understanding these path dependencies helps organizations
@@ -262,7 +270,7 @@ const DynamicCapabilitiesPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Strengths of the Framework</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The Dynamic Capabilities Framework possesses several significant strengths that have
             contributed to its widespread adoption and influence:
           </p>
@@ -308,7 +316,7 @@ const DynamicCapabilitiesPage = () => {
           </ul>
 
           <h2 className={H2_CLASSES}>Limitations and Challenges</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Despite its considerable strengths, the Dynamic Capabilities Framework exhibits certain
             limitations that scholars and practitioners should understand:
           </p>
@@ -348,15 +356,15 @@ const DynamicCapabilitiesPage = () => {
           </ul>
 
           <h2 className={H2_CLASSES}>Relationship to Organizational Learning and Innovation</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The Dynamic Capabilities Framework has important connections to organizational learning
             theory and innovation research. The framework suggests that organizations develop
-            dynamic capabilities through organizational learning processes—by systematically
+            dynamic capabilities through organizational learning processesâ€”by systematically
             learning from experience, capturing learning in organizational routines, and
             continuously improving capabilities. This connection to learning theory enriches
             understanding of how dynamic capabilities develop over time.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             For innovation, the framework shows that innovation capability is not an isolated
             function but is embedded in organizational routines, structures, and processes.
             Organizations should systematically invest in building sensing, seizing, and
@@ -366,7 +374,7 @@ const DynamicCapabilitiesPage = () => {
           </p>
 
           <h2 className={H2_CLASSES}>Subsequent Developments and Extensions</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Since its 1997 publication, the Dynamic Capabilities Framework has spawned extensive
             empirical research and theoretical extensions. Subsequent work has examined:
           </p>
@@ -394,14 +402,14 @@ const DynamicCapabilitiesPage = () => {
           </ul>
 
           <h2 className={H2_CLASSES}>Implications for Technology Adoption Research</h2>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             For technology adoption research specifically, the Dynamic Capabilities Framework
             provided crucial insights into why some organizations successfully adopt new
             technologies while others struggle. The framework highlights that technology adoption is
             not merely a matter of purchasing systems or implementing tools, but requires building
             and integrating complementary organizational capabilities.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             This perspective has informed subsequent frameworks for understanding organizational
             technology readiness and adoption capacity, emphasizing the critical role of
             organizational structure, learning capabilities, and change management in technology
@@ -411,7 +419,7 @@ const DynamicCapabilitiesPage = () => {
             capabilities can successfully redesign processes and structures to fully leverage
             technological capabilities.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The framework also suggests that organizations should view technology adoption not as
             isolated projects but as opportunities to develop and enhance organizational dynamic
             capabilities. Each technology adoption initiative provides opportunities for
@@ -421,10 +429,8 @@ const DynamicCapabilitiesPage = () => {
         </section>
 
         <section className="pt-8 border-t border-gray-200">
-          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-            References
-          </h2>
-          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 font-sans">
+          <h2 className={REFERENCES_H2_CLASSES}>References</h2>
+          <ol className={REFERENCES_OL_CLASSES}>
             <li>
               Teece, D. J., Pisano, G., & Shuen, A. (1997). Dynamic capabilities and strategic
               management. Strategic Management Journal, 18(7), 509-533.{' '}

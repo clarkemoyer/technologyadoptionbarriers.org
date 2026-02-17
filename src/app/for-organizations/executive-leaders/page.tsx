@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
@@ -59,14 +58,14 @@ const ExecutiveLeadersPage = () => {
               href="/for-organizations"
               className="text-purple-200 hover:text-white transition-colors text-[16px]"
             >
-              ← Back to All Organizations
+              â† Back to All Organizations
             </Link>
           </div>
           <h1 className="text-[48px] md:text-[56px] font-bold mb-[20px] font-serif">
             For Executive Leaders
           </h1>
           <p className="text-[24px] text-purple-100 mb-[15px] font-semibold">
-            CEO • President • Board Members • Managing Directors • Business Owners
+            CEO â€¢ President â€¢ Board Members â€¢ Managing Directors â€¢ Business Owners
           </p>
           <p className="text-[18px] text-purple-100 max-w-[900px] leading-[1.6]">
             Support your members in setting strategic direction for technology adoption and
@@ -86,7 +85,7 @@ const ExecutiveLeadersPage = () => {
             <div className="bg-purple-50 p-[30px] rounded-[12px] border-2 border-purple-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Strategy">
-                  🎯
+                  ðŸŽ¯
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">Strategic Direction</h3>
@@ -100,7 +99,7 @@ const ExecutiveLeadersPage = () => {
             <div className="bg-purple-50 p-[30px] rounded-[12px] border-2 border-purple-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Competitive advantage">
-                  🏆
+                  ðŸ†
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">
@@ -116,7 +115,7 @@ const ExecutiveLeadersPage = () => {
             <div className="bg-purple-50 p-[30px] rounded-[12px] border-2 border-purple-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Board relations">
-                  📊
+                  ðŸ“Š
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">Board Relations</h3>
@@ -143,7 +142,7 @@ const ExecutiveLeadersPage = () => {
           <div className="grid md:grid-cols-2 gap-[30px]">
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                🎯 Strategic Planning Data
+                ðŸŽ¯ Strategic Planning Data
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Gain access to comprehensive research on technology adoption barriers to inform
@@ -153,7 +152,7 @@ const ExecutiveLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                📈 Industry Benchmarks
+                ðŸ“ˆ Industry Benchmarks
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Compare their organization&apos;s technology adoption maturity against industry
@@ -163,7 +162,7 @@ const ExecutiveLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                💼 Executive Communication Tools
+                ðŸ’¼ Executive Communication Tools
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Leverage industry-validated insights to communicate technology strategy to boards,
@@ -173,7 +172,7 @@ const ExecutiveLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                🤝 Thought Leadership
+                ðŸ¤ Thought Leadership
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Position themselves as forward-thinking leaders by contributing to and leveraging
@@ -216,7 +215,7 @@ const ExecutiveLeadersPage = () => {
                     rel="noopener noreferrer"
                     className="inline-block px-[25px] py-[12px] bg-purple-600 hover:bg-purple-700 text-white rounded-[6px] font-semibold text-[14px] transition-colors text-center md:text-left whitespace-nowrap"
                   >
-                    Visit Website →
+                    Visit Website â†’
                   </a>
                 </div>
               </div>
@@ -254,7 +253,7 @@ const ExecutiveLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 1">
-                  1️⃣
+                  1ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Initial Contact</h3>
@@ -267,7 +266,7 @@ const ExecutiveLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 2">
-                  2️⃣
+                  2ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Receive Materials</h3>
@@ -280,7 +279,7 @@ const ExecutiveLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 3">
-                  3️⃣
+                  3ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Promote Survey</h3>
@@ -293,7 +292,7 @@ const ExecutiveLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 4">
-                  4️⃣
+                  4ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Share Insights</h3>

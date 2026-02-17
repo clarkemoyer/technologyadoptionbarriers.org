@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import impactData from '@/data/impact.json'
 
 // Only show if we have valid data (CI Trigger)
@@ -11,18 +10,18 @@ export const ImpactCounter = () => {
   if (!showStats) return null
 
   return (
-    <div className="mt-4 flex flex-col gap-1 text-xs text-gray-500 dark:text-gray-400">
-      <div className="font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-400">
+    <div className="mt-4 flex flex-col gap-1 text-xs text-gray-500">
+      <div className="font-semibold uppercase tracking-wider text-gray-600">
         Impact (Last 28 Days)
       </div>
       <div>
-        <span className="font-bold text-teal-600 dark:text-teal-400">
+        <span className="font-bold text-teal-600">
           {parseInt(impactData.activeUsers).toLocaleString()}
         </span>{' '}
         Researchers Helped
       </div>
       <div>
-        <span className="font-bold text-teal-600 dark:text-teal-400">
+        <span className="font-bold text-teal-600">
           {parseInt(impactData.pageViews).toLocaleString()}
         </span>{' '}
         Page Views

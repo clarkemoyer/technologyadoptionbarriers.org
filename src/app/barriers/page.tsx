@@ -1,6 +1,5 @@
-import React from 'react'
 import type { Metadata } from 'next'
-import Barriers from '@/components/tabs/Barriers'
+import Barriers from '@/components/tabs/barriers'
 
 export const metadata: Metadata = {
   title: 'Technology Adoption Barriers',
