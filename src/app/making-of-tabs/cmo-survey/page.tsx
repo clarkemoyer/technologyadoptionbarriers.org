@@ -148,7 +148,7 @@ const CMOSurveyPage = () => {
               <li>Identify emerging trends and shifting barriers</li>
               <li>Track the evolution of organizational readiness</li>
               <li>Measure the impact of technological innovation on adoption patterns</li>
-              <li>Provide year-over-year comparisons for benchmarking</li>
+              <li>Provide cross-cycle comparisons for benchmarking</li>
             </ul>
           </div>
 
@@ -305,7 +305,7 @@ const CMOSurveyPage = () => {
                 <tr className="bg-gray-50">
                   <td className="border border-gray-300 px-4 py-3 font-medium">Frequency</td>
                   <td className="border border-gray-300 px-4 py-3">Biannual (Feb &amp; Aug)</td>
-                  <td className="border border-gray-300 px-4 py-3">Annual</td>
+                  <td className="border border-gray-300 px-4 py-3">Periodic (planned)</td>
                 </tr>
                 <tr>
                   <td className="border border-gray-300 px-4 py-3 font-medium">Target Audience</td>
@@ -345,9 +345,9 @@ const CMOSurveyPage = () => {
                   <td className="border border-gray-300 px-4 py-3 font-medium">
                     Longitudinal Design
                   </td>
-                  <td className="border border-gray-300 px-4 py-3">âœ“ 15+ years of trend data</td>
+                  <td className="border border-gray-300 px-4 py-3">✓ 15+ years of trend data</td>
                   <td className="border border-gray-300 px-4 py-3">
-                    âœ“ Year-over-year comparisons planned
+                    ✓ Cross-cycle comparisons planned
                   </td>
                 </tr>
               </tbody>
@@ -359,7 +359,7 @@ const CMOSurveyPage = () => {
           <h2 className="text-xl font-bold text-gray-900 mb-4">Key Takeaways</h2>
           <ul className="space-y-3 text-gray-800">
             <li className="flex items-start">
-              <span className="text-green-600 font-bold mr-3">âœ“</span>
+              <span className="text-green-600 font-bold mr-3">✓</span>
               <span>
                 <strong>Proven Track Record:</strong> The CMO Survey&apos;s 15+ year success
                 demonstrates that longitudinal, open-access research can become an industry standard
@@ -367,7 +367,7 @@ const CMOSurveyPage = () => {
               </span>
             </li>
             <li className="flex items-start">
-              <span className="text-green-600 font-bold mr-3">âœ“</span>
+              <span className="text-green-600 font-bold mr-3">✓</span>
               <span>
                 <strong>Leadership Insights Matter:</strong> Surveying C-suite executives provides
                 strategic perspectives that operational surveys cannot capture, making the data more
@@ -375,7 +375,7 @@ const CMOSurveyPage = () => {
               </span>
             </li>
             <li className="flex items-start">
-              <span className="text-green-600 font-bold mr-3">âœ“</span>
+              <span className="text-green-600 font-bold mr-3">✓</span>
               <span>
                 <strong>Open Access Drives Impact:</strong> Making all findings freely available
                 democratizes access to critical intelligence and expands the research&apos;s reach
@@ -383,7 +383,7 @@ const CMOSurveyPage = () => {
               </span>
             </li>
             <li className="flex items-start">
-              <span className="text-green-600 font-bold mr-3">âœ“</span>
+              <span className="text-green-600 font-bold mr-3">✓</span>
               <span>
                 <strong>Academic Rigor Builds Credibility:</strong> Grounding surveys in established
                 frameworks and peer-reviewed methodologies ensures reliability and trust among
@@ -391,7 +391,7 @@ const CMOSurveyPage = () => {
               </span>
             </li>
             <li className="flex items-start">
-              <span className="text-green-600 font-bold mr-3">âœ“</span>
+              <span className="text-green-600 font-bold mr-3">✓</span>
               <span>
                 <strong>TABS Adapts the Model:</strong> While following The CMO Survey&apos;s proven
                 approach, TABS tailors it for technology adoption research with broader C-suite
