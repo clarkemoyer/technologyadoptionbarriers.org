@@ -38,19 +38,19 @@ export const faqCategories: FaqCategory[] = [
         id: 'what-is-tabs',
         question: 'What is the Technology Adoption Barriers Survey (TABS)?',
         answer:
-          'TABS is a research initiative that collects insights from organizational leaders to identify and overcome obstacles to technology adoption. Findings are shared annually to benefit the broader community.',
+          'TABS is a research initiative that collects insights from organizational leaders to identify and overcome obstacles to technology adoption. The project aims to share findings annually to benefit the broader community.',
       },
       {
         id: 'who-runs-tabs',
         question: 'Who is behind the TABS project?',
         answer:
-          'TABS is managed by Technology Adoption Barriers Survey (TABS), an IRS-designated 501(c)(3) nonprofit organization focused on documenting and addressing the challenges organizations face when adopting new technology.',
+          'TABS is a research project by Clarke Moyer, conducted as part of the Penn State Smeal College of Business DBA Program. The project focuses on documenting and addressing the challenges organizations face when adopting new technology.',
       },
       {
         id: 'why-tabs-exists',
         question: 'Why was TABS created?',
         answer:
-          'Technology adoption failures cost organizations billions of dollars annually, yet the specific barriers driving those failures are often poorly understood. TABS was created to fill that knowledge gap with rigorous, openly shared research.',
+          'Technology adoption failures lead to significant losses for organizations, yet the specific barriers driving those failures are often poorly understood. TABS was created to fill that knowledge gap with rigorous, openly shared research.',
       },
       {
         id: 'tabs-goals',
@@ -59,16 +59,16 @@ export const faqCategories: FaqCategory[] = [
           'TABS aims to build a multi-year longitudinal dataset that tracks how technology adoption barriers evolve over time. This data helps practitioners, educators, and policymakers make evidence-based decisions about technology strategy.',
       },
       {
-        id: 'tabs-nonprofit-status',
-        question: 'Is TABS really a nonprofit?',
+        id: 'tabs-university',
+        question: 'Is TABS affiliated with a university?',
         answer:
-          'Yes. TABS holds IRS 501(c)(3) designation (EIN 46-2471893). The organization is registered and in good standing. You can verify this through the IRS Tax Exempt Organization Search or GuideStar.',
+          'Yes. TABS is a research project conducted as part of the Penn State Smeal College of Business DBA Program. The survey has received IRB approval from Penn State University. The project source code, data methodology, and all research materials are publicly available on GitHub.',
       },
       {
         id: 'tabs-funding',
         question: 'How is TABS funded?',
         answer:
-          'TABS is funded through donations, grants, and volunteer contributions. As a nonprofit, all funding goes directly toward research, survey distribution, and making results publicly available.',
+          'TABS is funded through financial contributions via GitHub Sponsors and volunteer effort. All funding goes directly toward research, survey distribution, and making results publicly available.',
       },
     ],
   },
@@ -89,7 +89,7 @@ export const faqCategories: FaqCategory[] = [
         id: 'how-long-survey',
         question: 'How long does the survey take?',
         answer:
-          'The survey typically takes 15–20 minutes to complete. It is designed to be thorough enough to produce meaningful data while respecting your time.',
+          'The survey typically takes 20–25 minutes to complete. It is designed to be thorough enough to produce meaningful data while respecting your time.',
       },
       {
         id: 'what-questions',
@@ -107,7 +107,7 @@ export const faqCategories: FaqCategory[] = [
         id: 'survey-anonymous',
         question: 'Is the survey anonymous?',
         answer:
-          'Yes. The survey does not collect personally identifiable information such as your name or email address. Responses are analyzed in aggregate, and no individual can be identified from the published results.',
+          'Yes. The survey does not collect your name or email address. Responses are analyzed in aggregate, and no individual can be identified from the published results. Participants recruited through the Prolific research platform have a pseudonymous study ID recorded for quality assurance; this identifier cannot be used to identify you without Prolific\u2019s own records.',
       },
       {
         id: 'survey-platform',
@@ -127,31 +127,25 @@ export const faqCategories: FaqCategory[] = [
         id: 'common-barriers',
         question: 'What are the most common technology adoption barriers?',
         answer:
-          'The most frequently reported barriers include cost and financial constraints, lack of awareness of available solutions, fear of change and resistance to new processes, technology complexity, compatibility and integration challenges, infrastructure limitations, skill gaps, and security or compliance concerns.',
+          'Based on existing technology adoption research, the most frequently reported barriers include cost and financial constraints, lack of awareness of available solutions, resistance to change, technology complexity, compatibility and integration challenges, infrastructure limitations, skill gaps, and security or compliance concerns. TABS aims to validate and expand on these findings through its own data collection.',
       },
       {
         id: 'barriers-vary',
         question: 'Do barriers vary by organization size or industry?',
         answer:
-          'Yes. Small organizations often cite cost and skill gaps as primary barriers, while larger enterprises more often struggle with integration complexity and change management. Industry-specific regulations can also create unique adoption challenges.',
+          'Research suggests that they do. Small organizations often cite cost and skill gaps as primary barriers, while larger enterprises more often struggle with integration complexity and change management. Industry-specific regulations can also create unique adoption challenges. TABS collects data across organization sizes and sectors to explore these patterns.',
       },
       {
         id: 'overcome-barriers',
         question: 'How can organizations overcome adoption barriers?',
         answer:
-          'Strategies include executive sponsorship and clear communication, phased rollouts with pilot programs, investment in training and change management, selecting technologies that integrate well with existing systems, and building a culture that embraces innovation.',
+          'Based on adoption research, effective strategies include executive sponsorship and clear communication, phased rollouts with pilot programs, investment in training and change management, selecting technologies that integrate well with existing systems, and building a culture that embraces innovation.',
       },
       {
-        id: 'cost-barrier',
-        question: 'Why is cost consistently the top barrier?',
+        id: 'top-barrier',
+        question: 'What is the most commonly reported technology adoption barrier?',
         answer:
-          'Cost encompasses not just the purchase price of technology, but also implementation, training, maintenance, and the opportunity cost of transitioning from existing systems. Many organizations underestimate total cost of ownership.',
-      },
-      {
-        id: 'fear-of-change',
-        question: 'How does fear of change differ from other barriers?',
-        answer:
-          'Fear of change is unique because it is psychological rather than technical or financial. It often manifests as resistance to new workflows, anxiety about job displacement, or skepticism about promised benefits. It requires cultural and leadership strategies rather than technical solutions.',
+          'Existing technology adoption literature frequently cites cost as a leading barrier. Cost encompasses not just the purchase price of technology, but also implementation, training, maintenance, and the opportunity cost of transitioning from existing systems. TABS aims to validate this through its own data collection and track how cost barriers evolve over time.',
       },
     ],
   },
@@ -165,19 +159,19 @@ export const faqCategories: FaqCategory[] = [
         id: 'research-methodology',
         question: 'What research methodology does TABS use?',
         answer:
-          'TABS uses a quantitative survey methodology grounded in established technology adoption frameworks such as the Technology Acceptance Model (TAM), Unified Theory of Acceptance and Use of Technology (UTAUT), and the Diffusion of Innovations theory.',
+          'TABS uses a quantitative survey methodology informed by established technology adoption frameworks such as the Technology Acceptance Model (TAM), Unified Theory of Acceptance and Use of Technology (UTAUT), and the Diffusion of Innovations theory.',
       },
       {
         id: 'academic-frameworks',
         question: 'What academic frameworks inform the TABS survey design?',
         answer:
-          'The survey design draws from TAM, TAM2, TAM3, UTAUT, UTAUT2, Diffusion of Innovations (DOI), and the Technology-Organization-Environment (TOE) framework. These well-validated models ensure the survey measures constructs that have strong academic support.',
+          'The survey design is informed by TAM, TAM2, TAM3, UTAUT, UTAUT2, Diffusion of Innovations (DOI), and the Technology-Organization-Environment (TOE) framework. These well-validated models inform the survey\u2019s exploration of technology adoption factors.',
       },
       {
         id: 'data-published',
         question: 'Are TABS results published publicly?',
         answer:
-          'Yes. Aggregate findings and trend analyses are published on the TABS website and made available for academic, educational, and organizational use. Individual responses are never published.',
+          'As data is collected, aggregate findings and trend analyses are published on the TABS website and made available for academic, educational, and organizational use. Individual responses are never published.',
       },
       {
         id: 'use-data-research',
@@ -209,7 +203,7 @@ export const faqCategories: FaqCategory[] = [
         id: 'org-benefit',
         question: 'How can my organization benefit from TABS?',
         answer:
-          'TABS provides benchmarking data that helps you understand how your technology adoption challenges compare to peers. You can use the findings to prioritize investments, build a business case for change management, and avoid common pitfalls.',
+          'As TABS collects more data, published findings will enable benchmarking that helps you understand how your technology adoption challenges compare to peers. You can use the findings to prioritize investments, build a business case for change management, and avoid common pitfalls.',
       },
       {
         id: 'org-specific-roles',
@@ -221,7 +215,7 @@ export const faqCategories: FaqCategory[] = [
         id: 'benchmark',
         question: 'Can we benchmark our organization against TABS data?',
         answer:
-          'The published aggregate data allows informal benchmarking. You can compare the barriers your organization faces with the most commonly reported barriers across all respondents. For more detailed analysis, consider contacting the TABS team about partnership opportunities.',
+          'As TABS publishes more aggregate data, you will be able to compare the barriers your organization faces with the most commonly reported barriers across all respondents. For more detailed analysis, consider contacting the TABS team about partnership opportunities.',
       },
       {
         id: 'org-size',
@@ -241,14 +235,14 @@ export const faqCategories: FaqCategory[] = [
     id: 'getting-involved',
     title: 'Getting Involved',
     description:
-      'Ways to support the TABS mission — from taking the survey to volunteering or donating.',
+      'Ways to support the TABS mission — from taking the survey to volunteering or contributing.',
     icon: '🤝',
     items: [
       {
         id: 'how-participate',
         question: 'How can I participate in TABS research?',
         answer:
-          'The primary way to participate is by taking the TABS survey. You can also contribute by sharing the survey with colleagues, volunteering to help with research or outreach, or making a donation to support the project.',
+          'The primary way to participate is by taking the TABS survey. You can also contribute by sharing the survey with colleagues, volunteering to help with research or outreach, or contributing financially through GitHub Sponsors.',
       },
       {
         id: 'volunteer',
@@ -257,10 +251,10 @@ export const faqCategories: FaqCategory[] = [
           'TABS welcomes volunteers in areas such as research assistance, data analysis, content creation, outreach, and technical development. Visit the Get Involved page or contact the team to learn about current opportunities.',
       },
       {
-        id: 'donate',
-        question: 'How do donations support TABS?',
+        id: 'contribute',
+        question: 'How do contributions support TABS?',
         answer:
-          'Donations fund survey distribution, participant recruitment, data analysis, website hosting, and making research findings freely available. As a 501(c)(3) nonprofit, donations to TABS are tax-deductible.',
+          'Financial contributions through GitHub Sponsors fund survey distribution, participant recruitment, data analysis, website hosting, and making research findings freely available. Contributions are not tax-deductible.',
       },
       {
         id: 'share-survey',
@@ -286,7 +280,7 @@ export const faqCategories: FaqCategory[] = [
         id: 'data-protection',
         question: 'How is my survey data protected?',
         answer:
-          'Survey data is hosted on Qualtrics, which provides enterprise-grade security including encryption in transit and at rest. Access to raw data is restricted to authorized researchers. No personally identifiable information is collected.',
+          'Survey data is hosted on Qualtrics, which provides enterprise-grade security including encryption in transit and at rest. Access to raw data is restricted to authorized researchers. The survey does not collect your name or email address.',
       },
       {
         id: 'data-sharing',
@@ -310,7 +304,7 @@ export const faqCategories: FaqCategory[] = [
         id: 'ethics-review',
         question: 'Has the TABS survey undergone ethics review?',
         answer:
-          'The survey is designed following established ethical research practices including informed consent, anonymity, voluntary participation, and the right to withdraw at any time without consequence.',
+          'Yes. The TABS survey has received IRB approval from Penn State University. The study follows established ethical research practices including informed consent, anonymity, voluntary participation, and the right to withdraw at any time without consequence.',
       },
     ],
   },

@@ -95,7 +95,7 @@ describe('FAQ Page', () => {
     it('should filter questions by search text', () => {
       render(<FaqPageClient />)
       const searchInput = screen.getByPlaceholderText('Search questions...')
-      fireEvent.change(searchInput, { target: { value: 'nonprofit' } })
+      fireEvent.change(searchInput, { target: { value: 'Prolific' } })
       // Should show fewer items than the full list
       const showing = screen.getByText(/Showing/)
       expect(showing).toBeInTheDocument()

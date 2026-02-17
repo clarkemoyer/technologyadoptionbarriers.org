@@ -132,7 +132,7 @@ const ForOrganizationsPage = () => {
                 Easy Member Engagement
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
-                Simple 15-20 minute survey that respects your members&apos; time. We provide
+                Simple 20-25 minute survey that respects your members&apos; time. We provide
                 ready-to-use email templates and promotional materials to make outreach effortless.
               </p>
             </div>

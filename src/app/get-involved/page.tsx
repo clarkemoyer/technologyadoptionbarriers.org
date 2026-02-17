@@ -17,7 +17,7 @@ const GetInvolvedPage = () => {
         'The most direct way to contribute is by participating in the survey. Your insights as a senior leader help identify common technology adoption barriers and create valuable benchmarks for the industry.',
       whoShouldParticipate:
         'Senior leaders, executives, and decision-makers in organizations of any size who deal with technology adoption challenges.',
-      commitment: '15-20 minutes to complete the survey',
+      commitment: '20-25 minutes to complete the survey',
       benefits: [
         'Receive summary reports and key findings from aggregated data',
         'Benchmark your organization against industry trends',
@@ -136,7 +136,7 @@ const GetInvolvedPage = () => {
               Ways to Contribute
             </h2>
             <p className="text-[18px] text-gray-700 max-w-[800px] mx-auto leading-[1.6]">
-              Whether you have 15 minutes to take the survey, resources to donate, skills to
+              Whether you have 20 minutes to take the survey, resources to donate, skills to
               volunteer, or research interests to pursue - there&apos;s a way for you to make an
               impact.
             </p>
