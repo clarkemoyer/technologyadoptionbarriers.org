@@ -2,16 +2,16 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Status Quo Bias â€“ Samuelson & Zeckhauser (1988)',
+  title: 'Bibliography: Status Quo Bias – Samuelson & Zeckhauser (1988)',
   description:
-    'Deep dive into Status Quo Bias (also referenced as Status Quo Effect or by William Samuelson and Richard Zeckhauser (1988), exploring its foundational contributions to technology adoption research.',
+    'Deep dive into Status Quo Bias (also referenced as Status Quo Effect) by William Samuelson and Richard Zeckhauser (1988), exploring its foundational contributions to technology adoption research.',
 }
 
 const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Status Quo Bias â€“ Samuelson & Zeckhauser (1988)</h1>
+        <h1 className={H1_CLASSES}>Status Quo Bias – Samuelson & Zeckhauser (1988)</h1>
 
         {/* Model Identification */}
         <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
@@ -47,24 +47,24 @@ const BibliographyArticlePage = () => {
             bias in response to a striking and consistent empirical observation: individuals
             demonstrably deviate from predictions of rational choice theory by disproportionately
             selecting existing alternatives in decision-making situations. Across numerous decision
-            contextsâ€”from consumer choices to investment decisions to public policy
-            preferencesâ€”individuals exhibit a systematic tendency to maintain existing states of
+            contexts—from consumer choices to investment decisions to public policy
+            preferences—individuals exhibit a systematic tendency to maintain existing states of
             affairs even when rational analysis suggests superior alternatives are available. The
             motivation emerged from careful observation of real-world decision patterns that
-            contradicted classical economic theoryâ€™s predictions. While expected utility theory
-            and rational choice models predict that individuals should select options maximizing
-            their expected utility regardless of current state, empirical evidence revealed
-            persistent patterns inconsistent with this prediction. Individuals retained possessions
-            longer than predicted, maintained insurance policies with suboptimal coverage, held
-            stock portfolios unchanged despite information suggesting superior allocations, and made
-            identical public policy choices year after year despite changing circumstances.
-            Samuelson and Zeckhauser noted that economists and decision theorists had insufficiently
-            explained why substantial portions of decision-makers made choices that appeared to
-            contradict their own stated preferences or to be inconsistent with rational economic
-            principles. While previous research acknowledged the existence of status quo bias, no
-            systematic theoretical framework had comprehensively explained the phenomenonâ€™s
-            prevalence, underlying causes, or extent across diverse decision contexts. The research
-            was motivated by the conviction that understanding status quo bias required rigorous
+            contradicted classical economic theory’s predictions. While expected utility theory and
+            rational choice models predict that individuals should select options maximizing their
+            expected utility regardless of current state, empirical evidence revealed persistent
+            patterns inconsistent with this prediction. Individuals retained possessions longer than
+            predicted, maintained insurance policies with suboptimal coverage, held stock portfolios
+            unchanged despite information suggesting superior allocations, and made identical public
+            policy choices year after year despite changing circumstances. Samuelson and Zeckhauser
+            noted that economists and decision theorists had insufficiently explained why
+            substantial portions of decision-makers made choices that appeared to contradict their
+            own stated preferences or to be inconsistent with rational economic principles. While
+            previous research acknowledged the existence of status quo bias, no systematic
+            theoretical framework had comprehensively explained the phenomenon’s prevalence,
+            underlying causes, or extent across diverse decision contexts. The research was
+            motivated by the conviction that understanding status quo bias required rigorous
             investigation distinguishing between alternative explanations. Status quo bias might
             reflect rational economic responses to transition costs and uncertainty, it might stem
             from cognitive limitations and misperceptions, or it might derive from psychological
@@ -78,8 +78,8 @@ const BibliographyArticlePage = () => {
             involved costs to changing alternatives, uncertainty about consequences, and
             psychological commitment to prior choices. Samuelson and Zeckhauser sought to develop a
             more realistic understanding of decision-making that acknowledged these factors while
-            maintaining analytical rigor. How was the modelâ€™s internal validity tested? Samuelson
-            and Zeckhauser employed multiple methodological approaches to test status quo biasâ€™s
+            maintaining analytical rigor. How was the model’s internal validity tested? Samuelson
+            and Zeckhauser employed multiple methodological approaches to test status quo bias’s
             prevalence and strength across diverse decision contexts. The comprehensive research
             program included controlled laboratory experiments, analysis of field data from major
             real-world decisions, and computational modeling examining different theoretical
@@ -102,10 +102,10 @@ const BibliographyArticlePage = () => {
             evidence, replicated across numerous decision tasks, provided controlled confirmation
             that status quo bias operates in decision-making situations. Field studies analyzing
             real-world decisions provided additional validity evidence. Samuelson and Zeckhauser
-            examined Harvard University employeesâ€™ health insurance decisions across multiple
-            years. The study documented that employees overwhelmingly maintained their existing
-            health plan choices year to year, despite substantial changes in available plans and
-            plan characteristics. Significantly, this persistence held even when objective analysis
+            examined Harvard University employees’ health insurance decisions across multiple years.
+            The study documented that employees overwhelmingly maintained their existing health plan
+            choices year to year, despite substantial changes in available plans and plan
+            characteristics. Significantly, this persistence held even when objective analysis
             suggested switching would be economically superior. The researchers stratified analysis
             by age to account for changing preferences, but even age-controlled analysis revealed
             substantial status quo persistence. In another field study, the researchers examined
@@ -127,10 +127,10 @@ const BibliographyArticlePage = () => {
             mechanisms. The analysis distinguished between status quo anchoring (a rational
             explanation based on transition costs and uncertainty) and psychological commitment (an
             explanation based on cognitive dissonance and psychological factors). By examining
-            patterns in the dataâ€”such as whether persistence varied with the magnitude of
-            available alternatives, whether persistence was stronger in initial decisions, and
-            whether persistence reflected information limitationsâ€”the researchers assessed which
-            explanations accounted for observed patterns. How was the modelâ€™s external validity
+            patterns in the data—such as whether persistence varied with the magnitude of available
+            alternatives, whether persistence was stronger in initial decisions, and whether
+            persistence reflected information limitations—the researchers assessed which
+            explanations accounted for observed patterns. How was the model’s external validity
             tested? Samuelson and Zeckhauser employed several strategies to establish that status
             quo bias generalizes across diverse contexts and decision types: First, the use of
             multiple methodological approaches (laboratory experiments, field studies of real
@@ -149,7 +149,7 @@ const BibliographyArticlePage = () => {
             generalization. Third, the inclusion of field studies examining actual decisions where
             participants faced real consequences (choices affecting insurance coverage, retirement
             savings, housing situations) demonstrated that status quo bias operates in consequential
-            contexts where individualsâ€™ economic incentives are strong. This matters because, if
+            contexts where individuals’ economic incentives are strong. This matters because, if
             status quo bias appeared only in hypothetical scenarios with no real consequences,
             generalization to actual decision-making would be questionable. The persistence of
             status quo bias in situations where individuals bear consequences of their choices
@@ -166,23 +166,23 @@ const BibliographyArticlePage = () => {
             be used in practice? The status quo bias framework provides valuable guidance for
             understanding and addressing decisions in diverse practical contexts: For managers and
             organizational decision-makers, understanding status quo bias helps explain employee
-            behavior and develop strategies to promote adaptive decision-making. Employeesâ€™
+            behavior and develop strategies to promote adaptive decision-making. Employees’
             reluctance to change health insurance plans, retirement savings allocations, or work
             arrangements often reflects status quo bias rather than genuine satisfaction with
-            current arrangements. Managers can address this by actively facilitating choiceâ€”
+            current arrangements. Managers can address this by actively facilitating choice—
             creating decision moments where employees must actively select arrangements rather than
             allowing defaults to persist. Organizations can also address status quo bias by ensuring
             that current default arrangements are optimal, recognizing that defaults will persist
             due to status quo bias. For public policy contexts, understanding status quo bias
             illuminates why policy initiatives often face resistance and why status quo policies
             persist despite changing circumstances. The framework suggests that policymakers seeking
-            to change established practices should acknowledge that individualsâ€™ reluctance to
+            to change established practices should acknowledge that individuals’ reluctance to
             change may stem not from substantive disagreement but from status quo bias. This
             understanding might justify stronger government action to overcome inertia.
             Alternatively, it might suggest that policymakers can leverage status quo bias
             strategically by establishing new defaults aligned with desired outcomes. For business
             strategy and consumer markets, understanding status quo bias helps explain brand loyalty
-            and consumer behavior. Customersâ€™ continued purchase of familiar brands despite the
+            and consumer behavior. Customers’ continued purchase of familiar brands despite the
             availability of superior alternatives often reflects status quo bias. This understanding
             helps marketers recognize that switching costs and psychological inertia, not merely
             product superiority, influence market share. Companies can build competitive advantage
@@ -199,7 +199,7 @@ const BibliographyArticlePage = () => {
             defaults aligned with desired outcomes, recognizing that inertia will cause individuals
             to maintain defaults even if they would prefer alternatives if actively chosen. What
             does the model measure? The status quo bias framework measures the strength and
-            prevalence of individualsâ€™ tendency to maintain existing alternatives in decision
+            prevalence of individuals’ tendency to maintain existing alternatives in decision
             situations rather than switching to new alternatives. Measurement approaches include:
             Persistence metrics, measured in field studies, track the proportion of decision-makers
             who maintain existing choices in repeated decision situations. For example, if 80% of
@@ -212,7 +212,7 @@ const BibliographyArticlePage = () => {
             percentage difference between status quo-named alternative selection rates and control
             condition selection rates. Large differences indicate strong status quo bias, while
             small differences indicate weaker bias. Decision consistency metrics examine whether
-            individualsâ€™ stated preferences align with their revealed choices. If individuals
+            individuals’ stated preferences align with their revealed choices. If individuals
             express preferences for alternative arrangements but maintain status quo choices despite
             opportunities to switch, this inconsistency demonstrates status quo bias. Anchor
             strength measures examine how strongly current holdings influence new decisions.
@@ -221,34 +221,34 @@ const BibliographyArticlePage = () => {
             decisions (such as plan characteristics, risk preferences, or financial circumstances).
             Risk tolerance and preference heterogeneity measures assess whether status quo
             persistence reflects genuine preference for current arrangements or bias. By examining
-            whether individualsâ€™ stated preferences align with observed choices, researchers
+            whether individuals’ stated preferences align with observed choices, researchers
             distinguish between status quo choices reflecting genuine preference versus bias-driven
             persistence. The model also measures psychological factors contributing to status quo
-            bias through various mechanisms: - Cognitive dissonance measures capture individualsâ€™
+            bias through various mechanisms: - Cognitive dissonance measures capture individuals’
             resistance to information contradicting prior choices - Self- perception metrics examine
             whether individuals adjust attitudes to justify prior decisions - Sunk cost sensitivity
             measures assess whether prior investments influence current decisions - Regret avoidance
             metrics examine whether fear of regretting changes deters switching What are the main
             strengths of the model? Status quo bias theory demonstrates several substantial
             strengths: First, the model has extraordinary breadth of empirical support. Samuelson
-            and Zeckhauserâ€™s original article demonstrated status quo bias across numerous
-            decision contexts (health insurance, retirement investments, housing, job selection,
-            color preferences, technology choices, and many others). Subsequent research has
-            confirmed status quo bias effects in diverse decision domains, from consumer product
-            choices to major policy decisions. This breadth of empirical confirmation in real-world
-            contexts provides robust validity evidence. Second, the theoretical framework carefully
+            and Zeckhauser’s original article demonstrated status quo bias across numerous decision
+            contexts (health insurance, retirement investments, housing, job selection, color
+            preferences, technology choices, and many others). Subsequent research has confirmed
+            status quo bias effects in diverse decision domains, from consumer product choices to
+            major policy decisions. This breadth of empirical confirmation in real-world contexts
+            provides robust validity evidence. Second, the theoretical framework carefully
             distinguishes between alternative explanations for status quo bias. Rather than
             attributing all status quo persistence to irrational psychology, the analysis considers
             whether rational economic factors (transition costs, uncertainty) might account for
-            observed patterns. This intellectual honestyâ€”recognizing that some status quo
-            persistence reflects rational decision-makingâ€”strengthens the theoretical framework by
+            observed patterns. This intellectual honesty—recognizing that some status quo
+            persistence reflects rational decision-making—strengthens the theoretical framework by
             identifying when bias operates and when persistence reflects optimal behavior.
           </p>
 
           <p className="mb-4">
             Third, the model provides practical applicability across numerous contexts.
             Organizations, marketers, policymakers, and financial advisors can apply status quo bias
-            insights to understand behavior and develop effective strategies. The frameworkâ€™s
+            insights to understand behavior and develop effective strategies. The framework’s
             explanatory power in real-world contexts makes it valuable to practitioners, not merely
             academics. Fourth, the combination of laboratory experimental evidence, field study
             evidence, and computational modeling provides multiple forms of confirmation. Laboratory
@@ -260,12 +260,12 @@ const BibliographyArticlePage = () => {
             examining cognitive dissonance, self-perception, sunk cost fallacies, and regret
             avoidance as mechanisms creating status quo bias, the framework connects decision-making
             behavior to established psychological principles. This theoretical grounding in
-            psychology strengthens the explanatory power of the model. Sixth, the modelâ€™s
+            psychology strengthens the explanatory power of the model. Sixth, the model’s
             recognition that bias varies with decision context and individual factors demonstrates
             sophistication. The analysis does not claim that status quo bias operates equally in all
             circumstances but recognizes that bias is stronger in initial decisions, where
             uncertainty is high, where transition costs are substantial, or where psychological
-            commitment is stronger. This contextual sensitivity enhances the modelâ€™s nuance and
+            commitment is stronger. This contextual sensitivity enhances the model’s nuance and
             applicability. What are the main weaknesses of the model? Status quo bias theory also
             exhibits notable limitations: First, the model may sometimes conflate status quo
             persistence with rational decision-making. While Samuelson and Zeckhauser distinguish
@@ -290,7 +290,7 @@ const BibliographyArticlePage = () => {
             status quo bias would enhance practical applicability. Fifth, the measurement of status
             quo bias presents conceptual challenges. Field studies measure status quo persistence
             through revealed preference (observing that individuals maintain choices), but this
-            persistence might reflect multiple causes beyond biasâ€”genuine preference satisfaction,
+            persistence might reflect multiple causes beyond bias—genuine preference satisfaction,
             high switching costs, limited awareness of alternatives, or rational updating of
             beliefs. Disentangling these causes from the observational data is difficult,
             potentially leading to overestimation of bias magnitude. Sixth, the model may not
@@ -301,7 +301,7 @@ const BibliographyArticlePage = () => {
             environments shape bias. How does this model differ from older models? Status quo bias
             theory represents a significant departure from rational choice theory in several
             important ways: First, while rational choice theory predicts that decision outcomes
-            depend only on individualsâ€™ preferences and available options, status quo bias theory
+            depend only on individuals’ preferences and available options, status quo bias theory
             proposes that current positions significantly influence choice independent of
             preferences. This shift recognizes that psychological and contextual factors beyond
             preference affect decisions, violating rational choice axioms.
@@ -314,7 +314,7 @@ const BibliographyArticlePage = () => {
             factors. This represents a fundamental shift toward behavioral economics acknowledging
             psychological reality. Third, status quo bias theory recognizes that reference points
             and decision frames influence choices, whereas rational choice theory predicted context-
-            independence. The insight that individualsâ€™ current holdings serve as reference points
+            independence. The insight that individuals’ current holdings serve as reference points
             against which alternatives are evaluated represents a significant theoretical
             innovation. Fourth, status quo bias theory incorporates decision costs and uncertainty
             as integral to understanding decisions, whereas classical theory often treated these as
@@ -325,11 +325,11 @@ const BibliographyArticlePage = () => {
             earlier models treated such deviations as random error or individual idiosyncrasy. By
             articulating systematic patterns of bias, the theory provides predictive power absent
             from previous frameworks. Sixth, status quo bias theory explicitly considers that
-            individualsâ€™ psychological commitment to past decisions influences current choices.
+            individuals’ psychological commitment to past decisions influences current choices.
             Earlier theories treated decisions as independent; status quo bias theory recognizes
             that prior commitment creates inertia affecting future decisions. 6. Barriers
             Identification Section: What Barriers to Technology Adoption does the model identify?
-            While Samuelson and Zeckhauserâ€™s research predates contemporary technology adoption
+            While Samuelson and Zeckhauser’s research predates contemporary technology adoption
             theory, the status quo bias framework identifies fundamental psychological and economic
             barriers to technology adoption that apply across technological change contexts: Status
             quo inertia and preference for existing technology represents the primary barrier.
@@ -340,14 +340,14 @@ const BibliographyArticlePage = () => {
             selectively focusing on advantages of current technology while emphasizing disadvantages
             of new options. Current technology benefits are known and confirmed through experience;
             alternative technology benefits are uncertain and hypothetical. This asymmetry creates
-            bias favoring status quo. Second, sunk cost commitment contributesâ€”individuals who
-            have invested time learning current technology, invested money in equipment and
-            complementary systems, or developed expertise around existing technology are reluctant
-            to abandon these investments. Third, psychological commitment creates attachment to
-            familiar alternatives, making transition to new technology psychologically costly beyond
-            direct economic costs. Transition costs and switching barriers prevent adoption of
-            superior alternatives. Even when new technology offers objective advantages, the costs
-            to transition from existing technology may exceed perceived benefits. Transition costs
+            bias favoring status quo. Second, sunk cost commitment contributes—individuals who have
+            invested time learning current technology, invested money in equipment and complementary
+            systems, or developed expertise around existing technology are reluctant to abandon
+            these investments. Third, psychological commitment creates attachment to familiar
+            alternatives, making transition to new technology psychologically costly beyond direct
+            economic costs. Transition costs and switching barriers prevent adoption of superior
+            alternatives. Even when new technology offers objective advantages, the costs to
+            transition from existing technology may exceed perceived benefits. Transition costs
             include direct financial costs (purchasing new equipment, paying switching or setup
             fees), time costs (learning new systems, training, disruption during changeover), and
             compatibility costs (integrating new technology with existing systems, managing
@@ -360,22 +360,22 @@ const BibliographyArticlePage = () => {
             than gamble on uncertain alternatives. This barrier reflects rational decision-making in
             the face of uncertainty, not merely psychological bias. However, the research suggests
             that uncertainty often exceeds objective risk levels due to psychological
-            amplificationâ€”individuals overestimate risks of unfamiliar alternatives while
+            amplification—individuals overestimate risks of unfamiliar alternatives while
             underestimating risks of familiar options. Loss aversion and reference-dependent
             preferences create barriers to technology change. Individuals weigh potential losses
             from switching technology (loss of familiar capabilities, disruption to established
             workflows, risk of worse performance) more heavily than potential gains from adopting
-            superior technology. This asymmetryâ€”where losses loom larger than comparable
-            gainsâ€”creates systematic bias against technological change even when objective
-            analysis suggests gains exceed losses. Cognitive limitations and analysis costs inhibit
-            thorough evaluation of alternatives. Evaluating new technology thoroughly requires
-            substantial cognitive effort: gathering information about alternatives, understanding
-            their capabilities, assessing how they would perform in specific contexts, and comparing
-            these to existing technology. These analysis costs may be prohibitive, leading
-            decision-makers to maintain status quo by default rather than investing substantial
-            effort in comprehensive evaluation. Misperception of sunk costs and prior investments
-            creates bias against new technology adoption. Individuals often irrationally consider
-            past investments in existing technology when deciding whether to adopt new technology,
+            superior technology. This asymmetry—where losses loom larger than comparable
+            gains—creates systematic bias against technological change even when objective analysis
+            suggests gains exceed losses. Cognitive limitations and analysis costs inhibit thorough
+            evaluation of alternatives. Evaluating new technology thoroughly requires substantial
+            cognitive effort: gathering information about alternatives, understanding their
+            capabilities, assessing how they would perform in specific contexts, and comparing these
+            to existing technology. These analysis costs may be prohibitive, leading decision-makers
+            to maintain status quo by default rather than investing substantial effort in
+            comprehensive evaluation. Misperception of sunk costs and prior investments creates bias
+            against new technology adoption. Individuals often irrationally consider past
+            investments in existing technology when deciding whether to adopt new technology,
             viewing these past costs as justification for continued use despite inferior current
             performance. This sunk cost fallacy represents a psychological barrier where past
             investments that should be irrelevant to forward-looking decisions continue to influence
@@ -390,12 +390,12 @@ const BibliographyArticlePage = () => {
             (unknown failure modes, unforeseen compatibility issues, unexpected learning curves) may
             appear more threatening than the known risks of established technology. What does the
             model instruct leaders to do in order to reduce these barriers? The status quo bias
-            framework suggests multiple strategies that leadersâ€” including technology developers,
-            organizational managers, marketers, and policymakersâ€”can employ to reduce adoption
+            framework suggests multiple strategies that leaders— including technology developers,
+            organizational managers, marketers, and policymakers—can employ to reduce adoption
             barriers and promote technology change: To overcome status quo inertia, leaders should
             create decision contexts where individuals actively choose technology rather than
-            allowing defaults to persist. Decision moments that force active selectionâ€”removing
-            the option to maintain status quo without conscious choiceâ€”can interrupt psychological
+            allowing defaults to persist. Decision moments that force active selection—removing the
+            option to maintain status quo without conscious choice—can interrupt psychological
             inertia. For organizational technology adoption, this might involve eliminating legacy
             systems, creating decision deadlines, or requiring active reselection during system
             transitions. For consumer technology, forcing active selection during renewal or
@@ -458,7 +458,7 @@ const BibliographyArticlePage = () => {
             successfully implement new technology and share their experiences with others, social
             proof can overcome psychological inertia. Communities of users can share experiences,
             support each other, and collectively normalize new technology adoption. Marketing
-            strategies emphasizing that â€œpeers like you have successfully adoptedâ€ can leverage
+            strategies emphasizing that “peers like you have successfully adopted” can leverage
             social proof against status quo bias. The model suggests that effective technology
             adoption strategies must account for the pervasive tendency toward status quo bias.
             Rather than assuming that superior technology will naturally be adopted if merely made

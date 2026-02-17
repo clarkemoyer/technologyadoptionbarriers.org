@@ -10,8 +10,8 @@ const SeeYourselfTeaser = () => {
               See Yourself in the Survey
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed max-w-2xl">
-              Explore how TABS relates specifically to your roleâ€”whether youâ€™re a CEO, CIO, or
-              leading specific functions. Discover the impact you can make.
+              Explore how TABS relates specifically to your role&mdash;whether you&apos;re a CEO,
+              CIO, or leading specific functions. Discover the impact you can make.
             </p>
           </div>
           <div>

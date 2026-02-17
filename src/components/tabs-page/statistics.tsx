@@ -1,3 +1,4 @@
+import impactData from '@/data/impact.json'
 import metricsData from '@/data/qualtrics-metrics.json'
 import { getSurveysCompletedCount } from '@/lib/qualtricsStats'
 
@@ -7,6 +8,7 @@ import { getSurveysCompletedCount } from '@/lib/qualtricsStats'
  */
 const Statistics = () => {
   const surveysCompleted = getSurveysCompletedCount(metricsData.responseCounts)
+  const pageViews = parseInt(impactData.pageViews) || 0
 
   return (
     <section id="statistics" className="w-full py-[80px] bg-white">
@@ -23,18 +25,20 @@ const Statistics = () => {
             </div>
           </div>
 
-          {/* Funds Raised */}
-          <div>
-            <h3 className="text-[32px] font-bold text-gray-900 mb-[10px] font-serif">$ Raised</h3>
-            <div className="text-[60px] font-bold text-tabs-orange mb-[5px] leading-none">$0</div>
-          </div>
-
-          {/* Hours Volunteered */}
+          {/* Survey Questions */}
           <div>
             <h3 className="text-[32px] font-bold text-gray-900 mb-[10px] font-serif">
-              Hours Volunteered
+              Survey Questions
             </h3>
-            <div className="text-[60px] font-bold text-tabs-green mb-[5px] leading-none">0</div>
+            <div className="text-[60px] font-bold text-tabs-orange mb-[5px] leading-none">100+</div>
+          </div>
+
+          {/* Page Views */}
+          <div>
+            <h3 className="text-[32px] font-bold text-gray-900 mb-[10px] font-serif">Page Views</h3>
+            <div className="text-[60px] font-bold text-tabs-green mb-[5px] leading-none">
+              {pageViews.toLocaleString()}
+            </div>
           </div>
         </div>
       </div>

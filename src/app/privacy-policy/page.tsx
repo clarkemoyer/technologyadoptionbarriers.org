@@ -56,82 +56,22 @@ export default function PrivacyPolicy() {
           </ol>
 
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
-            <strong>3.1. Comments</strong>
-          </p>
-          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
-            When visitors leave comments on the site, we collect:
-          </p>
-          <ul className="list-disc list-inside space-y-[4px] pb-[1em]">
-            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-              <strong>Data from the comments form:</strong> This includes your name, email address,
-              website, and the comment itself.
-            </li>
-            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-              <strong>IP Address and Browser User Agent String:</strong> To assist with spam
-              detection and enhance security.
-            </li>
-            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-              <strong>Gravatar Service:</strong> An anonymized string created from your email
-              address (also called a hash) may be provided to the Gravatar service to see if you are
-              using it. After approval of your comment, your profile picture (if available) is
-              visible to the public in the context of your comment. The Gravatar service privacy
-              policy is available here: Gravatar Privacy Policy
-            </li>
-          </ul>
-
-          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500] mt-[1em]">
-            <strong>3.2. Media</strong>
-          </p>
-          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
-            If you upload images to the website:
-          </p>
-          <ul className="list-inside list-disc space-y-[4px] pb-[1em]">
-            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-              <strong>Embedded Location Data:</strong> Please avoid uploading images with embedded
-              location data (EXIF GPS) included. Visitors can download and extract any location data
-              from images on the website.
-            </li>
-          </ul>
-
-          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500] mt-[1em]">
-            <strong>3.3. Cookies</strong>
+            <strong>3.1. Cookies</strong>
           </p>
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             Our website uses cookies to enhance your browsing experience:
           </p>
           <ul className="list-inside list-disc space-y-[4px] pb-[1em]">
             <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-              <strong>Comments Cookies:</strong> When you leave a comment, you may opt-in to saving
-              your name, email address, and website in cookies. These are for your convenience for
-              future comments and last for one year.
+              <strong>Cookie Consent Preference:</strong> We store your cookie consent choice so we
+              do not ask again on every visit. This cookie is kept until you clear your browser
+              data.
             </li>
             <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-              <strong>Login Cookies:</strong> When you log in, we set up cookies to save your login
-              information and screen display choices.
-              <ul className="list-disc list-inside ml-[1rem] mt-[4px] pb-[1em] space-y-[2px]">
-                <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-                  Login cookies last for two days.
-                </li>
-                <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-                  Screen options cookies last for one year.
-                </li>
-                <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-                  Selecting “Remember Me” extends login retention to two weeks.
-                </li>
-                <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-                  Logging out removes login cookies.
-                </li>
-              </ul>
-            </li>
-            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-              <strong>Temporary Cookies:</strong> Visiting our login page sets a temporary cookie to
-              determine if your browser accepts cookies. It contains no personal data and is
-              discarded when you close your browser.
-            </li>
-            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-              <strong>Editing or Publishing Articles:</strong> This sets an additional cookie in
-              your browser, indicating the post ID of the article you just edited. It expires after
-              one day.
+              <strong>Analytics Cookies:</strong> If you consent, we use Google Analytics, Microsoft
+              Clarity, and Google Tag Manager cookies to understand how visitors use the site. These
+              cookies collect anonymized usage data and are only set after you accept analytics in
+              our cookie consent banner.
             </li>
           </ul>
 
@@ -139,8 +79,8 @@ export default function PrivacyPolicy() {
             <strong>3.4. Microsoft Forms - Application Forms</strong>
           </p>
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
-            We use Microsoft Forms (forms.office.com) for our charity application process. When you
-            submit an application through our website:
+            We use Microsoft Forms (forms.office.com) for our research project application process.
+            When you submit an application through our website:
           </p>
           <ul className="list-inside list-disc space-y-[4px] pb-[1em]">
             <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
@@ -245,10 +185,6 @@ export default function PrivacyPolicy() {
               behalf, such as sending out newsletters or surveys.
             </li>
             <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-              <strong>Spam Detection Services:</strong> Visitor comments may be checked through
-              automated spam detection services.
-            </li>
-            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
               <strong>Legal Obligations:</strong> We may disclose your information if required to do
               so by law or in response to valid requests by public authorities.
             </li>
@@ -263,29 +199,29 @@ export default function PrivacyPolicy() {
             </li>
           </ol>
 
-          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
-            <strong>6.1. Comments</strong>
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500] mt-[1em]">
+            <strong>6.1. Survey and Research Data</strong>
           </p>
           <ul className="list-inside list-disc space-y-[4px] pb-[1em]">
             <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-              <strong>Retention Period:</strong> Comments and their metadata are retained
-              indefinitely. This allows us to recognize and approve any follow-up comments
-              automatically.
+              <strong>Retention Period:</strong> Survey responses and research participation data
+              are retained for the duration of the research project and any subsequent analysis
+              periods required by academic standards.
             </li>
           </ul>
 
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500] mt-[1em]">
-            <strong>6.2. Registered Users</strong>
+            <strong>6.2. Analytics Data</strong>
           </p>
           <ul className="list-inside list-disc space-y-[4px] pb-[1em]">
             <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-              <strong>User Profiles:</strong> For users that register on our website, we store the
-              personal information provided in their user profile.
+              <strong>Analytics Data:</strong> Anonymized analytics data collected through Google
+              Analytics and Microsoft Clarity is retained according to each provider&apos;s default
+              retention policies.
             </li>
             <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
-              <strong>User Rights:</strong> All users can see, edit, or delete their personal
-              information at any time (except for changing their username). Website administrators
-              can also view and edit this information.
+              <strong>Contact Information:</strong> If you contact us directly, we retain your
+              correspondence for as long as necessary to respond and for our records.
             </li>
           </ul>
 

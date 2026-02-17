@@ -6,10 +6,4 @@ import testimonial1 from './testimonials/testimonial-1.json'
 import testimonial2 from './testimonials/testimonial-2.json'
 import testimonial3 from './testimonials/testimonial-3.json'
 
-export const testimonials = [
-  testimonial1,
-  testimonial2,
-  testimonial3,
-  testimonial1, // Duplicate for display
-  testimonial2, // Duplicate for display
-]
+export const testimonials = [testimonial1, testimonial2, testimonial3]
