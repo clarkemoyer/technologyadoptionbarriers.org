@@ -69,7 +69,7 @@ src/
 
 **ALL folders MUST use kebab-case (lowercase with hyphens)**:
 
-- ✅ `cookie-policy/`, `privacy-policy/`, `home-page/`
+- ✅ `cookie-policy/`, `privacy-policy/`, `tabs-home/`
 - ❌ `CookiePolicy/`, `privacyPolicy/`, `HomePage/`
 
 **Why**: SEO best practice (Google recommends hyphens in URLs), readability, accessibility.

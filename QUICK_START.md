@@ -50,7 +50,7 @@ npm test
 npm run build
 ```
 
-**Expected**: All checks pass with 0 errors (8 warnings about `<img>` tags and React hooks are expected)
+**Expected**: All checks pass with 0 errors and 0 warnings
 
 ---
 
@@ -387,10 +387,10 @@ npm run prepare             # Setup git hooks
 
 ---
 
-**Welcome to FFC Single Page Template! Happy coding! 🚀**
+**Welcome to the Technology Adoption Barriers Survey (TABS) project! Happy coding! 🚀**
 
 ---
 
-**Last Updated**: 2025-12-03  
-**Version**: 0.1.0  
+**Last Updated**: 2026-02-16  
+**Version**: 0.3.0  
 **Node.js**: 20.x (validated with v20.19.6)
