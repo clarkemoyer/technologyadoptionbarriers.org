@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Theory of Planned Behavior (TPB) â€“ Ajzen (1991)',
+  title: 'Bibliography: Theory of Planned Behavior (TPB) – Ajzen (1991)',
   description:
     'Deep dive into Theory of Planned Behavior by Icek Ajzen (1991), exploring its foundational contributions to technology adoption research.',
 }
@@ -11,7 +11,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Theory of Planned Behavior (TPB) â€“ Ajzen (1991)</h1>
+        <h1 className={H1_CLASSES}>Theory of Planned Behavior (TPB) – Ajzen (1991)</h1>
 
         {/* Model Identification */}
         <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
@@ -35,7 +35,7 @@ const BibliographyArticlePage = () => {
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
               Ajzen, I. (1991). The theory of planned behavior. Organizational Behavior and Human
-              Decision Processes, 50 (2), 179â€“211.
+              Decision Processes, 50 (2), 179–211.
             </p>
           </div>
         </section>
@@ -56,70 +56,70 @@ const BibliographyArticlePage = () => {
             This assumption proved problematic in real-world contexts where individuals often cannot
             fully control behavior performance due to resource constraints, skills limitations,
             environmental obstacles, or structural barriers. Ajzen recognized that many significant
-            behaviorsâ€”including technology adoptionâ€”involve elements beyond complete volitional
+            behaviors—including technology adoption—involve elements beyond complete volitional
             control. While individuals might intend to adopt a technology, environmental factors,
             organizational policies, technical infrastructure, prerequisite knowledge or skills, or
-            other peopleâ€™s actions might prevent successful adoption. The original TRAâ€™s
-            inability to incorporate these control factors represented a significant theoretical and
-            practical limitation. The Theory of Planned Behavior was explicitly constructed to
-            overcome this limitation by adding a third predictor variable: perceived behavioral
-            control. By incorporating the extent to which individuals believe they can successfully
-            perform behavior, even when facing obstacles, the TPB created a more nuanced and
-            comprehensive model applicable to behaviors where volitional control varies. Ajzenâ€™s
-            motivation also reflected broader theoretical ambitions. The Theory of Planned Behavior
-            aimed to provide a general framework explaining intentional behavior across diverse
-            domainsâ€”not just technology adoption but also health behaviors, educational
-            achievements, environmental actions, interpersonal relationships, and organizational
-            behaviors. The generality of the framework would enable consistent application across
-            diverse behavioral domains while allowing domain-specific applications addressing
-            particular behavior contexts. How was the modelâ€™s internal validity tested? Ajzen
-            established the Theory of Planned Behaviorâ€™s internal validity through multiple
-            strategies: Theoretical coherence and logical structure: The TPB articulates a clear
-            causal structure with explicitly specified relationships between constructs. The model
-            specifies that perceived behavioral control and subjective norms influence behavior
-            indirectly through intentions, while attitudes influence behavior through intentions.
-            Perceived behavioral control additionally exerts direct effects on behavior when control
-            accurately reflects actual behavioral control. This precisely specified structure
-            enabled clear hypothesis testing and systematic evaluation. Construct measurement and
-            operational definitions: Ajzen provided explicit guidance for measuring the three
-            primary predictor constructs (attitudes, subjective norms, perceived behavioral control)
-            and the criterion (intentions and behavior). Each construct was operationalized through
-            multi-item scales with clearly specified theoretical basis. Attitudes were measured as
-            evaluative beliefs about behavior consequences weighted by outcome evaluations.
-            Subjective norms reflected normative beliefs about whether important others thought the
-            person should perform behavior, weighted by motivation to comply with each referent.
-            Perceived behavioral control reflected beliefs about factors facilitating or impeding
-            behavior, weighted by the power of each control factor to affect behavior performance.
-            This operational precision enabled reliable measurement and replication across studies.
-            Empirical support from previous research: Ajzen grounded the TPB in extensive prior
-            research on attitude-behavior relationships. The Framework of Reasoned Action had
-            generated substantial supportive evidence across numerous behavioral domains. Ajzenâ€™s
-            addition of perceived behavioral control built on established research in self-efficacy,
-            locus of control, and internal versus external barriers to behavior. By building on
-            empirically validated constructs from prior research, the TPB inherited validity support
-            from this extensive literature while addressing known theoretical gaps. Logical
-            extension of established theory: The TPB represented a logical extension of TRA rather
-            than a radical departure. By maintaining TRAâ€™s core structure (intentions as behavior
-            predictors; attitudes and norms as intention predictors) while adding perceived
-            behavioral control, Ajzen demonstrated that TPB incorporated TRA as a special case (when
-            perceived behavioral control is high or irrelevant). This nested structure enabled
-            comparison between TRA and TPB, with TPB expected to provide superior predictions in
-            contexts where behavioral control varies substantially. Specification of direct versus
-            indirect effects: The TPB precisely specified which constructs exert indirect effects
-            through intentions (attitudes and subjective norms) and which exert both indirect and
-            direct effects (perceived behavioral control). This specification reflected theoretical
+            other people’s actions might prevent successful adoption. The original TRA’s inability
+            to incorporate these control factors represented a significant theoretical and practical
+            limitation. The Theory of Planned Behavior was explicitly constructed to overcome this
+            limitation by adding a third predictor variable: perceived behavioral control. By
+            incorporating the extent to which individuals believe they can successfully perform
+            behavior, even when facing obstacles, the TPB created a more nuanced and comprehensive
+            model applicable to behaviors where volitional control varies. Ajzen’s motivation also
+            reflected broader theoretical ambitions. The Theory of Planned Behavior aimed to provide
+            a general framework explaining intentional behavior across diverse domains—not just
+            technology adoption but also health behaviors, educational achievements, environmental
+            actions, interpersonal relationships, and organizational behaviors. The generality of
+            the framework would enable consistent application across diverse behavioral domains
+            while allowing domain-specific applications addressing particular behavior contexts. How
+            was the model’s internal validity tested? Ajzen established the Theory of Planned
+            Behavior’s internal validity through multiple strategies: Theoretical coherence and
+            logical structure: The TPB articulates a clear causal structure with explicitly
+            specified relationships between constructs. The model specifies that perceived
+            behavioral control and subjective norms influence behavior indirectly through
+            intentions, while attitudes influence behavior through intentions. Perceived behavioral
+            control additionally exerts direct effects on behavior when control accurately reflects
+            actual behavioral control. This precisely specified structure enabled clear hypothesis
+            testing and systematic evaluation. Construct measurement and operational definitions:
+            Ajzen provided explicit guidance for measuring the three primary predictor constructs
+            (attitudes, subjective norms, perceived behavioral control) and the criterion
+            (intentions and behavior). Each construct was operationalized through multi-item scales
+            with clearly specified theoretical basis. Attitudes were measured as evaluative beliefs
+            about behavior consequences weighted by outcome evaluations. Subjective norms reflected
+            normative beliefs about whether important others thought the person should perform
+            behavior, weighted by motivation to comply with each referent. Perceived behavioral
+            control reflected beliefs about factors facilitating or impeding behavior, weighted by
+            the power of each control factor to affect behavior performance. This operational
+            precision enabled reliable measurement and replication across studies. Empirical support
+            from previous research: Ajzen grounded the TPB in extensive prior research on
+            attitude-behavior relationships. The Framework of Reasoned Action had generated
+            substantial supportive evidence across numerous behavioral domains. Ajzen’s addition of
+            perceived behavioral control built on established research in self-efficacy, locus of
+            control, and internal versus external barriers to behavior. By building on empirically
+            validated constructs from prior research, the TPB inherited validity support from this
+            extensive literature while addressing known theoretical gaps. Logical extension of
+            established theory: The TPB represented a logical extension of TRA rather than a radical
+            departure. By maintaining TRA’s core structure (intentions as behavior predictors;
+            attitudes and norms as intention predictors) while adding perceived behavioral control,
+            Ajzen demonstrated that TPB incorporated TRA as a special case (when perceived
+            behavioral control is high or irrelevant). This nested structure enabled comparison
+            between TRA and TPB, with TPB expected to provide superior predictions in contexts where
+            behavioral control varies substantially. Specification of direct versus indirect
+            effects: The TPB precisely specified which constructs exert indirect effects through
+            intentions (attitudes and subjective norms) and which exert both indirect and direct
+            effects (perceived behavioral control). This specification reflected theoretical
             reasoning about control factors: when perceived behavioral control accurately reflects
             actual control, it should affect behavior regardless of intentions, but attitudes and
             norms affect behavior only through their effects on intentions. This theoretical
             specificity enabled empirical testing distinguishing TPB from alternative causal
-            structures. How was the modelâ€™s external validity tested? The Theory of Planned
-            Behaviorâ€™s external validity was established through its application across diverse
+            structures. How was the model’s external validity tested? The Theory of Planned
+            Behavior’s external validity was established through its application across diverse
             behavioral domains and populations: Cross-domain applicability: Ajzen discussed TPB
             applications across health behaviors (smoking cessation, sexual behavior, physician
             compliance, weight control), occupational behaviors (career choice, work performance,
             occupational change), educational behaviors (academic performance, course selection),
             environmental behaviors, family planning, and consumer behavior. This diversity of
-            application domains demonstrated the modelâ€™s generality beyond any single behavioral
+            application domains demonstrated the model’s generality beyond any single behavioral
             context. Each domain application produced interpretable findings consistent with TPB
             predictions, suggesting robust external validity. Population diversity: Ajzen documented
             TPB applications with diverse populations including college students, community members,
@@ -131,7 +131,7 @@ const BibliographyArticlePage = () => {
             consistent. Behavioral complexity variation: Ajzen applied TPB to behaviors varying in
             complexity, from relatively simple discrete behaviors (condom use, voting) to complex
             ongoing behaviors requiring sustained effort and multiple action sequences (weight loss,
-            exercise, occupational achievement). The modelâ€™s predictive success across this
+            exercise, occupational achievement). The model’s predictive success across this
             complexity range demonstrated external validity spanning diverse behavioral types. Time
             frame variation: TPB applications examined behavior prediction across varying time
             frames, from immediate behavior occurrence to behavior patterns over months or years.
@@ -167,7 +167,7 @@ const BibliographyArticlePage = () => {
             interventions should focus on attitude change through information about innovation
             benefits, testimonials from satisfied users, demonstrations, or experience with
             innovations. For innovations where subjective norms create barriers (adoption appears
-            inconsistent with important othersâ€™ values), interventions should work with social
+            inconsistent with important others’ values), interventions should work with social
             influence through opinion leaders, peer adoption demonstrations, or working with
             families and social networks. For innovations where perceived behavioral control creates
             barriers (individuals doubt their ability to use innovations despite favorable attitudes
@@ -175,7 +175,7 @@ const BibliographyArticlePage = () => {
             environmental modifications facilitating behavior, or step- by-step implementation
             guidance. Barrier identification and targeting: The Theory of Planned Behavior provides
             a structured framework for identifying which barriers to adoption require addressing. By
-            surveying potential adoptersâ€™ attitudes, perceived norms, and perceived control,
+            surveying potential adopters’ attitudes, perceived norms, and perceived control,
             organizations can systematically identify which psychosocial factors limit adoption. If
             high percentages of potential adopters report favorable attitudes but low perceived
             control, this diagnostic finding indicates that training and technical support should be
@@ -214,7 +214,7 @@ const BibliographyArticlePage = () => {
             normative beliefs (whether important others approve of behavior) and motivation to
             comply with each referent. Subjective norms reflect the perceived normative expectations
             of relevant others including family, peers, supervisors, or social groups. Perceived
-            behavioral control: Measured as beliefs about oneâ€™s ability to perform behavior
+            behavioral control: Measured as beliefs about one’s ability to perform behavior
             successfully given existing constraints and resources. Reflects both control factors
             (beliefs about factors facilitating or impeding behavior performance) and power
             (perceived importance of each control factor). Perceived behavioral control captures
@@ -256,7 +256,7 @@ const BibliographyArticlePage = () => {
             predictions. Logical theoretical foundation: The TPB builds logically on the Theory of
             Reasoned Action, maintaining successful TRA elements while addressing documented
             limitations. The addition of perceived behavioral control follows logically from
-            recognized gaps in TRAâ€™s applicability to behaviors with limited volitional control.
+            recognized gaps in TRA’s applicability to behaviors with limited volitional control.
             This logical extension enhances both theoretical coherence and empirical testability.
             Practical applicability: The TPB provides explicit guidance for designing behavior
             change interventions. By specifying attitudes, norms, and perceived control as change
@@ -289,23 +289,23 @@ const BibliographyArticlePage = () => {
             pessimism, or inaccurate self-assessment. The model provides limited guidance for
             ensuring perceived control measures reflect actual control versus biased perceptions.
             This creates ambiguity regarding what perceived behavioral control actually
-            predictsâ€”behavior directly or behavior constrained by actual control. Limited
-            attention to structural barriers: While the TPB acknowledges perceived behavioral
-            control, the model treats structural and environmental barriers primarily through
-            individualsâ€™ perceptions of them. Real structural barriersâ€”lack of technology
-            infrastructure, regulatory prohibitions, economic constraints, organizational
-            policiesâ€”may prevent adoption regardless of individual control perceptions. An
-            individual might accurately perceive extremely low control due to massive real barriers,
-            but the model provides limited guidance on removing those structural barriers. The focus
-            on individual psychology potentially understates the importance of organizational,
-            environmental, and structural factors external to individual minds. Temporal dynamics
-            underspecified: The TPB treats behavior intention at a particular moment and subsequent
-            behavior, but provides limited specification of how intentions change over time or how
-            intention stability varies. For innovations requiring extended implementation periods,
-            intentions may shift between measurement and behavior due to intervening experiences,
-            changed circumstances, or attitude shifts. The model provides less guidance for
-            maintaining intentions across implementation than for predicting immediate behavior. The
-            assumption that intentions remain stable from measurement to behavior performance proves
+            predicts—behavior directly or behavior constrained by actual control. Limited attention
+            to structural barriers: While the TPB acknowledges perceived behavioral control, the
+            model treats structural and environmental barriers primarily through individuals’
+            perceptions of them. Real structural barriers—lack of technology infrastructure,
+            regulatory prohibitions, economic constraints, organizational policies—may prevent
+            adoption regardless of individual control perceptions. An individual might accurately
+            perceive extremely low control due to massive real barriers, but the model provides
+            limited guidance on removing those structural barriers. The focus on individual
+            psychology potentially understates the importance of organizational, environmental, and
+            structural factors external to individual minds. Temporal dynamics underspecified: The
+            TPB treats behavior intention at a particular moment and subsequent behavior, but
+            provides limited specification of how intentions change over time or how intention
+            stability varies. For innovations requiring extended implementation periods, intentions
+            may shift between measurement and behavior due to intervening experiences, changed
+            circumstances, or attitude shifts. The model provides less guidance for maintaining
+            intentions across implementation than for predicting immediate behavior. The assumption
+            that intentions remain stable from measurement to behavior performance proves
             problematic for behaviors unfolding over extended periods. Social influence specificity:
             The subjective norms construct aggregates influence from all important referents into a
             single summary judgment. However, different social influences may affect different
@@ -324,9 +324,9 @@ const BibliographyArticlePage = () => {
             maintenance. For repeated behaviors becoming routinized, the conscious
             intention-formation processes theorized by TPB may become less central as behavior
             becomes automatic. The model may inadequately address how innovations become habituated
-            after initial adoption. Affective factors underemphasized: The TPBâ€™s attitude
-            construct focuses on instrumental evaluations of behavior outcomes rather than emotional
-            or affective responses to behavior. However, emotions often substantially influence
+            after initial adoption. Affective factors underemphasized: The TPB’s attitude construct
+            focuses on instrumental evaluations of behavior outcomes rather than emotional or
+            affective responses to behavior. However, emotions often substantially influence
             behavior. Anxiety about technology use, enjoyment of adoption process, emotional
             reactions to change, or emotional attachments to existing systems may influence adoption
             regardless of instrumental attitude assessments. The model downplays affective
@@ -349,11 +349,11 @@ const BibliographyArticlePage = () => {
             theoretical advancement rather than replacement, with TRA treated as special case of TPB
             where perceived control is uniformly high. Specification of control factor effects:
             Prior theories of behavior change often treated environmental constraints as mere
-            obstacles to overcome but did not theoretically specify how individualsâ€™ perceptions
-            of control affect behavior determination. TPB explicitly incorporated perceived
-            behavioral control as both indirect pathway (affecting intentions) and direct pathway
-            (directly affecting behavior when perceived control reflects actual control). This dual
-            pathway specification provides more nuanced understanding of how control factors affect
+            obstacles to overcome but did not theoretically specify how individuals’ perceptions of
+            control affect behavior determination. TPB explicitly incorporated perceived behavioral
+            control as both indirect pathway (affecting intentions) and direct pathway (directly
+            affecting behavior when perceived control reflects actual control). This dual pathway
+            specification provides more nuanced understanding of how control factors affect
             behavior. Multi-factor integration: Earlier behavioral theories often emphasized single
             factors: attitudes, norms, or self-efficacy. The TPB integrated multiple factors into
             single coherent framework, recognizing that behavior reflects attitudes toward behavior,
@@ -369,7 +369,7 @@ const BibliographyArticlePage = () => {
             measurement precision enabled more rigorous testing and more informative comparison
             across populations and contexts. Focus on behavioral intention: While earlier theories
             recognized intentions as behavior antecedents, the TPB elevated intention as central
-            constructâ€”the immediate determinant of behavior. This focus on intention as primary
+            construct—the immediate determinant of behavior. This focus on intention as primary
             mechanism meant that all other factors affect behavior through intention modification
             (except perceived behavioral control which also has direct effects). This
             conceptualization shifted focus from proximal behavior determinants toward the intention
@@ -407,8 +407,8 @@ const BibliographyArticlePage = () => {
             barriers include absence of adoption pressure from supervisors, peers, professional
             colleagues, or organizational leaders. When influential organizational figures do not
             advocate or model technology adoption, adoption rates decline substantially. Normative
-            barriers include active resistance from important referentsâ€”when supervisors
-            discourage adoption, peers discourage change, or professional networks resist particular
+            barriers include active resistance from important referents—when supervisors discourage
+            adoption, peers discourage change, or professional networks resist particular
             technologies, adoption becomes socially costly. Workers adopting technologies their peer
             groups reject face social exclusion, ridicule, or conflict. Professional communities
             that resist particular technologies create normative barriers for adoption by individual
@@ -422,7 +422,7 @@ const BibliographyArticlePage = () => {
             when not all necessary population members adopt simultaneously, creating incomplete
             networks of adoption. Nurses adopting electronic health records create barriers for
             colleagues who must interface with non-adopting units, reducing individual motivation
-            for adoption. Perceived behavioral control barriers: Individualsâ€™ beliefs about their
+            for adoption. Perceived behavioral control barriers: Individuals’ beliefs about their
             capability to successfully adopt and use technology create substantial adoption
             barriers. Control barriers include perceived skill insufficiency: beliefs that learning
             technology requires skills one lacks or cognitive abilities one cannot develop prevent

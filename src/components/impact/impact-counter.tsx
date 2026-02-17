@@ -18,7 +18,7 @@ export const ImpactCounter = () => {
         <span className="font-bold text-teal-600">
           {parseInt(impactData.activeUsers).toLocaleString()}
         </span>{' '}
-        Researchers Helped
+        Active Visitors
       </div>
       <div>
         <span className="font-bold text-teal-600">

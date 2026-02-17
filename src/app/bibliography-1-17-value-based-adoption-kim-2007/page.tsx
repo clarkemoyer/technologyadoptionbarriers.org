@@ -2,29 +2,29 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Value-Based Adoption Model â€“ Kim et al. (2007)',
+  title: 'Bibliography: Value-Based Adoption Model – Kim et al. (2007)',
   description:
-    'Deep dive into Value-Based Adoption of Mobile by Hee-Su Kim, University (2007 * Official Article Title:), exploring its foundational contributions to technology adoption research.',
+    'Deep dive into the Value-Based Adoption of Mobile Internet (VAM) model by Kim et al. (2007), exploring its foundational contributions to technology adoption research.',
 }
 
 const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Value-Based Adoption Model â€“ Kim et al. (2007)</h1>
+        <h1 className={H1_CLASSES}>Value-Based Adoption Model – Kim et al. (2007)</h1>
 
         {/* Model Identification */}
         <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
-              <strong>Model Name:</strong> Value-Based Adoption of Mobile
+              <strong>Model Name:</strong> Value-Based Adoption of Mobile Internet (VAM)
             </p>
             <p>
-              <strong>Authors:</strong> Hee-Su Kim, University
+              <strong>Authors:</strong> Kim et al.
             </p>
             <p>
-              <strong>Publication Date:</strong> 2007 * Official Article Title:
+              <strong>Publication Date:</strong> 2007
             </p>
           </div>
         </section>
@@ -47,60 +47,60 @@ const BibliographyArticlePage = () => {
             previous adoption models, particularly the Technology Acceptance Model, inadequately
             captured the complexity of how consumers evaluate technology through the lens of
             personal values. While TAM effectively modeled perceived usefulness and ease of use as
-            predictors of adoption, it did not explicitly address how consumersâ€™ personal values,
+            predictors of adoption, it did not explicitly address how consumers’ personal values,
             goals, and desired life outcomes influence technology adoption decisions. The
             development of VAM was motivated by the observation that consumer technology adoption
             involves value judgments beyond narrow instrumental assessments of utility and
             usability. When consumers evaluate whether to adopt mobile internet services, they are
-            not just asking â€œIs this useful?â€ and â€œIs it easy to use?â€ They are also asking
-            deeper questions about what they value in life: â€œWill this help me achieve what I care
-            about?â€ â€œDoes this align with my priorities and goals?â€ â€œWhat kind of person will
-            I become if I use this?â€ These value-based questions drive adoption decisions in ways
-            that existing TAM-based models do not capture. The authors recognized that mobile
-            internet adoption presented a particularly compelling context for investigating
-            value-based adoption. Unlike computer adoption in organizational settings where utility
-            is relatively clear, mobile internet adoption in consumer contexts involves substantial
-            uncertainty about how the technology will fit into daily life and what value it will
-            deliver. Consumers evaluating mobile internet must make judgments about whether having
-            internet access in mobile contexts aligns with their values and priorities. The
-            theoretical foundation drew from expectancy-value theory, which proposes that
-            individualsâ€™ attitudes toward objects are determined by their beliefs about the
-            objectâ€™s attributes and the value or importance they assign to those attributes. The
-            authors applied this theoretical framework specifically to technology adoption,
-            proposing that technology adoption depends not just on perceived attributes (usefulness,
-            ease of use) but on the values that individuals hold and how the technology relates to
-            those values. The model was also motivated by gaps in existing technology adoption
-            literature regarding how personal values influence adoption. The authors noted that
-            while consumer behavior research had extensively documented the importance of personal
-            values in consumer decision-making, technology adoption literature had largely neglected
-            this dimension. The VAM model sought to integrate personal values theory with technology
-            adoption research. Additionally, the authors recognized that different market segments
-            adopt technologies for fundamentally different reasons reflecting different value
-            systems. Some consumers might adopt mobile internet to increase efficiency and
-            productivity (utilitarian values). Others might adopt to maintain social connection and
-            relationships (social values). Still others might adopt for entertainment and enjoyment
-            (hedonic values). Existing adoption models did not adequately account for these
-            different value-based motivations. The practical motivation for developing VAM centered
-            on improving market segmentation and marketing strategy for mobile internet services.
-            Understanding which consumers adopted based on utilitarian values, which based on social
-            values, and which based on hedonic values would enable providers to develop more
-            targeted marketing strategies and service offerings that appealed to different
-            value-driven segments. The model was also developed to advance theoretical understanding
-            of how consumers construct value assessments in technology adoption. Rather than
-            treating value as a single unidimensional construct, the authors proposed that consumers
-            evaluate technologies across multiple value dimensions reflecting different aspects of
-            what they value in life. How was the modelâ€™s internal validity tested? The internal
-            validity of the VAM model was tested through structural equation modeling analysis using
-            data from 210 mobile internet users in Canada. The research design involved developing
-            and validating a measurement model that captured personal values, value-based benefits,
-            and adoption intention. The measurement model was developed using established value
-            measurement scales. Personal values were measured using value scales from Schwartzâ€™s
-            Theory of Values, which distinguishes between multiple dimensions of human values
-            including self-direction (autonomy and independence), security (safety and stability),
-            tradition (cultural and family commitment), conformity (social order and obligation),
-            benevolence (welfare of others), universalism (understanding and appreciation),
-            achievement (success and ambition), hedonism (pleasure and satisfaction), power (status
-            and influence), and stimulation (excitement and novelty).
+            not just asking “Is this useful?” and “Is it easy to use?” They are also asking deeper
+            questions about what they value in life: “Will this help me achieve what I care about?”
+            “Does this align with my priorities and goals?” “What kind of person will I become if I
+            use this?” These value-based questions drive adoption decisions in ways that existing
+            TAM-based models do not capture. The authors recognized that mobile internet adoption
+            presented a particularly compelling context for investigating value-based adoption.
+            Unlike computer adoption in organizational settings where utility is relatively clear,
+            mobile internet adoption in consumer contexts involves substantial uncertainty about how
+            the technology will fit into daily life and what value it will deliver. Consumers
+            evaluating mobile internet must make judgments about whether having internet access in
+            mobile contexts aligns with their values and priorities. The theoretical foundation drew
+            from expectancy-value theory, which proposes that individuals’ attitudes toward objects
+            are determined by their beliefs about the object’s attributes and the value or
+            importance they assign to those attributes. The authors applied this theoretical
+            framework specifically to technology adoption, proposing that technology adoption
+            depends not just on perceived attributes (usefulness, ease of use) but on the values
+            that individuals hold and how the technology relates to those values. The model was also
+            motivated by gaps in existing technology adoption literature regarding how personal
+            values influence adoption. The authors noted that while consumer behavior research had
+            extensively documented the importance of personal values in consumer decision-making,
+            technology adoption literature had largely neglected this dimension. The VAM model
+            sought to integrate personal values theory with technology adoption research.
+            Additionally, the authors recognized that different market segments adopt technologies
+            for fundamentally different reasons reflecting different value systems. Some consumers
+            might adopt mobile internet to increase efficiency and productivity (utilitarian
+            values). Others might adopt to maintain social connection and relationships (social
+            values). Still others might adopt for entertainment and enjoyment (hedonic values).
+            Existing adoption models did not adequately account for these different value-based
+            motivations. The practical motivation for developing VAM centered on improving market
+            segmentation and marketing strategy for mobile internet services. Understanding which
+            consumers adopted based on utilitarian values, which based on social values, and which
+            based on hedonic values would enable providers to develop more targeted marketing
+            strategies and service offerings that appealed to different value-driven segments. The
+            model was also developed to advance theoretical understanding of how consumers construct
+            value assessments in technology adoption. Rather than treating value as a single
+            unidimensional construct, the authors proposed that consumers evaluate technologies
+            across multiple value dimensions reflecting different aspects of what they value in
+            life. How was the model’s internal validity tested? The internal validity of the VAM
+            model was tested through structural equation modeling analysis using data from 210
+            mobile internet users in Canada. The research design involved developing and validating
+            a measurement model that captured personal values, value-based benefits, and adoption
+            intention. The measurement model was developed using established value measurement
+            scales. Personal values were measured using value scales from Schwartz’s Theory of
+            Values, which distinguishes between multiple dimensions of human values including
+            self-direction (autonomy and independence), security (safety and stability), tradition
+            (cultural and family commitment), conformity (social order and obligation), benevolence
+            (welfare of others), universalism (understanding and appreciation), achievement (success
+            and ambition), hedonism (pleasure and satisfaction), power (status and influence), and
+            stimulation (excitement and novelty).
           </p>
 
           <p className="mb-4">
@@ -149,9 +149,9 @@ const BibliographyArticlePage = () => {
             adoption primarily through corresponding benefit dimensions or through broader
             value-benefit relationships. For example, achievement values might influence adoption
             primarily through efficiency benefits, while benevolence values might influence adoption
-            through relationship-maintenance benefits. How was the modelâ€™s external validity
-            tested? External validity of the VAM model was demonstrated through multiple validation
-            approaches examining whether the modelâ€™s relationships held across diverse conditions
+            through relationship-maintenance benefits. How was the model’s external validity tested?
+            External validity of the VAM model was demonstrated through multiple validation
+            approaches examining whether the model’s relationships held across diverse conditions
             and whether findings aligned with expectations from value theory. The model demonstrated
             predictive validity through its ability to explain variance in adoption intention. The
             value-based model explained approximately 47% of variance in adoption intention (RÂ² =
@@ -227,8 +227,8 @@ const BibliographyArticlePage = () => {
             different market segments to understand adoption barriers. For some segments, low
             adoption may reflect value-benefit misalignment rather than genuinely low usefulness or
             ease of use. The solution then is not improving functionality but repositioning how the
-            technology delivers value to customersâ€™ personal values. Organizations should use VAM
-            to inform product design decisions. If a significant market segment holds strong social
+            technology delivers value to customers’ personal values. Organizations should use VAM to
+            inform product design decisions. If a significant market segment holds strong social
             values, product development should include strong social and communication features even
             if these increase system complexity. If achievement-oriented segments are important,
             efficiency and productivity features should be prioritized. The model instructs
@@ -247,7 +247,7 @@ const BibliographyArticlePage = () => {
             segments. The model suggests organizations should use value positioning in all customer
             communications. Rather than generic claims about the technology, organizations should
             highlight specifically how the technology serves the values their target customers hold.
-            For value-oriented messaging to be effective, it must be authenticâ€”the technology
+            For value-oriented messaging to be effective, it must be authentic—the technology
             genuinely must deliver the value-based benefits promised. Organizations should use VAM
             to inform corporate social responsibility and sustainability messaging. Consumers with
             universal values (concern for nature and all humanity) are motivated by environmental
@@ -263,10 +263,10 @@ const BibliographyArticlePage = () => {
             customer needs different messaging than a socially-oriented customer, and this
             differentiation requires salespeople who understand value motivation. Organizations
             should use VAM to develop customer personas that go beyond demographics to include
-            personal values. Rather than just â€œwomen aged 25-35,â€ personas might describe
-            â€œachievement-oriented professionals seeking efficiency and successâ€ or
-            â€œsocially-connected individuals prioritizing relationships and community.â€
-            Value-based personas better inform product and marketing decisions. The model instructs
+            personal values. Rather than just “women aged 25-35,” personas might describe
+            “achievement-oriented professionals seeking efficiency and success” or
+            “socially-connected individuals prioritizing relationships and community.” Value-based
+            personas better inform product and marketing decisions. The model instructs
             organizations that understanding value-based adoption is particularly important during
             market growth phases. Early adopters often have different values than mainstream or late
             adopters. To expand market penetration beyond early adopters, organizations must
@@ -280,9 +280,9 @@ const BibliographyArticlePage = () => {
             Internet model measures how personal values influence adoption of mobile internet
             services through value-based benefits. Specifically, the model measures: Personal Values
             : The importance individuals assign to different life objectives and priorities. The
-            research operationalized personal values using Schwartzâ€™s value dimensions including:
-            - Achievement values (success, ambition) - Self-direction values (autonomy,
-            independence) - Benevolence values (helping others, community welfare) - Hedonic values
+            research operationalized personal values using Schwartz’s value dimensions including: -
+            Achievement values (success, ambition) - Self-direction values (autonomy, independence)
+            - Benevolence values (helping others, community welfare) - Hedonic values
           </p>
 
           <p className="mb-4">
@@ -321,7 +321,7 @@ const BibliographyArticlePage = () => {
             them. The VAM approach does not replace TAM but complements it by identifying additional
             adoption drivers. The model shows that utilitarian-focused and value-based approaches
             are compatible, not mutually exclusive. Sixth, the empirical validation through
-            structural equation modeling demonstrates the modelâ€™s statistical viability. The
+            structural equation modeling demonstrates the model’s statistical viability. The
             identification of mediation pathways through value-based benefits shows the mechanism
             through which values influence adoption. Seventh, the model has practical applicability
             for marketers and product managers. Understanding which values drive different customer
@@ -341,7 +341,7 @@ const BibliographyArticlePage = () => {
             influence value-based benefits perception, which influences adoption, longitudinal data
             would provide stronger evidence of causal order. Fourth, the measurement of personal
             values relies on established value scales that may not capture all value dimensions
-            relevant to technology adoption. Schwartzâ€™s value theory is comprehensive, but some
+            relevant to technology adoption. Schwartz’s value theory is comprehensive, but some
             technology- specific values (e.g., control, privacy as a value distinct from security)
             might be more salient for technology adoption than for consumer behavior generally.
           </p>
@@ -364,8 +364,8 @@ const BibliographyArticlePage = () => {
             groups. How does this model differ from older models? VAM differs from the Technology
             Acceptance Model by explicitly incorporating personal values as adoption drivers. While
             TAM focuses on instrumental beliefs (usefulness, ease of use), VAM recognizes that
-            adoption also reflects personal values and goals. TAM asks â€œIs this useful and easy to
-            use?â€ while VAM asks â€œDoes this support what I value in life?â€ VAM differs from the
+            adoption also reflects personal values and goals. TAM asks “Is this useful and easy to
+            use?” while VAM asks “Does this support what I value in life?” VAM differs from the
             Technology Readiness Index by focusing on values as adoption drivers rather than general
             technology propensity. TRI measures dispositional tendencies toward technology
             generally, while VAM measures specific values that drive adoption of particular
@@ -380,61 +380,61 @@ const BibliographyArticlePage = () => {
 
           <p className="mb-4">
             (personal values) rather than narrow technology perceptions. This represents a shift
-            from â€œDoes this technology appear useful?â€ to â€œDoes this technology help me achieve
-            what I value?â€ The contribution of VAM lies in showing that technology adoption cannot
-            be fully understood through a purely utilitarian lens. Different individuals adopt the
-            same technology for fundamentally different reasons reflecting different value systems.
-            This recognition of value-driven adoption diversity is VAMâ€™s primary theoretical
-            innovation. 6. Barriers Identification Section: What Barriers to Technology Adoption
-            does the model identify? The Value-Based Adoption of Mobile Internet model identifies
-            barriers to technology adoption through the lens of value-benefit misalignment,
-            recognizing that barriers often reflect mismatch between what a technology offers and
-            what consumers value. The primary barrier identified is Value-Benefit Misalignment :
-            where the benefits a technology delivers do not align with or support the personal
-            values individuals hold. This barrier operates differently across different value
-            segments: For Achievement-Oriented Consumers (valuing success, efficiency,
-            productivity), the barrier is technology that does not deliver efficiency gains,
-            productivity improvements, or success-enabling benefits. Even if a technology is easy to
-            use and useful for some purposes, if it does not deliver achievement-related benefits,
-            achievement-oriented consumers will not adopt. The barrier manifests as perception that
-            the technology is a time- waster rather than a productivity tool, or that it does not
-            meaningfully contribute to success or accomplishment. For Self-Direction-Oriented
-            Consumers (valuing autonomy, independence, control), the barrier is technology that
-            constrains freedom or requires dependence on others. Mobile internet services that
-            require reliance on service providers, that limit user customization, or that restrict
-            autonomy may be rejected despite offering other benefits. The barrier is loss of
-            autonomy or increased dependence. For Socially-Motivated Consumers (valuing connection,
-            community, relationships), the barrier is technology that fails to facilitate or enhance
-            social connection. A mobile internet service positioned purely on productivity may fail
-            to appeal to socially-motivated consumers if it doesnâ€™t emphasize relationship
-            maintenance or community features. The barrier is perceived inability to fulfill social
-            needs. For Pleasure-Motivated Consumers (valuing enjoyment, entertainment, fun), the
-            barrier is technology perceived as utilitarian drudgery without enjoyment value.
-            Services positioned as â€œseriousâ€ tools for work may not appeal to pleasure-motivated
-            consumers. The barrier is perceived lack of fun or entertainment value. For
-            Security-Focused Consumers (valuing safety, stability, protection), the barrier is
-            technology that creates perceived security risks or instability. Privacy concerns,
-            financial risks, or system unreliability create barriers regardless of benefits offered.
-            The barrier is fundamentally the perceived threat posed by the technology. The research
-            identified that Lack of Value-Benefit Recognition represents a significant barrier. Some
-            consumers might benefit from mobile internet in ways aligned with their values but do
-            not recognize these benefits. For example, an achievement-oriented individual might not
-            recognize how mobile internet enables productivity in their particular work context. The
-            barrier here is not misalignment but failure to perceive alignment that actually exists.
-            This barrier is addressed through education and demonstration rather than product
-            changes. Competing Value Priorities can create barriers. Some individuals hold multiple
-            values that are not simultaneously satisfiable through a single technology choice. For
-            example, an individual valuing both security and autonomy might see mobile internet as
-            requiring a trade-off between these values. The barrier is the perceived conflict
-            between values. Value Conflicts with Broader Life Values represent another barrier. Some
-            individuals might value family time and tradition strongly, and perceive mobile internet
-            as undermining these values by creating constant connectivity and distraction from
-            family. The barrier reflects conflict between technology adoption and broader value
-            systems. The research also identified Limited Awareness of Value-Relevant Features as a
-            barrier. Some mobile internet services offer benefits aligned with consumer values but
-            do not prominently highlight these benefits. For example, a service might have excellent
+            from “Does this technology appear useful?” to “Does this technology help me achieve what
+            I value?” The contribution of VAM lies in showing that technology adoption cannot be
+            fully understood through a purely utilitarian lens. Different individuals adopt the same
+            technology for fundamentally different reasons reflecting different value systems. This
+            recognition of value-driven adoption diversity is VAM’s primary theoretical innovation.
+            6. Barriers Identification Section: What Barriers to Technology Adoption does the model
+            identify? The Value-Based Adoption of Mobile Internet model identifies barriers to
+            technology adoption through the lens of value-benefit misalignment, recognizing that
+            barriers often reflect mismatch between what a technology offers and what consumers
+            value. The primary barrier identified is Value-Benefit Misalignment : where the benefits
+            a technology delivers do not align with or support the personal values individuals hold.
+            This barrier operates differently across different value segments: For
+            Achievement-Oriented Consumers (valuing success, efficiency, productivity), the barrier
+            is technology that does not deliver efficiency gains, productivity improvements, or
+            success-enabling benefits. Even if a technology is easy to use and useful for some
+            purposes, if it does not deliver achievement-related benefits, achievement-oriented
+            consumers will not adopt. The barrier manifests as perception that the technology is a
+            time- waster rather than a productivity tool, or that it does not meaningfully
+            contribute to success or accomplishment. For Self-Direction-Oriented Consumers (valuing
+            autonomy, independence, control), the barrier is technology that constrains freedom or
+            requires dependence on others. Mobile internet services that require reliance on service
+            providers, that limit user customization, or that restrict autonomy may be rejected
+            despite offering other benefits. The barrier is loss of autonomy or increased
+            dependence. For Socially-Motivated Consumers (valuing connection, community,
+            relationships), the barrier is technology that fails to facilitate or enhance social
+            connection. A mobile internet service positioned purely on productivity may fail to
+            appeal to socially-motivated consumers if it doesn’t emphasize relationship maintenance
+            or community features. The barrier is perceived inability to fulfill social needs. For
+            Pleasure-Motivated Consumers (valuing enjoyment, entertainment, fun), the barrier is
+            technology perceived as utilitarian drudgery without enjoyment value. Services
+            positioned as “serious” tools for work may not appeal to pleasure-motivated consumers.
+            The barrier is perceived lack of fun or entertainment value. For Security-Focused
+            Consumers (valuing safety, stability, protection), the barrier is technology that
+            creates perceived security risks or instability. Privacy concerns, financial risks, or
+            system unreliability create barriers regardless of benefits offered. The barrier is
+            fundamentally the perceived threat posed by the technology. The research identified that
+            Lack of Value-Benefit Recognition represents a significant barrier. Some consumers might
+            benefit from mobile internet in ways aligned with their values but do not recognize
+            these benefits. For example, an achievement-oriented individual might not recognize how
+            mobile internet enables productivity in their particular work context. The barrier here
+            is not misalignment but failure to perceive alignment that actually exists. This barrier
+            is addressed through education and demonstration rather than product changes. Competing
+            Value Priorities can create barriers. Some individuals hold multiple values that are not
+            simultaneously satisfiable through a single technology choice. For example, an
+            individual valuing both security and autonomy might see mobile internet as requiring a
+            trade-off between these values. The barrier is the perceived conflict between values.
+            Value Conflicts with Broader Life Values represent another barrier. Some individuals
+            might value family time and tradition strongly, and perceive mobile internet as
+            undermining these values by creating constant connectivity and distraction from family.
+            The barrier reflects conflict between technology adoption and broader value systems. The
+            research also identified Limited Awareness of Value-Relevant Features as a barrier. Some
+            mobile internet services offer benefits aligned with consumer values but do not
+            prominently highlight these benefits. For example, a service might have excellent
             privacy protections (security benefit) but not advertise these features, meaning
-            security-conscious consumers donâ€™t recognize the value-benefit alignment.
+            security-conscious consumers don’t recognize the value-benefit alignment.
           </p>
 
           <p className="mb-4">

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const TechnologyLeadersPage = () => {
   const organizations = [
     {
-      name: '(ISC)Â²',
+      name: 'ISC2',
       fullName: 'International Information System Security Certification Consortium',
       focus: 'Cybersecurity professionals and CISOs',
       url: 'https://www.isc2.org/',
@@ -65,11 +65,11 @@ const TechnologyLeadersPage = () => {
             For Technology Leaders
           </h1>
           <p className="text-[24px] text-blue-100 mb-[15px] font-semibold">
-            CTO â€¢ CIO â€¢ CISO â€¢ VP of Engineering â€¢ VP of Technology
+            CTO • CIO • CISO • VP of Engineering • VP of Technology
           </p>
           <p className="text-[18px] text-blue-100 max-w-[900px] leading-[1.6]">
             Support your members in understanding and overcoming technology adoption barriers while
-            contributing to groundbreaking research in digital transformation.
+            contributing to academic research in digital transformation.
           </p>
         </div>
       </section>
