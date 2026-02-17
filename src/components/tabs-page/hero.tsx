@@ -31,7 +31,7 @@ const Hero = () => {
                 obsolescence.
               </li>
               <li className="text-[18px] text-gray-700 leading-relaxed">
-                Thereâ€™s a continuous need for{' '}
+                There&apos;s a continuous need for{' '}
                 <strong className="font-bold">
                   updated insights, especially from senior leadership
                 </strong>

@@ -6,9 +6,9 @@ const SimplePitch = () => {
         <p className="text-[20px] leading-[1.6] max-w-[900px] mx-auto opacity-95">
           Ultimately, our mission is to contribute to more successful technology implementations,
           improved organizational performance, fostered innovation, and greater realization of value
-          from technology investments for organizations across various sectors. We are committed to
-          providing ongoing value through the planned annual dissemination of our findings, tracking
-          trends in technology adoption dynamics over time.
+          from technology investments for organizations across various sectors. Our goal is to share
+          findings on a regular basis as data collection progresses, tracking trends in technology
+          adoption dynamics over time.
         </p>
       </div>
     </section>
