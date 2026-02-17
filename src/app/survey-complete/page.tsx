@@ -21,11 +21,12 @@ export default function SurveyCompletePage() {
         <h2 className="text-lg font-semibold text-slate-900">What happens next?</h2>
         <p className="mt-2 text-sm leading-6 text-slate-700">
           TABS is a longitudinal effort. If you&apos;re willing, please plan to take the TABS survey
-          again next year so we can measure how technology adoption barriers change over time.
+          again in a future cycle so we can measure how technology adoption barriers change over
+          time.
         </p>
         <p className="mt-3 text-sm leading-6 text-slate-700">
           Also, consider sharing this year&apos;s TABS survey with the rest of the leadership team
-          in your organization (C-suite, VPs, Directors) â€” broader input makes the dataset
+          in your organization (C-suite, VPs, Directors) &mdash; broader input makes the dataset
           stronger.
         </p>
       </div>
