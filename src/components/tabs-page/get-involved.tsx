@@ -17,7 +17,8 @@ const GetInvolved = () => {
         </p>
 
         <p className="text-[20px] text-gray-700 max-w-[800px] mx-auto leading-[1.6]">
-          Support technology adoption research through participation, funding, or volunteering.
+          Support technology adoption research through participation, contributions, or
+          volunteering.
         </p>
       </div>
     </section>

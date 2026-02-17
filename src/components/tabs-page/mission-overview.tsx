@@ -9,11 +9,12 @@ const MissionOverview = () => {
           </h2>
           <div className="text-[17px] leading-[1.8] space-y-4">
             <p>
-              At TABS (Technology Adoption Barriers Survey), we conduct essential research to help
-              organizations navigate the complexities of technology adoption and maintain their
-              competitive edge. Our core mission is to develop a deeper and more current
-              understanding of the multifaceted challenges and organizational competencies that
-              shape the success of technology adoption initiatives.
+              TABS (Technology Adoption Barriers Survey) is a doctoral research project originating
+              from the Penn State Smeal College of Business DBA program. We conduct essential
+              research to help organizations navigate the complexities of technology adoption and
+              maintain their competitive edge. Our core mission is to develop a deeper and more
+              current understanding of the multifaceted challenges and organizational competencies
+              that shape the success of technology adoption initiatives.
             </p>
             <p>
               By collecting and analyzing these insights, TABS aims to provide empirically grounded
@@ -38,8 +39,8 @@ const MissionOverview = () => {
             <p>
               Ultimately, our work contributes to more successful technology implementations,
               thereby improving organizational performance, innovation, and the realization of value
-              from technology investments. We are committed to providing ongoing value with plans
-              for annual dissemination of our findings.
+              from technology investments. Our goal is to share findings on a regular basis as data
+              collection progresses.
             </p>
           </div>
         </div>
@@ -54,7 +55,7 @@ const MissionOverview = () => {
               Our mission at TABS (Technology Adoption Barriers Survey) is to advance the
               understanding and practice of technology adoption within organizations. We aim to
               address the critical problem that barriers to technology adoption can negatively
-              affect an enterpriseâ€™s ability to obtain or maintain competitive advantage,
+              affect an enterprise&apos;s ability to obtain or maintain competitive advantage,
               potentially leading to loss of market share or even obsolescence.
             </p>
             <ul className="list-none space-y-4">
@@ -62,12 +63,12 @@ const MissionOverview = () => {
                 <strong className="text-tabs-teal">
                   Assessment of Organizational Technology Readiness:
                 </strong>{' '}
-                We evaluate an organizationâ€™s current capabilities and preparedness to effectively
-                leverage new technologies. This assessment covers multiple dimensions, such as the
-                clarity of leadershipâ€™s vision for technology, alignment of technology strategy
-                with organizational goals, effectiveness of IT governance structures, cultural
-                openness to change, availability of skilled personnel, adequacy of IT
-                infrastructure, and maturity of data governance policies.
+                We evaluate an organization&apos;s current capabilities and preparedness to
+                effectively leverage new technologies. This assessment covers multiple dimensions,
+                such as the clarity of leadership&apos;s vision for technology, alignment of
+                technology strategy with organizational goals, effectiveness of IT governance
+                structures, cultural openness to change, availability of skilled personnel, adequacy
+                of IT infrastructure, and maturity of data governance policies.
               </li>
               <li>
                 <strong className="text-tabs-teal">
