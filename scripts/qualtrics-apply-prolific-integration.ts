@@ -123,16 +123,15 @@ function buildProlificPresentBranchLogic(style: BranchLogicStyle): Record<string
   const tenantAtom = {
     Type: 'Expression',
     LogicType: 'EmbeddedField',
-    LeftOperand: 'e://Field/PROLIFIC_PID',
-    Operator: 'IsNotEmpty',
-    RightOperand: '',
+    LeftOperand: 'PROLIFIC_PID',
+    Operator: 'NotEmpty',
+    _HiddenExpression: false,
   }
 
   const legacyAtom = {
     LogicType: 'EmbeddedData',
-    LeftOperand: 'e://Field/PROLIFIC_PID',
-    Operator: 'IsNotEmpty',
-    RightOperand: '',
+    LeftOperand: 'PROLIFIC_PID',
+    Operator: 'NotEmpty',
   }
 
   if (style === 'tenant-array') {
@@ -177,24 +176,24 @@ function buildProlificPresentBranchLogic(style: BranchLogicStyle): Record<string
 }
 
 /**
- * Build BranchLogic for: "If SOURCE EqualTo prolific".
- * Mirrors `buildProlificPresentBranchLogic` but checks SOURCE equality
- * instead of PROLIFIC_PID presence.
+ * Build BranchLogic for: "If SOURCE Is Not Empty".
+ * Website buttons explicitly set SOURCE (e.g. TABS_Website), so this branch
+ * catches all explicit-source traffic and redirects to the website completion page.
+ * Prolific traffic does NOT set SOURCE, so it falls through to the PROLIFIC_PID branch.
  */
-function buildSourceIsProlificBranchLogic(style: BranchLogicStyle): Record<string, unknown> {
+function buildSourceIsNotEmptyBranchLogic(style: BranchLogicStyle): Record<string, unknown> {
   const tenantAtom = {
     Type: 'Expression',
     LogicType: 'EmbeddedField',
-    LeftOperand: 'e://Field/SOURCE',
-    Operator: 'EqualTo',
-    RightOperand: 'prolific',
+    LeftOperand: 'SOURCE',
+    Operator: 'NotEmpty',
+    _HiddenExpression: false,
   }
 
   const legacyAtom = {
     LogicType: 'EmbeddedData',
-    LeftOperand: 'e://Field/SOURCE',
-    Operator: 'EqualTo',
-    RightOperand: 'prolific',
+    LeftOperand: 'SOURCE',
+    Operator: 'NotEmpty',
   }
 
   if (style === 'tenant-array') {
@@ -202,15 +201,14 @@ function buildSourceIsProlificBranchLogic(style: BranchLogicStyle): Record<strin
   }
 
   if (style === 'tenant-boolean-list') {
-    return { Type: 'BooleanExpression', '0': { '0': legacyAtom } }
+    return { Type: 'BooleanExpression', '0': { '0': legacyAtom, Type: 'If' } }
   }
 
   if (style === 'boolean-expression') {
     return {
       Type: 'BooleanExpression',
       LeftOperand: { Type: 'EmbeddedData', Field: 'SOURCE' },
-      Operator: 'EqualTo',
-      RightOperand: 'prolific',
+      Operator: 'NotEmpty',
     }
   }
 
@@ -761,9 +759,10 @@ function ensureRedirectLockdownInFlow(
   }
 
   const tabsBranchDescriptions = new Set([
-    'TABS: lock down COMPLETE_URL for Prolific', // legacy single-branch
-    'TABS: If SOURCE is prolific',
-    'TABS: If PROLIFIC_PID is not empty',
+    'TABS: lock down COMPLETE_URL for Prolific', // both branches use this description
+    'TABS: If SOURCE is not empty', // legacy variant
+    'TABS: If SOURCE is prolific', // legacy variant
+    'TABS: If PROLIFIC_PID is not empty', // legacy variant
   ])
 
   for (let i = 0; i < flow.length; i++) {
@@ -1077,9 +1076,11 @@ function ensureRedirectLockdownInFlow(
   if (!alreadyHasProlificBranchSetter) {
     const branchLogicStyle = parseBranchLogicStyle()
 
-    // --- Branch 1: If SOURCE is "prolific" ---
-    // Handles Prolific traffic that arrives with SOURCE=prolific in the query string.
-    // Only needs to set COMPLETE_URL (SOURCE is already correct).
+    // --- Branch 1: If SOURCE is not empty ---
+    // Website buttons explicitly set SOURCE (e.g. TABS_Website). This branch
+    // catches that traffic and locks COMPLETE_URL to the website completion page,
+    // then ends the survey with a redirect there. Prolific traffic does NOT
+    // set SOURCE, so it falls through to Branch 2.
     const sourceBranchSetter: FlowElement = {
       Type: 'EmbeddedData',
       FlowID: allocFlowId(),
@@ -1087,20 +1088,27 @@ function ensureRedirectLockdownInFlow(
       EmbeddedData: [
         {
           ...completeUrlTemplate,
+          Type: 'Custom',
           Field: 'COMPLETE_URL',
-          Value: prolificCompletionUrl,
+          Value: websiteCompletionUrl,
         },
       ],
     }
     const sourceBranchEndSurvey: FlowElement = {
       Type: 'EndSurvey',
       FlowID: allocFlowId(),
+      EndingType: 'Advanced',
+      Options: {
+        Advanced: 'true',
+        SurveyTermination: 'Redirect',
+        EOSRedirectURL: websiteCompletionUrl,
+      },
     }
     const sourceBranch: FlowElement = {
       Type: 'Branch',
       FlowID: allocFlowId(),
-      Description: 'TABS: If SOURCE is prolific',
-      BranchLogic: buildSourceIsProlificBranchLogic(branchLogicStyle),
+      Description: 'TABS: lock down COMPLETE_URL for Prolific',
+      BranchLogic: buildSourceIsNotEmptyBranchLogic(branchLogicStyle),
       Flow: [sourceBranchSetter, sourceBranchEndSurvey],
     }
 
@@ -1114,11 +1122,13 @@ function ensureRedirectLockdownInFlow(
       EmbeddedData: [
         {
           ...sourceTemplate,
+          Type: 'Custom',
           Field: 'SOURCE',
           Value: prolificSourceValue,
         },
         {
           ...completeUrlTemplate,
+          Type: 'Custom',
           Field: 'COMPLETE_URL',
           Value: prolificCompletionUrl,
         },
@@ -1127,11 +1137,17 @@ function ensureRedirectLockdownInFlow(
     const pidBranchEndSurvey: FlowElement = {
       Type: 'EndSurvey',
       FlowID: allocFlowId(),
+      EndingType: 'Advanced',
+      Options: {
+        Advanced: 'true',
+        SurveyTermination: 'Redirect',
+        EOSRedirectURL: prolificCompletionUrl,
+      },
     }
     const pidBranch: FlowElement = {
       Type: 'Branch',
       FlowID: allocFlowId(),
-      Description: 'TABS: If PROLIFIC_PID is not empty',
+      Description: 'TABS: lock down COMPLETE_URL for Prolific',
       BranchLogic: buildProlificPresentBranchLogic(branchLogicStyle),
       Flow: [pidBranchSetter, pidBranchEndSurvey],
     }
