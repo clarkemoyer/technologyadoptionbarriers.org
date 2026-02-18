@@ -176,6 +176,60 @@ function buildProlificPresentBranchLogic(style: BranchLogicStyle): Record<string
   return legacyAtom
 }
 
+/**
+ * Build BranchLogic for: "If SOURCE EqualTo prolific".
+ * Mirrors `buildProlificPresentBranchLogic` but checks SOURCE equality
+ * instead of PROLIFIC_PID presence.
+ */
+function buildSourceIsProlificBranchLogic(style: BranchLogicStyle): Record<string, unknown> {
+  const tenantAtom = {
+    Type: 'Expression',
+    LogicType: 'EmbeddedField',
+    LeftOperand: 'e://Field/SOURCE',
+    Operator: 'EqualTo',
+    RightOperand: 'prolific',
+  }
+
+  const legacyAtom = {
+    LogicType: 'EmbeddedData',
+    LeftOperand: 'e://Field/SOURCE',
+    Operator: 'EqualTo',
+    RightOperand: 'prolific',
+  }
+
+  if (style === 'tenant-array') {
+    return { Type: 'BooleanExpression', '0': [tenantAtom] }
+  }
+
+  if (style === 'tenant-boolean-list') {
+    return { Type: 'BooleanExpression', '0': { '0': legacyAtom } }
+  }
+
+  if (style === 'boolean-expression') {
+    return {
+      Type: 'BooleanExpression',
+      LeftOperand: { Type: 'EmbeddedData', Field: 'SOURCE' },
+      Operator: 'EqualTo',
+      RightOperand: 'prolific',
+    }
+  }
+
+  if (style === 'single-numeric') {
+    return { '0': legacyAtom }
+  }
+
+  if (style === 'double-numeric') {
+    return { '0': { '0': legacyAtom } }
+  }
+
+  if (style === 'typed-double-numeric') {
+    const branchLogicType = envString('QUALTRICS_PROLIFIC_BRANCHLOGIC_TYPE') || 'If'
+    return { Type: branchLogicType, '0': { '0': legacyAtom } }
+  }
+
+  return legacyAtom
+}
+
 function createFlowIdAllocator(rootFlow: unknown): () => string {
   let maxNumeric = 0
   iterFlowElements(rootFlow, (el) => {
@@ -712,9 +766,14 @@ function ensureRedirectLockdownInFlow(
     const el = item as FlowElement
     if (el.Type !== 'Branch') continue
 
+    const tabsBranchDescriptions = new Set([
+      'TABS: lock down COMPLETE_URL for Prolific', // legacy single-branch
+      'TABS: If SOURCE is prolific',
+      'TABS: If PROLIFIC_PID is not empty',
+    ])
+
     const shouldRemove =
-      typeof el.Description === 'string' &&
-      el.Description.trim() === 'TABS: lock down COMPLETE_URL for Prolific'
+      typeof el.Description === 'string' && tabsBranchDescriptions.has(el.Description.trim())
         ? true
         : branchSetsFieldNonEmpty(el, 'SOURCE') || branchSetsFieldNonEmpty(el, 'COMPLETE_URL')
 
@@ -841,47 +900,47 @@ function ensureRedirectLockdownInFlow(
   })
 
   // Ensure website defaults exist on the first top-level EmbeddedData element.
+  // Working config order: tracking fields (blank) → SOURCE → COMPLETE_URL.
   {
-    const { changed } = removeFieldsFromEmbeddedDataRows(
-      firstTopLevelEmbeddedDataEl,
-      controlledFields
-    )
+    // Capture templates from existing rows before removal to preserve tenant-specific
+    // metadata (e.g. AnalyzeText, DataVisibility).
+    const templateFor = (field: string): Record<string, unknown> => {
+      return (
+        findEmbeddedDataItem(firstTopLevelEmbeddedDataEl, field) ||
+        findEmbeddedDataItem(existingEmbeddedDataEl, field) ||
+        makeEmbeddedRow(field, '')
+      )
+    }
+    const pidTmpl = templateFor('PROLIFIC_PID')
+    const studyTmpl = templateFor('STUDY_ID')
+    const sessionTmpl = templateFor('SESSION_ID')
+    const srcTmpl = templateFor('SOURCE')
+    const curlTmpl = templateFor('COMPLETE_URL')
+
+    // Remove all managed fields so we can rebuild in the correct order.
+    const managedFields = new Set([
+      'PROLIFIC_PID',
+      'STUDY_ID',
+      'SESSION_ID',
+      'SOURCE',
+      'COMPLETE_URL',
+    ])
+    const { changed } = removeFieldsFromEmbeddedDataRows(firstTopLevelEmbeddedDataEl, managedFields)
     if (changed) updated = true
 
-    // Ensure tracking fields exist so Qualtrics can populate them from Panel/URL.
-    const trackingFields = ['PROLIFIC_PID', 'STUDY_ID', 'SESSION_ID']
-    for (const field of trackingFields) {
-      const item = findEmbeddedDataItem(firstTopLevelEmbeddedDataEl, field)
-      if (item) continue
-      const template = { ...completeUrlTemplate, Field: field, Value: '' }
-      firstTopLevelEmbeddedDataEl.EmbeddedData = [
-        template,
-        ...(Array.isArray(firstTopLevelEmbeddedDataEl.EmbeddedData)
-          ? firstTopLevelEmbeddedDataEl.EmbeddedData
-          : []),
-      ]
-      updated = true
-    }
-
-    const websiteSourceRow = {
-      ...sourceTemplate,
-      Field: 'SOURCE',
-      Value: websiteSourceValue,
-    }
-    const websiteCompleteRow = {
-      ...completeUrlTemplate,
-      Field: 'COMPLETE_URL',
-      Value: websiteCompletionUrl,
-    }
-
+    // Rebuild: tracking fields (blank) → SOURCE=TABS_Website → COMPLETE_URL → remaining.
     firstTopLevelEmbeddedDataEl.EmbeddedData = [
-      websiteSourceRow,
-      websiteCompleteRow,
+      { ...pidTmpl, Field: 'PROLIFIC_PID', Value: '' },
+      { ...studyTmpl, Field: 'STUDY_ID', Value: '' },
+      { ...sessionTmpl, Field: 'SESSION_ID', Value: '' },
+      { ...srcTmpl, Field: 'SOURCE', Value: websiteSourceValue },
+      { ...curlTmpl, Field: 'COMPLETE_URL', Value: websiteCompletionUrl },
       ...(Array.isArray(firstTopLevelEmbeddedDataEl.EmbeddedData)
         ? firstTopLevelEmbeddedDataEl.EmbeddedData
         : []),
     ]
     if (dedupeEmbeddedDataRows(firstTopLevelEmbeddedDataEl)) updated = true
+    updated = true
 
     debugAddedElements.push({
       Type: firstTopLevelEmbeddedDataEl.Type,
@@ -991,7 +1050,39 @@ function ensureRedirectLockdownInFlow(
   }
 
   if (!alreadyHasProlificBranchSetter) {
-    const prolificSetter: FlowElement = {
+    const branchLogicStyle = parseBranchLogicStyle()
+
+    // --- Branch 1: If SOURCE is "prolific" ---
+    // Handles Prolific traffic that arrives with SOURCE=prolific in the query string.
+    // Only needs to set COMPLETE_URL (SOURCE is already correct).
+    const sourceBranchSetter: FlowElement = {
+      Type: 'EmbeddedData',
+      FlowID: allocFlowId(),
+      Options: optionsTemplate,
+      EmbeddedData: [
+        {
+          ...completeUrlTemplate,
+          Field: 'COMPLETE_URL',
+          Value: prolificCompletionUrl,
+        },
+      ],
+    }
+    const sourceBranchEndSurvey: FlowElement = {
+      Type: 'EndSurvey',
+      FlowID: allocFlowId(),
+    }
+    const sourceBranch: FlowElement = {
+      Type: 'Branch',
+      FlowID: allocFlowId(),
+      Description: 'TABS: If SOURCE is prolific',
+      BranchLogic: buildSourceIsProlificBranchLogic(branchLogicStyle),
+      Flow: [sourceBranchSetter, sourceBranchEndSurvey],
+    }
+
+    // --- Branch 2: If PROLIFIC_PID is not empty ---
+    // Handles Prolific traffic that arrives with PROLIFIC_PID in the query string.
+    // Sets both SOURCE=prolific and COMPLETE_URL to the Prolific completion URL.
+    const pidBranchSetter: FlowElement = {
       Type: 'EmbeddedData',
       FlowID: allocFlowId(),
       Options: optionsTemplate,
@@ -1008,38 +1099,51 @@ function ensureRedirectLockdownInFlow(
         },
       ],
     }
-
-    // Qualtrics tenants differ in how they represent BranchLogic. Default to a flat
-    // object (LogicType/LeftOperand/Operator/RightOperand) and allow override via
-    // QUALTRICS_PROLIFIC_BRANCHLOGIC_STYLE.
-    const branchLogicStyle = parseBranchLogicStyle()
-    const branch: FlowElement = {
+    const pidBranchEndSurvey: FlowElement = {
+      Type: 'EndSurvey',
+      FlowID: allocFlowId(),
+    }
+    const pidBranch: FlowElement = {
       Type: 'Branch',
       FlowID: allocFlowId(),
-      Description: 'TABS: lock down COMPLETE_URL for Prolific',
+      Description: 'TABS: If PROLIFIC_PID is not empty',
       BranchLogic: buildProlificPresentBranchLogic(branchLogicStyle),
-      Flow: [prolificSetter],
+      Flow: [pidBranchSetter, pidBranchEndSurvey],
     }
 
-    // IMPORTANT: Insert this *after* the first top-level EmbeddedData element.
+    // IMPORTANT: Insert both branches *after* the first top-level EmbeddedData element.
     // Many Qualtrics tenants only populate querystring → embedded data during the
-    // EmbeddedData Flow element. If we put the Branch first, PROLIFIC_PID may not
-    // be available yet, and the condition will always evaluate false.
+    // EmbeddedData Flow element. If we put branches first, SOURCE/PROLIFIC_PID may not
+    // be available yet, and conditions will always evaluate false.
     const embeddedRef = findFirstWithParent(flow, (el) => el.Type === 'EmbeddedData')
     if (embeddedRef) {
-      ;(embeddedRef.parent as Array<unknown>).splice(embeddedRef.index + 1, 0, branch)
+      ;(embeddedRef.parent as Array<unknown>).splice(
+        embeddedRef.index + 1,
+        0,
+        sourceBranch,
+        pidBranch
+      )
     } else {
       // Fallback: if no EmbeddedData exists (unexpected), prepend to root.
-      flow.unshift(branch)
+      flow.unshift(sourceBranch, pidBranch)
     }
 
-    debugAddedElements.push({
-      Type: branch.Type,
-      FlowID: branch.FlowID,
-      Description: branch.Description,
-      BranchLogic: branch.BranchLogic,
-      Flow: branch.Flow,
-    })
+    debugAddedElements.push(
+      {
+        Type: sourceBranch.Type,
+        FlowID: sourceBranch.FlowID,
+        Description: sourceBranch.Description,
+        BranchLogic: sourceBranch.BranchLogic,
+        Flow: sourceBranch.Flow,
+      },
+      {
+        Type: pidBranch.Type,
+        FlowID: pidBranch.FlowID,
+        Description: pidBranch.Description,
+        BranchLogic: pidBranch.BranchLogic,
+        Flow: pidBranch.Flow,
+      }
+    )
     updated = true
   }
 
