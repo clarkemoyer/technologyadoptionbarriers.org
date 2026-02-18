@@ -44,7 +44,7 @@ const FoundationalTheoriesPage = () => {
 
           <h2 className={H2_CLASSES}>Diffusion of Innovations (DOI) Theory</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Originating from a sociological perspective, Everett Rogers' Diffusion of Innovations
+            Originating from a sociological perspective, Everett Rogers’ Diffusion of Innovations
             Theory [1] is one of the oldest and most influential theories in the field. It is not
             focused on a single adoption decision but on the macro-level process of how an
             innovation spreads through a social system over time. DOI describes the process by which
@@ -107,7 +107,7 @@ const FoundationalTheoriesPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Developed by Fishbein and Ajzen [2], the Theory of Reasoned Action was a landmark
             general theory in social psychology designed to explain the specifics of individual
-            behavior. Its central premise is that the most immediate predictor of a person's
+            behavior. Its central premise is that the most immediate predictor of a person’s
             behavior is their behavioral intention–their subjective probability that they will
             perform the behavior in question.
           </p>
@@ -116,18 +116,18 @@ const FoundationalTheoriesPage = () => {
           </p>
           <ol className={BODY_OL_CLASSES}>
             <li>
-              <strong>Attitude Toward the Behavior:</strong> The individual's positive or negative
+              <strong>Attitude Toward the Behavior:</strong> The individual’s positive or negative
               feelings about performing the behavior. This is shaped by their behavioral beliefs
               (e.g., “Using this new software will make me more productive”).
             </li>
             <li>
-              <strong>Subjective Norm:</strong> The individual's perception of the social pressure
+              <strong>Subjective Norm:</strong> The individual’s perception of the social pressure
               to perform or not perform the behavior. This is shaped by their normative beliefs
               (e.g., “My manager and respected colleagues think I should use this new software”).
             </li>
           </ol>
           <p className={PARAGRAPH_CLASSES}>
-            TRA's primary contribution was its elegant causal chain: beliefs influence attitudes and
+            TRA’s primary contribution was its elegant causal chain: beliefs influence attitudes and
             subjective norms, which together shape intentions, which in turn lead to behavior. It
             established the critical role of intention as a mediator and provided the basic
             two-pronged structure–personal attitude and social influence–that would become a staple
@@ -137,12 +137,12 @@ const FoundationalTheoriesPage = () => {
           <h2 className={H2_CLASSES}>Theory of Planned Behavior (TPB)</h2>
           <p className={PARAGRAPH_CLASSES}>
             A decade and a half after TRA, Ajzen extended his own model to address a significant
-            limitation: its assumption that behaviors are under a person's complete volitional
+            limitation: its assumption that behaviors are under a person’s complete volitional
             control. The resulting Theory of Planned Behavior [3] kept the core structure of TRA but
             added a critical third determinant of behavioral intention:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>1. Perceived Behavioral Control (PBC):</strong> An individual's perception of
+            <strong>1. Perceived Behavioral Control (PBC):</strong> An individual’s perception of
             the ease or difficulty of performing the behavior. This construct accounts for the
             presence or absence of requisite resources and opportunities (e.g., “I have the time,
             training, and technical support needed to learn this system”).
@@ -156,14 +156,14 @@ const FoundationalTheoriesPage = () => {
 
           <h2 className={H2_CLASSES}>Social Cognitive Theory (SCT)</h2>
           <p className={PARAGRAPH_CLASSES}>
-            While TRA and TPB focused on a linear path from belief to behavior, Bandura's Social
+            While TRA and TPB focused on a linear path from belief to behavior, Bandura’s Social
             Cognitive Theory [4] proposed a more dynamic model of triadic reciprocal determinism.
             SCT posits that behavior is the result of a continuous interaction between three
             factors:
           </p>
           <ol className={BODY_OL_CLASSES}>
             <li>
-              <strong>Personal Factors:</strong> An individual's cognitive, affective, and
+              <strong>Personal Factors:</strong> An individual’s cognitive, affective, and
               biological attributes (e.g., self-efficacy, knowledge).
             </li>
             <li>
@@ -171,13 +171,13 @@ const FoundationalTheoriesPage = () => {
               (e.g., social norms, access to resources).
             </li>
             <li>
-              <strong>Behavior:</strong> The individual's actions.
+              <strong>Behavior:</strong> The individual’s actions.
             </li>
           </ol>
           <p className={PARAGRAPH_CLASSES}>
             A key contribution of SCT to technology adoption was its emphasis on self-efficacy–an
-            individual's belief in their own capability to execute the actions required to achieve a
-            specific goal. This concept is a more refined version of TPB's Perceived Behavioral
+            individual’s belief in their own capability to execute the actions required to achieve a
+            specific goal. This concept is a more refined version of TPB’s Perceived Behavioral
             Control and became a cornerstone construct in many subsequent models.
           </p>
 
@@ -199,7 +199,7 @@ const FoundationalTheoriesPage = () => {
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
-            The MM's crucial contribution was the formal introduction of intrinsic motivation, or
+            The MM’s crucial contribution was the formal introduction of intrinsic motivation, or
             perceived enjoyment, as a direct determinant of technology use.
           </p>
 

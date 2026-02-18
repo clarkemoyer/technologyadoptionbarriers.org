@@ -12,7 +12,7 @@ import {
 import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
-  title: 'Article 1: Branch Introduction – The User's Journey',
+  title: "Article 1: Branch Introduction – The User's Journey",
   description:
     'Branch introduction to the evolution of individual technology acceptance and use models, from foundational theories through TAM, UTAUT, and specialized adoption frameworks.',
 }
@@ -21,22 +21,22 @@ const UsersJourneyPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Article 1: Branch Introduction – The User's Journey</h1>
+        <h1 className={H1_CLASSES}>Article 1: Branch Introduction – The User’s Journey</h1>
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             In our introductory article, we established the landscape of technology adoption through
             the lens of a trifecta: Organizational, User, and Consumer Adoption. We positioned
-            Organizational Adoption–the C-Suite's strategic focus–as the apex. We now turn our
+            Organizational Adoption–the C-Suite’s strategic focus–as the apex. We now turn our
             attention to the other two domains, which together form the deeply human side of the
-            adoption equation: the internal employee's decision to use a new system and the
-            external customer's choice to integrate a technology into their lives.
+            adoption equation: the internal employee’s decision to use a new system and the external
+            customer’s choice to integrate a technology into their lives.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            This branch of our series, The User's Journey, delves into the rich intellectual
-            history of individual technology acceptance and use. We will explore the evolution of
-            the models designed to explain and predict the most fundamental of behaviors: the
-            decision by a person to either embrace or reject a new technology.
+            This branch of our series, The User’s Journey, delves into the rich intellectual history
+            of individual technology acceptance and use. We will explore the evolution of the models
+            designed to explain and predict the most fundamental of behaviors: the decision by a
+            person to either embrace or reject a new technology.
           </p>
         </section>
 
@@ -48,7 +48,7 @@ const UsersJourneyPage = () => {
             At the heart of this entire field of study lies a foundational puzzle: What are the key
             cognitive levers that determine whether an individual will accept and use a new
             technology? Is it a purely rational calculation of costs and benefits? Is it the
-            influence of peers and managers? Or is it a deeper, more personal assessment of one's
+            influence of peers and managers? Or is it a deeper, more personal assessment of one’s
             own capabilities and the intrinsic enjoyment derived from the experience?
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -71,8 +71,8 @@ const UsersJourneyPage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>The Foundational “Grandparents”:</strong> The earliest attempts to model
-              this behavior did not originate in information systems research but drew from a rich
+              <strong>The Foundational “Grandparents”:</strong> The earliest attempts to model this
+              behavior did not originate in information systems research but drew from a rich
               tapestry of established theories. Social psychology gave us the powerful
               intention-behavior link through the Theory of Reasoned Action (TRA) [1] and the Theory
               of Planned Behavior (TPB) [2]. Sociology provided the Diffusion of Innovations (DOI)
@@ -90,7 +90,7 @@ const UsersJourneyPage = () => {
               lens for researchers.
             </li>
             <li>
-              <strong>Expansion and Unification:</strong> Following TAM's success, the next period
+              <strong>Expansion and Unification:</strong> Following TAM’s success, the next period
               was characterized by expansion and refinement. Researchers extended the original model
               to increase its explanatory power, resulting in TAM 2 [8] and TAM 3 [9]. This era of
               energetic model-building eventually culminated in a landmark effort to synthesize the
@@ -104,9 +104,9 @@ const UsersJourneyPage = () => {
               crucial constructs like hedonic motivation and price value. Concurrently, other
               researchers argued that general models were insufficient, developing specialized
               frameworks like the Task-Technology Fit (TTF) Model [12], which emphasizes the
-              alignment of a tool with a user's specific job functions. Finally, another stream of
+              alignment of a tool with a user’s specific job functions. Finally, another stream of
               research looked inward, proposing that adoption is heavily influenced by an
-              individual's innate personality traits toward technology, leading to the Technology
+              individual’s innate personality traits toward technology, leading to the Technology
               Readiness Index (TRI) [13].
             </li>
           </ul>
@@ -116,15 +116,15 @@ const UsersJourneyPage = () => {
           <h2 className={H2_CLASSES}>Roadmap for this Branch</h2>
           <p className={PARAGRAPH_CLASSES}>
             This narrative provides the structure for the articles to come. Our exploration of the
-            user's journey is organized as follows:
+            user’s journey is organized as follows:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            First, we'll look at the foundational theories. Then, we'll do a deep dive into TAM,
-            the model that changed everything. From there, we'll explore its direct successors
-            before examining the ambitious UTAUT model that sought to unify the field. After
-            establishing this core lineage, our focus will broaden to see how these theories were
-            adapted for the consumer context, explore specialized models where context is king, and
-            finally, consider the crucial role of an individual's innate readiness for technology.
+            First, we’ll look at the foundational theories. Then, we’ll do a deep dive into TAM, the
+            model that changed everything. From there, we’ll explore its direct successors before
+            examining the ambitious UTAUT model that sought to unify the field. After establishing
+            this core lineage, our focus will broaden to see how these theories were adapted for the
+            consumer context, explore specialized models where context is king, and finally,
+            consider the crucial role of an individual’s innate readiness for technology.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             This journey will provide a comprehensive understanding of how the field has evolved,

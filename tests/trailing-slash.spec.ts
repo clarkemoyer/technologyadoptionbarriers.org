@@ -42,7 +42,7 @@ test.describe('Trailing Slash URL Handling', () => {
 
     // Should successfully load the page
     await expect(
-      page.getByRole('heading', { name: /Tech Adoption Barriers/, level: 1 })
+      page.getByRole('heading', { name: /Technology Adoption Barriers/, level: 1 })
     ).toBeVisible()
   })
 
@@ -51,7 +51,7 @@ test.describe('Trailing Slash URL Handling', () => {
 
     // Should successfully load the page
     await expect(
-      page.getByRole('heading', { name: /Tech Adoption Barriers/, level: 1 })
+      page.getByRole('heading', { name: /Technology Adoption Barriers/, level: 1 })
     ).toBeVisible()
   })
 

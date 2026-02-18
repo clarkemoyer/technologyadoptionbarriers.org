@@ -12,7 +12,7 @@ const GetInvolvedPage = () => {
     {
       id: 'take-survey',
       title: 'Take the TABS Survey',
-      icon: 'ðŸ“‹',
+      icon: '📋',
       description:
         'The most direct way to contribute is by participating in the survey. Your insights as a senior leader help identify common technology adoption barriers and create valuable benchmarks for the industry.',
       whoShouldParticipate:
@@ -32,14 +32,14 @@ const GetInvolvedPage = () => {
     {
       id: 'use-dataset',
       title: 'Use TABS Data in Your Research',
-      icon: 'ðŸ“Š',
+      icon: '📊',
       description:
-        'We encourage researchers to use the TABS dataset to conduct original research, testing hypotheses beyond basic descriptive statistics. Request secure access to the dataset once approved by your IRB to contribute to papers and dissertations.',
+        'We encourage researchers to use the TABS dataset to conduct original research, testing hypotheses beyond basic descriptive statistics. As the dataset grows, qualified researchers may request access subject to IRB approval and a data-sharing agreement.',
       whoShouldParticipate:
         'Academic researchers, doctoral students, and research institutions with IRB approval seeking to study technology adoption barriers and organizational capabilities.',
       commitment: 'IRB approval required; research timeline varies by project',
       benefits: [
-        'Access to unique longitudinal dataset on technology adoption',
+        'Access to a growing dataset on technology adoption',
         'Opportunity to publish original research',
         'Contribute to advancing the field',
         'Be counted in TABS research impact tracking',
@@ -52,16 +52,16 @@ const GetInvolvedPage = () => {
     },
     {
       id: 'contribute-general',
-      title: 'Contribute to the General Fund',
-      icon: 'ðŸ’µ',
+      title: 'Support This Research',
+      icon: '💵',
       description:
-        'Support the ongoing operation of the TABS survey. Your financial contribution helps us maintain the survey platform, manage participant listings, and disseminate annual findings to the research community.',
+        'Contributions via GitHub Sponsors help cover the costs of running the TABS project, including the survey platform, participant recruitment, and sharing findings with the community.',
       whoShouldParticipate:
         'Anyone who believes in the value of research-driven insights into technology adoption.',
       commitment: 'One-time or recurring contribution of any amount',
       benefits: [
         'Enable continued free access to survey insights',
-        'Support annual data collection and analysis',
+        'Support ongoing data collection and analysis',
         'Help maintain research infrastructure',
       ],
       cta: {
@@ -73,16 +73,16 @@ const GetInvolvedPage = () => {
     {
       id: 'sponsor',
       title: 'Become a Sponsor',
-      icon: 'ðŸ¤',
+      icon: '🤝',
       description:
-        "Sponsorship provides significant support while gaining visibility and demonstrating your organization's commitment to advancing technology adoption research and business insights.",
+        "Sponsorship provides significant support while demonstrating your organization's commitment to advancing technology adoption research and business insights.",
       whoShouldParticipate:
         'Organizations, companies, and institutions that want to support research while building their brand in the technology adoption space.',
-      commitment: 'Sponsorship packages available at multiple levels',
+      commitment: 'Reach out to discuss sponsorship options',
       benefits: [
-        'Recognition in research publications and reports',
-        'Early access to findings and insights',
-        'Networking opportunities with research community',
+        'Acknowledgment in research outputs',
+        'Early access to findings and insights as they become available',
+        'Connection with the TABS research community',
       ],
       cta: {
         text: 'Discuss Sponsorship',
@@ -93,9 +93,9 @@ const GetInvolvedPage = () => {
     {
       id: 'volunteer',
       title: 'Volunteer to Help TABS Operations',
-      icon: 'ðŸ™‹',
+      icon: '🙋',
       description:
-        'We need more than funding - we need skilled people to help run the survey, analyze data, improve the website, and support TABS operations. Use your skills to advance technology adoption research.',
+        'We need more than contributions — we need skilled people to help run the survey, analyze data, improve the website, and support TABS operations. Use your skills to advance technology adoption research.',
       whoShouldParticipate:
         'Researchers, data scientists, web developers, technical writers, and anyone with skills that can help improve TABS operations and impact.',
       commitment: 'Flexible - from a few hours to ongoing involvement',

@@ -19,9 +19,7 @@ test.describe('Get Involved Page', () => {
 
     // Check all opportunity titles
     await expect(page.getByRole('heading', { name: 'Take the TABS Survey' })).toBeVisible()
-    await expect(
-      page.getByRole('heading', { name: 'Contribute to the General Fund' })
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Support This Research' })).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Become a Sponsor' })).toBeVisible()
     await expect(
       page.getByRole('heading', { name: 'Volunteer to Help TABS Operations' })
@@ -135,6 +133,6 @@ test.describe('Get Involved Page', () => {
 
     // Check for IRB mention
     await expect(page.getByText(/IRB approval required/i)).toBeVisible()
-    await expect(page.getByText(/papers and dissertations/i)).toBeVisible()
+    await expect(page.getByText(/data-sharing agreement/i)).toBeVisible()
   })
 })
