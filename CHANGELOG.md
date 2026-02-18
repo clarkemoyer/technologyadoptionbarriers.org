@@ -7,6 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-02-18
+
+### Added
+
+- Technical integrations page at `/making-of-tabs/integrations` documenting Qualtrics, Prolific, and GitHub Sponsors architecture
+- Permanent Survey Flow export workflow (`qualtrics-dump-flow.yml`) for read-only flow inspection
+- GitHub Sponsors integration (Stripe-backed) for PCI-compliant donations — one-time and recurring
+- Sponsor button enabled in GitHub repository header via `FUNDING.yml`
+
+### Changed
+
+- Visual 06 refactored to dual-curve lifecycle positioning chart with improved data visualization
+- Prolific integration script idempotency improved — row comparisons now happen before removal
+- Workflow permissions hardened with explicit `contents: read` blocks
+- Updated Qualtrics survey metrics and Google Analytics impact stats
+- Archived write-operation Qualtrics workflows to `workflows-archived/`
+
+### Fixed
+
+- Two-branch Survey Flow configuration matched to working production API state
+- Qualtrics API hostname standardized to `smeal.yul1.qualtrics.com`
+- `FUNDING.yml` corrected from empty array to `clarkemoyer` for Sponsor button
+
+### Documentation
+
+- Comprehensive content credibility audit across 9 site sections (PRs #304–#312)
+- Updated `PROLIFIC_INTEGRATION.md` with two-branch architecture diagram and API field table
+- Updated `qualtrics-api-cheatsheet.md` with flow dump and field reference
+- Updated `API_INTEGRATION_GUIDE.md` with workflow #7 and architecture section
+
+### Removed
+
+- 14 stale remote branches and 3 stale local branches cleaned up
+- Closed PR #100 (direct Stripe integration) — superseded by GitHub Sponsors
+
 ## [0.3.0] - 2026-02-16
 
 ### Added
@@ -127,7 +162,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automated testing in CI
 - Merge queue verification
 
-[unreleased]: https://github.com/clarkemoyer/technologyadoptionbarriers.org/compare/v0.3.0...HEAD
+[unreleased]: https://github.com/clarkemoyer/technologyadoptionbarriers.org/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/clarkemoyer/technologyadoptionbarriers.org/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/clarkemoyer/technologyadoptionbarriers.org/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/clarkemoyer/technologyadoptionbarriers.org/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/clarkemoyer/technologyadoptionbarriers.org/releases/tag/v0.1.0
