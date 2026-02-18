@@ -282,7 +282,7 @@ function Visual06_TechnologyLifecyclePositioningDiagram({ mode }: { mode?: 'hd' 
   /* Dual-curve lifecycle chart:
      - Cyan dashed = Innovation Potential (peaks early, declines)
      - Amber solid = Adoption Risk (U-shaped: high at both extremes, lowest at Mainstream)
-     - Green shaded zone = Target "sweet spot" (Leading Edge → Mainstream)
+     - Cyan shaded zone = Target "sweet spot" (Leading Edge → Mainstream)
      Data validated against Slide 7 risk table:
        Bleeding Edge=Very High, Leading=High, Mainstream=Low,
        Trending Behind=Medium, End of Support=High–Very High */
