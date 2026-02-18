@@ -128,6 +128,13 @@ Some survey configuration (like Survey Flow Embedded Data fields and End-of-Surv
 
 - `GET /survey-definitions/{surveyId}/flow`
 
+```bash
+curl -sS \
+  -H "X-API-TOKEN: $QUALTRICS_API_TOKEN" \
+  -H "Accept: application/json" \
+  "$QUALTRICS_BASE_URL/API/v3/survey-definitions/$SURVEY_ID/flow"
+```
+
 ### Update survey flow
 
 - `PUT /survey-definitions/{surveyId}/flow`
@@ -135,6 +142,44 @@ Some survey configuration (like Survey Flow Embedded Data fields and End-of-Surv
 In this repo, live Prolific ↔ Qualtrics integration changes can be applied via:
 
 - `.github/workflows/qualtrics-prolific-apply.yml`
+
+### Export flow JSON (read-only workflow)
+
+This repo includes a read-only workflow to dump the live Survey Flow JSON for inspection:
+
+```bash
+# Via GitHub CLI
+gh workflow run qualtrics-dump-flow.yml
+
+# With a specific survey ID
+gh workflow run qualtrics-dump-flow.yml -f survey_id=SV_abc123
+```
+
+The workflow runs `scripts/qualtrics-dump-flow.ts`, prints the flow to the run log, and uploads it as a 30-day artifact. See `.github/workflows/qualtrics-dump-flow.yml`.
+
+You can also run the script locally:
+
+```bash
+# Requires QUALTRICS_API_TOKEN or OAuth token
+npx tsx scripts/qualtrics-dump-flow.ts
+# Output: .vscode/qualtrics-flow.<surveyId>.json
+```
+
+### Branch Logic — tenant-specific field reference
+
+When building Survey Flow Branch elements via the API, the JSON structure varies across Qualtrics tenants. The values below were captured from the TABS production tenant and are what the `PUT` endpoint validates:
+
+| Field                                   | Value             | Notes                                      |
+| --------------------------------------- | ----------------- | ------------------------------------------ |
+| `BranchLogic.Operator`                  | `"NotEmpty"`      | Not `"IsNotEmpty"` or `"IsNotBlank"`       |
+| `BranchLogic.LeftOperand`               | `"SOURCE"`        | Plain field name, no `"e://Field/"` prefix |
+| `BranchLogic.LogicType`                 | `"EmbeddedField"` |                                            |
+| `EmbeddedData[].Type` (inside branches) | `"Custom"`        | Not `"EmbeddedData"` or `"Text"`           |
+| `EndSurvey.EndingType`                  | `"Advanced"`      | Required for redirect                      |
+| `EndSurvey.Options.SurveyTermination`   | `"Redirect"`      | Capital R                                  |
+| `EndSurvey.Options.Advanced`            | `"true"`          | String, not boolean                        |
+
+> **Tip:** If you encounter `PUT` validation errors for `Type` or `Operator`, dump the live flow first (`qualtrics-dump-flow.yml`) and inspect the actual field values your tenant uses. See [PROLIFIC_INTEGRATION.md](./PROLIFIC_INTEGRATION.md#two-branch-survey-flow-architecture-redirect-lockdown) for the full two-branch architecture reference.
 
 ## Import survey
 
@@ -169,6 +214,7 @@ curl -sS \
 
 - Copy survey workflow: `.github/workflows/qualtrics-copy-survey.yml`
 - Connectivity + metadata smoke test: `.github/workflows/qualtrics-api-smoke.yml`
-- Metrics update automation: `.github/workflows/qualtrics-metrics-update.yml`
-
-If you’re troubleshooting or validating credentials, run the smoke test first.
+- Metrics update automation: `.github/workflows/qualtrics-metrics-update.yml`- Survey Flow export (read-only): `.github/workflows/qualtrics-dump-flow.yml`
+- Prolific integration apply: `.github/workflows/qualtrics-prolific-apply.yml`
+- Prolific integration verify: `.github/workflows/qualtrics-prolific-verify.yml`
+  If you’re troubleshooting or validating credentials, run the smoke test first.

@@ -290,6 +290,115 @@ Recommended website link format:
 
 - Use `SOURCE=TABS_Website` and pass `COMPLETE_URL` pointing to the website completion page.
 
+### Two-Branch Survey Flow Architecture (Redirect Lockdown)
+
+When redirect lockdown is enabled (`lock_down_redirect=true`), the apply script (`scripts/qualtrics-apply-prolific-integration.ts`) inserts **two conditional branches at the end of the Survey Flow**, after all survey question blocks. These branches guarantee that `COMPLETE_URL` is always set to a hard-coded, allowlisted destination — regardless of what (if anything) the inbound URL passes.
+
+#### Branch order and logic
+
+The two branches appear in the Survey Flow immediately after the last Standard (question) block, in this order:
+
+1. **Branch 1 — "If `SOURCE` Is Not Empty"**
+   - **Condition:** The `SOURCE` Embedded Data field is not empty.
+   - **Action:** Sets `COMPLETE_URL` to the **website completion page** (e.g., `https://technologyadoptionbarriers.org/survey-complete`), then terminates with a redirect to that URL.
+   - **Why this fires first:** When a respondent arrives from the TABS website, the link explicitly passes `SOURCE=TABS_Website` (or similar). Similarly, Prolific links pass `SOURCE=prolific`. So if `SOURCE` has any value at all, the respondent came from a known channel, and the default safe redirect is the website completion page.
+
+2. **Branch 2 — "If `PROLIFIC_PID` Is Not Empty"**
+   - **Condition:** The `PROLIFIC_PID` Embedded Data field is not empty.
+   - **Action:** Sets `SOURCE` to `"prolific"` and sets `COMPLETE_URL` to the **Prolific completion URL** (e.g., `https://app.prolific.com/submissions/complete?cc=<CODE>`), then terminates with a redirect to Prolific.
+   - **Why this exists:** This is a safety-net branch. If a Prolific participant somehow arrives without `SOURCE` being set (e.g., a misconfigured study URL), the presence of `PROLIFIC_PID` alone is enough to tag them as Prolific and redirect correctly.
+
+> **Important:** Branch 1 fires _before_ Branch 2. When Prolific links include `SOURCE=prolific`, Branch 1 matches first and redirects to the website completion URL. This means `COMPLETE_URL` gets the website URL, _not_ the Prolific URL, for those respondents. This is the currently-deployed behavior and is correct because the website completion page displays a thank-you message appropriate for all respondents, and Prolific tracks completion independently via the authenticity script or URL. If you want Prolific participants to be redirected back to Prolific instead, reverse the branch order by placing the `PROLIFIC_PID` check first.
+
+#### Visual flow diagram
+
+```
+┌───────────────────────────────────────────┐
+│ FL_15  Top-Level Embedded Data            │
+│  ├─ PROLIFIC_PID  (Type: EmbeddedData)   │
+│  ├─ STUDY_ID      (Type: EmbeddedData)   │
+│  ├─ SESSION_ID    (Type: Recipient)       │
+│  └─ SOURCE        (Type: Recipient)       │
+└───────────────┬───────────────────────────┘
+                │
+                ▼
+┌───────────────────────────────────────────┐
+│ FL_13–FL_14  Standard Question Blocks     │
+│  (6 blocks in the current survey)         │
+└───────────────┬───────────────────────────┘
+                │
+                ▼
+┌───────────────────────────────────────────┐
+│ FL_25  Branch 1: If SOURCE Is Not Empty   │
+│  ├─ FL_26  Set COMPLETE_URL = website URL │
+│  └─ FL_27  EndSurvey → Redirect to       │
+│            website completion page        │
+└───────────────┬───────────────────────────┘
+                │ (only reached if SOURCE
+                │  was empty)
+                ▼
+┌───────────────────────────────────────────┐
+│ FL_21  Branch 2: If PROLIFIC_PID Not Empty│
+│  ├─ FL_20  Set SOURCE = "prolific"        │
+│  │         Set COMPLETE_URL = Prolific URL│
+│  └─ FL_24  EndSurvey → Redirect to       │
+│            Prolific completion URL        │
+└───────────────────────────────────────────┘
+```
+
+#### API field details (tenant-specific)
+
+These field values were captured from the live Qualtrics API (`GET /survey-definitions/{surveyId}/flow`) and reflect the exact JSON structure that this tenant accepts on `PUT`:
+
+| Field                                 | Value / Notes                                                               |
+| ------------------------------------- | --------------------------------------------------------------------------- |
+| `BranchLogic.Operator`                | `"NotEmpty"` (not `"IsNotEmpty"`)                                           |
+| `BranchLogic.LeftOperand`             | Plain field name: `"SOURCE"` or `"PROLIFIC_PID"` (no `"e://Field/"` prefix) |
+| `BranchLogic.LogicType`               | `"EmbeddedField"`                                                           |
+| `BranchLogic._HiddenExpression`       | `false` (required by some tenants)                                          |
+| `EmbeddedData[].Type` inside branches | `"Custom"` (not `"EmbeddedData"` or `"Recipient"`)                          |
+| `EndSurvey.EndingType`                | `"Advanced"`                                                                |
+| `EndSurvey.Options.SurveyTermination` | `"Redirect"` (capital R)                                                    |
+| `EndSurvey.Options.EOSRedirectURL`    | Full URL string                                                             |
+| `EndSurvey.Options.Advanced`          | `"true"` (string, not boolean)                                              |
+| Branch `Description`                  | `"TABS: lock down COMPLETE_URL for Prolific"`                               |
+
+#### Inspecting the live flow
+
+You can export the current Survey Flow JSON at any time using the read-only workflow:
+
+```bash
+# Via GitHub CLI
+gh workflow run qualtrics-dump-flow.yml
+
+# With a specific survey ID
+gh workflow run qualtrics-dump-flow.yml -f survey_id=SV_abc123
+```
+
+The workflow prints the flow JSON to the run log and uploads it as an artifact (retained 30 days). See [`.github/workflows/qualtrics-dump-flow.yml`](.github/workflows/qualtrics-dump-flow.yml).
+
+You can also run the script locally (requires `QUALTRICS_API_TOKEN` or OAuth token):
+
+```bash
+npx tsx scripts/qualtrics-dump-flow.ts
+# Output: .vscode/qualtrics-flow.<surveyId>.json
+```
+
+#### Apply script behavior
+
+The apply script (`scripts/qualtrics-apply-prolific-integration.ts`) performs these steps when `lock_down_redirect=true`:
+
+1. **GET** the current Survey Flow from `GET /survey-definitions/{surveyId}/flow`.
+2. **Remove** any existing TABS branches (identified by their `Description` matching the `tabsBranchDescriptions` Set).
+3. **Rebuild** the two branches using the builder functions:
+   - `buildSourceIsNotEmptyBranchLogic()` — Branch 1 condition
+   - `buildProlificPresentBranchLogic()` — Branch 2 condition
+4. **Append** the new branches at the end of the root `Flow` array.
+5. **PUT** the modified flow back to `PUT /survey-definitions/{surveyId}/flow`.
+6. **(Optional)** Attempt to publish the survey version via API if `publish_after_apply=true`.
+
+The script is **idempotent**: running it multiple times produces the same result. It always removes existing TABS branches before inserting new ones.
+
 ### 3. Prolific authenticity checks script (Qualtrics header)
 
 If you are using Prolific’s “Authenticity checks (beta)”, ensure the Prolific-provided Qualtrics script is placed in the **survey header** (not a question block) per Prolific instructions.

@@ -142,6 +142,21 @@ const MakingOfTabsPage = () => {
           </div>
         </section>
 
+        <section className="mb-10 text-gray-800">
+          <h2 className={H2_CLASSES}>Technical Integrations &amp; Workflows</h2>
+          <p className="mb-4">
+            Behind the scenes, TABS relies on automated workflows that connect Qualtrics, Prolific,
+            and Google Analytics via GitHub Actions. These integrations handle everything from
+            survey creation and participant routing to daily analytics reporting.
+          </p>
+          <Link
+            className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+            href="/making-of-tabs/integrations"
+          >
+            View technical integrations
+          </Link>
+        </section>
+
         <section className="pt-8 border-t border-gray-200">
           <p className="text-sm text-gray-600 italic">
             This &quot;Making of&quot; section is a living document, updated as our toolset and

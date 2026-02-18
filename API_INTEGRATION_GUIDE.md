@@ -220,6 +220,46 @@ gh workflow run qualtrics-api-smoke.yml
 
 **Output:** Connection status, user info, survey count
 
+#### 7. Survey Flow Export (Read-Only)
+
+**Workflow:** `.github/workflows/qualtrics-dump-flow.yml`
+
+**Purpose:** Export the live Survey Flow JSON for inspection and debugging
+
+**What it does:**
+
+- Fetches the flow via `GET /survey-definitions/{surveyId}/flow`
+- Prints the full JSON to the workflow log for quick review
+- Uploads the JSON as a downloadable artifact (retained 30 days)
+
+**Usage:**
+
+```bash
+# Default survey (uses QUALTRICS_SURVEY_ID variable)
+gh workflow run qualtrics-dump-flow.yml
+
+# Specific survey
+gh workflow run qualtrics-dump-flow.yml -f survey_id=SV_abc123
+```
+
+**Local equivalent:**
+
+```bash
+npx tsx scripts/qualtrics-dump-flow.ts
+# Output: .vscode/qualtrics-flow.<surveyId>.json
+```
+
+**When to use:** Before and after applying Survey Flow changes, to verify the exact JSON structure your tenant expects. This is especially useful for debugging `PUT` validation errors (e.g., incorrect `Type`, `Operator`, or `LeftOperand` values).
+
+### Survey Flow Architecture
+
+The Qualtrics Survey Flow drives the end-of-survey experience for both website and Prolific respondents. When the apply script runs with `lock_down_redirect=true`, it inserts two conditional branches after all question blocks:
+
+1. **Branch 1** — If `SOURCE` is not empty → redirect to website completion page
+2. **Branch 2** — If `PROLIFIC_PID` is not empty → set `SOURCE=prolific`, redirect to Prolific
+
+This two-branch design ensures `COMPLETE_URL` is always set to a safe, allowlisted destination. For full details including the exact API field values, branch ordering rationale, and a visual flow diagram, see [PROLIFIC_INTEGRATION.md — Two-Branch Survey Flow Architecture](./PROLIFIC_INTEGRATION.md#two-branch-survey-flow-architecture-redirect-lockdown).
+
 ### Annual Survey Rollover Process
 
 The recommended sequence for yearly survey rollover:
@@ -556,7 +596,7 @@ All external APIs use GitHub environment secrets for secure credential managemen
 
 | Environment      | API/Service             | Secrets              | Variables   | Status                  |
 | ---------------- | ----------------------- | -------------------- | ----------- | ----------------------- |
-| `qualtrics-prod` | Qualtrics API v3        | 6 secrets            | 3 variables | ✅ Active (6 workflows) |
+| `qualtrics-prod` | Qualtrics API v3        | 6 secrets            | 3 variables | ✅ Active (7 workflows) |
 | `prolific-prod`  | Prolific API v1         | 1 secret             | 1 variable  | ✅ Active (1 workflow)  |
 | `google-prod`    | Google Analytics Data   | 6 secrets            | -           | ✅ Active (1 workflow)  |
 | `microsoft-prod` | Microsoft Forms         | 1 secret             | -           | ⚠️ Configured (future)  |
@@ -869,7 +909,7 @@ Or set repository secret `ACTIONS_STEP_DEBUG` to `true`.
 
 All workflows are in `.github/workflows/`:
 
-- `qualtrics-*.yml` - Qualtrics API workflows (6 files)
+- `qualtrics-*.yml` - Qualtrics API workflows (7 files)
 - `prolific.yml` - Prolific data collection
 - `ga-report.yml` - Google Analytics reporting
 
