@@ -1,6 +1,6 @@
 # Onboarding Guide for New Contributors
 
-**Welcome to the Technology Adoption Barriers (TABS) project!** 🎉
+**Welcome to the Technology Adoption Barriers Survey (TABS) project!** 🎉
 
 This guide will help you get started as a contributor to the TABS website, whether you're a developer, researcher, content creator, or community member.
 
@@ -20,7 +20,7 @@ This guide will help you get started as a contributor to the TABS website, wheth
 
 ## About TABS
 
-**Technology Adoption Barriers (TABS)** is a research initiative documenting and addressing the challenges that individuals, businesses, and organizations face when adopting new technologies.
+**Technology Adoption Barriers Survey (TABS)** is a research initiative documenting and addressing the challenges that individuals, businesses, and organizations face when adopting new technologies.
 
 ### Academic Research Foundation
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
@@ -12,8 +11,8 @@ export const metadata: Metadata = {
 const OperationsLeadersPage = () => {
   const organizations = [
     {
-      name: 'APICS',
-      fullName: 'Association for Supply Chain Management',
+      name: 'ASCM',
+      fullName: 'Association for Supply Chain Management (formerly APICS)',
       focus: 'Supply chain and operations professionals',
       url: 'https://www.ascm.org/',
     },
@@ -53,7 +52,7 @@ const OperationsLeadersPage = () => {
               href="/for-organizations"
               className="text-orange-200 hover:text-white transition-colors text-[16px]"
             >
-              ← Back to All Organizations
+              â† Back to All Organizations
             </Link>
           </div>
           <h1 className="text-[48px] md:text-[56px] font-bold mb-[20px] font-serif">
@@ -80,7 +79,7 @@ const OperationsLeadersPage = () => {
             <div className="bg-orange-50 p-[30px] rounded-[12px] border-2 border-orange-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Implementation">
-                  ⚙️
+                  âš™ï¸
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">
@@ -96,7 +95,7 @@ const OperationsLeadersPage = () => {
             <div className="bg-orange-50 p-[30px] rounded-[12px] border-2 border-orange-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Scaling">
-                  📈
+                  ðŸ“ˆ
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">Scaling Operations</h3>
@@ -109,7 +108,7 @@ const OperationsLeadersPage = () => {
             <div className="bg-orange-50 p-[30px] rounded-[12px] border-2 border-orange-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Efficiency">
-                  🎯
+                  ðŸŽ¯
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">Process Efficiency</h3>
@@ -136,7 +135,7 @@ const OperationsLeadersPage = () => {
           <div className="grid md:grid-cols-2 gap-[30px]">
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                🚀 Implementation Best Practices
+                ðŸš€ Implementation Best Practices
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Learn from industry data about common implementation barriers and successful
@@ -146,7 +145,7 @@ const OperationsLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                📊 Operational Benchmarks
+                ðŸ“Š Operational Benchmarks
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Compare their organization&apos;s technology adoption challenges against operational
@@ -156,7 +155,7 @@ const OperationsLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                🔧 Change Management Insights
+                ðŸ”§ Change Management Insights
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Understand workforce adoption barriers to develop better change management
@@ -166,7 +165,7 @@ const OperationsLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                💡 Cross-Functional Collaboration
+                ðŸ’¡ Cross-Functional Collaboration
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Gain insights that improve collaboration with IT, finance, and other teams by
@@ -209,7 +208,7 @@ const OperationsLeadersPage = () => {
                     rel="noopener noreferrer"
                     className="inline-block px-[25px] py-[12px] bg-orange-600 hover:bg-orange-700 text-white rounded-[6px] font-semibold text-[14px] transition-colors text-center md:text-left whitespace-nowrap"
                   >
-                    Visit Website →
+                    Visit Website â†’
                   </a>
                 </div>
               </div>
@@ -247,7 +246,7 @@ const OperationsLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 1">
-                  1️⃣
+                  1ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Initial Contact</h3>
@@ -260,7 +259,7 @@ const OperationsLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 2">
-                  2️⃣
+                  2ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Receive Materials</h3>
@@ -273,7 +272,7 @@ const OperationsLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 3">
-                  3️⃣
+                  3ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Promote Survey</h3>
@@ -286,7 +285,7 @@ const OperationsLeadersPage = () => {
             <div className="text-center">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Step 4">
-                  4️⃣
+                  4ï¸âƒ£
                 </span>
               </div>
               <h3 className="text-[20px] font-bold text-gray-900 mb-[10px]">Share Insights</h3>

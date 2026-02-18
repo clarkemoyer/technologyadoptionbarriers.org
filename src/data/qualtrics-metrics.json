@@ -1,20 +1,20 @@
 {
-  "collectedAt": "2026-02-06T04:02:22Z",
-  "baseUrl": "https://yul1.qualtrics.com",
+  "collectedAt": "2026-02-17T04:04:54Z",
+  "baseUrl": "https://smeal.yul1.qualtrics.com",
   "survey": {
     "id": "SV_bkMopd73A8fzfwO",
     "name": "Technology Adoption Barriers Survey",
     "organizationId": "smeal"
   },
   "responseCounts": {
-    "auditable": 19,
+    "auditable": 44,
     "generated": 501,
     "deleted": 0
   },
   "metrics": [
     {
       "metric": "auditable",
-      "value": 19
+      "value": 44
     },
     {
       "metric": "deleted",

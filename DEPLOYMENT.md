@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This document explains how the Technology Adoption Barriers (TABS) website is deployed and provides troubleshooting guidance for deployment issues.
+This document explains how the Technology Adoption Barriers Survey (TABS) website is deployed and provides troubleshooting guidance for deployment issues.
 
 ## Table of Contents
 
@@ -39,6 +39,7 @@ The application uses Next.js static export mode configured in `next.config.ts`:
 ```typescript
 const nextConfig: NextConfig = {
   output: 'export',
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },
@@ -46,6 +47,18 @@ const nextConfig: NextConfig = {
 ```
 
 This generates a static site in the `./out` directory that can be served by any static file server, including GitHub Pages.
+
+### Trailing Slash Handling
+
+The configuration includes `trailingSlash: true`, which ensures consistent URL handling for both trailing and non-trailing slash URLs:
+
+- **How it works**: With `trailingSlash: true`, Next.js generates directories with `index.html` files (e.g., `/get-involved/index.html` instead of `/get-involved.html`)
+- **Benefits**:
+  - Both `/get-involved` and `/get-involved/` URLs work correctly
+  - Consistent behavior across all routes
+  - Compatible with GitHub Pages and custom domain deployment
+  - Prevents 404 errors for URLs with trailing slashes
+- **Example**: A page at `src/app/get-involved/page.tsx` generates `out/get-involved/index.html`, which can be accessed via both `/get-involved` and `/get-involved/`
 
 ### Asset Path Handling
 

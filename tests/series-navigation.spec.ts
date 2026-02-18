@@ -268,21 +268,9 @@ test.describe('Series Pages - Content Verification', () => {
 })
 
 test.describe('Placeholder Pages - Coming Soon', () => {
-  const placeholderArticles = [
-    technologyAdoptionModelsSeries.branches[0].articles[1], // 1.2
-    technologyAdoptionModelsSeries.branches[0].articles[2], // 1.3
-    technologyAdoptionModelsSeries.branches[0].articles[3], // 1.4
-    technologyAdoptionModelsSeries.branches[0].articles[4], // 1.5
-    technologyAdoptionModelsSeries.branches[0].articles[5], // 1.6
-    technologyAdoptionModelsSeries.branches[0].articles[6], // 1.7
-    technologyAdoptionModelsSeries.branches[1].articles[0], // 2.1
-    technologyAdoptionModelsSeries.branches[1].articles[1], // 2.2
-    technologyAdoptionModelsSeries.branches[1].articles[2], // 2.3
-    technologyAdoptionModelsSeries.branches[1].articles[3], // 2.4
-    technologyAdoptionModelsSeries.branches[1].articles[4], // 2.5
-    technologyAdoptionModelsSeries.branches[1].articles[5], // 2.6
-    technologyAdoptionModelsSeries.branches[1].articles[6], // 2.7
-  ]
+  const placeholderArticles = technologyAdoptionModelsSeries.branches.flatMap((branch) =>
+    branch.articles.filter((article) => article.status === 'coming-soon')
+  )
 
   for (const article of placeholderArticles) {
     test(`${article.id} should display "Coming soon"`, async ({ page }) => {

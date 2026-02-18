@@ -50,7 +50,7 @@ npm test
 npm run build
 ```
 
-**Expected**: All checks pass with 0 errors (8 warnings about `<img>` tags and React hooks are expected)
+**Expected**: All checks pass with 0 errors and 0 warnings
 
 ---
 
@@ -202,7 +202,7 @@ NEXT_PUBLIC_GTM_ID=
 Open `src/app/page.tsx` and find the hero section:
 
 ```tsx
-<h1 className="text-4xl font-bold">Technology Adoption Barriers (TABS)</h1>
+<h1 className="text-4xl font-bold">Technology Adoption Barriers Survey (TABS)</h1>
 ```
 
 Change the text, save, and see it update instantly in your browser!
@@ -387,10 +387,10 @@ npm run prepare             # Setup git hooks
 
 ---
 
-**Welcome to FFC Single Page Template! Happy coding! 🚀**
+**Welcome to the Technology Adoption Barriers Survey (TABS) project! Happy coding! 🚀**
 
 ---
 
-**Last Updated**: 2025-12-03  
-**Version**: 0.1.0  
+**Last Updated**: 2026-02-16  
+**Version**: 0.3.0  
 **Node.js**: 20.x (validated with v20.19.6)

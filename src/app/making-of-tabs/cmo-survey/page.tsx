@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
@@ -142,14 +141,14 @@ const CMOSurveyPage = () => {
             <h3 className={H3_CLASSES}>1. Longitudinal Methodology</h3>
             <p className="mb-4">
               Just as The CMO Survey tracks marketing trends over time, TABS is designed as a
-              repeatable, annual survey that will build a comprehensive dataset on technology
-              adoption barriers across multiple years. This long-term perspective allows us to:
+              repeatable survey intended to build a comprehensive dataset on technology adoption
+              barriers across multiple collection cycles. This long-term perspective allows us to:
             </p>
             <ul className="list-disc list-inside mb-4 space-y-2 text-gray-800">
               <li>Identify emerging trends and shifting barriers</li>
               <li>Track the evolution of organizational readiness</li>
               <li>Measure the impact of technological innovation on adoption patterns</li>
-              <li>Provide year-over-year comparisons for benchmarking</li>
+              <li>Provide cross-cycle comparisons for benchmarking</li>
             </ul>
           </div>
 
@@ -254,12 +253,10 @@ const CMOSurveyPage = () => {
           <div className="mb-8">
             <h3 className={H3_CLASSES}>Rapid Technology Evolution</h3>
             <p className="mb-4">
-              This section explores factors that may hinder the adoption of new, strategically
-              important technologies. Your candid assessment of these potential barriers within your
-              organization over the past 12 months is vital. Understanding these challenges from
-              your leadership perspective will help identify common obstacles across organizations
-              and inform strategies for more effective technology integration and innovation. Please
-              rate the extent to which each factor has posed a barrier.
+              This section examines how the fast pace of technology change creates adoption
+              barriers. Respondents rate the extent to which factors such as emerging-tool
+              complexity, shifting vendor landscapes, and compressed evaluation timelines have posed
+              challenges within their organizations over the past 12 months.
             </p>
           </div>
         </section>
@@ -308,7 +305,7 @@ const CMOSurveyPage = () => {
                 <tr className="bg-gray-50">
                   <td className="border border-gray-300 px-4 py-3 font-medium">Frequency</td>
                   <td className="border border-gray-300 px-4 py-3">Biannual (Feb &amp; Aug)</td>
-                  <td className="border border-gray-300 px-4 py-3">Annual</td>
+                  <td className="border border-gray-300 px-4 py-3">Periodic (planned)</td>
                 </tr>
                 <tr>
                   <td className="border border-gray-300 px-4 py-3 font-medium">Target Audience</td>
@@ -338,7 +335,7 @@ const CMOSurveyPage = () => {
                     Academic Foundation
                   </td>
                   <td className="border border-gray-300 px-4 py-3">
-                    Duke, Northwestern, other top business schools
+                    Duke Fuqua School of Business, Deloitte, AMA
                   </td>
                   <td className="border border-gray-300 px-4 py-3">
                     Penn State Smeal, TAM/TOE framework
@@ -350,7 +347,7 @@ const CMOSurveyPage = () => {
                   </td>
                   <td className="border border-gray-300 px-4 py-3">✓ 15+ years of trend data</td>
                   <td className="border border-gray-300 px-4 py-3">
-                    ✓ Year-over-year comparisons planned
+                    ✓ Cross-cycle comparisons planned
                   </td>
                 </tr>
               </tbody>

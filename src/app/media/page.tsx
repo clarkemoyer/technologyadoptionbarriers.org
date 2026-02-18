@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import React from 'react'
 import { assetPath } from '@/lib/assetPath'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 

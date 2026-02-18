@@ -1,6 +1,12 @@
 import type { Metadata } from 'next'
-import React from 'react'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import {
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+  BODY_OL_CLASSES,
+} from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
@@ -20,16 +26,16 @@ const BibliographyPage = () => {
         <SeriesNavigation className="mt-6" />
 
         {/* Executive Summary */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Executive Summary</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             This bibliography serves as the definitive, exhaustive scholarly record for the
             &ldquo;Technology Adoption Models&rdquo; series. It consolidates every intellectual
             foundation identified in the project&rsquo;s research database, bifurcated into the{' '}
             <strong>Individual User&rsquo;s Journey</strong> (Branch 1) and the{' '}
             <strong>Organization&rsquo;s Playbook</strong> (Branch 2).
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             For doctoral-level researchers, this document provides the complete longitudinal record
             of theory evolution, ensuring no seminal work from the source RIS datasets is omitted.
             For executive leadership, it establishes a high-fidelity audit trail for every framework
@@ -40,13 +46,18 @@ const BibliographyPage = () => {
         </section>
 
         {/* How to Use This Bibliography */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>How to Use This Bibliography</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             To facilitate rapid navigation and deep verification, this document is structured into
-            two distinct sections:
+            three distinct sections:
           </p>
-          <ol className="list-decimal ml-6 mb-4 space-y-2">
+          <ol className={BODY_OL_CLASSES}>
+            <li>
+              <strong>Individual Model Articles:</strong> New dedicated pages for each of the 21
+              individual technology adoption models, featuring detailed histories, methodologies,
+              and validation approaches. Click any model to explore in depth.
+            </li>
             <li>
               <strong>Inventory Dashboard (Quick Scan):</strong> Located immediately below, this
               section provides a high-level list of all unique titles and authors in a side-by-side
@@ -61,8 +72,167 @@ const BibliographyPage = () => {
           </ol>
         </section>
 
+        {/* Individual Model Articles */}
+        <section className="mb-8 sm:mb-12 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-2 border-blue-200">
+          <h2 className={H2_CLASSES}>ðŸ“š Individual Model Articles (New!)</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Each of the 21 individual technology adoption models now has its own dedicated article
+            page. Click any model below to explore its history, methodology, validation, and impact
+            on the field.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <a
+              href="/bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">1. Theory of Reasoned Action</div>
+              <div className="text-sm text-gray-600">Fishbein &amp; Ajzen (1975)</div>
+            </a>
+            <a
+              href="/bibliography-1-2-diffusion-of-innovations-rogers"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">2. Diffusion of Innovations</div>
+              <div className="text-sm text-gray-600">Rogers (1962/2003)</div>
+            </a>
+            <a
+              href="/bibliography-1-3-social-cognitive-theory-sct-bandura-1986"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">3. Social Cognitive Theory</div>
+              <div className="text-sm text-gray-600">Bandura (1986)</div>
+            </a>
+            <a
+              href="/bibliography-1-4-model-of-innovation-resistance-ram-sheth-1989"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">4. Innovation Resistance</div>
+              <div className="text-sm text-gray-600">Ram &amp; Sheth (1989)</div>
+            </a>
+            <a
+              href="/bibliography-1-5-status-quo-bias-samuelson-zeckhauser-1988"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">5. Status Quo Bias</div>
+              <div className="text-sm text-gray-600">Samuelson &amp; Zeckhauser (1988)</div>
+            </a>
+            <a
+              href="/bibliography-1-6-technology-acceptance-model-tam-davis-1989"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">6. Technology Acceptance Model</div>
+              <div className="text-sm text-gray-600">Davis (1989)</div>
+            </a>
+            <a
+              href="/bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">7. Theory of Planned Behavior</div>
+              <div className="text-sm text-gray-600">Ajzen (1991)</div>
+            </a>
+            <a
+              href="/bibliography-1-8-personal-computing-acceptance-thompson-1991"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">8. Personal Computing Acceptance</div>
+              <div className="text-sm text-gray-600">Thompson et al. (1991)</div>
+            </a>
+            <a
+              href="/bibliography-1-9-intrinsic-extrinsic-motivation-davis-1992"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">9. Motivation Framework</div>
+              <div className="text-sm text-gray-600">Davis et al. (1992)</div>
+            </a>
+            <a
+              href="/bibliography-1-10-decomposed-tpb-taylor-todd-1995"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">10. Decomposed TPB</div>
+              <div className="text-sm text-gray-600">Taylor &amp; Todd (1995)</div>
+            </a>
+            <a
+              href="/bibliography-1-11-task-technology-fit-ttf-goodhue-thompson-1995"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">11. Task-Technology Fit</div>
+              <div className="text-sm text-gray-600">Goodhue &amp; Thompson (1995)</div>
+            </a>
+            <a
+              href="/bibliography-1-12-technology-readiness-index-tri-parasuraman-2000"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">12. Technology Readiness Index</div>
+              <div className="text-sm text-gray-600">Parasuraman (2000)</div>
+            </a>
+            <a
+              href="/bibliography-1-13-technology-acceptance-model-2-tam2-venkatesh-davis-2000"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">13. TAM2</div>
+              <div className="text-sm text-gray-600">Venkatesh &amp; Davis (2000)</div>
+            </a>
+            <a
+              href="/bibliography-1-14-expectation-confirmation-model-ecm-bhattacherjee-2001"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">14. Expectation-Confirmation Model</div>
+              <div className="text-sm text-gray-600">Bhattacherjee (2001)</div>
+            </a>
+            <a
+              href="/bibliography-1-15-unified-theory-utaut-venkatesh-2003"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">15. UTAUT</div>
+              <div className="text-sm text-gray-600">Venkatesh et al. (2003)</div>
+            </a>
+            <a
+              href="/bibliography-1-16-math-venkatesh-brown-2001"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">16. MATH</div>
+              <div className="text-sm text-gray-600">Venkatesh &amp; Brown (2001)</div>
+            </a>
+            <a
+              href="/bibliography-1-17-value-based-adoption-kim-2007"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">17. Value-Based Adoption</div>
+              <div className="text-sm text-gray-600">Kim et al. (2007)</div>
+            </a>
+            <a
+              href="/bibliography-1-18-tram-lin-2007"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">18. TRAM</div>
+              <div className="text-sm text-gray-600">Lin et al. (2007)</div>
+            </a>
+            <a
+              href="/bibliography-1-19-technology-acceptance-model-3-tam3-venkatesh-bala-2008"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">19. TAM3</div>
+              <div className="text-sm text-gray-600">Venkatesh &amp; Bala (2008)</div>
+            </a>
+            <a
+              href="/bibliography-1-20-utaut2-venkatesh-2012"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">20. UTAUT2</div>
+              <div className="text-sm text-gray-600">Venkatesh et al. (2012)</div>
+            </a>
+            <a
+              href="/bibliography-1-21-technology-readiness-index-2-tri-2-parasuraman-colby-2015"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-blue-600">21. TRI 2.0</div>
+              <div className="text-sm text-gray-600">Parasuraman &amp; Colby (2015)</div>
+            </a>
+          </div>
+        </section>
+
         {/* Inventory Dashboard */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Inventory Dashboard</h2>
           <div className="overflow-x-auto -mx-4 sm:mx-0">
             <table className="min-w-full border-collapse border border-gray-300 text-sm sm:text-base">
@@ -88,7 +258,7 @@ const BibliographyPage = () => {
                     Ajzen (1991) - The theory of planned behavior
                   </td>
                   <td className="border border-gray-300 px-3 py-2">
-                    Alexander Wöhlke et al. (2024) - AWS Cloud Adoption Framework (AI/ML)
+                    Alexander WÃ¶hlke et al. (2024) - AWS Cloud Adoption Framework (AI/ML)
                   </td>
                 </tr>
                 <tr>
@@ -258,7 +428,7 @@ const BibliographyPage = () => {
         </section>
 
         {/* Track 1 References */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Detailed APA Reference List: Track 1 (Individual)</h2>
           <div className="space-y-4">
             <p className="pl-8 -indent-8">
@@ -366,13 +536,13 @@ const BibliographyPage = () => {
         </section>
 
         {/* Track 2 References */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Detailed APA Reference List: Track 2 (Organization)</h2>
           <div className="space-y-4">
             <p className="pl-8 -indent-8">
-              Alexander Wöhlke, Nitin, P., Lachlan, I., Shane, M., Spoorthy, C., Chris, B., Anushka,
-              K., &amp; Madhan Raj, M. S. (2024). <em>AWS Cloud Adoption Framework: AI/ML Lens</em>.
-              Amazon Web Services.
+              Alexander WÃ¶hlke, Nitin, P., Lachlan, I., Shane, M., Spoorthy, C., Chris, B.,
+              Anushka, K., &amp; Madhan Raj, M. S. (2024).{' '}
+              <em>AWS Cloud Adoption Framework: AI/ML Lens</em>. Amazon Web Services.
               https://docs.aws.amazon.com/whitepapers/latest/aws-caf-for-ai-ml/aws-caf-for-ai-ml.html
             </p>
             <p className="pl-8 -indent-8">
@@ -471,6 +641,8 @@ const BibliographyPage = () => {
             </p>
           </div>
         </section>
+
+        <SeriesNavigation className="mt-6" />
       </article>
     </main>
   )

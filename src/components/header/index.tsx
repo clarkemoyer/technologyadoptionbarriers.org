@@ -108,6 +108,7 @@ const Header: React.FC = () => {
         megaMenuId: 'teaching-series',
       },
       { label: 'Media', path: '/media' },
+      { label: 'FAQ', path: '/faq' },
       { label: 'Get Involved', path: '/get-involved' },
     ],
     []
@@ -509,7 +510,7 @@ const Header: React.FC = () => {
                     <Link
                       href={technologyAdoptionModelsSeries.root.slug}
                       onClick={handleLinkClick}
-                      className="block text-[16px] font-bold text-[#145044] hover:text-blue-600 mb-4"
+                      className="block text-[16px] font-bold text-tabs-teal-deep hover:text-blue-600 mb-4"
                     >
                       {technologyAdoptionModelsSeries.root.title}
                     </Link>
@@ -570,7 +571,7 @@ const Header: React.FC = () => {
                   <Link
                     href={technologyAdoptionTeachingSeries.root.slug}
                     onClick={handleLinkClick}
-                    className="block text-[16px] font-bold text-[#145044] hover:text-blue-600"
+                    className="block text-[16px] font-bold text-tabs-teal-deep hover:text-blue-600"
                   >
                     {technologyAdoptionTeachingSeries.root.title}
                   </Link>
@@ -663,7 +664,7 @@ const Header: React.FC = () => {
                     <Link
                       href={personaNavigation.root.path}
                       onClick={handleLinkClick}
-                      className="block text-[16px] font-bold text-[#145044] hover:text-blue-600 mb-4"
+                      className="block text-[16px] font-bold text-tabs-teal-deep hover:text-blue-600 mb-4"
                     >
                       {personaNavigation.root.title}
                     </Link>
@@ -753,7 +754,7 @@ const Header: React.FC = () => {
                   <Link
                     href={technologyAdoptionModelsSeries.bibliography.slug}
                     onClick={handleLinkClick}
-                    className="inline-block text-[14px] font-bold text-[#145044] hover:text-blue-600"
+                    className="inline-block text-[14px] font-bold text-tabs-teal-deep hover:text-blue-600"
                   >
                     📚 {technologyAdoptionModelsSeries.bibliography.title}
                   </Link>
@@ -777,7 +778,7 @@ const Header: React.FC = () => {
             }`}
           >
             <div
-              className={`max-w-[700px] mx-auto px-6 py-4 bg-white border-t-[3px] border-[#2EA3F2] shadow-[0_2px_5px_rgba(0,0,0,0.1)] max-h-[80vh] overflow-auto`}
+              className={`max-w-[700px] mx-auto px-6 py-4 bg-white border-t-[3px] border-tabs-blue shadow-[0_2px_5px_rgba(0,0,0,0.1)] max-h-[80vh] overflow-auto`}
             >
               <ul className="space-y-2">
                 {menuItems.map((item, index) => (
@@ -913,7 +914,7 @@ const Header: React.FC = () => {
                                 <Link
                                   href={technologyAdoptionModelsSeries.bibliography.slug}
                                   onClick={handleLinkClick}
-                                  className="block px-4 py-2 text-[12px] font-semibold text-[#145044] hover:bg-blue-50 rounded"
+                                  className="block px-4 py-2 text-[12px] font-semibold text-tabs-teal-deep hover:bg-blue-50 rounded"
                                 >
                                   📚 {technologyAdoptionModelsSeries.bibliography.title}
                                 </Link>

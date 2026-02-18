@@ -1,6 +1,6 @@
 # Issue Resolution Guide
 
-This document provides solutions to common issues, troubleshooting steps, and frequently asked questions for the Technology Adoption Barriers (TABS) project.
+This document provides solutions to common issues, troubleshooting steps, and frequently asked questions for the Technology Adoption Barriers Survey (TABS) project.
 
 ## Table of Contents
 

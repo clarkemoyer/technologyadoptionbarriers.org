@@ -1,12 +1,11 @@
-import React from 'react'
-import Hero from '@/components/tabs-page/Hero'
-import SeeYourselfTeaser from '@/components/tabs-page/SeeYourselfTeaser'
-import TealValueProp from '@/components/tabs-page/TealValueProp'
-import GetInvolved from '@/components/tabs-page/GetInvolved'
-import SupportCards from '@/components/tabs-page/SupportCards'
-import Statistics from '@/components/tabs-page/Statistics'
-import MissionOverview from '@/components/tabs-page/MissionOverview'
-import SimplePitch from '@/components/tabs-page/SimplePitch'
+import Hero from '@/components/tabs-page/hero'
+import SeeYourselfTeaser from '@/components/tabs-page/see-yourself-teaser'
+import TealValueProp from '@/components/tabs-page/teal-value-prop'
+import GetInvolved from '@/components/tabs-page/get-involved'
+import SupportCards from '@/components/tabs-page/support-cards'
+import Statistics from '@/components/tabs-page/statistics'
+import MissionOverview from '@/components/tabs-page/mission-overview'
+import SimplePitch from '@/components/tabs-page/simple-pitch'
 
 /**
  * TABS Homepage

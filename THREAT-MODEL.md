@@ -1,6 +1,6 @@
 # Threat Model
 
-This document outlines the security threat model for the Technology Adoption Barriers (TABS) website, identifying potential security risks, trust boundaries, and mitigation strategies for our technology stack.
+This document outlines the security threat model for the Technology Adoption Barriers Survey (TABS) website, identifying potential security risks, trust boundaries, and mitigation strategies for our technology stack.
 
 ## Overview
 

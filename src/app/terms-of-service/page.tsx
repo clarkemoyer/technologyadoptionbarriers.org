@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | Technology Adoption Barriers (TABS)',
-  description: 'Terms of Service for the Technology Adoption Barriers (TABS) website',
+  title: 'Terms of Service | Technology Adoption Barriers Survey (TABS)',
+  description: 'Terms of Service for the Technology Adoption Barriers Survey (TABS) website',
 }
 
 export default function TermsOfService() {
@@ -11,206 +11,210 @@ export default function TermsOfService() {
       <div className="py-[27px] w-[90%] md:w-[80%] mx-auto">
         <div id="aria-font">
           {/* Effective Date */}
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             <em>Effective Date: 11-20-2024</em>
           </p>
 
           {/* Main Title */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">
-            Technology Adoption Barriers (TABS) Terms of Service
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">
+            Technology Adoption Barriers Survey (TABS) Terms of Service
           </h1>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">&nbsp;</p>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">&nbsp;</p>
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">&nbsp;</p>
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">&nbsp;</p>
 
           {/* Empty spacing removed — use margin if needed */}
 
           {/* Introduction */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">
             Introduction
           </h1>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            Welcome to Technology Adoption Barriers (TABS)! These Terms of Service (“Terms”) govern
-            your access to and use of our website, services, and platforms (collectively,
-            “Services”), provided by Technology Adoption Barriers (TABS) (“we,” “us,” or “our”). By
-            accessing or using our Services, you agree to be bound by these Terms. If you do not
-            agree to these Terms, please do not use our Services.
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
+            Welcome to Technology Adoption Barriers Survey (TABS)! These Terms of Service (“Terms”)
+            govern your access to and use of our website, services, and platforms (collectively,
+            “Services”), provided by Technology Adoption Barriers Survey (TABS) (“we,” “us,” or
+            “our”). By accessing or using our Services, you agree to be bound by these Terms. If you
+            do not agree to these Terms, please do not use our Services.
           </p>
 
           {/* Eligibility */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">
             Eligibility
           </h1>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             Our Services are available only to individuals who are at least 18 years old. By using
             our Services, you represent and warrant that you are at least 18 years of age.
           </p>
 
           {/* Use of Services */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">
             Use of Services
           </h1>
 
-          <h2 className="text-[26px] text-[#333] pb-[10px] leading-[26px] font-[500]">
-            Account Registration
+          <h2 className="text-[26px] text-gray-800 pb-[10px] leading-[26px] font-[500]">
+            Survey Participation
           </h2>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            To access certain features of our Services, you may be required to register for an
-            account. You agree to provide accurate, current, and complete information during the
-            registration process and to update such information to keep it accurate, current, and
-            complete. You are responsible for safeguarding your password and for any activities or
-            actions under your account.
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
+            Certain features of our Services, such as research surveys, may require you to provide
+            information through third-party platforms (e.g., Qualtrics, Prolific). You agree to
+            provide accurate and truthful information when participating. Your participation in
+            surveys is voluntary, and you may withdraw at any time.
           </p>
 
-          <h2 className="text-[26px] text-[#333] pb-[10px] leading-[26px] font-[500]">
+          <h2 className="text-[26px] text-gray-800 pb-[10px] leading-[26px] font-[500]">
             Prohibited Activities
           </h2>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             You agree not to use our Services for any unlawful purpose or in any way that could
             harm, disable, overburden, or impair the Services. Prohibited activities include, but
             are not limited to:
           </p>
           <ul className="list-inside ml-[1.5em] space-y-[4px]">
-            <li className="text-[14px] text-[#666] leading-[24px] font-[500]">
+            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
               Engaging in any activity that violates any applicable law or regulation.
             </li>
-            <li className="text-[14px] text-[#666] leading-[24px] font-[500]">
+            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
               Transmitting any harmful or malicious code, viruses, or malware.
             </li>
-            <li className="text-[14px] text-[#666] leading-[24px] font-[500]">
+            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
               Interfering with or disrupting the integrity or performance of our Services.
             </li>
-            <li className="text-[14px] text-[#666] leading-[24px] font-[500]">
+            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
               Collecting or storing personal data about other users without their consent.
             </li>
-            <li className="text-[14px] text-[#666] leading-[24px] font-[500]">
+            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
               Using the Services to solicit funds outside the scope of this website.
             </li>
           </ul>
 
-          {/* Donations */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">Donations</h1>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            Any donations made through this website are voluntary and non-refundable except where
-            required by applicable law. By making a donation, you agree to our Donation Policy,
+          {/* Contributions */}
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">
+            Contributions
+          </h1>
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
+            Any contributions made through this website are voluntary and generally non-refundable
+            except where required by applicable law. Contributions to TABS are not tax-deductible as
+            charitable donations. By making a contribution, you agree to our Contribution Policy,
             which is incorporated by reference into these Terms.
           </p>
 
           {/* Payments */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">Payments</h1>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">Payments</h1>
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             Any payments made through this website are voluntary and non-refundable except where
             required by applicable law.
           </p>
 
           {/* Intellectual Property */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">
             Intellectual Property
           </h1>
 
-          <h2 className="text-[26px] text-[#333] pb-[10px] leading-[26px] font-[500]">Ownership</h2>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
+          <h2 className="text-[26px] text-gray-800 pb-[10px] leading-[26px] font-[500]">
+            Ownership
+          </h2>
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             All content, trademarks, logos, and other intellectual property included in our Services
-            are the property of Technology Adoption Barriers (TABS) or its licensors. You agree not
-            to use, reproduce, distribute, or create derivative works based on our intellectual
-            property without our express written consent.
+            are the property of Technology Adoption Barriers Survey (TABS) or its licensors. You
+            agree not to use, reproduce, distribute, or create derivative works based on our
+            intellectual property without our express written consent.
           </p>
 
-          <h2 className="text-[26px] text-[#333] pb-[10px] leading-[26px] font-[500]">
+          <h2 className="text-[26px] text-gray-800 pb-[10px] leading-[26px] font-[500]">
             User Content
           </h2>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             By submitting content to our Services, you grant us a non-exclusive, worldwide,
             royalty-free, and transferable license to use, reproduce, distribute, prepare derivative
             works of, and display such content in connection with our Services.
           </p>
 
           {/* Privacy */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">Privacy</h1>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">Privacy</h1>
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             Your privacy is important to us. Please review our Privacy Policy, which describes how
             we collect, use, and disclose information about you.
           </p>
 
           {/* Third-Party Links */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">
             Third-Party Links
           </h1>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             Our Services may contain links to third-party websites or services that are not owned or
-            controlled by Technology Adoption Barriers (TABS). We are not responsible for the
+            controlled by Technology Adoption Barriers Survey (TABS). We are not responsible for the
             content, privacy policies, or practices of any third-party websites or services. You
-            acknowledge and agree that Technology Adoption Barriers (TABS) shall not be liable for
-            any damages or loss caused by or in connection with your use of any third-party websites
-            or services.
+            acknowledge and agree that Technology Adoption Barriers Survey (TABS) shall not be
+            liable for any damages or loss caused by or in connection with your use of any
+            third-party websites or services.
           </p>
 
           {/* Disclaimer of Warranties */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">
             Disclaimer of Warranties
           </h1>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             Our Services are provided on an “as is” and “as available” basis. Technology Adoption
-            Barriers (TABS) makes no representations or warranties of any kind, express or implied,
-            regarding the use or the results of our Services in terms of accuracy, reliability, or
-            otherwise. Technology Adoption Barriers (TABS) disclaims all warranties, express or
-            implied, including, but not limited to, implied warranties of merchantability, fitness
-            for a particular purpose, and non-infringement.
+            Barriers Survey (TABS) makes no representations or warranties of any kind, express or
+            implied, regarding the use or the results of our Services in terms of accuracy,
+            reliability, or otherwise. Technology Adoption Barriers Survey (TABS) disclaims all
+            warranties, express or implied, including, but not limited to, implied warranties of
+            merchantability, fitness for a particular purpose, and non-infringement.
           </p>
 
           {/* Limitation of Liability */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">
             Limitation of Liability
           </h1>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            To the fullest extent permitted by law, Technology Adoption Barriers (TABS) shall not be
-            liable for any indirect, incidental, special, consequential, or punitive damages, or any
-            loss of profits or revenues, whether incurred directly or indirectly, or any loss of
-            data, use, goodwill, or other intangible losses, resulting from:
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
+            To the fullest extent permitted by law, Technology Adoption Barriers Survey (TABS) shall
+            not be liable for any indirect, incidental, special, consequential, or punitive damages,
+            or any loss of profits or revenues, whether incurred directly or indirectly, or any loss
+            of data, use, goodwill, or other intangible losses, resulting from:
           </p>
           <ul className="list-inside ml-[1.5em] space-y-[4px]">
-            <li className="text-[14px] text-[#666] leading-[24px] font-[500]">
+            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
               Your use of or inability to use our Services.
             </li>
-            <li className="text-[14px] text-[#666] leading-[24px] font-[500]">
+            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
               Any unauthorized access to or use of our servers and/or any personal information
               stored therein.
             </li>
-            <li className="text-[14px] text-[#666] leading-[24px] font-[500]">
+            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
               Any interruption or cessation of transmission to or from our Services.
             </li>
-            <li className="text-[14px] text-[#666] leading-[24px] font-[500]">
+            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
               Any bugs, viruses, trojan horses, or the like that may be transmitted to or through
               our Services by any third party.
             </li>
           </ul>
 
           {/* Indemnification */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">
             Indemnification
           </h1>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            You agree to indemnify, defend, and hold harmless Technology Adoption Barriers (TABS),
-            its officers, directors, employees, and agents, from and against any and all claims,
-            liabilities, damages, losses, and expenses, including reasonable attorneys’ fees,
-            arising out of or in any way connected with your access to or use of our Services, or
-            your violation of these Terms.
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
+            You agree to indemnify, defend, and hold harmless Technology Adoption Barriers Survey
+            (TABS), its officers, directors, employees, and agents, from and against any and all
+            claims, liabilities, damages, losses, and expenses, including reasonable attorneys’
+            fees, arising out of or in any way connected with your access to or use of our Services,
+            or your violation of these Terms.
           </p>
 
           {/* Governing Law */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">
             Governing Law
           </h1>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             These Terms shall be governed by and construed in accordance with the laws of the United
-            States and the State of North Carolina, without regard to its conflict of law
+            States and the Commonwealth of Pennsylvania, without regard to its conflict of law
             principles.
           </p>
 
           {/* Changes to Terms */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">
             Changes to Terms
           </h1>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             We reserve the right to modify these Terms at any time. If we make changes, we will
             provide notice by updating the date at the top of these Terms and posting the modified
             Terms on our website. Your continued use of our Services after the effective date of the
@@ -218,38 +222,40 @@ export default function TermsOfService() {
           </p>
 
           {/* Termination */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">
             Termination
           </h1>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             We may terminate or suspend your access to our Services, without prior notice or
             liability, for any reason, including, without limitation, if you breach these Terms.
             Upon termination, your right to use our Services will immediately cease.
           </p>
 
           {/* Contact Us */}
-          <h1 className="text-[30px] text-[#333] pb-[10px] leading-[1em] font-[500]">Contact Us</h1>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
+          <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">
+            Contact Us
+          </h1>
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             If you have any questions about these Terms, please contact us at:
           </p>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            Technology Adoption Barriers (TABS)
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
+            Technology Adoption Barriers Survey (TABS)
           </p>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             Email:{' '}
             <a
               href="mailto:contact@technologyadoptionbarriers.org"
-              className="text-[#007bff] underline"
+              className="text-tabs-link underline"
             >
               contact@technologyadoptionbarriers.org
             </a>
           </p>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             Phone: 520-222-8104
           </p>
-          <p className="text-[14px] text-[#666] pb-[10px] leading-[24px] font-[500]">
-            Thank you for using Technology Adoption Barriers (TABS) and for complying with these
-            Terms of Service.
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
+            Thank you for using Technology Adoption Barriers Survey (TABS) and for complying with
+            these Terms of Service.
           </p>
         </div>
       </div>

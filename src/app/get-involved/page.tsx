@@ -1,11 +1,10 @@
-import React from 'react'
 import type { Metadata } from 'next'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
 export const metadata: Metadata = {
   title: 'Get Involved | TABS',
   description:
-    'Discover all the ways you can support the Technology Adoption Barriers Survey (TABS) - from taking the survey to volunteering, donating, or using our dataset in your research.',
+    'Discover all the ways you can support the Technology Adoption Barriers Survey (TABS) - from taking the survey to volunteering, contributing, or using our dataset in your research.',
 }
 
 const GetInvolvedPage = () => {
@@ -18,7 +17,7 @@ const GetInvolvedPage = () => {
         'The most direct way to contribute is by participating in the survey. Your insights as a senior leader help identify common technology adoption barriers and create valuable benchmarks for the industry.',
       whoShouldParticipate:
         'Senior leaders, executives, and decision-makers in organizations of any size who deal with technology adoption challenges.',
-      commitment: '15-20 minutes to complete the survey',
+      commitment: '20-25 minutes to complete the survey',
       benefits: [
         'Receive summary reports and key findings from aggregated data',
         'Benchmark your organization against industry trends',
@@ -27,7 +26,7 @@ const GetInvolvedPage = () => {
       cta: {
         text: 'Take the Survey',
         link: TABS_WEBSITE_QUALTRICS_SURVEY_URL,
-        color: 'bg-[#F57C20] hover:bg-[#d66a1a]',
+        color: 'bg-tabs-orange hover:bg-tabs-orange-hover',
       },
     },
     {
@@ -35,12 +34,12 @@ const GetInvolvedPage = () => {
       title: 'Use TABS Data in Your Research',
       icon: '📊',
       description:
-        'We encourage researchers to use the TABS dataset to conduct original research, testing hypotheses beyond basic descriptive statistics. Request secure access to the dataset once approved by your IRB to contribute to papers and dissertations.',
+        'We encourage researchers to use the TABS dataset to conduct original research, testing hypotheses beyond basic descriptive statistics. As the dataset grows, qualified researchers may request access subject to IRB approval and a data-sharing agreement.',
       whoShouldParticipate:
         'Academic researchers, doctoral students, and research institutions with IRB approval seeking to study technology adoption barriers and organizational capabilities.',
       commitment: 'IRB approval required; research timeline varies by project',
       benefits: [
-        'Access to unique longitudinal dataset on technology adoption',
+        'Access to a growing dataset on technology adoption',
         'Opportunity to publish original research',
         'Contribute to advancing the field',
         'Be counted in TABS research impact tracking',
@@ -48,27 +47,27 @@ const GetInvolvedPage = () => {
       cta: {
         text: 'Request Dataset Access',
         link: 'mailto:clarke@technologyadoptionbarriers.org?subject=TABS%20Dataset%20Access%20Request',
-        color: 'bg-[#2EA3F2] hover:bg-[#2589cc]',
+        color: 'bg-tabs-blue hover:bg-tabs-blue-hover',
       },
     },
     {
       id: 'contribute-general',
-      title: 'Contribute to the General Fund',
+      title: 'Support This Research',
       icon: '💵',
       description:
-        'Support the ongoing operation of the TABS survey. Your financial contribution helps us maintain the survey platform, manage participant listings, and disseminate annual findings to the research community.',
+        'Contributions via GitHub Sponsors help cover the costs of running the TABS project, including the survey platform, participant recruitment, and sharing findings with the community.',
       whoShouldParticipate:
         'Anyone who believes in the value of research-driven insights into technology adoption.',
       commitment: 'One-time or recurring contribution of any amount',
       benefits: [
         'Enable continued free access to survey insights',
-        'Support annual data collection and analysis',
+        'Support ongoing data collection and analysis',
         'Help maintain research infrastructure',
       ],
       cta: {
         text: 'Contribute Now',
         link: 'https://github.com/sponsors/clarkemoyer',
-        color: 'bg-[#113563] hover:bg-[#0d2a4f]',
+        color: 'bg-tabs-navy hover:bg-tabs-navy-bg',
       },
     },
     {
@@ -76,19 +75,19 @@ const GetInvolvedPage = () => {
       title: 'Become a Sponsor',
       icon: '🤝',
       description:
-        "Sponsorship provides significant support while gaining visibility and demonstrating your organization's commitment to advancing technology adoption research and business insights.",
+        "Sponsorship provides significant support while demonstrating your organization's commitment to advancing technology adoption research and business insights.",
       whoShouldParticipate:
         'Organizations, companies, and institutions that want to support research while building their brand in the technology adoption space.',
-      commitment: 'Sponsorship packages available at multiple levels',
+      commitment: 'Reach out to discuss sponsorship options',
       benefits: [
-        'Recognition in research publications and reports',
-        'Early access to findings and insights',
-        'Networking opportunities with research community',
+        'Acknowledgment in research outputs',
+        'Early access to findings and insights as they become available',
+        'Connection with the TABS research community',
       ],
       cta: {
         text: 'Discuss Sponsorship',
         link: 'mailto:clarke@technologyadoptionbarriers.org?subject=TABS%20Sponsorship%20Inquiry',
-        color: 'bg-[#0E7162] hover:bg-[#0b5a4e]',
+        color: 'bg-tabs-teal hover:bg-tabs-teal-deep',
       },
     },
     {
@@ -96,7 +95,7 @@ const GetInvolvedPage = () => {
       title: 'Volunteer to Help TABS Operations',
       icon: '🙋',
       description:
-        'We need more than funding - we need skilled people to help run the survey, analyze data, improve the website, and support TABS operations. Use your skills to advance technology adoption research.',
+        'We need more than contributions — we need skilled people to help run the survey, analyze data, improve the website, and support TABS operations. Use your skills to advance technology adoption research.',
       whoShouldParticipate:
         'Researchers, data scientists, web developers, technical writers, and anyone with skills that can help improve TABS operations and impact.',
       commitment: 'Flexible - from a few hours to ongoing involvement',
@@ -109,7 +108,7 @@ const GetInvolvedPage = () => {
       cta: {
         text: 'Volunteer Your Skills',
         link: 'mailto:clarke@technologyadoptionbarriers.org?subject=TABS%20Volunteer%20Inquiry',
-        color: 'bg-[#5FB38D] hover:bg-[#4d9671]',
+        color: 'bg-tabs-green hover:bg-tabs-green',
       },
     },
   ]
@@ -117,7 +116,7 @@ const GetInvolvedPage = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#1a2b4b] to-[#2d4a73] text-white py-[80px]">
+      <section className="bg-gradient-to-b from-tabs-navy-bg to-slate-600 text-white py-[80px]">
         <div className="w-[90%] mx-auto max-w-[1200px] text-center">
           <h1 className="text-[48px] md:text-[56px] font-bold mb-[20px] font-serif">
             Get Involved with TABS
@@ -137,7 +136,7 @@ const GetInvolvedPage = () => {
               Ways to Contribute
             </h2>
             <p className="text-[18px] text-gray-700 max-w-[800px] mx-auto leading-[1.6]">
-              Whether you have 15 minutes to take the survey, resources to donate, skills to
+              Whether you have 20 minutes to take the survey, resources to contribute, skills to
               volunteer, or research interests to pursue - there&apos;s a way for you to make an
               impact.
             </p>
@@ -219,7 +218,7 @@ const GetInvolvedPage = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="bg-[#1a2b4b] text-white py-[60px]">
+      <section className="bg-tabs-navy-bg text-white py-[60px]">
         <div className="w-[90%] mx-auto max-w-[800px] text-center">
           <h2 className="text-[36px] font-bold mb-[20px] font-serif">
             Have Questions? Let&apos;s Talk.
@@ -227,7 +226,7 @@ const GetInvolvedPage = () => {
           <p className="text-[18px] text-blue-100 mb-[10px]">Call or Text Clarke Moyer</p>
           <a
             href="tel:5202228104"
-            className="text-[32px] font-bold text-[#26C699] hover:text-[#1fa884] transition-colors block mb-[30px]"
+            className="text-[32px] font-bold text-tabs-teal-bright hover:text-tabs-teal-bright-hover transition-colors block mb-[30px]"
           >
             (520) 222-8104
           </a>

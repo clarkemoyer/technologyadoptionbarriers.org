@@ -62,7 +62,7 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement at:
 
 **Clarke Moyer**  
-Maintainer, Technology Adoption Barriers (TABS)  
+Maintainer, Technology Adoption Barriers Survey (TABS)  
 Email: clarke@technologyadoptionbarriers.org  
 Phone: 520-222-8104 (text preferred)
 

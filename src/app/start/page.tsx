@@ -1,4 +1,3 @@
-import React from 'react'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { personas } from '@/lib/personas'
@@ -14,7 +13,7 @@ const StartPage = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#1a2b4b] to-[#2d4a73] text-white py-[80px]">
+      <section className="bg-gradient-to-b from-tabs-navy-bg to-slate-600 text-white py-[80px]">
         <div className="w-[90%] mx-auto max-w-[1200px] text-center">
           <h1 className="text-[48px] md:text-[56px] font-bold mb-[20px] font-serif">
             See Yourself in the Survey
@@ -45,16 +44,16 @@ const StartPage = () => {
               <Link
                 key={persona.id}
                 href={`/start/${persona.slug}`}
-                className="group bg-white border-2 border-gray-200 rounded-[12px] p-[30px] hover:border-[#2583ab] hover:shadow-lg transition-all duration-300"
+                className="group bg-white border-2 border-gray-200 rounded-[12px] p-[30px] hover:border-tabs-primary hover:shadow-lg transition-all duration-300"
               >
                 <div className="flex flex-col h-full">
-                  <h3 className="text-[24px] font-bold text-gray-900 mb-[10px] group-hover:text-[#2583ab] transition-colors">
+                  <h3 className="text-[24px] font-bold text-gray-900 mb-[10px] group-hover:text-tabs-primary transition-colors">
                     {persona.shortTitle}
                   </h3>
                   <p className="text-[16px] text-gray-600 mb-[5px]">{persona.title}</p>
                   <div className="mt-auto pt-[15px]">
-                    <span className="text-[#2583ab] font-semibold text-[14px] group-hover:underline">
-                      Learn more →
+                    <span className="text-tabs-primary font-semibold text-[14px] group-hover:underline">
+                      Learn more â†’
                     </span>
                   </div>
                 </div>
@@ -75,7 +74,7 @@ const StartPage = () => {
               href={TABS_WEBSITE_QUALTRICS_SURVEY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-[40px] py-[16px] bg-[#F57C20] text-white text-[18px] font-bold rounded-[6px] hover:bg-[#d66a1a] transition-all duration-300 uppercase tracking-wide"
+              className="inline-block px-[40px] py-[16px] bg-tabs-orange text-white text-[18px] font-bold rounded-[6px] hover:bg-tabs-orange-hover transition-all duration-300 uppercase tracking-wide"
             >
               Take the Survey Now
             </a>

@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
@@ -14,7 +13,7 @@ const ForOrganizationsPage = () => {
       id: 'technology-leaders',
       title: 'Technology Leaders',
       subtitle: 'CTO, CIO, CISO',
-      icon: '💻',
+      icon: 'ðŸ’»',
       description:
         'Organizations serving technology executives who drive digital transformation and innovation.',
       path: '/for-organizations/technology-leaders',
@@ -24,7 +23,7 @@ const ForOrganizationsPage = () => {
       id: 'finance-leaders',
       title: 'Finance Leaders',
       subtitle: 'CFO, Controller, VP Finance',
-      icon: '💰',
+      icon: 'ðŸ’°',
       description:
         'Organizations serving finance executives who manage technology investments and ROI.',
       path: '/for-organizations/finance-leaders',
@@ -34,7 +33,7 @@ const ForOrganizationsPage = () => {
       id: 'operations-leaders',
       title: 'Operations Leaders',
       subtitle: 'COO, VP Operations',
-      icon: '⚙️',
+      icon: 'âš™ï¸',
       description:
         'Organizations serving operations executives who implement and scale technology solutions.',
       path: '/for-organizations/operations-leaders',
@@ -44,7 +43,7 @@ const ForOrganizationsPage = () => {
       id: 'executive-leaders',
       title: 'Executive Leaders',
       subtitle: 'CEO, President, Board Members',
-      icon: '🎯',
+      icon: 'ðŸŽ¯',
       description:
         'Organizations serving C-suite executives who set strategic direction for technology adoption.',
       path: '/for-organizations/executive-leaders',
@@ -55,14 +54,14 @@ const ForOrganizationsPage = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#1a2b4b] to-[#2d4a73] text-white py-[80px]">
+      <section className="bg-gradient-to-b from-tabs-navy-bg to-slate-600 text-white py-[80px]">
         <div className="w-[90%] mx-auto max-w-[1200px] text-center">
           <h1 className="text-[48px] md:text-[56px] font-bold mb-[20px] font-serif">
             Partner with TABS
           </h1>
           <p className="text-[20px] md:text-[24px] text-blue-100 max-w-[900px] mx-auto leading-[1.6]">
             Provide your members with valuable insights into technology adoption barriers while
-            contributing to groundbreaking research.
+            contributing to academic research.
           </p>
         </div>
       </section>
@@ -78,7 +77,7 @@ const ForOrganizationsPage = () => {
             <div className="bg-gray-50 p-[30px] rounded-[12px]">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Members benefit">
-                  🌟
+                  ðŸŒŸ
                 </span>
               </div>
               <h3 className="text-[24px] font-bold text-gray-900 mb-[15px]">
@@ -94,7 +93,7 @@ const ForOrganizationsPage = () => {
             <div className="bg-gray-50 p-[30px] rounded-[12px]">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Thought leadership">
-                  📊
+                  ðŸ“Š
                 </span>
               </div>
               <h3 className="text-[24px] font-bold text-gray-900 mb-[15px]">
@@ -110,7 +109,7 @@ const ForOrganizationsPage = () => {
             <div className="bg-gray-50 p-[30px] rounded-[12px]">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Research support">
-                  🔬
+                  ðŸ”¬
                 </span>
               </div>
               <h3 className="text-[24px] font-bold text-gray-900 mb-[15px]">
@@ -126,14 +125,14 @@ const ForOrganizationsPage = () => {
             <div className="bg-gray-50 p-[30px] rounded-[12px]">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Easy engagement">
-                  ✅
+                  âœ…
                 </span>
               </div>
               <h3 className="text-[24px] font-bold text-gray-900 mb-[15px]">
                 Easy Member Engagement
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
-                Simple 15-20 minute survey that respects your members&apos; time. We provide
+                Simple 20-25 minute survey that respects your members&apos; time. We provide
                 ready-to-use email templates and promotional materials to make outreach effortless.
               </p>
             </div>
@@ -174,7 +173,7 @@ const ForOrganizationsPage = () => {
                 <span
                   className={`inline-block px-[25px] py-[12px] ${persona.color} text-white rounded-[6px] font-bold text-[16px] transition-colors`}
                 >
-                  Learn More →
+                  Learn More â†’
                 </span>
               </Link>
             ))}
@@ -193,7 +192,7 @@ const ForOrganizationsPage = () => {
             <div className="flex gap-[20px]">
               <div className="text-[32px] flex-shrink-0">
                 <span role="img" aria-label="Recognition">
-                  🏆
+                  ðŸ†
                 </span>
               </div>
               <div>
@@ -210,7 +209,7 @@ const ForOrganizationsPage = () => {
             <div className="flex gap-[20px]">
               <div className="text-[32px] flex-shrink-0">
                 <span role="img" aria-label="Early access">
-                  🎯
+                  ðŸŽ¯
                 </span>
               </div>
               <div>
@@ -227,7 +226,7 @@ const ForOrganizationsPage = () => {
             <div className="flex gap-[20px]">
               <div className="text-[32px] flex-shrink-0">
                 <span role="img" aria-label="Materials">
-                  📧
+                  ðŸ“§
                 </span>
               </div>
               <div>
@@ -244,7 +243,7 @@ const ForOrganizationsPage = () => {
             <div className="flex gap-[20px]">
               <div className="text-[32px] flex-shrink-0">
                 <span role="img" aria-label="No cost">
-                  💡
+                  ðŸ’¡
                 </span>
               </div>
               <div>
@@ -262,7 +261,7 @@ const ForOrganizationsPage = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="bg-[#0E7162] text-white py-[80px]">
+      <section className="bg-tabs-teal text-white py-[80px]">
         <div className="w-[90%] mx-auto max-w-[800px] text-center">
           <h2 className="text-[40px] font-bold mb-[20px] font-serif">
             Ready to Partner with TABS?
@@ -274,13 +273,13 @@ const ForOrganizationsPage = () => {
           <div className="flex flex-col sm:flex-row gap-[20px] justify-center">
             <a
               href="mailto:clarke@technologyadoptionbarriers.org?subject=TABS%20Partnership%20Inquiry"
-              className="inline-block px-[40px] py-[18px] bg-white text-[#0E7162] rounded-[6px] font-bold text-[18px] hover:bg-gray-100 transition-colors"
+              className="inline-block px-[40px] py-[18px] bg-white text-tabs-teal rounded-[6px] font-bold text-[18px] hover:bg-gray-100 transition-colors"
             >
               Contact Us About Partnership
             </a>
             <a
               href="/get-involved"
-              className="inline-block px-[40px] py-[18px] border-2 border-white text-white rounded-[6px] font-bold text-[18px] hover:bg-white hover:text-[#0E7162] transition-colors"
+              className="inline-block px-[40px] py-[18px] border-2 border-white text-white rounded-[6px] font-bold text-[18px] hover:bg-white hover:text-tabs-teal transition-colors"
             >
               View All Ways to Support
             </a>

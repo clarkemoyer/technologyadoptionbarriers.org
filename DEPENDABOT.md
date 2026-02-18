@@ -1,6 +1,6 @@
 # Dependabot Configuration Guide
 
-This document provides comprehensive information about GitHub Dependabot configuration and usage for the FFC Single Page Template project.
+This document provides comprehensive information about GitHub Dependabot configuration and usage for the Technology Adoption Barriers Survey (TABS) project.
 
 ## Overview
 
@@ -541,4 +541,4 @@ For issues or questions about Dependabot:
 **Last Updated**: 2025-12-03  
 **Repository**: technologyadoptionbarriers.org  
 **Node.js**: 20.x (validated with v20.19.6)  
-**Maintained By**: Technology Adoption Barriers (TABS) maintainers
+**Maintained By**: Technology Adoption Barriers Survey (TABS) maintainers

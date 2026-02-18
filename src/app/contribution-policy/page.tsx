@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Contribution Policy | Technology Adoption Barriers (TABS)',
-  description: 'Contribution Policy for the Technology Adoption Barriers (TABS) website',
+  title: 'Contribution Policy | Technology Adoption Barriers Survey (TABS)',
+  description: 'Contribution Policy for the Technology Adoption Barriers Survey (TABS) website',
 }
 
 export default function ContributionPolicy() {
@@ -22,7 +22,7 @@ export default function ContributionPolicy() {
             Important Notice About Tax Deductibility
           </h2>
           <p>
-            The Technology Adoption Barriers (TABS) project is{' '}
+            The Technology Adoption Barriers Survey (TABS) project is{' '}
             <strong>not a 501(c)(3) organization</strong> or a state-level nonprofit entity.
             Contributions made to TABS are <strong>not tax-deductible</strong> as charitable
             donations. We do not offer any goods or services in exchange for contributions.
@@ -36,8 +36,8 @@ export default function ContributionPolicy() {
             Use of Contributions
           </h2>
           <p>
-            Contributions support the Technology Adoption Barriers (TABS) research mission and help
-            cover costs associated with operating and improving the project, including:
+            Contributions support the Technology Adoption Barriers Survey (TABS) research mission
+            and help cover costs associated with operating and improving the project, including:
           </p>
           <ul>
             <li>Survey and research operations</li>

@@ -1,6 +1,6 @@
 # Claude Agent Instructions for TABS
 
-Welcome, Claude! This document provides specific instructions for working on the Technology Adoption Barriers (TABS) repository using Anthropic Claude in VS Code or Antigravity.
+Welcome, Claude! This document provides specific instructions for working on the Technology Adoption Barriers Survey (TABS) repository using Anthropic Claude in VS Code or Antigravity.
 
 ## About This Project
 
@@ -550,7 +550,7 @@ All external API integrations use **GitHub environment secrets** for secure cred
 
 | Environment      | API/Service             | Secrets/Variables | Status                     |
 | ---------------- | ----------------------- | ----------------- | -------------------------- |
-| `qualtrics-prod` | Qualtrics API v3        | 7 secrets, 4 vars | ✅ Active (5 workflows)    |
+| `qualtrics-prod` | Qualtrics API v3        | 6 secrets, 5 vars | ✅ Active (5 workflows)    |
 | `prolific-prod`  | Prolific API v1         | 2 secrets, 3 vars | ✅ Active (2 workflows)    |
 | `google-prod`    | Google Analytics Data   | 6 secrets         | ✅ Active (daily report)   |
 | `microsoft-prod` | Microsoft Forms         | 1 secret          | ⚠️ Configured (future use) |

@@ -1,10 +1,18 @@
-import React from 'react'
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import {
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+  BODY_LIST_CLASSES,
+  REFERENCES_H2_CLASSES,
+  REFERENCES_OL_CLASSES,
+} from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
 
 export const metadata: Metadata = {
-  title: 'Article 2: Branch Introduction — The Organization’s Playbook',
+  title: 'Article 2: Branch Introduction â€“ The Organizationâ€™s Playbook',
   description:
     'Branch introduction to organizational technology adoption frameworks, covering strategy, maturity models, hype cycles, enterprise architecture, security, cloud adoption, and AI adoption.',
 }
@@ -13,29 +21,31 @@ const OrganizationsPlaybookPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Article 2: Branch Introduction – The Organization’s Playbook</h1>
+        <h1 className={H1_CLASSES}>
+          Article 2: Branch Introduction â€“ The Organizationâ€™s Playbook
+        </h1>
 
-        <section className="mb-10 text-gray-800">
-          <p className="mb-6">
-            Having thoroughly explored the psychological and cognitive drivers of the individual’s
+        <section className={SECTION_CLASSES}>
+          <p className={PARAGRAPH_CLASSES}>
+            Having thoroughly explored the psychological and cognitive drivers of the individualâ€™s
             adoption journey, we now pivot our focus from the micro to the macro. We ascend from the
-            user’s desktop to the C-Suite, shifting our lens from the personal calculus of
+            userâ€™s desktop to the C-Suite, shifting our lens from the personal calculus of
             acceptance to the strategic imperatives of the organization. Welcome to the second major
-            branch of our series: The Organization’s Playbook.
+            branch of our series: The Organizationâ€™s Playbook.
           </p>
-          <p className="mb-6">
-            Here, the central question is no longer “Will an individual use this technology?” but
-            rather, “How does our organization decide to invest in, implement, and integrate a
-            technology to achieve strategic goals?” This is the realm of high-stakes capital
+          <p className={PARAGRAPH_CLASSES}>
+            Here, the central question is no longer â€œWill an individual use this technology?â€ but
+            rather, â€œHow does our organization decide to invest in, implement, and integrate a
+            technology to achieve strategic goals?â€ This is the realm of high-stakes capital
             allocation, competitive maneuvering, operational overhaul, and systemic risk management.
-            If the user’s journey is a story of psychology, the organization’s playbook is a story
-            of strategy.
+            If the userâ€™s journey is a story of psychology, the organizationâ€™s playbook is a
+            story of strategy.
           </p>
         </section>
 
-        <section className="mb-10 text-gray-800">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>The Strategic Imperative: Beyond User Clicks</h2>
-          <p className="mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Organizational adoption is a fundamentally different challenge from individual
             acceptance. While still deeply linked with the foundational theories of DOI and IDT [1],
             it is a deliberate, top-down, and resource-intensive endeavor. The decision to deploy a
@@ -49,25 +59,25 @@ const OrganizationsPlaybookPage = () => {
           </p>
         </section>
 
-        <section className="mb-10 text-gray-800">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>From Theory to Frameworks: A Narrative Arc</h2>
-          <p className="mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             The evolution of organizational adoption guidance follows a distinct path, moving from
-            high-level academic theories that explain the “why” to detailed, prescriptive frameworks
-            that dictate the “how.”
+            high-level academic theories that explain the â€œwhyâ€ to detailed, prescriptive
+            frameworks that dictate the â€œhow.â€
           </p>
-          <ul className="list-disc pl-5 space-y-4 mb-6">
+          <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>The Strategic “Why”:</strong> The intellectual foundation for organizational
-              adoption lies in strategic management theory. Foundational frameworks like the
-              Technology-Organization-Environment (TOE) framework [2] provided a lens for
+              <strong>The Strategic â€œWhyâ€:</strong> The intellectual foundation for
+              organizational adoption lies in strategic management theory. Foundational frameworks
+              like the Technology-Organization-Environment (TOE) framework [2] provided a lens for
               understanding the external and internal forces that prompt a firm to consider a new
               technology. Meanwhile, the Resource-Based View (RBV) of the firm [3] framed technology
               as a potential source of sustained competitive advantage, providing a powerful
               strategic justification for investment.
             </li>
             <li>
-              <strong>The Procedural “How”:</strong> As organizations began to invest heavily in
+              <strong>The Procedural â€œHowâ€:</strong> As organizations began to invest heavily in
               software and IT, the focus shifted from why they should adopt to how they could do so
               effectively and repeatably. This led to the rise of maturity models, most famously the
               Capability Maturity Model (CMM) [4] and its successor, CMMI. While these focused on
@@ -97,12 +107,12 @@ const OrganizationsPlaybookPage = () => {
               building systems to building them securely and resiliently.
             </li>
             <li>
-              <strong>The Prescriptive “What”: Cloud and AI Playbooks:</strong> The modern era is
+              <strong>The Prescriptive â€œWhatâ€: Cloud and AI Playbooks:</strong> The modern era is
               characterized by the rise of highly detailed, prescriptive playbooks from the
               technology vendors themselves. Major cloud providers created comprehensive guides like
               the AWS Cloud Adoption Framework (CAF) [10] and the Microsoft Cloud Adoption Framework
               for Azure to navigate digital transformation. Most recently, this trend has extended
-              to the AI Frontier, with emerging frameworks like Microsoft’s AI Adoption Framework
+              to the AI Frontier, with emerging frameworks like Microsoftâ€™s AI Adoption Framework
               [11] designed to address the unique challenges of adopting artificial intelligence,
               machine learning, and generative AI, focusing on issues like data readiness, model
               governance, and responsible AI principles.
@@ -110,24 +120,24 @@ const OrganizationsPlaybookPage = () => {
           </ul>
         </section>
 
-        <section className="mb-10 text-gray-800">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Roadmap for this Branch</h2>
-          <p className="mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             This narrative arc provides the structure for the articles in this branch. Our
-            exploration of the organization’s playbook is organized as follows:
+            exploration of the organizationâ€™s playbook is organized as follows:
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             We will begin by exploring the core strategic theories that guide organizational tech
             decisions. Next, we will delve into maturity models for improving processes. We will
             then survey frameworks for managing enterprise architecture and risk, before concluding
             with the highly practical, modern frameworks for cloud and AI adoption.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             This journey will illuminate the tools and conceptual models that executives,
             strategists, and enterprise architects use to steer their organizations through the
             complex and ever-changing technology landscape.
           </p>
-          <p className="mb-3 sm:mb-6">
+          <p className={PARAGRAPH_CLASSES}>
             Ultimately, this journey seeks to answer a critical question for the modern enterprise:
             How do organizations build a coherent playbook that bridges the gap between high-level
             strategic theory and the complex, on-the-ground reality of digital transformation?
@@ -137,18 +147,16 @@ const OrganizationsPlaybookPage = () => {
         <SeriesNavigation />
 
         <section className="pt-8 border-t border-gray-200">
-          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-            References
-          </h2>
-          <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 lg:space-y-4 font-sans">
+          <h2 className={REFERENCES_H2_CLASSES}>References</h2>
+          <ol className={REFERENCES_OL_CLASSES}>
             <li>Rogers, E. M. (1962). Diffusion of Innovations. Free Press of Glencoe.</li>
             <li>
-              Tornatzky, L. G., & Fleischer, M. (1990). The Processes of Technological Innovation.
-              Lexington Books.
+              Tornatzky, L. G., &amp; Fleischer, M. (1990). The Processes of Technological
+              Innovation. Lexington Books.
             </li>
             <li>
               Barney, J. (1991). Firm resources and sustained competitive advantage. Journal of
-              Management, 17(1), 99–120.{' '}
+              Management, 17(1), 99â€“120.{' '}
               <a
                 href="https://doi.org/10.1177/014920639101700108"
                 target="_blank"
@@ -159,26 +167,28 @@ const OrganizationsPlaybookPage = () => {
               </a>
             </li>
             <li>
-              Paulk, M. C., Curtis, B., Chrissis, M. B., & Weber, C. V. (1993). Capability Maturity
-              Model for Software, Version 1.1. Carnegie Mellon University.
+              Paulk, M. C., Curtis, B., Chrissis, M. B., &amp; Weber, C. V. (1993). Capability
+              Maturity Model for Software, Version 1.1. Carnegie Mellon University.
             </li>
             <li>
-              Curley, M. (2016). The IT Capability Maturity Framework™ (IT-CMF™) 2nd Edition. Van
-              Haren Publishing.
+              Curley, M. (2016). The IT Capability Maturity Frameworkâ„¢ (IT-CMFâ„¢) 2nd Edition.
+              Van Haren Publishing.
             </li>
             <li>
-              Pollock, N., & Williams, R. (2016). How to Make the Right Decision in a Crisis: The
-              Rationality of Following the Herd. Cambridge University Press.{' '}
+              Pollock, N., &amp; Williams, R. (2016). How Industry Analysts Shape the Digital
+              Future. Oxford University Press.{' '}
               <a
-                href="https://www.cambridge.org/core/books/how-to-make-the-right-decision-in-a-crisis/A3B8C1D6F0E0F9B9A7A7B7B8E5F0E6F0"
+                href="https://doi.org/10.1093/acprof:oso/9780198704621.001.0001"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
-                https://www.cambridge.org/core/books/how-to-make-the-right-decision-in-a-crisis/A3B8C1D6F0E0F9B9A7A7B7B8E5F0E6F0
+                https://doi.org/10.1093/acprof:oso/9780198704621.001.0001
               </a>
             </li>
-            <li>The Open Group. (2018). The TOGAF® Standard, Version 9.2. Van Haren Publishing.</li>
+            <li>
+              The Open Group. (2018). The TOGAFÂ® Standard, Version 9.2. Van Haren Publishing.
+            </li>
             <li>
               National Institute of Standards and Technology. (2018). Risk Management Framework for
               Information Systems and Organizations: A System Life Cycle Approach for Security and

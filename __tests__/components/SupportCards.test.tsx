@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { axe, toHaveNoViolations } from 'jest-axe'
-import SupportCards from '../../src/components/tabs-page/SupportCards'
+import SupportCards from '../../src/components/tabs-page/support-cards'
 
 // Extend Jest matchers
 expect.extend(toHaveNoViolations)
@@ -31,7 +31,7 @@ describe('SupportCards component', () => {
     // Check button
     const datasetButton = screen.getByRole('link', { name: /request access/i })
     expect(datasetButton).toBeInTheDocument()
-    expect(datasetButton).toHaveAttribute('href', '/get-involved#use-dataset')
+    expect(datasetButton).toHaveAttribute('href', '/get-involved/#use-dataset')
   })
 
   it('should display all CTA buttons with correct links', () => {
@@ -43,16 +43,16 @@ describe('SupportCards component', () => {
 
     const learnMoreButton = screen.getByRole('link', { name: /learn more/i })
     expect(learnMoreButton).toBeInTheDocument()
-    expect(learnMoreButton).toHaveAttribute('href', '/get-involved#sponsor')
+    expect(learnMoreButton).toHaveAttribute('href', '/get-involved/#sponsor')
 
     // Use more specific text for the volunteer button to avoid matching "See All Ways to Get Involved"
     const volunteerButton = screen.getByRole('link', { name: 'Get Involved' })
     expect(volunteerButton).toBeInTheDocument()
-    expect(volunteerButton).toHaveAttribute('href', '/get-involved#volunteer')
+    expect(volunteerButton).toHaveAttribute('href', '/get-involved/#volunteer')
 
     const requestAccessButton = screen.getByRole('link', { name: /request access/i })
     expect(requestAccessButton).toBeInTheDocument()
-    expect(requestAccessButton).toHaveAttribute('href', '/get-involved#use-dataset')
+    expect(requestAccessButton).toHaveAttribute('href', '/get-involved/#use-dataset')
   })
 
   it('should display link to full Get Involved page', () => {
@@ -60,7 +60,7 @@ describe('SupportCards component', () => {
 
     const allWaysLink = screen.getByRole('link', { name: /see all ways to get involved/i })
     expect(allWaysLink).toBeInTheDocument()
-    expect(allWaysLink).toHaveAttribute('href', '/get-involved')
+    expect(allWaysLink).toHaveAttribute('href', '/get-involved/')
   })
 
   it('should not have accessibility violations', async () => {

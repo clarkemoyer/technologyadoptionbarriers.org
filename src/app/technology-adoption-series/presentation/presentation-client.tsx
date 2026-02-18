@@ -40,6 +40,8 @@ interface PresentationFrame {
   sectionLabel?: string
   sectionTitle?: string
   sectionSlideCount?: string
+  /** Visual component id for 'visual' frames */
+  visualId?: string
 }
 
 // ── Constants ────────────────────────────────────────────────────────
@@ -283,7 +285,6 @@ function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFr
         type: 'visual',
         sourceSlide: slide.number,
         title: slide.title,
-        // @ts-ignore - attaching extra prop to frame for visual lookup
         visualId: visualId,
       })
     }
@@ -535,7 +536,6 @@ function ContentFrame({ frame }: { frame: PresentationFrame }) {
 
 function VisualFrame({ frame }: { frame: PresentationFrame }) {
   const mode = useContext(PresentationModeContext)
-  // @ts-ignore - reading visualID from frame
   const visualId = frame.visualId
   if (!visualId) return null
 

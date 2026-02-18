@@ -1,6 +1,6 @@
 # Google Tag Manager (GTM) Component
 
-This component implements Google Tag Manager integration for the Technology Adoption Barriers (TABS) website.
+This component implements Google Tag Manager integration for the Technology Adoption Barriers Survey (TABS) website.
 
 ## Overview
 

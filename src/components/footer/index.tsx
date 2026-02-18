@@ -12,7 +12,7 @@ import { FaFacebookF, FaLinkedinIn, FaGithub } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { personaNavigation } from '@/data/persona-navigation'
 import { technologyAdoptionModelsSeries } from '@/data/technology-adoption-models-series'
-// import { ImpactCounter } from '../impact/ImpactCounter'
+// import { ImpactCounter } from '../impact/impact-counter'
 
 const Footer: React.FC = () => {
   const currentYear = React.useMemo(() => new Date().getFullYear(), [])
@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
       {/* Contact/CTA Section - Merged from BottomCTA */}
       <div
         id="contact"
-        className="w-full py-[100px] bg-[#1a2b4b] text-white relative overflow-hidden"
+        className="w-full py-[100px] bg-tabs-navy-bg text-white relative overflow-hidden"
       >
         <div className="w-[90%] mx-auto max-w-[1080px] text-center relative z-10">
           <h2 className="text-[48px] font-bold mb-[20px] font-serif tracking-wide">
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
               href={TABS_WEBSITE_QUALTRICS_SURVEY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-[40px] py-[18px] bg-[#F57C20] text-white text-[18px] font-bold rounded-[4px] hover:bg-[#d66a1a] transition-all duration-300 uppercase tracking-widest"
+              className="px-[40px] py-[18px] bg-tabs-orange text-white text-[18px] font-bold rounded-[4px] hover:bg-tabs-orange-hover transition-all duration-300 uppercase tracking-widest"
             >
               TAKE THE TABS
             </a>
@@ -83,7 +83,7 @@ const Footer: React.FC = () => {
               href="https://github.com/sponsors/clarkemoyer"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-[40px] py-[18px] bg-[#2EA3F2] text-white text-[18px] font-bold rounded-[4px] hover:bg-[#2589cc] transition-all duration-300 uppercase tracking-widest"
+              className="px-[40px] py-[18px] bg-tabs-blue text-white text-[18px] font-bold rounded-[4px] hover:bg-tabs-blue-hover transition-all duration-300 uppercase tracking-widest"
             >
               SUPPORT TABS
             </a>
@@ -101,7 +101,7 @@ const Footer: React.FC = () => {
           </p>
           <p>
             <strong className="text-white">NOTE:</strong> This project is in Draft. Not all items
-            have been fully validated or property cited. If you find any gaps in citation or content
+            have been fully validated or properly cited. If you find any gaps in citation or content
             issues, please reach out to Clarke Moyer 520-222-8104
           </p>
         </div>
@@ -114,7 +114,7 @@ const Footer: React.FC = () => {
           <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-left mb-8 border-b border-gray-800 pb-8">
             {/* Main Navigation */}
             <div className="flex flex-col gap-2">
-              <h3 className="text-[#26C699] font-bold uppercase tracking-wider text-sm mb-2">
+              <h3 className="text-tabs-teal-bright font-bold uppercase tracking-wider text-sm mb-2">
                 Main
               </h3>
               <Link href="/" className="text-gray-400 hover:text-white text-sm py-1">
@@ -132,7 +132,7 @@ const Footer: React.FC = () => {
                 href={TABS_PROLIFIC_SIM_QUALTRICS_SURVEY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-1 inline-flex w-fit items-center rounded-full border border-[#26C699] px-3 py-1 text-xs font-semibold text-[#26C699] transition-colors hover:bg-[#26C699] hover:text-black"
+                className="mt-1 inline-flex w-fit items-center rounded-full border border-tabs-teal-bright px-3 py-1 text-xs font-semibold text-tabs-teal-bright transition-colors hover:bg-tabs-teal-bright hover:text-black"
               >
                 Prolific participant? Start survey
               </a>
@@ -149,7 +149,7 @@ const Footer: React.FC = () => {
 
             {/* See Yourself: Leaders */}
             <div className="flex flex-col gap-2">
-              <h3 className="text-[#26C699] font-bold uppercase tracking-wider text-sm mb-2">
+              <h3 className="text-tabs-teal-bright font-bold uppercase tracking-wider text-sm mb-2">
                 For Leaders
               </h3>
               <Link
@@ -171,7 +171,7 @@ const Footer: React.FC = () => {
 
             {/* See Yourself: Organizations */}
             <div className="flex flex-col gap-2">
-              <h3 className="text-[#26C699] font-bold uppercase tracking-wider text-sm mb-2">
+              <h3 className="text-tabs-teal-bright font-bold uppercase tracking-wider text-sm mb-2">
                 For Organizations
               </h3>
               <Link
@@ -196,7 +196,7 @@ const Footer: React.FC = () => {
 
             {/* Models & Research */}
             <div className="flex flex-col gap-2">
-              <h3 className="text-[#26C699] font-bold uppercase tracking-wider text-sm mb-2">
+              <h3 className="text-tabs-teal-bright font-bold uppercase tracking-wider text-sm mb-2">
                 Models & Research
               </h3>
               <Link
@@ -230,7 +230,7 @@ const Footer: React.FC = () => {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-[#26C699] transition-colors"
+                    className="text-gray-400 hover:text-tabs-teal-bright transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -254,7 +254,7 @@ const Footer: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={link.label}
-                className="text-white hover:text-[#26C699] transition-colors"
+                className="text-white hover:text-tabs-teal-bright transition-colors"
                 aria-disabled={link.href === ''}
               >
                 <link.icon className="w-5 h-5" />

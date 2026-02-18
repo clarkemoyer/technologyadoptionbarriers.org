@@ -1,6 +1,13 @@
+import type { Metadata } from 'next'
 import { getTechnologyAdoptionSeriesSlides } from '@/lib/technology-adoption-series'
 
 import PresentationClient from '../presentation-client'
+
+export const metadata: Metadata = {
+  title: 'Teaching Series Presentation (4K)',
+  description:
+    'High-resolution 4K presentation slides for the Technology Adoption Barriers Survey (TABS) teaching series.',
+}
 
 export const dynamic = 'force-static'
 
