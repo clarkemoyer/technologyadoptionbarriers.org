@@ -86,28 +86,26 @@
                ( The Goal of Adoption )
 ```
 
-# Visual 06 - Lifecycle Curve (ASCII)
+# Visual 06 - Lifecycle Positioning: Dual-Curve (ASCII)
 
 ```text
-     ┌─────────────────────────────────────────────────────────────┐
-     │ Innovation/Risk                                             │
-     │      ↑                                                      │
-     │ High │    ●Bleeding                                         │
-     │      │   ╱ ╲                                                │
-     │      │  ╱   ●Leading                                        │
-     │      │ ╱     ╲                                              │
-     │      │╱       ╲                                             │
-     │ Med  │         ●Mainstream                                  │
-     │      │          ╲                                           │
-     │      │           ╲●Trending Behind                          │
-     │      │            ╲                                         │
-     │ Low  │             ●End of Support                          │
-     │      │              ●End of Life                            │
-     │      │               ●Obsolete                              │
-     │      └─────────────────────────────→ Time                   │
-     │                                                             │
-     │      ←Adoption Rate High────────Low→                        │
-     └─────────────────────────────────────────────────────────────┘
+     ┌──────────────────────────────────────────────────────────────┐
+     │           ┌──── TARGET ZONE ────┐                            │
+     │ High ●R   ╲.                    .╱R                          │
+     │      │╲I   ╲.                 .╱                             │
+     │      │ ╲    ╲.   ╱╲        .╱                               │
+     │      │  ╲    ╲.╱    ╲    .╱                                  │
+     │      │   ╲   ╱╲      ╲.╱                                    │
+     │      │    ╲╱   ╲     ╱╲.                                    │
+     │      │   ╱      ╲  ╱    ╲.                                  │
+     │ Low  │ ╱         ╲╱       ╲.                                │
+     │      └───────────────────────────────────→ Time              │
+     │      Bleeding  Leading  Main-  Trending  End of             │
+     │      Edge      Edge     stream Behind    Support             │
+     │                                                              │
+     │      - - - Innovation Potential   ─── Adoption Risk          │
+     │      ░░░░░ Sweet Spot (Leading Edge → Mainstream)            │
+     └──────────────────────────────────────────────────────────────┘
 ```
 
 # Visual 07 - Comprehensive Decision Matrix (ASCII)

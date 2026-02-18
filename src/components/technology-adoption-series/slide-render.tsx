@@ -381,191 +381,145 @@ export const TechnologyAdoptionSeriesSlideVisual = ({
   }
 
   if (slideNumber === 6) {
-    const sw = 10 // scale down stroke width from 4k version (20 -> 10)
-    // Sized for 640 x 360 card (roughly 16:9)
-    // Scale factor approx 0.4 from 1600x900
-    // Centering in 640x360:
-    // Left Center: 180, 180
-    // Right Center: 460, 180
-    // Radius: 90
+    /* Dual-curve lifecycle chart (card-scaled version):
+       - Cyan dashed = Innovation Potential (peaks early, declines)
+       - Amber solid = Adoption Risk (U-shaped)
+       - Shaded zone = Target sweet spot (Leading Edge → Mainstream) */
+    const stages = [
+      { x: 100, label: 'Bleeding Edge' },
+      { x: 190, label: 'Leading Edge' },
+      { x: 290, label: 'Mainstream' },
+      { x: 390, label: 'Trending Behind' },
+      { x: 480, label: 'End of Support' },
+    ]
+    const innovY = [55, 72, 145, 195, 220]
+    const riskY = [60, 120, 205, 150, 65]
+
+    const innovPath = `M${stages[0].x} ${innovY[0]} C${stages[0].x + 35} ${innovY[0]},${stages[1].x - 35} ${innovY[1]},${stages[1].x} ${innovY[1]} C${stages[1].x + 50} ${innovY[1] + 18},${stages[2].x - 50} ${innovY[2]},${stages[2].x} ${innovY[2]} C${stages[2].x + 50} ${innovY[2] + 12},${stages[3].x - 50} ${innovY[3]},${stages[3].x} ${innovY[3]} C${stages[3].x + 40} ${innovY[3] + 10},${stages[4].x - 40} ${innovY[4]},${stages[4].x} ${innovY[4]}`
+    const riskPath = `M${stages[0].x} ${riskY[0]} C${stages[0].x + 40} ${riskY[0] + 25},${stages[1].x - 40} ${riskY[1]},${stages[1].x} ${riskY[1]} C${stages[1].x + 50} ${riskY[1] + 35},${stages[2].x - 50} ${riskY[2]},${stages[2].x} ${riskY[2]} C${stages[2].x + 50} ${riskY[2] - 25},${stages[3].x - 50} ${riskY[3]},${stages[3].x} ${riskY[3]} C${stages[3].x + 40} ${riskY[3] - 35},${stages[4].x - 40} ${riskY[4]},${stages[4].x} ${riskY[4]}`
 
     return (
       <VisualCard title="Visual">
         <div className="overflow-x-auto w-full flex justify-center bg-slate-900 rounded p-4">
           <svg
-            viewBox="0 0 640 360"
+            viewBox="0 0 560 280"
             className="w-full max-w-full"
             role="img"
-            aria-label="Lifecycle Cycles"
+            aria-label="Technology lifecycle: innovation potential vs adoption risk showing Leading Edge to Mainstream as target zone"
             style={{ maxHeight: '400px' }}
           >
             <defs>
-              <marker
-                id="arrow-amber-sm"
-                markerWidth="3"
-                markerHeight="3"
-                refX="1.5"
-                refY="1.5"
-                orient="auto"
-                fill="#fbbf24"
-              >
-                <path d="M0,0 L0,3 L3,1.5 z" />
-              </marker>
-              <marker
-                id="arrow-green-sm"
-                markerWidth="3"
-                markerHeight="3"
-                refX="1.5"
-                refY="1.5"
-                orient="auto"
-                fill="#22c55e"
-              >
-                <path d="M0,0 L0,3 L3,1.5 z" />
-              </marker>
-              <marker
-                id="arrow-lightgreen-sm"
-                markerWidth="3"
-                markerHeight="3"
-                refX="1.5"
-                refY="1.5"
-                orient="auto"
-                fill="#86efac"
-              >
-                <path d="M0,0 L0,3 L3,1.5 z" />
-              </marker>
-              <marker
-                id="arrow-orange-sm"
-                markerWidth="3"
-                markerHeight="3"
-                refX="1.5"
-                refY="1.5"
-                orient="auto"
-                fill="#ea580c"
-              >
-                <path d="M0,0 L0,3 L3,1.5 z" />
-              </marker>
-              <marker
-                id="arrow-red-sm"
-                markerWidth="3"
-                markerHeight="3"
-                refX="1.5"
-                refY="1.5"
-                orient="auto"
-                fill="#dc2626"
-              >
-                <path d="M0,0 L0,3 L3,1.5 z" />
-              </marker>
-              <marker
-                id="arrow-conn-sm"
-                markerWidth="4"
-                markerHeight="4"
-                refX="3"
-                refY="2"
-                orient="auto"
-                fill="#94a3b8"
-              >
-                <path d="M0,0 L0,4 L4,2 z" />
-              </marker>
+              <linearGradient id="sweetSpotGradSm" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.12" />
+                <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.03" />
+              </linearGradient>
             </defs>
-
-            {/* Scale: Left Center (180, 180), R=88. Right Center (460, 180) */}
-
-            {/* LEFT CYCLE */}
-            {/* Bleeding: Start (172, 92) -> End (92, 172) */}
-            <path
-              d="M 172 93 A 88 88 0 0 0 92 172"
-              fill="none"
-              stroke="#fbbf24"
-              strokeWidth={sw}
-              markerEnd="url(#arrow-amber-sm)"
-            />
-            <text x="100" y="70" fontSize="16" fontWeight="bold" fill="#fbbf24" textAnchor="middle">
-              Bleeding Edge
+            {/* Axes */}
+            <line x1="60" y1="230" x2="520" y2="230" stroke="#334155" strokeWidth="1" />
+            <line x1="60" y1="230" x2="60" y2="25" stroke="#334155" strokeWidth="1" />
+            <text x="15" y="25" fontSize="9" fill="#64748b">
+              High
             </text>
-
-            {/* Leading: Start (92, 188) -> End (172, 268) */}
-            <path
-              d="M 92 188 A 88 88 0 0 0 172 267"
-              fill="none"
-              stroke="#22c55e"
-              strokeWidth={sw}
-              markerEnd="url(#arrow-green-sm)"
-            />
-            <text x="70" y="250" fontSize="16" fontWeight="bold" fill="#22c55e" textAnchor="end">
-              Leading Edge
+            <text x="15" y="230" fontSize="9" fill="#64748b">
+              Low
             </text>
-
-            {/* Mainstream: Start (188, 268) -> End (268, 188) */}
-            <path
-              d="M 188 267 A 88 88 0 0 0 268 188"
-              fill="none"
-              stroke="#86efac"
-              strokeWidth={sw}
-              markerEnd="url(#arrow-lightgreen-sm)"
+            {/* Sweet spot zone */}
+            <rect
+              x={stages[1].x - 12}
+              y="35"
+              width={stages[2].x - stages[1].x + 24}
+              height="190"
+              rx="6"
+              fill="url(#sweetSpotGradSm)"
+              stroke="#22d3ee"
+              strokeWidth="0.8"
+              strokeDasharray="3 2"
+              strokeOpacity="0.4"
             />
             <text
-              x="240"
-              y="310"
-              fontSize="16"
-              fontWeight="bold"
-              fill="#86efac"
+              x={(stages[1].x + stages[2].x) / 2}
+              y="46"
               textAnchor="middle"
+              fontSize="9"
+              fontWeight="600"
+              fill="#22d3ee"
+              opacity="0.7"
             >
-              Mainstream
+              TARGET ZONE
             </text>
-
-            {/* RIGHT CYCLE */}
-            {/* Trending Behind: Start (468, 92) -> End (548, 172) */}
+            {/* Innovation curve (cyan dashed) */}
             <path
-              d="M 468 93 A 88 88 0 0 1 548 172"
+              d={innovPath}
               fill="none"
-              stroke="#fbbf24"
-              strokeWidth={sw}
-              markerEnd="url(#arrow-amber-sm)"
+              stroke="#22d3ee"
+              strokeWidth="2"
+              strokeDasharray="6 3"
             />
-            <text x="540" y="70" fontSize="16" fontWeight="bold" fill="#fbbf24" textAnchor="middle">
-              Trending Behind
+            {/* Risk curve (amber solid) */}
+            <path d={riskPath} fill="none" stroke="#f59e0b" strokeWidth="2" />
+            {/* Stage markers */}
+            {stages.map((s, i) => (
+              <g key={s.label}>
+                <circle
+                  cx={s.x}
+                  cy={innovY[i]}
+                  r="4"
+                  fill="#0f172a"
+                  stroke="#22d3ee"
+                  strokeWidth="1.5"
+                />
+                <circle
+                  cx={s.x}
+                  cy={riskY[i]}
+                  r="4"
+                  fill="#0f172a"
+                  stroke="#f59e0b"
+                  strokeWidth="1.5"
+                />
+                <text
+                  x={s.x}
+                  y="245"
+                  textAnchor="middle"
+                  fontSize="9"
+                  fontWeight="600"
+                  fill="#e2e8f0"
+                >
+                  {s.label}
+                </text>
+              </g>
+            ))}
+            {/* Legend */}
+            <line
+              x1="70"
+              y1="268"
+              x2="90"
+              y2="268"
+              stroke="#22d3ee"
+              strokeWidth="2"
+              strokeDasharray="5 2"
+            />
+            <text x="94" y="271" fontSize="9" fill="#94a3b8">
+              Innovation Potential
             </text>
-
-            {/* End of Support: Start (548, 188) -> End (468, 268) */}
-            <path
-              d="M 548 188 A 88 88 0 0 1 468 267"
-              fill="none"
-              stroke="#ea580c"
-              strokeWidth={sw}
-              markerEnd="url(#arrow-orange-sm)"
-            />
-            <text x="570" y="250" fontSize="16" fontWeight="bold" fill="#ea580c" textAnchor="start">
-              End of Support
+            <line x1="220" y1="268" x2="240" y2="268" stroke="#f59e0b" strokeWidth="2" />
+            <text x="244" y="271" fontSize="9" fill="#94a3b8">
+              Adoption Risk
             </text>
-
-            {/* End of Life: Start (452, 268) -> End (372, 188) */}
-            <path
-              d="M 452 267 A 88 88 0 0 1 372 188"
-              fill="none"
-              stroke="#dc2626"
-              strokeWidth={sw}
-              markerEnd="url(#arrow-red-sm)"
+            <rect
+              x="350"
+              y="263"
+              width="10"
+              height="8"
+              rx="1.5"
+              fill="#22d3ee"
+              fillOpacity="0.15"
+              stroke="#22d3ee"
+              strokeWidth="0.5"
+              strokeOpacity="0.4"
             />
-            <text
-              x="400"
-              y="310"
-              fontSize="16"
-              fontWeight="bold"
-              fill="#dc2626"
-              textAnchor="middle"
-            >
-              End of Life
+            <text x="364" y="271" fontSize="9" fill="#94a3b8">
+              Sweet Spot
             </text>
-
-            {/* Connection: Mainstream End (268, 188) to Trending Start (468, 92)? No, approx. */}
-            <path
-              d="M 288 200 L 352 136"
-              stroke="#94a3b8"
-              strokeWidth="10"
-              strokeOpacity="0.3"
-              markerEnd="url(#arrow-conn-sm)"
-            />
           </svg>
         </div>
       </VisualCard>
