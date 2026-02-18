@@ -1068,7 +1068,7 @@ async function main() {
   const auth = resolveQualtricsAuth()
 
   const fallback = getDefaultSurveyInfoFromRepo() || {
-    baseUrl: 'https://smeal.qualtrics.com',
+    baseUrl: 'https://smeal.yul1.qualtrics.com',
     surveyId: 'SV_bkMopd73A8fzfwO',
   }
 
