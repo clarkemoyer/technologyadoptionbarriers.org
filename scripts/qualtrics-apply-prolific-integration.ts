@@ -924,8 +924,6 @@ function ensureRedirectLockdownInFlow(
       'SOURCE',
       'COMPLETE_URL',
     ])
-    const { changed } = removeFieldsFromEmbeddedDataRows(firstTopLevelEmbeddedDataEl, managedFields)
-    if (changed) updated = true
 
     // Rebuild: tracking fields (blank) → SOURCE=TABS_Website → COMPLETE_URL → remaining.
     const desiredRows = [
@@ -939,7 +937,7 @@ function ensureRedirectLockdownInFlow(
       ? firstTopLevelEmbeddedDataEl.EmbeddedData
       : []
 
-    // Only mark as updated if the managed rows actually differ from the desired state.
+    // Capture managed rows BEFORE removal so the comparison reflects the actual state.
     const managedExisting = existingRows.filter((r: Record<string, unknown>) => {
       const f = typeof r.Field === 'string' ? normalizeEmbeddedFieldName(r.Field) : ''
       return managedFields.has(f)
@@ -955,6 +953,9 @@ function ensureRedirectLockdownInFlow(
           String(existing.Value ?? '') === desired.Value
         )
       })
+
+    const { changed } = removeFieldsFromEmbeddedDataRows(firstTopLevelEmbeddedDataEl, managedFields)
+    if (changed) updated = true
 
     firstTopLevelEmbeddedDataEl.EmbeddedData = [
       ...desiredRows,
@@ -1054,6 +1055,30 @@ function ensureRedirectLockdownInFlow(
 
   // If a Prolific setter already exists, ensure it also sets SOURCE=prolific.
   if (prolificSetterEl) {
+    // Capture existing rows before removal to detect actual changes.
+    const prolificExistingRows = Array.isArray(prolificSetterEl.EmbeddedData)
+      ? prolificSetterEl.EmbeddedData
+      : []
+    const prolificDesired = [
+      { Field: 'SOURCE', Value: prolificSourceValue },
+      { Field: 'COMPLETE_URL', Value: prolificCompletionUrl },
+    ]
+    const prolificManagedExisting = prolificExistingRows.filter((r: Record<string, unknown>) => {
+      const f = typeof r.Field === 'string' ? normalizeEmbeddedFieldName(r.Field) : ''
+      return controlledFields.has(f)
+    })
+    const prolificRowsMatch =
+      prolificManagedExisting.length === prolificDesired.length &&
+      prolificDesired.every((desired, idx) => {
+        const existing = prolificManagedExisting[idx] as Record<string, unknown> | undefined
+        return (
+          existing &&
+          normalizeEmbeddedFieldName(String(existing.Field ?? '')) ===
+            normalizeEmbeddedFieldName(desired.Field) &&
+          String(existing.Value ?? '') === desired.Value
+        )
+      })
+
     const { changed } = removeFieldsFromEmbeddedDataRows(prolificSetterEl, controlledFields)
     if (changed) updated = true
 
@@ -1070,7 +1095,7 @@ function ensureRedirectLockdownInFlow(
       },
     ]
     if (dedupeEmbeddedDataRows(prolificSetterEl)) updated = true
-    updated = true
+    if (!prolificRowsMatch) updated = true
   }
 
   if (!alreadyHasProlificBranchSetter) {
