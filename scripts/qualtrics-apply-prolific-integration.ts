@@ -760,17 +760,17 @@ function ensureRedirectLockdownInFlow(
     return found
   }
 
+  const tabsBranchDescriptions = new Set([
+    'TABS: lock down COMPLETE_URL for Prolific', // legacy single-branch
+    'TABS: If SOURCE is prolific',
+    'TABS: If PROLIFIC_PID is not empty',
+  ])
+
   for (let i = 0; i < flow.length; i++) {
     const item = flow[i]
     if (!item || typeof item !== 'object') continue
     const el = item as FlowElement
     if (el.Type !== 'Branch') continue
-
-    const tabsBranchDescriptions = new Set([
-      'TABS: lock down COMPLETE_URL for Prolific', // legacy single-branch
-      'TABS: If SOURCE is prolific',
-      'TABS: If PROLIFIC_PID is not empty',
-    ])
 
     const shouldRemove =
       typeof el.Description === 'string' && tabsBranchDescriptions.has(el.Description.trim())
@@ -929,18 +929,43 @@ function ensureRedirectLockdownInFlow(
     if (changed) updated = true
 
     // Rebuild: tracking fields (blank) → SOURCE=TABS_Website → COMPLETE_URL → remaining.
-    firstTopLevelEmbeddedDataEl.EmbeddedData = [
+    const desiredRows = [
       { ...pidTmpl, Field: 'PROLIFIC_PID', Value: '' },
       { ...studyTmpl, Field: 'STUDY_ID', Value: '' },
       { ...sessionTmpl, Field: 'SESSION_ID', Value: '' },
       { ...srcTmpl, Field: 'SOURCE', Value: websiteSourceValue },
       { ...curlTmpl, Field: 'COMPLETE_URL', Value: websiteCompletionUrl },
-      ...(Array.isArray(firstTopLevelEmbeddedDataEl.EmbeddedData)
-        ? firstTopLevelEmbeddedDataEl.EmbeddedData
-        : []),
+    ]
+    const existingRows = Array.isArray(firstTopLevelEmbeddedDataEl.EmbeddedData)
+      ? firstTopLevelEmbeddedDataEl.EmbeddedData
+      : []
+
+    // Only mark as updated if the managed rows actually differ from the desired state.
+    const managedExisting = existingRows.filter((r: Record<string, unknown>) => {
+      const f = typeof r.Field === 'string' ? normalizeEmbeddedFieldName(r.Field) : ''
+      return managedFields.has(f)
+    })
+    const rowsMatch =
+      managedExisting.length === desiredRows.length &&
+      desiredRows.every((desired, idx) => {
+        const existing = managedExisting[idx] as Record<string, unknown> | undefined
+        return (
+          existing &&
+          normalizeEmbeddedFieldName(String(existing.Field ?? '')) ===
+            normalizeEmbeddedFieldName(desired.Field) &&
+          String(existing.Value ?? '') === desired.Value
+        )
+      })
+
+    firstTopLevelEmbeddedDataEl.EmbeddedData = [
+      ...desiredRows,
+      ...existingRows.filter((r: Record<string, unknown>) => {
+        const f = typeof r.Field === 'string' ? normalizeEmbeddedFieldName(r.Field) : ''
+        return !managedFields.has(f)
+      }),
     ]
     if (dedupeEmbeddedDataRows(firstTopLevelEmbeddedDataEl)) updated = true
-    updated = true
+    if (!rowsMatch) updated = true
 
     debugAddedElements.push({
       Type: firstTopLevelEmbeddedDataEl.Type,
