@@ -27,9 +27,12 @@ jobs:
       - name: Dump survey flow JSON
         run: npx tsx scripts/qualtrics-dump-flow.ts
 
+      - name: Print flow JSON to log
+        run: cat .vscode/qualtrics-flow.${QUALTRICS_SURVEY_ID}.json
+
       - name: Upload flow artifact
         uses: actions/upload-artifact@v4
         with:
           name: qualtrics-flow
-          path: .vscode/qualtrics-flow.*.json
+          path: .vscode/qualtrics-flow.${{ env.QUALTRICS_SURVEY_ID }}.json
           retention-days: 3
