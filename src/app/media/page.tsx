@@ -39,6 +39,8 @@ const MediaPage = () => {
   const surveysCompleted = getSurveysCompletedCount(metricsData.responseCounts)
   const pageViews = parseInt(impactData.pageViews) || 0
   const activeUsers = parseInt(impactData.activeUsers) || 0
+  const verifiedVisitors =
+    parseInt((impactData as Record<string, string>).verifiedVisitors) || activeUsers
 
   const orgLdJson = {
     '@context': 'https://schema.org',
@@ -232,10 +234,10 @@ const MediaPage = () => {
 
               <div className="p-6 rounded-2xl bg-gray-50 border border-gray-200">
                 <div className="text-4xl font-bold text-green-600">
-                  {activeUsers.toLocaleString()}
+                  {verifiedVisitors.toLocaleString()}
                 </div>
                 <div className="mt-2 text-sm font-semibold text-gray-700 uppercase tracking-wide">
-                  Active Visitors
+                  Verified Visitors
                 </div>
               </div>
 
