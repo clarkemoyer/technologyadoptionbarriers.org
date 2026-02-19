@@ -53,9 +53,7 @@ const AIAssistedDevelopmentPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div className="rounded-xl border border-purple-200 bg-purple-50 p-6">
-              <h3 className="text-lg font-bold text-purple-900 mb-2">
-                Claude (Anthropic)
-              </h3>
+              <h3 className="text-lg font-bold text-purple-900 mb-2">Claude (Anthropic)</h3>
               <p className="text-sm text-purple-800 mb-3">
                 Our primary development agent. Claude excels at deep code analysis, multi-file
                 refactoring, and following complex project conventions. It reads our instruction
@@ -67,9 +65,7 @@ const AIAssistedDevelopmentPage = () => {
             </div>
 
             <div className="rounded-xl border border-blue-200 bg-blue-50 p-6">
-              <h3 className="text-lg font-bold text-blue-900 mb-2">
-                GitHub Copilot
-              </h3>
+              <h3 className="text-lg font-bold text-blue-900 mb-2">GitHub Copilot</h3>
               <p className="text-sm text-blue-800 mb-3">
                 Serves dual roles: inline code completion during editing, and automated pull request
                 reviewer. Every PR gets a Copilot code review that catches issues ranging from
@@ -82,9 +78,7 @@ const AIAssistedDevelopmentPage = () => {
             </div>
 
             <div className="rounded-xl border border-green-200 bg-green-50 p-6">
-              <h3 className="text-lg font-bold text-green-900 mb-2">
-                GPT-4o / o1 (OpenAI)
-              </h3>
+              <h3 className="text-lg font-bold text-green-900 mb-2">GPT-4o / o1 (OpenAI)</h3>
               <p className="text-sm text-green-800 mb-3">
                 Used for brainstorming, content drafting, and reasoning about complex architectural
                 decisions. The o1 reasoning model is particularly useful for thinking through
@@ -96,9 +90,7 @@ const AIAssistedDevelopmentPage = () => {
             </div>
 
             <div className="rounded-xl border border-orange-200 bg-orange-50 p-6">
-              <h3 className="text-lg font-bold text-orange-900 mb-2">
-                Gemini (Google)
-              </h3>
+              <h3 className="text-lg font-bold text-orange-900 mb-2">Gemini (Google)</h3>
               <p className="text-sm text-orange-800 mb-3">
                 Another agent option within our IDE. Gemini offers strong performance on code
                 generation tasks and provides an alternative perspective when we want to compare
@@ -206,9 +198,7 @@ const AIAssistedDevelopmentPage = () => {
                 <tr className="bg-gray-50">
                   <th className="text-left p-3 font-semibold border-b border-gray-200">File</th>
                   <th className="text-left p-3 font-semibold border-b border-gray-200">Purpose</th>
-                  <th className="text-left p-3 font-semibold border-b border-gray-200">
-                    Used By
-                  </th>
+                  <th className="text-left p-3 font-semibold border-b border-gray-200">Used By</th>
                 </tr>
               </thead>
               <tbody>
@@ -231,8 +221,8 @@ const AIAssistedDevelopmentPage = () => {
                 <tr className="border-b border-gray-100">
                   <td className="p-3 font-mono text-xs">GEMINI.md</td>
                   <td className="p-3">
-                    Gemini-specific instructions — optimized for Google&apos;s agent
-                    capabilities and context window
+                    Gemini-specific instructions — optimized for Google&apos;s agent capabilities
+                    and context window
                   </td>
                   <td className="p-3">Gemini</td>
                 </tr>
@@ -260,9 +250,8 @@ const AIAssistedDevelopmentPage = () => {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>MCP: Giving AI Agents Real Tools</h2>
           <p className="mb-6">
-            The{' '}
-            <strong>Model Context Protocol (MCP)</strong> extends AI agents beyond code generation
-            by giving them access to external APIs directly within the IDE:
+            The <strong>Model Context Protocol (MCP)</strong> extends AI agents beyond code
+            generation by giving them access to external APIs directly within the IDE:
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -270,25 +259,25 @@ const AIAssistedDevelopmentPage = () => {
               <h3 className="text-lg font-bold text-gray-900 mb-2">GitHub MCP</h3>
               <p className="text-sm text-gray-700 mb-3">
                 Allows agents to create issues, open pull requests, request reviews, search code,
-                and check CI status — all without leaving the conversation. The agent can manage
-                the full issue-to-merge lifecycle.
+                and check CI status — all without leaving the conversation. The agent can manage the
+                full issue-to-merge lifecycle.
               </p>
             </div>
 
             <div className="rounded-xl border border-gray-200 p-6">
               <h3 className="text-lg font-bold text-gray-900 mb-2">Qualtrics MCP</h3>
               <p className="text-sm text-gray-700 mb-3">
-                Connects agents to the Qualtrics survey platform via OAuth. Agents can list
-                surveys, inspect definitions, and manage survey operations — useful for the
-                annual survey rollover process.
+                Connects agents to the Qualtrics survey platform via OAuth. Agents can list surveys,
+                inspect definitions, and manage survey operations — useful for the annual survey
+                rollover process.
               </p>
             </div>
           </div>
 
           <p>
-            MCP means an agent can go from &quot;create an issue for this bug&quot; to &quot;fix
-            it, open a PR, and request a review&quot; in a single conversation. This is how most of
-            our development actually happens.
+            MCP means an agent can go from &quot;create an issue for this bug&quot; to &quot;fix it,
+            open a PR, and request a review&quot; in a single conversation. This is how most of our
+            development actually happens.
           </p>
         </section>
 
@@ -359,8 +348,8 @@ const AIAssistedDevelopmentPage = () => {
                 across many files consistently
               </li>
               <li>
-                <strong>Writing tests</strong> — generating unit and E2E tests with good coverage
-                of edge cases
+                <strong>Writing tests</strong> — generating unit and E2E tests with good coverage of
+                edge cases
               </li>
               <li>
                 <strong>Documentation</strong> — writing clear, structured technical documentation
