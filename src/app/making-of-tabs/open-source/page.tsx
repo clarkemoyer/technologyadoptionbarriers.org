@@ -71,8 +71,8 @@ const OpenSourcePage = () => {
               legal clarity
             </li>
             <li>
-              <strong>Attribution only</strong> — the only requirement is to include the license
-              and copyright notice
+              <strong>Attribution only</strong> — the only requirement is to include the license and
+              copyright notice
             </li>
           </ul>
 
@@ -87,8 +87,8 @@ const OpenSourcePage = () => {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Community Health Files</h2>
           <p className="mb-6">
-            GitHub recognizes a set of standard community health files that appear automatically
-            in the repository&apos;s navigation. TABS maintains all of them:
+            GitHub recognizes a set of standard community health files that appear automatically in
+            the repository&apos;s navigation. TABS maintains all of them:
           </p>
 
           <div className="overflow-x-auto mb-6">
@@ -106,44 +106,20 @@ const OpenSourcePage = () => {
                 {[
                   ['README.md', 'Project overview and setup', 'Repository landing page'],
                   ['LICENSE', 'Apache 2.0 license text', 'License tab in navigation'],
-                  [
-                    'CODE_OF_CONDUCT.md',
-                    'Contributor Covenant 2.1',
-                    'Code of Conduct tab',
-                  ],
-                  [
-                    'CONTRIBUTING.md',
-                    'How to contribute',
-                    'Contributing tab and sidebar link',
-                  ],
+                  ['CODE_OF_CONDUCT.md', 'Contributor Covenant 2.1', 'Code of Conduct tab'],
+                  ['CONTRIBUTING.md', 'How to contribute', 'Contributing tab and sidebar link'],
                   ['SECURITY.md', 'Vulnerability reporting process', 'Security tab'],
                   ['SUPPORT.md', 'Where to get help', 'Sidebar link'],
-                  [
-                    'CITATION.cff',
-                    'Academic citation metadata',
-                    '"Cite this repository" button',
-                  ],
+                  ['CITATION.cff', 'Academic citation metadata', '"Cite this repository" button'],
                   ['CHANGELOG.md', 'Version history', 'Release documentation'],
-                  [
-                    '.github/FUNDING.yml',
-                    'Funding sources',
-                    '"Sponsor" button in header',
-                  ],
-                  [
-                    '.github/CODEOWNERS',
-                    'Code ownership rules',
-                    'Auto-assigns PR reviewers',
-                  ],
+                  ['.github/FUNDING.yml', 'Funding sources', '"Sponsor" button in header'],
+                  ['.github/CODEOWNERS', 'Code ownership rules', 'Auto-assigns PR reviewers'],
                   [
                     '.github/PULL_REQUEST_TEMPLATE.md',
                     'PR description template',
                     'Auto-populates PR form',
                   ],
-                  [
-                    '.github/ISSUE_TEMPLATE/',
-                    '4 issue templates',
-                    'Issue creation form',
-                  ],
+                  ['.github/ISSUE_TEMPLATE/', '4 issue templates', 'Issue creation form'],
                 ].map(([file, purpose, feature]) => (
                   <tr key={file} className="border-b border-gray-100">
                     <td className="p-3 font-mono text-xs">{file}</td>
@@ -161,11 +137,10 @@ const OpenSourcePage = () => {
           <h2 className={H2_CLASSES}>Academic Citation</h2>
           <p className="mb-6">
             The repository includes a{' '}
-            <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">CITATION.cff</code> file
-            that enables GitHub&apos;s &quot;Cite this repository&quot; button. Researchers can
-            export citation metadata in BibTeX or APA format with a single click. This is
-            especially important for a project that bridges academic research and open source
-            development.
+            <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">CITATION.cff</code> file that
+            enables GitHub&apos;s &quot;Cite this repository&quot; button. Researchers can export
+            citation metadata in BibTeX or APA format with a single click. This is especially
+            important for a project that bridges academic research and open source development.
           </p>
 
           <div className="mb-6 rounded-lg bg-gray-900 text-gray-100 p-4 overflow-x-auto">
@@ -210,8 +185,8 @@ license: Apache-2.0`}</code>
               accessibility requirements
             </li>
             <li>
-              <strong>Open a pull request</strong> — the PR template auto-populates with
-              checklists for testing, accessibility, and documentation
+              <strong>Open a pull request</strong> — the PR template auto-populates with checklists
+              for testing, accessibility, and documentation
             </li>
             <li>
               <strong>Pass CI</strong> — formatting, linting, unit tests, E2E tests, and
@@ -222,7 +197,8 @@ license: Apache-2.0`}</code>
               changes
             </li>
             <li>
-              <strong>Squash merge</strong> — clean commit history on <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">main</code>
+              <strong>Squash merge</strong> — clean commit history on{' '}
+              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">main</code>
             </li>
           </ol>
         </section>
@@ -230,9 +206,7 @@ license: Apache-2.0`}</code>
         {/* ── Issue Templates ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Issue Templates</h2>
-          <p className="mb-6">
-            TABS provides four issue templates to guide contributors:
-          </p>
+          <p className="mb-6">TABS provides four issue templates to guide contributors:</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             {[
@@ -253,10 +227,11 @@ license: Apache-2.0`}</code>
                 desc: 'Checklist for new code reviewers joining the project',
               },
             ].map((template) => (
-              <div key={template.title} className="p-4 rounded-lg border border-gray-200 bg-gray-50">
-                <h3 className="text-base font-semibold text-gray-900 mb-1">
-                  {template.title}
-                </h3>
+              <div
+                key={template.title}
+                className="p-4 rounded-lg border border-gray-200 bg-gray-50"
+              >
+                <h3 className="text-base font-semibold text-gray-900 mb-1">{template.title}</h3>
                 <p className="text-sm text-gray-600">{template.desc}</p>
               </div>
             ))}
@@ -266,14 +241,12 @@ license: Apache-2.0`}</code>
         {/* ── Building in Public ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Building in Public</h2>
-          <p className="mb-6">
-            Being open source means all project decisions are visible:
-          </p>
+          <p className="mb-6">Being open source means all project decisions are visible:</p>
 
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li>
-              <strong>Issues track all work</strong> — feature requests, bugs, and improvements
-              are documented in GitHub Issues
+              <strong>Issues track all work</strong> — feature requests, bugs, and improvements are
+              documented in GitHub Issues
             </li>
             <li>
               <strong>PRs show the process</strong> — code review comments, CI results, and
