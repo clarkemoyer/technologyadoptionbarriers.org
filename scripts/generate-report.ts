@@ -58,35 +58,80 @@ async function generateReport() {
     console.log(`Report generated successfully: ${filepath}`)
     console.log(`Rows fetched: ${response.rowCount || 0}`)
 
-    // --- Channel-filtered query for verified human visitors ---
-    // Exclude Direct/Unassigned traffic (where most bot noise lives) to get
-    // only visitors arriving via search, social, referral, email, or paid channels.
+    // --- Diagnostic: channel breakdown (logged for visibility) ---
+    const channelBreakdownResponse = await gaClient.runReport({
+      startDate: '28daysAgo',
+      endDate: 'today',
+      metrics: ['activeUsers'],
+      dimensions: ['sessionDefaultChannelGroup'],
+      orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
+    })
+    console.log('--- Channel Breakdown (all hostnames) ---')
+    for (const row of channelBreakdownResponse.rows || []) {
+      const channel = row.dimensionValues?.[0]?.value || '(unknown)'
+      const users = row.metricValues?.[0]?.value || '0'
+      console.log(`  ${channel}: ${users}`)
+    }
+
+    // --- Diagnostic: hostname breakdown (detect test/CI traffic) ---
+    const hostnameBreakdownResponse = await gaClient.runReport({
+      startDate: '28daysAgo',
+      endDate: 'today',
+      metrics: ['activeUsers'],
+      dimensions: ['hostName'],
+      orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
+    })
+    console.log('--- Hostname Breakdown ---')
+    for (const row of hostnameBreakdownResponse.rows || []) {
+      const hostname = row.dimensionValues?.[0]?.value || '(unknown)'
+      const users = row.metricValues?.[0]?.value || '0'
+      console.log(`  ${hostname}: ${users}`)
+    }
+
+    // --- Verified human visitors ---
+    // Production hostname only (excludes localhost/CI Playwright runs).
+    // Channel-filtered to exclude Direct/Unassigned (bot-heavy).
     const humanTrafficResponse = await gaClient.runReport({
       startDate: '28daysAgo',
       endDate: 'today',
       metrics: ['activeUsers'],
       metricAggregations: [MetricAggregation.TOTAL],
       dimensionFilter: {
-        filter: {
-          fieldName: 'sessionDefaultChannelGroup',
-          inListFilter: {
-            values: [
-              'Organic Search',
-              'Social',
-              'Referral',
-              'Email',
-              'Paid Search',
-              'Paid Social',
-              'Display',
-              'Affiliates',
-            ],
-          },
+        andGroup: {
+          expressions: [
+            {
+              filter: {
+                fieldName: 'hostName',
+                stringFilter: {
+                  value: 'technologyadoptionbarriers.org',
+                  matchType: 'EXACT',
+                },
+              },
+            },
+            {
+              filter: {
+                fieldName: 'sessionDefaultChannelGroup',
+                inListFilter: {
+                  values: [
+                    'Organic Search',
+                    'Social',
+                    'Referral',
+                    'Email',
+                    'Paid Search',
+                    'Paid Social',
+                    'Display',
+                    'Affiliates',
+                  ],
+                },
+              },
+            },
+          ],
         },
       },
     })
 
     const verifiedVisitors = humanTrafficResponse.totals?.[0]?.metricValues?.[0]?.value || '0'
-    console.log(`Verified human visitors (channel-filtered): ${verifiedVisitors}`)
+    console.log(`Verified human visitors (production + channel-filtered): ${verifiedVisitors}`)
 
     // --- Generate Public Impact Stats ---
     const publicStatsPath = path.join(process.cwd(), 'src', 'data', 'impact.json')
