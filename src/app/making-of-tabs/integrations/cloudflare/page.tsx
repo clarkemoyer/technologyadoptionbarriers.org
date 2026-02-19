@@ -21,15 +21,21 @@ const CloudflareIntegrationPage = () => {
             <Link href="/making-of-tabs" className="hover:text-blue-600 underline">
               Making of TABS
             </Link>
-            <span className="mx-1">›</span>
+            <span className="mx-1" aria-hidden="true">
+              ›
+            </span>
           </li>
           <li>
             <Link href="/making-of-tabs/integrations" className="hover:text-blue-600 underline">
               Technical Integrations
             </Link>
-            <span className="mx-1">›</span>
+            <span className="mx-1" aria-hidden="true">
+              ›
+            </span>
           </li>
-          <li className="text-gray-700 font-medium">Cloudflare</li>
+          <li className="text-gray-700 font-medium" aria-current="page">
+            Cloudflare
+          </li>
         </ol>
       </nav>
 
