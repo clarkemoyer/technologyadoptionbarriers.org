@@ -232,19 +232,19 @@ const MediaPage = () => {
 
               <div className="p-6 rounded-2xl bg-gray-50 border border-gray-200">
                 <div className="text-4xl font-bold text-green-600">
-                  {pageViews.toLocaleString()}
+                  {activeUsers.toLocaleString()}
                 </div>
                 <div className="mt-2 text-sm font-semibold text-gray-700 uppercase tracking-wide">
-                  Page Views
+                  Active Visitors
                 </div>
               </div>
 
               <div className="p-6 rounded-2xl bg-gray-50 border border-gray-200">
                 <div className="text-4xl font-bold text-orange-500">
-                  {activeUsers.toLocaleString()}
+                  {pageViews.toLocaleString()}
                 </div>
                 <div className="mt-2 text-sm font-semibold text-gray-700 uppercase tracking-wide">
-                  Active Users
+                  Page Views
                 </div>
               </div>
             </div>
