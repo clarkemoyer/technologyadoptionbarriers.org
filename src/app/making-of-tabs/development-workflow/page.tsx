@@ -284,7 +284,8 @@ const DevelopmentWorkflowPage = () => {
               architecture changes
             </li>
             <li>
-              <strong>Sitemap</strong> — dynamically generated, automatically includes all routes
+              <strong>Sitemap</strong> — maintained in src/app/sitemap.ts; new routes are added
+              manually to keep SEO coverage complete
             </li>
             <li>
               <strong>Community health files</strong> — CODE_OF_CONDUCT, CONTRIBUTING, SECURITY,
