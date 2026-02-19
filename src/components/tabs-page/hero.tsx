@@ -7,11 +7,11 @@ import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
  */
 const Hero = () => {
   return (
-    <section id="hero" className="w-full bg-gray-50 py-[60px] lg:py-[100px]">
-      <div className="w-[90%] mx-auto max-w-[4096px]">
-        <div className="flex flex-col lg:flex-row items-start gap-[40px] lg:gap-[60px]">
-          {/* Left Column: Text */}
-          <div className="flex-1 w-full lg:w-1/2">
+    <section id="hero" className="w-full bg-gray-50 py-[40px] lg:py-[72px]">
+      <div className="w-[90%] mx-auto max-w-[1400px]">
+        <div className="flex flex-col lg:flex-row items-center gap-[40px] lg:gap-[60px]">
+          {/* Left Column: Text with accent bar */}
+          <div className="flex-1 w-full lg:w-1/2 border-l-4 border-tabs-teal-bright pl-6">
             <h1 className="text-[42px] lg:text-[54px] font-bold text-tabs-teal-deep mb-[10px] leading-tight font-serif">
               Technology Adoption Barriers Survey.
             </h1>
@@ -59,7 +59,7 @@ const Hero = () => {
 
           {/* Right Column: Video */}
           <div className="flex-1 w-full lg:w-1/2">
-            <div className="relative aspect-video w-full bg-black rounded shadow-lg overflow-hidden">
+            <div className="relative aspect-video w-full bg-tabs-teal-deep rounded-lg shadow-lg overflow-hidden">
               <video
                 className="w-full h-full object-cover"
                 poster={assetPath('/Images/TABS-Logo-Full.png')}
@@ -68,6 +68,18 @@ const Hero = () => {
                 <source src={assetPath('/videos/The_TABS_Project.mp4')} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
+              {/* Play button overlay (hidden when controls are active) */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-md">
+                  <svg
+                    className="w-7 h-7 text-tabs-teal-deep ml-1"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
         </div>
