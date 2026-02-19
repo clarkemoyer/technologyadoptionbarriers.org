@@ -86,7 +86,7 @@ const AccessibilityPage = () => {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Automated Testing with jest-axe</h2>
           <p className="mb-6">
-            Every component has unit tests that include accessibility checks using{' '}
+            Key components have unit tests that include accessibility checks using{' '}
             <a
               href="https://github.com/nickcolley/jest-axe"
               target="_blank"
