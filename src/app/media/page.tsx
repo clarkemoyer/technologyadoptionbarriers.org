@@ -38,8 +38,7 @@ export const metadata: Metadata = {
 const MediaPage = () => {
   const surveysCompleted = getSurveysCompletedCount(metricsData.responseCounts)
   const pageViews = parseInt(impactData.pageViews) || 0
-  const activeUsers = parseInt(impactData.activeUsers) || 0
-  const verifiedVisitors = parseInt((impactData as Record<string, string>).verifiedVisitors) || 0
+  const verifiedVisitors = parseInt(impactData.verifiedVisitors) || 0
 
   const orgLdJson = {
     '@context': 'https://schema.org',
