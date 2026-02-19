@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
+import impactData from '@/data/impact.json'
+import metricsData from '@/data/qualtrics-metrics.json'
 import { assetPath } from '@/lib/assetPath'
+import { getSurveysCompletedCount } from '@/lib/qualtricsStats'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
 export const metadata: Metadata = {
@@ -33,6 +36,10 @@ export const metadata: Metadata = {
 }
 
 const MediaPage = () => {
+  const surveysCompleted = getSurveysCompletedCount(metricsData.responseCounts)
+  const pageViews = parseInt(impactData.pageViews) || 0
+  const activeUsers = parseInt(impactData.activeUsers) || 0
+
   const orgLdJson = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -82,6 +89,12 @@ const MediaPage = () => {
               className="px-3 py-1.5 rounded-full text-sm font-semibold text-gray-800 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
             >
               Video
+            </a>
+            <a
+              href="#impact"
+              className="px-3 py-1.5 rounded-full text-sm font-semibold text-gray-800 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+            >
+              Impact
             </a>
             <a
               href="#press-kit"
@@ -195,6 +208,64 @@ const MediaPage = () => {
                   The_TABS_Project.mp4
                 </a>
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Impact Section */}
+        <section id="impact" className="py-16 bg-white scroll-mt-[120px]">
+          <div className="mx-auto w-[90%] max-w-6xl">
+            <h2 className="text-3xl sm:text-4xl font-bold text-center">TABS at a Glance</h2>
+            <p className="mt-4 text-lg text-gray-700 text-center max-w-3xl mx-auto">
+              Key statistics from the Technology Adoption Barriers Survey project.
+            </p>
+
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+              <div className="p-6 rounded-2xl bg-gray-50 border border-gray-200">
+                <div className="text-4xl font-bold text-blue-600">
+                  {surveysCompleted.toLocaleString()}
+                </div>
+                <div className="mt-2 text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                  Surveys Completed
+                </div>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-gray-50 border border-gray-200">
+                <div className="text-4xl font-bold text-green-600">
+                  {pageViews.toLocaleString()}
+                </div>
+                <div className="mt-2 text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                  Page Views
+                </div>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-gray-50 border border-gray-200">
+                <div className="text-4xl font-bold text-orange-500">
+                  {activeUsers.toLocaleString()}
+                </div>
+                <div className="mt-2 text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                  Active Users
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+              <div className="p-5 rounded-xl bg-blue-50 border border-blue-100">
+                <div className="text-2xl font-bold text-blue-700">16</div>
+                <div className="mt-1 text-sm text-gray-700">Research Articles</div>
+              </div>
+              <div className="p-5 rounded-xl bg-green-50 border border-green-100">
+                <div className="text-2xl font-bold text-green-700">24</div>
+                <div className="mt-1 text-sm text-gray-700">Bibliography Entries</div>
+              </div>
+              <div className="p-5 rounded-xl bg-orange-50 border border-orange-100">
+                <div className="text-2xl font-bold text-orange-600">100+</div>
+                <div className="mt-1 text-sm text-gray-700">Survey Questions</div>
+              </div>
+              <div className="p-5 rounded-xl bg-purple-50 border border-purple-100">
+                <div className="text-2xl font-bold text-purple-700">149+</div>
+                <div className="mt-1 text-sm text-gray-700">Site Pages</div>
+              </div>
             </div>
           </div>
         </section>
@@ -325,7 +396,46 @@ const MediaPage = () => {
                       If you’d like to be notified, contact us with “Media updates” in the subject.
                     </p>
                   </div>
-
+                  <div>
+                    <h3 className="text-lg font-semibold">Suggested Citation</h3>
+                    <div className="mt-2 bg-gray-50 border border-gray-200 rounded-lg p-4">
+                      <p className="text-gray-700 text-sm leading-relaxed">
+                        Moyer, C. (2026).{' '}
+                        <em>Technology Adoption Barriers Survey (TABS) Website</em> (Version 0.3.1)
+                        [Computer software]. Available at{' '}
+                        <a
+                          className="text-blue-700 underline"
+                          href="https://technologyadoptionbarriers.org"
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          https://technologyadoptionbarriers.org
+                        </a>
+                        . Source code:{' '}
+                        <a
+                          className="text-blue-700 underline"
+                          href="https://github.com/clarkemoyer/technologyadoptionbarriers.org"
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          GitHub
+                        </a>
+                        .
+                      </p>
+                    </div>
+                    <p className="mt-2 text-xs text-gray-500">
+                      Machine-readable citation available in{' '}
+                      <a
+                        className="text-blue-700 underline"
+                        href="https://github.com/clarkemoyer/technologyadoptionbarriers.org/blob/main/CITATION.cff"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        CITATION.cff
+                      </a>
+                      .
+                    </p>
+                  </div>
                   <div id="downloads" className="scroll-mt-[120px]">
                     <h3 className="text-lg font-semibold">Downloads</h3>
                     <ul className="mt-2 list-disc pl-5 text-gray-700 space-y-1.5">
