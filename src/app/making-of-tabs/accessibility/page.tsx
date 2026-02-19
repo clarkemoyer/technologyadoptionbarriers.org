@@ -35,10 +35,10 @@ const AccessibilityPage = () => {
 
         <section className="mb-10 text-gray-800">
           <p className="mb-6">
-            A research project about technology adoption barriers has a particular obligation to
-            be accessible to everyone. If someone cannot use our website because of a disability,
-            we have failed at the most basic level. Accessibility is not a feature we add at the
-            end — it is tested automatically in every pull request and enforced in code review.
+            A research project about technology adoption barriers has a particular obligation to be
+            accessible to everyone. If someone cannot use our website because of a disability, we
+            have failed at the most basic level. Accessibility is not a feature we add at the end —
+            it is tested automatically in every pull request and enforced in code review.
           </p>
         </section>
 
@@ -77,7 +77,8 @@ const AccessibilityPage = () => {
             </li>
             <li>
               <strong>Focus indicators</strong> — visible focus outlines on all interactive elements
-              using <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">focus-visible</code> styles
+              using <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">focus-visible</code>{' '}
+              styles
             </li>
           </ul>
         </section>
@@ -153,28 +154,48 @@ it('has no accessibility violations', async () => {
               <p className="font-bold text-gray-900 mb-1">Icon-only buttons missing labels</p>
               <p className="text-sm text-gray-700">
                 A mobile menu hamburger button had an SVG icon but no{' '}
-                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">aria-label</code>.
-                Screen readers announced it as simply &quot;button.&quot; Fix: added{' '}
-                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">aria-label=&quot;Open menu&quot;</code>.
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">aria-label</code>. Screen
+                readers announced it as simply &quot;button.&quot; Fix: added{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                  aria-label=&quot;Open menu&quot;
+                </code>
+                .
               </p>
             </div>
 
             <div className="p-4 rounded-lg border-l-4 border-orange-400 bg-orange-50">
-              <p className="font-bold text-gray-900 mb-1">Breadcrumb navigation missing semantics</p>
+              <p className="font-bold text-gray-900 mb-1">
+                Breadcrumb navigation missing semantics
+              </p>
               <p className="text-sm text-gray-700">
-                Breadcrumbs were using plain <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;span&gt;</code> and{' '}
-                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;a&gt;</code> elements. Fix: wrapped in{' '}
-                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;nav aria-label=&quot;Breadcrumb&quot;&gt;</code> with{' '}
-                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;ol&gt;</code> structure and{' '}
-                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">aria-current=&quot;page&quot;</code> on the current item.
+                Breadcrumbs were using plain{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;span&gt;</code> and{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;a&gt;</code> elements.
+                Fix: wrapped in{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                  &lt;nav aria-label=&quot;Breadcrumb&quot;&gt;
+                </code>{' '}
+                with <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;ol&gt;</code>{' '}
+                structure and{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                  aria-current=&quot;page&quot;
+                </code>{' '}
+                on the current item.
               </p>
             </div>
 
             <div className="p-4 rounded-lg border-l-4 border-orange-400 bg-orange-50">
-              <p className="font-bold text-gray-900 mb-1">Decorative separator exposed to screen readers</p>
+              <p className="font-bold text-gray-900 mb-1">
+                Decorative separator exposed to screen readers
+              </p>
               <p className="text-sm text-gray-700">
-                Breadcrumb separators (<code className="text-xs bg-gray-200 px-1 py-0.5 rounded">›</code>) were being announced. Fix: added{' '}
-                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">aria-hidden=&quot;true&quot;</code> to separator spans.
+                Breadcrumb separators (
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">›</code>) were being
+                announced. Fix: added{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                  aria-hidden=&quot;true&quot;
+                </code>{' '}
+                to separator spans.
               </p>
             </div>
 
@@ -182,8 +203,10 @@ it('has no accessibility violations', async () => {
               <p className="font-bold text-gray-900 mb-1">Video without captions</p>
               <p className="text-sm text-gray-700">
                 The TABS introductory video was added without a captions track. Fix: added a{' '}
-                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;track kind=&quot;captions&quot;&gt;</code> element
-                with the English VTT file, set as default.
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                  &lt;track kind=&quot;captions&quot;&gt;
+                </code>{' '}
+                element with the English VTT file, set as default.
               </p>
             </div>
           </div>
@@ -202,30 +225,58 @@ it('has no accessibility violations', async () => {
             <table className="w-full text-sm border border-gray-200 rounded-lg">
               <thead>
                 <tr className="bg-gray-50">
-                  <th className="text-left p-3 font-semibold border-b border-gray-200">Instead of</th>
+                  <th className="text-left p-3 font-semibold border-b border-gray-200">
+                    Instead of
+                  </th>
                   <th className="text-left p-3 font-semibold border-b border-gray-200">We use</th>
                   <th className="text-left p-3 font-semibold border-b border-gray-200">Why</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b border-gray-100">
-                  <td className="p-3"><code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;div onClick&gt;</code></td>
-                  <td className="p-3"><code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;button&gt;</code></td>
-                  <td className="p-3">Built-in keyboard support, focus, and screen reader announcement</td>
+                  <td className="p-3">
+                    <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                      &lt;div onClick&gt;
+                    </code>
+                  </td>
+                  <td className="p-3">
+                    <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;button&gt;</code>
+                  </td>
+                  <td className="p-3">
+                    Built-in keyboard support, focus, and screen reader announcement
+                  </td>
                 </tr>
                 <tr className="border-b border-gray-100">
-                  <td className="p-3"><code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;div role=&quot;navigation&quot;&gt;</code></td>
-                  <td className="p-3"><code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;nav&gt;</code></td>
+                  <td className="p-3">
+                    <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                      &lt;div role=&quot;navigation&quot;&gt;
+                    </code>
+                  </td>
+                  <td className="p-3">
+                    <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;nav&gt;</code>
+                  </td>
                   <td className="p-3">Native landmark, no ARIA needed</td>
                 </tr>
                 <tr className="border-b border-gray-100">
-                  <td className="p-3"><code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;div class=&quot;header&quot;&gt;</code></td>
-                  <td className="p-3"><code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;header&gt;</code></td>
+                  <td className="p-3">
+                    <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                      &lt;div class=&quot;header&quot;&gt;
+                    </code>
+                  </td>
+                  <td className="p-3">
+                    <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;header&gt;</code>
+                  </td>
                   <td className="p-3">Automatic landmark region</td>
                 </tr>
                 <tr className="border-b border-gray-100">
-                  <td className="p-3"><code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;span class=&quot;link&quot;&gt;</code></td>
-                  <td className="p-3"><code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;a href&gt;</code></td>
+                  <td className="p-3">
+                    <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                      &lt;span class=&quot;link&quot;&gt;
+                    </code>
+                  </td>
+                  <td className="p-3">
+                    <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;a href&gt;</code>
+                  </td>
                   <td className="p-3">Native link behavior, right-click menu, browser history</td>
                 </tr>
               </tbody>
@@ -245,8 +296,8 @@ it('has no accessibility violations', async () => {
               <strong>Tab order</strong> follows visual reading order (left-to-right, top-to-bottom)
             </li>
             <li>
-              <strong>Focus trapping</strong> in modal dialogs — Tab cycles within the dialog
-              until it is closed
+              <strong>Focus trapping</strong> in modal dialogs — Tab cycles within the dialog until
+              it is closed
             </li>
             <li>
               <strong>Escape key</strong> closes dialogs, menus, and overlays
@@ -256,9 +307,10 @@ it('has no accessibility violations', async () => {
               navigation
             </li>
             <li>
-              <strong>Visible focus indicators</strong> — all interactive elements show a clear
-              blue ring when focused via keyboard (using Tailwind&apos;s{' '}
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">focus-visible</code> utilities)
+              <strong>Visible focus indicators</strong> — all interactive elements show a clear blue
+              ring when focused via keyboard (using Tailwind&apos;s{' '}
+              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">focus-visible</code>{' '}
+              utilities)
             </li>
           </ul>
         </section>
@@ -283,8 +335,8 @@ it('has no accessibility violations', async () => {
               <strong>Lighthouse CI</strong> — accessibility scoring on every merge to main
             </li>
             <li>
-              <strong>Manual testing</strong> — periodic keyboard-only and screen reader testing
-              of critical paths
+              <strong>Manual testing</strong> — periodic keyboard-only and screen reader testing of
+              critical paths
             </li>
           </ul>
 
