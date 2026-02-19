@@ -169,35 +169,55 @@ const MakingOfTabsPage = () => {
                 title: 'AI-Assisted Development',
                 href: '/making-of-tabs/ai-assisted-development',
                 desc: 'The AI models and workflows we use to build and maintain the site.',
+                border: 'border-purple-200',
+                bg: 'bg-purple-50',
+                titleColor: 'text-purple-900',
+                textColor: 'text-purple-800',
               },
               {
                 title: 'Development Workflow',
                 href: '/making-of-tabs/development-workflow',
                 desc: 'CI/CD pipeline, automated operations, and how code reaches production.',
+                border: 'border-blue-200',
+                bg: 'bg-blue-50',
+                titleColor: 'text-blue-900',
+                textColor: 'text-blue-800',
               },
               {
                 title: 'Accessibility',
                 href: '/making-of-tabs/accessibility',
                 desc: 'Automated testing, WCAG AA compliance, and inclusive design practices.',
+                border: 'border-green-200',
+                bg: 'bg-green-50',
+                titleColor: 'text-green-900',
+                textColor: 'text-green-800',
               },
               {
                 title: 'Open Source & Community',
                 href: '/making-of-tabs/open-source',
                 desc: 'Apache 2.0 licensing, community health files, and contribution workflow.',
+                border: 'border-orange-200',
+                bg: 'bg-orange-50',
+                titleColor: 'text-orange-900',
+                textColor: 'text-orange-800',
               },
               {
                 title: 'Content Architecture',
                 href: '/making-of-tabs/content-architecture',
                 desc: '149+ static pages, data-driven content, SEO, and responsive design.',
+                border: 'border-amber-200',
+                bg: 'bg-amber-50',
+                titleColor: 'text-amber-900',
+                textColor: 'text-amber-800',
               },
             ].map((card) => (
               <Link
                 key={card.href}
                 href={card.href}
-                className="block rounded-lg border border-gray-200 bg-gray-50 p-5 transition-colors hover:bg-blue-50 hover:border-blue-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+                className={`block rounded-xl border ${card.border} ${card.bg} p-5 transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2`}
               >
-                <h3 className="text-base font-semibold text-gray-900 mb-1">{card.title}</h3>
-                <p className="text-sm text-gray-600">{card.desc}</p>
+                <h3 className={`text-base font-semibold ${card.titleColor} mb-1`}>{card.title}</h3>
+                <p className={`text-sm ${card.textColor}`}>{card.desc}</p>
               </Link>
             ))}
           </div>
