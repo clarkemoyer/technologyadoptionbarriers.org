@@ -259,7 +259,9 @@ const MediaPage = () => {
                 <div className="mt-1 text-sm text-gray-700">Bibliography Entries</div>
               </div>
               <div className="p-5 rounded-xl bg-orange-50 border border-orange-100">
-                <div className="text-2xl font-bold text-orange-600">100+</div>
+                <div className="text-2xl font-bold text-orange-600">
+                  {metricsData.questionCount > 0 ? metricsData.questionCount.toLocaleString() : '—'}
+                </div>
                 <div className="mt-1 text-sm text-gray-700">Survey Questions</div>
               </div>
               <div className="p-5 rounded-xl bg-purple-50 border border-purple-100">
