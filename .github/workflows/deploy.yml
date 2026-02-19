@@ -42,10 +42,10 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        with:
-          # Automatically inject basePath in your Next.js configuration file and disable
-          # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
-          static_site_generator: next
+        # Note: Do NOT use static_site_generator: next here.
+        # That option rewrites next.config.ts and strips trailingSlash,
+        # assetPrefix, and remotePatterns. Our next.config.ts already
+        # sets output: 'export', images.unoptimized, basePath, etc.
 
       - name: Restore Next.js cache
         uses: actions/cache@v4
