@@ -58,7 +58,22 @@ async function generateReport() {
     console.log(`Report generated successfully: ${filepath}`)
     console.log(`Rows fetched: ${response.rowCount || 0}`)
 
-    // --- Hostname breakdown (used to extract production-only visitors) ---
+    // --- Diagnostic: channel breakdown (logged for visibility) ---
+    const channelBreakdownResponse = await gaClient.runReport({
+      startDate: '28daysAgo',
+      endDate: 'today',
+      metrics: ['activeUsers'],
+      dimensions: ['sessionDefaultChannelGroup'],
+      orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
+    })
+    console.log('--- Channel Breakdown (all hostnames) ---')
+    for (const row of channelBreakdownResponse.rows || []) {
+      const channel = row.dimensionValues?.[0]?.value || '(unknown)'
+      const users = row.metricValues?.[0]?.value || '0'
+      console.log(`  ${channel}: ${users}`)
+    }
+
+    // --- Diagnostic: hostname breakdown (detect test/CI traffic) ---
     const hostnameBreakdownResponse = await gaClient.runReport({
       startDate: '28daysAgo',
       endDate: 'today',
@@ -66,46 +81,24 @@ async function generateReport() {
       dimensions: ['hostName'],
       orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
     })
-
-    // Diagnostic breakdowns: only on manual workflow_dispatch runs
-    const isManualRun = process.env.GITHUB_EVENT_NAME === 'workflow_dispatch'
-    if (isManualRun) {
-      // Channel breakdown
-      const channelBreakdownResponse = await gaClient.runReport({
-        startDate: '28daysAgo',
-        endDate: 'today',
-        metrics: ['activeUsers'],
-        dimensions: ['sessionDefaultChannelGroup'],
-        orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
-      })
-      console.log('--- Channel Breakdown (all hostnames) ---')
-      for (const row of channelBreakdownResponse.rows || []) {
-        const channel = row.dimensionValues?.[0]?.value || '(unknown)'
-        const users = row.metricValues?.[0]?.value || '0'
-        console.log(`  ${channel}: ${users}`)
-      }
-
-      // Hostname breakdown
-      console.log('--- Hostname Breakdown ---')
-      for (const row of hostnameBreakdownResponse.rows || []) {
-        const hostname = row.dimensionValues?.[0]?.value || '(unknown)'
-        const users = row.metricValues?.[0]?.value || '0'
-        console.log(`  ${hostname}: ${users}`)
-      }
+    console.log('--- Hostname Breakdown ---')
+    for (const row of hostnameBreakdownResponse.rows || []) {
+      const hostname = row.dimensionValues?.[0]?.value || '(unknown)'
+      const users = row.metricValues?.[0]?.value || '0'
+      console.log(`  ${hostname}: ${users}`)
     }
 
-    // --- Production hostname visitors ---
-    // Derived from the GA4 hostname breakdown for the production hostname only.
-    // This excludes localhost/CI/Playwright/AI test traffic, but does NOT apply
-    // any additional channel/source/medium filtering.
-    // We extract the production row in JS because GA4 dimensionFilter does not
-    // reliably apply with this client library version.
+    // --- Verified human visitors ---
+    // Production hostname only – excludes localhost/CI/Playwright/AI test traffic.
+    // We use the hostname breakdown (already fetched above) and extract the
+    // production row directly, since GA4 dimensionFilter does not reliably
+    // apply with this client library version.
     const PRODUCTION_HOSTNAME = 'technologyadoptionbarriers.org'
     const productionRow = (hostnameBreakdownResponse.rows || []).find(
       (row: ReportRow) => row.dimensionValues?.[0]?.value === PRODUCTION_HOSTNAME
     )
     const verifiedVisitors = productionRow?.metricValues?.[0]?.value || '0'
-    console.log(`Production hostname visitors (${PRODUCTION_HOSTNAME}): ${verifiedVisitors}`)
+    console.log(`Verified human visitors (production hostname only): ${verifiedVisitors}`)
 
     // --- Generate Public Impact Stats ---
     const publicStatsPath = path.join(process.cwd(), 'src', 'data', 'impact.json')
