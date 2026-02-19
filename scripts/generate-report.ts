@@ -92,11 +92,13 @@ async function generateReport() {
     // Production hostname only – excludes localhost/CI/Playwright/AI test traffic.
     // This is the single most impactful filter: 99%+ of recorded "users" are
     // automated Playwright runs on localhost, not real people.
+    // NOTE: We include hostName as a dimension to force the filter to apply
+    // (GA4 ignores dimensionFilter when no dimensions are specified with TOTAL aggregation).
     const humanTrafficResponse = await gaClient.runReport({
       startDate: '28daysAgo',
       endDate: 'today',
       metrics: ['activeUsers'],
-      metricAggregations: [MetricAggregation.TOTAL],
+      dimensions: ['hostName'],
       dimensionFilter: {
         filter: {
           fieldName: 'hostName',
@@ -108,7 +110,8 @@ async function generateReport() {
       },
     })
 
-    const verifiedVisitors = humanTrafficResponse.totals?.[0]?.metricValues?.[0]?.value || '0'
+    // With the hostname dimension + filter, we get one row for the production hostname.
+    const verifiedVisitors = humanTrafficResponse.rows?.[0]?.metricValues?.[0]?.value || '0'
     console.log(`Verified human visitors (production + channel-filtered): ${verifiedVisitors}`)
 
     // --- Generate Public Impact Stats ---
