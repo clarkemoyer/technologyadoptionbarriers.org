@@ -11,6 +11,7 @@ import {
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Article 1.1: The Bedrock – Foundational Theories That Shaped Tech Acceptance',
@@ -273,6 +274,7 @@ const FoundationalTheoriesPage = () => {
           </ol>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

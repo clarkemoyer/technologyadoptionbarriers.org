@@ -11,6 +11,7 @@ import {
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Article 1.2: The Game Changer – A Deep Dive into the Technology Acceptance Model (TAM)',
@@ -449,6 +450,7 @@ const Article12Page = () => {
           </ol>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

@@ -10,6 +10,7 @@ import {
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Article 2: Branch Introduction â€“ The Organizationâ€™s Playbook',
@@ -241,6 +242,7 @@ const OrganizationsPlaybookPage = () => {
           </ol>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

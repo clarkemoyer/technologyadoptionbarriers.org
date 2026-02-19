@@ -11,6 +11,7 @@ import {
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Article 1.5: Beyond the Office – UTAUT2, Consumer Context, and Modern Syntheses',
@@ -663,6 +664,7 @@ const Article15Page = () => {
           </ol>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

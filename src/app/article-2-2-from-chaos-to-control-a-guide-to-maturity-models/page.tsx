@@ -9,6 +9,7 @@ import {
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Article 2.2: From Chaos to Control â€“ A Guide to Maturity Models',
@@ -415,6 +416,7 @@ const Article22Page = () => {
           </ol>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }
