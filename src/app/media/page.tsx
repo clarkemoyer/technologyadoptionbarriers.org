@@ -38,7 +38,8 @@ export const metadata: Metadata = {
 const MediaPage = () => {
   const surveysCompleted = getSurveysCompletedCount(metricsData.responseCounts)
   const pageViews = parseInt(impactData.pageViews) || 0
-  const activeUsers = parseInt(impactData.activeUsers) || 0
+  // "Verified Visitors" = activeUsers scoped to production hostname only.
+  const verifiedVisitors = parseInt(impactData.verifiedVisitors) || 0
 
   const orgLdJson = {
     '@context': 'https://schema.org',
@@ -232,19 +233,19 @@ const MediaPage = () => {
 
               <div className="p-6 rounded-2xl bg-gray-50 border border-gray-200">
                 <div className="text-4xl font-bold text-green-600">
-                  {pageViews.toLocaleString()}
+                  {verifiedVisitors.toLocaleString()}
                 </div>
                 <div className="mt-2 text-sm font-semibold text-gray-700 uppercase tracking-wide">
-                  Page Views
+                  Verified Visitors
                 </div>
               </div>
 
               <div className="p-6 rounded-2xl bg-gray-50 border border-gray-200">
                 <div className="text-4xl font-bold text-orange-500">
-                  {activeUsers.toLocaleString()}
+                  {pageViews.toLocaleString()}
                 </div>
                 <div className="mt-2 text-sm font-semibold text-gray-700 uppercase tracking-wide">
-                  Active Users
+                  Page Views
                 </div>
               </div>
             </div>

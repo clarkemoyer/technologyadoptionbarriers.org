@@ -8,7 +8,9 @@ import { getSurveysCompletedCount } from '@/lib/qualtricsStats'
  */
 const Statistics = () => {
   const surveysCompleted = getSurveysCompletedCount(metricsData.responseCounts)
-  const pageViews = parseInt(impactData.pageViews) || 0
+  // "Verified Visitors" = activeUsers scoped to production hostname only.
+  // Distinct from "Active Visitors" (activeUsers), which includes localhost/CI/Playwright traffic.
+  const verifiedVisitors = parseInt(impactData.verifiedVisitors) || 0
 
   return (
     <section id="statistics" className="w-full py-[80px] bg-white">
@@ -35,11 +37,13 @@ const Statistics = () => {
             </div>
           </div>
 
-          {/* Page Views */}
+          {/* Verified Visitors */}
           <div>
-            <h3 className="text-[32px] font-bold text-gray-900 mb-[10px] font-serif">Page Views</h3>
+            <h3 className="text-[32px] font-bold text-gray-900 mb-[10px] font-serif">
+              Verified Visitors
+            </h3>
             <div className="text-[60px] font-bold text-tabs-green mb-[5px] leading-none">
-              {pageViews.toLocaleString()}
+              {verifiedVisitors.toLocaleString()}
             </div>
           </div>
         </div>

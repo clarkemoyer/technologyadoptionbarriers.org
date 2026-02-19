@@ -58,6 +58,55 @@ async function generateReport() {
     console.log(`Report generated successfully: ${filepath}`)
     console.log(`Rows fetched: ${response.rowCount || 0}`)
 
+    // --- Hostname breakdown (used to extract production-only visitors) ---
+    const hostnameBreakdownResponse = await gaClient.runReport({
+      startDate: '28daysAgo',
+      endDate: 'today',
+      metrics: ['activeUsers'],
+      dimensions: ['hostName'],
+      orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
+    })
+
+    // Diagnostic breakdowns: only on manual workflow_dispatch runs
+    const isManualRun = process.env.GITHUB_EVENT_NAME === 'workflow_dispatch'
+    if (isManualRun) {
+      // Channel breakdown
+      const channelBreakdownResponse = await gaClient.runReport({
+        startDate: '28daysAgo',
+        endDate: 'today',
+        metrics: ['activeUsers'],
+        dimensions: ['sessionDefaultChannelGroup'],
+        orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
+      })
+      console.log('--- Channel Breakdown (all hostnames) ---')
+      for (const row of channelBreakdownResponse.rows || []) {
+        const channel = row.dimensionValues?.[0]?.value || '(unknown)'
+        const users = row.metricValues?.[0]?.value || '0'
+        console.log(`  ${channel}: ${users}`)
+      }
+
+      // Hostname breakdown
+      console.log('--- Hostname Breakdown ---')
+      for (const row of hostnameBreakdownResponse.rows || []) {
+        const hostname = row.dimensionValues?.[0]?.value || '(unknown)'
+        const users = row.metricValues?.[0]?.value || '0'
+        console.log(`  ${hostname}: ${users}`)
+      }
+    }
+
+    // --- Production hostname visitors ---
+    // Derived from the GA4 hostname breakdown for the production hostname only.
+    // This excludes localhost/CI/Playwright/AI test traffic, but does NOT apply
+    // any additional channel/source/medium filtering.
+    // We extract the production row in JS because GA4 dimensionFilter does not
+    // reliably apply with this client library version.
+    const PRODUCTION_HOSTNAME = 'technologyadoptionbarriers.org'
+    const productionRow = (hostnameBreakdownResponse.rows || []).find(
+      (row: ReportRow) => row.dimensionValues?.[0]?.value === PRODUCTION_HOSTNAME
+    )
+    const verifiedVisitors = productionRow?.metricValues?.[0]?.value || '0'
+    console.log(`Production hostname visitors (${PRODUCTION_HOSTNAME}): ${verifiedVisitors}`)
+
     // --- Generate Public Impact Stats ---
     const publicStatsPath = path.join(process.cwd(), 'src', 'data', 'impact.json')
     const t = response.totals?.[0]
@@ -65,6 +114,7 @@ async function generateReport() {
       updatedAt: new Date().toISOString(),
       activeUsers: t?.metricValues?.[0]?.value || '0',
       pageViews: t?.metricValues?.[4]?.value || '0',
+      verifiedVisitors,
     }
     // Ensure directory exists
     const dataDir = path.join(process.cwd(), 'src', 'data')
@@ -103,6 +153,7 @@ async function generateReport() {
 | **Sessions** | ${t.metricValues[2]?.value || '0'} |
 | **Views** | ${t.metricValues[4]?.value || '0'} |
 | **Engagement Rate** | ${t.metricValues[3]?.value ? parseFloat(t.metricValues[3].value).toFixed(2) : '0'} |
+| **Verified Visitors** | ${verifiedVisitors} |
 
 ### 🏆 Top Pages
 | Page | Views | Users | Sessions |
