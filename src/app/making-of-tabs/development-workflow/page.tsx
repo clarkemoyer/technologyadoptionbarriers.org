@@ -45,9 +45,7 @@ const DevelopmentWorkflowPage = () => {
         {/* ── The Pipeline ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Issue → PR → Merge → Deploy</h2>
-          <p className="mb-6">
-            No code reaches production without passing through this pipeline:
-          </p>
+          <p className="mb-6">No code reaches production without passing through this pipeline:</p>
 
           <div className="mb-8 space-y-4">
             <div className="flex items-start gap-4 p-4 rounded-lg border border-gray-200 bg-gray-50">
@@ -70,8 +68,10 @@ const DevelopmentWorkflowPage = () => {
               <div>
                 <p className="font-bold text-gray-900">Feature Branch</p>
                 <p className="text-sm text-gray-700">
-                  A branch is created from <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">main</code> using
-                  conventional naming: <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">feat/</code>,{' '}
+                  A branch is created from{' '}
+                  <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">main</code> using
+                  conventional naming:{' '}
+                  <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">feat/</code>,{' '}
                   <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">fix/</code>,{' '}
                   <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">docs/</code>, or{' '}
                   <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">chore/</code>.
@@ -86,8 +86,8 @@ const DevelopmentWorkflowPage = () => {
               <div>
                 <p className="font-bold text-gray-900">Pull Request</p>
                 <p className="text-sm text-gray-700">
-                  A PR is opened referencing the issue. This triggers CI and automated code
-                  review. The PR template includes an accessibility checklist.
+                  A PR is opened referencing the issue. This triggers CI and automated code review.
+                  The PR template includes an accessibility checklist.
                 </p>
               </div>
             </div>
@@ -111,8 +111,8 @@ const DevelopmentWorkflowPage = () => {
               <div>
                 <p className="font-bold text-gray-900">Squash Merge</p>
                 <p className="text-sm text-gray-700">
-                  PRs are squash-merged into main, keeping the commit history clean with one
-                  commit per feature. The feature branch is automatically deleted.
+                  PRs are squash-merged into main, keeping the commit history clean with one commit
+                  per feature. The feature branch is automatically deleted.
                 </p>
               </div>
             </div>
@@ -144,14 +144,21 @@ const DevelopmentWorkflowPage = () => {
               <thead>
                 <tr className="bg-gray-50">
                   <th className="text-left p-3 font-semibold border-b border-gray-200">Check</th>
-                  <th className="text-left p-3 font-semibold border-b border-gray-200">What It Does</th>
-                  <th className="text-left p-3 font-semibold border-b border-gray-200">Typical Time</th>
+                  <th className="text-left p-3 font-semibold border-b border-gray-200">
+                    What It Does
+                  </th>
+                  <th className="text-left p-3 font-semibold border-b border-gray-200">
+                    Typical Time
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b border-gray-100">
                   <td className="p-3 font-semibold">Test &amp; Build</td>
-                  <td className="p-3">Prettier format check, ESLint, Jest unit tests (including jest-axe accessibility), static build</td>
+                  <td className="p-3">
+                    Prettier format check, ESLint, Jest unit tests (including jest-axe
+                    accessibility), static build
+                  </td>
                   <td className="p-3">~2 min</td>
                 </tr>
                 <tr className="border-b border-gray-100">
@@ -160,7 +167,9 @@ const DevelopmentWorkflowPage = () => {
                     Playwright browser tests split across four parallel shards — logo rendering,
                     image loading, navigation, page content verification
                   </td>
-                  <td className="p-3" rowSpan={4}>~2 min each</td>
+                  <td className="p-3" rowSpan={4}>
+                    ~2 min each
+                  </td>
                 </tr>
                 <tr className="border-b border-gray-100">
                   <td className="p-3 font-semibold">E2E Shard 2/4</td>
@@ -173,7 +182,10 @@ const DevelopmentWorkflowPage = () => {
                 </tr>
                 <tr className="border-b border-gray-100">
                   <td className="p-3 font-semibold">CodeQL (JavaScript/TypeScript)</td>
-                  <td className="p-3">GitHub&apos;s semantic code analysis for security vulnerabilities in application code</td>
+                  <td className="p-3">
+                    GitHub&apos;s semantic code analysis for security vulnerabilities in application
+                    code
+                  </td>
                   <td className="p-3">~1 min</td>
                 </tr>
                 <tr className="border-b border-gray-100">
@@ -197,18 +209,18 @@ const DevelopmentWorkflowPage = () => {
           <p className="mb-6">
             The repository uses GitHub&apos;s merge queue to prevent integration failures when
             multiple PRs are approved around the same time. Instead of merging immediately, PRs
-            enter a queue where GitHub creates a temporary merge commit combining the PR with
-            the current state of main and any PRs ahead of it in the queue.
+            enter a queue where GitHub creates a temporary merge commit combining the PR with the
+            current state of main and any PRs ahead of it in the queue.
           </p>
           <p className="mb-6">
             The full CI suite runs against this temporary merge commit. If any check fails, the
-            offending PR is removed from the queue and the others re-test. This guarantees that
-            what merges into main has been tested against the actual code it will sit alongside,
-            not just the state of main when the PR was opened.
+            offending PR is removed from the queue and the others re-test. This guarantees that what
+            merges into main has been tested against the actual code it will sit alongside, not just
+            the state of main when the PR was opened.
           </p>
           <p>
-            This is especially valuable for a statically exported site — a broken build in the
-            merge queue stops the deploy before it ever reaches GitHub Pages.
+            This is especially valuable for a statically exported site — a broken build in the merge
+            queue stops the deploy before it ever reaches GitHub Pages.
           </p>
         </section>
 
@@ -216,8 +228,8 @@ const DevelopmentWorkflowPage = () => {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Automated Operations</h2>
           <p className="mb-6">
-            Beyond CI/CD, GitHub Actions runs several scheduled workflows that keep the project
-            data current:
+            Beyond CI/CD, GitHub Actions runs several scheduled workflows that keep the project data
+            current:
           </p>
 
           <div className="space-y-4 mb-6">
@@ -248,8 +260,8 @@ const DevelopmentWorkflowPage = () => {
             <div className="p-4 rounded-lg border border-gray-200">
               <h3 className="font-bold text-gray-900 mb-1">Dependabot</h3>
               <p className="text-sm text-gray-700">
-                Automated dependency updates for npm packages and GitHub Actions. Security
-                patches are flagged for immediate attention.
+                Automated dependency updates for npm packages and GitHub Actions. Security patches
+                are flagged for immediate attention.
               </p>
             </div>
           </div>
@@ -259,8 +271,8 @@ const DevelopmentWorkflowPage = () => {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Living Documentation</h2>
           <p className="mb-6">
-            Documentation is not an afterthought — it is a first-class part of every change.
-            When a feature is added, its documentation is updated in the same PR. This includes:
+            Documentation is not an afterthought — it is a first-class part of every change. When a
+            feature is added, its documentation is updated in the same PR. This includes:
           </p>
 
           <ul className="list-disc pl-6 space-y-2 mb-6">
