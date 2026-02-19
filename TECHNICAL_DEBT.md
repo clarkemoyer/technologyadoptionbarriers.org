@@ -4,7 +4,7 @@
 
 **Scope:** This document covers technical items that affect the **internal workings** of the React application, not user-facing features. For UI/UX enhancements and user-visible improvements, see [SITE_IMPROVEMENTS.md](./SITE_IMPROVEMENTS.md).
 
-**Last Updated:** December 2025  
+**Last Updated:** February 2026  
 **Status:** Active Tracking  
 **Repository:** technologyadoptionbarriers.org
 
@@ -13,7 +13,7 @@
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [ESLint Warnings (React Hooks)](#eslint-warnings-react-hooks)
+2. [ESLint Status](#eslint-status)
 3. [Security Vulnerabilities](#security-vulnerabilities)
 4. [Dependency Management (Dependabot)](#dependency-management-dependabot)
 5. [Backend & Application Improvements](#backend--application-improvements)
@@ -31,136 +31,73 @@ This document tracks technical debt items that:
 - Require monitoring and eventual resolution
 - Are acceptable tradeoffs for now but not ideal long-term
 
-**Current Technical Debt Count:** 1 React Hooks warning + 6 Next.js Image warnings + 4 security vulnerabilities (low severity)
+**Current Technical Debt Count:** 0 ESLint warnings + 41 npm audit vulnerabilities (dev-only, see below)
 
-**Recent Progress (December 2025):** Reduced React Hooks warnings from 10 to 1 (90% reduction) by fixing exhaustive-deps and set-state-in-effect issues.
+**Recent Progress:**
+
+- **February 2026 (v0.3.1):** Archived write-operation Qualtrics workflows. Centralized brand colors into Tailwind tokens. Comprehensive content credibility audit across 9 site sections. GitHub Sponsors integration (Stripe-backed). Prolific script idempotency improvements.
+- **February 2026 (v0.3.0):** Removed legacy FFC/free-charity-web-hosting components, resolving all remaining React Hooks warnings. 18 article pages + 21 bibliography pages published. Teaching series, persona navigation, and FAQ page shipped.
+- **December 2025:** Reduced React Hooks warnings from 10 to 1 (90% reduction) by fixing exhaustive-deps and set-state-in-effect issues.
 
 ---
 
-## ESLint Warnings (React Hooks)
+## ESLint Status
 
 ### Summary
 
-The project has **1 React Hooks ESLint warning** remaining after recent refactoring (December 2025). This warning is low priority and doesn't affect functionality.
+As of v0.3.1, the project produces **0 ESLint errors and 0 warnings**. Running `npm run lint` outputs a clean result.
 
-### Category 1: ~~`react-hooks/set-state-in-effect` (6 occurrences)~~ ✅ **RESOLVED**
+### Previously Resolved Issues
 
-**Status:** Fixed in December 2025
+All of the following ESLint categories were resolved by code fixes in December 2025 or by removal of legacy components in v0.3.0:
 
-**Solution Applied:**
+- ~~`react-hooks/set-state-in-effect` (6 occurrences)~~ ✅ **RESOLVED** — Fixed December 2025 using `useLayoutEffect`
+- ~~`react-hooks/exhaustive-deps` (2 occurrences)~~ ✅ **RESOLVED** — Fixed December 2025 with `useCallback` and local refs
+- ~~`react-hooks/immutability` (1 occurrence)~~ ✅ **RESOLVED** — Component (`src/components/home/Testimonials/index.tsx`) removed in v0.3.0
+- ~~`@next/next/no-img-element` (6 occurrences)~~ ✅ **RESOLVED** — Legacy FFC components removed in v0.3.0; remaining `<img>` tags in header/footer are intentional (static export incompatible with `<Image />`)
 
-- Replaced `useEffect` with `useLayoutEffect` for all DOM measurements in accordion components
-- Added inline ESLint suppressions with explanatory comments since `useLayoutEffect` is the correct React pattern for synchronous DOM measurements before paint
-- This prevents visual flicker and follows React best practices
+### Architectural Note: `<img>` vs `<Image />`
 
-**Fixed Files:**
-
-- `src/components/ui/Accordion.tsx`
-- `src/components/ui/AccordionBold.tsx`
-- `src/components/ui/Frequently-Asked-Questions.tsx`
-- `src/components/ui/OrangeFaqItem.tsx`
-- `src/components/free-charity-web-hosting/FAQs/index.tsx`
-- `src/components/cookie-consent/index.tsx`
-
----
-
-### Category 2: ~~`react-hooks/exhaustive-deps` (2 occurrences)~~ ✅ **RESOLVED**
-
-**Status:** Fixed in December 2025
-
-**Solution Applied:**
-
-- `CallToActionCard.tsx`: Captured `cardRef.current` in a local variable inside the effect to prevent stale closures
-- `ClientTestimonials/index.tsx`: Wrapped `handleNext` and related functions with `useCallback` to stabilize function references and added to dependency array
-
-**Fixed Files:**
-
-- `src/components/free-charity-web-hosting/ClientTestimonials/index.tsx`
-- `src/components/ui/CallToActionCard.tsx`
-
----
-
-### Category 3: `react-hooks/immutability` (1 occurrence)
-
-**Issue:** Direct mutation of state values in Swiper carousel setup.
-
-**Affected Files:**
-
-- `src/components/home/Testimonials/index.tsx` (1 remaining - ClientTestimonials was refactored to not use Swiper)
-
-**Why it's acceptable now:**
-
-- Swiper library requires direct manipulation of navigation parameters
-- Carousels function correctly
-- This is a known pattern with Swiper.js integration
-
-**Recommended fix:**
-
-- Use Swiper's React-specific API instead of direct DOM manipulation
-- OR create a custom carousel component that follows React patterns
-- OR use a more React-friendly carousel library
-
-**Priority:** Low - Works correctly, only a code style issue
-
----
-
-### Category 4: `@next/next/no-img-element` (6 occurrences)
-
-**Issue:** Using `<img>` tags instead of Next.js `<Image />` component.
-
-**Affected Files:**
-
-- `src/components/header/index.tsx`
-- `src/components/footer/index.tsx`
-- `src/components/endowment-fund/Hero/index.tsx`
-- `src/components/free-charity-web-hosting/About-FFC-Hosting/index.tsx`
-- `src/components/ui/General-Donation-Card.tsx`
-- `src/components/ui/trainingcard.tsx`
-
-**Why it's acceptable:**
+The project uses `<img>` tags with the `assetPath()` helper instead of Next.js `<Image />`. This is an intentional architectural decision:
 
 - Project uses `output: "export"` for static site generation
-- Next.js Image Optimization is **incompatible** with static export
-- Images use the `assetPath()` helper for GitHub Pages compatibility
-- This is an intentional architectural decision documented in README.md
+- Next.js Image Optimization requires a Node.js server, incompatible with static export
+- Images use `assetPath()` for GitHub Pages basePath compatibility
+- ESLint is configured to not warn about this pattern
 
-**Why we can't fix this:**
-
-- Next.js `<Image />` component requires Node.js server for optimization
-- Static export doesn't support server-side image optimization
-- Using `<Image />` would break GitHub Pages deployment
-
-**Priority:** N/A - This is expected behavior, not technical debt
+**Priority:** N/A — Expected behavior, not technical debt
 
 ---
 
 ## Security Vulnerabilities
 
-### Current Status (December 2025)
+### Current Status (February 2026)
 
-The project has **4 low severity vulnerabilities** identified by npm audit:
+The project has **41 vulnerabilities** (5 moderate, 36 high) identified by `npm audit`. All are in **development-only dependencies** — none affect the production static site.
 
-#### 1. tmp Package Vulnerabilities (4 low severity)
+#### 1. ESLint / TypeScript-ESLint Dependency Chain (36 high, 5 moderate)
 
-**CVE:** GHSA-52f5-9888-hmc6  
-**Severity:** Low  
-**Affected Package:** tmp (via @lhci/cli - Lighthouse CI)  
-**Vulnerability:** Arbitrary temporary file/directory write via symbolic link
+**Affected Packages:**
+
+- `ajv` < 8.18.0 (ReDoS via `$data` option) — Moderate
+- `minimatch` < 10.2.1 (ReDoS via repeated wildcards) — High
+- `@isaacs/brace-expansion` 5.0.0 (Uncontrolled Resource Consumption) — High
+
+**Dependency Chain:** `eslint` → `@eslint/eslintrc` → `ajv`/`minimatch`; `@typescript-eslint/*` → `minimatch`; `jest-snapshot` → `@isaacs/brace-expansion`
 
 **Impact:**
 
-- **Development only** - affects Lighthouse CI dev dependency
-- **No production impact** - tmp package not used in production build
-- **Limited risk** - requires local file system access
+- **Development only** — these packages are dev dependencies (linting, testing)
+- **No production impact** — not included in `npm run build` output
+- **Limited risk** — ReDoS requires crafted input patterns, not user-facing
 
 **Available Fixes:**
 
-- `npm audit fix --force` - May introduce breaking changes to Lighthouse CI
-- Wait for Lighthouse CI to update their dependencies
+- `npm audit fix` resolves `@isaacs/brace-expansion` safely
+- `npm audit fix --force` would downgrade `eslint` to 4.x (breaking — not viable)
+- Wait for `eslint-config-next` and `typescript-eslint` to update their dependency ranges
 
-**Current Decision:** Monitor via Dependabot, low priority to fix manually
-
-**Dependabot Status:** Will automatically create PR when fix becomes available
+**Current Decision:** Monitor via Dependabot. The ESLint ecosystem will resolve these as packages adopt `ajv` 8.18+ and `minimatch` 10.2.1+.
 
 ---
 
@@ -173,7 +110,12 @@ The project has **4 low severity vulnerabilities** identified by npm audit:
 **Status:** Fixed in next@16.0.7  
 **Resolution Date:** December 2025
 
-This critical vulnerability in Next.js has been resolved by upgrading to version 16.0.7.
+#### ✅ tmp Package Vulnerabilities (RESOLVED)
+
+**CVE:** GHSA-52f5-9888-hmc6  
+**Severity:** Low (4 occurrences)  
+**Status:** Resolved by Lighthouse CI dependency update  
+**Resolution Date:** January 2026
 
 ---
 
@@ -289,7 +231,7 @@ These are internal code quality improvements that don't affect user experience:
 - **Increased Test Coverage**: Target 25-50% coverage for critical components
 - **Component Unit Tests**: Add more Jest tests for complex components
 
-**Current Status:** 5% test coverage baseline established  
+**Current Status:** 19 test suites, 166 total tests (157 passing, 9 skipped), 18 suites passing. Coverage baseline improving.  
 **Priority:** Medium  
 **Impact:** Catches bugs earlier in development cycle
 
@@ -301,15 +243,30 @@ These are internal code quality improvements that don't affect user experience:
 
 **Issue:** The visual component `<ImpactCounter />` in the Footer caused persistent "Exit Code 1" build failures in the CI/CD pipeline (Next.js/Turbopack) on the `main` branch, despite passing locally.
 
-**Current State (January 2026):**
+**Current State (February 2026):**
 
-- **Backend Enabled:** Data collection via `ga-report.yml` is active and auto-commits to `src/data/impact.json`.
-- **Frontend Disabled:** The component import and usage are commented out in `src/components/footer/index.tsx`.
+- **Backend Active:** Data collection via `ga-report.yml` runs daily and auto-commits to `src/data/impact.json` (PR #321 merged Feb 2026).
+- **Frontend Disabled:** The component import and usage remain commented out in `src/components/footer/index.tsx`.
 
 **Resolution Plan:**
 
 - Investigate CI-specific Next.js build constraints regarding dynamic JSON imports.
 - Re-enable component once stable.
+- Consider a simpler static rendering approach that avoids dynamic imports.
+
+---
+
+### 2. Qualtrics Write-Operation Workflows (Archived)
+
+**Issue:** Write-operation Qualtrics workflows (`qualtrics-apply-prolific-integration.yml`, etc.) were active in `.github/workflows/` with manual triggers, posing a risk of accidental execution against the production survey.
+
+**Current State (February 2026, PR #317):**
+
+- **Workflows archived** to `workflows-archived/` directory
+- **Read-only workflow retained:** `qualtrics-dump-flow.yml` for flow inspection
+- **Rationale:** Preserves git history while preventing accidental execution
+
+**Resolution:** Considered complete. Workflows can be restored if needed.
 
 ---
 
@@ -382,25 +339,32 @@ These architectural patterns are not needed for this static site:
 
 ### Current Action Items
 
-**Recently Completed (December 2025):**
+**Recently Completed (v0.3.0 / v0.3.1, February 2026):**
 
-- [x] Refactor accordion components to use `useLayoutEffect` - **COMPLETED**
-- [x] Review and fix `exhaustive-deps` warnings in carousel components - **COMPLETED**
-- [x] Reduced React Hooks warnings from 10 to 1 (90% improvement)
+- [x] Refactor accordion components to use `useLayoutEffect` — **COMPLETED** (Dec 2025)
+- [x] Review and fix `exhaustive-deps` warnings in carousel components — **COMPLETED** (Dec 2025)
+- [x] Reduced React Hooks warnings from 10 to 0 — **COMPLETED** (v0.3.0 removed legacy components)
+- [x] ESLint clean: 0 errors, 0 warnings — **COMPLETED** (v0.3.0)
+- [x] Archive write-operation Qualtrics workflows — **COMPLETED** (PR #317)
+- [x] Centralize brand colors into Tailwind tokens — **COMPLETED** (PR #291)
+- [x] Content credibility audit across 9 site sections — **COMPLETED** (PRs #304–#312)
+- [x] Prolific script idempotency improvements — **COMPLETED** (PR #318)
 
 **Immediate (Next Sprint):**
 
-- [ ] Monitor tmp package vulnerability for updates from Dependabot
+- [ ] Monitor ESLint/ajv/minimatch vulnerability chain for upstream fixes
+- [ ] Run `npm audit fix` to resolve `@isaacs/brace-expansion` safely
+- [ ] Re-enable ImpactCounter component or replace with static rendering
 
 **Short Term (Next Quarter):**
 
-- [ ] Evaluate Swiper.js alternative or React-specific API usage for Testimonials component (1 remaining immutability warning)
+- [ ] Increase test coverage (currently 166 tests across 19 suites)
+- [ ] Implement visual regression testing
 
 **Long Term (Next 6 Months):**
 
-- [ ] Increase test coverage to 25%
-- [ ] Implement visual regression testing
 - [ ] Add bundle size monitoring
+- [ ] Evaluate Next.js Image component alternatives for static export
 
 ---
 
