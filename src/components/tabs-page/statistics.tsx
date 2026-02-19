@@ -9,11 +9,7 @@ import { getSurveysCompletedCount } from '@/lib/qualtricsStats'
 const Statistics = () => {
   const surveysCompleted = getSurveysCompletedCount(metricsData.responseCounts)
   // Channel-filtered visitors (excludes Direct/Unassigned bot traffic).
-  // Falls back to unfiltered activeUsers until the GA workflow populates verifiedVisitors.
-  const verifiedVisitors =
-    parseInt((impactData as Record<string, string>).verifiedVisitors) ||
-    parseInt(impactData.activeUsers) ||
-    0
+  const verifiedVisitors = parseInt((impactData as Record<string, string>).verifiedVisitors) || 0
 
   return (
     <section id="statistics" className="w-full py-[80px] bg-white">
