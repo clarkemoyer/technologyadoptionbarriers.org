@@ -89,43 +89,21 @@ async function generateReport() {
     }
 
     // --- Verified human visitors ---
-    // Production hostname only (excludes localhost/CI Playwright runs).
-    // Channel-filtered to exclude Direct/Unassigned (bot-heavy).
+    // Production hostname only – excludes localhost/CI/Playwright/AI test traffic.
+    // This is the single most impactful filter: 99%+ of recorded "users" are
+    // automated Playwright runs on localhost, not real people.
     const humanTrafficResponse = await gaClient.runReport({
       startDate: '28daysAgo',
       endDate: 'today',
       metrics: ['activeUsers'],
       metricAggregations: [MetricAggregation.TOTAL],
       dimensionFilter: {
-        andGroup: {
-          expressions: [
-            {
-              filter: {
-                fieldName: 'hostName',
-                stringFilter: {
-                  value: 'technologyadoptionbarriers.org',
-                  matchType: 'EXACT',
-                },
-              },
-            },
-            {
-              filter: {
-                fieldName: 'sessionDefaultChannelGroup',
-                inListFilter: {
-                  values: [
-                    'Organic Search',
-                    'Social',
-                    'Referral',
-                    'Email',
-                    'Paid Search',
-                    'Paid Social',
-                    'Display',
-                    'Affiliates',
-                  ],
-                },
-              },
-            },
-          ],
+        filter: {
+          fieldName: 'hostName',
+          stringFilter: {
+            value: 'technologyadoptionbarriers.org',
+            matchType: 'EXACT',
+          },
         },
       },
     })
