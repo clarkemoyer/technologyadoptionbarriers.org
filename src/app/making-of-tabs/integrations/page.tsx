@@ -34,6 +34,44 @@ const IntegrationsPage = () => {
           </p>
         </section>
 
+        {/* ── Integration Deep Dives ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Integration Deep Dives</h2>
+          <p className="mb-6">
+            Each integration has a dedicated page with detailed methodology, architecture diagrams,
+            and lessons learned:
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+            <Link
+              href="/making-of-tabs/integrations/qualtrics"
+              className="block rounded-xl border border-blue-200 bg-blue-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-blue-900 mb-1">Qualtrics</p>
+              <p className="text-sm text-blue-800">
+                Survey engine, API workflows, Survey Flow architecture, and annual rollover
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/integrations/prolific"
+              className="block rounded-xl border border-green-200 bg-green-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-green-900 mb-1">Prolific</p>
+              <p className="text-sm text-green-800">
+                Participant recruitment, the Qualtrics–Prolific bridge, and data collection
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/integrations/google-analytics"
+              className="block rounded-xl border border-orange-200 bg-orange-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-orange-900 mb-1">Google Analytics</p>
+              <p className="text-sm text-orange-800">
+                Impact measurement, the Verified Visitors methodology, and GA4 API lessons
+              </p>
+            </Link>
+          </div>
+        </section>
+
         {/* ── Qualtrics ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Qualtrics — The Survey Engine</h2>
@@ -369,6 +407,22 @@ const IntegrationsPage = () => {
               <code>src/data/impact.json</code> for display on the website. A companion script
               emails the report to the project team.
             </p>
+          </div>
+
+          <div className="mb-8">
+            <h3 className={H3_CLASSES}>Verified Visitors Methodology</h3>
+            <p className="mb-4">
+              Raw GA4 numbers can be misleading — 99.6% of recorded traffic came from{' '}
+              <code>localhost</code> (Playwright tests, CI runs, AI agents). The &quot;Verified
+              Visitors&quot; metric filters to the production hostname only, showing actual human
+              visitors.
+            </p>
+            <Link
+              className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+              href="/making-of-tabs/integrations/google-analytics"
+            >
+              Read the full methodology
+            </Link>
           </div>
         </section>
 
