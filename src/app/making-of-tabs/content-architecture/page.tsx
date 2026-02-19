@@ -47,7 +47,9 @@ const ContentArchitecturePage = () => {
           <h2 className={H2_CLASSES}>Static Export Architecture</h2>
           <p className="mb-6">
             TABS uses Next.js with{' '}
-            <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">output: &apos;export&apos;</code>{' '}
+            <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+              output: &apos;export&apos;
+            </code>{' '}
             — every page is pre-rendered to static HTML at build time. There is no server. The
             entire site is a collection of HTML, CSS, and JavaScript files hosted on GitHub Pages.
           </p>
@@ -74,16 +76,21 @@ const ContentArchitecturePage = () => {
           </ul>
 
           <h3 className={H3_CLASSES}>Trade-offs</h3>
-          <p className="mb-4">
-            Static export means we cannot use some Next.js features:
-          </p>
+          <p className="mb-4">Static export means we cannot use some Next.js features:</p>
           <ul className="list-disc pl-6 space-y-2 mb-6">
-            <li>No API routes — external APIs (Qualtrics, Prolific) are called from GitHub Actions workflows instead</li>
-            <li>No server-side rendering — all data must be available at build time or fetched client-side</li>
+            <li>
+              No API routes — external APIs (Qualtrics, Prolific) are called from GitHub Actions
+              workflows instead
+            </li>
+            <li>
+              No server-side rendering — all data must be available at build time or fetched
+              client-side
+            </li>
             <li>
               No Next.js Image optimization — we use standard{' '}
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;img&gt;</code> tags with the{' '}
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">assetPath()</code> helper
+              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;img&gt;</code> tags with
+              the <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">assetPath()</code>{' '}
+              helper
             </li>
           </ul>
         </section>
@@ -106,7 +113,11 @@ const ContentArchitecturePage = () => {
               </thead>
               <tbody>
                 {[
-                  ['Research Articles', '16', 'Two branches of original research (8 articles each)'],
+                  [
+                    'Research Articles',
+                    '16',
+                    'Two branches of original research (8 articles each)',
+                  ],
                   ['Bibliography', '24', 'Auto-generated citation pages for referenced works'],
                   ['Teaching Series', '8+', 'Presentation viewer, handouts, workshop materials'],
                   ['Making of TABS', '10+', 'How the site is built and maintained'],
@@ -131,8 +142,8 @@ const ContentArchitecturePage = () => {
           <h2 className={H2_CLASSES}>Data-Driven Content</h2>
           <p className="mb-6">
             Repetitive content is stored as structured data in{' '}
-            <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">src/data/</code> and
-            rendered by reusable components. This prevents duplication and makes bulk updates
+            <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">src/data/</code> and rendered
+            by reusable components. This prevents duplication and makes bulk updates
             straightforward:
           </p>
 
@@ -140,18 +151,18 @@ const ContentArchitecturePage = () => {
             <li>
               <strong>Team members</strong> — JSON files in{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">src/data/team/</code>,
-              aggregated by{' '}
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">team.ts</code>
+              aggregated by <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">team.ts</code>
             </li>
             <li>
               <strong>FAQs</strong> — JSON files in{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">src/data/faqs/</code>,
-              aggregated by{' '}
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">faqs.ts</code>
+              aggregated by <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">faqs.ts</code>
             </li>
             <li>
               <strong>Testimonials</strong> — JSON files in{' '}
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">src/data/testimonials/</code>
+              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                src/data/testimonials/
+              </code>
             </li>
             <li>
               <strong>Impact metrics</strong> — live data in{' '}
@@ -160,11 +171,15 @@ const ContentArchitecturePage = () => {
             </li>
             <li>
               <strong>Survey metrics</strong> — statistics in{' '}
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">src/data/qualtrics-metrics.json</code>
+              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                src/data/qualtrics-metrics.json
+              </code>
             </li>
             <li>
               <strong>Article series</strong> — navigation ordering and metadata in{' '}
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">technology-adoption-models-series.ts</code>
+              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                technology-adoption-models-series.ts
+              </code>
             </li>
           </ul>
         </section>
@@ -179,8 +194,8 @@ const ContentArchitecturePage = () => {
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li>
               <strong>Kebab-case URLs</strong> — all route folders use hyphens (
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">/privacy-policy</code>,
-              not <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">/PrivacyPolicy</code>
+              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">/privacy-policy</code>, not{' '}
+              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">/PrivacyPolicy</code>
               ), following{' '}
               <a
                 href="https://developers.google.com/search/docs/crawling-indexing/url-structure"
@@ -208,8 +223,8 @@ const ContentArchitecturePage = () => {
               regions, and structured content
             </li>
             <li>
-              <strong>Canonical URLs</strong> — prevent duplicate content between custom domain
-              and GitHub Pages deployment
+              <strong>Canonical URLs</strong> — prevent duplicate content between custom domain and
+              GitHub Pages deployment
             </li>
           </ul>
         </section>
@@ -227,7 +242,8 @@ const ContentArchitecturePage = () => {
               enhancements
             </li>
             <li>
-              <strong>Breakpoints</strong> — <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">sm</code> (640px),{' '}
+              <strong>Breakpoints</strong> —{' '}
+              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">sm</code> (640px),{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">md</code> (768px),{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">lg</code> (1024px),{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">xl</code> (1280px)
@@ -241,8 +257,8 @@ const ContentArchitecturePage = () => {
               multi-column (desktop)
             </li>
             <li>
-              <strong>Touch targets</strong> — buttons and links have minimum 44×44px touch areas
-              on mobile
+              <strong>Touch targets</strong> — buttons and links have minimum 44×44px touch areas on
+              mobile
             </li>
           </ul>
         </section>
@@ -253,7 +269,9 @@ const ContentArchitecturePage = () => {
           <p className="mb-6">
             With 16 research articles and 24 bibliography pages, visual consistency is essential.
             The{' '}
-            <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">src/lib/articleStyles.ts</code>{' '}
+            <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+              src/lib/articleStyles.ts
+            </code>{' '}
             module exports shared Tailwind class constants used across all article-style pages:
           </p>
 
@@ -281,9 +299,7 @@ const ContentArchitecturePage = () => {
         {/* ── Dual Deployment ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Dual Deployment</h2>
-          <p className="mb-6">
-            The site is deployed to two locations simultaneously:
-          </p>
+          <p className="mb-6">The site is deployed to two locations simultaneously:</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             <div className="p-4 rounded-lg border border-gray-200 bg-gray-50">
@@ -294,26 +310,20 @@ const ContentArchitecturePage = () => {
             <div className="p-4 rounded-lg border border-gray-200 bg-gray-50">
               <h3 className="text-base font-semibold text-gray-900 mb-1">GitHub Pages</h3>
               <p className="text-sm text-gray-600 mb-2">&lt;username&gt;.github.io/&lt;repo&gt;/</p>
-              <p className="text-sm text-gray-500">
-                Requires basePath via NEXT_PUBLIC_BASE_PATH
-              </p>
+              <p className="text-sm text-gray-500">Requires basePath via NEXT_PUBLIC_BASE_PATH</p>
             </div>
           </div>
 
           <p className="mb-6">
-            The{' '}
-            <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">assetPath()</code> helper
-            in{' '}
-            <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">src/lib/assetPath.ts</code>{' '}
+            The <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">assetPath()</code> helper
+            in <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">src/lib/assetPath.ts</code>{' '}
             automatically prepends the correct basePath to all asset URLs, making images and other
             static resources work in both environments.
           </p>
         </section>
 
         <section className="pt-8 border-t border-gray-200">
-          <p className="text-sm text-gray-600 italic">
-            149 pages, zero servers, one build step.
-          </p>
+          <p className="text-sm text-gray-600 italic">149 pages, zero servers, one build step.</p>
         </section>
       </article>
     </main>
