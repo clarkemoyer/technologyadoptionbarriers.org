@@ -8,7 +8,8 @@ import { getSurveysCompletedCount } from '@/lib/qualtricsStats'
  */
 const Statistics = () => {
   const surveysCompleted = getSurveysCompletedCount(metricsData.responseCounts)
-  // Production-hostname visitors (excludes localhost/CI/Playwright test traffic).
+  // "Verified Visitors" = activeUsers scoped to production hostname only.
+  // Distinct from "Active Visitors" (activeUsers), which includes localhost/CI/Playwright traffic.
   const verifiedVisitors = parseInt(impactData.verifiedVisitors) || 0
 
   return (
