@@ -42,7 +42,19 @@ export default function ArticleTOC() {
   const [activeId, setActiveId] = useState<string>('')
   const [progress, setProgress] = useState(0)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [headerH, setHeaderH] = useState(80)
   const observerRef = useRef<IntersectionObserver | null>(null)
+
+  /* ---------- track header height (shrinks on scroll) ---------- */
+  useEffect(() => {
+    const header = document.getElementById('header')
+    if (!header) return
+    const ro = new ResizeObserver(([entry]) => {
+      setHeaderH(entry.contentRect.height)
+    })
+    ro.observe(header)
+    return () => ro.disconnect()
+  }, [])
 
   /* ---------- scan headings on mount ---------- */
   useEffect(() => {
@@ -105,7 +117,8 @@ export default function ArticleTOC() {
       {/* ---- reading-progress bar ---- */}
       <div
         aria-hidden="true"
-        className="fixed top-[80px] left-0 right-0 z-40 h-[3px] bg-gray-200/60"
+        className="fixed left-0 right-0 z-40 h-[3px] bg-gray-200/60 transition-[top] duration-300"
+        style={{ top: `${headerH}px` }}
       >
         <div
           className="h-full bg-tabs-teal-deep transition-[width] duration-150 ease-linear"
@@ -116,8 +129,9 @@ export default function ArticleTOC() {
       {/* ---- desktop sidebar (xl+) ---- */}
       <nav
         aria-label="Table of contents"
-        className="hidden xl:block fixed top-[120px] z-30"
+        className="hidden xl:block fixed z-30 transition-[top] duration-300"
         style={{
+          top: `${headerH + 40}px`,
           right: 'max(1rem, calc((100vw - 1200px) / 2 - 240px))',
           width: '210px',
         }}
@@ -125,7 +139,10 @@ export default function ArticleTOC() {
         <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">
           On this page
         </p>
-        <ul className="space-y-1.5 border-l-2 border-gray-200 pl-3 max-h-[calc(100vh-180px)] overflow-y-auto">
+        <ul
+          className="space-y-1.5 border-l-2 border-gray-200 pl-3 overflow-y-auto"
+          style={{ maxHeight: `calc(100vh - ${headerH + 100}px)` }}
+        >
           {items.map((item) => (
             <li key={item.id}>
               <a
