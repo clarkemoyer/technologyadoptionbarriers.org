@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -97,7 +97,7 @@ const DevelopmentWorkflowPage = () => {
                 4
               </div>
               <div>
-                <p className="font-bold text-gray-900">CI Checks (8 total)</p>
+                <p className="font-bold text-gray-900">CI Checks (7 total)</p>
                 <p className="text-sm text-gray-700">
                   All checks must pass before merge. See details below.
                 </p>
@@ -134,9 +134,9 @@ const DevelopmentWorkflowPage = () => {
 
         {/* ── CI Details ── */}
         <section className="mb-12 text-gray-800">
-          <h2 className={H2_CLASSES}>CI Pipeline: 8 Checks</h2>
+          <h2 className={H2_CLASSES}>CI Pipeline: 7 Checks</h2>
           <p className="mb-6">
-            Every pull request runs through eight automated checks before it can be merged:
+            Every pull request runs through seven automated checks before it can be merged:
           </p>
 
           <div className="overflow-x-auto mb-6">
@@ -188,6 +188,27 @@ const DevelopmentWorkflowPage = () => {
           <p>
             Additionally, <strong>Lighthouse CI</strong> runs on merges to main, scoring
             performance, accessibility, best practices, and SEO.
+          </p>
+        </section>
+
+        {/* ── Merge Queue ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Merge Queue</h2>
+          <p className="mb-6">
+            The repository uses GitHub&apos;s merge queue to prevent integration failures when
+            multiple PRs are approved around the same time. Instead of merging immediately, PRs
+            enter a queue where GitHub creates a temporary merge commit combining the PR with
+            the current state of main and any PRs ahead of it in the queue.
+          </p>
+          <p className="mb-6">
+            The full CI suite runs against this temporary merge commit. If any check fails, the
+            offending PR is removed from the queue and the others re-test. This guarantees that
+            what merges into main has been tested against the actual code it will sit alongside,
+            not just the state of main when the PR was opened.
+          </p>
+          <p>
+            This is especially valuable for a statically exported site — a broken build in the
+            merge queue stops the deploy before it ever reaches GitHub Pages.
           </p>
         </section>
 
