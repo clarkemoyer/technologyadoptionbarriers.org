@@ -8,8 +8,8 @@ import { getSurveysCompletedCount } from '@/lib/qualtricsStats'
  */
 const Statistics = () => {
   const surveysCompleted = getSurveysCompletedCount(metricsData.responseCounts)
-  // Channel-filtered visitors (excludes Direct/Unassigned bot traffic).
-  const verifiedVisitors = parseInt((impactData as Record<string, string>).verifiedVisitors) || 0
+  // Production hostname visitors (excludes localhost/CI/Playwright test traffic).
+  const verifiedVisitors = parseInt(impactData.verifiedVisitors) || 0
 
   return (
     <section id="statistics" className="w-full py-[80px] bg-white">

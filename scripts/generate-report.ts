@@ -98,7 +98,7 @@ async function generateReport() {
       (row: ReportRow) => row.dimensionValues?.[0]?.value === PRODUCTION_HOSTNAME
     )
     const verifiedVisitors = productionRow?.metricValues?.[0]?.value || '0'
-    console.log(`Verified human visitors (production + channel-filtered): ${verifiedVisitors}`)
+    console.log(`Verified human visitors (production hostname only): ${verifiedVisitors}`)
 
     // --- Generate Public Impact Stats ---
     const publicStatsPath = path.join(process.cwd(), 'src', 'data', 'impact.json')
