@@ -223,7 +223,7 @@ const CloudflareIntegrationPage = () => {
 
       {/* ── Performance ── */}
       <section className="mb-10 text-gray-800">
-        <h2 className={H2_CLASSES}>Performance Optimisations</h2>
+        <h2 className={H2_CLASSES}>Performance Optimizations</h2>
         <p className="mb-4">
           Several Cloudflare features are enabled to improve page load times, all available on the
           Free plan:

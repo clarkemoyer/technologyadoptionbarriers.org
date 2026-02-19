@@ -59,7 +59,7 @@ const MicrosoftClarityIntegrationPage = () => {
             revealing which sections attract attention and which are skipped.
           </li>
           <li>
-            <strong>Session recordings</strong> — anonymised replays of real visitor sessions,
+            <strong>Session recordings</strong> — anonymized replays of real visitor sessions,
             showing navigation paths, confusion points, and rage clicks.
           </li>
         </ul>

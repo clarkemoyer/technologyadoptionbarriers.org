@@ -249,7 +249,7 @@ const GitHubIntegrationPage = () => {
           <p className="mb-4">
             A comprehensive pull request template guides contributors through a structured
             description with sections for change type, related issues, manual testing, automated
-            testing, accessibility, and a final checklist. This standardises the review process and
+            testing, accessibility, and a final checklist. This standardizes the review process and
             ensures nothing is overlooked.
           </p>
         </div>
