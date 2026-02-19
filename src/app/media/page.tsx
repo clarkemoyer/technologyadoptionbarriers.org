@@ -38,7 +38,6 @@ export const metadata: Metadata = {
 const MediaPage = () => {
   const surveysCompleted = getSurveysCompletedCount(metricsData.responseCounts)
   const pageViews = parseInt(impactData.pageViews) || 0
-  // "Verified Visitors" = activeUsers scoped to production hostname only.
   const verifiedVisitors = parseInt(impactData.verifiedVisitors) || 0
 
   const orgLdJson = {
