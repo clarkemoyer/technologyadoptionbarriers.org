@@ -12,12 +12,16 @@ const IntegrationsPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav className="mb-8 text-sm text-gray-500">
+        <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
           <Link href="/making-of-tabs" className="hover:text-blue-600 hover:underline">
             Making of TABS
           </Link>
-          <span className="mx-2">›</span>
-          <span className="text-gray-800">Technical Integrations</span>
+          <span className="mx-2" aria-hidden="true">
+            ›
+          </span>
+          <span className="text-gray-800" aria-current="page">
+            Technical Integrations
+          </span>
         </nav>
 
         <h1 className={H1_CLASSES}>Technical Integrations &amp; Workflows</h1>
@@ -32,6 +36,71 @@ const IntegrationsPage = () => {
             TypeScript client libraries, so the entire operational lifecycle — from survey creation
             to data collection to analytics — is version-controlled and reproducible.
           </p>
+        </section>
+
+        {/* ── Integration Deep Dives ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Integration Deep Dives</h2>
+          <p className="mb-6">
+            Each integration has a dedicated page with detailed methodology, architecture diagrams,
+            and lessons learned:
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+            <Link
+              href="/making-of-tabs/integrations/qualtrics"
+              className="block rounded-xl border border-blue-200 bg-blue-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-blue-900 mb-1">Qualtrics</p>
+              <p className="text-sm text-blue-800">
+                Survey engine, API workflows, Survey Flow architecture, and annual rollover
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/integrations/prolific"
+              className="block rounded-xl border border-green-200 bg-green-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-green-900 mb-1">Prolific</p>
+              <p className="text-sm text-green-800">
+                Participant recruitment, the Qualtrics–Prolific bridge, and data collection
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/integrations/google-analytics"
+              className="block rounded-xl border border-orange-200 bg-orange-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-orange-900 mb-1">Google Analytics</p>
+              <p className="text-sm text-orange-800">
+                Impact measurement, the Verified Visitors methodology, and GA4 API lessons
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/integrations/microsoft-clarity"
+              className="block rounded-xl border border-purple-200 bg-purple-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-purple-900 mb-1">Microsoft Clarity</p>
+              <p className="text-sm text-purple-800">
+                Heatmaps, session recordings, consent-gated loading, and SPA route tracking
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/integrations/github"
+              className="block rounded-xl border border-gray-300 bg-gray-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-gray-900 mb-1">GitHub</p>
+              <p className="text-sm text-gray-700">
+                CI/CD, code review, security scanning, deployment, and data pipelines
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/integrations/cloudflare"
+              className="block rounded-xl border border-amber-200 bg-amber-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-amber-900 mb-1">Cloudflare</p>
+              <p className="text-sm text-amber-800">
+                DNS, global CDN, SSL/TLS, caching strategy, and security headers
+              </p>
+            </Link>
+          </div>
         </section>
 
         {/* ── Qualtrics ── */}
@@ -369,6 +438,22 @@ const IntegrationsPage = () => {
               <code>src/data/impact.json</code> for display on the website. A companion script
               emails the report to the project team.
             </p>
+          </div>
+
+          <div className="mb-8">
+            <h3 className={H3_CLASSES}>Verified Visitors Methodology</h3>
+            <p className="mb-4">
+              Raw GA4 numbers can be misleading — 99.6% of recorded traffic came from{' '}
+              <code>localhost</code> (Playwright tests, CI runs, AI agents). The &quot;Verified
+              Visitors&quot; metric filters to the production hostname only, showing actual human
+              visitors.
+            </p>
+            <Link
+              className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+              href="/making-of-tabs/integrations/google-analytics"
+            >
+              Read the full methodology
+            </Link>
           </div>
         </section>
 
