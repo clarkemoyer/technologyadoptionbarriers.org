@@ -8,6 +8,7 @@ import {
   BODY_OL_CLASSES,
 } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Comprehensive Series Bibliography: Foundations of Technology Adoption',
@@ -644,6 +645,7 @@ const BibliographyPage = () => {
 
         <SeriesNavigation className="mt-6" />
       </article>
+      <ArticleTOC />
     </main>
   )
 }

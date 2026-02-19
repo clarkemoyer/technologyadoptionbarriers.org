@@ -9,6 +9,7 @@ import {
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Article 2.6: The Cloud Revolution â€“ Prescriptive Adoption Frameworks',
@@ -369,6 +370,7 @@ const Article26Page = () => {
           </ol>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

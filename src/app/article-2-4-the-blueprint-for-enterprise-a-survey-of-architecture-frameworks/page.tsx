@@ -9,6 +9,7 @@ import {
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Article 2.4: The Blueprint for Enterprise â€“ A Survey of Architecture Frameworks',
@@ -337,6 +338,7 @@ const Article24Page = () => {
           </ol>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }
