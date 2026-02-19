@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -171,13 +171,18 @@ const OpenSourcePage = () => {
           <div className="mb-6 rounded-lg bg-gray-900 text-gray-100 p-4 overflow-x-auto">
             <pre className="text-sm font-mono">
               <code>{`cff-version: 1.2.0
-message: "If you use this project, please cite it as below."
+title: Technology Adoption Barriers Survey (TABS) Website
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
 type: software
-title: "Technology Adoption Barriers Survey"
 authors:
   - given-names: Clarke
     family-names: Moyer
-repository-code: "https://github.com/clarkemoyer/technologyadoptionbarriers.org"
+    email: clarke@technologyadoptionbarriers.org
+    affiliation: Technology Adoption Barriers Survey (TABS)
+repository-code: https://github.com/clarkemoyer/technologyadoptionbarriers.org
+url: https://technologyadoptionbarriers.org
 license: Apache-2.0`}</code>
             </pre>
           </div>
