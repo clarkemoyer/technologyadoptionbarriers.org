@@ -16,21 +16,30 @@ const QualtricsIntegrationPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
-          <Link href="/making-of-tabs" className="hover:text-blue-600 hover:underline">
-            Making of TABS
-          </Link>
-          <span className="mx-2" aria-hidden="true">
-            ›
-          </span>
-          <Link href="/making-of-tabs/integrations" className="hover:text-blue-600 hover:underline">
-            Technical Integrations
-          </Link>
-          <span className="mx-2" aria-hidden="true">
-            ›
-          </span>
-          <span className="text-gray-800" aria-current="page">
-            Qualtrics
-          </span>
+          <ol className="flex flex-wrap items-center gap-1">
+            <li>
+              <Link href="/making-of-tabs" className="hover:text-blue-600 hover:underline">
+                Making of TABS
+              </Link>
+              <span className="mx-2" aria-hidden="true">
+                ›
+              </span>
+            </li>
+            <li>
+              <Link
+                href="/making-of-tabs/integrations"
+                className="hover:text-blue-600 hover:underline"
+              >
+                Technical Integrations
+              </Link>
+              <span className="mx-2" aria-hidden="true">
+                ›
+              </span>
+            </li>
+            <li className="text-gray-800" aria-current="page">
+              Qualtrics
+            </li>
+          </ol>
         </nav>
 
         <h1 className={H1_CLASSES}>Qualtrics Integration</h1>
