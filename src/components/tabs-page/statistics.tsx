@@ -8,7 +8,12 @@ import { getSurveysCompletedCount } from '@/lib/qualtricsStats'
  */
 const Statistics = () => {
   const surveysCompleted = getSurveysCompletedCount(metricsData.responseCounts)
-  const activeVisitors = parseInt(impactData.activeUsers) || 0
+  // Channel-filtered visitors (excludes Direct/Unassigned bot traffic).
+  // Falls back to unfiltered activeUsers until the GA workflow populates verifiedVisitors.
+  const verifiedVisitors =
+    parseInt((impactData as Record<string, string>).verifiedVisitors) ||
+    parseInt(impactData.activeUsers) ||
+    0
 
   return (
     <section id="statistics" className="w-full py-[80px] bg-white">
@@ -35,13 +40,13 @@ const Statistics = () => {
             </div>
           </div>
 
-          {/* Active Visitors */}
+          {/* Verified Visitors */}
           <div>
             <h3 className="text-[32px] font-bold text-gray-900 mb-[10px] font-serif">
-              Active Visitors
+              Verified Visitors
             </h3>
             <div className="text-[60px] font-bold text-tabs-green mb-[5px] leading-none">
-              {activeVisitors.toLocaleString()}
+              {verifiedVisitors.toLocaleString()}
             </div>
           </div>
         </div>

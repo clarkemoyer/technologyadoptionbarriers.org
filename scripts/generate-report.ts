@@ -58,6 +58,36 @@ async function generateReport() {
     console.log(`Report generated successfully: ${filepath}`)
     console.log(`Rows fetched: ${response.rowCount || 0}`)
 
+    // --- Channel-filtered query for verified human visitors ---
+    // Exclude Direct/Unassigned traffic (where most bot noise lives) to get
+    // only visitors arriving via search, social, referral, email, or paid channels.
+    const humanTrafficResponse = await gaClient.runReport({
+      startDate: '28daysAgo',
+      endDate: 'today',
+      metrics: ['activeUsers'],
+      metricAggregations: [MetricAggregation.TOTAL],
+      dimensionFilter: {
+        filter: {
+          fieldName: 'sessionDefaultChannelGroup',
+          inListFilter: {
+            values: [
+              'Organic Search',
+              'Social',
+              'Referral',
+              'Email',
+              'Paid Search',
+              'Paid Social',
+              'Display',
+              'Affiliates',
+            ],
+          },
+        },
+      },
+    })
+
+    const verifiedVisitors = humanTrafficResponse.totals?.[0]?.metricValues?.[0]?.value || '0'
+    console.log(`Verified human visitors (channel-filtered): ${verifiedVisitors}`)
+
     // --- Generate Public Impact Stats ---
     const publicStatsPath = path.join(process.cwd(), 'src', 'data', 'impact.json')
     const t = response.totals?.[0]
@@ -65,6 +95,7 @@ async function generateReport() {
       updatedAt: new Date().toISOString(),
       activeUsers: t?.metricValues?.[0]?.value || '0',
       pageViews: t?.metricValues?.[4]?.value || '0',
+      verifiedVisitors,
     }
     // Ensure directory exists
     const dataDir = path.join(process.cwd(), 'src', 'data')
@@ -103,6 +134,7 @@ async function generateReport() {
 | **Sessions** | ${t.metricValues[2]?.value || '0'} |
 | **Views** | ${t.metricValues[4]?.value || '0'} |
 | **Engagement Rate** | ${t.metricValues[3]?.value ? parseFloat(t.metricValues[3].value).toFixed(2) : '0'} |
+| **Verified Visitors** | ${verifiedVisitors} |
 
 ### 🏆 Top Pages
 | Page | Views | Users | Sessions |
