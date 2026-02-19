@@ -157,6 +157,52 @@ const MakingOfTabsPage = () => {
           </Link>
         </section>
 
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>How We Build</h2>
+          <p className="mb-6">
+            These pages document the methods, tools, and values behind the TABS project.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              {
+                title: 'AI-Assisted Development',
+                href: '/making-of-tabs/ai-assisted-development',
+                desc: 'The AI models and workflows we use to build and maintain the site.',
+              },
+              {
+                title: 'Development Workflow',
+                href: '/making-of-tabs/development-workflow',
+                desc: 'CI/CD pipeline, automated operations, and how code reaches production.',
+              },
+              {
+                title: 'Accessibility',
+                href: '/making-of-tabs/accessibility',
+                desc: 'Automated testing, WCAG AA compliance, and inclusive design practices.',
+              },
+              {
+                title: 'Open Source & Community',
+                href: '/making-of-tabs/open-source',
+                desc: 'Apache 2.0 licensing, community health files, and contribution workflow.',
+              },
+              {
+                title: 'Content Architecture',
+                href: '/making-of-tabs/content-architecture',
+                desc: '149+ static pages, data-driven content, SEO, and responsive design.',
+              },
+            ].map((card) => (
+              <Link
+                key={card.href}
+                href={card.href}
+                className="block rounded-lg border border-gray-200 bg-gray-50 p-5 transition-colors hover:bg-blue-50 hover:border-blue-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+              >
+                <h3 className="text-base font-semibold text-gray-900 mb-1">{card.title}</h3>
+                <p className="text-sm text-gray-600">{card.desc}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         <section className="pt-8 border-t border-gray-200">
           <p className="text-sm text-gray-600 italic">
             This &quot;Making of&quot; section is a living document, updated as our toolset and
