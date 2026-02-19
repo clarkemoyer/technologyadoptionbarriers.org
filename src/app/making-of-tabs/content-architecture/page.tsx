@@ -293,7 +293,7 @@ const ContentArchitecturePage = () => {
             </div>
             <div className="p-4 rounded-lg border border-gray-200 bg-gray-50">
               <h3 className="text-base font-semibold text-gray-900 mb-1">GitHub Pages</h3>
-              <p className="text-sm text-gray-600 mb-2">clarkemoyer.github.io/repo/</p>
+              <p className="text-sm text-gray-600 mb-2">&lt;username&gt;.github.io/&lt;repo&gt;/</p>
               <p className="text-sm text-gray-500">
                 Requires basePath via NEXT_PUBLIC_BASE_PATH
               </p>
