@@ -87,6 +87,12 @@ const Header: React.FC = () => {
           { label: 'Overview', path: '/making-of-tabs' },
           { label: 'TABS Presentation', path: '/making-of-tabs/tabs-presentation' },
           { label: 'The CMO Survey', path: '/making-of-tabs/cmo-survey' },
+          { label: 'Technical Integrations', path: '/making-of-tabs/integrations' },
+          { label: 'AI-Assisted Development', path: '/making-of-tabs/ai-assisted-development' },
+          { label: 'Development Workflow', path: '/making-of-tabs/development-workflow' },
+          { label: 'Accessibility', path: '/making-of-tabs/accessibility' },
+          { label: 'Open Source & Community', path: '/making-of-tabs/open-source' },
+          { label: 'Content Architecture', path: '/making-of-tabs/content-architecture' },
         ],
       },
       {
