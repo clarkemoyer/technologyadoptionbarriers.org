@@ -41,7 +41,7 @@ const IntegrationsPage = () => {
             Each integration has a dedicated page with detailed methodology, architecture diagrams,
             and lessons learned:
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
             <Link
               href="/making-of-tabs/integrations/qualtrics"
               className="block rounded-xl border border-blue-200 bg-blue-50 p-5 transition-shadow hover:shadow-md"
@@ -67,6 +67,33 @@ const IntegrationsPage = () => {
               <p className="font-bold text-orange-900 mb-1">Google Analytics</p>
               <p className="text-sm text-orange-800">
                 Impact measurement, the Verified Visitors methodology, and GA4 API lessons
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/integrations/microsoft-clarity"
+              className="block rounded-xl border border-purple-200 bg-purple-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-purple-900 mb-1">Microsoft Clarity</p>
+              <p className="text-sm text-purple-800">
+                Heatmaps, session recordings, consent-gated loading, and SPA route tracking
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/integrations/github"
+              className="block rounded-xl border border-gray-300 bg-gray-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-gray-900 mb-1">GitHub</p>
+              <p className="text-sm text-gray-700">
+                CI/CD, code review, security scanning, deployment, and data pipelines
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/integrations/cloudflare"
+              className="block rounded-xl border border-amber-200 bg-amber-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-amber-900 mb-1">Cloudflare</p>
+              <p className="text-sm text-amber-800">
+                DNS, global CDN, SSL/TLS, caching strategy, and security headers
               </p>
             </Link>
           </div>
