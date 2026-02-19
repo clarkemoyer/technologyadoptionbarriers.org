@@ -30,7 +30,9 @@ const Statistics = () => {
             <h3 className="text-[32px] font-bold text-gray-900 mb-[10px] font-serif">
               Survey Questions
             </h3>
-            <div className="text-[60px] font-bold text-tabs-orange mb-[5px] leading-none">100+</div>
+            <div className="text-[60px] font-bold text-tabs-orange mb-[5px] leading-none">
+              {metricsData.questionCount > 0 ? metricsData.questionCount.toLocaleString() : '—'}
+            </div>
           </div>
 
           {/* Page Views */}

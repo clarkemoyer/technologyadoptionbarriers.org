@@ -86,6 +86,22 @@ jobs:
           org_id=$(jq -r '.result.organizationId // ""' "$SURVEY_JSON")
           response_counts=$(jq -c '.result.responseCounts // {}' "$SURVEY_JSON")
 
+          # Fetch question count from survey-definitions endpoint
+          QUESTIONS_JSON="$TMP_DIR/qualtrics-questions.json"
+          questions_url="${BASE_URL}/API/v3/survey-definitions/${SURVEY_ID}/questions"
+          q_http_code=$(curl -sS -o "$QUESTIONS_JSON" -w "%{http_code}" \
+            -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
+            -H "Accept: application/json" \
+            "$questions_url")
+
+          question_count=0
+          if [[ "$q_http_code" -ge 200 && "$q_http_code" -lt 300 ]]; then
+            question_count=$(jq '.result.Questions // {} | keys | length' "$QUESTIONS_JSON")
+            echo "Question count: $question_count"
+          else
+            echo "::warning::Could not fetch question count (HTTP $q_http_code). Setting to 0."
+          fi
+
           mkdir -p src/data
           jq -n \
             --arg collectedAt "$collected_at" \
@@ -93,6 +109,7 @@ jobs:
             --arg surveyId "$SURVEY_ID" \
             --arg surveyName "$survey_name" \
             --arg orgId "$org_id" \
+            --argjson questionCount "$question_count" \
             --argjson responseCounts "$response_counts" \
             '{
               collectedAt: $collectedAt,
@@ -102,6 +119,7 @@ jobs:
                 name: $surveyName,
                 organizationId: $orgId
               },
+              questionCount: $questionCount,
               responseCounts: $responseCounts,
               metrics: ($responseCounts | to_entries | map({metric: .key, value: .value}) | sort_by(.metric))
             }' > temp-qualtrics-metrics.json

@@ -6,6 +6,7 @@
     "name": "Technology Adoption Barriers Survey",
     "organizationId": "smeal"
   },
+  "questionCount": 0,
   "responseCounts": {
     "auditable": 44,
     "generated": 501,
