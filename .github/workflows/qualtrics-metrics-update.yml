@@ -96,7 +96,7 @@ jobs:
 
           question_count=0
           if [[ "$q_http_code" -ge 200 && "$q_http_code" -lt 300 ]]; then
-            question_count=$(jq '[.result.Questions // {} | keys[]] | length' "$QUESTIONS_JSON")
+            question_count=$(jq '.result.Questions // {} | keys | length' "$QUESTIONS_JSON")
             echo "Question count: $question_count"
           else
             echo "::warning::Could not fetch question count (HTTP $q_http_code). Setting to 0."
