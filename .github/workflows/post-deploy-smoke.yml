@@ -395,7 +395,12 @@ jobs:
             const infraFail = parseInt(process.env.INFRA_FAIL || '0');
             const totalFail = routeFail + assetFail + infraFail;
             const siteUrl = process.env.SITE_URL;
-            const sha = context.sha.substring(0, 7);
+
+            // Use the deployed commit SHA on workflow_run (matches commit status steps)
+            const fullSha = context.eventName === 'workflow_run'
+              ? '${{ github.event.workflow_run.head_sha }}'
+              : context.sha;
+            const shortSha = (fullSha || context.sha).substring(0, 7);
 
             // Build failure breakdown
             const lines = [];
@@ -404,11 +409,11 @@ jobs:
             if (infraFail > 0) lines.push(`- **Infrastructure:** ${infraFail} check(s) failed`);
             const breakdown = lines.length > 0 ? lines.join('\n') : '- See workflow run for details';
 
-            const title = `🚨 Production smoke test failed: ${totalFail} check(s) after deploy (${sha})`;
+            const title = `🚨 Production smoke test failed: ${totalFail} check(s) after deploy (${shortSha})`;
             const body = [
               `## 🚨 Production Site Issue Detected`,
               ``,
-              `The post-deploy smoke test **failed** after deploying commit \`${context.sha}\` to ${siteUrl}.`,
+              `The post-deploy smoke test **failed** after deploying commit \`${fullSha}\` to ${siteUrl}.`,
               ``,
               `### Failure Summary`,
               ``,
@@ -417,7 +422,7 @@ jobs:
               `### Links`,
               ``,
               `- **Workflow run:** ${runUrl}`,
-              `- **Deployed commit:** ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}`,
+              `- **Deployed commit:** ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/commit/${fullSha}`,
               `- **Site:** ${siteUrl}`,
               ``,
               `### Priority`,
@@ -428,21 +433,24 @@ jobs:
               `*Auto-created by Post-Deploy Smoke Test workflow*`,
             ].join('\n');
 
-            // Ensure label exists
-            try {
-              await github.rest.issues.getLabel({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                name: 'production-incident',
-              });
-            } catch {
-              await github.rest.issues.createLabel({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                name: 'production-incident',
-                color: 'B60205',
-                description: 'Live production site issue detected by smoke tests',
-              });
+            // Ensure required labels exist
+            for (const label of [
+              { name: 'production-incident', color: 'B60205', description: 'Live production site issue detected by smoke tests' },
+              { name: 'bug', color: 'd73a4a', description: 'Something isn\'t working' },
+            ]) {
+              try {
+                await github.rest.issues.getLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: label.name,
+                });
+              } catch {
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  ...label,
+                });
+              }
             }
 
             const { data: issue } = await github.rest.issues.create({
