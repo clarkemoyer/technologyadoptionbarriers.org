@@ -84,11 +84,15 @@ jobs:
         run: |
           set -uo pipefail
 
-          # Find every non-HTML file (including _next/ JS/CSS chunks)
-          # excluding hidden files like .nojekyll
+          # Find every non-HTML file, excluding:
+          #   - .nojekyll (hidden deployment marker)
+          #   - _next/static/** (build-specific hashed paths that differ
+          #     between the deploy build and this discovery build; pages
+          #     already validate these assets implicitly when they return 200)
           find out -type f \
             -not -name '*.html' \
             -not -name '.nojekyll' \
+            -not -path 'out/_next/static/*' \
             | sort | while read -r f; do
             echo "/${f#out/}"
           done > /tmp/assets.txt
