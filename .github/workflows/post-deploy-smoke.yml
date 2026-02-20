@@ -1,0 +1,373 @@
+name: Post-Deploy Smoke Test
+
+on:
+  # Runs automatically after every successful deployment
+  workflow_run:
+    workflows: ['Deploy to GitHub Pages']
+    types:
+      - completed
+    branches: ['main']
+
+  # Allow manual trigger for ad-hoc testing
+  workflow_dispatch:
+    inputs:
+      site_url:
+        description: 'Site URL to test (default: production)'
+        required: false
+        type: string
+        default: 'https://technologyadoptionbarriers.org'
+
+permissions:
+  contents: read
+
+jobs:
+  smoke-test:
+    name: Production Smoke Test
+    runs-on: ubuntu-latest
+    # Run on manual trigger or successful deployment
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+
+    env:
+      SITE_URL: >-
+        ${{ github.event_name == 'workflow_dispatch'
+            && github.event.inputs.site_url
+            || 'https://technologyadoptionbarriers.org' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          # On workflow_run, checkout the exact commit that was deployed
+          # to avoid false failures from newer commits adding routes
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Normalize SITE_URL
+        run: |
+          # Strip trailing slash to avoid double-slash in URL construction
+          echo "SITE_URL=${SITE_URL%/}" >> "$GITHUB_ENV"
+
+      - name: Build site to discover all routes
+        run: npm run build
+        env:
+          NEXT_PUBLIC_BASE_PATH: ''
+
+      # ── Route & asset discovery ──────────────────────────────────────
+
+      - name: Discover all page routes
+        run: |
+          set -uo pipefail
+
+          # With trailingSlash: true, every page is at path/index.html
+          find out -name 'index.html' -not -path 'out/404/*' | sort | while read -r f; do
+            dir=$(dirname "$f")
+            path="${dir#out}"
+            [ -z "$path" ] && path="/"
+            echo "$path"
+          done > /tmp/routes.txt
+
+          ROUTE_COUNT=$(wc -l < /tmp/routes.txt)
+          echo "📄 Discovered $ROUTE_COUNT page routes"
+          cat /tmp/routes.txt
+
+      - name: Discover all static assets
+        run: |
+          set -uo pipefail
+
+          # Find every non-HTML file (including _next/ JS/CSS chunks)
+          # excluding hidden files like .nojekyll
+          find out -type f \
+            -not -name '*.html' \
+            -not -name '.nojekyll' \
+            | sort | while read -r f; do
+            echo "/${f#out/}"
+          done > /tmp/assets.txt
+
+          ASSET_COUNT=$(wc -l < /tmp/assets.txt)
+          echo "🖼️  Discovered $ASSET_COUNT static assets"
+          cat /tmp/assets.txt
+
+      # ── Wait for CDN propagation (auto-trigger only) ─────────────────
+
+      - name: Wait for CDN propagation
+        if: github.event_name != 'workflow_dispatch'
+        run: |
+          echo "⏳ Waiting 30 seconds for CDN propagation..."
+          sleep 30
+
+      # ── Create reusable test scripts ─────────────────────────────────
+
+      - name: Create test helper scripts
+        run: |
+          # Page route checker (GET with retry)
+          cat > /tmp/check-url.sh << 'SCRIPT'
+          #!/usr/bin/env bash
+          url="$1"
+          expected="${2:-200}"
+          label="$3"
+          status=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 15 "$url" 2>/dev/null || echo "000")
+          if [ "$status" != "$expected" ]; then
+            sleep 3
+            status=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 15 "$url" 2>/dev/null || echo "000")
+          fi
+          if [ "$status" = "$expected" ]; then
+            echo "PASS $label"
+          else
+            echo "FAIL $status $label (expected $expected)"
+          fi
+          SCRIPT
+          chmod +x /tmp/check-url.sh
+
+          # Asset checker (HEAD, no retry — faster for large files)
+          cat > /tmp/check-asset.sh << 'SCRIPT'
+          #!/usr/bin/env bash
+          url="$1"
+          expected="${2:-200}"
+          label="$3"
+          status=$(curl -s -o /dev/null -w '%{http_code}' --head -L --max-time 15 "$url" 2>/dev/null || echo "000")
+          if [ "$status" = "$expected" ]; then
+            echo "PASS $label"
+          else
+            echo "FAIL $status $label (expected $expected)"
+          fi
+          SCRIPT
+          chmod +x /tmp/check-asset.sh
+
+      # ── Test all page routes ─────────────────────────────────────────
+
+      - name: Test all page routes (with and without trailing slash)
+        run: |
+          set -uo pipefail
+
+          # Build test list: each line is "FULL_URL EXPECTED_STATUS LABEL"
+          while IFS= read -r path; do
+            echo "${SITE_URL}${path} 200 ${path}"
+            # Also test with trailing slash (skip / which already ends with /)
+            if [ "$path" != "/" ]; then
+              echo "${SITE_URL}${path}/ 200 ${path}/"
+            fi
+          done < /tmp/routes.txt > /tmp/route-tests.txt
+
+          ROUTE_TEST_COUNT=$(wc -l < /tmp/route-tests.txt)
+          echo "🔍 Testing $ROUTE_TEST_COUNT page URLs (with and without trailing slash)..."
+
+          # Run tests in parallel (20 concurrent connections)
+          xargs -P 20 -L 1 /tmp/check-url.sh < /tmp/route-tests.txt > /tmp/route-results.txt
+
+          PASS=$(grep -c '^PASS' /tmp/route-results.txt || true)
+          FAIL=$(grep -c '^FAIL' /tmp/route-results.txt || true)
+
+          echo ""
+          echo "Page routes: ✅ $PASS passed, ❌ $FAIL failed (of $ROUTE_TEST_COUNT)"
+
+          {
+            echo "ROUTE_PASS=$PASS"
+            echo "ROUTE_FAIL=$FAIL"
+            echo "ROUTE_TOTAL=$ROUTE_TEST_COUNT"
+          } >> "$GITHUB_ENV"
+
+          if [ "$FAIL" -gt 0 ]; then
+            echo ""
+            echo "Failed URLs:"
+            grep '^FAIL' /tmp/route-results.txt
+          fi
+
+      # ── Test all static assets ───────────────────────────────────────
+
+      - name: Test all static assets
+        run: |
+          set -uo pipefail
+
+          # Build asset test list
+          while IFS= read -r path; do
+            echo "${SITE_URL}${path} 200 ${path}"
+          done < /tmp/assets.txt > /tmp/asset-tests.txt
+
+          ASSET_TEST_COUNT=$(wc -l < /tmp/asset-tests.txt)
+          echo "🔍 Testing $ASSET_TEST_COUNT static assets..."
+
+          # Run tests in parallel (20 concurrent, HEAD requests)
+          xargs -P 20 -L 1 /tmp/check-asset.sh < /tmp/asset-tests.txt > /tmp/asset-results.txt
+
+          PASS=$(grep -c '^PASS' /tmp/asset-results.txt || true)
+          FAIL=$(grep -c '^FAIL' /tmp/asset-results.txt || true)
+
+          echo "Static assets: ✅ $PASS passed, ❌ $FAIL failed (of $ASSET_TEST_COUNT)"
+
+          {
+            echo "ASSET_PASS=$PASS"
+            echo "ASSET_FAIL=$FAIL"
+            echo "ASSET_TOTAL=$ASSET_TEST_COUNT"
+          } >> "$GITHUB_ENV"
+
+          if [ "$FAIL" -gt 0 ]; then
+            echo ""
+            echo "Failed assets:"
+            grep '^FAIL' /tmp/asset-results.txt
+          fi
+
+      # ── Infrastructure checks ────────────────────────────────────────
+
+      - name: Infrastructure checks
+        run: |
+          set -uo pipefail
+          INFRA_FAIL=0
+
+          # Helper: check URL status with label
+          check() {
+            local label="$1" url="$2" expected="$3"
+            local status
+            status=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 15 "$url" 2>/dev/null || echo "000")
+            if [ "$status" = "$expected" ]; then
+              echo "| $label | ✅ $status |" >> /tmp/infra-results.txt
+            else
+              echo "| $label | ❌ $status (expected $expected) |" >> /tmp/infra-results.txt
+              INFRA_FAIL=$((INFRA_FAIL + 1))
+            fi
+          }
+
+          : > /tmp/infra-results.txt
+
+          # 1. 404 error handling — nonexistent URL must return 404
+          # NOTE: This path is reserved for smoke testing and must NEVER be created as a real page.
+          check "404 error page" "${SITE_URL}/__smoke-test-404-check__" "404"
+
+          # 2. sitemap.xml — SEO infrastructure
+          check "sitemap.xml" "${SITE_URL}/sitemap.xml" "200"
+
+          # 3. robots.txt — crawler configuration
+          check "robots.txt" "${SITE_URL}/robots.txt" "200"
+
+          # 4. CNAME — custom domain configuration
+          check "CNAME" "${SITE_URL}/CNAME" "200"
+
+          # 5. site.webmanifest — PWA metadata
+          check "site.webmanifest" "${SITE_URL}/site.webmanifest" "200"
+
+          # 6. Homepage content verification — validates rendering, not just status
+          CONTENT=$(curl -s -L --max-time 15 "${SITE_URL}/" 2>/dev/null)
+          if echo "$CONTENT" | grep -q "Technology Adoption Barriers"; then
+            echo "| Homepage content | ✅ Contains expected text |" >> /tmp/infra-results.txt
+          else
+            echo "| Homepage content | ❌ Missing expected text |" >> /tmp/infra-results.txt
+            INFRA_FAIL=$((INFRA_FAIL + 1))
+          fi
+
+          # 7. Content-Type for HTML pages — must serve text/html
+          CT=$(curl -s -I -L --max-time 15 "${SITE_URL}/" 2>/dev/null | grep -i '^content-type:' | head -1)
+          if echo "$CT" | grep -qi 'text/html'; then
+            echo "| HTML Content-Type | ✅ text/html |" >> /tmp/infra-results.txt
+          else
+            echo "| HTML Content-Type | ❌ ${CT:-missing} |" >> /tmp/infra-results.txt
+            INFRA_FAIL=$((INFRA_FAIL + 1))
+          fi
+
+          # 8. HTTPS redirect — HTTP must redirect to HTTPS
+          # Intentionally non-blocking (⚠️ not ❌): CI runners may have network
+          # restrictions that prevent following HTTP→HTTPS redirects, so a
+          # failure here does NOT increment INFRA_FAIL.
+          HTTP_URL=$(echo "${SITE_URL}" | sed 's|^https://|http://|')
+          FINAL_URL=$(curl -s -o /dev/null -w '%{url_effective}' -L --max-time 15 "${HTTP_URL}" 2>/dev/null || echo "")
+          if echo "$FINAL_URL" | grep -q '^https://'; then
+            echo "| HTTPS redirect | ✅ HTTP → HTTPS |" >> /tmp/infra-results.txt
+          else
+            echo "| HTTPS redirect | ⚠️ Could not verify (${FINAL_URL:-timeout}) |" >> /tmp/infra-results.txt
+          fi
+
+          echo ""
+          echo "Infrastructure: $INFRA_FAIL failed"
+          cat /tmp/infra-results.txt
+
+          echo "INFRA_FAIL=$INFRA_FAIL" >> "$GITHUB_ENV"
+
+      # ── Job summary ──────────────────────────────────────────────────
+
+      - name: Generate job summary
+        if: always()
+        run: |
+          {
+            echo "# 🔍 Post-Deploy Smoke Test Results"
+            echo ""
+            echo "**Site:** \`${SITE_URL}\`"
+            echo ""
+
+            # ── Page routes ──
+            echo "## 📄 Page Routes"
+            echo ""
+            echo "| Metric | Count |"
+            echo "|--------|-------|"
+            echo "| ✅ Passed | ${ROUTE_PASS:-0} |"
+            echo "| ❌ Failed | ${ROUTE_FAIL:-0} |"
+            echo "| Total | ${ROUTE_TOTAL:-0} |"
+            echo ""
+
+            if [ -f /tmp/route-results.txt ] && grep -q '^FAIL' /tmp/route-results.txt 2>/dev/null; then
+              echo "<details><summary>❌ Failed Routes</summary>"
+              echo ""
+              echo '```'
+              grep '^FAIL' /tmp/route-results.txt
+              echo '```'
+              echo "</details>"
+              echo ""
+            fi
+
+            # ── Static assets ──
+            echo "## 🖼️ Static Assets"
+            echo ""
+            echo "| Metric | Count |"
+            echo "|--------|-------|"
+            echo "| ✅ Passed | ${ASSET_PASS:-0} |"
+            echo "| ❌ Failed | ${ASSET_FAIL:-0} |"
+            echo "| Total | ${ASSET_TOTAL:-0} |"
+            echo ""
+
+            if [ -f /tmp/asset-results.txt ] && grep -q '^FAIL' /tmp/asset-results.txt 2>/dev/null; then
+              echo "<details><summary>❌ Failed Assets</summary>"
+              echo ""
+              echo '```'
+              grep '^FAIL' /tmp/asset-results.txt
+              echo '```'
+              echo "</details>"
+              echo ""
+            fi
+
+            # ── Infrastructure ──
+            echo "## 🔧 Infrastructure Checks"
+            echo ""
+            echo "| Check | Result |"
+            echo "|-------|--------|"
+            if [ -f /tmp/infra-results.txt ]; then
+              cat /tmp/infra-results.txt
+            fi
+            echo ""
+
+            # ── Overall result ──
+            TOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} ))
+            if [ "$TOTAL_FAIL" -eq 0 ]; then
+              echo "## ✅ All checks passed!"
+            else
+              echo "## ❌ ${TOTAL_FAIL} check(s) failed"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # ── Final verdict ────────────────────────────────────────────────
+
+      - name: Fail if any checks failed
+        if: always()
+        run: |
+          TOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} ))
+          if [ "$TOTAL_FAIL" -gt 0 ]; then
+            echo "::error::${TOTAL_FAIL} smoke test check(s) failed — see job summary for details"
+            exit 1
+          fi
+          echo "✅ All smoke tests passed"
