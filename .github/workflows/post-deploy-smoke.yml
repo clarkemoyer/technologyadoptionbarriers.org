@@ -19,6 +19,8 @@ on:
 
 permissions:
   contents: read
+  issues: write
+  statuses: write
 
 jobs:
   smoke-test:
@@ -371,7 +373,132 @@ jobs:
         run: |
           TOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} ))
           if [ "$TOTAL_FAIL" -gt 0 ]; then
-            echo "::error::${TOTAL_FAIL} smoke test check(s) failed — see job summary for details"
+            echo "::error::🚨 PRODUCTION SITE ISSUE: ${TOTAL_FAIL} smoke test check(s) failed after deploy"
+            [ "${ROUTE_FAIL:-0}" -gt 0 ] && echo "::error::  📄 Page routes: ${ROUTE_FAIL} failed out of ${ROUTE_TOTAL:-?}"
+            [ "${ASSET_FAIL:-0}" -gt 0 ] && echo "::error::  🖼️ Static assets: ${ASSET_FAIL} failed out of ${ASSET_TOTAL:-?}"
+            [ "${INFRA_FAIL:-0}" -gt 0 ] && echo "::error::  🔧 Infrastructure: ${INFRA_FAIL} check(s) failed"
+            echo "::error::See the job summary for full details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             exit 1
           fi
           echo "✅ All smoke tests passed"
+
+      # ── Create incident issue on failure ──────────────────────────────
+
+      - name: Create production incident issue
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const routeFail = parseInt(process.env.ROUTE_FAIL || '0');
+            const assetFail = parseInt(process.env.ASSET_FAIL || '0');
+            const infraFail = parseInt(process.env.INFRA_FAIL || '0');
+            const totalFail = routeFail + assetFail + infraFail;
+            const siteUrl = process.env.SITE_URL;
+
+            // Use the deployed commit SHA on workflow_run (matches commit status steps)
+            const fullSha = context.eventName === 'workflow_run'
+              ? '${{ github.event.workflow_run.head_sha }}'
+              : context.sha;
+            const shortSha = (fullSha || context.sha).substring(0, 7);
+
+            // Build failure breakdown
+            const lines = [];
+            if (routeFail > 0) lines.push(`- **Page routes:** ${routeFail} failed (out of ${process.env.ROUTE_TOTAL || '?'})`);
+            if (assetFail > 0) lines.push(`- **Static assets:** ${assetFail} failed (out of ${process.env.ASSET_TOTAL || '?'})`);
+            if (infraFail > 0) lines.push(`- **Infrastructure:** ${infraFail} check(s) failed`);
+            const breakdown = lines.length > 0 ? lines.join('\n') : '- See workflow run for details';
+
+            const title = `🚨 Production smoke test failed: ${totalFail} check(s) after deploy (${shortSha})`;
+            const body = [
+              `## 🚨 Production Site Issue Detected`,
+              ``,
+              `The post-deploy smoke test **failed** after deploying commit \`${fullSha}\` to ${siteUrl}.`,
+              ``,
+              `### Failure Summary`,
+              ``,
+              breakdown,
+              ``,
+              `### Links`,
+              ``,
+              `- **Workflow run:** ${runUrl}`,
+              `- **Deployed commit:** ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/commit/${fullSha}`,
+              `- **Site:** ${siteUrl}`,
+              ``,
+              `### Priority`,
+              ``,
+              `This means the **live production site** may have broken pages or assets. Investigate immediately.`,
+              ``,
+              `---`,
+              `*Auto-created by Post-Deploy Smoke Test workflow*`,
+            ].join('\n');
+
+            // Ensure required labels exist
+            for (const label of [
+              { name: 'production-incident', color: 'B60205', description: 'Live production site issue detected by smoke tests' },
+              { name: 'bug', color: 'd73a4a', description: 'Something isn\'t working' },
+            ]) {
+              try {
+                await github.rest.issues.getLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: label.name,
+                });
+              } catch {
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  ...label,
+                });
+              }
+            }
+
+            const { data: issue } = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ['production-incident', 'bug'],
+            });
+
+            core.warning(`Created production incident issue #${issue.number}: ${issue.html_url}`);
+
+      # ── Set commit status on failure ──────────────────────────────────
+
+      - name: Set commit status (failure)
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const sha = context.eventName === 'workflow_run'
+              ? '${{ github.event.workflow_run.head_sha }}'
+              : context.sha;
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: sha || context.sha,
+              state: 'failure',
+              target_url: runUrl,
+              description: '🚨 Production smoke test failed — site may be broken',
+              context: 'post-deploy-smoke-test',
+            });
+
+      - name: Set commit status (success)
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const sha = context.eventName === 'workflow_run'
+              ? '${{ github.event.workflow_run.head_sha }}'
+              : context.sha;
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: sha || context.sha,
+              state: 'success',
+              target_url: runUrl,
+              description: 'All production smoke tests passed',
+              context: 'post-deploy-smoke-test',
+            });
