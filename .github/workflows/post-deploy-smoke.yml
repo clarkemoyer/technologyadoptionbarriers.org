@@ -30,11 +30,18 @@ jobs:
       github.event.workflow_run.conclusion == 'success'
 
     env:
-      SITE_URL: ${{ inputs.site_url || 'https://technologyadoptionbarriers.org' }}
+      SITE_URL: >-
+        ${{ github.event_name == 'workflow_dispatch'
+            && github.event.inputs.site_url
+            || 'https://technologyadoptionbarriers.org' }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          # On workflow_run, checkout the exact commit that was deployed
+          # to avoid false failures from newer commits adding routes
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -44,6 +51,11 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Normalize SITE_URL
+        run: |
+          # Strip trailing slash to avoid double-slash in URL construction
+          echo "SITE_URL=${SITE_URL%/}" >> "$GITHUB_ENV"
 
       - name: Build site to discover all routes
         run: npm run build
@@ -72,9 +84,9 @@ jobs:
         run: |
           set -uo pipefail
 
-          # Find every non-HTML file, excluding _next/ build artifacts and hidden files
+          # Find every non-HTML file (including _next/ JS/CSS chunks)
+          # excluding hidden files like .nojekyll
           find out -type f \
-            -not -path 'out/_next/*' \
             -not -name '*.html' \
             -not -name '.nojekyll' \
             | sort | while read -r f; do
@@ -260,7 +272,8 @@ jobs:
           fi
 
           # 8. HTTPS redirect — HTTP must redirect to HTTPS
-          FINAL_URL=$(curl -s -o /dev/null -w '%{url_effective}' -L --max-time 15 "http://technologyadoptionbarriers.org" 2>/dev/null || echo "")
+          HTTP_URL=$(echo "${SITE_URL}" | sed 's|^https://|http://|')
+          FINAL_URL=$(curl -s -o /dev/null -w '%{url_effective}' -L --max-time 15 "${HTTP_URL}" 2>/dev/null || echo "")
           if echo "$FINAL_URL" | grep -q '^https://'; then
             echo "| HTTPS redirect | ✅ HTTP → HTTPS |" >> /tmp/infra-results.txt
           else
