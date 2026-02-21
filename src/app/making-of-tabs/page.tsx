@@ -31,6 +31,23 @@ const MakingOfTabsPage = () => {
         </section>
 
         <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>AI Validity Checks</h2>
+          <p className="mb-4">
+            To ensure the highest level of factual accuracy and academic rigor, we employ advanced
+            Large Language Models (LLMs) to conduct exhaustive, read-only validity checks across our
+            entire public-facing site.
+          </p>
+          <div className="mb-4">
+            <Link
+              className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+              href="/making-of-tabs/ai-validity-checks"
+            >
+              View AI Validity Checks
+            </Link>
+          </div>
+        </section>
+
+        <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>TABS Presentation</h2>
           <p className="mb-4">
             We maintain an interactive presentation that explains the project mission, key
