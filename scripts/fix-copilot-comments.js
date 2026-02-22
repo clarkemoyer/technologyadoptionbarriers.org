@@ -48,7 +48,7 @@ for (const file of files) {
   // 3. Add breadcrumbs
   if (!content.includes('aria-label="Breadcrumb"')) {
     const parts = canonicalUrl.split('/').filter(Boolean)
-    let breadcrumbHtml = `\n        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-gray-600">\n          <ol className="flex flex-wrap items-center gap-1">\n`
+    let breadcrumbHtml = `\n        <nav aria-label="Breadcrumb" className="mb-8 text-sm text-gray-500">\n          <ol className="flex flex-wrap items-center gap-1">\n`
 
     let currentPath = ''
     for (let i = 0; i < parts.length; i++) {
@@ -66,7 +66,7 @@ for (const file of files) {
       if (isLast) {
         breadcrumbHtml += `            <li aria-current="page" className="font-medium text-gray-900">\n              ${label}\n            </li>\n`
       } else {
-        breadcrumbHtml += `            <li>\n              <Link href="${currentPath}" className="text-blue-700 hover:underline">\n                ${label}\n              </Link>\n            </li>\n            <li aria-hidden="true" className="px-1">\n              /\n            </li>\n`
+        breadcrumbHtml += `            <li>\n              <Link href="${currentPath}" className="text-blue-700 hover:underline">\n                ${label}\n              </Link>\n              <span aria-hidden="true" className="mx-2">\n                ›\n              </span>\n            </li>\n`
       }
     }
     breadcrumbHtml += `          </ol>\n        </nav>`

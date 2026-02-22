@@ -3,7 +3,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Enterprise Architecture Review',
+  title: 'Enterprise Architecture Review — Making of TABS',
   description: 'Gemini 3.1 Pro validity check of enterprise architecture frameworks in TABS.',
   alternates: {
     canonical:
@@ -15,15 +15,15 @@ export default function Page() {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-gray-600">
+        <nav aria-label="Breadcrumb" className="mb-8 text-sm text-gray-500">
           <ol className="flex flex-wrap items-center gap-1">
             <li>
               <Link href="/making-of-tabs" className="text-blue-700 hover:underline">
                 Making of TABS
               </Link>
-            </li>
-            <li aria-hidden="true" className="px-1">
-              /
+              <span aria-hidden="true" className="mx-2">
+                ›
+              </span>
             </li>
             <li>
               <Link
@@ -32,9 +32,9 @@ export default function Page() {
               >
                 AI Validity Checks
               </Link>
-            </li>
-            <li aria-hidden="true" className="px-1">
-              /
+              <span aria-hidden="true" className="mx-2">
+                ›
+              </span>
             </li>
             <li>
               <Link
@@ -43,9 +43,9 @@ export default function Page() {
               >
                 Gemini 3.1 Review
               </Link>
-            </li>
-            <li aria-hidden="true" className="px-1">
-              /
+              <span aria-hidden="true" className="mx-2">
+                ›
+              </span>
             </li>
             <li aria-current="page" className="font-medium text-gray-900">
               Branch 2 Enterprise Architecture

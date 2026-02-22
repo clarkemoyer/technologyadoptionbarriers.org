@@ -1,6 +1,8 @@
 import { execSync } from 'child_process'
 
-const REPO_NAME = 'clarkemoyer/technologyadoptionbarriers.org'
+const REPO_NAME =
+  process.env.GITHUB_REPOSITORY ||
+  execSync('gh repo view --json nameWithOwner -q .nameWithOwner').toString().trim()
 
 async function run() {
   const prNumber = process.argv[2]
