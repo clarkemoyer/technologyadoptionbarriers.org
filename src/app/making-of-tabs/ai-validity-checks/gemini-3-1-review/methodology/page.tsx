@@ -1,16 +1,56 @@
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Methodology: Gemini 3.1 Review',
   description: 'The methodology used by Gemini 3.1 Pro to audit the TABS content.',
+  alternates: {
+    canonical: '/making-of-tabs/ai-validity-checks/gemini-3-1-review/methodology',
+  },
 }
 
 export default function Page() {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
+        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-gray-600">
+          <ol className="flex flex-wrap items-center gap-1">
+            <li>
+              <Link href="/making-of-tabs" className="text-blue-700 hover:underline">
+                Making of TABS
+              </Link>
+            </li>
+            <li aria-hidden="true" className="px-1">
+              /
+            </li>
+            <li>
+              <Link
+                href="/making-of-tabs/ai-validity-checks"
+                className="text-blue-700 hover:underline"
+              >
+                AI Validity Checks
+              </Link>
+            </li>
+            <li aria-hidden="true" className="px-1">
+              /
+            </li>
+            <li>
+              <Link
+                href="/making-of-tabs/ai-validity-checks/gemini-3-1-review"
+                className="text-blue-700 hover:underline"
+              >
+                Gemini 3.1 Review
+              </Link>
+            </li>
+            <li aria-hidden="true" className="px-1">
+              /
+            </li>
+            <li aria-current="page" className="font-medium text-gray-900">
+              Methodology
+            </li>
+          </ol>
+        </nav>
         <h1 className={H1_CLASSES}>Methodology: Gemini 3.1 Review</h1>
 
         <section className="mb-10 text-gray-800">

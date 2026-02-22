@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -12,6 +12,21 @@ export default function Page() {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
+        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-gray-600">
+          <ol className="flex flex-wrap items-center gap-1">
+            <li>
+              <Link href="/making-of-tabs" className="text-blue-700 hover:underline">
+                Making of TABS
+              </Link>
+            </li>
+            <li aria-hidden="true" className="px-1">
+              /
+            </li>
+            <li aria-current="page" className="font-medium text-gray-900">
+              AI Validity Checks
+            </li>
+          </ol>
+        </nav>
         <h1 className={H1_CLASSES}>AI Validity Checks</h1>
 
         <section className="mb-10 text-gray-800">
