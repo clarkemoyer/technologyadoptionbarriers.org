@@ -1,5 +1,7 @@
 import { execSync } from 'child_process'
 
+const REPO_NAME = 'clarkemoyer/technologyadoptionbarriers.org'
+
 async function run() {
   const prNumber = process.argv[2]
   if (!prNumber) {
@@ -26,7 +28,7 @@ async function run() {
   // Get initial review count
   try {
     const initialReviewsStr = execSync(
-      `gh api repos/clarkemoyer/technologyadoptionbarriers.org/pulls/${prNumber}/reviews`
+      `gh api repos/${REPO_NAME}/pulls/${prNumber}/reviews`
     ).toString()
     const initialReviews = JSON.parse(initialReviewsStr)
     lastReviewCount = initialReviews.length
@@ -37,15 +39,13 @@ async function run() {
   while (true) {
     await new Promise((resolve) => setTimeout(resolve, 15000))
 
-    if (Date.now() - startTime > 5 * 60 * 1000) {
-      console.error('Timed out waiting for Copilot review after 5 minutes.')
+    if (Date.now() - startTime > 10 * 60 * 1000) {
+      console.error('Timed out waiting for Copilot review after 10 minutes.')
       process.exit(1)
     }
 
     try {
-      const reviewsStr = execSync(
-        `gh api repos/clarkemoyer/technologyadoptionbarriers.org/pulls/${prNumber}/reviews`
-      ).toString()
+      const reviewsStr = execSync(`gh api repos/${REPO_NAME}/pulls/${prNumber}/reviews`).toString()
       const reviews = JSON.parse(reviewsStr)
 
       if (reviews.length > lastReviewCount) {
@@ -54,7 +54,7 @@ async function run() {
 
         // Fetch comments for this review
         const commentsStr = execSync(
-          `gh api repos/clarkemoyer/technologyadoptionbarriers.org/pulls/${prNumber}/reviews/${latestReview.id}/comments`
+          `gh api repos/${REPO_NAME}/pulls/${prNumber}/reviews/${latestReview.id}/comments`
         ).toString()
         const comments = JSON.parse(commentsStr)
 

@@ -14,15 +14,15 @@ export default function Page() {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-gray-600">
+        <nav aria-label="Breadcrumb" className="mb-8 text-sm text-gray-500">
           <ol className="flex flex-wrap items-center gap-1">
             <li>
               <Link href="/making-of-tabs" className="text-blue-700 hover:underline">
                 Making of TABS
               </Link>
-            </li>
-            <li aria-hidden="true" className="px-1">
-              /
+              <span aria-hidden="true" className="mx-2">
+                ›
+              </span>
             </li>
             <li>
               <Link
@@ -31,9 +31,9 @@ export default function Page() {
               >
                 AI Validity Checks
               </Link>
-            </li>
-            <li aria-hidden="true" className="px-1">
-              /
+              <span aria-hidden="true" className="mx-2">
+                ›
+              </span>
             </li>
             <li>
               <Link
@@ -42,9 +42,9 @@ export default function Page() {
               >
                 Gemini 3.1 Review
               </Link>
-            </li>
-            <li aria-hidden="true" className="px-1">
-              /
+              <span aria-hidden="true" className="mx-2">
+                ›
+              </span>
             </li>
             <li aria-current="page" className="font-medium text-gray-900">
               Branch 1 Psychological Models
