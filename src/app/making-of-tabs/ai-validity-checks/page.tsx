@@ -6,21 +6,24 @@ export const metadata: Metadata = {
   title: 'AI Validity Checks — Making of TABS',
   description:
     'An overview of how we use advanced AI models to perform rigorous validity checks on our academic and organizational content.',
+  alternates: {
+    canonical: '/making-of-tabs/ai-validity-checks',
+  },
 }
 
 export default function Page() {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-gray-600">
+        <nav aria-label="Breadcrumb" className="mb-8 text-sm text-gray-500">
           <ol className="flex flex-wrap items-center gap-1">
             <li>
               <Link href="/making-of-tabs" className="text-blue-700 hover:underline">
                 Making of TABS
               </Link>
-            </li>
-            <li aria-hidden="true" className="px-1">
-              /
+              <span aria-hidden="true" className="mx-2">
+                ›
+              </span>
             </li>
             <li aria-current="page" className="font-medium text-gray-900">
               AI Validity Checks

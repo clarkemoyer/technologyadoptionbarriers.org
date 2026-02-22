@@ -1,8 +1,21 @@
 import { execSync } from 'child_process'
 
-const REPO_NAME = 'clarkemoyer/technologyadoptionbarriers.org'
+function getRepoName(): string {
+  if (process.env.GITHUB_REPOSITORY) {
+    return process.env.GITHUB_REPOSITORY
+  }
+  try {
+    const remoteUrl = execSync('git remote get-url origin', { encoding: 'utf8' }).trim()
+    const match = remoteUrl.match(/github\.com[:/](.+?)(\.git)?$/)
+    if (match) return match[1]
+  } catch {
+    // fall through to default
+  }
+  return 'clarkemoyer/technologyadoptionbarriers.org'
+}
 
 async function run() {
+  const REPO_NAME = getRepoName()
   const prNumber = process.argv[2]
   if (!prNumber) {
     console.error('Usage: npx tsx scripts/copilot-review-loop.ts <pr-number>')
