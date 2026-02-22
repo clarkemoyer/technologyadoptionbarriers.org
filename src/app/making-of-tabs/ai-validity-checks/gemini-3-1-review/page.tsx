@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'Gemini 3.1 Validity Review',
   description:
     'The comprehensive validity review conducted by Gemini 3.1 Pro on the TABS public content.',
+  alternates: {
+    canonical: '/making-of-tabs/ai-validity-checks/gemini-3-1-review',
+  },
 }
 
 export default function Page() {

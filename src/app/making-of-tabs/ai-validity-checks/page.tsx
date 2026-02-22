@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'AI Validity Checks',
   description:
     'An overview of how we use advanced AI models to perform rigorous validity checks on our academic and organizational content.',
+  alternates: {
+    canonical: '/making-of-tabs/ai-validity-checks',
+  },
 }
 
 export default function Page() {
