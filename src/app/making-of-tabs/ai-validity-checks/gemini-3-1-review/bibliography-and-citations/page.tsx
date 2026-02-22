@@ -47,7 +47,7 @@ export default function Page() {
               /
             </li>
             <li aria-current="page" className="font-medium text-gray-900">
-              Bibliography And Citations
+              Bibliography &amp; Citations Review
             </li>
           </ol>
         </nav>

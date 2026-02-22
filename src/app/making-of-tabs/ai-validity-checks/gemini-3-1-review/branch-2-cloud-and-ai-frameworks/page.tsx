@@ -48,7 +48,7 @@ export default function Page() {
               /
             </li>
             <li aria-current="page" className="font-medium text-gray-900">
-              Branch 2 Cloud And Ai Frameworks
+              Branch 2: Cloud &amp; AI Frameworks Review
             </li>
           </ol>
         </nav>

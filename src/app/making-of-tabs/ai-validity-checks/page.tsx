@@ -76,9 +76,9 @@ export default function Page() {
               href="/making-of-tabs/ai-validity-checks/gemini-3-1-review"
               className="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-50 transition-colors"
             >
-              <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900">
+              <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900">
                 Gemini 3.1 Pro Validity Review
-              </h5>
+              </h3>
               <p className="font-normal text-gray-700">
                 A comprehensive 10+ page audit of all TABS content, verifying over 30 academic and
                 organizational frameworks.

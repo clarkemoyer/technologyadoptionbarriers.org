@@ -1,7 +1,4 @@
 import { execSync } from 'child_process'
-import { promisify } from 'util'
-
-const exec = promisify(execSync)
 
 async function run() {
   const prNumber = process.argv[2]

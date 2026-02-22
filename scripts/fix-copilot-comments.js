@@ -31,15 +31,16 @@ for (const file of files) {
 
   // 2. Add canonical URL
   // Extract the route path
-  const relativePath = file
-    .split('src\\app\\')[1]
-    .replace(/\\page\.tsx$/, '')
+  const appDir = path.join(__dirname, '../src/app')
+  const relativePath = path
+    .relative(appDir, file)
     .replace(/\\/g, '/')
+    .replace(/\/page\.tsx$/, '')
   const canonicalUrl = `/${relativePath}`
 
   if (!content.includes('canonical:')) {
     content = content.replace(
-      /(description:.*?,?\n)(\s*})/,
+      /(description:[\s\S]*?\n)(\s*})/,
       `$1  alternates: {\n    canonical: '${canonicalUrl}',\n  },\n$2`
     )
   }
