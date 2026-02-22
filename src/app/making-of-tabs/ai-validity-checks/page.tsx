@@ -12,17 +12,17 @@ export default function Page() {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-gray-600">
+        <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-1">
             <li>
-              <Link href="/making-of-tabs" className="text-blue-700 hover:underline">
+              <Link href="/making-of-tabs" className="hover:text-blue-600 hover:underline">
                 Making of TABS
               </Link>
+              <span className="mx-2" aria-hidden="true">
+                ›
+              </span>
             </li>
-            <li aria-hidden="true" className="px-1">
-              /
-            </li>
-            <li aria-current="page" className="font-medium text-gray-900">
+            <li className="text-gray-800" aria-current="page">
               AI Validity Checks
             </li>
           </ol>

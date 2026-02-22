@@ -3,7 +3,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Gemini 3.1 Validity Review',
+  title: 'Gemini 3.1 Validity Review — Making of TABS',
   description:
     'The comprehensive validity review conducted by Gemini 3.1 Pro on the TABS public content.',
   alternates: {
@@ -15,28 +15,28 @@ export default function Page() {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-gray-600">
+        <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-1">
             <li>
-              <Link href="/making-of-tabs" className="text-blue-700 hover:underline">
+              <Link href="/making-of-tabs" className="hover:text-blue-600 hover:underline">
                 Making of TABS
               </Link>
-            </li>
-            <li aria-hidden="true" className="px-1">
-              /
+              <span className="mx-2" aria-hidden="true">
+                ›
+              </span>
             </li>
             <li>
               <Link
                 href="/making-of-tabs/ai-validity-checks"
-                className="text-blue-700 hover:underline"
+                className="hover:text-blue-600 hover:underline"
               >
                 AI Validity Checks
               </Link>
+              <span className="mx-2" aria-hidden="true">
+                ›
+              </span>
             </li>
-            <li aria-hidden="true" className="px-1">
-              /
-            </li>
-            <li aria-current="page" className="font-medium text-gray-900">
+            <li className="text-gray-800" aria-current="page">
               Gemini 3.1 Review
             </li>
           </ol>

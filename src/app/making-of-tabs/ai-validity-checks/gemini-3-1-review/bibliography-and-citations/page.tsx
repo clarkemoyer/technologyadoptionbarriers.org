@@ -3,7 +3,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Bibliography & Citations Review',
+  title: 'Bibliography & Citations Review — Making of TABS',
   description: 'Gemini 3.1 Pro validity check of the TABS comprehensive bibliography.',
   alternates: {
     canonical: '/making-of-tabs/ai-validity-checks/gemini-3-1-review/bibliography-and-citations',
@@ -14,39 +14,39 @@ export default function Page() {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-gray-600">
+        <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-1">
             <li>
-              <Link href="/making-of-tabs" className="text-blue-700 hover:underline">
+              <Link href="/making-of-tabs" className="hover:text-blue-600 hover:underline">
                 Making of TABS
               </Link>
-            </li>
-            <li aria-hidden="true" className="px-1">
-              /
+              <span className="mx-2" aria-hidden="true">
+                ›
+              </span>
             </li>
             <li>
               <Link
                 href="/making-of-tabs/ai-validity-checks"
-                className="text-blue-700 hover:underline"
+                className="hover:text-blue-600 hover:underline"
               >
                 AI Validity Checks
               </Link>
-            </li>
-            <li aria-hidden="true" className="px-1">
-              /
+              <span className="mx-2" aria-hidden="true">
+                ›
+              </span>
             </li>
             <li>
               <Link
                 href="/making-of-tabs/ai-validity-checks/gemini-3-1-review"
-                className="text-blue-700 hover:underline"
+                className="hover:text-blue-600 hover:underline"
               >
                 Gemini 3.1 Review
               </Link>
+              <span className="mx-2" aria-hidden="true">
+                ›
+              </span>
             </li>
-            <li aria-hidden="true" className="px-1">
-              /
-            </li>
-            <li aria-current="page" className="font-medium text-gray-900">
+            <li className="text-gray-800" aria-current="page">
               Bibliography &amp; Citations Review
             </li>
           </ol>
