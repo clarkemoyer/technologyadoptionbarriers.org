@@ -13,7 +13,7 @@ Perform a comprehensive factual and academic validity check across all public-fa
 
 ## Methodology
 
-1. **Extraction**: Read the core content files (`src/data/`, `src/app/article-*`, `src/app/bibliography-*`).
+1. **Extraction**: Read all core content sources, including `src/data/` and all public-facing routes under `src/app/` (e.g., `faq/`, `barriers/`, `technology-adoption-models/`, `making-of-tabs/`, `article-*`, `bibliography-*`).
 2. **Verification**: Cross-reference claims, dates, and authors with established academic knowledge.
 3. **Reporting**: List identified factual errors, misattributions, or questionable claims in this document and the PR.
 4. **Resolution**: Address each identified error individually through targeted commits after discussion.
