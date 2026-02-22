@@ -3,7 +3,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Strategic Models Review',
+  title: 'Strategic Models Review — Making of TABS',
   description: 'Gemini 3.1 Pro validity check of strategic organizational models in TABS.',
   alternates: {
     canonical: '/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-2-strategic-models',

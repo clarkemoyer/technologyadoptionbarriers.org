@@ -3,7 +3,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Psychological Models Review',
+  title: 'Psychological Models Review — Making of TABS',
   description: 'Gemini 3.1 Pro validity check of foundational psychological models in TABS.',
   alternates: {
     canonical: '/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-1-psychological-models',

@@ -3,7 +3,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Maturity Models Review',
+  title: 'Maturity Models Review — Making of TABS',
   description: 'Gemini 3.1 Pro validity check of maturity models and hype cycles in TABS.',
   alternates: {
     canonical: '/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-2-maturity-models',

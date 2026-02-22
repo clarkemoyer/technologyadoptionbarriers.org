@@ -3,7 +3,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Cloud & AI Frameworks Review',
+  title: 'Cloud & AI Frameworks Review — Making of TABS',
   description: 'Gemini 3.1 Pro validity check of modern cloud and AI adoption frameworks in TABS.',
   alternates: {
     canonical:
