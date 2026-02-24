@@ -35,6 +35,18 @@ const BottomCTA = () => {
               (520) 222 8104
             </a>
           </div>
+          <div className="hidden md:block w-[1px] h-[40px] bg-blue-800"></div>
+          <div>
+            <span className="text-blue-400 block text-[14px] uppercase tracking-wider mb-1 font-sans">
+              Email
+            </span>
+            <a
+              href="mailto:contact@technologyadoptionbarriers.org"
+              className="hover:text-blue-300 transition-colors font-sans text-[16px] font-bold"
+            >
+              contact@technologyadoptionbarriers.org
+            </a>
+          </div>
         </div>
 
         <div className="flex flex-col sm:flex-row justify-center gap-[20px]">
