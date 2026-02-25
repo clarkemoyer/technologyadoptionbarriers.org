@@ -15,7 +15,9 @@ test.describe('Survey Complete Page', () => {
 
     await expect(page.getByText('Your response has been recorded.', { exact: false })).toBeVisible()
 
-    const email = page.getByRole('link', { name: 'contact@technologyadoptionbarriers.org' })
+    const email = page
+      .getByRole('main')
+      .getByRole('link', { name: 'contact@technologyadoptionbarriers.org' })
     await expect(email).toHaveAttribute('href', 'mailto:contact@technologyadoptionbarriers.org')
   })
 })
