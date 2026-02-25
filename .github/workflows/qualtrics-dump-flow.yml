@@ -62,7 +62,7 @@ jobs:
           echo ""
 
       - name: Upload flow artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: qualtrics-flow-${{ env.QUALTRICS_SURVEY_ID }}
           path: .vscode/qualtrics-flow.${{ env.QUALTRICS_SURVEY_ID }}.json
