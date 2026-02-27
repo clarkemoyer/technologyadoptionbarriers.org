@@ -27,9 +27,11 @@ const FrequentlyAskedQuestions: React.FC<AccordionItemProps> = ({ title, childre
     <div className="mb-5 overflow-hidden" id="lato-font">
       {/* Header */}
       <button
+        type="button"
         onClick={toggle}
         className={`w-full px-4 py-3 flex items-center justify-between text-left cursor-pointer`}
         aria-expanded={isOpen}
+        aria-label={`Toggle FAQ: ${title}`}
       >
         {/* Text takes remaining space */}
         <span className={`font-[400] text-[20px] md:text-[32px] flex-1 pr-3`} id="lato-font">
@@ -44,6 +46,7 @@ const FrequentlyAskedQuestions: React.FC<AccordionItemProps> = ({ title, childre
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"
@@ -58,6 +61,7 @@ const FrequentlyAskedQuestions: React.FC<AccordionItemProps> = ({ title, childre
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"
