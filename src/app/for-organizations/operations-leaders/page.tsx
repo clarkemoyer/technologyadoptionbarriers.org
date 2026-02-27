@@ -95,7 +95,7 @@ const OperationsLeadersPage = () => {
             <div className="bg-orange-50 p-[30px] rounded-[12px] border-2 border-orange-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Scaling">
-                  ðŸ“ˆ
+                  📈
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">Scaling Operations</h3>
@@ -108,7 +108,7 @@ const OperationsLeadersPage = () => {
             <div className="bg-orange-50 p-[30px] rounded-[12px] border-2 border-orange-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Efficiency">
-                  ðŸŽ¯
+                  🎯
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">Process Efficiency</h3>
@@ -135,7 +135,7 @@ const OperationsLeadersPage = () => {
           <div className="grid md:grid-cols-2 gap-[30px]">
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸš€ Implementation Best Practices
+                🚀 Implementation Best Practices
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Learn from industry data about common implementation barriers and successful
@@ -145,7 +145,7 @@ const OperationsLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸ“Š Operational Benchmarks
+                📊 Operational Benchmarks
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Compare their organization&apos;s technology adoption challenges against operational
@@ -155,7 +155,7 @@ const OperationsLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸ”§ Change Management Insights
+                🔧 Change Management Insights
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Understand workforce adoption barriers to develop better change management
@@ -165,7 +165,7 @@ const OperationsLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸ’¡ Cross-Functional Collaboration
+                💡 Cross-Functional Collaboration
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Gain insights that improve collaboration with IT, finance, and other teams by

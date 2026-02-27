@@ -75,7 +75,7 @@ const BibliographyPage = () => {
 
         {/* Individual Model Articles */}
         <section className="mb-8 sm:mb-12 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-2 border-blue-200">
-          <h2 className={H2_CLASSES}>ðŸ“š Individual Model Articles (New!)</h2>
+          <h2 className={H2_CLASSES}>📚 Individual Model Articles (New!)</h2>
           <p className={PARAGRAPH_CLASSES}>
             Each of the 21 individual technology adoption models now has its own dedicated article
             page. Click any model below to explore its history, methodology, validation, and impact

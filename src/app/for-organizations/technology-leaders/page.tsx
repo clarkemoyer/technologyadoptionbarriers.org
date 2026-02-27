@@ -85,7 +85,7 @@ const TechnologyLeadersPage = () => {
             <div className="bg-blue-50 p-[30px] rounded-[12px] border-2 border-blue-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Digital transformation">
-                  ðŸš€
+                  🚀
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">
@@ -101,7 +101,7 @@ const TechnologyLeadersPage = () => {
             <div className="bg-blue-50 p-[30px] rounded-[12px] border-2 border-blue-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Security">
-                  ðŸ”’
+                  🔒
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">
@@ -117,7 +117,7 @@ const TechnologyLeadersPage = () => {
             <div className="bg-blue-50 p-[30px] rounded-[12px] border-2 border-blue-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Benchmarking">
-                  ðŸ“Š
+                  📊
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">Peer Benchmarking</h3>
@@ -145,7 +145,7 @@ const TechnologyLeadersPage = () => {
           <div className="grid md:grid-cols-2 gap-[30px]">
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸ“ˆ Comprehensive Benchmark Reports
+                📈 Comprehensive Benchmark Reports
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Receive detailed reports showing how their organization&apos;s technology adoption
@@ -156,7 +156,7 @@ const TechnologyLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸŽ¯ Strategic Planning Insights
+                🎯 Strategic Planning Insights
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Gain data-driven insights to inform technology roadmaps, prioritize initiatives, and
@@ -166,7 +166,7 @@ const TechnologyLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸ¤ Stakeholder Communication Tools
+                🤝 Stakeholder Communication Tools
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Access industry-validated data to communicate with boards, executives, and teams
@@ -176,7 +176,7 @@ const TechnologyLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸ”¬ Contribute to Research
+                🔬 Contribute to Research
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Help build a longitudinal dataset that advances understanding of technology adoption

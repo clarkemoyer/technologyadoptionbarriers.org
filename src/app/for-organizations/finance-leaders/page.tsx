@@ -79,7 +79,7 @@ const FinanceLeadersPage = () => {
             <div className="bg-green-50 p-[30px] rounded-[12px] border-2 border-green-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="ROI">
-                  ðŸ’°
+                  💰
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">
@@ -95,7 +95,7 @@ const FinanceLeadersPage = () => {
             <div className="bg-green-50 p-[30px] rounded-[12px] border-2 border-green-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Budget">
-                  ðŸ“Š
+                  📊
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">Budget Planning</h3>
@@ -135,7 +135,7 @@ const FinanceLeadersPage = () => {
           <div className="grid md:grid-cols-2 gap-[30px]">
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸ’¼ Investment Justification Data
+                💼 Investment Justification Data
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Access industry benchmarks and insights that help justify technology investments to
@@ -145,7 +145,7 @@ const FinanceLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸ“ˆ ROI Improvement Insights
+                📈 ROI Improvement Insights
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Understand common barriers that prevent technology initiatives from delivering
@@ -155,7 +155,7 @@ const FinanceLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸŽ¯ Peer Benchmarking
+                🎯 Peer Benchmarking
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Compare their organization&apos;s technology adoption challenges against industry
@@ -165,7 +165,7 @@ const FinanceLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸ¤ IT-Finance Alignment
+                🤝 IT-Finance Alignment
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Gain insights that improve collaboration with technology teams by understanding
