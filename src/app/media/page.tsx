@@ -75,7 +75,7 @@ const MediaPage = () => {
 
         <nav
           aria-label="Media page sections"
-          className="sticky top-[80px] z-10 bg-white/90 backdrop-blur border-b border-gray-200"
+          className="sticky top-[80px] z-20 bg-white border-b border-gray-200"
         >
           <div className="mx-auto w-[90%] max-w-6xl py-3 flex flex-wrap items-center justify-center gap-3">
             <a

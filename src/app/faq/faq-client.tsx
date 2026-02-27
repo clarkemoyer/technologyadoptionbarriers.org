@@ -219,7 +219,7 @@ export default function FaqPageClient() {
                 setSearch(e.target.value)
                 setOpenItems(new Set())
               }}
-              className="w-full rounded-[12px] border-0 bg-white/10 backdrop-blur-sm pl-12 pr-4 py-[14px] text-white placeholder-blue-200 text-[16px] focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/40 transition-all"
+              className="w-full rounded-[12px] border border-transparent bg-white pl-12 pr-4 py-[14px] text-gray-900 placeholder-gray-500 text-[16px] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-all shadow-sm"
             />
           </div>
         </div>
@@ -292,7 +292,7 @@ export default function FaqPageClient() {
                     </>
                   )}
                 </p>
-                <div className="flex gap-2">
+                <div className="flex items-center gap-3">
                   <button
                     onClick={expandAll}
                     className="text-[13px] text-tabs-teal-deep hover:underline font-medium"
@@ -300,9 +300,7 @@ export default function FaqPageClient() {
                   >
                     Expand all
                   </button>
-                  <span className="text-gray-300" aria-hidden="true">
-                    |
-                  </span>
+                  <div className="w-px h-3.5 bg-gray-300" aria-hidden="true" />
                   <button
                     onClick={collapseAll}
                     className="text-[13px] text-tabs-teal-deep hover:underline font-medium"

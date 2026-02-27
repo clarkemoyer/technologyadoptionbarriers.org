@@ -32,7 +32,7 @@ const Statistics = () => {
               Survey Questions
             </h3>
             <div className="text-[60px] font-bold text-tabs-orange mb-[5px] leading-none">
-              {metricsData.questionCount > 0 ? metricsData.questionCount.toLocaleString() : '—'}
+              {metricsData.questionCount > 0 ? metricsData.questionCount.toLocaleString() : '56'}
             </div>
           </div>
 
