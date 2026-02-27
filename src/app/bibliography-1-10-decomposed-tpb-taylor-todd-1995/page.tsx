@@ -143,20 +143,20 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>Structural Model Testing:</strong> For each study, the authors tested
                 multiple competing structural models using LISREL and examined multiple
-                goodness-of-fit indices: Chi-square (Ï‡Â²) values and associated p-values Adjusted
+                goodness-of-fit indices: Chi-square (χ²) values and associated p-values Adjusted
                 goodness-of-fit index (AGFI) Comparative fit index (CFI) Root mean square error of
                 approximation (RMSEA) Standardized root mean square residual (SRMR) The models
-                tested included: Original TAM: PU and PEOU â†’ Attitude â†’ Intention â†’ Usage
-                Extended TAM (TAM2): PU and PEOU â†’ Attitude; PU and Subjective Norm â†’ Intention
-                â†’ Usage Theory of Planned Behavior: Attitude, Subjective Norm, and PBC â†’
-                Intention â†’ Usage Integrated Model: Combined TAM and TPB elements with specific
-                structural pathways Model Comparison: The authors compared models across multiple
-                criteria: Explained variance in Behavioral Intention (RÂ²) Explained variance in
-                Actual Usage Path coefficient magnitudes and significance Overall model fit
-                statistics All path coefficients were tested for statistical significance using
-                t-statistics derived from LISREL estimation procedures. The models generally showed
-                good fit to the data in both studies, with AGFI values above .85 and CFI values
-                above .90, indicating acceptable structural validity
+                tested included: Original TAM: PU and PEOU → Attitude → Intention → Usage Extended
+                TAM (TAM2): PU and PEOU → Attitude; PU and Subjective Norm → Intention → Usage
+                Theory of Planned Behavior: Attitude, Subjective Norm, and PBC → Intention → Usage
+                Integrated Model: Combined TAM and TPB elements with specific structural pathways
+                Model Comparison: The authors compared models across multiple criteria: Explained
+                variance in Behavioral Intention (R²) Explained variance in Actual Usage Path
+                coefficient magnitudes and significance Overall model fit statistics All path
+                coefficients were tested for statistical significance using t-statistics derived
+                from LISREL estimation procedures. The models generally showed good fit to the data
+                in both studies, with AGFI values above .85 and CFI values above .90, indicating
+                acceptable structural validity
               </li>
             </ul>
           </section>
@@ -369,13 +369,13 @@ const BibliographyArticlePage = () => {
               </li>
               <li>
                 <strong>Integration Mechanisms:</strong> The framework measures how these constructs
-                interrelate through multiple pathways: Direct effects: PEOU â†’ Attitude; PU â†’
-                Attitude; PU â†’ Intention; Attitude â†’ Intention; SN â†’ Intention; PBC â†’
-                Intention Indirect effects: PEOU influences Intention indirectly through its effect
-                on Attitude and Perceived Usefulness Intention â†’ Usage: The intention-behavior
-                linkage The measurement approach operationalizes competing theoretical mechanisms,
-                allowing empirical comparison of how different factors influence adoption across
-                theoretical perspectives
+                interrelate through multiple pathways: Direct effects: PEOU → Attitude; PU →
+                Attitude; PU → Intention; Attitude → Intention; SN → Intention; PBC → Intention
+                Indirect effects: PEOU influences Intention indirectly through its effect on
+                Attitude and Perceived Usefulness Intention → Usage: The intention-behavior linkage
+                The measurement approach operationalizes competing theoretical mechanisms, allowing
+                empirical comparison of how different factors influence adoption across theoretical
+                perspectives
               </li>
             </ul>
           </section>
@@ -594,7 +594,7 @@ const BibliographyArticlePage = () => {
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
-            â† Back to Complete Bibliography
+            ← Back to Complete Bibliography
           </a>
         </section>
       </article>

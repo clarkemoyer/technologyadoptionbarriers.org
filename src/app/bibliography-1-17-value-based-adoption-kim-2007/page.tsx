@@ -45,64 +45,67 @@ const BibliographyArticlePage = () => {
 
         {/* Main Content */}
         <section className="mb-8 sm:mb-12">
-          <p className="mb-4">
-            The Value-Based Adoption of Mobile Internet (VAM) model was developed to address a
-            fundamental gap in existing technology adoption theories. The authors recognized that
-            previous adoption models, particularly the Technology Acceptance Model, inadequately
-            captured the complexity of how consumers evaluate technology through the lens of
-            personal values. While TAM effectively modeled perceived usefulness and ease of use as
-            predictors of adoption, it did not explicitly address how consumers’ personal values,
-            goals, and desired life outcomes influence technology adoption decisions. The
-            development of VAM was motivated by the observation that consumer technology adoption
-            involves value judgments beyond narrow instrumental assessments of utility and
-            usability. When consumers evaluate whether to adopt mobile internet services, they are
-            not just asking “Is this useful?” and “Is it easy to use?” They are also asking deeper
-            questions about what they value in life: “Will this help me achieve what I care about?”
-            “Does this align with my priorities and goals?” “What kind of person will I become if I
-            use this?” These value-based questions drive adoption decisions in ways that existing
-            TAM-based models do not capture.
-          </p>
-          <p className="mb-4">
-            The authors recognized that mobile internet adoption presented a particularly compelling
-            context for investigating value-based adoption. Unlike computer adoption in
-            organizational settings where utility is relatively clear, mobile internet adoption in
-            consumer contexts involves substantial uncertainty about how the technology will fit
-            into daily life and what value it will deliver. Consumers evaluating mobile internet
-            must make judgments about whether having internet access in mobile contexts aligns with
-            their values and priorities. The theoretical foundation drew from expectancy-value
-            theory, which proposes that individuals’ attitudes toward objects are determined by
-            their beliefs about the object’s attributes and the value or importance they assign to
-            those attributes. The authors applied this theoretical framework specifically to
-            technology adoption, proposing that technology adoption depends not just on perceived
-            attributes (usefulness, ease of use) but on the values that individuals hold and how the
-            technology relates to those values.
-          </p>
-          <p className="mb-4">
-            The model was also motivated by gaps in existing technology adoption literature
-            regarding how personal values influence adoption. The authors noted that while consumer
-            behavior research had extensively documented the importance of personal values in
-            consumer decision-making, technology adoption literature had largely neglected this
-            dimension. The VAM model sought to integrate personal values theory with technology
-            adoption research. Additionally, the authors recognized that different market segments
-            adopt technologies for fundamentally different reasons reflecting different value
-            systems. Some consumers might adopt mobile internet to increase efficiency and
-            productivity (utilitarian values). Others might adopt to maintain social connection and
-            relationships (social values). Still others might adopt for entertainment and enjoyment
-            (hedonic values). Existing adoption models did not adequately account for these
-            different value-based motivations.
-          </p>
-          <p className="mb-4">
-            The practical motivation for developing VAM centered on improving market segmentation
-            and marketing strategy for mobile internet services. Understanding which consumers
-            adopted based on utilitarian values, which based on social values, and which based on
-            hedonic values would enable providers to develop more targeted marketing strategies and
-            service offerings that appealed to different value-driven segments. The model was also
-            developed to advance theoretical understanding of how consumers construct value
-            assessments in technology adoption. Rather than treating value as a single
-            unidimensional construct, the authors proposed that consumers evaluate technologies
-            across multiple value dimensions reflecting different aspects of what they value in
-            life.
-          </p>
+          <section className="mb-6">
+            <h3 className={H3_CLASSES}>Why was the model made?</h3>
+            <p className="mb-4">
+              The Value-Based Adoption of Mobile Internet (VAM) model was developed to address a
+              fundamental gap in existing technology adoption theories. The authors recognized that
+              previous adoption models, particularly the Technology Acceptance Model, inadequately
+              captured the complexity of how consumers evaluate technology through the lens of
+              personal values. While TAM effectively modeled perceived usefulness and ease of use as
+              predictors of adoption, it did not explicitly address how consumers’ personal values,
+              goals, and desired life outcomes influence technology adoption decisions. The
+              development of VAM was motivated by the observation that consumer technology adoption
+              involves value judgments beyond narrow instrumental assessments of utility and
+              usability. When consumers evaluate whether to adopt mobile internet services, they are
+              not just asking “Is this useful?” and “Is it easy to use?” They are also asking deeper
+              questions about what they value in life: “Will this help me achieve what I care
+              about?” “Does this align with my priorities and goals?” “What kind of person will I
+              become if I use this?” These value-based questions drive adoption decisions in ways
+              that existing TAM-based models do not capture.
+            </p>
+            <p className="mb-4">
+              The authors recognized that mobile internet adoption presented a particularly
+              compelling context for investigating value-based adoption. Unlike computer adoption in
+              organizational settings where utility is relatively clear, mobile internet adoption in
+              consumer contexts involves substantial uncertainty about how the technology will fit
+              into daily life and what value it will deliver. Consumers evaluating mobile internet
+              must make judgments about whether having internet access in mobile contexts aligns
+              with their values and priorities. The theoretical foundation drew from
+              expectancy-value theory, which proposes that individuals’ attitudes toward objects are
+              determined by their beliefs about the object’s attributes and the value or importance
+              they assign to those attributes. The authors applied this theoretical framework
+              specifically to technology adoption, proposing that technology adoption depends not
+              just on perceived attributes (usefulness, ease of use) but on the values that
+              individuals hold and how the technology relates to those values.
+            </p>
+            <p className="mb-4">
+              The model was also motivated by gaps in existing technology adoption literature
+              regarding how personal values influence adoption. The authors noted that while
+              consumer behavior research had extensively documented the importance of personal
+              values in consumer decision-making, technology adoption literature had largely
+              neglected this dimension. The VAM model sought to integrate personal values theory
+              with technology adoption research. Additionally, the authors recognized that different
+              market segments adopt technologies for fundamentally different reasons reflecting
+              different value systems. Some consumers might adopt mobile internet to increase
+              efficiency and productivity (utilitarian values). Others might adopt to maintain
+              social connection and relationships (social values). Still others might adopt for
+              entertainment and enjoyment (hedonic values). Existing adoption models did not
+              adequately account for these different value-based motivations.
+            </p>
+            <p className="mb-4">
+              The practical motivation for developing VAM centered on improving market segmentation
+              and marketing strategy for mobile internet services. Understanding which consumers
+              adopted based on utilitarian values, which based on social values, and which based on
+              hedonic values would enable providers to develop more targeted marketing strategies
+              and service offerings that appealed to different value-driven segments. The model was
+              also developed to advance theoretical understanding of how consumers construct value
+              assessments in technology adoption. Rather than treating value as a single
+              unidimensional construct, the authors proposed that consumers evaluate technologies
+              across multiple value dimensions reflecting different aspects of what they value in
+              life.
+            </p>
+          </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
             <p className="mb-4">
@@ -185,7 +188,7 @@ const BibliographyArticlePage = () => {
               and whether findings aligned with expectations from value theory. The model
               demonstrated predictive validity through its ability to explain variance in adoption
               intention. The value-based model explained approximately 47% of variance in adoption
-              intention (RÂ² = .47). While this was somewhat less than the TAM-only models (which
+              intention (R² = .47). While this was somewhat less than the TAM-only models (which
               typically explain 30- 50%), the value-based approach captured different variance than
               TAM, suggesting the two approaches are complementary rather than competitive.
               Cross-validation examined whether the factor structure and path relationships remained
@@ -578,7 +581,7 @@ const BibliographyArticlePage = () => {
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
-            â† Back to Complete Bibliography
+            ← Back to Complete Bibliography
           </a>
         </section>
       </article>

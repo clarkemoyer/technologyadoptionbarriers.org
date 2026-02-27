@@ -47,68 +47,72 @@ const BibliographyArticlePage = () => {
 
         {/* Main Content */}
         <section className="mb-8 sm:mb-12">
-          <p className="mb-4">
-            The Technology Readiness and Acceptance Model (TRAM) was developed to address a
-            significant gap in existing technology adoption literature by integrating two
-            complementary but previously separate theoretical perspectives. The authors recognized
-            that while both the Technology Readiness Index (TRI) and the Technology Acceptance Model
-            (TAM) contributed valuable insights to understanding technology adoption, neither model
-            alone provided a complete picture of the adoption process. The primary motivation
-            stemmed from the observation that the two models captured different aspects of
-            technology adoption that needed to be integrated. The Technology Acceptance Model
-            focuses on perceived usefulness and ease of use of specific information technology
-            systems—what might be termed “system-specific” perceptions.
-          </p>
-          <ul className={BODY_LIST_CLASSES}>
-            <li>
-              <strong>The model asks:</strong> “Will someone adopt THIS particular technology based
-              on their beliefs about its usefulness and usability?” However, TAM does not account
-              for more general, dispositional characteristics that predispose individuals toward
-              technology adoption across contexts. In contrast, the Technology Readiness Index
-              measures individual predispositions toward technology adoption in general, independent
-              of specific systems. The TRI captures general beliefs about technology, fundamental
-              attitudes toward technology, and personality-like characteristics that influence
-              overall technology propensity. However, the TRI does not account for how specific
-              technology characteristics or system- specific perceptions influence adoption
-              decisions. The authors recognized that technology adoption decisions are influenced by
-              both types of factors: general technology readiness (dispositional predispositions)
-              and system-specific perceptions (usefulness and ease of use). An individual with high
-              general technology readiness might not adopt a specific technology if they perceive it
-              as not useful for their purposes. Conversely, an individual with low technology
-              readiness might be unlikely to adopt a technology even if it is perceived as highly
-              useful and easy to use, because their general technology anxiety or skepticism
-              prevents them from seriously considering adoption. The theoretical development of TRAM
-              was motivated by the need to understand how these two types of factors interact to
-              influence technology adoption
-            </li>
-            <li>
-              <strong>The authors sought to answer questions such as:</strong> Does technology
-              readiness influence how individuals perceive usefulness and ease of use of specific
-              technologies? Does technology readiness moderate the relationship between perceived
-              usefulness/ease of use and adoption intention? How can organizations most effectively
-              promote technology adoption by addressing both general readiness and system-specific
-              perceptions? A secondary motivation involved addressing limitations in existing
-              technology adoption models. Empirical research had shown that TAM, while valuable,
-              explained significant variance in technology adoption but not all variance. The
-              proportion of variance explained by perceived usefulness and ease of use, while
-              substantial, typically ranged from 30-50% depending on context. The authors
-              hypothesized that incorporating technology readiness as an additional predictor and
-              potential moderator could improve model explanatory power by capturing additional
-              variance attributable to general technology predispositions. The model was also
-              developed to enhance practical utility for organizations implementing technology-based
-              systems. Understanding not just whether specific systems are perceived as useful and
-              easy to use, but also understanding the general technology readiness of target
-              populations, could help organizations develop more effective technology adoption
-              strategies. Different customer segments with different technology readiness profiles
-              might require different marketing and implementation approaches to achieve successful
-              adoption of the same technology system. The authors also sought to address the
-              theoretical integration challenge by examining whether technology readiness operates
-              upstream in the causal chain, influencing how individuals perceive technology
-              characteristics, or whether it operates as a moderator influencing the strength of
-              relationships between perceptions and behavior. This required developing and testing a
-              specific integrative model that specified the relationships among variables
-            </li>
-          </ul>
+          <section className="mb-6">
+            <h3 className={H3_CLASSES}>Why was the model made?</h3>
+            <p className="mb-4">
+              The Technology Readiness and Acceptance Model (TRAM) was developed to address a
+              significant gap in existing technology adoption literature by integrating two
+              complementary but previously separate theoretical perspectives. The authors recognized
+              that while both the Technology Readiness Index (TRI) and the Technology Acceptance
+              Model (TAM) contributed valuable insights to understanding technology adoption,
+              neither model alone provided a complete picture of the adoption process. The primary
+              motivation stemmed from the observation that the two models captured different aspects
+              of technology adoption that needed to be integrated. The Technology Acceptance Model
+              focuses on perceived usefulness and ease of use of specific information technology
+              systems—what might be termed “system-specific” perceptions.
+            </p>
+            <ul className={BODY_LIST_CLASSES}>
+              <li>
+                <strong>The model asks:</strong> “Will someone adopt THIS particular technology
+                based on their beliefs about its usefulness and usability?” However, TAM does not
+                account for more general, dispositional characteristics that predispose individuals
+                toward technology adoption across contexts. In contrast, the Technology Readiness
+                Index measures individual predispositions toward technology adoption in general,
+                independent of specific systems. The TRI captures general beliefs about technology,
+                fundamental attitudes toward technology, and personality-like characteristics that
+                influence overall technology propensity. However, the TRI does not account for how
+                specific technology characteristics or system- specific perceptions influence
+                adoption decisions. The authors recognized that technology adoption decisions are
+                influenced by both types of factors: general technology readiness (dispositional
+                predispositions) and system-specific perceptions (usefulness and ease of use). An
+                individual with high general technology readiness might not adopt a specific
+                technology if they perceive it as not useful for their purposes. Conversely, an
+                individual with low technology readiness might be unlikely to adopt a technology
+                even if it is perceived as highly useful and easy to use, because their general
+                technology anxiety or skepticism prevents them from seriously considering adoption.
+                The theoretical development of TRAM was motivated by the need to understand how
+                these two types of factors interact to influence technology adoption
+              </li>
+              <li>
+                <strong>The authors sought to answer questions such as:</strong> Does technology
+                readiness influence how individuals perceive usefulness and ease of use of specific
+                technologies? Does technology readiness moderate the relationship between perceived
+                usefulness/ease of use and adoption intention? How can organizations most
+                effectively promote technology adoption by addressing both general readiness and
+                system-specific perceptions? A secondary motivation involved addressing limitations
+                in existing technology adoption models. Empirical research had shown that TAM, while
+                valuable, explained significant variance in technology adoption but not all
+                variance. The proportion of variance explained by perceived usefulness and ease of
+                use, while substantial, typically ranged from 30-50% depending on context. The
+                authors hypothesized that incorporating technology readiness as an additional
+                predictor and potential moderator could improve model explanatory power by capturing
+                additional variance attributable to general technology predispositions. The model
+                was also developed to enhance practical utility for organizations implementing
+                technology-based systems. Understanding not just whether specific systems are
+                perceived as useful and easy to use, but also understanding the general technology
+                readiness of target populations, could help organizations develop more effective
+                technology adoption strategies. Different customer segments with different
+                technology readiness profiles might require different marketing and implementation
+                approaches to achieve successful adoption of the same technology system. The authors
+                also sought to address the theoretical integration challenge by examining whether
+                technology readiness operates upstream in the causal chain, influencing how
+                individuals perceive technology characteristics, or whether it operates as a
+                moderator influencing the strength of relationships between perceptions and
+                behavior. This required developing and testing a specific integrative model that
+                specified the relationships among variables
+              </li>
+            </ul>
+          </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
             <p className="mb-4">
@@ -158,7 +162,7 @@ const BibliographyArticlePage = () => {
                 of TRI dimensions on perceived usefulness and ease of use, (2) effects of perceived
                 usefulness and ease of use on intention to use, and (3) direct effects of TRI
                 dimensions on intention to use. Examination of path coefficients, their statistical
-                significance, and the squared multiple correlations (RÂ²) for endogenous variables
+                significance, and the squared multiple correlations (R²) for endogenous variables
                 provided evidence of internal validity. Model fit was assessed using multiple
                 indices including the chi-square test, comparative fit index (CFI), Tucker-Lewis
                 index (TLI), root mean square error of approximation (RMSEA), and standardized root
@@ -182,7 +186,7 @@ const BibliographyArticlePage = () => {
                 <strong>Alternative models tested included:</strong> (1) a TAM-only model without
                 technology readiness variables, (2) a TRI-only model without system-specific
                 perceptions, and (3) models with different specifications of causal paths.
-                Comparison of model fit indices, AIC values, and Ï‡Â² differences between competing
+                Comparison of model fit indices, AIC values, and χ² differences between competing
                 models confirmed that the integrated TRAM model provided better fit than alternative
                 specifications, supporting the theoretical rationale for integration
               </li>
@@ -210,7 +214,7 @@ const BibliographyArticlePage = () => {
               relationships from TRI theory. This consistency with established literature supported
               the external validity of the TRAM integration. The model’s ability to predict variance
               in adoption intention provided validity evidence. The TRAM model explained
-              approximately 55% of the variance in online shopping adoption intention (RÂ² = .55).
+              approximately 55% of the variance in online shopping adoption intention (R² = .55).
               This explained variance was substantially higher than typical TAM-only models (which
               typically explain 30-50% of variance) and comparable to the best- performing extended
               TAM models in existing literature. The increased explanatory power provided evidence
@@ -592,7 +596,7 @@ const BibliographyArticlePage = () => {
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
-            â† Back to Complete Bibliography
+            ← Back to Complete Bibliography
           </a>
         </section>
       </article>

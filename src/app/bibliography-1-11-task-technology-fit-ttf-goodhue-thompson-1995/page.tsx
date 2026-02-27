@@ -157,13 +157,13 @@ const BibliographyArticlePage = () => {
                 across organizations with different characteristics. The authors reported path
                 coefficients and correlations separately for different organizational subgroups,
                 showing remarkable consistency across contexts. Comparative Model Testing The
-                authors tested alternative model specifications: Direct Fit Model: Fit â†’
-                Performance (direct effect) Indirect Model: Fit â†’ Utilization â†’ Performance
-                (mediated effect) Combined Model: Fit affects both Performance directly and
-                indirectly through Utilization Results strongly favored the combined model, with
-                both direct and indirect effects significant. Statistical Significance Testing Path
-                coefficients were tested for significance using t-tests and correlation analysis.
-                The relationship between Fit and Performance was highly significant (r = .67, p &lt;
+                authors tested alternative model specifications: Direct Fit Model: Fit → Performance
+                (direct effect) Indirect Model: Fit → Utilization → Performance (mediated effect)
+                Combined Model: Fit affects both Performance directly and indirectly through
+                Utilization Results strongly favored the combined model, with both direct and
+                indirect effects significant. Statistical Significance Testing Path coefficients
+                were tested for significance using t-tests and correlation analysis. The
+                relationship between Fit and Performance was highly significant (r = .67, p &lt;
                 .001), exceeding typical effect sizes in organizational research. The relationship
                 between Utilization and Performance was more modest (r = .24, p &lt; .001),
                 indicating that while use matters, fit matters more. Fit Operationalization
@@ -474,7 +474,7 @@ const BibliographyArticlePage = () => {
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
-            â† Back to Complete Bibliography
+            ← Back to Complete Bibliography
           </a>
         </section>
       </article>

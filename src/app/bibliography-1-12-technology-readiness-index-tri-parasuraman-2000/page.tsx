@@ -583,7 +583,7 @@ const BibliographyArticlePage = () => {
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
-            â† Back to Complete Bibliography
+            ← Back to Complete Bibliography
           </a>
         </section>
       </article>

@@ -1,11 +1,5 @@
 import type { Metadata } from 'next'
-import {
-  ARTICLE_CLASSES,
-  H1_CLASSES,
-  H2_CLASSES,
-  H3_CLASSES,
-  BODY_LIST_CLASSES,
-} from '@/lib/articleStyles'
+import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Technology Readiness Index 2.0 (TRI 2.0) – Parasuraman & Colby (2015)',
@@ -623,7 +617,7 @@ const BibliographyArticlePage = () => {
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
-            â† Back to Complete Bibliography
+            ← Back to Complete Bibliography
           </a>
         </section>
       </article>

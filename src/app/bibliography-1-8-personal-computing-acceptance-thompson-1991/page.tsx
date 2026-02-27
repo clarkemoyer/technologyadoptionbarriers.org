@@ -242,7 +242,7 @@ const BibliographyArticlePage = () => {
               Thompson’s model directly measures utilization behavior. This operationalization
               bridges the intention-behavior gap, addressing a known limitation of intention- based
               models. 4.Empirical validation with strong model fit: The model explained 24% of
-              variance in PC utilization (RÂ² = .24), which was substantial for a behavioral outcome
+              variance in PC utilization (R² = .24), which was substantial for a behavioral outcome
               and demonstrated that the identified factors capture meaningful drivers of usage.
               5.Clear managerial implications: The model provides actionable insights.
             </p>
@@ -286,7 +286,7 @@ const BibliographyArticlePage = () => {
               significant: the direct paths from affect to utilization (.02) and facilitating
               conditions to utilization (-.04). This contrasts with prior technology acceptance
               research and suggests either model misspecification or contextual differences. 5.Low
-              RÂ² for affect and facilitating conditions: The indirect paths through job fit and
+              R² for affect and facilitating conditions: The indirect paths through job fit and
               long-term consequences suggest these variables may be more important than direct
               effects, but the theory did not adequately specify these indirect mechanisms.
               6.Self-report measurement: All data were self-reported rather than based on objective
@@ -583,7 +583,7 @@ const BibliographyArticlePage = () => {
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
-            â† Back to Complete Bibliography
+            ← Back to Complete Bibliography
           </a>
         </section>
       </article>
