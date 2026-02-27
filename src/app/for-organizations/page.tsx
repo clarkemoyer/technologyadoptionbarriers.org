@@ -13,7 +13,7 @@ const ForOrganizationsPage = () => {
       id: 'technology-leaders',
       title: 'Technology Leaders',
       subtitle: 'CTO, CIO, CISO',
-      icon: 'ðŸ’»',
+      icon: '💻',
       description:
         'Organizations serving technology executives who drive digital transformation and innovation.',
       path: '/for-organizations/technology-leaders',
@@ -23,7 +23,7 @@ const ForOrganizationsPage = () => {
       id: 'finance-leaders',
       title: 'Finance Leaders',
       subtitle: 'CFO, Controller, VP Finance',
-      icon: 'ðŸ’°',
+      icon: '💰',
       description:
         'Organizations serving finance executives who manage technology investments and ROI.',
       path: '/for-organizations/finance-leaders',
@@ -43,7 +43,7 @@ const ForOrganizationsPage = () => {
       id: 'executive-leaders',
       title: 'Executive Leaders',
       subtitle: 'CEO, President, Board Members',
-      icon: 'ðŸŽ¯',
+      icon: '🎯',
       description:
         'Organizations serving C-suite executives who set strategic direction for technology adoption.',
       path: '/for-organizations/executive-leaders',
@@ -77,7 +77,7 @@ const ForOrganizationsPage = () => {
             <div className="bg-gray-50 p-[30px] rounded-[12px]">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Members benefit">
-                  ðŸŒŸ
+                  🌟
                 </span>
               </div>
               <h3 className="text-[24px] font-bold text-gray-900 mb-[15px]">
@@ -93,7 +93,7 @@ const ForOrganizationsPage = () => {
             <div className="bg-gray-50 p-[30px] rounded-[12px]">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Thought leadership">
-                  ðŸ“Š
+                  📊
                 </span>
               </div>
               <h3 className="text-[24px] font-bold text-gray-900 mb-[15px]">
@@ -109,7 +109,7 @@ const ForOrganizationsPage = () => {
             <div className="bg-gray-50 p-[30px] rounded-[12px]">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Research support">
-                  ðŸ”¬
+                  🔬
                 </span>
               </div>
               <h3 className="text-[24px] font-bold text-gray-900 mb-[15px]">
@@ -192,7 +192,7 @@ const ForOrganizationsPage = () => {
             <div className="flex gap-[20px]">
               <div className="text-[32px] flex-shrink-0">
                 <span role="img" aria-label="Recognition">
-                  ðŸ†
+                  🏆
                 </span>
               </div>
               <div>
@@ -209,7 +209,7 @@ const ForOrganizationsPage = () => {
             <div className="flex gap-[20px]">
               <div className="text-[32px] flex-shrink-0">
                 <span role="img" aria-label="Early access">
-                  ðŸŽ¯
+                  🎯
                 </span>
               </div>
               <div>
@@ -226,7 +226,7 @@ const ForOrganizationsPage = () => {
             <div className="flex gap-[20px]">
               <div className="text-[32px] flex-shrink-0">
                 <span role="img" aria-label="Materials">
-                  ðŸ“§
+                  📧
                 </span>
               </div>
               <div>
@@ -243,7 +243,7 @@ const ForOrganizationsPage = () => {
             <div className="flex gap-[20px]">
               <div className="text-[32px] flex-shrink-0">
                 <span role="img" aria-label="No cost">
-                  ðŸ’¡
+                  💡
                 </span>
               </div>
               <div>

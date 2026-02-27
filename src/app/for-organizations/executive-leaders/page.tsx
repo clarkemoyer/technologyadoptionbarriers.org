@@ -85,7 +85,7 @@ const ExecutiveLeadersPage = () => {
             <div className="bg-purple-50 p-[30px] rounded-[12px] border-2 border-purple-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Strategy">
-                  ðŸŽ¯
+                  🎯
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">Strategic Direction</h3>
@@ -99,7 +99,7 @@ const ExecutiveLeadersPage = () => {
             <div className="bg-purple-50 p-[30px] rounded-[12px] border-2 border-purple-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Competitive advantage">
-                  ðŸ†
+                  🏆
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">
@@ -115,7 +115,7 @@ const ExecutiveLeadersPage = () => {
             <div className="bg-purple-50 p-[30px] rounded-[12px] border-2 border-purple-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Board relations">
-                  ðŸ“Š
+                  📊
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">Board Relations</h3>
@@ -142,7 +142,7 @@ const ExecutiveLeadersPage = () => {
           <div className="grid md:grid-cols-2 gap-[30px]">
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸŽ¯ Strategic Planning Data
+                🎯 Strategic Planning Data
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Gain access to comprehensive research on technology adoption barriers to inform
@@ -152,7 +152,7 @@ const ExecutiveLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸ“ˆ Industry Benchmarks
+                📈 Industry Benchmarks
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Compare their organization&apos;s technology adoption maturity against industry
@@ -162,7 +162,7 @@ const ExecutiveLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸ’¼ Executive Communication Tools
+                💼 Executive Communication Tools
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Leverage industry-validated insights to communicate technology strategy to boards,
@@ -172,7 +172,7 @@ const ExecutiveLeadersPage = () => {
 
             <div className="bg-white p-[30px] rounded-[12px] shadow-md">
               <h3 className="text-[20px] font-bold text-gray-900 mb-[15px]">
-                ðŸ¤ Thought Leadership
+                🤝 Thought Leadership
               </h3>
               <p className="text-[16px] text-gray-700 leading-[1.7]">
                 Position themselves as forward-thinking leaders by contributing to and leveraging
