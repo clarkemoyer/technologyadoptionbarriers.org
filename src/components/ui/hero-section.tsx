@@ -7,6 +7,7 @@ interface HeroSectionProps {
   heading: string
   paragraph: string
   heroImg: string
+  heroAlt?: string
   fontSize?: number
   lineHeight?: number
   imageContainerWidth?: string // 👈 new prop (e.g., "w-[100%]" or "w-[80%]")
@@ -16,6 +17,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   heading,
   paragraph,
   heroImg,
+  heroAlt,
   fontSize,
   lineHeight,
   imageContainerWidth = 'w-[100%] lg:w-[62%]', // 👈 default value
@@ -50,7 +52,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             <div className={`relative ${imageContainerWidth} mx-auto`}>
               <Image
                 src={heroImg}
-                alt="Hero Image"
+                alt={heroAlt || `Illustration for ${heading}`}
                 width={1200}
                 height={600}
                 className="w-full h-auto"
