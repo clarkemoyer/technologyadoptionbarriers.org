@@ -144,7 +144,9 @@ const renderInline = (value: string | null | undefined) => {
       )
     }
 
-    return <span key={idx}>{(t as any).value}</span>
+    // All InlineToken kinds are handled above; this satisfies the exhaustive check.
+    const _exhaustive: never = t
+    return _exhaustive
   })
 }
 

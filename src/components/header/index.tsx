@@ -35,7 +35,6 @@ const Header: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null)
-  const isMegaMenuOpen = activeMegaMenu !== null // Computed property for backward compatibility/readability
   const [isMakingOfMenuOpen, setIsMakingOfMenuOpen] = useState(false)
   const [isMobileBranch1Open, setIsMobileBranch1Open] = useState(false)
   const [isMobileBranch2Open, setIsMobileBranch2Open] = useState(false)
@@ -347,6 +346,7 @@ const Header: React.FC = () => {
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
+                              aria-hidden="true"
                             >
                               <path
                                 strokeLinecap="round"
@@ -375,6 +375,7 @@ const Header: React.FC = () => {
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
+                                aria-hidden="true"
                               >
                                 <path
                                   strokeLinecap="round"
@@ -824,6 +825,7 @@ const Header: React.FC = () => {
                                   fill="none"
                                   stroke="currentColor"
                                   viewBox="0 0 24 24"
+                                  aria-hidden="true"
                                 >
                                   <path
                                     strokeLinecap="round"
@@ -878,6 +880,7 @@ const Header: React.FC = () => {
                                   fill="none"
                                   stroke="currentColor"
                                   viewBox="0 0 24 24"
+                                  aria-hidden="true"
                                 >
                                   <path
                                     strokeLinecap="round"
@@ -951,6 +954,7 @@ const Header: React.FC = () => {
                                       fill="none"
                                       stroke="currentColor"
                                       viewBox="0 0 24 24"
+                                      aria-hidden="true"
                                     >
                                       <path
                                         strokeLinecap="round"
@@ -999,6 +1003,7 @@ const Header: React.FC = () => {
                                   fill="none"
                                   stroke="currentColor"
                                   viewBox="0 0 24 24"
+                                  aria-hidden="true"
                                 >
                                   <path
                                     strokeLinecap="round"
@@ -1043,6 +1048,7 @@ const Header: React.FC = () => {
                                   fill="none"
                                   stroke="currentColor"
                                   viewBox="0 0 24 24"
+                                  aria-hidden="true"
                                 >
                                   <path
                                     strokeLinecap="round"
@@ -1077,6 +1083,7 @@ const Header: React.FC = () => {
                             {/* Individuals */}
                             <div className="ml-4 mt-2">
                               <button
+                                type="button"
                                 onClick={() => setIsMobileIndividualsOpen(!isMobileIndividualsOpen)}
                                 className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
                                 aria-expanded={isMobileIndividualsOpen}
@@ -1091,6 +1098,7 @@ const Header: React.FC = () => {
                                   fill="none"
                                   stroke="currentColor"
                                   viewBox="0 0 24 24"
+                                  aria-hidden="true"
                                 >
                                   <path
                                     strokeLinecap="round"
@@ -1148,6 +1156,7 @@ const Header: React.FC = () => {
                                   fill="none"
                                   stroke="currentColor"
                                   viewBox="0 0 24 24"
+                                  aria-hidden="true"
                                 >
                                   <path
                                     strokeLinecap="round"
@@ -1191,6 +1200,7 @@ const Header: React.FC = () => {
                     ) : item.children?.length ? (
                       <div>
                         <button
+                          type="button"
                           onClick={() => setIsMobileMakingOfOpen(!isMobileMakingOfOpen)}
                           className="w-full flex items-center justify-between px-4 py-2 rounded-lg text-sm font-[600] text-gray-700 hover:bg-gray-100"
                           aria-expanded={isMobileMakingOfOpen}
@@ -1202,6 +1212,7 @@ const Header: React.FC = () => {
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
+                            aria-hidden="true"
                           >
                             <path
                               strokeLinecap="round"
