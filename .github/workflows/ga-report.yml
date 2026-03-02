@@ -62,7 +62,7 @@ jobs:
           REPORT_RECIPIENT_EMAIL: ${{ secrets.REPORT_RECIPIENT_EMAIL }}
 
       - name: Upload Report Artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: google-analytics-report
           path: reports/*.json
