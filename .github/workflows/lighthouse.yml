@@ -175,7 +175,7 @@ jobs:
           echo "📥 Full reports available in workflow artifacts"
 
       - name: Upload Lighthouse reports
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: lighthouse-reports
