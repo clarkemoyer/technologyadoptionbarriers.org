@@ -8,7 +8,7 @@ const TealValueProp = () => {
           Technology Adoption Barriers Survey (TABS)
         </h2>
 
-        <div className="space-y-[20px] text-[18px] leading-[1.6]">
+        <div className="space-y-[20px] text-[18px] leading-[1.6] max-w-[1000px]">
           <p>
             Taking the TABS survey is a direct way to benefit your organization and contribute to a
             wider understanding of technology adoption. By sharing your unique perspective as a

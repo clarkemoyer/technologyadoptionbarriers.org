@@ -7,7 +7,7 @@ const MissionOverview = () => {
           <h2 className="text-[32px] font-bold text-tabs-navy mb-[25px] font-serif border-b-4 border-tabs-orange inline-block pb-2">
             What We Do
           </h2>
-          <div className="text-[17px] leading-[1.8] space-y-4">
+          <div className="text-[17px] leading-[1.8] space-y-4 max-w-[800px]">
             <p>
               TABS (Technology Adoption Barriers Survey) is a doctoral research project originating
               from the Penn State Smeal College of Business DBA program. We conduct essential
@@ -50,7 +50,7 @@ const MissionOverview = () => {
           <h2 className="text-[32px] font-bold text-tabs-navy mb-[25px] font-serif border-b-4 border-tabs-orange inline-block pb-2">
             Our Mission
           </h2>
-          <div className="text-[17px] leading-[1.8] space-y-4">
+          <div className="text-[17px] leading-[1.8] space-y-4 max-w-[800px]">
             <p>
               Our mission at TABS (Technology Adoption Barriers Survey) is to advance the
               understanding and practice of technology adoption within organizations. We aim to

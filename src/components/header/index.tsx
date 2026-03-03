@@ -299,8 +299,8 @@ const Header: React.FC = () => {
                 </a>
 
                 {/* Desktop Menu */}
-                <nav className="order-1 hidden lg:block transition-all duration-300">
-                  <ul className="flex items-center space-x-[1px] font-navbar font-[600]">
+                <nav className="order-1 hidden xl:block transition-all duration-300">
+                  <ul className="flex items-center space-x-0 2xl:space-x-[1px] font-navbar font-[600]">
                     {menuItems.map((item, index) => (
                       <li
                         key={index}
@@ -330,7 +330,7 @@ const Header: React.FC = () => {
                               item.megaMenuId && setActiveMegaMenu(item.megaMenuId)
                             }
                             onFocus={() => item.megaMenuId && setActiveMegaMenu(item.megaMenuId)}
-                            className={`flex items-center px-3 py-2 text-[14px] transition-colors duration-200 ${
+                            className={`flex items-center px-1.5 xl:px-2 2xl:px-3 py-2 text-[12px] xl:text-[13px] 2xl:text-[14px] transition-colors duration-200 ${
                               isActive(item.path) || activeMegaMenu === item.megaMenuId
                                 ? 'text-blue-600'
                                 : 'text-gray-600 hover:text-gray-500'
@@ -361,7 +361,7 @@ const Header: React.FC = () => {
                             <button
                               onClick={toggleMakingOfMenu}
                               onFocus={() => setIsMakingOfMenuOpen(true)}
-                              className={`flex items-center px-3 py-2 text-[14px] transition-colors duration-200 ${
+                              className={`flex items-center px-1.5 xl:px-2 2xl:px-3 py-2 text-[12px] xl:text-[13px] 2xl:text-[14px] transition-colors duration-200 ${
                                 isActive(item.path)
                                   ? 'text-blue-600'
                                   : 'text-gray-600 hover:text-gray-500'
@@ -412,7 +412,7 @@ const Header: React.FC = () => {
                           <Link
                             href={item.path}
                             onClick={handleLinkClick}
-                            className={`flex items-center px-3 py-2 text-[14px] transition-colors duration-200 ${
+                            className={`flex items-center px-1.5 xl:px-2 2xl:px-3 py-2 text-[12px] xl:text-[13px] 2xl:text-[14px] transition-colors duration-200 ${
                               isActive(item.path)
                                 ? 'text-blue-600'
                                 : 'text-gray-600 hover:text-gray-500'
@@ -427,7 +427,7 @@ const Header: React.FC = () => {
                 </nav>
 
                 {/* Search Icon */}
-                <div className="order-2 hidden lg:flex items-center">
+                <div className="order-2 hidden xl:flex items-center">
                   <button
                     onClick={handleSearchToggle}
                     className="p-2 text-gray-600 hover:text-blue-600 transition-colors"
@@ -440,7 +440,7 @@ const Header: React.FC = () => {
                 {/* Mobile Menu Button */}
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="order-2 lg:hidden p-2 text-gray-600 hover:text-blue-600"
+                  className="order-2 xl:hidden p-2 text-gray-600 hover:text-blue-600"
                   aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                 >
                   {isMobileMenuOpen ? (
@@ -504,7 +504,7 @@ const Header: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className={`hidden lg:block absolute left-0 w-full bg-white border-t border-gray-100 shadow-lg z-40 overflow-y-auto overscroll-contain ${
+            className={`hidden xl:block absolute left-0 w-full bg-white border-t border-gray-100 shadow-lg z-40 overflow-y-auto overscroll-contain ${
               isScrolled
                 ? 'top-[55px] max-h-[calc(100vh-55px)]'
                 : 'top-[80px] max-h-[calc(100vh-80px)]'
@@ -781,7 +781,7 @@ const Header: React.FC = () => {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className={`lg:hidden absolute left-0 w-full overflow-hidden z-40 ${
+            className={`xl:hidden absolute left-0 w-full overflow-hidden z-40 ${
               isScrolled ? 'top-[53px]' : 'top-[77px]'
             }`}
           >
