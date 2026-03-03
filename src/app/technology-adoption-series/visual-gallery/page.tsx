@@ -115,7 +115,10 @@ export default function VisualGalleryPage() {
                     {/* ASCII View */}
                     {(viewMode === 'split' || viewMode === 'ascii') && (
                       <div className="bg-gray-900 p-6 min-h-[400px] overflow-auto flex items-center justify-center">
-                        <pre className="font-mono text-xs sm:text-sm text-emerald-400 whitespace-pre leading-snug">
+                        <pre
+                          className="text-xs sm:text-sm text-emerald-400 whitespace-pre leading-none"
+                          style={{ fontFamily: 'Consolas, "Courier New", monospace' }}
+                        >
                           {visual.ascii.trim()}
                         </pre>
                       </div>
