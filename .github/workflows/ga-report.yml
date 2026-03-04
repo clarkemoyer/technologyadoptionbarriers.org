@@ -85,7 +85,7 @@ jobs:
           delete-branch: true
 
       - name: Enable Pull Request Automerge
-        if: steps.cpr.outputs.created == 'true'
+        if: steps.cpr.outputs.pull-request-operation == 'created'
         run: gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
         env:
           GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
