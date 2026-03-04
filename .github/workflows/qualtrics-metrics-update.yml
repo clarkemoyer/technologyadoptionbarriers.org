@@ -144,9 +144,9 @@ jobs:
           if [[ -f "src/data/qualtrics-metrics.json" ]]; then
             old_count=$(jq '.responseCounts | to_entries | map(.value) | add // 0' src/data/qualtrics-metrics.json)
             new_count=$(jq '.responseCounts | to_entries | map(.value) | add // 0' temp-qualtrics-metrics.json)
-            
+
             echo "Total Responses: Old=$old_count, New=$new_count"
-            
+
             if [[ "$new_count" -lt "$old_count" ]]; then
               echo "::error::Regression detected: New response count ($new_count) is lower than existing count ($old_count)."
               exit 1
@@ -157,10 +157,32 @@ jobs:
           mv temp-qualtrics-metrics.json src/data/qualtrics-metrics.json
           echo "Validation passed. File updated."
 
+      - name: Upload metrics data
+        uses: actions/upload-artifact@v7
+        with:
+          name: qualtrics-metrics-data
+          path: src/data/qualtrics-metrics.json
+          retention-days: 1
+
+  create-pr:
+    needs: update-metrics
+    runs-on: ubuntu-latest
+    environment: copilot
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Download metrics data
+        uses: actions/download-artifact@v7
+        with:
+          name: qualtrics-metrics-data
+          path: src/data
+
       - name: Create pull request with updated metrics
         id: cpr
         uses: peter-evans/create-pull-request@v8
         with:
+          token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
           commit-message: 'Update Qualtrics survey metrics'
           title: 'Update Qualtrics survey metrics'
           body: |
@@ -179,4 +201,4 @@ jobs:
         if: steps.cpr.outputs.created == 'true'
         run: gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}

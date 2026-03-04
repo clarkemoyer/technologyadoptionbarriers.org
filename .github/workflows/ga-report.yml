@@ -34,10 +34,47 @@ jobs:
           GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
           GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
 
+      - name: Upload impact data
+        uses: actions/upload-artifact@v7
+        with:
+          name: ga-impact-data
+          path: src/data/impact.json
+          retention-days: 1
+
+      - name: Upload report files
+        uses: actions/upload-artifact@v7
+        with:
+          name: google-analytics-report
+          path: reports/*.json
+          retention-days: 30
+
+      - name: Send Email Report
+        if: success()
+        run: npx tsx scripts/send-report-email.ts
+        env:
+          GOOGLE_PROJECT_OWNER_EMAIL: ${{ secrets.GOOGLE_PROJECT_OWNER_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          REPORT_RECIPIENT_EMAIL: ${{ secrets.REPORT_RECIPIENT_EMAIL }}
+
+  create-pr:
+    needs: generate-report
+    runs-on: ubuntu-latest
+    environment: copilot
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Download impact data
+        uses: actions/download-artifact@v7
+        with:
+          name: ga-impact-data
+          path: src/data
+
       - name: Create pull request with updated impact stats
         id: cpr
         uses: peter-evans/create-pull-request@v8
         with:
+          token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
           commit-message: 'chore: update public impact stats'
           title: 'Update Google Analytics impact stats'
           body: |
@@ -51,19 +88,4 @@ jobs:
         if: steps.cpr.outputs.created == 'true'
         run: gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Send Email Report
-        if: success()
-        run: npx tsx scripts/send-report-email.ts
-        env:
-          GOOGLE_PROJECT_OWNER_EMAIL: ${{ secrets.GOOGLE_PROJECT_OWNER_EMAIL }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          REPORT_RECIPIENT_EMAIL: ${{ secrets.REPORT_RECIPIENT_EMAIL }}
-
-      - name: Upload Report Artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: google-analytics-report
-          path: reports/*.json
-          retention-days: 30
+          GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
