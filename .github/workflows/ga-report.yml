@@ -38,6 +38,7 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v8
         with:
+          token: ${{ secrets.ACTIONS_BOT_TOKEN }}
           commit-message: 'chore: update public impact stats'
           title: 'Update Google Analytics impact stats'
           body: |
@@ -51,7 +52,7 @@ jobs:
         if: steps.cpr.outputs.created == 'true'
         run: gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ACTIONS_BOT_TOKEN }}
 
       - name: Send Email Report
         if: success()
