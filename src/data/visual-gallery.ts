@@ -364,7 +364,7 @@ Languages     | Python / Go / JS  | Perl / PHP (Legacy)
     part: 'Part 5: Deep Dives',
     ascii: `
     ┌───────────────────────────────┐
-    │  🚫  ANTI-PATTERN GRAVEYARD   │
+    │  🚫 ANTI-PATTERN GRAVEYARD    │
     ├───────────────────────────────┤
     │ 1. "Big Bang" Deployment      │
     │ 2. Resume Driven Development  │
