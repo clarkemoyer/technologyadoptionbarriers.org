@@ -91,9 +91,13 @@ jobs:
           #   - _next/static/** (build-specific hashed paths that differ
           #     between the deploy build and this discovery build; pages
           #     already validate these assets implicitly when they return 200)
+          #   - sitemap-[0-9]*.xml (Next.js may generate numbered sitemaps
+          #     like sitemap-0.xml that differ between builds; the
+          #     infrastructure checks already verify sitemap.xml separately)
           find out -type f \
             -not -name '*.html' \
             -not -name '.nojekyll' \
+            -not -name 'sitemap-[0-9]*.xml' \
             -not -path 'out/_next/static/*' \
             | sort | while read -r f; do
             echo "/${f#out/}"
