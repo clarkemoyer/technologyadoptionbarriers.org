@@ -1179,6 +1179,9 @@ If questions come up that need a deeper dive, these optional slides are availabl
 5. [Slide 22 (Optional): Organizational vs User Adoption Deep Dive](#slide-22-optional-organizational-vs-user-adoption-deep-dive)
 6. [Slide 23 (Optional): Handling Inherited Legacy Systems](#slide-23-optional-handling-inherited-legacy-systems)
 7. [Slide 24 (Optional): AI/ML Technology Adoption Considerations](#slide-24-optional-aiml-technology-adoption-considerations)
+8. [Slide 27 (Optional): Hardware Lifecycle Timeline: HDDs](#slide-27-optional-hardware-lifecycle-timeline-hdds)
+9. [Slide 28 (Optional): Software Lifecycle Timeline: Adobe Flash](#slide-28-optional-software-lifecycle-timeline-adobe-flash)
+10. [Slide 29 (Optional): Supply Chain Lifecycle Timeline: Barcodes](#slide-29-optional-supply-chain-lifecycle-timeline-barcodes)
 
 **Speaker Notes:**
 
@@ -1984,3 +1987,149 @@ To truly understand technology adoption, we must move beyond a simple user-versu
 - "The User puts it to work (2)."
 - "The Consumer validates the value (3)."
 - "Technology Adoption is the red center that binds them all."
+
+---
+
+### Slide 27 (Optional): "Hardware Lifecycle Timeline: HDDs"
+
+**Content**
+
+LIFECYCLE TIMELINE: HARD DISK DRIVES (HDDs)
+
+This chart shows a **hardware technology** progressing through every lifecycle phase with proportional bar widths representing years spent in each phase. Unequal phase durations explain why real-world adoption curves are asymmetric — the theoretical S-curve is an idealization.
+
+**PHASE DURATIONS:**
+
+| Phase           | Years     | Duration             | Key Events                                                            |
+| --------------- | --------- | -------------------- | --------------------------------------------------------------------- |
+| Bleeding Edge   | 1956–1970 | 14 years             | IBM RAMAC (1956), room-sized drives, cost $10K+ per MB                |
+| Leading Edge    | 1970–1985 | 15 years             | Winchester architecture, 8" → 5.25" form factors, enterprise adoption |
+| Mainstream      | 1985–2015 | 30 years             | 3.5"/2.5" drives dominate PCs and servers; cost drops below $0.10/GB  |
+| Trending Behind | 2015–2028 | ~13 years            | SSDs displace HDDs for boot/primary; HDDs remain for bulk storage     |
+| End of Support  | 2028+     | ~5 years (projected) | Consumer HDD production winds down; enterprise cold storage only      |
+
+**WHY THE CURVE IS IMPERFECT:**
+
+- **Long incubation (14 yrs):** Early HDDs required massive capital, no ecosystem, limited use cases — technology existed but adoption infrastructure didn't
+- **Extended mainstream (30 yrs):** Network effects + manufacturing scale-up + absence of viable alternatives created a long plateau
+- **Rapid decline (compressed tail):** SSD price crossover triggered accelerating displacement — once viable alternatives exist, decline is non-linear
+- **Result:** Right-skewed bell curve — slow start, long peak, steep right tail
+
+**TIMELINE INSIGHT:** Rogers (2003) notes that the S-curve inflection point occurs at 10–25% adoption. For HDDs, this took ~20 years from invention. Gartner's "20% threshold" for crossing the chasm aligns with the mid-1970s when HDDs moved from mainframe-only to minicomputer markets.
+
+**Visual:** Hardware Lifecycle Timeline
+
+**Speaker Notes:**
+
+- "Notice the bar widths are proportional to years. HDDs spent 30 years in mainstream — that's the long plateau you see in real adoption data."
+- "The curves we draw in textbooks are symmetric, but real technology lifecycles are not. The incubation period and the decline period are almost never the same length."
+- "For hardware, physical manufacturing constraints and infrastructure dependencies create long bleeding-edge phases."
+- "HDDs are now in 'trending behind' — still widely used for bulk storage, but SSDs are the default for performance."
+
+Sources:
+
+- Computer History Museum, "Timeline of Computer History: Memory & Storage" (2024)
+- IDC, "Worldwide Hard Disk Drive Forecast, 2024–2028" (Dec 2024)
+- Backblaze, "Hard Drive Stats for 2024" (Feb 2025)
+- Rogers, E. M. (2003). _Diffusion of Innovations_ (5th ed.). Free Press. pp. 11, 221–223.
+
+---
+
+### Slide 28 (Optional): "Software Lifecycle Timeline: Adobe Flash"
+
+**Content**
+
+LIFECYCLE TIMELINE: ADOBE FLASH
+
+This chart shows a **software technology** with a complete lifecycle including a definitive End of Life — one of the most documented software sunsets in history.
+
+**PHASE DURATIONS:**
+
+| Phase           | Years     | Duration | Key Events                                                                     |
+| --------------- | --------- | -------- | ------------------------------------------------------------------------------ |
+| Bleeding Edge   | 1996–2000 | 4 years  | FutureSplash → Macromedia Flash; early web animations                          |
+| Leading Edge    | 2000–2005 | 5 years  | Flash MX; ActionScript 2.0; YouTube launches on Flash (2005)                   |
+| Mainstream      | 2005–2012 | 7 years  | 98%+ browser penetration; dominant RIA platform; Flash video everywhere        |
+| Trending Behind | 2012–2017 | 5 years  | HTML5 gains traction; Apple bans Flash from iOS (2010); Chrome starts blocking |
+| End of Support  | 2017–2020 | 3 years  | Adobe announces EOL (July 2017); browsers remove Flash support                 |
+| End of Life     | 2020–2021 | 1 year   | Adobe removes download links (Dec 2020); kill switch activates (Jan 2021)      |
+
+**WHY THE CURVE IS IMPERFECT:**
+
+- **Short bleeding edge (4 yrs):** Web was exploding; demand for rich media was immediate; low barrier to entry for creators
+- **Compressed mainstream (7 yrs):** Rapid adoption driven by network effects (everyone had Flash installed), but equally rapid displacement once a viable open standard (HTML5) emerged
+- **Steep EOL cliff (1 yr):** Unlike hardware, software can be "killed" via updates. Adobe's kill switch made Flash literally stop working on a specific date
+- **Result:** Left-skewed with a steep right tail — fast rise, compressed peak, cliff-edge decline
+
+**TIMELINE INSIGHT:** Flash achieved ~98% browser penetration (W3Techs, 2009) — far beyond Rogers' laggard threshold. Yet it went from near-universal to zero in under a decade. This demonstrates that adoption curves can reverse rapidly when platform gatekeepers (Apple, Google, Mozilla) withdraw support.
+
+**Visual:** Software Lifecycle Timeline
+
+**Speaker Notes:**
+
+- "Flash is the canonical example of a complete software lifecycle — from innovation to literal kill switch."
+- "Compare this to HDDs: Flash's entire lifecycle (25 years) fits inside HDD's mainstream phase alone (30 years). Software cycles are dramatically compressed."
+- "The asymmetry here is different from hardware. Software rises fast but can also die fast — especially when a platform dependency is removed."
+- "This is why 'End of Support' matters so much: once vendors stop updating, the clock is ticking very fast."
+
+Sources:
+
+- Adobe, "Flash Player EOL General Information Page" (2020)
+- W3Techs, "Historical yearly trends in the usage of client-side programming languages" (2023)
+- Jobs, S. "Thoughts on Flash" — apple.com (April 2010)
+- Statista, "Share of websites using Flash" (2011–2020)
+
+---
+
+### Slide 29 (Optional): "Supply Chain Lifecycle Timeline: Barcodes"
+
+**Content**
+
+LIFECYCLE TIMELINE: BARCODE / UPC SYSTEMS IN SUPPLY CHAIN
+
+This chart shows a **supply chain technology** — one that underpins global commerce — progressing through lifecycle phases with an extraordinarily long bleeding edge.
+
+**PHASE DURATIONS:**
+
+| Phase           | Years     | Duration             | Key Events                                                                                                                |
+| --------------- | --------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Bleeding Edge   | 1952–1974 | 22 years             | Patent filed (1952); Bull's-eye design; no scanner infrastructure; first UPC scan at Marsh Supermarket (June 1974)        |
+| Leading Edge    | 1974–1985 | 11 years             | UPC standard adopted by grocery industry; scanner costs drop; critical mass of participating retailers                    |
+| Mainstream      | 1985–2020 | 35 years             | Universal adoption across retail, logistics, healthcare; GS1 standards; 6+ billion scans per day globally                 |
+| Trending Behind | 2020–2030 | ~10 years (est.)     | RFID, IoT sensors, and computer vision begin displacing barcodes for inventory; GS1 announces "Sunrise 2027" QR migration |
+| End of Support  | 2030+     | ~5 years (projected) | Legacy 1D barcodes phased out for GS1 Digital Link QR codes; optical recognition replaces manual scanning                 |
+
+**WHY THE CURVE IS IMPERFECT:**
+
+- **Extremely long bleeding edge (22 yrs):** The barcode was invented in 1952 but couldn't be adopted because: (1) laser scanners didn't exist yet, (2) no universal standard existed, (3) no critical mass of participating retailers. Technology readiness ≠ adoption readiness
+- **Extended mainstream (35 yrs):** Deep infrastructure lock-in + universal standardization + zero marginal cost of printing barcodes created extreme stickiness
+- **Slow decline (10+ yrs):** Unlike software, supply chain technologies can't be "killed" — they must be phased out across millions of global participants. RFID adoption is gradual, not cliff-edge
+- **Result:** Highly right-skewed — very long left tail (incubation), extended plateau, gradual right tail
+
+**TIMELINE INSIGHT:** The barcode demonstrates that infrastructure-dependent technologies can take decades to cross the chasm. Rogers' S-curve model assumes relatively homogeneous adoption units — but supply chains involve coordinating thousands of independent organizations, which dramatically extends the diffusion timeline. The 22-year gap between invention and first commercial use is one of the longest documented "incubation periods" in technology history.
+
+**SUPPLY CHAIN CONSIDERATIONS:**
+
+- Supply chain technologies require **ecosystem-wide coordination** — one participant can't adopt alone
+- Standardization bodies (GS1, ISO) play a critical role in enabling adoption
+- Infrastructure investments (scanners, databases, networks) must precede technology adoption
+- Switching costs are distributed across the entire supply chain, not just one organization
+- Regulatory mandates (e.g., FDA UDI for medical devices) can force adoption or extend lifecycle
+
+**Visual:** Supply Chain Lifecycle Timeline
+
+**Speaker Notes:**
+
+- "Barcodes were invented in 1952 but the first item wasn't scanned until 1974 — a 22-year gap between invention and adoption. That's the real 'bleeding edge' in practice."
+- "Supply chain is different from hardware or software: you can't adopt a supply chain technology alone. You need the entire ecosystem to participate."
+- "The 35-year mainstream phase shows how deeply entrenched infrastructure technologies become. Over 6 billion barcode scans happen daily."
+- "Notice the declining phase is gradual, not cliff-edge. You can't push a software update to millions of physical scanners worldwide. This is why supply chain transitions take decades."
+- "GS1's 'Sunrise 2027' initiative aims to migrate from 1D barcodes to QR codes — but even that planned transition will take years beyond the target date."
+
+Sources:
+
+- GS1, "The History of the Barcode" (2024) — gs1.org
+- McKinsey & Company, "Supply Chain 4.0 — the next-generation digital supply chain" (2024)
+- Zebra Technologies, "Global Shopper Study" (2024)
+- IEEE, "RFID vs Barcode: A Comparative Analysis for Supply Chain Management" (2023)
+- GS1 US, "Sunrise 2027: Transition to 2D Barcodes" (2024) — gs1us.org
