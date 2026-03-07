@@ -243,45 +243,52 @@ Adoption decisions cascade into all subsequent development and integration work.
 TECHNOLOGY LIFECYCLE STAGES
 (Where you sit determines your management, architecture, and solutions)
 
-**BLEEDING EDGE:** Forefront of development. Experimental, unproven, high risk. Monitor only.
+**BLEEDING EDGE:** Forefront of development. Experimental, unproven, high risk. Monitor only. Technologies at this stage lack production validation and carry significant integration risk. Gartner's Hype Cycle classifies these as "Innovation Trigger" technologies with less than 5% market penetration (Gartner, 2023). Examples include emerging protocols, pre-release frameworks, and experimental platforms without established support ecosystems.
 
-**LEADING EDGE:** Proven concepts, early adoption. Innovation with managed risk. **Target Zone.**
+**LEADING EDGE:** Proven concepts, early adoption. Innovation with managed risk. **Target Zone.** These technologies have crossed what Geoffrey Moore describes as "the chasm" — the gap between early adopters and the early majority (Moore, _Crossing the Chasm_, 1991; 3rd ed. 2014). They offer competitive advantage with growing community support, documented best practices, and vendor commitment to long-term development.
 
-**MAINSTREAM:** Widely adopted, stable, mature tooling. Predictable outcomes. **Target Zone.**
+**MAINSTREAM:** Widely adopted, stable, mature tooling. Predictable outcomes. **Target Zone.** Everett Rogers' Diffusion of Innovations framework places these in the "late majority" adoption phase, with market penetration above 50% (Rogers, _Diffusion of Innovations_, 1962; 5th ed. 2003). Characterized by extensive documentation, large talent pools, established security patching cadences, and predictable total cost of ownership.
 
-**TRENDING BEHIND:** Declining usage, newer alternatives exist. Legacy concerns emerging.
+**TRENDING BEHIND:** Declining usage, newer alternatives exist. Legacy concerns emerging. Technologies enter this phase when vendor investment decreases and community activity declines. NIST SP 800-160 Vol. 1 identifies declining vendor support as a key systems engineering risk factor requiring proactive migration planning (NIST, 2018). Organizations face growing costs from technical debt, shrinking talent availability, and increasing security exposure.
 
-**END OF SUPPORT / LIFE:** No updates, security patches, or bug fixes. Migration mandatory.
+**END OF SUPPORT / LIFE:** No updates, security patches, or bug fixes. Migration mandatory. Microsoft's Modern Lifecycle Policy and similar vendor frameworks define end-of-support as the cessation of security updates, creating unacceptable compliance and security risk (Microsoft, 2024). CISA has repeatedly identified end-of-life software as a top exploited vulnerability category in its Known Exploited Vulnerabilities catalog (CISA KEV, 2023).
 
-**Visual:** Lifecycle curve
+**Visual:** Lifecycle curve showing dual relationship between innovation potential (declining over time) and adoption risk (U-shaped — high at both extremes, lowest at mainstream)
 
 ```text
      ┌─────────────────────────────────────────────────────────────┐
-     │ Innovation/Risk                                             │
-     │      ↑                                                      │
-     │ High │    ●Bleeding                                         │
-     │      │   ╱ ╲                                                │
-     │      │  ╱   ●Leading                                        │
-     │      │ ╱     ╲                                              │
-     │      │╱       ╲                                             │
-     │ Med  │         ●Mainstream                                  │
-     │      │          ╲                                           │
-     │      │           ╲●Trending Behind                          │
-     │      │            ╲                                         │
-     │ Low  │             ●End of Support                          │
-     │      │              ●End of Life                            │
-     │      │               ●Obsolete                              │
-     │      └─────────────────────────────→ Time                   │
+     │                    ┌── TARGET ZONE ──┐                      │
+     │ High │  ╲.                          .╱                      │
+     │      │   ╲ Innovation (dashed)    ╱ Risk (solid)            │
+     │      │    ╲.     ╱╲             ╱                           │
+     │      │     ╲.  ╱    ╲         ╱                             │
+     │      │      ╲╱        ╲     ╱                               │
+     │      │     ╱ ╲          ╲ ╱                                 │
+     │ Low  │   ╱    ╲...       ╲...                               │
+     │      └──────────────────────────────▶ Time                  │
+     │      Bleeding  Leading  Main-  Trending  End of             │
+     │      Edge      Edge     stream Behind    Support            │
      │                                                             │
-     │      ←Adoption Rate High────────Low→                        │
+     │      --- Innovation Potential   ─── Adoption Risk           │
      └─────────────────────────────────────────────────────────────┘
 ```
+
+**Sources:**
+
+- Rogers, E. M. (2003). _Diffusion of Innovations_ (5th ed.). Free Press. (Original work published 1962.)
+- Moore, G. A. (2014). _Crossing the Chasm: Marketing and Selling Disruptive Products to Mainstream Customers_ (3rd ed.). Harper Business. (Original work published 1991.)
+- Gartner. (2023). _Gartner Hype Cycle Research Methodology._ https://www.gartner.com/en/research/methodologies/gartner-hype-cycle
+- NIST. (2018). _SP 800-160 Vol. 1: Systems Security Engineering._ National Institute of Standards and Technology.
+- Microsoft. (2024). _Modern Lifecycle Policy._ https://learn.microsoft.com/en-us/lifecycle/policies/modern
+- CISA. (2023). _Known Exploited Vulnerabilities Catalog._ Cybersecurity and Infrastructure Security Agency. https://www.cisa.gov/known-exploited-vulnerabilities-catalog
 
 **Speaker Notes:**
 
 - "This isn't just academic - where you sit here determines everything"
 - "Notice how adoption potential changes across the lifecycle"
 - "Bleeding Edge and Obsolete both have very low adoption rates - for different reasons"
+- "Rogers' research showed that technology adoption follows a predictable S-curve — these lifecycle stages map directly to that curve"
+- "The dual-curve visual shows why the middle stages are the target: innovation potential is still meaningful while adoption risk is at its lowest"
 
 **Transition:** "Where you choose to position in this lifecycle isn't just a technical decision - it determines your management methods, architecture approaches, and solutions."
 

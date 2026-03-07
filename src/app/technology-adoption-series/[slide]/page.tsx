@@ -383,43 +383,107 @@ const SlideVisual = ({ slideNumber }: { slideNumber: number }) => {
   }
 
   if (slideNumber === 6) {
+    /* Dual-curve lifecycle chart:
+       - Cyan dashed = Innovation Potential (peaks early, declines)
+       - Amber solid = Adoption Risk (U-shaped)
+       - Shaded zone = Target sweet spot (Leading Edge → Mainstream) */
+    const stages = [
+      { x: 100, label: 'Bleeding Edge' },
+      { x: 190, label: 'Leading Edge' },
+      { x: 290, label: 'Mainstream' },
+      { x: 390, label: 'Trending Behind' },
+      { x: 480, label: 'End of Support' },
+    ]
+    const innovY = [55, 72, 145, 195, 220]
+    const riskY = [60, 120, 205, 150, 65]
+
+    const innovPath = `M${stages[0].x} ${innovY[0]} C${stages[0].x + 35} ${innovY[0]},${stages[1].x - 35} ${innovY[1]},${stages[1].x} ${innovY[1]} C${stages[1].x + 50} ${innovY[1] + 18},${stages[2].x - 50} ${innovY[2]},${stages[2].x} ${innovY[2]} C${stages[2].x + 50} ${innovY[2] + 12},${stages[3].x - 50} ${innovY[3]},${stages[3].x} ${innovY[3]} C${stages[3].x + 40} ${innovY[3] + 10},${stages[4].x - 40} ${innovY[4]},${stages[4].x} ${innovY[4]}`
+    const riskPath = `M${stages[0].x} ${riskY[0]} C${stages[0].x + 40} ${riskY[0] + 25},${stages[1].x - 40} ${riskY[1]},${stages[1].x} ${riskY[1]} C${stages[1].x + 50} ${riskY[1] + 35},${stages[2].x - 50} ${riskY[2]},${stages[2].x} ${riskY[2]} C${stages[2].x + 50} ${riskY[2] - 25},${stages[3].x - 50} ${riskY[3]},${stages[3].x} ${riskY[3]} C${stages[3].x + 40} ${riskY[3] - 35},${stages[4].x - 40} ${riskY[4]},${stages[4].x} ${riskY[4]}`
+
     return (
       <VisualCard title="Visual">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto w-full flex justify-center bg-slate-900 rounded p-4">
           <svg
-            viewBox="0 0 640 260"
+            viewBox="0 0 560 280"
+            className="w-full max-w-full"
             role="img"
-            aria-label="Technology lifecycle curve"
-            className="w-full"
+            aria-label="Technology lifecycle: innovation potential vs adoption risk showing Leading Edge to Mainstream as target zone"
+            style={{ maxHeight: '400px' }}
           >
-            <rect x="0" y="0" width="640" height="260" fill="white" />
-            <path d="M60 210 L60 40" stroke="#D1D5DB" strokeWidth="2" />
-            <path d="M60 210 L610 210" stroke="#D1D5DB" strokeWidth="2" />
-            <path
-              d="M80 190 C 150 60, 240 60, 300 120 S 420 230, 560 200"
-              fill="none"
-              stroke="#1F2937"
-              strokeWidth="3"
+            <defs>
+              <linearGradient id="sweetSpotGradSlide" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.12" />
+                <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.03" />
+              </linearGradient>
+            </defs>
+            {/* Axes */}
+            <line x1="60" y1="230" x2="520" y2="230" stroke="#334155" strokeWidth="1" />
+            <line x1="60" y1="230" x2="60" y2="25" stroke="#334155" strokeWidth="1" />
+            <text x="15" y="25" fontSize="9" fill="#64748b">
+              High
+            </text>
+            <text x="15" y="230" fontSize="9" fill="#64748b">
+              Low
+            </text>
+            {/* Sweet spot zone */}
+            <rect
+              x={stages[1].x - 12}
+              y="35"
+              width={stages[2].x - stages[1].x + 24}
+              height="190"
+              rx="6"
+              fill="url(#sweetSpotGradSlide)"
             />
-            {[
-              { x: 110, y: 120, label: 'Bleeding' },
-              { x: 210, y: 80, label: 'Leading' },
-              { x: 320, y: 130, label: 'Mainstream' },
-              { x: 440, y: 190, label: 'Trending' },
-              { x: 520, y: 205, label: 'End of support' },
-            ].map((p) => (
-              <g key={p.label}>
-                <circle cx={p.x} cy={p.y} r="6" fill="#111827" />
-                <text x={p.x + 10} y={p.y + 4} fontSize="12" fill="#111827">
-                  {p.label}
+            <text
+              x={(stages[1].x + stages[2].x) / 2}
+              y="48"
+              textAnchor="middle"
+              fontSize="8"
+              fill="#22d3ee"
+              opacity="0.7"
+            >
+              Target Zone
+            </text>
+            {/* Innovation potential curve (cyan dashed) */}
+            <path
+              d={innovPath}
+              fill="none"
+              stroke="#22d3ee"
+              strokeWidth="2"
+              strokeDasharray="6 3"
+            />
+            {/* Adoption risk curve (amber solid) */}
+            <path d={riskPath} fill="none" stroke="#f59e0b" strokeWidth="2" />
+            {/* Stage markers and labels */}
+            {stages.map((s, i) => (
+              <g key={s.label}>
+                <circle cx={s.x} cy={innovY[i]} r="3" fill="#22d3ee" />
+                <circle cx={s.x} cy={riskY[i]} r="3" fill="#f59e0b" />
+                <text x={s.x} y="246" textAnchor="middle" fontSize="8" fill="#94a3b8">
+                  {s.label}
                 </text>
               </g>
             ))}
-            <text x="8" y="60" fontSize="12" fill="#6B7280">
-              Risk
+            {/* Legend */}
+            <line
+              x1="100"
+              y1="268"
+              x2="120"
+              y2="268"
+              stroke="#22d3ee"
+              strokeWidth="2"
+              strokeDasharray="6 3"
+            />
+            <text x="124" y="271" fontSize="7" fill="#94a3b8">
+              Innovation Potential
             </text>
-            <text x="560" y="248" fontSize="12" fill="#6B7280">
-              Time
+            <line x1="250" y1="268" x2="270" y2="268" stroke="#f59e0b" strokeWidth="2" />
+            <text x="274" y="271" fontSize="7" fill="#94a3b8">
+              Adoption Risk
+            </text>
+            <rect x="390" y="264" width="10" height="8" rx="2" fill="#22d3ee" opacity="0.15" />
+            <text x="404" y="271" fontSize="7" fill="#94a3b8">
+              Sweet Spot
             </text>
           </svg>
         </div>
