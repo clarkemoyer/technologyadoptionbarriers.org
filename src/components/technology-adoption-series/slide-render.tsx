@@ -2,6 +2,9 @@ import type { ReactNode } from 'react'
 
 import { RenderMarkdownNodes } from '@/lib/simple-markdown'
 
+import { LifecycleTimelineBar } from './lifecycle-timeline-bar'
+import type { LifecyclePhase } from './lifecycle-timeline-bar'
+
 const IconCheck = ({ title }: { title: string }) => (
   <svg
     aria-label={title}
@@ -1196,10 +1199,9 @@ export const TechnologyAdoptionSeriesSlideVisual = ({
 
   // ── Lifecycle timeline charts (slides 27-29) ──────────────
   if (slideNumber === 27 || slideNumber === 28 || slideNumber === 29) {
-    type Phase = { label: string; years: string; duration: number; color: string }
     const configs: Record<
       number,
-      { title: string; phases: Phase[]; note: string; source: string }
+      { title: string; phases: LifecyclePhase[]; note: string; source: string }
     > = {
       27: {
         title: 'Hardware: Hard Disk Drives (HDDs)',
@@ -1208,7 +1210,13 @@ export const TechnologyAdoptionSeriesSlideVisual = ({
           { label: 'Leading Edge', years: '1970–1985', duration: 15, color: '#22d3ee' },
           { label: 'Mainstream', years: '1985–2015', duration: 30, color: '#22c55e' },
           { label: 'Trending Behind', years: '2015–2028', duration: 13, color: '#f97316' },
-          { label: 'End of Support', years: '2028+', duration: 5, color: '#ef4444' },
+          {
+            label: 'End of Support',
+            years: '2028+',
+            duration: 5,
+            color: '#ef4444',
+            textColor: '#fff',
+          },
         ],
         note: 'Long mainstream (30 yrs) creates right-skewed curve',
         source: 'Computer History Museum (2024); IDC HDD Forecast (2024)',
@@ -1220,8 +1228,20 @@ export const TechnologyAdoptionSeriesSlideVisual = ({
           { label: 'Leading Edge', years: '2000–2005', duration: 5, color: '#22d3ee' },
           { label: 'Mainstream', years: '2005–2012', duration: 7, color: '#22c55e' },
           { label: 'Trending Behind', years: '2012–2017', duration: 5, color: '#f97316' },
-          { label: 'End of Support', years: '2017–2020', duration: 3, color: '#ef4444' },
-          { label: 'EOL', years: '2020–21', duration: 1, color: '#991b1b' },
+          {
+            label: 'End of Support',
+            years: '2017–2020',
+            duration: 3,
+            color: '#ef4444',
+            textColor: '#fff',
+          },
+          {
+            label: 'EOL',
+            years: '2020–21',
+            duration: 1,
+            color: '#991b1b',
+            textColor: '#fff',
+          },
         ],
         note: 'Compressed EOL (1 yr) after HTML5 displaced it',
         source: 'Adobe Flash EOL Page (2020); W3Techs (2023)',
@@ -1233,7 +1253,13 @@ export const TechnologyAdoptionSeriesSlideVisual = ({
           { label: 'Leading Edge', years: '1974–1985', duration: 11, color: '#22d3ee' },
           { label: 'Mainstream', years: '1985–2020', duration: 35, color: '#22c55e' },
           { label: 'Trending Behind', years: '2020–2030', duration: 10, color: '#f97316' },
-          { label: 'End of Support', years: '2030+', duration: 5, color: '#ef4444' },
+          {
+            label: 'End of Support',
+            years: '2030+',
+            duration: 5,
+            color: '#ef4444',
+            textColor: '#fff',
+          },
         ],
         note: 'Extremely long bleeding edge (22 yrs) — infrastructure lag',
         source: 'GS1 Barcode History (2024); McKinsey Supply Chain 4.0 (2024)',
@@ -1242,38 +1268,14 @@ export const TechnologyAdoptionSeriesSlideVisual = ({
 
     const cfg = configs[slideNumber]
     if (cfg) {
-      const totalDuration = cfg.phases.reduce((s, p) => s + p.duration, 0)
       return (
         <VisualCard title={cfg.title}>
-          <div className="space-y-2">
-            <div className="text-sm font-semibold text-gray-900">{cfg.title}</div>
-            <div
-              className="flex w-full overflow-hidden rounded"
-              role="img"
-              aria-label={`${cfg.title} lifecycle timeline`}
-            >
-              {cfg.phases.map((p) => (
-                <div
-                  key={p.label}
-                  style={{
-                    width: `${(p.duration / totalDuration) * 100}%`,
-                    backgroundColor: p.color,
-                  }}
-                  className="flex flex-col items-center justify-center py-3 px-1 text-center"
-                >
-                  <div className="text-xs font-bold text-gray-900 leading-tight">{p.label}</div>
-                  <div className="text-xs text-gray-800">{p.duration}yr</div>
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-between text-xs text-gray-500">
-              {cfg.phases.map((p) => (
-                <span key={p.label}>{p.years}</span>
-              ))}
-            </div>
-            <div className="text-xs font-medium text-amber-700">{cfg.note}</div>
-            <div className="text-xs text-gray-500 italic">{cfg.source}</div>
-          </div>
+          <LifecycleTimelineBar
+            title={cfg.title}
+            phases={cfg.phases}
+            note={cfg.note}
+            source={cfg.source}
+          />
         </VisualCard>
       )
     }

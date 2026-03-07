@@ -309,22 +309,22 @@ The lifecycle stages are not theoretical — every technology currently in use s
 - Rogers, E. M. (2003). _Diffusion of Innovations_ (5th ed.). Free Press. (Original work published 1962.)
 - Moore, G. A. (2014). _Crossing the Chasm: Marketing and Selling Disruptive Products to Mainstream Customers_ (3rd ed.). Harper Business. (Original work published 1991.)
 - Christensen, C. M. (2016). _The Innovator's Dilemma: When New Technologies Cause Great Firms to Fail_ (rev. ed.). Harvard Business Review Press. (Original work published 1997.)
-- Gartner. (2023). _Understanding Gartner's Hype Cycles._ https://www.gartner.com/en/research/methodologies/gartner-hype-cycle
+- Gartner. (2023). _Understanding Gartner's Hype Cycles._ [gartner.com](https://www.gartner.com/en/research/methodologies/gartner-hype-cycle)
 - Gartner. (2024). _Hype Cycle for Networking, 2024._
 - NIST. (2018). _SP 800-160 Vol. 1: Systems Security Engineering._ National Institute of Standards and Technology.
-- NIST. (2024). _Cybersecurity Framework 2.0._ National Institute of Standards and Technology. https://www.nist.gov/cyberframework
-- NIST. (2024). _Post-Quantum Cryptography Standardization: FIPS 203, 204, 205._ https://csrc.nist.gov/projects/post-quantum-cryptography
-- Microsoft. (2024). _Modern Lifecycle Policy._ https://learn.microsoft.com/en-us/lifecycle/policies/modern
-- Microsoft. (2024). _Windows 10 End of Support._ https://learn.microsoft.com/en-us/lifecycle/products/windows-10-home-and-pro
+- NIST. (2024). _Cybersecurity Framework 2.0._ National Institute of Standards and Technology. [nist.gov](https://www.nist.gov/cyberframework)
+- NIST. (2024). _Post-Quantum Cryptography Standardization: FIPS 203, 204, 205._ [csrc.nist.gov](https://csrc.nist.gov/projects/post-quantum-cryptography)
+- Microsoft. (2024). _Modern Lifecycle Policy._ [learn.microsoft.com](https://learn.microsoft.com/en-us/lifecycle/policies/modern)
+- Microsoft. (2024). _Windows 10 End of Support._ [learn.microsoft.com](https://learn.microsoft.com/en-us/lifecycle/products/windows-10-home-and-pro)
 - Red Hat. (2024). _CentOS 7 End of Life._
-- Python Software Foundation. (2019). _Sunsetting Python 2._ https://www.python.org/doc/sunset-python-2/
-- CISA. (2023). _Known Exploited Vulnerabilities Catalog._ Cybersecurity and Infrastructure Security Agency. https://www.cisa.gov/known-exploited-vulnerabilities-catalog
-- Stack Overflow. (2024). _2024 Developer Survey Results._ https://survey.stackoverflow.co/2024/
+- Python Software Foundation. (2019). _Sunsetting Python 2._ [python.org](https://www.python.org/doc/sunset-python-2/)
+- CISA. (2023). _Known Exploited Vulnerabilities Catalog._ Cybersecurity and Infrastructure Security Agency. [cisa.gov](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)
+- Stack Overflow. (2024). _2024 Developer Survey Results._ [survey.stackoverflow.co](https://survey.stackoverflow.co/2024/)
 - State of JS. (2024). _State of JavaScript 2024 Survey._
-- DB-Engines. (2024). _DB-Engines Ranking Trend._ https://db-engines.com/en/ranking_trend
-- GitHub. (2024). _Octoverse 2024._ https://github.blog/news-insights/octoverse/octoverse-2024/
+- DB-Engines. (2024). _DB-Engines Ranking Trend._ [db-engines.com](https://db-engines.com/en/ranking_trend)
+- GitHub. (2024). _Octoverse 2024._ [github.blog](https://github.blog/news-insights/octoverse/octoverse-2024/)
 - JetBrains. (2024). _Python Developers Survey 2024._
-- W3Techs. (2024). _Usage Statistics of JavaScript Libraries._ https://w3techs.com/technologies/overview/javascript_library
+- W3Techs. (2024). _Usage Statistics of JavaScript Libraries._ [w3techs.com](https://w3techs.com/technologies/overview/javascript_library)
 
 **Speaker Notes:**
 
