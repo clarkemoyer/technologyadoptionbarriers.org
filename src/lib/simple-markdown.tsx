@@ -32,7 +32,7 @@ type InlineToken =
   | { kind: 'code'; value: string }
   | { kind: 'link'; label: string; href: string }
 
-const tokenizeInline = (value: string | null | undefined): InlineToken[] => {
+export const tokenizeInline = (value: string | null | undefined): InlineToken[] => {
   const tokens: InlineToken[] = []
   let remaining = value ?? ''
 
@@ -40,7 +40,8 @@ const tokenizeInline = (value: string | null | undefined): InlineToken[] => {
     const codeMatch = remaining.match(/`([^`]+)`/)
     const linkMatch = remaining.match(/\[([^\]]+)]\(([^)]+)\)/)
     const strongMatch = remaining.match(/\*\*([^*]+)\*\*/)
-    const emMatch = remaining.match(/\*([^*]+)\*/) ?? remaining.match(/(?<!\w)_([^_]+)_(?!\w)/)
+    const emMatchAsterisk = remaining.match(/\*([^*]+)\*/)
+    const emMatchUnderscore = remaining.match(/(?<!\w)_([^_]+)_(?!\w)/)
 
     const matches = [
       codeMatch && { kind: 'code' as const, index: codeMatch.index ?? 0, match: codeMatch },
@@ -50,7 +51,16 @@ const tokenizeInline = (value: string | null | undefined): InlineToken[] => {
         index: strongMatch.index ?? 0,
         match: strongMatch,
       },
-      emMatch && { kind: 'em' as const, index: emMatch.index ?? 0, match: emMatch },
+      emMatchAsterisk && {
+        kind: 'em' as const,
+        index: emMatchAsterisk.index ?? 0,
+        match: emMatchAsterisk,
+      },
+      emMatchUnderscore && {
+        kind: 'em' as const,
+        index: emMatchUnderscore.index ?? 0,
+        match: emMatchUnderscore,
+      },
     ].filter(Boolean) as Array<{
       kind: InlineToken['kind']
       index: number

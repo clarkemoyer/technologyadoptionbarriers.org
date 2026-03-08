@@ -1,4 +1,41 @@
-import { parseSimpleMarkdown } from '@/lib/simple-markdown'
+import { parseSimpleMarkdown, tokenizeInline } from '@/lib/simple-markdown'
+
+describe('tokenizeInline', () => {
+  it('renders underscore emphasis as em tokens', () => {
+    const tokens = tokenizeInline('Rogers, _Diffusion of Innovations_, 2003')
+    expect(tokens).toEqual([
+      { kind: 'text', value: 'Rogers, ' },
+      { kind: 'em', value: 'Diffusion of Innovations' },
+      { kind: 'text', value: ', 2003' },
+    ])
+  })
+
+  it('renders asterisk emphasis as em tokens', () => {
+    const tokens = tokenizeInline('Rogers, *Diffusion of Innovations*, 2003')
+    expect(tokens).toEqual([
+      { kind: 'text', value: 'Rogers, ' },
+      { kind: 'em', value: 'Diffusion of Innovations' },
+      { kind: 'text', value: ', 2003' },
+    ])
+  })
+
+  it('picks the earliest match when both _italic_ and *italic* are present', () => {
+    const tokens = tokenizeInline('_first_ then *second*')
+    expect(tokens[0]).toEqual({ kind: 'em', value: 'first' })
+    expect(tokens[2]).toEqual({ kind: 'em', value: 'second' })
+  })
+
+  it('does not match underscores inside words', () => {
+    const tokens = tokenizeInline('some_variable_name')
+    expect(tokens).toEqual([{ kind: 'text', value: 'some_variable_name' }])
+  })
+
+  it('handles mixed bold and underscore emphasis', () => {
+    const tokens = tokenizeInline('**bold** and _italic_')
+    expect(tokens[0]).toEqual({ kind: 'strong', value: 'bold' })
+    expect(tokens[2]).toEqual({ kind: 'em', value: 'italic' })
+  })
+})
 
 describe('parseSimpleMarkdown', () => {
   it('nests unindented "o" sub-bullets under a preceding colon item', () => {
