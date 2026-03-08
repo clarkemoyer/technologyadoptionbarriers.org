@@ -40,7 +40,7 @@ const tokenizeInline = (value: string | null | undefined): InlineToken[] => {
     const codeMatch = remaining.match(/`([^`]+)`/)
     const linkMatch = remaining.match(/\[([^\]]+)]\(([^)]+)\)/)
     const strongMatch = remaining.match(/\*\*([^*]+)\*\*/)
-    const emMatch = remaining.match(/\*([^*]+)\*/)
+    const emMatch = remaining.match(/\*([^*]+)\*/) ?? remaining.match(/(?<!\w)_([^_]+)_(?!\w)/)
 
     const matches = [
       codeMatch && { kind: 'code' as const, index: codeMatch.index ?? 0, match: codeMatch },
