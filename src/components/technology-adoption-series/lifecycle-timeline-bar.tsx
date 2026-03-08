@@ -26,7 +26,9 @@ export function LifecycleTimelineBar({ title, phases, note, source }: LifecycleT
       <div className="text-sm font-semibold text-gray-900">{title}</div>
       <div
         className="flex w-full overflow-hidden rounded"
-        aria-label={`${title} lifecycle timeline: ${ariaPhases}`}
+        role="group"
+        aria-roledescription="lifecycle timeline"
+        aria-label={`${title}: ${ariaPhases}`}
       >
         {phases.map((p) => (
           <div
@@ -43,9 +45,15 @@ export function LifecycleTimelineBar({ title, phases, note, source }: LifecycleT
           </div>
         ))}
       </div>
-      <div className="flex justify-between text-xs text-gray-500">
+      <div className="flex w-full text-xs text-gray-500">
         {phases.map((p) => (
-          <span key={p.label}>{p.years}</span>
+          <div
+            key={p.label}
+            style={{ width: `${(p.duration / totalDuration) * 100}%` }}
+            className="text-center"
+          >
+            {p.years}
+          </div>
         ))}
       </div>
       <div className="text-xs font-medium text-amber-700">{note}</div>

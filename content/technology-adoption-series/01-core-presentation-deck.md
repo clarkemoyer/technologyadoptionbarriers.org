@@ -1179,9 +1179,11 @@ If questions come up that need a deeper dive, these optional slides are availabl
 5. [Slide 22 (Optional): Organizational vs User Adoption Deep Dive](#slide-22-optional-organizational-vs-user-adoption-deep-dive)
 6. [Slide 23 (Optional): Handling Inherited Legacy Systems](#slide-23-optional-handling-inherited-legacy-systems)
 7. [Slide 24 (Optional): AI/ML Technology Adoption Considerations](#slide-24-optional-aiml-technology-adoption-considerations)
-8. [Slide 27 (Optional): Hardware Lifecycle Timeline: HDDs](#slide-27-optional-hardware-lifecycle-timeline-hdds)
-9. [Slide 28 (Optional): Software Lifecycle Timeline: Adobe Flash](#slide-28-optional-software-lifecycle-timeline-adobe-flash)
-10. [Slide 29 (Optional): Supply Chain Lifecycle Timeline: Barcodes](#slide-29-optional-supply-chain-lifecycle-timeline-barcodes)
+8. [Slide 25 (Optional): Technology Lifecycle Cycles](#slide-25-optional-technology-lifecycle-cycles)
+9. [Slide 26 (Optional): The Trifecta of Adoption](#slide-26-optional-the-trifecta-of-adoption)
+10. [Slide 27 (Optional): Hardware Lifecycle Timeline: HDDs](#slide-27-optional-hardware-lifecycle-timeline-hdds)
+11. [Slide 28 (Optional): Software Lifecycle Timeline: Adobe Flash](#slide-28-optional-software-lifecycle-timeline-adobe-flash)
+12. [Slide 29 (Optional): Supply Chain Lifecycle Timeline: Barcodes](#slide-29-optional-supply-chain-lifecycle-timeline-barcodes)
 
 **Speaker Notes:**
 

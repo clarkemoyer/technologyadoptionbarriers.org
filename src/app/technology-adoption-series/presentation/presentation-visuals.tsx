@@ -1,5 +1,7 @@
 import React, { type ReactNode } from 'react'
 
+import { LIFECYCLE_CONFIGS } from '@/data/lifecycle-timeline-configs'
+
 /* ────────────────────────────────────────────────────────────
    Dark-native visual components for the fullscreen presenter.
    These are ONLY used by the presentation route — the landing
@@ -1504,15 +1506,12 @@ function Visual26_DeepDiveTrifectaModel() {
 
 /* Shared timeline bar renderer for lifecycle example charts.
    Each phase gets a proportional-width bar on a horizontal timeline.
+   Phase data imported from @/data/lifecycle-timeline-configs.
    Sources cited inline per chart. */
 
-interface TimelinePhase {
-  label: string
-  years: string
-  duration: number // years (used for proportional width)
-  color: string
-  textColor?: string
-}
+// Re-use the shared type for timeline phases
+type TimelinePhase =
+  import('@/components/technology-adoption-series/lifecycle-timeline-bar').LifecyclePhase
 
 function LifecycleTimelineChart({
   title,
@@ -1747,56 +1746,13 @@ function LifecycleTimelineChart({
 }
 
 function Visual27_HardwareLifecycleTimeline() {
-  /* Hard Disk Drives (HDDs) — a well-documented hardware lifecycle
-     Sources:
-     - Computer History Museum, "Timeline of Storage" (2024)
-     - Backblaze, "Hard Drive Stats" reports (2023-2025)
-     - IDC, "Worldwide Hard Disk Drive Forecast" (2024)
-     - Gartner, "Emerging Tech: Solid State Arrays" (2023)
-  */
-  const phases: TimelinePhase[] = [
-    {
-      label: 'Bleeding Edge',
-      years: '1956–1970',
-      duration: 14,
-      color: '#fbbf24',
-      textColor: '#713f12',
-    },
-    {
-      label: 'Leading Edge',
-      years: '1970–1985',
-      duration: 15,
-      color: '#22d3ee',
-      textColor: '#0f172a',
-    },
-    {
-      label: 'Mainstream',
-      years: '1985–2015',
-      duration: 30,
-      color: '#22c55e',
-      textColor: '#0f172a',
-    },
-    {
-      label: 'Trending Behind',
-      years: '2015–2028',
-      duration: 13,
-      color: '#f97316',
-      textColor: '#0f172a',
-    },
-    {
-      label: 'End of Support',
-      years: '2028+',
-      duration: 5,
-      color: '#ef4444',
-      textColor: '#fef2f2',
-    },
-  ]
+  const cfg = LIFECYCLE_CONFIGS[27]
 
   return (
     <LifecycleTimelineChart
       title="Hardware Example: Hard Disk Drives (HDDs)"
       subtitle="From IBM RAMAC (1956) to SSD displacement — 70+ year lifecycle"
-      phases={phases}
+      phases={cfg.phases}
       totalYears="~77 years"
       ariaLabel="HDD lifecycle timeline showing 14 years bleeding edge, 15 years leading edge, 30 years mainstream, 13 years trending behind, and ongoing end of support"
       noteText="Long mainstream plateau (30 yrs) creates a right-skewed curve — slow start, extended peak, then rapid SSD displacement"
@@ -1806,63 +1762,13 @@ function Visual27_HardwareLifecycleTimeline() {
 }
 
 function Visual28_SoftwareLifecycleTimeline() {
-  /* Adobe Flash — a well-documented software lifecycle with a definitive EOL
-     Sources:
-     - Adobe, "Flash Player EOL General Information Page" (2020)
-     - W3Techs, "Historical Usage of Flash" (2023)
-     - Web Technology Surveys archive
-     - Statista, "Flash usage on websites" (2020)
-  */
-  const phases: TimelinePhase[] = [
-    {
-      label: 'Bleeding Edge',
-      years: '1996–2000',
-      duration: 4,
-      color: '#fbbf24',
-      textColor: '#713f12',
-    },
-    {
-      label: 'Leading Edge',
-      years: '2000–2005',
-      duration: 5,
-      color: '#22d3ee',
-      textColor: '#0f172a',
-    },
-    {
-      label: 'Mainstream',
-      years: '2005–2012',
-      duration: 7,
-      color: '#22c55e',
-      textColor: '#0f172a',
-    },
-    {
-      label: 'Trending Behind',
-      years: '2012–2017',
-      duration: 5,
-      color: '#f97316',
-      textColor: '#0f172a',
-    },
-    {
-      label: 'End of Support',
-      years: '2017–2020',
-      duration: 3,
-      color: '#ef4444',
-      textColor: '#fef2f2',
-    },
-    {
-      label: 'End of Life',
-      years: '2020–2021',
-      duration: 1,
-      color: '#991b1b',
-      textColor: '#fef2f2',
-    },
-  ]
+  const cfg = LIFECYCLE_CONFIGS[28]
 
   return (
     <LifecycleTimelineChart
       title="Software Example: Adobe Flash"
       subtitle="From FutureSplash (1996) to EOL removal (2021) — 25 year lifecycle"
-      phases={phases}
+      phases={cfg.phases}
       totalYears="~25 years"
       ariaLabel="Adobe Flash lifecycle timeline showing 4 years bleeding edge, 5 years leading edge, 7 years mainstream, 5 years trending behind, 3 years end of support, and 1 year end of life"
       noteText="Compressed end-of-life (1 yr) after Apple's 2010 rejection + HTML5 — left-skewed tail with steep decline"
@@ -1872,56 +1778,13 @@ function Visual28_SoftwareLifecycleTimeline() {
 }
 
 function Visual29_SupplyChainLifecycleTimeline() {
-  /* Barcode / UPC Systems in Supply Chain
-     Sources:
-     - GS1, "The History of the Barcode" (2024)
-     - McKinsey, "Supply Chain 4.0" (2024)
-     - Zebra Technologies, "Global Shopper Study" (2024)
-     - IEEE, "RFID vs Barcode: A Comparative Analysis" (2023)
-  */
-  const phases: TimelinePhase[] = [
-    {
-      label: 'Bleeding Edge',
-      years: '1952–1974',
-      duration: 22,
-      color: '#fbbf24',
-      textColor: '#713f12',
-    },
-    {
-      label: 'Leading Edge',
-      years: '1974–1985',
-      duration: 11,
-      color: '#22d3ee',
-      textColor: '#0f172a',
-    },
-    {
-      label: 'Mainstream',
-      years: '1985–2020',
-      duration: 35,
-      color: '#22c55e',
-      textColor: '#0f172a',
-    },
-    {
-      label: 'Trending Behind',
-      years: '2020–2030',
-      duration: 10,
-      color: '#f97316',
-      textColor: '#0f172a',
-    },
-    {
-      label: 'End of Support',
-      years: '2030+',
-      duration: 5,
-      color: '#ef4444',
-      textColor: '#fef2f2',
-    },
-  ]
+  const cfg = LIFECYCLE_CONFIGS[29]
 
   return (
     <LifecycleTimelineChart
       title="Supply Chain Example: Barcode / UPC Systems"
       subtitle="From patent (1952) to RFID/IoT displacement — 80+ year lifecycle"
-      phases={phases}
+      phases={cfg.phases}
       totalYears="~83 years"
       ariaLabel="Barcode lifecycle timeline showing 22 years bleeding edge, 11 years leading edge, 35 years mainstream, 10 years trending behind, and projected end of support"
       noteText="Extremely long bleeding edge (22 yrs) — technology existed decades before infrastructure enabled adoption"
