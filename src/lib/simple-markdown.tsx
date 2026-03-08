@@ -41,7 +41,16 @@ export const tokenizeInline = (value: string | null | undefined): InlineToken[] 
     const linkMatch = remaining.match(/\[([^\]]+)]\(([^)]+)\)/)
     const strongMatch = remaining.match(/\*\*([^*]+)\*\*/)
     const emMatchAsterisk = remaining.match(/\*([^*]+)\*/)
-    const emMatchUnderscore = remaining.match(/(?<!\w)_([^_]+)_(?!\w)/)
+    // Use a boundary-safe pattern (no lookbehind) for older Safari compatibility.
+    // The leading boundary char is captured in group 1; we adjust index/groups so
+    // downstream code sees group[1] = content and group[0] = just the _content_ span.
+    const rawUnderscoreMatch = remaining.match(/(^|[^\w])_([^_]+)_([^\w]|$)/)
+    const emMatchUnderscore = rawUnderscoreMatch
+      ? Object.assign([`_${rawUnderscoreMatch[2]}_`, rawUnderscoreMatch[2]], {
+          index: (rawUnderscoreMatch.index ?? 0) + rawUnderscoreMatch[1].length,
+          input: rawUnderscoreMatch.input,
+        })
+      : null
 
     const matches = [
       codeMatch && { kind: 'code' as const, index: codeMatch.index ?? 0, match: codeMatch },
