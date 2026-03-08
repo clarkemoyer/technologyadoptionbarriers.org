@@ -51,6 +51,9 @@ permissions:
   issues: write
 
 env:
+  # Default for workflow_dispatch is set above; this fallback covers
+  # pull_request_review / pull_request events where inputs.max_rounds
+  # is not available.
   MAX_ROUNDS: ${{ inputs.max_rounds || 10 }}
   COPILOT_REVIEWER: 'copilot-pull-request-reviewer[bot]'
 
@@ -292,7 +295,8 @@ jobs:
         run: |
           PR="${{ github.event.pull_request.number }}"
 
-          # Brief pause so CI checks can start first
+          # Short delay so the CI workflow (ci.yml) has time to start first;
+          # this avoids the Copilot review completing before CI even begins.
           sleep 5
 
           gh pr comment "${PR}" --body "<!-- copilot-review-cycle-re-review -->
