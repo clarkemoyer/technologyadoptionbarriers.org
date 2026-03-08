@@ -2,10 +2,11 @@
  * copilot-review-loop.ts — Single-round Copilot review poller (local use).
  *
  * For the full automated review→fix→re-review cycle, use the GitHub Actions
- * workflow instead:  .github/workflows/copilot-review-cycle.yml
+ * workflow instead: .github/workflows/copilot-review-cycle.yml
  *
- * That workflow runs automatically on every PR and handles unlimited
- * review rounds with the Copilot coding agent — no manual intervention needed.
+ * That workflow runs automatically on every PR and handles repeated
+ * review rounds with the Copilot coding agent up to the configured max —
+ * no manual intervention needed.
  */
 
 import { execSync } from 'child_process'

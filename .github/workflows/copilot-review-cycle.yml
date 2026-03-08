@@ -42,7 +42,7 @@ on:
 
 # Only one cycle at a time per PR
 concurrency:
-  group: copilot-review-cycle-${{ github.event.pull_request.number || inputs.pr_number || '0' }}
+  group: copilot-review-cycle-${{ github.event.pull_request.number || github.event.inputs.pr_number || '0' }}
   cancel-in-progress: false
 
 permissions:
@@ -51,10 +51,9 @@ permissions:
   issues: write
 
 env:
-  # Default for workflow_dispatch is set above; this fallback covers
-  # pull_request_review / pull_request events where inputs.max_rounds
-  # is not available.
-  MAX_ROUNDS: ${{ inputs.max_rounds || 10 }}
+  # github.event.inputs is safe for all event types (evaluates to null
+  # for non-dispatch triggers, falling back to the default of 10).
+  MAX_ROUNDS: ${{ github.event.inputs.max_rounds || 10 }}
   COPILOT_REVIEWER: 'copilot-pull-request-reviewer[bot]'
 
 jobs:
@@ -78,7 +77,7 @@ jobs:
         id: ctx
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "pr=${{ inputs.pr_number }}" >> "$GITHUB_OUTPUT"
+            echo "pr=${{ github.event.inputs.pr_number }}" >> "$GITHUB_OUTPUT"
           else
             echo "pr=${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
             echo "review_id=${{ github.event.review.id }}" >> "$GITHUB_OUTPUT"
