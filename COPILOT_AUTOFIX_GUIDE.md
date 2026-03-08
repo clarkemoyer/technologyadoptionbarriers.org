@@ -91,6 +91,12 @@ CI - Build and Test-refs/pull/87/merge exists
    - Runs: Performance audits after deployment
    - Status: ✅ Working correctly
 
+5. **Copilot Review Cycle** (`.github/workflows/copilot-review-cycle.yml`)
+   - Runs: Automated review → fix → re-review loop on every PR
+   - Triggers: `pull_request_review` (Copilot), `pull_request` (synchronize), `workflow_dispatch`
+   - Detects Copilot review comments, requests the Copilot coding agent to fix them, then re-requests a review — repeating until the review is clean or the configurable round limit (default 10) is reached
+   - Status: ✅ Active
+
 ### Current Project Health
 
 ```bash
