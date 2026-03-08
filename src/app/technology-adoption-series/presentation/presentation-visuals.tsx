@@ -1537,6 +1537,8 @@ function LifecycleTimelineChart({
   const barH = 120
   const totalDuration = phases.reduce((sum, p) => sum + p.duration, 0)
 
+  const markerId = `arrow-timeline-${title.replace(/\W+/g, '-').toLowerCase()}`
+
   const phaseBars = phases.reduce<Array<TimelinePhase & { x: number; w: number }>>((acc, p) => {
     const prevEnd = acc.length > 0 ? acc[acc.length - 1].x + acc[acc.length - 1].w : chartLeft
     const w = (p.duration / totalDuration) * chartWidth
@@ -1585,7 +1587,7 @@ function LifecycleTimelineChart({
               d={`M${phaseBars[0].x + phaseBars[0].w / 2} ${barY - 50} L${phaseBars[0].x + phaseBars[0].w / 2} ${barY - 15}`}
               stroke="#f59e0b"
               strokeWidth="2"
-              markerEnd="url(#arrow-timeline)"
+              markerEnd={`url(#${markerId})`}
             />
             <text
               x={phaseBars[0].x + phaseBars[0].w / 2}
@@ -1604,7 +1606,7 @@ function LifecycleTimelineChart({
               d={`M${phaseBars[phaseBars.length - 1].x + phaseBars[phaseBars.length - 1].w / 2} ${barY - 50} L${phaseBars[phaseBars.length - 1].x + phaseBars[phaseBars.length - 1].w / 2} ${barY - 15}`}
               stroke="#f59e0b"
               strokeWidth="2"
-              markerEnd="url(#arrow-timeline)"
+              markerEnd={`url(#${markerId})`}
             />
             <text
               x={phaseBars[phaseBars.length - 1].x + phaseBars[phaseBars.length - 1].w / 2}
@@ -1624,7 +1626,7 @@ function LifecycleTimelineChart({
         {/* Arrow marker */}
         <defs>
           <marker
-            id="arrow-timeline"
+            id={markerId}
             markerWidth="6"
             markerHeight="6"
             refX="3"
