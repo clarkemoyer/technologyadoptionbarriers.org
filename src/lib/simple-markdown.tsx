@@ -32,7 +32,7 @@ type InlineToken =
   | { kind: 'code'; value: string }
   | { kind: 'link'; label: string; href: string }
 
-const tokenizeInline = (value: string | null | undefined): InlineToken[] => {
+export const tokenizeInline = (value: string | null | undefined): InlineToken[] => {
   const tokens: InlineToken[] = []
   let remaining = value ?? ''
 
@@ -40,22 +40,54 @@ const tokenizeInline = (value: string | null | undefined): InlineToken[] => {
     const codeMatch = remaining.match(/`([^`]+)`/)
     const linkMatch = remaining.match(/\[([^\]]+)]\(([^)]+)\)/)
     const strongMatch = remaining.match(/\*\*([^*]+)\*\*/)
-    const emMatch = remaining.match(/\*([^*]+)\*/)
+    const emMatchAsterisk = remaining.match(/\*([^*]+)\*/)
+    // Underscore emphasis: boundary-safe (no lookbehind) for older Safari.
+    // Group 1 = optional leading non-word char, group 2 = emphasis content.
+    const rawUnderscore = remaining.match(/(^|[^\w])_([^_]+)_([^\w]|$)/)
 
-    const matches = [
-      codeMatch && { kind: 'code' as const, index: codeMatch.index ?? 0, match: codeMatch },
-      linkMatch && { kind: 'link' as const, index: linkMatch.index ?? 0, match: linkMatch },
+    type InlineMatch = {
+      kind: InlineToken['kind']
+      index: number
+      consumed: number
+      value: string
+      label?: string
+      href?: string
+    }
+
+    const matches: InlineMatch[] = [
+      codeMatch && {
+        kind: 'code' as const,
+        index: codeMatch.index ?? 0,
+        consumed: codeMatch[0].length,
+        value: codeMatch[1],
+      },
+      linkMatch && {
+        kind: 'link' as const,
+        index: linkMatch.index ?? 0,
+        consumed: linkMatch[0].length,
+        value: linkMatch[1],
+        label: linkMatch[1],
+        href: linkMatch[2],
+      },
       strongMatch && {
         kind: 'strong' as const,
         index: strongMatch.index ?? 0,
-        match: strongMatch,
+        consumed: strongMatch[0].length,
+        value: strongMatch[1],
       },
-      emMatch && { kind: 'em' as const, index: emMatch.index ?? 0, match: emMatch },
-    ].filter(Boolean) as Array<{
-      kind: InlineToken['kind']
-      index: number
-      match: RegExpMatchArray
-    }>
+      emMatchAsterisk && {
+        kind: 'em' as const,
+        index: emMatchAsterisk.index ?? 0,
+        consumed: emMatchAsterisk[0].length,
+        value: emMatchAsterisk[1],
+      },
+      rawUnderscore && {
+        kind: 'em' as const,
+        index: (rawUnderscore.index ?? 0) + rawUnderscore[1].length,
+        consumed: rawUnderscore[2].length + 2, // _content_
+        value: rawUnderscore[2],
+      },
+    ].filter(Boolean) as InlineMatch[]
 
     if (matches.length === 0) {
       tokens.push({ kind: 'text', value: remaining })
@@ -72,26 +104,26 @@ const tokenizeInline = (value: string | null | undefined): InlineToken[] => {
     }
 
     if (next.kind === 'code') {
-      tokens.push({ kind: 'code', value: next.match[1] })
-      remaining = remaining.slice(next.match[0].length)
+      tokens.push({ kind: 'code', value: next.value })
+      remaining = remaining.slice(next.consumed)
       continue
     }
 
     if (next.kind === 'link') {
-      tokens.push({ kind: 'link', label: next.match[1], href: next.match[2] })
-      remaining = remaining.slice(next.match[0].length)
+      tokens.push({ kind: 'link', label: next.label!, href: next.href! })
+      remaining = remaining.slice(next.consumed)
       continue
     }
 
     if (next.kind === 'strong') {
-      tokens.push({ kind: 'strong', value: next.match[1] })
-      remaining = remaining.slice(next.match[0].length)
+      tokens.push({ kind: 'strong', value: next.value })
+      remaining = remaining.slice(next.consumed)
       continue
     }
 
     if (next.kind === 'em') {
-      tokens.push({ kind: 'em', value: next.match[1] })
-      remaining = remaining.slice(next.match[0].length)
+      tokens.push({ kind: 'em', value: next.value })
+      remaining = remaining.slice(next.consumed)
       continue
     }
 

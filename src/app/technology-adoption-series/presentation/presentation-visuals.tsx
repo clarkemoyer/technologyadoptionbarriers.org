@@ -1,5 +1,7 @@
 import React, { type ReactNode } from 'react'
 
+import { LIFECYCLE_CONFIGS } from '@/data/lifecycle-timeline-configs'
+
 /* ────────────────────────────────────────────────────────────
    Dark-native visual components for the fullscreen presenter.
    These are ONLY used by the presentation route — the landing
@@ -1406,8 +1408,6 @@ function Visual23_DeepDiveLegacyMigration() {
   )
 }
 
-// ── Public export ──────────────────────────────────────────
-
 function Visual26_DeepDiveTrifectaModel() {
   // Triangle coordinates
   // Top (Organization): Yellow
@@ -1502,6 +1502,299 @@ function Visual26_DeepDiveTrifectaModel() {
   )
 }
 
+// ── LIFECYCLE TIMELINE CHARTS (Slides 27-29) ─────────────────
+
+/* Shared timeline bar renderer for lifecycle example charts.
+   Each phase gets a proportional-width bar on a horizontal timeline.
+   Phase data imported from @/data/lifecycle-timeline-configs.
+   Sources cited inline per chart. */
+
+// Re-use the shared type for timeline phases
+type TimelinePhase =
+  import('@/components/technology-adoption-series/lifecycle-timeline-bar').LifecyclePhase
+
+function LifecycleTimelineChart({
+  title,
+  subtitle,
+  phases,
+  totalYears,
+  sourceText,
+  ariaLabel,
+  noteText,
+}: {
+  title: string
+  subtitle: string
+  phases: TimelinePhase[]
+  totalYears: string
+  sourceText: string
+  ariaLabel: string
+  noteText?: string
+}) {
+  const chartLeft = 80
+  const chartRight = 1520
+  const chartWidth = chartRight - chartLeft
+  const barY = 380
+  const barH = 120
+  const totalDuration = phases.reduce((sum, p) => sum + p.duration, 0)
+
+  const markerId = `arrow-timeline-${title.replace(/\W+/g, '-').toLowerCase()}`
+
+  const phaseBars = phases.reduce<Array<TimelinePhase & { x: number; w: number }>>((acc, p) => {
+    const prevEnd = acc.length > 0 ? acc[acc.length - 1].x + acc[acc.length - 1].w : chartLeft
+    const w = (p.duration / totalDuration) * chartWidth
+    acc.push({ ...p, x: prevEnd, w })
+    return acc
+  }, [])
+
+  return (
+    <div className="flex h-full flex-col items-center justify-center gap-4">
+      <svg
+        viewBox="0 0 1600 900"
+        className="h-full w-full max-h-full max-w-full"
+        role="img"
+        aria-label={ariaLabel}
+      >
+        {/* Title */}
+        <text x="800" y="60" textAnchor="middle" fontSize="38" fontWeight="bold" fill="#e2e8f0">
+          {title}
+        </text>
+        <text x="800" y="100" textAnchor="middle" fontSize="24" fill="#94a3b8">
+          {subtitle}
+        </text>
+
+        {/* Y-axis labels */}
+        <text
+          x="50"
+          y="375"
+          textAnchor="middle"
+          fontSize="16"
+          fill="#64748b"
+          transform="rotate(-90,50,375)"
+        >
+          Lifecycle Stage
+        </text>
+
+        {/* Phase duration explanation header */}
+        <text x="800" y="160" textAnchor="middle" fontSize="20" fill="#cbd5e1">
+          Bar width is proportional to time spent in each phase — total span: {totalYears}
+        </text>
+
+        {/* Asymmetry callout arrows */}
+        {phaseBars.length >= 3 && (
+          <g>
+            {/* First phase (often long) */}
+            <path
+              d={`M${phaseBars[0].x + phaseBars[0].w / 2} ${barY - 50} L${phaseBars[0].x + phaseBars[0].w / 2} ${barY - 15}`}
+              stroke="#f59e0b"
+              strokeWidth="2"
+              markerEnd={`url(#${markerId})`}
+            />
+            <text
+              x={phaseBars[0].x + phaseBars[0].w / 2}
+              y={barY - 60}
+              textAnchor="middle"
+              fontSize="15"
+              fill="#fbbf24"
+              fontWeight="600"
+            >
+              {phaseBars[0].duration >= phaseBars[phaseBars.length - 1].duration
+                ? 'Long incubation'
+                : 'Short start'}
+            </text>
+            {/* Last phase (often compressed) */}
+            <path
+              d={`M${phaseBars[phaseBars.length - 1].x + phaseBars[phaseBars.length - 1].w / 2} ${barY - 50} L${phaseBars[phaseBars.length - 1].x + phaseBars[phaseBars.length - 1].w / 2} ${barY - 15}`}
+              stroke="#f59e0b"
+              strokeWidth="2"
+              markerEnd={`url(#${markerId})`}
+            />
+            <text
+              x={phaseBars[phaseBars.length - 1].x + phaseBars[phaseBars.length - 1].w / 2}
+              y={barY - 60}
+              textAnchor="middle"
+              fontSize="15"
+              fill="#fbbf24"
+              fontWeight="600"
+            >
+              {phaseBars[phaseBars.length - 1].duration <= phaseBars[0].duration
+                ? 'Rapid decline'
+                : 'Slow fade'}
+            </text>
+          </g>
+        )}
+
+        {/* Arrow marker */}
+        <defs>
+          <marker
+            id={markerId}
+            markerWidth="6"
+            markerHeight="6"
+            refX="3"
+            refY="3"
+            orient="auto"
+            fill="#f59e0b"
+          >
+            <path d="M0,0 L0,6 L6,3 z" />
+          </marker>
+        </defs>
+
+        {/* Timeline bars */}
+        {phaseBars.map((p, i) => (
+          <g key={p.label}>
+            <rect
+              x={p.x}
+              y={barY}
+              width={p.w}
+              height={barH}
+              rx="4"
+              fill={p.color}
+              stroke="#1e293b"
+              strokeWidth="2"
+            />
+            {/* Phase label */}
+            <text
+              x={p.x + p.w / 2}
+              y={barY + 40}
+              textAnchor="middle"
+              fontSize={p.w > 120 ? '18' : '14'}
+              fontWeight="bold"
+              fill={p.textColor || '#0f172a'}
+            >
+              {p.label}
+            </text>
+            {/* Duration */}
+            <text
+              x={p.x + p.w / 2}
+              y={barY + 65}
+              textAnchor="middle"
+              fontSize={p.w > 120 ? '16' : '12'}
+              fill={p.textColor || '#1e293b'}
+              opacity="0.8"
+            >
+              {p.duration} yr{p.duration !== 1 ? 's' : ''}
+            </text>
+            {/* Year range below bar */}
+            <text
+              x={p.x + p.w / 2}
+              y={barY + barH + 30}
+              textAnchor="middle"
+              fontSize="15"
+              fill="#94a3b8"
+            >
+              {p.years}
+            </text>
+            {/* Phase divider tick */}
+            {i < phaseBars.length - 1 ? (
+              <line
+                x1={p.x + p.w}
+                y1={barY - 5}
+                x2={p.x + p.w}
+                y2={barY + barH + 5}
+                stroke="#475569"
+                strokeWidth="1.5"
+                strokeDasharray="4 2"
+              />
+            ) : null}
+          </g>
+        ))}
+
+        {/* Timeline arrow */}
+        <line
+          x1={chartLeft - 10}
+          y1={barY + barH + 55}
+          x2={chartRight + 10}
+          y2={barY + barH + 55}
+          stroke="#475569"
+          strokeWidth="2"
+        />
+        <polygon
+          points={`${chartRight + 10},${barY + barH + 55} ${chartRight},${barY + barH + 50} ${chartRight},${barY + barH + 60}`}
+          fill="#475569"
+        />
+        <text x={chartRight + 20} y={barY + barH + 60} fontSize="14" fill="#64748b">
+          Time
+        </text>
+
+        {/* Note about asymmetric curves */}
+        {noteText ? (
+          <text x="800" y="680" textAnchor="middle" fontSize="18" fill="#f59e0b" fontWeight="600">
+            {noteText}
+          </text>
+        ) : null}
+
+        {/* Asymmetry explanation */}
+        <text x="800" y="730" textAnchor="middle" fontSize="16" fill="#cbd5e1">
+          Unequal phase durations create the asymmetric &quot;imperfect curves&quot; seen in real
+          adoption data
+        </text>
+        <text x="800" y="755" textAnchor="middle" fontSize="16" fill="#cbd5e1">
+          — the S-curve is an idealization; actual diffusion is shaped by market, regulatory, and
+          network effects.
+        </text>
+
+        {/* Source citation */}
+        <text x="800" y="830" textAnchor="middle" fontSize="13" fill="#64748b" fontStyle="italic">
+          {sourceText}
+        </text>
+
+        {/* Phase duration reference */}
+        <text x="800" y="860" textAnchor="middle" fontSize="13" fill="#64748b" fontStyle="italic">
+          Rogers (2003): Innovators 2.5% → Early Majority at ~16% cumulative takes 2–8 years; full
+          S-curve spans 15–40+ years
+        </text>
+      </svg>
+    </div>
+  )
+}
+
+function Visual27_HardwareLifecycleTimeline() {
+  const cfg = LIFECYCLE_CONFIGS[27]
+
+  return (
+    <LifecycleTimelineChart
+      title="Hardware Example: Hard Disk Drives (HDDs)"
+      subtitle="From IBM RAMAC (1956) to SSD displacement — 70+ year lifecycle"
+      phases={cfg.phases}
+      totalYears="~77 years"
+      ariaLabel="HDD lifecycle timeline showing 14 years bleeding edge, 15 years leading edge, 30 years mainstream, 13 years trending behind, and ongoing end of support"
+      noteText="Long mainstream plateau (30 yrs) creates a right-skewed curve — slow start, extended peak, then rapid SSD displacement"
+      sourceText="Sources: Computer History Museum (2024); IDC Worldwide HDD Forecast (2024); Backblaze Drive Stats (2023-2025)"
+    />
+  )
+}
+
+function Visual28_SoftwareLifecycleTimeline() {
+  const cfg = LIFECYCLE_CONFIGS[28]
+
+  return (
+    <LifecycleTimelineChart
+      title="Software Example: Adobe Flash"
+      subtitle="From FutureSplash (1996) to EOL removal (2021) — 25 year lifecycle"
+      phases={cfg.phases}
+      totalYears="~25 years"
+      ariaLabel="Adobe Flash lifecycle timeline showing 4 years bleeding edge, 5 years leading edge, 7 years mainstream, 5 years trending behind, 3 years end of support, and 1 year end of life"
+      noteText="Compressed end-of-life (1 yr) after Apple's 2010 rejection + HTML5 — left-skewed tail with steep decline"
+      sourceText="Sources: Adobe Flash EOL Page (2020); W3Techs Historical Usage (2023); Steve Jobs 'Thoughts on Flash' (2010)"
+    />
+  )
+}
+
+function Visual29_SupplyChainLifecycleTimeline() {
+  const cfg = LIFECYCLE_CONFIGS[29]
+
+  return (
+    <LifecycleTimelineChart
+      title="Supply Chain Example: Barcode / UPC Systems"
+      subtitle="From patent (1952) to RFID/IoT displacement — 80+ year lifecycle"
+      phases={cfg.phases}
+      totalYears="~83 years"
+      ariaLabel="Barcode lifecycle timeline showing 22 years bleeding edge, 11 years leading edge, 35 years mainstream, 10 years trending behind, and projected end of support"
+      noteText="Extremely long bleeding edge (22 yrs) — technology existed decades before infrastructure enabled adoption"
+      sourceText="Sources: GS1 Barcode History (2024); McKinsey Supply Chain 4.0 (2024); Zebra Technologies Global Study (2024)"
+    />
+  )
+}
+
 // ── Public export ──────────────────────────────────────────
 
 export interface VisualDef {
@@ -1584,6 +1877,23 @@ export const VISUAL_CONFIG: VisualDef[] = [
   { number: 24, id: 'deep-dive-ai-friction', component: Visual24_DeepDiveAiFriction },
   { number: 25, id: 'deep-dive-lifecycle-cycles', component: Visual25_DeepDiveLifecycleCycles },
   { number: 26, id: 'deep-dive-trifecta-model', component: Visual26_DeepDiveTrifectaModel },
+
+  // ── LIFECYCLE TIMELINE EXAMPLES (Slides 27-29) ──────────────
+  {
+    number: 27,
+    id: 'hardware-lifecycle-timeline',
+    component: Visual27_HardwareLifecycleTimeline,
+  },
+  {
+    number: 28,
+    id: 'software-lifecycle-timeline',
+    component: Visual28_SoftwareLifecycleTimeline,
+  },
+  {
+    number: 29,
+    id: 'supply-chain-lifecycle-timeline',
+    component: Visual29_SupplyChainLifecycleTimeline,
+  },
 ]
 
 export const VISUAL_REGISTRY = Object.fromEntries(
