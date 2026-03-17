@@ -517,5 +517,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...seriesEntries,
     ...teachingSeriesEntries,
+    // Lifecycle Positioning focused topic page
+    {
+      url: `${baseUrl}/technology-adoption-series/lifecycle-positioning`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
   ]
 }
