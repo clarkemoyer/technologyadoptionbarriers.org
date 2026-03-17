@@ -196,11 +196,10 @@ function expandToFrames(
     // Separate visuals, statements, regular text
     const textNodes: MarkdownNode[] = []
     const statements: string[] = []
-    let hasVisualDesc = false
 
     for (const node of rawNodes) {
       if (isVisualDescription(node)) {
-        hasVisualDesc = true
+        // Visual descriptions are handled separately — skip them
       } else if (isStatement(node)) {
         statements.push(extractStatementText(node.type === 'paragraph' ? node.text : ''))
       } else {
