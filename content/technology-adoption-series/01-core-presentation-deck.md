@@ -2279,3 +2279,109 @@ Sources:
 - IDTechEx, "RFID Forecasts, Players and Opportunities 2024–2034" (2024)
 - McKinsey & Company, "Supply Chain 4.0" (2024)
 - Auburn University RFID Lab, "Item-Level RFID Adoption Report" (2024)
+
+---
+
+### Slide 33 (Optional): "ML/AI Lifecycle Timeline: Machine Learning & Artificial Intelligence"
+
+**Content**
+
+ML/AI LIFECYCLE TIMELINE: MACHINE LEARNING & ARTIFICIAL INTELLIGENCE
+
+From Turing's 1950 paper to ChatGPT — a 75+ year journey through multiple AI winters, false starts, and the explosive deep learning revolution that finally brought AI to the mainstream.
+
+**LIFECYCLE PHASES:**
+
+| Phase         | Period     | Duration            | Key Events                                                                                                                                                                                                 |
+| ------------- | ---------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bleeding Edge | 1950–1997  | 47 years            | Turing Test (1950), Dartmouth Conference (1956), Perceptron (1958), First AI Winter (1974), Expert Systems boom/bust, Second AI Winter (1987), Deep Blue beats Kasparov (1997)                             |
+| Leading Edge  | 1997–2020  | 23 years            | SVMs and statistical ML gain traction, Netflix Prize (2006), Deep Belief Networks (Hinton 2006), ImageNet/AlexNet breakthrough (2012), TensorFlow released (2015), Transformers paper (2017), GPT-2 (2019) |
+| Mainstream    | 2020–2030+ | 10+ years (ongoing) | GPT-3 (2020), ChatGPT (Nov 2022) reaches 100M users in 2 months, Claude, Gemini, enterprise AI adoption explodes, AI regulation (EU AI Act), $200B+ annual investment                                      |
+
+**KEY INSIGHTS:**
+
+- **The longest bleeding edge of any example (47 years)** — more than double the barcode's 22-year bleeding edge. AI had the concepts but lacked compute, data, and algorithms
+- **Two "AI winters" created a stutter-step pattern** — adoption didn't follow a smooth S-curve. The first winter (1974-1980) and second winter (1987-1993) were periods where funding, interest, and practical applications collapsed
+- **The breakthrough was infrastructure, not theory** — neural networks existed since the 1950s. What changed was GPU compute (NVIDIA CUDA 2007), massive datasets (ImageNet 2009), and algorithmic refinements (dropout, batch normalization, attention)
+- **Incomplete lifecycle — no decline phase yet** — unlike HDDs, Flash, or barcodes, ML/AI has no "trending behind" phase. This is a technology still ascending, making it unique among our examples
+- **Fastest bleeding-to-mainstream transition once triggered** — from AlexNet (2012) to ChatGPT (2022) was only 10 years. The 47-year bleeding edge compressed into explosive growth once the infrastructure aligned
+
+**WHY AI IS DIFFERENT:** The other examples show complete or declining lifecycles. AI/ML shows a technology currently in its mainstream ascent. This illustrates a critical lesson: **some technologies spend decades in bleeding edge before a sudden phase transition.** The lifecycle model doesn't predict timing — it maps where you are once you can see the pattern.
+
+**Visual:** ML/AI Lifecycle Timeline
+
+**Speaker Notes:**
+
+- "This is our most dramatic example. 47 years of bleeding edge — nearly half a century where AI was 'the future' but couldn't deliver on its promises."
+- "Notice the two AI winters. The lifecycle model usually shows smooth transitions, but AI had collapse-and-restart cycles. Funding dried up, researchers left the field, and practical applications disappeared."
+- "The turning point wasn't a single paper — it was an infrastructure convergence: GPU compute, big data, and cloud computing. When all three aligned around 2012, the bleeding-to-leading-edge transition happened fast."
+- "This is the only example where we can't show the full lifecycle. There's no trending behind, no end of support. We're living in the mainstream adoption phase right now. Ask yourself: will this pattern follow HDDs (30-year mainstream) or Flash (7-year mainstream)?"
+- "The lesson for technology adopters: a long bleeding edge doesn't mean the technology won't succeed — it may mean the enabling infrastructure hasn't arrived yet."
+
+**Transition:**
+
+"Now let's freeze the frame at 2025 and see what the full AI/ML competitive landscape looks like across all lifecycle stages..."
+
+Sources:
+
+- Stanford University HAI, "Artificial Intelligence Index Report" (2024) — aiindex.stanford.edu
+- Turing, A.M., "Computing Machinery and Intelligence" (1950) — Mind journal
+- McCarthy et al., "A Proposal for the Dartmouth Summer Research Project on AI" (1956)
+- Krizhevsky, Sutskever & Hinton, "ImageNet Classification with Deep CNNs" (2012)
+- Vaswani et al., "Attention Is All You Need" (2017) — the Transformers paper
+- Gartner, "Hype Cycle for Artificial Intelligence" (2024)
+
+---
+
+### Slide 34 (Optional): "ML/AI: A Moment in Time (2025)"
+
+**Content**
+
+ML/AI: A MOMENT IN TIME (2025)
+
+The previous slide showed AI's 75+ year lifecycle from Turing to ChatGPT. This companion slide **freezes the frame at 2025** and maps the entire machine learning and AI landscape across lifecycle stages — showing what's experimental, what's production-ready, and what's already fading.
+
+**LIFECYCLE POSITIONING:**
+
+| Stage           | Technologies                                                                                                                                                                                          |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bleeding Edge   | Artificial General Intelligence (AGI), Neuromorphic Computing (Intel Loihi 2, IBM NorthPole), Quantum Machine Learning                                                                                |
+| Leading Edge    | AI Agents (autonomous multi-step), Multimodal Foundation Models (GPT-4o, Gemini, Claude), On-device/Edge LLMs (Apple Intelligence, Gemini Nano), AI Code Generation (Copilot, Claude Code, Cursor)    |
+| Mainstream      | Large Language Models (ChatGPT, Claude, Gemini), Image Generation (Midjourney, DALL-E, Stable Diffusion), MLOps Platforms (MLflow, W&B, SageMaker), Recommendation Systems (Netflix, Spotify, Amazon) |
+| Trending Behind | Traditional ML (sklearn pipelines, XGBoost), Rule-based Expert Systems, RNNs/LSTMs for NLP                                                                                                            |
+| End of Support  | First-gen Chatbots (keyword-based), TensorFlow 1.x                                                                                                                                                    |
+| End of Life     | Expert System Shells (CLIPS, Jess), Symbolic AI Frameworks (Cyc, Prolog-based)                                                                                                                        |
+
+**KEY INSIGHTS:**
+
+- **The mainstream is only ~5 years old** — LLMs went from research curiosity to enterprise standard in record time. ChatGPT (Nov 2022) accelerated enterprise adoption by 5-10 years
+- **Leading edge is moving at unprecedented speed** — AI agents, multimodal models, and code generation tools are evolving monthly, not annually. The leading-to-mainstream transition may be the fastest in technology history
+- **Traditional ML is already "trending behind"** — sklearn pipelines and XGBoost dominated 2015-2022 but are being displaced by foundation models for many tasks. This transition happened in under 5 years
+- **The AI winter artifacts are visible at the bottom** — expert system shells (1980s) and symbolic AI frameworks represent the previous AI paradigm. Their position in End of Life shows how completely the field has pivoted
+- **AGI remains firmly bleeding edge** — despite media hype, there is no scientific consensus on timeline, definition, or even feasibility. It's the "DNA storage" of the AI world — transformative if achieved, but years (or decades) away
+
+**COMPARISON TO TIMELINE VIEW:** Slide 33 showed AI's 47-year bleeding edge and explosive mainstream ascent. This slide reveals the competitive churn happening _within_ that mainstream phase — multiple generations of AI technology coexisting from 1980s expert systems to 2025 autonomous agents, spanning a 40+ year technology gap in active use.
+
+**WHY THIS MATTERS FOR ADOPTERS:**
+
+- **Don't over-index on the bleeding edge** — AGI headlines drive hype, but mainstream LLMs and leading-edge agents are where adoption decisions happen today
+- **Plan for rapid obsolescence** — traditional ML skills that were cutting-edge in 2018 are trending behind in 2025. Continuous learning is non-negotiable
+- **The "target zone" is shifting fast** — leading edge AI (agents, multimodal) may become mainstream within 1-2 years, faster than any previous technology example
+
+**Visual:** ML/AI Moment in Time
+
+**Speaker Notes:**
+
+- "This is the most dynamic moment-in-time snapshot we've seen. The AI landscape is changing faster than storage, web, or supply chain — sometimes quarterly."
+- "Look at the bottom: CLIPS and Jess were the 'AI' of the 1980s. Expert systems were supposed to revolutionize business. They're now end-of-life. Will today's LLMs follow the same pattern in 20 years? The lifecycle model says eventually, yes."
+- "Traditional ML is trending behind, and that happened shockingly fast. Data scientists who built careers on sklearn and XGBoost in 2018 are now pivoting to LLMs and agents. This is the personal impact of lifecycle transitions."
+- "AI agents are the one to watch. They're in leading edge right now — proven concepts, early adoption. If they cross to mainstream, they'll change how we build software. That transition could happen in 2025-2026."
+- "AGI is our reality check. Despite the hype, it's firmly bleeding edge — no production use, no clear timeline. Responsible technology adoption means knowing which stage you're actually in, not which stage the marketing says."
+
+Sources:
+
+- Stanford University HAI, "Artificial Intelligence Index Report" (2024) — aiindex.stanford.edu
+- Gartner, "Hype Cycle for Artificial Intelligence" (2024)
+- State of AI Report (2024) — stateof.ai
+- McKinsey, "The State of AI in Early 2024" — mckinsey.com
+- NVIDIA, "CUDA Toolkit and GPU Computing History" (2024)

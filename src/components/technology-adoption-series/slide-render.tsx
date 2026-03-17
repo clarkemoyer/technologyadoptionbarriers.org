@@ -1061,8 +1061,8 @@ export const TechnologyAdoptionSeriesSlideVisual = ({
     )
   }
 
-  // ── Lifecycle timeline charts (slides 27-29) ──────────────
-  if (slideNumber === 27 || slideNumber === 28 || slideNumber === 29) {
+  // ── Lifecycle timeline charts (slides 27-29, 33) ──────────────
+  if (slideNumber === 27 || slideNumber === 28 || slideNumber === 29 || slideNumber === 33) {
     const cfg = LIFECYCLE_CONFIGS[slideNumber]
     if (cfg) {
       return (
@@ -1078,8 +1078,8 @@ export const TechnologyAdoptionSeriesSlideVisual = ({
     }
   }
 
-  // ── Moment in time charts (slides 30-32) ──────────────
-  if (slideNumber === 30 || slideNumber === 31 || slideNumber === 32) {
+  // ── Moment in time charts (slides 30-32, 34) ──────────────
+  if (slideNumber === 30 || slideNumber === 31 || slideNumber === 32 || slideNumber === 34) {
     const cfg = MOMENT_IN_TIME_CONFIGS[slideNumber]
     if (cfg) {
       return (

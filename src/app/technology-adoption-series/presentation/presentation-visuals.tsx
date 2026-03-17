@@ -1796,7 +1796,23 @@ function Visual29_SupplyChainLifecycleTimeline() {
   )
 }
 
-// ── MOMENT IN TIME CHARTS (Slides 30-32) ─────────────────
+function Visual33_MLAILifecycleTimeline() {
+  const cfg = LIFECYCLE_CONFIGS[33]
+
+  return (
+    <LifecycleTimelineChart
+      title="ML/AI Example: Machine Learning & Artificial Intelligence"
+      subtitle="From Turing's paper (1950) to ChatGPT — 75+ year lifecycle, still ascending"
+      phases={cfg.phases}
+      totalYears="~75+ years (ongoing)"
+      ariaLabel="ML/AI lifecycle timeline showing 47 years bleeding edge, 23 years leading edge, and ongoing mainstream adoption since 2020"
+      noteText="Longest bleeding edge of any example (47 yrs) — two AI winters stalled adoption until compute + data + algorithms aligned"
+      sourceText="Sources: Stanford HAI AI Index (2024); Turing (1950); McCarthy (1956); Krizhevsky/AlexNet (2012); Vaswani/Transformers (2017)"
+    />
+  )
+}
+
+// ── MOMENT IN TIME CHARTS (Slides 30-34) ─────────────────
 
 /* Column-based layout showing multiple technologies positioned by lifecycle stage.
    Companion to the timeline charts (slides 27-29) — these freeze a single moment
@@ -2036,6 +2052,20 @@ function Visual32_SupplyChainIdMoment() {
   )
 }
 
+function Visual34_MLAIMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[34]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="ML/AI technologies positioned across lifecycle stages in 2025, from AGI at bleeding edge to expert system shells at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
 // ── Public export ──────────────────────────────────────────
 
 export interface VisualDef {
@@ -2151,6 +2181,18 @@ export const VISUAL_CONFIG: VisualDef[] = [
     number: 32,
     id: 'supply-chain-id-moment',
     component: Visual32_SupplyChainIdMoment,
+  },
+
+  // ── ML/AI LIFECYCLE + MOMENT (Slides 33-34) ──────────────
+  {
+    number: 33,
+    id: 'mlai-lifecycle-timeline',
+    component: Visual33_MLAILifecycleTimeline,
+  },
+  {
+    number: 34,
+    id: 'mlai-moment',
+    component: Visual34_MLAIMoment,
   },
 ]
 

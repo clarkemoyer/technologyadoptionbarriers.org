@@ -1,9 +1,9 @@
 /**
- * "Moment in Time" companion data for lifecycle example slides 27-29.
+ * "Moment in Time" companion data for lifecycle example slides.
  * Each config shows the current landscape of a domain, positioning
  * competing/related technologies across lifecycle stages as of 2025.
  *
- * Used by slides 30-32 (companions to slides 27-29).
+ * Used by slides 30-32 (companions to slides 27-29) and slide 34 (companion to slide 33).
  */
 
 export interface MomentTechnology {
@@ -358,5 +358,126 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
     ],
     source:
       'Sources: GS1 Sunrise 2027 (2024); IDTechEx RFID Forecast (2024); McKinsey Supply Chain 4.0 (2024)',
+  },
+
+  // Slide 34: Companion to Slide 33 (ML/AI) — AI/ML landscape
+  34: {
+    title: 'ML/AI: A Moment in Time',
+    subtitle: 'Where machine learning and AI technologies sit today across the adoption lifecycle',
+    asOf: '2025',
+    stages: [
+      {
+        stage: 'Bleeding Edge',
+        color: '#fbbf24',
+        technologies: [
+          {
+            name: 'Artificial General Intelligence (AGI)',
+            detail: 'Theoretical — no consensus on timeline or definition',
+          },
+          {
+            name: 'Neuromorphic Computing',
+            detail: 'Intel Loihi 2, IBM NorthPole — brain-inspired chips, lab-stage',
+          },
+          {
+            name: 'Quantum Machine Learning',
+            detail: 'Hybrid quantum-classical — error rates too high for production',
+          },
+        ],
+      },
+      {
+        stage: 'Leading Edge',
+        color: '#22d3ee',
+        technologies: [
+          {
+            name: 'AI Agents (autonomous)',
+            detail: 'Multi-step tool use — Claude, GPT, Gemini agents emerging',
+          },
+          {
+            name: 'Multimodal Foundation Models',
+            detail: 'GPT-4o, Gemini, Claude — text+image+audio, rapidly maturing',
+          },
+          {
+            name: 'On-device / Edge LLMs',
+            detail: 'Apple Intelligence, Gemini Nano — privacy-first, limited capability',
+          },
+          {
+            name: 'AI Code Generation',
+            detail: 'Copilot, Claude Code, Cursor — high adoption among developers, evolving fast',
+          },
+        ],
+      },
+      {
+        stage: 'Mainstream',
+        color: '#22c55e',
+        technologies: [
+          {
+            name: 'Large Language Models (LLMs)',
+            detail: 'ChatGPT, Claude, Gemini — 100M+ users, enterprise SaaS standard',
+          },
+          {
+            name: 'Image Generation (Diffusion)',
+            detail: 'Midjourney, DALL-E, Stable Diffusion — creative/marketing standard',
+          },
+          {
+            name: 'MLOps Platforms',
+            detail: 'MLflow, Weights & Biases, SageMaker — standard ML infrastructure',
+          },
+          {
+            name: 'Recommendation Systems',
+            detail: 'Netflix, Spotify, Amazon — embedded in every platform, invisible',
+          },
+        ],
+      },
+      {
+        stage: 'Trending Behind',
+        color: '#f97316',
+        technologies: [
+          {
+            name: 'Traditional ML (sklearn pipelines)',
+            detail: 'Random forests, SVMs, XGBoost — still used, losing ground to deep learning',
+          },
+          {
+            name: 'Rule-based Expert Systems',
+            detail: 'If-then engines — legacy enterprise, being replaced by ML models',
+          },
+          {
+            name: 'RNNs / LSTMs for NLP',
+            detail: 'Sequence models pre-transformer — superseded by attention architectures',
+          },
+        ],
+      },
+      {
+        stage: 'End of Support',
+        color: '#ef4444',
+        textColor: '#fff',
+        technologies: [
+          {
+            name: 'First-gen Chatbots (keyword-based)',
+            detail: 'Pattern-matching bots — replaced by LLM-powered assistants',
+          },
+          {
+            name: 'TensorFlow 1.x',
+            detail: 'Session-based API — deprecated, no security patches after 2023',
+          },
+        ],
+      },
+      {
+        stage: 'End of Life',
+        color: '#991b1b',
+        textColor: '#fff',
+        technologies: [
+          {
+            name: 'Expert System Shells (CLIPS, Jess)',
+            detail: '1980s/90s AI tooling — no active development or community',
+          },
+          {
+            name: 'Symbolic AI Frameworks (Cyc, Prolog-based)',
+            detail: 'Knowledge-base reasoning — academic only, no commercial use',
+          },
+        ],
+      },
+    ],
+    source:
+      'Sources: Stanford HAI AI Index (2024); Gartner AI Hype Cycle (2024); State of AI Report (2024)',
   },
 }

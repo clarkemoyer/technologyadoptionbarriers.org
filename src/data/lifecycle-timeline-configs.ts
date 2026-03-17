@@ -8,7 +8,7 @@ export interface LifecycleTimelineConfig {
 }
 
 /**
- * Shared lifecycle phase data for slides 27-29.
+ * Shared lifecycle phase data for slides 27-29 and 33.
  * Used by slide-render.tsx (overview cards) and presentation-visuals.tsx (full-screen charts).
  */
 export const LIFECYCLE_CONFIGS: Record<number, LifecycleTimelineConfig> = {
@@ -72,5 +72,16 @@ export const LIFECYCLE_CONFIGS: Record<number, LifecycleTimelineConfig> = {
     ],
     note: 'Extremely long bleeding edge (22 yrs) — infrastructure lag',
     source: 'GS1 Barcode History (2024); McKinsey Supply Chain 4.0 (2024)',
+  },
+  33: {
+    title: 'ML/AI: Machine Learning & Artificial Intelligence',
+    phases: [
+      { label: 'Bleeding Edge', years: '1950–1997', duration: 47, color: '#fbbf24' },
+      { label: 'Leading Edge', years: '1997–2020', duration: 23, color: '#22d3ee' },
+      { label: 'Mainstream', years: '2020–2030+', duration: 10, color: '#22c55e' },
+    ],
+    note: 'Longest bleeding edge of any example (47 yrs) — multiple AI winters delayed adoption',
+    source:
+      'Stanford HAI AI Index (2024); Turing (1950); McCarthy Dartmouth (1956); Krizhevsky/AlexNet (2012)',
   },
 }
