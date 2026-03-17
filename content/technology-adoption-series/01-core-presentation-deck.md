@@ -279,7 +279,7 @@ The dual-curve visual above captures the central insight of technology lifecycle
 
 **Innovation potential** (the dashed line) starts high at the Bleeding Edge — new technologies promise transformative capability precisely because they haven't been constrained by backward compatibility, existing user expectations, or market standardization. But that potential declines steadily as technologies mature. By the time a technology reaches Mainstream, most of its architectural decisions are locked in. Christensen's research on disruptive innovation demonstrates that as technologies mature, the rate of performance improvement slows and eventually overshoots what most users actually need (Christensen, _The Innovator's Dilemma_, 1997; rev. ed. 2016). The innovation curve reflects this: each successive stage offers less room for differentiation.
 
-**Adoption risk** (the solid line) follows a U-shape — high at both extremes, lowest in the middle. At the Bleeding Edge, risk is high because there is no production track record, limited community support, and uncertain vendor commitment. Gartner's research quantifies this: technologies at the "Innovation Trigger" phase have failure rates exceeding 50% within five years of initial hype (Gartner, _Understanding Gartner's Hype Cycles_, 2023). Risk drops as technologies mature through Leading Edge and Mainstream — community support grows, security patching cadences stabilize, and talent pools expand. But risk climbs again at Trending Behind and End of Support as vendors reduce investment, security vulnerabilities go unpatched, and the talent pool shrinks. NIST's Cybersecurity Framework identifies "aging infrastructure with declining vendor support" as a systemic risk factor that compounds over time (NIST, _Cybersecurity Framework 2.0_, 2024).
+**Adoption risk** (the solid line) follows a U-shape — high at both extremes, lowest in the middle. At the Bleeding Edge, risk is high because there is no production track record, limited community support, and uncertain vendor commitment. Gartner's Hype Cycle research demonstrates this: the majority of technologies that reach the "Trough of Disillusionment" never fully recover, and only about one in five technologies completes the full hype cycle to mainstream productivity (Gartner, _Understanding Gartner's Hype Cycles_, 2023). Risk drops as technologies mature through Leading Edge and Mainstream — community support grows, security patching cadences stabilize, and talent pools expand. But risk climbs again at Trending Behind and End of Support as vendors reduce investment, security vulnerabilities go unpatched, and the talent pool shrinks. NIST's Cybersecurity Framework identifies "aging infrastructure with declining vendor support" as a systemic risk factor that compounds over time (NIST, _Cybersecurity Framework 2.0_, 2024).
 
 **The Target Zone** — Leading Edge through Mainstream — is where the two curves create the most favorable ratio. Innovation potential is still meaningful enough to provide competitive advantage or operational improvement, while adoption risk has dropped to manageable levels. Rogers' diffusion research quantifies this window: the early majority (Leading Edge) and late majority (Mainstream) together represent approximately 68% of eventual adopters, meaning technologies in this zone have broad ecosystem support without having entered decline (Rogers, _Diffusion of Innovations_, 5th ed., 2003). Organizations that consistently position within this zone avoid both the costly failures of premature adoption and the security exposure of running unsupported systems.
 
@@ -287,20 +287,20 @@ The dual-curve visual above captures the central insight of technology lifecycle
 
 The lifecycle stages are not theoretical — every technology currently in use sits somewhere on this curve. The table below maps well-known technologies to their current lifecycle position as of 2025, with sources that validate the placement.
 
-| Lifecycle Stage     | Technology Example                        | Evidence                                                                                                                                                                                                                                                                                                                                                                                                           |
-| ------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Bleeding Edge**   | WebTransport API                          | W3C Working Draft status as of 2024; limited browser implementation; no production frameworks support it as a primary transport (W3C, _WebTransport Working Draft_, 2024). Gartner's 2024 Hype Cycle for Networking places next-generation transport protocols at the "Innovation Trigger" phase (Gartner, 2024).                                                                                                  |
-| **Bleeding Edge**   | Post-Quantum Cryptography (PQC) standards | NIST finalized the first PQC standards (FIPS 203, 204, 205) in August 2024, but adoption remains under 1% in production systems. Migration timelines are measured in years, not months (NIST, _Post-Quantum Cryptography Standardization_, 2024).                                                                                                                                                                  |
-| **Leading Edge**    | Rust (systems programming)                | Stack Overflow's 2024 Developer Survey shows Rust as the "most admired" language for the ninth consecutive year, with 12.6% of developers using it — past early-adopter stage but not yet mainstream (Stack Overflow, _2024 Developer Survey_, 2024). Growing adoption by Microsoft, Google, and the Linux kernel signals chasm-crossing momentum.                                                                 |
-| **Leading Edge**    | Deno / Bun (JavaScript runtimes)          | Both runtimes have reached stable 1.x/2.x releases with growing enterprise adoption, but npm ecosystem compatibility gaps and smaller community size keep them in early-majority territory. The State of JS 2024 survey shows combined usage at approximately 15% among JavaScript developers (State of JS, 2024).                                                                                                 |
-| **Mainstream**      | Node.js                                   | Used by 42.6% of professional developers per Stack Overflow's 2024 survey. LTS release cadence, extensive npm ecosystem (2.1M+ packages), and broad cloud provider support place it firmly in the late majority phase (Stack Overflow, 2024; npm, Inc., 2024).                                                                                                                                                     |
-| **Mainstream**      | React                                     | Used by 39.5% of professional developers and supported by every major cloud and hosting platform. Extensive tooling ecosystem, established architectural patterns, and a talent pool exceeding 10 million developers worldwide (Stack Overflow, 2024; GitHub _Octoverse 2024_ report).                                                                                                                             |
-| **Mainstream**      | PostgreSQL                                | DB-Engines ranks PostgreSQL as the #1 most popular database by growth trajectory, with the highest year-over-year adoption increase among RDBMS platforms for five consecutive years (DB-Engines, _Ranking Trend_, 2024).                                                                                                                                                                                          |
-| **Trending Behind** | jQuery                                    | Once used by 77% of websites, jQuery's share among JavaScript developers dropped to 21.4% in Stack Overflow's 2024 survey — a steady decline as React, Vue, and vanilla JS APIs have replaced its core functionality (Stack Overflow, 2024; W3Techs, 2024).                                                                                                                                                        |
-| **Trending Behind** | AngularJS (1.x)                           | Google ended long-term support for AngularJS 1.x in January 2022. While successor framework Angular (2+) continues active development, the original AngularJS codebase receives no security patches and has a shrinking contributor base (Google, _AngularJS End of Life Announcement_, 2021).                                                                                                                     |
-| **End of Support**  | Windows 10                                | Microsoft has announced End of Support for Windows 10 on October 14, 2025 — after that date, no security updates, bug fixes, or technical support will be provided for the consumer edition (Microsoft, _Windows 10 End of Support_, 2024). With over 700 million devices still running Windows 10 as of late 2024, this represents one of the largest forced migrations in computing history (StatCounter, 2024). |
-| **End of Support**  | CentOS Linux 7                            | Red Hat ended full support for CentOS 7 on June 30, 2024. Organizations still running CentOS 7 receive no security patches, creating exposure to known vulnerabilities. CISA's Known Exploited Vulnerabilities catalog has flagged multiple CentOS 7 / RHEL 7 kernel vulnerabilities as actively exploited (Red Hat, _CentOS 7 End of Life_, 2024; CISA KEV, 2024).                                                |
-| **End of Support**  | Python 2.7                                | The Python Software Foundation ended all support for Python 2 on January 1, 2020. Despite the five-year sunset period, an estimated 7-10% of production Python codebases still contained Python 2 dependencies as of 2024, creating ongoing security and compatibility risk (Python Software Foundation, _Sunsetting Python 2_, 2019; JetBrains _Python Developers Survey_, 2024).                                 |
+| Lifecycle Stage     | Technology Example                        | Evidence                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ------------------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Bleeding Edge**   | WebTransport API                          | W3C Working Draft status as of 2024; limited browser implementation; no production frameworks support it as a primary transport (W3C, _WebTransport Working Draft_, 2024). Gartner's 2024 Hype Cycle for Networking places next-generation transport protocols at the "Innovation Trigger" phase (Gartner, 2024).                                                                                                                                                |
+| **Bleeding Edge**   | Post-Quantum Cryptography (PQC) standards | NIST finalized the first PQC standards (FIPS 203, 204, 205) in August 2024, but adoption remains under 1% in production systems. Migration timelines are measured in years, not months (NIST, _Post-Quantum Cryptography Standardization_, 2024).                                                                                                                                                                                                                |
+| **Leading Edge**    | Rust (systems programming)                | Stack Overflow's 2024 Developer Survey shows Rust as the "most admired" language for the ninth consecutive year, with 12.6% of developers using it — past early-adopter stage but not yet mainstream (Stack Overflow, _2024 Developer Survey_, 2024). Growing adoption by Microsoft, Google, and the Linux kernel signals chasm-crossing momentum.                                                                                                               |
+| **Leading Edge**    | Deno / Bun (JavaScript runtimes)          | Both runtimes have reached stable 1.x/2.x releases with growing enterprise adoption, but npm ecosystem compatibility gaps and smaller community size keep them in early-majority territory. The State of JS 2024 survey shows combined usage at approximately 15% among JavaScript developers (State of JS, 2024).                                                                                                                                               |
+| **Mainstream**      | Node.js                                   | Used by 40.8% of professional developers per Stack Overflow's 2024 survey. LTS release cadence, extensive npm ecosystem (2.1M+ packages), and broad cloud provider support place it firmly in the late majority phase (Stack Overflow, 2024; npm, Inc., 2024).                                                                                                                                                                                                   |
+| **Mainstream**      | React                                     | Used by 39.5% of professional developers and supported by every major cloud and hosting platform. Extensive tooling ecosystem, established architectural patterns, and a talent pool exceeding 10 million developers worldwide (Stack Overflow, 2024; GitHub _Octoverse 2024_ report).                                                                                                                                                                           |
+| **Mainstream**      | PostgreSQL                                | DB-Engines ranks PostgreSQL as the #1 most popular database by growth trajectory, with the highest year-over-year adoption increase among RDBMS platforms for five consecutive years (DB-Engines, _Ranking Trend_, 2024).                                                                                                                                                                                                                                        |
+| **Trending Behind** | jQuery                                    | Once used by 77% of websites, jQuery's share among JavaScript developers dropped to 21.4% in Stack Overflow's 2024 survey — a steady decline as React, Vue, and vanilla JS APIs have replaced its core functionality (Stack Overflow, 2024; W3Techs, 2024).                                                                                                                                                                                                      |
+| **Trending Behind** | AngularJS (1.x)                           | Google ended long-term support for AngularJS 1.x in January 2022. While successor framework Angular (2+) continues active development, the original AngularJS codebase receives no security patches and has a shrinking contributor base (Google, _AngularJS End of Life Announcement_, 2021).                                                                                                                                                                   |
+| **End of Support**  | Windows 10                                | Microsoft has announced End of Support for Windows 10 on October 14, 2025 — after that date, no security updates, bug fixes, or technical support will be provided for the consumer edition (Microsoft, _Windows 10 End of Support_, 2024). With an estimated 800 million to 1 billion devices still running Windows 10 as of late 2024, this represents one of the largest forced migrations in computing history (StatCounter, 2024; Dell Technologies, 2024). |
+| **End of Support**  | CentOS Linux 7                            | Red Hat ended full support for CentOS 7 on June 30, 2024. Organizations still running CentOS 7 receive no security patches, creating exposure to known vulnerabilities. CISA's Known Exploited Vulnerabilities catalog has flagged multiple CentOS 7 / RHEL 7 kernel vulnerabilities as actively exploited (Red Hat, _CentOS 7 End of Life_, 2024; CISA KEV, 2024).                                                                                              |
+| **End of Support**  | Python 2.7                                | The Python Software Foundation ended all support for Python 2 on January 1, 2020. Despite the five-year sunset period, approximately 6% of developers still report using end-of-life Python versions (3.8 and below, including Python 2) as of 2024, creating ongoing security and compatibility risk (Python Software Foundation, _Sunsetting Python 2_, 2019; JetBrains/PSF _Python Developers Survey_, 2024).                                                 |
 
 **Key Takeaway:** Technologies do not stay in one stage forever — they move through the lifecycle at different speeds. The strategic question is not _which technologies to use_ but _at which lifecycle stage to adopt them_. Organizations that adopt too early absorb unnecessary risk; organizations that hold too long accumulate technical debt and security exposure. The target zone represents the window where risk-adjusted value is highest.
 
@@ -334,7 +334,7 @@ The lifecycle stages are not theoretical — every technology currently in use s
 - "Rogers' research showed that technology adoption follows a predictable S-curve — these lifecycle stages map directly to that curve"
 - "The dual-curve visual shows why the middle stages are the target: innovation potential is still meaningful while adoption risk is at its lowest"
 - "Look at the examples table — jQuery was mainstream five years ago and is now trending behind. React is mainstream today but won't be forever. The lifecycle is always moving."
-- "Windows 10 end-of-support in October 2025 is a perfect case study — 700 million devices forced to migrate because of lifecycle positioning"
+- "Windows 10 end-of-support in October 2025 is a perfect case study — nearly a billion devices forced to migrate because of lifecycle positioning"
 - "The key insight from Christensen's work is that innovation potential doesn't just decline gradually — mature technologies actually overshoot what users need, which is why disruption happens from below"
 
 **Transition:** "Where you choose to position in this lifecycle isn't just a technical decision - it determines your management methods, architecture approaches, and solutions."
@@ -2166,6 +2166,8 @@ The previous slide showed the HDD lifecycle over 70+ years. This companion slide
 
 **COMPARISON TO TIMELINE VIEW:** Slide 27 showed HDDs moving through phases over time. This slide shows all storage technologies frozen at one moment — revealing the competitive landscape that creates the transition pressure visible in the timeline's "trending behind" phase.
 
+**TARGET ZONE APPLICATION (see Slide 6/8):** The dual-curve model tells us the "target zone" is Leading Edge through Mainstream. For data center storage in 2025, that means TLC NVMe SSDs and all-flash arrays (mainstream) plus QLC NVMe and PCIe Gen 5 (leading edge) — these are where organizations should invest. HDDs in "trending behind" should be on a migration timeline, not selected for new projects.
+
 **Visual:** Data Center Storage Moment in Time
 
 **Speaker Notes:**
@@ -2212,6 +2214,8 @@ The previous slide showed Adobe Flash's complete lifecycle from 1996 to its 2021
 
 **COMPARISON TO TIMELINE VIEW:** Slide 28 showed Flash's compressed 25-year lifecycle. This slide reveals why it declined — the mainstream is now filled with open-standard alternatives that collectively surpass what Flash offered. The moment-in-time view makes the competitive pressure visible.
 
+**TARGET ZONE APPLICATION (see Slide 6/8):** The dual-curve model's "target zone" for rich web experiences in 2025 is clear: HTML5 Canvas, CSS Animations, and SPA frameworks (mainstream) plus WebAssembly and Web Components (leading edge). Anyone still dependent on jQuery (trending behind) should plan migration — it's following the same trajectory Flash did a decade earlier.
+
 **Visual:** Rich Web Experiences Moment in Time
 
 **Speaker Notes:**
@@ -2257,6 +2261,8 @@ The previous slide showed the barcode's 80+ year lifecycle from patent (1952) to
 - **Supply chain has the widest active span:** From Kimball tags (EOL since 1990s) to blockchain (bleeding edge) — a 30+ year gap of coexisting technologies, wider than storage or web
 
 **COMPARISON TO TIMELINE VIEW:** Slide 29 showed barcodes' 22-year bleeding edge caused by infrastructure lag. This slide shows that same pattern repeating: RFID has been "arriving" for 20+ years and is still not universal at item level. The moment-in-time view reveals that supply chain technology transitions are generational, not annual.
+
+**TARGET ZONE APPLICATION (see Slide 6/8):** The "target zone" for supply chain identification is 1D/2D barcodes and pallet-level RFID (mainstream) plus GS1 Digital Link QR codes and item-level RFID (leading edge). The dual-curve model shows why blockchain track-and-trace (bleeding edge) is too risky for production — the innovation potential is high but adoption risk hasn't dropped enough. Organizations should plan for the GS1 Sunrise 2027 transition while keeping existing barcode infrastructure operational.
 
 **SUPPLY CHAIN CONSIDERATIONS:**
 
@@ -2445,4 +2451,94 @@ Sources:
 - Hugging Face, "Open LLM Leaderboard" (2025) — huggingface.co
 - Weizenbaum, J., "ELIZA — A Computer Program for the Study of Natural Language" (1966)
 - Brown et al., "Language Models are Few-Shot Learners" (GPT-3, 2020)
-- Touvron et al., "Llama 3" (Meta, 2024)
+- Dubey et al., "The Llama 3 Herd of Models" (Meta AI, 2024) — arXiv:2407.21783
+
+---
+
+### Slide 36 (Optional): "References and Works Cited"
+
+**Content**
+
+REFERENCES AND WORKS CITED
+
+This consolidated bibliography includes all sources cited throughout the presentation, organized by category. Links are provided where publicly accessible.
+
+**FOUNDATIONAL ACADEMIC WORKS:**
+
+- Rogers, E. M. (2003). _Diffusion of Innovations_ (5th ed.). Free Press. pp. 11, 221–223.
+- Moore, G. A. (2014). _Crossing the Chasm_ (3rd ed.). Harper Business. Originally published 1991.
+- Christensen, C. M. (2016). _The Innovator's Dilemma_ (rev. ed.). Harvard Business Review Press. Originally published 1997.
+- Turing, A. M. (1950). "Computing Machinery and Intelligence." _Mind_, 59(236), 433–460.
+- McCarthy, J. et al. (1956). "A Proposal for the Dartmouth Summer Research Project on Artificial Intelligence."
+- Weizenbaum, J. (1966). "ELIZA — A Computer Program for the Study of Natural Language Communication Between Man and Machine." _Communications of the ACM_, 9(1), 36–45.
+- Vaswani, A. et al. (2017). "Attention Is All You Need." _Advances in Neural Information Processing Systems_, 30.
+- Krizhevsky, A., Sutskever, I. & Hinton, G. E. (2012). "ImageNet Classification with Deep Convolutional Neural Networks." _Advances in Neural Information Processing Systems_, 25.
+- Brown, T. et al. (2020). "Language Models are Few-Shot Learners." _Advances in Neural Information Processing Systems_, 33. (GPT-3)
+- Dubey, A. et al. (2024). "The Llama 3 Herd of Models." Meta AI. arXiv:2407.21783.
+
+**INDUSTRY ANALYST REPORTS:**
+
+- Gartner (2023). _Understanding Gartner's Hype Cycles_. — gartner.com/en/research/methodologies/gartner-hype-cycle
+- Gartner (2024). _Hype Cycle for Artificial Intelligence_.
+- Gartner (2024). _Hype Cycle for Networking_.
+- Gartner (2024). _Magic Quadrant for Primary Storage Platforms_.
+- IDC (2024). _Worldwide Hard Disk Drive Forecast, 2024–2028_.
+- IDC (2024). _Worldwide Solid State Drive Forecast, 2024–2028_.
+- IDTechEx (2024). _RFID Forecasts, Players and Opportunities 2024–2034_.
+- McKinsey & Company (2024). _Supply Chain 4.0: The Next-Generation Digital Supply Chain_.
+- McKinsey & Company (2024). _The State of AI in Early 2024_. — mckinsey.com
+- Stanford University HAI (2024). _Artificial Intelligence Index Report_. — aiindex.stanford.edu
+- State of AI Report (2024). — stateof.ai
+
+**DEVELOPER SURVEYS AND USAGE DATA:**
+
+- Stack Overflow (2024). _2024 Developer Survey Results_. — survey.stackoverflow.co/2024/
+- JetBrains / Python Software Foundation (2024). _Python Developers Survey 2024_.
+- GitHub (2024). _Octoverse 2024_. — github.blog/news-insights/octoverse/octoverse-2024/
+- State of JS (2024). _State of JavaScript 2024 Survey_. — stateofjs.com
+- W3Techs (2024–2025). _Usage Statistics of JavaScript Libraries_. — w3techs.com/technologies/overview/javascript_library
+- HTTP Archive (2024). _Web Almanac 2024 — JavaScript Chapter_. — httparchive.org
+- Hugging Face (2025). _Open LLM Leaderboard_. — huggingface.co
+- Can I Use (2025). _Browser Feature Support Tables_. — caniuse.com
+
+**VENDOR AND STANDARDS ORGANIZATION SOURCES:**
+
+- Microsoft (2024). _Modern Lifecycle Policy_. — learn.microsoft.com/en-us/lifecycle/policies/modern
+- Microsoft (2024). _Windows 10 End of Support_. — learn.microsoft.com/en-us/lifecycle/products/windows-10-home-and-pro
+- Microsoft Research (2024). _Project Silica: Glass Storage Update_.
+- Adobe (2020). _Flash Player EOL General Information Page_.
+- Google (2021). _AngularJS End of Life Announcement_.
+- NIST (2018). _SP 800-160 Vol. 1: Systems Security Engineering_.
+- NIST (2024). _Cybersecurity Framework 2.0_. — nist.gov/cyberframework
+- NIST (2024). _Post-Quantum Cryptography Standardization (FIPS 203, 204, 205)_. — csrc.nist.gov/projects/post-quantum-cryptography
+- CISA (2023–2024). _Known Exploited Vulnerabilities Catalog_. — cisa.gov/known-exploited-vulnerabilities-catalog
+- Python Software Foundation (2019). _Sunsetting Python 2_. — python.org/doc/sunset-python-2/
+- OpenAI (2025). _Model Deprecations and Migration Guide_. — platform.openai.com
+- Anthropic (2025). _Claude Model Cards and Changelogs_. — docs.anthropic.com
+
+**SUPPLY CHAIN AND BARCODE SOURCES:**
+
+- GS1 (2024). _The History of the Barcode_. — gs1.org
+- GS1 US (2024). _Sunrise 2027: Transition to 2D Barcodes_. — gs1us.org
+- Auburn University RFID Lab (2024). _Item-Level RFID Adoption Report_.
+- Zebra Technologies (2024). _Global Shopper Study_.
+
+**HARDWARE AND STORAGE SOURCES:**
+
+- Computer History Museum (2024). _Timeline of Computer History: Memory & Storage_.
+- Backblaze (2025). _Hard Drive Stats for 2024_.
+- StorageNewsletter.com (2025). _SSD vs HDD Market Share Analysis_.
+- NVIDIA (2024). _CUDA Toolkit and GPU Computing History_.
+
+**HISTORICAL AND CULTURAL REFERENCES:**
+
+- Jobs, S. (2010). "Thoughts on Flash." — apple.com (April 2010).
+- Statista (2011–2020). _Share of Websites Using Flash_.
+- StatCounter (2024). _Desktop OS Market Share_.
+- Dell Technologies (2024). _COO Statements on Windows 10 Migration Scale_.
+
+**Speaker Notes:**
+
+- "This slide consolidates every source cited across the full presentation for reference and follow-up."
+- "Academic works (Rogers, Moore, Christensen) provide the theoretical foundation. Industry reports provide the empirical data. Vendor sources confirm specific lifecycle dates."
+- "URLs are provided where sources are publicly accessible. Analyst reports from Gartner, IDC, and IDTechEx may require subscription access."
