@@ -66,6 +66,7 @@ export default async function LifecyclePositioningPage() {
               className="relative z-10 h-full w-full"
               loading="lazy"
               allow="fullscreen"
+              allowFullScreen
             />
           </div>
 
