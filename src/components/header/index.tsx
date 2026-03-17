@@ -661,6 +661,32 @@ const Header: React.FC = () => {
                         </li>
                       </ul>
                     </div>
+
+                    <div>
+                      <div className="block text-[14px] font-bold text-gray-900 mb-3">
+                        Presentations
+                      </div>
+                      <ul className="space-y-2">
+                        <li>
+                          <Link
+                            href="/technology-adoption-series/presentation"
+                            onClick={handleLinkClick}
+                            className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                          >
+                            Full Teaching Series
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href="/technology-adoption-series/lifecycle-positioning"
+                            onClick={handleLinkClick}
+                            className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                          >
+                            Lifecycle Positioning
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               )}
@@ -1073,6 +1099,33 @@ const Header: React.FC = () => {
                                   ))}
                                 </ul>
                               )}
+                            </div>
+
+                            {/* Presentations */}
+                            <div className="ml-4 mt-2">
+                              <div className="px-4 py-2 text-[13px] font-semibold text-gray-800">
+                                Presentations
+                              </div>
+                              <ul className="mt-1 space-y-1">
+                                <li>
+                                  <Link
+                                    href="/technology-adoption-series/presentation"
+                                    onClick={handleLinkClick}
+                                    className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                  >
+                                    Full Teaching Series
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link
+                                    href="/technology-adoption-series/lifecycle-positioning"
+                                    onClick={handleLinkClick}
+                                    className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                  >
+                                    Lifecycle Positioning
+                                  </Link>
+                                </li>
+                              </ul>
                             </div>
                           </>
                         )}
