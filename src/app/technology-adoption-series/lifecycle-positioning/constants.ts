@@ -13,7 +13,7 @@ export const LIFECYCLE_SLIDE_NUMBERS = [6, 18, 19, 20, 25, 27, 28, 29] as const
 export const LIFECYCLE_SLIDE_SET = new Set<number>(LIFECYCLE_SLIDE_NUMBERS)
 
 /** Per-slide descriptions shown in the "Included slides" table of contents. */
-export const LIFECYCLE_SLIDE_DESCRIPTIONS: Record<number, string> = {
+export const LIFECYCLE_SLIDE_DESCRIPTIONS: Partial<Record<number, string>> = {
   6: 'The dual-curve model showing innovation potential vs adoption risk across five lifecycle stages.',
   18: 'Real-world examples of technologies at each lifecycle stage.',
   19: 'Common cloud platform technologies categorized by lifecycle position.',

@@ -615,7 +615,7 @@ function PresentationFooter({
   // Calculate section ranges
   const sectionRanges = sections.map((sec, i) => {
     const nextSec = sections[i + 1]
-    const end = nextSec ? nextSec.start - 1 : 100 // Assume generous max for last section
+    const end = nextSec ? nextSec.start - 1 : totalSlides
     return { ...sec, end }
   })
 
