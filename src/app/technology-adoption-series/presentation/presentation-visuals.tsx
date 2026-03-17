@@ -1,6 +1,7 @@
 import React, { type ReactNode } from 'react'
 
 import { LIFECYCLE_CONFIGS } from '@/data/lifecycle-timeline-configs'
+import { MOMENT_IN_TIME_CONFIGS } from '@/data/moment-in-time-configs'
 
 /* ────────────────────────────────────────────────────────────
    Dark-native visual components for the fullscreen presenter.
@@ -1795,6 +1796,295 @@ function Visual29_SupplyChainLifecycleTimeline() {
   )
 }
 
+function Visual33_MLAILifecycleTimeline() {
+  const cfg = LIFECYCLE_CONFIGS[33]
+
+  return (
+    <LifecycleTimelineChart
+      title="ML/AI Example: Machine Learning & Artificial Intelligence"
+      subtitle="From Turing's paper (1950) to ChatGPT — 75+ year lifecycle, still ascending"
+      phases={cfg.phases}
+      totalYears="~75+ years (ongoing)"
+      ariaLabel="ML/AI lifecycle timeline showing 47 years bleeding edge, 23 years leading edge, and ongoing mainstream adoption since 2020"
+      noteText="Longest bleeding edge of any example (47 yrs) — two AI winters stalled adoption until compute + data + algorithms aligned"
+      sourceText="Sources: Stanford HAI AI Index (2024); Turing (1950); McCarthy (1956); Krizhevsky/AlexNet (2012); Vaswani/Transformers (2017)"
+    />
+  )
+}
+
+// ── MOMENT IN TIME CHARTS (Slides 30-35) ─────────────────
+
+/* Column-based layout showing multiple technologies positioned by lifecycle stage.
+   Companion to the timeline charts (slides 27-29) — these freeze a single moment
+   and map the competitive landscape across lifecycle stages. */
+
+function MomentInTimeChart({
+  title,
+  subtitle,
+  asOf,
+  stages,
+  sourceText,
+  ariaLabel,
+}: {
+  title: string
+  subtitle: string
+  asOf: string
+  stages: Array<{
+    stage: string
+    color: string
+    textColor?: string
+    technologies: Array<{ name: string; detail: string }>
+  }>
+  sourceText: string
+  ariaLabel: string
+}) {
+  const colWidth = 230
+  const totalWidth = stages.length * colWidth + 80
+  const startX = (1600 - stages.length * colWidth) / 2
+
+  return (
+    <div className="flex h-full flex-col items-center justify-center gap-4">
+      <svg
+        viewBox="0 0 1600 900"
+        className="h-full w-full max-h-full max-w-full"
+        role="img"
+        aria-label={ariaLabel}
+      >
+        {/* Title */}
+        <text x="800" y="50" textAnchor="middle" fontSize="34" fontWeight="bold" fill="#e2e8f0">
+          {title}
+        </text>
+        <text x="800" y="85" textAnchor="middle" fontSize="22" fill="#94a3b8">
+          {subtitle}
+        </text>
+        <text x="800" y="115" textAnchor="middle" fontSize="18" fill="#f59e0b" fontWeight="600">
+          Snapshot: {asOf}
+        </text>
+
+        {/* Stage columns */}
+        {stages.map((stage, i) => {
+          const x = startX + i * colWidth
+          const headerY = 150
+          const techStartY = 200
+
+          return (
+            <g key={stage.stage}>
+              {/* Column background */}
+              <rect
+                x={x + 4}
+                y={headerY}
+                width={colWidth - 8}
+                height={680}
+                rx="8"
+                fill="#1e293b"
+                stroke={stage.color}
+                strokeWidth="1.5"
+                opacity="0.6"
+              />
+
+              {/* Stage header */}
+              <rect
+                x={x + 4}
+                y={headerY}
+                width={colWidth - 8}
+                height={40}
+                rx="8"
+                fill={stage.color}
+              />
+              {/* Bottom corners of header should be square where they meet column body */}
+              <rect x={x + 4} y={headerY + 32} width={colWidth - 8} height={8} fill={stage.color} />
+              <text
+                x={x + colWidth / 2}
+                y={headerY + 27}
+                textAnchor="middle"
+                fontSize="14"
+                fontWeight="bold"
+                fill={stage.textColor || '#0f172a'}
+              >
+                {stage.stage}
+              </text>
+
+              {/* Technologies */}
+              {stage.technologies.map((tech, j) => {
+                const ty = techStartY + j * 85 + 50
+                return (
+                  <g key={tech.name}>
+                    <title>
+                      {tech.name}: {tech.detail}
+                    </title>
+                    {/* Tech card background */}
+                    <rect
+                      x={x + 10}
+                      y={ty - 18}
+                      width={colWidth - 20}
+                      height={72}
+                      rx="6"
+                      fill="#0f172a"
+                      stroke={stage.color}
+                      strokeWidth="1"
+                      opacity="0.8"
+                    />
+                    {/* Tech name */}
+                    <text
+                      x={x + colWidth / 2}
+                      y={ty + 2}
+                      textAnchor="middle"
+                      fontSize="12"
+                      fontWeight="bold"
+                      fill="#e2e8f0"
+                    >
+                      {tech.name.length > 28 ? tech.name.slice(0, 26) + '…' : tech.name}
+                    </text>
+                    {/* Tech detail — wrap to two lines with ellipsis */}
+                    {tech.detail.length <= 35 ? (
+                      <text
+                        x={x + colWidth / 2}
+                        y={ty + 22}
+                        textAnchor="middle"
+                        fontSize="10"
+                        fill="#94a3b8"
+                      >
+                        {tech.detail}
+                      </text>
+                    ) : (
+                      <>
+                        <text
+                          x={x + colWidth / 2}
+                          y={ty + 18}
+                          textAnchor="middle"
+                          fontSize="10"
+                          fill="#94a3b8"
+                        >
+                          {tech.detail.slice(0, 35)}
+                        </text>
+                        <text
+                          x={x + colWidth / 2}
+                          y={ty + 32}
+                          textAnchor="middle"
+                          fontSize="10"
+                          fill="#94a3b8"
+                        >
+                          {tech.detail.length > 70
+                            ? tech.detail.slice(35, 67) + '…'
+                            : tech.detail.slice(35, 70)}
+                        </text>
+                      </>
+                    )}
+                  </g>
+                )
+              })}
+            </g>
+          )
+        })}
+
+        {/* Risk gradient arrow at bottom */}
+        <defs>
+          <linearGradient id="risk-gradient-moment" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#fbbf24" />
+            <stop offset="25%" stopColor="#22d3ee" />
+            <stop offset="45%" stopColor="#22c55e" />
+            <stop offset="65%" stopColor="#f97316" />
+            <stop offset="85%" stopColor="#ef4444" />
+            <stop offset="100%" stopColor="#991b1b" />
+          </linearGradient>
+        </defs>
+        <rect
+          x={startX}
+          y="848"
+          width={totalWidth - 80}
+          height="4"
+          rx="2"
+          fill="url(#risk-gradient-moment)"
+        />
+        <text x={startX} y="870" fontSize="12" fill="#64748b">
+          High Risk (Unproven)
+        </text>
+        <text x={startX + totalWidth - 80} y="870" textAnchor="end" fontSize="12" fill="#64748b">
+          High Risk (Obsolete)
+        </text>
+        <text x="800" y="870" textAnchor="middle" fontSize="12" fill="#22c55e" fontWeight="600">
+          ▲ Target Zone ▲
+        </text>
+
+        {/* Source */}
+        <text x="800" y="895" textAnchor="middle" fontSize="11" fill="#64748b" fontStyle="italic">
+          {sourceText}
+        </text>
+      </svg>
+    </div>
+  )
+}
+
+function Visual30_DataCenterStorageMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[30]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="Data center storage technologies positioned across lifecycle stages in 2025, from DNA storage at bleeding edge to 10K RPM HDDs at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
+function Visual31_RichWebExperiencesMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[31]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="Rich web experience technologies positioned across lifecycle stages in 2025, from WebGPU at bleeding edge to ActiveX at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
+function Visual32_SupplyChainIdMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[32]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="Supply chain identification technologies positioned across lifecycle stages in 2025, from blockchain track-and-trace at bleeding edge to Kimball tags at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
+function Visual34_MLAIMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[34]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="ML/AI technologies positioned across lifecycle stages in 2025, from AGI at bleeding edge to expert system shells at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
+function Visual35_LLMMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[35]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="Large language model technologies positioned across lifecycle stages in 2025, from persistent memory LLMs at bleeding edge to ELIZA at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
 // ── Public export ──────────────────────────────────────────
 
 export interface VisualDef {
@@ -1893,6 +2183,40 @@ export const VISUAL_CONFIG: VisualDef[] = [
     number: 29,
     id: 'supply-chain-lifecycle-timeline',
     component: Visual29_SupplyChainLifecycleTimeline,
+  },
+
+  // ── MOMENT IN TIME COMPANIONS (Slides 30-32) ──────────────
+  {
+    number: 30,
+    id: 'data-center-storage-moment',
+    component: Visual30_DataCenterStorageMoment,
+  },
+  {
+    number: 31,
+    id: 'rich-web-experiences-moment',
+    component: Visual31_RichWebExperiencesMoment,
+  },
+  {
+    number: 32,
+    id: 'supply-chain-id-moment',
+    component: Visual32_SupplyChainIdMoment,
+  },
+
+  // ── ML/AI LIFECYCLE + MOMENT (Slides 33-35) ──────────────
+  {
+    number: 33,
+    id: 'mlai-lifecycle-timeline',
+    component: Visual33_MLAILifecycleTimeline,
+  },
+  {
+    number: 34,
+    id: 'mlai-moment',
+    component: Visual34_MLAIMoment,
+  },
+  {
+    number: 35,
+    id: 'llm-moment',
+    component: Visual35_LLMMoment,
   },
 ]
 
