@@ -584,7 +584,7 @@ const Header: React.FC = () => {
                     {technologyAdoptionTeachingSeries.root.title}
                   </Link>
 
-                  <div className="grid grid-cols-3 gap-8 xl:grid-cols-5">
+                  <div className="grid grid-cols-3 gap-8 xl:grid-cols-6">
                     {teachingSeriesParts.map((part, partIdx) => (
                       <div key={part.id}>
                         <Link
@@ -669,7 +669,7 @@ const Header: React.FC = () => {
                       <ul className="space-y-2">
                         <li>
                           <Link
-                            href="/technology-adoption-series/presentation"
+                            href={`${technologyAdoptionTeachingSeries.root.slug}/presentation`}
                             onClick={handleLinkClick}
                             className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
                           >
@@ -678,7 +678,7 @@ const Header: React.FC = () => {
                         </li>
                         <li>
                           <Link
-                            href="/technology-adoption-series/lifecycle-positioning"
+                            href={`${technologyAdoptionTeachingSeries.root.slug}/lifecycle-positioning`}
                             onClick={handleLinkClick}
                             className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
                           >
@@ -1109,7 +1109,7 @@ const Header: React.FC = () => {
                               <ul className="mt-1 space-y-1">
                                 <li>
                                   <Link
-                                    href="/technology-adoption-series/presentation"
+                                    href={`${technologyAdoptionTeachingSeries.root.slug}/presentation`}
                                     onClick={handleLinkClick}
                                     className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
                                   >
@@ -1118,7 +1118,7 @@ const Header: React.FC = () => {
                                 </li>
                                 <li>
                                   <Link
-                                    href="/technology-adoption-series/lifecycle-positioning"
+                                    href={`${technologyAdoptionTeachingSeries.root.slug}/lifecycle-positioning`}
                                     onClick={handleLinkClick}
                                     className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
                                   >
