@@ -2135,3 +2135,147 @@ Sources:
 - Zebra Technologies, "Global Shopper Study" (2024)
 - IEEE, "RFID vs Barcode: A Comparative Analysis for Supply Chain Management" (2023)
 - GS1 US, "Sunrise 2027: Transition to 2D Barcodes" (2024) — gs1us.org
+
+---
+
+### Slide 30 (Optional): "Data Center Storage: A Moment in Time (2025)"
+
+**Content**
+
+DATA CENTER STORAGE: A MOMENT IN TIME (2025)
+
+The previous slide showed the HDD lifecycle over 70+ years. This companion slide **freezes the frame at 2025** and maps the entire data center storage landscape across lifecycle stages — showing where every major technology sits right now.
+
+**LIFECYCLE POSITIONING:**
+
+| Stage           | Technologies                                                                                           |
+| --------------- | ------------------------------------------------------------------------------------------------------ |
+| Bleeding Edge   | DNA Data Storage (Microsoft/Twist Bio), Glass Storage (Project Silica), CXL-attached Storage (CXL 3.0) |
+| Leading Edge    | QLC NVMe SSDs (60+ TB), Computational Storage (Samsung CSD), PCIe Gen 5 NVMe                           |
+| Mainstream      | TLC NVMe SSDs, SAS/SATA SSDs, All-Flash Arrays (Pure, NetApp, Dell), Object Storage (S3-compatible)    |
+| Trending Behind | High-capacity HDDs (20+ TB), Hybrid Flash Arrays, SAN (Fibre Channel)                                  |
+| End of Support  | Consumer HDDs (< 4 TB), SAS 12 Gbps HDDs                                                               |
+| End of Life     | Tape Libraries (LTO-5 and earlier), 10K/15K RPM HDDs                                                   |
+
+**KEY INSIGHTS:**
+
+- **HDDs appear in "Trending Behind"** — they haven't disappeared but their role has narrowed to bulk/cold storage. The timeline view showed a long mainstream (30 yrs); the moment-in-time view shows that era is ending
+- **Multiple generations coexist:** PCIe Gen 5 (leading edge) is shipping while SAS HDDs (end of support) are still in production — a 20+ year technology gap in active use
+- **The bleeding edge is radical:** DNA and glass storage represent fundamentally different paradigms, not incremental improvements — suggesting a potential discontinuous jump
+- **Flash dominates the middle:** TLC NVMe is the center of gravity today, just as HDDs were in 2005
+
+**COMPARISON TO TIMELINE VIEW:** Slide 27 showed HDDs moving through phases over time. This slide shows all storage technologies frozen at one moment — revealing the competitive landscape that creates the transition pressure visible in the timeline's "trending behind" phase.
+
+**Visual:** Data Center Storage Moment in Time
+
+**Speaker Notes:**
+
+- "The timeline showed us one technology's journey. This companion shows the full competitive landscape at a single moment."
+- "Notice how many technologies coexist simultaneously — from DNA storage in labs to 10K RPM drives being decommissioned. The lifecycle model explains why organizations must manage this complexity."
+- "HDDs aren't dead — they're trending behind. That means plan your migration, don't panic. But also don't start new projects on them."
+- "The bleeding edge here is fascinating: DNA and glass storage aren't incremental. They represent potential paradigm shifts, which is why they're years from mainstream."
+
+Sources:
+
+- IDC, "Worldwide Solid State Drive and Hard Disk Drive Forecast, 2024–2028" (Dec 2024)
+- Gartner, "Magic Quadrant for Primary Storage Platforms" (Oct 2024)
+- StorageNewsletter.com, "SSD vs HDD Market Share Analysis" (2025)
+- Microsoft Research, "Project Silica: Glass Storage Update" (2024)
+
+---
+
+### Slide 31 (Optional): "Rich Web Experiences: A Moment in Time (2025)"
+
+**Content**
+
+RICH WEB EXPERIENCES: A MOMENT IN TIME (2025)
+
+The previous slide showed Adobe Flash's complete lifecycle from 1996 to its 2021 kill switch. This companion slide **freezes the frame at 2025** and maps today's rich web experience technologies across lifecycle stages — showing what replaced Flash and what's coming next.
+
+**LIFECYCLE POSITIONING:**
+
+| Stage           | Technologies                                                                                             |
+| --------------- | -------------------------------------------------------------------------------------------------------- |
+| Bleeding Edge   | WebGPU, WebTransport, View Transitions API                                                               |
+| Leading Edge    | WebAssembly (Wasm), Web Components (Lit, Stencil), WebXR / Immersive Web                                 |
+| Mainstream      | HTML5 Canvas/SVG, CSS Animations/Transitions, JavaScript SPA Frameworks (React, Vue, Angular), WebSocket |
+| Trending Behind | jQuery, Server-rendered MPA (traditional), Java Applets (legacy enterprise)                              |
+| End of Support  | Adobe Flash (kill switch 2021), Microsoft Silverlight (EOL Oct 2021)                                     |
+| End of Life     | ActiveX Controls (IE EOL 2022), Java Web Start / JNLP (removed JDK 11+)                                  |
+
+**KEY INSIGHTS:**
+
+- **Flash appears in "End of Support"** — the timeline showed its decline, but the moment-in-time view shows it's now surrounded by successors that each replaced a specific Flash capability
+- **No single replacement:** Flash was a monolithic platform; it was replaced by multiple technologies — Canvas for graphics, CSS for animation, WebSocket for real-time, Wasm for performance
+- **The cycle repeats:** jQuery (77% of sites) is now in "trending behind" — the same trajectory Flash followed a decade earlier
+- **WebAssembly is the next potential platform shift:** Like Flash in 2002, Wasm enables experiences the browser wasn't designed for (Figma, Photoshop) — but it's open-standard, avoiding Flash's platform lock-in
+
+**COMPARISON TO TIMELINE VIEW:** Slide 28 showed Flash's compressed 25-year lifecycle. This slide reveals why it declined — the mainstream is now filled with open-standard alternatives that collectively surpass what Flash offered. The moment-in-time view makes the competitive pressure visible.
+
+**Visual:** Rich Web Experiences Moment in Time
+
+**Speaker Notes:**
+
+- "Flash was one platform that did everything. It was replaced by an ecosystem of specialized technologies — each better at one thing."
+- "Look at the end-of-life column: ActiveX, Java Web Start, Silverlight, Flash. These were all proprietary platforms. The pattern is clear — proprietary web technologies have a shorter lifecycle."
+- "jQuery is the one to watch. It's on 77% of websites but declining in new projects. It's following Flash's trajectory about 10 years behind."
+- "WebAssembly is fascinating — it's Flash done right. Near-native performance, but built on open standards. Will it avoid Flash's fate? The open-standard approach suggests yes."
+
+Sources:
+
+- W3Techs, "Usage Statistics of JavaScript Libraries" (2025)
+- Can I Use, "WebGPU, WebTransport, View Transitions browser support" (2025)
+- HTTP Archive, "Web Almanac 2024 — JavaScript chapter" (2024)
+- MDN Web Docs, "Web Platform Feature Status" (2025)
+
+---
+
+### Slide 32 (Optional): "Supply Chain Identification: A Moment in Time (2025)"
+
+**Content**
+
+SUPPLY CHAIN IDENTIFICATION: A MOMENT IN TIME (2025)
+
+The previous slide showed the barcode's 80+ year lifecycle from patent (1952) to today. This companion slide **freezes the frame at 2025** and maps the entire supply chain identification landscape across lifecycle stages — showing what's competing with, supplementing, and eventually replacing the barcode.
+
+**LIFECYCLE POSITIONING:**
+
+| Stage           | Technologies                                                                                                |
+| --------------- | ----------------------------------------------------------------------------------------------------------- |
+| Bleeding Edge   | Blockchain Track-and-Trace, Computer Vision Checkout (Amazon Just Walk Out), Digital Twins for Supply Chain |
+| Leading Edge    | GS1 Digital Link QR Codes (Sunrise 2027), UHF RFID (item-level retail), IoT Sensors (cold chain)            |
+| Mainstream      | 1D Barcodes (UPC/EAN), 2D Barcodes (QR/Data Matrix), RFID (pallet/case level), EDI                          |
+| Trending Behind | 1D Barcodes (proprietary formats), Manual Data Entry / Paper-based, Older EDI Standards (ANSI X12)          |
+| End of Support  | Magnetic Stripe Inventory Tags, Punch Card Inventory Systems                                                |
+| End of Life     | Kimball Tags (perforated paper), OCR-A Font Scanning                                                        |
+
+**KEY INSIGHTS:**
+
+- **Barcodes appear in BOTH mainstream AND trending behind** — standard UPC/EAN barcodes are still mainstream (6B+ scans/day), but proprietary 1D formats are declining. The technology isn't monolithic
+- **The GS1 Sunrise 2027 transition is visible:** QR codes are "leading edge" — adopted by major CPGs but retailers are lagging, exactly the ecosystem coordination challenge the barcode timeline revealed
+- **Blockchain hype is cooling:** TradeLens shut down, Amazon scaled back Just Walk Out. Bleeding edge isn't just "new" — it also includes technologies that may never reach mainstream
+- **Supply chain has the widest active span:** From Kimball tags (EOL since 1990s) to blockchain (bleeding edge) — a 30+ year gap of coexisting technologies, wider than storage or web
+
+**COMPARISON TO TIMELINE VIEW:** Slide 29 showed barcodes' 22-year bleeding edge caused by infrastructure lag. This slide shows that same pattern repeating: RFID has been "arriving" for 20+ years and is still not universal at item level. The moment-in-time view reveals that supply chain technology transitions are generational, not annual.
+
+**SUPPLY CHAIN CONSIDERATIONS:**
+
+- Ecosystem coordination requirements mean technologies move through stages more slowly than hardware or software
+- Regulatory mandates (FDA UDI, EU Digital Product Passport) can accelerate or force transitions
+- Cost asymmetry: printing a barcode costs fractions of a cent; an RFID tag costs $0.05-0.15 — economics gate adoption
+
+**Visual:** Supply Chain Identification Moment in Time
+
+**Speaker Notes:**
+
+- "Notice the barcode appears in two stages — mainstream for standard UPC but trending behind for proprietary formats. Technologies aren't monolithic."
+- "RFID has been 'the future of supply chain' for 25 years. It's still leading edge at item level. This is the supply chain coordination problem — you can't adopt alone."
+- "The bleeding edge is notable for what's NOT working: blockchain track-and-trace is cooling, computer vision checkout is scaling back. Not every bleeding edge technology makes it."
+- "The Sunrise 2027 transition from 1D to 2D barcodes will be the biggest supply chain identification shift since the original barcode adoption in the 1970s."
+
+Sources:
+
+- GS1 US, "Sunrise 2027: Transition to 2D Barcodes" (2024) — gs1us.org
+- IDTechEx, "RFID Forecasts, Players and Opportunities 2024–2034" (2024)
+- McKinsey & Company, "Supply Chain 4.0" (2024)
+- Auburn University RFID Lab, "Item-Level RFID Adoption Report" (2024)

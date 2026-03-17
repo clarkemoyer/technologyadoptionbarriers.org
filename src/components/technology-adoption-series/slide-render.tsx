@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { LIFECYCLE_CONFIGS } from '@/data/lifecycle-timeline-configs'
+import { MOMENT_IN_TIME_CONFIGS } from '@/data/moment-in-time-configs'
 import { RenderMarkdownNodes } from '@/lib/simple-markdown'
 
 import { DualCurveChart } from './dual-curve-chart'
@@ -1072,6 +1073,45 @@ export const TechnologyAdoptionSeriesSlideVisual = ({
             note={cfg.note}
             source={cfg.source}
           />
+        </VisualCard>
+      )
+    }
+  }
+
+  // ── Moment in time charts (slides 30-32) ──────────────
+  if (slideNumber === 30 || slideNumber === 31 || slideNumber === 32) {
+    const cfg = MOMENT_IN_TIME_CONFIGS[slideNumber]
+    if (cfg) {
+      return (
+        <VisualCard title={cfg.title}>
+          <div className="space-y-3">
+            <div className="text-xs font-semibold text-amber-700">Snapshot: {cfg.asOf}</div>
+            <div className="grid grid-cols-3 gap-2 lg:grid-cols-6">
+              {cfg.stages.map((stage) => (
+                <div key={stage.stage} className="space-y-1">
+                  <div
+                    className="rounded px-2 py-1 text-center text-xs font-bold"
+                    style={{
+                      backgroundColor: stage.color,
+                      color: stage.textColor ?? '#111827',
+                    }}
+                  >
+                    {stage.stage}
+                  </div>
+                  {stage.technologies.map((tech) => (
+                    <div
+                      key={tech.name}
+                      className="rounded border border-gray-200 px-1.5 py-1 text-center"
+                      title={tech.detail}
+                    >
+                      <div className="text-xs font-semibold text-gray-900">{tech.name}</div>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div className="text-xs text-gray-500 italic">{cfg.source}</div>
+          </div>
         </VisualCard>
       )
     }
