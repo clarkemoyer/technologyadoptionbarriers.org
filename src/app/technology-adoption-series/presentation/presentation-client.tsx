@@ -596,13 +596,7 @@ function StatementFrame({ frame }: { frame: PresentationFrame }) {
   )
 }
 
-function PresentationFooter({
-  currentSlide,
-  totalSlides,
-}: {
-  currentSlide: number
-  totalSlides: number
-}) {
+function PresentationFooter({ currentSlide }: { currentSlide: number }) {
   const sectionMap = useContext(SectionMapContext)
   const sections = Object.entries(sectionMap)
     .map(([startSlide, data]) => ({
@@ -612,10 +606,12 @@ function PresentationFooter({
     }))
     .sort((a, b) => a.start - b.start)
 
-  // Calculate section ranges
+  // Calculate section ranges — last section extends to infinity so it
+  // captures any source slide number, even in filtered decks where
+  // frames.length < max source slide number.
   const sectionRanges = sections.map((sec, i) => {
     const nextSec = sections[i + 1]
-    const end = nextSec ? nextSec.start - 1 : totalSlides
+    const end = nextSec ? nextSec.start - 1 : Infinity
     return { ...sec, end }
   })
 
@@ -781,7 +777,7 @@ export default function PresentationClient({
           </div>
 
           {/* Global Footer Navigation */}
-          <PresentationFooter currentSlide={frame.sourceSlide} totalSlides={frames.length} />
+          <PresentationFooter currentSlide={frame.sourceSlide} />
 
           {/* Keyboard shortcut overlay */}
           {showHelp ? (
