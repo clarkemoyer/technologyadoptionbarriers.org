@@ -480,4 +480,125 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
     source:
       'Sources: Stanford HAI AI Index (2024); Gartner AI Hype Cycle (2024); State of AI Report (2024)',
   },
+
+  // Slide 35: LLM-specific moment in time — tighter focus than slide 34
+  35: {
+    title: 'Large Language Models: A Moment in Time',
+    subtitle: 'Where LLM technologies, architectures, and tooling sit today — zoomed in',
+    asOf: '2025',
+    stages: [
+      {
+        stage: 'Bleeding Edge',
+        color: '#fbbf24',
+        technologies: [
+          {
+            name: 'Persistent Memory LLMs',
+            detail: 'Infinite context via memory systems — MemGPT, research-stage',
+          },
+          {
+            name: 'Mixture-of-Agents (MoA)',
+            detail: 'Multi-LLM orchestration — Together AI research, no production standard',
+          },
+          {
+            name: 'Self-improving / Self-play',
+            detail: 'Models that improve via own output — alignment risks unresolved',
+          },
+        ],
+      },
+      {
+        stage: 'Leading Edge',
+        color: '#22d3ee',
+        technologies: [
+          {
+            name: 'Reasoning Models (o1, Claude)',
+            detail: 'Chain-of-thought at inference — OpenAI o1/o3, shipping but evolving fast',
+          },
+          {
+            name: 'Agentic Tool Use',
+            detail: 'Claude Code, Devin, Codex — autonomous multi-step coding/research',
+          },
+          {
+            name: 'On-device LLMs (< 7B)',
+            detail: 'Gemini Nano, Phi-3, Llama 3 mobile — privacy-first, limited capability',
+          },
+          {
+            name: 'Long-context (1M+ tokens)',
+            detail: 'Gemini 1.5 Pro, Claude — shipping but retrieval quality degrades at scale',
+          },
+        ],
+      },
+      {
+        stage: 'Mainstream',
+        color: '#22c55e',
+        technologies: [
+          {
+            name: 'Cloud LLM APIs',
+            detail: 'OpenAI, Anthropic, Google — enterprise standard, usage-based pricing',
+          },
+          {
+            name: 'RAG (Retrieval-Augmented Gen)',
+            detail: 'Vector DB + LLM — standard enterprise pattern for grounded answers',
+          },
+          {
+            name: 'Instruction-tuned Chat Models',
+            detail: 'ChatGPT, Claude, Gemini chat — 100M+ users, default interface',
+          },
+          {
+            name: 'Open-weight Models (7B-70B)',
+            detail: 'Llama 3, Mistral, Qwen — self-hosted enterprise, fine-tuning standard',
+          },
+        ],
+      },
+      {
+        stage: 'Trending Behind',
+        color: '#f97316',
+        technologies: [
+          {
+            name: 'GPT-3 / text-davinci',
+            detail: 'Original completion API — deprecated by OpenAI, replaced by chat models',
+          },
+          {
+            name: 'BERT / RoBERTa (standalone)',
+            detail: 'Encoder-only models — still in legacy pipelines, LLMs handle these tasks now',
+          },
+          {
+            name: 'Basic Prompt Engineering',
+            detail: 'Simple few-shot prompts — giving way to structured tool use and agents',
+          },
+        ],
+      },
+      {
+        stage: 'End of Support',
+        color: '#ef4444',
+        textColor: '#fff',
+        technologies: [
+          {
+            name: 'GPT-2 (standalone)',
+            detail: '2019 model — no API, outperformed by every current model',
+          },
+          {
+            name: 'Early Seq2seq Chatbots',
+            detail: 'Pre-transformer NLG — Google Meena, Facebook BlenderBot 1.0',
+          },
+        ],
+      },
+      {
+        stage: 'End of Life',
+        color: '#991b1b',
+        textColor: '#fff',
+        technologies: [
+          {
+            name: 'ELIZA / PARRY',
+            detail: '1960s pattern-matching — historical curiosity, zero practical use',
+          },
+          {
+            name: 'Markov Chain Text Generation',
+            detail: 'Statistical n-gram models — replaced entirely by neural approaches',
+          },
+        ],
+      },
+    ],
+    source:
+      'Sources: OpenAI Model Deprecations (2025); Anthropic Model Cards (2025); Hugging Face Open LLM Leaderboard (2025)',
+  },
 }

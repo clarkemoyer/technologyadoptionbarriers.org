@@ -2066,6 +2066,20 @@ function Visual34_MLAIMoment() {
   )
 }
 
+function Visual35_LLMMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[35]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="Large language model technologies positioned across lifecycle stages in 2025, from persistent memory LLMs at bleeding edge to ELIZA at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
 // ── Public export ──────────────────────────────────────────
 
 export interface VisualDef {
@@ -2183,7 +2197,7 @@ export const VISUAL_CONFIG: VisualDef[] = [
     component: Visual32_SupplyChainIdMoment,
   },
 
-  // ── ML/AI LIFECYCLE + MOMENT (Slides 33-34) ──────────────
+  // ── ML/AI LIFECYCLE + MOMENT (Slides 33-35) ──────────────
   {
     number: 33,
     id: 'mlai-lifecycle-timeline',
@@ -2193,6 +2207,11 @@ export const VISUAL_CONFIG: VisualDef[] = [
     number: 34,
     id: 'mlai-moment',
     component: Visual34_MLAIMoment,
+  },
+  {
+    number: 35,
+    id: 'llm-moment',
+    component: Visual35_LLMMoment,
   },
 ]
 

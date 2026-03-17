@@ -1078,8 +1078,14 @@ export const TechnologyAdoptionSeriesSlideVisual = ({
     }
   }
 
-  // ── Moment in time charts (slides 30-32, 34) ──────────────
-  if (slideNumber === 30 || slideNumber === 31 || slideNumber === 32 || slideNumber === 34) {
+  // ── Moment in time charts (slides 30-32, 34-35) ──────────────
+  if (
+    slideNumber === 30 ||
+    slideNumber === 31 ||
+    slideNumber === 32 ||
+    slideNumber === 34 ||
+    slideNumber === 35
+  ) {
     const cfg = MOMENT_IN_TIME_CONFIGS[slideNumber]
     if (cfg) {
       return (

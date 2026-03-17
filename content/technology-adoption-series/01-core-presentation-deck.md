@@ -2385,3 +2385,64 @@ Sources:
 - State of AI Report (2024) — stateof.ai
 - McKinsey, "The State of AI in Early 2024" — mckinsey.com
 - NVIDIA, "CUDA Toolkit and GPU Computing History" (2024)
+
+---
+
+### Slide 35 (Optional): "Large Language Models: A Moment in Time (2025)"
+
+**Content**
+
+LARGE LANGUAGE MODELS: A MOMENT IN TIME (2025)
+
+Slide 34 mapped the broad ML/AI landscape. This slide **zooms in on just the LLM space** — the models, architectures, tooling, and deployment patterns that make up the large language model ecosystem as of 2025. The pace of change here is measured in months, not years.
+
+**LIFECYCLE POSITIONING:**
+
+| Stage           | Technologies                                                                                                                                                                                  |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bleeding Edge   | Persistent Memory LLMs (MemGPT), Mixture-of-Agents orchestration, Self-improving / Self-play models                                                                                           |
+| Leading Edge    | Reasoning Models (o1, Claude chain-of-thought), Agentic Tool Use (Claude Code, Devin, Codex), On-device LLMs < 7B (Gemini Nano, Phi-3), Long-context 1M+ tokens (Gemini 1.5 Pro, Claude)      |
+| Mainstream      | Cloud LLM APIs (OpenAI, Anthropic, Google), RAG (Retrieval-Augmented Generation), Instruction-tuned Chat Models (ChatGPT, Claude, Gemini), Open-weight Models 7B-70B (Llama 3, Mistral, Qwen) |
+| Trending Behind | GPT-3 / text-davinci (deprecated completion API), BERT / RoBERTa (standalone encoder-only), Basic Prompt Engineering (simple few-shot)                                                        |
+| End of Support  | GPT-2 (standalone, 2019), Early Seq2seq Chatbots (Meena, BlenderBot 1.0)                                                                                                                      |
+| End of Life     | ELIZA / PARRY (1960s pattern-matching), Markov Chain Text Generation                                                                                                                          |
+
+**KEY INSIGHTS:**
+
+- **The entire mainstream is less than 3 years old** — ChatGPT launched Nov 2022, and the entire cloud LLM API ecosystem built up around it in under 24 months. No other technology in our series went from niche research to enterprise standard this fast
+- **GPT-3 is already "trending behind"** — a model that was groundbreaking in June 2020 is deprecated by 2024. That's a 4-year leading-to-trending-behind transition. Compare to HDDs (30 years mainstream) or barcodes (35 years)
+- **Reasoning and agents are the next wave** — o1-style chain-of-thought and agentic tool use (Claude Code, Devin) are leading edge today. If they cross to mainstream, they'll redefine how LLMs are used — from "answer questions" to "complete tasks"
+- **RAG is already the enterprise default** — vector database + LLM retrieval is the standard pattern for grounded enterprise answers, moving faster than most enterprise technology adoption
+- **Open-weight models are a parallel mainstream** — Llama 3, Mistral, and Qwen enable self-hosted deployment and fine-tuning, creating a two-track mainstream (cloud API vs. self-hosted) that's unique to LLMs
+- **ELIZA to Claude: 60 years in one chart** — the full span from 1960s pattern-matching to 2025 autonomous agents illustrates the cumulative nature of the LLM revolution. Each generation built on the last, but the pace of improvement is exponential
+
+**THE LLM OBSOLESCENCE CLOCK:**
+
+Unlike storage or supply chain technologies where transitions take decades, LLM generations turn over in **12-24 months**:
+
+- GPT-2 (2019) → GPT-3 (2020) → GPT-3.5 (2022) → GPT-4 (2023) → GPT-4o (2024) → o1 (2024)
+- Each generation doesn't just improve — it **deprecates** the previous one via API shutdown
+
+This creates unprecedented adoption pressure: organizations that deployed GPT-3 solutions in 2021 had to migrate by 2024. The lifecycle model's phases still apply, but the clock speed is 10-50x faster than hardware or infrastructure technologies.
+
+**COMPARISON TO BROAD ML/AI VIEW:** Slide 34 showed ML/AI across 75 years. This slide shows the LLM sub-domain across ~5 years of active history. The contrast illustrates a key teaching: **lifecycle speed varies not just by domain (hardware vs. software) but by sub-domain.** LLMs move faster than traditional ML, which moves faster than hardware.
+
+**Visual:** Large Language Models Moment in Time
+
+**Speaker Notes:**
+
+- "This is the tightest zoom we've done — just LLMs. And even within this narrow focus, the lifecycle stages are fully populated from bleeding edge to end of life."
+- "GPT-3 trending behind is the stat that shocks people. In 2020, it was the most impressive AI demo anyone had seen. By 2024, its API is deprecated. That's a 4-year cycle from breakthrough to replacement."
+- "RAG becoming mainstream this fast tells us something about enterprise adoption: when the pain point is clear (hallucination) and the solution is accessible (vector DB + API), adoption can compress dramatically."
+- "Look at the leading edge: reasoning models, agents, long-context, on-device. Any one of these could reshape the LLM market in 2025-2026. We're watching multiple potential mainstream transitions simultaneously."
+- "The 12-24 month generation cycle is why we need the lifecycle model. It's not about specific models — it's about understanding which _category_ of approach is bleeding, leading, or mainstream, so you don't build on something that's about to be deprecated."
+- "ELIZA to Claude Code: 60 years in one slide. But most of the practical value was created in the last 3. That's the AI lifecycle in a nutshell."
+
+Sources:
+
+- OpenAI, "Model Deprecations and Migration Guide" (2025) — platform.openai.com
+- Anthropic, "Claude Model Cards and Changelogs" (2025) — docs.anthropic.com
+- Hugging Face, "Open LLM Leaderboard" (2025) — huggingface.co
+- Weizenbaum, J., "ELIZA — A Computer Program for the Study of Natural Language" (1966)
+- Brown et al., "Language Models are Few-Shot Learners" (GPT-3, 2020)
+- Touvron et al., "Llama 3" (Meta, 2024)
