@@ -71,6 +71,9 @@ const SECTIONS: Record<number, { label: string; title: string; count: string }> 
   },
 }
 
+const SectionMapContext =
+  createContext<Record<number, { label: string; title: string; count: string }>>(SECTIONS)
+
 const MAX_FRAME_SIZE = 1800 // estimated chars — fill frames with substantial content
 const MAX_LIST_ITEMS = 10
 
@@ -155,19 +158,24 @@ function splitOversizeNode(node: MarkdownNode): MarkdownNode[] {
 
 // ── Frame expansion ──────────────────────────────────────────────────
 
-function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFrame[] {
+function expandToFrames(
+  slides: TechnologyAdoptionSeriesSlide[],
+  overrides?: { deckTitle?: string; deckSubtitle?: string; sections?: SectionMap }
+): PresentationFrame[] {
   const frames: PresentationFrame[] = []
+  const sectionMap = overrides?.sections ?? SECTIONS
 
   // ── Deck title frame ──
   frames.push({
     type: 'deck-title',
     sourceSlide: 0,
-    title: 'Technology Adoption Teaching Series',
+    title: overrides?.deckTitle ?? 'Technology Adoption Teaching Series',
+    statement: overrides?.deckSubtitle,
   })
 
   for (const slide of slides) {
     // ── Section divider ──
-    const sec = SECTIONS[slide.number]
+    const sec = sectionMap[slide.number]
     if (sec) {
       frames.push({
         type: 'section',
@@ -354,14 +362,17 @@ function useKeyboardNavigation(
 }
 
 /** Resolve the current section label for the nav bar. */
-function getSectionLabel(sourceSlide: number): string {
+function getSectionLabel(
+  sourceSlide: number,
+  sectionMap: Record<number, { label: string; title: string; count: string }>
+): string {
   if (sourceSlide === 0) return ''
-  // Walk SECTIONS in descending order to find the section this slide belongs to
-  const sectionStarts = Object.keys(SECTIONS)
+  // Walk sections in descending order to find the section this slide belongs to
+  const sectionStarts = Object.keys(sectionMap)
     .map(Number)
     .sort((a, b) => b - a)
   for (const start of sectionStarts) {
-    if (sourceSlide >= start) return SECTIONS[start].label
+    if (sourceSlide >= start) return sectionMap[start].label
   }
   return ''
 }
@@ -406,18 +417,18 @@ const proseOverrides4k = [
   '[&_a]:text-cyan-400 [&_a]:underline',
 ].join(' ')
 
-function DeckTitleFrame() {
+function DeckTitleFrame({ frame }: { frame: PresentationFrame }) {
   const mode = useContext(PresentationModeContext)
+  const subtitle =
+    frame.statement ?? 'A Strategic Framework for Understanding and Implementing Technology Change'
   if (mode === '4k') {
     return (
       <div className="flex h-full flex-col items-center justify-center text-center p-12">
         <div className="mb-8 text-3xl font-semibold tracking-widest uppercase text-cyan-400">
           Teaching Series
         </div>
-        <h1 className="text-8xl font-extrabold leading-tight text-white">Technology Adoption</h1>
-        <p className="mt-12 max-w-5xl text-4xl leading-relaxed text-slate-300">
-          A Strategic Framework for Understanding and Implementing Technology Change
-        </p>
+        <h1 className="text-8xl font-extrabold leading-tight text-white">{frame.title}</h1>
+        <p className="mt-12 max-w-5xl text-4xl leading-relaxed text-slate-300">{subtitle}</p>
         <div className="mt-16 text-2xl text-slate-500">
           Technology Adoption Barriers &middot; technologyadoptionbarriers.org
         </div>
@@ -430,10 +441,10 @@ function DeckTitleFrame() {
         Teaching Series
       </div>
       <h1 className="text-5xl font-extrabold leading-tight text-white lg:text-7xl">
-        Technology Adoption
+        {frame.title}
       </h1>
       <p className="mt-6 max-w-2xl text-xl leading-relaxed text-slate-300 lg:text-2xl">
-        A Strategic Framework for Understanding and Implementing Technology Change
+        {subtitle}
       </p>
       <div className="mt-10 text-base text-slate-500">
         Technology Adoption Barriers &middot; technologyadoptionbarriers.org
@@ -593,7 +604,8 @@ function PresentationFooter({
   currentSlide: number
   totalSlides: number
 }) {
-  const sections = Object.entries(SECTIONS)
+  const sectionMap = useContext(SectionMapContext)
+  const sections = Object.entries(sectionMap)
     .map(([startSlide, data]) => ({
       start: parseInt(startSlide),
       label: data.label,
@@ -653,14 +665,30 @@ function PresentationFooter({
 
 // ── Main component ───────────────────────────────────────────────────
 
+export type SectionMap = Record<number, { label: string; title: string; count: string }>
+
+export interface PresentationClientProps {
+  slides: TechnologyAdoptionSeriesSlide[]
+  mode?: PresentationMode
+  /** Override the default deck title (shown on the first frame). */
+  deckTitle?: string
+  /** Override the default deck subtitle. */
+  deckSubtitle?: string
+  /** Override the section map used for section dividers and the footer nav. */
+  sections?: SectionMap
+}
+
 export default function PresentationClient({
   slides,
   mode = 'hd',
-}: {
-  slides: TechnologyAdoptionSeriesSlide[]
-  mode?: PresentationMode
-}) {
-  const frames = useMemo(() => expandToFrames(slides), [slides])
+  deckTitle,
+  deckSubtitle,
+  sections,
+}: PresentationClientProps) {
+  const frames = useMemo(
+    () => expandToFrames(slides, { deckTitle, deckSubtitle, sections }),
+    [slides, deckTitle, deckSubtitle, sections]
+  )
   const [currentIdx, setCurrentIdx] = useState(0)
   const [showHelp, setShowHelp] = useState(false)
   const helpOpenRef = useRef(false)
@@ -677,7 +705,11 @@ export default function PresentationClient({
   )
 
   const frame = frames[currentIdx]
-  const sectionLabel = useMemo(() => getSectionLabel(frame.sourceSlide), [frame.sourceSlide])
+  const activeSections = sections ?? SECTIONS
+  const sectionLabel = useMemo(
+    () => getSectionLabel(frame.sourceSlide, activeSections),
+    [frame.sourceSlide, activeSections]
+  )
 
   // ── Touch navigation ──
   const touchStart = useRef(0)
@@ -699,7 +731,7 @@ export default function PresentationClient({
   const renderFrame = () => {
     switch (frame.type) {
       case 'deck-title':
-        return <DeckTitleFrame />
+        return <DeckTitleFrame frame={frame} />
       case 'section':
         return <SectionFrame frame={frame} />
       case 'slide-title':
@@ -717,138 +749,140 @@ export default function PresentationClient({
 
   return (
     <PresentationModeContext.Provider value={mode}>
-      <div
-        className={`presentation-root flex h-[100dvh] w-full flex-col overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 ${
-          mode === '4k' ? 'mode-4k' : ''
-        }`}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        tabIndex={0}
-      >
-        {/* Thin progress bar */}
-        <div className="h-1 w-full bg-slate-800">
-          <div
-            className="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-300"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-
-        {/* Frame content area with fade transition */}
-        <div className="flex-1 overflow-hidden px-12 py-8 lg:px-20 lg:py-12">
-          <div
-            key={currentIdx}
-            className="h-full animate-[fadeIn_0.3s_ease-out] motion-reduce:animate-none"
-            style={{ animationFillMode: 'both' }}
-          >
-            {renderFrame()}
-          </div>
-          {/* Screen-reader announcement for frame changes */}
-          <div className="sr-only" aria-live="polite" aria-atomic="true">
-            Frame {currentIdx + 1} of {frames.length}
-            {frame.sourceSlide > 0 ? `, Slide ${frame.sourceSlide}` : ''}
-            {sectionLabel ? `, ${sectionLabel}` : ''}
-          </div>
-        </div>
-
-        {/* Global Footer Navigation */}
-        <PresentationFooter currentSlide={frame.sourceSlide} totalSlides={frames.length} />
-
-        {/* Keyboard shortcut overlay */}
-        {showHelp ? (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
-            onClick={() => setShowHelp(false)}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Keyboard shortcuts"
-          >
+      <SectionMapContext.Provider value={activeSections}>
+        <div
+          className={`presentation-root flex h-[100dvh] w-full flex-col overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 ${
+            mode === '4k' ? 'mode-4k' : ''
+          }`}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          tabIndex={0}
+        >
+          {/* Thin progress bar */}
+          <div className="h-1 w-full bg-slate-800">
             <div
-              className="w-full max-w-md rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
+              className="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+
+          {/* Frame content area with fade transition */}
+          <div className="flex-1 overflow-hidden px-12 py-8 lg:px-20 lg:py-12">
+            <div
+              key={currentIdx}
+              className="h-full animate-[fadeIn_0.3s_ease-out] motion-reduce:animate-none"
+              style={{ animationFillMode: 'both' }}
             >
-              <h3 className="mb-4 text-lg font-bold text-white">Keyboard Shortcuts</h3>
-              <div className="space-y-2 text-base text-slate-300">
-                {[
-                  ['→ / Space / PageDown', 'Next frame'],
-                  ['← / PageUp', 'Previous frame'],
-                  ['Home', 'First frame'],
-                  ['End', 'Last frame'],
-                  ['F', 'Toggle fullscreen'],
-                  ['?', 'Toggle this help'],
-                  ['Esc', 'Close help'],
-                ].map(([key, desc]) => (
-                  <div key={key} className="flex items-center justify-between">
-                    <kbd className="rounded bg-slate-800 px-2 py-0.5 font-mono text-sm text-cyan-300">
-                      {key}
-                    </kbd>
-                    <span className="text-slate-400">{desc}</span>
-                  </div>
-                ))}
-              </div>
+              {renderFrame()}
+            </div>
+            {/* Screen-reader announcement for frame changes */}
+            <div className="sr-only" aria-live="polite" aria-atomic="true">
+              Frame {currentIdx + 1} of {frames.length}
+              {frame.sourceSlide > 0 ? `, Slide ${frame.sourceSlide}` : ''}
+              {sectionLabel ? `, ${sectionLabel}` : ''}
             </div>
           </div>
-        ) : null}
 
-        {/* Navigation bar */}
-        <nav
-          className="flex items-center justify-between border-t border-slate-800 px-6 py-3"
-          aria-label="Presentation navigation"
-        >
-          <div className="flex items-center gap-3">
-            <Link
-              href="/technology-adoption-series"
-              className="rounded-lg bg-slate-800/60 px-3 py-2 text-sm font-semibold text-slate-400 transition-colors hover:bg-slate-700 hover:text-slate-200"
-            >
-              ← Series
-            </Link>
-            <button
-              onClick={() => setCurrentIdx((c) => Math.max(c - 1, 0))}
-              disabled={currentIdx === 0}
-              className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700 disabled:opacity-30"
-              aria-label="Previous frame"
-            >
-              ← Prev
-            </button>
-            <button
-              onClick={() => setCurrentIdx((c) => Math.min(c + 1, frames.length - 1))}
-              disabled={currentIdx === frames.length - 1}
-              className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700 disabled:opacity-30"
-              aria-label="Next frame"
-            >
-              Next →
-            </button>
-          </div>
+          {/* Global Footer Navigation */}
+          <PresentationFooter currentSlide={frame.sourceSlide} totalSlides={frames.length} />
 
-          <div className="text-sm text-slate-500">
-            {sectionLabel ? (
-              <span className="mr-2 font-semibold tracking-wide text-cyan-400/60">
-                {sectionLabel}
-              </span>
-            ) : null}
-            {currentIdx + 1} / {frames.length}
-            {frame.sourceSlide > 0 ? (
-              <span className="ml-2 text-slate-600">&middot; Slide {frame.sourceSlide}</span>
-            ) : null}
-          </div>
+          {/* Keyboard shortcut overlay */}
+          {showHelp ? (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+              onClick={() => setShowHelp(false)}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Keyboard shortcuts"
+            >
+              <div
+                className="w-full max-w-md rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h3 className="mb-4 text-lg font-bold text-white">Keyboard Shortcuts</h3>
+                <div className="space-y-2 text-base text-slate-300">
+                  {[
+                    ['→ / Space / PageDown', 'Next frame'],
+                    ['← / PageUp', 'Previous frame'],
+                    ['Home', 'First frame'],
+                    ['End', 'Last frame'],
+                    ['F', 'Toggle fullscreen'],
+                    ['?', 'Toggle this help'],
+                    ['Esc', 'Close help'],
+                  ].map(([key, desc]) => (
+                    <div key={key} className="flex items-center justify-between">
+                      <kbd className="rounded bg-slate-800 px-2 py-0.5 font-mono text-sm text-cyan-300">
+                        {key}
+                      </kbd>
+                      <span className="text-slate-400">{desc}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : null}
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setShowHelp(true)}
-              className="rounded-lg bg-slate-800 px-3 py-2 text-sm font-semibold text-slate-400 transition-colors hover:bg-slate-700 hover:text-slate-200"
-              aria-label="Show keyboard shortcuts"
-            >
-              ?
-            </button>
-            <button
-              onClick={toggleFullscreen}
-              className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700"
-              aria-label="Toggle fullscreen"
-            >
-              ⛶ Fullscreen
-            </button>
-          </div>
-        </nav>
-      </div>
+          {/* Navigation bar */}
+          <nav
+            className="flex items-center justify-between border-t border-slate-800 px-6 py-3"
+            aria-label="Presentation navigation"
+          >
+            <div className="flex items-center gap-3">
+              <Link
+                href="/technology-adoption-series"
+                className="rounded-lg bg-slate-800/60 px-3 py-2 text-sm font-semibold text-slate-400 transition-colors hover:bg-slate-700 hover:text-slate-200"
+              >
+                ← Series
+              </Link>
+              <button
+                onClick={() => setCurrentIdx((c) => Math.max(c - 1, 0))}
+                disabled={currentIdx === 0}
+                className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700 disabled:opacity-30"
+                aria-label="Previous frame"
+              >
+                ← Prev
+              </button>
+              <button
+                onClick={() => setCurrentIdx((c) => Math.min(c + 1, frames.length - 1))}
+                disabled={currentIdx === frames.length - 1}
+                className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700 disabled:opacity-30"
+                aria-label="Next frame"
+              >
+                Next →
+              </button>
+            </div>
+
+            <div className="text-sm text-slate-500">
+              {sectionLabel ? (
+                <span className="mr-2 font-semibold tracking-wide text-cyan-400/60">
+                  {sectionLabel}
+                </span>
+              ) : null}
+              {currentIdx + 1} / {frames.length}
+              {frame.sourceSlide > 0 ? (
+                <span className="ml-2 text-slate-600">&middot; Slide {frame.sourceSlide}</span>
+              ) : null}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowHelp(true)}
+                className="rounded-lg bg-slate-800 px-3 py-2 text-sm font-semibold text-slate-400 transition-colors hover:bg-slate-700 hover:text-slate-200"
+                aria-label="Show keyboard shortcuts"
+              >
+                ?
+              </button>
+              <button
+                onClick={toggleFullscreen}
+                className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700"
+                aria-label="Toggle fullscreen"
+              >
+                ⛶ Fullscreen
+              </button>
+            </div>
+          </nav>
+        </div>
+      </SectionMapContext.Provider>
     </PresentationModeContext.Provider>
   )
 }

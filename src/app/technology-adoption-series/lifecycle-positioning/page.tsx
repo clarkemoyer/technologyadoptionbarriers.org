@@ -9,6 +9,11 @@ import {
   splitTechnologyAdoptionSeriesSlideSections,
 } from '@/components/technology-adoption-series/slide-render'
 import { getTechnologyAdoptionSeriesSlides } from '@/lib/technology-adoption-series'
+import {
+  LIFECYCLE_SLIDE_SET,
+  LIFECYCLE_SLIDE_NUMBERS,
+  LIFECYCLE_SLIDE_DESCRIPTIONS,
+} from './constants'
 
 export const metadata: Metadata = {
   title: 'Technology Lifecycle Positioning — Deep Dive',
@@ -18,23 +23,9 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-static'
 
-/** Slide numbers included in this focused topic page. */
-const LIFECYCLE_SLIDE_NUMBERS = [6, 18, 19, 20, 25, 27, 28, 29]
-
-const SLIDE_DESCRIPTIONS: Record<number, string> = {
-  6: 'The dual-curve model showing innovation potential vs adoption risk across five lifecycle stages.',
-  18: 'Real-world examples of technologies at each lifecycle stage.',
-  19: 'Common cloud platform technologies categorized by lifecycle position.',
-  20: 'A framework for evaluating and selecting technologies within lifecycle context.',
-  25: 'How lifecycle positions change over time and what drives transitions.',
-  27: 'Hard Disk Drives (HDDs): a 70+ year hardware lifecycle from IBM RAMAC to SSD displacement.',
-  28: 'Adobe Flash: a 25-year software lifecycle from dominance to complete removal.',
-  29: 'Barcode/UPC Systems: an 80+ year supply chain lifecycle with a 22-year bleeding edge.',
-}
-
 export default async function LifecyclePositioningPage() {
   const allSlides = await getTechnologyAdoptionSeriesSlides()
-  const slides = allSlides.filter((s) => LIFECYCLE_SLIDE_NUMBERS.includes(s.number))
+  const slides = allSlides.filter((s) => LIFECYCLE_SLIDE_SET.has(s.number))
 
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -128,8 +119,11 @@ export default async function LifecyclePositioningPage() {
                 >
                   Slide {slide.number}: {slide.title}
                 </Link>
-                {SLIDE_DESCRIPTIONS[slide.number] ? (
-                  <span className="text-gray-600"> — {SLIDE_DESCRIPTIONS[slide.number]}</span>
+                {LIFECYCLE_SLIDE_DESCRIPTIONS[slide.number] ? (
+                  <span className="text-gray-600">
+                    {' '}
+                    — {LIFECYCLE_SLIDE_DESCRIPTIONS[slide.number]}
+                  </span>
                 ) : null}
               </li>
             ))}

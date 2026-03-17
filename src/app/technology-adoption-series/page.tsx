@@ -58,6 +58,7 @@ export default async function TechnologyAdoptionSeriesPage() {
               className="relative z-10 h-full w-full"
               loading="lazy"
               allow="fullscreen"
+              allowFullScreen
             />
           </div>
 
