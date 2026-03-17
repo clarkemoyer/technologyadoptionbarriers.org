@@ -1108,9 +1108,12 @@ export const TechnologyAdoptionSeriesSlideVisual = ({
                     <div
                       key={tech.name}
                       className="rounded border border-gray-200 px-1.5 py-1 text-center"
-                      title={tech.detail}
+                      aria-label={`${tech.name}: ${tech.detail}`}
                     >
                       <div className="text-xs font-semibold text-gray-900">{tech.name}</div>
+                      <div className="text-[10px] text-gray-500 leading-tight line-clamp-2">
+                        {tech.detail}
+                      </div>
                     </div>
                   ))}
                 </div>

@@ -1812,7 +1812,7 @@ function Visual33_MLAILifecycleTimeline() {
   )
 }
 
-// ── MOMENT IN TIME CHARTS (Slides 30-34) ─────────────────
+// ── MOMENT IN TIME CHARTS (Slides 30-35) ─────────────────
 
 /* Column-based layout showing multiple technologies positioned by lifecycle stage.
    Companion to the timeline charts (slides 27-29) — these freeze a single moment
@@ -1909,6 +1909,9 @@ function MomentInTimeChart({
                 const ty = techStartY + j * 85 + 50
                 return (
                   <g key={tech.name}>
+                    <title>
+                      {tech.name}: {tech.detail}
+                    </title>
                     {/* Tech card background */}
                     <rect
                       x={x + 10}
@@ -1932,7 +1935,7 @@ function MomentInTimeChart({
                     >
                       {tech.name.length > 28 ? tech.name.slice(0, 26) + '…' : tech.name}
                     </text>
-                    {/* Tech detail — wrap to two lines if needed */}
+                    {/* Tech detail — wrap to two lines with ellipsis */}
                     {tech.detail.length <= 35 ? (
                       <text
                         x={x + colWidth / 2}
@@ -1961,7 +1964,9 @@ function MomentInTimeChart({
                           fontSize="10"
                           fill="#94a3b8"
                         >
-                          {tech.detail.slice(35, 70)}
+                          {tech.detail.length > 70
+                            ? tech.detail.slice(35, 67) + '…'
+                            : tech.detail.slice(35, 70)}
                         </text>
                       </>
                     )}
