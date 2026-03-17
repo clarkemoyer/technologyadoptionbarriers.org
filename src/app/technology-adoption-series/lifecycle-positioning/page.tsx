@@ -189,7 +189,6 @@ export default async function LifecyclePositioningPage() {
             topic for standalone use in workshops, briefings, or self-study.
           </p>
         </section>
-
       </article>
     </main>
   )
