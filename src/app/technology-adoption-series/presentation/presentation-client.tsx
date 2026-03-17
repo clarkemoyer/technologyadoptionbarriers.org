@@ -20,6 +20,7 @@ import './presentation.css'
 
 type FrameType = 'deck-title' | 'section' | 'slide-title' | 'content' | 'visual' | 'statement'
 export type PresentationMode = 'hd' | '4k'
+export type SectionMap = Record<number, { label: string; title: string; count: string }>
 
 const PresentationModeContext = createContext<PresentationMode>('hd')
 export function usePresentationMode() {
@@ -36,6 +37,8 @@ interface PresentationFrame {
   nodes?: MarkdownNode[]
   /** Centred text for 'statement' frames */
   statement?: string
+  /** Subtitle for 'deck-title' frames */
+  subtitle?: string
   /** Section label / title / count for 'section' frames */
   sectionLabel?: string
   sectionTitle?: string
@@ -47,7 +50,7 @@ interface PresentationFrame {
 // ── Constants ────────────────────────────────────────────────────────
 
 /** Source slides that begin a new section. */
-const SECTIONS: Record<number, { label: string; title: string; count: string }> = {
+const SECTIONS: SectionMap = {
   1: {
     label: 'PART 1',
     title: 'What is Technology Adoption?',
@@ -71,8 +74,7 @@ const SECTIONS: Record<number, { label: string; title: string; count: string }> 
   },
 }
 
-const SectionMapContext =
-  createContext<Record<number, { label: string; title: string; count: string }>>(SECTIONS)
+const SectionMapContext = createContext<SectionMap>(SECTIONS)
 
 const MAX_FRAME_SIZE = 1800 // estimated chars — fill frames with substantial content
 const MAX_LIST_ITEMS = 10
@@ -169,8 +171,8 @@ function expandToFrames(
   frames.push({
     type: 'deck-title',
     sourceSlide: 0,
-    title: overrides?.deckTitle ?? 'Technology Adoption Teaching Series',
-    statement: overrides?.deckSubtitle,
+    title: overrides?.deckTitle ?? 'Technology Adoption',
+    subtitle: overrides?.deckSubtitle,
   })
 
   for (const slide of slides) {
@@ -362,10 +364,7 @@ function useKeyboardNavigation(
 }
 
 /** Resolve the current section label for the nav bar. */
-function getSectionLabel(
-  sourceSlide: number,
-  sectionMap: Record<number, { label: string; title: string; count: string }>
-): string {
+function getSectionLabel(sourceSlide: number, sectionMap: SectionMap): string {
   if (sourceSlide === 0) return ''
   // Walk sections in descending order to find the section this slide belongs to
   const sectionStarts = Object.keys(sectionMap)
@@ -420,7 +419,7 @@ const proseOverrides4k = [
 function DeckTitleFrame({ frame }: { frame: PresentationFrame }) {
   const mode = useContext(PresentationModeContext)
   const subtitle =
-    frame.statement ?? 'A Strategic Framework for Understanding and Implementing Technology Change'
+    frame.subtitle ?? 'A Strategic Framework for Understanding and Implementing Technology Change'
   if (mode === '4k') {
     return (
       <div className="flex h-full flex-col items-center justify-center text-center p-12">
@@ -664,8 +663,6 @@ function PresentationFooter({
 }
 
 // ── Main component ───────────────────────────────────────────────────
-
-export type SectionMap = Record<number, { label: string; title: string; count: string }>
 
 export interface PresentationClientProps {
   slides: TechnologyAdoptionSeriesSlide[]

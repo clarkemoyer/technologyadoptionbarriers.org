@@ -4,6 +4,8 @@
  * descriptions stay in sync across all three entry-points.
  */
 
+import type { SectionMap } from '@/app/technology-adoption-series/presentation/presentation-client'
+
 /** Slide numbers included in the lifecycle positioning focused deck. */
 export const LIFECYCLE_SLIDE_NUMBERS = [6, 18, 19, 20, 25, 27, 28, 29] as const
 
@@ -30,7 +32,7 @@ export const LIFECYCLE_DECK_SUBTITLE =
   'The Dual-Curve Model, Real-World Timelines, and Selection Frameworks'
 
 /** Section map for the lifecycle positioning presentation footer. */
-export const LIFECYCLE_SECTIONS: Record<number, { label: string; title: string; count: string }> = {
+export const LIFECYCLE_SECTIONS: SectionMap = {
   6: { label: 'MODEL', title: 'Lifecycle Model', count: '1 slide' },
   18: {
     label: 'DEEP DIVE',
