@@ -54,7 +54,7 @@ export default async function LifecyclePositioningPage() {
             />
           </svg>
           <span>
-            <strong>Estimated time:</strong> ~30 minutes for presentation, ~45 minutes with
+            <strong>Estimated time:</strong> ~55 minutes for presentation, ~75 minutes with
             discussion.
           </span>
         </div>

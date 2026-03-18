@@ -1092,7 +1092,7 @@ export const TechnologyAdoptionSeriesSlideVisual = ({
         <VisualCard title={cfg.title}>
           <div className="space-y-3">
             <div className="text-xs font-semibold text-amber-700">Snapshot: {cfg.asOf}</div>
-            <div className="grid grid-cols-3 gap-2 lg:grid-cols-6">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
               {cfg.stages.map((stage) => (
                 <div key={stage.stage} className="space-y-1">
                   <div
@@ -1111,9 +1111,7 @@ export const TechnologyAdoptionSeriesSlideVisual = ({
                       aria-label={`${tech.name}: ${tech.detail}`}
                     >
                       <div className="text-xs font-semibold text-gray-900">{tech.name}</div>
-                      <div className="text-[10px] text-gray-500 leading-tight line-clamp-2">
-                        {tech.detail}
-                      </div>
+                      <div className="text-[10px] text-gray-500 leading-tight">{tech.detail}</div>
                     </div>
                   ))}
                 </div>
