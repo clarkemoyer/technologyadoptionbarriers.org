@@ -18,7 +18,7 @@ import {
 export const metadata: Metadata = {
   title: 'Technology Lifecycle Positioning — Deep Dive',
   description:
-    'A focused exploration of technology lifecycle positioning: the dual-curve model, real-world timeline examples, cloud platforms, selection frameworks, and lifecycle cycles.',
+    'A focused exploration of technology lifecycle positioning: adoption foundations, the dual-curve model, and real-world lifecycle examples across hardware, supply chain, and AI/ML.',
 }
 
 export const dynamic = 'force-static'
@@ -34,9 +34,9 @@ export default async function LifecyclePositioningPage() {
 
         <p className="mb-4 text-lg text-gray-700">
           Where a technology sits in its lifecycle — from bleeding edge to end of support — shapes
-          every decision about adoption, architecture, and investment. This page brings together the
-          core lifecycle positioning model with supporting deep-dive slides and real-world timeline
-          examples.
+          every decision about adoption, architecture, and investment. This deck opens with adoption
+          foundations, introduces the dual-curve lifecycle model, then walks through real-world
+          examples across hardware, supply chain, and AI/ML.
         </p>
 
         <div className="mb-6 flex items-center gap-2 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800">
@@ -54,7 +54,7 @@ export default async function LifecyclePositioningPage() {
             />
           </svg>
           <span>
-            <strong>Estimated time:</strong> ~55 minutes for presentation, ~75 minutes with
+            <strong>Estimated time:</strong> ~50 minutes for presentation, ~70 minutes with
             discussion.
           </span>
         </div>
