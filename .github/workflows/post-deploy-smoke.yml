@@ -138,13 +138,17 @@ jobs:
           SCRIPT
           chmod +x /tmp/check-url.sh
 
-          # Asset checker (HEAD, no retry — faster for large files)
+          # Asset checker (HEAD with retry for transient CDN errors like 503)
           cat > /tmp/check-asset.sh << 'SCRIPT'
           #!/usr/bin/env bash
           url="$1"
           expected="${2:-200}"
           label="$3"
           status=$(curl -s -o /dev/null -w '%{http_code}' --head -L --max-time 15 "$url" 2>/dev/null || echo "000")
+          if [ "$status" != "$expected" ]; then
+            sleep 3
+            status=$(curl -s -o /dev/null -w '%{http_code}' --head -L --max-time 15 "$url" 2>/dev/null || echo "000")
+          fi
           if [ "$status" = "$expected" ]; then
             echo "PASS $label"
           else

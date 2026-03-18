@@ -9,6 +9,9 @@ import {
   getTechnologyAdoptionSeriesPrevNext,
   getTechnologyAdoptionSeriesSlides,
 } from '@/lib/technology-adoption-series'
+import { DualCurveChart } from '@/components/technology-adoption-series/dual-curve-chart'
+import { LifecycleTimelineBar } from '@/components/technology-adoption-series/lifecycle-timeline-bar'
+import { LIFECYCLE_CONFIGS } from '@/data/lifecycle-timeline-configs'
 import TeachingSeriesNavigation from '@/components/teaching-series-navigation'
 
 const IconCheck = ({ title }: { title: string }) => (
@@ -385,44 +388,7 @@ const SlideVisual = ({ slideNumber }: { slideNumber: number }) => {
   if (slideNumber === 6) {
     return (
       <VisualCard title="Visual">
-        <div className="overflow-x-auto">
-          <svg
-            viewBox="0 0 640 260"
-            role="img"
-            aria-label="Technology lifecycle curve"
-            className="w-full"
-          >
-            <rect x="0" y="0" width="640" height="260" fill="white" />
-            <path d="M60 210 L60 40" stroke="#D1D5DB" strokeWidth="2" />
-            <path d="M60 210 L610 210" stroke="#D1D5DB" strokeWidth="2" />
-            <path
-              d="M80 190 C 150 60, 240 60, 300 120 S 420 230, 560 200"
-              fill="none"
-              stroke="#1F2937"
-              strokeWidth="3"
-            />
-            {[
-              { x: 110, y: 120, label: 'Bleeding' },
-              { x: 210, y: 80, label: 'Leading' },
-              { x: 320, y: 130, label: 'Mainstream' },
-              { x: 440, y: 190, label: 'Trending' },
-              { x: 520, y: 205, label: 'End of support' },
-            ].map((p) => (
-              <g key={p.label}>
-                <circle cx={p.x} cy={p.y} r="6" fill="#111827" />
-                <text x={p.x + 10} y={p.y + 4} fontSize="12" fill="#111827">
-                  {p.label}
-                </text>
-              </g>
-            ))}
-            <text x="8" y="60" fontSize="12" fill="#6B7280">
-              Risk
-            </text>
-            <text x="560" y="248" fontSize="12" fill="#6B7280">
-              Time
-            </text>
-          </svg>
-        </div>
+        <DualCurveChart gradientId="sweetSpotGradSlide" variant="slide" />
       </VisualCard>
     )
   }
@@ -916,6 +882,19 @@ const SlideVisual = ({ slideNumber }: { slideNumber: number }) => {
           every step.
         </div>
       </VisualCard>
+    )
+  }
+
+  // Slides 27-29: Lifecycle timeline bars (HDD, Flash, Barcode)
+  const lifecycleCfg = LIFECYCLE_CONFIGS[slideNumber]
+  if (lifecycleCfg) {
+    return (
+      <LifecycleTimelineBar
+        title={lifecycleCfg.title}
+        phases={lifecycleCfg.phases}
+        note={lifecycleCfg.note}
+        source={lifecycleCfg.source}
+      />
     )
   }
 

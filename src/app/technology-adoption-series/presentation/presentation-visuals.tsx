@@ -1,5 +1,8 @@
 import React, { type ReactNode } from 'react'
 
+import { LIFECYCLE_CONFIGS } from '@/data/lifecycle-timeline-configs'
+import { MOMENT_IN_TIME_CONFIGS } from '@/data/moment-in-time-configs'
+
 /* ────────────────────────────────────────────────────────────
    Dark-native visual components for the fullscreen presenter.
    These are ONLY used by the presentation route — the landing
@@ -1406,8 +1409,6 @@ function Visual23_DeepDiveLegacyMigration() {
   )
 }
 
-// ── Public export ──────────────────────────────────────────
-
 function Visual26_DeepDiveTrifectaModel() {
   // Triangle coordinates
   // Top (Organization): Yellow
@@ -1502,6 +1503,588 @@ function Visual26_DeepDiveTrifectaModel() {
   )
 }
 
+// ── LIFECYCLE TIMELINE CHARTS (Slides 27-29) ─────────────────
+
+/* Shared timeline bar renderer for lifecycle example charts.
+   Each phase gets a proportional-width bar on a horizontal timeline.
+   Phase data imported from @/data/lifecycle-timeline-configs.
+   Sources cited inline per chart. */
+
+// Re-use the shared type for timeline phases
+type TimelinePhase =
+  import('@/components/technology-adoption-series/lifecycle-timeline-bar').LifecyclePhase
+
+function LifecycleTimelineChart({
+  title,
+  subtitle,
+  phases,
+  totalYears,
+  sourceText,
+  ariaLabel,
+  noteText,
+}: {
+  title: string
+  subtitle: string
+  phases: TimelinePhase[]
+  totalYears: string
+  sourceText: string
+  ariaLabel: string
+  noteText?: string
+}) {
+  const chartLeft = 80
+  const chartRight = 1520
+  const chartWidth = chartRight - chartLeft
+  const barY = 380
+  const barH = 120
+  const totalDuration = phases.reduce((sum, p) => sum + p.duration, 0)
+
+  const markerId = `arrow-timeline-${title.replace(/\W+/g, '-').toLowerCase()}`
+
+  const phaseBars = phases.reduce<Array<TimelinePhase & { x: number; w: number }>>((acc, p) => {
+    const prevEnd = acc.length > 0 ? acc[acc.length - 1].x + acc[acc.length - 1].w : chartLeft
+    const w = (p.duration / totalDuration) * chartWidth
+    acc.push({ ...p, x: prevEnd, w })
+    return acc
+  }, [])
+
+  return (
+    <div className="flex h-full flex-col items-center justify-center gap-4">
+      <svg
+        viewBox="0 0 1600 900"
+        className="h-full w-full max-h-full max-w-full"
+        role="img"
+        aria-label={ariaLabel}
+      >
+        {/* Title */}
+        <text x="800" y="60" textAnchor="middle" fontSize="38" fontWeight="bold" fill="#e2e8f0">
+          {title}
+        </text>
+        <text x="800" y="100" textAnchor="middle" fontSize="24" fill="#94a3b8">
+          {subtitle}
+        </text>
+
+        {/* Y-axis labels */}
+        <text
+          x="50"
+          y="375"
+          textAnchor="middle"
+          fontSize="16"
+          fill="#64748b"
+          transform="rotate(-90,50,375)"
+        >
+          Lifecycle Stage
+        </text>
+
+        {/* Phase duration explanation header */}
+        <text x="800" y="160" textAnchor="middle" fontSize="20" fill="#cbd5e1">
+          Bar width is proportional to time spent in each phase — total span: {totalYears}
+        </text>
+
+        {/* Asymmetry callout arrows */}
+        {phaseBars.length >= 3 && (
+          <g>
+            {/* First phase (often long) */}
+            <path
+              d={`M${phaseBars[0].x + phaseBars[0].w / 2} ${barY - 50} L${phaseBars[0].x + phaseBars[0].w / 2} ${barY - 15}`}
+              stroke="#f59e0b"
+              strokeWidth="2"
+              markerEnd={`url(#${markerId})`}
+            />
+            <text
+              x={phaseBars[0].x + phaseBars[0].w / 2}
+              y={barY - 60}
+              textAnchor="middle"
+              fontSize="15"
+              fill="#fbbf24"
+              fontWeight="600"
+            >
+              {phaseBars[0].duration >= phaseBars[phaseBars.length - 1].duration
+                ? 'Long incubation'
+                : 'Short start'}
+            </text>
+            {/* Last phase (often compressed) */}
+            <path
+              d={`M${phaseBars[phaseBars.length - 1].x + phaseBars[phaseBars.length - 1].w / 2} ${barY - 50} L${phaseBars[phaseBars.length - 1].x + phaseBars[phaseBars.length - 1].w / 2} ${barY - 15}`}
+              stroke="#f59e0b"
+              strokeWidth="2"
+              markerEnd={`url(#${markerId})`}
+            />
+            <text
+              x={phaseBars[phaseBars.length - 1].x + phaseBars[phaseBars.length - 1].w / 2}
+              y={barY - 60}
+              textAnchor="middle"
+              fontSize="15"
+              fill="#fbbf24"
+              fontWeight="600"
+            >
+              {phaseBars[phaseBars.length - 1].duration <= phaseBars[0].duration
+                ? 'Rapid decline'
+                : 'Slow fade'}
+            </text>
+          </g>
+        )}
+
+        {/* Arrow marker */}
+        <defs>
+          <marker
+            id={markerId}
+            markerWidth="6"
+            markerHeight="6"
+            refX="3"
+            refY="3"
+            orient="auto"
+            fill="#f59e0b"
+          >
+            <path d="M0,0 L0,6 L6,3 z" />
+          </marker>
+        </defs>
+
+        {/* Timeline bars */}
+        {phaseBars.map((p, i) => (
+          <g key={p.label}>
+            <rect
+              x={p.x}
+              y={barY}
+              width={p.w}
+              height={barH}
+              rx="4"
+              fill={p.color}
+              stroke="#1e293b"
+              strokeWidth="2"
+            />
+            {/* Phase label */}
+            <text
+              x={p.x + p.w / 2}
+              y={barY + 40}
+              textAnchor="middle"
+              fontSize={p.w > 120 ? '18' : '14'}
+              fontWeight="bold"
+              fill={p.textColor || '#0f172a'}
+            >
+              {p.label}
+            </text>
+            {/* Duration */}
+            <text
+              x={p.x + p.w / 2}
+              y={barY + 65}
+              textAnchor="middle"
+              fontSize={p.w > 120 ? '16' : '12'}
+              fill={p.textColor || '#1e293b'}
+              opacity="0.8"
+            >
+              {p.duration} yr{p.duration !== 1 ? 's' : ''}
+            </text>
+            {/* Year range below bar */}
+            <text
+              x={p.x + p.w / 2}
+              y={barY + barH + 30}
+              textAnchor="middle"
+              fontSize="15"
+              fill="#94a3b8"
+            >
+              {p.years}
+            </text>
+            {/* Phase divider tick */}
+            {i < phaseBars.length - 1 ? (
+              <line
+                x1={p.x + p.w}
+                y1={barY - 5}
+                x2={p.x + p.w}
+                y2={barY + barH + 5}
+                stroke="#475569"
+                strokeWidth="1.5"
+                strokeDasharray="4 2"
+              />
+            ) : null}
+          </g>
+        ))}
+
+        {/* Timeline arrow */}
+        <line
+          x1={chartLeft - 10}
+          y1={barY + barH + 55}
+          x2={chartRight + 10}
+          y2={barY + barH + 55}
+          stroke="#475569"
+          strokeWidth="2"
+        />
+        <polygon
+          points={`${chartRight + 10},${barY + barH + 55} ${chartRight},${barY + barH + 50} ${chartRight},${barY + barH + 60}`}
+          fill="#475569"
+        />
+        <text x={chartRight + 20} y={barY + barH + 60} fontSize="14" fill="#64748b">
+          Time
+        </text>
+
+        {/* Note about asymmetric curves */}
+        {noteText ? (
+          <text x="800" y="680" textAnchor="middle" fontSize="18" fill="#f59e0b" fontWeight="600">
+            {noteText}
+          </text>
+        ) : null}
+
+        {/* Asymmetry explanation */}
+        <text x="800" y="730" textAnchor="middle" fontSize="16" fill="#cbd5e1">
+          Unequal phase durations create the asymmetric &quot;imperfect curves&quot; seen in real
+          adoption data
+        </text>
+        <text x="800" y="755" textAnchor="middle" fontSize="16" fill="#cbd5e1">
+          — the S-curve is an idealization; actual diffusion is shaped by market, regulatory, and
+          network effects.
+        </text>
+
+        {/* Source citation */}
+        <text x="800" y="830" textAnchor="middle" fontSize="13" fill="#64748b" fontStyle="italic">
+          {sourceText}
+        </text>
+
+        {/* Phase duration reference */}
+        <text x="800" y="860" textAnchor="middle" fontSize="13" fill="#64748b" fontStyle="italic">
+          Rogers (2003): Innovators 2.5% → Early Majority at ~16% cumulative takes 2–8 years; full
+          S-curve spans 15–40+ years
+        </text>
+      </svg>
+    </div>
+  )
+}
+
+function Visual27_HardwareLifecycleTimeline() {
+  const cfg = LIFECYCLE_CONFIGS[27]
+
+  return (
+    <LifecycleTimelineChart
+      title="Hardware Example: Hard Disk Drives (HDDs)"
+      subtitle="From IBM RAMAC (1956) to SSD displacement — 70+ year lifecycle"
+      phases={cfg.phases}
+      totalYears="~77 years"
+      ariaLabel="HDD lifecycle timeline showing 14 years bleeding edge, 15 years leading edge, 30 years mainstream, 13 years trending behind, and ongoing end of support"
+      noteText="Long mainstream plateau (30 yrs) creates a right-skewed curve — slow start, extended peak, then rapid SSD displacement"
+      sourceText="Sources: Computer History Museum (2024); IDC Worldwide HDD Forecast (2024); Backblaze Drive Stats (2023-2025)"
+    />
+  )
+}
+
+function Visual28_SoftwareLifecycleTimeline() {
+  const cfg = LIFECYCLE_CONFIGS[28]
+
+  return (
+    <LifecycleTimelineChart
+      title="Software Example: Adobe Flash"
+      subtitle="From FutureSplash (1996) to EOL removal (2021) — 25 year lifecycle"
+      phases={cfg.phases}
+      totalYears="~25 years"
+      ariaLabel="Adobe Flash lifecycle timeline showing 4 years bleeding edge, 5 years leading edge, 7 years mainstream, 5 years trending behind, 3 years end of support, and 1 year end of life"
+      noteText="Compressed end-of-life (1 yr) after Apple's 2010 rejection + HTML5 — left-skewed tail with steep decline"
+      sourceText="Sources: Adobe Flash EOL Page (2020); W3Techs Historical Usage (2023); Steve Jobs 'Thoughts on Flash' (2010)"
+    />
+  )
+}
+
+function Visual29_SupplyChainLifecycleTimeline() {
+  const cfg = LIFECYCLE_CONFIGS[29]
+
+  return (
+    <LifecycleTimelineChart
+      title="Supply Chain Example: Barcode / UPC Systems"
+      subtitle="From patent (1952) to RFID/IoT displacement — 80+ year lifecycle"
+      phases={cfg.phases}
+      totalYears="~83 years"
+      ariaLabel="Barcode lifecycle timeline showing 22 years bleeding edge, 11 years leading edge, 35 years mainstream, 10 years trending behind, and projected end of support"
+      noteText="Extremely long bleeding edge (22 yrs) — technology existed decades before infrastructure enabled adoption"
+      sourceText="Sources: GS1 Barcode History (2024); McKinsey Supply Chain 4.0 (2024); Zebra Technologies Global Study (2024)"
+    />
+  )
+}
+
+function Visual33_MLAILifecycleTimeline() {
+  const cfg = LIFECYCLE_CONFIGS[33]
+
+  return (
+    <LifecycleTimelineChart
+      title="ML/AI Example: Machine Learning & Artificial Intelligence"
+      subtitle="From Turing's paper (1950) to ChatGPT — 75+ year lifecycle, still ascending"
+      phases={cfg.phases}
+      totalYears="~75+ years (ongoing)"
+      ariaLabel="ML/AI lifecycle timeline showing 47 years bleeding edge, 23 years leading edge, and ongoing mainstream adoption since 2020"
+      noteText="Longest bleeding edge of any example (47 yrs) — two AI winters stalled adoption until compute + data + algorithms aligned"
+      sourceText="Sources: Stanford HAI AI Index (2024); Turing (1950); McCarthy (1956); Krizhevsky/AlexNet (2012); Vaswani/Transformers (2017)"
+    />
+  )
+}
+
+// ── MOMENT IN TIME CHARTS (Slides 30-35) ─────────────────
+
+/* Column-based layout showing multiple technologies positioned by lifecycle stage.
+   Companion to the timeline charts (slides 27-29) — these freeze a single moment
+   and map the competitive landscape across lifecycle stages. */
+
+function MomentInTimeChart({
+  title,
+  subtitle,
+  asOf,
+  stages,
+  sourceText,
+  ariaLabel,
+}: {
+  title: string
+  subtitle: string
+  asOf: string
+  stages: Array<{
+    stage: string
+    color: string
+    textColor?: string
+    technologies: Array<{ name: string; detail: string }>
+  }>
+  sourceText: string
+  ariaLabel: string
+}) {
+  const colWidth = 230
+  const totalWidth = stages.length * colWidth + 80
+  const startX = (1600 - stages.length * colWidth) / 2
+
+  return (
+    <div className="flex h-full flex-col items-center justify-center gap-4">
+      <svg
+        viewBox="0 0 1600 900"
+        className="h-full w-full max-h-full max-w-full"
+        role="img"
+        aria-label={ariaLabel}
+      >
+        {/* Title */}
+        <text x="800" y="50" textAnchor="middle" fontSize="34" fontWeight="bold" fill="#e2e8f0">
+          {title}
+        </text>
+        <text x="800" y="85" textAnchor="middle" fontSize="22" fill="#94a3b8">
+          {subtitle}
+        </text>
+        <text x="800" y="115" textAnchor="middle" fontSize="18" fill="#f59e0b" fontWeight="600">
+          Snapshot: {asOf}
+        </text>
+
+        {/* Stage columns */}
+        {stages.map((stage, i) => {
+          const x = startX + i * colWidth
+          const headerY = 150
+          const techStartY = 200
+
+          return (
+            <g key={stage.stage}>
+              {/* Column background */}
+              <rect
+                x={x + 4}
+                y={headerY}
+                width={colWidth - 8}
+                height={680}
+                rx="8"
+                fill="#1e293b"
+                stroke={stage.color}
+                strokeWidth="1.5"
+                opacity="0.6"
+              />
+
+              {/* Stage header */}
+              <rect
+                x={x + 4}
+                y={headerY}
+                width={colWidth - 8}
+                height={40}
+                rx="8"
+                fill={stage.color}
+              />
+              {/* Bottom corners of header should be square where they meet column body */}
+              <rect x={x + 4} y={headerY + 32} width={colWidth - 8} height={8} fill={stage.color} />
+              <text
+                x={x + colWidth / 2}
+                y={headerY + 27}
+                textAnchor="middle"
+                fontSize="14"
+                fontWeight="bold"
+                fill={stage.textColor || '#0f172a'}
+              >
+                {stage.stage}
+              </text>
+
+              {/* Technologies */}
+              {stage.technologies.map((tech, j) => {
+                const ty = techStartY + j * 85 + 50
+                return (
+                  <g key={tech.name}>
+                    <title>
+                      {tech.name}: {tech.detail}
+                    </title>
+                    {/* Tech card background */}
+                    <rect
+                      x={x + 10}
+                      y={ty - 18}
+                      width={colWidth - 20}
+                      height={72}
+                      rx="6"
+                      fill="#0f172a"
+                      stroke={stage.color}
+                      strokeWidth="1"
+                      opacity="0.8"
+                    />
+                    {/* Tech name */}
+                    <text
+                      x={x + colWidth / 2}
+                      y={ty + 2}
+                      textAnchor="middle"
+                      fontSize="12"
+                      fontWeight="bold"
+                      fill="#e2e8f0"
+                    >
+                      {tech.name.length > 28 ? tech.name.slice(0, 26) + '…' : tech.name}
+                    </text>
+                    {/* Tech detail — wrap to two lines with ellipsis */}
+                    {tech.detail.length <= 35 ? (
+                      <text
+                        x={x + colWidth / 2}
+                        y={ty + 22}
+                        textAnchor="middle"
+                        fontSize="10"
+                        fill="#94a3b8"
+                      >
+                        {tech.detail}
+                      </text>
+                    ) : (
+                      <>
+                        <text
+                          x={x + colWidth / 2}
+                          y={ty + 18}
+                          textAnchor="middle"
+                          fontSize="10"
+                          fill="#94a3b8"
+                        >
+                          {tech.detail.slice(0, 35)}
+                        </text>
+                        <text
+                          x={x + colWidth / 2}
+                          y={ty + 32}
+                          textAnchor="middle"
+                          fontSize="10"
+                          fill="#94a3b8"
+                        >
+                          {tech.detail.length > 70
+                            ? tech.detail.slice(35, 67) + '…'
+                            : tech.detail.slice(35, 70)}
+                        </text>
+                      </>
+                    )}
+                  </g>
+                )
+              })}
+            </g>
+          )
+        })}
+
+        {/* Risk gradient arrow at bottom */}
+        <defs>
+          <linearGradient id="risk-gradient-moment" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#fbbf24" />
+            <stop offset="25%" stopColor="#22d3ee" />
+            <stop offset="45%" stopColor="#22c55e" />
+            <stop offset="65%" stopColor="#f97316" />
+            <stop offset="85%" stopColor="#ef4444" />
+            <stop offset="100%" stopColor="#991b1b" />
+          </linearGradient>
+        </defs>
+        <rect
+          x={startX}
+          y="848"
+          width={totalWidth - 80}
+          height="4"
+          rx="2"
+          fill="url(#risk-gradient-moment)"
+        />
+        <text x={startX} y="870" fontSize="12" fill="#64748b">
+          High Risk (Unproven)
+        </text>
+        <text x={startX + totalWidth - 80} y="870" textAnchor="end" fontSize="12" fill="#64748b">
+          High Risk (Obsolete)
+        </text>
+        <text x="800" y="870" textAnchor="middle" fontSize="12" fill="#22c55e" fontWeight="600">
+          ▲ Target Zone ▲
+        </text>
+
+        {/* Source */}
+        <text x="800" y="895" textAnchor="middle" fontSize="11" fill="#64748b" fontStyle="italic">
+          {sourceText}
+        </text>
+      </svg>
+    </div>
+  )
+}
+
+function Visual30_DataCenterStorageMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[30]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="Data center storage technologies positioned across lifecycle stages in 2025, from DNA storage at bleeding edge to 10K RPM HDDs at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
+function Visual31_RichWebExperiencesMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[31]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="Rich web experience technologies positioned across lifecycle stages in 2025, from WebGPU at bleeding edge to ActiveX at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
+function Visual32_SupplyChainIdMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[32]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="Supply chain identification technologies positioned across lifecycle stages in 2025, from blockchain track-and-trace at bleeding edge to Kimball tags at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
+function Visual34_MLAIMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[34]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="ML/AI technologies positioned across lifecycle stages in 2025, from AGI at bleeding edge to expert system shells at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
+function Visual35_LLMMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[35]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="Large language model technologies positioned across lifecycle stages in 2025, from persistent memory LLMs at bleeding edge to ELIZA at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
 // ── Public export ──────────────────────────────────────────
 
 export interface VisualDef {
@@ -1584,6 +2167,57 @@ export const VISUAL_CONFIG: VisualDef[] = [
   { number: 24, id: 'deep-dive-ai-friction', component: Visual24_DeepDiveAiFriction },
   { number: 25, id: 'deep-dive-lifecycle-cycles', component: Visual25_DeepDiveLifecycleCycles },
   { number: 26, id: 'deep-dive-trifecta-model', component: Visual26_DeepDiveTrifectaModel },
+
+  // ── LIFECYCLE TIMELINE EXAMPLES (Slides 27-29) ──────────────
+  {
+    number: 27,
+    id: 'hardware-lifecycle-timeline',
+    component: Visual27_HardwareLifecycleTimeline,
+  },
+  {
+    number: 28,
+    id: 'software-lifecycle-timeline',
+    component: Visual28_SoftwareLifecycleTimeline,
+  },
+  {
+    number: 29,
+    id: 'supply-chain-lifecycle-timeline',
+    component: Visual29_SupplyChainLifecycleTimeline,
+  },
+
+  // ── MOMENT IN TIME COMPANIONS (Slides 30-32) ──────────────
+  {
+    number: 30,
+    id: 'data-center-storage-moment',
+    component: Visual30_DataCenterStorageMoment,
+  },
+  {
+    number: 31,
+    id: 'rich-web-experiences-moment',
+    component: Visual31_RichWebExperiencesMoment,
+  },
+  {
+    number: 32,
+    id: 'supply-chain-id-moment',
+    component: Visual32_SupplyChainIdMoment,
+  },
+
+  // ── ML/AI LIFECYCLE + MOMENT (Slides 33-35) ──────────────
+  {
+    number: 33,
+    id: 'mlai-lifecycle-timeline',
+    component: Visual33_MLAILifecycleTimeline,
+  },
+  {
+    number: 34,
+    id: 'mlai-moment',
+    component: Visual34_MLAIMoment,
+  },
+  {
+    number: 35,
+    id: 'llm-moment',
+    component: Visual35_LLMMoment,
+  },
 ]
 
 export const VISUAL_REGISTRY = Object.fromEntries(

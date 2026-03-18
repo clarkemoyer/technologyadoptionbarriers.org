@@ -458,4 +458,54 @@ Languages     | Python / Go / JS  | Perl / PHP (Legacy)
      [ User ] (2)      (3) [ Consumer ]
     `,
   },
+
+  // LIFECYCLE TIMELINE EXAMPLES
+  {
+    id: 'hardware-lifecycle-timeline',
+    title: 'Visual 27 - Hardware Lifecycle: HDDs',
+    slideNumber: 27,
+    part: 'Part 5: Deep Dives',
+    ascii: `
+Hardware: Hard Disk Drives (HDDs) — ~77 year lifecycle
+Bar width proportional to time in phase
+
+|-- Bleeding Edge --|-- Leading --|---- Mainstream ----|-- Trending --|EoS|
+|  14 yrs (1956-70) | 15 yrs     |  30 yrs (1985-2015)| 13 yrs      |5yr|
+
+Long mainstream plateau creates right-skewed curve
+Sources: Computer History Museum (2024); IDC HDD Forecast (2024)
+    `,
+  },
+  {
+    id: 'software-lifecycle-timeline',
+    title: 'Visual 28 - Software Lifecycle: Flash',
+    slideNumber: 28,
+    part: 'Part 5: Deep Dives',
+    ascii: `
+Software: Adobe Flash — ~25 year lifecycle
+Bar width proportional to time in phase
+
+|Bleed|Leading|- Mainstream -|Trending|EoS|E|
+| 4yr | 5 yrs |    7 yrs    | 5 yrs  |3yr|1|
+
+Compressed EOL after Apple rejection + HTML5
+Sources: Adobe Flash EOL Page (2020); W3Techs (2023)
+    `,
+  },
+  {
+    id: 'supply-chain-lifecycle-timeline',
+    title: 'Visual 29 - Supply Chain: Barcodes',
+    slideNumber: 29,
+    part: 'Part 5: Deep Dives',
+    ascii: `
+Supply Chain: Barcode/UPC Systems — ~83 year lifecycle
+Bar width proportional to time in phase
+
+|---- Bleeding Edge ----|-- Leading --|------ Mainstream ------|Trending|EoS|
+|  22 yrs (1952-1974)   | 11 yrs     | 35 yrs (1985-2020)    | 10 yrs |5yr|
+
+Extremely long bleeding edge — infrastructure lag before adoption
+Sources: GS1 Barcode History (2024); McKinsey Supply Chain 4.0 (2024)
+    `,
+  },
 ]
