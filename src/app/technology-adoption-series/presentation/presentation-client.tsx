@@ -61,6 +61,12 @@ interface FrameExpansionOptions {
   visualFirstSlides?: number[]
   combinedContentVisualSlides?: number[]
   appendReferenceFramesToEnd?: boolean
+  referenceSection?: {
+    startSlide: number
+    label: string
+    title: string
+    count?: string
+  }
 }
 
 // ── Constants ────────────────────────────────────────────────────────
@@ -163,6 +169,45 @@ function isReferenceFrame(frame: PresentationFrame): boolean {
   return false
 }
 
+function isReferenceHeadingText(text: string): boolean {
+  return /^\s*(sources?|references?|bibliography|citations?)\b/i.test(text.trim())
+}
+
+function isReferenceNode(node: MarkdownNode): boolean {
+  if (node.type === 'heading') return isReferenceHeadingText(node.text)
+  const text = nodeToText(node).trim()
+  return /^(sources?|references?|bibliography|citations?)\s*[:\-]/i.test(text)
+}
+
+function splitReferenceNodes(nodes: MarkdownNode[]) {
+  const mainNodes: MarkdownNode[] = []
+  const referenceNodes: MarkdownNode[] = []
+  let inReferenceBlock = false
+
+  for (const node of nodes) {
+    if (node.type === 'heading') {
+      if (isReferenceHeadingText(node.text)) {
+        inReferenceBlock = true
+        referenceNodes.push(node)
+        continue
+      }
+
+      if (inReferenceBlock) {
+        inReferenceBlock = false
+      }
+    }
+
+    if (inReferenceBlock || isReferenceNode(node)) {
+      referenceNodes.push(node)
+      continue
+    }
+
+    mainNodes.push(node)
+  }
+
+  return { mainNodes, referenceNodes }
+}
+
 function estimateNodeSize(node: MarkdownNode): number {
   if (node.type === 'heading') return 100
   if (node.type === 'paragraph') return node.text.length
@@ -211,6 +256,7 @@ function expandToFrames(
   options?: FrameExpansionOptions
 ): PresentationFrame[] {
   const frames: PresentationFrame[] = []
+  const extractedReferenceFrames: PresentationFrame[] = []
   const sectionMap = options?.sections ?? SECTIONS
   const visualFirstSlides = new Set(options?.visualFirstSlides ?? [])
   const combinedContentVisualSlides = new Set(options?.combinedContentVisualSlides ?? [])
@@ -255,6 +301,19 @@ function expandToFrames(
       }
     }
 
+    const { mainNodes, referenceNodes } = options?.appendReferenceFramesToEnd
+      ? splitReferenceNodes(textNodes)
+      : { mainNodes: textNodes, referenceNodes: [] as MarkdownNode[] }
+
+    if (options?.appendReferenceFramesToEnd && referenceNodes.length > 0) {
+      extractedReferenceFrames.push({
+        type: 'content',
+        sourceSlide: slide.number,
+        title: `Slide ${slide.number} References`,
+        nodes: referenceNodes,
+      })
+    }
+
     // ── Chunk text nodes into content frames ──
     // Collect chunks locally so we can merge orphans before pushing.
     let currentChunk: MarkdownNode[] = []
@@ -269,7 +328,7 @@ function expandToFrames(
       }
     }
 
-    for (const node of textNodes) {
+    for (const node of mainNodes) {
       // Tables get their own frame
       if (node.type === 'table') {
         flushChunk()
@@ -376,9 +435,27 @@ function expandToFrames(
 
   // ── Move reference/supporting frames to the end when requested ──
   if (options?.appendReferenceFramesToEnd) {
-    const referenceFrames = frames.filter((f) => isReferenceFrame(f))
+    const inlineReferenceFrames = frames.filter((f) => isReferenceFrame(f))
+    const referenceFrames = [...extractedReferenceFrames, ...inlineReferenceFrames]
     if (referenceFrames.length > 0) {
       const primaryFrames = frames.filter((f) => !isReferenceFrame(f))
+      if (options.referenceSection) {
+        const refStart = options.referenceSection.startSlide
+        const referenceSectionFrame: PresentationFrame = {
+          type: 'section',
+          sourceSlide: refStart,
+          title: options.referenceSection.title,
+          sectionLabel: options.referenceSection.label,
+          sectionTitle: options.referenceSection.title,
+          sectionSlideCount: options.referenceSection.count,
+        }
+        const normalizedReferenceFrames = referenceFrames.map((f) => ({
+          ...f,
+          sourceSlide: refStart,
+        }))
+        return [...primaryFrames, referenceSectionFrame, ...normalizedReferenceFrames]
+      }
+
       return [...primaryFrames, ...referenceFrames]
     }
   }
@@ -758,6 +835,13 @@ export interface PresentationClientProps {
   combinedContentVisualSlides?: number[]
   /** Move reference/supporting source frames to the end of the deck. */
   appendReferenceFramesToEnd?: boolean
+  /** Optional dedicated references section inserted before appended reference frames. */
+  referenceSection?: {
+    startSlide: number
+    label: string
+    title: string
+    count?: string
+  }
 }
 
 export default function PresentationClient({
@@ -769,6 +853,7 @@ export default function PresentationClient({
   visualFirstSlides,
   combinedContentVisualSlides,
   appendReferenceFramesToEnd,
+  referenceSection,
 }: PresentationClientProps) {
   const frames = useMemo(
     () =>
@@ -779,6 +864,7 @@ export default function PresentationClient({
         visualFirstSlides,
         combinedContentVisualSlides,
         appendReferenceFramesToEnd,
+        referenceSection,
       }),
     [
       slides,
@@ -788,6 +874,7 @@ export default function PresentationClient({
       visualFirstSlides,
       combinedContentVisualSlides,
       appendReferenceFramesToEnd,
+      referenceSection,
     ]
   )
   const [currentIdx, setCurrentIdx] = useState(0)
