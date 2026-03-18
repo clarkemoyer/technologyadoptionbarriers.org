@@ -208,6 +208,22 @@ function splitReferenceNodes(nodes: MarkdownNode[]) {
   return { mainNodes, referenceNodes }
 }
 
+function dedupeReferenceNodes(nodes: MarkdownNode[]): MarkdownNode[] {
+  const seen = new Set<string>()
+  const deduped: MarkdownNode[] = []
+
+  for (const node of nodes) {
+    const key = `${node.type}:${nodeToText(node).replace(/\s+/g, ' ').trim().toLowerCase()}`
+    if (!key.endsWith(':')) {
+      if (seen.has(key)) continue
+      seen.add(key)
+    }
+    deduped.push(node)
+  }
+
+  return deduped
+}
+
 function estimateNodeSize(node: MarkdownNode): number {
   if (node.type === 'heading') return 100
   if (node.type === 'paragraph') return node.text.length
@@ -284,7 +300,9 @@ function expandToFrames(
     }
 
     // ── Parse content ──
-    const { content } = splitTechnologyAdoptionSeriesSlideSections(slide.contentMarkdown)
+    const { content, speakerNotes, transition } = splitTechnologyAdoptionSeriesSlideSections(
+      slide.contentMarkdown
+    )
     const rawNodes = parseSimpleMarkdown(content)
 
     // Separate visuals, statements, regular text
@@ -305,12 +323,27 @@ function expandToFrames(
       ? splitReferenceNodes(textNodes)
       : { mainNodes: textNodes, referenceNodes: [] as MarkdownNode[] }
 
-    if (options?.appendReferenceFramesToEnd && referenceNodes.length > 0) {
+    const supplementalReferenceNodes: MarkdownNode[] = []
+    if (options?.appendReferenceFramesToEnd) {
+      const supplementalMarkdown = [speakerNotes, transition].filter(Boolean).join('\n\n')
+      if (supplementalMarkdown) {
+        const supplementalParsed = parseSimpleMarkdown(supplementalMarkdown)
+        const supplementalSplit = splitReferenceNodes(supplementalParsed)
+        supplementalReferenceNodes.push(...supplementalSplit.referenceNodes)
+      }
+    }
+
+    const allReferenceNodes = dedupeReferenceNodes([
+      ...referenceNodes,
+      ...supplementalReferenceNodes,
+    ])
+
+    if (options?.appendReferenceFramesToEnd && allReferenceNodes.length > 0) {
       extractedReferenceFrames.push({
         type: 'content',
         sourceSlide: slide.number,
         title: `Slide ${slide.number} References`,
-        nodes: referenceNodes,
+        nodes: allReferenceNodes,
       })
     }
 
