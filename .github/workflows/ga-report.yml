@@ -65,7 +65,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Download impact data
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: ga-impact-data
           path: src/data
