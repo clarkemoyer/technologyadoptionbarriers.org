@@ -103,10 +103,12 @@ jobs:
           if [ -z "$REVIEW_ID" ]; then
             echo "::warning::No Copilot review found on PR #${PR}"
             echo "comment_count=0" >> "$GITHUB_OUTPUT"
+            echo "review_found=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
           echo "review_id=${REVIEW_ID}" >> "$GITHUB_OUTPUT"
+          echo "review_found=true" >> "$GITHUB_OUTPUT"
 
           # Fetch inline review comments
           gh api "repos/${REPO}/pulls/${PR}/reviews/${REVIEW_ID}/comments" \
@@ -144,19 +146,23 @@ jobs:
 
       # ── No comments → cycle complete ──
       - name: Report clean review
-        if: steps.review.outputs.comment_count == '0'
+        if: steps.review.outputs.review_found == 'true' && steps.review.outputs.comment_count == '0'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR="${{ steps.ctx.outputs.pr }}"
           ROUNDS="${{ steps.rounds.outputs.current }}"
 
-          gh pr comment "${PR}" --body "<!-- copilot-review-cycle-complete -->
+          cat > /tmp/clean_review.md <<ENDOFBODY
+          <!-- copilot-review-cycle-complete -->
           ## ✅ Copilot Review Cycle Complete
 
           Copilot review passed with **no inline comments** after **${ROUNDS}** review-fix round(s).
 
-          The automated review cycle is finished — a human reviewer may now approve and merge this PR."
+          The automated review cycle is finished — a human reviewer may now approve and merge this PR.
+          ENDOFBODY
+
+          gh pr comment "${PR}" --body-file /tmp/clean_review.md
 
       # ── Max rounds reached ──
       - name: Report max rounds reached
@@ -167,7 +173,8 @@ jobs:
           PR="${{ steps.ctx.outputs.pr }}"
           MAX="${{ env.MAX_ROUNDS }}"
 
-          gh pr comment "${PR}" --body "<!-- copilot-review-cycle-max-reached -->
+          cat > /tmp/max_rounds.md <<ENDOFBODY
+          <!-- copilot-review-cycle-max-reached -->
           ## ⚠️ Copilot Review Cycle — Maximum Rounds Reached
 
           The automated cycle has reached its limit of **${MAX}** rounds but
@@ -176,7 +183,10 @@ jobs:
           **Human intervention required.** Please:
           1. Review the remaining Copilot comments manually
           2. Fix or dismiss each comment
-          3. Optionally re-run this workflow via \`workflow_dispatch\`"
+          3. Optionally re-run this workflow via \`workflow_dispatch\`
+          ENDOFBODY
+
+          gh pr comment "${PR}" --body-file /tmp/max_rounds.md
 
       # ── Comments found → request Copilot coding agent to fix ──
       - name: Request Copilot fixes
@@ -190,7 +200,8 @@ jobs:
 
           # ── Build the comment body in a temp file (avoids shell escaping) ──
 
-          # Header
+          # Header (indentation in the YAML source is stripped by the block
+          # scalar, so the heredoc content reaches bash at column 0)
           cat > /tmp/cycle_comment.md <<EOF
           <!-- copilot-review-cycle-round: ${ROUND} -->
           ## 🔄 Copilot Review Cycle — Round ${ROUND}
@@ -298,9 +309,6 @@ jobs:
           # this avoids the Copilot review completing before CI even begins.
           sleep 5
 
-          gh pr comment "${PR}" --body "<!-- copilot-review-cycle-re-review -->
-          @copilot review
-
-          _Automated re-review request from the Copilot Review Cycle workflow._"
+          gh pr comment "${PR}" --body $'<!-- copilot-review-cycle-re-review -->\n@copilot review\n\n_Automated re-review request from the Copilot Review Cycle workflow._'
 
           echo "::notice::Re-requested Copilot review for PR #${PR}"
