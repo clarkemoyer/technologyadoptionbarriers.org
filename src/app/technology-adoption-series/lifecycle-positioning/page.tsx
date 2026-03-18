@@ -39,6 +39,26 @@ export default async function LifecyclePositioningPage() {
           examples.
         </p>
 
+        <div className="mb-6 flex items-center gap-2 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            className="h-5 w-5 shrink-0"
+            aria-hidden="true"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z"
+              clipRule="evenodd"
+            />
+          </svg>
+          <span>
+            <strong>Estimated time:</strong> ~30 minutes for presentation, ~45 minutes with
+            discussion.
+          </span>
+        </div>
+
         <section className="mt-6 mb-10" aria-label="Embedded lifecycle positioning presentation">
           <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-gray-200 shadow-sm">
             <div className="absolute inset-0 flex items-center justify-center bg-slate-950">
@@ -178,7 +198,7 @@ export default async function LifecyclePositioningPage() {
             >
               Technology Adoption Teaching Series
             </Link>
-            , a 29-slide deck covering adoption definitions, strategic frameworks, lifecycle
+            , a 35-slide deck covering adoption definitions, strategic frameworks, lifecycle
             planning, and success patterns. This focused page extracts the lifecycle positioning
             topic for standalone use in workshops, briefings, or self-study.
           </p>

@@ -37,7 +37,7 @@ export const LIFECYCLE_SECTIONS: SectionMap = {
   18: {
     label: 'DEEP DIVE',
     title: 'Examples & Frameworks',
-    count: '4 slides',
+    count: '3 slides',
   },
-  25: { label: 'TIMELINES', title: 'Lifecycle Timelines', count: '3 slides' },
+  25: { label: 'TIMELINES', title: 'Lifecycle Timelines', count: '4 slides' },
 }
