@@ -27,6 +27,9 @@ export default async function LifecyclePositioningPresentationPage() {
       deckTitle={LIFECYCLE_DECK_TITLE}
       deckSubtitle={LIFECYCLE_DECK_SUBTITLE}
       sections={LIFECYCLE_SECTIONS}
+      combinedContentVisualSlides={[4]}
+      visualFirstSlides={[6, 17]}
+      appendReferenceFramesToEnd
     />
   )
 }

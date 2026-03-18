@@ -18,6 +18,12 @@ const Card = ({ children, className = '' }: { children: ReactNode; className?: s
   </div>
 )
 
+const TABLE_WRAPPER_CLASS =
+  'w-full max-w-5xl overflow-hidden rounded-xl border border-slate-500/80 bg-slate-900/85 shadow-[0_0_0_1px_rgba(100,116,139,0.3)]'
+const TABLE_HEAD_ROW_CLASS = 'bg-slate-700/95'
+const TABLE_ODD_ROW_CLASS = 'bg-slate-800/80'
+const TABLE_EVEN_ROW_CLASS = 'bg-slate-900/65'
+
 const CardLabel = ({ children }: { children: ReactNode }) => (
   <div className="text-lg font-bold text-white">{children}</div>
 )
@@ -179,10 +185,10 @@ function Visual03_VoluntaryVsInvoluntaryTable() {
   ]
   return (
     <div className="flex h-full items-center justify-center">
-      <div className="w-full max-w-3xl overflow-hidden rounded-xl border border-slate-700/50">
+      <div className={TABLE_WRAPPER_CLASS}>
         <table className="w-full border-collapse text-left">
           <thead>
-            <tr className="bg-slate-800/80">
+            <tr className={TABLE_HEAD_ROW_CLASS}>
               <th className="px-5 py-4 text-base font-bold text-slate-300">Factor</th>
               <th className="px-5 py-4 text-base font-bold text-emerald-400">Voluntary ✅</th>
               <th className="px-5 py-4 text-base font-bold text-amber-400">Involuntary ⚠️</th>
@@ -190,7 +196,10 @@ function Visual03_VoluntaryVsInvoluntaryTable() {
           </thead>
           <tbody>
             {rows.map((r, i) => (
-              <tr key={r.factor} className={i % 2 === 0 ? 'bg-slate-800/30' : 'bg-slate-800/50'}>
+              <tr
+                key={r.factor}
+                className={i % 2 === 0 ? TABLE_ODD_ROW_CLASS : TABLE_EVEN_ROW_CLASS}
+              >
                 <td className="px-5 py-3.5 text-base font-semibold text-white">{r.factor}</td>
                 <td className="px-5 py-3.5 text-base text-slate-200">{r.vol}</td>
                 <td className="px-5 py-3.5 text-base text-slate-200">{r.invol}</td>
@@ -603,10 +612,10 @@ function Visual10_LifecycleArchitectureMapping() {
 
   return (
     <div className="flex h-full items-center justify-center">
-      <div className="w-full max-w-4xl overflow-hidden rounded-xl border border-slate-700/50">
+      <div className={TABLE_WRAPPER_CLASS}>
         <table className="w-full border-collapse text-left">
           <thead>
-            <tr className="bg-slate-800/80">
+            <tr className={TABLE_HEAD_ROW_CLASS}>
               <th className="px-4 py-3 text-base font-bold text-slate-300">Lifecycle</th>
               <th className="px-4 py-3 text-base font-bold text-slate-300">Cloud Enabling</th>
               <th className="px-4 py-3 text-base font-bold text-slate-300">Cloud Native</th>
@@ -615,7 +624,10 @@ function Visual10_LifecycleArchitectureMapping() {
           </thead>
           <tbody>
             {data.map((r, i) => (
-              <tr key={r.stage} className={i % 2 === 0 ? 'bg-slate-800/30' : 'bg-slate-800/50'}>
+              <tr
+                key={r.stage}
+                className={i % 2 === 0 ? TABLE_ODD_ROW_CLASS : TABLE_EVEN_ROW_CLASS}
+              >
                 <td className="px-4 py-3 text-base font-semibold text-white">{r.stage}</td>
                 {([r.ce, r.cn, r.ca] as const).map((t, j) => (
                   <td key={j} className={`px-4 py-3 ${toneBg(t)}`}>
@@ -779,9 +791,9 @@ function Visual13_AdoptionEnablingCapabilities() {
   ]
   return (
     <div className="flex h-full items-center justify-center">
-      <div className="grid w-full max-w-4xl grid-cols-3 gap-5">
+      <div className="grid w-full max-w-5xl grid-cols-3 gap-6">
         {cards.map((c) => (
-          <Card key={c.title} className="border-cyan-500/20">
+          <Card key={c.title} className="border-cyan-400/40 bg-slate-900/80">
             <CardLabel>{c.title}</CardLabel>
             <CardBody>{c.body}</CardBody>
           </Card>
@@ -1197,10 +1209,10 @@ function Visual18_DeepDiveTechStackComparison() {
   ]
   return (
     <div className="flex h-full items-center justify-center">
-      <div className="w-full max-w-4xl overflow-hidden rounded-xl border border-slate-700/50">
+      <div className={TABLE_WRAPPER_CLASS}>
         <table className="w-full border-collapse text-left">
           <thead>
-            <tr className="bg-slate-800/80">
+            <tr className={TABLE_HEAD_ROW_CLASS}>
               <th className="px-5 py-4 text-base font-bold text-slate-300">Category</th>
               <th className="px-5 py-4 text-base font-bold text-emerald-400">Mainstream ✅</th>
               <th className="px-5 py-4 text-base font-bold text-amber-400">Trending Behind ⚠️</th>
@@ -1208,7 +1220,10 @@ function Visual18_DeepDiveTechStackComparison() {
           </thead>
           <tbody>
             {examples.map((r, i) => (
-              <tr key={r.category} className={i % 2 === 0 ? 'bg-slate-800/30' : 'bg-slate-800/50'}>
+              <tr
+                key={r.category}
+                className={i % 2 === 0 ? TABLE_ODD_ROW_CLASS : TABLE_EVEN_ROW_CLASS}
+              >
                 <td className="px-5 py-3.5 text-base font-semibold text-white">{r.category}</td>
                 <td className="px-5 py-3.5 text-base text-slate-200">{r.mainstream}</td>
                 <td className="px-5 py-3.5 text-base text-slate-200">{r.behind}</td>
@@ -1838,9 +1853,37 @@ function MomentInTimeChart({
   sourceText: string
   ariaLabel: string
 }) {
-  const colWidth = 230
-  const totalWidth = stages.length * colWidth + 80
-  const startX = (1600 - stages.length * colWidth) / 2
+  const wrapByWords = (value: string, maxCharsPerLine: number) => {
+    const words = value.trim().split(/\s+/)
+    if (words.length === 0) return ['']
+
+    const lines: string[] = []
+    let current = ''
+
+    for (const word of words) {
+      const next = current ? `${current} ${word}` : word
+      if (next.length <= maxCharsPerLine) {
+        current = next
+      } else {
+        if (current) lines.push(current)
+        if (word.length > maxCharsPerLine) {
+          lines.push(word)
+          current = ''
+        } else {
+          current = word
+        }
+      }
+    }
+
+    if (current) lines.push(current)
+    return lines
+  }
+
+  const stageCount = Math.max(stages.length, 1)
+  const horizontalPadding = 64
+  const totalWidth = 1600 - horizontalPadding * 2
+  const colWidth = totalWidth / stageCount
+  const startX = horizontalPadding
 
   return (
     <div className="flex h-full flex-col items-center justify-center gap-4">
@@ -1866,6 +1909,10 @@ function MomentInTimeChart({
           const x = startX + i * colWidth
           const headerY = 150
           const techStartY = 200
+          const maxNameChars = stageCount <= 5 ? 22 : 18
+          const maxDetailChars = stageCount <= 5 ? 30 : 24
+
+          let currentCardY = techStartY + 10
 
           return (
             <g key={stage.stage}>
@@ -1897,7 +1944,7 @@ function MomentInTimeChart({
                 x={x + colWidth / 2}
                 y={headerY + 27}
                 textAnchor="middle"
-                fontSize="14"
+                fontSize="13"
                 fontWeight="bold"
                 fill={stage.textColor || '#0f172a'}
               >
@@ -1906,7 +1953,19 @@ function MomentInTimeChart({
 
               {/* Technologies */}
               {stage.technologies.map((tech, j) => {
-                const ty = techStartY + j * 85 + 50
+                const nameLines = wrapByWords(tech.name, maxNameChars)
+                const detailLines = wrapByWords(tech.detail, maxDetailChars)
+                const titleLineHeight = 13
+                const detailLineHeight = 11
+                const cardPaddingTop = 12
+                const cardPaddingBottom = 12
+                const cardGap = 9
+                const bodyStart = cardPaddingTop + nameLines.length * titleLineHeight + 6
+                const cardHeight =
+                  bodyStart + detailLines.length * detailLineHeight + cardPaddingBottom
+                const cardY = currentCardY
+                currentCardY += cardHeight + cardGap
+
                 return (
                   <g key={tech.name}>
                     <title>
@@ -1915,9 +1974,9 @@ function MomentInTimeChart({
                     {/* Tech card background */}
                     <rect
                       x={x + 10}
-                      y={ty - 18}
+                      y={cardY}
                       width={colWidth - 20}
-                      height={72}
+                      height={cardHeight}
                       rx="6"
                       fill="#0f172a"
                       stroke={stage.color}
@@ -1925,51 +1984,32 @@ function MomentInTimeChart({
                       opacity="0.8"
                     />
                     {/* Tech name */}
-                    <text
-                      x={x + colWidth / 2}
-                      y={ty + 2}
-                      textAnchor="middle"
-                      fontSize="12"
-                      fontWeight="bold"
-                      fill="#e2e8f0"
-                    >
-                      {tech.name.length > 28 ? tech.name.slice(0, 26) + '…' : tech.name}
-                    </text>
-                    {/* Tech detail — wrap to two lines with ellipsis */}
-                    {tech.detail.length <= 35 ? (
+                    {nameLines.map((line, lineIdx) => (
                       <text
+                        key={`name-${lineIdx}`}
                         x={x + colWidth / 2}
-                        y={ty + 22}
+                        y={cardY + cardPaddingTop + 10 + lineIdx * titleLineHeight}
+                        textAnchor="middle"
+                        fontSize="11.5"
+                        fontWeight="bold"
+                        fill="#e2e8f0"
+                      >
+                        {line}
+                      </text>
+                    ))}
+                    {/* Tech detail */}
+                    {detailLines.map((line, lineIdx) => (
+                      <text
+                        key={`detail-${lineIdx}`}
+                        x={x + colWidth / 2}
+                        y={cardY + bodyStart + 8 + lineIdx * detailLineHeight}
                         textAnchor="middle"
                         fontSize="10"
                         fill="#94a3b8"
                       >
-                        {tech.detail}
+                        {line}
                       </text>
-                    ) : (
-                      <>
-                        <text
-                          x={x + colWidth / 2}
-                          y={ty + 18}
-                          textAnchor="middle"
-                          fontSize="10"
-                          fill="#94a3b8"
-                        >
-                          {tech.detail.slice(0, 35)}
-                        </text>
-                        <text
-                          x={x + colWidth / 2}
-                          y={ty + 32}
-                          textAnchor="middle"
-                          fontSize="10"
-                          fill="#94a3b8"
-                        >
-                          {tech.detail.length > 70
-                            ? tech.detail.slice(35, 67) + '…'
-                            : tech.detail.slice(35, 70)}
-                        </text>
-                      </>
-                    )}
+                    ))}
                   </g>
                 )
               })}
@@ -1991,7 +2031,7 @@ function MomentInTimeChart({
         <rect
           x={startX}
           y="848"
-          width={totalWidth - 80}
+          width={totalWidth}
           height="4"
           rx="2"
           fill="url(#risk-gradient-moment)"
@@ -1999,7 +2039,7 @@ function MomentInTimeChart({
         <text x={startX} y="870" fontSize="12" fill="#64748b">
           High Risk (Unproven)
         </text>
-        <text x={startX + totalWidth - 80} y="870" textAnchor="end" fontSize="12" fill="#64748b">
+        <text x={startX + totalWidth} y="870" textAnchor="end" fontSize="12" fill="#64748b">
           High Risk (Obsolete)
         </text>
         <text x="800" y="870" textAnchor="middle" fontSize="12" fill="#22c55e" fontWeight="600">

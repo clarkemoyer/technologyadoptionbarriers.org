@@ -7,7 +7,7 @@
 import type { SectionMap } from '@/app/technology-adoption-series/presentation/presentation-client'
 
 /** Slide numbers included in the lifecycle positioning focused deck. */
-export const LIFECYCLE_SLIDE_NUMBERS = [2, 4, 6, 18, 20, 25, 27, 30, 29, 32, 33, 34, 35] as const
+export const LIFECYCLE_SLIDE_NUMBERS = [2, 4, 6, 25, 27, 30, 29, 32, 33, 34, 35] as const
 
 /** Look-up set for fast filtering. */
 export const LIFECYCLE_SLIDE_SET = new Set<number>(LIFECYCLE_SLIDE_NUMBERS)
@@ -17,8 +17,6 @@ export const LIFECYCLE_SLIDE_DESCRIPTIONS: Partial<Record<number, string>> = {
   2: 'Three types of adoption: organizational, individual mandatory, and individual optional.',
   4: 'Common causes of failed adoption and the push vs. pull dynamic.',
   6: 'The dual-curve model showing innovation potential vs adoption risk across five lifecycle stages.',
-  18: 'Real-world examples of technologies at each lifecycle stage.',
-  20: 'A framework for evaluating and selecting technologies within lifecycle context.',
   25: 'How lifecycle positions change over time and what drives transitions.',
   27: 'Hard Disk Drives (HDDs): a 70+ year hardware lifecycle from IBM RAMAC to SSD displacement.',
   30: 'Data center storage landscape frozen at 2025 — companion to the HDD timeline.',
@@ -40,11 +38,6 @@ export const LIFECYCLE_DECK_SUBTITLE =
 export const LIFECYCLE_SECTIONS: SectionMap = {
   2: { label: 'FOUNDATIONS', title: 'Adoption Foundations', count: '2 slides' },
   6: { label: 'MODEL', title: 'Lifecycle Model', count: '1 slide' },
-  18: {
-    label: 'DEEP DIVE',
-    title: 'Examples & Frameworks',
-    count: '2 slides',
-  },
   25: { label: 'TIMELINES', title: 'Hardware & Supply Chain', count: '5 slides' },
   33: { label: 'AI / ML', title: 'AI & ML Lifecycle', count: '3 slides' },
 }
