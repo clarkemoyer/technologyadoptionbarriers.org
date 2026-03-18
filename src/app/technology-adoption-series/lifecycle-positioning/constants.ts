@@ -7,14 +7,14 @@
 import type { SectionMap } from '@/app/technology-adoption-series/presentation/presentation-client'
 
 /** Slide numbers included in the lifecycle positioning focused deck. */
-export const LIFECYCLE_SLIDE_NUMBERS = [5, 4, 6, 18, 20, 25, 27, 30, 29, 32, 33, 34, 35] as const
+export const LIFECYCLE_SLIDE_NUMBERS = [2, 4, 6, 18, 20, 25, 27, 30, 29, 32, 33, 34, 35] as const
 
 /** Look-up set for fast filtering. */
 export const LIFECYCLE_SLIDE_SET = new Set<number>(LIFECYCLE_SLIDE_NUMBERS)
 
 /** Per-slide descriptions shown in the "Included slides" table of contents. */
 export const LIFECYCLE_SLIDE_DESCRIPTIONS: Partial<Record<number, string>> = {
-  5: 'The three pillars of technology adoption: R&D, Adoption, and Integration.',
+  2: 'Three types of adoption: organizational, individual mandatory, and individual optional.',
   4: 'Common causes of failed adoption and the push vs. pull dynamic.',
   6: 'The dual-curve model showing innovation potential vs adoption risk across five lifecycle stages.',
   18: 'Real-world examples of technologies at each lifecycle stage.',
@@ -38,7 +38,7 @@ export const LIFECYCLE_DECK_SUBTITLE =
 
 /** Section map for the lifecycle positioning presentation footer. */
 export const LIFECYCLE_SECTIONS: SectionMap = {
-  5: { label: 'FOUNDATIONS', title: 'Adoption Foundations', count: '2 slides' },
+  2: { label: 'FOUNDATIONS', title: 'Adoption Foundations', count: '2 slides' },
   6: { label: 'MODEL', title: 'Lifecycle Model', count: '1 slide' },
   18: {
     label: 'DEEP DIVE',
