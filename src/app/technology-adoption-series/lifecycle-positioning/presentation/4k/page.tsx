@@ -4,6 +4,7 @@ import { getTechnologyAdoptionSeriesSlides } from '@/lib/technology-adoption-ser
 import PresentationClient from '../../../presentation/presentation-client'
 import {
   LIFECYCLE_SLIDE_SET,
+  LIFECYCLE_SLIDE_NUMBERS,
   LIFECYCLE_DECK_TITLE,
   LIFECYCLE_DECK_SUBTITLE,
   LIFECYCLE_SECTIONS,
@@ -19,7 +20,12 @@ export const dynamic = 'force-static'
 
 export default async function LifecyclePositioningPresentationPage4K() {
   const allSlides = await getTechnologyAdoptionSeriesSlides()
-  const slides = allSlides.filter((s) => LIFECYCLE_SLIDE_SET.has(s.number))
+  const order: Record<number, number> = Object.fromEntries(
+    LIFECYCLE_SLIDE_NUMBERS.map((number, idx) => [number, idx])
+  )
+  const slides = allSlides
+    .filter((s) => LIFECYCLE_SLIDE_SET.has(s.number))
+    .sort((a, b) => (order[a.number] ?? 999) - (order[b.number] ?? 999))
 
   return (
     <PresentationClient

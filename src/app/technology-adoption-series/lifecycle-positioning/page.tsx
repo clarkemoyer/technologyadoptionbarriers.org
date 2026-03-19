@@ -16,7 +16,7 @@ import {
 } from './constants'
 
 export const metadata: Metadata = {
-  title: 'Technology Lifecycle Positioning — Deep Dive',
+  title: 'Technology Lifecycle Positioning — Focused Briefing',
   description:
     'A focused exploration of technology lifecycle positioning: adoption foundations, the dual-curve model, and real-world lifecycle examples across hardware, supply chain, and AI/ML.',
 }
@@ -25,7 +25,12 @@ export const dynamic = 'force-static'
 
 export default async function LifecyclePositioningPage() {
   const allSlides = await getTechnologyAdoptionSeriesSlides()
-  const slides = allSlides.filter((s) => LIFECYCLE_SLIDE_SET.has(s.number))
+  const order: Record<number, number> = Object.fromEntries(
+    LIFECYCLE_SLIDE_NUMBERS.map((number, idx) => [number, idx])
+  )
+  const slides = allSlides
+    .filter((s) => LIFECYCLE_SLIDE_SET.has(s.number))
+    .sort((a, b) => (order[a.number] ?? 999) - (order[b.number] ?? 999))
 
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -54,7 +59,7 @@ export default async function LifecyclePositioningPage() {
             />
           </svg>
           <span>
-            <strong>Estimated time:</strong> ~50 minutes for presentation, ~70 minutes with
+            <strong>Estimated time:</strong> ~30 minutes for presentation, ~45 minutes with
             discussion.
           </span>
         </div>
