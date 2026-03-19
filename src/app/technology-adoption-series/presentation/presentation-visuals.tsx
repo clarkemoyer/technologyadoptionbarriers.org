@@ -21,8 +21,8 @@ const Card = ({ children, className = '' }: { children: ReactNode; className?: s
 const TABLE_WRAPPER_CLASS =
   'w-full max-w-5xl overflow-hidden rounded-xl border border-slate-500/80 bg-slate-900/85 shadow-[0_0_0_1px_rgba(100,116,139,0.3)]'
 const TABLE_HEAD_ROW_CLASS = 'bg-slate-700/95'
-const TABLE_ODD_ROW_CLASS = 'bg-slate-800/80'
-const TABLE_EVEN_ROW_CLASS = 'bg-slate-900/65'
+const TABLE_INDEX_EVEN_ROW_CLASS = 'bg-slate-800/80'
+const TABLE_INDEX_ODD_ROW_CLASS = 'bg-slate-900/65'
 
 const CardLabel = ({ children }: { children: ReactNode }) => (
   <div className="text-lg font-bold text-white">{children}</div>
@@ -198,7 +198,7 @@ function Visual03_VoluntaryVsInvoluntaryTable() {
             {rows.map((r, i) => (
               <tr
                 key={r.factor}
-                className={i % 2 === 0 ? TABLE_ODD_ROW_CLASS : TABLE_EVEN_ROW_CLASS}
+                className={i % 2 === 0 ? TABLE_INDEX_EVEN_ROW_CLASS : TABLE_INDEX_ODD_ROW_CLASS}
               >
                 <td className="px-5 py-3.5 text-base font-semibold text-white">{r.factor}</td>
                 <td className="px-5 py-3.5 text-base text-slate-200">{r.vol}</td>
@@ -626,7 +626,7 @@ function Visual10_LifecycleArchitectureMapping() {
             {data.map((r, i) => (
               <tr
                 key={r.stage}
-                className={i % 2 === 0 ? TABLE_ODD_ROW_CLASS : TABLE_EVEN_ROW_CLASS}
+                className={i % 2 === 0 ? TABLE_INDEX_EVEN_ROW_CLASS : TABLE_INDEX_ODD_ROW_CLASS}
               >
                 <td className="px-4 py-3 text-base font-semibold text-white">{r.stage}</td>
                 {([r.ce, r.cn, r.ca] as const).map((t, j) => (
@@ -1222,7 +1222,7 @@ function Visual18_DeepDiveTechStackComparison() {
             {examples.map((r, i) => (
               <tr
                 key={r.category}
-                className={i % 2 === 0 ? TABLE_ODD_ROW_CLASS : TABLE_EVEN_ROW_CLASS}
+                className={i % 2 === 0 ? TABLE_INDEX_EVEN_ROW_CLASS : TABLE_INDEX_ODD_ROW_CLASS}
               >
                 <td className="px-5 py-3.5 text-base font-semibold text-white">{r.category}</td>
                 <td className="px-5 py-3.5 text-base text-slate-200">{r.mainstream}</td>

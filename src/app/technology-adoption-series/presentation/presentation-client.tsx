@@ -203,7 +203,13 @@ function splitReferenceNodes(nodes: MarkdownNode[]) {
       }
     }
 
-    if (inReferenceBlock || isReferenceNode(node)) {
+    if (isReferenceNode(node)) {
+      inReferenceBlock = true
+      referenceNodes.push(node)
+      continue
+    }
+
+    if (inReferenceBlock) {
       referenceNodes.push(node)
       continue
     }
@@ -449,13 +455,17 @@ function expandToFrames(
     }
 
     // ── Combined content + visual frame for selected slides ──
-    if (combinedContentVisualSlides.has(slide.number) && visualId && slideChunks.length > 0) {
-      const firstContentChunk = slideChunks[0]
+    if (
+      combinedContentVisualSlides.has(slide.number) &&
+      visualId &&
+      slideChunks.length === 1 &&
+      statements.length === 0
+    ) {
       frames.push({
         type: 'content-visual',
         sourceSlide: slide.number,
         title: slide.title,
-        nodes: firstContentChunk,
+        nodes: slideChunks[0],
         visualId,
       })
       continue
