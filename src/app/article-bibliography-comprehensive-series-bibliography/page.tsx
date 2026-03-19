@@ -60,6 +60,12 @@ const BibliographyPage = () => {
               and validation approaches. Click any model to explore in depth.
             </li>
             <li>
+              <strong>Organizational Model Articles:</strong> New dedicated pages for the
+              organizational-level frameworks (Branch 2: The Organization&rsquo;s Playbook),
+              covering strategic and resource-based theories underpinning enterprise technology
+              adoption. Click any framework to explore in depth.
+            </li>
+            <li>
               <strong>Inventory Dashboard (Quick Scan):</strong> Located immediately below, this
               section provides a high-level list of all unique titles and authors in a side-by-side
               comparison. Use this for a fast &ldquo;at-a-glance&rdquo; verification of the scope
@@ -228,6 +234,39 @@ const BibliographyPage = () => {
             >
               <div className="font-semibold text-blue-600">21. TRI 2.0</div>
               <div className="text-sm text-gray-600">Parasuraman &amp; Colby (2015)</div>
+            </a>
+          </div>
+        </section>
+
+        {/* Organizational Model Articles */}
+        <section className="mb-8 sm:mb-12 bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-lg border-2 border-green-200">
+          <h2 className={H2_CLASSES}>🏢 Organizational Model Articles (New!)</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Each of the organizational-level frameworks in Branch 2 (The Organization&rsquo;s
+            Playbook) now has its own dedicated article page. Click any framework below to explore
+            its history, strategic applications, and relevance to enterprise technology adoption.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <a
+              href="/bibliography-2-1-resource-based-view-rbv-wernerfelt-1984"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-green-700">1. Resource-Based View (RBV)</div>
+              <div className="text-sm text-gray-600">Wernerfelt (1984)</div>
+            </a>
+            <a
+              href="/bibliography-2-2-vrio-framework-barney-1991"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-green-700">2. VRIO Framework</div>
+              <div className="text-sm text-gray-600">Barney (1991)</div>
+            </a>
+            <a
+              href="/bibliography-2-3-dynamic-capabilities-teece-1997"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-green-700">3. Dynamic Capabilities Framework</div>
+              <div className="text-sm text-gray-600">Teece, Pisano, &amp; Shuen (1997)</div>
             </a>
           </div>
         </section>
