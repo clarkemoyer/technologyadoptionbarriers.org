@@ -273,15 +273,7 @@ TECHNOLOGY LIFECYCLE STAGES
      └─────────────────────────────────────────────────────────────┘
 ```
 
-**How to Read the Dual-Curve (Focused Briefing Lens)**
-
-- Innovation potential generally declines as technologies mature and standardize.
-- Adoption risk is typically highest at both extremes: very new and very old technologies.
-- The practical target zone for most delivery teams is **Leading Edge → Mainstream**.
-
-Use this slide as your strategic orientation, then use the timeline and moment-in-time slides later in this deck to see how that model behaves in hardware, supply chain, and AI/ML.
-
-**Key Takeaway:** The strategic decision is not just _what_ technology to adopt, but _when_ in its lifecycle to adopt it. Position too early and you absorb avoidable risk; position too late and you absorb avoidable technical debt.
+**Key Takeaway:** Strategic advantage comes from timing, not novelty. Adopt too early and you absorb avoidable risk; adopt too late and you absorb avoidable technical debt.
 
 **Sources:**
 
