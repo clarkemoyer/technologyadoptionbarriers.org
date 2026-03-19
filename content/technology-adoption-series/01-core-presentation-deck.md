@@ -1168,6 +1168,8 @@ The next slide is a Q&A transition. After that, use the optional deep-dive slide
 
 **Content**
 
+**Visual:** Q&A Transition Card
+
 Q&A
 
 If questions come up that need a deeper dive, these optional slides are available:
@@ -1201,6 +1203,8 @@ These slides are optional topics to support Q&A. They are not part of the core 1
 ### Slide 18 (Optional): "Technology Lifecycle Examples in Practice"
 
 **Content**
+
+**Visual:** Multi-domain lifecycle classification matrix (container orchestration, IaC, languages, CI/CD, and service mesh)
 
 REAL-WORLD TECHNOLOGY LIFECYCLE EXAMPLES (Current snapshot — update as needed):
 
@@ -1529,6 +1533,8 @@ COMMON ADOPTION ANTI-PATTERNS TO AVOID:
 ### Slide 22 (Optional): "Organizational vs User Adoption Deep Dive"
 
 **Content**
+
+**Visual:** Side-by-side comparison of organizational adoption vs user adoption with voluntary/involuntary bridge model
 
 UNDERSTANDING THE TWO LEVELS OF ADOPTION:
 
