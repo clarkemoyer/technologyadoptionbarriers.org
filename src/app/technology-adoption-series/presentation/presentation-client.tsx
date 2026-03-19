@@ -781,8 +781,6 @@ function VisualFrame({ frame }: { frame: PresentationFrame }) {
 
 function StatementFrame({ frame }: { frame: PresentationFrame }) {
   const isWarning = frame.statement?.startsWith('⚠️')
-  // Only add decorative quotes when the statement isn't already quoted
-  const alreadyQuoted = /^["\u201C]/.test(frame.statement ?? '')
   return (
     <div className="flex h-full flex-col items-center justify-center text-center">
       <div className="mb-6 text-sm font-semibold tracking-wider uppercase text-cyan-400/50">
@@ -797,13 +795,9 @@ function StatementFrame({ frame }: { frame: PresentationFrame }) {
             {frame.statement?.replace(/^⚠️\s*/, '')}
           </div>
         </div>
-      ) : alreadyQuoted ? (
-        <blockquote className="max-w-4xl text-3xl font-semibold leading-snug text-white lg:text-5xl">
-          {frame.statement}
-        </blockquote>
       ) : (
         <blockquote className="max-w-4xl text-3xl font-semibold leading-snug text-white lg:text-5xl">
-          &ldquo;{frame.statement}&rdquo;
+          {frame.statement}
         </blockquote>
       )}
     </div>
