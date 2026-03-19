@@ -35,7 +35,10 @@ const BibliographyArticlePage = () => {
         <section className="mb-8 sm:mb-12">
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
-            <p className="text-sm font-mono"></p>
+            <p className="text-sm font-mono">
+              Parasuraman, A., &amp; Colby, C. L. (2015). An updated and streamlined technology
+              readiness index: TRI 2.0. <em>Journal of Service Research</em>, 18(1), 59&ndash;74.
+            </p>
           </div>
         </section>
 
