@@ -353,23 +353,17 @@ const CooperZmudPage = () => {
           </p>
         </section>
 
-        <p className="mt-8 text-sm italic text-gray-600">
-          Note: This article provides an overview based on the comprehensive literature review.
-          Readers are encouraged to consult the original publication for complete details.
-        </p>
-
-        {/* Navigation */}
-        <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
-            href="/article-bibliography-comprehensive-series-bibliography"
-            className="text-blue-600 hover:text-blue-800 underline"
-          >
-            ← Back to Complete Bibliography
-          </a>
+          <p className={PARAGRAPH_CLASSES}>
+            <em>
+              Note: This article provides an overview based on the comprehensive literature
+              review. Readers are encouraged to consult the original publication for complete
+              details.
+            </em>
+          </p>
         </section>
 
         <section className="pt-8 border-t border-gray-200">
-          <h2 className={REFERENCES_H2_CLASSES}>APA Citation</h2>
+          <h2 className={REFERENCES_H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li>
               Cooper, R. B., &amp; Zmud, R. W. (1990). Information technology implementation
@@ -407,6 +401,15 @@ const CooperZmudPage = () => {
               A contingency approach. <em>MIS Quarterly, 12</em>(1), 91&ndash;108.
             </li>
           </ol>
+        </section>
+
+        <section className="mt-12 pt-6 border-t border-gray-200">
+          <a
+            href="/article-bibliography-comprehensive-series-bibliography"
+            className="text-blue-600 hover:text-blue-800 underline"
+          >
+            ← Back to Complete Bibliography
+          </a>
         </section>
       </article>
     </main>

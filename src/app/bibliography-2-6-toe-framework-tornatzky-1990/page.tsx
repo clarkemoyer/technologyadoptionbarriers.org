@@ -342,7 +342,7 @@ const TOEFrameworkPage = () => {
         </section>
 
         <section className="pt-8 border-t border-gray-200">
-          <h2 className={REFERENCES_H2_CLASSES}>APA Citation</h2>
+          <h2 className={REFERENCES_H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li>
               Tornatzky, L. G., Fleischer, M., &amp; Chakrabarti, A. K. (1990).{' '}
