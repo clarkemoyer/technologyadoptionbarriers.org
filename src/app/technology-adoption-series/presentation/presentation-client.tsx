@@ -219,8 +219,9 @@ function dedupeReferenceNodes(nodes: MarkdownNode[]): MarkdownNode[] {
   const deduped: MarkdownNode[] = []
 
   for (const node of nodes) {
-    const key = `${node.type}:${nodeToText(node).replace(/\s+/g, ' ').trim().toLowerCase()}`
-    if (!key.endsWith(':')) {
+    const normalizedText = nodeToText(node).replace(/\s+/g, ' ').trim().toLowerCase()
+    const key = `${node.type}:${normalizedText}`
+    if (normalizedText.length > 0) {
       if (seen.has(key)) continue
       seen.add(key)
     }
