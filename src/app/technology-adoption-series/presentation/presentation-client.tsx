@@ -132,6 +132,7 @@ function extractStatementText(raw: string): string {
     .replace(/\*\*/g, '')
     .replace(/^_+|_+$/g, '')
     .replace(/_{2,}/g, ' ')
+    .replace(/(^|[\s(])_([^_\n]+)_(?=($|[\s).,:;!?]))/g, '$1$2')
     .trim()
   // Strip surrounding quotes to avoid double-quoting in StatementFrame
   text = text
@@ -141,11 +142,18 @@ function extractStatementText(raw: string): string {
   return text
 }
 
+function listItemToText(item: { text: string; children?: MarkdownNode[] }): string {
+  const childText = item.children?.map((node) => nodeToText(node)).join(' ') ?? ''
+  return `${item.text} ${childText}`.trim()
+}
+
 function nodeToText(node: MarkdownNode): string {
   if (node.type === 'heading') return node.text
   if (node.type === 'paragraph') return node.text
   if (node.type === 'blockquote') return node.lines.join(' ')
-  if (node.type === 'ul' || node.type === 'ol') return node.items.join(' ')
+  if (node.type === 'ul' || node.type === 'ol') {
+    return node.items.map((item) => listItemToText(item)).join(' ')
+  }
   if (node.type === 'table') {
     const headers = node.headers.join(' ')
     const rows = node.rows.flat().join(' ')
@@ -156,15 +164,13 @@ function nodeToText(node: MarkdownNode): string {
 }
 
 function isReferenceFrame(frame: PresentationFrame): boolean {
-  const referenceRegex =
-    /\b(source|sources|reference|references|bibliography|citation|citations)\b/i
-  if (referenceRegex.test(frame.title)) return true
+  const titleReferenceRegex = /^\s*(sources?|references?|bibliography|citations?)\b/i
+  if (titleReferenceRegex.test(frame.title)) return true
   if (frame.type === 'statement' && frame.statement) {
-    return referenceRegex.test(frame.statement)
+    return /^\s*(sources?|references?|bibliography|citations?)\b/i.test(frame.statement)
   }
   if ((frame.type === 'content' || frame.type === 'content-visual') && frame.nodes) {
-    const text = frame.nodes.map((n) => nodeToText(n)).join(' ')
-    return referenceRegex.test(text)
+    return frame.nodes.some((node) => isReferenceNode(node))
   }
   return false
 }
@@ -1130,7 +1136,7 @@ function ContentVisualFrame({ frame }: { frame: PresentationFrame }) {
                 : '[&_p]:text-lg [&_p]:leading-relaxed [&_li]:text-lg [&_li]:leading-relaxed [&_ul]:space-y-2 [&_ol]:space-y-2 text-slate-200'
             }
           >
-            <RenderMarkdownNodes nodes={frame.nodes} />
+            <RenderMarkdownNodes nodes={frame.nodes} variant="presentation" />
           </div>
         ) : null}
       </section>

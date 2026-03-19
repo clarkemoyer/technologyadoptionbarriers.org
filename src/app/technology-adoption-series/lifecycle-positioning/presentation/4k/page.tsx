@@ -35,7 +35,7 @@ export default async function LifecyclePositioningPresentationPage4K() {
       deckSubtitle={LIFECYCLE_DECK_SUBTITLE}
       sections={LIFECYCLE_SECTIONS}
       combinedContentVisualSlides={[4]}
-      visualFirstSlides={[6, 17]}
+      visualFirstSlides={[6]}
       appendReferenceFramesToEnd
     />
   )
