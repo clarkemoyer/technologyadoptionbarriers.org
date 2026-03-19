@@ -273,69 +273,30 @@ TECHNOLOGY LIFECYCLE STAGES
      └─────────────────────────────────────────────────────────────┘
 ```
 
-**Reading the Chart: Why Two Curves Define the Target Zone**
+**How to Read the Dual-Curve (Focused Briefing Lens)**
 
-The dual-curve visual above captures the central insight of technology lifecycle positioning: innovation potential and adoption risk move in opposite directions, and the place where they intersect determines your strategic sweet spot.
+- Innovation potential generally declines as technologies mature and standardize.
+- Adoption risk is typically highest at both extremes: very new and very old technologies.
+- The practical target zone for most delivery teams is **Leading Edge → Mainstream**.
 
-**Innovation potential** (the dashed line) starts high at the Bleeding Edge — new technologies promise transformative capability precisely because they haven't been constrained by backward compatibility, existing user expectations, or market standardization. But that potential declines steadily as technologies mature. By the time a technology reaches Mainstream, most of its architectural decisions are locked in. Christensen's research on disruptive innovation demonstrates that as technologies mature, the rate of performance improvement slows and eventually overshoots what most users actually need (Christensen, _The Innovator's Dilemma_, 1997; rev. ed. 2016). The innovation curve reflects this: each successive stage offers less room for differentiation.
+Use this slide as your strategic orientation, then use the timeline and moment-in-time slides later in this deck to see how that model behaves in hardware, supply chain, and AI/ML.
 
-**Adoption risk** (the solid line) follows a U-shape — high at both extremes, lowest in the middle. At the Bleeding Edge, risk is high because there is no production track record, limited community support, and uncertain vendor commitment. Gartner's research quantifies this: technologies at the "Innovation Trigger" phase have failure rates exceeding 50% within five years of initial hype (Gartner, _Understanding Gartner's Hype Cycles_, 2023). Risk drops as technologies mature through Leading Edge and Mainstream — community support grows, security patching cadences stabilize, and talent pools expand. But risk climbs again at Trending Behind and End of Support as vendors reduce investment, security vulnerabilities go unpatched, and the talent pool shrinks. NIST's Cybersecurity Framework identifies "aging infrastructure with declining vendor support" as a systemic risk factor that compounds over time (NIST, _Cybersecurity Framework 2.0_, 2024).
-
-**The Target Zone** — Leading Edge through Mainstream — is where the two curves create the most favorable ratio. Innovation potential is still meaningful enough to provide competitive advantage or operational improvement, while adoption risk has dropped to manageable levels. Rogers' diffusion research quantifies this window: the early majority (Leading Edge) and late majority (Mainstream) together represent approximately 68% of eventual adopters, meaning technologies in this zone have broad ecosystem support without having entered decline (Rogers, _Diffusion of Innovations_, 5th ed., 2003). Organizations that consistently position within this zone avoid both the costly failures of premature adoption and the security exposure of running unsupported systems.
-
-**Real-World Examples Across the Lifecycle**
-
-The lifecycle stages are not theoretical — every technology currently in use sits somewhere on this curve. The table below maps well-known technologies to their current lifecycle position as of 2025, with sources that validate the placement.
-
-| Lifecycle Stage     | Technology Example                        | Evidence                                                                                                                                                                                                                                                                                                                                                                                                           |
-| ------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Bleeding Edge**   | WebTransport API                          | W3C Working Draft status as of 2024; limited browser implementation; no production frameworks support it as a primary transport (W3C, _WebTransport Working Draft_, 2024). Gartner's 2024 Hype Cycle for Networking places next-generation transport protocols at the "Innovation Trigger" phase (Gartner, 2024).                                                                                                  |
-| **Bleeding Edge**   | Post-Quantum Cryptography (PQC) standards | NIST finalized the first PQC standards (FIPS 203, 204, 205) in August 2024, but adoption remains under 1% in production systems. Migration timelines are measured in years, not months (NIST, _Post-Quantum Cryptography Standardization_, 2024).                                                                                                                                                                  |
-| **Leading Edge**    | Rust (systems programming)                | Stack Overflow's 2024 Developer Survey shows Rust as the "most admired" language for the ninth consecutive year, with 12.6% of developers using it — past early-adopter stage but not yet mainstream (Stack Overflow, _2024 Developer Survey_, 2024). Growing adoption by Microsoft, Google, and the Linux kernel signals chasm-crossing momentum.                                                                 |
-| **Leading Edge**    | Deno / Bun (JavaScript runtimes)          | Both runtimes have reached stable 1.x/2.x releases with growing enterprise adoption, but npm ecosystem compatibility gaps and smaller community size keep them in early-majority territory. The State of JS 2024 survey shows combined usage at approximately 15% among JavaScript developers (State of JS, 2024).                                                                                                 |
-| **Mainstream**      | Node.js                                   | Used by 42.6% of professional developers per Stack Overflow's 2024 survey. LTS release cadence, extensive npm ecosystem (2.1M+ packages), and broad cloud provider support place it firmly in the late majority phase (Stack Overflow, 2024; npm, Inc., 2024).                                                                                                                                                     |
-| **Mainstream**      | React                                     | Used by 39.5% of professional developers and supported by every major cloud and hosting platform. Extensive tooling ecosystem, established architectural patterns, and a talent pool exceeding 10 million developers worldwide (Stack Overflow, 2024; GitHub _Octoverse 2024_ report).                                                                                                                             |
-| **Mainstream**      | PostgreSQL                                | DB-Engines ranks PostgreSQL as the #1 most popular database by growth trajectory, with the highest year-over-year adoption increase among RDBMS platforms for five consecutive years (DB-Engines, _Ranking Trend_, 2024).                                                                                                                                                                                          |
-| **Trending Behind** | jQuery                                    | Once used by 77% of websites, jQuery's share among JavaScript developers dropped to 21.4% in Stack Overflow's 2024 survey — a steady decline as React, Vue, and vanilla JS APIs have replaced its core functionality (Stack Overflow, 2024; W3Techs, 2024).                                                                                                                                                        |
-| **Trending Behind** | AngularJS (1.x)                           | Google ended long-term support for AngularJS 1.x in January 2022. While successor framework Angular (2+) continues active development, the original AngularJS codebase receives no security patches and has a shrinking contributor base (Google, _AngularJS End of Life Announcement_, 2021).                                                                                                                     |
-| **End of Support**  | Windows 10                                | Microsoft has announced End of Support for Windows 10 on October 14, 2025 — after that date, no security updates, bug fixes, or technical support will be provided for the consumer edition (Microsoft, _Windows 10 End of Support_, 2024). With over 700 million devices still running Windows 10 as of late 2024, this represents one of the largest forced migrations in computing history (StatCounter, 2024). |
-| **End of Support**  | CentOS Linux 7                            | Red Hat ended full support for CentOS 7 on June 30, 2024. Organizations still running CentOS 7 receive no security patches, creating exposure to known vulnerabilities. CISA's Known Exploited Vulnerabilities catalog has flagged multiple CentOS 7 / RHEL 7 kernel vulnerabilities as actively exploited (Red Hat, _CentOS 7 End of Life_, 2024; CISA KEV, 2024).                                                |
-| **End of Support**  | Python 2.7                                | The Python Software Foundation ended all support for Python 2 on January 1, 2020. Despite the five-year sunset period, an estimated 7-10% of production Python codebases still contained Python 2 dependencies as of 2024, creating ongoing security and compatibility risk (Python Software Foundation, _Sunsetting Python 2_, 2019; JetBrains _Python Developers Survey_, 2024).                                 |
-
-**Key Takeaway:** Technologies do not stay in one stage forever — they move through the lifecycle at different speeds. The strategic question is not _which technologies to use_ but _at which lifecycle stage to adopt them_. Organizations that adopt too early absorb unnecessary risk; organizations that hold too long accumulate technical debt and security exposure. The target zone represents the window where risk-adjusted value is highest.
+**Key Takeaway:** The strategic decision is not just _what_ technology to adopt, but _when_ in its lifecycle to adopt it. Position too early and you absorb avoidable risk; position too late and you absorb avoidable technical debt.
 
 **Sources:**
 
-- Rogers, E. M. (2003). _Diffusion of Innovations_ (5th ed.). Free Press. (Original work published 1962.)
-- Moore, G. A. (2014). _Crossing the Chasm: Marketing and Selling Disruptive Products to Mainstream Customers_ (3rd ed.). Harper Business. (Original work published 1991.)
-- Christensen, C. M. (2016). _The Innovator's Dilemma: When New Technologies Cause Great Firms to Fail_ (rev. ed.). Harvard Business Review Press. (Original work published 1997.)
-- Gartner. (2023). _Understanding Gartner's Hype Cycles._ [gartner.com](https://www.gartner.com/en/research/methodologies/gartner-hype-cycle)
-- Gartner. (2024). _Hype Cycle for Networking, 2024._
-- NIST. (2018). _SP 800-160 Vol. 1: Systems Security Engineering._ National Institute of Standards and Technology.
-- NIST. (2024). _Cybersecurity Framework 2.0._ National Institute of Standards and Technology. [nist.gov](https://www.nist.gov/cyberframework)
-- NIST. (2024). _Post-Quantum Cryptography Standardization: FIPS 203, 204, 205._ [csrc.nist.gov](https://csrc.nist.gov/projects/post-quantum-cryptography)
-- Microsoft. (2024). _Modern Lifecycle Policy._ [learn.microsoft.com](https://learn.microsoft.com/en-us/lifecycle/policies/modern)
-- Microsoft. (2024). _Windows 10 End of Support._ [learn.microsoft.com](https://learn.microsoft.com/en-us/lifecycle/products/windows-10-home-and-pro)
-- Red Hat. (2024). _CentOS 7 End of Life._
-- Python Software Foundation. (2019). _Sunsetting Python 2._ [python.org](https://www.python.org/doc/sunset-python-2/)
-- CISA. (2023). _Known Exploited Vulnerabilities Catalog._ Cybersecurity and Infrastructure Security Agency. [cisa.gov](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)
-- Stack Overflow. (2024). _2024 Developer Survey Results._ [survey.stackoverflow.co](https://survey.stackoverflow.co/2024/)
-- State of JS. (2024). _State of JavaScript 2024 Survey._
-- DB-Engines. (2024). _DB-Engines Ranking Trend._ [db-engines.com](https://db-engines.com/en/ranking_trend)
-- GitHub. (2024). _Octoverse 2024._ [github.blog](https://github.blog/news-insights/octoverse/octoverse-2024/)
-- JetBrains. (2024). _Python Developers Survey 2024._
-- W3Techs. (2024). _Usage Statistics of JavaScript Libraries._ [w3techs.com](https://w3techs.com/technologies/overview/javascript_library)
+- Rogers, E. M. (2003). _Diffusion of Innovations_ (5th ed.). Free Press.
+- Moore, G. A. (2014). _Crossing the Chasm_ (3rd ed.). Harper Business.
+- Christensen, C. M. (2016). _The Innovator's Dilemma_ (rev. ed.). Harvard Business Review Press.
+- NIST. (2024). _Cybersecurity Framework 2.0._
 
 **Speaker Notes:**
 
 - "This isn't just academic - where you sit here determines everything"
-- "Notice how adoption potential changes across the lifecycle"
-- "Bleeding Edge and Obsolete both have very low adoption rates - for different reasons"
-- "Rogers' research showed that technology adoption follows a predictable S-curve — these lifecycle stages map directly to that curve"
-- "The dual-curve visual shows why the middle stages are the target: innovation potential is still meaningful while adoption risk is at its lowest"
-- "Look at the examples table — jQuery was mainstream five years ago and is now trending behind. React is mainstream today but won't be forever. The lifecycle is always moving."
-- "Windows 10 end-of-support in October 2025 is a perfect case study — 700 million devices forced to migrate because of lifecycle positioning"
-- "The key insight from Christensen's work is that innovation potential doesn't just decline gradually — mature technologies actually overshoot what users need, which is why disruption happens from below"
+- "Notice how innovation potential and adoption risk move in opposite directions"
+- "The strategic sweet spot is usually Leading Edge to Mainstream"
+- "The wrong decision is often a timing decision, not a capability decision"
+- "We'll use the timeline and moment-in-time slides next to see this model in real domains"
 
 **Transition:** "Where you choose to position in this lifecycle isn't just a technical decision - it determines your management methods, architecture approaches, and solutions."
 
@@ -1168,6 +1129,8 @@ The next slide is a Q&A transition. After that, use the optional deep-dive slide
 
 **Content**
 
+**Visual:** Q&A Transition Card
+
 Q&A
 
 If questions come up that need a deeper dive, these optional slides are available:
@@ -1201,6 +1164,8 @@ These slides are optional topics to support Q&A. They are not part of the core 1
 ### Slide 18 (Optional): "Technology Lifecycle Examples in Practice"
 
 **Content**
+
+**Visual:** Multi-domain lifecycle classification matrix (container orchestration, IaC, languages, CI/CD, and service mesh)
 
 REAL-WORLD TECHNOLOGY LIFECYCLE EXAMPLES (Current snapshot — update as needed):
 
@@ -1529,6 +1494,8 @@ COMMON ADOPTION ANTI-PATTERNS TO AVOID:
 ### Slide 22 (Optional): "Organizational vs User Adoption Deep Dive"
 
 **Content**
+
+**Visual:** Side-by-side comparison of organizational adoption vs user adoption with voluntary/involuntary bridge model
 
 UNDERSTANDING THE TWO LEVELS OF ADOPTION:
 
@@ -1902,21 +1869,25 @@ Voluntary adoption works like a filter: if users don't understand it, don't trus
 
 UNDERSTANDING THE CONTINUOUS TECHNOLOGY CYCLES:
 
-Two distinct cycles exist in technology management:
+This slide is about **transition signals**, not stage definitions.
 
-**THE INNOVATION CYCLE (Left-side):**
-Bleeding Edge → Leading Edge → Mainstream
+**INNOVATION CYCLE (Bleeding Edge → Leading Edge → Mainstream):**
 
-- **Bleeding Edge**: High risk, high potential. Use for R&D only.
-- **Leading Edge**: Emerging standards. Use for competitive advantage.
-- **Mainstream**: Stable, mature. The "Action Zone" for reliable delivery.
+- Entry signal: production pilots begin succeeding repeatedly.
+- Advancement signal: standards, tooling, and talent availability improve.
+- Exit signal: differentiation gains flatten and technologies stabilize.
 
-**THE LEGACY CYCLE (Right-side):**
-Trending Behind → End of Support → End of Life
+**LEGACY CYCLE (Trending Behind → End of Support → End of Life):**
 
-- **Trending Behind**: Declining usage. Stop new adoption here.
-- **End of Support**: Critical risk. Must migrate immediately.
-- **End of Life / Obsolete**: Dead technology. Operational hazard.
+- Entry signal: vendor/community momentum declines and hiring becomes harder.
+- Escalation signal: security/compliance burden increases faster than value.
+- Critical signal: support deadlines become externally fixed (vendor/regulator).
+
+**DECISION RULE:**
+
+- Start new builds in Leading Edge/Mainstream when possible.
+- Treat Trending Behind as modernization territory, not growth territory.
+- Treat End of Support as a migration program, not a maintenance task.
 
 **Visual:** Lifecycle Cycles (Innovation vs Legacy)
 
@@ -1936,10 +1907,9 @@ Trending Behind → End of Support → End of Life
 
 **Speaker Notes:**
 
-- "Think of these as two gravity wells."
-- "The Innovation Cycle pulls you forward into stability."
-- "The Legacy Cycle pulls you down into obsolescence."
-- "Your goal is to stay in the Innovation Cycle as long as possible."
+- "Use this as an early-warning slide: watch the transition signals, not just the labels."
+- "The key question is not 'what stage is this today?' but 'which direction is it moving?'"
+- "Good lifecycle management means moving before deadlines force you to move."
 
 ---
 
@@ -2144,7 +2114,7 @@ Sources:
 
 DATA CENTER STORAGE: A MOMENT IN TIME (2025)
 
-The previous slide showed the HDD lifecycle over 70+ years. This companion slide **freezes the frame at 2025** and maps the entire data center storage landscape across lifecycle stages — showing where every major technology sits right now.
+This snapshot emphasizes **portfolio risk and investment timing** in storage decisions. Instead of one technology over time, it shows where the full storage stack sits right now.
 
 **LIFECYCLE POSITIONING:**
 
@@ -2164,7 +2134,7 @@ The previous slide showed the HDD lifecycle over 70+ years. This companion slide
 - **The bleeding edge is radical:** DNA and glass storage represent fundamentally different paradigms, not incremental improvements — suggesting a potential discontinuous jump
 - **Flash dominates the middle:** TLC NVMe is the center of gravity today, just as HDDs were in 2005
 
-**COMPARISON TO TIMELINE VIEW:** Slide 27 showed HDDs moving through phases over time. This slide shows all storage technologies frozen at one moment — revealing the competitive landscape that creates the transition pressure visible in the timeline's "trending behind" phase.
+**DECISION LENS (RISK + CAPEX):** Use this view to separate (1) technologies to expand, (2) technologies to contain, and (3) technologies to retire. The timeline explains historical motion; this slide supports current portfolio allocation.
 
 **Visual:** Data Center Storage Moment in Time
 
@@ -2236,7 +2206,7 @@ Sources:
 
 SUPPLY CHAIN IDENTIFICATION: A MOMENT IN TIME (2025)
 
-The previous slide showed the barcode's 80+ year lifecycle from patent (1952) to today. This companion slide **freezes the frame at 2025** and maps the entire supply chain identification landscape across lifecycle stages — showing what's competing with, supplementing, and eventually replacing the barcode.
+This snapshot emphasizes **ecosystem coordination and standards governance** across identification technologies in active use.
 
 **LIFECYCLE POSITIONING:**
 
@@ -2256,7 +2226,7 @@ The previous slide showed the barcode's 80+ year lifecycle from patent (1952) to
 - **Blockchain hype is cooling:** TradeLens shut down, Amazon scaled back Just Walk Out. Bleeding edge isn't just "new" — it also includes technologies that may never reach mainstream
 - **Supply chain has the widest active span:** From Kimball tags (EOL since 1990s) to blockchain (bleeding edge) — a 30+ year gap of coexisting technologies, wider than storage or web
 
-**COMPARISON TO TIMELINE VIEW:** Slide 29 showed barcodes' 22-year bleeding edge caused by infrastructure lag. This slide shows that same pattern repeating: RFID has been "arriving" for 20+ years and is still not universal at item level. The moment-in-time view reveals that supply chain technology transitions are generational, not annual.
+**DECISION LENS (COORDINATION + STANDARDS):** Treat this as a readiness map: what can your organization adopt alone, what requires partner synchronization, and what depends on industry/regulatory deadlines.
 
 **SUPPLY CHAIN CONSIDERATIONS:**
 
@@ -2339,7 +2309,7 @@ Sources:
 
 ML/AI: A MOMENT IN TIME (2025)
 
-The previous slide showed AI's 75+ year lifecycle from Turing to ChatGPT. This companion slide **freezes the frame at 2025** and maps the entire machine learning and AI landscape across lifecycle stages — showing what's experimental, what's production-ready, and what's already fading.
+This slide is the **governance and workforce view** of AI in 2025: what to experiment with, what to standardize, and what to sunset.
 
 **LIFECYCLE POSITIONING:**
 
@@ -2360,13 +2330,11 @@ The previous slide showed AI's 75+ year lifecycle from Turing to ChatGPT. This c
 - **The AI winter artifacts are visible at the bottom** — expert system shells (1980s) and symbolic AI frameworks represent the previous AI paradigm. Their position in End of Life shows how completely the field has pivoted
 - **AGI remains firmly bleeding edge** — despite media hype, there is no scientific consensus on timeline, definition, or even feasibility. It's the "DNA storage" of the AI world — transformative if achieved, but years (or decades) away
 
-**COMPARISON TO TIMELINE VIEW:** Slide 33 showed AI's 47-year bleeding edge and explosive mainstream ascent. This slide reveals the competitive churn happening _within_ that mainstream phase — multiple generations of AI technology coexisting from 1980s expert systems to 2025 autonomous agents, spanning a 40+ year technology gap in active use.
+**DECISION LENS (GOVERNANCE + TALENT):**
 
-**WHY THIS MATTERS FOR ADOPTERS:**
-
-- **Don't over-index on the bleeding edge** — AGI headlines drive hype, but mainstream LLMs and leading-edge agents are where adoption decisions happen today
-- **Plan for rapid obsolescence** — traditional ML skills that were cutting-edge in 2018 are trending behind in 2025. Continuous learning is non-negotiable
-- **The "target zone" is shifting fast** — leading edge AI (agents, multimodal) may become mainstream within 1-2 years, faster than any previous technology example
+- Define tiered controls by lifecycle stage (experiment, limited production, enterprise standard).
+- Align workforce plans to fast-moving stage changes (reskill from legacy ML to foundation-model workflows).
+- Separate hype tracking from adoption policy so AGI narratives do not distort current delivery priorities.
 
 **Visual:** ML/AI Moment in Time
 
@@ -2394,7 +2362,7 @@ Sources:
 
 LARGE LANGUAGE MODELS: A MOMENT IN TIME (2025)
 
-Slide 34 mapped the broad ML/AI landscape. This slide **zooms in on just the LLM space** — the models, architectures, tooling, and deployment patterns that make up the large language model ecosystem as of 2025. The pace of change here is measured in months, not years.
+This slide is the **operational model lifecycle view**: model selection, deprecation planning, and migration cadence in the LLM stack.
 
 **LIFECYCLE POSITIONING:**
 
@@ -2425,7 +2393,11 @@ Unlike storage or supply chain technologies where transitions take decades, LLM 
 
 This creates unprecedented adoption pressure: organizations that deployed GPT-3 solutions in 2021 had to migrate by 2024. The lifecycle model's phases still apply, but the clock speed is 10-50x faster than hardware or infrastructure technologies.
 
-**COMPARISON TO BROAD ML/AI VIEW:** Slide 34 showed ML/AI across 75 years. This slide shows the LLM sub-domain across ~5 years of active history. The contrast illustrates a key teaching: **lifecycle speed varies not just by domain (hardware vs. software) but by sub-domain.** LLMs move faster than traditional ML, which moves faster than hardware.
+**DECISION LENS (MODEL OPS + DEPRECATION):**
+
+- Treat model upgrades as planned lifecycle events, not one-off emergencies.
+- Maintain migration playbooks for API retirements and capability step-changes.
+- Anchor architecture choices to category stability (reasoning, agents, retrieval) rather than any single vendor model name.
 
 **Visual:** Large Language Models Moment in Time
 

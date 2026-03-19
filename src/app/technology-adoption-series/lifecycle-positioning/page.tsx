@@ -16,16 +16,21 @@ import {
 } from './constants'
 
 export const metadata: Metadata = {
-  title: 'Technology Lifecycle Positioning — Deep Dive',
+  title: 'Technology Lifecycle Positioning — Focused Briefing',
   description:
-    'A focused exploration of technology lifecycle positioning: adoption foundations, the dual-curve model, and real-world lifecycle examples across hardware, supply chain, and AI/ML.',
+    'A focused lifecycle-positioning briefing: adoption foundations, the dual-curve target zone, transition signals, and decision lenses across hardware, supply chain, and AI/ML.',
 }
 
 export const dynamic = 'force-static'
 
 export default async function LifecyclePositioningPage() {
   const allSlides = await getTechnologyAdoptionSeriesSlides()
-  const slides = allSlides.filter((s) => LIFECYCLE_SLIDE_SET.has(s.number))
+  const order: Record<number, number> = Object.fromEntries(
+    LIFECYCLE_SLIDE_NUMBERS.map((number, idx) => [number, idx])
+  )
+  const slides = allSlides
+    .filter((s) => LIFECYCLE_SLIDE_SET.has(s.number))
+    .sort((a, b) => (order[a.number] ?? 999) - (order[b.number] ?? 999))
 
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -34,9 +39,9 @@ export default async function LifecyclePositioningPage() {
 
         <p className="mb-4 text-lg text-gray-700">
           Where a technology sits in its lifecycle — from bleeding edge to end of support — shapes
-          every decision about adoption, architecture, and investment. This deck opens with adoption
-          foundations, introduces the dual-curve lifecycle model, then walks through real-world
-          examples across hardware, supply chain, and AI/ML.
+          every decision about adoption, architecture, and investment. This focused deck moves from
+          adoption foundations to the dual-curve target zone, then applies clear decision lenses to
+          hardware, supply chain, and AI/ML examples.
         </p>
 
         <div className="mb-6 flex items-center gap-2 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800">
@@ -54,7 +59,7 @@ export default async function LifecyclePositioningPage() {
             />
           </svg>
           <span>
-            <strong>Estimated time:</strong> ~50 minutes for presentation, ~70 minutes with
+            <strong>Estimated time:</strong> ~30 minutes for presentation, ~45 minutes with
             discussion.
           </span>
         </div>
@@ -128,7 +133,8 @@ export default async function LifecyclePositioningPage() {
           <h2 className={H2_CLASSES}>Included slides</h2>
           <p className="mb-4 text-gray-700">
             This focused presentation includes {LIFECYCLE_SLIDE_NUMBERS.length} slides drawn from
-            the full teaching series, covering the lifecycle model and its real-world applications.
+            the full teaching series, covering lifecycle positioning with emphasis on transition
+            signals and practical decision-making.
           </p>
           <ol className="list-decimal pl-6 space-y-2">
             {slides.map((slide) => (
@@ -200,7 +206,8 @@ export default async function LifecyclePositioningPage() {
             </Link>
             , a 35-slide deck covering adoption definitions, strategic frameworks, lifecycle
             planning, and success patterns. This focused page extracts the lifecycle positioning
-            topic for standalone use in workshops, briefings, or self-study.
+            topic and presents it as a compact briefing for workshops, leadership updates, and
+            self-study.
           </p>
         </section>
       </article>
