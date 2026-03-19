@@ -61,6 +61,7 @@ interface FrameExpansionOptions {
   visualFirstSlides?: number[]
   combinedContentVisualSlides?: number[]
   hideTableFramesForSlides?: number[]
+  mergeFirstTwoNonVisualFramesForSlides?: number[]
   appendReferenceFramesToEnd?: boolean
   referenceSection?: {
     startSlide: number
@@ -291,6 +292,9 @@ function expandToFrames(
   const visualFirstSlides = new Set(options?.visualFirstSlides ?? [])
   const combinedContentVisualSlides = new Set(options?.combinedContentVisualSlides ?? [])
   const hideTableFramesForSlides = new Set(options?.hideTableFramesForSlides ?? [])
+  const mergeFirstTwoNonVisualFramesForSlides = new Set(
+    options?.mergeFirstTwoNonVisualFramesForSlides ?? []
+  )
 
   // ── Deck title frame ──
   frames.push({
@@ -482,6 +486,36 @@ function expandToFrames(
         if (a.type !== 'visual' && b.type === 'visual') return 1
         return 0
       })
+    }
+
+    if (mergeFirstTwoNonVisualFramesForSlides.has(slide.number)) {
+      const nonVisualIndexes = slideFrames
+        .map((frame, index) => ({ frame, index }))
+        .filter(({ frame }) => frame.type !== 'visual')
+
+      if (nonVisualIndexes.length >= 2) {
+        const firstIdx = nonVisualIndexes[0].index
+        const secondIdx = nonVisualIndexes[1].index
+        const first = slideFrames[firstIdx]
+        const second = slideFrames[secondIdx]
+
+        if (first.type === 'content' && second.type === 'content') {
+          first.nodes = [...(first.nodes ?? []), ...(second.nodes ?? [])]
+          slideFrames.splice(secondIdx, 1)
+        } else if (first.type === 'content' && second.type === 'statement' && second.statement) {
+          first.nodes = [
+            ...(first.nodes ?? []),
+            { type: 'paragraph', text: `Key insight: ${second.statement}` },
+          ]
+          slideFrames.splice(secondIdx, 1)
+        } else if (first.type === 'statement' && second.type === 'content' && first.statement) {
+          second.nodes = [
+            { type: 'paragraph', text: `Key insight: ${first.statement}` },
+            ...(second.nodes ?? []),
+          ]
+          slideFrames.splice(firstIdx, 1)
+        }
+      }
     }
 
     frames.push(...slideFrames)
@@ -883,6 +917,8 @@ export interface PresentationClientProps {
   combinedContentVisualSlides?: number[]
   /** For specific slide numbers, suppress table-only markdown frames. */
   hideTableFramesForSlides?: number[]
+  /** For specific slide numbers, merge the first two non-visual frames into one. */
+  mergeFirstTwoNonVisualFramesForSlides?: number[]
   /** Move reference/supporting source frames to the end of the deck. */
   appendReferenceFramesToEnd?: boolean
   /** Optional dedicated references section inserted before appended reference frames. */
@@ -903,6 +939,7 @@ export default function PresentationClient({
   visualFirstSlides,
   combinedContentVisualSlides,
   hideTableFramesForSlides,
+  mergeFirstTwoNonVisualFramesForSlides,
   appendReferenceFramesToEnd,
   referenceSection,
 }: PresentationClientProps) {
@@ -915,6 +952,7 @@ export default function PresentationClient({
         visualFirstSlides,
         combinedContentVisualSlides,
         hideTableFramesForSlides,
+        mergeFirstTwoNonVisualFramesForSlides,
         appendReferenceFramesToEnd,
         referenceSection,
       }),
@@ -926,6 +964,7 @@ export default function PresentationClient({
       visualFirstSlides,
       combinedContentVisualSlides,
       hideTableFramesForSlides,
+      mergeFirstTwoNonVisualFramesForSlides,
       appendReferenceFramesToEnd,
       referenceSection,
     ]
