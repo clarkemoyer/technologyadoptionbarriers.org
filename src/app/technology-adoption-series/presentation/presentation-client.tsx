@@ -60,6 +60,7 @@ interface FrameExpansionOptions {
   sections?: SectionMap
   visualFirstSlides?: number[]
   combinedContentVisualSlides?: number[]
+  hideTableFramesForSlides?: number[]
   appendReferenceFramesToEnd?: boolean
   referenceSection?: {
     startSlide: number
@@ -289,6 +290,7 @@ function expandToFrames(
   const sectionMap = options?.sections ?? SECTIONS
   const visualFirstSlides = new Set(options?.visualFirstSlides ?? [])
   const combinedContentVisualSlides = new Set(options?.combinedContentVisualSlides ?? [])
+  const hideTableFramesForSlides = new Set(options?.hideTableFramesForSlides ?? [])
 
   // ── Deck title frame ──
   frames.push({
@@ -378,7 +380,9 @@ function expandToFrames(
       // Tables get their own frame
       if (node.type === 'table') {
         flushChunk()
-        slideChunks.push([node])
+        if (!hideTableFramesForSlides.has(slide.number)) {
+          slideChunks.push([node])
+        }
         continue
       }
 
@@ -883,6 +887,8 @@ export interface PresentationClientProps {
   visualFirstSlides?: number[]
   /** For specific slide numbers, render a single split-layout frame with text + visual. */
   combinedContentVisualSlides?: number[]
+  /** For specific slide numbers, suppress table-only markdown frames. */
+  hideTableFramesForSlides?: number[]
   /** Move reference/supporting source frames to the end of the deck. */
   appendReferenceFramesToEnd?: boolean
   /** Optional dedicated references section inserted before appended reference frames. */
@@ -902,6 +908,7 @@ export default function PresentationClient({
   sections,
   visualFirstSlides,
   combinedContentVisualSlides,
+  hideTableFramesForSlides,
   appendReferenceFramesToEnd,
   referenceSection,
 }: PresentationClientProps) {
@@ -913,6 +920,7 @@ export default function PresentationClient({
         sections,
         visualFirstSlides,
         combinedContentVisualSlides,
+        hideTableFramesForSlides,
         appendReferenceFramesToEnd,
         referenceSection,
       }),
@@ -923,6 +931,7 @@ export default function PresentationClient({
       sections,
       visualFirstSlides,
       combinedContentVisualSlides,
+      hideTableFramesForSlides,
       appendReferenceFramesToEnd,
       referenceSection,
     ]
