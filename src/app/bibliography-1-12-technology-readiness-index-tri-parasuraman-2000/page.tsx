@@ -39,7 +39,11 @@ const BibliographyArticlePage = () => {
         <section className="mb-8 sm:mb-12">
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
-            <p className="text-sm font-mono"></p>
+            <p className="text-sm font-mono">
+              Parasuraman, A. (2000). Technology readiness index (TRI): A multiple-item scale to
+              measure readiness to embrace new technologies. <em>Journal of Service Research</em>,
+              2(4), 307&ndash;320.
+            </p>
           </div>
         </section>
 

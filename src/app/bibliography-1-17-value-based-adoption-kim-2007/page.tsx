@@ -39,7 +39,11 @@ const BibliographyArticlePage = () => {
         <section className="mb-8 sm:mb-12">
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
-            <p className="text-sm font-mono"></p>
+            <p className="text-sm font-mono">
+              Kim, H.-W., Chan, H. C., &amp; Gupta, S. (2007). Value-based adoption of mobile
+              internet: An empirical investigation. <em>Decision Support Systems</em>, 43(1),
+              111&ndash;126.
+            </p>
           </div>
         </section>
 
