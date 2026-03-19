@@ -62,6 +62,7 @@ interface FrameExpansionOptions {
   combinedContentVisualSlides?: number[]
   hideTableFramesForSlides?: number[]
   mergeFirstTwoNonVisualFramesForSlides?: number[]
+  referenceFrameLimit?: number
   appendReferenceFramesToEnd?: boolean
   referenceSection?: {
     startSlide: number
@@ -237,6 +238,78 @@ function dedupeReferenceNodes(nodes: MarkdownNode[]): MarkdownNode[] {
   }
 
   return deduped
+}
+
+function frameToReferenceNodes(frame: PresentationFrame): MarkdownNode[] {
+  if (frame.nodes && frame.nodes.length > 0) return frame.nodes
+  if (frame.statement) return [{ type: 'paragraph', text: frame.statement }]
+  return []
+}
+
+function limitReferenceFrames(
+  referenceFrames: PresentationFrame[],
+  frameLimit: number,
+  titleBase: string,
+  sourceSlide: number
+): PresentationFrame[] {
+  if (frameLimit < 1 || referenceFrames.length <= frameLimit) return referenceFrames
+
+  const allNodes = referenceFrames.flatMap((frame) => frameToReferenceNodes(frame))
+  if (allNodes.length === 0) return referenceFrames.slice(0, frameLimit)
+
+  const totalSize = allNodes.reduce((sum, node) => sum + estimateNodeSize(node), 0)
+  const targetSize = Math.max(1, Math.ceil(totalSize / frameLimit))
+  const limitedFrames: PresentationFrame[] = []
+  let currentNodes: MarkdownNode[] = []
+  let currentSize = 0
+
+  for (let i = 0; i < allNodes.length; i++) {
+    const node = allNodes[i]
+    const nodeSize = estimateNodeSize(node)
+    const remainingNodes = allNodes.length - i
+    const remainingFrames = frameLimit - limitedFrames.length
+
+    if (
+      currentNodes.length > 0 &&
+      currentSize + nodeSize > targetSize &&
+      remainingNodes >= remainingFrames
+    ) {
+      limitedFrames.push({
+        type: 'content',
+        sourceSlide,
+        title: `${titleBase} (${limitedFrames.length + 1}/${frameLimit})`,
+        nodes: currentNodes,
+      })
+      currentNodes = []
+      currentSize = 0
+    }
+
+    currentNodes.push(node)
+    currentSize += nodeSize
+  }
+
+  if (currentNodes.length > 0) {
+    limitedFrames.push({
+      type: 'content',
+      sourceSlide,
+      title: `${titleBase} (${limitedFrames.length + 1}/${frameLimit})`,
+      nodes: currentNodes,
+    })
+  }
+
+  if (limitedFrames.length > frameLimit) {
+    const kept = limitedFrames.slice(0, frameLimit - 1)
+    const overflowNodes = limitedFrames.slice(frameLimit - 1).flatMap((frame) => frame.nodes ?? [])
+    kept.push({
+      type: 'content',
+      sourceSlide,
+      title: `${titleBase} (${frameLimit}/${frameLimit})`,
+      nodes: overflowNodes,
+    })
+    return kept
+  }
+
+  return limitedFrames
 }
 
 function estimateNodeSize(node: MarkdownNode): number {
@@ -524,7 +597,21 @@ function expandToFrames(
   // ── Move reference/supporting frames to the end when requested ──
   if (options?.appendReferenceFramesToEnd) {
     const inlineReferenceFrames = frames.filter((f) => isReferenceFrame(f))
-    const referenceFrames = [...extractedReferenceFrames, ...inlineReferenceFrames]
+    let referenceFrames = [...extractedReferenceFrames, ...inlineReferenceFrames]
+    const referenceFrameLimit = options.referenceFrameLimit
+
+    if (referenceFrameLimit && referenceFrameLimit > 0) {
+      const titleBase = options.referenceSection?.title ?? 'References'
+      const referenceSourceSlide =
+        options.referenceSection?.startSlide ?? referenceFrames[0]?.sourceSlide ?? 0
+      referenceFrames = limitReferenceFrames(
+        referenceFrames,
+        referenceFrameLimit,
+        titleBase,
+        referenceSourceSlide
+      )
+    }
+
     if (referenceFrames.length > 0) {
       const primaryFrames = frames.filter((f) => !isReferenceFrame(f))
       if (options.referenceSection) {
@@ -919,6 +1006,8 @@ export interface PresentationClientProps {
   hideTableFramesForSlides?: number[]
   /** For specific slide numbers, merge the first two non-visual frames into one. */
   mergeFirstTwoNonVisualFramesForSlides?: number[]
+  /** Cap appended reference/supporting material frames to a maximum count. */
+  referenceFrameLimit?: number
   /** Move reference/supporting source frames to the end of the deck. */
   appendReferenceFramesToEnd?: boolean
   /** Optional dedicated references section inserted before appended reference frames. */
@@ -940,6 +1029,7 @@ export default function PresentationClient({
   combinedContentVisualSlides,
   hideTableFramesForSlides,
   mergeFirstTwoNonVisualFramesForSlides,
+  referenceFrameLimit,
   appendReferenceFramesToEnd,
   referenceSection,
 }: PresentationClientProps) {
@@ -953,6 +1043,7 @@ export default function PresentationClient({
         combinedContentVisualSlides,
         hideTableFramesForSlides,
         mergeFirstTwoNonVisualFramesForSlides,
+        referenceFrameLimit,
         appendReferenceFramesToEnd,
         referenceSection,
       }),
@@ -965,6 +1056,7 @@ export default function PresentationClient({
       combinedContentVisualSlides,
       hideTableFramesForSlides,
       mergeFirstTwoNonVisualFramesForSlides,
+      referenceFrameLimit,
       appendReferenceFramesToEnd,
       referenceSection,
     ]
