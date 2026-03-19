@@ -166,7 +166,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
-    // Organizational Bibliography Articles (3 models)
+    // Organizational Bibliography Articles (19 models)
     {
       url: `${baseUrl}/bibliography-2-1-resource-based-view-rbv-wernerfelt-1984`,
       lastModified: now,
@@ -181,6 +181,102 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/bibliography-2-3-dynamic-capabilities-teece-1997`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-4-total-quality-management-tqm-deming-1982`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-5-capability-maturity-model-cmm-humphrey-1989`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-6-toe-framework-tornatzky-1990`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-7-it-implementation-research-cooper-zmud-1990`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-8-business-process-redesign-davenport-short-1990`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-9-business-process-reengineering-hammer-champy-1993`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-10-tafim-dod-1994`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-11-gartner-hype-cycle-fenn-1995`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-12-togaf-the-open-group-1995`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-13-dodaf-dod-2003`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-14-cmmi-chrissis-2005`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-15-it-cmf-innovation-value-institute-2016`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-16-aws-caf-ai-2024`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-17-aws-etf-prescriptive-guidance-2024`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-18-microsoft-cloud-adoption-framework-2025`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-19-microsoft-ai-adoption-framework-2025`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.6,
