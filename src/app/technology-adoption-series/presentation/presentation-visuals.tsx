@@ -214,32 +214,76 @@ function Visual03_VoluntaryVsInvoluntaryTable() {
 
 function Visual04_ShelfwareVsAdoptedComparison() {
   return (
-    <div className="flex h-full items-center justify-center">
-      <div className="grid w-full max-w-3xl grid-cols-2 gap-6">
-        <Card className="border-red-500/30">
-          <div className="flex items-center gap-3">
-            <IconX />
-            <CardLabel>Shelf-ware</CardLabel>
+    <div className="flex h-full items-stretch justify-center">
+      <div className="grid h-full w-full max-w-6xl grid-cols-2 gap-8">
+        <Card className="flex h-full flex-col justify-between border-cyan-500/25 p-6">
+          <div>
+            <div className="text-sm font-semibold tracking-wider uppercase text-cyan-300/80">
+              Adoption Outcome
+            </div>
+            <div className="mt-3 text-3xl font-bold leading-tight text-white">
+              Deployment does not equal adoption
+            </div>
+            <div className="mt-4 text-lg leading-relaxed text-slate-300">
+              The same rollout can fail or succeed depending on whether users see clear value, can
+              work naturally, and choose to keep using the tool.
+            </div>
           </div>
-          <CardBody>Deployed, but not used.</CardBody>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Badge tone="bad">No user input</Badge>
-            <Badge tone="bad">Too complex</Badge>
-            <Badge tone="bad">Workarounds</Badge>
+
+          <div className="mt-8 space-y-5">
+            <div>
+              <div className="mb-2 flex items-center justify-between text-sm text-slate-300">
+                <span className="font-semibold text-red-300">Shelf-ware Risk</span>
+                <span>85%</span>
+              </div>
+              <FrictionBar value={85} />
+            </div>
+            <div>
+              <div className="mb-2 flex items-center justify-between text-sm text-slate-300">
+                <span className="font-semibold text-emerald-300">Adoption Fit</span>
+                <span>80%</span>
+              </div>
+              <FrictionBar value={80} />
+            </div>
+            <div className="rounded-lg border border-slate-600/60 bg-slate-900/60 px-4 py-3 text-base text-slate-200">
+              Optimize for{' '}
+              <span className="font-semibold text-white">real user task completion</span>, not just
+              technical deployment milestones.
+            </div>
           </div>
         </Card>
-        <Card className="border-emerald-500/30">
-          <div className="flex items-center gap-3">
-            <IconCheck />
-            <CardLabel>Adopted</CardLabel>
-          </div>
-          <CardBody>Used to complete real tasks.</CardBody>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Badge tone="good">User-centered</Badge>
-            <Badge tone="good">Clear value</Badge>
-            <Badge tone="good">Fits workflows</Badge>
-          </div>
-        </Card>
+
+        <div className="grid h-full grid-rows-2 gap-6">
+          <Card className="flex h-full flex-col justify-between border-red-500/30 p-6">
+            <div>
+              <div className="flex items-center gap-3">
+                <IconX />
+                <CardLabel>Shelf-ware</CardLabel>
+              </div>
+              <CardBody>Deployed, but not used for mission work.</CardBody>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Badge tone="bad">No user input</Badge>
+              <Badge tone="bad">Too complex</Badge>
+              <Badge tone="bad">Workarounds</Badge>
+            </div>
+          </Card>
+
+          <Card className="flex h-full flex-col justify-between border-emerald-500/30 p-6">
+            <div>
+              <div className="flex items-center gap-3">
+                <IconCheck />
+                <CardLabel>Adopted</CardLabel>
+              </div>
+              <CardBody>Used consistently to complete real tasks.</CardBody>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Badge tone="good">User-centered</Badge>
+              <Badge tone="good">Clear value</Badge>
+              <Badge tone="good">Fits workflows</Badge>
+            </div>
+          </Card>
+        </div>
       </div>
     </div>
   )
