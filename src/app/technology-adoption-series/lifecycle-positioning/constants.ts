@@ -16,15 +16,15 @@ export const LIFECYCLE_SLIDE_SET = new Set<number>(LIFECYCLE_SLIDE_NUMBERS)
 export const LIFECYCLE_SLIDE_DESCRIPTIONS: Partial<Record<number, string>> = {
   2: 'Three types of adoption: organizational, individual mandatory, and individual optional.',
   4: 'Common causes of failed adoption and the push vs. pull dynamic.',
-  6: 'The dual-curve model showing innovation potential vs adoption risk across five lifecycle stages.',
-  25: 'How lifecycle positions change over time and what drives transitions.',
+  6: 'The dual-curve model and target zone: balancing innovation potential against adoption risk.',
+  25: 'Transition signals and decision rules for moving before lifecycle risk becomes urgent.',
   27: 'Hard Disk Drives (HDDs): a 70+ year hardware lifecycle from IBM RAMAC to SSD displacement.',
-  30: 'Data center storage landscape frozen at 2025 — companion to the HDD timeline.',
+  30: 'Data center storage in 2025 through a portfolio-risk and investment-timing lens.',
   29: 'Barcode/UPC Systems: an 80+ year supply chain lifecycle with a 22-year bleeding edge.',
-  32: 'Supply chain identification landscape frozen at 2025 — companion to the barcode timeline.',
+  32: 'Supply chain identification in 2025 through an ecosystem-coordination and standards lens.',
   33: 'ML/AI: a 75+ year lifecycle from Turing to ChatGPT with two AI winters.',
-  34: 'ML/AI landscape frozen at 2025 — from AGI at bleeding edge to expert systems at end of life.',
-  35: 'Large Language Models frozen at 2025 — the fastest-moving sub-domain in technology.',
+  34: 'ML/AI in 2025 through governance and workforce planning priorities.',
+  35: 'LLMs in 2025 through model-ops, deprecation, and migration planning priorities.',
 }
 
 /** Deck title for the focused lifecycle positioning presentation. */
