@@ -35,7 +35,7 @@ export default async function LifecyclePositioningPresentationPage4K() {
       deckSubtitle={LIFECYCLE_DECK_SUBTITLE}
       sections={LIFECYCLE_SECTIONS}
       combinedContentVisualSlides={[4]}
-      visualFirstSlides={[6, 30, 32, 34, 35]}
+      visualFirstSlides={[2, 6, 25, 27, 29, 30, 32, 33, 34, 35]}
       hideTableFramesForSlides={[27, 30, 29, 32, 33, 34, 35]}
       appendReferenceFramesToEnd
     />
