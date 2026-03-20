@@ -379,11 +379,8 @@ const HammerChampyBPRPage = () => {
               Hammer, M. (1990). Reengineering work: Don&rsquo;t automate, obliterate.{' '}
               <em>Harvard Business Review</em>, 68(4), 104&ndash;112.
             </li>
-            <li>
-              Davenport, T. H., &amp; Short, J. E. (1990). The new industrial engineering:
-              Information technology and business process redesign. <em>Sloan Management Review</em>
-              , 31(4), 11&ndash;27.
-            </li>
+            {/* prettier-ignore */}
+            <li>Davenport, T. H., &amp; Short, J. E. (1990). The new industrial engineering: Information technology and business process redesign. <em>Sloan Management Review</em>, 31(4), 11&ndash;27.</li>
             <li>
               Davenport, T. H. (1993).{' '}
               <em>Process innovation: Reengineering work through information technology</em>.

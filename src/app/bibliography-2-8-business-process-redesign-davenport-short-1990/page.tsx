@@ -325,11 +325,8 @@ const DavenportShortBPRPage = () => {
         <section className="pt-8 border-t border-gray-200">
           <h2 className={REFERENCES_H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
-            <li>
-              Davenport, T. H., &amp; Short, J. E. (1990). The new industrial engineering:
-              Information technology and business process redesign. <em>Sloan Management Review</em>
-              , 31(4), 11&ndash;27.
-            </li>
+            {/* prettier-ignore */}
+            <li>Davenport, T. H., &amp; Short, J. E. (1990). The new industrial engineering: Information technology and business process redesign. <em>Sloan Management Review</em>, 31(4), 11&ndash;27.</li>
             <li>
               Porter, M. E. (1985).{' '}
               <em>Competitive advantage: Creating and sustaining superior performance</em>. Free
