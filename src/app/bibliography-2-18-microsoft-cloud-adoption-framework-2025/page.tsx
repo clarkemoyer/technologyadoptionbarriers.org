@@ -31,8 +31,8 @@ const MicrosoftCAFPage = () => {
             most comprehensive and widely adopted cloud adoption methodologies in enterprise use
             today. Initially released by Microsoft in 2018 and continuously evolved through 2025,
             the framework was developed through collaboration among Microsoft architects, enterprise
-            customers, and consulting partners based on thousands of cloud adoption engagements.
-            The framework addresses not just technical migration but business strategy, governance,
+            customers, and consulting partners based on thousands of cloud adoption engagements. The
+            framework addresses not just technical migration but business strategy, governance,
             security, and organizational change management throughout the full cloud adoption
             journey.
           </p>
@@ -44,8 +44,8 @@ const MicrosoftCAFPage = () => {
             crises created by shadow IT and uncontrolled cloud spending, skills gaps that prevent
             effective cloud operations, and cost management failures that undermine the financial
             case for cloud investment. The Microsoft CAF addresses all these dimensions through a
-            structured, phase-based methodology that provides consistent guidance from initial
-            cloud strategy through ongoing optimization.
+            structured, phase-based methodology that provides consistent guidance from initial cloud
+            strategy through ongoing optimization.
           </p>
 
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
@@ -94,9 +94,9 @@ const MicrosoftCAFPage = () => {
 
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Microsoft CAF is organized around six core phases that are designed to be
-            non-linear and iterative, recognizing that organizations progress through cloud
-            adoption in ways that require cycling back and refining earlier decisions:
+            The Microsoft CAF is organized around six core phases that are designed to be non-linear
+            and iterative, recognizing that organizations progress through cloud adoption in ways
+            that require cycling back and refining earlier decisions:
           </p>
           <ol className={BODY_OL_CLASSES}>
             <li>
@@ -184,16 +184,16 @@ const MicrosoftCAFPage = () => {
               multiple geographic regions.
             </li>
             <li>
-              <strong>Industry-Specific Adaptations:</strong> While the framework is general,
-              it has been customized for specific industries: healthcare (HIPAA compliance),
-              financial services (PCI-DSS and regulatory compliance), government (FedRAMP
-              compliance), and retail (e-commerce and omnichannel strategy integration).
+              <strong>Industry-Specific Adaptations:</strong> While the framework is general, it has
+              been customized for specific industries: healthcare (HIPAA compliance), financial
+              services (PCI-DSS and regulatory compliance), government (FedRAMP compliance), and
+              retail (e-commerce and omnichannel strategy integration).
             </li>
             <li>
               <strong>Global Geographic Distribution:</strong> Organizations across North America,
               Europe (motivated by GDPR and industry regulations), Asia-Pacific, and EMEA use CAF,
-              demonstrating applicability across different regulatory environments and organizational
-              cultures.
+              demonstrating applicability across different regulatory environments and
+              organizational cultures.
             </li>
             <li>
               <strong>Industry Analyst Recognition:</strong> Gartner, Forrester, and IDC recognize
@@ -201,23 +201,23 @@ const MicrosoftCAFPage = () => {
               CAF availability and maturity.
             </li>
             <li>
-              <strong>Consulting Practice Adoption:</strong> Thousands of Microsoft partners use
-              CAF for customer engagements, amplifying the framework&rsquo;s reach and validating
-              its applicability across diverse organizational contexts.
+              <strong>Consulting Practice Adoption:</strong> Thousands of Microsoft partners use CAF
+              for customer engagements, amplifying the framework&rsquo;s reach and validating its
+              applicability across diverse organizational contexts.
             </li>
           </ul>
 
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Microsoft Cloud Adoption Framework makes several distinctive contributions to
-            cloud adoption practice and organizational technology adoption more broadly:
+            The Microsoft Cloud Adoption Framework makes several distinctive contributions to cloud
+            adoption practice and organizational technology adoption more broadly:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Comprehensive Organizational Perspective:</strong> CAF addresses cloud
               adoption holistically, combining strategic alignment, governance and compliance,
-              operational readiness, cost management, security, and organizational change
-              management in a single integrated framework.
+              operational readiness, cost management, security, and organizational change management
+              in a single integrated framework.
             </li>
             <li>
               <strong>Landing Zone Concept:</strong> The framework&rsquo;s introduction of the
@@ -262,21 +262,21 @@ const MicrosoftCAFPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The governance crisis dimension of the framework resonates with research on shadow IT
-            and ungoverned technology adoption, where individual departments or business units
-            adopt technologies outside of official IT channels. The framework&rsquo;s governance
+            and ungoverned technology adoption, where individual departments or business units adopt
+            technologies outside of official IT channels. The framework&rsquo;s governance
             disciplines provide structured approaches for organizations to manage this risk while
             enabling appropriate flexibility for business units.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The skills and capability gap dimension aligns directly with research identifying
-            organizational capability as a critical determinant of technology adoption success.
-            The framework&rsquo;s structured approach to capability development &ndash; including
-            Cloud Centers of Excellence, certification programs, and experiential learning &ndash;
+            organizational capability as a critical determinant of technology adoption success. The
+            framework&rsquo;s structured approach to capability development &ndash; including Cloud
+            Centers of Excellence, certification programs, and experiential learning &ndash;
             provides a model for organizations addressing capability barriers to adoption.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The framework&rsquo;s temporal evolution, incorporating AI adoption guidance in 2023
-            and 2025, demonstrates how foundational adoption frameworks can be extended to address
+            The framework&rsquo;s temporal evolution, incorporating AI adoption guidance in 2023 and
+            2025, demonstrates how foundational adoption frameworks can be extended to address
             emerging technologies, maintaining relevance across technology generations.
           </p>
           <p className={PARAGRAPH_CLASSES}>

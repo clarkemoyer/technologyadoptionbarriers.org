@@ -98,9 +98,9 @@ const AWSETFPage = () => {
             <li>
               <strong>Prioritize (Identify the Path):</strong> Organizations identify the highest
               value cloud transformation opportunities, set ambitious transformation targets (at
-              least 75 percent of trailing earnings, per McKinsey research on transformations earning
-              outsized total shareholder returns), and align executive leadership around shared
-              transformation objectives.
+              least 75 percent of trailing earnings, per McKinsey research on transformations
+              earning outsized total shareholder returns), and align executive leadership around
+              shared transformation objectives.
             </li>
             <li>
               <strong>Ready (Prepare and Invest):</strong> Organizations prepare for transformation
@@ -128,8 +128,8 @@ const AWSETFPage = () => {
             <li>
               <strong>Organizational Change Acceleration (OCA):</strong> Systematic management of
               human resistance to change, drawing on the Prosci ADKAR model (Awareness, Desire,
-              Knowledge, Ability, Reinforcement) to ensure organizational adoption of new cloud
-              ways of working.
+              Knowledge, Ability, Reinforcement) to ensure organizational adoption of new cloud ways
+              of working.
             </li>
             <li>
               <strong>Cloud Financial Management (FinOps):</strong> Transformation of financial
@@ -143,15 +143,15 @@ const AWSETFPage = () => {
             </li>
             <li>
               <strong>Business-Led Transformation:</strong> Ensuring that transformation is driven
-              by business objectives rather than technical imperatives, with business leaders
-              taking ownership of transformation outcomes.
+              by business objectives rather than technical imperatives, with business leaders taking
+              ownership of transformation outcomes.
             </li>
           </ul>
 
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The strategic transformation framework&rsquo;s internal validity was established
-            through multiple mechanisms:
+            The strategic transformation framework&rsquo;s internal validity was established through
+            multiple mechanisms:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -165,9 +165,9 @@ const AWSETFPage = () => {
             <li>
               <strong>Specification of Measurable Transformation Outcomes:</strong> The framework
               specifies quantified outcomes including 7 times better transformation results (8 times
-              in the United States) with strong organizational change acceleration methodology,
-              1.9x faster migration speeds, 2.2x improvement in employee and customer experience,
-              and more than 20 percent average EBITDA improvement in specific sectors.
+              in the United States) with strong organizational change acceleration methodology, 1.9x
+              faster migration speeds, 2.2x improvement in employee and customer experience, and
+              more than 20 percent average EBITDA improvement in specific sectors.
             </li>
             <li>
               <strong>Integration of Proven Change Management Methodologies:</strong> The framework
@@ -271,9 +271,9 @@ const AWSETFPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The framework&rsquo;s integration of organizational change management through the ADKAR
             model aligns directly with technology adoption research emphasizing the importance of
-            managing human resistance to new technologies. The framework operationalizes
-            theoretical insights about the social and psychological dimensions of technology
-            adoption into practical intervention strategies.
+            managing human resistance to new technologies. The framework operationalizes theoretical
+            insights about the social and psychological dimensions of technology adoption into
+            practical intervention strategies.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework&rsquo;s four-phase structure (Prioritize, Ready, Enable, Transform)
@@ -286,8 +286,8 @@ const AWSETFPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The framework&rsquo;s emphasis on measuring business outcomes rather than technical
             metrics addresses a critical weakness in many technology adoption efforts: the tendency
-            to measure adoption activity (applications migrated, users trained) rather than
-            business impact (revenue increased, costs reduced, customer satisfaction improved).
+            to measure adoption activity (applications migrated, users trained) rather than business
+            impact (revenue increased, costs reduced, customer satisfaction improved).
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <em>
@@ -312,14 +312,12 @@ const AWSETFPage = () => {
             </li>
             <li>
               Prosci. (2021).{' '}
-              <em>
-                ADKAR: A model for change in business, government and our community
-              </em>
-              . Prosci Learning Center.
+              <em>ADKAR: A model for change in business, government and our community</em>. Prosci
+              Learning Center.
             </li>
             <li>
-              McKinsey &amp; Company. (2023). Rewired: The McKinsey guide to outcompeting in the
-              age of digital and AI. McKinsey &amp; Company.
+              McKinsey &amp; Company. (2023). Rewired: The McKinsey guide to outcompeting in the age
+              of digital and AI. McKinsey &amp; Company.
             </li>
             <li>
               Accenture. (2023). Cloud continuum: Accelerating business value from cloud. Accenture

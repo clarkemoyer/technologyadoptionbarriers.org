@@ -30,59 +30,58 @@ const TAFIMPage = () => {
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             The Technical Architecture Framework for Information Management (TAFIM), developed by
-            the U.S. Department of Defense and formally released with Version 3.0 on April 30,
-            1996, represents one of the most influential early enterprise architecture frameworks
-            in the history of large-scale organizational technology adoption. Designed to address
-            the DoD&rsquo;s critical challenge of information system interoperability across
-            disparate mission areas and organizational units, TAFIM established a comprehensive
-            reference model that would guide technology adoption decisions across one of the
-            world&rsquo;s largest and most complex organizations.
+            the U.S. Department of Defense and formally released with Version 3.0 on April 30, 1996,
+            represents one of the most influential early enterprise architecture frameworks in the
+            history of large-scale organizational technology adoption. Designed to address the
+            DoD&rsquo;s critical challenge of information system interoperability across disparate
+            mission areas and organizational units, TAFIM established a comprehensive reference
+            model that would guide technology adoption decisions across one of the world&rsquo;s
+            largest and most complex organizations.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            TAFIM&rsquo;s foundational insight&mdash;that organizations should specify
-            standardized service interfaces and architectural patterns rather than mandating
-            specific technologies&mdash;was a sophisticated advance over prior approaches to
-            technology standardization. This interface-based approach provided both flexibility
-            in technology selection and assurance of interoperability, and it directly influenced
-            subsequent enterprise architecture frameworks including the Zachman Framework, the
-            Open Group Architecture Framework (TOGAF), and the Federal Enterprise Architecture
-            (FEA) framework. TAFIM thus occupies a pivotal position in the intellectual lineage
-            of enterprise architecture as a discipline.
+            TAFIM&rsquo;s foundational insight&mdash;that organizations should specify standardized
+            service interfaces and architectural patterns rather than mandating specific
+            technologies&mdash;was a sophisticated advance over prior approaches to technology
+            standardization. This interface-based approach provided both flexibility in technology
+            selection and assurance of interoperability, and it directly influenced subsequent
+            enterprise architecture frameworks including the Zachman Framework, the Open Group
+            Architecture Framework (TOGAF), and the Federal Enterprise Architecture (FEA) framework.
+            TAFIM thus occupies a pivotal position in the intellectual lineage of enterprise
+            architecture as a discipline.
           </p>
 
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The TAFIM framework was created during a period of significant technological change
-            and fragmentation within the Department of Defense. The DoD faced critical challenges
-            in technology adoption and information system interoperability across disparate mission
+            The TAFIM framework was created during a period of significant technological change and
+            fragmentation within the Department of Defense. The DoD faced critical challenges in
+            technology adoption and information system interoperability across disparate mission
             areas and organizational units. The fundamental problem that TAFIM addressed was the
             lack of standardized architectural guidance for implementing information systems that
             could communicate and operate effectively across the DoD enterprise.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The Cold War environment demanded highly integrated command and control systems, yet
-            the DoD operated with numerous incompatible information systems developed by different
+            The Cold War environment demanded highly integrated command and control systems, yet the
+            DoD operated with numerous incompatible information systems developed by different
             contractors using proprietary technologies. TAFIM was developed to establish a common
-            architectural reference model that would enable mission area applications from
-            different vendors to interoperate seamlessly through standardized interfaces and
-            service definitions.
+            architectural reference model that would enable mission area applications from different
+            vendors to interoperate seamlessly through standardized interfaces and service
+            definitions.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework was specifically designed to move the DoD away from stovepipe
             systems&mdash;isolated applications that could not share data or functionality&mdash;
             toward an integrated technical architecture that promoted both portability and
-            interoperability. Rather than forcing one-size-fits-all solutions, the model
-            emphasized that users should assess their own requirements and create profiles of
-            services, interfaces, and standards that satisfy their mission-specific needs.
+            interoperability. Rather than forcing one-size-fits-all solutions, the model emphasized
+            that users should assess their own requirements and create profiles of services,
+            interfaces, and standards that satisfy their mission-specific needs.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             TAFIM emerged from recognition that the DoD&rsquo;s information infrastructure was
             becoming a critical strategic asset, and without architectural standardization, the
-            organization would continue to suffer from redundant systems, incompatible data
-            formats, and inability to share information across organizational boundaries. The
-            framework was meant to provide a common language and structural approach that
-            organizational leaders could use to make decisions about technology adoption and
-            system design.
+            organization would continue to suffer from redundant systems, incompatible data formats,
+            and inability to share information across organizational boundaries. The framework was
+            meant to provide a common language and structural approach that organizational leaders
+            could use to make decisions about technology adoption and system design.
           </p>
 
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
@@ -107,9 +106,9 @@ const TAFIMPage = () => {
             </li>
             <li>
               <strong>Base Service Areas (BSAs):</strong> The most granular level, providing
-              specific service definitions, interface specifications, and standards references.
-              BSAs are the implementable building blocks that system designers use when making
-              concrete technology choices.
+              specific service definitions, interface specifications, and standards references. BSAs
+              are the implementable building blocks that system designers use when making concrete
+              technology choices.
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
@@ -146,10 +145,10 @@ const TAFIMPage = () => {
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
-            The Defense Information Infrastructure (DII) Common Operating Environment (COE)
-            served as a practical implementation of TAFIM principles, demonstrating how the
-            architectural approach could be successfully deployed at scale across a massive,
-            complex organization with multiple semi-autonomous command structures.
+            The Defense Information Infrastructure (DII) Common Operating Environment (COE) served
+            as a practical implementation of TAFIM principles, demonstrating how the architectural
+            approach could be successfully deployed at scale across a massive, complex organization
+            with multiple semi-autonomous command structures.
           </p>
 
           <h2 className={H2_CLASSES}>Internal Validity</h2>
@@ -160,24 +159,23 @@ const TAFIMPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             First, TAFIM was developed through extensive collaboration among DoD stakeholders,
-            including mission area representatives, information systems specialists, and
-            architects from multiple branches of the military. This collaborative development
-            process ensured that the framework reflected real organizational requirements and
-            operational experience rather than purely theoretical constructs.
+            including mission area representatives, information systems specialists, and architects
+            from multiple branches of the military. This collaborative development process ensured
+            that the framework reflected real organizational requirements and operational experience
+            rather than purely theoretical constructs.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Second, the model was validated through detailed specification of service areas,
             interface definitions, and architectural patterns. The framework&rsquo;s three-level
-            hierarchical decomposition (MSA, MLSA, BSA) enabled validation at multiple
-            abstraction levels, from enterprise-wide architectural principles down to specific
-            technical service definitions.
+            hierarchical decomposition (MSA, MLSA, BSA) enabled validation at multiple abstraction
+            levels, from enterprise-wide architectural principles down to specific technical service
+            definitions.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Third, TAFIM referenced established industry and government standards to anchor its
-            specifications. The framework integrated ISO 7498-2 security standards, POSIX
-            operating system standards, and other recognized technical standards, ensuring that
-            the model built upon validated foundational concepts rather than novel, untested
-            approaches.
+            specifications. The framework integrated ISO 7498-2 security standards, POSIX operating
+            system standards, and other recognized technical standards, ensuring that the model
+            built upon validated foundational concepts rather than novel, untested approaches.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The model was further validated through the detailed specification of Application
@@ -189,10 +187,9 @@ const TAFIMPage = () => {
 
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            External validity was addressed through TAFIM&rsquo;s explicit design for broad
-            adoption across the DoD enterprise&mdash;an organization so diverse in its mission
-            areas that demonstrating applicability across it serves as a stringent test of
-            generalizability.
+            External validity was addressed through TAFIM&rsquo;s explicit design for broad adoption
+            across the DoD enterprise&mdash;an organization so diverse in its mission areas that
+            demonstrating applicability across it serves as a stringent test of generalizability.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The DoD&rsquo;s organizational units ranged from strategic command functions to
@@ -202,25 +199,24 @@ const TAFIMPage = () => {
             administrative systems, and communications infrastructure.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The framework included explicit guidance on how organizations should adopt and
-            customize the model. Users were instructed to assess their own requirements and create
-            a profile of services, interfaces, and standards that satisfied their particular
-            mission-area needs. This flexibility built into the adoption approach itself provided
-            evidence of external generalizability&mdash;the framework was designed not as a rigid
-            mandate but as a reference model that could be adapted to different organizational
-            contexts.
+            The framework included explicit guidance on how organizations should adopt and customize
+            the model. Users were instructed to assess their own requirements and create a profile
+            of services, interfaces, and standards that satisfied their particular mission-area
+            needs. This flexibility built into the adoption approach itself provided evidence of
+            external generalizability&mdash;the framework was designed not as a rigid mandate but as
+            a reference model that could be adapted to different organizational contexts.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             TAFIM also demonstrated external validity through its integration of existing systems.
-            The framework showed how legacy systems&mdash;both Commercial Off-The-Shelf (COTS)
-            and Government Off-The-Shelf (GOTS) products&mdash;could be incorporated into the
-            reference model. This showed how the framework could apply across organizations with
-            vastly different system maturity levels and technical sophistication.
+            The framework showed how legacy systems&mdash;both Commercial Off-The-Shelf (COTS) and
+            Government Off-The-Shelf (GOTS) products&mdash;could be incorporated into the reference
+            model. This showed how the framework could apply across organizations with vastly
+            different system maturity levels and technical sophistication.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             TAFIM&rsquo;s influence on subsequent enterprise architecture frameworks (TOGAF, FEA,
-            and others) provides perhaps the strongest evidence of external validity&mdash;its
-            core architectural concepts proved sufficiently general to be adapted for civilian
+            and others) provides perhaps the strongest evidence of external validity&mdash;its core
+            architectural concepts proved sufficiently general to be adapted for civilian
             government, commercial, and international organizational contexts far removed from its
             original DoD setting.
           </p>
@@ -234,15 +230,15 @@ const TAFIMPage = () => {
             <li>
               <strong>Interface-Based Standards Over Technology Mandates:</strong> Rather than
               mandating specific technologies, TAFIM specified standardized interfaces and service
-              definitions, allowing organizations to select from multiple technology options as
-              long as they provided the required interfaces. This was a sophisticated advance that
+              definitions, allowing organizations to select from multiple technology options as long
+              as they provided the required interfaces. This was a sophisticated advance that
               recognized technology would continue evolving.
             </li>
             <li>
-              <strong>Comprehensive Integrated Reference Model:</strong> Earlier DoD standards
-              were often piecemeal&mdash;guidance on communications, security, or data management
-              but not an integrated reference model. TAFIM provided an integrated framework
-              showing how all these elements fit together in a cohesive architecture.
+              <strong>Comprehensive Integrated Reference Model:</strong> Earlier DoD standards were
+              often piecemeal&mdash;guidance on communications, security, or data management but not
+              an integrated reference model. TAFIM provided an integrated framework showing how all
+              these elements fit together in a cohesive architecture.
             </li>
             <li>
               <strong>Mission Area Customization:</strong> Rather than imposing a single standard
@@ -275,9 +271,9 @@ const TAFIMPage = () => {
             Despite its contributions, TAFIM exhibited several significant limitations:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Complexity and Comprehensiveness:</strong> The very comprehensiveness that was
-            a strength became a weakness&mdash;the framework was so detailed and extensive that
-            it could overwhelm organizations trying to adopt it. Many organizations struggled with
+            <strong>Complexity and Comprehensiveness:</strong> The very comprehensiveness that was a
+            strength became a weakness&mdash;the framework was so detailed and extensive that it
+            could overwhelm organizations trying to adopt it. Many organizations struggled with
             understanding which parts of TAFIM were most critical to their situation.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -293,8 +289,8 @@ const TAFIMPage = () => {
             recommended architecture. Successful adoption required more than technical changes.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Maturity Assessment Limitations:</strong> TAFIM did not provide clear
-            frameworks for assessing organizational maturity or readiness for architectural change.
+            <strong>Maturity Assessment Limitations:</strong> TAFIM did not provide clear frameworks
+            for assessing organizational maturity or readiness for architectural change.
             Organizations could not easily determine whether they had the organizational
             capabilities necessary to successfully adopt the framework.
           </p>
@@ -308,17 +304,17 @@ const TAFIMPage = () => {
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
             TAFIM&rsquo;s relevance to technology adoption extends well beyond its original DoD
-            context. The framework represents one of the first comprehensive attempts to provide
-            a structured approach to enterprise-level technology adoption&mdash;moving beyond
+            context. The framework represents one of the first comprehensive attempts to provide a
+            structured approach to enterprise-level technology adoption&mdash;moving beyond
             individual system decisions to address the architectural foundations that determine
             whether technology investments will deliver integrated, interoperable capabilities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The framework&rsquo;s core insight&mdash;that technology adoption barriers often
-            reside in architectural fragmentation rather than in the capabilities of individual
-            systems&mdash;remains powerfully relevant. Organizations that adopt excellent
-            individual systems without attention to how those systems will interoperate frequently
-            find themselves recreating the stovepipe problem that TAFIM was designed to solve.
+            The framework&rsquo;s core insight&mdash;that technology adoption barriers often reside
+            in architectural fragmentation rather than in the capabilities of individual
+            systems&mdash;remains powerfully relevant. Organizations that adopt excellent individual
+            systems without attention to how those systems will interoperate frequently find
+            themselves recreating the stovepipe problem that TAFIM was designed to solve.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             TAFIM&rsquo;s approach to measuring technology adoption is distinctive and instructive:
@@ -338,9 +334,8 @@ const TAFIMPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <em>
-              Note: This article provides an overview based on the comprehensive literature
-              review. Readers are encouraged to consult the original publication for complete
-              details.
+              Note: This article provides an overview based on the comprehensive literature review.
+              Readers are encouraged to consult the original publication for complete details.
             </em>
           </p>
         </section>
@@ -370,10 +365,7 @@ const TAFIMPage = () => {
             </li>
             <li>
               The Open Group. (1999).{' '}
-              <em>
-                The Open Group Architecture Framework (TOGAF) Version 7
-              </em>
-              . The Open Group.
+              <em>The Open Group Architecture Framework (TOGAF) Version 7</em>. The Open Group.
             </li>
             <li>
               U.S. Office of Management and Budget. (2002).{' '}
@@ -381,8 +373,11 @@ const TAFIMPage = () => {
             </li>
             <li>
               Spewak, S. H., &amp; Hill, S. C. (1992).{' '}
-              <em>Enterprise architecture planning: Developing a blueprint for data, applications
-              and technology</em>. QED Publishing Group.
+              <em>
+                Enterprise architecture planning: Developing a blueprint for data, applications and
+                technology
+              </em>
+              . QED Publishing Group.
             </li>
             <li>
               Sessions, R. (2007). A comparison of the top four enterprise-architecture

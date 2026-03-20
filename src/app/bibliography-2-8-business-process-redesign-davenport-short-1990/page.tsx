@@ -36,14 +36,14 @@ const DavenportShortBPRPage = () => {
             new form of industrial engineering appropriate for the information age.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The Business Process Redesign (BPR) model emerged at a moment when competitive
-            pressures were intensifying and IT capabilities were expanding beyond simple
-            automation. The authors observed that organizations routinely applied technology to
-            existing process structures rather than questioning those structures themselves. By
-            synthesizing concepts from industrial engineering, value chain analysis, and
-            organizational theory, Davenport and Short provided practitioners with a conceptual
-            and practical framework for achieving step-change improvements in cost, quality, speed,
-            and customer service through process-level redesign.
+            The Business Process Redesign (BPR) model emerged at a moment when competitive pressures
+            were intensifying and IT capabilities were expanding beyond simple automation. The
+            authors observed that organizations routinely applied technology to existing process
+            structures rather than questioning those structures themselves. By synthesizing concepts
+            from industrial engineering, value chain analysis, and organizational theory, Davenport
+            and Short provided practitioners with a conceptual and practical framework for achieving
+            step-change improvements in cost, quality, speed, and customer service through
+            process-level redesign.
           </p>
 
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
@@ -54,20 +54,20 @@ const DavenportShortBPRPage = () => {
             that made traditional approaches insufficient.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Competitive Pressure and Performance Challenges:</strong> Organizations
-            operated in increasingly competitive environments where rivals had restructured their
-            operations to achieve superior performance. Traditional industrial engineering had been
-            applied relatively narrowly to manufacturing, yet competitive advantage increasingly
-            derived from comprehensive business process performance&mdash;how effectively
-            organizations managed customer acquisition, product design, order fulfillment, and
-            customer service in addition to manufacturing efficiency.
+            <strong>Competitive Pressure and Performance Challenges:</strong> Organizations operated
+            in increasingly competitive environments where rivals had restructured their operations
+            to achieve superior performance. Traditional industrial engineering had been applied
+            relatively narrowly to manufacturing, yet competitive advantage increasingly derived
+            from comprehensive business process performance&mdash;how effectively organizations
+            managed customer acquisition, product design, order fulfillment, and customer service in
+            addition to manufacturing efficiency.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Information Technology Capability Expansion:</strong> IT had evolved from
-            supporting existing processes to enabling fundamentally different ways of working.
-            Prior IT adoption had primarily focused on automating existing processes&mdash;faster,
-            cheaper operations doing the same work. Davenport and Short recognized that emerging
-            IT capabilities could support more radical redesign: information systems could capture
+            supporting existing processes to enabling fundamentally different ways of working. Prior
+            IT adoption had primarily focused on automating existing processes&mdash;faster, cheaper
+            operations doing the same work. Davenport and Short recognized that emerging IT
+            capabilities could support more radical redesign: information systems could capture
             customer data comprehensively, enable communication across organizational boundaries,
             support sophisticated decision-making, and automate complex processes previously
             requiring significant human judgment.
@@ -75,10 +75,10 @@ const DavenportShortBPRPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Limitations of Incremental Approaches:</strong> The authors observed that
             traditional process improvement had inherent limits. Optimizing an existing process
-            sometimes locked organizations into suboptimal configurations. If a fundamental
-            business process was poorly designed, making it more efficient merely made inefficiency
-            faster. Competitive advantage increasingly came from reconceiving and fundamentally
-            redesigning core business processes, not from incremental optimization.
+            sometimes locked organizations into suboptimal configurations. If a fundamental business
+            process was poorly designed, making it more efficient merely made inefficiency faster.
+            Competitive advantage increasingly came from reconceiving and fundamentally redesigning
+            core business processes, not from incremental optimization.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Integration Opportunity:</strong> The model emerged from recognizing that IT
@@ -99,20 +99,20 @@ const DavenportShortBPRPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             At the heart of the BPR model is a focus on <strong>business processes</strong>&mdash;
             end-to-end sets of activities that together deliver value to customers or the
-            organization. Davenport and Short distinguish between core business processes
-            (customer acquisition, product design, order fulfillment, customer service) and
-            supporting processes (human resources, accounting). Core processes directly impact
-            competitive positioning and should receive priority for redesign efforts.
+            organization. Davenport and Short distinguish between core business processes (customer
+            acquisition, product design, order fulfillment, customer service) and supporting
+            processes (human resources, accounting). Core processes directly impact competitive
+            positioning and should receive priority for redesign efforts.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The framework identifies five types of IT-enabled process redesign, each representing
-            a distinct way technology can transform how work is performed:
+            The framework identifies five types of IT-enabled process redesign, each representing a
+            distinct way technology can transform how work is performed:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Automational:</strong> Eliminating human labor from a process. Routine,
-              rule-based decisions are delegated to information systems, reducing cost and
-              improving speed.
+              rule-based decisions are delegated to information systems, reducing cost and improving
+              speed.
             </li>
             <li>
               <strong>Informational:</strong> Capturing process information for purposes of
@@ -121,8 +121,8 @@ const DavenportShortBPRPage = () => {
             </li>
             <li>
               <strong>Sequential:</strong> Changing process sequence or enabling parallelism.
-              Activities previously performed in sequence can occur simultaneously when
-              information flows electronically.
+              Activities previously performed in sequence can occur simultaneously when information
+              flows electronically.
             </li>
             <li>
               <strong>Tracking:</strong> Monitoring process status and objects closely. Real-time
@@ -149,15 +149,15 @@ const DavenportShortBPRPage = () => {
               sharing.
             </li>
             <li>
-              <strong>Disintermediating:</strong> Eliminating intermediaries from a process.
-              Direct connections between process participants remove unnecessary steps and improve
+              <strong>Disintermediating:</strong> Eliminating intermediaries from a process. Direct
+              connections between process participants remove unnecessary steps and improve
               responsiveness.
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
-            The authors also articulate a systematic five-step methodology for process redesign:
-            (1) develop the business vision and process objectives; (2) identify the processes to
-            be redesigned; (3) understand and measure the existing process; (4) identify IT levers
+            The authors also articulate a systematic five-step methodology for process redesign: (1)
+            develop the business vision and process objectives; (2) identify the processes to be
+            redesigned; (3) understand and measure the existing process; (4) identify IT levers
             available; and (5) design and build a prototype of the new process.
           </p>
 
@@ -168,11 +168,11 @@ const DavenportShortBPRPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Case Study Research and Field Experience:</strong> The model was grounded in
-            extensive case study research and consulting engagement across multiple industries.
-            The authors documented actual business process redesign initiatives, examining
-            organizations that successfully leveraged IT for process transformation, the business
-            processes that could be fundamentally redesigned, the outcomes achieved, and the
-            challenges encountered.
+            extensive case study research and consulting engagement across multiple industries. The
+            authors documented actual business process redesign initiatives, examining organizations
+            that successfully leveraged IT for process transformation, the business processes that
+            could be fundamentally redesigned, the outcomes achieved, and the challenges
+            encountered.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The paper provides detailed illustrative examples across diverse industries:
@@ -182,8 +182,7 @@ const DavenportShortBPRPage = () => {
               <strong>Insurance Claims Processing:</strong> Companies previously handled claims
               through labor-intensive sequential processes. Information systems enabled redesign
               that significantly reduced processing time by allowing representatives with
-              comprehensive system support to handle entire claims rather than sequential
-              hand-offs.
+              comprehensive system support to handle entire claims rather than sequential hand-offs.
             </li>
             <li>
               <strong>Airline Reservation Systems:</strong> Airlines completely restructured
@@ -204,19 +203,19 @@ const DavenportShortBPRPage = () => {
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
-            The consistency of redesign patterns across telecommunications, insurance, airlines,
-            and manufacturing supports the conclusion that the underlying redesign principles hold
+            The consistency of redesign patterns across telecommunications, insurance, airlines, and
+            manufacturing supports the conclusion that the underlying redesign principles hold
             generally rather than being industry-specific.
           </p>
 
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The BPR model&rsquo;s external validity was established through several mechanisms
-            that demonstrate generalizability beyond the original case contexts.
+            The BPR model&rsquo;s external validity was established through several mechanisms that
+            demonstrate generalizability beyond the original case contexts.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Multi-Industry Case Illustrations:</strong> The model was tested across
-            diverse industries&mdash;insurance, airlines, telecommunications, and
+            <strong>Multi-Industry Case Illustrations:</strong> The model was tested across diverse
+            industries&mdash;insurance, airlines, telecommunications, and
             manufacturing&mdash;suggesting that business process redesign principles apply broadly.
             Fundamentally similar redesign patterns emerging across different industries lends
             credibility to the model&rsquo;s generalizability.
@@ -226,28 +225,28 @@ const DavenportShortBPRPage = () => {
             functional areas and process types: customer-facing processes (reservations, claims
             handling, order fulfillment), internal operational processes (manufacturing scheduling,
             service delivery), and information-intensive processes (claims assessment, system
-            design). This breadth suggests that process redesign principles apply to diverse
-            process types rather than a narrow range.
+            design). This breadth suggests that process redesign principles apply to diverse process
+            types rather than a narrow range.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Organizational Size Variation:</strong> The cases encompassed large
-            organizations (major airlines, large telecommunications companies) as well as
-            mid-sized firms. The applicability across different organizational sizes suggests the
-            model is not limited to particular company profiles.
+            organizations (major airlines, large telecommunications companies) as well as mid-sized
+            firms. The applicability across different organizational sizes suggests the model is not
+            limited to particular company profiles.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>IT Technology Span:</strong> The case examples involved different IT
-            technologies&mdash;telecommunications systems, database systems, personal computers
-            with information access capabilities&mdash;demonstrating that redesign principles
-            apply across technology platforms rather than being dependent on specific systems.
+            technologies&mdash;telecommunications systems, database systems, personal computers with
+            information access capabilities&mdash;demonstrating that redesign principles apply
+            across technology platforms rather than being dependent on specific systems.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Theoretical Grounding:</strong> By grounding the model in established
-            industrial engineering principles and extending them to IT-enabled contexts, the
-            authors draw on a well-established theoretical tradition. The framework&rsquo;s
-            acknowledgment of contingencies&mdash;particular process characteristics,
-            organizational capability, IT infrastructure, and market conditions&mdash;adds
-            nuance without undermining the general applicability of the core principles.
+            <strong>Theoretical Grounding:</strong> By grounding the model in established industrial
+            engineering principles and extending them to IT-enabled contexts, the authors draw on a
+            well-established theoretical tradition. The framework&rsquo;s acknowledgment of
+            contingencies&mdash;particular process characteristics, organizational capability, IT
+            infrastructure, and market conditions&mdash;adds nuance without undermining the general
+            applicability of the core principles.
           </p>
 
           <h2 className={H2_CLASSES}>Key Contributions</h2>
@@ -273,8 +272,8 @@ const DavenportShortBPRPage = () => {
               bridging academic concepts and managerial practice.
             </li>
             <li>
-              <strong>Typology of IT-Enabled Change:</strong> The taxonomy of nine IT redesign
-              roles provided a structured vocabulary for describing how technology transforms work,
+              <strong>Typology of IT-Enabled Change:</strong> The taxonomy of nine IT redesign roles
+              provided a structured vocabulary for describing how technology transforms work,
               enabling more precise analysis of redesign opportunities.
             </li>
             <li>
@@ -293,33 +292,32 @@ const DavenportShortBPRPage = () => {
             technology-enabled processes to realize that vision.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The model&rsquo;s emphasis on beginning with business objectives rather than
-            technology capabilities is particularly instructive. Organizations that start by
-            asking &ldquo;what does our IT system support?&rdquo; will likely automate existing
-            inefficiencies. Organizations that start by asking &ldquo;what should this process
-            accomplish for customers and the organization?&rdquo; and then determine technology
-            requirements are positioned to achieve genuine transformation.
+            The model&rsquo;s emphasis on beginning with business objectives rather than technology
+            capabilities is particularly instructive. Organizations that start by asking &ldquo;what
+            does our IT system support?&rdquo; will likely automate existing inefficiencies.
+            Organizations that start by asking &ldquo;what should this process accomplish for
+            customers and the organization?&rdquo; and then determine technology requirements are
+            positioned to achieve genuine transformation.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework also highlights that technology adoption barriers often reside in
             organizational and process structure rather than technology itself. A new system
-            implemented within a fragmented, sequential process may deliver minimal value. The
-            same technology implemented to enable an integrated, parallel process can deliver
-            dramatic improvements. This insight directs attention to organizational redesign as
-            a prerequisite for technology value realization.
+            implemented within a fragmented, sequential process may deliver minimal value. The same
+            technology implemented to enable an integrated, parallel process can deliver dramatic
+            improvements. This insight directs attention to organizational redesign as a
+            prerequisite for technology value realization.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The BPR model&rsquo;s emphasis on change management&mdash;establishing transition
             infrastructure, communicating honestly, and preparing people for new ways of
-            working&mdash;anticipates findings from subsequent technology adoption research
-            showing that human and organizational factors consistently explain more variance in
-            adoption outcomes than technical factors.
+            working&mdash;anticipates findings from subsequent technology adoption research showing
+            that human and organizational factors consistently explain more variance in adoption
+            outcomes than technical factors.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <em>
-              Note: This article provides an overview based on the comprehensive literature
-              review. Readers are encouraged to consult the original publication for complete
-              details.
+              Note: This article provides an overview based on the comprehensive literature review.
+              Readers are encouraged to consult the original publication for complete details.
             </em>
           </p>
         </section>
@@ -333,8 +331,9 @@ const DavenportShortBPRPage = () => {
               , 31(4), 11&ndash;27.
             </li>
             <li>
-              Porter, M. E. (1985). <em>Competitive advantage: Creating and sustaining superior
-              performance</em>. Free Press.
+              Porter, M. E. (1985).{' '}
+              <em>Competitive advantage: Creating and sustaining superior performance</em>. Free
+              Press.
             </li>
             <li>
               Hammer, M. (1990). Reengineering work: Don&rsquo;t automate, obliterate.{' '}
@@ -355,9 +354,9 @@ const DavenportShortBPRPage = () => {
               Harvard Business School Press.
             </li>
             <li>
-              Kettinger, W. J., Teng, J. T. C., &amp; Guha, S. (1997). Business process change:
-              A study of methodologies, techniques, and tools.{' '}
-              <em>MIS Quarterly</em>, 21(1), 55&ndash;80.{' '}
+              Kettinger, W. J., Teng, J. T. C., &amp; Guha, S. (1997). Business process change: A
+              study of methodologies, techniques, and tools. <em>MIS Quarterly</em>, 21(1),
+              55&ndash;80.{' '}
               <a
                 href="https://doi.org/10.2307/249742"
                 target="_blank"

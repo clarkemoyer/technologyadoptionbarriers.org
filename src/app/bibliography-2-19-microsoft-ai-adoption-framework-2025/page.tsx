@@ -21,9 +21,7 @@ const MicrosoftAIAdoptionPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>
-          Microsoft AI Adoption Framework &ndash; Microsoft (2025)
-        </h1>
+        <h1 className={H1_CLASSES}>Microsoft AI Adoption Framework &ndash; Microsoft (2025)</h1>
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
@@ -32,9 +30,9 @@ const MicrosoftAIAdoptionPage = () => {
             adopting artificial intelligence, machine learning, and generative AI within
             organizational contexts. Developed through collaboration among Microsoft AI researchers,
             enterprise architects, enterprise customers, and industry partners, the framework
-            provides systematic guidance for organizations at all stages of AI maturity &ndash;
-            from those exploring their first AI opportunities to enterprises seeking to scale AI
-            across business operations.
+            provides systematic guidance for organizations at all stages of AI maturity &ndash; from
+            those exploring their first AI opportunities to enterprises seeking to scale AI across
+            business operations.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The emergence of large language models, diffusion models, and accessible generative AI
@@ -56,12 +54,12 @@ const MicrosoftAIAdoptionPage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>The Generative AI Opportunity and Uncertainty:</strong> The release of
-              ChatGPT (November 2022) and subsequent large language models created organizational
-              urgency and opportunity. Organizations recognized potential for significant business
-              value from AI while facing uncertainty about where AI could realistically add value,
-              difficulty distinguishing hype from genuine opportunity, and pressure to adopt AI
-              to remain competitive.
+              <strong>The Generative AI Opportunity and Uncertainty:</strong> The release of ChatGPT
+              (November 2022) and subsequent large language models created organizational urgency
+              and opportunity. Organizations recognized potential for significant business value
+              from AI while facing uncertainty about where AI could realistically add value,
+              difficulty distinguishing hype from genuine opportunity, and pressure to adopt AI to
+              remain competitive.
             </li>
             <li>
               <strong>The Data Readiness Gap:</strong> Organizations discovered data prerequisites
@@ -80,8 +78,8 @@ const MicrosoftAIAdoptionPage = () => {
               <strong>The Skills and Capability Crisis:</strong> Organizations lacked in-house
               expertise, with data scientists and ML engineers in short supply, business
               stakeholders unfamiliar with AI possibilities and limitations, operations teams
-              unprepared for ML operations (MLOps), and change management challenges as AI
-              disrupts business processes.
+              unprepared for ML operations (MLOps), and change management challenges as AI disrupts
+              business processes.
             </li>
             <li>
               <strong>The Integration and Operations Challenge:</strong> Organizations struggled to
@@ -129,10 +127,10 @@ const MicrosoftAIAdoptionPage = () => {
             </li>
             <li>
               <strong>AI Implementation and Integration:</strong> Selecting appropriate AI
-              approaches (pre-built services, fine-tuned models, or custom development), implementing
-              solutions, and integrating AI capabilities into business processes and systems.
-              Includes guidance on using Azure AI services, Azure Machine Learning, and Azure OpenAI
-              Service.
+              approaches (pre-built services, fine-tuned models, or custom development),
+              implementing solutions, and integrating AI capabilities into business processes and
+              systems. Includes guidance on using Azure AI services, Azure Machine Learning, and
+              Azure OpenAI Service.
             </li>
           </ol>
           <p className={PARAGRAPH_CLASSES}>
@@ -142,8 +140,8 @@ const MicrosoftAIAdoptionPage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Pre-built AI Services:</strong> Using Azure Cognitive Services and Azure
-              OpenAI Service for rapid deployment without custom model development, appropriate
-              for common use cases in vision, language, and speech.
+              OpenAI Service for rapid deployment without custom model development, appropriate for
+              common use cases in vision, language, and speech.
             </li>
             <li>
               <strong>Fine-tuned Foundation Models:</strong> Adapting pre-trained large language
@@ -151,9 +149,9 @@ const MicrosoftAIAdoptionPage = () => {
               balancing capability and development efficiency.
             </li>
             <li>
-              <strong>Custom Model Development:</strong> Building specialized ML models from
-              scratch for unique organizational requirements, appropriate when pre-built and
-              fine-tuned approaches do not meet specific needs.
+              <strong>Custom Model Development:</strong> Building specialized ML models from scratch
+              for unique organizational requirements, appropriate when pre-built and fine-tuned
+              approaches do not meet specific needs.
             </li>
           </ul>
 
@@ -165,9 +163,9 @@ const MicrosoftAIAdoptionPage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Building on Proven Foundation:</strong> By extending the Microsoft Cloud
-              Adoption Framework (2018-2025) rather than developing an entirely new methodology,
-              the AI Adoption Framework inherits the internal validity of the proven CAF approach
-              while adding AI-specific guidance where genuinely needed.
+              Adoption Framework (2018-2025) rather than developing an entirely new methodology, the
+              AI Adoption Framework inherits the internal validity of the proven CAF approach while
+              adding AI-specific guidance where genuinely needed.
             </li>
             <li>
               <strong>Responsible AI as Foundational Requirement:</strong> Unlike frameworks that
@@ -184,11 +182,10 @@ const MicrosoftAIAdoptionPage = () => {
               than aspirational ideals.
             </li>
             <li>
-              <strong>Practical, Tool-Backed Guidance:</strong> The framework is backed by
-              specific Microsoft tools including the Responsible AI Dashboard for assessing model
-              fairness and explainability, Azure Machine Learning for end-to-end ML development,
-              and Azure Synapse Analytics for data readiness, providing testable and implementable
-              guidance.
+              <strong>Practical, Tool-Backed Guidance:</strong> The framework is backed by specific
+              Microsoft tools including the Responsible AI Dashboard for assessing model fairness
+              and explainability, Azure Machine Learning for end-to-end ML development, and Azure
+              Synapse Analytics for data readiness, providing testable and implementable guidance.
             </li>
           </ul>
 
@@ -212,21 +209,21 @@ const MicrosoftAIAdoptionPage = () => {
             </li>
             <li>
               <strong>Global Applicability:</strong> The framework was designed for global
-              organizational contexts, addressing regulatory frameworks across jurisdictions,
-              with responsible AI principles that transcend geographic boundaries and data
-              governance approaches applicable internationally.
+              organizational contexts, addressing regulatory frameworks across jurisdictions, with
+              responsible AI principles that transcend geographic boundaries and data governance
+              approaches applicable internationally.
             </li>
             <li>
               <strong>Multiple Implementation Paths:</strong> The framework accommodates different
               organizational contexts through pre-built AI services for rapid deployment, custom
-              model development for specialized needs, hybrid approaches combining both, and flexible
-              timelines enabling pilots before major investment.
+              model development for specialized needs, hybrid approaches combining both, and
+              flexible timelines enabling pilots before major investment.
             </li>
             <li>
-              <strong>Integration with Existing Infrastructure:</strong> Organizations already
-              using Microsoft Cloud Adoption Framework can extend with AI CAF guidance, with
-              governance structures, cost management, and security frameworks extending naturally
-              to AI workloads.
+              <strong>Integration with Existing Infrastructure:</strong> Organizations already using
+              Microsoft Cloud Adoption Framework can extend with AI CAF guidance, with governance
+              structures, cost management, and security frameworks extending naturally to AI
+              workloads.
             </li>
           </ul>
 
@@ -239,8 +236,8 @@ const MicrosoftAIAdoptionPage = () => {
             <li>
               <strong>Responsible AI as Foundation, Not Afterthought:</strong> The framework&rsquo;s
               most distinctive contribution is treating responsible AI governance as foundational
-              and non-negotiable rather than as an optional compliance exercise. By integrating
-              the six responsible AI principles throughout all framework activities, Microsoft has
+              and non-negotiable rather than as an optional compliance exercise. By integrating the
+              six responsible AI principles throughout all framework activities, Microsoft has
               provided a model for how organizations can embed ethical AI governance into adoption
               methodology.
             </li>
@@ -295,17 +292,17 @@ const MicrosoftAIAdoptionPage = () => {
             technologies become more powerful and their potential for harm increases, governance
             frameworks become essential prerequisites for adoption rather than post-hoc constraints.
             The framework&rsquo;s integration of responsible AI governance reflects a maturation of
-            technology adoption practice to include ethical dimensions alongside efficiency
-            and effectiveness considerations.
+            technology adoption practice to include ethical dimensions alongside efficiency and
+            effectiveness considerations.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The framework&rsquo;s data readiness pillar addresses a distinctive prerequisite for
-            AI adoption that does not exist for most prior technologies: AI systems require not just
+            The framework&rsquo;s data readiness pillar addresses a distinctive prerequisite for AI
+            adoption that does not exist for most prior technologies: AI systems require not just
             organizational capability and infrastructure but also data &ndash; in sufficient
             quantity, quality, and governance &ndash; to function effectively. This data dependency
-            creates adoption barriers that organizations must explicitly address before AI deployment
-            can succeed, a dimension that earlier technology adoption models were not designed to
-            capture.
+            creates adoption barriers that organizations must explicitly address before AI
+            deployment can succeed, a dimension that earlier technology adoption models were not
+            designed to capture.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework&rsquo;s active evolution in response to a rapidly changing AI landscape
@@ -368,9 +365,7 @@ const MicrosoftAIAdoptionPage = () => {
                 https://learn.microsoft.com/en-us/azure/ai-services/openai/
               </a>
             </li>
-            <li>
-              OpenAI. (2024). GPT-4 Technical Report. OpenAI Research.
-            </li>
+            <li>OpenAI. (2024). GPT-4 Technical Report. OpenAI Research.</li>
             <li>
               Gartner. (2024). Magic Quadrant for Cloud AI Developer Services. Gartner Research.
             </li>

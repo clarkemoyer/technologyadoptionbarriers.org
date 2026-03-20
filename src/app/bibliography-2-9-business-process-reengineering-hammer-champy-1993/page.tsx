@@ -28,8 +28,8 @@ const HammerChambyBPRPage = () => {
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             In 1993, Michael Hammer and James Champy published{' '}
-            <em>Reengineering the Corporation: A Manifesto for Business Revolution</em>, one of
-            the most provocative and widely read management books of the 1990s. Defining Business
+            <em>Reengineering the Corporation: A Manifesto for Business Revolution</em>, one of the
+            most provocative and widely read management books of the 1990s. Defining Business
             Process Reengineering as &ldquo;the fundamental rethinking and radical redesign of
             business processes to achieve dramatic improvements in critical, contemporary measures
             of performance such as cost, quality, service, and speed,&rdquo; the framework
@@ -37,13 +37,13 @@ const HammerChambyBPRPage = () => {
             change.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Where continuous improvement advocates like Deming counseled steady, incremental
-            gains, Hammer and Champy argued that many organizations faced competitive conditions
-            requiring step-change improvements of 50&ndash;300%&mdash;improvements that
-            incremental optimization could never deliver within realistic timeframes. Rather than
-            automating existing processes, BPR advocates completely reimagining how work is done,
-            using information technology as the fundamental enabler of radically different
-            organizational designs.
+            Where continuous improvement advocates like Deming counseled steady, incremental gains,
+            Hammer and Champy argued that many organizations faced competitive conditions requiring
+            step-change improvements of 50&ndash;300%&mdash;improvements that incremental
+            optimization could never deliver within realistic timeframes. Rather than automating
+            existing processes, BPR advocates completely reimagining how work is done, using
+            information technology as the fundamental enabler of radically different organizational
+            designs.
           </p>
 
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
@@ -57,20 +57,20 @@ const HammerChambyBPRPage = () => {
             products in large batches because changeovers were costly.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            But information technology had eliminated many of these constraints. Communication
-            could be instant and essentially free. Information could be shared in real-time across
+            But information technology had eliminated many of these constraints. Communication could
+            be instant and essentially free. Information could be shared in real-time across
             departments. Systems could process exceptions individually rather than only in batches.
             Yet despite these technology advances, many organizations continued operating with
             processes designed for obsolete constraints. They automated existing
-            processes&mdash;&ldquo;paving the cow paths&rdquo;&mdash;rather than reimagining how
-            to work. The result was inefficient organizations using expensive technology to
-            perpetuate inefficient processes.
+            processes&mdash;&ldquo;paving the cow paths&rdquo;&mdash;rather than reimagining how to
+            work. The result was inefficient organizations using expensive technology to perpetuate
+            inefficient processes.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Hammer and Champy argued that organizations needed to ask fundamental questions: Why
-            do we do this process at all? Why is it structured this way? What would this process
-            look like if we designed it today, using current technology and knowledge? The BPR
-            framework was created to provide a methodology for this fundamental process redesign.
+            Hammer and Champy argued that organizations needed to ask fundamental questions: Why do
+            we do this process at all? Why is it structured this way? What would this process look
+            like if we designed it today, using current technology and knowledge? The BPR framework
+            was created to provide a methodology for this fundamental process redesign.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Several contextual forces amplified the need for such a framework:
@@ -93,32 +93,31 @@ const HammerChambyBPRPage = () => {
             </li>
             <li>
               <strong>Limitations of TQM:</strong> While Total Quality Management generated
-              significant gains, critics argued that incremental improvement had inherent limits
-              for organizations needing step-change competitive transformation.
+              significant gains, critics argued that incremental improvement had inherent limits for
+              organizations needing step-change competitive transformation.
             </li>
           </ul>
 
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The BPR framework rests on several interconnected core concepts that together
-            constitute its distinctive approach to organizational transformation:
+            The BPR framework rests on several interconnected core concepts that together constitute
+            its distinctive approach to organizational transformation:
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Process Focus:</strong> Rather than viewing organizations as functional
             hierarchies (finance, operations, marketing, etc.), BPR views organizations as
-            collections of business processes. A business process is an end-to-end set of
-            activities that delivers value to customers. For example, &ldquo;order
-            fulfillment&rdquo; spans from when customers place orders through delivery and
-            billing. Traditional functional organization divides this process among sales
-            (taking order), manufacturing (producing product), logistics (shipping), and finance
-            (billing). BPR integrates these functions around the complete customer-centric
-            process.
+            collections of business processes. A business process is an end-to-end set of activities
+            that delivers value to customers. For example, &ldquo;order fulfillment&rdquo; spans
+            from when customers place orders through delivery and billing. Traditional functional
+            organization divides this process among sales (taking order), manufacturing (producing
+            product), logistics (shipping), and finance (billing). BPR integrates these functions
+            around the complete customer-centric process.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Radical Redesign:</strong> BPR is fundamentally radical, not incremental.
-            Rather than optimizing existing processes, BPR asks: what would this process look
-            like if we could start from scratch? What steps could be eliminated? What activities
-            could be parallel rather than sequential? What could be centralized that is currently
+            <strong>Radical Redesign:</strong> BPR is fundamentally radical, not incremental. Rather
+            than optimizing existing processes, BPR asks: what would this process look like if we
+            could start from scratch? What steps could be eliminated? What activities could be
+            parallel rather than sequential? What could be centralized that is currently
             distributed? What decisions could be automated that are currently manual?
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -129,22 +128,22 @@ const HammerChambyBPRPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Dramatic Performance Improvement:</strong> BPR aims for dramatic
-            improvements&mdash;50&ndash;300% gains in cycle time, cost, quality, or service
-            rather than incremental 10&ndash;20% improvements. This requires process innovation,
-            not just process optimization.
+            improvements&mdash;50&ndash;300% gains in cycle time, cost, quality, or service rather
+            than incremental 10&ndash;20% improvements. This requires process innovation, not just
+            process optimization.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Customer-Centric Process Design:</strong> Processes are designed around
-            customer needs and value, not organizational convenience. If the customer needs a
-            rapid response, the process should provide rapid response. Quality should be built
-            into the process, not inspected in later.
+            <strong>Customer-Centric Process Design:</strong> Processes are designed around customer
+            needs and value, not organizational convenience. If the customer needs a rapid response,
+            the process should provide rapid response. Quality should be built into the process, not
+            inspected in later.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Staff Empowerment:</strong> Reengineered processes often involve empowering
             individual employees or teams to make decisions that previously required management
-            approval. A customer service representative, with information systems providing
-            complete customer history and decision rules, can resolve problems immediately rather
-            than escalating to supervisors.
+            approval. A customer service representative, with information systems providing complete
+            customer history and decision rules, can resolve problems immediately rather than
+            escalating to supervisors.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework measures process performance along several dimensions:
@@ -184,13 +183,13 @@ const HammerChambyBPRPage = () => {
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
             The BPR framework&rsquo;s internal validity rests on case evidence and on the logical
-            coherence of its core propositions about the relationship between process structure
-            and organizational performance.
+            coherence of its core propositions about the relationship between process structure and
+            organizational performance.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Hammer and Champy drew on consulting experience across multiple industries and
-            documented successful BPR implementations to ground their framework. Key case
-            evidence includes:
+            documented successful BPR implementations to ground their framework. Key case evidence
+            includes:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -199,9 +198,9 @@ const HammerChambyBPRPage = () => {
               payable around a single database rather than paper-based matching of documents.
             </li>
             <li>
-              IBM Credit Corporation reduced its financing approval process from seven days to
-              four hours by replacing a sequential seven-step process with a single generalist
-              equipped with a computer system capable of processing most applications automatically.
+              IBM Credit Corporation reduced its financing approval process from seven days to four
+              hours by replacing a sequential seven-step process with a single generalist equipped
+              with a computer system capable of processing most applications automatically.
             </li>
             <li>
               Kodak cut product development time for a new camera by 50% by redesigning the
@@ -211,31 +210,30 @@ const HammerChambyBPRPage = () => {
           </ul>
           <p className={PARAGRAPH_CLASSES}>
             These cases demonstrate that the core proposition&mdash;that fundamental process
-            redesign enabled by IT can achieve dramatically superior performance&mdash;holds
-            across different functional areas and industry contexts. The logical mechanism is
-            clear: sequential processes that exist because of historical constraints (slow
-            communication, limited information sharing, expensive coordination) can be radically
-            compressed when IT eliminates those constraints.
+            redesign enabled by IT can achieve dramatically superior performance&mdash;holds across
+            different functional areas and industry contexts. The logical mechanism is clear:
+            sequential processes that exist because of historical constraints (slow communication,
+            limited information sharing, expensive coordination) can be radically compressed when IT
+            eliminates those constraints.
           </p>
 
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            BPR has been applied across an extraordinarily diverse range of organizational
-            contexts, providing strong evidence for external validity:
+            BPR has been applied across an extraordinarily diverse range of organizational contexts,
+            providing strong evidence for external validity:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Industries:</strong> BPR has been applied to manufacturing, financial
-            services, healthcare, insurance, retail, telecommunications, government, and
-            education. The principles of process-centric redesign apply across industries because
-            the underlying logic&mdash;that process structure determines performance&mdash;is
-            industry-agnostic.
+            <strong>Industries:</strong> BPR has been applied to manufacturing, financial services,
+            healthcare, insurance, retail, telecommunications, government, and education. The
+            principles of process-centric redesign apply across industries because the underlying
+            logic&mdash;that process structure determines performance&mdash;is industry-agnostic.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Process Types:</strong> BPR has addressed diverse business
-            processes&mdash;order fulfillment, customer service, accounts payable, human
-            resources, product development, and others. The methodology works across process
-            types because the core analytical approach (questioning why processes are structured
-            as they are) is universally applicable.
+            <strong>Process Types:</strong> BPR has addressed diverse business processes&mdash;order
+            fulfillment, customer service, accounts payable, human resources, product development,
+            and others. The methodology works across process types because the core analytical
+            approach (questioning why processes are structured as they are) is universally
+            applicable.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Geographic Contexts:</strong> BPR has been applied in North America, Europe,
@@ -252,11 +250,11 @@ const HammerChambyBPRPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework&rsquo;s high failure rates (50&ndash;70% of BPR initiatives historically
-            fell short of goals) do not undermine its external validity so much as they clarify
-            the conditions under which it succeeds. Failed implementations typically suffered
-            from insufficient change management, technology dependence without process
-            redesign, or misalignment with organizational culture&mdash;all factors the framework
-            itself identifies as critical.
+            fell short of goals) do not undermine its external validity so much as they clarify the
+            conditions under which it succeeds. Failed implementations typically suffered from
+            insufficient change management, technology dependence without process redesign, or
+            misalignment with organizational culture&mdash;all factors the framework itself
+            identifies as critical.
           </p>
 
           <h2 className={H2_CLASSES}>Key Contributions</h2>
@@ -287,10 +285,10 @@ const HammerChambyBPRPage = () => {
               implementation. Organizations understand what to do, not just what to think about.
             </li>
             <li>
-              <strong>Addresses Organizational Urgency:</strong> When organizations face
-              competitive crisis or rapid change, incremental improvement feels insufficient. BPR
-              addresses the legitimate need for rapid, dramatic transformation with a coherent
-              framework for pursuing it.
+              <strong>Addresses Organizational Urgency:</strong> When organizations face competitive
+              crisis or rapid change, incremental improvement feels insufficient. BPR addresses the
+              legitimate need for rapid, dramatic transformation with a coherent framework for
+              pursuing it.
             </li>
           </ul>
 
@@ -308,8 +306,8 @@ const HammerChambyBPRPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Used as Justification for Layoffs:</strong> While BPR advocates claimed
             improvements would create new employment, in practice BPR implementations were often
-            used as justification for reducing the workforce. This created justified cynicism
-            among employees who viewed BPR as cover for downsizing.
+            used as justification for reducing the workforce. This created justified cynicism among
+            employees who viewed BPR as cover for downsizing.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Organizational Trauma:</strong> Implementations often required radical changes
@@ -318,22 +316,21 @@ const HammerChambyBPRPage = () => {
             change management was insufficient.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Insufficient Change Management:</strong> Many BPR implementations
-            underestimated the change management required. Process redesign is technical; change
-            management is social and psychological. When organizations focused on process and
-            technology while minimizing change management investment, adoption suffered
-            significantly.
+            <strong>Insufficient Change Management:</strong> Many BPR implementations underestimated
+            the change management required. Process redesign is technical; change management is
+            social and psychological. When organizations focused on process and technology while
+            minimizing change management investment, adoption suffered significantly.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Overselling Potential:</strong> Some BPR advocates made claims about
-            potential improvement that proved unrealistic in many contexts. Overselling benefits
-            created disappointment and backlash when actual results fell short.
+            <strong>Overselling Potential:</strong> Some BPR advocates made claims about potential
+            improvement that proved unrealistic in many contexts. Overselling benefits created
+            disappointment and backlash when actual results fell short.
           </p>
 
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Business Process Reengineering directly addresses organizational technology adoption
-            by insisting that technology implementation without process redesign delivers minimal
+            Business Process Reengineering directly addresses organizational technology adoption by
+            insisting that technology implementation without process redesign delivers minimal
             value. The framework&rsquo;s central insight&mdash;that organizations should not
             automate existing processes but rather reimagine processes and then determine what
             technology enables those reimagined processes&mdash;remains one of the most important
@@ -341,32 +338,31 @@ const HammerChambyBPRPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             BPR highlights a critical technology adoption barrier: organizations that view
-            technology as an enhancement to existing ways of working, rather than as an enabler
-            of fundamentally different ways of working, will consistently underperform their
-            potential. The barrier is not technological capability but rather organizational
-            imagination and willingness to question established process structures.
+            technology as an enhancement to existing ways of working, rather than as an enabler of
+            fundamentally different ways of working, will consistently underperform their potential.
+            The barrier is not technological capability but rather organizational imagination and
+            willingness to question established process structures.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework&rsquo;s emphasis on measuring dramatic performance improvement
-            (50&ndash;300% gains) rather than incremental improvement sets an ambitious standard
-            for technology adoption. This framing helps organizations distinguish between
-            technology implementations that genuinely transform capabilities and those that merely
-            automate the status quo.
+            (50&ndash;300% gains) rather than incremental improvement sets an ambitious standard for
+            technology adoption. This framing helps organizations distinguish between technology
+            implementations that genuinely transform capabilities and those that merely automate the
+            status quo.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             BPR&rsquo;s documented failures are themselves instructive for technology adoption
             research. They demonstrate that organizational culture, change management capacity,
-            employee engagement, and leadership commitment are often more determinative of
-            adoption outcomes than the quality of the technology or the soundness of the process
-            design. These findings anticipate extensive subsequent research establishing that human
-            and organizational factors consistently explain more variance in technology adoption
+            employee engagement, and leadership commitment are often more determinative of adoption
+            outcomes than the quality of the technology or the soundness of the process design.
+            These findings anticipate extensive subsequent research establishing that human and
+            organizational factors consistently explain more variance in technology adoption
             outcomes than technical factors.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <em>
-              Note: This article provides an overview based on the comprehensive literature
-              review. Readers are encouraged to consult the original publication for complete
-              details.
+              Note: This article provides an overview based on the comprehensive literature review.
+              Readers are encouraged to consult the original publication for complete details.
             </em>
           </p>
         </section>
@@ -385,8 +381,8 @@ const HammerChambyBPRPage = () => {
             </li>
             <li>
               Davenport, T. H., &amp; Short, J. E. (1990). The new industrial engineering:
-              Information technology and business process redesign.{' '}
-              <em>Sloan Management Review</em>, 31(4), 11&ndash;27.
+              Information technology and business process redesign. <em>Sloan Management Review</em>
+              , 31(4), 11&ndash;27.
             </li>
             <li>
               Davenport, T. H. (1993).{' '}
@@ -411,17 +407,17 @@ const HammerChambyBPRPage = () => {
               </a>
             </li>
             <li>
-              Deming, W. E. (1986).{' '}
-              <em>Out of the crisis</em>. MIT Center for Advanced Educational Services.
+              Deming, W. E. (1986). <em>Out of the crisis</em>. MIT Center for Advanced Educational
+              Services.
             </li>
             <li>
               Venkatraman, N. (1994). IT-enabled business transformation: From automation to
               business scope redefinition. <em>Sloan Management Review</em>, 35(2), 73&ndash;87.
             </li>
             <li>
-              Al-Mashari, M., &amp; Zairi, M. (1999). BPR implementation process: An analysis
-              of key success and failure factors. <em>Business Process Management Journal</em>,
-              5(1), 87&ndash;112.{' '}
+              Al-Mashari, M., &amp; Zairi, M. (1999). BPR implementation process: An analysis of key
+              success and failure factors. <em>Business Process Management Journal</em>, 5(1),
+              87&ndash;112.{' '}
               <a
                 href="https://doi.org/10.1108/14637159910249108"
                 target="_blank"

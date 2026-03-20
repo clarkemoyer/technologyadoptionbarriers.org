@@ -275,7 +275,9 @@ const BibliographyPage = () => {
               <div className="font-semibold text-green-700">
                 4. Technology-Organization-Environment (TOE) Framework
               </div>
-              <div className="text-sm text-gray-600">Tornatzky, Fleischer &amp; Chakrabarti (1990)</div>
+              <div className="text-sm text-gray-600">
+                Tornatzky, Fleischer &amp; Chakrabarti (1990)
+              </div>
             </a>
             <a
               href="/bibliography-2-7-it-implementation-research-cooper-zmud-1990"
@@ -355,14 +357,18 @@ const BibliographyPage = () => {
               href="/bibliography-2-15-it-cmf-innovation-value-institute-2016"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
-              <div className="font-semibold text-green-700">15. IT Capability Maturity Framework (IT-CMF)</div>
+              <div className="font-semibold text-green-700">
+                15. IT Capability Maturity Framework (IT-CMF)
+              </div>
               <div className="text-sm text-gray-600">Innovation Value Institute (2016)</div>
             </a>
             <a
               href="/bibliography-2-16-aws-caf-ai-2024"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
-              <div className="font-semibold text-green-700">16. AWS Cloud Adoption Framework for AI/ML (CAF-AI)</div>
+              <div className="font-semibold text-green-700">
+                16. AWS Cloud Adoption Framework for AI/ML (CAF-AI)
+              </div>
               <div className="text-sm text-gray-600">Amazon Web Services (2024)</div>
             </a>
             <a
@@ -387,7 +393,9 @@ const BibliographyPage = () => {
               href="/bibliography-2-19-microsoft-ai-adoption-framework-2025"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
-              <div className="font-semibold text-green-700">19. Microsoft AI Adoption Framework</div>
+              <div className="font-semibold text-green-700">
+                19. Microsoft AI Adoption Framework
+              </div>
               <div className="text-sm text-gray-600">Microsoft (2025)</div>
             </a>
           </div>

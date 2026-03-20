@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title:
     'Bibliography: Technology-Organization-Environment (TOE) Framework – Tornatzky, Fleischer & Chakrabarti (1990)',
   description:
-    "An exploration of the Technology-Organization-Environment (TOE) Framework by Tornatzky, Fleischer, and Chakrabarti, a foundational model for understanding organizational technology adoption through three comprehensive contextual dimensions.",
+    'An exploration of the Technology-Organization-Environment (TOE) Framework by Tornatzky, Fleischer, and Chakrabarti, a foundational model for understanding organizational technology adoption through three comprehensive contextual dimensions.',
 }
 
 const TOEFrameworkPage = () => {
@@ -29,43 +29,40 @@ const TOEFrameworkPage = () => {
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
-            The Technology-Organization-Environment (TOE) Framework, developed by Louis
-            Tornatzky, Mitchell Fleischer, and Atul Chakrabarti, represents one of the most
-            influential and widely applied models in organizational technology adoption research.
-            Rather than examining why individuals adopt technology, the TOE framework shifts the
-            analytical lens to the organizational level, identifying three comprehensive contexts
-            that shape whether, how, and when organizations decide to adopt innovations.
+            The Technology-Organization-Environment (TOE) Framework, developed by Louis Tornatzky,
+            Mitchell Fleischer, and Atul Chakrabarti, represents one of the most influential and
+            widely applied models in organizational technology adoption research. Rather than
+            examining why individuals adopt technology, the TOE framework shifts the analytical lens
+            to the organizational level, identifying three comprehensive contexts that shape
+            whether, how, and when organizations decide to adopt innovations.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            This multidimensional approach has become the foundational architecture for hundreds
-            of empirical studies examining organizational IT/IS adoption decisions, ranging from
-            ERP systems and e-commerce platforms to cloud computing and advanced manufacturing
-            technologies. Published in{' '}
-            <em>The Processes of Technological Innovation</em> (Lexington Books, 1990), the
-            framework synthesizes decades of innovation adoption research into a coherent
-            organizational model.
+            This multidimensional approach has become the foundational architecture for hundreds of
+            empirical studies examining organizational IT/IS adoption decisions, ranging from ERP
+            systems and e-commerce platforms to cloud computing and advanced manufacturing
+            technologies. Published in <em>The Processes of Technological Innovation</em> (Lexington
+            Books, 1990), the framework synthesizes decades of innovation adoption research into a
+            coherent organizational model.
           </p>
 
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Tornatzky, Fleischer, and Chakrabarti developed the TOE framework to address a
-            critical gap in innovation adoption research. While Rogers&rsquo; Diffusion of
-            Innovation theory successfully explained individual adoption patterns, organizational
-            technology adoption involved distinct dynamics. Organizations are not simply
-            individuals writ large; they have structural properties, resource constraints,
-            managerial hierarchies, and stakeholder considerations that individuals do not.
-            Additionally, organizations operate within competitive environments, regulatory
-            frameworks, and industry structures that directly influence technology adoption
-            possibilities.
+            Tornatzky, Fleischer, and Chakrabarti developed the TOE framework to address a critical
+            gap in innovation adoption research. While Rogers&rsquo; Diffusion of Innovation theory
+            successfully explained individual adoption patterns, organizational technology adoption
+            involved distinct dynamics. Organizations are not simply individuals writ large; they
+            have structural properties, resource constraints, managerial hierarchies, and
+            stakeholder considerations that individuals do not. Additionally, organizations operate
+            within competitive environments, regulatory frameworks, and industry structures that
+            directly influence technology adoption possibilities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The authors recognized that organizational adoption decisions are fundamentally
             different from individual adoption. A single person may adopt a smartphone based on
-            personal preferences and peer influence. An organization adopting an enterprise
-            resource planning (ERP) system must consider dozens of factors: technical
-            compatibility with existing systems, organizational readiness and capability, costs,
-            alignment with business strategy, competitive pressures, regulatory requirements,
-            and more.
+            personal preferences and peer influence. An organization adopting an enterprise resource
+            planning (ERP) system must consider dozens of factors: technical compatibility with
+            existing systems, organizational readiness and capability, costs, alignment with
+            business strategy, competitive pressures, regulatory requirements, and more.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The TOE framework was created to provide organizational technology researchers and
@@ -82,8 +79,8 @@ const TOEFrameworkPage = () => {
             <li>
               <strong>Rogers&rsquo; Diffusion of Innovation Theory (1962, updated 1983):</strong>{' '}
               Rogers identified five adopter categories and emphasized individual characteristics
-              that influence adoption decisions. However, Rogers&rsquo; work emphasized
-              individual and interpersonal communication channels, leaving organizational dynamics
+              that influence adoption decisions. However, Rogers&rsquo; work emphasized individual
+              and interpersonal communication channels, leaving organizational dynamics
               underexplored.
             </li>
             <li>
@@ -107,44 +104,42 @@ const TOEFrameworkPage = () => {
 
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The TOE framework&rsquo;s theoretical strength rests on three interconnected
-            contexts:
+            The TOE framework&rsquo;s theoretical strength rests on three interconnected contexts:
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Technological Context</strong> encompasses both the technologies currently in
             use within the organization and those available for adoption. This context includes
             technology availability (which technologies are available given market and supply
             conditions), technology characteristics (functional capabilities, costs, quality, and
-            performance characteristics of available technologies), and compatibility (how well
-            new technologies fit with existing technical systems, organizational processes, and
-            work practices). The technological context recognizes that adoption decisions depend
-            not just on the absolute quality of a technology, but on how it aligns with what the
-            organization already uses.
+            performance characteristics of available technologies), and compatibility (how well new
+            technologies fit with existing technical systems, organizational processes, and work
+            practices). The technological context recognizes that adoption decisions depend not just
+            on the absolute quality of a technology, but on how it aligns with what the organization
+            already uses.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Organizational Context</strong> reflects the characteristics of the adopting
             organization itself, including organization size (larger organizations often have
             greater resource slack and different capability needs than smaller organizations),
             organizational scope (complexity and diversification of an organization&rsquo;s
-            products, services, and operations), managerial structure (degree of centralization
-            and clarity of decision-making authority), management attitudes and leadership
-            receptiveness to innovation and change, slack resources (whether the organization has
-            discretionary resources available to invest in technology adoption), and communication
-            processes. The organizational context recognizes that identical technologies will be
-            adopted differently by organizations with different structures, resources, and
-            cultures.
+            products, services, and operations), managerial structure (degree of centralization and
+            clarity of decision-making authority), management attitudes and leadership receptiveness
+            to innovation and change, slack resources (whether the organization has discretionary
+            resources available to invest in technology adoption), and communication processes. The
+            organizational context recognizes that identical technologies will be adopted
+            differently by organizations with different structures, resources, and cultures.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Environmental Context</strong> captures the broader industry, market, and
-            regulatory landscape, including industry characteristics (maturity, competitiveness,
-            and technological intensity of the industry), market structure (degree of competition
-            and market concentration), regulatory environment (government regulations, compliance
+            regulatory landscape, including industry characteristics (maturity, competitiveness, and
+            technological intensity of the industry), market structure (degree of competition and
+            market concentration), regulatory environment (government regulations, compliance
             requirements, and industry standards that constrain or mandate technology use),
-            competitive pressures (extent to which competitors have adopted similar
-            technologies), government support (subsidies, incentives, or mandates regarding
-            technology adoption), and external support (availability of vendors, consultants, and
-            implementation partners). The environmental context recognizes that organizational
-            adoption decisions are never purely internal.
+            competitive pressures (extent to which competitors have adopted similar technologies),
+            government support (subsidies, incentives, or mandates regarding technology adoption),
+            and external support (availability of vendors, consultants, and implementation
+            partners). The environmental context recognizes that organizational adoption decisions
+            are never purely internal.
           </p>
 
           <h2 className={H2_CLASSES}>Internal Validity</h2>
@@ -152,33 +147,33 @@ const TOEFrameworkPage = () => {
             The TOE framework demonstrates strong internal validity through its comprehensive
             coverage of adoption decision space. The three-context structure is both conceptually
             distinct and mutually reinforcing. Each context addresses a different level of
-            analysis&mdash;technological characteristics exist at the artifact level,
-            organizational characteristics exist at the firm level, and environmental
-            characteristics exist at the industry and market level. This multi-level structure
-            captures interactions that single-level models necessarily miss.
+            analysis&mdash;technological characteristics exist at the artifact level, organizational
+            characteristics exist at the firm level, and environmental characteristics exist at the
+            industry and market level. This multi-level structure captures interactions that
+            single-level models necessarily miss.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework guides measurement of three distinct domains. Technological measurements
-            include technical compatibility with existing systems, functional capabilities, ease
-            of use and learning requirements, cost of acquisition and implementation, quality and
+            include technical compatibility with existing systems, functional capabilities, ease of
+            use and learning requirements, cost of acquisition and implementation, quality and
             reliability characteristics, and scalability. Organizational measurements include
             financial resources available for adoption, technical expertise and capability gaps,
             organizational readiness and change capacity, managerial support and strategic
             alignment, organizational culture and innovativeness, and communication channels.
             Environmental measurements include industry adoption rates and competitive pressures,
             regulatory compliance requirements, market conditions and supplier availability,
-            industry standards and interoperability requirements, government incentives or
-            mandates, and external support ecosystem.
+            industry standards and interoperability requirements, government incentives or mandates,
+            and external support ecosystem.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework&rsquo;s contrast with Rogers&rsquo; Diffusion of Innovation model
             illuminates its internal logic. Rogers&rsquo; model explains adoption as an
             individual-level process driven by perceived characteristics of the innovation and
-            shaped by interpersonal communication. Rogers treats organizations as simply
-            aggregates of individuals. The TOE framework, by contrast, recognizes organizations
-            as complex entities with their own structures, resources, and dynamics. A technology
-            that appears advantageous at the individual level might still fail if organizational
-            resources are insufficient or environmental regulations prohibit it.
+            shaped by interpersonal communication. Rogers treats organizations as simply aggregates
+            of individuals. The TOE framework, by contrast, recognizes organizations as complex
+            entities with their own structures, resources, and dynamics. A technology that appears
+            advantageous at the individual level might still fail if organizational resources are
+            insufficient or environmental regulations prohibit it.
           </p>
 
           <h2 className={H2_CLASSES}>External Validity</h2>
@@ -212,40 +207,39 @@ const TOEFrameworkPage = () => {
             </li>
             <li>
               <strong>Time Periods:</strong> Since 1990, the framework has been applied to
-              technology adoption across multiple decades, including the rapid digitalization of
-              the 2000s&ndash;2010s and the recent AI and cloud computing transformation.
+              technology adoption across multiple decades, including the rapid digitalization of the
+              2000s&ndash;2010s and the recent AI and cloud computing transformation.
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
-            This exceptional external validity explains why the TOE framework has become one of
-            the most cited models in information systems and organizational technology adoption
+            This exceptional external validity explains why the TOE framework has become one of the
+            most cited models in information systems and organizational technology adoption
             research, generating hundreds of successful empirical studies.
           </p>
 
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Comprehensive Scope:</strong> By encompassing technological, organizational,
-            and environmental contexts, the framework captures the full decision space.
-            Researchers cannot simply blame technology characteristics or organizational
-            limitations; they must examine the interaction across all three contexts.
+            <strong>Comprehensive Scope:</strong> By encompassing technological, organizational, and
+            environmental contexts, the framework captures the full decision space. Researchers
+            cannot simply blame technology characteristics or organizational limitations; they must
+            examine the interaction across all three contexts.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Theoretical Parsimony:</strong> While comprehensive, the framework remains
-            conceptually manageable. The three-context structure is simple enough for
-            practitioners to understand and apply, yet rich enough for sophisticated empirical
-            research.
+            conceptually manageable. The three-context structure is simple enough for practitioners
+            to understand and apply, yet rich enough for sophisticated empirical research.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Proven Empirical Applicability:</strong> The framework has generated hundreds
-            of successful empirical studies, creating a rich cumulative research tradition.
-            Researchers can easily identify variables corresponding to TOE contexts and conduct
+            <strong>Proven Empirical Applicability:</strong> The framework has generated hundreds of
+            successful empirical studies, creating a rich cumulative research tradition. Researchers
+            can easily identify variables corresponding to TOE contexts and conduct
             hypothesis-driven research.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Accommodation of Organizational Heterogeneity:</strong> The framework
-            explicitly recognizes that organizations differ in ways that matter for adoption.
-            Size, structure, resources, and culture all influence adoption outcomes. This prevents
-            oversimplified &ldquo;one-size-fits-all&rdquo; conclusions.
+            <strong>Accommodation of Organizational Heterogeneity:</strong> The framework explicitly
+            recognizes that organizations differ in ways that matter for adoption. Size, structure,
+            resources, and culture all influence adoption outcomes. This prevents oversimplified
+            &ldquo;one-size-fits-all&rdquo; conclusions.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Guidance for Action:</strong> Organizations can assess their own contexts and
@@ -253,22 +247,22 @@ const TOEFrameworkPage = () => {
             extends beyond purely descriptive models.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Flexibility Across Technologies:</strong> The framework is
-            technology-agnostic, applying equally well to ERP systems and cloud computing,
-            manufacturing technologies and digital platforms. This generalizability is valuable in
-            a rapidly changing technological landscape.
+            <strong>Flexibility Across Technologies:</strong> The framework is technology-agnostic,
+            applying equally well to ERP systems and cloud computing, manufacturing technologies and
+            digital platforms. This generalizability is valuable in a rapidly changing technological
+            landscape.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Integration with Strategic Management:</strong> The framework naturally
-            connects organizational technology adoption to strategic management concerns about
-            competitive positioning, resource allocation, and organizational capability building.
+            <strong>Integration with Strategic Management:</strong> The framework naturally connects
+            organizational technology adoption to strategic management concerns about competitive
+            positioning, resource allocation, and organizational capability building.
           </p>
 
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The TOE framework directly addresses organizational technology adoption contexts. It
-            has become an essential tool for organizational decision-makers and technology
-            consultants across several practice applications:
+            The TOE framework directly addresses organizational technology adoption contexts. It has
+            become an essential tool for organizational decision-makers and technology consultants
+            across several practice applications:
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Technology Investment Decisions:</strong> CIOs and IT directors use the
@@ -279,10 +273,10 @@ const TOEFrameworkPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Implementation Planning:</strong> The framework guides organizations in
-            identifying potential barriers before committing to adoption. If organizational
-            context analysis reveals insufficient technical expertise or managerial resistance,
-            the organization can address these gaps before implementation rather than discovering
-            them mid-project.
+            identifying potential barriers before committing to adoption. If organizational context
+            analysis reveals insufficient technical expertise or managerial resistance, the
+            organization can address these gaps before implementation rather than discovering them
+            mid-project.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Change Management:</strong> The framework helps change management teams
@@ -291,9 +285,9 @@ const TOEFrameworkPage = () => {
             threat) are driving or hindering adoption.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Risk Assessment:</strong> Organizations can use the framework to assess
-            adoption risks. Technologies that create organizational friction&mdash;poor fit with
-            existing systems, misalignment with organizational culture, insufficient
+            <strong>Risk Assessment:</strong> Organizations can use the framework to assess adoption
+            risks. Technologies that create organizational friction&mdash;poor fit with existing
+            systems, misalignment with organizational culture, insufficient
             resources&mdash;typically face implementation delays, cost overruns, and user
             resistance.
           </p>
@@ -303,15 +297,15 @@ const TOEFrameworkPage = () => {
             unproven reliability, high implementation complexity, and steep learning curves.
             Organizational barriers include insufficient financial resources, lack of technical
             expertise, inadequate management support, organizational culture resistant to change,
-            and poor internal communication. Environmental barriers include insufficient
-            competitive pressure to justify adoption costs, regulatory constraints, lack of vendor
-            or consultant support, and unfavorable market conditions.
+            and poor internal communication. Environmental barriers include insufficient competitive
+            pressure to justify adoption costs, regulatory constraints, lack of vendor or consultant
+            support, and unfavorable market conditions.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Several limitations should be acknowledged. The framework provides limited guidance
             about which specific variables within each context are most important for particular
-            technologies or industries. It also provides limited theoretical guidance about how
-            the three contexts interact&mdash;when organizational resources are abundant but
+            technologies or industries. It also provides limited theoretical guidance about how the
+            three contexts interact&mdash;when organizational resources are abundant but
             technological compatibility is poor, which factor dominates? The framework emphasizes
             contextual factors but provides less guidance about implementation success and
             technology outcomes after the adoption decision has been made. Strategic agency may be
@@ -320,9 +314,9 @@ const TOEFrameworkPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Despite these limitations, the TOE framework remains the dominant organizational-level
-            framework for technology adoption research. Its ability to encompass the full
-            complexity of organizational adoption decisions while remaining practically applicable
-            has made it an enduring contribution to both research and practice.
+            framework for technology adoption research. Its ability to encompass the full complexity
+            of organizational adoption decisions while remaining practically applicable has made it
+            an enduring contribution to both research and practice.
           </p>
         </section>
 
@@ -358,13 +352,13 @@ const TOEFrameworkPage = () => {
             </li>
             <li>
               Pan, M. J., &amp; Jang, W. Y. (2008). Determinants of the adoption of enterprise
-              resource planning within the technology-organization-environment framework: Taiwan&rsquo;s
-              communications industry.{' '}
+              resource planning within the technology-organization-environment framework:
+              Taiwan&rsquo;s communications industry.{' '}
               <em>Journal of Computer Information Systems, 48</em>(3), 94&ndash;102.
             </li>
             <li>
-              Baker, J. (2012). The technology&ndash;organization&ndash;environment framework. In
-              Y. K. Dwivedi et al. (Eds.), <em>Information systems theory</em> (pp. 231&ndash;245).
+              Baker, J. (2012). The technology&ndash;organization&ndash;environment framework. In Y.
+              K. Dwivedi et al. (Eds.), <em>Information systems theory</em> (pp. 231&ndash;245).
               Springer.{' '}
               <a
                 href="https://doi.org/10.1007/978-1-4419-6108-2_12"

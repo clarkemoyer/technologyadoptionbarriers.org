@@ -27,9 +27,9 @@ const CMMHumphreyPage = () => {
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
-            Watts S. Humphrey&rsquo;s Capability Maturity Model (CMM), developed at Carnegie
-            Mellon University&rsquo;s Software Engineering Institute (SEI) for the U.S. Department
-            of Defense, transformed how organizations assess and improve software development
+            Watts S. Humphrey&rsquo;s Capability Maturity Model (CMM), developed at Carnegie Mellon
+            University&rsquo;s Software Engineering Institute (SEI) for the U.S. Department of
+            Defense, transformed how organizations assess and improve software development
             capability. Published comprehensively in <em>Managing the Software Process</em> (1989),
             the CMM introduced the revolutionary idea that software development capability can be
             assessed through five distinct maturity levels, and that organizations move through
@@ -38,9 +38,9 @@ const CMMHumphreyPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Rather than viewing software quality as dependent primarily on individual programmer
             talent, the CMM reframes software development as a management and organizational
-            problem. Organizations can improve software quality, predictability, and productivity
-            by systematically improving their development processes. This reorientation has
-            profoundly influenced how organizations approach technology adoption and process
+            problem. Organizations can improve software quality, predictability, and productivity by
+            systematically improving their development processes. This reorientation has profoundly
+            influenced how organizations approach technology adoption and process
             institutionalization.
           </p>
 
@@ -82,10 +82,10 @@ const CMMHumphreyPage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Software Engineering as a Discipline (1960s&ndash;1980s):</strong> The
-              software crisis of the 1960s&ndash;1970s generated calls for software engineering as
-              a discipline. Barry Boehm&rsquo;s Spiral Model (1986) and others demonstrated that
-              large software systems required process discipline, management, and systematic
-              approaches beyond programming skill.
+              software crisis of the 1960s&ndash;1970s generated calls for software engineering as a
+              discipline. Barry Boehm&rsquo;s Spiral Model (1986) and others demonstrated that large
+              software systems required process discipline, management, and systematic approaches
+              beyond programming skill.
             </li>
             <li>
               <strong>Deming&rsquo;s Quality Management Principles:</strong> Humphrey explicitly
@@ -99,8 +99,8 @@ const CMMHumphreyPage = () => {
             </li>
             <li>
               <strong>Defense Department Requirements:</strong> The DoD was the largest software
-              purchaser in the world and needed a systematic way to assess contractor capability
-              and guide procurement decisions.
+              purchaser in the world and needed a systematic way to assess contractor capability and
+              guide procurement decisions.
             </li>
           </ul>
 
@@ -123,13 +123,13 @@ const CMMHumphreyPage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Level 2 Measurements:</strong> Project completion against schedule and
-              budget, requirements completeness and stability, configuration management metrics,
-              software quality metrics (defects, reliability).
+              <strong>Level 2 Measurements:</strong> Project completion against schedule and budget,
+              requirements completeness and stability, configuration management metrics, software
+              quality metrics (defects, reliability).
             </li>
             <li>
-              <strong>Level 3 Measurements:</strong> Process compliance (are projects following
-              the standard process?), process consistency (how much do projects vary in their
+              <strong>Level 3 Measurements:</strong> Process compliance (are projects following the
+              standard process?), process consistency (how much do projects vary in their
               tailoring?), organizational performance against process standards.
             </li>
             <li>
@@ -139,9 +139,9 @@ const CMMHumphreyPage = () => {
               and trends.
             </li>
             <li>
-              <strong>Level 5 Measurements:</strong> Innovation pipeline (how many improvement
-              ideas are being tested?), improvement implementation rate, quantitative improvement
-              trends (productivity gains, quality gains).
+              <strong>Level 5 Measurements:</strong> Innovation pipeline (how many improvement ideas
+              are being tested?), improvement implementation rate, quantitative improvement trends
+              (productivity gains, quality gains).
             </li>
           </ul>
 
@@ -155,8 +155,8 @@ const CMMHumphreyPage = () => {
             defined software development process. Projects succeed or fail based primarily on
             individual effort and heroics. Success is unpredictable; it depends on having the right
             people or getting lucky. Processes are undefined and frequently change, costs and
-            schedules are unpredictable, problems are addressed reactively, and there are no
-            metrics or data about process performance.
+            schedules are unpredictable, problems are addressed reactively, and there are no metrics
+            or data about process performance.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Level 2: Repeatable.</strong> Level 2 organizations have established basic
@@ -169,10 +169,10 @@ const CMMHumphreyPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Level 3: Defined.</strong> Level 3 organizations have standardized their
             software development processes. Rather than different projects using different
-            approaches, organizations have defined a standard process that all projects are
-            expected to follow, tailored for specific contexts. Knowledge is institutionalized in
-            documented processes rather than residing in individual heads. New team members can be
-            trained on the organizational standard process.
+            approaches, organizations have defined a standard process that all projects are expected
+            to follow, tailored for specific contexts. Knowledge is institutionalized in documented
+            processes rather than residing in individual heads. New team members can be trained on
+            the organizational standard process.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Level 4: Managed.</strong> Level 4 organizations manage software development
@@ -184,11 +184,10 @@ const CMMHumphreyPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Level 5: Optimizing.</strong> Level 5 organizations are continuously improving
-            their processes. Data is analyzed to identify bottlenecks and improvement
-            opportunities. New technologies and techniques are piloted and, if successful,
-            incorporated into organizational processes. Continuous process improvement is built
-            into organizational culture; organizations see continuous improvement as a competitive
-            necessity.
+            their processes. Data is analyzed to identify bottlenecks and improvement opportunities.
+            New technologies and techniques are piloted and, if successful, incorporated into
+            organizational processes. Continuous process improvement is built into organizational
+            culture; organizations see continuous improvement as a competitive necessity.
           </p>
 
           <h2 className={H2_CLASSES}>External Validity</h2>
@@ -205,8 +204,8 @@ const CMMHumphreyPage = () => {
             </li>
             <li>
               <strong>Technology Types:</strong> The CMM was originally designed for traditional
-              software development but has been successfully adapted to distributed development,
-              web development, embedded systems, and other specializations.
+              software development but has been successfully adapted to distributed development, web
+              development, embedded systems, and other specializations.
             </li>
             <li>
               <strong>Industry Applications:</strong> Software organizations across defense,
@@ -219,10 +218,10 @@ const CMMHumphreyPage = () => {
               languages and adapted to different cultural contexts.
             </li>
             <li>
-              <strong>Sustained Application:</strong> Unlike management fads, the CMM has
-              sustained credibility for decades. CMM-based assessments and improvements have
-              continued from the 1990s through today, with evolution from CMM to CMMI (Capability
-              Maturity Model Integration) that integrates multiple discipline perspectives.
+              <strong>Sustained Application:</strong> Unlike management fads, the CMM has sustained
+              credibility for decades. CMM-based assessments and improvements have continued from
+              the 1990s through today, with evolution from CMM to CMMI (Capability Maturity Model
+              Integration) that integrates multiple discipline perspectives.
             </li>
             <li>
               <strong>Quantifiable Results:</strong> Organizations implementing CMM-based
@@ -274,8 +273,8 @@ const CMMHumphreyPage = () => {
 
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The CMM directly addresses organizational adoption of software development practices
-            and processes. Software development organizations face distinctive adoption challenges:
+            The CMM directly addresses organizational adoption of software development practices and
+            processes. Software development organizations face distinctive adoption challenges:
             recruiting and retaining talented individuals, establishing repeatable processes in
             creative work, managing distributed teams, and ensuring product quality. The CMM
             provides a roadmap for how organizations systematically improve their capability to
@@ -311,10 +310,10 @@ const CMMHumphreyPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Despite these limitations, the CMM&rsquo;s foundational insight&mdash;that
-            organizational process maturity is the primary driver of software quality and
-            technology adoption success&mdash;has been validated across decades of research and
-            practice. Its evolution into CMMI and related frameworks demonstrates the enduring
-            relevance of maturity-based thinking for organizational capability development.
+            organizational process maturity is the primary driver of software quality and technology
+            adoption success&mdash;has been validated across decades of research and practice. Its
+            evolution into CMMI and related frameworks demonstrates the enduring relevance of
+            maturity-based thinking for organizational capability development.
           </p>
         </section>
 
@@ -345,9 +344,7 @@ const CMMHumphreyPage = () => {
             </li>
             <li>
               Paulk, M. C., Weber, C. V., Curtis, B., &amp; Chrissis, M. B. (1995).{' '}
-              <em>
-                The capability maturity model: Guidelines for improving the software process.
-              </em>{' '}
+              <em>The capability maturity model: Guidelines for improving the software process.</em>{' '}
               Addison-Wesley.
             </li>
             <li>
@@ -355,8 +352,8 @@ const CMMHumphreyPage = () => {
               Massachusetts Institute of Technology, Center for Advanced Engineering Study.
             </li>
             <li>
-              Software Engineering Institute. (2010).{' '}
-              <em>CMMI for development, version 1.3.</em> Carnegie Mellon University.
+              Software Engineering Institute. (2010). <em>CMMI for development, version 1.3.</em>{' '}
+              Carnegie Mellon University.
             </li>
             <li>
               Krishnan, M. S., &amp; Kellner, M. I. (1999). Measuring process consistency:

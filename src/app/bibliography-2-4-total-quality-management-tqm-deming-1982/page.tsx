@@ -73,8 +73,8 @@ const TQMDemingPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The book synthesized decades of Deming&rsquo;s experience in Japan and America into a
-            comprehensive framework for organizational transformation. It was created specifically to
-            help American organizations understand that competing in global markets required not
+            comprehensive framework for organizational transformation. It was created specifically
+            to help American organizations understand that competing in global markets required not
             incremental improvement, but fundamental transformation of management philosophy and
             practice.
           </p>
@@ -93,8 +93,8 @@ const TQMDemingPage = () => {
             labor&ndash;management relations in American manufacturing of the 1970s&ndash;1980s
             prevented the kind of continuous improvement Deming envisioned. Functional silos
             isolated manufacturing, quality control, design, and procurement into separate
-            departments with conflicting objectives. Deming&rsquo;s TQM philosophy directly
-            rejected these approaches.
+            departments with conflicting objectives. Deming&rsquo;s TQM philosophy directly rejected
+            these approaches.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             At the heart of Deming&rsquo;s philosophy are several interconnected core concepts:
@@ -103,8 +103,9 @@ const TQMDemingPage = () => {
             <li>
               <strong>Management Responsibility for Quality:</strong> Management, not workers, is
               responsible for quality problems. When defects occur, the cause is almost always in
-              the system&mdash;poor design, inadequate training, unreliable machinery, or conflicting
-              incentives. Workers cannot produce quality products from poorly designed systems.
+              the system&mdash;poor design, inadequate training, unreliable machinery, or
+              conflicting incentives. Workers cannot produce quality products from poorly designed
+              systems.
             </li>
             <li>
               <strong>Statistical Thinking:</strong> Most managers make decisions based on
@@ -127,9 +128,9 @@ const TQMDemingPage = () => {
             </li>
             <li>
               <strong>Respect for People:</strong> Workers are intelligent, capable people who want
-              to do good work. Removing barriers to good work, involving workers in improvement,
-              and treating people with dignity unleashes creativity and commitment. Fear has no
-              place in healthy organizations.
+              to do good work. Removing barriers to good work, involving workers in improvement, and
+              treating people with dignity unleashes creativity and commitment. Fear has no place in
+              healthy organizations.
             </li>
             <li>
               <strong>Elimination of Waste:</strong> Systematic elimination of defective products,
@@ -153,11 +154,11 @@ const TQMDemingPage = () => {
             endlessly, making incremental improvements that compound into significant advantage.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Statistical Process Control implements Deming&rsquo;s statistical thinking by
-            monitoring key process metrics over time, distinguishing normal variation from unusual
-            patterns, and triggering investigation when special causes are detected. Employee
-            Involvement Programs involve workers in continuous improvement through quality circles,
-            suggestion systems, and cross-functional teams.
+            Statistical Process Control implements Deming&rsquo;s statistical thinking by monitoring
+            key process metrics over time, distinguishing normal variation from unusual patterns,
+            and triggering investigation when special causes are detected. Employee Involvement
+            Programs involve workers in continuous improvement through quality circles, suggestion
+            systems, and cross-functional teams.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Deming severely criticized management by objectives (MBO) and individual numerical
@@ -189,9 +190,9 @@ const TQMDemingPage = () => {
             <li>
               <strong>Industry Breadth:</strong> While originally focused on manufacturing,
               Deming&rsquo;s principles have been applied to healthcare, education, government,
-              financial services, and software development. The underlying principles&mdash;management
-              responsibility, statistical thinking, systems approach, respect for
-              people&mdash;are universal organizational principles.
+              financial services, and software development. The underlying
+              principles&mdash;management responsibility, statistical thinking, systems approach,
+              respect for people&mdash;are universal organizational principles.
             </li>
             <li>
               <strong>Organization Size:</strong> The philosophy applies to small enterprises,
@@ -199,22 +200,21 @@ const TQMDemingPage = () => {
               implement through divisional structures, but the core philosophy remains consistent.
             </li>
             <li>
-              <strong>Technology Types:</strong> Deming&rsquo;s philosophy applies across
-              different technologies and processes. Manufacturing engineers apply it to production
-              processes; software engineers apply it through test-driven development and continuous
+              <strong>Technology Types:</strong> Deming&rsquo;s philosophy applies across different
+              technologies and processes. Manufacturing engineers apply it to production processes;
+              software engineers apply it through test-driven development and continuous
               integration; healthcare administrators apply it to patient care processes.
             </li>
             <li>
               <strong>Sustained Application:</strong> Unlike management fads that come and go,
               Deming&rsquo;s principles have endured and strengthened over decades. Japanese
-              companies that embraced Deming in the 1950s maintained quality leadership through
-              the 2000s. Companies like Toyota became global benchmarks for quality and efficiency.
+              companies that embraced Deming in the 1950s maintained quality leadership through the
+              2000s. Companies like Toyota became global benchmarks for quality and efficiency.
             </li>
             <li>
               <strong>Extension and Evolution:</strong> Deming&rsquo;s core principles have
               generated numerous extensions: Lean Manufacturing, Six Sigma, the Baldrige Excellence
-              Framework, and ISO 9000 quality management systems all build directly on Deming
-              ideas.
+              Framework, and ISO 9000 quality management systems all build directly on Deming ideas.
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
@@ -234,17 +234,17 @@ const TQMDemingPage = () => {
             practices fail.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Proven Results:</strong> The track record is remarkable. Japanese companies
-            that embraced Deming became global leaders in quality and reliability. American
-            companies that implemented TQM improved dramatically in market share, customer loyalty,
-            and financial performance. These results are not theoretical; they are demonstrated
+            <strong>Proven Results:</strong> The track record is remarkable. Japanese companies that
+            embraced Deming became global leaders in quality and reliability. American companies
+            that implemented TQM improved dramatically in market share, customer loyalty, and
+            financial performance. These results are not theoretical; they are demonstrated
             empirically.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Systemic Rather Than Superficial:</strong> Deming&rsquo;s approach addresses
-            root causes of organizational underperformance, not symptoms. Rather than firing
-            workers when quality problems occur, organizations redesign systems. This systemic
-            approach creates lasting change.
+            root causes of organizational underperformance, not symptoms. Rather than firing workers
+            when quality problems occur, organizations redesign systems. This systemic approach
+            creates lasting change.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Universal Applicability:</strong> While developed in manufacturing, the
@@ -254,8 +254,8 @@ const TQMDemingPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Respect for Human Capability:</strong> Deming&rsquo;s philosophy treats people
-            as intelligent, capable, and motivated. This creates dignity at work and unleashes
-            human potential. Organizations embracing Deming report higher employee satisfaction and
+            as intelligent, capable, and motivated. This creates dignity at work and unleashes human
+            potential. Organizations embracing Deming report higher employee satisfaction and
             engagement alongside improved quality and productivity.
           </p>
 

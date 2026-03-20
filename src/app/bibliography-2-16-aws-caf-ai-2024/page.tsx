@@ -33,11 +33,11 @@ const AWSCAFAIPage = () => {
               Generative AI
             </em>{' '}
             (CAF-AI), a comprehensive organizational framework designed to guide enterprises through
-            the multi-dimensional challenge of adopting AI technologies at scale. Building on
-            the proven AWS Cloud Adoption Framework (CAF) that has guided thousands of
-            organizational cloud transformations since 2009, the CAF-AI extends that proven
-            structure to address the unique organizational, governance, and technical challenges
-            that AI and generative AI adoption present.
+            the multi-dimensional challenge of adopting AI technologies at scale. Building on the
+            proven AWS Cloud Adoption Framework (CAF) that has guided thousands of organizational
+            cloud transformations since 2009, the CAF-AI extends that proven structure to address
+            the unique organizational, governance, and technical challenges that AI and generative
+            AI adoption present.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework emerged from a critical insight: AI adoption fails in most organizations
@@ -90,10 +90,10 @@ const AWSCAFAIPage = () => {
             transformative technology that differs from earlier machine learning approaches.
             Generative AI systems can be applied across domains and tasks with little to no
             additional cost once trained, creating opportunities for organizations to rapidly deploy
-            AI capabilities across the business. However, this ease of deployment created new
-            risks: organizations deploying generative AI without proper governance frameworks faced
-            risks of hallucinations, copyright infringement, model jailbreaks, and AI systems
-            causing unintended harm.
+            AI capabilities across the business. However, this ease of deployment created new risks:
+            organizations deploying generative AI without proper governance frameworks faced risks
+            of hallucinations, copyright infringement, model jailbreaks, and AI systems causing
+            unintended harm.
           </p>
 
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
@@ -105,16 +105,16 @@ const AWSCAFAIPage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Business Perspective:</strong> Focuses on identifying AI opportunities
-              aligned with business strategy, developing the business case for AI investment, and
+              <strong>Business Perspective:</strong> Focuses on identifying AI opportunities aligned
+              with business strategy, developing the business case for AI investment, and
               establishing mechanisms for measuring business value from AI initiatives. Key
               capabilities include AI Strategy, Business Insight, and Data Monetization.
             </li>
             <li>
               <strong>People Perspective:</strong> Addresses the human dimensions of AI adoption,
               including ML Fluency (building shared language and understanding of AI across the
-              organization), Workforce Transformation (developing necessary AI skills), Organizational
-              Alignment, and Culture Evolution toward an AI-first mindset.
+              organization), Workforce Transformation (developing necessary AI skills),
+              Organizational Alignment, and Culture Evolution toward an AI-first mindset.
             </li>
             <li>
               <strong>Governance Perspective:</strong> Establishes frameworks for responsible AI
@@ -142,8 +142,8 @@ const AWSCAFAIPage = () => {
             The framework also introduces a four-phase adoption journey that organizations progress
             through: <strong>Prioritize</strong> (identify opportunities and business value),{' '}
             <strong>Ready</strong> (prepare and invest), <strong>Enable</strong> (build capability
-            and capacity), and <strong>Transform</strong> (incubate and scale). This phased
-            approach provides structure for multi-year AI transformation programs.
+            and capacity), and <strong>Transform</strong> (incubate and scale). This phased approach
+            provides structure for multi-year AI transformation programs.
           </p>
 
           <h2 className={H2_CLASSES}>Internal Validity</h2>
@@ -155,9 +155,9 @@ const AWSCAFAIPage = () => {
             <li>
               <strong>Grounding in Established AWS CAF Framework:</strong> The CAF-AI framework
               builds explicitly on the established AWS Cloud Adoption Framework, which has been in
-              use since 2009 and has guided thousands of organizational cloud adoptions. By extending
-              the proven CAF structure, AWS ensured that CAF-AI benefits from the internal validity
-              of a well-tested approach.
+              use since 2009 and has guided thousands of organizational cloud adoptions. By
+              extending the proven CAF structure, AWS ensured that CAF-AI benefits from the internal
+              validity of a well-tested approach.
             </li>
             <li>
               <strong>Research-Based Foundational Capabilities:</strong> The framework identifies
@@ -173,8 +173,8 @@ const AWSCAFAIPage = () => {
             </li>
             <li>
               <strong>Specification of Measurable Outcomes:</strong> The framework demonstrates
-              validity through specification of measurable outcomes. Organizations using proven cloud
-              transformation solutions increase cloud investment value by 6 times, speed up
+              validity through specification of measurable outcomes. Organizations using proven
+              cloud transformation solutions increase cloud investment value by 6 times, speed up
               migrations by 1.9 times, and improve cost savings, collaboration, and employee
               experience by 2.2 times.
             </li>
@@ -192,9 +192,9 @@ const AWSCAFAIPage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Applicability Across Industries and Organization Sizes:</strong> The framework
-              was designed to apply across different industries (technology, oil and gas, healthcare,
-              insurance, banking, retail, manufacturing) and across different organizational sizes,
-              from startups to Fortune 500 companies.
+              was designed to apply across different industries (technology, oil and gas,
+              healthcare, insurance, banking, retail, manufacturing) and across different
+              organizational sizes, from startups to Fortune 500 companies.
             </li>
             <li>
               <strong>Successful Implementation Across Thousands of Organizations:</strong> The
@@ -245,14 +245,14 @@ const AWSCAFAIPage = () => {
             </li>
             <li>
               <strong>Practical, Outcome-Focused Guidance:</strong> The framework is intensely
-              practical, focusing on foundational capabilities that organizations can actually develop
-              and outcomes they can achieve, with measurable targets (6x investment value, 1.9x
-              faster migrations) that organizations can use to justify investment.
+              practical, focusing on foundational capabilities that organizations can actually
+              develop and outcomes they can achieve, with measurable targets (6x investment value,
+              1.9x faster migrations) that organizations can use to justify investment.
             </li>
             <li>
               <strong>Recognition of the Unique Challenges of Generative AI:</strong> The framework
-              addresses specific generative AI concerns such as hallucinations, copyright issues, and
-              the need for guardrails, while also emphasizing the transformative potential of
+              addresses specific generative AI concerns such as hallucinations, copyright issues,
+              and the need for guardrails, while also emphasizing the transformative potential of
               generative AI across domains.
             </li>
             <li>
@@ -318,16 +318,13 @@ const AWSCAFAIPage = () => {
               McKinsey &amp; Company. (2023). The state of AI in 2023: Generative AI&rsquo;s
               breakout year. McKinsey Global Institute.
             </li>
+            <li>Accenture. (2023). A new era of generative AI for everyone. Accenture Research.</li>
             <li>
-              Accenture. (2023). A new era of generative AI for everyone. Accenture Research.
+              Prosci. (2021).{' '}
+              <em>ADKAR: A model for change in business, government and our community</em>. Prosci
+              Learning Center.
             </li>
-            <li>
-              Prosci. (2021). <em>ADKAR: A model for change in business, government and our
-              community</em>. Prosci Learning Center.
-            </li>
-            <li>
-              Gartner. (2024). Hype Cycle for Artificial Intelligence. Gartner Research.
-            </li>
+            <li>Gartner. (2024). Hype Cycle for Artificial Intelligence. Gartner Research.</li>
           </ol>
         </section>
 
