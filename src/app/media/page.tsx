@@ -135,7 +135,7 @@ const MediaPage = () => {
             <div className="mt-10 space-y-6">
               {appearances.map((appearance) => (
                 <div
-                  key={`${appearance.date}-${appearance.event}`}
+                  key={`${appearance.date}-${appearance.event}-${appearance.session}`}
                   className="p-6 rounded-2xl bg-gray-50 border border-gray-200"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
