@@ -10,6 +10,7 @@ This comprehensive guide explains all external API integrations used in the TABS
 - [Qualtrics API v3](#qualtrics-api-v3)
 - [Prolific API v1](#prolific-api-v1)
 - [Google Analytics Data API v1](#google-analytics-data-api-v1)
+- [Google Search Console API v1](#google-search-console-api-v1)
 - [API Security Best Practices](#api-security-best-practices)
 - [GitHub Environments](#github-environments)
 - [Workflow Automation](#workflow-automation)
@@ -23,6 +24,7 @@ The TABS project integrates with three primary external APIs:
 1. **Qualtrics API v3** - Survey management and data collection
 2. **Prolific API v1** - Participant recruitment and study management
 3. **Google Analytics Data API v1** - Analytics reporting and impact metrics
+4. **Google Search Console API v1** - SEO keyword and page performance data
 
 All APIs are accessed through:
 
@@ -504,6 +506,128 @@ npx tsx scripts/send-report-email.ts
 
 ---
 
+## Google Search Console API v1
+
+### Purpose
+
+The Google Search Console API v1 enables programmatic access to search performance data:
+
+- **Keyword Data:** Queries driving traffic, impressions, clicks, CTR, average position
+- **Page Performance:** Per-URL search analytics for SEO benchmarking
+- **Site Verification:** Confirm Search Console property access
+- **SEO Monitoring:** Track keyword rankings and content performance over time
+
+### Base URL
+
+```
+Google Search Console API (via @googleapis/searchconsole SDK)
+```
+
+### Authentication
+
+Service account credentials (same as Google Analytics):
+
+```typescript
+import { gscClient } from '@/lib/google-search-console'
+
+// Query keyword performance data
+const rows = await gscClient.querySearchAnalytics({
+  startDate: '2024-01-01',
+  endDate: '2024-01-31',
+  dimensions: ['query', 'page'],
+  rowLimit: 1000,
+})
+
+// List verified sites
+const sites = await gscClient.listSites()
+```
+
+### Client Library
+
+**Location:** `src/lib/google-search-console.ts`
+
+**Key Features:**
+
+- Pre-configured `gscClient` with service account authentication
+- `querySearchAnalytics()` method for keyword/page performance data
+- `listSites()` method to verify Search Console access
+- Typed response objects (`SearchAnalyticsRow`)
+- Error handling with descriptive messages
+
+**Search Analytics Options:**
+
+| Option                  | Type     | Default     | Description                                            |
+| ----------------------- | -------- | ----------- | ------------------------------------------------------ |
+| `startDate`             | string   | (required)  | Start date in YYYY-MM-DD format                        |
+| `endDate`               | string   | (required)  | End date in YYYY-MM-DD format                          |
+| `dimensions`            | string[] | `['query']` | Group by: `query`, `page`, `country`, `device`, `date` |
+| `rowLimit`              | number   | `1000`      | Max rows (1–25,000)                                    |
+| `startRow`              | number   | `0`         | Zero-based pagination offset                           |
+| `searchType`            | string   | `'web'`     | Filter: `web`, `image`, `video`, `news`                |
+| `dimensionFilterGroups` | array    | -           | Dimension filters for narrowing results                |
+| `aggregationType`       | string   | `'auto'`    | Aggregation: `auto`, `byProperty`, `byPage`            |
+
+**Response Row Shape:**
+
+```typescript
+interface SearchAnalyticsRow {
+  keys: string[] // Dimension values (e.g., query text, page URL)
+  clicks: number // Total clicks
+  impressions: number // Total impressions
+  ctr: number // Click-through rate (0–1)
+  position: number // Average position in search results
+}
+```
+
+### GitHub Environment: `google-prod`
+
+**Required Secrets (shared with Google Analytics):**
+
+- `GOOGLE_SERVICE_ACCOUNT_EMAIL` - Service account email
+- `GOOGLE_PRIVATE_KEY` - Service account private key (PEM format)
+
+**Required Variables:**
+
+- `GSC_SITE_URL` - The verified site URL in Search Console (e.g., `https://technologyadoptionbarriers.org`)
+
+> **Note:** The service account must be added as a user in Google Search Console with at least "Restricted" permission level for the target property. Use the same service account email that is already configured for Google Analytics.
+
+### Credential Setup
+
+1. **Use the existing service account** from the `google-prod` GitHub environment (same one used for Google Analytics).
+
+2. **Grant Search Console access:**
+   - Go to [Google Search Console](https://search.google.com/search-console)
+   - Select the property for `technologyadoptionbarriers.org`
+   - Navigate to Settings → Users and permissions
+   - Click "Add user"
+   - Enter the service account email (`GOOGLE_SERVICE_ACCOUNT_EMAIL`)
+   - Set permission level to "Restricted" (read-only) or "Full"
+
+3. **Add the `GSC_SITE_URL` variable** to the `google-prod` GitHub environment:
+   - Go to Repository Settings → Environments → `google-prod`
+   - Add variable: `GSC_SITE_URL` = `https://technologyadoptionbarriers.org`
+
+4. **Verify sitemap submission:**
+   - The site generates a dynamic sitemap at `src/app/sitemap.ts`
+   - Confirm it is submitted in Search Console under Sitemaps
+
+### Local Usage
+
+```bash
+# Set environment variables (shared with GA)
+export GOOGLE_SERVICE_ACCOUNT_EMAIL="service@project.iam.gserviceaccount.com"
+export GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+export GSC_SITE_URL="https://technologyadoptionbarriers.org"
+```
+
+### Documentation
+
+- [Google Search Console API](https://developers.google.com/webmaster-tools/v1/api_reference_index) - Official API reference
+- [Search Analytics Query](https://developers.google.com/webmaster-tools/v1/searchanalytics/query) - Query method docs
+
+---
+
 ## API Security Best Practices
 
 ### Never Commit Credentials
@@ -594,15 +718,15 @@ Regularly rotate API tokens for security:
 
 All external APIs use GitHub environment secrets for secure credential management:
 
-| Environment      | API/Service             | Secrets              | Variables   | Status                  |
-| ---------------- | ----------------------- | -------------------- | ----------- | ----------------------- |
-| `qualtrics-prod` | Qualtrics API v3        | 6 secrets            | 3 variables | ✅ Active (7 workflows) |
-| `prolific-prod`  | Prolific API v1         | 1 secret             | 1 variable  | ✅ Active (1 workflow)  |
-| `google-prod`    | Google Analytics Data   | 6 secrets            | -           | ✅ Active (1 workflow)  |
-| `microsoft-prod` | Microsoft Forms         | 1 secret             | -           | ⚠️ Configured (future)  |
-| `stripe-prod`    | Payment processing      | 1 secret             | -           | ⚠️ Configured (future)  |
-| `github-pages`   | GitHub Pages deployment | Auto token           | -           | ✅ Active (deployment)  |
-| `copilot`        | MCP servers             | MCP-prefixed secrets | -           | ✅ Active (MCP servers) |
+| Environment      | API/Service                       | Secrets              | Variables   | Status                  |
+| ---------------- | --------------------------------- | -------------------- | ----------- | ----------------------- |
+| `qualtrics-prod` | Qualtrics API v3                  | 6 secrets            | 3 variables | ✅ Active (7 workflows) |
+| `prolific-prod`  | Prolific API v1                   | 1 secret             | 1 variable  | ✅ Active (1 workflow)  |
+| `google-prod`    | Google Analytics + Search Console | 6 secrets            | 1 variable  | ✅ Active (1 workflow)  |
+| `microsoft-prod` | Microsoft Forms                   | 1 secret             | -           | ⚠️ Configured (future)  |
+| `stripe-prod`    | Payment processing                | 1 secret             | -           | ⚠️ Configured (future)  |
+| `github-pages`   | GitHub Pages deployment           | Auto token           | -           | ✅ Active (deployment)  |
+| `copilot`        | MCP servers                       | MCP-prefixed secrets | -           | ✅ Active (MCP servers) |
 
 **Legend:**
 
