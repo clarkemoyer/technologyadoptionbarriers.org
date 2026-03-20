@@ -86,17 +86,20 @@ jobs:
           org_id=$(jq -r '.result.organizationId // ""' "$SURVEY_JSON")
           response_counts=$(jq -c '.result.responseCounts // {}' "$SURVEY_JSON")
 
-          # Fetch question count from survey-definitions endpoint
-          QUESTIONS_JSON="$TMP_DIR/qualtrics-questions.json"
-          questions_url="${BASE_URL}/API/v3/survey-definitions/${SURVEY_ID}/questions"
-          q_http_code=$(curl -sS -o "$QUESTIONS_JSON" -w "%{http_code}" \
+          # Fetch question count from full survey definition endpoint
+          # Note: The /questions sub-resource returns paginated { elements: [] },
+          # but the jq expression expects { Questions: {} }. Use the full
+          # definition endpoint which returns .result.Questions as an object.
+          DEFINITION_JSON="$TMP_DIR/qualtrics-definition.json"
+          definition_url="${BASE_URL}/API/v3/survey-definitions/${SURVEY_ID}"
+          q_http_code=$(curl -sS -o "$DEFINITION_JSON" -w "%{http_code}" \
             -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
             -H "Accept: application/json" \
-            "$questions_url")
+            "$definition_url")
 
           question_count=0
           if [[ "$q_http_code" -ge 200 && "$q_http_code" -lt 300 ]]; then
-            question_count=$(jq '.result.Questions // {} | keys | length' "$QUESTIONS_JSON")
+            question_count=$(jq '.result.Questions // {} | keys | length' "$DEFINITION_JSON")
             echo "Question count: $question_count"
           else
             echo "::warning::Could not fetch question count (HTTP $q_http_code). Setting to 0."
