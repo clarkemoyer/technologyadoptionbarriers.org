@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
   H1_CLASSES,
@@ -6,7 +7,6 @@ import {
   SECTION_CLASSES,
   PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
-  BODY_OL_CLASSES,
   REFERENCES_H2_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
@@ -327,12 +327,12 @@ const TOEFrameworkPage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
+          <Link
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
 
         <section className="pt-8 border-t border-gray-200">
