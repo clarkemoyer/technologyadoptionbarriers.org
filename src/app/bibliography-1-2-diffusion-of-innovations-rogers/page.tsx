@@ -39,7 +39,9 @@ const BibliographyArticlePage = () => {
         <section className="mb-8 sm:mb-12">
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
-            <p className="text-sm font-mono"></p>
+            <p className="text-sm font-mono">
+              Rogers, E. M. (1962). <em>Diffusion of innovations</em>. Free Press.
+            </p>
           </div>
         </section>
 

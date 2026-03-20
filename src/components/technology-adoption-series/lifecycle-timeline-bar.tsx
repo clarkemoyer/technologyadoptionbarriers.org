@@ -17,9 +17,15 @@ export interface LifecycleTimelineBarProps {
  * Compact horizontal bar chart showing lifecycle phases with proportional widths.
  * Used in slide overview cards and teaching-series visuals.
  */
+function formatYears(n: number): string {
+  return `${n} ${n === 1 ? 'year' : 'years'}`
+}
+
 export function LifecycleTimelineBar({ title, phases, note, source }: LifecycleTimelineBarProps) {
   const totalDuration = phases.reduce((s, p) => s + p.duration, 0)
-  const ariaPhases = phases.map((p) => `${p.label}: ${p.duration} years (${p.years})`).join(', ')
+  const ariaPhases = phases
+    .map((p) => `${p.label}: ${formatYears(p.duration)} (${p.years})`)
+    .join(', ')
 
   if (totalDuration === 0) {
     return null
@@ -45,7 +51,7 @@ export function LifecycleTimelineBar({ title, phases, note, source }: LifecycleT
                 color: p.textColor ?? '#111827',
               }}
               className="flex flex-col items-center justify-center py-3 px-1 text-center"
-              title={`${p.label}: ${p.duration} years (${p.years})`}
+              title={`${p.label}: ${formatYears(p.duration)} (${p.years})`}
             >
               <div className="text-xs font-bold leading-tight">{p.label}</div>
               <div className="text-xs">{p.duration}yr</div>

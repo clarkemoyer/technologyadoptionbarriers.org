@@ -15,11 +15,14 @@ const STAGES = [
 const INNOV_Y = [55, 72, 145, 195, 220]
 const RISK_Y = [60, 120, 205, 150, 65]
 
-function buildCurvePath(yValues: number[], offsets: number[][]): string {
+function buildCurvePath(
+  yValues: number[],
+  offsets: Array<[cp1: number, cp2: number, y1?: number, y2?: number]>
+): string {
   let d = `M${STAGES[0].x} ${yValues[0]}`
   for (let i = 0; i < STAGES.length - 1; i++) {
-    const [cpOff1, cpOff2] = offsets[i]
-    d += ` C${STAGES[i].x + cpOff1} ${yValues[i] + (offsets[i][2] ?? 0)},${STAGES[i + 1].x - cpOff2} ${yValues[i + 1] + (offsets[i][3] ?? 0)},${STAGES[i + 1].x} ${yValues[i + 1]}`
+    const [cpOff1, cpOff2, y1Offset = 0, y2Offset = 0] = offsets[i]
+    d += ` C${STAGES[i].x + cpOff1} ${yValues[i] + y1Offset},${STAGES[i + 1].x - cpOff2} ${yValues[i + 1] + y2Offset},${STAGES[i + 1].x} ${yValues[i + 1]}`
   }
   return d
 }

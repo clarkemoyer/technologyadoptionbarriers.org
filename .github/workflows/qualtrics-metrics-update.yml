@@ -173,7 +173,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Download metrics data
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: qualtrics-metrics-data
           path: src/data

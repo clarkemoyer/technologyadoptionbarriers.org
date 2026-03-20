@@ -41,7 +41,11 @@ const BibliographyArticlePage = () => {
         <section className="mb-8 sm:mb-12">
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
-            <p className="text-sm font-mono"></p>
+            <p className="text-sm font-mono">
+              Lin, C.-H., Shih, H.-Y., &amp; Sher, P. J. (2007). Integrating technology readiness
+              into technology acceptance: The TRAM model. <em>Psychology &amp; Marketing</em>,
+              24(7), 641&ndash;657.
+            </p>
           </div>
         </section>
 

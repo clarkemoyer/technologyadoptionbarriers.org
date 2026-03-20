@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { appearances } from '@/data/appearances'
 import impactData from '@/data/impact.json'
 import metricsData from '@/data/qualtrics-metrics.json'
 import { assetPath } from '@/lib/assetPath'
@@ -79,6 +80,12 @@ const MediaPage = () => {
         >
           <div className="mx-auto w-[90%] max-w-6xl py-3 flex flex-wrap items-center justify-center gap-3">
             <a
+              href="#appearances"
+              className="px-3 py-1.5 rounded-full text-sm font-semibold text-gray-800 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+            >
+              Appearances
+            </a>
+            <a
               href="#presentation"
               className="px-3 py-1.5 rounded-full text-sm font-semibold text-gray-800 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
             >
@@ -117,8 +124,89 @@ const MediaPage = () => {
           </div>
         </nav>
 
+        {/* Appearances Section */}
+        <section id="appearances" className="py-16 bg-white scroll-mt-[120px]">
+          <div className="mx-auto w-[90%] max-w-6xl">
+            <h2 className="text-3xl sm:text-4xl font-bold text-center">Appearances</h2>
+            <p className="mt-4 text-lg text-gray-700 text-center max-w-3xl mx-auto">
+              Speaking engagements and public presentations about technology adoption barriers.
+            </p>
+
+            <div className="mt-10 space-y-6">
+              {appearances.map((appearance) => (
+                <div
+                  key={`${appearance.date}-${appearance.event}-${appearance.session}`}
+                  className="p-6 rounded-2xl bg-gray-50 border border-gray-200"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                    <div>
+                      <h3 className="text-xl font-bold">{appearance.event}</h3>
+                      <p className="mt-1 text-sm font-semibold text-blue-600">
+                        {appearance.session}
+                      </p>
+                    </div>
+                    <time
+                      dateTime={appearance.date}
+                      className="text-sm font-semibold text-gray-500 whitespace-nowrap"
+                    >
+                      {new Date(appearance.date + 'T00:00:00').toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </time>
+                  </div>
+                  <p className="mt-3 text-gray-700">{appearance.description}</p>
+                  <div className="mt-3 flex flex-wrap gap-3 text-sm text-gray-600">
+                    <span className="inline-flex items-center gap-1">
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                      </svg>
+                      {appearance.location}
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                        />
+                      </svg>
+                      {appearance.topic}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Presentation Section */}
-        <section id="presentation" className="py-16 bg-white scroll-mt-[120px]">
+        <section id="presentation" className="py-16 bg-gray-50 scroll-mt-[120px]">
           <div className="mx-auto w-[90%] max-w-6xl">
             <div className="text-center">
               <h2 className="text-3xl sm:text-4xl font-bold">TABS Presentation</h2>

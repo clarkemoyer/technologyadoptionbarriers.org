@@ -10,6 +10,8 @@ import {
   getTechnologyAdoptionSeriesSlides,
 } from '@/lib/technology-adoption-series'
 import { DualCurveChart } from '@/components/technology-adoption-series/dual-curve-chart'
+import { LifecycleTimelineBar } from '@/components/technology-adoption-series/lifecycle-timeline-bar'
+import { LIFECYCLE_CONFIGS } from '@/data/lifecycle-timeline-configs'
 import TeachingSeriesNavigation from '@/components/teaching-series-navigation'
 
 const IconCheck = ({ title }: { title: string }) => (
@@ -880,6 +882,19 @@ const SlideVisual = ({ slideNumber }: { slideNumber: number }) => {
           every step.
         </div>
       </VisualCard>
+    )
+  }
+
+  // Slides 27-29: Lifecycle timeline bars (HDD, Flash, Barcode)
+  const lifecycleCfg = LIFECYCLE_CONFIGS[slideNumber]
+  if (lifecycleCfg) {
+    return (
+      <LifecycleTimelineBar
+        title={lifecycleCfg.title}
+        phases={lifecycleCfg.phases}
+        note={lifecycleCfg.note}
+        source={lifecycleCfg.source}
+      />
     )
   }
 

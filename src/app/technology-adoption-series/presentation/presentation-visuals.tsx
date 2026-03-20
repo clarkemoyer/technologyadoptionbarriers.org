@@ -1,6 +1,7 @@
 import React, { type ReactNode } from 'react'
 
 import { LIFECYCLE_CONFIGS } from '@/data/lifecycle-timeline-configs'
+import { MOMENT_IN_TIME_CONFIGS } from '@/data/moment-in-time-configs'
 
 /* ────────────────────────────────────────────────────────────
    Dark-native visual components for the fullscreen presenter.
@@ -16,6 +17,12 @@ const Card = ({ children, className = '' }: { children: ReactNode; className?: s
     {children}
   </div>
 )
+
+const TABLE_WRAPPER_CLASS =
+  'w-full max-w-5xl overflow-hidden rounded-xl border border-slate-500/80 bg-slate-900/85 shadow-[0_0_0_1px_rgba(100,116,139,0.3)]'
+const TABLE_HEAD_ROW_CLASS = 'bg-slate-700/95'
+const TABLE_INDEX_EVEN_ROW_CLASS = 'bg-slate-800/80'
+const TABLE_INDEX_ODD_ROW_CLASS = 'bg-slate-900/65'
 
 const CardLabel = ({ children }: { children: ReactNode }) => (
   <div className="text-lg font-bold text-white">{children}</div>
@@ -178,10 +185,10 @@ function Visual03_VoluntaryVsInvoluntaryTable() {
   ]
   return (
     <div className="flex h-full items-center justify-center">
-      <div className="w-full max-w-3xl overflow-hidden rounded-xl border border-slate-700/50">
+      <div className={TABLE_WRAPPER_CLASS}>
         <table className="w-full border-collapse text-left">
           <thead>
-            <tr className="bg-slate-800/80">
+            <tr className={TABLE_HEAD_ROW_CLASS}>
               <th className="px-5 py-4 text-base font-bold text-slate-300">Factor</th>
               <th className="px-5 py-4 text-base font-bold text-emerald-400">Voluntary ✅</th>
               <th className="px-5 py-4 text-base font-bold text-amber-400">Involuntary ⚠️</th>
@@ -189,7 +196,10 @@ function Visual03_VoluntaryVsInvoluntaryTable() {
           </thead>
           <tbody>
             {rows.map((r, i) => (
-              <tr key={r.factor} className={i % 2 === 0 ? 'bg-slate-800/30' : 'bg-slate-800/50'}>
+              <tr
+                key={r.factor}
+                className={i % 2 === 0 ? TABLE_INDEX_EVEN_ROW_CLASS : TABLE_INDEX_ODD_ROW_CLASS}
+              >
                 <td className="px-5 py-3.5 text-base font-semibold text-white">{r.factor}</td>
                 <td className="px-5 py-3.5 text-base text-slate-200">{r.vol}</td>
                 <td className="px-5 py-3.5 text-base text-slate-200">{r.invol}</td>
@@ -204,32 +214,76 @@ function Visual03_VoluntaryVsInvoluntaryTable() {
 
 function Visual04_ShelfwareVsAdoptedComparison() {
   return (
-    <div className="flex h-full items-center justify-center">
-      <div className="grid w-full max-w-3xl grid-cols-2 gap-6">
-        <Card className="border-red-500/30">
-          <div className="flex items-center gap-3">
-            <IconX />
-            <CardLabel>Shelf-ware</CardLabel>
+    <div className="flex h-full items-stretch justify-center">
+      <div className="grid h-full w-full max-w-6xl grid-cols-2 gap-8">
+        <Card className="flex h-full flex-col justify-between border-cyan-500/25 p-6">
+          <div>
+            <div className="text-sm font-semibold tracking-wider uppercase text-cyan-300/80">
+              Adoption Outcome
+            </div>
+            <div className="mt-3 text-3xl font-bold leading-tight text-white">
+              Deployment does not equal adoption
+            </div>
+            <div className="mt-4 text-lg leading-relaxed text-slate-300">
+              The same rollout can fail or succeed depending on whether users see clear value, can
+              work naturally, and choose to keep using the tool.
+            </div>
           </div>
-          <CardBody>Deployed, but not used.</CardBody>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Badge tone="bad">No user input</Badge>
-            <Badge tone="bad">Too complex</Badge>
-            <Badge tone="bad">Workarounds</Badge>
+
+          <div className="mt-8 space-y-5">
+            <div>
+              <div className="mb-2 flex items-center justify-between text-sm text-slate-300">
+                <span className="font-semibold text-red-300">Shelf-ware Risk</span>
+                <span>85%</span>
+              </div>
+              <FrictionBar value={85} />
+            </div>
+            <div>
+              <div className="mb-2 flex items-center justify-between text-sm text-slate-300">
+                <span className="font-semibold text-emerald-300">Adoption Fit</span>
+                <span>80%</span>
+              </div>
+              <FrictionBar value={80} />
+            </div>
+            <div className="rounded-lg border border-slate-600/60 bg-slate-900/60 px-4 py-3 text-base text-slate-200">
+              Optimize for{' '}
+              <span className="font-semibold text-white">real user task completion</span>, not just
+              technical deployment milestones.
+            </div>
           </div>
         </Card>
-        <Card className="border-emerald-500/30">
-          <div className="flex items-center gap-3">
-            <IconCheck />
-            <CardLabel>Adopted</CardLabel>
-          </div>
-          <CardBody>Used to complete real tasks.</CardBody>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Badge tone="good">User-centered</Badge>
-            <Badge tone="good">Clear value</Badge>
-            <Badge tone="good">Fits workflows</Badge>
-          </div>
-        </Card>
+
+        <div className="grid h-full grid-rows-2 gap-6">
+          <Card className="flex h-full flex-col justify-between border-red-500/30 p-6">
+            <div>
+              <div className="flex items-center gap-3">
+                <IconX />
+                <CardLabel>Shelf-ware</CardLabel>
+              </div>
+              <CardBody>Deployed, but not used for mission work.</CardBody>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Badge tone="bad">No user input</Badge>
+              <Badge tone="bad">Too complex</Badge>
+              <Badge tone="bad">Workarounds</Badge>
+            </div>
+          </Card>
+
+          <Card className="flex h-full flex-col justify-between border-emerald-500/30 p-6">
+            <div>
+              <div className="flex items-center gap-3">
+                <IconCheck />
+                <CardLabel>Adopted</CardLabel>
+              </div>
+              <CardBody>Used consistently to complete real tasks.</CardBody>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Badge tone="good">User-centered</Badge>
+              <Badge tone="good">Clear value</Badge>
+              <Badge tone="good">Fits workflows</Badge>
+            </div>
+          </Card>
+        </div>
       </div>
     </div>
   )
@@ -602,10 +656,10 @@ function Visual10_LifecycleArchitectureMapping() {
 
   return (
     <div className="flex h-full items-center justify-center">
-      <div className="w-full max-w-4xl overflow-hidden rounded-xl border border-slate-700/50">
+      <div className={TABLE_WRAPPER_CLASS}>
         <table className="w-full border-collapse text-left">
           <thead>
-            <tr className="bg-slate-800/80">
+            <tr className={TABLE_HEAD_ROW_CLASS}>
               <th className="px-4 py-3 text-base font-bold text-slate-300">Lifecycle</th>
               <th className="px-4 py-3 text-base font-bold text-slate-300">Cloud Enabling</th>
               <th className="px-4 py-3 text-base font-bold text-slate-300">Cloud Native</th>
@@ -614,7 +668,10 @@ function Visual10_LifecycleArchitectureMapping() {
           </thead>
           <tbody>
             {data.map((r, i) => (
-              <tr key={r.stage} className={i % 2 === 0 ? 'bg-slate-800/30' : 'bg-slate-800/50'}>
+              <tr
+                key={r.stage}
+                className={i % 2 === 0 ? TABLE_INDEX_EVEN_ROW_CLASS : TABLE_INDEX_ODD_ROW_CLASS}
+              >
                 <td className="px-4 py-3 text-base font-semibold text-white">{r.stage}</td>
                 {([r.ce, r.cn, r.ca] as const).map((t, j) => (
                   <td key={j} className={`px-4 py-3 ${toneBg(t)}`}>
@@ -778,9 +835,9 @@ function Visual13_AdoptionEnablingCapabilities() {
   ]
   return (
     <div className="flex h-full items-center justify-center">
-      <div className="grid w-full max-w-4xl grid-cols-3 gap-5">
+      <div className="grid w-full max-w-5xl grid-cols-3 gap-6">
         {cards.map((c) => (
-          <Card key={c.title} className="border-cyan-500/20">
+          <Card key={c.title} className="border-cyan-400/40 bg-slate-900/80">
             <CardLabel>{c.title}</CardLabel>
             <CardBody>{c.body}</CardBody>
           </Card>
@@ -1196,10 +1253,10 @@ function Visual18_DeepDiveTechStackComparison() {
   ]
   return (
     <div className="flex h-full items-center justify-center">
-      <div className="w-full max-w-4xl overflow-hidden rounded-xl border border-slate-700/50">
+      <div className={TABLE_WRAPPER_CLASS}>
         <table className="w-full border-collapse text-left">
           <thead>
-            <tr className="bg-slate-800/80">
+            <tr className={TABLE_HEAD_ROW_CLASS}>
               <th className="px-5 py-4 text-base font-bold text-slate-300">Category</th>
               <th className="px-5 py-4 text-base font-bold text-emerald-400">Mainstream ✅</th>
               <th className="px-5 py-4 text-base font-bold text-amber-400">Trending Behind ⚠️</th>
@@ -1207,7 +1264,10 @@ function Visual18_DeepDiveTechStackComparison() {
           </thead>
           <tbody>
             {examples.map((r, i) => (
-              <tr key={r.category} className={i % 2 === 0 ? 'bg-slate-800/30' : 'bg-slate-800/50'}>
+              <tr
+                key={r.category}
+                className={i % 2 === 0 ? TABLE_INDEX_EVEN_ROW_CLASS : TABLE_INDEX_ODD_ROW_CLASS}
+              >
                 <td className="px-5 py-3.5 text-base font-semibold text-white">{r.category}</td>
                 <td className="px-5 py-3.5 text-base text-slate-200">{r.mainstream}</td>
                 <td className="px-5 py-3.5 text-base text-slate-200">{r.behind}</td>
@@ -1537,6 +1597,8 @@ function LifecycleTimelineChart({
   const barH = 120
   const totalDuration = phases.reduce((sum, p) => sum + p.duration, 0)
 
+  const markerId = `arrow-timeline-${title.replace(/\W+/g, '-').toLowerCase()}`
+
   const phaseBars = phases.reduce<Array<TimelinePhase & { x: number; w: number }>>((acc, p) => {
     const prevEnd = acc.length > 0 ? acc[acc.length - 1].x + acc[acc.length - 1].w : chartLeft
     const w = (p.duration / totalDuration) * chartWidth
@@ -1585,7 +1647,7 @@ function LifecycleTimelineChart({
               d={`M${phaseBars[0].x + phaseBars[0].w / 2} ${barY - 50} L${phaseBars[0].x + phaseBars[0].w / 2} ${barY - 15}`}
               stroke="#f59e0b"
               strokeWidth="2"
-              markerEnd="url(#arrow-timeline)"
+              markerEnd={`url(#${markerId})`}
             />
             <text
               x={phaseBars[0].x + phaseBars[0].w / 2}
@@ -1604,7 +1666,7 @@ function LifecycleTimelineChart({
               d={`M${phaseBars[phaseBars.length - 1].x + phaseBars[phaseBars.length - 1].w / 2} ${barY - 50} L${phaseBars[phaseBars.length - 1].x + phaseBars[phaseBars.length - 1].w / 2} ${barY - 15}`}
               stroke="#f59e0b"
               strokeWidth="2"
-              markerEnd="url(#arrow-timeline)"
+              markerEnd={`url(#${markerId})`}
             />
             <text
               x={phaseBars[phaseBars.length - 1].x + phaseBars[phaseBars.length - 1].w / 2}
@@ -1624,7 +1686,7 @@ function LifecycleTimelineChart({
         {/* Arrow marker */}
         <defs>
           <marker
-            id="arrow-timeline"
+            id={markerId}
             markerWidth="6"
             markerHeight="6"
             refX="3"
@@ -1793,6 +1855,320 @@ function Visual29_SupplyChainLifecycleTimeline() {
   )
 }
 
+function Visual33_MLAILifecycleTimeline() {
+  const cfg = LIFECYCLE_CONFIGS[33]
+
+  return (
+    <LifecycleTimelineChart
+      title="ML/AI Example: Machine Learning & Artificial Intelligence"
+      subtitle="From Turing's paper (1950) to ChatGPT — 75+ year lifecycle, still ascending"
+      phases={cfg.phases}
+      totalYears="~75+ years (ongoing)"
+      ariaLabel="ML/AI lifecycle timeline showing 47 years bleeding edge, 23 years leading edge, and ongoing mainstream adoption since 2020"
+      noteText="Longest bleeding edge of any example (47 yrs) — two AI winters stalled adoption until compute + data + algorithms aligned"
+      sourceText="Sources: Stanford HAI AI Index (2024); Turing (1950); McCarthy (1956); Krizhevsky/AlexNet (2012); Vaswani/Transformers (2017)"
+    />
+  )
+}
+
+// ── MOMENT IN TIME CHARTS (Slides 30-35) ─────────────────
+
+/* Column-based layout showing multiple technologies positioned by lifecycle stage.
+   Companion to the timeline charts (slides 27-29) — these freeze a single moment
+   and map the competitive landscape across lifecycle stages. */
+
+function MomentInTimeChart({
+  title,
+  subtitle,
+  asOf,
+  stages,
+  sourceText,
+  ariaLabel,
+}: {
+  title: string
+  subtitle: string
+  asOf: string
+  stages: Array<{
+    stage: string
+    color: string
+    textColor?: string
+    technologies: Array<{ name: string; detail: string }>
+  }>
+  sourceText: string
+  ariaLabel: string
+}) {
+  const wrapByWords = (value: string, maxCharsPerLine: number) => {
+    const words = value.trim().split(/\s+/)
+    if (words.length === 0) return ['']
+
+    const lines: string[] = []
+    let current = ''
+
+    for (const word of words) {
+      const next = current ? `${current} ${word}` : word
+      if (next.length <= maxCharsPerLine) {
+        current = next
+      } else {
+        if (current) lines.push(current)
+        if (word.length > maxCharsPerLine) {
+          lines.push(word)
+          current = ''
+        } else {
+          current = word
+        }
+      }
+    }
+
+    if (current) lines.push(current)
+    return lines
+  }
+
+  const stageCount = Math.max(stages.length, 1)
+  const horizontalPadding = 64
+  const totalWidth = 1600 - horizontalPadding * 2
+  const colWidth = totalWidth / stageCount
+  const startX = horizontalPadding
+
+  return (
+    <div className="flex h-full flex-col items-center justify-center gap-4">
+      <svg
+        viewBox="0 0 1600 900"
+        className="h-full w-full max-h-full max-w-full"
+        role="img"
+        aria-label={ariaLabel}
+      >
+        {/* Title */}
+        <text x="800" y="50" textAnchor="middle" fontSize="34" fontWeight="bold" fill="#e2e8f0">
+          {title}
+        </text>
+        <text x="800" y="85" textAnchor="middle" fontSize="22" fill="#94a3b8">
+          {subtitle}
+        </text>
+        <text x="800" y="115" textAnchor="middle" fontSize="18" fill="#f59e0b" fontWeight="600">
+          Snapshot: {asOf}
+        </text>
+
+        {/* Stage columns */}
+        {stages.map((stage, i) => {
+          const x = startX + i * colWidth
+          const headerY = 150
+          const techStartY = 200
+          const maxNameChars = stageCount <= 5 ? 22 : 18
+          const maxDetailChars = stageCount <= 5 ? 30 : 24
+
+          let currentCardY = techStartY + 10
+
+          return (
+            <g key={stage.stage}>
+              {/* Column background */}
+              <rect
+                x={x + 4}
+                y={headerY}
+                width={colWidth - 8}
+                height={680}
+                rx="8"
+                fill="#1e293b"
+                stroke={stage.color}
+                strokeWidth="1.5"
+                opacity="0.6"
+              />
+
+              {/* Stage header */}
+              <rect
+                x={x + 4}
+                y={headerY}
+                width={colWidth - 8}
+                height={40}
+                rx="8"
+                fill={stage.color}
+              />
+              {/* Bottom corners of header should be square where they meet column body */}
+              <rect x={x + 4} y={headerY + 32} width={colWidth - 8} height={8} fill={stage.color} />
+              <text
+                x={x + colWidth / 2}
+                y={headerY + 27}
+                textAnchor="middle"
+                fontSize="13"
+                fontWeight="bold"
+                fill={stage.textColor || '#0f172a'}
+              >
+                {stage.stage}
+              </text>
+
+              {/* Technologies */}
+              {stage.technologies.map((tech, j) => {
+                const nameLines = wrapByWords(tech.name, maxNameChars)
+                const detailLines = wrapByWords(tech.detail, maxDetailChars)
+                const titleLineHeight = 13
+                const detailLineHeight = 11
+                const cardPaddingTop = 12
+                const cardPaddingBottom = 12
+                const cardGap = 9
+                const bodyStart = cardPaddingTop + nameLines.length * titleLineHeight + 6
+                const cardHeight =
+                  bodyStart + detailLines.length * detailLineHeight + cardPaddingBottom
+                const cardY = currentCardY
+                currentCardY += cardHeight + cardGap
+
+                return (
+                  <g key={tech.name}>
+                    <title>
+                      {tech.name}: {tech.detail}
+                    </title>
+                    {/* Tech card background */}
+                    <rect
+                      x={x + 10}
+                      y={cardY}
+                      width={colWidth - 20}
+                      height={cardHeight}
+                      rx="6"
+                      fill="#0f172a"
+                      stroke={stage.color}
+                      strokeWidth="1"
+                      opacity="0.8"
+                    />
+                    {/* Tech name */}
+                    {nameLines.map((line, lineIdx) => (
+                      <text
+                        key={`name-${lineIdx}`}
+                        x={x + colWidth / 2}
+                        y={cardY + cardPaddingTop + 10 + lineIdx * titleLineHeight}
+                        textAnchor="middle"
+                        fontSize="11.5"
+                        fontWeight="bold"
+                        fill="#e2e8f0"
+                      >
+                        {line}
+                      </text>
+                    ))}
+                    {/* Tech detail */}
+                    {detailLines.map((line, lineIdx) => (
+                      <text
+                        key={`detail-${lineIdx}`}
+                        x={x + colWidth / 2}
+                        y={cardY + bodyStart + 8 + lineIdx * detailLineHeight}
+                        textAnchor="middle"
+                        fontSize="10"
+                        fill="#94a3b8"
+                      >
+                        {line}
+                      </text>
+                    ))}
+                  </g>
+                )
+              })}
+            </g>
+          )
+        })}
+
+        {/* Risk gradient arrow at bottom */}
+        <defs>
+          <linearGradient id="risk-gradient-moment" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#fbbf24" />
+            <stop offset="25%" stopColor="#22d3ee" />
+            <stop offset="45%" stopColor="#22c55e" />
+            <stop offset="65%" stopColor="#f97316" />
+            <stop offset="85%" stopColor="#ef4444" />
+            <stop offset="100%" stopColor="#991b1b" />
+          </linearGradient>
+        </defs>
+        <rect
+          x={startX}
+          y="848"
+          width={totalWidth}
+          height="4"
+          rx="2"
+          fill="url(#risk-gradient-moment)"
+        />
+        <text x={startX} y="870" fontSize="12" fill="#64748b">
+          High Risk (Unproven)
+        </text>
+        <text x={startX + totalWidth} y="870" textAnchor="end" fontSize="12" fill="#64748b">
+          High Risk (Obsolete)
+        </text>
+        <text x="800" y="870" textAnchor="middle" fontSize="12" fill="#22c55e" fontWeight="600">
+          ▲ Target Zone ▲
+        </text>
+
+        {/* Source */}
+        <text x="800" y="895" textAnchor="middle" fontSize="11" fill="#64748b" fontStyle="italic">
+          {sourceText}
+        </text>
+      </svg>
+    </div>
+  )
+}
+
+function Visual30_DataCenterStorageMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[30]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="Data center storage technologies positioned across lifecycle stages in 2025, from DNA storage at bleeding edge to 10K RPM HDDs at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
+function Visual31_RichWebExperiencesMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[31]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="Rich web experience technologies positioned across lifecycle stages in 2025, from WebGPU at bleeding edge to ActiveX at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
+function Visual32_SupplyChainIdMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[32]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="Supply chain identification technologies positioned across lifecycle stages in 2025, from blockchain track-and-trace at bleeding edge to Kimball tags at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
+function Visual34_MLAIMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[34]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="ML/AI technologies positioned across lifecycle stages in 2025, from AGI at bleeding edge to expert system shells at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
+function Visual35_LLMMoment() {
+  const cfg = MOMENT_IN_TIME_CONFIGS[35]
+  return (
+    <MomentInTimeChart
+      title={cfg.title}
+      subtitle={cfg.subtitle}
+      asOf={cfg.asOf}
+      stages={cfg.stages}
+      ariaLabel="Large language model technologies positioned across lifecycle stages in 2025, from persistent memory LLMs at bleeding edge to ELIZA at end of life"
+      sourceText={cfg.source}
+    />
+  )
+}
+
 // ── Public export ──────────────────────────────────────────
 
 export interface VisualDef {
@@ -1891,6 +2267,40 @@ export const VISUAL_CONFIG: VisualDef[] = [
     number: 29,
     id: 'supply-chain-lifecycle-timeline',
     component: Visual29_SupplyChainLifecycleTimeline,
+  },
+
+  // ── MOMENT IN TIME COMPANIONS (Slides 30-32) ──────────────
+  {
+    number: 30,
+    id: 'data-center-storage-moment',
+    component: Visual30_DataCenterStorageMoment,
+  },
+  {
+    number: 31,
+    id: 'rich-web-experiences-moment',
+    component: Visual31_RichWebExperiencesMoment,
+  },
+  {
+    number: 32,
+    id: 'supply-chain-id-moment',
+    component: Visual32_SupplyChainIdMoment,
+  },
+
+  // ── ML/AI LIFECYCLE + MOMENT (Slides 33-35) ──────────────
+  {
+    number: 33,
+    id: 'mlai-lifecycle-timeline',
+    component: Visual33_MLAILifecycleTimeline,
+  },
+  {
+    number: 34,
+    id: 'mlai-moment',
+    component: Visual34_MLAIMoment,
+  },
+  {
+    number: 35,
+    id: 'llm-moment',
+    component: Visual35_LLMMoment,
   },
 ]
 

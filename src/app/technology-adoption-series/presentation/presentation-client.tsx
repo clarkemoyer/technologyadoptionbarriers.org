@@ -18,8 +18,16 @@ import './presentation.css'
 
 // ── Types ────────────────────────────────────────────────────────────
 
-type FrameType = 'deck-title' | 'section' | 'slide-title' | 'content' | 'visual' | 'statement'
+type FrameType =
+  | 'deck-title'
+  | 'section'
+  | 'slide-title'
+  | 'content'
+  | 'content-visual'
+  | 'visual'
+  | 'statement'
 export type PresentationMode = 'hd' | '4k'
+export type SectionMap = Record<number, { label: string; title: string; count: string }>
 
 const PresentationModeContext = createContext<PresentationMode>('hd')
 export function usePresentationMode() {
@@ -36,6 +44,8 @@ interface PresentationFrame {
   nodes?: MarkdownNode[]
   /** Centred text for 'statement' frames */
   statement?: string
+  /** Subtitle for 'deck-title' frames */
+  subtitle?: string
   /** Section label / title / count for 'section' frames */
   sectionLabel?: string
   sectionTitle?: string
@@ -44,10 +54,28 @@ interface PresentationFrame {
   visualId?: string
 }
 
+interface FrameExpansionOptions {
+  deckTitle?: string
+  deckSubtitle?: string
+  sections?: SectionMap
+  visualFirstSlides?: number[]
+  combinedContentVisualSlides?: number[]
+  hideTableFramesForSlides?: number[]
+  mergeFirstTwoNonVisualFramesForSlides?: number[]
+  referenceFrameLimit?: number
+  appendReferenceFramesToEnd?: boolean
+  referenceSection?: {
+    startSlide: number
+    label: string
+    title: string
+    count?: string
+  }
+}
+
 // ── Constants ────────────────────────────────────────────────────────
 
 /** Source slides that begin a new section. */
-const SECTIONS: Record<number, { label: string; title: string; count: string }> = {
+const SECTIONS: SectionMap = {
   1: {
     label: 'PART 1',
     title: 'What is Technology Adoption?',
@@ -70,6 +98,8 @@ const SECTIONS: Record<number, { label: string; title: string; count: string }> 
     count: '7 slides',
   },
 }
+
+const SectionMapContext = createContext<SectionMap>(SECTIONS)
 
 const MAX_FRAME_SIZE = 1800 // estimated chars — fill frames with substantial content
 const MAX_LIST_ITEMS = 10
@@ -103,6 +133,9 @@ function extractStatementText(raw: string): string {
     .replace(/^\*\*(.*)\*\*$/, '$1')
     .replace(/^⚠️\s*\*?\*?/, '⚠️ ')
     .replace(/\*\*/g, '')
+    .replace(/^_+|_+$/g, '')
+    .replace(/_{2,}/g, ' ')
+    .replace(/(^|[\s(])_([^_\n]+)_(?=($|[\s).,:;!?]))/g, '$1$2')
     .trim()
   // Strip surrounding quotes to avoid double-quoting in StatementFrame
   text = text
@@ -110,6 +143,173 @@ function extractStatementText(raw: string): string {
     .replace(/["\u201C\u201D]+$/, '')
     .trim()
   return text
+}
+
+function listItemToText(item: { text: string; children?: MarkdownNode[] }): string {
+  const childText = item.children?.map((node) => nodeToText(node)).join(' ') ?? ''
+  return `${item.text} ${childText}`.trim()
+}
+
+function nodeToText(node: MarkdownNode): string {
+  if (node.type === 'heading') return node.text
+  if (node.type === 'paragraph') return node.text
+  if (node.type === 'blockquote') return node.lines.join(' ')
+  if (node.type === 'ul' || node.type === 'ol') {
+    return node.items.map((item) => listItemToText(item)).join(' ')
+  }
+  if (node.type === 'table') {
+    const headers = node.headers.join(' ')
+    const rows = node.rows.flat().join(' ')
+    return `${headers} ${rows}`
+  }
+  if (node.type === 'code') return node.code
+  return ''
+}
+
+function isReferenceFrame(frame: PresentationFrame): boolean {
+  const titleReferenceRegex = /^\s*(sources?|references?|bibliography|citations?)\b/i
+  if (titleReferenceRegex.test(frame.title)) return true
+  if (frame.type === 'statement' && frame.statement) {
+    return /^\s*(sources?|references?|bibliography|citations?)\b/i.test(frame.statement)
+  }
+  if ((frame.type === 'content' || frame.type === 'content-visual') && frame.nodes) {
+    return frame.nodes.some((node) => isReferenceNode(node))
+  }
+  return false
+}
+
+function isReferenceHeadingText(text: string): boolean {
+  return /^\s*(sources?|references?|bibliography|citations?)\b/i.test(text.trim())
+}
+
+function isReferenceNode(node: MarkdownNode): boolean {
+  if (node.type === 'heading') return isReferenceHeadingText(node.text)
+  const text = nodeToText(node).trim()
+  return /^(sources?|references?|bibliography|citations?)\s*[:\-]/i.test(text)
+}
+
+function splitReferenceNodes(nodes: MarkdownNode[]) {
+  const mainNodes: MarkdownNode[] = []
+  const referenceNodes: MarkdownNode[] = []
+  let inReferenceBlock = false
+
+  for (const node of nodes) {
+    if (node.type === 'heading') {
+      if (isReferenceHeadingText(node.text)) {
+        inReferenceBlock = true
+        referenceNodes.push(node)
+        continue
+      }
+
+      if (inReferenceBlock) {
+        inReferenceBlock = false
+      }
+    }
+
+    if (isReferenceNode(node)) {
+      inReferenceBlock = true
+      referenceNodes.push(node)
+      continue
+    }
+
+    if (inReferenceBlock) {
+      referenceNodes.push(node)
+      continue
+    }
+
+    mainNodes.push(node)
+  }
+
+  return { mainNodes, referenceNodes }
+}
+
+function dedupeReferenceNodes(nodes: MarkdownNode[]): MarkdownNode[] {
+  const seen = new Set<string>()
+  const deduped: MarkdownNode[] = []
+
+  for (const node of nodes) {
+    const normalizedText = nodeToText(node).replace(/\s+/g, ' ').trim().toLowerCase()
+    const key = `${node.type}:${normalizedText}`
+    if (normalizedText.length > 0) {
+      if (seen.has(key)) continue
+      seen.add(key)
+    }
+    deduped.push(node)
+  }
+
+  return deduped
+}
+
+function frameToReferenceNodes(frame: PresentationFrame): MarkdownNode[] {
+  if (frame.nodes && frame.nodes.length > 0) return frame.nodes
+  if (frame.statement) return [{ type: 'paragraph', text: frame.statement }]
+  return []
+}
+
+function limitReferenceFrames(
+  referenceFrames: PresentationFrame[],
+  frameLimit: number,
+  titleBase: string,
+  sourceSlide: number
+): PresentationFrame[] {
+  if (frameLimit < 1 || referenceFrames.length <= frameLimit) return referenceFrames
+
+  const allNodes = referenceFrames.flatMap((frame) => frameToReferenceNodes(frame))
+  if (allNodes.length === 0) return referenceFrames.slice(0, frameLimit)
+
+  const totalSize = allNodes.reduce((sum, node) => sum + estimateNodeSize(node), 0)
+  const targetSize = Math.max(1, Math.ceil(totalSize / frameLimit))
+  const limitedFrames: PresentationFrame[] = []
+  let currentNodes: MarkdownNode[] = []
+  let currentSize = 0
+
+  for (let i = 0; i < allNodes.length; i++) {
+    const node = allNodes[i]
+    const nodeSize = estimateNodeSize(node)
+    const remainingNodes = allNodes.length - i
+    const remainingFrames = frameLimit - limitedFrames.length
+
+    if (
+      currentNodes.length > 0 &&
+      currentSize + nodeSize > targetSize &&
+      remainingNodes >= remainingFrames
+    ) {
+      limitedFrames.push({
+        type: 'content',
+        sourceSlide,
+        title: `${titleBase} (${limitedFrames.length + 1}/${frameLimit})`,
+        nodes: currentNodes,
+      })
+      currentNodes = []
+      currentSize = 0
+    }
+
+    currentNodes.push(node)
+    currentSize += nodeSize
+  }
+
+  if (currentNodes.length > 0) {
+    limitedFrames.push({
+      type: 'content',
+      sourceSlide,
+      title: `${titleBase} (${limitedFrames.length + 1}/${frameLimit})`,
+      nodes: currentNodes,
+    })
+  }
+
+  if (limitedFrames.length > frameLimit) {
+    const kept = limitedFrames.slice(0, frameLimit - 1)
+    const overflowNodes = limitedFrames.slice(frameLimit - 1).flatMap((frame) => frame.nodes ?? [])
+    kept.push({
+      type: 'content',
+      sourceSlide,
+      title: `${titleBase} (${frameLimit}/${frameLimit})`,
+      nodes: overflowNodes,
+    })
+    return kept
+  }
+
+  return limitedFrames
 }
 
 function estimateNodeSize(node: MarkdownNode): number {
@@ -155,19 +355,31 @@ function splitOversizeNode(node: MarkdownNode): MarkdownNode[] {
 
 // ── Frame expansion ──────────────────────────────────────────────────
 
-function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFrame[] {
+function expandToFrames(
+  slides: TechnologyAdoptionSeriesSlide[],
+  options?: FrameExpansionOptions
+): PresentationFrame[] {
   const frames: PresentationFrame[] = []
+  const extractedReferenceFrames: PresentationFrame[] = []
+  const sectionMap = options?.sections ?? SECTIONS
+  const visualFirstSlides = new Set(options?.visualFirstSlides ?? [])
+  const combinedContentVisualSlides = new Set(options?.combinedContentVisualSlides ?? [])
+  const hideTableFramesForSlides = new Set(options?.hideTableFramesForSlides ?? [])
+  const mergeFirstTwoNonVisualFramesForSlides = new Set(
+    options?.mergeFirstTwoNonVisualFramesForSlides ?? []
+  )
 
   // ── Deck title frame ──
   frames.push({
     type: 'deck-title',
     sourceSlide: 0,
-    title: 'Technology Adoption Teaching Series',
+    title: options?.deckTitle ?? 'Technology Adoption',
+    subtitle: options?.deckSubtitle,
   })
 
   for (const slide of slides) {
     // ── Section divider ──
-    const sec = SECTIONS[slide.number]
+    const sec = sectionMap[slide.number]
     if (sec) {
       frames.push({
         type: 'section',
@@ -180,22 +392,51 @@ function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFr
     }
 
     // ── Parse content ──
-    const { content } = splitTechnologyAdoptionSeriesSlideSections(slide.contentMarkdown)
+    const { content, speakerNotes, transition } = splitTechnologyAdoptionSeriesSlideSections(
+      slide.contentMarkdown
+    )
     const rawNodes = parseSimpleMarkdown(content)
 
     // Separate visuals, statements, regular text
     const textNodes: MarkdownNode[] = []
     const statements: string[] = []
-    let hasVisualDesc = false
 
     for (const node of rawNodes) {
       if (isVisualDescription(node)) {
-        hasVisualDesc = true
+        // Visual descriptions are handled separately — skip them
       } else if (isStatement(node)) {
         statements.push(extractStatementText(node.type === 'paragraph' ? node.text : ''))
       } else {
         textNodes.push(node)
       }
+    }
+
+    const { mainNodes, referenceNodes } = options?.appendReferenceFramesToEnd
+      ? splitReferenceNodes(textNodes)
+      : { mainNodes: textNodes, referenceNodes: [] as MarkdownNode[] }
+
+    const supplementalReferenceNodes: MarkdownNode[] = []
+    if (options?.appendReferenceFramesToEnd) {
+      const supplementalMarkdown = [speakerNotes, transition].filter(Boolean).join('\n\n')
+      if (supplementalMarkdown) {
+        const supplementalParsed = parseSimpleMarkdown(supplementalMarkdown)
+        const supplementalSplit = splitReferenceNodes(supplementalParsed)
+        supplementalReferenceNodes.push(...supplementalSplit.referenceNodes)
+      }
+    }
+
+    const allReferenceNodes = dedupeReferenceNodes([
+      ...referenceNodes,
+      ...supplementalReferenceNodes,
+    ])
+
+    if (options?.appendReferenceFramesToEnd && allReferenceNodes.length > 0) {
+      extractedReferenceFrames.push({
+        type: 'content',
+        sourceSlide: slide.number,
+        title: `Slide ${slide.number} References`,
+        nodes: allReferenceNodes,
+      })
     }
 
     // ── Chunk text nodes into content frames ──
@@ -212,11 +453,13 @@ function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFr
       }
     }
 
-    for (const node of textNodes) {
+    for (const node of mainNodes) {
       // Tables get their own frame
       if (node.type === 'table') {
         flushChunk()
-        slideChunks.push([node])
+        if (!hideTableFramesForSlides.has(slide.number)) {
+          slideChunks.push([node])
+        }
         continue
       }
 
@@ -257,9 +500,11 @@ function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFr
       }
     }
 
+    const slideFrames: PresentationFrame[] = []
+
     // ── Push content frames ──
     for (const chunk of slideChunks) {
-      frames.push({
+      slideFrames.push({
         type: 'content',
         sourceSlide: slide.number,
         title: slide.title,
@@ -269,7 +514,8 @@ function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFr
 
     // ── Statement frames ──
     for (const stmt of statements) {
-      frames.push({
+      if (!stmt) continue
+      slideFrames.push({
         type: 'statement',
         sourceSlide: slide.number,
         title: slide.title,
@@ -281,12 +527,111 @@ function expandToFrames(slides: TechnologyAdoptionSeriesSlide[]): PresentationFr
     //    regardless of whether the markdown has a Visual: description ──
     const visualId = SLIDE_TO_VISUAL_ID[slide.number]
     if (visualId) {
-      frames.push({
+      slideFrames.push({
         type: 'visual',
         sourceSlide: slide.number,
         title: slide.title,
         visualId: visualId,
       })
+    }
+
+    // ── Combined content + visual frame for selected slides ──
+    if (
+      combinedContentVisualSlides.has(slide.number) &&
+      visualId &&
+      slideChunks.length === 1 &&
+      statements.length === 0
+    ) {
+      frames.push({
+        type: 'content-visual',
+        sourceSlide: slide.number,
+        title: slide.title,
+        nodes: slideChunks[0],
+        visualId,
+      })
+      continue
+    }
+
+    // ── Optional visual-first ordering for selected slides ──
+    if (visualFirstSlides.has(slide.number)) {
+      slideFrames.sort((a, b) => {
+        if (a.type === 'visual' && b.type !== 'visual') return -1
+        if (a.type !== 'visual' && b.type === 'visual') return 1
+        return 0
+      })
+    }
+
+    if (mergeFirstTwoNonVisualFramesForSlides.has(slide.number)) {
+      const nonVisualIndexes = slideFrames
+        .map((frame, index) => ({ frame, index }))
+        .filter(({ frame }) => frame.type !== 'visual')
+
+      if (nonVisualIndexes.length >= 2) {
+        const firstIdx = nonVisualIndexes[0].index
+        const secondIdx = nonVisualIndexes[1].index
+        const first = slideFrames[firstIdx]
+        const second = slideFrames[secondIdx]
+
+        if (first.type === 'content' && second.type === 'content') {
+          first.nodes = [...(first.nodes ?? []), ...(second.nodes ?? [])]
+          slideFrames.splice(secondIdx, 1)
+        } else if (first.type === 'content' && second.type === 'statement' && second.statement) {
+          first.nodes = [
+            ...(first.nodes ?? []),
+            { type: 'paragraph', text: `Key insight: ${second.statement}` },
+          ]
+          slideFrames.splice(secondIdx, 1)
+        } else if (first.type === 'statement' && second.type === 'content' && first.statement) {
+          second.nodes = [
+            { type: 'paragraph', text: `Key insight: ${first.statement}` },
+            ...(second.nodes ?? []),
+          ]
+          slideFrames.splice(firstIdx, 1)
+        }
+      }
+    }
+
+    frames.push(...slideFrames)
+  }
+
+  // ── Move reference/supporting frames to the end when requested ──
+  if (options?.appendReferenceFramesToEnd) {
+    const inlineReferenceFrames = frames.filter((f) => isReferenceFrame(f))
+    let referenceFrames = [...extractedReferenceFrames, ...inlineReferenceFrames]
+    const referenceFrameLimit = options.referenceFrameLimit
+
+    if (referenceFrameLimit && referenceFrameLimit > 0) {
+      const titleBase = options.referenceSection?.title ?? 'References'
+      const referenceSourceSlide =
+        options.referenceSection?.startSlide ?? referenceFrames[0]?.sourceSlide ?? 0
+      referenceFrames = limitReferenceFrames(
+        referenceFrames,
+        referenceFrameLimit,
+        titleBase,
+        referenceSourceSlide
+      )
+    }
+
+    if (referenceFrames.length > 0) {
+      const primaryFrames = frames.filter((f) => !isReferenceFrame(f))
+      if (options.referenceSection) {
+        const refStart = options.referenceSection.startSlide
+        const referenceSectionFrame: PresentationFrame = {
+          type: 'section',
+          sourceSlide: refStart,
+          title: options.referenceSection.title,
+          sectionLabel: options.referenceSection.label,
+          sectionTitle: options.referenceSection.title,
+          sectionSlideCount: options.referenceSection.count,
+        }
+        const normalizedReferenceFrames = referenceFrames.map((f) => ({
+          ...f,
+          sourceSlide: refStart,
+        }))
+        return [...primaryFrames, referenceSectionFrame, ...normalizedReferenceFrames]
+      }
+
+      return [...primaryFrames, ...referenceFrames]
     }
   }
 
@@ -354,14 +699,14 @@ function useKeyboardNavigation(
 }
 
 /** Resolve the current section label for the nav bar. */
-function getSectionLabel(sourceSlide: number): string {
+function getSectionLabel(sourceSlide: number, sectionMap: SectionMap): string {
   if (sourceSlide === 0) return ''
-  // Walk SECTIONS in descending order to find the section this slide belongs to
-  const sectionStarts = Object.keys(SECTIONS)
+  // Walk sections in descending order to find the section this slide belongs to
+  const sectionStarts = Object.keys(sectionMap)
     .map(Number)
     .sort((a, b) => b - a)
   for (const start of sectionStarts) {
-    if (sourceSlide >= start) return SECTIONS[start].label
+    if (sourceSlide >= start) return sectionMap[start].label
   }
   return ''
 }
@@ -406,18 +751,18 @@ const proseOverrides4k = [
   '[&_a]:text-cyan-400 [&_a]:underline',
 ].join(' ')
 
-function DeckTitleFrame() {
+function DeckTitleFrame({ frame }: { frame: PresentationFrame }) {
   const mode = useContext(PresentationModeContext)
+  const subtitle =
+    frame.subtitle ?? 'A Strategic Framework for Understanding and Implementing Technology Change'
   if (mode === '4k') {
     return (
       <div className="flex h-full flex-col items-center justify-center text-center p-12">
         <div className="mb-8 text-3xl font-semibold tracking-widest uppercase text-cyan-400">
           Teaching Series
         </div>
-        <h1 className="text-8xl font-extrabold leading-tight text-white">Technology Adoption</h1>
-        <p className="mt-12 max-w-5xl text-4xl leading-relaxed text-slate-300">
-          A Strategic Framework for Understanding and Implementing Technology Change
-        </p>
+        <h1 className="text-8xl font-extrabold leading-tight text-white">{frame.title}</h1>
+        <p className="mt-12 max-w-5xl text-4xl leading-relaxed text-slate-300">{subtitle}</p>
         <div className="mt-16 text-2xl text-slate-500">
           Technology Adoption Barriers &middot; technologyadoptionbarriers.org
         </div>
@@ -430,10 +775,10 @@ function DeckTitleFrame() {
         Teaching Series
       </div>
       <h1 className="text-5xl font-extrabold leading-tight text-white lg:text-7xl">
-        Technology Adoption
+        {frame.title}
       </h1>
       <p className="mt-6 max-w-2xl text-xl leading-relaxed text-slate-300 lg:text-2xl">
-        A Strategic Framework for Understanding and Implementing Technology Change
+        {subtitle}
       </p>
       <div className="mt-10 text-base text-slate-500">
         Technology Adoption Barriers &middot; technologyadoptionbarriers.org
@@ -557,8 +902,6 @@ function VisualFrame({ frame }: { frame: PresentationFrame }) {
 
 function StatementFrame({ frame }: { frame: PresentationFrame }) {
   const isWarning = frame.statement?.startsWith('⚠️')
-  // Only add decorative quotes when the statement isn't already quoted
-  const alreadyQuoted = /^["\u201C]/.test(frame.statement ?? '')
   return (
     <div className="flex h-full flex-col items-center justify-center text-center">
       <div className="mb-6 text-sm font-semibold tracking-wider uppercase text-cyan-400/50">
@@ -573,27 +916,18 @@ function StatementFrame({ frame }: { frame: PresentationFrame }) {
             {frame.statement?.replace(/^⚠️\s*/, '')}
           </div>
         </div>
-      ) : alreadyQuoted ? (
-        <blockquote className="max-w-4xl text-3xl font-semibold leading-snug text-white lg:text-5xl">
-          {frame.statement}
-        </blockquote>
       ) : (
         <blockquote className="max-w-4xl text-3xl font-semibold leading-snug text-white lg:text-5xl">
-          &ldquo;{frame.statement}&rdquo;
+          {frame.statement}
         </blockquote>
       )}
     </div>
   )
 }
 
-function PresentationFooter({
-  currentSlide,
-  totalSlides,
-}: {
-  currentSlide: number
-  totalSlides: number
-}) {
-  const sections = Object.entries(SECTIONS)
+function PresentationFooter({ currentSlide }: { currentSlide: number }) {
+  const sectionMap = useContext(SectionMapContext)
+  const sections = Object.entries(sectionMap)
     .map(([startSlide, data]) => ({
       start: parseInt(startSlide),
       label: data.label,
@@ -601,10 +935,12 @@ function PresentationFooter({
     }))
     .sort((a, b) => a.start - b.start)
 
-  // Calculate section ranges
+  // Calculate section ranges — last section extends to infinity so it
+  // captures any source slide number, even in filtered decks where
+  // frames.length < max source slide number.
   const sectionRanges = sections.map((sec, i) => {
     const nextSec = sections[i + 1]
-    const end = nextSec ? nextSec.start - 1 : 100 // Assume generous max for last section
+    const end = nextSec ? nextSec.start - 1 : Infinity
     return { ...sec, end }
   })
 
@@ -653,14 +989,78 @@ function PresentationFooter({
 
 // ── Main component ───────────────────────────────────────────────────
 
+export interface PresentationClientProps {
+  slides: TechnologyAdoptionSeriesSlide[]
+  mode?: PresentationMode
+  /** Override the default deck title (shown on the first frame). */
+  deckTitle?: string
+  /** Override the default deck subtitle. */
+  deckSubtitle?: string
+  /** Override the section map used for section dividers and the footer nav. */
+  sections?: SectionMap
+  /** For specific slide numbers, render the visual frame before explanatory frames. */
+  visualFirstSlides?: number[]
+  /** For specific slide numbers, render a single split-layout frame with text + visual. */
+  combinedContentVisualSlides?: number[]
+  /** For specific slide numbers, suppress table-only markdown frames. */
+  hideTableFramesForSlides?: number[]
+  /** For specific slide numbers, merge the first two non-visual frames into one. */
+  mergeFirstTwoNonVisualFramesForSlides?: number[]
+  /** Cap appended reference/supporting material frames to a maximum count. */
+  referenceFrameLimit?: number
+  /** Move reference/supporting source frames to the end of the deck. */
+  appendReferenceFramesToEnd?: boolean
+  /** Optional dedicated references section inserted before appended reference frames. */
+  referenceSection?: {
+    startSlide: number
+    label: string
+    title: string
+    count?: string
+  }
+}
+
 export default function PresentationClient({
   slides,
   mode = 'hd',
-}: {
-  slides: TechnologyAdoptionSeriesSlide[]
-  mode?: PresentationMode
-}) {
-  const frames = useMemo(() => expandToFrames(slides), [slides])
+  deckTitle,
+  deckSubtitle,
+  sections,
+  visualFirstSlides,
+  combinedContentVisualSlides,
+  hideTableFramesForSlides,
+  mergeFirstTwoNonVisualFramesForSlides,
+  referenceFrameLimit,
+  appendReferenceFramesToEnd,
+  referenceSection,
+}: PresentationClientProps) {
+  const frames = useMemo(
+    () =>
+      expandToFrames(slides, {
+        deckTitle,
+        deckSubtitle,
+        sections,
+        visualFirstSlides,
+        combinedContentVisualSlides,
+        hideTableFramesForSlides,
+        mergeFirstTwoNonVisualFramesForSlides,
+        referenceFrameLimit,
+        appendReferenceFramesToEnd,
+        referenceSection,
+      }),
+    [
+      slides,
+      deckTitle,
+      deckSubtitle,
+      sections,
+      visualFirstSlides,
+      combinedContentVisualSlides,
+      hideTableFramesForSlides,
+      mergeFirstTwoNonVisualFramesForSlides,
+      referenceFrameLimit,
+      appendReferenceFramesToEnd,
+      referenceSection,
+    ]
+  )
   const [currentIdx, setCurrentIdx] = useState(0)
   const [showHelp, setShowHelp] = useState(false)
   const helpOpenRef = useRef(false)
@@ -677,7 +1077,11 @@ export default function PresentationClient({
   )
 
   const frame = frames[currentIdx]
-  const sectionLabel = useMemo(() => getSectionLabel(frame.sourceSlide), [frame.sourceSlide])
+  const activeSections = sections ?? SECTIONS
+  const sectionLabel = useMemo(
+    () => getSectionLabel(frame.sourceSlide, activeSections),
+    [frame.sourceSlide, activeSections]
+  )
 
   // ── Touch navigation ──
   const touchStart = useRef(0)
@@ -699,13 +1103,15 @@ export default function PresentationClient({
   const renderFrame = () => {
     switch (frame.type) {
       case 'deck-title':
-        return <DeckTitleFrame />
+        return <DeckTitleFrame frame={frame} />
       case 'section':
         return <SectionFrame frame={frame} />
       case 'slide-title':
         return <SlideTitleFrame frame={frame} />
       case 'content':
         return <ContentFrame frame={frame} />
+      case 'content-visual':
+        return <ContentVisualFrame frame={frame} />
       case 'visual':
         return <VisualFrame frame={frame} />
       case 'statement':
@@ -717,138 +1123,171 @@ export default function PresentationClient({
 
   return (
     <PresentationModeContext.Provider value={mode}>
-      <div
-        className={`presentation-root flex h-[100dvh] w-full flex-col overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 ${
-          mode === '4k' ? 'mode-4k' : ''
-        }`}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        tabIndex={0}
-      >
-        {/* Thin progress bar */}
-        <div className="h-1 w-full bg-slate-800">
-          <div
-            className="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-300"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-
-        {/* Frame content area with fade transition */}
-        <div className="flex-1 overflow-hidden px-12 py-8 lg:px-20 lg:py-12">
-          <div
-            key={currentIdx}
-            className="h-full animate-[fadeIn_0.3s_ease-out] motion-reduce:animate-none"
-            style={{ animationFillMode: 'both' }}
-          >
-            {renderFrame()}
-          </div>
-          {/* Screen-reader announcement for frame changes */}
-          <div className="sr-only" aria-live="polite" aria-atomic="true">
-            Frame {currentIdx + 1} of {frames.length}
-            {frame.sourceSlide > 0 ? `, Slide ${frame.sourceSlide}` : ''}
-            {sectionLabel ? `, ${sectionLabel}` : ''}
-          </div>
-        </div>
-
-        {/* Global Footer Navigation */}
-        <PresentationFooter currentSlide={frame.sourceSlide} totalSlides={frames.length} />
-
-        {/* Keyboard shortcut overlay */}
-        {showHelp ? (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
-            onClick={() => setShowHelp(false)}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Keyboard shortcuts"
-          >
+      <SectionMapContext.Provider value={activeSections}>
+        <div
+          className={`presentation-root flex h-[100dvh] w-full flex-col overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 ${
+            mode === '4k' ? 'mode-4k' : ''
+          }`}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          tabIndex={0}
+        >
+          {/* Thin progress bar */}
+          <div className="h-1 w-full bg-slate-800">
             <div
-              className="w-full max-w-md rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
+              className="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+
+          {/* Frame content area with fade transition */}
+          <div className="flex-1 overflow-hidden px-12 py-8 lg:px-20 lg:py-12">
+            <div
+              key={currentIdx}
+              className="h-full animate-[fadeIn_0.3s_ease-out] motion-reduce:animate-none"
+              style={{ animationFillMode: 'both' }}
             >
-              <h3 className="mb-4 text-lg font-bold text-white">Keyboard Shortcuts</h3>
-              <div className="space-y-2 text-base text-slate-300">
-                {[
-                  ['→ / Space / PageDown', 'Next frame'],
-                  ['← / PageUp', 'Previous frame'],
-                  ['Home', 'First frame'],
-                  ['End', 'Last frame'],
-                  ['F', 'Toggle fullscreen'],
-                  ['?', 'Toggle this help'],
-                  ['Esc', 'Close help'],
-                ].map(([key, desc]) => (
-                  <div key={key} className="flex items-center justify-between">
-                    <kbd className="rounded bg-slate-800 px-2 py-0.5 font-mono text-sm text-cyan-300">
-                      {key}
-                    </kbd>
-                    <span className="text-slate-400">{desc}</span>
-                  </div>
-                ))}
-              </div>
+              {renderFrame()}
+            </div>
+            {/* Screen-reader announcement for frame changes */}
+            <div className="sr-only" aria-live="polite" aria-atomic="true">
+              Frame {currentIdx + 1} of {frames.length}
+              {frame.sourceSlide > 0 ? `, Slide ${frame.sourceSlide}` : ''}
+              {sectionLabel ? `, ${sectionLabel}` : ''}
             </div>
           </div>
-        ) : null}
 
-        {/* Navigation bar */}
-        <nav
-          className="flex items-center justify-between border-t border-slate-800 px-6 py-3"
-          aria-label="Presentation navigation"
-        >
-          <div className="flex items-center gap-3">
-            <Link
-              href="/technology-adoption-series"
-              className="rounded-lg bg-slate-800/60 px-3 py-2 text-sm font-semibold text-slate-400 transition-colors hover:bg-slate-700 hover:text-slate-200"
-            >
-              ← Series
-            </Link>
-            <button
-              onClick={() => setCurrentIdx((c) => Math.max(c - 1, 0))}
-              disabled={currentIdx === 0}
-              className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700 disabled:opacity-30"
-              aria-label="Previous frame"
-            >
-              ← Prev
-            </button>
-            <button
-              onClick={() => setCurrentIdx((c) => Math.min(c + 1, frames.length - 1))}
-              disabled={currentIdx === frames.length - 1}
-              className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700 disabled:opacity-30"
-              aria-label="Next frame"
-            >
-              Next →
-            </button>
-          </div>
+          {/* Global Footer Navigation */}
+          <PresentationFooter currentSlide={frame.sourceSlide} />
 
-          <div className="text-sm text-slate-500">
-            {sectionLabel ? (
-              <span className="mr-2 font-semibold tracking-wide text-cyan-400/60">
-                {sectionLabel}
-              </span>
-            ) : null}
-            {currentIdx + 1} / {frames.length}
-            {frame.sourceSlide > 0 ? (
-              <span className="ml-2 text-slate-600">&middot; Slide {frame.sourceSlide}</span>
-            ) : null}
-          </div>
+          {/* Keyboard shortcut overlay */}
+          {showHelp ? (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+              onClick={() => setShowHelp(false)}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Keyboard shortcuts"
+            >
+              <div
+                className="w-full max-w-md rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h3 className="mb-4 text-lg font-bold text-white">Keyboard Shortcuts</h3>
+                <div className="space-y-2 text-base text-slate-300">
+                  {[
+                    ['→ / Space / PageDown', 'Next frame'],
+                    ['← / PageUp', 'Previous frame'],
+                    ['Home', 'First frame'],
+                    ['End', 'Last frame'],
+                    ['F', 'Toggle fullscreen'],
+                    ['?', 'Toggle this help'],
+                    ['Esc', 'Close help'],
+                  ].map(([key, desc]) => (
+                    <div key={key} className="flex items-center justify-between">
+                      <kbd className="rounded bg-slate-800 px-2 py-0.5 font-mono text-sm text-cyan-300">
+                        {key}
+                      </kbd>
+                      <span className="text-slate-400">{desc}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : null}
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setShowHelp(true)}
-              className="rounded-lg bg-slate-800 px-3 py-2 text-sm font-semibold text-slate-400 transition-colors hover:bg-slate-700 hover:text-slate-200"
-              aria-label="Show keyboard shortcuts"
-            >
-              ?
-            </button>
-            <button
-              onClick={toggleFullscreen}
-              className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700"
-              aria-label="Toggle fullscreen"
-            >
-              ⛶ Fullscreen
-            </button>
-          </div>
-        </nav>
-      </div>
+          {/* Navigation bar */}
+          <nav
+            className="flex items-center justify-between border-t border-slate-800 px-6 py-3"
+            aria-label="Presentation navigation"
+          >
+            <div className="flex items-center gap-3">
+              <Link
+                href="/technology-adoption-series"
+                className="rounded-lg bg-slate-800/60 px-3 py-2 text-sm font-semibold text-slate-400 transition-colors hover:bg-slate-700 hover:text-slate-200"
+              >
+                ← Series
+              </Link>
+              <button
+                onClick={() => setCurrentIdx((c) => Math.max(c - 1, 0))}
+                disabled={currentIdx === 0}
+                className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700 disabled:opacity-30"
+                aria-label="Previous frame"
+              >
+                ← Prev
+              </button>
+              <button
+                onClick={() => setCurrentIdx((c) => Math.min(c + 1, frames.length - 1))}
+                disabled={currentIdx === frames.length - 1}
+                className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700 disabled:opacity-30"
+                aria-label="Next frame"
+              >
+                Next →
+              </button>
+            </div>
+
+            <div className="text-sm text-slate-500">
+              {sectionLabel ? (
+                <span className="mr-2 font-semibold tracking-wide text-cyan-400/60">
+                  {sectionLabel}
+                </span>
+              ) : null}
+              {currentIdx + 1} / {frames.length}
+              {frame.sourceSlide > 0 ? (
+                <span className="ml-2 text-slate-600">&middot; Slide {frame.sourceSlide}</span>
+              ) : null}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowHelp(true)}
+                className="rounded-lg bg-slate-800 px-3 py-2 text-sm font-semibold text-slate-400 transition-colors hover:bg-slate-700 hover:text-slate-200"
+                aria-label="Show keyboard shortcuts"
+              >
+                ?
+              </button>
+              <button
+                onClick={toggleFullscreen}
+                className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700"
+                aria-label="Toggle fullscreen"
+              >
+                ⛶ Fullscreen
+              </button>
+            </div>
+          </nav>
+        </div>
+      </SectionMapContext.Provider>
     </PresentationModeContext.Provider>
+  )
+}
+
+function ContentVisualFrame({ frame }: { frame: PresentationFrame }) {
+  const mode = useContext(PresentationModeContext)
+  return (
+    <div className="grid h-full grid-cols-1 gap-6 xl:grid-cols-2">
+      <section className="min-h-0 overflow-auto rounded-xl border border-slate-700/60 bg-slate-900/40 p-5 lg:p-7">
+        <h2
+          className={`mb-4 font-bold text-white ${
+            mode === '4k' ? 'text-5xl leading-tight' : 'text-2xl'
+          }`}
+        >
+          {frame.title}
+        </h2>
+        {frame.nodes && frame.nodes.length > 0 ? (
+          <div
+            className={
+              mode === '4k'
+                ? '[&_p]:text-2xl [&_p]:leading-relaxed [&_li]:text-2xl [&_li]:leading-relaxed [&_ul]:space-y-3 [&_ol]:space-y-3 text-slate-200'
+                : '[&_p]:text-lg [&_p]:leading-relaxed [&_li]:text-lg [&_li]:leading-relaxed [&_ul]:space-y-2 [&_ol]:space-y-2 text-slate-200'
+            }
+          >
+            <RenderMarkdownNodes nodes={frame.nodes} variant="presentation" />
+          </div>
+        ) : null}
+      </section>
+      <section className="min-h-0 overflow-hidden rounded-xl border border-slate-700/60 bg-slate-900/30 p-3 lg:p-5">
+        {frame.visualId ? <PresentationVisual id={frame.visualId} mode={mode} /> : null}
+      </section>
+    </div>
   )
 }

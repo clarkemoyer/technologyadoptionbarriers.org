@@ -47,8 +47,8 @@ export const tokenizeInline = (value: string | null | undefined): InlineToken[] 
     const linkRe = remaining.match(/\[([^\]]+)]\(([^)]+)\)/)
     const strongRe = remaining.match(/\*\*([^*]+)\*\*/)
     const emAsteriskRe = remaining.match(/\*([^*]+)\*/)
-    // Use a boundary-safe pattern (no lookbehind) for older Safari compatibility.
-    // Group 1 captures the leading boundary char so it is excluded from index/fullMatch.
+    // Underscore emphasis: boundary-safe (no lookbehind) for older Safari.
+    // Group 1 = optional leading non-word char, group 2 = emphasis content.
     const emUnderscoreRe = remaining.match(/(^|[^\w])_([^_]+)_([^\w]|$)/)
 
     const matches: ParsedMatch[] = []
