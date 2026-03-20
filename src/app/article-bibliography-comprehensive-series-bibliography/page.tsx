@@ -89,153 +89,153 @@ const BibliographyPage = () => {
             on the field.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <a
+            <Link
               href="/bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">1. Theory of Reasoned Action</div>
               <div className="text-sm text-gray-600">Fishbein &amp; Ajzen (1975)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-2-diffusion-of-innovations-rogers"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">2. Diffusion of Innovations</div>
               <div className="text-sm text-gray-600">Rogers (1962/2003)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-3-social-cognitive-theory-sct-bandura-1986"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">3. Social Cognitive Theory</div>
               <div className="text-sm text-gray-600">Bandura (1986)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-4-model-of-innovation-resistance-ram-sheth-1989"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">4. Innovation Resistance</div>
               <div className="text-sm text-gray-600">Ram &amp; Sheth (1989)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-5-status-quo-bias-samuelson-zeckhauser-1988"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">5. Status Quo Bias</div>
               <div className="text-sm text-gray-600">Samuelson &amp; Zeckhauser (1988)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-6-technology-acceptance-model-tam-davis-1989"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">6. Technology Acceptance Model</div>
               <div className="text-sm text-gray-600">Davis (1989)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">7. Theory of Planned Behavior</div>
               <div className="text-sm text-gray-600">Ajzen (1991)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-8-personal-computing-acceptance-thompson-1991"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">8. Personal Computing Acceptance</div>
               <div className="text-sm text-gray-600">Thompson et al. (1991)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-9-intrinsic-extrinsic-motivation-davis-1992"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">9. Motivation Framework</div>
               <div className="text-sm text-gray-600">Davis et al. (1992)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-10-decomposed-tpb-taylor-todd-1995"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">10. Decomposed TPB</div>
               <div className="text-sm text-gray-600">Taylor &amp; Todd (1995)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-11-task-technology-fit-ttf-goodhue-thompson-1995"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">11. Task-Technology Fit</div>
               <div className="text-sm text-gray-600">Goodhue &amp; Thompson (1995)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-12-technology-readiness-index-tri-parasuraman-2000"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">12. Technology Readiness Index</div>
               <div className="text-sm text-gray-600">Parasuraman (2000)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-13-technology-acceptance-model-2-tam2-venkatesh-davis-2000"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">13. TAM2</div>
               <div className="text-sm text-gray-600">Venkatesh &amp; Davis (2000)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-14-expectation-confirmation-model-ecm-bhattacherjee-2001"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">14. Expectation-Confirmation Model</div>
               <div className="text-sm text-gray-600">Bhattacherjee (2001)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-15-unified-theory-utaut-venkatesh-2003"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">15. UTAUT</div>
               <div className="text-sm text-gray-600">Venkatesh et al. (2003)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-16-math-venkatesh-brown-2001"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">16. MATH</div>
               <div className="text-sm text-gray-600">Venkatesh &amp; Brown (2001)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-17-value-based-adoption-kim-2007"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">17. Value-Based Adoption</div>
               <div className="text-sm text-gray-600">Kim et al. (2007)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-18-tram-lin-2007"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">18. TRAM</div>
               <div className="text-sm text-gray-600">Lin et al. (2007)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-19-technology-acceptance-model-3-tam3-venkatesh-bala-2008"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">19. TAM3</div>
               <div className="text-sm text-gray-600">Venkatesh &amp; Bala (2008)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-20-utaut2-venkatesh-2012"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">20. UTAUT2</div>
               <div className="text-sm text-gray-600">Venkatesh et al. (2012)</div>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/bibliography-1-21-technology-readiness-index-2-tri-2-parasuraman-colby-2015"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">21. TRI 2.0</div>
               <div className="text-sm text-gray-600">Parasuraman &amp; Colby (2015)</div>
-            </a>
+            </Link>
           </div>
         </section>
 
