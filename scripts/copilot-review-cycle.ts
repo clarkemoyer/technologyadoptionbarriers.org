@@ -39,7 +39,7 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-function gh(args: string, retries = MAX_RETRIES): string {
+async function gh(args: string, retries = MAX_RETRIES): Promise<string> {
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       return execSync(`gh ${args}`, {
@@ -56,7 +56,7 @@ function gh(args: string, retries = MAX_RETRIES): string {
       ) {
         const delay = 1000 * Math.pow(2, attempt)
         console.log(`  Retry ${attempt}/${retries} after ${delay}ms...`)
-        execSync(`sleep ${delay / 1000}`)
+        await sleep(delay)
         continue
       }
       throw error
@@ -65,29 +65,35 @@ function gh(args: string, retries = MAX_RETRIES): string {
   throw new Error('Unreachable')
 }
 
-function ghJson<T>(args: string): T {
-  return JSON.parse(gh(args))
+async function ghJson<T>(args: string): Promise<T> {
+  return JSON.parse(await gh(args))
 }
 
 // --- Core functions ---
-function getPrState(repo: string, prNumber: string): PrState {
+async function getPrState(repo: string, prNumber: string): Promise<PrState> {
   return ghJson<PrState>(
     `pr view ${prNumber} -R ${repo} --json state,isDraft,headRefOid,headRefName`
   )
 }
 
-function getReviews(repo: string, prNumber: string): Review[] {
-  return ghJson<Review[]>(`api repos/${repo}/pulls/${prNumber}/reviews --paginate`)
+async function getReviews(repo: string, prNumber: string): Promise<Review[]> {
+  return ghJson<Review[]>(`api repos/${repo}/pulls/${prNumber}/reviews?per_page=100`)
 }
 
-function getReviewComments(repo: string, prNumber: string, reviewId: number): ReviewComment[] {
-  return ghJson<ReviewComment[]>(`api repos/${repo}/pulls/${prNumber}/reviews/${reviewId}/comments`)
+async function getReviewComments(
+  repo: string,
+  prNumber: string,
+  reviewId: number
+): Promise<ReviewComment[]> {
+  return ghJson<ReviewComment[]>(
+    `api repos/${repo}/pulls/${prNumber}/reviews/${reviewId}/comments?per_page=100`
+  )
 }
 
-function requestCopilotReview(repo: string, prNumber: string): void {
+async function requestCopilotReview(repo: string, prNumber: string): Promise<void> {
   console.log('Requesting Copilot review...')
   try {
-    gh(
+    await gh(
       `api repos/${repo}/pulls/${prNumber}/requested_reviewers ` +
         `-X POST -f "reviewers[]=copilot-pull-request-reviewer[bot]"`
     )
@@ -95,17 +101,17 @@ function requestCopilotReview(repo: string, prNumber: string): void {
   } catch {
     // Fallback: trigger via comment
     console.log('  API request failed, falling back to @copilot comment...')
-    gh(`pr comment ${prNumber} -R ${repo} --body "@copilot review"`)
+    await gh(`pr comment ${prNumber} -R ${repo} --body "@copilot review"`)
     console.log('  Review requested via comment.')
   }
 }
 
-function postComment(repo: string, prNumber: string, body: string): void {
+async function postComment(repo: string, prNumber: string, body: string): Promise<void> {
   // Write to temp file to avoid shell injection
   const tmpFile = join(tmpdir(), `copilot-review-${Date.now()}.md`)
   writeFileSync(tmpFile, body, 'utf-8')
   try {
-    gh(`pr comment ${prNumber} -R ${repo} --body-file "${tmpFile}"`)
+    await gh(`pr comment ${prNumber} -R ${repo} --body-file "${tmpFile}"`)
   } finally {
     try {
       unlinkSync(tmpFile)
@@ -115,14 +121,14 @@ function postComment(repo: string, prNumber: string, body: string): void {
   }
 }
 
-function dispatchNextRound(
+async function dispatchNextRound(
   repo: string,
   prNumber: string,
   nextRound: number,
   maxRounds: number
-): void {
+): Promise<void> {
   console.log(`Dispatching round ${nextRound}/${maxRounds}...`)
-  gh(
+  await gh(
     `workflow run copilot-review-cycle.yml -R ${repo} ` +
       `-f pr_number=${prNumber} ` +
       `-f round=${nextRound} ` +
@@ -146,13 +152,13 @@ async function waitForCopilotReview(
     await sleep(REVIEW_POLL_INTERVAL_MS)
 
     // Check if PR is still open
-    const pr = getPrState(repo, prNumber)
+    const pr = await getPrState(repo, prNumber)
     if (pr.state !== 'OPEN') {
       console.log(`  PR is ${pr.state}, stopping.`)
       return null
     }
 
-    const reviews = getReviews(repo, prNumber)
+    const reviews = await getReviews(repo, prNumber)
     const newCopilotReview = reviews.find((r) => r.id > afterId && isCopilotReview(r))
 
     if (newCopilotReview) {
@@ -180,7 +186,7 @@ async function waitForNewPush(
   while (Date.now() - startTime < FIX_TIMEOUT_MS) {
     await sleep(FIX_POLL_INTERVAL_MS)
 
-    const pr = getPrState(repo, prNumber)
+    const pr = await getPrState(repo, prNumber)
     if (pr.state !== 'OPEN') {
       console.log(`  PR is ${pr.state}, stopping.`)
       return false
@@ -255,7 +261,7 @@ async function main() {
   console.log(`\n=== Copilot Review Cycle: Round ${round}/${maxRounds} for PR #${prNumber} ===\n`)
 
   // Step 1: Validate PR state
-  const pr = getPrState(repo, prNumber)
+  const pr = await getPrState(repo, prNumber)
   if (pr.state !== 'OPEN') {
     console.log(`PR is ${pr.state}. Nothing to do.`)
     writeSummary(prNumber, round, maxRounds, 'SKIPPED', 0, `PR is ${pr.state}`)
@@ -270,19 +276,19 @@ async function main() {
   console.log(`Branch: ${pr.headRefName} (${pr.headRefOid.slice(0, 7)})`)
 
   // Step 2: Get last known review ID
-  const existingReviews = getReviews(repo, prNumber)
+  const existingReviews = await getReviews(repo, prNumber)
   const lastReviewId =
     existingReviews.length > 0 ? Math.max(...existingReviews.map((r) => r.id)) : 0
 
   // Step 3: Request Copilot review
-  requestCopilotReview(repo, prNumber)
+  await requestCopilotReview(repo, prNumber)
 
   // Step 4: Wait for review
   const review = await waitForCopilotReview(repo, prNumber, lastReviewId)
 
   if (!review) {
     console.log('\nCopilot review did not arrive within timeout.')
-    postComment(
+    await postComment(
       repo,
       prNumber,
       `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Timed out waiting for Copilot review. You can re-trigger manually.`
@@ -292,12 +298,12 @@ async function main() {
   }
 
   // Step 5: Check comments
-  const comments = getReviewComments(repo, prNumber, review.id)
+  const comments = await getReviewComments(repo, prNumber, review.id)
   console.log(`\nReview has ${comments.length} inline comment(s).`)
 
   if (comments.length === 0) {
     console.log('\nCopilot review is clean!')
-    postComment(
+    await postComment(
       repo,
       prNumber,
       `**Copilot Review Cycle:** Passed after ${round} round(s) with no comments.`
@@ -316,7 +322,7 @@ async function main() {
   // Step 7: Check max rounds
   if (round >= maxRounds) {
     console.log(`\nMax rounds (${maxRounds}) reached. Human attention needed.`)
-    postComment(
+    await postComment(
       repo,
       prNumber,
       `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Max rounds reached. ${comments.length} comment(s) still need human attention.`
@@ -328,7 +334,7 @@ async function main() {
   // Step 8: Ask Copilot to fix
   console.log('\nRequesting Copilot to fix comments...')
   const fixComment = buildFixRequestComment(comments)
-  postComment(repo, prNumber, fixComment)
+  await postComment(repo, prNumber, fixComment)
 
   // Step 9: Wait for Copilot to push fixes
   const headSha = pr.headRefOid
@@ -336,7 +342,7 @@ async function main() {
 
   if (!pushed) {
     console.log('\nCopilot coding agent did not push fixes within timeout.')
-    postComment(
+    await postComment(
       repo,
       prNumber,
       `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Copilot did not push fixes within timeout. ${comments.length} comment(s) may need manual fixes.`
@@ -354,7 +360,7 @@ async function main() {
     comments.length,
     `Dispatching round ${round + 1}`
   )
-  dispatchNextRound(repo, prNumber, round + 1, maxRounds)
+  await dispatchNextRound(repo, prNumber, round + 1, maxRounds)
   console.log(`\nRound ${round} complete. Next round dispatched.`)
 }
 

@@ -37,7 +37,12 @@ jobs:
     environment: copilot
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
+      (
+        github.event_name == 'pull_request' &&
+        github.event.pull_request.draft == false &&
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN != ''
+      )
 
     steps:
       - name: Checkout repository
