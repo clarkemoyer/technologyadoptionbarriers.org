@@ -256,7 +256,7 @@ function findCopilotSubPr(repo: string, targetBranch: string): SubPr | null {
       `pr list -R ${repo} --state open --base "${safeBranch}" ` +
         `--json number,headRefName,state,isDraft,mergeable`
     )
-    return prs.find((p) => p.headRefName.startsWith('copilot/sub-pr-')) || null
+    return prs.find((p) => /^copilot\/sub-pr-\d+$/.test(p.headRefName)) || null
   } catch {
     return null
   }
@@ -274,7 +274,7 @@ function mergeCopilotSubPr(repo: string, subPrNumber: number): boolean {
     } catch {
       // already ready or not a draft
     }
-    gh(`pr merge ${subPrNumber} -R ${repo} --merge --delete-branch`)
+    gh(`pr merge ${subPrNumber} -R ${repo} --merge --delete-branch --yes`)
     console.log(`  Sub-PR #${subPrNumber} merged successfully.`)
     return true
   } catch (err: any) {
