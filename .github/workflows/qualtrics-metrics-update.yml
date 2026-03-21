@@ -101,8 +101,12 @@ jobs:
             -H "Accept: application/json" \
             "$definition_url"); then
             if [[ "$q_http_code" -ge 200 && "$q_http_code" -lt 300 ]]; then
-              question_count=$(jq '.result.Questions // {} | keys | length' "$DEFINITION_JSON")
-              echo "Question count: $question_count"
+              if parsed=$(jq '.result.Questions // {} | keys | length' "$DEFINITION_JSON" 2>&1); then
+                question_count="$parsed"
+                echo "Question count: $question_count"
+              else
+                echo "::warning::Failed to parse survey definition JSON. Setting question count to 0. jq output: $parsed"
+              fi
             else
               echo "::warning::Could not fetch question count (HTTP $q_http_code). Setting to 0."
             fi
