@@ -30,7 +30,7 @@ describe('GoogleSearchConsoleClient', () => {
       ...originalEnv,
       GOOGLE_SERVICE_ACCOUNT_EMAIL: 'test@example.com',
       GOOGLE_PRIVATE_KEY: '-----BEGIN PRIVATE KEY-----\nkey\n-----END PRIVATE KEY-----',
-      GSC_SITE_URL: 'https://technologyadoptionbarriers.org',
+      GSC_SITE_URL: 'sc-domain:technologyadoptionbarriers.org',
     }
   })
 
@@ -72,7 +72,7 @@ describe('GoogleSearchConsoleClient', () => {
 
     expect(mockQuery).toHaveBeenCalledWith(
       expect.objectContaining({
-        siteUrl: 'https://technologyadoptionbarriers.org',
+        siteUrl: 'sc-domain:technologyadoptionbarriers.org',
         requestBody: expect.objectContaining({
           dimensions: ['query'],
           rowLimit: 100,
@@ -159,7 +159,7 @@ describe('GoogleSearchConsoleClient', () => {
 
     expect(sitemaps).toHaveLength(1)
     expect(mockListSitemaps).toHaveBeenCalledWith({
-      siteUrl: 'https://technologyadoptionbarriers.org',
+      siteUrl: 'sc-domain:technologyadoptionbarriers.org',
     })
   })
 

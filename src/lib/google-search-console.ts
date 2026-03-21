@@ -38,7 +38,7 @@ export class GoogleSearchConsoleClient {
       console.warn('Google Search Console credentials not fully configured. API calls will fail.')
     }
 
-    this.siteUrl = siteUrl || 'https://technologyadoptionbarriers.org'
+    this.siteUrl = siteUrl || 'sc-domain:technologyadoptionbarriers.org'
 
     const auth = new google.auth.GoogleAuth({
       credentials: {
