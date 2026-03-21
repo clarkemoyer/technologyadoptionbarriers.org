@@ -222,7 +222,7 @@ const CooperZmudPage = () => {
               distribution and MRP adoption patterns.
             </li>
             <li>
-              <strong>Geographic Representateness:</strong> The study included respondents across 21
+              <strong>Geographic Representativeness:</strong> The study included respondents across 21
               different U.S. states, with significant representation from states with manufacturing
               concentrations (California 17.3%, New York 15.5%, Michigan 7.7%, Massachusetts 5.9%,
               and others).
