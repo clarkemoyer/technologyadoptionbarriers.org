@@ -189,7 +189,7 @@ const BibliographyArticlePage = () => {
               Goodhue and Thompson implemented multiple strategies to establish external validity:
               Multi-Organization Design: The primary external validity strategy was the
               25-organization sample. Rather than studying a single organization as Thompson et al.
-              Â (1991) had, this research included diverse organizations from different industries.
+              (1991) had, this research included diverse organizations from different industries.
               Organizations ranged from small companies to large enterprises, from various service
               sectors. This diversity strengthened generalization claims beyond single-organization
               findings.

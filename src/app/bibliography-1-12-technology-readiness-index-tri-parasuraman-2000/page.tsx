@@ -549,33 +549,33 @@ const BibliographyArticlePage = () => {
               L.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              L. (1981). “The Employee as Customer.” Journal of Retail Banking, vol.Â 3, no. 1, pp.Â
-              33-40. 2.Bitner, M. J., et al. Â (2000). “Self-Service Technologies: Understanding
+              L. (1981). “The Employee as Customer.” Journal of Retail Banking, vol.3, no. 1, pp.
+              33-40. 2.Bitner, M. J., et al. (2000). “Self-Service Technologies: Understanding
               Customer Satisfaction with Technology-Based Service Encounters.” Journal of Marketing,
-              vol. Â 64, no. 3, pp.Â 138-149. 3.Churchill Jr., G. A. (1979). “A Paradigm for
-              Developing Better Measures of Marketing Constructs.” Journal of Marketing Research,
-              vol. Â 16, no. 1, pp.Â 64-73. 4.Cowles, D., and Crosby, L. A. (1990). “Consumer
-              Perceptions of Interactive Media in Service Marketing Encounters.” Service Industries
-              Journal, vol.Â 10, no. 4, pp.Â 521-540. 5.Dabholkar, P. A. (1996). “Consumer
-              Evaluations of New Technology- Based Self-Service Options.” Journal of the Academy of
-              Marketing Science, vol.Â 24, no. 3, pp.Â 201-212. 6.Dabholkar, P. A., and Bagozzi, R.
+              vol. 64, no. 3, pp.138-149. 3.Churchill Jr., G. A. (1979). “A Paradigm for Developing
+              Better Measures of Marketing Constructs.” Journal of Marketing Research, vol. 16, no.
+              1, pp.64-73. 4.Cowles, D., and Crosby, L. A. (1990). “Consumer Perceptions of
+              Interactive Media in Service Marketing Encounters.” Service Industries Journal,
+              vol.10, no. 4, pp.521-540. 5.Dabholkar, P. A. (1996). “Consumer Evaluations of New
+              Technology- Based Self-Service Options.” Journal of the Academy of Marketing Science,
+              vol.24, no. 3, pp.201-212. 6.Dabholkar, P. A., and Bagozzi, R.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               P. (2002). “An Attitudinal Model of Technology-Based Self-Service.” Journal of the
-              Academy of Marketing Science, vol.Â 30, no. 3, pp.Â 184-201. 7.Davis, F. D. (1989).
+              Academy of Marketing Science, vol.30, no. 3, pp.184-201. 7.Davis, F. D. (1989).
               “Perceived Usefulness, Perceived Ease of Use, and User Acceptance of Information
-              Technology.” MIS Quarterly, vol. Â 13, no. 3, pp.Â 319-340. 8.Eastlick, M. A. (1996).
+              Technology.” MIS Quarterly, vol. 13, no. 3, pp.319-340. 8.Eastlick, M. A. (1996).
               “Consumer Intention to Adopt Interactive Teleshopping.” Marketing Science Institute
               working paper, no. 96-113. 9.Mick, D. G., and Fournier, S. (1998). “Paradoxes of
               Technology: Consumer Cognizance, Emotions, and Coping Strategies.” Journal of Consumer
-              Research, vol. Â 25, no. 2, pp.Â 123-143. 10.Parasuraman, A., and Colby, C. L. (1997).
+              Research, vol. 25, no. 2, pp.123-143. 10.Parasuraman, A., and Colby, C. L. (1997).
               “Correlates and Consequences of Consumer Attitudes Toward Retail Technologies and
-              Shopping.” Journal of Retailing, vol. Â 73, no. 2, pp.Â 161-180. 11.Rogers, E.
+              Shopping.” Journal of Retailing, vol. 73, no. 2, pp.161-180. 11.Rogers, E.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               M. (2003). Diffusion of Innovations (5th ed.). Free Press. 12.Zalthaml, V. A.,
               Parasuraman, A., and Malhotra, A. (2002). “Service Quality Delivery Through Web
-              Sites.” Journal of the Academy of Marketing Science, vol. Â 30, no. 4, pp.Â 362-375.
+              Sites.” Journal of the Academy of Marketing Science, vol. 30, no. 4, pp.362-375.
             </p>
           </section>
           <p className="mt-8 text-sm italic text-gray-600">

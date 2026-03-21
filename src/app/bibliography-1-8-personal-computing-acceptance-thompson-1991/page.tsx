@@ -54,7 +54,7 @@ const BibliographyArticlePage = () => {
           <section className="mb-6">
             <h3 className={H3_CLASSES}>Why was the model made?</h3>
             <p className={PARAGRAPH_CLASSES}>
-              Thompson et al. Â developed their PC utilization model to address a significant gap in
+              Thompson et al. developed their PC utilization model to address a significant gap in
               understanding personal computer adoption and usage within organizational settings.
               While prior models existed to explain technology acceptance, there was insufficient
               theoretical grounding specifically examining the factors influencing personal
@@ -69,7 +69,7 @@ const BibliographyArticlePage = () => {
               measures to understand what drives sustained utilization behavior.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              Specifically, Thompson et al. Â hypothesized that six primary constructs would predict
+              Specifically, Thompson et al. hypothesized that six primary constructs would predict
               PC utilization: social factors, affect (attitudes toward PCs), facilitating
               conditions, complexity, job fit, and long-term consequences. They recognized that
               these factors interact differently to influence how frequently and intensively
@@ -160,17 +160,17 @@ const BibliographyArticlePage = () => {
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
             <p className={PARAGRAPH_CLASSES}>
-              Thompson et al. Â provided extensive managerial implications for how organizations
-              could apply the model to enhance PC adoption and utilization. The model is intended to
-              help managers diagnose barriers to PC utilization within their organizations and
-              identify lever points for intervention. First, the model provides a diagnostic
-              framework. Managers can assess the strength of each construct within their
-              organizational context: Do employees perceive good fit between their jobs and PC
-              functionality? Are there sufficient facilitating conditions (technical support,
-              training)? Is affect toward PCs positive? Do social factors support usage? Are
-              complexity perceptions high? Do employees perceive positive long-term consequences? By
-              evaluating performance on each dimension, managers can identify which barriers are
-              most problematic. Second, the model prioritizes intervention areas.
+              Thompson et al. provided extensive managerial implications for how organizations could
+              apply the model to enhance PC adoption and utilization. The model is intended to help
+              managers diagnose barriers to PC utilization within their organizations and identify
+              lever points for intervention. First, the model provides a diagnostic framework.
+              Managers can assess the strength of each construct within their organizational
+              context: Do employees perceive good fit between their jobs and PC functionality? Are
+              there sufficient facilitating conditions (technical support, training)? Is affect
+              toward PCs positive? Do social factors support usage? Are complexity perceptions high?
+              Do employees perceive positive long-term consequences? By evaluating performance on
+              each dimension, managers can identify which barriers are most problematic. Second, the
+              model prioritizes intervention areas.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               The findings showed that social factors and job fit had the strongest effects on
@@ -438,7 +438,7 @@ const BibliographyArticlePage = () => {
               What does the model instruct leaders to do in order to reduce these barriers?
             </h3>
             <p className={PARAGRAPH_CLASSES}>
-              The Thompson et al. Â paper provides explicit managerial guidance for reducing the
+              The Thompson et al. paper provides explicit managerial guidance for reducing the
               identified barriers: For Complexity Barriers: The model suggests reducing perceived
               complexity through improved training and communication about ease of use. The authors
               note that “an important facilitating condition is the ease with which an individual
@@ -553,7 +553,7 @@ const BibliographyArticlePage = () => {
                 extensions incorporating social influences and organizational factors; models
                 examining utilization patterns rather than mere adoption Series Navigation This
                 article is part of a Technology Adoption Models Literature Review series: 1. Ram
-                (1987) - A Model of Innovation Resistance 2. Thompson et al.Â (1991) - Toward a
+                (1987) - A Model of Innovation Resistance 2. Thompson et al. (1991) - Toward a
                 Conceptual Model of Personal Computing Utilization 3. Taylor and Todd (1995) -
                 Understanding Information Technology Usage: A Test of Competing Models 4. Goodhue
                 and Thompson (1995) - Task- Technology Fit and Individual Performance References

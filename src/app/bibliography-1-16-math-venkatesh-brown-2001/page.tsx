@@ -530,8 +530,8 @@ const BibliographyArticlePage = () => {
                 Perceived Ease of Use, and User Acceptance of Information Technology.” MIS Quarterly
                 13, no. 3 (1989): 319-340. 4.Fishbein, M., and Ajzen, I. Belief, Attitude, Intention
                 and Behavior: An Introduction to Theory and Research. Reading, MA: Addison-Wesley,
-                1975. 5.Rogers, E. M. Diffusion of Innovations. 4th ed. Â New York: Free Press,
-                1995. 6.Venkatesh, V. “Determinants of Perceived Ease of Use: Integrating Control,
+                1975. 5.Rogers, E. M. Diffusion of Innovations. 4th ed. New York: Free Press, 1995.
+                6.Venkatesh, V. “Determinants of Perceived Ease of Use: Integrating Control,
                 Intrinsic Motivation, and Emotion into the Technology Acceptance Model.” Information
                 Systems Research 11, no. 4 (2000): 342-365. 7.Venkatesh, V., and Brown, S. A. “A
                 Longitudinal Investigation of Personal Computers in Homes: Adoption Determinants and

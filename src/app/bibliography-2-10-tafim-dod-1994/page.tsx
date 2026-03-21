@@ -39,7 +39,7 @@ const TAFIMPage = () => {
               <strong>Authors:</strong> U.S. Department of Defense
             </p>
             <p>
-              <strong>Publication Date:</strong> 1994
+              <strong>Publication Date:</strong> 1994 (Version 3.0: 1996)
             </p>
           </div>
         </section>

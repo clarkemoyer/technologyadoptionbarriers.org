@@ -513,7 +513,7 @@ const BibliographyArticlePage = () => {
                 beliefs (as water boiling was incompatible with Los Molinos belief systems about
                 hot-cold water), change strategies should involve education addressing underlying
                 beliefs, not just advocating adoption. Leaders may need to wait for generational
-                change or work extensively with receptive populations (like Mrs. Â B in Los Molinos)
+                change or work extensively with receptive populations (like Mrs. B in Los Molinos)
                 who can champion innovations within their communities. In organizational contexts,
                 innovations may require adaptation to existing systems, work processes, or values.
                 Providing supplementary training and systems to make innovations compatible with

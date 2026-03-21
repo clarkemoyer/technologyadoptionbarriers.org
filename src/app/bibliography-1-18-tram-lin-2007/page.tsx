@@ -495,15 +495,14 @@ const BibliographyArticlePage = () => {
             <p className={PARAGRAPH_CLASSES}>
               This sequential specification provides greater theoretical precision than either model
               alone. TRAM differs from the Unified Theory of Acceptance and Use of Technology
-              (UTAUT) by Venkatesh et al. Â (2003) in its focus on technology readiness
-              specifically. While UTAUT incorporates social influence and facilitating conditions
-              alongside perceived usefulness and ease of use, TRAM’s specific contribution is
-              integrating technology readiness as a critical antecedent to technology acceptance
-              processes. The theoretical contribution of TRAM lies in showing that technology
-              adoption cannot be adequately understood through either system-specific perceptions
-              alone or individual predispositions alone. The integration of both perspectives
-              provides superior explanatory power and practical utility. 6. Barriers Identification
-              Section:
+              (UTAUT) by Venkatesh et al. (2003) in its focus on technology readiness specifically.
+              While UTAUT incorporates social influence and facilitating conditions alongside
+              perceived usefulness and ease of use, TRAM’s specific contribution is integrating
+              technology readiness as a critical antecedent to technology acceptance processes. The
+              theoretical contribution of TRAM lies in showing that technology adoption cannot be
+              adequately understood through either system-specific perceptions alone or individual
+              predispositions alone. The integration of both perspectives provides superior
+              explanatory power and practical utility. 6. Barriers Identification Section:
             </p>
           </section>
           <section className="mb-6">
