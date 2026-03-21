@@ -314,16 +314,6 @@ const TQMDemingPage = () => {
           Readers are encouraged to consult the original publication for complete details.
         </p>
 
-        {/* Navigation */}
-        <section className="mt-12 pt-6 border-t border-gray-200">
-          <Link
-            href="/article-bibliography-comprehensive-series-bibliography"
-            className="text-blue-600 hover:text-blue-800 underline"
-          >
-            ← Back to Complete Bibliography
-          </Link>
-        </section>
-
         <section className="pt-8 border-t border-gray-200">
           <h2 className={REFERENCES_H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -355,6 +345,16 @@ const TQMDemingPage = () => {
               Technology, Center for Advanced Engineering Study.
             </li>
           </ol>
+        </section>
+
+        {/* Navigation */}
+        <section className="mt-12 pt-6 border-t border-gray-200">
+          <Link
+            href="/article-bibliography-comprehensive-series-bibliography"
+            className="text-blue-600 hover:text-blue-800 underline"
+          >
+            ← Back to Complete Bibliography
+          </Link>
         </section>
       </article>
     </main>
