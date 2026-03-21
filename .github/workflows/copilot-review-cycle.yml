@@ -1,0 +1,63 @@
+name: Copilot Review Cycle
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+    branches: ['main']
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to review'
+        required: true
+        type: string
+      round:
+        description: 'Current review round (1-indexed)'
+        required: false
+        type: number
+        default: 1
+      max_rounds:
+        description: 'Maximum review rounds'
+        required: false
+        type: number
+        default: 7
+
+concurrency:
+  group: copilot-review-${{ github.event.pull_request.number || github.event.inputs.pr_number }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  review-cycle:
+    name: Review Round ${{ github.event.inputs.round || '1' }}
+    runs-on: ubuntu-latest
+    environment: copilot
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Copilot review cycle
+        run: npx tsx scripts/copilot-review-cycle.ts
+        timeout-minutes: 45
+        env:
+          GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
+          ROUND: ${{ github.event.inputs.round || '1' }}
+          MAX_ROUNDS: ${{ github.event.inputs.max_rounds || '7' }}
+          REPO_NAME: ${{ github.repository }}
