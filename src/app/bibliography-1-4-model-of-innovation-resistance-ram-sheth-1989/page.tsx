@@ -1,5 +1,13 @@
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
+import Link from 'next/link'
+import {
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  H3_CLASSES,
+} from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Model of Innovation Resistance – Ram & Sheth (1989)',
@@ -14,7 +22,7 @@ const BibliographyArticlePage = () => {
         <h1 className={H1_CLASSES}>Model of Innovation Resistance – Ram & Sheth (1989)</h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -30,7 +38,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -41,10 +49,10 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Main Content */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Sundaresan Ram developed the Innovation Resistance Model to address a critical gap in
               innovation adoption research. Prior research, particularly Rogers’ highly influential
               Diffusion of Innovations theory, focused extensively on understanding why some
@@ -59,7 +67,7 @@ const BibliographyArticlePage = () => {
               conservative bias but rather a rational response to perceived risks and costs that
               innovations introduced.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The motivation emerged from observing that technically superior products and services
               sometimes failed in markets while technically inferior solutions succeeded. The
               Betamax videocassette recorder, for example, offered better technical quality than VHS
@@ -74,7 +82,7 @@ const BibliographyArticlePage = () => {
               posited that resistance reflected meaningful concerns that should be understood and
               addressed.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The model was specifically motivated by several observations: First, many innovations
               fail despite apparent advantages because potential adopters perceive risks that
               innovators underestimate or ignore. The creators of innovations focus on benefits but
@@ -94,7 +102,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Ram’s Innovation Resistance Model was developed and tested through theoretical
               analysis and empirical research examining multiple innovations. The research employed
               both qualitative and quantitative approaches to establish internal validity:
@@ -111,7 +119,7 @@ const BibliographyArticlePage = () => {
               Bauer’s perceived risk theory, which had demonstrated that consumers evaluate
               purchases through multiple risk dimensions.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Empirical Testing Through Consumer Behavior Studies Ram’s framework has been
               empirically tested across multiple consumer innovations including: New food products
               (organic foods, novel cuisines) Consumer durables (appliances, electronics) Services
@@ -125,7 +133,7 @@ const BibliographyArticlePage = () => {
               resistance behaviors. When consumers exhibited innovation resistance, analysis
               consistently revealed that one or more of Ram’s resistance factors were operative.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               For example: Consumers rejecting “all-in-one” household electronics despite
               convenience potential reported social risks (perceived as unfashionable) and
               psychological risks (preference for specialized products) Consumers slow to adopt
@@ -139,7 +147,7 @@ const BibliographyArticlePage = () => {
               The findings showed that resistance could occur even when benefits were objectively
               present and well-communicated, when resistance factors remained high.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               This demonstrated that the multi-factor resistance model better explained adoption
               decisions than single-benefit-focused models. Internal Consistency of Theoretical
               Framework The model demonstrates internal consistency in showing how resistance
@@ -156,7 +164,7 @@ const BibliographyArticlePage = () => {
               not randomly distributed but concentrated in particular resistance dimensions based on
               innovation characteristics.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Food innovations created social and psychological risks. Financial innovations created
               functional risks (complexity) and psychological risks (security concerns). This
               pattern consistency supports theoretical validity—different innovation types create
@@ -165,7 +173,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               External validity testing involved examining the resistance model across diverse
               innovations, markets, and consumer populations: Cross-Innovation Testing The model was
               applied to diverse innovations including: Consumer packaged goods (new food products,
@@ -183,7 +191,7 @@ const BibliographyArticlePage = () => {
               weight on economic risk; higher-education consumers placed higher weight on functional
               risk complexity).
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Temporal Generalization The model was tested across different time periods and
               innovation adoption stages: Early adoption phase when innovations are new and
               uncertain Growth phase when innovations have established track records Maturity phase
@@ -203,7 +211,7 @@ const BibliographyArticlePage = () => {
               patterns better than single-factor explanations, providing validity evidence for the
               comprehensive framework.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Validation of Risk Dimensions Each resistance dimension was tested for distinctness
               and predictive validity: Functional risk was distinct from other risks—innovations
               could be functionally risky without being economically risky Social risk operated
@@ -217,7 +225,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Ram provides extensive guidance for how innovation marketers and organizations can
               apply the resistance model to overcome adoption barriers: Innovation Assessment
               Organizations should use the resistance model to diagnose which resistance factors
@@ -233,7 +241,7 @@ const BibliographyArticlePage = () => {
               Risk Assessment: Determine whether innovation adoption creates concerns about others’
               perceptions.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Will adopters appear fashionable or unfashionable? Will adoption be perceived as
               status- appropriate? Ram recommends that “social risk can be addressed through
               influencer endorsement, normalization of adoption, and positioning through peer
@@ -278,7 +286,7 @@ const BibliographyArticlePage = () => {
               segments signals that adoption is not limited to particular groups” reducing
               perception of social risk.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               For Psychological Risk: Organizations should: 1.Align Marketing with Target
               Self-Concepts: “Positioning innovation to appeal to target adopter identities reduces
               conflict with self-concept.” For example, marketing fitness apps to health-conscious
@@ -294,7 +302,7 @@ const BibliographyArticlePage = () => {
               Mitigation Efforts The model suggests that organizations should: 1.Diagnose Dominant
               Resistance Type: Determine which resistance dimension most strongly inhibits adoption.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Different innovations create different resistance profiles—economically risky
               innovations require different mitigation than functionally risky ones. 2.Allocate
               Resources to Highest-Impact Mitigation: Organizations should prioritize addressing the
@@ -310,7 +318,7 @@ const BibliographyArticlePage = () => {
               1.Functional Risk Communication: Organizations should clearly communicate how
               technologies support task requirements and improve job performance.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Demonstration of capability reduces uncertainty. 2.Economic Risk Addressing:
               Organizations should acknowledge real costs (training time, learning investment) while
               demonstrating ROI. “Economic risk for organizational technologies includes both direct
@@ -324,7 +332,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Innovation Resistance Model operationalizes four primary risk dimensions and
               adoption outcomes: Functional Risk Measured through items assessing: - Perceived
               likelihood that innovation will fail to perform promised functions - Uncertainty about
@@ -362,7 +370,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Innovation Resistance Model possesses several important strengths: 1.Theoretical
               Advancement Over Diffusion Theory: While Rogers’ Diffusion of Innovations theory
               explains innovation characteristics affecting adoption (relative advantage,
@@ -379,7 +387,7 @@ const BibliographyArticlePage = () => {
               psychological risks, the model recognizes that adoption decisions are complex and
               multifaceted.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Single-factor models miss important resistance sources. 5.Cross-Domain Applicability:
               The framework applies to consumer innovations, organizational technologies, public
               health innovations, and social innovations. The generality across domains suggests
@@ -395,7 +403,7 @@ const BibliographyArticlePage = () => {
               9.Practical Utility for Innovation Marketing: The model directly translates to
               practical marketing and implementation strategies.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Organizations can use the framework to guide launch planning, marketing messaging, and
               change management. 10.Prevention-Oriented Perspective: By identifying resistance
               factors early, organizations can design innovations or implementation approaches to
@@ -404,7 +412,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Despite its strengths, the Innovation Resistance Model has notable limitations:
               1.Limited Explicit Theoretical Integration: While Ram grounds work in consumer
               behavior theory, explicit theoretical foundations for why these four specific risk
@@ -418,7 +426,7 @@ const BibliographyArticlePage = () => {
               4.Moderation Effects Underexplored: The model does not comprehensively address how
               individual differences moderate relationships between resistance and adoption.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The same resistance level might have different adoption effects for different
               individuals. 5.Dynamic Resistance Processes Underspecified: The model presents
               resistance as relatively static snapshot. How resistance evolves over time as
@@ -433,7 +441,7 @@ const BibliographyArticlePage = () => {
               guidance, empirical evidence validating whether specific mitigation strategies
               actually reduce identified resistance types is limited.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The link between diagnosis and treatment effectiveness could be stronger. 9.Adoption
               Versus Sustained Use Distinction: The model emphasizes initial adoption decisions. How
               resistance factors affect sustained use, discontinuation, and long-term outcomes is
@@ -454,12 +462,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
+          <Link
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
   H1_CLASSES,
   H2_CLASSES,
   H3_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
 } from '@/lib/articleStyles'
 
@@ -20,7 +23,7 @@ const BibliographyArticlePage = () => {
         <h1 className={H1_CLASSES}>Status Quo Bias – Samuelson & Zeckhauser (1988)</h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -36,7 +39,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -47,10 +50,10 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Main Content */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Samuelson and Zeckhauser developed their theory of status quo bias in response to a
               striking and consistent empirical observation: individuals demonstrably deviate from
               predictions of rational choice theory by disproportionately selecting existing
@@ -67,7 +70,7 @@ const BibliographyArticlePage = () => {
               portfolios unchanged despite information suggesting superior allocations, and made
               identical public policy choices year after year despite changing circumstances.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Samuelson and Zeckhauser noted that economists and decision theorists had
               insufficiently explained why substantial portions of decision-makers made choices that
               appeared to contradict their own stated preferences or to be inconsistent with
@@ -81,7 +84,7 @@ const BibliographyArticlePage = () => {
               derive from psychological commitment and identity consistency motives. Each
               explanation had different theoretical implications and practical consequences.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Documenting which explanations actually drove status quo bias in different contexts
               was essential for developing sound theories of decision-making. The paper emerged from
               recognizing that decision-making models inadequately incorporated psychological and
@@ -95,7 +98,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Samuelson and Zeckhauser employed multiple methodological approaches to test status
               quo bias’s prevalence and strength across diverse decision contexts. The comprehensive
               research program included controlled laboratory experiments, analysis of field data
@@ -109,7 +112,7 @@ const BibliographyArticlePage = () => {
               an initial fleet selection without current holdings. If decision-makers were truly
               rational, the same portfolio should be selected regardless of framing.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Instead, results showed that subjects significantly more often chose their current
               holdings when asked what they would maintain than when making initial selections. This
               finding demonstrated status quo bias in controlled experimental conditions. In another
@@ -123,7 +126,7 @@ const BibliographyArticlePage = () => {
               decision-making situations. Field studies analyzing real-world decisions provided
               additional validity evidence.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Samuelson and Zeckhauser examined Harvard University employees’ health insurance
               decisions across multiple years. The study documented that employees overwhelmingly
               maintained their existing health plan choices year to year, despite substantial
@@ -139,7 +142,7 @@ const BibliographyArticlePage = () => {
               participants changing their allocation despite substantial variability in plan
               performance and economic circumstances.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Participants appeared locked into initial allocation decisions made years previously,
               providing field evidence that status quo bias persists in consequential financial
               decisions. The researchers also examined housing choice data at Harvard University,
@@ -154,7 +157,7 @@ const BibliographyArticlePage = () => {
               uncertainty) and psychological commitment (an explanation based on cognitive
               dissonance and psychological factors).
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               By examining patterns in the data—such as whether persistence varied with the
               magnitude of available alternatives, whether persistence was stronger in initial
               decisions, and whether persistence reflected information limitations—the researchers
@@ -163,7 +166,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Samuelson and Zeckhauser employed several strategies to establish that status quo bias
               generalizes across diverse contexts and decision types: First, the use of multiple
               methodological approaches (laboratory experiments, field studies of real decisions,
@@ -177,7 +180,7 @@ const BibliographyArticlePage = () => {
               selections, airline mileage program participation) demonstrated that the phenomenon is
               not limited to narrow decision types.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The breadth of contexts where status quo bias appears suggests broad applicability
               rather than context-specific effects. The fact that bias appears in both hypothetical
               and consequential decisions, in individual and organizational contexts, in choices
@@ -191,7 +194,7 @@ const BibliographyArticlePage = () => {
               status quo bias in situations where individuals bear consequences of their choices
               enhances confidence in external validity.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Fourth, the theoretical analysis examining alternative explanations for status quo
               bias (rational decision-making with transition costs, cognitive limitations,
               psychological commitment) strengthens external validity by identifying underlying
@@ -206,7 +209,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The status quo bias framework provides valuable guidance for understanding and
               addressing decisions in diverse practical contexts: For managers and organizational
               decision-makers, understanding status quo bias helps explain employee behavior and
@@ -221,7 +224,7 @@ const BibliographyArticlePage = () => {
               bias illuminates why policy initiatives often face resistance and why status quo
               policies persist despite changing circumstances.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The framework suggests that policymakers seeking to change established practices
               should acknowledge that individuals’ reluctance to change may stem not from
               substantive disagreement but from status quo bias. This understanding might justify
@@ -236,7 +239,7 @@ const BibliographyArticlePage = () => {
               understanding that customers remain with current suppliers and brands partly due to
               bias, not only preference.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               For financial advisory contexts, understanding status quo bias helps advisors
               recognize why clients resist beneficial portfolio changes. Investors holding unchanged
               portfolios often do so despite unconfirmed expectations or outdated allocations.
@@ -252,7 +255,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The status quo bias framework measures the strength and prevalence of individuals’
               tendency to maintain existing alternatives in decision situations rather than
               switching to new alternatives. Measurement approaches include: Persistence metrics,
@@ -267,7 +270,7 @@ const BibliographyArticlePage = () => {
               percentage difference between status quo-named alternative selection rates and control
               condition selection rates.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Large differences indicate strong status quo bias, while small differences indicate
               weaker bias. Decision consistency metrics examine whether individuals’ stated
               preferences align with their revealed choices. If individuals express preferences for
@@ -282,7 +285,7 @@ const BibliographyArticlePage = () => {
               stated preferences align with observed choices, researchers distinguish between status
               quo choices reflecting genuine preference versus bias-driven persistence.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The model also measures psychological factors contributing to status quo bias through
               various mechanisms: - Cognitive dissonance measures capture individuals’ resistance to
               information contradicting prior choices - Self- perception metrics examine whether
@@ -293,7 +296,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Status quo bias theory demonstrates several substantial strengths: First, the model
               has extraordinary breadth of empirical support. Samuelson and Zeckhauser’s original
               article demonstrated status quo bias across numerous decision contexts (health
@@ -310,7 +313,7 @@ const BibliographyArticlePage = () => {
               framework by identifying when bias operates and when persistence reflects optimal
               behavior.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Third, the model provides practical applicability across numerous contexts.
               Organizations, marketers, policymakers, and financial advisors can apply status quo
               bias insights to understand behavior and develop effective strategies. The framework’s
@@ -326,7 +329,7 @@ const BibliographyArticlePage = () => {
               fallacies, and regret avoidance as mechanisms creating status quo bias, the framework
               connects decision-making behavior to established psychological principles.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               This theoretical grounding in psychology strengthens the explanatory power of the
               model. Sixth, the model’s recognition that bias varies with decision context and
               individual factors demonstrates sophistication. The analysis does not claim that
@@ -338,7 +341,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Status quo bias theory also exhibits notable limitations: First, the model may
               sometimes conflate status quo persistence with rational decision-making. While
               Samuelson and Zeckhauser distinguish between rational persistence (based on transition
@@ -352,7 +355,7 @@ const BibliographyArticlePage = () => {
               may not fully address how status quo bias operates when the status quo itself is
               shifting.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Third, the laboratory experimental evidence relies on hypothetical decisions or
               small-stakes decisions that may not generalize to high-stakes consequential decisions.
               While field studies corroborate laboratory findings, some experimental evidence uses
@@ -366,7 +369,7 @@ const BibliographyArticlePage = () => {
               bias would enhance practical applicability. Fifth, the measurement of status quo bias
               presents conceptual challenges.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Field studies measure status quo persistence through revealed preference (observing
               that individuals maintain choices), but this persistence might reflect multiple causes
               beyond bias—genuine preference satisfaction, high switching costs, limited awareness
@@ -381,7 +384,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How does this model differ from older models?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Status quo bias theory represents a significant departure from rational choice theory
               in several important ways: First, while rational choice theory predicts that decision
               outcomes depend only on individuals’ preferences and available options, status quo
@@ -395,7 +398,7 @@ const BibliographyArticlePage = () => {
               Third, status quo bias theory recognizes that reference points and decision frames
               influence choices, whereas rational choice theory predicted context- independence.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The insight that individuals’ current holdings serve as reference points against which
               alternatives are evaluated represents a significant theoretical innovation. Fourth,
               status quo bias theory incorporates decision costs and uncertainty as integral to
@@ -410,7 +413,7 @@ const BibliographyArticlePage = () => {
               explicitly considers that individuals’ psychological commitment to past decisions
               influences current choices.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Earlier theories treated decisions as independent; status quo bias theory recognizes
               that prior commitment creates inertia affecting future decisions. 6. Barriers
               Identification Section:
@@ -420,7 +423,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What Barriers to Technology Adoption does the model identify?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               While Samuelson and Zeckhauser’s research predates contemporary technology adoption
               theory, the status quo bias framework identifies fundamental psychological and
               economic barriers to technology adoption that apply across technological change
@@ -437,7 +440,7 @@ const BibliographyArticlePage = () => {
               invested money in equipment and complementary systems, or developed expertise around
               existing technology are reluctant to abandon these investments.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Third, psychological commitment creates attachment to familiar alternatives, making
               transition to new technology psychologically costly beyond direct economic costs.
               Transition costs and switching barriers prevent adoption of superior alternatives.
@@ -452,7 +455,7 @@ const BibliographyArticlePage = () => {
               to change. Novel technologies involve uncertainty about actual performance,
               capabilities, reliability, and suitability for specific needs.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Decision-makers facing this uncertainty may rationally choose to maintain known,
               proven technologies rather than gamble on uncertain alternatives. This barrier
               reflects rational decision-making in the face of uncertainty, not merely psychological
@@ -467,7 +470,7 @@ const BibliographyArticlePage = () => {
               when objective analysis suggests gains exceed losses. Cognitive limitations and
               analysis costs inhibit thorough evaluation of alternatives.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Evaluating new technology thoroughly requires substantial cognitive effort: gathering
               information about alternatives, understanding their capabilities, assessing how they
               would perform in specific contexts, and comparing these to existing technology. These
@@ -481,7 +484,7 @@ const BibliographyArticlePage = () => {
               irrelevant to forward-looking decisions continue to influence choices. Psychological
               commitment to prior technology choices creates attachment and resistance to change.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Individuals who have previously chosen technologies often rationalize their choices,
               develop positive attitudes toward chosen alternatives, and resist information
               contradicting the adequacy of their prior choices. This psychological commitment to
@@ -497,7 +500,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What does the model instruct leaders to do in order to reduce these barriers?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The status quo bias framework suggests multiple strategies that leaders— including
               technology developers, organizational managers, marketers, and policymakers—can employ
               to reduce adoption barriers and promote technology change: To overcome status quo
@@ -612,12 +615,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
+          <Link
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

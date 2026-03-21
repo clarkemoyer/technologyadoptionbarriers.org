@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
   H1_CLASSES,
   H2_CLASSES,
   H3_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
 } from '@/lib/articleStyles'
 
@@ -20,7 +23,7 @@ const BibliographyArticlePage = () => {
         <h1 className={H1_CLASSES}>Intrinsic & Extrinsic Motivation – Davis et al. (1992)</h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -37,7 +40,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -49,10 +52,10 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Main Content */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Davis, Bagozzi, and Warshaw developed the Extrinsic and Intrinsic Motivation framework
               to extend understanding of technology adoption motivation beyond the Technology
               Acceptance Model’s exclusive focus on extrinsic motivators (usefulness and ease of
@@ -66,7 +69,7 @@ const BibliographyArticlePage = () => {
               to intrinsic motivation: they find the technology enjoyable, interesting, or
               inherently satisfying to use, independent of external benefit.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Some workers enjoy using computers, find them stimulating and engaging, or experience
               pleasure in technology mastery. These intrinsic motivations influence technology
               adoption independently of performance benefits. The authors further recognized that
@@ -81,7 +84,7 @@ const BibliographyArticlePage = () => {
               recognition that long-term technology adoption may depend differently on extrinsic
               versus intrinsic motivation.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               If adoption relies solely on extrinsic benefits (performance improvement), then
               sustained adoption depends on technology continuing to provide performance benefits.
               However, intrinsic motivation might sustain usage even when extrinsic benefits decline
@@ -99,7 +102,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Davis, Bagozzi, and Warshaw established the framework’s internal validity through
               multiple theoretical and empirical approaches: Theoretical grounding in established
               motivation theory: The distinction between extrinsic and intrinsic motivation builds
@@ -160,7 +163,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               External validity was established through application across diverse technology
               contexts and organizational settings: Multiple computer applications: The framework
               was applied to various computer applications used in workplaces including office
@@ -204,7 +207,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Davis, Bagozzi, and Warshaw designed the extrinsic-intrinsic motivation framework as
               both theoretical advancement and practical tool for understanding and optimizing
               technology adoption: Comprehensive motivation assessment: Organizations can use the
@@ -293,7 +296,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The extrinsic-intrinsic motivation framework operationalizes several key measurement
               constructs: Intrinsic motivation: Measured through multi-item scales assessing
               enjoyment, interest, and inherent satisfaction from computer use. Items capture
@@ -342,7 +345,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The extrinsic-intrinsic motivation framework possesses several significant strengths:
               Theoretical enrichment of TAM: By explicitly incorporating intrinsic motivation
               alongside TAM’s extrinsic motivation constructs, the framework enriches understanding
@@ -414,7 +417,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Despite significant strengths, the extrinsic-intrinsic motivation framework has
               notable limitations: Limited attention to motivation interaction mechanisms: While the
               framework identifies both extrinsic and intrinsic motivation as important, it provides
@@ -487,7 +490,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How does this model differ from older models?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The extrinsic-intrinsic motivation framework represented significant advancement from
               prior technology adoption models: Explicit inclusion of intrinsic motivation
               dimension: While earlier motivation theory recognized intrinsic motivation importance,
@@ -547,7 +550,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What Barriers to Technology Adoption does the model identify?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Extrinsic and Intrinsic Motivation framework identifies barriers to technology
               adoption organized around two distinct but interrelated motivation dimensions:
               Extrinsic motivation barriers: The framework identifies that low perceived usefulness
@@ -629,7 +632,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What does the model instruct leaders to do in order to reduce these barriers?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The extrinsic-intrinsic motivation framework provides explicit guidance for leaders
               designing adoption approaches addressing both motivation types: Establish and
               communicate extrinsic motivation through benefit clarity: Leaders instructed by the
@@ -723,12 +726,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
+          <Link
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

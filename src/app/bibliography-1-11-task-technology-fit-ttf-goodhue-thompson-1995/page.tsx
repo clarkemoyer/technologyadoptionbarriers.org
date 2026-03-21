@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
   H1_CLASSES,
   H2_CLASSES,
   H3_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
 } from '@/lib/articleStyles'
 
@@ -20,7 +23,7 @@ const BibliographyArticlePage = () => {
         <h1 className={H1_CLASSES}>Task-Technology Fit (TTF) – Goodhue & Thompson (1995)</h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -36,7 +39,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -47,10 +50,10 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Main Content */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Goodhue and Thompson developed the Task-Technology Fit model to address a fundamental
               disconnect in Information Systems research: technologies receiving strong acceptance
               and widespread adoption sometimes failed to improve performance, while other
@@ -64,7 +67,7 @@ const BibliographyArticlePage = () => {
               research motivation emerged from recognizing that predicting adoption does not
               automatically explain performance impacts.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The theoretical gap was particularly acute for application systems in business
               contexts. Organizations invested substantially in IS systems expecting performance
               improvements. Yet some systems adopted enthusiastically yielded limited productivity
@@ -79,7 +82,7 @@ const BibliographyArticlePage = () => {
               perspective offered theoretical explanation for the disconnect between adoption and
               performance.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The authors grounded their work in contingency theory, recognizing that technology
               impact is contingent on match between technology characteristics and task
               requirements. Rather than asking “Is this technology adopted?” they asked “Is this
@@ -93,7 +96,7 @@ const BibliographyArticlePage = () => {
               Goodhue and Thompson recognized that organizations ultimately care about performance
               impacts, not merely adoption.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               A technology adopted but not improving performance wastes investment. Conversely, a
               technology improving performance even without universal adoption achieves
               organizational objectives.
@@ -101,7 +104,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Goodhue and Thompson employed rigorous quantitative methodology with multiple studies
               to establish internal validity: Main Study Design The research involved 784
               respondents from 25 organizations using a mainframe-based application called ICD
@@ -117,7 +120,7 @@ const BibliographyArticlePage = () => {
               through dimensions including functionality, reliability, user interface quality, and
               ease of learning.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Rather than general system quality measures, the authors measured technology
               characteristics specifically relevant to ICD performance. 3.Task-Technology Fit:
               Operationalized through 16 items measuring the alignment between task requirements and
@@ -182,7 +185,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Goodhue and Thompson implemented multiple strategies to establish external validity:
               Multi-Organization Design: The primary external validity strategy was the
               25-organization sample. Rather than studying a single organization as Thompson et al.
@@ -247,7 +250,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Goodhue and Thompson provide explicit guidance for using the task- technology fit
               framework in organizational practice: Technology Selection and Evaluation
               Organizations should use the task-technology fit framework to guide technology
@@ -263,7 +266,7 @@ const BibliographyArticlePage = () => {
               characteristics.” 3.Make Selection Based on Fit, Not Adoption: Organizations often
               select technologies expecting that widespread adoption will improve performance.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Goodhue and Thompson suggest that technology selection should prioritize fit over
               perceived adoptability. “A system with strong user adoption may still fail to improve
               performance if fit is poor. Conversely, a system with more modest adoption can
@@ -280,7 +283,7 @@ const BibliographyArticlePage = () => {
               alternative technologies rather than implementing poor-fitting systems and expecting
               adoption to solve the problem.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Performance Improvement Strategy The model suggests that performance improvement
               requires attention to both fit and utilization: 1.Fit-First Approach: “If poor
               task-technology fit exists, increasing use will not improve performance and may harm
@@ -296,7 +299,7 @@ const BibliographyArticlePage = () => {
               Reliability: Even well-fitting systems fail to improve performance if they are
               unreliable or difficult to use.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               System quality matters independently. 2.Invest in User Interfaces: Technology
               characteristics like ease of learning influence both utilization and direct
               performance. Investments in user interface design, training effectiveness, and support
@@ -313,7 +316,7 @@ const BibliographyArticlePage = () => {
               Organizations should hold technology selection and implementation decisions
               accountable to performance improvements rather than adoption metrics.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Goodhue and Thompson suggest that “organizations often evaluate IS success by adoption
               rather than performance impact. This study suggests that performance-based evaluation
               would be more appropriate.” Ongoing Monitoring and Adjustment The model suggests that
@@ -330,7 +333,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Goodhue and Thompson model operationalizes multiple constructs across task,
               technology, fit, use, and performance dimensions: Task Characteristics The model
               measures task requirements through multiple dimensions: Task Complexity: Items assess
@@ -354,7 +357,7 @@ const BibliographyArticlePage = () => {
               construct captures perceived alignment between what the job requires and what the
               technology provides.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Cronbach’s alpha = .96, indicating very high internal consistency. Utilization/Use
               Behavior The model measures system use through: Frequency of Use: Items assess how
               often individuals use the system (multiple times per day, daily, weekly, etc.)
@@ -383,7 +386,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Task-Technology Fit model possesses several important strengths: 1.Addresses
               Important Research Gap: The model directly addresses the disconnect between adoption
               and performance, a critical gap in prior adoption-focused research. By focusing on
@@ -399,7 +402,7 @@ const BibliographyArticlePage = () => {
               objective performance measures and self- reported subjective measures strengthens
               validity.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Convergence between measurement approaches provides confidence in findings. 5.Novel
               Fit Operationalization: Rather than treating fit as an implicit assumption, the
               authors explicitly operationalize task-technology fit through multi-item scales. The
@@ -413,7 +416,7 @@ const BibliographyArticlePage = () => {
               toward performance. 8.Practical Actionability: The model provides clear guidance for
               organizations about technology selection, implementation, and performance management.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Unlike purely descriptive models, this framework allows actionable decisions.
               9.Distinction Between System Quality and Fit: By showing that system quality
               independently predicts performance beyond fit effects, the model clarifies that
@@ -429,7 +432,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Despite significant strengths, the Task-Technology Fit model has notable limitations:
               1.Primarily Cross-Sectional Design: The main study captures a single time point. While
               time-lagged analyses provide some temporal evidence, true longitudinal designs would
@@ -446,7 +449,7 @@ const BibliographyArticlePage = () => {
               performance measures, reliance on self-report raises concerns about social
               desirability bias.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               While objective measures were available for some users, subjectivity pervades the
               dependent variable. 5.Limited Attention to Moderating Variables: The model does not
               examine how individual differences moderate relationships. For example, highly skilled
@@ -470,12 +473,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
+          <Link
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

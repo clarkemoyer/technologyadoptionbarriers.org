@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
   H1_CLASSES,
   H2_CLASSES,
   H3_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
 } from '@/lib/articleStyles'
 
@@ -20,7 +23,7 @@ const BibliographyArticlePage = () => {
         <h1 className={H1_CLASSES}>Theory of Planned Behavior (TPB) – Ajzen (1991)</h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -36,7 +39,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -47,10 +50,10 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Main Content */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Ajzen developed the Theory of Planned Behavior to address critical limitations in the
               Theory of Reasoned Action (TRA) and to provide a more comprehensive framework for
               understanding and predicting intentional behavior across diverse behavioral domains.
@@ -65,7 +68,7 @@ const BibliographyArticlePage = () => {
               cannot fully control behavior performance due to resource constraints, skills
               limitations, environmental obstacles, or structural barriers.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Ajzen recognized that many significant behaviors—including technology adoption—involve
               elements beyond complete volitional control. While individuals might intend to adopt a
               technology, environmental factors, organizational policies, technical infrastructure,
@@ -82,7 +85,7 @@ const BibliographyArticlePage = () => {
               adoption but also health behaviors, educational achievements, environmental actions,
               interpersonal relationships, and organizational behaviors.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The generality of the framework would enable consistent application across diverse
               behavioral domains while allowing domain-specific applications addressing particular
               behavior contexts.
@@ -90,7 +93,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Ajzen established the Theory of Planned Behavior’s internal validity through multiple
               strategies: Theoretical coherence and logical structure: The TPB articulates a clear
               causal structure with explicitly specified relationships between constructs. The model
@@ -149,7 +152,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Theory of Planned Behavior’s external validity was established through its
               application across diverse behavioral domains and populations: Cross-domain
               applicability: Ajzen discussed TPB applications across health behaviors (smoking
@@ -200,7 +203,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Ajzen explicitly designed the Theory of Planned Behavior as both theoretical framework
               and practical tool for predicting and influencing behavior: Behavioral prediction:
               Organizations and practitioners can use TPB to predict behavioral adoption rates and
@@ -280,7 +283,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Theory of Planned Behavior operationalizes several primary measurement constructs:
               Attitudes toward behavior: Measured as overall evaluations of performing the behavior,
               typically assessed through semantic differential scales capturing evaluative
@@ -398,7 +401,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Despite considerable strengths, the Theory of Planned Behavior has notable
               limitations: Measurement circularity concerns: The measurement of perceived behavioral
               control and actual behavioral control creates potential circularity. If actual
@@ -477,7 +480,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How does this model differ from older models?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Theory of Planned Behavior represented significant advancement from prior
               behavioral theories: Expansion of Theory of Reasoned Action: The fundamental
               difference between TPB and TRA involves the addition of perceived behavioral control.
@@ -545,7 +548,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What Barriers to Technology Adoption does the model identify?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Theory of Planned Behavior identifies multiple categories of barriers to
               technology adoption, organized around three primary psychosocial determinants:
               Attitudinal barriers: Unfavorable attitudes toward technology adoption represent
@@ -662,7 +665,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What does the model instruct leaders to do in order to reduce these barriers?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Theory of Planned Behavior provides explicit guidance for leaders designing
               interventions to reduce adoption barriers: Attitude change interventions targeting
               belief systems: Leaders must identify specific beliefs creating negative attitudes
@@ -678,7 +681,7 @@ const BibliographyArticlePage = () => {
               should also help potential adopters recognize positive consequences and help them
               develop more favorable evaluations of technology outcomes.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               For technologies perceived as producing insufficient benefits, leaders should
               articulate concrete benefits including productivity improvements, reduced error rates,
               better customer service, professional development opportunities, or improved work
@@ -695,7 +698,7 @@ const BibliographyArticlePage = () => {
               respected professionals who maintain valued identities while adopting technologies
               provides identity-aligned role models.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Normative influence interventions: Leaders instructed by TPB should recognize that
               subjective normative barriers require social influence interventions involving
               referent groups and organizational cultures. To overcome normative barriers, leaders
@@ -711,7 +714,7 @@ const BibliographyArticlePage = () => {
               between technology culture and organizational culture explicitly rather than ignoring
               them.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               When technology adoption requires cultural shifts (toward greater flexibility,
               data-driven decision-making, or continuous
             </p>
@@ -724,12 +727,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
+          <Link
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

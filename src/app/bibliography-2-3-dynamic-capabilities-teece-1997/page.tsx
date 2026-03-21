@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
   H1_CLASSES,
@@ -22,6 +23,33 @@ const DynamicCapabilitiesPage = () => {
         <h1 className={H1_CLASSES}>
           Bibliography: Dynamic Capabilities Framework &ndash; Teece, Pisano, &amp; Shuen (1997)
         </h1>
+
+        {/* Framework Identification */}
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
+          <h2 className={H2_CLASSES}>Framework Identification</h2>
+          <div className="space-y-2">
+            <p>
+              <strong>Framework Name:</strong> Dynamic Capabilities Framework
+            </p>
+            <p>
+              <strong>Authors:</strong> David J. Teece, Gary Pisano, and Amy Shuen
+            </p>
+            <p>
+              <strong>Publication Date:</strong> 1997
+            </p>
+          </div>
+        </section>
+
+        {/* Citation Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Citation Information</h2>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+            <p className="text-sm font-mono">
+              Teece, D. J., Pisano, G., &amp; Shuen, A. (1997). Dynamic capabilities and strategic
+              management. <em>Strategic Management Journal</em>, 18(7), 509&ndash;533.
+            </p>
+          </div>
+        </section>
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
@@ -497,6 +525,21 @@ const DynamicCapabilitiesPage = () => {
               Strategic Management Journal, 21(10-11), 1105-1121.
             </li>
           </ol>
+        </section>
+
+        <p className="mt-8 text-sm italic text-gray-600">
+          Note: This article provides an overview based on the comprehensive literature review.
+          Readers are encouraged to consult the original publication for complete details.
+        </p>
+
+        {/* Navigation */}
+        <section className="mt-12 pt-6 border-t border-gray-200">
+          <Link
+            href="/article-bibliography-comprehensive-series-bibliography"
+            className="text-blue-600 hover:text-blue-800 underline"
+          >
+            &larr; Back to Complete Bibliography
+          </Link>
         </section>
       </article>
     </main>
