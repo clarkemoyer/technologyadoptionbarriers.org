@@ -215,26 +215,61 @@ jobs:
           # Comment summary (from jq — safe for any content)
           jq -r '.[] |
             "### `\(.path):\(.line // .original_line // "?")`\n\(.body)\n"
-          ' /tmp/review_comments.json >> /tmp/cycle_comment.md
+          ' /tmp/review_comments.json > /tmp/review_body.md
+
+          # ── Truncation guard ──
+          # GitHub's comment body limit is 65 536 chars.  Reserve ~5 500 chars
+          # for the header, footer, truncation notice, and safety margin.
+          MAX_BODY_CHARS=60000
+          BODY_SIZE=$(wc -c < /tmp/review_body.md)
+          REVIEW_ID="${{ steps.review.outputs.review_id }}"
+          REVIEW_URL="https://github.com/${{ github.repository }}/pull/${PR}#pullrequestreview-${REVIEW_ID}"
+          TRUNCATED="false"
+
+          if [ "${BODY_SIZE}" -gt "${MAX_BODY_CHARS}" ]; then
+            TRUNCATED="true"
+            echo "::warning::Review body is ${BODY_SIZE} chars — truncating to ${MAX_BODY_CHARS} to stay within GitHub's comment limit"
+            # Truncate to MAX_BODY_CHARS and close on a line boundary
+            head -c "${MAX_BODY_CHARS}" /tmp/review_body.md > /tmp/review_body_trunc.md
+            # Find the last newline so we don't cut mid-line
+            LAST_NL=$(grep -bn '' /tmp/review_body_trunc.md | tail -1 | cut -d: -f1)
+            if [ -n "${LAST_NL}" ]; then
+              head -n "${LAST_NL}" /tmp/review_body.md > /tmp/review_body_trunc.md
+            fi
+            mv /tmp/review_body_trunc.md /tmp/review_body.md
+
+            cat >> /tmp/review_body.md <<TRUNC
+
+          > **⚠️ Truncated** — the full review contains ${COUNT} comment(s) totalling
+          > ${BODY_SIZE} characters.  [View the complete review](${REVIEW_URL}).
+          TRUNC
+          fi
+
+          cat /tmp/review_body.md >> /tmp/cycle_comment.md
 
           # Footer with @copilot fix instruction
-          cat >> /tmp/cycle_comment.md <<'EOF'
+          EXTRA=""
+          if [ "${TRUNCATED}" = "true" ]; then
+            EXTRA=" (and any remaining in the [full review](${REVIEW_URL}))"
+          fi
+
+          cat >> /tmp/cycle_comment.md <<FOOTER
 
           ---
 
-          @copilot Please address **all** of the review comments listed above:
+          @copilot Please address **all** of the review comments listed above${EXTRA}:
           1. Read each comment carefully
           2. Apply the suggested fix in the referenced file and line
           3. Commit all changes to this PR branch
 
           After your commits are pushed, a new Copilot review will be
           requested automatically by the review-cycle workflow.
-          EOF
+          FOOTER
 
           # Post the comment
           gh pr comment "${PR}" --body-file /tmp/cycle_comment.md
 
-          echo "::notice::Posted fix request — round ${ROUND}, ${COUNT} comment(s)"
+          echo "::notice::Posted fix request — round ${ROUND}, ${COUNT} comment(s)$([ "${TRUNCATED}" = "true" ] && echo " (truncated)")"
 
   # ─────────────────────────────────────────────────────────────────────
   # Job 2 — Re-request Copilot review after new commits
