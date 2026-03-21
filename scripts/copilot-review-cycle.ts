@@ -45,24 +45,50 @@ function gh(args: string, retries = MAX_RETRIES): string {
       return execSync(`gh ${args}`, {
         encoding: 'utf-8',
         env: { ...process.env, GH_TOKEN: process.env.GH_TOKEN },
-        timeout: 30_000,
+        timeout: 60_000,
       }).trim()
     } catch (error: any) {
       const msg = error.stderr?.toString() || error.message || ''
-      // Retry on transient errors
       if (
         attempt < retries &&
         (msg.includes('502') || msg.includes('503') || msg.includes('rate'))
       ) {
-        const delay = 1000 * Math.pow(2, attempt)
-        console.log(`  Retry ${attempt}/${retries} after ${delay}ms...`)
-        execSync(`sleep ${delay / 1000}`)
+        const delayMs = 1000 * Math.pow(2, attempt)
+        console.log(`  Retry ${attempt}/${retries} after ${delayMs}ms...`)
+        const start = Date.now()
+        while (Date.now() - start < delayMs) {
+          // busy-wait — avoids shell sleep dependency
+        }
         continue
       }
       throw error
     }
   }
   throw new Error('Unreachable')
+}
+
+/**
+ * Parse JSON from gh api output, handling --paginate which may emit
+ * multiple JSON arrays (one per page) concatenated together.
+ */
+function ghJsonArray<T>(args: string): T[] {
+  const raw = gh(args)
+  try {
+    const parsed = JSON.parse(raw)
+    if (Array.isArray(parsed)) return parsed
+    return [parsed]
+  } catch {
+    // --paginate emits multiple JSON arrays: [...][...] — wrap and merge
+    const fixed = '[' + raw.replace(/\]\s*\[/g, ',') + ']'
+    try {
+      const outer = JSON.parse(fixed)
+      // Flatten one level: [[...], [...]] -> [...]
+      return Array.isArray(outer[0]) ? outer.flat() : outer
+    } catch {
+      console.error('Failed to parse paginated JSON response')
+      return []
+    }
+  }
 }
 
 function ghJson<T>(args: string): T {
@@ -77,11 +103,13 @@ function getPrState(repo: string, prNumber: string): PrState {
 }
 
 function getReviews(repo: string, prNumber: string): Review[] {
-  return ghJson<Review[]>(`api repos/${repo}/pulls/${prNumber}/reviews --paginate`)
+  return ghJsonArray<Review>(`api repos/${repo}/pulls/${prNumber}/reviews --paginate`)
 }
 
 function getReviewComments(repo: string, prNumber: string, reviewId: number): ReviewComment[] {
-  return ghJson<ReviewComment[]>(`api repos/${repo}/pulls/${prNumber}/reviews/${reviewId}/comments`)
+  return ghJsonArray<ReviewComment>(
+    `api repos/${repo}/pulls/${prNumber}/reviews/${reviewId}/comments --paginate`
+  )
 }
 
 function requestCopilotReview(repo: string, prNumber: string): void {
@@ -93,7 +121,6 @@ function requestCopilotReview(repo: string, prNumber: string): void {
     )
     console.log('  Review requested via API.')
   } catch {
-    // Fallback: trigger via comment
     console.log('  API request failed, falling back to @copilot comment...')
     gh(`pr comment ${prNumber} -R ${repo} --body "@copilot review"`)
     console.log('  Review requested via comment.')
@@ -101,7 +128,6 @@ function requestCopilotReview(repo: string, prNumber: string): void {
 }
 
 function postComment(repo: string, prNumber: string, body: string): void {
-  // Write to temp file to avoid shell injection
   const tmpFile = join(tmpdir(), `copilot-review-${Date.now()}.md`)
   writeFileSync(tmpFile, body, 'utf-8')
   try {
@@ -111,6 +137,47 @@ function postComment(repo: string, prNumber: string, body: string): void {
       unlinkSync(tmpFile)
     } catch {
       // ignore cleanup errors
+    }
+  }
+}
+
+function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComment[]): void {
+  console.log('Assigning Copilot coding agent to fix comments...')
+
+  const commentList = comments
+    .map((c, i) => {
+      const loc = c.line ? `${c.path}:${c.line}` : c.path
+      return `${i + 1}. \`${loc}\`: ${c.body}`
+    })
+    .join('\n')
+
+  const body = [
+    `Fix the following Copilot code review comments on PR #${prNumber}:\n`,
+    commentList,
+    `\nPush fixes directly to the PR branch.`,
+  ].join('\n')
+
+  // Create a temporary issue and assign Copilot to it
+  const tmpFile = join(tmpdir(), `copilot-fix-issue-${Date.now()}.md`)
+  writeFileSync(tmpFile, body, 'utf-8')
+  try {
+    const result = gh(
+      `issue create -R ${repo} ` +
+        `--title "fix: address Copilot review comments on PR #${prNumber}" ` +
+        `--body-file "${tmpFile}" ` +
+        `--assignee copilot`
+    )
+    console.log(`  Issue created: ${result}`)
+  } catch (err: any) {
+    console.log('  Could not create fix issue via Copilot coding agent.')
+    console.log('  Posting fix request as PR comment instead.')
+    const fallbackBody = buildFixRequestComment(comments)
+    postComment(repo, prNumber, fallbackBody)
+  } finally {
+    try {
+      unlinkSync(tmpFile)
+    } catch {
+      // ignore
     }
   }
 }
@@ -145,7 +212,6 @@ async function waitForCopilotReview(
   while (Date.now() - startTime < REVIEW_TIMEOUT_MS) {
     await sleep(REVIEW_POLL_INTERVAL_MS)
 
-    // Check if PR is still open
     const pr = getPrState(repo, prNumber)
     if (pr.state !== 'OPEN') {
       console.log(`  PR is ${pr.state}, stopping.`)
@@ -175,7 +241,7 @@ async function waitForNewPush(
   originalSha: string
 ): Promise<boolean> {
   const startTime = Date.now()
-  console.log(`Waiting for Copilot to push fixes (timeout: ${FIX_TIMEOUT_MS / 60000} min)...`)
+  console.log(`Waiting for fixes to be pushed (timeout: ${FIX_TIMEOUT_MS / 60000} min)...`)
 
   while (Date.now() - startTime < FIX_TIMEOUT_MS) {
     await sleep(FIX_POLL_INTERVAL_MS)
@@ -199,9 +265,7 @@ async function waitForNewPush(
 }
 
 function buildFixRequestComment(comments: ReviewComment[]): string {
-  const lines = [
-    '@copilot Please address the following code review comments and push fixes to this branch:\n',
-  ]
+  const lines = ['**Copilot Review Cycle:** The following comments need to be addressed:\n']
 
   for (let i = 0; i < comments.length; i++) {
     const c = comments[i]
@@ -325,23 +389,21 @@ async function main() {
     process.exit(1)
   }
 
-  // Step 8: Ask Copilot to fix
-  console.log('\nRequesting Copilot to fix comments...')
-  const fixComment = buildFixRequestComment(comments)
-  postComment(repo, prNumber, fixComment)
+  // Step 8: Assign Copilot coding agent to fix comments
+  assignCopilotToFix(repo, prNumber, comments)
 
-  // Step 9: Wait for Copilot to push fixes
+  // Step 9: Wait for fixes to be pushed to the PR branch
   const headSha = pr.headRefOid
   const pushed = await waitForNewPush(repo, prNumber, headSha)
 
   if (!pushed) {
-    console.log('\nCopilot coding agent did not push fixes within timeout.')
+    console.log('\nNo fixes were pushed within timeout.')
     postComment(
       repo,
       prNumber,
-      `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Copilot did not push fixes within timeout. ${comments.length} comment(s) may need manual fixes.`
+      `**Copilot Review Cycle (Round ${round}/${maxRounds}):** No fixes pushed within timeout. ${comments.length} comment(s) may need manual fixes.`
     )
-    writeSummary(prNumber, round, maxRounds, 'FIX_TIMEOUT', comments.length, 'Agent did not push')
+    writeSummary(prNumber, round, maxRounds, 'FIX_TIMEOUT', comments.length, 'No fixes pushed')
     process.exit(1)
   }
 
