@@ -318,9 +318,9 @@ async function waitForFixes(
     if (subPr) {
       console.log(`  Found Copilot sub-PR #${subPr.number} (${subPr.headRefName})`)
 
-      // Skip sub-PRs with merge conflicts
-      if (subPr.mergeable === 'CONFLICTING') {
-        console.log(`  Sub-PR #${subPr.number} has merge conflicts, skipping.`)
+      // Only attempt merge when GitHub confirms the sub-PR is mergeable
+      if (subPr.mergeable !== 'MERGEABLE') {
+        console.log(`  Sub-PR #${subPr.number} mergeable state: ${subPr.mergeable}, waiting...`)
       } else {
         const merged = mergeCopilotSubPr(repo, subPr.number)
         if (merged) {
