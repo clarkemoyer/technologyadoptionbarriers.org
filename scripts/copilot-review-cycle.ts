@@ -278,7 +278,10 @@ function mergeCopilotSubPr(repo: string, subPrNumber: number): boolean {
     console.log(`  Sub-PR #${subPrNumber} merged successfully.`)
     return true
   } catch (err: any) {
-    console.log(`  Failed to merge sub-PR #${subPrNumber}: ${err.message || err}`)
+    const stderr = err.stderr?.toString().trim() || ''
+    const stdout = err.stdout?.toString().trim() || ''
+    const detail = stderr || stdout || err.message || String(err)
+    console.log(`  Failed to merge sub-PR #${subPrNumber}: ${detail}`)
     return false
   }
 }
