@@ -1,0 +1,58 @@
+name: Weekly SEO Metrics
+
+on:
+  schedule:
+    # Run weekly on Mondays at 01:00 UTC
+    - cron: '0 1 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  collect-seo-metrics:
+    runs-on: ubuntu-latest
+    environment: google-prod
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Collect SEO keywords
+        run: npx tsx scripts/collect-seo-keywords.ts
+        env:
+          GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
+          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+          GA_PROPERTY_ID: ${{ secrets.GA_PROPERTY_ID }}
+          GSC_SITE_URL: 'https://technologyadoptionbarriers.org'
+
+      - name: Collect page SEO metrics
+        run: npx tsx scripts/collect-page-seo-metrics.ts
+        env:
+          GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
+          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+          GA_PROPERTY_ID: ${{ secrets.GA_PROPERTY_ID }}
+          GSC_SITE_URL: 'https://technologyadoptionbarriers.org'
+
+      - name: Upload SEO reports
+        uses: actions/upload-artifact@v7
+        with:
+          name: seo-metrics-report
+          path: reports/seo/*.json
+          retention-days: 90
+
+      - name: Send email report
+        if: success()
+        run: npx tsx scripts/send-report-email.ts
+        env:
+          GOOGLE_PROJECT_OWNER_EMAIL: ${{ secrets.GOOGLE_PROJECT_OWNER_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          REPORT_RECIPIENT_EMAIL: ${{ secrets.REPORT_RECIPIENT_EMAIL }}
