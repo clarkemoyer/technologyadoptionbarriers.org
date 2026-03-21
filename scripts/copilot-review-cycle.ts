@@ -245,7 +245,8 @@ interface SubPr {
 
 /**
  * Find a Copilot sub-PR targeting the given branch.
- * Copilot coding agent creates branches like `copilot/sub-pr-{number}`.
+ * Copilot coding agent creates branches named `copilot/sub-pr-{number}`.
+ * Only matches this specific pattern to avoid merging unrelated Copilot PRs.
  */
 function findCopilotSubPr(repo: string, targetBranch: string): SubPr | null {
   try {
@@ -253,11 +254,7 @@ function findCopilotSubPr(repo: string, targetBranch: string): SubPr | null {
       `pr list -R ${repo} --state open --base "${targetBranch}" ` +
         `--json number,headRefName,state,isDraft,mergeable`
     )
-    return (
-      prs.find(
-        (p) => p.headRefName.startsWith('copilot/sub-pr-') || p.headRefName.startsWith('copilot/')
-      ) || null
-    )
+    return prs.find((p) => p.headRefName.startsWith('copilot/sub-pr-')) || null
   } catch {
     return null
   }
@@ -318,11 +315,26 @@ async function waitForFixes(
     const subPr = findCopilotSubPr(repo, headBranch)
     if (subPr) {
       console.log(`  Found Copilot sub-PR #${subPr.number} (${subPr.headRefName})`)
-      const merged = mergeCopilotSubPr(repo, subPr.number)
-      if (merged) {
-        // Give GitHub a moment to update the PR head SHA
-        await sleep(5000)
-        return true
+
+      // Skip unmergeable sub-PRs (conflicts, failing checks, etc.)
+      if (subPr.mergeable === 'CONFLICTING') {
+        console.log(`  Sub-PR #${subPr.number} has merge conflicts, skipping.`)
+      } else {
+        const merged = mergeCopilotSubPr(repo, subPr.number)
+        if (merged) {
+          // Verify the main PR's HEAD actually changed
+          for (let i = 0; i < 6; i++) {
+            await sleep(5000)
+            const updated = getPrState(repo, prNumber)
+            if (updated.headRefOid !== originalSha) {
+              console.log(
+                `  HEAD updated: ${originalSha.slice(0, 7)} -> ${updated.headRefOid.slice(0, 7)}`
+              )
+              return true
+            }
+          }
+          console.log('  Sub-PR merged but HEAD did not update within 30s. Continuing poll...')
+        }
       }
     }
 
