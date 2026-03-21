@@ -250,8 +250,10 @@ interface SubPr {
  */
 function findCopilotSubPr(repo: string, targetBranch: string): SubPr | null {
   try {
+    // Sanitize branch name to prevent shell injection via special characters
+    const safeBranch = targetBranch.replace(/[^a-zA-Z0-9/_.-]/g, '')
     const prs = ghJsonArray<SubPr>(
-      `pr list -R ${repo} --state open --base "${targetBranch}" ` +
+      `pr list -R ${repo} --state open --base "${safeBranch}" ` +
         `--json number,headRefName,state,isDraft,mergeable`
     )
     return prs.find((p) => p.headRefName.startsWith('copilot/sub-pr-')) || null
@@ -316,7 +318,7 @@ async function waitForFixes(
     if (subPr) {
       console.log(`  Found Copilot sub-PR #${subPr.number} (${subPr.headRefName})`)
 
-      // Skip unmergeable sub-PRs (conflicts, failing checks, etc.)
+      // Skip sub-PRs with merge conflicts
       if (subPr.mergeable === 'CONFLICTING') {
         console.log(`  Sub-PR #${subPr.number} has merge conflicts, skipping.`)
       } else {
