@@ -99,7 +99,7 @@ jobs:
           if q_http_code=$(curl -sS -o "$DEFINITION_JSON" -w "%{http_code}" \
             -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
             -H "Accept: application/json" \
-            "$definition_url" 2>/dev/null); then
+            "$definition_url"); then
             if [[ "$q_http_code" -ge 200 && "$q_http_code" -lt 300 ]]; then
               question_count=$(jq '.result.Questions // {} | keys | length' "$DEFINITION_JSON")
               echo "Question count: $question_count"
