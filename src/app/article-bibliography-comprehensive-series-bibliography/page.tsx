@@ -253,24 +253,38 @@ const BibliographyPage = () => {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <Link
-              href="/bibliography-2-4-total-quality-management-tqm-deming-1982"
-              className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
-            >
-              <div className="font-semibold text-green-700">Total Quality Management (TQM)</div>
-              <div className="text-sm text-gray-600">Deming (1982)</div>
-            </Link>
-            <Link
               href="/bibliography-2-1-resource-based-view-rbv-wernerfelt-1984"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
-              <div className="font-semibold text-green-700">Resource-Based View (RBV)</div>
+              <div className="font-semibold text-green-700">1. Resource-Based View (RBV)</div>
               <div className="text-sm text-gray-600">Wernerfelt (1984)</div>
+            </Link>
+            <Link
+              href="/bibliography-2-2-vrio-framework-barney-1991"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-green-700">2. VRIO Framework</div>
+              <div className="text-sm text-gray-600">Barney (1991)</div>
+            </Link>
+            <Link
+              href="/bibliography-2-3-dynamic-capabilities-teece-1997"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-green-700">3. Dynamic Capabilities Framework</div>
+              <div className="text-sm text-gray-600">Teece, Pisano, &amp; Shuen (1997)</div>
+            </Link>
+            <Link
+              href="/bibliography-2-4-total-quality-management-tqm-deming-1982"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-green-700">4. Total Quality Management (TQM)</div>
+              <div className="text-sm text-gray-600">Deming (1982)</div>
             </Link>
             <Link
               href="/bibliography-2-5-capability-maturity-model-cmm-humphrey-1989"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
-              <div className="font-semibold text-green-700">Capability Maturity Model (CMM)</div>
+              <div className="font-semibold text-green-700">5. Capability Maturity Model (CMM)</div>
               <div className="text-sm text-gray-600">Humphrey (1989)</div>
             </Link>
             <Link
@@ -278,7 +292,7 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-green-700">
-                Technology-Organization-Environment (TOE) Framework
+                6. Technology-Organization-Environment (TOE) Framework
               </div>
               <div className="text-sm text-gray-600">
                 Tornatzky, Fleischer &amp; Chakrabarti (1990)
@@ -288,29 +302,22 @@ const BibliographyPage = () => {
               href="/bibliography-2-7-it-implementation-research-cooper-zmud-1990"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
-              <div className="font-semibold text-green-700">IT Implementation Research</div>
+              <div className="font-semibold text-green-700">7. IT Implementation Research</div>
               <div className="text-sm text-gray-600">Cooper &amp; Zmud (1990)</div>
             </Link>
             <Link
               href="/bibliography-2-8-business-process-redesign-davenport-short-1990"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
-              <div className="font-semibold text-green-700">Business Process Redesign (BPR)</div>
+              <div className="font-semibold text-green-700">8. Business Process Redesign (BPR)</div>
               <div className="text-sm text-gray-600">Davenport &amp; Short (1990)</div>
-            </Link>
-            <Link
-              href="/bibliography-2-2-vrio-framework-barney-1991"
-              className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
-            >
-              <div className="font-semibold text-green-700">VRIO Framework</div>
-              <div className="text-sm text-gray-600">Barney (1991)</div>
             </Link>
             <Link
               href="/bibliography-2-9-business-process-reengineering-hammer-champy-1993"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-green-700">
-                Business Process Reengineering (BPR)
+                9. Business Process Reengineering (BPR)
               </div>
               <div className="text-sm text-gray-600">Hammer &amp; Champy (1993)</div>
             </Link>
@@ -318,35 +325,28 @@ const BibliographyPage = () => {
               href="/bibliography-2-10-tafim-dod-1994"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
-              <div className="font-semibold text-green-700">TAFIM</div>
+              <div className="font-semibold text-green-700">10. TAFIM</div>
               <div className="text-sm text-gray-600">U.S. DoD (1994)</div>
             </Link>
             <Link
               href="/bibliography-2-11-gartner-hype-cycle-fenn-1995"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
-              <div className="font-semibold text-green-700">Gartner Hype Cycle</div>
+              <div className="font-semibold text-green-700">11. Gartner Hype Cycle</div>
               <div className="text-sm text-gray-600">Fenn &amp; Gartner (1995)</div>
             </Link>
             <Link
               href="/bibliography-2-12-togaf-the-open-group-1995"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
-              <div className="font-semibold text-green-700">TOGAF</div>
+              <div className="font-semibold text-green-700">12. TOGAF</div>
               <div className="text-sm text-gray-600">The Open Group (1995)</div>
-            </Link>
-            <Link
-              href="/bibliography-2-3-dynamic-capabilities-teece-1997"
-              className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
-            >
-              <div className="font-semibold text-green-700">Dynamic Capabilities Framework</div>
-              <div className="text-sm text-gray-600">Teece, Pisano, &amp; Shuen (1997)</div>
             </Link>
             <Link
               href="/bibliography-2-13-dodaf-dod-2003"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
-              <div className="font-semibold text-green-700">DoDAF</div>
+              <div className="font-semibold text-green-700">13. DoDAF</div>
               <div className="text-sm text-gray-600">U.S. DoD (2003)</div>
             </Link>
             <Link
@@ -354,7 +354,7 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-green-700">
-                Capability Maturity Model Integration (CMMI)
+                14. Capability Maturity Model Integration (CMMI)
               </div>
               <div className="text-sm text-gray-600">Chrissis, Konrad &amp; Shrum (2005)</div>
             </Link>
@@ -363,7 +363,7 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-green-700">
-                IT Capability Maturity Framework (IT-CMF)
+                15. IT Capability Maturity Framework (IT-CMF)
               </div>
               <div className="text-sm text-gray-600">Innovation Value Institute (2016)</div>
             </Link>
@@ -372,7 +372,7 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-green-700">
-                AWS Cloud Adoption Framework for AI/ML (CAF-AI)
+                16. AWS Cloud Adoption Framework for AI/ML (CAF-AI)
               </div>
               <div className="text-sm text-gray-600">Amazon Web Services (2024)</div>
             </Link>
@@ -381,7 +381,7 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-green-700">
-                AWS Enterprise Transformation Framework (ETF)
+                17. AWS Enterprise Transformation Framework (ETF)
               </div>
               <div className="text-sm text-gray-600">Amazon Web Services (2024)</div>
             </Link>
@@ -390,7 +390,7 @@ const BibliographyPage = () => {
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-green-700">
-                Microsoft Cloud Adoption Framework for Azure (CAF)
+                18. Microsoft Cloud Adoption Framework for Azure (CAF)
               </div>
               <div className="text-sm text-gray-600">Microsoft (2025)</div>
             </Link>
@@ -398,7 +398,9 @@ const BibliographyPage = () => {
               href="/bibliography-2-19-microsoft-ai-adoption-framework-2025"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
-              <div className="font-semibold text-green-700">Microsoft AI Adoption Framework</div>
+              <div className="font-semibold text-green-700">
+                19. Microsoft AI Adoption Framework
+              </div>
               <div className="text-sm text-gray-600">Microsoft (2025)</div>
             </Link>
           </div>
@@ -431,7 +433,7 @@ const BibliographyPage = () => {
                     Ajzen (1991) - The theory of planned behavior
                   </td>
                   <td className="border border-gray-300 px-3 py-2">
-                    Alexander WÃ¶hlke et al. (2024) - AWS Cloud Adoption Framework (AI/ML)
+                    Alexander Wöhlke et al. (2024) - AWS Cloud Adoption Framework (AI/ML)
                   </td>
                 </tr>
                 <tr>
@@ -713,9 +715,9 @@ const BibliographyPage = () => {
           <h2 className={H2_CLASSES}>Detailed APA Reference List: Track 2 (Organization)</h2>
           <div className="space-y-4">
             <p className="pl-8 -indent-8">
-              Alexander WÃ¶hlke, Nitin, P., Lachlan, I., Shane, M., Spoorthy, C., Chris, B.,
-              Anushka, K., &amp; Madhan Raj, M. S. (2024).{' '}
-              <em>AWS Cloud Adoption Framework: AI/ML Lens</em>. Amazon Web Services.
+              Alexander Wöhlke, Nitin, P., Lachlan, I., Shane, M., Spoorthy, C., Chris, B., Anushka,
+              K., &amp; Madhan Raj, M. S. (2024). <em>AWS Cloud Adoption Framework: AI/ML Lens</em>.
+              Amazon Web Services.
               https://docs.aws.amazon.com/whitepapers/latest/aws-caf-for-ai-ml/aws-caf-for-ai-ml.html
             </p>
             <p className="pl-8 -indent-8">
