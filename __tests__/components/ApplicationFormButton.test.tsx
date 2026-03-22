@@ -49,7 +49,10 @@ describe('ApplicationFormButton', () => {
     fireEvent.click(screen.getByRole('button', { name: /apply/i }))
     const iframe = screen.getByTitle('Charity Application Form')
     expect(iframe).toBeInTheDocument()
-    expect(iframe).toHaveAttribute('sandbox')
+    expect(iframe).toHaveAttribute(
+      'sandbox',
+      'allow-scripts allow-forms allow-popups allow-same-origin'
+    )
   })
 
   it('has no accessibility violations when closed', async () => {

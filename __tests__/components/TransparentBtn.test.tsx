@@ -25,13 +25,14 @@ describe('TransparentBtn', () => {
   it('renders with default # href when none provided', () => {
     render(<Transparentbtn text="Click Me" />)
     const link = screen.getByRole('link')
-    expect(link).toBeInTheDocument()
+    expect(link).toHaveAttribute('href', '#')
   })
 
   it('renders with custom color', () => {
     render(<Transparentbtn text="Colored" color="red" />)
     const link = screen.getByRole('link')
-    expect(link).toBeInTheDocument()
+    expect(link.style.color).toBe('red')
+    expect(link.style.borderColor).toBe('red')
   })
 
   it('renders the arrow icon', () => {
