@@ -1,0 +1,144 @@
+# Qualtrics Survey Question Management (write operations)
+#
+# Add, update, delete, or list questions in the live Qualtrics survey.
+# Uses the same qualtrics-prod environment and secrets as the read-only workflows.
+#
+# Usage (GitHub CLI):
+#   gh workflow run qualtrics-manage-questions.yml -f action=list
+#   gh workflow run qualtrics-manage-questions.yml -f action=add -f question_payload='{"QuestionText":"...","QuestionType":"MC",...}'
+#   gh workflow run qualtrics-manage-questions.yml -f action=update -f question_id=QID123 -f question_payload='{"QuestionText":"Updated text"}'
+#   gh workflow run qualtrics-manage-questions.yml -f action=delete -f question_id=QID123
+#
+# CAUTION: add/update/delete modify the LIVE survey. Use dry_run=true to preview changes.
+
+name: Qualtrics Question Management
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        type: choice
+        options:
+          - list
+          - add
+          - update
+          - delete
+      survey_id:
+        description: 'Survey ID override (leave blank for default)'
+        required: false
+        type: string
+      question_id:
+        description: 'Question ID (required for update/delete, e.g. QID205)'
+        required: false
+        type: string
+      question_payload:
+        description: 'Question definition JSON (required for add/update). See Qualtrics API docs for schema.'
+        required: false
+        type: string
+      block_id:
+        description: 'Block ID to add question to (optional, for add action only)'
+        required: false
+        type: string
+      dry_run:
+        description: 'Preview changes without applying (true/false)'
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  manage-questions:
+    name: Manage Survey Questions
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+
+    env:
+      QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+      QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+      QUALTRICS_SURVEY_ID: ${{ inputs.survey_id || vars.QUALTRICS_SURVEY_ID }}
+      QUALTRICS_MANAGE_ACTION: ${{ inputs.action }}
+      QUALTRICS_QUESTION_ID: ${{ inputs.question_id }}
+      QUALTRICS_QUESTION_PAYLOAD: ${{ inputs.question_payload }}
+      QUALTRICS_BLOCK_ID: ${{ inputs.block_id }}
+      QUALTRICS_DRY_RUN: ${{ inputs.dry_run }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Verify Qualtrics configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${QUALTRICS_API_TOKEN:-}" ]]; then
+            echo "::error::QUALTRICS_API_TOKEN is not set in the qualtrics-prod environment."
+            exit 1
+          fi
+          if [[ -z "${QUALTRICS_BASE_URL:-}" ]]; then
+            echo "::error::QUALTRICS_BASE_URL is not set."
+            exit 1
+          fi
+          if [[ -z "${QUALTRICS_SURVEY_ID:-}" ]]; then
+            echo "::error::QUALTRICS_SURVEY_ID is not set."
+            exit 1
+          fi
+          echo "✅ Qualtrics configuration verified."
+
+      - name: Validate inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          ACTION="${QUALTRICS_MANAGE_ACTION}"
+
+          if [[ "$ACTION" == "update" || "$ACTION" == "delete" ]]; then
+            if [[ -z "${QUALTRICS_QUESTION_ID:-}" ]]; then
+              echo "::error::question_id is required for ${ACTION} action."
+              exit 1
+            fi
+          fi
+
+          if [[ "$ACTION" == "add" || "$ACTION" == "update" ]]; then
+            if [[ -z "${QUALTRICS_QUESTION_PAYLOAD:-}" ]]; then
+              echo "::error::question_payload is required for ${ACTION} action."
+              exit 1
+            fi
+            # Validate JSON
+            echo "${QUALTRICS_QUESTION_PAYLOAD}" | python3 -m json.tool > /dev/null 2>&1 || {
+              echo "::error::question_payload is not valid JSON."
+              exit 1
+            }
+          fi
+
+          if [[ "${QUALTRICS_DRY_RUN}" != "true" && "$ACTION" != "list" ]]; then
+            echo "::warning::This is a LIVE write operation (dry_run=false). The survey will be modified."
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Execute question management
+        run: npx --no-install tsx scripts/qualtrics-manage-questions.ts
+
+      - name: Add failure summary
+        if: failure()
+        shell: bash
+        run: |
+          {
+            echo "## ❌ Qualtrics Question Management Failed"
+            echo ""
+            echo "- **Action:** \`${QUALTRICS_MANAGE_ACTION}\`"
+            echo "- **Survey ID:** \`${QUALTRICS_SURVEY_ID}\`"
+            echo "- **Question ID:** \`${QUALTRICS_QUESTION_ID:-N/A}\`"
+            echo ""
+            echo "Review the logs above for details."
+          } >> "$GITHUB_STEP_SUMMARY"

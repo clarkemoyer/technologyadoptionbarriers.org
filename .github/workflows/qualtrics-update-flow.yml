@@ -1,0 +1,138 @@
+# Qualtrics Survey Flow Management (write operations)
+#
+# Inspect, reorder, add, or remove blocks in the live Survey Flow.
+# Uses the same qualtrics-prod environment and secrets as the read-only workflows.
+#
+# Usage (GitHub CLI):
+#   gh workflow run qualtrics-update-flow.yml -f action=dump
+#   gh workflow run qualtrics-update-flow.yml -f action=reorder -f block_ids_order='BL_abc,BL_def,BL_ghi'
+#   gh workflow run qualtrics-update-flow.yml -f action=add -f block_id=BL_newblock
+#   gh workflow run qualtrics-update-flow.yml -f action=remove -f block_id=BL_oldblock
+#
+# CAUTION: reorder/add/remove modify the LIVE survey flow. Use dry_run=true to preview.
+
+name: Qualtrics Survey Flow Management
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        type: choice
+        options:
+          - dump
+          - reorder
+          - add
+          - remove
+      survey_id:
+        description: 'Survey ID override (leave blank for default)'
+        required: false
+        type: string
+      block_ids_order:
+        description: 'Comma-separated block IDs in desired order (for reorder action)'
+        required: false
+        type: string
+      block_id:
+        description: 'Block ID to add or remove (for add/remove actions)'
+        required: false
+        type: string
+      insert_at:
+        description: 'Position to insert block (0-based; -1 = append; for add action)'
+        required: false
+        type: string
+        default: '-1'
+      dry_run:
+        description: 'Preview changes without applying (true/false)'
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  manage-flow:
+    name: Manage Survey Flow
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+
+    env:
+      QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+      QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+      QUALTRICS_SURVEY_ID: ${{ inputs.survey_id || vars.QUALTRICS_SURVEY_ID }}
+      QUALTRICS_FLOW_ACTION: ${{ inputs.action }}
+      QUALTRICS_BLOCK_IDS_ORDER: ${{ inputs.block_ids_order }}
+      QUALTRICS_BLOCK_ID: ${{ inputs.block_id }}
+      QUALTRICS_FLOW_INSERT_AT: ${{ inputs.insert_at }}
+      QUALTRICS_DRY_RUN: ${{ inputs.dry_run }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Verify Qualtrics configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${QUALTRICS_API_TOKEN:-}" ]]; then
+            echo "::error::QUALTRICS_API_TOKEN is not set in the qualtrics-prod environment."
+            exit 1
+          fi
+          if [[ -z "${QUALTRICS_BASE_URL:-}" ]]; then
+            echo "::error::QUALTRICS_BASE_URL is not set."
+            exit 1
+          fi
+          if [[ -z "${QUALTRICS_SURVEY_ID:-}" ]]; then
+            echo "::error::QUALTRICS_SURVEY_ID is not set."
+            exit 1
+          fi
+
+      - name: Validate inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          ACTION="${QUALTRICS_FLOW_ACTION}"
+
+          if [[ "$ACTION" == "reorder" ]]; then
+            if [[ -z "${QUALTRICS_BLOCK_IDS_ORDER:-}" ]]; then
+              echo "::error::block_ids_order is required for reorder action."
+              exit 1
+            fi
+          fi
+
+          if [[ "$ACTION" == "add" || "$ACTION" == "remove" ]]; then
+            if [[ -z "${QUALTRICS_BLOCK_ID:-}" ]]; then
+              echo "::error::block_id is required for ${ACTION} action."
+              exit 1
+            fi
+          fi
+
+          if [[ "${QUALTRICS_DRY_RUN}" != "true" && "$ACTION" != "dump" ]]; then
+            echo "::warning::This is a LIVE write operation (dry_run=false). The survey flow will be modified."
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Execute flow management
+        run: npx --no-install tsx scripts/qualtrics-update-flow.ts
+
+      - name: Add failure summary
+        if: failure()
+        shell: bash
+        run: |
+          {
+            echo "## ❌ Qualtrics Flow Management Failed"
+            echo ""
+            echo "- **Action:** \`${QUALTRICS_FLOW_ACTION}\`"
+            echo "- **Survey ID:** \`${QUALTRICS_SURVEY_ID}\`"
+            echo ""
+            echo "Review the logs above for details."
+          } >> "$GITHUB_STEP_SUMMARY"
