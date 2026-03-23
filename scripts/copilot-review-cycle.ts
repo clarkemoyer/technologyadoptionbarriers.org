@@ -154,7 +154,7 @@ function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComm
   const body = [
     `Fix the following Copilot code review comments on PR #${prNumber}:\n`,
     commentList,
-    `\nPush fixes directly to the PR branch.`,
+    `\nPush fixes to the PR branch directly or via a sub-PR (branch: copilot/sub-pr-<number>).`,
   ].join('\n')
 
   // Create a temporary issue and assign Copilot to it
@@ -235,13 +235,71 @@ async function waitForCopilotReview(
   return null // timeout
 }
 
-async function waitForNewPush(
+interface SubPr {
+  number: number
+  headRefName: string
+  state: string
+  isDraft: boolean
+  mergeable: string
+}
+
+/**
+ * Find a Copilot sub-PR targeting the given branch.
+ * Copilot coding agent creates branches named `copilot/sub-pr-{number}`.
+ * Only matches this specific pattern to avoid merging unrelated Copilot PRs.
+ */
+function findCopilotSubPr(repo: string, targetBranch: string): SubPr | null {
+  try {
+    // Sanitize branch name to prevent shell injection via special characters
+    const safeBranch = targetBranch.replace(/[^a-zA-Z0-9/_.-]/g, '')
+    const prs = ghJsonArray<SubPr>(
+      `pr list -R ${repo} --state open --base "${safeBranch}" ` +
+        `--json number,headRefName,state,isDraft,mergeable`
+    )
+    return prs.find((p) => /^copilot\/sub-pr-\d+$/.test(p.headRefName)) || null
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Merge a Copilot sub-PR into the target branch.
+ */
+function mergeCopilotSubPr(repo: string, subPrNumber: number): boolean {
+  console.log(`  Merging Copilot sub-PR #${subPrNumber}...`)
+  try {
+    // Mark as ready if draft
+    try {
+      gh(`pr ready ${subPrNumber} -R ${repo}`)
+    } catch {
+      // already ready or not a draft
+    }
+    gh(`pr merge ${subPrNumber} -R ${repo} --merge --delete-branch --yes`)
+    console.log(`  Sub-PR #${subPrNumber} merged successfully.`)
+    return true
+  } catch (err: any) {
+    const stderr = err.stderr?.toString().trim() || ''
+    const stdout = err.stdout?.toString().trim() || ''
+    const detail = stderr || stdout || err.message || String(err)
+    console.log(`  Failed to merge sub-PR #${subPrNumber}: ${detail}`)
+    return false
+  }
+}
+
+/**
+ * Wait for fixes: polls for either a direct push to the PR branch
+ * or a Copilot sub-PR targeting the branch (auto-merges if found).
+ */
+async function waitForFixes(
   repo: string,
   prNumber: string,
-  originalSha: string
+  originalSha: string,
+  headBranch: string
 ): Promise<boolean> {
   const startTime = Date.now()
-  console.log(`Waiting for fixes to be pushed (timeout: ${FIX_TIMEOUT_MS / 60000} min)...`)
+  console.log(
+    `Waiting for fixes — direct push or Copilot sub-PR (timeout: ${FIX_TIMEOUT_MS / 60000} min)...`
+  )
 
   while (Date.now() - startTime < FIX_TIMEOUT_MS) {
     await sleep(FIX_POLL_INTERVAL_MS)
@@ -252,13 +310,41 @@ async function waitForNewPush(
       return false
     }
 
+    // Check 1: Direct push to the PR branch
     if (pr.headRefOid !== originalSha) {
       console.log(`  New push detected: ${originalSha.slice(0, 7)} -> ${pr.headRefOid.slice(0, 7)}`)
       return true
     }
 
+    // Check 2: Copilot sub-PR targeting the PR branch
+    const subPr = findCopilotSubPr(repo, headBranch)
+    if (subPr) {
+      console.log(`  Found Copilot sub-PR #${subPr.number} (${subPr.headRefName})`)
+
+      // Only attempt merge when GitHub confirms the sub-PR is mergeable
+      if (subPr.mergeable !== 'MERGEABLE') {
+        console.log(`  Sub-PR #${subPr.number} mergeable state: ${subPr.mergeable}, waiting...`)
+      } else {
+        const merged = mergeCopilotSubPr(repo, subPr.number)
+        if (merged) {
+          // Verify the main PR's HEAD actually changed
+          for (let i = 0; i < 6; i++) {
+            await sleep(5000)
+            const updated = getPrState(repo, prNumber)
+            if (updated.headRefOid !== originalSha) {
+              console.log(
+                `  HEAD updated: ${originalSha.slice(0, 7)} -> ${updated.headRefOid.slice(0, 7)}`
+              )
+              return true
+            }
+          }
+          console.log('  Sub-PR merged but HEAD did not update within 30s. Continuing poll...')
+        }
+      }
+    }
+
     const elapsed = Math.round((Date.now() - startTime) / 1000)
-    process.stdout.write(`  Waiting for push... (${elapsed}s)\r`)
+    process.stdout.write(`  Waiting for fixes... (${elapsed}s)\r`)
   }
 
   return false // timeout
@@ -392,11 +478,11 @@ async function main() {
   // Step 8: Assign Copilot coding agent to fix comments
   assignCopilotToFix(repo, prNumber, comments)
 
-  // Step 9: Wait for fixes to be pushed to the PR branch
+  // Step 9: Wait for fixes — direct push or Copilot sub-PR (auto-merged)
   const headSha = pr.headRefOid
-  const pushed = await waitForNewPush(repo, prNumber, headSha)
+  const fixed = await waitForFixes(repo, prNumber, headSha, pr.headRefName)
 
-  if (!pushed) {
+  if (!fixed) {
     console.log('\nNo fixes were pushed within timeout.')
     postComment(
       repo,
