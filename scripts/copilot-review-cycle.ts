@@ -154,7 +154,7 @@ function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComm
   const body = [
     `Fix the following Copilot code review comments on PR #${prNumber}:\n`,
     commentList,
-    `\nPush fixes directly to the PR branch.`,
+    `\nPush fixes to the PR branch directly or via a sub-PR (branch: copilot/sub-pr-<number>).`,
   ].join('\n')
 
   // Create a temporary issue and assign Copilot to it
