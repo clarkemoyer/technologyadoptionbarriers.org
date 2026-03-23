@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
   H1_CLASSES,
   H2_CLASSES,
   H3_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
 } from '@/lib/articleStyles'
 
@@ -23,7 +26,7 @@ const BibliographyArticlePage = () => {
         </h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -39,7 +42,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -51,10 +54,10 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Main Content */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Brown and Venkatesh developed MATH in response to a significant gap in technology
               adoption research. While extensive models existed for organizational and workplace
               technology adoption, there was a notable absence of comprehensive theoretical models
@@ -67,7 +70,7 @@ const BibliographyArticlePage = () => {
               States. By 2005, the internet population had already reached an equal split in terms
               of gender and was moving toward parity in age, income, and race categories.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               However, significant segments of the population remained non-adopters, particularly
               among older adults and lower-income households. The authors noted that previous
               research on technology acceptance in organizational contexts could not adequately
@@ -82,7 +85,7 @@ const BibliographyArticlePage = () => {
               research, household decision-making literature, and consumer behavior studies to
               develop a model capturing the unique characteristics of household technology adoption.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The timing was critical, as household technology markets were rapidly expanding, and
               understanding adoption drivers could inform both theoretical development and practical
               marketing strategies.
@@ -90,7 +93,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Brown and Venkatesh employed a comprehensive research methodology to test the internal
               validity of MATH. The study utilized a field survey design conducted with a sample of
               United States households that had not yet adopted personal computers but were in the
@@ -104,7 +107,7 @@ const BibliographyArticlePage = () => {
               household, specifically instructing respondents to consider the household’s overall
               perspective while recognizing that some disagreement might exist among family members.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               This approach acknowledged the reality that household technology decisions often
               involve multiple perspectives while seeking to capture the dominant decision-making
               perspective. Survey data collection followed a structured protocol, with careful
@@ -122,7 +125,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The external validity of MATH was tested through a longitudinal extension that
               incorporated household life cycle stages. While the baseline model examined household
               technology adoption generally, the extended model tested whether adoption patterns and
@@ -138,7 +141,7 @@ const BibliographyArticlePage = () => {
               leaving home or changes in household composition) influenced technology adoption
               decisions.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               By testing the model across different household life cycle stages, the authors
               demonstrated the model’s applicability beyond a single household type. The field
               survey approach itself contributed to external validity by collecting data from actual
@@ -150,7 +153,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               MATH provides both theoretical and practical guidance for understanding household
               technology adoption. The model serves multiple practical applications: For marketing
               and business purposes, the model helps technology companies and retailers understand
@@ -164,7 +167,7 @@ const BibliographyArticlePage = () => {
               heavily influenced by perceived ease of use and the availability of applications
               relevant to household tasks.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Designers are instructed to prioritize usability and user-friendly interfaces,
               recognizing that household users may lack technical expertise. The emphasis on
               applications for household use suggests that software developers should focus on tools
@@ -179,7 +182,7 @@ const BibliographyArticlePage = () => {
               children may be motivated by different factors than mature households or empty
               nesters.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Marketing and product strategies can be tailored to emphasize the factors most salient
               to each household type. The model also informs managers and organizational leaders
               designing initiatives to increase technology adoption. Understanding that user
@@ -190,7 +193,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               MATH measures the factors influencing household technology adoption through a
               comprehensive set of constructs organized into several categories: Utilitarian
               benefits are captured through perceived usefulness and specific applications for use,
@@ -204,7 +207,7 @@ const BibliographyArticlePage = () => {
               is measured as perceived ease of use, examining whether household members view
               technology as understandable and learnable.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Self- efficacy captures households’ confidence in their ability to use technology
               competently, recognizing that many household members may lack technical experience.
               Cost considerations are measured through multiple items examining perceived cost,
@@ -218,7 +221,7 @@ const BibliographyArticlePage = () => {
               through constructs capturing fear of technological advances and perceived risk,
               reflecting anxieties about rapid technological change.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Behavioral intention is measured through items assessing whether household members
               intend to adopt a computer at home, predict adopting a computer at home in the near
               future, and expect to adopt a computer at home in the near future.
@@ -226,7 +229,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The MATH model possesses several significant strengths that distinguish it as a
               valuable contribution to technology adoption research: First, the model addresses a
               genuine theoretical gap. By developing a model specifically designed for household
@@ -240,7 +243,7 @@ const BibliographyArticlePage = () => {
               multidimensional approach recognizes that household technology adoption is influenced
               by diverse motivations beyond simple productivity calculations.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Third, the inclusion of household life cycle as an extension demonstrates theoretical
               sophistication and practical relevance. By examining how adoption drivers vary across
               different household types and life stages, the model acknowledges that household
@@ -258,7 +261,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Despite its contributions, MATH also exhibits notable limitations: First, the model’s
               focus on computer adoption in the early 2000s limits its generalizability to
               contemporary technology adoption contexts. While the core principles may transfer to
@@ -272,7 +275,7 @@ const BibliographyArticlePage = () => {
               often involve negotiation among multiple family members with different preferences and
               priorities.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The model’s aggregation of household perspectives may obscure important heterogeneity
               in preferences and decision processes within households. Third, the measurement
               approach relying on single survey administration captures intentions rather than
@@ -287,7 +290,7 @@ const BibliographyArticlePage = () => {
               children on household technology decisions, or the negotiation processes through which
               household consensus is achieved.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Fifth, the model’s focus on non-adopters or potential adopters may limit its
               applicability to understanding adoption patterns among those already using household
               technology or considering replacement/upgrade decisions. The decision processes and
@@ -297,7 +300,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How does this model differ from older models?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               MATH represents a meaningful departure from prior technology adoption models in
               several important ways: First, MATH is specifically contextualized for household
               settings rather than organizational settings. Earlier models like TAM were developed
@@ -312,7 +315,7 @@ const BibliographyArticlePage = () => {
               entertainment considerations alongside practical utility. Third, MATH incorporates
               household composition and life cycle as fundamental to the adoption decision.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Older models treat adoption as an individual-level phenomenon without considering how
               household circumstances shape technology needs and priorities. MATH’s extension
               examining adoption across different household life cycle stages acknowledges that
@@ -327,7 +330,7 @@ const BibliographyArticlePage = () => {
               friends and family influences, workplace referents, media influences, and secondary
               sources.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               This differentiation acknowledges the diverse sources from which households receive
               adoption information and influence. Sixth, MATH measures self-efficacy and fear of
               technology explicitly. Rather than assuming all potential adopters have similar
@@ -342,7 +345,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What Barriers to Technology Adoption does the model identify?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The MATH model identifies a comprehensive set of barriers that prevent or delay
               household technology adoption, organized across multiple dimensions: Cost barriers
               represent one of the most significant obstacles to household technology adoption. The
@@ -356,7 +359,7 @@ const BibliographyArticlePage = () => {
               considerations prevent adoption among economically disadvantaged populations. Lack of
               perceived usefulness or applicable uses represents a critical barrier.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Many household members may not understand or perceive practical applications for
               household technology use. If consumers cannot identify how a computer would support
               household activities, personal productivity, or household management, they lack
@@ -372,7 +375,7 @@ const BibliographyArticlePage = () => {
               computers as requiring expertise they do not possess, face a significant adoption
               barrier.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Self-efficacy concerns amplify this barrier, as individuals who doubt their ability to
               use technology competently are unlikely to invest in adoption. Fear and anxiety about
               technology advancement represent psychological barriers to adoption. The model
@@ -387,7 +390,7 @@ const BibliographyArticlePage = () => {
               influences), the absence of such influences or negative social influences can
               constitute barriers.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Households lacking friends or family members with computer experience, or those in
               social environments where computer use is not normative, may face reduced motivation
               to adopt. Status and lifestyle considerations can operate as barriers for some
@@ -407,7 +410,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What does the model instruct leaders to do in order to reduce these barriers?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The MATH model, through its identification of adoption barriers and drivers, provides
               clear guidance for organizational leaders, technology companies, marketers, and
               policymakers seeking to increase household technology adoption: To address cost
@@ -422,7 +425,7 @@ const BibliographyArticlePage = () => {
               and that purchasing earlier provides longer periods of use before replacement becomes
               necessary.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               To address perceived usefulness barriers, leaders should educate households about
               practical applications relevant to their specific circumstances. This involves
               understanding what activities and household needs are most salient to different
@@ -438,7 +441,7 @@ const BibliographyArticlePage = () => {
               effective than specific, application-based marketing focused on identified household
               needs.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               To address ease of use and self-efficacy barriers, leaders should invest heavily in
               designing user-friendly technology and providing effective training and support. The
               model emphasizes that perceptions of ease of use and self-efficacy are significant
@@ -452,7 +455,7 @@ const BibliographyArticlePage = () => {
               that creating welcoming, non- threatening learning environments where households can
               develop technical skills gradually is crucial for reducing self-efficacy barriers.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               To address fear and anxiety barriers, leaders should take a reassuring, educational
               approach. Marketing communications and educational initiatives should acknowledge that
               technology anxiety is understandable while providing evidence that computers are
@@ -466,7 +469,7 @@ const BibliographyArticlePage = () => {
               on peer influence and opinion leaders. The model identifies the importance of friends
               and family influences, secondary sources (media), and workplace referents.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Marketing strategies should involve testimonials from trusted peers and opinion
               leaders that potential adopters can relate to. Community-based adoption programs that
               involve friends and family in learning about and trying technology together can
@@ -479,7 +482,7 @@ const BibliographyArticlePage = () => {
               adoption. While the model identifies status gains as a motivation for some adopters,
               leaders should work to expand perceptions of who uses and benefits from technology.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Marketing campaigns can feature diverse populations using technology, helping to
               disassociate technology use from narrow stereotypes. Community programs and peer
               influence campaigns should normalize technology use across diverse socioeconomic and
@@ -494,7 +497,7 @@ const BibliographyArticlePage = () => {
               retailers, and community organizations can ensure that potential adopters encounter
               information about applications in contexts they trust and find accessible.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The model suggests that effective barrier reduction requires multifaceted strategies
               addressing the diverse obstacles different household segments face. Rather than
               employing a single marketing message or approach, leaders should segment the market,
@@ -527,8 +530,8 @@ const BibliographyArticlePage = () => {
                 Perceived Ease of Use, and User Acceptance of Information Technology.” MIS Quarterly
                 13, no. 3 (1989): 319-340. 4.Fishbein, M., and Ajzen, I. Belief, Attitude, Intention
                 and Behavior: An Introduction to Theory and Research. Reading, MA: Addison-Wesley,
-                1975. 5.Rogers, E. M. Diffusion of Innovations. 4th ed. Â New York: Free Press,
-                1995. 6.Venkatesh, V. “Determinants of Perceived Ease of Use: Integrating Control,
+                1975. 5.Rogers, E. M. Diffusion of Innovations. 4th ed. New York: Free Press, 1995.
+                6.Venkatesh, V. “Determinants of Perceived Ease of Use: Integrating Control,
                 Intrinsic Motivation, and Emotion into the Technology Acceptance Model.” Information
                 Systems Research 11, no. 4 (2000): 342-365. 7.Venkatesh, V., and Brown, S. A. “A
                 Longitudinal Investigation of Personal Computers in Homes: Adoption Determinants and
@@ -556,12 +559,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
+          <Link
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

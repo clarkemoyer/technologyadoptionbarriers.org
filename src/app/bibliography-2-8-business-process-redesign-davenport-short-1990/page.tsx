@@ -25,6 +25,34 @@ const DavenportShortBPRPage = () => {
           Business Process Redesign (BPR) &ndash; Davenport &amp; Short (1990)
         </h1>
 
+        {/* Framework Identification */}
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
+          <h2 className={H2_CLASSES}>Framework Identification</h2>
+          <div className="space-y-2">
+            <p>
+              <strong>Framework Name:</strong> Business Process Redesign (BPR)
+            </p>
+            <p>
+              <strong>Authors:</strong> Thomas H. Davenport and James E. Short
+            </p>
+            <p>
+              <strong>Publication Date:</strong> 1990
+            </p>
+          </div>
+        </section>
+
+        {/* Citation Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Citation Information</h2>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+            <p className="text-sm font-mono">
+              Davenport, T. H., &amp; Short, J. E. (1990). The new industrial engineering:
+              Information technology and business process redesign. <em>Sloan Management Review</em>
+              , 31(4), 11&ndash;27.
+            </p>
+          </div>
+        </section>
+
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             In 1990, Thomas H. Davenport and James E. Short published &ldquo;The New Industrial

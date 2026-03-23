@@ -24,6 +24,33 @@ const MicrosoftAIAdoptionPage = () => {
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Microsoft AI Adoption Framework &ndash; Microsoft (2025)</h1>
 
+        {/* Framework Identification */}
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
+          <h2 className={H2_CLASSES}>Framework Identification</h2>
+          <div className="space-y-2">
+            <p>
+              <strong>Framework Name:</strong> Microsoft AI Adoption Framework
+            </p>
+            <p>
+              <strong>Authors:</strong> Microsoft
+            </p>
+            <p>
+              <strong>Publication Date:</strong> 2025
+            </p>
+          </div>
+        </section>
+
+        {/* Citation Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Citation Information</h2>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+            <p className="text-sm font-mono">
+              Sumner, S. (2025). <em>Microsoft AI adoption &ndash; Cloud Adoption Framework.</em>{' '}
+              Microsoft Learn.
+            </p>
+          </div>
+        </section>
+
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             Published by Microsoft in April 2025, the Microsoft AI Adoption Framework extends the

@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
   H1_CLASSES,
   H2_CLASSES,
   H3_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
 } from '@/lib/articleStyles'
 
@@ -20,7 +23,7 @@ const BibliographyArticlePage = () => {
         <h1 className={H1_CLASSES}>Decomposed TPB – Taylor & Todd (1995)</h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -36,7 +39,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -47,10 +50,10 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Main Content */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Taylor and Todd developed their competing models framework to address fundamental
               ambiguities and theoretical gaps in information technology adoption research. By the
               mid-1990s, multiple theoretical frameworks had been proposed to explain IT
@@ -64,7 +67,7 @@ const BibliographyArticlePage = () => {
               guidance about which theories offered the most robust understanding of technology
               adoption.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Organizations also lacked a coherent framework for understanding which factors truly
               drove IT adoption versus which represented theoretical artifacts or artifacts of
               measurement approaches. Taylor and Todd recognized three specific research questions
@@ -78,7 +81,7 @@ const BibliographyArticlePage = () => {
               simplified and that the theory neglected important factors like social influences,
               control beliefs, and consequences.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Other frameworks like the Theory of Planned Behavior incorporated additional
               constructs, but their applicability to IT adoption was less established. Taylor and
               Todd sought to test whether richer, more complex models would outperform Davis’s
@@ -95,7 +98,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Taylor and Todd employed rigorous quantitative methodology with two separate studies
               to establish internal validity: Study 1: Email Adoption Among MBA Students The
               researchers surveyed 108 MBA students who were required to use email as part of their
@@ -162,7 +165,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Taylor and Todd employed a two-study design specifically to strengthen external
               validity claims: Multi-Technology Approach: Study 1 examined email adoption—a
               relatively optional technology where use provided immediate benefits but was not
@@ -228,7 +231,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Taylor and Todd provided managerial guidance for using their findings to understand
               and facilitate IT adoption: Model Selection and Assessment: Organizations can use the
               competing models framework to select which theoretical perspective best matches their
@@ -317,7 +320,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Taylor and Todd’s framework operationalizes multiple constructs across different
               theoretical perspectives: Core TAM Constructs: 1.Perceived Usefulness (PU):
               Operationalized through five items measuring whether the technology improves job
@@ -381,7 +384,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Taylor and Todd’s competing models framework possesses several important strengths:
               1.Rigorous Comparative Analysis: The research systematically compares multiple
               theoretical frameworks using consistent methodology across both models and studies.
@@ -398,7 +401,7 @@ const BibliographyArticlePage = () => {
               Practical Guidance: The paper translates theoretical findings into managerial
               implications.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Organizations can use the competing models framework to assess which factors most
               constrain adoption in their context and select appropriate intervention strategies.
               5.Sophisticated Statistical Methods: The use of LISREL structural equation modeling
@@ -414,7 +417,7 @@ const BibliographyArticlePage = () => {
               through Perceived Usefulness reveals the mechanisms through which ease of use affects
               adoption decisions.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               This mechanistic clarity is more useful than correlation evidence alone. 8.Replication
               Within Studies: Both studies show consistent patterns, with similar path coefficients
               and model structures despite different technologies and populations. This consistency
@@ -429,7 +432,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Despite its strengths, Taylor and Todd’s framework has notable limitations: 1.Study 1
               Sample Size and Population: The email study used only 108 MBA students, a relatively
               small sample from a highly educated, motivated population. MBA students likely have
@@ -442,7 +445,7 @@ const BibliographyArticlePage = () => {
               fully address the validity implications. 3.Cross-Sectional Design: Both studies
               captured single time points rather than tracking adoption longitudinally.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The models show associations between constructs but cannot definitively establish
               causality. Reverse causality is possible—for example, frequent users might develop
               higher Perceived Usefulness perceptions rather than high usefulness perceptions
@@ -458,7 +461,7 @@ const BibliographyArticlePage = () => {
               predict behavioral intention well, the transition from intention to actual usage
               remains incompletely explained.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The authors acknowledge that “behavioral intention is a more proximal predictor of
               usage than attitude” but note variance in usage even among those with high intentions.
               7.Technology Characteristics Underspecified: The model does not examine how technology
@@ -472,7 +475,7 @@ const BibliographyArticlePage = () => {
               focuses on resource availability and capability beliefs but may not fully capture
               actual behavioral control or objective constraints.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Organizational policies, system access, and technical infrastructure represent
               objective controls not fully captured by perceptual measures. 10.Limited Examination
               of System Quality: The models treat Perceived Usefulness as a perception-based
@@ -487,7 +490,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How does this model differ from older models?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Taylor and Todd’s work represents significant theoretical evolution from earlier
               technology adoption frameworks: 1.Comparative Rather Than Single-Theory Approach:
               Earlier research typically proposed and tested single theories in isolation. Taylor
@@ -503,7 +506,7 @@ const BibliographyArticlePage = () => {
               theoretical limitation. 4.Multi-Technology Validation: Earlier technology adoption
               research often tested single technologies (email adoption, database adoption, etc.).
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Testing whether frameworks generalize across email and information systems
               strengthened evidence for universal adoption principles. 5.Attention to
               Intention-Behavior Linkage: While older models often stopped at predicting behavioral
@@ -525,7 +528,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What Barriers to Technology Adoption does the model identify?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Taylor and Todd’s competing models framework identifies multiple categories of
               barriers affecting IT adoption, organized across individual perceptions, social
               influences, and control factors: 1. Perceived Usefulness Barriers (Individual
@@ -590,12 +593,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
+          <Link
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

@@ -1,5 +1,12 @@
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import Link from 'next/link'
+import {
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+} from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Technology Acceptance Model 2 (TAM2) – Venkatesh & Davis (2000)',
@@ -16,7 +23,7 @@ const BibliographyArticlePage = () => {
         </h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -32,7 +39,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -52,9 +59,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Why TAM2 Was Created */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Why TAM2 Was Created</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The Technology Acceptance Model (TAM), proposed by Davis in 1989, identified perceived
             usefulness and perceived ease of use as two fundamental determinants of technology
             acceptance. TAM quickly became one of the most widely cited models in information
@@ -63,7 +70,7 @@ const BibliographyArticlePage = () => {
             predicting whether users would accept a given technology, it left a critical question
             unanswered: what specific factors cause users to perceive a system as useful?
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Perceived usefulness consistently emerged as the strongest predictor of behavioral
             intention to use technology, typically explaining more variance than perceived ease of
             use. Yet TAM treated perceived usefulness essentially as an exogenous variable&mdash;a
@@ -74,7 +81,7 @@ const BibliographyArticlePage = () => {
             identifying the specific antecedent factors that shape usefulness perceptions,
             organizations could not design targeted interventions to improve technology acceptance.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Venkatesh and Davis recognized that understanding the determinants of perceived
             usefulness was essential for advancing both theory and practice in technology adoption.
             Their goal was to extend TAM by identifying and empirically validating specific social
@@ -83,7 +90,7 @@ const BibliographyArticlePage = () => {
             box&rdquo; of perceived usefulness, TAM2 aimed to provide actionable guidance for
             practitioners seeking to foster technology acceptance in organizational settings.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The theoretical motivation for TAM2 also reflected a broader trend in behavioral
             research toward understanding the mechanisms underlying established relationships.
             Simply demonstrating that perceived usefulness predicts technology acceptance was no
@@ -94,9 +101,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Core Constructs and Mechanisms */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Constructs and Mechanisms</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             TAM2 retained the core structure of the original Technology Acceptance Model, preserving
             the established relationships among perceived usefulness, perceived ease of use,
             behavioral intention, and usage behavior. The model did not seek to revise or replace
@@ -105,7 +112,7 @@ const BibliographyArticlePage = () => {
             categories of antecedent processes that influence perceived usefulness: social influence
             processes and cognitive instrumental processes.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The social influence processes capture the ways in which individuals&rsquo; social
             environment shapes their perceptions of technology usefulness. These processes operate
             through mechanisms of internalization, identification, and compliance, drawing on
@@ -113,7 +120,7 @@ const BibliographyArticlePage = () => {
             capture the ways in which individuals form judgments about system usefulness based on
             cognitive evaluations of what the system can do and how well it performs relevant tasks.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             A key theoretical contribution of TAM2 was the recognition that these two classes of
             processes operate simultaneously and interactively. Users do not form usefulness
             perceptions based solely on rational assessment of system capabilities nor solely on
@@ -125,15 +132,15 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Social Influence Processes */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Social Influence Processes</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             TAM2 identified three interrelated social influence constructs that shape perceived
             usefulness: subjective norm, voluntariness of use, and image. Together, these constructs
             explain how the social environment in which technology adoption decisions occur
             influences individual perceptions of system usefulness.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Subjective norm refers to an individual&rsquo;s perception that most people who are
             important to them think they should or should not use a specific technology. Drawing on
             the Theory of Reasoned Action (Fishbein &amp; Ajzen, 1975), TAM2 proposed that
@@ -146,7 +153,7 @@ const BibliographyArticlePage = () => {
             assessment. This compliance effect operates as a direct influence on behavioral
             intention rather than through perceived usefulness.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Voluntariness of use moderates the compliance effect of subjective norm. In mandatory
             usage contexts where organizational authority requires system use, subjective norm
             exerts a direct effect on behavioral intention beyond its influence through perceived
@@ -155,7 +162,7 @@ const BibliographyArticlePage = () => {
             internalization effect&mdash;whereby subjective norm influences perceived usefulness
             itself&mdash;operates in both voluntary and mandatory contexts.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Image reflects the degree to which an individual perceives that using a technology will
             enhance their social status within a relevant reference group. TAM2 proposed that
             subjective norm positively influences image perceptions: when important social referents
@@ -165,7 +172,7 @@ const BibliographyArticlePage = () => {
             benefits through increased power, influence, and access to resources within the
             organization.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             A critical dynamic finding from TAM2 was that social influence effects on perceived
             usefulness attenuate with increasing experience. As users gain direct hands-on
             experience with a technology, they rely less on social cues and more on their own
@@ -176,15 +183,15 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Cognitive Instrumental Processes */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Cognitive Instrumental Processes</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             TAM2 identified three cognitive instrumental constructs that influence perceived
             usefulness through rational, judgment-based assessments: job relevance, output quality,
             and result demonstrability. These constructs represent the ways in which users
             cognitively evaluate what a system can do and how well it does it.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Job relevance captures an individual&rsquo;s perception of the degree to which a target
             system is applicable to their job responsibilities. This construct reflects a cognitive
             judgment matching system capabilities to the requirements of one&rsquo;s specific work
@@ -195,7 +202,7 @@ const BibliographyArticlePage = () => {
             system addresses important aspects of their work before evaluating the quality of that
             assistance.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Output quality represents a cognitive assessment of how well the system performs
             job-relevant tasks. After determining that a system is relevant to their work
             responsibilities, users evaluate the quality of the system&rsquo;s performance on those
@@ -206,7 +213,7 @@ const BibliographyArticlePage = () => {
             job relevance is high, because users pay greater attention to the quality of system
             performance on tasks they consider important to their work.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Result demonstrability refers to the tangibility, observability, and communicability of
             the results produced by using a technology. Even when a system is job-relevant and
             produces high-quality outputs, users may not perceive it as useful if those results are
@@ -216,7 +223,7 @@ const BibliographyArticlePage = () => {
             perceived usefulness. In contrast, technologies whose benefits are diffuse, delayed, or
             difficult to distinguish from other factors create ambiguity about system usefulness.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             TAM2 also retained perceived ease of use from the original TAM as an additional
             determinant of perceived usefulness. The rationale is that, all else being equal, the
             less effort a system requires, the more the effort saved can be reallocated toward other
@@ -226,9 +233,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Empirical Validation */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Empirical Validation</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Venkatesh and Davis validated TAM2 through four longitudinal field studies conducted in
             four distinct organizational settings. The four systems studied were diverse, spanning
             different types of organizational technologies, and the four organizations represented
@@ -236,14 +243,14 @@ const BibliographyArticlePage = () => {
             increased the generalizability of the findings compared to single-context studies common
             in prior TAM research.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Each field study employed a longitudinal design with three measurement points:
             pre-implementation (before users had substantial experience with the target system), one
             month post-implementation, and three months post-implementation. This longitudinal
             approach enabled the researchers to track how the influence of different determinants
             changed as users accumulated experience with the systems.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Across all four studies, TAM2 explained between 40 percent and 60 percent of the
             variance in behavioral intention to use technology, representing a substantial
             improvement over models lacking the specific antecedent constructs. All hypothesized
@@ -251,7 +258,7 @@ const BibliographyArticlePage = () => {
             job relevance, output quality, and result demonstrability all demonstrated significant
             effects on perceived usefulness, confirming the theoretical framework.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The longitudinal results confirmed the experience-based moderation hypotheses. Social
             influence effects on perceived usefulness were strongest at the earliest measurement
             point and attenuated at subsequent measurement points as users gained direct experience
@@ -264,9 +271,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Strengths and Limitations */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Strengths and Limitations</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             TAM2 made several significant contributions to technology adoption research. By
             identifying specific, theoretically grounded determinants of perceived usefulness, the
             model substantially advanced understanding of why users find technologies useful or not
@@ -276,7 +283,7 @@ const BibliographyArticlePage = () => {
             provided a theoretically meaningful taxonomy of factors that organizations can target
             with different types of interventions.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The longitudinal design across four organizations provided unusually strong empirical
             evidence for the proposed relationships and their temporal dynamics. The finding that
             experience moderates social influence effects offered important practical implications
@@ -285,7 +292,7 @@ const BibliographyArticlePage = () => {
             implementation, while cognitive instrumental factors require ongoing attention
             throughout the adoption lifecycle.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The model also had significant limitations. TAM2 focused exclusively on determinants of
             perceived usefulness and did not address antecedents of perceived ease of use, leaving
             half of the TAM framework without elaborated theoretical explanation. This gap was
@@ -301,9 +308,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Relevance to Technology Adoption Barriers */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption Barriers</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             TAM2 provides a structured framework for identifying and categorizing technology
             adoption barriers. Social influence barriers arise when an individual&rsquo;s important
             referents&mdash;supervisors, peers, professional networks&mdash;do not endorse or
@@ -313,7 +320,7 @@ const BibliographyArticlePage = () => {
             technology carries negative social connotations or threatens an individual&rsquo;s
             professional identity, making adoption socially costly rather than beneficial.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Cognitive instrumental barriers manifest when technologies fail to align with
             users&rsquo; job requirements (low job relevance), produce inadequate outputs (low
             output quality), or deliver benefits that are difficult to observe and communicate (low
@@ -325,7 +332,7 @@ const BibliographyArticlePage = () => {
             barriers call for metrics, dashboards, testimonials, or other mechanisms that make
             technology benefits visible and communicable.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The experience moderation findings are particularly relevant for understanding barrier
             dynamics over time. Organizations may face the strongest social influence barriers
             during the critical early period of technology introduction, when users have not yet
@@ -335,7 +342,7 @@ const BibliographyArticlePage = () => {
             users gain experience, interventions should shift toward addressing cognitive
             instrumental barriers through training, system refinement, and benefit demonstration.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The voluntariness dimension highlights a critical barrier consideration: mandating
             technology use may achieve compliance but does not ensure genuine acceptance. Mandatory
             adoption can generate resentment, workarounds, and minimal usage that satisfies the
@@ -346,7 +353,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* References */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className="list-decimal list-inside space-y-3 text-sm">
             <li>
@@ -442,12 +449,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
-            href="/article-bibliography-comprehensive-series-bibliography/"
+          <Link
+            href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

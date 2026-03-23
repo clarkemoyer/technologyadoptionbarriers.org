@@ -26,6 +26,34 @@ const CMMIPage = () => {
           Capability Maturity Model Integration (CMMI) &ndash; Chrissis, Konrad &amp; Shrum (2005)
         </h1>
 
+        {/* Framework Identification */}
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
+          <h2 className={H2_CLASSES}>Framework Identification</h2>
+          <div className="space-y-2">
+            <p>
+              <strong>Framework Name:</strong> Capability Maturity Model Integration (CMMI)
+            </p>
+            <p>
+              <strong>Authors:</strong> Mary Beth Chrissis, Mike Konrad, and Sandy Shrum
+            </p>
+            <p>
+              <strong>Publication Date:</strong> 2005
+            </p>
+          </div>
+        </section>
+
+        {/* Citation Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Citation Information</h2>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+            <p className="text-sm font-mono">
+              Chrissis, M. B., Konrad, M., &amp; Shrum, S. (2005).{' '}
+              <em>CMMI: Guidelines for process integration and product improvement.</em>{' '}
+              Addison-Wesley Professional.
+            </p>
+          </div>
+        </section>
+
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             Published in 2005 by Carnegie Mellon University&rsquo;s Software Engineering Institute

@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
   H1_CLASSES,
   H2_CLASSES,
   H3_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
 } from '@/lib/articleStyles'
 
@@ -20,7 +23,7 @@ const BibliographyArticlePage = () => {
         <h1 className={H1_CLASSES}>Diffusion of Innovations – Rogers</h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -36,7 +39,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -46,10 +49,10 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Main Content */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Rogers developed the Diffusion of Innovations framework to address a fundamental gap
               in understanding technology adoption across diverse contexts. The core problem
               motivating this model was simple yet profound: there is a wide gap between when
@@ -65,7 +68,7 @@ const BibliographyArticlePage = () => {
               theoretical framework that could explain diffusion processes across innovation types,
               populations, and contexts.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The model was fundamentally motivated by practical concerns facing change agencies,
               organizational leaders, and development programs. These practitioners needed guidance
               on how to speed up innovation adoption and understand the factors affecting adoption
@@ -76,7 +79,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Rogers’s work involved extensive examination of existing diffusion research rather
               than conducting single validation studies. The internal validity of the model rested
               on several methodological foundations: First, Rogers synthesized findings from
@@ -92,7 +95,7 @@ const BibliographyArticlePage = () => {
               innovation-decision process from first knowledge through adoption or rejection), and
               social system (the population in which adoption occurs).
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               These definitions enabled consistent measurement and comparison across studies. Third,
               Rogers demonstrated the convergence of findings across disciplinary boundaries.
               Research traditions in education, rural sociology, public health and medical
@@ -105,7 +108,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The external validity of the Diffusion of Innovations model was established through
               its application across diverse contexts documented in the original publication: The
               framework demonstrated applicability across multiple types of innovations including
@@ -121,7 +124,7 @@ const BibliographyArticlePage = () => {
               only in Western industrialized societies but also in developing nations with different
               cultural systems.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The model’s application to both individual-level adoption (how single farmers decided
               to adopt hybrid corn) and organizational-level decisions (how institutions adopted new
               technologies) demonstrated external validity across different levels of analysis. The
@@ -135,7 +138,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Rogers designed the Diffusion of Innovations framework as both a theoretical resource
               and a practical guide for practitioners. The intended uses were multifaceted: For
               change agents and organizational leaders, the model provided diagnostic tools to
@@ -150,7 +153,7 @@ const BibliographyArticlePage = () => {
               early adopters, while interpersonal channels proved essential for convincing the late
               majority and laggards.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Practitioners could use the innovation-decision process stages (knowledge, persuasion,
               decision, implementation, confirmation) to structure their interventions.
               Understanding where a target population stood in this process enabled more focused and
@@ -165,7 +168,7 @@ const BibliographyArticlePage = () => {
               obstacles and address them directly. For research and evaluation purposes, the model
               provided a comprehensive framework for assessing diffusion campaign effectiveness.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Organizations could measure adoption rates, identify which populations were adopting
               versus resisting, track movement through the innovation-decision process stages, and
               assess whether characteristics of early adopters differed from late adopters.
@@ -173,7 +176,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Diffusion of Innovations model operationalizes several key measurement dimensions:
               Adoption rate: The speed at which an innovation is adopted by members of a social
               system, typically measured as the number of individuals adopting within a given time
@@ -221,7 +224,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Diffusion of Innovations model possesses several considerable strengths:
               Comprehensive integrative framework: The model successfully synthesizes empirical
               findings from hundreds of studies across multiple disciplines into a coherent
@@ -272,7 +275,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Despite its strengths, the Diffusion of Innovations model has notable limitations:
               Pro-innovation bias: Rogers acknowledged that the model exhibits pro- innovation
               bias—the assumption that innovations are inherently desirable and should be diffused
@@ -337,7 +340,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How does this model differ from older models?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Diffusion of Innovations model represented a significant departure from prior
               research approaches in several key ways: Systematic integration across disciplines:
               Prior to Rogers’s work, diffusion research existed primarily in isolated disciplinary
@@ -399,7 +402,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What Barriers to Technology Adoption does the model identify?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Diffusion of Innovations model identifies multiple categories of barriers to
               technology adoption, operating at individual, interpersonal, social, and
               organizational levels: Psychological barriers related to innovation characteristics:
@@ -483,7 +486,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What does the model instruct leaders to do in order to reduce these barriers?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Diffusion of Innovations model provides explicit guidance for leaders and change
               agents to reduce adoption barriers: Adapt innovation presentation to innovation
               characteristics: Leaders should first recognize what innovation characteristics create
@@ -497,7 +500,7 @@ const BibliographyArticlePage = () => {
               in observability, group demonstrations, field days, and site visits enabling potential
               adopters to observe results directly can overcome barriers.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               For innovations low in trialability, pilot programs enabling limited experimentation
               reduce barriers by permitting risk-free exploration. Making complex innovations
               divisible into testable components increases trialability.
@@ -510,7 +513,7 @@ const BibliographyArticlePage = () => {
                 beliefs (as water boiling was incompatible with Los Molinos belief systems about
                 hot-cold water), change strategies should involve education addressing underlying
                 beliefs, not just advocating adoption. Leaders may need to wait for generational
-                change or work extensively with receptive populations (like Mrs. Â B in Los Molinos)
+                change or work extensively with receptive populations (like Mrs. B in Los Molinos)
                 who can champion innovations within their communities. In organizational contexts,
                 innovations may require adaptation to existing systems, work processes, or values.
                 Providing supplementary training and systems to make innovations compatible with
@@ -644,12 +647,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
+          <Link
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

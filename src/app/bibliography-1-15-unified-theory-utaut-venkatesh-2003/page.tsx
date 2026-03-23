@@ -1,5 +1,12 @@
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import Link from 'next/link'
+import {
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+} from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title:
@@ -17,7 +24,7 @@ const BibliographyArticlePage = () => {
         </h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -35,7 +42,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -55,9 +62,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Why UTAUT Was Created */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Why UTAUT Was Created</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             By the early 2000s, technology adoption research had produced a proliferation of
             competing theoretical models. At least eight distinct frameworks&mdash;each with its own
             constructs, relationships, and empirical support&mdash;vied to explain why individuals
@@ -68,7 +75,7 @@ const BibliographyArticlePage = () => {
             guidance for technology implementation found conflicting recommendations depending on
             which theoretical perspective they consulted.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The fragmentation also impeded cumulative knowledge building. Because different research
             teams used different models with different constructs, findings across studies were
             difficult to compare, integrate, or synthesize. The field lacked a common theoretical
@@ -79,7 +86,7 @@ const BibliographyArticlePage = () => {
             compatibility. These overlapping but non-identical constructs created conceptual
             confusion about which factors truly drive technology acceptance.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Venkatesh, Morris, Davis, and Davis undertook a comprehensive review and empirical
             comparison of eight prominent technology acceptance models. Their objective was to
             formulate a unified model that would retain the explanatory strengths of each individual
@@ -92,9 +99,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* The Eight Source Models */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>The Eight Source Models</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             UTAUT was derived from a systematic review and empirical comparison of eight established
             theoretical models: (1) the Theory of Reasoned Action (TRA; Fishbein &amp; Ajzen, 1975),
             which posited that behavioral intention is determined by attitudes and subjective norms;
@@ -111,7 +118,7 @@ const BibliographyArticlePage = () => {
             compatibility; and (8) Social Cognitive Theory (SCT; Bandura, 1986; Compeau &amp;
             Higgins, 1995), which emphasized self-efficacy and outcome expectations.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Each of these models had demonstrated varying degrees of predictive success in
             explaining technology acceptance, typically accounting for between 17 percent and 53
             percent of the variance in behavioral intention. Venkatesh and colleagues tested all
@@ -123,14 +130,14 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Core Constructs */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Constructs</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             UTAUT distilled the numerous constructs from the eight source models into four core
             determinants of technology acceptance and use. Each UTAUT construct represents a
             synthesis of conceptually similar constructs from multiple source models.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Performance Expectancy</strong> is defined as the degree to which an individual
             believes that using the system will help them attain gains in job performance. This
             construct captures the essence of perceived usefulness (TAM/TAM2), extrinsic motivation
@@ -140,7 +147,7 @@ const BibliographyArticlePage = () => {
             technology adoption research: users are most likely to adopt technologies they believe
             will improve their work performance.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Effort Expectancy</strong> is defined as the degree of ease associated with the
             use of the system. This construct synthesizes perceived ease of use (TAM), complexity
             (MPCU), and ease of use (IDT). Effort expectancy captures the fundamental assessment of
@@ -148,7 +155,7 @@ const BibliographyArticlePage = () => {
             effort expectancy (meaning the system is perceived as easy to use) promotes adoption by
             reducing anticipated costs of technology acquisition.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Social Influence</strong> is defined as the degree to which an individual
             perceives that important others believe they should use the new system. This construct
             maps to subjective norm (TRA, TPB, TAM2, C-TAM-TPB), social factors (MPCU), and image
@@ -157,7 +164,7 @@ const BibliographyArticlePage = () => {
             contexts where the opinions and behaviors of peers, supervisors, and other referents
             matter.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Facilitating Conditions</strong> is defined as the degree to which an individual
             believes that an organizational and technical infrastructure exists to support use of
             the system. This construct draws on perceived behavioral control (TPB, C-TAM-TPB),
@@ -167,7 +174,7 @@ const BibliographyArticlePage = () => {
             infrastructure support become most relevant at the point of actual system use rather
             than at the earlier intention-formation stage.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The structural model established that performance expectancy, effort expectancy, and
             social influence are direct determinants of behavioral intention, which in turn predicts
             use behavior. Facilitating conditions bypass behavioral intention and directly predict
@@ -179,15 +186,15 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Moderating Variables */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Moderating Variables</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             A distinctive feature of UTAUT is its systematic incorporation of four key moderating
             variables: gender, age, experience, and voluntariness of use. These moderators recognize
             that the influence of each core construct on behavioral intention and use behavior
             varies across different demographic groups and organizational contexts.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Gender moderates multiple relationships within UTAUT. Performance expectancy was found
             to have a stronger influence on behavioral intention for men, while effort expectancy
             and social influence were found to have stronger effects for women. These findings
@@ -198,7 +205,7 @@ const BibliographyArticlePage = () => {
             for older workers, reflecting differences in processing capacity, social sensitivity,
             and resource needs across the lifespan.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Experience moderates the effects of effort expectancy, social influence, and
             facilitating conditions. As users gain experience with a technology, the effect of
             effort expectancy on behavioral intention diminishes (because the system becomes more
@@ -209,7 +216,7 @@ const BibliographyArticlePage = () => {
             contexts, social influence exerts a stronger direct effect on behavioral intention
             through compliance mechanisms.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The inclusion of moderating variables was not merely a statistical refinement but a
             substantive theoretical contribution. By specifying when and for whom each construct is
             most influential, UTAUT moved beyond one-size-fits-all predictions to more nuanced
@@ -220,16 +227,16 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Empirical Validation */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Empirical Validation</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             UTAUT was validated through a rigorous empirical process involving longitudinal data
             from four organizations over a six-month period. The researchers first tested each of
             the eight source models individually using the same dataset, establishing baseline
             performance for each model. They then tested UTAUT against the same data and
             subsequently cross-validated the model using new data from two additional organizations.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The results were striking. UTAUT explained approximately 70 percent of the variance in
             behavioral intention to use technology&mdash;a substantial improvement over every
             individual source model. The best-performing individual model (TAM2) explained
@@ -238,7 +245,7 @@ const BibliographyArticlePage = () => {
             in predictive capability and demonstrated that the unified approach captured explanatory
             power that no single model could achieve alone.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The four core constructs all demonstrated significant effects in the hypothesized
             directions. Performance expectancy was the strongest predictor of behavioral intention,
             confirming its central importance. The moderating effects of gender, age, experience,
@@ -247,7 +254,7 @@ const BibliographyArticlePage = () => {
             user groups. The cross-validation with two additional organizations confirmed the
             robustness and generalizability of the model.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The explained variance for actual use behavior, while lower than for behavioral
             intention (as is typical in behavioral research due to the intention-behavior gap), also
             exceeded that of individual source models. Facilitating conditions demonstrated a
@@ -258,9 +265,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Strengths and Limitations */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Strengths and Limitations</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             UTAUT&rsquo;s principal strength lies in its successful unification of a fragmented
             theoretical landscape. By demonstrating that the essential explanatory power of eight
             competing models could be captured in four core constructs with four moderators, UTAUT
@@ -268,7 +275,7 @@ const BibliographyArticlePage = () => {
             facilitated cross-study comparison, cumulative knowledge building, and more coherent
             practical guidance.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The model&rsquo;s explanatory power (70 percent of variance in behavioral intention) set
             a new benchmark for technology adoption models. The systematic inclusion of moderating
             variables provided nuanced predictions across demographic and organizational contexts.
@@ -277,7 +284,7 @@ const BibliographyArticlePage = () => {
             comprehensive empirical validation across multiple organizations and the
             cross-validation with new data strengthened confidence in the model&rsquo;s robustness.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             However, UTAUT had notable limitations. The model was developed and tested exclusively
             in organizational workplace contexts, limiting its applicability to consumer technology
             adoption where different dynamics (such as hedonic motivation and price sensitivity)
@@ -293,9 +300,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Relevance to Technology Adoption Barriers */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption Barriers</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             UTAUT provides a comprehensive taxonomy of technology adoption barriers organized around
             its four core constructs. Performance expectancy barriers arise when users do not
             believe the technology will improve their work performance&mdash;either because the
@@ -305,7 +312,7 @@ const BibliographyArticlePage = () => {
             too difficult to learn and use, requiring excessive cognitive effort, training time, or
             technical skill that exceeds the user&rsquo;s capacity or willingness.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Social influence barriers manifest when the user&rsquo;s social environment does not
             support technology adoption. If supervisors, peers, or other important referents express
             skepticism about a technology, fail to use it themselves, or actively discourage its
@@ -315,7 +322,7 @@ const BibliographyArticlePage = () => {
             infrastructure, insufficient training resources, lack of technical support, or
             incompatibility between the new technology and existing systems and workflows.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The moderating variables in UTAUT have important implications for understanding
             differential barriers across populations. Older workers may face stronger effort
             expectancy barriers due to less familiarity with new interface paradigms. Women may be
@@ -326,7 +333,7 @@ const BibliographyArticlePage = () => {
             most affected by each type of barrier, designing targeted interventions rather than
             one-size-fits-all approaches.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             UTAUT&rsquo;s distinction between intention-level barriers (performance expectancy,
             effort expectancy, social influence) and behavior-level barriers (facilitating
             conditions) is analytically valuable. Some users may form positive intentions to adopt a
@@ -338,7 +345,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* References */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className="list-decimal list-inside space-y-3 text-sm">
             <li>
@@ -479,12 +486,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
-            href="/article-bibliography-comprehensive-series-bibliography/"
+          <Link
+            href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

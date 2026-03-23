@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
   H1_CLASSES,
@@ -24,6 +25,33 @@ const ResourceBasedViewPage = () => {
         <h1 className={H1_CLASSES}>
           Bibliography: A Resource-Based View (RBV) &ndash; Wernerfelt (1984)
         </h1>
+
+        {/* Framework Identification */}
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
+          <h2 className={H2_CLASSES}>Framework Identification</h2>
+          <div className="space-y-2">
+            <p>
+              <strong>Framework Name:</strong> Resource-Based View (RBV)
+            </p>
+            <p>
+              <strong>Authors:</strong> Birger Wernerfelt
+            </p>
+            <p>
+              <strong>Publication Date:</strong> 1984
+            </p>
+          </div>
+        </section>
+
+        {/* Citation Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Citation Information</h2>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+            <p className="text-sm font-mono">
+              Wernerfelt, B. (1984). A resource-based view of the firm.{' '}
+              <em>Strategic Management Journal</em>, 5(2), 171&ndash;180.
+            </p>
+          </div>
+        </section>
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
@@ -432,6 +460,21 @@ const ResourceBasedViewPage = () => {
               Penrose, E. T. (1959). The theory of the growth of the firm. Oxford: Basil Blackwell.
             </li>
           </ol>
+        </section>
+
+        <p className="mt-8 text-sm italic text-gray-600">
+          Note: This article provides an overview based on the comprehensive literature review.
+          Readers are encouraged to consult the original publication for complete details.
+        </p>
+
+        {/* Navigation */}
+        <section className="mt-12 pt-6 border-t border-gray-200">
+          <Link
+            href="/article-bibliography-comprehensive-series-bibliography"
+            className="text-blue-600 hover:text-blue-800 underline"
+          >
+            &larr; Back to Complete Bibliography
+          </Link>
         </section>
       </article>
     </main>

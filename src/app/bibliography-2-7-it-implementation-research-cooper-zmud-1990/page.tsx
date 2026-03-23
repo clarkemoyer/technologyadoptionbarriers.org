@@ -27,6 +27,35 @@ const CooperZmudPage = () => {
           (1990)
         </h1>
 
+        {/* Framework Identification */}
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
+          <h2 className={H2_CLASSES}>Framework Identification</h2>
+          <div className="space-y-2">
+            <p>
+              <strong>Framework Name:</strong> IT Implementation Research: A Technological Diffusion
+              Approach
+            </p>
+            <p>
+              <strong>Authors:</strong> Randolph B. Cooper and Robert W. Zmud
+            </p>
+            <p>
+              <strong>Publication Date:</strong> 1990
+            </p>
+          </div>
+        </section>
+
+        {/* Citation Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Citation Information</h2>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+            <p className="text-sm font-mono">
+              Cooper, R. B., &amp; Zmud, R. W. (1990). Information technology implementation
+              research: A technological diffusion approach. <em>Management Science</em>, 36(2),
+              123&ndash;139.
+            </p>
+          </div>
+        </section>
+
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             Randolph B. Cooper and Robert W. Zmud&rsquo;s &ldquo;Information Technology

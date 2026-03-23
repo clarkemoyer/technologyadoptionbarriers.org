@@ -28,6 +28,38 @@ const AWSETFPage = () => {
           Services (2024)
         </h1>
 
+        {/* Framework Identification */}
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
+          <h2 className={H2_CLASSES}>Framework Identification</h2>
+          <div className="space-y-2">
+            <p>
+              <strong>Framework Name:</strong> AWS Prescriptive Guidance: Enterprise Transformation
+              Framework (ETF)
+            </p>
+            <p>
+              <strong>Authors:</strong> Amazon Web Services
+            </p>
+            <p>
+              <strong>Publication Date:</strong> 2024
+            </p>
+          </div>
+        </section>
+
+        {/* Citation Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Citation Information</h2>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+            <p className="text-sm font-mono">
+              Amazon Web Services. (2024).{' '}
+              <em>
+                Accelerating your return on cloud investment by adopting a strategic transformation
+                and change methodology.
+              </em>{' '}
+              AWS Prescriptive Guidance.
+            </p>
+          </div>
+        </section>
+
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             Amazon Web Services published its{' '}
