@@ -86,20 +86,32 @@ jobs:
           org_id=$(jq -r '.result.organizationId // ""' "$SURVEY_JSON")
           response_counts=$(jq -c '.result.responseCounts // {}' "$SURVEY_JSON")
 
-          # Fetch question count from survey-definitions endpoint
-          QUESTIONS_JSON="$TMP_DIR/qualtrics-questions.json"
-          questions_url="${BASE_URL}/API/v3/survey-definitions/${SURVEY_ID}/questions"
-          q_http_code=$(curl -sS -o "$QUESTIONS_JSON" -w "%{http_code}" \
+          # Fetch question count from full survey definition endpoint
+          # Note: The /questions sub-resource returns paginated { elements: [] },
+          # but the jq expression expects { Questions: {} }. Use the full
+          # definition endpoint which returns .result.Questions as an object.
+          DEFINITION_JSON="$TMP_DIR/qualtrics-definition.json"
+          definition_url="${BASE_URL}/API/v3/survey-definitions/${SURVEY_ID}"
+
+          # Question count is best-effort: a transient failure should not
+          # abort the entire workflow since components have hardcoded fallbacks.
+          question_count=0
+          if q_http_code=$(curl -sS -o "$DEFINITION_JSON" -w "%{http_code}" \
             -H "X-API-TOKEN: ${QUALTRICS_API_TOKEN}" \
             -H "Accept: application/json" \
-            "$questions_url")
-
-          question_count=0
-          if [[ "$q_http_code" -ge 200 && "$q_http_code" -lt 300 ]]; then
-            question_count=$(jq '.result.Questions // {} | keys | length' "$QUESTIONS_JSON")
-            echo "Question count: $question_count"
+            "$definition_url"); then
+            if [[ "$q_http_code" -ge 200 && "$q_http_code" -lt 300 ]]; then
+              if parsed=$(jq '.result.Questions // {} | keys | length' "$DEFINITION_JSON" 2>&1); then
+                question_count="$parsed"
+                echo "Question count: $question_count"
+              else
+                echo "::warning::Failed to parse survey definition JSON. Setting question count to 0. jq output: $parsed"
+              fi
+            else
+              echo "::warning::Could not fetch question count (HTTP $q_http_code). Setting to 0."
+            fi
           else
-            echo "::warning::Could not fetch question count (HTTP $q_http_code). Setting to 0."
+            echo "::warning::curl failed for survey definition (network error). Setting question count to 0."
           fi
 
           mkdir -p src/data

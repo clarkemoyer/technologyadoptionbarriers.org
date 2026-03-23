@@ -620,5 +620,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+    // Visual Gallery
+    {
+      url: `${baseUrl}/technology-adoption-series/visual-gallery`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    // Survey completion
+    {
+      url: `${baseUrl}/survey-complete`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
   ]
 }
