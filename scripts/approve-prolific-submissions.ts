@@ -32,7 +32,8 @@ function envFlag(name: string, defaultValue: boolean = false): boolean {
 }
 
 /**
- * Parse a single CSV line respecting quoted fields.
+ * Parse a single CSV line respecting quoted fields (RFC 4180).
+ * Handles embedded commas, doubled-quote escapes, and newlines within quotes.
  */
 function parseCsvLine(line: string): string[] {
   const fields: string[] = []
@@ -67,7 +68,7 @@ function parseCsvLine(line: string): string[] {
 
 /**
  * Detect the column index for participant IDs.
- * Looks for common header names; falls back to the first column.
+ * Priority: explicit override → common header names (participant_id, pid, etc.) → column 0.
  */
 function detectPidColumn(headers: string[], override?: string): number {
   if (override) {
@@ -89,7 +90,7 @@ function detectPidColumn(headers: string[], override?: string): number {
 
 /**
  * Detect the disposition column index.
- * Defaults to a column named "Disposition" or, failing that, Column D (index 3).
+ * Priority: explicit override → header named "Disposition" → Column D (index 3).
  */
 function detectDispositionColumn(headers: string[], override?: string): number {
   if (override) {
