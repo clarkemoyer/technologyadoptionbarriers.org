@@ -1,5 +1,12 @@
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import Link from 'next/link'
+import {
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+} from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Technology Acceptance Model 3 (TAM3) – Venkatesh & Bala (2008)',
@@ -16,7 +23,7 @@ const BibliographyArticlePage = () => {
         </h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -32,7 +39,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -51,9 +58,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Why TAM3 Was Created */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Why TAM3 Was Created</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             By 2008, the Technology Acceptance Model lineage had produced two important but
             incomplete extensions. TAM2 (Venkatesh &amp; Davis, 2000) had successfully identified
             the social influence and cognitive instrumental determinants of perceived usefulness,
@@ -65,7 +72,7 @@ const BibliographyArticlePage = () => {
             full specification of all the constructs, their antecedents, and their
             interrelationships.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Venkatesh and Bala sought to address this gap by developing TAM3, which combined the
             determinants of perceived usefulness from TAM2 with the determinants of perceived ease
             of use from Venkatesh (2000) into a single integrated model. This integration was not
@@ -76,7 +83,7 @@ const BibliographyArticlePage = () => {
             meaning that the antecedents of perceived usefulness and the antecedents of perceived
             ease of use operate through independent theoretical mechanisms.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Beyond theoretical completeness, TAM3 was motivated by a desire to develop a practical
             research agenda on interventions. Venkatesh and Bala argued that while the TAM research
             stream had made substantial theoretical progress, it had not sufficiently addressed the
@@ -90,15 +97,15 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Determinants of Perceived Usefulness */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Determinants of Perceived Usefulness</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             TAM3 retained the determinants of perceived usefulness established in TAM2 without
             modification. These determinants comprise both social influence processes and cognitive
             instrumental processes that shape users&rsquo; beliefs about how useful a system will be
             for their work.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The social influence determinants include subjective norm (perceptions about whether
             important others believe one should use the system), voluntariness (the degree to which
             use is perceived as non-mandatory), and image (the extent to which technology use
@@ -107,7 +114,7 @@ const BibliographyArticlePage = () => {
             mandatory settings. Image mediates part of the relationship between subjective norm and
             perceived usefulness.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The cognitive instrumental determinants include job relevance (the degree to which the
             system applies to one&rsquo;s job), output quality (the quality of the system&rsquo;s
             task performance), and result demonstrability (the tangibility and communicability of
@@ -116,7 +123,7 @@ const BibliographyArticlePage = () => {
             consider relevant to their work, so high job relevance amplifies the positive effect of
             high output quality on perceived usefulness.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Perceived ease of use also serves as a determinant of perceived usefulness, reflecting
             the principle that easier-to-use systems free up cognitive resources that can be
             redirected toward productive work, thereby enhancing the system&rsquo;s net contribution
@@ -126,16 +133,16 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Determinants of Perceived Ease of Use */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Determinants of Perceived Ease of Use</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The determinants of perceived ease of use in TAM3 are organized around an anchoring and
             adjustment framework derived from cognitive psychology. According to this framework,
             individuals form initial perceptions of ease of use based on general beliefs (anchors)
             that exist prior to direct experience with a specific system. As they gain hands-on
             experience, they adjust these initial perceptions based on system-specific information.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             TAM3 identifies four anchoring determinants. <strong>Computer Self-Efficacy</strong>,
             drawn from Bandura&rsquo;s social cognitive theory and operationalized by Compeau and
             Higgins (1995), refers to an individual&rsquo;s judgment of their capability to use
@@ -146,7 +153,7 @@ const BibliographyArticlePage = () => {
             their use of the system. When users believe that help desk support, training, and
             specialized assistance are readily available, they perceive the system as easier to use.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Computer Anxiety</strong> reflects the degree of apprehension or fear that an
             individual experiences when using or contemplating the use of computers. Users with high
             computer anxiety develop more negative perceptions of system ease of use, regardless of
@@ -155,7 +162,7 @@ const BibliographyArticlePage = () => {
             computer interactions. Individuals high in computer playfulness approach new systems
             with greater curiosity and openness, leading to more favorable initial ease perceptions.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             TAM3 identifies two adjustment determinants that become influential as users accumulate
             direct experience with a system. <strong>Perceived Enjoyment</strong>
             captures the extent to which using a specific system is perceived as enjoyable in its
@@ -166,7 +173,7 @@ const BibliographyArticlePage = () => {
             comparison of expert and novice performance. Unlike the other determinants, objective
             usability captures system-side characteristics rather than user-side beliefs.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Experience plays a critical moderating role in the anchoring and adjustment framework.
             Anchor effects (computer self-efficacy, perceptions of external control, computer
             anxiety, and computer playfulness) are strongest before users have direct experience and
@@ -178,9 +185,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* No Cross-Over Effects */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Independence of Determinants: No Cross-Over Effects</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             A theoretically important hypothesis in TAM3 was that the determinants of perceived
             usefulness do not influence perceived ease of use, and the determinants of perceived
             ease of use do not influence perceived usefulness. Venkatesh and Bala argued that these
@@ -190,7 +197,7 @@ const BibliographyArticlePage = () => {
             reflect individual differences and system-specific experiences related to how much
             effort the system requires.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             This no-cross-over hypothesis was confirmed empirically. The determinants of perceived
             usefulness (subjective norm, image, job relevance, output quality, result
             demonstrability) did not significantly predict perceived ease of use. Likewise, the
@@ -205,9 +212,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Empirical Validation */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Empirical Validation</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             TAM3 was validated using longitudinal data from four organizations, following the same
             rigorous multi-organization design established in TAM2. A total of 416 participants were
             surveyed at three time points: immediately after initial training on a new system, one
@@ -215,7 +222,7 @@ const BibliographyArticlePage = () => {
             organizations represented diverse industry contexts, and the systems under study
             differed in nature and complexity.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The results supported the complete TAM3 model. All hypothesized antecedent effects on
             perceived usefulness and perceived ease of use were statistically significant. The
             experience-based moderation effects were confirmed: anchor effects on perceived ease of
@@ -225,7 +232,7 @@ const BibliographyArticlePage = () => {
             perceived ease of use, and the established TAM relationships (perceived usefulness and
             perceived ease of use predicting behavioral intention) remained robust.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The temporal dynamics revealed important practical insights. Computer anxiety, for
             example, had its strongest negative effect on perceived ease of use at the earliest
             measurement point, suggesting that anxiety-reduction interventions are most critical
@@ -237,16 +244,16 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Research Agenda on Interventions */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Research Agenda on Interventions</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             A distinctive contribution of TAM3 was its explicit formulation of a research agenda
             focused on organizational interventions to improve technology adoption. By specifying
             the complete set of antecedents for both perceived usefulness and perceived ease of use,
             TAM3 enabled systematic mapping of intervention strategies to specific adoption
             barriers.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Venkatesh and Bala proposed two broad categories of interventions. Design-focused
             interventions address system characteristics that influence adoption perceptions. These
             include user interface redesign to improve objective usability, feature customization to
@@ -257,7 +264,7 @@ const BibliographyArticlePage = () => {
             strengthen perceptions of external control, anxiety reduction workshops to mitigate
             computer anxiety, and exploratory learning sessions to foster computer playfulness.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The intervention research agenda emphasized the importance of timing. Pre-implementation
             interventions should target anchor-related barriers (self-efficacy, external control,
             anxiety, playfulness) because these dominate ease perceptions before users have direct
@@ -270,9 +277,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Strengths and Limitations */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Strengths and Limitations</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             TAM3&rsquo;s primary strength is its completeness. As the most comprehensive model in
             the TAM lineage, it provides a full nomological network specifying the antecedents of
             both core TAM constructs and their interrelationships. This completeness enables
@@ -280,7 +287,7 @@ const BibliographyArticlePage = () => {
             challenges, identifying precisely which antecedent factors are problematic for a given
             implementation and designing appropriately targeted interventions.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The anchoring and adjustment framework for perceived ease of use determinants provides a
             theoretically elegant explanation for how ease perceptions form and evolve over time.
             The confirmation that anchor effects weaken while adjustment effects strengthen with
@@ -288,7 +295,7 @@ const BibliographyArticlePage = () => {
             agenda on interventions bridges the gap between theoretical understanding and practical
             action, which had been a persistent criticism of the TAM research tradition.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             However, TAM3&rsquo;s comprehensiveness is also a limitation. The model includes
             thirteen distinct constructs plus experience as a moderator, creating a complex
             theoretical structure that is challenging to operationalize in full in any single study
@@ -304,9 +311,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Relevance to Technology Adoption Barriers */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption Barriers</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             TAM3 offers the most granular barrier taxonomy in the TAM lineage, enabling
             organizations to diagnose specific adoption barriers at a fine-grained level. On the
             perceived usefulness side, barriers can be traced to social influence deficits (lack of
@@ -317,7 +324,7 @@ const BibliographyArticlePage = () => {
             resources), or experiential factors (insufficient time to adjust initial perceptions
             through hands-on use).
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Self-efficacy barriers represent one of the most common and consequential adoption
             obstacles. Individuals who doubt their ability to learn and use new technologies may
             avoid adoption entirely or adopt with such reluctance that they fail to develop
@@ -328,7 +335,7 @@ const BibliographyArticlePage = () => {
             vicarious learning (observation of similar others successfully using the system), and
             verbal persuasion (encouragement from credible sources).
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Computer anxiety barriers create a particularly pernicious cycle. Anxious users approach
             systems with negative expectations, engage less deeply with system features, and
             consequently develop less proficiency, which reinforces their anxiety. TAM3&rsquo;s
@@ -339,7 +346,7 @@ const BibliographyArticlePage = () => {
             barriers highlight the organizational responsibility to provide the enabling conditions
             for technology adoption rather than placing the burden entirely on individual users.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The temporal dimension of TAM3&rsquo;s barrier framework is particularly valuable.
             Different barriers dominate at different stages of the adoption process. Early barriers
             are anchored in general beliefs and can be addressed through pre-implementation
@@ -351,7 +358,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* References */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className="list-decimal list-inside space-y-3 text-sm">
             <li>
@@ -452,12 +459,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
-            href="/article-bibliography-comprehensive-series-bibliography/"
+          <Link
+            href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
   H1_CLASSES,
   H2_CLASSES,
   H3_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
 } from '@/lib/articleStyles'
 
@@ -20,7 +23,7 @@ const BibliographyArticlePage = () => {
         <h1 className={H1_CLASSES}>Value-Based Adoption Model – Kim et al. (2007)</h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -36,7 +39,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -48,10 +51,10 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Main Content */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Value-Based Adoption of Mobile Internet (VAM) model was developed to address a
               fundamental gap in existing technology adoption theories. The authors recognized that
               previous adoption models, particularly the Technology Acceptance Model, inadequately
@@ -68,7 +71,7 @@ const BibliographyArticlePage = () => {
               become if I use this?” These value-based questions drive adoption decisions in ways
               that existing TAM-based models do not capture.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The authors recognized that mobile internet adoption presented a particularly
               compelling context for investigating value-based adoption. Unlike computer adoption in
               organizational settings where utility is relatively clear, mobile internet adoption in
@@ -83,7 +86,7 @@ const BibliographyArticlePage = () => {
               just on perceived attributes (usefulness, ease of use) but on the values that
               individuals hold and how the technology relates to those values.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The model was also motivated by gaps in existing technology adoption literature
               regarding how personal values influence adoption. The authors noted that while
               consumer behavior research had extensively documented the importance of personal
@@ -97,7 +100,7 @@ const BibliographyArticlePage = () => {
               entertainment and enjoyment (hedonic values). Existing adoption models did not
               adequately account for these different value-based motivations.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The practical motivation for developing VAM centered on improving market segmentation
               and marketing strategy for mobile internet services. Understanding which consumers
               adopted based on utilitarian values, which based on social values, and which based on
@@ -112,7 +115,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The internal validity of the VAM model was tested through structural equation modeling
               analysis using data from 210 mobile internet users in Canada. The research design
               involved developing and validating a measurement model that captured personal values,
@@ -127,7 +130,7 @@ const BibliographyArticlePage = () => {
               (excitement and novelty). These value dimensions were operationalized through items
               measuring the importance individuals assign to each value.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The measurement of value-based benefits involved developing items that reflected
               specific benefits the technology could deliver to individuals. These benefits were
               conceptually linked to personal values. For example, time- saving benefits
@@ -186,7 +189,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               External validity of the VAM model was demonstrated through multiple validation
               approaches examining whether the model’s relationships held across diverse conditions
               and whether findings aligned with expectations from value theory. The model
@@ -201,7 +204,7 @@ const BibliographyArticlePage = () => {
               coefficients between the two subsamples demonstrated that relationships were
               consistent across subsamples, supporting generalizability.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Convergence with value theory provided validity evidence. The pattern of which values
               most strongly influenced adoption intention aligned with expectations from consumer
               behavior theory. Achievement and self- direction values showed stronger effects on
@@ -216,7 +219,7 @@ const BibliographyArticlePage = () => {
               valuing enjoyment and stimulation. These segments differed on adoption behaviors and
               service usage patterns in expected ways, providing external validity evidence.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The model demonstrated discriminant validity through its distinction from purely
               utilitarian adoption models. The value-based approach predicted adoption for consumers
               whose values emphasized social connection and pleasure even when perceived usefulness
@@ -230,7 +233,7 @@ const BibliographyArticlePage = () => {
               for different segments supported the external validity of the value-based approach.
               Behavioral validation examined actual service usage patterns.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Users whose adoption was predicted by value-based models showed usage patterns
               consistent with their underlying values. Achievement-motivated users showed usage
               patterns focused on productivity applications; socially- motivated users showed usage
@@ -246,7 +249,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The VAM model was designed for practical application in marketing strategy, product
               development, and customer segmentation for technology providers. The primary
               application is value-based market segmentation that recognizes different consumer
@@ -260,7 +263,7 @@ const BibliographyArticlePage = () => {
               prioritize in product development. The model instructs organizations to develop
               differentiated marketing strategies for different value-based segments.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               For achievement-motivated consumers, marketing should emphasize efficiency gains,
               productivity improvements, and success-enabling features. For socially-motivated
               consumers, marketing should emphasize connection capabilities, relationship
@@ -276,7 +279,7 @@ const BibliographyArticlePage = () => {
               segments, low adoption may reflect value-benefit misalignment rather than genuinely
               low usefulness or ease of use.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The solution then is not improving functionality but repositioning how the technology
               delivers value to customers’ personal values. Organizations should use VAM to inform
               product design decisions. If a significant market segment holds strong social values,
@@ -291,7 +294,7 @@ const BibliographyArticlePage = () => {
               Organizations should consciously choose which values to emphasize based on strategic
               positioning decisions.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               For pricing and service tier strategy, VAM suggests organizations might develop
               differentiated service levels for different value segments. Achievement-oriented
               customers might be willing to pay premium prices for professional features and
@@ -306,7 +309,7 @@ const BibliographyArticlePage = () => {
               Organizations should use VAM to inform corporate social responsibility and
               sustainability messaging.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Consumers with universal values (concern for nature and all humanity) are motivated by
               environmental and social responsibility. Positioning technology as environmentally
               sustainable or socially beneficial appeals to this value segment. The model instructs
@@ -321,7 +324,7 @@ const BibliographyArticlePage = () => {
               customer, and this differentiation requires salespeople who understand value
               motivation.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Organizations should use VAM to develop customer personas that go beyond demographics
               to include personal values. Rather than just “women aged 25-35,” personas might
               describe “achievement-oriented professionals seeking efficiency and success” or
@@ -336,7 +339,7 @@ const BibliographyArticlePage = () => {
               satisfaction or perceived usefulness which can fluctuate, personal values remain
               relatively constant.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               This suggests that value-based segmentation provides stable target markets for
               long-term strategy rather than fluctuating based on short-term satisfaction or
               perception changes.
@@ -344,7 +347,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Value-Based Adoption of Mobile Internet model measures how personal values
               influence adoption of mobile internet services through value-based benefits.
               Specifically, the model measures: Personal Values : The importance individuals assign
@@ -364,14 +367,14 @@ const BibliographyArticlePage = () => {
               (security-related) Adoption Intention : Stated intention to adopt and use mobile
               internet services, including likelihood and frequency of use.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The model measures these constructs and their relationships, showing how personal
               values influence adoption both directly and through value-based benefits.
             </p>
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The VAM model contributes several significant strengths to technology adoption
               literature. First, it successfully incorporates personal values theory into the
               technology adoption framework, addressing a gap in existing literature. By explicitly
@@ -385,7 +388,7 @@ const BibliographyArticlePage = () => {
               Value-based segmentation identifies fundamental differences in what consumers seek
               from technology, enabling more targeted marketing and product development strategies.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Fourth, the value-based approach validates consumer behavior research showing that
               personal values drive consumption decisions across product categories. Extending this
               well-established consumer behavior principle to technology adoption strengthens
@@ -404,7 +407,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Despite significant contributions, VAM has identifiable limitations. First, the
               research was conducted specifically in the context of mobile internet services in
               Canada. Generalizability to other technology types, geographic markets, and cultural
@@ -419,7 +422,7 @@ const BibliographyArticlePage = () => {
               that personal values influence value-based benefits perception, which influences
               adoption, longitudinal data would provide stronger evidence of causal order.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Fourth, the measurement of personal values relies on established value scales that may
               not capture all value dimensions relevant to technology adoption. Schwartz’s value
               theory is comprehensive, but some technology- specific values (e.g., control, privacy
@@ -433,7 +436,7 @@ const BibliographyArticlePage = () => {
               values are stable inputs to adoption decisions, but adoption experiences might shift
               values or reveal value hierarchies previously unknown to consumers.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Seventh, the model does not address peer influence, social norms, or organizational
               factors that influence adoption. While personal values are individual characteristics,
               adoption decisions are influenced by social context. The model would be strengthened
@@ -445,7 +448,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How does this model differ from older models?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               VAM differs from the Technology Acceptance Model by explicitly incorporating personal
               values as adoption drivers. While TAM focuses on instrumental beliefs (usefulness,
               ease of use), VAM recognizes that adoption also reflects personal values and goals.
@@ -458,7 +461,7 @@ const BibliographyArticlePage = () => {
               values. VAM differs from UTAUT by focusing specifically on values rather than social
               influence, facilitating conditions, and effort expectancy.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               While UTAUT incorporates more adoption variables than TAM, it does not explicitly
               address personal values as adoption drivers. VAM represents a distinctly different
               theoretical perspective from existing adoption models by grounding adoption in deeper
@@ -475,7 +478,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What Barriers to Technology Adoption does the model identify?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Value-Based Adoption of Mobile Internet model identifies barriers to technology
               adoption through the lens of value-benefit misalignment, recognizing that barriers
               often reflect mismatch between what a technology offers and what consumers value.
@@ -550,7 +553,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What does the model instruct leaders to do in order to reduce these barriers?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The VAM model provides specific guidance for organizations seeking to reduce barriers
               by addressing value-benefit alignment and communicating value-relevant benefits to
               different customer segments. Assess Customer Values Organizations should conduct
@@ -567,7 +570,7 @@ const BibliographyArticlePage = () => {
               appeal to multiple value segments, the model instructs developing product features
               addressing diverse values.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Achievement-oriented features (productivity tools, efficiency enhancements) appeal to
               achievement-focused segments. Social features (communication, community) appeal to
               socially-motivated segments. Entertainment features
@@ -581,12 +584,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
+          <Link
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
   H1_CLASSES,
   H2_CLASSES,
   H3_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
 } from '@/lib/articleStyles'
 
@@ -20,7 +23,7 @@ const BibliographyArticlePage = () => {
         <h1 className={H1_CLASSES}>Social Cognitive Theory (SCT) – Bandura (1986)</h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -36,7 +39,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -47,10 +50,10 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Main Content */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Albert Bandura developed Social Cognitive Theory in 1986 to provide a comprehensive
               psychological framework that addresses a fundamental limitation in behavioral and
               cognitive psychology: the tendency to emphasize either environmental factors or
@@ -66,7 +69,7 @@ const BibliographyArticlePage = () => {
               skills, knowledge, and environmental opportunities demonstrated vastly different
               adoption behaviors toward new technologies and other behavioral changes.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The specific timing of SCT’s 1986 formulation coincided with emerging questions in
               organizational psychology about technology adoption in workplace settings. As personal
               computers and new information systems began widespread organizational deployment in
@@ -78,7 +81,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               SCT’s internal validity was established through rigorous longitudinal and experimental
               research spanning decades, though Bandura’s 1986 book primarily synthesizes and
               theoretically consolidates earlier empirical work rather than presenting a single
@@ -178,7 +181,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               SCT provides practitioners with a diagnostic and interventional framework for
               technology adoption in several ways: Diagnostic assessment: Organizations can assess
               employees’ self-efficacy regarding new technologies before or during implementation,
@@ -237,7 +240,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               SCT is fundamentally a theory of behavior and the psychological mechanisms underlying
               behavior, but within technology adoption contexts, it specifically measures:
               Self-efficacy regarding technology use: The core construct measures an individual’s
@@ -284,7 +287,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               SCT possesses several significant strengths that explain its enduring influence on
               technology adoption research: Explanatory power for variance in adoption: SCT
               powerfully explains why two individuals with identical skills, knowledge, and access
@@ -350,7 +353,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Despite its strengths, SCT presents notable limitations for technology adoption
               research: Self-efficacy as retrospective/post-hoc measure: Critics note that self-
               efficacy beliefs are often measured after behavior begins or simultaneously with it,
@@ -417,7 +420,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How does this model differ from older models?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               SCT represented a significant theoretical advance over preceding psychological
               approaches to behavior change: Beyond behaviorism: Classical behaviorist approaches
               explained behavior as determined by environmental reinforcement and punishment.
@@ -484,7 +487,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What Barriers to Technology Adoption does the model identify?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               SCT identifies barriers to technology adoption operating at several levels: Low
               self-efficacy: The primary barrier SCT identifies is insufficient confidence in one’s
               ability to accomplish technology-related tasks. This barrier operates independently
@@ -550,7 +553,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What does the model instruct leaders to do in order to reduce these barriers?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               SCT provides specific guidance for leaders seeking to reduce technology adoption
               barriers: Build self-efficacy through mastery experiences: Leaders should structure
               technology implementation to provide graduated mastery experiences. This means
@@ -715,12 +718,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
+          <Link
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

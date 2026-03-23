@@ -114,7 +114,7 @@ async function generateReport() {
     if (!fs.existsSync(dataDir)) {
       fs.mkdirSync(dataDir, { recursive: true })
     }
-    fs.writeFileSync(publicStatsPath, JSON.stringify(publicStats, null, 2))
+    fs.writeFileSync(publicStatsPath, JSON.stringify(publicStats, null, 2) + '\n')
     console.log(`Public impact stats saved to: ${publicStatsPath}`)
 
     // --- Generate GitHub Step Summary ---
