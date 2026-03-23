@@ -26,6 +26,33 @@ const TOGAFPage = () => {
           The Open Group Architecture Framework (TOGAF) &ndash; The Open Group (1995)
         </h1>
 
+        {/* Framework Identification */}
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
+          <h2 className={H2_CLASSES}>Framework Identification</h2>
+          <div className="space-y-2">
+            <p>
+              <strong>Framework Name:</strong> The Open Group Architecture Framework (TOGAF)
+            </p>
+            <p>
+              <strong>Authors:</strong> The Open Group
+            </p>
+            <p>
+              <strong>Publication Date:</strong> 1995
+            </p>
+          </div>
+        </section>
+
+        {/* Citation Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Citation Information</h2>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+            <p className="text-sm font-mono">
+              The Open Group. (1995). <em>The Open Group Architecture Framework (TOGAF).</em> The
+              Open Group.
+            </p>
+          </div>
+        </section>
+
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             <strong>The Open Group Architecture Framework (TOGAF)</strong> is one of the most widely

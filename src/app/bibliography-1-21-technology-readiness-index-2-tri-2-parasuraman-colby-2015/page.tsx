@@ -1,5 +1,13 @@
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
+import Link from 'next/link'
+import {
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  H3_CLASSES,
+} from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Technology Readiness Index 2.0 (TRI 2.0) – Parasuraman & Colby (2015)',
@@ -16,7 +24,7 @@ const BibliographyArticlePage = () => {
         </h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -32,7 +40,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -43,10 +51,10 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Main Content */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The TRI 2.0 was developed to address limitations and necessary updates to the original
               36-item Technology Readiness Index that had been in use for over a decade. Although
               the original TRI had become widely used in academic research and business
@@ -60,7 +68,7 @@ const BibliographyArticlePage = () => {
               technology. These emerging technologies created new dimensions of technology readiness
               that the original instrument had not anticipated.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Additionally, consumer perspectives on technology had evolved dramatically, with
               mobile devices becoming ubiquitous and digital natives entering the consumer
               marketplace. The original TRI items, developed in the 1990s, referenced technologies
@@ -73,7 +81,7 @@ const BibliographyArticlePage = () => {
               been included in the preliminary 28-item scale but eliminated during the original
               refinement process contained themes that later research suggested warranted inclusion.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The broader challenge was that scale items that had not specifically referenced
               technologies might be losing relevance or that respondents were interpreting items
               differently than originally intended as the technology environment evolved. An
@@ -89,7 +97,7 @@ const BibliographyArticlePage = () => {
               incorporated into larger survey batteries or administered in contexts where survey
               length was constrained.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The goal was to develop a more concise version that would retain the reliability and
               validity of the original while reducing respondent burden. The motivation also
               included addressing feedback from extensive use of TRI 1.0. The authors had received
@@ -102,7 +110,7 @@ const BibliographyArticlePage = () => {
               ensure the scale remained sufficiently parsimonious to serve practical business
               applications.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               One of the key strengths of the TRI 1.0 was its applicability to real business
               problems— customer segmentation, marketing strategy, product development decisions.
               The new version needed to maintain this practical utility while becoming more
@@ -111,7 +119,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The development of TRI 2.0 employed a rigorous two-phase research approach that tested
               internal validity throughout the process. The first phase was qualitative and
               exploratory, designed to identify potential new items and validate the continued
@@ -125,7 +133,7 @@ const BibliographyArticlePage = () => {
               occupational spheres, what motivated them to try new technologies, and what made them
               hesitant about new technology adoption.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Thematic analysis of these qualitative discussions identified key themes: technology
               as improving quality of life, staying connected, communications and relationships,
               cost barriers, security and safety concerns, dependency concerns, and distraction
@@ -139,7 +147,7 @@ const BibliographyArticlePage = () => {
               resulting in a 45-item preliminary scale for testing. The quantitative phase employed
               both mail and online surveys of a representative cross-section of US adults.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The survey was administered with randomized presentation of the 45 items (with two
               versions created to minimize order effects). A total of 524 usable questionnaires were
               obtained. The sample was carefully weighted for demographic characteristics including
@@ -152,7 +160,7 @@ const BibliographyArticlePage = () => {
               .90 across the four factors. Internal consistency analysis examined item-to-total
               correlations and factor loadings.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Items with weak loadings (below .30), ambiguous cross-loadings, or low item-to-total
               correlations were identified for potential elimination. The iterative refinement
               process involved selectively removing problematic items while maintaining sufficient
@@ -166,7 +174,7 @@ const BibliographyArticlePage = () => {
               stability of the underlying constructs. Discriminant validity was examined by
               assessing the correlations between dimensions.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The four dimensions showed a pattern of correlations consistent with theory, with
               Optimism and Innovativeness showing positive correlation (.52), Discomfort and
               Insecurity showing positive correlation (.56), while the motivator dimensions showed
@@ -183,7 +191,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               External validity of TRI 2.0 was demonstrated through multiple validation approaches.
               First, the scale was validated against actual technology adoption and usage behaviors.
               The quantitative survey included 33 behavioral items concerning ownership and use of
@@ -199,7 +207,7 @@ const BibliographyArticlePage = () => {
               intending to acquire having intermediate scores, and those with no plans having the
               lowest scores.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               These differences were consistent across the various technology categories examined,
               demonstrating that the scale effectively predicted adoption propensity. The scale also
               demonstrated external validity through analysis of actual online behavioral
@@ -216,7 +224,7 @@ const BibliographyArticlePage = () => {
               motivation; (4) Pioneers (16%)—strong positive and negative views; and (5) Hesitators
               (13%)—low innovativeness.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               These segments showed dramatically different demographic characteristics and
               technology adoption behaviors, validating the segmentation utility of the scale. The
               five-segment solution was compared with alternative cluster solutions using standard
@@ -232,7 +240,7 @@ const BibliographyArticlePage = () => {
               supported the external validity of the scale as a generalizable measure of technology
               readiness.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Construct validity was further supported through analysis of the relationship between
               TR and social media engagement. Higher-TR consumers significantly differed from
               lower-TR consumers in their engagement with social media platforms (t = 4.16, p &lt;
@@ -249,7 +257,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               TRI 2.0 was explicitly designed for practical marketing and business applications
               while maintaining research utility. The primary application is customer segmentation
               based on technology readiness profiles. The five- segment solution (Skeptics,
@@ -264,7 +272,7 @@ const BibliographyArticlePage = () => {
               receive information about advanced functionality and serve as target users for new
               feature rollouts.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Skeptics—characterized by detached ambivalence—require messages emphasizing
               reliability, proven track record, ease of use, and support availability. These
               customers are unmoved by technology innovation rhetoric and require reassurance that
@@ -279,7 +287,7 @@ const BibliographyArticlePage = () => {
               technology. The model instructs organizations to use TR segmentation for product
               development and service design.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Different customer segments have different requirements. High-TR customers value
               sophisticated features, customization options, and technical capability. Low-TR
               customers value simplicity, intuitive interfaces, and comprehensive support.
@@ -294,7 +302,7 @@ const BibliographyArticlePage = () => {
               intended for use in internal workforce assessment and development. Organizations can
               assess the technology readiness of customer-facing employees.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Employees high in discomfort or insecurity may struggle with technology-based service
               systems and may need additional training or support. Understanding employee TR helps
               organizations develop more effective technology training programs and determines which
@@ -308,7 +316,7 @@ const BibliographyArticlePage = () => {
               development. Messages should be tested with different TR- segment representatives to
               ensure they resonate.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Messages emphasizing innovation may alienate low-TR customers; messages emphasizing
               simplicity may not appeal to high-TR customers. Testing marketing communications with
               target segments ensures that messages effectively persuade intended audiences. The
@@ -323,7 +331,7 @@ const BibliographyArticlePage = () => {
               or double down on well- served segments (e.g., explorers), depending on competitive
               dynamics.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The model is designed for cross-cultural market entry decisions. The scale’s
               translations and validation across multiple countries enable organizations entering
               new markets to assess technology readiness of target populations. This information
@@ -338,7 +346,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               TRI 2.0 measures individuals’ propensity to embrace and use cutting-edge technologies
               for accomplishing goals in home and work contexts. The updated model maintains the
               four fundamental dimensions of the original TRI while streamlining the measurement
@@ -351,7 +359,7 @@ const BibliographyArticlePage = () => {
               on technologies, acquiring new technology early, enjoying technological challenges,
               and staying current with technological developments.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Discomfort (4 items): A perceived lack of control and feeling overwhelmed by
               technology. Items reflect concerns about technical support quality, technology systems
               being too complex, difficulty when troubleshooting problems, and finding technology
@@ -367,7 +375,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               TRI 2.0 retains the fundamental strengths of the original TRI while addressing
               identified limitations. First, the streamlined 16-item format (compared to the
               original 36 items) substantially reduces respondent burden while maintaining reliable
@@ -381,7 +389,7 @@ const BibliographyArticlePage = () => {
               than specific technological implementations. This reduces the need for frequent
               updating and increases the scale’s longevity.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Third, TRI 2.0 maintains the multidimensional structure that captures the paradoxical
               nature of technology attitudes. The distinction between motivator dimensions
               (Optimism, Innovativeness) and inhibitor dimensions (Discomfort, Insecurity) remains
@@ -396,7 +404,7 @@ const BibliographyArticlePage = () => {
               quantitative) ensured that contemporary technology themes were captured while
               maintaining measurement consistency with the original instrument.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Sixth, TRI 2.0 maintains temporal stability of the underlying constructs while
               updating expression. Comparison of equivalent items from TRI 1.0 measured in 1999 and
               TRI 2.0 items measured in 2012 demonstrates that the underlying constructs remained
@@ -409,7 +417,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Despite significant improvements, TRI 2.0 has identifiable limitations. First, while
               shorter than TRI 1.0, the 16-item scale may still be considered lengthy in contexts
               where survey space is extremely constrained. Organizations seeking the absolute
@@ -423,7 +431,7 @@ const BibliographyArticlePage = () => {
               dimensions do represent a set of homogeneous attributes.” This suggests room for
               further refinement of these dimensions.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Third, TRI 2.0 does not address context-specific variations in technology readiness.
               While one strength is that it measures general technology readiness, a limitation is
               that consumers may have different readiness levels for different technology categories
@@ -437,7 +445,7 @@ const BibliographyArticlePage = () => {
               and attitudes, subject to social desirability bias and potential misalignment between
               stated readiness and actual behavior.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               In some contexts, consumers may overstate their actual technology comfort or adoption
               intention. Sixth, some demographic and psychographic characteristics show very
               different levels of TR (age, education, employment in technology-related fields),
@@ -452,7 +460,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How does this model differ from older models?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               TRI 2.0 differs from the original TRI 1.0 primarily in parsimony and contemporary
               relevance. The 16-item TRI 2.0 captures the same underlying four dimensions as the
               36-item TRI 1.0, but with substantially greater efficiency. The factor structure,
@@ -467,7 +475,7 @@ const BibliographyArticlePage = () => {
               usefulness and ease of use for specific systems, TRI 2.0 (like TRI 1.0) measures
               general, dispositional technology readiness applicable across contexts.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The model is not system-specific; rather, it measures individual propensities that
               influence adoption across multiple technology domains. TRI 2.0 differs from the
               original TRI in providing a more streamlined instrument suitable for contemporary
@@ -484,7 +492,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What Barriers to Technology Adoption does the model identify?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               TRI 2.0 identifies barriers to technology adoption through its two inhibitor
               dimensions and provides nuanced understanding of how these barriers manifest across
               different customer segments. Discomfort represents the first major category of
@@ -498,7 +506,7 @@ const BibliographyArticlePage = () => {
               required to use new systems. Still others fear appearing incompetent if they cannot
               quickly figure out how to use technology.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The discomfort barrier is particularly salient for older consumers or those with
               limited prior technology experience, who may lack confidence in their ability to
               successfully use systems. The discomfort barrier extends to concerns about technology
@@ -514,7 +522,7 @@ const BibliographyArticlePage = () => {
               technology-based channels, skepticism about whether new technologies actually solve
               problems, and general safety concerns about technology use.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               These insecurity-based barriers manifest as fundamental distrust of technology
               systems. Consumers worry about whether their personal information is protected when
               using technology. They fear that financial transactions conducted through technology
@@ -528,7 +536,7 @@ const BibliographyArticlePage = () => {
               The research identified that economic barriers remain significant for some
               populations.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               While not explicitly captured in the four dimensions, cost represents a real barrier
               for cost-conscious consumers. The earlier TRI research had identified that “the high
               cost of acquiring these [technologies] is actually very discouraging” for some
@@ -543,7 +551,7 @@ const BibliographyArticlePage = () => {
               experience barriers remain significant despite not being explicitly captured as a
               separate dimension.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Consumers without prior experience with related technologies lack mental models for
               how to interact with new systems. They have lower self-efficacy for technology use and
               greater uncertainty about whether they can successfully use new systems. This barrier
@@ -557,7 +565,7 @@ const BibliographyArticlePage = () => {
               functional benefits. The research also identified fear of displacement and dependency
               as subtle but significant barriers for some consumers.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Some individuals fear that relying on technology might create unhealthy dependency or
               that personal skills might become devalued if machines can perform similar functions.
               These existential concerns about technology’s role in society and human agency
@@ -572,7 +580,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What does the model instruct leaders to do in order to reduce these barriers?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               TRI 2.0 provides specific guidance for reducing barriers tailored to the five
               identified customer segments. The overarching principle is that different barriers
               require different interventions. For Discomfort-oriented customers , organizations
@@ -586,7 +594,7 @@ const BibliographyArticlePage = () => {
               accessible language. Support should be proactive (detecting problems before customers
               experience them) rather than purely reactive.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Develop training programs appropriate to novice users that break complex systems into
               manageable steps. Video tutorials, interactive guides, and guided walkthroughs help
               discomfort-oriented customers develop competence and confidence. Training should move
@@ -602,7 +610,7 @@ const BibliographyArticlePage = () => {
               system complexity, staged rollouts of features and functionality allow incremental
               learning.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               For Insecurity-oriented customers , organizations should: Emphasize security features
               and privacy protections in all communications. Marketing should highlight encryption
               protocols,
@@ -616,12 +624,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
+          <Link
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

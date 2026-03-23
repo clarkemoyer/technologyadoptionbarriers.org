@@ -25,6 +25,32 @@ const CMMHumphreyPage = () => {
           Capability Maturity Model (CMM) &ndash; Watts S. Humphrey (1989)
         </h1>
 
+        {/* Framework Identification */}
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
+          <h2 className={H2_CLASSES}>Framework Identification</h2>
+          <div className="space-y-2">
+            <p>
+              <strong>Framework Name:</strong> Capability Maturity Model (CMM)
+            </p>
+            <p>
+              <strong>Authors:</strong> Watts S. Humphrey
+            </p>
+            <p>
+              <strong>Publication Date:</strong> 1989
+            </p>
+          </div>
+        </section>
+
+        {/* Citation Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Citation Information</h2>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+            <p className="text-sm font-mono">
+              Humphrey, W. S. (1989). <em>Managing the software process.</em> Addison-Wesley.
+            </p>
+          </div>
+        </section>
+
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             Watts S. Humphrey&rsquo;s Capability Maturity Model (CMM), developed at Carnegie Mellon

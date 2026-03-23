@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
   H1_CLASSES,
   H2_CLASSES,
   H3_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
 } from '@/lib/articleStyles'
 
@@ -20,7 +23,7 @@ const BibliographyArticlePage = () => {
         <h1 className={H1_CLASSES}>Technology Acceptance Model (TAM) – Davis (1989)</h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -36,7 +39,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -47,10 +50,10 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Main Content */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Fred Davis developed the Technology Acceptance Model to address a critical gap in
               information systems research and practice. The fundamental problem motivating TAM was
               straightforward but significant: Information Systems practitioners and organizations
@@ -65,7 +68,7 @@ const BibliographyArticlePage = () => {
               accepted some technologies while rejecting others became critical practical concern
               for IS organizations.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Prior information systems research had identified numerous factors potentially
               influencing technology acceptance including user characteristics, system
               characteristics, organizational factors, and environmental factors. However, this
@@ -80,7 +83,7 @@ const BibliographyArticlePage = () => {
               technologies, which in turn influence actual usage. However, Davis recognized that
               general behavioral models like TRA required technology- specific operationalization.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Generic attitude measures and outcome beliefs might not capture the specific beliefs
               and attitudes shaping technology acceptance. Davis proposed that two beliefs held
               particular importance for technology acceptance: perceived usefulness and perceived
@@ -94,7 +97,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Davis established the Technology Acceptance Model’s internal validity through multiple
               validation approaches: Theoretical derivation from established theory: TAM built
               directly on the Theory of Reasoned Action, maintaining TRA’s core structure (attitudes
@@ -149,7 +152,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Technology Acceptance Model’s external validity was established through
               application across diverse technological systems and contexts: Multiple information
               systems: Davis validated TAM across email systems and file managers, demonstrating
@@ -191,7 +194,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Davis designed the Technology Acceptance Model as both research framework and
               practical tool for predicting and improving technology acceptance: User acceptance
               prediction: Information systems organizations can use TAM to predict which newly
@@ -258,7 +261,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Technology Acceptance Model operationalizes several key measurement constructs:
               Perceived usefulness: Measured through multi-item scales assessing users’ beliefs that
               using a system enhances work performance. Items capture perceptions that system use
@@ -300,7 +303,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Technology Acceptance Model possesses several considerable strengths: Theoretical
               parsimony: TAM provides parsimonious explanation of technology acceptance through two
               primary belief categories (perceived usefulness and ease of use). This economy of
@@ -366,7 +369,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Despite considerable strengths, the Technology Acceptance Model has notable
               limitations: Limited construct breadth: TAM focuses narrowly on perceived usefulness
               and ease of use as technology attitude determinants. However, other factors influence
@@ -448,7 +451,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How does this model differ from older models?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Technology Acceptance Model represented significant advancement from prior
               information systems research: Technology-specific focus: Earlier IS research examined
               user attitudes toward information systems but treated them as generic organizational
@@ -512,7 +515,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What Barriers to Technology Adoption does the model identify?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Technology Acceptance Model identifies barriers to technology adoption organized
               around two primary psychosocial dimensions: Perceived usefulness barriers: The model
               identifies that users fail to adopt technologies when they perceive low
@@ -526,7 +529,7 @@ const BibliographyArticlePage = () => {
               barriers additionally emerge from beliefs that technology adoption offers minimal
               performance benefits relative to current practices.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Users whose existing processes prove reasonably efficient perceive new technology as
               offering marginal improvement. Technologies requiring substantial learning and
               transition to achieve modest performance gains encounter usefulness barriers.
@@ -541,7 +544,7 @@ const BibliographyArticlePage = () => {
               collaboration create usefulness barriers when negative consequences outweigh positive
               benefits. Usefulness barriers additionally reflect insufficient performance evidence.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Users lacking clear evidence that technology improves performance perceive low
               usefulness. Without demonstrations, testimonials from satisfied users, or performance
               metrics showing improvements, users remain skeptical about usefulness claims.
@@ -605,7 +608,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What does the model instruct leaders to do in order to reduce these barriers?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Technology Acceptance Model provides explicit guidance for leaders designing
               interventions to reduce technology adoption barriers: Establish perceived usefulness
               through benefit demonstration: Leaders instructed by TAM should demonstrate clear
@@ -690,12 +693,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
+          <Link
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

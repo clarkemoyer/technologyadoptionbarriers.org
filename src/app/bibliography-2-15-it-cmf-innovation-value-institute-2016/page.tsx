@@ -27,6 +27,36 @@ const ITCMFPage = () => {
           IT Capability Maturity Framework (IT-CMF&trade;) &ndash; Innovation Value Institute (2016)
         </h1>
 
+        {/* Framework Identification */}
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
+          <h2 className={H2_CLASSES}>Framework Identification</h2>
+          <div className="space-y-2">
+            <p>
+              <strong>Framework Name:</strong> IT Capability Maturity Framework (IT-CMF™)
+            </p>
+            <p>
+              <strong>Authors:</strong> Innovation Value Institute
+            </p>
+            <p>
+              <strong>Publication Date:</strong> 2016
+            </p>
+          </div>
+        </section>
+
+        {/* Citation Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Citation Information</h2>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+            <p className="text-sm font-mono">
+              Innovation Value Institute. (2016).{' '}
+              <em>
+                IT Capability Maturity Framework™ (IT-CMF™) &ndash; The building block framework.
+              </em>{' '}
+              University of Ireland, Maynooth.
+            </p>
+          </div>
+        </section>
+
         {/* Introduction */}
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>

@@ -1,5 +1,12 @@
 import type { Metadata } from 'next'
-import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
+import Link from 'next/link'
+import {
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+} from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title:
@@ -18,7 +25,7 @@ const BibliographyArticlePage = () => {
         </h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -35,7 +42,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -55,9 +62,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Why UTAUT2 Was Created */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Why UTAUT2 Was Created</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The original UTAUT (Venkatesh, Morris, Davis, &amp; Davis, 2003) was developed and
             validated entirely within organizational workplace contexts where technology adoption
             decisions are shaped by employer directives, productivity requirements, and
@@ -70,7 +77,7 @@ const BibliographyArticlePage = () => {
             adoption frequently includes pleasure and entertainment rather than purely instrumental
             work performance gains.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             UTAUT&rsquo;s original constructs, while powerful in organizational settings, did not
             adequately capture the drivers and barriers unique to consumer technology adoption. The
             model lacked constructs for hedonic motivation (the fun and pleasure derived from
@@ -79,7 +86,7 @@ const BibliographyArticlePage = () => {
             becomes a primary driver of continued use). Additionally, the voluntariness moderator in
             UTAUT was largely irrelevant in consumer contexts where all use is inherently voluntary.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Venkatesh, Thong, and Xu developed UTAUT2 to address these gaps by extending the
             original UTAUT framework to the consumer use context. Their goal was to incorporate
             constructs that capture the unique motivational, economic, and behavioral dynamics of
@@ -90,9 +97,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Retained UTAUT Core */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Retained UTAUT Core Constructs</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             UTAUT2 retained the four core constructs from the original UTAUT but modified several of
             their relationships to reflect the consumer context. Performance Expectancy continued to
             represent the degree to which using a technology provides benefits to users, though in
@@ -101,7 +108,7 @@ const BibliographyArticlePage = () => {
             its role as the degree of ease associated with technology use. Social Influence
             continued to capture the perceived opinions of important others about technology use.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Facilitating Conditions, defined as the availability of resources and support for
             technology use, received expanded treatment in UTAUT2. In the original UTAUT,
             facilitating conditions influenced only use behavior directly. UTAUT2 added a new path
@@ -115,13 +122,13 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* New Consumer Constructs */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>New Consumer Constructs</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             UTAUT2 introduced three new constructs specifically designed to capture dimensions of
             consumer technology adoption that the original UTAUT did not address.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Hedonic Motivation</strong> is defined as the fun or pleasure derived from using
             a technology. In organizational settings, technology adoption is primarily driven by
             extrinsic motivation&mdash;the expectation of performance gains. In consumer settings,
@@ -134,7 +141,7 @@ const BibliographyArticlePage = () => {
             gender, and experience. The effect of hedonic motivation was found to be stronger for
             younger users, for men, and for users with less experience with the specific technology.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Price Value</strong> captures consumers&rsquo; cognitive tradeoff between the
             perceived benefits of technology use and the monetary cost of use. This construct is
             unique to consumer contexts because in organizational settings, the employing
@@ -145,7 +152,7 @@ const BibliographyArticlePage = () => {
             adoption barrier. Price value was moderated by age and gender, with stronger effects for
             older users and for women.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             <strong>Habit</strong> is defined as the extent to which people tend to perform
             behaviors automatically because of learning. Drawing on habit research by Limayem, Hirt,
             and Cheung (2007) and Kim and Malhotra (2005), UTAUT2 proposed that habit influences
@@ -162,16 +169,16 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Modified Moderating Relationships */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Modified Moderating Relationships</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             UTAUT2 revised the moderating structure of the original UTAUT to reflect consumer
             adoption dynamics. The voluntariness moderator was removed entirely because consumer
             technology use is inherently voluntary&mdash;no organizational authority compels
             individuals to adopt personal technologies. This simplification was both theoretically
             justified and empirically appropriate for the consumer context.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Gender and age continued to moderate the relationships between the original UTAUT
             constructs and behavioral intention, and were also tested as moderators of the three new
             constructs. Experience was retained as a moderator for effort expectancy, social
@@ -186,9 +193,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Empirical Validation */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Empirical Validation</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             UTAUT2 was validated through a two-stage online survey conducted in Hong Kong, focusing
             on consumer adoption of mobile internet technology. The study sampled 1,512 respondents
             who were mobile phone users, providing a large and diverse dataset for testing the
@@ -196,7 +203,7 @@ const BibliographyArticlePage = () => {
             extended UTAUT2, quantifying the incremental predictive power provided by the three new
             consumer constructs.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The results demonstrated substantial improvement over the original UTAUT in the consumer
             context. UTAUT2 explained approximately 74 percent of the variance in behavioral
             intention, compared to 56 percent for the original UTAUT&mdash;an increase of 18
@@ -205,7 +212,7 @@ const BibliographyArticlePage = () => {
             percentage points. These improvements confirmed that the three new constructs capture
             meaningful additional explanatory power in consumer settings.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             All three new constructs demonstrated statistically significant effects. Hedonic
             motivation was a strong predictor of behavioral intention, confirming the importance of
             pleasure and enjoyment in consumer technology adoption. Price value was significant,
@@ -215,7 +222,7 @@ const BibliographyArticlePage = () => {
             particularly strong, suggesting that much consumer technology use occurs automatically
             rather than through deliberate intention.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The facilitating conditions to behavioral intention path, newly added in UTAUT2, was
             also statistically significant, confirming that in consumer contexts, resource
             availability influences motivation as well as ability. The moderating effects of age,
@@ -225,9 +232,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Strengths and Limitations */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Strengths and Limitations</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             UTAUT2&rsquo;s primary contribution is its successful extension of the UTAUT framework
             to consumer technology adoption, addressing a critical gap in the technology acceptance
             literature. The model&rsquo;s 74 percent explained variance in behavioral intention and
@@ -235,7 +242,7 @@ const BibliographyArticlePage = () => {
             consumer settings, demonstrating that the three new constructs capture meaningful and
             previously unmeasured dimensions of consumer adoption decisions.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             The inclusion of hedonic motivation recognizes that consumer technology adoption is
             often driven by enjoyment rather than productivity, broadening the theoretical scope
             beyond the utilitarian perspective that dominated prior technology acceptance research.
@@ -245,7 +252,7 @@ const BibliographyArticlePage = () => {
             is essential for understanding technology adoption as an ongoing process rather than a
             single decision point.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             However, UTAUT2 has notable limitations. The empirical validation was conducted in a
             single country (Hong Kong) with a single technology category (mobile internet), limiting
             generalizability across cultures and technology types. The cross-sectional survey design
@@ -261,9 +268,9 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Relevance to Technology Adoption Barriers */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption Barriers</h2>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             UTAUT2 substantially expands the taxonomy of technology adoption barriers applicable to
             consumer settings. Hedonic motivation barriers arise when technologies are perceived as
             unenjoyable, tedious, or frustrating to use. In consumer markets where adoption is
@@ -274,7 +281,7 @@ const BibliographyArticlePage = () => {
             seeking to promote consumer technology adoption must attend to user experience quality,
             interface aesthetics, and interaction enjoyment as seriously as functionality.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Price value barriers constitute one of the most significant adoption obstacles in
             consumer contexts and are closely linked to digital equity concerns. When the cost of a
             technology&mdash;including device cost, subscription fees, data charges, and accessory
@@ -286,7 +293,7 @@ const BibliographyArticlePage = () => {
             through affordable pricing models, freemium offerings, subsidized access programs, or
             demonstrations that make benefits more salient relative to costs.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             Habit barriers represent perhaps the most underappreciated category of technology
             adoption obstacles. Established habits with existing technologies create powerful
             resistance to change that operates largely outside conscious deliberation. Even when
@@ -297,7 +304,7 @@ const BibliographyArticlePage = () => {
             technology but also providing sufficient transition support to establish new habits that
             eventually become equally automatic.
           </p>
-          <p className="mb-4">
+          <p className={PARAGRAPH_CLASSES}>
             UTAUT2&rsquo;s finding that habit increasingly dominates use behavior as experience
             accumulates has important implications for technology transitions. Organizations
             introducing replacement technologies face the challenge that users&rsquo; habits with
@@ -312,7 +319,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* References */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className="list-decimal list-inside space-y-3 text-sm">
             <li>
@@ -402,12 +409,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
-            href="/article-bibliography-comprehensive-series-bibliography/"
+          <Link
+            href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>

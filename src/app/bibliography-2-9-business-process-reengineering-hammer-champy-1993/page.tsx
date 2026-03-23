@@ -25,6 +25,34 @@ const HammerChampyBPRPage = () => {
           Business Process Reengineering (BPR) &ndash; Hammer &amp; Champy (1993)
         </h1>
 
+        {/* Framework Identification */}
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
+          <h2 className={H2_CLASSES}>Framework Identification</h2>
+          <div className="space-y-2">
+            <p>
+              <strong>Framework Name:</strong> Business Process Reengineering (BPR)
+            </p>
+            <p>
+              <strong>Authors:</strong> Michael Hammer and James Champy
+            </p>
+            <p>
+              <strong>Publication Date:</strong> 1993
+            </p>
+          </div>
+        </section>
+
+        {/* Citation Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Citation Information</h2>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+            <p className="text-sm font-mono">
+              Hammer, M., &amp; Champy, J. (1993).{' '}
+              <em>Reengineering the corporation: A manifesto for business revolution</em> (1st ed.).
+              HarperBusiness.
+            </p>
+          </div>
+        </section>
+
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             In 1993, Michael Hammer and James Champy published{' '}

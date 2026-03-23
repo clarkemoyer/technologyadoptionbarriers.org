@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
   H1_CLASSES,
   H2_CLASSES,
   H3_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
 } from '@/lib/articleStyles'
 
@@ -20,7 +23,7 @@ const BibliographyArticlePage = () => {
         <h1 className={H1_CLASSES}>Theory of Reasoned Action (TRA) – Fishbein & Ajzen (1975)</h1>
 
         {/* Model Identification */}
-        <section className="mb-8 sm:mb-12 bg-gray-50 p-6 rounded-lg">
+        <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
@@ -36,7 +39,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Citation Information */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
@@ -47,10 +50,10 @@ const BibliographyArticlePage = () => {
         </section>
 
         {/* Main Content */}
-        <section className="mb-8 sm:mb-12">
+        <section className={SECTION_CLASSES}>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Theory of Reasoned Action emerged from Fishbein and Ajzen’s attempt to resolve one
               of the most persistent and frustrating problems in social psychology: the weak
               relationship between attitudes and actual behavior. Throughout the 1960s and early
@@ -63,7 +66,7 @@ const BibliographyArticlePage = () => {
               insight was that the problem lay not in attitudes themselves but in the level of
               specificity at which attitudes were measured.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Most attitude research assessed general attitudes toward general targets, then
               attempted to predict specific behaviors. Their revolutionary proposition was that
               behavior is most directly predicted not by attitudes but by behavioral intentions—an
@@ -78,7 +81,7 @@ const BibliographyArticlePage = () => {
               than invoking numerous psychological and social variables, TRA suggested that behavior
               stems from these two primary determinants.
             </p>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The model also addressed a practical need in the early 1970s. As social psychologists
               increasingly engaged with public health, organizational, and policy questions, they
               needed theoretical frameworks that could reliably predict whether individuals would
@@ -96,7 +99,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               TRA’s internal validity was rigorously tested through numerous empirical studies
               conducted by Fishbein, Ajzen, and subsequent researchers: Laboratory experiments:
               Controlled experiments explicitly tested the proposed causal relationships. In these
@@ -168,7 +171,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               TRA achieved substantial external validity through diverse research approaches:
               Prospective field studies: Rather than relying solely on laboratory demonstrations,
               researchers conducted field studies measuring attitudes and subjective norms before
@@ -232,7 +235,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               TRA provides practical guidance for leaders and practitioners seeking to promote
               technology adoption through several mechanisms: Diagnostic assessment of adoption
               intentions: Organizations can assess employees’ behavioral intentions regarding
@@ -302,7 +305,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Theory of Reasoned Action measures specific psychological and behavioral
               variables: Behavioral intention: The core outcome variable is behavioral intention—
               the individual’s conscious intention or plan to perform or not perform a specific
@@ -355,7 +358,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               TRA possesses several significant strengths explaining its foundational role in
               technology adoption literature: Parsimonious theoretical structure: TRA elegantly
               reduces behavioral prediction to two primary variables—attitude and subjective norm.
@@ -423,7 +426,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               Despite its strengths, TRA presents notable limitations: Volitional behavior
               assumption: TRA assumes behavior is under conscious volitional control—that
               individuals can choose to perform or not perform behaviors. Many behaviors, including
@@ -498,7 +501,7 @@ const BibliographyArticlePage = () => {
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How does this model differ from older models?</h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               TRA represented a fundamental reconceptualization of attitude-behavior relationships
               compared to earlier social psychology approaches: Beyond simple attitude-behavior
               correlation: Classical attitude research attempted direct links between attitudes and
@@ -568,7 +571,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What Barriers to Technology Adoption does the model identify?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               The Theory of Reasoned Action identifies barriers to technology adoption operating
               through two primary psychological pathways: Unfavorable attitudes toward technology
               adoption: The most fundamental barrier TRA identifies is negative attitudes toward
@@ -640,7 +643,7 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>
               What does the model instruct leaders to do in order to reduce these barriers?
             </h3>
-            <p className="mb-4">
+            <p className={PARAGRAPH_CLASSES}>
               TRA provides specific guidance for leaders seeking to reduce technology adoption
               barriers: Educate about technology consequences and benefits: Leaders should directly
               address behavioral beliefs by providing accurate information about technology adoption
@@ -743,12 +746,12 @@ const BibliographyArticlePage = () => {
 
         {/* Navigation */}
         <section className="mt-12 pt-6 border-t border-gray-200">
-          <a
+          <Link
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
             ← Back to Complete Bibliography
-          </a>
+          </Link>
         </section>
       </article>
     </main>
