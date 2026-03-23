@@ -408,3 +408,31 @@ export async function exportSubmissionsCSV(studyId: string, apiToken: string): P
 
   return csvLines.join('\n')
 }
+
+/**
+ * Bulk approve submissions for a study by participant IDs.
+ *
+ * Uses the Prolific bulk-approve endpoint:
+ * POST /api/v1/submissions/bulk-approve/
+ *
+ * @param studyId - The unique identifier of the study
+ * @param participantIds - Array of participant IDs to approve
+ * @param apiToken - Prolific API token
+ * @returns Promise resolving to the API response
+ * @throws {ProlificApiErrorClass} When the API request fails
+ *
+ * @see https://docs.prolific.com/api-reference/submissions/bulk-approve-submissions
+ */
+export async function bulkApproveSubmissions(
+  studyId: string,
+  participantIds: string[],
+  apiToken: string
+): Promise<void> {
+  await makeApiRequest<unknown>('/submissions/bulk-approve/', apiToken, {
+    method: 'POST',
+    body: JSON.stringify({
+      study_id: studyId,
+      participant_ids: participantIds,
+    }),
+  })
+}
