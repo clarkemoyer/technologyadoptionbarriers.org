@@ -184,11 +184,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Download metrics data
         uses: actions/download-artifact@v8
         with:
           name: qualtrics-metrics-data
           path: src/data
+
+      - name: Format data files
+        run: npx prettier --write src/data/qualtrics-metrics.json
 
       - name: Create pull request with updated metrics
         id: cpr
@@ -210,7 +222,7 @@ jobs:
           delete-branch: true
 
       - name: Enable Pull Request Automerge
-        if: steps.cpr.outputs.pull-request-operation == 'created'
+        if: steps.cpr.outputs.pull-request-operation == 'created' || steps.cpr.outputs.pull-request-operation == 'updated'
         run: gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
         env:
           GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}

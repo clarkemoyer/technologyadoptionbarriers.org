@@ -1,0 +1,68 @@
+name: Format and Create PR
+description: >
+  Reusable composite action that formats files with Prettier, creates a PR
+  via peter-evans/create-pull-request, and enables automerge. Use this in
+  any workflow that generates data files to guarantee Prettier compliance.
+
+inputs:
+  token:
+    description: GitHub token for creating PRs and enabling automerge
+    required: true
+  files:
+    description: Space-separated glob of files to format (e.g. "src/data/impact.json")
+    required: true
+  commit-message:
+    description: Commit message for the PR
+    required: true
+  pr-title:
+    description: Pull request title
+    required: true
+  pr-body:
+    description: Pull request body (markdown)
+    required: true
+  branch:
+    description: Branch name for the PR
+    required: true
+
+outputs:
+  pull-request-number:
+    description: The PR number created or updated
+    value: ${{ steps.cpr.outputs.pull-request-number }}
+  pull-request-operation:
+    description: Whether the PR was created, updated, or closed
+    value: ${{ steps.cpr.outputs.pull-request-operation }}
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install dependencies
+      shell: bash
+      run: npm ci
+
+    - name: Format files with Prettier
+      shell: bash
+      run: npx prettier --write ${{ inputs.files }}
+
+    - name: Create pull request
+      id: cpr
+      uses: peter-evans/create-pull-request@v8
+      with:
+        token: ${{ inputs.token }}
+        commit-message: ${{ inputs.commit-message }}
+        title: ${{ inputs.pr-title }}
+        body: ${{ inputs.pr-body }}
+        branch: ${{ inputs.branch }}
+        delete-branch: true
+
+    - name: Enable automerge
+      if: steps.cpr.outputs.pull-request-operation == 'created' || steps.cpr.outputs.pull-request-operation == 'updated'
+      shell: bash
+      run: gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
+      env:
+        GH_TOKEN: ${{ inputs.token }}
