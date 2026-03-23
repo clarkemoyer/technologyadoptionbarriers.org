@@ -32,62 +32,62 @@ type InlineToken =
   | { kind: 'code'; value: string }
   | { kind: 'link'; label: string; href: string }
 
+type ParsedMatch =
+  | { kind: 'code'; index: number; fullMatch: string; content: string }
+  | { kind: 'link'; index: number; fullMatch: string; label: string; href: string }
+  | { kind: 'strong'; index: number; fullMatch: string; content: string }
+  | { kind: 'em'; index: number; fullMatch: string; content: string }
+
 export const tokenizeInline = (value: string | null | undefined): InlineToken[] => {
   const tokens: InlineToken[] = []
   let remaining = value ?? ''
 
   while (remaining.length) {
-    const codeMatch = remaining.match(/`([^`]+)`/)
-    const linkMatch = remaining.match(/\[([^\]]+)]\(([^)]+)\)/)
-    const strongMatch = remaining.match(/\*\*([^*]+)\*\*/)
-    const emMatchAsterisk = remaining.match(/\*([^*]+)\*/)
+    const codeRe = remaining.match(/`([^`]+)`/)
+    const linkRe = remaining.match(/\[([^\]]+)]\(([^)]+)\)/)
+    const strongRe = remaining.match(/\*\*([^*]+)\*\*/)
+    const emAsteriskRe = remaining.match(/\*([^*]+)\*/)
     // Underscore emphasis: boundary-safe (no lookbehind) for older Safari.
     // Group 1 = optional leading non-word char, group 2 = emphasis content.
-    const rawUnderscore = remaining.match(/(^|[^\w])_([^_]+)_([^\w]|$)/)
+    const emUnderscoreRe = remaining.match(/(^|[^\w])_([^_]+)_([^\w]|$)/)
 
-    type InlineMatch = {
-      kind: InlineToken['kind']
-      index: number
-      consumed: number
-      value: string
-      label?: string
-      href?: string
-    }
-
-    const matches: InlineMatch[] = [
-      codeMatch && {
-        kind: 'code' as const,
-        index: codeMatch.index ?? 0,
-        consumed: codeMatch[0].length,
-        value: codeMatch[1],
-      },
-      linkMatch && {
-        kind: 'link' as const,
-        index: linkMatch.index ?? 0,
-        consumed: linkMatch[0].length,
-        value: linkMatch[1],
-        label: linkMatch[1],
-        href: linkMatch[2],
-      },
-      strongMatch && {
-        kind: 'strong' as const,
-        index: strongMatch.index ?? 0,
-        consumed: strongMatch[0].length,
-        value: strongMatch[1],
-      },
-      emMatchAsterisk && {
-        kind: 'em' as const,
-        index: emMatchAsterisk.index ?? 0,
-        consumed: emMatchAsterisk[0].length,
-        value: emMatchAsterisk[1],
-      },
-      rawUnderscore && {
-        kind: 'em' as const,
-        index: (rawUnderscore.index ?? 0) + rawUnderscore[1].length,
-        consumed: rawUnderscore[2].length + 2, // _content_
-        value: rawUnderscore[2],
-      },
-    ].filter(Boolean) as InlineMatch[]
+    const matches: ParsedMatch[] = []
+    if (codeRe)
+      matches.push({
+        kind: 'code',
+        index: codeRe.index ?? 0,
+        fullMatch: codeRe[0],
+        content: codeRe[1],
+      })
+    if (linkRe)
+      matches.push({
+        kind: 'link',
+        index: linkRe.index ?? 0,
+        fullMatch: linkRe[0],
+        label: linkRe[1],
+        href: linkRe[2],
+      })
+    if (strongRe)
+      matches.push({
+        kind: 'strong',
+        index: strongRe.index ?? 0,
+        fullMatch: strongRe[0],
+        content: strongRe[1],
+      })
+    if (emAsteriskRe)
+      matches.push({
+        kind: 'em',
+        index: emAsteriskRe.index ?? 0,
+        fullMatch: emAsteriskRe[0],
+        content: emAsteriskRe[1],
+      })
+    if (emUnderscoreRe)
+      matches.push({
+        kind: 'em',
+        index: (emUnderscoreRe.index ?? 0) + emUnderscoreRe[1].length,
+        fullMatch: `_${emUnderscoreRe[2]}_`,
+        content: emUnderscoreRe[2],
+      })
 
     if (matches.length === 0) {
       tokens.push({ kind: 'text', value: remaining })
@@ -104,26 +104,26 @@ export const tokenizeInline = (value: string | null | undefined): InlineToken[] 
     }
 
     if (next.kind === 'code') {
-      tokens.push({ kind: 'code', value: next.value })
-      remaining = remaining.slice(next.consumed)
+      tokens.push({ kind: 'code', value: next.content })
+      remaining = remaining.slice(next.fullMatch.length)
       continue
     }
 
     if (next.kind === 'link') {
-      tokens.push({ kind: 'link', label: next.label!, href: next.href! })
-      remaining = remaining.slice(next.consumed)
+      tokens.push({ kind: 'link', label: next.label, href: next.href })
+      remaining = remaining.slice(next.fullMatch.length)
       continue
     }
 
     if (next.kind === 'strong') {
-      tokens.push({ kind: 'strong', value: next.value })
-      remaining = remaining.slice(next.consumed)
+      tokens.push({ kind: 'strong', value: next.content })
+      remaining = remaining.slice(next.fullMatch.length)
       continue
     }
 
     if (next.kind === 'em') {
-      tokens.push({ kind: 'em', value: next.value })
-      remaining = remaining.slice(next.consumed)
+      tokens.push({ kind: 'em', value: next.content })
+      remaining = remaining.slice(next.fullMatch.length)
       continue
     }
 
