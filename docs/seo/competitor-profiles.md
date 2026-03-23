@@ -34,7 +34,7 @@ This document profiles 12 competitor and peer websites that operate in the techn
 
 **Key findings:**
 
-- TABS competes against organizations with domain authorities (DA) ranging from **55 to 95** — predominantly well-established think tanks, consultancies, and intergovernmental bodies.
+- TABS competes against organizations with domain authorities (DA) ranging from **55 to 92** — predominantly well-established think tanks, consultancies, and intergovernmental bodies.
 - The most significant keyword overlap is in **technology adoption models** (TAM, UTAUT), **barriers to technology adoption**, **digital transformation**, and **organizational change management**.
 - **Competitive gap:** No single competitor offers a dedicated, practitioner-focused resource that combines academic adoption model documentation with real-world barrier identification and survey-driven data from organizational leaders. This is TABS's primary differentiator.
 - **Opportunity areas:** Long-tail keywords around specific barriers (e.g., "legacy system integration barriers," "cybersecurity adoption challenges"), executive-role-specific content, and applied research content bridging theory to practice.
@@ -58,7 +58,7 @@ This document profiles 12 competitor and peer websites that operate in the techn
 | 11  | World Bank              | worldbank.org        | 92            | 8M–20M                       | Digital adoption index, development economics       | Intergovernmental org |
 | 12  | ITU                     | itu.int              | 85            | 1M–5M                        | ICT statistics, digital inclusion policy            | UN agency             |
 
-> **Note:** Domain Authority (DA) estimates are approximate ranges based on publicly available free SEO tool data (Moz, Ahrefs free checker, SimilarWeb). Organic traffic estimates reflect total site traffic, not just technology-adoption-related content. Metrics are directional and may vary by tool and date.
+> **Note:** Domain Authority (DA) estimates are approximate ranges based on publicly available free SEO tool data (Moz DA, Ahrefs Domain Rating). SimilarWeb was used for organic traffic estimates only. Organic traffic estimates reflect total site traffic, not just technology-adoption-related content. Metrics are directional and may vary by tool and date.
 
 ---
 
@@ -680,7 +680,7 @@ The table below maps key topics and keywords where TABS overlaps with competitor
 
 ### Data Collection
 
-- **Domain Authority (DA):** Estimated using publicly available ranges from Moz Domain Analysis, Ahrefs Website Authority Checker (free tier), and corroborated with industry benchmark reports.
+- **Domain Authority (DA):** Estimated using Moz Domain Analysis (DA) and Ahrefs Domain Rating (DR) via their free-tier tools, triangulated for consistency. The column label "Est. DA (Moz)" reflects the primary scale used, with Ahrefs DR as a corroborating data point.
 - **Organic Traffic:** Estimated using SimilarWeb (free tier) and Ubersuggest where available. Traffic figures represent total site organic traffic, not traffic specific to technology adoption content.
 - **Content Analysis:** Manual review of each competitor's technology adoption and digital transformation content hubs, including topic coverage, content formats, publication frequency, and target audience.
 - **SERP Feature Analysis:** Manual Google search queries for target keywords to identify which competitors appear in featured snippets, knowledge panels, AI Overviews, and "People Also Ask" boxes.
