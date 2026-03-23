@@ -60,14 +60,14 @@ This document identifies keyword gaps and content opportunities where competitor
 
 ### Data Sources
 
-| Source                                                         | Data Provided                                  | How Used                                     |
-| -------------------------------------------------------------- | ---------------------------------------------- | -------------------------------------------- |
-| TABS sitemap (`src/app/sitemap.ts`)                            | Complete content inventory (170+ URLs)         | Map existing content coverage                |
-| Competitor Profiles ([doc](./competitor-profiles.md))          | 12 competitor content strategies, DA estimates | Identify competitor keyword targets          |
-| SERP Benchmarking ([doc](./competitive-serp-benchmarking.md))  | 25 priority keyword positions                  | Baseline TABS vs. competitor rankings        |
-| Google Search Console (via `src/lib/google-search-console.ts`) | TABS keyword rankings, impressions, clicks     | Identify page 2–3 ranking opportunities      |
-| Public SERP analysis                                           | Search result composition for target keywords  | Identify gaps and SERP feature opportunities |
-| Keyword research tools (estimated data)                        | Search volume, keyword difficulty estimates    | Prioritize opportunities by potential impact |
+| Source                                                                               | Data Provided                                  | How Used                                     |
+| ------------------------------------------------------------------------------------ | ---------------------------------------------- | -------------------------------------------- |
+| TABS sitemap (`src/app/sitemap.ts`)                                                  | Complete content inventory (170+ URLs)         | Map existing content coverage                |
+| Competitor Profiles ([doc](./competitor-profiles.md))                                | 12 competitor content strategies, DA estimates | Identify competitor keyword targets          |
+| SERP Benchmarking ([doc](./competitive-serp-benchmarking.md))                        | 25 priority keyword positions                  | Baseline TABS vs. competitor rankings        |
+| Google Search Console (via `src/lib/google-search-console.ts`)                       | TABS keyword rankings, impressions, clicks     | Identify page 2–3 ranking opportunities      |
+| Public SERP analysis                                                                 | Search result composition for target keywords  | Identify gaps and SERP feature opportunities |
+| Keyword research tools (Google Keyword Planner, Google Trends, public SERP analysis) | Search volume, keyword difficulty estimates    | Prioritize opportunities by potential impact |
 
 ### Analysis Approach
 
@@ -84,6 +84,8 @@ Each recommendation uses an **Impact vs. Effort** score:
 - **Impact (1–5):** Estimated organic traffic potential based on search volume and keyword relevance
 - **Effort (1–5):** Content creation complexity, where 1 = minor update and 5 = entirely new comprehensive page
 - **Priority Score** = Impact × (6 − Effort), yielding a range of 1–25 (higher = higher priority)
+  - _Example:_ A high-impact (5) / low-effort (2) task scores 5 × (6 − 2) = **20** (top priority)
+  - _Example:_ A moderate-impact (3) / high-effort (5) task scores 3 × (6 − 5) = **3** (lower priority)
 
 ---
 
