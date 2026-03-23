@@ -9,7 +9,7 @@ inputs:
     description: GitHub token for creating PRs and enabling automerge
     required: true
   files:
-    description: Space-separated glob of files to format (e.g. "src/data/impact.json")
+    description: Glob pattern or file paths to format (e.g. "src/data/*.json")
     required: true
   commit-message:
     description: Commit message for the PR
@@ -47,7 +47,9 @@ runs:
 
     - name: Format files with Prettier
       shell: bash
-      run: npx prettier --write "${{ inputs.files }}"
+      env:
+        FORMAT_FILES: ${{ inputs.files }}
+      run: npx prettier --write $FORMAT_FILES
 
     - name: Create pull request
       id: cpr
