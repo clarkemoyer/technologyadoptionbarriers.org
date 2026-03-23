@@ -4,6 +4,10 @@ name: Prettier Auto-fix
 # this workflow auto-fixes it by pushing a formatted commit to the PR branch.
 # This handles cases where AI agents or automated workflows push unformatted
 # code that bypasses local pre-commit hooks.
+#
+# Security: Only runs on PRs from the same repository (not forks). Uses
+# --ignore-scripts with npm ci to prevent lifecycle script execution from
+# untrusted branch code.
 
 on:
   workflow_run:
@@ -24,7 +28,8 @@ jobs:
   autofix:
     if: >-
       github.event.workflow_run.conclusion == 'failure' &&
-      github.event.workflow_run.pull_requests[0] != null
+      github.event.workflow_run.pull_requests[0] != null &&
+      github.event.workflow_run.head_repository.full_name == github.repository
     runs-on: ubuntu-latest
     environment: copilot
     steps:
@@ -40,13 +45,13 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install dependencies (no lifecycle scripts)
+        run: npm ci --ignore-scripts
 
       - name: Check if formatting is the issue
         id: check
         run: |
-          if npx prettier --check . 2>/dev/null; then
+          if npx prettier --check .; then
             echo "formatted=true" >> "$GITHUB_OUTPUT"
             echo "Prettier check passed — failure is not a formatting issue."
           else

@@ -47,7 +47,7 @@ runs:
 
     - name: Format files with Prettier
       shell: bash
-      run: npx prettier --write ${{ inputs.files }}
+      run: npx prettier --write "${{ inputs.files }}"
 
     - name: Create pull request
       id: cpr
