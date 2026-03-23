@@ -3,6 +3,8 @@ description: >
   Reusable composite action that formats files with Prettier, creates a PR
   via peter-evans/create-pull-request, and enables automerge. Use this in
   any workflow that generates data files to guarantee Prettier compliance.
+  Prerequisite: the calling workflow must checkout the repository before
+  using this action (e.g. via actions/checkout).
 
 inputs:
   token:
@@ -43,7 +45,7 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: npm ci
+      run: npm ci --ignore-scripts
 
     - name: Format files with Prettier
       shell: bash
