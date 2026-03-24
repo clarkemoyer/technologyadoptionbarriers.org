@@ -1,0 +1,99 @@
+name: TABS V2 Disposition Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run — triage only, no Prolific approval'
+        type: boolean
+        default: true
+      auto_accept_clean:
+        description: 'Auto-accept CLEAN dispositions on Prolific'
+        type: boolean
+        default: false
+      study_id:
+        description: 'Prolific Study ID (required if auto_accept_clean)'
+        required: false
+        type: string
+
+concurrency:
+  group: disposition-pipeline
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  # Step 1: Export responses from Qualtrics
+  # Step 2: Run disposition triage
+  triage:
+    name: Export & Triage
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Export Qualtrics responses
+        run: npx tsx scripts/export-qualtrics-responses.ts
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+
+      - name: Run disposition triage
+        run: npx tsx scripts/disposition-triage.ts
+        env:
+          INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+          OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
+
+      - name: Upload disposition CSV
+        uses: actions/upload-artifact@v7
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}/disposition.csv
+          retention-days: 7
+
+  # Step 3: Auto-accept CLEAN submissions on Prolific
+  auto-accept:
+    name: Prolific Auto-Accept
+    needs: triage
+    if: inputs.auto_accept_clean == true && inputs.dry_run == false
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download disposition CSV
+        uses: actions/download-artifact@v8
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}
+
+      - name: Approve CLEAN submissions
+        run: npx tsx scripts/approve-prolific-submissions.ts
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id }}
+          CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
+          DRY_RUN: 'false'

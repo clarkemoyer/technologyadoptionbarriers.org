@@ -133,6 +133,109 @@ async function makeApiRequest<T>(
  * @returns A promise that resolves to the survey definition containing all questions keyed by question ID.
  * @throws {Error} If the Qualtrics API request fails, returns a non-2xx response, or the response cannot be parsed.
  */
+/* ------------------------------------------------------------------ */
+/*  Response Export (3-step async: start → poll → download)           */
+/* ------------------------------------------------------------------ */
+
+interface ExportProgress {
+  percentComplete: number
+  fileId?: string
+  status?: string
+}
+
+/**
+ * Start a CSV response export for a survey.
+ * @returns The progressId to poll with {@link checkExportProgress}.
+ */
+export async function startResponseExport(
+  surveyId: string,
+  apiToken: string,
+  baseUrl: string
+): Promise<string> {
+  const result = await makeApiRequest<{ progressId: string }>(
+    `/API/v3/surveys/${surveyId}/export-responses`,
+    apiToken,
+    baseUrl,
+    {
+      method: 'POST',
+      body: JSON.stringify({ format: 'csv' }),
+    }
+  )
+  return result.progressId
+}
+
+/**
+ * Poll the export progress.
+ * @returns percentComplete (0-100) and fileId when complete.
+ */
+export async function checkExportProgress(
+  surveyId: string,
+  progressId: string,
+  apiToken: string,
+  baseUrl: string
+): Promise<ExportProgress> {
+  return makeApiRequest<ExportProgress>(
+    `/API/v3/surveys/${surveyId}/export-responses/${progressId}`,
+    apiToken,
+    baseUrl
+  )
+}
+
+/**
+ * Download the completed export ZIP file.
+ * This bypasses the standard JSON response handler since the response is binary.
+ */
+export async function downloadExportFile(
+  surveyId: string,
+  fileId: string,
+  apiToken: string,
+  baseUrl: string
+): Promise<Buffer> {
+  const cleanBaseUrl = baseUrl.replace(/\/$/, '')
+  const url = `${cleanBaseUrl}/API/v3/surveys/${surveyId}/export-responses/${fileId}/file`
+
+  const response = await fetch(url, {
+    headers: { 'X-API-TOKEN': apiToken },
+  })
+
+  if (!response.ok) {
+    throw new Error(`Export download failed: ${response.status} ${response.statusText}`)
+  }
+
+  const arrayBuffer = await response.arrayBuffer()
+  return Buffer.from(arrayBuffer)
+}
+
+/**
+ * Orchestrate a full response export: start → poll → download → return ZIP buffer.
+ * Polls every 2 seconds with a 5-minute timeout.
+ */
+export async function exportSurveyResponses(
+  surveyId: string,
+  apiToken: string,
+  baseUrl: string
+): Promise<Buffer> {
+  const progressId = await startResponseExport(surveyId, apiToken, baseUrl)
+
+  const POLL_INTERVAL_MS = 2000
+  const TIMEOUT_MS = 5 * 60 * 1000
+  const start = Date.now()
+
+  while (Date.now() - start < TIMEOUT_MS) {
+    const progress = await checkExportProgress(surveyId, progressId, apiToken, baseUrl)
+    if (progress.percentComplete === 100 && progress.fileId) {
+      return downloadExportFile(surveyId, progress.fileId, apiToken, baseUrl)
+    }
+    await new Promise((resolve) => setTimeout(resolve, POLL_INTERVAL_MS))
+  }
+
+  throw new Error(`Export timed out after ${TIMEOUT_MS / 1000}s for survey ${surveyId}`)
+}
+
+/* ------------------------------------------------------------------ */
+/*  Survey Questions                                                  */
+/* ------------------------------------------------------------------ */
+
 export async function getSurveyQuestions(
   surveyId: string,
   apiToken: string,
