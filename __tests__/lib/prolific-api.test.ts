@@ -11,6 +11,7 @@ import {
   listStudySubmissions,
   exportSubmissionsCSV,
   bulkApproveSubmissions,
+  bulkRejectSubmissions,
   ProlificApiErrorClass,
   type Study,
   type Submission,
@@ -677,6 +678,49 @@ describe('Prolific API Client', () => {
       ;(global.fetch as jest.Mock).mockRejectedValueOnce(new Error('DNS resolution failed'))
 
       await expect(bulkApproveSubmissions(mockStudyId, ['pid-1'], mockApiToken)).rejects.toThrow(
+        ProlificApiErrorClass
+      )
+    })
+  })
+
+  describe('bulkRejectSubmissions', () => {
+    it('should send bulk reject request with study ID and participant IDs', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        text: async () => '"The request to bulk reject has been made successfully."',
+      })
+
+      const participantIds = ['pid-1', 'pid-2']
+      await bulkRejectSubmissions(mockStudyId, participantIds, mockApiToken)
+
+      expect(global.fetch).toHaveBeenCalledWith(
+        'https://api.prolific.com/api/v1/submissions/bulk-reject/',
+        expect.objectContaining({
+          method: 'POST',
+          body: JSON.stringify({
+            study_id: mockStudyId,
+            participant_ids: participantIds,
+          }),
+        })
+      )
+    })
+
+    it('should throw on API error', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: false,
+        status: 400,
+        json: async () => ({ detail: 'Invalid participant IDs' }),
+      })
+
+      await expect(bulkRejectSubmissions(mockStudyId, ['bad-pid'], mockApiToken)).rejects.toThrow(
+        ProlificApiErrorClass
+      )
+    })
+
+    it('should wrap network errors', async () => {
+      ;(global.fetch as jest.Mock).mockRejectedValueOnce(new Error('Network failure'))
+
+      await expect(bulkRejectSubmissions(mockStudyId, ['pid-1'], mockApiToken)).rejects.toThrow(
         ProlificApiErrorClass
       )
     })
