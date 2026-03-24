@@ -322,6 +322,40 @@ When you push to a PR, GitHub Actions runs:
 
 **All checks must pass and reviews must be addressed before merge.**
 
+### Prettier Enforcement (Automated Workflows)
+
+**Any workflow that commits files MUST run Prettier before the commit.** AI agents and GitHub Actions bypass local pre-commit hooks, so formatting must be handled explicitly.
+
+**Use the reusable composite action** for workflows that create data-update PRs:
+
+```yaml
+# Requires actions/checkout before this step:
+- uses: ./.github/actions/format-and-pr
+  with:
+    token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+    files: 'src/data/my-file.json'
+    commit-message: 'chore: update my data'
+    pr-title: 'Update my data'
+    pr-body: 'Automated data update.'
+    branch: chore/my-data-update
+```
+
+If you can't use the composite action, add these steps before any commit-creating action:
+
+```yaml
+- name: Setup Node.js
+  uses: actions/setup-node@v6
+  with:
+    node-version: '20'
+    cache: 'npm'
+- name: Install dependencies
+  run: npm ci --ignore-scripts
+- name: Format files
+  run: npx prettier --write <files>
+```
+
+**Safety net**: The `prettier-autofix.yml` workflow monitors CI failures and auto-pushes formatting fixes to PR branches if Prettier is the cause.
+
 ### Code Review Process
 
 1. **Automatic trigger**: When you mark a PR as "Ready for review", Copilot automatically reviews your code

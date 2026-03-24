@@ -1,0 +1,81 @@
+name: Prettier Auto-fix
+
+# Runs when CI fails on a PR. If the failure is a Prettier formatting issue,
+# this workflow auto-fixes it by pushing a formatted commit to the PR branch.
+# This handles cases where AI agents or automated workflows push unformatted
+# code that bypasses local pre-commit hooks.
+#
+# Security:
+# - Only runs on PRs from the same repository (not forks).
+# - npm ci --ignore-scripts prevents npm lifecycle scripts (preinstall,
+#   postinstall, etc.) from running during install. Note that npx prettier
+#   still executes code from the dependency versions defined by the PR
+#   branch's package-lock.json — this is acceptable because the same-repo
+#   check limits exposure to branches within the repository.
+
+on:
+  workflow_run:
+    workflows: ['CI - Build and Test']
+    types: [completed]
+    branches-ignore:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prettier-autofix-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: true
+
+jobs:
+  autofix:
+    if: >-
+      github.event.workflow_run.conclusion == 'failure' &&
+      github.event.workflow_run.pull_requests[0] != null &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    environment: copilot
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+          token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies (no lifecycle scripts)
+        run: npm ci --ignore-scripts
+
+      - name: Check if formatting is the issue
+        id: check
+        run: |
+          if npx prettier --check .; then
+            echo "formatted=true" >> "$GITHUB_OUTPUT"
+            echo "Prettier check passed — failure is not a formatting issue."
+          else
+            echo "formatted=false" >> "$GITHUB_OUTPUT"
+            echo "Prettier check failed — will auto-fix."
+          fi
+
+      - name: Auto-fix formatting
+        if: steps.check.outputs.formatted == 'false'
+        run: npx prettier --write .
+
+      - name: Commit and push fixes
+        if: steps.check.outputs.formatted == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit after formatting."
+          else
+            git commit -m "style: auto-fix Prettier formatting"
+            git push
+            echo "Pushed formatting fix to ${{ github.event.workflow_run.head_branch }}"
+          fi
