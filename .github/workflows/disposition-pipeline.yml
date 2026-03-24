@@ -51,6 +51,11 @@ jobs:
           QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
           OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
 
+      - name: Verify export columns
+        run: npx --no-install tsx scripts/check-export-headers.ts
+        env:
+          INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+
       - name: Run disposition triage
         run: npx --no-install tsx scripts/disposition-triage.ts
         env:
