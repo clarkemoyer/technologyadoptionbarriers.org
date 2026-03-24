@@ -434,14 +434,23 @@ export async function bulkApproveSubmissions(
   headers.set('Authorization', `Token ${apiToken}`)
   headers.set('Content-Type', 'application/json')
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      study_id: studyId,
-      participant_ids: participantIds,
-    }),
-  })
+  let response: Response
+  try {
+    response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        study_id: studyId,
+        participant_ids: participantIds,
+      }),
+    })
+  } catch (error) {
+    throw new ProlificApiErrorClass(
+      `Network error during bulk approve: ${error instanceof Error ? error.message : String(error)}`,
+      0,
+      {}
+    )
+  }
 
   if (!response.ok) {
     let errorData: ProlificApiError = {}

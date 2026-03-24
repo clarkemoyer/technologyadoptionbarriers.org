@@ -671,5 +671,13 @@ describe('Prolific API Client', () => {
         ProlificApiErrorClass
       )
     })
+
+    it('should wrap network errors in ProlificApiErrorClass', async () => {
+      ;(global.fetch as jest.Mock).mockRejectedValueOnce(new Error('DNS resolution failed'))
+
+      await expect(bulkApproveSubmissions(mockStudyId, ['pid-1'], mockApiToken)).rejects.toThrow(
+        ProlificApiErrorClass
+      )
+    })
   })
 })
