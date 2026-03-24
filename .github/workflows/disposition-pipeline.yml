@@ -57,12 +57,15 @@ jobs:
           INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
           OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
 
+      # Artifact is required to pass data between jobs. Contains only
+      # PROLIFIC_PIDs and computed flags — no survey response data.
+      # Retention is minimized; artifact is auto-deleted after 1 day.
       - name: Upload disposition CSV
         uses: actions/upload-artifact@v7
         with:
           name: disposition-csv
           path: ${{ runner.temp }}/disposition.csv
-          retention-days: 7
+          retention-days: 1
 
   # Step 3: Auto-accept CLEAN submissions on Prolific
   # Requires PR #512 (approve-prolific-submissions.ts) to be merged first
