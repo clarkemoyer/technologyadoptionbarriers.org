@@ -1,11 +1,12 @@
 /**
- * Diagnostic: dump raw Qualtrics export headers and Q_StraightliningCount values.
+ * Diagnostic: verify raw Qualtrics export columns using proper CSV parsing.
  *
  * Environment variables:
  *   INPUT_PATH – Path to the raw Qualtrics CSV export (required)
  */
 
 import { readFileSync } from 'node:fs'
+import { parseCsvLine } from '../src/lib/disposition'
 
 const inputPath = process.env.INPUT_PATH
 if (!inputPath) {
@@ -16,8 +17,8 @@ if (!inputPath) {
 const csv = readFileSync(inputPath, 'utf-8')
 const lines = csv.split(/\r?\n/).filter((l) => l.trim())
 
-// Row 1 = headers
-const headers = lines[0].split(',').map((h) => h.replace(/"/g, '').trim())
+// Row 1 = headers (use proper CSV parser for quoted fields)
+const headers = parseCsvLine(lines[0])
 
 console.log(`Total columns: ${headers.length}`)
 console.log('')
@@ -28,54 +29,55 @@ headers.forEach((h, i) => {
   if (h.startsWith('Q_')) console.log(`  [${i}] ${h}`)
 })
 
-// Find straightlining
-const straightIdx = headers.findIndex(
-  (h) => h.includes('StraightliningCount') || h.includes('Straightlining')
-)
-
-console.log('')
-if (straightIdx === -1) {
-  console.log('*** Q_StraightliningCount COLUMN NOT FOUND ***')
-  console.log('This means the v2 survey may not have straightlining detection enabled.')
-} else {
-  console.log(
-    `Q_StraightliningCount found at column index ${straightIdx}: "${headers[straightIdx]}"`
-  )
-  console.log('')
-
-  // Count values
-  let nonZero = 0
-  let empty = 0
-  let total = 0
-  for (let i = 3; i < lines.length; i++) {
-    total++
-    const val = lines[i].split(',')[straightIdx]?.replace(/"/g, '').trim() ?? ''
-    if (val === '') empty++
-    else if (val !== '0') nonZero++
-  }
-  console.log(`Data rows: ${total}`)
-  console.log(`Zero: ${total - empty - nonZero}`)
-  console.log(`Non-zero: ${nonZero}`)
-  console.log(`Empty/blank: ${empty}`)
-}
-
-// Also check the IRI columns and reCAPTCHA
-for (const col of [
+// Check key columns
+const keyColumns = [
+  'PROLIFIC_PID',
+  'Finished',
+  'Duration (in seconds)',
   'Q10-28_Barriers_19',
   'Q47-64_Readiness_18',
   'Q65-73_Maturity_9',
   'Q_RecaptchaScore',
-  'PROLIFIC_PID',
-]) {
+  'Q_StraightliningCount',
+]
+
+console.log('')
+console.log('=== Key column verification ===')
+for (const col of keyColumns) {
   const idx = headers.findIndex((h) => h === col)
   if (idx === -1) {
-    console.log(`\n*** ${col} COLUMN NOT FOUND ***`)
-  } else {
-    // Show 3 sample values
-    const samples = []
-    for (let i = 3; i < Math.min(lines.length, 8); i++) {
-      samples.push(lines[i].split(',')[idx]?.replace(/"/g, '').trim() ?? '(empty)')
-    }
-    console.log(`\n${col} [${idx}] samples: ${samples.join(' | ')}`)
+    console.log(`*** ${col}: NOT FOUND ***`)
+    continue
   }
+
+  // Count values from data rows (skip header rows 2-3)
+  let nonEmpty = 0
+  let total = 0
+  const samples: string[] = []
+
+  for (let i = 3; i < lines.length; i++) {
+    const fields = parseCsvLine(lines[i])
+    total++
+    const val = (fields[idx] ?? '').trim()
+    if (val !== '') nonEmpty++
+    if (samples.length < 3 && val !== '') samples.push(val)
+  }
+
+  console.log(`${col} [${idx}]: ${nonEmpty}/${total} non-empty | samples: ${samples.join(' | ')}`)
+}
+
+// Detailed straightlining breakdown
+const straightIdx = headers.findIndex((h) => h === 'Q_StraightliningCount')
+if (straightIdx >= 0) {
+  console.log('')
+  console.log('=== Q_StraightliningCount breakdown ===')
+  const counts: Record<string, number> = {}
+  for (let i = 3; i < lines.length; i++) {
+    const fields = parseCsvLine(lines[i])
+    const val = (fields[straightIdx] ?? '').trim() || '(blank)'
+    counts[val] = (counts[val] || 0) + 1
+  }
+  Object.entries(counts)
+    .sort(([, a], [, b]) => b - a)
+    .forEach(([val, count]) => console.log(`  ${val}: ${count}`))
 }
