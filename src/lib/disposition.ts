@@ -109,7 +109,11 @@ export function triageCsv(inputCsv: string): DispositionRow[] {
   const recaptchaIdx = colIndex(headers, 'Q_RecaptchaScore')
   const straightliningIdx = colIndex(headers, 'Q_StraightliningCount')
 
-  const results: DispositionRow[] = []
+  // Use a Map keyed by PID to deduplicate. Qualtrics exports rows in
+  // chronological order, so later entries (retakes) overwrite earlier ones.
+  // Decision: use latest attempt only — documented in issue #521.
+  const byPid = new Map<string, DispositionRow>()
+  let duplicateCount = 0
 
   for (let i = 3; i < lines.length; i++) {
     const fields = parseCsvLine(lines[i])
@@ -149,8 +153,13 @@ export function triageCsv(inputCsv: string): DispositionRow[] {
       Straightlining_Flag: straightliningFlag,
     }
 
-    results.push({ ...partial, Disposition: computeDisposition(partial) })
+    if (byPid.has(pid)) duplicateCount++
+    byPid.set(pid, { ...partial, Disposition: computeDisposition(partial) })
   }
 
-  return results
+  if (duplicateCount > 0) {
+    console.log(`Dedup: ${duplicateCount} duplicate PID(s) found — using latest attempt for each.`)
+  }
+
+  return Array.from(byPid.values())
 }
