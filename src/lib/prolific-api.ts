@@ -408,3 +408,71 @@ export async function exportSubmissionsCSV(studyId: string, apiToken: string): P
 
   return csvLines.join('\n')
 }
+
+/**
+ * Bulk approve submissions for a study by participant IDs.
+ *
+ * Uses the Prolific bulk-approve endpoint:
+ * POST /api/v1/submissions/bulk-approve/
+ *
+ * @param studyId - The unique identifier of the study
+ * @param participantIds - Array of participant IDs to approve
+ * @param apiToken - Prolific API token
+ * @returns Promise that resolves when the bulk approval request completes
+ * @throws {ProlificApiErrorClass} When the API request fails
+ *
+ * @see https://docs.prolific.com/api-reference/submissions/bulk-approve-submissions
+ */
+export async function bulkApproveSubmissions(
+  studyId: string,
+  participantIds: string[],
+  apiToken: string
+): Promise<void> {
+  const url = `${PROLIFIC_API_BASE_URL}/submissions/bulk-approve/`
+
+  const headers = new Headers()
+  headers.set('Authorization', `Token ${apiToken}`)
+  headers.set('Content-Type', 'application/json')
+
+  let response: Response
+  try {
+    response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        study_id: studyId,
+        participant_ids: participantIds,
+      }),
+    })
+  } catch (error) {
+    throw new ProlificApiErrorClass(
+      `Network error during bulk approve: ${error instanceof Error ? error.message : String(error)}`,
+      0,
+      {}
+    )
+  }
+
+  if (!response.ok) {
+    let errorData: ProlificApiError = {}
+    try {
+      errorData = (await response.json()) as ProlificApiError
+    } catch {
+      // Empty or non-JSON error body
+    }
+    throw new ProlificApiErrorClass(
+      errorData.detail ||
+        errorData.error ||
+        errorData.message ||
+        `Bulk approve failed with status ${response.status}`,
+      response.status,
+      errorData
+    )
+  }
+  // Drain response body to release the underlying connection.
+  // Endpoint may return 200 with JSON or 204 with empty body.
+  try {
+    await response.text()
+  } catch {
+    // Ignore drain errors
+  }
+}
