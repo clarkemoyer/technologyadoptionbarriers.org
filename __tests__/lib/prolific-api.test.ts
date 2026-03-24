@@ -612,7 +612,7 @@ describe('Prolific API Client', () => {
     it('should send bulk approve request with study ID and participant IDs', async () => {
       ;(global.fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
-        json: async () => ({}),
+        text: async () => '{}',
       })
 
       const participantIds = ['pid-1', 'pid-2', 'pid-3']
@@ -639,6 +639,7 @@ describe('Prolific API Client', () => {
       ;(global.fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
         status: 204,
+        text: async () => '',
       })
 
       await expect(

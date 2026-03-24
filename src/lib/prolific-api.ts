@@ -468,11 +468,11 @@ export async function bulkApproveSubmissions(
       errorData
     )
   }
-  // Drain response body to release the underlying connection.
-  // Endpoint may return 200 with JSON or 204 with empty body.
-  try {
-    await response.text()
-  } catch {
-    // Ignore drain errors
+  // Log response body for debugging, then return.
+  const responseBody = await response.text()
+  if (responseBody) {
+    console.log(`Prolific bulk-approve response (${response.status}): ${responseBody}`)
+  } else {
+    console.log(`Prolific bulk-approve response: ${response.status} (empty body)`)
   }
 }
