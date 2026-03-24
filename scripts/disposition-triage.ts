@@ -152,7 +152,8 @@ export function triageCsv(inputCsv: string): DispositionRow[] {
     const iriFailCount = 3 - iriPassCount
     const speedFlag: 0 | 1 = duration < 300 ? 1 : 0
     const smealFlag: 0 | 1 = duration >= 300 && duration < 540 ? 1 : 0
-    const recaptchaScore = parseFloat(fields[recaptchaIdx] ?? '1.0') || 0
+    const rawRecaptcha = (fields[recaptchaIdx] ?? '').trim()
+    const recaptchaScore = rawRecaptcha === '' ? 1.0 : parseFloat(rawRecaptcha) || 1.0
     const recaptchaFlag: 0 | 1 = recaptchaScore < 0.5 ? 1 : 0
     const straightliningCount = parseInt(fields[straightliningIdx] ?? '0', 10) || 0
     const straightliningFlag: 0 | 1 = straightliningCount > 0 ? 1 : 0
@@ -265,13 +266,10 @@ async function main() {
   appendGithubStepSummary(summary)
 }
 
-// Only run main when executed directly (not when imported by tests)
-const isDirectRun =
-  typeof process !== 'undefined' &&
-  process.argv[1] &&
-  (process.argv[1].includes('disposition-triage') || process.argv[1].includes('tsx'))
-
-if (isDirectRun) {
+// Only run main when executed directly, not when imported by tests.
+// require.main / import.meta.url checks don't work reliably with tsx,
+// so we check for the JEST_WORKER_ID env var that Jest always sets.
+if (!process.env.JEST_WORKER_ID) {
   main().catch((error) => {
     console.error('Triage failed:', error)
     process.exit(1)

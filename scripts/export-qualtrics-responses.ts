@@ -27,13 +27,26 @@ function extractCsvFromZip(zipBuffer: Buffer): string {
     const sig = zipBuffer.readUInt32LE(offset)
     if (sig !== 0x04034b50) break // Not a local file header
 
+    const gpFlag = zipBuffer.readUInt16LE(offset + 6)
     const method = zipBuffer.readUInt16LE(offset + 8)
-    const compressedSize = zipBuffer.readUInt32LE(offset + 18)
-    const uncompressedSize = zipBuffer.readUInt32LE(offset + 22)
+    let compressedSize = zipBuffer.readUInt32LE(offset + 18)
     const nameLen = zipBuffer.readUInt16LE(offset + 26)
     const extraLen = zipBuffer.readUInt16LE(offset + 28)
     const name = zipBuffer.subarray(offset + 30, offset + 30 + nameLen).toString('utf-8')
     const dataStart = offset + 30 + nameLen + extraLen
+
+    // Bit 3 = data descriptor follows compressed data (sizes in local header are 0)
+    if (gpFlag & 0x08 && compressedSize === 0) {
+      // Scan for data descriptor signature to find actual sizes
+      let scanOffset = dataStart
+      while (scanOffset < zipBuffer.length - 16) {
+        if (zipBuffer.readUInt32LE(scanOffset) === 0x08074b50) {
+          compressedSize = zipBuffer.readUInt32LE(scanOffset + 8)
+          break
+        }
+        scanOffset++
+      }
+    }
 
     if (basename(name).endsWith('.csv')) {
       const compressedData = zipBuffer.subarray(dataStart, dataStart + compressedSize)
@@ -43,7 +56,7 @@ function extractCsvFromZip(zipBuffer: Buffer): string {
         return compressedData.toString('utf-8')
       } else if (method === 8) {
         // DEFLATE
-        const inflated = inflateRawSync(compressedData, { maxOutputLength: uncompressedSize * 2 })
+        const inflated = inflateRawSync(compressedData)
         return inflated.toString('utf-8')
       } else {
         throw new Error(`Unsupported ZIP compression method ${method} for ${name}`)
