@@ -141,6 +141,12 @@ def parse_qualtrics_csv(
 # ---------------------------------------------------------------------------
 
 
+def _slide_sort_key(name: str) -> int:
+    """Extract slide number from a filename for sorting."""
+    m = re.search(r"(\d+)", name.rsplit("/", 1)[-1])
+    return int(m.group(1)) if m else 0
+
+
 def extract_slide_texts(pptx_path: Path) -> dict[int, str]:
     """Return ``{slide_number: concatenated_text}`` from a ``.pptx`` file."""
 
@@ -153,9 +159,7 @@ def extract_slide_texts(pptx_path: Path) -> dict[int, str]:
                 for n in zf.namelist()
                 if re.match(r"ppt/slides/slide\d+\.xml$", n)
             ],
-            key=lambda n: int(
-                re.search(r"(\d+)", n.rsplit("/", 1)[-1]).group(1)  # type: ignore[union-attr]
-            ),
+            key=_slide_sort_key,
         )
 
         for slide_file in slide_files:
@@ -183,9 +187,7 @@ def extract_slide_texts_from_dir(slides_dir: Path) -> dict[int, str]:
 
     for slide_file in sorted(
         slides_dir.glob("slide*.xml"),
-        key=lambda p: int(
-            re.search(r"(\d+)", p.stem).group(1)  # type: ignore[union-attr]
-        ),
+        key=lambda p: _slide_sort_key(p.stem),
     ):
         match = re.search(r"(\d+)", slide_file.stem)
         if match is None:
@@ -365,7 +367,7 @@ def compute_correlations(
             else:
                 r = None
 
-            label = f"{name_a[0]}-{name_b[0]}"
+            label = f"{name_a[0]}-{name_b[0]}" if name_a and name_b else "?-?"
             pairs[label] = r
 
     return pairs
