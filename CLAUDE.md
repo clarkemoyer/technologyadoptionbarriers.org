@@ -349,7 +349,7 @@ If you can't use the composite action, add these steps before any commit-creatin
     node-version: '20'
     cache: 'npm'
 - name: Install dependencies
-  run: npm ci
+  run: npm ci --ignore-scripts
 - name: Format files
   run: npx prettier --write <files>
 ```
