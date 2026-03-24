@@ -195,4 +195,55 @@ describe('triageCsv', () => {
   it('throws if CSV has fewer than 4 lines', () => {
     expect(() => triageCsv('just,headers\n')).toThrow('3 header rows')
   })
+
+  it('deduplicates by PID, keeping the latest (last) attempt', () => {
+    const csv = [
+      HEADERS,
+      ROW2,
+      ROW3,
+      // First attempt: AUTO-EXCLUDE (2 IRI fails)
+      'pid-dup,TRUE,600,Wrong Answer,Wrong Answer,Level 2: Developing/Repeatable,0.9,0',
+      // Second attempt (retake): CLEAN (all pass)
+      'pid-dup,TRUE,700,Major Barrier,Low Readiness/Capability,Level 2: Developing/Repeatable,0.9,0',
+    ].join('\n')
+
+    const rows = triageCsv(csv)
+    expect(rows).toHaveLength(1)
+    expect(rows[0].PROLIFIC_PID).toBe('pid-dup')
+    expect(rows[0].Disposition).toBe('CLEAN')
+    expect(rows[0].Duration_Seconds).toBe(700)
+  })
+
+  it('deduplicates keeping latest even when latest is worse', () => {
+    const csv = [
+      HEADERS,
+      ROW2,
+      ROW3,
+      // First attempt: CLEAN
+      'pid-dup2,TRUE,700,Major Barrier,Low Readiness/Capability,Level 2: Developing/Repeatable,0.9,0',
+      // Second attempt: AUTO-EXCLUDE
+      'pid-dup2,TRUE,600,Wrong Answer,Wrong Answer,Level 2: Developing/Repeatable,0.9,0',
+    ].join('\n')
+
+    const rows = triageCsv(csv)
+    expect(rows).toHaveLength(1)
+    expect(rows[0].Disposition).toBe('AUTO-EXCLUDE')
+  })
+
+  it('handles mix of unique and duplicate PIDs', () => {
+    const csv = [
+      HEADERS,
+      ROW2,
+      ROW3,
+      'pid-unique,TRUE,600,Major Barrier,Low Readiness/Capability,Level 2: Developing/Repeatable,0.9,0',
+      'pid-dup,TRUE,200,Wrong Answer,Wrong Answer,Wrong Answer,0.9,0',
+      'pid-dup,TRUE,700,Major Barrier,Low Readiness/Capability,Level 2: Developing/Repeatable,0.9,0',
+    ].join('\n')
+
+    const rows = triageCsv(csv)
+    expect(rows).toHaveLength(2)
+    const pids = rows.map((r) => r.PROLIFIC_PID)
+    expect(pids).toContain('pid-unique')
+    expect(pids).toContain('pid-dup')
+  })
 })
