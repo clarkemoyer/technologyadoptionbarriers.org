@@ -468,5 +468,11 @@ export async function bulkApproveSubmissions(
       errorData
     )
   }
-  // Success — endpoint may return 200 with JSON or 204 with empty body
+  // Drain response body to release the underlying connection.
+  // Endpoint may return 200 with JSON or 204 with empty body.
+  try {
+    await response.text()
+  } catch {
+    // Ignore drain errors
+  }
 }
