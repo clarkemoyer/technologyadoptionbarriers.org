@@ -223,9 +223,18 @@ export async function exportSurveyResponses(
 
   while (Date.now() - start < TIMEOUT_MS) {
     const progress = await checkExportProgress(surveyId, progressId, apiToken, baseUrl)
-    if (progress.percentComplete === 100 && progress.fileId) {
+
+    if (progress.status === 'failed') {
+      throw new Error(`Qualtrics export failed for survey ${surveyId}`)
+    }
+
+    if (progress.percentComplete === 100) {
+      if (!progress.fileId) {
+        throw new Error(`Export completed but no fileId returned for survey ${surveyId}`)
+      }
       return downloadExportFile(surveyId, progress.fileId, apiToken, baseUrl)
     }
+
     await new Promise((resolve) => setTimeout(resolve, POLL_INTERVAL_MS))
   }
 

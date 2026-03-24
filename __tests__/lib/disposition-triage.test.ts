@@ -1,4 +1,4 @@
-import { computeDisposition, triageCsv, DispositionRow } from '../../scripts/disposition-triage'
+import { computeDisposition, triageCsv, DispositionRow } from '../../src/lib/disposition'
 
 /* ------------------------------------------------------------------ */
 /*  Helper to build partial rows for waterfall tests                  */

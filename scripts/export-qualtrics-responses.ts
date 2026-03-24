@@ -64,6 +64,12 @@ function extractCsvFromZip(zipBuffer: Buffer): string {
     }
 
     offset = dataStart + compressedSize
+    // Skip data descriptor if present (16 bytes: signature + crc32 + compressed + uncompressed)
+    if (gpFlag & 0x08 && offset < zipBuffer.length - 4) {
+      if (zipBuffer.readUInt32LE(offset) === 0x08074b50) {
+        offset += 16
+      }
+    }
   }
 
   throw new Error('No CSV file found in export ZIP')
