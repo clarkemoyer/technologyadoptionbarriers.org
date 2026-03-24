@@ -67,7 +67,7 @@ export function parseCsvLine(line: string): string[] {
 /* ------------------------------------------------------------------ */
 
 export function computeDisposition(row: Omit<DispositionRow, 'Disposition'>): string {
-  if (row.Finished !== 'TRUE') return 'INCOMPLETE'
+  if (row.Finished !== 'TRUE' && row.Finished !== '1') return 'INCOMPLETE'
   if (row.IRI_Fail_Count >= 2) return 'AUTO-EXCLUDE'
   if (row.Speed_Flag === 1 && row.IRI_Fail_Count >= 1) return 'AUTO-EXCLUDE'
   if (row.Speed_Flag === 1 && row.IRI_Fail_Count === 0) return 'FLAG-SPEED'

@@ -35,8 +35,13 @@ describe('computeDisposition', () => {
     expect(computeDisposition(makeRow())).toBe('CLEAN')
   })
 
-  it('returns INCOMPLETE when Finished !== TRUE', () => {
+  it('returns CLEAN when Finished is "1" (Qualtrics numeric format)', () => {
+    expect(computeDisposition(makeRow({ Finished: '1' }))).toBe('CLEAN')
+  })
+
+  it('returns INCOMPLETE when Finished !== TRUE and !== 1', () => {
     expect(computeDisposition(makeRow({ Finished: 'FALSE' }))).toBe('INCOMPLETE')
+    expect(computeDisposition(makeRow({ Finished: '0' }))).toBe('INCOMPLETE')
     expect(computeDisposition(makeRow({ Finished: '' }))).toBe('INCOMPLETE')
   })
 
