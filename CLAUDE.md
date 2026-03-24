@@ -329,7 +329,7 @@ When you push to a PR, GitHub Actions runs:
 **Use the reusable composite action** for workflows that create data-update PRs:
 
 ```yaml
-# After downloading/generating data files:
+# Requires actions/checkout before this step:
 - uses: ./.github/actions/format-and-pr
   with:
     token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
