@@ -1,4 +1,10 @@
-import { computeDisposition, triageCsv, DispositionRow } from '../../src/lib/disposition'
+import {
+  computeDisposition,
+  triageCsv,
+  withinPersonSD,
+  detectPartialStraightlining,
+  DispositionRow,
+} from '../../src/lib/disposition'
 
 /* ------------------------------------------------------------------ */
 /*  Helper to build partial rows for waterfall tests                  */
@@ -22,6 +28,8 @@ function makeRow(
     reCAPTCHA_Flag: 0,
     Straightlining_Count: 0,
     Straightlining_Flag: 0,
+    Partial_Straightlining_Flag: 0,
+    Partial_Straightlining_Blocks: '',
     ...overrides,
   }
 }
@@ -139,6 +147,93 @@ describe('computeDisposition', () => {
         })
       )
     ).toBe('FLAG-SINGLE-IRI')
+  })
+
+  it('returns FLAG-PARTIAL-STRAIGHTLINING when partial flag is set', () => {
+    expect(
+      computeDisposition(
+        makeRow({ Partial_Straightlining_Flag: 1, Partial_Straightlining_Blocks: 'Barriers' })
+      )
+    ).toBe('FLAG-PARTIAL-STRAIGHTLINING')
+  })
+
+  it('waterfall precedence: FLAG-STRAIGHTLINING beats FLAG-PARTIAL-STRAIGHTLINING', () => {
+    expect(
+      computeDisposition(
+        makeRow({
+          Straightlining_Flag: 1,
+          Straightlining_Count: 1,
+          Partial_Straightlining_Flag: 1,
+          Partial_Straightlining_Blocks: 'Barriers',
+        })
+      )
+    ).toBe('FLAG-STRAIGHTLINING')
+  })
+})
+
+/* ------------------------------------------------------------------ */
+/*  Within-person SD tests                                            */
+/* ------------------------------------------------------------------ */
+
+describe('withinPersonSD', () => {
+  it('returns 0 for identical responses', () => {
+    expect(withinPersonSD(['A', 'A', 'A', 'A', 'A'])).toBe(0)
+  })
+
+  it('returns > 0 for varied responses', () => {
+    expect(withinPersonSD(['A', 'B', 'C', 'A', 'B'])).toBeGreaterThan(0)
+  })
+
+  it('returns NaN for fewer than 2 non-empty', () => {
+    expect(withinPersonSD(['A'])).toBeNaN()
+    expect(withinPersonSD(['', '', 'A'])).toBeNaN()
+  })
+
+  it('ignores empty responses', () => {
+    expect(withinPersonSD(['A', '', 'A', '', 'A'])).toBe(0)
+  })
+
+  it('returns SD below 0.5 for near-straightlining', () => {
+    // 18 identical + 1 different = very low variance
+    const responses = Array(18).fill('Moderate Barrier')
+    responses.push('Major Barrier')
+    expect(withinPersonSD(responses)).toBeLessThan(0.5)
+  })
+
+  it('returns SD above 0.5 for varied responses', () => {
+    const responses = ['A', 'B', 'C', 'D', 'A', 'B', 'C', 'D', 'A']
+    expect(withinPersonSD(responses)).toBeGreaterThan(0.5)
+  })
+})
+
+/* ------------------------------------------------------------------ */
+/*  Partial straightlining detection tests                            */
+/* ------------------------------------------------------------------ */
+
+describe('detectPartialStraightlining', () => {
+  const blocks = [{ name: 'TestBlock', prefix: 'TB_', count: 5 }]
+  const headers = ['TB_1', 'TB_2', 'TB_3', 'TB_4', 'TB_5']
+
+  it('flags a block where all items are identical', () => {
+    const fields = ['Same', 'Same', 'Same', 'Same', 'Same']
+    expect(detectPartialStraightlining(fields, headers, blocks)).toEqual(['TestBlock'])
+  })
+
+  it('does not flag a block with varied responses', () => {
+    const fields = ['A', 'B', 'C', 'D', 'E']
+    expect(detectPartialStraightlining(fields, headers, blocks)).toEqual([])
+  })
+
+  it('flags near-straightlining (4 of 5 identical)', () => {
+    const fields = ['Same', 'Same', 'Same', 'Same', 'Different']
+    const result = detectPartialStraightlining(fields, headers, blocks)
+    // SD of [0,0,0,0,1] = 0.4 < 0.5 threshold
+    expect(result).toEqual(['TestBlock'])
+  })
+
+  it('skips blocks with too few non-empty responses', () => {
+    const fields = ['A', '', '', '', '']
+    expect(detectPartialStraightlining(fields, headers, blocks)).toEqual([])
   })
 })
 

@@ -34,6 +34,8 @@ function toCsv(rows: DispositionRow[]): string {
     'reCAPTCHA_Flag',
     'Straightlining_Count',
     'Straightlining_Flag',
+    'Partial_Straightlining_Flag',
+    'Partial_Straightlining_Blocks',
     'Disposition',
   ]
 
@@ -62,6 +64,7 @@ function generateSummary(rows: DispositionRow[]): string {
     'FLAG-SMEAL',
     'FLAG-RECAPTCHA',
     'FLAG-STRAIGHTLINING',
+    'FLAG-PARTIAL-STRAIGHTLINING',
     'INCOMPLETE',
   ]
 
