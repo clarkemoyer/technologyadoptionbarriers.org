@@ -635,6 +635,17 @@ describe('Prolific API Client', () => {
       expect(headers.get('Content-Type')).toBe('application/json')
     })
 
+    it('should handle 204 empty body response', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        status: 204,
+      })
+
+      await expect(
+        bulkApproveSubmissions(mockStudyId, ['pid-1'], mockApiToken)
+      ).resolves.toBeUndefined()
+    })
+
     it('should throw on API error', async () => {
       ;(global.fetch as jest.Mock).mockResolvedValueOnce({
         ok: false,
@@ -643,6 +654,20 @@ describe('Prolific API Client', () => {
       })
 
       await expect(bulkApproveSubmissions(mockStudyId, ['bad-pid'], mockApiToken)).rejects.toThrow(
+        ProlificApiErrorClass
+      )
+    })
+
+    it('should throw on API error with empty body', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+        json: async () => {
+          throw new Error('no body')
+        },
+      })
+
+      await expect(bulkApproveSubmissions(mockStudyId, ['pid-1'], mockApiToken)).rejects.toThrow(
         ProlificApiErrorClass
       )
     })

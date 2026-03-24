@@ -428,11 +428,36 @@ export async function bulkApproveSubmissions(
   participantIds: string[],
   apiToken: string
 ): Promise<void> {
-  await makeApiRequest<unknown>('/submissions/bulk-approve/', apiToken, {
+  const url = `${PROLIFIC_API_BASE_URL}/submissions/bulk-approve/`
+
+  const headers = new Headers()
+  headers.set('Authorization', `Token ${apiToken}`)
+  headers.set('Content-Type', 'application/json')
+
+  const response = await fetch(url, {
     method: 'POST',
+    headers,
     body: JSON.stringify({
       study_id: studyId,
       participant_ids: participantIds,
     }),
   })
+
+  if (!response.ok) {
+    let errorData: ProlificApiError = {}
+    try {
+      errorData = (await response.json()) as ProlificApiError
+    } catch {
+      // Empty or non-JSON error body
+    }
+    throw new ProlificApiErrorClass(
+      errorData.detail ||
+        errorData.error ||
+        errorData.message ||
+        `Bulk approve failed with status ${response.status}`,
+      response.status,
+      errorData
+    )
+  }
+  // Success — endpoint may return 200 with JSON or 204 with empty body
 }
