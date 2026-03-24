@@ -12,7 +12,8 @@
  *   CSV_CONTENT          – Inline CSV content to parse (one of CSV_FILE_PATH or CSV_CONTENT required)
  *   PID_COLUMN           – Column header for participant IDs (default: auto-detect)
  *   DISPOSITION_COLUMN   – Column header for disposition (default: auto-detect "Disposition" / Column D)
- *   DRY_RUN              – When "true", list PIDs without approving (default: false)
+ *   DRY_RUN              – When "false", approve live; otherwise dry run (default: true)
+ *   VERBOSE_DRY_RUN      – When "true", log individual PIDs in dry-run mode (default: false)
  */
 
 import { getCurrentUser, bulkApproveSubmissions } from '../src/lib/prolific-api'
@@ -32,8 +33,10 @@ function envFlag(name: string, defaultValue: boolean = false): boolean {
 }
 
 /**
- * Parse a single CSV line respecting quoted fields (RFC 4180).
- * Handles embedded commas, doubled-quote escapes, and newlines within quotes.
+ * Parse a single CSV line respecting quoted fields.
+ * Handles embedded commas and doubled-quote escapes for a single physical line.
+ * Note: when the CSV content is pre-split on newlines, embedded newlines in quoted
+ * fields are not supported by this helper.
  */
 function parseCsvLine(line: string): string[] {
   const fields: string[] = []
@@ -134,7 +137,7 @@ async function main() {
     process.exit(1)
   }
 
-  const dryRun = envFlag('DRY_RUN', false)
+  const dryRun = envFlag('DRY_RUN', true)
 
   /* ---------- load CSV ------------------------------------------------ */
   let rawCsv: string
@@ -170,7 +173,7 @@ async function main() {
 
   for (let i = 1; i < lines.length; i++) {
     const fields = parseCsvLine(lines[i])
-    const disposition = (fields[dispColIdx] ?? '').toUpperCase()
+    const disposition = (fields[dispColIdx] ?? '').trim().toUpperCase()
     const pid = (fields[pidColIdx] ?? '').trim()
 
     if (disposition === 'CLEAN') {
@@ -215,10 +218,16 @@ async function main() {
 
   /* ---------- approve ------------------------------------------------- */
   if (dryRun) {
+    const verboseDryRun = envFlag('VERBOSE_DRY_RUN', false)
     console.log('🔒 DRY RUN – no submissions will be approved')
-    console.log('   Participant IDs that would be approved:')
-    for (const pid of cleanPids) {
-      console.log(`     - ${pid}`)
+    console.log(`   CLEAN submissions that would be approved: ${cleanPids.length}`)
+    if (verboseDryRun) {
+      console.log('   Participant IDs that would be approved:')
+      for (const pid of cleanPids) {
+        console.log(`     - ${pid}`)
+      }
+    } else {
+      console.log('   (Set VERBOSE_DRY_RUN=true to log individual participant IDs.)')
     }
   } else {
     console.log(`🚀 Approving ${cleanPids.length} submissions for study ${studyId}...`)

@@ -418,7 +418,7 @@ export async function exportSubmissionsCSV(studyId: string, apiToken: string): P
  * @param studyId - The unique identifier of the study
  * @param participantIds - Array of participant IDs to approve
  * @param apiToken - Prolific API token
- * @returns Promise resolving to the API response
+ * @returns Promise that resolves when the bulk approval request completes
  * @throws {ProlificApiErrorClass} When the API request fails
  *
  * @see https://docs.prolific.com/api-reference/submissions/bulk-approve-submissions
