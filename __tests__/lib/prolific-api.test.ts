@@ -10,6 +10,7 @@ import {
   listStudies,
   listStudySubmissions,
   exportSubmissionsCSV,
+  bulkApproveSubmissions,
   ProlificApiErrorClass,
   type Study,
   type Submission,
@@ -604,6 +605,79 @@ describe('Prolific API Client', () => {
       ;(global.fetch as jest.Mock).mockRejectedValueOnce(new Error('Network error'))
 
       await expect(getCurrentUser(mockApiToken)).rejects.toThrow(ProlificApiErrorClass)
+    })
+  })
+
+  describe('bulkApproveSubmissions', () => {
+    it('should send bulk approve request with study ID and participant IDs', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({}),
+      })
+
+      const participantIds = ['pid-1', 'pid-2', 'pid-3']
+      await bulkApproveSubmissions(mockStudyId, participantIds, mockApiToken)
+
+      expect(global.fetch).toHaveBeenCalledWith(
+        'https://api.prolific.com/api/v1/submissions/bulk-approve/',
+        expect.objectContaining({
+          method: 'POST',
+          body: JSON.stringify({
+            study_id: mockStudyId,
+            participant_ids: participantIds,
+          }),
+        })
+      )
+
+      const call = (global.fetch as jest.Mock).mock.calls[0]
+      const headers = call[1].headers as Headers
+      expect(headers.get('Authorization')).toBe(`Token ${mockApiToken}`)
+      expect(headers.get('Content-Type')).toBe('application/json')
+    })
+
+    it('should handle 204 empty body response', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        status: 204,
+      })
+
+      await expect(
+        bulkApproveSubmissions(mockStudyId, ['pid-1'], mockApiToken)
+      ).resolves.toBeUndefined()
+    })
+
+    it('should throw on API error', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: false,
+        status: 400,
+        json: async () => ({ detail: 'Invalid participant IDs' }),
+      })
+
+      await expect(bulkApproveSubmissions(mockStudyId, ['bad-pid'], mockApiToken)).rejects.toThrow(
+        ProlificApiErrorClass
+      )
+    })
+
+    it('should throw on API error with empty body', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+        json: async () => {
+          throw new Error('no body')
+        },
+      })
+
+      await expect(bulkApproveSubmissions(mockStudyId, ['pid-1'], mockApiToken)).rejects.toThrow(
+        ProlificApiErrorClass
+      )
+    })
+
+    it('should wrap network errors in ProlificApiErrorClass', async () => {
+      ;(global.fetch as jest.Mock).mockRejectedValueOnce(new Error('DNS resolution failed'))
+
+      await expect(bulkApproveSubmissions(mockStudyId, ['pid-1'], mockApiToken)).rejects.toThrow(
+        ProlificApiErrorClass
+      )
     })
   })
 })

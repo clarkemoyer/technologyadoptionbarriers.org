@@ -1,0 +1,110 @@
+name: Prolific Approve Submissions
+
+on:
+  # Manual trigger only – requires CSV content or file path
+  workflow_dispatch:
+    inputs:
+      study_id:
+        description: 'Prolific Study ID (required)'
+        required: true
+        type: string
+      csv_content:
+        description: 'CSV content to parse (paste CSV text here; alternative to csv_file_path)'
+        required: false
+        type: string
+      csv_file_path:
+        description: 'Path to a CSV file in the repository (alternative to csv_content)'
+        required: false
+        type: string
+      pid_column:
+        description: 'Column header for Participant IDs (auto-detects if blank)'
+        required: false
+        type: string
+      disposition_column:
+        description: 'Column header for Disposition (auto-detects "Disposition" / Column D if blank)'
+        required: false
+        type: string
+      dry_run:
+        description: 'Dry run – list PIDs without approving'
+        required: false
+        type: boolean
+        default: true
+
+# Prevent concurrent approval runs
+concurrency:
+  group: 'prolific-approve-submissions'
+  cancel-in-progress: false
+
+# Explicit permissions for GITHUB_TOKEN
+permissions:
+  contents: read
+
+jobs:
+  approve-submissions:
+    name: Approve Prolific Submissions
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify Prolific API token
+        run: |
+          if [ -z "${{ secrets.TABS_PROLIFIC_TOKEN }}" ]; then
+            echo "Error: TABS_PROLIFIC_TOKEN secret is not set in the prolific-prod environment"
+            exit 1
+          fi
+          echo "✅ Prolific API token is configured"
+
+      - name: Validate inputs
+        env:
+          CSV_CONTENT: ${{ inputs.csv_content }}
+          CSV_FILE_PATH: ${{ inputs.csv_file_path }}
+        run: |
+          if [ -z "$CSV_CONTENT" ] && [ -z "$CSV_FILE_PATH" ]; then
+            echo "Error: Either csv_content or csv_file_path must be provided"
+            exit 1
+          fi
+          echo "Inputs validated"
+
+      - name: Write CSV content to temp file
+        if: ${{ inputs.csv_content != '' }}
+        env:
+          CSV_INPUT: ${{ inputs.csv_content }}
+        run: |
+          printf '%s\n' "$CSV_INPUT" > "${RUNNER_TEMP}/disposition.csv"
+          echo "CSV content written to temp file"
+
+      - name: Run approval script
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id }}
+          CSV_FILE_PATH: ${{ inputs.csv_content != '' && format('{0}/disposition.csv', runner.temp) || inputs.csv_file_path }}
+          PID_COLUMN: ${{ inputs.pid_column }}
+          DISPOSITION_COLUMN: ${{ inputs.disposition_column }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          echo "Starting Prolific submission approval..."
+          echo "Study ID: ${STUDY_ID}"
+          echo "Dry run: ${DRY_RUN}"
+          echo ""
+          npx --no-install tsx scripts/approve-prolific-submissions.ts
+
+      - name: Error summary
+        if: failure()
+        run: |
+          echo "### ❌ Prolific Submission Approval Failed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "An error occurred while approving submissions via the Prolific API." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Please check the job logs above for error details." >> $GITHUB_STEP_SUMMARY
