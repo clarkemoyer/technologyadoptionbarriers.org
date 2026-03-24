@@ -67,20 +67,23 @@ jobs:
           echo "✅ Prolific API token is configured"
 
       - name: Validate inputs
+        env:
+          CSV_CONTENT: ${{ inputs.csv_content }}
+          CSV_FILE_PATH: ${{ inputs.csv_file_path }}
         run: |
-          if [ -z "${{ inputs.csv_content }}" ] && [ -z "${{ inputs.csv_file_path }}" ]; then
+          if [ -z "$CSV_CONTENT" ] && [ -z "$CSV_FILE_PATH" ]; then
             echo "Error: Either csv_content or csv_file_path must be provided"
             exit 1
           fi
-          echo "✅ Inputs validated"
+          echo "Inputs validated"
 
       - name: Write CSV content to temp file
         if: ${{ inputs.csv_content != '' }}
         env:
           CSV_INPUT: ${{ inputs.csv_content }}
         run: |
-          printf '%s\n' "$CSV_INPUT" > "${{ runner.temp }}/disposition.csv"
-          echo "✅ CSV content written to temp file"
+          printf '%s\n' "$CSV_INPUT" > "${RUNNER_TEMP}/disposition.csv"
+          echo "CSV content written to temp file"
 
       - name: Run approval script
         env:
