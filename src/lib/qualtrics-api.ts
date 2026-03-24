@@ -158,7 +158,7 @@ export async function startResponseExport(
     baseUrl,
     {
       method: 'POST',
-      body: JSON.stringify({ format: 'csv' }),
+      body: JSON.stringify({ format: 'csv', useLabels: true }),
     }
   )
   return result.progressId
