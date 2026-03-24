@@ -23,8 +23,13 @@ const headers = parseCsvLine(lines[0])
 console.log(`Total columns: ${headers.length}`)
 console.log('')
 
+// Dump all headers
+console.log('=== All column headers ===')
+headers.forEach((h, i) => console.log(`  [${i}] ${h}`))
+
 // Find all Q_ columns
-console.log('=== All Q_ columns ===')
+console.log('')
+console.log('=== Q_ columns ===')
 headers.forEach((h, i) => {
   if (h.startsWith('Q_')) console.log(`  [${i}] ${h}`)
 })
