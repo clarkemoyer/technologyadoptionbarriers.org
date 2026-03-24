@@ -476,3 +476,72 @@ export async function bulkApproveSubmissions(
     console.log(`Prolific bulk-approve response: ${response.status} (empty body)`)
   }
 }
+
+/**
+ * DESTRUCTIVE: Bulk reject submissions for a study by participant IDs.
+ *
+ * WARNING: Rejected participants will NOT be paid for their submission.
+ * This action cannot be easily undone. Use with extreme caution.
+ *
+ * Uses the Prolific bulk-reject endpoint:
+ * POST /api/v1/submissions/bulk-reject/
+ *
+ * @param studyId - The unique identifier of the study
+ * @param participantIds - Array of participant IDs to reject
+ * @param apiToken - Prolific API token
+ * @returns Promise that resolves when the bulk rejection request completes
+ * @throws {ProlificApiErrorClass} When the API request fails
+ */
+export async function bulkRejectSubmissions(
+  studyId: string,
+  participantIds: string[],
+  apiToken: string
+): Promise<void> {
+  const url = `${PROLIFIC_API_BASE_URL}/submissions/bulk-reject/`
+
+  const headers = new Headers()
+  headers.set('Authorization', `Token ${apiToken}`)
+  headers.set('Content-Type', 'application/json')
+
+  let response: Response
+  try {
+    response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        study_id: studyId,
+        participant_ids: participantIds,
+      }),
+    })
+  } catch (error) {
+    throw new ProlificApiErrorClass(
+      `Network error during bulk reject: ${error instanceof Error ? error.message : String(error)}`,
+      0,
+      {}
+    )
+  }
+
+  if (!response.ok) {
+    let errorData: ProlificApiError = {}
+    try {
+      errorData = (await response.json()) as ProlificApiError
+    } catch {
+      // Empty or non-JSON error body
+    }
+    throw new ProlificApiErrorClass(
+      errorData.detail ||
+        errorData.error ||
+        errorData.message ||
+        `Bulk reject failed with status ${response.status}`,
+      response.status,
+      errorData
+    )
+  }
+
+  const responseBody = await response.text()
+  if (responseBody) {
+    console.log(`Prolific bulk-reject response (${response.status}): ${responseBody}`)
+  } else {
+    console.log(`Prolific bulk-reject response: ${response.status} (empty body)`)
+  }
+}
