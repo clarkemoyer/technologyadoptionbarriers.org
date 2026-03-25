@@ -834,17 +834,15 @@ describe('Prolific API Client', () => {
 
       ;(global.fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
-        json: async () => mockMessage,
+        text: async () => JSON.stringify(mockMessage),
       })
 
-      const result = await sendMessage(
+      await sendMessage(
         mockStudyId,
         'participant-1',
         'Hello, please complete the survey.',
         mockApiToken
       )
-
-      expect(result).toEqual(mockMessage)
       expect(global.fetch).toHaveBeenCalledWith(
         'https://api.prolific.com/api/v1/messages/',
         expect.objectContaining({
@@ -867,7 +865,7 @@ describe('Prolific API Client', () => {
       ;(global.fetch as jest.Mock).mockResolvedValueOnce({
         ok: false,
         status: 400,
-        json: async () => ({ detail: 'Invalid participant ID' }),
+        text: async () => '{"detail": "Invalid participant ID"}',
       })
 
       await expect(sendMessage(mockStudyId, 'bad-pid', 'Hello', mockApiToken)).rejects.toThrow(

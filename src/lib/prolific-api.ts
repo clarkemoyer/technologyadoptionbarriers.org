@@ -714,17 +714,55 @@ export async function bulkRejectSubmissions(
 export async function sendMessage(
   studyId: string,
   participantId: string,
-  body: string,
+  messageBody: string,
   apiToken: string
-): Promise<Message> {
-  return makeApiRequest<Message>('/messages/', apiToken, {
-    method: 'POST',
-    body: JSON.stringify({
-      recipient_id: participantId,
-      body,
-      study_id: studyId,
-    }),
-  })
+): Promise<void> {
+  const url = `${PROLIFIC_API_BASE_URL}/messages/`
+
+  const headers = new Headers()
+  headers.set('Authorization', `Token ${apiToken}`)
+  headers.set('Content-Type', 'application/json')
+
+  let response: Response
+  try {
+    response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        recipient_id: participantId,
+        body: messageBody,
+        study_id: studyId,
+      }),
+    })
+  } catch (error) {
+    throw new ProlificApiErrorClass(
+      `Network error sending message: ${error instanceof Error ? error.message : String(error)}`,
+      0,
+      {}
+    )
+  }
+
+  if (!response.ok) {
+    let errorDetail = ''
+    try {
+      const errorBody = await response.text()
+      errorDetail = errorBody.slice(0, 500)
+    } catch {
+      // ignore
+    }
+    throw new ProlificApiErrorClass(
+      `Send message failed (${response.status}): ${errorDetail}`,
+      response.status,
+      {}
+    )
+  }
+
+  // Drain response body
+  try {
+    await response.text()
+  } catch {
+    // ignore
+  }
 }
 
 /**
