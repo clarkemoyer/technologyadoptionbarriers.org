@@ -220,7 +220,7 @@ const DispositionDashboardPage = () => {
             The {dispositions['AUTO-EXCLUDE'] || 0} auto-excluded submissions are broken down by
             severity. Failed all 3 IRIs with speed violation is the strongest exclusion signal.
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {[
               {
                 key: 'IRI3_SPEED',
@@ -257,6 +257,15 @@ const DispositionDashboardPage = () => {
                 color: 'text-orange-700',
                 bgColor: 'bg-orange-50 border-orange-200',
                 barColor: 'bg-orange-400',
+              },
+              {
+                key: 'SPEED_IRI1',
+                label: 'Speed + 1 IRI',
+                description: 'Under 5 minutes AND 1 attention check wrong (compound signal)',
+                severity: 'Moderate',
+                color: 'text-orange-700',
+                bgColor: 'bg-orange-50 border-orange-200',
+                barColor: 'bg-orange-300',
               },
             ].map((sub) => {
               const count = (d.autoExcludeBreakdown as Record<string, number>)[sub.key] || 0

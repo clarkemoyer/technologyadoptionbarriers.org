@@ -5,7 +5,7 @@
   "duplicatesRemoved": 5,
   "dispositions": {
     "CLEAN": 56,
-    "AUTO-EXCLUDE": 74,
+    "AUTO-EXCLUDE": 73,
     "FLAG-SPEED": 4,
     "FLAG-SINGLE-IRI": 41,
     "FLAG-SMEAL": 20,
@@ -16,9 +16,10 @@
   },
   "autoExcludeBreakdown": {
     "IRI3_SPEED": 8,
-    "IRI3": 22,
-    "IRI2_SPEED": 9,
-    "IRI2": 35
+    "IRI3": 21,
+    "IRI2_SPEED": 7,
+    "IRI2": 28,
+    "SPEED_IRI1": 9
   },
   "actions": {
     "approved": 56,
