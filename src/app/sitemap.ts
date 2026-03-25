@@ -449,6 +449,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/making-of-tabs/integrations/prolific/dashboard`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/making-of-tabs/integrations/microsoft-clarity`,
       lastModified: now,
       changeFrequency: 'monthly',
