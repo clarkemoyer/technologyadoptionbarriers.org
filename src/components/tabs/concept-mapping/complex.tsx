@@ -44,10 +44,13 @@ function isUrl(value: string): boolean {
   return /^https?:\/\//i.test(value.trim())
 }
 
-/** Parse cross-reference text for item codes (e.g. "B1", "QID213"). */
+/** Matches item codes like A1-E99, A_AC, B_Top3 in cross-reference text. */
+const ITEM_CODE_RE = /\b([A-E]\d{1,2}|[A-E]_(?:AC|Top3))\b/gi
+
+/** Parse cross-reference text for item codes (e.g. "B1", "B_Top3"). */
 function parseItemRefs(text: string): string[] {
   if (!text) return []
-  const matches = text.match(/\b([A-E]\d{1,2}|[A-E]_(?:AC|Top3))\b/gi)
+  const matches = text.match(ITEM_CODE_RE)
   return matches ? [...new Set(matches.map((m) => m.toUpperCase()))] : []
 }
 
@@ -364,6 +367,7 @@ function ItemCard({
 
 const ConceptMappingComplex = () => {
   const [searchQuery, setSearchQuery] = useState('')
+  /** Track collapsed sections — empty Set means all expanded by default. */
   const [collapsedSections, setCollapsedSections] = useState<Set<string>>(new Set())
   const [highlightedId, setHighlightedId] = useState<string | null>(null)
   const highlightTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)

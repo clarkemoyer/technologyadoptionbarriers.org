@@ -22,4 +22,5 @@ export const SECTIONS = [
   { key: 'E', label: 'Section E: Final Thoughts & Feedback', bg: '#F2F2F2', text: '#404040' },
 ] as const
 
+/** Type of a single section definition from the SECTIONS tuple. */
 export type SectionDef = (typeof SECTIONS)[number]
