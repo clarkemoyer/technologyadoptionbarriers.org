@@ -112,36 +112,36 @@ All page routes under `src/app/` were audited, covering the following content ca
 
 ## Findings Summary Table
 
-| #    | Finding                                                                           | Severity      | Category  | Status      | Recommendation                                      |
-| ---- | --------------------------------------------------------------------------------- | ------------- | --------- | ----------- | --------------------------------------------------- | ---------------------------------------- |
-| F-01 | 79 pages have titles exceeding 60 chars (with `                                   | TABS` suffix) | 🟡 Medium | Meta Tags   | Needs Fix                                           | Shorten titles or adjust template suffix |
-| F-02 | 43 pages have meta descriptions exceeding 160 chars                               | 🟡 Medium     | Meta Tags | Needs Fix   | Trim descriptions to 150–160 chars                  |
-| F-03 | 2 pages missing metadata exports entirely (`visual-gallery`, `tabs-presentation`) | 🔴 Critical   | Meta Tags | Needs Fix   | Add metadata exports to these pages                 |
-| F-04 | Only 2 pages override OG/Twitter tags                                             | 🟡 Medium     | Meta Tags | Opportunity | Add page-specific social metadata to key pages      |
-| F-05 | Root layout canonical set to `/` only                                             | 🟢 Low        | Meta Tags | Acceptable  | Per-page canonicals recommended for dual deployment |
-| F-06 | No hreflang tags (English-only site)                                              | ✅ Pass       | Meta Tags | N/A         | Not needed                                          |
-| F-07 | All pages have single H1 tag                                                      | ✅ Pass       | Headings  | Compliant   | No action needed                                    |
-| F-08 | Proper H1 → H2 → H3 hierarchy maintained                                          | ✅ Pass       | Headings  | Compliant   | No action needed                                    |
-| F-09 | H1 tags are keyword-rich and descriptive                                          | ✅ Pass       | Headings  | Compliant   | No action needed                                    |
-| F-10 | Homepage has strong keyword presence                                              | ✅ Pass       | Content   | Compliant   | No action needed                                    |
-| F-11 | No thin content pages detected                                                    | ✅ Pass       | Content   | Compliant   | Component architecture is correct                   |
-| F-12 | Bibliography pages lack cross-linking                                             | 🟡 Medium     | Content   | Opportunity | Add "Related Models" sections                       |
-| F-13 | Image alt text coverage is comprehensive                                          | ✅ Pass       | Content   | Compliant   | Continue current patterns                           |
-| F-14 | Sitemap covers all discoverable pages                                             | ✅ Pass       | Technical | Compliant   | No action needed                                    |
-| F-15 | Robots.txt allows full crawling                                                   | ✅ Pass       | Technical | Compliant   | No action needed                                    |
-| F-16 | Lighthouse CI enforces 95% SEO score                                              | ✅ Pass       | Technical | Compliant   | Consider increasing other thresholds                |
-| F-17 | Mobile-first responsive design via Tailwind                                       | ✅ Pass       | Technical | Compliant   | No action needed                                    |
-| F-18 | Only 1 page has JSON-LD structured data                                           | 🔴 Critical   | Technical | Needs Fix   | Add schema markup to key page types                 |
-| F-19 | Some article URLs exceed 75 chars                                                 | 🟢 Low        | Technical | Acceptable  | URL length is descriptive but long                  |
-| F-20 | Custom 404 page with proper metadata                                              | ✅ Pass       | Technical | Compliant   | No action needed                                    |
-| F-21 | No per-page canonical URLs set                                                    | 🟡 Medium     | Technical | Opportunity | Add canonicals to high-value pages                  |
-| F-22 | Static export limits dynamic SEO features                                         | 🟢 Low        | Technical | Known       | Document workarounds                                |
-| F-23 | Article series lacks breadcrumb markup                                            | 🔴 Critical   | Technical | Needs Fix   | Add BreadcrumbList schema                           |
-| F-24 | FAQ page lacks FAQ schema                                                         | 🟠 High       | Technical | Needs Fix   | Add FAQPage schema for rich results                 |
-| F-25 | Homepage missing Organization schema                                              | 🟠 High       | Technical | Needs Fix   | Add Organization + WebSite schema                   |
-| F-26 | Article pages missing Article schema                                              | 🟠 High       | Technical | Needs Fix   | Add Article schema to series pages                  |
-| F-27 | Teaching series missing Course schema                                             | 🟠 High       | Technical | Needs Fix   | Add Course/LearningResource schema                  |
-| F-28 | Bibliography entries missing ScholarlyArticle schema                              | 🟠 High       | Technical | Needs Fix   | Add ScholarlyArticle schema                         |
+| #    | Finding                                                                           | Severity    | Category  | Status      | Recommendation                                      |
+| ---- | --------------------------------------------------------------------------------- | ----------- | --------- | ----------- | --------------------------------------------------- |
+| F-01 | 79 pages have titles exceeding 60 chars (with &#124; TABS suffix)                 | 🟡 Medium   | Meta Tags | Needs Fix   | Shorten titles or adjust template suffix            |
+| F-02 | 43 pages have meta descriptions exceeding 160 chars                               | 🟡 Medium   | Meta Tags | Needs Fix   | Trim descriptions to 150–160 chars                  |
+| F-03 | 2 pages missing metadata exports entirely (`visual-gallery`, `tabs-presentation`) | 🔴 Critical | Meta Tags | Needs Fix   | Add metadata exports to these pages                 |
+| F-04 | Only 2 pages override OG/Twitter tags                                             | 🟡 Medium   | Meta Tags | Opportunity | Add page-specific social metadata to key pages      |
+| F-05 | Root layout canonical set to `/` only                                             | 🟢 Low      | Meta Tags | Acceptable  | Per-page canonicals recommended for dual deployment |
+| F-06 | No hreflang tags (English-only site)                                              | ✅ Pass     | Meta Tags | N/A         | Not needed                                          |
+| F-07 | All pages have single H1 tag                                                      | ✅ Pass     | Headings  | Compliant   | No action needed                                    |
+| F-08 | Proper H1 → H2 → H3 hierarchy maintained                                          | ✅ Pass     | Headings  | Compliant   | No action needed                                    |
+| F-09 | H1 tags are keyword-rich and descriptive                                          | ✅ Pass     | Headings  | Compliant   | No action needed                                    |
+| F-10 | Homepage has strong keyword presence                                              | ✅ Pass     | Content   | Compliant   | No action needed                                    |
+| F-11 | No thin content pages detected                                                    | ✅ Pass     | Content   | Compliant   | Component architecture is correct                   |
+| F-12 | Bibliography pages lack cross-linking                                             | 🟡 Medium   | Content   | Opportunity | Add "Related Models" sections                       |
+| F-13 | Image alt text coverage is comprehensive                                          | ✅ Pass     | Content   | Compliant   | Continue current patterns                           |
+| F-14 | Sitemap covers all discoverable pages                                             | ✅ Pass     | Technical | Compliant   | No action needed                                    |
+| F-15 | Robots.txt allows full crawling                                                   | ✅ Pass     | Technical | Compliant   | No action needed                                    |
+| F-16 | Lighthouse CI warns below 95% SEO score                                           | ✅ Pass     | Technical | Compliant   | Consider increasing other thresholds                |
+| F-17 | Mobile-first responsive design via Tailwind                                       | ✅ Pass     | Technical | Compliant   | No action needed                                    |
+| F-18 | Only 1 page has JSON-LD structured data                                           | 🔴 Critical | Technical | Needs Fix   | Add schema markup to key page types                 |
+| F-19 | Some article URLs exceed 75 chars                                                 | 🟢 Low      | Technical | Acceptable  | URL length is descriptive but long                  |
+| F-20 | Custom 404 page with proper metadata                                              | ✅ Pass     | Technical | Compliant   | No action needed                                    |
+| F-21 | Most pages rely on root/implicit canonical                                        | 🟡 Medium   | Technical | Opportunity | Add canonicals to high-value pages                  |
+| F-22 | Static export limits dynamic SEO features                                         | 🟢 Low      | Technical | Known       | Document workarounds                                |
+| F-23 | Article series lacks breadcrumb markup                                            | 🔴 Critical | Technical | Needs Fix   | Add BreadcrumbList schema                           |
+| F-24 | FAQ page lacks FAQ schema                                                         | 🟠 High     | Technical | Needs Fix   | Add FAQPage schema for rich results                 |
+| F-25 | Homepage missing Organization schema                                              | 🟠 High     | Technical | Needs Fix   | Add Organization + WebSite schema                   |
+| F-26 | Article pages missing Article schema                                              | 🟠 High     | Technical | Needs Fix   | Add Article schema to series pages                  |
+| F-27 | Teaching series missing Course schema                                             | 🟠 High     | Technical | Needs Fix   | Add Course/LearningResource schema                  |
+| F-28 | Bibliography entries missing ScholarlyArticle schema                              | 🟠 High     | Technical | Needs Fix   | Add ScholarlyArticle schema                         |
 
 ---
 
@@ -182,11 +182,11 @@ The root layout defines a default title and a `%s | TABS` template. Individual p
 
 **Examples of overly long titles (with `| TABS` suffix):**
 
-| Page                                   | Title with Suffix                                                                                                     | Length    |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------- |
-| `/bibliography-2-6-toe-framework-*`    | Bibliography: Technology-Organization-Environment (TOE) Framework – Tornatzky, Fleischer & Chakrabarti (1990) \| TABS | 116 chars |
-| `/article-1-4-the-grand-unification-*` | Article 1.4: The Grand Unification – The Unified Theory of Acceptance and Use of Technology (UTAUT) \| TABS           | 106 chars |
-| `/bibliography-1-15-unified-theory-*`  | Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) – Venkatesh et al. (2003) \| TABS            | 105 chars |
+| Page                                   | Title with Suffix                                                                                                         | Length    |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | --------- |
+| `/bibliography-2-6-toe-framework-*`    | Bibliography: Technology-Organization-Environment (TOE) Framework – Tornatzky, Fleischer & Chakrabarti (1990) &#124; TABS | 116 chars |
+| `/article-1-4-the-grand-unification-*` | Article 1.4: The Grand Unification – The Unified Theory of Acceptance and Use of Technology (UTAUT) &#124; TABS           | 106 chars |
+| `/bibliography-1-15-unified-theory-*`  | Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) – Venkatesh et al. (2003) &#124; TABS            | 105 chars |
 
 **Recommendation (F-01):** Shorten long titles by abbreviating common terms (e.g., "Bibliography:" → "Bib:", use acronyms for well-known models). Alternatively, consider shortening the template suffix from `| TABS` to ` — TABS` or removing it for pages where the title alone exceeds 55 chars.
 
@@ -921,13 +921,13 @@ Home > Bibliography > TAM – Davis (1989)
 
 **Sample of titles exceeding optimal length (with `| TABS` suffix):**
 
-| Page                                   | Full Title (with suffix)                                                                                              | Chars | Issue                |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----- | -------------------- |
-| `/bibliography-2-6-toe-framework-*`    | Bibliography: Technology-Organization-Environment (TOE) Framework – Tornatzky, Fleischer & Chakrabarti (1990) \| TABS | 116   | 🔴 Far exceeds limit |
-| `/article-1-4-the-grand-unification-*` | Article 1.4: The Grand Unification – The Unified Theory of Acceptance and Use of Technology (UTAUT) \| TABS           | 106   | 🔴 Far exceeds limit |
-| `/bibliography-1-15-unified-theory-*`  | Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) – Venkatesh et al. (2003) \| TABS            | 105   | 🔴 Far exceeds limit |
-| `/article-2-1-the-strategic-lens-*`    | Article 2.1: The Strategic Lens – Foundational Theories for Organizational Adoption \| TABS                           | 92    | 🔴 Exceeds limit     |
-| `/article-2-4-the-blueprint-*`         | Article 2.4: The Blueprint for Enterprise – A Survey of Architecture Frameworks \| TABS                               | 88    | 🟡 Exceeds limit     |
+| Page                                   | Full Title (with suffix)                                                                                                  | Chars | Issue                |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ----- | -------------------- |
+| `/bibliography-2-6-toe-framework-*`    | Bibliography: Technology-Organization-Environment (TOE) Framework – Tornatzky, Fleischer & Chakrabarti (1990) &#124; TABS | 116   | 🔴 Far exceeds limit |
+| `/article-1-4-the-grand-unification-*` | Article 1.4: The Grand Unification – The Unified Theory of Acceptance and Use of Technology (UTAUT) &#124; TABS           | 106   | 🔴 Far exceeds limit |
+| `/bibliography-1-15-unified-theory-*`  | Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) – Venkatesh et al. (2003) &#124; TABS            | 105   | 🔴 Far exceeds limit |
+| `/article-2-1-the-strategic-lens-*`    | Article 2.1: The Strategic Lens – Foundational Theories for Organizational Adoption &#124; TABS                           | 92    | 🔴 Exceeds limit     |
+| `/article-2-4-the-blueprint-*`         | Article 2.4: The Blueprint for Enterprise – A Survey of Architecture Frameworks &#124; TABS                               | 88    | 🟡 Exceeds limit     |
 
 **Optimization strategies:**
 
