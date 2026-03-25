@@ -303,30 +303,45 @@ const DispositionDashboardPage = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b border-gray-100">
-                  <td className="py-3 px-4 text-green-700 font-medium">Approved on Prolific</td>
-                  <td className="py-3 px-4 text-right font-bold text-green-700">
-                    {d.actions.approved}
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-3 px-4 text-red-700 font-medium">Rejected on Prolific</td>
-                  <td className="py-3 px-4 text-right font-bold text-red-700">
-                    {d.actions.rejected}
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-3 px-4 text-blue-700 font-medium">Messaged (awaiting reply)</td>
-                  <td className="py-3 px-4 text-right font-bold text-blue-700">
-                    {d.actions.messaged}
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-3 px-4 text-amber-700 font-medium">Pending Review</td>
-                  <td className="py-3 px-4 text-right font-bold text-amber-700">
-                    {d.actions.pendingReview}
-                  </td>
-                </tr>
+                {[
+                  {
+                    label: 'Approved on Prolific',
+                    value: d.actions.approved,
+                    color: 'text-green-700',
+                  },
+                  {
+                    label: 'Rejected on Prolific',
+                    value: d.actions.rejected,
+                    color: 'text-red-700',
+                  },
+                  {
+                    label: 'Awaiting Review',
+                    value: (d.actions as Record<string, number>).awaitingReview ?? 0,
+                    color: 'text-amber-700',
+                  },
+                  {
+                    label: 'Returned',
+                    value: (d.actions as Record<string, number>).returned ?? 0,
+                    color: 'text-gray-600',
+                  },
+                  {
+                    label: 'Timed Out',
+                    value: (d.actions as Record<string, number>).timedOut ?? 0,
+                    color: 'text-gray-500',
+                  },
+                  {
+                    label: 'Messaged (unique participants)',
+                    value: d.actions.messaged,
+                    color: 'text-blue-700',
+                  },
+                ]
+                  .filter((row) => row.value > 0)
+                  .map((row) => (
+                    <tr key={row.label} className="border-b border-gray-100">
+                      <td className={`py-3 px-4 font-medium ${row.color}`}>{row.label}</td>
+                      <td className={`py-3 px-4 text-right font-bold ${row.color}`}>{row.value}</td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
