@@ -36,9 +36,9 @@ const SEOTransparencyPage = () => {
         <section className="mb-10 text-gray-800">
           <p className="mb-6">
             Establishing organic discoverability is a critical phase for the{' '}
-            <strong>Technology Adoption Boundaries Substrate (TABS)</strong> project. In an era
-            where post-search generative AI and traditional search engines shape how non-profit
-            research is found, ensuring our rigorous data is easily accessible is paramount.
+            <strong>Technology Adoption Barriers Survey (TABS)</strong> project. In an era where
+            post-search generative AI and traditional search engines shape how non-profit research
+            is found, ensuring our rigorous data is easily accessible is paramount.
           </p>
           <p className="mb-6">
             Search Engine Optimization (SEO) is often treated as a secretive marketing discipline.
