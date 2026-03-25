@@ -25,6 +25,8 @@
  *   DRY_RUN             – When "false" AND CONFIRM_REJECT=="REJECT", reject live (default: true)
  *   PID_LIST            – Optional comma-separated list of PIDs to process (default: all matching)
  *                         Supports: single PID, comma-separated batch, or empty for all
+ *   SUB_TYPE            – Optional sub-type filter: IRI3_SPEED, IRI3, IRI2_SPEED, IRI2, SPEED_IRI, ALL
+ *                         Defaults to ALL (process all AUTO-EXCLUDE sub-types)
  */
 
 import {
@@ -69,17 +71,24 @@ interface RejectionRecord {
  *   - IRI_Fail_Count >= 2, OR
  *   - Speed_Flag == 1 AND IRI_Fail_Count >= 1
  *
- * Sub-types (in priority order):
- *   1. "IRI_3"      – All 3 IRI checks failed (regardless of speed)
- *   2. "IRI_2"      – 2 of 3 IRI checks failed (regardless of speed)
- *   3. "SPEED_IRI"  – Speed flag + at least 1 IRI failure
+ * Sub-types (in severity order):
+ *   1. "IRI3_SPEED"  – All 3 IRI checks failed AND under 5 minutes (worst)
+ *   2. "IRI3"        – All 3 IRI checks failed, normal speed
+ *   3. "IRI2_SPEED"  – 2 of 3 IRI failed AND under 5 minutes
+ *   4. "IRI2"        – 2 of 3 IRI checks failed, normal speed
+ *   5. "SPEED_IRI"   – Speed flag + 1 IRI failure (compound signal)
  */
 function classifySubType(speedFlag: number, iriFailCount: number): string {
-  if (iriFailCount >= 3) return 'IRI_3'
-  if (iriFailCount === 2) return 'IRI_2'
-  // Speed_Flag == 1 and IRI_Fail_Count >= 1 (must be 1 at this point)
+  if (iriFailCount >= 3 && speedFlag === 1) return 'IRI3_SPEED'
+  if (iriFailCount >= 3) return 'IRI3'
+  if (iriFailCount === 2 && speedFlag === 1) return 'IRI2_SPEED'
+  if (iriFailCount === 2) return 'IRI2'
+  // Speed_Flag == 1 and IRI_Fail_Count == 1
   return 'SPEED_IRI'
 }
+
+/** Valid SUB_TYPE filter values */
+const VALID_SUB_TYPES = new Set(['ALL', 'IRI3_SPEED', 'IRI3', 'IRI2_SPEED', 'IRI2', 'SPEED_IRI'])
 
 /* ------------------------------------------------------------------ */
 /*  Message template (matches spreadsheet format)                     */
@@ -239,6 +248,28 @@ async function main() {
     records.push(r)
   }
 
+  /* ---------- Apply SUB_TYPE filter ------------------------------------ */
+  const subTypeFilter = (process.env.SUB_TYPE ?? 'ALL').trim().toUpperCase()
+  if (subTypeFilter && !VALID_SUB_TYPES.has(subTypeFilter)) {
+    console.error(
+      `Error: Invalid SUB_TYPE "${subTypeFilter}". Valid: ${[...VALID_SUB_TYPES].join(', ')}`
+    )
+    process.exit(1)
+  }
+
+  let afterSubTypeFilter =
+    subTypeFilter === 'ALL' || !subTypeFilter
+      ? records
+      : records.filter((r) => r.subType === subTypeFilter)
+
+  if (subTypeFilter && subTypeFilter !== 'ALL') {
+    console.log(`Sub-type filter: ${subTypeFilter}`)
+    console.log(
+      `Matched: ${afterSubTypeFilter.length} of ${records.length} AUTO-EXCLUDE participants`
+    )
+    console.log('')
+  }
+
   /* ---------- Apply PID filter ----------------------------------------- */
   const pidListRaw = (process.env.PID_LIST ?? '').trim()
   const pidFilter = pidListRaw
@@ -250,14 +281,16 @@ async function main() {
       )
     : null
 
-  const filtered = pidFilter ? records.filter((r) => pidFilter.has(r.pid)) : records
+  const filtered = pidFilter
+    ? afterSubTypeFilter.filter((r) => pidFilter.has(r.pid))
+    : afterSubTypeFilter
 
   if (pidFilter) {
     console.log(`PID filter: ${pidFilter.size} PID(s) specified`)
-    console.log(`Matched: ${filtered.length} of ${records.length} AUTO-EXCLUDE participants`)
+    console.log(`Matched: ${filtered.length} of ${afterSubTypeFilter.length} participants`)
     const missing = [...pidFilter].filter((p) => !filtered.find((r) => r.pid === p))
     if (missing.length > 0) {
-      console.log(`Not found in AUTO-EXCLUDE: ${missing.join(', ')}`)
+      console.log(`Not found: ${missing.join(', ')}`)
     }
     console.log('')
   }
