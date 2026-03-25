@@ -12,6 +12,35 @@
 
 const PROLIFIC_API_BASE_URL = 'https://api.prolific.com/api/v1'
 
+// ---------------------------------------------------------------------------
+// Messaging types
+// ---------------------------------------------------------------------------
+
+/**
+ * Represents a message sent to or from a participant via Prolific.
+ */
+export interface Message {
+  id: string
+  study_id: string
+  participant_id: string
+  body: string
+  sender_id?: string
+  created_at: string
+}
+
+/**
+ * Represents a message thread (a message with its replies).
+ */
+export interface MessageThread {
+  id: string
+  study_id: string
+  participant_id: string
+  body: string
+  sender_id?: string
+  created_at: string
+  replies: Message[]
+}
+
 /**
  * Study status types
  */
@@ -90,6 +119,20 @@ export interface Submission {
   time_taken?: number
   participant_code?: string
   study_code?: string
+
+  /**
+   * Prolific AUTH CHECK fields (LLM + Bots).
+   *
+   * These are returned by the Prolific API as part of the submission object
+   * when the study has authenticity checks enabled. Possible values include
+   * "High", "Mixed", "Low", or undefined if the check was not run.
+   *
+   * TODO: Verify exact field names and value enums against the live API.
+   *       The Prolific docs may use different casing or naming conventions.
+   */
+  is_legitimate?: boolean
+  authenticity_score_llm?: string
+  authenticity_score_bots?: string
 }
 
 /**
@@ -647,4 +690,79 @@ export async function bulkRejectSubmissions(
   } else {
     console.log(`Prolific bulk-reject response: ${response.status} (empty body)`)
   }
+}
+
+// ---------------------------------------------------------------------------
+// Messaging functions
+// ---------------------------------------------------------------------------
+
+/**
+ * Send a message to a participant for a given study.
+ *
+ * Uses the Prolific messaging endpoint:
+ * POST /api/v1/messages/
+ *
+ * @param studyId - The unique identifier of the study
+ * @param participantId - The unique identifier of the participant
+ * @param body - The message body text
+ * @param apiToken - Prolific API token
+ * @returns Promise resolving to the created Message
+ * @throws {ProlificApiErrorClass} When the API request fails
+ *
+ * @see https://docs.prolific.com/api-reference/messages/send-message
+ */
+export async function sendMessage(
+  studyId: string,
+  participantId: string,
+  body: string,
+  apiToken: string
+): Promise<Message> {
+  return makeApiRequest<Message>('/messages/', apiToken, {
+    method: 'POST',
+    body: JSON.stringify({
+      study_id: studyId,
+      participant_id: participantId,
+      body,
+    }),
+  })
+}
+
+/**
+ * List all messages for a specific study.
+ *
+ * Uses the Prolific messaging endpoint:
+ * GET /api/v1/studies/{studyId}/messages/
+ *
+ * @param studyId - The unique identifier of the study
+ * @param apiToken - Prolific API token
+ * @returns Promise resolving to a paginated list of Messages
+ * @throws {ProlificApiErrorClass} When the API request fails
+ *
+ * @see https://docs.prolific.com/api-reference/messages/list-messages
+ */
+export async function listStudyMessages(
+  studyId: string,
+  apiToken: string
+): Promise<PaginatedResponse<Message>> {
+  return makeApiRequest<PaginatedResponse<Message>>(`/studies/${studyId}/messages/`, apiToken)
+}
+
+/**
+ * Get a specific message thread (message and its replies).
+ *
+ * Uses the Prolific messaging endpoint:
+ * GET /api/v1/messages/{messageId}/
+ *
+ * @param messageId - The unique identifier of the message
+ * @param apiToken - Prolific API token
+ * @returns Promise resolving to the MessageThread
+ * @throws {ProlificApiErrorClass} When the API request fails
+ *
+ * @see https://docs.prolific.com/api-reference/messages/get-message
+ */
+export async function getMessageThread(
+  messageId: string,
+  apiToken: string
+): Promise<MessageThread> {
+  return makeApiRequest<MessageThread>(`/messages/${messageId}/`, apiToken)
 }

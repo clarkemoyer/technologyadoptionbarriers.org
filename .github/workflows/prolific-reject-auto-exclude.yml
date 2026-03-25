@@ -1,0 +1,139 @@
+# ╔══════════════════════════════════════════════════════════════════════╗
+# ║  DESTRUCTIVE WORKFLOW: Reject AUTO-EXCLUDE Submissions              ║
+# ║                                                                      ║
+# ║  This workflow REJECTS participants whose disposition is             ║
+# ║  AUTO-EXCLUDE. This covers ALL auto-exclude sub-types:              ║
+# ║                                                                      ║
+# ║    - IRI_Fail_Count >= 2  (2 or 3 attention checks failed)         ║
+# ║    - Speed_Flag + IRI_Fail_Count >= 1  (fast + any IRI failure)    ║
+# ║                                                                      ║
+# ║  Rejected participants will NOT be paid for their submission.        ║
+# ║                                                                      ║
+# ║  SAFETY REQUIREMENTS:                                                ║
+# ║    1. Manual trigger only (workflow_dispatch)                        ║
+# ║    2. Defaults to dry-run (safe preview)                             ║
+# ║    3. Live rejection requires typing "REJECT" in confirmation field  ║
+# ║    4. Full audit trail in GitHub Actions step summary                ║
+# ║    5. Every affected PID is logged individually                      ║
+# ║    6. Requires prolific-prod environment (with approval if config'd)║
+# ╚══════════════════════════════════════════════════════════════════════╝
+
+name: 'DESTRUCTIVE: Reject AUTO-EXCLUDE Submissions'
+
+on:
+  workflow_dispatch:
+    inputs:
+      study_id:
+        description: 'Prolific Study ID (defaults to PROLIFIC_STUDY_ID env var)'
+        required: false
+        type: string
+      dry_run:
+        description: 'Dry run — preview rejections without executing'
+        required: true
+        type: boolean
+        default: true
+      confirm_reject:
+        description: 'Type REJECT to confirm live rejection (required when dry_run is false)'
+        required: false
+        type: string
+        default: ''
+
+# Prevent concurrent rejection runs
+concurrency:
+  group: 'prolific-reject-submissions'
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  # Step 1: Export + Triage to get fresh disposition data
+  triage:
+    name: Export & Triage
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Export Qualtrics responses
+        run: npx --no-install tsx scripts/export-qualtrics-responses.ts
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+
+      - name: Run disposition triage
+        run: npx --no-install tsx scripts/disposition-triage.ts
+        env:
+          INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+          OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
+
+      - name: Upload disposition CSV
+        uses: actions/upload-artifact@v7
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}/disposition.csv
+          retention-days: 1
+
+  # Step 2: Reject participants with Disposition == AUTO-EXCLUDE
+  reject:
+    name: 'DESTRUCTIVE: Reject AUTO-EXCLUDE'
+    needs: triage
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - name: 'Safety check: validate confirmation'
+        if: inputs.dry_run == false
+        env:
+          CONFIRM: ${{ inputs.confirm_reject }}
+        run: |
+          echo "================================================================"
+          echo "  DESTRUCTIVE OPERATION: Prolific Submission Rejection"
+          echo "  This will REJECT AUTO-EXCLUDE participants."
+          echo "  They will NOT be paid."
+          echo "================================================================"
+          echo ""
+          if [ "$CONFIRM" != "REJECT" ]; then
+            echo "SAFETY STOP: You must type REJECT in the confirmation field."
+            echo "Received: '$CONFIRM'"
+            exit 1
+          fi
+          echo "Confirmation accepted: '$CONFIRM'"
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download disposition CSV
+        uses: actions/download-artifact@v8
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}
+
+      - name: 'Execute rejection'
+        run: npx --no-install tsx scripts/reject-auto-exclude-submissions.ts
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
+          DRY_RUN: ${{ inputs.dry_run }}
+          CONFIRM_REJECT: ${{ inputs.confirm_reject }}

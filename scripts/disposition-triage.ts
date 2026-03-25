@@ -23,6 +23,9 @@ function toCsv(rows: DispositionRow[]): string {
     'PROLIFIC_PID',
     'Finished',
     'Duration_Seconds',
+    'Auth_LLM',
+    'Auth_Bots',
+    'Auth_Flag',
     'IRI_Barrier_Pass',
     'IRI_Readiness_Pass',
     'IRI_Maturity_Pass',
@@ -58,6 +61,8 @@ function generateSummary(rows: DispositionRow[]): string {
 
   const order = [
     'CLEAN',
+    'FLAG-AUTH-FAIL',
+    'FLAG-AUTH-MIXED',
     'AUTO-EXCLUDE',
     'FLAG-SPEED',
     'FLAG-SINGLE-IRI',
