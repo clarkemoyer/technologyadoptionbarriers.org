@@ -436,7 +436,7 @@ Page types by content depth:
 | Pattern              | Example                                                                         | Files Using                                |
 | -------------------- | ------------------------------------------------------------------------------- | ------------------------------------------ |
 | Dynamic from props   | `alt={heading}`, `alt={name}`, `alt={title}`                                    | blog-card, team-member-card, training-card |
-| Generated fallback   | `alt={heroAlt \|\| \`Illustration for ${heading}\`}`                            | hero-section                               |
+| Generated fallback   | <code>alt={heroAlt &#124;&#124; &#96;Illustration for ${heading}&#96;}</code>   | hero-section                               |
 | Static descriptive   | `alt="TABS Logo"`, `alt="Location pin"`                                         | header, contact-data-card                  |
 | Academic descriptive | `alt="The Tech Adoption Triangle: Organizational, User, and Consumer Adoption"` | technology-adoption-models                 |
 | Icon labels          | `alt="Plus"`, `alt="Minus"`, `alt="linkedin icon"`                              | FAQ accordion, team cards                  |
@@ -615,12 +615,12 @@ Page types by content depth:
 
 **Implementation:** `src/app/not-found.tsx`
 
-| Check                     | Status  | Details                                                                     |
-| ------------------------- | ------- | --------------------------------------------------------------------------- |
-| Custom 404 page exists    | ✅ Pass | Well-designed with branded content                                          |
-| 404 metadata set          | ✅ Pass | Title: "404 - Page Not Found \| Technology Adoption Barriers Survey (TABS)" |
-| Navigation to valid pages | ✅ Pass | "Return Home" and "Learn About Real Barriers" CTAs                          |
-| On-brand messaging        | ✅ Pass | "Looks like we hit a technology adoption barrier"                           |
+| Check                     | Status  | Details                                                                         |
+| ------------------------- | ------- | ------------------------------------------------------------------------------- |
+| Custom 404 page exists    | ✅ Pass | Well-designed with branded content                                              |
+| 404 metadata set          | ✅ Pass | Title: "404 - Page Not Found &#124; Technology Adoption Barriers Survey (TABS)" |
+| Navigation to valid pages | ✅ Pass | "Return Home" and "Learn About Real Barriers" CTAs                              |
+| On-brand messaging        | ✅ Pass | "Looks like we hit a technology adoption barrier"                               |
 
 ---
 
