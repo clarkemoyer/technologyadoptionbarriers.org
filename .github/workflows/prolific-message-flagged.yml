@@ -1,0 +1,123 @@
+# Prolific: Message Flagged Submissions
+#
+# Sends personalized review messages to participants whose submissions
+# received a FLAG disposition during quality triage. Each flag type gets
+# a tailored message explaining the concern and inviting the participant
+# to respond within 48 hours.
+#
+# Supported dispositions:
+#   FLAG-SPEED, FLAG-SINGLE-IRI, FLAG-SMEAL,
+#   FLAG-RECAPTCHA, FLAG-PARTIAL-STRAIGHTLINING
+#
+# Safety:
+#   - Manual trigger only (workflow_dispatch)
+#   - Defaults to dry-run (safe preview)
+#   - Full audit trail in GitHub Actions step summary
+#   - Every affected PID is logged individually
+
+name: 'Prolific: Message Flagged Submissions'
+
+on:
+  workflow_dispatch:
+    inputs:
+      disposition_filter:
+        description: 'Flag disposition type to message'
+        required: true
+        type: choice
+        options:
+          - FLAG-SPEED
+          - FLAG-SINGLE-IRI
+          - FLAG-SMEAL
+          - FLAG-RECAPTCHA
+          - FLAG-PARTIAL-STRAIGHTLINING
+      study_id:
+        description: 'Prolific Study ID (defaults to PROLIFIC_STUDY_ID env var)'
+        required: false
+        type: string
+      dry_run:
+        description: 'Dry run — preview messages without sending'
+        required: true
+        type: boolean
+        default: true
+
+# Prevent concurrent messaging runs
+concurrency:
+  group: 'prolific-message-flagged'
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  # Step 1: Export + Triage to get fresh disposition data
+  triage:
+    name: Export & Triage
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Export Qualtrics responses
+        run: npx --no-install tsx scripts/export-qualtrics-responses.ts
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+
+      - name: Run disposition triage
+        run: npx --no-install tsx scripts/disposition-triage.ts
+        env:
+          INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+          OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
+
+      - name: Upload disposition CSV
+        uses: actions/upload-artifact@v7
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}/disposition.csv
+          retention-days: 1
+
+  # Step 2: Send personalized messages to flagged participants
+  message:
+    name: Send FLAG Messages
+    needs: triage
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download disposition CSV
+        uses: actions/download-artifact@v8
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}
+
+      - name: Send messages to flagged participants
+        run: npx --no-install tsx scripts/message-flagged-submissions.ts
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
+          DISPOSITION_FILTER: ${{ inputs.disposition_filter }}
+          DRY_RUN: ${{ inputs.dry_run }}
