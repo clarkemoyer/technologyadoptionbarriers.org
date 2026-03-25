@@ -17,6 +17,9 @@ function makeRow(
     PROLIFIC_PID: 'test-pid',
     Finished: 'TRUE',
     Duration_Seconds: 600,
+    Auth_LLM: '',
+    Auth_Bots: '',
+    Auth_Flag: 0,
     IRI_Barrier_Pass: 1,
     IRI_Readiness_Pass: 1,
     IRI_Maturity_Pass: 1,
@@ -51,6 +54,56 @@ describe('computeDisposition', () => {
     expect(computeDisposition(makeRow({ Finished: 'FALSE' }))).toBe('INCOMPLETE')
     expect(computeDisposition(makeRow({ Finished: '0' }))).toBe('INCOMPLETE')
     expect(computeDisposition(makeRow({ Finished: '' }))).toBe('INCOMPLETE')
+  })
+
+  it('returns FLAG-AUTH-FAIL when Auth_LLM is Low', () => {
+    expect(computeDisposition(makeRow({ Auth_LLM: 'Low' }))).toBe('FLAG-AUTH-FAIL')
+  })
+
+  it('returns FLAG-AUTH-FAIL when Auth_Bots is Low', () => {
+    expect(computeDisposition(makeRow({ Auth_Bots: 'Low' }))).toBe('FLAG-AUTH-FAIL')
+  })
+
+  it('returns FLAG-AUTH-FAIL when Auth_LLM is Low (case insensitive)', () => {
+    expect(computeDisposition(makeRow({ Auth_LLM: 'low' }))).toBe('FLAG-AUTH-FAIL')
+    expect(computeDisposition(makeRow({ Auth_LLM: 'LOW' }))).toBe('FLAG-AUTH-FAIL')
+  })
+
+  it('returns FLAG-AUTH-MIXED when Auth_LLM is Mixed', () => {
+    expect(computeDisposition(makeRow({ Auth_LLM: 'Mixed' }))).toBe('FLAG-AUTH-MIXED')
+  })
+
+  it('returns FLAG-AUTH-MIXED when Auth_Bots is Mixed', () => {
+    expect(computeDisposition(makeRow({ Auth_Bots: 'Mixed' }))).toBe('FLAG-AUTH-MIXED')
+  })
+
+  it('waterfall precedence: FLAG-AUTH-FAIL beats FLAG-AUTH-MIXED', () => {
+    expect(computeDisposition(makeRow({ Auth_LLM: 'Low', Auth_Bots: 'Mixed' }))).toBe(
+      'FLAG-AUTH-FAIL'
+    )
+  })
+
+  it('waterfall precedence: FLAG-AUTH-FAIL beats AUTO-EXCLUDE', () => {
+    expect(
+      computeDisposition(
+        makeRow({
+          Auth_LLM: 'Low',
+          IRI_Fail_Count: 3,
+          IRI_Pass_Count: 0,
+          IRI_Barrier_Pass: 0,
+          IRI_Readiness_Pass: 0,
+          IRI_Maturity_Pass: 0,
+        })
+      )
+    ).toBe('FLAG-AUTH-FAIL')
+  })
+
+  it('returns CLEAN when Auth fields are High', () => {
+    expect(computeDisposition(makeRow({ Auth_LLM: 'High', Auth_Bots: 'High' }))).toBe('CLEAN')
+  })
+
+  it('returns CLEAN when Auth fields are empty (not enriched)', () => {
+    expect(computeDisposition(makeRow({ Auth_LLM: '', Auth_Bots: '' }))).toBe('CLEAN')
   })
 
   it('returns AUTO-EXCLUDE when IRI_Fail_Count >= 2', () => {

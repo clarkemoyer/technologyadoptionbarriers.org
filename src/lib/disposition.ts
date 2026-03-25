@@ -32,6 +32,9 @@ export interface DispositionRow {
   PROLIFIC_PID: string
   Finished: string
   Duration_Seconds: number
+  Auth_LLM: string
+  Auth_Bots: string
+  Auth_Flag: 0 | 1
   IRI_Barrier_Pass: 0 | 1
   IRI_Readiness_Pass: 0 | 1
   IRI_Maturity_Pass: 0 | 1
@@ -148,29 +151,37 @@ export function computeDisposition(row: Omit<DispositionRow, 'Disposition'>): st
   // Step 0: Incomplete
   if (row.Finished !== 'TRUE' && row.Finished !== '1') return 'INCOMPLETE'
 
-  // Step 1: Auto-exclude (hard fail)
+  // Step 1: Prolific AUTH CHECK — hard fail (LLM or Bots rated "Low")
+  if (row.Auth_LLM.toUpperCase() === 'LOW' || row.Auth_Bots.toUpperCase() === 'LOW')
+    return 'FLAG-AUTH-FAIL'
+
+  // Step 2: Prolific AUTH CHECK — mixed (LLM or Bots rated "Mixed")
+  if (row.Auth_LLM.toUpperCase() === 'MIXED' || row.Auth_Bots.toUpperCase() === 'MIXED')
+    return 'FLAG-AUTH-MIXED'
+
+  // Step 3: Auto-exclude (hard fail)
   if (row.IRI_Fail_Count >= 2) return 'AUTO-EXCLUDE'
   if (row.Speed_Flag === 1 && row.IRI_Fail_Count >= 1) return 'AUTO-EXCLUDE'
 
-  // Step 2: Flag speed (fast but IRIs all pass)
+  // Step 4: Flag speed (fast but IRIs all pass)
   if (row.Speed_Flag === 1 && row.IRI_Fail_Count === 0) return 'FLAG-SPEED'
 
-  // Step 3: Single IRI fail at normal speed
+  // Step 5: Single IRI fail at normal speed
   if (row.IRI_Fail_Count === 1 && row.Speed_Flag === 0) return 'FLAG-SINGLE-IRI'
 
-  // Step 4: Below Smeal benchmark
+  // Step 6: Below Smeal benchmark
   if (row.Smeal_Benchmark_Flag === 1) return 'FLAG-SMEAL'
 
-  // Step 5: reCAPTCHA flag
+  // Step 7: reCAPTCHA flag
   if (row.reCAPTCHA_Flag === 1) return 'FLAG-RECAPTCHA'
 
-  // Step 6: Full-block straightlining (Qualtrics Q_StraightliningCount)
+  // Step 8: Full-block straightlining (Qualtrics Q_StraightliningCount)
   if (row.Straightlining_Flag === 1) return 'FLAG-STRAIGHTLINING'
 
-  // Step 7: Partial straightlining (within-person SD < 0.5 in any block)
+  // Step 9: Partial straightlining (within-person SD < 0.5 in any block)
   if (row.Partial_Straightlining_Flag === 1) return 'FLAG-PARTIAL-STRAIGHTLINING'
 
-  // Step 8: Clean
+  // Step 10: Clean
   return 'CLEAN'
 }
 
@@ -236,10 +247,19 @@ export function triageCsv(inputCsv: string): DispositionRow[] {
     const flaggedBlocks = detectPartialStraightlining(fields, headers, SURVEY_BLOCKS)
     const partialStraightliningFlag: 0 | 1 = flaggedBlocks.length > 0 ? 1 : 0
 
+    // Auth check fields default to empty — populated by enrichment step
+    // (scripts/fetch-prolific-auth-checks.ts) before final triage.
+    const authLlm = ''
+    const authBots = ''
+    const authFlag: 0 | 1 = 0
+
     const partial: Omit<DispositionRow, 'Disposition'> = {
       PROLIFIC_PID: pid,
       Finished: finished,
       Duration_Seconds: duration,
+      Auth_LLM: authLlm,
+      Auth_Bots: authBots,
+      Auth_Flag: authFlag,
       IRI_Barrier_Pass: iriBarrier,
       IRI_Readiness_Pass: iriReadiness,
       IRI_Maturity_Pass: iriMaturity,
