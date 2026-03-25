@@ -313,12 +313,13 @@ async function main() {
         await sendMessage(studyId, r.pid, r.message, apiToken)
         sent++
         console.log(`    Sent successfully`)
-      } catch (error) {
+      } catch (error: unknown) {
         failed++
-        console.error(
-          `    FAILED to send to ${r.pid}:`,
-          error instanceof Error ? error.message : String(error)
-        )
+        const errMsg =
+          error instanceof Error
+            ? `${error.message}${(error as Record<string, unknown>).statusCode ? ` (HTTP ${(error as Record<string, unknown>).statusCode})` : ''}${(error as Record<string, unknown>).response ? ` Response: ${JSON.stringify((error as Record<string, unknown>).response)}` : ''}`
+            : JSON.stringify(error)
+        console.error(`    FAILED to send to ${r.pid}: ${errMsg}`)
       }
     }
 
