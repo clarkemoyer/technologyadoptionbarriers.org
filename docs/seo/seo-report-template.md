@@ -139,11 +139,11 @@ Pages with high impressions but below-average CTR — indicating ranking content
 
 ### 3.3 Page Speed & Technical Performance
 
-| Page URL | LCP (s) | FID (ms) |      CLS | Performance Score |                Status                 |
+| Page URL | LCP (s) | INP (ms) |      CLS | Performance Score |                Status                 |
 | :------- | ------: | -------: | -------: | ----------------: | :-----------------------------------: |
 | `[/url]` | `[X.X]` |    `[X]` | `[X.XX]` |         `[X/100]` | `[🟢 Good / 🟡 Needs Work / 🔴 Poor]` |
 
-> **Source:** Google PageSpeed Insights or Lighthouse CI. Core Web Vitals thresholds: LCP <2.5s (Good), FID <100ms (Good), CLS <0.1 (Good).
+> **Source:** Google PageSpeed Insights or Lighthouse CI. Core Web Vitals thresholds: LCP <2.5s (Good), INP <200ms (Good), CLS <0.1 (Good).
 
 ---
 
@@ -288,17 +288,18 @@ Pages with high impressions but below-average CTR — indicating ranking content
 
 ## Appendix B: Glossary
 
-| Term                  | Definition                                                                |
-| :-------------------- | :------------------------------------------------------------------------ |
-| **CTR**               | Click-Through Rate — percentage of impressions that resulted in a click   |
-| **DA**                | Domain Authority — Moz metric (0–100) predicting a site's ability to rank |
-| **DR**                | Domain Rating — Ahrefs metric similar to DA                               |
-| **Impressions**       | Number of times a page appeared in search results                         |
-| **Position**          | Average ranking position in Google search results (1 = top)               |
-| **SERP**              | Search Engine Results Page                                                |
-| **CLS**               | Cumulative Layout Shift — Core Web Vital measuring visual stability       |
-| **FID**               | First Input Delay — Core Web Vital measuring interactivity                |
-| **LCP**               | Largest Contentful Paint — Core Web Vital measuring load speed            |
-| **Long-tail keyword** | Specific, multi-word search query with lower volume but higher intent     |
-| **Featured Snippet**  | Highlighted answer box at top of Google search results                    |
-| **PAA**               | People Also Ask — expandable question boxes in Google SERPs               |
+| Term                  | Definition                                                                                       |
+| :-------------------- | :----------------------------------------------------------------------------------------------- |
+| **CTR**               | Click-Through Rate — percentage of impressions that resulted in a click                          |
+| **DA**                | Domain Authority — Moz metric (0–100) predicting a site's ability to rank                        |
+| **DR**                | Domain Rating — Ahrefs metric similar to DA                                                      |
+| **Impressions**       | Number of times a page appeared in search results                                                |
+| **Position**          | Average ranking position in Google search results (1 = top)                                      |
+| **SERP**              | Search Engine Results Page                                                                       |
+| **CLS**               | Cumulative Layout Shift — Core Web Vital measuring visual stability                              |
+| **LCP**               | Largest Contentful Paint — Core Web Vital measuring loading performance                          |
+| **INP**               | Interaction to Next Paint — Core Web Vital measuring responsiveness/interactivity (replaces FID) |
+| **FID**               | First Input Delay — legacy interactivity metric replaced by INP and no longer a Core Web Vital   |
+| **Long-tail keyword** | Specific, multi-word search query with lower volume but higher intent                            |
+| **Featured Snippet**  | Highlighted answer box at top of Google search results                                           |
+| **PAA**               | People Also Ask — expandable question boxes in Google SERPs                                      |

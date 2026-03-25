@@ -40,7 +40,7 @@
 | Indexed Pages         |         `[X]` |           `[X]` |      `[±X]` | `[🟡◆]` |
 | Referring Domains     |         `[X]` |           `[X]` |      `[±X]` | `[🟢▲]` |
 
-> **Data sources:** Organic Sessions and CTR from Google Analytics 4. Impressions, Clicks, and Average Position from Google Search Console. DA from Moz Link Explorer (free). Indexed Pages from Google Search Console Coverage report.
+> **Data sources:** Organic Sessions from Google Analytics 4. Impressions, Clicks, Average CTR, and Average Position from Google Search Console. DA from Moz Link Explorer (free). Indexed Pages from Google Search Console Coverage report.
 
 ---
 
@@ -178,4 +178,4 @@ xychart-beta
 | Competitor rankings                                  | Manual SERP analysis  | Google Search (incognito mode)                                    |
 | Content health metrics                               | Site audit            | Manual review or Lighthouse CI                                    |
 
-> **Automated collection:** The GitHub Actions workflow (`.github/workflows/seo-metrics-collection.yml`) runs `collect-seo-keywords.ts` and `collect-page-seo-metrics.ts` on a schedule. Output is saved to `reports/seo/` and summarized in workflow step summaries.
+> **Automated collection:** The GitHub Actions workflow (`.github/workflows/seo-metrics.yml`) runs `collect-seo-keywords.ts` and `collect-page-seo-metrics.ts` on a schedule. Output is saved to `reports/seo/` and summarized in workflow step summaries.

@@ -24,7 +24,7 @@
 | Indexed Pages         |            47 |              42 |       +5 | 🟢 ▲  |
 | Referring Domains     |            34 |              28 |       +6 | 🟢 ▲  |
 
-> **Data sources:** Organic Sessions and CTR from Google Analytics 4. Impressions, Clicks, and Average Position from Google Search Console. DA from Moz Link Explorer (free). Indexed Pages from Google Search Console Coverage report.
+> **Data sources:** Organic Sessions from Google Analytics 4. Impressions, Clicks, Average CTR, and Average Position from Google Search Console. DA from Moz Link Explorer (free). Indexed Pages from Google Search Console Coverage report.
 
 ---
 
