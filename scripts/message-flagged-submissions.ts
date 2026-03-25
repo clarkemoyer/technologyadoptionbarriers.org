@@ -15,6 +15,8 @@
  *   CSV_FILE_PATH         – Path to disposition CSV (required)
  *   DISPOSITION_FILTER    – Which FLAG disposition to process (required)
  *   DRY_RUN               – When "false", send messages live (default: true)
+ *   PID_LIST              – Optional comma-separated list of PIDs to process (default: all matching)
+ *                           Supports: single PID, comma-separated batch, or empty for all
  */
 
 import { getCurrentUser, sendMessage } from '../src/lib/prolific-api'
@@ -232,11 +234,29 @@ async function main() {
     })
   }
 
+  /* ---------- Apply PID filter ---------------------------------------- */
+  const pidListRaw = (process.env.PID_LIST ?? '').trim()
+  const pidFilter = pidListRaw
+    ? new Set(
+        pidListRaw
+          .split(',')
+          .map((p) => p.trim())
+          .filter(Boolean)
+      )
+    : null
+
+  const filtered = pidFilter ? records.filter((r) => pidFilter.has(r.pid)) : records
+
   console.log(`Parsed ${lines.length - 1} data rows`)
   console.log(`Participants matching ${dispositionFilter}: ${records.length}`)
+  if (pidFilter) {
+    console.log(`PID filter: ${pidFilter.size} PID(s) specified, matched: ${filtered.length}`)
+    const missing = [...pidFilter].filter((p) => !filtered.find((r) => r.pid === p))
+    if (missing.length > 0) console.log(`Not found in ${dispositionFilter}: ${missing.join(', ')}`)
+  }
   console.log('')
 
-  if (records.length === 0) {
+  if (filtered.length === 0) {
     console.log(`No participants with disposition ${dispositionFilter}.`)
     appendGithubStepSummary(
       `## Prolific Flagged Submission Messaging\n\nNo participants with disposition ${dispositionFilter}.\n`
@@ -248,7 +268,7 @@ async function main() {
 
   console.log('Message details:')
   console.log('')
-  for (const r of records) {
+  for (const r of filtered) {
     const minutes = (r.duration / 60).toFixed(1)
     console.log(`  PID: ${r.pid}`)
     console.log(`    Duration: ${minutes} min | Disposition: ${r.disposition}`)
@@ -271,13 +291,13 @@ async function main() {
   if (dryRun) {
     console.log('================================================================')
     console.log('  DRY RUN \u2014 no messages will be sent')
-    console.log(`  Would message: ${records.length} participants`)
+    console.log(`  Would message: ${filtered.length} participants`)
     console.log(`  Disposition: ${dispositionFilter}`)
     console.log('  Set DRY_RUN=false to send messages')
     console.log('================================================================')
   } else {
     console.log('================================================================')
-    console.log(`  SENDING MESSAGES: ${records.length} participants`)
+    console.log(`  SENDING MESSAGES: ${filtered.length} participants`)
     console.log(`  Study: ${studyId}`)
     console.log(`  Disposition: ${dispositionFilter}`)
     console.log(`  Operator: ${user.name} (${user.email})`)
@@ -287,7 +307,7 @@ async function main() {
     let sent = 0
     let failed = 0
 
-    for (const r of records) {
+    for (const r of filtered) {
       try {
         console.log(`  Sending message to ${r.pid}...`)
         await sendMessage(studyId, r.pid, r.message, apiToken)
@@ -308,7 +328,7 @@ async function main() {
 
   /* ---------- Step summary ------------------------------------------- */
 
-  const summaryRows = records.map((r) => {
+  const summaryRows = filtered.map((r) => {
     const minutes = (r.duration / 60).toFixed(1)
     return `| \`${r.pid}\` | ${minutes} min | ${r.disposition} |`
   })
@@ -329,11 +349,11 @@ async function main() {
       '|---|---|---|',
       ...summaryRows,
       '',
-      `**Total:** ${records.length}`,
+      `**Total:** ${filtered.length}`,
       '',
       '### Sample Message',
       '',
-      '> ' + records[0].message,
+      '> ' + filtered[0].message,
       '',
       dryRun
         ? '> **Dry run** \u2014 no messages sent.'

@@ -39,6 +39,11 @@ on:
         required: true
         type: boolean
         default: true
+      pid_list:
+        description: 'Comma-separated PIDs to process (empty = all matching disposition)'
+        required: false
+        type: string
+        default: ''
 
 # Prevent concurrent messaging runs
 concurrency:
@@ -121,3 +126,4 @@ jobs:
           CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
           DISPOSITION_FILTER: ${{ inputs.disposition_filter }}
           DRY_RUN: ${{ inputs.dry_run }}
+          PID_LIST: ${{ inputs.pid_list }}
