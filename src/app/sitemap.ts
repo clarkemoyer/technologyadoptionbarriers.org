@@ -627,6 +627,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    // Concept Mapping
+    {
+      url: `${baseUrl}/concept-mapping/simple`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
     // Survey completion
     {
       url: `${baseUrl}/survey-complete`,
