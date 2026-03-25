@@ -14,6 +14,12 @@
     "FLAG-STRAIGHTLINING": 0,
     "INCOMPLETE": 0
   },
+  "autoExcludeBreakdown": {
+    "IRI3_SPEED": 8,
+    "IRI3": 22,
+    "IRI2_SPEED": 9,
+    "IRI2": 35
+  },
   "actions": {
     "approved": 56,
     "rejected": 1,
