@@ -2,6 +2,7 @@
 
 **Technology Adoption Barriers Survey (TABS)**
 **Report Date:** March 2026
+**Last Updated:** 2026-03-25
 **Analysis Period:** February–March 2026
 **Related Issue:** [#481 — Comprehensive Benchmark Report](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/481)
 **Parent Issue:** [#473 — SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
@@ -31,9 +32,9 @@
   - [Prioritized Content Opportunities](#prioritized-content-opportunities)
   - [Recommended Content Calendar](#recommended-content-calendar)
 - [Action Items and Roadmap](#action-items-and-roadmap)
-  - [Quick Wins (0–3 Months)](#quick-wins-03-months)
-  - [Medium-Term Initiatives (3–6 Months)](#medium-term-initiatives-36-months)
-  - [Long-Term Strategy (6–12 Months)](#long-term-strategy-612-months)
+  - [Quick Wins (0–3 Months)](#quick-wins-0-3-months)
+  - [Medium-Term Initiatives (3–6 Months)](#medium-term-initiatives-3-6-months)
+  - [Long-Term Strategy (6–12 Months)](#long-term-strategy-6-12-months)
   - [Engineering Requirements](#engineering-requirements)
 - [Methodology and Limitations](#methodology-and-limitations)
   - [Data Sources and Tools](#data-sources-and-tools)
@@ -47,7 +48,7 @@
 
 ### Current State
 
-Technology Adoption Barriers Survey (technologyadoptionbarriers.org) is a nonprofit research website focused on documenting technology adoption models, identifying barriers to technology adoption, and collecting original survey data from organizational leaders. The site has approximately 100+ indexed pages covering 21 individual bibliography entries, 14+ in-depth technology adoption model articles, organizational persona pages, and supporting content.
+Technology Adoption Barriers Survey (technologyadoptionbarriers.org) is a nonprofit research website focused on documenting technology adoption models, identifying barriers to technology adoption, and collecting original survey data from organizational leaders. The site has approximately 100+ indexed pages covering 40 individual bibliography entries, 14+ in-depth technology adoption model articles, organizational persona pages, and supporting content.
 
 **Domain metrics (estimated):**
 
@@ -120,7 +121,7 @@ The following table lists the top 25 target keywords, sorted by opportunity scor
 |   16 | resistance to technology adoption                  |                 390 | 20+                   | Medium            | ★★☆☆☆             | `/barriers`                            |
 |   17 | UTAUT2                                             |               1,300 | 20+                   | Medium            | ★★☆☆☆             | `/article-1-5-*`                       |
 |   18 | TAM2                                               |                 720 | 20+                   | Medium            | ★★☆☆☆             | `/article-1-3-*`                       |
-|   19 | technology adoption models comparison              |                 170 | NR                    | Low–Medium        | ★★☆☆☆             | `/technology-adoption-series`          |
+|   19 | technology adoption models comparison              |                 170 | NR                    | Low–Medium        | ★★☆☆☆             | `/technology-adoption-models`          |
 |   20 | gartner hype cycle explained                       |                 880 | 20+                   | Medium            | ★★☆☆☆             | `/article-2-3-*`                       |
 |   21 | barriers to digital transformation                 |               1,300 | 20+                   | High              | ★★☆☆☆             | `/barriers`                            |
 |   22 | legacy system barriers                             |                 260 | NR                    | Medium            | ★★☆☆☆             | —                                      |
@@ -191,7 +192,7 @@ Keywords are grouped into five strategic clusters. TABS should optimize content 
 | :------------------------------------ | -----: | :------- | :---------------------------- |
 | gartner hype cycle explained          |    880 | 20+      | `/article-2-3-*`              |
 | cloud adoption framework              |  1,600 | NR       | `/article-2-6-*`              |
-| technology adoption models comparison |    170 | NR       | `/technology-adoption-series` |
+| technology adoption models comparison |    170 | NR       | `/technology-adoption-models` |
 | UTAUT model explained                 |    260 | 20+      | `/article-1-4-*`              |
 | TAM explained                         |    210 | 20+      | `/article-1-2-*`              |
 
@@ -230,7 +231,7 @@ Based on competitive SERP analysis and site content assessment, the following pa
 |    2 | `/article-1-2-*` (TAM)        | technology acceptance model, TAM model                        | 11–20               | Comprehensive model documentation; no competitor offers this depth |
 |    3 | `/article-1-4-*` (UTAUT)      | UTAUT model, unified theory                                   | 11–20               | In-depth UTAUT coverage with construct analysis                    |
 |    4 | `/` (Homepage)                | technology adoption survey, TABS                              | 11–20               | Brand keyword alignment; survey data CTA                           |
-|    5 | `/technology-adoption-series` | technology adoption models                                    | 20+                 | Series index with links to all model articles                      |
+|    5 | `/technology-adoption-models` | technology adoption models                                    | 20+                 | Series index with links to all model articles                      |
 
 ### Worst Performing Pages
 
@@ -323,7 +324,7 @@ TABS was benchmarked against 12 competitors across 25 priority keywords. The com
 | technology readiness index               | Academic papers        | `/article-1-7-*`              | Definition block and TRI dimension table                   | Low    |
 | what are barriers to technology adoption | Various blogs          | `/barriers`                   | FAQ schema markup; numbered barrier list                   | Medium |
 | gartner hype cycle explained             | Gartner                | `/article-2-3-*`              | Independent explainer content (not just Gartner citations) | Medium |
-| technology adoption models comparison    | Academic blogs         | `/technology-adoption-series` | Dedicated comparison table                                 | Medium |
+| technology adoption models comparison    | Academic blogs         | `/technology-adoption-models` | Dedicated comparison table                                 | Medium |
 
 ---
 
@@ -355,7 +356,7 @@ The following pages should have their `metadata` exports updated in their respec
 | `/article-1-4-*` (UTAUT)      | Article series title        | "UTAUT Model Explained: Unified Theory of Technology Acceptance \| TABS"   | UTAUT model                  |
 | `/bibliography-1-2-*` (DOI)   | Bibliography entry title    | "Diffusion of Innovations (Rogers): Theory, Stages & Applications \| TABS" | diffusion of innovations     |
 | `/article-1-7-*` (TRI)        | Article series title        | "Technology Readiness Index (TRI): Dimensions, Scoring & Research \| TABS" | technology readiness index   |
-| `/technology-adoption-series` | Series index title          | "Technology Adoption Models: Complete Comparison & Research Guide \| TABS" | technology adoption models   |
+| `/technology-adoption-models` | Series index title          | "Technology Adoption Models: Complete Comparison & Research Guide \| TABS" | technology adoption models   |
 | `/` (Homepage)                | TABS homepage title         | "Technology Adoption Barriers Survey (TABS): Research & Survey Data"       | technology adoption survey   |
 
 ### Structured Data Recommendations
@@ -497,9 +498,9 @@ The following engineering changes are needed to support the SEO roadmap. All are
 |  E2 | Add Article JSON-LD schema                    | High     | Medium | `src/app/article-*/page.tsx` (14+ files)                     | Add Article schema to each model article's metadata or page component                                                             |
 |  E3 | Add FAQPage JSON-LD schema                    | High     | Medium | `src/app/barriers/page.tsx`, `src/app/faq/page.tsx`          | Add FAQPage schema with structured Q&A pairs                                                                                      |
 |  E4 | Update page metadata exports                  | High     | Low    | Various `page.tsx` files                                     | Update `metadata` exports with keyword-optimized titles and descriptions                                                          |
-|  E5 | Create model comparison page                  | Medium   | Medium | `src/app/technology-adoption-series/` (new page or existing) | New route with comparison table component                                                                                         |
+|  E5 | Create model comparison page                  | Medium   | Medium | `src/app/technology-adoption-models/` (new page or existing) | New route with comparison table component                                                                                         |
 |  E6 | Enhance weekly SEO report with trend analysis | Medium   | Medium | `scripts/collect-seo-keywords.ts`                            | Add week-over-week position comparison; flag improving/declining keywords                                                         |
-|  E7 | Add SEO report dashboard template             | Medium   | High   | New file (e.g., `docs/seo/report-template.md`)               | Create reusable template for quarterly reports ([#483](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/483)) |
+|  E7 | Add SEO report dashboard template             | Medium   | High   | New file (e.g., `docs/seo/seo-report-template.md`)           | Create reusable template for quarterly reports ([#483](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/483)) |
 |  E8 | Add structured definition components          | Low      | Medium | `src/components/` (new component)                            | Reusable `DefinitionBlock` component for model articles                                                                           |
 |  E9 | Automate sitemap verification                 | Low      | Low    | `scripts/` or `.github/workflows/seo-metrics.yml`            | Add sitemap completeness check to SEO workflow                                                                                    |
 | E10 | Add canonical URL validation                  | Low      | Low    | `__tests__/`                                                 | Add unit test verifying all pages have proper canonical URLs                                                                      |
