@@ -1,0 +1,76 @@
+Production Smoke Test	Set up job	2026-03-04T14:34:01.0012898Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260224.36/images/ubuntu/Ubuntu2404-Readme.md
+Production Smoke Test	Build site to discover all routes	2026-03-04T14:35:00.6340444Z Γö£ Γùï /bibliography-1-17-value-based-adoption-kim-2007
+Production Smoke Test	Discover all page routes	2026-03-04T14:35:00.7297328Z [36;1mfind out -name 'index.html' -not -path 'out/404/*' | sort | while read -r f; do[0m
+Production Smoke Test	Discover all page routes	2026-03-04T14:35:00.9740442Z /bibliography-1-6-technology-acceptance-model-tam-davis-1989
+Production Smoke Test	Discover all static assets	2026-03-04T14:35:00.9820404Z [36;1m#   - .nojekyll (hidden deployment marker)[0m
+Production Smoke Test	Discover all static assets	2026-03-04T14:35:01.1084047Z /Svgs/up-arrow.svg
+Production Smoke Test	Discover all static assets	2026-03-04T14:35:01.1184045Z /article-2-6-the-cloud-revolution-prescriptive-adoption-frameworks/__next.article-2-6-the-cloud-revolution-prescriptive-adoption-frameworks.txt
+Production Smoke Test	Discover all static assets	2026-03-04T14:35:01.1212404Z /bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975/__next.bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975.txt
+Production Smoke Test	Discover all static assets	2026-03-04T14:35:01.1404483Z /making-of-tabs/ai-validity-checks/gemini-3-1-review/__next.making-of-tabs.ai-validity-checks.gemini-3-1-review.__PAGE__.txt
+Production Smoke Test	Discover all static assets	2026-03-04T14:35:01.1474404Z /making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-2-enterprise-architecture/__next.making-of-tabs.ai-validity-checks.gemini-3-1-review.txt
+Production Smoke Test	Discover all static assets	2026-03-04T14:35:01.1554047Z /making-of-tabs/integrations/qualtrics/__next._head.txt
+Production Smoke Test	Discover all static assets	2026-03-04T14:35:01.1640495Z /technology-adoption-series/slide-01-what-is-technology-adoption/__next.technology-adoption-series.txt
+Production Smoke Test	Discover all static assets	2026-03-04T14:35:01.1840429Z /technology-adoption-series/slide-2/__next.technology-adoption-series.$d$slide.__PAGE__.txt
+Production Smoke Test	Create test helper scripts	2026-03-04T14:35:31.2140773Z [36;1m  echo "FAIL $status $label (expected $expected)"[0m
+Production Smoke Test	Create test helper scripts	2026-03-04T14:35:31.2145142Z [36;1m  echo "FAIL $status $label (expected $expected)"[0m
+Production Smoke Test	Test all page routes (with and without trailing slash)	2026-03-04T14:35:31.2338193Z [36;1mFAIL=$(grep -c '^FAIL' /tmp/route-results.txt || true)[0m
+Production Smoke Test	Test all page routes (with and without trailing slash)	2026-03-04T14:35:31.2338961Z [36;1mecho "Page routes: Γ£à $PASS passed, Γ¥î $FAIL failed (of $ROUTE_TEST_COUNT)"[0m
+Production Smoke Test	Test all page routes (with and without trailing slash)	2026-03-04T14:35:31.2339912Z [36;1m  echo "ROUTE_FAIL=$FAIL"[0m
+Production Smoke Test	Test all page routes (with and without trailing slash)	2026-03-04T14:35:31.2340440Z [36;1m} >> "$GITHUB_ENV"[0m
+Production Smoke Test	Test all page routes (with and without trailing slash)	2026-03-04T14:35:31.2340835Z [36;1mif [ "$FAIL" -gt 0 ]; then[0m
+Production Smoke Test	Test all page routes (with and without trailing slash)	2026-03-04T14:35:31.2341794Z [36;1m  grep '^FAIL' /tmp/route-results.txt[0m
+Production Smoke Test	Test all static assets	2026-03-04T14:35:36.5936028Z [36;1mFAIL=$(grep -c '^FAIL' /tmp/asset-results.txt || true)[0m
+Production Smoke Test	Test all static assets	2026-03-04T14:35:36.5936640Z [36;1mecho "Static assets: Γ£à $PASS passed, Γ¥î $FAIL failed (of $ASSET_TEST_COUNT)"[0m
+Production Smoke Test	Test all static assets	2026-03-04T14:35:36.5937588Z [36;1m  echo "ASSET_FAIL=$FAIL"[0m
+Production Smoke Test	Test all static assets	2026-03-04T14:35:36.5938499Z [36;1mif [ "$FAIL" -gt 0 ]; then[0m
+Production Smoke Test	Test all static assets	2026-03-04T14:35:36.5939180Z [36;1m  grep '^FAIL' /tmp/asset-results.txt[0m
+Production Smoke Test	Test all static assets	2026-03-04T14:35:36.5989219Z   ROUTE_FAIL: 0
+Production Smoke Test	Test all static assets	2026-03-04T14:35:58.7113852Z FAIL 503 /for-organizations/operations-leaders/__next._full.txt (expected 200)
+Production Smoke Test	Infrastructure checks	2026-03-04T14:35:58.7144759Z [36;1mINFRA_FAIL=0[0m
+Production Smoke Test	Infrastructure checks	2026-03-04T14:35:58.7147404Z [36;1m  else[0m
+Production Smoke Test	Infrastructure checks	2026-03-04T14:35:58.7148150Z [36;1m    INFRA_FAIL=$((INFRA_FAIL + 1))[0m
+Production Smoke Test	Infrastructure checks	2026-03-04T14:35:58.7149590Z [36;1m# 1. 404 error handling ΓÇö nonexistent URL must return 404[0m
+Production Smoke Test	Infrastructure checks	2026-03-04T14:35:58.7150597Z [36;1mcheck "404 error page" "${SITE_URL}/__smoke-test-404-check__" "404"[0m
+Production Smoke Test	Infrastructure checks	2026-03-04T14:35:58.7158246Z [36;1m  INFRA_FAIL=$((INFRA_FAIL + 1))[0m
+Production Smoke Test	Infrastructure checks	2026-03-04T14:35:58.7173182Z [36;1m  INFRA_FAIL=$((INFRA_FAIL + 1))[0m
+Production Smoke Test	Infrastructure checks	2026-03-04T14:35:58.7175551Z [36;1m# failure here does NOT increment INFRA_FAIL.[0m
+Production Smoke Test	Infrastructure checks	2026-03-04T14:35:58.7179354Z [36;1mecho "Infrastructure: $INFRA_FAIL failed"[0m
+Production Smoke Test	Infrastructure checks	2026-03-04T14:35:58.7180094Z [36;1mecho "INFRA_FAIL=$INFRA_FAIL" >> "$GITHUB_ENV"[0m
+Production Smoke Test	Infrastructure checks	2026-03-04T14:35:58.7230326Z   ROUTE_FAIL: 0
+Production Smoke Test	Infrastructure checks	2026-03-04T14:35:58.7230855Z   ASSET_FAIL: 1
+Production Smoke Test	Infrastructure checks	2026-03-04T14:35:59.1193685Z | 404 error page | Γ£à 404 |
+Production Smoke Test	Generate job summary	2026-03-04T14:35:59.1227633Z [36;1m  echo "| Γ¥î Failed | ${ROUTE_FAIL:-0} |"[0m
+Production Smoke Test	Generate job summary	2026-03-04T14:35:59.1228726Z [36;1m  if [ -f /tmp/route-results.txt ] && grep -q '^FAIL' /tmp/route-results.txt 2>/dev/null; then[0m
+Production Smoke Test	Generate job summary	2026-03-04T14:35:59.1229936Z [36;1m    grep '^FAIL' /tmp/route-results.txt[0m
+Production Smoke Test	Generate job summary	2026-03-04T14:35:59.1232898Z [36;1m  echo "| Γ¥î Failed | ${ASSET_FAIL:-0} |"[0m
+Production Smoke Test	Generate job summary	2026-03-04T14:35:59.1233927Z [36;1m  if [ -f /tmp/asset-results.txt ] && grep -q '^FAIL' /tmp/asset-results.txt 2>/dev/null; then[0m
+Production Smoke Test	Generate job summary	2026-03-04T14:35:59.1235105Z [36;1m    grep '^FAIL' /tmp/asset-results.txt[0m
+Production Smoke Test	Generate job summary	2026-03-04T14:35:59.1239072Z [36;1m  TOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} ))[0m
+Production Smoke Test	Generate job summary	2026-03-04T14:35:59.1239456Z [36;1m  if [ "$TOTAL_FAIL" -eq 0 ]; then[0m
+Production Smoke Test	Generate job summary	2026-03-04T14:35:59.1240176Z [36;1m    echo "## Γ¥î ${TOTAL_FAIL} check(s) failed"[0m
+Production Smoke Test	Generate job summary	2026-03-04T14:35:59.1290564Z   ROUTE_FAIL: 0
+Production Smoke Test	Generate job summary	2026-03-04T14:35:59.1291102Z   ASSET_FAIL: 1
+Production Smoke Test	Generate job summary	2026-03-04T14:35:59.1291599Z   INFRA_FAIL: 0
+Production Smoke Test	Fail if any checks failed	∩╗┐2026-03-04T14:35:59.1474149Z ##[group]Run TOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} ))
+Production Smoke Test	Fail if any checks failed	2026-03-04T14:35:59.1474706Z [36;1mTOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} ))[0m
+Production Smoke Test	Fail if any checks failed	2026-03-04T14:35:59.1475096Z [36;1mif [ "$TOTAL_FAIL" -gt 0 ]; then[0m
+Production Smoke Test	Fail if any checks failed	2026-03-04T14:35:59.1475550Z [36;1m  echo "::error::≡ƒÜ¿ PRODUCTION SITE ISSUE: ${TOTAL_FAIL} smoke test check(s) failed after deploy"[0m
+Production Smoke Test	Fail if any checks failed	2026-03-04T14:35:59.1476219Z [36;1m  [ "${ROUTE_FAIL:-0}" -gt 0 ] && echo "::error::  ≡ƒôä Page routes: ${ROUTE_FAIL} failed out of ${ROUTE_TOTAL:-?}"[0m
+Production Smoke Test	Fail if any checks failed	2026-03-04T14:35:59.1476876Z [36;1m  [ "${ASSET_FAIL:-0}" -gt 0 ] && echo "::error::  ≡ƒû╝∩╕Å Static assets: ${ASSET_FAIL} failed out of ${ASSET_TOTAL:-?}"[0m
+Production Smoke Test	Fail if any checks failed	2026-03-04T14:35:59.1477497Z [36;1m  [ "${INFRA_FAIL:-0}" -gt 0 ] && echo "::error::  ≡ƒöº Infrastructure: ${INFRA_FAIL} check(s) failed"[0m
+Production Smoke Test	Fail if any checks failed	2026-03-04T14:35:59.1527669Z   ROUTE_FAIL: 0
+Production Smoke Test	Fail if any checks failed	2026-03-04T14:35:59.1528200Z   ASSET_FAIL: 1
+Production Smoke Test	Fail if any checks failed	2026-03-04T14:35:59.1528555Z   INFRA_FAIL: 0
+Production Smoke Test	Create production incident issue	const routeFail = parseInt(process.env.ROUTE_FAIL || '0');
+Production Smoke Test	Create production incident issue	const assetFail = parseInt(process.env.ASSET_FAIL || '0');
+Production Smoke Test	Create production incident issue	const infraFail = parseInt(process.env.INFRA_FAIL || '0');
+Production Smoke Test	Create production incident issue	2026-03-04T14:35:59.1718733Z   retry-exempt-status-codes: 400,401,403,404,422
+Production Smoke Test	Create production incident issue	2026-03-04T14:35:59.1719703Z   ROUTE_FAIL: 0
+Production Smoke Test	Create production incident issue	2026-03-04T14:35:59.1720239Z   ASSET_FAIL: 1
+Production Smoke Test	Create production incident issue	2026-03-04T14:35:59.1720591Z   INFRA_FAIL: 0
+Production Smoke Test	Set commit status (failure)	2026-03-04T14:36:00.0987749Z   retry-exempt-status-codes: 400,401,403,404,422
+Production Smoke Test	Set commit status (failure)	2026-03-04T14:36:00.0988792Z   ROUTE_FAIL: 0
+Production Smoke Test	Set commit status (failure)	2026-03-04T14:36:00.0989365Z   ASSET_FAIL: 1
+Production Smoke Test	Set commit status (failure)	2026-03-04T14:36:00.0989745Z   INFRA_FAIL: 0
+Production Smoke Test	Set commit status (failure)	2026-03-04T14:36:00.4404184Z       'x-github-request-id': 'B48B:355056:7CF182:213A9C8:69A84350',
+Production Smoke Test	Set commit status (failure)	2026-03-04T14:36:00.4404783Z       'x-ratelimit-limit': '5000',
