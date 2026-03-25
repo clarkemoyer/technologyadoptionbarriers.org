@@ -119,6 +119,20 @@ export interface Submission {
   time_taken?: number
   participant_code?: string
   study_code?: string
+
+  /**
+   * Prolific AUTH CHECK fields (LLM + Bots).
+   *
+   * These are returned by the Prolific API as part of the submission object
+   * when the study has authenticity checks enabled. Possible values include
+   * "High", "Mixed", "Low", or undefined if the check was not run.
+   *
+   * TODO: Verify exact field names and value enums against the live API.
+   *       The Prolific docs may use different casing or naming conventions.
+   */
+  is_legitimate?: boolean
+  authenticity_score_llm?: string
+  authenticity_score_bots?: string
 }
 
 /**
