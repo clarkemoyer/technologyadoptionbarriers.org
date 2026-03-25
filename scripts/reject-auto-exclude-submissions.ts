@@ -23,6 +23,8 @@
  *   CSV_FILE_PATH       – Path to disposition CSV (required)
  *   CONFIRM_REJECT      – Must be exactly "REJECT" to execute live (required for live)
  *   DRY_RUN             – When "false" AND CONFIRM_REJECT=="REJECT", reject live (default: true)
+ *   PID_LIST            – Optional comma-separated list of PIDs to process (default: all matching)
+ *                         Supports: single PID, comma-separated batch, or empty for all
  */
 
 import {
@@ -237,9 +239,32 @@ async function main() {
     records.push(r)
   }
 
+  /* ---------- Apply PID filter ----------------------------------------- */
+  const pidListRaw = (process.env.PID_LIST ?? '').trim()
+  const pidFilter = pidListRaw
+    ? new Set(
+        pidListRaw
+          .split(',')
+          .map((p) => p.trim())
+          .filter(Boolean)
+      )
+    : null
+
+  const filtered = pidFilter ? records.filter((r) => pidFilter.has(r.pid)) : records
+
+  if (pidFilter) {
+    console.log(`PID filter: ${pidFilter.size} PID(s) specified`)
+    console.log(`Matched: ${filtered.length} of ${records.length} AUTO-EXCLUDE participants`)
+    const missing = [...pidFilter].filter((p) => !filtered.find((r) => r.pid === p))
+    if (missing.length > 0) {
+      console.log(`Not found in AUTO-EXCLUDE: ${missing.join(', ')}`)
+    }
+    console.log('')
+  }
+
   /* ---------- Summary by sub-type -------------------------------------- */
   const bySubType = new Map<string, RejectionRecord[]>()
-  for (const r of records) {
+  for (const r of filtered) {
     const list = bySubType.get(r.subType) ?? []
     list.push(r)
     bySubType.set(r.subType, list)
@@ -247,12 +272,13 @@ async function main() {
 
   console.log(`Parsed ${lines.length - 1} data rows`)
   console.log(`Participants with Disposition == AUTO-EXCLUDE: ${records.length}`)
+  if (pidFilter) console.log(`Filtered to: ${filtered.length}`)
   for (const [subType, list] of bySubType) {
     console.log(`  ${subType}: ${list.length}`)
   }
   console.log('')
 
-  if (records.length === 0) {
+  if (filtered.length === 0) {
     console.log('No participants to reject.')
     appendGithubStepSummary(
       '## Prolific AUTO-EXCLUDE Rejection\n\nNo participants with Disposition == AUTO-EXCLUDE.\n'
@@ -263,7 +289,7 @@ async function main() {
   /* ---------- Log every rejection with its message -------------------- */
   console.log('Rejection details:')
   console.log('')
-  for (const r of records) {
+  for (const r of filtered) {
     const minutes = (r.duration / 60).toFixed(1)
     console.log(`  PID: ${r.pid}`)
     console.log(
@@ -284,13 +310,13 @@ async function main() {
   if (dryRun) {
     console.log('================================================================')
     console.log('  DRY RUN — no submissions will be rejected')
-    console.log(`  Would reject: ${records.length} participants`)
+    console.log(`  Would reject: ${filtered.length} participants`)
     console.log('  Each would receive a personalized message.')
     console.log('  Set DRY_RUN=false and CONFIRM_REJECT=REJECT to execute')
     console.log('================================================================')
   } else {
     console.log('================================================================')
-    console.log(`  LIVE REJECTION: ${records.length} submissions`)
+    console.log(`  LIVE REJECTION: ${filtered.length} submissions`)
     console.log(`  Study: ${studyId}`)
     console.log(`  Operator: ${user.name} (${user.email})`)
     console.log('================================================================')
@@ -300,14 +326,14 @@ async function main() {
     console.log('Looking up submission IDs...')
     const pidToSubId = await getSubmissionIdsByParticipant(
       studyId,
-      records.map((r) => r.pid),
+      filtered.map((r) => r.pid),
       apiToken
     )
 
     const notFound: string[] = []
     let rejected = 0
 
-    for (const r of records) {
+    for (const r of filtered) {
       const subId = pidToSubId.get(r.pid)
       if (!subId) {
         console.log(`  WARNING: No submission found for PID ${r.pid} — skipping`)
@@ -328,7 +354,7 @@ async function main() {
   }
 
   /* ---------- Step summary -------------------------------------------- */
-  const summaryRows = records.map((r) => {
+  const summaryRows = filtered.map((r) => {
     const minutes = (r.duration / 60).toFixed(1)
     return `| \`${r.pid}\` | ${minutes} min | ${r.iriFailCount}/3 | ${r.speedFlag === 1 ? 'Yes' : 'No'} | ${r.subType} |`
   })
@@ -359,7 +385,7 @@ async function main() {
       '|---|---|---|---|---|',
       ...summaryRows,
       '',
-      `**Total:** ${records.length}`,
+      `**Total:** ${filtered.length}`,
       '',
       '### Message Examples',
       '',

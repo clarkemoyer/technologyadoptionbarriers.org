@@ -37,6 +37,11 @@ on:
         required: false
         type: string
         default: ''
+      pid_list:
+        description: 'Comma-separated PIDs to process (empty = all AUTO-EXCLUDE)'
+        required: false
+        type: string
+        default: ''
 
 # Prevent concurrent rejection runs
 concurrency:
@@ -137,3 +142,4 @@ jobs:
           CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
           DRY_RUN: ${{ inputs.dry_run }}
           CONFIRM_REJECT: ${{ inputs.confirm_reject }}
+          PID_LIST: ${{ inputs.pid_list }}
