@@ -94,7 +94,7 @@ function ExpandableCell({ value, header }: { value: string; header: string }) {
       {expanded ? value : value.slice(0, TRUNCATE_LENGTH) + '…'}
       <button
         onClick={() => setExpanded(!expanded)}
-        className="ml-1 text-blue-600 hover:text-blue-800 text-xs font-medium whitespace-nowrap"
+        className="ml-1 text-blue-600 hover:text-blue-800 text-xs font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded"
         aria-label={expanded ? `Collapse ${header} cell` : `Expand ${header} cell`}
       >
         {expanded ? '[less]' : '[more]'}
@@ -231,10 +231,14 @@ const ConceptMappingSimple = () => {
         </div>
 
         {/* Table */}
+        <p id="table-scroll-hint" className="sr-only">
+          Use arrow keys or swipe to scroll the table horizontally.
+        </p>
         <div
           className="overflow-x-auto border border-gray-200 rounded-lg shadow-sm bg-white"
           role="region"
           aria-label="Concept mapping data table"
+          aria-describedby="table-scroll-hint"
           tabIndex={0}
         >
           <table className="w-max min-w-full text-sm border-collapse">
