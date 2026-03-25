@@ -1,0 +1,31 @@
+{
+  "updatedAt": "2026-03-25T00:00:00Z",
+  "totalResponses": 212,
+  "uniqueParticipants": 207,
+  "duplicatesRemoved": 5,
+  "dispositions": {
+    "CLEAN": 56,
+    "AUTO-EXCLUDE": 74,
+    "FLAG-SPEED": 4,
+    "FLAG-SINGLE-IRI": 41,
+    "FLAG-SMEAL": 20,
+    "FLAG-RECAPTCHA": 2,
+    "FLAG-PARTIAL-STRAIGHTLINING": 11,
+    "FLAG-STRAIGHTLINING": 0,
+    "INCOMPLETE": 0
+  },
+  "actions": {
+    "approved": 56,
+    "rejected": 1,
+    "messaged": 5,
+    "pendingReview": 73,
+    "pendingMessage": 73
+  },
+  "iriPassRates": {
+    "barrier": 54.0,
+    "readiness": 67.3,
+    "maturity": 78.7
+  },
+  "studyId": "69c17630acada6abeead2da5",
+  "studyName": "Technology Adoption Barriers Survey (2026 v2)"
+}
