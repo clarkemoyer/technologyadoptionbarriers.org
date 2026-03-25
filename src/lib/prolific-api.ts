@@ -478,6 +478,109 @@ export async function bulkApproveSubmissions(
 }
 
 /**
+ * Prolific rejection categories matching the UI checkboxes.
+ * Used when rejecting individual submissions.
+ */
+export const REJECTION_CATEGORIES = {
+  FAILED_AUTHENTICITY_CHECK: 'FAILED_AUTHENTICITY_CHECK',
+  FAILED_ATTENTION_CHECK: 'FAILED_ATTENTION_CHECK',
+  LOW_EFFORT: 'LOW_EFFORT',
+  DIDNT_ANSWER_ESSENTIAL: 'DIDNT_ANSWER_ESSENTIAL',
+  NO_DATA: 'NO_DATA',
+  TOO_QUICKLY: 'TOO_QUICKLY',
+  OTHER: 'OTHER',
+} as const
+
+export type RejectionCategory = (typeof REJECTION_CATEGORIES)[keyof typeof REJECTION_CATEGORIES]
+
+/**
+ * Find submission IDs for a list of participant IDs within a study.
+ * Returns a map of participant_id -> submission_id.
+ */
+export async function getSubmissionIdsByParticipant(
+  studyId: string,
+  participantIds: string[],
+  apiToken: string
+): Promise<Map<string, string>> {
+  const submissions = await listStudySubmissions(studyId, apiToken)
+  const pidSet = new Set(participantIds)
+  const result = new Map<string, string>()
+
+  for (const sub of submissions.results) {
+    if (pidSet.has(sub.participant_id)) {
+      result.set(sub.participant_id, sub.id)
+    }
+  }
+
+  return result
+}
+
+/**
+ * DESTRUCTIVE: Reject a single submission with categories and a message.
+ *
+ * WARNING: Rejected participants will NOT be paid for their submission.
+ * This action cannot be easily undone.
+ *
+ * @param submissionId - The Prolific submission ID (not participant ID)
+ * @param categories - Array of rejection category strings from REJECTION_CATEGORIES
+ * @param message - Personalized rejection message shown to the participant
+ * @param apiToken - Prolific API token
+ */
+export async function rejectSubmission(
+  submissionId: string,
+  categories: RejectionCategory[],
+  message: string,
+  apiToken: string
+): Promise<void> {
+  const url = `${PROLIFIC_API_BASE_URL}/submissions/${submissionId}/transition/`
+
+  const headers = new Headers()
+  headers.set('Authorization', `Token ${apiToken}`)
+  headers.set('Content-Type', 'application/json')
+
+  let response: Response
+  try {
+    response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        action: 'REJECT',
+        rejection_categories: categories,
+        message,
+      }),
+    })
+  } catch (error) {
+    throw new ProlificApiErrorClass(
+      `Network error rejecting submission ${submissionId}: ${error instanceof Error ? error.message : String(error)}`,
+      0,
+      {}
+    )
+  }
+
+  if (!response.ok) {
+    let errorData: ProlificApiError = {}
+    try {
+      errorData = (await response.json()) as ProlificApiError
+    } catch {
+      // Empty or non-JSON error body
+    }
+    throw new ProlificApiErrorClass(
+      errorData.detail ||
+        errorData.error ||
+        errorData.message ||
+        `Reject submission ${submissionId} failed with status ${response.status}`,
+      response.status,
+      errorData
+    )
+  }
+
+  const responseBody = await response.text()
+  if (responseBody) {
+    console.log(`  Rejected ${submissionId}: ${response.status}`)
+  }
+}
+
+/**
  * DESTRUCTIVE: Bulk reject submissions for a study by participant IDs.
  *
  * WARNING: Rejected participants will NOT be paid for their submission.

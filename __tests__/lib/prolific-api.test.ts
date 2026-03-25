@@ -12,6 +12,9 @@ import {
   exportSubmissionsCSV,
   bulkApproveSubmissions,
   bulkRejectSubmissions,
+  rejectSubmission,
+  getSubmissionIdsByParticipant,
+  REJECTION_CATEGORIES,
   ProlificApiErrorClass,
   type Study,
   type Submission,
@@ -723,6 +726,89 @@ describe('Prolific API Client', () => {
       await expect(bulkRejectSubmissions(mockStudyId, ['pid-1'], mockApiToken)).rejects.toThrow(
         ProlificApiErrorClass
       )
+    })
+  })
+
+  describe('rejectSubmission', () => {
+    it('should send transition request with categories and message', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        text: async () => '{}',
+      })
+
+      await rejectSubmission(
+        'sub-123',
+        [REJECTION_CATEGORIES.FAILED_ATTENTION_CHECK, REJECTION_CATEGORIES.OTHER],
+        'You failed attention checks.',
+        mockApiToken
+      )
+
+      expect(global.fetch).toHaveBeenCalledWith(
+        'https://api.prolific.com/api/v1/submissions/sub-123/transition/',
+        expect.objectContaining({
+          method: 'POST',
+          body: JSON.stringify({
+            action: 'REJECT',
+            rejection_categories: ['FAILED_ATTENTION_CHECK', 'OTHER'],
+            message: 'You failed attention checks.',
+          }),
+        })
+      )
+    })
+
+    it('should throw on API error', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: false,
+        status: 422,
+        json: async () => ({ detail: 'Invalid transition' }),
+      })
+
+      await expect(
+        rejectSubmission('sub-bad', [REJECTION_CATEGORIES.OTHER], 'test', mockApiToken)
+      ).rejects.toThrow(ProlificApiErrorClass)
+    })
+  })
+
+  describe('getSubmissionIdsByParticipant', () => {
+    it('should map participant IDs to submission IDs', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          results: [
+            {
+              id: 'sub-1',
+              participant_id: 'pid-a',
+              study_id: mockStudyId,
+              status: 'AWAITING REVIEW',
+              started_at: '',
+            },
+            {
+              id: 'sub-2',
+              participant_id: 'pid-b',
+              study_id: mockStudyId,
+              status: 'AWAITING REVIEW',
+              started_at: '',
+            },
+            {
+              id: 'sub-3',
+              participant_id: 'pid-c',
+              study_id: mockStudyId,
+              status: 'APPROVED',
+              started_at: '',
+            },
+          ],
+        }),
+      })
+
+      const result = await getSubmissionIdsByParticipant(
+        mockStudyId,
+        ['pid-a', 'pid-c'],
+        mockApiToken
+      )
+
+      expect(result.get('pid-a')).toBe('sub-1')
+      expect(result.get('pid-c')).toBe('sub-3')
+      expect(result.has('pid-b')).toBe(false)
     })
   })
 })
