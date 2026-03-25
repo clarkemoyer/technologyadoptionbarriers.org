@@ -49,11 +49,11 @@
 
 This document presents a comprehensive on-page SEO audit of technologyadoptionbarriers.org (TABS), reviewing 120+ pages across all major content categories: homepage, article series, bibliography entries, teaching series, organizational pages, personas, and legal/policy pages.
 
-**Overall SEO Health: Good** — The site has a strong SEO foundation with 96.7% metadata coverage, proper heading hierarchy, comprehensive sitemap generation, and well-configured robots directives. The Lighthouse CI workflow enforces a 95% SEO score threshold.
+**Overall SEO Health: Good** — The site has a strong SEO foundation with 98.3% metadata coverage, proper heading hierarchy, comprehensive sitemap generation, and well-configured robots directives. The Lighthouse CI workflow warns when the SEO score falls below a 95% threshold.
 
 **Key strengths:**
 
-1. **Comprehensive metadata coverage** — 116 of 120 pages (96.7%) export metadata with titles and descriptions
+1. **Comprehensive metadata coverage** — 118 of 120 pages (98.3%) export metadata with titles and descriptions
 2. **Proper heading hierarchy** — All audited pages use correct H1 → H2 → H3 structure with no duplicate H1 tags
 3. **Complete sitemap** — `src/app/sitemap.ts` dynamically generates entries for all discoverable pages with proper priority tiers
 4. **Well-structured robots.txt** — Allows full crawling with explicit sitemap reference
@@ -62,9 +62,9 @@ This document presents a comprehensive on-page SEO audit of technologyadoptionba
 **Key issues requiring attention:**
 
 1. **Title tag length optimization** — 79 of 120 pages (65.8%) exceed 60 characters when the `| TABS` suffix is appended, risking SERP truncation
-2. **Meta description length** — 43 pages (35.8%) exceed 160 characters, leading to truncated descriptions in search results
+2. **Meta description length** — 43 of 118 pages (36.4%) exceed 160 characters, leading to truncated descriptions in search results
 3. **Limited structured data** — Only 1 of 120 pages has JSON-LD markup (Organization schema on `/media`)
-4. **Missing metadata on client components** — 4 pages have no metadata exports (`visual-gallery`, `tabs-presentation`, and 2 dynamic routes that use `generateMetadata`)
+4. **Missing metadata on client components** — 2 client pages have no metadata exports (`/technology-adoption-series/visual-gallery` and `/tabs-presentation`); dynamic routes such as `/start/[role]` and `/technology-adoption-series/[slide]` define metadata via `generateMetadata()` and are covered
 5. **Limited page-specific social sharing tags** — Only 2 pages override root-level OpenGraph/Twitter metadata
 
 **Total recommendations: 20** (3 critical, 5 high, 8 medium, 4 low)
@@ -112,36 +112,36 @@ All page routes under `src/app/` were audited, covering the following content ca
 
 ## Findings Summary Table
 
-| #    | Finding                                                         | Severity    | Category  | Status      | Recommendation                                      |
-| ---- | --------------------------------------------------------------- | ----------- | --------- | ----------- | --------------------------------------------------- |
-| F-01 | 79 pages have titles exceeding 60 chars (with `\| TABS` suffix) | 🟡 Medium   | Meta Tags | Needs Fix   | Shorten titles or adjust template suffix            |
-| F-02 | 43 pages have meta descriptions exceeding 160 chars             | 🟡 Medium   | Meta Tags | Needs Fix   | Trim descriptions to 150–160 chars                  |
-| F-03 | 4 pages missing metadata exports entirely                       | 🔴 Critical | Meta Tags | Needs Fix   | Add metadata to client components                   |
-| F-04 | Only 2 pages override OG/Twitter tags                           | 🟡 Medium   | Meta Tags | Opportunity | Add page-specific social metadata to key pages      |
-| F-05 | Root layout canonical set to `/` only                           | 🟢 Low      | Meta Tags | Acceptable  | Per-page canonicals recommended for dual deployment |
-| F-06 | No hreflang tags (English-only site)                            | ✅ Pass     | Meta Tags | N/A         | Not needed                                          |
-| F-07 | All pages have single H1 tag                                    | ✅ Pass     | Headings  | Compliant   | No action needed                                    |
-| F-08 | Proper H1 → H2 → H3 hierarchy maintained                        | ✅ Pass     | Headings  | Compliant   | No action needed                                    |
-| F-09 | H1 tags are keyword-rich and descriptive                        | ✅ Pass     | Headings  | Compliant   | No action needed                                    |
-| F-10 | Homepage has strong keyword presence                            | ✅ Pass     | Content   | Compliant   | No action needed                                    |
-| F-11 | No thin content pages detected                                  | ✅ Pass     | Content   | Compliant   | Component architecture is correct                   |
-| F-12 | Bibliography pages lack cross-linking                           | 🟡 Medium   | Content   | Opportunity | Add "Related Models" sections                       |
-| F-13 | Image alt text coverage is comprehensive                        | ✅ Pass     | Content   | Compliant   | Continue current patterns                           |
-| F-14 | Sitemap covers all discoverable pages                           | ✅ Pass     | Technical | Compliant   | No action needed                                    |
-| F-15 | Robots.txt allows full crawling                                 | ✅ Pass     | Technical | Compliant   | No action needed                                    |
-| F-16 | Lighthouse CI enforces 95% SEO score                            | ✅ Pass     | Technical | Compliant   | Consider increasing other thresholds                |
-| F-17 | Mobile-first responsive design via Tailwind                     | ✅ Pass     | Technical | Compliant   | No action needed                                    |
-| F-18 | Only 1 page has JSON-LD structured data                         | 🔴 Critical | Technical | Needs Fix   | Add schema markup to key page types                 |
-| F-19 | Some article URLs exceed 75 chars                               | 🟢 Low      | Technical | Acceptable  | URL length is descriptive but long                  |
-| F-20 | Custom 404 page with proper metadata                            | ✅ Pass     | Technical | Compliant   | No action needed                                    |
-| F-21 | No per-page canonical URLs set                                  | 🟡 Medium   | Technical | Opportunity | Add canonicals to high-value pages                  |
-| F-22 | Static export limits dynamic SEO features                       | 🟢 Low      | Technical | Known       | Document workarounds                                |
-| F-23 | Article series lacks breadcrumb markup                          | 🔴 Critical | Technical | Needs Fix   | Add BreadcrumbList schema                           |
-| F-24 | FAQ page lacks FAQ schema                                       | 🟠 High     | Technical | Needs Fix   | Add FAQPage schema for rich results                 |
-| F-25 | Homepage missing Organization schema                            | 🟠 High     | Technical | Needs Fix   | Add Organization + WebSite schema                   |
-| F-26 | Article pages missing Article schema                            | 🟠 High     | Technical | Needs Fix   | Add Article schema to series pages                  |
-| F-27 | Teaching series missing Course schema                           | 🟠 High     | Technical | Needs Fix   | Add Course/LearningResource schema                  |
-| F-28 | Bibliography entries missing ScholarlyArticle schema            | 🟠 High     | Technical | Needs Fix   | Add ScholarlyArticle schema                         |
+| #    | Finding                                                                           | Severity      | Category  | Status      | Recommendation                                      |
+| ---- | --------------------------------------------------------------------------------- | ------------- | --------- | ----------- | --------------------------------------------------- | ---------------------------------------- |
+| F-01 | 79 pages have titles exceeding 60 chars (with `                                   | TABS` suffix) | 🟡 Medium | Meta Tags   | Needs Fix                                           | Shorten titles or adjust template suffix |
+| F-02 | 43 pages have meta descriptions exceeding 160 chars                               | 🟡 Medium     | Meta Tags | Needs Fix   | Trim descriptions to 150–160 chars                  |
+| F-03 | 2 pages missing metadata exports entirely (`visual-gallery`, `tabs-presentation`) | 🔴 Critical   | Meta Tags | Needs Fix   | Add metadata exports to these pages                 |
+| F-04 | Only 2 pages override OG/Twitter tags                                             | 🟡 Medium     | Meta Tags | Opportunity | Add page-specific social metadata to key pages      |
+| F-05 | Root layout canonical set to `/` only                                             | 🟢 Low        | Meta Tags | Acceptable  | Per-page canonicals recommended for dual deployment |
+| F-06 | No hreflang tags (English-only site)                                              | ✅ Pass       | Meta Tags | N/A         | Not needed                                          |
+| F-07 | All pages have single H1 tag                                                      | ✅ Pass       | Headings  | Compliant   | No action needed                                    |
+| F-08 | Proper H1 → H2 → H3 hierarchy maintained                                          | ✅ Pass       | Headings  | Compliant   | No action needed                                    |
+| F-09 | H1 tags are keyword-rich and descriptive                                          | ✅ Pass       | Headings  | Compliant   | No action needed                                    |
+| F-10 | Homepage has strong keyword presence                                              | ✅ Pass       | Content   | Compliant   | No action needed                                    |
+| F-11 | No thin content pages detected                                                    | ✅ Pass       | Content   | Compliant   | Component architecture is correct                   |
+| F-12 | Bibliography pages lack cross-linking                                             | 🟡 Medium     | Content   | Opportunity | Add "Related Models" sections                       |
+| F-13 | Image alt text coverage is comprehensive                                          | ✅ Pass       | Content   | Compliant   | Continue current patterns                           |
+| F-14 | Sitemap covers all discoverable pages                                             | ✅ Pass       | Technical | Compliant   | No action needed                                    |
+| F-15 | Robots.txt allows full crawling                                                   | ✅ Pass       | Technical | Compliant   | No action needed                                    |
+| F-16 | Lighthouse CI enforces 95% SEO score                                              | ✅ Pass       | Technical | Compliant   | Consider increasing other thresholds                |
+| F-17 | Mobile-first responsive design via Tailwind                                       | ✅ Pass       | Technical | Compliant   | No action needed                                    |
+| F-18 | Only 1 page has JSON-LD structured data                                           | 🔴 Critical   | Technical | Needs Fix   | Add schema markup to key page types                 |
+| F-19 | Some article URLs exceed 75 chars                                                 | 🟢 Low        | Technical | Acceptable  | URL length is descriptive but long                  |
+| F-20 | Custom 404 page with proper metadata                                              | ✅ Pass       | Technical | Compliant   | No action needed                                    |
+| F-21 | No per-page canonical URLs set                                                    | 🟡 Medium     | Technical | Opportunity | Add canonicals to high-value pages                  |
+| F-22 | Static export limits dynamic SEO features                                         | 🟢 Low        | Technical | Known       | Document workarounds                                |
+| F-23 | Article series lacks breadcrumb markup                                            | 🔴 Critical   | Technical | Needs Fix   | Add BreadcrumbList schema                           |
+| F-24 | FAQ page lacks FAQ schema                                                         | 🟠 High       | Technical | Needs Fix   | Add FAQPage schema for rich results                 |
+| F-25 | Homepage missing Organization schema                                              | 🟠 High       | Technical | Needs Fix   | Add Organization + WebSite schema                   |
+| F-26 | Article pages missing Article schema                                              | 🟠 High       | Technical | Needs Fix   | Add Article schema to series pages                  |
+| F-27 | Teaching series missing Course schema                                             | 🟠 High       | Technical | Needs Fix   | Add Course/LearningResource schema                  |
+| F-28 | Bibliography entries missing ScholarlyArticle schema                              | 🟠 High       | Technical | Needs Fix   | Add ScholarlyArticle schema                         |
 
 ---
 
@@ -164,9 +164,9 @@ The root layout defines a default title and a `%s | TABS` template. Individual p
 
 | Metric                                       | Value                                                    | Status               |
 | -------------------------------------------- | -------------------------------------------------------- | -------------------- |
-| Pages with unique titles                     | 116/120 (96.7%)                                          | ✅ Good              |
-| Pages missing titles                         | 4 (see [Appendix A](#appendix-a-pages-missing-metadata)) | 🔴 Critical          |
-| Titles within 50–60 char range (with suffix) | 41/120 (34.2%)                                           | 🟡 Needs Improvement |
+| Pages with unique titles                     | 118/120 (98.3%)                                          | ✅ Good              |
+| Pages missing titles                         | 2 (see [Appendix A](#appendix-a-pages-missing-metadata)) | 🔴 Critical          |
+| Titles within 50–60 char range (with suffix) | 29/120 (24.2%)                                           | 🟡 Needs Improvement |
 | Titles exceeding 60 chars (with suffix)      | 79/120 (65.8%)                                           | 🟡 Needs Improvement |
 
 **Title length distribution (including `| TABS` suffix — 7 chars):**
@@ -223,7 +223,7 @@ The root layout defines a default title and a `%s | TABS` template. Individual p
 
 **Recommendation (F-02):** Trim descriptions to 150–160 characters. Focus on the most compelling value proposition and include a call-to-action. Descriptions over 160 chars will be truncated by Google with "..." which reduces click-through rates.
 
-**Recommendation (F-03):** Add metadata exports to the 4 pages listed in [Appendix A](#appendix-a-pages-missing-metadata). For client components, use a separate `layout.tsx` or a page wrapper that exports metadata.
+**Recommendation (F-03):** Add metadata exports to the 2 client component pages listed in [Appendix A](#appendix-a-pages-missing-metadata). For client components, use a separate `layout.tsx` or a page wrapper that exports metadata.
 
 ---
 
@@ -278,15 +278,15 @@ alternates: {
 },
 ```
 
-The root layout sets a site-wide canonical to `/`. Individual pages can override this, but most do not.
+The root layout sets a site-wide canonical to `/`. Individual pages can override this (e.g., `/media` and `making-of-tabs/*` pages), but most do not.
 
 **Findings:**
 
-| Metric                                 | Value           | Status        |
-| -------------------------------------- | --------------- | ------------- |
-| Root canonical set                     | ✅ `/`          | Compliant     |
-| Pages with explicit per-page canonical | ~1 (media page) | 🟡 Limited    |
-| Pages relying on root canonical        | ~119            | 🟡 Acceptable |
+| Metric                                   | Value                                         | Status        |
+| ---------------------------------------- | --------------------------------------------- | ------------- |
+| Root canonical set                       | ✅ `/`                                        | Compliant     |
+| Pages with explicit per-page canonical   | Multiple (e.g., `/media`, `making-of-tabs/*`) | 🟡 Limited    |
+| Pages relying on root/implicit canonical | Majority of ~120 total pages                  | 🟡 Acceptable |
 
 **Assessment:** The Next.js metadata system automatically resolves the canonical from the `metadataBase` and page path. The root layout's `canonical: '/'` sets the homepage canonical. For other pages, Next.js uses the page path relative to `metadataBase` when no explicit canonical is set, which is generally correct behavior.
 
@@ -864,11 +864,11 @@ Home > Bibliography > TAM – Davis (1989)
 
 ### 🔴 Critical (3)
 
-| #    | Recommendation                                                                                                                                                | Affected Pages | Effort | Impact                                                           |
-| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ------ | ---------------------------------------------------------------- |
-| R-01 | Add metadata exports to 4 pages missing them (`visual-gallery`, `tabs-presentation`, and verify dynamic route metadata generation for `[slide]` and `[role]`) | 4 pages        | Low    | High — Missing titles/descriptions eliminate SERP visibility     |
-| R-02 | Implement JSON-LD structured data on homepage (Organization + WebSite schema) and FAQ page (FAQPage schema)                                                   | 2 pages        | Medium | High — Enables rich results and Knowledge Panel features         |
-| R-03 | Add BreadcrumbList schema to article series, bibliography, and making-of-tabs hierarchical pages                                                              | 80+ pages      | Medium | High — Enables breadcrumb SERP display and improves crawlability |
+| #    | Recommendation                                                                                                                                                                    | Affected Pages | Effort | Impact                                                           |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ------ | ---------------------------------------------------------------- |
+| R-01 | Add metadata exports to the 2 client component pages missing them (`visual-gallery`, `tabs-presentation`); dynamic routes `[slide]` and `[role]` already use `generateMetadata()` | 2 pages        | Low    | High — Missing titles/descriptions eliminate SERP visibility     |
+| R-02 | Implement JSON-LD structured data on homepage (Organization + WebSite schema) and FAQ page (FAQPage schema)                                                                       | 2 pages        | Medium | High — Enables rich results and Knowledge Panel features         |
+| R-03 | Add BreadcrumbList schema to article series, bibliography, and making-of-tabs hierarchical pages                                                                                  | 80+ pages      | Medium | High — Enables breadcrumb SERP display and improves crawlability |
 
 ### 🟠 High (5)
 
