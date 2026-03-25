@@ -210,14 +210,14 @@ async function makeApiRequest<T>(
 
     if (!response.ok) {
       const errorData = data as ProlificApiError
-      throw new ProlificApiErrorClass(
-        errorData.detail ||
-          errorData.error ||
-          errorData.message ||
-          `API request failed with status ${response.status}`,
-        response.status,
-        errorData
-      )
+      const detail = errorData.detail || errorData.error || errorData.message
+      const errorMsg =
+        typeof detail === 'string'
+          ? detail
+          : detail
+            ? JSON.stringify(detail)
+            : `API request failed with status ${response.status}`
+      throw new ProlificApiErrorClass(errorMsg, response.status, errorData)
     }
 
     return data as T
@@ -720,9 +720,9 @@ export async function sendMessage(
   return makeApiRequest<Message>('/messages/', apiToken, {
     method: 'POST',
     body: JSON.stringify({
-      study_id: studyId,
-      participant_id: participantId,
+      recipient_id: participantId,
       body,
+      study_id: studyId,
     }),
   })
 }

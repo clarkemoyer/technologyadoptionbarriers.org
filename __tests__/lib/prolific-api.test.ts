@@ -850,9 +850,9 @@ describe('Prolific API Client', () => {
         expect.objectContaining({
           method: 'POST',
           body: JSON.stringify({
-            study_id: mockStudyId,
-            participant_id: 'participant-1',
+            recipient_id: 'participant-1',
             body: 'Hello, please complete the survey.',
+            study_id: mockStudyId,
           }),
         })
       )
