@@ -13,18 +13,20 @@ export const metadata: Metadata = {
 }
 
 const SEOTransparencyPage = () => {
-  // Format the build-time snapshot date in UTC so the display is consistent regardless
-  // of the build machine's locale. With `output: 'export'`, this value is
-  // computed at build time and remains the same for all clients, even though
-  // the app still hydrates on the client.
-  const dateObj = new Date(seoMetrics.generatedAt)
+  // The dashboardSyncedAt field is written by the daily CI sync workflow before
+  // the Next.js build runs, so it reflects the last time the pipeline executed.
+  // generatedAt tracks when the underlying metrics data was collected.
+  const syncDateObj = new Date(seoMetrics.dashboardSyncedAt)
   const utcDateFormatter = new Intl.DateTimeFormat('en-US', {
     timeZone: 'UTC',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZoneName: 'short',
   })
-  const formattedSnapshotDate = utcDateFormatter.format(dateObj)
+  const formattedSnapshotDate = utcDateFormatter.format(syncDateObj)
 
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -61,8 +63,14 @@ const SEOTransparencyPage = () => {
               statically generated snapshot rendered directly from our internal data pipelines at
               build time.
             </p>
-            <p className="text-sm text-blue-800 font-semibold mt-2">
-              Dashboard Snapshot Sync: {formattedSnapshotDate}
+            <p className="text-sm flex flex-col gap-1 mt-2">
+              <span className="text-blue-800 font-semibold">
+                Dashboard Snapshot Sync: {formattedSnapshotDate}
+              </span>
+              <span className="text-gray-600 font-medium">
+                Data Collection Window: {seoMetrics.dateRange.startDate} to{' '}
+                {seoMetrics.dateRange.endDate}
+              </span>
             </p>
           </div>
 

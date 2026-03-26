@@ -1,0 +1,54 @@
+name: Daily SEO Dashboard Sync
+
+on:
+  schedule:
+    # Run daily at 09:00 UTC
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync-timestamp:
+    runs-on: ubuntu-latest
+    environment: copilot
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Update SEO Dashboard Timestamp
+        run: npx tsx scripts/update-seo-dashboard-sync.ts
+
+      - name: Format updated data file
+        run: npx prettier --write src/data/seo-metrics.json
+
+      - name: Create pull request with updated sync time
+        id: cpr
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+          commit-message: 'chore: execute automated SEO dashboard daily sync'
+          title: 'Update SEO Transparency Dashboard Sync'
+          body: |
+            Automated execution of `scripts/update-seo-dashboard-sync.ts`.
+
+            This PR bumps the `dashboardSyncedAt` field in `src/data/seo-metrics.json` to reflect the latest CI build synchronization date. The underlying metrics data (`generatedAt`, `dateRange`, and all metrics) are not modified by this script.
+          branch: chore/seo-dashboard-daily-sync
+          delete-branch: true
+
+      - name: Enable Pull Request Automerge
+        if: steps.cpr.outputs.pull-request-operation == 'created' || steps.cpr.outputs.pull-request-operation == 'updated'
+        run: gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
