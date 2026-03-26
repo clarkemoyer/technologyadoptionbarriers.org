@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useCallback } from 'react'
 import conceptMappingData from '@/data/concept-mapping-simple.json'
+import { SECTIONS, type SectionDef } from '@/data/concept-mapping-colors'
 import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
 
@@ -14,35 +15,11 @@ import { RxCross2 } from 'react-icons/rx'
 
 type RowData = (typeof conceptMappingData.rows)[number]
 
-/** Section definitions with exact Excel color coding */
-const SECTIONS = [
-  { key: 'A', label: 'Section A: Demographics', bg: '#D9E2F3', text: '#1f3864' },
-  {
-    key: 'B',
-    label: 'Section B: Perceived Technology Adoption Barriers',
-    bg: '#FFF2CC',
-    text: '#7f6000',
-  },
-  {
-    key: 'C',
-    label: 'Section C: Perceived Organizational Technology Readiness',
-    bg: '#FCE4D6',
-    text: '#833c0b',
-  },
-  {
-    key: 'D',
-    label: 'Section D: Perceived Maturity of Organizational Capabilities',
-    bg: '#E2EFDA',
-    text: '#375623',
-  },
-  { key: 'E', label: 'Section E: Final Thoughts & Feedback', bg: '#F2F2F2', text: '#404040' },
-] as const
-
 const headers = conceptMappingData.headers
 const rows: RowData[] = conceptMappingData.rows
 
 /** Determine which section a row belongs to */
-function getSection(row: RowData): (typeof SECTIONS)[number] | undefined {
+function getSection(row: RowData): SectionDef | undefined {
   const sectionValue = row['Section / Primary Construct']
   return SECTIONS.find((s) => sectionValue.startsWith(s.label.split(':')[0] + ':'))
 }
@@ -64,6 +41,12 @@ const EXPANDABLE_COLUMNS = new Set([
 /** Max characters shown before truncation */
 const TRUNCATE_LENGTH = 120
 
+/**
+ * NOTE: Each ExpandableCell instance carries its own useState hook, which means
+ * O(rows * expandable-columns) state atoms. For the current 57-row dataset this
+ * is negligible, but if the table grows significantly consider lifting expand
+ * state into the parent via a Set<string> keyed by row+column to reduce overhead.
+ */
 function ExpandableCell({ value, header }: { value: string; header: string }) {
   const [expanded, setExpanded] = useState(false)
   const shouldTruncate = EXPANDABLE_COLUMNS.has(header) && value.length > TRUNCATE_LENGTH
@@ -119,8 +102,12 @@ function exportCsv() {
   const link = document.createElement('a')
   link.href = url
   link.download = 'concept-mapping-simple.csv'
+  document.body.appendChild(link)
   link.click()
-  URL.revokeObjectURL(url)
+  setTimeout(() => {
+    URL.revokeObjectURL(url)
+    link.remove()
+  }, 100)
 }
 
 const ConceptMappingSimple = () => {
@@ -259,11 +246,11 @@ const ConceptMappingSimple = () => {
             </thead>
             <tbody>
               {filteredRows.length > 0 ? (
-                filteredRows.map((row, rowIdx) => {
+                filteredRows.map((row) => {
                   const section = getSection(row)
                   return (
                     <tr
-                      key={rowIdx}
+                      key={row['Item Code / Variable Name']}
                       className="hover:brightness-95 transition-all border-b border-gray-100"
                       style={section ? { backgroundColor: section.bg } : undefined}
                     >
