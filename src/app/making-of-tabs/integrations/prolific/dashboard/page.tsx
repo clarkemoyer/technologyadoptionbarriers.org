@@ -259,7 +259,7 @@ const DispositionDashboardPage = () => {
                 barColor: 'bg-orange-400',
               },
               {
-                key: 'SPEED_IRI1',
+                key: 'SPEED_IRI',
                 label: 'Speed + 1 IRI',
                 description: 'Under 5 minutes AND 1 attention check wrong (compound signal)',
                 severity: 'Moderate',
@@ -268,9 +268,10 @@ const DispositionDashboardPage = () => {
                 barColor: 'bg-orange-300',
               },
             ].map((sub) => {
-              const count = (d.autoExcludeBreakdown as Record<string, number>)[sub.key] || 0
-              const autoExcludeTotal = dispositions['AUTO-EXCLUDE'] || 1
-              const pct = ((count / autoExcludeTotal) * 100).toFixed(0)
+              const breakdown = (d.autoExcludeBreakdown ?? {}) as Record<string, number>
+              const count = breakdown[sub.key] ?? 0
+              const autoExcludeTotal = dispositions['AUTO-EXCLUDE'] || 0
+              const pct = autoExcludeTotal > 0 ? ((count / autoExcludeTotal) * 100).toFixed(0) : '0'
               return (
                 <div key={sub.key} className={`border rounded-lg p-4 ${sub.bgColor}`}>
                   <div className={`text-2xl font-bold ${sub.color}`}>{count}</div>

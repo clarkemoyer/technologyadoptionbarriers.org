@@ -88,9 +88,16 @@ async function main() {
     .filter((l) => l.trim() !== '')
 
   const headers = parseCsvLine(lines[0])
-  const col = (name: string) => headers.indexOf(name)
+  const col = (name: string): number => {
+    const idx = headers.indexOf(name)
+    if (idx === -1) {
+      console.error(`Error: Required column "${name}" not found in CSV headers`)
+      console.error(`Available columns: ${headers.join(', ')}`)
+      process.exit(1)
+    }
+    return idx
+  }
 
-  const pidIdx = col('PROLIFIC_PID')
   const dispositionIdx = col('Disposition')
   const iriFailIdx = col('IRI_Fail_Count')
   const speedIdx = col('Speed_Flag')
@@ -105,7 +112,7 @@ async function main() {
     IRI3: 0,
     IRI2_SPEED: 0,
     IRI2: 0,
-    SPEED_IRI1: 0,
+    SPEED_IRI: 0,
   }
 
   let totalParticipants = 0
@@ -135,7 +142,7 @@ async function main() {
       else if (iriFail >= 3) autoExcludeBreakdown.IRI3++
       else if (iriFail === 2 && speed === 1) autoExcludeBreakdown.IRI2_SPEED++
       else if (iriFail === 2) autoExcludeBreakdown.IRI2++
-      else if (speed === 1 && iriFail >= 1) autoExcludeBreakdown.SPEED_IRI1++
+      else if (speed === 1 && iriFail >= 1) autoExcludeBreakdown.SPEED_IRI++
     }
   }
 
@@ -148,9 +155,9 @@ async function main() {
   /* ---------- 3. Build summary JSON ------------------------------------ */
   const summary = {
     updatedAt: new Date().toISOString(),
-    totalResponses: lines.length - 1 + (totalParticipants < lines.length - 1 ? 0 : 0),
+    totalResponses: submissions.length,
     uniqueParticipants: totalParticipants,
-    duplicatesRemoved: lines.length - 1 - totalParticipants,
+    duplicatesRemoved: 0,
     dispositions,
     autoExcludeBreakdown,
     actions: {
@@ -182,7 +189,7 @@ async function main() {
 
   /* ---------- 4. Write to file ----------------------------------------- */
   const outputPath =
-    process.env.OUTPUT_PATH || join(__dirname, '..', 'src', 'data', 'disposition-summary.json')
+    process.env.OUTPUT_PATH || join(process.cwd(), 'src', 'data', 'disposition-summary.json')
   writeFileSync(outputPath, JSON.stringify(summary, null, 2) + '\n', 'utf-8')
   console.log(`Wrote disposition summary to ${outputPath}`)
   console.log('')

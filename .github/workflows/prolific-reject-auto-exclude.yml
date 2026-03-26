@@ -38,7 +38,7 @@ on:
         type: string
         default: ''
       sub_type:
-        description: 'Target specific sub-type (empty = all AUTO-EXCLUDE)'
+        description: 'Target specific sub-type (ALL = all AUTO-EXCLUDE)'
         required: false
         type: choice
         options:
