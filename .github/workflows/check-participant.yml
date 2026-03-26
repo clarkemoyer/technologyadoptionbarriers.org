@@ -122,3 +122,23 @@ jobs:
           }
           main().catch(e => { console.error(e); process.exit(1); });
           "
+
+  verify-iri:
+    name: Verify IRI Answers
+    if: inputs.mode == 'single' && inputs.pid != ''
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Verify IRI answers from Qualtrics
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+          PID: ${{ inputs.pid }}
+        run: npx --no-install tsx scripts/verify-iri-answers.ts
