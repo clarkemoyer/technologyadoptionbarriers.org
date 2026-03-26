@@ -1,0 +1,176 @@
+import Link from 'next/link'
+import summaryData from '@/data/concept-mapping-summary.json'
+
+interface SectionRow {
+  section: string
+  questionType: string
+  substantiveItems: number
+  attentionChecks: number | null
+  scaleMethod: string
+  color: string
+  colorLabel: string
+}
+
+const data = summaryData as {
+  title: string
+  quickStats: {
+    totalItems: number
+    substantiveItems: number
+    attentionChecks: number
+    sections: number
+    mappedFields: number
+  }
+  columns: string[]
+  sections: SectionRow[]
+  totals: { substantiveItems: number; attentionChecks: number }
+  revisionNotes: string[]
+}
+
+export default function ConceptMappingSummary() {
+  const { quickStats, sections, totals, revisionNotes } = data
+
+  return (
+    <div className="space-y-8">
+      {/* Quick Stats Bar */}
+      <div
+        className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"
+        role="list"
+        aria-label="Survey quick statistics"
+      >
+        {[
+          { label: 'Total Items', value: quickStats.totalItems },
+          { label: 'Substantive', value: quickStats.substantiveItems },
+          { label: 'Attention Checks', value: quickStats.attentionChecks },
+          { label: 'Sections', value: quickStats.sections },
+          { label: 'Mapped Fields', value: quickStats.mappedFields },
+        ].map((stat) => (
+          <div
+            key={stat.label}
+            role="listitem"
+            className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm"
+          >
+            <p className="text-2xl font-bold text-tabs-navy">{stat.value}</p>
+            <p className="text-sm text-gray-600">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Navigation Links */}
+      <nav aria-label="Concept mapping views" className="flex flex-wrap gap-3">
+        <Link
+          href="/concept-mapping/summary"
+          className="inline-flex items-center rounded-md bg-tabs-teal px-4 py-2 text-sm font-semibold text-white shadow-sm"
+          aria-current="page"
+        >
+          Summary
+        </Link>
+        {/* Note: /concept-mapping/simple and /concept-mapping/complex routes are
+            introduced in separate PRs. These links will resolve once those PRs merge. */}
+        <Link
+          href="/concept-mapping/simple"
+          className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
+        >
+          Simple View
+        </Link>
+        <Link
+          href="/concept-mapping/complex"
+          className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
+        >
+          Complex View
+        </Link>
+      </nav>
+
+      {/* Structure Table Card */}
+      <section aria-labelledby="structure-heading">
+        <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+          <div className="border-b border-gray-200 bg-gray-50 px-6 py-4">
+            <h2 id="structure-heading" className="text-lg font-bold text-gray-900">
+              Survey Structure
+            </h2>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm" aria-label="TABS V2 survey structure">
+              <thead>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <th scope="col" className="px-4 py-3 font-semibold text-gray-700 sm:px-6">
+                    Section
+                  </th>
+                  <th scope="col" className="px-4 py-3 font-semibold text-gray-700 sm:px-6">
+                    Question Type
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-4 py-3 text-right font-semibold text-gray-700 sm:px-6"
+                  >
+                    Substantive Items
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-4 py-3 text-right font-semibold text-gray-700 sm:px-6"
+                  >
+                    Attention Checks
+                  </th>
+                  <th scope="col" className="px-4 py-3 font-semibold text-gray-700 sm:px-6">
+                    Scale / Method
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {sections.map((row) => (
+                  <tr key={row.section} className="hover:bg-gray-50">
+                    <td className="px-4 py-3 sm:px-6">
+                      <span className="inline-flex items-center gap-2">
+                        <span
+                          className="inline-block h-3 w-3 flex-shrink-0 rounded-sm"
+                          style={{ backgroundColor: row.color }}
+                          aria-label={`${row.colorLabel} section indicator`}
+                          role="img"
+                        />
+                        <span className="font-medium text-gray-900">{row.section}</span>
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-gray-600 sm:px-6">{row.questionType}</td>
+                    <td className="px-4 py-3 text-right text-gray-900 sm:px-6">
+                      {row.substantiveItems}
+                    </td>
+                    <td className="px-4 py-3 text-right text-gray-600 sm:px-6">
+                      {row.attentionChecks != null ? row.attentionChecks : '—'}
+                    </td>
+                    <td className="px-4 py-3 text-gray-600 sm:px-6">{row.scaleMethod}</td>
+                  </tr>
+                ))}
+                {/* Totals Row */}
+                <tr className="border-t-2 border-gray-300 bg-gray-50 font-bold">
+                  <td className="px-4 py-3 text-gray-900 sm:px-6">TOTAL SUBSTANTIVE</td>
+                  <td className="px-4 py-3 sm:px-6" />
+                  <td className="px-4 py-3 text-right text-gray-900 sm:px-6">
+                    {totals.substantiveItems}
+                  </td>
+                  <td className="px-4 py-3 text-right text-gray-900 sm:px-6">
+                    {totals.attentionChecks}
+                  </td>
+                  <td className="px-4 py-3 sm:px-6" />
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* Revision Notes Card */}
+      <section aria-labelledby="revision-notes-heading">
+        <div className="rounded-lg border border-blue-200 bg-blue-50 p-6">
+          <h2 id="revision-notes-heading" className="mb-4 text-lg font-bold text-gray-900">
+            Revision Notes
+          </h2>
+          <ol className="list-decimal space-y-2 pl-5 text-sm text-gray-700">
+            {revisionNotes.map((note, i) => (
+              <li key={i}>{note}</li>
+            ))}
+          </ol>
+        </div>
+      </section>
+    </div>
+  )
+}
