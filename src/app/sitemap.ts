@@ -655,7 +655,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     // Concept Mapping
     {
-url: `${baseUrl}/concept-mapping/complex`,
+      url: `${baseUrl}/concept-mapping/complex`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
