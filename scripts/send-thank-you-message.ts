@@ -17,14 +17,26 @@ const SIGNATURE = 'Your submission has been approved'
 
 async function main() {
   const token = process.env.PROLIFIC_API_TOKEN
-  if (!token) { console.error('PROLIFIC_API_TOKEN required'); process.exit(1) }
+  if (!token) {
+    console.error('PROLIFIC_API_TOKEN required')
+    process.exit(1)
+  }
   const studyId = process.env.STUDY_ID
-  if (!studyId) { console.error('STUDY_ID required'); process.exit(1) }
+  if (!studyId) {
+    console.error('STUDY_ID required')
+    process.exit(1)
+  }
   const pidListRaw = process.env.PID_LIST
-  if (!pidListRaw) { console.error('PID_LIST required'); process.exit(1) }
+  if (!pidListRaw) {
+    console.error('PID_LIST required')
+    process.exit(1)
+  }
   const dryRun = (process.env.DRY_RUN ?? 'true').toLowerCase() !== 'false'
 
-  const pids = pidListRaw.split(',').map((p) => p.trim()).filter(Boolean)
+  const pids = pidListRaw
+    .split(',')
+    .map((p) => p.trim())
+    .filter(Boolean)
   console.log(`Sending thank-you messages to ${pids.length} participants`)
   console.log(`Mode: ${dryRun ? 'DRY RUN' : 'LIVE'}`)
   console.log('')
@@ -65,4 +77,7 @@ async function main() {
   console.log(`SENT: ${sent} | SKIPPED: ${skipped} | FAILED: ${failed}`)
 }
 
-main().catch((e) => { console.error(e); process.exit(1) })
+main().catch((e) => {
+  console.error(e)
+  process.exit(1)
+})
