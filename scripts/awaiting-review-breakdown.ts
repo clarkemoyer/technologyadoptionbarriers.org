@@ -16,7 +16,10 @@ async function main() {
 
   // Read disposition CSV
   const csv = readFileSync(csvPath, 'utf-8')
-  const lines = csv.trimEnd().split(/\r?\n/).filter(l => l.trim())
+  const lines = csv
+    .trimEnd()
+    .split(/\r?\n/)
+    .filter((l) => l.trim())
   const headers = parseCsvLine(lines[0])
   const dispIdx = headers.indexOf('Disposition')
   const pidIdx = headers.indexOf('PROLIFIC_PID')
@@ -26,7 +29,7 @@ async function main() {
 
   // Cross-reference: who is AWAITING REVIEW and what's their disposition?
   const byDisp: Record<string, string[]> = {}
-  
+
   for (let i = 1; i < lines.length; i++) {
     const fields = parseCsvLine(lines[i])
     const pid = fields[pidIdx]?.trim()
@@ -41,18 +44,18 @@ async function main() {
   console.log(`=== AWAITING REVIEW on Prolific: ${awaitingReview.size} ===`)
   console.log('')
   console.log('Breakdown by disposition:')
-  const sorted = Object.entries(byDisp).sort(([,a],[,b]) => b.length - a.length)
+  const sorted = Object.entries(byDisp).sort(([, a], [, b]) => b.length - a.length)
   for (const [disp, pids] of sorted) {
     console.log(`  ${disp}: ${pids.length}`)
   }
-  
+
   // Count how many awaiting review have NO disposition (not in Qualtrics)
   const inCsv = new Set<string>()
   for (let i = 1; i < lines.length; i++) {
     const pid = parseCsvLine(lines[i])[pidIdx]?.trim()
     if (pid) inCsv.add(pid)
   }
-  const noDisp = [...awaitingReview].filter(p => !inCsv.has(p))
+  const noDisp = [...awaitingReview].filter((p) => !inCsv.has(p))
   if (noDisp.length > 0) {
     console.log(`  (no Qualtrics data): ${noDisp.length}`)
   }
@@ -79,4 +82,7 @@ async function main() {
   console.log(`${aeAwaiting.length} participants still AWAITING REVIEW`)
 }
 
-main().catch(e => { console.error(e); process.exit(1) })
+main().catch((e) => {
+  console.error(e)
+  process.exit(1)
+})

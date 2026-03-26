@@ -12,7 +12,11 @@ import { parseCsvLine } from '../src/lib/disposition'
 const IRI_CHECKS = [
   { column: 'Q10-28_Barriers_19', label: 'Barrier IRI', expected: 'Major Barrier' },
   { column: 'Q47-64_Readiness_18', label: 'Readiness IRI', expected: 'Low Readiness/Capability' },
-  { column: 'Q65-73_Maturity_9', label: 'Maturity IRI', expected: 'Level 2: Developing/Repeatable' },
+  {
+    column: 'Q65-73_Maturity_9',
+    label: 'Maturity IRI',
+    expected: 'Level 2: Developing/Repeatable',
+  },
 ]
 
 async function main() {

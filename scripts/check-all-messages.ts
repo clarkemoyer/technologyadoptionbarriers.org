@@ -41,7 +41,9 @@ async function main() {
     console.log(`========================================`)
     console.log(`PID: ${pid}`)
     console.log(`Status: ${status}`)
-    console.log(`Time taken: ${sub?.time_taken ? (sub.time_taken / 60).toFixed(1) + ' min' : 'N/A'}`)
+    console.log(
+      `Time taken: ${sub?.time_taken ? (sub.time_taken / 60).toFixed(1) + ' min' : 'N/A'}`
+    )
     console.log(`Messages: ${messages.length} (${participantMsgs.length} from participant)`)
     console.log(``)
 
@@ -57,4 +59,7 @@ async function main() {
   }
 }
 
-main().catch(e => { console.error(e); process.exit(1) })
+main().catch((e) => {
+  console.error(e)
+  process.exit(1)
+})

@@ -43,4 +43,7 @@ async function main() {
   console.log('PID_LIST=' + awaitingReview.join(','))
 }
 
-main().catch(e => { console.error(e); process.exit(1) })
+main().catch((e) => {
+  console.error(e)
+  process.exit(1)
+})
