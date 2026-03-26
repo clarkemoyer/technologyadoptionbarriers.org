@@ -19,7 +19,7 @@
  *                           Supports: single PID, comma-separated batch, or empty for all
  */
 
-import { getCurrentUser, sendMessage } from '../src/lib/prolific-api'
+import { getCurrentUser, sendMessage, listUserMessages } from '../src/lib/prolific-api'
 import { appendGithubStepSummary, mdEscape } from '../src/lib/github-utils'
 import { readFileSync } from 'node:fs'
 import { parseCsvLine } from '../src/lib/disposition'
@@ -117,6 +117,26 @@ function buildFlagMessage(record: Omit<FlaggedRecord, 'message'>): string {
         'Please reply within 48 hours.',
       ].join(' ')
     }
+  }
+}
+
+/**
+ * Return a unique phrase from each disposition type's message template.
+ * Used to detect if a participant already received this specific type of message,
+ * without false-matching messages sent for a different flag reason.
+ */
+function getMessageSignature(disposition: FlagDisposition): string {
+  switch (disposition) {
+    case 'FLAG-SPEED':
+      return 'which is faster than expected for a survey of this length'
+    case 'FLAG-SINGLE-IRI':
+      return '1 of 3 embedded attention checks was answered differently'
+    case 'FLAG-SMEAL':
+      return 'below our benchmark of 9 minutes'
+    case 'FLAG-RECAPTCHA':
+      return 'automated authenticity checks flagged your submission'
+    case 'FLAG-PARTIAL-STRAIGHTLINING':
+      return 'showed very little variation, which our quality checks flag'
   }
 }
 
@@ -306,9 +326,30 @@ async function main() {
 
     let sent = 0
     let failed = 0
+    let skippedAlreadyMessaged = 0
 
     for (const r of filtered) {
       try {
+        // Check if participant already received this same message
+        const existingMsgs = await listUserMessages(r.pid, apiToken)
+        const studyMessages = (existingMsgs.results || []).filter(
+          (m) => m.data?.study_id === studyId
+        )
+        // Extract a key phrase from the new message to match against existing ones.
+        // Each disposition type has a unique phrase in its template.
+        const messageSignature = getMessageSignature(r.disposition)
+        const alreadySent = studyMessages.some((m) => m.body.includes(messageSignature))
+        if (alreadySent) {
+          skippedAlreadyMessaged++
+          console.log(`  SKIPPED ${r.pid} — already received this ${r.disposition} message`)
+          continue
+        }
+        if (studyMessages.length > 0) {
+          console.log(
+            `  NOTE: ${r.pid} has ${studyMessages.length} existing message(s) but none match this disposition type — sending new message`
+          )
+        }
+
         console.log(`  Sending message to ${r.pid}...`)
         await sendMessage(studyId, r.pid, r.message, apiToken)
         sent++
@@ -324,7 +365,9 @@ async function main() {
     }
 
     console.log('')
-    console.log(`SENT: ${sent} | FAILED: ${failed}`)
+    console.log(
+      `SENT: ${sent} | SKIPPED (already messaged): ${skippedAlreadyMessaged} | FAILED: ${failed}`
+    )
   }
 
   /* ---------- Step summary ------------------------------------------- */
