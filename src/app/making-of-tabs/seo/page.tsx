@@ -13,11 +13,11 @@ export const metadata: Metadata = {
 }
 
 const SEOTransparencyPage = () => {
-  // Format the build-time date in EST so the display is consistent regardless
+  // Format the build-time date in Eastern Time (ET) so the display is consistent regardless
   // of the build machine's locale. (output:'export' is fully static — no
   // server/client hydration cycle exists.)
   const dateObj = new Date(seoMetrics.generatedAt)
-  const estFormatter = new Intl.DateTimeFormat('en-US', {
+  const etFormatter = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/New_York',
     year: 'numeric',
     month: 'long',
@@ -26,7 +26,7 @@ const SEOTransparencyPage = () => {
     minute: '2-digit',
     timeZoneName: 'short',
   })
-  const estDateString = estFormatter.format(dateObj)
+  const etDateString = etFormatter.format(dateObj)
 
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -64,7 +64,7 @@ const SEOTransparencyPage = () => {
               build time.
             </p>
             <p className="text-sm text-blue-800 font-semibold mt-2">
-              Dashboard Snapshot Sync: {estDateString}
+              Dashboard Snapshot Sync: {etDateString}
             </p>
           </div>
 
