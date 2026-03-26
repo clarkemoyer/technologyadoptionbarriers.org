@@ -50,6 +50,31 @@ jobs:
           STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
         run: npx --no-install tsx scripts/list-replied-pids.ts
 
+      - name: Awaiting review breakdown (Prolific-only, no disposition CSV)
+        if: inputs.mode == 'all-replies'
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+        run: |
+          npx --no-install tsx -e "
+          import { listStudySubmissions } from './src/lib/prolific-api';
+          async function main() {
+            const token = process.env.PROLIFIC_API_TOKEN!;
+            const studyId = process.env.STUDY_ID!;
+            const subs = await listStudySubmissions(studyId, token);
+            const statuses: Record<string, number> = {};
+            for (const s of subs.results || []) {
+              statuses[s.status] = (statuses[s.status] || 0) + 1;
+            }
+            console.log('=== PROLIFIC SUBMISSION STATUS SUMMARY ===');
+            for (const [status, count] of Object.entries(statuses).sort(([,a],[,b]) => b - a)) {
+              console.log('  ' + status + ': ' + count);
+            }
+            console.log('  TOTAL: ' + (subs.results || []).length);
+          }
+          main().catch(e => { console.error(e); process.exit(1); });
+          "
+
       - name: Fetch submission details
         if: inputs.mode == 'single'
         env:
