@@ -6,14 +6,16 @@ import seoMetrics from '@/data/seo-metrics.json'
 export const metadata: Metadata = {
   title: 'SEO Transparency & Dashboard — Making of TABS',
   description:
-    "A factual, transparent look at the Technology Adoption Barriers project's initial SEO metrics, technical gaps, strategic roadmap, and a static snapshot of ongoing performance.",
+    'SEO metrics, baseline audit, and strategic roadmap for the Technology Adoption Barriers project — a transparent, build-time snapshot.',
   alternates: {
     canonical: '/making-of-tabs/seo',
   },
 }
 
 const SEOTransparencyPage = () => {
-  // Extract and format the date strictly into EST to prevent SSR hydration mismatches
+  // Format the build-time date in EST so the display is consistent regardless
+  // of the build machine's locale. (output:'export' is fully static — no
+  // server/client hydration cycle exists.)
   const dateObj = new Date(seoMetrics.generatedAt)
   const estFormatter = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/New_York',
@@ -72,10 +74,45 @@ const SEOTransparencyPage = () => {
             infrastructural transparency issue. Below is a unified view of our live performance
             metrics, baseline audit, and strategic algorithmic architecture.
           </p>
+
+          {/* In-page navigation */}
+          <nav
+            className="mb-2 p-4 bg-gray-50 border border-gray-200 rounded-lg text-sm"
+            aria-label="Page sections"
+          >
+            <p className="font-semibold text-gray-700 mb-2">Jump to:</p>
+            <ul className="flex flex-wrap gap-x-6 gap-y-1 list-disc pl-5 text-blue-600">
+              <li>
+                <a href="#dashboard" className="hover:underline">
+                  Performance Dashboard
+                </a>
+              </li>
+              <li>
+                <a href="#health" className="hover:underline">
+                  Content Integrity &amp; Health
+                </a>
+              </li>
+              <li>
+                <a href="#keywords" className="hover:underline">
+                  Keyword Visibility
+                </a>
+              </li>
+              <li>
+                <a href="#audit" className="hover:underline">
+                  Part 1: Baseline Audit
+                </a>
+              </li>
+              <li>
+                <a href="#strategy" className="hover:underline">
+                  Part 2: Strategy Roadmap
+                </a>
+              </li>
+            </ul>
+          </nav>
         </section>
 
         {/* ── Key Performance Indicators ── */}
-        <section className="mb-12">
+        <section className="mb-12" id="dashboard">
           <h2 className={H2_CLASSES}>Performance Dashboard</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="p-4 border border-gray-200 rounded bg-white shadow-sm flex flex-col">
@@ -161,7 +198,7 @@ const SEOTransparencyPage = () => {
         </section>
 
         {/* ── Content Integrity ── */}
-        <section className="mb-12">
+        <section className="mb-12" id="health">
           <h2 className={H2_CLASSES}>Content Integrity & Health</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <ul className="space-y-3 bg-gray-50 border border-gray-200 rounded-lg p-6">
@@ -230,7 +267,7 @@ const SEOTransparencyPage = () => {
         </section>
 
         {/* ── Top Keywords ── */}
-        <section className="mb-12 text-gray-800">
+        <section className="mb-12 text-gray-800" id="keywords">
           <h2 className={H2_CLASSES}>Keyword Visibility Search Volumes</h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border border-gray-200 rounded-lg whitespace-nowrap">
