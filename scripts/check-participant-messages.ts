@@ -6,11 +6,20 @@ import { listStudyMessages } from '../src/lib/prolific-api'
 
 async function main() {
   const token = process.env.PROLIFIC_API_TOKEN
-  if (!token) { console.error('PROLIFIC_API_TOKEN required'); process.exit(1) }
+  if (!token) {
+    console.error('PROLIFIC_API_TOKEN required')
+    process.exit(1)
+  }
   const studyId = process.env.STUDY_ID
-  if (!studyId) { console.error('STUDY_ID required'); process.exit(1) }
+  if (!studyId) {
+    console.error('STUDY_ID required')
+    process.exit(1)
+  }
   const pid = process.env.PID
-  if (!pid) { console.error('PID required'); process.exit(1) }
+  if (!pid) {
+    console.error('PID required')
+    process.exit(1)
+  }
 
   console.log(`Fetching messages for PID ${pid} in study ${studyId}...\n`)
   const msgs = await listStudyMessages(studyId, token)
@@ -32,4 +41,7 @@ async function main() {
   }
 }
 
-main().catch(e => { console.error(e); process.exit(1) })
+main().catch((e) => {
+  console.error(e)
+  process.exit(1)
+})
