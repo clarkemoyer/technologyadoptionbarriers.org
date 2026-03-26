@@ -8,9 +8,9 @@ async function main() {
   const studyId = process.env.STUDY_ID!
   const researcherId = '68264cbfdeb62546fe6060fe'
 
-  // Get all messages from last 30 days
-  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
-  const msgs = await listRecentMessages(thirtyDaysAgo, token)
+  // Get all messages from last 7 days
+  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+  const msgs = await listRecentMessages(sevenDaysAgo, token)
   const all = (msgs.results || []).filter((m: any) => m.data?.study_id === studyId)
 
   // Get all submissions to know statuses
