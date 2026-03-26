@@ -1,70 +1,84 @@
 {
   "title": "TABS Survey Structure Summary — V2 (from Qualtrics QSF Export, March 2026)",
-  "rows": [
-    ["TABS Survey Structure Summary — V2 (from Qualtrics QSF Export, March 2026)", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["Section", "Question Type", "Substantive Items", "Attention Checks", "Scale / Method"],
-    ["Section A: Demographics", "Multiple Choice", "9", "", "Categorical (various)"],
-    [
-      "Section B: Barrier Severity Rating",
-      "Matrix",
-      "18",
-      "1",
-      "5-point Barrier Severity + Don't Know"
-    ],
-    [
-      "Section B: Top 3 Barrier Selection",
-      "Multi-Select (forced choice)",
-      "1",
-      "",
-      "Select exactly 3 of 18 barriers"
-    ],
-    [
-      "Section C: Readiness Assessment",
-      "Matrix",
-      "17",
-      "1",
-      "5-point Readiness/Capability + Don't Know"
-    ],
-    ["Section D: Maturity Assessment", "Matrix", "8", "1", "5-level Maturity + Don't Know"],
-    ["Section E: Open-Ended", "Text Entry", "1", "", "Multi-line open text"],
-    ["", "", "", "", ""],
-    ["TOTAL SUBSTANTIVE", "", "54", "3", ""],
-    ["", "", "", "", ""],
-    [
-      "Note: V2 removed Q9 (barrier category ranking) and Q10 (specific barrier ranking) based on pilot data analysis.",
-      "",
-      "",
-      "",
-      ""
-    ],
-    [
-      "Note: Q1b (Decision Authority) added to demographics; Top 3 barrier selection replaces forced rankings.",
-      "",
-      "",
-      "",
-      ""
-    ],
-    [
-      "Note: Attention checks redesigned as instructed-response items (IRIs); maturity AC added (3 total ACs).",
-      "",
-      "",
-      "",
-      ""
-    ],
-    [
-      "Note: QID236 (CAPTCHA) provides bot detection but is not a substantive survey item.",
-      "",
-      "",
-      "",
-      ""
-    ],
-    [
-      "Note: 6 questions from V1 (QID215, QID227, QID229, QID230, QID234, QID235) were permanently deleted from the QSF during V2 revision.",
-      "",
-      "",
-      "",
-      ""
-    ]
+  "quickStats": {
+    "totalItems": 57,
+    "substantiveItems": 54,
+    "attentionChecks": 3,
+    "sections": 5,
+    "mappedFields": 13
+  },
+  "columns": [
+    "Section",
+    "Question Type",
+    "Substantive Items",
+    "Attention Checks",
+    "Scale / Method"
+  ],
+  "sections": [
+    {
+      "section": "Section A: Demographics",
+      "questionType": "Multiple Choice",
+      "substantiveItems": 9,
+      "attentionChecks": null,
+      "scaleMethod": "Categorical (various)",
+      "color": "#D9E2F3",
+      "colorLabel": "blue"
+    },
+    {
+      "section": "Section B: Barrier Severity Rating",
+      "questionType": "Matrix",
+      "substantiveItems": 18,
+      "attentionChecks": 1,
+      "scaleMethod": "5-point Barrier Severity + Don't Know",
+      "color": "#FFF2CC",
+      "colorLabel": "yellow"
+    },
+    {
+      "section": "Section B: Top 3 Barrier Selection",
+      "questionType": "Multi-Select (forced choice)",
+      "substantiveItems": 1,
+      "attentionChecks": null,
+      "scaleMethod": "Select exactly 3 of 18 barriers",
+      "color": "#FFF2CC",
+      "colorLabel": "yellow"
+    },
+    {
+      "section": "Section C: Readiness Assessment",
+      "questionType": "Matrix",
+      "substantiveItems": 17,
+      "attentionChecks": 1,
+      "scaleMethod": "5-point Readiness/Capability + Don't Know",
+      "color": "#FCE4D6",
+      "colorLabel": "orange"
+    },
+    {
+      "section": "Section D: Maturity Assessment",
+      "questionType": "Matrix",
+      "substantiveItems": 8,
+      "attentionChecks": 1,
+      "scaleMethod": "5-level Maturity + Don't Know",
+      "color": "#E2EFDA",
+      "colorLabel": "green"
+    },
+    {
+      "section": "Section E: Open-Ended",
+      "questionType": "Text Entry",
+      "substantiveItems": 1,
+      "attentionChecks": null,
+      "scaleMethod": "Multi-line open text",
+      "color": "#F2F2F2",
+      "colorLabel": "gray"
+    }
+  ],
+  "totals": {
+    "substantiveItems": 54,
+    "attentionChecks": 3
+  },
+  "revisionNotes": [
+    "V2 removed Q9 (barrier category ranking) and Q10 (specific barrier ranking) based on pilot data analysis.",
+    "Q1b (Decision Authority) added to demographics; Top 3 barrier selection replaces forced rankings.",
+    "Attention checks redesigned as instructed-response items (IRIs); maturity AC added (3 total ACs).",
+    "QID236 (CAPTCHA) provides bot detection but is not a substantive survey item.",
+    "6 questions from V1 (QID215, QID227, QID229, QID230, QID234, QID235) were permanently deleted from the QSF during V2 revision."
   ]
 }
