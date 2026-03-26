@@ -1,0 +1,205 @@
+/**
+ * Generate disposition-summary.json from live Prolific API data + disposition CSV.
+ *
+ * This script combines:
+ *   1. Prolific API — real submission statuses (approved, rejected, returned, etc.)
+ *   2. Disposition CSV — triage results (CLEAN, AUTO-EXCLUDE, FLAG-*, etc.)
+ *
+ * Output: src/data/disposition-summary.json (committed to repo, drives the dashboard page)
+ *
+ * Environment variables:
+ *   PROLIFIC_API_TOKEN  – Prolific API token (required)
+ *   STUDY_ID            – Prolific study ID (required)
+ *   CSV_FILE_PATH       – Path to disposition CSV from pipeline (required)
+ */
+
+import {
+  getStudy,
+  listStudySubmissions,
+  listStudyMessages,
+  type Submission,
+} from '../src/lib/prolific-api'
+import { parseCsvLine } from '../src/lib/disposition'
+import { readFileSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
+
+async function main() {
+  const apiToken = process.env.PROLIFIC_API_TOKEN
+  if (!apiToken) {
+    console.error('Error: PROLIFIC_API_TOKEN is required')
+    process.exit(1)
+  }
+
+  const studyId = process.env.STUDY_ID
+  if (!studyId) {
+    console.error('Error: STUDY_ID is required')
+    process.exit(1)
+  }
+
+  const csvFilePath = process.env.CSV_FILE_PATH
+  if (!csvFilePath) {
+    console.error('Error: CSV_FILE_PATH is required')
+    process.exit(1)
+  }
+
+  console.log('Generating disposition summary from live data...')
+  console.log('')
+
+  /* ---------- 1. Fetch live Prolific data ------------------------------ */
+  console.log('Fetching Prolific study data...')
+  const [study, submissionsResponse, messagesResponse] = await Promise.all([
+    getStudy(studyId, apiToken),
+    listStudySubmissions(studyId, apiToken),
+    listStudyMessages(studyId, apiToken).catch(() => ({ results: [] })),
+  ])
+
+  const submissions: Submission[] = submissionsResponse.results || []
+  const messages = messagesResponse.results || []
+
+  // Count submission statuses from live API
+  const statusCounts: Record<string, number> = {}
+  for (const sub of submissions) {
+    const status = sub.status || 'UNKNOWN'
+    statusCounts[status] = (statusCounts[status] || 0) + 1
+  }
+
+  console.log(`Study: ${study.name}`)
+  console.log(`Total submissions: ${submissions.length}`)
+  for (const [status, count] of Object.entries(statusCounts).sort(([, a], [, b]) => b - a)) {
+    console.log(`  ${status}: ${count}`)
+  }
+
+  // Count unique PIDs that have been messaged
+  const messagedPids = new Set<string>()
+  for (const msg of messages) {
+    if (msg.participant_id) {
+      messagedPids.add(msg.participant_id)
+    }
+  }
+  console.log(`Unique participants messaged: ${messagedPids.size}`)
+  console.log('')
+
+  /* ---------- 2. Parse disposition CSV --------------------------------- */
+  console.log('Parsing disposition CSV...')
+  const rawCsv = readFileSync(csvFilePath, 'utf-8')
+  const lines = rawCsv
+    .trimEnd()
+    .split(/\r?\n/)
+    .filter((l) => l.trim() !== '')
+
+  const headers = parseCsvLine(lines[0])
+  const col = (name: string): number => {
+    const idx = headers.indexOf(name)
+    if (idx === -1) {
+      console.error(`Error: Required column "${name}" not found in CSV headers`)
+      console.error(`Available columns: ${headers.join(', ')}`)
+      process.exit(1)
+    }
+    return idx
+  }
+
+  const dispositionIdx = col('Disposition')
+  const iriFailIdx = col('IRI_Fail_Count')
+  const speedIdx = col('Speed_Flag')
+  const iriBarrierIdx = col('IRI_Barrier_Pass')
+  const iriReadinessIdx = col('IRI_Readiness_Pass')
+  const iriMaturityIdx = col('IRI_Maturity_Pass')
+
+  // Count dispositions
+  const dispositions: Record<string, number> = {}
+  const autoExcludeBreakdown: Record<string, number> = {
+    IRI3_SPEED: 0,
+    IRI3: 0,
+    IRI2_SPEED: 0,
+    IRI2: 0,
+    SPEED_IRI: 0,
+  }
+
+  let totalParticipants = 0
+  let iriBarrierPass = 0
+  let iriReadinessPass = 0
+  let iriMaturityPass = 0
+
+  for (let i = 1; i < lines.length; i++) {
+    const fields = parseCsvLine(lines[i])
+    const disposition = (fields[dispositionIdx] ?? '').trim()
+    if (!disposition) continue
+
+    totalParticipants++
+    dispositions[disposition] = (dispositions[disposition] || 0) + 1
+
+    // IRI pass rates
+    if (iriBarrierIdx >= 0) iriBarrierPass += parseInt(fields[iriBarrierIdx] ?? '0', 10) || 0
+    if (iriReadinessIdx >= 0) iriReadinessPass += parseInt(fields[iriReadinessIdx] ?? '0', 10) || 0
+    if (iriMaturityIdx >= 0) iriMaturityPass += parseInt(fields[iriMaturityIdx] ?? '0', 10) || 0
+
+    // AUTO-EXCLUDE sub-types
+    if (disposition === 'AUTO-EXCLUDE') {
+      const iriFail = parseInt(fields[iriFailIdx] ?? '0', 10) || 0
+      const speed = parseInt(fields[speedIdx] ?? '0', 10)
+
+      if (iriFail >= 3 && speed === 1) autoExcludeBreakdown.IRI3_SPEED++
+      else if (iriFail >= 3) autoExcludeBreakdown.IRI3++
+      else if (iriFail === 2 && speed === 1) autoExcludeBreakdown.IRI2_SPEED++
+      else if (iriFail === 2) autoExcludeBreakdown.IRI2++
+      else if (speed === 1 && iriFail >= 1) autoExcludeBreakdown.SPEED_IRI++
+    }
+  }
+
+  console.log(`Disposition CSV: ${totalParticipants} participants`)
+  for (const [d, c] of Object.entries(dispositions).sort(([, a], [, b]) => b - a)) {
+    console.log(`  ${d}: ${c}`)
+  }
+  console.log('')
+
+  /* ---------- 3. Build summary JSON ------------------------------------ */
+  const summary = {
+    updatedAt: new Date().toISOString(),
+    totalResponses: submissions.length,
+    uniqueParticipants: totalParticipants,
+    duplicatesRemoved: 0,
+    dispositions,
+    autoExcludeBreakdown,
+    actions: {
+      approved: statusCounts['APPROVED'] || 0,
+      rejected: statusCounts['REJECTED'] || 0,
+      returned: statusCounts['RETURNED'] || 0,
+      timedOut: statusCounts['TIMED-OUT'] || 0,
+      awaitingReview: statusCounts['AWAITING REVIEW'] || 0,
+      active: statusCounts['ACTIVE'] || 0,
+      messaged: messagedPids.size,
+    },
+    iriPassRates: {
+      barrier:
+        totalParticipants > 0
+          ? parseFloat(((iriBarrierPass / totalParticipants) * 100).toFixed(1))
+          : 0,
+      readiness:
+        totalParticipants > 0
+          ? parseFloat(((iriReadinessPass / totalParticipants) * 100).toFixed(1))
+          : 0,
+      maturity:
+        totalParticipants > 0
+          ? parseFloat(((iriMaturityPass / totalParticipants) * 100).toFixed(1))
+          : 0,
+    },
+    studyId,
+    studyName: study.name || 'Technology Adoption Barriers Survey (2026 v2)',
+  }
+
+  /* ---------- 4. Write to file ----------------------------------------- */
+  const outputPath =
+    process.env.OUTPUT_PATH || join(process.cwd(), 'src', 'data', 'disposition-summary.json')
+  writeFileSync(outputPath, JSON.stringify(summary, null, 2) + '\n', 'utf-8')
+  console.log(`Wrote disposition summary to ${outputPath}`)
+  console.log('')
+  console.log('Actions (from live Prolific API):')
+  for (const [action, count] of Object.entries(summary.actions)) {
+    console.log(`  ${action}: ${count}`)
+  }
+}
+
+main().catch((error: unknown) => {
+  console.error('Error generating disposition summary:', error)
+  process.exit(1)
+})

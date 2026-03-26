@@ -213,6 +213,83 @@ const DispositionDashboardPage = () => {
           </div>
         </section>
 
+        {/* AUTO-EXCLUDE Breakdown */}
+        <section className="mb-12">
+          <h2 className={H2_CLASSES}>Auto-Exclude Breakdown</h2>
+          <p className="mb-4 text-gray-600">
+            The {dispositions['AUTO-EXCLUDE'] || 0} auto-excluded submissions are broken down by
+            severity. Failed all 3 IRIs with speed violation is the strongest exclusion signal.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {[
+              {
+                key: 'IRI3_SPEED',
+                label: 'Failed 3 IRI + Speed',
+                description: 'All 3 attention checks wrong AND under 5 minutes',
+                severity: 'Critical',
+                color: 'text-red-800',
+                bgColor: 'bg-red-100 border-red-300',
+                barColor: 'bg-red-600',
+              },
+              {
+                key: 'IRI3',
+                label: 'Failed 3 IRI',
+                description: 'All 3 attention checks wrong, normal speed',
+                severity: 'High',
+                color: 'text-red-700',
+                bgColor: 'bg-red-50 border-red-200',
+                barColor: 'bg-red-500',
+              },
+              {
+                key: 'IRI2_SPEED',
+                label: 'Failed 2 IRI + Speed',
+                description: '2 of 3 attention checks wrong AND under 5 minutes',
+                severity: 'High',
+                color: 'text-red-700',
+                bgColor: 'bg-red-50 border-red-200',
+                barColor: 'bg-red-400',
+              },
+              {
+                key: 'IRI2',
+                label: 'Failed 2 IRI',
+                description: '2 of 3 attention checks wrong, normal speed',
+                severity: 'Moderate',
+                color: 'text-orange-700',
+                bgColor: 'bg-orange-50 border-orange-200',
+                barColor: 'bg-orange-400',
+              },
+              {
+                key: 'SPEED_IRI',
+                label: 'Speed + 1 IRI',
+                description: 'Under 5 minutes AND 1 attention check wrong (compound signal)',
+                severity: 'Moderate',
+                color: 'text-orange-700',
+                bgColor: 'bg-orange-50 border-orange-200',
+                barColor: 'bg-orange-300',
+              },
+            ].map((sub) => {
+              const breakdown = (d.autoExcludeBreakdown ?? {}) as Record<string, number>
+              const count = breakdown[sub.key] ?? 0
+              const autoExcludeTotal = dispositions['AUTO-EXCLUDE'] || 0
+              const pct = autoExcludeTotal > 0 ? ((count / autoExcludeTotal) * 100).toFixed(0) : '0'
+              return (
+                <div key={sub.key} className={`border rounded-lg p-4 ${sub.bgColor}`}>
+                  <div className={`text-2xl font-bold ${sub.color}`}>{count}</div>
+                  <div className={`text-sm font-semibold ${sub.color} mt-1`}>{sub.label}</div>
+                  <div className="w-full bg-white/50 rounded-full h-1.5 my-2">
+                    <div
+                      className={`h-1.5 rounded-full ${sub.barColor}`}
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                  <p className="text-xs text-gray-600">{sub.description}</p>
+                  <div className="text-xs text-gray-500 mt-1">{pct}% of auto-excludes</div>
+                </div>
+              )
+            })}
+          </div>
+        </section>
+
         {/* Action Status */}
         <section className="mb-12">
           <h2 className={H2_CLASSES}>Action Status</h2>
@@ -227,30 +304,45 @@ const DispositionDashboardPage = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b border-gray-100">
-                  <td className="py-3 px-4 text-green-700 font-medium">Approved on Prolific</td>
-                  <td className="py-3 px-4 text-right font-bold text-green-700">
-                    {d.actions.approved}
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-3 px-4 text-red-700 font-medium">Rejected on Prolific</td>
-                  <td className="py-3 px-4 text-right font-bold text-red-700">
-                    {d.actions.rejected}
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-3 px-4 text-blue-700 font-medium">Messaged (awaiting reply)</td>
-                  <td className="py-3 px-4 text-right font-bold text-blue-700">
-                    {d.actions.messaged}
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-3 px-4 text-amber-700 font-medium">Pending Review</td>
-                  <td className="py-3 px-4 text-right font-bold text-amber-700">
-                    {d.actions.pendingReview}
-                  </td>
-                </tr>
+                {[
+                  {
+                    label: 'Approved on Prolific',
+                    value: d.actions.approved,
+                    color: 'text-green-700',
+                  },
+                  {
+                    label: 'Rejected on Prolific',
+                    value: d.actions.rejected,
+                    color: 'text-red-700',
+                  },
+                  {
+                    label: 'Awaiting Review',
+                    value: (d.actions as Record<string, number>).awaitingReview ?? 0,
+                    color: 'text-amber-700',
+                  },
+                  {
+                    label: 'Returned',
+                    value: (d.actions as Record<string, number>).returned ?? 0,
+                    color: 'text-gray-600',
+                  },
+                  {
+                    label: 'Timed Out',
+                    value: (d.actions as Record<string, number>).timedOut ?? 0,
+                    color: 'text-gray-500',
+                  },
+                  {
+                    label: 'Messaged (unique participants)',
+                    value: d.actions.messaged,
+                    color: 'text-blue-700',
+                  },
+                ]
+                  .filter((row) => row.value > 0)
+                  .map((row) => (
+                    <tr key={row.label} className="border-b border-gray-100">
+                      <td className={`py-3 px-4 font-medium ${row.color}`}>{row.label}</td>
+                      <td className={`py-3 px-4 text-right font-bold ${row.color}`}>{row.value}</td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
