@@ -37,6 +37,23 @@ on:
         required: false
         type: string
         default: ''
+      sub_type:
+        description: 'Target specific sub-type (ALL = all AUTO-EXCLUDE)'
+        required: false
+        type: choice
+        options:
+          - ALL
+          - IRI3_SPEED
+          - IRI3
+          - IRI2_SPEED
+          - IRI2
+          - SPEED_IRI
+        default: 'ALL'
+      pid_list:
+        description: 'Comma-separated PIDs to process (empty = all matching sub_type)'
+        required: false
+        type: string
+        default: ''
 
 # Prevent concurrent rejection runs
 concurrency:
@@ -137,3 +154,5 @@ jobs:
           CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
           DRY_RUN: ${{ inputs.dry_run }}
           CONFIRM_REJECT: ${{ inputs.confirm_reject }}
+          PID_LIST: ${{ inputs.pid_list }}
+          SUB_TYPE: ${{ inputs.sub_type }}

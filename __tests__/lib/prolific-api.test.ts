@@ -15,14 +15,13 @@ import {
   rejectSubmission,
   getSubmissionIdsByParticipant,
   sendMessage,
-  listStudyMessages,
-  getMessageThread,
+  listUserMessages,
+  listRecentMessages,
   REJECTION_CATEGORIES,
   ProlificApiErrorClass,
   type Study,
   type Submission,
   type Message,
-  type MessageThread,
   type PaginatedResponse,
 } from '../../src/lib/prolific-api'
 
@@ -834,25 +833,23 @@ describe('Prolific API Client', () => {
 
       ;(global.fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
-        json: async () => mockMessage,
+        text: async () => JSON.stringify(mockMessage),
       })
 
-      const result = await sendMessage(
+      await sendMessage(
         mockStudyId,
         'participant-1',
         'Hello, please complete the survey.',
         mockApiToken
       )
-
-      expect(result).toEqual(mockMessage)
       expect(global.fetch).toHaveBeenCalledWith(
         'https://api.prolific.com/api/v1/messages/',
         expect.objectContaining({
           method: 'POST',
           body: JSON.stringify({
-            study_id: mockStudyId,
-            participant_id: 'participant-1',
+            recipient_id: 'participant-1',
             body: 'Hello, please complete the survey.',
+            study_id: mockStudyId,
           }),
         })
       )
@@ -867,7 +864,7 @@ describe('Prolific API Client', () => {
       ;(global.fetch as jest.Mock).mockResolvedValueOnce({
         ok: false,
         status: 400,
-        json: async () => ({ detail: 'Invalid participant ID' }),
+        text: async () => '{"detail": "Invalid participant ID"}',
       })
 
       await expect(sendMessage(mockStudyId, 'bad-pid', 'Hello', mockApiToken)).rejects.toThrow(
@@ -884,25 +881,25 @@ describe('Prolific API Client', () => {
     })
   })
 
-  describe('listStudyMessages', () => {
-    it('should fetch messages for a study', async () => {
+  describe('listUserMessages', () => {
+    it('should fetch messages for a user', async () => {
       const mockMessages: PaginatedResponse<Message> = {
         results: [
           {
             id: 'msg-1',
-            study_id: mockStudyId,
-            participant_id: 'participant-1',
-            body: 'First message',
             sender_id: 'researcher-1',
-            created_at: '2024-06-01T12:00:00Z',
+            body: 'First message',
+            sent_at: '2024-06-01T12:00:00Z',
+            channel_id: 'channel-1',
+            data: { study_id: mockStudyId, category: 'other' },
           },
           {
             id: 'msg-2',
-            study_id: mockStudyId,
-            participant_id: 'participant-2',
-            body: 'Second message',
             sender_id: 'researcher-1',
-            created_at: '2024-06-01T13:00:00Z',
+            body: 'Second message',
+            sent_at: '2024-06-01T13:00:00Z',
+            channel_id: 'channel-2',
+            data: { study_id: mockStudyId, category: 'rejections' },
           },
         ],
         meta: {
@@ -917,12 +914,12 @@ describe('Prolific API Client', () => {
         json: async () => mockMessages,
       })
 
-      const result = await listStudyMessages(mockStudyId, mockApiToken)
+      const result = await listUserMessages('participant-1', mockApiToken)
 
       expect(result).toEqual(mockMessages)
       expect(result.results).toHaveLength(2)
       expect(global.fetch).toHaveBeenCalledWith(
-        `https://api.prolific.com/api/v1/studies/${mockStudyId}/messages/`,
+        `https://api.prolific.com/api/v1/messages/?user_id=participant-1`,
         expect.objectContaining({
           headers: expect.any(Headers),
         })
@@ -932,11 +929,7 @@ describe('Prolific API Client', () => {
     it('should handle empty message list', async () => {
       const mockMessages: PaginatedResponse<Message> = {
         results: [],
-        meta: {
-          count: 0,
-          next: null,
-          previous: null,
-        },
+        meta: { count: 0, next: null, previous: null },
       }
 
       ;(global.fetch as jest.Mock).mockResolvedValueOnce({
@@ -944,109 +937,49 @@ describe('Prolific API Client', () => {
         json: async () => mockMessages,
       })
 
-      const result = await listStudyMessages(mockStudyId, mockApiToken)
-
+      const result = await listUserMessages('participant-1', mockApiToken)
       expect(result.results).toHaveLength(0)
     })
 
     it('should throw ProlificApiErrorClass on API error', async () => {
       ;(global.fetch as jest.Mock).mockResolvedValueOnce({
         ok: false,
-        status: 404,
-        json: async () => ({ detail: 'Study not found' }),
+        status: 400,
+        json: async () => ({ detail: 'Bad request' }),
       })
 
-      await expect(listStudyMessages('bad-study', mockApiToken)).rejects.toThrow(
+      await expect(listUserMessages('bad-user', mockApiToken)).rejects.toThrow(
         ProlificApiErrorClass
       )
     })
   })
 
-  describe('getMessageThread', () => {
-    it('should fetch a message thread with replies', async () => {
-      const mockThread: MessageThread = {
-        id: 'msg-1',
-        study_id: mockStudyId,
-        participant_id: 'participant-1',
-        body: 'Hello, please complete the survey.',
-        sender_id: 'researcher-1',
-        created_at: '2024-06-01T12:00:00Z',
-        replies: [
+  describe('listRecentMessages', () => {
+    it('should fetch messages after a date', async () => {
+      const mockMessages: PaginatedResponse<Message> = {
+        results: [
           {
-            id: 'msg-1-reply-1',
-            study_id: mockStudyId,
-            participant_id: 'participant-1',
-            body: 'I have a question about question 3.',
-            sender_id: 'participant-1',
-            created_at: '2024-06-01T12:30:00Z',
-          },
-          {
-            id: 'msg-1-reply-2',
-            study_id: mockStudyId,
-            participant_id: 'participant-1',
-            body: 'Please refer to the instructions.',
+            id: 'msg-1',
             sender_id: 'researcher-1',
-            created_at: '2024-06-01T13:00:00Z',
+            body: 'Recent message',
+            sent_at: '2024-06-01T12:00:00Z',
+            channel_id: 'channel-1',
           },
         ],
+        meta: { count: 1, next: null, previous: null },
       }
 
       ;(global.fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
-        json: async () => mockThread,
+        json: async () => mockMessages,
       })
 
-      const result = await getMessageThread('msg-1', mockApiToken)
-
-      expect(result).toEqual(mockThread)
-      expect(result.replies).toHaveLength(2)
-      expect(result.replies[0].body).toBe('I have a question about question 3.')
+      const result = await listRecentMessages('2024-05-01T00:00:00Z', mockApiToken)
+      expect(result.results).toHaveLength(1)
       expect(global.fetch).toHaveBeenCalledWith(
-        'https://api.prolific.com/api/v1/messages/msg-1/',
-        expect.objectContaining({
-          headers: expect.any(Headers),
-        })
+        expect.stringContaining('/messages/?created_after='),
+        expect.objectContaining({ headers: expect.any(Headers) })
       )
-    })
-
-    it('should handle a thread with no replies', async () => {
-      const mockThread: MessageThread = {
-        id: 'msg-2',
-        study_id: mockStudyId,
-        participant_id: 'participant-2',
-        body: 'Your submission is under review.',
-        sender_id: 'researcher-1',
-        created_at: '2024-06-02T10:00:00Z',
-        replies: [],
-      }
-
-      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockThread,
-      })
-
-      const result = await getMessageThread('msg-2', mockApiToken)
-
-      expect(result.replies).toHaveLength(0)
-      expect(result.body).toBe('Your submission is under review.')
-    })
-
-    it('should throw ProlificApiErrorClass on API error', async () => {
-      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
-        ok: false,
-        status: 404,
-        json: async () => ({ detail: 'Message not found' }),
-      })
-
-      await expect(getMessageThread('bad-msg-id', mockApiToken)).rejects.toThrow(
-        ProlificApiErrorClass
-      )
-    })
-
-    it('should throw ProlificApiErrorClass on network error', async () => {
-      ;(global.fetch as jest.Mock).mockRejectedValueOnce(new Error('Connection refused'))
-
-      await expect(getMessageThread('msg-1', mockApiToken)).rejects.toThrow(ProlificApiErrorClass)
     })
   })
 })

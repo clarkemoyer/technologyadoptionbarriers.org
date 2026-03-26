@@ -21,24 +21,15 @@ const PROLIFIC_API_BASE_URL = 'https://api.prolific.com/api/v1'
  */
 export interface Message {
   id: string
-  study_id: string
-  participant_id: string
+  sender_id: string
   body: string
-  sender_id?: string
-  created_at: string
-}
-
-/**
- * Represents a message thread (a message with its replies).
- */
-export interface MessageThread {
-  id: string
-  study_id: string
-  participant_id: string
-  body: string
-  sender_id?: string
-  created_at: string
-  replies: Message[]
+  sent_at: string
+  type?: string
+  channel_id: string
+  data?: {
+    study_id?: string
+    category?: string
+  }
 }
 
 /**
@@ -210,14 +201,14 @@ async function makeApiRequest<T>(
 
     if (!response.ok) {
       const errorData = data as ProlificApiError
-      throw new ProlificApiErrorClass(
-        errorData.detail ||
-          errorData.error ||
-          errorData.message ||
-          `API request failed with status ${response.status}`,
-        response.status,
-        errorData
-      )
+      const detail = errorData.detail || errorData.error || errorData.message
+      const errorMsg =
+        typeof detail === 'string'
+          ? detail
+          : detail
+            ? JSON.stringify(detail)
+            : `API request failed with status ${response.status}`
+      throw new ProlificApiErrorClass(errorMsg, response.status, errorData)
     }
 
     return data as T
@@ -714,55 +705,97 @@ export async function bulkRejectSubmissions(
 export async function sendMessage(
   studyId: string,
   participantId: string,
-  body: string,
+  messageBody: string,
   apiToken: string
-): Promise<Message> {
-  return makeApiRequest<Message>('/messages/', apiToken, {
-    method: 'POST',
-    body: JSON.stringify({
-      study_id: studyId,
-      participant_id: participantId,
-      body,
-    }),
-  })
+): Promise<void> {
+  const url = `${PROLIFIC_API_BASE_URL}/messages/`
+
+  const headers = new Headers()
+  headers.set('Authorization', `Token ${apiToken}`)
+  headers.set('Content-Type', 'application/json')
+
+  let response: Response
+  try {
+    response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        recipient_id: participantId,
+        body: messageBody,
+        study_id: studyId,
+      }),
+    })
+  } catch (error) {
+    throw new ProlificApiErrorClass(
+      `Network error sending message: ${error instanceof Error ? error.message : String(error)}`,
+      0,
+      {}
+    )
+  }
+
+  if (!response.ok) {
+    let errorDetail = ''
+    try {
+      const errorBody = await response.text()
+      errorDetail = errorBody.slice(0, 500)
+    } catch {
+      // ignore
+    }
+    throw new ProlificApiErrorClass(
+      `Send message failed (${response.status}): ${errorDetail}`,
+      response.status,
+      {}
+    )
+  }
+
+  // Drain response body
+  try {
+    await response.text()
+  } catch {
+    // ignore
+  }
 }
 
 /**
- * List all messages for a specific study.
+ * List messages for a specific user (participant).
  *
  * Uses the Prolific messaging endpoint:
- * GET /api/v1/studies/{studyId}/messages/
+ * GET /api/v1/messages/?user_id={userId}
  *
- * @param studyId - The unique identifier of the study
+ * Either user_id or created_after is required.
+ *
+ * @param userId - The user ID to get messages for
  * @param apiToken - Prolific API token
  * @returns Promise resolving to a paginated list of Messages
  * @throws {ProlificApiErrorClass} When the API request fails
  *
- * @see https://docs.prolific.com/api-reference/messages/list-messages
+ * @see https://docs.prolific.com/api-reference/messages/get-messages
  */
-export async function listStudyMessages(
-  studyId: string,
+export async function listUserMessages(
+  userId: string,
   apiToken: string
 ): Promise<PaginatedResponse<Message>> {
-  return makeApiRequest<PaginatedResponse<Message>>(`/studies/${studyId}/messages/`, apiToken)
+  return makeApiRequest<PaginatedResponse<Message>>(
+    `/messages/?user_id=${encodeURIComponent(userId)}`,
+    apiToken
+  )
 }
 
 /**
- * Get a specific message thread (message and its replies).
+ * List recent messages (last 30 days).
  *
- * Uses the Prolific messaging endpoint:
- * GET /api/v1/messages/{messageId}/
- *
- * @param messageId - The unique identifier of the message
+ * @param createdAfter - ISO8601 timestamp (messages after this date, max 30 days)
  * @param apiToken - Prolific API token
- * @returns Promise resolving to the MessageThread
- * @throws {ProlificApiErrorClass} When the API request fails
+ * @returns Promise resolving to a paginated list of Messages
  *
- * @see https://docs.prolific.com/api-reference/messages/get-message
+ * @see https://docs.prolific.com/api-reference/messages/get-messages
  */
-export async function getMessageThread(
-  messageId: string,
+export async function listRecentMessages(
+  createdAfter: string,
   apiToken: string
-): Promise<MessageThread> {
-  return makeApiRequest<MessageThread>(`/messages/${messageId}/`, apiToken)
+): Promise<PaginatedResponse<Message>> {
+  return makeApiRequest<PaginatedResponse<Message>>(
+    `/messages/?created_after=${encodeURIComponent(createdAfter)}`,
+    apiToken
+  )
 }
