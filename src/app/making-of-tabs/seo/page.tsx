@@ -13,10 +13,10 @@ export const metadata: Metadata = {
 }
 
 const SEOTransparencyPage = () => {
-  // Format the build-time date in UTC so the display is consistent regardless
-  // of the build machine's locale. In this statically exported app, this
-  // timestamp is computed at build time and remains fixed until the next build.
-  const dateObj = new Date(seoMetrics.generatedAt)
+  // The dashboardSyncedAt field is written by the daily CI sync workflow before
+  // the Next.js build runs, so it reflects the last time the pipeline executed.
+  // generatedAt tracks when the underlying metrics data was collected.
+  const syncDateObj = new Date(seoMetrics.dashboardSyncedAt)
   const utcDateFormatter = new Intl.DateTimeFormat('en-US', {
     timeZone: 'UTC',
     year: 'numeric',
@@ -26,7 +26,7 @@ const SEOTransparencyPage = () => {
     minute: '2-digit',
     timeZoneName: 'short',
   })
-  const formattedSnapshotDate = utcDateFormatter.format(dateObj)
+  const formattedSnapshotDate = utcDateFormatter.format(syncDateObj)
 
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">

@@ -30,6 +30,9 @@ jobs:
       - name: Update SEO Dashboard Timestamp
         run: npx tsx scripts/update-seo-dashboard-sync.ts
 
+      - name: Format updated data file
+        run: npx prettier --write src/data/seo-metrics.json
+
       - name: Create pull request with updated sync time
         id: cpr
         uses: peter-evans/create-pull-request@v8
@@ -40,7 +43,7 @@ jobs:
           body: |
             Automated execution of `scripts/update-seo-dashboard-sync.ts`.
 
-            This PR bumps the SEO Transparency Dashboard `generatedAt` static export timestamp to reflect the latest CI build synchronization phase.
+            This PR bumps the `dashboardSyncedAt` field in `src/data/seo-metrics.json` to reflect the latest CI build synchronization date. The underlying metrics data (`generatedAt`, `dateRange`, and all metrics) are not modified by this script.
           branch: chore/seo-dashboard-daily-sync
           delete-branch: true
 
