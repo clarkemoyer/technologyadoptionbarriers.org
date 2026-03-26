@@ -277,7 +277,7 @@ const SEOTransparencyPage = () => {
         <section className="mb-12 text-gray-800" id="keywords">
           <h2 className={H2_CLASSES}>Keyword Visibility Search Volumes</h2>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm border border-gray-200 rounded-lg whitespace-nowrap">
+            <table className="w-full text-sm border border-gray-200 rounded-lg">
               <thead>
                 <tr className="bg-gray-100">
                   <th className="text-left p-3 font-semibold border-b border-gray-200">
