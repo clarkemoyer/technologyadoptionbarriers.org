@@ -13,16 +13,18 @@ export const metadata: Metadata = {
 }
 
 const SEOTransparencyPage = () => {
-  // Format the build-time snapshot date in UTC so the display is consistent regardless
-  // of the build machine's locale. With `output: 'export'`, this value is
-  // computed at build time and remains the same for all clients, even though
-  // the app still hydrates on the client.
+  // Format the build-time date in UTC so the display is consistent regardless
+  // of the build machine's locale. In this statically exported app, this
+  // timestamp is computed at build time and remains fixed until the next build.
   const dateObj = new Date(seoMetrics.generatedAt)
   const utcDateFormatter = new Intl.DateTimeFormat('en-US', {
     timeZone: 'UTC',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZoneName: 'short',
   })
   const formattedSnapshotDate = utcDateFormatter.format(dateObj)
 
@@ -61,8 +63,14 @@ const SEOTransparencyPage = () => {
               statically generated snapshot rendered directly from our internal data pipelines at
               build time.
             </p>
-            <p className="text-sm text-blue-800 font-semibold mt-2">
-              Dashboard Snapshot Sync: {formattedSnapshotDate}
+            <p className="text-sm flex flex-col gap-1 mt-2">
+              <span className="text-blue-800 font-semibold">
+                Dashboard Snapshot Sync: {formattedSnapshotDate}
+              </span>
+              <span className="text-gray-600 font-medium">
+                Data Collection Window: {seoMetrics.dateRange.startDate} to{' '}
+                {seoMetrics.dateRange.endDate}
+              </span>
             </p>
           </div>
 
