@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ConceptMappingComplex from '@/components/tabs/concept-mapping/complex'
 
 export const metadata: Metadata = {
-  title: 'Concept Mapping — TABS (Complex)',
+  title: 'Concept Mapping (Complex View)',
   description:
     'Detailed academic concept mapping for the Technology Adoption Barriers Survey (TABS). View all 57 survey items with section-grouped accordion panels, scale visualizations, citation copy, and cross-reference linking.',
 }
