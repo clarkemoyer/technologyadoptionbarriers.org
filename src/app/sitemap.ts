@@ -509,24 +509,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/making-of-tabs/seo/baseline-audit`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/making-of-tabs/seo/strategy`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/making-of-tabs/seo/dashboard`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
       url: `${baseUrl}/making-of-tabs/ai-validity-checks`,
       lastModified: now,
       changeFrequency: 'monthly',
