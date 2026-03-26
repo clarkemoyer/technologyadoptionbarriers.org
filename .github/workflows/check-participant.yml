@@ -35,7 +35,7 @@ jobs:
           PID: ${{ inputs.pid }}
         run: |
           npx --no-install tsx -e "
-          import { listStudySubmissions, listStudyMessages } from './src/lib/prolific-api';
+          import { listStudySubmissions, listUserMessages } from './src/lib/prolific-api';
           async function main() {
             const token = process.env.PROLIFIC_API_TOKEN!;
             const studyId = process.env.STUDY_ID!;
@@ -56,49 +56,26 @@ jobs:
             console.log('');
             console.log('=== MESSAGES ===');
             try {
-              // Try multiple Prolific messaging endpoints
-              const endpoints = [
-                '/messages/?participant=' + pid,
-                '/messages/?participant_id=' + pid,
-                '/studies/' + studyId + '/messages/',
-              ];
-              let found = false;
-              for (const ep of endpoints) {
-                try {
-                  const resp = await fetch('https://api.prolific.com/api/v1' + ep, {
-                    headers: { 'Authorization': 'Token ' + token }
-                  });
-                  if (resp.ok) {
-                    const data = await resp.json() as any;
-                    const results = data.results || data || [];
-                    const msgs = Array.isArray(results) ? results : [];
-                    const filtered = msgs.filter((m: any) =>
-                      m.participant_id === pid || m.participant === pid
-                    );
-                    if (filtered.length > 0 || msgs.length > 0) {
-                      console.log('Endpoint:', ep);
-                      console.log('Total messages:', msgs.length);
-                      console.log('For this PID:', filtered.length);
-                      for (const m of (filtered.length > 0 ? filtered : msgs.slice(0, 5))) {
-                        console.log('');
-                        console.log('---');
-                        console.log(JSON.stringify(m, null, 2));
-                      }
-                      found = true;
-                      break;
-                    }
-                  } else {
-                    console.log('Endpoint', ep, ':', resp.status);
-                  }
-                } catch (e) {
-                  console.log('Endpoint', ep, ': failed');
+              const msgs = await listUserMessages(pid, token);
+              const results = msgs.results || [];
+              if (results.length === 0) {
+                console.log('No messages found for this participant.');
+              } else {
+                console.log('Found', results.length, 'message(s):');
+                for (const m of results) {
+                  console.log('');
+                  console.log('--- Message', m.id, '---');
+                  console.log('  From:', m.sender_id);
+                  console.log('  Sent:', m.sent_at);
+                  console.log('  Channel:', m.channel_id);
+                  console.log('  Study:', m.data?.study_id || 'N/A');
+                  console.log('  Category:', m.data?.category || 'N/A');
+                  console.log('  Body:', m.body);
                 }
-              }
-              if (!found) {
-                console.log('Could not retrieve messages. Check Prolific UI for message history.');
               }
             } catch (e) {
               console.log('Message retrieval failed:', e);
+              console.log('Check Prolific UI for message history.');
             }
           }
           main().catch(e => { console.error(e); process.exit(1); });
