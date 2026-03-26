@@ -1,0 +1,74 @@
+name: Check Participant Details
+
+on:
+  workflow_dispatch:
+    inputs:
+      pid:
+        description: 'Prolific Participant ID'
+        required: true
+        type: string
+      study_id:
+        description: 'Study ID (defaults to PROLIFIC_STUDY_ID)'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check Participant
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+
+      - name: Fetch submission details
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          PID: ${{ inputs.pid }}
+        run: |
+          npx --no-install tsx -e "
+          import { listStudySubmissions, listStudyMessages } from './src/lib/prolific-api';
+          async function main() {
+            const token = process.env.PROLIFIC_API_TOKEN!;
+            const studyId = process.env.STUDY_ID!;
+            const pid = process.env.PID!;
+
+            console.log('=== SUBMISSION STATUS ===');
+            const subs = await listStudySubmissions(studyId, token);
+            const sub = (subs.results || []).find((s: any) => s.participant_id === pid);
+            if (sub) {
+              console.log('Status:', sub.status);
+              console.log('Started:', sub.started_at);
+              console.log('Completed:', sub.completed_at);
+              console.log('Time taken:', sub.time_taken, 'seconds');
+            } else {
+              console.log('No submission found for this PID');
+            }
+
+            console.log('');
+            console.log('=== MESSAGES ===');
+            const msgs = await listStudyMessages(studyId, token);
+            const filtered = (msgs.results || []).filter((m: any) => m.participant_id === pid);
+            if (filtered.length === 0) {
+              console.log('No messages found.');
+            } else {
+              console.log('Found', filtered.length, 'message(s):');
+              for (const m of filtered) {
+                console.log('');
+                console.log('--- Message', (m as any).id, '---');
+                console.log('From:', (m as any).sender_id || 'researcher');
+                console.log('Date:', (m as any).created_at || (m as any).datetime_created);
+                console.log('Body:', (m as any).body);
+              }
+            }
+          }
+          main().catch(e => { console.error(e); process.exit(1); });
+          "
