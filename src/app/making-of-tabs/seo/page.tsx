@@ -13,20 +13,18 @@ export const metadata: Metadata = {
 }
 
 const SEOTransparencyPage = () => {
-  // Format the build-time date in Eastern Time (ET) so the display is consistent regardless
-  // of the build machine's locale. (output:'export' is fully static — no
-  // server/client hydration cycle exists.)
+  // Format the build-time snapshot date in UTC so the display is consistent regardless
+  // of the build machine's locale. With `output: 'export'`, this value is
+  // computed at build time and remains the same for all clients, even though
+  // the app still hydrates on the client.
   const dateObj = new Date(seoMetrics.generatedAt)
-  const etFormatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/New_York',
+  const utcDateFormatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'UTC',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    timeZoneName: 'short',
   })
-  const etDateString = etFormatter.format(dateObj)
+  const formattedSnapshotDate = utcDateFormatter.format(dateObj)
 
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -52,7 +50,7 @@ const SEOTransparencyPage = () => {
         <section className="mb-10 text-gray-800">
           <div className="mb-8 p-4 rounded-lg bg-blue-50 border border-blue-200">
             <h3 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
-              <span>ℹ️</span> Note on Static Deployment Architecture
+              <span aria-hidden="true">ℹ️</span> Note on Static Deployment Architecture
             </h3>
             <p className="text-sm text-blue-800 mb-2">
               The TABS website is generated entirely as a static export (
@@ -64,15 +62,16 @@ const SEOTransparencyPage = () => {
               build time.
             </p>
             <p className="text-sm text-blue-800 font-semibold mt-2">
-              Dashboard Snapshot Sync: {etDateString}
+              Dashboard Snapshot Sync: {formattedSnapshotDate}
             </p>
           </div>
 
           <p className="mb-6">
             Search Engine Optimization (SEO) is often treated as a secretive marketing discipline.
             However, in alignment with our open-source and open-data philosophy, we treat SEO as an
-            infrastructural transparency issue. Below is a unified view of our live performance
-            metrics, baseline audit, and strategic algorithmic architecture.
+            infrastructural transparency issue. Below is a unified snapshot of our performance
+            metrics, baseline audit, and strategic algorithmic architecture as of the build time
+            noted above.
           </p>
 
           {/* In-page navigation */}
