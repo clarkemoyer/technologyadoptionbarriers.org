@@ -1,0 +1,82 @@
+name: Check Participant Details
+
+on:
+  workflow_dispatch:
+    inputs:
+      pid:
+        description: 'Prolific Participant ID'
+        required: true
+        type: string
+      study_id:
+        description: 'Study ID (defaults to PROLIFIC_STUDY_ID)'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check Participant
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+
+      - name: Fetch submission details
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          PID: ${{ inputs.pid }}
+        run: |
+          npx --no-install tsx -e "
+          import { listStudySubmissions, listUserMessages } from './src/lib/prolific-api';
+          async function main() {
+            const token = process.env.PROLIFIC_API_TOKEN!;
+            const studyId = process.env.STUDY_ID!;
+            const pid = process.env.PID!;
+
+            console.log('=== SUBMISSION STATUS ===');
+            const subs = await listStudySubmissions(studyId, token);
+            const sub = (subs.results || []).find((s: any) => s.participant_id === pid);
+            if (sub) {
+              console.log('Status:', sub.status);
+              console.log('Started:', sub.started_at);
+              console.log('Completed:', sub.completed_at);
+              console.log('Time taken:', sub.time_taken, 'seconds');
+            } else {
+              console.log('No submission found for this PID');
+            }
+
+            console.log('');
+            console.log('=== MESSAGES ===');
+            try {
+              const msgs = await listUserMessages(pid, token);
+              const results = msgs.results || [];
+              if (results.length === 0) {
+                console.log('No messages found for this participant.');
+              } else {
+                console.log('Found', results.length, 'message(s):');
+                for (const m of results) {
+                  console.log('');
+                  console.log('--- Message', m.id, '---');
+                  console.log('  From:', m.sender_id);
+                  console.log('  Sent:', m.sent_at);
+                  console.log('  Channel:', m.channel_id);
+                  console.log('  Study:', m.data?.study_id || 'N/A');
+                  console.log('  Category:', m.data?.category || 'N/A');
+                  console.log('  Body:', m.body);
+                }
+              }
+            } catch (e) {
+              console.log('Message retrieval failed:', e);
+              console.log('Check Prolific UI for message history.');
+            }
+          }
+          main().catch(e => { console.error(e); process.exit(1); });
+          "

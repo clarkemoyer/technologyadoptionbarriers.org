@@ -16,7 +16,7 @@
 import {
   getStudy,
   listStudySubmissions,
-  listStudyMessages,
+  listRecentMessages,
   type Submission,
 } from '../src/lib/prolific-api'
 import { parseCsvLine } from '../src/lib/disposition'
@@ -50,7 +50,10 @@ async function main() {
   const [study, submissionsResponse, messagesResponse] = await Promise.all([
     getStudy(studyId, apiToken),
     listStudySubmissions(studyId, apiToken),
-    listStudyMessages(studyId, apiToken).catch(() => ({ results: [] })),
+    listRecentMessages(
+      new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+      apiToken
+    ).catch(() => ({ results: [] })),
   ])
 
   const submissions: Submission[] = submissionsResponse.results || []
@@ -69,11 +72,12 @@ async function main() {
     console.log(`  ${status}: ${count}`)
   }
 
-  // Count unique PIDs that have been messaged
+  // Count unique participants messaged (filter to this study)
   const messagedPids = new Set<string>()
   for (const msg of messages) {
-    if (msg.participant_id) {
-      messagedPids.add(msg.participant_id)
+    if (msg.data?.study_id === studyId) {
+      // The sender_id on outgoing messages is the researcher; channel_id links to participant
+      messagedPids.add(msg.channel_id)
     }
   }
   console.log(`Unique participants messaged: ${messagedPids.size}`)

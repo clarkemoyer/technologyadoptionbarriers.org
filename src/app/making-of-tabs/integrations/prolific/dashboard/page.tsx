@@ -404,6 +404,7 @@ const DispositionDashboardPage = () => {
                   <th className="py-2 px-3 font-semibold text-gray-600">Step</th>
                   <th className="py-2 px-3 font-semibold text-gray-600">Disposition</th>
                   <th className="py-2 px-3 font-semibold text-gray-600">Criteria</th>
+                  <th className="py-2 px-3 font-semibold text-gray-600">Action</th>
                 </tr>
               </thead>
               <tbody className="text-gray-700">
@@ -411,50 +412,79 @@ const DispositionDashboardPage = () => {
                   <td className="py-2 px-3">0</td>
                   <td className="py-2 px-3 font-medium">INCOMPLETE</td>
                   <td className="py-2 px-3">Survey not finished</td>
+                  <td className="py-2 px-3 text-gray-400">—</td>
                 </tr>
                 <tr className="border-b border-gray-100 bg-red-50/50">
-                  <td className="py-2 px-3">1</td>
-                  <td className="py-2 px-3 font-medium text-red-700">AUTO-EXCLUDE</td>
-                  <td className="py-2 px-3">
-                    IRI failures &ge; 2, or speed (&lt;5 min) + any IRI failure
+                  <td className="py-2 px-3" rowSpan={5}>
+                    1
                   </td>
+                  <td className="py-2 px-3 font-medium text-red-800">AUTO-EXCLUDE: IRI3+Speed</td>
+                  <td className="py-2 px-3">All 3 IRI checks wrong AND under 5 minutes</td>
+                  <td className="py-2 px-3 text-red-700 font-medium">Auto-reject</td>
+                </tr>
+                <tr className="border-b border-gray-100 bg-red-50/50">
+                  <td className="py-2 px-3 font-medium text-red-700">AUTO-EXCLUDE: IRI3</td>
+                  <td className="py-2 px-3">All 3 IRI checks wrong, normal speed</td>
+                  <td className="py-2 px-3 text-red-700 font-medium">Auto-reject</td>
+                </tr>
+                <tr className="border-b border-gray-100 bg-red-50/50">
+                  <td className="py-2 px-3 font-medium text-red-700">AUTO-EXCLUDE: IRI2+Speed</td>
+                  <td className="py-2 px-3">2 of 3 IRI checks wrong AND under 5 minutes</td>
+                  <td className="py-2 px-3 text-red-700 font-medium">Auto-reject</td>
+                </tr>
+                <tr className="border-b border-gray-100 bg-red-50/30">
+                  <td className="py-2 px-3 font-medium text-orange-700">AUTO-EXCLUDE: IRI2</td>
+                  <td className="py-2 px-3">2 of 3 IRI checks wrong, normal speed</td>
+                  <td className="py-2 px-3 text-orange-700 font-medium">Pending</td>
+                </tr>
+                <tr className="border-b border-gray-100 bg-red-50/30">
+                  <td className="py-2 px-3 font-medium text-orange-700">AUTO-EXCLUDE: Speed+IRI</td>
+                  <td className="py-2 px-3">Under 5 minutes AND 1 IRI failure (compound)</td>
+                  <td className="py-2 px-3 text-orange-700 font-medium">Pending</td>
                 </tr>
                 <tr className="border-b border-gray-100">
                   <td className="py-2 px-3">2</td>
                   <td className="py-2 px-3 font-medium text-orange-700">FLAG-SPEED</td>
                   <td className="py-2 px-3">&lt;5 min but all 3 IRIs passed</td>
+                  <td className="py-2 px-3 text-blue-600 font-medium">Message + review</td>
                 </tr>
                 <tr className="border-b border-gray-100">
                   <td className="py-2 px-3">3</td>
                   <td className="py-2 px-3 font-medium text-amber-700">FLAG-SINGLE-IRI</td>
                   <td className="py-2 px-3">1 IRI failure at normal speed</td>
+                  <td className="py-2 px-3 text-blue-600 font-medium">Message + review</td>
                 </tr>
                 <tr className="border-b border-gray-100">
                   <td className="py-2 px-3">4</td>
                   <td className="py-2 px-3 font-medium text-amber-700">FLAG-SMEAL</td>
-                  <td className="py-2 px-3">5-9 min (below Smeal eDBA benchmark)</td>
+                  <td className="py-2 px-3">5-9 min (below Smeal eDBA benchmark of 9 min)</td>
+                  <td className="py-2 px-3 text-blue-600 font-medium">Message + review</td>
                 </tr>
                 <tr className="border-b border-gray-100">
                   <td className="py-2 px-3">5</td>
                   <td className="py-2 px-3 font-medium text-orange-700">FLAG-RECAPTCHA</td>
                   <td className="py-2 px-3">reCAPTCHA score &lt; 0.5</td>
+                  <td className="py-2 px-3 text-blue-600 font-medium">Message + review</td>
                 </tr>
                 <tr className="border-b border-gray-100">
                   <td className="py-2 px-3">6</td>
                   <td className="py-2 px-3 font-medium text-red-700">FLAG-STRAIGHTLINING</td>
                   <td className="py-2 px-3">Qualtrics: same answer for every item in a block</td>
+                  <td className="py-2 px-3 text-red-700 font-medium">Auto-reject</td>
                 </tr>
                 <tr className="border-b border-gray-100">
                   <td className="py-2 px-3">7</td>
                   <td className="py-2 px-3 font-medium text-amber-700">
                     FLAG-PARTIAL-STRAIGHTLINING
                   </td>
-                  <td className="py-2 px-3">Within-person SD &lt; 0.5 in any block</td>
+                  <td className="py-2 px-3">Within-person SD &lt; 0.5 in any question block</td>
+                  <td className="py-2 px-3 text-blue-600 font-medium">Message + review</td>
                 </tr>
                 <tr className="bg-green-50/50">
                   <td className="py-2 px-3">8</td>
                   <td className="py-2 px-3 font-medium text-green-700">CLEAN</td>
                   <td className="py-2 px-3">All checks passed</td>
+                  <td className="py-2 px-3 text-green-700 font-medium">Auto-approve</td>
                 </tr>
               </tbody>
             </table>
