@@ -6,8 +6,45 @@
  *   QUALTRICS_API_TOKEN, QUALTRICS_BASE_URL, QUALTRICS_SURVEY_ID
  *   PID - Prolific Participant ID to look up
  */
-import { exportSurveyResponses, extractCsvFromZip } from '../src/lib/qualtrics-api'
+import { exportSurveyResponses } from '../src/lib/qualtrics-api'
 import { parseCsvLine } from '../src/lib/disposition'
+import { inflateRawSync } from 'node:zlib'
+import { basename } from 'node:path'
+
+function extractCsvFromZip(zipBuffer: Buffer): string {
+  let offset = 0
+  while (offset < zipBuffer.length - 4) {
+    const sig = zipBuffer.readUInt32LE(offset)
+    if (sig !== 0x04034b50) break
+    const gpFlag = zipBuffer.readUInt16LE(offset + 6)
+    const method = zipBuffer.readUInt16LE(offset + 8)
+    let compressedSize = zipBuffer.readUInt32LE(offset + 18)
+    const nameLen = zipBuffer.readUInt16LE(offset + 26)
+    const extraLen = zipBuffer.readUInt16LE(offset + 28)
+    const name = zipBuffer.subarray(offset + 30, offset + 30 + nameLen).toString('utf-8')
+    const dataStart = offset + 30 + nameLen + extraLen
+    if (gpFlag & 0x08 && compressedSize === 0) {
+      let scan = dataStart
+      while (scan < zipBuffer.length - 16) {
+        if (zipBuffer.readUInt32LE(scan) === 0x08074b50) {
+          compressedSize = zipBuffer.readUInt32LE(scan + 8)
+          break
+        }
+        scan++
+      }
+    }
+    if (basename(name).endsWith('.csv')) {
+      const data = zipBuffer.subarray(dataStart, dataStart + compressedSize)
+      if (method === 0) return data.toString('utf-8')
+      if (method === 8) return inflateRawSync(data).toString('utf-8')
+    }
+    offset = dataStart + compressedSize
+    if (gpFlag & 0x08 && offset < zipBuffer.length - 4) {
+      if (zipBuffer.readUInt32LE(offset) === 0x08074b50) offset += 16
+    }
+  }
+  throw new Error('No CSV found in ZIP')
+}
 
 const IRI_CHECKS = [
   { column: 'Q10-28_Barriers_19', label: 'Barrier IRI', expected: 'Major Barrier' },
