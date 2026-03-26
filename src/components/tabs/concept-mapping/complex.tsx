@@ -151,12 +151,20 @@ function ScaleVisualization({ scale }: { scale: ScaleInfo }) {
 /** Copy-to-clipboard button */
 function CopyButton({ text, label }: { text: string; label: string }) {
   const [copied, setCopied] = useState(false)
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current)
+    }
+  }, [])
 
   const handleCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(text)
       setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current)
+      copyTimerRef.current = setTimeout(() => setCopied(false), 2000)
     } catch {
       /* clipboard may be unavailable */
     }
@@ -181,8 +189,13 @@ function RisDownloadButton({ ris, itemCode }: { ris: string; itemCode: string })
     const a = document.createElement('a')
     a.href = url
     a.download = `${itemCode.replace(/\s+/g, '_')}.ris`
+    a.style.display = 'none'
+    document.body.appendChild(a)
     a.click()
-    URL.revokeObjectURL(url)
+    setTimeout(() => {
+      URL.revokeObjectURL(url)
+      a.remove()
+    }, 100)
   }, [ris, itemCode])
 
   return (
@@ -371,6 +384,7 @@ const ConceptMappingComplex = () => {
   const [collapsedSections, setCollapsedSections] = useState<Set<string>>(new Set())
   const [highlightedId, setHighlightedId] = useState<string | null>(null)
   const highlightTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const scrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   /** Group rows by section key */
   const sectionGroups = useMemo(() => {
@@ -454,7 +468,8 @@ const ConceptMappingComplex = () => {
       }
 
       // Scroll after a tick (give time for expansion)
-      setTimeout(() => {
+      if (scrollTimerRef.current) clearTimeout(scrollTimerRef.current)
+      scrollTimerRef.current = setTimeout(() => {
         const el = document.getElementById(id)
         if (el) {
           el.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -467,10 +482,11 @@ const ConceptMappingComplex = () => {
     [collapsedSections]
   )
 
-  // Cleanup highlight timer on unmount
+  // Cleanup timers on unmount
   useEffect(() => {
     return () => {
       if (highlightTimerRef.current) clearTimeout(highlightTimerRef.current)
+      if (scrollTimerRef.current) clearTimeout(scrollTimerRef.current)
     }
   }, [])
 
