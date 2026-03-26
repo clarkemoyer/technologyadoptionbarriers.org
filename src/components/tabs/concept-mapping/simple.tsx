@@ -38,6 +38,29 @@ const EXPANDABLE_COLUMNS = new Set([
   'Relationship to Other Items',
 ])
 
+/**
+ * Column width hints so mostly-empty columns (e.g. "RIS Citation", all N/A)
+ * shrink and content-heavy columns get more space.  Values are CSS max-widths
+ * applied via the `style` prop on both `<th>` and `<td>`.  Using max-width
+ * with table-layout:auto lets the browser shrink N/A-heavy columns while
+ * still capping wide content columns.
+ */
+const COLUMN_MAX_WIDTHS: Record<string, string> = {
+  'RIS Citation': '70px',
+  'Source Link (URL/DOI)': '80px',
+  'APA Citation (Full)': '120px',
+  'Variable Type': '100px',
+  'Item Code / Variable Name': '120px',
+  'Relationship to Other Items': '110px',
+  'Qualtrics QID / Export Tag': '140px',
+  'Section / Primary Construct': '160px',
+  'Sub-Construct / Grouping': '130px',
+  'Theoretical Grounding (Source)': '130px',
+  'Scale Type / Response Options': '250px',
+  'Survey Item (Question Text)': '250px',
+  'Measurement Objective': '160px',
+}
+
 /** Max characters shown before truncation */
 const TRUNCATE_LENGTH = 120
 
@@ -228,16 +251,21 @@ const ConceptMappingSimple = () => {
           aria-describedby="table-scroll-hint"
           tabIndex={0}
         >
-          <table className="w-max min-w-full text-sm border-collapse">
+          <table className="min-w-full text-sm border-collapse">
             <thead>
               <tr>
                 {headers.map((header, i) => (
                   <th
                     key={header}
                     scope="col"
-                    className={`sticky top-0 z-20 bg-tabs-navy text-white text-left px-3 py-3 font-semibold text-xs border-b border-gray-300 whitespace-nowrap ${
+                    className={`sticky top-0 z-20 bg-tabs-navy text-white text-left px-3 py-3 font-semibold text-xs border-b border-gray-300 ${
                       i === 0 ? 'sticky left-0 z-30' : ''
                     }`}
+                    style={
+                      COLUMN_MAX_WIDTHS[header]
+                        ? { maxWidth: COLUMN_MAX_WIDTHS[header] }
+                        : undefined
+                    }
                   >
                     {header}
                   </th>
@@ -259,12 +287,15 @@ const ConceptMappingSimple = () => {
                         return (
                           <td
                             key={header}
-                            className={`px-3 py-2.5 align-top text-xs leading-relaxed max-w-[350px] ${
+                            className={`px-3 py-2.5 align-top text-xs leading-relaxed ${
                               colIdx === 0 ? 'sticky left-0 z-10 font-medium' : ''
                             }`}
-                            style={
-                              colIdx === 0 && section ? { backgroundColor: section.bg } : undefined
-                            }
+                            style={{
+                              ...(colIdx === 0 && section && { backgroundColor: section.bg }),
+                              ...(COLUMN_MAX_WIDTHS[header] && {
+                                maxWidth: COLUMN_MAX_WIDTHS[header],
+                              }),
+                            }}
                           >
                             <ExpandableCell value={val} header={header} />
                           </td>
