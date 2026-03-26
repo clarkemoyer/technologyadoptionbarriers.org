@@ -64,6 +64,8 @@ export default function ConceptMappingSummary() {
         >
           Summary
         </Link>
+        {/* Note: /concept-mapping/simple and /concept-mapping/complex routes are
+            introduced in separate PRs. These links will resolve once those PRs merge. */}
         <Link
           href="/concept-mapping/simple"
           className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
@@ -115,8 +117,8 @@ export default function ConceptMappingSummary() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {sections.map((row, i) => (
-                  <tr key={i} className="hover:bg-gray-50">
+                {sections.map((row) => (
+                  <tr key={row.section} className="hover:bg-gray-50">
                     <td className="px-4 py-3 sm:px-6">
                       <span className="inline-flex items-center gap-2">
                         <span

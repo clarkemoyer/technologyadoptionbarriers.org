@@ -37,7 +37,7 @@ describe('ConceptMappingSummary component', () => {
   })
 
   describe('Structure table', () => {
-    it('should render all 7 data rows', () => {
+    it('should render all 6 section rows', () => {
       render(<ConceptMappingSummary />)
 
       summaryData.sections.forEach((section) => {
