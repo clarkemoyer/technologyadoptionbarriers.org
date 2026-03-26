@@ -1,0 +1,142 @@
+# ╔══════════════════════════════════════════════════════════════════════╗
+# ║  RECOMMENDATIONS ONLY: Review Flagged Responses                     ║
+# ║                                                                      ║
+# ║  This workflow does NOT approve or reject anyone.                    ║
+# ║  It produces a recommendation report for human review.               ║
+# ║  The human makes the final decision using existing workflows:        ║
+# ║    - prolific-approve-submissions.yml (for approvals)                ║
+# ║    - prolific-reject-failed-iri.yml   (for rejections)               ║
+# ╚══════════════════════════════════════════════════════════════════════╝
+
+name: 'Review Flagged Responses (Recommendations Only)'
+
+on:
+  workflow_dispatch:
+    inputs:
+      study_id:
+        description: 'Prolific Study ID (defaults to PROLIFIC_STUDY_ID env var)'
+        required: false
+        type: string
+      dry_run:
+        description: 'Dry run — use placeholder messaging data (no API calls)'
+        required: true
+        type: boolean
+        default: true
+
+# Prevent concurrent review runs
+concurrency:
+  group: 'review-flagged-responses'
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  # Step 1: Export Qualtrics responses and run disposition triage
+  triage:
+    name: Export & Triage
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Export Qualtrics responses
+        run: npx --no-install tsx scripts/export-qualtrics-responses.ts
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+
+      - name: Run disposition triage
+        run: npx --no-install tsx scripts/disposition-triage.ts
+        env:
+          INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+          OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
+
+      - name: Upload disposition CSV
+        uses: actions/upload-artifact@v7
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}/disposition.csv
+          retention-days: 1
+
+  # Step 2: Review flagged participants and generate recommendation report
+  review:
+    name: 'Review Flagged Responses (Recommendations Only)'
+    needs: triage
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - name: Validate study ID
+        env:
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+        run: |
+          if [ -z "$STUDY_ID" ]; then
+            echo "::error::Study ID is required. Provide via input or set PROLIFIC_STUDY_ID env var."
+            exit 1
+          fi
+          echo "Study ID: $STUDY_ID"
+          echo ""
+          echo "================================================================"
+          echo "  RECOMMENDATIONS ONLY"
+          echo "  This workflow does NOT approve or reject anyone."
+          echo "  Review the output and use existing workflows to take action."
+          echo "================================================================"
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download disposition CSV
+        uses: actions/download-artifact@v8
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}
+
+      - name: Review flagged responses
+        run: npx --no-install tsx scripts/review-flagged-responses.ts
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
+          OUTPUT_PATH: ${{ runner.temp }}/review-flagged-responses.csv
+          DRY_RUN: ${{ inputs.dry_run }}
+
+      - name: Upload review CSV
+        uses: actions/upload-artifact@v7
+        with:
+          name: review-flagged-responses-csv
+          path: ${{ runner.temp }}/review-flagged-responses.csv
+          retention-days: 1
+
+      - name: Reminder
+        run: |
+          echo ""
+          echo "================================================================"
+          echo "  RECOMMENDATIONS ONLY — Review complete."
+          echo ""
+          echo "  To act on these recommendations:"
+          echo "    - Approve: Use 'Prolific Approve Submissions' workflow"
+          echo "    - Reject:  Use 'DESTRUCTIVE: Reject Failed IRI' workflow"
+          echo ""
+          echo "  Download the review CSV artifact for full details."
+          echo "================================================================"

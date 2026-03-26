@@ -1,0 +1,267 @@
+{
+  "generatedAt": "2026-03-23T00:00:00Z",
+  "dateRange": {
+    "startDate": "2026-02-23",
+    "endDate": "2026-03-23"
+  },
+  "overview": {
+    "organicSessions": 4250,
+    "organicSessionsChange": 12.3,
+    "totalImpressions": 38500,
+    "totalImpressionsChange": 8.7,
+    "totalClicks": 2180,
+    "totalClicksChange": 15.1,
+    "averageCTR": 5.66,
+    "averageCTRUnit": "percent",
+    "averageCTRChange": 0.31,
+    "averageCTRChangeUnit": "percentagePoints",
+    "averagePosition": 28.4,
+    "averagePositionChange": -3.2,
+    "domainAuthority": 12,
+    "domainAuthorityChange": 2,
+    "indexedPages": 47,
+    "indexedPagesChange": 5,
+    "referringDomains": 34,
+    "referringDomainsChange": 6
+  },
+  "topKeywords": [
+    {
+      "keyword": "technology adoption barriers",
+      "position": 8,
+      "previousPosition": 12,
+      "volume": 720,
+      "clicks": 185,
+      "impressions": 4200,
+      "ctr": 4.4
+    },
+    {
+      "keyword": "technology adoption models",
+      "position": 14,
+      "previousPosition": 18,
+      "volume": 1300,
+      "clicks": 142,
+      "impressions": 5800,
+      "ctr": 2.4
+    },
+    {
+      "keyword": "UTAUT model explained",
+      "position": 6,
+      "previousPosition": 9,
+      "volume": 480,
+      "clicks": 128,
+      "impressions": 2100,
+      "ctr": 6.1
+    },
+    {
+      "keyword": "TAM technology acceptance model",
+      "position": 11,
+      "previousPosition": 15,
+      "volume": 880,
+      "clicks": 95,
+      "impressions": 3400,
+      "ctr": 2.8
+    },
+    {
+      "keyword": "barriers to technology adoption in organizations",
+      "position": 5,
+      "previousPosition": 7,
+      "volume": 390,
+      "clicks": 87,
+      "impressions": 1500,
+      "ctr": 5.8
+    },
+    {
+      "keyword": "diffusion of innovations theory",
+      "position": 18,
+      "previousPosition": 22,
+      "volume": 1100,
+      "clicks": 62,
+      "impressions": 4600,
+      "ctr": 1.3
+    },
+    {
+      "keyword": "technology readiness index",
+      "position": 9,
+      "previousPosition": 14,
+      "volume": 590,
+      "clicks": 58,
+      "impressions": 1800,
+      "ctr": 3.2
+    },
+    {
+      "keyword": "digital transformation barriers",
+      "position": 22,
+      "previousPosition": 28,
+      "volume": 1600,
+      "clicks": 45,
+      "impressions": 6200,
+      "ctr": 0.7
+    },
+    {
+      "keyword": "organizational technology adoption",
+      "position": 7,
+      "previousPosition": 10,
+      "volume": 320,
+      "clicks": 42,
+      "impressions": 980,
+      "ctr": 4.3
+    },
+    {
+      "keyword": "technology adoption survey",
+      "position": 4,
+      "previousPosition": 6,
+      "volume": 260,
+      "clicks": 38,
+      "impressions": 680,
+      "ctr": 5.6
+    }
+  ],
+  "topPages": [
+    {
+      "page": "/",
+      "clicks": 580,
+      "impressions": 12400,
+      "ctr": 4.7,
+      "avgPosition": 18.2,
+      "sessions": 1250,
+      "engagementRate": 62.3
+    },
+    {
+      "page": "/bibliography-1-3-technology-acceptance-model-tam-davis-1989",
+      "clicks": 195,
+      "impressions": 4800,
+      "ctr": 4.1,
+      "avgPosition": 11.4,
+      "sessions": 420,
+      "engagementRate": 71.5
+    },
+    {
+      "page": "/bibliography-1-4-unified-theory-of-acceptance-and-use-of-technology-utaut-venkatesh-2003",
+      "clicks": 168,
+      "impressions": 3200,
+      "ctr": 5.3,
+      "avgPosition": 8.7,
+      "sessions": 385,
+      "engagementRate": 68.9
+    },
+    {
+      "page": "/bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975",
+      "clicks": 142,
+      "impressions": 3600,
+      "ctr": 3.9,
+      "avgPosition": 14.2,
+      "sessions": 310,
+      "engagementRate": 65.4
+    },
+    {
+      "page": "/bibliography-1-5-diffusion-of-innovations-doi-rogers-1962",
+      "clicks": 125,
+      "impressions": 5100,
+      "ctr": 2.5,
+      "avgPosition": 19.8,
+      "sessions": 280,
+      "engagementRate": 58.7
+    },
+    {
+      "page": "/tabs-presentation",
+      "clicks": 98,
+      "impressions": 1800,
+      "ctr": 5.4,
+      "avgPosition": 12.1,
+      "sessions": 220,
+      "engagementRate": 74.2
+    },
+    {
+      "page": "/making-of-tabs",
+      "clicks": 85,
+      "impressions": 1500,
+      "ctr": 5.7,
+      "avgPosition": 10.5,
+      "sessions": 195,
+      "engagementRate": 69.8
+    },
+    {
+      "page": "/bibliography-1-2-theory-of-planned-behavior-tpb-ajzen-1991",
+      "clicks": 72,
+      "impressions": 2100,
+      "ctr": 3.4,
+      "avgPosition": 16.3,
+      "sessions": 165,
+      "engagementRate": 61.2
+    },
+    {
+      "page": "/see-yourself-in-tabs",
+      "clicks": 65,
+      "impressions": 1200,
+      "ctr": 5.4,
+      "avgPosition": 9.8,
+      "sessions": 148,
+      "engagementRate": 72.1
+    },
+    {
+      "page": "/making-of-tabs/cmo-survey",
+      "clicks": 48,
+      "impressions": 980,
+      "ctr": 4.9,
+      "avgPosition": 15.6,
+      "sessions": 110,
+      "engagementRate": 66.3
+    }
+  ],
+  "competitivePosition": [
+    {
+      "keyword": "technology adoption barriers",
+      "tabsPosition": 8,
+      "topCompetitor": "Pew Research",
+      "topCompetitorPosition": 2,
+      "opportunity": "high"
+    },
+    {
+      "keyword": "technology adoption models",
+      "tabsPosition": 14,
+      "topCompetitor": "Wikipedia",
+      "topCompetitorPosition": 1,
+      "opportunity": "medium"
+    },
+    {
+      "keyword": "UTAUT model explained",
+      "tabsPosition": 6,
+      "topCompetitor": "ResearchGate",
+      "topCompetitorPosition": 3,
+      "opportunity": "high"
+    },
+    {
+      "keyword": "TAM technology acceptance model",
+      "tabsPosition": 11,
+      "topCompetitor": "Wikipedia",
+      "topCompetitorPosition": 1,
+      "opportunity": "medium"
+    },
+    {
+      "keyword": "barriers to technology adoption in organizations",
+      "tabsPosition": 5,
+      "topCompetitor": "McKinsey",
+      "topCompetitorPosition": 3,
+      "opportunity": "high"
+    },
+    {
+      "keyword": "technology adoption survey",
+      "tabsPosition": 4,
+      "topCompetitor": "Pew Research",
+      "topCompetitorPosition": 1,
+      "opportunity": "high"
+    }
+  ],
+  "contentHealth": {
+    "totalPages": 47,
+    "pagesWithMetaDescription": 42,
+    "pagesWithH1": 47,
+    "pagesWithStructuredData": 18,
+    "averageWordCount": 1850,
+    "pagesUpdatedLast90Days": 35,
+    "contentCoverageScore": 78,
+    "contentFreshnessScore": 85,
+    "contentDepthScore": 72,
+    "technicalSeoScore": 68
+  }
+}
