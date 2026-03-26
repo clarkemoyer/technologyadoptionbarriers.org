@@ -449,6 +449,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/making-of-tabs/integrations/prolific/dashboard`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/making-of-tabs/integrations/microsoft-clarity`,
       lastModified: now,
       changeFrequency: 'monthly',
@@ -492,6 +498,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/making-of-tabs/content-architecture`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/seo`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/seo/baseline-audit`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/seo/strategy`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/seo/dashboard`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,

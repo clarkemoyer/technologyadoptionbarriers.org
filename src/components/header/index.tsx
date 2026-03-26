@@ -93,6 +93,7 @@ const Header: React.FC = () => {
           { label: 'Accessibility', path: '/making-of-tabs/accessibility' },
           { label: 'Open Source & Community', path: '/making-of-tabs/open-source' },
           { label: 'Content Architecture', path: '/making-of-tabs/content-architecture' },
+          { label: 'SEO Benchmarking', path: '/making-of-tabs/seo' },
         ],
       },
       {

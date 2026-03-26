@@ -227,6 +227,15 @@ const MakingOfTabsPage = () => {
                 titleColor: 'text-amber-900',
                 textColor: 'text-amber-800',
               },
+              {
+                title: 'SEO Benchmarking',
+                href: '/making-of-tabs/seo',
+                desc: 'Our public baseline, keyword gaps, strategy roadmap, and live performance dashboard.',
+                border: 'border-teal-200',
+                bg: 'bg-teal-50',
+                titleColor: 'text-teal-900',
+                textColor: 'text-teal-800',
+              },
             ].map((card) => (
               <Link
                 key={card.href}
