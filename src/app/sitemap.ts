@@ -509,24 +509,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/making-of-tabs/seo/baseline-audit`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/making-of-tabs/seo/strategy`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/making-of-tabs/seo/dashboard`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
       url: `${baseUrl}/making-of-tabs/ai-validity-checks`,
       lastModified: now,
       changeFrequency: 'monthly',
@@ -657,6 +639,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    // Concept Mapping
+    {
+      url: `${baseUrl}/concept-mapping/simple`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
     // Survey completion
     {
       url: `${baseUrl}/survey-complete`,
@@ -665,6 +654,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
     // Concept Mapping
+    {
+url: `${baseUrl}/concept-mapping/complex`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/concept-mapping/simple`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
     {
       url: `${baseUrl}/concept-mapping/summary`,
       lastModified: now,
