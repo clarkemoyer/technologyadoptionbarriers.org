@@ -824,11 +824,13 @@ describe('Prolific API Client', () => {
     it('should POST a message to the messages endpoint', async () => {
       const mockMessage: Message = {
         id: 'msg-1',
-        study_id: mockStudyId,
-        participant_id: 'participant-1',
-        body: 'Hello, please complete the survey.',
         sender_id: 'researcher-1',
-        created_at: '2024-06-01T12:00:00Z',
+        body: 'Hello, please complete the survey.',
+        sent_at: '2024-06-01T12:00:00Z',
+        channel_id: 'channel-1',
+        data: {
+          study_id: mockStudyId,
+        },
       }
 
       ;(global.fetch as jest.Mock).mockResolvedValueOnce({
