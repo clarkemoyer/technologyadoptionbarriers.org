@@ -48,15 +48,16 @@ const SEODashboardPage = () => {
               <span>ℹ️</span> Note on Static Deployment Architecture
             </h3>
             <p className="text-sm text-blue-800">
-              The TABS website is generated entirely as a static export (`output:
-              &apos;export&apos;`) and hosted on GitHub Pages for security and performance. Because
-              of this architectural limitation, this dashboard cannot query live-polling React APIs
-              such as Google Search Console or Google Analytics natively on the client without
-              exposing private API keys. Instead, this dashboard represents a statically generated
-              snapshot rendered directly from our internal data pipelines at build time.
+              The TABS website is generated entirely as a static export (
+              <code>output: &apos;export&apos;</code>) and hosted on GitHub Pages for security and
+              performance. Because of this architectural limitation, this dashboard cannot query
+              live-polling React APIs such as Google Search Console or Google Analytics natively on
+              the client without exposing private API keys. Instead, this dashboard represents a
+              statically generated snapshot rendered directly from our internal data pipelines at
+              build time.
             </p>
             <p className="text-sm text-blue-800 font-semibold mt-2">
-              Snapshot Date: {new Date(seoMetrics.generatedAt).toLocaleDateString()}
+              Snapshot Date: {seoMetrics.generatedAt.slice(0, 10)}
             </p>
           </div>
 
@@ -82,10 +83,15 @@ const SEODashboardPage = () => {
                 {seoMetrics.overview.organicSessions.toLocaleString()}
               </span>
               <span
-                className={`text-sm mt-1 font-medium ${seoMetrics.overview.organicSessionsChange > 0 ? 'text-green-600' : 'text-red-600'}`}
+                className={`text-sm mt-1 font-medium ${seoMetrics.overview.organicSessionsChange > 0 ? 'text-green-600' : seoMetrics.overview.organicSessionsChange < 0 ? 'text-red-600' : 'text-gray-400'}`}
               >
-                {seoMetrics.overview.organicSessionsChange > 0 ? '↑' : '↓'}{' '}
-                {Math.abs(seoMetrics.overview.organicSessionsChange)}%
+                {seoMetrics.overview.organicSessionsChange > 0
+                  ? '↑'
+                  : seoMetrics.overview.organicSessionsChange < 0
+                    ? '↓'
+                    : '–'}{' '}
+                {seoMetrics.overview.organicSessionsChange !== 0 &&
+                  `${Math.abs(seoMetrics.overview.organicSessionsChange)}%`}
               </span>
             </div>
 
@@ -97,10 +103,15 @@ const SEODashboardPage = () => {
                 {seoMetrics.overview.totalImpressions.toLocaleString()}
               </span>
               <span
-                className={`text-sm mt-1 font-medium ${seoMetrics.overview.totalImpressionsChange > 0 ? 'text-green-600' : 'text-red-600'}`}
+                className={`text-sm mt-1 font-medium ${seoMetrics.overview.totalImpressionsChange > 0 ? 'text-green-600' : seoMetrics.overview.totalImpressionsChange < 0 ? 'text-red-600' : 'text-gray-400'}`}
               >
-                {seoMetrics.overview.totalImpressionsChange > 0 ? '↑' : '↓'}{' '}
-                {Math.abs(seoMetrics.overview.totalImpressionsChange)}%
+                {seoMetrics.overview.totalImpressionsChange > 0
+                  ? '↑'
+                  : seoMetrics.overview.totalImpressionsChange < 0
+                    ? '↓'
+                    : '–'}{' '}
+                {seoMetrics.overview.totalImpressionsChange !== 0 &&
+                  `${Math.abs(seoMetrics.overview.totalImpressionsChange)}%`}
               </span>
             </div>
 
@@ -112,10 +123,15 @@ const SEODashboardPage = () => {
                 {seoMetrics.overview.averagePosition}
               </span>
               <span
-                className={`text-sm mt-1 font-medium ${seoMetrics.overview.averagePositionChange < 0 ? 'text-green-600' : 'text-red-600'}`}
+                className={`text-sm mt-1 font-medium ${seoMetrics.overview.averagePositionChange < 0 ? 'text-green-600' : seoMetrics.overview.averagePositionChange > 0 ? 'text-red-600' : 'text-gray-400'}`}
               >
-                {seoMetrics.overview.averagePositionChange < 0 ? '↑' : '↓'}{' '}
-                {Math.abs(seoMetrics.overview.averagePositionChange)} spots
+                {seoMetrics.overview.averagePositionChange < 0
+                  ? '↑'
+                  : seoMetrics.overview.averagePositionChange > 0
+                    ? '↓'
+                    : '–'}{' '}
+                {seoMetrics.overview.averagePositionChange !== 0 &&
+                  `${Math.abs(seoMetrics.overview.averagePositionChange)} spots`}
               </span>
             </div>
 
@@ -127,10 +143,15 @@ const SEODashboardPage = () => {
                 {seoMetrics.overview.domainAuthority}
               </span>
               <span
-                className={`text-sm mt-1 font-medium ${seoMetrics.overview.domainAuthorityChange > 0 ? 'text-green-600' : 'text-red-600'}`}
+                className={`text-sm mt-1 font-medium ${seoMetrics.overview.domainAuthorityChange > 0 ? 'text-green-600' : seoMetrics.overview.domainAuthorityChange < 0 ? 'text-red-600' : 'text-gray-400'}`}
               >
-                {seoMetrics.overview.domainAuthorityChange > 0 ? '↑' : '↓'}{' '}
-                {Math.abs(seoMetrics.overview.domainAuthorityChange)} points
+                {seoMetrics.overview.domainAuthorityChange > 0
+                  ? '↑'
+                  : seoMetrics.overview.domainAuthorityChange < 0
+                    ? '↓'
+                    : '–'}{' '}
+                {seoMetrics.overview.domainAuthorityChange !== 0 &&
+                  `${Math.abs(seoMetrics.overview.domainAuthorityChange)} points`}
               </span>
             </div>
           </div>
@@ -223,8 +244,8 @@ const SEODashboardPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {seoMetrics.topKeywords.slice(0, 8).map((kw, i) => (
-                  <tr key={i} className="border-b border-gray-100 hover:bg-gray-50">
+                {seoMetrics.topKeywords.slice(0, 8).map((kw) => (
+                  <tr key={kw.keyword} className="border-b border-gray-100 hover:bg-gray-50">
                     <td className="p-3 font-medium text-gray-800">{kw.keyword}</td>
                     <td className="p-3 text-center">
                       <span className="inline-block px-2 py-1 bg-gray-100 rounded text-gray-700">

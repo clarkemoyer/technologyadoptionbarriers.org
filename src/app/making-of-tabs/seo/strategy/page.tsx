@@ -100,9 +100,9 @@ const StrategyRoadmapPage = () => {
           </p>
           <ul className="list-disc pl-6 space-y-3 mb-6 text-gray-700">
             <li>
-              <strong>Schema.org Implementation:</strong> Widespread deployment of `Article`,
-              `FAQPage`, and generalized `Organization` structured data elements across all Next.js
-              layouts.
+              <strong>Schema.org Implementation:</strong> Widespread deployment of{' '}
+              <code>Article</code>, <code>FAQPage</code>, and generalized <code>Organization</code>{' '}
+              structured data elements across all Next.js layouts.
             </li>
             <li>
               <strong>Q&amp;A Formatting:</strong> Structuring page sub-headers explicitly as the

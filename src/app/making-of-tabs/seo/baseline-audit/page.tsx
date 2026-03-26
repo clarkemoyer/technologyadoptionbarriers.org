@@ -78,17 +78,18 @@ const BaselineAuditPage = () => {
               <h3 className="font-bold text-gray-900 mb-2">Identified Gaps</h3>
               <ul className="list-disc pl-6 space-y-1 text-sm text-gray-700">
                 <li>
-                  Missing Schema.org structured data (e.g., `Organization`, `Article`, `FAQPage`)
-                  severely limits rich snippet potential in search engine results pages (SERPs).
+                  Missing Schema.org structured data (e.g., <code>Organization</code>,{' '}
+                  <code>Article</code>, <code>FAQPage</code>) severely limits rich snippet potential
+                  in search engine results pages (SERPs).
                 </li>
                 <li>
-                  Inconsistent metadata lengths: Actionable `description` tags are often truncated
-                  or missing in secondary component pages.
+                  Inconsistent metadata lengths: Actionable <code>description</code> tags are often
+                  truncated or missing in secondary component pages.
                 </li>
                 <li>
-                  Suboptimal Heading Hierarchy: While `&lt;h1&gt;` tags exist on most pages,
-                  semantic nesting of `&lt;h2&gt;` and `&lt;h3&gt;` headings needs restructuring for
-                  crawler clarity.
+                  Suboptimal Heading Hierarchy: While <code>&lt;h1&gt;</code> tags exist on most
+                  pages, semantic nesting of <code>&lt;h2&gt;</code> and <code>&lt;h3&gt;</code>{' '}
+                  headings needs restructuring for crawler clarity.
                 </li>
               </ul>
             </div>
