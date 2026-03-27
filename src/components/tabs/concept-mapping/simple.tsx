@@ -235,7 +235,7 @@ const ConceptMappingSimple = () => {
                   <th
                     key={header}
                     scope="col"
-                    className={`sticky top-0 z-20 bg-tabs-navy text-white text-left px-3 py-3 font-semibold text-xs border-b border-gray-300 whitespace-nowrap ${
+                    className={`sticky top-0 z-20 bg-tabs-navy text-white text-left px-3 py-3 font-semibold text-xs border-b border-gray-300 whitespace-normal min-w-[120px] max-w-[250px] leading-snug ${
                       i === 0 ? 'sticky left-0 z-30' : ''
                     }`}
                   >
