@@ -34,6 +34,8 @@ const VALID_DISPOSITIONS = [
   'FLAG-SMEAL',
   'FLAG-RECAPTCHA',
   'FLAG-PARTIAL-STRAIGHTLINING',
+  'AUTO-EXCLUDE:SPEED_IRI',
+  'AUTO-EXCLUDE:IRI2_RETURN',
 ] as const
 
 type FlagDisposition = (typeof VALID_DISPOSITIONS)[number]
@@ -117,6 +119,34 @@ function buildFlagMessage(record: Omit<FlaggedRecord, 'message'>): string {
         'Please reply within 48 hours.',
       ].join(' ')
     }
+
+    case 'AUTO-EXCLUDE:SPEED_IRI':
+      return [
+        'Hi, thank you for participating in our Technology Adoption Barriers Survey.',
+        `We are reviewing your submission because it was completed in ${minutes} minutes`,
+        'and one of three embedded attention checks was answered differently than expected.',
+        'We would like to learn more before making a final decision on your submission.',
+        'Could you please share: (1) What is your professional background and role?',
+        '(2) What were your overall thoughts on the survey and its topics?',
+        '(3) How were you able to complete the survey so quickly?',
+        'We want to treat all participants fairly and appreciate your time.',
+        'Please reply within 48 hours.',
+      ].join(' ')
+
+    case 'AUTO-EXCLUDE:IRI2_RETURN':
+      return [
+        'Hi, thank you for participating in our Technology Adoption Barriers Survey.',
+        'After reviewing your submission, we found that 2 of 3 embedded attention check',
+        'questions were answered differently than the instructions specified.',
+        'These items are designed to confirm that respondents are reading each question carefully.',
+        'Rather than rejecting your submission (which would negatively impact your Prolific record),',
+        'we would like to offer you the option to return it voluntarily.',
+        'To return your submission, go to your Prolific Submissions page and click the',
+        'circular arrow icon next to this study to "Return and cancel reward".',
+        'If you believe you did answer the attention checks correctly and would like to discuss,',
+        'please reply to this message within 48 hours and we will review further.',
+        'We appreciate your participation and want to treat all participants fairly.',
+      ].join(' ')
   }
 }
 
@@ -137,6 +167,10 @@ function getMessageSignature(disposition: FlagDisposition): string {
       return 'automated authenticity checks flagged your submission'
     case 'FLAG-PARTIAL-STRAIGHTLINING':
       return 'showed very little variation, which our quality checks flag'
+    case 'AUTO-EXCLUDE:SPEED_IRI':
+      return 'What is your professional background and role'
+    case 'AUTO-EXCLUDE:IRI2_RETURN':
+      return 'offer you the option to return it voluntarily'
   }
 }
 
@@ -231,6 +265,8 @@ async function main() {
   const dispositionIdx = col('Disposition')
   const durationIdx = col('Duration_Seconds')
   const partialBlocksIdx = col('Partial_Straightlining_Blocks')
+  const iriFailIdx = col('IRI_Fail_Count')
+  const speedIdx = col('Speed_Flag')
 
   const records: FlaggedRecord[] = []
 
@@ -239,7 +275,21 @@ async function main() {
     const pid = (fields[pidIdx] ?? '').trim()
     const disposition = (fields[dispositionIdx] ?? '').trim()
 
-    if (!pid || disposition !== dispositionFilter) continue
+    // For compound filters like AUTO-EXCLUDE:SPEED_IRI, match disposition + sub-type
+    let matches = false
+    if (dispositionFilter === 'AUTO-EXCLUDE:SPEED_IRI') {
+      const iriFail = parseInt(fields[iriFailIdx] ?? '0', 10)
+      const speed = parseInt(fields[speedIdx] ?? '0', 10)
+      matches = disposition === 'AUTO-EXCLUDE' && speed === 1 && iriFail === 1
+    } else if (dispositionFilter === 'AUTO-EXCLUDE:IRI2_RETURN') {
+      const iriFail = parseInt(fields[iriFailIdx] ?? '0', 10)
+      const speed = parseInt(fields[speedIdx] ?? '0', 10)
+      matches = disposition === 'AUTO-EXCLUDE' && iriFail === 2 && speed === 0
+    } else {
+      matches = disposition === dispositionFilter
+    }
+
+    if (!pid || !matches) continue
 
     const partial: Omit<FlaggedRecord, 'message'> = {
       pid,

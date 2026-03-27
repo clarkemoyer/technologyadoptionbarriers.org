@@ -11,6 +11,7 @@ on:
           - single
           - all-replies
           - send-thank-you
+          - unreject
         default: 'single'
       pid:
         description: 'Prolific Participant ID (required for single mode)'
@@ -36,6 +37,15 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci
+
+      - name: Unreject submissions
+        if: inputs.mode == 'unreject'
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          PID_LIST: ${{ inputs.pid }}
+          DRY_RUN: 'false'
+        run: npx --no-install tsx scripts/unreject-submissions.ts
 
       - name: Send thank-you messages
         if: inputs.mode == 'send-thank-you'
