@@ -615,6 +615,62 @@ export async function rejectSubmission(
 }
 
 /**
+ * Unreject a previously rejected submission.
+ * Transitions the submission from REJECTED back to AWAITING REVIEW.
+ *
+ * POST /api/v1/submissions/{submissionId}/transition/
+ * Body: { "action": "UNREJECT" }
+ *
+ * @see https://docs.prolific.com/api-reference/submissions/transition-submission
+ */
+export async function unrejectSubmission(submissionId: string, apiToken: string): Promise<void> {
+  const url = `${PROLIFIC_API_BASE_URL}/submissions/${submissionId}/transition/`
+
+  const headers = new Headers()
+  headers.set('Authorization', `Token ${apiToken}`)
+  headers.set('Content-Type', 'application/json')
+
+  let response: Response
+  try {
+    response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ action: 'UNREJECT' }),
+    })
+  } catch (error) {
+    throw new ProlificApiErrorClass(
+      `Network error during unreject: ${error instanceof Error ? error.message : String(error)}`,
+      0,
+      {}
+    )
+  }
+
+  if (!response.ok) {
+    let errorData: ProlificApiError = {}
+    try {
+      errorData = (await response.json()) as ProlificApiError
+    } catch {
+      // Empty or non-JSON error body
+    }
+    throw new ProlificApiErrorClass(
+      errorData.detail ||
+        errorData.error ||
+        errorData.message ||
+        `Unreject submission ${submissionId} failed with status ${response.status}`,
+      response.status,
+      errorData
+    )
+  }
+
+  try {
+    await response.text()
+  } catch {
+    // drain
+  }
+  console.log(`  Unrejected ${submissionId}`)
+}
+
+/**
  * DESTRUCTIVE: Bulk reject submissions for a study by participant IDs.
  *
  * WARNING: Rejected participants will NOT be paid for their submission.

@@ -32,6 +32,7 @@ on:
           - FLAG-RECAPTCHA
           - FLAG-PARTIAL-STRAIGHTLINING
           - AUTO-EXCLUDE:SPEED_IRI
+          - AUTO-EXCLUDE:IRI2_RETURN
       study_id:
         description: 'Prolific Study ID (defaults to PROLIFIC_STUDY_ID env var)'
         required: false
