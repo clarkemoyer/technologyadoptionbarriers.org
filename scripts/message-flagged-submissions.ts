@@ -19,7 +19,12 @@
  *                           Supports: single PID, comma-separated batch, or empty for all
  */
 
-import { getCurrentUser, sendMessage, listUserMessages } from '../src/lib/prolific-api'
+import {
+  getCurrentUser,
+  sendMessage,
+  listUserMessages,
+  listStudySubmissions,
+} from '../src/lib/prolific-api'
 import { appendGithubStepSummary, mdEscape } from '../src/lib/github-utils'
 import { readFileSync } from 'node:fs'
 import { parseCsvLine } from '../src/lib/disposition'
@@ -349,12 +354,22 @@ async function main() {
     console.log('')
   }
 
-  /* ---------- Verify API connection ---------------------------------- */
+  /* ---------- Verify API connection + fetch submission statuses -------- */
 
   console.log('Verifying Prolific API connection...')
   const user = await getCurrentUser(apiToken)
   console.log(`Connected as: ${user.name} (${user.email})`)
+
+  console.log('Fetching submission statuses from Prolific...')
+  const submissions = await listStudySubmissions(studyId, apiToken)
+  const statusMap = new Map<string, string>()
+  for (const s of submissions.results || []) {
+    statusMap.set(s.participant_id, s.status)
+  }
+  console.log(`Loaded ${statusMap.size} submission statuses`)
   console.log('')
+
+  const SKIP_STATUSES = new Set(['APPROVED', 'REJECTED', 'RETURNED', 'TIMED-OUT'])
 
   /* ---------- Execute or dry run ------------------------------------- */
 
@@ -377,9 +392,18 @@ async function main() {
     let sent = 0
     let failed = 0
     let skippedAlreadyMessaged = 0
+    let skippedAlreadyActioned = 0
 
     for (const r of filtered) {
       try {
+        // Check if submission is already actioned (approved/rejected/returned/timed-out)
+        const submissionStatus = statusMap.get(r.pid)
+        if (submissionStatus && SKIP_STATUSES.has(submissionStatus)) {
+          skippedAlreadyActioned++
+          console.log(`  SKIPPED ${r.pid} — submission already ${submissionStatus}`)
+          continue
+        }
+
         // Check if participant already received this same message
         const existingMsgs = await listUserMessages(r.pid, apiToken)
         const studyMessages = (existingMsgs.results || []).filter(
@@ -416,7 +440,7 @@ async function main() {
 
     console.log('')
     console.log(
-      `SENT: ${sent} | SKIPPED (already messaged): ${skippedAlreadyMessaged} | FAILED: ${failed}`
+      `SENT: ${sent} | SKIPPED (already actioned): ${skippedAlreadyActioned} | SKIPPED (already messaged): ${skippedAlreadyMessaged} | FAILED: ${failed}`
     )
   }
 

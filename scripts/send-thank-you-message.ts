@@ -8,7 +8,7 @@
  *   DRY_RUN             – When "false", send messages live (default: true)
  */
 
-import { sendMessage, listUserMessages } from '../src/lib/prolific-api'
+import { sendMessage, listUserMessages, listStudySubmissions } from '../src/lib/prolific-api'
 
 const THANK_YOU_MESSAGE =
   'Hi, thank you for participating in our Technology Adoption Barriers Survey and for taking the time to respond to our review message. Your submission has been approved. We appreciate your thoughtful engagement and the insights you shared — they are valuable to our research. Thank you again for your contribution!'
@@ -41,12 +41,31 @@ async function main() {
   console.log(`Mode: ${dryRun ? 'DRY RUN' : 'LIVE'}`)
   console.log('')
 
+  // Fetch submission statuses to skip non-approved participants
+  console.log('Fetching submission statuses...')
+  const submissions = await listStudySubmissions(studyId, token)
+  const statusMap = new Map<string, string>()
+  for (const s of submissions.results || []) {
+    statusMap.set(s.participant_id, s.status)
+  }
+  console.log(`Loaded ${statusMap.size} statuses`)
+  console.log('')
+
   let sent = 0
   let skipped = 0
+  let skippedNotApproved = 0
   let failed = 0
 
   for (const pid of pids) {
     try {
+      // Only send thank-you to APPROVED submissions
+      const status = statusMap.get(pid)
+      if (status && status !== 'APPROVED') {
+        skippedNotApproved++
+        console.log(`  SKIP ${pid} — status is ${status} (not APPROVED)`)
+        continue
+      }
+
       // Check for existing thank-you message
       const existing = await listUserMessages(pid, token)
       const alreadySent = (existing.results || []).some(
@@ -74,7 +93,9 @@ async function main() {
   }
 
   console.log('')
-  console.log(`SENT: ${sent} | SKIPPED: ${skipped} | FAILED: ${failed}`)
+  console.log(
+    `SENT: ${sent} | SKIPPED (not approved): ${skippedNotApproved} | SKIPPED (already sent): ${skipped} | FAILED: ${failed}`
+  )
 }
 
 main().catch((e) => {
