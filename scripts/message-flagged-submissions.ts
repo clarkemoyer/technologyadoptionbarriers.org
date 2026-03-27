@@ -41,6 +41,9 @@ const VALID_DISPOSITIONS = [
   'FLAG-PARTIAL-STRAIGHTLINING',
   'AUTO-EXCLUDE:SPEED_IRI',
   'AUTO-EXCLUDE:IRI2_RETURN',
+  'AUTO-EXCLUDE:IRI3_RETURN',
+  'AUTO-EXCLUDE:IRI3_SPEED_RETURN',
+  'AUTO-EXCLUDE:IRI2_SPEED_RETURN',
 ] as const
 
 type FlagDisposition = (typeof VALID_DISPOSITIONS)[number]
@@ -143,12 +146,63 @@ function buildFlagMessage(record: Omit<FlaggedRecord, 'message'>): string {
         'Hi, thank you for participating in our Technology Adoption Barriers Survey.',
         'After reviewing your submission, we found that 2 of 3 embedded attention check',
         'questions were answered differently than the instructions specified.',
-        'These items are designed to confirm that respondents are reading each question carefully.',
+        'These items are designed to confirm that respondents are reading each question carefully,',
+        'and are critical to ensuring the highest quality data for our research.',
         'Rather than rejecting your submission (which would negatively impact your Prolific record),',
         'we would like to offer you the option to return it voluntarily.',
         'To return your submission, go to your Prolific Submissions page and click the',
         'circular arrow icon next to this study to "Return and cancel reward".',
         'If you believe you did answer the attention checks correctly and would like to discuss,',
+        'please reply to this message within 48 hours and we will review further.',
+        'We appreciate your participation and want to treat all participants fairly.',
+      ].join(' ')
+
+    case 'AUTO-EXCLUDE:IRI3_RETURN':
+      return [
+        'Hi, thank you for participating in our Technology Adoption Barriers Survey.',
+        'After reviewing your submission, we found that all 3 of the embedded attention check',
+        'questions were answered differently than the instructions specified.',
+        'These items are designed to confirm that respondents are reading each question carefully,',
+        'and are critical to ensuring the highest quality data for our research.',
+        'Rather than rejecting your submission (which would negatively impact your Prolific record),',
+        'we would like to offer you the option to return it voluntarily.',
+        'To return your submission, go to your Prolific Submissions page and click the',
+        'circular arrow icon next to this study to "Return and cancel reward".',
+        'If you believe you did answer the attention checks correctly and would like to discuss,',
+        'please reply to this message within 48 hours and we will review further.',
+        'We appreciate your participation and want to treat all participants fairly.',
+      ].join(' ')
+
+    case 'AUTO-EXCLUDE:IRI3_SPEED_RETURN':
+      return [
+        'Hi, thank you for participating in our Technology Adoption Barriers Survey.',
+        `After reviewing your submission, we found that it was completed in ${minutes} minutes`,
+        '(below our 5-minute minimum) and all 3 of the embedded attention check questions',
+        'were answered differently than the instructions specified.',
+        'Both completion speed and attention checks are critical to ensuring the highest',
+        'quality data for our research.',
+        'Rather than rejecting your submission (which would negatively impact your Prolific record),',
+        'we would like to offer you the option to return it voluntarily.',
+        'To return your submission, go to your Prolific Submissions page and click the',
+        'circular arrow icon next to this study to "Return and cancel reward".',
+        'If you believe this is an error and would like to discuss,',
+        'please reply to this message within 48 hours and we will review further.',
+        'We appreciate your participation and want to treat all participants fairly.',
+      ].join(' ')
+
+    case 'AUTO-EXCLUDE:IRI2_SPEED_RETURN':
+      return [
+        'Hi, thank you for participating in our Technology Adoption Barriers Survey.',
+        `After reviewing your submission, we found that it was completed in ${minutes} minutes`,
+        '(below our 5-minute minimum) and 2 of 3 embedded attention check questions',
+        'were answered differently than the instructions specified.',
+        'Both completion speed and attention checks are critical to ensuring the highest',
+        'quality data for our research.',
+        'Rather than rejecting your submission (which would negatively impact your Prolific record),',
+        'we would like to offer you the option to return it voluntarily.',
+        'To return your submission, go to your Prolific Submissions page and click the',
+        'circular arrow icon next to this study to "Return and cancel reward".',
+        'If you believe this is an error and would like to discuss,',
         'please reply to this message within 48 hours and we will review further.',
         'We appreciate your participation and want to treat all participants fairly.',
       ].join(' ')
@@ -175,7 +229,13 @@ function getMessageSignature(disposition: FlagDisposition): string {
     case 'AUTO-EXCLUDE:SPEED_IRI':
       return 'What is your professional background and role'
     case 'AUTO-EXCLUDE:IRI2_RETURN':
-      return 'offer you the option to return it voluntarily'
+      return '2 of 3 embedded attention check questions were answered differently'
+    case 'AUTO-EXCLUDE:IRI3_RETURN':
+      return 'all 3 of the embedded attention check questions were answered differently'
+    case 'AUTO-EXCLUDE:IRI3_SPEED_RETURN':
+      return 'all 3 of the embedded attention check questions were answered differently'
+    case 'AUTO-EXCLUDE:IRI2_SPEED_RETURN':
+      return '2 of 3 embedded attention check questions were answered differently'
   }
 }
 
@@ -290,6 +350,18 @@ async function main() {
       const iriFail = parseInt(fields[iriFailIdx] ?? '0', 10)
       const speed = parseInt(fields[speedIdx] ?? '0', 10)
       matches = disposition === 'AUTO-EXCLUDE' && iriFail === 2 && speed === 0
+    } else if (dispositionFilter === 'AUTO-EXCLUDE:IRI3_RETURN') {
+      const iriFail = parseInt(fields[iriFailIdx] ?? '0', 10)
+      const speed = parseInt(fields[speedIdx] ?? '0', 10)
+      matches = disposition === 'AUTO-EXCLUDE' && iriFail >= 3 && speed === 0
+    } else if (dispositionFilter === 'AUTO-EXCLUDE:IRI3_SPEED_RETURN') {
+      const iriFail = parseInt(fields[iriFailIdx] ?? '0', 10)
+      const speed = parseInt(fields[speedIdx] ?? '0', 10)
+      matches = disposition === 'AUTO-EXCLUDE' && iriFail >= 3 && speed === 1
+    } else if (dispositionFilter === 'AUTO-EXCLUDE:IRI2_SPEED_RETURN') {
+      const iriFail = parseInt(fields[iriFailIdx] ?? '0', 10)
+      const speed = parseInt(fields[speedIdx] ?? '0', 10)
+      matches = disposition === 'AUTO-EXCLUDE' && iriFail === 2 && speed === 1
     } else {
       matches = disposition === dispositionFilter
     }

@@ -9,6 +9,10 @@
 #   FLAG-SPEED, FLAG-SINGLE-IRI, FLAG-SMEAL,
 #   FLAG-RECAPTCHA, FLAG-PARTIAL-STRAIGHTLINING,
 #   AUTO-EXCLUDE:SPEED_IRI (speed + 1 IRI fail — asks for background/thoughts)
+#   AUTO-EXCLUDE:IRI2_RETURN (2/3 IRI fail — offers voluntary return)
+#   AUTO-EXCLUDE:IRI3_RETURN (3/3 IRI fail — offers voluntary return)
+#   AUTO-EXCLUDE:IRI3_SPEED_RETURN (3/3 IRI + speed — offers voluntary return)
+#   AUTO-EXCLUDE:IRI2_SPEED_RETURN (2/3 IRI + speed — offers voluntary return)
 #
 # Safety:
 #   - Manual trigger only (workflow_dispatch)
@@ -33,6 +37,9 @@ on:
           - FLAG-PARTIAL-STRAIGHTLINING
           - AUTO-EXCLUDE:SPEED_IRI
           - AUTO-EXCLUDE:IRI2_RETURN
+          - AUTO-EXCLUDE:IRI3_RETURN
+          - AUTO-EXCLUDE:IRI3_SPEED_RETURN
+          - AUTO-EXCLUDE:IRI2_SPEED_RETURN
       study_id:
         description: 'Prolific Study ID (defaults to PROLIFIC_STUDY_ID env var)'
         required: false
