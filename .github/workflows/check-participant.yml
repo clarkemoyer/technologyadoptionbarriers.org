@@ -13,6 +13,7 @@ on:
           - send-thank-you
           - unreject
           - send-custom
+          - awaiting-report
         default: 'single'
       pid:
         description: 'Prolific Participant ID (required for single/send-custom mode)'
@@ -157,6 +158,60 @@ jobs:
           }
           main().catch(e => { console.error(e); process.exit(1); });
           "
+
+  triage-for-report:
+    name: Export & Triage (for report)
+    if: inputs.mode == 'awaiting-report'
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Export Qualtrics responses
+        run: npx --no-install tsx scripts/export-qualtrics-responses.ts
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+      - name: Run disposition triage
+        run: npx --no-install tsx scripts/disposition-triage.ts
+        env:
+          INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+          OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
+      - uses: actions/upload-artifact@v7
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}/disposition.csv
+          retention-days: 1
+
+  awaiting-report:
+    name: Awaiting Review Report
+    if: inputs.mode == 'awaiting-report'
+    needs: triage-for-report
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - uses: actions/download-artifact@v8
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}
+      - name: Generate awaiting review report
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
+        run: npx --no-install tsx scripts/awaiting-review-report.ts
 
   verify-iri:
     name: Verify IRI Answers
