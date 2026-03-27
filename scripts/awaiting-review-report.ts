@@ -1,40 +1,31 @@
 /**
  * Full report of all AWAITING REVIEW submissions with disposition + message state.
  *
+ * Uses per-PID message lookup (listUserMessages) for accurate message detection,
+ * matching the same approach used by the send scripts.
+ *
  * Environment:
  *   PROLIFIC_API_TOKEN, STUDY_ID, CSV_FILE_PATH
  */
-import { listStudySubmissions, listRecentMessages } from '../src/lib/prolific-api'
+import { listStudySubmissions, listUserMessages } from '../src/lib/prolific-api'
 import { parseCsvLine } from '../src/lib/disposition'
 import { readFileSync } from 'node:fs'
+
+const RESEARCHER_ID = '68264cbfdeb62546fe6060fe'
 
 async function main() {
   const token = process.env.PROLIFIC_API_TOKEN!
   const studyId = process.env.STUDY_ID!
   const csvPath = process.env.CSV_FILE_PATH!
-  const researcherId = '68264cbfdeb62546fe6060fe'
 
-  // Prolific submissions
+  // 1. Get all AWAITING REVIEW submissions from Prolific
+  console.log('Fetching Prolific submissions...')
   const subs = await listStudySubmissions(studyId, token)
   const awaiting = (subs.results || []).filter((s: any) => s.status === 'AWAITING REVIEW')
-  const awaitingPids = new Set(awaiting.map((s: any) => s.participant_id))
+  console.log(`Found ${awaiting.length} AWAITING REVIEW submissions`)
 
-  // Messages
-  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
-  const msgs = await listRecentMessages(sevenDaysAgo, token)
-  const allMsgs = (msgs.results || []).filter((m: any) => m.data?.study_id === studyId)
-
-  const messagedPids = new Set<string>()
-  const repliedPids = new Set<string>()
-  for (const m of allMsgs) {
-    if (m.sender_id === researcherId) {
-      messagedPids.add(m.channel_id)
-    } else {
-      repliedPids.add(m.sender_id)
-    }
-  }
-
-  // Disposition CSV
+  // 2. Load disposition CSV
+  console.log('Loading disposition CSV...')
   const csv = readFileSync(csvPath, 'utf-8')
   const lines = csv
     .trimEnd()
@@ -60,18 +51,30 @@ async function main() {
       })
   }
 
-  // Classify each awaiting PID
-  const groups: Record<string, any[]> = {}
+  // 3. Check messages for EACH awaiting PID individually (accurate method)
+  console.log(`Checking messages for ${awaiting.length} participants (per-PID lookup)...`)
+  console.log('')
+
+  interface AwaitingEntry {
+    pid: string
+    dur: number
+    subType: string
+    state: 'REPLIED' | 'MESSAGED_NO_REPLY' | 'NOT_MESSAGED'
+    messageCount: number
+    iriFail: number
+    speed: number
+  }
+
+  const entries: AwaitingEntry[] = []
 
   for (const sub of awaiting) {
     const pid = sub.participant_id
     const d = dispMap.get(pid)
-    const disp = d?.disp ?? 'NO_DATA'
     const dur = d?.dur ?? sub.time_taken ?? 0
-    const replied = repliedPids.has(pid)
 
-    let subType = disp
-    if (disp === 'AUTO-EXCLUDE') {
+    // Classify disposition sub-type
+    let subType = d?.disp ?? 'NO_DATA'
+    if (subType === 'AUTO-EXCLUDE') {
       if (d?.iriFail >= 3 && d?.speed === 1) subType = 'AUTO-EXCLUDE:IRI3_SPEED'
       else if (d?.iriFail >= 3) subType = 'AUTO-EXCLUDE:IRI3'
       else if (d?.iriFail === 2 && d?.speed === 1) subType = 'AUTO-EXCLUDE:IRI2_SPEED'
@@ -79,16 +82,42 @@ async function main() {
       else if (d?.speed === 1) subType = 'AUTO-EXCLUDE:SPEED_IRI'
     }
 
-    let state = 'NOT_MESSAGED'
-    if (replied) state = 'REPLIED'
-    else if (messagedPids.has(pid)) state = 'MESSAGED_NO_REPLY'
-    // Note: channel-based messaged check may not be accurate for all cases
+    // Check messages for this PID directly
+    let state: 'REPLIED' | 'MESSAGED_NO_REPLY' | 'NOT_MESSAGED' = 'NOT_MESSAGED'
+    let messageCount = 0
+    try {
+      const msgs = await listUserMessages(pid, token)
+      const studyMsgs = (msgs.results || []).filter((m) => m.data?.study_id === studyId)
+      messageCount = studyMsgs.length
 
-    if (!groups[subType]) groups[subType] = []
-    groups[subType].push({ pid, dur, state, replied, iriFail: d?.iriFail, speed: d?.speed })
+      if (messageCount > 0) {
+        const participantReplied = studyMsgs.some((m) => m.sender_id !== RESEARCHER_ID)
+        state = participantReplied ? 'REPLIED' : 'MESSAGED_NO_REPLY'
+      }
+    } catch {
+      // If message lookup fails, mark as unknown
+      state = 'NOT_MESSAGED'
+    }
+
+    entries.push({
+      pid,
+      dur,
+      subType,
+      state,
+      messageCount,
+      iriFail: d?.iriFail ?? 0,
+      speed: d?.speed ?? 0,
+    })
   }
 
-  console.log(`=== ${awaiting.length} AWAITING REVIEW ===`)
+  // 4. Group and display
+  const groups: Record<string, AwaitingEntry[]> = {}
+  for (const e of entries) {
+    if (!groups[e.subType]) groups[e.subType] = []
+    groups[e.subType].push(e)
+  }
+
+  console.log(`=== ${entries.length} AWAITING REVIEW ===`)
   console.log('')
 
   const order = [
@@ -106,31 +135,36 @@ async function main() {
     'NO_DATA',
   ]
 
-  for (const disp of order) {
+  let totalReplied = 0
+  let totalMessaged = 0
+  let totalNotMessaged = 0
+
+  for (const disp of [...order, ...Object.keys(groups).filter((k) => !order.includes(k))]) {
     const items = groups[disp]
     if (!items || items.length === 0) continue
     const replied = items.filter((i) => i.state === 'REPLIED').length
     const messaged = items.filter((i) => i.state === 'MESSAGED_NO_REPLY').length
     const notMessaged = items.filter((i) => i.state === 'NOT_MESSAGED').length
+    totalReplied += replied
+    totalMessaged += messaged
+    totalNotMessaged += notMessaged
+
     console.log(
-      `--- ${disp}: ${items.length} (replied: ${replied}, messaged: ${messaged}, not messaged: ${notMessaged}) ---`
+      `--- ${disp}: ${items.length} (replied: ${replied}, messaged/no-reply: ${messaged}, not messaged: ${notMessaged}) ---`
     )
     for (const item of items) {
-      console.log(`  ${item.pid} | ${(item.dur / 60).toFixed(1)} min | ${item.state}`)
+      const durMin = (item.dur / 60).toFixed(1)
+      const msgInfo = item.messageCount > 0 ? `${item.messageCount} msgs` : 'no msgs'
+      console.log(`  ${item.pid} | ${durMin} min | ${item.state} (${msgInfo})`)
     }
     console.log('')
   }
 
-  // Also check for any not in disposition CSV
-  for (const disp of Object.keys(groups)) {
-    if (!order.includes(disp)) {
-      console.log(`--- ${disp}: ${groups[disp].length} ---`)
-      for (const item of groups[disp]) {
-        console.log(`  ${item.pid} | ${(item.dur / 60).toFixed(1)} min | ${item.state}`)
-      }
-      console.log('')
-    }
-  }
+  console.log('=== SUMMARY ===')
+  console.log(`Total awaiting review: ${entries.length}`)
+  console.log(`  Replied: ${totalReplied}`)
+  console.log(`  Messaged, no reply: ${totalMessaged}`)
+  console.log(`  Not messaged: ${totalNotMessaged}`)
 }
 
 main().catch((e) => {
