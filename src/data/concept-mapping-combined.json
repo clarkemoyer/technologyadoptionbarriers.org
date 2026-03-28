@@ -252,7 +252,7 @@
       {
         "Section / Primary Construct": "Section C: Attention Check",
         "Survey Item (Question Text)": "The extent to which assessment processes capture meaningful input (select Low Readiness/Capability for this item).",
-        "Item Code / Variable Name"C_AC / Ready_AttentionCheck"
+        "Item Code / Variable Name": "C_AC / Ready_AttentionCheck"
       },
       {
         "Section / Primary Construct": "Section D: Perceived Maturity of Organizational Capabilities",
@@ -346,19 +346,11 @@
         "Measurement Objective": "Respondent's level of involvement in strategic technology adoption decisions.",
         "Item Code / Variable Name": "A1b / Demo_DecisionAuth",
         "Variable Type": "Categorical (Ordinal)",
-        "Theoretical Grounding (Source)": "Rogers (2003) — Innovation-Decision Types (Optional, Collective, Authority)",
+        "Theoretical Grounding (Source)": "Rogers (2003) â Innovation-Decision Types (Optional, Collective, Authority)",
         "APA Citation (Full)": "Rogers, E. M. (2003). Diffusion of innovations (5th ed.). Free Press.",
-        "RIS Citation": "TY  - BOOK
-AU  - Rogers, Everett M.
-TI  - Diffusion of Innovations
-ET  - 5th
-PY  - 2003
-PB  - Free Press
-CY  - New York, NY
-SN  - 9780743222099
-ER  -",
+        "RIS Citation": "TY  - BOOK\nAU  - Rogers, Everett M.\nTI  - Diffusion of Innovations\nET  - 5th\nPY  - 2003\nPB  - Free Press\nCY  - New York, NY\nSN  - 9780743222099\nER  -",
         "Source Link (URL/DOI)": "N/A",
-        "Scale Type / Response Options": "Categorical (5 options): I am the primary decision-maker for technology adoption in my area of responsibility; I am one of several key decision-makers who collectively decide on technology adoption; I provide significant input and recommendations, but final decisions are made by others; I have limited involvement — I primarily implement technology decisions made by leadership; I have no direct involvement in technology adoption decisions",
+        "Scale Type / Response Options": "Categorical (5 options): I am the primary decision-maker for technology adoption in my area of responsibility; I am one of several key decision-makers who collectively decide on technology adoption; I provide significant input and recommendations, but final decisions are made by others; I have limited involvement â I primarily implement technology decisions made by leadership; I have no direct involvement in technology adoption decisions",
         "Qualtrics QID / Export Tag": "QID237 / Q2_DecisionAuth",
         "Relationship to Other Items": ""
       },
@@ -476,13 +468,7 @@ ER  -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Kotter (1995); Tornatzky & Fleischer (1990)",
         "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-        "RIS Citation": "TY - BOOK\
-AU - Rogers, Everett M.\
-PY - 2003\
-TI - Diffusion of innovations\
-ED - 5th\
-PB - Free Press\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Rogers, Everett M.\nPY - 2003\nTI - Diffusion of innovations\nED - 5th\nPB - Free Press\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091)",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_1",
@@ -497,13 +483,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Kotter (1995); Jeyaraj et al. (2006)",
         "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-        "RIS Citation": "TY - BOOK\
-AU - Rogers, Everett M.\
-PY - 2003\
-TI - Diffusion of innovations\
-ED - 5th\
-PB - Free Press\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Rogers, Everett M.\nPY - 2003\nTI - Diffusion of innovations\nED - 5th\nPB - Free Press\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091)",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_2",
@@ -518,13 +498,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Hofstede (1980); Cameron & Quinn (2006)",
         "APA Citation (Full)": "Schein, E. H. (2010). Organizational culture and leadership (4th ed.). John Wiley & Sons.",
-        "RIS Citation": "TY - BOOK\
-AU - Schein, Edgar H.\
-PY - 2010\
-TI - Organizational culture and leadership\
-ED - 4th\
-PB - John Wiley & Sons\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Schein, Edgar H.\nPY - 2010\nTI - Organizational culture and leadership\nED - 4th\nPB - John Wiley & Sons\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Organizational-Culture-Leadership-Jossey-Bass-Business/dp/0470185864)",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_3",
@@ -539,17 +513,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Davis (1989); Venkatesh et al. (2003)",
         "APA Citation (Full)": "Barney, J. (1991). Firm resources and sustained competitive advantage. Journal of Management, 17(1), 99-120.",
-        "RIS Citation": "TY - JOUR\
-AU - Barney, J.\
-PY - 1991\
-TI - Firm resources and sustained competitive advantage\
-JO - Journal of Management\
-VL - 17\
-IS - 1\
-SP - 99\
-EP - 120\
-DO - 10.1177/014920639101700108\
-ER -",
+        "RIS Citation": "TY - JOUR\nAU - Barney, J.\nPY - 1991\nTI - Firm resources and sustained competitive advantage\nJO - Journal of Management\nVL - 17\nIS - 1\nSP - 99\nEP - 120\nDO - 10.1177/014920639101700108\nER -",
         "Source Link (URL/DOI)": "https://doi.org/10.1177/014920639101700108",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_4",
@@ -564,19 +528,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Rogers (2003); Venkatesh et al. (2003)",
         "APA Citation (Full)": "Venkatesh, V., Thong, J. Y. L., & Xu, X. (2012). Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology. MIS Quarterly, 36(1), 157-178.",
-        "RIS Citation": "TY - JOUR\
-AU - Venkatesh, Viswanath\
-AU - Thong, James Y. L.\
-AU - Xu, Xin\
-PY - 2012\
-TI - Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology\
-JO - MIS Quarterly\
-VL - 36\
-IS - 1\
-SP - 157\
-EP - 178\
-DO - 10.2307/41410412\
-ER -",
+        "RIS Citation": "TY - JOUR\nAU - Venkatesh, Viswanath\nAU - Thong, James Y. L.\nAU - Xu, Xin\nPY - 2012\nTI - Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology\nJO - MIS Quarterly\nVL - 36\nIS - 1\nSP - 157\nEP - 178\nDO - 10.2307/41410412\nER -",
         "Source Link (URL/DOI)": "https://doi.org/10.2307/41410412 or https://misq.org/consumer-acceptance-and-use-of-information-technology-extending-the-unified-theory-of-acceptance-and-use-of-technology.html",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_5",
@@ -591,13 +543,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Tornatzky & Fleischer (1990); Zhu et al. (2006)",
         "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-        "RIS Citation": "TY - BOOK\
-AU - Tornatzky, Louis G.\
-AU - Fleischer, Mitchell\
-PY - 1990\
-TI - The processes of technological innovation\
-PB - Lexington Books\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Tornatzky, Louis G.\nAU - Fleischer, Mitchell\nPY - 1990\nTI - The processes of technological innovation\nPB - Lexington Books\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_6",
@@ -612,13 +558,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Ross et al. (2006); Weill & Ross (2004)",
         "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-        "RIS Citation": "TY - BOOK\
-AU - Rogers, Everett M.\
-PY - 2003\
-TI - Diffusion of innovations\
-ED - 5th\
-PB - Free Press\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Rogers, Everett M.\nPY - 2003\nTI - Diffusion of innovations\nED - 5th\nPB - Free Press\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091)",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_7",
@@ -633,13 +573,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Weill & Ross (2004); Zhu et al. (2006)",
         "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-        "RIS Citation": "TY - BOOK\
-AU - Tornatzky, Louis G.\
-AU - Fleischer, Mitchell\
-PY - 1990\
-TI - The processes of technological innovation\
-PB - Lexington Books\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Tornatzky, Louis G.\nAU - Fleischer, Mitchell\nPY - 1990\nTI - The processes of technological innovation\nPB - Lexington Books\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_8",
@@ -654,19 +588,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "DeLone & McLean (2003); Brynjolfsson (1993)",
         "APA Citation (Full)": "Venkatesh, V., Thong, J. Y. L., & Xu, X. (2012). Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology. MIS Quarterly, 36(1), 157-178.",
-        "RIS Citation": "TY - JOUR\
-AU - Venkatesh, Viswanath\
-AU - Thong, James Y. L.\
-AU - Xu, Xin\
-PY - 2012\
-TI - Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology\
-JO - MIS Quarterly\
-VL - 36\
-IS - 1\
-SP - 157\
-EP - 178\
-DO - 10.2307/41410412\
-ER -",
+        "RIS Citation": "TY - JOUR\nAU - Venkatesh, Viswanath\nAU - Thong, James Y. L.\nAU - Xu, Xin\nPY - 2012\nTI - Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology\nJO - MIS Quarterly\nVL - 36\nIS - 1\nSP - 157\nEP - 178\nDO - 10.2307/41410412\nER -",
         "Source Link (URL/DOI)": "https://doi.org/10.2307/41410412 or https://misq.org/consumer-acceptance-and-use-of-information-technology-extending-the-unified-theory-of-acceptance-and-use-of-technology.html",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_9",
@@ -681,15 +603,9 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Henderson & Venkatraman (1993); Ross et al. (2006)",
         "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-        "RIS Citation": "TY - BOOK\
-AU - Tornatzky, Louis G.\
-AU - Fleischer, Mitchell\
-PY - 1990\
-TI - The processes of technological innovation\
-PB - Lexington Books\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Tornatzky, Louis G.\nAU - Fleischer, Mitchell\nPY - 1990\nTI - The processes of technological innovation\nPB - Lexington Books\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)",
-        "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know,
+        "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_10",
         "Relationship to Other Items": "maps to B10"
       },
@@ -702,13 +618,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Weill & Ross (2004); COBIT (ISACA)",
         "APA Citation (Full)": "Weill, P., & Ross, J. W. (2004). IT governance: How top performers manage IT decision rights for superior results. Harvard Business Press.",
-        "RIS Citation": "TY - BOOK\
-AU - Weill, Peter\
-AU - Ross, Jeanne W.\
-PY - 2004\
-TI - IT governance: How top performers manage IT decision rights for superior results\
-PB - Harvard Business Press\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Weill, Peter\nAU - Ross, Jeanne W.\nPY - 2004\nTI - IT governance: How top performers manage IT decision rights for superior results\nPB - Harvard Business Press\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Governance-Performers-Decision-Superior-Results/dp/1591392535)",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_11",
@@ -723,13 +633,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Davenport (1993); Hammer & Champy (1993)",
         "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-        "RIS Citation": "TY - BOOK\
-AU - Rogers, Everett M.\
-PY - 2003\
-TI - Diffusion of innovations\
-ED - 5th\
-PB - Free Press\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Rogers, Everett M.\nPY - 2003\nTI - Diffusion of innovations\nED - 5th\nPB - Free Press\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091)",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_12",
@@ -744,18 +648,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "NIST CSF; ISO 27001",
         "APA Citation (Full)": "Featherman, M. S., & Pavlou, P. A. (2003). Predicting e-services adoption: a perceived risk facets perspective. International Journal of Human-Computer Studies, 59(4), 451-474.",
-        "RIS Citation": "TY - JOUR\
-AU - Featherman, Mauricio S.\
-AU - Pavlou, Paul A.\
-PY - 2003\
-TI - Predicting e-services adoption: a perceived risk facets perspective\
-JO - International Journal of Human-Computer Studies\
-VL - 59\
-IS - 4\
-SP - 451\
-EP - 474\
-DO - 10.1016/S1071-5819(03)00111-X\
-ER -",
+        "RIS Citation": "TY - JOUR\nAU - Featherman, Mauricio S.\nAU - Pavlou, Paul A.\nPY - 2003\nTI - Predicting e-services adoption: a perceived risk facets perspective\nJO - International Journal of Human-Computer Studies\nVL - 59\nIS - 4\nSP - 451\nEP - 474\nDO - 10.1016/S1071-5819(03)00111-X\nER -",
         "Source Link (URL/DOI)": "https://doi.org/10.1016/S1071-5819(03)00111-X",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_13",
@@ -768,20 +661,9 @@ ER -",
         "Measurement Objective": "Severity of data privacy compliance concerns as a technology adoption barrier.",
         "Item Code / Variable Name": "B14 / Barrier_PrivacyRisk",
         "Variable Type": "Ordinal (Likert-type)",
-        "Theoretical Grounding (Source)": "GDPR frameworks; NIST Privacy Framework
+        "Theoretical Grounding (Source)": "GDPR frameworks; NIST Privacy Framework",
         "APA Citation (Full)": "Dinev, T., & Hart, P. (2006). An extended privacy calculus model for e-commerce transactions. Information Systems Research, 17(1), 61-80.",
-        "RIS Citation": "TY - JOUR\
-AU - Dinev, Tamara\
-AU - Hart, Paul\
-PY - 2006\
-TI - An extended privacy calculus model for e-commerce transactions\
-JO - Information Systems Research\
-VL - 17\
-IS - 1\
-SP - 61\
-EP - 80\
-DO - 10.1287/isre.1050.0080\
-ER -",
+        "RIS Citation": "TY - JOUR\nAU - Dinev, Tamara\nAU - Hart, Paul\nPY - 2006\nTI - An extended privacy calculus model for e-commerce transactions\nJO - Information Systems Research\nVL - 17\nIS - 1\nSP - 61\nEP - 80\nDO - 10.1287/isre.1050.0080\nER -",
         "Source Link (URL/DOI)": "https://doi.org/10.1287/isre.1050.0080",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_14",
@@ -796,19 +678,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Mayer et al. (1995); Gefen et al. (2003)",
         "APA Citation (Full)": "McKnight, D. H., Choudhury, V., & Kacmar, C. (2002). Developing and validating trust measures for e-commerce: An integrative typology. Information Systems Research, 13(3), 334-359.",
-        "RIS Citation": "TY - JOUR\
-AU - McKnight, D. Harrison\
-AU - Choudhury, Vivek\
-AU - Kacmar, Charles\
-PY - 2002\
-TI - Developing and validating trust measures for e-commerce: An integrative typology\
-JO - Information Systems Research\
-VL - 13\
-IS - 3\
-SP - 334\
-EP - 359\
-DO - 10.1287/isre.13.3.334.81\
-ER -",
+        "RIS Citation": "TY - JOUR\nAU - McKnight, D. Harrison\nAU - Choudhury, Vivek\nAU - Kacmar, Charles\nPY - 2002\nTI - Developing and validating trust measures for e-commerce: An integrative typology\nJO - Information Systems Research\nVL - 13\nIS - 3\nSP - 334\nEP - 359\nDO - 10.1287/isre.13.3.334.81\nER -",
         "Source Link (URL/DOI)": "https://doi.org/10.1287/isre.13.3.334.81",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_15",
@@ -823,13 +693,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "North (1990); Blind (2012)",
         "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-        "RIS Citation": "TY - BOOK\
-AU - Tornatzky, Louis G.\
-AU - Fleischer, Mitchell\
-PY - 1990\
-TI - The processes of technological innovation\
-PB - Lexington Books\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Tornatzky, Louis G.\nAU - Fleischer, Mitchell\nPY - 1990\nTI - The processes of technological innovation\nPB - Lexington Books\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_16",
@@ -844,13 +708,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "DiMaggio & Powell (1983); Scott (2001)",
         "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-        "RIS Citation": "TY - BOOK\
-AU - Tornatzky, Louis G.\
-AU - Fleischer, Mitchell\
-PY - 1990\
-TI - The processes of technological innovation\
-PB - Lexington Books\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Tornatzky, Louis G.\nAU - Fleischer, Mitchell\nPY - 1990\nTI - The processes of technological innovation\nPB - Lexington Books\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_17",
@@ -865,12 +723,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Lacity & Willcocks (2012)",
         "APA Citation (Full)": "Williamson, O. E. (1985). The economic institutions of capitalism: Firms, markets, relational contracting. Free Press.",
-        "RIS Citation": "TY - BOOK\
-AU - Williamson, Oliver E.\
-PY - 1985\
-TI - The economic institutions of capitalism: Firms, markets, relational contracting\
-PB - Free Press\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Williamson, Oliver E.\nPY - 1985\nTI - The economic institutions of capitalism: Firms, markets, relational contracting\nPB - Free Press\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Economic-Institutions-Capitalism-Relational-Contracting/dp/068486374X)",
         "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
         "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_18",
@@ -915,13 +768,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Kotter (1995); Jeyaraj et al. (2006)",
         "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-        "RIS Citation": "TY - BOOK\
-AU - Rogers, Everett M.\
-PY - 2003\
-TI - Diffusion of innovations\
-ED - 5th\
-PB - Free Press\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Rogers, Everett M.\nPY - 2003\nTI - Diffusion of innovations\nED - 5th\nPB - Free Press\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091)",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_1",
@@ -936,18 +783,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Henderson & Venkatraman (1993)",
         "APA Citation (Full)": "Henderson, J. C., & Venkatraman, N. (1993). Strategic alignment: Leveraging information technology for transforming organizations. IBM Systems Journal, 32(1), 4-16.",
-        "RIS Citation": "TY - JOUR\
-AU - Henderson, John C.\
-AU - Venkatraman, N.\
-PY - 1993\
-TI - Strategic alignment: Leveraging information technology for transforming organizations\
-JO - IBM Systems Journal\
-VL - 32\
-IS - 1\
-SP - 4\
-EP - 16\
-DO - 10.1147/sj.321.0004\
-ER -",
+        "RIS Citation": "TY - JOUR\nAU - Henderson, John C.\nAU - Venkatraman, N.\nPY - 1993\nTI - Strategic alignment: Leveraging information technology for transforming organizations\nJO - IBM Systems Journal\nVL - 32\nIS - 1\nSP - 4\nEP - 16\nDO - 10.1147/sj.321.0004\nER -",
         "Source Link (URL/DOI)": "https://doi.org/10.1147/sj.321.0004 (Link often via ResearchGate or University Library for Sloan Management Review version: Winter 1994, Vol. 35, No. 2, pp. 57-71)",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_2",
@@ -962,13 +798,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Weill & Ross (2004); COBIT (ISACA)",
         "APA Citation (Full)": "Weill, P., & Ross, J. W. (2004). IT governance: How top performers manage IT decision rights for superior results. Harvard Business Press.",
-        "RIS Citation": "TY - BOOK\
-AU - Weill, Peter\
-AU - Ross, Jeanne W.\
-PY - 2004\
-TI - IT governance: How top performers manage IT decision rights for superior results\
-PB - Harvard Business Press\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Weill, Peter\nAU - Ross, Jeanne W.\nPY - 2004\nTI - IT governance: How top performers manage IT decision rights for superior results\nPB - Harvard Business Press\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Governance-Performers-Decision-Superior-Results/dp/1591392535)",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_3",
@@ -983,13 +813,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Hofstede (1980); Cameron & Quinn (2006)",
         "APA Citation (Full)": "Schein, E. H. (2010). Organizational culture and leadership (4th ed.). John Wiley & Sons.",
-        "RIS Citation": "TY - BOOK\
-AU - Schein, Edgar H.\
-PY - 2010\
-TI - Organizational culture and leadership\
-ED - 4th\
-PB - John Wiley & Sons\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Schein, Edgar H.\nPY - 2010\nTI - Organizational culture and leadership\nED - 4th\nPB - John Wiley & Sons\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Organizational-Culture-Leadership-Jossey-Bass-Business/dp/0470185864)",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_4",
@@ -1004,13 +828,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Christensen (1997); O'Reilly & Tushman (2004)",
         "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-        "RIS Citation": "TY - BOOK\
-AU - Rogers, Everett M.\
-PY - 2003\
-TI - Diffusion of innovations\
-ED - 5th\
-PB - Free Press\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Rogers, Everett M.\nPY - 2003\nTI - Diffusion of innovations\nED - 5th\nPB - Free Press\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091)",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_5",
@@ -1025,13 +843,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Davis (1989); Venkatesh et al. (2003)",
         "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-        "RIS Citation": "TY - BOOK\
-AU - Tornatzky, Louis G.\
-AU - Fleischer, Mitchell\
-PY - 1990\
-TI - The processes of technological innovation\
-PB - Lexington Books\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Tornatzky, Louis G.\nAU - Fleischer, Mitchell\nPY - 1990\nTI - The processes of technological innovation\nPB - Lexington Books\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)                                                                                                                                                                                 ",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_6",
@@ -1046,19 +858,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Rogers (2003); Venkatesh et al. (2003)",
         "APA Citation (Full)": "Venkatesh, V., Thong, J. Y. L., & Xu, X. (2012). Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology. MIS Quarterly, 36(1), 157-178.",
-        "RIS Citation": "TY - JOUR\
-AU - Venkatesh, Viswanath\
-AU - Thong, James Y. L.\
-AU - Xu, Xin\
-PY - 2012\
-TI - Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology\
-JO - MIS Quarterly\
-VL - 36\
-IS - 1\
-SP - 157\
-EP - 178\
-DO - 10.2307/41410412\
-ER -",
+        "RIS Citation": "TY - JOUR\nAU - Venkatesh, Viswanath\nAU - Thong, James Y. L.\nAU - Xu, Xin\nPY - 2012\nTI - Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology\nJO - MIS Quarterly\nVL - 36\nIS - 1\nSP - 157\nEP - 178\nDO - 10.2307/41410412\nER -",
         "Source Link (URL/DOI)": "https://doi.org/10.2307/41410412 or https://misq.org/consumer-acceptance-and-use-of-information-technology-extending-the-unified-theory-of-acceptance-and-use-of-technology.html",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_7",
@@ -1073,12 +873,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Kotter (1995); Prosci ADKAR",
         "APA Citation (Full)": "Kotter, J. P. (1995). Leading change: Why transformation efforts fail. Harvard Business Review, 73(2), 59-67.",
-        "RIS Citation": "TY - BOOK\
-AU - Kotter, John P.\
-PY - 1996\
-TI - Leading change\
-PB - Harvard Business Press\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Kotter, John P.\nPY - 1996\nTI - Leading change\nPB - Harvard Business Press\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Leading-Change-New-Preface-Author/dp/1422186431)",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_8",
@@ -1093,13 +888,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Weill & Ross (2004); Zhu et al. (2006)",
         "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-        "RIS Citation": "TY - BOOK\
-AU - Tornatzky, Louis G.\
-AU - Fleischer, Mitchell\
-PY - 1990\
-TI - The processes of technological innovation\
-PB - Lexington Books\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Tornatzky, Louis G.\nAU - Fleischer, Mitchell\nPY - 1990\nTI - The processes of technological innovation\nPB - Lexington Books\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_9",
@@ -1114,13 +903,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Ross et al. (2006); IEEE interoperability standards",
         "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-        "RIS Citation": "TY - BOOK\
-AU - Rogers, Everett M.\
-PY - 2003\
-TI - Diffusion of innovations\
-ED - 5th\
-PB - Free Press\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Rogers, Everett M.\nPY - 2003\nTI - Diffusion of innovations\nED - 5th\nPB - Free Press\nER -",
         "Source Link (URL/DOI)": "https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091                                                                                                                                         ",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_10",
@@ -1135,19 +918,8 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "DeLone & McLean (2003)",
         "APA Citation (Full)": "Venkatesh, V., Thong, J. Y. L., & Xu, X. (2012). Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology. MIS Quarterly, 36(1), 157-178.",
-        "RIS Citation": "TY - JOUR\
-AU - Venkatesh, Viswanath\
-AU - Thong, James Y. L.\
-AU - Xu, Xin\
-PY - 2012\
-TI - Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology\
-JO - MIS Quarterly\
-VL - 36\
-IS - 1\
-SP - 157\
-EP - 178\
-DO - 10.2307/41410412\
-ER -n        "Source Link (URL/DOI)": "https://doi.org/10.2307/41410412 or https://misq.org/consumer-acceptance-and-use-of-information-technology-extending-the-unified-theory-of-acceptance-and-use-of-technology.html",
+        "RIS Citation": "TY - JOUR\nAU - Venkatesh, Viswanath\nAU - Thong, James Y. L.\nAU - Xu, Xin\nPY - 2012\nTI - Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology\nJO - MIS Quarterly\nVL - 36\nIS - 1\nSP - 157\nEP - 178\nDO - 10.2307/41410412\nER -",
+        "Source Link (URL/DOI)": "https://doi.org/10.2307/41410412 or https://misq.org/consumer-acceptance-and-use-of-information-technology-extending-the-unified-theory-of-acceptance-and-use-of-technology.html",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_11",
         "Relationship to Other Items": ""
@@ -1161,11 +933,7 @@ ER -n        "Source Link (URL/DOI)": "https://doi.org/10.2307/41410412 or https
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "DAMA-DMBOK; COBIT (ISACA)",
         "APA Citation (Full)": "Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF): The body of knowledge guide (2nd ed.). Van Haren Publishing. ISBN: 978-94-018-0050-1",
-        "RIS Citation": "TY - WEB\
-AU - Innovation Value Institute\
-TI - IT Capability Maturity Framework (IT-CMF)\
-UR - https://ivi.ie/it-cmf/\
-ER -",
+        "RIS Citation": "TY - WEB\nAU - Innovation Value Institute\nTI - IT Capability Maturity Framework (IT-CMF)\nUR - https://ivi.ie/it-cmf/\nER -",
         "Source Link (URL/DOI)": "https://ivi.ie/it-cmf/",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_12",
@@ -1180,18 +948,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Wang & Strong (1996); DAMA-DMBOK",
         "APA Citation (Full)": "Wang, R. Y., & Strong, D. M. (1996). Beyond accuracy: What data quality means to data consumers. Journal of Management Information Systems, 12(4), 5-33.",
-        "RIS Citation": "TY - JOUR\
-AU - Wang, Richard Y.\
-AU - Strong, Diane M.\
-PY - 1996\
-TI - Beyond accuracy: What data quality means to data consumers\
-JO - Journal of Management Information Systems\
-VL - 12\
-IS - 4\
-SP - 5\
-EP - 33\
-DO - 10.1080/07421222.1996.11518099\
-ER -",
+        "RIS Citation": "TY - JOUR\nAU - Wang, Richard Y.\nAU - Strong, Diane M.\nPY - 1996\nTI - Beyond accuracy: What data quality means to data consumers\nJO - Journal of Management Information Systems\nVL - 12\nIS - 4\nSP - 5\nEP - 33\nDO - 10.1080/07421222.1996.11518099\nER -",
         "Source Link (URL/DOI)": "https://doi.org/10.1080/07421222.1996.11518099",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_13",
@@ -1206,17 +963,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Davenport & Harris (2007)",
         "APA Citation (Full)": "Teece, D. J. (2007). Explicating dynamic capabilities: the nature and microfoundations of (sustainable) enterprise performance. Strategic Management Journal, 28(13), 1319-1350.",
-        "RIS Citation": "TY - JOUR\
-AU - Teece, David J.\
-PY - 2007\
-TI - Explicating dynamic capabilities: the nature and microfoundations of (sustainable) enterprise performance\
-JO - Strategic Management Journal\
-VL - 28\
-IS - 13\
-SP - 1319\
-EP - 1350\
-DO - 10.1002/smj.640\
-ER -",
+        "RIS Citation": "TY - JOUR\nAU - Teece, David J.\nPY - 2007\nTI - Explicating dynamic capabilities: the nature and microfoundations of (sustainable) enterprise performance\nJO - Strategic Management Journal\nVL - 28\nIS - 13\nSP - 1319\nEP - 1350\nDO - 10.1002/smj.640\nER -",
         "Source Link (URL/DOI)": "https://doi.org/10.1002/smj.640",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_14",
@@ -1231,11 +978,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "CMMI; Hammer & Champy (1993)",
         "APA Citation (Full)": "Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF): The body of knowledge guide (2nd ed.). Van Haren Publishing. ISBN: 978-94-018-0050-1",
-        "RIS Citation": "TY - WEB\
-AU - Innovation Value Institute\
-TI - IT Capability Maturity Framework (IT-CMF)\
-UR - https://ivi.ie/it-cmf/\
-ER -",
+        "RIS Citation": "TY - WEB\nAU - Innovation Value Institute\nTI - IT Capability Maturity Framework (IT-CMF)\nUR - https://ivi.ie/it-cmf/\nER -",
         "Source Link (URL/DOI)": "https://ivi.ie/it-cmf/",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_15",
@@ -1250,18 +993,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "DeLone & McLean (2003); ITIL",
         "APA Citation (Full)": "DeLone, W. H., & McLean, E. R. (2003). The DeLone and McLean model of information systems success: a ten-year update. Journal of Management Information Systems, 19(4), 9-30.",
-        "RIS Citation": "TY - JOUR\
-AU - DeLone, William H.\
-AU - McLean, Ephraim R.\
-PY - 2003\
-TI - The DeLone and McLean model of information systems success: a ten-year update\
-JO - Journal of Management Information Systems\
-VL - 19\
-IS - 4\
-SP - 9\
-EP - 30\
-DO - 10.1080/07421222.2003.11045748\
-ER -",
+        "RIS Citation": "TY - JOUR\nAU - DeLone, William H.\nAU - McLean, Ephraim R.\nPY - 2003\nTI - The DeLone and McLean model of information systems success: a ten-year update\nJO - Journal of Management Information Systems\nVL - 19\nIS - 4\nSP - 9\nEP - 30\nDO - 10.1080/07421222.2003.11045748\nER -",
         "Source Link (URL/DOI)": "https://doi.org/10.1080/07421222.2003.11045748",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_16",
@@ -1276,13 +1008,7 @@ ER -",
         "Variable Type": "Ordinal (Likert-type)",
         "Theoretical Grounding (Source)": "Tornatzky & Fleischer (1990); Zhu et al. (2006)",
         "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-        "RIS Citation": "TY - BOOK\
-AU - Tornatzky, Louis G.\
-AU - Fleischer, Mitchell\
-PY - 1990\
-TI - The processes of technological innovation\
-PB - Lexington Books\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Tornatzky, Louis G.\nAU - Fleischer, Mitchell\nPY - 1990\nTI - The processes of technological innovation\nPB - Lexington Books\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)",
         "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
         "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_17",
@@ -1312,11 +1038,7 @@ ER -",
         "Variable Type": "Ordinal (Maturity Level)",
         "Theoretical Grounding (Source)": "Val IT (ISACA); GAO ITIM",
         "APA Citation (Full)": "Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF): The body of knowledge guide (2nd ed.). Van Haren Publishing. ISBN: 978-94-018-0050-1",
-        "RIS Citation": "TY - WEB\
-AU - Innovation Value Institute\
-TI - IT Capability Maturity Framework (IT-CMF)\
-UR - https://ivi.ie/it-cmf/\
-ER -",
+        "RIS Citation": "TY - WEB\nAU - Innovation Value Institute\nTI - IT Capability Maturity Framework (IT-CMF)\nUR - https://ivi.ie/it-cmf/\nER -",
         "Source Link (URL/DOI)": "https://ivi.ie/it-cmf/",
         "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
         "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_1",
@@ -1331,13 +1053,7 @@ ER -",
         "Variable Type": "Ordinal (Maturity Level)",
         "Theoretical Grounding (Source)": "Christensen (1997); O'Reilly & Tushman (2004)",
         "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-        "RIS Citation": "TY - BOOK\
-AU - Rogers, Everett M.\
-PY - 2003\
-TI - Diffusion of innovations\
-ED - 5th\
-PB - Free Press\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Rogers, Everett M.\nPY - 2003\nTI - Diffusion of innovations\nED - 5th\nPB - Free Press\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091)",
         "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
         "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_2",
@@ -1352,11 +1068,7 @@ ER -",
         "Variable Type": "Ordinal (Maturity Level)",
         "Theoretical Grounding (Source)": "CMMI (SEI/ISACA); Hammer & Champy (1993)",
         "APA Citation (Full)": "Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF): The body of knowledge guide (2nd ed.). Van Haren Publishing. ISBN: 978-94-018-0050-1",
-        "RIS Citation": "TY - WEB\
-AU - Innovation Value Institute\
-TI - IT Capability Maturity Framework (IT-CMF)\
-UR - https://ivi.ie/it-cmf/\
-ER -",
+        "RIS Citation": "TY - WEB\nAU - Innovation Value Institute\nTI - IT Capability Maturity Framework (IT-CMF)\nUR - https://ivi.ie/it-cmf/\nER -",
         "Source Link (URL/DOI)": "https://ivi.ie/it-cmf/",
         "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
         "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_3",
@@ -1371,11 +1083,7 @@ ER -",
         "Variable Type": "Ordinal (Maturity Level)",
         "Theoretical Grounding (Source)": "DAMA-DMBOK; COBIT (ISACA)",
         "APA Citation (Full)": "Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF): The body of knowledge guide (2nd ed.). Van Haren Publishing. ISBN: 978-94-018-0050-1",
-        "RIS Citation": "TY - WEB\
-AU - Innovation Value Institute\
-TI - IT Capability Maturity Framework (IT-CMF)\
-UR - https://ivi.ie/it-cmf/\
-ER -",
+        "RIS Citation": "TY - WEB\nAU - Innovation Value Institute\nTI - IT Capability Maturity Framework (IT-CMF)\nUR - https://ivi.ie/it-cmf/\nER -",
         "Source Link (URL/DOI)": "https://ivi.ie/it-cmf/",
         "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
         "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_4",
@@ -1390,12 +1098,7 @@ ER -",
         "Variable Type": "Ordinal (Maturity Level)",
         "Theoretical Grounding (Source)": "NIST CSF; ISO 31000; COBIT (ISACA)",
         "APA Citation (Full)": "U.S. Department of Defense. (n.d.). Cybersecurity Maturity Model Certification (CMMC). Office of the Under Secretary of Defense for Acquisition & Sustainment.",
-        "RIS Citation": "TY - WEB\
-AU - U.S. Department of Defense\
-TI - Cybersecurity Maturity Model Certification (CMMC)\
-PB - Office of the Under Secretary of Defense for Acquisition & Sustainment\
-UR - https://dodcio.defense.gov/CMMC/\
-ER -",
+        "RIS Citation": "TY - WEB\nAU - U.S. Department of Defense\nTI - Cybersecurity Maturity Model Certification (CMMC)\nPB - Office of the Under Secretary of Defense for Acquisition & Sustainment\nUR - https://dodcio.defense.gov/CMMC/\nER -",
         "Source Link (URL/DOI)": "https://dodcio.defense.gov/CMMC/",
         "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
         "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_5",
@@ -1410,11 +1113,7 @@ ER -",
         "Variable Type": "Ordinal (Maturity Level)",
         "Theoretical Grounding (Source)": "TOGAF; Henderson & Venkatraman (1993)",
         "APA Citation (Full)": "Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF): The body of knowledge guide (2nd ed.). Van Haren Publishing. ISBN: 978-94-018-0050-1",
-        "RIS Citation": "TY - WEB\
-AU - Innovation Value Institute\
-TI - IT Capability Maturity Framework (IT-CMF)\
-UR - https://ivi.ie/it-cmf/\
-ER -",
+        "RIS Citation": "TY - WEB\nAU - Innovation Value Institute\nTI - IT Capability Maturity Framework (IT-CMF)\nUR - https://ivi.ie/it-cmf/\nER -",
         "Source Link (URL/DOI)": "https://ivi.ie/it-cmf/",
         "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
         "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_6",
@@ -1429,11 +1128,7 @@ ER -",
         "Variable Type": "Ordinal (Maturity Level)",
         "Theoretical Grounding (Source)": "OPM3 (PMI); CMMI People CMM",
         "APA Citation (Full)": "Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF): The body of knowledge guide (2nd ed.). Van Haren Publishing. ISBN: 978-94-018-0050-1",
-        "RIS Citation": "TY - WEB\
-AU - Innovation Value Institute\
-TI - IT Capability Maturity Framework (IT-CMF)\
-UR - https://ivi.ie/it-cmf/\
-ER -",
+        "RIS Citation": "TY - WEB\nAU - Innovation Value Institute\nTI - IT Capability Maturity Framework (IT-CMF)\nUR - https://ivi.ie/it-cmf/\nER -",
         "Source Link (URL/DOI)": "https://ivi.ie/it-cmf/",
         "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
         "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_7",
@@ -1448,12 +1143,7 @@ ER -",
         "Variable Type": "Ordinal (Maturity Level)",
         "Theoretical Grounding (Source)": "Kotter (1995); Prosci ADKAR; CMMI",
         "APA Citation (Full)": "Kotter, J. P. (1995). Leading change: Why transformation efforts fail. Harvard Business Review, 73(2), 59-67.",
-        "RIS Citation": "TY - BOOK\
-AU - Kotter, John P.\
-PY - 1996\
-TI - Leading change\
-PB - Harvard Business Press\
-ER -",
+        "RIS Citation": "TY - BOOK\nAU - Kotter, John P.\nPY - 1996\nTI - Leading change\nPB - Harvard Business Press\nER -",
         "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Leading-Change-New-Preface-Author/dp/1422186431)",
         "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
         "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_8",
@@ -1492,10 +1182,10 @@ ER -",
     ]
   },
   "summary": {
-    "title": "TABS Survey Structure Summary — V2 (from Qualtrics QSF Export, March 2026)",
+    "title": "TABS Survey Structure Summary â V2 (from Qualtrics QSF Export, March 2026)",
     "rows": [
       [
-        "TABS Survey Structure Summary — V2 (from Qualtrics QSF Export, March 2026)",
+        "TABS Survey Structure Summary â V2 (from Qualtrics QSF Export, March 2026)",
         "",
         "",
         "",
