@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Update SEO Dashboard Timestamp
+      - name: Update SEO Dashboard Metrics and Time Series
         id: sync_script
         run: npx tsx scripts/update-seo-dashboard-sync.ts
         env:
