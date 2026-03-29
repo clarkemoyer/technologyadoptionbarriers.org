@@ -4,9 +4,9 @@ Reproducible analysis pipeline for the Technology Adoption Barriers Survey (TABS
 
 ## Scripts
 
-| Script | Purpose |
-|--------|---------|
-| `tabs_v2_analysis.py` | Full descriptive statistics, cross-tabs, sensitivity analysis across sample cuts |
+| Script                     | Purpose                                                                                             |
+| -------------------------- | --------------------------------------------------------------------------------------------------- |
+| `tabs_v2_analysis.py`      | Full descriptive statistics, cross-tabs, sensitivity analysis across sample cuts                    |
 | `tabs_v2_psychometrics.py` | Psychometric legitimacy audit: convergent/discriminant validity, response biases, IRI effectiveness |
 
 ## Usage
