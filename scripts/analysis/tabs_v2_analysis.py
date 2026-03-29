@@ -19,7 +19,7 @@ Author: Clarke Moyer, Penn State Smeal DBA
 import csv
 import math
 import sys
-from collections import Counter, defaultdict
+from collections import Counter
 
 # ─────────────────────────────────────────────────────────────
 # Configuration
@@ -106,6 +106,7 @@ NONTECH_TITLES = {'CEO', 'CFO', 'COO', 'CHRO', 'CMO', 'CSO', 'CRO'}
 
 def mean_sd(values):
     """Compute mean and sample standard deviation."""
+    values = [v for v in values if v is not None]
     n = len(values)
     if n == 0:
         return (None, None)
@@ -239,6 +240,8 @@ def person_means(rows, cols, scale, idx):
         vals = [v for v in vals if v is not None]
         if vals:
             out.append(sum(vals) / len(vals))
+        else:
+            out.append(None)
     return out
 
 
@@ -323,6 +326,9 @@ def print_disposition(v2, clean, relaxed, all_v2, idx):
 
 def print_demographics(rows, idx, label="Clean"):
     """Print demographic breakdown."""
+    if not rows:
+        print("  No data")
+        return
     print(f"\n{'=' * 78}")
     print(f"  DEMOGRAPHICS ({label} N={len(rows)})")
     print("=" * 78)
@@ -376,11 +382,15 @@ def print_item_rankings(rows, idx):
         print(f"\n  {'Rank':>4} {'Item':<38} {'M':>6} {'SD':>6} {'n':>4}")
         print(f"  {'─' * 4} {'─' * 38} {'─' * 6} {'─' * 6} {'─' * 4}")
         for rank, (name, m, sd, n) in enumerate(stats, 1):
-            print(f"  {rank:>4} {name:<38} {m:.2f}  {sd:.2f}  {n:>3}")
+            m_str = f"{m:.2f}" if m is not None else "NA"
+            sd_str = f"{sd:.2f}" if sd is not None else "NA"
+            print(f"  {rank:>4} {name:<38} {m_str:>6}  {sd_str:>6}  {n:>3}")
 
         pm = person_means(rows, cols, sc, idx)
         gm, gsd = mean_sd(pm)
-        print(f"\n  Grand Mean: {gm:.2f} (SD={gsd:.2f})")
+        gm_str = f"{gm:.2f}" if gm is not None else "NA"
+        gsd_str = f"{gsd:.2f}" if gsd is not None else "NA"
+        print(f"\n  Grand Mean: {gm_str} (SD={gsd_str})")
 
 
 def print_correlations_and_reliability(rows, idx):
@@ -398,25 +408,41 @@ def print_correlations_and_reliability(rows, idx):
     rm = pearson_r(rp, mp)
 
     print(f"\n  Construct Correlations:")
-    print(f"    B-R: r = {br:.3f}  (r² = {br ** 2:.3f}, {br ** 2 * 100:.1f}% shared variance)")
-    print(f"    B-M: r = {bm:.3f}  (r² = {bm ** 2:.3f}, {bm ** 2 * 100:.1f}% shared variance)")
-    print(f"    R-M: r = {rm:.3f}  (r² = {rm ** 2:.3f}, {rm ** 2 * 100:.1f}% shared variance)")
+    if br is not None:
+        print(f"    B-R: r = {br:.3f}  (r² = {br ** 2:.3f}, {br ** 2 * 100:.1f}% shared variance)")
+    else:
+        print(f"    B-R: r = N/A")
+    if bm is not None:
+        print(f"    B-M: r = {bm:.3f}  (r² = {bm ** 2:.3f}, {bm ** 2 * 100:.1f}% shared variance)")
+    else:
+        print(f"    B-M: r = N/A")
+    if rm is not None:
+        print(f"    R-M: r = {rm:.3f}  (r² = {rm ** 2:.3f}, {rm ** 2 * 100:.1f}% shared variance)")
+    else:
+        print(f"    R-M: r = N/A")
 
     ba = cronbach_alpha(rows, BARRIER_COLS, BARRIER_SCALE, idx)
     ra = cronbach_alpha(rows, READINESS_COLS, READINESS_SCALE, idx)
     ma = cronbach_alpha(rows, MATURITY_COLS, MATURITY_SCALE, idx)
 
     print(f"\n  Cronbach's Alpha:")
-    print(f"    Barriers (18 items):  α = {ba:.3f}")
-    print(f"    Readiness (17 items): α = {ra:.3f}")
-    print(f"    Maturity (8 items):   α = {ma:.3f}")
+    ba_str = f"{ba:.3f}" if ba is not None else "N/A"
+    ra_str = f"{ra:.3f}" if ra is not None else "N/A"
+    ma_str = f"{ma:.3f}" if ma is not None else "N/A"
+    print(f"    Barriers (18 items):  α = {ba_str}")
+    print(f"    Readiness (17 items): α = {ra_str}")
+    print(f"    Maturity (8 items):   α = {ma_str}")
 
     print(f"\n  Distribution Shape:")
     for name, vals in [("Barriers", bp), ("Readiness", rp), ("Maturity", mp)]:
         m, s = mean_sd(vals)
         sk = skewness(vals)
         ku = kurtosis_excess(vals)
-        print(f"    {name:<12}: M={m:.2f}, SD={s:.2f}, skew={sk:+.2f}, kurtosis={ku:+.2f}")
+        m_str = f"{m:.2f}" if m is not None else "NA"
+        s_str = f"{s:.2f}" if s is not None else "NA"
+        sk_str = f"{sk:+.2f}" if sk is not None else "NA"
+        ku_str = f"{ku:+.2f}" if ku is not None else "NA"
+        print(f"    {name:<12}: M={m_str}, SD={s_str}, skew={sk_str}, kurtosis={ku_str}")
 
 
 def print_effect_sizes(rows, idx):
@@ -437,8 +463,15 @@ def print_effect_sizes(rows, idx):
         d = cohens_d(t, nt)
         tm, _ = mean_sd(t)
         ntm, _ = mean_sd(nt)
-        size = 'small' if d and abs(d) < 0.5 else 'medium' if d and abs(d) < 0.8 else 'large'
-        print(f"    {label:<12}: Tech={tm:.2f}, NonTech={ntm:.2f}, d={d:+.2f} ({size})")
+        if d is not None:
+            size = 'small' if abs(d) < 0.5 else 'medium' if abs(d) < 0.8 else 'large'
+            tm_str = f"{tm:.2f}" if tm is not None else "NA"
+            ntm_str = f"{ntm:.2f}" if ntm is not None else "NA"
+            print(f"    {label:<12}: Tech={tm_str}, NonTech={ntm_str}, d={d:+.2f} ({size})")
+        else:
+            tm_str = f"{tm:.2f}" if tm is not None else "NA"
+            ntm_str = f"{ntm:.2f}" if ntm is not None else "NA"
+            print(f"    {label:<12}: Tech={tm_str}, NonTech={ntm_str}, d=N/A")
 
     large = [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('5000-9999', '10000+')]
     smmed = [r for r in rows if r[idx['Q4_OrgSize']].strip() not in ('5000-9999', '10000+')]
@@ -451,8 +484,15 @@ def print_effect_sizes(rows, idx):
         d = cohens_d(l, s)
         lm, _ = mean_sd(l)
         sm, _ = mean_sd(s)
-        size = 'small' if d and abs(d) < 0.5 else 'medium' if d and abs(d) < 0.8 else 'large'
-        print(f"    {label:<12}: Large={lm:.2f}, S/M={sm:.2f}, d={d:+.2f} ({size})")
+        if d is not None:
+            size = 'small' if abs(d) < 0.5 else 'medium' if abs(d) < 0.8 else 'large'
+            lm_str = f"{lm:.2f}" if lm is not None else "NA"
+            sm_str = f"{sm:.2f}" if sm is not None else "NA"
+            print(f"    {label:<12}: Large={lm_str}, S/M={sm_str}, d={d:+.2f} ({size})")
+        else:
+            lm_str = f"{lm:.2f}" if lm is not None else "NA"
+            sm_str = f"{sm:.2f}" if sm is not None else "NA"
+            print(f"    {label:<12}: Large={lm_str}, S/M={sm_str}, d=N/A")
 
     # Budget adequacy
     budget_col = READINESS_COLS[16]
@@ -462,8 +502,17 @@ def print_effect_sizes(rows, idx):
         hb = person_means(high_budget, BARRIER_COLS, BARRIER_SCALE, idx)
         lb = person_means(low_budget, BARRIER_COLS, BARRIER_SCALE, idx)
         d = cohens_d(hb, lb)
+        hbm, _ = mean_sd(hb)
+        lbm, _ = mean_sd(lb)
         print(f"\n  Budget Adequacy — High (n={len(high_budget)}) vs Low (n={len(low_budget)}):")
-        print(f"    Barriers: High={mean_sd(hb)[0]:.2f}, Low={mean_sd(lb)[0]:.2f}, d={d:+.2f}")
+        if d is not None:
+            hbm_str = f"{hbm:.2f}" if hbm is not None else "NA"
+            lbm_str = f"{lbm:.2f}" if lbm is not None else "NA"
+            print(f"    Barriers: High={hbm_str}, Low={lbm_str}, d={d:+.2f}")
+        else:
+            hbm_str = f"{hbm:.2f}" if hbm is not None else "NA"
+            lbm_str = f"{lbm:.2f}" if lbm is not None else "NA"
+            print(f"    Barriers: High={hbm_str}, Low={lbm_str}, d=N/A")
 
     # Decision authority
     print(f"\n  Decision Authority Effect:")

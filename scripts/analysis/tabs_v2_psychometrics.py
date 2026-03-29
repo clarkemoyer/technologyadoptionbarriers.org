@@ -23,10 +23,10 @@ Author: Clarke Moyer, Penn State Smeal DBA
 import csv
 import math
 import sys
-from collections import Counter, defaultdict
+from collections import Counter
 
 # ─────────────────────────────────────────────────────────────
-# Import shared configuration and helpers from analysis module
+# Configuration (duplicated from analysis script to keep scripts independently runnable)
 # ─────────────────────────────────────────────────────────────
 
 V2_START = "2026-03-23 14:00:00"
@@ -87,6 +87,7 @@ MATURITY_NAMES = [
 # ─────────────────────────────────────────────────────────────
 
 def mean_sd(vals):
+    vals = [v for v in vals if v is not None]
     n = len(vals)
     if n == 0: return (None, None)
     m = sum(vals) / n
@@ -114,7 +115,7 @@ def score(row, col, scale, idx):
 
 def get_duration(row, idx):
     try: return int(row[idx['Duration (in seconds)']])
-    except: return None
+    except (KeyError, ValueError, IndexError): return None
 
 
 def iri_all_pass(row, idx):
@@ -184,19 +185,23 @@ def section_convergent_discriminant(clean, idx):
             rm = pearson_r(item_vals, m_totals)
 
             cross_max = max(
-                abs(rb) if rb and label != "B" else 0,
-                abs(rr) if rr and label != "R" else 0,
-                abs(rm) if rm and label != "M" else 0,
+                abs(rb) if rb is not None and label != "B" else 0,
+                abs(rr) if rr is not None and label != "R" else 0,
+                abs(rm) if rm is not None and label != "M" else 0,
             )
 
-            if own_r and own_r > cross_max:
+            if own_r is not None and own_r > cross_max:
                 verdict = "CONV"
                 conv_pass += 1
             else:
                 verdict = "CROSS-LOAD"
                 conv_fail += 1
 
-            print(f"  {names[i]:<35} {own_r:>+7.3f} {rb:>+7.3f} {rr:>+7.3f} {rm:>+7.3f} {verdict}")
+            rb_str = f"{rb:>+7.3f}" if rb is not None else "    NA"
+            rr_str = f"{rr:>+7.3f}" if rr is not None else "    NA"
+            rm_str = f"{rm:>+7.3f}" if rm is not None else "    NA"
+            own_r_str = f"{own_r:>+7.3f}" if own_r is not None else "    NA"
+            print(f"  {names[i]:<35} {own_r_str} {rb_str} {rr_str} {rm_str} {verdict}")
 
         if label != "M":
             print()
@@ -225,7 +230,12 @@ def section_scale_discrimination(clean, idx):
     def avg_between(rows, c1, s1, c2, s2):
         d1 = [[score(r, c, s1, idx) for r in rows] for c in c1]
         d2 = [[score(r, c, s2, idx) for r in rows] for c in c2]
-        corrs = [abs(pearson_r(a, b)) for a in d1 for b in d2 if pearson_r(a, b) is not None]
+        corrs = []
+        for a in d1:
+            for b in d2:
+                r = pearson_r(a, b)
+                if r is not None:
+                    corrs.append(abs(r))
         return sum(corrs) / len(corrs) if corrs else None
 
     bw = avg_within(clean, BARRIER_COLS, BARRIER_SCALE)
@@ -246,9 +256,18 @@ def section_scale_discrimination(clean, idx):
     print(f"    R x M: {rm_b:.3f}")
 
     print(f"\n  Discrimination Ratios (within/max-between, should be >1.0):")
-    print(f"    Barriers:  {bw / max(br_b, bm_b):.2f}x")
-    print(f"    Readiness: {rw / max(br_b, rm_b):.2f}x")
-    print(f"    Maturity:  {mw / max(bm_b, rm_b):.2f}x")
+    if bw is not None and max(br_b, bm_b) > 0:
+        print(f"    Barriers:  {bw / max(br_b, bm_b):.2f}x")
+    else:
+        print(f"    Barriers:  N/A")
+    if rw is not None and max(br_b, rm_b) > 0:
+        print(f"    Readiness: {rw / max(br_b, rm_b):.2f}x")
+    else:
+        print(f"    Readiness: N/A")
+    if mw is not None and max(bm_b, rm_b) > 0:
+        print(f"    Maturity:  {mw / max(bm_b, rm_b):.2f}x")
+    else:
+        print(f"    Maturity:  N/A")
 
 
 # ─────────────────────────────────────────────────────────────
@@ -261,6 +280,9 @@ def section_iri_effectiveness(v2, clean, idx):
     print(f"{'=' * 85}")
 
     speed_ok = [r for r in v2 if get_duration(r, idx) and get_duration(r, idx) >= MIN_DURATION_CLEAN]
+    if not speed_ok:
+        print("  No data")
+        return
 
     bp = sum(1 for r in speed_ok if r[idx[BARRIER_IRI]].strip() == IRI_BARRIER_ANSWER)
     rp = sum(1 for r in speed_ok if r[idx[READINESS_IRI]].strip() == IRI_READINESS_ANSWER)
@@ -310,7 +332,10 @@ def section_iri_effectiveness(v2, clean, idx):
         for r in rows:
             vals = [score(r, c, sc, idx) for c in cols]
             vals = [v for v in vals if v is not None]
-            if vals: out.append(sum(vals) / len(vals))
+            if vals:
+                out.append(sum(vals) / len(vals))
+            else:
+                out.append(None)
         return out
 
     pass_b = pm_list(iri_pass_rows, BARRIER_COLS, BARRIER_SCALE)
@@ -324,7 +349,12 @@ def section_iri_effectiveness(v2, clean, idx):
 
     pass_br = pearson_r(pass_b, pass_r)
     fail_br = pearson_r(fail_b, fail_r)
-    print(f"    B-R correlation: Pass={pass_br:.2f}, Fail={fail_br:.2f} (delta={abs(pass_br) - abs(fail_br):+.2f})")
+    if pass_br is not None and fail_br is not None:
+        print(f"    B-R correlation: Pass={pass_br:.2f}, Fail={fail_br:.2f} (delta={abs(pass_br) - abs(fail_br):+.2f})")
+    else:
+        pbr_str = f"{pass_br:.2f}" if pass_br is not None else "N/A"
+        fbr_str = f"{fail_br:.2f}" if fail_br is not None else "N/A"
+        print(f"    B-R correlation: Pass={pbr_str}, Fail={fbr_str}")
 
 
 # ─────────────────────────────────────────────────────────────
@@ -335,6 +365,10 @@ def section_response_biases(clean, v2, idx):
     print(f"\n{'=' * 85}")
     print("  SECTION 4: RESPONSE BIAS DETECTION")
     print(f"{'=' * 85}")
+
+    if len(clean) == 0:
+        print("  No data")
+        return
 
     # 4A: Straightlining
     def check_straightline(row, cols, scale):
@@ -469,6 +503,9 @@ def section_order_fatigue(clean, idx):
     durations = [(get_duration(r, idx), r) for r in clean if get_duration(r, idx)]
     durations.sort(key=lambda x: x[0])
     q_size = len(durations) // 4
+    if q_size == 0:
+        print("    Not enough data for quartile analysis")
+        return
     fast = [r for _, r in durations[:q_size]]
     slow = [r for _, r in durations[-q_size:]]
 
@@ -477,13 +514,22 @@ def section_order_fatigue(clean, idx):
         for r in rows:
             vals = [score(r, c, sc, idx) for c in cols]
             vals = [v for v in vals if v is not None]
-            if vals: out.append(sum(vals) / len(vals))
+            if vals:
+                out.append(sum(vals) / len(vals))
+            else:
+                out.append(None)
         return out
 
     fb = pm_list(fast, BARRIER_COLS, BARRIER_SCALE)
     sb = pm_list(slow, BARRIER_COLS, BARRIER_SCALE)
-    print(f"    Fastest quartile (n={len(fast)}, <={durations[q_size][0] / 60:.1f}min): B={mean_sd(fb)[0]:.2f} (SD={mean_sd(fb)[1]:.2f})")
-    print(f"    Slowest quartile (n={len(slow)}, >={durations[-q_size][0] / 60:.1f}min): B={mean_sd(sb)[0]:.2f} (SD={mean_sd(sb)[1]:.2f})")
+    fbm, fbs = mean_sd(fb)
+    sbm, sbs = mean_sd(sb)
+    fbm_str = f"{fbm:.2f}" if fbm is not None else "NA"
+    fbs_str = f"{fbs:.2f}" if fbs is not None else "NA"
+    sbm_str = f"{sbm:.2f}" if sbm is not None else "NA"
+    sbs_str = f"{sbs:.2f}" if sbs is not None else "NA"
+    print(f"    Fastest quartile (n={len(fast)}, <={durations[q_size][0] / 60:.1f}min): B={fbm_str} (SD={fbs_str})")
+    print(f"    Slowest quartile (n={len(slow)}, >={durations[-q_size][0] / 60:.1f}min): B={sbm_str} (SD={sbs_str})")
 
 
 # ─────────────────────────────────────────────────────────────
