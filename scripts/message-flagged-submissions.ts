@@ -58,7 +58,49 @@ interface FlaggedRecord {
   disposition: FlagDisposition
   duration: number
   partialStraightliningBlocks: string
+  iriBarrierPass: number
+  iriReadinessPass: number
+  iriMaturityPass: number
   message: string
+}
+
+/* ------------------------------------------------------------------ */
+/*  IRI failure details                                                */
+/* ------------------------------------------------------------------ */
+
+const IRI_DETAILS = {
+  barrier: {
+    label: 'Barrier attention check',
+    expected: 'Major Barrier',
+  },
+  readiness: {
+    label: 'Readiness attention check',
+    expected: 'Low Readiness/Capability',
+  },
+  maturity: {
+    label: 'Maturity attention check',
+    expected: 'Level 2: Developing/Repeatable',
+  },
+}
+
+function buildIriFailureList(record: Omit<FlaggedRecord, 'message'>): string {
+  const failures: string[] = []
+  if (record.iriBarrierPass === 0) {
+    failures.push(
+      `(${failures.length + 1}) ${IRI_DETAILS.barrier.label}: the item asked you to select "${IRI_DETAILS.barrier.expected}" but a different answer was recorded`
+    )
+  }
+  if (record.iriReadinessPass === 0) {
+    failures.push(
+      `(${failures.length + 1}) ${IRI_DETAILS.readiness.label}: the item asked you to select "${IRI_DETAILS.readiness.expected}" but a different answer was recorded`
+    )
+  }
+  if (record.iriMaturityPass === 0) {
+    failures.push(
+      `(${failures.length + 1}) ${IRI_DETAILS.maturity.label}: the item asked you to select "${IRI_DETAILS.maturity.expected}" but a different answer was recorded`
+    )
+  }
+  return failures.join('. ') + '.'
 }
 
 /* ------------------------------------------------------------------ */
@@ -67,6 +109,7 @@ interface FlaggedRecord {
 
 function buildFlagMessage(record: Omit<FlaggedRecord, 'message'>): string {
   const minutes = (record.duration / 60).toFixed(1)
+  const iriDetails = buildIriFailureList(record)
 
   switch (record.disposition) {
     case 'FLAG-SPEED':
@@ -85,6 +128,7 @@ function buildFlagMessage(record: Omit<FlaggedRecord, 'message'>): string {
         'Hi, thank you for participating in our Technology Adoption Barriers Survey.',
         'We are reviewing your submission because 1 of 3 embedded attention checks',
         'was answered differently than expected.',
+        `Specifically: ${iriDetails}`,
         'This may have been an oversight.',
         'Could you confirm that you read each question carefully?',
         'We want to treat all participants fairly.',
@@ -147,6 +191,7 @@ function buildFlagMessage(record: Omit<FlaggedRecord, 'message'>): string {
         'Hi, thank you for participating in our Technology Adoption Barriers Survey.',
         'After reviewing your submission, we found that 2 of 3 embedded attention check',
         'questions were answered differently than the instructions specified.',
+        `Specifically: ${iriDetails}`,
         'These items are designed to confirm that respondents are reading each question carefully,',
         'and are critical to ensuring the highest quality data for our research.',
         'Rather than rejecting your submission (which would negatively impact your Prolific record),',
@@ -163,6 +208,7 @@ function buildFlagMessage(record: Omit<FlaggedRecord, 'message'>): string {
         'Hi, thank you for participating in our Technology Adoption Barriers Survey.',
         'After reviewing your submission, we found that all 3 of the embedded attention check',
         'questions were answered differently than the instructions specified.',
+        `Specifically: ${iriDetails}`,
         'These items are designed to confirm that respondents are reading each question carefully,',
         'and are critical to ensuring the highest quality data for our research.',
         'Rather than rejecting your submission (which would negatively impact your Prolific record),',
@@ -180,6 +226,7 @@ function buildFlagMessage(record: Omit<FlaggedRecord, 'message'>): string {
         `After reviewing your submission, we found that it was completed in ${minutes} minutes`,
         '(below our 5-minute minimum) and all 3 of the embedded attention check questions',
         'were answered differently than the instructions specified.',
+        `Specifically: ${iriDetails}`,
         'Both completion speed and attention checks are critical to ensuring the highest',
         'quality data for our research.',
         'Rather than rejecting your submission (which would negatively impact your Prolific record),',
@@ -197,6 +244,7 @@ function buildFlagMessage(record: Omit<FlaggedRecord, 'message'>): string {
         `After reviewing your submission, we found that it was completed in ${minutes} minutes`,
         '(below our 5-minute minimum) and 2 of 3 embedded attention check questions',
         'were answered differently than the instructions specified.',
+        `Specifically: ${iriDetails}`,
         'Both completion speed and attention checks are critical to ensuring the highest',
         'quality data for our research.',
         'Rather than rejecting your submission (which would negatively impact your Prolific record),',
@@ -333,6 +381,9 @@ async function main() {
   const partialBlocksIdx = col('Partial_Straightlining_Blocks')
   const iriFailIdx = col('IRI_Fail_Count')
   const speedIdx = col('Speed_Flag')
+  const iriBarrierIdx = col('IRI_Barrier_Pass')
+  const iriReadinessIdx = col('IRI_Readiness_Pass')
+  const iriMaturityIdx = col('IRI_Maturity_Pass')
 
   const records: FlaggedRecord[] = []
 
@@ -374,6 +425,9 @@ async function main() {
       disposition: dispositionFilter,
       duration: parseInt(fields[durationIdx] ?? '0', 10) || 0,
       partialStraightliningBlocks: (fields[partialBlocksIdx] ?? '').trim(),
+      iriBarrierPass: parseInt(fields[iriBarrierIdx] ?? '0', 10),
+      iriReadinessPass: parseInt(fields[iriReadinessIdx] ?? '0', 10),
+      iriMaturityPass: parseInt(fields[iriMaturityIdx] ?? '0', 10),
     }
 
     records.push({
