@@ -3,7 +3,9 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 import seoMetrics from '@/data/seo-metrics.json'
 import seoTimeSeries from '@/data/seo-time-series.json'
-import SEOHistoryChart from '@/components/tabs/seo-history-chart'
+import dynamic from 'next/dynamic'
+
+const SEOHistoryChart = dynamic(() => import('@/components/tabs/seo-history-chart'), { ssr: false })
 
 export const metadata: Metadata = {
   title: 'SEO Transparency & Dashboard — Making of TABS',

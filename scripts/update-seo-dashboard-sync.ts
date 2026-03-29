@@ -17,8 +17,12 @@ async function updateSeoDashboardSync() {
     const now = new Date()
     data.dashboardSyncedAt = now.toISOString()
 
-    // Only attempt to fetch new data if credentials are fundamentally available
-    if (process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL && process.env.GOOGLE_PRIVATE_KEY) {
+    // (Comment 1) Only attempt to fetch new data if credentials are fundamentally available, including GA_PROPERTY_ID
+    if (
+      process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL &&
+      process.env.GOOGLE_PRIVATE_KEY &&
+      process.env.GA_PROPERTY_ID
+    ) {
       console.log('Fetching live SEO and GA4 data...')
 
       // 1. Fetch Google Analytics 4 Data
@@ -58,13 +62,13 @@ async function updateSeoDashboardSync() {
         timeSeries = JSON.parse(fs.readFileSync(timeSeriesPath, 'utf-8'))
       }
 
-      // 3. Regression Check
+      // (Comment 4) Regression Check with configurable threshold
+      const regressionThreshold = Number(process.env.SEO_REGRESSION_THRESHOLD_PERCENT || 15) / 100
       if (timeSeries.length > 0) {
         const lastEntry = timeSeries[timeSeries.length - 1]
-        // Example check: >15% drop in impressions
         if (lastEntry.impressions > 0 && totalImpressions > 0) {
           const drop = (lastEntry.impressions - totalImpressions) / lastEntry.impressions
-          if (drop > 0.15) {
+          if (drop > regressionThreshold) {
             console.warn(
               `⚠️ SEO Regression Detected: Impressions dropped by ${(drop * 100).toFixed(1)}%`
             )
@@ -78,12 +82,44 @@ async function updateSeoDashboardSync() {
         }
       }
 
+      // (Comment 2) Cache the previous overview before modifying the new ones
+      const previousOverview = { ...(data.overview || {}) }
+
       // Update current metrics structure
       data.overview.organicSessions = activeSessions
       data.overview.totalImpressions = totalImpressions
       data.overview.totalClicks = totalClicks
-      data.overview.averageCTR = parseFloat(ctr.toFixed(2))
-      data.overview.averagePosition = parseFloat(avgPosition.toFixed(1))
+      const newAverageCTR = parseFloat(ctr.toFixed(2))
+      const newAveragePosition = parseFloat(avgPosition.toFixed(1))
+      data.overview.averageCTR = newAverageCTR
+      data.overview.averagePosition = newAveragePosition
+
+      // Systematically compute and update Change fields
+      data.overview.organicSessionsChange =
+        previousOverview.organicSessions !== undefined
+          ? activeSessions - previousOverview.organicSessions
+          : 0
+      data.overview.totalImpressionsChange =
+        previousOverview.totalImpressions !== undefined
+          ? totalImpressions - previousOverview.totalImpressions
+          : 0
+      data.overview.totalClicksChange =
+        previousOverview.totalClicks !== undefined ? totalClicks - previousOverview.totalClicks : 0
+      data.overview.averageCTRChange =
+        previousOverview.averageCTR !== undefined
+          ? parseFloat((newAverageCTR - previousOverview.averageCTR).toFixed(2))
+          : 0
+      data.overview.averagePositionChange =
+        previousOverview.averagePosition !== undefined
+          ? parseFloat((newAveragePosition - previousOverview.averagePosition).toFixed(1))
+          : 0
+
+      // Update metadata to match the current metrics window
+      data.generatedAt = now.toISOString()
+      data.dateRange = {
+        startDate: formatDaysAgo(28),
+        endDate: formatDaysAgo(0),
+      }
 
       // 4. Update Time Series
       timeSeries.push({
@@ -91,8 +127,13 @@ async function updateSeoDashboardSync() {
         sessions: activeSessions,
         impressions: totalImpressions,
         clicks: totalClicks,
-        averagePosition: parseFloat(avgPosition.toFixed(1)),
+        averagePosition: newAveragePosition,
       })
+
+      // (Comment 9) Cap the time series memory footprint to trailing 104 points
+      if (timeSeries.length > 104) {
+        timeSeries = timeSeries.slice(-104)
+      }
 
       fs.writeFileSync(timeSeriesPath, JSON.stringify(timeSeries, null, 2) + '\n', 'utf-8')
       console.log('Successfully updated Time Series.')
@@ -106,8 +147,9 @@ async function updateSeoDashboardSync() {
       const keywords = (gscKeywords.rows || []).map((r) => ({
         keyword: r.keys[0],
         position: parseFloat(r.position.toFixed(1)),
-        previousPosition: parseFloat((r.position + Math.random() * 2 - 1).toFixed(1)), // Mocked diff
-        volume: Math.round(r.impressions * 1.5), // Approximation
+        // (Comment 3) No fabricated previous position or volume
+        previousPosition: null,
+        volume: 0,
         clicks: r.clicks,
         impressions: r.impressions,
         ctr: parseFloat((r.ctr * 100).toFixed(1)),
@@ -116,7 +158,7 @@ async function updateSeoDashboardSync() {
 
       console.log('Successfully fetched and injected GSC and GA4 metrics.')
     } else {
-      console.log('Credentials omitted. Bumped timestamp only.')
+      console.warn('Credentials omitted or partial. Bumped timestamp only.')
     }
 
     fs.writeFileSync(metricsPath, JSON.stringify(data, null, 2) + '\n', 'utf-8')

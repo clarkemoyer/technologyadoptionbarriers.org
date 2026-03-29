@@ -47,8 +47,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
 
-      - name: Format updated data file
-        run: npx prettier --write src/data/seo-metrics.json
+      - name: Format updated SEO data files
+        run: npx prettier --write "src/data/seo-*.json"
 
       - name: Create pull request with updated sync time
         id: cpr
@@ -60,7 +60,7 @@ jobs:
           body: |
             Automated execution of `scripts/update-seo-dashboard-sync.ts`.
 
-            This PR bumps the `dashboardSyncedAt` field in `src/data/seo-metrics.json` to reflect the latest CI build synchronization date. The underlying metrics data (`generatedAt`, `dateRange`, and all metrics) are not modified by this script.
+            This PR updates the SEO Time Series chart data, dashboard metrics, and top keywords list by contacting the GA4 and GSC APIs. It will also flag any organic traffic regressions automatically.
           branch: chore/seo-dashboard-daily-sync
           delete-branch: true
 
