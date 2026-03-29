@@ -23,7 +23,7 @@ const data = summaryData as {
   columns: string[]
   sections: SectionRow[]
   totals: { substantiveItems: number; attentionChecks: number }
-  revisionNotes: string[]
+  revisionNotes: (string | { date: string; note: string })[]
 }
 
 export default function ConceptMappingSummary() {
@@ -165,9 +165,16 @@ export default function ConceptMappingSummary() {
             Revision Notes
           </h2>
           <ol className="list-decimal space-y-2 pl-5 text-sm text-gray-700">
-            {revisionNotes.map((note, i) => (
-              <li key={i}>{note}</li>
-            ))}
+            {revisionNotes.map((item, i) => {
+              const noteText = typeof item === 'string' ? item : item.note
+              const dateStr = typeof item === 'string' ? null : item.date
+              return (
+                <li key={i}>
+                  {noteText}
+                  {dateStr && <span className="ml-2 text-gray-500">({dateStr})</span>}
+                </li>
+              )
+            })}
           </ol>
         </div>
       </section>
