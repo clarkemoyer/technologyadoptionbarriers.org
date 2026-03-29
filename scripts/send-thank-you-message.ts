@@ -8,7 +8,12 @@
  *   DRY_RUN             – When "false", send messages live (default: true)
  */
 
-import { sendMessage, listUserMessages, listStudySubmissions } from '../src/lib/prolific-api'
+import {
+  sendMessage,
+  listUserMessages,
+  listStudySubmissions,
+  getSubmission,
+} from '../src/lib/prolific-api'
 
 const THANK_YOU_MESSAGE =
   'Hi, thank you for participating in our Technology Adoption Barriers Survey and for taking the time to respond to our review message. Your submission has been approved. We appreciate your thoughtful engagement and the insights you shared — they are valuable to our research. Thank you again for your contribution!'
@@ -41,14 +46,14 @@ async function main() {
   console.log(`Mode: ${dryRun ? 'DRY RUN' : 'LIVE'}`)
   console.log('')
 
-  // Fetch submission statuses to skip non-approved participants
-  console.log('Fetching submission statuses...')
+  // Build PID → submission ID map for per-PID live status checks
+  console.log('Fetching submission IDs...')
   const submissions = await listStudySubmissions(studyId, token)
-  const statusMap = new Map<string, string>()
+  const pidToSubId = new Map<string, string>()
   for (const s of submissions.results || []) {
-    statusMap.set(s.participant_id, s.status)
+    pidToSubId.set(s.participant_id, s.id)
   }
-  console.log(`Loaded ${statusMap.size} statuses`)
+  console.log(`Loaded ${pidToSubId.size} submissions`)
   console.log('')
 
   let sent = 0
@@ -58,12 +63,15 @@ async function main() {
 
   for (const pid of pids) {
     try {
-      // Only send thank-you to APPROVED submissions
-      const status = statusMap.get(pid)
-      if (status && status !== 'APPROVED') {
-        skippedNotApproved++
-        console.log(`  SKIP ${pid} — status is ${status} (not APPROVED)`)
-        continue
+      // Fresh per-PID status check right before sending (not cached)
+      const subId = pidToSubId.get(pid)
+      if (subId) {
+        const freshSub = await getSubmission(studyId, subId, token)
+        if (freshSub.status !== 'APPROVED') {
+          skippedNotApproved++
+          console.log(`  SKIP ${pid} — status is ${freshSub.status} (not APPROVED, live check)`)
+          continue
+        }
       }
 
       // Check for existing thank-you message

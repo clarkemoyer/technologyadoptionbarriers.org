@@ -24,6 +24,7 @@ import {
   sendMessage,
   listUserMessages,
   listStudySubmissions,
+  getSubmission,
 } from '../src/lib/prolific-api'
 import { appendGithubStepSummary, mdEscape } from '../src/lib/github-utils'
 import { readFileSync } from 'node:fs'
@@ -426,19 +427,19 @@ async function main() {
     console.log('')
   }
 
-  /* ---------- Verify API connection + fetch submission statuses -------- */
+  /* ---------- Verify API connection + build submission ID map ---------- */
 
   console.log('Verifying Prolific API connection...')
   const user = await getCurrentUser(apiToken)
   console.log(`Connected as: ${user.name} (${user.email})`)
 
-  console.log('Fetching submission statuses from Prolific...')
+  console.log('Fetching submission IDs from Prolific...')
   const submissions = await listStudySubmissions(studyId, apiToken)
-  const statusMap = new Map<string, string>()
+  const pidToSubId = new Map<string, string>()
   for (const s of submissions.results || []) {
-    statusMap.set(s.participant_id, s.status)
+    pidToSubId.set(s.participant_id, s.id)
   }
-  console.log(`Loaded ${statusMap.size} submission statuses`)
+  console.log(`Loaded ${pidToSubId.size} submissions`)
   console.log('')
 
   const SKIP_STATUSES = new Set(['APPROVED', 'REJECTED', 'RETURNED', 'TIMED-OUT'])
@@ -468,12 +469,15 @@ async function main() {
 
     for (const r of filtered) {
       try {
-        // Check if submission is already actioned (approved/rejected/returned/timed-out)
-        const submissionStatus = statusMap.get(r.pid)
-        if (submissionStatus && SKIP_STATUSES.has(submissionStatus)) {
-          skippedAlreadyActioned++
-          console.log(`  SKIPPED ${r.pid} — submission already ${submissionStatus}`)
-          continue
+        // Fresh per-PID status check right before sending (not cached — avoids race conditions)
+        const subId = pidToSubId.get(r.pid)
+        if (subId) {
+          const freshSub = await getSubmission(studyId, subId, apiToken)
+          if (SKIP_STATUSES.has(freshSub.status)) {
+            skippedAlreadyActioned++
+            console.log(`  SKIPPED ${r.pid} — submission is ${freshSub.status} (live check)`)
+            continue
+          }
         }
 
         // Check if participant already received this same message
