@@ -28,7 +28,24 @@ jobs:
         run: npm ci
 
       - name: Update SEO Dashboard Timestamp
+        id: sync_script
         run: npx tsx scripts/update-seo-dashboard-sync.ts
+        env:
+          GA_PROPERTY_ID: ${{ secrets.GA_PROPERTY_ID }}
+          GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
+          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+          GSC_SITE_URL: 'sc-domain:technologyadoptionbarriers.org'
+
+      - name: Trigger SEO Regression Alert
+        if: steps.sync_script.outputs.REGRESSION_DETECTED == 'true'
+        run: |
+          gh issue create \
+            --title "🚨 CRITICAL: SEO Regression Detected (-${{ steps.sync_script.outputs.IMPRESSIONS_DROP }}% Impressions)" \
+            --body "The automated SEO dashboard sync script detected a massive drop in trailing 28-day organic impressions versus the previous baseline.\\n\\n**Drop Percentage:** \`-${{ steps.sync_script.outputs.IMPRESSIONS_DROP }}%\`\\n\\n*Please check Google Search Console coverage index immediately or review recent static export build logs.*" \
+            --label "bug" \
+            --label "high-priority"
+        env:
+          GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
 
       - name: Format updated data file
         run: npx prettier --write src/data/seo-metrics.json
