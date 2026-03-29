@@ -24,7 +24,6 @@ import {
   sendMessage,
   listUserMessages,
   listStudySubmissions,
-  getSubmission,
 } from '../src/lib/prolific-api'
 import { appendGithubStepSummary, mdEscape } from '../src/lib/github-utils'
 import { readFileSync } from 'node:fs'
@@ -487,15 +486,6 @@ async function main() {
   const user = await getCurrentUser(apiToken)
   console.log(`Connected as: ${user.name} (${user.email})`)
 
-  console.log('Fetching submission IDs from Prolific...')
-  const submissions = await listStudySubmissions(studyId, apiToken)
-  const pidToSubId = new Map<string, string>()
-  for (const s of submissions.results || []) {
-    pidToSubId.set(s.participant_id, s.id)
-  }
-  console.log(`Loaded ${pidToSubId.size} submissions`)
-  console.log('')
-
   const SKIP_STATUSES = new Set(['APPROVED', 'REJECTED', 'RETURNED', 'TIMED-OUT'])
 
   /* ---------- Execute or dry run ------------------------------------- */
@@ -516,6 +506,16 @@ async function main() {
     console.log('================================================================')
     console.log('')
 
+    // Fetch fresh submission statuses right before sending (minimizes race window)
+    console.log('Fetching fresh submission statuses...')
+    const freshSubs = await listStudySubmissions(studyId, apiToken)
+    const statusMap = new Map<string, string>()
+    for (const s of freshSubs.results || []) {
+      statusMap.set(s.participant_id, s.status)
+    }
+    console.log(`Loaded ${statusMap.size} statuses`)
+    console.log('')
+
     let sent = 0
     let failed = 0
     let skippedAlreadyMessaged = 0
@@ -523,15 +523,12 @@ async function main() {
 
     for (const r of filtered) {
       try {
-        // Fresh per-PID status check right before sending (not cached — avoids race conditions)
-        const subId = pidToSubId.get(r.pid)
-        if (subId) {
-          const freshSub = await getSubmission(studyId, subId, apiToken)
-          if (SKIP_STATUSES.has(freshSub.status)) {
-            skippedAlreadyActioned++
-            console.log(`  SKIPPED ${r.pid} — submission is ${freshSub.status} (live check)`)
-            continue
-          }
+        // Check submission status (fresh batch fetched right before this loop)
+        const submissionStatus = statusMap.get(r.pid)
+        if (submissionStatus && SKIP_STATUSES.has(submissionStatus)) {
+          skippedAlreadyActioned++
+          console.log(`  SKIPPED ${r.pid} — submission is ${submissionStatus}`)
+          continue
         }
 
         // Check if participant already received this same message
