@@ -46,15 +46,30 @@ jobs:
           INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
 
       - name: Run disposition triage
-        run: npx --no-install tsx scripts/disposition-triage.ts
+        run: |
+          npx --no-install tsx scripts/disposition-triage.ts | tee ${{ runner.temp }}/triage-output.txt
         env:
           INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
           OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
+
+      - name: Extract triage metrics
+        run: |
+          grep "Total responses" ${{ runner.temp }}/triage-output.txt | sed 's/.*\*\*Total responses:\*\* //' > ${{ runner.temp }}/triage-total.txt
+          grep -E "^\|" ${{ runner.temp }}/triage-output.txt | grep -v "Disposition\|---" > ${{ runner.temp }}/triage-breakdown.txt
+          echo "TRIAGE_TOTAL=$(cat ${{ runner.temp }}/triage-total.txt)" >> $GITHUB_ENV
 
       - uses: actions/upload-artifact@v7
         with:
           name: disposition-csv
           path: ${{ runner.temp }}/disposition.csv
+          retention-days: 1
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: triage-metrics
+          path: |
+            ${{ runner.temp }}/triage-total.txt
+            ${{ runner.temp }}/triage-breakdown.txt
           retention-days: 1
 
   # Step 2: Auto-approve CLEAN
@@ -76,12 +91,19 @@ jobs:
           path: ${{ runner.temp }}
 
       - name: Approve CLEAN submissions
-        run: npx --no-install tsx scripts/approve-prolific-submissions.ts
+        run: |
+          npx --no-install tsx scripts/approve-prolific-submissions.ts | tee ${{ runner.temp }}/approve-output.txt
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
           CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
           DRY_RUN: 'false'
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: approve-metrics
+          path: ${{ runner.temp }}/approve-output.txt
+          retention-days: 1
 
   # Step 3: Message un-messaged FLAG participants
   message-flags:
@@ -115,13 +137,20 @@ jobs:
           path: ${{ runner.temp }}
 
       - name: Send messages for ${{ matrix.disposition }}
-        run: npx --no-install tsx scripts/message-flagged-submissions.ts
+        run: |
+          npx --no-install tsx scripts/message-flagged-submissions.ts | tee ${{ runner.temp }}/message-output.txt
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
           CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
           DISPOSITION_FILTER: ${{ matrix.disposition }}
           DRY_RUN: 'false'
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: message-metrics-${{ matrix.disposition }}
+          path: ${{ runner.temp }}/message-output.txt
+          retention-days: 1
 
   # Step 4a: Generate dashboard data (needs Prolific API)
   generate-dashboard:
@@ -177,40 +206,87 @@ jobs:
           pr-body: 'Automated update of disposition-summary.json from live Prolific API + Qualtrics triage.'
           branch: chore/disposition-dashboard-update
 
-  # Step 5: Post daily summary as GitHub issue comment
+  # Step 5: Post detailed daily summary as GitHub issue comment
   daily-summary:
     name: Post Daily Summary
-    needs: [approve-clean, message-flags, generate-dashboard]
+    needs: [triage, approve-clean, message-flags, generate-dashboard]
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: Create daily summary
+      - uses: actions/download-artifact@v8
+        with:
+          path: ${{ runner.temp }}/artifacts
+        continue-on-error: true
+
+      - name: Build and post detailed summary
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           DATE=$(date -u +"%Y-%m-%d")
-          STATUS="success"
-          if [ "${{ needs.approve-clean.result }}" != "success" ] || \
-             [ "${{ needs.message-flags.result }}" != "success" ] || \
-             [ "${{ needs.generate-dashboard.result }}" != "success" ]; then
-            STATUS="issues detected"
+
+          # Extract triage data
+          TRIAGE_TOTAL=""
+          TRIAGE_BREAKDOWN=""
+          if [ -f "${{ runner.temp }}/artifacts/triage-metrics/triage-total.txt" ]; then
+            TRIAGE_TOTAL=$(cat "${{ runner.temp }}/artifacts/triage-metrics/triage-total.txt")
           fi
+          if [ -f "${{ runner.temp }}/artifacts/triage-metrics/triage-breakdown.txt" ]; then
+            TRIAGE_BREAKDOWN=$(cat "${{ runner.temp }}/artifacts/triage-metrics/triage-breakdown.txt")
+          fi
+
+          # Extract approve data
+          APPROVE_DETAIL=""
+          if [ -f "${{ runner.temp }}/artifacts/approve-metrics/approve-output.txt" ]; then
+            APPROVE_DETAIL=$(grep -E "CLEAN dispositions|Successfully approved" "${{ runner.temp }}/artifacts/approve-metrics/approve-output.txt" | head -2 | tr '\n' ' ')
+          fi
+
+          # Extract message data from all disposition types
+          MSG_TABLE="| Disposition | Sent | Skipped (actioned) | Skipped (messaged) | Failed |"
+          MSG_TABLE="${MSG_TABLE}
+          |---|---:|---:|---:|---:|"
+          TOTAL_SENT=0
+          for f in ${{ runner.temp }}/artifacts/message-metrics-*/message-output.txt; do
+            if [ -f "$f" ]; then
+              DISP=$(grep "Disposition filter:" "$f" | head -1 | sed 's/.*filter: //')
+              SENT_LINE=$(grep "^SENT:" "$f" | head -1)
+              if [ -n "$DISP" ] && [ -n "$SENT_LINE" ]; then
+                SENT=$(echo "$SENT_LINE" | grep -oP 'SENT: \K[0-9]+')
+                ACTIONED=$(echo "$SENT_LINE" | grep -oP 'already actioned\): \K[0-9]+')
+                MESSAGED=$(echo "$SENT_LINE" | grep -oP 'already messaged\): \K[0-9]+')
+                FAILED=$(echo "$SENT_LINE" | grep -oP 'FAILED: \K[0-9]+')
+                MSG_TABLE="${MSG_TABLE}
+          | ${DISP} | ${SENT:-0} | ${ACTIONED:-0} | ${MESSAGED:-0} | ${FAILED:-0} |"
+                TOTAL_SENT=$((TOTAL_SENT + ${SENT:-0}))
+              fi
+            fi
+          done
 
           BODY="## Daily Disposition Processing — ${DATE}
 
-          **Status:** ${STATUS}
-          **Workflow run:** [View details](${RUN_URL})
+          **Workflow run:** [View full details](${RUN_URL})
 
+          ### Triage
+          - **Total responses:** ${TRIAGE_TOTAL:-unknown}
+
+          ${TRIAGE_BREAKDOWN}
+
+          ### Approvals
+          ${APPROVE_DETAIL:-No data}
+
+          ### Messages Sent
+          ${MSG_TABLE}
+
+          **Total new messages sent:** ${TOTAL_SENT}
+
+          ### Job Status
           | Job | Result |
           |---|---|
-          | Export & Triage | ${{ needs.approve-clean.result == 'success' && 'OK' || 'ISSUE' }} |
+          | Export & Triage | ${{ needs.triage.result }} |
           | Auto-Approve CLEAN | ${{ needs.approve-clean.result }} |
           | Message FLAG Participants | ${{ needs.message-flags.result }} |
           | Generate Dashboard | ${{ needs.generate-dashboard.result }} |
-
-          Check the [workflow run](${RUN_URL}) for detailed counts (approved, messaged, skipped).
           "
 
           gh issue comment 611 --body "$BODY"
-          echo "Summary posted to issue #611"
+          echo "Detailed summary posted to issue #611"
