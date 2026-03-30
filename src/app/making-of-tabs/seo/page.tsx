@@ -5,7 +5,7 @@ import seoMetrics from '@/data/seo-metrics.json'
 import seoTimeSeries from '@/data/seo-time-series.json'
 import dynamic from 'next/dynamic'
 
-const SEOHistoryChart = dynamic(() => import('@/components/tabs/seo-history-chart'), { ssr: false })
+const SEOHistoryChart = dynamic(() => import('@/components/tabs/seo-history-chart'))
 
 export const metadata: Metadata = {
   title: 'SEO Transparency & Dashboard — Making of TABS',
