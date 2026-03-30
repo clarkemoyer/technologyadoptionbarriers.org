@@ -71,14 +71,18 @@ jobs:
             }
 
             console.log('Requesting return via API...');
-            const url = 'https://api.prolific.com/api/v1/submissions/' + sub.id + '/transition/';
+            const url = 'https://api.prolific.com/api/v1/submissions/' + sub.id + '/request-return/';
             const resp = await fetch(url, {
               method: 'POST',
               headers: {
                 'Authorization': 'Token ' + token,
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ action: 'RETURN' }),
+              body: JSON.stringify({
+                request_return_reasons: [
+                  'Failed embedded attention check questions designed to confirm careful reading'
+                ]
+              }),
             });
 
             const body = await resp.text();
