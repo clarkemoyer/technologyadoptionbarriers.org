@@ -14,6 +14,7 @@ on:
           - unreject
           - send-custom
           - awaiting-report
+          - request-return
         default: 'single'
       pid:
         description: 'Prolific Participant ID (required for single/send-custom mode)'
@@ -43,6 +44,54 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci
+
+      - name: Request return
+        if: inputs.mode == 'request-return'
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          PID: ${{ inputs.pid }}
+        run: |
+          npx --no-install tsx -e "
+          import { listStudySubmissions } from './src/lib/prolific-api';
+          async function main() {
+            const token = process.env.PROLIFIC_API_TOKEN!;
+            const studyId = process.env.STUDY_ID!;
+            const pid = process.env.PID!;
+
+            console.log('Looking up submission ID for PID:', pid);
+            const subs = await listStudySubmissions(studyId, token);
+            const sub = (subs.results || []).find((s: any) => s.participant_id === pid);
+            if (!sub) { console.error('No submission found'); process.exit(1); }
+            console.log('Submission ID:', sub.id, 'Status:', sub.status);
+
+            if (sub.status !== 'AWAITING REVIEW') {
+              console.log('Cannot request return — status is', sub.status);
+              process.exit(1);
+            }
+
+            console.log('Requesting return via API...');
+            const url = 'https://api.prolific.com/api/v1/submissions/' + sub.id + '/transition/';
+            const resp = await fetch(url, {
+              method: 'POST',
+              headers: {
+                'Authorization': 'Token ' + token,
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ action: 'RETURN' }),
+            });
+
+            const body = await resp.text();
+            console.log('Response:', resp.status, body);
+
+            if (!resp.ok) {
+              console.error('Return request failed:', resp.status);
+              process.exit(1);
+            }
+            console.log('Return requested successfully for', pid);
+          }
+          main().catch(e => { console.error(e); process.exit(1); });
+          "
 
       - name: Send custom message
         if: inputs.mode == 'send-custom'
