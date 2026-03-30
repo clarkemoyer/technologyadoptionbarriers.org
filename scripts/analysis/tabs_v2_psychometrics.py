@@ -14,7 +14,7 @@ import sys
 import pandas as pd
 import numpy as np
 from scipy import stats
-from scipy.stats import shapiro, f_oneway, ttest_ind, chi2_contingency
+from scipy.stats import shapiro, ttest_ind, chi2_contingency
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from datetime import datetime
@@ -117,10 +117,9 @@ MATURITY_ITEM_NAMES = {
 
 def load_data():
     """Load and preprocess TABS survey data."""
-    # Read CSV, skip Qualtrics metadata rows
-    df = pd.read_csv(CSV_PATH)
-    # Row 0 = field names, Row 1 = ImportId JSONs, actual data starts row 2
-    df = df.iloc[1:].reset_index(drop=True)
+    # Read CSV with Qualtrics 3-row header:
+    # row 0 = field names (used as headers), rows 1-2 = metadata (skipped)
+    df = pd.read_csv(CSV_PATH, encoding='utf-8-sig', skiprows=[1, 2])
 
     # Convert duration to numeric
     df['Duration (in seconds)'] = pd.to_numeric(df['Duration (in seconds)'], errors='coerce')
@@ -163,13 +162,6 @@ def encode_scales(df):
         else scale_to_numeric(x, MATURITY_SCALE))
 
     return df_encoded
-
-def check_iri(row):
-    """Check if all 3 IRIs are correct. Returns True/False."""
-    b_correct = row[BARRIER_IRI_COL] == BARRIER_SCALE[IRI_EXPECTED['barrier']]
-    r_correct = row[READINESS_IRI_COL] == READINESS_SCALE[IRI_EXPECTED['readiness']]
-    m_correct = row[MATURITY_IRI_COL] == MATURITY_SCALE[IRI_EXPECTED['maturity']]
-    return b_correct and r_correct and m_correct
 
 def person_means(df, cols):
     """Compute mean for each person across specified columns.
@@ -459,7 +451,7 @@ def main():
 
     print(f"\nReadiness Sub-Construct Coverage:")
     for name, items in READINESS_SUBCONSTRUCTS.items():
-        print(f"  {name}: {len(items)} items (C{items})")
+        print(f"  {name}: {len(items)} items (R{items})")
 
     print(f"\nMaturity Item Names:")
     for idx, name in MATURITY_ITEM_NAMES.items():
@@ -570,16 +562,16 @@ def main():
         print(f"\n  Alpha if Item Deleted:")
         improvements = []
         for item, alpha_new in alpha_deleted.items():
-            improvement = alpha - alpha_new if not np.isnan(alpha_new) else np.nan
-            flag = " <-- IMPROVES by ≥.01" if improvement >= 0.01 else ""
-            print(f"    {item}: {alpha_new:.4f} (Δ={improvement:+.4f}){flag}")
-            if improvement >= 0.01:
-                improvements.append((item, improvement))
+            delta = alpha_new - alpha if not np.isnan(alpha_new) else np.nan
+            flag = " <-- IMPROVES by ≥.01" if (not np.isnan(delta) and delta >= 0.01) else ""
+            print(f"    {item}: {alpha_new:.4f} (Δ={delta:+.4f}){flag}")
+            if not np.isnan(delta) and delta >= 0.01:
+                improvements.append((item, delta))
 
         if improvements:
             print(f"\n  FLAGGED for deletion: {len(improvements)} item(s)")
-            for item, imp in improvements:
-                print(f"    {item} (improvement: {imp:+.4f})")
+            for item, delta in improvements:
+                print(f"    {item} (improvement: {delta:+.4f})")
 
     analyze_scale("Barriers Scale", BARRIER_ITEM_COLS, df)
     analyze_scale("Readiness Scale", READINESS_ITEM_COLS, df)
