@@ -4,10 +4,11 @@ Reproducible analysis pipeline for the Technology Adoption Barriers Survey (TABS
 
 ## Scripts
 
-| Script                     | Purpose                                                                                             |
-| -------------------------- | --------------------------------------------------------------------------------------------------- |
-| `tabs_v2_analysis.py`      | Full descriptive statistics, cross-tabs, sensitivity analysis across sample cuts                    |
-| `tabs_v2_psychometrics.py` | Psychometric legitimacy audit: convergent/discriminant validity, response biases, IRI effectiveness |
+| Script                     | Purpose                                                                                                           |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `tabs_v2_analysis.py`      | Full descriptive statistics, cross-tabs, sensitivity analysis across sample cuts                                  |
+| `tabs_v2_psychometrics.py` | Instrument validation: PCA, KMO, reliability, AVE, HTMT, Fornell-Larcker, IRI effectiveness, CMV, selection bias  |
+| `tabs_v2_data_audit.py`    | Data quality audit: disposition funnel, demographic imbalances, missing data, response quality, temporal patterns |
 
 ## Usage
 
@@ -16,6 +17,7 @@ Both scripts expect a Qualtrics CSV export as the first argument:
 ```bash
 python scripts/analysis/tabs_v2_analysis.py path/to/qualtrics_export.csv
 python scripts/analysis/tabs_v2_psychometrics.py path/to/qualtrics_export.csv
+python scripts/analysis/tabs_v2_data_audit.py path/to/qualtrics_export.csv
 ```
 
 The CSV must contain the standard Qualtrics 3-row header (column names, sub-labels, import IDs).
