@@ -304,7 +304,8 @@ const SEOTransparencyPage = () => {
               </thead>
               <tbody>
                 {seoMetrics.topKeywords.map((kw) => {
-                  const positionDifference = kw.previousPosition - kw.position
+                  const positionDifference =
+                    kw.previousPosition !== null ? kw.previousPosition - kw.position : 0
                   return (
                     <tr key={kw.keyword} className="border-b border-gray-100 hover:bg-gray-50">
                       <td className="p-3 font-medium text-gray-800">{kw.keyword}</td>
