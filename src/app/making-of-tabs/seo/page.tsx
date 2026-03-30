@@ -2,6 +2,10 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 import seoMetrics from '@/data/seo-metrics.json'
+import seoTimeSeries from '@/data/seo-time-series.json'
+import dynamic from 'next/dynamic'
+
+const SEOHistoryChart = dynamic(() => import('@/components/tabs/seo-history-chart'), { ssr: false })
 
 export const metadata: Metadata = {
   title: 'SEO Transparency & Dashboard — Making of TABS',
@@ -202,6 +206,8 @@ const SEOTransparencyPage = () => {
               </span>
             </div>
           </div>
+
+          <SEOHistoryChart data={seoTimeSeries} />
         </section>
 
         {/* ── Content Integrity ── */}
