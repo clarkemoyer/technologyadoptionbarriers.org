@@ -1191,27 +1191,9 @@
         "",
         ""
       ],
-      [
-        "",
-        "",
-        "",
-        "",
-        ""
-      ],
-      [
-        "Section",
-        "Question Type",
-        "Substantive Items",
-        "Attention Checks",
-        "Scale / Method"
-      ],
-      [
-        "Section A: Demographics",
-        "Multiple Choice",
-        "9",
-        "",
-        "Categorical (various)"
-      ],
+      ["", "", "", "", ""],
+      ["Section", "Question Type", "Substantive Items", "Attention Checks", "Scale / Method"],
+      ["Section A: Demographics", "Multiple Choice", "9", "", "Categorical (various)"],
       [
         "Section B: Barrier Severity Rating",
         "Matrix",
@@ -1233,41 +1215,11 @@
         "1",
         "5-point Readiness/Capability + Don't Know"
       ],
-      [
-        "Section D: Maturity Assessment",
-        "Matrix",
-        "8",
-        "1",
-        "5-level Maturity + Don't Know"
-      ],
-      [
-        "Section E: Open-Ended",
-        "Text Entry",
-        "1",
-        "",
-        "Multi-line open text"
-      ],
-      [
-        "",
-        "",
-        "",
-        "",
-        ""
-      ],
-      [
-        "TOTAL SUBSTANTIVE",
-        "",
-        "54",
-        "3",
-        ""
-      ],
-      [
-        "",
-        "",
-        "",
-        "",
-        ""
-      ],
+      ["Section D: Maturity Assessment", "Matrix", "8", "1", "5-level Maturity + Don't Know"],
+      ["Section E: Open-Ended", "Text Entry", "1", "", "Multi-line open text"],
+      ["", "", "", "", ""],
+      ["TOTAL SUBSTANTIVE", "", "54", "3", ""],
+      ["", "", "", "", ""],
       [
         "Note: V2 removed Q9 (barrier category ranking) and Q10 (specific barrier ranking) based on pilot data analysis.",
         "",

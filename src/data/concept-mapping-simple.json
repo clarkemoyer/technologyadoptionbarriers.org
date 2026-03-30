@@ -30,7 +30,8 @@
       "Scale Type / Response Options": "Categorical (11 options): CEO (e.g., Agency Director, Secretary, Administrator, City/County Manager); CFO (e.g., Director of Finance, Budget Director, Comptroller); CIO (e.g., Director of IT); CISO (e.g., Director of Cybersecurity, Chief Security Officer); COO (e.g., Deputy Director, Chief of Staff, Assistant Secretary for Administration); CMO (e.g., Director of Communications, Public Affairs Officer, Chief Marketing & Communications Officer); CTO (e.g., Director of Technology/Innovation, Chief Scientist); CSO (e.g., Director of Strategic Planning, Policy Director, Chief Strategy Officer); CHRO (e.g., Chief Human Capital Officer (CHCO), Director of Human Resources, Personnel Director); CRO (e.g., Director of Budget/Finance, Director of Development/Fundraising, Head of Revenue Operations); Other (please specify)",
       "Qualtrics QID / Export Tag": "QID205 / Q1_Role",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section A: Demographics",
       "Sub-Construct / Grouping": "Role & Organization Demographics",
       "Survey Item (Question Text)": "How would you describe your level of involvement in strategic technology adoption decisions at your organization?",
@@ -44,7 +45,8 @@
       "Scale Type / Response Options": "Categorical (5 options): I am the primary decision-maker for technology adoption in my area of responsibility; I am one of several key decision-makers who collectively decide on technology adoption; I provide significant input and recommendations, but final decisions are made by others; I have limited involvement — I primarily implement technology decisions made by leadership; I have no direct involvement in technology adoption decisions",
       "Qualtrics QID / Export Tag": "QID237 / Q2_DecisionAuth",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section A: Demographics",
       "Sub-Construct / Grouping": "Role & Organization Demographics",
       "Survey Item (Question Text)": "What is the primary industry of your organization?",
@@ -73,7 +75,8 @@
       "Scale Type / Response Options": "Categorical (6 options): <100; 100-499; 500-999; 1000-4999; 5000-9999; 10000+",
       "Qualtrics QID / Export Tag": "QID207 / Q4_OrgSize",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section A: Demographics",
       "Sub-Construct / Grouping": "Role & Organization Demographics",
       "Survey Item (Question Text)": "What is your organization's primary profit model?",
@@ -102,7 +105,8 @@
       "Scale Type / Response Options": "Categorical (6 options): <$10M; $10M-$49M; $50M-$99M; $100M-$499M; $500M-$999M; $1B+",
       "Qualtrics QID / Export Tag": "QID209 / Q6_RevenueBudget",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section A: Demographics",
       "Sub-Construct / Grouping": "Role & Organization Demographics",
       "Survey Item (Question Text)": "What was your personal area of responsibilities approximate annual operating budget in the last fiscal year?",
@@ -131,7 +135,8 @@
       "Scale Type / Response Options": "Categorical (2 options): United States; International",
       "Qualtrics QID / Export Tag": "QID210 / Q8_GeoScope",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section A: Demographics",
       "Sub-Construct / Grouping": "Role & Organization Demographics",
       "Survey Item (Question Text)": "What is your organization's primary geographic scale of operations?",
@@ -160,7 +165,8 @@
       "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
       "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_1",
       "Relationship to Other Items": "maps to B1"
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
       "Sub-Construct / Grouping": "Strategic & Operational Challenges",
       "Survey Item (Question Text)": "Lack of support or clear vision from top leadership (including the board, e.g., governing body, oversight committee).",
@@ -189,7 +195,8 @@
       "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
       "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_3",
       "Relationship to Other Items": "maps to B3"
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
       "Sub-Construct / Grouping": "Resource & Skill Deficiencies",
       "Survey Item (Question Text)": "Insufficient skills or expertise within the workforce to utilize new technologies effectively.",
@@ -218,7 +225,8 @@
       "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
       "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_5",
       "Relationship to Other Items": "maps to B5"
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
       "Sub-Construct / Grouping": "Resource & Skill Deficiencies",
       "Survey Item (Question Text)": "High cost associated with acquiring or implementing new technologies.",
@@ -247,7 +255,8 @@
       "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
       "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_7",
       "Relationship to Other Items": "maps to B7"
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
       "Sub-Construct / Grouping": "Resource & Skill Deficiencies",
       "Survey Item (Question Text)": "Inadequate IT infrastructure (e.g., network, storage, computing power) to support new technologies.",
@@ -276,7 +285,8 @@
       "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
       "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_9",
       "Relationship to Other Items": "maps to B9"
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
       "Sub-Construct / Grouping": "Strategic & Operational Challenges",
       "Survey Item (Question Text)": "Lack of a clear strategy or roadmap for technology adoption.",
@@ -305,7 +315,8 @@
       "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
       "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_11",
       "Relationship to Other Items": "maps to B11"
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
       "Sub-Construct / Grouping": "Strategic & Operational Challenges",
       "Survey Item (Question Text)": "New technologies disrupting existing workflows or processes significantly.",
@@ -334,7 +345,8 @@
       "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
       "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_13",
       "Relationship to Other Items": "maps to B13"
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
       "Sub-Construct / Grouping": "Risk, Trust, & External Factors",
       "Survey Item (Question Text)": "Concerns about data privacy compliance related to new technologies.",
@@ -363,7 +375,8 @@
       "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
       "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_15",
       "Relationship to Other Items": "maps to B15"
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
       "Sub-Construct / Grouping": "Risk, Trust, & External Factors",
       "Survey Item (Question Text)": "Uncertainty or complexity related to regulatory requirements.",
@@ -392,7 +405,8 @@
       "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
       "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_17",
       "Relationship to Other Items": "maps to B17"
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
       "Sub-Construct / Grouping": "Risk, Trust, & External Factors",
       "Survey Item (Question Text)": "Difficulty finding reliable technology vendors or partners.",
@@ -421,7 +435,8 @@
       "Scale Type / Response Options": "Select exactly 3 of 18 barrier items (randomized presentation order)",
       "Qualtrics QID / Export Tag": "QID238 / Q29-46_Top3Barriers",
       "Relationship to Other Items": "Follows barrier severity rating (QID213); replaces removed Q9/Q10 rank-order questions"
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section B: Attention Check",
       "Sub-Construct / Grouping": "Data Quality Control",
       "Survey Item (Question Text)": "The degree to which internal communication gaps slow adoption efforts (select Major Barrier for this item).",
@@ -450,7 +465,8 @@
       "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
       "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_1",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
       "Sub-Construct / Grouping": "Strategic Leadership & Governance",
       "Survey Item (Question Text)": "Alignment of technology strategy with overall organizational goals and mission objectives.",
@@ -464,7 +480,8 @@
       "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
       "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_2",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
       "Sub-Construct / Grouping": "Strategic Leadership & Governance",
       "Survey Item (Question Text)": "Effectiveness of IT governance structures in guiding technology decisions and investments.",
@@ -493,7 +510,8 @@
       "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
       "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_4",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
       "Sub-Construct / Grouping": "Culture & Change Readiness",
       "Survey Item (Question Text)": "Extent to which innovation and experimentation with technology are encouraged and supported.",
@@ -522,7 +540,8 @@
       "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
       "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_6",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
       "Sub-Construct / Grouping": "Workforce & Skills Readiness",
       "Survey Item (Question Text)": "Effectiveness of training programs in preparing employees for new technologies.",
@@ -551,7 +570,8 @@
       "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
       "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_8",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
       "Sub-Construct / Grouping": "Infrastructure & Technology Readiness",
       "Survey Item (Question Text)": "Adequacy and scalability of the current IT infrastructure (network, cloud, hardware).",
@@ -580,7 +600,8 @@
       "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
       "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_10",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
       "Sub-Construct / Grouping": "Infrastructure & Technology Readiness",
       "Survey Item (Question Text)": "Availability and responsiveness of technical support for technology users.",
@@ -609,7 +630,8 @@
       "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
       "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_12",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
       "Sub-Construct / Grouping": "Data & Analytics Readiness",
       "Survey Item (Question Text)": "Overall quality and reliability of organizational data used for decision-making and AI/ML models.",
@@ -638,7 +660,8 @@
       "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
       "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_14",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
       "Sub-Construct / Grouping": "Process & Operational Readiness",
       "Survey Item (Question Text)": "Maturity and efficiency of business processes potentially impacted by new technology.",
@@ -667,7 +690,8 @@
       "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
       "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_16",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
       "Sub-Construct / Grouping": "Financial Readiness",
       "Survey Item (Question Text)": "Adequacy of financial budget allocated for strategic technology adoption and innovation.",
@@ -696,7 +720,8 @@
       "Scale Type / Response Options": "Low Readiness/Capability",
       "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_18",
       "Relationship to Other Items": "Attention check item; expected response: Low Readiness/Capability (instructed-response item)"
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section D: Perceived Maturity of Organizational Capabilities",
       "Sub-Construct / Grouping": "Financial & Value Management",
       "Survey Item (Question Text)": "IT Investment & Value Management: How mature is your organization's approach to selecting, managing, and realizing value from IT investments, ensuring clear alignment with strategic objectives and mission impact?",
@@ -725,7 +750,8 @@
       "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
       "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_2",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section D: Perceived Maturity of Organizational Capabilities",
       "Sub-Construct / Grouping": "Process & Operational Management",
       "Survey Item (Question Text)": "Organizational Process Management & Standardization: How mature is the consistency, standardization, effectiveness, and integration of key organizational processes (e.g., project management, service delivery, operational workflows) that are critical for technology adoption and sustained performance?",
@@ -754,7 +780,8 @@
       "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
       "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_4",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section D: Perceived Maturity of Organizational Capabilities",
       "Sub-Construct / Grouping": "Risk & Resilience",
       "Survey Item (Question Text)": "Technology Risk & Resilience Management: How mature is your organization's integrated approach to identifying, assessing, proactively managing, and governing technology-related risks (including cybersecurity, data privacy, vendor risks, and operational disruptions) to ensure business resilience and compliance?",
@@ -783,7 +810,8 @@
       "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
       "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_6",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section D: Perceived Maturity of Organizational Capabilities",
       "Sub-Construct / Grouping": "Workforce & Talent",
       "Survey Item (Question Text)": "Workforce Capability & Talent Development: How mature is your organization's systematic approach to planning for, attracting, developing, retaining, and managing personnel with the necessary skills, competencies, and roles to effectively implement, manage, support, and leverage technology?",
@@ -812,7 +840,8 @@
       "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
       "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_8",
       "Relationship to Other Items": ""
-    },    {
+    },
+    {
       "Section / Primary Construct": "Section D: Attention Check",
       "Sub-Construct / Grouping": "Data Quality Control",
       "Survey Item (Question Text)": "Internal Process Alignment: For this item, to confirm careful reading, please select Level 2: Developing/Repeatable.",
