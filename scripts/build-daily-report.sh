@@ -5,7 +5,7 @@ set -euo pipefail
 # Reads artifacts from previous workflow steps and creates a GitHub issue.
 #
 # Required env vars: GH_TOKEN, RUN_URL, ARTIFACTS_DIR, PREV_FILE
-# Optional: TRIAGE_RESULT, APPROVE_RESULT, MESSAGE_RESULT, DASHBOARD_RESULT
+# Optional: TRIAGE_RESULT, APPROVE_RESULT_STATUS, MESSAGE_RESULT, DASHBOARD_RESULT
 
 DATE=$(date -u +"%Y-%m-%d")
 ARTIFACTS_DIR="${ARTIFACTS_DIR:-.}"

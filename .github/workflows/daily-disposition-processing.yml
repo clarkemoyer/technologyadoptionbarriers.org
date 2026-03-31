@@ -64,8 +64,10 @@ jobs:
 
       - name: Extract triage metrics
         run: |
+          set -euo pipefail
           # Extract total (handle case where no responses exist)
-          grep "Total responses" ${{ runner.temp }}/triage-output.txt | sed 's/.*\*\*Total responses:\*\* //' > ${{ runner.temp }}/triage-total.txt || echo "0" > ${{ runner.temp }}/triage-total.txt
+          total_line="$(grep -m1 '\*\*Total responses:\*\*' ${{ runner.temp }}/triage-output.txt || echo '**Total responses:** 0')"
+          printf '%s\n' "$total_line" | sed 's/.*\*\*Total responses:\*\* //' > ${{ runner.temp }}/triage-total.txt
           # Extract breakdown table rows (handle empty)
           grep -E "^\|" ${{ runner.temp }}/triage-output.txt | grep -v "Disposition\|---" > ${{ runner.temp }}/triage-breakdown.txt || true
 
