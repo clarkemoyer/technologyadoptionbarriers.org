@@ -415,14 +415,27 @@ def main():
     print("\n" + "="*80)
     print("TABS SURVEY INSTRUMENT VALIDATION & DATA QUALITY REPORT")
     print("="*80)
-    print(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S EST')}")
+    print(f"Generated: {datetime.now().astimezone().isoformat(timespec='seconds')}")
     print(f"Data Source: {CSV_PATH}")
+    import os
+    print(f"Source Filename: {os.path.basename(CSV_PATH)}")
 
     # Load and encode data
     df_raw = load_data()
     df = encode_scales(df_raw)
 
-    print(f"\nTotal records in export: {len(df_raw)}")
+    total_records = len(df_raw)
+
+    # Apply V2 threshold filter so Part I analyses use only V2+ data
+    if 'StartDate' in df_raw.columns:
+        v2_mask = df_raw['StartDate'] >= V2_THRESHOLD
+        df_raw = df_raw.loc[v2_mask].reset_index(drop=True)
+        df = df.loc[v2_mask].reset_index(drop=True)
+        print(f"\nTotal records in export: {total_records}")
+        print(f"Records at or after V2 threshold ({V2_THRESHOLD}): {len(df_raw)}")
+    else:
+        print(f"\nTotal records in export: {total_records}")
+        print("Warning: StartDate column not found; V2 threshold filter not applied.")
 
     # ========================================================================
     # PART I: INSTRUMENT VALIDATION
@@ -956,9 +969,9 @@ def main():
                         ("Maturity", MATURITY_ITEM_COLS)]:
         distances = mahalanobis_distance(df[cols])
         if distances:
-            # Chi-square critical value for p=0.05, df=n_items
+            # Chi-square critical value for p=0.05, df=n_items (compare against D²)
             chi2_critical = stats.chi2.ppf(0.95, len(cols))
-            outliers = [idx for idx, d in distances.items() if d > chi2_critical]
+            outliers = [idx for idx, d in distances.items() if d**2 > chi2_critical]
             print(f"  {name}: {len(outliers):3d} outliers (out of {len(distances)} cases)")
 
     # ========================================================================
@@ -1216,7 +1229,7 @@ def main():
         print(f"  ✗ Clean sample size ({n_clean}) may be insufficient")
 
     print(f"\n" + "="*80)
-    print(f"Report generation complete: {datetime.now().strftime('%Y-%m-%d %H:%M:%S EST')}")
+    print(f"Report generation complete: {datetime.now().astimezone().isoformat(timespec='seconds')}")
     print("="*80 + "\n")
 
 if __name__ == '__main__':
