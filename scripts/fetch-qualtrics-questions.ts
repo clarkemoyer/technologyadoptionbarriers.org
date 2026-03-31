@@ -18,8 +18,9 @@ async function main() {
     console.log(`🔍 Connecting to Qualtrics API (${BASE_URL})...`)
     console.log(`📊 Fetching questions for survey: ${SURVEY_ID}\n`)
 
-    const data = await getSurveyQuestions(SURVEY_ID, API_TOKEN, BASE_URL)
-    const questions = Object.values(data.Questions)
+    const data: any = await getSurveyQuestions(SURVEY_ID, API_TOKEN, BASE_URL)
+    console.log('RAW DATA DUMP:', JSON.stringify(data, null, 2))
+    const questions = data.elements || Object.values(data.Questions || {})
 
     console.log(`Found ${questions.length} questions:\n`)
 
