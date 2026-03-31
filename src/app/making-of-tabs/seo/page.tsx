@@ -2,6 +2,10 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 import seoMetrics from '@/data/seo-metrics.json'
+import seoTimeSeries from '@/data/seo-time-series.json'
+import dynamic from 'next/dynamic'
+
+const SEOHistoryChart = dynamic(() => import('@/components/tabs/seo-history-chart'))
 
 export const metadata: Metadata = {
   title: 'SEO Transparency & Dashboard — Making of TABS',
@@ -202,6 +206,8 @@ const SEOTransparencyPage = () => {
               </span>
             </div>
           </div>
+
+          <SEOHistoryChart data={seoTimeSeries} />
         </section>
 
         {/* ── Content Integrity ── */}
@@ -277,7 +283,7 @@ const SEOTransparencyPage = () => {
         <section className="mb-12 text-gray-800" id="keywords">
           <h2 className={H2_CLASSES}>Keyword Visibility Search Volumes</h2>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm border border-gray-200 rounded-lg whitespace-nowrap">
+            <table className="w-full text-sm border border-gray-200 rounded-lg">
               <thead>
                 <tr className="bg-gray-100">
                   <th className="text-left p-3 font-semibold border-b border-gray-200">
@@ -298,7 +304,8 @@ const SEOTransparencyPage = () => {
               </thead>
               <tbody>
                 {seoMetrics.topKeywords.map((kw) => {
-                  const positionDifference = kw.previousPosition - kw.position
+                  const positionDifference =
+                    kw.previousPosition !== null ? kw.previousPosition - kw.position : 0
                   return (
                     <tr key={kw.keyword} className="border-b border-gray-100 hover:bg-gray-50">
                       <td className="p-3 font-medium text-gray-800">{kw.keyword}</td>

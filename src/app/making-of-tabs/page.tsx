@@ -149,6 +149,16 @@ const MakingOfTabsPage = () => {
           </div>
 
           <div className="mb-8">
+            <h3 className={H3_CLASSES}>Google Search Console (GSC)</h3>
+            <p className="mb-4">
+              To monitor our organic search visibility and ensure technical SEO health, we leverage
+              the <strong>Google Search Console API</strong>. Daily automated workflows fetch
+              impression data, keyword positioning, and click-through rates, flagging any
+              algorithmic regressions immediately.
+            </p>
+          </div>
+
+          <div className="mb-8">
             <h3 className={H3_CLASSES}>Google Tag Manager (GTM)</h3>
             <p className="mb-4">
               <strong>Google Tag Manager</strong> acts as the command center for our analytic tags.

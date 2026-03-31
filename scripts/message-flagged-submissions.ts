@@ -19,7 +19,12 @@
  *                           Supports: single PID, comma-separated batch, or empty for all
  */
 
-import { getCurrentUser, sendMessage, listUserMessages } from '../src/lib/prolific-api'
+import {
+  getCurrentUser,
+  sendMessage,
+  listUserMessages,
+  listStudySubmissions,
+} from '../src/lib/prolific-api'
 import { appendGithubStepSummary, mdEscape } from '../src/lib/github-utils'
 import { readFileSync } from 'node:fs'
 import { parseCsvLine } from '../src/lib/disposition'
@@ -36,6 +41,9 @@ const VALID_DISPOSITIONS = [
   'FLAG-PARTIAL-STRAIGHTLINING',
   'AUTO-EXCLUDE:SPEED_IRI',
   'AUTO-EXCLUDE:IRI2_RETURN',
+  'AUTO-EXCLUDE:IRI3_RETURN',
+  'AUTO-EXCLUDE:IRI3_SPEED_RETURN',
+  'AUTO-EXCLUDE:IRI2_SPEED_RETURN',
 ] as const
 
 type FlagDisposition = (typeof VALID_DISPOSITIONS)[number]
@@ -49,7 +57,49 @@ interface FlaggedRecord {
   disposition: FlagDisposition
   duration: number
   partialStraightliningBlocks: string
+  iriBarrierPass: number
+  iriReadinessPass: number
+  iriMaturityPass: number
   message: string
+}
+
+/* ------------------------------------------------------------------ */
+/*  IRI failure details                                                */
+/* ------------------------------------------------------------------ */
+
+const IRI_DETAILS = {
+  barrier: {
+    label: 'Barrier attention check',
+    expected: 'Major Barrier',
+  },
+  readiness: {
+    label: 'Readiness attention check',
+    expected: 'Low Readiness/Capability',
+  },
+  maturity: {
+    label: 'Maturity attention check',
+    expected: 'Level 2: Developing/Repeatable',
+  },
+}
+
+function buildIriFailureList(record: Omit<FlaggedRecord, 'message'>): string {
+  const failures: string[] = []
+  if (record.iriBarrierPass === 0) {
+    failures.push(
+      `(${failures.length + 1}) ${IRI_DETAILS.barrier.label}: the item asked you to select "${IRI_DETAILS.barrier.expected}" but a different answer was recorded`
+    )
+  }
+  if (record.iriReadinessPass === 0) {
+    failures.push(
+      `(${failures.length + 1}) ${IRI_DETAILS.readiness.label}: the item asked you to select "${IRI_DETAILS.readiness.expected}" but a different answer was recorded`
+    )
+  }
+  if (record.iriMaturityPass === 0) {
+    failures.push(
+      `(${failures.length + 1}) ${IRI_DETAILS.maturity.label}: the item asked you to select "${IRI_DETAILS.maturity.expected}" but a different answer was recorded`
+    )
+  }
+  return failures.join('. ') + '.'
 }
 
 /* ------------------------------------------------------------------ */
@@ -58,6 +108,7 @@ interface FlaggedRecord {
 
 function buildFlagMessage(record: Omit<FlaggedRecord, 'message'>): string {
   const minutes = (record.duration / 60).toFixed(1)
+  const iriDetails = buildIriFailureList(record)
 
   switch (record.disposition) {
     case 'FLAG-SPEED':
@@ -76,6 +127,7 @@ function buildFlagMessage(record: Omit<FlaggedRecord, 'message'>): string {
         'Hi, thank you for participating in our Technology Adoption Barriers Survey.',
         'We are reviewing your submission because 1 of 3 embedded attention checks',
         'was answered differently than expected.',
+        `Specifically: ${iriDetails}`,
         'This may have been an oversight.',
         'Could you confirm that you read each question carefully?',
         'We want to treat all participants fairly.',
@@ -138,12 +190,67 @@ function buildFlagMessage(record: Omit<FlaggedRecord, 'message'>): string {
         'Hi, thank you for participating in our Technology Adoption Barriers Survey.',
         'After reviewing your submission, we found that 2 of 3 embedded attention check',
         'questions were answered differently than the instructions specified.',
-        'These items are designed to confirm that respondents are reading each question carefully.',
+        `Specifically: ${iriDetails}`,
+        'These items are designed to confirm that respondents are reading each question carefully,',
+        'and are critical to ensuring the highest quality data for our research.',
         'Rather than rejecting your submission (which would negatively impact your Prolific record),',
         'we would like to offer you the option to return it voluntarily.',
         'To return your submission, go to your Prolific Submissions page and click the',
         'circular arrow icon next to this study to "Return and cancel reward".',
         'If you believe you did answer the attention checks correctly and would like to discuss,',
+        'please reply to this message within 48 hours and we will review further.',
+        'We appreciate your participation and want to treat all participants fairly.',
+      ].join(' ')
+
+    case 'AUTO-EXCLUDE:IRI3_RETURN':
+      return [
+        'Hi, thank you for participating in our Technology Adoption Barriers Survey.',
+        'After reviewing your submission, we found that all 3 of the embedded attention check',
+        'questions were answered differently than the instructions specified.',
+        `Specifically: ${iriDetails}`,
+        'These items are designed to confirm that respondents are reading each question carefully,',
+        'and are critical to ensuring the highest quality data for our research.',
+        'Rather than rejecting your submission (which would negatively impact your Prolific record),',
+        'we would like to offer you the option to return it voluntarily.',
+        'To return your submission, go to your Prolific Submissions page and click the',
+        'circular arrow icon next to this study to "Return and cancel reward".',
+        'If you believe you did answer the attention checks correctly and would like to discuss,',
+        'please reply to this message within 48 hours and we will review further.',
+        'We appreciate your participation and want to treat all participants fairly.',
+      ].join(' ')
+
+    case 'AUTO-EXCLUDE:IRI3_SPEED_RETURN':
+      return [
+        'Hi, thank you for participating in our Technology Adoption Barriers Survey.',
+        `After reviewing your submission, we found that it was completed in ${minutes} minutes`,
+        '(below our 5-minute minimum) and all 3 of the embedded attention check questions',
+        'were answered differently than the instructions specified.',
+        `Specifically: ${iriDetails}`,
+        'Both completion speed and attention checks are critical to ensuring the highest',
+        'quality data for our research.',
+        'Rather than rejecting your submission (which would negatively impact your Prolific record),',
+        'we would like to offer you the option to return it voluntarily.',
+        'To return your submission, go to your Prolific Submissions page and click the',
+        'circular arrow icon next to this study to "Return and cancel reward".',
+        'If you believe this is an error and would like to discuss,',
+        'please reply to this message within 48 hours and we will review further.',
+        'We appreciate your participation and want to treat all participants fairly.',
+      ].join(' ')
+
+    case 'AUTO-EXCLUDE:IRI2_SPEED_RETURN':
+      return [
+        'Hi, thank you for participating in our Technology Adoption Barriers Survey.',
+        `After reviewing your submission, we found that it was completed in ${minutes} minutes`,
+        '(below our 5-minute minimum) and 2 of 3 embedded attention check questions',
+        'were answered differently than the instructions specified.',
+        `Specifically: ${iriDetails}`,
+        'Both completion speed and attention checks are critical to ensuring the highest',
+        'quality data for our research.',
+        'Rather than rejecting your submission (which would negatively impact your Prolific record),',
+        'we would like to offer you the option to return it voluntarily.',
+        'To return your submission, go to your Prolific Submissions page and click the',
+        'circular arrow icon next to this study to "Return and cancel reward".',
+        'If you believe this is an error and would like to discuss,',
         'please reply to this message within 48 hours and we will review further.',
         'We appreciate your participation and want to treat all participants fairly.',
       ].join(' ')
@@ -170,7 +277,13 @@ function getMessageSignature(disposition: FlagDisposition): string {
     case 'AUTO-EXCLUDE:SPEED_IRI':
       return 'What is your professional background and role'
     case 'AUTO-EXCLUDE:IRI2_RETURN':
-      return 'offer you the option to return it voluntarily'
+      return '2 of 3 embedded attention check questions were answered differently'
+    case 'AUTO-EXCLUDE:IRI3_RETURN':
+      return 'all 3 of the embedded attention check questions were answered differently'
+    case 'AUTO-EXCLUDE:IRI3_SPEED_RETURN':
+      return 'all 3 of the embedded attention check questions were answered differently'
+    case 'AUTO-EXCLUDE:IRI2_SPEED_RETURN':
+      return '2 of 3 embedded attention check questions were answered differently'
   }
 }
 
@@ -267,6 +380,9 @@ async function main() {
   const partialBlocksIdx = col('Partial_Straightlining_Blocks')
   const iriFailIdx = col('IRI_Fail_Count')
   const speedIdx = col('Speed_Flag')
+  const iriBarrierIdx = col('IRI_Barrier_Pass')
+  const iriReadinessIdx = col('IRI_Readiness_Pass')
+  const iriMaturityIdx = col('IRI_Maturity_Pass')
 
   const records: FlaggedRecord[] = []
 
@@ -285,6 +401,18 @@ async function main() {
       const iriFail = parseInt(fields[iriFailIdx] ?? '0', 10)
       const speed = parseInt(fields[speedIdx] ?? '0', 10)
       matches = disposition === 'AUTO-EXCLUDE' && iriFail === 2 && speed === 0
+    } else if (dispositionFilter === 'AUTO-EXCLUDE:IRI3_RETURN') {
+      const iriFail = parseInt(fields[iriFailIdx] ?? '0', 10)
+      const speed = parseInt(fields[speedIdx] ?? '0', 10)
+      matches = disposition === 'AUTO-EXCLUDE' && iriFail >= 3 && speed === 0
+    } else if (dispositionFilter === 'AUTO-EXCLUDE:IRI3_SPEED_RETURN') {
+      const iriFail = parseInt(fields[iriFailIdx] ?? '0', 10)
+      const speed = parseInt(fields[speedIdx] ?? '0', 10)
+      matches = disposition === 'AUTO-EXCLUDE' && iriFail >= 3 && speed === 1
+    } else if (dispositionFilter === 'AUTO-EXCLUDE:IRI2_SPEED_RETURN') {
+      const iriFail = parseInt(fields[iriFailIdx] ?? '0', 10)
+      const speed = parseInt(fields[speedIdx] ?? '0', 10)
+      matches = disposition === 'AUTO-EXCLUDE' && iriFail === 2 && speed === 1
     } else {
       matches = disposition === dispositionFilter
     }
@@ -296,6 +424,9 @@ async function main() {
       disposition: dispositionFilter,
       duration: parseInt(fields[durationIdx] ?? '0', 10) || 0,
       partialStraightliningBlocks: (fields[partialBlocksIdx] ?? '').trim(),
+      iriBarrierPass: parseInt(fields[iriBarrierIdx] ?? '0', 10),
+      iriReadinessPass: parseInt(fields[iriReadinessIdx] ?? '0', 10),
+      iriMaturityPass: parseInt(fields[iriMaturityIdx] ?? '0', 10),
     }
 
     records.push({
@@ -349,12 +480,13 @@ async function main() {
     console.log('')
   }
 
-  /* ---------- Verify API connection ---------------------------------- */
+  /* ---------- Verify API connection + build submission ID map ---------- */
 
   console.log('Verifying Prolific API connection...')
   const user = await getCurrentUser(apiToken)
   console.log(`Connected as: ${user.name} (${user.email})`)
-  console.log('')
+
+  const SKIP_STATUSES = new Set(['APPROVED', 'REJECTED', 'RETURNED', 'TIMED-OUT'])
 
   /* ---------- Execute or dry run ------------------------------------- */
 
@@ -374,12 +506,31 @@ async function main() {
     console.log('================================================================')
     console.log('')
 
+    // Fetch fresh submission statuses right before sending (minimizes race window)
+    console.log('Fetching fresh submission statuses...')
+    const freshSubs = await listStudySubmissions(studyId, apiToken)
+    const statusMap = new Map<string, string>()
+    for (const s of freshSubs.results || []) {
+      statusMap.set(s.participant_id, s.status)
+    }
+    console.log(`Loaded ${statusMap.size} statuses`)
+    console.log('')
+
     let sent = 0
     let failed = 0
     let skippedAlreadyMessaged = 0
+    let skippedAlreadyActioned = 0
 
     for (const r of filtered) {
       try {
+        // Check submission status (fresh batch fetched right before this loop)
+        const submissionStatus = statusMap.get(r.pid)
+        if (submissionStatus && SKIP_STATUSES.has(submissionStatus)) {
+          skippedAlreadyActioned++
+          console.log(`  SKIPPED ${r.pid} — submission is ${submissionStatus}`)
+          continue
+        }
+
         // Check if participant already received this same message
         const existingMsgs = await listUserMessages(r.pid, apiToken)
         const studyMessages = (existingMsgs.results || []).filter(
@@ -416,7 +567,7 @@ async function main() {
 
     console.log('')
     console.log(
-      `SENT: ${sent} | SKIPPED (already messaged): ${skippedAlreadyMessaged} | FAILED: ${failed}`
+      `SENT: ${sent} | SKIPPED (already actioned): ${skippedAlreadyActioned} | SKIPPED (already messaged): ${skippedAlreadyMessaged} | FAILED: ${failed}`
     )
   }
 

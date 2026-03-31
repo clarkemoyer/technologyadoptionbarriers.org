@@ -164,6 +164,12 @@ This index provides a comprehensive guide to all documentation in the TABS repos
 - Workflow: `.github/workflows/ga-report.yml`
 - Scripts: `scripts/generate-report.ts`, `scripts/send-report-email.ts`
 
+**Google Search Console API v1:**
+
+- **[API_INTEGRATION_GUIDE.md#google-search-console-api-v1](./API_INTEGRATION_GUIDE.md#google-search-console-api-v1)** - SEO benchmarking and keyword transparency
+- Workflow: `.github/workflows/seo-dashboard-sync.yml`
+- Scripts: `scripts/update-seo-dashboard-sync.ts`
+
 ### MCP Server Documentation
 
 **[MCP_SERVERS.md](./MCP_SERVERS.md)** - **MCP CONFIGURATION**

@@ -12,9 +12,18 @@ on:
           - all-replies
           - send-thank-you
           - unreject
+          - send-custom
+          - awaiting-report
+          - request-return
+          - search-messages
+          - find-url-replies
         default: 'single'
       pid:
-        description: 'Prolific Participant ID (required for single mode)'
+        description: 'Prolific Participant ID (required for single/send-custom mode)'
+        required: false
+        type: string
+      message:
+        description: 'Custom message body (required for send-custom mode)'
         required: false
         type: string
       study_id:
@@ -37,6 +46,114 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci
+
+      - name: Find URL replies
+        if: inputs.mode == 'find-url-replies'
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+        run: npx --no-install tsx scripts/find-url-reply.ts
+
+      - name: Search messages
+        if: inputs.mode == 'search-messages'
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          SEARCH_TERM: ${{ inputs.message }}
+        run: |
+          npx --no-install tsx -e "
+          import { listStudySubmissions } from './src/lib/prolific-api';
+          async function main() {
+            const token = process.env.PROLIFIC_API_TOKEN!;
+            const studyId = process.env.STUDY_ID!;
+            const term = process.env.SEARCH_TERM!;
+            console.log('Searching for:', term);
+            const subs = await listStudySubmissions(studyId, token);
+            for (const sub of subs.results || []) {
+              try {
+                const resp = await fetch('https://api.prolific.com/api/v1/messages/?user_id=' + sub.participant_id, {
+                  headers: { 'Authorization': 'Token ' + token }
+                });
+                if (resp.ok) {
+                  const data = await resp.json() as any;
+                  const match = (data.results || []).some((m: any) => m.body && m.body.toLowerCase().includes(term.toLowerCase()));
+                  if (match) {
+                    console.log('');
+                    console.log('FOUND: ' + sub.participant_id + ' | Status: ' + sub.status + ' | Time: ' + ((sub.time_taken || 0) / 60).toFixed(1) + ' min');
+                    for (const m of data.results || []) {
+                      if (m.body.toLowerCase().includes(term.toLowerCase())) {
+                        console.log('  MSG: ' + m.body.substring(0, 300));
+                      }
+                    }
+                  }
+                }
+              } catch {}
+            }
+          }
+          main().catch(e => { console.error(e); process.exit(1); });
+          "
+
+      - name: Request return
+        if: inputs.mode == 'request-return'
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          PID: ${{ inputs.pid }}
+        run: |
+          npx --no-install tsx -e "
+          import { listStudySubmissions } from './src/lib/prolific-api';
+          async function main() {
+            const token = process.env.PROLIFIC_API_TOKEN!;
+            const studyId = process.env.STUDY_ID!;
+            const pid = process.env.PID!;
+
+            console.log('Looking up submission ID for PID:', pid);
+            const subs = await listStudySubmissions(studyId, token);
+            const sub = (subs.results || []).find((s: any) => s.participant_id === pid);
+            if (!sub) { console.error('No submission found'); process.exit(1); }
+            console.log('Submission ID:', sub.id, 'Status:', sub.status);
+
+            if (sub.status !== 'AWAITING REVIEW') {
+              console.log('Cannot request return — status is', sub.status);
+              process.exit(1);
+            }
+
+            console.log('Requesting return via API...');
+            const url = 'https://api.prolific.com/api/v1/submissions/' + sub.id + '/request-return/';
+            const resp = await fetch(url, {
+              method: 'POST',
+              headers: {
+                'Authorization': 'Token ' + token,
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                request_return_reasons: [
+                  'Failed embedded attention check questions designed to confirm careful reading'
+                ]
+              }),
+            });
+
+            const body = await resp.text();
+            console.log('Response:', resp.status, body);
+
+            if (!resp.ok) {
+              console.error('Return request failed:', resp.status);
+              process.exit(1);
+            }
+            console.log('Return requested successfully for', pid);
+          }
+          main().catch(e => { console.error(e); process.exit(1); });
+          "
+
+      - name: Send custom message
+        if: inputs.mode == 'send-custom'
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          PID: ${{ inputs.pid }}
+          MESSAGE: ${{ inputs.message }}
+          DRY_RUN: 'false'
+        run: npx --no-install tsx scripts/send-custom-message.ts
 
       - name: Unreject submissions
         if: inputs.mode == 'unreject'
@@ -142,6 +259,60 @@ jobs:
           }
           main().catch(e => { console.error(e); process.exit(1); });
           "
+
+  triage-for-report:
+    name: Export & Triage (for report)
+    if: inputs.mode == 'awaiting-report'
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Export Qualtrics responses
+        run: npx --no-install tsx scripts/export-qualtrics-responses.ts
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+      - name: Run disposition triage
+        run: npx --no-install tsx scripts/disposition-triage.ts
+        env:
+          INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+          OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
+      - uses: actions/upload-artifact@v7
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}/disposition.csv
+          retention-days: 1
+
+  awaiting-report:
+    name: Awaiting Review Report
+    if: inputs.mode == 'awaiting-report'
+    needs: triage-for-report
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - uses: actions/download-artifact@v8
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}
+      - name: Generate awaiting review report
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
+        run: npx --no-install tsx scripts/awaiting-review-report.ts
 
   verify-iri:
     name: Verify IRI Answers
