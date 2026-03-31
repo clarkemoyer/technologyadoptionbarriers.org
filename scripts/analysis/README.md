@@ -2,6 +2,14 @@
 
 Reproducible analysis pipeline for the Technology Adoption Barriers Survey (TABS) V2 dataset.
 
+## Prerequisites
+
+The following Python packages are required to run these scripts:
+
+```bash
+pip install pandas numpy scipy scikit-learn
+```
+
 ## Scripts
 
 | Script                     | Purpose                                                                                                           |

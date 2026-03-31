@@ -19,7 +19,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from datetime import datetime
 import warnings
-warnings.filterwarnings('ignore')
+# Suppress only specific known-noisy warnings, not all warnings
+warnings.filterwarnings('ignore', category=FutureWarning)
+warnings.filterwarnings('ignore', category=RuntimeWarning)
 
 # ============================================================================
 # CONSTANTS & CONFIGURATION
@@ -426,6 +428,9 @@ def main():
 
     total_records = len(df_raw)
 
+    # Keep full export for disposition funnel reporting in Part II
+    df_all = df_raw.copy()
+
     # Apply V2 threshold filter so Part I analyses use only V2+ data
     if 'StartDate' in df_raw.columns:
         v2_mask = df_raw['StartDate'] >= V2_THRESHOLD
@@ -777,24 +782,24 @@ def main():
     print("\n\n6. SAMPLE CHARACTERISTICS & REPRESENTATIVENESS")
     print("-" * 80)
 
-    # Disposition funnel
-    df['IsV2'] = df['StartDate'] >= pd.to_datetime(V2_THRESHOLD, errors='coerce')
-    n_v2 = df['IsV2'].sum()
+    # Disposition funnel (use unfiltered df_all to show baseline from full export)
+    df_all['IsV2'] = df_all['StartDate'] >= pd.to_datetime(V2_THRESHOLD, errors='coerce')
+    n_v2 = df_all['IsV2'].sum()
 
-    df['Duration_Filter'] = df['Duration (in seconds)'] >= 480
-    n_duration_filtered = df['Duration_Filter'].sum()
+    df_all['Duration_Filter'] = df_all['Duration (in seconds)'] >= 480
+    n_duration_filtered = df_all['Duration_Filter'].sum()
 
-    n_iri_pass = df['IRI_All_Pass'].sum()
+    n_iri_pass = df_all['IRI_All_Pass'].sum()
 
-    clean_df = df[df['IsV2'] & df['Duration_Filter'] & df['IRI_All_Pass']]
+    clean_df = df_all[df_all['IsV2'] & df_all['Duration_Filter'] & df_all['IRI_All_Pass']]
     n_clean = len(clean_df)
 
     print(f"\nDisposition Funnel:")
-    print(f"  All records:           {len(df):3d}")
-    print(f"  V2 (≥ 2026-03-23 14:00): {n_v2:3d} ({n_v2/len(df)*100:5.1f}%)")
-    print(f"  Duration ≥ 480s:       {n_duration_filtered:3d} ({n_duration_filtered/len(df)*100:5.1f}% of all)")
-    print(f"  IRI All Pass:          {n_iri_pass:3d} ({n_iri_pass/len(df)*100:5.1f}% of all)")
-    print(f"  Clean (V2+Duration+IRI): {n_clean:3d} ({n_clean/len(df)*100:5.1f}% of all)")
+    print(f"  All records:           {len(df_all):3d}")
+    print(f"  V2 (≥ 2026-03-23 14:00): {n_v2:3d} ({n_v2/len(df_all)*100:5.1f}%)")
+    print(f"  Duration ≥ 480s:       {n_duration_filtered:3d} ({n_duration_filtered/len(df_all)*100:5.1f}% of all)")
+    print(f"  IRI All Pass:          {n_iri_pass:3d} ({n_iri_pass/len(df_all)*100:5.1f}% of all)")
+    print(f"  Clean (V2+Duration+IRI): {n_clean:3d} ({n_clean/len(df_all)*100:5.1f}% of all)")
 
     # Duration distribution
     print(f"\nDuration Distribution (seconds):")
