@@ -116,7 +116,8 @@ $TRIAGE_BREAKDOWN
 ## Messages Sent
 
 | Disposition | Sent | Skipped (actioned) | Skipped (messaged) | Failed |
-|---|---:|---:|---:|---:|$MSG_ROWS
+|---|---:|---:|---:|---:|
+$MSG_ROWS
 
 **Total new messages sent:** $TOTAL_SENT
 **Total failed:** $TOTAL_FAILED
