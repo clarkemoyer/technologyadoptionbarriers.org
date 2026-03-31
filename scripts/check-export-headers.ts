@@ -48,10 +48,12 @@ const keyColumns = [
 
 console.log('')
 console.log('=== Key column verification ===')
+let missingColumns = 0
 for (const col of keyColumns) {
   const idx = headers.findIndex((h) => h === col)
   if (idx === -1) {
     console.log(`*** ${col}: NOT FOUND ***`)
+    missingColumns++
     continue
   }
 
@@ -69,6 +71,11 @@ for (const col of keyColumns) {
   }
 
   console.log(`${col} [${idx}]: ${nonEmpty}/${total} non-empty | samples: ${samples.join(' | ')}`)
+}
+
+if (missingColumns > 0) {
+  console.error(`\n${missingColumns} required column(s) missing from export. Failing.`)
+  process.exit(1)
 }
 
 // Detailed straightlining breakdown

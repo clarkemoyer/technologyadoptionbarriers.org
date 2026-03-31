@@ -54,7 +54,7 @@ APPROVE_CLEAN_COUNT="0"
 APPROVE_RESULT="No data"
 if [ -f "$ARTIFACTS_DIR/approve-metrics/approve-output.txt" ]; then
   APPROVE_CLEAN_COUNT=$(grep "CLEAN dispositions" "$ARTIFACTS_DIR/approve-metrics/approve-output.txt" | head -1 | grep -o '[0-9]*' | head -1 || echo "0")
-  APPROVE_RESULT=$(grep "Successfully approved\|No CLEAN" "$ARTIFACTS_DIR/approve-metrics/approve-output.txt" | head -1 || echo "No data")
+  APPROVE_RESULT=$(grep "Successfully approved\|No CLEAN\|No participants with CLEAN disposition found\|Nothing to approve" "$ARTIFACTS_DIR/approve-metrics/approve-output.txt" | head -1 || echo "No data")
 fi
 
 # --- Message data ---
@@ -66,15 +66,21 @@ for f in "$ARTIFACTS_DIR"/message-metrics-*/message-output.txt; do
   DISP=$(grep "Disposition filter:" "$f" | head -1 | sed 's/.*filter: //' || true)
   [ -z "$DISP" ] && DISP=$(grep "DISPOSITION_FILTER:" "$f" | head -1 | sed 's/.*DISPOSITION_FILTER: //' || true)
   SENT_LINE=$(grep "SENT:" "$f" | tail -1 || true)
-  if [ -n "$DISP" ] && [ -n "$SENT_LINE" ]; then
-    SENT=$(echo "$SENT_LINE" | sed -n 's/.*SENT: \([0-9]*\).*/\1/p')
-    ACTIONED=$(echo "$SENT_LINE" | sed -n 's/.*already actioned): \([0-9]*\).*/\1/p')
-    MESSAGED=$(echo "$SENT_LINE" | sed -n 's/.*already messaged): \([0-9]*\).*/\1/p')
-    FAILED=$(echo "$SENT_LINE" | sed -n 's/.*FAILED: \([0-9]*\).*/\1/p')
-    MSG_ROWS="$MSG_ROWS
+  if [ -n "$DISP" ]; then
+    if [ -n "$SENT_LINE" ]; then
+      SENT=$(echo "$SENT_LINE" | sed -n 's/.*SENT: \([0-9]*\).*/\1/p')
+      ACTIONED=$(echo "$SENT_LINE" | sed -n 's/.*already actioned): \([0-9]*\).*/\1/p')
+      MESSAGED=$(echo "$SENT_LINE" | sed -n 's/.*already messaged): \([0-9]*\).*/\1/p')
+      FAILED=$(echo "$SENT_LINE" | sed -n 's/.*FAILED: \([0-9]*\).*/\1/p')
+      MSG_ROWS="$MSG_ROWS
 | $DISP | ${SENT:-0} | ${ACTIONED:-0} | ${MESSAGED:-0} | ${FAILED:-0} |"
-    TOTAL_SENT=$((TOTAL_SENT + ${SENT:-0}))
-    TOTAL_FAILED=$((TOTAL_FAILED + ${FAILED:-0}))
+      TOTAL_SENT=$((TOTAL_SENT + ${SENT:-0}))
+      TOTAL_FAILED=$((TOTAL_FAILED + ${FAILED:-0}))
+    else
+      # No participants matched this disposition — show 0/0/0/0 so it still appears in report
+      MSG_ROWS="$MSG_ROWS
+| $DISP | 0 | 0 | 0 | 0 |"
+    fi
   fi
 done
 
@@ -96,7 +102,7 @@ cat >> /tmp/report-body.md << STATUSEOF
 
 ## Disposition Triage
 
-**Total triaged responses:** $TRIAGE_TOTAL ($(dfmt $DELTA_TOTAL) new)
+**Total triaged responses:** $TRIAGE_TOTAL ($(dfmt $DELTA_TOTAL) change in Prolific submissions)
 
 | Disposition | Count | % |
 |---|---:|---:|
