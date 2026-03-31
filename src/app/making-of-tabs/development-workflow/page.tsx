@@ -242,6 +242,15 @@ const DevelopmentWorkflowPage = () => {
             </div>
 
             <div className="p-4 rounded-lg border border-gray-200">
+              <h3 className="font-bold text-gray-900 mb-1">SEO Dashboard Sync</h3>
+              <p className="text-sm text-gray-700">
+                Runs at 01:00 UTC. Queries the Google Search Console API and GA4 to update the
+                public SEO Transparency Dashboard and flags significant traffic regressions via
+                GitHub Issues.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-lg border border-gray-200">
               <h3 className="font-bold text-gray-900 mb-1">Qualtrics Metrics Update</h3>
               <p className="text-sm text-gray-700">
                 Periodically fetches survey question count and response counts from the Qualtrics
