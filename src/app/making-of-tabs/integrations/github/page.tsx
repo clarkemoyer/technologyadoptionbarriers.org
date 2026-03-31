@@ -5,7 +5,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'GitHub Integration — Making of TABS',
   description:
-    'How TABS uses GitHub as a comprehensive DevOps platform: 11 Actions workflows, automated code review, CodeQL security scanning, Dependabot, GitHub Pages deployment, and release management.',
+    'How TABS uses GitHub as a comprehensive DevOps platform: 12 Actions workflows, automated code review, CodeQL security scanning, Dependabot, GitHub Pages deployment, and release management.',
   alternates: {
     canonical: '/making-of-tabs/integrations/github',
   },
@@ -151,7 +151,7 @@ const GitHubIntegrationPage = () => {
         <section className="mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>All GitHub Actions Workflows</h2>
           <p className="mb-4">
-            The repository contains <strong>11 workflow files</strong> covering CI, deployment,
+            The repository contains <strong>12 workflow files</strong> covering CI, deployment,
             security, performance, and three external API integrations:
           </p>
           <div className="overflow-x-auto mb-4">
@@ -192,6 +192,13 @@ const GitHubIntegrationPage = () => {
                   </td>
                 </tr>
                 <tr className="bg-gray-50">
+                  <td className="px-4 py-2 border-b font-mono">seo-dashboard-sync.yml</td>
+                  <td className="px-4 py-2 border-b">Daily (01:00 UTC)</td>
+                  <td className="px-4 py-2 border-b">
+                    Fetch Google Search Console data, flag automated regressions
+                  </td>
+                </tr>
+                <tr>
                   <td className="px-4 py-2 border-b font-mono">qualtrics-metrics-update.yml</td>
                   <td className="px-4 py-2 border-b">Daily (03:17 UTC)</td>
                   <td className="px-4 py-2 border-b">
@@ -334,8 +341,8 @@ const GitHubIntegrationPage = () => {
                 </tr>
                 <tr className="bg-gray-50">
                   <td className="px-4 py-2 font-mono">google-prod</td>
-                  <td className="px-4 py-2">Google Analytics Data API</td>
-                  <td className="px-4 py-2">ga-report.yml</td>
+                  <td className="px-4 py-2">Google Analytics &amp; Search Console API</td>
+                  <td className="px-4 py-2">2 workflows</td>
                 </tr>
               </tbody>
             </table>
@@ -359,6 +366,10 @@ const GitHubIntegrationPage = () => {
             <li>
               <strong>Qualtrics metrics update</strong> — fetches survey response counts and updates{' '}
               <code>qualtrics-metrics.json</code>, also auto-merged
+            </li>
+            <li>
+              <strong>SEO Dashboard Sync</strong> — queries GSC and GA4 to update the public SEO
+              Transparency Dashboard, with automated regression alerts.
             </li>
             <li>
               <strong>Prolific data collection</strong> — weekly export of participant submission

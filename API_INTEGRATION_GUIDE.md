@@ -504,6 +504,95 @@ npx tsx scripts/send-report-email.ts
 
 ---
 
+## Google Search Console API
+
+### Purpose
+
+The Google Search Console API enables tracking of our top keywords, overall impressions, clicks, and organic CTR over time.
+This complements our GA4 metrics (sessions) to build a transparent, automated SEO dashboard.
+
+- **Automated Dashboards:** Aggregates top queries and basic performance statistics based on a rolling 28-day window.
+- **Regression Alerting:** Analyzes week-over-week trends and triggers a GitHub issue if impressions drop suspiciously (e.g., >15%).
+
+### Base URL
+
+```
+Google Search Console API (via googleapis SDK)
+```
+
+### Authentication
+
+Service account credentials (same as Google Analytics Data API):
+
+```typescript
+import { google } from 'googleapis'
+
+const auth = new google.auth.GoogleAuth({
+  credentials: {
+    client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+  },
+  scopes: ['https://www.googleapis.com/auth/webmasters.readonly'],
+})
+
+const searchconsole = google.searchconsole({ version: 'v1', auth })
+```
+
+### GitHub Environment: `google-prod`
+
+No extra secrets are needed beyond those configured for Google Analytics:
+
+- `GOOGLE_SERVICE_ACCOUNT_EMAIL`
+- `GOOGLE_PRIVATE_KEY`
+- Note: Google Search Console must physically grant "Restricted" or "Full" user permissions to this exact `client_email` within the GSC UI for the target domain property.
+
+### Automated Workflows
+
+#### 1. Daily SEO Metrics Sync
+
+**Workflow:** `.github/workflows/seo-dashboard-sync.yml`
+
+**Schedule:** Daily at 01:00 UTC
+
+**Purpose:** Update the SEO transparency dashboard metrics and check for regressions.
+
+**Usage:**
+
+```bash
+# Manual run
+gh workflow run seo-dashboard-sync.yml
+```
+
+**Output:**
+
+- `src/data/seo-metrics.json` - Replaces current 28-day window baseline.
+- `src/data/seo-time-series.json` - Appends current metrics snapshot for historical charting.
+- If an organic drop > `SEO_REGRESSION_THRESHOLD_PERCENT` is detected, it raises a GitHub Issue.
+
+### Scripts
+
+**Location:** `scripts/`
+
+**Available Scripts:**
+
+- `update-seo-dashboard-sync.ts` - Fetch GSC + GA4 data
+
+**Local Usage:**
+
+```bash
+# Set environment variables
+export GA_PROPERTY_ID="123456789"
+export GOOGLE_SERVICE_ACCOUNT_EMAIL="service@project.iam.gserviceaccount.com"
+export GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+export SEO_REGRESSION_THRESHOLD_PERCENT="15" # Optional
+
+# Update and format SEO data
+npx tsx scripts/update-seo-dashboard-sync.ts
+npx prettier --write "src/data/seo-*.json"
+```
+
+---
+
 ## API Security Best Practices
 
 ### Never Commit Credentials
@@ -598,7 +687,7 @@ All external APIs use GitHub environment secrets for secure credential managemen
 | ---------------- | ----------------------- | -------------------- | ----------- | ----------------------- |
 | `qualtrics-prod` | Qualtrics API v3        | 6 secrets            | 3 variables | ✅ Active (7 workflows) |
 | `prolific-prod`  | Prolific API v1         | 1 secret             | 1 variable  | ✅ Active (1 workflow)  |
-| `google-prod`    | Google Analytics Data   | 6 secrets            | -           | ✅ Active (1 workflow)  |
+| `google-prod`    | Google Analytics Data   | 6 secrets            | -           | ✅ Active (2 workflows) |
 | `microsoft-prod` | Microsoft Forms         | 1 secret             | -           | ⚠️ Configured (future)  |
 | `stripe-prod`    | Payment processing      | 1 secret             | -           | ⚠️ Configured (future)  |
 | `github-pages`   | GitHub Pages deployment | Auto token           | -           | ✅ Active (deployment)  |
