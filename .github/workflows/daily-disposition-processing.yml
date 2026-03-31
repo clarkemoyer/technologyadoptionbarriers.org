@@ -43,14 +43,7 @@ jobs:
           OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
 
       - name: Verify export columns
-        run: |
-          set -euo pipefail
-          npx --no-install tsx scripts/check-export-headers.ts
-          # Verify key columns exist in header row
-          if ! head -n 1 "${{ runner.temp }}/qualtrics-export.csv" | grep -q "PROLIFIC_PID"; then
-            echo "::error::PROLIFIC_PID column missing from export"
-            exit 1
-          fi
+        run: npx --no-install tsx scripts/check-export-headers.ts
         env:
           INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
 

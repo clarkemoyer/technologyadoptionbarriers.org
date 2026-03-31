@@ -34,12 +34,19 @@ if [ -f "$TODAY_FILE" ]; then
   PROLIFIC_TOTAL=$(python3 -c "import json; d=json.load(open('$TODAY_FILE')); print(d.get('totalResponses',0))" 2>/dev/null || echo 0)
 fi
 
-# --- Deltas ---
-DELTA_TOTAL=$((TODAY_TOTAL - PREV_TOTAL))
-DELTA_APPROVED=$((TODAY_APPROVED - PREV_APPROVED))
-DELTA_REJECTED=$((TODAY_REJECTED - PREV_REJECTED))
-DELTA_RETURNED=$((TODAY_RETURNED - PREV_RETURNED))
-DELTA_AWAITING=$((TODAY_AWAITING - PREV_AWAITING))
+# --- Deltas (only compute if today's dashboard data exists) ---
+HAS_DASHBOARD=false
+[ -f "$TODAY_FILE" ] && HAS_DASHBOARD=true
+
+if [ "$HAS_DASHBOARD" = true ]; then
+  DELTA_TOTAL=$((TODAY_TOTAL - PREV_TOTAL))
+  DELTA_APPROVED=$((TODAY_APPROVED - PREV_APPROVED))
+  DELTA_REJECTED=$((TODAY_REJECTED - PREV_REJECTED))
+  DELTA_RETURNED=$((TODAY_RETURNED - PREV_RETURNED))
+  DELTA_AWAITING=$((TODAY_AWAITING - PREV_AWAITING))
+else
+  DELTA_TOTAL=0; DELTA_APPROVED=0; DELTA_REJECTED=0; DELTA_RETURNED=0; DELTA_AWAITING=0
+fi
 
 dfmt() { if [ "$1" -gt 0 ]; then printf "+%d" "$1"; elif [ "$1" -eq 0 ]; then printf "0"; else printf "%d" "$1"; fi; }
 
@@ -85,12 +92,19 @@ for f in "$ARTIFACTS_DIR"/message-metrics-*/message-output.txt; do
 done
 
 # --- Build report ---
-cat > /tmp/report-body.md << 'HEADER'
-## Prolific Status (Deltas from previous report)
+if [ "$HAS_DASHBOARD" = true ]; then
+  DASHBOARD_NOTE=""
+else
+  DASHBOARD_NOTE="> **Note:** Dashboard data was unavailable; Prolific status counts and deltas may be incomplete.
+"
+fi
 
+cat > /tmp/report-body.md << PREAMBLE
+## Prolific Status (Deltas from previous report)
+${DASHBOARD_NOTE}
 | Status | Count | Change |
 |---|---:|---:|
-HEADER
+PREAMBLE
 
 cat >> /tmp/report-body.md << STATUSEOF
 | **Approved** | $TODAY_APPROVED | $(dfmt $DELTA_APPROVED) |

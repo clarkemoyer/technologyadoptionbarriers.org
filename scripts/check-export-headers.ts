@@ -70,7 +70,9 @@ for (const col of keyColumns) {
     if (samples.length < 3 && val !== '') samples.push(val)
   }
 
-  console.log(`${col} [${idx}]: ${nonEmpty}/${total} non-empty | samples: ${samples.join(' | ')}`)
+  // Suppress sample values for PII columns to avoid leaking participant IDs in CI logs
+  const sampleStr = col === 'PROLIFIC_PID' ? '(redacted)' : samples.join(' | ')
+  console.log(`${col} [${idx}]: ${nonEmpty}/${total} non-empty | samples: ${sampleStr}`)
 }
 
 if (missingColumns > 0) {
