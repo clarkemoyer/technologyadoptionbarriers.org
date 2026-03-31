@@ -435,7 +435,9 @@ def main():
 
     # Apply V2 threshold filter so Part I analyses use only V2+ data
     if 'StartDate' in df_raw.columns:
-        v2_mask = (df_raw['StartDate'] >= V2_THRESHOLD) | (df_raw.get('ResponseId', pd.Series()) == PROLIFIC_TEST_ID)
+        v2_mask = df_raw['StartDate'] >= V2_THRESHOLD
+        if 'ResponseId' in df_raw.columns:
+            v2_mask = v2_mask | (df_raw['ResponseId'] == PROLIFIC_TEST_ID)
         df_raw = df_raw.loc[v2_mask].reset_index(drop=True)
         df = df.loc[v2_mask].reset_index(drop=True)
         print(f"\nTotal records in export: {total_records}")
@@ -785,12 +787,21 @@ def main():
     print("-" * 80)
 
     # Disposition funnel (use unfiltered df_all to show baseline from full export)
-    df_all['IsV2'] = (df_all['StartDate'] >= pd.to_datetime(V2_THRESHOLD, errors='coerce')) | (df_all.get('ResponseId', pd.Series()) == PROLIFIC_TEST_ID)
+    # df_all is raw (pre-encoding), so compute V2/IRI flags from raw string labels
+    df_all['IsV2'] = (df_all['StartDate'] >= pd.to_datetime(V2_THRESHOLD, errors='coerce'))
+    if 'ResponseId' in df_all.columns:
+        df_all['IsV2'] = df_all['IsV2'] | (df_all['ResponseId'] == PROLIFIC_TEST_ID)
     n_v2 = df_all['IsV2'].sum()
 
     df_all['Duration_Filter'] = df_all['Duration (in seconds)'] >= 480
     n_duration_filtered = df_all['Duration_Filter'].sum()
 
+    # Compute IRI pass on raw (string) data since df_all is pre-encoding
+    df_all['IRI_All_Pass'] = (
+        (df_all[BARRIER_IRI_COL] == IRI_EXPECTED['barrier']) &
+        (df_all[READINESS_IRI_COL] == IRI_EXPECTED['readiness']) &
+        (df_all[MATURITY_IRI_COL] == IRI_EXPECTED['maturity'])
+    )
     n_iri_pass = df_all['IRI_All_Pass'].sum()
 
     clean_df = df_all[df_all['IsV2'] & df_all['Duration_Filter'] & df_all['IRI_All_Pass']]
