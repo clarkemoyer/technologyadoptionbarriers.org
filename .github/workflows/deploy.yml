@@ -41,7 +41,7 @@ jobs:
           cache: 'npm'
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
         # Note: Do NOT use static_site_generator: next here.
         # That option rewrites next.config.ts and strips trailingSlash,
         # assetPrefix, and remotePatterns. Our next.config.ts already
