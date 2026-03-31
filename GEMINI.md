@@ -775,18 +775,45 @@ npx tsx scripts/generate-report.ts
 # - src/data/impact.json (public metrics)
 ```
 
+#### 4. Google Search Console API (REST)
+
+**What it does:** SEO benchmarking, keyword transparency, and regression detection
+
+| What                  | How                                   |
+| --------------------- | ------------------------------------- |
+| **API Type**          | Google Search Console API v1          |
+| **SDK**               | `googleapis` NPM package              |
+| **Authentication**    | Service account (email + private key) |
+| **Environment**       | `google-prod` (GitHub Actions only)   |
+| **Used in workflows** | Daily SEO metrics sync (01:00 UTC)    |
+
+**Scripts:**
+
+- `scripts/update-seo-dashboard-sync.ts` - Fetch GSC + GA4 data and flag regressions
+
+**Example (terminal):**
+
+```bash
+# Set credentials
+export GA_PROPERTY_ID="123456789"
+export GOOGLE_SERVICE_ACCOUNT_EMAIL="service@project.iam.gserviceaccount.com"
+export GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+
+npx tsx scripts/update-seo-dashboard-sync.ts
+```
+
 ### Complete GitHub Environments Overview
 
 All APIs use **GitHub environment secrets** for credential management:
 
-| Environment        | API/Service         | Secrets/Variables | Status & Workflows                                                                                                                     |
-| ------------------ | ------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| **qualtrics-prod** | Qualtrics API v3    | 7 secrets, 4 vars | ✅ **Active** - 5 workflows:<br>• Copy surveys<br>• Update metrics<br>• Fetch questions<br>• API smoke test<br>• Prolific verification |
-| **prolific-prod**  | Prolific API v1     | 2 secrets, 3 vars | ✅ **Active** - 2 workflows:<br>• Weekly data collection<br>• Prolific verification                                                    |
-| **google-prod**    | Google Analytics v1 | 6 secrets         | ✅ **Active** - 1 workflow:<br>• Daily analytics report                                                                                |
-| **microsoft-prod** | Microsoft Forms     | 1 secret          | ⚠️ **Configured** (future integration)                                                                                                 |
-| **stripe-prod**    | Payment processing  | 1 secret          | ⚠️ **Configured** (future integration)                                                                                                 |
-| **github-pages**   | GitHub Pages        | Auto token        | ✅ **Active** - Site deployment                                                                                                        |
+| Environment        | API/Service            | Secrets/Variables | Status & Workflows                                                                                                                     |
+| ------------------ | ---------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| **qualtrics-prod** | Qualtrics API v3       | 7 secrets, 4 vars | ✅ **Active** - 5 workflows:<br>• Copy surveys<br>• Update metrics<br>• Fetch questions<br>• API smoke test<br>• Prolific verification |
+| **prolific-prod**  | Prolific API v1        | 2 secrets, 3 vars | ✅ **Active** - 2 workflows:<br>• Weekly data collection<br>• Prolific verification                                                    |
+| **google-prod**    | Google Analytics & SEO | 6 secrets         | ✅ **Active** - 2 workflows:<br>• Daily analytics report<br>• Daily SEO metrics sync                                                   |
+| **microsoft-prod** | Microsoft Forms        | 1 secret          | ⚠️ **Configured** (future integration)                                                                                                 |
+| **stripe-prod**    | Payment processing     | 1 secret          | ⚠️ **Configured** (future integration)                                                                                                 |
+| **github-pages**   | GitHub Pages           | Auto token        | ✅ **Active** - Site deployment                                                                                                        |
 
 **Key points:**
 

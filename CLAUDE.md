@@ -578,6 +578,19 @@ const response = await gaClient.runReport({
 - `scripts/generate-report.ts` - Fetch GA data, save to `reports/` and `src/data/impact.json`
 - `scripts/send-report-email.ts` - Email report to stakeholders
 
+#### Google Search Console API v1
+
+**SEO benchmarking and keyword transparency:**
+
+- **Base URL**: Google Search Console API (via `googleapis` SDK)
+- **Auth**: Service account credentials (email + private key, shared with GA4)
+- **Environment**: `google-prod` (GitHub Actions)
+- **Workflow**: `.github/workflows/seo-dashboard-sync.yml` (daily at 01:00 UTC)
+
+**Scripts**:
+
+- `scripts/update-seo-dashboard-sync.ts` - Fetch GSC + GA4 data and flag regressions
+
 ### GitHub Environments Summary
 
 All external API integrations use **GitHub environment secrets** for secure credential management:
@@ -586,7 +599,7 @@ All external API integrations use **GitHub environment secrets** for secure cred
 | ---------------- | ----------------------- | ----------------- | -------------------------- |
 | `qualtrics-prod` | Qualtrics API v3        | 6 secrets, 5 vars | ✅ Active (5 workflows)    |
 | `prolific-prod`  | Prolific API v1         | 2 secrets, 3 vars | ✅ Active (2 workflows)    |
-| `google-prod`    | Google Analytics Data   | 6 secrets         | ✅ Active (daily report)   |
+| `google-prod`    | Google Analytics & SEO  | 6 secrets         | ✅ Active (2 workflows)    |
 | `microsoft-prod` | Microsoft Forms         | 1 secret          | ⚠️ Configured (future use) |
 | `stripe-prod`    | Payment processing      | 1 secret          | ⚠️ Configured (future use) |
 | `github-pages`   | GitHub Pages deployment | Auto token        | ✅ Active (deployment)     |

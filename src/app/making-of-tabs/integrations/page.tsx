@@ -31,8 +31,9 @@ const IntegrationsPage = () => {
             Running a long-term academic survey across multiple platforms requires reliable,
             automated plumbing. This page explains the three major platform integrations that keep
             TABS running: <strong>Qualtrics</strong> (the survey engine), <strong>Prolific</strong>{' '}
-            (the participant recruitment platform), and <strong>Google Analytics</strong> (impact
-            measurement). Each integration is managed through GitHub Actions workflows and
+            (the participant recruitment platform), and{' '}
+            <strong>Google Analytics & Search Console</strong> (impact measurement and SEO
+            transparency). Each integration is managed through GitHub Actions workflows and
             TypeScript client libraries, so the entire operational lifecycle — from survey creation
             to data collection to analytics — is version-controlled and reproducible.
           </p>
@@ -418,15 +419,17 @@ const IntegrationsPage = () => {
           </div>
         </section>
 
-        {/* ── Google Analytics ── */}
+        {/* ── Google Analytics & Search Console ── */}
         <section className="mb-12 text-gray-800">
-          <h2 className={H2_CLASSES}>Google Analytics — Impact Measurement</h2>
+          <h2 className={H2_CLASSES}>
+            Google Analytics &amp; Search Console — Impact &amp; SEO Measurement
+          </h2>
 
           <p className="mb-4">
             Google Analytics 4 (GA4) tracks how researchers, participants, and the public interact
-            with the TABS website. A daily GitHub Actions workflow fetches analytics data via the
-            Google Analytics Data API, generates a JSON report, and emails a summary to
-            stakeholders.
+            with the TABS website. The Google Search Console (GSC) API powers our public SEO
+            transparency dashboard. Daily GitHub Actions workflows fetch analytics and organic
+            search data via Google APIs, generate JSON reports, and update our public dashboard.
           </p>
 
           <div className="mb-8">
@@ -496,8 +499,8 @@ const IntegrationsPage = () => {
                   </tr>
                   <tr>
                     <td className="py-2 pr-4 font-mono text-xs">google-prod</td>
-                    <td className="py-2 pr-4">Google Analytics</td>
-                    <td className="py-2">1 workflow</td>
+                    <td className="py-2 pr-4">Google Analytics &amp; Search Console</td>
+                    <td className="py-2">2 workflows</td>
                   </tr>
                 </tbody>
               </table>

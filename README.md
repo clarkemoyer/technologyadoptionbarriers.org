@@ -246,6 +246,28 @@ TABS integrates with multiple external APIs to automate survey management, parti
 - `scripts/generate-report.ts` - Generate analytics report
 - `scripts/send-report-email.ts` - Email report to stakeholders
 
+### Google Search Console API v1
+
+**Purpose:** SEO benchmarking, keyword transparency, and regression detection
+
+**Key Features:**
+
+- Daily SEO metrics sync (01:00 UTC)
+- Automated updates to `src/data/seo-metrics.json` and time-series data
+- Regression threshold alerting via GitHub Issues
+
+**GitHub Environment:** `google-prod`
+
+- Secrets: Service account credentials shared with Google Analytics
+
+**Workflows:**
+
+- `.github/workflows/seo-dashboard-sync.yml` - Daily SEO metrics sync
+
+**Scripts:**
+
+- `scripts/update-seo-dashboard-sync.ts` - Fetch GSC + GA4 data
+
 ### Qualtrics ↔ Prolific Integration
 
 The site uses a sophisticated integration between Qualtrics surveys and Prolific participant recruitment:

@@ -292,7 +292,7 @@ This repository integrates with external API environments, accessible via **GitH
 | ---------------- | --------------------- | ----------------- | ----------------------- |
 | `qualtrics-prod` | Survey management     | 6 secrets, 6 vars | ✅ Active (5 workflows) |
 | `prolific-prod`  | Participant data      | 2 secrets, 3 vars | ✅ Active (2 workflows) |
-| `google-prod`    | Analytics reporting   | 6 secrets         | ✅ Active (1 workflow)  |
+| `google-prod`    | Analytics & SEO       | 6 secrets         | ✅ Active (2 workflows) |
 | `microsoft-prod` | Forms integration     | 1 secret          | ⚠️ Configured (future)  |
 | `stripe-prod`    | Payment processing    | 1 secret          | ⚠️ Configured (future)  |
 | `github-pages`   | Deployment (built-in) | Auto token        | ✅ Active (deployment)  |
@@ -405,6 +405,28 @@ export GOOGLE_SERVICE_ACCOUNT_EMAIL="service@project.iam.gserviceaccount.com"
 export GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
 
 npx tsx scripts/generate-report.ts
+```
+
+#### Google Search Console API (REST)
+
+- **Purpose**: SEO benchmarking, keyword transparency, and regression detection
+- **Environment**: `google-prod`
+- **Base URL**: Google Search Console API (via `googleapis` SDK)
+- **Authentication**: Service account with private key (same as GA4)
+- **Used in workflows**:
+  - `.github/workflows/seo-dashboard-sync.yml` - Daily SEO metrics sync (01:00 UTC)
+- **Scripts**:
+  - `scripts/update-seo-dashboard-sync.ts` - Fetch GSC + GA4 data and flag regressions
+
+**Local Testing (IDE agents only):**
+
+```bash
+# Set credentials
+export GA_PROPERTY_ID="123456789"
+export GOOGLE_SERVICE_ACCOUNT_EMAIL="service@project.iam.gserviceaccount.com"
+export GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+
+npx tsx scripts/update-seo-dashboard-sync.ts
 ```
 
 ### Security Notes for API Access
