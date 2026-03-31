@@ -16,6 +16,7 @@ on:
           - awaiting-report
           - request-return
           - search-messages
+          - find-url-replies
         default: 'single'
       pid:
         description: 'Prolific Participant ID (required for single/send-custom mode)'
@@ -45,6 +46,13 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci
+
+      - name: Find URL replies
+        if: inputs.mode == 'find-url-replies'
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+        run: npx --no-install tsx scripts/find-url-reply.ts
 
       - name: Search messages
         if: inputs.mode == 'search-messages'
