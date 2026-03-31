@@ -37,7 +37,7 @@ in the project workspace under `05 TABS Survey Support/TABS Survey Data/`.
 
 ## V2 Filter
 
-All scripts filter to V2 production data using `StartDate >= '2026-03-23 14:00:00'`.
+All scripts filter to V2 production data using `StartDate >= '2026-03-23 14:00:00'`, plus one explicit inclusion: ResponseId `R_1QK12IJpHjC3wd6` (a Prolific live test of the V2 instrument from 2026-03-23 09:07 AM). This response used the V2 instrument and is a valid result despite predating the official V2 launch.
 
 ## Sample Cuts
 

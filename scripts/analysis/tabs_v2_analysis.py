@@ -11,7 +11,7 @@ Usage:
     python tabs_v2_analysis.py <qualtrics_csv_path>
 
 The CSV must be a standard Qualtrics export with 3 header rows.
-V2 filter: StartDate >= '2026-03-23 14:00:00'
+V2 filter: StartDate >= '2026-03-23 14:00:00' OR ResponseId == 'R_1QK12IJpHjC3wd6' (Prolific live test)
 
 Author: Clarke Moyer, Penn State Smeal DBA
 """
@@ -26,6 +26,8 @@ from collections import Counter
 # ─────────────────────────────────────────────────────────────
 
 V2_START = "2026-03-23 14:00:00"
+# Prolific live test of V2 instrument (2026-03-23 09:07 AM, COO, 876s) — valid V2 response
+PROLIFIC_TEST_ID = 'R_1QK12IJpHjC3wd6'
 MIN_DURATION_CLEAN = 480       # 8 minutes
 MIN_DURATION_RELAXED = 480
 MIN_DURATION_ALL = 120         # 2 minutes (extreme speeders only)
@@ -280,7 +282,8 @@ def load_data(csv_path):
 
 def filter_samples(data, idx):
     """Create the three sample cuts from V2 data."""
-    v2 = [r for r in data if r[idx['StartDate']] >= V2_START]
+    v2 = [r for r in data if r[idx['StartDate']] >= V2_START
+          or ('ResponseId' in idx and r[idx['ResponseId']] == PROLIFIC_TEST_ID)]
 
     clean = [r for r in v2 if get_duration(r, idx) is not None
              and get_duration(r, idx) >= MIN_DURATION_CLEAN

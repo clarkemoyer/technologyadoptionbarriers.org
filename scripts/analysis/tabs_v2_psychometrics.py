@@ -34,6 +34,8 @@ CSV_PATH = sys.argv[1]
 
 # V2 filter threshold
 V2_THRESHOLD = '2026-03-23 14:00:00'
+# Prolific live test of V2 instrument (2026-03-23 09:07 AM, COO, 876s) — valid V2 response
+PROLIFIC_TEST_ID = 'R_1QK12IJpHjC3wd6'
 
 # Scale value mappings
 BARRIER_SCALE = {
@@ -433,7 +435,7 @@ def main():
 
     # Apply V2 threshold filter so Part I analyses use only V2+ data
     if 'StartDate' in df_raw.columns:
-        v2_mask = df_raw['StartDate'] >= V2_THRESHOLD
+        v2_mask = (df_raw['StartDate'] >= V2_THRESHOLD) | (df_raw.get('ResponseId', pd.Series()) == PROLIFIC_TEST_ID)
         df_raw = df_raw.loc[v2_mask].reset_index(drop=True)
         df = df.loc[v2_mask].reset_index(drop=True)
         print(f"\nTotal records in export: {total_records}")
@@ -783,7 +785,7 @@ def main():
     print("-" * 80)
 
     # Disposition funnel (use unfiltered df_all to show baseline from full export)
-    df_all['IsV2'] = df_all['StartDate'] >= pd.to_datetime(V2_THRESHOLD, errors='coerce')
+    df_all['IsV2'] = (df_all['StartDate'] >= pd.to_datetime(V2_THRESHOLD, errors='coerce')) | (df_all.get('ResponseId', pd.Series()) == PROLIFIC_TEST_ID)
     n_v2 = df_all['IsV2'].sum()
 
     df_all['Duration_Filter'] = df_all['Duration (in seconds)'] >= 480
