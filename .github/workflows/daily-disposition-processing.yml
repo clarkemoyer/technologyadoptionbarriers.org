@@ -5,6 +5,7 @@ name: Daily Disposition Processing
 #   2. Auto-approve CLEAN submissions
 #   3. Send FLAG/return-offer messages to new un-messaged participants
 #   4. Update dashboard data (disposition-summary.json)
+#   5. Create daily report issue with deltas
 #
 # Safety: Only approves CLEAN (all checks passed) and sends review
 # messages. Does NOT reject anyone — all rejections require manual trigger.
@@ -17,6 +18,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 jobs:
   # Step 1: Export + Triage
@@ -41,22 +43,31 @@ jobs:
           OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
 
       - name: Verify export columns
-        run: npx --no-install tsx scripts/check-export-headers.ts
+        run: |
+          set -euo pipefail
+          npx --no-install tsx scripts/check-export-headers.ts
+          # Verify key columns exist in output
+          if ! grep -q "PROLIFIC_PID" "${{ runner.temp }}/qualtrics-export.csv"; then
+            echo "::error::PROLIFIC_PID column missing from export"
+            exit 1
+          fi
         env:
           INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
 
       - name: Run disposition triage
         run: |
-          npx --no-install tsx scripts/disposition-triage.ts | tee ${{ runner.temp }}/triage-output.txt
+          set -euo pipefail
+          npx --no-install tsx scripts/disposition-triage.ts 2>&1 | tee ${{ runner.temp }}/triage-output.txt
         env:
           INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
           OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
 
       - name: Extract triage metrics
         run: |
-          grep "Total responses" ${{ runner.temp }}/triage-output.txt | sed 's/.*\*\*Total responses:\*\* //' > ${{ runner.temp }}/triage-total.txt
-          grep -E "^\|" ${{ runner.temp }}/triage-output.txt | grep -v "Disposition\|---" > ${{ runner.temp }}/triage-breakdown.txt
-          echo "TRIAGE_TOTAL=$(cat ${{ runner.temp }}/triage-total.txt)" >> $GITHUB_ENV
+          # Extract total (handle case where no responses exist)
+          grep "Total responses" ${{ runner.temp }}/triage-output.txt | sed 's/.*\*\*Total responses:\*\* //' > ${{ runner.temp }}/triage-total.txt || echo "0" > ${{ runner.temp }}/triage-total.txt
+          # Extract breakdown table rows (handle empty)
+          grep -E "^\|" ${{ runner.temp }}/triage-output.txt | grep -v "Disposition\|---" > ${{ runner.temp }}/triage-breakdown.txt || true
 
       - uses: actions/upload-artifact@v7
         with:
@@ -92,7 +103,8 @@ jobs:
 
       - name: Approve CLEAN submissions
         run: |
-          npx --no-install tsx scripts/approve-prolific-submissions.ts | tee ${{ runner.temp }}/approve-output.txt
+          set -euo pipefail
+          npx --no-install tsx scripts/approve-prolific-submissions.ts 2>&1 | tee ${{ runner.temp }}/approve-output.txt
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
@@ -138,7 +150,8 @@ jobs:
 
       - name: Send messages for ${{ matrix.disposition }}
         run: |
-          npx --no-install tsx scripts/message-flagged-submissions.ts | tee ${{ runner.temp }}/message-output.txt
+          set -euo pipefail
+          npx --no-install tsx scripts/message-flagged-submissions.ts 2>&1 | tee ${{ runner.temp }}/message-output.txt
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
@@ -224,144 +237,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: |
-          DATE=$(date -u +"%Y-%m-%d")
-
-          # --- Read yesterday's data from committed disposition-summary.json ---
-          PREV_FILE="src/data/disposition-summary.json"
-          PREV_TOTAL=0
-          PREV_APPROVED=0
-          PREV_REJECTED=0
-          PREV_RETURNED=0
-          PREV_AWAITING=0
-          if [ -f "$PREV_FILE" ]; then
-            PREV_TOTAL=$(python3 -c "import json; d=json.load(open('$PREV_FILE')); print(d.get('totalResponses',0))" 2>/dev/null || echo 0)
-            PREV_APPROVED=$(python3 -c "import json; d=json.load(open('$PREV_FILE')); print(d.get('actions',{}).get('approved',0))" 2>/dev/null || echo 0)
-            PREV_REJECTED=$(python3 -c "import json; d=json.load(open('$PREV_FILE')); print(d.get('actions',{}).get('rejected',0))" 2>/dev/null || echo 0)
-            PREV_RETURNED=$(python3 -c "import json; d=json.load(open('$PREV_FILE')); print(d.get('actions',{}).get('returned',0))" 2>/dev/null || echo 0)
-            PREV_AWAITING=$(python3 -c "import json; d=json.load(open('$PREV_FILE')); print(d.get('actions',{}).get('awaitingReview',0))" 2>/dev/null || echo 0)
-          fi
-
-          # --- Read today's generated data ---
-          TODAY_FILE="${{ runner.temp }}/artifacts/dashboard-data/disposition-summary.json"
-          TODAY_TOTAL=0
-          TODAY_APPROVED=0
-          TODAY_REJECTED=0
-          TODAY_RETURNED=0
-          TODAY_AWAITING=0
-          TODAY_TIMED=0
-          PROLIFIC_TOTAL=0
-          if [ -f "$TODAY_FILE" ]; then
-            TODAY_TOTAL=$(python3 -c "import json; d=json.load(open('$TODAY_FILE')); print(d.get('uniqueParticipants',0))" 2>/dev/null || echo 0)
-            TODAY_APPROVED=$(python3 -c "import json; d=json.load(open('$TODAY_FILE')); print(d.get('actions',{}).get('approved',0))" 2>/dev/null || echo 0)
-            TODAY_REJECTED=$(python3 -c "import json; d=json.load(open('$TODAY_FILE')); print(d.get('actions',{}).get('rejected',0))" 2>/dev/null || echo 0)
-            TODAY_RETURNED=$(python3 -c "import json; d=json.load(open('$TODAY_FILE')); print(d.get('actions',{}).get('returned',0))" 2>/dev/null || echo 0)
-            TODAY_AWAITING=$(python3 -c "import json; d=json.load(open('$TODAY_FILE')); print(d.get('actions',{}).get('awaitingReview',0))" 2>/dev/null || echo 0)
-            TODAY_TIMED=$(python3 -c "import json; d=json.load(open('$TODAY_FILE')); print(d.get('actions',{}).get('timedOut',0))" 2>/dev/null || echo 0)
-            PROLIFIC_TOTAL=$(python3 -c "import json; d=json.load(open('$TODAY_FILE')); print(d.get('totalResponses',0))" 2>/dev/null || echo 0)
-          fi
-
-          # --- Compute deltas ---
-          DELTA_TOTAL=$((TODAY_TOTAL - PREV_TOTAL))
-          DELTA_APPROVED=$((TODAY_APPROVED - PREV_APPROVED))
-          DELTA_REJECTED=$((TODAY_REJECTED - PREV_REJECTED))
-          DELTA_RETURNED=$((TODAY_RETURNED - PREV_RETURNED))
-          DELTA_AWAITING=$((TODAY_AWAITING - PREV_AWAITING))
-
-          delta_fmt() { if [ "$1" -gt 0 ]; then echo "+$1"; elif [ "$1" -eq 0 ]; then echo "0"; else echo "$1"; fi; }
-
-          # --- Extract triage breakdown ---
-          TRIAGE_TOTAL=""
-          TRIAGE_BREAKDOWN=""
-          if [ -f "${{ runner.temp }}/artifacts/triage-metrics/triage-total.txt" ]; then
-            TRIAGE_TOTAL=$(cat "${{ runner.temp }}/artifacts/triage-metrics/triage-total.txt")
-          fi
-          if [ -f "${{ runner.temp }}/artifacts/triage-metrics/triage-breakdown.txt" ]; then
-            TRIAGE_BREAKDOWN=$(cat "${{ runner.temp }}/artifacts/triage-metrics/triage-breakdown.txt")
-          fi
-
-          # --- Extract approve data ---
-          APPROVE_CLEAN_COUNT=""
-          APPROVE_RESULT=""
-          if [ -f "${{ runner.temp }}/artifacts/approve-metrics/approve-output.txt" ]; then
-            APPROVE_CLEAN_COUNT=$(grep "CLEAN dispositions" "${{ runner.temp }}/artifacts/approve-metrics/approve-output.txt" | head -1 | grep -o '[0-9]*' | head -1)
-            APPROVE_RESULT=$(grep "Successfully approved\|No CLEAN" "${{ runner.temp }}/artifacts/approve-metrics/approve-output.txt" | head -1)
-          fi
-
-          # --- Extract ALL message data ---
-          MSG_TABLE="| Disposition | Sent | Skipped (actioned) | Skipped (messaged) | Failed |
-          |---|---:|---:|---:|---:|"
-          TOTAL_SENT=0
-          TOTAL_FAILED=0
-          for f in "${{ runner.temp }}"/artifacts/message-metrics-*/message-output.txt; do
-            if [ -f "$f" ]; then
-              DISP=$(grep "Disposition filter:" "$f" | head -1 | sed 's/.*filter: //')
-              SENT_LINE=$(grep "SENT:" "$f" | tail -1)
-              if [ -n "$DISP" ] && [ -n "$SENT_LINE" ]; then
-                SENT=$(echo "$SENT_LINE" | sed -n 's/.*SENT: \([0-9]*\).*/\1/p')
-                ACTIONED=$(echo "$SENT_LINE" | sed -n 's/.*already actioned): \([0-9]*\).*/\1/p')
-                MESSAGED=$(echo "$SENT_LINE" | sed -n 's/.*already messaged): \([0-9]*\).*/\1/p')
-                FAILED=$(echo "$SENT_LINE" | sed -n 's/.*FAILED: \([0-9]*\).*/\1/p')
-                MSG_TABLE="${MSG_TABLE}
-          | ${DISP} | ${SENT:-0} | ${ACTIONED:-0} | ${MESSAGED:-0} | ${FAILED:-0} |"
-                TOTAL_SENT=$((TOTAL_SENT + ${SENT:-0}))
-                TOTAL_FAILED=$((TOTAL_FAILED + ${FAILED:-0}))
-              fi
-            fi
-          done
-
-          # --- Build issue body ---
-          cat > /tmp/report-body.md << REPORT_EOF
-          ## Prolific Status (Deltas from previous report)
-
-          | Status | Count | Change |
-          |---|---:|---:|
-          | **Approved** | ${TODAY_APPROVED} | $(delta_fmt $DELTA_APPROVED) |
-          | **Returned** | ${TODAY_RETURNED} | $(delta_fmt $DELTA_RETURNED) |
-          | **Awaiting Review** | ${TODAY_AWAITING} | $(delta_fmt $DELTA_AWAITING) |
-          | **Rejected** | ${TODAY_REJECTED} | $(delta_fmt $DELTA_REJECTED) |
-          | **Timed Out** | ${TODAY_TIMED} | — |
-          | **Prolific Total** | ${PROLIFIC_TOTAL} | — |
-
-          ## Disposition Triage
-
-          **Total triaged responses:** ${TRIAGE_TOTAL:-unknown} ($(delta_fmt $DELTA_TOTAL) new)
-
-          | Disposition | Count | % |
-          |---|---:|---:|
-          ${TRIAGE_BREAKDOWN}
-
-          ## Auto-Approve CLEAN
-
-          - **CLEAN dispositions:** ${APPROVE_CLEAN_COUNT:-0}
-          - **Result:** ${APPROVE_RESULT:-No data}
-
-          ## Messages Sent
-
-          ${MSG_TABLE}
-
-          **Total new messages sent:** ${TOTAL_SENT}
-          **Total failed:** ${TOTAL_FAILED}
-
-          ## Job Status
-
-          | Job | Result |
-          |---|---|
-          | Export & Triage | ${{ needs.triage.result }} |
-          | Auto-Approve CLEAN | ${{ needs.approve-clean.result }} |
-          | Message FLAG Participants | ${{ needs.message-flags.result }} |
-          | Generate Dashboard | ${{ needs.generate-dashboard.result }} |
-
-          ---
-          **Workflow run:** [View full logs](${RUN_URL})
-          **Dashboard:** [View live dashboard](https://technologyadoptionbarriers.org/making-of-tabs/integrations/prolific/dashboard)
-          REPORT_EOF
-
-          # --- Create new issue ---
-          TITLE="Daily Disposition Report — ${DATE}"
-          gh issue create \
-            --title "$TITLE" \
-            --body-file /tmp/report-body.md \
-            --label "documentation"
-
-          echo "Daily report issue created: $TITLE"
+          ARTIFACTS_DIR: ${{ runner.temp }}/artifacts
+          PREV_FILE: src/data/disposition-summary.json
+          TRIAGE_RESULT: ${{ needs.triage.result }}
+          APPROVE_RESULT_STATUS: ${{ needs.approve-clean.result }}
+          MESSAGE_RESULT: ${{ needs.message-flags.result }}
+          DASHBOARD_RESULT: ${{ needs.generate-dashboard.result }}
+        run: bash scripts/build-daily-report.sh
