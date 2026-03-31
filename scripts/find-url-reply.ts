@@ -1,4 +1,4 @@
-import { listStudySubmissions, listUserMessages } from './src/lib/prolific-api'
+import { listStudySubmissions } from '../src/lib/prolific-api'
 
 const RESEARCHER_ID = '68264cbfdeb62546fe6060fe'
 
