@@ -88,11 +88,12 @@ describe('ConceptMappingSummary component', () => {
   })
 
   describe('Revision notes', () => {
-    it('should render all 5 revision notes', () => {
+    it('should render all revision notes', () => {
       render(<ConceptMappingSummary />)
 
-      summaryData.revisionNotes.forEach((note) => {
-        expect(screen.getByText(note)).toBeInTheDocument()
+      summaryData.revisionNotes.forEach((item) => {
+        const noteText = typeof item === 'string' ? item : item.note
+        expect(screen.getByText(noteText)).toBeInTheDocument()
       })
     })
 
@@ -102,7 +103,7 @@ describe('ConceptMappingSummary component', () => {
       const section = screen.getByLabelText('Revision Notes')
       const list = within(section).getByRole('list')
       const items = within(list).getAllByRole('listitem')
-      expect(items).toHaveLength(5)
+      expect(items).toHaveLength(summaryData.revisionNotes.length)
     })
   })
 
