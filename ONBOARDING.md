@@ -320,7 +320,8 @@ technologyadoptionbarriers.org/
 │       ├── deploy.yml           # Deployment
 │       ├── qualtrics-*.yml      # Qualtrics workflows (6)
 │       ├── prolific.yml         # Prolific data collection
-│       └── ga-report.yml        # Analytics reporting
+│       ├── ga-report.yml        # Analytics reporting
+│       └── seo-dashboard-sync.yml # SEO transparency dashboard
 │
 ├── scripts/                     # Utility scripts
 │   ├── generate-report.ts       # GA report generation
@@ -403,6 +404,7 @@ TABS integrates with three primary external APIs. Understanding these helps you 
 **Workflows:**
 
 - `ga-report.yml` - Daily analytics reporting
+- `seo-dashboard-sync.yml` - Daily SEO transparency dashboard sync
 
 **Client Library:** `src/lib/google-analytics.ts`
 
