@@ -19,7 +19,6 @@ async function main() {
     console.log(`📊 Fetching questions for survey: ${SURVEY_ID}\n`)
 
     const data: any = await getSurveyQuestions(SURVEY_ID, API_TOKEN, BASE_URL)
-    console.log('RAW DATA DUMP:', JSON.stringify(data, null, 2))
     const questions = data.elements || Object.values(data.Questions || {})
 
     console.log(`Found ${questions.length} questions:\n`)
