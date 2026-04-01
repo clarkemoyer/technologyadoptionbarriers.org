@@ -255,8 +255,8 @@ for i, lbl in enumerate(
         "Level 1: Initial/Ad Hoc",
         "Level 2: Developing/Repeatable",
         "Level 3: Defined/Standardized",
-        "Level 4: Managed/Measured",
-        "Level 5: Optimizing/Leading",
+        "Level 4: Managed/Quantitatively Managed",
+        "Level 5: Optimizing/Innovating",
     ],
     start=1,
 ):
@@ -299,7 +299,7 @@ def _pearson_r(xs: list[float], ys: list[float]) -> float | None:
     if _HAS_SCIPY:
         a, b = zip(*pairs)
         r, _ = scipy_stats.pearsonr(a, b)
-        return float(r)
+        return float(r) if math.isfinite(r) else None
 
     a, b = zip(*pairs)
     mean_a = sum(a) / n
@@ -880,7 +880,10 @@ def main() -> int:
     else:
         print_report(report)
 
-    return 0 if report.all_passed or report.total == 0 else 1
+    if report.total == 0:
+        _log("Warning: no checks were performed — verify CSV columns match construct patterns")
+        return 1
+    return 0 if report.all_passed else 1
 
 
 if __name__ == "__main__":
