@@ -107,6 +107,7 @@ jobs:
           DRY_RUN: 'false'
 
       - uses: actions/upload-artifact@v7
+        if: always()
         with:
           name: approve-metrics
           path: ${{ runner.temp }}/approve-output.txt
@@ -155,6 +156,7 @@ jobs:
           DRY_RUN: 'false'
 
       - uses: actions/upload-artifact@v7
+        if: always()
         with:
           name: message-metrics-${{ matrix.disposition }}
           path: ${{ runner.temp }}/message-output.txt
