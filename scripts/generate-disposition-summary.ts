@@ -146,6 +146,11 @@ async function main() {
     dispositionByStatus[disposition][prolificStatus] =
       (dispositionByStatus[disposition][prolificStatus] || 0) + 1
 
+    // Flag anomalies: AUTO-EXCLUDE should never be APPROVED
+    if (disposition === 'AUTO-EXCLUDE' && prolificStatus === 'APPROVED') {
+      console.warn(`⚠️  ANOMALY: AUTO-EXCLUDE PID ${pid} is APPROVED on Prolific`)
+    }
+
     // IRI pass rates
     if (iriBarrierIdx >= 0) iriBarrierPass += parseInt(fields[iriBarrierIdx] ?? '0', 10) || 0
     if (iriReadinessIdx >= 0) iriReadinessPass += parseInt(fields[iriReadinessIdx] ?? '0', 10) || 0
