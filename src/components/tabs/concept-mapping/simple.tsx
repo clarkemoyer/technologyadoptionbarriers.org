@@ -5,7 +5,6 @@ import conceptMappingData from '@/data/concept-mapping-simple.json'
 import { SECTIONS, type SectionDef } from '@/data/concept-mapping-colors'
 import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
-import * as XLSX from 'xlsx'
 
 /**
  * Concept Mapping Simple Component
@@ -99,9 +98,9 @@ function ExpandableCell({ value, header }: { value: string; header: string }) {
   )
 }
 
-function exportCsv() {
+function exportCsv(data: RowData[]) {
   const csvHeaders = headers.map((h) => `"${h.replace(/"/g, '""')}"`).join(',')
-  const csvRows = rows.map((row) =>
+  const csvRows = data.map((row) =>
     headers
       .map((h) => {
         const val = row[h as keyof RowData] ?? ''
@@ -123,24 +122,46 @@ function exportCsv() {
   }, 100)
 }
 
-function exportExcel() {
-  const data = rows.map((row) =>
-    Object.fromEntries(headers.map((h) => [h, row[h as keyof RowData] ?? '']))
-  )
-  const ws = XLSX.utils.json_to_sheet(data, { header: headers })
-  // Auto-fit column widths based on content length
-  ws['!cols'] = headers.map((h) => ({
-    wch: Math.min(
+async function exportExcel(data: RowData[]) {
+  const ExcelJS = await import('exceljs')
+  const wb = new ExcelJS.Workbook()
+  const ws = wb.addWorksheet('Concept Mapping')
+
+  // Header row
+  ws.columns = headers.map((h) => ({
+    header: h,
+    key: h,
+    width: Math.min(
       40,
       Math.max(
-        h.length,
-        ...rows.map((r) => String(r[h as keyof RowData] ?? '').length).slice(0, 10)
+        h.length + 2,
+        ...data.map((r) => String(r[h as keyof RowData] ?? '').length).map((l) => Math.min(l, 40))
       )
     ),
   }))
-  const wb = XLSX.utils.book_new()
-  XLSX.utils.book_append_sheet(wb, ws, 'Concept Mapping')
-  XLSX.writeFile(wb, 'concept-mapping-simple.xlsx')
+
+  // Data rows
+  for (const row of data) {
+    ws.addRow(Object.fromEntries(headers.map((h) => [h, row[h as keyof RowData] ?? ''])))
+  }
+
+  // Style header row
+  ws.getRow(1).font = { bold: true }
+
+  const buffer = await wb.xlsx.writeBuffer()
+  const blob = new Blob([buffer], {
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = 'concept-mapping-simple.xlsx'
+  document.body.appendChild(link)
+  link.click()
+  setTimeout(() => {
+    URL.revokeObjectURL(url)
+    link.remove()
+  }, 100)
 }
 
 const ConceptMappingSimple = () => {
@@ -240,14 +261,14 @@ const ConceptMappingSimple = () => {
                 {filteredRows.length} of {rows.length} items
               </span>
               <button
-                onClick={exportExcel}
+                onClick={() => exportExcel(filteredRows)}
                 className="px-4 py-2 bg-tabs-teal text-white text-sm font-medium rounded-lg hover:bg-tabs-teal-deep transition-colors"
                 aria-label="Download concept mapping data as Excel spreadsheet"
               >
                 Download Excel
               </button>
               <button
-                onClick={exportCsv}
+                onClick={() => exportCsv(filteredRows)}
                 className="px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
                 aria-label="Download concept mapping data as CSV"
               >
