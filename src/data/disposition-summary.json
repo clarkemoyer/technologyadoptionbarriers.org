@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-04-01T14:39:11.660Z",
-  "totalResponses": 380,
+  "updatedAt": "2026-04-01T15:12:38.649Z",
+  "totalResponses": 381,
   "uniqueParticipants": 352,
   "duplicatesRemoved": 0,
   "dispositions": {
@@ -62,7 +62,7 @@
     "returned": 119,
     "timedOut": 4,
     "awaitingReview": 26,
-    "active": 0,
+    "active": 1,
     "messaged": 0
   },
   "iriPassRates": {
