@@ -55,7 +55,7 @@ except ImportError:  # pragma: no cover
 #   Q10-28_Barriers_1 … Q10-28_Barriers_19
 #   Q47-64_Readiness_1 … Q47-64_Readiness_18
 #   Q65-73_Maturity_1 … Q65-73_Maturity_9
-# Override via --construct-patterns if your column names differ.
+# Override via --construct CLI option if your column names differ.
 CONSTRUCT_PATTERNS: dict[str, str] = {
     "Barriers": r"^Q\d+-\d+_Barriers_\d+$",
     "Readiness": r"^Q\d+-\d+_Readiness_\d+$",
@@ -453,11 +453,11 @@ def compute_correlations(
 # Numeric value extraction from slide text
 # ---------------------------------------------------------------------------
 
-_NUMBER_RE = re.compile(r"-?\d+\.\d+")
+_NUMBER_RE = re.compile(r"-?\d+(?:\.\d+)?")
 
 
 def _extract_numbers(text: str) -> list[float]:
-    """Extract all decimal-point numbers from *text*."""
+    """Extract all numeric values (integer and decimal) from *text*."""
     return [float(m) for m in _NUMBER_RE.findall(text)]
 
 
@@ -550,6 +550,9 @@ def run_validation(
     _log(f"  {len(slide_texts)} slides found")
 
     if target_slides:
+        missing = [s for s in target_slides if s not in slide_texts]
+        if missing:
+            _log(f"  Warning: requested slides not found in PPTX: {missing}")
         slide_texts = {k: v for k, v in slide_texts.items() if k in target_slides}
         _log(f"  Validating target slides: {sorted(slide_texts.keys())}")
 
@@ -821,6 +824,15 @@ def main() -> int:
         action="store_true",
         help="Output results as JSON instead of human-readable text",
     )
+    parser.add_argument(
+        "--construct",
+        action="append",
+        metavar="NAME=PATTERN",
+        help=(
+            "Override a construct column pattern, e.g. "
+            "'--construct Barriers=^B_\\d+$'. May be repeated."
+        ),
+    )
 
     args = parser.parse_args()
 
@@ -838,11 +850,22 @@ def main() -> int:
     else:
         target_slides = DEFAULT_TARGET_SLIDES
 
+    custom_patterns: dict[str, str] | None = None
+    if args.construct:
+        custom_patterns = dict(CONSTRUCT_PATTERNS)
+        for item in args.construct:
+            if "=" not in item:
+                print(f"Error: --construct must be NAME=PATTERN, got: {item}", file=sys.stderr)
+                return 2
+            name, pattern = item.split("=", 1)
+            custom_patterns[name] = pattern
+
     report = run_validation(
         csv_path=args.csv_path,
         pptx_path=args.pptx_path,
         tolerance=args.tolerance,
         target_slides=target_slides,
+        construct_patterns=custom_patterns,
     )
 
     if report is None:
