@@ -137,6 +137,11 @@ const Barriers = () => {
                   </span>
                 </div>
 
+                {/* Short Name Label */}
+                <p className="text-[13px] font-bold text-tabs-teal uppercase tracking-widest mb-[6px]">
+                  {barrier.name}
+                </p>
+
                 {/* Barrier Survey Text */}
                 <h3 className="text-[20px] font-bold text-tabs-navy mb-[15px] leading-[1.4]">
                   {barrier.description}
