@@ -301,7 +301,7 @@ const ConceptMappingSimple = () => {
                     }`}
                     style={
                       COLUMN_MAX_WIDTHS[header]
-                        ? { maxWidth: COLUMN_MAX_WIDTHS[header] }
+                        ? { maxWidth: COLUMN_MAX_WIDTHS[header], minWidth: 'auto' }
                         : undefined
                     }
                   >
