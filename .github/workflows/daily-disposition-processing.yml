@@ -15,6 +15,10 @@ on:
     - cron: '0 10 * * *' # Daily at 10:00 UTC (6am ET)
   workflow_dispatch:
 
+concurrency:
+  group: daily-disposition-processing
+  cancel-in-progress: false # Let the current run finish; queue the next one
+
 permissions:
   contents: write
   pull-requests: write
@@ -120,6 +124,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: prolific-prod
     strategy:
+      fail-fast: false
       max-parallel: 1
       matrix:
         disposition:
@@ -232,6 +237,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          # Fetch latest main so PREV_FILE has the most recent committed data
+          ref: main
 
       - uses: actions/download-artifact@v8
         with:
