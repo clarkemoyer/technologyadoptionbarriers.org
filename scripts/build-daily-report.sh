@@ -116,7 +116,83 @@ PYEOF
   ) || RECONCILIATION_TABLE=""
 fi
 
-# Build full section (empty string if no data)
+# --- Recommended actions based on reconciliation data ---
+RECOMMENDATIONS=""
+if [ -f "$TODAY_FILE" ]; then
+  RECOMMENDATIONS=$(TODAY_FILE="$TODAY_FILE" python3 << 'RECEOF'
+import json, os
+
+d = json.load(open(os.environ['TODAY_FILE']))
+dbs = d.get('dispositionByStatus', {})
+if not dbs:
+    exit(0)
+
+recs = []
+
+# Priority 1 (Critical): AUTO-EXCLUDE still awaiting — should be actioned
+ae_awaiting = dbs.get('AUTO-EXCLUDE', {}).get('AWAITING REVIEW', 0)
+if ae_awaiting > 0:
+    recs.append(f'| 🔴 Critical | **{ae_awaiting} AUTO-EXCLUDE** awaiting review | Send return-offer messages or reject — these failed multiple quality checks |')
+
+# Priority 2 (High): Any FLAG with AWAITING REVIEW — need manual decision
+for disp in ['FLAG-SINGLE-IRI', 'FLAG-SMEAL', 'FLAG-SPEED', 'FLAG-PARTIAL-STRAIGHTLINING', 'FLAG-RECAPTCHA']:
+    n = dbs.get(disp, {}).get('AWAITING REVIEW', 0)
+    if n > 0:
+        if disp == 'FLAG-SINGLE-IRI':
+            action = 'Review IRI answer — approve if borderline, message if unclear'
+        elif disp == 'FLAG-SMEAL':
+            action = 'Review completion time — approve if IRI checks all passed'
+        elif disp == 'FLAG-SPEED':
+            action = 'Review — fast but all IRIs passed; likely approvable'
+        elif disp == 'FLAG-PARTIAL-STRAIGHTLINING':
+            action = 'Review response variance — approve if answers show engagement'
+        elif disp == 'FLAG-RECAPTCHA':
+            action = 'Review reCAPTCHA score — approve if other quality signals OK'
+        else:
+            action = 'Manual review needed'
+        recs.append(f'| 🟡 High | **{n} {disp}** awaiting review | {action} |')
+
+# Priority 3 (Info): AUTO-EXCLUDE with anomalous APPROVED
+ae_approved = dbs.get('AUTO-EXCLUDE', {}).get('APPROVED', 0)
+if ae_approved > 0:
+    recs.append(f'| 🟠 Anomaly | **{ae_approved} AUTO-EXCLUDE** approved | Verify these were intentional manual approvals after dispute resolution |')
+
+# Priority 4 (Info): INCOMPLETE returned vs timed out
+inc = dbs.get('INCOMPLETE', {})
+inc_returned = inc.get('RETURNED', 0)
+inc_timed = inc.get('TIMED-OUT', 0)
+inc_awaiting = inc.get('AWAITING REVIEW', 0)
+if inc_awaiting > 0:
+    recs.append(f'| 🔵 Low | **{inc_awaiting} INCOMPLETE** awaiting review | Likely abandoned — consider requesting return |')
+
+# Summary counts
+total_awaiting = sum(r.get('AWAITING REVIEW', 0) for r in dbs.values())
+total_approved = sum(r.get('APPROVED', 0) for r in dbs.values())
+total_returned = sum(r.get('RETURNED', 0) for r in dbs.values())
+total_rejected = sum(r.get('REJECTED', 0) for r in dbs.values())
+
+if recs:
+    print('| Priority | Item | Recommended Action |')
+    print('|---|---|---|')
+    for r in recs:
+        print(r)
+    print('')
+    print(f'**Summary:** {total_awaiting} total awaiting review, {total_approved} approved, {total_returned} returned, {total_rejected} rejected')
+else:
+    print('No actions needed — all dispositions have been processed.')
+RECEOF
+  ) || RECOMMENDATIONS=""
+fi
+
+RECOMMENDATIONS_SECTION=""
+if [ -n "$RECOMMENDATIONS" ]; then
+  RECOMMENDATIONS_SECTION="## Recommended Actions
+
+$RECOMMENDATIONS
+"
+fi
+
+# Build full reconciliation section (empty string if no data)
 RECONCILIATION_SECTION=""
 if [ -n "$RECONCILIATION_TABLE" ]; then
   RECONCILIATION_SECTION="## Reconciliation: Disposition x Prolific Status
@@ -184,6 +260,7 @@ cat >> /tmp/report-body.md << STATUSEOF
 $TRIAGE_BREAKDOWN
 
 $RECONCILIATION_SECTION
+$RECOMMENDATIONS_SECTION
 ## Auto-Approve CLEAN
 
 - **CLEAN dispositions:** $APPROVE_CLEAN_COUNT
