@@ -163,7 +163,8 @@ jobs:
   # Step 4a: Generate dashboard data (needs Prolific API)
   generate-dashboard:
     name: Generate Dashboard Data
-    needs: [triage, approve-clean, message-flags]
+    needs: [triage, approve-clean]
+    if: ${{ needs.triage.result == 'success' && needs.approve-clean.result == 'success' }}
     runs-on: ubuntu-latest
     environment: prolific-prod
     steps:
