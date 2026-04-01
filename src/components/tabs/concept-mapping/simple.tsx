@@ -124,7 +124,7 @@ function exportCsv(data: RowData[]) {
 }
 
 async function exportExcel(data: RowData[]) {
-  const ExcelJS = await import('exceljs')
+  const ExcelJS = (await import('exceljs')).default
   const wb = new ExcelJS.Workbook()
   const ws = wb.addWorksheet('Concept Mapping')
 
