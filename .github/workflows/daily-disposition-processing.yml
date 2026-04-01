@@ -5,6 +5,7 @@ name: Daily Disposition Processing
 #   2. Auto-approve CLEAN submissions
 #   3. Send FLAG/return-offer messages to new un-messaged participants
 #   4. Update dashboard data (disposition-summary.json)
+#   5. Create daily report issue with deltas
 #
 # Safety: Only approves CLEAN (all checks passed) and sends review
 # messages. Does NOT reject anyone — all rejections require manual trigger.
@@ -17,6 +18,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 jobs:
   # Step 1: Export + Triage
@@ -40,16 +42,40 @@ jobs:
           QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
           OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
 
+      - name: Verify export columns
+        run: npx --no-install tsx scripts/check-export-headers.ts
+        env:
+          INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+
       - name: Run disposition triage
-        run: npx --no-install tsx scripts/disposition-triage.ts
+        run: |
+          set -euo pipefail
+          npx --no-install tsx scripts/disposition-triage.ts 2>&1 | tee ${{ runner.temp }}/triage-output.txt
         env:
           INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
           OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
+
+      - name: Extract triage metrics
+        run: |
+          set -euo pipefail
+          # Extract total (handle case where no responses exist)
+          total_line="$(grep -m1 '\*\*Total responses:\*\*' ${{ runner.temp }}/triage-output.txt || echo '**Total responses:** 0')"
+          printf '%s\n' "$total_line" | sed 's/.*\*\*Total responses:\*\* //' > ${{ runner.temp }}/triage-total.txt
+          # Extract breakdown table rows (handle empty)
+          grep -E "^\|" ${{ runner.temp }}/triage-output.txt | grep -v "Disposition\|---" > ${{ runner.temp }}/triage-breakdown.txt || true
 
       - uses: actions/upload-artifact@v7
         with:
           name: disposition-csv
           path: ${{ runner.temp }}/disposition.csv
+          retention-days: 1
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: triage-metrics
+          path: |
+            ${{ runner.temp }}/triage-total.txt
+            ${{ runner.temp }}/triage-breakdown.txt
           retention-days: 1
 
   # Step 2: Auto-approve CLEAN
@@ -71,12 +97,21 @@ jobs:
           path: ${{ runner.temp }}
 
       - name: Approve CLEAN submissions
-        run: npx --no-install tsx scripts/approve-prolific-submissions.ts
+        run: |
+          set -euo pipefail
+          npx --no-install tsx scripts/approve-prolific-submissions.ts 2>&1 | tee ${{ runner.temp }}/approve-output.txt
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
           CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
           DRY_RUN: 'false'
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: approve-metrics
+          path: ${{ runner.temp }}/approve-output.txt
+          retention-days: 1
 
   # Step 3: Message un-messaged FLAG participants
   message-flags:
@@ -110,7 +145,9 @@ jobs:
           path: ${{ runner.temp }}
 
       - name: Send messages for ${{ matrix.disposition }}
-        run: npx --no-install tsx scripts/message-flagged-submissions.ts
+        run: |
+          set -euo pipefail
+          npx --no-install tsx scripts/message-flagged-submissions.ts 2>&1 | tee ${{ runner.temp }}/message-output.txt
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
@@ -118,10 +155,20 @@ jobs:
           DISPOSITION_FILTER: ${{ matrix.disposition }}
           DRY_RUN: 'false'
 
-  # Step 4: Update dashboard data
-  update-dashboard:
-    name: Update Dashboard Data
+      # Note: message-output.txt contains PIDs for operational debugging.
+      # Artifact has 1-day retention; same data appears in workflow logs.
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: message-metrics-${{ matrix.disposition }}
+          path: ${{ runner.temp }}/message-output.txt
+          retention-days: 1
+
+  # Step 4a: Generate dashboard data (needs Prolific API)
+  generate-dashboard:
+    name: Generate Dashboard Data
     needs: [triage, approve-clean]
+    if: ${{ needs.triage.result == 'success' && needs.approve-clean.result == 'success' }}
     runs-on: ubuntu-latest
     environment: prolific-prod
     steps:
@@ -142,10 +189,26 @@ jobs:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
           CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
-          OUTPUT_PATH: src/data/disposition-summary.json
+          OUTPUT_PATH: ${{ runner.temp }}/disposition-summary.json
 
-      - name: Format
-        run: npx prettier --write src/data/disposition-summary.json
+      - uses: actions/upload-artifact@v7
+        with:
+          name: dashboard-data
+          path: ${{ runner.temp }}/disposition-summary.json
+          retention-days: 1
+
+  # Step 4b: Create PR with updated dashboard data (needs copilot token)
+  update-dashboard-pr:
+    name: Update Dashboard PR
+    needs: generate-dashboard
+    runs-on: ubuntu-latest
+    environment: copilot
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/download-artifact@v8
+        with:
+          name: dashboard-data
+          path: src/data
 
       - uses: ./.github/actions/format-and-pr
         with:
@@ -155,3 +218,29 @@ jobs:
           pr-title: 'Update disposition dashboard data'
           pr-body: 'Automated update of disposition-summary.json from live Prolific API + Qualtrics triage.'
           branch: chore/disposition-dashboard-update
+
+  # Step 5: Create daily report issue with full details and deltas
+  daily-report:
+    name: Create Daily Report Issue
+    needs: [triage, approve-clean, message-flags, generate-dashboard]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/download-artifact@v8
+        with:
+          path: ${{ runner.temp }}/artifacts
+        continue-on-error: true
+
+      - name: Build and create daily report issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          ARTIFACTS_DIR: ${{ runner.temp }}/artifacts
+          PREV_FILE: src/data/disposition-summary.json
+          TRIAGE_RESULT: ${{ needs.triage.result }}
+          APPROVE_RESULT_STATUS: ${{ needs.approve-clean.result }}
+          MESSAGE_RESULT: ${{ needs.message-flags.result }}
+          DASHBOARD_RESULT: ${{ needs.generate-dashboard.result }}
+        run: bash scripts/build-daily-report.sh

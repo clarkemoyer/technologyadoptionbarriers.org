@@ -48,10 +48,12 @@ const keyColumns = [
 
 console.log('')
 console.log('=== Key column verification ===')
+let missingColumns = 0
 for (const col of keyColumns) {
   const idx = headers.findIndex((h) => h === col)
   if (idx === -1) {
     console.log(`*** ${col}: NOT FOUND ***`)
+    missingColumns++
     continue
   }
 
@@ -68,7 +70,14 @@ for (const col of keyColumns) {
     if (samples.length < 3 && val !== '') samples.push(val)
   }
 
-  console.log(`${col} [${idx}]: ${nonEmpty}/${total} non-empty | samples: ${samples.join(' | ')}`)
+  // Suppress sample values for PII columns to avoid leaking participant IDs in CI logs
+  const sampleStr = col === 'PROLIFIC_PID' ? '(redacted)' : samples.join(' | ')
+  console.log(`${col} [${idx}]: ${nonEmpty}/${total} non-empty | samples: ${sampleStr}`)
+}
+
+if (missingColumns > 0) {
+  console.error(`\n${missingColumns} required column(s) missing from export. Failing.`)
+  process.exit(1)
 }
 
 // Detailed straightlining breakdown
