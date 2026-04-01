@@ -72,6 +72,50 @@ if [ -f "$ARTIFACTS_DIR/approve-metrics/approve-output.txt" ]; then
   APPROVE_RESULT=$(grep "Successfully approved\|No CLEAN\|No participants with CLEAN disposition found\|Nothing to approve" "$ARTIFACTS_DIR/approve-metrics/approve-output.txt" | head -1 || echo "No data")
 fi
 
+# --- Reconciliation cross-reference (disposition x Prolific status) ---
+RECONCILIATION_TABLE=""
+if [ -f "$TODAY_FILE" ]; then
+  RECONCILIATION_TABLE=$(TODAY_FILE="$TODAY_FILE" python3 << 'PYEOF'
+import json, sys, os
+d = json.load(open(os.environ['TODAY_FILE']))
+dbs = d.get('dispositionByStatus', {})
+if not dbs:
+    sys.exit(0)
+
+statuses = ['APPROVED', 'RETURNED', 'AWAITING REVIEW', 'REJECTED', 'TIMED-OUT']
+short = ['Approved', 'Returned', 'Awaiting', 'Rejected', 'Timed Out']
+
+order = ['CLEAN', 'FLAG-SINGLE-IRI', 'FLAG-SMEAL', 'FLAG-PARTIAL-STRAIGHTLINING',
+         'FLAG-SPEED', 'FLAG-RECAPTCHA', 'AUTO-EXCLUDE', 'INCOMPLETE']
+disps = [dp for dp in order if dp in dbs] + [dp for dp in sorted(dbs) if dp not in order]
+
+print('| Disposition | Total | ' + ' | '.join(short) + ' |')
+print('|---|---:' + '|---:' * len(statuses) + '|')
+for dp in disps:
+    row = dbs[dp]
+    total = sum(row.values())
+    cells = [str(row.get(s, 0)) for s in statuses]
+    print(f'| {dp} | {total} | ' + ' | '.join(cells) + ' |')
+
+total_approved = sum(r.get('APPROVED', 0) for r in dbs.values())
+clean_approved = dbs.get('CLEAN', {}).get('APPROVED', 0)
+manual_approved = total_approved - clean_approved
+total_awaiting = sum(r.get('AWAITING REVIEW', 0) for r in dbs.values())
+print('')
+print(f'**Total approved:** {total_approved} ({clean_approved} CLEAN + {manual_approved} manually approved)')
+awaiting_parts = []
+for dp in disps:
+    n = dbs[dp].get('AWAITING REVIEW', 0)
+    if n > 0:
+        awaiting_parts.append(f'{n} {dp}')
+if awaiting_parts:
+    print(f'**Awaiting review:** {total_awaiting} (' + ', '.join(awaiting_parts) + ')')
+else:
+    print(f'**Awaiting review:** {total_awaiting}')
+PYEOF
+  ) || RECONCILIATION_TABLE=""
+fi
+
 # --- Message data ---
 MSG_ROWS=""
 TOTAL_SENT=0
@@ -129,6 +173,10 @@ cat >> /tmp/report-body.md << STATUSEOF
 | Disposition | Count | % |
 |---|---:|---:|
 $TRIAGE_BREAKDOWN
+
+## Reconciliation: Disposition x Prolific Status
+
+$RECONCILIATION_TABLE
 
 ## Auto-Approve CLEAN
 
