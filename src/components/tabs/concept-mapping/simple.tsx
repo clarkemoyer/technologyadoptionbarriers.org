@@ -263,7 +263,7 @@ const ConceptMappingSimple = () => {
                 {filteredRows.length} of {rows.length} items
               </span>
               <button
-                onClick={() => exportExcel(filteredRows)}
+                onClick={() => exportExcel(filteredRows).catch(console.error)}
                 className="px-4 py-2 bg-tabs-teal text-white text-sm font-medium rounded-lg hover:bg-tabs-teal-deep transition-colors"
                 aria-label="Download concept mapping data as Excel spreadsheet"
               >
