@@ -157,10 +157,15 @@ jobs:
 
       # Note: message-output.txt contains PIDs for operational debugging.
       # Artifact has 1-day retention; same data appears in workflow logs.
+      - name: Sanitize artifact name
+        if: always()
+        run: echo "ARTIFACT_NAME=message-metrics-${DISPOSITION_FILTER//:/-}" >> "$GITHUB_ENV"
+        env:
+          DISPOSITION_FILTER: ${{ matrix.disposition }}
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: message-metrics-${{ matrix.disposition }}
+          name: ${{ env.ARTIFACT_NAME }}
           path: ${{ runner.temp }}/message-output.txt
           retention-days: 1
 
