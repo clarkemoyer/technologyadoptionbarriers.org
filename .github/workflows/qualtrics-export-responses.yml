@@ -72,3 +72,4 @@ jobs:
           name: qualtrics-responses-csv
           path: ${{ runner.temp }}/qualtrics-responses.csv
           retention-days: 7
+          if-no-files-found: error
