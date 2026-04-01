@@ -7,6 +7,14 @@ set -euo pipefail
 # Required env vars: GH_TOKEN, RUN_URL, ARTIFACTS_DIR, PREV_FILE
 # Optional: TRIAGE_RESULT, APPROVE_RESULT_STATUS, MESSAGE_RESULT, DASHBOARD_RESULT
 
+# Validate required env vars
+for var in GH_TOKEN RUN_URL; do
+  if [ -z "${!var:-}" ]; then
+    echo "Error: required env var $var is not set" >&2
+    exit 1
+  fi
+done
+
 DATE=$(date -u +"%Y-%m-%d")
 ARTIFACTS_DIR="${ARTIFACTS_DIR:-.}"
 PREV_FILE="${PREV_FILE:-src/data/disposition-summary.json}"
