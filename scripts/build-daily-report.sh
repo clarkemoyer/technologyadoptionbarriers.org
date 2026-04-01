@@ -82,8 +82,8 @@ dbs = d.get('dispositionByStatus', {})
 if not dbs:
     sys.exit(0)
 
-statuses = ['APPROVED', 'RETURNED', 'AWAITING REVIEW', 'REJECTED', 'TIMED-OUT']
-short = ['Approved', 'Returned', 'Awaiting', 'Rejected', 'Timed Out']
+statuses = ['APPROVED', 'RETURNED', 'AWAITING REVIEW', 'REJECTED', 'TIMED-OUT', 'NO_SUBMISSION']
+short = ['Approved', 'Returned', 'Awaiting', 'Rejected', 'Timed Out', 'No Sub']
 
 order = ['CLEAN', 'FLAG-SINGLE-IRI', 'FLAG-SMEAL', 'FLAG-PARTIAL-STRAIGHTLINING',
          'FLAG-SPEED', 'FLAG-RECAPTCHA', 'AUTO-EXCLUDE', 'INCOMPLETE']
@@ -114,6 +114,15 @@ else:
     print(f'**Awaiting review:** {total_awaiting}')
 PYEOF
   ) || RECONCILIATION_TABLE=""
+fi
+
+# Build full section (empty string if no data)
+RECONCILIATION_SECTION=""
+if [ -n "$RECONCILIATION_TABLE" ]; then
+  RECONCILIATION_SECTION="## Reconciliation: Disposition x Prolific Status
+
+$RECONCILIATION_TABLE
+"
 fi
 
 # --- Message data ---
@@ -174,10 +183,7 @@ cat >> /tmp/report-body.md << STATUSEOF
 |---|---:|---:|
 $TRIAGE_BREAKDOWN
 
-## Reconciliation: Disposition x Prolific Status
-
-$RECONCILIATION_TABLE
-
+$RECONCILIATION_SECTION
 ## Auto-Approve CLEAN
 
 - **CLEAN dispositions:** $APPROVE_CLEAN_COUNT
