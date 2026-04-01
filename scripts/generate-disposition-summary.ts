@@ -56,14 +56,17 @@ async function main() {
     ).catch(() => ({ results: [] })),
   ])
 
+  // TODO: listStudySubmissions returns a single page — add pagination if study exceeds page size
   const submissions: Submission[] = submissionsResponse.results || []
   const messages = messagesResponse.results || []
 
-  // Count submission statuses from live API
+  // Build PID → Prolific status map for cross-reference
+  const statusByPid = new Map<string, string>()
   const statusCounts: Record<string, number> = {}
   for (const sub of submissions) {
     const status = sub.status || 'UNKNOWN'
     statusCounts[status] = (statusCounts[status] || 0) + 1
+    statusByPid.set(sub.participant_id, status)
   }
 
   console.log(`Study: ${study.name}`)
@@ -102,6 +105,7 @@ async function main() {
     return idx
   }
 
+  const pidIdx = col('PROLIFIC_PID')
   const dispositionIdx = col('Disposition')
   const iriFailIdx = col('IRI_Fail_Count')
   const speedIdx = col('Speed_Flag')
@@ -119,6 +123,9 @@ async function main() {
     SPEED_IRI: 0,
   }
 
+  // dispositionByStatus[disposition][prolificStatus] = count
+  const dispositionByStatus: Record<string, Record<string, number>> = {}
+
   let totalParticipants = 0
   let iriBarrierPass = 0
   let iriReadinessPass = 0
@@ -131,6 +138,13 @@ async function main() {
 
     totalParticipants++
     dispositions[disposition] = (dispositions[disposition] || 0) + 1
+
+    // Cross-reference with Prolific status
+    const pid = (fields[pidIdx] ?? '').trim()
+    const prolificStatus = pid ? (statusByPid.get(pid) ?? 'NO_SUBMISSION') : 'NO_SUBMISSION'
+    if (!dispositionByStatus[disposition]) dispositionByStatus[disposition] = {}
+    dispositionByStatus[disposition][prolificStatus] =
+      (dispositionByStatus[disposition][prolificStatus] || 0) + 1
 
     // IRI pass rates
     if (iriBarrierIdx >= 0) iriBarrierPass += parseInt(fields[iriBarrierIdx] ?? '0', 10) || 0
@@ -156,6 +170,18 @@ async function main() {
   }
   console.log('')
 
+  console.log('Disposition x Prolific Status cross-reference:')
+  for (const [disp, statuses] of Object.entries(dispositionByStatus).sort(([a], [b]) =>
+    a.localeCompare(b)
+  )) {
+    const parts = Object.entries(statuses)
+      .sort(([, a], [, b]) => b - a)
+      .map(([s, c]) => `${s}:${c}`)
+      .join(', ')
+    console.log(`  ${disp}: ${parts}`)
+  }
+  console.log('')
+
   /* ---------- 3. Build summary JSON ------------------------------------ */
   const summary = {
     updatedAt: new Date().toISOString(),
@@ -163,6 +189,7 @@ async function main() {
     uniqueParticipants: totalParticipants,
     duplicatesRemoved: 0,
     dispositions,
+    dispositionByStatus,
     autoExcludeBreakdown,
     actions: {
       approved: statusCounts['APPROVED'] || 0,
