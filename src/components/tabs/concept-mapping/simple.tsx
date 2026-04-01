@@ -5,6 +5,7 @@ import conceptMappingData from '@/data/concept-mapping-simple.json'
 import { SECTIONS, type SectionDef } from '@/data/concept-mapping-colors'
 import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
+import * as XLSX from 'xlsx'
 
 /**
  * Concept Mapping Simple Component
@@ -37,6 +38,18 @@ const EXPANDABLE_COLUMNS = new Set([
   'Measurement Objective',
   'Relationship to Other Items',
 ])
+
+/**
+ * Column max-widths so sparse columns (e.g. RIS Citation, mostly N/A) shrink
+ * and content-heavy columns get more space. Applied via inline style.
+ */
+const COLUMN_MAX_WIDTHS: Record<string, string> = {
+  'RIS Citation': '70px',
+  'Source Link (URL/DOI)': '90px',
+  'Variable Type': '100px',
+  'Item Code / Variable Name': '120px',
+  'Qualtrics QID / Export Tag': '140px',
+}
 
 /** Max characters shown before truncation */
 const TRUNCATE_LENGTH = 120
@@ -108,6 +121,26 @@ function exportCsv() {
     URL.revokeObjectURL(url)
     link.remove()
   }, 100)
+}
+
+function exportExcel() {
+  const data = rows.map((row) =>
+    Object.fromEntries(headers.map((h) => [h, row[h as keyof RowData] ?? '']))
+  )
+  const ws = XLSX.utils.json_to_sheet(data, { header: headers })
+  // Auto-fit column widths based on content length
+  ws['!cols'] = headers.map((h) => ({
+    wch: Math.min(
+      40,
+      Math.max(
+        h.length,
+        ...rows.map((r) => String(r[h as keyof RowData] ?? '').length).slice(0, 10)
+      )
+    ),
+  }))
+  const wb = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(wb, ws, 'Concept Mapping')
+  XLSX.writeFile(wb, 'concept-mapping-simple.xlsx')
 }
 
 const ConceptMappingSimple = () => {
@@ -207,11 +240,18 @@ const ConceptMappingSimple = () => {
                 {filteredRows.length} of {rows.length} items
               </span>
               <button
-                onClick={exportCsv}
+                onClick={exportExcel}
                 className="px-4 py-2 bg-tabs-teal text-white text-sm font-medium rounded-lg hover:bg-tabs-teal-deep transition-colors"
+                aria-label="Download concept mapping data as Excel spreadsheet"
+              >
+                Download Excel
+              </button>
+              <button
+                onClick={exportCsv}
+                className="px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
                 aria-label="Download concept mapping data as CSV"
               >
-                Download CSV
+                CSV
               </button>
             </div>
           </div>
@@ -235,9 +275,14 @@ const ConceptMappingSimple = () => {
                   <th
                     key={header}
                     scope="col"
-                    className={`sticky top-0 z-20 bg-tabs-navy text-white text-left px-3 py-3 font-semibold text-xs border-b border-gray-300 whitespace-normal min-w-[120px] max-w-[250px] leading-snug ${
+                    className={`sticky top-0 z-20 bg-tabs-navy text-white text-left px-3 py-3 font-semibold text-xs border-b border-gray-300 whitespace-normal min-w-[100px] max-w-[250px] leading-snug ${
                       i === 0 ? 'sticky left-0 z-30' : ''
                     }`}
+                    style={
+                      COLUMN_MAX_WIDTHS[header]
+                        ? { maxWidth: COLUMN_MAX_WIDTHS[header] }
+                        : undefined
+                    }
                   >
                     {header}
                   </th>
@@ -262,9 +307,12 @@ const ConceptMappingSimple = () => {
                             className={`px-3 py-2.5 align-top text-xs leading-relaxed max-w-[350px] ${
                               colIdx === 0 ? 'sticky left-0 z-10 font-medium' : ''
                             }`}
-                            style={
-                              colIdx === 0 && section ? { backgroundColor: section.bg } : undefined
-                            }
+                            style={{
+                              ...(colIdx === 0 && section && { backgroundColor: section.bg }),
+                              ...(COLUMN_MAX_WIDTHS[header] && {
+                                maxWidth: COLUMN_MAX_WIDTHS[header],
+                              }),
+                            }}
                           >
                             <ExpandableCell value={val} header={header} />
                           </td>
