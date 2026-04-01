@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-01T10:22:56.698Z",
+  "updatedAt": "2026-04-01T12:55:02.611Z",
   "totalResponses": 380,
   "uniqueParticipants": 352,
   "duplicatesRemoved": 0,
@@ -12,6 +12,42 @@
     "FLAG-SPEED": 5,
     "FLAG-RECAPTCHA": 3,
     "INCOMPLETE": 47
+  },
+  "dispositionByStatus": {
+    "CLEAN": {
+      "APPROVED": 85
+    },
+    "FLAG-SMEAL": {
+      "APPROVED": 35,
+      "RETURNED": 2,
+      "AWAITING REVIEW": 2
+    },
+    "AUTO-EXCLUDE": {
+      "REJECTED": 29,
+      "RETURNED": 42,
+      "AWAITING REVIEW": 17,
+      "APPROVED": 1
+    },
+    "FLAG-PARTIAL-STRAIGHTLINING": {
+      "APPROVED": 16,
+      "RETURNED": 1
+    },
+    "FLAG-SINGLE-IRI": {
+      "APPROVED": 58,
+      "RETURNED": 6,
+      "AWAITING REVIEW": 3
+    },
+    "FLAG-SPEED": {
+      "APPROVED": 5
+    },
+    "FLAG-RECAPTCHA": {
+      "APPROVED": 2,
+      "AWAITING REVIEW": 1
+    },
+    "INCOMPLETE": {
+      "RETURNED": 43,
+      "TIMED-OUT": 4
+    }
   },
   "autoExcludeBreakdown": {
     "IRI3_SPEED": 11,
