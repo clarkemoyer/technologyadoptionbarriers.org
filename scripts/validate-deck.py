@@ -3,9 +3,9 @@
 
 Reads a Qualtrics CSV export and a PPTX presentation file (or directory of
 unpacked slide XML), computes survey statistics (item means, standard
-deviations, grand construct means, Pearson correlations, and cross-tabs),
-extracts claimed numeric values from slide text, and reports PASS / FAIL for
-each check.
+deviations, grand construct means, and Pearson correlations), extracts
+claimed numeric values from slide text, and reports PASS / FAIL for each
+check.
 
 Usage:
     python scripts/validate-deck.py <csv_path> <pptx_path>
@@ -51,12 +51,15 @@ except ImportError:  # pragma: no cover
 # ---------------------------------------------------------------------------
 
 # Column-name patterns that identify each construct in the Qualtrics export.
-# Adjust these regexes to match the actual column naming convention used by
-# the survey.  Patterns are matched case-insensitively.
+# Default patterns match the TABS V2 Qualtrics column naming convention:
+#   Q10-28_Barriers_1 … Q10-28_Barriers_19
+#   Q47-64_Readiness_1 … Q47-64_Readiness_18
+#   Q65-73_Maturity_1 … Q65-73_Maturity_9
+# Override via --construct-patterns if your column names differ.
 CONSTRUCT_PATTERNS: dict[str, str] = {
-    "Barriers": r"^(?:B_?\d+|Barriers?_?\d+)$",
-    "Readiness": r"^(?:R_?\d+|Readiness_?\d+)$",
-    "Maturity": r"^(?:M_?\d+|Maturity_?\d+)$",
+    "Barriers": r"^Q\d+-\d+_Barriers_\d+$",
+    "Readiness": r"^Q\d+-\d+_Readiness_\d+$",
+    "Maturity": r"^Q\d+-\d+_Maturity_\d+$",
 }
 
 # Default numeric comparison tolerance (absolute).
@@ -129,9 +132,15 @@ def parse_qualtrics_csv(
     next(reader)  # Row 3 – import IDs (skip)
 
     rows: list[dict[str, str]] = []
+    skipped = 0
     for row in reader:
-        if len(row) == len(headers):
-            rows.append(dict(zip(headers, row)))
+        if len(row) >= len(headers):
+            rows.append(dict(zip(headers, row[:len(headers)])))
+        elif row:
+            skipped += 1
+
+    if skipped > 0:
+        _log(f"  Warning: skipped {skipped} row(s) with fewer columns than expected")
 
     return headers, rows
 
@@ -211,13 +220,62 @@ def extract_slide_texts_from_dir(slides_dir: Path) -> dict[int, str]:
 # ---------------------------------------------------------------------------
 
 
+# Qualtrics Likert label-to-numeric mappings.
+# When useLabels=true, response columns contain text; map them to the
+# underlying numeric values so statistics can be computed.
+_LIKERT_LABEL_MAP: dict[str, float] = {}
+
+# Barriers (5-point: Not a Barrier=1 … Major Barrier=5)
+for i, lbl in enumerate(
+    ["Not a Barrier", "Minor Barrier", "Moderate Barrier", "Significant Barrier", "Major Barrier"],
+    start=1,
+):
+    _LIKERT_LABEL_MAP[lbl.lower()] = float(i)
+
+# Readiness (5-point: Very Low=1 … Very High=5)
+for i, lbl in enumerate(
+    [
+        "Very Low Readiness/Capability",
+        "Low Readiness/Capability",
+        "Moderate Readiness/Capability",
+        "High Readiness/Capability",
+        "Very High Readiness/Capability",
+    ],
+    start=1,
+):
+    _LIKERT_LABEL_MAP[lbl.lower()] = float(i)
+
+# Maturity (5-point: Level 1=1 … Level 5=5)
+for i, lbl in enumerate(
+    [
+        "Level 1: Initial/Ad Hoc",
+        "Level 2: Developing/Repeatable",
+        "Level 3: Defined/Standardized",
+        "Level 4: Managed/Measured",
+        "Level 5: Optimizing/Leading",
+    ],
+    start=1,
+):
+    _LIKERT_LABEL_MAP[lbl.lower()] = float(i)
+
+
 def _safe_float(value: str) -> float | None:
-    """Parse *value* as a finite float, or return ``None``."""
+    """Parse *value* as a finite float, or return ``None``.
+
+    Also checks Qualtrics Likert text labels (e.g. "Major Barrier" → 5.0).
+    """
+    stripped = value.strip()
+    # Try numeric first
     try:
-        v = float(value.strip())
+        v = float(stripped)
         return v if math.isfinite(v) else None
     except (ValueError, AttributeError):
-        return None
+        pass
+    # Try Likert label mapping
+    mapped = _LIKERT_LABEL_MAP.get(stripped.lower())
+    if mapped is not None:
+        return mapped
+    return None
 
 
 def _pearson_r(xs: list[float], ys: list[float]) -> float | None:
@@ -290,13 +348,15 @@ def compute_construct_scores(
                 "grand_sd": None,
                 "n": 0,
                 "respondent_means": [],
+                "respondent_means_indexed": [],
             }
             continue
 
         item_values: dict[str, list[float]] = {item: [] for item in items}
-        respondent_means: list[float] = []
+        # Track (row_index, mean) so correlations can align by respondent
+        respondent_means_indexed: list[tuple[int, float]] = []
 
-        for row in rows:
+        for row_idx, row in enumerate(rows):
             valid_vals: list[float] = []
             for item in items:
                 v = _safe_float(row.get(item, ""))
@@ -304,7 +364,9 @@ def compute_construct_scores(
                     item_values[item].append(v)
                     valid_vals.append(v)
             if valid_vals:
-                respondent_means.append(sum(valid_vals) / len(valid_vals))
+                respondent_means_indexed.append((row_idx, sum(valid_vals) / len(valid_vals)))
+
+        respondent_means = [m for _, m in respondent_means_indexed]
 
         # Item-level
         item_means: dict[str, float | None] = {}
@@ -318,7 +380,7 @@ def compute_construct_scores(
                     var = sum((v - mean) ** 2 for v in vals) / (len(vals) - 1)
                     item_sds[item] = math.sqrt(var)
                 else:
-                    item_sds[item] = 0.0
+                    item_sds[item] = None  # SD undefined for n=1
             else:
                 item_means[item] = None
                 item_sds[item] = None
@@ -334,7 +396,7 @@ def compute_construct_scores(
                 )
                 grand_sd = math.sqrt(var)
             else:
-                grand_sd = 0.0
+                grand_sd = None  # SD undefined for n=1
 
         results[construct] = {
             "items": items,
@@ -344,6 +406,7 @@ def compute_construct_scores(
             "grand_sd": grand_sd,
             "n": len(respondent_means),
             "respondent_means": respondent_means,
+            "respondent_means_indexed": respondent_means_indexed,
         }
 
     return results
@@ -352,18 +415,31 @@ def compute_construct_scores(
 def compute_correlations(
     constructs: dict[str, dict],
 ) -> dict[str, float | None]:
-    """Pairwise Pearson correlations between construct respondent means."""
+    """Pairwise Pearson correlations between construct respondent means.
+
+    Uses indexed respondent means so partial responders are correctly
+    aligned by row index (only respondents present in both constructs
+    contribute to the correlation).
+    """
 
     pairs: dict[str, float | None] = {}
     names = list(constructs.keys())
 
     for i, name_a in enumerate(names):
         for name_b in names[i + 1 :]:
-            means_a = constructs[name_a].get("respondent_means", [])
-            means_b = constructs[name_b].get("respondent_means", [])
+            indexed_a = constructs[name_a].get("respondent_means_indexed", [])
+            indexed_b = constructs[name_b].get("respondent_means_indexed", [])
 
-            if means_a and means_b and len(means_a) == len(means_b):
-                r = _pearson_r(means_a, means_b)
+            # Build index → mean maps and intersect on common respondents
+            map_a = dict(indexed_a)
+            map_b = dict(indexed_b)
+            common = sorted(set(map_a) & set(map_b))
+
+            if len(common) >= 3:
+                r = _pearson_r(
+                    [map_a[idx] for idx in common],
+                    [map_b[idx] for idx in common],
+                )
             else:
                 r = None
 
@@ -449,7 +525,7 @@ def run_validation(
     tolerance: float = DEFAULT_TOLERANCE,
     target_slides: list[int] | None = None,
     construct_patterns: dict[str, str] | None = None,
-) -> ValidationReport:
+) -> ValidationReport | None:
     """Execute the full validation pipeline and return a report."""
 
     report = ValidationReport()
@@ -469,7 +545,7 @@ def run_validation(
         slide_texts = extract_slide_texts(pptx_path)
     else:
         _log(f"Error: {pptx_path} is neither a .pptx file nor a directory")
-        return report
+        return None  # signals input error to caller
 
     _log(f"  {len(slide_texts)} slides found")
 
@@ -652,8 +728,8 @@ def print_report(report: ValidationReport) -> None:
     if not report.checks:
         print("\nNo checks were performed.")
         print("Hint: ensure the CSV contains columns matching the construct")
-        print("patterns (B_1, R_1, M_1, …) and the PPTX contains slides")
-        print("with numeric values.")
+        print("patterns (Q10-28_Barriers_1, Q47-64_Readiness_1, …) and the")
+        print("PPTX contains slides with numeric values.")
         return
 
     failed = [c for c in report.checks if not c.passed]
@@ -768,6 +844,9 @@ def main() -> int:
         tolerance=args.tolerance,
         target_slides=target_slides,
     )
+
+    if report is None:
+        return 2  # input error
 
     if args.json:
         print(report_as_json(report))

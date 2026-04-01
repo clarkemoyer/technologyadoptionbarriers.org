@@ -33,6 +33,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify Qualtrics configuration
+        run: |
+          set -euo pipefail
+          if [ -z "${QUALTRICS_API_TOKEN:-}" ]; then echo "::error::QUALTRICS_API_TOKEN is not set"; exit 1; fi
+          if [ -z "${QUALTRICS_BASE_URL:-}" ]; then echo "::error::QUALTRICS_BASE_URL is not set"; exit 1; fi
+          if [ -z "${QUALTRICS_SURVEY_ID:-}" ]; then echo "::error::QUALTRICS_SURVEY_ID is not set"; exit 1; fi
+          echo "Qualtrics configuration verified."
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ inputs.survey_id || vars.QUALTRICS_SURVEY_ID }}
+
       - name: Export Qualtrics responses
         run: npx --no-install tsx scripts/export-qualtrics-responses.ts
         env:
