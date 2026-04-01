@@ -42,7 +42,7 @@ const EXPANDABLE_COLUMNS = new Set([
  * Column max-widths so sparse columns (e.g. RIS Citation, mostly N/A) shrink
  * and content-heavy columns get more space. Applied via inline style.
  */
-const COLUMN_MAX_WIDTHS: Record<string, string> = {
+const COLUMN_MAX_WIDTHS: Partial<Record<(typeof conceptMappingData.headers)[number], string>> = {
   'RIS Citation': '70px',
   'Source Link (URL/DOI)': '90px',
   'Variable Type': '100px',
@@ -291,7 +291,7 @@ const ConceptMappingSimple = () => {
           aria-describedby="table-scroll-hint"
           tabIndex={0}
         >
-          <table className="w-max min-w-full text-sm border-collapse">
+          <table className="min-w-full text-sm border-collapse">
             <thead>
               <tr>
                 {headers.map((header, i) => (
@@ -330,12 +330,16 @@ const ConceptMappingSimple = () => {
                             className={`px-3 py-2.5 align-top text-xs leading-relaxed max-w-[350px] ${
                               colIdx === 0 ? 'sticky left-0 z-10 font-medium' : ''
                             }`}
-                            style={{
-                              ...(colIdx === 0 && section && { backgroundColor: section.bg }),
-                              ...(COLUMN_MAX_WIDTHS[header] && {
-                                maxWidth: COLUMN_MAX_WIDTHS[header],
-                              }),
-                            }}
+                            style={Object.assign(
+                              {},
+                              colIdx === 0 && section ? { backgroundColor: section.bg } : undefined,
+                              COLUMN_MAX_WIDTHS[header as keyof typeof COLUMN_MAX_WIDTHS]
+                                ? {
+                                    maxWidth:
+                                      COLUMN_MAX_WIDTHS[header as keyof typeof COLUMN_MAX_WIDTHS],
+                                  }
+                                : undefined
+                            )}
                           >
                             <ExpandableCell value={val} header={header} />
                           </td>
