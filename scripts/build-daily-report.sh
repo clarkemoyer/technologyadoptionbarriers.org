@@ -116,10 +116,37 @@ PYEOF
   ) || RECONCILIATION_TABLE=""
 fi
 
+# --- Message data (parsed before recommendations so TOTAL_SENT is available) ---
+MSG_ROWS=""
+TOTAL_SENT=0
+TOTAL_FAILED=0
+for f in "$ARTIFACTS_DIR"/message-metrics-*/message-output.txt; do
+  [ -f "$f" ] || continue
+  DISP=$(grep "Disposition filter:" "$f" | head -1 | sed 's/.*filter: //' || true)
+  [ -z "$DISP" ] && DISP=$(grep "DISPOSITION_FILTER:" "$f" | head -1 | sed 's/.*DISPOSITION_FILTER: //' || true)
+  SENT_LINE=$(grep "SENT:" "$f" | tail -1 || true)
+  if [ -n "$DISP" ]; then
+    if [ -n "$SENT_LINE" ]; then
+      SENT=$(echo "$SENT_LINE" | sed -n 's/.*SENT: \([0-9]*\).*/\1/p')
+      ACTIONED=$(echo "$SENT_LINE" | sed -n 's/.*already actioned): \([0-9]*\).*/\1/p')
+      MESSAGED=$(echo "$SENT_LINE" | sed -n 's/.*already messaged): \([0-9]*\).*/\1/p')
+      FAILED=$(echo "$SENT_LINE" | sed -n 's/.*FAILED: \([0-9]*\).*/\1/p')
+      MSG_ROWS="$MSG_ROWS
+| $DISP | ${SENT:-0} | ${ACTIONED:-0} | ${MESSAGED:-0} | ${FAILED:-0} |"
+      TOTAL_SENT=$((TOTAL_SENT + ${SENT:-0}))
+      TOTAL_FAILED=$((TOTAL_FAILED + ${FAILED:-0}))
+    else
+      # No participants matched this disposition — show 0/0/0/0 so it still appears in report
+      MSG_ROWS="$MSG_ROWS
+| $DISP | 0 | 0 | 0 | 0 |"
+    fi
+  fi
+done
+
 # --- Recommended actions based on reconciliation data ---
 RECOMMENDATIONS=""
 if [ -f "$TODAY_FILE" ]; then
-  RECOMMENDATIONS=$(TODAY_FILE="$TODAY_FILE" python3 << 'RECEOF'
+  RECOMMENDATIONS=$(TODAY_FILE="$TODAY_FILE" TOTAL_SENT="$TOTAL_SENT" python3 << 'RECEOF'
 import json, os
 
 d = json.load(open(os.environ['TODAY_FILE']))
@@ -129,39 +156,40 @@ if not dbs:
 
 recs = []
 
-# Priority 1 (Critical): AUTO-EXCLUDE still awaiting — should be actioned
+# Read today's new messages sent count from env (set by shell before calling python)
+new_msgs = int(os.environ.get('TOTAL_SENT', '0'))
+
+# Priority 1: AUTO-EXCLUDE still awaiting
 ae_awaiting = dbs.get('AUTO-EXCLUDE', {}).get('AWAITING REVIEW', 0)
 if ae_awaiting > 0:
-    recs.append(f'| 🔴 Critical | **{ae_awaiting} AUTO-EXCLUDE** awaiting review | Send return-offer messages or reject — these failed multiple quality checks |')
+    if new_msgs == 0:
+        recs.append(f'| ⏳ Waiting | **{ae_awaiting} AUTO-EXCLUDE** awaiting review | All messaged with return-offer — waiting on participants to return. Reject if no response by deadline. |')
+    else:
+        recs.append(f'| 🔴 Critical | **{ae_awaiting} AUTO-EXCLUDE** awaiting review | Send return-offer messages or reject — these failed multiple quality checks |')
 
-# Priority 2 (High): Any FLAG with AWAITING REVIEW — need manual decision
+# Priority 2: Any FLAG with AWAITING REVIEW — need manual decision
 for disp in ['FLAG-SINGLE-IRI', 'FLAG-SMEAL', 'FLAG-SPEED', 'FLAG-PARTIAL-STRAIGHTLINING', 'FLAG-RECAPTCHA']:
     n = dbs.get(disp, {}).get('AWAITING REVIEW', 0)
     if n > 0:
-        if disp == 'FLAG-SINGLE-IRI':
-            action = 'Review IRI answer — approve if borderline, message if unclear'
-        elif disp == 'FLAG-SMEAL':
-            action = 'Review completion time — approve if IRI checks all passed'
-        elif disp == 'FLAG-SPEED':
-            action = 'Review — fast but all IRIs passed; likely approvable'
-        elif disp == 'FLAG-PARTIAL-STRAIGHTLINING':
-            action = 'Review response variance — approve if answers show engagement'
-        elif disp == 'FLAG-RECAPTCHA':
-            action = 'Review reCAPTCHA score — approve if other quality signals OK'
+        guidance = {
+            'FLAG-SINGLE-IRI': 'Review IRI answer — approve if borderline, message if unclear',
+            'FLAG-SMEAL': 'Review completion time — approve if IRI checks all passed',
+            'FLAG-SPEED': 'Review — fast but all IRIs passed; likely approvable',
+            'FLAG-PARTIAL-STRAIGHTLINING': 'Review response variance — approve if answers show engagement',
+            'FLAG-RECAPTCHA': 'Review reCAPTCHA score — approve if other quality signals OK',
+        }.get(disp, 'Manual review needed')
+        if new_msgs == 0:
+            recs.append(f'| ⏳ Waiting | **{n} {disp}** awaiting review | Already messaged — check for replies, then approve or reject |')
         else:
-            action = 'Manual review needed'
-        recs.append(f'| 🟡 High | **{n} {disp}** awaiting review | {action} |')
+            recs.append(f'| 🟡 Action | **{n} {disp}** awaiting review | {guidance} |')
 
-# Priority 3 (Info): AUTO-EXCLUDE with anomalous APPROVED
+# Priority 3: AUTO-EXCLUDE with anomalous APPROVED
 ae_approved = dbs.get('AUTO-EXCLUDE', {}).get('APPROVED', 0)
 if ae_approved > 0:
     recs.append(f'| 🟠 Anomaly | **{ae_approved} AUTO-EXCLUDE** approved | Verify these were intentional manual approvals after dispute resolution |')
 
-# Priority 4 (Info): INCOMPLETE returned vs timed out
-inc = dbs.get('INCOMPLETE', {})
-inc_returned = inc.get('RETURNED', 0)
-inc_timed = inc.get('TIMED-OUT', 0)
-inc_awaiting = inc.get('AWAITING REVIEW', 0)
+# Priority 4: INCOMPLETE still awaiting
+inc_awaiting = dbs.get('INCOMPLETE', {}).get('AWAITING REVIEW', 0)
 if inc_awaiting > 0:
     recs.append(f'| 🔵 Low | **{inc_awaiting} INCOMPLETE** awaiting review | Likely abandoned — consider requesting return |')
 
@@ -200,33 +228,6 @@ if [ -n "$RECONCILIATION_TABLE" ]; then
 $RECONCILIATION_TABLE
 "
 fi
-
-# --- Message data ---
-MSG_ROWS=""
-TOTAL_SENT=0
-TOTAL_FAILED=0
-for f in "$ARTIFACTS_DIR"/message-metrics-*/message-output.txt; do
-  [ -f "$f" ] || continue
-  DISP=$(grep "Disposition filter:" "$f" | head -1 | sed 's/.*filter: //' || true)
-  [ -z "$DISP" ] && DISP=$(grep "DISPOSITION_FILTER:" "$f" | head -1 | sed 's/.*DISPOSITION_FILTER: //' || true)
-  SENT_LINE=$(grep "SENT:" "$f" | tail -1 || true)
-  if [ -n "$DISP" ]; then
-    if [ -n "$SENT_LINE" ]; then
-      SENT=$(echo "$SENT_LINE" | sed -n 's/.*SENT: \([0-9]*\).*/\1/p')
-      ACTIONED=$(echo "$SENT_LINE" | sed -n 's/.*already actioned): \([0-9]*\).*/\1/p')
-      MESSAGED=$(echo "$SENT_LINE" | sed -n 's/.*already messaged): \([0-9]*\).*/\1/p')
-      FAILED=$(echo "$SENT_LINE" | sed -n 's/.*FAILED: \([0-9]*\).*/\1/p')
-      MSG_ROWS="$MSG_ROWS
-| $DISP | ${SENT:-0} | ${ACTIONED:-0} | ${MESSAGED:-0} | ${FAILED:-0} |"
-      TOTAL_SENT=$((TOTAL_SENT + ${SENT:-0}))
-      TOTAL_FAILED=$((TOTAL_FAILED + ${FAILED:-0}))
-    else
-      # No participants matched this disposition — show 0/0/0/0 so it still appears in report
-      MSG_ROWS="$MSG_ROWS
-| $DISP | 0 | 0 | 0 | 0 |"
-    fi
-  fi
-done
 
 # --- Build report ---
 if [ "$HAS_DASHBOARD" = true ]; then
