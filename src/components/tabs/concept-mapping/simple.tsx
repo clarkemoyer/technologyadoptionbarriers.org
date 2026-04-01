@@ -112,6 +112,7 @@ function exportCsv(data: RowData[]) {
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
+  link.style.display = 'none'
   link.href = url
   link.download = 'concept-mapping-simple.csv'
   document.body.appendChild(link)
@@ -154,6 +155,7 @@ async function exportExcel(data: RowData[]) {
   })
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
+  link.style.display = 'none'
   link.href = url
   link.download = 'concept-mapping-simple.xlsx'
   document.body.appendChild(link)
