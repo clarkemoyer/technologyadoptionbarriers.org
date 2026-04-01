@@ -229,11 +229,28 @@ $RECONCILIATION_TABLE
 "
 fi
 
-# --- Build report ---
-if [ "$HAS_DASHBOARD" = true ]; then
-  DASHBOARD_NOTE=""
-else
-  DASHBOARD_NOTE="> **Note:** Dashboard data was unavailable; Prolific status counts and deltas may be incomplete.
+# --- Build warnings for upstream failures ---
+WARNINGS=""
+if [ "${TRIAGE_RESULT:-}" = "failure" ]; then
+  WARNINGS="$WARNINGS
+> ⚠️ **Export & Triage failed** — triage counts may be stale."
+fi
+if [ "${APPROVE_RESULT_STATUS:-}" = "failure" ]; then
+  WARNINGS="$WARNINGS
+> ⚠️ **Auto-Approve failed** — CLEAN submissions may not have been approved."
+fi
+if [ "${MESSAGE_RESULT:-}" = "failure" ]; then
+  WARNINGS="$WARNINGS
+> ⚠️ **Messaging failed** — some FLAG participants may not have been contacted."
+fi
+if [ "${DASHBOARD_RESULT:-}" = "failure" ] || [ "$HAS_DASHBOARD" = false ]; then
+  WARNINGS="$WARNINGS
+> ⚠️ **Dashboard data unavailable** — Prolific status counts and deltas may be incomplete."
+fi
+
+DASHBOARD_NOTE=""
+if [ -n "$WARNINGS" ]; then
+  DASHBOARD_NOTE="$WARNINGS
 "
 fi
 
