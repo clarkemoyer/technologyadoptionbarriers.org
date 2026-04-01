@@ -5,6 +5,9 @@ import conceptMappingData from '@/data/concept-mapping-simple.json'
 import { SECTIONS, type SectionDef } from '@/data/concept-mapping-colors'
 import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
+import { Tooltip } from '@/components/ui/tooltip'
+import { Info } from 'lucide-react'
+import { barriers } from '@/data/barriers'
 
 /**
  * Concept Mapping Simple Component
@@ -256,6 +259,19 @@ const ConceptMappingSimple = () => {
                     >
                       {headers.map((header, colIdx) => {
                         const val = String(row[header as keyof RowData] ?? '')
+
+                        // Check if this is a barrier node
+                        const isBarrierColumn = header === 'Survey Item (Question Text)'
+                        const isBarrierSection = String(
+                          row['Section / Primary Construct']
+                        ).includes('Technology Adoption Barriers')
+                        let matchingBarrier = null
+                        if (isBarrierColumn && isBarrierSection) {
+                          matchingBarrier = barriers.find(
+                            (b) => b.description.trim().toLowerCase() === val.trim().toLowerCase()
+                          )
+                        }
+
                         return (
                           <td
                             key={header}
@@ -266,7 +282,37 @@ const ConceptMappingSimple = () => {
                               colIdx === 0 && section ? { backgroundColor: section.bg } : undefined
                             }
                           >
-                            <ExpandableCell value={val} header={header} />
+                            {matchingBarrier ? (
+                              <div className="flex items-start gap-1.5">
+                                <div>
+                                  <ExpandableCell value={val} header={header} />
+                                </div>
+                                <Tooltip
+                                  content={
+                                    <div className="space-y-2 text-left">
+                                      <div className="font-bold text-sm border-b border-gray-600 pb-1">
+                                        {matchingBarrier.name}
+                                      </div>
+                                      {matchingBarrier.examples &&
+                                        matchingBarrier.examples.length > 0 && (
+                                          <ul className="list-disc pl-4 text-xs text-gray-200 mt-1 space-y-1">
+                                            {matchingBarrier.examples.map((ex, i) => (
+                                              <li key={i}>{ex}</li>
+                                            ))}
+                                          </ul>
+                                        )}
+                                    </div>
+                                  }
+                                >
+                                  <Info
+                                    className="w-4 h-4 text-blue-500 hover:text-blue-700 mt-0.5 flex-shrink-0 cursor-help"
+                                    aria-label={`View examples for ${matchingBarrier.name}`}
+                                  />
+                                </Tooltip>
+                              </div>
+                            ) : (
+                              <ExpandableCell value={val} header={header} />
+                            )}
                           </td>
                         )
                       })}
