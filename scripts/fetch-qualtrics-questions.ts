@@ -18,8 +18,25 @@ async function main() {
     console.log(`🔍 Connecting to Qualtrics API (${BASE_URL})...`)
     console.log(`📊 Fetching questions for survey: ${SURVEY_ID}\n`)
 
-    const data = await getSurveyQuestions(SURVEY_ID, API_TOKEN, BASE_URL)
-    const questions = Object.values(data.Questions)
+    const data = await getSurveyQuestions(
+      SURVEY_ID as string,
+      API_TOKEN as string,
+      BASE_URL as string
+    )
+
+    if (!data) {
+      throw new Error('Received empty response from Qualtrics API')
+    }
+
+    const questions = Array.isArray(data.elements)
+      ? data.elements
+      : Object.values(data.Questions || {})
+
+    if (!questions || questions.length === 0) {
+      throw new Error(
+        'Could not find questions array in Qualtrics API response. Unexpected schema.'
+      )
+    }
 
     console.log(`Found ${questions.length} questions:\n`)
 
@@ -27,22 +44,40 @@ async function main() {
     const openEndedPlaceholder = '<li><em>Open ended</em></li>'
 
     for (const q of questions) {
-      const cleanText = stripHtml(q.QuestionText)
-      console.log(`[${q.QuestionID}] (${q.QuestionType}) ${cleanText}`)
+      const qId = q.QuestionID || q.questionId || 'Unknown'
+      const qText = q.QuestionText || q.questionText || ''
+      const qType =
+        q.QuestionType ||
+        (typeof q.questionType === 'object' && q.questionType !== null
+          ? q.questionType.type
+          : q.questionType) ||
+        'Unknown'
+      const rawChoices = q.Choices || q.choices
+
+      const cleanText = stripHtml(qText)
+      console.log(`[${qId}] (${qType}) ${cleanText}`)
 
       let choicesText = ''
-      if (q.Choices) {
+      if (rawChoices) {
         console.log('  Choices:')
-        const choices = Object.values(q.Choices).map((c) => `    - ${stripHtml(c.Display)}`)
-        choices.forEach((c) => console.log(c))
-        choicesText = Object.values(q.Choices)
-          .map((c) => `<li>${mdEscape(stripHtml(c.Display))}</li>`)
+        const choicesList = Array.isArray(rawChoices) ? rawChoices : Object.values(rawChoices)
+
+        choicesList.forEach((c: any) => {
+          const display = c.Display || c.display || c.choiceText || ''
+          console.log(`    - ${stripHtml(display)}`)
+        })
+
+        choicesText = choicesList
+          .map((c: any) => {
+            const display = c.Display || c.display || c.choiceText || ''
+            return `<li>${mdEscape(stripHtml(display))}</li>`
+          })
           .join('')
       }
       console.log('')
 
       summaryRows.push(
-        `| **${mdEscape(q.QuestionID)}** | ${mdEscape(cleanText)} | <ul>${choicesText || openEndedPlaceholder}</ul> |`
+        `| **${mdEscape(qId)}** | ${mdEscape(cleanText)} | <ul>${choicesText || openEndedPlaceholder}</ul> |`
       )
     }
 
@@ -50,7 +85,7 @@ async function main() {
       [
         '## Qualtrics Survey Questions',
         '',
-        `**Survey ID:** ${mdEscape(SURVEY_ID)}`,
+        `**Survey ID:** ${mdEscape(SURVEY_ID as string)}`,
         `**Total Questions:** ${questions.length}`,
         '',
         '| ID | Question | Choices |',

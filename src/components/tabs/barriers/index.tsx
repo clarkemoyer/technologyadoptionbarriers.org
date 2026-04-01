@@ -137,13 +137,15 @@ const Barriers = () => {
                   </span>
                 </div>
 
-                {/* Barrier Name */}
-                <h3 className="text-[24px] font-bold text-tabs-navy mb-[15px]">{barrier.name}</h3>
-
-                {/* Description */}
-                <p className="text-[16px] text-gray-700 mb-[15px] leading-[1.6]">
-                  {barrier.description}
+                {/* Short Name Label */}
+                <p className="text-[13px] font-bold text-tabs-teal uppercase tracking-widest mb-[6px]">
+                  {barrier.name}
                 </p>
+
+                {/* Barrier Survey Text */}
+                <h3 className="text-[20px] font-bold text-tabs-navy mb-[15px] leading-[1.4]">
+                  {barrier.description}
+                </h3>
 
                 {/* Examples (if available) */}
                 {barrier.examples && barrier.examples.length > 0 && (

@@ -38,7 +38,8 @@ describe('Barriers component', () => {
       const firstBarrier = barriers[0]
       fireEvent.change(searchInput, { target: { value: firstBarrier.name } })
 
-      // The barrier with matching name should be visible
+      // The barrier with matching description should be visible
+      expect(screen.getByText(firstBarrier.description)).toBeInTheDocument()
       expect(screen.getByText(firstBarrier.name)).toBeInTheDocument()
     })
 
@@ -62,6 +63,7 @@ describe('Barriers component', () => {
       const firstBarrier = barriers[0]
       fireEvent.change(searchInput, { target: { value: firstBarrier.name.toUpperCase() } })
 
+      expect(screen.getByText(firstBarrier.description)).toBeInTheDocument()
       expect(screen.getByText(firstBarrier.name)).toBeInTheDocument()
     })
 
@@ -127,7 +129,7 @@ describe('Barriers component', () => {
 
       const categoryBarriers = barriers.filter((b) => b.category === category.id)
       categoryBarriers.forEach((barrier) => {
-        expect(screen.getByText(barrier.name)).toBeInTheDocument()
+        expect(screen.getByText(barrier.description)).toBeInTheDocument()
       })
     })
 
@@ -188,12 +190,12 @@ describe('Barriers component', () => {
       fireEvent.change(searchInput, { target: { value: barrierInCategory!.name } })
 
       // Matching barrier should be visible
-      expect(screen.getByText(barrierInCategory!.name)).toBeInTheDocument()
+      expect(screen.getByText(barrierInCategory!.description)).toBeInTheDocument()
 
       // At least one barrier from a different category should not be visible
       const barrierInOtherCategory = barriers.find((b) => b.category !== category.id)
       expect(barrierInOtherCategory).toBeTruthy()
-      expect(screen.queryByText(barrierInOtherCategory!.name)).not.toBeInTheDocument()
+      expect(screen.queryByText(barrierInOtherCategory!.description)).not.toBeInTheDocument()
     })
   })
 
@@ -300,7 +302,7 @@ describe('Barriers component', () => {
 
       // Should show results again
       expect(screen.queryByText('No barriers found')).not.toBeInTheDocument()
-      expect(screen.getByText(barriers[0].name)).toBeInTheDocument()
+      expect(screen.getByText(barriers[0].description)).toBeInTheDocument()
     })
   })
 
