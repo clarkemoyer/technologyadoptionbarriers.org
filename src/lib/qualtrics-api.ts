@@ -8,17 +8,22 @@
  */
 
 export interface QualtricsQuestion {
-  QuestionID: string
-  QuestionText: string
-  QuestionType: string
-  Selector: string
+  QuestionID?: string
+  questionId?: string
+  QuestionText?: string
+  questionText?: string
+  QuestionType?: string
+  questionType?: { type: string } | string
+  Selector?: string
   SubSelector?: string
   Choices?: Record<string, { Display: string }>
+  choices?: Record<string, { display: string; choiceText?: string }> | any[]
   QuestionDescription?: string
 }
 
 export interface QualtricsSurveyDefinition {
-  Questions: Record<string, QualtricsQuestion>
+  Questions?: Record<string, QualtricsQuestion>
+  elements?: QualtricsQuestion[]
 }
 
 /**

@@ -18,7 +18,11 @@ async function main() {
     console.log(`🔍 Connecting to Qualtrics API (${BASE_URL})...`)
     console.log(`📊 Fetching questions for survey: ${SURVEY_ID}\n`)
 
-    const data: any = await getSurveyQuestions(SURVEY_ID, API_TOKEN, BASE_URL)
+    const data = await getSurveyQuestions(
+      SURVEY_ID as string,
+      API_TOKEN as string,
+      BASE_URL as string
+    )
 
     if (!data) {
       throw new Error('Received empty response from Qualtrics API')
@@ -42,7 +46,12 @@ async function main() {
     for (const q of questions) {
       const qId = q.QuestionID || q.questionId || 'Unknown'
       const qText = q.QuestionText || q.questionText || ''
-      const qType = q.QuestionType || q.questionType?.type || 'Unknown'
+      const qType =
+        q.QuestionType ||
+        (typeof q.questionType === 'object' && q.questionType !== null
+          ? q.questionType.type
+          : q.questionType) ||
+        'Unknown'
       const rawChoices = q.Choices || q.choices
 
       const cleanText = stripHtml(qText)
@@ -76,7 +85,7 @@ async function main() {
       [
         '## Qualtrics Survey Questions',
         '',
-        `**Survey ID:** ${mdEscape(SURVEY_ID)}`,
+        `**Survey ID:** ${mdEscape(SURVEY_ID as string)}`,
         `**Total Questions:** ${questions.length}`,
         '',
         '| ID | Question | Choices |',

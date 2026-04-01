@@ -40,6 +40,7 @@ describe('Barriers component', () => {
 
       // The barrier with matching description should be visible
       expect(screen.getByText(firstBarrier.description)).toBeInTheDocument()
+      expect(screen.getByText(firstBarrier.name)).toBeInTheDocument()
     })
 
     it('should filter barriers by description when searching', () => {
@@ -63,6 +64,7 @@ describe('Barriers component', () => {
       fireEvent.change(searchInput, { target: { value: firstBarrier.name.toUpperCase() } })
 
       expect(screen.getByText(firstBarrier.description)).toBeInTheDocument()
+      expect(screen.getByText(firstBarrier.name)).toBeInTheDocument()
     })
 
     it('should show clear search button when search query exists', () => {
