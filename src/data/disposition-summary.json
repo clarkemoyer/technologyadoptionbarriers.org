@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-01T12:55:02.611Z",
+  "updatedAt": "2026-04-01T13:57:04.843Z",
   "totalResponses": 380,
   "uniqueParticipants": 352,
   "duplicatesRemoved": 0,
@@ -24,8 +24,8 @@
     },
     "AUTO-EXCLUDE": {
       "REJECTED": 29,
-      "RETURNED": 42,
-      "AWAITING REVIEW": 17,
+      "RETURNED": 43,
+      "AWAITING REVIEW": 16,
       "APPROVED": 1
     },
     "FLAG-PARTIAL-STRAIGHTLINING": {
@@ -59,9 +59,9 @@
   "actions": {
     "approved": 202,
     "rejected": 29,
-    "returned": 118,
+    "returned": 119,
     "timedOut": 4,
-    "awaitingReview": 27,
+    "awaitingReview": 26,
     "active": 0,
     "messaged": 0
   },
