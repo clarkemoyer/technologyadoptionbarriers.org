@@ -127,9 +127,13 @@ def parse_qualtrics_csv(
     text = csv_path.read_text(encoding="utf-8-sig")
     reader = csv.reader(StringIO(text))
 
-    headers: list[str] = next(reader)  # Row 1 – column labels
-    next(reader)  # Row 2 – long descriptions (skip)
-    next(reader)  # Row 3 – import IDs (skip)
+    try:
+        headers: list[str] = next(reader)  # Row 1 – column labels
+        next(reader)  # Row 2 – long descriptions (skip)
+        next(reader)  # Row 3 – import IDs (skip)
+    except StopIteration:
+        _log("Error: CSV has fewer than 3 header rows (expected Qualtrics 3-row format)")
+        return [], []
 
     rows: list[dict[str, str]] = []
     skipped = 0
