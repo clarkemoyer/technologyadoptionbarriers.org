@@ -5,6 +5,9 @@ import conceptMappingData from '@/data/concept-mapping-simple.json'
 import { SECTIONS, type SectionDef } from '@/data/concept-mapping-colors'
 import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
+import { Tooltip } from '@/components/ui/tooltip'
+import { Info } from 'lucide-react'
+import { barriers } from '@/data/barriers'
 import DownloadButtons from './download-buttons'
 
 /**
@@ -243,6 +246,21 @@ const ConceptMappingSimple = () => {
               {filteredRows.length > 0 ? (
                 filteredRows.map((row) => {
                   const section = getSection(row)
+
+                  // Pre-compute barrier lookup once per row instead of per cell
+                  const isBarrierSection = String(row['Section / Primary Construct']).includes(
+                    'Technology Adoption Barriers'
+                  )
+                  const surveyItemText = String(row['Survey Item (Question Text)'] ?? '')
+                  const rowMatchingBarrier =
+                    isBarrierSection && surveyItemText
+                      ? barriers.find(
+                          (b) =>
+                            b.description.trim().toLowerCase() ===
+                            surveyItemText.trim().toLowerCase()
+                        )
+                      : undefined
+
                   return (
                     <tr
                       key={row['Item Code / Variable Name']}
@@ -251,6 +269,11 @@ const ConceptMappingSimple = () => {
                     >
                       {headers.map((header, colIdx) => {
                         const val = String(row[header as keyof RowData] ?? '')
+
+                        // Check if this specific cell should render the pre-computed barrier tooltip
+                        const matchingBarrier =
+                          header === 'Survey Item (Question Text)' ? rowMatchingBarrier : undefined
+
                         return (
                           <td
                             key={header}
@@ -268,7 +291,35 @@ const ConceptMappingSimple = () => {
                                 : undefined
                             )}
                           >
-                            <ExpandableCell value={val} header={header} />
+                            {matchingBarrier ? (
+                              <div className="flex items-start gap-1.5">
+                                <div>
+                                  <ExpandableCell value={val} header={header} />
+                                </div>
+                                <Tooltip
+                                  content={
+                                    <div className="space-y-2 text-left">
+                                      <div className="font-bold text-sm border-b border-gray-600 pb-1">
+                                        {matchingBarrier.name}
+                                      </div>
+                                      {matchingBarrier.examples &&
+                                        matchingBarrier.examples.length > 0 && (
+                                          <ul className="list-disc pl-4 text-xs text-gray-200 mt-1 space-y-1">
+                                            {matchingBarrier.examples.map((ex, i) => (
+                                              <li key={i}>{ex}</li>
+                                            ))}
+                                          </ul>
+                                        )}
+                                    </div>
+                                  }
+                                  triggerAriaLabel={`View examples for ${matchingBarrier.name}`}
+                                >
+                                  <Info className="w-4 h-4 text-blue-500 hover:text-blue-700 mt-0.5 flex-shrink-0 cursor-help" />
+                                </Tooltip>
+                              </div>
+                            ) : (
+                              <ExpandableCell value={val} header={header} />
+                            )}
                           </td>
                         )
                       })}
