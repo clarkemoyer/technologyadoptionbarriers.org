@@ -6,14 +6,18 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 interface TooltipProps {
   content: React.ReactNode
-  children: React.ReactNode
+  /**
+   * The trigger element for the tooltip. MUST be a non-interactive element (e.g. an icon or span).
+   * Do not pass <button> or <a> as children, as they will be wrapped in a <button>.
+   */
+  children: React.ReactElement
 }
 
 export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
   const [isVisible, setIsVisible] = useState(false)
   const [coords, setCoords] = useState({ top: 0, left: 0 })
   const triggerRef = useRef<HTMLButtonElement>(null)
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const tooltipId = useId()
   const [mounted, setMounted] = useState(false)
 
