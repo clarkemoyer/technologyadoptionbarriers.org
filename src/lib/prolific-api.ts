@@ -127,6 +127,21 @@ export interface Submission {
 }
 
 /**
+ * Demographics archived at submission completion.
+ * Fields vary per participant — values are strings or DATA_EXPIRED if not answered.
+ * @see https://docs.prolific.com/api-reference/submissions/get-submission-demographics
+ */
+export interface SubmissionDemographics {
+  submission_id: string
+  participant_id: string
+  started_at: string
+  completed_at: string
+  time_taken: number
+  total_approvals: number
+  demographics: Record<string, string | number | null>
+}
+
+/**
  * Represents a participant
  */
 export interface Participant {
@@ -224,6 +239,36 @@ async function makeApiRequest<T>(
 }
 
 /**
+ * Fetch all pages of a paginated Prolific API endpoint.
+ * Follows `meta.next` links until exhausted.
+ */
+async function fetchAllPages<T>(endpoint: string, apiToken: string): Promise<PaginatedResponse<T>> {
+  const firstPage = await makeApiRequest<PaginatedResponse<T>>(endpoint, apiToken)
+  const allResults: T[] = [...firstPage.results]
+
+  let nextUrl = firstPage.meta?.next
+  while (nextUrl) {
+    // meta.next may be absolute or relative — normalize to API path
+    let path: string
+    try {
+      const url = new URL(nextUrl)
+      path = url.pathname.replace(/^\/api\/v1/, '') + url.search
+    } catch {
+      // Relative URL — use as-is
+      path = nextUrl
+    }
+    const page = await makeApiRequest<PaginatedResponse<T>>(path, apiToken)
+    allResults.push(...page.results)
+    nextUrl = page.meta?.next
+  }
+
+  return {
+    results: allResults,
+    meta: { count: allResults.length, next: null, previous: null },
+  }
+}
+
+/**
  * Get information about the current user
  *
  * @param apiToken - Prolific API token
@@ -272,17 +317,18 @@ export async function getStudy(studyId: string, apiToken: string): Promise<Study
 }
 
 /**
- * List all submissions for a specific study
+ * List all submissions for a specific study.
+ * Automatically follows pagination to return every submission.
  *
  * @param studyId - The unique identifier of the study
  * @param apiToken - Prolific API token
- * @returns Promise resolving to a list of submissions
+ * @returns Promise resolving to a list of all submissions
  */
 export async function listStudySubmissions(
   studyId: string,
   apiToken: string
 ): Promise<PaginatedResponse<Submission>> {
-  return makeApiRequest(`/studies/${studyId}/submissions/`, apiToken)
+  return fetchAllPages<Submission>(`/studies/${studyId}/submissions/`, apiToken)
 }
 
 /**
@@ -299,6 +345,65 @@ export async function getSubmission(
   apiToken: string
 ): Promise<Submission> {
   return makeApiRequest(`/studies/${studyId}/submissions/${submissionId}/`, apiToken)
+}
+
+/**
+ * Get demographics archived at submission completion.
+ *
+ * @param submissionId - The Prolific submission ID
+ * @param apiToken - Prolific API token
+ * @returns Promise resolving to submission demographics (or null if not found)
+ * @see https://docs.prolific.com/api-reference/submissions/get-submission-demographics
+ */
+export async function getSubmissionDemographics(
+  submissionId: string,
+  apiToken: string
+): Promise<SubmissionDemographics | null> {
+  const url = `${PROLIFIC_API_BASE_URL}/submissions/${submissionId}/demographics/`
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Token ${apiToken}`,
+      'Content-Type': 'application/json',
+    },
+  })
+
+  if (response.status === 404) return null
+  if (!response.ok) {
+    throw new ProlificApiErrorClass(
+      `Demographics request failed with status ${response.status}`,
+      response.status
+    )
+  }
+
+  const text = await response.text()
+  if (!text || text.trim() === '') return null
+
+  try {
+    return JSON.parse(text) as SubmissionDemographics
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Fetch demographics for all submissions in a study.
+ * Makes one API call per submission — use sparingly.
+ */
+export async function getStudyDemographics(
+  studyId: string,
+  apiToken: string
+): Promise<Map<string, SubmissionDemographics>> {
+  const subs = await listStudySubmissions(studyId, apiToken)
+  const results = new Map<string, SubmissionDemographics>()
+
+  for (const sub of subs.results) {
+    const demo = await getSubmissionDemographics(sub.id, apiToken)
+    if (demo) {
+      results.set(sub.participant_id, demo)
+    }
+  }
+
+  return results
 }
 
 /**

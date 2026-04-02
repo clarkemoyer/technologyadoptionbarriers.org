@@ -265,9 +265,63 @@ describe('Prolific API Client', () => {
 
       const result = await listStudySubmissions(mockStudyId, mockApiToken)
 
-      expect(result).toEqual(mockSubmissions)
       expect(result.results).toHaveLength(2)
       expect(result.results[0].status).toBe('APPROVED')
+    })
+
+    it('should follow pagination to fetch all pages', async () => {
+      const page1: PaginatedResponse<Submission> = {
+        results: [
+          {
+            id: 'sub-1',
+            participant_id: 'p-1',
+            study_id: mockStudyId,
+            status: 'APPROVED',
+            started_at: '2024-01-05T10:00:00Z',
+            completed_at: '2024-01-05T10:15:00Z',
+            time_taken: 900,
+          },
+        ],
+        meta: {
+          count: 2,
+          next: `https://api.prolific.com/api/v1/studies/${mockStudyId}/submissions/?page=2`,
+          previous: null,
+        },
+      }
+
+      const page2: PaginatedResponse<Submission> = {
+        results: [
+          {
+            id: 'sub-2',
+            participant_id: 'p-2',
+            study_id: mockStudyId,
+            status: 'AWAITING REVIEW',
+            started_at: '2024-01-05T11:00:00Z',
+            completed_at: '2024-01-05T11:12:00Z',
+            time_taken: 720,
+          },
+        ],
+        meta: {
+          count: 2,
+          next: null,
+          previous: null,
+        },
+      }
+
+      ;(global.fetch as jest.Mock)
+        .mockResolvedValueOnce({ ok: true, json: async () => page1 })
+        .mockResolvedValueOnce({ ok: true, json: async () => page2 })
+
+      const result = await listStudySubmissions(mockStudyId, mockApiToken)
+
+      expect(result.results).toHaveLength(2)
+      expect(result.results[0].id).toBe('sub-1')
+      expect(result.results[1].id).toBe('sub-2')
+      expect(global.fetch).toHaveBeenCalledTimes(2)
+      // Verify second call used the correct paginated path
+      const secondCall = (global.fetch as jest.Mock).mock.calls[1][0]
+      expect(secondCall).toContain('/submissions/')
+      expect(secondCall).toContain('page=2')
     })
   })
 

@@ -10,16 +10,19 @@
  *     Reference: Meade & Craig (2012), Psychological Methods 17(3), 437-455
  */
 
+import {
+  SURVEY_BLOCKS as SURVEY_BLOCKS_CONST,
+  IRI_COLUMNS,
+  IRI_EXPECTED_ANSWERS,
+  DURATION_THRESHOLDS,
+} from './tabs-survey-constants'
+
 /* ------------------------------------------------------------------ */
 /*  Block definitions                                                 */
 /* ------------------------------------------------------------------ */
 
 /** Survey question blocks for partial straightlining analysis */
-export const SURVEY_BLOCKS = [
-  { name: 'Barriers', prefix: 'Q10-28_Barriers_', count: 19 },
-  { name: 'Readiness', prefix: 'Q47-64_Readiness_', count: 18 },
-  { name: 'Maturity', prefix: 'Q65-73_Maturity_', count: 9 },
-] as const
+export const SURVEY_BLOCKS = SURVEY_BLOCKS_CONST
 
 /** Threshold for within-person SD to flag partial straightlining (Meade & Craig 2012) */
 export const PARTIAL_STRAIGHTLINING_SD_THRESHOLD = 0.5
@@ -210,9 +213,9 @@ export function triageCsv(inputCsv: string): DispositionRow[] {
   const pidIdx = colIndex(headers, 'PROLIFIC_PID')
   const finishedIdx = colIndex(headers, 'Finished')
   const durationIdx = colIndex(headers, 'Duration (in seconds)')
-  const iriBarrierIdx = colIndex(headers, 'Q10-28_Barriers_19')
-  const iriReadinessIdx = colIndex(headers, 'Q47-64_Readiness_18')
-  const iriMaturityIdx = colIndex(headers, 'Q65-73_Maturity_9')
+  const iriBarrierIdx = colIndex(headers, IRI_COLUMNS.barrier)
+  const iriReadinessIdx = colIndex(headers, IRI_COLUMNS.readiness)
+  const iriMaturityIdx = colIndex(headers, IRI_COLUMNS.maturity)
   const recaptchaIdx = colIndex(headers, 'Q_RecaptchaScore')
   const straightliningIdx = colIndex(headers, 'Q_StraightliningCount')
 
@@ -230,13 +233,17 @@ export function triageCsv(inputCsv: string): DispositionRow[] {
 
     const finished = (fields[finishedIdx] ?? '').toUpperCase()
     const duration = parseInt(fields[durationIdx] ?? '0', 10) || 0
-    const iriBarrier: 0 | 1 = fields[iriBarrierIdx] === 'Major Barrier' ? 1 : 0
-    const iriReadiness: 0 | 1 = fields[iriReadinessIdx] === 'Low Readiness/Capability' ? 1 : 0
-    const iriMaturity: 0 | 1 = fields[iriMaturityIdx] === 'Level 2: Developing/Repeatable' ? 1 : 0
+    const iriBarrier: 0 | 1 = fields[iriBarrierIdx] === IRI_EXPECTED_ANSWERS.barrier ? 1 : 0
+    const iriReadiness: 0 | 1 = fields[iriReadinessIdx] === IRI_EXPECTED_ANSWERS.readiness ? 1 : 0
+    const iriMaturity: 0 | 1 = fields[iriMaturityIdx] === IRI_EXPECTED_ANSWERS.maturity ? 1 : 0
     const iriPassCount = iriBarrier + iriReadiness + iriMaturity
     const iriFailCount = 3 - iriPassCount
-    const speedFlag: 0 | 1 = duration < 300 ? 1 : 0
-    const smealFlag: 0 | 1 = duration >= 300 && duration < 540 ? 1 : 0
+    const speedFlag: 0 | 1 = duration < DURATION_THRESHOLDS.speedFlag ? 1 : 0
+    const smealFlag: 0 | 1 =
+      duration >= DURATION_THRESHOLDS.smealBenchmarkMin &&
+      duration < DURATION_THRESHOLDS.smealBenchmarkMax
+        ? 1
+        : 0
     const rawRecaptcha = (fields[recaptchaIdx] ?? '').trim()
     const recaptchaScore = rawRecaptcha === '' ? 1.0 : parseFloat(rawRecaptcha) || 1.0
     const recaptchaFlag: 0 | 1 = recaptchaScore < 0.5 ? 1 : 0

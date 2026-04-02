@@ -1,0 +1,75 @@
+name: Export Qualtrics Survey Responses
+
+on:
+  workflow_dispatch:
+    inputs:
+      survey_id:
+        description: 'Optional Survey ID (defaults to QUALTRICS_SURVEY_ID env var)'
+        required: false
+        type: string
+
+concurrency:
+  group: qualtrics-export
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    name: Export Responses to CSV
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify Qualtrics configuration
+        run: |
+          set -euo pipefail
+          if [ -z "${QUALTRICS_API_TOKEN:-}" ]; then echo "::error::QUALTRICS_API_TOKEN is not set"; exit 1; fi
+          if [ -z "${QUALTRICS_BASE_URL:-}" ]; then echo "::error::QUALTRICS_BASE_URL is not set"; exit 1; fi
+          if [ -z "${QUALTRICS_SURVEY_ID:-}" ]; then echo "::error::QUALTRICS_SURVEY_ID is not set"; exit 1; fi
+          echo "Qualtrics configuration verified."
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ inputs.survey_id || vars.QUALTRICS_SURVEY_ID }}
+
+      - name: Export Qualtrics responses
+        run: npx --no-install tsx scripts/export-qualtrics-responses.ts
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ inputs.survey_id || vars.QUALTRICS_SURVEY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/qualtrics-responses.csv
+
+      - name: Show export summary
+        run: |
+          CSV="${{ runner.temp }}/qualtrics-responses.csv"
+          LINE_COUNT=$(wc -l < "$CSV")
+          BYTE_COUNT=$(wc -c < "$CSV")
+
+          echo "### Qualtrics Response Export" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Metric | Value |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| ------ | ----- |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Lines  | $LINE_COUNT |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Size   | $BYTE_COUNT bytes |" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload CSV artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: qualtrics-responses-csv
+          path: ${{ runner.temp }}/qualtrics-responses.csv
+          retention-days: 7
+          if-no-files-found: error

@@ -1,40 +1,75 @@
 {
-  "updatedAt": "2026-03-25T00:00:00Z",
-  "totalResponses": 212,
-  "uniqueParticipants": 207,
-  "duplicatesRemoved": 5,
+  "updatedAt": "2026-04-02T16:15:05.163Z",
+  "totalResponses": 395,
+  "uniqueParticipants": 371,
+  "duplicatesRemoved": 0,
   "dispositions": {
-    "CLEAN": 56,
-    "AUTO-EXCLUDE": 73,
-    "FLAG-SPEED": 4,
-    "FLAG-SINGLE-IRI": 41,
-    "FLAG-SMEAL": 20,
-    "FLAG-RECAPTCHA": 2,
-    "FLAG-PARTIAL-STRAIGHTLINING": 11,
-    "FLAG-STRAIGHTLINING": 0,
-    "INCOMPLETE": 0
+    "CLEAN": 88,
+    "FLAG-SMEAL": 40,
+    "AUTO-EXCLUDE": 95,
+    "FLAG-PARTIAL-STRAIGHTLINING": 17,
+    "FLAG-SINGLE-IRI": 70,
+    "FLAG-SPEED": 5,
+    "FLAG-RECAPTCHA": 3,
+    "INCOMPLETE": 53
+  },
+  "dispositionByStatus": {
+    "CLEAN": {
+      "APPROVED": 88
+    },
+    "FLAG-SMEAL": {
+      "APPROVED": 35,
+      "RETURNED": 2,
+      "AWAITING REVIEW": 3
+    },
+    "AUTO-EXCLUDE": {
+      "REJECTED": 29,
+      "RETURNED": 46,
+      "AWAITING REVIEW": 19,
+      "APPROVED": 1
+    },
+    "FLAG-PARTIAL-STRAIGHTLINING": {
+      "APPROVED": 16,
+      "RETURNED": 1
+    },
+    "FLAG-SINGLE-IRI": {
+      "APPROVED": 58,
+      "RETURNED": 6,
+      "AWAITING REVIEW": 6
+    },
+    "FLAG-SPEED": {
+      "APPROVED": 5
+    },
+    "FLAG-RECAPTCHA": {
+      "APPROVED": 2,
+      "AWAITING REVIEW": 1
+    },
+    "INCOMPLETE": {
+      "RETURNED": 49,
+      "TIMED-OUT": 4
+    }
   },
   "autoExcludeBreakdown": {
-    "IRI3_SPEED": 8,
-    "IRI3": 21,
-    "IRI2_SPEED": 7,
-    "IRI2": 28,
-    "SPEED_IRI": 9
+    "IRI3_SPEED": 11,
+    "IRI3": 25,
+    "IRI2_SPEED": 9,
+    "IRI2": 37,
+    "SPEED_IRI": 13
   },
   "actions": {
-    "approved": 56,
-    "rejected": 26,
-    "awaitingReview": 124,
-    "returned": 50,
-    "timedOut": 4,
+    "approved": 205,
+    "rejected": 29,
+    "returned": 123,
+    "timedOut": 5,
+    "awaitingReview": 33,
     "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 54.0,
-    "readiness": 67.3,
-    "maturity": 78.7
+    "barrier": 50.4,
+    "readiness": 61.7,
+    "maturity": 69.3
   },
   "studyId": "69c17630acada6abeead2da5",
-  "studyName": "Technology Adoption Barriers Survey (2026 v2)"
+  "studyName": "Technology Adoption Barriers Survey (2026)"
 }

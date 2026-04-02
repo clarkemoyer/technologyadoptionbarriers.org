@@ -30,6 +30,13 @@ describe('ConceptMappingSimple component', () => {
     expect(screen.getByLabelText('Download concept mapping data as CSV')).toBeInTheDocument()
   })
 
+  it('should render the Download Excel button', () => {
+    render(<ConceptMappingSimple />)
+    expect(
+      screen.getByLabelText('Download concept mapping data as Excel spreadsheet')
+    ).toBeInTheDocument()
+  })
+
   describe('Search functionality', () => {
     it('should render search input', () => {
       render(<ConceptMappingSimple />)

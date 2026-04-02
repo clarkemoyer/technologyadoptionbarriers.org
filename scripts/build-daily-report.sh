@@ -72,7 +72,51 @@ if [ -f "$ARTIFACTS_DIR/approve-metrics/approve-output.txt" ]; then
   APPROVE_RESULT=$(grep "Successfully approved\|No CLEAN\|No participants with CLEAN disposition found\|Nothing to approve" "$ARTIFACTS_DIR/approve-metrics/approve-output.txt" | head -1 || echo "No data")
 fi
 
-# --- Message data ---
+# --- Reconciliation cross-reference (disposition x Prolific status) ---
+RECONCILIATION_TABLE=""
+if [ -f "$TODAY_FILE" ]; then
+  RECONCILIATION_TABLE=$(TODAY_FILE="$TODAY_FILE" python3 << 'PYEOF'
+import json, sys, os
+d = json.load(open(os.environ['TODAY_FILE']))
+dbs = d.get('dispositionByStatus', {})
+if not dbs:
+    sys.exit(0)
+
+statuses = ['APPROVED', 'RETURNED', 'AWAITING REVIEW', 'REJECTED', 'TIMED-OUT', 'NO_SUBMISSION']
+short = ['Approved', 'Returned', 'Awaiting', 'Rejected', 'Timed Out', 'No Sub']
+
+order = ['CLEAN', 'FLAG-SINGLE-IRI', 'FLAG-SMEAL', 'FLAG-PARTIAL-STRAIGHTLINING',
+         'FLAG-SPEED', 'FLAG-RECAPTCHA', 'AUTO-EXCLUDE', 'INCOMPLETE']
+disps = [dp for dp in order if dp in dbs] + [dp for dp in sorted(dbs) if dp not in order]
+
+print('| Disposition | Total | ' + ' | '.join(short) + ' |')
+print('|---|---:' + '|---:' * len(statuses) + '|')
+for dp in disps:
+    row = dbs[dp]
+    total = sum(row.values())
+    cells = [str(row.get(s, 0)) for s in statuses]
+    print(f'| {dp} | {total} | ' + ' | '.join(cells) + ' |')
+
+total_approved = sum(r.get('APPROVED', 0) for r in dbs.values())
+clean_approved = dbs.get('CLEAN', {}).get('APPROVED', 0)
+manual_approved = total_approved - clean_approved
+total_awaiting = sum(r.get('AWAITING REVIEW', 0) for r in dbs.values())
+print('')
+print(f'**Total approved:** {total_approved} ({clean_approved} CLEAN + {manual_approved} manually approved)')
+awaiting_parts = []
+for dp in disps:
+    n = dbs[dp].get('AWAITING REVIEW', 0)
+    if n > 0:
+        awaiting_parts.append(f'{n} {dp}')
+if awaiting_parts:
+    print(f'**Awaiting review:** {total_awaiting} (' + ', '.join(awaiting_parts) + ')')
+else:
+    print(f'**Awaiting review:** {total_awaiting}')
+PYEOF
+  ) || RECONCILIATION_TABLE=""
+fi
+
+# --- Message data (parsed before recommendations so TOTAL_SENT is available) ---
 MSG_ROWS=""
 TOTAL_SENT=0
 TOTAL_FAILED=0
@@ -99,11 +143,114 @@ for f in "$ARTIFACTS_DIR"/message-metrics-*/message-output.txt; do
   fi
 done
 
-# --- Build report ---
-if [ "$HAS_DASHBOARD" = true ]; then
-  DASHBOARD_NOTE=""
-else
-  DASHBOARD_NOTE="> **Note:** Dashboard data was unavailable; Prolific status counts and deltas may be incomplete.
+# --- Recommended actions based on reconciliation data ---
+RECOMMENDATIONS=""
+if [ -f "$TODAY_FILE" ]; then
+  RECOMMENDATIONS=$(TODAY_FILE="$TODAY_FILE" TOTAL_SENT="$TOTAL_SENT" python3 << 'RECEOF'
+import json, os
+
+d = json.load(open(os.environ['TODAY_FILE']))
+dbs = d.get('dispositionByStatus', {})
+if not dbs:
+    exit(0)
+
+recs = []
+
+# Read today's new messages sent count from env (set by shell before calling python)
+new_msgs = int(os.environ.get('TOTAL_SENT', '0'))
+
+# Priority 1: AUTO-EXCLUDE still awaiting
+ae_awaiting = dbs.get('AUTO-EXCLUDE', {}).get('AWAITING REVIEW', 0)
+if ae_awaiting > 0:
+    if new_msgs == 0:
+        recs.append(f'| ⏳ Waiting | **{ae_awaiting} AUTO-EXCLUDE** awaiting review | All messaged with return-offer — waiting on participants to return. Reject if no response by deadline. |')
+    else:
+        recs.append(f'| 🔴 Critical | **{ae_awaiting} AUTO-EXCLUDE** awaiting review | Send return-offer messages or reject — these failed multiple quality checks |')
+
+# Priority 2: Any FLAG with AWAITING REVIEW — need manual decision
+for disp in ['FLAG-SINGLE-IRI', 'FLAG-SMEAL', 'FLAG-SPEED', 'FLAG-PARTIAL-STRAIGHTLINING', 'FLAG-RECAPTCHA']:
+    n = dbs.get(disp, {}).get('AWAITING REVIEW', 0)
+    if n > 0:
+        guidance = {
+            'FLAG-SINGLE-IRI': 'Review IRI answer — approve if borderline, message if unclear',
+            'FLAG-SMEAL': 'Review completion time — approve if IRI checks all passed',
+            'FLAG-SPEED': 'Review — fast but all IRIs passed; likely approvable',
+            'FLAG-PARTIAL-STRAIGHTLINING': 'Review response variance — approve if answers show engagement',
+            'FLAG-RECAPTCHA': 'Review reCAPTCHA score — approve if other quality signals OK',
+        }.get(disp, 'Manual review needed')
+        if new_msgs == 0:
+            recs.append(f'| ⏳ Waiting | **{n} {disp}** awaiting review | Already messaged — check for replies, then approve or reject |')
+        else:
+            recs.append(f'| 🟡 Action | **{n} {disp}** awaiting review | {guidance} |')
+
+# Priority 3: AUTO-EXCLUDE with anomalous APPROVED
+ae_approved = dbs.get('AUTO-EXCLUDE', {}).get('APPROVED', 0)
+if ae_approved > 0:
+    recs.append(f'| 🟠 Anomaly | **{ae_approved} AUTO-EXCLUDE** approved | Verify these were intentional manual approvals after dispute resolution |')
+
+# Priority 4: INCOMPLETE still awaiting
+inc_awaiting = dbs.get('INCOMPLETE', {}).get('AWAITING REVIEW', 0)
+if inc_awaiting > 0:
+    recs.append(f'| 🔵 Low | **{inc_awaiting} INCOMPLETE** awaiting review | Likely abandoned — consider requesting return |')
+
+# Summary counts
+total_awaiting = sum(r.get('AWAITING REVIEW', 0) for r in dbs.values())
+total_approved = sum(r.get('APPROVED', 0) for r in dbs.values())
+total_returned = sum(r.get('RETURNED', 0) for r in dbs.values())
+total_rejected = sum(r.get('REJECTED', 0) for r in dbs.values())
+
+if recs:
+    print('| Priority | Item | Recommended Action |')
+    print('|---|---|---|')
+    for r in recs:
+        print(r)
+    print('')
+    print(f'**Summary:** {total_awaiting} total awaiting review, {total_approved} approved, {total_returned} returned, {total_rejected} rejected')
+else:
+    print('No actions needed — all dispositions have been processed.')
+RECEOF
+  ) || RECOMMENDATIONS=""
+fi
+
+RECOMMENDATIONS_SECTION=""
+if [ -n "$RECOMMENDATIONS" ]; then
+  RECOMMENDATIONS_SECTION="## Recommended Actions
+
+$RECOMMENDATIONS
+"
+fi
+
+# Build full reconciliation section (empty string if no data)
+RECONCILIATION_SECTION=""
+if [ -n "$RECONCILIATION_TABLE" ]; then
+  RECONCILIATION_SECTION="## Reconciliation: Disposition x Prolific Status
+
+$RECONCILIATION_TABLE
+"
+fi
+
+# --- Build warnings for upstream failures ---
+WARNINGS=""
+if [ "${TRIAGE_RESULT:-}" = "failure" ]; then
+  WARNINGS="$WARNINGS
+> ⚠️ **Export & Triage failed** — triage counts may be stale."
+fi
+if [ "${APPROVE_RESULT_STATUS:-}" = "failure" ]; then
+  WARNINGS="$WARNINGS
+> ⚠️ **Auto-Approve failed** — CLEAN submissions may not have been approved."
+fi
+if [ "${MESSAGE_RESULT:-}" = "failure" ]; then
+  WARNINGS="$WARNINGS
+> ⚠️ **Messaging failed** — some FLAG participants may not have been contacted."
+fi
+if [ "${DASHBOARD_RESULT:-}" = "failure" ] || [ "$HAS_DASHBOARD" = false ]; then
+  WARNINGS="$WARNINGS
+> ⚠️ **Dashboard data unavailable** — Prolific status counts and deltas may be incomplete."
+fi
+
+DASHBOARD_NOTE=""
+if [ -n "$WARNINGS" ]; then
+  DASHBOARD_NOTE="$WARNINGS
 "
 fi
 
@@ -130,6 +277,8 @@ cat >> /tmp/report-body.md << STATUSEOF
 |---|---:|---:|
 $TRIAGE_BREAKDOWN
 
+$RECONCILIATION_SECTION
+$RECOMMENDATIONS_SECTION
 ## Auto-Approve CLEAN
 
 - **CLEAN dispositions:** $APPROVE_CLEAN_COUNT
