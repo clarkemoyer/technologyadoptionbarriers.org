@@ -74,6 +74,14 @@ jobs:
           path: ${{ runner.temp }}/disposition.csv
           retention-days: 1
 
+      # Raw Qualtrics export for downstream analysis (sensitivity analysis job).
+      # Contains response-level data — 1-day retention, never committed to repo.
+      - uses: actions/upload-artifact@v7
+        with:
+          name: qualtrics-export-csv
+          path: ${{ runner.temp }}/qualtrics-export.csv
+          retention-days: 1
+
       - uses: actions/upload-artifact@v7
         with:
           name: triage-metrics
@@ -228,6 +236,89 @@ jobs:
           pr-title: 'Update disposition dashboard data'
           pr-body: 'Automated update of disposition-summary.json from live Prolific API + Qualtrics triage.'
           branch: chore/disposition-dashboard-update
+
+  # Step 4c: Run sensitivity analysis across all sample definitions
+  # Consumes the raw Qualtrics CSV (for response-level stats) and
+  # Prolific auth checks (for Pipeline CLEAN filtering).
+  sensitivity-analysis:
+    name: Sensitivity Analysis
+    needs: triage
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: qualtrics-export-csv
+          path: ${{ runner.temp }}
+
+      # Enrich with Prolific auth checks so Pipeline CLEAN filter is accurate
+      - name: Fetch Prolific auth checks
+        run: npx --no-install tsx scripts/fetch-prolific-auth-checks.ts
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/auth-checks.csv
+
+      - name: Run sensitivity analysis
+        run: |
+          python scripts/analysis/tabs_v2_analysis.py \
+            "${{ runner.temp }}/qualtrics-export.csv" \
+            --json "${{ runner.temp }}/sensitivity-analysis.json"
+
+      - name: Print summary
+        run: |
+          python -c "
+          import json
+          data = json.load(open('${{ runner.temp }}/sensitivity-analysis.json'))
+          lines = ['### Sensitivity Analysis', '', '| Sample | N |', '| --- | ---: |']
+          for s in data['samples']:
+              lines.append(f\"| {s['label']} | {s['n']} |\")
+          print('\n'.join(lines))
+          " >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: sensitivity-analysis
+          path: ${{ runner.temp }}/sensitivity-analysis.json
+          retention-days: 7
+
+  # Step 4d: Create PR with updated sensitivity analysis data
+  update-sensitivity-pr:
+    name: Update Sensitivity Analysis PR
+    needs: sensitivity-analysis
+    runs-on: ubuntu-latest
+    environment: copilot
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/download-artifact@v8
+        with:
+          name: sensitivity-analysis
+          path: src/data
+
+      - uses: ./.github/actions/format-and-pr
+        with:
+          token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+          files: 'src/data/sensitivity-analysis.json'
+          commit-message: 'chore: update sensitivity analysis with live data'
+          pr-title: 'Update sensitivity analysis (all sample definitions)'
+          pr-body: |
+            Automated update of `src/data/sensitivity-analysis.json` from fresh
+            Qualtrics export + Prolific auth checks.
+
+            Runs `tabs_v2_analysis.py --json` across all 5 sample definitions:
+            Pipeline CLEAN, Conservative Clean, Relaxed, All V2 Finished, All V2.
+          branch: chore/sensitivity-analysis
 
   # Step 5: Create daily report issue with full details and deltas
   daily-report:
