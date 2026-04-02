@@ -1,0 +1,13 @@
+# TABS V2 Reproducible Analysis Scripts - Python Dependencies
+# Pinned versions for exact reproducibility of statistical analyses
+
+pandas==2.3.3
+numpy==2.2.6
+scipy==1.15.3
+scikit-learn==1.7.2
+statsmodels==0.14.6
+matplotlib==3.10.8
+seaborn==0.13.2
+
+# These are the versions used in the final analysis for the CRP
+# Run: pip install -r requirements.txt
