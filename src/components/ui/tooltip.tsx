@@ -79,12 +79,14 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
         }
       }
 
+      const scrollListenerOptions: AddEventListenerOptions = { capture: true, passive: true }
+
       updatePosition()
-      window.addEventListener('scroll', throttledUpdate, { capture: true, passive: true })
+      window.addEventListener('scroll', throttledUpdate, scrollListenerOptions)
       window.addEventListener('resize', throttledUpdate, { passive: true })
 
       return () => {
-        window.removeEventListener('scroll', throttledUpdate, { capture: true } as any)
+        window.removeEventListener('scroll', throttledUpdate, scrollListenerOptions)
         window.removeEventListener('resize', throttledUpdate)
       }
     }
