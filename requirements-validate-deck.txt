@@ -1,0 +1,8 @@
+# Optional dependencies for scripts/validate-deck.py
+#
+# The script works without any pip installs (pure-Python fallbacks).
+# Installing scipy improves Pearson correlation accuracy.
+#
+# Install:  pip install -r requirements-validate-deck.txt
+
+scipy>=1.11  # optional: pure-Python fallback used when absent
