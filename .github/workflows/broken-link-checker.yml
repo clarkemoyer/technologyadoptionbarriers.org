@@ -1,0 +1,164 @@
+name: Broken Link Checker
+
+on:
+  schedule:
+    - cron: '0 8 * * 1' # Weekly on Monday at 08:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-links:
+    name: Check for Broken Links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Start local server
+        run: |
+          npx serve out -l 3000 &
+          sleep 3
+
+      - name: Check internal links via sitemap
+        id: check
+        run: |
+          set +e
+          BROKEN=0
+          CHECKED=0
+          REPORT=""
+
+          # Extract URLs from sitemap
+          SITEMAP_URLS=$(grep -oP 'https://technologyadoptionbarriers\.org[^<"]+' out/sitemap.xml | sort -u)
+
+          for URL in $SITEMAP_URLS; do
+            # Convert production URL to local
+            LOCAL_URL=$(echo "$URL" | sed 's|https://technologyadoptionbarriers.org|http://localhost:3000|')
+            CHECKED=$((CHECKED + 1))
+
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$LOCAL_URL")
+            if [ "$STATUS" != "200" ]; then
+              BROKEN=$((BROKEN + 1))
+              PATH_PART=$(echo "$URL" | sed 's|https://technologyadoptionbarriers.org||')
+              REPORT="$REPORT\n| $PATH_PART | $STATUS |"
+              echo "BROKEN: $URL -> $STATUS"
+            fi
+          done
+
+          echo "CHECKED=$CHECKED" >> "$GITHUB_ENV"
+          echo "BROKEN=$BROKEN" >> "$GITHUB_ENV"
+
+          if [ "$BROKEN" -gt 0 ]; then
+            {
+              echo 'REPORT<<EOF'
+              echo -e "$REPORT"
+              echo 'EOF'
+            } >> "$GITHUB_ENV"
+            echo "::warning::$BROKEN broken link(s) found out of $CHECKED checked"
+          else
+            echo "REPORT=" >> "$GITHUB_ENV"
+          fi
+
+          echo "All $CHECKED URLs checked, $BROKEN broken"
+          exit 0
+
+      - name: Check external links in content
+        id: external
+        run: |
+          set +e
+          EXT_BROKEN=0
+          EXT_REPORT=""
+
+          # Find external URLs in HTML output (href="https://...")
+          EXTERNAL_URLS=$(grep -roh 'href="https://[^"]*"' out/ 2>/dev/null | \
+            sed 's/href="//;s/"$//' | \
+            grep -v 'technologyadoptionbarriers.org' | \
+            grep -v 'github.com' | \
+            grep -v 'fonts.googleapis.com' | \
+            grep -v 'fonts.gstatic.com' | \
+            grep -v 'clarity.ms' | \
+            grep -v 'googletagmanager.com' | \
+            sort -u | head -100)
+
+          for URL in $EXTERNAL_URLS; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 -L "$URL" 2>/dev/null)
+            if [ "$STATUS" = "000" ] || [ "$STATUS" = "404" ] || [ "$STATUS" = "410" ]; then
+              EXT_BROKEN=$((EXT_BROKEN + 1))
+              SHORT=$(echo "$URL" | head -c 80)
+              EXT_REPORT="$EXT_REPORT\n| $SHORT | $STATUS |"
+              echo "BROKEN EXTERNAL: $URL -> $STATUS"
+            fi
+          done
+
+          echo "EXT_BROKEN=$EXT_BROKEN" >> "$GITHUB_ENV"
+          if [ "$EXT_BROKEN" -gt 0 ]; then
+            {
+              echo 'EXT_REPORT<<EOF'
+              echo -e "$EXT_REPORT"
+              echo 'EOF'
+            } >> "$GITHUB_ENV"
+          else
+            echo "EXT_REPORT=" >> "$GITHUB_ENV"
+          fi
+
+      - name: Create issue if broken links found
+        if: env.BROKEN != '0' || env.EXT_BROKEN != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BODY="## Broken Link Report — $(date -u +%Y-%m-%d)
+
+          **Internal links checked:** $CHECKED
+          **Internal broken:** $BROKEN
+          **External broken:** $EXT_BROKEN
+
+          ### Internal Broken Links
+          $(if [ "$BROKEN" -gt 0 ]; then
+            echo "| Path | Status |"
+            echo "|---|---|"
+            echo -e "$REPORT"
+          else
+            echo "None found."
+          fi)
+
+          ### External Broken Links
+          $(if [ "$EXT_BROKEN" -gt 0 ]; then
+            echo "| URL | Status |"
+            echo "|---|---|"
+            echo -e "$EXT_REPORT"
+          else
+            echo "None found."
+          fi)
+
+          ---
+          **Workflow:** [View run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+
+          gh issue create \
+            --title "Broken links detected — $(date -u +%Y-%m-%d)" \
+            --body "$BODY" \
+            --label "bug"
+
+      - name: Summary
+        run: |
+          echo "### Link Check Results" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Metric | Value |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Internal URLs checked | $CHECKED |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Internal broken | $BROKEN |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| External broken | $EXT_BROKEN |" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$BROKEN" = "0" ] && [ "$EXT_BROKEN" = "0" ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "All links OK." >> "$GITHUB_STEP_SUMMARY"
+          fi
