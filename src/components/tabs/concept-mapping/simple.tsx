@@ -38,6 +38,18 @@ const EXPANDABLE_COLUMNS = new Set([
   'Relationship to Other Items',
 ])
 
+/**
+ * Column max-widths so sparse columns (e.g. RIS Citation, mostly N/A) shrink
+ * and content-heavy columns get more space. Applied via inline style.
+ */
+const COLUMN_MAX_WIDTHS: Partial<Record<(typeof conceptMappingData.headers)[number], string>> = {
+  'RIS Citation': '70px',
+  'Source Link (URL/DOI)': '90px',
+  'Variable Type': '100px',
+  'Item Code / Variable Name': '120px',
+  'Qualtrics QID / Export Tag': '140px',
+}
+
 /** Max characters shown before truncation */
 const TRUNCATE_LENGTH = 120
 
@@ -86,9 +98,9 @@ function ExpandableCell({ value, header }: { value: string; header: string }) {
   )
 }
 
-function exportCsv() {
+function exportCsv(data: RowData[]) {
   const csvHeaders = headers.map((h) => `"${h.replace(/"/g, '""')}"`).join(',')
-  const csvRows = rows.map((row) =>
+  const csvRows = data.map((row) =>
     headers
       .map((h) => {
         const val = row[h as keyof RowData] ?? ''
@@ -100,8 +112,52 @@ function exportCsv() {
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
+  link.style.display = 'none'
   link.href = url
   link.download = 'concept-mapping-simple.csv'
+  document.body.appendChild(link)
+  link.click()
+  setTimeout(() => {
+    URL.revokeObjectURL(url)
+    link.remove()
+  }, 100)
+}
+
+async function exportExcel(data: RowData[]) {
+  const ExcelJS = (await import('exceljs')).default
+  const wb = new ExcelJS.Workbook()
+  const ws = wb.addWorksheet('Concept Mapping')
+
+  // Header row
+  ws.columns = headers.map((h) => ({
+    header: h,
+    key: h,
+    width: Math.min(
+      40,
+      Math.max(
+        h.length + 2,
+        ...data.map((r) => String(r[h as keyof RowData] ?? '').length).map((l) => Math.min(l, 40))
+      )
+    ),
+  }))
+
+  // Data rows
+  for (const row of data) {
+    ws.addRow(Object.fromEntries(headers.map((h) => [h, row[h as keyof RowData] ?? ''])))
+  }
+
+  // Style header row
+  ws.getRow(1).font = { bold: true }
+
+  const buffer = await wb.xlsx.writeBuffer()
+  const blob = new Blob([buffer], {
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.style.display = 'none'
+  link.href = url
+  link.download = 'concept-mapping-simple.xlsx'
   document.body.appendChild(link)
   link.click()
   setTimeout(() => {
@@ -207,11 +263,18 @@ const ConceptMappingSimple = () => {
                 {filteredRows.length} of {rows.length} items
               </span>
               <button
-                onClick={exportCsv}
+                onClick={() => exportExcel(filteredRows).catch(console.error)}
                 className="px-4 py-2 bg-tabs-teal text-white text-sm font-medium rounded-lg hover:bg-tabs-teal-deep transition-colors"
+                aria-label="Download concept mapping data as Excel spreadsheet"
+              >
+                Download Excel
+              </button>
+              <button
+                onClick={() => exportCsv(filteredRows)}
+                className="px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
                 aria-label="Download concept mapping data as CSV"
               >
-                Download CSV
+                CSV
               </button>
             </div>
           </div>
@@ -228,16 +291,21 @@ const ConceptMappingSimple = () => {
           aria-describedby="table-scroll-hint"
           tabIndex={0}
         >
-          <table className="w-max min-w-full text-sm border-collapse">
+          <table className="min-w-full text-sm border-collapse">
             <thead>
               <tr>
                 {headers.map((header, i) => (
                   <th
                     key={header}
                     scope="col"
-                    className={`sticky top-0 z-20 bg-tabs-navy text-white text-left px-3 py-3 font-semibold text-xs border-b border-gray-300 whitespace-normal min-w-[120px] max-w-[250px] leading-snug ${
+                    className={`sticky top-0 z-20 bg-tabs-navy text-white text-left px-3 py-3 font-semibold text-xs border-b border-gray-300 whitespace-normal min-w-[100px] max-w-[250px] leading-snug ${
                       i === 0 ? 'sticky left-0 z-30' : ''
                     }`}
+                    style={
+                      COLUMN_MAX_WIDTHS[header]
+                        ? { maxWidth: COLUMN_MAX_WIDTHS[header], minWidth: 'auto' }
+                        : undefined
+                    }
                   >
                     {header}
                   </th>
@@ -262,9 +330,16 @@ const ConceptMappingSimple = () => {
                             className={`px-3 py-2.5 align-top text-xs leading-relaxed max-w-[350px] ${
                               colIdx === 0 ? 'sticky left-0 z-10 font-medium' : ''
                             }`}
-                            style={
-                              colIdx === 0 && section ? { backgroundColor: section.bg } : undefined
-                            }
+                            style={Object.assign(
+                              {},
+                              colIdx === 0 && section ? { backgroundColor: section.bg } : undefined,
+                              COLUMN_MAX_WIDTHS[header as keyof typeof COLUMN_MAX_WIDTHS]
+                                ? {
+                                    maxWidth:
+                                      COLUMN_MAX_WIDTHS[header as keyof typeof COLUMN_MAX_WIDTHS],
+                                  }
+                                : undefined
+                            )}
                           >
                             <ExpandableCell value={val} header={header} />
                           </td>
