@@ -4,17 +4,12 @@ name: TABS V2 Analysis Pipeline
 # Runs daily before the disposition pipeline (which handles Prolific operations).
 #
 # Data flow:
-#   Qualtrics API → raw CSV
-#   Prolific API  → auth checks + submission statuses
+#   Qualtrics API → raw CSV (stays on runner, never uploaded as artifact)
+#   Prolific API  → auth checks + submission statuses (no PII)
 #   Enrich raw CSV with Prolific data
 #   Disposition triage (Python port, cross-validates with TS pipeline)
 #   De-identify → public CSV (NIST 5-step, for ScholarSphere)
-#   Run full analysis suite on enriched CSV:
-#     - Data audit (validate waterfall)
-#     - Descriptive + sensitivity analysis (all 5 sample definitions)
-#     - Advanced/inferential (PCA, regression, ANOVA)
-#     - Psychometrics (KMO, HTMT, Cronbach's, Harman's)
-#     - Quality audit (outliers, CMV, Mahalanobis)
+#   Run full analysis suite on enriched CSV
 #   Output JSON for website → PR
 
 on:
@@ -31,42 +26,9 @@ permissions:
   pull-requests: write
 
 jobs:
-  # ── Phase 1a: Export Qualtrics data ───────────────────────────
-  export-qualtrics:
-    name: Export Qualtrics
-    runs-on: ubuntu-latest
-    environment: qualtrics-prod
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Export Qualtrics CSV
-        run: |
-          python -c "
-          from scripts.analysis.tabs_api import qualtrics_export_csv
-          import os
-          qualtrics_export_csv(
-              os.environ['QUALTRICS_API_TOKEN'],
-              os.environ['QUALTRICS_BASE_URL'],
-              os.environ['QUALTRICS_SURVEY_ID'],
-              '${{ runner.temp }}/qualtrics-raw.csv',
-          )
-          "
-        env:
-          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
-          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
-          QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
-          PYTHONPATH: ${{ github.workspace }}
-
-      - uses: actions/upload-artifact@v7
-        with:
-          name: qualtrics-raw
-          path: ${{ runner.temp }}/qualtrics-raw.csv
-          retention-days: 1
-
-  # ── Phase 1b: Fetch Prolific data ────────────────────────────
+  # ── Phase 1: Fetch Prolific data (separate environment) ───────
+  # Prolific artifacts contain only auth check scores and submission
+  # statuses — no PII, no survey responses, no demographics.
   fetch-prolific:
     name: Fetch Prolific Data
     runs-on: ubuntu-latest
@@ -141,11 +103,14 @@ jobs:
           retention-days: 1
           if-no-files-found: warn
 
-  # ── Phase 2: Enrich + Analyze ────────────────────────────────
+  # ── Phase 2: Export Qualtrics + Enrich + Analyze ──────────────
+  # Qualtrics export and all analysis happen in a single job so
+  # the raw CSV (which contains PII) never leaves the runner.
   analyze:
-    name: Enrich & Analyze
-    needs: [export-qualtrics, fetch-prolific]
+    name: Export, Enrich & Analyze
+    needs: fetch-prolific
     runs-on: ubuntu-latest
+    environment: qualtrics-prod
     steps:
       - uses: actions/checkout@v6
 
@@ -156,17 +121,32 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r scripts/analysis/requirements.txt
 
-      - uses: actions/download-artifact@v8
-        with:
-          name: qualtrics-raw
-          path: ${{ runner.temp }}
+      # Export Qualtrics CSV — stays on runner, never uploaded
+      - name: Export Qualtrics CSV
+        run: |
+          python -c "
+          from scripts.analysis.tabs_api import qualtrics_export_csv
+          import os
+          qualtrics_export_csv(
+              os.environ['QUALTRICS_API_TOKEN'],
+              os.environ['QUALTRICS_BASE_URL'],
+              os.environ['QUALTRICS_SURVEY_ID'],
+              '${{ runner.temp }}/qualtrics-raw.csv',
+          )
+          "
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+          PYTHONPATH: ${{ github.workspace }}
 
+      # Download Prolific data (auth checks + statuses — no PII)
       - uses: actions/download-artifact@v8
         with:
           name: prolific-data
           path: ${{ runner.temp }}
 
-      # Enrich Qualtrics CSV with Prolific data (auth checks + statuses + demographics)
+      # Enrich Qualtrics CSV with Prolific data
       - name: Enrich CSV with Prolific data
         run: |
           DEMO_FLAG=""
@@ -263,7 +243,7 @@ jobs:
           " >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      # Upload analysis outputs for website
+      # Upload analysis outputs for website (JSON only — no PII)
       - uses: actions/upload-artifact@v7
         with:
           name: analysis-results
@@ -282,7 +262,7 @@ jobs:
             ${{ runner.temp }}/quality-audit.txt
           retention-days: 7
 
-      # Public CSV for ScholarSphere (30-day retention)
+      # Public CSV for ScholarSphere (de-identified, no PII)
       - uses: actions/upload-artifact@v7
         if: always()
         with:

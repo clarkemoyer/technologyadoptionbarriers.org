@@ -352,21 +352,19 @@ def load_data(csv_path):
 
 
 def filter_samples(data, idx):
-    """Create the six sample cuts from V2 data.
+    """Create five sample cuts from V2 data.
 
     Sample hierarchy (most to least restrictive):
-      1. Pipeline CLEAN    — All 3 IRIs + duration >= 540s + reCAPTCHA >= 0.5
-                             + no straightlining + no partial straightlining
+      1. Pipeline CLEAN     — All 3 IRIs + duration >= 540s + reCAPTCHA >= 0.5
+                              + no straightlining + no partial straightlining
       2. Conservative Clean — All 3 IRIs + duration >= 480s
-      3. Relaxed           — 2+ of 3 IRIs + duration >= 480s
-      4. Approved          — All responses approved on Prolific (not determinable
-                             from CSV alone; approximated as conservative clean
-                             UNION flagged responses that pass manual review criteria)
-      5. All V2 Finished   — Finished + duration >= 120s
-      6. All V2            — All V2 responses including incomplete
+      3. Relaxed            — 2+ of 3 IRIs + duration >= 480s
+      4. All V2 Finished    — Finished + duration >= 120s
+      5. All V2             — All V2 responses including incomplete
 
     Returns:
-        dict mapping sample name to (label, description, rows)
+        Tuple of (v2_rows, samples_dict) where samples_dict maps
+        sample key to list of rows.
     """
     v2 = [r for r in data if r[idx['StartDate']] >= V2_START
           or ('ResponseId' in idx and r[idx['ResponseId']] == PROLIFIC_TEST_ID)]
@@ -741,7 +739,7 @@ def sensitivity_to_json(cuts, idx):
             "key": "pipeline_clean",
             "description": "All 3 IRIs + duration >= 540s + reCAPTCHA >= 0.5 + no straightlining + no partial straightlining",
         },
-        "Conservative": {
+        "Conservative Clean": {
             "key": "clean",
             "description": "All 3 IRIs correct + duration >= 480s",
         },
@@ -749,7 +747,7 @@ def sensitivity_to_json(cuts, idx):
             "key": "relaxed",
             "description": "2+ of 3 IRIs correct + duration >= 480s",
         },
-        "All Finished": {
+        "All V2 Finished": {
             "key": "v2_finished",
             "description": "Finished + duration >= 120s (extreme speeders excluded)",
         },
@@ -830,13 +828,14 @@ def main():
 
     # Detailed analysis on the selected primary sample
     primary = samples[args.primary_sample]
-    primary_label = {
+    sample_labels = {
         "pipeline_clean": "Pipeline CLEAN",
         "clean": "Conservative Clean",
         "relaxed": "Relaxed",
         "v2_finished": "All V2 Finished",
         "v2_all": "All V2",
-    }[args.primary_sample]
+    }
+    primary_label = sample_labels[args.primary_sample]
 
     print_demographics(primary, idx, primary_label)
     print_item_rankings(primary, idx)
@@ -847,9 +846,9 @@ def main():
     # Sensitivity analysis across all sample definitions
     cuts = [
         ("Pipeline CLEAN", samples["pipeline_clean"]),
-        ("Conservative", samples["clean"]),
+        ("Conservative Clean", samples["clean"]),
         ("Relaxed", samples["relaxed"]),
-        ("All Finished", samples["v2_finished"]),
+        ("All V2 Finished", samples["v2_finished"]),
         ("All V2", samples["v2_all"]),
     ]
     print_sensitivity(cuts, idx)

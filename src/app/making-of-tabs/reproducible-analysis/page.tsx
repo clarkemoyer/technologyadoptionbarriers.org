@@ -197,7 +197,7 @@ const ReproducibleAnalysisPage = () => {
           <p className="text-sm text-gray-500 mt-2">
             N values are populated by running{' '}
             <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">
-              python tabs_v2_analysis.py --json sensitivity-analysis.json
+              python tabs_v2_analysis.py &lt;csv&gt; --json sensitivity-analysis.json
             </code>{' '}
             against the production dataset.
           </p>
@@ -251,15 +251,15 @@ const ReproducibleAnalysisPage = () => {
                 </table>
               </div>
             )}
-          {sensitivityData.metrics.length === 0 ||
-            (Object.keys(sensitivityData.metrics[0].values).length === 0 && (
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 my-6">
-                <p className="text-amber-800 font-sans">
-                  Sensitivity analysis data has not been generated yet. Run the analysis pipeline
-                  against the production dataset to populate this table.
-                </p>
-              </div>
-            ))}
+          {(sensitivityData.metrics.length === 0 ||
+            sensitivityData.metrics.every((metric) => Object.keys(metric.values).length === 0)) && (
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 my-6">
+              <p className="text-amber-800 font-sans">
+                Sensitivity analysis data has not been generated yet. Run the analysis pipeline
+                against the production dataset to populate this table.
+              </p>
+            </div>
+          )}
         </section>
 
         {/* ── How to Run ── */}
