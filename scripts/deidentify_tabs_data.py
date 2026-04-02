@@ -78,7 +78,7 @@ PROLIFIC_LINKAGE_COLUMNS = [
 
 # PII detection patterns
 PII_PATTERNS = [
-    (re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"), "email address"),
+    (re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b"), "email address"),
     (re.compile(r"\b\d{3}[-.]?\d{3}[-.]?\d{4}\b"), "phone number"),
     (re.compile(r"https?://\S+", re.IGNORECASE), "URL"),
     (
@@ -116,10 +116,12 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
-def parse_qualtrics_csv(csv_path: Path) -> tuple[list[str], list[str], list[str], list[dict[str, str]]]:
+def parse_qualtrics_csv(
+    csv_path: Path,
+) -> tuple[list[str], list[str], list[str], list[dict[str, str]]] | None:
     """Parse a Qualtrics CSV export with 3 header rows.
 
-    Returns (headers, description_row, import_id_row, data_rows).
+    Returns (headers, description_row, import_id_row, data_rows), or None on error.
     """
     text = csv_path.read_text(encoding="utf-8-sig")
     reader = csv.reader(StringIO(text))
@@ -130,7 +132,7 @@ def parse_qualtrics_csv(csv_path: Path) -> tuple[list[str], list[str], list[str]
         import_id_row = next(reader)
     except StopIteration:
         print("Error: CSV has fewer than 3 header rows", file=sys.stderr)
-        sys.exit(2)
+        return None
 
     rows: list[dict[str, str]] = []
     for row in reader:
@@ -367,8 +369,18 @@ def main() -> int:
     print(f"SHA-256: {input_hash}")
 
     # Parse CSV
-    headers, _desc_row, _import_row, rows = parse_qualtrics_csv(args.input_csv)
+    result = parse_qualtrics_csv(args.input_csv)
+    if result is None:
+        return 2
+    headers, _desc_row, _import_row, rows = result
     print(f"Parsed: {len(rows)} data rows, {len(headers)} columns")
+
+    # Validate required columns exist
+    required = {"ResponseId", "StartDate"}
+    missing = required - set(headers)
+    if missing:
+        print(f"Error: required columns missing from CSV: {missing}", file=sys.stderr)
+        return 2
 
     # Step 1: PII scan
     print("\n--- Step 1: Free-text PII scan ---")
@@ -455,7 +467,8 @@ def main() -> int:
         print(f"  FAIL: {len(verify_flags)} PII pattern(s) still detected in output!")
         for flag in verify_flags:
             print(f"    Row {flag['row_number']}, {flag['column']}: {flag['pattern_type']}")
-        print("\n  Output file was written but may contain PII. Manual review required.")
+        public_path.unlink(missing_ok=True)
+        print("\n  Public dataset REMOVED due to PII detection. Manual review required.")
     else:
         print("  PASS: No PII patterns detected in output.")
     verification_failed = len(verify_flags) > 0
