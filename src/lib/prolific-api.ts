@@ -429,7 +429,7 @@ export async function exportStudyDemographics(
       Authorization: `Token ${apiToken}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({}),
+    body: JSON.stringify({ filters: [] }),
   })
 
   if (!response.ok) {
