@@ -39,11 +39,25 @@ from typing import Any, Dict, List, Optional, Tuple
 
 
 # ─────────────────────────────────────────────────────────────
-# Configuration & Constants
+# Configuration & Constants (loaded from shared tabs_v2_constants.json)
 # ─────────────────────────────────────────────────────────────
+
+_CONSTANTS_PATH = Path(__file__).parent / "tabs_v2_constants.json"
+if _CONSTANTS_PATH.exists():
+    with open(_CONSTANTS_PATH, encoding="utf-8") as _f:
+        _CONSTANTS = json.load(_f)
+else:
+    _CONSTANTS = {}
 
 # Survey blocks for partial straightlining detection
 SURVEY_BLOCKS = [
+    {
+        "name": name.title(),
+        "prefix": _CONSTANTS.get("COLUMN_PREFIXES", {}).get(name, f"Q_{name}_"),
+        "count": _CONSTANTS.get("ITEM_COUNTS", {}).get(name, 0) + 1,  # +1 for IRI item
+    }
+    for name in ["barriers", "readiness", "maturity"]
+] if _CONSTANTS else [
     {"name": "Barriers", "prefix": "Q10-28_Barriers_", "count": 19},
     {"name": "Readiness", "prefix": "Q47-64_Readiness_", "count": 18},
     {"name": "Maturity", "prefix": "Q65-73_Maturity_", "count": 9},
@@ -51,15 +65,17 @@ SURVEY_BLOCKS = [
 
 PARTIAL_STRAIGHTLINING_SD_THRESHOLD = 0.5
 
-# IRI expected answers (verified from Qualtrics CSV)
-IRI_BARRIER_ANSWER = "Major Barrier"
-IRI_READINESS_ANSWER = "Low Readiness/Capability"
-IRI_MATURITY_ANSWER = "Level 2: Developing/Repeatable"
+# IRI expected answers
+_iri = _CONSTANTS.get("IRI_EXPECTED_ANSWERS", {})
+IRI_BARRIER_ANSWER = _iri.get("barrier", "Major Barrier")
+IRI_READINESS_ANSWER = _iri.get("readiness", "Low Readiness/Capability")
+IRI_MATURITY_ANSWER = _iri.get("maturity", "Level 2: Developing/Repeatable")
 
 # Duration thresholds
-SPEED_THRESHOLD = 300  # < 300 seconds = Speed_Flag
-SMEAL_THRESHOLD_MIN = 300
-SMEAL_THRESHOLD_MAX = 540
+_dur = _CONSTANTS.get("DURATION_THRESHOLDS", {})
+SPEED_THRESHOLD = _dur.get("speedFlag", 300)
+SMEAL_THRESHOLD_MIN = _dur.get("smealBenchmarkMin", 300)
+SMEAL_THRESHOLD_MAX = _dur.get("smealBenchmarkMax", 540)
 
 # reCAPTCHA threshold
 RECAPTCHA_THRESHOLD = 0.5
