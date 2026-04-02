@@ -57,6 +57,8 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
 
   useEffect(() => {
     if (isVisible && triggerRef.current) {
+      let ticking = false
+
       const updatePosition = () => {
         if (triggerRef.current) {
           const rect = triggerRef.current.getBoundingClientRect()
@@ -67,13 +69,23 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
         }
       }
 
+      const throttledUpdate = () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            updatePosition()
+            ticking = false
+          })
+          ticking = true
+        }
+      }
+
       updatePosition()
-      window.addEventListener('scroll', updatePosition, true)
-      window.addEventListener('resize', updatePosition)
+      window.addEventListener('scroll', throttledUpdate, { capture: true, passive: true })
+      window.addEventListener('resize', throttledUpdate, { passive: true })
 
       return () => {
-        window.removeEventListener('scroll', updatePosition, true)
-        window.removeEventListener('resize', updatePosition)
+        window.removeEventListener('scroll', throttledUpdate, { capture: true } as any)
+        window.removeEventListener('resize', throttledUpdate)
       }
     }
   }, [isVisible])
