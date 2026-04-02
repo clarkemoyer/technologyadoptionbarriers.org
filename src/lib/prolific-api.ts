@@ -407,6 +407,43 @@ export async function getStudyDemographics(
 }
 
 /**
+ * Export demographic data for all participants in a study (bulk).
+ * This is the API equivalent of the "Download demographic data" button in the Prolific UI.
+ *
+ * Returns CSV content with: age, sex, ethnicity, language, residency, nationality,
+ * birth country, student status, employment status, and submission metadata.
+ *
+ * @param studyId - The Prolific study ID
+ * @param apiToken - Prolific API token
+ * @returns CSV string with demographic data, or null on error
+ * @see https://docs.prolific.com/api-reference/studies/export-demographic-data
+ */
+export async function exportStudyDemographics(
+  studyId: string,
+  apiToken: string
+): Promise<string | null> {
+  const url = `${PROLIFIC_API_BASE_URL}/studies/${studyId}/demographic-export/`
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Token ${apiToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({}),
+  })
+
+  if (!response.ok) {
+    const text = await response.text().catch(() => '')
+    throw new ProlificApiErrorClass(
+      `Demographic export failed: ${response.status} ${text}`,
+      response.status
+    )
+  }
+
+  return await response.text()
+}
+
+/**
  * Get summary statistics for a study
  *
  * This is a convenience function that calculates useful metrics
