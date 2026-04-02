@@ -156,6 +156,28 @@ describe('ConceptMappingSimple component', () => {
     })
   })
 
+  describe('Tooltip functionality', () => {
+    it('should render tooltip triggers (Info icon) for barrier rows', () => {
+      render(<ConceptMappingSimple />)
+      // The Info icon button has aria-label="View examples for [Barrier Name]"
+      const tooltipTriggers = screen.getAllByRole('button', { name: /^View examples for/i })
+      expect(tooltipTriggers.length).toBeGreaterThan(0)
+    })
+
+    it('should show tooltip content when focused', () => {
+      render(<ConceptMappingSimple />)
+      const tooltipTriggers = screen.getAllByRole('button', { name: /^View examples for/i })
+      const firstTrigger = tooltipTriggers[0]
+
+      // Before interaction, content might not be visible, but component is rendered
+      fireEvent.focus(firstTrigger)
+
+      // The tooltip panel has role="tooltip"
+      const tooltips = screen.getAllByRole('tooltip')
+      expect(tooltips.length).toBeGreaterThan(0)
+    })
+  })
+
   describe('Accessibility', () => {
     it('should not have accessibility violations', async () => {
       const { container } = render(<ConceptMappingSimple />)

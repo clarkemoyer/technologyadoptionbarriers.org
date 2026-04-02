@@ -265,12 +265,13 @@ const ConceptMappingSimple = () => {
                         const isBarrierSection = String(
                           row['Section / Primary Construct']
                         ).includes('Technology Adoption Barriers')
-                        let matchingBarrier = null
-                        if (isBarrierColumn && isBarrierSection) {
-                          matchingBarrier = barriers.find(
-                            (b) => b.description.trim().toLowerCase() === val.trim().toLowerCase()
-                          )
-                        }
+                        const matchingBarrier =
+                          isBarrierColumn && isBarrierSection
+                            ? barriers.find(
+                                (b) =>
+                                  b.description.trim().toLowerCase() === val.trim().toLowerCase()
+                              )
+                            : undefined
 
                         return (
                           <td
