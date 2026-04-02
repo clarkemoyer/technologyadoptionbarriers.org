@@ -5,6 +5,7 @@ import conceptMappingData from '@/data/concept-mapping-complex.json'
 import { SECTIONS, type SectionDef } from '@/data/concept-mapping-colors'
 import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
+import DownloadButtons from './download-buttons'
 
 /**
  * Concept Mapping Complex Component
@@ -427,6 +428,8 @@ const ConceptMappingComplex = () => {
     [filteredGroups]
   )
 
+  const filteredRows = useMemo(() => filteredGroups.flatMap((g) => g.rows), [filteredGroups])
+
   const toggleSection = useCallback((key: string) => {
     setCollapsedSections((prev) => {
       const next = new Set(prev)
@@ -522,11 +525,21 @@ const ConceptMappingComplex = () => {
             )}
           </div>
 
-          {/* Summary + expand/collapse */}
-          <div className="flex items-center justify-between">
+          {/* Summary + controls */}
+          <div className="flex items-center justify-between flex-wrap gap-3">
             <span className="text-sm text-gray-500">
               {totalFiltered} of {rows.length} items
             </span>
+            <div className="flex items-center gap-3">
+              <DownloadButtons
+                headers={headers}
+                data={filteredRows.map((row) =>
+                  Object.fromEntries(headers.map((h) => [h, row[h as keyof RowData] ?? '']))
+                )}
+                filenameBase="concept-mapping-complex"
+                label="concept mapping data"
+              />
+            </div>
             <div className="flex gap-2">
               <button
                 onClick={expandAll}

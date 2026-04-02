@@ -224,6 +224,36 @@ async function makeApiRequest<T>(
 }
 
 /**
+ * Fetch all pages of a paginated Prolific API endpoint.
+ * Follows `meta.next` links until exhausted.
+ */
+async function fetchAllPages<T>(endpoint: string, apiToken: string): Promise<PaginatedResponse<T>> {
+  const firstPage = await makeApiRequest<PaginatedResponse<T>>(endpoint, apiToken)
+  const allResults: T[] = [...firstPage.results]
+
+  let nextUrl = firstPage.meta?.next
+  while (nextUrl) {
+    // meta.next may be absolute or relative — normalize to API path
+    let path: string
+    try {
+      const url = new URL(nextUrl)
+      path = url.pathname.replace(/^\/api\/v1/, '') + url.search
+    } catch {
+      // Relative URL — use as-is
+      path = nextUrl
+    }
+    const page = await makeApiRequest<PaginatedResponse<T>>(path, apiToken)
+    allResults.push(...page.results)
+    nextUrl = page.meta?.next
+  }
+
+  return {
+    results: allResults,
+    meta: { count: allResults.length, next: null, previous: null },
+  }
+}
+
+/**
  * Get information about the current user
  *
  * @param apiToken - Prolific API token
@@ -272,17 +302,18 @@ export async function getStudy(studyId: string, apiToken: string): Promise<Study
 }
 
 /**
- * List all submissions for a specific study
+ * List all submissions for a specific study.
+ * Automatically follows pagination to return every submission.
  *
  * @param studyId - The unique identifier of the study
  * @param apiToken - Prolific API token
- * @returns Promise resolving to a list of submissions
+ * @returns Promise resolving to a list of all submissions
  */
 export async function listStudySubmissions(
   studyId: string,
   apiToken: string
 ): Promise<PaginatedResponse<Submission>> {
-  return makeApiRequest(`/studies/${studyId}/submissions/`, apiToken)
+  return fetchAllPages<Submission>(`/studies/${studyId}/submissions/`, apiToken)
 }
 
 /**
