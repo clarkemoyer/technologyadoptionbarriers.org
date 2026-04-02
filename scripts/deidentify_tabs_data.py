@@ -488,8 +488,12 @@ def main() -> int:
     print(f"\n  Audit log: {args.output_dir / 'deidentification_log.txt'}")
 
     print("\n" + "=" * 72)
-    print("DE-IDENTIFICATION COMPLETE")
-    print(f"  Public dataset: {public_path}")
+    if verification_failed:
+        print("DE-IDENTIFICATION FAILED — PII detected in output")
+        print("  Public dataset was removed. Review the PII report and re-run.")
+    else:
+        print("DE-IDENTIFICATION COMPLETE")
+        print(f"  Public dataset: {public_path}")
     print(f"  CONFIDENTIAL files (do NOT release):")
     print(f"    - {mapping_path}")
     print(f"    - {linkage_path}")
