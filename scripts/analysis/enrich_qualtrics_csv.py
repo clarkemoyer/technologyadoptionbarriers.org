@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """
-Enrich Qualtrics CSV with Prolific auth checks and submission statuses.
+Enrich Qualtrics CSV with Prolific auth checks, submission statuses, and demographics.
 
 Merges the raw Qualtrics CSV export with:
   1. Prolific auth check scores (Auth_LLM, Auth_Bots)
   2. Prolific submission statuses (Prolific_Status)
+  3. Prolific participant demographics (age, sex, country, etc.)
 
 The enriched CSV is used by the analysis pipeline so that Pipeline CLEAN
-filtering accurately accounts for auth-flagged responses.
+filtering accurately accounts for auth-flagged responses, and demographic
+data from Prolific is available for analysis before de-identification.
 
 Usage:
     python enrich_qualtrics_csv.py \
@@ -15,11 +17,12 @@ Usage:
         --auth-checks auth.csv \
         --output enriched.csv
 
-    # Or with Prolific status:
+    # With all Prolific data:
     python enrich_qualtrics_csv.py \
         --qualtrics raw_export.csv \
         --auth-checks auth.csv \
         --statuses statuses.json \
+        --demographics demographics.csv \
         --output enriched.csv
 """
 
@@ -53,15 +56,40 @@ def load_statuses(path: str) -> dict[str, str]:
         return json.load(f)
 
 
+def load_demographics(path: str) -> tuple[list[str], dict[str, dict[str, str]]]:
+    """Load demographics CSV into (column_names, {PID: {col: val}}).
+
+    The Prolific bulk demographic export has a 'participant_id' column.
+    Returns the demographic column names (excluding participant_id) and
+    a dict keyed by PID with all demographic values.
+    """
+    result: dict[str, dict[str, str]] = {}
+    demo_cols: list[str] = []
+    with open(path, encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        if reader.fieldnames:
+            demo_cols = [c for c in reader.fieldnames if c != "participant_id"]
+        for row in reader:
+            pid = row.get("participant_id", "").strip()
+            if pid:
+                result[pid] = {col: row.get(col, "").strip() for col in demo_cols}
+    return demo_cols, result
+
+
 def enrich(
     qualtrics_path: str,
     auth_path: str | None,
     statuses_path: str | None,
+    demographics_path: str | None,
     output_path: str,
 ) -> None:
-    """Merge auth checks and statuses into the Qualtrics CSV."""
+    """Merge auth checks, statuses, and demographics into the Qualtrics CSV."""
     auth_data = load_auth_checks(auth_path) if auth_path else {}
     status_data = load_statuses(statuses_path) if statuses_path else {}
+    demo_cols: list[str] = []
+    demo_data: dict[str, dict[str, str]] = {}
+    if demographics_path:
+        demo_cols, demo_data = load_demographics(demographics_path)
 
     with open(qualtrics_path, encoding="utf-8-sig") as f:
         raw_lines = f.readlines()
@@ -85,11 +113,14 @@ def enrich(
         sys.exit(1)
 
     # Add new columns
-    new_cols = []
+    new_cols: list[str] = []
     if auth_data:
         new_cols.extend(["Auth_LLM", "Auth_Bots"])
     if status_data:
         new_cols.append("Prolific_Status")
+    # Prefix Prolific demographic columns to avoid collision with Qualtrics columns
+    prefixed_demo_cols = [f"Prolific_{c}" for c in demo_cols]
+    new_cols.extend(prefixed_demo_cols)
 
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, "w", newline="", encoding="utf-8") as out:
@@ -113,6 +144,10 @@ def enrich(
                     row.append(auth.get("Auth_Bots", ""))
                 if "Prolific_Status" in new_cols:
                     row.append(status_data.get(pid, ""))
+                # Append demographic values in the same order as prefixed_demo_cols
+                demo = demo_data.get(pid, {})
+                for col in demo_cols:
+                    row.append(demo.get(col, ""))
 
             writer.writerow(row)
 
@@ -120,12 +155,15 @@ def enrich(
     data_rows = len(raw_lines) - 3
     auth_hits = sum(1 for line in raw_lines[3:] if next(csv.reader([line]))[pid_idx].strip() in auth_data) if auth_data else 0
     status_hits = sum(1 for line in raw_lines[3:] if next(csv.reader([line]))[pid_idx].strip() in status_data) if status_data else 0
+    demo_hits = sum(1 for line in raw_lines[3:] if next(csv.reader([line]))[pid_idx].strip() in demo_data) if demo_data else 0
 
     print(f"Enriched {data_rows} rows → {output_path}")
     if auth_data:
         print(f"  Auth checks matched: {auth_hits}/{data_rows}")
     if status_data:
         print(f"  Statuses matched: {status_hits}/{data_rows}")
+    if demo_data:
+        print(f"  Demographics matched: {demo_hits}/{data_rows} ({len(demo_cols)} columns)")
 
 
 def main():
@@ -133,10 +171,11 @@ def main():
     parser.add_argument("--qualtrics", required=True, help="Raw Qualtrics CSV export")
     parser.add_argument("--auth-checks", help="Auth checks CSV (PROLIFIC_PID,Auth_LLM,Auth_Bots)")
     parser.add_argument("--statuses", help="Submission statuses JSON ({PID: status})")
+    parser.add_argument("--demographics", help="Prolific demographics CSV (participant_id + demographic columns)")
     parser.add_argument("--output", required=True, help="Enriched CSV output path")
     args = parser.parse_args()
 
-    enrich(args.qualtrics, args.auth_checks, args.statuses, args.output)
+    enrich(args.qualtrics, args.auth_checks, args.statuses, args.demographics, args.output)
 
 
 if __name__ == "__main__":
