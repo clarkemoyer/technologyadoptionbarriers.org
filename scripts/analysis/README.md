@@ -219,7 +219,7 @@ IRIs are embedded attention-check items with predetermined correct answers. All 
 - Readiness IRI (`Q47-64_Readiness_18`): **"Low Readiness/Capability"**
 - Maturity IRI (`Q65-73_Maturity_9`): **"Level 2: Developing/Repeatable"**
 
-**Conservative clean filter**: Duration ≥ 480 seconds AND all 3 IRIs correct. This approximately matches the full disposition pipeline (which also includes straightlining detection and reCAPTCHA validation).
+**Conservative clean filter**: Duration ≥ 480 seconds AND all 3 IRIs correct. This is intentionally broader than the live disposition pipeline's CLEAN category, which also requires duration ≥ 540 seconds (Smeal 9-minute benchmark), reCAPTCHA ≥ 0.5, no straightlining, no partial straightlining (within-person SD ≥ 0.5), and passing Prolific auth checks. The delta between the two counts represents responses that pass the analysis filter but are routed to manual review in the pipeline (FLAG-SMEAL, FLAG-RECAPTCHA, FLAG-PARTIAL-STRAIGHTLINING, etc.).
 
 ## Test Data
 

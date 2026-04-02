@@ -204,6 +204,9 @@ async function main() {
       active: statusCounts['ACTIVE'] || 0,
       messaged: messagedPids.size,
     },
+    // IRI pass rates use ALL participants (including incomplete/excluded) as denominator.
+    // This differs from CRP analysis which uses only V2 finished responses.
+    // See: https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/675
     iriPassRates: {
       barrier:
         totalParticipants > 0

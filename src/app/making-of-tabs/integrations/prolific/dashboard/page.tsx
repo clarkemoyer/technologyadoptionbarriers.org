@@ -20,7 +20,8 @@ const DISPOSITION_CONFIG: Record<
     label: 'Clean',
     color: 'text-green-700',
     bgColor: 'bg-green-50 border-green-200',
-    description: 'All quality checks passed. Approved on Prolific.',
+    description:
+      'All quality checks passed: finished, all 3 IRIs correct, duration ≥ 9 min (Smeal benchmark), reCAPTCHA ≥ 0.5, no straightlining, no partial straightlining. Approved on Prolific.',
   },
   'AUTO-EXCLUDE': {
     label: 'Auto-Exclude',
@@ -388,6 +389,74 @@ const DispositionDashboardPage = () => {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Clean Sample Definitions */}
+        <section className="mb-12">
+          <h2 className={H2_CLASSES}>Clean Sample Definitions</h2>
+          <p className="mb-4 text-gray-600">
+            Two related but distinct &ldquo;clean&rdquo; definitions are used across the project.
+            The difference in criteria explains why their sample sizes differ.
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm border-collapse">
+              <thead>
+                <tr className="border-b-2 border-gray-200">
+                  <th className="py-2 px-3 font-semibold text-gray-600">Criterion</th>
+                  <th className="py-2 px-3 font-semibold text-gray-600">
+                    Pipeline CLEAN (this dashboard)
+                  </th>
+                  <th className="py-2 px-3 font-semibold text-gray-600">
+                    Analysis &ldquo;Conservative Clean&rdquo;
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-700">
+                <tr className="border-b border-gray-100">
+                  <td className="py-2 px-3 font-medium">All 3 IRIs correct</td>
+                  <td className="py-2 px-3 text-green-700">Yes</td>
+                  <td className="py-2 px-3 text-green-700">Yes</td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="py-2 px-3 font-medium">Minimum duration</td>
+                  <td className="py-2 px-3">&ge; 540 s (9 min, Smeal benchmark)</td>
+                  <td className="py-2 px-3">&ge; 480 s (8 min)</td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="py-2 px-3 font-medium">reCAPTCHA &ge; 0.5</td>
+                  <td className="py-2 px-3 text-green-700">Yes</td>
+                  <td className="py-2 px-3 text-gray-400">Not checked</td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="py-2 px-3 font-medium">No straightlining</td>
+                  <td className="py-2 px-3 text-green-700">Yes</td>
+                  <td className="py-2 px-3 text-gray-400">Not checked</td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="py-2 px-3 font-medium">No partial straightlining (SD &ge; 0.5)</td>
+                  <td className="py-2 px-3 text-green-700">Yes</td>
+                  <td className="py-2 px-3 text-gray-400">Not checked</td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="py-2 px-3 font-medium">Prolific auth checks (LLM/Bots)</td>
+                  <td className="py-2 px-3 text-green-700">Yes</td>
+                  <td className="py-2 px-3 text-gray-400">Not checked</td>
+                </tr>
+                <tr className="border-b border-gray-100 bg-gray-50">
+                  <td className="py-2 px-3 font-semibold">Used for</td>
+                  <td className="py-2 px-3">Prolific approval/rejection operations</td>
+                  <td className="py-2 px-3">CRP statistical analysis (publication-grade)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-sm text-gray-500">
+            The pipeline CLEAN count is a strict subset of the analysis conservative clean count.
+            Responses that pass the analysis filter but not the pipeline are assigned FLAG-SMEAL,
+            FLAG-RECAPTCHA, FLAG-PARTIAL-STRAIGHTLINING, or FLAG-STRAIGHTLINING dispositions and
+            undergo manual review before Prolific approval. Many flagged responses are ultimately
+            approved after review, so the total approved count exceeds the pipeline CLEAN count.
+          </p>
         </section>
 
         {/* Methodology */}
