@@ -11,6 +11,7 @@ import pytest
 
 # Add scripts/analysis to path so imports work
 ANALYSIS_DIR = Path(__file__).parent.parent
+TESTS_DIR = Path(__file__).parent
 sys.path.insert(0, str(ANALYSIS_DIR))
 # Add repo root so `scripts.analysis.X` imports work
 REPO_ROOT = ANALYSIS_DIR.parent.parent
