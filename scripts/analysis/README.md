@@ -16,9 +16,9 @@ pip install pandas numpy scipy scikit-learn
 | -------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | `tabs_v2_analysis.py`      | Full descriptive statistics, cross-tabs, sensitivity analysis across sample cuts                                  |
 | `tabs_v2_psychometrics.py` | Instrument validation: PCA, KMO, reliability, AVE, HTMT, Fornell-Larcker, IRI effectiveness, CMV, selection bias  |
-| `tabs_v2_advanced.py`      | Advanced inferential statistics, PCA, interaction effects, demographic deep dives, multiple regression             |
-| `tabs_v2_data_audit.py`    | Disposition waterfall audit: validates Python logic matches TypeScript triage pipeline                             |
-| `tabs_v2_quality_audit.py` | Data quality audit: disposition funnel, demographic imbalances, missing data, response quality, temporal patterns  |
+| `tabs_v2_advanced.py`      | Advanced inferential statistics, PCA, interaction effects, demographic deep dives, multiple regression            |
+| `tabs_v2_data_audit.py`    | Disposition waterfall audit: validates Python logic matches TypeScript triage pipeline                            |
+| `tabs_v2_quality_audit.py` | Data quality audit: disposition funnel, demographic imbalances, missing data, response quality, temporal patterns |
 
 ## Usage
 
