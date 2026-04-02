@@ -91,16 +91,16 @@ def enrich(
     if demographics_path:
         demo_cols, demo_data = load_demographics(demographics_path)
 
+    # Stream CSV with csv.reader to handle quoted fields with embedded newlines
     with open(qualtrics_path, encoding="utf-8-sig") as f:
-        raw_lines = f.readlines()
+        reader = csv.reader(f)
+        all_rows = list(reader)
 
-    if len(raw_lines) < 4:
+    if len(all_rows) < 4:
         print("ERROR: Qualtrics CSV must have 3 header rows + data")
         sys.exit(1)
 
-    # Parse the header row to find PROLIFIC_PID column
-    reader = csv.reader([raw_lines[0]])
-    headers = next(reader)
+    headers = all_rows[0]
 
     pid_idx = -1
     for i, h in enumerate(headers):
@@ -126,12 +126,10 @@ def enrich(
     with open(output_path, "w", newline="", encoding="utf-8") as out:
         writer = csv.writer(out)
 
-        for line_idx, line in enumerate(raw_lines):
-            row = next(csv.reader([line]))
-
-            if line_idx < 3:
+        for row_idx, row in enumerate(all_rows):
+            if row_idx < 3:
                 # Header rows: append column names (row 0) or empty cells (rows 1-2)
-                if line_idx == 0:
+                if row_idx == 0:
                     row.extend(new_cols)
                 else:
                     row.extend([""] * len(new_cols))
@@ -152,10 +150,10 @@ def enrich(
             writer.writerow(row)
 
     # Count enrichment hits
-    data_rows = len(raw_lines) - 3
-    auth_hits = sum(1 for line in raw_lines[3:] if next(csv.reader([line]))[pid_idx].strip() in auth_data) if auth_data else 0
-    status_hits = sum(1 for line in raw_lines[3:] if next(csv.reader([line]))[pid_idx].strip() in status_data) if status_data else 0
-    demo_hits = sum(1 for line in raw_lines[3:] if next(csv.reader([line]))[pid_idx].strip() in demo_data) if demo_data else 0
+    data_rows = len(all_rows) - 3
+    auth_hits = sum(1 for row in all_rows[3:] if row[pid_idx].strip() in auth_data) if auth_data else 0
+    status_hits = sum(1 for row in all_rows[3:] if row[pid_idx].strip() in status_data) if status_data else 0
+    demo_hits = sum(1 for row in all_rows[3:] if row[pid_idx].strip() in demo_data) if demo_data else 0
 
     print(f"Enriched {data_rows} rows → {output_path}")
     if auth_data:

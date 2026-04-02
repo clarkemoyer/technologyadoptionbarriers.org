@@ -128,17 +128,20 @@ class TestAdvancedEdgeCases:
         assert len(result) == 1
         assert np.isnan(result[0][0])
 
-    def test_singular_matrix_regression(self):
-        """Lines 581-582: LinAlgError in regression → prints error message."""
-        # This branch triggers when the correlation matrix is singular.
-        # We test it indirectly through the e2e run — the synthetic data
-        # may or may not trigger it depending on the random seed.
-        # Direct test: verify the except clause exists and is reachable.
-        import numpy as np
-        try:
-            np.linalg.inv(np.zeros((3, 3)))
-        except np.linalg.LinAlgError:
-            pass  # This is what the branch catches
+    def test_singular_matrix_branch_exists(self):
+        """Lines 581-582: Verify the LinAlgError handler exists in the source.
+
+        The singular matrix branch in tabs_v2_advanced.py runs at module level
+        during import, so it can't be triggered via mock without breaking the
+        entire module load. The e2e subprocess test covers this path when the
+        data produces a singular correlation matrix. Here we just verify the
+        exception handler is present in the source code.
+        """
+        import inspect
+        mod = self._import()
+        source = inspect.getsource(sys.modules["tabs_v2_advanced"])
+        assert "LinAlgError" in source
+        assert "singular matrix" in source.lower()
 
 
 # ═══════════════════════════════════════════════════════════════

@@ -213,7 +213,7 @@ const ReproducibleAnalysisPage = () => {
             substantially, the sensitivity analysis flags it for discussion.
           </p>
           {sensitivityData.metrics.length > 0 &&
-            Object.keys(sensitivityData.metrics[0].values).length > 0 && (
+            sensitivityData.metrics.some((m) => Object.keys(m.values).length > 0) && (
               <div className="overflow-x-auto my-6">
                 <table className="w-full border-collapse font-sans text-sm">
                   <thead>
