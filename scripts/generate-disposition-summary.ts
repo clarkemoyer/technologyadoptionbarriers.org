@@ -56,7 +56,6 @@ async function main() {
     ).catch(() => ({ results: [] })),
   ])
 
-  // TODO: listStudySubmissions returns a single page — add pagination if study exceeds page size
   const submissions: Submission[] = submissionsResponse.results || []
   const messages = messagesResponse.results || []
 
