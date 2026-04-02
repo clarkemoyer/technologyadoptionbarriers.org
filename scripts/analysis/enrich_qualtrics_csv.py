@@ -91,7 +91,9 @@ def enrich(
     if demographics_path:
         demo_cols, demo_data = load_demographics(demographics_path)
 
-    # Stream CSV with csv.reader to handle quoted fields with embedded newlines
+    # Read entire CSV with csv.reader to handle quoted fields with embedded
+    # newlines. Loads all rows into memory — acceptable for survey-scale data
+    # (typically <10K rows). For larger datasets, consider streaming.
     with open(qualtrics_path, encoding="utf-8-sig") as f:
         reader = csv.reader(f)
         all_rows = list(reader)
