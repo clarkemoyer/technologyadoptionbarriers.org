@@ -116,9 +116,9 @@ CLEAN_FEEDBACK = [
 # Realistic distribution matching actual TABS data proportions
 
 DISPOSITION_MIX = {
-    "clean":           0.24,  # ~120 Pipeline CLEAN
-    "smeal":           0.11,  # ~55  FLAG-SMEAL (480-539s, all IRIs)
-    "single_iri":      0.19,  # ~95  FLAG-SINGLE-IRI
+    "clean":           0.22,  # ~110 Pipeline CLEAN
+    "smeal":           0.10,  # ~50  FLAG-SMEAL (480-539s, all IRIs)
+    "single_iri":      0.18,  # ~90  FLAG-SINGLE-IRI
     "auto_exclude_2":  0.10,  # ~50  AUTO-EXCLUDE (2 IRI fails)
     "auto_exclude_3":  0.07,  # ~35  AUTO-EXCLUDE (3 IRI fails)
     "speed_clean":     0.02,  # ~10  FLAG-SPEED (<300s, all IRIs pass)
@@ -126,9 +126,9 @@ DISPOSITION_MIX = {
     "recaptcha":       0.01,  # ~5   FLAG-RECAPTCHA
     "straightline_p":  0.05,  # ~25  FLAG-PARTIAL-STRAIGHTLINING
     "straightline_f":  0.01,  # ~5   FLAG-STRAIGHTLINING
-    "incomplete":      0.14,  # ~70  INCOMPLETE
-    "auth_fail":       0.01,  # ~5   FLAG-AUTH-FAIL
-    "auth_mixed":      0.01,  # ~5   FLAG-AUTH-MIXED
+    "incomplete":      0.12,  # ~60  INCOMPLETE
+    "auth_fail":       0.04,  # ~20  FLAG-AUTH-FAIL (covers all 6 LOW combos)
+    "auth_mixed":      0.04,  # ~20  FLAG-AUTH-MIXED (covers all 5 MIXED combos)
 }
 
 
@@ -288,8 +288,12 @@ def build_respondent(idx, disposition_type):
         recaptcha = round(random.uniform(0.6, 1.0), 2)
         straight_count = 0
         finished = True
-        auth_llm = random.choice(["LOW", "HIGH"])
-        auth_bots = "LOW" if auth_llm == "HIGH" else random.choice(["LOW", "HIGH"])
+        # Cycle through all LOW combinations to ensure full auth coverage
+        auth_low_combos = [
+            ("LOW", "HIGH"), ("HIGH", "LOW"), ("LOW", "LOW"),
+            ("LOW", "MIXED"), ("LOW", ""), ("", "LOW"),
+        ]
+        auth_llm, auth_bots = auth_low_combos[idx % len(auth_low_combos)]
         status = "AWAITING REVIEW"
         straightline_barriers = False
     elif disposition_type == "auth_mixed":
@@ -298,8 +302,12 @@ def build_respondent(idx, disposition_type):
         recaptcha = round(random.uniform(0.6, 1.0), 2)
         straight_count = 0
         finished = True
-        auth_llm = random.choice(["MIXED", "HIGH"])
-        auth_bots = "MIXED" if auth_llm == "HIGH" else random.choice(["MIXED", "HIGH"])
+        # Cycle through all MIXED combinations (no LOW present)
+        auth_mixed_combos = [
+            ("MIXED", "HIGH"), ("HIGH", "MIXED"), ("MIXED", "MIXED"),
+            ("MIXED", ""), ("", "MIXED"),
+        ]
+        auth_llm, auth_bots = auth_mixed_combos[idx % len(auth_mixed_combos)]
         status = "AWAITING REVIEW"
         straightline_barriers = False
     else:
@@ -317,6 +325,18 @@ def build_respondent(idx, disposition_type):
     maturity = gen_likert(MATURITY_VALUES, bias, 8, dont_know_rate=dont_know)
     maturity_iri = IRI_MATURITY if iri[2] else random.choice(MATURITY_VALUES[2:])
 
+    # Edge cases: reCAPTCHA boundary and empty values
+    if idx == 0:
+        recaptcha = 0.5  # exact boundary
+    elif idx == 1:
+        recaptcha_str_override = ""  # empty string → default to 1.0
+
+    # Edge case: Finished as "1" instead of "TRUE" (numeric export mode)
+    if idx == 2 and finished:
+        finished_override = "1"
+    elif idx == 3 and not finished:
+        finished_override = "0"
+
     # Feedback — mix of clean and PII-containing
     if random.random() < 0.05:
         feedback = random.choice(PII_FEEDBACK)
@@ -331,10 +351,14 @@ def build_respondent(idx, disposition_type):
 
     pid = f"P_{idx:04d}"
 
+    # Apply edge case overrides
+    finished_str = locals().get("finished_override", "TRUE" if finished else "FALSE")
+    recaptcha_val = locals().get("recaptcha_str_override", str(recaptcha))
+
     return [
         f"R_{idx + 1:04d}", start, end, end,
         "IP Address",
-        "TRUE" if finished else "FALSE",
+        finished_str,
         str(duration),
         f"192.168.{idx // 256}.{idx % 256}", "", "", "", "",
         f"40.{random.uniform(0, 9):.4f}", f"-75.{random.uniform(0, 9):.4f}",
@@ -347,7 +371,7 @@ def build_respondent(idx, disposition_type):
         "69c17630acada6abeead2da5", f"sess_{idx:04d}",
         f"https://app.prolific.com/submissions/complete?cc=TABS{idx}",
         "prolific",
-        str(recaptcha), str(straight_count),
+        recaptcha_val, str(straight_count),
         auth_llm, auth_bots, status,
     ]
 
