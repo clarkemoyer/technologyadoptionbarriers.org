@@ -114,10 +114,16 @@ def make_clean_row(
     recaptcha: str = "0.9",
     straightlining: str = "0",
 ) -> list[str]:
-    """Create a row that passes all quality checks (Pipeline CLEAN)."""
-    barriers = ["Moderate Barrier"] * 18 + [barrier_iri]
-    readiness = ["Moderate Readiness/Capability"] * 17 + [readiness_iri]
-    maturity = ["Level 3: Defined/Standardized"] * 8 + [maturity_iri]
+    """Create a row that passes all quality checks (Pipeline CLEAN).
+
+    Uses varied responses across all scale points to avoid partial straightlining.
+    """
+    barrier_vals = ["Not a Barrier", "Minor Barrier", "Moderate Barrier", "Significant Barrier", "Major Barrier"]
+    readiness_vals = ["Very Low Readiness/Capability", "Low Readiness/Capability", "Moderate Readiness/Capability", "High Readiness/Capability", "Very High Readiness/Capability"]
+    maturity_vals = ["Level 1: Initial/Ad Hoc", "Level 2: Developing/Repeatable", "Level 3: Defined/Standardized", "Level 4: Managed/Quantitatively Managed", "Level 5: Optimizing/Innovating"]
+    barriers = [barrier_vals[i % 5] for i in range(18)] + [barrier_iri]
+    readiness = [readiness_vals[i % 5] for i in range(17)] + [readiness_iri]
+    maturity = [maturity_vals[i % 5] for i in range(8)] + [maturity_iri]
     return [
         response_id, start_date, str(duration), finished,
         "CIO (e.g., Director of IT)", "High", "Technology", "10000+",
