@@ -12,8 +12,10 @@ function exportCsv(headers: string[], data: RowData[], filename: string) {
   const csvRows = data.map((row) =>
     headers
       .map((h) => {
-        const val = row[h] ?? ''
-        return `"${String(val).replace(/"/g, '""')}"`
+        let val = String(row[h] ?? '').replace(/"/g, '""')
+        // Prevent CSV formula injection: prefix dangerous chars with a single quote
+        if (/^[=+\-@\t\r]/.test(val)) val = `'${val}`
+        return `"${val}"`
       })
       .join(',')
   )

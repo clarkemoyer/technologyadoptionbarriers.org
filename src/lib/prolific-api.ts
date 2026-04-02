@@ -233,9 +233,15 @@ async function fetchAllPages<T>(endpoint: string, apiToken: string): Promise<Pag
 
   let nextUrl = firstPage.meta?.next
   while (nextUrl) {
-    // meta.next is a full URL — extract the path portion
-    const url = new URL(nextUrl)
-    const path = url.pathname.replace(/^\/api\/v1/, '') + url.search
+    // meta.next may be absolute or relative — normalize to API path
+    let path: string
+    try {
+      const url = new URL(nextUrl)
+      path = url.pathname.replace(/^\/api\/v1/, '') + url.search
+    } catch {
+      // Relative URL — use as-is
+      path = nextUrl
+    }
     const page = await makeApiRequest<PaginatedResponse<T>>(path, apiToken)
     allResults.push(...page.results)
     nextUrl = page.meta?.next
