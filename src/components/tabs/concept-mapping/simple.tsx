@@ -251,6 +251,21 @@ const ConceptMappingSimple = () => {
               {filteredRows.length > 0 ? (
                 filteredRows.map((row) => {
                   const section = getSection(row)
+
+                  // Pre-compute barrier lookup once per row instead of per cell
+                  const isBarrierSection = String(row['Section / Primary Construct']).includes(
+                    'Technology Adoption Barriers'
+                  )
+                  const surveyItemText = String(row['Survey Item (Question Text)'] ?? '')
+                  const rowMatchingBarrier =
+                    isBarrierSection && surveyItemText
+                      ? barriers.find(
+                          (b) =>
+                            b.description.trim().toLowerCase() ===
+                            surveyItemText.trim().toLowerCase()
+                        )
+                      : undefined
+
                   return (
                     <tr
                       key={row['Item Code / Variable Name']}
@@ -260,18 +275,9 @@ const ConceptMappingSimple = () => {
                       {headers.map((header, colIdx) => {
                         const val = String(row[header as keyof RowData] ?? '')
 
-                        // Check if this is a barrier node
-                        const isBarrierColumn = header === 'Survey Item (Question Text)'
-                        const isBarrierSection = String(
-                          row['Section / Primary Construct']
-                        ).includes('Technology Adoption Barriers')
+                        // Check if this specific cell should render the pre-computed barrier tooltip
                         const matchingBarrier =
-                          isBarrierColumn && isBarrierSection
-                            ? barriers.find(
-                                (b) =>
-                                  b.description.trim().toLowerCase() === val.trim().toLowerCase()
-                              )
-                            : undefined
+                          header === 'Survey Item (Question Text)' ? rowMatchingBarrier : undefined
 
                         return (
                           <td

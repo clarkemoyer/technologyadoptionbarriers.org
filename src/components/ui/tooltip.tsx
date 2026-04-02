@@ -37,8 +37,8 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
     if (!isVisible && triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect()
       setCoords({
-        top: rect.top + window.scrollY - 10,
-        left: rect.left + window.scrollX + rect.width / 2,
+        top: rect.top - 10,
+        left: rect.left + rect.width / 2,
       })
     }
 
@@ -61,8 +61,8 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
         if (triggerRef.current) {
           const rect = triggerRef.current.getBoundingClientRect()
           setCoords({
-            top: rect.top + window.scrollY - 10,
-            left: rect.left + window.scrollX + rect.width / 2,
+            top: rect.top - 10,
+            left: rect.left + rect.width / 2,
           })
         }
       }
@@ -106,7 +106,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 5 }}
                 transition={{ duration: 0.15 }}
-                className="absolute z-[9999] bg-gray-900 text-white text-xs rounded shadow-lg p-3 w-64 break-words pointer-events-auto"
+                className="fixed z-[9999] bg-gray-900 text-white text-xs rounded shadow-lg p-3 w-64 break-words pointer-events-auto"
                 role="tooltip"
                 style={{
                   top: coords.top,
