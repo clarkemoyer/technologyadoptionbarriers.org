@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import summaryData from '@/data/concept-mapping-summary.json'
+import DownloadButtons from './download-buttons'
 
 interface SectionRow {
   section: string
@@ -157,6 +158,28 @@ export default function ConceptMappingSummary() {
           </div>
         </div>
       </section>
+
+      {/* Download */}
+      <div className="flex justify-end">
+        <DownloadButtons
+          headers={[
+            'Section',
+            'Question Type',
+            'Substantive Items',
+            'Attention Checks',
+            'Scale / Method',
+          ]}
+          data={sections.map((row) => ({
+            Section: row.section,
+            'Question Type': row.questionType,
+            'Substantive Items': row.substantiveItems,
+            'Attention Checks': row.attentionChecks,
+            'Scale / Method': row.scaleMethod,
+          }))}
+          filenameBase="concept-mapping-summary"
+          label="survey structure summary"
+        />
+      </div>
 
       {/* Revision Notes Card */}
       <section aria-labelledby="revision-notes-heading">
