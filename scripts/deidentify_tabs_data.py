@@ -16,6 +16,10 @@ Usage:
     python3 scripts/deidentify_tabs_data.py data.csv output/ --dry-run
     python3 scripts/deidentify_tabs_data.py data.csv output/ --skip-review
 
+The dataset outputs (public CSV, mapping, linkage) are deterministic: same
+input always produces the same output.  Report files (PII report, audit log)
+include run timestamps for provenance tracking.
+
 Exit codes:
     0  Success
     1  PII flagged (requires human review, use --skip-review to proceed)
@@ -79,7 +83,7 @@ PII_PATTERNS = [
     (re.compile(r"https?://\S+", re.IGNORECASE), "URL"),
     (
         re.compile(
-            r"\b(?:work(?:s|ing)?|employed|job|position)\s+(?:at|for|with)\s+([A-Z][A-Za-z\s&.,']+)",
+            r"\b(?:work(?:s|ing)?|employed|job|position)\s+(?:at|for|with)\s+([A-Z][A-Za-z\s&.,']{2,30})",
             re.IGNORECASE,
         ),
         "employer reference",
@@ -151,8 +155,14 @@ def parse_qualtrics_csv(csv_path: Path) -> tuple[list[str], list[str], list[str]
 def scan_pii(
     rows: list[dict[str, str]],
     free_text_columns: list[str],
+    row_offset: int = 4,
 ) -> list[dict]:
     """Scan free-text columns for PII patterns.
+
+    Args:
+        row_offset: Added to row_index for CSV row numbers.
+            Use 4 for Qualtrics input (3 header rows + 1-indexed).
+            Use 2 for output CSV (1 header row + 1-indexed).
 
     Returns a list of flagged items: {row_index, column, pattern_type, match, text}.
     """
@@ -166,13 +176,16 @@ def scan_pii(
 
             for pattern, pattern_type in PII_PATTERNS:
                 for match in pattern.finditer(text):
+                    # Use captured group if available (e.g., just the company name),
+                    # otherwise use the full match
+                    redact_target = match.group(1) if match.lastindex else match.group()
                     flags.append(
                         {
                             "row_index": row_idx,
-                            "row_number": row_idx + 4,  # 1-indexed + 3 header rows
+                            "row_number": row_idx + row_offset,
                             "column": col,
                             "pattern_type": pattern_type,
-                            "match": match.group(),
+                            "match": redact_target,
                             "text": text,
                         }
                     )
@@ -401,16 +414,16 @@ def main() -> int:
         redaction_count = redact_pii(rows, pii_flags)
         print(f"  Redactions applied: {redaction_count}")
 
-    # Step 5: Extract Prolific linkage BEFORE column removal
-    print("\n--- Step 5: Prolific linkage file ---")
+    # Extract Prolific linkage BEFORE ResponseId replacement (needs original IDs)
+    print("\n--- Step 2: Prolific linkage file (extracted before ID replacement) ---")
     available_linkage_cols = [c for c in PROLIFIC_LINKAGE_COLUMNS if c in headers]
     linkage_data = extract_linkage(rows, available_linkage_cols)
     linkage_path = args.output_dir / "prolific_linkage_CONFIDENTIAL.csv"
     write_csv(linkage_path, available_linkage_cols, linkage_data)
     print(f"  Saved: {linkage_path} ({len(linkage_data)} rows)")
 
-    # Step 2: ResponseId replacement
-    print("\n--- Step 2: ResponseId replacement ---")
+    # Step 3: ResponseId replacement
+    print("\n--- Step 3: ResponseId replacement ---")
     rows, id_mapping = replace_response_ids(rows)
     mapping_path = args.output_dir / "responseid_mapping.csv"
     with open(mapping_path, "w", newline="", encoding="utf-8") as f:
@@ -419,14 +432,14 @@ def main() -> int:
         writer.writerows(id_mapping)
     print(f"  Saved: {mapping_path} ({len(id_mapping)} mappings)")
 
-    # Step 3: Timestamp generalization
-    print("\n--- Step 3: Timestamp generalization ---")
+    # Step 4: Timestamp generalization
+    print("\n--- Step 4: Timestamp generalization ---")
     available_ts_cols = [c for c in TIMESTAMP_COLUMNS if c in headers]
     generalize_timestamps(rows, available_ts_cols)
     print(f"  Generalized: {available_ts_cols}")
 
-    # Step 4: Column exclusion
-    print("\n--- Step 4: Column exclusion ---")
+    # Step 5: Column exclusion
+    print("\n--- Step 5: Column exclusion ---")
     columns_actually_dropped = sorted(COLUMNS_TO_DROP & set(headers))
     kept_headers, filtered_rows = filter_columns(headers, rows, COLUMNS_TO_DROP)
     print(f"  Dropped: {len(columns_actually_dropped)} columns")
@@ -442,7 +455,7 @@ def main() -> int:
 
     # Verify: re-scan output for PII
     print("\n--- Verification: re-scan output for PII ---")
-    verify_flags = scan_pii(filtered_rows, [c for c in available_text_cols if c in kept_headers])
+    verify_flags = scan_pii(filtered_rows, [c for c in available_text_cols if c in kept_headers], row_offset=2)
     if verify_flags:
         print(f"  WARNING: {len(verify_flags)} PII pattern(s) still detected in output!")
         for flag in verify_flags:
