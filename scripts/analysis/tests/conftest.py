@@ -12,4 +12,4 @@ sys.path.insert(0, str(TESTS_DIR))
 sys.path.insert(0, str(ANALYSIS_DIR))
 sys.path.insert(0, str(REPO_ROOT))
 
-from _helpers import test_data_csv, tmp_csv, tmp_json  # noqa: F401
+from _helpers import test_data_csv, tmp_csv, tmp_json, prod_format_csv  # noqa: F401

@@ -24,6 +24,12 @@ def test_data_csv() -> str:
 
 
 @pytest.fixture
+def prod_format_csv() -> str:
+    """Path to the production-format test CSV with all columns."""
+    return str(TESTS_DIR / "test_data_production_format.csv")
+
+
+@pytest.fixture
 def tmp_csv(tmp_path: Path) -> str:
     """Path for writing temporary CSV output."""
     return str(tmp_path / "output.csv")
