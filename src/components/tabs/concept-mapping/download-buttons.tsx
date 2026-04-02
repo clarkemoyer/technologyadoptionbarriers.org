@@ -52,7 +52,16 @@ async function exportExcel(headers: string[], data: RowData[], filename: string)
   }))
 
   for (const row of data) {
-    ws.addRow(Object.fromEntries(headers.map((h) => [h, row[h] ?? ''])))
+    ws.addRow(
+      Object.fromEntries(
+        headers.map((h) => {
+          let val = String(row[h] ?? '')
+          // Prevent formula injection in Excel cells
+          if (/^[=+\-@\t\r]/.test(val)) val = `'${val}`
+          return [h, val]
+        })
+      )
+    )
   }
 
   ws.getRow(1).font = { bold: true }

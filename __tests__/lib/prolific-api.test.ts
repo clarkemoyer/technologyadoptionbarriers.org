@@ -318,6 +318,10 @@ describe('Prolific API Client', () => {
       expect(result.results[0].id).toBe('sub-1')
       expect(result.results[1].id).toBe('sub-2')
       expect(global.fetch).toHaveBeenCalledTimes(2)
+      // Verify second call used the correct paginated path
+      const secondCall = (global.fetch as jest.Mock).mock.calls[1][0]
+      expect(secondCall).toContain('/submissions/')
+      expect(secondCall).toContain('page=2')
     })
   })
 
