@@ -88,6 +88,7 @@ export default function DownloadButtons({
   return (
     <div className="flex items-center gap-2">
       <button
+        type="button"
         onClick={() => exportExcel(headers, data, `${filenameBase}.xlsx`).catch(console.error)}
         className="px-4 py-2 bg-tabs-teal text-white text-sm font-medium rounded-lg hover:bg-tabs-teal-deep transition-colors"
         aria-label={`Download ${label} as Excel spreadsheet`}
@@ -95,6 +96,7 @@ export default function DownloadButtons({
         Download Excel
       </button>
       <button
+        type="button"
         onClick={() => exportCsv(headers, data, `${filenameBase}.csv`)}
         className="px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
         aria-label={`Download ${label} as CSV`}

@@ -5,6 +5,7 @@ import conceptMappingData from '@/data/concept-mapping-simple.json'
 import { SECTIONS, type SectionDef } from '@/data/concept-mapping-colors'
 import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
+import DownloadButtons from './download-buttons'
 
 /**
  * Concept Mapping Simple Component
@@ -96,74 +97,6 @@ function ExpandableCell({ value, header }: { value: string; header: string }) {
       </button>
     </span>
   )
-}
-
-function exportCsv(data: RowData[]) {
-  const csvHeaders = headers.map((h) => `"${h.replace(/"/g, '""')}"`).join(',')
-  const csvRows = data.map((row) =>
-    headers
-      .map((h) => {
-        const val = row[h as keyof RowData] ?? ''
-        return `"${String(val).replace(/"/g, '""')}"`
-      })
-      .join(',')
-  )
-  const csv = [csvHeaders, ...csvRows].join('\n')
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.style.display = 'none'
-  link.href = url
-  link.download = 'concept-mapping-simple.csv'
-  document.body.appendChild(link)
-  link.click()
-  setTimeout(() => {
-    URL.revokeObjectURL(url)
-    link.remove()
-  }, 100)
-}
-
-async function exportExcel(data: RowData[]) {
-  const ExcelJS = (await import('exceljs')).default
-  const wb = new ExcelJS.Workbook()
-  const ws = wb.addWorksheet('Concept Mapping')
-
-  // Header row
-  ws.columns = headers.map((h) => ({
-    header: h,
-    key: h,
-    width: Math.min(
-      40,
-      Math.max(
-        h.length + 2,
-        ...data.map((r) => String(r[h as keyof RowData] ?? '').length).map((l) => Math.min(l, 40))
-      )
-    ),
-  }))
-
-  // Data rows
-  for (const row of data) {
-    ws.addRow(Object.fromEntries(headers.map((h) => [h, row[h as keyof RowData] ?? ''])))
-  }
-
-  // Style header row
-  ws.getRow(1).font = { bold: true }
-
-  const buffer = await wb.xlsx.writeBuffer()
-  const blob = new Blob([buffer], {
-    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-  })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.style.display = 'none'
-  link.href = url
-  link.download = 'concept-mapping-simple.xlsx'
-  document.body.appendChild(link)
-  link.click()
-  setTimeout(() => {
-    URL.revokeObjectURL(url)
-    link.remove()
-  }, 100)
 }
 
 const ConceptMappingSimple = () => {
@@ -262,20 +195,14 @@ const ConceptMappingSimple = () => {
               <span className="text-sm text-gray-500">
                 {filteredRows.length} of {rows.length} items
               </span>
-              <button
-                onClick={() => exportExcel(filteredRows).catch(console.error)}
-                className="px-4 py-2 bg-tabs-teal text-white text-sm font-medium rounded-lg hover:bg-tabs-teal-deep transition-colors"
-                aria-label="Download concept mapping data as Excel spreadsheet"
-              >
-                Download Excel
-              </button>
-              <button
-                onClick={() => exportCsv(filteredRows)}
-                className="px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
-                aria-label="Download concept mapping data as CSV"
-              >
-                CSV
-              </button>
+              <DownloadButtons
+                headers={headers}
+                data={filteredRows.map((row) =>
+                  Object.fromEntries(headers.map((h) => [h, row[h as keyof RowData] ?? '']))
+                )}
+                filenameBase="concept-mapping-simple"
+                label="concept mapping data"
+              />
             </div>
           </div>
         </div>

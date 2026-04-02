@@ -125,6 +125,16 @@ describe('ConceptMappingSummary component', () => {
     })
   })
 
+  describe('Download buttons', () => {
+    it('should render Excel and CSV download buttons', () => {
+      render(<ConceptMappingSummary />)
+      expect(
+        screen.getByLabelText('Download survey structure summary as Excel spreadsheet')
+      ).toBeInTheDocument()
+      expect(screen.getByLabelText('Download survey structure summary as CSV')).toBeInTheDocument()
+    })
+  })
+
   describe('Accessibility', () => {
     it('should not have accessibility violations', async () => {
       const { container } = render(<ConceptMappingSummary />)
