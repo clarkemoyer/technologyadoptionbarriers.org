@@ -11,9 +11,10 @@ interface TooltipProps {
    * Do not pass <button> or <a> as children, as they will be wrapped in a <button>.
    */
   children: React.ReactElement
+  triggerAriaLabel?: string
 }
 
-export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
+export const Tooltip: React.FC<TooltipProps> = ({ content, children, triggerAriaLabel }) => {
   const [isVisible, setIsVisible] = useState(false)
   const [coords, setCoords] = useState({ top: 0, left: 0 })
   const triggerRef = useRef<HTMLButtonElement>(null)
@@ -45,7 +46,17 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
     setIsVisible(true)
   }
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = (e?: React.FocusEvent | React.MouseEvent) => {
+    if (e && 'relatedTarget' in e && e.relatedTarget instanceof Node) {
+      const popup = document.getElementById(tooltipId)
+      if (
+        (popup && popup.contains(e.relatedTarget)) ||
+        (triggerRef.current && triggerRef.current.contains(e.relatedTarget))
+      ) {
+        return // allow focus/hover to drift between trigger and tooltip
+      }
+    }
+
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
     }
@@ -103,6 +114,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
         ref={triggerRef}
         onFocus={handleMouseEnter}
         onBlur={handleMouseLeave}
+        aria-label={triggerAriaLabel}
         aria-describedby={isVisible ? tooltipId : undefined}
         className="rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
       >
@@ -129,6 +141,8 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
                 }}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
+                onFocus={handleMouseEnter}
+                onBlur={handleMouseLeave}
               >
                 {content}
                 {/* Small downward pointing triangle arrow */}

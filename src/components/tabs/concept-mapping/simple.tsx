@@ -310,11 +310,9 @@ const ConceptMappingSimple = () => {
                                         )}
                                     </div>
                                   }
+                                  triggerAriaLabel={`View examples for ${matchingBarrier.name}`}
                                 >
-                                  <Info
-                                    className="w-4 h-4 text-blue-500 hover:text-blue-700 mt-0.5 flex-shrink-0 cursor-help"
-                                    aria-label={`View examples for ${matchingBarrier.name}`}
-                                  />
+                                  <Info className="w-4 h-4 text-blue-500 hover:text-blue-700 mt-0.5 flex-shrink-0 cursor-help" />
                                 </Tooltip>
                               </div>
                             ) : (
