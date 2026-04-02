@@ -359,16 +359,29 @@ export async function getSubmissionDemographics(
   submissionId: string,
   apiToken: string
 ): Promise<SubmissionDemographics | null> {
-  try {
-    return await makeApiRequest<SubmissionDemographics>(
-      `/submissions/${submissionId}/demographics/`,
-      apiToken
+  const url = `${PROLIFIC_API_BASE_URL}/submissions/${submissionId}/demographics/`
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Token ${apiToken}`,
+      'Content-Type': 'application/json',
+    },
+  })
+
+  if (response.status === 404) return null
+  if (!response.ok) {
+    throw new ProlificApiErrorClass(
+      `Demographics request failed with status ${response.status}`,
+      response.status
     )
-  } catch (error) {
-    if (error instanceof ProlificApiErrorClass && error.statusCode === 404) {
-      return null // No demographics archived for this submission
-    }
-    throw error
+  }
+
+  const text = await response.text()
+  if (!text || text.trim() === '') return null
+
+  try {
+    return JSON.parse(text) as SubmissionDemographics
+  } catch {
+    return null
   }
 }
 
