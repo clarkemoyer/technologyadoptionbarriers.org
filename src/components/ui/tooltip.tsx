@@ -25,13 +25,29 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
   }, [])
 
   const handleMouseEnter = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      timeoutRef.current = null
+    }
+
+    if (!isVisible && triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect()
+      setCoords({
+        top: rect.top + window.scrollY - 10,
+        left: rect.left + window.scrollX + rect.width / 2,
+      })
+    }
+
     setIsVisible(true)
   }
 
   const handleMouseLeave = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
     timeoutRef.current = setTimeout(() => {
       setIsVisible(false)
+      timeoutRef.current = null
     }, 200)
   }
 
