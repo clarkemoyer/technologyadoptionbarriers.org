@@ -13,12 +13,27 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
   const [isVisible, setIsVisible] = useState(false)
   const [coords, setCoords] = useState({ top: 0, left: 0 })
   const triggerRef = useRef<HTMLButtonElement>(null)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const tooltipId = useId()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
   }, [])
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    setIsVisible(true)
+  }
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsVisible(false)
+    }, 200)
+  }
 
   useEffect(() => {
     if (isVisible && triggerRef.current) {
@@ -46,16 +61,16 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
   return (
     <div
       className="inline-flex items-center gap-1 relative cursor-pointer"
-      onMouseEnter={() => setIsVisible(true)}
-      onMouseLeave={() => setIsVisible(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <button
         type="button"
         ref={triggerRef}
-        onFocus={() => setIsVisible(true)}
-        onBlur={() => setIsVisible(false)}
+        onFocus={handleMouseEnter}
+        onBlur={handleMouseLeave}
         aria-describedby={isVisible ? tooltipId : undefined}
-        className="focus:outline-none"
+        className="rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
       >
         {children}
       </button>
@@ -63,32 +78,30 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
       {mounted &&
         typeof document !== 'undefined' &&
         createPortal(
-          <div
-            className="absolute z-[9999] pointer-events-none"
-            style={{
-              top: coords.top,
-              left: coords.left,
-              transform: 'translate(-50%, -100%)',
-            }}
-          >
-            <AnimatePresence>
-              {isVisible && (
-                <motion.div
-                  id={tooltipId}
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 5 }}
-                  transition={{ duration: 0.15 }}
-                  className="bg-gray-900 text-white text-xs rounded shadow-lg p-3 w-64 break-words pointer-events-auto"
-                  role="tooltip"
-                >
-                  {content}
-                  {/* Small downward pointing triangle arrow */}
-                  <div className="absolute w-2 h-2 bg-gray-900 rotate-45 transform left-1/2 -ml-1 -bottom-1 pointer-events-none" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>,
+          <AnimatePresence>
+            {isVisible && (
+              <motion.div
+                id={tooltipId}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 5 }}
+                transition={{ duration: 0.15 }}
+                className="absolute z-[9999] bg-gray-900 text-white text-xs rounded shadow-lg p-3 w-64 break-words pointer-events-auto"
+                role="tooltip"
+                style={{
+                  top: coords.top,
+                  left: coords.left,
+                  transform: 'translate(-50%, -100%)',
+                }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                {content}
+                {/* Small downward pointing triangle arrow */}
+                <div className="absolute w-2 h-2 bg-gray-900 rotate-45 transform left-1/2 -ml-1 -bottom-1 pointer-events-none" />
+              </motion.div>
+            )}
+          </AnimatePresence>,
           document.body
         )}
     </div>

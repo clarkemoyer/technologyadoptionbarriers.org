@@ -164,7 +164,7 @@ describe('ConceptMappingSimple component', () => {
       expect(tooltipTriggers.length).toBeGreaterThan(0)
     })
 
-    it('should show tooltip content when focused', () => {
+    it('should show tooltip content when focused', async () => {
       render(<ConceptMappingSimple />)
       const tooltipTriggers = screen.getAllByRole('button', { name: /^View examples for/i })
       const firstTrigger = tooltipTriggers[0]
@@ -172,8 +172,8 @@ describe('ConceptMappingSimple component', () => {
       // Before interaction, content might not be visible, but component is rendered
       fireEvent.focus(firstTrigger)
 
-      // The tooltip panel has role="tooltip"
-      const tooltips = screen.getAllByRole('tooltip')
+      // The tooltip panel has role="tooltip" (using await for async mount/portal)
+      const tooltips = await screen.findAllByRole('tooltip')
       expect(tooltips.length).toBeGreaterThan(0)
     })
   })
