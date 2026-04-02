@@ -1,15 +1,19 @@
 /**
- * Fetch Prolific demographics for study submissions.
+ * Fetch Prolific demographics for study participants.
+ *
+ * Tries the bulk export endpoint first (equivalent to the UI "Download demographic data"
+ * button). Falls back to per-submission demographics if bulk export fails.
  *
  * Usage:
  *   PROLIFIC_API_TOKEN=... STUDY_ID=... npx tsx scripts/fetch-prolific-demographics.ts
- *   PROLIFIC_API_TOKEN=... STUDY_ID=... npx tsx scripts/fetch-prolific-demographics.ts --sample 3
- *   PROLIFIC_API_TOKEN=... STUDY_ID=... npx tsx scripts/fetch-prolific-demographics.ts --all --output demographics.csv
+ *   PROLIFIC_API_TOKEN=... STUDY_ID=... npx tsx scripts/fetch-prolific-demographics.ts --output demographics.csv
+ *   PROLIFIC_API_TOKEN=... STUDY_ID=... npx tsx scripts/fetch-prolific-demographics.ts --per-submission --sample 5
  */
 
 import {
   listStudySubmissions,
   getSubmissionDemographics,
+  exportStudyDemographics,
   type SubmissionDemographics,
 } from '../src/lib/prolific-api'
 import { writeFileSync } from 'node:fs'
@@ -23,13 +27,45 @@ async function main() {
   }
 
   const args = process.argv.slice(2)
-  const sampleSize = args.includes('--sample')
-    ? parseInt(args[args.indexOf('--sample') + 1] || '3', 10)
-    : args.includes('--all')
-      ? Infinity
-      : 3
   const outputPath = args.includes('--output') ? args[args.indexOf('--output') + 1] : null
+  const perSubmission = args.includes('--per-submission')
+  const sampleSize = args.includes('--sample')
+    ? parseInt(args[args.indexOf('--sample') + 1] || '5', 10)
+    : perSubmission
+      ? 5
+      : Infinity
 
+  if (!perSubmission) {
+    // Try bulk export first
+    console.log('Attempting bulk demographic export (POST /studies/{id}/demographic-export/)...')
+    try {
+      const csvData = await exportStudyDemographics(studyId, apiToken)
+      if (csvData && csvData.trim()) {
+        console.log(`Bulk export succeeded (${csvData.length} bytes)`)
+        const lines = csvData.trim().split('\n')
+        console.log(`  Headers: ${lines[0]}`)
+        console.log(`  Rows: ${lines.length - 1}`)
+
+        if (outputPath) {
+          writeFileSync(outputPath, csvData, 'utf-8')
+          console.log(`\nSaved to: ${outputPath}`)
+        } else {
+          // Print first 5 rows
+          console.log('\nFirst 5 rows:')
+          for (const line of lines.slice(0, 6)) {
+            console.log(`  ${line}`)
+          }
+        }
+        return
+      }
+      console.log('Bulk export returned empty response. Trying per-submission fallback...\n')
+    } catch (error) {
+      console.log(`Bulk export failed: ${error}`)
+      console.log('Trying per-submission fallback...\n')
+    }
+  }
+
+  // Per-submission fallback
   console.log('Fetching submissions...')
   const subs = await listStudySubmissions(studyId, apiToken)
   console.log(`Total submissions: ${subs.results.length}`)
@@ -49,7 +85,6 @@ async function main() {
     }
 
     allDemos.push(demo)
-
     console.log(`  total_approvals: ${demo.total_approvals}`)
     console.log('  demographics:')
     for (const [key, value] of Object.entries(demo.demographics).sort(([a], [b]) =>
@@ -61,14 +96,12 @@ async function main() {
     console.log()
   }
 
-  // Summary of all demographic fields found
   console.log('='.repeat(60))
   console.log(`DEMOGRAPHIC FIELDS FOUND (${allDemoKeys.size} unique):`)
   for (const key of [...allDemoKeys].sort()) {
     console.log(`  - ${key}`)
   }
 
-  // CSV output
   if (outputPath && allDemos.length > 0) {
     const demoKeys = [...allDemoKeys].sort()
     const csvHeaders = ['participant_id', 'submission_id', 'total_approvals', ...demoKeys]
