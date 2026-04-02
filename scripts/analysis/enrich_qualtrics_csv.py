@@ -151,9 +151,18 @@ def enrich(
 
     # Count enrichment hits
     data_rows = len(all_rows) - 3
-    auth_hits = sum(1 for row in all_rows[3:] if row[pid_idx].strip() in auth_data) if auth_data else 0
-    status_hits = sum(1 for row in all_rows[3:] if row[pid_idx].strip() in status_data) if status_data else 0
-    demo_hits = sum(1 for row in all_rows[3:] if row[pid_idx].strip() in demo_data) if demo_data else 0
+    auth_hits = (
+        sum(1 for row in all_rows[3:] if pid_idx < len(row) and row[pid_idx].strip() in auth_data)
+        if auth_data else 0
+    )
+    status_hits = (
+        sum(1 for row in all_rows[3:] if pid_idx < len(row) and row[pid_idx].strip() in status_data)
+        if status_data else 0
+    )
+    demo_hits = (
+        sum(1 for row in all_rows[3:] if pid_idx < len(row) and row[pid_idx].strip() in demo_data)
+        if demo_data else 0
+    )
 
     print(f"Enriched {data_rows} rows → {output_path}")
     if auth_data:
