@@ -10,6 +10,7 @@ import {
   BODY_OL_CLASSES,
 } from '@/lib/articleStyles'
 import Link from 'next/link'
+import sensitivityData from '@/data/sensitivity-analysis.json'
 
 export const metadata: Metadata = {
   title: 'Reproducible Analysis Pipeline — Making of TABS',
@@ -162,6 +163,105 @@ const ReproducibleAnalysisPage = () => {
           </div>
         </section>
 
+        {/* ── Sample Definitions ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Sample Definitions</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The analysis script supports five sample definitions, from most to least restrictive.
+            Each applies different quality filters to the same underlying V2 dataset. Running all
+            statistics against every sample definition demonstrates whether findings are robust to
+            inclusion criteria — a key requirement for publication-grade research.
+          </p>
+          <div className="overflow-x-auto my-6">
+            <table className="w-full border-collapse font-sans text-sm">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">Sample</th>
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">Criteria</th>
+                  <th className="border border-gray-300 px-4 py-2 text-right font-bold">N</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sensitivityData.samples.map((sample, i) => (
+                  <tr key={sample.key} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                    <td className="border border-gray-300 px-4 py-2 font-medium">{sample.label}</td>
+                    <td className="border border-gray-300 px-4 py-2">{sample.description}</td>
+                    <td className="border border-gray-300 px-4 py-2 text-right font-mono">
+                      {sample.n ?? '—'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-sm text-gray-500 mt-2">
+            N values are populated by running{' '}
+            <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">
+              python tabs_v2_analysis.py --json sensitivity-analysis.json
+            </code>{' '}
+            against the production dataset.
+          </p>
+        </section>
+
+        {/* ── Sensitivity Analysis ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Sensitivity Analysis</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Every key statistic is computed across all sample definitions to verify that conclusions
+            do not depend on a single set of inclusion criteria. If a finding holds across Pipeline
+            CLEAN, Conservative, Relaxed, and All Finished samples, it is robust. If it shifts
+            substantially, the sensitivity analysis flags it for discussion.
+          </p>
+          {sensitivityData.metrics.length > 0 &&
+            Object.keys(sensitivityData.metrics[0].values).length > 0 && (
+              <div className="overflow-x-auto my-6">
+                <table className="w-full border-collapse font-sans text-sm">
+                  <thead>
+                    <tr className="bg-gray-100">
+                      <th className="border border-gray-300 px-4 py-2 text-left font-bold">
+                        Metric
+                      </th>
+                      {sensitivityData.samples.map((s) => (
+                        <th
+                          key={s.key}
+                          className="border border-gray-300 px-4 py-2 text-right font-bold"
+                        >
+                          {s.label}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sensitivityData.metrics.map((metric, i) => (
+                      <tr key={metric.key} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                        <td className="border border-gray-300 px-4 py-2 font-medium">
+                          {metric.label}
+                        </td>
+                        {sensitivityData.samples.map((s) => (
+                          <td
+                            key={s.key}
+                            className="border border-gray-300 px-4 py-2 text-right font-mono"
+                          >
+                            {(metric.values as Record<string, number | null>)[s.key] ?? '—'}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          {sensitivityData.metrics.length === 0 ||
+            (Object.keys(sensitivityData.metrics[0].values).length === 0 && (
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 my-6">
+                <p className="text-amber-800 font-sans">
+                  Sensitivity analysis data has not been generated yet. Run the analysis pipeline
+                  against the production dataset to populate this table.
+                </p>
+              </div>
+            ))}
+        </section>
+
         {/* ── How to Run ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>How to Reproduce the Analysis</h2>
@@ -180,11 +280,18 @@ pip install -r requirements.txt
 
 # Run with test data (included in repo)
 python tabs_v2_data_audit.py --input test_data.csv
-python tabs_v2_analysis.py --input test_data.csv
+python tabs_v2_analysis.py test_data.csv
 
 # Run with production data (from ScholarSphere)
 python tabs_v2_data_audit.py --input <path_to_production_csv>
-python tabs_v2_analysis.py --input <path_to_production_csv>`}</pre>
+python tabs_v2_analysis.py <path_to_production_csv>
+
+# Export sensitivity analysis as JSON (for dashboard)
+python tabs_v2_analysis.py <csv> --json sensitivity-analysis.json
+
+# Run detailed analysis on a different primary sample
+python tabs_v2_analysis.py <csv> --primary-sample pipeline_clean
+python tabs_v2_analysis.py <csv> --primary-sample relaxed`}</pre>
           </div>
 
           <p className={PARAGRAPH_CLASSES}>

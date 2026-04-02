@@ -28,10 +28,17 @@ from collections import Counter
 V2_START = "2026-03-23 14:00:00"
 # Prolific live test of V2 instrument (2026-03-23 09:07 AM, COO, 876s) — valid V2 response
 PROLIFIC_TEST_ID = 'R_1QK12IJpHjC3wd6'
-MIN_DURATION_CLEAN = 480       # 8 minutes
+
+# Duration thresholds for sample definitions
+MIN_DURATION_PIPELINE_CLEAN = 540  # 9 minutes (Smeal eDBA benchmark, pipeline waterfall)
+MIN_DURATION_CLEAN = 480       # 8 minutes (conservative analysis filter)
 MIN_DURATION_RELAXED = 480
 MIN_DURATION_ALL = 120         # 2 minutes (extreme speeders only)
 IRI_THRESHOLD_RELAXED = 2      # at least 2 of 3 IRIs correct
+
+# reCAPTCHA and straightlining thresholds (matching disposition.ts pipeline)
+RECAPTCHA_THRESHOLD = 0.5
+PARTIAL_STRAIGHTLINING_SD_THRESHOLD = 0.5
 
 # Scale maps — verified against actual Qualtrics CSV response values
 BARRIER_SCALE = {
@@ -247,6 +254,70 @@ def person_means(rows, cols, scale, idx):
     return out
 
 
+def get_recaptcha_score(row, idx):
+    """Get reCAPTCHA score (defaults to 1.0 if missing)."""
+    if 'Q_RecaptchaScore' not in idx:
+        return 1.0
+    val = row[idx['Q_RecaptchaScore']].strip()
+    if val == '':
+        return 1.0
+    try:
+        return float(val)
+    except ValueError:
+        return 1.0
+
+
+def get_straightlining_count(row, idx):
+    """Get Qualtrics straightlining count (defaults to 0 if missing)."""
+    if 'Q_StraightliningCount' not in idx:
+        return 0
+    try:
+        return int(row[idx['Q_StraightliningCount']].strip() or '0')
+    except (ValueError, KeyError):
+        return 0
+
+
+def within_person_sd(responses):
+    """Compute within-person SD for categorical responses mapped to numeric indices."""
+    non_empty = [r for r in responses if r != '']
+    if len(non_empty) < 2:
+        return float('nan')
+    unique_vals = list(dict.fromkeys(non_empty))
+    numeric = [unique_vals.index(r) for r in non_empty]
+    mean = sum(numeric) / len(numeric)
+    variance = sum((val - mean) ** 2 for val in numeric) / len(numeric)
+    return math.sqrt(variance)
+
+
+def has_partial_straightlining(row, idx, threshold=PARTIAL_STRAIGHTLINING_SD_THRESHOLD):
+    """Check if any question block has within-person SD below threshold."""
+    blocks = [
+        ("Barriers", BARRIER_COLS),
+        ("Readiness", READINESS_COLS),
+        ("Maturity", MATURITY_COLS),
+    ]
+    for _name, cols in blocks:
+        responses = []
+        for col in cols:
+            if col in idx:
+                responses.append(row[idx[col]].strip())
+        non_empty = [r for r in responses if r != '']
+        if len(non_empty) < max(2, len(cols) // 2):
+            continue
+        sd = within_person_sd(responses)
+        if not math.isnan(sd) and sd < threshold:
+            return True
+    return False
+
+
+def is_finished(row, idx):
+    """Check if response is finished (handles both label and numeric export)."""
+    if 'Finished' not in idx:
+        return True  # assume finished if column missing (legacy test data)
+    val = row[idx['Finished']].strip().upper()
+    return val in ('TRUE', '1')
+
+
 def get_role(row, idx):
     """Get short role label."""
     return ROLE_MAP.get(row[idx['Q1_Role']].strip(), 'Unknown')
@@ -281,32 +352,68 @@ def load_data(csv_path):
 
 
 def filter_samples(data, idx):
-    """Create the three sample cuts from V2 data."""
+    """Create the six sample cuts from V2 data.
+
+    Sample hierarchy (most to least restrictive):
+      1. Pipeline CLEAN    — All 3 IRIs + duration >= 540s + reCAPTCHA >= 0.5
+                             + no straightlining + no partial straightlining
+      2. Conservative Clean — All 3 IRIs + duration >= 480s
+      3. Relaxed           — 2+ of 3 IRIs + duration >= 480s
+      4. Approved          — All responses approved on Prolific (not determinable
+                             from CSV alone; approximated as conservative clean
+                             UNION flagged responses that pass manual review criteria)
+      5. All V2 Finished   — Finished + duration >= 120s
+      6. All V2            — All V2 responses including incomplete
+
+    Returns:
+        dict mapping sample name to (label, description, rows)
+    """
     v2 = [r for r in data if r[idx['StartDate']] >= V2_START
           or ('ResponseId' in idx and r[idx['ResponseId']] == PROLIFIC_TEST_ID)]
 
-    clean = [r for r in v2 if get_duration(r, idx) is not None
+    v2_finished = [r for r in v2 if is_finished(r, idx)
+                   and get_duration(r, idx) is not None
+                   and get_duration(r, idx) >= MIN_DURATION_ALL]
+
+    clean = [r for r in v2 if is_finished(r, idx)
+             and get_duration(r, idx) is not None
              and get_duration(r, idx) >= MIN_DURATION_CLEAN
              and iri_all_pass(r, idx)]
 
-    relaxed = [r for r in v2 if get_duration(r, idx) is not None
+    relaxed = [r for r in v2 if is_finished(r, idx)
+               and get_duration(r, idx) is not None
                and get_duration(r, idx) >= MIN_DURATION_RELAXED
                and iri_correct_count(r, idx) >= IRI_THRESHOLD_RELAXED]
 
-    all_v2 = [r for r in v2 if get_duration(r, idx) is not None
-              and get_duration(r, idx) >= MIN_DURATION_ALL]
+    pipeline_clean = [r for r in clean
+                      if get_duration(r, idx) >= MIN_DURATION_PIPELINE_CLEAN
+                      and get_recaptcha_score(r, idx) >= RECAPTCHA_THRESHOLD
+                      and get_straightlining_count(r, idx) == 0
+                      and not has_partial_straightlining(r, idx)]
 
-    return v2, clean, relaxed, all_v2
+    samples = {
+        "pipeline_clean": pipeline_clean,
+        "clean": clean,
+        "relaxed": relaxed,
+        "v2_finished": v2_finished,
+        "v2_all": v2,
+    }
+
+    return v2, samples
 
 
-def print_disposition(v2, clean, relaxed, all_v2, idx):
-    """Print disposition waterfall."""
+def print_disposition(v2, samples, idx):
+    """Print disposition waterfall and sample size summary."""
     print("=" * 78)
-    print("  DISPOSITION WATERFALL")
+    print("  DISPOSITION WATERFALL & SAMPLE DEFINITIONS")
     print("=" * 78)
     print(f"  V2 total responses:        {len(v2):>5}")
-    dur_fail = sum(1 for r in v2 if get_duration(r, idx) is None or get_duration(r, idx) < MIN_DURATION_CLEAN)
-    speed_ok = [r for r in v2 if get_duration(r, idx) is not None and get_duration(r, idx) >= MIN_DURATION_CLEAN]
+
+    finished = [r for r in v2 if is_finished(r, idx)]
+    print(f"  Finished:                  {len(finished):>5}")
+
+    dur_fail = sum(1 for r in finished if get_duration(r, idx) is None or get_duration(r, idx) < MIN_DURATION_CLEAN)
+    speed_ok = [r for r in finished if get_duration(r, idx) is not None and get_duration(r, idx) >= MIN_DURATION_CLEAN]
     print(f"  Duration < {MIN_DURATION_CLEAN}s excluded:  {dur_fail:>5}")
     print(f"  Duration >= {MIN_DURATION_CLEAN}s:          {len(speed_ok):>5}")
     f2 = sum(1 for r in speed_ok if iri_correct_count(r, idx) <= 1)
@@ -315,7 +422,20 @@ def print_disposition(v2, clean, relaxed, all_v2, idx):
     print(f"  IRI fail 2+:               {f2:>5}")
     print(f"  IRI pass 2 of 3 (relaxed): {f1:>5}")
     print(f"  IRI pass all 3 (clean):    {f0:>5}")
-    print(f"\n  Sample sizes: Clean={len(clean)}, Relaxed={len(relaxed)}, All V2={len(all_v2)}")
+
+    SAMPLE_LABELS = [
+        ("pipeline_clean", "Pipeline CLEAN", "All 3 IRIs + dur>=540s + reCAPTCHA + no straightlining"),
+        ("clean", "Conservative Clean", "All 3 IRIs + duration >= 480s"),
+        ("relaxed", "Relaxed", "2+ of 3 IRIs + duration >= 480s"),
+        ("v2_finished", "All V2 Finished", "Finished + duration >= 120s"),
+        ("v2_all", "All V2", "All V2 responses (including incomplete)"),
+    ]
+
+    print(f"\n  {'Sample':<25} {'N':>6}  Criteria")
+    print(f"  {'─' * 25} {'─' * 6}  {'─' * 45}")
+    for key, label, desc in SAMPLE_LABELS:
+        n = len(samples[key])
+        print(f"  {label:<25} {n:>6}  {desc}")
 
     # IRI pass rates
     bp = sum(1 for r in v2 if r[idx[BARRIER_IRI]].strip() == IRI_BARRIER_ANSWER)
@@ -577,60 +697,171 @@ def print_cross_tabs(rows, idx):
 def print_sensitivity(cuts, idx):
     """Print sensitivity analysis across all sample cuts."""
     print(f"\n{'=' * 78}")
-    print("  SENSITIVITY ANALYSIS — COMPARISON TABLE")
+    print("  SENSITIVITY ANALYSIS — ALL SAMPLE DEFINITIONS")
     print("=" * 78)
 
-    print(f"\n  {'Metric':<40} {'Clean':>10} {'Relaxed':>10} {'All V2':>10}")
-    print(f"  {'─' * 40} {'─' * 10} {'─' * 10} {'─' * 10}")
+    col_width = 12
+    headers = [label for label, _ in cuts]
+    header_line = "  " + f"{'Metric':<40}" + "".join(f"{h:>{col_width}}" for h in headers)
+    print(f"\n{header_line}")
+    print("  " + "─" * 40 + ("─" * col_width) * len(cuts))
 
-    for label, fn in [
+    metrics = [
         ("N", lambda rows: str(len(rows))),
         ("Barrier Grand Mean", lambda rows: f"{mean_sd(person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx))[0]:.2f}"),
+        ("Barrier SD", lambda rows: f"{mean_sd(person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx))[1]:.2f}"),
         ("Readiness Grand Mean", lambda rows: f"{mean_sd(person_means(rows, READINESS_COLS, READINESS_SCALE, idx))[0]:.2f}"),
+        ("Readiness SD", lambda rows: f"{mean_sd(person_means(rows, READINESS_COLS, READINESS_SCALE, idx))[1]:.2f}"),
         ("Maturity Grand Mean", lambda rows: f"{mean_sd(person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx))[0]:.2f}"),
-        ("B-R Correlation", lambda rows: f"{pearson_r(person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx), person_means(rows, READINESS_COLS, READINESS_SCALE, idx)):.2f}"),
-        ("B-M Correlation", lambda rows: f"{pearson_r(person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx), person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx)):.2f}"),
-        ("R-M Correlation", lambda rows: f"{pearson_r(person_means(rows, READINESS_COLS, READINESS_SCALE, idx), person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx)):.2f}"),
+        ("Maturity SD", lambda rows: f"{mean_sd(person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx))[1]:.2f}"),
+        ("B-R Correlation", lambda rows: f"{pearson_r(person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx), person_means(rows, READINESS_COLS, READINESS_SCALE, idx)):.3f}"),
+        ("B-M Correlation", lambda rows: f"{pearson_r(person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx), person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx)):.3f}"),
+        ("R-M Correlation", lambda rows: f"{pearson_r(person_means(rows, READINESS_COLS, READINESS_SCALE, idx), person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx)):.3f}"),
         ("Alpha Barriers", lambda rows: f"{cronbach_alpha(rows, BARRIER_COLS, BARRIER_SCALE, idx):.3f}"),
         ("Alpha Readiness", lambda rows: f"{cronbach_alpha(rows, READINESS_COLS, READINESS_SCALE, idx):.3f}"),
         ("Alpha Maturity", lambda rows: f"{cronbach_alpha(rows, MATURITY_COLS, MATURITY_SCALE, idx):.3f}"),
-    ]:
+    ]
+
+    for label, fn in metrics:
         vals = []
         for _, rows in cuts:
             try:
                 vals.append(fn(rows))
             except Exception:
                 vals.append("N/A")
-        print(f"  {label:<40} {vals[0]:>10} {vals[1]:>10} {vals[2]:>10}")
+        print("  " + f"{label:<40}" + "".join(f"{v:>{col_width}}" for v in vals))
+
+
+def sensitivity_to_json(cuts, idx):
+    """Return sensitivity analysis results as a JSON-serializable dict."""
+    result = {"samples": [], "metrics": []}
+
+    sample_meta = {
+        "Pipeline CLEAN": {
+            "key": "pipeline_clean",
+            "description": "All 3 IRIs + duration >= 540s + reCAPTCHA >= 0.5 + no straightlining + no partial straightlining",
+        },
+        "Conservative": {
+            "key": "clean",
+            "description": "All 3 IRIs correct + duration >= 480s",
+        },
+        "Relaxed": {
+            "key": "relaxed",
+            "description": "2+ of 3 IRIs correct + duration >= 480s",
+        },
+        "All Finished": {
+            "key": "v2_finished",
+            "description": "Finished + duration >= 120s (extreme speeders excluded)",
+        },
+        "All V2": {
+            "key": "v2_all",
+            "description": "All V2 responses including incomplete",
+        },
+    }
+
+    for label, rows in cuts:
+        meta = sample_meta.get(label, {"key": label.lower().replace(" ", "_"), "description": ""})
+        result["samples"].append({
+            "key": meta["key"],
+            "label": label,
+            "description": meta["description"],
+            "n": len(rows),
+        })
+
+    def safe_compute(fn, rows):
+        try:
+            val = fn(rows)
+            if val is None or (isinstance(val, float) and math.isnan(val)):
+                return None
+            return round(val, 4) if isinstance(val, float) else val
+        except Exception:
+            return None
+
+    metric_defs = [
+        ("barrier_mean", "Barrier Grand Mean", lambda rows: mean_sd(person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx))[0]),
+        ("barrier_sd", "Barrier SD", lambda rows: mean_sd(person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx))[1]),
+        ("readiness_mean", "Readiness Grand Mean", lambda rows: mean_sd(person_means(rows, READINESS_COLS, READINESS_SCALE, idx))[0]),
+        ("readiness_sd", "Readiness SD", lambda rows: mean_sd(person_means(rows, READINESS_COLS, READINESS_SCALE, idx))[1]),
+        ("maturity_mean", "Maturity Grand Mean", lambda rows: mean_sd(person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx))[0]),
+        ("maturity_sd", "Maturity SD", lambda rows: mean_sd(person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx))[1]),
+        ("corr_br", "B-R Correlation", lambda rows: pearson_r(person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx), person_means(rows, READINESS_COLS, READINESS_SCALE, idx))),
+        ("corr_bm", "B-M Correlation", lambda rows: pearson_r(person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx), person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx))),
+        ("corr_rm", "R-M Correlation", lambda rows: pearson_r(person_means(rows, READINESS_COLS, READINESS_SCALE, idx), person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx))),
+        ("alpha_barriers", "Alpha Barriers", lambda rows: cronbach_alpha(rows, BARRIER_COLS, BARRIER_SCALE, idx)),
+        ("alpha_readiness", "Alpha Readiness", lambda rows: cronbach_alpha(rows, READINESS_COLS, READINESS_SCALE, idx)),
+        ("alpha_maturity", "Alpha Maturity", lambda rows: cronbach_alpha(rows, MATURITY_COLS, MATURITY_SCALE, idx)),
+    ]
+
+    for key, label, fn in metric_defs:
+        values = {}
+        for sample_label, rows in cuts:
+            sample_key = sample_meta.get(sample_label, {}).get("key", sample_label.lower().replace(" ", "_"))
+            values[sample_key] = safe_compute(fn, rows)
+        result["metrics"].append({
+            "key": key,
+            "label": label,
+            "values": values,
+        })
+
+    return result
 
 
 def main():
-    if len(sys.argv) < 2:
-        print(f"Usage: {sys.argv[0]} <qualtrics_csv_path>")
-        sys.exit(1)
+    import argparse as _ap
+    parser = _ap.ArgumentParser(description="TABS V2 Descriptive Statistics & Sensitivity Analysis")
+    parser.add_argument("csv_path", help="Path to Qualtrics CSV export")
+    parser.add_argument("--json", dest="json_output", metavar="PATH",
+                        help="Write sensitivity analysis results to JSON file")
+    parser.add_argument("--primary-sample", dest="primary_sample", default="clean",
+                        choices=["pipeline_clean", "clean", "relaxed", "v2_finished", "v2_all"],
+                        help="Which sample to use for detailed analysis (default: clean)")
+    args = parser.parse_args()
 
-    csv_path = sys.argv[1]
+    csv_path = args.csv_path
     idx, data = load_data(csv_path)
-    v2, clean, relaxed, all_v2 = filter_samples(data, idx)
+    v2, samples = filter_samples(data, idx)
 
     print("=" * 78)
     print("  TABS V2 DESCRIPTIVE STATISTICS & SENSITIVITY ANALYSIS")
     print(f"  Source: {csv_path}")
     print("=" * 78)
 
-    print_disposition(v2, clean, relaxed, all_v2, idx)
-    print_demographics(clean, idx, "Clean")
-    print_item_rankings(clean, idx)
-    print_correlations_and_reliability(clean, idx)
-    print_effect_sizes(clean, idx)
-    print_cross_tabs(clean, idx)
+    print_disposition(v2, samples, idx)
 
+    # Detailed analysis on the selected primary sample
+    primary = samples[args.primary_sample]
+    primary_label = {
+        "pipeline_clean": "Pipeline CLEAN",
+        "clean": "Conservative Clean",
+        "relaxed": "Relaxed",
+        "v2_finished": "All V2 Finished",
+        "v2_all": "All V2",
+    }[args.primary_sample]
+
+    print_demographics(primary, idx, primary_label)
+    print_item_rankings(primary, idx)
+    print_correlations_and_reliability(primary, idx)
+    print_effect_sizes(primary, idx)
+    print_cross_tabs(primary, idx)
+
+    # Sensitivity analysis across all sample definitions
     cuts = [
-        ("Clean", clean),
-        ("Relaxed", relaxed),
-        ("All V2", all_v2),
+        ("Pipeline CLEAN", samples["pipeline_clean"]),
+        ("Conservative", samples["clean"]),
+        ("Relaxed", samples["relaxed"]),
+        ("All Finished", samples["v2_finished"]),
+        ("All V2", samples["v2_all"]),
     ]
     print_sensitivity(cuts, idx)
+
+    # JSON output
+    if args.json_output:
+        import json as _json
+        sensitivity_data = sensitivity_to_json(cuts, idx)
+        with open(args.json_output, "w", encoding="utf-8") as f:
+            _json.dump(sensitivity_data, f, indent=2)
+            f.write("\n")
+        print(f"\n  JSON output written to: {args.json_output}")
 
     print(f"\n{'=' * 78}")
     print("  ANALYSIS COMPLETE")
