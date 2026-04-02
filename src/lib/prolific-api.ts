@@ -127,6 +127,21 @@ export interface Submission {
 }
 
 /**
+ * Demographics archived at submission completion.
+ * Fields vary per participant — values are strings or DATA_EXPIRED if not answered.
+ * @see https://docs.prolific.com/api-reference/submissions/get-submission-demographics
+ */
+export interface SubmissionDemographics {
+  submission_id: string
+  participant_id: string
+  started_at: string
+  completed_at: string
+  time_taken: number
+  total_approvals: number
+  demographics: Record<string, string | number | null>
+}
+
+/**
  * Represents a participant
  */
 export interface Participant {
@@ -330,6 +345,52 @@ export async function getSubmission(
   apiToken: string
 ): Promise<Submission> {
   return makeApiRequest(`/studies/${studyId}/submissions/${submissionId}/`, apiToken)
+}
+
+/**
+ * Get demographics archived at submission completion.
+ *
+ * @param submissionId - The Prolific submission ID
+ * @param apiToken - Prolific API token
+ * @returns Promise resolving to submission demographics (or null if not found)
+ * @see https://docs.prolific.com/api-reference/submissions/get-submission-demographics
+ */
+export async function getSubmissionDemographics(
+  submissionId: string,
+  apiToken: string
+): Promise<SubmissionDemographics | null> {
+  try {
+    return await makeApiRequest<SubmissionDemographics>(
+      `/submissions/${submissionId}/demographics/`,
+      apiToken
+    )
+  } catch (error) {
+    if (error instanceof ProlificApiErrorClass && error.statusCode === 404) {
+      return null // No demographics archived for this submission
+    }
+    throw error
+  }
+}
+
+/**
+ * Fetch demographics for all submissions in a study.
+ * Makes one API call per submission — use sparingly.
+ */
+export async function getStudyDemographics(
+  studyId: string,
+  apiToken: string
+): Promise<Map<string, SubmissionDemographics>> {
+  const subs = await listStudySubmissions(studyId, apiToken)
+  const results = new Map<string, SubmissionDemographics>()
+
+  for (const sub of subs.results) {
+    const demo = await getSubmissionDemographics(sub.id, apiToken)
+    if (demo) {
+      results.set(sub.participant_id, demo)
+    }
+  }
+
+  return results
 }
 
 /**
