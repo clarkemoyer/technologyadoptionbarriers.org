@@ -116,11 +116,6 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
-def sha256_string(data: str) -> str:
-    """Compute SHA-256 hash of a string."""
-    return hashlib.sha256(data.encode("utf-8")).hexdigest()
-
-
 def parse_qualtrics_csv(csv_path: Path) -> tuple[list[str], list[str], list[str], list[dict[str, str]]]:
     """Parse a Qualtrics CSV export with 3 header rows.
 
