@@ -94,7 +94,7 @@ PII_PATTERNS = [
     ),
     (
         re.compile(
-            r"\b\d{1,3}(?:,\d{3})+\s+employees\b",
+            r"\b\d[\d,]*\s+employees\b",
             re.IGNORECASE,
         ),
         "employee count",
@@ -457,11 +457,13 @@ def main() -> int:
     print("\n--- Verification: re-scan output for PII ---")
     verify_flags = scan_pii(filtered_rows, [c for c in available_text_cols if c in kept_headers], row_offset=2)
     if verify_flags:
-        print(f"  WARNING: {len(verify_flags)} PII pattern(s) still detected in output!")
+        print(f"  FAIL: {len(verify_flags)} PII pattern(s) still detected in output!")
         for flag in verify_flags:
             print(f"    Row {flag['row_number']}, {flag['column']}: {flag['pattern_type']}")
+        print("\n  Output file was written but may contain PII. Manual review required.")
     else:
         print("  PASS: No PII patterns detected in output.")
+    verification_failed = len(verify_flags) > 0
 
     # Write audit log
     write_audit_log(
@@ -485,7 +487,7 @@ def main() -> int:
     print(f"    - {linkage_path}")
     print("=" * 72)
 
-    return 0
+    return 1 if verification_failed else 0
 
 
 if __name__ == "__main__":
