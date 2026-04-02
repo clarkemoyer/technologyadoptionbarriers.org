@@ -1,0 +1,80 @@
+{
+  "BARRIER_SCALE": {
+    "Not a Barrier": 1,
+    "Minor Barrier": 2,
+    "Moderate Barrier": 3,
+    "Significant Barrier": 4,
+    "Major Barrier": 5
+  },
+  "READINESS_SCALE": {
+    "Very Low Readiness/Capability": 1,
+    "Low Readiness/Capability": 2,
+    "Moderate Readiness/Capability": 3,
+    "High Readiness/Capability": 4,
+    "Very High Readiness/Capability": 5
+  },
+  "MATURITY_SCALE": {
+    "Level 1: Initial/Ad Hoc": 1,
+    "Level 2: Developing/Repeatable": 2,
+    "Level 3: Defined/Standardized": 3,
+    "Level 4: Managed/Quantitatively Managed": 4,
+    "Level 5: Optimizing/Innovating": 5
+  },
+  "DONT_KNOW_RESPONSE": "Don't Know",
+  "IRI_EXPECTED_ANSWERS": {
+    "barrier": "Major Barrier",
+    "readiness": "Low Readiness/Capability",
+    "maturity": "Level 2: Developing/Repeatable"
+  },
+  "IRI_COLUMNS": {
+    "barrier": "Q10-28_Barriers_19",
+    "readiness": "Q47-64_Readiness_18",
+    "maturity": "Q65-73_Maturity_9"
+  },
+  "COLUMN_PREFIXES": {
+    "barriers": "Q10-28_Barriers_",
+    "readiness": "Q47-64_Readiness_",
+    "maturity": "Q65-73_Maturity_"
+  },
+  "ITEM_COUNTS": {
+    "barriers": 18,
+    "readiness": 17,
+    "maturity": 8
+  },
+  "DEMOGRAPHIC_COLUMNS": {
+    "role": "Q1_Role",
+    "decisionAuth": "Q2_DecisionAuth",
+    "industry": "Q3_Industry",
+    "orgSize": "Q4_OrgSize",
+    "profitModel": "Q5_ProfitModel",
+    "revenueBudget": "Q6_RevenueBudget",
+    "personalBudget": "Q7_PersonalBudget",
+    "geoScope": "Q8_GeoScope",
+    "geoScale": "Q9_GeoScale",
+    "feedback": "Q74_Feedback"
+  },
+  "DURATION_THRESHOLDS": {
+    "speedFlag": 300,
+    "smealBenchmarkMin": 300,
+    "smealBenchmarkMax": 540,
+    "cleanSample": 480
+  },
+  "V2_DATA_FILTER": {
+    "startDate": "2026-03-23 14:00:00",
+    "explicitIncludeResponseId": "R_1QK12IJpHjC3wd6"
+  },
+  "ORG_SIZE_VALUES": ["<100", "100-499", "500-999", "1000-4999", "5000-9999", "10000+"],
+  "PROFIT_MODEL_VALUES": ["For-Profit", "Non-Profit", "Government/Public Sector"],
+  "MATURITY_ITEM_NAMES": [
+    "IT Investment & Value Mgmt",
+    "IT-Enabled Innovation",
+    "Process Mgmt & Standardization",
+    "Data Governance & Analytics",
+    "Tech Risk & Resilience",
+    "Strategic IT Planning",
+    "Workforce Capability",
+    "Change Leadership"
+  ],
+  "_generated": "2026-04-01T21:44:26.521Z",
+  "_source": "src/lib/tabs-survey-constants.ts"
+}
