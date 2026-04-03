@@ -269,8 +269,8 @@ const Header: React.FC = () => {
     setOpenDropdown(null)
   }
 
-  const toggleMakingOfMenu = () => {
-    setOpenDropdown(openDropdown === item.path ? null : item.path)
+  const toggleDropdown = (path: string) => {
+    setOpenDropdown(openDropdown === path ? null : path)
     setActiveMegaMenu(null)
   }
 
@@ -330,7 +330,11 @@ const Header: React.FC = () => {
                                 }
                               }
                             : item.children?.length
-                              ? dropdownButtonRef
+                              ? (node: HTMLLIElement | null) => {
+                                  if (openDropdown === item.path) {
+                                    dropdownButtonRef.current = node
+                                  }
+                                }
                               : null
                         }
                         onMouseEnter={() => {
@@ -376,7 +380,7 @@ const Header: React.FC = () => {
                         ) : item.children?.length ? (
                           <>
                             <button
-                              onClick={toggleMakingOfMenu}
+                              onClick={() => toggleDropdown(item.path)}
                               onFocus={() => setOpenDropdown(item.path)}
                               className={`flex items-center px-1.5 xl:px-2 2xl:px-3 py-2 text-[12px] xl:text-[13px] 2xl:text-[14px] transition-colors duration-200 ${
                                 isActive(item.path)

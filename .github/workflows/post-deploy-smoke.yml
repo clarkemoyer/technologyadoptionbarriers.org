@@ -377,7 +377,7 @@ jobs:
             if [ -z "$timestamp" ]; then
               # No timestamp field — check that file is non-empty and valid JSON
               if echo "$content" | python3 -c "import json,sys; json.load(sys.stdin)" 2>/dev/null; then
-                echo "| $label | ✅ Valid JSON (no timestamp field) |" >> /tmp/data-results.txt
+                echo "| $label | ✅ Valid JSON (freshness not checked — no timestamp field) |" >> /tmp/data-results.txt
               else
                 echo "| $label | ❌ Invalid JSON |" >> /tmp/data-results.txt
                 DATA_FAIL=$((DATA_FAIL + 1))
@@ -592,7 +592,8 @@ jobs:
             const infraFail = parseInt(process.env.INFRA_FAIL || '0');
             const redirectFail = parseInt(process.env.REDIRECT_FAIL || '0');
             const contentFail = parseInt(process.env.CONTENT_FAIL || '0');
-            const totalFail = routeFail + assetFail + infraFail + redirectFail + contentFail;
+            const dataFail = parseInt(process.env.DATA_FAIL || '0');
+            const totalFail = routeFail + assetFail + infraFail + redirectFail + contentFail + dataFail;
             const siteUrl = process.env.SITE_URL;
 
             // Use the deployed commit SHA on workflow_run (matches commit status steps)
@@ -608,6 +609,7 @@ jobs:
             if (infraFail > 0) lines.push(`- **Infrastructure:** ${infraFail} check(s) failed`);
             if (redirectFail > 0) lines.push(`- **Redirects:** ${redirectFail} failed`);
             if (contentFail > 0) lines.push(`- **Content spot-checks:** ${contentFail} failed`);
+            if (dataFail > 0) lines.push(`- **Data validity:** ${dataFail} JSON file(s) invalid`);
             const breakdown = lines.length > 0 ? lines.join('\n') : '- See workflow run for details';
 
             const title = `🚨 Production smoke test failed: ${totalFail} check(s) after deploy (${shortSha})`;
