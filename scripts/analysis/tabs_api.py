@@ -272,7 +272,7 @@ def prolific_recent_messages(
     url = f"{_PROLIFIC_BASE}/messages/?created_after={quote(since, safe='')}"
     messages = _prolific_paginate(url, headers)
     if study_id:
-        messages = [m for m in messages if m.get("data", {}).get("study_id") == study_id]
+        messages = [m for m in messages if (m.get("data") or {}).get("study_id") == study_id]
     return messages
 
 

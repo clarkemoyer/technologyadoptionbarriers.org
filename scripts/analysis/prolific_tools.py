@@ -35,7 +35,6 @@ Environment:
   QUALTRICS_API_TOKEN, QUALTRICS_BASE_URL, QUALTRICS_SURVEY_ID (for questions)
 """
 
-import json
 import os
 import re
 import sys
@@ -50,7 +49,6 @@ from tabs_api import (
     prolific_recent_messages,
     prolific_user_messages,
     prolific_study_info,
-    prolific_submission_statuses,
     prolific_list_studies,
     prolific_demographics_csv,
     qualtrics_survey_questions,
