@@ -83,11 +83,9 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-python@v5
         with:
-          node-version: '20'
-          cache: 'npm'
-      - run: npm ci
+          python-version: '3.12'
       - uses: actions/download-artifact@v8
         with:
           name: disposition-csv
@@ -96,7 +94,7 @@ jobs:
       - name: Approve CLEAN submissions
         run: |
           set -euo pipefail
-          npx --no-install tsx scripts/approve-prolific-submissions.ts 2>&1 | tee ${{ runner.temp }}/approve-output.txt
+          python3 scripts/analysis/approve_submissions.py 2>&1 | tee ${{ runner.temp }}/approve-output.txt
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
@@ -176,18 +174,16 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-python@v5
         with:
-          node-version: '20'
-          cache: 'npm'
-      - run: npm ci
+          python-version: '3.12'
       - uses: actions/download-artifact@v8
         with:
           name: disposition-csv
           path: ${{ runner.temp }}
 
       - name: Generate disposition summary
-        run: npx --no-install tsx scripts/generate-disposition-summary.ts
+        run: python3 scripts/analysis/generate_disposition_summary.py
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}

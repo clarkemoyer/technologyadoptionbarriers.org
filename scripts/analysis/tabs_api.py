@@ -53,14 +53,25 @@ def _http(method: str, url: str, headers: Dict[str, str],
 
 
 def _json_request(method: str, url: str, headers: Dict[str, str],
-                  body: Optional[dict] = None, timeout: int = 60) -> Any:
-    """Make a JSON HTTP request and parse the response."""
+                  body: Optional[dict] = None, timeout: int = 60,
+                  allow_empty: bool = False) -> Any:
+    """Make a JSON HTTP request and parse the response.
+
+    Args:
+        allow_empty: If True, return {} for empty responses (used by write
+            endpoints like bulk-approve that return empty 2xx on success).
+            If False (default), raise on empty response body.
+    """
     h = {**headers, "Accept": "application/json"}
     data = None
     if body is not None:
         data = json.dumps(body).encode("utf-8")
         h["Content-Type"] = "application/json"
     raw = _http(method, url, h, data, timeout)
+    if not raw or not raw.strip():
+        if allow_empty:
+            return {}
+        raise RuntimeError(f"Empty response body from {method} {url}")
     return json.loads(raw)
 
 
@@ -289,6 +300,56 @@ def prolific_study_info(study_id: str, api_token: str) -> Dict:
     url = f"{_PROLIFIC_BASE}/studies/{study_id}/"
     return _json_request("GET", url, headers)
 
+
+# ---------------------------------------------------------------------------
+# Prolific Write Operations (Phase 4 — affects real participants)
+# ---------------------------------------------------------------------------
+
+def prolific_bulk_approve(study_id: str, participant_ids: List[str], api_token: str) -> Dict:
+    """Bulk approve submissions. LIVE OPERATION — affects real participants."""
+    headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
+    url = f"{_PROLIFIC_BASE}/submissions/bulk-approve/"
+    body = {"study_id": study_id, "participant_ids": participant_ids}
+    return _json_request("POST", url, headers, body, allow_empty=True)
+
+
+def prolific_bulk_reject(
+    study_id: str, participant_ids: List[str], api_token: str
+) -> Dict:
+    """Bulk reject submissions. DESTRUCTIVE OPERATION — affects real participants."""
+    headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
+    url = f"{_PROLIFIC_BASE}/submissions/bulk-reject/"
+    body = {"study_id": study_id, "participant_ids": participant_ids}
+    return _json_request("POST", url, headers, body, allow_empty=True)
+
+
+def prolific_send_message(
+    study_id: str, recipient_id: str, message_body: str, api_token: str
+) -> Dict:
+    """Send a message to a participant. LIVE OPERATION."""
+    headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
+    url = f"{_PROLIFIC_BASE}/messages/"
+    body = {"recipient_id": recipient_id, "body": message_body, "study_id": study_id}
+    return _json_request("POST", url, headers, body, allow_empty=True)
+
+
+def prolific_unreject(submission_id: str, api_token: str) -> Dict:
+    """Transition a submission from REJECTED → AWAITING REVIEW."""
+    headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
+    url = f"{_PROLIFIC_BASE}/submissions/{submission_id}/transition/"
+    body = {"action": "UNREJECT"}
+    return _json_request("POST", url, headers, body, allow_empty=True)
+
+
+def prolific_get_submission_ids(study_id: str, participant_id: str, api_token: str) -> List[str]:
+    """Get submission IDs for a participant in a study."""
+    subs = prolific_submissions(study_id, api_token)
+    return [s["id"] for s in subs if s.get("participant_id") == participant_id]
+
+
+# ---------------------------------------------------------------------------
+# Qualtrics API
+# ---------------------------------------------------------------------------
 
 def qualtrics_survey_questions(
     api_token: str, base_url: str, survey_id: str
