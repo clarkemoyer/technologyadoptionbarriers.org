@@ -53,8 +53,15 @@ def _http(method: str, url: str, headers: Dict[str, str],
 
 
 def _json_request(method: str, url: str, headers: Dict[str, str],
-                  body: Optional[dict] = None, timeout: int = 60) -> Any:
-    """Make a JSON HTTP request and parse the response."""
+                  body: Optional[dict] = None, timeout: int = 60,
+                  allow_empty: bool = False) -> Any:
+    """Make a JSON HTTP request and parse the response.
+
+    Args:
+        allow_empty: If True, return {} for empty responses (used by write
+            endpoints like bulk-approve that return empty 2xx on success).
+            If False (default), raise on empty response body.
+    """
     h = {**headers, "Accept": "application/json"}
     data = None
     if body is not None:
@@ -62,7 +69,9 @@ def _json_request(method: str, url: str, headers: Dict[str, str],
         h["Content-Type"] = "application/json"
     raw = _http(method, url, h, data, timeout)
     if not raw or not raw.strip():
-        return {}  # Prolific write endpoints may return empty body on success
+        if allow_empty:
+            return {}
+        raise RuntimeError(f"Empty response body from {method} {url}")
     return json.loads(raw)
 
 
@@ -301,7 +310,7 @@ def prolific_bulk_approve(study_id: str, participant_ids: List[str], api_token: 
     headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
     url = f"{_PROLIFIC_BASE}/submissions/bulk-approve/"
     body = {"study_id": study_id, "participant_ids": participant_ids}
-    return _json_request("POST", url, headers, body)
+    return _json_request("POST", url, headers, body, allow_empty=True)
 
 
 def prolific_bulk_reject(
@@ -311,7 +320,7 @@ def prolific_bulk_reject(
     headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
     url = f"{_PROLIFIC_BASE}/submissions/bulk-reject/"
     body = {"study_id": study_id, "participant_ids": participant_ids}
-    return _json_request("POST", url, headers, body)
+    return _json_request("POST", url, headers, body, allow_empty=True)
 
 
 def prolific_send_message(
@@ -321,7 +330,7 @@ def prolific_send_message(
     headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
     url = f"{_PROLIFIC_BASE}/messages/"
     body = {"recipient_id": recipient_id, "body": message_body, "study_id": study_id}
-    return _json_request("POST", url, headers, body)
+    return _json_request("POST", url, headers, body, allow_empty=True)
 
 
 def prolific_unreject(submission_id: str, api_token: str) -> Dict:
@@ -329,7 +338,7 @@ def prolific_unreject(submission_id: str, api_token: str) -> Dict:
     headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
     url = f"{_PROLIFIC_BASE}/submissions/{submission_id}/transition/"
     body = {"action": "UNREJECT"}
-    return _json_request("POST", url, headers, body)
+    return _json_request("POST", url, headers, body, allow_empty=True)
 
 
 def prolific_get_submission_ids(study_id: str, participant_id: str, api_token: str) -> List[str]:

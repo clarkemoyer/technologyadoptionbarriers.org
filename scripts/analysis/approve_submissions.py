@@ -51,18 +51,15 @@ def main():
 
     headers = rows[0]
 
-    # Require explicit PID column — no fallback for safety
+    # Require explicit PROLIFIC_PID column — no fallback for safety
     pid_idx = -1
-    for pattern in ["PROLIFIC_PID", "participant_id", "PID"]:
-        for i, h in enumerate(headers):
-            if h.strip().lower() == pattern.lower():
-                pid_idx = i
-                break
-        if pid_idx >= 0:
+    for i, h in enumerate(headers):
+        if h.strip() == "PROLIFIC_PID":
+            pid_idx = i
             break
     if pid_idx < 0:
         print(
-            f"Error: Cannot find PID column. Expected one of: PROLIFIC_PID, participant_id, PID. "
+            f"Error: Cannot find 'PROLIFIC_PID' column (exact match required). "
             f"Found headers: {headers[:10]}",
             file=sys.stderr,
         )

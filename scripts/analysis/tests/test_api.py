@@ -33,16 +33,24 @@ class TestHTTPHelpers:
         assert headers["Authorization"] == "Token my_token"
         assert "User-Agent" in headers  # Cloudflare requires non-default UA
 
-    def test_json_request_empty_body(self):
-        """Prolific write endpoints may return empty body on success."""
+    def test_json_request_empty_body_allowed(self):
+        """Write endpoints with allow_empty=True return {} on empty response."""
         with patch("tabs_api._http", return_value=b""):
-            result = _json_request("POST", "https://example.com", {})
+            result = _json_request("POST", "https://example.com", {},
+                                   allow_empty=True)
         assert result == {}
 
-    def test_json_request_whitespace_body(self):
-        """Whitespace-only response treated as empty."""
+    def test_json_request_empty_body_raises_by_default(self):
+        """GET endpoints raise on empty response (default allow_empty=False)."""
+        with patch("tabs_api._http", return_value=b""):
+            with pytest.raises(RuntimeError, match="Empty response body"):
+                _json_request("GET", "https://example.com", {})
+
+    def test_json_request_whitespace_body_allowed(self):
+        """Whitespace-only response treated as empty when allowed."""
         with patch("tabs_api._http", return_value=b"  \n  "):
-            result = _json_request("POST", "https://example.com", {})
+            result = _json_request("POST", "https://example.com", {},
+                                   allow_empty=True)
         assert result == {}
 
 

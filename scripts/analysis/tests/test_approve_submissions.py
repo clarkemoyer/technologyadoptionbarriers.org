@@ -73,7 +73,7 @@ class TestApproveCSVParsing:
             text=True,
         )
         assert result.returncode != 0
-        assert "Cannot find PID column" in result.stderr
+        assert "Cannot find 'PROLIFIC_PID' column" in result.stderr
 
     def test_rejects_missing_disposition_column(self, tmp_path):
         """Script exits with error when no Disposition column is found."""
@@ -161,8 +161,8 @@ class TestApproveCSVParsing:
         assert result.returncode != 0
         assert "required" in result.stderr.lower()
 
-    def test_participant_id_header(self, tmp_path):
-        """Accepts 'participant_id' as PID column name."""
+    def test_participant_id_header_rejected(self, tmp_path):
+        """Rejects 'participant_id' — only PROLIFIC_PID is accepted for safety."""
         csv_path = _write_csv(
             tmp_path,
             ["participant_id", "Disposition"],
@@ -180,5 +180,5 @@ class TestApproveCSVParsing:
             capture_output=True,
             text=True,
         )
-        assert result.returncode == 0
-        assert "CLEAN dispositions: 1" in result.stdout
+        assert result.returncode != 0
+        assert "Cannot find 'PROLIFIC_PID' column" in result.stderr
