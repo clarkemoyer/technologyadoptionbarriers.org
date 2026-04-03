@@ -378,7 +378,7 @@ def filter_samples(data, idx):
       2. Flexible Clean     — Prolific APPROVED + passes basic quality checks
                               (all 3 IRIs, duration >= 480s) — includes manually
                               reviewed FLAG responses that were approved
-      3. Prolific Accepted  — V2 finished (finished + dur>=120s) with Prolific APPROVED status
+      3. Prolific Accepted  — All deduplicated V2 responses with Prolific APPROVED status (matches Prolific UI exactly)
       4. All V2 Finished    — Finished + duration >= 120s
       5. All V2             — All V2 responses including incomplete
 
@@ -483,7 +483,7 @@ def print_disposition(v2, samples, idx):
     SAMPLE_LABELS = [
         ("conservative_clean", "Conservative Clean", "APPROVED + all checks (IRI, dur>=540s, reCAPTCHA, straightlining, auth)"),
         ("flexible_clean", "Flexible Clean", "APPROVED + basic quality (all 3 IRIs + dur>=480s)"),
-        ("prolific_accepted", "Prolific Accepted", "V2 finished (finished + dur>=120s) with Prolific APPROVED status"),
+        ("prolific_accepted", "Prolific Accepted", "All deduplicated V2 responses with Prolific APPROVED status (matches Prolific UI exactly)"),
         ("v2_finished", "All V2 Finished", "Finished + duration >= 120s"),
         ("v2_all", "All V2", "All V2 responses (including incomplete)"),
     ]
@@ -804,7 +804,7 @@ def sensitivity_to_json(cuts, idx):
         },
         "Prolific Accepted": {
             "key": "prolific_accepted",
-            "description": "V2 finished (finished + dur>=120s) with Prolific APPROVED status",
+            "description": "All deduplicated V2 responses with Prolific APPROVED status (matches Prolific UI exactly)",
         },
         "All V2 Finished": {
             "key": "v2_finished",

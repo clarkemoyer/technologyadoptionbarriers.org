@@ -15,7 +15,7 @@
     {
       "key": "prolific_accepted",
       "label": "Prolific Accepted",
-      "description": "V2 finished (finished + dur>=120s) with Prolific APPROVED status",
+      "description": "All deduplicated V2 responses with Prolific APPROVED status (matches Prolific UI exactly)",
       "n": 206
     },
     {
