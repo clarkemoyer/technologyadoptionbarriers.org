@@ -308,7 +308,7 @@ def qualtrics_survey_questions(
         # Paginated shape: {"elements": [...]}
         elements = result.get("elements")
         if isinstance(elements, list):
-            return {q.get("QuestionID", f"Q{i}"): q for i, q in enumerate(elements)}
+            return {(q.get("QuestionID") or f"Q{i}"): q for i, q in enumerate(elements)}
         # Direct shape: {"Questions": {"QID1": {...}, ...}}
         questions = result.get("Questions")
         if isinstance(questions, dict):

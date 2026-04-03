@@ -395,8 +395,8 @@ def filter_samples(data, idx):
                    and get_duration(r, idx) is not None
                    and get_duration(r, idx) >= MIN_DURATION_ALL]
 
-    # Prolific Accepted = all responses with APPROVED status
-    prolific_accepted = [r for r in v2 if _get_prolific_status(r, idx) == 'APPROVED']
+    # Prolific Accepted = finished responses with APPROVED status
+    prolific_accepted = [r for r in v2_finished if _get_prolific_status(r, idx) == 'APPROVED']
 
     # Flexible Clean = APPROVED + basic quality (all 3 IRIs + duration >= 480s)
     flexible_clean = [r for r in prolific_accepted

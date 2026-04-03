@@ -148,12 +148,12 @@ class TestPrintFunctions:
         captured = capsys.readouterr()
         assert "CROSS-TABULATIONS" in captured.out
 
-    def test_print_sensitivity(self, test_data_csv, capsys):
-        idx, data = load_data(test_data_csv)
+    def test_print_sensitivity(self, prod_format_csv, capsys):
+        idx, data = load_data(prod_format_csv)
         _, samples = filter_samples(data, idx)
         cuts = [
-            ("Conservative Clean", samples["v2_finished"]),
-            ("Flexible Clean", samples["v2_finished"]),
+            ("Conservative Clean", samples["conservative_clean"]),
+            ("Flexible Clean", samples["flexible_clean"]),
             ("All V2", samples["v2_all"]),
         ]
         print_sensitivity(cuts, idx)

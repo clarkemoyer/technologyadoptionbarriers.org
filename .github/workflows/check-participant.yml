@@ -207,19 +207,7 @@ jobs:
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
-        run: |
-          npx --no-install tsx -e "
-          import { listStudySubmissions } from './src/lib/prolific-api';
-          async function main() {
-            const subs = await listStudySubmissions(process.env.STUDY_ID!, process.env.PROLIFIC_API_TOKEN!);
-            const statuses: Record<string, number> = {};
-            for (const s of subs.results || []) statuses[s.status] = (statuses[s.status] || 0) + 1;
-            console.log('=== PROLIFIC STATUS SUMMARY ===');
-            for (const [s, c] of Object.entries(statuses).sort(([,a],[,b]) => b - a)) console.log('  ' + s + ': ' + c);
-            console.log('  TOTAL: ' + (subs.results || []).length);
-          }
-          main().catch(e => { console.error(e); process.exit(1); });
-          "
+        run: python3 scripts/analysis/prolific_tools.py collect
 
       - name: Fetch submission details
         if: inputs.mode == 'single'

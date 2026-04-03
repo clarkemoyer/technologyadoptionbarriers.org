@@ -77,7 +77,8 @@ def cmd_collect():
         studies = prolific_list_studies(token)
         print(f"Found {len(studies)} studies:\n")
         for s in studies:
-            print(f"  {s.get('id', '?')}  {s.get('name', '?')[:60]}  status={s.get('status', '?')}")
+            name = str(s.get("name") or "?")
+            print(f"  {s.get('id', '?')}  {name[:60]}  status={s.get('status', '?')}")
         return
 
     study = prolific_study_info(study_id, token)
@@ -162,7 +163,7 @@ def cmd_messages():
         print()
 
         show_bodies = os.environ.get("SHOW_BODIES", "").lower() in ("1", "true", "yes")
-        msgs.sort(key=lambda m: m.get("sent_at", m.get("id", "")))
+        msgs.sort(key=lambda m: m.get("sent_at") or m.get("id") or "")
         for m in msgs:
             who = "RESEARCHER" if m.get("sender_id") == RESEARCHER_ID else "PARTICIPANT"
             ts = (m.get("sent_at") or m.get("created_at", ""))[:19]
@@ -188,7 +189,7 @@ def cmd_participant_messages():
     print(f"Messages for {pid}: {len(messages)}\n")
 
     show_bodies = os.environ.get("SHOW_BODIES", "").lower() in ("1", "true", "yes")
-    for msg in sorted(messages, key=lambda m: m.get("sent_at", m.get("created_at", ""))):
+    for msg in sorted(messages, key=lambda m: m.get("sent_at") or m.get("created_at") or ""):
         sender = msg.get("sender_id", "?")
         ts = (msg.get("sent_at") or msg.get("created_at", "?"))[:19]
         if show_bodies:
