@@ -4,31 +4,31 @@
       "key": "conservative_clean",
       "label": "Conservative Clean",
       "description": "Prolific APPROVED + all quality checks (IRI, duration >= 540s, reCAPTCHA, straightlining, auth)",
-      "n": 76
+      "n": 75
     },
     {
       "key": "flexible_clean",
       "label": "Flexible Clean",
       "description": "Prolific APPROVED + basic quality (all 3 IRIs + duration >= 480s)",
-      "n": 117
+      "n": 116
     },
     {
       "key": "prolific_accepted",
       "label": "Prolific Accepted",
       "description": "V2 finished (finished + dur>=120s) with Prolific APPROVED status",
-      "n": 208
+      "n": 205
     },
     {
       "key": "v2_finished",
       "label": "All V2 Finished",
       "description": "Finished + duration >= 120s (extreme speeders excluded)",
-      "n": 331
+      "n": 327
     },
     {
       "key": "v2_all",
       "label": "All V2",
       "description": "All V2 responses including incomplete",
-      "n": 389
+      "n": 385
     }
   ],
   "metrics": [
@@ -36,110 +36,110 @@
       "key": "barrier_mean",
       "label": "Barrier Grand Mean",
       "values": {
-        "conservative_clean": 2.797,
-        "flexible_clean": 2.7839,
-        "prolific_accepted": 2.7652,
-        "v2_finished": 2.7291,
-        "v2_all": 2.7333
+        "conservative_clean": 2.7995,
+        "flexible_clean": 2.7854,
+        "prolific_accepted": 2.7602,
+        "v2_finished": 2.7283,
+        "v2_all": 2.7326
       }
     },
     {
       "key": "barrier_sd",
       "label": "Barrier SD",
       "values": {
-        "conservative_clean": 0.6291,
-        "flexible_clean": 0.6912,
-        "prolific_accepted": 0.7051,
-        "v2_finished": 0.7691,
-        "v2_all": 0.7733
+        "conservative_clean": 0.633,
+        "flexible_clean": 0.694,
+        "prolific_accepted": 0.7077,
+        "v2_finished": 0.7706,
+        "v2_all": 0.7748
       }
     },
     {
       "key": "readiness_mean",
       "label": "Readiness Grand Mean",
       "values": {
-        "conservative_clean": 3.0656,
-        "flexible_clean": 3.1081,
-        "prolific_accepted": 3.1583,
-        "v2_finished": 3.2573,
-        "v2_all": 3.2573
+        "conservative_clean": 3.0674,
+        "flexible_clean": 3.1096,
+        "prolific_accepted": 3.1658,
+        "v2_finished": 3.2579,
+        "v2_all": 3.2579
       }
     },
     {
       "key": "readiness_sd",
       "label": "Readiness SD",
       "values": {
-        "conservative_clean": 0.5826,
-        "flexible_clean": 0.6431,
-        "prolific_accepted": 0.6644,
-        "v2_finished": 0.7246,
-        "v2_all": 0.7235
+        "conservative_clean": 0.5864,
+        "flexible_clean": 0.6457,
+        "prolific_accepted": 0.6636,
+        "v2_finished": 0.7195,
+        "v2_all": 0.7184
       }
     },
     {
       "key": "maturity_mean",
       "label": "Maturity Grand Mean",
       "values": {
-        "conservative_clean": 3.0249,
-        "flexible_clean": 3.0589,
-        "prolific_accepted": 3.1576,
-        "v2_finished": 3.2736,
-        "v2_all": 3.2736
+        "conservative_clean": 3.0252,
+        "flexible_clean": 3.0594,
+        "prolific_accepted": 3.1648,
+        "v2_finished": 3.2746,
+        "v2_all": 3.2746
       }
     },
     {
       "key": "maturity_sd",
       "label": "Maturity SD",
       "values": {
-        "conservative_clean": 0.7194,
-        "flexible_clean": 0.7902,
-        "prolific_accepted": 0.807,
-        "v2_finished": 0.8043,
-        "v2_all": 0.8043
+        "conservative_clean": 0.7242,
+        "flexible_clean": 0.7936,
+        "prolific_accepted": 0.8007,
+        "v2_finished": 0.7967,
+        "v2_all": 0.7967
       }
     },
     {
       "key": "corr_br",
       "label": "B-R Correlation",
       "values": {
-        "conservative_clean": -0.514,
-        "flexible_clean": -0.4384,
-        "prolific_accepted": -0.3467,
-        "v2_finished": -0.3212,
-        "v2_all": -0.3209
+        "conservative_clean": -0.5154,
+        "flexible_clean": -0.4392,
+        "prolific_accepted": -0.344,
+        "v2_finished": -0.3142,
+        "v2_all": -0.3139
       }
     },
     {
       "key": "corr_bm",
       "label": "B-M Correlation",
       "values": {
-        "conservative_clean": -0.2686,
-        "flexible_clean": -0.2889,
-        "prolific_accepted": -0.2709,
-        "v2_finished": -0.2824,
-        "v2_all": -0.2824
+        "conservative_clean": -0.2689,
+        "flexible_clean": -0.2891,
+        "prolific_accepted": -0.2712,
+        "v2_finished": -0.2777,
+        "v2_all": -0.2777
       }
     },
     {
       "key": "corr_rm",
       "label": "R-M Correlation",
       "values": {
-        "conservative_clean": 0.614,
+        "conservative_clean": 0.6141,
         "flexible_clean": 0.6881,
-        "prolific_accepted": 0.6986,
-        "v2_finished": 0.7409,
-        "v2_all": 0.7409
+        "prolific_accepted": 0.694,
+        "v2_finished": 0.7355,
+        "v2_all": 0.7355
       }
     },
     {
       "key": "alpha_barriers",
       "label": "Alpha Barriers",
       "values": {
-        "conservative_clean": 0.8586,
-        "flexible_clean": 0.8692,
-        "prolific_accepted": 0.8753,
-        "v2_finished": 0.9015,
-        "v2_all": 0.9031
+        "conservative_clean": 0.8612,
+        "flexible_clean": 0.8709,
+        "prolific_accepted": 0.8764,
+        "v2_finished": 0.9019,
+        "v2_all": 0.9035
       }
     },
     {
@@ -149,19 +149,19 @@
         "conservative_clean": 0.8772,
         "flexible_clean": 0.9141,
         "prolific_accepted": 0.9197,
-        "v2_finished": 0.9343,
-        "v2_all": 0.9343
+        "v2_finished": 0.9332,
+        "v2_all": 0.9332
       }
     },
     {
       "key": "alpha_maturity",
       "label": "Alpha Maturity",
       "values": {
-        "conservative_clean": 0.8374,
-        "flexible_clean": 0.8794,
-        "prolific_accepted": 0.889,
-        "v2_finished": 0.8915,
-        "v2_all": 0.8915
+        "conservative_clean": 0.8436,
+        "flexible_clean": 0.8828,
+        "prolific_accepted": 0.8875,
+        "v2_finished": 0.8894,
+        "v2_all": 0.8894
       }
     }
   ]
