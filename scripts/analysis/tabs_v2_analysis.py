@@ -302,12 +302,21 @@ def has_partial_straightlining(row, idx, threshold=PARTIAL_STRAIGHTLINING_SD_THR
             if col in idx:
                 responses.append(row[idx[col]].strip())
         non_empty = [r for r in responses if r != '']
-        if len(non_empty) < max(2, len(cols) // 2):
+        if len(non_empty) < max(2, math.ceil(len(cols) / 2)):
             continue
         sd = within_person_sd(responses)
         if not math.isnan(sd) and sd < threshold:
             return True
     return False
+
+
+def _has_auth_flag(row, idx):
+    """Check if Prolific auth checks flag this response (LOW or MIXED)."""
+    if 'Auth_LLM' not in idx or 'Auth_Bots' not in idx:
+        return False  # columns not present, assume passing
+    llm = row[idx['Auth_LLM']].strip().upper() if idx['Auth_LLM'] < len(row) else ''
+    bots = row[idx['Auth_Bots']].strip().upper() if idx['Auth_Bots'] < len(row) else ''
+    return llm in ('LOW', 'MIXED') or bots in ('LOW', 'MIXED')
 
 
 def is_finished(row, idx):
@@ -387,7 +396,8 @@ def filter_samples(data, idx):
                       if get_duration(r, idx) >= MIN_DURATION_PIPELINE_CLEAN
                       and get_recaptcha_score(r, idx) >= RECAPTCHA_THRESHOLD
                       and get_straightlining_count(r, idx) == 0
-                      and not has_partial_straightlining(r, idx)]
+                      and not has_partial_straightlining(r, idx)
+                      and not _has_auth_flag(r, idx)]
 
     samples = {
         "pipeline_clean": pipeline_clean,

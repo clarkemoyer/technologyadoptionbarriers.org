@@ -236,13 +236,16 @@ jobs:
           fi
 
       # Upload analysis outputs for website (JSON only — no PII)
+      # Always upload so results are available even if later steps fail
       - uses: actions/upload-artifact@v7
+        if: always()
         with:
           name: analysis-results
           path: |
             ${{ runner.temp }}/sensitivity-analysis.json
             ${{ runner.temp }}/data-audit.json
           retention-days: 7
+          if-no-files-found: warn
 
       - uses: actions/upload-artifact@v7
         if: always()

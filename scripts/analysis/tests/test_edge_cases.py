@@ -297,13 +297,25 @@ from tabs_v2_data_audit import compute_disposition
 class TestDataAuditEdgeCases:
     """Lines 50, 105, 269, 401."""
 
-    def test_constants_fallback(self):
-        """Line 50: when tabs_v2_constants.json doesn't exist, use defaults."""
-        # This is tested implicitly — the constants file exists, so
-        # this branch runs the normal path. Test the loaded values match.
+    def test_constants_loaded_from_json(self):
+        """Verify constants are loaded correctly from tabs_v2_constants.json."""
         from tabs_v2_data_audit import IRI_BARRIER_ANSWER, SPEED_THRESHOLD
         assert IRI_BARRIER_ANSWER == "Major Barrier"
         assert SPEED_THRESHOLD == 300
+
+    def test_constants_fallback_when_missing(self, tmp_path, monkeypatch):
+        """Line 50: when tabs_v2_constants.json doesn't exist, defaults are used."""
+        import importlib
+        # Point the constants path to a nonexistent file
+        monkeypatch.setattr("tabs_v2_data_audit._CONSTANTS_PATH", tmp_path / "nonexistent.json")
+        # Force reload so module-level code re-executes
+        import tabs_v2_data_audit
+        importlib.reload(tabs_v2_data_audit)
+        # Defaults should still be correct (hardcoded fallbacks)
+        assert tabs_v2_data_audit.IRI_BARRIER_ANSWER == "Major Barrier"
+        assert tabs_v2_data_audit.SPEED_THRESHOLD == 300
+        # Restore original
+        importlib.reload(tabs_v2_data_audit)
 
     def test_waterfall_finished_1(self):
         """Line 105 in parse_csv: Finished='1' treated as TRUE."""
