@@ -43,23 +43,30 @@ from tabs_api import (
     prolific_user_messages,
     prolific_study_info,
     prolific_submission_statuses,
+    prolific_list_studies,
+    prolific_demographics_csv,
     qualtrics_survey_questions,
 )
+
+
+def _require_env(name: str) -> str:
+    """Return a required environment variable or exit with a clear error."""
+    value = os.environ.get(name)
+    if not value:
+        print(f"Error: required environment variable {name} is not set.", file=sys.stderr)
+        sys.exit(1)
+    return value
 
 
 # ── collect ──────────────────────────────────────────────────
 
 def cmd_collect():
     """List studies or export submissions (replaces collect-prolific-data.ts)."""
-    token = os.environ["PROLIFIC_API_TOKEN"]
+    token = _require_env("PROLIFIC_API_TOKEN")
     study_id = os.environ.get("STUDY_ID", "")
 
     if not study_id:
-        # List all studies
-        from tabs_api import _prolific_headers, _json_request, _PROLIFIC_BASE
-        headers = _prolific_headers(token)
-        resp = _json_request("GET", f"{_PROLIFIC_BASE}/studies/?limit=50", headers)
-        studies = resp.get("results", [])
+        studies = prolific_list_studies(token)
         print(f"Found {len(studies)} studies:\n")
         for s in studies:
             print(f"  {s.get('id', '?')}  {s.get('name', '?')[:60]}  status={s.get('status', '?')}")
@@ -85,12 +92,26 @@ def cmd_collect():
         print(f"  {st}: {count}")
 
 
+# ── demographics ─────────────────────────────────────────────
+
+def cmd_demographics():
+    """Fetch Prolific demographics CSV (replaces fetch-prolific-demographics.ts)."""
+    token = _require_env("PROLIFIC_API_TOKEN")
+    study_id = _require_env("STUDY_ID")
+    output_path = os.environ.get("OUTPUT_PATH", "")
+
+    result = prolific_demographics_csv(study_id, token, output_path or "/dev/stdout")
+    if not result:
+        print("Demographics export returned no data", file=sys.stderr)
+        sys.exit(1)
+
+
 # ── messages ─────────────────────────────────────────────────
 
 def cmd_messages():
     """Show recent messages grouped by participant (replaces check-all-messages.ts)."""
-    token = os.environ["PROLIFIC_API_TOKEN"]
-    study_id = os.environ["STUDY_ID"]
+    token = _require_env("PROLIFIC_API_TOKEN")
+    study_id = _require_env("STUDY_ID")
 
     since = (datetime.utcnow() - timedelta(days=30)).isoformat() + "Z"
     messages = prolific_recent_messages(since, token, study_id)
@@ -118,7 +139,7 @@ def cmd_messages():
 
 def cmd_participant_messages():
     """Show messages for a specific participant (replaces check-participant-messages.ts)."""
-    token = os.environ["PROLIFIC_API_TOKEN"]
+    token = _require_env("PROLIFIC_API_TOKEN")
     pid = os.environ.get("PID", "")
     if not pid:
         print("ERROR: PID environment variable required")
@@ -140,8 +161,8 @@ def cmd_participant_messages():
 def cmd_url_replies():
     """Find participants who replied with URLs (replaces find-url-reply.ts)."""
     import re
-    token = os.environ["PROLIFIC_API_TOKEN"]
-    study_id = os.environ["STUDY_ID"]
+    token = _require_env("PROLIFIC_API_TOKEN")
+    study_id = _require_env("STUDY_ID")
 
     subs = prolific_submissions(study_id, token)
     pid_to_status = {s.get("participant_id", ""): s.get("status", "") for s in subs}
@@ -173,8 +194,8 @@ def cmd_url_replies():
 
 def cmd_replied_pids():
     """List PIDs who replied to messages (replaces list-replied-pids.ts)."""
-    token = os.environ["PROLIFIC_API_TOKEN"]
-    study_id = os.environ["STUDY_ID"]
+    token = _require_env("PROLIFIC_API_TOKEN")
+    study_id = _require_env("STUDY_ID")
     researcher_id = os.environ.get("RESEARCHER_ID", "68264cbfdeb62546fe6060fe")
 
     since = (datetime.utcnow() - timedelta(days=7)).isoformat() + "Z"
@@ -224,6 +245,7 @@ def cmd_questions():
 
 COMMANDS = {
     "collect": cmd_collect,
+    "demographics": cmd_demographics,
     "messages": cmd_messages,
     "participant-msgs": cmd_participant_messages,
     "url-replies": cmd_url_replies,
