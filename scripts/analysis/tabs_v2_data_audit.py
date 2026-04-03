@@ -249,8 +249,11 @@ def parse_csv(csv_path: str) -> List[Dict[str, Any]]:
         reader = csv.DictReader(f)
 
         for i, row in enumerate(reader):
-            # Rows are 1-indexed in the CSV; data rows start at index 3
-            # (rows 0-2 are header metadata, already consumed by DictReader)
+            # Skip Qualtrics metadata rows (question text + import IDs).
+            # DictReader consumes row 0 as headers; rows 1-2 are metadata
+            # that DictReader returns as data rows with column-name keys.
+            if i < 2:
+                continue
 
             # Verify required columns exist
             required = [
