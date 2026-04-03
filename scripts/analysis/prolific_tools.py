@@ -17,6 +17,7 @@ Usage:
 
 Commands:
   collect          List studies or export submissions for a study
+  demographics     Fetch Prolific demographics CSV (requires OUTPUT_PATH)
   messages         Show recent messages grouped by participant
   participant-msgs Show messages for a specific participant (PID=...)
   url-replies      Find participants who replied with URLs
@@ -98,9 +99,17 @@ def cmd_demographics():
     """Fetch Prolific demographics CSV (replaces fetch-prolific-demographics.ts)."""
     token = _require_env("PROLIFIC_API_TOKEN")
     study_id = _require_env("STUDY_ID")
-    output_path = os.environ.get("OUTPUT_PATH", "")
+    output_path = os.environ.get("OUTPUT_PATH")
 
-    result = prolific_demographics_csv(study_id, token, output_path or "/dev/stdout")
+    if not output_path:
+        print(
+            "Error: required environment variable OUTPUT_PATH is not set. "
+            "Refusing to write demographics CSV to stdout (contains PII).",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    result = prolific_demographics_csv(study_id, token, output_path)
     if not result:
         print("Demographics export returned no data", file=sys.stderr)
         sys.exit(1)
@@ -222,9 +231,9 @@ def cmd_replied_pids():
 
 def cmd_questions():
     """Fetch Qualtrics survey questions (replaces fetch-qualtrics-questions.ts)."""
-    token = os.environ["QUALTRICS_API_TOKEN"]
-    base_url = os.environ["QUALTRICS_BASE_URL"]
-    survey_id = os.environ["QUALTRICS_SURVEY_ID"]
+    token = _require_env("QUALTRICS_API_TOKEN")
+    base_url = _require_env("QUALTRICS_BASE_URL")
+    survey_id = _require_env("QUALTRICS_SURVEY_ID")
 
     definition = qualtrics_survey_questions(token, base_url, survey_id)
     questions = definition.get("Questions", {})
