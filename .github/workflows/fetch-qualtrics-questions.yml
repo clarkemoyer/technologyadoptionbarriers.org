@@ -44,17 +44,29 @@ jobs:
             exit 1
           fi
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - uses: actions/setup-python@v5
         with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
+          python-version: '3.12'
 
       - name: Fetch Questions
-        run: npx --no-install tsx scripts/fetch-qualtrics-questions.ts
+        run: |
+          set -euo pipefail
+          python3 scripts/analysis/prolific_tools.py questions | tee qualtrics-questions-output.txt
+
+      - name: Add questions summary
+        if: success()
+        run: |
+          {
+            echo "## Fetch Qualtrics Questions"
+            echo
+            echo "- Survey ID: \`${QUALTRICS_SURVEY_ID}\`"
+            echo
+            echo "### Command output"
+            echo
+            echo '```text'
+            cat qualtrics-questions-output.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Add failure summary
         if: failure()

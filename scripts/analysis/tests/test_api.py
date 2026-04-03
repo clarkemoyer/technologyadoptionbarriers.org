@@ -25,7 +25,8 @@ from tabs_api import (
 class TestHTTPHelpers:
     def test_prolific_headers(self):
         headers = _prolific_headers("my_token")
-        assert headers == {"Authorization": "Token my_token"}
+        assert headers["Authorization"] == "Token my_token"
+        assert "User-Agent" in headers  # Cloudflare requires non-default UA
 
 
 # ── Qualtrics export (mocked) ────────────────────────────────

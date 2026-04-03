@@ -156,13 +156,30 @@ def _prolific_headers(api_token: str) -> Dict[str, str]:
 
 
 def _prolific_paginate(url: str, headers: Dict[str, str]) -> List[Dict]:
-    """Fetch all pages from a Prolific paginated endpoint."""
+    """Fetch all pages from a Prolific paginated endpoint.
+
+    Supports both pagination shapes:
+      - Top-level: {"results": [...], "next": "url"}
+      - Meta-wrapped: {"results": [...], "meta": {"next": "url"}}
+    """
     results = []
     while url:
         resp = _json_request("GET", url, headers)
         results.extend(resp.get("results", []))
-        url = resp.get("next")
+        # Support both top-level 'next' and 'meta.next' pagination shapes.
+        # Normalize meta to dict to handle meta: null gracefully.
+        meta = resp.get("meta")
+        if not isinstance(meta, dict):
+            meta = {}
+        url = resp.get("next") or meta.get("next")
     return results
+
+
+def prolific_list_studies(api_token: str) -> List[Dict]:
+    """List all studies (follows pagination)."""
+    headers = _prolific_headers(api_token)
+    url = f"{_PROLIFIC_BASE}/studies/?limit=100"
+    return _prolific_paginate(url, headers)
 
 
 def prolific_submissions(study_id: str, api_token: str) -> List[Dict]:
@@ -238,6 +255,68 @@ def prolific_submission_statuses(study_id: str, api_token: str) -> Dict[str, str
         sub.get("participant_id", ""): sub.get("status", "UNKNOWN")
         for sub in submissions
     }
+
+
+def prolific_recent_messages(
+    since: str, api_token: str, study_id: Optional[str] = None
+) -> List[Dict]:
+    """Fetch recent messages, optionally filtered to a study.
+
+    Args:
+        since: ISO 8601 timestamp (e.g. '2026-03-01T00:00:00Z')
+        api_token: Prolific API token
+        study_id: If provided, filter to messages for this study
+    """
+    from urllib.parse import quote
+    headers = _prolific_headers(api_token)
+    url = f"{_PROLIFIC_BASE}/messages/?created_after={quote(since, safe='')}"
+    messages = _prolific_paginate(url, headers)
+    if study_id:
+        messages = [m for m in messages if (m.get("data") or {}).get("study_id") == study_id]
+    return messages
+
+
+def prolific_user_messages(user_id: str, api_token: str) -> List[Dict]:
+    """Fetch all messages for a specific user/participant."""
+    headers = _prolific_headers(api_token)
+    url = f"{_PROLIFIC_BASE}/messages/?user_id={user_id}"
+    return _prolific_paginate(url, headers)
+
+
+def prolific_study_info(study_id: str, api_token: str) -> Dict:
+    """Fetch study metadata."""
+    headers = _prolific_headers(api_token)
+    url = f"{_PROLIFIC_BASE}/studies/{study_id}/"
+    return _json_request("GET", url, headers)
+
+
+def qualtrics_survey_questions(
+    api_token: str, base_url: str, survey_id: str
+) -> Dict:
+    """Fetch survey questions from the Qualtrics API.
+
+    Uses the /questions sub-endpoint for parity with the TS client.
+    Normalizes both possible response shapes (elements list or Questions dict).
+    """
+    base = base_url.rstrip("/")
+    headers = {"X-API-TOKEN": api_token}
+    url = f"{base}/API/v3/survey-definitions/{survey_id}/questions"
+    resp = _json_request("GET", url, headers)
+    result = resp.get("result", {})
+
+    if isinstance(result, dict):
+        # Paginated shape: {"elements": [...]}
+        elements = result.get("elements")
+        if isinstance(elements, list):
+            return {(q.get("QuestionID") or f"Q{i}"): q for i, q in enumerate(elements)}
+        # Direct shape: {"Questions": {"QID1": {...}, ...}}
+        questions = result.get("Questions")
+        if isinstance(questions, dict):
+            return questions
+    raise RuntimeError(
+        f"Unexpected Qualtrics questions response shape: "
+        f"{list(result.keys()) if isinstance(result, dict) else type(result)}"
+    )
 
 
 # ---------------------------------------------------------------------------

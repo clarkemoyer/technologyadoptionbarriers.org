@@ -103,12 +103,13 @@ class TestPrintFunctions:
         print_disposition(v2, samples, idx)
         captured = capsys.readouterr()
         assert "DISPOSITION WATERFALL" in captured.out
-        assert "Pipeline CLEAN" in captured.out
+        assert "Conservative Clean" in captured.out
 
     def test_print_demographics(self, test_data_csv, capsys):
         idx, data = load_data(test_data_csv)
         _, samples = filter_samples(data, idx)
-        print_demographics(samples["clean"], idx, "Test")
+        # Use v2_finished since test data may not have Prolific_Status column
+        print_demographics(samples["v2_finished"], idx, "Test")
         captured = capsys.readouterr()
         assert "DEMOGRAPHICS" in captured.out
 
@@ -120,7 +121,7 @@ class TestPrintFunctions:
     def test_print_item_rankings(self, test_data_csv, capsys):
         idx, data = load_data(test_data_csv)
         _, samples = filter_samples(data, idx)
-        print_item_rankings(samples["clean"], idx)
+        print_item_rankings(samples["v2_finished"], idx)
         captured = capsys.readouterr()
         assert "BARRIER ITEM RANKINGS" in captured.out
         assert "Grand Mean" in captured.out
@@ -128,7 +129,7 @@ class TestPrintFunctions:
     def test_print_correlations_and_reliability(self, test_data_csv, capsys):
         idx, data = load_data(test_data_csv)
         _, samples = filter_samples(data, idx)
-        print_correlations_and_reliability(samples["clean"], idx)
+        print_correlations_and_reliability(samples["v2_finished"], idx)
         captured = capsys.readouterr()
         assert "CORRELATIONS" in captured.out
         assert "Cronbach" in captured.out
@@ -136,23 +137,23 @@ class TestPrintFunctions:
     def test_print_effect_sizes(self, test_data_csv, capsys):
         idx, data = load_data(test_data_csv)
         _, samples = filter_samples(data, idx)
-        print_effect_sizes(samples["clean"], idx)
+        print_effect_sizes(samples["v2_finished"], idx)
         captured = capsys.readouterr()
         assert "EFFECT SIZES" in captured.out
 
     def test_print_cross_tabs(self, test_data_csv, capsys):
         idx, data = load_data(test_data_csv)
         _, samples = filter_samples(data, idx)
-        print_cross_tabs(samples["clean"], idx)
+        print_cross_tabs(samples["v2_finished"], idx)
         captured = capsys.readouterr()
         assert "CROSS-TABULATIONS" in captured.out
 
-    def test_print_sensitivity(self, test_data_csv, capsys):
-        idx, data = load_data(test_data_csv)
+    def test_print_sensitivity(self, prod_format_csv, capsys):
+        idx, data = load_data(prod_format_csv)
         _, samples = filter_samples(data, idx)
         cuts = [
-            ("Pipeline CLEAN", samples["pipeline_clean"]),
-            ("Conservative", samples["clean"]),
+            ("Conservative Clean", samples["conservative_clean"]),
+            ("Flexible Clean", samples["flexible_clean"]),
             ("All V2", samples["v2_all"]),
         ]
         print_sensitivity(cuts, idx)

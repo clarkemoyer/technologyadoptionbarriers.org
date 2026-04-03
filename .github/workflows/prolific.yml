@@ -12,21 +12,6 @@ on:
         description: 'Specific Study ID to query (optional - leave blank to list all studies)'
         required: false
         type: string
-      export_csv:
-        description: 'Export submissions CSV to a file (CI-safe: file only; not printed)'
-        required: false
-        type: boolean
-        default: false
-      upload_csv_artifact:
-        description: 'Upload exported CSV as a workflow artifact (requires export_csv=true)'
-        required: false
-        type: boolean
-        default: false
-      csv_preview_lines:
-        description: 'Optional: include first N CSV lines in GITHUB_STEP_SUMMARY (sensitive; default 0)'
-        required: false
-        type: number
-        default: 0
 
 # Prevent concurrent runs
 concurrency:
@@ -47,14 +32,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - uses: actions/setup-python@v5
         with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
+          python-version: '3.12'
 
       - name: Verify Prolific API token
         run: |
@@ -62,28 +42,13 @@ jobs:
             echo "Error: TABS_PROLIFIC_TOKEN secret is not set in the prolific-prod environment"
             exit 1
           fi
-          echo "✅ Prolific API token is configured"
+          echo "Prolific API token is configured"
 
       - name: Run data collection
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
-          PROLIFIC_EXPORT_CSV: ${{ inputs.export_csv }}
-          PROLIFIC_CSV_PREVIEW_LINES: ${{ inputs.csv_preview_lines }}
-          PROLIFIC_CSV_OUTPUT_PATH: ${{ runner.temp }}/prolific-submissions.csv
-        run: |
-          echo "Starting Prolific data collection..."
-          echo "Study ID: ${STUDY_ID:-'all studies'}"
-          echo ""
-          npx --no-install tsx scripts/collect-prolific-data.ts
-
-      - name: Upload CSV artifact
-        if: ${{ inputs.export_csv && inputs.upload_csv_artifact }}
-        uses: actions/upload-artifact@v7
-        with:
-          name: prolific-submissions-csv
-          path: ${{ runner.temp }}/prolific-submissions.csv
-          if-no-files-found: error
+        run: python3 scripts/analysis/prolific_tools.py collect
 
       - name: Error summary
         if: failure()

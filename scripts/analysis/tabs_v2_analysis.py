@@ -319,6 +319,14 @@ def _has_auth_flag(row, idx):
     return llm in ('LOW', 'MIXED') or bots in ('LOW', 'MIXED')
 
 
+def _get_prolific_status(row, idx):
+    """Get Prolific submission status from enrichment column."""
+    if 'Prolific_Status' not in idx:
+        return ''
+    val = row[idx['Prolific_Status']].strip() if idx['Prolific_Status'] < len(row) else ''
+    return val
+
+
 def is_finished(row, idx):
     """Check if response is finished (handles both label and numeric export)."""
     if 'Finished' not in idx:
@@ -361,15 +369,20 @@ def load_data(csv_path):
 
 
 def filter_samples(data, idx):
-    """Create five sample cuts from V2 data.
+    """Create sample cuts from V2 data, grounded in Prolific operational reality.
 
-    Sample hierarchy (most to least restrictive):
-      1. Pipeline CLEAN     — All 3 IRIs + duration >= 540s + reCAPTCHA >= 0.5
-                              + no straightlining + no partial straightlining
-      2. Conservative Clean — All 3 IRIs + duration >= 480s
-      3. Relaxed            — 2+ of 3 IRIs + duration >= 480s
+    Sample hierarchy:
+      1. Conservative Clean — Prolific APPROVED + passes ALL quality checks
+                              (all 3 IRIs, duration >= 540s, reCAPTCHA >= 0.5,
+                              no straightlining, no partial straightlining, auth pass)
+      2. Flexible Clean     — Prolific APPROVED + passes basic quality checks
+                              (all 3 IRIs, duration >= 480s) — includes manually
+                              reviewed FLAG responses that were approved
+      3. Prolific Accepted  — V2 finished (finished + dur>=120s) with Prolific APPROVED status
       4. All V2 Finished    — Finished + duration >= 120s
       5. All V2             — All V2 responses including incomplete
+
+    Constraint: Conservative Clean ⊆ Flexible Clean ⊆ Prolific Accepted
 
     Returns:
         Tuple of (v2_rows, samples_dict) where samples_dict maps
@@ -382,27 +395,28 @@ def filter_samples(data, idx):
                    and get_duration(r, idx) is not None
                    and get_duration(r, idx) >= MIN_DURATION_ALL]
 
-    clean = [r for r in v2 if is_finished(r, idx)
-             and get_duration(r, idx) is not None
-             and get_duration(r, idx) >= MIN_DURATION_CLEAN
-             and iri_all_pass(r, idx)]
+    # Prolific Accepted = finished responses with APPROVED status
+    prolific_accepted = [r for r in v2_finished if _get_prolific_status(r, idx) == 'APPROVED']
 
-    relaxed = [r for r in v2 if is_finished(r, idx)
-               and get_duration(r, idx) is not None
-               and get_duration(r, idx) >= MIN_DURATION_RELAXED
-               and iri_correct_count(r, idx) >= IRI_THRESHOLD_RELAXED]
+    # Flexible Clean = APPROVED + basic quality (all 3 IRIs + duration >= 480s)
+    flexible_clean = [r for r in prolific_accepted
+                      if is_finished(r, idx)
+                      and get_duration(r, idx) is not None
+                      and get_duration(r, idx) >= MIN_DURATION_CLEAN
+                      and iri_all_pass(r, idx)]
 
-    pipeline_clean = [r for r in clean
-                      if get_duration(r, idx) >= MIN_DURATION_PIPELINE_CLEAN
-                      and get_recaptcha_score(r, idx) >= RECAPTCHA_THRESHOLD
-                      and get_straightlining_count(r, idx) == 0
-                      and not has_partial_straightlining(r, idx)
-                      and not _has_auth_flag(r, idx)]
+    # Conservative Clean = APPROVED + ALL quality checks (pipeline-level)
+    conservative_clean = [r for r in flexible_clean
+                          if get_duration(r, idx) >= MIN_DURATION_PIPELINE_CLEAN
+                          and get_recaptcha_score(r, idx) >= RECAPTCHA_THRESHOLD
+                          and get_straightlining_count(r, idx) == 0
+                          and not has_partial_straightlining(r, idx)
+                          and not _has_auth_flag(r, idx)]
 
     samples = {
-        "pipeline_clean": pipeline_clean,
-        "clean": clean,
-        "relaxed": relaxed,
+        "conservative_clean": conservative_clean,
+        "flexible_clean": flexible_clean,
+        "prolific_accepted": prolific_accepted,
         "v2_finished": v2_finished,
         "v2_all": v2,
     }
@@ -432,9 +446,9 @@ def print_disposition(v2, samples, idx):
     print(f"  IRI pass all 3 (clean):    {f0:>5}")
 
     SAMPLE_LABELS = [
-        ("pipeline_clean", "Pipeline CLEAN", "All 3 IRIs + dur>=540s + reCAPTCHA + no straightlining"),
-        ("clean", "Conservative Clean", "All 3 IRIs + duration >= 480s"),
-        ("relaxed", "Relaxed", "2+ of 3 IRIs + duration >= 480s"),
+        ("conservative_clean", "Conservative Clean", "APPROVED + all checks (IRI, dur>=540s, reCAPTCHA, straightlining, auth)"),
+        ("flexible_clean", "Flexible Clean", "APPROVED + basic quality (all 3 IRIs + dur>=480s)"),
+        ("prolific_accepted", "Prolific Accepted", "V2 finished (finished + dur>=120s) with Prolific APPROVED status"),
         ("v2_finished", "All V2 Finished", "Finished + duration >= 120s"),
         ("v2_all", "All V2", "All V2 responses (including incomplete)"),
     ]
@@ -745,17 +759,17 @@ def sensitivity_to_json(cuts, idx):
     result = {"samples": [], "metrics": []}
 
     sample_meta = {
-        "Pipeline CLEAN": {
-            "key": "pipeline_clean",
-            "description": "All 3 IRIs + duration >= 540s + reCAPTCHA >= 0.5 + no straightlining + no partial straightlining",
-        },
         "Conservative Clean": {
-            "key": "clean",
-            "description": "All 3 IRIs correct + duration >= 480s",
+            "key": "conservative_clean",
+            "description": "Prolific APPROVED + all quality checks (IRI, duration >= 540s, reCAPTCHA, straightlining, auth)",
         },
-        "Relaxed": {
-            "key": "relaxed",
-            "description": "2+ of 3 IRIs correct + duration >= 480s",
+        "Flexible Clean": {
+            "key": "flexible_clean",
+            "description": "Prolific APPROVED + basic quality (all 3 IRIs + duration >= 480s)",
+        },
+        "Prolific Accepted": {
+            "key": "prolific_accepted",
+            "description": "V2 finished (finished + dur>=120s) with Prolific APPROVED status",
         },
         "All V2 Finished": {
             "key": "v2_finished",
@@ -820,9 +834,9 @@ def main():
     parser.add_argument("csv_path", help="Path to Qualtrics CSV export")
     parser.add_argument("--json", dest="json_output", metavar="PATH",
                         help="Write sensitivity analysis results to JSON file")
-    parser.add_argument("--primary-sample", dest="primary_sample", default="clean",
-                        choices=["pipeline_clean", "clean", "relaxed", "v2_finished", "v2_all"],
-                        help="Which sample to use for detailed analysis (default: clean)")
+    parser.add_argument("--primary-sample", dest="primary_sample", default="conservative_clean",
+                        choices=["conservative_clean", "flexible_clean", "prolific_accepted", "v2_finished", "v2_all"],
+                        help="Which sample to use for detailed analysis (default: conservative_clean)")
     args = parser.parse_args()
 
     csv_path = args.csv_path
@@ -839,9 +853,9 @@ def main():
     # Detailed analysis on the selected primary sample
     primary = samples[args.primary_sample]
     sample_labels = {
-        "pipeline_clean": "Pipeline CLEAN",
-        "clean": "Conservative Clean",
-        "relaxed": "Relaxed",
+        "conservative_clean": "Conservative Clean",
+        "flexible_clean": "Flexible Clean",
+        "prolific_accepted": "Prolific Accepted",
         "v2_finished": "All V2 Finished",
         "v2_all": "All V2",
     }
@@ -855,9 +869,9 @@ def main():
 
     # Sensitivity analysis across all sample definitions
     cuts = [
-        ("Pipeline CLEAN", samples["pipeline_clean"]),
-        ("Conservative Clean", samples["clean"]),
-        ("Relaxed", samples["relaxed"]),
+        ("Conservative Clean", samples["conservative_clean"]),
+        ("Flexible Clean", samples["flexible_clean"]),
+        ("Prolific Accepted", samples["prolific_accepted"]),
         ("All V2 Finished", samples["v2_finished"]),
         ("All V2", samples["v2_all"]),
     ]
