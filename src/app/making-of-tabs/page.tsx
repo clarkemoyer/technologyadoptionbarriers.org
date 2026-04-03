@@ -238,6 +238,15 @@ const MakingOfTabsPage = () => {
                 textColor: 'text-amber-800',
               },
               {
+                title: 'Data Analysis',
+                href: '/making-of-tabs/data-analysis',
+                desc: 'Disposition waterfall, sample definitions, sensitivity analysis, and documented edge cases.',
+                border: 'border-rose-200',
+                bg: 'bg-rose-50',
+                titleColor: 'text-rose-900',
+                textColor: 'text-rose-800',
+              },
+              {
                 title: 'SEO Benchmarking',
                 href: '/making-of-tabs/seo',
                 desc: 'Our public baseline, keyword gaps, strategy roadmap, and live performance dashboard.',
