@@ -305,6 +305,18 @@ def prolific_study_info(study_id: str, api_token: str) -> Dict:
 # Prolific Write Operations (Phase 4 — affects real participants)
 # ---------------------------------------------------------------------------
 
+# Prolific rejection categories matching the UI checkboxes.
+REJECTION_CATEGORIES = {
+    "FAILED_AUTHENTICITY_CHECK": "FAILED_AUTHENTICITY_CHECK",
+    "FAILED_ATTENTION_CHECK": "FAILED_ATTENTION_CHECK",
+    "LOW_EFFORT": "LOW_EFFORT",
+    "DIDNT_ANSWER_ESSENTIAL": "DIDNT_ANSWER_ESSENTIAL",
+    "NO_DATA": "NO_DATA",
+    "TOO_QUICKLY": "TOO_QUICKLY",
+    "OTHER": "OTHER",
+}
+
+
 def prolific_bulk_approve(study_id: str, participant_ids: List[str], api_token: str) -> Dict:
     """Bulk approve submissions. LIVE OPERATION — affects real participants."""
     headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
@@ -320,6 +332,22 @@ def prolific_bulk_reject(
     headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
     url = f"{_PROLIFIC_BASE}/submissions/bulk-reject/"
     body = {"study_id": study_id, "participant_ids": participant_ids}
+    return _json_request("POST", url, headers, body, allow_empty=True)
+
+
+def prolific_reject_submission(
+    submission_id: str,
+    categories: List[str],
+    message: str,
+    api_token: str,
+) -> Dict:
+    """DESTRUCTIVE: Reject a single submission with categories and message.
+
+    Rejected participants will NOT be paid. This cannot be easily undone.
+    """
+    headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
+    url = f"{_PROLIFIC_BASE}/submissions/{submission_id}/transition/"
+    body = {"action": "REJECT", "rejection_categories": categories, "message": message}
     return _json_request("POST", url, headers, body, allow_empty=True)
 
 
@@ -345,6 +373,22 @@ def prolific_get_submission_ids(study_id: str, participant_id: str, api_token: s
     """Get submission IDs for a participant in a study."""
     subs = prolific_submissions(study_id, api_token)
     return [s["id"] for s in subs if s.get("participant_id") == participant_id]
+
+
+def prolific_get_submission_ids_map(
+    study_id: str, participant_ids: List[str], api_token: str
+) -> Dict[str, str]:
+    """Find submission IDs for a list of participant IDs in a study.
+
+    Returns a dict of participant_id -> submission_id.
+    """
+    subs = prolific_submissions(study_id, api_token)
+    pid_set = set(participant_ids)
+    return {
+        s["participant_id"]: s["id"]
+        for s in subs
+        if s.get("participant_id") in pid_set
+    }
 
 
 # ---------------------------------------------------------------------------
