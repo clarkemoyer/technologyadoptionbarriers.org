@@ -97,7 +97,7 @@ const DataAnalysisPage = () => {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Disposition Waterfall (Steps 0&ndash;10)</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Each response is evaluated through this waterfall. The{' '}
+            Each response is evaluated through this 11-step waterfall (steps 0&ndash;10). The{' '}
             <strong>first matching step</strong> determines the disposition &mdash; a response is
             never counted in multiple categories.
           </p>
