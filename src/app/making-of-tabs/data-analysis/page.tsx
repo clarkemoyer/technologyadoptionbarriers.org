@@ -6,7 +6,6 @@ import {
   H3_CLASSES,
   SECTION_CLASSES,
   PARAGRAPH_CLASSES,
-  BODY_LIST_CLASSES,
   BODY_OL_CLASSES,
 } from '@/lib/articleStyles'
 import Link from 'next/link'
@@ -80,7 +79,7 @@ const DataAnalysisPage = () => {
               Cases below)
             </li>
             <li>
-              <strong>Disposition Waterfall</strong> &mdash; A 10-step quality classification
+              <strong>Disposition Waterfall</strong> &mdash; An 11-step quality classification
               assigns each response to exactly one disposition category
             </li>
             <li>
