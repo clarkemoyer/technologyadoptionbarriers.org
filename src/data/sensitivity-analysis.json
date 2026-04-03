@@ -17,7 +17,7 @@
     {
       "key": "prolific_accepted",
       "label": "Prolific Accepted",
-      "description": "All responses approved on Prolific (N ceiling)",
+      "description": "V2 finished responses (finished + duration >= 120s) with Prolific status APPROVED",
       "n": null
     },
     {
