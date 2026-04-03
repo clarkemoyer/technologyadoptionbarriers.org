@@ -388,7 +388,7 @@ const Header: React.FC = () => {
                                   : 'text-gray-600 hover:text-gray-500'
                               }`}
                               aria-expanded={openDropdown === item.path}
-                              aria-controls={`dropdown-${item.path}`}
+                              aria-controls={`dropdown-${item.path.replace(/\//g, '-')}`}
                             >
                               {item.label}
                               <svg
@@ -409,7 +409,7 @@ const Header: React.FC = () => {
 
                             {openDropdown === item.path && (
                               <div
-                                id={`dropdown-${item.path}`}
+                                id={`dropdown-${item.path.replace(/\//g, '-')}`}
                                 ref={dropdownMenuRef}
                                 className="absolute left-0 top-full w-64 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
                               >
