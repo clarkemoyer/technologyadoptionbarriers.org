@@ -4,19 +4,19 @@
       "key": "conservative_clean",
       "label": "Conservative Clean",
       "description": "Prolific APPROVED + all quality checks (IRI, duration >= 540s, reCAPTCHA, straightlining, auth)",
-      "n": 13
+      "n": 76
     },
     {
       "key": "flexible_clean",
       "label": "Flexible Clean",
       "description": "Prolific APPROVED + basic quality (all 3 IRIs + duration >= 480s)",
-      "n": 24
+      "n": 117
     },
     {
       "key": "prolific_accepted",
       "label": "Prolific Accepted",
       "description": "V2 finished (finished + dur>=120s) with Prolific APPROVED status",
-      "n": 54
+      "n": 208
     },
     {
       "key": "v2_finished",
@@ -36,9 +36,9 @@
       "key": "barrier_mean",
       "label": "Barrier Grand Mean",
       "values": {
-        "conservative_clean": 2.6031,
-        "flexible_clean": 2.7109,
-        "prolific_accepted": 2.746,
+        "conservative_clean": 2.797,
+        "flexible_clean": 2.7839,
+        "prolific_accepted": 2.7652,
         "v2_finished": 2.7291,
         "v2_all": 2.7333
       }
@@ -47,9 +47,9 @@
       "key": "barrier_sd",
       "label": "Barrier SD",
       "values": {
-        "conservative_clean": 0.6198,
-        "flexible_clean": 0.6952,
-        "prolific_accepted": 0.7034,
+        "conservative_clean": 0.6291,
+        "flexible_clean": 0.6912,
+        "prolific_accepted": 0.7051,
         "v2_finished": 0.7691,
         "v2_all": 0.7733
       }
@@ -58,9 +58,9 @@
       "key": "readiness_mean",
       "label": "Readiness Grand Mean",
       "values": {
-        "conservative_clean": 3.2531,
-        "flexible_clean": 3.2793,
-        "prolific_accepted": 3.2915,
+        "conservative_clean": 3.0656,
+        "flexible_clean": 3.1081,
+        "prolific_accepted": 3.1583,
         "v2_finished": 3.2573,
         "v2_all": 3.2573
       }
@@ -69,9 +69,9 @@
       "key": "readiness_sd",
       "label": "Readiness SD",
       "values": {
-        "conservative_clean": 0.4417,
-        "flexible_clean": 0.6767,
-        "prolific_accepted": 0.6806,
+        "conservative_clean": 0.5826,
+        "flexible_clean": 0.6431,
+        "prolific_accepted": 0.6644,
         "v2_finished": 0.7246,
         "v2_all": 0.7235
       }
@@ -80,9 +80,9 @@
       "key": "maturity_mean",
       "label": "Maturity Grand Mean",
       "values": {
-        "conservative_clean": 3.3201,
-        "flexible_clean": 3.3244,
-        "prolific_accepted": 3.3251,
+        "conservative_clean": 3.0249,
+        "flexible_clean": 3.0589,
+        "prolific_accepted": 3.1576,
         "v2_finished": 3.2736,
         "v2_all": 3.2736
       }
@@ -91,9 +91,9 @@
       "key": "maturity_sd",
       "label": "Maturity SD",
       "values": {
-        "conservative_clean": 0.493,
-        "flexible_clean": 0.7341,
-        "prolific_accepted": 0.7975,
+        "conservative_clean": 0.7194,
+        "flexible_clean": 0.7902,
+        "prolific_accepted": 0.807,
         "v2_finished": 0.8043,
         "v2_all": 0.8043
       }
@@ -102,9 +102,9 @@
       "key": "corr_br",
       "label": "B-R Correlation",
       "values": {
-        "conservative_clean": -0.3659,
-        "flexible_clean": -0.5514,
-        "prolific_accepted": -0.3914,
+        "conservative_clean": -0.514,
+        "flexible_clean": -0.4384,
+        "prolific_accepted": -0.3467,
         "v2_finished": -0.3212,
         "v2_all": -0.3209
       }
@@ -113,9 +113,9 @@
       "key": "corr_bm",
       "label": "B-M Correlation",
       "values": {
-        "conservative_clean": 0.1057,
-        "flexible_clean": -0.4419,
-        "prolific_accepted": -0.2641,
+        "conservative_clean": -0.2686,
+        "flexible_clean": -0.2889,
+        "prolific_accepted": -0.2709,
         "v2_finished": -0.2824,
         "v2_all": -0.2824
       }
@@ -124,9 +124,9 @@
       "key": "corr_rm",
       "label": "R-M Correlation",
       "values": {
-        "conservative_clean": 0.1884,
-        "flexible_clean": 0.7365,
-        "prolific_accepted": 0.7057,
+        "conservative_clean": 0.614,
+        "flexible_clean": 0.6881,
+        "prolific_accepted": 0.6986,
         "v2_finished": 0.7409,
         "v2_all": 0.7409
       }
@@ -135,9 +135,9 @@
       "key": "alpha_barriers",
       "label": "Alpha Barriers",
       "values": {
-        "conservative_clean": 0.8607,
-        "flexible_clean": 0.8816,
-        "prolific_accepted": 0.8741,
+        "conservative_clean": 0.8586,
+        "flexible_clean": 0.8692,
+        "prolific_accepted": 0.8753,
         "v2_finished": 0.9015,
         "v2_all": 0.9031
       }
@@ -146,9 +146,9 @@
       "key": "alpha_readiness",
       "label": "Alpha Readiness",
       "values": {
-        "conservative_clean": 0.7604,
-        "flexible_clean": 0.9232,
-        "prolific_accepted": 0.9206,
+        "conservative_clean": 0.8772,
+        "flexible_clean": 0.9141,
+        "prolific_accepted": 0.9197,
         "v2_finished": 0.9343,
         "v2_all": 0.9343
       }
@@ -157,9 +157,9 @@
       "key": "alpha_maturity",
       "label": "Alpha Maturity",
       "values": {
-        "conservative_clean": 0.5026,
-        "flexible_clean": 0.8593,
-        "prolific_accepted": 0.8777,
+        "conservative_clean": 0.8374,
+        "flexible_clean": 0.8794,
+        "prolific_accepted": 0.889,
         "v2_finished": 0.8915,
         "v2_all": 0.8915
       }
