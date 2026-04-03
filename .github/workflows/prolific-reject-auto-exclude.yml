@@ -83,7 +83,7 @@ jobs:
         run: npm ci
 
       - name: Export Qualtrics responses
-        run: npx --no-install tsx scripts/export-qualtrics-responses.ts
+        run: python3 scripts/analysis/export_qualtrics.py
         env:
           QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
           QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
@@ -91,7 +91,7 @@ jobs:
           OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
 
       - name: Run disposition triage
-        run: npx --no-install tsx scripts/disposition-triage.ts
+        run: python3 scripts/analysis/disposition_triage.py
         env:
           INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
           OUTPUT_PATH: ${{ runner.temp }}/disposition.csv

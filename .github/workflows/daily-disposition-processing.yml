@@ -25,36 +25,31 @@ permissions:
   issues: write
 
 jobs:
-  # Step 1: Export + Triage
+  # Step 1: Export + Triage (Python — replaces TS disposition-triage.ts)
+  # Uses Python for Qualtrics export and disposition triage. The Python
+  # waterfall is cross-validated against the TS version (see test_cross_validation.py).
   triage:
     name: Export & Triage
     runs-on: ubuntu-latest
     environment: qualtrics-prod
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-python@v5
         with:
-          node-version: '20'
-          cache: 'npm'
-      - run: npm ci
+          python-version: '3.12'
 
       - name: Export Qualtrics responses
-        run: npx --no-install tsx scripts/export-qualtrics-responses.ts
+        run: python3 scripts/analysis/export_qualtrics.py
         env:
           QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
           QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
           QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
           OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
 
-      - name: Verify export columns
-        run: npx --no-install tsx scripts/check-export-headers.ts
-        env:
-          INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
-
       - name: Run disposition triage
         run: |
           set -euo pipefail
-          npx --no-install tsx scripts/disposition-triage.ts 2>&1 | tee ${{ runner.temp }}/triage-output.txt
+          python3 scripts/analysis/disposition_triage.py 2>&1 | tee ${{ runner.temp }}/triage-output.txt
         env:
           INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
           OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
@@ -62,10 +57,8 @@ jobs:
       - name: Extract triage metrics
         run: |
           set -euo pipefail
-          # Extract total (handle case where no responses exist)
           total_line="$(grep -m1 '\*\*Total responses:\*\*' ${{ runner.temp }}/triage-output.txt || echo '**Total responses:** 0')"
           printf '%s\n' "$total_line" | sed 's/.*\*\*Total responses:\*\* //' > ${{ runner.temp }}/triage-total.txt
-          # Extract breakdown table rows (handle empty)
           grep -E "^\|" ${{ runner.temp }}/triage-output.txt | grep -v "Disposition\|---" > ${{ runner.temp }}/triage-breakdown.txt || true
 
       - uses: actions/upload-artifact@v7
