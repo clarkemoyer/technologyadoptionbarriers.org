@@ -96,7 +96,7 @@ const DataAnalysisPage = () => {
 
         {/* ── Disposition Waterfall ── */}
         <section className="mb-12 text-gray-800">
-          <h2 className={H2_CLASSES}>10-Step Disposition Waterfall</h2>
+          <h2 className={H2_CLASSES}>Disposition Waterfall (Steps 0&ndash;10)</h2>
           <p className={PARAGRAPH_CLASSES}>
             Each response is evaluated through this waterfall. The{' '}
             <strong>first matching step</strong> determines the disposition &mdash; a response is
@@ -318,15 +318,16 @@ const DataAnalysisPage = () => {
               <p className={PARAGRAPH_CLASSES}>
                 Some participants completed the survey, received Prolific approval, then started a
                 retake but did not finish it. The Qualtrics export contains both rows for the same
-                Prolific PID. The deduplication logic prefers the{' '}
+                Prolific PID. The Python analysis pipeline&rsquo;s deduplication logic prefers the{' '}
                 <strong>completed response</strong> (Finished=TRUE) over the incomplete retake,
                 regardless of chronological order. This ensures the approved, completed response is
                 used for analysis rather than being overwritten by an abandoned retake.
               </p>
               <p className="text-sm text-gray-500 mt-2">
-                Without this logic, Prolific Accepted would show N-1 because the incomplete retake
-                would be kept, failing the completion check, while Prolific correctly shows the
-                participant as approved.
+                Note: The TypeScript disposition triage (used by the operations pipeline) still uses
+                &ldquo;latest row wins&rdquo; dedup, which can keep an incomplete retake over a
+                completed original. This is being addressed in issue #687 (TS → Python migration).
+                The Python analysis pipeline already applies the correct logic.
               </p>
             </div>
 
