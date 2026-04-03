@@ -146,7 +146,13 @@ _PROLIFIC_BASE = "https://api.prolific.com/api/v1"
 
 
 def _prolific_headers(api_token: str) -> Dict[str, str]:
-    return {"Authorization": f"Token {api_token}"}
+    return {
+        "Authorization": f"Token {api_token}",
+        # Prolific's Cloudflare protection blocks Python's default User-Agent
+        # (Python-urllib/3.x) as "browser_signature_banned". A descriptive
+        # User-Agent avoids the block.
+        "User-Agent": "TABS-Research-Pipeline/1.0 (github.com/clarkemoyer/technologyadoptionbarriers.org)",
+    }
 
 
 def _prolific_paginate(url: str, headers: Dict[str, str]) -> List[Dict]:
