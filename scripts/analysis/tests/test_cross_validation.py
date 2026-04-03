@@ -68,8 +68,10 @@ def run_ts_triage(csv_path: str, output_path: str) -> dict | None:
     )
 
     if result.returncode != 0:
-        print(f"TS triage failed: {result.stderr[:500]}")
-        return None
+        # tsx is available but triage failed — this is a real error, not a skip
+        raise RuntimeError(
+            f"TS triage failed (exit {result.returncode}):\n{result.stderr[:1000]}"
+        )
 
     # Parse the TS output CSV
     dispositions = {}
@@ -222,9 +224,17 @@ class TestCrossValidation:
         # Verify integer floats don't have trailing .0
         with open(output_csv) as f:
             content = f.read()
-        # reCAPTCHA scores like 0.9 should stay as "0.9", but 1.0 should be "1"
-        lines = content.strip().split("\n")
-        assert len(lines) > 1  # header + data
+        rows = list(csv.reader(content.strip().splitlines()))
+        assert len(rows) > 1  # header + data
+
+        # reCAPTCHA scores: 0.9 stays "0.9", but 1.0 becomes "1"
+        score_index = rows[0].index("reCAPTCHA_Score")
+        score_values = [row[score_index] for row in rows[1:] if row[score_index] != ""]
+        integer_scores = [s for s in score_values if float(s).is_integer()]
+        assert integer_scores, f"Expected at least one integer-valued score: {score_values}"
+        assert all(not s.endswith(".0") for s in integer_scores), (
+            f"Integer scores should not have trailing .0: {integer_scores}"
+        )
 
     def test_disposition_triage_cli_empty_file(self, tmp_path):
         """CLI should fail gracefully on empty CSV."""
