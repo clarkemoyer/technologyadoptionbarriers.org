@@ -32,6 +32,33 @@ def _require_env(name: str) -> str:
     return value
 
 
+def _write_step_summary(
+    study_id: str, dry_run: bool, total_data_rows: int,
+    clean_count: int, skipped: int, approved: int,
+) -> None:
+    """Write a GitHub Actions step summary (always, even when nothing to approve)."""
+    summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not summary_file:
+        return
+    mode = "Dry run" if dry_run else "Live"
+    lines = [
+        "## Prolific Submission Approval",
+        "",
+        f"- **Study ID:** {study_id}",
+        f"- **Mode:** {mode}",
+        "",
+        "| Metric | Value |",
+        "|---|---:|",
+        f"| CSV rows parsed | {total_data_rows} |",
+        f"| CLEAN dispositions | {clean_count} |",
+        f"| Skipped (empty PID) | {skipped} |",
+        f"| Approved | {approved} |",
+        "",
+    ]
+    with open(summary_file, "a") as f:
+        f.write("\n".join(lines))
+
+
 def main():
     api_token = _require_env("PROLIFIC_API_TOKEN")
     study_id = _require_env("STUDY_ID")
@@ -106,6 +133,8 @@ def main():
 
     if not clean_pids:
         print("No participants with CLEAN disposition found. Nothing to approve.")
+        _write_step_summary(study_id, dry_run=True, total_data_rows=total_data_rows,
+                            clean_count=0, skipped=skipped, approved=0)
         return
 
     # Verify API token and study before approving (skip in dry-run for offline use)
@@ -133,27 +162,8 @@ def main():
             print(f"Error approving submissions: {e}", file=sys.stderr)
             sys.exit(1)
 
-    # GitHub step summary
-    summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
-    if summary_file:
-        mode = "Dry run" if dry_run else "Live"
-        approved = 0 if dry_run else len(clean_pids)
-        lines = [
-            "## Prolific Submission Approval",
-            "",
-            f"- **Study ID:** {study_id}",
-            f"- **Mode:** {mode}",
-            "",
-            "| Metric | Value |",
-            "|---|---:|",
-            f"| CSV rows parsed | {total_data_rows} |",
-            f"| CLEAN dispositions | {len(clean_pids)} |",
-            f"| Skipped (empty PID) | {skipped} |",
-            f"| Approved | {approved} |",
-            "",
-        ]
-        with open(summary_file, "a") as f:
-            f.write("\n".join(lines))
+    approved = 0 if dry_run else len(clean_pids)
+    _write_step_summary(study_id, dry_run, total_data_rows, len(clean_pids), skipped, approved)
 
     print("\nDone")
 

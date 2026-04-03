@@ -124,6 +124,32 @@ class TestApproveCSVParsing:
         assert "CLEAN dispositions: 0" in result.stdout
         assert "Nothing to approve" in result.stdout
 
+    def test_step_summary_written_when_no_clean(self, tmp_path):
+        """Step summary is written even when no CLEAN PIDs are found (auditability)."""
+        csv_path = _write_csv(
+            tmp_path,
+            ["PROLIFIC_PID", "Disposition"],
+            [["PID_A", "FLAG-SPEED"]],
+        )
+        summary_file = str(tmp_path / "summary.md")
+        env = {
+            "PROLIFIC_API_TOKEN": "test_token",
+            "STUDY_ID": "STUDY_1",
+            "CSV_FILE_PATH": csv_path,
+            "DRY_RUN": "true",
+            "GITHUB_STEP_SUMMARY": summary_file,
+        }
+        result = subprocess.run(
+            [sys.executable, SCRIPT],
+            env=env,
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 0
+        summary = Path(summary_file).read_text()
+        assert "CLEAN dispositions | 0" in summary
+        assert "Approved | 0" in summary
+
     def test_case_insensitive_disposition(self, tmp_path):
         """Disposition matching is case-insensitive."""
         csv_path = _write_csv(
