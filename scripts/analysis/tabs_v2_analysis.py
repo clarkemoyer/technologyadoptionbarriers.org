@@ -388,8 +388,22 @@ def filter_samples(data, idx):
         Tuple of (v2_rows, samples_dict) where samples_dict maps
         sample key to list of rows.
     """
-    v2 = [r for r in data if r[idx['StartDate']] >= V2_START
-          or ('ResponseId' in idx and r[idx['ResponseId']] == PROLIFIC_TEST_ID)]
+    v2_all_rows = [r for r in data if r[idx['StartDate']] >= V2_START
+                   or ('ResponseId' in idx and r[idx['ResponseId']] == PROLIFIC_TEST_ID)]
+
+    # Deduplicate by PROLIFIC_PID — latest row wins (same logic as tabs_v2_data_audit.py).
+    # Without dedup, retake submissions (same PID, 2 Qualtrics rows) inflate counts.
+    # E.g., Prolific shows 206 APPROVED but analysis counted 208 because 2 retakers
+    # had both their original and retake rows counted as APPROVED.
+    if 'PROLIFIC_PID' in idx:
+        by_pid: dict = {}
+        for r in v2_all_rows:
+            pid = r[idx['PROLIFIC_PID']].strip()
+            if pid:
+                by_pid[pid] = r  # latest row overwrites earlier
+        v2 = list(by_pid.values())
+    else:
+        v2 = v2_all_rows
 
     v2_finished = [r for r in v2 if is_finished(r, idx)
                    and get_duration(r, idx) is not None
