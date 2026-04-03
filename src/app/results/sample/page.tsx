@@ -129,13 +129,28 @@ const SamplePage = () => {
           </div>
         </section>
 
-        {/* ── Back Link ── */}
+        {/* ── Related Pages ── */}
         <section className="pt-8 border-t border-gray-200">
-          <p className="text-sm text-gray-600">
-            <Link href="/results" className="text-blue-600 hover:underline">
-              &larr; Back to Results Overview
-            </Link>
-          </p>
+          <h2 className="text-sm font-semibold text-gray-700 mb-3">Related</h2>
+          <ul className="text-sm text-gray-600 space-y-1">
+            <li>
+              <Link href="/results/descriptive" className="text-blue-600 hover:underline">
+                Descriptive Statistics
+              </Link>{' '}
+              &mdash; what participants reported across all three constructs
+            </li>
+            <li>
+              <Link href="/results/data-quality" className="text-blue-600 hover:underline">
+                Data Quality Pipeline
+              </Link>{' '}
+              &mdash; how responses are validated and samples defined
+            </li>
+            <li>
+              <Link href="/results" className="text-blue-600 hover:underline">
+                &larr; Back to Results Overview
+              </Link>
+            </li>
+          </ul>
         </section>
       </article>
     </main>

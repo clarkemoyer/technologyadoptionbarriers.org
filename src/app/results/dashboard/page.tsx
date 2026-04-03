@@ -376,8 +376,8 @@ const DispositionDashboardPage = () => {
             Three key sample definitions are compared here, grounded in Prolific operational
             reality. The Prolific Accepted count matches the Prolific platform&rsquo;s
             &ldquo;Approved&rdquo; tab exactly. See the{' '}
-            <Link href="/making-of-tabs/data-analysis" className="text-blue-600 hover:underline">
-              Data Analysis &amp; Quality
+            <Link href="/results/data-quality" className="text-blue-600 hover:underline">
+              Data Quality Pipeline
             </Link>{' '}
             page for all five sample definitions.
           </p>
@@ -431,8 +431,8 @@ const DispositionDashboardPage = () => {
             reCAPTCHA, straightlining, or auth issues but passed IRI checks. Many flagged responses
             are approved after manual review, so Prolific Accepted exceeds both clean samples. See
             the{' '}
-            <Link href="/making-of-tabs/data-analysis" className="text-blue-600 hover:underline">
-              Data Analysis &amp; Quality
+            <Link href="/results/data-quality" className="text-blue-600 hover:underline">
+              Data Quality Pipeline
             </Link>{' '}
             page for full details.
           </p>

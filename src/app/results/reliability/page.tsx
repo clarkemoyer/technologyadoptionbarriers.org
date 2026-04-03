@@ -166,13 +166,34 @@ const ReliabilityPage = () => {
           </ol>
         </section>
 
-        {/* ── Back Link ── */}
+        {/* ── Related Pages ── */}
         <section className="pt-8 border-t border-gray-200">
-          <p className="text-sm text-gray-600">
-            <Link href="/results" className="text-blue-600 hover:underline">
-              &larr; Back to Results Overview
-            </Link>
-          </p>
+          <h2 className="text-sm font-semibold text-gray-700 mb-3">Related</h2>
+          <ul className="text-sm text-gray-600 space-y-1">
+            <li>
+              <Link href="/results/descriptive" className="text-blue-600 hover:underline">
+                Descriptive Statistics
+              </Link>{' '}
+              &mdash; means, SDs, and correlations for each construct
+            </li>
+            <li>
+              <Link href="/results/sensitivity" className="text-blue-600 hover:underline">
+                Sensitivity Analysis
+              </Link>{' '}
+              &mdash; all metrics across five sample definitions
+            </li>
+            <li>
+              <Link href="/results/data-quality" className="text-blue-600 hover:underline">
+                Data Quality Pipeline
+              </Link>{' '}
+              &mdash; how the samples are defined and validated
+            </li>
+            <li>
+              <Link href="/results" className="text-blue-600 hover:underline">
+                &larr; Back to Results Overview
+              </Link>
+            </li>
+          </ul>
         </section>
       </article>
     </main>

@@ -269,6 +269,13 @@ const MakingOfTabsPage = () => {
         </section>
 
         <section className="pt-8 border-t border-gray-200">
+          <p className="text-sm text-gray-600 mb-4">
+            Looking for survey results, descriptive statistics, or scale reliability? Visit the{' '}
+            <Link href="/results" className="text-blue-600 hover:underline font-medium">
+              Results
+            </Link>{' '}
+            section.
+          </p>
           <p className="text-sm text-gray-600 italic">
             This &quot;Making of&quot; section is a living document, updated as our toolset and
             methodologies evolve.

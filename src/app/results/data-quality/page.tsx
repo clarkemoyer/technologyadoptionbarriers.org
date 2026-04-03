@@ -426,6 +426,44 @@ const DataQualityPage = () => {
             </a>
           </div>
         </section>
+
+        {/* ── See the Results ── */}
+        <section className="pt-8 border-t border-gray-200">
+          <h2 className="text-sm font-semibold text-gray-700 mb-3">
+            See What This Pipeline Produces
+          </h2>
+          <ul className="text-sm text-gray-600 space-y-1">
+            <li>
+              <Link href="/results/descriptive" className="text-blue-600 hover:underline">
+                Descriptive Statistics
+              </Link>{' '}
+              &mdash; grand means, standard deviations, correlations
+            </li>
+            <li>
+              <Link href="/results/reliability" className="text-blue-600 hover:underline">
+                Scale Reliability
+              </Link>{' '}
+              &mdash; Cronbach&rsquo;s alpha across all five samples
+            </li>
+            <li>
+              <Link href="/results/sensitivity" className="text-blue-600 hover:underline">
+                Sensitivity Analysis
+              </Link>{' '}
+              &mdash; every metric across all sample definitions
+            </li>
+            <li>
+              <Link href="/results/sample" className="text-blue-600 hover:underline">
+                Sample &amp; Demographics
+              </Link>{' '}
+              &mdash; who participated in the survey
+            </li>
+            <li>
+              <Link href="/results" className="text-blue-600 hover:underline">
+                &larr; Back to Results Overview
+              </Link>
+            </li>
+          </ul>
+        </section>
       </article>
     </main>
   )

@@ -212,9 +212,12 @@ const SensitivityPage = () => {
           </ul>
         </section>
 
-        {/* ── Back Link ── */}
         <section className="pt-8 border-t border-gray-200">
           <p className="text-sm text-gray-600">
+            <Link href="/results/reproducibility" className="text-blue-600 hover:underline">
+              Open Data &amp; Reproducibility
+            </Link>{' '}
+            &mdash; download the dataset and reproduce these results yourself.{' '}
             <Link href="/results" className="text-blue-600 hover:underline">
               &larr; Back to Results Overview
             </Link>
