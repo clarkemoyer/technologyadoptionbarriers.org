@@ -35,7 +35,7 @@ const Header: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null)
-  const [isMakingOfMenuOpen, setIsMakingOfMenuOpen] = useState(false)
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [isMobileBranch1Open, setIsMobileBranch1Open] = useState(false)
   const [isMobileBranch2Open, setIsMobileBranch2Open] = useState(false)
   const [mobileTeachingPartsOpen, setMobileTeachingPartsOpen] = useState<Record<string, boolean>>(
@@ -50,8 +50,8 @@ const Header: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const megaMenuRef = useRef<HTMLDivElement>(null)
   const activeMegaMenuButtonRef = useRef<HTMLLIElement | null>(null)
-  const makingOfMenuRef = useRef<HTMLDivElement>(null)
-  const makingOfMenuButtonRef = useRef<HTMLLIElement>(null)
+  const dropdownMenuRef = useRef<HTMLDivElement>(null)
+  const dropdownButtonRef = useRef<HTMLLIElement>(null)
 
   useEffect(() => {
     if (!activeMegaMenu) activeMegaMenuButtonRef.current = null
@@ -189,19 +189,19 @@ const Header: React.FC = () => {
       }
 
       if (
-        isMakingOfMenuOpen &&
-        makingOfMenuRef.current &&
-        !makingOfMenuRef.current.contains(event.target as Node) &&
-        makingOfMenuButtonRef.current &&
-        !makingOfMenuButtonRef.current.contains(event.target as Node)
+        openDropdown &&
+        dropdownMenuRef.current &&
+        !dropdownMenuRef.current.contains(event.target as Node) &&
+        dropdownButtonRef.current &&
+        !dropdownButtonRef.current.contains(event.target as Node)
       ) {
-        setIsMakingOfMenuOpen(false)
+        setOpenDropdown(null)
       }
     }
 
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [activeMegaMenu, isMakingOfMenuOpen])
+  }, [activeMegaMenu, openDropdown])
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -212,15 +212,15 @@ const Header: React.FC = () => {
         activeMegaMenuButtonRef.current?.querySelector('button')?.focus()
       }
 
-      if (event.key === 'Escape' && isMakingOfMenuOpen) {
-        setIsMakingOfMenuOpen(false)
-        makingOfMenuButtonRef.current?.querySelector('button')?.focus()
+      if (event.key === 'Escape' && openDropdown) {
+        setOpenDropdown(null)
+        dropdownButtonRef.current?.querySelector('button')?.focus()
       }
     }
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [activeMegaMenu, isMakingOfMenuOpen])
+  }, [activeMegaMenu, openDropdown])
 
   const handleSearchToggle = () => setIsSearchOpen(!isSearchOpen)
 
@@ -236,7 +236,7 @@ const Header: React.FC = () => {
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false)
     setActiveMegaMenu(null)
-    setIsMakingOfMenuOpen(false)
+    setOpenDropdown(null)
     setIsMobileBranch1Open(false)
     setIsMobileBranch2Open(false)
     setMobileTeachingPartsOpen({})
@@ -266,11 +266,11 @@ const Header: React.FC = () => {
     } else {
       setActiveMegaMenu(id)
     }
-    setIsMakingOfMenuOpen(false)
+    setOpenDropdown(null)
   }
 
   const toggleMakingOfMenu = () => {
-    setIsMakingOfMenuOpen(!isMakingOfMenuOpen)
+    setOpenDropdown(openDropdown === item.path ? null : item.path)
     setActiveMegaMenu(null)
   }
 
@@ -330,14 +330,14 @@ const Header: React.FC = () => {
                                 }
                               }
                             : item.children?.length
-                              ? makingOfMenuButtonRef
+                              ? dropdownButtonRef
                               : null
                         }
                         onMouseEnter={() => {
-                          if (item.children?.length) setIsMakingOfMenuOpen(true)
+                          if (item.children?.length) setOpenDropdown(item.path)
                         }}
                         onMouseLeave={() => {
-                          if (item.children?.length) setIsMakingOfMenuOpen(false)
+                          if (item.children?.length) setOpenDropdown(null)
                         }}
                       >
                         {item.hasMegaMenu ? (
@@ -377,18 +377,18 @@ const Header: React.FC = () => {
                           <>
                             <button
                               onClick={toggleMakingOfMenu}
-                              onFocus={() => setIsMakingOfMenuOpen(true)}
+                              onFocus={() => setOpenDropdown(item.path)}
                               className={`flex items-center px-1.5 xl:px-2 2xl:px-3 py-2 text-[12px] xl:text-[13px] 2xl:text-[14px] transition-colors duration-200 ${
                                 isActive(item.path)
                                   ? 'text-blue-600'
                                   : 'text-gray-600 hover:text-gray-500'
                               }`}
-                              aria-expanded={isMakingOfMenuOpen}
-                              aria-controls="making-of-menu"
+                              aria-expanded={openDropdown === item.path}
+                              aria-controls={`dropdown-${item.path}`}
                             >
                               {item.label}
                               <svg
-                                className={`w-4 h-4 ml-1 transition-transform ${isMakingOfMenuOpen ? 'rotate-180' : ''}`}
+                                className={`w-4 h-4 ml-1 transition-transform ${openDropdown === item.path ? 'rotate-180' : ''}`}
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -403,10 +403,10 @@ const Header: React.FC = () => {
                               </svg>
                             </button>
 
-                            {isMakingOfMenuOpen && (
+                            {openDropdown === item.path && (
                               <div
-                                id="making-of-menu"
-                                ref={makingOfMenuRef}
+                                id={`dropdown-${item.path}`}
+                                ref={dropdownMenuRef}
                                 className="absolute left-0 top-full w-64 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
                               >
                                 <ul className="py-2">

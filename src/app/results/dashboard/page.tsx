@@ -79,7 +79,6 @@ const DispositionDashboardPage = () => {
   const dispositions = d.dispositions as Record<string, number>
 
   const approvedPct = total > 0 ? ((d.actions.approved / total) * 100).toFixed(1) : '0'
-  const rejectedPct = total > 0 ? ((d.actions.rejected / total) * 100).toFixed(1) : '0'
   const flaggedCount =
     (dispositions['FLAG-SPEED'] || 0) +
     (dispositions['FLAG-SINGLE-IRI'] || 0) +
@@ -138,10 +137,14 @@ const DispositionDashboardPage = () => {
             </div>
             <div className="border rounded-lg p-4 text-center bg-red-50 border-red-200">
               <div className="text-3xl font-bold text-red-700">
-                {d.actions.rejected + (dispositions['AUTO-EXCLUDE'] || 0) - d.actions.rejected}
+                {dispositions['AUTO-EXCLUDE'] || 0}
               </div>
               <div className="text-sm text-red-600 mt-1">
-                Auto-Exclude ({(((dispositions['AUTO-EXCLUDE'] || 0) / total) * 100).toFixed(1)}%)
+                Auto-Exclude (
+                {total > 0
+                  ? (((dispositions['AUTO-EXCLUDE'] || 0) / total) * 100).toFixed(1)
+                  : '0.0'}
+                %)
               </div>
             </div>
             <div className="border rounded-lg p-4 text-center bg-amber-50 border-amber-200">

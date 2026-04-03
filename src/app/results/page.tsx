@@ -18,13 +18,16 @@ const ResultsPage = () => {
   const prolificN = sensitivityData.samples.find((s) => s.key === 'prolific_accepted')?.n ?? '—'
   const totalN = sensitivityData.samples.find((s) => s.key === 'v2_all')?.n ?? '—'
 
-  const alphaBarriers =
-    sensitivityData.metrics.find((m) => m.key === 'alpha_barriers')?.values.conservative_clean ?? 0
-  const alphaReadiness =
-    sensitivityData.metrics.find((m) => m.key === 'alpha_readiness')?.values.conservative_clean ?? 0
-  const alphaMaturity =
-    sensitivityData.metrics.find((m) => m.key === 'alpha_maturity')?.values.conservative_clean ?? 0
-  const minAlpha = Math.min(alphaBarriers, alphaReadiness, alphaMaturity)
+  const alphaBarriers = sensitivityData.metrics.find((m) => m.key === 'alpha_barriers')?.values
+    .conservative_clean
+  const alphaReadiness = sensitivityData.metrics.find((m) => m.key === 'alpha_readiness')?.values
+    .conservative_clean
+  const alphaMaturity = sensitivityData.metrics.find((m) => m.key === 'alpha_maturity')?.values
+    .conservative_clean
+  const alphaValues = [alphaBarriers, alphaReadiness, alphaMaturity].filter(
+    (v): v is number => typeof v === 'number' && isFinite(v)
+  )
+  const minAlphaDisplay = alphaValues.length === 3 ? Math.min(...alphaValues).toFixed(2) : '—'
 
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -57,7 +60,7 @@ const ResultsPage = () => {
               { label: 'Total Responses', value: String(totalN) },
               { label: 'Prolific Approved', value: String(prolificN) },
               { label: 'Clean Sample', value: String(conservativeN) },
-              { label: 'Min Cronbach α', value: minAlpha.toFixed(2) },
+              { label: 'Min Cronbach α', value: minAlphaDisplay },
             ].map((stat) => (
               <div
                 key={stat.label}

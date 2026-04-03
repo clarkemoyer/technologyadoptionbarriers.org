@@ -543,7 +543,7 @@ jobs:
             echo ""
 
             # ── Overall result ──
-            TOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} + ${REDIRECT_FAIL:-0} + ${CONTENT_FAIL:-0} ))
+            TOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} + ${REDIRECT_FAIL:-0} + ${CONTENT_FAIL:-0} + ${DATA_FAIL:-0} ))
             if [ "$TOTAL_FAIL" -eq 0 ]; then
               echo "## ✅ All checks passed!"
             else
@@ -556,7 +556,7 @@ jobs:
       - name: Fail if any checks failed
         if: always()
         run: |
-          TOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} + ${REDIRECT_FAIL:-0} + ${CONTENT_FAIL:-0} ))
+          TOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} + ${REDIRECT_FAIL:-0} + ${CONTENT_FAIL:-0} + ${DATA_FAIL:-0} ))
           if [ "$TOTAL_FAIL" -gt 0 ]; then
             echo "::error::🚨 PRODUCTION SITE ISSUE: ${TOTAL_FAIL} smoke test check(s) failed after deploy"
             [ "${ROUTE_FAIL:-0}" -gt 0 ] && echo "::error::  📄 Page routes: ${ROUTE_FAIL} failed out of ${ROUTE_TOTAL:-?}"
@@ -564,6 +564,7 @@ jobs:
             [ "${INFRA_FAIL:-0}" -gt 0 ] && echo "::error::  🔧 Infrastructure: ${INFRA_FAIL} check(s) failed"
             [ "${REDIRECT_FAIL:-0}" -gt 0 ] && echo "::error::  🔀 Redirects: ${REDIRECT_FAIL} failed"
             [ "${CONTENT_FAIL:-0}" -gt 0 ] && echo "::error::  📝 Content: ${CONTENT_FAIL} spot-check(s) failed"
+            [ "${DATA_FAIL:-0}" -gt 0 ] && echo "::error::  📊 Data: ${DATA_FAIL} JSON file(s) invalid"
             echo "::error::See the job summary for full details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             exit 1
           fi
