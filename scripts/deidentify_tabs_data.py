@@ -11,6 +11,18 @@ Steps:
     4. Column exclusion (drop PII/platform columns)
     5. Prolific linkage file separation
 
+Prolific Data Handling:
+    Per Prolific's researcher guidelines (https://researcher-help.prolific.com):
+    - Prolific IDs (PIDs) are pseudonymous identifiers that link to participant
+      profiles containing real identities. PIDs MUST be removed from public
+      datasets. This script drops PROLIFIC_PID in step 4 and preserves the
+      ResponseId-to-PID mapping in a separate confidential linkage file.
+    - Prolific demographic data (age, sex, country from participant profiles)
+      is treated as personal data under UK/EU GDPR. If present in the enriched
+      CSV (Prolific_* columns), these are dropped along with other PII columns.
+    - Researchers must not attempt to re-identify participants through the
+      pseudonymized or de-identified data.
+
 Usage:
     python3 scripts/deidentify_tabs_data.py <input_csv> <output_dir>
     python3 scripts/deidentify_tabs_data.py data.csv output/ --dry-run
@@ -55,7 +67,16 @@ COLUMNS_TO_DROP = {
     "ExternalReference",
     "LocationLatitude",
     "LocationLongitude",
+    # Enrichment columns added by enrich_qualtrics_csv.py
+    "Auth_LLM",
+    "Auth_Bots",
+    "Prolific_Status",
 }
+
+# Prolific demographic columns (Prolific_*) are also dropped if present.
+# These are added dynamically; see filter_columns() which drops any column
+# matching the COLUMNS_TO_DROP set or starting with "Prolific_".
+PROLIFIC_DEMO_PREFIX = "Prolific_"
 
 # Free-text columns to scan for PII
 FREE_TEXT_COLUMNS = [
@@ -255,8 +276,9 @@ def generalize_timestamps(rows: list[dict[str, str]], columns: list[str]) -> Non
 def filter_columns(
     headers: list[str], rows: list[dict[str, str]], drop_columns: set[str]
 ) -> tuple[list[str], list[dict[str, str]]]:
-    """Remove specified columns from headers and all rows."""
-    kept_headers = [h for h in headers if h not in drop_columns]
+    """Remove specified columns and Prolific_* demographic columns from headers and all rows."""
+    kept_headers = [h for h in headers
+                    if h not in drop_columns and not h.startswith(PROLIFIC_DEMO_PREFIX)]
     filtered_rows = [{h: row.get(h, "") for h in kept_headers} for row in rows]
     return kept_headers, filtered_rows
 

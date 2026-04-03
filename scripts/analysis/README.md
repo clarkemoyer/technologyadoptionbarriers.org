@@ -38,7 +38,20 @@ Key packages:
 - **matplotlib** 3.10.8: Data visualization (optional for scripts; used in Jupyter notebooks)
 - **seaborn** 0.13.2: Enhanced statistical visualizations
 
-## Scripts
+## Scripts Overview
+
+| Script                       | Purpose                                                  | Input          | Output                    |
+| ---------------------------- | -------------------------------------------------------- | -------------- | ------------------------- |
+| `tabs_v2_analysis.py`        | Descriptive stats, 5-cut sensitivity analysis            | CSV            | Console + JSON (`--json`) |
+| `tabs_v2_advanced.py`        | Inferential: PCA, regression, ANOVA, interaction effects | CSV            | Console                   |
+| `tabs_v2_psychometrics.py`   | Instrument validation: KMO, HTMT, Cronbach's, Harman's   | CSV            | Console                   |
+| `tabs_v2_data_audit.py`      | Disposition waterfall audit (matches TS pipeline)        | CSV            | JSON report               |
+| `tabs_v2_quality_audit.py`   | Data quality: outliers, CMV, Mahalanobis distance        | CSV            | Console                   |
+| `tabs_api.py`                | Python API clients for Qualtrics export + Prolific data  | APIs           | CSV/JSON                  |
+| `enrich_qualtrics_csv.py`    | Merge Prolific auth checks + statuses into Qualtrics CSV | CSV + CSV/JSON | CSV                       |
+| `../deidentify_tabs_data.py` | NIST 5-step de-identification for ScholarSphere          | CSV            | Public CSV + audit files  |
+
+## Script Details
 
 ### 1. tabs_v2_analysis.py
 
@@ -52,22 +65,36 @@ Computes all descriptive and inferential statistics reported in the CRP Results 
 - Item-level rankings and descriptive statistics within each construct
 - Demographic cross-tabulations (organization size, profit model, industry, role, decision authority, geographic scope, revenue, budget)
 - Correlation matrices with 95% confidence intervals
-- Spearman rank-order correlations (for ordinal data)
 - Independent samples t-tests with effect sizes (Cohen's d)
 - ANOVA tests by decision authority with post-hoc comparisons
-- Sensitivity analysis comparing statistics across sample definitions (clean, relaxed, all-V2)
+- Sensitivity analysis comparing statistics across all 5 sample definitions
 - Open-ended feedback summary from Q74_Feedback
 
-**Sample definitions**:
+**Sample definitions** (most to least restrictive):
 
-- **Clean** (conservative): Duration ≥ 480 seconds AND all 3 IRIs correct
-- **Relaxed**: Duration ≥ 480 seconds AND at least 2 of 3 IRIs correct
-- **All V2**: Duration ≥ 120 seconds, no IRI filter (extreme speeders excluded)
+| Sample                 | Key              | Criteria                                                                                                                                             |
+| ---------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Pipeline CLEAN**     | `pipeline_clean` | All 3 IRIs correct + duration ≥ 540s (Smeal benchmark) + reCAPTCHA ≥ 0.5 + no straightlining + no partial straightlining + Prolific auth checks pass |
+| **Conservative Clean** | `clean`          | All 3 IRIs correct + duration ≥ 480s                                                                                                                 |
+| **Relaxed**            | `relaxed`        | At least 2 of 3 IRIs correct + duration ≥ 480s                                                                                                       |
+| **All V2 Finished**    | `v2_finished`    | Finished + duration ≥ 120s (extreme speeders excluded)                                                                                               |
+| **All V2**             | `v2_all`         | All V2 responses including incomplete                                                                                                                |
+
+Pipeline CLEAN mirrors the live TypeScript disposition pipeline exactly. Conservative Clean is the CRP's primary analysis sample. The sensitivity analysis runs all statistics across all 5 definitions to demonstrate robustness.
 
 **Usage**:
 
 ```bash
+# Default: detailed analysis on Conservative Clean, sensitivity across all 5
 python tabs_v2_analysis.py /path/to/qualtrics_export.csv
+
+# Export sensitivity analysis as JSON for the website dashboard
+python tabs_v2_analysis.py /path/to/csv --json sensitivity-analysis.json
+
+# Run detailed analysis on a different primary sample
+python tabs_v2_analysis.py /path/to/csv --primary-sample pipeline_clean
+python tabs_v2_analysis.py /path/to/csv --primary-sample relaxed
+python tabs_v2_analysis.py /path/to/csv --primary-sample v2_all
 ```
 
 ### 2. tabs_v2_psychometrics.py
@@ -219,7 +246,7 @@ IRIs are embedded attention-check items with predetermined correct answers. All 
 - Readiness IRI (`Q47-64_Readiness_18`): **"Low Readiness/Capability"**
 - Maturity IRI (`Q65-73_Maturity_9`): **"Level 2: Developing/Repeatable"**
 
-**Conservative clean filter**: Duration ≥ 480 seconds AND all 3 IRIs correct. This approximately matches the full disposition pipeline (which also includes straightlining detection and reCAPTCHA validation).
+**Conservative clean filter**: Duration ≥ 480 seconds AND all 3 IRIs correct. This is intentionally broader than the live disposition pipeline's CLEAN category, which also requires duration ≥ 540 seconds (Smeal 9-minute benchmark), reCAPTCHA ≥ 0.5, no straightlining, no partial straightlining (within-person SD ≥ 0.5), and passing Prolific auth checks. The delta between the two counts represents responses that pass the analysis filter but are routed to manual review in the pipeline (FLAG-SMEAL, FLAG-RECAPTCHA, FLAG-PARTIAL-STRAIGHTLINING, etc.).
 
 ## Test Data
 

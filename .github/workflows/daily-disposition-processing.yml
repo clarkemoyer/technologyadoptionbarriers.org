@@ -12,7 +12,7 @@ name: Daily Disposition Processing
 
 on:
   schedule:
-    - cron: '0 10 * * *' # Daily at 10:00 UTC (6am ET)
+    - cron: '0 11 * * *' # Daily at 11:00 UTC (7am ET) — runs after analysis pipeline (09:00 UTC)
   workflow_dispatch:
 
 concurrency:

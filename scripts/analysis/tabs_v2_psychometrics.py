@@ -1159,7 +1159,7 @@ def main():
     print(f"\n\nCorrelation Structure: Clean vs All-V2 (sensitivity analysis)")
 
     # All V2 responses
-    all_v2 = df[df['IsV2']]
+    all_v2 = encode_scales(df_all[df_all['IsV2']].copy())
 
     print(f"\n  Barriers ↔ Readiness:")
 
