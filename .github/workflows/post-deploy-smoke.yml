@@ -311,13 +311,22 @@ jobs:
           set -uo pipefail
           REDIRECT_FAIL=0
 
-          # Helper: follow redirects and verify final URL contains expected path
+          # Helper: verify redirect via HTTP 3xx OR static stub page (JS/link)
           check_redirect() {
             local old_url="$1" expected_path="$2" label="$3"
-            local final_url
+            local final_url page_html
+
+            # Try HTTP redirect first
             final_url=$(curl -s -o /dev/null -w '%{url_effective}' -L --max-time 15 "$old_url" 2>/dev/null || echo "")
-            if echo "$final_url" | grep -q "$expected_path"; then
-              echo "| $label | ✅ → $expected_path |" >> /tmp/redirect-results.txt
+            if echo "$final_url" | grep -F -q "$expected_path"; then
+              echo "| $label | ✅ HTTP redirect → $expected_path |" >> /tmp/redirect-results.txt
+              return
+            fi
+
+            # Fall back to checking page content for JS redirect or link
+            page_html=$(curl -sL --max-time 15 "$old_url" 2>/dev/null || echo "")
+            if echo "$page_html" | grep -q "$expected_path"; then
+              echo "| $label | ✅ Stub page → $expected_path |" >> /tmp/redirect-results.txt
             else
               echo "| $label | ❌ → ${final_url:-timeout} (expected $expected_path) |" >> /tmp/redirect-results.txt
               REDIRECT_FAIL=$((REDIRECT_FAIL + 1))

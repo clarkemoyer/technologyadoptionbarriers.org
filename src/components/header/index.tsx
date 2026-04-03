@@ -45,7 +45,7 @@ const Header: React.FC = () => {
   const [isMobileTeachingResourcesOpen, setIsMobileTeachingResourcesOpen] = useState(false)
   const [isMobileIndividualsOpen, setIsMobileIndividualsOpen] = useState(false)
   const [isMobileOrganizationsOpen, setIsMobileOrganizationsOpen] = useState(false)
-  const [isMobileMakingOfOpen, setIsMobileMakingOfOpen] = useState(false)
+  const [mobileOpenDropdown, setMobileOpenDropdown] = useState<string | null>(null)
   const [activeSection, setActiveSection] = useState<string>('')
   const [searchQuery, setSearchQuery] = useState('')
   const megaMenuRef = useRef<HTMLDivElement>(null)
@@ -1271,14 +1271,18 @@ const Header: React.FC = () => {
                       <div>
                         <button
                           type="button"
-                          onClick={() => setIsMobileMakingOfOpen(!isMobileMakingOfOpen)}
+                          onClick={() =>
+                            setMobileOpenDropdown(
+                              mobileOpenDropdown === item.path ? null : item.path
+                            )
+                          }
                           className="w-full flex items-center justify-between px-4 py-2 rounded-lg text-sm font-[600] text-gray-700 hover:bg-gray-100"
-                          aria-expanded={isMobileMakingOfOpen}
+                          aria-expanded={mobileOpenDropdown === item.path}
                           aria-controls="mobile-making-of-menu"
                         >
                           <span>{item.label}</span>
                           <svg
-                            className={`w-4 h-4 transition-transform ${isMobileMakingOfOpen ? 'rotate-180' : ''}`}
+                            className={`w-4 h-4 transition-transform ${mobileOpenDropdown === item.path ? 'rotate-180' : ''}`}
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -1293,7 +1297,7 @@ const Header: React.FC = () => {
                           </svg>
                         </button>
 
-                        {isMobileMakingOfOpen && (
+                        {mobileOpenDropdown === item.path && (
                           <ul id="mobile-making-of-menu" className="ml-4 mt-1 space-y-1">
                             {item.children.map((child) => (
                               <li key={child.path}>
