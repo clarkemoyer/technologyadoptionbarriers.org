@@ -283,18 +283,18 @@ class TestFilterSamples:
         v2, samples = filter_samples(data, idx)
 
         assert len(v2) > 0
-        assert "pipeline_clean" in samples
-        assert "clean" in samples
-        assert "relaxed" in samples
+        assert "conservative_clean" in samples
+        assert "flexible_clean" in samples
+        assert "prolific_accepted" in samples
         assert "v2_finished" in samples
         assert "v2_all" in samples
 
-        # Pipeline CLEAN is a subset of conservative clean
-        assert len(samples["pipeline_clean"]) <= len(samples["clean"])
-        # Conservative clean is a subset of relaxed
-        assert len(samples["clean"]) <= len(samples["relaxed"])
-        # Relaxed is a subset of all finished
-        assert len(samples["relaxed"]) <= len(samples["v2_finished"])
+        # Conservative Clean is a subset of Flexible Clean
+        assert len(samples["conservative_clean"]) <= len(samples["flexible_clean"])
+        # Flexible Clean is a subset of Prolific Accepted
+        assert len(samples["flexible_clean"]) <= len(samples["prolific_accepted"])
+        # Prolific Accepted is a subset of All V2 Finished
+        assert len(samples["prolific_accepted"]) <= len(samples["v2_finished"])
         # All finished is a subset of all V2
         assert len(samples["v2_finished"]) <= len(samples["v2_all"])
 
@@ -307,8 +307,8 @@ class TestSensitivityJSON:
         _, samples = filter_samples(data, idx)
 
         cuts = [
-            ("Pipeline CLEAN", samples["pipeline_clean"]),
-            ("Conservative", samples["clean"]),
+            ("Conservative Clean", samples["conservative_clean"]),
+            ("Flexible Clean", samples["flexible_clean"]),
             ("All V2", samples["v2_all"]),
         ]
         result = sensitivity_to_json(cuts, idx)

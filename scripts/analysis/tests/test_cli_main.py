@@ -41,23 +41,23 @@ class TestAnalysisMain:
         assert "metrics" in data
         assert len(data["samples"]) == 5
 
-    def test_primary_sample_pipeline_clean(self):
+    def test_primary_sample_conservative_clean(self):
         result = subprocess.run(
             [sys.executable, str(SCRIPTS / "tabs_v2_analysis.py"), PROD_CSV,
-             "--primary-sample", "pipeline_clean"],
+             "--primary-sample", "conservative_clean"],
             capture_output=True, text=True, timeout=30,
         )
         assert result.returncode == 0
-        assert "Pipeline CLEAN" in result.stdout
+        assert "Conservative Clean" in result.stdout
 
-    def test_primary_sample_relaxed(self):
+    def test_primary_sample_prolific_accepted(self):
         result = subprocess.run(
             [sys.executable, str(SCRIPTS / "tabs_v2_analysis.py"), PROD_CSV,
-             "--primary-sample", "relaxed"],
+             "--primary-sample", "prolific_accepted"],
             capture_output=True, text=True, timeout=30,
         )
         assert result.returncode == 0
-        assert "Relaxed" in result.stdout
+        assert "Prolific Accepted" in result.stdout
 
     def test_primary_sample_v2_all(self):
         result = subprocess.run(
@@ -126,7 +126,7 @@ class TestAnalysisBranchCoverage:
         from tabs_v2_analysis import load_data, filter_samples, print_effect_sizes
         idx, data = load_data(prod_format_csv)
         _, samples = filter_samples(data, idx)
-        print_effect_sizes(samples["clean"], idx)
+        print_effect_sizes(samples["flexible_clean"], idx)
         out = capsys.readouterr().out
         assert "EFFECT SIZES" in out
 
@@ -136,7 +136,7 @@ class TestAnalysisBranchCoverage:
         from tabs_v2_analysis import load_data, filter_samples, print_cross_tabs
         idx, data = load_data(prod_format_csv)
         _, samples = filter_samples(data, idx)
-        print_cross_tabs(samples["clean"], idx)
+        print_cross_tabs(samples["flexible_clean"], idx)
         out = capsys.readouterr().out
         assert "CROSS-TABULATIONS" in out
         assert "Org Size" in out
