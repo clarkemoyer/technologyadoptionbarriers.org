@@ -21,7 +21,7 @@ const DISPOSITION_CONFIG: Record<
     color: 'text-green-700',
     bgColor: 'bg-green-50 border-green-200',
     description:
-      'All quality checks passed: finished, all 3 IRIs correct, duration ≥ 9 min (Smeal benchmark), reCAPTCHA ≥ 0.5, no straightlining, no partial straightlining. Approved on Prolific.',
+      'All quality and auth checks passed: finished, all 3 IRIs correct, duration ≥ 9 min (Smeal benchmark), reCAPTCHA ≥ 0.5, no straightlining, no partial straightlining, Prolific auth checks passed. Approved on Prolific.',
   },
   'AUTO-EXCLUDE': {
     label: 'Auto-Exclude',
