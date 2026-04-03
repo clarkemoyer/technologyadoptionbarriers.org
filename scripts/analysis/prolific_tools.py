@@ -14,10 +14,11 @@ Replaces:
 Usage:
   python prolific_tools.py <command>
 
-Deprecation note:
-  The TS scripts listed above still exist in scripts/ during migration but
-  are superseded. Workflows now call this Python CLI. See issue #687 for
-  the full migration plan.
+Migration note:
+  The TS scripts listed above remain in scripts/ during the Phase 2-5
+  migration (#687). Workflows have been switched to this Python CLI.
+  TS scripts will be removed in Phase 5 (cleanup) after production
+  validation. This is a workflow switch-over, not a TS script deletion.
 
 Commands:
   collect          List studies or print submission status breakdown
@@ -204,11 +205,12 @@ def cmd_participant_messages():
 # ── url-replies (matches find-url-reply.ts) ──────────────────
 
 def cmd_url_replies():
-    """Find participants who replied after receiving study URL.
+    """Find participants who replied and received the study URL.
 
     Matches find-url-reply.ts: for each submission, checks per-participant
     message history for (1) researcher message containing the study domain,
-    then (2) any participant reply after that.
+    and (2) any participant reply exists. Note: the TS script does not
+    check chronological ordering — it only checks both conditions exist.
     """
     token = _require_env("PROLIFIC_API_TOKEN")
     study_id = _require_env("STUDY_ID")
@@ -304,6 +306,10 @@ def cmd_questions():
     survey_id = _require_env("QUALTRICS_SURVEY_ID")
 
     questions = qualtrics_survey_questions(token, base_url, survey_id)
+
+    if not questions:
+        print("Error: no questions returned from Qualtrics API", file=sys.stderr)
+        sys.exit(1)
 
     print(f"Questions: {len(questions)}\n")
 

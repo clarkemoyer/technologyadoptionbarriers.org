@@ -309,8 +309,10 @@ def qualtrics_survey_questions(
         questions = result.get("Questions")
         if isinstance(questions, dict):
             return questions
-        return result
-    return {}
+    raise RuntimeError(
+        f"Unexpected Qualtrics questions response shape: "
+        f"{list(result.keys()) if isinstance(result, dict) else type(result)}"
+    )
 
 
 # ---------------------------------------------------------------------------

@@ -105,6 +105,13 @@ class TestQualtricsQuestions:
             assert len(result) == 2
             assert "QID1" in result
 
+    def test_questions_unexpected_shape_raises(self):
+        """Test RuntimeError on unexpected response shape."""
+        mock_resp = {"result": {"SomethingElse": "data"}}
+        with patch("tabs_api._json_request", return_value=mock_resp):
+            with pytest.raises(RuntimeError, match="Unexpected"):
+                qualtrics_survey_questions("token", "https://q.example.com", "SV_1")
+
     def test_questions_elements_shape(self):
         """Test paginated elements list response shape."""
         mock_resp = {"result": {
