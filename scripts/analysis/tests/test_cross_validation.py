@@ -201,6 +201,53 @@ class TestCrossValidation:
         # Our 500-respondent test data has ~40 auth-flagged responses
         assert auth_flagged > 0, "Expected some auth-flagged divergence with enriched data"
 
+    def test_disposition_triage_cli(self, tmp_path):
+        """End-to-end CLI test for disposition_triage.py (drop-in replacement contract)."""
+        output_csv = str(tmp_path / "disposition.csv")
+        result = subprocess.run(
+            [sys.executable, str(Path(__file__).parent.parent / "disposition_triage.py")],
+            capture_output=True, text=True, timeout=30,
+            env={**os.environ, "INPUT_PATH": PROD_CSV, "OUTPUT_PATH": output_csv},
+        )
+        assert result.returncode == 0, f"stderr: {result.stderr[:500]}"
+        assert "Triaged" in result.stdout
+        assert Path(output_csv).exists()
+
+        # Verify CSV headers match TS format exactly
+        with open(output_csv) as f:
+            header = f.readline().strip()
+        expected = "PROLIFIC_PID,Finished,Duration_Seconds,Auth_LLM,Auth_Bots,Auth_Flag,IRI_Barrier_Pass,IRI_Readiness_Pass,IRI_Maturity_Pass,IRI_Pass_Count,IRI_Fail_Count,Speed_Flag,Smeal_Benchmark_Flag,reCAPTCHA_Score,reCAPTCHA_Flag,Straightlining_Count,Straightlining_Flag,Partial_Straightlining_Flag,Partial_Straightlining_Blocks,Disposition"
+        assert header == expected, f"Header mismatch:\n  Got:      {header}\n  Expected: {expected}"
+
+        # Verify integer floats don't have trailing .0
+        with open(output_csv) as f:
+            content = f.read()
+        # reCAPTCHA scores like 0.9 should stay as "0.9", but 1.0 should be "1"
+        lines = content.strip().split("\n")
+        assert len(lines) > 1  # header + data
+
+    def test_disposition_triage_cli_empty_file(self, tmp_path):
+        """CLI should fail gracefully on empty CSV."""
+        empty_csv = tmp_path / "empty.csv"
+        empty_csv.write_text("")
+        output = str(tmp_path / "out.csv")
+        result = subprocess.run(
+            [sys.executable, str(Path(__file__).parent.parent / "disposition_triage.py")],
+            capture_output=True, text=True, timeout=10,
+            env={**os.environ, "INPUT_PATH": str(empty_csv), "OUTPUT_PATH": output},
+        )
+        assert result.returncode != 0
+
+    def test_disposition_triage_cli_missing_env(self):
+        """CLI should fail when INPUT_PATH/OUTPUT_PATH not set."""
+        env = {k: v for k, v in os.environ.items() if k not in ("INPUT_PATH", "OUTPUT_PATH")}
+        result = subprocess.run(
+            [sys.executable, str(Path(__file__).parent.parent / "disposition_triage.py")],
+            capture_output=True, text=True, timeout=10,
+            env=env,
+        )
+        assert result.returncode != 0
+
     def test_python_waterfall_step_order(self):
         """Verify the Python waterfall follows the correct step precedence."""
         from tabs_v2_data_audit import compute_disposition

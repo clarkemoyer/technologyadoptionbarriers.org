@@ -46,11 +46,6 @@ jobs:
           QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
           OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
 
-      - name: Verify export columns
-        run: echo "Header verification included in disposition_triage.py"
-        env:
-          INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
-
       - name: Run disposition triage
         run: python3 scripts/analysis/disposition_triage.py
         env:

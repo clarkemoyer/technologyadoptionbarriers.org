@@ -49,7 +49,12 @@ CSV_HEADERS = [
 
 
 def compute_auth_flag(row: dict) -> int:
-    """Compute Auth_Flag from Auth_LLM and Auth_Bots (matches TS logic)."""
+    """Derive Auth_Flag from Auth_LLM and Auth_Bots when present, otherwise 0.
+
+    Note: The TS pipeline hardcodes Auth_LLM/Auth_Bots/Auth_Flag to empty/0
+    in triageCsv() (src/lib/disposition.ts lines 259-261). This Python version
+    reads the actual values from enrichment columns when present.
+    """
     llm = str(row.get("Auth_LLM", "")).strip().upper()
     bots = str(row.get("Auth_Bots", "")).strip().upper()
     if llm in ("LOW", "MIXED") or bots in ("LOW", "MIXED"):
@@ -57,12 +62,25 @@ def compute_auth_flag(row: dict) -> int:
     return 0
 
 
+def stringify_csv_value(value: object) -> str:
+    """Stringify values to match TS/JS Number#toString semantics.
+
+    Python str(1.0) → "1.0" but JS String(1.0) → "1". This matters for
+    fields like reCAPTCHA_Score where downstream scripts may compare strings.
+    """
+    if value is None:
+        return ""
+    if isinstance(value, float) and value.is_integer():
+        return str(int(value))
+    return str(value)
+
+
 def rows_to_csv(rows: list[dict]) -> str:
     """Convert disposition rows to CSV string matching TS format."""
     lines = [",".join(CSV_HEADERS)]
     for row in rows:
         row["Auth_Flag"] = compute_auth_flag(row)
-        values = [str(row.get(h, "")) for h in CSV_HEADERS]
+        values = [stringify_csv_value(row.get(h, "")) for h in CSV_HEADERS]
         lines.append(",".join(values))
     return "\n".join(lines) + "\n"
 
@@ -117,7 +135,15 @@ def verify_headers(csv_path: str) -> None:
     """Verify required columns exist in the Qualtrics CSV (replaces check-export-headers.ts)."""
     with open(csv_path, encoding="utf-8-sig") as f:
         reader = csv.reader(f)
-        headers = next(reader)
+        try:
+            headers = next(reader)
+        except StopIteration:
+            print("ERROR: CSV file is empty")
+            sys.exit(1)
+
+    if not headers or all(h.strip() == "" for h in headers):
+        print("ERROR: CSV file has no valid headers")
+        sys.exit(1)
 
     missing = [col for col in REQUIRED_COLUMNS if col not in headers]
     if missing:
