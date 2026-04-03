@@ -337,10 +337,19 @@ def parse_csv(csv_path: str) -> List[Dict[str, Any]]:
             # Compute disposition
             disposition_row["Disposition"] = compute_disposition(disposition_row)
 
-            # Deduplicate by PID: latest attempt wins
+            # Deduplicate by PID: prefer completed (Finished=TRUE/1) over incomplete.
+            # If participant retook the survey but didn't finish retake,
+            # keep the completed original (not the incomplete retake).
             if pid in rows_by_pid:
                 duplicate_count += 1
-            rows_by_pid[pid] = disposition_row
+                existing = rows_by_pid[pid]
+                existing_finished = existing["Finished"] in ("TRUE", "1")
+                new_finished = disposition_row["Finished"] in ("TRUE", "1")
+                if new_finished or not existing_finished:
+                    rows_by_pid[pid] = disposition_row
+                # else: keep existing completed response
+            else:
+                rows_by_pid[pid] = disposition_row
 
     if duplicate_count > 0:
         print(f"Dedup: {duplicate_count} duplicate PID(s) found — using latest attempt for each.")

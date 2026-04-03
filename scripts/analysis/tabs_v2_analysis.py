@@ -391,16 +391,34 @@ def filter_samples(data, idx):
     v2_all_rows = [r for r in data if r[idx['StartDate']] >= V2_START
                    or ('ResponseId' in idx and r[idx['ResponseId']] == PROLIFIC_TEST_ID)]
 
-    # Deduplicate by PROLIFIC_PID — latest row wins (same logic as tabs_v2_data_audit.py).
-    # Without dedup, retake submissions (same PID, 2 Qualtrics rows) inflate counts.
-    # E.g., Prolific shows 206 APPROVED but analysis counted 208 because 2 retakers
-    # had both their original and retake rows counted as APPROVED.
+    # Deduplicate by PROLIFIC_PID — prefer completed (Finished=TRUE/1) over incomplete.
+    # If a participant has both a completed response and an incomplete retake,
+    # keep the completed one (the retake shouldn't overwrite valid data).
+    # Among completed responses, latest row wins.
     if 'PROLIFIC_PID' in idx:
+        finished_idx_col = idx.get('Finished')
         by_pid: dict = {}
         for r in v2_all_rows:
             pid = r[idx['PROLIFIC_PID']].strip()
-            if pid:
-                by_pid[pid] = r  # latest row overwrites earlier
+            if not pid:
+                continue
+            existing = by_pid.get(pid)
+            if existing is None:
+                by_pid[pid] = r
+            else:
+                # Check if existing is finished
+                existing_finished = (
+                    finished_idx_col is not None
+                    and existing[finished_idx_col].strip().upper() in ('TRUE', '1')
+                )
+                new_finished = (
+                    finished_idx_col is not None
+                    and r[finished_idx_col].strip().upper() in ('TRUE', '1')
+                )
+                if new_finished or not existing_finished:
+                    # New row is finished, or existing wasn't — take new
+                    by_pid[pid] = r
+                # else: existing is finished but new isn't — keep existing
         v2 = list(by_pid.values())
     else:
         v2 = v2_all_rows
