@@ -244,7 +244,7 @@ const Header: React.FC = () => {
     setIsMobileTeachingResourcesOpen(false)
     setIsMobileIndividualsOpen(false)
     setIsMobileOrganizationsOpen(false)
-    setIsMobileMakingOfOpen(false)
+    setMobileOpenDropdown(null)
   }
 
   const toggleMobileTeachingPart = (partId: string) => {
@@ -1282,7 +1282,7 @@ const Header: React.FC = () => {
                           }
                           className="w-full flex items-center justify-between px-4 py-2 rounded-lg text-sm font-[600] text-gray-700 hover:bg-gray-100"
                           aria-expanded={mobileOpenDropdown === item.path}
-                          aria-controls="mobile-making-of-menu"
+                          aria-controls={`mobile-dropdown-${item.path.replace(/\//g, '-')}`}
                         >
                           <span>{item.label}</span>
                           <svg
@@ -1302,7 +1302,10 @@ const Header: React.FC = () => {
                         </button>
 
                         {mobileOpenDropdown === item.path && (
-                          <ul id="mobile-making-of-menu" className="ml-4 mt-1 space-y-1">
+                          <ul
+                            id={`mobile-dropdown-${item.path.replace(/\//g, '-')}`}
+                            className="ml-4 mt-1 space-y-1"
+                          >
                             {item.children.map((child) => (
                               <li key={child.path}>
                                 <Link
