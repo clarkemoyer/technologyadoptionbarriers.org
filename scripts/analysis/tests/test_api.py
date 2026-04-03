@@ -17,6 +17,11 @@ from tabs_api import (
     _json_request,
     _prolific_headers,
     prolific_submission_statuses,
+    prolific_bulk_approve,
+    prolific_bulk_reject,
+    prolific_send_message,
+    prolific_unreject,
+    prolific_get_submission_ids,
 )
 
 
@@ -27,6 +32,18 @@ class TestHTTPHelpers:
         headers = _prolific_headers("my_token")
         assert headers["Authorization"] == "Token my_token"
         assert "User-Agent" in headers  # Cloudflare requires non-default UA
+
+    def test_json_request_empty_body(self):
+        """Prolific write endpoints may return empty body on success."""
+        with patch("tabs_api._http", return_value=b""):
+            result = _json_request("POST", "https://example.com", {})
+        assert result == {}
+
+    def test_json_request_whitespace_body(self):
+        """Whitespace-only response treated as empty."""
+        with patch("tabs_api._http", return_value=b"  \n  "):
+            result = _json_request("POST", "https://example.com", {})
+        assert result == {}
 
 
 # ── Qualtrics export (mocked) ────────────────────────────────
@@ -165,3 +182,105 @@ class TestProlificDemographics:
         content = Path(output).read_text()
         assert "PID1" in content
         assert "Male" in content
+
+
+# ── Prolific write operations (mocked) ─────────────────────
+
+class TestProlificWriteOps:
+    def test_bulk_approve_url_and_payload(self):
+        """Verify bulk approve sends correct URL, method, and payload."""
+        calls = []
+
+        def mock_http(method, url, headers, body=None, timeout=60):
+            calls.append({"method": method, "url": url, "body": body})
+            return b"{}"  # Prolific may return empty JSON
+
+        with patch("tabs_api._http", side_effect=mock_http):
+            prolific_bulk_approve("STUDY1", ["PID_A", "PID_B"], "tok")
+
+        assert len(calls) == 1
+        assert calls[0]["method"] == "POST"
+        assert "bulk-approve" in calls[0]["url"]
+        payload = json.loads(calls[0]["body"])
+        assert payload["study_id"] == "STUDY1"
+        assert payload["participant_ids"] == ["PID_A", "PID_B"]
+
+    def test_bulk_reject_url_and_payload(self):
+        """Verify bulk reject sends correct URL, method, and payload."""
+        calls = []
+
+        def mock_http(method, url, headers, body=None, timeout=60):
+            calls.append({"method": method, "url": url, "body": body})
+            return b"{}"
+
+        with patch("tabs_api._http", side_effect=mock_http):
+            prolific_bulk_reject("STUDY2", ["PID_X"], "tok")
+
+        assert len(calls) == 1
+        assert calls[0]["method"] == "POST"
+        assert "bulk-reject" in calls[0]["url"]
+        payload = json.loads(calls[0]["body"])
+        assert payload["study_id"] == "STUDY2"
+        assert payload["participant_ids"] == ["PID_X"]
+
+    def test_send_message_url_and_payload(self):
+        """Verify message sends correct URL, method, and payload."""
+        calls = []
+
+        def mock_http(method, url, headers, body=None, timeout=60):
+            calls.append({"method": method, "url": url, "body": body})
+            return b"{}"
+
+        with patch("tabs_api._http", side_effect=mock_http):
+            prolific_send_message("S1", "PID_1", "Hello!", "tok")
+
+        assert len(calls) == 1
+        assert calls[0]["method"] == "POST"
+        assert "/messages/" in calls[0]["url"]
+        payload = json.loads(calls[0]["body"])
+        assert payload["recipient_id"] == "PID_1"
+        assert payload["body"] == "Hello!"
+        assert payload["study_id"] == "S1"
+
+    def test_unreject_url_and_payload(self):
+        """Verify unreject sends correct transition action."""
+        calls = []
+
+        def mock_http(method, url, headers, body=None, timeout=60):
+            calls.append({"method": method, "url": url, "body": body})
+            return b"{}"
+
+        with patch("tabs_api._http", side_effect=mock_http):
+            prolific_unreject("SUB_123", "tok")
+
+        assert len(calls) == 1
+        assert calls[0]["method"] == "POST"
+        assert "SUB_123/transition" in calls[0]["url"]
+        payload = json.loads(calls[0]["body"])
+        assert payload["action"] == "UNREJECT"
+
+    def test_bulk_approve_empty_response(self):
+        """Write endpoints returning empty body should succeed."""
+        with patch("tabs_api._http", return_value=b""):
+            result = prolific_bulk_approve("S1", ["P1"], "tok")
+        assert result == {}
+
+    def test_get_submission_ids(self):
+        """Verify submission ID lookup filters by participant."""
+        mock_subs = [
+            {"id": "sub1", "participant_id": "PID_A"},
+            {"id": "sub2", "participant_id": "PID_B"},
+            {"id": "sub3", "participant_id": "PID_A"},
+        ]
+        with patch("tabs_api.prolific_submissions", return_value=mock_subs):
+            result = prolific_get_submission_ids("STUDY", "PID_A", "tok")
+        assert result == ["sub1", "sub3"]
+
+    def test_get_submission_ids_not_found(self):
+        """No submissions for participant returns empty list."""
+        mock_subs = [
+            {"id": "sub1", "participant_id": "PID_B"},
+        ]
+        with patch("tabs_api.prolific_submissions", return_value=mock_subs):
+            result = prolific_get_submission_ids("STUDY", "PID_X", "tok")
+        assert result == []

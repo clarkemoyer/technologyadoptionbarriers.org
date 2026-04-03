@@ -21,7 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from tabs_api import prolific_bulk_approve
+from tabs_api import prolific_bulk_approve, prolific_study_info
 
 
 def _require_env(name: str) -> str:
@@ -30,13 +30,6 @@ def _require_env(name: str) -> str:
         print(f"Error: {name} is required", file=sys.stderr)
         sys.exit(1)
     return value
-
-
-def _env_flag(name: str, default: bool = False) -> bool:
-    value = (os.environ.get(name) or "").strip().lower()
-    if not value:
-        return default
-    return value in ("1", "true", "yes", "y", "on")
 
 
 def main():
@@ -58,7 +51,7 @@ def main():
 
     headers = rows[0]
 
-    # Detect PID column
+    # Require explicit PID column — no fallback for safety
     pid_idx = -1
     for pattern in ["PROLIFIC_PID", "participant_id", "PID"]:
         for i, h in enumerate(headers):
@@ -68,20 +61,25 @@ def main():
         if pid_idx >= 0:
             break
     if pid_idx < 0:
-        pid_idx = 0  # fallback to first column
+        print(
+            f"Error: Cannot find PID column. Expected one of: PROLIFIC_PID, participant_id, PID. "
+            f"Found headers: {headers[:10]}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
-    # Detect disposition column
+    # Require explicit Disposition column — no fallback for safety
     disp_idx = -1
     for i, h in enumerate(headers):
         if h.strip().lower() == "disposition":
             disp_idx = i
             break
     if disp_idx < 0:
-        if len(headers) > 3:
-            disp_idx = 3  # fallback to column D
-        else:
-            print("Error: Cannot detect Disposition column", file=sys.stderr)
-            sys.exit(1)
+        print(
+            f"Error: Cannot find 'Disposition' column. Found headers: {headers[:10]}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
     print(f"  PID column: '{headers[pid_idx]}' (index {pid_idx})")
     print(f"  Disposition column: '{headers[disp_idx]}' (index {disp_idx})")
@@ -113,12 +111,24 @@ def main():
         print("No participants with CLEAN disposition found. Nothing to approve.")
         return
 
+    # Verify API token and study before approving (skip in dry-run for offline use)
+    study_name = study_id
+    if not dry_run:
+        print(f"Verifying Prolific API token and study {study_id}...")
+        try:
+            study = prolific_study_info(study_id, api_token)
+            study_name = study.get("name", "UNKNOWN")
+            print(f"  Verified: {study_name} (status: {study.get('status', 'UNKNOWN')})")
+        except Exception as e:
+            print(f"Error: Failed to verify study {study_id}: {e}", file=sys.stderr)
+            sys.exit(1)
+
     # Approve
     if dry_run:
         print(f"DRY RUN — {len(clean_pids)} submissions would be approved")
         print("  (Set DRY_RUN=false to approve live)")
     else:
-        print(f"Approving {len(clean_pids)} submissions for study {study_id}...")
+        print(f"Approving {len(clean_pids)} submissions for study {study_id} ({study_name})...")
         try:
             prolific_bulk_approve(study_id, clean_pids, api_token)
             print(f"Successfully approved {len(clean_pids)} submissions")
