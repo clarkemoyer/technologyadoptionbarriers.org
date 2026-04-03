@@ -245,7 +245,7 @@ def parse_csv(csv_path: str) -> List[Dict[str, Any]]:
     rows_by_pid = {}
     duplicate_count = 0
 
-    with open(csv_path, "r", encoding="utf-8-sig") as f:
+    with open(csv_path, "r", encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f)
 
         for i, row in enumerate(reader):

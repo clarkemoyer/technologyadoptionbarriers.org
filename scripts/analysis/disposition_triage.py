@@ -67,11 +67,20 @@ def stringify_csv_value(value: object) -> str:
 
     Python str(1.0) → "1.0" but JS String(1.0) → "1". This matters for
     fields like reCAPTCHA_Score where downstream scripts may compare strings.
+
+    Also normalizes NaN/Infinity to JS spellings:
+      Python nan → JS NaN, Python inf → JS Infinity.
     """
     if value is None:
         return ""
-    if isinstance(value, float) and value.is_integer():
-        return str(int(value))
+    if isinstance(value, float):
+        import math
+        if math.isnan(value):
+            return "NaN"
+        if math.isinf(value):
+            return "Infinity" if value > 0 else "-Infinity"
+        if value.is_integer():
+            return str(int(value))
     return str(value)
 
 
@@ -133,7 +142,7 @@ REQUIRED_COLUMNS = [
 
 def verify_headers(csv_path: str) -> None:
     """Verify required columns exist in the Qualtrics CSV (replaces check-export-headers.ts)."""
-    with open(csv_path, encoding="utf-8-sig") as f:
+    with open(csv_path, encoding="utf-8-sig", newline="") as f:
         reader = csv.reader(f)
         try:
             headers = next(reader)
