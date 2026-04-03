@@ -19,6 +19,7 @@ Environment variables:
 
 import csv
 import json
+import math
 import os
 import sys
 from datetime import datetime, timedelta, timezone
@@ -184,9 +185,12 @@ def main():
     # ── 3. Build summary JSON ────────────────────────────────────
 
     def iri_rate(passes: int) -> float:
+        """Compute IRI pass rate with round-half-up to match JS toFixed(1)."""
         if finished_participants <= 0:
             return 0.0
-        return round(passes / finished_participants * 100, 1)
+        raw = passes / finished_participants * 100
+        # Use math.floor(x * 10 + 0.5) / 10 for round-half-up (matches JS toFixed)
+        return math.floor(raw * 10 + 0.5) / 10
 
     target_n = study.get("total_available_places", 0) or 0
     completed_n = status_counts.get("APPROVED", 0) + status_counts.get("AWAITING REVIEW", 0)
