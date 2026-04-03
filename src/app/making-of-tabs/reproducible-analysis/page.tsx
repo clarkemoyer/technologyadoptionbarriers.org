@@ -208,9 +208,9 @@ const ReproducibleAnalysisPage = () => {
           <h2 className={H2_CLASSES}>Sensitivity Analysis</h2>
           <p className={PARAGRAPH_CLASSES}>
             Every key statistic is computed across all sample definitions to verify that conclusions
-            do not depend on a single set of inclusion criteria. If a finding holds across Pipeline
-            CLEAN, Conservative, Relaxed, and All Finished samples, it is robust. If it shifts
-            substantially, the sensitivity analysis flags it for discussion.
+            do not depend on a single set of inclusion criteria. If a finding holds across
+            Conservative Clean, Flexible Clean, and Prolific Accepted samples, it is robust. If it
+            shifts substantially, the sensitivity analysis flags it for discussion.
           </p>
           {sensitivityData.metrics.length > 0 &&
             sensitivityData.metrics.some((m) => Object.keys(m.values).length > 0) && (
@@ -290,8 +290,9 @@ python tabs_v2_analysis.py <path_to_production_csv>
 python tabs_v2_analysis.py <csv> --json sensitivity-analysis.json
 
 # Run detailed analysis on a different primary sample
-python tabs_v2_analysis.py <csv> --primary-sample pipeline_clean
-python tabs_v2_analysis.py <csv> --primary-sample relaxed`}</pre>
+python tabs_v2_analysis.py <csv> --primary-sample conservative_clean
+python tabs_v2_analysis.py <csv> --primary-sample flexible_clean
+python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
           </div>
 
           <p className={PARAGRAPH_CLASSES}>

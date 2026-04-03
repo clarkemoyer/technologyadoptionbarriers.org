@@ -393,69 +393,66 @@ const DispositionDashboardPage = () => {
 
         {/* Clean Sample Definitions */}
         <section className="mb-12">
-          <h2 className={H2_CLASSES}>Clean Sample Definitions</h2>
+          <h2 className={H2_CLASSES}>Sample Definitions</h2>
           <p className="mb-4 text-gray-600">
-            Two related but distinct &ldquo;clean&rdquo; definitions are used across the project.
-            The difference in criteria explains why their sample sizes differ.
+            Five nested sample definitions are used across the project, grounded in Prolific
+            operational reality. The Prolific Accepted count matches the Prolific platform&rsquo;s
+            &ldquo;Approved&rdquo; tab exactly.
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm border-collapse">
               <thead>
                 <tr className="border-b-2 border-gray-200">
                   <th className="py-2 px-3 font-semibold text-gray-600">Criterion</th>
-                  <th className="py-2 px-3 font-semibold text-gray-600">
-                    Pipeline CLEAN (this dashboard)
-                  </th>
-                  <th className="py-2 px-3 font-semibold text-gray-600">
-                    Analysis &ldquo;Conservative Clean&rdquo;
-                  </th>
+                  <th className="py-2 px-3 font-semibold text-gray-600">Conservative Clean</th>
+                  <th className="py-2 px-3 font-semibold text-gray-600">Flexible Clean</th>
+                  <th className="py-2 px-3 font-semibold text-gray-600">Prolific Accepted</th>
                 </tr>
               </thead>
               <tbody className="text-gray-700">
                 <tr className="border-b border-gray-100">
+                  <td className="py-2 px-3 font-medium">Prolific APPROVED</td>
+                  <td className="py-2 px-3 text-green-700">Required</td>
+                  <td className="py-2 px-3 text-green-700">Required</td>
+                  <td className="py-2 px-3 text-green-700">Required</td>
+                </tr>
+                <tr className="border-b border-gray-100">
                   <td className="py-2 px-3 font-medium">All 3 IRIs correct</td>
                   <td className="py-2 px-3 text-green-700">Yes</td>
                   <td className="py-2 px-3 text-green-700">Yes</td>
+                  <td className="py-2 px-3 text-gray-400">Not required</td>
                 </tr>
                 <tr className="border-b border-gray-100">
                   <td className="py-2 px-3 font-medium">Minimum duration</td>
-                  <td className="py-2 px-3">&ge; 540 s (9 min, Smeal benchmark)</td>
+                  <td className="py-2 px-3">&ge; 540 s (9 min)</td>
                   <td className="py-2 px-3">&ge; 480 s (8 min)</td>
+                  <td className="py-2 px-3 text-gray-400">Any</td>
                 </tr>
                 <tr className="border-b border-gray-100">
-                  <td className="py-2 px-3 font-medium">reCAPTCHA &ge; 0.5</td>
-                  <td className="py-2 px-3 text-green-700">Yes</td>
+                  <td className="py-2 px-3 font-medium">reCAPTCHA, straightlining, auth</td>
+                  <td className="py-2 px-3 text-green-700">All checked</td>
                   <td className="py-2 px-3 text-gray-400">Not checked</td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-2 px-3 font-medium">No straightlining</td>
-                  <td className="py-2 px-3 text-green-700">Yes</td>
-                  <td className="py-2 px-3 text-gray-400">Not checked</td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-2 px-3 font-medium">No partial straightlining (SD &ge; 0.5)</td>
-                  <td className="py-2 px-3 text-green-700">Yes</td>
-                  <td className="py-2 px-3 text-gray-400">Not checked</td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-2 px-3 font-medium">Prolific auth checks (LLM/Bots)</td>
-                  <td className="py-2 px-3 text-green-700">Yes</td>
                   <td className="py-2 px-3 text-gray-400">Not checked</td>
                 </tr>
                 <tr className="border-b border-gray-100 bg-gray-50">
                   <td className="py-2 px-3 font-semibold">Used for</td>
-                  <td className="py-2 px-3">Prolific approval/rejection operations</td>
-                  <td className="py-2 px-3">CRP statistical analysis (publication-grade)</td>
+                  <td className="py-2 px-3">Primary CRP analysis</td>
+                  <td className="py-2 px-3">Sensitivity analysis</td>
+                  <td className="py-2 px-3">N ceiling (matches Prolific UI)</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <p className="mt-4 text-sm text-gray-500">
-            The pipeline CLEAN count is a strict subset of the analysis conservative clean count.
-            Responses that pass the analysis filter but not the pipeline are assigned FLAG-SMEAL,
-            FLAG-RECAPTCHA, FLAG-PARTIAL-STRAIGHTLINING, or FLAG-STRAIGHTLINING dispositions and
-            undergo manual review before Prolific approval. Many flagged responses are ultimately
-            approved after review, so the total approved count exceeds the pipeline CLEAN count.
+            Conservative Clean &sube; Flexible Clean &sube; Prolific Accepted. Responses that pass
+            the Flexible Clean filter but not Conservative Clean were flagged for duration,
+            reCAPTCHA, straightlining, or auth issues but passed IRI checks. Many flagged responses
+            are approved after manual review, so Prolific Accepted exceeds both clean samples. See
+            the{' '}
+            <Link href="/making-of-tabs/data-analysis" className="text-blue-600 hover:underline">
+              Data Analysis &amp; Quality
+            </Link>{' '}
+            page for full details.
           </p>
         </section>
 

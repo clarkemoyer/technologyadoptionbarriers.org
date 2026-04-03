@@ -72,15 +72,19 @@ Computes all descriptive and inferential statistics reported in the CRP Results 
 
 **Sample definitions** (most to least restrictive):
 
-| Sample                 | Key              | Criteria                                                                                                                                             |
-| ---------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Pipeline CLEAN**     | `pipeline_clean` | All 3 IRIs correct + duration ≥ 540s (Smeal benchmark) + reCAPTCHA ≥ 0.5 + no straightlining + no partial straightlining + Prolific auth checks pass |
-| **Conservative Clean** | `clean`          | All 3 IRIs correct + duration ≥ 480s                                                                                                                 |
-| **Relaxed**            | `relaxed`        | At least 2 of 3 IRIs correct + duration ≥ 480s                                                                                                       |
-| **All V2 Finished**    | `v2_finished`    | Finished + duration ≥ 120s (extreme speeders excluded)                                                                                               |
-| **All V2**             | `v2_all`         | All V2 responses including incomplete                                                                                                                |
+| Sample                 | Key                  | Criteria                                                                                                                                         |
+| ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Conservative Clean** | `conservative_clean` | Prolific APPROVED + ALL quality checks (IRI, duration ≥ 540s, reCAPTCHA ≥ 0.5, no straightlining, no partial straightlining, Prolific auth pass) |
+| **Flexible Clean**     | `flexible_clean`     | Prolific APPROVED + basic quality (all 3 IRIs correct + duration ≥ 480s). Includes manually-reviewed FLAG responses that passed human review     |
+| **Prolific Accepted**  | `prolific_accepted`  | ALL deduplicated V2 responses with Prolific status APPROVED (must match Prolific UI exactly)                                                     |
+| **All V2 Finished**    | `v2_finished`        | Finished + duration ≥ 120s (extreme speeders excluded)                                                                                           |
+| **All V2**             | `v2_all`             | All V2 responses including incomplete                                                                                                            |
 
-Pipeline CLEAN mirrors the live TypeScript disposition pipeline exactly. Conservative Clean is the CRP's primary analysis sample. The sensitivity analysis runs all statistics across all 5 definitions to demonstrate robustness.
+**Constraint**: Conservative Clean ⊆ Flexible Clean ⊆ Prolific Accepted ⊆ All V2 Finished ⊆ All V2
+
+Prolific Accepted must match the Prolific platform's "Approved" tab exactly. Conservative Clean is the primary analysis sample for the CRP. The sensitivity analysis runs all statistics across all 5 definitions to demonstrate robustness.
+
+**Deduplication**: When a participant retakes the survey, the completed response is preferred over an incomplete retake. Among completed responses, latest wins.
 
 **Usage**:
 
@@ -92,9 +96,9 @@ python tabs_v2_analysis.py /path/to/qualtrics_export.csv
 python tabs_v2_analysis.py /path/to/csv --json sensitivity-analysis.json
 
 # Run detailed analysis on a different primary sample
-python tabs_v2_analysis.py /path/to/csv --primary-sample pipeline_clean
-python tabs_v2_analysis.py /path/to/csv --primary-sample relaxed
-python tabs_v2_analysis.py /path/to/csv --primary-sample v2_all
+python tabs_v2_analysis.py /path/to/csv --primary-sample conservative_clean
+python tabs_v2_analysis.py /path/to/csv --primary-sample flexible_clean
+python tabs_v2_analysis.py /path/to/csv --primary-sample prolific_accepted
 ```
 
 ### 2. tabs_v2_psychometrics.py
