@@ -31,12 +31,6 @@ const fmt = (val: number | null, decimals: number = 4): string => {
 }
 
 const DescriptivePage = () => {
-  const constructs = [
-    { name: 'Barriers', meanKey: 'barrier_mean', sdKey: 'barrier_sd' },
-    { name: 'Readiness', meanKey: 'readiness_mean', sdKey: 'readiness_sd' },
-    { name: 'Maturity', meanKey: 'maturity_mean', sdKey: 'maturity_sd' },
-  ]
-
   const samples = sensitivityData.samples
 
   // Correlation values (using conservative_clean as primary)
