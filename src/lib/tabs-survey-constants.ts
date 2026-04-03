@@ -104,11 +104,10 @@ export const DURATION_THRESHOLDS = {
   smealBenchmarkMin: 300,
   smealBenchmarkMax: 540,
   /**
-   * Research analysis: minimum duration for "conservative clean" sample inclusion.
-   * This 480s (~8 min) threshold is used by scripts/analysis/ for CRP statistics.
-   * It is intentionally lower than smealBenchmarkMax (540s) used by the live
-   * disposition pipeline, where responses between 480-539s receive FLAG-SMEAL
-   * and undergo manual review before Prolific approval.
+   * Research analysis: minimum duration for "Flexible Clean" sample inclusion.
+   * This 480s (~8 min) threshold is used for Flexible Clean (Finished +
+   * Prolific APPROVED + all 3 IRIs + duration >= 480s). Conservative Clean uses smealBenchmarkMax
+   * (540s / 9 min) which also requires reCAPTCHA, straightlining, and auth checks.
    */
   cleanSample: 480,
 } as const

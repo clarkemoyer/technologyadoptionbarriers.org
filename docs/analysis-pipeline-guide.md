@@ -88,15 +88,14 @@ operations pipeline and for morning review.
 
 ## Sample Definitions
 
-> **Note**: Sample definitions are being redesigned in PR #693 to be grounded
-> in Prolific operational reality (APPROVED status). The definitions below
-> reflect the target state after that PR merges.
+> Sample definitions were redesigned in PR #693 (merged) to be grounded
+> in Prolific operational reality (APPROVED status).
 
 | #   | Sample                 | Definition                                                                                                                                         |
 | --- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1   | **Conservative Clean** | Prolific APPROVED + ALL quality checks (IRI, duration >= 540s, reCAPTCHA >= 0.5, no straightlining, no partial straightlining, Prolific auth pass) |
 | 2   | **Flexible Clean**     | Prolific APPROVED + basic quality (all 3 IRIs correct + duration >= 480s). Includes manually-reviewed FLAG responses that passed human review      |
-| 3   | **Prolific Accepted**  | V2 finished responses with Prolific status APPROVED                                                                                                |
+| 3   | **Prolific Accepted**  | ALL deduplicated V2 responses with Prolific status APPROVED (must match Prolific UI "Approved" count exactly)                                      |
 | 4   | **All V2 Finished**    | Finished + duration >= 120s (extreme speeders excluded)                                                                                            |
 | 5   | **All V2**             | All V2 responses including incomplete                                                                                                              |
 
@@ -105,6 +104,33 @@ operations pipeline and for morning review.
 The sensitivity analysis runs every statistic across all 5 definitions.
 If a finding holds across Conservative Clean and Flexible Clean, it is
 robust to inclusion criteria.
+
+## Deduplication Logic
+
+When a participant retakes the survey, the Qualtrics export contains
+multiple rows for the same PROLIFIC_PID. The deduplication logic:
+
+1. **Prefers completed responses** (Finished=TRUE/1) over incomplete retakes
+2. **Among completed responses**, latest row wins
+3. **Never discards a completed response** in favor of an incomplete retake
+
+This is critical: without it, a participant who completed the survey,
+got approved on Prolific, then started a retake but didn't finish it
+would have their completed response overwritten by the incomplete
+retake — causing Prolific Accepted to undercount by 1.
+
+## Edge Cases
+
+- **Retake dedup**: Prefer completed over incomplete (see above)
+- **Prolific Accepted = Prolific UI**: Must match exactly; any discrepancy is a pipeline bug
+- **IRI denominator**: Finished responses only (incomplete responses can't have valid IRI answers)
+- **Partial straightlining**: Within-person SD < 0.5, threshold ceil(block_count/2) items
+- **Qualtrics 3-row headers**: Row 0 = columns, rows 1-2 = metadata (skipped by csv.DictReader + `if i < 2: continue`)
+- **UTF-8 BOM**: Qualtrics exports include BOM; all CSV reads use `encoding="utf-8-sig"`
+- **Embedded newlines**: csv.reader with `newline=""` handles quoted fields containing newlines
+- **Don't Know**: Readiness and Maturity allow "Don't Know" → excluded from scoring (not mapped to numeric)
+- **Prolific Cloudflare**: Python urllib default User-Agent is blocked; custom UA required
+- **Pagination limit**: Prolific API defaults to 100 results per page; use `limit=1000`
 
 ## Scripts Reference
 
@@ -261,23 +287,36 @@ via `generate-constants-json.ts` (runs on every commit via `validate-analysis.ym
 
 ## Migration Status (#687)
 
-| Phase | What                                                 | Status               |
-| ----- | ---------------------------------------------------- | -------------------- |
-| 1     | Triage + Qualtrics export → Python                   | **Merged** (#688)    |
-| 2     | Prolific read-only + sample redesign → Python        | **In review** (#693) |
-| 3     | Reporting (dashboard, review tools) → Python         | Planned              |
-| 4     | Write operations (approve, reject, message) → Python | Planned (high risk)  |
-| 5     | Cleanup (remove TS scripts, constants bridge)        | Planned              |
+| Phase | What                                              | Status              |
+| ----- | ------------------------------------------------- | ------------------- |
+| 1     | Triage + Qualtrics export → Python                | **Merged** (#688)   |
+| 2     | Prolific read-only + sample redesign → Python     | **Merged** (#693)   |
+| 3     | Reporting (dashboard generator, approve) → Python | Branch ready        |
+| 4     | Write operations (reject, message) → Python       | Planned (high risk) |
+| 5     | Cleanup (remove TS scripts, constants bridge)     | Planned             |
+
+## Production Hotfixes Applied
+
+| Fix                                         | Issue                                | Impact                               |
+| ------------------------------------------- | ------------------------------------ | ------------------------------------ |
+| Import paths (`from tabs_api`)              | Pipeline crash on import             | Scripts couldn't find modules        |
+| User-Agent header                           | Cloudflare 403 block                 | Prolific API rejected Python urllib  |
+| DictReader skip rows                        | Qualtrics metadata parsing           | `int("Duration (in seconds)")` crash |
+| Pagination limit 100→1000                   | Only 100 of ~400 submissions fetched | N=54 instead of N=206                |
+| Dedup: prefer completed                     | Retake overwrote completed response  | N=205 instead of N=206               |
+| Prolific Accepted from v2 (not v2_finished) | INCOMPLETE+APPROVED excluded         | N=205 instead of N=206               |
 
 ## Related Issues & PRs
 
-- [#684](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pull/684) — Analysis pipeline + 5-level sensitivity analysis + 250 tests
+- [#684](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pull/684) — Analysis pipeline + sensitivity analysis + 250 tests
 - [#687](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/687) — TS → Python consolidation plan
 - [#688](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pull/688) — Phase 1: Triage + export to Python
 - [#693](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pull/693) — Phase 2: Read-only ops + sample redesign
-- [#674](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/674) — CLEAN discrepancy documentation
-- [#675](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/675) — IRI pass rate denominator fix
+- [#700](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pull/700) — Data Analysis & Quality public page
+- [#674](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/674) — CLEAN discrepancy documentation (closed)
+- [#675](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/675) — IRI pass rate denominator fix (closed)
+- [#669](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/669) — Pipeline guide (closed by #695)
 
 ---
 
-_Last updated: April 3, 2026. This guide will be updated as Phases 3-5 of #687 are completed._
+_Last updated: April 3, 2026 (post-Phase 2 merge, dedup fix, Prolific Accepted = 206 verified). Update after Phases 3-5 of #687 complete._
