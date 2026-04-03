@@ -238,9 +238,9 @@ const MakingOfTabsPage = () => {
                 textColor: 'text-amber-800',
               },
               {
-                title: 'Data Analysis',
-                href: '/making-of-tabs/data-analysis',
-                desc: 'Disposition waterfall, sample definitions, sensitivity analysis, and documented edge cases.',
+                title: 'Results & Data',
+                href: '/results',
+                desc: 'Survey results, descriptive statistics, scale reliability, sensitivity analysis, and open data.',
                 border: 'border-rose-200',
                 bg: 'bg-rose-50',
                 titleColor: 'text-rose-900',
