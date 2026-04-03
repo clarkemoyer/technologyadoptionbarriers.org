@@ -73,13 +73,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup Node.js
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
-      - name: Install dependencies
-        run: npm ci
 
       - name: Export Qualtrics responses
         run: python3 scripts/analysis/export_qualtrics.py
