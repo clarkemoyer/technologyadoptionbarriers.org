@@ -47,11 +47,11 @@ jobs:
           python-version: '3.12'
       # Node.js only needed for modes that still run TS Prolific operations
       - uses: actions/setup-node@v6
-        if: ${{ !contains(fromJSON('["demographics","find-url-replies"]'), inputs.mode) }}
+        if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies"]'), inputs.mode) }}
         with:
           node-version: '20'
           cache: 'npm'
-      - if: ${{ !contains(fromJSON('["demographics","find-url-replies"]'), inputs.mode) }}
+      - if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies"]'), inputs.mode) }}
         run: npm ci
 
       - name: Fetch Prolific demographics

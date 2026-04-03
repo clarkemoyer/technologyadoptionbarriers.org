@@ -222,7 +222,8 @@ def cmd_url_replies():
 
         try:
             msgs = prolific_user_messages(pid, token)
-        except Exception:
+        except Exception as e:
+            print(f"  Warning: failed to fetch messages for {pid}: {e}", file=sys.stderr)
             continue
 
         # Check if any researcher message contains the study URL
