@@ -126,6 +126,7 @@ async function main() {
   const dispositionByStatus: Record<string, Record<string, number>> = {}
 
   let totalParticipants = 0
+  let finishedParticipants = 0
   let iriBarrierPass = 0
   let iriReadinessPass = 0
   let iriMaturityPass = 0
@@ -150,10 +151,16 @@ async function main() {
       console.warn(`⚠️  ANOMALY: AUTO-EXCLUDE PID ${pid} is APPROVED on Prolific`)
     }
 
-    // IRI pass rates
-    if (iriBarrierIdx >= 0) iriBarrierPass += parseInt(fields[iriBarrierIdx] ?? '0', 10) || 0
-    if (iriReadinessIdx >= 0) iriReadinessPass += parseInt(fields[iriReadinessIdx] ?? '0', 10) || 0
-    if (iriMaturityIdx >= 0) iriMaturityPass += parseInt(fields[iriMaturityIdx] ?? '0', 10) || 0
+    // IRI pass rates — count only finished responses (exclude INCOMPLETE)
+    // This aligns with CRP analysis which uses V2 finished as denominator.
+    // See: https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/675
+    if (disposition !== 'INCOMPLETE') {
+      finishedParticipants++
+      if (iriBarrierIdx >= 0) iriBarrierPass += parseInt(fields[iriBarrierIdx] ?? '0', 10) || 0
+      if (iriReadinessIdx >= 0)
+        iriReadinessPass += parseInt(fields[iriReadinessIdx] ?? '0', 10) || 0
+      if (iriMaturityIdx >= 0) iriMaturityPass += parseInt(fields[iriMaturityIdx] ?? '0', 10) || 0
+    }
 
     // AUTO-EXCLUDE sub-types
     if (disposition === 'AUTO-EXCLUDE') {
@@ -204,22 +211,22 @@ async function main() {
       active: statusCounts['ACTIVE'] || 0,
       messaged: messagedPids.size,
     },
-    // IRI pass rates use ALL participants (including incomplete/excluded) as denominator.
-    // This differs from CRP analysis which uses only V2 finished responses.
-    // See: https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/675
+    // IRI pass rates use finished (non-INCOMPLETE) responses as denominator,
+    // matching the CRP analysis convention. Fixes #675.
     iriPassRates: {
       barrier:
-        totalParticipants > 0
-          ? parseFloat(((iriBarrierPass / totalParticipants) * 100).toFixed(1))
+        finishedParticipants > 0
+          ? parseFloat(((iriBarrierPass / finishedParticipants) * 100).toFixed(1))
           : 0,
       readiness:
-        totalParticipants > 0
-          ? parseFloat(((iriReadinessPass / totalParticipants) * 100).toFixed(1))
+        finishedParticipants > 0
+          ? parseFloat(((iriReadinessPass / finishedParticipants) * 100).toFixed(1))
           : 0,
       maturity:
-        totalParticipants > 0
-          ? parseFloat(((iriMaturityPass / totalParticipants) * 100).toFixed(1))
+        finishedParticipants > 0
+          ? parseFloat(((iriMaturityPass / finishedParticipants) * 100).toFixed(1))
           : 0,
+      denominator: finishedParticipants,
     },
     studyId,
     studyName: study.name || 'Technology Adoption Barriers Survey (2026 v2)',

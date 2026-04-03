@@ -1,23 +1,29 @@
 #!/usr/bin/env python3
 """
-Enrich Qualtrics CSV with Prolific auth checks, submission statuses, and demographics.
+Enrich Qualtrics CSV with Prolific auth checks, submission statuses, and,
+optionally, demographics.
 
 Merges the raw Qualtrics CSV export with:
   1. Prolific auth check scores (Auth_LLM, Auth_Bots)
   2. Prolific submission statuses (Prolific_Status)
-  3. Prolific participant demographics (age, sex, country, etc.)
+  3. Optional Prolific participant demographics (age, sex, country, etc.)
 
-The enriched CSV is used by the analysis pipeline so that Pipeline CLEAN
-filtering accurately accounts for auth-flagged responses, and demographic
-data from Prolific is available for analysis before de-identification.
+In production, the analysis pipeline uses this enrichment step for auth
+checks and submission statuses so Pipeline CLEAN filtering can account for
+auth-flagged responses. Demographics can still be merged when explicitly
+provided to this script for manual or ad hoc workflows, but they are not
+fetched/provided by the production analysis pipeline and should not be
+treated as a pipeline artifact (they contain per-participant personal data).
 
 Usage:
+    # Production (auth + statuses only):
     python enrich_qualtrics_csv.py \
         --qualtrics raw_export.csv \
         --auth-checks auth.csv \
+        --statuses statuses.json \
         --output enriched.csv
 
-    # With all Prolific data:
+    # Ad hoc (with demographics):
     python enrich_qualtrics_csv.py \
         --qualtrics raw_export.csv \
         --auth-checks auth.csv \

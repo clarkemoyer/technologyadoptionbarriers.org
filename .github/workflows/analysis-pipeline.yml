@@ -44,36 +44,38 @@ jobs:
 
       - name: Fetch auth checks
         run: |
-          python -c "
+          python - <<'PY'
           from scripts.analysis.tabs_api import prolific_auth_checks_csv
           import os
           prolific_auth_checks_csv(
               os.environ['PROLIFIC_STUDY_ID'],
               os.environ['PROLIFIC_API_TOKEN'],
-              '${{ runner.temp }}/auth-checks.csv',
+              os.environ['OUTPUT_PATH'],
           )
-          "
+          PY
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           PROLIFIC_STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/auth-checks.csv
           PYTHONPATH: ${{ github.workspace }}
 
       - name: Fetch submission statuses
         run: |
-          python -c "
+          python - <<'PY'
           from scripts.analysis.tabs_api import prolific_submission_statuses
           import os, json
           statuses = prolific_submission_statuses(
               os.environ['PROLIFIC_STUDY_ID'],
               os.environ['PROLIFIC_API_TOKEN'],
           )
-          with open('${{ runner.temp }}/statuses.json', 'w') as f:
+          with open(os.environ['OUTPUT_PATH'], 'w') as f:
               json.dump(statuses, f)
           print(f'  Statuses: {len(statuses)} submissions')
-          "
+          PY
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           PROLIFIC_STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/statuses.json
           PYTHONPATH: ${{ github.workspace }}
 
       - uses: actions/upload-artifact@v7
@@ -105,20 +107,21 @@ jobs:
       # Export Qualtrics CSV — stays on runner, never uploaded
       - name: Export Qualtrics CSV
         run: |
-          python -c "
+          python - <<'PY'
           from scripts.analysis.tabs_api import qualtrics_export_csv
           import os
           qualtrics_export_csv(
               os.environ['QUALTRICS_API_TOKEN'],
               os.environ['QUALTRICS_BASE_URL'],
               os.environ['QUALTRICS_SURVEY_ID'],
-              '${{ runner.temp }}/qualtrics-raw.csv',
+              os.environ['OUTPUT_PATH'],
           )
-          "
+          PY
         env:
           QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
           QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
           QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/qualtrics-raw.csv
           PYTHONPATH: ${{ github.workspace }}
 
       # Download Prolific data (auth checks + statuses — no PII)
@@ -204,35 +207,38 @@ jobs:
       # Summary for GitHub Actions UI
       - name: Generate summary
         if: always()
+        env:
+          SENSITIVITY_JSON: ${{ runner.temp }}/sensitivity-analysis.json
+          AUDIT_JSON: ${{ runner.temp }}/data-audit.json
         run: |
           echo "### Analysis Pipeline Results" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
 
           if [ -f "${{ runner.temp }}/sensitivity-analysis.json" ]; then
-            python -c "
-          import json
-          data = json.load(open('${{ runner.temp }}/sensitivity-analysis.json'))
-          print('#### Sample Definitions')
-          print('')
-          print('| Sample | N |')
-          print('| --- | ---: |')
-          for s in data['samples']:
-              print(f\"| {s['label']} | {s['n']} |\")
-          " >> "$GITHUB_STEP_SUMMARY"
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+import json, os
+data = json.load(open(os.environ['SENSITIVITY_JSON']))
+print('#### Sample Definitions')
+print('')
+print('| Sample | N |')
+print('| --- | ---: |')
+for s in data['samples']:
+    print(f"| {s['label']} | {s['n']} |")
+PY
           fi
 
           if [ -f "${{ runner.temp }}/data-audit.json" ]; then
             echo "" >> "$GITHUB_STEP_SUMMARY"
             echo "#### Disposition Waterfall" >> "$GITHUB_STEP_SUMMARY"
-            python -c "
-          import json
-          data = json.load(open('${{ runner.temp }}/data-audit.json'))
-          print('')
-          print('| Disposition | Count |')
-          print('| --- | ---: |')
-          for d, c in sorted(data.get('disposition_counts', {}).items(), key=lambda x: -x[1]):
-              print(f'| {d} | {c} |')
-          " >> "$GITHUB_STEP_SUMMARY"
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+import json, os
+data = json.load(open(os.environ['AUDIT_JSON']))
+print('')
+print('| Disposition | Count |')
+print('| --- | ---: |')
+for d, c in sorted(data.get('disposition_counts', {}).items(), key=lambda x: -x[1]):
+    print(f'| {d} | {c} |')
+PY
           fi
 
       # Upload analysis outputs for website (JSON only — no PII)
