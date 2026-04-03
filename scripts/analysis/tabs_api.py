@@ -184,14 +184,15 @@ def _prolific_paginate(url: str, headers: Dict[str, str]) -> List[Dict]:
 def prolific_list_studies(api_token: str) -> List[Dict]:
     """List all studies (follows pagination)."""
     headers = _prolific_headers(api_token)
-    url = f"{_PROLIFIC_BASE}/studies/?limit=100"
+    url = f"{_PROLIFIC_BASE}/studies/?limit=1000"
     return _prolific_paginate(url, headers)
 
 
 def prolific_submissions(study_id: str, api_token: str) -> List[Dict]:
     """List all submissions for a study."""
     headers = _prolific_headers(api_token)
-    url = f"{_PROLIFIC_BASE}/studies/{study_id}/submissions/?limit=100"
+    # Use limit=1000 to minimize pagination (most studies have <1000 submissions)
+    url = f"{_PROLIFIC_BASE}/studies/{study_id}/submissions/?limit=1000"
     return _prolific_paginate(url, headers)
 
 
