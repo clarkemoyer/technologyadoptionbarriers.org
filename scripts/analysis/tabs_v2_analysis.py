@@ -483,7 +483,7 @@ def print_disposition(v2, samples, idx):
     SAMPLE_LABELS = [
         ("conservative_clean", "Conservative Clean", "APPROVED + all checks (IRI, dur>=540s, reCAPTCHA, straightlining, auth)"),
         ("flexible_clean", "Flexible Clean", "APPROVED + basic quality (all 3 IRIs + dur>=480s)"),
-        ("prolific_accepted", "Prolific Accepted", "All deduplicated V2 responses with Prolific APPROVED status (matches Prolific UI exactly)"),
+        ("prolific_accepted", "Prolific Accepted", "All deduplicated V2 rows with Prolific APPROVED status"),
         ("v2_finished", "All V2 Finished", "Finished + duration >= 120s"),
         ("v2_all", "All V2", "All V2 responses (including incomplete)"),
     ]
@@ -804,7 +804,7 @@ def sensitivity_to_json(cuts, idx):
         },
         "Prolific Accepted": {
             "key": "prolific_accepted",
-            "description": "All deduplicated V2 responses with Prolific APPROVED status (matches Prolific UI exactly)",
+            "description": "All deduplicated V2 rows with Prolific APPROVED status",
         },
         "All V2 Finished": {
             "key": "v2_finished",

@@ -509,6 +509,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/making-of-tabs/data-analysis`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/making-of-tabs/ai-validity-checks`,
       lastModified: now,
       changeFrequency: 'monthly',
