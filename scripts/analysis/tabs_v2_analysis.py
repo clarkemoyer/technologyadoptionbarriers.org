@@ -409,8 +409,11 @@ def filter_samples(data, idx):
                    and get_duration(r, idx) is not None
                    and get_duration(r, idx) >= MIN_DURATION_ALL]
 
-    # Prolific Accepted = finished responses with APPROVED status
-    prolific_accepted = [r for r in v2_finished if _get_prolific_status(r, idx) == 'APPROVED']
+    # Prolific Accepted = ALL deduplicated V2 responses with Prolific APPROVED status.
+    # Must match the Prolific UI "Approved" count exactly (currently 206).
+    # Includes incomplete/short responses — Prolific approved them, so they count.
+    # Clean samples apply quality filters on top of this.
+    prolific_accepted = [r for r in v2 if _get_prolific_status(r, idx) == 'APPROVED']
 
     # Flexible Clean = APPROVED + basic quality (all 3 IRIs + duration >= 480s)
     flexible_clean = [r for r in prolific_accepted
