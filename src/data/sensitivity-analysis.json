@@ -16,19 +16,19 @@
       "key": "prolific_accepted",
       "label": "Prolific Accepted",
       "description": "V2 finished (finished + dur>=120s) with Prolific APPROVED status",
-      "n": 205
+      "n": 206
     },
     {
       "key": "v2_finished",
       "label": "All V2 Finished",
       "description": "Finished + duration >= 120s (extreme speeders excluded)",
-      "n": 327
+      "n": 330
     },
     {
       "key": "v2_all",
       "label": "All V2",
       "description": "All V2 responses including incomplete",
-      "n": 385
+      "n": 386
     }
   ],
   "metrics": [
@@ -38,9 +38,9 @@
       "values": {
         "conservative_clean": 2.7995,
         "flexible_clean": 2.7854,
-        "prolific_accepted": 2.7602,
-        "v2_finished": 2.7283,
-        "v2_all": 2.7326
+        "prolific_accepted": 2.7627,
+        "v2_finished": 2.7293,
+        "v2_all": 2.7357
       }
     },
     {
@@ -49,9 +49,9 @@
       "values": {
         "conservative_clean": 0.633,
         "flexible_clean": 0.694,
-        "prolific_accepted": 0.7077,
-        "v2_finished": 0.7706,
-        "v2_all": 0.7748
+        "prolific_accepted": 0.7069,
+        "v2_finished": 0.7701,
+        "v2_all": 0.7744
       }
     },
     {
@@ -60,9 +60,9 @@
       "values": {
         "conservative_clean": 3.0674,
         "flexible_clean": 3.1096,
-        "prolific_accepted": 3.1658,
-        "v2_finished": 3.2579,
-        "v2_all": 3.2579
+        "prolific_accepted": 3.1598,
+        "v2_finished": 3.2589,
+        "v2_all": 3.259
       }
     },
     {
@@ -71,9 +71,9 @@
       "values": {
         "conservative_clean": 0.5864,
         "flexible_clean": 0.6457,
-        "prolific_accepted": 0.6636,
-        "v2_finished": 0.7195,
-        "v2_all": 0.7184
+        "prolific_accepted": 0.6674,
+        "v2_finished": 0.7254,
+        "v2_all": 0.7243
       }
     },
     {
@@ -82,9 +82,9 @@
       "values": {
         "conservative_clean": 3.0252,
         "flexible_clean": 3.0594,
-        "prolific_accepted": 3.1648,
-        "v2_finished": 3.2746,
-        "v2_all": 3.2746
+        "prolific_accepted": 3.1555,
+        "v2_finished": 3.2721,
+        "v2_all": 3.2721
       }
     },
     {
@@ -93,9 +93,9 @@
       "values": {
         "conservative_clean": 0.7242,
         "flexible_clean": 0.7936,
-        "prolific_accepted": 0.8007,
-        "v2_finished": 0.7967,
-        "v2_all": 0.7967
+        "prolific_accepted": 0.8098,
+        "v2_finished": 0.8051,
+        "v2_all": 0.8051
       }
     },
     {
@@ -104,9 +104,9 @@
       "values": {
         "conservative_clean": -0.5154,
         "flexible_clean": -0.4392,
-        "prolific_accepted": -0.344,
-        "v2_finished": -0.3142,
-        "v2_all": -0.3139
+        "prolific_accepted": -0.3473,
+        "v2_finished": -0.3207,
+        "v2_all": -0.3204
       }
     },
     {
@@ -115,9 +115,9 @@
       "values": {
         "conservative_clean": -0.2689,
         "flexible_clean": -0.2891,
-        "prolific_accepted": -0.2712,
-        "v2_finished": -0.2777,
-        "v2_all": -0.2777
+        "prolific_accepted": -0.2756,
+        "v2_finished": -0.2853,
+        "v2_all": -0.2853
       }
     },
     {
@@ -126,9 +126,9 @@
       "values": {
         "conservative_clean": 0.6141,
         "flexible_clean": 0.6881,
-        "prolific_accepted": 0.694,
-        "v2_finished": 0.7355,
-        "v2_all": 0.7355
+        "prolific_accepted": 0.7,
+        "v2_finished": 0.7416,
+        "v2_all": 0.7416
       }
     },
     {
@@ -137,9 +137,9 @@
       "values": {
         "conservative_clean": 0.8612,
         "flexible_clean": 0.8709,
-        "prolific_accepted": 0.8764,
-        "v2_finished": 0.9019,
-        "v2_all": 0.9035
+        "prolific_accepted": 0.8758,
+        "v2_finished": 0.9018,
+        "v2_all": 0.9034
       }
     },
     {
@@ -148,9 +148,9 @@
       "values": {
         "conservative_clean": 0.8772,
         "flexible_clean": 0.9141,
-        "prolific_accepted": 0.9197,
-        "v2_finished": 0.9332,
-        "v2_all": 0.9332
+        "prolific_accepted": 0.9204,
+        "v2_finished": 0.9342,
+        "v2_all": 0.9342
       }
     },
     {
@@ -159,9 +159,9 @@
       "values": {
         "conservative_clean": 0.8436,
         "flexible_clean": 0.8828,
-        "prolific_accepted": 0.8875,
-        "v2_finished": 0.8894,
-        "v2_all": 0.8894
+        "prolific_accepted": 0.8907,
+        "v2_finished": 0.8923,
+        "v2_all": 0.8923
       }
     }
   ]
