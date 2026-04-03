@@ -15,8 +15,7 @@ export const metadata: Metadata = {
 const ResultsPage = () => {
   const conservativeN =
     sensitivityData.samples.find((s) => s.key === 'conservative_clean')?.n ?? '—'
-  const prolificN =
-    sensitivityData.samples.find((s) => s.key === 'prolific_accepted')?.n ?? '—'
+  const prolificN = sensitivityData.samples.find((s) => s.key === 'prolific_accepted')?.n ?? '—'
   const totalN = sensitivityData.samples.find((s) => s.key === 'v2_all')?.n ?? '—'
 
   const alphaBarriers =
@@ -194,9 +193,7 @@ const ResultsPage = () => {
             <p className="text-gray-700 italic">
               Moyer, C. ({new Date().getFullYear()}). Technology Adoption Barriers Survey (TABS):
               Survey results and open data.{' '}
-              <span className="not-italic">
-                https://technologyadoptionbarriers.org/results
-              </span>
+              <span className="not-italic">https://technologyadoptionbarriers.org/results</span>
             </p>
           </div>
         </section>
