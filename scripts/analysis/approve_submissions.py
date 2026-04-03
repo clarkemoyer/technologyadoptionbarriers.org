@@ -59,6 +59,17 @@ def _write_step_summary(
         f.write("\n".join(lines))
 
 
+def _append_failure_summary(message: str) -> None:
+    """Append a failure section to the GitHub Actions step summary."""
+    summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not summary_file:
+        return
+    with open(summary_file, "a", encoding="utf-8") as f:
+        f.write("\n## Result\n\n")
+        f.write("- **Status:** FAILURE\n")
+        f.write(f"- **Message:** {message}\n")
+
+
 def main():
     api_token = _require_env("PROLIFIC_API_TOKEN")
     study_id = _require_env("STUDY_ID")
@@ -139,30 +150,30 @@ def main():
 
     # Verify API token and study before approving (skip in dry-run for offline use)
     study_name = study_id
-    if not dry_run:
-        print(f"Verifying Prolific API token and study {study_id}...")
-        try:
+    approved = 0
+    try:
+        if not dry_run:
+            print(f"Verifying Prolific API token and study {study_id}...")
             study = prolific_study_info(study_id, api_token)
             study_name = study.get("name", "UNKNOWN")
             print(f"  Verified: {study_name} (status: {study.get('status', 'UNKNOWN')})")
-        except Exception as e:
-            print(f"Error: Failed to verify study {study_id}: {e}", file=sys.stderr)
-            sys.exit(1)
 
-    # Approve
-    if dry_run:
-        print(f"DRY RUN — {len(clean_pids)} submissions would be approved")
-        print("  (Set DRY_RUN=false to approve live)")
-    else:
-        print(f"Approving {len(clean_pids)} submissions for study {study_id} ({study_name})...")
-        try:
+        # Approve
+        if dry_run:
+            print(f"DRY RUN — {len(clean_pids)} submissions would be approved")
+            print("  (Set DRY_RUN=false to approve live)")
+        else:
+            print(f"Approving {len(clean_pids)} submissions for study {study_id} ({study_name})...")
             prolific_bulk_approve(study_id, clean_pids, api_token)
-            print(f"Successfully approved {len(clean_pids)} submissions")
-        except Exception as e:
-            print(f"Error approving submissions: {e}", file=sys.stderr)
-            sys.exit(1)
+            approved = len(clean_pids)
+            print(f"Successfully approved {approved} submissions")
+    except Exception as e:
+        error_msg = f"Failed to process approvals for study {study_id}: {e}"
+        print(f"Error: {error_msg}", file=sys.stderr)
+        _write_step_summary(study_id, dry_run, total_data_rows, len(clean_pids), skipped, approved)
+        _append_failure_summary(error_msg)
+        sys.exit(1)
 
-    approved = 0 if dry_run else len(clean_pids)
     _write_step_summary(study_id, dry_run, total_data_rows, len(clean_pids), skipped, approved)
 
     print("\nDone")
