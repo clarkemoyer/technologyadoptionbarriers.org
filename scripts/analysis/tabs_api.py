@@ -240,6 +240,49 @@ def prolific_submission_statuses(study_id: str, api_token: str) -> Dict[str, str
     }
 
 
+def prolific_recent_messages(
+    since: str, api_token: str, study_id: Optional[str] = None
+) -> List[Dict]:
+    """Fetch recent messages, optionally filtered to a study.
+
+    Args:
+        since: ISO 8601 timestamp (e.g. '2026-03-01T00:00:00Z')
+        api_token: Prolific API token
+        study_id: If provided, filter to messages for this study
+    """
+    headers = _prolific_headers(api_token)
+    url = f"{_PROLIFIC_BASE}/messages/?created_after={since}"
+    messages = _prolific_paginate(url, headers)
+    if study_id:
+        messages = [m for m in messages if m.get("data", {}).get("study_id") == study_id]
+    return messages
+
+
+def prolific_user_messages(user_id: str, api_token: str) -> List[Dict]:
+    """Fetch all messages for a specific user/participant."""
+    headers = _prolific_headers(api_token)
+    url = f"{_PROLIFIC_BASE}/messages/?user_id={user_id}"
+    return _prolific_paginate(url, headers)
+
+
+def prolific_study_info(study_id: str, api_token: str) -> Dict:
+    """Fetch study metadata."""
+    headers = _prolific_headers(api_token)
+    url = f"{_PROLIFIC_BASE}/studies/{study_id}/"
+    return _json_request("GET", url, headers)
+
+
+def qualtrics_survey_questions(
+    api_token: str, base_url: str, survey_id: str
+) -> Dict:
+    """Fetch survey questions/definition from Qualtrics API."""
+    base = base_url.rstrip("/")
+    headers = {"X-API-TOKEN": api_token}
+    url = f"{base}/API/v3/survey-definitions/{survey_id}"
+    resp = _json_request("GET", url, headers)
+    return resp.get("result", {})
+
+
 # ---------------------------------------------------------------------------
 # CLI for testing
 # ---------------------------------------------------------------------------

@@ -53,14 +53,14 @@ jobs:
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
-        run: npx --no-install tsx scripts/fetch-prolific-demographics.ts --sample 5
+        run: python3 scripts/analysis/prolific_tools.py collect
 
       - name: Find URL replies
         if: inputs.mode == 'find-url-replies'
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
-        run: npx --no-install tsx scripts/find-url-reply.ts
+        run: python3 scripts/analysis/prolific_tools.py url-replies
 
       - name: Search messages
         if: inputs.mode == 'search-messages'
@@ -186,14 +186,14 @@ jobs:
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
-        run: npx --no-install tsx scripts/check-all-messages.ts
+        run: python3 scripts/analysis/prolific_tools.py messages
 
       - name: List replied PIDs awaiting review
         if: inputs.mode == 'all-replies'
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
-        run: npx --no-install tsx scripts/list-replied-pids.ts
+        run: python3 scripts/analysis/prolific_tools.py replied-pids
 
       - name: Prolific submission status summary
         if: inputs.mode == 'all-replies'
