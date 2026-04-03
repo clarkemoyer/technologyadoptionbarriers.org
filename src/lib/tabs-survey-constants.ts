@@ -105,8 +105,8 @@ export const DURATION_THRESHOLDS = {
   smealBenchmarkMax: 540,
   /**
    * Research analysis: minimum duration for "Flexible Clean" sample inclusion.
-   * This 480s (~8 min) threshold is used for Flexible Clean (Prolific APPROVED +
-   * all 3 IRIs + duration >= 480s). Conservative Clean uses smealBenchmarkMax
+   * This 480s (~8 min) threshold is used for Flexible Clean (Finished +
+   * Prolific APPROVED + all 3 IRIs + duration >= 480s). Conservative Clean uses smealBenchmarkMax
    * (540s / 9 min) which also requires reCAPTCHA, straightlining, and auth checks.
    */
   cleanSample: 480,

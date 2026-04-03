@@ -395,9 +395,13 @@ const DispositionDashboardPage = () => {
         <section className="mb-12">
           <h2 className={H2_CLASSES}>Sample Definitions</h2>
           <p className="mb-4 text-gray-600">
-            Five nested sample definitions are used across the project, grounded in Prolific
-            operational reality. The Prolific Accepted count matches the Prolific platform&rsquo;s
-            &ldquo;Approved&rdquo; tab exactly.
+            Three key sample definitions are compared here, grounded in Prolific operational
+            reality. The Prolific Accepted count matches the Prolific platform&rsquo;s
+            &ldquo;Approved&rdquo; tab exactly. See the{' '}
+            <Link href="/making-of-tabs/data-analysis" className="text-blue-600 hover:underline">
+              Data Analysis &amp; Quality
+            </Link>{' '}
+            page for all five sample definitions.
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm border-collapse">

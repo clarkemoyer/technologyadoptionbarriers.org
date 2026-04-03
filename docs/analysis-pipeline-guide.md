@@ -88,9 +88,8 @@ operations pipeline and for morning review.
 
 ## Sample Definitions
 
-> **Note**: Sample definitions are being redesigned in PR #693 to be grounded
-> in Prolific operational reality (APPROVED status). The definitions below
-> reflect the target state after that PR merges.
+> Sample definitions were redesigned in PR #693 (merged) to be grounded
+> in Prolific operational reality (APPROVED status).
 
 | #   | Sample                 | Definition                                                                                                                                         |
 | --- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
