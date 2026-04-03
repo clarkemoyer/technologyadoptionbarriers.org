@@ -166,8 +166,12 @@ def _prolific_paginate(url: str, headers: Dict[str, str]) -> List[Dict]:
     while url:
         resp = _json_request("GET", url, headers)
         results.extend(resp.get("results", []))
-        # Support both top-level 'next' and 'meta.next' pagination shapes
-        url = resp.get("next") or resp.get("meta", {}).get("next")
+        # Support both top-level 'next' and 'meta.next' pagination shapes.
+        # Normalize meta to dict to handle meta: null gracefully.
+        meta = resp.get("meta")
+        if not isinstance(meta, dict):
+            meta = {}
+        url = resp.get("next") or meta.get("next")
     return results
 
 

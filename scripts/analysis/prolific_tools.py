@@ -14,11 +14,11 @@ Replaces:
 Usage:
   python prolific_tools.py <command>
 
-Migration note:
-  The TS scripts listed above remain in scripts/ during the Phase 2-5
-  migration (#687). Workflows have been switched to this Python CLI.
-  TS scripts will be removed in Phase 5 (cleanup) after production
-  validation. This is a workflow switch-over, not a TS script deletion.
+Note:
+  This PR switches workflows from the TS scripts to this Python CLI.
+  The TS scripts are not deleted in this PR — they remain in scripts/
+  as a rollback path. They will be removed in Phase 5 (#687) after
+  production validation confirms the Python replacements work correctly.
 
 Commands:
   collect          List studies or print submission status breakdown

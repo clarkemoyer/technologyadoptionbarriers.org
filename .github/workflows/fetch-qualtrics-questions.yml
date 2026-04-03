@@ -49,7 +49,24 @@ jobs:
           python-version: '3.12'
 
       - name: Fetch Questions
-        run: python3 scripts/analysis/prolific_tools.py questions
+        run: |
+          set -euo pipefail
+          python3 scripts/analysis/prolific_tools.py questions | tee qualtrics-questions-output.txt
+
+      - name: Add questions summary
+        if: success()
+        run: |
+          {
+            echo "## Fetch Qualtrics Questions"
+            echo
+            echo "- Survey ID: \`${QUALTRICS_SURVEY_ID}\`"
+            echo
+            echo "### Command output"
+            echo
+            echo '```text'
+            cat qualtrics-questions-output.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Add failure summary
         if: failure()
