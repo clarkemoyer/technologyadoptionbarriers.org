@@ -174,9 +174,32 @@ def enrich(
 
     print(f"Enriched {data_rows} rows → {output_path}")
     if auth_data:
-        print(f"  Auth checks matched: {auth_hits}/{data_rows}")
+        print(f"  Auth checks: {len(auth_data)} PIDs in source, {auth_hits}/{data_rows} matched")
     if status_data:
-        print(f"  Statuses matched: {status_hits}/{data_rows}")
+        print(f"  Statuses: {len(status_data)} PIDs in source, {status_hits}/{data_rows} matched")
+        # Diagnostic: show sample PIDs from each source to debug matching issues
+        csv_pids = set()
+        for row in all_rows[3:]:
+            if pid_idx < len(row):
+                p = row[pid_idx].strip()
+                if p:
+                    csv_pids.add(p)
+        status_pids = set(status_data.keys())
+        matched = csv_pids & status_pids
+        csv_only = csv_pids - status_pids
+        status_only = status_pids - csv_pids
+        print(f"  PID overlap: {len(matched)} matched, {len(csv_only)} CSV-only, {len(status_only)} status-only")
+        if csv_only:
+            sample = list(csv_only)[:3]
+            print(f"  Sample CSV-only PIDs: {sample}")
+        if status_only:
+            sample = list(status_only)[:3]
+            print(f"  Sample status-only PIDs: {sample}")
+        # Check APPROVED count in status data
+        approved_count = sum(1 for v in status_data.values() if v == "APPROVED")
+        print(f"  APPROVED in status data: {approved_count}")
+        matched_approved = sum(1 for pid in matched if status_data.get(pid) == "APPROVED")
+        print(f"  APPROVED matched to CSV: {matched_approved}")
     if demo_data:
         print(f"  Demographics matched: {demo_hits}/{data_rows} ({len(demo_cols)} columns)")
 
