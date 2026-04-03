@@ -63,13 +63,18 @@ def main():
     sent = 0
     skipped = 0
     skipped_not_approved = 0
+    not_found = 0
     failed = 0
 
     for pid in pids:
         try:
-            # Only send thank-you to APPROVED submissions
+            # Require explicit APPROVED status — skip if missing or non-APPROVED
             status = status_map.get(pid)
-            if status and status != "APPROVED":
+            if not status:
+                not_found += 1
+                print(f"  SKIP {pid} — not found in study submissions")
+                continue
+            if status != "APPROVED":
                 skipped_not_approved += 1
                 print(f"  SKIP {pid} — status is {status} (not APPROVED)")
                 continue
@@ -99,7 +104,7 @@ def main():
 
     print()
     print(
-        f"SENT: {sent} | SKIPPED (not approved): {skipped_not_approved} "
+        f"SENT: {sent} | NOT FOUND: {not_found} | SKIPPED (not approved): {skipped_not_approved} "
         f"| SKIPPED (already sent): {skipped} | FAILED: {failed}"
     )
 

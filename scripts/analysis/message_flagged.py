@@ -431,13 +431,18 @@ def main():
         sent = 0
         failed = 0
         skipped_actioned = 0
+        skipped_not_found = 0
         skipped_messaged = 0
 
         for r in filtered:
             try:
-                # Check submission status
+                # Check submission status — require known status
                 sub_status = status_map.get(r["pid"])
-                if sub_status and sub_status in SKIP_STATUSES:
+                if not sub_status:
+                    skipped_not_found += 1
+                    print(f"  SKIPPED {r['pid']} — not found in study submissions")
+                    continue
+                if sub_status in SKIP_STATUSES:
                     skipped_actioned += 1
                     print(f"  SKIPPED {r['pid']} — submission is {sub_status}")
                     continue
@@ -470,7 +475,8 @@ def main():
 
         print()
         print(
-            f"SENT: {sent} | SKIPPED (already actioned): {skipped_actioned} "
+            f"SENT: {sent} | NOT FOUND: {skipped_not_found} "
+            f"| SKIPPED (already actioned): {skipped_actioned} "
             f"| SKIPPED (already messaged): {skipped_messaged} | FAILED: {failed}"
         )
 

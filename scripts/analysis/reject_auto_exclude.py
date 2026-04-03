@@ -220,12 +220,14 @@ def main():
         print(f"    Message: {r['message']}")
         print()
 
-    # ── Verify API ──
-    print("Verifying Prolific API connection...")
-    study = prolific_study_info(study_id, api_token)
-    study_name = study.get("name", "UNKNOWN")
-    print(f"Study: {study_name} (status: {study.get('status', 'UNKNOWN')})")
-    print()
+    # ── Verify API (live mode only — dry run stays offline-safe) ──
+    study_name = study_id
+    if not dry_run:
+        print("Verifying Prolific API connection...")
+        study = prolific_study_info(study_id, api_token)
+        study_name = study.get("name", "UNKNOWN")
+        print(f"Study: {study_name} (status: {study.get('status', 'UNKNOWN')})")
+        print()
 
     # ── Execute or dry run ──
     if dry_run:

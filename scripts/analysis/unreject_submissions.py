@@ -57,6 +57,7 @@ def main():
         }
 
     unrejected = 0
+    would_unreject = 0
     skipped = 0
     not_found = 0
     failed = 0
@@ -74,7 +75,7 @@ def main():
 
         if dry_run:
             print(f"  DRY RUN: would unreject {pid} (submission {sub['id']})")
-            unrejected += 1
+            would_unreject += 1
         else:
             try:
                 prolific_unreject(sub["id"], api_token)
@@ -84,10 +85,16 @@ def main():
                 failed += 1
 
     print()
-    print(
-        f"UNREJECTED: {unrejected} | SKIPPED: {skipped} "
-        f"| NOT FOUND: {not_found} | FAILED: {failed}"
-    )
+    if dry_run:
+        print(
+            f"WOULD UNREJECT: {would_unreject} | SKIPPED: {skipped} "
+            f"| NOT FOUND: {not_found}"
+        )
+    else:
+        print(
+            f"UNREJECTED: {unrejected} | SKIPPED: {skipped} "
+            f"| NOT FOUND: {not_found} | FAILED: {failed}"
+        )
 
 
 if __name__ == "__main__":
