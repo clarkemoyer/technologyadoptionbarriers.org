@@ -156,12 +156,18 @@ def _prolific_headers(api_token: str) -> Dict[str, str]:
 
 
 def _prolific_paginate(url: str, headers: Dict[str, str]) -> List[Dict]:
-    """Fetch all pages from a Prolific paginated endpoint."""
+    """Fetch all pages from a Prolific paginated endpoint.
+
+    Supports both pagination shapes:
+      - Top-level: {"results": [...], "next": "url"}
+      - Meta-wrapped: {"results": [...], "meta": {"next": "url"}}
+    """
     results = []
     while url:
         resp = _json_request("GET", url, headers)
         results.extend(resp.get("results", []))
-        url = resp.get("next")
+        # Support both top-level 'next' and 'meta.next' pagination shapes
+        url = resp.get("next") or resp.get("meta", {}).get("next")
     return results
 
 
@@ -283,12 +289,28 @@ def prolific_study_info(study_id: str, api_token: str) -> Dict:
 def qualtrics_survey_questions(
     api_token: str, base_url: str, survey_id: str
 ) -> Dict:
-    """Fetch survey questions/definition from Qualtrics API."""
+    """Fetch survey questions from the Qualtrics API.
+
+    Uses the /questions sub-endpoint for parity with the TS client.
+    Normalizes both possible response shapes (elements list or Questions dict).
+    """
     base = base_url.rstrip("/")
     headers = {"X-API-TOKEN": api_token}
-    url = f"{base}/API/v3/survey-definitions/{survey_id}"
+    url = f"{base}/API/v3/survey-definitions/{survey_id}/questions"
     resp = _json_request("GET", url, headers)
-    return resp.get("result", {})
+    result = resp.get("result", {})
+
+    if isinstance(result, dict):
+        # Paginated shape: {"elements": [...]}
+        elements = result.get("elements")
+        if isinstance(elements, list):
+            return {q.get("QuestionID", f"Q{i}"): q for i, q in enumerate(elements)}
+        # Direct shape: {"Questions": {"QID1": {...}, ...}}
+        questions = result.get("Questions")
+        if isinstance(questions, dict):
+            return questions
+        return result
+    return {}
 
 
 # ---------------------------------------------------------------------------

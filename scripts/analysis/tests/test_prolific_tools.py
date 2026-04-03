@@ -20,6 +20,46 @@ from tabs_api import (
 
 # ── API functions ────────────────────────────────────────────
 
+class TestProlificPagination:
+    """Test _prolific_paginate follows both 'next' and 'meta.next' shapes."""
+
+    def test_top_level_next(self):
+        from tabs_api import _prolific_paginate
+        pages = [
+            {"results": [{"id": 1}], "next": "https://api.prolific.com/page2"},
+            {"results": [{"id": 2}], "next": None},
+        ]
+        call_idx = [0]
+        def mock_json(method, url, headers):
+            r = pages[call_idx[0]]
+            call_idx[0] += 1
+            return r
+        with patch("tabs_api._json_request", side_effect=mock_json):
+            result = _prolific_paginate("https://api.prolific.com/page1", {})
+        assert len(result) == 2
+
+    def test_meta_next(self):
+        from tabs_api import _prolific_paginate
+        pages = [
+            {"results": [{"id": 1}], "meta": {"next": "https://api.prolific.com/page2"}},
+            {"results": [{"id": 2}], "meta": {"next": None}},
+        ]
+        call_idx = [0]
+        def mock_json(method, url, headers):
+            r = pages[call_idx[0]]
+            call_idx[0] += 1
+            return r
+        with patch("tabs_api._json_request", side_effect=mock_json):
+            result = _prolific_paginate("https://api.prolific.com/page1", {})
+        assert len(result) == 2
+
+    def test_no_next_stops(self):
+        from tabs_api import _prolific_paginate
+        with patch("tabs_api._json_request", return_value={"results": [{"id": 1}]}):
+            result = _prolific_paginate("https://api.prolific.com/page1", {})
+        assert len(result) == 1
+
+
 class TestProlificMessages:
     def test_recent_messages(self):
         mock_msgs = [
@@ -52,9 +92,9 @@ class TestProlificStudyInfo:
 
 
 class TestQualtricsQuestions:
-    def test_questions(self):
+    def test_questions_dict_shape(self):
+        """Test Questions dict response shape."""
         mock_resp = {"result": {
-            "SurveyName": "TABS V2",
             "Questions": {
                 "QID1": {"QuestionText": "Rate barriers", "QuestionType": "MC"},
                 "QID2": {"QuestionText": "Rate readiness", "QuestionType": "MC"},
@@ -62,8 +102,21 @@ class TestQualtricsQuestions:
         }}
         with patch("tabs_api._json_request", return_value=mock_resp):
             result = qualtrics_survey_questions("token", "https://q.example.com", "SV_1")
-            assert result["SurveyName"] == "TABS V2"
-            assert len(result["Questions"]) == 2
+            assert len(result) == 2
+            assert "QID1" in result
+
+    def test_questions_elements_shape(self):
+        """Test paginated elements list response shape."""
+        mock_resp = {"result": {
+            "elements": [
+                {"QuestionID": "QID1", "QuestionText": "Rate barriers", "QuestionType": "MC"},
+                {"QuestionID": "QID2", "QuestionText": "Rate readiness", "QuestionType": "MC"},
+            ]
+        }}
+        with patch("tabs_api._json_request", return_value=mock_resp):
+            result = qualtrics_survey_questions("token", "https://q.example.com", "SV_1")
+            assert len(result) == 2
+            assert "QID1" in result
 
 
 # ── CLI commands ─────────────────────────────────────────────

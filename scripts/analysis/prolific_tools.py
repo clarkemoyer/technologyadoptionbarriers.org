@@ -3,34 +3,40 @@
 Prolific read-only utilities — Python replacements for TS scripts.
 
 Replaces:
-  - collect-prolific-data.ts     → prolific_collect
-  - fetch-prolific-auth-checks.ts → (already in tabs_api.py)
-  - fetch-prolific-demographics.ts → (already in tabs_api.py)
-  - check-all-messages.ts        → prolific_all_messages
-  - check-participant-messages.ts → prolific_participant_messages
-  - find-url-reply.ts            → prolific_find_url_replies
-  - list-replied-pids.ts         → prolific_replied_pids
-  - fetch-qualtrics-questions.ts  → qualtrics_questions
+  - collect-prolific-data.ts     → collect (list studies or print submission status breakdown)
+  - fetch-prolific-demographics.ts → demographics (fetch demographics CSV, requires OUTPUT_PATH)
+  - check-all-messages.ts        → messages (conversations where participant replied, 7-day window)
+  - check-participant-messages.ts → participant-msgs (all messages for a single PID)
+  - find-url-reply.ts            → url-replies (participants who replied after receiving study URL)
+  - list-replied-pids.ts         → replied-pids (PIDs awaiting review who replied, with PID_LIST)
+  - fetch-qualtrics-questions.ts  → questions (fetch Qualtrics survey definition)
 
 Usage:
-  python prolific_tools.py <command> [options]
+  python prolific_tools.py <command>
+
+Deprecation note:
+  The TS scripts listed above still exist in scripts/ during migration but
+  are superseded. Workflows now call this Python CLI. See issue #687 for
+  the full migration plan.
 
 Commands:
-  collect          List studies or export submissions for a study
+  collect          List studies or print submission status breakdown
   demographics     Fetch Prolific demographics CSV (requires OUTPUT_PATH)
-  messages         Show recent messages grouped by participant
+  messages         Show conversations where participant replied (7-day window)
   participant-msgs Show messages for a specific participant (PID=...)
-  url-replies      Find participants who replied with URLs
-  replied-pids     List PIDs who replied to messages
+  url-replies      Find participants who replied after receiving study URL
+  replied-pids     List replied PIDs awaiting review (emits PID_LIST for copy/paste)
   questions        Fetch Qualtrics survey questions
 
 Environment:
   PROLIFIC_API_TOKEN, STUDY_ID (for Prolific commands)
+  RESEARCHER_ID (optional, defaults to known researcher ID)
   QUALTRICS_API_TOKEN, QUALTRICS_BASE_URL, QUALTRICS_SURVEY_ID (for questions)
 """
 
 import json
 import os
+import re
 import sys
 from collections import defaultdict
 from datetime import datetime, timedelta
@@ -49,6 +55,8 @@ from tabs_api import (
     qualtrics_survey_questions,
 )
 
+RESEARCHER_ID = os.environ.get("RESEARCHER_ID", "68264cbfdeb62546fe6060fe")
+
 
 def _require_env(name: str) -> str:
     """Return a required environment variable or exit with a clear error."""
@@ -62,7 +70,7 @@ def _require_env(name: str) -> str:
 # ── collect ──────────────────────────────────────────────────
 
 def cmd_collect():
-    """List studies or export submissions (replaces collect-prolific-data.ts)."""
+    """List studies or print submission status breakdown."""
     token = _require_env("PROLIFIC_API_TOKEN")
     study_id = os.environ.get("STUDY_ID", "")
 
@@ -73,16 +81,13 @@ def cmd_collect():
             print(f"  {s.get('id', '?')}  {s.get('name', '?')[:60]}  status={s.get('status', '?')}")
         return
 
-    # Get study info
     study = prolific_study_info(study_id, token)
     print(f"Study: {study.get('name', study_id)}")
     print(f"Status: {study.get('status', '?')}")
 
-    # Get submissions
     subs = prolific_submissions(study_id, token)
     print(f"Submissions: {len(subs)}")
 
-    # Count by status
     status_counts: dict[str, int] = {}
     for sub in subs:
         st = sub.get("status", "UNKNOWN")
@@ -96,7 +101,7 @@ def cmd_collect():
 # ── demographics ─────────────────────────────────────────────
 
 def cmd_demographics():
-    """Fetch Prolific demographics CSV (replaces fetch-prolific-demographics.ts)."""
+    """Fetch Prolific demographics CSV (requires OUTPUT_PATH)."""
     token = _require_env("PROLIFIC_API_TOKEN")
     study_id = _require_env("STUDY_ID")
     output_path = os.environ.get("OUTPUT_PATH")
@@ -115,136 +120,195 @@ def cmd_demographics():
         sys.exit(1)
 
 
-# ── messages ─────────────────────────────────────────────────
+# ── messages (matches check-all-messages.ts) ─────────────────
 
 def cmd_messages():
-    """Show recent messages grouped by participant (replaces check-all-messages.ts)."""
+    """Show conversations where participant replied (7-day window).
+
+    Matches check-all-messages.ts: filters to channels with participant
+    replies, shows status and time taken, uses 7-day window.
+    """
     token = _require_env("PROLIFIC_API_TOKEN")
     study_id = _require_env("STUDY_ID")
 
-    since = (datetime.utcnow() - timedelta(days=30)).isoformat() + "Z"
+    since = (datetime.utcnow() - timedelta(days=7)).isoformat() + "Z"
     messages = prolific_recent_messages(since, token, study_id)
 
-    # Group by channel_id (conversation)
+    subs = prolific_submissions(study_id, token)
+    sub_map = {s.get("participant_id", ""): s for s in subs}
+
+    # Group by channel
     by_channel: dict[str, list] = defaultdict(list)
     for msg in messages:
         channel = msg.get("channel_id", "unknown")
         by_channel[channel].append(msg)
 
-    print(f"Messages in last 30 days: {len(messages)}")
-    print(f"Conversations: {len(by_channel)}\n")
-
     for channel, msgs in sorted(by_channel.items()):
-        print(f"--- Channel {channel} ({len(msgs)} messages) ---")
-        for msg in sorted(msgs, key=lambda m: m.get("created_at", "")):
-            sender = msg.get("sender_id", "?")
-            body = msg.get("body", "")[:100]
-            created = msg.get("created_at", "?")[:19]
-            print(f"  [{created}] {sender}: {body}")
+        # Only show channels where a participant replied
+        participant_msgs = [m for m in msgs if m.get("sender_id") != RESEARCHER_ID]
+        if not participant_msgs:
+            continue
+
+        pid = participant_msgs[0].get("sender_id", "?")
+        sub = sub_map.get(pid, {})
+        status = sub.get("status", "UNKNOWN")
+        time_taken = sub.get("time_taken")
+        time_str = f"{time_taken / 60:.1f} min" if time_taken else "N/A"
+
+        print("=" * 40)
+        print(f"PID: {pid}")
+        print(f"Status: {status}")
+        print(f"Time taken: {time_str}")
+        print(f"Messages: {len(msgs)} ({len(participant_msgs)} from participant)")
+        print()
+
+        show_bodies = os.environ.get("SHOW_BODIES", "").lower() in ("1", "true", "yes")
+        msgs.sort(key=lambda m: m.get("sent_at", m.get("id", "")))
+        for m in msgs:
+            who = "RESEARCHER" if m.get("sender_id") == RESEARCHER_ID else "PARTICIPANT"
+            ts = (m.get("sent_at") or m.get("created_at", ""))[:19]
+            if show_bodies:
+                body = (m.get("body", "") or "").replace("\n", " ")[:300]
+                print(f"  [{ts}] [{who}] {body}")
+            else:
+                print(f"  [{ts}] [{who}] ({len(m.get('body', '') or '')} chars)")
         print()
 
 
 # ── participant-msgs ─────────────────────────────────────────
 
 def cmd_participant_messages():
-    """Show messages for a specific participant (replaces check-participant-messages.ts)."""
+    """Show messages for a specific participant."""
     token = _require_env("PROLIFIC_API_TOKEN")
     pid = os.environ.get("PID", "")
     if not pid:
-        print("ERROR: PID environment variable required")
+        print("Error: PID environment variable required", file=sys.stderr)
         sys.exit(1)
 
     messages = prolific_user_messages(pid, token)
     print(f"Messages for {pid}: {len(messages)}\n")
 
-    for msg in sorted(messages, key=lambda m: m.get("created_at", "")):
+    show_bodies = os.environ.get("SHOW_BODIES", "").lower() in ("1", "true", "yes")
+    for msg in sorted(messages, key=lambda m: m.get("sent_at", m.get("created_at", ""))):
         sender = msg.get("sender_id", "?")
-        body = msg.get("body", "")
-        created = msg.get("created_at", "?")[:19]
-        print(f"[{created}] {sender}:")
-        print(f"  {body}\n")
+        ts = (msg.get("sent_at") or msg.get("created_at", "?"))[:19]
+        if show_bodies:
+            body = msg.get("body", "")
+            print(f"[{ts}] {sender}:")
+            print(f"  {body}\n")
+        else:
+            body_len = len(msg.get("body", "") or "")
+            print(f"[{ts}] {sender}: ({body_len} chars — set SHOW_BODIES=1 to display)")
 
 
-# ── url-replies ──────────────────────────────────────────────
+# ── url-replies (matches find-url-reply.ts) ──────────────────
 
 def cmd_url_replies():
-    """Find participants who replied with URLs (replaces find-url-reply.ts)."""
-    import re
+    """Find participants who replied after receiving study URL.
+
+    Matches find-url-reply.ts: for each submission, checks per-participant
+    message history for (1) researcher message containing the study domain,
+    then (2) any participant reply after that.
+    """
     token = _require_env("PROLIFIC_API_TOKEN")
     study_id = _require_env("STUDY_ID")
 
     subs = prolific_submissions(study_id, token)
-    pid_to_status = {s.get("participant_id", ""): s.get("status", "") for s in subs}
 
-    since = (datetime.utcnow() - timedelta(days=30)).isoformat() + "Z"
-    messages = prolific_recent_messages(since, token, study_id)
+    for sub in subs:
+        pid = sub.get("participant_id", "")
+        if not pid:
+            continue
 
-    url_pattern = re.compile(r"https?://\S+", re.IGNORECASE)
-    found = []
-    for msg in messages:
-        body = msg.get("body", "")
-        if url_pattern.search(body):
-            sender = msg.get("sender_id", "?")
-            found.append({
-                "sender": sender,
-                "status": pid_to_status.get(sender, "?"),
-                "url": url_pattern.search(body).group(),
-                "body": body[:200],
-            })
+        try:
+            msgs = prolific_user_messages(pid, token)
+        except Exception:
+            continue
 
-    print(f"Messages containing URLs: {len(found)}\n")
-    for f in found:
-        print(f"  PID: {f['sender']} ({f['status']})")
-        print(f"  URL: {f['url']}")
-        print(f"  Body: {f['body'][:100]}\n")
+        # Check if any researcher message contains the study URL
+        has_url = any(
+            m.get("sender_id") == RESEARCHER_ID
+            and m.get("body")
+            and "technologyadoptionbarriers.org" in m.get("body", "")
+            for m in msgs
+        )
+        if not has_url:
+            continue
+
+        # Check if participant replied
+        participant_msgs = [m for m in msgs if m.get("sender_id") != RESEARCHER_ID]
+        if not participant_msgs:
+            continue
+
+        status = sub.get("status", "?")
+        time_taken = sub.get("time_taken", 0) or 0
+        print(f"=== {pid} | {status} | {time_taken / 60:.1f} min ===")
+        for m in participant_msgs:
+            body = (m.get("body", "") or "")[:250]
+            print(f"  [PARTICIPANT] {body}")
+        print()
 
 
-# ── replied-pids ─────────────────────────────────────────────
+# ── replied-pids (matches list-replied-pids.ts) ──────────────
 
 def cmd_replied_pids():
-    """List PIDs who replied to messages (replaces list-replied-pids.ts)."""
+    """List replied PIDs awaiting review with PID_LIST for copy/paste.
+
+    Matches list-replied-pids.ts: 7-day window, filters participant replies,
+    separates AWAITING REVIEW from already-actioned, emits PID_LIST.
+    """
     token = _require_env("PROLIFIC_API_TOKEN")
     study_id = _require_env("STUDY_ID")
-    researcher_id = os.environ.get("RESEARCHER_ID", "68264cbfdeb62546fe6060fe")
 
     since = (datetime.utcnow() - timedelta(days=7)).isoformat() + "Z"
     messages = prolific_recent_messages(since, token, study_id)
 
-    # Find messages NOT from the researcher (= participant replies)
-    participant_replies = [m for m in messages if m.get("sender_id") != researcher_id]
-
-    replied_pids = set()
-    for msg in participant_replies:
-        replied_pids.add(msg.get("sender_id", ""))
-
-    replied_pids.discard("")
-
     subs = prolific_submissions(study_id, token)
-    pid_to_status = {s.get("participant_id", ""): s.get("status", "") for s in subs}
+    sub_map = {s.get("participant_id", ""): s for s in subs}
 
-    print(f"Participants who replied (last 7 days): {len(replied_pids)}\n")
+    # Find unique PIDs who replied (sender != researcher)
+    replied_pids = set()
+    for msg in messages:
+        sender = msg.get("sender_id", "")
+        if sender and sender != RESEARCHER_ID:
+            replied_pids.add(sender)
+
+    # Categorize by status
+    awaiting_review = []
+    other_status = []
     for pid in sorted(replied_pids):
-        print(f"  {pid}  ({pid_to_status.get(pid, 'unknown')})")
+        sub = sub_map.get(pid, {})
+        status = sub.get("status", "UNKNOWN")
+        time_taken = sub.get("time_taken", 0) or 0
+        if status == "AWAITING REVIEW":
+            awaiting_review.append(pid)
+            print(f"APPROVE: {pid} ({time_taken / 60:.1f} min)")
+        else:
+            other_status.append(pid)
+            print(f"SKIP: {pid} — already {status}")
+
+    print()
+    print(f"Total replied: {len(replied_pids)}")
+    print(f"Awaiting review (to approve): {len(awaiting_review)}")
+    print(f"Already actioned: {len(other_status)}")
+    print()
+    print(f"PID_LIST={','.join(awaiting_review)}")
 
 
 # ── questions ────────────────────────────────────────────────
 
 def cmd_questions():
-    """Fetch Qualtrics survey questions (replaces fetch-qualtrics-questions.ts)."""
+    """Fetch Qualtrics survey questions."""
     token = _require_env("QUALTRICS_API_TOKEN")
     base_url = _require_env("QUALTRICS_BASE_URL")
     survey_id = _require_env("QUALTRICS_SURVEY_ID")
 
-    definition = qualtrics_survey_questions(token, base_url, survey_id)
-    questions = definition.get("Questions", {})
+    questions = qualtrics_survey_questions(token, base_url, survey_id)
 
-    print(f"Survey: {definition.get('SurveyName', survey_id)}")
     print(f"Questions: {len(questions)}\n")
 
     for qid, q in sorted(questions.items()):
         text = q.get("QuestionText", "")
-        # Strip HTML tags
-        import re
         text = re.sub(r"<[^>]+>", "", text)[:80]
         qtype = q.get("QuestionType", "?")
         print(f"  {qid}: [{qtype}] {text}")
