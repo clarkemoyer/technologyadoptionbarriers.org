@@ -133,7 +133,7 @@ def main():
 
     if not clean_pids:
         print("No participants with CLEAN disposition found. Nothing to approve.")
-        _write_step_summary(study_id, dry_run=True, total_data_rows=total_data_rows,
+        _write_step_summary(study_id, dry_run=dry_run, total_data_rows=total_data_rows,
                             clean_count=0, skipped=skipped, approved=0)
         return
 
