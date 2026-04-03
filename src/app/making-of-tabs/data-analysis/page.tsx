@@ -244,8 +244,10 @@ const DataAnalysisPage = () => {
             </table>
           </div>
           <p className="text-sm text-gray-500">
-            Constraint: Conservative Clean &sube; Flexible Clean &sube; Prolific Accepted &sube; All
-            V2 Finished &sube; All V2
+            Constraints: Conservative Clean &sube; Flexible Clean &sube; Prolific Accepted &sube;
+            All V2, and All V2 Finished &sube; All V2. Prolific Accepted and All V2 Finished overlap
+            but neither is guaranteed to be a subset of the other (Prolific Accepted includes
+            INCOMPLETE+APPROVED responses; All V2 Finished includes non-APPROVED responses).
           </p>
         </section>
 
