@@ -323,9 +323,9 @@ jobs:
               return
             fi
 
-            # Fall back to checking page content for JS redirect or link
+            # Fall back to checking for redirect stub marker + expected path
             page_html=$(curl -sL --max-time 15 "$old_url" 2>/dev/null || echo "")
-            if echo "$page_html" | grep -q "$expected_path"; then
+            if echo "$page_html" | grep -q "has moved to.*$expected_path"; then
               echo "| $label | ✅ Stub page → $expected_path |" >> /tmp/redirect-results.txt
             else
               echo "| $label | ❌ → ${final_url:-timeout} (expected $expected_path) |" >> /tmp/redirect-results.txt
