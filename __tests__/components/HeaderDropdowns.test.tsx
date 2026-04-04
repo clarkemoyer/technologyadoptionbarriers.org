@@ -230,6 +230,31 @@ describe('Header mobile dropdown independence', () => {
     expect(makingButton).toHaveAttribute('aria-expanded', 'true')
     expect(resultsButton).toHaveAttribute('aria-expanded', 'false')
   })
+
+  it('mobile dropdown buttons reference unique existing submenus via aria-controls', () => {
+    render(<Header />)
+    openMobileMenu()
+
+    const resultsButton = getMobileDropdownButton(/results/i)
+    const makingButton = getMobileDropdownButton(/the making of tabs/i)
+
+    const resultsControls = resultsButton.getAttribute('aria-controls')
+    const makingControls = makingButton.getAttribute('aria-controls')
+
+    expect(resultsControls).toBeTruthy()
+    expect(makingControls).toBeTruthy()
+    expect(resultsControls).not.toBe(makingControls)
+
+    fireEvent.click(resultsButton)
+    expect(resultsButton).toHaveAttribute('aria-expanded', 'true')
+    const resultsSubmenu = document.getElementById(resultsControls as string)
+    expect(resultsSubmenu).toBeInTheDocument()
+
+    fireEvent.click(makingButton)
+    expect(makingButton).toHaveAttribute('aria-expanded', 'true')
+    const makingSubmenu = document.getElementById(makingControls as string)
+    expect(makingSubmenu).toBeInTheDocument()
+  })
 })
 
 // --- Accessibility Tests ---
