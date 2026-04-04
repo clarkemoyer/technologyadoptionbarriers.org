@@ -166,6 +166,7 @@ def main():
             current_statuses = prolific_submission_statuses(study_id, api_token)
 
             pids_to_approve = []
+            non_approvable = 0
             for pid in clean_pids:
                 status = current_statuses.get(pid, "UNKNOWN")
                 if status == "APPROVED":
@@ -174,10 +175,13 @@ def main():
                     pids_to_approve.append(pid)
                 else:
                     # RETURNED, TIMED-OUT, REJECTED, etc. — cannot approve
+                    non_approvable += 1
                     print(f"  Warning: CLEAN PID {pid} has Prolific status '{status}' — cannot approve")
 
             print(f"  Already APPROVED: {already_approved}")
             print(f"  AWAITING REVIEW (will approve): {len(pids_to_approve)}")
+            if non_approvable:
+                print(f"  Non-approvable (RETURNED/REJECTED/etc.): {non_approvable}")
             print()
         else:
             pids_to_approve = clean_pids
