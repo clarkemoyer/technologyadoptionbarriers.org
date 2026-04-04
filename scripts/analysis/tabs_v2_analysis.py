@@ -208,6 +208,146 @@ def kurtosis_excess(vals):
     return k4 - 3 * (n - 1) ** 2 / ((n - 2) * (n - 3))
 
 
+def welch_t_test(g1, g2):
+    """Welch's t-test for independent samples with unequal variances.
+
+    Returns (t_statistic, p_value, degrees_of_freedom) or (None, None, None)
+    if either group has fewer than 2 observations.
+    Uses the Welch-Satterthwaite approximation for degrees of freedom
+    and a two-tailed p-value from the t-distribution.
+    """
+    g1 = [v for v in g1 if v is not None]
+    g2 = [v for v in g2 if v is not None]
+    n1, n2 = len(g1), len(g2)
+    if n1 < 2 or n2 < 2:
+        return (None, None, None)
+    m1 = sum(g1) / n1
+    m2 = sum(g2) / n2
+    s1_sq = sum((x - m1) ** 2 for x in g1) / (n1 - 1)
+    s2_sq = sum((x - m2) ** 2 for x in g2) / (n2 - 1)
+    se = math.sqrt(s1_sq / n1 + s2_sq / n2)
+    if se == 0:
+        return (None, None, None)
+    t_stat = (m1 - m2) / se
+    # Welch-Satterthwaite degrees of freedom
+    num = (s1_sq / n1 + s2_sq / n2) ** 2
+    denom = (s1_sq / n1) ** 2 / (n1 - 1) + (s2_sq / n2) ** 2 / (n2 - 1)
+    if denom == 0:
+        return (None, None, None)
+    df = num / denom
+    p = _t_cdf_two_tailed(abs(t_stat), df)
+    return (t_stat, p, df)
+
+
+def _t_cdf_two_tailed(t_abs, df):
+    """Approximate two-tailed p-value for Student's t-distribution.
+
+    Uses the regularized incomplete beta function relationship:
+    p = I_{df/(df+t^2)}(df/2, 1/2) which is equivalent to
+    2 * (1 - CDF(|t|, df)).
+    """
+    x = df / (df + t_abs ** 2)
+    p = _regularized_incomplete_beta(x, df / 2.0, 0.5)
+    return max(0.0, min(1.0, p))
+
+
+def _regularized_incomplete_beta(x, a, b, max_iter=200, tol=1e-12):
+    """Regularized incomplete beta function I_x(a, b) via continued fraction.
+
+    Implements the Lentz algorithm for the continued fraction expansion
+    of the incomplete beta function.
+    """
+    if x <= 0:
+        return 0.0
+    if x >= 1:
+        return 1.0
+    # Use the log-beta for numerical stability
+    ln_prefix = _ln_beta_prefix(x, a, b)
+    # Continued fraction (modified Lentz's method)
+    f = 1e-30
+    c = 1e-30
+    d = 1.0 - (a + b) * x / (a + 1.0)
+    if abs(d) < 1e-30:
+        d = 1e-30
+    d = 1.0 / d
+    f = d
+    for m in range(1, max_iter + 1):
+        # Even step
+        num = m * (b - m) * x / ((a + 2 * m - 1) * (a + 2 * m))
+        d = 1.0 + num * d
+        if abs(d) < 1e-30:
+            d = 1e-30
+        c = 1.0 + num / c
+        if abs(c) < 1e-30:
+            c = 1e-30
+        d = 1.0 / d
+        f *= d * c
+        # Odd step
+        num = -(a + m) * (a + b + m) * x / ((a + 2 * m) * (a + 2 * m + 1))
+        d = 1.0 + num * d
+        if abs(d) < 1e-30:
+            d = 1e-30
+        c = 1.0 + num / c
+        if abs(c) < 1e-30:
+            c = 1e-30
+        d = 1.0 / d
+        delta = d * c
+        f *= delta
+        if abs(delta - 1.0) < tol:
+            break
+    return max(0.0, min(1.0, math.exp(ln_prefix) * f / a))
+
+
+def _ln_beta_prefix(x, a, b):
+    """Log of x^a * (1-x)^b / B(a, b)."""
+    return a * math.log(x) + b * math.log(1 - x) - _ln_beta(a, b)
+
+
+def _ln_beta(a, b):
+    """Log of the beta function B(a, b) = Gamma(a)*Gamma(b)/Gamma(a+b)."""
+    return math.lgamma(a) + math.lgamma(b) - math.lgamma(a + b)
+
+
+def oneway_anova(*groups):
+    """One-way ANOVA F-test for 2+ independent groups.
+
+    Returns (f_statistic, p_value, df_between, df_within) or
+    (None, None, None, None) if insufficient data.
+    """
+    groups = [[v for v in g if v is not None] for g in groups]
+    groups = [g for g in groups if len(g) >= 1]
+    k = len(groups)
+    if k < 2:
+        return (None, None, None, None)
+    ns = [len(g) for g in groups]
+    N = sum(ns)
+    if N <= k:
+        return (None, None, None, None)
+    grand_mean = sum(sum(g) for g in groups) / N
+    ss_between = sum(n * (sum(g) / n - grand_mean) ** 2 for g, n in zip(groups, ns))
+    ss_within = sum(sum((x - sum(g) / n) ** 2 for x in g) for g, n in zip(groups, ns))
+    df_b = k - 1
+    df_w = N - k
+    if df_w <= 0 or ss_within == 0:
+        return (None, None, None, None)
+    ms_b = ss_between / df_b
+    ms_w = ss_within / df_w
+    f_stat = ms_b / ms_w
+    p = _f_cdf_right(f_stat, df_b, df_w)
+    return (f_stat, p, df_b, df_w)
+
+
+def _f_cdf_right(f_val, df1, df2):
+    """Right-tail p-value for F-distribution: P(F > f_val).
+
+    Uses the relationship between F-distribution and incomplete beta function.
+    """
+    if f_val <= 0:
+        return 1.0
+    x = df2 / (df2 + df1 * f_val)
+    return _regularized_incomplete_beta(x, df2 / 2.0, df1 / 2.0)
+
+
 # ─────────────────────────────────────────────────────────────
 # Data helpers
 # ─────────────────────────────────────────────────────────────
@@ -987,6 +1127,105 @@ def sensitivity_to_json(cuts, idx):
 
         return groups
 
+    # ── Inferential statistics per sample ──
+    def inferential_for(rows):
+        """Compute inferential statistics: t-tests and ANOVA per sample."""
+        if not rows:
+            return {}
+        result_inf = {}
+
+        # 1. Welch's t-tests: Tech vs Non-Tech per construct
+        tech = [r for r in rows if get_role(r, idx) in TECH_TITLES]
+        nontech = [r for r in rows if get_role(r, idx) in NONTECH_TITLES]
+        t_tests = {}
+        for label, cols, sc in [("barriers", BARRIER_COLS, BARRIER_SCALE),
+                                 ("readiness", READINESS_COLS, READINESS_SCALE),
+                                 ("maturity", MATURITY_COLS, MATURITY_SCALE)]:
+            t_vals = person_means(tech, cols, sc, idx)
+            nt_vals = person_means(nontech, cols, sc, idx)
+            t_stat, p_val, df = welch_t_test(t_vals, nt_vals)
+            t_tests[label] = {
+                "t": round(t_stat, 4) if t_stat is not None else None,
+                "p": round(p_val, 4) if p_val is not None else None,
+                "df": round(df, 2) if df is not None else None,
+                "sig": p_val is not None and p_val < 0.05,
+            }
+        result_inf["t_tests_tech_vs_nontech"] = {
+            "tech_n": len(tech), "nontech_n": len(nontech),
+            "constructs": t_tests,
+        }
+
+        # 2. Welch's t-tests: Large vs Small/Medium orgs per construct
+        large = [r for r in rows if r[idx['Q4_OrgSize']].strip() in LARGE_ORG_SIZES]
+        smmed = [r for r in rows if r[idx['Q4_OrgSize']].strip() not in LARGE_ORG_SIZES]
+        t_tests_org = {}
+        for label, cols, sc in [("barriers", BARRIER_COLS, BARRIER_SCALE),
+                                 ("readiness", READINESS_COLS, READINESS_SCALE),
+                                 ("maturity", MATURITY_COLS, MATURITY_SCALE)]:
+            l_vals = person_means(large, cols, sc, idx)
+            s_vals = person_means(smmed, cols, sc, idx)
+            t_stat, p_val, df = welch_t_test(l_vals, s_vals)
+            t_tests_org[label] = {
+                "t": round(t_stat, 4) if t_stat is not None else None,
+                "p": round(p_val, 4) if p_val is not None else None,
+                "df": round(df, 2) if df is not None else None,
+                "sig": p_val is not None and p_val < 0.05,
+            }
+        result_inf["t_tests_large_vs_small"] = {
+            "large_n": len(large), "small_medium_n": len(smmed),
+            "constructs": t_tests_org,
+        }
+
+        # 3. One-way ANOVA: by Role (Tech / Non-Tech / Other)
+        other = [r for r in rows if get_role(r, idx) == 'Other']
+        anova_role = {}
+        for label, cols, sc in [("barriers", BARRIER_COLS, BARRIER_SCALE),
+                                 ("readiness", READINESS_COLS, READINESS_SCALE),
+                                 ("maturity", MATURITY_COLS, MATURITY_SCALE)]:
+            g1 = person_means(tech, cols, sc, idx)
+            g2 = person_means(nontech, cols, sc, idx)
+            g3 = person_means(other, cols, sc, idx)
+            f_stat, p_val, df_b, df_w = oneway_anova(g1, g2, g3)
+            anova_role[label] = {
+                "f": round(f_stat, 4) if f_stat is not None else None,
+                "p": round(p_val, 4) if p_val is not None else None,
+                "df_between": df_b,
+                "df_within": df_w,
+                "sig": p_val is not None and p_val < 0.05,
+            }
+        result_inf["anova_by_role"] = {
+            "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
+            "group_ns": [len(tech), len(nontech), len(other)],
+            "constructs": anova_role,
+        }
+
+        # 4. One-way ANOVA: by Org Size (Small / Medium / Large)
+        small_orgs = [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('<100', '100-499')]
+        med_orgs = [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('500-999', '1000-4999')]
+        large_orgs = [r for r in rows if r[idx['Q4_OrgSize']].strip() in LARGE_ORG_SIZES]
+        anova_org = {}
+        for label, cols, sc in [("barriers", BARRIER_COLS, BARRIER_SCALE),
+                                 ("readiness", READINESS_COLS, READINESS_SCALE),
+                                 ("maturity", MATURITY_COLS, MATURITY_SCALE)]:
+            g1 = person_means(small_orgs, cols, sc, idx)
+            g2 = person_means(med_orgs, cols, sc, idx)
+            g3 = person_means(large_orgs, cols, sc, idx)
+            f_stat, p_val, df_b, df_w = oneway_anova(g1, g2, g3)
+            anova_org[label] = {
+                "f": round(f_stat, 4) if f_stat is not None else None,
+                "p": round(p_val, 4) if p_val is not None else None,
+                "df_between": df_b,
+                "df_within": df_w,
+                "sig": p_val is not None and p_val < 0.05,
+            }
+        result_inf["anova_by_org_size"] = {
+            "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+            "group_ns": [len(small_orgs), len(med_orgs), len(large_orgs)],
+            "constructs": anova_org,
+        }
+
+        return result_inf
+
     # Build per-sample detail blocks
     result["sample_details"] = {}
     for sample_label, rows in cuts:
@@ -995,6 +1234,7 @@ def sensitivity_to_json(cuts, idx):
             "demographics": demographics_for(rows),
             "effect_sizes": effect_sizes_for(rows),
             "cross_tabs": cross_tabs_for(rows),
+            "inferential": inferential_for(rows),
         }
 
     return result

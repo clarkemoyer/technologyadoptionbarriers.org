@@ -380,6 +380,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/results/dataset-comparison`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/results/survey-stats`,
       lastModified: now,
       changeFrequency: 'weekly',

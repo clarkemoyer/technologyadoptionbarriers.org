@@ -30,6 +30,8 @@ from tabs_v2_analysis import (
     load_data,
     filter_samples,
     sensitivity_to_json,
+    welch_t_test,
+    oneway_anova,
     BARRIER_SCALE,
     READINESS_SCALE,
     MATURITY_SCALE,
@@ -324,3 +326,127 @@ class TestSensitivityJSON:
             assert "key" in metric
             assert "values" in metric
             assert isinstance(metric["values"], dict)
+
+    def test_sample_details_structure(self, test_data_csv):
+        """sample_details must contain demographics, effect_sizes, cross_tabs, and inferential per group."""
+        idx, data = load_data(test_data_csv)
+        _, samples = filter_samples(data, idx)
+
+        cuts = [
+            ("Conservative Clean", samples["conservative_clean"]),
+            ("Flexible Clean", samples["flexible_clean"]),
+            ("All V2", samples["v2_all"]),
+        ]
+        result = sensitivity_to_json(cuts, idx)
+
+        assert "sample_details" in result
+        # One detail block per sample cut
+        assert len(result["sample_details"]) == 3
+
+        for key, details in result["sample_details"].items():
+            # All four sections present
+            assert "demographics" in details, f"missing demographics for {key}"
+            assert "effect_sizes" in details, f"missing effect_sizes for {key}"
+            assert "cross_tabs" in details, f"missing cross_tabs for {key}"
+            assert "inferential" in details, f"missing inferential for {key}"
+
+            # Demographics has required sub-keys
+            demo = details["demographics"]
+            assert "roles" in demo
+            assert "org_sizes" in demo
+            assert "profit_models" in demo
+            assert "tech_vs_nontech" in demo
+
+            # Effect sizes has required structure
+            if details["effect_sizes"]:
+                es = details["effect_sizes"]
+                assert "tech_vs_nontech" in es
+                assert "large_vs_small" in es
+                assert "constructs" in es["tech_vs_nontech"]
+
+            # Cross-tabs has required structure
+            if details["cross_tabs"]:
+                ct = details["cross_tabs"]
+                assert "by_role" in ct
+                assert "by_org_size" in ct
+
+            # Inferential has required structure
+            if details["inferential"]:
+                inf = details["inferential"]
+                assert "t_tests_tech_vs_nontech" in inf
+                assert "t_tests_large_vs_small" in inf
+                assert "anova_by_role" in inf
+                assert "anova_by_org_size" in inf
+
+                # t-test structure
+                for t_key in ["t_tests_tech_vs_nontech", "t_tests_large_vs_small"]:
+                    assert "constructs" in inf[t_key]
+                    for construct in inf[t_key]["constructs"].values():
+                        assert "t" in construct
+                        assert "p" in construct
+                        assert "df" in construct
+                        assert "sig" in construct
+
+                # ANOVA structure
+                for a_key in ["anova_by_role", "anova_by_org_size"]:
+                    assert "groups" in inf[a_key]
+                    assert "group_ns" in inf[a_key]
+                    assert "constructs" in inf[a_key]
+                    for construct in inf[a_key]["constructs"].values():
+                        assert "f" in construct
+                        assert "p" in construct
+                        assert "sig" in construct
+
+
+# ── welch_t_test ────────────────────────────────────────────
+
+class TestWelchTTest:
+    def test_equal_groups(self):
+        g1 = [1.0, 2.0, 3.0, 4.0, 5.0]
+        g2 = [1.0, 2.0, 3.0, 4.0, 5.0]
+        t, p, df = welch_t_test(g1, g2)
+        assert t == pytest.approx(0.0, abs=1e-6)
+        assert p == pytest.approx(1.0, abs=0.01)
+
+    def test_different_groups(self):
+        g1 = [10.0, 11.0, 12.0, 13.0, 14.0]
+        g2 = [1.0, 2.0, 3.0, 4.0, 5.0]
+        t, p, df = welch_t_test(g1, g2)
+        assert t > 0
+        assert p < 0.01  # clearly significant
+
+    def test_insufficient_data(self):
+        t, p, df = welch_t_test([1.0], [2.0, 3.0])
+        assert t is None
+        assert p is None
+
+    def test_filters_none(self):
+        g1 = [1.0, None, 3.0, 5.0]
+        g2 = [2.0, 4.0, None, 6.0]
+        t, p, df = welch_t_test(g1, g2)
+        assert t is not None
+        assert p is not None
+
+
+# ── oneway_anova ────────────────────────────────────────────
+
+class TestOnewayAnova:
+    def test_identical_groups(self):
+        g = [1.0, 2.0, 3.0, 4.0, 5.0]
+        f, p, df_b, df_w = oneway_anova(g, g, g)
+        assert f == pytest.approx(0.0, abs=1e-6)
+        assert p == pytest.approx(1.0, abs=0.01)
+
+    def test_different_groups(self):
+        g1 = [10.0, 11.0, 12.0]
+        g2 = [1.0, 2.0, 3.0]
+        g3 = [50.0, 51.0, 52.0]
+        f, p, df_b, df_w = oneway_anova(g1, g2, g3)
+        assert f > 0
+        assert p < 0.01
+        assert df_b == 2
+        assert df_w == 6
+
+    def test_insufficient_groups(self):
+        f, p, df_b, df_w = oneway_anova([1.0, 2.0])
+        assert f is None

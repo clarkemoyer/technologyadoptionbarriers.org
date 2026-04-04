@@ -135,11 +135,20 @@ const ResultsPage = () => {
               {
                 title: 'Key Findings',
                 href: '/results/findings',
-                desc: 'Effect sizes, cross-tabulations, and forthcoming inferential statistics per result group.',
+                desc: 'Effect sizes, t-tests, ANOVA, and cross-tabulations per result group.',
                 border: 'border-gray-200',
                 bg: 'bg-gray-50',
                 titleColor: 'text-gray-900',
                 textColor: 'text-gray-600',
+              },
+              {
+                title: 'Dataset Comparison',
+                href: '/results/dataset-comparison',
+                desc: 'Side-by-side statistics, demographics, and effect sizes across all four result groups.',
+                border: 'border-emerald-200',
+                bg: 'bg-emerald-50',
+                titleColor: 'text-emerald-900',
+                textColor: 'text-emerald-800',
               },
               {
                 title: 'Survey Statistics',

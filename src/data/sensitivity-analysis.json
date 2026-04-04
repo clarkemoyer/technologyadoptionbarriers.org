@@ -182,7 +182,8 @@
       "cross_tabs": {
         "by_role": [],
         "by_org_size": []
-      }
+      },
+      "inferential": {}
     },
     "flexible_clean": {
       "demographics": {
@@ -199,7 +200,8 @@
       "cross_tabs": {
         "by_role": [],
         "by_org_size": []
-      }
+      },
+      "inferential": {}
     },
     "prolific_accepted": {
       "demographics": {
@@ -216,7 +218,8 @@
       "cross_tabs": {
         "by_role": [],
         "by_org_size": []
-      }
+      },
+      "inferential": {}
     },
     "v2_finished": {
       "demographics": {
@@ -233,7 +236,8 @@
       "cross_tabs": {
         "by_role": [],
         "by_org_size": []
-      }
+      },
+      "inferential": {}
     },
     "v2_all": {
       "demographics": {
@@ -250,7 +254,8 @@
       "cross_tabs": {
         "by_role": [],
         "by_org_size": []
-      }
+      },
+      "inferential": {}
     }
   }
 }

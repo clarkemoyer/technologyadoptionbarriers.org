@@ -14,7 +14,7 @@ import LastUpdated from '@/components/last-updated'
 export const metadata: Metadata = {
   title: 'Key Findings — TABS Results',
   description:
-    'Effect sizes, cross-tabulations, and forthcoming inferential statistics from the Technology Adoption Barriers Survey, computed independently across four result groups.',
+    'Effect sizes, cross-tabulations, t-tests, and ANOVA from the Technology Adoption Barriers Survey, computed independently across four result groups.',
   alternates: {
     canonical: '/results/findings',
   },
@@ -44,10 +44,38 @@ interface CrossTabRow {
   maturity_mean: number | null
 }
 
+interface InferentialConstruct {
+  t?: number | null
+  p?: number | null
+  df?: number | null
+  f?: number | null
+  df_between?: number | null
+  df_within?: number | null
+  sig?: boolean
+}
+
+interface InferentialGroup {
+  tech_n?: number
+  nontech_n?: number
+  large_n?: number
+  small_medium_n?: number
+  groups?: string[]
+  group_ns?: number[]
+  constructs?: Record<string, InferentialConstruct>
+}
+
+interface InferentialData {
+  t_tests_tech_vs_nontech?: InferentialGroup
+  t_tests_large_vs_small?: InferentialGroup
+  anova_by_role?: InferentialGroup
+  anova_by_org_size?: InferentialGroup
+}
+
 interface SampleDetail {
   demographics?: Record<string, unknown>
   effect_sizes?: Record<string, EffectSizeGroup>
   cross_tabs?: { by_role?: CrossTabRow[]; by_org_size?: CrossTabRow[] }
+  inferential?: InferentialData
 }
 
 const sampleDetails: Record<string, SampleDetail> =
@@ -101,10 +129,9 @@ const FindingsPage = () => {
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
-            All effect sizes and cross-tabulations are computed independently for each of the four
-            primary result groups. This ensures that any finding can be validated against the
-            researcher&rsquo;s chosen dataset. Inferential analyses (regression, factor analysis,
-            hypothesis tests) are in progress and will appear here when complete.
+            All effect sizes, cross-tabulations, t-tests, and ANOVA are computed independently for
+            each of the four primary result groups. This ensures that any finding can be validated
+            against the researcher&rsquo;s chosen dataset.
           </p>
         </section>
 
@@ -377,13 +404,248 @@ const FindingsPage = () => {
           })}
         </section>
 
+        {/* ── Inferential Statistics by Result Group ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Inferential Statistics</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Welch&rsquo;s t-tests compare two groups (unequal variance assumed). One-way ANOVA tests
+            whether means differ across three or more groups. All tests are two-tailed with
+            &alpha;&nbsp;=&nbsp;0.05. Significant results (p&nbsp;&lt;&nbsp;0.05) are highlighted.
+          </p>
+
+          {PRIMARY_GROUPS.map((group) => {
+            const inf = sampleDetails[group.key]?.inferential
+            const hasData =
+              inf && (inf.t_tests_tech_vs_nontech?.constructs || inf.anova_by_role?.constructs)
+
+            return (
+              <div key={group.key} className={`border-l-4 ${group.color} pl-5 mb-10`}>
+                <h3 className={H3_CLASSES}>{group.label}</h3>
+
+                {hasData ? (
+                  <div className="space-y-6">
+                    {/* T-tests: Tech vs Non-Tech */}
+                    {inf.t_tests_tech_vs_nontech?.constructs && (
+                      <div>
+                        <h4 className="font-sans font-semibold text-gray-700 text-sm mb-2">
+                          Welch&rsquo;s t-test: Technical vs Non-Technical
+                          <span className="text-gray-500 font-normal ml-2">
+                            (n<sub>tech</sub>={inf.t_tests_tech_vs_nontech.tech_n ?? '—'}, n
+                            <sub>non-tech</sub>={inf.t_tests_tech_vs_nontech.nontech_n ?? '—'})
+                          </span>
+                        </h4>
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-sm font-sans border-collapse">
+                            <thead>
+                              <tr className="bg-gray-50">
+                                <th className="text-left p-2 border-b">Construct</th>
+                                <th className="text-right p-2 border-b">t</th>
+                                <th className="text-right p-2 border-b">df</th>
+                                <th className="text-right p-2 border-b">p</th>
+                                <th className="text-center p-2 border-b">Sig.</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {Object.entries(inf.t_tests_tech_vs_nontech.constructs).map(
+                                ([construct, vals]) => (
+                                  <tr key={construct} className={vals.sig ? 'bg-green-50' : ''}>
+                                    <td className="p-2 border-b capitalize">{construct}</td>
+                                    <td className="text-right p-2 border-b font-mono">
+                                      {vals.t?.toFixed(3) ?? '—'}
+                                    </td>
+                                    <td className="text-right p-2 border-b font-mono">
+                                      {vals.df?.toFixed(1) ?? '—'}
+                                    </td>
+                                    <td className="text-right p-2 border-b font-mono">
+                                      {vals.p !== null && vals.p !== undefined
+                                        ? vals.p < 0.001
+                                          ? '<.001'
+                                          : vals.p.toFixed(3)
+                                        : '—'}
+                                    </td>
+                                    <td className="text-center p-2 border-b">
+                                      {vals.sig ? '✱' : ''}
+                                    </td>
+                                  </tr>
+                                )
+                              )}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* T-tests: Large vs Small/Medium */}
+                    {inf.t_tests_large_vs_small?.constructs && (
+                      <div>
+                        <h4 className="font-sans font-semibold text-gray-700 text-sm mb-2">
+                          Welch&rsquo;s t-test: Large vs Small/Medium Org
+                          <span className="text-gray-500 font-normal ml-2">
+                            (n<sub>large</sub>={inf.t_tests_large_vs_small.large_n ?? '—'}, n
+                            <sub>sm/med</sub>={inf.t_tests_large_vs_small.small_medium_n ?? '—'})
+                          </span>
+                        </h4>
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-sm font-sans border-collapse">
+                            <thead>
+                              <tr className="bg-gray-50">
+                                <th className="text-left p-2 border-b">Construct</th>
+                                <th className="text-right p-2 border-b">t</th>
+                                <th className="text-right p-2 border-b">df</th>
+                                <th className="text-right p-2 border-b">p</th>
+                                <th className="text-center p-2 border-b">Sig.</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {Object.entries(inf.t_tests_large_vs_small.constructs).map(
+                                ([construct, vals]) => (
+                                  <tr key={construct} className={vals.sig ? 'bg-green-50' : ''}>
+                                    <td className="p-2 border-b capitalize">{construct}</td>
+                                    <td className="text-right p-2 border-b font-mono">
+                                      {vals.t?.toFixed(3) ?? '—'}
+                                    </td>
+                                    <td className="text-right p-2 border-b font-mono">
+                                      {vals.df?.toFixed(1) ?? '—'}
+                                    </td>
+                                    <td className="text-right p-2 border-b font-mono">
+                                      {vals.p !== null && vals.p !== undefined
+                                        ? vals.p < 0.001
+                                          ? '<.001'
+                                          : vals.p.toFixed(3)
+                                        : '—'}
+                                    </td>
+                                    <td className="text-center p-2 border-b">
+                                      {vals.sig ? '✱' : ''}
+                                    </td>
+                                  </tr>
+                                )
+                              )}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* ANOVA: by Role */}
+                    {inf.anova_by_role?.constructs && (
+                      <div>
+                        <h4 className="font-sans font-semibold text-gray-700 text-sm mb-2">
+                          One-way ANOVA: by Role
+                          <span className="text-gray-500 font-normal ml-2">
+                            ({inf.anova_by_role.groups?.join(', ')})
+                          </span>
+                        </h4>
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-sm font-sans border-collapse">
+                            <thead>
+                              <tr className="bg-gray-50">
+                                <th className="text-left p-2 border-b">Construct</th>
+                                <th className="text-right p-2 border-b">F</th>
+                                <th className="text-right p-2 border-b">df</th>
+                                <th className="text-right p-2 border-b">p</th>
+                                <th className="text-center p-2 border-b">Sig.</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {Object.entries(inf.anova_by_role.constructs).map(
+                                ([construct, vals]) => (
+                                  <tr key={construct} className={vals.sig ? 'bg-green-50' : ''}>
+                                    <td className="p-2 border-b capitalize">{construct}</td>
+                                    <td className="text-right p-2 border-b font-mono">
+                                      {vals.f?.toFixed(3) ?? '—'}
+                                    </td>
+                                    <td className="text-right p-2 border-b font-mono">
+                                      {vals.df_between != null && vals.df_within != null
+                                        ? `${vals.df_between}, ${vals.df_within}`
+                                        : '—'}
+                                    </td>
+                                    <td className="text-right p-2 border-b font-mono">
+                                      {vals.p !== null && vals.p !== undefined
+                                        ? vals.p < 0.001
+                                          ? '<.001'
+                                          : vals.p.toFixed(3)
+                                        : '—'}
+                                    </td>
+                                    <td className="text-center p-2 border-b">
+                                      {vals.sig ? '✱' : ''}
+                                    </td>
+                                  </tr>
+                                )
+                              )}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* ANOVA: by Org Size */}
+                    {inf.anova_by_org_size?.constructs && (
+                      <div>
+                        <h4 className="font-sans font-semibold text-gray-700 text-sm mb-2">
+                          One-way ANOVA: by Organization Size
+                          <span className="text-gray-500 font-normal ml-2">
+                            ({inf.anova_by_org_size.groups?.join(', ')})
+                          </span>
+                        </h4>
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-sm font-sans border-collapse">
+                            <thead>
+                              <tr className="bg-gray-50">
+                                <th className="text-left p-2 border-b">Construct</th>
+                                <th className="text-right p-2 border-b">F</th>
+                                <th className="text-right p-2 border-b">df</th>
+                                <th className="text-right p-2 border-b">p</th>
+                                <th className="text-center p-2 border-b">Sig.</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {Object.entries(inf.anova_by_org_size.constructs).map(
+                                ([construct, vals]) => (
+                                  <tr key={construct} className={vals.sig ? 'bg-green-50' : ''}>
+                                    <td className="p-2 border-b capitalize">{construct}</td>
+                                    <td className="text-right p-2 border-b font-mono">
+                                      {vals.f?.toFixed(3) ?? '—'}
+                                    </td>
+                                    <td className="text-right p-2 border-b font-mono">
+                                      {vals.df_between != null && vals.df_within != null
+                                        ? `${vals.df_between}, ${vals.df_within}`
+                                        : '—'}
+                                    </td>
+                                    <td className="text-right p-2 border-b font-mono">
+                                      {vals.p !== null && vals.p !== undefined
+                                        ? vals.p < 0.001
+                                          ? '<.001'
+                                          : vals.p.toFixed(3)
+                                        : '—'}
+                                    </td>
+                                    <td className="text-center p-2 border-b">
+                                      {vals.sig ? '✱' : ''}
+                                    </td>
+                                  </tr>
+                                )
+                              )}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <p className="text-sm text-gray-500 italic mt-2">
+                    Inferential statistics will be populated by the next pipeline run.
+                  </p>
+                )}
+              </div>
+            )
+          })}
+        </section>
+
         {/* ── Forthcoming Analyses ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Forthcoming Analyses</h2>
           <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 text-center">
             <p className="text-gray-600 max-w-lg mx-auto mb-6 font-sans text-base">
-              The following inferential analyses are in progress and will be published for each
-              result group when complete:
+              The following additional analyses are planned for future releases:
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <span className="inline-block bg-white border border-gray-300 rounded-full px-4 py-1.5 text-sm text-gray-600">
@@ -391,12 +653,6 @@ const FindingsPage = () => {
               </span>
               <span className="inline-block bg-white border border-gray-300 rounded-full px-4 py-1.5 text-sm text-gray-600">
                 Factor Analysis
-              </span>
-              <span className="inline-block bg-white border border-gray-300 rounded-full px-4 py-1.5 text-sm text-gray-600">
-                Hypothesis Tests
-              </span>
-              <span className="inline-block bg-white border border-gray-300 rounded-full px-4 py-1.5 text-sm text-gray-600">
-                ANOVA / Kruskal-Wallis
               </span>
             </div>
           </div>
@@ -423,6 +679,12 @@ const FindingsPage = () => {
                 Sensitivity Analysis
               </Link>{' '}
               &mdash; all metrics and deltas across datasets
+            </li>
+            <li>
+              <Link href="/results/dataset-comparison" className="text-blue-600 hover:underline">
+                Dataset Comparison
+              </Link>{' '}
+              &mdash; side-by-side statistics across all four result groups
             </li>
             <li>
               <Link href="/results" className="text-blue-600 hover:underline">
