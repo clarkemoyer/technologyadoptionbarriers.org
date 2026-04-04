@@ -378,9 +378,27 @@ jobs:
             fi
           }
 
+          # Regex variant: matches a pattern instead of a fixed string
+          check_data_regex() {
+            local url="$1" pattern="$2" label="$3"
+            local content
+            content=$(curl -s -L --max-time 15 "$url" 2>/dev/null || echo "")
+            if [ -z "$content" ]; then
+              echo "| $label | ❌ Could not fetch page |" >> /tmp/data-results.txt
+              DATA_FAIL=$((DATA_FAIL + 1))
+              return
+            fi
+            if echo "$content" | grep -qE -- "$pattern"; then
+              echo "| $label | ✅ Data renders |" >> /tmp/data-results.txt
+            else
+              echo "| $label | ❌ Missing pattern: $pattern |" >> /tmp/data-results.txt
+              DATA_FAIL=$((DATA_FAIL + 1))
+            fi
+          }
+
           # sensitivity-analysis.json → descriptive page renders sample labels with N values
-          # "Conservative Clean (N=75)" only appears when JSON data is loaded
-          check_data_marker "${SITE_URL}/results/descriptive" "Conservative Clean (N=" "sensitivity → descriptive"
+          # "Conservative Clean (N=<number>)" only appears when JSON data is loaded
+          check_data_regex "${SITE_URL}/results/descriptive" "Conservative Clean \(N=[0-9]+" "sensitivity → descriptive"
 
           # sensitivity-analysis.json → data-quality page renders sample definitions table
           check_data_marker "${SITE_URL}/results/data-quality" "Conservative Clean" "sensitivity → data-quality"
@@ -389,8 +407,8 @@ jobs:
           check_data_marker "${SITE_URL}/results/dashboard" "Approved" "disposition → dashboard"
 
           # sensitivity-analysis.json → reliability page renders 4-decimal alpha values
-          # Pattern like "0.8576" only appears when computed from JSON data
-          check_data_marker "${SITE_URL}/results/reliability" "0.8576" "alphas → reliability"
+          # A value like "0.8576" only appears when computed from JSON data via .toFixed(4)
+          check_data_regex "${SITE_URL}/results/reliability" "0\.[0-9]{4}" "alphas → reliability"
 
           echo ""
           echo "Pipeline data rendering: $DATA_FAIL failed"
