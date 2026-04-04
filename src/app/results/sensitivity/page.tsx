@@ -155,6 +155,101 @@ const SensitivityPage = () => {
           )}
         </section>
 
+        {/* ── Dataset Comparison (Deltas) ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Dataset Comparison</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The table below shows how each metric changes as inclusion criteria are relaxed. The
+            &Delta; columns show the difference from Conservative Clean (the primary analysis
+            dataset) to each progressively less restrictive dataset. Small deltas confirm that
+            findings are not artifacts of a particular data cleaning strategy.
+          </p>
+          {(() => {
+            const primaryKey = 'conservative_clean'
+            const comparisonGroups = [
+              { key: 'flexible_clean', label: 'Flexible Clean' },
+              { key: 'prolific_accepted', label: 'Prolific Accepted' },
+              { key: 'v2_finished', label: 'All V2 Finished' },
+            ]
+            return (
+              <div className="overflow-x-auto my-6">
+                <table className="w-full border-collapse font-sans text-sm">
+                  <thead>
+                    <tr className="bg-gray-100">
+                      <th className="border border-gray-300 px-4 py-2 text-left font-bold">
+                        Metric
+                      </th>
+                      <th className="border border-gray-300 px-4 py-2 text-right font-bold">
+                        Conservative
+                        <br />
+                        <span className="font-normal text-gray-500">
+                          N=
+                          {samples.find((s) => s.key === primaryKey)?.n ?? '?'}
+                        </span>
+                      </th>
+                      {comparisonGroups.map((g) => (
+                        <th
+                          key={g.key}
+                          className="border border-gray-300 px-4 py-2 text-right font-bold"
+                        >
+                          &Delta; {g.label}
+                          <br />
+                          <span className="font-normal text-gray-500">
+                            N={samples.find((s) => s.key === g.key)?.n ?? '?'}
+                          </span>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {metrics.map((metric, i) => {
+                      const baseVal = (metric.values as Record<string, number | null>)[
+                        primaryKey
+                      ] as number | null
+                      return (
+                        <tr key={metric.key} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                          <td className="border border-gray-300 px-4 py-2 font-medium">
+                            {metric.label}
+                          </td>
+                          <td className="border border-gray-300 px-4 py-2 text-right font-mono">
+                            {fmt(baseVal, 4)}
+                          </td>
+                          {comparisonGroups.map((g) => {
+                            const compVal = (metric.values as Record<string, number | null>)[
+                              g.key
+                            ] as number | null
+                            const delta =
+                              baseVal !== null && compVal !== null ? compVal - baseVal : null
+                            return (
+                              <td
+                                key={g.key}
+                                className={`border border-gray-300 px-4 py-2 text-right font-mono ${
+                                  delta !== null && Math.abs(delta) > 0.05
+                                    ? 'text-amber-700 font-semibold'
+                                    : 'text-gray-600'
+                                }`}
+                              >
+                                {delta !== null
+                                  ? `${delta >= 0 ? '+' : ''}${delta.toFixed(4)}`
+                                  : '—'}
+                              </td>
+                            )
+                          })}
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )
+          })()}
+          <p className="text-sm text-gray-500">
+            Deltas highlighted in amber exceed 0.05 scale points. Correlation and reliability
+            differences of this magnitude are expected when adding noisier data but do not change
+            substantive conclusions.
+          </p>
+        </section>
+
         {/* ── Narrative ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Interpretation</h2>

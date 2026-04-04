@@ -381,19 +381,26 @@ const DispositionDashboardPage = () => {
           </div>
         </section>
 
-        {/* ── Result Group Types (The Four Analysis Datasets) ── */}
+        {/* ── Result Group Types — The Four Analysis Datasets ── */}
         <section className="mb-12">
-          <h2 className={H2_CLASSES}>Result Group Types</h2>
+          <h2 className={H2_CLASSES}>Result Group Types — The Four Analysis Datasets</h2>
           <p className="mb-4 text-gray-600">
-            Every TABS analysis is run against four primary result groups (datasets). Each group
-            applies progressively fewer quality filters. The numbers below come from two independent
-            sources: the <strong>Prolific API</strong> (live platform data) and the{' '}
-            <strong>analysis pipeline</strong> (Qualtrics export + Prolific enrichment + disposition
-            triage). See the{' '}
-            <Link href="/results/data-quality" className="text-blue-600 hover:underline">
-              Data Quality Pipeline
+            Every TABS metric is computed independently across four primary result groups (datasets).
+            Each group applies progressively fewer quality filters. Researchers choose which dataset
+            to use based on their tolerance for data quality risk. All four are refreshed daily by the
+            analysis pipeline. Full statistics for each group are available on the{' '}
+            <Link href="/results/descriptive" className="text-blue-600 hover:underline">
+              Descriptive Statistics
+            </Link>
+            ,{' '}
+            <Link href="/results/reliability" className="text-blue-600 hover:underline">
+              Scale Reliability
+            </Link>
+            , and{' '}
+            <Link href="/results/sensitivity" className="text-blue-600 hover:underline">
+              Sensitivity Analysis
             </Link>{' '}
-            page for the complete filter chain definitions.
+            pages.
           </p>
 
           {/* Verification cross-check */}
@@ -433,71 +440,150 @@ const DispositionDashboardPage = () => {
             )
           })()}
 
-          {/* Four Result Groups chart */}
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm border-collapse">
-              <thead>
-                <tr className="bg-gray-100 border-b-2 border-gray-300">
-                  <th className="py-3 px-4 text-left font-bold text-gray-700">#</th>
-                  <th className="py-3 px-4 text-left font-bold text-gray-700">Result Group</th>
-                  <th className="py-3 px-4 text-left font-bold text-gray-700">Definition</th>
-                  <th className="py-3 px-4 text-right font-bold text-gray-700">N</th>
-                  <th className="py-3 px-4 text-left font-bold text-gray-700">Used For</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  {
-                    num: 1,
-                    key: 'conservative_clean',
-                    label: 'Conservative Clean',
-                    color: 'bg-green-50 border-l-4 border-l-green-500',
-                    definition:
-                      'Prolific APPROVED + all quality checks (3 IRIs, duration ≥ 540s, reCAPTCHA, no straightlining, auth)',
-                    usage: 'Primary CRP analysis — all published findings',
-                  },
-                  {
-                    num: 2,
-                    key: 'flexible_clean',
-                    label: 'Flexible Clean',
-                    color: 'bg-blue-50 border-l-4 border-l-blue-500',
-                    definition: 'Prolific APPROVED + basic quality (3 IRIs + duration ≥ 480s)',
-                    usage: 'Sensitivity analysis — verifies findings hold with lighter filters',
-                  },
-                  {
-                    num: 3,
-                    key: 'prolific_accepted',
-                    label: 'Prolific Accepted',
-                    color: 'bg-amber-50 border-l-4 border-l-amber-500',
-                    definition:
-                      'All deduplicated V2 rows with Prolific APPROVED status (must match Prolific UI)',
-                    usage: 'N ceiling — maximum usable sample, platform truth',
-                  },
-                  {
-                    num: 4,
-                    key: 'v2_finished',
-                    label: 'All V2 Finished',
-                    color: 'bg-gray-50 border-l-4 border-l-gray-400',
-                    definition: 'All finished responses with duration ≥ 120s (any Prolific status)',
-                    usage: 'Full-population baseline — includes returned/rejected/awaiting',
-                  },
-                ].map((group) => {
+          {/* Four Result Groups — full statistics per dataset */}
+          {(() => {
+            const getVal = (metricKey: string, sampleKey: string): number | null => {
+              const m = sensitivityData.metrics.find((x) => x.key === metricKey)
+              if (!m) return null
+              return (m.values as Record<string, number | null>)[sampleKey] ?? null
+            }
+            const fmt4 = (v: number | null) => (v !== null ? v.toFixed(4) : '—')
+            const fmt2 = (v: number | null) => (v !== null ? v.toFixed(2) : '—')
+
+            const groups = [
+              {
+                num: 1,
+                key: 'conservative_clean',
+                label: 'Conservative Clean',
+                color: 'border-green-500',
+                bg: 'bg-green-50',
+                definition:
+                  'Prolific APPROVED + all quality checks (3 IRIs, duration ≥ 540s, reCAPTCHA, no straightlining, auth)',
+                usage: 'Primary CRP analysis — all published findings',
+              },
+              {
+                num: 2,
+                key: 'flexible_clean',
+                label: 'Flexible Clean',
+                color: 'border-blue-500',
+                bg: 'bg-blue-50',
+                definition: 'Prolific APPROVED + basic quality (3 IRIs + duration ≥ 480s)',
+                usage: 'Sensitivity analysis — verifies findings hold with lighter filters',
+              },
+              {
+                num: 3,
+                key: 'prolific_accepted',
+                label: 'Prolific Accepted',
+                color: 'border-amber-500',
+                bg: 'bg-amber-50',
+                definition:
+                  'All deduplicated V2 rows with Prolific APPROVED status (must match Prolific UI)',
+                usage: 'N ceiling — maximum usable sample, platform truth',
+              },
+              {
+                num: 4,
+                key: 'v2_finished',
+                label: 'All V2 Finished',
+                color: 'border-gray-400',
+                bg: 'bg-gray-50',
+                definition: 'All finished responses with duration ≥ 120s (any Prolific status)',
+                usage: 'Full-population baseline — includes returned/rejected/awaiting',
+              },
+            ]
+
+            return (
+              <div className="space-y-6">
+                {groups.map((group) => {
                   const sample = sensitivityData.samples.find((s) => s.key === group.key)
                   return (
-                    <tr key={group.key} className={`border-b border-gray-200 ${group.color}`}>
-                      <td className="py-3 px-4 font-bold text-gray-500">{group.num}</td>
-                      <td className="py-3 px-4 font-semibold text-gray-900">{group.label}</td>
-                      <td className="py-3 px-4 text-gray-700">{group.definition}</td>
-                      <td className="py-3 px-4 text-right font-mono font-bold text-gray-900">
-                        {sample?.n ?? '—'}
-                      </td>
-                      <td className="py-3 px-4 text-gray-600">{group.usage}</td>
-                    </tr>
+                    <div
+                      key={group.key}
+                      className={`border-l-4 ${group.color} ${group.bg} rounded-lg p-5`}
+                    >
+                      <div className="flex flex-wrap items-baseline gap-2 mb-2">
+                        <span className="text-xs font-bold text-gray-400">#{group.num}</span>
+                        <h3 className="text-lg font-bold text-gray-900">{group.label}</h3>
+                        <span className="text-lg font-mono font-bold text-gray-700">
+                          N = {sample?.n ?? '—'}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-700 mb-1">
+                        <strong>Definition:</strong> {group.definition}
+                      </p>
+                      <p className="text-sm text-gray-600 mb-3">
+                        <strong>Used for:</strong> {group.usage}
+                      </p>
+
+                      {/* Key statistics for this dataset */}
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-xs border-collapse bg-white/70 rounded">
+                          <thead>
+                            <tr className="border-b border-gray-300">
+                              <th className="py-1.5 px-2 text-left font-semibold text-gray-600">
+                                Construct
+                              </th>
+                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                                Mean
+                              </th>
+                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                                SD
+                              </th>
+                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                                Cronbach&rsquo;s &alpha;
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {[
+                              {
+                                name: 'Barriers',
+                                mean: 'barrier_mean',
+                                sd: 'barrier_sd',
+                                alpha: 'alpha_barriers',
+                              },
+                              {
+                                name: 'Readiness',
+                                mean: 'readiness_mean',
+                                sd: 'readiness_sd',
+                                alpha: 'alpha_readiness',
+                              },
+                              {
+                                name: 'Maturity',
+                                mean: 'maturity_mean',
+                                sd: 'maturity_sd',
+                                alpha: 'alpha_maturity',
+                              },
+                            ].map((c) => (
+                              <tr key={c.name} className="border-b border-gray-200">
+                                <td className="py-1.5 px-2 font-medium text-gray-800">{c.name}</td>
+                                <td className="py-1.5 px-2 text-right font-mono">
+                                  {fmt4(getVal(c.mean, group.key))}
+                                </td>
+                                <td className="py-1.5 px-2 text-right font-mono">
+                                  {fmt4(getVal(c.sd, group.key))}
+                                </td>
+                                <td className="py-1.5 px-2 text-right font-mono">
+                                  {fmt4(getVal(c.alpha, group.key))}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Correlations for this dataset */}
+                      <div className="mt-2 text-xs text-gray-600">
+                        <strong>Correlations:</strong> B–R ={' '}
+                        {fmt2(getVal('corr_br', group.key))}, B–M ={' '}
+                        {fmt2(getVal('corr_bm', group.key))}, R–M ={' '}
+                        {fmt2(getVal('corr_rm', group.key))}
+                      </div>
+                    </div>
                   )
                 })}
-              </tbody>
-            </table>
-          </div>
+              </div>
+            )
+          })()}
 
           <p className="mt-4 text-sm text-gray-500">
             Conservative Clean ⊂ Flexible Clean ⊂ Prolific Accepted. All V2 Finished overlaps with
