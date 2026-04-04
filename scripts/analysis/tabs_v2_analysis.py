@@ -975,7 +975,16 @@ def sensitivity_to_json(cuts, idx):
         "platform_demographics": {
             "source": "Prolific API (POST /studies/{id}/demographic-export/)",
             "type": "Personal/sociodemographic characteristics",
-            "fields": ["age", "sex", "ethnicity", "language", "country_of_residence", "nationality", "student_status", "employment_status"],
+            "fields": {
+                "age": "Participant age",
+                "sex": "Biological sex",
+                "ethnicity": "Ethnic background",
+                "language": "Primary language",
+                "country_of_residence": "Country of residence",
+                "nationality": "Nationality",
+                "student_status": "Current student status",
+                "employment_status": "Employment status",
+            },
             "note": "Collected from Prolific participant profile database at submission completion. Available via API but not published on results pages to protect participant privacy. Can be cross-referenced with survey demographics using Prolific Participant ID as join key.",
         },
     }

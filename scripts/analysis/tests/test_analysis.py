@@ -346,6 +346,9 @@ class TestSensitivityJSON:
         assert "platform_demographics" in ds
         assert "Q1_Role" in ds["survey_demographics"]["fields"]
         assert "age" in ds["platform_demographics"]["fields"]
+        # Both use dict format with descriptions
+        assert isinstance(ds["survey_demographics"]["fields"], dict)
+        assert isinstance(ds["platform_demographics"]["fields"], dict)
 
         assert "sample_details" in result
         # One detail block per sample cut
