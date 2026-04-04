@@ -350,6 +350,27 @@ class TestSensitivityJSON:
         assert isinstance(ds["survey_demographics"]["fields"], dict)
         assert isinstance(ds["platform_demographics"]["fields"], dict)
 
+        # Platform demographics has base + prescreener field categories
+        pd = ds["platform_demographics"]
+        assert "base_fields" in pd, "missing base_fields"
+        assert "prescreener_fields" in pd, "missing prescreener_fields"
+        assert "cross_validation" in pd, "missing cross_validation"
+        assert "age" in pd["base_fields"]
+        assert "country_of_birth" in pd["base_fields"]
+        assert "company_size" in pd["prescreener_fields"]
+        assert "industry" in pd["prescreener_fields"]
+        assert "employment_sector" in pd["prescreener_fields"]
+        assert "occupation" in pd["prescreener_fields"]
+        assert "education_level" in pd["prescreener_fields"]
+        assert "household_income" in pd["prescreener_fields"]
+        assert "fluent_languages" in pd["prescreener_fields"]
+        # Cross-validation documents overlapping fields and use cases
+        cv = pd["cross_validation"]
+        assert "overlapping_fields" in cv
+        assert "use_cases" in cv
+        assert "industry" in cv["overlapping_fields"]
+        assert "company_size" in cv["overlapping_fields"]
+
         assert "sample_details" in result
         # One detail block per sample cut
         assert len(result["sample_details"]) == 3

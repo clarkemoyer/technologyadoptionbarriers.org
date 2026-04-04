@@ -125,24 +125,36 @@ const DataQualityPage = () => {
                     Prolific participant profile database (archived at submission completion)
                   </td>
                 </tr>
-                <tr className="bg-gray-50">
+                <tr>
                   <td className="border border-gray-300 px-4 py-2 font-semibold">Type</td>
                   <td className="border border-gray-300 px-4 py-2">
                     Organizational/role-based characteristics
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    Personal/sociodemographic characteristics
+                    Personal/sociodemographic + professional characteristics
                   </td>
                 </tr>
-                <tr>
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">Fields</td>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">Base Fields</td>
                   <td className="border border-gray-300 px-4 py-2">
                     Executive Role (Q1), Decision Authority (Q2), Industry (Q3), Org Size (Q4),
                     Profit Model (Q5), Revenue/Budget (Q6&ndash;Q7), Geography (Q8&ndash;Q9)
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    Age, Sex, Ethnicity, Language, Country of Residence, Nationality, Student
-                    Status, Employment Status
+                    Age, Sex, Ethnicity, Language, Country of Residence, Nationality, Country of
+                    Birth, Student Status, Employment Status
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    Prescreener Fields
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-gray-400 italic">
+                    N/A &mdash; all fields are part of the survey instrument
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Employment Sector, Industry, Company Size, Occupation (available when configured
+                    as study filters)
                   </td>
                 </tr>
                 <tr className="bg-gray-50">
@@ -168,7 +180,27 @@ const DataQualityPage = () => {
                     ✅ All per-group statistics, effect sizes, cross-tabulations
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    Available via API; not published on results pages (privacy protection)
+                    ✅ Available via API for cross-validation and sample balancing; base fields not
+                    published on results pages (privacy protection)
+                  </td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    Cross-Validation
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2" colSpan={2}>
+                    Overlapping dimensions allow independent verification: Prolific{' '}
+                    <code className="bg-gray-100 px-1 rounded text-xs">industry</code> &harr;
+                    Qualtrics <code className="bg-gray-100 px-1 rounded text-xs">Q3_Industry</code>,
+                    Prolific <code className="bg-gray-100 px-1 rounded text-xs">company_size</code>{' '}
+                    &harr; Qualtrics{' '}
+                    <code className="bg-gray-100 px-1 rounded text-xs">Q4_OrgSize</code>, Prolific{' '}
+                    <code className="bg-gray-100 px-1 rounded text-xs">employment_sector</code>{' '}
+                    &harr; Qualtrics{' '}
+                    <code className="bg-gray-100 px-1 rounded text-xs">Q5_ProfitModel</code>,
+                    Prolific <code className="bg-gray-100 px-1 rounded text-xs">occupation</code>{' '}
+                    &harr; Qualtrics{' '}
+                    <code className="bg-gray-100 px-1 rounded text-xs">Q1_Role</code>
                   </td>
                 </tr>
                 <tr className="bg-gray-50">
@@ -186,11 +218,14 @@ const DataQualityPage = () => {
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
             <p className="text-sm text-amber-900">
               <strong>Key distinction:</strong> Survey Demographics (Qualtrics) and Platform
-              Demographics (Prolific) are entirely separate datasets. The survey demographics
-              capture <em>what role participants hold</em> and{' '}
-              <em>what kind of organization they work in</em>, while Prolific demographics capture{' '}
-              <em>who the participants are</em> personally. The two can be cross-referenced using
-              Prolific Participant ID as the join key, but they should never be conflated.
+              Demographics (Prolific) are separate datasets that capture different types of
+              information. Survey demographics document <em>what role participants hold</em> and{' '}
+              <em>what kind of organization they work in</em>. Prolific demographics document{' '}
+              <em>who the participants are</em> personally, plus professional characteristics
+              (industry, company size, occupation) when prescreener filters are configured. Where
+              fields overlap (industry, company size, sector, role), they provide an independent
+              cross-validation opportunity to verify self-reported data and balance samples. The two
+              are joined via Prolific Participant ID (PID).
             </p>
           </div>
         </section>

@@ -114,23 +114,47 @@ const SamplePage = () => {
               </h3>
               <p className="text-sm text-purple-800 mb-3">
                 Collected from Prolific&rsquo;s participant profile database at submission
-                completion. These are <strong>personal/sociodemographic</strong> characteristics
-                maintained by Prolific.
+                completion. Includes <strong>base demographic fields</strong> (always exported) and{' '}
+                <strong>prescreener fields</strong> (up to 15 selectable per export from
+                Prolific&rsquo;s full filter catalog).
               </p>
+              <h4 className="text-xs font-bold text-purple-800 mt-2 mb-1">
+                Base Fields (always included)
+              </h4>
               <ul className="text-xs text-purple-700 space-y-1 list-disc list-inside">
                 <li>Age</li>
-                <li>Sex</li>
-                <li>Ethnicity</li>
-                <li>Language</li>
+                <li>Sex (as recorded on legal documents)</li>
+                <li>Ethnicity (simplified)</li>
+                <li>First Language</li>
                 <li>Country of Residence &amp; Nationality</li>
+                <li>Country of Birth</li>
                 <li>Student Status</li>
                 <li>Employment Status</li>
+              </ul>
+              <h4 className="text-xs font-bold text-purple-800 mt-3 mb-1">
+                Prescreener Fields (configurable, up to 15 per export)
+              </h4>
+              <ul className="text-xs text-purple-700 space-y-1 list-disc list-inside">
+                <li>Employment Sector (Private, Public, Non-profit)</li>
+                <li>Industry classification</li>
+                <li>Company/Organization Size</li>
+                <li>Occupation/Job Title category</li>
+                <li>Education Level</li>
+                <li>Household Income</li>
+                <li>Fluent Languages</li>
+                <li>Marital Status &amp; Number of Children</li>
+                <li>Health Conditions &amp; Disabilities</li>
+                <li>
+                  <em>…and hundreds more via</em>{' '}
+                  <code className="bg-purple-100 px-1 rounded">GET /api/v1/filters/</code>
+                </li>
               </ul>
               <p className="text-xs text-purple-600 mt-3 italic">
                 Source: Prolific API{' '}
                 <code className="bg-purple-100 px-1 rounded">
-                  /studies/&#123;id&#125;/demographic-export/
-                </code>
+                  POST /studies/&#123;id&#125;/demographic-export/
+                </code>{' '}
+                &mdash; snapshot at time of participation
               </p>
             </div>
           </div>
@@ -139,10 +163,97 @@ const SamplePage = () => {
               <strong>Important:</strong> The demographics shown below in the per-group breakdowns
               are <strong>Survey Demographics (Qualtrics)</strong> &mdash; the organizational and
               role-based characteristics that participants self-reported in the TABS instrument.
-              Prolific Platform Demographics (age, sex, ethnicity, etc.) are available separately
-              via the Prolific demographic export and are not displayed on this page to protect
-              participant privacy.
+              Prolific Platform Demographics are available separately via the Prolific demographic
+              export and are not displayed on this page to protect participant privacy.
             </p>
+          </div>
+
+          {/* ── Cross-Validation Opportunity ── */}
+          <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4 mt-4">
+            <h3 className="text-sm font-bold text-indigo-900 mb-2">
+              Cross-Validation: Prolific &times; Qualtrics Demographic Overlap
+            </h3>
+            <p className="text-sm text-indigo-800 mb-3">
+              Several Prolific prescreener fields overlap with Qualtrics survey demographics,
+              enabling independent cross-validation of self-reported data. Researchers can compare
+              responses to flag discrepancies (e.g., a participant reporting &ldquo;CIO at a 10,000+
+              company&rdquo; in Qualtrics but &ldquo;Student&rdquo; or &ldquo;Company Size:
+              1&ndash;10&rdquo; in Prolific).
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs border-collapse">
+                <thead>
+                  <tr className="bg-indigo-100">
+                    <th className="border border-indigo-200 px-3 py-1.5 text-left font-bold">
+                      Dimension
+                    </th>
+                    <th className="border border-indigo-200 px-3 py-1.5 text-left font-bold">
+                      Prolific Field (Platform)
+                    </th>
+                    <th className="border border-indigo-200 px-3 py-1.5 text-left font-bold">
+                      Qualtrics Field (Survey)
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="border border-indigo-200 px-3 py-1.5 font-medium">Industry</td>
+                    <td className="border border-indigo-200 px-3 py-1.5">
+                      <code className="text-xs bg-purple-100 px-1 rounded">industry</code>
+                    </td>
+                    <td className="border border-indigo-200 px-3 py-1.5">
+                      <code className="text-xs bg-teal-100 px-1 rounded">Q3_Industry</code>
+                    </td>
+                  </tr>
+                  <tr className="bg-indigo-50/50">
+                    <td className="border border-indigo-200 px-3 py-1.5 font-medium">
+                      Organization Size
+                    </td>
+                    <td className="border border-indigo-200 px-3 py-1.5">
+                      <code className="text-xs bg-purple-100 px-1 rounded">company_size</code>
+                    </td>
+                    <td className="border border-indigo-200 px-3 py-1.5">
+                      <code className="text-xs bg-teal-100 px-1 rounded">Q4_OrgSize</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-indigo-200 px-3 py-1.5 font-medium">Sector</td>
+                    <td className="border border-indigo-200 px-3 py-1.5">
+                      <code className="text-xs bg-purple-100 px-1 rounded">employment_sector</code>
+                    </td>
+                    <td className="border border-indigo-200 px-3 py-1.5">
+                      <code className="text-xs bg-teal-100 px-1 rounded">Q5_ProfitModel</code>
+                    </td>
+                  </tr>
+                  <tr className="bg-indigo-50/50">
+                    <td className="border border-indigo-200 px-3 py-1.5 font-medium">Role</td>
+                    <td className="border border-indigo-200 px-3 py-1.5">
+                      <code className="text-xs bg-purple-100 px-1 rounded">occupation</code>
+                    </td>
+                    <td className="border border-indigo-200 px-3 py-1.5">
+                      <code className="text-xs bg-teal-100 px-1 rounded">Q1_Role</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-indigo-600 mt-2 italic">
+              Join key: Prolific Participant ID (PID). Prescreener fields are available when
+              configured as study filters in the Prolific study setup.
+            </p>
+            <div className="mt-3 pt-3 border-t border-indigo-200">
+              <h4 className="text-xs font-bold text-indigo-800 mb-1">
+                Prolific-Only Fields (augment survey data)
+              </h4>
+              <p className="text-xs text-indigo-700">
+                Prolific also provides demographic dimensions not captured by the TABS survey
+                instrument, including: <strong>Education Level</strong>,{' '}
+                <strong>Household Income</strong>, <strong>Fluent Languages</strong>,{' '}
+                <strong>Marital Status</strong>, <strong>Health Conditions</strong>, and more. These
+                can be used to augment aggregate demographic reports and assess sample
+                representativeness beyond what the survey captures.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -293,9 +404,11 @@ const SamplePage = () => {
             <p className="text-sm text-blue-900">
               <strong>Privacy Note:</strong> Survey demographics (shown above) are aggregated from
               self-reported Qualtrics responses (Q1&ndash;Q9) and displayed as category-level counts
-              and percentages only. Prolific platform demographics (age, sex, ethnicity, etc.) are
-              collected separately and are not published on this page to protect participant
-              privacy. No individual-level data is displayed from either source.
+              and percentages only. Prolific platform demographics (base fields: age, sex,
+              ethnicity, etc.; prescreener fields: industry, company size, occupation, etc.) are
+              collected separately and are used for cross-validation and sample balancing but are
+              not displayed on this page to protect participant privacy. No individual-level data is
+              displayed from either source.
             </p>
           </div>
         </section>

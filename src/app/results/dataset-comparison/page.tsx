@@ -194,8 +194,9 @@ const DatasetComparisonPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Role distribution and organization size breakdown for each result group, based on
             self-reported survey responses (Q1, Q4). These are organizational demographics from the
-            TABS instrument &mdash; not Prolific platform demographics (age, sex, ethnicity), which
-            are collected separately.
+            TABS instrument. Prolific platform demographics (age, sex, ethnicity, plus prescreener
+            fields like industry, company size, and occupation) are collected separately and can be
+            used to cross-validate these survey responses via Prolific Participant ID.
           </p>
 
           <h3 className={H3_CLASSES}>Tech vs Non-Tech Composition</h3>
