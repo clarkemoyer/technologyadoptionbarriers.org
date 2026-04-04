@@ -1,21 +1,15 @@
-name: TABS V2 Analysis Pipeline
+name: TABS V2 Analysis Pipeline (REPLACED)
 
-# All-Python research pipeline: export → enrich → triage → de-identify → analyze.
-# Runs daily before the disposition pipeline (which handles Prolific operations).
-#
-# Data flow:
-#   Qualtrics API → raw CSV (stays on runner, never uploaded as artifact)
-#   Prolific API  → auth checks + submission statuses (pseudonymous PIDs only)
-#   Enrich raw CSV with Prolific data
-#   Disposition triage (Python port, cross-validates with TS pipeline)
-#   De-identify → public CSV (NIST 5-step, for ScholarSphere)
-#   Run full analysis suite on enriched CSV
-#   Output JSON for website → PR
+# ⚠️  SUPERSEDED by daily-pipeline.yml which chains analysis + operations
+# into a single workflow with no inter-phase delay. This file is kept for
+# reference and manual dispatch only. The schedule trigger has been removed.
 
 on:
-  schedule:
-    - cron: '0 9 * * *' # Daily at 09:00 UTC (4am ET / 5am ET DST)
   workflow_dispatch:
+    inputs:
+      note:
+        description: 'Superseded by daily-pipeline.yml. Use that instead.'
+        required: false
 
 concurrency:
   group: analysis-pipeline

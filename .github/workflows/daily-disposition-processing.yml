@@ -1,20 +1,15 @@
-name: Daily Disposition Processing
+name: Daily Disposition Processing (REPLACED)
 
-# Prolific operations: approve CLEAN submissions, send review messages,
-# update dashboard, create daily report.
-#
-# Consumes the disposition CSV produced by the analysis pipeline (09:00 UTC)
-# to ensure both pipelines operate on identical data — single source of truth.
-# Falls back to a fresh Qualtrics export + triage if the artifact is unavailable
-# (e.g., analysis pipeline failed or was skipped).
-#
-# Safety: Only approves CLEAN (all checks passed) and sends review
-# messages. Does NOT reject anyone — all rejections require manual trigger.
+# ⚠️  SUPERSEDED by daily-pipeline.yml which chains analysis + operations
+# into a single workflow with no inter-phase delay. This file is kept for
+# reference and manual dispatch only. The schedule trigger has been removed.
 
 on:
-  schedule:
-    - cron: '0 11 * * *' # Daily at 11:00 UTC (7am ET) — runs after analysis pipeline (09:00 UTC)
   workflow_dispatch:
+    inputs:
+      note:
+        description: 'Superseded by daily-pipeline.yml. Use that instead.'
+        required: false
 
 concurrency:
   group: daily-disposition-processing
