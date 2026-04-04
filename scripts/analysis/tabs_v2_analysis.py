@@ -954,6 +954,32 @@ def sensitivity_to_json(cuts, idx):
     """Return sensitivity analysis results as a JSON-serializable dict."""
     result = {"samples": [], "metrics": []}
 
+    # Document the two independent demographic data sources
+    result["demographic_sources"] = {
+        "survey_demographics": {
+            "source": "Qualtrics CSV export (Q1-Q9)",
+            "type": "Organizational/role-based characteristics",
+            "fields": {
+                "Q1_Role": "Executive Role (CIO, CTO, CEO, CFO, COO, CHRO, CMO, CSO, CRO, Other)",
+                "Q2_DecisionAuth": "Decision Authority level",
+                "Q3_Industry": "Industry classification",
+                "Q4_OrgSize": "Organization Size (<100, 100-499, 500-999, 1000-4999, 5000-9999, 10000+)",
+                "Q5_ProfitModel": "Profit Model (For-Profit, Non-Profit, Government/Public Sector)",
+                "Q6_RevenueBudget": "Organizational revenue/budget range",
+                "Q7_PersonalBudget": "Personal budget responsibility",
+                "Q8_GeoScope": "Geographic scope",
+                "Q9_GeoScale": "Geographic scale",
+            },
+            "note": "Self-reported by participants within the TABS survey instrument. Used for all per-group demographic breakdowns, effect sizes, and cross-tabulations.",
+        },
+        "platform_demographics": {
+            "source": "Prolific API (POST /studies/{id}/demographic-export/)",
+            "type": "Personal/sociodemographic characteristics",
+            "fields": ["age", "sex", "ethnicity", "language", "country_of_residence", "nationality", "student_status", "employment_status"],
+            "note": "Collected from Prolific participant profile database at submission completion. Available via API but not published on results pages to protect participant privacy. Can be cross-referenced with survey demographics using Prolific Participant ID as join key.",
+        },
+    }
+
     sample_meta = {
         "Conservative Clean": {
             "key": "conservative_clean",
@@ -1023,7 +1049,12 @@ def sensitivity_to_json(cuts, idx):
 
     # ── Demographics per sample ──
     def demographics_for(rows):
-        """Compute demographics breakdown for a set of rows."""
+        """Compute SURVEY demographics breakdown for a set of rows.
+
+        These are organizational/role-based demographics from Qualtrics survey
+        responses (Q1_Role, Q4_OrgSize, Q5_ProfitModel) — NOT Prolific platform
+        demographics (age, sex, ethnicity, etc.).
+        """
         if not rows:
             return {"roles": {}, "org_sizes": {}, "profit_models": {}, "tech_vs_nontech": {}}
         n = len(rows)

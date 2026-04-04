@@ -190,11 +190,12 @@ const DatasetComparisonPage = () => {
 
         {/* ── Demographic Composition Comparison ── */}
         <section className="mb-12 text-gray-800">
-          <h2 className={H2_CLASSES}>Demographic Composition</h2>
+          <h2 className={H2_CLASSES}>Survey Demographics Comparison (Qualtrics)</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Role distribution and organization size breakdown for each result group. Significant
-            shifts in composition between groups may indicate systematic differences in who passes
-            each quality filter.
+            Role distribution and organization size breakdown for each result group, based on
+            self-reported survey responses (Q1, Q4). These are organizational demographics from the
+            TABS instrument &mdash; not Prolific platform demographics (age, sex, ethnicity), which
+            are collected separately.
           </p>
 
           <h3 className={H3_CLASSES}>Tech vs Non-Tech Composition</h3>

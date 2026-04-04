@@ -95,6 +95,106 @@ const DataQualityPage = () => {
           </ol>
         </section>
 
+        {/* ── Demographic Data Sources ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Demographic Data Sources</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Participant demographics are collected from two independent sources that capture
+            fundamentally different information:
+          </p>
+          <div className="overflow-x-auto my-6">
+            <table className="w-full border-collapse font-sans text-sm">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">Aspect</th>
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">
+                    Survey Demographics (Qualtrics)
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">
+                    Platform Demographics (Prolific)
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">Source</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Self-reported in the TABS survey instrument (questions Q1&ndash;Q9)
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Prolific participant profile database (archived at submission completion)
+                  </td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">Type</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Organizational/role-based characteristics
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Personal/sociodemographic characteristics
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">Fields</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Executive Role (Q1), Decision Authority (Q2), Industry (Q3), Org Size (Q4),
+                    Profit Model (Q5), Revenue/Budget (Q6&ndash;Q7), Geography (Q8&ndash;Q9)
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Age, Sex, Ethnicity, Language, Country of Residence, Nationality, Student
+                    Status, Employment Status
+                  </td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    Collection Method
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Qualtrics CSV export, processed by{' '}
+                    <code className="bg-gray-100 px-1 rounded text-xs">tabs_v2_analysis.py</code>
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Prolific API{' '}
+                    <code className="bg-gray-100 px-1 rounded text-xs">
+                      POST /studies/&#123;id&#125;/demographic-export/
+                    </code>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    Used in Analysis
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    ✅ All per-group statistics, effect sizes, cross-tabulations
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Available via API; not published on results pages (privacy protection)
+                  </td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">Join Key</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Embedded in Qualtrics response row (same CSV)
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Matched via Prolific Participant ID (PID)
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+            <p className="text-sm text-amber-900">
+              <strong>Key distinction:</strong> Survey Demographics (Qualtrics) and Platform
+              Demographics (Prolific) are entirely separate datasets. The survey demographics
+              capture <em>what role participants hold</em> and{' '}
+              <em>what kind of organization they work in</em>, while Prolific demographics capture{' '}
+              <em>who the participants are</em> personally. The two can be cross-referenced using
+              Prolific Participant ID as the join key, but they should never be conflated.
+            </p>
+          </div>
+        </section>
+
         {/* ── Disposition Waterfall ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Disposition Waterfall (Steps 0&ndash;10)</h2>

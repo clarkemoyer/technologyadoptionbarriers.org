@@ -339,6 +339,14 @@ class TestSensitivityJSON:
         ]
         result = sensitivity_to_json(cuts, idx)
 
+        # demographic_sources metadata documents both data sources
+        assert "demographic_sources" in result
+        ds = result["demographic_sources"]
+        assert "survey_demographics" in ds
+        assert "platform_demographics" in ds
+        assert "Q1_Role" in ds["survey_demographics"]["fields"]
+        assert "age" in ds["platform_demographics"]["fields"]
+
         assert "sample_details" in result
         # One detail block per sample cut
         assert len(result["sample_details"]) == 3
