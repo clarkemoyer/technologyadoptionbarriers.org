@@ -80,7 +80,9 @@ const DatasetComparisonPage = () => {
         </nav>
 
         <h1 className={H1_CLASSES}>Dataset Comparison</h1>
-        <LastUpdated utcTimestamp={(sensitivityData as Record<string, unknown>).last_updated as string} />
+        <LastUpdated
+          utcTimestamp={(sensitivityData as Record<string, unknown>).last_updated as string}
+        />
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
