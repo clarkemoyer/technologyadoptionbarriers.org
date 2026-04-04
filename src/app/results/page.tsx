@@ -194,8 +194,8 @@ const ResultsPage = () => {
           <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 font-sans text-sm">
             <p className="mb-2 font-medium">APA Format:</p>
             <p className="text-gray-700 italic">
-              Moyer, C. ({new Date().getFullYear()}). Technology Adoption Barriers Survey (TABS):
-              Survey results and open data.{' '}
+              Moyer, C. (2026). Technology Adoption Barriers Survey (TABS): Survey results and open
+              data.{' '}
               <span className="not-italic">https://technologyadoptionbarriers.org/results</span>
             </p>
           </div>

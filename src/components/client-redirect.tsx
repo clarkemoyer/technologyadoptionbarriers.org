@@ -12,9 +12,6 @@ export default function ClientRedirect({ to }: { to: string }) {
 
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white flex items-start justify-center">
-      <noscript>
-        <meta httpEquiv="refresh" content={`0;url=${to}`} />
-      </noscript>
       <div className="text-center mt-20">
         <p className="text-gray-600">
           This page has moved to{' '}
@@ -22,6 +19,11 @@ export default function ClientRedirect({ to }: { to: string }) {
             {to}
           </Link>
         </p>
+        <noscript>
+          <p className="mt-4 text-gray-600">
+            JavaScript is disabled. Please use the link above to continue.
+          </p>
+        </noscript>
       </div>
     </main>
   )

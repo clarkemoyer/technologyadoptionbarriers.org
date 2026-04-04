@@ -377,7 +377,21 @@ jobs:
             if [ -z "$timestamp" ]; then
               # No timestamp field — check that file is non-empty and valid JSON
               if echo "$content" | python3 -c "import json,sys; json.load(sys.stdin)" 2>/dev/null; then
-                echo "| $label | ✅ Valid JSON (freshness not checked — no timestamp field) |" >> /tmp/data-results.txt
+              # No timestamp in JSON — try Last-Modified HTTP header
+              local last_mod
+              last_mod=$(curl -sI -L --max-time 15 "$url" 2>/dev/null | grep -i '^last-modified:' | head -1 | sed 's/[Ll]ast-[Mm]odified: *//')
+              if [ -n "$last_mod" ]; then
+                local lm_epoch lm_age
+                lm_epoch=$(date -d "$last_mod" +%s 2>/dev/null || echo "0")
+                lm_age=$(( ($(date +%s) - lm_epoch) / 3600 ))
+                if [ "$lm_age" -le "$max_age_hours" ]; then
+                  echo "| $label | ✅ Valid JSON, Last-Modified ${lm_age}h ago |" >> /tmp/data-results.txt
+                else
+                  echo "| $label | ⚠️ Valid JSON, Last-Modified ${lm_age}h ago (threshold: ${max_age_hours}h) |" >> /tmp/data-results.txt
+                fi
+              else
+                echo "| $label | ✅ Valid JSON (freshness not available) |" >> /tmp/data-results.txt
+              fi
               else
                 echo "| $label | ❌ Invalid JSON |" >> /tmp/data-results.txt
                 DATA_FAIL=$((DATA_FAIL + 1))
