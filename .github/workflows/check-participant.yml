@@ -168,7 +168,7 @@ jobs:
           PID: ${{ inputs.pid }}
           MESSAGE: ${{ inputs.message }}
           DRY_RUN: 'false'
-        run: npx --no-install tsx scripts/send-custom-message.ts
+        run: python3 scripts/analysis/send_custom_message.py
 
       - name: Unreject submissions
         if: inputs.mode == 'unreject'
@@ -177,7 +177,7 @@ jobs:
           STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
           PID_LIST: ${{ inputs.pid }}
           DRY_RUN: 'false'
-        run: npx --no-install tsx scripts/unreject-submissions.ts
+        run: python3 scripts/analysis/unreject_submissions.py
 
       - name: Send thank-you messages
         if: inputs.mode == 'send-thank-you'
@@ -186,7 +186,7 @@ jobs:
           STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
           PID_LIST: ${{ inputs.pid }}
           DRY_RUN: 'false'
-        run: npx --no-install tsx scripts/send-thank-you-message.ts
+        run: python3 scripts/analysis/send_thank_you.py
 
       - name: Check all replies
         if: inputs.mode == 'all-replies'
