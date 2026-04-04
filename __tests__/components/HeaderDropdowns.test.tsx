@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import Header from '../../src/components/header'
@@ -175,10 +175,18 @@ describe('Header desktop dropdown independence', () => {
     expect(makingButton).toHaveAttribute('aria-expanded', 'true')
   })
 
-  // Note: Escape and click-outside close behavior is implemented via
-  // document-level event listeners in useEffect. These are difficult to
-  // test in jsdom without user-event. The toggleDropdown logic (opening
-  // one closes the other) is tested above via aria-expanded assertions.
+  it('clicking outside closes the active desktop dropdown', () => {
+    render(<Header />)
+
+    const makingButton = getDesktopDropdownButton(/the making of tabs/i)
+    fireEvent.click(makingButton)
+    expect(makingButton).toHaveAttribute('aria-expanded', 'true')
+
+    // The header's useEffect adds a mousedown listener on document
+    // that closes the dropdown when clicking outside the menu/button refs
+    fireEvent.mouseDown(document.body)
+    expect(makingButton).toHaveAttribute('aria-expanded', 'false')
+  })
 })
 
 // --- Mobile Dropdown Tests ---
