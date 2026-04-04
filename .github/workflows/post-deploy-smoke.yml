@@ -304,6 +304,141 @@ jobs:
 
           echo "INFRA_FAIL=$INFRA_FAIL" >> "$GITHUB_ENV"
 
+      # ── Redirect validation ─────────────────────────────────────────
+
+      - name: Validate redirects reach correct destinations
+        run: |
+          set -uo pipefail
+          REDIRECT_FAIL=0
+
+          # Helper: verify redirect via HTTP 3xx OR static stub page (JS/link)
+          check_redirect() {
+            local old_url="$1" expected_path="$2" label="$3"
+            local final_url page_html
+
+            # Try HTTP redirect first
+            final_url=$(curl -s -o /dev/null -w '%{url_effective}' -L --max-time 15 "$old_url" 2>/dev/null || echo "")
+            if echo "$final_url" | grep -F -q "$expected_path"; then
+              echo "| $label | ✅ HTTP redirect → $expected_path |" >> /tmp/redirect-results.txt
+              return
+            fi
+
+            # Fall back to checking whether the stub page contains the expected path
+            page_html=$(curl -sL --max-time 15 "$old_url" 2>/dev/null || echo "")
+            if echo "$page_html" | grep -F -q -- "$expected_path"; then
+              echo "| $label | ✅ Stub page → $expected_path |" >> /tmp/redirect-results.txt
+            else
+              echo "| $label | ❌ → ${final_url:-timeout} (expected $expected_path) |" >> /tmp/redirect-results.txt
+              REDIRECT_FAIL=$((REDIRECT_FAIL + 1))
+            fi
+          }
+
+          : > /tmp/redirect-results.txt
+
+          # Old Making of TABS pages → Results section
+          check_redirect "${SITE_URL}/making-of-tabs/data-analysis" "/results/data-quality" "/making-of-tabs/data-analysis"
+          check_redirect "${SITE_URL}/making-of-tabs/cmo-survey" "/results/cmo-survey" "/making-of-tabs/cmo-survey"
+          check_redirect "${SITE_URL}/making-of-tabs/reproducible-analysis" "/results/reproducibility" "/making-of-tabs/reproducible-analysis"
+          check_redirect "${SITE_URL}/making-of-tabs/integrations/prolific/dashboard" "/results/dashboard" "/making-of-tabs/.../prolific/dashboard"
+          check_redirect "${SITE_URL}/barriers/survey-stats" "/results/survey-stats" "/barriers/survey-stats"
+
+          echo ""
+          echo "Redirects: $REDIRECT_FAIL failed"
+          cat /tmp/redirect-results.txt
+
+          echo "REDIRECT_FAIL=$REDIRECT_FAIL" >> "$GITHUB_ENV"
+
+      # ── Pipeline data rendering ─────────────────────────────────────
+
+      - name: Verify pipeline data renders on pages
+        run: |
+          set -uo pipefail
+          DATA_FAIL=0
+
+          : > /tmp/data-results.txt
+
+          # JSON data files are bundled into pages at build time (not served
+          # as static files). Verify rendered pages contain data-derived values
+          # that would only appear if pipeline JSON was present at build.
+
+          check_data_marker() {
+            local url="$1" marker="$2" label="$3"
+            local content
+            content=$(curl -s -L --max-time 15 "$url" 2>/dev/null || echo "")
+            if [ -z "$content" ]; then
+              echo "| $label | ❌ Could not fetch page |" >> /tmp/data-results.txt
+              DATA_FAIL=$((DATA_FAIL + 1))
+              return
+            fi
+            if echo "$content" | grep -F -q -- "$marker"; then
+              echo "| $label | ✅ Data renders |" >> /tmp/data-results.txt
+            else
+              echo "| $label | ❌ Missing: $marker |" >> /tmp/data-results.txt
+              DATA_FAIL=$((DATA_FAIL + 1))
+            fi
+          }
+
+          # sensitivity-analysis.json → descriptive page renders sample labels with N values
+          # "Conservative Clean (N=75)" only appears when JSON data is loaded
+          check_data_marker "${SITE_URL}/results/descriptive" "Conservative Clean (N=" "sensitivity → descriptive"
+
+          # sensitivity-analysis.json → data-quality page renders sample definitions table
+          check_data_marker "${SITE_URL}/results/data-quality" "Conservative Clean" "sensitivity → data-quality"
+
+          # disposition-summary.json → dashboard page renders approval counts
+          check_data_marker "${SITE_URL}/results/dashboard" "Approved" "disposition → dashboard"
+
+          # sensitivity-analysis.json → reliability page renders 4-decimal alpha values
+          # Pattern like "0.8612" only appears when computed from JSON data
+          check_data_marker "${SITE_URL}/results/reliability" "0.8612" "alphas → reliability"
+
+          echo ""
+          echo "Pipeline data rendering: $DATA_FAIL failed"
+          cat /tmp/data-results.txt
+
+          echo "DATA_FAIL=$DATA_FAIL" >> "$GITHUB_ENV"
+
+      # ── Content spot-checks ──────────────────────────────────────────
+
+      - name: Content validation for key pages
+        run: |
+          set -uo pipefail
+          CONTENT_FAIL=0
+
+          check_content() {
+            local url="$1" expected="$2" label="$3"
+            local content
+            content=$(curl -s -L --max-time 15 "$url" 2>/dev/null || echo "")
+            if echo "$content" | grep -q "$expected"; then
+              echo "| $label | ✅ Contains: \"$expected\" |" >> /tmp/content-results.txt
+            else
+              echo "| $label | ❌ Missing: \"$expected\" |" >> /tmp/content-results.txt
+              CONTENT_FAIL=$((CONTENT_FAIL + 1))
+            fi
+          }
+
+          : > /tmp/content-results.txt
+
+          # Results section — verify key content renders
+          check_content "${SITE_URL}/results" "Prolific Approved" "/results overview"
+          check_content "${SITE_URL}/results" "Clean Sample" "/results hero stats"
+          check_content "${SITE_URL}/results/data-quality" "Disposition Waterfall" "/results/data-quality"
+          check_content "${SITE_URL}/results/descriptive" "Grand Mean" "/results/descriptive"
+          check_content "${SITE_URL}/results/reliability" "Cronbach" "/results/reliability"
+          check_content "${SITE_URL}/results/sensitivity" "Conservative Clean" "/results/sensitivity"
+
+          # Barriers page — still functional
+          check_content "${SITE_URL}/barriers" "Technology Adoption Barriers" "/barriers"
+
+          # Making of TABS — still functional after restructure
+          check_content "${SITE_URL}/making-of-tabs" "Making of TABS" "/making-of-tabs"
+
+          echo ""
+          echo "Content validation: $CONTENT_FAIL failed"
+          cat /tmp/content-results.txt
+
+          echo "CONTENT_FAIL=$CONTENT_FAIL" >> "$GITHUB_ENV"
+
       # ── Job summary ──────────────────────────────────────────────────
 
       - name: Generate job summary
@@ -365,8 +500,38 @@ jobs:
             fi
             echo ""
 
+            # ── Redirects ──
+            echo "## 🔀 Redirect Validation"
+            echo ""
+            echo "| Old URL | Result |"
+            echo "|---------|--------|"
+            if [ -f /tmp/redirect-results.txt ]; then
+              cat /tmp/redirect-results.txt
+            fi
+            echo ""
+
+            # ── Data freshness ──
+            echo "## 📊 Pipeline Data Validation"
+            echo ""
+            echo "| File | Result |"
+            echo "|------|--------|"
+            if [ -f /tmp/data-results.txt ]; then
+              cat /tmp/data-results.txt
+            fi
+            echo ""
+
+            # ── Content validation ──
+            echo "## 📝 Content Spot-Checks"
+            echo ""
+            echo "| Page | Result |"
+            echo "|------|--------|"
+            if [ -f /tmp/content-results.txt ]; then
+              cat /tmp/content-results.txt
+            fi
+            echo ""
+
             # ── Overall result ──
-            TOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} ))
+            TOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} + ${REDIRECT_FAIL:-0} + ${CONTENT_FAIL:-0} + ${DATA_FAIL:-0} ))
             if [ "$TOTAL_FAIL" -eq 0 ]; then
               echo "## ✅ All checks passed!"
             else
@@ -379,12 +544,15 @@ jobs:
       - name: Fail if any checks failed
         if: always()
         run: |
-          TOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} ))
+          TOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} + ${REDIRECT_FAIL:-0} + ${CONTENT_FAIL:-0} + ${DATA_FAIL:-0} ))
           if [ "$TOTAL_FAIL" -gt 0 ]; then
             echo "::error::🚨 PRODUCTION SITE ISSUE: ${TOTAL_FAIL} smoke test check(s) failed after deploy"
             [ "${ROUTE_FAIL:-0}" -gt 0 ] && echo "::error::  📄 Page routes: ${ROUTE_FAIL} failed out of ${ROUTE_TOTAL:-?}"
             [ "${ASSET_FAIL:-0}" -gt 0 ] && echo "::error::  🖼️ Static assets: ${ASSET_FAIL} failed out of ${ASSET_TOTAL:-?}"
             [ "${INFRA_FAIL:-0}" -gt 0 ] && echo "::error::  🔧 Infrastructure: ${INFRA_FAIL} check(s) failed"
+            [ "${REDIRECT_FAIL:-0}" -gt 0 ] && echo "::error::  🔀 Redirects: ${REDIRECT_FAIL} failed"
+            [ "${CONTENT_FAIL:-0}" -gt 0 ] && echo "::error::  📝 Content: ${CONTENT_FAIL} spot-check(s) failed"
+            [ "${DATA_FAIL:-0}" -gt 0 ] && echo "::error::  📊 Data: ${DATA_FAIL} pipeline data check(s) failed"
             echo "::error::See the job summary for full details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             exit 1
           fi
@@ -401,7 +569,10 @@ jobs:
             const routeFail = parseInt(process.env.ROUTE_FAIL || '0');
             const assetFail = parseInt(process.env.ASSET_FAIL || '0');
             const infraFail = parseInt(process.env.INFRA_FAIL || '0');
-            const totalFail = routeFail + assetFail + infraFail;
+            const redirectFail = parseInt(process.env.REDIRECT_FAIL || '0');
+            const contentFail = parseInt(process.env.CONTENT_FAIL || '0');
+            const dataFail = parseInt(process.env.DATA_FAIL || '0');
+            const totalFail = routeFail + assetFail + infraFail + redirectFail + contentFail + dataFail;
             const siteUrl = process.env.SITE_URL;
 
             // Use the deployed commit SHA on workflow_run (matches commit status steps)
@@ -415,6 +586,9 @@ jobs:
             if (routeFail > 0) lines.push(`- **Page routes:** ${routeFail} failed (out of ${process.env.ROUTE_TOTAL || '?'})`);
             if (assetFail > 0) lines.push(`- **Static assets:** ${assetFail} failed (out of ${process.env.ASSET_TOTAL || '?'})`);
             if (infraFail > 0) lines.push(`- **Infrastructure:** ${infraFail} check(s) failed`);
+            if (redirectFail > 0) lines.push(`- **Redirects:** ${redirectFail} failed`);
+            if (contentFail > 0) lines.push(`- **Content spot-checks:** ${contentFail} failed`);
+            if (dataFail > 0) lines.push(`- **Pipeline data:** ${dataFail} page(s) missing expected data`);
             const breakdown = lines.length > 0 ? lines.join('\n') : '- See workflow run for details';
 
             const title = `🚨 Production smoke test failed: ${totalFail} check(s) after deploy (${shortSha})`;

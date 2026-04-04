@@ -5,7 +5,8 @@
       "url": [
         "http://localhost/index.html",
         "http://localhost/barriers.html",
-        "http://localhost/barriers/survey-stats.html",
+        "http://localhost/results.html",
+        "http://localhost/results/survey-stats.html",
         "http://localhost/contribution-policy.html",
         "http://localhost/cookie-policy.html",
         "http://localhost/get-involved.html",

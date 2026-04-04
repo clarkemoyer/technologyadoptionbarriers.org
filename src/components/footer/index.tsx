@@ -123,7 +123,7 @@ const Footer: React.FC = () => {
       <div className="py-[40px] px-[20px] md:px-[60px] bg-black">
         <div className="max-w-[4096px] mx-auto flex flex-col items-center gap-[20px]">
           {/* Navigation Links Grid */}
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-left mb-8 border-b border-gray-800 pb-8">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-12 text-left mb-8 border-b border-gray-800 pb-8">
             {/* Main Navigation */}
             <div className="flex flex-col gap-2">
               <h3 className="text-tabs-teal-bright font-bold uppercase tracking-wider text-sm mb-2">
@@ -156,6 +156,52 @@ const Footer: React.FC = () => {
               </Link>
               <Link href="/media" className="text-gray-400 hover:text-white text-sm py-1">
                 Media
+              </Link>
+            </div>
+
+            {/* Results */}
+            <div className="flex flex-col gap-2">
+              <h3 className="text-tabs-teal-bright font-bold uppercase tracking-wider text-sm mb-2">
+                Results
+              </h3>
+              <Link
+                href="/results"
+                className="text-gray-400 hover:text-white text-sm py-1 font-semibold"
+              >
+                Overview
+              </Link>
+              <Link href="/results/sample" className="text-gray-400 hover:text-white text-sm py-1">
+                Sample &amp; Demographics
+              </Link>
+              <Link
+                href="/results/descriptive"
+                className="text-gray-400 hover:text-white text-sm py-1"
+              >
+                Descriptive Statistics
+              </Link>
+              <Link
+                href="/results/reliability"
+                className="text-gray-400 hover:text-white text-sm py-1"
+              >
+                Scale Reliability
+              </Link>
+              <Link
+                href="/results/sensitivity"
+                className="text-gray-400 hover:text-white text-sm py-1"
+              >
+                Sensitivity Analysis
+              </Link>
+              <Link
+                href="/results/dashboard"
+                className="text-gray-400 hover:text-white text-sm py-1"
+              >
+                Prolific Dashboard
+              </Link>
+              <Link
+                href="/results/reproducibility"
+                className="text-gray-400 hover:text-white text-sm py-1"
+              >
+                Open Data
               </Link>
             </div>
 

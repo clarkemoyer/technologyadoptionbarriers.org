@@ -238,9 +238,9 @@ const MakingOfTabsPage = () => {
                 textColor: 'text-amber-800',
               },
               {
-                title: 'Data Analysis',
-                href: '/making-of-tabs/data-analysis',
-                desc: 'Disposition waterfall, sample definitions, sensitivity analysis, and documented edge cases.',
+                title: 'Results & Data',
+                href: '/results',
+                desc: 'Survey results, descriptive statistics, scale reliability, sensitivity analysis, and open data.',
                 border: 'border-rose-200',
                 bg: 'bg-rose-50',
                 titleColor: 'text-rose-900',
@@ -269,6 +269,13 @@ const MakingOfTabsPage = () => {
         </section>
 
         <section className="pt-8 border-t border-gray-200">
+          <p className="text-sm text-gray-600 mb-4">
+            Looking for survey results, descriptive statistics, or scale reliability? Visit the{' '}
+            <Link href="/results" className="text-blue-600 hover:underline font-medium">
+              Results
+            </Link>{' '}
+            section.
+          </p>
           <p className="text-sm text-gray-600 italic">
             This &quot;Making of&quot; section is a living document, updated as our toolset and
             methodologies evolve.
