@@ -373,6 +373,7 @@ jobs:
               DATA_FAIL=$((DATA_FAIL + 1))
               return 1
             fi
+            return 0
           }
 
           check_data_marker() {
