@@ -212,8 +212,7 @@ class TestProlificDemographics:
                 filter_ids=["industry", "company_size"],
             )
 
-        import json as _json
-        payload = _json.loads(captured_bodies[0])
+        payload = json.loads(captured_bodies[0])
         assert len(payload["filters"]) == 2
         assert {"filter_id": "industry"} in payload["filters"]
         assert {"filter_id": "company_size"} in payload["filters"]
