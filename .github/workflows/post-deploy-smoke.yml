@@ -401,7 +401,12 @@ jobs:
 
             # Check if timestamp is within max_age_hours
             local ts_epoch now_epoch age_hours
-            ts_epoch=$(date -d "$timestamp" +%s 2>/dev/null || echo "0")
+            ts_epoch=$(date -d "$timestamp" +%s 2>/dev/null || echo "")
+            if [ -z "$ts_epoch" ] || [ "$ts_epoch" = "0" ]; then
+              echo "| $label | ❌ Unparsable timestamp: $timestamp |" >> /tmp/data-results.txt
+              DATA_FAIL=$((DATA_FAIL + 1))
+              return
+            fi
             now_epoch=$(date +%s)
             age_hours=$(( (now_epoch - ts_epoch) / 3600 ))
 
