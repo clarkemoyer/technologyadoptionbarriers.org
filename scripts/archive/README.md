@@ -13,7 +13,7 @@ reference only and should not be used in new workflows.
 | `generate-disposition-summary.ts`    | `generate_disposition_summary.py`        |
 | `message-flagged-submissions.ts`     | `message_flagged.py`                     |
 | `reject-auto-exclude-submissions.ts` | `reject_auto_exclude.py`                 |
-| `reject-failed-iri-submissions.ts`   | (handled by `reject_auto_exclude.py`)    |
+| `reject-failed-iri-submissions.ts`   | `reject_failed_iri.py`                   |
 | `send-custom-message.ts`             | `send_custom_message.py`                 |
 | `send-thank-you-message.ts`          | `send_thank_you.py`                      |
 | `unreject-submissions.ts`            | `unreject_submissions.py`                |

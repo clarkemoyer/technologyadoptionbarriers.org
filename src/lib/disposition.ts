@@ -2,7 +2,7 @@
  * TABS V2 Disposition Logic
  *
  * Reusable types and waterfall logic for computing survey response dispositions.
- * Used by scripts/analysis/disposition_triage.py and tests.
+ * Used by archived TypeScript scripts (scripts/archive/) and cross-validation tests.
  *
  * Straightlining detection uses two layers:
  *   - Qualtrics Q_StraightliningCount: full-block detection (auto-exclude)

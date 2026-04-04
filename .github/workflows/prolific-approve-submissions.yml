@@ -98,7 +98,7 @@ jobs:
           echo "Study ID: ${STUDY_ID}"
           echo "Dry run: ${DRY_RUN}"
           echo ""
-          npx --no-install tsx scripts/archive/approve-prolific-submissions.ts
+          python3 scripts/analysis/approve_submissions.py
 
       - name: Error summary
         if: failure()
