@@ -364,9 +364,13 @@ jobs:
           # Shared fetch: sets DATA_CONTENT and returns non-zero on HTTP error
           fetch_data_page() {
             local url="$1" label="$2"
-            local status
+            local status curl_exit
             DATA_CONTENT=""
-            status=$(curl -s -o /tmp/data-body -w '%{http_code}' -L --max-time 15 "$url" 2>/dev/null || echo "000")
+            status=$(curl -s -o /tmp/data-body -w '%{http_code}' -L --max-time 15 "$url" 2>/dev/null)
+            curl_exit=$?
+            if [ "$curl_exit" -ne 0 ]; then
+              status="000"
+            fi
             DATA_CONTENT=$(cat /tmp/data-body 2>/dev/null || echo "")
             if [ "$status" != "200" ]; then
               echo "| $label | ❌ HTTP $status (expected 200) |" >> /tmp/data-results.txt
