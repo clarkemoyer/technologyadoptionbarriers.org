@@ -151,14 +151,12 @@ def main():
         print(f"    Message: {r['message']}")
         print()
 
-    # ── Verify API (live only) ──
-    study_name = study_id
-    if not dry_run:
-        print("Verifying Prolific API connection...")
-        study = prolific_study_info(study_id, api_token)
-        study_name = study.get("name", "UNKNOWN")
-        print(f"Study: {study_name}")
-        print()
+    # ── Verify API (always, even in dry run) ──
+    print("Verifying Prolific API connection...")
+    study = prolific_study_info(study_id, api_token)
+    study_name = study.get("name", "UNKNOWN")
+    print(f"Study: {study_name}")
+    print()
 
     # ── Execute or dry run ──
     if dry_run:
@@ -192,12 +190,15 @@ def main():
         f"| `{r['pid']}` | {r['duration'] / 60:.1f} min | {r['iri_fail']}/3 | {'Yes' if r['speed_flag'] == 1 else 'No'} |"
         for r in records
     ]
+    from datetime import datetime, timezone
+    run_time = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     _append_step_summary("\n".join([
         "## Prolific Submission Rejection (Failed IRI)",
         "",
         "> **DESTRUCTIVE OPERATION** — rejected participants will NOT be paid.",
         "",
-        f"- **Study ID:** {study_id}",
+        f"- **Run time (UTC):** {run_time}",
+        f"- **Study:** {study_name} (`{study_id}`)",
         f"- **Mode:** {'DRY RUN' if dry_run else 'LIVE REJECTION'}",
         f"- **Criteria:** IRI\\_Fail\\_Count == 3 (all three attention checks failed)",
         "",
