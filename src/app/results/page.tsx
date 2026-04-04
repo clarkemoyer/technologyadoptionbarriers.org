@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, PARAGRAPH_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
+import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
   title: 'Results — TABS',
@@ -33,6 +34,7 @@ const ResultsPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Results</h1>
+        <LastUpdated utcTimestamp={sensitivityData.last_updated} />
 
         <section className="mb-10 text-gray-800">
           <p className={PARAGRAPH_CLASSES}>

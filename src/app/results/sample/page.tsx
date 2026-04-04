@@ -8,6 +8,7 @@ import {
 } from '@/lib/articleStyles'
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
+import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
   title: 'Sample & Demographics — TABS Results',
@@ -45,6 +46,7 @@ const SamplePage = () => {
         </nav>
 
         <h1 className={H1_CLASSES}>Sample &amp; Demographics</h1>
+        <LastUpdated utcTimestamp={sensitivityData.last_updated} />
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
