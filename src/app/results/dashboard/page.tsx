@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 import dispositionData from '@/data/disposition-summary.json'
+import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
@@ -374,73 +375,165 @@ const DispositionDashboardPage = () => {
           </div>
         </section>
 
-        {/* Clean Sample Definitions */}
+        {/* ── Result Group Types (The Four Analysis Datasets) ── */}
         <section className="mb-12">
-          <h2 className={H2_CLASSES}>Sample Definitions</h2>
+          <h2 className={H2_CLASSES}>Result Group Types</h2>
           <p className="mb-4 text-gray-600">
-            Three key sample definitions are compared here, grounded in Prolific operational
-            reality. The Prolific Accepted count matches the Prolific platform&rsquo;s
-            &ldquo;Approved&rdquo; tab exactly. See the{' '}
+            Every TABS analysis is run against four primary result groups (datasets). Each group
+            applies progressively fewer quality filters. The numbers below come from two independent
+            sources: the <strong>Prolific API</strong> (live platform data) and the{' '}
+            <strong>analysis pipeline</strong> (Qualtrics export + Prolific enrichment + disposition
+            triage). See the{' '}
             <Link href="/results/data-quality" className="text-blue-600 hover:underline">
               Data Quality Pipeline
             </Link>{' '}
-            page for all five sample definitions.
+            page for the complete filter chain definitions.
           </p>
+
+          {/* Verification cross-check */}
+          {(() => {
+            const prolificApproved = d.actions.approved
+            const pipelineAccepted =
+              sensitivityData.samples.find((s) => s.key === 'prolific_accepted')?.n ?? null
+            const match = pipelineAccepted !== null && prolificApproved === pipelineAccepted
+            return (
+              <div
+                className={`border-2 rounded-lg p-4 mb-6 ${match ? 'border-green-300 bg-green-50' : 'border-red-400 bg-red-50'}`}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-lg">{match ? '✅' : '⚠️'}</span>
+                  <span className={`font-bold ${match ? 'text-green-800' : 'text-red-800'}`}>
+                    {match
+                      ? 'Prolific API and pipeline Ns match'
+                      : 'Prolific API and pipeline Ns do NOT match — investigate'}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-700">
+                  Prolific API &ldquo;Approved&rdquo; tab: <strong>{prolificApproved}</strong>
+                  {' · '}
+                  Pipeline &ldquo;Prolific Accepted&rdquo; sample:{' '}
+                  <strong>{pipelineAccepted ?? 'N/A'}</strong>
+                  {!match && pipelineAccepted !== null && (
+                    <span className="text-red-700 font-medium">
+                      {' '}
+                      (Δ = {Math.abs(prolificApproved - pipelineAccepted)})
+                    </span>
+                  )}
+                </p>
+                <p className="text-xs text-gray-500 mt-1">
+                  Both numbers should be identical. A mismatch indicates the approve automation
+                  failed to send commands to Prolific, or Prolific enrichment is using stale data.
+                </p>
+              </div>
+            )
+          })()}
+
+          {/* Four Result Groups chart */}
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm border-collapse">
+            <table className="w-full text-sm border-collapse">
               <thead>
-                <tr className="border-b-2 border-gray-200">
-                  <th className="py-2 px-3 font-semibold text-gray-600">Criterion</th>
-                  <th className="py-2 px-3 font-semibold text-gray-600">Conservative Clean</th>
-                  <th className="py-2 px-3 font-semibold text-gray-600">Flexible Clean</th>
-                  <th className="py-2 px-3 font-semibold text-gray-600">Prolific Accepted</th>
+                <tr className="bg-gray-100 border-b-2 border-gray-300">
+                  <th className="py-3 px-4 text-left font-bold text-gray-700">#</th>
+                  <th className="py-3 px-4 text-left font-bold text-gray-700">Result Group</th>
+                  <th className="py-3 px-4 text-left font-bold text-gray-700">Definition</th>
+                  <th className="py-3 px-4 text-right font-bold text-gray-700">N</th>
+                  <th className="py-3 px-4 text-left font-bold text-gray-700">Used For</th>
                 </tr>
               </thead>
-              <tbody className="text-gray-700">
-                <tr className="border-b border-gray-100">
-                  <td className="py-2 px-3 font-medium">Prolific APPROVED</td>
-                  <td className="py-2 px-3 text-green-700">Required</td>
-                  <td className="py-2 px-3 text-green-700">Required</td>
-                  <td className="py-2 px-3 text-green-700">Required</td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-2 px-3 font-medium">All 3 IRIs correct</td>
-                  <td className="py-2 px-3 text-green-700">Yes</td>
-                  <td className="py-2 px-3 text-green-700">Yes</td>
-                  <td className="py-2 px-3 text-gray-400">Not required</td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-2 px-3 font-medium">Minimum duration</td>
-                  <td className="py-2 px-3">&ge; 540 s (9 min)</td>
-                  <td className="py-2 px-3">&ge; 480 s (8 min)</td>
-                  <td className="py-2 px-3 text-gray-400">Any</td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-2 px-3 font-medium">reCAPTCHA, straightlining, auth</td>
-                  <td className="py-2 px-3 text-green-700">All checked</td>
-                  <td className="py-2 px-3 text-gray-400">Not checked</td>
-                  <td className="py-2 px-3 text-gray-400">Not checked</td>
-                </tr>
-                <tr className="border-b border-gray-100 bg-gray-50">
-                  <td className="py-2 px-3 font-semibold">Used for</td>
-                  <td className="py-2 px-3">Primary CRP analysis</td>
-                  <td className="py-2 px-3">Sensitivity analysis</td>
-                  <td className="py-2 px-3">N ceiling (matches Prolific UI)</td>
-                </tr>
+              <tbody>
+                {[
+                  {
+                    num: 1,
+                    key: 'conservative_clean',
+                    label: 'Conservative Clean',
+                    color: 'bg-green-50 border-l-4 border-l-green-500',
+                    definition:
+                      'Prolific APPROVED + all quality checks (3 IRIs, duration ≥ 540s, reCAPTCHA, no straightlining, auth)',
+                    usage: 'Primary CRP analysis — all published findings',
+                  },
+                  {
+                    num: 2,
+                    key: 'flexible_clean',
+                    label: 'Flexible Clean',
+                    color: 'bg-blue-50 border-l-4 border-l-blue-500',
+                    definition: 'Prolific APPROVED + basic quality (3 IRIs + duration ≥ 480s)',
+                    usage: 'Sensitivity analysis — verifies findings hold with lighter filters',
+                  },
+                  {
+                    num: 3,
+                    key: 'prolific_accepted',
+                    label: 'Prolific Accepted',
+                    color: 'bg-amber-50 border-l-4 border-l-amber-500',
+                    definition:
+                      'All deduplicated V2 rows with Prolific APPROVED status (must match Prolific UI)',
+                    usage: 'N ceiling — maximum usable sample, platform truth',
+                  },
+                  {
+                    num: 4,
+                    key: 'v2_finished',
+                    label: 'All V2 Finished',
+                    color: 'bg-gray-50 border-l-4 border-l-gray-400',
+                    definition: 'All finished responses with duration ≥ 120s (any Prolific status)',
+                    usage: 'Full-population baseline — includes returned/rejected/awaiting',
+                  },
+                ].map((group) => {
+                  const sample = sensitivityData.samples.find((s) => s.key === group.key)
+                  return (
+                    <tr key={group.key} className={`border-b border-gray-200 ${group.color}`}>
+                      <td className="py-3 px-4 font-bold text-gray-500">{group.num}</td>
+                      <td className="py-3 px-4 font-semibold text-gray-900">{group.label}</td>
+                      <td className="py-3 px-4 text-gray-700">{group.definition}</td>
+                      <td className="py-3 px-4 text-right font-mono font-bold text-gray-900">
+                        {sample?.n ?? '—'}
+                      </td>
+                      <td className="py-3 px-4 text-gray-600">{group.usage}</td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
           </div>
+
           <p className="mt-4 text-sm text-gray-500">
-            Conservative Clean &sube; Flexible Clean &sube; Prolific Accepted. Responses that pass
-            the Flexible Clean filter but not Conservative Clean were flagged for duration,
-            reCAPTCHA, straightlining, or auth issues but passed IRI checks. Many flagged responses
-            are approved after manual review, so Prolific Accepted exceeds both clean samples. See
-            the{' '}
-            <Link href="/results/data-quality" className="text-blue-600 hover:underline">
-              Data Quality Pipeline
-            </Link>{' '}
-            page for full details.
+            Conservative Clean ⊂ Flexible Clean ⊂ Prolific Accepted. All V2 Finished overlaps with
+            Prolific Accepted but is not a strict subset (it includes non-APPROVED responses;
+            Prolific Accepted includes incomplete-but-approved responses).
           </p>
+
+          {/* Disposition CLEAN vs Conservative Clean */}
+          <div className="bg-white border-2 border-amber-400 rounded-lg p-5 my-6">
+            <h3 className="text-base font-bold text-amber-900 mb-2">
+              ⚠ Disposition CLEAN ({dispositions['CLEAN'] || 0}) vs. Conservative Clean (
+              {sensitivityData.samples.find((s) => s.key === 'conservative_clean')?.n ?? '?'})
+            </h3>
+            <p className="text-sm text-gray-800 mb-2">
+              <strong>Disposition CLEAN</strong> is the operations concept: a response that passes
+              all quality checks in the waterfall (below). It is used to auto-approve participants
+              on Prolific. It does <em>not</em> check Prolific_Status.
+            </p>
+            <p className="text-sm text-gray-800 mb-2">
+              <strong>Conservative Clean</strong> is the analysis concept: Prolific_Status ==
+              APPROVED <em>plus</em> all quality checks. This is the primary analysis sample.
+            </p>
+            <p className="text-sm text-gray-800">
+              <strong>Expected:</strong> After the daily auto-approve workflow runs, all Disposition
+              CLEAN participants should have Prolific_Status == APPROVED, making the counts
+              converge. Any persistent gap indicates the approve automation failed to send commands
+              to Prolific. The gap is currently{' '}
+              <strong>
+                {Math.abs(
+                  (dispositions['CLEAN'] || 0) -
+                    (sensitivityData.samples.find((s) => s.key === 'conservative_clean')?.n ?? 0)
+                )}
+              </strong>
+              , explained by{' '}
+              {(dispositionData.dispositionByStatus as Record<string, Record<string, number>>)?.[
+                'FLAG-PARTIAL-STRAIGHTLINING'
+              ]?.['APPROVED'] ?? 0}{' '}
+              partial-straightlining responses that were manually approved on Prolific but excluded
+              from Conservative Clean.
+            </p>
+          </div>
         </section>
 
         {/* Methodology */}
