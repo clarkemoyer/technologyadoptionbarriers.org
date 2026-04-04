@@ -385,7 +385,7 @@ jobs:
           check_data_marker "${SITE_URL}/results/data-quality" "AUTO-EXCLUDE" "audit → data-quality"
 
           # disposition-summary.json → dashboard page shows live participant counts
-          check_data_marker "${SITE_URL}/results/dashboard" "Total Responses" "disposition → dashboard"
+          check_data_marker "${SITE_URL}/results/dashboard" "Total Participants" "disposition → dashboard"
 
           # sensitivity alphas → reliability page shows computed alpha values
           check_data_marker "${SITE_URL}/results/reliability" "0.8" "alphas → reliability"
