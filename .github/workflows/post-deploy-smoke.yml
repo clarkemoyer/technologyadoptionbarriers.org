@@ -378,20 +378,19 @@ jobs:
             fi
           }
 
-          # sensitivity-analysis.json → descriptive page shows computed means
-          # N values are data-derived (e.g. "75", "116") and can't come from static text
-          check_data_marker "${SITE_URL}/results/descriptive" "conservative_clean" "sensitivity → descriptive"
+          # sensitivity-analysis.json → descriptive page renders sample labels with N values
+          # "Conservative Clean (N=75)" only appears when JSON data is loaded
+          check_data_marker "${SITE_URL}/results/descriptive" "Conservative Clean (N=" "sensitivity → descriptive"
 
-          # sensitivity-analysis.json → data-quality page shows sample N values
+          # sensitivity-analysis.json → data-quality page renders sample definitions table
           check_data_marker "${SITE_URL}/results/data-quality" "Conservative Clean" "sensitivity → data-quality"
 
-          # disposition-summary.json → dashboard page shows live participant counts
-          # The total count is data-derived and changes with each pipeline run
+          # disposition-summary.json → dashboard page renders approval counts
           check_data_marker "${SITE_URL}/results/dashboard" "Approved" "disposition → dashboard"
 
-          # sensitivity alphas → reliability page shows 4-decimal computed values
-          # "0.8612" is a computed Cronbach's alpha that only exists in pipeline JSON
-          check_data_marker "${SITE_URL}/results/reliability" "0.86" "alphas → reliability"
+          # sensitivity-analysis.json → reliability page renders 4-decimal alpha values
+          # Pattern like "0.8612" only appears when computed from JSON data
+          check_data_marker "${SITE_URL}/results/reliability" "0.8612" "alphas → reliability"
 
           echo ""
           echo "Pipeline data rendering: $DATA_FAIL failed"
