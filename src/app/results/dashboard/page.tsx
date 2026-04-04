@@ -80,6 +80,12 @@ const DispositionDashboardPage = () => {
   const total = d.uniqueParticipants
   const dispositions = d.dispositions as Record<string, number>
 
+  // Sensitivity data lookups used in multiple places on this page
+  const conservativeCleanN =
+    sensitivityData.samples.find((s) => s.key === 'conservative_clean')?.n ?? null
+  const prolificAcceptedN =
+    sensitivityData.samples.find((s) => s.key === 'prolific_accepted')?.n ?? null
+
   const approvedPct = total > 0 ? ((d.actions.approved / total) * 100).toFixed(1) : '0'
   const flaggedCount =
     (dispositions['FLAG-SPEED'] || 0) +
@@ -393,8 +399,7 @@ const DispositionDashboardPage = () => {
           {/* Verification cross-check */}
           {(() => {
             const prolificApproved = d.actions.approved
-            const pipelineAccepted =
-              sensitivityData.samples.find((s) => s.key === 'prolific_accepted')?.n ?? null
+            const pipelineAccepted = prolificAcceptedN
             const match = pipelineAccepted !== null && prolificApproved === pipelineAccepted
             return (
               <div
@@ -503,8 +508,8 @@ const DispositionDashboardPage = () => {
           {/* Disposition CLEAN vs Conservative Clean */}
           <div className="bg-white border-2 border-amber-400 rounded-lg p-5 my-6">
             <h3 className="text-base font-bold text-amber-900 mb-2">
-              ⚠ Disposition CLEAN ({dispositions['CLEAN'] || 0}) vs. Conservative Clean (
-              {sensitivityData.samples.find((s) => s.key === 'conservative_clean')?.n ?? '?'})
+              Note: Disposition CLEAN ({dispositions['CLEAN'] || 0}) vs. Conservative Clean (
+              {conservativeCleanN ?? '?'})
             </h3>
             <p className="text-sm text-gray-800 mb-2">
               <strong>Disposition CLEAN</strong> is the operations concept: a response that passes
@@ -520,13 +525,8 @@ const DispositionDashboardPage = () => {
               CLEAN participants should have Prolific_Status == APPROVED, making the counts
               converge. Any persistent gap indicates the approve automation failed to send commands
               to Prolific. The gap is currently{' '}
-              <strong>
-                {Math.abs(
-                  (dispositions['CLEAN'] || 0) -
-                    (sensitivityData.samples.find((s) => s.key === 'conservative_clean')?.n ?? 0)
-                )}
-              </strong>
-              , explained by{' '}
+              <strong>{Math.abs((dispositions['CLEAN'] || 0) - (conservativeCleanN ?? 0))}</strong>,
+              explained by{' '}
               {(dispositionData.dispositionByStatus as Record<string, Record<string, number>>)?.[
                 'FLAG-PARTIAL-STRAIGHTLINING'
               ]?.['APPROVED'] ?? 0}{' '}
