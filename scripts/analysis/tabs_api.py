@@ -35,6 +35,55 @@ from urllib.error import HTTPError
 
 
 # ---------------------------------------------------------------------------
+# Prolific ↔ Qualtrics demographic cross-validation filter mapping
+# ---------------------------------------------------------------------------
+# These are the Prolific prescreener filter_ids that capture the same type
+# of demographic information as Qualtrics survey questions Q1–Q9.
+# Pass these to ``prolific_demographics_csv(filter_ids=...)`` to include
+# prescreener responses in the demographic export for cross-validation.
+#
+# Privacy: Prescreener data contains PII and must be handled ephemerally
+# (runner.temp) — never committed to the repository.
+#
+# API reference: GET /api/v1/filters/ returns the full filter catalog.
+# Export limit: up to 15 filter_ids per demographic export request.
+
+QUALTRICS_PROLIFIC_FILTER_MAP: Dict[str, Dict[str, str]] = {
+    # Qualtrics field → Prolific filter_id + description
+    "Q1_Role": {
+        "filter_id": "occupation",
+        "description": "Occupation/job title category",
+    },
+    "Q3_Industry": {
+        "filter_id": "industry",
+        "description": "Industry classification",
+    },
+    "Q4_OrgSize": {
+        "filter_id": "company_size",
+        "description": "Company/organization size",
+    },
+    "Q5_ProfitModel": {
+        "filter_id": "employment_sector",
+        "description": "Employment sector (Private, Public, Non-profit)",
+    },
+}
+
+# Prolific prescreener filter_ids that augment (not overlap) survey data.
+# These provide additional demographic dimensions not captured in Q1–Q9.
+PROLIFIC_AUGMENTATION_FILTERS: Dict[str, str] = {
+    "education_level": "Highest level of education completed",
+    "household_income": "Household income bracket",
+    "fluent_languages": "Languages spoken fluently",
+}
+
+# Combined list of all cross-validation + augmentation filter_ids,
+# suitable for passing directly to prolific_demographics_csv().
+PROLIFIC_ENRICHMENT_FILTER_IDS: List[str] = [
+    entry["filter_id"] for entry in QUALTRICS_PROLIFIC_FILTER_MAP.values()
+] + list(PROLIFIC_AUGMENTATION_FILTERS.keys())
+
+
+# ---------------------------------------------------------------------------
 # HTTP helpers (stdlib only — no requests dependency)
 # ---------------------------------------------------------------------------
 
@@ -231,18 +280,39 @@ def prolific_auth_checks_csv(study_id: str, api_token: str, output_path: str) ->
     return output_path
 
 
-def prolific_demographics_csv(study_id: str, api_token: str, output_path: str) -> str:
+def prolific_demographics_csv(
+    study_id: str,
+    api_token: str,
+    output_path: str,
+    filter_ids: Optional[List[str]] = None,
+) -> str:
     """Fetch bulk demographic export for a study and write to CSV.
 
     Uses the POST /studies/{id}/demographic-export/ endpoint (bulk export).
-    Returns path to the written CSV.
+
+    Args:
+        study_id: Prolific study ID.
+        api_token: Prolific API token.
+        output_path: Path to write the CSV output.
+        filter_ids: Optional list of Prolific prescreener filter_ids to include
+            in the export (up to 15). When provided, the export includes both
+            base demographic fields AND responses to the specified prescreener
+            filters. Use ``QUALTRICS_PROLIFIC_FILTER_MAP`` values for
+            cross-validation against survey demographics.
+
+    Returns:
+        Path to the written CSV, or empty string on failure.
     """
     headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
     url = f"{_PROLIFIC_BASE}/studies/{study_id}/demographic-export/"
 
+    filters_payload: List[Dict[str, Any]] = []
+    if filter_ids:
+        filters_payload = [{"filter_id": fid} for fid in filter_ids]
+
     try:
         # Bulk export returns CSV directly
-        body = json.dumps({"filters": []}).encode("utf-8")
+        body = json.dumps({"filters": filters_payload}).encode("utf-8")
         req = Request(url, data=body, headers=headers, method="POST")
         with urlopen(req, timeout=120) as resp:
             csv_data = resp.read().decode("utf-8")
@@ -251,7 +321,9 @@ def prolific_demographics_csv(study_id: str, api_token: str, output_path: str) -
             Path(output_path).parent.mkdir(parents=True, exist_ok=True)
             Path(output_path).write_text(csv_data, encoding="utf-8")
             lines = csv_data.strip().split("\n")
-            print(f"  Demographics: {len(lines) - 1} rows → {output_path}")
+            n_filters = len(filters_payload)
+            suffix = f" (+ {n_filters} prescreener filters)" if n_filters else ""
+            print(f"  Demographics: {len(lines) - 1} rows → {output_path}{suffix}")
             return output_path
     except HTTPError as e:
         print(f"  Demographics bulk export failed (HTTP {e.code}), skipping")

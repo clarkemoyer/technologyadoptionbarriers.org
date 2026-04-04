@@ -407,21 +407,68 @@ export async function getStudyDemographics(
 }
 
 /**
+ * Prolific prescreener filter_ids that correspond to Qualtrics survey demographics (Q1–Q9).
+ * Used for cross-validation of self-reported survey data against Prolific profile data.
+ *
+ * Pass these to `exportStudyDemographics(studyId, apiToken, filterIds)` to include
+ * prescreener responses alongside base demographics in the export.
+ *
+ * Privacy: Prescreener data contains PII and must be handled ephemerally — never
+ * committed to the repository or displayed on public pages.
+ *
+ * @see https://docs.prolific.com/api-reference/filters/get-filters
+ * @see https://docs.prolific.com/api-reference/studies/export-demographic-data
+ */
+export const QUALTRICS_PROLIFIC_FILTER_MAP: Record<
+  string,
+  { filter_id: string; description: string }
+> = {
+  Q1_Role: { filter_id: 'occupation', description: 'Occupation/job title category' },
+  Q3_Industry: { filter_id: 'industry', description: 'Industry classification' },
+  Q4_OrgSize: { filter_id: 'company_size', description: 'Company/organization size' },
+  Q5_ProfitModel: {
+    filter_id: 'employment_sector',
+    description: 'Employment sector (Private, Public, Non-profit)',
+  },
+}
+
+/** Additional Prolific prescreener filter_ids that augment (not overlap) survey data. */
+export const PROLIFIC_AUGMENTATION_FILTERS: Record<string, string> = {
+  education_level: 'Highest level of education completed',
+  household_income: 'Household income bracket',
+  fluent_languages: 'Languages spoken fluently',
+}
+
+/** All enrichment filter_ids (cross-validation + augmentation). */
+export const PROLIFIC_ENRICHMENT_FILTER_IDS: string[] = [
+  ...Object.values(QUALTRICS_PROLIFIC_FILTER_MAP).map((v) => v.filter_id),
+  ...Object.keys(PROLIFIC_AUGMENTATION_FILTERS),
+]
+
+/**
  * Export demographic data for all participants in a study (bulk).
  * This is the API equivalent of the "Download demographic data" button in the Prolific UI.
  *
- * Returns CSV content with: age, sex, ethnicity, language, residency, nationality,
+ * Base fields always included: age, sex, ethnicity, language, residency, nationality,
  * birth country, student status, employment status, and submission metadata.
+ *
+ * When filterIds are provided, the export also includes responses to those prescreener
+ * filters (up to 15 per export). Use PROLIFIC_ENRICHMENT_FILTER_IDS for cross-validation.
+ *
+ * Privacy: Demographic exports contain PII and must be handled ephemerally.
  *
  * @param studyId - The Prolific study ID
  * @param apiToken - Prolific API token
+ * @param filterIds - Optional array of Prolific prescreener filter_ids to include
  * @returns CSV string with demographic data, or null on error
  * @see https://docs.prolific.com/api-reference/studies/export-demographic-data
  */
 export async function exportStudyDemographics(
   studyId: string,
-  apiToken: string
+  apiToken: string,
+  filterIds?: string[]
 ): Promise<string | null> {
+  const filters = (filterIds ?? []).map((id) => ({ filter_id: id }))
   const url = `${PROLIFIC_API_BASE_URL}/studies/${studyId}/demographic-export/`
   const response = await fetch(url, {
     method: 'POST',
@@ -429,7 +476,7 @@ export async function exportStudyDemographics(
       Authorization: `Token ${apiToken}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ filters: [] }),
+    body: JSON.stringify({ filters }),
   })
 
   if (!response.ok) {

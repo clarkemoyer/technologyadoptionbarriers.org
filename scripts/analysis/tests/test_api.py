@@ -191,6 +191,62 @@ class TestProlificDemographics:
         assert "PID1" in content
         assert "Male" in content
 
+    def test_demographics_csv_with_filters(self, tmp_path):
+        """Passing filter_ids includes them in the request payload."""
+        from tabs_api import prolific_demographics_csv
+
+        captured_bodies: list = []
+
+        def mock_urlopen(req, timeout=120):
+            captured_bodies.append(req.data)
+            resp = MagicMock()
+            resp.read.return_value = b"pid,age,industry\nP1,30,Tech\n"
+            resp.__enter__ = lambda s: resp
+            resp.__exit__ = MagicMock(return_value=False)
+            return resp
+
+        with patch("tabs_api.urlopen", side_effect=mock_urlopen):
+            output = str(tmp_path / "demo_filtered.csv")
+            prolific_demographics_csv(
+                "study1", "token", output,
+                filter_ids=["industry", "company_size"],
+            )
+
+        import json as _json
+        payload = _json.loads(captured_bodies[0])
+        assert len(payload["filters"]) == 2
+        assert {"filter_id": "industry"} in payload["filters"]
+        assert {"filter_id": "company_size"} in payload["filters"]
+
+    def test_filter_map_constants(self):
+        """QUALTRICS_PROLIFIC_FILTER_MAP and PROLIFIC_ENRICHMENT_FILTER_IDS are valid."""
+        from tabs_api import (
+            QUALTRICS_PROLIFIC_FILTER_MAP,
+            PROLIFIC_AUGMENTATION_FILTERS,
+            PROLIFIC_ENRICHMENT_FILTER_IDS,
+        )
+
+        # Cross-validation map covers key Qualtrics fields
+        assert "Q1_Role" in QUALTRICS_PROLIFIC_FILTER_MAP
+        assert "Q3_Industry" in QUALTRICS_PROLIFIC_FILTER_MAP
+        assert "Q4_OrgSize" in QUALTRICS_PROLIFIC_FILTER_MAP
+        assert "Q5_ProfitModel" in QUALTRICS_PROLIFIC_FILTER_MAP
+        for entry in QUALTRICS_PROLIFIC_FILTER_MAP.values():
+            assert "filter_id" in entry
+            assert "description" in entry
+
+        # Augmentation filters provide additional dimensions
+        assert "education_level" in PROLIFIC_AUGMENTATION_FILTERS
+        assert "household_income" in PROLIFIC_AUGMENTATION_FILTERS
+        assert "fluent_languages" in PROLIFIC_AUGMENTATION_FILTERS
+
+        # Combined list includes both cross-validation and augmentation
+        assert len(PROLIFIC_ENRICHMENT_FILTER_IDS) == (
+            len(QUALTRICS_PROLIFIC_FILTER_MAP) + len(PROLIFIC_AUGMENTATION_FILTERS)
+        )
+        assert "occupation" in PROLIFIC_ENRICHMENT_FILTER_IDS
+        assert "education_level" in PROLIFIC_ENRICHMENT_FILTER_IDS
+
 
 # ── Prolific write operations (mocked) ─────────────────────
 

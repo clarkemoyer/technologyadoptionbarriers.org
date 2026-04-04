@@ -153,8 +153,17 @@ const DataQualityPage = () => {
                     N/A &mdash; all fields are part of the survey instrument
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    Employment Sector, Industry, Company Size, Occupation (available when configured
-                    as study filters)
+                    Employment Sector, Industry, Company Size, Occupation, Education Level,
+                    Household Income, Fluent Languages, and{' '}
+                    <a
+                      href="https://docs.prolific.com/api-reference/filters/get-filters"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      hundreds more via GET /api/v1/filters/
+                    </a>{' '}
+                    (up to 15 per export)
                   </td>
                 </tr>
                 <tr className="bg-gray-50">
@@ -228,9 +237,52 @@ const DataQualityPage = () => {
               are joined via Prolific Participant ID (PID).
             </p>
           </div>
-        </section>
 
-        {/* ── Disposition Waterfall ── */}
+          {/* ── Enrichment & Privacy ── */}
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mt-4">
+            <h3 className="text-sm font-bold text-red-900 mb-2">
+              🔒 Privacy-First Enrichment Architecture
+            </h3>
+            <p className="text-sm text-red-800 mb-2">
+              Prolific demographic data (both base fields and prescreener responses) contains
+              personally identifiable information (PII). The pipeline processes this data{' '}
+              <strong>ephemerally</strong>:
+            </p>
+            <ul className="text-xs text-red-700 space-y-1 list-disc list-inside mb-2">
+              <li>
+                Demographics are fetched to{' '}
+                <code className="bg-red-100 px-1 rounded">runner.temp</code> during pipeline
+                execution &mdash; never committed to the repository
+              </li>
+              <li>
+                Cross-validation checks run in-memory; only aggregate pass/fail flags are emitted
+              </li>
+              <li>
+                Published results pages display only category-level aggregates from Qualtrics survey
+                data (Q1&ndash;Q9), never individual Prolific profile data
+              </li>
+              <li>
+                The <code className="bg-red-100 px-1 rounded">QUALTRICS_PROLIFIC_FILTER_MAP</code>{' '}
+                constant in <code className="bg-red-100 px-1 rounded">tabs_api.py</code> and{' '}
+                <code className="bg-red-100 px-1 rounded">prolific-api.ts</code> defines which
+                Prolific prescreener filter_ids correspond to which Qualtrics fields for
+                cross-validation
+              </li>
+            </ul>
+            <p className="text-xs text-red-600 italic">
+              See{' '}
+              <a
+                href="https://docs.prolific.com/api-reference/studies/export-demographic-data"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-red-700 underline"
+              >
+                Prolific Demographic Export API
+              </a>{' '}
+              for export limits (15 filters, 2 configuration changes before lock).
+            </p>
+          </div>
+        </section>
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Disposition Waterfall (Steps 0&ndash;10)</h2>
           <p className={PARAGRAPH_CLASSES}>
