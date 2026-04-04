@@ -363,10 +363,11 @@ jobs:
 
           check_data_marker() {
             local url="$1" marker="$2" label="$3"
-            local content
-            content=$(curl -s -L --max-time 15 "$url" 2>/dev/null || echo "")
-            if [ -z "$content" ]; then
-              echo "| $label | ❌ Could not fetch page |" >> /tmp/data-results.txt
+            local content status
+            status=$(curl -s -o /tmp/data-body -w '%{http_code}' -L --max-time 15 "$url" 2>/dev/null || echo "000")
+            content=$(cat /tmp/data-body 2>/dev/null || echo "")
+            if [ "$status" != "200" ]; then
+              echo "| $label | ❌ HTTP $status (expected 200) |" >> /tmp/data-results.txt
               DATA_FAIL=$((DATA_FAIL + 1))
               return
             fi
@@ -381,17 +382,23 @@ jobs:
           # Regex variant: matches a pattern instead of a fixed string
           check_data_regex() {
             local url="$1" pattern="$2" label="$3"
-            local content
-            content=$(curl -s -L --max-time 15 "$url" 2>/dev/null || echo "")
-            if [ -z "$content" ]; then
-              echo "| $label | ❌ Could not fetch page |" >> /tmp/data-results.txt
+            local content status grep_status
+            status=$(curl -s -o /tmp/data-body -w '%{http_code}' -L --max-time 15 "$url" 2>/dev/null || echo "000")
+            content=$(cat /tmp/data-body 2>/dev/null || echo "")
+            if [ "$status" != "200" ]; then
+              echo "| $label | ❌ HTTP $status (expected 200) |" >> /tmp/data-results.txt
               DATA_FAIL=$((DATA_FAIL + 1))
               return
             fi
-            if echo "$content" | grep -qE -- "$pattern"; then
+            echo "$content" | grep -qE -- "$pattern"
+            grep_status=$?
+            if [ "$grep_status" -eq 0 ]; then
               echo "| $label | ✅ Data renders |" >> /tmp/data-results.txt
-            else
+            elif [ "$grep_status" -eq 1 ]; then
               echo "| $label | ❌ Missing pattern: $pattern |" >> /tmp/data-results.txt
+              DATA_FAIL=$((DATA_FAIL + 1))
+            else
+              echo "| $label | ❌ Regex error: $pattern |" >> /tmp/data-results.txt
               DATA_FAIL=$((DATA_FAIL + 1))
             fi
           }
