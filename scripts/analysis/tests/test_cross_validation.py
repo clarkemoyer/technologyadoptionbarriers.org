@@ -57,7 +57,7 @@ def run_ts_triage(csv_path: str, output_path: str) -> dict | None:
 
     # Run the TS triage
     result = subprocess.run(
-        ["npx", "--no-install", "tsx", "scripts/disposition-triage.ts"],
+        ["npx", "--no-install", "tsx", "scripts/archive/disposition-triage.ts"],
         capture_output=True, text=True, timeout=30,
         cwd=str(REPO_ROOT),
         env={
