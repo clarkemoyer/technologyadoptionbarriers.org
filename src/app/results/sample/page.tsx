@@ -257,6 +257,109 @@ const SamplePage = () => {
           </div>
         </section>
 
+        {/* ── Prolific Study Prescreening Criteria ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Prolific Study Prescreening Criteria</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The following eligibility screeners are configured on the live Prolific study. All
+            participants must match <strong>every</strong> criterion below to be eligible for
+            recruitment. These prescreener responses are also exported for demographic enrichment
+            and cross-validation against Qualtrics survey responses.
+          </p>
+          <div className="overflow-x-auto my-6">
+            <table className="w-full border-collapse font-sans text-sm">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">Screener</th>
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">
+                    Criterion
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">
+                    Eligible Values
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">
+                    Qualtrics Cross-Ref
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    Current Country of Residence
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">is any of</td>
+                  <td className="border border-gray-300 px-4 py-2">United States</td>
+                  <td className="border border-gray-300 px-4 py-2 text-gray-400 italic">
+                    Q8&ndash;Q9 (Geography)
+                  </td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    Employment Status
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">is any of</td>
+                  <td className="border border-gray-300 px-4 py-2">Full-Time</td>
+                  <td className="border border-gray-300 px-4 py-2 text-gray-400 italic">&mdash;</td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">Employer Type</td>
+                  <td className="border border-gray-300 px-4 py-2">is any of</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    <ul className="list-disc list-inside text-xs space-y-0.5">
+                      <li>Employee of a for-profit company or business</li>
+                      <li>Employee of a not-for-profit, tax-exempt, or charitable organization</li>
+                      <li>Local government employee</li>
+                      <li>State government employee</li>
+                      <li>Federal government employee</li>
+                      <li>Self-employed (not-incorporated)</li>
+                      <li>Self-employed (incorporated)</li>
+                      <li>Working without pay in family business or farm</li>
+                    </ul>
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    <code className="text-xs bg-teal-100 px-1 rounded">Q5_ProfitModel</code>
+                  </td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">Company Size</td>
+                  <td className="border border-gray-300 px-4 py-2">is any of</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    50&ndash;249, 250&ndash;999, 1000+
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    <code className="text-xs bg-teal-100 px-1 rounded">Q4_OrgSize</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">Job Position</td>
+                  <td className="border border-gray-300 px-4 py-2">is any of</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    <ul className="list-disc list-inside text-xs space-y-0.5">
+                      <li>C-Level (e.g. CEO, CFO), Owner, Partner, President</li>
+                      <li>Vice President (EVP, SVP, AVP, VP)</li>
+                      <li>Director (Group Director, Sr. Director, Director)</li>
+                      <li>Manager (Group Manager, Sr. Manager, Manager, Program Manager)</li>
+                    </ul>
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    <code className="text-xs bg-teal-100 px-1 rounded">Q1_Role</code>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+            <p className="text-sm text-green-900">
+              <strong>Enrichment Export:</strong> All 5 screener filter_ids are included in the
+              Prolific demographic export alongside 2 additional augmentation filters (education
+              level, household income), totaling 7 of the 15-filter API maximum. Screener responses
+              enable cross-validation against Qualtrics survey answers (e.g., Prolific
+              &ldquo;Company Size: 1000+&rdquo; vs Qualtrics Q4 &ldquo;10,000+&rdquo;). Raw
+              prescreener data is processed ephemerally and never committed to the repository.
+            </p>
+          </div>
+        </section>
+
         {/* ── Sample Size Summary ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Sample Size Summary</h2>

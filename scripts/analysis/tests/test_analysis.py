@@ -355,6 +355,7 @@ class TestSensitivityJSON:
         assert "base_fields" in pd, "missing base_fields"
         assert "prescreener_fields" in pd, "missing prescreener_fields"
         assert "cross_validation" in pd, "missing cross_validation"
+        assert "study_screeners" in pd, "missing study_screeners"
         assert "age" in pd["base_fields"]
         assert "country_of_birth" in pd["base_fields"]
         assert "company_size" in pd["prescreener_fields"]
@@ -364,6 +365,22 @@ class TestSensitivityJSON:
         assert "education_level" in pd["prescreener_fields"]
         assert "household_income" in pd["prescreener_fields"]
         assert "fluent_languages" in pd["prescreener_fields"]
+
+        # Study screeners document exact eligibility criteria
+        screeners = pd["study_screeners"]
+        assert isinstance(screeners, list)
+        assert len(screeners) == 5  # 5 screeners configured on live study
+        screener_ids = [s["filter_id"] for s in screeners]
+        assert "current_country_of_residence" in screener_ids
+        assert "employment_status" in screener_ids
+        assert "employment_sector" in screener_ids
+        assert "company_size" in screener_ids
+        assert "occupation" in screener_ids
+        for s in screeners:
+            assert "label" in s, f"screener {s['filter_id']} missing label"
+            assert "selected_values" in s, f"screener {s['filter_id']} missing selected_values"
+            assert "base_field" in s, f"screener {s['filter_id']} missing base_field"
+            assert isinstance(s["selected_values"], list)
         # Cross-validation documents overlapping fields and use cases
         cv = pd["cross_validation"]
         assert "overlapping_fields" in cv

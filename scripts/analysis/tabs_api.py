@@ -84,6 +84,66 @@ PROLIFIC_ENRICHMENT_FILTER_IDS: List[str] = [
 
 
 # ---------------------------------------------------------------------------
+# Prolific study prescreening criteria (live study configuration)
+# ---------------------------------------------------------------------------
+# These are the EXACT eligibility screeners configured on the Prolific study.
+# Participants must match ALL of these criteria to be eligible.
+# The filter_ids below are used in the demographic export to retrieve the
+# prescreener responses for cross-validation and enrichment.
+#
+# NOTE: "Current Country of Residence" and "Employment Status" are also
+# captured as base fields in every Prolific demographic export (always
+# included, no filter_id required).
+
+PROLIFIC_STUDY_SCREENERS: List[Dict[str, Any]] = [
+    {
+        "filter_id": "current_country_of_residence",
+        "label": "Current Country of Residence",
+        "selected_values": ["United States"],
+        "base_field": True,
+    },
+    {
+        "filter_id": "employment_status",
+        "label": "Employment Status",
+        "selected_values": ["Full-Time"],
+        "base_field": True,
+    },
+    {
+        "filter_id": "employment_sector",
+        "label": "Employer Type",
+        "selected_values": [
+            "Employee of a for-profit company or business or of an individual, for wages, salary, or commissions",
+            "Employee of a not-for-profit, tax-exempt, or charitable organization",
+            "Local government employee (city, county, etc.)",
+            "State government employee",
+            "Federal government employee",
+            "Self-employed in own not-incorporated business, professional practice, or farm",
+            "Self-employed in own incorporated business, professional practice, or farm",
+            "Working without pay in family business or farm",
+        ],
+        "base_field": False,
+    },
+    {
+        "filter_id": "company_size",
+        "label": "Company Size",
+        "selected_values": ["50-249", "250-999", "1000+"],
+        "base_field": False,
+    },
+    {
+        "filter_id": "occupation",
+        "label": "Job Position",
+        "selected_values": [
+            "C-Level (e.g. CEO, CFO), Owner, Partner, President",
+            "Vice President (EVP, SVP, AVP, VP)",
+            "Director (Group Director, Sr. Director, Director)",
+            "Manager (Group Manager, Sr. Manager, Manager, Program Manager)",
+        ],
+        "base_field": False,
+    },
+]
+
+
+# ---------------------------------------------------------------------------
 # HTTP helpers (stdlib only — no requests dependency)
 # ---------------------------------------------------------------------------
 

@@ -262,15 +262,70 @@ const DataQualityPage = () => {
                 data (Q1&ndash;Q9), never individual Prolific profile data
               </li>
               <li>
-                The <code className="bg-red-100 px-1 rounded">QUALTRICS_PROLIFIC_FILTER_MAP</code>{' '}
+                The <code className="bg-red-100 px-1 rounded">PROLIFIC_STUDY_SCREENERS</code>{' '}
                 constant in <code className="bg-red-100 px-1 rounded">tabs_api.py</code> and{' '}
-                <code className="bg-red-100 px-1 rounded">prolific-api.ts</code> defines which
-                Prolific prescreener filter_ids correspond to which Qualtrics fields for
-                cross-validation
+                <code className="bg-red-100 px-1 rounded">prolific-api.ts</code> documents the exact
+                eligibility criteria and filter_ids used for enrichment export
               </li>
             </ul>
+            <h4 className="text-xs font-bold text-red-800 mt-3 mb-1">
+              Enrichment Filter Budget (7 of 15 max)
+            </h4>
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs border-collapse mb-2">
+                <thead>
+                  <tr className="bg-red-100">
+                    <th className="border border-red-200 px-2 py-1 text-left font-bold">
+                      Category
+                    </th>
+                    <th className="border border-red-200 px-2 py-1 text-left font-bold">
+                      Filter IDs
+                    </th>
+                    <th className="border border-red-200 px-2 py-1 text-right font-bold">Count</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="border border-red-200 px-2 py-1 font-medium">
+                      Study screeners (prescreener)
+                    </td>
+                    <td className="border border-red-200 px-2 py-1">
+                      <code className="bg-red-100 px-0.5 rounded">employment_sector</code>,{' '}
+                      <code className="bg-red-100 px-0.5 rounded">company_size</code>,{' '}
+                      <code className="bg-red-100 px-0.5 rounded">occupation</code>
+                    </td>
+                    <td className="border border-red-200 px-2 py-1 text-right font-mono">3</td>
+                  </tr>
+                  <tr className="bg-red-50/50">
+                    <td className="border border-red-200 px-2 py-1 font-medium">
+                      Cross-validation
+                    </td>
+                    <td className="border border-red-200 px-2 py-1">
+                      <code className="bg-red-100 px-0.5 rounded">industry</code>
+                    </td>
+                    <td className="border border-red-200 px-2 py-1 text-right font-mono">1</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-red-200 px-2 py-1 font-medium">Augmentation</td>
+                    <td className="border border-red-200 px-2 py-1">
+                      <code className="bg-red-100 px-0.5 rounded">education_level</code>,{' '}
+                      <code className="bg-red-100 px-0.5 rounded">household_income</code>,{' '}
+                      <code className="bg-red-100 px-0.5 rounded">fluent_languages</code>
+                    </td>
+                    <td className="border border-red-200 px-2 py-1 text-right font-mono">3</td>
+                  </tr>
+                  <tr className="bg-red-100/50 font-bold">
+                    <td className="border border-red-200 px-2 py-1">Total</td>
+                    <td className="border border-red-200 px-2 py-1">&nbsp;</td>
+                    <td className="border border-red-200 px-2 py-1 text-right font-mono">7 / 15</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <p className="text-xs text-red-600 italic">
-              See{' '}
+              Note: &ldquo;Current Country of Residence&rdquo; and &ldquo;Employment Status&rdquo;
+              are base fields (always included in every export) and do not count against the
+              15-filter limit. See{' '}
               <a
                 href="https://docs.prolific.com/api-reference/studies/export-demographic-data"
                 target="_blank"

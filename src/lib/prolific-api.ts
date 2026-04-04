@@ -446,6 +446,60 @@ export const PROLIFIC_ENRICHMENT_FILTER_IDS: string[] = [
 ]
 
 /**
+ * Exact Prolific prescreening criteria configured on the live study.
+ * Participants must match ALL of these criteria to be eligible.
+ *
+ * "Current Country of Residence" and "Employment Status" are also base
+ * fields in every Prolific demographic export (always included).
+ */
+export const PROLIFIC_STUDY_SCREENERS = [
+  {
+    filter_id: 'current_country_of_residence',
+    label: 'Current Country of Residence',
+    selected_values: ['United States'],
+    base_field: true,
+  },
+  {
+    filter_id: 'employment_status',
+    label: 'Employment Status',
+    selected_values: ['Full-Time'],
+    base_field: true,
+  },
+  {
+    filter_id: 'employment_sector',
+    label: 'Employer Type',
+    selected_values: [
+      'Employee of a for-profit company or business or of an individual, for wages, salary, or commissions',
+      'Employee of a not-for-profit, tax-exempt, or charitable organization',
+      'Local government employee (city, county, etc.)',
+      'State government employee',
+      'Federal government employee',
+      'Self-employed in own not-incorporated business, professional practice, or farm',
+      'Self-employed in own incorporated business, professional practice, or farm',
+      'Working without pay in family business or farm',
+    ],
+    base_field: false,
+  },
+  {
+    filter_id: 'company_size',
+    label: 'Company Size',
+    selected_values: ['50-249', '250-999', '1000+'],
+    base_field: false,
+  },
+  {
+    filter_id: 'occupation',
+    label: 'Job Position',
+    selected_values: [
+      'C-Level (e.g. CEO, CFO), Owner, Partner, President',
+      'Vice President (EVP, SVP, AVP, VP)',
+      'Director (Group Director, Sr. Director, Director)',
+      'Manager (Group Manager, Sr. Manager, Manager, Program Manager)',
+    ],
+    base_field: false,
+  },
+] as const
+
+/**
  * Export demographic data for all participants in a study (bulk).
  * This is the API equivalent of the "Download demographic data" button in the Prolific UI.
  *
