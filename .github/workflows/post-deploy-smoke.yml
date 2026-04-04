@@ -355,82 +355,40 @@ jobs:
           set -uo pipefail
           DATA_FAIL=0
 
-          # Helper: fetch JSON and check updatedAt or pipeline timestamp is recent
-          check_json_age() {
-            local url="$1" label="$2" max_age_hours="$3"
+          : > /tmp/data-results.txt
+
+          # JSON data files are bundled into pages at build time (not served
+          # as static files). Verify the rendered pages contain expected data
+          # markers that prove the pipeline JSON was incorporated at build.
+
+          check_data_marker() {
+            local url="$1" marker="$2" label="$3"
             local content
             content=$(curl -s -L --max-time 15 "$url" 2>/dev/null || echo "")
-
             if [ -z "$content" ]; then
-              echo "| $label | ❌ Could not fetch |" >> /tmp/data-results.txt
+              echo "| $label | ❌ Could not fetch page |" >> /tmp/data-results.txt
               DATA_FAIL=$((DATA_FAIL + 1))
               return
             fi
-
-            # Extract updatedAt or generatedAt timestamp (ISO 8601)
-            local timestamp
-            timestamp=$(echo "$content" | grep -oP '"updatedAt"\s*:\s*"\K[^"]+' | head -1)
-            if [ -z "$timestamp" ]; then
-              timestamp=$(echo "$content" | grep -oP '"generatedAt"\s*:\s*"\K[^"]+' | head -1)
-            fi
-
-            if [ -z "$timestamp" ]; then
-              # No timestamp field — check that file is non-empty and valid JSON
-              if echo "$content" | python3 -c "import json,sys; json.load(sys.stdin)" 2>/dev/null; then
-              # No timestamp in JSON — try Last-Modified HTTP header
-              local last_mod
-              last_mod=$(curl -sI -L --max-time 15 "$url" 2>/dev/null | grep -i '^last-modified:' | head -1 | sed 's/[Ll]ast-[Mm]odified: *//')
-              if [ -n "$last_mod" ]; then
-                local lm_epoch lm_age
-                lm_epoch=$(date -d "$last_mod" +%s 2>/dev/null || echo "0")
-                lm_age=$(( ($(date +%s) - lm_epoch) / 3600 ))
-                if [ "$lm_age" -le "$max_age_hours" ]; then
-                  echo "| $label | ✅ Valid JSON, Last-Modified ${lm_age}h ago |" >> /tmp/data-results.txt
-                else
-                  echo "| $label | ⚠️ Valid JSON, Last-Modified ${lm_age}h ago (threshold: ${max_age_hours}h) |" >> /tmp/data-results.txt
-                fi
-              else
-                echo "| $label | ✅ Valid JSON (freshness not available) |" >> /tmp/data-results.txt
-              fi
-              else
-                echo "| $label | ❌ Invalid JSON |" >> /tmp/data-results.txt
-                DATA_FAIL=$((DATA_FAIL + 1))
-              fi
-              return
-            fi
-
-            # Check if timestamp is within max_age_hours
-            local ts_epoch now_epoch age_hours
-            ts_epoch=$(date -d "$timestamp" +%s 2>/dev/null || echo "")
-            if [ -z "$ts_epoch" ] || [ "$ts_epoch" = "0" ]; then
-              echo "| $label | ❌ Unparsable timestamp: $timestamp |" >> /tmp/data-results.txt
-              DATA_FAIL=$((DATA_FAIL + 1))
-              return
-            fi
-            now_epoch=$(date +%s)
-            age_hours=$(( (now_epoch - ts_epoch) / 3600 ))
-
-            if [ "$age_hours" -le "$max_age_hours" ]; then
-              echo "| $label | ✅ Updated ${age_hours}h ago |" >> /tmp/data-results.txt
+            if echo "$content" | grep -q "$marker"; then
+              echo "| $label | ✅ Data present |" >> /tmp/data-results.txt
             else
-              echo "| $label | ⚠️ ${age_hours}h old (threshold: ${max_age_hours}h) |" >> /tmp/data-results.txt
-              # Non-blocking warning — pipeline may not have run yet today
+              echo "| $label | ❌ Missing data marker: $marker |" >> /tmp/data-results.txt
+              DATA_FAIL=$((DATA_FAIL + 1))
             fi
           }
 
-          : > /tmp/data-results.txt
+          # Verify sensitivity-analysis.json data renders on descriptive page
+          check_data_marker "${SITE_URL}/results/descriptive" "Grand Mean" "sensitivity data → /results/descriptive"
 
-          # sensitivity-analysis.json — updated by analysis pipeline (daily)
-          check_json_age "${SITE_URL}/data/sensitivity-analysis.json" "sensitivity-analysis.json" 48
+          # Verify data-audit.json data renders on data-quality page
+          check_data_marker "${SITE_URL}/results/data-quality" "Disposition Waterfall" "audit data → /results/data-quality"
 
-          # data-audit.json — updated by analysis pipeline (daily)
-          check_json_age "${SITE_URL}/data/data-audit.json" "data-audit.json" 48
+          # Verify disposition-summary.json renders on dashboard page
+          check_data_marker "${SITE_URL}/results/dashboard" "uniqueParticipants\|Prolific Dashboard" "disposition data → /results/dashboard"
 
-          # disposition-summary.json — updated by disposition pipeline (daily)
-          check_json_age "${SITE_URL}/data/disposition-summary.json" "disposition-summary.json" 48
-
-          # impact.json — updated by GA report pipeline
-          check_json_age "${SITE_URL}/data/impact.json" "impact.json" 168
+          # Verify sensitivity alphas render on reliability page
+          check_data_marker "${SITE_URL}/results/reliability" "Cronbach" "reliability data → /results/reliability"
 
           echo ""
           echo "Data freshness: $DATA_FAIL failed"
@@ -551,7 +509,7 @@ jobs:
             echo ""
 
             # ── Data freshness ──
-            echo "## 📊 JSON Data Freshness"
+            echo "## 📊 Pipeline Data Validation"
             echo ""
             echo "| File | Result |"
             echo "|------|--------|"
