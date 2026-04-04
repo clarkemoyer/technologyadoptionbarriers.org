@@ -253,6 +253,143 @@ const DataQualityPage = () => {
           </p>
         </section>
 
+        {/* ── Authoritative Sample Filter Chains ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Exact Filter Chains (Authoritative Definitions)</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Each sample definition is produced by applying filters in order. These are the{' '}
+            <strong>canonical definitions</strong> used by the analysis pipeline (
+            <code className="text-xs bg-gray-100 px-1 rounded">tabs_v2_analysis.py</code>). Every
+            metric on the Results pages is computed against these exact filters.
+          </p>
+
+          <div className="space-y-6 my-6">
+            {/* Conservative Clean */}
+            <div className="border border-green-200 bg-green-50 rounded-lg p-5">
+              <h3 className="text-base font-bold text-green-900 mb-2">
+                1. Conservative Clean (Primary Analysis Sample)
+              </h3>
+              <p className="text-sm text-green-800 mb-3">
+                The most restrictive sample. Used for all primary reporting. Requires Prolific
+                approval <strong>plus</strong> passing every quality gate.
+              </p>
+              <ol className="text-sm text-green-900 space-y-1 list-decimal list-inside ml-2">
+                <li>Prolific_Status == &ldquo;APPROVED&rdquo;</li>
+                <li>Qualtrics Finished == TRUE (survey completed)</li>
+                <li>Duration &ge; 480 seconds (8 minutes)</li>
+                <li>All 3 IRI attention checks correct (exact string match)</li>
+                <li>Duration &ge; 540 seconds (9 min Smeal eDBA benchmark)</li>
+                <li>reCAPTCHA score &ge; 0.5</li>
+                <li>Q_StraightliningCount == 0 (no full-block straightlining)</li>
+                <li>Within-person SD &ge; 0.5 in all blocks (no partial straightlining)</li>
+                <li>Auth_LLM and Auth_Bots not LOW or MIXED</li>
+              </ol>
+              <p className="text-xs text-green-700 mt-2 italic">
+                Source: <code className="bg-green-100 px-1 rounded">filter_samples()</code> in{' '}
+                <code className="bg-green-100 px-1 rounded">tabs_v2_analysis.py</code>
+              </p>
+            </div>
+
+            {/* Flexible Clean */}
+            <div className="border border-blue-200 bg-blue-50 rounded-lg p-5">
+              <h3 className="text-base font-bold text-blue-900 mb-2">
+                2. Flexible Clean (Expanded Quality Sample)
+              </h3>
+              <p className="text-sm text-blue-800 mb-3">
+                Includes manually-reviewed FLAG responses that were approved on Prolific. Uses a
+                lower duration threshold and only checks IRI attention.
+              </p>
+              <ol className="text-sm text-blue-900 space-y-1 list-decimal list-inside ml-2">
+                <li>Prolific_Status == &ldquo;APPROVED&rdquo;</li>
+                <li>Qualtrics Finished == TRUE</li>
+                <li>Duration &ge; 480 seconds (8 minutes)</li>
+                <li>All 3 IRI attention checks correct</li>
+              </ol>
+              <p className="text-xs text-blue-700 mt-2 italic">
+                Does NOT check: reCAPTCHA, straightlining, partial straightlining, or auth flags.
+              </p>
+            </div>
+
+            {/* Prolific Accepted */}
+            <div className="border border-amber-200 bg-amber-50 rounded-lg p-5">
+              <h3 className="text-base font-bold text-amber-900 mb-2">
+                3. Prolific Accepted (Platform-Verified Sample)
+              </h3>
+              <p className="text-sm text-amber-800 mb-3">
+                All deduplicated V2 responses where the participant has been approved on Prolific.
+                This count <strong>must match</strong> the Prolific UI &ldquo;Approved&rdquo; tab
+                exactly. Any discrepancy indicates a pipeline bug.
+              </p>
+              <ol className="text-sm text-amber-900 space-y-1 list-decimal list-inside ml-2">
+                <li>Prolific_Status == &ldquo;APPROVED&rdquo;</li>
+                <li>Deduplicated by PROLIFIC_PID (prefer completed response)</li>
+              </ol>
+              <p className="text-xs text-amber-700 mt-2 italic">
+                No quality filters. Includes incomplete/short responses if Prolific approved them.
+              </p>
+            </div>
+
+            {/* All V2 Finished */}
+            <div className="border border-gray-200 bg-gray-50 rounded-lg p-5">
+              <h3 className="text-base font-bold text-gray-900 mb-2">
+                4. All V2 Finished (Completed Responses)
+              </h3>
+              <p className="text-sm text-gray-700 mb-3">
+                All finished responses above a minimum duration threshold. Not filtered by Prolific
+                status &mdash; includes returned, timed-out, and awaiting-review participants.
+              </p>
+              <ol className="text-sm text-gray-800 space-y-1 list-decimal list-inside ml-2">
+                <li>Qualtrics Finished == TRUE</li>
+                <li>Duration &ge; 120 seconds (extreme speeders excluded)</li>
+              </ol>
+            </div>
+
+            {/* All V2 */}
+            <div className="border border-gray-200 bg-gray-50 rounded-lg p-5">
+              <h3 className="text-base font-bold text-gray-900 mb-2">
+                5. All V2 (Complete Dataset)
+              </h3>
+              <p className="text-sm text-gray-700 mb-3">
+                Every V2 response including incomplete, deduplicated by PROLIFIC_PID. This is the
+                universe from which all other samples are drawn.
+              </p>
+              <ol className="text-sm text-gray-800 space-y-1 list-decimal list-inside ml-2">
+                <li>StartDate on or after V2 launch (2026-03-23)</li>
+                <li>Deduplicated by PROLIFIC_PID (prefer completed response)</li>
+              </ol>
+            </div>
+          </div>
+
+          {/* Disposition CLEAN vs Conservative Clean */}
+          <div className="bg-white border-2 border-amber-400 rounded-lg p-5 my-6">
+            <h3 className="text-base font-bold text-amber-900 mb-2">
+              ⚠ Disposition CLEAN vs. Conservative Clean
+            </h3>
+            <p className="text-sm text-gray-800 mb-3">
+              These are related but distinct concepts that serve different purposes:
+            </p>
+            <ul className="text-sm text-gray-800 space-y-2 list-disc list-inside ml-2">
+              <li>
+                <strong>Disposition CLEAN</strong> (from the waterfall above): A response that
+                passes all 10 quality checks without being flagged. Used by the{' '}
+                <strong>operations pipeline</strong> to auto-approve participants on Prolific. Does{' '}
+                <em>not</em> check Prolific_Status.
+              </li>
+              <li>
+                <strong>Conservative Clean</strong> (sample definition): Requires Prolific_Status ==
+                &ldquo;APPROVED&rdquo; <em>plus</em> all quality checks. Used for{' '}
+                <strong>statistical analysis and reporting</strong>.
+              </li>
+            </ul>
+            <p className="text-sm text-gray-700 mt-3">
+              <strong>Expected relationship:</strong> After the daily auto-approve workflow runs,
+              all Disposition CLEAN participants should have Prolific_Status == APPROVED, making the
+              counts equal. Any persistent gap indicates a pipeline issue. The disposition dashboard
+              cross-references these counts automatically.
+            </p>
+          </div>
+        </section>
+
         {/* ── Sensitivity Analysis ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Sensitivity Analysis</h2>
@@ -367,6 +504,13 @@ const DataQualityPage = () => {
                 identical answers for all items in a block (SD &lt; 0.5), the response is flagged.
                 The threshold follows Meade &amp; Craig (2012), <em>Psychological Methods</em>,
                 17(3), 437-455.
+              </p>
+              <p className="text-sm text-gray-500 mt-2">
+                <strong>IRI items are excluded</strong> from the SD calculation. IRI attention
+                checks have predetermined correct answers (e.g., &ldquo;Major Barrier&rdquo;) that
+                differ from typical straightline responses. Including them would artificially
+                inflate within-person variance and mask genuine straightlining. Only substantive
+                scale items are used: 18 Barrier items, 17 Readiness items, and 8 Maturity items.
               </p>
               <p className="text-sm text-gray-500 mt-2">
                 The minimum response threshold for evaluation is ceil(block_count / 2) items

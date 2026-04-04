@@ -557,6 +557,12 @@ def main():
         default="data_audit_results.json",
         help="Output JSON file (default: data_audit_results.json)",
     )
+    parser.add_argument(
+        "--disposition-csv",
+        type=str,
+        default=None,
+        help="Optional: also write a disposition CSV (same format as disposition_triage.py)",
+    )
 
     args = parser.parse_args()
 
@@ -582,6 +588,16 @@ def main():
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(stats, f, indent=2)
     print(f"\nJSON output written to: {output_path}")
+
+    # Optionally write disposition CSV (same format as disposition_triage.py)
+    # This allows the analysis pipeline to produce the disposition CSV that
+    # the operations pipeline consumes, eliminating a redundant Qualtrics export.
+    if args.disposition_csv:
+        from disposition_triage import rows_to_csv
+        csv_path = Path(args.disposition_csv)
+        csv_path.parent.mkdir(parents=True, exist_ok=True)
+        csv_path.write_text(rows_to_csv(rows), encoding="utf-8")
+        print(f"Disposition CSV written to: {csv_path}")
 
 
 if __name__ == "__main__":
