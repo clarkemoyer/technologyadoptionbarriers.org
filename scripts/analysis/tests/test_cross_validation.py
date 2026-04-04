@@ -68,8 +68,10 @@ def run_ts_triage(csv_path: str, output_path: str) -> dict | None:
     )
 
     if result.returncode != 0:
-        # Archived TS script may fail due to moved import paths — skip gracefully
-        return None
+        # tsx is available but triage failed — this is a real error, not a skip
+        raise RuntimeError(
+            f"TS triage failed (exit {result.returncode}):\n{result.stderr[:1000]}"
+        )
 
     # Parse the TS output CSV
     dispositions = {}
