@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import Header from '../../src/components/header'
@@ -70,12 +70,14 @@ function getDesktopDropdownButton(name: RegExp): HTMLElement {
 }
 
 /**
- * Check if an element is inside the mobile menu (xl:hidden container).
+ * Check if an element is inside the mobile menu by looking for
+ * mobile-specific ARIA controls (mobile-dropdown-*).
  */
 function isMobileElement(el: HTMLElement): boolean {
   let node: HTMLElement | null = el
   while (node) {
-    if (node.classList?.contains('xl:hidden')) return true
+    const controls = node.getAttribute('aria-controls')
+    if (controls && controls.startsWith('mobile-dropdown-')) return true
     node = node.parentElement
   }
   return false
@@ -172,6 +174,11 @@ describe('Header desktop dropdown independence', () => {
     expect(resultsButton).toHaveAttribute('aria-expanded', 'false')
     expect(makingButton).toHaveAttribute('aria-expanded', 'true')
   })
+
+  // Note: Escape and click-outside close behavior is implemented via
+  // document-level event listeners in useEffect. These are difficult to
+  // test in jsdom without user-event. The toggleDropdown logic (opening
+  // one closes the other) is tested above via aria-expanded assertions.
 })
 
 // --- Mobile Dropdown Tests ---
