@@ -50,17 +50,21 @@ else:
     _CONSTANTS = {}
 
 # Survey blocks for partial straightlining detection
+# Use substantive item counts only — IRI items have predetermined correct
+# answers and must NOT be included in within-person SD calculations.
+# Including IRIs artificially inflates variance and masks straightlining.
+# See Issue #735 for the root-cause analysis.
 SURVEY_BLOCKS = [
     {
         "name": name.title(),
         "prefix": _CONSTANTS.get("COLUMN_PREFIXES", {}).get(name, f"Q_{name}_"),
-        "count": _CONSTANTS.get("ITEM_COUNTS", {}).get(name, 0) + 1,  # +1 for IRI item
+        "count": _CONSTANTS.get("ITEM_COUNTS", {}).get(name, 0),  # substantive items only (excludes IRI)
     }
     for name in ["barriers", "readiness", "maturity"]
 ] if _CONSTANTS else [
-    {"name": "Barriers", "prefix": "Q10-28_Barriers_", "count": 19},
-    {"name": "Readiness", "prefix": "Q47-64_Readiness_", "count": 18},
-    {"name": "Maturity", "prefix": "Q65-73_Maturity_", "count": 9},
+    {"name": "Barriers", "prefix": "Q10-28_Barriers_", "count": 18},
+    {"name": "Readiness", "prefix": "Q47-64_Readiness_", "count": 17},
+    {"name": "Maturity", "prefix": "Q65-73_Maturity_", "count": 8},
 ]
 
 PARTIAL_STRAIGHTLINING_SD_THRESHOLD = 0.5
