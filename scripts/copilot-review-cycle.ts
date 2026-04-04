@@ -144,6 +144,24 @@ function postComment(repo: string, prNumber: string, body: string): void {
 function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComment[]): void {
   console.log('Assigning Copilot coding agent to fix comments...')
 
+  // Close any existing open fix issues for this PR to prevent duplicates
+  try {
+    const existingIssues = ghJsonArray<{ number: number; title: string; state: string }>(
+      `issue list -R ${repo} --state open ` +
+        `--search "fix: address Copilot review comments on PR #${prNumber} in:title" ` +
+        `--json number,title,state`
+    )
+    const title = `fix: address Copilot review comments on PR #${prNumber}`
+    for (const issue of existingIssues) {
+      if (issue.title === title) {
+        console.log(`  Closing superseded issue #${issue.number}`)
+        gh(`issue close ${issue.number} -R ${repo} -c "Superseded by new review round."`)
+      }
+    }
+  } catch {
+    // Non-fatal — proceed with creating the new issue
+  }
+
   const commentList = comments
     .map((c, i) => {
       const loc = c.line ? `${c.path}:${c.line}` : c.path
