@@ -379,16 +379,19 @@ jobs:
           }
 
           # sensitivity-analysis.json → descriptive page shows computed means
-          check_data_marker "${SITE_URL}/results/descriptive" "Grand Mean" "sensitivity → descriptive"
+          # N values are data-derived (e.g. "75", "116") and can't come from static text
+          check_data_marker "${SITE_URL}/results/descriptive" "conservative_clean" "sensitivity → descriptive"
 
-          # data-audit.json → data-quality page shows waterfall step counts
-          check_data_marker "${SITE_URL}/results/data-quality" "AUTO-EXCLUDE" "audit → data-quality"
+          # sensitivity-analysis.json → data-quality page shows sample N values
+          check_data_marker "${SITE_URL}/results/data-quality" "Conservative Clean" "sensitivity → data-quality"
 
           # disposition-summary.json → dashboard page shows live participant counts
-          check_data_marker "${SITE_URL}/results/dashboard" "Total Participants" "disposition → dashboard"
+          # The total count is data-derived and changes with each pipeline run
+          check_data_marker "${SITE_URL}/results/dashboard" "Approved" "disposition → dashboard"
 
-          # sensitivity alphas → reliability page shows computed alpha values
-          check_data_marker "${SITE_URL}/results/reliability" "0.8" "alphas → reliability"
+          # sensitivity alphas → reliability page shows 4-decimal computed values
+          # "0.8612" is a computed Cronbach's alpha that only exists in pipeline JSON
+          check_data_marker "${SITE_URL}/results/reliability" "0.86" "alphas → reliability"
 
           echo ""
           echo "Pipeline data rendering: $DATA_FAIL failed"
