@@ -1,5 +1,6 @@
 {
-  "updatedAt": "2026-04-04T11:11:39.441184+00:00",
+  "updatedAt": "2026-04-04T20:30:47.840162+00:00",
+  "last_updated": "2026-04-04T20:30:47.840173+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
@@ -18,50 +19,50 @@
     "awaitingReview": 35,
     "percentComplete": 48.6
   },
-  "totalResponses": 407,
-  "uniqueParticipants": 390,
+  "totalResponses": 408,
+  "uniqueParticipants": 392,
   "duplicatesRemoved": 0,
   "dispositions": {
-    "INCOMPLETE": 57,
-    "CLEAN": 92,
-    "FLAG-SMEAL": 41,
+    "INCOMPLETE": 58,
+    "CLEAN": 78,
+    "FLAG-SMEAL": 42,
     "FLAG-SPEED": 6,
+    "FLAG-PARTIAL-STRAIGHTLINING": 31,
     "FLAG-SINGLE-IRI": 72,
-    "FLAG-PARTIAL-STRAIGHTLINING": 17,
     "AUTO-EXCLUDE": 102,
     "FLAG-RECAPTCHA": 3
   },
   "dispositionByStatus": {
     "INCOMPLETE": {
-      "RETURNED": 53,
+      "RETURNED": 54,
       "TIMED-OUT": 4
     },
     "CLEAN": {
-      "APPROVED": 92
+      "APPROVED": 77,
+      "RETURNED": 1
     },
     "FLAG-SMEAL": {
       "APPROVED": 35,
-      "AWAITING REVIEW": 4,
+      "AWAITING REVIEW": 5,
       "RETURNED": 2
     },
     "FLAG-SPEED": {
       "RETURNED": 1,
       "APPROVED": 5
     },
+    "FLAG-PARTIAL-STRAIGHTLINING": {
+      "APPROVED": 30,
+      "AWAITING REVIEW": 1
+    },
     "FLAG-SINGLE-IRI": {
       "RETURNED": 7,
       "APPROVED": 58,
       "AWAITING REVIEW": 7
     },
-    "FLAG-PARTIAL-STRAIGHTLINING": {
-      "APPROVED": 15,
-      "AWAITING REVIEW": 1,
-      "RETURNED": 1
-    },
     "AUTO-EXCLUDE": {
       "REJECTED": 29,
-      "AWAITING REVIEW": 22,
-      "RETURNED": 50,
+      "AWAITING REVIEW": 21,
+      "RETURNED": 51,
       "APPROVED": 1
     },
     "FLAG-RECAPTCHA": {
@@ -79,17 +80,17 @@
   "actions": {
     "approved": 208,
     "rejected": 29,
-    "returned": 129,
+    "returned": 130,
     "timedOut": 6,
     "awaitingReview": 35,
     "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 57.7,
-    "readiness": 71.2,
+    "barrier": 57.8,
+    "readiness": 71.3,
     "maturity": 80.8,
-    "denominator": 333
+    "denominator": 334
   },
   "studyId": "69c17630acada6abeead2da5",
   "studyName": "Technology Adoption Barriers Survey (2026)"
