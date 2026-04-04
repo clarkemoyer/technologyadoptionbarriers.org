@@ -26,7 +26,7 @@ inputs:
     description: Branch name for the PR
     required: true
   base:
-    description: Base branch for the PR (default: main)
+    description: 'Base branch for the PR (default: main)'
     required: false
     default: 'main'
 
