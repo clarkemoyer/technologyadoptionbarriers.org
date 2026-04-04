@@ -42,6 +42,9 @@ const PRIMARY_GROUPS = [
   { key: 'v2_finished', label: 'All V2 Finished', color: 'border-gray-400' },
 ]
 
+const pct = (count: number, total: number | null | undefined): string =>
+  total ? `${((count / total) * 100).toFixed(1)}%` : '—'
+
 const SamplePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -157,7 +160,7 @@ const SamplePage = () => {
                               <td className="py-1 pr-2 font-medium">{role}</td>
                               <td className="py-1 text-right font-mono">{count}</td>
                               <td className="py-1 pl-1 text-right text-gray-500">
-                                {sample?.n ? `${((count / sample.n) * 100).toFixed(1)}%` : '—'}
+                                {pct(count, sample?.n)}
                               </td>
                             </tr>
                           ))}
@@ -177,7 +180,7 @@ const SamplePage = () => {
                               <td className="py-1 pr-2 font-medium">{size}</td>
                               <td className="py-1 text-right font-mono">{count}</td>
                               <td className="py-1 pl-1 text-right text-gray-500">
-                                {sample?.n ? `${((count / sample.n) * 100).toFixed(1)}%` : '—'}
+                                {pct(count, sample?.n)}
                               </td>
                             </tr>
                           ))}
@@ -197,7 +200,7 @@ const SamplePage = () => {
                               <td className="py-1 pr-2 font-medium">{model}</td>
                               <td className="py-1 text-right font-mono">{count}</td>
                               <td className="py-1 pl-1 text-right text-gray-500">
-                                {sample?.n ? `${((count / sample.n) * 100).toFixed(1)}%` : '—'}
+                                {pct(count, sample?.n)}
                               </td>
                             </tr>
                           ))}

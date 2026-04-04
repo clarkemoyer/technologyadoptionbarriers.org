@@ -167,13 +167,9 @@ const FindingsPage = () => {
                           </thead>
                           <tbody>
                             {Object.entries(
-                              effects['tech_vs_nontech'].constructs as Record<
+                              (effects['tech_vs_nontech'].constructs ?? {}) as Record<
                                 string,
-                                {
-                                  tech_mean: number | null
-                                  nontech_mean: number | null
-                                  d: number | null
-                                }
+                                EffectSizeConstruct
                               >
                             ).map(([construct, vals]) => (
                               <tr key={construct} className="border-b border-gray-200">
@@ -229,13 +225,9 @@ const FindingsPage = () => {
                               </thead>
                               <tbody>
                                 {Object.entries(
-                                  effects['large_vs_small'].constructs as Record<
+                                  (effects['large_vs_small'].constructs ?? {}) as Record<
                                     string,
-                                    {
-                                      large_mean: number | null
-                                      small_medium_mean: number | null
-                                      d: number | null
-                                    }
+                                    EffectSizeConstruct
                                   >
                                 ).map(([construct, vals]) => (
                                   <tr key={construct} className="border-b border-gray-200">
@@ -315,37 +307,21 @@ const FindingsPage = () => {
                               </tr>
                             </thead>
                             <tbody>
-                              {(
-                                ct.by_role as {
-                                  group: string
-                                  n: number
-                                  barrier_mean: number | null
-                                  readiness_mean: number | null
-                                  maturity_mean: number | null
-                                }[]
-                              ).map(
-                                (row: {
-                                  group: string
-                                  n: number
-                                  barrier_mean: number | null
-                                  readiness_mean: number | null
-                                  maturity_mean: number | null
-                                }) => (
-                                  <tr key={row.group} className="border-b border-gray-200">
-                                    <td className="py-1.5 px-2 font-medium">{row.group}</td>
-                                    <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
-                                    <td className="py-1.5 px-2 text-right font-mono">
-                                      {row.barrier_mean?.toFixed(2) ?? '—'}
-                                    </td>
-                                    <td className="py-1.5 px-2 text-right font-mono">
-                                      {row.readiness_mean?.toFixed(2) ?? '—'}
-                                    </td>
-                                    <td className="py-1.5 px-2 text-right font-mono">
-                                      {row.maturity_mean?.toFixed(2) ?? '—'}
-                                    </td>
-                                  </tr>
-                                )
-                              )}
+                              {(ct.by_role as CrossTabRow[]).map((row) => (
+                                <tr key={row.group} className="border-b border-gray-200">
+                                  <td className="py-1.5 px-2 font-medium">{row.group}</td>
+                                  <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
+                                  <td className="py-1.5 px-2 text-right font-mono">
+                                    {row.barrier_mean?.toFixed(2) ?? '—'}
+                                  </td>
+                                  <td className="py-1.5 px-2 text-right font-mono">
+                                    {row.readiness_mean?.toFixed(2) ?? '—'}
+                                  </td>
+                                  <td className="py-1.5 px-2 text-right font-mono">
+                                    {row.maturity_mean?.toFixed(2) ?? '—'}
+                                  </td>
+                                </tr>
+                              ))}
                             </tbody>
                           </table>
                         </div>
@@ -370,37 +346,21 @@ const FindingsPage = () => {
                               </tr>
                             </thead>
                             <tbody>
-                              {(
-                                ct.by_org_size as {
-                                  group: string
-                                  n: number
-                                  barrier_mean: number | null
-                                  readiness_mean: number | null
-                                  maturity_mean: number | null
-                                }[]
-                              ).map(
-                                (row: {
-                                  group: string
-                                  n: number
-                                  barrier_mean: number | null
-                                  readiness_mean: number | null
-                                  maturity_mean: number | null
-                                }) => (
-                                  <tr key={row.group} className="border-b border-gray-200">
-                                    <td className="py-1.5 px-2 font-medium">{row.group}</td>
-                                    <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
-                                    <td className="py-1.5 px-2 text-right font-mono">
-                                      {row.barrier_mean?.toFixed(2) ?? '—'}
-                                    </td>
-                                    <td className="py-1.5 px-2 text-right font-mono">
-                                      {row.readiness_mean?.toFixed(2) ?? '—'}
-                                    </td>
-                                    <td className="py-1.5 px-2 text-right font-mono">
-                                      {row.maturity_mean?.toFixed(2) ?? '—'}
-                                    </td>
-                                  </tr>
-                                )
-                              )}
+                              {(ct.by_org_size as CrossTabRow[]).map((row) => (
+                                <tr key={row.group} className="border-b border-gray-200">
+                                  <td className="py-1.5 px-2 font-medium">{row.group}</td>
+                                  <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
+                                  <td className="py-1.5 px-2 text-right font-mono">
+                                    {row.barrier_mean?.toFixed(2) ?? '—'}
+                                  </td>
+                                  <td className="py-1.5 px-2 text-right font-mono">
+                                    {row.readiness_mean?.toFixed(2) ?? '—'}
+                                  </td>
+                                  <td className="py-1.5 px-2 text-right font-mono">
+                                    {row.maturity_mean?.toFixed(2) ?? '—'}
+                                  </td>
+                                </tr>
+                              ))}
                             </tbody>
                           </table>
                         </div>

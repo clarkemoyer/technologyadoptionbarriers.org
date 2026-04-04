@@ -107,6 +107,8 @@ ROLE_MAP = {
 }
 TECH_TITLES = {'CIO', 'CTO'}
 NONTECH_TITLES = {'CEO', 'CFO', 'COO', 'CHRO', 'CMO', 'CSO', 'CRO'}
+LARGE_ORG_SIZES = ('5000-9999', '10000+')
+ALL_ORG_SIZES = ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']
 
 
 # ─────────────────────────────────────────────────────────────
@@ -347,7 +349,7 @@ def org_bucket(row, idx):
         return 'Small (<500)'
     elif os_val in ('500-999', '1000-4999'):
         return 'Medium (500-4999)'
-    elif os_val in ('5000-9999', '10000+'):
+    elif os_val in LARGE_ORG_SIZES:
         return 'Large (5000+)'
     return None
 
@@ -526,7 +528,7 @@ def print_demographics(rows, idx, label="Clean"):
     print(f"  Other:               n={len(other)} ({len(other) / len(rows) * 100:.1f}%)")
 
     print("\n  Org Size:")
-    for os_val in ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']:
+    for os_val in ALL_ORG_SIZES:
         ct = sum(1 for r in rows if r[idx['Q4_OrgSize']].strip() == os_val)
         print(f"    {os_val:12s}: {ct:3d} ({ct / len(rows) * 100:.1f}%)")
 
@@ -653,8 +655,8 @@ def print_effect_sizes(rows, idx):
             ntm_str = f"{ntm:.2f}" if ntm is not None else "NA"
             print(f"    {label:<12}: Tech={tm_str}, NonTech={ntm_str}, d=N/A")
 
-    large = [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('5000-9999', '10000+')]
-    smmed = [r for r in rows if r[idx['Q4_OrgSize']].strip() not in ('5000-9999', '10000+')]
+    large = [r for r in rows if r[idx['Q4_OrgSize']].strip() in LARGE_ORG_SIZES]
+    smmed = [r for r in rows if r[idx['Q4_OrgSize']].strip() not in LARGE_ORG_SIZES]
 
     print(f"\n  Large Org (n={len(large)}) vs Small/Medium (n={len(smmed)}):")
     for label, cols, sc in [("Barriers", BARRIER_COLS, BARRIER_SCALE),
@@ -872,7 +874,7 @@ def sensitivity_to_json(cuts, idx):
         other_n = sum(1 for r in rows if get_role(r, idx) == 'Other')
 
         org_sizes = {}
-        for os_val in ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']:
+        for os_val in ALL_ORG_SIZES:
             ct = sum(1 for r in rows if r[idx['Q4_OrgSize']].strip() == os_val)
             org_sizes[os_val] = ct
 
@@ -915,8 +917,8 @@ def sensitivity_to_json(cuts, idx):
                 "d": round(d, 4) if d is not None else None,
             }
 
-        large = [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('5000-9999', '10000+')]
-        smmed = [r for r in rows if r[idx['Q4_OrgSize']].strip() not in ('5000-9999', '10000+')]
+        large = [r for r in rows if r[idx['Q4_OrgSize']].strip() in LARGE_ORG_SIZES]
+        smmed = [r for r in rows if r[idx['Q4_OrgSize']].strip() not in LARGE_ORG_SIZES]
         effects["large_vs_small"] = {"large_n": len(large), "small_medium_n": len(smmed), "constructs": {}}
         for label, cols, sc in [("barriers", BARRIER_COLS, BARRIER_SCALE),
                                  ("readiness", READINESS_COLS, READINESS_SCALE)]:
@@ -965,7 +967,7 @@ def sensitivity_to_json(cuts, idx):
         size_groups = [
             ("Small (<500)", [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('<100', '100-499')]),
             ("Medium (500-4999)", [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('500-999', '1000-4999')]),
-            ("Large (5000+)", [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('5000-9999', '10000+')]),
+            ("Large (5000+)", [r for r in rows if r[idx['Q4_OrgSize']].strip() in LARGE_ORG_SIZES]),
         ]
         size_results = []
         for gname, grows in size_groups:
