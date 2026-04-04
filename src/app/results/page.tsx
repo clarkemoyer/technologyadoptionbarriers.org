@@ -40,8 +40,8 @@ const ResultsPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The Technology Adoption Barriers Survey (TABS) collects data from organizational leaders
             about the barriers, readiness, and maturity factors that influence technology adoption.
-            This section presents all survey results, from sample demographics through statistical
-            analysis, with full transparency into data quality and methodology.
+            Every metric is computed independently across four primary result groups so researchers
+            can choose the dataset that matches their quality requirements.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             All statistics are generated automatically by the{' '}
@@ -90,7 +90,7 @@ const ResultsPage = () => {
               {
                 title: 'Sample & Demographics',
                 href: '/results/sample',
-                desc: 'Who participated: roles, industries, organization sizes, and geographic distribution.',
+                desc: 'Participant roles, org sizes, and profit models — broken down per result group.',
                 border: 'border-blue-200',
                 bg: 'bg-blue-50',
                 titleColor: 'text-blue-900',
@@ -108,7 +108,7 @@ const ResultsPage = () => {
               {
                 title: 'Descriptive Statistics',
                 href: '/results/descriptive',
-                desc: 'Grand means, standard deviations, and distributions for all three constructs.',
+                desc: 'Grand means, SDs, and inter-construct correlations — computed per result group.',
                 border: 'border-green-200',
                 bg: 'bg-green-50',
                 titleColor: 'text-green-900',
@@ -126,7 +126,7 @@ const ResultsPage = () => {
               {
                 title: 'Sensitivity Analysis',
                 href: '/results/sensitivity',
-                desc: 'Every metric computed across five sample definitions to demonstrate robustness.',
+                desc: 'Every metric across all datasets plus deltas showing how results change with cleaning.',
                 border: 'border-rose-200',
                 bg: 'bg-rose-50',
                 titleColor: 'text-rose-900',
@@ -135,7 +135,7 @@ const ResultsPage = () => {
               {
                 title: 'Key Findings',
                 href: '/results/findings',
-                desc: 'Inferential statistics and hypothesis testing (forthcoming).',
+                desc: 'Effect sizes, cross-tabulations, and forthcoming inferential statistics per result group.',
                 border: 'border-gray-200',
                 bg: 'bg-gray-50',
                 titleColor: 'text-gray-900',

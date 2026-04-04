@@ -860,6 +860,141 @@ def sensitivity_to_json(cuts, idx):
             "values": values,
         })
 
+    # ── Demographics per sample ──
+    def demographics_for(rows):
+        """Compute demographics breakdown for a set of rows."""
+        if not rows:
+            return {"roles": {}, "org_sizes": {}, "profit_models": {}, "tech_vs_nontech": {}}
+        n = len(rows)
+        roles = Counter(get_role(r, idx) for r in rows)
+        tech_n = sum(1 for r in rows if get_role(r, idx) in TECH_TITLES)
+        nontech_n = sum(1 for r in rows if get_role(r, idx) in NONTECH_TITLES)
+        other_n = sum(1 for r in rows if get_role(r, idx) == 'Other')
+
+        org_sizes = {}
+        for os_val in ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']:
+            ct = sum(1 for r in rows if r[idx['Q4_OrgSize']].strip() == os_val)
+            org_sizes[os_val] = ct
+
+        profit_models = {}
+        for pm in ['For-Profit', 'Non-Profit', 'Government/Public Sector']:
+            ct = sum(1 for r in rows if r[idx['Q5_ProfitModel']].strip() == pm)
+            profit_models[pm] = ct
+
+        return {
+            "roles": dict(roles.most_common()),
+            "org_sizes": org_sizes,
+            "profit_models": profit_models,
+            "tech_vs_nontech": {
+                "technical": tech_n,
+                "non_technical": nontech_n,
+                "other": other_n,
+            },
+        }
+
+    # ── Effect sizes per sample ──
+    def effect_sizes_for(rows):
+        """Compute Cohen's d effect sizes for key group comparisons."""
+        if not rows:
+            return {}
+        effects = {}
+        tech = [r for r in rows if get_role(r, idx) in TECH_TITLES]
+        nontech = [r for r in rows if get_role(r, idx) in NONTECH_TITLES]
+        effects["tech_vs_nontech"] = {"tech_n": len(tech), "nontech_n": len(nontech), "constructs": {}}
+        for label, cols, sc in [("barriers", BARRIER_COLS, BARRIER_SCALE),
+                                 ("readiness", READINESS_COLS, READINESS_SCALE),
+                                 ("maturity", MATURITY_COLS, MATURITY_SCALE)]:
+            t = person_means(tech, cols, sc, idx)
+            nt = person_means(nontech, cols, sc, idx)
+            d = cohens_d(t, nt)
+            tm, _ = mean_sd(t)
+            ntm, _ = mean_sd(nt)
+            effects["tech_vs_nontech"]["constructs"][label] = {
+                "tech_mean": round(tm, 4) if tm is not None else None,
+                "nontech_mean": round(ntm, 4) if ntm is not None else None,
+                "d": round(d, 4) if d is not None else None,
+            }
+
+        large = [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('5000-9999', '10000+')]
+        smmed = [r for r in rows if r[idx['Q4_OrgSize']].strip() not in ('5000-9999', '10000+')]
+        effects["large_vs_small"] = {"large_n": len(large), "small_medium_n": len(smmed), "constructs": {}}
+        for label, cols, sc in [("barriers", BARRIER_COLS, BARRIER_SCALE),
+                                 ("readiness", READINESS_COLS, READINESS_SCALE)]:
+            l = person_means(large, cols, sc, idx)
+            s = person_means(smmed, cols, sc, idx)
+            d = cohens_d(l, s)
+            lm, _ = mean_sd(l)
+            sm, _ = mean_sd(s)
+            effects["large_vs_small"]["constructs"][label] = {
+                "large_mean": round(lm, 4) if lm is not None else None,
+                "small_medium_mean": round(sm, 4) if sm is not None else None,
+                "d": round(d, 4) if d is not None else None,
+            }
+
+        return effects
+
+    # ── Cross-tabs per sample ──
+    def cross_tabs_for(rows):
+        """Compute cross-tabulation means for key groupings."""
+        if not rows:
+            return {}
+        groups = {}
+        # Role-based
+        role_groups = [
+            ("Technical (CIO/CTO)", [r for r in rows if get_role(r, idx) in TECH_TITLES]),
+            ("Non-Technical", [r for r in rows if get_role(r, idx) in NONTECH_TITLES]),
+            ("Other", [r for r in rows if get_role(r, idx) == 'Other']),
+        ]
+        role_results = []
+        for gname, grows in role_groups:
+            if not grows:
+                continue
+            bm, _ = mean_sd(person_means(grows, BARRIER_COLS, BARRIER_SCALE, idx))
+            rm, _ = mean_sd(person_means(grows, READINESS_COLS, READINESS_SCALE, idx))
+            mm, _ = mean_sd(person_means(grows, MATURITY_COLS, MATURITY_SCALE, idx))
+            role_results.append({
+                "group": gname,
+                "n": len(grows),
+                "barrier_mean": round(bm, 4) if bm is not None else None,
+                "readiness_mean": round(rm, 4) if rm is not None else None,
+                "maturity_mean": round(mm, 4) if mm is not None else None,
+            })
+        groups["by_role"] = role_results
+
+        # Org-size buckets
+        size_groups = [
+            ("Small (<500)", [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('<100', '100-499')]),
+            ("Medium (500-4999)", [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('500-999', '1000-4999')]),
+            ("Large (5000+)", [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('5000-9999', '10000+')]),
+        ]
+        size_results = []
+        for gname, grows in size_groups:
+            if not grows:
+                continue
+            bm, _ = mean_sd(person_means(grows, BARRIER_COLS, BARRIER_SCALE, idx))
+            rm, _ = mean_sd(person_means(grows, READINESS_COLS, READINESS_SCALE, idx))
+            mm, _ = mean_sd(person_means(grows, MATURITY_COLS, MATURITY_SCALE, idx))
+            size_results.append({
+                "group": gname,
+                "n": len(grows),
+                "barrier_mean": round(bm, 4) if bm is not None else None,
+                "readiness_mean": round(rm, 4) if rm is not None else None,
+                "maturity_mean": round(mm, 4) if mm is not None else None,
+            })
+        groups["by_org_size"] = size_results
+
+        return groups
+
+    # Build per-sample detail blocks
+    result["sample_details"] = {}
+    for sample_label, rows in cuts:
+        sample_key = sample_meta.get(sample_label, {}).get("key", sample_label.lower().replace(" ", "_"))
+        result["sample_details"][sample_key] = {
+            "demographics": demographics_for(rows),
+            "effect_sizes": effect_sizes_for(rows),
+            "cross_tabs": cross_tabs_for(rows),
+        }
+
     return result
 
 

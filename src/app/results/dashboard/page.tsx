@@ -385,10 +385,11 @@ const DispositionDashboardPage = () => {
         <section className="mb-12">
           <h2 className={H2_CLASSES}>Result Group Types — The Four Analysis Datasets</h2>
           <p className="mb-4 text-gray-600">
-            Every TABS metric is computed independently across four primary result groups (datasets).
-            Each group applies progressively fewer quality filters. Researchers choose which dataset
-            to use based on their tolerance for data quality risk. All four are refreshed daily by the
-            analysis pipeline. Full statistics for each group are available on the{' '}
+            Every TABS metric is computed independently across four primary result groups
+            (datasets). Each group applies progressively fewer quality filters. Researchers choose
+            which dataset to use based on their tolerance for data quality risk. All four are
+            refreshed daily by the analysis pipeline. Full statistics for each group are available
+            on the{' '}
             <Link href="/results/descriptive" className="text-blue-600 hover:underline">
               Descriptive Statistics
             </Link>
@@ -573,9 +574,8 @@ const DispositionDashboardPage = () => {
 
                       {/* Correlations for this dataset */}
                       <div className="mt-2 text-xs text-gray-600">
-                        <strong>Correlations:</strong> B–R ={' '}
-                        {fmt2(getVal('corr_br', group.key))}, B–M ={' '}
-                        {fmt2(getVal('corr_bm', group.key))}, R–M ={' '}
+                        <strong>Correlations:</strong> B–R = {fmt2(getVal('corr_br', group.key))},
+                        B–M = {fmt2(getVal('corr_bm', group.key))}, R–M ={' '}
                         {fmt2(getVal('corr_rm', group.key))}
                       </div>
                     </div>

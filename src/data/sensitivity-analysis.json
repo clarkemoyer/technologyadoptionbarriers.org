@@ -165,5 +165,92 @@
         "v2_all": 0.8911
       }
     }
-  ]
+  ],
+  "sample_details": {
+    "conservative_clean": {
+      "demographics": {
+        "roles": {},
+        "org_sizes": {},
+        "profit_models": {},
+        "tech_vs_nontech": {
+          "technical": 0,
+          "non_technical": 0,
+          "other": 0
+        }
+      },
+      "effect_sizes": {},
+      "cross_tabs": {
+        "by_role": [],
+        "by_org_size": []
+      }
+    },
+    "flexible_clean": {
+      "demographics": {
+        "roles": {},
+        "org_sizes": {},
+        "profit_models": {},
+        "tech_vs_nontech": {
+          "technical": 0,
+          "non_technical": 0,
+          "other": 0
+        }
+      },
+      "effect_sizes": {},
+      "cross_tabs": {
+        "by_role": [],
+        "by_org_size": []
+      }
+    },
+    "prolific_accepted": {
+      "demographics": {
+        "roles": {},
+        "org_sizes": {},
+        "profit_models": {},
+        "tech_vs_nontech": {
+          "technical": 0,
+          "non_technical": 0,
+          "other": 0
+        }
+      },
+      "effect_sizes": {},
+      "cross_tabs": {
+        "by_role": [],
+        "by_org_size": []
+      }
+    },
+    "v2_finished": {
+      "demographics": {
+        "roles": {},
+        "org_sizes": {},
+        "profit_models": {},
+        "tech_vs_nontech": {
+          "technical": 0,
+          "non_technical": 0,
+          "other": 0
+        }
+      },
+      "effect_sizes": {},
+      "cross_tabs": {
+        "by_role": [],
+        "by_org_size": []
+      }
+    },
+    "v2_all": {
+      "demographics": {
+        "roles": {},
+        "org_sizes": {},
+        "profit_models": {},
+        "tech_vs_nontech": {
+          "technical": 0,
+          "non_technical": 0,
+          "other": 0
+        }
+      },
+      "effect_sizes": {},
+      "cross_tabs": {
+        "by_role": [],
+        "by_org_size": []
+      }
+    }
+  }
 }
