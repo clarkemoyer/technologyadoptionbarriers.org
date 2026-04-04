@@ -7,11 +7,6 @@ import Header from '../../src/components/header'
 // Extend Jest matchers
 expect.extend(toHaveNoViolations)
 
-// Mock next/navigation
-jest.mock('next/navigation', () => ({
-  usePathname: jest.fn(() => '/'),
-}))
-
 // Mock framer-motion to avoid animation issues in tests
 jest.mock('framer-motion', () => ({
   motion: {
