@@ -389,8 +389,8 @@ jobs:
           check_data_marker "${SITE_URL}/results/dashboard" "Approved" "disposition → dashboard"
 
           # sensitivity-analysis.json → reliability page renders 4-decimal alpha values
-          # Pattern like "0.8612" only appears when computed from JSON data
-          check_data_marker "${SITE_URL}/results/reliability" "0.8612" "alphas → reliability"
+          # Pattern like "0.8576" only appears when computed from JSON data
+          check_data_marker "${SITE_URL}/results/reliability" "0.8576" "alphas → reliability"
 
           echo ""
           echo "Pipeline data rendering: $DATA_FAIL failed"
