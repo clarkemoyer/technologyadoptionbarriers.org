@@ -44,6 +44,8 @@ const fmt = (val: number | null | undefined, decimals: number = 4): string => {
   return val.toFixed(decimals)
 }
 
+const ORG_SIZE_ORDER = ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']
+
 const DatasetComparisonPage = () => {
   const samples: SampleInfo[] = (sensitivityData.samples ?? []).filter((s) =>
     PRIMARY_GROUPS.some((g) => g.key === s.key)
@@ -254,18 +256,10 @@ const DatasetComparisonPage = () => {
                   const details = sampleDetails?.[group.key] as Record<string, unknown> | undefined
                   const demo = details?.demographics as Record<string, unknown> | undefined
                   const sizes = (demo?.org_sizes ?? {}) as Record<string, number>
-                  const sizeOrder = [
-                    '<100',
-                    '100-499',
-                    '500-999',
-                    '1000-4999',
-                    '5000-9999',
-                    '10000+',
-                  ]
                   return (
                     <tr key={group.key} className={group.color}>
                       <td className="p-2 border-b font-medium">{group.label}</td>
-                      {sizeOrder.map((s) => (
+                      {ORG_SIZE_ORDER.map((s) => (
                         <td key={s} className="text-right p-2 border-b font-mono">
                           {sizes[s] || '—'}
                         </td>

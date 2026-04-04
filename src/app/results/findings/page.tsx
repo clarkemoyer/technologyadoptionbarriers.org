@@ -95,6 +95,19 @@ const fmt = (val: number | null | undefined, decimals: number = 2): string => {
   return prefix + val.toFixed(decimals)
 }
 
+const formatPValue = (p: number | null | undefined): string => {
+  if (p === null || p === undefined) return '—'
+  return p < 0.001 ? '<.001' : p.toFixed(3)
+}
+
+const formatAnovaDf = (
+  dfBetween: number | null | undefined,
+  dfWithin: number | null | undefined
+): string => {
+  if (dfBetween == null || dfWithin == null) return '—'
+  return `${dfBetween}, ${dfWithin}`
+}
+
 const dSize = (d: number | null | undefined): string => {
   if (d === null || d === undefined) return ''
   const abs = Math.abs(d)
@@ -457,11 +470,7 @@ const FindingsPage = () => {
                                       {vals.df?.toFixed(1) ?? '—'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.p !== null && vals.p !== undefined
-                                        ? vals.p < 0.001
-                                          ? '<.001'
-                                          : vals.p.toFixed(3)
-                                        : '—'}
+                                      {formatPValue(vals.p)}
                                     </td>
                                     <td className="text-center p-2 border-b">
                                       {vals.sig ? '✱' : ''}
@@ -508,11 +517,7 @@ const FindingsPage = () => {
                                       {vals.df?.toFixed(1) ?? '—'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.p !== null && vals.p !== undefined
-                                        ? vals.p < 0.001
-                                          ? '<.001'
-                                          : vals.p.toFixed(3)
-                                        : '—'}
+                                      {formatPValue(vals.p)}
                                     </td>
                                     <td className="text-center p-2 border-b">
                                       {vals.sig ? '✱' : ''}
@@ -555,16 +560,10 @@ const FindingsPage = () => {
                                       {vals.f?.toFixed(3) ?? '—'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.df_between != null && vals.df_within != null
-                                        ? `${vals.df_between}, ${vals.df_within}`
-                                        : '—'}
+                                      {formatAnovaDf(vals.df_between, vals.df_within)}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.p !== null && vals.p !== undefined
-                                        ? vals.p < 0.001
-                                          ? '<.001'
-                                          : vals.p.toFixed(3)
-                                        : '—'}
+                                      {formatPValue(vals.p)}
                                     </td>
                                     <td className="text-center p-2 border-b">
                                       {vals.sig ? '✱' : ''}
@@ -607,16 +606,10 @@ const FindingsPage = () => {
                                       {vals.f?.toFixed(3) ?? '—'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.df_between != null && vals.df_within != null
-                                        ? `${vals.df_between}, ${vals.df_within}`
-                                        : '—'}
+                                      {formatAnovaDf(vals.df_between, vals.df_within)}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.p !== null && vals.p !== undefined
-                                        ? vals.p < 0.001
-                                          ? '<.001'
-                                          : vals.p.toFixed(3)
-                                        : '—'}
+                                      {formatPValue(vals.p)}
                                     </td>
                                     <td className="text-center p-2 border-b">
                                       {vals.sig ? '✱' : ''}

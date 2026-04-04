@@ -110,6 +110,13 @@ NONTECH_TITLES = {'CEO', 'CFO', 'COO', 'CHRO', 'CMO', 'CSO', 'CRO'}
 LARGE_ORG_SIZES = ('5000-9999', '10000+')
 ALL_ORG_SIZES = ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']
 
+# All three constructs with their column lists and scale maps (lowercase labels for JSON output).
+ALL_CONSTRUCTS = [
+    ("barriers", BARRIER_COLS, BARRIER_SCALE),
+    ("readiness", READINESS_COLS, READINESS_SCALE),
+    ("maturity", MATURITY_COLS, MATURITY_SCALE),
+]
+
 
 # ─────────────────────────────────────────────────────────────
 # Statistical functions
@@ -254,8 +261,20 @@ def _t_cdf_two_tailed(t_abs, df):
 def _regularized_incomplete_beta(x, a, b, max_iter=200, tol=1e-12):
     """Regularized incomplete beta function I_x(a, b) via continued fraction.
 
-    Implements the Lentz algorithm for the continued fraction expansion
-    of the incomplete beta function.
+    Implements the modified Lentz algorithm for the continued fraction
+    expansion of the incomplete beta function, as described in
+    Numerical Recipes (Press et al., 3rd ed., §6.4).
+
+    Numerical properties:
+    - Converges for 0 < x < 1 with a, b > 0.
+    - Uses 1e-30 floor to avoid division by zero (tiny-number stabilization).
+    - Log-space prefix computation avoids overflow for large a, b.
+    - Maximum 200 iterations; returns best estimate if not converged.
+    - Accuracy is typically ~1e-10 for moderate a, b (< 1000).
+
+    For the t-distribution CDF, this is called with x = df/(df+t²),
+    a = df/2, b = 0.5. For the F-distribution, x = df2/(df2+df1*F),
+    a = df2/2, b = df1/2.
     """
     if x <= 0:
         return 0.0
@@ -1043,9 +1062,7 @@ def sensitivity_to_json(cuts, idx):
         tech = [r for r in rows if get_role(r, idx) in TECH_TITLES]
         nontech = [r for r in rows if get_role(r, idx) in NONTECH_TITLES]
         effects["tech_vs_nontech"] = {"tech_n": len(tech), "nontech_n": len(nontech), "constructs": {}}
-        for label, cols, sc in [("barriers", BARRIER_COLS, BARRIER_SCALE),
-                                 ("readiness", READINESS_COLS, READINESS_SCALE),
-                                 ("maturity", MATURITY_COLS, MATURITY_SCALE)]:
+        for label, cols, sc in ALL_CONSTRUCTS:
             t = person_means(tech, cols, sc, idx)
             nt = person_means(nontech, cols, sc, idx)
             d = cohens_d(t, nt)
@@ -1138,9 +1155,7 @@ def sensitivity_to_json(cuts, idx):
         tech = [r for r in rows if get_role(r, idx) in TECH_TITLES]
         nontech = [r for r in rows if get_role(r, idx) in NONTECH_TITLES]
         t_tests = {}
-        for label, cols, sc in [("barriers", BARRIER_COLS, BARRIER_SCALE),
-                                 ("readiness", READINESS_COLS, READINESS_SCALE),
-                                 ("maturity", MATURITY_COLS, MATURITY_SCALE)]:
+        for label, cols, sc in ALL_CONSTRUCTS:
             t_vals = person_means(tech, cols, sc, idx)
             nt_vals = person_means(nontech, cols, sc, idx)
             t_stat, p_val, df = welch_t_test(t_vals, nt_vals)
@@ -1159,9 +1174,7 @@ def sensitivity_to_json(cuts, idx):
         large = [r for r in rows if r[idx['Q4_OrgSize']].strip() in LARGE_ORG_SIZES]
         smmed = [r for r in rows if r[idx['Q4_OrgSize']].strip() not in LARGE_ORG_SIZES]
         t_tests_org = {}
-        for label, cols, sc in [("barriers", BARRIER_COLS, BARRIER_SCALE),
-                                 ("readiness", READINESS_COLS, READINESS_SCALE),
-                                 ("maturity", MATURITY_COLS, MATURITY_SCALE)]:
+        for label, cols, sc in ALL_CONSTRUCTS:
             l_vals = person_means(large, cols, sc, idx)
             s_vals = person_means(smmed, cols, sc, idx)
             t_stat, p_val, df = welch_t_test(l_vals, s_vals)
@@ -1179,9 +1192,7 @@ def sensitivity_to_json(cuts, idx):
         # 3. One-way ANOVA: by Role (Tech / Non-Tech / Other)
         other = [r for r in rows if get_role(r, idx) == 'Other']
         anova_role = {}
-        for label, cols, sc in [("barriers", BARRIER_COLS, BARRIER_SCALE),
-                                 ("readiness", READINESS_COLS, READINESS_SCALE),
-                                 ("maturity", MATURITY_COLS, MATURITY_SCALE)]:
+        for label, cols, sc in ALL_CONSTRUCTS:
             g1 = person_means(tech, cols, sc, idx)
             g2 = person_means(nontech, cols, sc, idx)
             g3 = person_means(other, cols, sc, idx)
@@ -1204,9 +1215,7 @@ def sensitivity_to_json(cuts, idx):
         med_orgs = [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('500-999', '1000-4999')]
         large_orgs = [r for r in rows if r[idx['Q4_OrgSize']].strip() in LARGE_ORG_SIZES]
         anova_org = {}
-        for label, cols, sc in [("barriers", BARRIER_COLS, BARRIER_SCALE),
-                                 ("readiness", READINESS_COLS, READINESS_SCALE),
-                                 ("maturity", MATURITY_COLS, MATURITY_SCALE)]:
+        for label, cols, sc in ALL_CONSTRUCTS:
             g1 = person_means(small_orgs, cols, sc, idx)
             g2 = person_means(med_orgs, cols, sc, idx)
             g3 = person_means(large_orgs, cols, sc, idx)
