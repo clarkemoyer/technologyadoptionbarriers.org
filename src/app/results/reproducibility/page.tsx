@@ -43,7 +43,7 @@ const ReproducibleAnalysisPage = () => {
         </nav>
 
         <h1 className={H1_CLASSES}>Reproducible Analysis Pipeline</h1>
-        <LastUpdated utcTimestamp={sensitivityData.last_updated} />
+        <LastUpdated utcTimestamp={(sensitivityData as Record<string, unknown>).last_updated as string} />
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>

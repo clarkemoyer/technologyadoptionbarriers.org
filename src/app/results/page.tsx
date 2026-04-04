@@ -34,7 +34,7 @@ const ResultsPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Results</h1>
-        <LastUpdated utcTimestamp={sensitivityData.last_updated} />
+        <LastUpdated utcTimestamp={(sensitivityData as Record<string, unknown>).last_updated as string} />
 
         <section className="mb-10 text-gray-800">
           <p className={PARAGRAPH_CLASSES}>
