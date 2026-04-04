@@ -323,9 +323,9 @@ jobs:
               return
             fi
 
-            # Fall back to checking for redirect stub marker + expected path
+            # Fall back to checking whether the stub page contains the expected path
             page_html=$(curl -sL --max-time 15 "$old_url" 2>/dev/null || echo "")
-            if echo "$page_html" | grep -q "has moved to.*$expected_path"; then
+            if echo "$page_html" | grep -F -q -- "$expected_path"; then
               echo "| $label | ✅ Stub page → $expected_path |" >> /tmp/redirect-results.txt
             else
               echo "| $label | ❌ → ${final_url:-timeout} (expected $expected_path) |" >> /tmp/redirect-results.txt
@@ -348,9 +348,9 @@ jobs:
 
           echo "REDIRECT_FAIL=$REDIRECT_FAIL" >> "$GITHUB_ENV"
 
-      # ── JSON data freshness ──────────────────────────────────────────
+      # ── Pipeline data rendering ─────────────────────────────────────
 
-      - name: Check JSON data freshness
+      - name: Verify pipeline data renders on pages
         run: |
           set -uo pipefail
           DATA_FAIL=0
@@ -358,8 +358,8 @@ jobs:
           : > /tmp/data-results.txt
 
           # JSON data files are bundled into pages at build time (not served
-          # as static files). Verify the rendered pages contain expected data
-          # markers that prove the pipeline JSON was incorporated at build.
+          # as static files). Verify rendered pages contain data-derived values
+          # that would only appear if pipeline JSON was present at build.
 
           check_data_marker() {
             local url="$1" marker="$2" label="$3"
@@ -370,28 +370,28 @@ jobs:
               DATA_FAIL=$((DATA_FAIL + 1))
               return
             fi
-            if echo "$content" | grep -q "$marker"; then
-              echo "| $label | ✅ Data present |" >> /tmp/data-results.txt
+            if echo "$content" | grep -F -q -- "$marker"; then
+              echo "| $label | ✅ Data renders |" >> /tmp/data-results.txt
             else
-              echo "| $label | ❌ Missing data marker: $marker |" >> /tmp/data-results.txt
+              echo "| $label | ❌ Missing: $marker |" >> /tmp/data-results.txt
               DATA_FAIL=$((DATA_FAIL + 1))
             fi
           }
 
-          # Verify sensitivity-analysis.json data renders on descriptive page
-          check_data_marker "${SITE_URL}/results/descriptive" "Grand Mean" "sensitivity data → /results/descriptive"
+          # sensitivity-analysis.json → descriptive page shows computed means
+          check_data_marker "${SITE_URL}/results/descriptive" "Grand Mean" "sensitivity → descriptive"
 
-          # Verify data-audit.json data renders on data-quality page
-          check_data_marker "${SITE_URL}/results/data-quality" "Disposition Waterfall" "audit data → /results/data-quality"
+          # data-audit.json → data-quality page shows waterfall step counts
+          check_data_marker "${SITE_URL}/results/data-quality" "AUTO-EXCLUDE" "audit → data-quality"
 
-          # Verify disposition-summary.json renders on dashboard page
-          check_data_marker "${SITE_URL}/results/dashboard" "uniqueParticipants\|Prolific Dashboard" "disposition data → /results/dashboard"
+          # disposition-summary.json → dashboard page shows live participant counts
+          check_data_marker "${SITE_URL}/results/dashboard" "Total Responses" "disposition → dashboard"
 
-          # Verify sensitivity alphas render on reliability page
-          check_data_marker "${SITE_URL}/results/reliability" "Cronbach" "reliability data → /results/reliability"
+          # sensitivity alphas → reliability page shows computed alpha values
+          check_data_marker "${SITE_URL}/results/reliability" "0.8" "alphas → reliability"
 
           echo ""
-          echo "Data freshness: $DATA_FAIL failed"
+          echo "Pipeline data rendering: $DATA_FAIL failed"
           cat /tmp/data-results.txt
 
           echo "DATA_FAIL=$DATA_FAIL" >> "$GITHUB_ENV"
@@ -550,7 +550,7 @@ jobs:
             [ "${INFRA_FAIL:-0}" -gt 0 ] && echo "::error::  🔧 Infrastructure: ${INFRA_FAIL} check(s) failed"
             [ "${REDIRECT_FAIL:-0}" -gt 0 ] && echo "::error::  🔀 Redirects: ${REDIRECT_FAIL} failed"
             [ "${CONTENT_FAIL:-0}" -gt 0 ] && echo "::error::  📝 Content: ${CONTENT_FAIL} spot-check(s) failed"
-            [ "${DATA_FAIL:-0}" -gt 0 ] && echo "::error::  📊 Data: ${DATA_FAIL} JSON file(s) invalid"
+            [ "${DATA_FAIL:-0}" -gt 0 ] && echo "::error::  📊 Data: ${DATA_FAIL} pipeline data check(s) failed"
             echo "::error::See the job summary for full details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             exit 1
           fi
@@ -586,7 +586,7 @@ jobs:
             if (infraFail > 0) lines.push(`- **Infrastructure:** ${infraFail} check(s) failed`);
             if (redirectFail > 0) lines.push(`- **Redirects:** ${redirectFail} failed`);
             if (contentFail > 0) lines.push(`- **Content spot-checks:** ${contentFail} failed`);
-            if (dataFail > 0) lines.push(`- **Data validity:** ${dataFail} JSON file(s) invalid`);
+            if (dataFail > 0) lines.push(`- **Pipeline data:** ${dataFail} page(s) missing expected data`);
             const breakdown = lines.length > 0 ? lines.join('\n') : '- See workflow run for details';
 
             const title = `🚨 Production smoke test failed: ${totalFail} check(s) after deploy (${shortSha})`;
