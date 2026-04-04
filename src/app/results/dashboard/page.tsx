@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 import dispositionData from '@/data/disposition-summary.json'
+import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
   title: 'Prolific Dashboard — TABS Results',
@@ -108,6 +109,7 @@ const DispositionDashboardPage = () => {
         </nav>
 
         <h1 className={H1_CLASSES}>Response Disposition Dashboard</h1>
+        <LastUpdated utcTimestamp={dispositionData.last_updated} />
 
         <p className="mb-8 text-gray-600">
           Live quality triage results for the <strong>{d.studyName}</strong>. Data is updated
