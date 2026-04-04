@@ -318,3 +318,77 @@ class TestAPIWriteOps:
 
         assert result == {"PID1": "SUB1", "PID3": "SUB3"}
         assert "PID2" not in result
+
+
+# ── reject_failed_iri.py ────────────────────────────────────────
+
+class TestRejectFailedIRI:
+    SCRIPT = str(SCRIPTS_DIR / "reject_failed_iri.py")
+
+    def test_message_includes_iri_count(self):
+        from reject_failed_iri import build_rejection_message
+        msg = build_rejection_message(3, 0, 600)
+        assert "3 of 3 embedded attention checks" in msg
+        assert "5-minute minimum" not in msg
+
+    def test_message_includes_speed_when_flagged(self):
+        from reject_failed_iri import build_rejection_message
+        msg = build_rejection_message(3, 1, 180)
+        assert "3.0 minutes" in msg
+        assert "5-minute minimum" in msg
+
+    def test_categories_include_attention_and_other(self):
+        from reject_failed_iri import build_rejection_categories
+        cats = build_rejection_categories(0)
+        assert "FAILED_ATTENTION_CHECK" in cats
+        assert "OTHER" in cats
+        assert "TOO_QUICKLY" not in cats
+
+    def test_categories_include_speed_when_flagged(self):
+        from reject_failed_iri import build_rejection_categories
+        cats = build_rejection_categories(1)
+        assert "TOO_QUICKLY" in cats
+
+    def test_safety_stop(self, tmp_path):
+        csv_path = _write_csv(
+            tmp_path,
+            ["PROLIFIC_PID", "IRI_Fail_Count", "Speed_Flag", "Duration_Seconds"],
+            [["PID_A", "3", "0", "600"]],
+        )
+        result = subprocess.run(
+            [sys.executable, self.SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "test",
+                "STUDY_ID": "STUDY_1",
+                "CSV_FILE_PATH": csv_path,
+                "DRY_RUN": "false",
+                "CONFIRM_REJECT": "wrong",
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode != 0
+        assert "SAFETY STOP" in result.stderr
+
+    def test_dry_run_filters_iri3_only(self, tmp_path):
+        csv_path = _write_csv(
+            tmp_path,
+            ["PROLIFIC_PID", "IRI_Fail_Count", "Speed_Flag", "Duration_Seconds"],
+            [
+                ["PID_A", "3", "0", "600"],
+                ["PID_B", "2", "0", "600"],
+                ["PID_C", "3", "1", "120"],
+            ],
+        )
+        result = subprocess.run(
+            [sys.executable, self.SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "test",
+                "STUDY_ID": "STUDY_1",
+                "CSV_FILE_PATH": csv_path,
+                "DRY_RUN": "true",
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert "IRI_Fail_Count == 3: 2" in result.stdout

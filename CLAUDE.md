@@ -46,7 +46,7 @@ npm run test:e2e    # Playwright E2E tests
 ### Tech Stack
 
 - **Framework**: Next.js 16.0.7 with App Router
-- **Language**: TypeScript (strict mode)
+- **Language**: TypeScript (strict mode) for the website; **Python** is the primary language for analysis and operational scripts
 - **Styling**: Tailwind CSS
 - **Testing**: Jest + Testing Library, Playwright, jest-axe
 - **Deployment**: GitHub Pages with custom domain
@@ -68,7 +68,31 @@ src/
 ├── data/                   # JSON content (FAQs, team, etc.)
 └── lib/
     └── assetPath.ts        # GitHub Pages basePath helper
+
+scripts/
+├── analysis/               # Python operational & analysis scripts (primary)
+├── archive/                # Archived TS scripts replaced by Python (reference only)
+└── *.ts                    # Active TS scripts (SEO, reporting, utilities)
 ```
+
+### Scripts: Python vs TypeScript
+
+**Python (`scripts/analysis/`)** is the primary language for:
+
+- Prolific submission operations (approve, reject, message, unreject)
+- Disposition triage and summary generation
+- Data analysis and psychometrics
+
+**Archived TS (`scripts/archive/`)** contains the original TypeScript implementations
+that have been replaced by Python equivalents. These are kept for reference only.
+See `scripts/archive/README.md` for the full mapping table.
+
+**Active TS (`scripts/*.ts`)** remains in use for:
+
+- SEO and analytics data collection
+- Qualtrics API operations
+- Report generation and email
+- GitHub/Copilot review automation
 
 ### Naming Convention Rules
 
