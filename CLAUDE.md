@@ -879,7 +879,7 @@ Project-level hooks in `.claude/settings.json`:
 | ------------- | ------------- | --------------------------------- |
 | `PostToolUse` | `Write\|Edit` | Auto-run Prettier on edited files |
 
-Hooks run automatically — no approval needed. They ensure formatting compliance without manual `npm run format`.
+Hooks run automatically — no approval needed. They help keep Claude-edited files formatted as you work, but they do not replace the standard `npm run format` / `npm run format:check` verification before pushing or merging; CI still enforces formatting.
 
 ### Available Hook Events
 
