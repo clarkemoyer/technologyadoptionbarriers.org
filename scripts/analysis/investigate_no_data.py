@@ -39,7 +39,7 @@ TIME_WINDOW_MINUTES = 30    # ±minutes for a completion-time match
 
 # ── Time helpers ─────────────────────────────────────────────
 
-def _parse_prolific_time(ts: str) -> "datetime | None":
+def _parse_prolific_time(ts: str) -> datetime | None:
     """Parse a Prolific ISO 8601 timestamp into a UTC-aware datetime."""
     if not ts:
         return None
