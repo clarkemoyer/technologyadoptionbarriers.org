@@ -22,15 +22,15 @@ jobs:
             const prNumber = context.payload.pull_request.number;
             const titlePattern = `fix: address Copilot review comments on PR #${prNumber}`;
 
-            // Search for open issues matching this PR
-            const issues = await github.rest.issues.listForRepo({
+            // Search all open issues matching this PR across every page
+            const allIssues = await github.paginate(github.rest.issues.listForRepo, {
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
               per_page: 100,
             });
 
-            const matchingIssues = issues.data.filter(
+            const matchingIssues = allIssues.filter(
               (issue) => issue.title === titlePattern && !issue.pull_request
             );
 

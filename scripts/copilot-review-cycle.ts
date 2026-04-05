@@ -382,7 +382,7 @@ async function waitForCi(repo: string, prNumber: string): Promise<'pass' | 'fail
     }
 
     const checks = ghJsonArray<CheckRun>(
-      `api repos/${repo}/commits/${pr.headRefOid}/check-runs --jq ".check_runs" --paginate`
+      `api "repos/${repo}/commits/${pr.headRefOid}/check-runs?filter=latest" --jq ".check_runs" --paginate`
     )
 
     if (checks.length === 0) {
