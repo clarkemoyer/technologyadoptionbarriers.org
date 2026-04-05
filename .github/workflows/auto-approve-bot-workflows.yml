@@ -15,7 +15,7 @@ jobs:
   auto-approve:
     if: >-
       github.event.workflow_run.conclusion == 'action_required' &&
-      github.event.workflow_run.actor.id == 175728472
+      github.event.workflow_run.actor.id == 198982749
     runs-on: ubuntu-latest
     environment: copilot
     steps:
