@@ -1,0 +1,72 @@
+name: Retrigger Stalled Agent Tasks
+
+# Manually retrigger stalled GitHub Copilot agent tasks.
+#
+# A "stalled" agent task is an open issue assigned to `copilot` that has
+# had no activity (updates) in the last N hours (default: 24).
+#
+# Retrigger mechanism:
+#   1. Remove `copilot` from the issue's assignees
+#   2. Re-add `copilot` as assignee — this starts a new Copilot agent session
+#   3. Post a comment explaining the retrigger
+#
+# This workflow can be triggered:
+#   - Manually via workflow_dispatch (for one issue or all stalled tasks)
+#   - Called from tabs-pr-triage.yml when RETRIGGER=true
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to retrigger (leave empty to retrigger ALL stalled tasks)'
+        required: false
+        type: number
+      stale_hours:
+        description: 'Hours of inactivity to consider a task stalled'
+        required: false
+        type: number
+        default: 24
+      dry_run:
+        description: 'Dry run — report stalled tasks without retriggering'
+        required: false
+        type: boolean
+        default: true
+
+concurrency:
+  group: retrigger-stalled-agent-tasks
+  cancel-in-progress: false
+
+permissions:
+  issues: write
+  pull-requests: read
+  contents: read
+
+jobs:
+  retrigger:
+    name: Retrigger Stalled Copilot Tasks
+    runs-on: ubuntu-latest
+    environment: copilot
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Retrigger stalled agent tasks
+        run: npx tsx scripts/agent-task-monitor.ts
+        env:
+          GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+          REPO_NAME: ${{ github.repository }}
+          STALE_HOURS: ${{ inputs.stale_hours || '24' }}
+          # Pass the specific issue number as a filter via environment
+          TARGET_ISSUE: ${{ inputs.issue_number || '' }}
+          RETRIGGER: ${{ inputs.dry_run == true && 'false' || 'true' }}
+          DRY_RUN: ${{ inputs.dry_run || 'true' }}
