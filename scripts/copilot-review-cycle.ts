@@ -146,9 +146,6 @@ function postComment(repo: string, prNumber: string, body: string): void {
 function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComment[]): void {
   console.log('Assigning Copilot coding agent to fix comments...')
 
-  // Close any existing open fix issues for this PR to prevent duplicates
-  closeFixIssues(repo, prNumber, 'Superseded by new review round.')
-
   const commentList = comments
     .map((c, i) => {
       const loc = c.line ? `${c.path}:${c.line}` : c.path
@@ -173,6 +170,10 @@ function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComm
         `--assignee copilot`
     )
     console.log(`  Issue created: ${result}`)
+    // Extract new issue number from URL (e.g., "https://github.com/.../issues/123")
+    const newIssueNumber = parseInt(result.match(/\/(\d+)\s*$/)?.[1] || '0', 10)
+    // Close previous fix issues now that a new one exists
+    closeFixIssues(repo, prNumber, 'Superseded by new review round.', newIssueNumber)
   } catch (err: any) {
     console.log('  Could not create fix issue via Copilot coding agent.')
     console.log('  Posting fix request as PR comment instead.')
@@ -428,7 +429,7 @@ async function waitForCi(
 /**
  * Close all open fix issues for a given PR number.
  */
-function closeFixIssues(repo: string, prNumber: string, reason: string): void {
+function closeFixIssues(repo: string, prNumber: string, reason: string, excludeNumber = 0): void {
   try {
     const existingIssues = ghJsonArray<{ number: number; title: string }>(
       `issue list -R ${repo} --state open --limit 100 ` +
@@ -437,7 +438,7 @@ function closeFixIssues(repo: string, prNumber: string, reason: string): void {
     )
     const title = `fix: address Copilot review comments on PR #${prNumber}`
     for (const issue of existingIssues) {
-      if (issue.title === title) {
+      if (issue.title === title && issue.number !== excludeNumber) {
         console.log(`  Closing fix issue #${issue.number}: ${reason}`)
         gh(`issue close ${issue.number} -R ${repo} -c "${reason}"`)
       }
@@ -454,8 +455,9 @@ function addLabel(repo: string, prNumber: string, label: string): void {
   try {
     gh(`pr edit ${prNumber} -R ${repo} --add-label "${label}"`)
     console.log(`  Added label: ${label}`)
-  } catch {
-    console.log(`  Could not add label: ${label}`)
+  } catch (err: any) {
+    const msg = err.stderr?.toString() || err.message || 'Unknown error'
+    console.log(`  Could not add label "${label}": ${msg.slice(0, 200)}`)
   }
 }
 
