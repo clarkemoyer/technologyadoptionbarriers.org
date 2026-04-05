@@ -5,19 +5,23 @@ Approve Prolific submissions from a CSV disposition file.
 Python port of scripts/approve-prolific-submissions.ts.
 
 Reads a CSV, finds rows where the Disposition column is "CLEAN",
-and bulk-approves them via the Prolific API.
+and bulk-approves them via the Prolific API. After approving, a
+thank-you message is automatically sent to all CLEAN participants
+(dedup: already-thanked participants are skipped).
 
 Environment variables:
   PROLIFIC_API_TOKEN   – Prolific API token (required)
   STUDY_ID             – Prolific study ID (required)
   CSV_FILE_PATH        – Path to the disposition CSV (required)
   DRY_RUN              – When "false", approve live; otherwise dry run (default: true)
+  SEND_THANK_YOU       – When "false", skip thank-you messages after approval (default: true)
 """
 
 import csv
 import os
 import sys
 from pathlib import Path
+from typing import Dict, Optional
 
 sys.path.insert(0, str(Path(__file__).parent))
 
@@ -35,6 +39,7 @@ def _require_env(name: str) -> str:
 def _write_step_summary(
     study_id: str, dry_run: bool, total_data_rows: int,
     clean_count: int, skipped: int, already_approved: int, newly_approved: int,
+    thank_you_stats: Optional[Dict[str, int]] = None,
 ) -> None:
     """Write a GitHub Actions step summary (always, even when nothing to approve)."""
     summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
@@ -56,6 +61,19 @@ def _write_step_summary(
         f"| Newly approved | {newly_approved} |",
         "",
     ]
+    if thank_you_stats is not None:
+        lines += [
+            "### Thank-you messages",
+            "",
+            "| Metric | Value |",
+            "|---|---:|",
+            f"| Sent | {thank_you_stats['sent']} |",
+            f"| Skipped (already sent) | {thank_you_stats['skipped']} |",
+            f"| Skipped (not approved) | {thank_you_stats['skipped_not_approved']} |",
+            f"| Not found | {thank_you_stats['not_found']} |",
+            f"| Failed | {thank_you_stats['failed']} |",
+            "",
+        ]
     with open(summary_file, "a") as f:
         f.write("\n".join(lines))
 
@@ -77,6 +95,8 @@ def main():
     csv_file_path = _require_env("CSV_FILE_PATH")
     # DRY_RUN=false means live; anything else (true, unset, empty) means dry run
     dry_run = os.environ.get("DRY_RUN", "true").strip().lower() != "false"
+    # SEND_THANK_YOU=false skips the thank-you step; anything else (true, unset) enables it
+    send_thank_you = os.environ.get("SEND_THANK_YOU", "true").strip().lower() != "false"
 
     # Read disposition CSV
     print(f"Reading CSV from: {csv_file_path}")
@@ -190,6 +210,9 @@ def main():
         if dry_run:
             print(f"DRY RUN — {len(clean_pids)} submissions would be approved")
             print("  (Set DRY_RUN=false to approve live)")
+            if send_thank_you:
+                print(f"\nDRY RUN: would send thank-you to up to {len(clean_pids)} CLEAN participants after approval")
+                print("  (Dedup: already-thanked participants would be skipped)")
         elif pids_to_approve:
             print(f"Approving {len(pids_to_approve)} submissions for study {study_id} ({study_name})...")
             prolific_bulk_approve(study_id, pids_to_approve, api_token)
@@ -206,8 +229,17 @@ def main():
         _append_failure_summary(error_msg)
         sys.exit(1)
 
+    # ── Send thank-you messages (live run only) ───────────────────────────
+    thank_you_stats = None
+    if send_thank_you and not dry_run and clean_pids:
+        print("\n── Sending thank-you messages ──────────────────────────────────────")
+        # Deferred import: avoids loading Prolific messaging code when not needed
+        # and prevents any circular-import risk at module load time.
+        from send_thank_you import send_thank_you_to_pids  # noqa: PLC0415
+        thank_you_stats = send_thank_you_to_pids(clean_pids, study_id, api_token, dry_run=False)
+
     _write_step_summary(study_id, dry_run, total_data_rows, len(clean_pids), skipped,
-                        already_approved, newly_approved)
+                        already_approved, newly_approved, thank_you_stats)
 
     print("\nDone")
 

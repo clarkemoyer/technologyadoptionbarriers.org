@@ -14,6 +14,7 @@ Environment variables:
 import os
 import sys
 from pathlib import Path
+from typing import Dict, List
 
 sys.path.insert(0, str(Path(__file__).parent))
 
@@ -42,13 +43,27 @@ def _require_env(name: str) -> str:
     return value
 
 
-def main():
-    api_token = _require_env("PROLIFIC_API_TOKEN")
-    study_id = _require_env("STUDY_ID")
-    pid_list_raw = _require_env("PID_LIST")
-    dry_run = os.environ.get("DRY_RUN", "true").strip().lower() != "false"
+def send_thank_you_to_pids(
+    pids: List[str],
+    study_id: str,
+    api_token: str,
+    dry_run: bool = True,
+) -> Dict[str, int]:
+    """Send thank-you messages to a list of participant IDs.
 
-    pids = [p.strip() for p in pid_list_raw.split(",") if p.strip()]
+    Skips participants who are not APPROVED or have already received the
+    thank-you message (dedup via message history check).
+
+    Args:
+        pids: Participant IDs to message.
+        study_id: Prolific study ID.
+        api_token: Prolific API token.
+        dry_run: When True, log what would be sent without sending.
+
+    Returns:
+        Dict with counts: sent, skipped (already sent), skipped_not_approved,
+        not_found, failed.
+    """
     print(f"Sending thank-you messages to {len(pids)} participants")
     print(f"Mode: {'DRY RUN' if dry_run else 'LIVE'}")
     print()
@@ -79,7 +94,7 @@ def main():
                 print(f"  SKIP {pid} — status is {status} (not APPROVED)")
                 continue
 
-            # Check for existing thank-you message
+            # Check for existing thank-you message (dedup)
             existing = prolific_user_messages(pid, api_token)
             already_sent = any(
                 (m.get("data") or {}).get("study_id") == study_id
@@ -107,6 +122,24 @@ def main():
         f"SENT: {sent} | NOT FOUND: {not_found} | SKIPPED (not approved): {skipped_not_approved} "
         f"| SKIPPED (already sent): {skipped} | FAILED: {failed}"
     )
+
+    return {
+        "sent": sent,
+        "skipped": skipped,
+        "skipped_not_approved": skipped_not_approved,
+        "not_found": not_found,
+        "failed": failed,
+    }
+
+
+def main():
+    api_token = _require_env("PROLIFIC_API_TOKEN")
+    study_id = _require_env("STUDY_ID")
+    pid_list_raw = _require_env("PID_LIST")
+    dry_run = os.environ.get("DRY_RUN", "true").strip().lower() != "false"
+
+    pids = [p.strip() for p in pid_list_raw.split(",") if p.strip()]
+    send_thank_you_to_pids(pids, study_id, api_token, dry_run)
 
 
 if __name__ == "__main__":
