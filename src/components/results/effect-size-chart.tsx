@@ -26,18 +26,36 @@ interface EffectSizeChartProps {
   title: string
 }
 
-const getEffectSizeColor = (d: number) => {
-  const absD = Math.abs(d)
-  if (absD < 0.2) return '#94a3b8' // Slate 400 (Small)
-  if (absD < 0.8) return '#3b82f6' // Blue 500 (Medium)
-  return '#f59e0b' // Amber 500 (Large)
+export const EFFECT_SIZE_THRESHOLDS = {
+  negligible: 0.2,
+  small: 0.5,
+  medium: 0.8,
+} as const
+
+export type EffectSizeMagnitude = 'missing' | 'negligible' | 'small' | 'medium' | 'large'
+
+export const getEffectSizeMagnitude = (d: number | null | undefined): EffectSizeMagnitude => {
+  if (d === null || d === undefined) return 'missing'
+  const abs = Math.abs(d)
+  if (abs < EFFECT_SIZE_THRESHOLDS.negligible) return 'negligible'
+  if (abs < EFFECT_SIZE_THRESHOLDS.small) return 'small'
+  if (abs < EFFECT_SIZE_THRESHOLDS.medium) return 'medium'
+  return 'large'
 }
 
-const getEffectSizeLabel = (d: number) => {
-  const absD = Math.abs(d)
-  if (absD < 0.2) return 'Small'
-  if (absD < 0.8) return 'Medium'
-  return 'Large'
+export const getMagnitudeColor = (d: number | null | undefined): string => {
+  switch (getEffectSizeMagnitude(d)) {
+    case 'missing':
+      return '#e5e7eb' // Gray 200
+    case 'negligible':
+      return '#94a3b8' // Slate 400
+    case 'small':
+      return '#60a5fa' // Blue 400
+    case 'medium':
+      return '#3b82f6' // Blue 500
+    case 'large':
+      return '#4f46e5' // Indigo 600
+  }
 }
 
 const EffectSizeChart: React.FC<EffectSizeChartProps> = ({ data, title }) => {
@@ -58,8 +76,8 @@ const EffectSizeChart: React.FC<EffectSizeChartProps> = ({ data, title }) => {
       d,
       hasValue,
       error: [margin, margin], // [lower, upper] relative to d
-      color: hasValue ? getEffectSizeColor(d) : '#e2e8f0', // Light gray for missing
-      sizeLabel: hasValue ? getEffectSizeLabel(d) : 'N/A',
+      color: getMagnitudeColor(item.d),
+      sizeLabel: getEffectSizeMagnitude(item.d),
     }
   })
 
@@ -71,8 +89,7 @@ const EffectSizeChart: React.FC<EffectSizeChartProps> = ({ data, title }) => {
     )
   }
 
-  // Determine domain based on data to keep it centered but responsive
-  const maxD = Math.max(...chartData.map((d) => Math.abs(d.d ?? 0) + d.error[0]))
+  const maxD = Math.max(...chartData.map((d) => (d.hasValue ? Math.abs(d.d) + d.error[0] : 0.5)))
   const domainLimit = Math.max(1.0, Math.ceil(maxD * 2) / 2)
 
   return (
@@ -80,7 +97,11 @@ const EffectSizeChart: React.FC<EffectSizeChartProps> = ({ data, title }) => {
       <figcaption className="text-xs font-bold text-gray-500 uppercase mb-4 tracking-wider">
         {title}
       </figcaption>
-      <div className="h-[250px] w-full">
+      <div
+        className="h-[250px] w-full"
+        role="img"
+        aria-label={`Horizontal bar chart showing Cohen's d effect sizes for ${title}.`}
+      >
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={chartData}
@@ -116,22 +137,29 @@ const EffectSizeChart: React.FC<EffectSizeChartProps> = ({ data, title }) => {
                   return (
                     <div className="bg-white border border-gray-200 p-2 shadow-lg rounded-md text-xs">
                       <p className="font-bold text-gray-900 capitalize mb-1">{d.construct}</p>
-                      <p className="text-gray-700">
-                        Cohen&rsquo;s d:{' '}
-                        <span className="font-mono font-bold">
-                          {d.d > 0 ? '+' : ''}
-                          {d.d.toFixed(3)}
-                        </span>
-                      </p>
-                      <p className="text-gray-700">
-                        Magnitude:{' '}
-                        <span className="font-semibold" style={{ color: d.color }}>
-                          {d.sizeLabel}
-                        </span>
-                      </p>
-                      <p className="text-gray-500 mt-1">
-                        95% CI: [{(d.d - d.error[0]).toFixed(2)}, {(d.d + d.error[1]).toFixed(2)}]
-                      </p>
+                      {d.hasValue ? (
+                        <>
+                          <p className="text-gray-700">
+                            Cohen&rsquo;s d:{' '}
+                            <span className="font-mono font-bold">
+                              {d.d > 0 ? '+' : ''}
+                              {d.d.toFixed(3)}
+                            </span>
+                          </p>
+                          <p className="text-gray-700">
+                            Magnitude:{' '}
+                            <span className="font-semibold" style={{ color: d.color }}>
+                              {d.sizeLabel}
+                            </span>
+                          </p>
+                          <p className="text-gray-500 mt-1">
+                            95% CI: [{(d.d - d.error[0]).toFixed(2)},{' '}
+                            {(d.d + d.error[1]).toFixed(2)}]
+                          </p>
+                        </>
+                      ) : (
+                        <p className="text-gray-500 italic">Data not available</p>
+                      )}
                     </div>
                   )
                 }
@@ -147,30 +175,35 @@ const EffectSizeChart: React.FC<EffectSizeChartProps> = ({ data, title }) => {
                   radius={entry.d < 0 ? ([4, 0, 0, 4] as any) : ([0, 4, 4, 0] as any)}
                 />
               ))}
-              <ErrorBar
-                dataKey="error"
-                width={4}
-                strokeWidth={1.5}
-                stroke="#475569"
-                direction="x"
-              />
+              {chartData.some((d) => d.hasValue) && (
+                <ErrorBar
+                  dataKey="error"
+                  width={4}
+                  strokeWidth={1.5}
+                  stroke="#475569"
+                  direction="x"
+                />
+              )}
             </Bar>
           </BarChart>
         </ResponsiveContainer>
       </div>
 
-      {/* Legend */}
-      <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 justify-center text-[10px] sm:text-xs text-gray-500 border-t border-gray-50 pt-4">
+      <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 justify-center text-[10px] sm:text-xs text-gray-500 border-t border-gray-50 pt-4">
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-sm bg-slate-400" />
-          <span>Small (&lt; 0.2)</span>
+          <span>Negligible (&lt; 0.2)</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: '#60a5fa' }} />
+          <span>Small (0.2 - 0.5)</span>
         </div>
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-sm bg-blue-500" />
-          <span>Medium (0.2 - 0.8)</span>
+          <span>Medium (0.5 - 0.8)</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded-sm bg-amber-500" />
+          <div className="w-3 h-3 rounded-sm bg-indigo-600" />
           <span>Large (&gt; 0.8)</span>
         </div>
       </div>

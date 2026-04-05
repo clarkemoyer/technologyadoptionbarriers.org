@@ -31,9 +31,10 @@ describe('EffectSizeChart', () => {
   it('renders the chart with correct title and legend', () => {
     render(<EffectSizeChart data={mockData} title="Tech vs Non-Tech" />)
     expect(screen.getByText('Tech vs Non-Tech')).toBeInTheDocument()
-    expect(screen.getByText('Small (< 0.2)')).toBeInTheDocument()
-    expect(screen.getByText('Medium (0.2 - 0.8)')).toBeInTheDocument()
-    expect(screen.getByText('Large (> 0.8)')).toBeInTheDocument()
+    expect(screen.getByText(/Negligible \(< 0\.2\)/)).toBeInTheDocument()
+    expect(screen.getByText(/Small \(0\.2 - 0\.5\)/)).toBeInTheDocument()
+    expect(screen.getByText(/Medium \(0\.5 - 0\.8\)/)).toBeInTheDocument()
+    expect(screen.getByText(/Large \(> 0\.8\)/)).toBeInTheDocument()
   })
 
   it('meets accessibility standards', async () => {

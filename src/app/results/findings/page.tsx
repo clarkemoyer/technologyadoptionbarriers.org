@@ -10,7 +10,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
-import EffectSizeChart from '@/components/results/effect-size-chart'
+import EffectSizeChart, { getEffectSizeMagnitude } from '@/components/results/effect-size-chart'
 
 export const metadata: Metadata = {
   title: 'Key Findings — TABS Results',
@@ -110,12 +110,8 @@ const formatAnovaDf = (
 }
 
 const dSize = (d: number | null | undefined): string => {
-  if (d === null || d === undefined) return ''
-  const abs = Math.abs(d)
-  if (abs < 0.2) return 'negligible'
-  if (abs < 0.5) return 'small'
-  if (abs < 0.8) return 'medium'
-  return 'large'
+  const magnitude = getEffectSizeMagnitude(d)
+  return magnitude === 'missing' ? '' : magnitude
 }
 
 const FindingsPage = () => {

@@ -107,3 +107,4 @@ The width(-1) and height(-1) of chart should be greater than 0,
 [browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
 [browser] [Meta Pixel] - Invalid PixelID: null. (https://connect.facebook.net/en_US/fbevents.js:178:528)
 ✓ Compiled in 207ms
+✓ Compiled in 190ms
