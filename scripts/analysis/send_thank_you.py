@@ -48,16 +48,26 @@ def main():
     pid_list_raw = _require_env("PID_LIST")
     dry_run = os.environ.get("DRY_RUN", "true").strip().lower() != "false"
 
-    pids = [p.strip() for p in pid_list_raw.split(",") if p.strip()]
+    # De-duplicate while preserving order to avoid redundant API calls and
+    # eliminate same-run double-send risk from duplicate CLEAN rows in the CSV.
+    pids = list(dict.fromkeys(p.strip() for p in pid_list_raw.split(",") if p.strip()))
     print(f"Sending thank-you messages to {len(pids)} participants")
     print(f"Mode: {'DRY RUN' if dry_run else 'LIVE'}")
     print()
 
     # Fetch fresh submission statuses
     print("Fetching submission statuses...")
-    subs = prolific_submissions(study_id, api_token)
-    status_map = {s.get("participant_id", ""): s.get("status", "") for s in subs}
-    print(f"Loaded {len(status_map)} statuses")
+    try:
+        subs = prolific_submissions(study_id, api_token)
+        status_map = {s.get("participant_id", ""): s.get("status", "") for s in subs}
+        print(f"Loaded {len(status_map)} statuses")
+    except Exception as e:
+        print(f"Error: Failed to fetch submission statuses: {e}", file=sys.stderr)
+        print(
+            f"SENT: 0 | NOT FOUND: 0 | SKIPPED (not approved): 0 "
+            f"| SKIPPED (already sent): 0 | FAILED: {len(pids)}"
+        )
+        sys.exit(1)
     print()
 
     sent = 0

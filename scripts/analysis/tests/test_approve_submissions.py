@@ -208,3 +208,46 @@ class TestApproveCSVParsing:
         )
         assert result.returncode != 0
         assert "Cannot find 'PROLIFIC_PID' column" in result.stderr
+
+    def test_step_summary_includes_thank_you_section(self, tmp_path, monkeypatch):
+        """_write_step_summary includes thank-you section when stats are provided."""
+        from approve_submissions import _write_step_summary
+
+        summary_file = str(tmp_path / "summary.md")
+        monkeypatch.setenv("GITHUB_STEP_SUMMARY", summary_file)
+        _write_step_summary(
+            study_id="STUDY_1",
+            dry_run=False,
+            total_data_rows=2,
+            clean_count=2,
+            skipped=0,
+            already_approved=0,
+            newly_approved=2,
+            thank_you_stats={"sent": 2, "skipped": 0, "skipped_not_approved": 0, "not_found": 0, "failed": 0},
+        )
+
+        summary = Path(summary_file).read_text()
+        assert "Thank-you messages" in summary
+        assert "| Sent | 2 |" in summary
+        assert "| Skipped (already sent) | 0 |" in summary
+
+    def test_step_summary_no_thank_you_section_when_omitted(self, tmp_path, monkeypatch):
+        """Step summary omits thank-you section when thank_you_stats is None."""
+        from approve_submissions import _write_step_summary
+
+        summary_file = str(tmp_path / "summary.md")
+        monkeypatch.setenv("GITHUB_STEP_SUMMARY", summary_file)
+        _write_step_summary(
+            study_id="STUDY_1",
+            dry_run=True,
+            total_data_rows=3,
+            clean_count=2,
+            skipped=0,
+            already_approved=0,
+            newly_approved=0,
+            thank_you_stats=None,
+        )
+
+        summary = Path(summary_file).read_text()
+        assert "Thank-you messages" not in summary
+        assert "CLEAN dispositions | 2" in summary

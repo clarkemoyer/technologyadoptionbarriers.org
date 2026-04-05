@@ -35,6 +35,7 @@ def _require_env(name: str) -> str:
 def _write_step_summary(
     study_id: str, dry_run: bool, total_data_rows: int,
     clean_count: int, skipped: int, already_approved: int, newly_approved: int,
+    thank_you_stats: "dict | None" = None,
 ) -> None:
     """Write a GitHub Actions step summary (always, even when nothing to approve)."""
     summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
@@ -56,6 +57,19 @@ def _write_step_summary(
         f"| Newly approved | {newly_approved} |",
         "",
     ]
+    if thank_you_stats is not None:
+        lines += [
+            "### Thank-you messages",
+            "",
+            "| Metric | Value |",
+            "|---|---:|",
+            f"| Sent | {thank_you_stats.get('sent', 0)} |",
+            f"| Skipped (already sent) | {thank_you_stats.get('skipped', 0)} |",
+            f"| Skipped (not approved) | {thank_you_stats.get('skipped_not_approved', 0)} |",
+            f"| Not found | {thank_you_stats.get('not_found', 0)} |",
+            f"| Failed | {thank_you_stats.get('failed', 0)} |",
+            "",
+        ]
     with open(summary_file, "a") as f:
         f.write("\n".join(lines))
 
