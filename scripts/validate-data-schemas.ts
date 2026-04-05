@@ -122,7 +122,7 @@ export function validateDataFiles(dataDir: string) {
       hasErrors = true
       console.error(`❌ Validation failed for ${filename}:`)
       if (error instanceof z.ZodError) {
-        error.errors.forEach((e) => {
+        ;(error as any).errors.forEach((e: any) => {
           console.error(`  - Path [${e.path.join('.')}] : ${e.message}`)
         })
       } else {
