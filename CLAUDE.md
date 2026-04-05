@@ -434,6 +434,37 @@ git commit -m "chore: update dependencies"
 - **Lazy load when possible**: Use dynamic imports for large components
 - **Monitor Lighthouse scores**: CI runs Lighthouse on every PR
 
+## AI Coding Agents & Concurrency
+
+TABS operates a **multi-agent setup** with three distinct AI coding agents working in parallel across different infrastructure pools.
+
+| Agent       | Trigger                         | Concurrency | Pool         | Primary Role                                   |
+| ----------- | ------------------------------- | ----------- | ------------ | ---------------------------------------------- |
+| **Copilot** | Assign `copilot-swe-agent[bot]` | ~4          | GitHub       | Pipeline, workflow, and analysis work          |
+| **Jules**   | Add `jules` label to issue      | 60 (Ultra)  | Google Cloud | Visualization, content, and frontend work      |
+| **Claude**  | Direct session orchestration    | 1           | Anthropic    | Orchestration, PR management, complex analysis |
+
+_(Note: Gemini Code Assist also runs automatically on PRs if installed, but does not count against issue-to-PR agent concurrency)._
+
+### Google Jules Integration
+
+Jules is Google's autonomous coding agent powered by Gemini. We use the **Ultra tier**, which gives us up to 60 concurrent tasks.
+
+**How to use Jules:**
+
+1. Create a GitHub issue describing the needed change (frontend, content, or visualization).
+2. Add the `jules` label to the issue.
+3. The `.github/workflows/jules-on-label.yml` workflow triggers automatically.
+4. Jules clones the repo to a Google Cloud VM, processes the request, and opens a PR.
+
+**Features we use:**
+
+- Issue-to-PR coding via the `jules` label
+- Automatic issue finding and scheduled sessions
+- Build and quality checks before PR creation
+
+Jules and Copilot are complementary — Jules handles scale and frontend tasks, while Copilot handles backend automation and code review.
+
 ## IDE-Specific Capabilities
 
 Claude Code runs in **VS Code**, **Claude Desktop app**, and **web (claude.ai/code)**. All share `~/.claude/settings.json` and memory. MCP config locations differ:
@@ -768,6 +799,7 @@ All workflows support `workflow_dispatch` for manual triggering:
 | `prolific-reject-auto-exclude.yml` | `gh workflow run prolific-reject-auto-exclude.yml`                | Manual reject (requires confirmation)       |
 | `validate-analysis.yml`            | `gh workflow run validate-analysis.yml`                           | Run Python analysis tests                   |
 | `ci.yml`                           | `gh workflow run ci.yml --ref <branch>`                           | CI (format, lint, test, build, E2E)         |
+| `jules-on-label.yml`               | `gh workflow run jules-on-label.yml` (or add `jules` label)       | Invoke Jules coding agent for an issue      |
 
 **Tip**: Use `--ref <branch>` to test workflow changes on a PR branch before merging.
 

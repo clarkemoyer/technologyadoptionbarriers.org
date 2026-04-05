@@ -1,0 +1,101 @@
+437:## IDE-Specific Capabilities
+438-
+439-Claude Code runs in **VS Code**, **Claude Desktop app**, and **web (claude.ai/code)**. All share `~/.claude/settings.json` and memory. MCP config locations differ:
+440-
+441-| Platform       | MCP Config Location                           |
+442-| -------------- | --------------------------------------------- |
+443-| VS Code        | `.vscode/mcp.json` (per-project)              |
+444-| Claude Desktop | `%APPDATA%\Claude\claude_desktop_config.json` |
+445-| Web            | Connectors page (cloud-managed)               |
+446-
+447-### Terminal Access (Your Advantage!)
+448-
+449-As an IDE-integrated agent, **you have terminal/CLI access** that cloud agents don't:
+450-
+451-**You can run commands directly:**
+452-
+453-```bash
+454-# Development workflow
+455-npm run dev              # Start dev server
+456-npm test                 # Run tests with output
+457-npm run build            # Build and see detailed output
+458-
+459-# Git operations
+460-git status               # Check working tree
+461-git diff                 # See changes
+462-git log --oneline -10    # Recent commits
+463-
+464-# TypeScript scripts
+465-npx tsx scripts/collect-prolific-data.ts
+466-npx tsx scripts/fetch-qualtrics-questions.ts
+467-
+468-# API testing
+469-curl -H "X-API-TOKEN: $TOKEN" \
+470-  "https://datacenter.qualtrics.com/API/v3/surveys"
+471-```
+472-
+473-**Use this to your advantage:**
+474-
+475-- Debug test failures with full output
+476-- Validate builds before committing
+477-- Explore git history for context
+478-- Test API connectivity locally
+479-
+480-### MCP (Model Context Protocol) Integration
+481-
+482-You can connect to MCP servers for enhanced capabilities:
+483-
+484-#### Qualtrics MCP Server
+485-
+486-**Survey management via MCP tools:**
+487-
+488-- **Setup**: Copy `.vscode/mcp.json.example` to `.vscode/mcp.json`
+489-- **Host**: `https://<your-qualtrics-datacenter>/API/mcp/survey-crud`
+490-- **Auth**: OAuth 2.0 (VS Code prompts for token)
+491-- **Transport**: HTTP with Server-Sent Events (SSE)
+492-
+493-**Capabilities:**
+494-
+495-- List all surveys in account
+496-- Get survey metadata and definitions
+497-- Copy surveys between projects
+498-- Export survey definitions (QSF format)
+499-- Import surveys from QSF files
+500-
+501-**Example use cases:**
+502-
+503-- "Show me all surveys with 'TABS' in the name"
+504-- "Get the definition for survey ID SV_abc123"
+505-- "Copy survey SV_xyz789 to a new project"
+506-
+507-**Documentation**: [qualtrics-mcp.md](./qualtrics-mcp.md)
+508-
+509-#### GitHub MCP Servers
+510-
+511-Two GitHub MCP servers are available with different access levels:
+512-
+513-| MCP                         | Tool Prefix                   | Access          | Best For                                                                   |
+514-| --------------------------- | ----------------------------- | --------------- | -------------------------------------------------------------------------- |
+515-| **Local npx server**        | `mcp__github__`               | Full read/write | Comments, PRs, issues, branches, push files, reviews                       |
+516-| **Built-in Copilot plugin** | `mcp__plugin_github_github__` | Read-only       | Fast reads: PR details, file contents, search, Copilot agent delegation    |
+517-| **`gh` CLI**                | `Bash(gh ...)`                | Full read/write | Workflow dispatch, PR state changes (draft/ready), fallback for all writes |
+518-
+519-**Local npx server setup** (Claude Desktop — `claude_desktop_config.json`):
+520-
+521-```json
+522-{
+523-  "mcpServers": {
+524-    "github": {
+525-      "command": "npx",
+526-      "args": ["-y", "@modelcontextprotocol/server-github"],
+527-      "env": {
+528-        "GITHUB_PERSONAL_ACCESS_TOKEN": "<token from gh auth token>"
+529-      }
+530-    }
+531-  }
+532-}
+533-```
+534-
+535-**Important**: The built-in Copilot plugin injects its own token that cannot be overridden. It is read-only by design. Use the local npx server or `gh` CLI for all write operations.
+536-
+537-**Token refresh**: The `gho_` OAuth token from `gh auth token` may expire. If MCP writes start failing with 401, run `gh auth refresh` and update the config.

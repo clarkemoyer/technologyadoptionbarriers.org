@@ -195,7 +195,7 @@ const MakingOfTabsPage = () => {
               {
                 title: 'AI-Assisted Development',
                 href: '/making-of-tabs/ai-assisted-development',
-                desc: 'The AI models and workflows we use to build and maintain the site.',
+                desc: 'The 3-agent setup (Copilot, Jules, Claude) and workflows we use to build and maintain the site.',
                 border: 'border-purple-200',
                 bg: 'bg-purple-50',
                 titleColor: 'text-purple-900',

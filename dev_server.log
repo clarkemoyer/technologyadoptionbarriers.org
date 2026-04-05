@@ -1,0 +1,16 @@
+
+> technologyadoptionbarriers-org@0.3.1 dev
+> next dev --turbopack
+
+▲ Next.js 16.2.1 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+✓ Ready in 613ms
+
+○ Compiling /making-of-tabs/integrations/google-jules ...
+ GET /making-of-tabs/integrations/google-jules/ 200 in 6.0s (next.js: 5.2s, application-code: 780ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /making-of-tabs/integrations/ 200 in 1528ms (next.js: 973ms, application-code: 556ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /making-of-tabs/integrations/google-jules/ 200 in 150ms (next.js: 5ms, application-code: 145ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
