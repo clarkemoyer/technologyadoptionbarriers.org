@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 
 test.describe('Findings Page Heatmap', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/results/findings')
+    await page.goto('results/findings')
   })
 
   test('should display cross-tabulation section', async ({ page }) => {
@@ -38,15 +38,31 @@ test.describe('Findings Page Heatmap', () => {
     const byRoleSection = page.getByTestId('cross-tab-by-role').first()
     await expect(byRoleSection).toBeVisible()
 
-    // Assert against amber-colored cells within actual heatmap rows (using role="row"),
-    // excluding non-row UI like the legend.
-    const amberCell = byRoleSection
-      .locator('[role="row"]')
-      .locator(
-        '.bg-amber-50, .bg-amber-100, .bg-amber-200, .bg-amber-300, .bg-amber-400, .bg-amber-500, .bg-amber-600, .bg-amber-700'
-      )
-      .first()
+    // Verify semantically that at least one element within actual heatmap rows
+    // has a non-transparent computed background color, without depending on
+    // specific Tailwind palette classes.
+    const hasColoredCell = await byRoleSection.locator('[role="row"] *').evaluateAll((elements) =>
+      elements.some((element) => {
+        const htmlElement = element as HTMLElement
+        const style = window.getComputedStyle(htmlElement)
+        const backgroundColor = style.backgroundColor
+        const isVisible =
+          style.display !== 'none' &&
+          style.visibility !== 'hidden' &&
+          htmlElement.getBoundingClientRect().width > 0 &&
+          htmlElement.getBoundingClientRect().height > 0
 
-    await expect(amberCell).toBeVisible()
+        return (
+          isVisible &&
+          backgroundColor !== 'transparent' &&
+          backgroundColor !== 'rgba(0, 0, 0, 0)' &&
+          // Filter out default white backgrounds
+          backgroundColor !== 'rgb(255, 255, 255)' &&
+          backgroundColor !== '#ffffff'
+        )
+      })
+    )
+
+    expect(hasColoredCell).toBe(true)
   })
 })

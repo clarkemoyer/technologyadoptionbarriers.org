@@ -10,7 +10,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
-import CrossTabView, { CrossTabRow } from './cross-tab-view'
+import CrossTabView, { type CrossTabRow } from './cross-tab-view'
 
 export const metadata: Metadata = {
   title: 'Key Findings — TABS Results',

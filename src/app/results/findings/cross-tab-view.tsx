@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { LayoutGrid, Table as TableIcon } from 'lucide-react'
 
@@ -47,15 +47,19 @@ const getMaturityColor = (val: number | null) => {
 }
 
 export default function CrossTabView({ data, label }: CrossTabViewProps) {
-  // Use a simple media query hack or just rely on CSS for the "default" view
-  // Actually, 'heatmap' by default is fine if we provide the toggle.
-  // But the review asked for table fallback on small screens.
-  // We can use a CSS class to hide heatmap/show table on mobile,
-  // but then the toggle state gets out of sync.
-  // A better way is to detect width or use CSS to force one view.
-  // Let's use CSS for the fallback and the toggle for preference.
-
   const [view, setView] = useState<'heatmap' | 'table'>('heatmap')
+
+  // Set default view based on screen size on mount
+  useEffect(() => {
+    const handleInitialView = () => {
+      if (window.innerWidth < 768) {
+        setView('table')
+      }
+    }
+    // Using requestAnimationFrame to avoid the synchronous setState warning
+    // and ensure it happens after the initial paint.
+    requestAnimationFrame(handleInitialView)
+  }, [])
 
   return (
     <div
@@ -106,21 +110,40 @@ export default function CrossTabView({ data, label }: CrossTabViewProps) {
             transition={{ duration: 0.2 }}
             className="overflow-x-auto"
           >
-            <div className="min-w-[300px]">
-              <div className="grid grid-cols-[1fr_repeat(4,minmax(50px,80px))] border-b border-gray-200 pb-1 mb-1">
-                <div className="text-[10px] font-bold text-gray-400 uppercase">Group</div>
-                <div className="text-[10px] font-bold text-gray-400 uppercase text-center">n</div>
-                <div className="text-[10px] font-bold text-gray-400 uppercase text-center">
+            <div className="min-w-[300px]" role="table" aria-label={`${label} Heatmap`}>
+              <div
+                className="grid grid-cols-[1fr_repeat(4,minmax(50px,80px))] gap-1 border-b border-gray-200 pb-1 mb-1"
+                role="row"
+              >
+                <div role="columnheader" className="text-[10px] font-bold text-gray-400 uppercase">
+                  Group
+                </div>
+                <div
+                  role="columnheader"
+                  className="text-[10px] font-bold text-gray-400 uppercase text-center"
+                >
+                  n
+                </div>
+                <div
+                  role="columnheader"
+                  className="text-[10px] font-bold text-gray-400 uppercase text-center"
+                >
                   Barrier
                 </div>
-                <div className="text-[10px] font-bold text-gray-400 uppercase text-center">
+                <div
+                  role="columnheader"
+                  className="text-[10px] font-bold text-gray-400 uppercase text-center"
+                >
                   Ready
                 </div>
-                <div className="text-[10px] font-bold text-gray-400 uppercase text-center">
+                <div
+                  role="columnheader"
+                  className="text-[10px] font-bold text-gray-400 uppercase text-center"
+                >
                   Mature
                 </div>
               </div>
-              <div className="space-y-1">
+              <div className="space-y-1" role="rowgroup">
                 {data.map((row) => (
                   <div
                     key={row.group}
@@ -128,13 +151,17 @@ export default function CrossTabView({ data, label }: CrossTabViewProps) {
                     role="row"
                   >
                     <div
+                      role="cell"
                       className="text-xs font-medium text-gray-700 truncate pr-2"
                       title={row.group}
                     >
                       {row.group}
                     </div>
-                    <div className="text-[11px] font-mono text-gray-500 text-center">{row.n}</div>
+                    <div role="cell" className="text-[11px] font-mono text-gray-500 text-center">
+                      {row.n}
+                    </div>
                     <div
+                      role="cell"
                       className={`text-[11px] font-mono font-bold text-center py-2 rounded-sm ${getBarrierColor(
                         row.barrier_mean
                       )}`}
@@ -142,6 +169,7 @@ export default function CrossTabView({ data, label }: CrossTabViewProps) {
                       {row.barrier_mean?.toFixed(2) ?? '—'}
                     </div>
                     <div
+                      role="cell"
                       className={`text-[11px] font-mono text-center py-2 rounded-sm ${getReadinessColor(
                         row.readiness_mean
                       )}`}
@@ -149,6 +177,7 @@ export default function CrossTabView({ data, label }: CrossTabViewProps) {
                       {row.readiness_mean?.toFixed(2) ?? '—'}
                     </div>
                     <div
+                      role="cell"
                       className={`text-[11px] font-mono text-center py-2 rounded-sm ${getMaturityColor(
                         row.maturity_mean
                       )}`}
