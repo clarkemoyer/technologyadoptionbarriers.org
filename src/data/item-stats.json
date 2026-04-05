@@ -1,0 +1,28 @@
+{
+  "generatedAt": null,
+  "sampleKey": "conservative_clean",
+  "n": null,
+  "constructs": {
+    "barriers": {
+      "label": "Barriers",
+      "numItems": 18,
+      "items": [],
+      "top5": [],
+      "bottom5": []
+    },
+    "readiness": {
+      "label": "Readiness",
+      "numItems": 17,
+      "items": [],
+      "top5": [],
+      "bottom5": []
+    },
+    "maturity": {
+      "label": "Maturity",
+      "numItems": 8,
+      "items": [],
+      "top5": [],
+      "bottom5": []
+    }
+  }
+}

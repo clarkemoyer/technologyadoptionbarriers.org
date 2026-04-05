@@ -1,0 +1,30 @@
+{
+  "generatedAt": null,
+  "totalParticipants": null,
+  "sampleUsed": "prolific_accepted",
+  "privacyNote": "All counts are aggregated. Categories with fewer than 5 participants are merged into 'Other / Prefer not to say' to protect individual privacy. No participant-level data is included.",
+  "age": {
+    "ranges": [],
+    "mean": null,
+    "median": null
+  },
+  "gender": {
+    "categories": []
+  },
+  "ethnicity": {
+    "categories": []
+  },
+  "country": {
+    "categories": []
+  },
+  "employmentStatus": {
+    "categories": []
+  },
+  "studentStatus": {
+    "categories": []
+  },
+  "firstLanguage": {
+    "categories": []
+  },
+  "columnsFound": null
+}
