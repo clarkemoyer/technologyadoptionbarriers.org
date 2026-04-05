@@ -21,7 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from tabs_api import prolific_bulk_approve, prolific_study_info
+from tabs_api import prolific_bulk_approve, prolific_study_info, prolific_submission_statuses
 
 
 def _require_env(name: str) -> str:
@@ -34,7 +34,7 @@ def _require_env(name: str) -> str:
 
 def _write_step_summary(
     study_id: str, dry_run: bool, total_data_rows: int,
-    clean_count: int, skipped: int, approved: int,
+    clean_count: int, skipped: int, already_approved: int, newly_approved: int,
 ) -> None:
     """Write a GitHub Actions step summary (always, even when nothing to approve)."""
     summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
@@ -52,7 +52,8 @@ def _write_step_summary(
         f"| CSV rows parsed | {total_data_rows} |",
         f"| CLEAN dispositions | {clean_count} |",
         f"| Skipped (empty PID) | {skipped} |",
-        f"| Approved | {approved} |",
+        f"| Already APPROVED | {already_approved} |",
+        f"| Newly approved | {newly_approved} |",
         "",
     ]
     with open(summary_file, "a") as f:
@@ -145,12 +146,14 @@ def main():
     if not clean_pids:
         print("No participants with CLEAN disposition found. Nothing to approve.")
         _write_step_summary(study_id, dry_run=dry_run, total_data_rows=total_data_rows,
-                            clean_count=0, skipped=skipped, approved=0)
+                            clean_count=0, skipped=skipped, already_approved=0,
+                            newly_approved=0)
         return
 
     # Verify API token and study before approving (skip in dry-run for offline use)
     study_name = study_id
-    approved = 0
+    newly_approved = 0
+    already_approved = 0
     try:
         if not dry_run:
             print(f"Verifying Prolific API token and study {study_id}...")
@@ -158,23 +161,53 @@ def main():
             study_name = study.get("name", "UNKNOWN")
             print(f"  Verified: {study_name} (status: {study.get('status', 'UNKNOWN')})")
 
+            # Fetch current submission statuses to avoid re-approving
+            print(f"Fetching current submission statuses...")
+            current_statuses = prolific_submission_statuses(study_id, api_token)
+
+            pids_to_approve = []
+            non_approvable = 0
+            for pid in clean_pids:
+                status = current_statuses.get(pid, "UNKNOWN")
+                if status == "APPROVED":
+                    already_approved += 1
+                elif status == "AWAITING REVIEW":
+                    pids_to_approve.append(pid)
+                else:
+                    # RETURNED, TIMED-OUT, REJECTED, etc. — cannot approve
+                    non_approvable += 1
+                    print(f"  Warning: CLEAN PID {pid} has Prolific status '{status}' — cannot approve")
+
+            print(f"  Already APPROVED: {already_approved}")
+            print(f"  AWAITING REVIEW (will approve): {len(pids_to_approve)}")
+            if non_approvable:
+                print(f"  Non-approvable (RETURNED/REJECTED/etc.): {non_approvable}")
+            print()
+        else:
+            pids_to_approve = clean_pids
+
         # Approve
         if dry_run:
             print(f"DRY RUN — {len(clean_pids)} submissions would be approved")
             print("  (Set DRY_RUN=false to approve live)")
+        elif pids_to_approve:
+            print(f"Approving {len(pids_to_approve)} submissions for study {study_id} ({study_name})...")
+            prolific_bulk_approve(study_id, pids_to_approve, api_token)
+            newly_approved = len(pids_to_approve)
+            print(f"Successfully approved {newly_approved} new submissions")
+            print(f"  (plus {already_approved} already approved = {already_approved + newly_approved} total CLEAN)")
         else:
-            print(f"Approving {len(clean_pids)} submissions for study {study_id} ({study_name})...")
-            prolific_bulk_approve(study_id, clean_pids, api_token)
-            approved = len(clean_pids)
-            print(f"Successfully approved {approved} submissions")
+            print(f"All {already_approved} CLEAN submissions are already APPROVED. Nothing to do.")
     except Exception as e:
         error_msg = f"Failed to process approvals for study {study_id}: {e}"
         print(f"Error: {error_msg}", file=sys.stderr)
-        _write_step_summary(study_id, dry_run, total_data_rows, len(clean_pids), skipped, approved)
+        _write_step_summary(study_id, dry_run, total_data_rows, len(clean_pids), skipped,
+                            already_approved, newly_approved)
         _append_failure_summary(error_msg)
         sys.exit(1)
 
-    _write_step_summary(study_id, dry_run, total_data_rows, len(clean_pids), skipped, approved)
+    _write_step_summary(study_id, dry_run, total_data_rows, len(clean_pids), skipped,
+                        already_approved, newly_approved)
 
     print("\nDone")
 

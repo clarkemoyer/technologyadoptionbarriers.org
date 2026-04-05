@@ -121,13 +121,11 @@ function getReviewComments(repo: string, prNumber: string, reviewId: number): Re
 function requestCopilotReview(repo: string, prNumber: string): void {
   console.log('Requesting Copilot review...')
   try {
-    gh(
-      `api repos/${repo}/pulls/${prNumber}/requested_reviewers ` +
-        `-X POST -f "reviewers[]=copilot-pull-request-reviewer[bot]"`
-    )
-    console.log('  Review requested via API.')
+    // Official method since gh v2.88.0 (March 2026)
+    gh(`pr edit ${prNumber} -R ${repo} --add-reviewer @copilot`)
+    console.log('  Review requested via gh CLI (--add-reviewer @copilot).')
   } catch {
-    console.log('  API request failed, falling back to @copilot comment...')
+    console.log('  gh CLI failed, falling back to @copilot comment...')
     gh(`pr comment ${prNumber} -R ${repo} --body "@copilot review"`)
     console.log('  Review requested via comment.')
   }
@@ -171,7 +169,7 @@ function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComm
       `issue create -R ${repo} ` +
         `--title "fix: address Copilot review comments on PR #${prNumber}" ` +
         `--body-file "${tmpFile}" ` +
-        `--assignee copilot`
+        `--assignee copilot-swe-agent[bot]`
     )
     console.log(`  Issue created: ${result}`)
     // Extract new issue number from URL (e.g., "https://github.com/.../issues/123")
@@ -520,6 +518,50 @@ function writeSummary(
   appendGithubStepSummary(md)
 }
 
+/**
+ * Build a consolidated history of all Copilot review rounds for a PR.
+ * Posted as the final comment when the review cycle passes clean.
+ */
+function buildRoundHistory(repo: string, prNumber: string, finalRound: number): string {
+  const reviews = getReviews(repo, prNumber)
+  const copilotReviews = reviews
+    .filter((r) => isCopilotReview(r))
+    .sort((a, b) => new Date(a.submitted_at).getTime() - new Date(b.submitted_at).getTime())
+
+  const rows: string[] = []
+  const roundDetails: string[] = []
+
+  for (let i = 0; i < copilotReviews.length; i++) {
+    const review = copilotReviews[i]
+    const comments = getReviewComments(repo, prNumber, review.id)
+    const files = [...new Set(comments.map((c) => c.path.split('/').pop()))].join(', ') || '\u2014'
+    const status = comments.length === 0 ? '\u2705 Clean' : '\ud83d\udd27 Fixed'
+    const date = review.submitted_at.slice(0, 16).replace('T', ' ')
+    rows.push(`| ${i + 1} | ${comments.length} | ${files} | ${status} | ${date} |`)
+
+    if (comments.length > 0) {
+      roundDetails.push(`### Round ${i + 1} Comments (${comments.length})\n`)
+      for (const c of comments) {
+        const loc = c.line ? `${c.path}:${c.line}` : c.path
+        const body = c.body.replace(/\n/g, ' ').slice(0, 120)
+        roundDetails.push(`- \`${loc}\` \u2014 ${body}`)
+      }
+      roundDetails.push('')
+    }
+  }
+
+  let md = '## Copilot Review Cycle Summary\n\n'
+  md += '| Round | Comments | Files | Status | Date (UTC) |\n'
+  md += '|---|---|---|---|---|\n'
+  md += rows.join('\n') + '\n\n'
+  if (roundDetails.length > 0) {
+    md += roundDetails.join('\n') + '\n'
+  }
+  md += '### Result\n\n'
+  md += `\u2705 All automated review comments addressed in ${finalRound} round(s). Ready for final human review.\n`
+  return md
+}
+
 // --- Main ---
 async function main() {
   const repo = process.env.REPO_NAME
@@ -589,6 +631,9 @@ async function main() {
     // Close any remaining fix issues from previous rounds
     closeFixIssues(repo, prNumber, 'All review comments resolved — review passed clean.')
 
+    // Build consolidated round history for the final comment
+    const roundHistory = buildRoundHistory(repo, prNumber, round)
+
     // Wait for CI to pass before declaring ready
     console.log('\nWaiting for CI before marking ready to merge...')
     const ciResult = await waitForCi(repo, prNumber)
@@ -605,7 +650,7 @@ async function main() {
       postComment(
         repo,
         prNumber,
-        `**Copilot Review Cycle:** ✅ Passed after ${round} round(s) — review clean, all CI checks green. Ready to merge.${mergeNote}`
+        `${roundHistory}\n\n**Copilot Review Cycle:** ✅ Passed after ${round} round(s) — review clean, all CI checks green. Ready to merge.${mergeNote}`
       )
       writeSummary(prNumber, round, maxRounds, 'READY_TO_MERGE', 0, 'Review clean + CI green')
     } else if (ciResult === 'fail') {
@@ -675,14 +720,28 @@ async function main() {
   const fixed = await waitForFixes(repo, prNumber, headSha, pr.headRefName)
 
   if (!fixed) {
-    console.log('\nNo fixes were pushed within timeout.')
-    postComment(
-      repo,
-      prNumber,
-      `**Copilot Review Cycle (Round ${round}/${maxRounds}):** No fixes pushed within timeout. ${comments.length} comment(s) may need manual fixes.`
-    )
-    writeSummary(prNumber, round, maxRounds, 'FIX_TIMEOUT', comments.length, 'No fixes pushed')
-    process.exit(1)
+    console.log('\nNo fixes within timeout. Re-requesting fix...')
+    assignCopilotToFix(repo, prNumber, comments)
+    const retryFixed = await waitForFixes(repo, prNumber, headSha, pr.headRefName)
+
+    if (!retryFixed) {
+      console.log('\nRetry also timed out. Dispatching next round — review will re-check.')
+      postComment(
+        repo,
+        prNumber,
+        `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Fix timeout after retry. Dispatching next round to re-check. ${comments.length} comment(s) may still need attention.`
+      )
+      writeSummary(
+        prNumber,
+        round,
+        maxRounds,
+        'FIX_TIMEOUT_RETRY',
+        comments.length,
+        `Dispatching round ${round + 1} after retry`
+      )
+      dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
+      process.exit(0)
+    }
   }
 
   // Step 10: Wait for CI to pass before dispatching next review round

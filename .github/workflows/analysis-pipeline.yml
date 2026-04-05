@@ -1,21 +1,15 @@
-name: TABS V2 Analysis Pipeline
+name: TABS V2 Analysis Pipeline (REPLACED)
 
-# All-Python research pipeline: export → enrich → triage → de-identify → analyze.
-# Runs daily before the disposition pipeline (which handles Prolific operations).
-#
-# Data flow:
-#   Qualtrics API → raw CSV (stays on runner, never uploaded as artifact)
-#   Prolific API  → auth checks + submission statuses (pseudonymous PIDs only)
-#   Enrich raw CSV with Prolific data
-#   Disposition triage (Python port, cross-validates with TS pipeline)
-#   De-identify → public CSV (NIST 5-step, for ScholarSphere)
-#   Run full analysis suite on enriched CSV
-#   Output JSON for website → PR
+# ⚠️  SUPERSEDED by daily-pipeline.yml which chains analysis + operations
+# into a single workflow with no inter-phase delay. This file is kept for
+# reference and manual dispatch only. The schedule trigger has been removed.
 
 on:
-  schedule:
-    - cron: '0 9 * * *' # Daily at 09:00 UTC (4am ET / 5am ET DST)
   workflow_dispatch:
+    inputs:
+      note:
+        description: 'Superseded by daily-pipeline.yml. Use that instead.'
+        required: false
 
 concurrency:
   group: analysis-pipeline
@@ -105,11 +99,14 @@ jobs:
             --output "${{ runner.temp }}/qualtrics-enriched.csv"
 
       # Data audit — validate Python disposition matches TS pipeline
+      # Also produces a disposition CSV for the operations pipeline (daily-disposition-processing)
+      # to consume, eliminating a redundant Qualtrics export.
       - name: Data audit (disposition waterfall)
         run: |
           python scripts/analysis/tabs_v2_data_audit.py \
             --input "${{ runner.temp }}/qualtrics-enriched.csv" \
-            --output "${{ runner.temp }}/data-audit.json"
+            --output "${{ runner.temp }}/data-audit.json" \
+            --disposition-csv "${{ runner.temp }}/disposition.csv"
 
       # De-identify for public release
       - name: De-identify dataset
@@ -194,6 +191,17 @@ jobs:
             ${{ runner.temp }}/sensitivity-analysis.json
             ${{ runner.temp }}/data-audit.json
           retention-days: 7
+          if-no-files-found: warn
+
+      # Disposition CSV for the operations pipeline (daily-disposition-processing).
+      # Contains PROLIFIC_PID + Disposition — no other PII. Produced from the same
+      # enriched data the analysis uses, ensuring a single source of truth.
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}/disposition.csv
+          retention-days: 1
           if-no-files-found: warn
 
       - uses: actions/upload-artifact@v7

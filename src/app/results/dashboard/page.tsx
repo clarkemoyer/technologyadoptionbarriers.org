@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 import dispositionData from '@/data/disposition-summary.json'
+import sensitivityData from '@/data/sensitivity-analysis.json'
+import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
   title: 'Prolific Dashboard — TABS Results',
@@ -78,6 +80,12 @@ const DispositionDashboardPage = () => {
   const total = d.uniqueParticipants
   const dispositions = d.dispositions as Record<string, number>
 
+  // Sensitivity data lookups used in multiple places on this page
+  const conservativeCleanN =
+    sensitivityData.samples.find((s) => s.key === 'conservative_clean')?.n ?? null
+  const prolificAcceptedN =
+    sensitivityData.samples.find((s) => s.key === 'prolific_accepted')?.n ?? null
+
   const approvedPct = total > 0 ? ((d.actions.approved / total) * 100).toFixed(1) : '0'
   const flaggedCount =
     (dispositions['FLAG-SPEED'] || 0) +
@@ -108,6 +116,9 @@ const DispositionDashboardPage = () => {
         </nav>
 
         <h1 className={H1_CLASSES}>Response Disposition Dashboard</h1>
+        <LastUpdated
+          utcTimestamp={(dispositionData as Record<string, unknown>).last_updated as string}
+        />
 
         <p className="mb-8 text-gray-600">
           Live quality triage results for the <strong>{d.studyName}</strong>. Data is updated
@@ -372,73 +383,245 @@ const DispositionDashboardPage = () => {
           </div>
         </section>
 
-        {/* Clean Sample Definitions */}
+        {/* ── Result Group Types — The Four Analysis Datasets ── */}
         <section className="mb-12">
-          <h2 className={H2_CLASSES}>Sample Definitions</h2>
+          <h2 className={H2_CLASSES}>Result Group Types — The Four Analysis Datasets</h2>
           <p className="mb-4 text-gray-600">
-            Three key sample definitions are compared here, grounded in Prolific operational
-            reality. The Prolific Accepted count matches the Prolific platform&rsquo;s
-            &ldquo;Approved&rdquo; tab exactly. See the{' '}
-            <Link href="/results/data-quality" className="text-blue-600 hover:underline">
-              Data Quality Pipeline
+            Every TABS metric is computed independently across four primary result groups
+            (datasets). Each group applies progressively fewer quality filters. Researchers choose
+            which dataset to use based on their tolerance for data quality risk. All four are
+            refreshed daily by the analysis pipeline. Full statistics for each group are available
+            on the{' '}
+            <Link href="/results/descriptive" className="text-blue-600 hover:underline">
+              Descriptive Statistics
+            </Link>
+            ,{' '}
+            <Link href="/results/reliability" className="text-blue-600 hover:underline">
+              Scale Reliability
+            </Link>
+            , and{' '}
+            <Link href="/results/sensitivity" className="text-blue-600 hover:underline">
+              Sensitivity Analysis
             </Link>{' '}
-            page for all five sample definitions.
+            pages.
           </p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm border-collapse">
-              <thead>
-                <tr className="border-b-2 border-gray-200">
-                  <th className="py-2 px-3 font-semibold text-gray-600">Criterion</th>
-                  <th className="py-2 px-3 font-semibold text-gray-600">Conservative Clean</th>
-                  <th className="py-2 px-3 font-semibold text-gray-600">Flexible Clean</th>
-                  <th className="py-2 px-3 font-semibold text-gray-600">Prolific Accepted</th>
-                </tr>
-              </thead>
-              <tbody className="text-gray-700">
-                <tr className="border-b border-gray-100">
-                  <td className="py-2 px-3 font-medium">Prolific APPROVED</td>
-                  <td className="py-2 px-3 text-green-700">Required</td>
-                  <td className="py-2 px-3 text-green-700">Required</td>
-                  <td className="py-2 px-3 text-green-700">Required</td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-2 px-3 font-medium">All 3 IRIs correct</td>
-                  <td className="py-2 px-3 text-green-700">Yes</td>
-                  <td className="py-2 px-3 text-green-700">Yes</td>
-                  <td className="py-2 px-3 text-gray-400">Not required</td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-2 px-3 font-medium">Minimum duration</td>
-                  <td className="py-2 px-3">&ge; 540 s (9 min)</td>
-                  <td className="py-2 px-3">&ge; 480 s (8 min)</td>
-                  <td className="py-2 px-3 text-gray-400">Any</td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-2 px-3 font-medium">reCAPTCHA, straightlining, auth</td>
-                  <td className="py-2 px-3 text-green-700">All checked</td>
-                  <td className="py-2 px-3 text-gray-400">Not checked</td>
-                  <td className="py-2 px-3 text-gray-400">Not checked</td>
-                </tr>
-                <tr className="border-b border-gray-100 bg-gray-50">
-                  <td className="py-2 px-3 font-semibold">Used for</td>
-                  <td className="py-2 px-3">Primary CRP analysis</td>
-                  <td className="py-2 px-3">Sensitivity analysis</td>
-                  <td className="py-2 px-3">N ceiling (matches Prolific UI)</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+
+          {/* Verification cross-check */}
+          {(() => {
+            const prolificApproved = d.actions.approved
+            const pipelineAccepted = prolificAcceptedN
+            const match = pipelineAccepted !== null && prolificApproved === pipelineAccepted
+            return (
+              <div
+                className={`border-2 rounded-lg p-4 mb-6 ${match ? 'border-green-300 bg-green-50' : 'border-red-400 bg-red-50'}`}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-lg">{match ? '✅' : '⚠️'}</span>
+                  <span className={`font-bold ${match ? 'text-green-800' : 'text-red-800'}`}>
+                    {match
+                      ? 'Prolific API and pipeline Ns match'
+                      : 'Prolific API and pipeline Ns do NOT match — investigate'}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-700">
+                  Prolific API &ldquo;Approved&rdquo; tab: <strong>{prolificApproved}</strong>
+                  {' · '}
+                  Pipeline &ldquo;Prolific Accepted&rdquo; sample:{' '}
+                  <strong>{pipelineAccepted ?? 'N/A'}</strong>
+                  {!match && pipelineAccepted !== null && (
+                    <span className="text-red-700 font-medium">
+                      {' '}
+                      (Δ = {Math.abs(prolificApproved - pipelineAccepted)})
+                    </span>
+                  )}
+                </p>
+                <p className="text-xs text-gray-500 mt-1">
+                  Both numbers should be identical. A mismatch indicates the approve automation
+                  failed to send commands to Prolific, or Prolific enrichment is using stale data.
+                </p>
+              </div>
+            )
+          })()}
+
+          {/* Four Result Groups — full statistics per dataset */}
+          {(() => {
+            const getVal = (metricKey: string, sampleKey: string): number | null => {
+              const m = sensitivityData.metrics.find((x) => x.key === metricKey)
+              if (!m) return null
+              return (m.values as Record<string, number | null>)[sampleKey] ?? null
+            }
+            const fmt4 = (v: number | null) => (v !== null ? v.toFixed(4) : '—')
+            const fmt2 = (v: number | null) => (v !== null ? v.toFixed(2) : '—')
+
+            const groups = [
+              {
+                num: 1,
+                key: 'conservative_clean',
+                label: 'Conservative Clean',
+                color: 'border-green-500',
+                bg: 'bg-green-50',
+                definition:
+                  'Prolific APPROVED + all quality checks (3 IRIs, duration ≥ 540s, reCAPTCHA, no straightlining, auth)',
+                usage: 'Primary CRP analysis — all published findings',
+              },
+              {
+                num: 2,
+                key: 'flexible_clean',
+                label: 'Flexible Clean',
+                color: 'border-blue-500',
+                bg: 'bg-blue-50',
+                definition: 'Prolific APPROVED + basic quality (3 IRIs + duration ≥ 480s)',
+                usage: 'Sensitivity analysis — verifies findings hold with lighter filters',
+              },
+              {
+                num: 3,
+                key: 'prolific_accepted',
+                label: 'Prolific Accepted',
+                color: 'border-amber-500',
+                bg: 'bg-amber-50',
+                definition:
+                  'All deduplicated V2 rows with Prolific APPROVED status (must match Prolific UI)',
+                usage: 'N ceiling — maximum usable sample, platform truth',
+              },
+              {
+                num: 4,
+                key: 'v2_finished',
+                label: 'All V2 Finished',
+                color: 'border-gray-400',
+                bg: 'bg-gray-50',
+                definition: 'All finished responses with duration ≥ 120s (any Prolific status)',
+                usage: 'Full-population baseline — includes returned/rejected/awaiting',
+              },
+            ]
+
+            return (
+              <div className="space-y-6">
+                {groups.map((group) => {
+                  const sample = sensitivityData.samples.find((s) => s.key === group.key)
+                  return (
+                    <div
+                      key={group.key}
+                      className={`border-l-4 ${group.color} ${group.bg} rounded-lg p-5`}
+                    >
+                      <div className="flex flex-wrap items-baseline gap-2 mb-2">
+                        <span className="text-xs font-bold text-gray-400">#{group.num}</span>
+                        <h3 className="text-lg font-bold text-gray-900">{group.label}</h3>
+                        <span className="text-lg font-mono font-bold text-gray-700">
+                          N = {sample?.n ?? '—'}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-700 mb-1">
+                        <strong>Definition:</strong> {group.definition}
+                      </p>
+                      <p className="text-sm text-gray-600 mb-3">
+                        <strong>Used for:</strong> {group.usage}
+                      </p>
+
+                      {/* Key statistics for this dataset */}
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-xs border-collapse bg-white/70 rounded">
+                          <thead>
+                            <tr className="border-b border-gray-300">
+                              <th className="py-1.5 px-2 text-left font-semibold text-gray-600">
+                                Construct
+                              </th>
+                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                                Mean
+                              </th>
+                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                                SD
+                              </th>
+                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                                Cronbach&rsquo;s &alpha;
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {[
+                              {
+                                name: 'Barriers',
+                                mean: 'barrier_mean',
+                                sd: 'barrier_sd',
+                                alpha: 'alpha_barriers',
+                              },
+                              {
+                                name: 'Readiness',
+                                mean: 'readiness_mean',
+                                sd: 'readiness_sd',
+                                alpha: 'alpha_readiness',
+                              },
+                              {
+                                name: 'Maturity',
+                                mean: 'maturity_mean',
+                                sd: 'maturity_sd',
+                                alpha: 'alpha_maturity',
+                              },
+                            ].map((c) => (
+                              <tr key={c.name} className="border-b border-gray-200">
+                                <td className="py-1.5 px-2 font-medium text-gray-800">{c.name}</td>
+                                <td className="py-1.5 px-2 text-right font-mono">
+                                  {fmt4(getVal(c.mean, group.key))}
+                                </td>
+                                <td className="py-1.5 px-2 text-right font-mono">
+                                  {fmt4(getVal(c.sd, group.key))}
+                                </td>
+                                <td className="py-1.5 px-2 text-right font-mono">
+                                  {fmt4(getVal(c.alpha, group.key))}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Correlations for this dataset */}
+                      <div className="mt-2 text-xs text-gray-600">
+                        <strong>Correlations:</strong> B–R = {fmt2(getVal('corr_br', group.key))},
+                        B–M = {fmt2(getVal('corr_bm', group.key))}, R–M ={' '}
+                        {fmt2(getVal('corr_rm', group.key))}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )
+          })()}
+
           <p className="mt-4 text-sm text-gray-500">
-            Conservative Clean &sube; Flexible Clean &sube; Prolific Accepted. Responses that pass
-            the Flexible Clean filter but not Conservative Clean were flagged for duration,
-            reCAPTCHA, straightlining, or auth issues but passed IRI checks. Many flagged responses
-            are approved after manual review, so Prolific Accepted exceeds both clean samples. See
-            the{' '}
-            <Link href="/results/data-quality" className="text-blue-600 hover:underline">
-              Data Quality Pipeline
-            </Link>{' '}
-            page for full details.
+            Conservative Clean ⊂ Flexible Clean ⊂ Prolific Accepted. All V2 Finished overlaps with
+            Prolific Accepted but is not a strict subset (it includes non-APPROVED responses;
+            Prolific Accepted includes incomplete-but-approved responses).
           </p>
+
+          {/* Disposition CLEAN vs Conservative Clean */}
+          <div className="bg-white border-2 border-amber-400 rounded-lg p-5 my-6">
+            <h3 className="text-base font-bold text-amber-900 mb-2">
+              Note: Disposition CLEAN ({dispositions['CLEAN'] || 0}) vs. Conservative Clean (
+              {conservativeCleanN ?? '?'})
+            </h3>
+            <p className="text-sm text-gray-800 mb-2">
+              <strong>Disposition CLEAN</strong> is the operations concept: a response that passes
+              all quality checks in the waterfall (below). It is used to auto-approve participants
+              on Prolific. It does <em>not</em> check Prolific_Status.
+            </p>
+            <p className="text-sm text-gray-800 mb-2">
+              <strong>Conservative Clean</strong> is the analysis concept: Prolific_Status ==
+              APPROVED <em>plus</em> all quality checks. This is the primary analysis sample.
+            </p>
+            <p className="text-sm text-gray-800">
+              <strong>Expected:</strong> After the daily auto-approve workflow runs, all Disposition
+              CLEAN participants should have Prolific_Status == APPROVED, making the counts
+              converge. Any persistent gap indicates the approve automation failed to send commands
+              to Prolific. The gap is currently{' '}
+              <strong>{Math.abs((dispositions['CLEAN'] || 0) - (conservativeCleanN ?? 0))}</strong>,
+              explained by{' '}
+              {(dispositionData.dispositionByStatus as Record<string, Record<string, number>>)?.[
+                'FLAG-PARTIAL-STRAIGHTLINING'
+              ]?.['APPROVED'] ?? 0}{' '}
+              partial-straightlining responses that were manually approved on Prolific but excluded
+              from Conservative Clean.
+            </p>
+          </div>
         </section>
 
         {/* Methodology */}

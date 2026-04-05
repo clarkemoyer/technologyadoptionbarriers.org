@@ -9,6 +9,7 @@ import {
 } from '@/lib/articleStyles'
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
+import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
   title: 'Descriptive Statistics — TABS Results',
@@ -33,11 +34,6 @@ const fmt = (val: number | null, decimals: number = 4): string => {
 const DescriptivePage = () => {
   const samples = sensitivityData.samples
 
-  // Correlation values (using conservative_clean as primary)
-  const corrBR = getMetricValue('corr_br', 'conservative_clean')
-  const corrBM = getMetricValue('corr_bm', 'conservative_clean')
-  const corrRM = getMetricValue('corr_rm', 'conservative_clean')
-
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
@@ -58,6 +54,9 @@ const DescriptivePage = () => {
         </nav>
 
         <h1 className={H1_CLASSES}>Descriptive Statistics</h1>
+        <LastUpdated
+          utcTimestamp={(sensitivityData as Record<string, unknown>).last_updated as string}
+        />
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
@@ -182,77 +181,96 @@ const DescriptivePage = () => {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Inter-Construct Correlations</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The correlation matrix below shows the Pearson correlations between construct-level
-            means, computed on the Conservative Clean sample. Negative correlations between Barriers
-            and the other constructs indicate that organizations perceiving higher barriers tend to
-            report lower readiness and maturity.
+            The correlation matrices below show the Pearson correlations between construct-level
+            means, computed independently on each of the four primary result groups. Negative
+            correlations between Barriers and the other constructs indicate that organizations
+            perceiving higher barriers tend to report lower readiness and maturity.
           </p>
-          <div className="overflow-x-auto my-6">
-            <table className="w-full border-collapse font-sans text-sm">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">
-                    Construct
-                  </th>
-                  <th className="border border-gray-300 px-4 py-2 text-right font-bold">
-                    Barriers
-                  </th>
-                  <th className="border border-gray-300 px-4 py-2 text-right font-bold">
-                    Readiness
-                  </th>
-                  <th className="border border-gray-300 px-4 py-2 text-right font-bold">
-                    Maturity
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="border border-gray-300 px-4 py-2 font-medium">Barriers</td>
-                  <td className="border border-gray-300 px-4 py-2 text-right font-mono bg-gray-100">
-                    1.0000
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-right font-mono">
-                    {fmt(corrBR)}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-right font-mono">
-                    {fmt(corrBM)}
-                  </td>
-                </tr>
-                <tr className="bg-gray-50">
-                  <td className="border border-gray-300 px-4 py-2 font-medium">Readiness</td>
-                  <td className="border border-gray-300 px-4 py-2 text-right font-mono">
-                    {fmt(corrBR)}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-right font-mono bg-gray-100">
-                    1.0000
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-right font-mono">
-                    {fmt(corrRM)}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-300 px-4 py-2 font-medium">Maturity</td>
-                  <td className="border border-gray-300 px-4 py-2 text-right font-mono">
-                    {fmt(corrBM)}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-right font-mono">
-                    {fmt(corrRM)}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-right font-mono bg-gray-100">
-                    1.0000
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+
+          {/* One correlation matrix per primary result group */}
+          {[
+            { key: 'conservative_clean', label: 'Conservative Clean' },
+            { key: 'flexible_clean', label: 'Flexible Clean' },
+            { key: 'prolific_accepted', label: 'Prolific Accepted' },
+            { key: 'v2_finished', label: 'All V2 Finished' },
+          ].map((group) => {
+            const n = samples.find((s) => s.key === group.key)?.n ?? '—'
+            const br = getMetricValue('corr_br', group.key)
+            const bm = getMetricValue('corr_bm', group.key)
+            const rm = getMetricValue('corr_rm', group.key)
+            return (
+              <div key={group.key} className="mb-6">
+                <h3 className={H3_CLASSES}>
+                  {group.label} (N={n})
+                </h3>
+                <div className="overflow-x-auto my-3">
+                  <table className="w-full border-collapse font-sans text-sm">
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th className="border border-gray-300 px-4 py-2 text-left font-bold">
+                          Construct
+                        </th>
+                        <th className="border border-gray-300 px-4 py-2 text-right font-bold">
+                          Barriers
+                        </th>
+                        <th className="border border-gray-300 px-4 py-2 text-right font-bold">
+                          Readiness
+                        </th>
+                        <th className="border border-gray-300 px-4 py-2 text-right font-bold">
+                          Maturity
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2 font-medium">Barriers</td>
+                        <td className="border border-gray-300 px-4 py-2 text-right font-mono bg-gray-100">
+                          1.0000
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2 text-right font-mono">
+                          {fmt(br)}
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2 text-right font-mono">
+                          {fmt(bm)}
+                        </td>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <td className="border border-gray-300 px-4 py-2 font-medium">Readiness</td>
+                        <td className="border border-gray-300 px-4 py-2 text-right font-mono">
+                          {fmt(br)}
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2 text-right font-mono bg-gray-100">
+                          1.0000
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2 text-right font-mono">
+                          {fmt(rm)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2 font-medium">Maturity</td>
+                        <td className="border border-gray-300 px-4 py-2 text-right font-mono">
+                          {fmt(bm)}
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2 text-right font-mono">
+                          {fmt(rm)}
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2 text-right font-mono bg-gray-100">
+                          1.0000
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )
+          })}
+
           <p className="text-sm text-gray-500">
-            Correlations computed on Conservative Clean sample (N=
-            {sensitivityData.samples.find((s) => s.key === 'conservative_clean')?.n ?? '—'}). See
-            the{' '}
+            Correlations are Pearson product-moment. See the{' '}
             <Link href="/results/sensitivity" className="text-blue-600 hover:underline">
               Sensitivity Analysis
             </Link>{' '}
-            page for correlations across all five sample definitions.
+            page for the full five-sample comparison including All V2.
           </p>
         </section>
 

@@ -107,6 +107,15 @@ ROLE_MAP = {
 }
 TECH_TITLES = {'CIO', 'CTO'}
 NONTECH_TITLES = {'CEO', 'CFO', 'COO', 'CHRO', 'CMO', 'CSO', 'CRO'}
+LARGE_ORG_SIZES = ('5000-9999', '10000+')
+ALL_ORG_SIZES = ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']
+
+# All three constructs with their column lists and scale maps (lowercase labels for JSON output).
+ALL_CONSTRUCTS = [
+    ("barriers", BARRIER_COLS, BARRIER_SCALE),
+    ("readiness", READINESS_COLS, READINESS_SCALE),
+    ("maturity", MATURITY_COLS, MATURITY_SCALE),
+]
 
 
 # ─────────────────────────────────────────────────────────────
@@ -204,6 +213,158 @@ def kurtosis_excess(vals):
         return 0
     k4 = (n * (n + 1) / ((n - 1) * (n - 2) * (n - 3))) * sum(((x - m) / s) ** 4 for x in vals)
     return k4 - 3 * (n - 1) ** 2 / ((n - 2) * (n - 3))
+
+
+def welch_t_test(g1, g2):
+    """Welch's t-test for independent samples with unequal variances.
+
+    Returns (t_statistic, p_value, degrees_of_freedom) or (None, None, None)
+    if either group has fewer than 2 observations.
+    Uses the Welch-Satterthwaite approximation for degrees of freedom
+    and a two-tailed p-value from the t-distribution.
+    """
+    g1 = [v for v in g1 if v is not None]
+    g2 = [v for v in g2 if v is not None]
+    n1, n2 = len(g1), len(g2)
+    if n1 < 2 or n2 < 2:
+        return (None, None, None)
+    m1 = sum(g1) / n1
+    m2 = sum(g2) / n2
+    s1_sq = sum((x - m1) ** 2 for x in g1) / (n1 - 1)
+    s2_sq = sum((x - m2) ** 2 for x in g2) / (n2 - 1)
+    se = math.sqrt(s1_sq / n1 + s2_sq / n2)
+    if se == 0:
+        return (None, None, None)
+    t_stat = (m1 - m2) / se
+    # Welch-Satterthwaite degrees of freedom
+    num = (s1_sq / n1 + s2_sq / n2) ** 2
+    denom = (s1_sq / n1) ** 2 / (n1 - 1) + (s2_sq / n2) ** 2 / (n2 - 1)
+    if denom == 0:
+        return (None, None, None)
+    df = num / denom
+    p = _t_cdf_two_tailed(abs(t_stat), df)
+    return (t_stat, p, df)
+
+
+def _t_cdf_two_tailed(t_abs, df):
+    """Approximate two-tailed p-value for Student's t-distribution.
+
+    Uses the regularized incomplete beta function relationship:
+    p = I_{df/(df+t^2)}(df/2, 1/2) which is equivalent to
+    2 * (1 - CDF(|t|, df)).
+    """
+    x = df / (df + t_abs ** 2)
+    p = _regularized_incomplete_beta(x, df / 2.0, 0.5)
+    return max(0.0, min(1.0, p))
+
+
+def _regularized_incomplete_beta(x, a, b, max_iter=200, tol=1e-12):
+    """Regularized incomplete beta function I_x(a, b) via continued fraction.
+
+    Implements the modified Lentz algorithm for the continued fraction
+    expansion of the incomplete beta function, as described in
+    Numerical Recipes (Press et al., 3rd ed., §6.4).
+
+    Numerical properties:
+    - Converges for 0 < x < 1 with a, b > 0.
+    - Uses 1e-30 floor to avoid division by zero (tiny-number stabilization).
+    - Log-space prefix computation avoids overflow for large a, b.
+    - Maximum 200 iterations; returns best estimate if not converged.
+    - Accuracy is typically ~1e-10 for moderate a, b (< 1000).
+
+    For the t-distribution CDF, this is called with x = df/(df+t²),
+    a = df/2, b = 0.5. For the F-distribution, x = df2/(df2+df1*F),
+    a = df2/2, b = df1/2.
+    """
+    if x <= 0:
+        return 0.0
+    if x >= 1:
+        return 1.0
+    # Use the log-beta for numerical stability
+    ln_prefix = _ln_beta_prefix(x, a, b)
+    # Continued fraction (modified Lentz's method)
+    f = 1e-30
+    c = 1e-30
+    d = 1.0 - (a + b) * x / (a + 1.0)
+    if abs(d) < 1e-30:
+        d = 1e-30
+    d = 1.0 / d
+    f = d
+    for m in range(1, max_iter + 1):
+        # Even step
+        num = m * (b - m) * x / ((a + 2 * m - 1) * (a + 2 * m))
+        d = 1.0 + num * d
+        if abs(d) < 1e-30:
+            d = 1e-30
+        c = 1.0 + num / c
+        if abs(c) < 1e-30:
+            c = 1e-30
+        d = 1.0 / d
+        f *= d * c
+        # Odd step
+        num = -(a + m) * (a + b + m) * x / ((a + 2 * m) * (a + 2 * m + 1))
+        d = 1.0 + num * d
+        if abs(d) < 1e-30:
+            d = 1e-30
+        c = 1.0 + num / c
+        if abs(c) < 1e-30:
+            c = 1e-30
+        d = 1.0 / d
+        delta = d * c
+        f *= delta
+        if abs(delta - 1.0) < tol:
+            break
+    return max(0.0, min(1.0, math.exp(ln_prefix) * f / a))
+
+
+def _ln_beta_prefix(x, a, b):
+    """Log of x^a * (1-x)^b / B(a, b)."""
+    return a * math.log(x) + b * math.log(1 - x) - _ln_beta(a, b)
+
+
+def _ln_beta(a, b):
+    """Log of the beta function B(a, b) = Gamma(a)*Gamma(b)/Gamma(a+b)."""
+    return math.lgamma(a) + math.lgamma(b) - math.lgamma(a + b)
+
+
+def oneway_anova(*groups):
+    """One-way ANOVA F-test for 2+ independent groups.
+
+    Returns (f_statistic, p_value, df_between, df_within) or
+    (None, None, None, None) if insufficient data.
+    """
+    groups = [[v for v in g if v is not None] for g in groups]
+    groups = [g for g in groups if len(g) >= 1]
+    k = len(groups)
+    if k < 2:
+        return (None, None, None, None)
+    ns = [len(g) for g in groups]
+    N = sum(ns)
+    if N <= k:
+        return (None, None, None, None)
+    grand_mean = sum(sum(g) for g in groups) / N
+    ss_between = sum(n * (sum(g) / n - grand_mean) ** 2 for g, n in zip(groups, ns))
+    ss_within = sum(sum((x - sum(g) / n) ** 2 for x in g) for g, n in zip(groups, ns))
+    df_b = k - 1
+    df_w = N - k
+    if df_w <= 0 or ss_within == 0:
+        return (None, None, None, None)
+    ms_b = ss_between / df_b
+    ms_w = ss_within / df_w
+    f_stat = ms_b / ms_w
+    p = _f_cdf_right(f_stat, df_b, df_w)
+    return (f_stat, p, df_b, df_w)
+
+
+def _f_cdf_right(f_val, df1, df2):
+    """Right-tail p-value for F-distribution: P(F > f_val).
+
+    Uses the relationship between F-distribution and incomplete beta function.
+    """
+    if f_val <= 0:
+        return 1.0
+    x = df2 / (df2 + df1 * f_val)
+    return _regularized_incomplete_beta(x, df2 / 2.0, df1 / 2.0)
 
 
 # ─────────────────────────────────────────────────────────────
@@ -347,7 +508,7 @@ def org_bucket(row, idx):
         return 'Small (<500)'
     elif os_val in ('500-999', '1000-4999'):
         return 'Medium (500-4999)'
-    elif os_val in ('5000-9999', '10000+'):
+    elif os_val in LARGE_ORG_SIZES:
         return 'Large (5000+)'
     return None
 
@@ -526,7 +687,7 @@ def print_demographics(rows, idx, label="Clean"):
     print(f"  Other:               n={len(other)} ({len(other) / len(rows) * 100:.1f}%)")
 
     print("\n  Org Size:")
-    for os_val in ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']:
+    for os_val in ALL_ORG_SIZES:
         ct = sum(1 for r in rows if r[idx['Q4_OrgSize']].strip() == os_val)
         print(f"    {os_val:12s}: {ct:3d} ({ct / len(rows) * 100:.1f}%)")
 
@@ -653,8 +814,8 @@ def print_effect_sizes(rows, idx):
             ntm_str = f"{ntm:.2f}" if ntm is not None else "NA"
             print(f"    {label:<12}: Tech={tm_str}, NonTech={ntm_str}, d=N/A")
 
-    large = [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('5000-9999', '10000+')]
-    smmed = [r for r in rows if r[idx['Q4_OrgSize']].strip() not in ('5000-9999', '10000+')]
+    large = [r for r in rows if r[idx['Q4_OrgSize']].strip() in LARGE_ORG_SIZES]
+    smmed = [r for r in rows if r[idx['Q4_OrgSize']].strip() not in LARGE_ORG_SIZES]
 
     print(f"\n  Large Org (n={len(large)}) vs Small/Medium (n={len(smmed)}):")
     for label, cols, sc in [("Barriers", BARRIER_COLS, BARRIER_SCALE),
@@ -793,6 +954,131 @@ def sensitivity_to_json(cuts, idx):
     """Return sensitivity analysis results as a JSON-serializable dict."""
     result = {"samples": [], "metrics": []}
 
+    # Document the two independent demographic data sources
+    result["demographic_sources"] = {
+        "survey_demographics": {
+            "source": "Qualtrics CSV export (Q1-Q9)",
+            "type": "Organizational/role-based characteristics",
+            "fields": {
+                "Q1_Role": "Executive Role (CIO, CTO, CEO, CFO, COO, CHRO, CMO, CSO, CRO, Other)",
+                "Q2_DecisionAuth": "Decision Authority level",
+                "Q3_Industry": "Industry classification",
+                "Q4_OrgSize": "Organization Size (<100, 100-499, 500-999, 1000-4999, 5000-9999, 10000+)",
+                "Q5_ProfitModel": "Profit Model (For-Profit, Non-Profit, Government/Public Sector)",
+                "Q6_RevenueBudget": "Organizational revenue/budget range",
+                "Q7_PersonalBudget": "Personal budget responsibility",
+                "Q8_GeoScope": "Geographic scope",
+                "Q9_GeoScale": "Geographic scale",
+            },
+            "note": "Self-reported by participants within the TABS survey instrument. Used for all per-group demographic breakdowns, effect sizes, and cross-tabulations.",
+        },
+        "platform_demographics": {
+            "source": "Prolific API (POST /studies/{id}/demographic-export/)",
+            "filters_api": "GET /api/v1/filters/ (returns full catalog of available prescreener categories)",
+            "type": "Personal/sociodemographic and professional characteristics",
+            "base_fields": {
+                "age": "Participant age (range filter)",
+                "sex": "Biological sex as recorded on legal documents",
+                "ethnicity": "Ethnic background (simplified)",
+                "language": "First/primary language",
+                "country_of_residence": "Current country of residence",
+                "nationality": "Nationality",
+                "country_of_birth": "Country of birth",
+                "student_status": "Current student status",
+                "employment_status": "Employment status",
+            },
+            "prescreener_fields": {
+                "employment_sector": "Employment sector (Private, Public, Non-profit, etc.)",
+                "industry": "Industry classification",
+                "company_size": "Company/organization size",
+                "occupation": "Occupation/job title category",
+                "education_level": "Highest level of education completed",
+                "household_income": "Household income bracket",
+                "fluent_languages": "Languages spoken fluently",
+            },
+            "study_screeners": [
+                {
+                    "filter_id": "current_country_of_residence",
+                    "label": "Current Country of Residence",
+                    "selected_values": ["United States"],
+                    "base_field": True,
+                },
+                {
+                    "filter_id": "employment_status",
+                    "label": "Employment Status",
+                    "selected_values": ["Full-Time"],
+                    "base_field": True,
+                },
+                {
+                    "filter_id": "employment_sector",
+                    "label": "Employer Type",
+                    "selected_values": [
+                        "Employee of a for-profit company or business or of an individual, for wages, salary, or commissions",
+                        "Employee of a not-for-profit, tax-exempt, or charitable organization",
+                        "Local government employee (city, county, etc.)",
+                        "State government employee",
+                        "Federal government employee",
+                        "Self-employed in own not-incorporated business, professional practice, or farm",
+                        "Self-employed in own incorporated business, professional practice, or farm",
+                        "Working without pay in family business or farm",
+                    ],
+                    "base_field": False,
+                },
+                {
+                    "filter_id": "company_size",
+                    "label": "Company Size",
+                    "selected_values": ["50-249", "250-999", "1000+"],
+                    "base_field": False,
+                },
+                {
+                    "filter_id": "occupation",
+                    "label": "Job Position",
+                    "selected_values": [
+                        "C-Level (e.g. CEO, CFO), Owner, Partner, President",
+                        "Vice President (EVP, SVP, AVP, VP)",
+                        "Director (Group Director, Sr. Director, Director)",
+                        "Manager (Group Manager, Sr. Manager, Manager, Program Manager)",
+                    ],
+                    "base_field": False,
+                },
+            ],
+            "prescreener_note": "Up to 15 prescreener filters can be selected per export (configurable twice before locking). The 5 study screeners above are exported for cross-validation. Additional augmentation filters (education_level, household_income, fluent_languages) are also included, totaling 7 of the 15-filter maximum.",
+            "fields": {
+                "age": "Participant age",
+                "sex": "Biological sex",
+                "ethnicity": "Ethnic background",
+                "language": "Primary/first language",
+                "country_of_residence": "Current country of residence",
+                "nationality": "Nationality",
+                "country_of_birth": "Country of birth",
+                "student_status": "Current student status",
+                "employment_status": "Employment status",
+                "employment_sector": "Employment sector (prescreener)",
+                "industry": "Industry classification (prescreener)",
+                "company_size": "Company/organization size (prescreener)",
+                "occupation": "Occupation/job title category (prescreener)",
+                "education_level": "Education level (prescreener)",
+                "household_income": "Household income (prescreener)",
+                "fluent_languages": "Fluent languages (prescreener)",
+            },
+            "cross_validation": {
+                "description": "Prolific prescreener fields overlap with Qualtrics survey demographics, enabling independent cross-validation of self-reported data and sample balancing.",
+                "overlapping_fields": {
+                    "industry": {"prolific": "industry", "qualtrics": "Q3_Industry"},
+                    "company_size": {"prolific": "company_size", "qualtrics": "Q4_OrgSize"},
+                    "employment_sector": {"prolific": "employment_sector", "qualtrics": "Q5_ProfitModel"},
+                    "occupation": {"prolific": "occupation", "qualtrics": "Q1_Role"},
+                },
+                "use_cases": [
+                    "Flag discrepancies between Prolific profile and survey responses",
+                    "Balance samples using validated Prolific profile data",
+                    "Augment survey demographics with additional Prolific fields (education, income, languages)",
+                ],
+            },
+            "note": "Base fields are always included in the Prolific demographic export. Prescreener fields are available when configured as study filters (up to 15 per export). The export is a snapshot of participants' prescreening responses at the time they took the study. Both base and prescreener data can be cross-referenced with Qualtrics survey data using Prolific Participant ID as join key.",
+        },
+    }
+
     sample_meta = {
         "Conservative Clean": {
             "key": "conservative_clean",
@@ -859,6 +1145,236 @@ def sensitivity_to_json(cuts, idx):
             "label": label,
             "values": values,
         })
+
+    # ── Demographics per sample ──
+    def demographics_for(rows):
+        """Compute SURVEY demographics breakdown for a set of rows.
+
+        These are organizational/role-based demographics from Qualtrics survey
+        responses (Q1_Role, Q4_OrgSize, Q5_ProfitModel) — NOT Prolific platform
+        demographics (age, sex, ethnicity, etc.).
+        """
+        if not rows:
+            return {"roles": {}, "org_sizes": {}, "profit_models": {}, "tech_vs_nontech": {}}
+        n = len(rows)
+        roles = Counter(get_role(r, idx) for r in rows)
+        tech_n = sum(1 for r in rows if get_role(r, idx) in TECH_TITLES)
+        nontech_n = sum(1 for r in rows if get_role(r, idx) in NONTECH_TITLES)
+        other_n = sum(1 for r in rows if get_role(r, idx) == 'Other')
+
+        org_sizes = {}
+        for os_val in ALL_ORG_SIZES:
+            ct = sum(1 for r in rows if r[idx['Q4_OrgSize']].strip() == os_val)
+            org_sizes[os_val] = ct
+
+        profit_models = {}
+        for pm in ['For-Profit', 'Non-Profit', 'Government/Public Sector']:
+            ct = sum(1 for r in rows if r[idx['Q5_ProfitModel']].strip() == pm)
+            profit_models[pm] = ct
+
+        return {
+            "roles": dict(roles.most_common()),
+            "org_sizes": org_sizes,
+            "profit_models": profit_models,
+            "tech_vs_nontech": {
+                "technical": tech_n,
+                "non_technical": nontech_n,
+                "other": other_n,
+            },
+        }
+
+    # ── Effect sizes per sample ──
+    def effect_sizes_for(rows):
+        """Compute Cohen's d effect sizes for key group comparisons."""
+        if not rows:
+            return {}
+        effects = {}
+        tech = [r for r in rows if get_role(r, idx) in TECH_TITLES]
+        nontech = [r for r in rows if get_role(r, idx) in NONTECH_TITLES]
+        effects["tech_vs_nontech"] = {"tech_n": len(tech), "nontech_n": len(nontech), "constructs": {}}
+        for label, cols, sc in ALL_CONSTRUCTS:
+            t = person_means(tech, cols, sc, idx)
+            nt = person_means(nontech, cols, sc, idx)
+            d = cohens_d(t, nt)
+            tm, _ = mean_sd(t)
+            ntm, _ = mean_sd(nt)
+            effects["tech_vs_nontech"]["constructs"][label] = {
+                "tech_mean": round(tm, 4) if tm is not None else None,
+                "nontech_mean": round(ntm, 4) if ntm is not None else None,
+                "d": round(d, 4) if d is not None else None,
+            }
+
+        large = [r for r in rows if r[idx['Q4_OrgSize']].strip() in LARGE_ORG_SIZES]
+        smmed = [r for r in rows if r[idx['Q4_OrgSize']].strip() not in LARGE_ORG_SIZES]
+        effects["large_vs_small"] = {"large_n": len(large), "small_medium_n": len(smmed), "constructs": {}}
+        for label, cols, sc in [("barriers", BARRIER_COLS, BARRIER_SCALE),
+                                 ("readiness", READINESS_COLS, READINESS_SCALE)]:
+            l = person_means(large, cols, sc, idx)
+            s = person_means(smmed, cols, sc, idx)
+            d = cohens_d(l, s)
+            lm, _ = mean_sd(l)
+            sm, _ = mean_sd(s)
+            effects["large_vs_small"]["constructs"][label] = {
+                "large_mean": round(lm, 4) if lm is not None else None,
+                "small_medium_mean": round(sm, 4) if sm is not None else None,
+                "d": round(d, 4) if d is not None else None,
+            }
+
+        return effects
+
+    # ── Cross-tabs per sample ──
+    def cross_tabs_for(rows):
+        """Compute cross-tabulation means for key groupings."""
+        if not rows:
+            return {}
+        groups = {}
+        # Role-based
+        role_groups = [
+            ("Technical (CIO/CTO)", [r for r in rows if get_role(r, idx) in TECH_TITLES]),
+            ("Non-Technical", [r for r in rows if get_role(r, idx) in NONTECH_TITLES]),
+            ("Other", [r for r in rows if get_role(r, idx) == 'Other']),
+        ]
+        role_results = []
+        for gname, grows in role_groups:
+            if not grows:
+                continue
+            bm, _ = mean_sd(person_means(grows, BARRIER_COLS, BARRIER_SCALE, idx))
+            rm, _ = mean_sd(person_means(grows, READINESS_COLS, READINESS_SCALE, idx))
+            mm, _ = mean_sd(person_means(grows, MATURITY_COLS, MATURITY_SCALE, idx))
+            role_results.append({
+                "group": gname,
+                "n": len(grows),
+                "barrier_mean": round(bm, 4) if bm is not None else None,
+                "readiness_mean": round(rm, 4) if rm is not None else None,
+                "maturity_mean": round(mm, 4) if mm is not None else None,
+            })
+        groups["by_role"] = role_results
+
+        # Org-size buckets
+        size_groups = [
+            ("Small (<500)", [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('<100', '100-499')]),
+            ("Medium (500-4999)", [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('500-999', '1000-4999')]),
+            ("Large (5000+)", [r for r in rows if r[idx['Q4_OrgSize']].strip() in LARGE_ORG_SIZES]),
+        ]
+        size_results = []
+        for gname, grows in size_groups:
+            if not grows:
+                continue
+            bm, _ = mean_sd(person_means(grows, BARRIER_COLS, BARRIER_SCALE, idx))
+            rm, _ = mean_sd(person_means(grows, READINESS_COLS, READINESS_SCALE, idx))
+            mm, _ = mean_sd(person_means(grows, MATURITY_COLS, MATURITY_SCALE, idx))
+            size_results.append({
+                "group": gname,
+                "n": len(grows),
+                "barrier_mean": round(bm, 4) if bm is not None else None,
+                "readiness_mean": round(rm, 4) if rm is not None else None,
+                "maturity_mean": round(mm, 4) if mm is not None else None,
+            })
+        groups["by_org_size"] = size_results
+
+        return groups
+
+    # ── Inferential statistics per sample ──
+    def inferential_for(rows):
+        """Compute inferential statistics: t-tests and ANOVA per sample."""
+        if not rows:
+            return {}
+        result_inf = {}
+
+        # 1. Welch's t-tests: Tech vs Non-Tech per construct
+        tech = [r for r in rows if get_role(r, idx) in TECH_TITLES]
+        nontech = [r for r in rows if get_role(r, idx) in NONTECH_TITLES]
+        t_tests = {}
+        for label, cols, sc in ALL_CONSTRUCTS:
+            t_vals = person_means(tech, cols, sc, idx)
+            nt_vals = person_means(nontech, cols, sc, idx)
+            t_stat, p_val, df = welch_t_test(t_vals, nt_vals)
+            t_tests[label] = {
+                "t": round(t_stat, 4) if t_stat is not None else None,
+                "p": round(p_val, 4) if p_val is not None else None,
+                "df": round(df, 2) if df is not None else None,
+                "sig": p_val is not None and p_val < 0.05,
+            }
+        result_inf["t_tests_tech_vs_nontech"] = {
+            "tech_n": len(tech), "nontech_n": len(nontech),
+            "constructs": t_tests,
+        }
+
+        # 2. Welch's t-tests: Large vs Small/Medium orgs per construct
+        large = [r for r in rows if r[idx['Q4_OrgSize']].strip() in LARGE_ORG_SIZES]
+        smmed = [r for r in rows if r[idx['Q4_OrgSize']].strip() not in LARGE_ORG_SIZES]
+        t_tests_org = {}
+        for label, cols, sc in ALL_CONSTRUCTS:
+            l_vals = person_means(large, cols, sc, idx)
+            s_vals = person_means(smmed, cols, sc, idx)
+            t_stat, p_val, df = welch_t_test(l_vals, s_vals)
+            t_tests_org[label] = {
+                "t": round(t_stat, 4) if t_stat is not None else None,
+                "p": round(p_val, 4) if p_val is not None else None,
+                "df": round(df, 2) if df is not None else None,
+                "sig": p_val is not None and p_val < 0.05,
+            }
+        result_inf["t_tests_large_vs_small"] = {
+            "large_n": len(large), "small_medium_n": len(smmed),
+            "constructs": t_tests_org,
+        }
+
+        # 3. One-way ANOVA: by Role (Tech / Non-Tech / Other)
+        other = [r for r in rows if get_role(r, idx) == 'Other']
+        anova_role = {}
+        for label, cols, sc in ALL_CONSTRUCTS:
+            g1 = person_means(tech, cols, sc, idx)
+            g2 = person_means(nontech, cols, sc, idx)
+            g3 = person_means(other, cols, sc, idx)
+            f_stat, p_val, df_b, df_w = oneway_anova(g1, g2, g3)
+            anova_role[label] = {
+                "f": round(f_stat, 4) if f_stat is not None else None,
+                "p": round(p_val, 4) if p_val is not None else None,
+                "df_between": df_b,
+                "df_within": df_w,
+                "sig": p_val is not None and p_val < 0.05,
+            }
+        result_inf["anova_by_role"] = {
+            "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
+            "group_ns": [len(tech), len(nontech), len(other)],
+            "constructs": anova_role,
+        }
+
+        # 4. One-way ANOVA: by Org Size (Small / Medium / Large)
+        small_orgs = [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('<100', '100-499')]
+        med_orgs = [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('500-999', '1000-4999')]
+        large_orgs = [r for r in rows if r[idx['Q4_OrgSize']].strip() in LARGE_ORG_SIZES]
+        anova_org = {}
+        for label, cols, sc in ALL_CONSTRUCTS:
+            g1 = person_means(small_orgs, cols, sc, idx)
+            g2 = person_means(med_orgs, cols, sc, idx)
+            g3 = person_means(large_orgs, cols, sc, idx)
+            f_stat, p_val, df_b, df_w = oneway_anova(g1, g2, g3)
+            anova_org[label] = {
+                "f": round(f_stat, 4) if f_stat is not None else None,
+                "p": round(p_val, 4) if p_val is not None else None,
+                "df_between": df_b,
+                "df_within": df_w,
+                "sig": p_val is not None and p_val < 0.05,
+            }
+        result_inf["anova_by_org_size"] = {
+            "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+            "group_ns": [len(small_orgs), len(med_orgs), len(large_orgs)],
+            "constructs": anova_org,
+        }
+
+        return result_inf
+
+    # Build per-sample detail blocks
+    result["sample_details"] = {}
+    for sample_label, rows in cuts:
+        sample_key = sample_meta.get(sample_label, {}).get("key", sample_label.lower().replace(" ", "_"))
+        result["sample_details"][sample_key] = {
+            "demographics": demographics_for(rows),
+            "effect_sizes": effect_sizes_for(rows),
+            "cross_tabs": cross_tabs_for(rows),
+            "inferential": inferential_for(rows),
+        }
 
     return result
 

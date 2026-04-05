@@ -148,7 +148,7 @@ class TestApproveCSVParsing:
         assert result.returncode == 0
         summary = Path(summary_file).read_text()
         assert "CLEAN dispositions | 0" in summary
-        assert "Approved | 0" in summary
+        assert "Newly approved | 0" in summary
 
     def test_case_insensitive_disposition(self, tmp_path):
         """Disposition matching is case-insensitive."""

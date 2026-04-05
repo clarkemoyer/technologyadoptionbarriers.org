@@ -25,6 +25,10 @@ inputs:
   branch:
     description: Branch name for the PR
     required: true
+  base:
+    description: 'Base branch for the PR (default: main)'
+    required: false
+    default: 'main'
 
 outputs:
   pull-request-number:
@@ -62,6 +66,7 @@ runs:
         title: ${{ inputs.pr-title }}
         body: ${{ inputs.pr-body }}
         branch: ${{ inputs.branch }}
+        base: ${{ inputs.base }}
         delete-branch: true
 
     - name: Enable automerge

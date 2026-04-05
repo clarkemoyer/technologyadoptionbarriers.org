@@ -1,0 +1,394 @@
+name: Daily Pipeline (Analysis + Operations)
+
+# Unified daily pipeline: analysis → approve → message → dashboard → report.
+# Replaces the separate analysis-pipeline.yml (09:00) and
+# daily-disposition-processing.yml (11:00) with a single chained workflow.
+#
+# All jobs are linked by `needs:` — each phase starts immediately when its
+# dependencies finish. Total wall-clock time is ~10-15 min instead of 2+ hours.
+#
+# Data flow:
+#   Phase 1: Prolific API → auth checks + submission statuses
+#   Phase 2: Qualtrics API → raw CSV → enrich → disposition waterfall → analysis
+#   Phase 3: Approve CLEAN on Prolific, message FLAGs, generate dashboard JSON
+#   Phase 4: Commit all data (analysis JSON + dashboard JSON) to repo
+#   Phase 5: Create daily report issue with deltas
+#
+# Safety: Only approves CLEAN (all checks passed) and sends review
+# messages. Does NOT reject anyone — all rejections require manual trigger.
+
+on:
+  schedule:
+    - cron: '0 9 * * *' # Daily at 09:00 UTC (5am ET)
+  workflow_dispatch:
+
+concurrency:
+  group: daily-pipeline
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  # ── Phase 1: Fetch Prolific data ─────────────────────────────
+  # Auth check scores (HIGH/MIXED/LOW) and submission statuses keyed by
+  # pseudonymous Prolific PIDs. No direct PII. 1-day artifact retention.
+  fetch-prolific:
+    name: 'Phase 1: Fetch Prolific Data'
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch auth checks and statuses
+        run: python3 scripts/analysis/fetch_prolific_data.py
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          PROLIFIC_STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          AUTH_OUTPUT: ${{ runner.temp }}/auth-checks.csv
+          STATUSES_OUTPUT: ${{ runner.temp }}/statuses.json
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: prolific-data
+          path: |
+            ${{ runner.temp }}/auth-checks.csv
+            ${{ runner.temp }}/statuses.json
+          retention-days: 1
+
+  # ── Phase 2: Export, Enrich, Analyze ─────────────────────────
+  # All analysis + disposition triage in a single job. Raw CSV never
+  # leaves the runner. Produces: analysis JSON, disposition CSV,
+  # de-identified public dataset, analysis logs.
+  analyze:
+    name: 'Phase 2: Export, Enrich & Analyze'
+    needs: fetch-prolific
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install -r scripts/analysis/requirements.txt
+
+      - name: Export Qualtrics CSV
+        run: python3 scripts/analysis/export_qualtrics.py
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/qualtrics-raw.csv
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: prolific-data
+          path: ${{ runner.temp }}
+
+      - name: Enrich CSV with Prolific data
+        run: |
+          python scripts/analysis/enrich_qualtrics_csv.py \
+            --qualtrics "${{ runner.temp }}/qualtrics-raw.csv" \
+            --auth-checks "${{ runner.temp }}/auth-checks.csv" \
+            --statuses "${{ runner.temp }}/statuses.json" \
+            --output "${{ runner.temp }}/qualtrics-enriched.csv"
+
+      # Disposition waterfall + disposition CSV for operations phase
+      - name: Data audit (disposition waterfall)
+        run: |
+          python scripts/analysis/tabs_v2_data_audit.py \
+            --input "${{ runner.temp }}/qualtrics-enriched.csv" \
+            --output "${{ runner.temp }}/data-audit.json" \
+            --disposition-csv "${{ runner.temp }}/disposition.csv"
+
+      - name: De-identify dataset
+        run: |
+          python scripts/deidentify_tabs_data.py \
+            "${{ runner.temp }}/qualtrics-enriched.csv" \
+            "${{ runner.temp }}/deidentified" \
+            --skip-review
+
+      - name: Descriptive analysis + sensitivity
+        run: |
+          python scripts/analysis/tabs_v2_analysis.py \
+            "${{ runner.temp }}/qualtrics-enriched.csv" \
+            --json "${{ runner.temp }}/sensitivity-analysis.json"
+
+      - name: Advanced analysis (PCA, regression, ANOVA)
+        id: advanced
+        continue-on-error: true
+        run: |
+          python scripts/analysis/tabs_v2_advanced.py \
+            "${{ runner.temp }}/qualtrics-enriched.csv" \
+            > "${{ runner.temp }}/advanced-analysis.txt" 2>&1
+          echo "Advanced analysis complete"
+
+      - name: Psychometrics (KMO, HTMT, reliability)
+        id: psychometrics
+        continue-on-error: true
+        run: |
+          python scripts/analysis/tabs_v2_psychometrics.py \
+            "${{ runner.temp }}/qualtrics-enriched.csv" \
+            > "${{ runner.temp }}/psychometrics.txt" 2>&1
+          echo "Psychometrics complete"
+
+      - name: Quality audit (outliers, CMV)
+        id: quality
+        continue-on-error: true
+        run: |
+          python scripts/analysis/tabs_v2_quality_audit.py \
+            "${{ runner.temp }}/qualtrics-enriched.csv" \
+            > "${{ runner.temp }}/quality-audit.txt" 2>&1
+          echo "Quality audit complete"
+
+      - name: Verify all analysis steps succeeded
+        if: always()
+        run: |
+          FAILED=""
+          if [ "${{ steps.advanced.outcome }}" = "failure" ]; then FAILED="$FAILED advanced"; fi
+          if [ "${{ steps.psychometrics.outcome }}" = "failure" ]; then FAILED="$FAILED psychometrics"; fi
+          if [ "${{ steps.quality.outcome }}" = "failure" ]; then FAILED="$FAILED quality"; fi
+          if [ -n "$FAILED" ]; then
+            echo "::error::Analysis steps failed:$FAILED (logs uploaded as artifacts)"
+            exit 1
+          fi
+
+      - name: Generate summary
+        if: always()
+        run: |
+          echo "### Analysis Pipeline Results" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f "${{ runner.temp }}/sensitivity-analysis.json" ]; then
+            python3 scripts/analysis/tests/generate_summary.py "${{ runner.temp }}/sensitivity-analysis.json" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ -f "${{ runner.temp }}/data-audit.json" ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "#### Disposition Waterfall" >> "$GITHUB_STEP_SUMMARY"
+            python3 scripts/analysis/tests/generate_summary.py "${{ runner.temp }}/data-audit.json" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # Artifacts — analysis results (JSON, no PII)
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: analysis-results
+          path: |
+            ${{ runner.temp }}/sensitivity-analysis.json
+            ${{ runner.temp }}/data-audit.json
+          retention-days: 7
+          if-no-files-found: warn
+
+      # Disposition CSV — PROLIFIC_PID + disposition flags, no other PII
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}/disposition.csv
+          retention-days: 1
+          if-no-files-found: warn
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: analysis-logs
+          path: |
+            ${{ runner.temp }}/advanced-analysis.txt
+            ${{ runner.temp }}/psychometrics.txt
+            ${{ runner.temp }}/quality-audit.txt
+          retention-days: 7
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: public-dataset
+          path: ${{ runner.temp }}/deidentified/TABS_V2_public_dataset.csv
+          retention-days: 30
+          if-no-files-found: warn
+
+  # ── Phase 3a: Auto-approve CLEAN ─────────────────────────────
+  approve-clean:
+    name: 'Phase 3: Auto-Approve CLEAN'
+    needs: analyze
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v8
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}
+
+      - name: Approve CLEAN submissions
+        run: |
+          set -euo pipefail
+          python3 scripts/analysis/approve_submissions.py 2>&1 | tee ${{ runner.temp }}/approve-output.txt
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
+          DRY_RUN: 'false'
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: approve-metrics
+          path: ${{ runner.temp }}/approve-output.txt
+          retention-days: 1
+
+  # ── Phase 3b: Message FLAG participants (parallel with 3a) ───
+  message-flags:
+    name: 'Phase 3: Message FLAGs'
+    needs: analyze
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        disposition:
+          - FLAG-SINGLE-IRI
+          - FLAG-SMEAL
+          - FLAG-PARTIAL-STRAIGHTLINING
+          - FLAG-SPEED
+          - AUTO-EXCLUDE:IRI3_SPEED_RETURN
+          - AUTO-EXCLUDE:IRI3_RETURN
+          - AUTO-EXCLUDE:IRI2_SPEED_RETURN
+          - AUTO-EXCLUDE:IRI2_RETURN
+          - AUTO-EXCLUDE:SPEED_IRI
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v8
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}
+
+      - name: Send messages for ${{ matrix.disposition }}
+        run: |
+          set -euo pipefail
+          python3 scripts/analysis/message_flagged.py 2>&1 | tee ${{ runner.temp }}/message-output.txt
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
+          DISPOSITION_FILTER: ${{ matrix.disposition }}
+          DRY_RUN: 'false'
+
+      - name: Sanitize artifact name
+        if: always()
+        run: echo "ARTIFACT_NAME=message-metrics-${DISPOSITION_FILTER//:/-}" >> "$GITHUB_ENV"
+        env:
+          DISPOSITION_FILTER: ${{ matrix.disposition }}
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ runner.temp }}/message-output.txt
+          retention-days: 1
+
+  # ── Phase 3c: Generate dashboard (after approve, parallel with messages) ─
+  generate-dashboard:
+    name: 'Phase 3: Generate Dashboard'
+    needs: [analyze, approve-clean]
+    if: ${{ needs.analyze.result == 'success' && needs.approve-clean.result == 'success' }}
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v8
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}
+
+      - name: Generate disposition summary
+        run: python3 scripts/analysis/generate_disposition_summary.py
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
+          OUTPUT_PATH: ${{ runner.temp }}/disposition-summary.json
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: dashboard-data
+          path: ${{ runner.temp }}/disposition-summary.json
+          retention-days: 1
+
+  # ── Phase 4: Commit all data (single PR) ─────────────────────
+  commit-results:
+    name: 'Phase 4: Commit All Data'
+    needs: [analyze, generate-dashboard]
+    runs-on: ubuntu-latest
+    environment: copilot
+    steps:
+      - uses: actions/checkout@v6
+
+      # Download both analysis results and dashboard data into src/data
+      - uses: actions/download-artifact@v8
+        with:
+          name: analysis-results
+          path: src/data
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: dashboard-data
+          path: src/data
+
+      - uses: ./.github/actions/format-and-pr
+        with:
+          token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+          files: 'src/data/sensitivity-analysis.json src/data/data-audit.json src/data/disposition-summary.json'
+          commit-message: 'chore: update daily pipeline data (analysis + dashboard)'
+          pr-title: 'Update daily pipeline data'
+          pr-body: |
+            Automated update from the unified daily pipeline.
+
+            **Data flow**: Qualtrics export → Prolific enrichment →
+            disposition waterfall → analysis suite → approve CLEAN →
+            dashboard summary.
+
+            All statistics computed across 5 sample definitions.
+          branch: chore/daily-pipeline-data
+
+  # ── Phase 5: Daily report issue ──────────────────────────────
+  daily-report:
+    name: 'Phase 5: Daily Report'
+    needs: [analyze, approve-clean, message-flags, generate-dashboard]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - uses: actions/download-artifact@v8
+        with:
+          path: ${{ runner.temp }}/artifacts
+        continue-on-error: true
+
+      - name: Build and create daily report issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          ARTIFACTS_DIR: ${{ runner.temp }}/artifacts
+          PREV_FILE: src/data/disposition-summary.json
+          TRIAGE_RESULT: ${{ needs.analyze.result }}
+          APPROVE_RESULT_STATUS: ${{ needs.approve-clean.result }}
+          MESSAGE_RESULT: ${{ needs.message-flags.result }}
+          DASHBOARD_RESULT: ${{ needs.generate-dashboard.result }}
+        run: bash scripts/build-daily-report.sh
