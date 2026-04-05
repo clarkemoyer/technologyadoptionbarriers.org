@@ -47,7 +47,7 @@ const MAGNITUDE_COLORS = {
 } as const
 
 export function getMagnitude(d: number | null): 'negligible' | 'small' | 'medium' | 'large' | null {
-  if (d === null || d === undefined) return null
+  if (d === null) return null
   const abs = Math.abs(d)
   if (abs < 0.2) return 'negligible'
   if (abs < 0.5) return 'small'
@@ -107,7 +107,10 @@ export const EffectSizeChart: React.FC<EffectSizeChartProps> = ({
   const domainMin = Math.min(-pad, minD - pad)
   const domainMax = Math.max(pad, maxD + pad)
 
-  // Dynamically size the chart based on the number of entries
+  // Dynamically size the chart based on the number of entries.
+  // barHeight (28px): provides adequate spacing per label and hover target.
+  // marginTop (16px): padding above the first bar.
+  // marginBottom (36px): space for the X-axis label ("Cohen's d") below the axis ticks.
   const barHeight = 28
   const marginTop = 16
   const marginBottom = 36

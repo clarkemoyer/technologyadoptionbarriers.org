@@ -106,8 +106,21 @@ describe('EffectSizeChart', () => {
         ariaLabel="Effect size chart"
       />
     )
-    // The sr-only table should have headings
-    expect(screen.getByRole('table', { name: 'Data table: Tech vs Non-Tech' })).toBeInTheDocument()
+    // The sr-only table should exist with the correct accessible name
+    const table = screen.getByRole('table', { name: 'Data table: Tech vs Non-Tech' })
+    expect(table).toBeInTheDocument()
+
+    // Verify construct names appear in the table
+    const cells = table.querySelectorAll('td')
+    const cellTexts = Array.from(cells).map((c) => c.textContent)
+    expect(cellTexts.some((t) => t?.toLowerCase().includes('barriers'))).toBe(true)
+    expect(cellTexts.some((t) => t?.toLowerCase().includes('readiness'))).toBe(true)
+    // Check that a d-value is formatted correctly (positive prefix)
+    expect(cellTexts.some((t) => t === '+0.54' || t === '+0.85')).toBe(true)
+    // Check that a negative d-value appears
+    expect(cellTexts.some((t) => t?.startsWith('-'))).toBe(true)
+    // Check that magnitude labels are present
+    expect(cellTexts.some((t) => t === 'small' || t === 'medium' || t === 'negligible')).toBe(true)
   })
 
   it('renders the magnitude legend', () => {

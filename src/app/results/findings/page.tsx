@@ -129,19 +129,22 @@ const GROUP_SHORT: Record<string, string> = {
 
 const CONSTRUCTS = ['barriers', 'readiness', 'maturity'] as const
 
+/** Capitalise the first letter of a string (e.g. "barriers" → "Barriers") */
+function capitalize(s: string): string {
+  return s.length === 0 ? s : s.charAt(0).toUpperCase() + s.slice(1)
+}
+
 /** Build flat chart entries for a given effect-size comparison key */
 function buildChartEntries(compKey: 'tech_vs_nontech' | 'large_vs_small'): EffectSizeEntry[] {
   return CONSTRUCTS.flatMap((construct) =>
     PRIMARY_GROUPS.map((group) => {
-      const constructs = sampleDetails[group.key]?.effect_sizes?.[compKey]?.constructs as
-        | Record<string, { d?: number | null }>
-        | undefined
+      const constructs = sampleDetails[group.key]?.effect_sizes?.[compKey]?.constructs
       return {
-        label: `${construct.charAt(0).toUpperCase() + construct.slice(1)} — ${GROUP_SHORT[group.key] ?? group.label}`,
+        label: `${capitalize(construct)} — ${GROUP_SHORT[group.key] ?? group.label}`,
         construct,
         groupKey: group.key,
         groupLabel: group.label,
-        d: constructs?.[construct]?.d ?? null,
+        d: (constructs as Record<string, EffectSizeConstruct> | undefined)?.[construct]?.d ?? null,
       }
     })
   )
