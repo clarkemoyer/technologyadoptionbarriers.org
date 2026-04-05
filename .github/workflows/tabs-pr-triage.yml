@@ -1,0 +1,113 @@
+name: TABS PR Triage
+
+# Daily triage of open PRs and Copilot agent tasks.
+#
+# What this does:
+#   1. Lists all Copilot agent tasks (open issues assigned to copilot)
+#      using `gh agent-task list` (or Issues API fallback for older gh CLI)
+#   2. Flags stalled tasks — no activity in 24 hours
+#   3. Flags tasks whose associated PR has failing CI
+#   4. Posts a Step Summary report
+#   5. Optionally re-triggers stalled tasks (set RETRIGGER=true input)
+#
+# The workflow exits with a non-zero code if any stalled tasks or CI failures
+# are found, making the failure visible in the Actions dashboard.
+
+on:
+  schedule:
+    - cron: '0 8 * * *' # Daily at 08:00 UTC (4am ET / 3am ET DST)
+  workflow_dispatch:
+    inputs:
+      stale_hours:
+        description: 'Hours of inactivity before a task is flagged as stalled'
+        required: false
+        type: number
+        default: 24
+      retrigger:
+        description: 'Re-trigger stalled tasks by re-assigning copilot'
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: tabs-pr-triage
+  cancel-in-progress: false
+
+permissions:
+  issues: write
+  pull-requests: read
+  contents: read
+
+jobs:
+  agent-task-monitor:
+    name: Monitor Copilot Agent Tasks
+    runs-on: ubuntu-latest
+    environment: copilot
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run agent task monitor
+        run: npx tsx scripts/agent-task-monitor.ts
+        continue-on-error: true # Non-zero exit (issues found) should not block the report step
+        id: monitor
+        env:
+          GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+          REPO_NAME: ${{ github.repository }}
+          STALE_HOURS: ${{ inputs.stale_hours || '24' }}
+          RETRIGGER: ${{ inputs.retrigger || 'false' }}
+
+      - name: Create triage issue on stalled/failed tasks
+        if: steps.monitor.outcome == 'failure'
+        uses: actions/github-script@v8
+        env:
+          GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+        with:
+          github-token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+          script: |
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const body = [
+              '## ⚠️ Copilot Agent Task Monitor Alert',
+              '',
+              'The scheduled agent task monitor detected **stalled tasks** or **CI failures**.',
+              '',
+              `See the [workflow run](${runUrl}) Step Summary for the full report.`,
+              '',
+              '### Next steps',
+              '- Review the stalled tasks and ensure Copilot is still assigned',
+              '- Check CI failures on associated PRs',
+              '- Use the **Retrigger Stalled Agent Tasks** workflow to re-trigger if needed',
+            ].join('\n');
+
+            // Check if an open triage issue already exists (avoid duplicates)
+            const searchQuery = `repo:${context.repo.owner}/${context.repo.repo} is:issue is:open "Agent Task Monitor Alert" in:title`;
+            const existing = await github.rest.search.issuesAndPullRequests({ q: searchQuery, per_page: 5 });
+            if (existing.data.total_count > 0) {
+              console.log('Open triage issue already exists — skipping creation.');
+              return;
+            }
+
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `⚠️ Agent Task Monitor Alert — ${new Date().toISOString().slice(0, 10)}`,
+              body,
+              labels: ['agent-task', 'triage'],
+            });
+            console.log(`Created triage issue #${issue.data.number}`);
+
+      - name: Fail workflow if issues were detected
+        if: steps.monitor.outcome == 'failure'
+        run: |
+          echo "::error::Agent task monitor detected stalled tasks or CI failures. See Step Summary for details."
+          exit 1
