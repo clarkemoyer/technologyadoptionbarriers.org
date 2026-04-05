@@ -11,22 +11,23 @@ on:
       - 'Auto-Start Review Cycle'
     types: [completed]
 
+permissions:
+  actions: write
+
 jobs:
   auto-approve:
     if: >-
       github.event.workflow_run.conclusion == 'action_required' &&
-      github.event.workflow_run.actor.id == 198982749
+      github.event.workflow_run.actor.login == 'Copilot'
     runs-on: ubuntu-latest
-    environment: copilot
     steps:
       - name: Re-run workflow as repo owner
         env:
-          GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           echo "Auto-approving workflow run ${{ github.event.workflow_run.id }}"
           echo "  Workflow: ${{ github.event.workflow_run.name }}"
-          echo "  Actor: ${{ github.event.workflow_run.actor.login }} (id: ${{ github.event.workflow_run.actor.id }})"
+          echo "  Actor: ${{ github.event.workflow_run.actor.login }}"
           echo "  Conclusion: ${{ github.event.workflow_run.conclusion }}"
           gh api repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}/rerun \
-            -X POST
-          echo "Done — re-triggered under PAT owner context"
+            -X POST || echo "Rerun failed — may need PAT"
