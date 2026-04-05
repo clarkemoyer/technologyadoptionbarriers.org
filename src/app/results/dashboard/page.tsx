@@ -116,7 +116,9 @@ const DispositionDashboardPage = () => {
         </nav>
 
         <h1 className={H1_CLASSES}>Response Disposition Dashboard</h1>
-        <LastUpdated utcTimestamp={dispositionData.last_updated} />
+        <LastUpdated
+          utcTimestamp={(dispositionData as Record<string, unknown>).last_updated as string}
+        />
 
         <p className="mb-8 text-gray-600">
           Live quality triage results for the <strong>{d.studyName}</strong>. Data is updated
