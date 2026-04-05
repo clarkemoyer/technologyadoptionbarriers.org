@@ -68,8 +68,11 @@ function gh(args: string): string {
       env: { ...process.env, GH_TOKEN: process.env.GH_TOKEN },
       timeout: 60_000,
     }).trim()
-  } catch (err: any) {
-    throw new Error(err.stderr?.toString() || err.message || 'gh command failed')
+  } catch (err: unknown) {
+    const e = err as { stderr?: unknown; message?: string }
+    throw new Error(
+      (e.stderr != null ? String(e.stderr) : null) || e.message || 'gh command failed'
+    )
   }
 }
 
@@ -272,6 +275,21 @@ function ciEmoji(status: 'pass' | 'fail' | 'pending' | 'unknown'): string {
   return { pass: '✅', fail: '❌', pending: '⏳', unknown: '❓' }[status]
 }
 
+/** Render a task's issue number as a Markdown link. */
+function issueCell(task: AgentTask): string {
+  return `[#${task.number}](${task.url})`
+}
+
+/** Render a PR status as a Markdown link (or dash if no PR). */
+function prCell(prStatus: PrStatus | null): string {
+  return prStatus ? `[#${prStatus.prNumber}](${prStatus.prUrl})` : '—'
+}
+
+/** Render CI status as an emoji + label (or dash if no PR). */
+function ciCell(prStatus: PrStatus | null): string {
+  return prStatus ? `${ciEmoji(prStatus.ciStatus)} ${prStatus.ciStatus}` : '—'
+}
+
 function buildReport(reports: TaskReport[]): string {
   const now = new Date().toUTCString()
   const stalled = reports.filter((r) => r.stalled)
@@ -303,10 +321,8 @@ function buildReport(reports: TaskReport[]): string {
     lines.push(`| Issue | Title | Idle | CI | PR |`)
     lines.push(`|-------|-------|------|----|-----|`)
     for (const { task, idleHours: idle, prStatus } of stalled) {
-      const ci = prStatus ? `${ciEmoji(prStatus.ciStatus)} ${prStatus.ciStatus}` : '—'
-      const pr = prStatus ? `[#${prStatus.prNumber}](${prStatus.prUrl})` : '—'
       lines.push(
-        `| [#${task.number}](${task.url}) | ${mdEscape(task.title)} | ${idle.toFixed(1)}h | ${ci} | ${pr} |`
+        `| ${issueCell(task)} | ${mdEscape(task.title)} | ${idle.toFixed(1)}h | ${ciCell(prStatus)} | ${prCell(prStatus)} |`
       )
     }
     lines.push(``)
@@ -318,9 +334,8 @@ function buildReport(reports: TaskReport[]): string {
     lines.push(`| Issue | Title | PR | Idle |`)
     lines.push(`|-------|-------|-----|------|`)
     for (const { task, idleHours: idle, prStatus } of ciFailures) {
-      const pr = prStatus ? `[#${prStatus.prNumber}](${prStatus.prUrl})` : '—'
       lines.push(
-        `| [#${task.number}](${task.url}) | ${mdEscape(task.title)} | ${pr} | ${idle.toFixed(1)}h |`
+        `| ${issueCell(task)} | ${mdEscape(task.title)} | ${prCell(prStatus)} | ${idle.toFixed(1)}h |`
       )
     }
     lines.push(``)
@@ -331,12 +346,9 @@ function buildReport(reports: TaskReport[]): string {
   lines.push(`| Issue | Title | Idle | CI | PR | Status |`)
   lines.push(`|-------|-------|------|----|-----|--------|`)
   for (const { task, stalled: isStalled, idleHours: idle, prStatus } of reports) {
-    const stalledFlag = isStalled ? '⚠️ stalled' : ''
-    const ci = prStatus ? `${ciEmoji(prStatus.ciStatus)} ${prStatus.ciStatus}` : '—'
-    const pr = prStatus ? `[#${prStatus.prNumber}](${prStatus.prUrl})` : '—'
-    const status = stalledFlag || (prStatus?.ciStatus === 'fail' ? '❌ CI fail' : '✅ ok')
+    const status = isStalled ? '⚠️ stalled' : prStatus?.ciStatus === 'fail' ? '❌ CI fail' : '✅ ok'
     lines.push(
-      `| [#${task.number}](${task.url}) | ${mdEscape(task.title)} | ${idle.toFixed(1)}h | ${ci} | ${pr} | ${status} |`
+      `| ${issueCell(task)} | ${mdEscape(task.title)} | ${idle.toFixed(1)}h | ${ciCell(prStatus)} | ${prCell(prStatus)} | ${status} |`
     )
   }
 

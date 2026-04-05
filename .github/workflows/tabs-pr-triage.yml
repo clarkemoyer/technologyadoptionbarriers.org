@@ -73,6 +73,7 @@ jobs:
         with:
           github-token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
           script: |
+            const ALERT_TITLE_PREFIX = 'Agent Task Monitor Alert';
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const body = [
               '## ⚠️ Copilot Agent Task Monitor Alert',
@@ -88,7 +89,7 @@ jobs:
             ].join('\n');
 
             // Check if an open triage issue already exists (avoid duplicates)
-            const searchQuery = `repo:${context.repo.owner}/${context.repo.repo} is:issue is:open "Agent Task Monitor Alert" in:title`;
+            const searchQuery = `repo:${context.repo.owner}/${context.repo.repo} is:issue is:open "${ALERT_TITLE_PREFIX}" in:title`;
             const existing = await github.rest.search.issuesAndPullRequests({ q: searchQuery, per_page: 5 });
             if (existing.data.total_count > 0) {
               console.log('Open triage issue already exists — skipping creation.');
@@ -98,7 +99,7 @@ jobs:
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `⚠️ Agent Task Monitor Alert — ${new Date().toISOString().slice(0, 10)}`,
+              title: `⚠️ ${ALERT_TITLE_PREFIX} — ${new Date().toISOString().slice(0, 10)}`,
               body,
               labels: ['agent-task', 'triage'],
             });
