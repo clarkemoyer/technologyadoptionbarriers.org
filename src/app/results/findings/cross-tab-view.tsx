@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { LayoutGrid, Table as TableIcon } from 'lucide-react'
 
-interface CrossTabRow {
+export interface CrossTabRow {
   group: string
   n: number
   barrier_mean: number | null
@@ -47,14 +47,26 @@ const getMaturityColor = (val: number | null) => {
 }
 
 export default function CrossTabView({ data, label }: CrossTabViewProps) {
+  // Use a simple media query hack or just rely on CSS for the "default" view
+  // Actually, 'heatmap' by default is fine if we provide the toggle.
+  // But the review asked for table fallback on small screens.
+  // We can use a CSS class to hide heatmap/show table on mobile,
+  // but then the toggle state gets out of sync.
+  // A better way is to detect width or use CSS to force one view.
+  // Let's use CSS for the fallback and the toggle for preference.
+
   const [view, setView] = useState<'heatmap' | 'table'>('heatmap')
 
   return (
-    <div className="flex flex-col gap-3">
+    <div
+      className="flex flex-col gap-3"
+      data-testid={`cross-tab-${label.toLowerCase().replace(/\s+/g, '-')}`}
+    >
       <div className="flex items-center justify-between">
         <h4 className="text-xs font-bold text-gray-600 uppercase">{label}</h4>
         <div className="flex bg-gray-200/50 p-1 rounded-md">
           <button
+            type="button"
             onClick={() => setView('heatmap')}
             className={`p-1.5 rounded transition-colors ${
               view === 'heatmap'
@@ -63,10 +75,12 @@ export default function CrossTabView({ data, label }: CrossTabViewProps) {
             }`}
             title="Heatmap View"
             aria-label="Switch to Heatmap View"
+            aria-pressed={view === 'heatmap'}
           >
             <LayoutGrid size={14} />
           </button>
           <button
+            type="button"
             onClick={() => setView('table')}
             className={`p-1.5 rounded transition-colors ${
               view === 'table'
@@ -75,6 +89,7 @@ export default function CrossTabView({ data, label }: CrossTabViewProps) {
             }`}
             title="Table View"
             aria-label="Switch to Table View"
+            aria-pressed={view === 'table'}
           >
             <TableIcon size={14} />
           </button>
@@ -110,6 +125,7 @@ export default function CrossTabView({ data, label }: CrossTabViewProps) {
                   <div
                     key={row.group}
                     className="grid grid-cols-[1fr_repeat(4,minmax(50px,80px))] gap-1 items-center"
+                    role="row"
                   >
                     <div
                       className="text-xs font-medium text-gray-700 truncate pr-2"
@@ -142,11 +158,9 @@ export default function CrossTabView({ data, label }: CrossTabViewProps) {
                   </div>
                 ))}
               </div>
-              <div className="mt-4 flex items-center gap-4">
+              <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[9px] text-gray-400 uppercase font-bold">
-                    Barrier Scale:
-                  </span>
+                  <span className="text-[9px] text-gray-400 uppercase font-bold">Barrier:</span>
                   <div className="flex gap-0.5">
                     <div
                       className="w-3 h-3 bg-amber-50 border border-gray-200 rounded-sm"
@@ -156,6 +170,32 @@ export default function CrossTabView({ data, label }: CrossTabViewProps) {
                     <div
                       className="w-3 h-3 bg-amber-700 border border-gray-200 rounded-sm"
                       title="High Barrier"
+                    ></div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[9px] text-gray-400 uppercase font-bold">Ready:</span>
+                  <div className="flex gap-0.5">
+                    <div
+                      className="w-3 h-3 bg-blue-50 border border-gray-200 rounded-sm"
+                      title="Lower Readiness"
+                    ></div>
+                    <div
+                      className="w-3 h-3 bg-blue-300 border border-gray-200 rounded-sm"
+                      title="Higher Readiness"
+                    ></div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[9px] text-gray-400 uppercase font-bold">Mature:</span>
+                  <div className="flex gap-0.5">
+                    <div
+                      className="w-3 h-3 bg-emerald-50 border border-gray-200 rounded-sm"
+                      title="Lower Maturity"
+                    ></div>
+                    <div
+                      className="w-3 h-3 bg-emerald-300 border border-gray-200 rounded-sm"
+                      title="Higher Maturity"
                     ></div>
                   </div>
                 </div>

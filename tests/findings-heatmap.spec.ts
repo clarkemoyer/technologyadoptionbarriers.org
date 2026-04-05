@@ -10,38 +10,43 @@ test.describe('Findings Page Heatmap', () => {
   })
 
   test('should show heatmap by default and toggle to table', async ({ page }) => {
-    // Check if heatmap is visible for the first group's "By Role" section
-    // The heatmap uses a grid with specific text
-    const byRoleHeader = page.getByRole('heading', { name: 'By Role' }).first()
-    await expect(byRoleHeader).toBeVisible()
+    // Scope the assertions to the first "By Role" cross-tab instance
+    const byRoleSection = page.getByTestId('cross-tab-by-role').first()
+    await expect(byRoleSection).toBeVisible()
 
-    // Look for the heatmap grid header "Barrier"
-    const barrierHeader = page.getByText('Barrier').first()
+    // Look for the heatmap grid header "Barrier" within this specific section
+    const barrierHeader = byRoleSection.getByText('Barrier', { exact: true })
     await expect(barrierHeader).toBeVisible()
 
-    // Find the toggle button for Table View
-    const tableToggle = page.getByRole('button', { name: 'Switch to Table View' }).first()
+    // Toggle to table view within the same "By Role" section
+    const tableToggle = byRoleSection.getByRole('button', { name: 'Switch to Table View' })
     await tableToggle.click()
 
-    // Now the table header "B" should be visible (from the table view)
-    // We use getByText since it's a <th> in the table
-    const bHeader = page.getByText('B', { exact: true }).first()
+    // Assert the table header within the same scoped section
+    // In table view it uses "B"
+    const bHeader = byRoleSection.getByText('B', { exact: true })
     await expect(bHeader).toBeVisible()
 
-    // Toggle back to heatmap
-    const heatmapToggle = page.getByRole('button', { name: 'Switch to Heatmap View' }).first()
+    // Toggle back to heatmap within the same section
+    const heatmapToggle = byRoleSection.getByRole('button', { name: 'Switch to Heatmap View' })
     await heatmapToggle.click()
     await expect(barrierHeader).toBeVisible()
   })
 
-  test('should apply color classes to barrier cells', async ({ page }) => {
-    // The heatmap cells for barriers should have bg-amber-* classes
-    // We can check if at least one such cell exists
-    const amberCell = page
+  test('should apply color classes to barrier cells in actual data rows', async ({ page }) => {
+    // Scope to the first "By Role" heatmap
+    const byRoleSection = page.getByTestId('cross-tab-by-role').first()
+    await expect(byRoleSection).toBeVisible()
+
+    // Assert against amber-colored cells within actual heatmap rows (using role="row"),
+    // excluding non-row UI like the legend.
+    const amberCell = byRoleSection
+      .locator('[role="row"]')
       .locator(
         '.bg-amber-50, .bg-amber-100, .bg-amber-200, .bg-amber-300, .bg-amber-400, .bg-amber-500, .bg-amber-600, .bg-amber-700'
       )
       .first()
+
     await expect(amberCell).toBeVisible()
   })
 })

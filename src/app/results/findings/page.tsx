@@ -10,7 +10,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
-import CrossTabView from './cross-tab-view'
+import CrossTabView, { CrossTabRow } from './cross-tab-view'
 
 export const metadata: Metadata = {
   title: 'Key Findings — TABS Results',
@@ -35,14 +35,6 @@ interface EffectSizeGroup {
   large_n?: number
   small_medium_n?: number
   constructs?: Record<string, EffectSizeConstruct>
-}
-
-interface CrossTabRow {
-  group: string
-  n: number
-  barrier_mean: number | null
-  readiness_mean: number | null
-  maturity_mean: number | null
 }
 
 interface InferentialConstruct {
@@ -335,13 +327,13 @@ const FindingsPage = () => {
                 {hasData ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-3">
                     {/* By Role */}
-                    {(ct.by_role?.length ?? 0) > 0 && (
-                      <CrossTabView data={ct.by_role as CrossTabRow[]} label="By Role" />
+                    {ct.by_role && ct.by_role.length > 0 && (
+                      <CrossTabView data={ct.by_role} label="By Role" />
                     )}
 
                     {/* By Org Size */}
-                    {(ct.by_org_size?.length ?? 0) > 0 && (
-                      <CrossTabView data={ct.by_org_size as CrossTabRow[]} label="By Org Size" />
+                    {ct.by_org_size && ct.by_org_size.length > 0 && (
+                      <CrossTabView data={ct.by_org_size} label="By Org Size" />
                     )}
                   </div>
                 ) : (
