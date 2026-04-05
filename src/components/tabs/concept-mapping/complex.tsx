@@ -7,9 +7,7 @@ import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
 import { Tooltip } from '@/components/ui/tooltip'
 import { Info } from 'lucide-react'
-import { barriers } from '@/data/barriers'
-import { readinessItems } from '@/data/readiness'
-import { maturityItems } from '@/data/maturity'
+import { SECTION_DESCRIPTIONS, resolveTooltipItem } from '@/data/concept-mapping-tooltips'
 import DownloadButtons from './download-buttons'
 
 /**
@@ -108,15 +106,6 @@ function parseScale(raw: string): ScaleInfo {
 }
 
 /* ── Sub-Components ─────────────────────────────────────────────────── */
-
-/** Short descriptions for each section, shown as tooltip icons on section headers */
-const SECTION_DESCRIPTIONS: Record<string, string> = {
-  A: 'Section A captures respondent demographics (role, organization size, industry, profit model). Used for subgroup analysis across all constructs.',
-  B: 'Section B measures the perceived severity of 18 technology adoption barriers using a 5-point scale (Not a barrier → Extreme barrier), plus a forced-choice Top 3 selection.',
-  C: 'Section C assesses perceived organizational technology readiness across 17 dimensions (e.g., leadership vision, culture, infrastructure, data governance) using a 5-point capability scale.',
-  D: 'Section D evaluates perceived organizational maturity across 8 IT capability domains using a 5-level maturity model (Ad Hoc → Optimized).',
-  E: 'Section E collects open-ended qualitative feedback about technology adoption experiences.',
-}
 
 /** Visual scale rendering */
 function ScaleVisualization({ scale }: { scale: ScaleInfo }) {
@@ -293,27 +282,11 @@ function ItemCard({
   const risCitation = row['RIS Citation']
   const isHighlighted = highlightedId === id
 
-  // Look up tooltip data for barrier, readiness, or maturity items
-  const sectionLabel = row['Section / Primary Construct']
-  const surveyItemText = row['Survey Item (Question Text)']
-  const tooltipItem = (() => {
-    if (sectionLabel.includes('Technology Adoption Barriers')) {
-      return barriers.find(
-        (b) => b.description.trim().toLowerCase() === surveyItemText.trim().toLowerCase()
-      )
-    }
-    if (sectionLabel.includes('Readiness')) {
-      return readinessItems.find(
-        (r) => r.description.trim().toLowerCase() === surveyItemText.trim().toLowerCase()
-      )
-    }
-    if (sectionLabel.includes('Maturity')) {
-      return maturityItems.find(
-        (m) => m.description.trim().toLowerCase() === surveyItemText.trim().toLowerCase()
-      )
-    }
-    return undefined
-  })()
+  // Look up tooltip data using precomputed lookup maps (O(1) per item)
+  const tooltipItem = resolveTooltipItem(
+    row['Section / Primary Construct'],
+    row['Survey Item (Question Text)']
+  )
 
   return (
     <article

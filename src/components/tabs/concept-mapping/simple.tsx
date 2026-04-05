@@ -7,9 +7,11 @@ import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
 import { Tooltip } from '@/components/ui/tooltip'
 import { Info } from 'lucide-react'
-import { barriers } from '@/data/barriers'
-import { readinessItems } from '@/data/readiness'
-import { maturityItems } from '@/data/maturity'
+import {
+  SECTION_DESCRIPTIONS,
+  COLUMN_DESCRIPTIONS,
+  resolveTooltipItem,
+} from '@/data/concept-mapping-tooltips'
 import DownloadButtons from './download-buttons'
 
 /**
@@ -58,42 +60,6 @@ const COLUMN_MAX_WIDTHS: Partial<Record<(typeof conceptMappingData.headers)[numb
 
 /** Max characters shown before truncation */
 const TRUNCATE_LENGTH = 120
-
-/** Descriptions shown in column header tooltips */
-const COLUMN_DESCRIPTIONS: Partial<Record<string, string>> = {
-  'Section / Primary Construct':
-    'The major survey section (A–E) and primary theoretical construct this item belongs to.',
-  'Sub-Construct / Grouping':
-    'The more specific thematic grouping within the section (e.g., "Strategic Leadership & Governance").',
-  'Survey Item (Question Text)': 'The exact question text presented to survey respondents.',
-  'Measurement Objective': 'The specific concept or phenomenon this item is designed to measure.',
-  'Item Code / Variable Name':
-    'The short alphanumeric item code (e.g., "B1") and the associated variable name used in exported data files.',
-  'Variable Type':
-    'The statistical measurement level of this item (e.g., Ordinal Likert, Categorical).',
-  'Theoretical Grounding (Source)':
-    "The academic frameworks, models, or prior studies that informed this item's design.",
-  'APA Citation (Full)':
-    'Full academic citation in APA 7th edition format for the primary theoretical source.',
-  'RIS Citation':
-    'Citation in RIS format, compatible with reference managers such as Zotero, Mendeley, and EndNote.',
-  'Source Link (URL/DOI)': 'A direct hyperlink or DOI to the primary source document or scale.',
-  'Scale Type / Response Options':
-    'The response format and scale labels presented to respondents for this item.',
-  'Qualtrics QID / Export Tag':
-    'The internal Qualtrics question ID and the column header name in exported response data.',
-  'Relationship to Other Items':
-    'Cross-references to other survey items that share theoretical overlap or empirical correlation.',
-}
-
-/** Short descriptions for each section, shown in section-filter tooltip icons */
-const SECTION_DESCRIPTIONS: Record<string, string> = {
-  A: 'Section A captures respondent demographics (role, organization size, industry, profit model). Used for subgroup analysis across all constructs.',
-  B: 'Section B measures the perceived severity of 18 technology adoption barriers using a 5-point scale (Not a barrier → Extreme barrier), plus a forced-choice Top 3 selection.',
-  C: 'Section C assesses perceived organizational technology readiness across 17 dimensions (e.g., leadership vision, culture, infrastructure, data governance) using a 5-point capability scale.',
-  D: 'Section D evaluates perceived organizational maturity across 8 IT capability domains using a 5-level maturity model (Ad Hoc → Optimized).',
-  E: 'Section E collects open-ended qualitative feedback about technology adoption experiences.',
-}
 
 /**
  * NOTE: Each ExpandableCell instance carries its own useState hook, which means
@@ -302,44 +268,11 @@ const ConceptMappingSimple = () => {
                 filteredRows.map((row) => {
                   const section = getSection(row)
 
-                  // Pre-compute barrier lookup once per row instead of per cell
-                  const isBarrierSection = String(row['Section / Primary Construct']).includes(
-                    'Technology Adoption Barriers'
+                  // Resolve tooltip item using precomputed lookup maps (O(1) per row)
+                  const rowTooltipItem = resolveTooltipItem(
+                    String(row['Section / Primary Construct']),
+                    String(row['Survey Item (Question Text)'] ?? '')
                   )
-                  const isReadinessSection = String(row['Section / Primary Construct']).includes(
-                    'Readiness'
-                  )
-                  const isMaturitySection = String(row['Section / Primary Construct']).includes(
-                    'Maturity'
-                  )
-                  const surveyItemText = String(row['Survey Item (Question Text)'] ?? '')
-                  const rowMatchingBarrier =
-                    isBarrierSection && surveyItemText
-                      ? barriers.find(
-                          (b) =>
-                            b.description.trim().toLowerCase() ===
-                            surveyItemText.trim().toLowerCase()
-                        )
-                      : undefined
-                  const rowMatchingReadiness =
-                    isReadinessSection && surveyItemText
-                      ? readinessItems.find(
-                          (r) =>
-                            r.description.trim().toLowerCase() ===
-                            surveyItemText.trim().toLowerCase()
-                        )
-                      : undefined
-                  const rowMatchingMaturity =
-                    isMaturitySection && surveyItemText
-                      ? maturityItems.find(
-                          (m) =>
-                            m.description.trim().toLowerCase() ===
-                            surveyItemText.trim().toLowerCase()
-                        )
-                      : undefined
-                  // Unified tooltip item for this row (barrier, readiness, or maturity)
-                  const rowTooltipItem =
-                    rowMatchingBarrier ?? rowMatchingReadiness ?? rowMatchingMaturity
 
                   return (
                     <tr
