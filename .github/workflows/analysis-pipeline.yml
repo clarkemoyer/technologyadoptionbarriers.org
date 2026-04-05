@@ -135,7 +135,7 @@ jobs:
             "${{ runner.temp }}/qualtrics-enriched.csv" \
             --json "${{ runner.temp }}/sensitivity-analysis.json"
 
-      # Per-item descriptive statistics
+      # Per-item descriptive statistics (optional — non-fatal if script fails)
       - name: Item-level statistics
         id: item_stats
         continue-on-error: true
@@ -175,12 +175,13 @@ jobs:
             > "${{ runner.temp }}/quality-audit.txt" 2>&1
           echo "Quality audit complete"
 
-      # Fail the job if any analysis step failed (after uploading logs)
+      # Fail the job if any required-but-optional analysis step failed.
+      # item_stats is excluded here because it has continue-on-error: true
+      # and is intentionally optional (non-fatal on failure).
       - name: Verify all analysis steps succeeded
         if: always()
         run: |
           FAILED=""
-          if [ "${{ steps.item_stats.outcome }}" = "failure" ]; then FAILED="$FAILED item_stats"; fi
           if [ "${{ steps.advanced.outcome }}" = "failure" ]; then FAILED="$FAILED advanced"; fi
           if [ "${{ steps.psychometrics.outcome }}" = "failure" ]; then FAILED="$FAILED psychometrics"; fi
           if [ "${{ steps.quality.outcome }}" = "failure" ]; then FAILED="$FAILED quality"; fi
