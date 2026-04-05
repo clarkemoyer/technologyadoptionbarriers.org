@@ -276,6 +276,127 @@ const DatasetComparisonPage = () => {
           </div>
         </section>
 
+        {/* ── Filter Bias Analysis ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Filter Bias Analysis</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Stricter quality filters can sometimes disproportionately exclude certain demographic
+            groups, leading to &ldquo;filter bias.&rdquo; This analysis uses Chi-square independence
+            tests to evaluate whether the demographic composition remains stable across the four
+            primary result groups. Categories where Conservative Clean differs from All V2 Finished
+            by more than 5% are highlighted.
+          </p>
+
+          {((sensitivityData as Record<string, unknown>).filter_bias as
+            | Record<string, Record<string, unknown>>
+            | undefined) ? (
+            Object.entries(
+              (sensitivityData as Record<string, unknown>).filter_bias as Record<
+                string,
+                Record<string, unknown>
+              >
+            ).map(([dimKey, bias]) => {
+              const distributions = bias.distributions as Record<string, Record<string, number>>
+              const baselineDist = distributions['v2_finished'] || {}
+              const conservativeDist = distributions['conservative_clean'] || {}
+
+              return (
+                <div key={dimKey} className="mb-10">
+                  <h3 className={H3_CLASSES}>{bias.label as string} Independence Test</h3>
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4 flex flex-wrap gap-6 text-sm">
+                    <div>
+                      <span className="text-gray-500 font-medium">Chi-square (&chi;&sup2;):</span>{' '}
+                      <span className="font-mono font-bold text-gray-900">
+                        {fmt(bias.chi2 as number, 2)}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500 font-medium">Degrees of Freedom (df):</span>{' '}
+                      <span className="font-mono font-bold text-gray-900">{bias.df as number}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500 font-medium">p-value:</span>{' '}
+                      <span
+                        className={`font-mono font-bold ${(bias.p as number) < 0.05 ? 'text-red-600' : 'text-green-600'}`}
+                      >
+                        {fmt(bias.p as number, 4)}
+                      </span>
+                    </div>
+                    <div className="flex-1 text-right italic text-gray-500 hidden sm:block">
+                      {(bias.p as number) < 0.05
+                        ? '⚠️ Significant composition shift detected'
+                        : '✅ No significant composition shift'}
+                    </div>
+                  </div>
+
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm font-sans border-collapse">
+                      <thead>
+                        <tr className="bg-gray-100">
+                          <th className="text-left p-2 border-b">Category</th>
+                          {PRIMARY_GROUPS.map((g) => (
+                            <th key={g.key} className="text-right p-2 border-b">
+                              {g.label.split(' ')[0]}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {(bias.values as string[]).map((val) => {
+                          const consPct = conservativeDist[val] || 0
+                          const basePct = baselineDist[val] || 0
+                          const diff = consPct - basePct
+                          const isHighBias = Math.abs(diff) > 0.05
+
+                          return (
+                            <tr key={val} className="hover:bg-gray-50">
+                              <td className="p-2 border-b font-medium">{val}</td>
+                              {PRIMARY_GROUPS.map((group) => {
+                                const pctVal = distributions[group.key]?.[val]
+                                const isConservative = group.key === 'conservative_clean'
+                                return (
+                                  <td
+                                    key={group.key}
+                                    className={`text-right p-2 border-b font-mono ${
+                                      isConservative && isHighBias
+                                        ? 'bg-amber-50 text-amber-800 font-bold'
+                                        : 'text-gray-600'
+                                    }`}
+                                  >
+                                    {pctVal != null ? `${(pctVal * 100).toFixed(1)}%` : '—'}
+                                  </td>
+                                )
+                              })}
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )
+            })
+          ) : (
+            <div className="p-8 text-center bg-gray-50 border border-dashed border-gray-300 rounded-lg text-gray-500 italic">
+              Filter bias analysis data will be available after the next pipeline run.
+            </div>
+          )}
+
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-5 mt-6">
+            <h4 className="text-sm font-bold text-blue-900 mb-2">
+              Implications for Generalizability
+            </h4>
+            <p className="text-sm text-blue-800">
+              If the p-value is <strong>significant (p &lt; 0.05)</strong>, it suggests that the
+              quality filters are not demographic-neutral. For example, if a specific role is
+              disproportionately excluded, findings may not be equally generalizable to that role.
+              However, if the p-value is <strong>non-significant</strong>, we can be more confident
+              that our data cleaning pipeline has maintained the original demographic profile of the
+              survey respondents.
+            </p>
+          </div>
+        </section>
+
         {/* ── Effect Size Comparison ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Effect Size Comparison</h2>
