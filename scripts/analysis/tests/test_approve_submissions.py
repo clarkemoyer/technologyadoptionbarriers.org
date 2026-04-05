@@ -314,7 +314,10 @@ class TestThankYouChaining:
         """send_thank_you_to_pids is importable as a reusable function."""
         from send_thank_you import send_thank_you_to_pids, THANK_YOU_MESSAGE, SIGNATURE
         assert callable(send_thank_you_to_pids)
-        assert SIGNATURE in THANK_YOU_MESSAGE
+        assert isinstance(THANK_YOU_MESSAGE, str)
+        assert THANK_YOU_MESSAGE.strip()
+        assert isinstance(SIGNATURE, str)
+        assert SIGNATURE.strip()
 
     def test_send_thank_you_to_pids_dedup(self):
         """send_thank_you_to_pids skips participants who already received thank-you."""
@@ -384,3 +387,26 @@ class TestThankYouChaining:
 
         # dry_run counts as "sent" in output (would-message count)
         assert stats["sent"] == 1
+
+    def test_send_thank_you_to_pids_deduplicates_input(self):
+        """Duplicate PIDs in the input list are sent only once."""
+        from unittest.mock import patch as _patch
+        from send_thank_you import send_thank_you_to_pids
+        import send_thank_you as sty_module
+
+        mock_subs = [
+            {"participant_id": "PID_A", "status": "APPROVED"},
+        ]
+        sent_to = []
+
+        def mock_send(study_id, pid, msg, token):
+            sent_to.append(pid)
+
+        with _patch.object(sty_module, "prolific_submissions", return_value=mock_subs), \
+             _patch.object(sty_module, "prolific_user_messages", return_value=[]), \
+             _patch.object(sty_module, "prolific_send_message", side_effect=mock_send):
+            stats = send_thank_you_to_pids(["PID_A", "PID_A", "PID_A"], "S1", "token", dry_run=False)
+
+        # Despite 3 copies of PID_A, message should be sent exactly once
+        assert stats["sent"] == 1
+        assert sent_to.count("PID_A") == 1

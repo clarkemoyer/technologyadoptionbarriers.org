@@ -64,6 +64,10 @@ def send_thank_you_to_pids(
         Dict with counts: sent, skipped (already sent), skipped_not_approved,
         not_found, failed.
     """
+    # Order-preserving dedup: prevent duplicate API calls if caller passes duplicate PIDs
+    seen: set = set()
+    pids = [p for p in pids if not (p in seen or seen.add(p))]  # type: ignore[func-returns-value]
+
     print(f"Sending thank-you messages to {len(pids)} participants")
     print(f"Mode: {'DRY RUN' if dry_run else 'LIVE'}")
     print()
