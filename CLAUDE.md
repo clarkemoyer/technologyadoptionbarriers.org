@@ -518,6 +518,8 @@ Two GitHub MCP servers are available with different access levels:
 
 **Local npx server setup** (Claude Desktop — `claude_desktop_config.json`):
 
+> **Legacy note**: The `@modelcontextprotocol/server-github` package used below is deprecated. Prefer the official GitHub MCP server from the VS Code MCP Marketplace when available. This snippet is retained as a fallback reference only.
+
 ```json
 {
   "mcpServers": {
@@ -849,7 +851,7 @@ Claude Code agents are defined in `.claude/agents/` (gitignored — local only).
 | Agent                  | Purpose                                                                     |
 | ---------------------- | --------------------------------------------------------------------------- |
 | `copilot-review-cycle` | Full review cycle — request review, read comments, fix code, commit, repeat |
-| `pr-reviewer`          | FFC-specific PR review checklist (naming, security, a11y, static export)    |
+| `pr-reviewer`          | TABS-specific PR review checklist (naming, security, a11y, static export)   |
 
 **Invoke**: Claude auto-selects agents based on task description. You can also say "use the pipeline-validator agent" explicitly.
 
@@ -925,14 +927,14 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 
 ### Risk Tiers
 
-| Tier         | Criteria                                                 | Examples                                                       |
-| ------------ | -------------------------------------------------------- | -------------------------------------------------------------- |
-| **Low**      | Official, from the company, actively maintained          | GitHub MCP, Cloudflare MCP, Google Analytics MCP, `googleapis` |
-| **Medium**   | Community but mature (100+ stars, multiple contributors) | `peter-evans/create-pull-request`, Google Search Console MCP   |
-| **High**     | Community, single maintainer, or stale                   | Qualtrics MCP (academic), R Statistics MCP (stale)             |
-| **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` (deprecated)             |
+| Tier         | Criteria                                                 | Examples                                                                                 |
+| ------------ | -------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| **Low**      | Official, from the company, actively maintained          | GitHub MCP, Cloudflare MCP, Google Analytics MCP, `googleapis`                           |
+| **Medium**   | Community but mature (100+ stars, multiple contributors) | `peter-evans/create-pull-request`, Google Search Console MCP                             |
+| **High**     | Community, single maintainer, or stale                   | Qualtrics MCP (academic), R Statistics MCP (stale)                                       |
+| **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` (deprecated legacy package; migrate to GitHub MCP) |
 
-**Rule**: Prefer official sources. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics — neither company provides official SDKs or MCP servers.
+**Rule**: Prefer official sources. If you encounter older setup examples that reference `@modelcontextprotocol/server-github`, treat them as legacy and use the official GitHub MCP server instead. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics — neither company provides official SDKs or MCP servers.
 
 ## Parallel Development with Worktrees
 
