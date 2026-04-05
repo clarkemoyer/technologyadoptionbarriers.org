@@ -62,6 +62,10 @@ dfmt() { if [ "$1" -gt 0 ]; then printf "+%d" "$1"; elif [ "$1" -eq 0 ]; then pr
 HAS_CRITICAL=false
 CRITICAL_REASONS=""
 
+# Thresholds for critical detection
+LARGE_DELTA_THRESHOLD=50
+NEGATIVE_PROGRESS_THRESHOLD=-5
+
 # 1. Pipeline phase failures
 if [ "${TRIAGE_RESULT:-}" = "failure" ]; then
   HAS_CRITICAL=true
@@ -82,10 +86,10 @@ fi
 
 # 2. Disposition anomaly: AUTO-EXCLUDE participants incorrectly approved
 if [ -f "$TODAY_FILE" ]; then
-  AE_APPROVED=$(python3 -c "
-import json
+  AE_APPROVED=$(TODAY_FILE="$TODAY_FILE" python3 -c "
+import json, os
 try:
-    d = json.load(open('$TODAY_FILE'))
+    d = json.load(open(os.environ['TODAY_FILE']))
     print(d.get('dispositionByStatus', {}).get('AUTO-EXCLUDE', {}).get('APPROVED', 0))
 except Exception:
     print(0)
@@ -96,15 +100,16 @@ except Exception:
   fi
 fi
 
-# 3. Large delta threshold: >50 swing in approved count
+# 3. Large delta threshold: >LARGE_DELTA_THRESHOLD swing in approved count
 # 4. Negative completion progress: total responses decreased
 if [ "$HAS_DASHBOARD" = true ]; then
-  DELTA_APPROVED_ABS=${DELTA_APPROVED#-}
-  if [ "$DELTA_APPROVED_ABS" -gt 50 ]; then
+  DELTA_APPROVED_ABS=${DELTA_APPROVED:-0}
+  DELTA_APPROVED_ABS=${DELTA_APPROVED_ABS#-}
+  if [ "$DELTA_APPROVED_ABS" -gt "$LARGE_DELTA_THRESHOLD" ]; then
     HAS_CRITICAL=true
     CRITICAL_REASONS="${CRITICAL_REASONS:+$CRITICAL_REASONS, }large approval delta ($DELTA_APPROVED)"
   fi
-  if [ "$DELTA_TOTAL" -lt -5 ]; then
+  if [ "${DELTA_TOTAL:-0}" -lt "$NEGATIVE_PROGRESS_THRESHOLD" ]; then
     HAS_CRITICAL=true
     CRITICAL_REASONS="${CRITICAL_REASONS:+$CRITICAL_REASONS, }negative completion progress ($DELTA_TOTAL)"
   fi
@@ -380,6 +385,11 @@ ISSUE_URL=$(gh issue create \
   --label "documentation")
 ISSUE_NUM=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
 
+if [ -z "${ISSUE_NUM:-}" ]; then
+  echo "Error: could not determine issue number from output: $ISSUE_URL" >&2
+  exit 1
+fi
+
 echo "Daily report issue created: $TITLE (#$ISSUE_NUM)"
 
 # --- Ensure required labels exist ---
@@ -413,7 +423,11 @@ gh issue list \
 
 NOW_EPOCH="$NOW_EPOCH" CURRENT_ISSUE="$ISSUE_NUM" python3 << 'CLOSEEOF'
 import json, os, subprocess
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
+
+# Policy constants
+AUTO_CLOSE_HOURS_NO_CRITICAL = 24      # close non-critical reports after this many hours
+AUTO_CLOSE_HOURS_NO_COMMENTS = 48      # close any report with no comments after this many hours
 
 with open('/tmp/old-reports.json') as f:
     data = json.load(f)
@@ -421,13 +435,27 @@ with open('/tmp/old-reports.json') as f:
 now = int(os.environ.get('NOW_EPOCH', '0'))
 current_issue = int(os.environ.get('CURRENT_ISSUE', '0'))
 
+def parse_gh_timestamp(ts: str) -> datetime:
+    """Parse a GitHub API timestamp, handling both with and without milliseconds."""
+    for fmt in ('%Y-%m-%dT%H:%M:%SZ', '%Y-%m-%dT%H:%M:%S.%fZ'):
+        try:
+            return datetime.strptime(ts, fmt).replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+    # Fall back to fromisoformat for any other ISO 8601 variant
+    return datetime.fromisoformat(ts.replace('Z', '+00:00'))
+
 for issue in data:
     num = issue['number']
     if num == current_issue:
         continue
 
-    created = issue['createdAt']
-    dt = datetime.strptime(created, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=timezone.utc)
+    try:
+        dt = parse_gh_timestamp(issue['createdAt'])
+    except Exception as e:
+        print(f'Skipping issue #{num}: could not parse timestamp {issue["createdAt"]!r}: {e}')
+        continue
+
     age_hours = (now - dt.timestamp()) / 3600
 
     labels = [lbl['name'] for lbl in issue.get('labels', [])]
@@ -437,16 +465,16 @@ for issue in data:
     should_close = False
     close_reason = ''
 
-    # Close non-critical issues older than 24h
-    if not has_needs_attention and age_hours > 24:
+    # Close non-critical issues older than AUTO_CLOSE_HOURS_NO_CRITICAL
+    if not has_needs_attention and age_hours > AUTO_CLOSE_HOURS_NO_CRITICAL:
         should_close = True
         close_reason = (
             f'No critical findings were detected and this report is {age_hours:.0f} hours old. '
             "Auto-closing — see today's report for the latest status."
         )
 
-    # Close any issues older than 48h with no comments (even if marked critical)
-    if age_hours > 48 and comment_count == 0:
+    # Close any issues older than AUTO_CLOSE_HOURS_NO_COMMENTS with no comments (even if marked critical)
+    if age_hours > AUTO_CLOSE_HOURS_NO_COMMENTS and comment_count == 0:
         should_close = True
         close_reason = (
             f'This report is {age_hours:.0f} hours old with no comments. '
