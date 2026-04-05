@@ -1,8 +1,5 @@
 name: Jules Agent (Gemini)
 
-# Trigger Jules when the 'jules' label is added to an issue.
-# Jules works independently from Copilot with its own concurrency pool (60 on Ultra).
-
 on:
   issues:
     types: [labeled]
@@ -12,33 +9,19 @@ jobs:
     if: github.event.label.name == 'jules'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-
-      - name: Build prompt from issue
-        id: prompt
-        env:
-          ISSUE_TITLE: ${{ github.event.issue.title }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-        run: |
-          PROMPT="Fix GitHub issue #${ISSUE_NUMBER}: ${ISSUE_TITLE}
-
-          ${ISSUE_BODY}
-
-          Instructions:
-          - Follow the project's CLAUDE.md conventions (kebab-case folders, assetPath for images, Prettier formatting)
-          - Run npm run format before committing
-          - Run npm run lint and fix errors
-          - Run npm test to verify
-          - Use conventional commit messages (feat:, fix:, docs:, chore:)
-          - Create a PR targeting main with a clear description"
-          # Write to file to handle multiline
-          echo "$PROMPT" > /tmp/jules-prompt.txt
-          echo "prompt_file=/tmp/jules-prompt.txt" >> "$GITHUB_OUTPUT"
-
-      - name: Invoke Jules
-        uses: google-labs-code/jules-invoke@v1
+      - uses: google-labs-code/jules-invoke@v1
         with:
-          prompt: ${{ steps.prompt.outputs.prompt_file && format('Fix GitHub issue #{0}: {1}\n\n{2}', github.event.issue.number, github.event.issue.title, github.event.issue.body) || 'See issue for details' }}
+          prompt: |
+            Fix GitHub issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}
+
+            ${{ github.event.issue.body }}
+
+            Instructions:
+            - Follow the project CLAUDE.md conventions
+            - Use kebab-case for folders, assetPath() for images
+            - Run npm run format before committing
+            - Run npm run lint and fix errors
+            - Use conventional commit messages (feat:, fix:, docs:, chore:)
+            - Create a PR targeting main
           jules_api_key: ${{ secrets.GOOGLE_JULES_API_KEY }}
           starting_branch: main
