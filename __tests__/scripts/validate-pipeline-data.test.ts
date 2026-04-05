@@ -164,6 +164,15 @@ describe('validateDispositionSummary', () => {
     expect(result.ok).toBe(false)
   })
 
+  it('fails when iriPassRates values are outside 0–100 range', () => {
+    const data = {
+      ...VALID_DISPOSITION_SUMMARY,
+      iriPassRates: { barrier: 101, readiness: 71.1, maturity: 80.8 },
+    }
+    const result = validateDispositionSummary(data)
+    expect(result.ok).toBe(false)
+  })
+
   it('fails when dispositions values are not non-negative integers', () => {
     const data = {
       ...VALID_DISPOSITION_SUMMARY,
