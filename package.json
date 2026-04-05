@@ -14,6 +14,7 @@
     "qualtrics:mcp:client": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/set-qualtrics-mcp-client.ps1",
     "qualtrics:flow:dump": "tsx scripts/qualtrics-dump-flow.ts",
     "release:notes": "tsx scripts/generate-release-notes.ts",
+    "validate:data": "tsx scripts/validate-pipeline-data.ts",
     "check-links": "linkinator ./out --recurse --config .linkinatorrc.json",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -68,7 +69,8 @@
     "prettier": "^3.8.1",
     "tailwindcss": "^4.1.12",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.2",
+    "zod": "^4.3.6"
   },
   "overrides": {
     "tmp": "^0.2.5"

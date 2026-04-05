@@ -58,6 +58,9 @@ jobs:
         # E2E tests need to run against a build without basePath since the test server
         # (serve -s out) doesn't understand basePath routing
 
+      - name: Validate pipeline data files
+        run: npm run validate:data
+
       - name: Upload built site (for E2E)
         uses: actions/upload-artifact@v7
         with:
