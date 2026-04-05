@@ -735,7 +735,10 @@ gh run watch <RUN_ID> --repo clarkemoyer/technologyadoptionbarriers.org --exit-s
 Project-level hooks live in `.claude/settings.json`. **This file is gitignored and is not present in the repo by default** — each contributor must create it locally. Copy the committed template to get started:
 
 ```bash
+# macOS/Linux
 cp .claude/settings.example.json .claude/settings.json
+# Windows
+copy .claude\settings.example.json .claude\settings.json
 ```
 
 ### Active Hooks

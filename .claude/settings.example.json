@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "npx prettier --write \"$CLAUDE_TOOL_INPUT_FILE\" 2>/dev/null || true"
+            "command": "npx prettier --write \"$CLAUDE_TOOL_INPUT_FILE\""
           }
         ]
       }
