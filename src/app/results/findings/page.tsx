@@ -10,7 +10,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
-import EffectSizeChart, { EffectSizeData } from '@/components/results/effect-size-chart'
+import EffectSizeChart from '@/components/results/effect-size-chart'
 
 export const metadata: Metadata = {
   title: 'Key Findings — TABS Results',
@@ -196,17 +196,12 @@ const FindingsPage = () => {
                               string,
                               EffectSizeConstruct
                             >
-                          )
-                            .filter(([, v]) => v.d !== null)
-                            .map(
-                              ([c, v]) =>
-                                ({
-                                  construct: c,
-                                  d: v.d as number,
-                                  n1: effects['tech_vs_nontech'].tech_n as number,
-                                  n2: effects['tech_vs_nontech'].nontech_n as number,
-                                }) as EffectSizeData
-                            )}
+                          ).map(([c, v]) => ({
+                            construct: c,
+                            d: v.d ?? null,
+                            n1: effects['tech_vs_nontech'].tech_n as number,
+                            n2: effects['tech_vs_nontech'].nontech_n as number,
+                          }))}
                         />
 
                         <div className="overflow-x-auto">
@@ -273,17 +268,12 @@ const FindingsPage = () => {
                                   string,
                                   EffectSizeConstruct
                                 >
-                              )
-                                .filter(([, v]) => v.d !== null)
-                                .map(
-                                  ([c, v]) =>
-                                    ({
-                                      construct: c,
-                                      d: v.d as number,
-                                      n1: effects['large_vs_small'].large_n as number,
-                                      n2: effects['large_vs_small'].small_medium_n as number,
-                                    }) as EffectSizeData
-                                )}
+                              ).map(([c, v]) => ({
+                                construct: c,
+                                d: v.d ?? null,
+                                n1: effects['large_vs_small'].large_n as number,
+                                n2: effects['large_vs_small'].small_medium_n as number,
+                              }))}
                             />
 
                             <div className="overflow-x-auto">

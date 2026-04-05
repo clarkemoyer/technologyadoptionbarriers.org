@@ -16,7 +16,7 @@ import {
 
 export interface EffectSizeData {
   construct: string
-  d: number
+  d: number | null
   n1: number
   n2: number
 }
@@ -42,26 +42,45 @@ const getEffectSizeLabel = (d: number) => {
 
 const EffectSizeChart: React.FC<EffectSizeChartProps> = ({ data, title }) => {
   const chartData = data.map((item) => {
-    const se = Math.sqrt(
-      (item.n1 + item.n2) / (item.n1 * item.n2) + (item.d * item.d) / (2 * (item.n1 + item.n2))
-    )
-    const margin = 1.96 * se
+    const hasValue = item.d !== null && item.d !== undefined
+    const d = item.d ?? 0
+    let margin = 0
+
+    if (hasValue) {
+      const se = Math.sqrt(
+        (item.n1 + item.n2) / (item.n1 * item.n2) + (d * d) / (2 * (item.n1 + item.n2))
+      )
+      margin = 1.96 * se
+    }
+
     return {
       ...item,
+      d,
+      hasValue,
       error: [margin, margin], // [lower, upper] relative to d
-      color: getEffectSizeColor(item.d),
-      sizeLabel: getEffectSizeLabel(item.d),
+      color: hasValue ? getEffectSizeColor(d) : '#e2e8f0', // Light gray for missing
+      sizeLabel: hasValue ? getEffectSizeLabel(d) : 'N/A',
     }
   })
 
+  if (chartData.length === 0) {
+    return (
+      <div className="w-full bg-gray-50 border border-gray-200 rounded-lg p-8 text-center text-gray-500 italic">
+        No effect size data available for this comparison.
+      </div>
+    )
+  }
+
   // Determine domain based on data to keep it centered but responsive
-  const maxD = Math.max(...chartData.map((d) => Math.abs(d.d) + d.error[0]))
+  const maxD = Math.max(...chartData.map((d) => Math.abs(d.d ?? 0) + d.error[0]))
   const domainLimit = Math.max(1.0, Math.ceil(maxD * 2) / 2)
 
   return (
-    <div className="w-full bg-white border border-gray-200 rounded-lg p-4 sm:p-6 mb-6 shadow-sm">
-      <h3 className="text-xs font-bold text-gray-500 uppercase mb-4 tracking-wider">{title}</h3>
-      <div className="h-[250px] w-full" role="img" aria-label={`Effect size chart for ${title}`}>
+    <figure className="w-full bg-white border border-gray-200 rounded-lg p-4 sm:p-6 mb-6 shadow-sm">
+      <figcaption className="text-xs font-bold text-gray-500 uppercase mb-4 tracking-wider">
+        {title}
+      </figcaption>
+      <div className="h-[250px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={chartData}
@@ -120,9 +139,13 @@ const EffectSizeChart: React.FC<EffectSizeChartProps> = ({ data, title }) => {
               }}
             />
             <ReferenceLine x={0} stroke="#94a3b8" strokeWidth={1} />
-            <Bar dataKey="d" barSize={20} radius={[0, 4, 4, 0]}>
+            <Bar dataKey="d" barSize={20}>
               {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
+                <Cell
+                  key={`cell-${index}`}
+                  fill={entry.color}
+                  radius={entry.d < 0 ? [4, 0, 0, 4] : [0, 4, 4, 0]}
+                />
               ))}
               <ErrorBar
                 dataKey="error"
@@ -151,7 +174,7 @@ const EffectSizeChart: React.FC<EffectSizeChartProps> = ({ data, title }) => {
           <span>Large (&gt; 0.8)</span>
         </div>
       </div>
-    </div>
+    </figure>
   )
 }
 
