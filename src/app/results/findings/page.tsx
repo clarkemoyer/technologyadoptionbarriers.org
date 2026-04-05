@@ -10,6 +10,8 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
+import EffectSizeChart from '@/components/tabs/effect-size-chart'
+import type { EffectSizeEntry } from '@/components/tabs/effect-size-chart'
 
 export const metadata: Metadata = {
   title: 'Key Findings — TABS Results',
@@ -117,6 +119,41 @@ const dSize = (d: number | null | undefined): string => {
   return 'large'
 }
 
+/** Abbreviated group labels used on the chart Y-axis */
+const GROUP_SHORT: Record<string, string> = {
+  conservative_clean: 'Cons. Clean',
+  flexible_clean: 'Flex. Clean',
+  prolific_accepted: 'Prolific',
+  v2_finished: 'V2 Finished',
+}
+
+const CONSTRUCTS = ['barriers', 'readiness', 'maturity'] as const
+
+/** Build flat chart entries for a given effect-size comparison key */
+function buildChartEntries(compKey: 'tech_vs_nontech' | 'large_vs_small'): EffectSizeEntry[] {
+  return CONSTRUCTS.flatMap((construct) =>
+    PRIMARY_GROUPS.map((group) => {
+      const constructs = sampleDetails[group.key]?.effect_sizes?.[compKey]?.constructs as
+        | Record<string, { d?: number | null }>
+        | undefined
+      return {
+        label: `${construct.charAt(0).toUpperCase() + construct.slice(1)} — ${GROUP_SHORT[group.key] ?? group.label}`,
+        construct,
+        groupKey: group.key,
+        groupLabel: group.label,
+        d: constructs?.[construct]?.d ?? null,
+      }
+    })
+  )
+}
+
+const techVsNonTechEntries = buildChartEntries('tech_vs_nontech')
+const largeVsSmallEntries = buildChartEntries('large_vs_small')
+
+/** True when at least one group has computed effect size data */
+const hasAnyCrossGroupData =
+  techVsNonTechEntries.some((e) => e.d !== null) || largeVsSmallEntries.some((e) => e.d !== null)
+
 const FindingsPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -159,6 +196,33 @@ const FindingsPage = () => {
             Each comparison is computed separately for each result group.
           </p>
 
+          {/* ── Cross-group visualization ── */}
+          {hasAnyCrossGroupData ? (
+            <div className="mb-8">
+              <p className="text-sm text-gray-500 mb-4">
+                The charts below compare Cohen&apos;s d across all four result groups
+                simultaneously. Bars extending right indicate the first group scores higher; bars
+                extending left indicate the second group scores higher. Dashed vertical lines mark
+                the 0.2, 0.5, and 0.8 thresholds.
+              </p>
+              <EffectSizeChart
+                comparisonLabel="Technical (CIO/CTO) vs Non-Technical"
+                entries={techVsNonTechEntries}
+                ariaLabel="Horizontal bar chart showing Cohen's d effect sizes for technical versus non-technical role comparison across four result groups and three constructs: barriers, readiness, and maturity"
+              />
+              <EffectSizeChart
+                comparisonLabel="Large Org (5000+) vs Small/Medium"
+                entries={largeVsSmallEntries}
+                ariaLabel="Horizontal bar chart showing Cohen's d effect sizes for large versus small or medium organization comparison across four result groups and three constructs"
+              />
+            </div>
+          ) : (
+            <p className="text-sm text-gray-500 italic mb-6">
+              Effect size charts will appear after the next pipeline run.
+            </p>
+          )}
+
+          {/* ── Per-group detail tables ── */}
           {PRIMARY_GROUPS.map((group) => {
             const sample = sensitivityData.samples.find((s) => s.key === group.key)
             const details = sampleDetails[group.key]
