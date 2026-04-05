@@ -102,11 +102,11 @@ def _aggregate_categorical(
     # Normalize empty / DATA_EXPIRED values
     cleaned = []
     for v in values:
-        v = v.strip()
-        if not v or v.upper() in ("DATA_EXPIRED", "N/A", "NA", "PREFER NOT TO SAY"):
+        normalized = (v or "").strip()
+        if not normalized or normalized.upper() in ("DATA_EXPIRED", "N/A", "NA", "PREFER NOT TO SAY"):
             cleaned.append("Prefer not to say / Not available")
         else:
-            cleaned.append(v)
+            cleaned.append(normalized)
 
     counts = Counter(cleaned)
 
@@ -132,8 +132,9 @@ def _aggregate_categorical(
         else:
             result.append({"label": label, "count": count, "pct": round(count / total * 100, 1)})
 
-    if other_count > 0:
-        # Only include "Other" bucket if its merged total meets min_cell threshold
+    if other_count >= min_cell:
+        # Only include "Other" bucket if its merged total meets the min_cell threshold,
+        # ensuring no reported category has count < MIN_CELL_SIZE.
         result.append({
             "label": "Other / Prefer not to say",
             "count": other_count,
@@ -253,7 +254,9 @@ def aggregate_demographics(csv_path: str, min_cell: int = DEFAULT_MIN_CELL_SIZE)
         "privacyNote": (
             f"All counts are aggregated. Categories with fewer than {min_cell} "
             "participants are merged into 'Other / Prefer not to say' to protect "
-            "individual privacy. No participant-level data is included."
+            "individual privacy. If the merged 'Other' total is also fewer than "
+            f"{min_cell}, it is omitted entirely so no reported category has "
+            "a count below the minimum cell size. No participant-level data is included."
         ),
         "age": age_data,
         "gender": {"categories": gender_cats},

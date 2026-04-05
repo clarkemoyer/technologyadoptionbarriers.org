@@ -46,11 +46,15 @@ const BarChart = ({ categories }: { categories: DemoCategory[] }) => {
           >
             {cat.label}
           </div>
-          <div className="flex-1 bg-gray-100 rounded h-5 overflow-hidden">
+          <div
+            className="flex-1 bg-gray-100 rounded h-5 overflow-hidden"
+            role="img"
+            aria-label={`${cat.label}: ${cat.count} (${fmtPct(cat.pct)})`}
+          >
             <div
               className="h-5 bg-tabs-teal-deep rounded"
               style={{ width: max > 0 ? `${(cat.count / max) * 100}%` : '0%' }}
-              aria-label={`${cat.label}: ${cat.count} (${fmtPct(cat.pct)})`}
+              aria-hidden="true"
             />
           </div>
           <div className="w-20 shrink-0 text-gray-600 font-mono text-xs">
@@ -223,17 +227,27 @@ const SamplePage = () => {
                     <div className="w-16 shrink-0 text-right text-gray-700 font-mono">
                       {r.range}
                     </div>
-                    <div className="flex-1 bg-gray-100 rounded h-5 overflow-hidden">
+                    <div
+                      className="flex-1 bg-gray-100 rounded h-5 overflow-hidden"
+                      role="img"
+                      aria-label={
+                        r.count !== null && ageBarMax > 0
+                          ? `${r.range}: ${r.count} (${fmtPct(r.pct)})`
+                          : `${r.range}: suppressed (fewer than 5 participants)`
+                      }
+                    >
                       {r.count !== null && ageBarMax > 0 ? (
                         <div
                           className="h-5 bg-tabs-teal-deep rounded"
                           style={{ width: `${(r.count / ageBarMax) * 100}%` }}
-                          aria-label={`${r.range}: ${r.count} (${fmtPct(r.pct)})`}
+                          aria-hidden="true"
                         />
                       ) : (
                         <div
                           className="h-5 bg-gray-200 rounded"
+                          style={{ width: '0%' }}
                           title="Suppressed: fewer than 5 participants"
+                          aria-hidden="true"
                         />
                       )}
                     </div>

@@ -107,18 +107,32 @@ class TestAggregateCategorical:
         assert "Female" in labels
 
     def test_small_cell_merged_into_other(self):
-        # 3 "Non-binary" — below min_cell=5, should merge into Other
+        # 3 "Non-binary" — below min_cell=5; merged total (3) also < min_cell,
+        # so the "Other" bucket is omitted to preserve the min-cell guarantee.
         values = ["Male"] * 10 + ["Female"] * 8 + ["Non-binary"] * 3
         result = _aggregate_categorical(values, min_cell=5)
         labels = {r["label"] for r in result}
         assert "Non-binary" not in labels
+        assert "Other / Prefer not to say" not in labels
+
+    def test_small_cell_merged_into_other_when_total_meets_threshold(self):
+        # Two small groups: 3 "Non-binary" + 3 "Prefer not to say" → merged total = 6 >= min_cell=5
+        # The "Other" bucket should appear since the merged total meets the threshold.
+        values = ["Male"] * 10 + ["Female"] * 8 + ["Non-binary"] * 3 + ["Prefer not to say"] * 3
+        result = _aggregate_categorical(values, min_cell=5)
+        labels = {r["label"] for r in result}
+        assert "Non-binary" not in labels
+        assert "Prefer not to say" not in labels
         assert "Other / Prefer not to say" in labels
+        other = next(r for r in result if r["label"] == "Other / Prefer not to say")
+        assert other["count"] == 6
 
     def test_small_cell_count_absorbed_into_other(self):
-        values = ["Male"] * 10 + ["Female"] * 8 + ["Non-binary"] * 3
+        # Two small groups: 3 "Non-binary" + 3 "Prefer not to say" → merged total = 6 >= min_cell=5
+        values = ["Male"] * 10 + ["Female"] * 8 + ["Non-binary"] * 3 + ["Prefer not to say"] * 3
         result = _aggregate_categorical(values, min_cell=5)
         other = next(r for r in result if r["label"] == "Other / Prefer not to say")
-        assert other["count"] == 3
+        assert other["count"] == 6
 
     def test_data_expired_normalized(self):
         values = ["Male"] * 10 + ["DATA_EXPIRED"] * 2 + ["Female"] * 8
@@ -149,6 +163,17 @@ class TestAggregateCategorical:
     def test_empty_input(self):
         result = _aggregate_categorical([], min_cell=5)
         assert result == []
+
+    def test_none_values_handled_gracefully(self):
+        # csv.DictReader can return None for missing fields; verify no AttributeError
+        values = ["Male"] * 10 + [None] * 3 + ["Female"] * 7  # type: ignore[list-item]
+        result = _aggregate_categorical(values, min_cell=5)
+        labels = {r["label"] for r in result}
+        # None normalized to "Prefer not to say / Not available" then absorbed into
+        # "Other / Prefer not to say". With count=3 < min_cell=5 the bucket is suppressed.
+        assert "None" not in labels
+        assert "Male" in labels
+        assert "Female" in labels
 
     def test_all_small_cells_merged(self):
         # All categories below min_cell — everything goes into Other
@@ -250,7 +275,8 @@ class TestAggregateDemographics:
         assert result["totalParticipants"] == 15
 
     def test_privacy_min_cell_respected(self, tmp_path):
-        # 12 Male, 6 Female, 3 Other — with min_cell=5, "Other" sex should merge
+        # 12 Male, 6 Female, 3 Non-binary — with min_cell=5, "Non-binary" merges
+        # into "Other"; merged total (3) < min_cell so "Other" is also suppressed.
         rows = (
             [_make_row(f"P{i}", sex="Male") for i in range(12)]
             + [_make_row(f"P{i + 12}", sex="Female") for i in range(6)]
@@ -260,6 +286,11 @@ class TestAggregateDemographics:
         result = aggregate_demographics(csv_path, min_cell=5)
         gender_labels = {c["label"] for c in result["gender"]["categories"]}
         assert "Non-binary" not in gender_labels
+        # "Other" bucket is also suppressed since its count (3) < min_cell (5)
+        assert "Other / Prefer not to say" not in gender_labels
+        # No reported category has count < min_cell
+        for cat in result["gender"]["categories"]:
+            assert cat["count"] >= 5
 
     def test_no_pid_in_output(self, tmp_path):
         rows = [_make_row(f"PID_{i}") for i in range(10)]

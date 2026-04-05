@@ -7,8 +7,7 @@ deviations for all Barriers (18 items), Readiness (17 items), and Maturity
 
 Outputs ``src/data/item-stats.json`` with:
   - Per-item means, SDs, and N for each construct
-  - Top 5 / bottom 5 barriers by mean
-  - Grand means per construct
+  - Top 5 / bottom 5 items by mean (only items with computable means are ranked)
 
 Usage:
     INPUT_CSV=/path/to/qualtrics-enriched.csv \\
@@ -99,8 +98,11 @@ def _build_construct(
         stats = _item_stats(rows, col, scale, idx)
         items.append({"col": col, "name": name, **stats})
 
-    # Sort copies for ranking (do not modify original order)
-    ranked = sorted(items, key=lambda x: (-(x["mean"] or 0), x["name"]))
+    # Sort copies for ranking (do not modify original order); exclude items with no data
+    ranked = sorted(
+        [item for item in items if item["mean"] is not None],
+        key=lambda x: (-x["mean"], x["name"]),
+    )
 
     return {
         "label": label,
