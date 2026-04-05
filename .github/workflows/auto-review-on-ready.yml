@@ -9,6 +9,9 @@ on:
     types: [ready_for_review]
     branches: ['main']
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   dispatch-review:
     runs-on: ubuntu-latest

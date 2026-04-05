@@ -19,6 +19,9 @@ permissions:
   contents: write
   pull-requests: write
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   # ── Phase 1: Fetch Prolific data (separate environment) ───────
   # Prolific artifacts contain auth check scores (HIGH/MIXED/LOW) and
@@ -32,7 +35,7 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
@@ -63,7 +66,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 

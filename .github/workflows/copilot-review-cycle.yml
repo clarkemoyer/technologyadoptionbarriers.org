@@ -35,6 +35,9 @@ permissions:
   pull-requests: write
   issues: write
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   review-cycle:
     name: Review Round ${{ github.event.inputs.round || '1' }}

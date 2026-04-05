@@ -27,6 +27,9 @@ concurrency:
   group: prettier-autofix-${{ github.event.workflow_run.head_branch }}
   cancel-in-progress: true
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   autofix:
     if: >-
