@@ -452,14 +452,16 @@ function addLabel(repo: string, prNumber: string, label: string): void {
 /**
  * Enable auto-merge on the PR (squash method).
  */
-function enableAutoMerge(repo: string, prNumber: string): void {
+function enableAutoMerge(repo: string, prNumber: string): boolean {
   console.log('  Enabling auto-merge...')
   try {
     gh(`pr merge ${prNumber} -R ${repo} --auto --squash`)
     console.log('  Auto-merge enabled.')
+    return true
   } catch (err: any) {
     const msg = err.stderr?.toString() || err.message || ''
     console.log(`  Could not enable auto-merge: ${msg.slice(0, 200)}`)
+    return false
   }
 }
 
@@ -571,15 +573,18 @@ async function main() {
 
     if (ciResult === 'pass') {
       addLabel(repo, prNumber, 'ready-to-merge')
-      const mergeNote = autoMerge ? ' Auto-merge has been enabled.' : ''
+      let mergeNote = ''
+      if (autoMerge) {
+        const merged = enableAutoMerge(repo, prNumber)
+        mergeNote = merged
+          ? ' Auto-merge has been enabled.'
+          : ' Auto-merge could not be enabled — merge manually.'
+      }
       postComment(
         repo,
         prNumber,
         `**Copilot Review Cycle:** ✅ Passed after ${round} round(s) — review clean, all CI checks green. Ready to merge.${mergeNote}`
       )
-      if (autoMerge) {
-        enableAutoMerge(repo, prNumber)
-      }
       writeSummary(prNumber, round, maxRounds, 'READY_TO_MERGE', 0, 'Review clean + CI green')
     } else if (ciResult === 'fail') {
       postComment(
@@ -668,8 +673,20 @@ async function main() {
   }
 
   if (ciResult === null) {
-    // Timeout — dispatch next round anyway, CI may still be running
-    console.log('  CI timed out, dispatching next round anyway...')
+    postComment(
+      repo,
+      prNumber,
+      `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Fixes were pushed but CI did not complete within timeout. Re-trigger the review cycle manually once CI passes.`
+    )
+    writeSummary(
+      prNumber,
+      round,
+      maxRounds,
+      'CI_TIMEOUT',
+      comments.length,
+      'CI timed out after fixes'
+    )
+    process.exit(1)
   }
 
   // Step 11: Dispatch next round
