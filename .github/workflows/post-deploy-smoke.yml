@@ -694,7 +694,7 @@ jobs:
       # ── Set commit status on failure ──────────────────────────────────
 
       - name: Set commit status (failure)
-        if: always() && steps.verdict.outcome == 'failure'
+        if: always() && (steps.verdict.outcome == 'failure' || (failure() && steps.verdict.outcome != 'success'))
         uses: actions/github-script@v8
         with:
           script: |
@@ -702,18 +702,22 @@ jobs:
               ? '${{ github.event.workflow_run.head_sha }}'
               : context.sha;
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const verdictOutcome = '${{ steps.verdict.outcome }}';
+            const description = verdictOutcome === 'failure'
+              ? '🚨 Production smoke test failed — site may be broken'
+              : '🚨 Smoke test workflow failed before checks ran';
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
               sha: sha || context.sha,
               state: 'failure',
               target_url: runUrl,
-              description: '🚨 Production smoke test failed — site may be broken',
+              description,
               context: 'post-deploy-smoke-test',
             });
 
       - name: Set commit status (success)
-        if: always() && steps.verdict.outcome == 'success'
+        if: always() && steps.verdict.outcome == 'success' && !failure()
         uses: actions/github-script@v8
         with:
           script: |
