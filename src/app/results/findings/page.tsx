@@ -9,6 +9,7 @@ import {
 } from '@/lib/articleStyles'
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
+import itemStatsRaw from '@/data/item-stats.json'
 import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
@@ -19,6 +20,42 @@ export const metadata: Metadata = {
     canonical: '/results/findings',
   },
 }
+
+interface ItemStatItem {
+  col: string
+  name: string
+  mean: number | null
+  sd: number | null
+  n: number
+}
+
+interface ItemStatRanked {
+  rank: number
+  name: string
+  mean: number | null
+  sd: number | null
+}
+
+interface ItemStatConstruct {
+  label: string
+  numItems: number
+  items: ItemStatItem[]
+  top5: ItemStatRanked[]
+  bottom5: ItemStatRanked[]
+}
+
+interface ItemStatGroup {
+  generatedAt: string
+  sampleKey: string
+  n: number
+  constructs: {
+    barriers: ItemStatConstruct
+    readiness: ItemStatConstruct
+    maturity: ItemStatConstruct
+  }
+}
+
+const itemStats = (itemStatsRaw || {}) as unknown as Record<string, ItemStatGroup>
 
 interface EffectSizeConstruct {
   tech_mean?: number | null
@@ -89,6 +126,99 @@ const PRIMARY_GROUPS = [
   { key: 'v2_finished', label: 'All V2 Finished', color: 'border-gray-400' },
 ]
 
+const renderItemStatsTable = (
+  title: string,
+  items: ItemStatRanked[],
+  baselineItems: ItemStatRanked[] | null,
+  isTop: boolean
+) => {
+  return (
+    <div className="mb-6">
+      <h4 className="text-sm font-bold text-gray-700 uppercase mb-3">{title}</h4>
+      <div className="overflow-x-auto shadow-sm border border-gray-200 rounded-lg">
+        <table className="w-full text-sm text-left font-sans bg-white" aria-label={title}>
+          <thead className="bg-gray-50 text-gray-600 border-b border-gray-200">
+            <tr>
+              <th scope="col" className="px-4 py-2 w-16 text-center">
+                Rank
+              </th>
+              <th scope="col" className="px-4 py-2">
+                Item
+              </th>
+              <th scope="col" className="px-4 py-2 text-right w-24">
+                Mean
+              </th>
+              <th scope="col" className="px-4 py-2 text-right w-24">
+                SD
+              </th>
+              <th scope="col" className="px-4 py-2 text-center w-28">
+                Sensitivity
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-100">
+            {items.map((item, index) => {
+              // Find baseline rank
+              const baselineMatch = baselineItems?.find((b) => b.name === item.name)
+              const baselineRank = baselineMatch ? baselineMatch.rank : null
+
+              // Determine shift
+              let shiftDisplay = <span className="text-gray-400">—</span>
+              let rowClass = 'hover:bg-gray-50 transition-colors'
+
+              if (baselineRank !== null) {
+                const diff = baselineRank - item.rank
+                if (diff > 0) {
+                  shiftDisplay = <span className="text-green-600 font-medium">▲ +{diff}</span>
+                  if (diff >= 2) rowClass = 'bg-green-50 hover:bg-green-100 transition-colors'
+                } else if (diff < 0) {
+                  shiftDisplay = <span className="text-red-600 font-medium">▼ {diff}</span>
+                  if (diff <= -2) rowClass = 'bg-red-50 hover:bg-red-100 transition-colors'
+                }
+              } else if (baselineItems) {
+                // It wasn't in the top/bottom 5 of the baseline
+                shiftDisplay = (
+                  <span className="text-amber-600 font-medium text-xs">
+                    New to {isTop ? 'Top' : 'Bottom'} 5
+                  </span>
+                )
+                rowClass = 'bg-amber-50 hover:bg-amber-100 transition-colors'
+              }
+
+              // Scale mean to percentage for bar width (mean is on a 1-5 scale)
+              const meanPercentage = item.mean ? ((item.mean - 1) / 4) * 100 : 0
+
+              return (
+                <tr key={item.name} className={rowClass}>
+                  <td className="px-4 py-2 text-center font-semibold text-gray-700">{item.rank}</td>
+                  <td className="px-4 py-2 font-medium text-gray-800">{item.name}</td>
+                  <td className="px-4 py-2 w-28">
+                    <div className="flex items-center gap-2 justify-end">
+                      <div className="w-12 h-1.5 bg-gray-200 rounded-full overflow-hidden shrink-0">
+                        <div
+                          className="h-full bg-blue-500 rounded-full"
+                          style={{ width: `${meanPercentage}%` }}
+                        />
+                      </div>
+                      <span className="font-mono text-right w-8">
+                        {item.mean?.toFixed(2) ?? '—'}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-4 py-2 text-right font-mono text-gray-500">
+                    {item.sd?.toFixed(2) ?? '—'}
+                  </td>
+                  <td className="px-4 py-2 text-center text-xs">{shiftDisplay}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
 const fmt = (val: number | null | undefined, decimals: number = 2): string => {
   if (val === null || val === undefined) return '—'
   const prefix = val > 0 ? '+' : ''
@@ -148,6 +278,110 @@ const FindingsPage = () => {
             each of the four primary result groups. This ensures that any finding can be validated
             against the researcher&rsquo;s chosen dataset.
           </p>
+        </section>
+
+        {/* ── Per-Item Statistics by Result Group ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Per-Item Statistics</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The top 5 and bottom 5 items by mean score within each construct. Rank sensitivity is
+            shown compared to the Conservative Clean baseline.
+          </p>
+
+          {PRIMARY_GROUPS.map((group) => {
+            const groupStats = itemStats && itemStats[group.key]
+            if (!groupStats) return null
+
+            const baselineStats = itemStats && itemStats['conservative_clean']
+
+            return (
+              <div
+                key={`stats-${group.key}`}
+                className={`border-l-4 ${group.color} bg-gray-50 rounded-lg p-5 mb-6`}
+              >
+                <h3 className={H3_CLASSES}>
+                  {group.label} (N={groupStats.n ?? '—'})
+                </h3>
+
+                <div className="space-y-6 mt-4">
+                  {/* Barriers */}
+                  <div>
+                    <h4 className="font-semibold text-gray-800 border-b border-gray-300 pb-2 mb-4">
+                      Barriers
+                    </h4>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {renderItemStatsTable(
+                        'Top 5 Barriers',
+                        groupStats.constructs.barriers.top5,
+                        group.key === 'conservative_clean'
+                          ? null
+                          : baselineStats?.constructs.barriers.top5,
+                        true
+                      )}
+                      {renderItemStatsTable(
+                        'Bottom 5 Barriers',
+                        groupStats.constructs.barriers.bottom5,
+                        group.key === 'conservative_clean'
+                          ? null
+                          : baselineStats?.constructs.barriers.bottom5,
+                        false
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Readiness */}
+                  <div>
+                    <h4 className="font-semibold text-gray-800 border-b border-gray-300 pb-2 mb-4">
+                      Readiness
+                    </h4>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {renderItemStatsTable(
+                        'Top 5 Readiness',
+                        groupStats.constructs.readiness.top5,
+                        group.key === 'conservative_clean'
+                          ? null
+                          : baselineStats?.constructs.readiness.top5,
+                        true
+                      )}
+                      {renderItemStatsTable(
+                        'Bottom 5 Readiness',
+                        groupStats.constructs.readiness.bottom5,
+                        group.key === 'conservative_clean'
+                          ? null
+                          : baselineStats?.constructs.readiness.bottom5,
+                        false
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Maturity */}
+                  <div>
+                    <h4 className="font-semibold text-gray-800 border-b border-gray-300 pb-2 mb-4">
+                      Maturity
+                    </h4>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {renderItemStatsTable(
+                        'Top 5 Maturity',
+                        groupStats.constructs.maturity.top5,
+                        group.key === 'conservative_clean'
+                          ? null
+                          : baselineStats?.constructs.maturity.top5,
+                        true
+                      )}
+                      {renderItemStatsTable(
+                        'Bottom 5 Maturity',
+                        groupStats.constructs.maturity.bottom5,
+                        group.key === 'conservative_clean'
+                          ? null
+                          : baselineStats?.constructs.maturity.bottom5,
+                        false
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
         </section>
 
         {/* ── Effect Sizes by Result Group ── */}

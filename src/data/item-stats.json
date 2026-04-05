@@ -1,0 +1,2592 @@
+{
+  "conservative_clean": {
+    "generatedAt": "2026-04-05T21:44:42Z",
+    "sampleKey": "conservative_clean",
+    "n": 89,
+    "constructs": {
+      "barriers": {
+        "label": "Barriers",
+        "numItems": 18,
+        "items": [
+          {
+            "col": "Q10-28_Barriers_1",
+            "name": "Resistance to Change",
+            "mean": 3.1348,
+            "sd": 1.4631,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_2",
+            "name": "Lack of Leadership Support",
+            "mean": 3.1573,
+            "sd": 1.5367,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_3",
+            "name": "Risk-Averse Culture",
+            "mean": 3.191,
+            "sd": 1.3807,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_4",
+            "name": "Insufficient Workforce Skills",
+            "mean": 3.1011,
+            "sd": 1.4385,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_5",
+            "name": "Inadequate Training",
+            "mean": 3.191,
+            "sd": 1.4292,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_6",
+            "name": "High Implementation Cost",
+            "mean": 3.1798,
+            "sd": 1.3698,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_7",
+            "name": "Legacy System Integration",
+            "mean": 3.2247,
+            "sd": 1.3293,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_8",
+            "name": "Inadequate IT Infrastructure",
+            "mean": 3.0674,
+            "sd": 1.3718,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_9",
+            "name": "Difficulty Demonstrating Value",
+            "mean": 3.0,
+            "sd": 1.3734,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_10",
+            "name": "No Clear Strategy/Roadmap",
+            "mean": 3.0899,
+            "sd": 1.3705,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_11",
+            "name": "Insufficient Governance",
+            "mean": 2.9438,
+            "sd": 1.3764,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_12",
+            "name": "Workflow Disruption",
+            "mean": 3.1573,
+            "sd": 1.3391,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_13",
+            "name": "Cybersecurity Concerns",
+            "mean": 3.1685,
+            "sd": 1.3419,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_14",
+            "name": "Data Privacy Compliance",
+            "mean": 3.1011,
+            "sd": 1.3984,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_15",
+            "name": "Lack of Trust in Tech/Vendors",
+            "mean": 3.0,
+            "sd": 1.4616,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_16",
+            "name": "Regulatory Complexity",
+            "mean": 3.191,
+            "sd": 1.3641,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_17",
+            "name": "External Pressure Without Readiness",
+            "mean": 3.1685,
+            "sd": 1.4789,
+            "n": 89
+          },
+          {
+            "col": "Q10-28_Barriers_18",
+            "name": "Vendor/Partner Difficulty",
+            "mean": 3.1798,
+            "sd": 1.5342,
+            "n": 89
+          }
+        ],
+        "top5": [
+          {
+            "rank": 1,
+            "name": "Legacy System Integration",
+            "mean": 3.2247,
+            "sd": 1.3293
+          },
+          {
+            "rank": 2,
+            "name": "Inadequate Training",
+            "mean": 3.191,
+            "sd": 1.4292
+          },
+          {
+            "rank": 3,
+            "name": "Regulatory Complexity",
+            "mean": 3.191,
+            "sd": 1.3641
+          },
+          {
+            "rank": 4,
+            "name": "Risk-Averse Culture",
+            "mean": 3.191,
+            "sd": 1.3807
+          },
+          {
+            "rank": 5,
+            "name": "High Implementation Cost",
+            "mean": 3.1798,
+            "sd": 1.3698
+          }
+        ],
+        "bottom5": [
+          {
+            "rank": 14,
+            "name": "No Clear Strategy/Roadmap",
+            "mean": 3.0899,
+            "sd": 1.3705
+          },
+          {
+            "rank": 15,
+            "name": "Inadequate IT Infrastructure",
+            "mean": 3.0674,
+            "sd": 1.3718
+          },
+          {
+            "rank": 16,
+            "name": "Difficulty Demonstrating Value",
+            "mean": 3.0,
+            "sd": 1.3734
+          },
+          {
+            "rank": 17,
+            "name": "Lack of Trust in Tech/Vendors",
+            "mean": 3.0,
+            "sd": 1.4616
+          },
+          {
+            "rank": 18,
+            "name": "Insufficient Governance",
+            "mean": 2.9438,
+            "sd": 1.3764
+          }
+        ]
+      },
+      "readiness": {
+        "label": "Readiness",
+        "numItems": 17,
+        "items": [
+          {
+            "col": "Q47-64_Readiness_1",
+            "name": "Vision/Leadership",
+            "mean": 3.0682,
+            "sd": 1.3879,
+            "n": 88
+          },
+          {
+            "col": "Q47-64_Readiness_2",
+            "name": "Tech-Strategy Alignment",
+            "mean": 2.8652,
+            "sd": 1.3996,
+            "n": 89
+          },
+          {
+            "col": "Q47-64_Readiness_3",
+            "name": "IT Governance Effectiveness",
+            "mean": 3.1348,
+            "sd": 1.4077,
+            "n": 89
+          },
+          {
+            "col": "Q47-64_Readiness_4",
+            "name": "Culture Openness",
+            "mean": 3.1798,
+            "sd": 1.3863,
+            "n": 89
+          },
+          {
+            "col": "Q47-64_Readiness_5",
+            "name": "Innovation Support",
+            "mean": 3.0909,
+            "sd": 1.3949,
+            "n": 88
+          },
+          {
+            "col": "Q47-64_Readiness_6",
+            "name": "Technical Workforce",
+            "mean": 3.1477,
+            "sd": 1.3941,
+            "n": 88
+          },
+          {
+            "col": "Q47-64_Readiness_7",
+            "name": "Training Programs",
+            "mean": 3.1818,
+            "sd": 1.3775,
+            "n": 88
+          },
+          {
+            "col": "Q47-64_Readiness_8",
+            "name": "Change Management",
+            "mean": 3.0787,
+            "sd": 1.5092,
+            "n": 89
+          },
+          {
+            "col": "Q47-64_Readiness_9",
+            "name": "IT Infrastructure",
+            "mean": 3.1591,
+            "sd": 1.4133,
+            "n": 88
+          },
+          {
+            "col": "Q47-64_Readiness_10",
+            "name": "System Interoperability",
+            "mean": 3.1685,
+            "sd": 1.5168,
+            "n": 89
+          },
+          {
+            "col": "Q47-64_Readiness_11",
+            "name": "Technical Support",
+            "mean": 3.3258,
+            "sd": 1.4124,
+            "n": 89
+          },
+          {
+            "col": "Q47-64_Readiness_12",
+            "name": "Data Governance",
+            "mean": 3.1461,
+            "sd": 1.4966,
+            "n": 89
+          },
+          {
+            "col": "Q47-64_Readiness_13",
+            "name": "Data Quality",
+            "mean": 2.8427,
+            "sd": 1.3306,
+            "n": 89
+          },
+          {
+            "col": "Q47-64_Readiness_14",
+            "name": "Data Analytics",
+            "mean": 3.0562,
+            "sd": 1.4171,
+            "n": 89
+          },
+          {
+            "col": "Q47-64_Readiness_15",
+            "name": "Business Process Maturity",
+            "mean": 3.1124,
+            "sd": 1.4573,
+            "n": 89
+          },
+          {
+            "col": "Q47-64_Readiness_16",
+            "name": "Performance Monitoring",
+            "mean": 3.1124,
+            "sd": 1.4337,
+            "n": 89
+          },
+          {
+            "col": "Q47-64_Readiness_17",
+            "name": "Budget Adequacy",
+            "mean": 3.2809,
+            "sd": 1.4221,
+            "n": 89
+          }
+        ],
+        "top5": [
+          {
+            "rank": 1,
+            "name": "Technical Support",
+            "mean": 3.3258,
+            "sd": 1.4124
+          },
+          {
+            "rank": 2,
+            "name": "Budget Adequacy",
+            "mean": 3.2809,
+            "sd": 1.4221
+          },
+          {
+            "rank": 3,
+            "name": "Training Programs",
+            "mean": 3.1818,
+            "sd": 1.3775
+          },
+          {
+            "rank": 4,
+            "name": "Culture Openness",
+            "mean": 3.1798,
+            "sd": 1.3863
+          },
+          {
+            "rank": 5,
+            "name": "System Interoperability",
+            "mean": 3.1685,
+            "sd": 1.5168
+          }
+        ],
+        "bottom5": [
+          {
+            "rank": 13,
+            "name": "Change Management",
+            "mean": 3.0787,
+            "sd": 1.5092
+          },
+          {
+            "rank": 14,
+            "name": "Vision/Leadership",
+            "mean": 3.0682,
+            "sd": 1.3879
+          },
+          {
+            "rank": 15,
+            "name": "Data Analytics",
+            "mean": 3.0562,
+            "sd": 1.4171
+          },
+          {
+            "rank": 16,
+            "name": "Tech-Strategy Alignment",
+            "mean": 2.8652,
+            "sd": 1.3996
+          },
+          {
+            "rank": 17,
+            "name": "Data Quality",
+            "mean": 2.8427,
+            "sd": 1.3306
+          }
+        ]
+      },
+      "maturity": {
+        "label": "Maturity",
+        "numItems": 8,
+        "items": [
+          {
+            "col": "Q65-73_Maturity_1",
+            "name": "IT Investment & Value Mgmt",
+            "mean": 3.0227,
+            "sd": 1.3728,
+            "n": 88
+          },
+          {
+            "col": "Q65-73_Maturity_2",
+            "name": "IT-Enabled Innovation",
+            "mean": 3.25,
+            "sd": 1.1472,
+            "n": 88
+          },
+          {
+            "col": "Q65-73_Maturity_3",
+            "name": "Process Mgmt & Standardization",
+            "mean": 3.0787,
+            "sd": 1.416,
+            "n": 89
+          },
+          {
+            "col": "Q65-73_Maturity_4",
+            "name": "Data Governance & Analytics",
+            "mean": 3.2727,
+            "sd": 1.412,
+            "n": 88
+          },
+          {
+            "col": "Q65-73_Maturity_5",
+            "name": "Tech Risk & Resilience",
+            "mean": 3.1236,
+            "sd": 1.2865,
+            "n": 89
+          },
+          {
+            "col": "Q65-73_Maturity_6",
+            "name": "Strategic IT Planning",
+            "mean": 3.0899,
+            "sd": 1.3622,
+            "n": 89
+          },
+          {
+            "col": "Q65-73_Maturity_7",
+            "name": "Workforce Capability",
+            "mean": 3.1124,
+            "sd": 1.3352,
+            "n": 89
+          },
+          {
+            "col": "Q65-73_Maturity_8",
+            "name": "Change Leadership",
+            "mean": 2.9886,
+            "sd": 1.4343,
+            "n": 88
+          }
+        ],
+        "top5": [
+          {
+            "rank": 1,
+            "name": "Data Governance & Analytics",
+            "mean": 3.2727,
+            "sd": 1.412
+          },
+          {
+            "rank": 2,
+            "name": "IT-Enabled Innovation",
+            "mean": 3.25,
+            "sd": 1.1472
+          },
+          {
+            "rank": 3,
+            "name": "Tech Risk & Resilience",
+            "mean": 3.1236,
+            "sd": 1.2865
+          },
+          {
+            "rank": 4,
+            "name": "Workforce Capability",
+            "mean": 3.1124,
+            "sd": 1.3352
+          },
+          {
+            "rank": 5,
+            "name": "Strategic IT Planning",
+            "mean": 3.0899,
+            "sd": 1.3622
+          }
+        ],
+        "bottom5": [
+          {
+            "rank": 4,
+            "name": "Workforce Capability",
+            "mean": 3.1124,
+            "sd": 1.3352
+          },
+          {
+            "rank": 5,
+            "name": "Strategic IT Planning",
+            "mean": 3.0899,
+            "sd": 1.3622
+          },
+          {
+            "rank": 6,
+            "name": "Process Mgmt & Standardization",
+            "mean": 3.0787,
+            "sd": 1.416
+          },
+          {
+            "rank": 7,
+            "name": "IT Investment & Value Mgmt",
+            "mean": 3.0227,
+            "sd": 1.3728
+          },
+          {
+            "rank": 8,
+            "name": "Change Leadership",
+            "mean": 2.9886,
+            "sd": 1.4343
+          }
+        ]
+      }
+    }
+  },
+  "flexible_clean": {
+    "generatedAt": "2026-04-05T21:44:42Z",
+    "sampleKey": "flexible_clean",
+    "n": 139,
+    "constructs": {
+      "barriers": {
+        "label": "Barriers",
+        "numItems": 18,
+        "items": [
+          {
+            "col": "Q10-28_Barriers_1",
+            "name": "Resistance to Change",
+            "mean": 3.1655,
+            "sd": 1.3967,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_2",
+            "name": "Lack of Leadership Support",
+            "mean": 3.1439,
+            "sd": 1.5302,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_3",
+            "name": "Risk-Averse Culture",
+            "mean": 3.1655,
+            "sd": 1.3438,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_4",
+            "name": "Insufficient Workforce Skills",
+            "mean": 3.0719,
+            "sd": 1.4628,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_5",
+            "name": "Inadequate Training",
+            "mean": 3.0935,
+            "sd": 1.4983,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_6",
+            "name": "High Implementation Cost",
+            "mean": 3.0719,
+            "sd": 1.4378,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_7",
+            "name": "Legacy System Integration",
+            "mean": 3.1727,
+            "sd": 1.4087,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_8",
+            "name": "Inadequate IT Infrastructure",
+            "mean": 3.0216,
+            "sd": 1.4217,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_9",
+            "name": "Difficulty Demonstrating Value",
+            "mean": 2.9856,
+            "sd": 1.3831,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_10",
+            "name": "No Clear Strategy/Roadmap",
+            "mean": 3.0935,
+            "sd": 1.4085,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_11",
+            "name": "Insufficient Governance",
+            "mean": 2.9784,
+            "sd": 1.4962,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_12",
+            "name": "Workflow Disruption",
+            "mean": 3.0791,
+            "sd": 1.4145,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_13",
+            "name": "Cybersecurity Concerns",
+            "mean": 3.1151,
+            "sd": 1.4095,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_14",
+            "name": "Data Privacy Compliance",
+            "mean": 2.9712,
+            "sd": 1.3985,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_15",
+            "name": "Lack of Trust in Tech/Vendors",
+            "mean": 3.0144,
+            "sd": 1.4793,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_16",
+            "name": "Regulatory Complexity",
+            "mean": 3.0863,
+            "sd": 1.4319,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_17",
+            "name": "External Pressure Without Readiness",
+            "mean": 3.0935,
+            "sd": 1.4491,
+            "n": 139
+          },
+          {
+            "col": "Q10-28_Barriers_18",
+            "name": "Vendor/Partner Difficulty",
+            "mean": 3.0719,
+            "sd": 1.5541,
+            "n": 139
+          }
+        ],
+        "top5": [
+          {
+            "rank": 1,
+            "name": "Legacy System Integration",
+            "mean": 3.1727,
+            "sd": 1.4087
+          },
+          {
+            "rank": 2,
+            "name": "Resistance to Change",
+            "mean": 3.1655,
+            "sd": 1.3967
+          },
+          {
+            "rank": 3,
+            "name": "Risk-Averse Culture",
+            "mean": 3.1655,
+            "sd": 1.3438
+          },
+          {
+            "rank": 4,
+            "name": "Lack of Leadership Support",
+            "mean": 3.1439,
+            "sd": 1.5302
+          },
+          {
+            "rank": 5,
+            "name": "Cybersecurity Concerns",
+            "mean": 3.1151,
+            "sd": 1.4095
+          }
+        ],
+        "bottom5": [
+          {
+            "rank": 14,
+            "name": "Inadequate IT Infrastructure",
+            "mean": 3.0216,
+            "sd": 1.4217
+          },
+          {
+            "rank": 15,
+            "name": "Lack of Trust in Tech/Vendors",
+            "mean": 3.0144,
+            "sd": 1.4793
+          },
+          {
+            "rank": 16,
+            "name": "Difficulty Demonstrating Value",
+            "mean": 2.9856,
+            "sd": 1.3831
+          },
+          {
+            "rank": 17,
+            "name": "Insufficient Governance",
+            "mean": 2.9784,
+            "sd": 1.4962
+          },
+          {
+            "rank": 18,
+            "name": "Data Privacy Compliance",
+            "mean": 2.9712,
+            "sd": 1.3985
+          }
+        ]
+      },
+      "readiness": {
+        "label": "Readiness",
+        "numItems": 17,
+        "items": [
+          {
+            "col": "Q47-64_Readiness_1",
+            "name": "Vision/Leadership",
+            "mean": 3.0441,
+            "sd": 1.4599,
+            "n": 136
+          },
+          {
+            "col": "Q47-64_Readiness_2",
+            "name": "Tech-Strategy Alignment",
+            "mean": 2.971,
+            "sd": 1.4242,
+            "n": 138
+          },
+          {
+            "col": "Q47-64_Readiness_3",
+            "name": "IT Governance Effectiveness",
+            "mean": 3.0652,
+            "sd": 1.456,
+            "n": 138
+          },
+          {
+            "col": "Q47-64_Readiness_4",
+            "name": "Culture Openness",
+            "mean": 3.058,
+            "sd": 1.3869,
+            "n": 138
+          },
+          {
+            "col": "Q47-64_Readiness_5",
+            "name": "Innovation Support",
+            "mean": 3.0362,
+            "sd": 1.4368,
+            "n": 138
+          },
+          {
+            "col": "Q47-64_Readiness_6",
+            "name": "Technical Workforce",
+            "mean": 3.146,
+            "sd": 1.3802,
+            "n": 137
+          },
+          {
+            "col": "Q47-64_Readiness_7",
+            "name": "Training Programs",
+            "mean": 3.219,
+            "sd": 1.4538,
+            "n": 137
+          },
+          {
+            "col": "Q47-64_Readiness_8",
+            "name": "Change Management",
+            "mean": 3.036,
+            "sd": 1.5008,
+            "n": 139
+          },
+          {
+            "col": "Q47-64_Readiness_9",
+            "name": "IT Infrastructure",
+            "mean": 2.9635,
+            "sd": 1.4723,
+            "n": 137
+          },
+          {
+            "col": "Q47-64_Readiness_10",
+            "name": "System Interoperability",
+            "mean": 3.0438,
+            "sd": 1.514,
+            "n": 137
+          },
+          {
+            "col": "Q47-64_Readiness_11",
+            "name": "Technical Support",
+            "mean": 3.1533,
+            "sd": 1.4995,
+            "n": 137
+          },
+          {
+            "col": "Q47-64_Readiness_12",
+            "name": "Data Governance",
+            "mean": 3.1223,
+            "sd": 1.4865,
+            "n": 139
+          },
+          {
+            "col": "Q47-64_Readiness_13",
+            "name": "Data Quality",
+            "mean": 2.8768,
+            "sd": 1.4471,
+            "n": 138
+          },
+          {
+            "col": "Q47-64_Readiness_14",
+            "name": "Data Analytics",
+            "mean": 3.0146,
+            "sd": 1.3985,
+            "n": 137
+          },
+          {
+            "col": "Q47-64_Readiness_15",
+            "name": "Business Process Maturity",
+            "mean": 3.0507,
+            "sd": 1.501,
+            "n": 138
+          },
+          {
+            "col": "Q47-64_Readiness_16",
+            "name": "Performance Monitoring",
+            "mean": 3.0876,
+            "sd": 1.4424,
+            "n": 137
+          },
+          {
+            "col": "Q47-64_Readiness_17",
+            "name": "Budget Adequacy",
+            "mean": 3.1511,
+            "sd": 1.474,
+            "n": 139
+          }
+        ],
+        "top5": [
+          {
+            "rank": 1,
+            "name": "Training Programs",
+            "mean": 3.219,
+            "sd": 1.4538
+          },
+          {
+            "rank": 2,
+            "name": "Technical Support",
+            "mean": 3.1533,
+            "sd": 1.4995
+          },
+          {
+            "rank": 3,
+            "name": "Budget Adequacy",
+            "mean": 3.1511,
+            "sd": 1.474
+          },
+          {
+            "rank": 4,
+            "name": "Technical Workforce",
+            "mean": 3.146,
+            "sd": 1.3802
+          },
+          {
+            "rank": 5,
+            "name": "Data Governance",
+            "mean": 3.1223,
+            "sd": 1.4865
+          }
+        ],
+        "bottom5": [
+          {
+            "rank": 13,
+            "name": "Change Management",
+            "mean": 3.036,
+            "sd": 1.5008
+          },
+          {
+            "rank": 14,
+            "name": "Data Analytics",
+            "mean": 3.0146,
+            "sd": 1.3985
+          },
+          {
+            "rank": 15,
+            "name": "Tech-Strategy Alignment",
+            "mean": 2.971,
+            "sd": 1.4242
+          },
+          {
+            "rank": 16,
+            "name": "IT Infrastructure",
+            "mean": 2.9635,
+            "sd": 1.4723
+          },
+          {
+            "rank": 17,
+            "name": "Data Quality",
+            "mean": 2.8768,
+            "sd": 1.4471
+          }
+        ]
+      },
+      "maturity": {
+        "label": "Maturity",
+        "numItems": 8,
+        "items": [
+          {
+            "col": "Q65-73_Maturity_1",
+            "name": "IT Investment & Value Mgmt",
+            "mean": 2.9635,
+            "sd": 1.4421,
+            "n": 137
+          },
+          {
+            "col": "Q65-73_Maturity_2",
+            "name": "IT-Enabled Innovation",
+            "mean": 3.2391,
+            "sd": 1.2355,
+            "n": 138
+          },
+          {
+            "col": "Q65-73_Maturity_3",
+            "name": "Process Mgmt & Standardization",
+            "mean": 3.0435,
+            "sd": 1.4492,
+            "n": 138
+          },
+          {
+            "col": "Q65-73_Maturity_4",
+            "name": "Data Governance & Analytics",
+            "mean": 3.2246,
+            "sd": 1.3987,
+            "n": 138
+          },
+          {
+            "col": "Q65-73_Maturity_5",
+            "name": "Tech Risk & Resilience",
+            "mean": 3.1511,
+            "sd": 1.3616,
+            "n": 139
+          },
+          {
+            "col": "Q65-73_Maturity_6",
+            "name": "Strategic IT Planning",
+            "mean": 3.058,
+            "sd": 1.4078,
+            "n": 138
+          },
+          {
+            "col": "Q65-73_Maturity_7",
+            "name": "Workforce Capability",
+            "mean": 3.0216,
+            "sd": 1.3856,
+            "n": 139
+          },
+          {
+            "col": "Q65-73_Maturity_8",
+            "name": "Change Leadership",
+            "mean": 2.9928,
+            "sd": 1.4674,
+            "n": 138
+          }
+        ],
+        "top5": [
+          {
+            "rank": 1,
+            "name": "IT-Enabled Innovation",
+            "mean": 3.2391,
+            "sd": 1.2355
+          },
+          {
+            "rank": 2,
+            "name": "Data Governance & Analytics",
+            "mean": 3.2246,
+            "sd": 1.3987
+          },
+          {
+            "rank": 3,
+            "name": "Tech Risk & Resilience",
+            "mean": 3.1511,
+            "sd": 1.3616
+          },
+          {
+            "rank": 4,
+            "name": "Strategic IT Planning",
+            "mean": 3.058,
+            "sd": 1.4078
+          },
+          {
+            "rank": 5,
+            "name": "Process Mgmt & Standardization",
+            "mean": 3.0435,
+            "sd": 1.4492
+          }
+        ],
+        "bottom5": [
+          {
+            "rank": 4,
+            "name": "Strategic IT Planning",
+            "mean": 3.058,
+            "sd": 1.4078
+          },
+          {
+            "rank": 5,
+            "name": "Process Mgmt & Standardization",
+            "mean": 3.0435,
+            "sd": 1.4492
+          },
+          {
+            "rank": 6,
+            "name": "Workforce Capability",
+            "mean": 3.0216,
+            "sd": 1.3856
+          },
+          {
+            "rank": 7,
+            "name": "Change Leadership",
+            "mean": 2.9928,
+            "sd": 1.4674
+          },
+          {
+            "rank": 8,
+            "name": "IT Investment & Value Mgmt",
+            "mean": 2.9635,
+            "sd": 1.4421
+          }
+        ]
+      }
+    }
+  },
+  "prolific_accepted": {
+    "generatedAt": "2026-04-05T21:44:42Z",
+    "sampleKey": "prolific_accepted",
+    "n": 199,
+    "constructs": {
+      "barriers": {
+        "label": "Barriers",
+        "numItems": 18,
+        "items": [
+          {
+            "col": "Q10-28_Barriers_1",
+            "name": "Resistance to Change",
+            "mean": 3.0352,
+            "sd": 1.4156,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_2",
+            "name": "Lack of Leadership Support",
+            "mean": 2.9849,
+            "sd": 1.4991,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_3",
+            "name": "Risk-Averse Culture",
+            "mean": 3.0251,
+            "sd": 1.35,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_4",
+            "name": "Insufficient Workforce Skills",
+            "mean": 2.9749,
+            "sd": 1.4405,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_5",
+            "name": "Inadequate Training",
+            "mean": 2.9899,
+            "sd": 1.4564,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_6",
+            "name": "High Implementation Cost",
+            "mean": 2.9648,
+            "sd": 1.4508,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_7",
+            "name": "Legacy System Integration",
+            "mean": 3.0352,
+            "sd": 1.3867,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_8",
+            "name": "Inadequate IT Infrastructure",
+            "mean": 2.9397,
+            "sd": 1.4377,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_9",
+            "name": "Difficulty Demonstrating Value",
+            "mean": 2.9347,
+            "sd": 1.3856,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_10",
+            "name": "No Clear Strategy/Roadmap",
+            "mean": 3.0402,
+            "sd": 1.4136,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_11",
+            "name": "Insufficient Governance",
+            "mean": 2.8945,
+            "sd": 1.4647,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_12",
+            "name": "Workflow Disruption",
+            "mean": 2.9698,
+            "sd": 1.4561,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_13",
+            "name": "Cybersecurity Concerns",
+            "mean": 3.0854,
+            "sd": 1.4347,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_14",
+            "name": "Data Privacy Compliance",
+            "mean": 2.9799,
+            "sd": 1.4141,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_15",
+            "name": "Lack of Trust in Tech/Vendors",
+            "mean": 2.9447,
+            "sd": 1.4432,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_16",
+            "name": "Regulatory Complexity",
+            "mean": 2.9849,
+            "sd": 1.423,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_17",
+            "name": "External Pressure Without Readiness",
+            "mean": 3.0352,
+            "sd": 1.4403,
+            "n": 199
+          },
+          {
+            "col": "Q10-28_Barriers_18",
+            "name": "Vendor/Partner Difficulty",
+            "mean": 2.9447,
+            "sd": 1.5049,
+            "n": 199
+          }
+        ],
+        "top5": [
+          {
+            "rank": 1,
+            "name": "Cybersecurity Concerns",
+            "mean": 3.0854,
+            "sd": 1.4347
+          },
+          {
+            "rank": 2,
+            "name": "No Clear Strategy/Roadmap",
+            "mean": 3.0402,
+            "sd": 1.4136
+          },
+          {
+            "rank": 3,
+            "name": "External Pressure Without Readiness",
+            "mean": 3.0352,
+            "sd": 1.4403
+          },
+          {
+            "rank": 4,
+            "name": "Legacy System Integration",
+            "mean": 3.0352,
+            "sd": 1.3867
+          },
+          {
+            "rank": 5,
+            "name": "Resistance to Change",
+            "mean": 3.0352,
+            "sd": 1.4156
+          }
+        ],
+        "bottom5": [
+          {
+            "rank": 14,
+            "name": "Lack of Trust in Tech/Vendors",
+            "mean": 2.9447,
+            "sd": 1.4432
+          },
+          {
+            "rank": 15,
+            "name": "Vendor/Partner Difficulty",
+            "mean": 2.9447,
+            "sd": 1.5049
+          },
+          {
+            "rank": 16,
+            "name": "Inadequate IT Infrastructure",
+            "mean": 2.9397,
+            "sd": 1.4377
+          },
+          {
+            "rank": 17,
+            "name": "Difficulty Demonstrating Value",
+            "mean": 2.9347,
+            "sd": 1.3856
+          },
+          {
+            "rank": 18,
+            "name": "Insufficient Governance",
+            "mean": 2.8945,
+            "sd": 1.4647
+          }
+        ]
+      },
+      "readiness": {
+        "label": "Readiness",
+        "numItems": 17,
+        "items": [
+          {
+            "col": "Q47-64_Readiness_1",
+            "name": "Vision/Leadership",
+            "mean": 3.0153,
+            "sd": 1.4411,
+            "n": 196
+          },
+          {
+            "col": "Q47-64_Readiness_2",
+            "name": "Tech-Strategy Alignment",
+            "mean": 2.9239,
+            "sd": 1.4425,
+            "n": 197
+          },
+          {
+            "col": "Q47-64_Readiness_3",
+            "name": "IT Governance Effectiveness",
+            "mean": 2.9388,
+            "sd": 1.4381,
+            "n": 196
+          },
+          {
+            "col": "Q47-64_Readiness_4",
+            "name": "Culture Openness",
+            "mean": 2.9949,
+            "sd": 1.3797,
+            "n": 198
+          },
+          {
+            "col": "Q47-64_Readiness_5",
+            "name": "Innovation Support",
+            "mean": 2.9798,
+            "sd": 1.4177,
+            "n": 198
+          },
+          {
+            "col": "Q47-64_Readiness_6",
+            "name": "Technical Workforce",
+            "mean": 3.0765,
+            "sd": 1.392,
+            "n": 196
+          },
+          {
+            "col": "Q47-64_Readiness_7",
+            "name": "Training Programs",
+            "mean": 3.1117,
+            "sd": 1.4206,
+            "n": 197
+          },
+          {
+            "col": "Q47-64_Readiness_8",
+            "name": "Change Management",
+            "mean": 2.9495,
+            "sd": 1.4558,
+            "n": 198
+          },
+          {
+            "col": "Q47-64_Readiness_9",
+            "name": "IT Infrastructure",
+            "mean": 2.8367,
+            "sd": 1.4759,
+            "n": 196
+          },
+          {
+            "col": "Q47-64_Readiness_10",
+            "name": "System Interoperability",
+            "mean": 2.9485,
+            "sd": 1.4672,
+            "n": 194
+          },
+          {
+            "col": "Q47-64_Readiness_11",
+            "name": "Technical Support",
+            "mean": 2.9897,
+            "sd": 1.5162,
+            "n": 195
+          },
+          {
+            "col": "Q47-64_Readiness_12",
+            "name": "Data Governance",
+            "mean": 3.0553,
+            "sd": 1.5082,
+            "n": 199
+          },
+          {
+            "col": "Q47-64_Readiness_13",
+            "name": "Data Quality",
+            "mean": 2.8636,
+            "sd": 1.4589,
+            "n": 198
+          },
+          {
+            "col": "Q47-64_Readiness_14",
+            "name": "Data Analytics",
+            "mean": 2.9695,
+            "sd": 1.3957,
+            "n": 197
+          },
+          {
+            "col": "Q47-64_Readiness_15",
+            "name": "Business Process Maturity",
+            "mean": 3.0152,
+            "sd": 1.4583,
+            "n": 198
+          },
+          {
+            "col": "Q47-64_Readiness_16",
+            "name": "Performance Monitoring",
+            "mean": 2.9949,
+            "sd": 1.4232,
+            "n": 196
+          },
+          {
+            "col": "Q47-64_Readiness_17",
+            "name": "Budget Adequacy",
+            "mean": 3.0254,
+            "sd": 1.4895,
+            "n": 197
+          }
+        ],
+        "top5": [
+          {
+            "rank": 1,
+            "name": "Training Programs",
+            "mean": 3.1117,
+            "sd": 1.4206
+          },
+          {
+            "rank": 2,
+            "name": "Technical Workforce",
+            "mean": 3.0765,
+            "sd": 1.392
+          },
+          {
+            "rank": 3,
+            "name": "Data Governance",
+            "mean": 3.0553,
+            "sd": 1.5082
+          },
+          {
+            "rank": 4,
+            "name": "Budget Adequacy",
+            "mean": 3.0254,
+            "sd": 1.4895
+          },
+          {
+            "rank": 5,
+            "name": "Vision/Leadership",
+            "mean": 3.0153,
+            "sd": 1.4411
+          }
+        ],
+        "bottom5": [
+          {
+            "rank": 13,
+            "name": "System Interoperability",
+            "mean": 2.9485,
+            "sd": 1.4672
+          },
+          {
+            "rank": 14,
+            "name": "IT Governance Effectiveness",
+            "mean": 2.9388,
+            "sd": 1.4381
+          },
+          {
+            "rank": 15,
+            "name": "Tech-Strategy Alignment",
+            "mean": 2.9239,
+            "sd": 1.4425
+          },
+          {
+            "rank": 16,
+            "name": "Data Quality",
+            "mean": 2.8636,
+            "sd": 1.4589
+          },
+          {
+            "rank": 17,
+            "name": "IT Infrastructure",
+            "mean": 2.8367,
+            "sd": 1.4759
+          }
+        ]
+      },
+      "maturity": {
+        "label": "Maturity",
+        "numItems": 8,
+        "items": [
+          {
+            "col": "Q65-73_Maturity_1",
+            "name": "IT Investment & Value Mgmt",
+            "mean": 2.9543,
+            "sd": 1.4044,
+            "n": 197
+          },
+          {
+            "col": "Q65-73_Maturity_2",
+            "name": "IT-Enabled Innovation",
+            "mean": 3.1061,
+            "sd": 1.3075,
+            "n": 198
+          },
+          {
+            "col": "Q65-73_Maturity_3",
+            "name": "Process Mgmt & Standardization",
+            "mean": 2.9949,
+            "sd": 1.4584,
+            "n": 198
+          },
+          {
+            "col": "Q65-73_Maturity_4",
+            "name": "Data Governance & Analytics",
+            "mean": 3.0606,
+            "sd": 1.3985,
+            "n": 198
+          },
+          {
+            "col": "Q65-73_Maturity_5",
+            "name": "Tech Risk & Resilience",
+            "mean": 3.0101,
+            "sd": 1.3925,
+            "n": 198
+          },
+          {
+            "col": "Q65-73_Maturity_6",
+            "name": "Strategic IT Planning",
+            "mean": 2.8586,
+            "sd": 1.4602,
+            "n": 198
+          },
+          {
+            "col": "Q65-73_Maturity_7",
+            "name": "Workforce Capability",
+            "mean": 2.9949,
+            "sd": 1.3721,
+            "n": 197
+          },
+          {
+            "col": "Q65-73_Maturity_8",
+            "name": "Change Leadership",
+            "mean": 2.9192,
+            "sd": 1.4368,
+            "n": 198
+          }
+        ],
+        "top5": [
+          {
+            "rank": 1,
+            "name": "IT-Enabled Innovation",
+            "mean": 3.1061,
+            "sd": 1.3075
+          },
+          {
+            "rank": 2,
+            "name": "Data Governance & Analytics",
+            "mean": 3.0606,
+            "sd": 1.3985
+          },
+          {
+            "rank": 3,
+            "name": "Tech Risk & Resilience",
+            "mean": 3.0101,
+            "sd": 1.3925
+          },
+          {
+            "rank": 4,
+            "name": "Process Mgmt & Standardization",
+            "mean": 2.9949,
+            "sd": 1.4584
+          },
+          {
+            "rank": 5,
+            "name": "Workforce Capability",
+            "mean": 2.9949,
+            "sd": 1.3721
+          }
+        ],
+        "bottom5": [
+          {
+            "rank": 4,
+            "name": "Process Mgmt & Standardization",
+            "mean": 2.9949,
+            "sd": 1.4584
+          },
+          {
+            "rank": 5,
+            "name": "Workforce Capability",
+            "mean": 2.9949,
+            "sd": 1.3721
+          },
+          {
+            "rank": 6,
+            "name": "IT Investment & Value Mgmt",
+            "mean": 2.9543,
+            "sd": 1.4044
+          },
+          {
+            "rank": 7,
+            "name": "Change Leadership",
+            "mean": 2.9192,
+            "sd": 1.4368
+          },
+          {
+            "rank": 8,
+            "name": "Strategic IT Planning",
+            "mean": 2.8586,
+            "sd": 1.4602
+          }
+        ]
+      }
+    }
+  },
+  "v2_finished": {
+    "generatedAt": "2026-04-05T21:44:42Z",
+    "sampleKey": "v2_finished",
+    "n": 440,
+    "constructs": {
+      "barriers": {
+        "label": "Barriers",
+        "numItems": 18,
+        "items": [
+          {
+            "col": "Q10-28_Barriers_1",
+            "name": "Resistance to Change",
+            "mean": 3.0455,
+            "sd": 1.3643,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_2",
+            "name": "Lack of Leadership Support",
+            "mean": 3.0364,
+            "sd": 1.4202,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_3",
+            "name": "Risk-Averse Culture",
+            "mean": 3.0614,
+            "sd": 1.3544,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_4",
+            "name": "Insufficient Workforce Skills",
+            "mean": 3.0432,
+            "sd": 1.4095,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_5",
+            "name": "Inadequate Training",
+            "mean": 3.0386,
+            "sd": 1.4305,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_6",
+            "name": "High Implementation Cost",
+            "mean": 3.0455,
+            "sd": 1.4054,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_7",
+            "name": "Legacy System Integration",
+            "mean": 3.0568,
+            "sd": 1.4187,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_8",
+            "name": "Inadequate IT Infrastructure",
+            "mean": 3.0432,
+            "sd": 1.3718,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_9",
+            "name": "Difficulty Demonstrating Value",
+            "mean": 2.9955,
+            "sd": 1.3947,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_10",
+            "name": "No Clear Strategy/Roadmap",
+            "mean": 3.0591,
+            "sd": 1.3721,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_11",
+            "name": "Insufficient Governance",
+            "mean": 3.0,
+            "sd": 1.4142,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_12",
+            "name": "Workflow Disruption",
+            "mean": 3.0568,
+            "sd": 1.4187,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_13",
+            "name": "Cybersecurity Concerns",
+            "mean": 3.1295,
+            "sd": 1.3862,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_14",
+            "name": "Data Privacy Compliance",
+            "mean": 3.0114,
+            "sd": 1.3972,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_15",
+            "name": "Lack of Trust in Tech/Vendors",
+            "mean": 3.0273,
+            "sd": 1.3928,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_16",
+            "name": "Regulatory Complexity",
+            "mean": 3.0386,
+            "sd": 1.372,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_17",
+            "name": "External Pressure Without Readiness",
+            "mean": 3.0114,
+            "sd": 1.4166,
+            "n": 440
+          },
+          {
+            "col": "Q10-28_Barriers_18",
+            "name": "Vendor/Partner Difficulty",
+            "mean": 3.0364,
+            "sd": 1.4314,
+            "n": 440
+          }
+        ],
+        "top5": [
+          {
+            "rank": 1,
+            "name": "Cybersecurity Concerns",
+            "mean": 3.1295,
+            "sd": 1.3862
+          },
+          {
+            "rank": 2,
+            "name": "Risk-Averse Culture",
+            "mean": 3.0614,
+            "sd": 1.3544
+          },
+          {
+            "rank": 3,
+            "name": "No Clear Strategy/Roadmap",
+            "mean": 3.0591,
+            "sd": 1.3721
+          },
+          {
+            "rank": 4,
+            "name": "Legacy System Integration",
+            "mean": 3.0568,
+            "sd": 1.4187
+          },
+          {
+            "rank": 5,
+            "name": "Workflow Disruption",
+            "mean": 3.0568,
+            "sd": 1.4187
+          }
+        ],
+        "bottom5": [
+          {
+            "rank": 14,
+            "name": "Lack of Trust in Tech/Vendors",
+            "mean": 3.0273,
+            "sd": 1.3928
+          },
+          {
+            "rank": 15,
+            "name": "Data Privacy Compliance",
+            "mean": 3.0114,
+            "sd": 1.3972
+          },
+          {
+            "rank": 16,
+            "name": "External Pressure Without Readiness",
+            "mean": 3.0114,
+            "sd": 1.4166
+          },
+          {
+            "rank": 17,
+            "name": "Insufficient Governance",
+            "mean": 3.0,
+            "sd": 1.4142
+          },
+          {
+            "rank": 18,
+            "name": "Difficulty Demonstrating Value",
+            "mean": 2.9955,
+            "sd": 1.3947
+          }
+        ]
+      },
+      "readiness": {
+        "label": "Readiness",
+        "numItems": 17,
+        "items": [
+          {
+            "col": "Q47-64_Readiness_1",
+            "name": "Vision/Leadership",
+            "mean": 2.9931,
+            "sd": 1.4328,
+            "n": 436
+          },
+          {
+            "col": "Q47-64_Readiness_2",
+            "name": "Tech-Strategy Alignment",
+            "mean": 2.9724,
+            "sd": 1.443,
+            "n": 435
+          },
+          {
+            "col": "Q47-64_Readiness_3",
+            "name": "IT Governance Effectiveness",
+            "mean": 3.0622,
+            "sd": 1.4347,
+            "n": 434
+          },
+          {
+            "col": "Q47-64_Readiness_4",
+            "name": "Culture Openness",
+            "mean": 3.046,
+            "sd": 1.4345,
+            "n": 435
+          },
+          {
+            "col": "Q47-64_Readiness_5",
+            "name": "Innovation Support",
+            "mean": 3.0091,
+            "sd": 1.4286,
+            "n": 439
+          },
+          {
+            "col": "Q47-64_Readiness_6",
+            "name": "Technical Workforce",
+            "mean": 3.0184,
+            "sd": 1.4496,
+            "n": 434
+          },
+          {
+            "col": "Q47-64_Readiness_7",
+            "name": "Training Programs",
+            "mean": 3.0984,
+            "sd": 1.3936,
+            "n": 437
+          },
+          {
+            "col": "Q47-64_Readiness_8",
+            "name": "Change Management",
+            "mean": 3.0411,
+            "sd": 1.4313,
+            "n": 438
+          },
+          {
+            "col": "Q47-64_Readiness_9",
+            "name": "IT Infrastructure",
+            "mean": 2.9126,
+            "sd": 1.4816,
+            "n": 435
+          },
+          {
+            "col": "Q47-64_Readiness_10",
+            "name": "System Interoperability",
+            "mean": 2.9931,
+            "sd": 1.4759,
+            "n": 433
+          },
+          {
+            "col": "Q47-64_Readiness_11",
+            "name": "Technical Support",
+            "mean": 2.9563,
+            "sd": 1.4434,
+            "n": 435
+          },
+          {
+            "col": "Q47-64_Readiness_12",
+            "name": "Data Governance",
+            "mean": 3.0183,
+            "sd": 1.4715,
+            "n": 436
+          },
+          {
+            "col": "Q47-64_Readiness_13",
+            "name": "Data Quality",
+            "mean": 2.9199,
+            "sd": 1.4528,
+            "n": 437
+          },
+          {
+            "col": "Q47-64_Readiness_14",
+            "name": "Data Analytics",
+            "mean": 3.0665,
+            "sd": 1.4037,
+            "n": 436
+          },
+          {
+            "col": "Q47-64_Readiness_15",
+            "name": "Business Process Maturity",
+            "mean": 3.0435,
+            "sd": 1.4496,
+            "n": 437
+          },
+          {
+            "col": "Q47-64_Readiness_16",
+            "name": "Performance Monitoring",
+            "mean": 3.0595,
+            "sd": 1.4339,
+            "n": 437
+          },
+          {
+            "col": "Q47-64_Readiness_17",
+            "name": "Budget Adequacy",
+            "mean": 3.0046,
+            "sd": 1.4384,
+            "n": 436
+          }
+        ],
+        "top5": [
+          {
+            "rank": 1,
+            "name": "Training Programs",
+            "mean": 3.0984,
+            "sd": 1.3936
+          },
+          {
+            "rank": 2,
+            "name": "Data Analytics",
+            "mean": 3.0665,
+            "sd": 1.4037
+          },
+          {
+            "rank": 3,
+            "name": "IT Governance Effectiveness",
+            "mean": 3.0622,
+            "sd": 1.4347
+          },
+          {
+            "rank": 4,
+            "name": "Performance Monitoring",
+            "mean": 3.0595,
+            "sd": 1.4339
+          },
+          {
+            "rank": 5,
+            "name": "Culture Openness",
+            "mean": 3.046,
+            "sd": 1.4345
+          }
+        ],
+        "bottom5": [
+          {
+            "rank": 13,
+            "name": "Vision/Leadership",
+            "mean": 2.9931,
+            "sd": 1.4328
+          },
+          {
+            "rank": 14,
+            "name": "Tech-Strategy Alignment",
+            "mean": 2.9724,
+            "sd": 1.443
+          },
+          {
+            "rank": 15,
+            "name": "Technical Support",
+            "mean": 2.9563,
+            "sd": 1.4434
+          },
+          {
+            "rank": 16,
+            "name": "Data Quality",
+            "mean": 2.9199,
+            "sd": 1.4528
+          },
+          {
+            "rank": 17,
+            "name": "IT Infrastructure",
+            "mean": 2.9126,
+            "sd": 1.4816
+          }
+        ]
+      },
+      "maturity": {
+        "label": "Maturity",
+        "numItems": 8,
+        "items": [
+          {
+            "col": "Q65-73_Maturity_1",
+            "name": "IT Investment & Value Mgmt",
+            "mean": 2.9589,
+            "sd": 1.4313,
+            "n": 438
+          },
+          {
+            "col": "Q65-73_Maturity_2",
+            "name": "IT-Enabled Innovation",
+            "mean": 3.0661,
+            "sd": 1.4231,
+            "n": 439
+          },
+          {
+            "col": "Q65-73_Maturity_3",
+            "name": "Process Mgmt & Standardization",
+            "mean": 3.0046,
+            "sd": 1.4366,
+            "n": 439
+          },
+          {
+            "col": "Q65-73_Maturity_4",
+            "name": "Data Governance & Analytics",
+            "mean": 3.0731,
+            "sd": 1.4156,
+            "n": 438
+          },
+          {
+            "col": "Q65-73_Maturity_5",
+            "name": "Tech Risk & Resilience",
+            "mean": 3.0297,
+            "sd": 1.3952,
+            "n": 438
+          },
+          {
+            "col": "Q65-73_Maturity_6",
+            "name": "Strategic IT Planning",
+            "mean": 3.0023,
+            "sd": 1.455,
+            "n": 437
+          },
+          {
+            "col": "Q65-73_Maturity_7",
+            "name": "Workforce Capability",
+            "mean": 3.0228,
+            "sd": 1.3862,
+            "n": 438
+          },
+          {
+            "col": "Q65-73_Maturity_8",
+            "name": "Change Leadership",
+            "mean": 2.9795,
+            "sd": 1.4309,
+            "n": 439
+          }
+        ],
+        "top5": [
+          {
+            "rank": 1,
+            "name": "Data Governance & Analytics",
+            "mean": 3.0731,
+            "sd": 1.4156
+          },
+          {
+            "rank": 2,
+            "name": "IT-Enabled Innovation",
+            "mean": 3.0661,
+            "sd": 1.4231
+          },
+          {
+            "rank": 3,
+            "name": "Tech Risk & Resilience",
+            "mean": 3.0297,
+            "sd": 1.3952
+          },
+          {
+            "rank": 4,
+            "name": "Workforce Capability",
+            "mean": 3.0228,
+            "sd": 1.3862
+          },
+          {
+            "rank": 5,
+            "name": "Process Mgmt & Standardization",
+            "mean": 3.0046,
+            "sd": 1.4366
+          }
+        ],
+        "bottom5": [
+          {
+            "rank": 4,
+            "name": "Workforce Capability",
+            "mean": 3.0228,
+            "sd": 1.3862
+          },
+          {
+            "rank": 5,
+            "name": "Process Mgmt & Standardization",
+            "mean": 3.0046,
+            "sd": 1.4366
+          },
+          {
+            "rank": 6,
+            "name": "Strategic IT Planning",
+            "mean": 3.0023,
+            "sd": 1.455
+          },
+          {
+            "rank": 7,
+            "name": "Change Leadership",
+            "mean": 2.9795,
+            "sd": 1.4309
+          },
+          {
+            "rank": 8,
+            "name": "IT Investment & Value Mgmt",
+            "mean": 2.9589,
+            "sd": 1.4313
+          }
+        ]
+      }
+    }
+  },
+  "v2_all": {
+    "generatedAt": "2026-04-05T21:44:42Z",
+    "sampleKey": "v2_all",
+    "n": 500,
+    "constructs": {
+      "barriers": {
+        "label": "Barriers",
+        "numItems": 18,
+        "items": [
+          {
+            "col": "Q10-28_Barriers_1",
+            "name": "Resistance to Change",
+            "mean": 3.062,
+            "sd": 1.3718,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_2",
+            "name": "Lack of Leadership Support",
+            "mean": 3.066,
+            "sd": 1.4275,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_3",
+            "name": "Risk-Averse Culture",
+            "mean": 3.078,
+            "sd": 1.3534,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_4",
+            "name": "Insufficient Workforce Skills",
+            "mean": 3.072,
+            "sd": 1.4138,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_5",
+            "name": "Inadequate Training",
+            "mean": 3.044,
+            "sd": 1.4192,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_6",
+            "name": "High Implementation Cost",
+            "mean": 3.088,
+            "sd": 1.4185,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_7",
+            "name": "Legacy System Integration",
+            "mean": 3.05,
+            "sd": 1.414,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_8",
+            "name": "Inadequate IT Infrastructure",
+            "mean": 3.076,
+            "sd": 1.3689,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_9",
+            "name": "Difficulty Demonstrating Value",
+            "mean": 3.012,
+            "sd": 1.4014,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_10",
+            "name": "No Clear Strategy/Roadmap",
+            "mean": 3.086,
+            "sd": 1.3661,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_11",
+            "name": "Insufficient Governance",
+            "mean": 3.004,
+            "sd": 1.4199,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_12",
+            "name": "Workflow Disruption",
+            "mean": 3.042,
+            "sd": 1.4115,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_13",
+            "name": "Cybersecurity Concerns",
+            "mean": 3.118,
+            "sd": 1.3885,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_14",
+            "name": "Data Privacy Compliance",
+            "mean": 3.02,
+            "sd": 1.4027,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_15",
+            "name": "Lack of Trust in Tech/Vendors",
+            "mean": 3.036,
+            "sd": 1.4024,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_16",
+            "name": "Regulatory Complexity",
+            "mean": 3.054,
+            "sd": 1.3692,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_17",
+            "name": "External Pressure Without Readiness",
+            "mean": 3.04,
+            "sd": 1.4263,
+            "n": 500
+          },
+          {
+            "col": "Q10-28_Barriers_18",
+            "name": "Vendor/Partner Difficulty",
+            "mean": 3.056,
+            "sd": 1.4384,
+            "n": 500
+          }
+        ],
+        "top5": [
+          {
+            "rank": 1,
+            "name": "Cybersecurity Concerns",
+            "mean": 3.118,
+            "sd": 1.3885
+          },
+          {
+            "rank": 2,
+            "name": "High Implementation Cost",
+            "mean": 3.088,
+            "sd": 1.4185
+          },
+          {
+            "rank": 3,
+            "name": "No Clear Strategy/Roadmap",
+            "mean": 3.086,
+            "sd": 1.3661
+          },
+          {
+            "rank": 4,
+            "name": "Risk-Averse Culture",
+            "mean": 3.078,
+            "sd": 1.3534
+          },
+          {
+            "rank": 5,
+            "name": "Inadequate IT Infrastructure",
+            "mean": 3.076,
+            "sd": 1.3689
+          }
+        ],
+        "bottom5": [
+          {
+            "rank": 14,
+            "name": "External Pressure Without Readiness",
+            "mean": 3.04,
+            "sd": 1.4263
+          },
+          {
+            "rank": 15,
+            "name": "Lack of Trust in Tech/Vendors",
+            "mean": 3.036,
+            "sd": 1.4024
+          },
+          {
+            "rank": 16,
+            "name": "Data Privacy Compliance",
+            "mean": 3.02,
+            "sd": 1.4027
+          },
+          {
+            "rank": 17,
+            "name": "Difficulty Demonstrating Value",
+            "mean": 3.012,
+            "sd": 1.4014
+          },
+          {
+            "rank": 18,
+            "name": "Insufficient Governance",
+            "mean": 3.004,
+            "sd": 1.4199
+          }
+        ]
+      },
+      "readiness": {
+        "label": "Readiness",
+        "numItems": 17,
+        "items": [
+          {
+            "col": "Q47-64_Readiness_1",
+            "name": "Vision/Leadership",
+            "mean": 2.9798,
+            "sd": 1.4226,
+            "n": 495
+          },
+          {
+            "col": "Q47-64_Readiness_2",
+            "name": "Tech-Strategy Alignment",
+            "mean": 2.9757,
+            "sd": 1.4564,
+            "n": 494
+          },
+          {
+            "col": "Q47-64_Readiness_3",
+            "name": "IT Governance Effectiveness",
+            "mean": 3.0527,
+            "sd": 1.429,
+            "n": 493
+          },
+          {
+            "col": "Q47-64_Readiness_4",
+            "name": "Culture Openness",
+            "mean": 3.0506,
+            "sd": 1.4283,
+            "n": 494
+          },
+          {
+            "col": "Q47-64_Readiness_5",
+            "name": "Innovation Support",
+            "mean": 3.0262,
+            "sd": 1.4345,
+            "n": 497
+          },
+          {
+            "col": "Q47-64_Readiness_6",
+            "name": "Technical Workforce",
+            "mean": 3.0304,
+            "sd": 1.45,
+            "n": 494
+          },
+          {
+            "col": "Q47-64_Readiness_7",
+            "name": "Training Programs",
+            "mean": 3.0788,
+            "sd": 1.4027,
+            "n": 495
+          },
+          {
+            "col": "Q47-64_Readiness_8",
+            "name": "Change Management",
+            "mean": 3.0241,
+            "sd": 1.4254,
+            "n": 497
+          },
+          {
+            "col": "Q47-64_Readiness_9",
+            "name": "IT Infrastructure",
+            "mean": 2.9414,
+            "sd": 1.4685,
+            "n": 495
+          },
+          {
+            "col": "Q47-64_Readiness_10",
+            "name": "System Interoperability",
+            "mean": 3.0183,
+            "sd": 1.4685,
+            "n": 492
+          },
+          {
+            "col": "Q47-64_Readiness_11",
+            "name": "Technical Support",
+            "mean": 2.9757,
+            "sd": 1.4466,
+            "n": 494
+          },
+          {
+            "col": "Q47-64_Readiness_12",
+            "name": "Data Governance",
+            "mean": 3.0304,
+            "sd": 1.4695,
+            "n": 494
+          },
+          {
+            "col": "Q47-64_Readiness_13",
+            "name": "Data Quality",
+            "mean": 2.9354,
+            "sd": 1.4411,
+            "n": 495
+          },
+          {
+            "col": "Q47-64_Readiness_14",
+            "name": "Data Analytics",
+            "mean": 3.0485,
+            "sd": 1.4048,
+            "n": 495
+          },
+          {
+            "col": "Q47-64_Readiness_15",
+            "name": "Business Process Maturity",
+            "mean": 3.0503,
+            "sd": 1.4381,
+            "n": 497
+          },
+          {
+            "col": "Q47-64_Readiness_16",
+            "name": "Performance Monitoring",
+            "mean": 3.0282,
+            "sd": 1.4281,
+            "n": 496
+          },
+          {
+            "col": "Q47-64_Readiness_17",
+            "name": "Budget Adequacy",
+            "mean": 2.9879,
+            "sd": 1.4369,
+            "n": 494
+          }
+        ],
+        "top5": [
+          {
+            "rank": 1,
+            "name": "Training Programs",
+            "mean": 3.0788,
+            "sd": 1.4027
+          },
+          {
+            "rank": 2,
+            "name": "IT Governance Effectiveness",
+            "mean": 3.0527,
+            "sd": 1.429
+          },
+          {
+            "rank": 3,
+            "name": "Culture Openness",
+            "mean": 3.0506,
+            "sd": 1.4283
+          },
+          {
+            "rank": 4,
+            "name": "Business Process Maturity",
+            "mean": 3.0503,
+            "sd": 1.4381
+          },
+          {
+            "rank": 5,
+            "name": "Data Analytics",
+            "mean": 3.0485,
+            "sd": 1.4048
+          }
+        ],
+        "bottom5": [
+          {
+            "rank": 13,
+            "name": "Vision/Leadership",
+            "mean": 2.9798,
+            "sd": 1.4226
+          },
+          {
+            "rank": 14,
+            "name": "Tech-Strategy Alignment",
+            "mean": 2.9757,
+            "sd": 1.4564
+          },
+          {
+            "rank": 15,
+            "name": "Technical Support",
+            "mean": 2.9757,
+            "sd": 1.4466
+          },
+          {
+            "rank": 16,
+            "name": "IT Infrastructure",
+            "mean": 2.9414,
+            "sd": 1.4685
+          },
+          {
+            "rank": 17,
+            "name": "Data Quality",
+            "mean": 2.9354,
+            "sd": 1.4411
+          }
+        ]
+      },
+      "maturity": {
+        "label": "Maturity",
+        "numItems": 8,
+        "items": [
+          {
+            "col": "Q65-73_Maturity_1",
+            "name": "IT Investment & Value Mgmt",
+            "mean": 2.9518,
+            "sd": 1.4402,
+            "n": 498
+          },
+          {
+            "col": "Q65-73_Maturity_2",
+            "name": "IT-Enabled Innovation",
+            "mean": 3.0701,
+            "sd": 1.4315,
+            "n": 499
+          },
+          {
+            "col": "Q65-73_Maturity_3",
+            "name": "Process Mgmt & Standardization",
+            "mean": 3.002,
+            "sd": 1.4488,
+            "n": 496
+          },
+          {
+            "col": "Q65-73_Maturity_4",
+            "name": "Data Governance & Analytics",
+            "mean": 3.0744,
+            "sd": 1.4072,
+            "n": 497
+          },
+          {
+            "col": "Q65-73_Maturity_5",
+            "name": "Tech Risk & Resilience",
+            "mean": 3.0322,
+            "sd": 1.421,
+            "n": 497
+          },
+          {
+            "col": "Q65-73_Maturity_6",
+            "name": "Strategic IT Planning",
+            "mean": 3.0121,
+            "sd": 1.4716,
+            "n": 496
+          },
+          {
+            "col": "Q65-73_Maturity_7",
+            "name": "Workforce Capability",
+            "mean": 3.0201,
+            "sd": 1.3997,
+            "n": 497
+          },
+          {
+            "col": "Q65-73_Maturity_8",
+            "name": "Change Leadership",
+            "mean": 2.988,
+            "sd": 1.4241,
+            "n": 499
+          }
+        ],
+        "top5": [
+          {
+            "rank": 1,
+            "name": "Data Governance & Analytics",
+            "mean": 3.0744,
+            "sd": 1.4072
+          },
+          {
+            "rank": 2,
+            "name": "IT-Enabled Innovation",
+            "mean": 3.0701,
+            "sd": 1.4315
+          },
+          {
+            "rank": 3,
+            "name": "Tech Risk & Resilience",
+            "mean": 3.0322,
+            "sd": 1.421
+          },
+          {
+            "rank": 4,
+            "name": "Workforce Capability",
+            "mean": 3.0201,
+            "sd": 1.3997
+          },
+          {
+            "rank": 5,
+            "name": "Strategic IT Planning",
+            "mean": 3.0121,
+            "sd": 1.4716
+          }
+        ],
+        "bottom5": [
+          {
+            "rank": 4,
+            "name": "Workforce Capability",
+            "mean": 3.0201,
+            "sd": 1.3997
+          },
+          {
+            "rank": 5,
+            "name": "Strategic IT Planning",
+            "mean": 3.0121,
+            "sd": 1.4716
+          },
+          {
+            "rank": 6,
+            "name": "Process Mgmt & Standardization",
+            "mean": 3.002,
+            "sd": 1.4488
+          },
+          {
+            "rank": 7,
+            "name": "Change Leadership",
+            "mean": 2.988,
+            "sd": 1.4241
+          },
+          {
+            "rank": 8,
+            "name": "IT Investment & Value Mgmt",
+            "mean": 2.9518,
+            "sd": 1.4402
+          }
+        ]
+      }
+    }
+  }
+}
