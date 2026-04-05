@@ -401,11 +401,12 @@ jobs:
           # Regex variant: matches a pattern instead of a fixed string
           check_data_regex() {
             local url="$1" pattern="$2" label="$3"
-            local grep_status
+            local grep_status=0
             fetch_data_page "$url" "$label"
             [ "$FETCH_OK" -ne 0 ] && return 0
-            echo "$DATA_CONTENT" | grep -qE -- "$pattern"
-            grep_status=$?
+            # Use || to prevent set -e from exiting the script when grep returns
+            # non-zero (pattern not found = exit 1, regex error = exit 2).
+            echo "$DATA_CONTENT" | grep -qE -- "$pattern" || grep_status=$?
             if [ "$grep_status" -eq 0 ]; then
               echo "| $label | ✅ Data renders |" >> /tmp/data-results.txt
             elif [ "$grep_status" -eq 1 ]; then
