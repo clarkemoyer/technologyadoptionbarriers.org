@@ -18,9 +18,14 @@ on:
           - search-messages
           - find-url-replies
           - demographics
+          - no-data
         default: 'single'
       pid:
         description: 'Prolific Participant ID (required for single/send-custom mode)'
+        required: false
+        type: string
+      no_data_pids:
+        description: 'Comma-separated PIDs to investigate (required for no-data mode)'
         required: false
         type: string
       message:
@@ -38,6 +43,7 @@ permissions:
 jobs:
   check:
     name: Check Participant
+    if: inputs.mode != 'no-data'
     runs-on: ubuntu-latest
     environment: prolific-prod
     steps:
@@ -47,11 +53,11 @@ jobs:
           python-version: '3.12'
       # Node.js only needed for modes that still run TS (single, search-messages, request-return, awaiting-report, verify-iri)
       - uses: actions/setup-node@v6
-        if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you"]'), inputs.mode) }}
+        if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you","no-data"]'), inputs.mode) }}
         with:
           node-version: '20'
           cache: 'npm'
-      - if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you"]'), inputs.mode) }}
+      - if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you","no-data"]'), inputs.mode) }}
         run: npm ci
 
       - name: Fetch Prolific demographics
@@ -334,3 +340,52 @@ jobs:
           QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
           PID: ${{ inputs.pid }}
         run: npx --no-install tsx scripts/verify-iri-answers.ts
+
+  # ── no-data mode: two-job pipeline ────────────────────────────
+  # Job 1: export Qualtrics CSV (qualtrics-prod secrets)
+  no-data-export:
+    name: Export Qualtrics (no-data)
+    if: inputs.mode == 'no-data'
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Export Qualtrics responses
+        run: python3 scripts/analysis/export_qualtrics.py
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+      - uses: actions/upload-artifact@v7
+        with:
+          name: qualtrics-export-no-data
+          path: ${{ runner.temp }}/qualtrics-export.csv
+          retention-days: 1
+
+  # Job 2: investigate PIDs (prolific-prod secrets)
+  no-data-investigate:
+    name: Investigate NO_DATA PIDs
+    if: inputs.mode == 'no-data'
+    needs: no-data-export
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v8
+        with:
+          name: qualtrics-export-no-data
+          path: ${{ runner.temp }}
+      - name: Investigate NO_DATA PIDs
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          PROLIFIC_STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          PID_LIST: ${{ inputs.no_data_pids }}
+          QUALTRICS_CSV: ${{ runner.temp }}/qualtrics-export.csv
+        run: python3 scripts/analysis/investigate_no_data.py
