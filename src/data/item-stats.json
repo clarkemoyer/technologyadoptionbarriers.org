@@ -1,0 +1,1347 @@
+{
+  "samples": [
+    {
+      "key": "conservative_clean",
+      "label": "Conservative Clean",
+      "description": "Prolific APPROVED + all quality checks (IRI, duration >= 540s, reCAPTCHA, straightlining, auth)",
+      "n": 0
+    },
+    {
+      "key": "flexible_clean",
+      "label": "Flexible Clean",
+      "description": "Prolific APPROVED + basic quality (all 3 IRIs + duration >= 480s)",
+      "n": 0
+    },
+    {
+      "key": "prolific_accepted",
+      "label": "Prolific Accepted",
+      "description": "All deduplicated V2 rows with Prolific APPROVED status",
+      "n": 0
+    },
+    {
+      "key": "v2_finished",
+      "label": "All V2 Finished",
+      "description": "Finished + duration >= 120s (extreme speeders excluded)",
+      "n": 13
+    },
+    {
+      "key": "v2_all",
+      "label": "All V2",
+      "description": "All V2 responses including incomplete",
+      "n": 13
+    }
+  ],
+  "metrics": [
+    {
+      "key": "barrier_mean",
+      "label": "Barrier Grand Mean",
+      "values": {
+        "conservative_clean": null,
+        "flexible_clean": null,
+        "prolific_accepted": null,
+        "v2_finished": 3.3419,
+        "v2_all": 3.3419
+      }
+    },
+    {
+      "key": "barrier_sd",
+      "label": "Barrier SD",
+      "values": {
+        "conservative_clean": null,
+        "flexible_clean": null,
+        "prolific_accepted": null,
+        "v2_finished": 1.013,
+        "v2_all": 1.013
+      }
+    },
+    {
+      "key": "readiness_mean",
+      "label": "Readiness Grand Mean",
+      "values": {
+        "conservative_clean": null,
+        "flexible_clean": null,
+        "prolific_accepted": null,
+        "v2_finished": 3.0769,
+        "v2_all": 3.0769
+      }
+    },
+    {
+      "key": "readiness_sd",
+      "label": "Readiness SD",
+      "values": {
+        "conservative_clean": null,
+        "flexible_clean": null,
+        "prolific_accepted": null,
+        "v2_finished": 1.1242,
+        "v2_all": 1.1242
+      }
+    },
+    {
+      "key": "maturity_mean",
+      "label": "Maturity Grand Mean",
+      "values": {
+        "conservative_clean": null,
+        "flexible_clean": null,
+        "prolific_accepted": null,
+        "v2_finished": 2.2115,
+        "v2_all": 2.2115
+      }
+    },
+    {
+      "key": "maturity_sd",
+      "label": "Maturity SD",
+      "values": {
+        "conservative_clean": null,
+        "flexible_clean": null,
+        "prolific_accepted": null,
+        "v2_finished": 0.8345,
+        "v2_all": 0.8345
+      }
+    },
+    {
+      "key": "corr_br",
+      "label": "B-R Correlation",
+      "values": {
+        "conservative_clean": null,
+        "flexible_clean": null,
+        "prolific_accepted": null,
+        "v2_finished": -0.9385,
+        "v2_all": -0.9385
+      }
+    },
+    {
+      "key": "corr_bm",
+      "label": "B-M Correlation",
+      "values": {
+        "conservative_clean": null,
+        "flexible_clean": null,
+        "prolific_accepted": null,
+        "v2_finished": -0.9252,
+        "v2_all": -0.9252
+      }
+    },
+    {
+      "key": "corr_rm",
+      "label": "R-M Correlation",
+      "values": {
+        "conservative_clean": null,
+        "flexible_clean": null,
+        "prolific_accepted": null,
+        "v2_finished": 0.9492,
+        "v2_all": 0.9492
+      }
+    },
+    {
+      "key": "alpha_barriers",
+      "label": "Alpha Barriers",
+      "values": {
+        "conservative_clean": null,
+        "flexible_clean": null,
+        "prolific_accepted": null,
+        "v2_finished": 0.992,
+        "v2_all": 0.992
+      }
+    },
+    {
+      "key": "alpha_readiness",
+      "label": "Alpha Readiness",
+      "values": {
+        "conservative_clean": null,
+        "flexible_clean": null,
+        "prolific_accepted": null,
+        "v2_finished": 0.9935,
+        "v2_all": 0.9935
+      }
+    },
+    {
+      "key": "alpha_maturity",
+      "label": "Alpha Maturity",
+      "values": {
+        "conservative_clean": null,
+        "flexible_clean": null,
+        "prolific_accepted": null,
+        "v2_finished": 0.9683,
+        "v2_all": 0.9683
+      }
+    }
+  ],
+  "demographic_sources": {
+    "survey_demographics": {
+      "source": "Qualtrics CSV export (Q1-Q9)",
+      "type": "Organizational/role-based characteristics",
+      "fields": {
+        "Q1_Role": "Executive Role (CIO, CTO, CEO, CFO, COO, CHRO, CMO, CSO, CRO, Other)",
+        "Q2_DecisionAuth": "Decision Authority level",
+        "Q3_Industry": "Industry classification",
+        "Q4_OrgSize": "Organization Size (<100, 100-499, 500-999, 1000-4999, 5000-9999, 10000+)",
+        "Q5_ProfitModel": "Profit Model (For-Profit, Non-Profit, Government/Public Sector)",
+        "Q6_RevenueBudget": "Organizational revenue/budget range",
+        "Q7_PersonalBudget": "Personal budget responsibility",
+        "Q8_GeoScope": "Geographic scope",
+        "Q9_GeoScale": "Geographic scale"
+      },
+      "note": "Self-reported by participants within the TABS survey instrument. Used for all per-group demographic breakdowns, effect sizes, and cross-tabulations."
+    },
+    "platform_demographics": {
+      "source": "Prolific API (POST /studies/{id}/demographic-export/)",
+      "filters_api": "GET /api/v1/filters/ (returns full catalog of available prescreener categories)",
+      "type": "Personal/sociodemographic and professional characteristics",
+      "base_fields": {
+        "age": "Participant age (range filter)",
+        "sex": "Biological sex as recorded on legal documents",
+        "ethnicity": "Ethnic background (simplified)",
+        "language": "First/primary language",
+        "country_of_residence": "Current country of residence",
+        "nationality": "Nationality",
+        "country_of_birth": "Country of birth",
+        "student_status": "Current student status",
+        "employment_status": "Employment status"
+      },
+      "prescreener_fields": {
+        "employment_sector": "Employment sector (Private, Public, Non-profit, etc.)",
+        "industry": "Industry classification",
+        "company_size": "Company/organization size",
+        "occupation": "Occupation/job title category",
+        "education_level": "Highest level of education completed",
+        "household_income": "Household income bracket",
+        "fluent_languages": "Languages spoken fluently"
+      },
+      "study_screeners": [
+        {
+          "filter_id": "current_country_of_residence",
+          "label": "Current Country of Residence",
+          "selected_values": ["United States"],
+          "base_field": true
+        },
+        {
+          "filter_id": "employment_status",
+          "label": "Employment Status",
+          "selected_values": ["Full-Time"],
+          "base_field": true
+        },
+        {
+          "filter_id": "employment_sector",
+          "label": "Employer Type",
+          "selected_values": [
+            "Employee of a for-profit company or business or of an individual, for wages, salary, or commissions",
+            "Employee of a not-for-profit, tax-exempt, or charitable organization",
+            "Local government employee (city, county, etc.)",
+            "State government employee",
+            "Federal government employee",
+            "Self-employed in own not-incorporated business, professional practice, or farm",
+            "Self-employed in own incorporated business, professional practice, or farm",
+            "Working without pay in family business or farm"
+          ],
+          "base_field": false
+        },
+        {
+          "filter_id": "company_size",
+          "label": "Company Size",
+          "selected_values": ["50-249", "250-999", "1000+"],
+          "base_field": false
+        },
+        {
+          "filter_id": "occupation",
+          "label": "Job Position",
+          "selected_values": [
+            "C-Level (e.g. CEO, CFO), Owner, Partner, President",
+            "Vice President (EVP, SVP, AVP, VP)",
+            "Director (Group Director, Sr. Director, Director)",
+            "Manager (Group Manager, Sr. Manager, Manager, Program Manager)"
+          ],
+          "base_field": false
+        }
+      ],
+      "prescreener_note": "Up to 15 prescreener filters can be selected per export (configurable twice before locking). The 5 study screeners above are exported for cross-validation. Additional augmentation filters (education_level, household_income, fluent_languages) are also included, totaling 7 of the 15-filter maximum.",
+      "fields": {
+        "age": "Participant age",
+        "sex": "Biological sex",
+        "ethnicity": "Ethnic background",
+        "language": "Primary/first language",
+        "country_of_residence": "Current country of residence",
+        "nationality": "Nationality",
+        "country_of_birth": "Country of birth",
+        "student_status": "Current student status",
+        "employment_status": "Employment status",
+        "employment_sector": "Employment sector (prescreener)",
+        "industry": "Industry classification (prescreener)",
+        "company_size": "Company/organization size (prescreener)",
+        "occupation": "Occupation/job title category (prescreener)",
+        "education_level": "Education level (prescreener)",
+        "household_income": "Household income (prescreener)",
+        "fluent_languages": "Fluent languages (prescreener)"
+      },
+      "cross_validation": {
+        "description": "Prolific prescreener fields overlap with Qualtrics survey demographics, enabling independent cross-validation of self-reported data and sample balancing.",
+        "overlapping_fields": {
+          "industry": {
+            "prolific": "industry",
+            "qualtrics": "Q3_Industry"
+          },
+          "company_size": {
+            "prolific": "company_size",
+            "qualtrics": "Q4_OrgSize"
+          },
+          "employment_sector": {
+            "prolific": "employment_sector",
+            "qualtrics": "Q5_ProfitModel"
+          },
+          "occupation": {
+            "prolific": "occupation",
+            "qualtrics": "Q1_Role"
+          }
+        },
+        "use_cases": [
+          "Flag discrepancies between Prolific profile and survey responses",
+          "Balance samples using validated Prolific profile data",
+          "Augment survey demographics with additional Prolific fields (education, income, languages)"
+        ]
+      },
+      "note": "Base fields are always included in the Prolific demographic export. Prescreener fields are available when configured as study filters (up to 15 per export). The export is a snapshot of participants' prescreening responses at the time they took the study. Both base and prescreener data can be cross-referenced with Qualtrics survey data using Prolific Participant ID as join key."
+    }
+  },
+  "sample_details": {
+    "conservative_clean": {
+      "demographics": {
+        "roles": {},
+        "org_sizes": {},
+        "profit_models": {},
+        "tech_vs_nontech": {}
+      },
+      "effect_sizes": {},
+      "cross_tabs": {},
+      "inferential": {},
+      "per_item": {}
+    },
+    "flexible_clean": {
+      "demographics": {
+        "roles": {},
+        "org_sizes": {},
+        "profit_models": {},
+        "tech_vs_nontech": {}
+      },
+      "effect_sizes": {},
+      "cross_tabs": {},
+      "inferential": {},
+      "per_item": {}
+    },
+    "prolific_accepted": {
+      "demographics": {
+        "roles": {},
+        "org_sizes": {},
+        "profit_models": {},
+        "tech_vs_nontech": {}
+      },
+      "effect_sizes": {},
+      "cross_tabs": {},
+      "inferential": {},
+      "per_item": {}
+    },
+    "v2_finished": {
+      "demographics": {
+        "roles": {
+          "Unknown": 13
+        },
+        "org_sizes": {
+          "<100": 0,
+          "100-499": 2,
+          "500-999": 3,
+          "1000-4999": 4,
+          "5000-9999": 2,
+          "10000+": 2
+        },
+        "profit_models": {
+          "For-Profit": 9,
+          "Non-Profit": 2,
+          "Government/Public Sector": 2
+        },
+        "tech_vs_nontech": {
+          "technical": 0,
+          "non_technical": 0,
+          "other": 0
+        }
+      },
+      "effect_sizes": {
+        "tech_vs_nontech": {
+          "tech_n": 0,
+          "nontech_n": 0,
+          "constructs": {
+            "barriers": {
+              "tech_mean": null,
+              "nontech_mean": null,
+              "d": null
+            },
+            "readiness": {
+              "tech_mean": null,
+              "nontech_mean": null,
+              "d": null
+            },
+            "maturity": {
+              "tech_mean": null,
+              "nontech_mean": null,
+              "d": null
+            }
+          }
+        },
+        "large_vs_small": {
+          "large_n": 4,
+          "small_medium_n": 9,
+          "constructs": {
+            "barriers": {
+              "large_mean": 3.125,
+              "small_medium_mean": 3.4383,
+              "d": -0.2994
+            },
+            "readiness": {
+              "large_mean": 3.4706,
+              "small_medium_mean": 2.902,
+              "d": 0.4992
+            }
+          }
+        }
+      },
+      "cross_tabs": {
+        "by_role": [],
+        "by_org_size": [
+          {
+            "group": "Small (<500)",
+            "n": 2,
+            "barrier_mean": 3.4444,
+            "readiness_mean": 3.3529,
+            "maturity_mean": 2.4375
+          },
+          {
+            "group": "Medium (500-4999)",
+            "n": 7,
+            "barrier_mean": 3.4365,
+            "readiness_mean": 2.7731,
+            "maturity_mean": 1.9464
+          },
+          {
+            "group": "Large (5000+)",
+            "n": 4,
+            "barrier_mean": 3.125,
+            "readiness_mean": 3.4706,
+            "maturity_mean": 2.5625
+          }
+        ]
+      },
+      "inferential": {
+        "t_tests_tech_vs_nontech": {
+          "tech_n": 0,
+          "nontech_n": 0,
+          "constructs": {
+            "barriers": {
+              "t": null,
+              "p": null,
+              "df": null,
+              "sig": false
+            },
+            "readiness": {
+              "t": null,
+              "p": null,
+              "df": null,
+              "sig": false
+            },
+            "maturity": {
+              "t": null,
+              "p": null,
+              "df": null,
+              "sig": false
+            }
+          }
+        },
+        "t_tests_large_vs_small": {
+          "large_n": 4,
+          "small_medium_n": 9,
+          "constructs": {
+            "barriers": {
+              "t": -0.5158,
+              "p": 0.0,
+              "df": 6.32,
+              "sig": true
+            },
+            "readiness": {
+              "t": 0.8874,
+              "p": 0.0,
+              "df": 6.83,
+              "sig": true
+            },
+            "maturity": {
+              "t": 1.0173,
+              "p": 0.0,
+              "df": 5.9,
+              "sig": true
+            }
+          }
+        },
+        "anova_by_role": {
+          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
+          "group_ns": [0, 0, 0],
+          "constructs": {
+            "barriers": {
+              "f": null,
+              "p": null,
+              "df_between": null,
+              "df_within": null,
+              "sig": false
+            },
+            "readiness": {
+              "f": null,
+              "p": null,
+              "df_between": null,
+              "df_within": null,
+              "sig": false
+            },
+            "maturity": {
+              "f": null,
+              "p": null,
+              "df_between": null,
+              "df_within": null,
+              "sig": false
+            }
+          }
+        },
+        "anova_by_org_size": {
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [2, 7, 4],
+          "constructs": {
+            "barriers": {
+              "f": 0.1129,
+              "p": 0.8944,
+              "df_between": 2,
+              "df_within": 10,
+              "sig": false
+            },
+            "readiness": {
+              "f": 0.5159,
+              "p": 0.612,
+              "df_between": 2,
+              "df_within": 10,
+              "sig": false
+            },
+            "maturity": {
+              "f": 0.7476,
+              "p": 0.4982,
+              "df_between": 2,
+              "df_within": 10,
+              "sig": false
+            }
+          }
+        }
+      },
+      "per_item": {
+        "barriers": [
+          {
+            "name": "Cybersecurity Concerns",
+            "mean": 4.2308,
+            "sd": 0.8321,
+            "n": 13,
+            "rank": 1
+          },
+          {
+            "name": "Insufficient Workforce Skills",
+            "mean": 4.1538,
+            "sd": 0.8006,
+            "n": 13,
+            "rank": 2
+          },
+          {
+            "name": "Legacy System Integration",
+            "mean": 4.1538,
+            "sd": 0.8006,
+            "n": 13,
+            "rank": 3
+          },
+          {
+            "name": "Regulatory Complexity",
+            "mean": 3.9231,
+            "sd": 1.0377,
+            "n": 13,
+            "rank": 4
+          },
+          {
+            "name": "Risk-Averse Culture",
+            "mean": 3.5385,
+            "sd": 1.05,
+            "n": 13,
+            "rank": 5
+          },
+          {
+            "name": "High Implementation Cost",
+            "mean": 3.5385,
+            "sd": 1.05,
+            "n": 13,
+            "rank": 6
+          },
+          {
+            "name": "No Clear Strategy/Roadmap",
+            "mean": 3.5385,
+            "sd": 1.05,
+            "n": 13,
+            "rank": 7
+          },
+          {
+            "name": "Resistance to Change",
+            "mean": 3.4615,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 8
+          },
+          {
+            "name": "Inadequate IT Infrastructure",
+            "mean": 3.4615,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 9
+          },
+          {
+            "name": "Workflow Disruption",
+            "mean": 3.4615,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 10
+          },
+          {
+            "name": "External Pressure Without Readiness",
+            "mean": 3.4615,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 11
+          },
+          {
+            "name": "Data Privacy Compliance",
+            "mean": 3.1538,
+            "sd": 1.2142,
+            "n": 13,
+            "rank": 12
+          },
+          {
+            "name": "Lack of Leadership Support",
+            "mean": 2.6923,
+            "sd": 1.2506,
+            "n": 13,
+            "rank": 13
+          },
+          {
+            "name": "Inadequate Training",
+            "mean": 2.6923,
+            "sd": 1.2506,
+            "n": 13,
+            "rank": 14
+          },
+          {
+            "name": "Difficulty Demonstrating Value",
+            "mean": 2.6923,
+            "sd": 1.2506,
+            "n": 13,
+            "rank": 15
+          },
+          {
+            "name": "Lack of Trust in Tech/Vendors",
+            "mean": 2.6923,
+            "sd": 1.2506,
+            "n": 13,
+            "rank": 16
+          },
+          {
+            "name": "Vendor/Partner Difficulty",
+            "mean": 2.6923,
+            "sd": 1.2506,
+            "n": 13,
+            "rank": 17
+          },
+          {
+            "name": "Insufficient Governance",
+            "mean": 2.6154,
+            "sd": 1.2609,
+            "n": 13,
+            "rank": 18
+          }
+        ],
+        "readiness": [
+          {
+            "name": "Budget Adequacy",
+            "mean": 3.7692,
+            "sd": 1.4233,
+            "n": 13,
+            "rank": 1
+          },
+          {
+            "name": "Innovation Support",
+            "mean": 3.6154,
+            "sd": 1.3253,
+            "n": 13,
+            "rank": 2
+          },
+          {
+            "name": "IT Infrastructure",
+            "mean": 3.4615,
+            "sd": 1.3301,
+            "n": 13,
+            "rank": 3
+          },
+          {
+            "name": "Vision/Leadership",
+            "mean": 3.4167,
+            "sd": 1.1645,
+            "n": 12,
+            "rank": 4
+          },
+          {
+            "name": "Training Programs",
+            "mean": 3.3077,
+            "sd": 1.1821,
+            "n": 13,
+            "rank": 5
+          },
+          {
+            "name": "Data Governance",
+            "mean": 3.3077,
+            "sd": 1.1821,
+            "n": 13,
+            "rank": 6
+          },
+          {
+            "name": "Data Analytics",
+            "mean": 3.3077,
+            "sd": 1.1821,
+            "n": 13,
+            "rank": 7
+          },
+          {
+            "name": "Culture Openness",
+            "mean": 3.2308,
+            "sd": 1.2352,
+            "n": 13,
+            "rank": 8
+          },
+          {
+            "name": "Performance Monitoring",
+            "mean": 3.1538,
+            "sd": 1.3445,
+            "n": 13,
+            "rank": 9
+          },
+          {
+            "name": "Tech-Strategy Alignment",
+            "mean": 3.0769,
+            "sd": 1.1875,
+            "n": 13,
+            "rank": 10
+          },
+          {
+            "name": "Technical Workforce",
+            "mean": 2.9167,
+            "sd": 1.379,
+            "n": 12,
+            "rank": 11
+          },
+          {
+            "name": "System Interoperability",
+            "mean": 2.8462,
+            "sd": 1.3445,
+            "n": 13,
+            "rank": 12
+          },
+          {
+            "name": "Technical Support",
+            "mean": 2.6923,
+            "sd": 0.8549,
+            "n": 13,
+            "rank": 13
+          },
+          {
+            "name": "Business Process Maturity",
+            "mean": 2.6923,
+            "sd": 0.8549,
+            "n": 13,
+            "rank": 14
+          },
+          {
+            "name": "IT Governance Effectiveness",
+            "mean": 2.6154,
+            "sd": 0.9608,
+            "n": 13,
+            "rank": 15
+          },
+          {
+            "name": "Data Quality",
+            "mean": 2.5833,
+            "sd": 0.9962,
+            "n": 12,
+            "rank": 16
+          },
+          {
+            "name": "Change Management",
+            "mean": 2.5385,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 17
+          }
+        ],
+        "maturity": [
+          {
+            "name": "IT Investment & Value Mgmt",
+            "mean": 2.5385,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 1
+          },
+          {
+            "name": "Data Governance & Analytics",
+            "mean": 2.5385,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 2
+          },
+          {
+            "name": "Workforce Capability",
+            "mean": 2.5385,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 3
+          },
+          {
+            "name": "IT-Enabled Innovation",
+            "mean": 2.2308,
+            "sd": 1.0127,
+            "n": 13,
+            "rank": 4
+          },
+          {
+            "name": "Strategic IT Planning",
+            "mean": 2.0769,
+            "sd": 1.1152,
+            "n": 13,
+            "rank": 5
+          },
+          {
+            "name": "Process Mgmt & Standardization",
+            "mean": 1.9231,
+            "sd": 0.8623,
+            "n": 13,
+            "rank": 6
+          },
+          {
+            "name": "Tech Risk & Resilience",
+            "mean": 1.9231,
+            "sd": 0.6405,
+            "n": 13,
+            "rank": 7
+          },
+          {
+            "name": "Change Leadership",
+            "mean": 1.9231,
+            "sd": 0.7596,
+            "n": 13,
+            "rank": 8
+          }
+        ]
+      }
+    },
+    "v2_all": {
+      "demographics": {
+        "roles": {
+          "Unknown": 13
+        },
+        "org_sizes": {
+          "<100": 0,
+          "100-499": 2,
+          "500-999": 3,
+          "1000-4999": 4,
+          "5000-9999": 2,
+          "10000+": 2
+        },
+        "profit_models": {
+          "For-Profit": 9,
+          "Non-Profit": 2,
+          "Government/Public Sector": 2
+        },
+        "tech_vs_nontech": {
+          "technical": 0,
+          "non_technical": 0,
+          "other": 0
+        }
+      },
+      "effect_sizes": {
+        "tech_vs_nontech": {
+          "tech_n": 0,
+          "nontech_n": 0,
+          "constructs": {
+            "barriers": {
+              "tech_mean": null,
+              "nontech_mean": null,
+              "d": null
+            },
+            "readiness": {
+              "tech_mean": null,
+              "nontech_mean": null,
+              "d": null
+            },
+            "maturity": {
+              "tech_mean": null,
+              "nontech_mean": null,
+              "d": null
+            }
+          }
+        },
+        "large_vs_small": {
+          "large_n": 4,
+          "small_medium_n": 9,
+          "constructs": {
+            "barriers": {
+              "large_mean": 3.125,
+              "small_medium_mean": 3.4383,
+              "d": -0.2994
+            },
+            "readiness": {
+              "large_mean": 3.4706,
+              "small_medium_mean": 2.902,
+              "d": 0.4992
+            }
+          }
+        }
+      },
+      "cross_tabs": {
+        "by_role": [],
+        "by_org_size": [
+          {
+            "group": "Small (<500)",
+            "n": 2,
+            "barrier_mean": 3.4444,
+            "readiness_mean": 3.3529,
+            "maturity_mean": 2.4375
+          },
+          {
+            "group": "Medium (500-4999)",
+            "n": 7,
+            "barrier_mean": 3.4365,
+            "readiness_mean": 2.7731,
+            "maturity_mean": 1.9464
+          },
+          {
+            "group": "Large (5000+)",
+            "n": 4,
+            "barrier_mean": 3.125,
+            "readiness_mean": 3.4706,
+            "maturity_mean": 2.5625
+          }
+        ]
+      },
+      "inferential": {
+        "t_tests_tech_vs_nontech": {
+          "tech_n": 0,
+          "nontech_n": 0,
+          "constructs": {
+            "barriers": {
+              "t": null,
+              "p": null,
+              "df": null,
+              "sig": false
+            },
+            "readiness": {
+              "t": null,
+              "p": null,
+              "df": null,
+              "sig": false
+            },
+            "maturity": {
+              "t": null,
+              "p": null,
+              "df": null,
+              "sig": false
+            }
+          }
+        },
+        "t_tests_large_vs_small": {
+          "large_n": 4,
+          "small_medium_n": 9,
+          "constructs": {
+            "barriers": {
+              "t": -0.5158,
+              "p": 0.0,
+              "df": 6.32,
+              "sig": true
+            },
+            "readiness": {
+              "t": 0.8874,
+              "p": 0.0,
+              "df": 6.83,
+              "sig": true
+            },
+            "maturity": {
+              "t": 1.0173,
+              "p": 0.0,
+              "df": 5.9,
+              "sig": true
+            }
+          }
+        },
+        "anova_by_role": {
+          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
+          "group_ns": [0, 0, 0],
+          "constructs": {
+            "barriers": {
+              "f": null,
+              "p": null,
+              "df_between": null,
+              "df_within": null,
+              "sig": false
+            },
+            "readiness": {
+              "f": null,
+              "p": null,
+              "df_between": null,
+              "df_within": null,
+              "sig": false
+            },
+            "maturity": {
+              "f": null,
+              "p": null,
+              "df_between": null,
+              "df_within": null,
+              "sig": false
+            }
+          }
+        },
+        "anova_by_org_size": {
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [2, 7, 4],
+          "constructs": {
+            "barriers": {
+              "f": 0.1129,
+              "p": 0.8944,
+              "df_between": 2,
+              "df_within": 10,
+              "sig": false
+            },
+            "readiness": {
+              "f": 0.5159,
+              "p": 0.612,
+              "df_between": 2,
+              "df_within": 10,
+              "sig": false
+            },
+            "maturity": {
+              "f": 0.7476,
+              "p": 0.4982,
+              "df_between": 2,
+              "df_within": 10,
+              "sig": false
+            }
+          }
+        }
+      },
+      "per_item": {
+        "barriers": [
+          {
+            "name": "Cybersecurity Concerns",
+            "mean": 4.2308,
+            "sd": 0.8321,
+            "n": 13,
+            "rank": 1
+          },
+          {
+            "name": "Insufficient Workforce Skills",
+            "mean": 4.1538,
+            "sd": 0.8006,
+            "n": 13,
+            "rank": 2
+          },
+          {
+            "name": "Legacy System Integration",
+            "mean": 4.1538,
+            "sd": 0.8006,
+            "n": 13,
+            "rank": 3
+          },
+          {
+            "name": "Regulatory Complexity",
+            "mean": 3.9231,
+            "sd": 1.0377,
+            "n": 13,
+            "rank": 4
+          },
+          {
+            "name": "Risk-Averse Culture",
+            "mean": 3.5385,
+            "sd": 1.05,
+            "n": 13,
+            "rank": 5
+          },
+          {
+            "name": "High Implementation Cost",
+            "mean": 3.5385,
+            "sd": 1.05,
+            "n": 13,
+            "rank": 6
+          },
+          {
+            "name": "No Clear Strategy/Roadmap",
+            "mean": 3.5385,
+            "sd": 1.05,
+            "n": 13,
+            "rank": 7
+          },
+          {
+            "name": "Resistance to Change",
+            "mean": 3.4615,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 8
+          },
+          {
+            "name": "Inadequate IT Infrastructure",
+            "mean": 3.4615,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 9
+          },
+          {
+            "name": "Workflow Disruption",
+            "mean": 3.4615,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 10
+          },
+          {
+            "name": "External Pressure Without Readiness",
+            "mean": 3.4615,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 11
+          },
+          {
+            "name": "Data Privacy Compliance",
+            "mean": 3.1538,
+            "sd": 1.2142,
+            "n": 13,
+            "rank": 12
+          },
+          {
+            "name": "Lack of Leadership Support",
+            "mean": 2.6923,
+            "sd": 1.2506,
+            "n": 13,
+            "rank": 13
+          },
+          {
+            "name": "Inadequate Training",
+            "mean": 2.6923,
+            "sd": 1.2506,
+            "n": 13,
+            "rank": 14
+          },
+          {
+            "name": "Difficulty Demonstrating Value",
+            "mean": 2.6923,
+            "sd": 1.2506,
+            "n": 13,
+            "rank": 15
+          },
+          {
+            "name": "Lack of Trust in Tech/Vendors",
+            "mean": 2.6923,
+            "sd": 1.2506,
+            "n": 13,
+            "rank": 16
+          },
+          {
+            "name": "Vendor/Partner Difficulty",
+            "mean": 2.6923,
+            "sd": 1.2506,
+            "n": 13,
+            "rank": 17
+          },
+          {
+            "name": "Insufficient Governance",
+            "mean": 2.6154,
+            "sd": 1.2609,
+            "n": 13,
+            "rank": 18
+          }
+        ],
+        "readiness": [
+          {
+            "name": "Budget Adequacy",
+            "mean": 3.7692,
+            "sd": 1.4233,
+            "n": 13,
+            "rank": 1
+          },
+          {
+            "name": "Innovation Support",
+            "mean": 3.6154,
+            "sd": 1.3253,
+            "n": 13,
+            "rank": 2
+          },
+          {
+            "name": "IT Infrastructure",
+            "mean": 3.4615,
+            "sd": 1.3301,
+            "n": 13,
+            "rank": 3
+          },
+          {
+            "name": "Vision/Leadership",
+            "mean": 3.4167,
+            "sd": 1.1645,
+            "n": 12,
+            "rank": 4
+          },
+          {
+            "name": "Training Programs",
+            "mean": 3.3077,
+            "sd": 1.1821,
+            "n": 13,
+            "rank": 5
+          },
+          {
+            "name": "Data Governance",
+            "mean": 3.3077,
+            "sd": 1.1821,
+            "n": 13,
+            "rank": 6
+          },
+          {
+            "name": "Data Analytics",
+            "mean": 3.3077,
+            "sd": 1.1821,
+            "n": 13,
+            "rank": 7
+          },
+          {
+            "name": "Culture Openness",
+            "mean": 3.2308,
+            "sd": 1.2352,
+            "n": 13,
+            "rank": 8
+          },
+          {
+            "name": "Performance Monitoring",
+            "mean": 3.1538,
+            "sd": 1.3445,
+            "n": 13,
+            "rank": 9
+          },
+          {
+            "name": "Tech-Strategy Alignment",
+            "mean": 3.0769,
+            "sd": 1.1875,
+            "n": 13,
+            "rank": 10
+          },
+          {
+            "name": "Technical Workforce",
+            "mean": 2.9167,
+            "sd": 1.379,
+            "n": 12,
+            "rank": 11
+          },
+          {
+            "name": "System Interoperability",
+            "mean": 2.8462,
+            "sd": 1.3445,
+            "n": 13,
+            "rank": 12
+          },
+          {
+            "name": "Technical Support",
+            "mean": 2.6923,
+            "sd": 0.8549,
+            "n": 13,
+            "rank": 13
+          },
+          {
+            "name": "Business Process Maturity",
+            "mean": 2.6923,
+            "sd": 0.8549,
+            "n": 13,
+            "rank": 14
+          },
+          {
+            "name": "IT Governance Effectiveness",
+            "mean": 2.6154,
+            "sd": 0.9608,
+            "n": 13,
+            "rank": 15
+          },
+          {
+            "name": "Data Quality",
+            "mean": 2.5833,
+            "sd": 0.9962,
+            "n": 12,
+            "rank": 16
+          },
+          {
+            "name": "Change Management",
+            "mean": 2.5385,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 17
+          }
+        ],
+        "maturity": [
+          {
+            "name": "IT Investment & Value Mgmt",
+            "mean": 2.5385,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 1
+          },
+          {
+            "name": "Data Governance & Analytics",
+            "mean": 2.5385,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 2
+          },
+          {
+            "name": "Workforce Capability",
+            "mean": 2.5385,
+            "sd": 0.9674,
+            "n": 13,
+            "rank": 3
+          },
+          {
+            "name": "IT-Enabled Innovation",
+            "mean": 2.2308,
+            "sd": 1.0127,
+            "n": 13,
+            "rank": 4
+          },
+          {
+            "name": "Strategic IT Planning",
+            "mean": 2.0769,
+            "sd": 1.1152,
+            "n": 13,
+            "rank": 5
+          },
+          {
+            "name": "Process Mgmt & Standardization",
+            "mean": 1.9231,
+            "sd": 0.8623,
+            "n": 13,
+            "rank": 6
+          },
+          {
+            "name": "Tech Risk & Resilience",
+            "mean": 1.9231,
+            "sd": 0.6405,
+            "n": 13,
+            "rank": 7
+          },
+          {
+            "name": "Change Leadership",
+            "mean": 1.9231,
+            "sd": 0.7596,
+            "n": 13,
+            "rank": 8
+          }
+        ]
+      }
+    }
+  }
+}

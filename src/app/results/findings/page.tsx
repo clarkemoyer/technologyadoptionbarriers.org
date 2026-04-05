@@ -9,7 +9,9 @@ import {
 } from '@/lib/articleStyles'
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
+import itemStatsData from '@/data/item-stats.json'
 import LastUpdated from '@/components/last-updated'
+import ItemStatsTable from '@/components/results/item-stats-table'
 
 export const metadata: Metadata = {
   title: 'Key Findings — TABS Results',
@@ -71,14 +73,24 @@ interface InferentialData {
   anova_by_org_size?: InferentialGroup
 }
 
+interface ItemStat {
+  name: string
+  mean: number | null
+  sd: number | null
+  rank: number
+  n: number
+}
+
 interface SampleDetail {
   demographics?: Record<string, unknown>
   effect_sizes?: Record<string, EffectSizeGroup>
   cross_tabs?: { by_role?: CrossTabRow[]; by_org_size?: CrossTabRow[] }
   inferential?: InferentialData
+  per_item?: Record<string, ItemStat[]>
 }
 
 const sampleDetails: Record<string, SampleDetail> =
+  ((itemStatsData as Record<string, unknown>).sample_details as Record<string, SampleDetail>) ??
   ((sensitivityData as Record<string, unknown>).sample_details as Record<string, SampleDetail>) ??
   {}
 
@@ -117,7 +129,42 @@ const dSize = (d: number | null | undefined): string => {
   return 'large'
 }
 
+const getRankShifters = (
+  allSampleDetails: Record<string, SampleDetail>,
+  construct: string
+): Set<string> => {
+  const shifters = new Set<string>()
+  const groups = ['conservative_clean', 'flexible_clean', 'prolific_accepted', 'v2_finished']
+
+  // Map of itemName -> [rankInGroup0, rankInGroup1, ...]
+  const rankMap: Record<string, number[]> = {}
+
+  groups.forEach((gKey) => {
+    const items = allSampleDetails[gKey]?.per_item?.[construct] ?? []
+    items.forEach((item) => {
+      if (!rankMap[item.name]) rankMap[item.name] = []
+      rankMap[item.name].push(item.rank)
+    })
+  })
+
+  Object.entries(rankMap).forEach(([name, ranks]) => {
+    if (ranks.length < 2) return
+    const minRank = Math.min(...ranks)
+    const maxRank = Math.max(...ranks)
+    // If rank shifts by more than 2 positions across any groups
+    if (maxRank - minRank > 2) {
+      shifters.add(name)
+    }
+  })
+
+  return shifters
+}
+
 const FindingsPage = () => {
+  const shifterBarriers = getRankShifters(sampleDetails, 'barriers')
+  const shifterReadiness = getRankShifters(sampleDetails, 'readiness')
+  const shifterMaturity = getRankShifters(sampleDetails, 'maturity')
+
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
@@ -412,6 +459,85 @@ const FindingsPage = () => {
                 ) : (
                   <p className="text-sm text-gray-500 italic mt-2">
                     Cross-tabulation data will be populated by the next pipeline run.
+                  </p>
+                )}
+              </div>
+            )
+          })}
+        </section>
+
+        {/* ── Per-Item Statistics ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Per-Item Statistics</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Item-level means and standard deviations reveal which specific factors drive the grand
+            means. &quot;Rank Shifters&quot; (highlighted) indicate items whose relative importance
+            changes significantly depending on the data inclusion criteria used.
+          </p>
+
+          {PRIMARY_GROUPS.map((group) => {
+            const details = sampleDetails[group.key]
+            const perItem = details?.per_item
+            const hasData =
+              perItem &&
+              (perItem['barriers']?.length ||
+                perItem['readiness']?.length ||
+                perItem['maturity']?.length)
+
+            return (
+              <div
+                key={group.key}
+                className={`border-l-4 ${group.color} bg-gray-50 rounded-lg p-5 mb-10`}
+              >
+                <h3 className={H3_CLASSES}>{group.label} — Top &amp; Bottom Items</h3>
+
+                {hasData ? (
+                  <div className="space-y-8 mt-4">
+                    {/* Barriers */}
+                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                      <ItemStatsTable
+                        title="Top 5 Barriers (Most Significant)"
+                        items={perItem['barriers']?.slice(0, 5) ?? []}
+                        highlightedItems={shifterBarriers}
+                      />
+                      <ItemStatsTable
+                        title="Bottom 5 Barriers (Least Significant)"
+                        items={perItem['barriers']?.slice(-5).reverse() ?? []}
+                        highlightedItems={shifterBarriers}
+                      />
+                    </div>
+
+                    {/* Readiness */}
+                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                      <ItemStatsTable
+                        title="Top 5 Readiness Factors"
+                        items={perItem['readiness']?.slice(0, 5) ?? []}
+                        highlightedItems={shifterReadiness}
+                      />
+                      <ItemStatsTable
+                        title="Bottom 5 Readiness Factors"
+                        items={perItem['readiness']?.slice(-5).reverse() ?? []}
+                        highlightedItems={shifterReadiness}
+                      />
+                    </div>
+
+                    {/* Maturity */}
+                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                      <ItemStatsTable
+                        title="Top 3 Maturity Competencies"
+                        items={perItem['maturity']?.slice(0, 3) ?? []}
+                        highlightedItems={shifterMaturity}
+                      />
+                      <ItemStatsTable
+                        title="Bottom 3 Maturity Competencies"
+                        items={perItem['maturity']?.slice(-3).reverse() ?? []}
+                        highlightedItems={shifterMaturity}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-sm text-gray-500 italic mt-2">
+                    Per-item statistics will be populated by the next pipeline run.
                   </p>
                 )}
               </div>

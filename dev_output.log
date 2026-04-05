@@ -1,0 +1,16 @@
+
+> technologyadoptionbarriers-org@0.3.1 dev
+> next dev --turbopack
+
+▲ Next.js 16.2.1 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+✓ Ready in 548ms
+
+○ Compiling /results/findings ...
+ GET /results/findings/ 200 in 7.8s (next.js: 5.6s, application-code: 2.2s)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /results/findings/ 200 in 526ms (next.js: 6ms, application-code: 520ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /results/findings/ 200 in 359ms (next.js: 4ms, application-code: 354ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
