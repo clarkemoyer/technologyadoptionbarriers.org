@@ -63,7 +63,11 @@ HAS_CRITICAL=false
 CRITICAL_REASONS=""
 
 # Thresholds for critical detection
+# LARGE_DELTA_THRESHOLD: a single-day swing of >50 approved submissions is anomalous
+# given the study's typical daily volume; adjust if study pace increases significantly.
 LARGE_DELTA_THRESHOLD=50
+# NEGATIVE_PROGRESS_THRESHOLD: total response count should never decrease; a drop of >5
+# suggests deletions or export issues requiring investigation.
 NEGATIVE_PROGRESS_THRESHOLD=-5
 
 # 1. Pipeline phase failures
@@ -427,7 +431,9 @@ from datetime import datetime, timezone, timedelta
 
 # Policy constants
 AUTO_CLOSE_HOURS_NO_CRITICAL = 24      # close non-critical reports after this many hours
-AUTO_CLOSE_HOURS_NO_COMMENTS = 48      # close any report with no comments after this many hours
+AUTO_CLOSE_HOURS_NO_COMMENTS = 48      # safety net: close ANY report (even critical) with no
+                                       # comments after this many hours to prevent unbounded
+                                       # accumulation; the 48h rule overrides the 24h rule
 
 with open('/tmp/old-reports.json') as f:
     data = json.load(f)
@@ -443,7 +449,10 @@ def parse_gh_timestamp(ts: str) -> datetime:
         except ValueError:
             continue
     # Fall back to fromisoformat for any other ISO 8601 variant
-    return datetime.fromisoformat(ts.replace('Z', '+00:00'))
+    try:
+        return datetime.fromisoformat(ts.replace('Z', '+00:00'))
+    except ValueError:
+        raise ValueError(f'Unsupported GitHub timestamp format: {ts!r}')
 
 for issue in data:
     num = issue['number']
