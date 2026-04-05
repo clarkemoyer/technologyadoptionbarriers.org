@@ -757,7 +757,7 @@ When you assign a GitHub issue to the Copilot coding agent, the full chain runs 
 gh api repos/clarkemoyer/technologyadoptionbarriers.org/issues/<ISSUE#> \
   -X PATCH -f "assignees[]=copilot-swe-agent[bot]"
 
-# Or use gh agent-task (gh v2.89+)
+# Or use gh agent-task (gh v2.88+)
 gh agent-task create  # from within the repo directory
 
 # Monitor all agent tasks
