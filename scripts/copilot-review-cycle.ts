@@ -362,10 +362,14 @@ interface CheckRun {
   name: string
   status: string
   conclusion: string | null
+  details_url: string
 }
 
+// Name of this workflow's check run — excluded from CI polling to avoid self-deadlock
+const SELF_CHECK_NAME = 'Review Round'
+
 /**
- * Wait for all CI checks on the PR to complete.
+ * Wait for all CI checks on the PR to complete (excluding this workflow's own check run).
  * Returns 'pass' if all succeed, 'fail' if any fail, null on timeout.
  */
 async function waitForCi(repo: string, prNumber: string): Promise<'pass' | 'fail' | null> {
@@ -381,9 +385,12 @@ async function waitForCi(repo: string, prNumber: string): Promise<'pass' | 'fail
       return null
     }
 
-    const checks = ghJsonArray<CheckRun>(
+    const allChecks = ghJsonArray<CheckRun>(
       `api "repos/${repo}/commits/${pr.headRefOid}/check-runs?filter=latest" --jq ".check_runs" --paginate`
     )
+
+    // Filter out this workflow's own check run to prevent self-deadlock
+    const checks = allChecks.filter((c) => !c.name.startsWith(SELF_CHECK_NAME))
 
     if (checks.length === 0) {
       const elapsed = Math.round((Date.now() - startTime) / 1000)

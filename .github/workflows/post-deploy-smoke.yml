@@ -361,11 +361,13 @@ jobs:
           # as static files). Verify rendered pages contain data-derived values
           # that would only appear if pipeline JSON was present at build.
 
-          # Shared fetch: sets DATA_CONTENT and returns non-zero on HTTP error
+          # Shared fetch: sets DATA_CONTENT and FETCH_OK (0=success, 1=error).
+          # Always returns 0 so errexit does not abort the step.
           fetch_data_page() {
             local url="$1" label="$2"
             local status curl_exit
             DATA_CONTENT=""
+            FETCH_OK=1
             : > /tmp/data-body
             status=$(curl -s -o /tmp/data-body -w '%{http_code}' -L --max-time 15 "$url" 2>/dev/null)
             curl_exit=$?
@@ -378,14 +380,16 @@ jobs:
             if [ "$status" != "200" ]; then
               echo "| $label | ❌ HTTP $status (expected 200) |" >> /tmp/data-results.txt
               DATA_FAIL=$((DATA_FAIL + 1))
-              return 1
+              return 0
             fi
+            FETCH_OK=0
             return 0
           }
 
           check_data_marker() {
             local url="$1" marker="$2" label="$3"
-            fetch_data_page "$url" "$label" || return
+            fetch_data_page "$url" "$label"
+            [ "$FETCH_OK" -ne 0 ] && return 0
             if echo "$DATA_CONTENT" | grep -F -q -- "$marker"; then
               echo "| $label | ✅ Data renders |" >> /tmp/data-results.txt
             else
@@ -398,7 +402,8 @@ jobs:
           check_data_regex() {
             local url="$1" pattern="$2" label="$3"
             local grep_status
-            fetch_data_page "$url" "$label" || return
+            fetch_data_page "$url" "$label"
+            [ "$FETCH_OK" -ne 0 ] && return 0
             echo "$DATA_CONTENT" | grep -qE -- "$pattern"
             grep_status=$?
             if [ "$grep_status" -eq 0 ]; then
