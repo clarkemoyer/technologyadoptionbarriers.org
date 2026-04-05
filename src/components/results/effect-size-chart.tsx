@@ -144,7 +144,7 @@ const EffectSizeChart: React.FC<EffectSizeChartProps> = ({ data, title }) => {
                 <Cell
                   key={`cell-${index}`}
                   fill={entry.color}
-                  radius={entry.d < 0 ? [4, 0, 0, 4] : [0, 4, 4, 0]}
+                  radius={entry.d < 0 ? ([4, 0, 0, 4] as any) : ([0, 4, 4, 0] as any)}
                 />
               ))}
               <ErrorBar
