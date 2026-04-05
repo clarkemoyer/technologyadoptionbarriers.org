@@ -61,7 +61,7 @@ jobs:
 
       - name: Run Copilot review cycle
         run: npx tsx scripts/copilot-review-cycle.ts
-        timeout-minutes: 45
+        timeout-minutes: 75
         env:
           GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
