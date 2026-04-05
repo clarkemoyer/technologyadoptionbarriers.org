@@ -750,6 +750,8 @@ When you assign a GitHub issue to the Copilot coding agent, the full chain runs 
 
 **Key**: `auto-review-on-ready.yml` uses only `GITHUB_TOKEN` (no environment secrets), so it runs immediately for bot-created PRs without the `action_required` approval gate.
 
+> **Dual-trigger note**: `copilot-review-cycle.yml` is also configured with a direct `pull_request: [ready_for_review]` trigger in addition to `workflow_dispatch`. For PRs created from within the same repository (e.g. by the Copilot agent), marking a PR ready may start **two** review-cycle runs simultaneously — one from the direct event trigger and one dispatched by `auto-review-on-ready.yml`. The `workflow_dispatch` path exists specifically to bypass environment gating for bot-created PRs. The `concurrency` group (`copilot-review-${{ pr_number }}`) prevents the two runs from interleaving, but you may see both appear in the Actions tab. This is expected behaviour.
+
 **Assign via CLI**:
 
 ```bash
@@ -873,6 +875,8 @@ Tasks run in this Claude Code session and auto-expire after 7 days. Use cloud tr
 
 Project-level hooks in `.claude/settings.json`:
 
+> **Note**: `.claude/` is listed in `.gitignore` and is **not committed to the repository**. `settings.json` (and any agent definitions under `.claude/agents/`) are local to each developer's machine. If you want to use these hooks, create `.claude/settings.json` locally — it will not affect other contributors or CI. See `.claude/settings.json.example` if it exists, or configure from scratch following the [Claude Code hooks documentation](https://docs.anthropic.com/en/docs/claude-code/hooks).
+
 ### Active Hooks
 
 | Event         | Matcher       | Action                            |
@@ -893,7 +897,9 @@ Hooks run automatically — no approval needed. They help keep Claude-edited fil
 
 Claude Code operates under a tiered permission system configured in `~/.claude/settings.json`.
 
-### Denied (43 rules) — blocked entirely
+> **Note**: The rule and tool counts in the sections below reflect a specific developer's configuration and will vary per machine. Treat them as illustrative examples, not authoritative totals.
+
+### Denied — blocked entirely
 
 - Git destructive: force push, reset --hard, clean, filter-branch
 - Secret leakage: any bash with API_TOKEN, SECRET, PRIVATE_KEY, PASSWORD
@@ -903,12 +909,12 @@ Claude Code operates under a tiered permission system configured in `~/.claude/s
 - GitHub merge via MCP (forces human approval)
 - Calendar event deletion
 
-### Prompts (18 tools) — requires approval each time
+### Prompts — requires approval each time
 
 - Computer Use: clicks, typing, key presses, drag, clipboard write, open app
 - Chrome: form fills, JS execution, file upload, click actions
 
-### Auto-allowed (500+ tools) — runs without prompting
+### Auto-allowed — runs without prompting
 
 - All GitHub MCP read/write (local npx server)
 - All Cloudflare create/read/update (NOT delete)
