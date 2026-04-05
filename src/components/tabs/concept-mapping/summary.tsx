@@ -80,7 +80,7 @@ export default function ConceptMappingSummary() {
             className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm"
           >
             <p className="text-2xl font-bold text-tabs-navy">{stat.value}</p>
-            <div className="text-sm text-gray-600 inline-flex items-center justify-center gap-1">
+            <div className="flex items-center justify-center gap-1 text-sm text-gray-600">
               {stat.label}
               {QUICK_STAT_DESCRIPTIONS[stat.label] && (
                 <Tooltip
