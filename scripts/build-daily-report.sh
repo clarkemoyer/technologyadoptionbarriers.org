@@ -58,6 +58,58 @@ fi
 
 dfmt() { if [ "$1" -gt 0 ]; then printf "+%d" "$1"; elif [ "$1" -eq 0 ]; then printf "0"; else printf "%d" "$1"; fi; }
 
+# --- Detect critical findings ---
+HAS_CRITICAL=false
+CRITICAL_REASONS=""
+
+# 1. Pipeline phase failures
+if [ "${TRIAGE_RESULT:-}" = "failure" ]; then
+  HAS_CRITICAL=true
+  CRITICAL_REASONS="${CRITICAL_REASONS:+$CRITICAL_REASONS, }export/triage failure"
+fi
+if [ "${APPROVE_RESULT_STATUS:-}" = "failure" ]; then
+  HAS_CRITICAL=true
+  CRITICAL_REASONS="${CRITICAL_REASONS:+$CRITICAL_REASONS, }auto-approve failure"
+fi
+if [ "${MESSAGE_RESULT:-}" = "failure" ]; then
+  HAS_CRITICAL=true
+  CRITICAL_REASONS="${CRITICAL_REASONS:+$CRITICAL_REASONS, }messaging failure"
+fi
+if [ "${DASHBOARD_RESULT:-}" = "failure" ]; then
+  HAS_CRITICAL=true
+  CRITICAL_REASONS="${CRITICAL_REASONS:+$CRITICAL_REASONS, }dashboard failure"
+fi
+
+# 2. Disposition anomaly: AUTO-EXCLUDE participants incorrectly approved
+if [ -f "$TODAY_FILE" ]; then
+  AE_APPROVED=$(python3 -c "
+import json
+try:
+    d = json.load(open('$TODAY_FILE'))
+    print(d.get('dispositionByStatus', {}).get('AUTO-EXCLUDE', {}).get('APPROVED', 0))
+except Exception:
+    print(0)
+" 2>/dev/null || echo 0)
+  if [ "$AE_APPROVED" -gt 0 ]; then
+    HAS_CRITICAL=true
+    CRITICAL_REASONS="${CRITICAL_REASONS:+$CRITICAL_REASONS, }AUTO-EXCLUDE participants approved (${AE_APPROVED})"
+  fi
+fi
+
+# 3. Large delta threshold: >50 swing in approved count
+# 4. Negative completion progress: total responses decreased
+if [ "$HAS_DASHBOARD" = true ]; then
+  DELTA_APPROVED_ABS=${DELTA_APPROVED#-}
+  if [ "$DELTA_APPROVED_ABS" -gt 50 ]; then
+    HAS_CRITICAL=true
+    CRITICAL_REASONS="${CRITICAL_REASONS:+$CRITICAL_REASONS, }large approval delta ($DELTA_APPROVED)"
+  fi
+  if [ "$DELTA_TOTAL" -lt -5 ]; then
+    HAS_CRITICAL=true
+    CRITICAL_REASONS="${CRITICAL_REASONS:+$CRITICAL_REASONS, }negative completion progress ($DELTA_TOTAL)"
+  fi
+fi
+
 # --- Triage data ---
 TRIAGE_TOTAL="unknown"
 TRIAGE_BREAKDOWN=""
@@ -254,7 +306,20 @@ if [ -n "$WARNINGS" ]; then
 "
 fi
 
+# --- Build status note for report header ---
+if [ "$HAS_CRITICAL" = true ]; then
+  STATUS_NOTE="> ⚠️ **Critical findings detected** — ${CRITICAL_REASONS}
+>
+> This issue is labeled \`needs-attention\` and will remain open for human review."
+else
+  STATUS_NOTE="> ✅ No critical findings detected — this report will auto-close after 24 hours if no comments are added."
+fi
+
 cat > /tmp/report-body.md << PREAMBLE
+## Report Status
+
+${STATUS_NOTE}
+
 ## Prolific Status (Deltas from previous report)
 ${DASHBOARD_NOTE}
 | Status | Count | Change |
@@ -309,9 +374,102 @@ STATUSEOF
 
 # --- Create issue ---
 TITLE="Daily Disposition Report -- $DATE"
-gh issue create \
+ISSUE_URL=$(gh issue create \
   --title "$TITLE" \
   --body-file /tmp/report-body.md \
-  --label "documentation"
+  --label "documentation")
+ISSUE_NUM=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
 
-echo "Daily report issue created: $TITLE"
+echo "Daily report issue created: $TITLE (#$ISSUE_NUM)"
+
+# --- Ensure required labels exist ---
+gh label create "needs-attention" \
+  --color "d93f0b" \
+  --description "Requires human review — critical pipeline findings detected" \
+  2>/dev/null || true
+gh label create "auto-closed" \
+  --color "ededed" \
+  --description "Automatically closed — no critical findings after 24h" \
+  2>/dev/null || true
+
+# --- Apply label based on critical findings ---
+if [ "$HAS_CRITICAL" = true ]; then
+  gh issue edit "$ISSUE_NUM" --add-label "needs-attention"
+  echo "Critical findings: $CRITICAL_REASONS"
+  echo "Issue labeled: needs-attention"
+else
+  echo "No critical findings detected — issue will auto-close after 24h"
+fi
+
+# --- Close old daily report issues ---
+# Non-critical issues (no needs-attention label) older than 24h are auto-closed.
+# Any issues older than 48h with no comments are auto-closed regardless of label.
+NOW_EPOCH=$(date -u +%s)
+gh issue list \
+  --state open \
+  --search "Daily Disposition Report in:title" \
+  --json number,title,createdAt,labels,comments \
+  --limit 100 > /tmp/old-reports.json 2>/dev/null || echo "[]" > /tmp/old-reports.json
+
+NOW_EPOCH="$NOW_EPOCH" CURRENT_ISSUE="$ISSUE_NUM" python3 << 'CLOSEEOF'
+import json, os, subprocess
+from datetime import datetime, timezone
+
+with open('/tmp/old-reports.json') as f:
+    data = json.load(f)
+
+now = int(os.environ.get('NOW_EPOCH', '0'))
+current_issue = int(os.environ.get('CURRENT_ISSUE', '0'))
+
+for issue in data:
+    num = issue['number']
+    if num == current_issue:
+        continue
+
+    created = issue['createdAt']
+    dt = datetime.strptime(created, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=timezone.utc)
+    age_hours = (now - dt.timestamp()) / 3600
+
+    labels = [lbl['name'] for lbl in issue.get('labels', [])]
+    comment_count = len(issue.get('comments', []))
+    has_needs_attention = 'needs-attention' in labels
+
+    should_close = False
+    close_reason = ''
+
+    # Close non-critical issues older than 24h
+    if not has_needs_attention and age_hours > 24:
+        should_close = True
+        close_reason = (
+            f'No critical findings were detected and this report is {age_hours:.0f} hours old. '
+            "Auto-closing — see today's report for the latest status."
+        )
+
+    # Close any issues older than 48h with no comments (even if marked critical)
+    if age_hours > 48 and comment_count == 0:
+        should_close = True
+        close_reason = (
+            f'This report is {age_hours:.0f} hours old with no comments. '
+            "Auto-closing — see today's report for the latest status."
+        )
+
+    if should_close:
+        print(f'Closing issue #{num} ({age_hours:.1f}h old, {comment_count} comments, needs-attention={has_needs_attention})')
+        result = subprocess.run(
+            ['gh', 'issue', 'close', str(num), '--comment', close_reason],
+            capture_output=True, text=True
+        )
+        if result.returncode == 0:
+            subprocess.run(
+                ['gh', 'issue', 'edit', str(num), '--add-label', 'auto-closed'],
+                capture_output=True, text=True
+            )
+            print('  Closed and labeled auto-closed')
+        else:
+            print(f'  Warning: failed to close issue #{num}: {result.stderr.strip()}')
+    else:
+        status = 'needs-attention' if has_needs_attention else 'normal'
+        print(f'Keeping issue #{num} open ({age_hours:.1f}h old, {comment_count} comments, {status})')
+CLOSEEOF
+
+echo "Daily report cleanup complete"
