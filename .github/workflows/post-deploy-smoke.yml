@@ -694,7 +694,7 @@ jobs:
       # ── Set commit status on failure ──────────────────────────────────
 
       - name: Set commit status (failure)
-        if: always() && (steps.verdict.outcome == 'failure' || (failure() && steps.verdict.outcome != 'success'))
+        if: always() && (steps.verdict.outcome == 'failure' || failure())
         uses: actions/github-script@v8
         with:
           script: |
