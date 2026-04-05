@@ -135,6 +135,25 @@ describe('ConceptMappingSummary component', () => {
     })
   })
 
+  describe('Tooltip functionality', () => {
+    it('should render info icons for quick stats', () => {
+      render(<ConceptMappingSummary />)
+      const statsBar = screen.getByRole('list', { name: 'Survey quick statistics' })
+      // Each stat should have an "About <label>" info button
+      const aboutButtons = within(statsBar).getAllByRole('button', { name: /^About /i })
+      expect(aboutButtons.length).toBeGreaterThan(0)
+    })
+
+    it('should render info icons for table column headers', () => {
+      render(<ConceptMappingSummary />)
+      const table = screen.getByRole('table')
+      const columnInfoButtons = within(table).getAllByRole('button', {
+        name: /^About the .+ column$/i,
+      })
+      expect(columnInfoButtons.length).toBeGreaterThan(0)
+    })
+  })
+
   describe('Accessibility', () => {
     it('should not have accessibility violations', async () => {
       const { container } = render(<ConceptMappingSummary />)

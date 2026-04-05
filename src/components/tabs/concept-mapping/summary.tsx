@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import summaryData from '@/data/concept-mapping-summary.json'
+import { Tooltip } from '@/components/ui/tooltip'
+import { Info } from 'lucide-react'
 import DownloadButtons from './download-buttons'
 
 interface SectionRow {
@@ -27,6 +29,33 @@ const data = summaryData as {
   revisionNotes: (string | { date: string; note: string })[]
 }
 
+/** Descriptions shown in quick-stat tooltips */
+const QUICK_STAT_DESCRIPTIONS: Record<string, string> = {
+  'Total Items':
+    'The total number of items (questions) in the survey, including both substantive items and attention checks.',
+  Substantive:
+    'Substantive items are the core research questions designed to measure constructs. Excludes attention checks.',
+  'Attention Checks':
+    'Attention check items verify respondent engagement. They have a single objectively correct answer and are excluded from construct analysis.',
+  Sections:
+    'The number of major survey sections (A through E), each measuring a distinct theoretical construct.',
+  'Mapped Fields':
+    'The number of metadata fields documented for each survey item in the concept mapping (e.g., variable name, scale, theoretical grounding, APA citation).',
+}
+
+/** Descriptions shown in table column header tooltips */
+const COLUMN_HEADER_DESCRIPTIONS: Record<string, string> = {
+  Section: 'The major survey section and the primary construct or topic it measures.',
+  'Question Type':
+    'The format used to present questions (e.g., Matrix, Multiple Choice, Multi-Select, Text Entry).',
+  'Substantive Items':
+    'The number of core research items in this section, excluding attention checks.',
+  'Attention Checks':
+    'The number of attention check items embedded in this section to verify respondent engagement.',
+  'Scale / Method':
+    'The response scale or measurement method used for items in this section (e.g., 5-point Barrier Severity scale, 5-level Maturity scale).',
+}
+
 export default function ConceptMappingSummary() {
   const { quickStats, sections, totals, revisionNotes } = data
 
@@ -51,7 +80,17 @@ export default function ConceptMappingSummary() {
             className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm"
           >
             <p className="text-2xl font-bold text-tabs-navy">{stat.value}</p>
-            <p className="text-sm text-gray-600">{stat.label}</p>
+            <div className="text-sm text-gray-600 inline-flex items-center justify-center gap-1">
+              {stat.label}
+              {QUICK_STAT_DESCRIPTIONS[stat.label] && (
+                <Tooltip
+                  content={<span className="text-xs">{QUICK_STAT_DESCRIPTIONS[stat.label]}</span>}
+                  triggerAriaLabel={`About ${stat.label}`}
+                >
+                  <Info className="w-3.5 h-3.5 text-gray-400 hover:text-gray-600 cursor-help" />
+                </Tooltip>
+              )}
+            </div>
           </div>
         ))}
       </div>
@@ -96,24 +135,72 @@ export default function ConceptMappingSummary() {
                 <tr className="border-b border-gray-200 bg-gray-50">
                   <th scope="col" className="px-4 py-3 font-semibold text-gray-700 sm:px-6">
                     Section
+                    <Tooltip
+                      content={
+                        <span className="text-xs">{COLUMN_HEADER_DESCRIPTIONS['Section']}</span>
+                      }
+                      triggerAriaLabel="About the Section column"
+                    >
+                      <Info className="inline w-3.5 h-3.5 ml-1 text-gray-400 hover:text-gray-600 cursor-help align-middle" />
+                    </Tooltip>
                   </th>
                   <th scope="col" className="px-4 py-3 font-semibold text-gray-700 sm:px-6">
                     Question Type
+                    <Tooltip
+                      content={
+                        <span className="text-xs">
+                          {COLUMN_HEADER_DESCRIPTIONS['Question Type']}
+                        </span>
+                      }
+                      triggerAriaLabel="About the Question Type column"
+                    >
+                      <Info className="inline w-3.5 h-3.5 ml-1 text-gray-400 hover:text-gray-600 cursor-help align-middle" />
+                    </Tooltip>
                   </th>
                   <th
                     scope="col"
                     className="px-4 py-3 text-right font-semibold text-gray-700 sm:px-6"
                   >
                     Substantive Items
+                    <Tooltip
+                      content={
+                        <span className="text-xs">
+                          {COLUMN_HEADER_DESCRIPTIONS['Substantive Items']}
+                        </span>
+                      }
+                      triggerAriaLabel="About the Substantive Items column"
+                    >
+                      <Info className="inline w-3.5 h-3.5 ml-1 text-gray-400 hover:text-gray-600 cursor-help align-middle" />
+                    </Tooltip>
                   </th>
                   <th
                     scope="col"
                     className="px-4 py-3 text-right font-semibold text-gray-700 sm:px-6"
                   >
                     Attention Checks
+                    <Tooltip
+                      content={
+                        <span className="text-xs">
+                          {COLUMN_HEADER_DESCRIPTIONS['Attention Checks']}
+                        </span>
+                      }
+                      triggerAriaLabel="About the Attention Checks column"
+                    >
+                      <Info className="inline w-3.5 h-3.5 ml-1 text-gray-400 hover:text-gray-600 cursor-help align-middle" />
+                    </Tooltip>
                   </th>
                   <th scope="col" className="px-4 py-3 font-semibold text-gray-700 sm:px-6">
                     Scale / Method
+                    <Tooltip
+                      content={
+                        <span className="text-xs">
+                          {COLUMN_HEADER_DESCRIPTIONS['Scale / Method']}
+                        </span>
+                      }
+                      triggerAriaLabel="About the Scale / Method column"
+                    >
+                      <Info className="inline w-3.5 h-3.5 ml-1 text-gray-400 hover:text-gray-600 cursor-help align-middle" />
+                    </Tooltip>
                   </th>
                 </tr>
               </thead>

@@ -171,6 +171,44 @@ describe('ConceptMappingSimple component', () => {
       expect(tooltipTriggers.length).toBeGreaterThan(0)
     })
 
+    it('should render tooltip triggers for readiness rows (Section C)', () => {
+      render(<ConceptMappingSimple />)
+      // Filter to Section C so only readiness rows are shown
+      const sectionBtn = screen.getByText(
+        'Section C: Perceived Organizational Technology Readiness',
+        { selector: 'button' }
+      )
+      fireEvent.click(sectionBtn)
+      const readinessTriggers = screen.getAllByRole('button', { name: /^View examples for/i })
+      expect(readinessTriggers.length).toBeGreaterThan(0)
+    })
+
+    it('should render tooltip triggers for maturity rows (Section D)', () => {
+      render(<ConceptMappingSimple />)
+      // Filter to Section D so only maturity rows are shown
+      const sectionBtn = screen.getByText(
+        'Section D: Perceived Maturity of Organizational Capabilities',
+        { selector: 'button' }
+      )
+      fireEvent.click(sectionBtn)
+      const maturityTriggers = screen.getAllByRole('button', { name: /^View examples for/i })
+      expect(maturityTriggers.length).toBeGreaterThan(0)
+    })
+
+    it('should render info icons for section filter chips', () => {
+      render(<ConceptMappingSimple />)
+      // Each section chip has a sibling info button "About <section label>"
+      const aboutButtons = screen.getAllByRole('button', { name: /^About Section/i })
+      expect(aboutButtons.length).toBeGreaterThan(0)
+    })
+
+    it('should render info icons for column headers', () => {
+      render(<ConceptMappingSimple />)
+      // Column header tooltips have aria-label "About the <header> column"
+      const columnInfoButtons = screen.getAllByRole('button', { name: /^About the .+ column$/i })
+      expect(columnInfoButtons.length).toBeGreaterThan(0)
+    })
+
     it('should show tooltip content when focused', async () => {
       render(<ConceptMappingSimple />)
       const tooltipTriggers = screen.getAllByRole('button', { name: /^View examples for/i })

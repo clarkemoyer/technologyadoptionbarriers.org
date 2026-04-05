@@ -5,6 +5,11 @@ import conceptMappingData from '@/data/concept-mapping-complex.json'
 import { SECTIONS, type SectionDef } from '@/data/concept-mapping-colors'
 import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
+import { Tooltip } from '@/components/ui/tooltip'
+import { Info } from 'lucide-react'
+import { barriers } from '@/data/barriers'
+import { readinessItems } from '@/data/readiness'
+import { maturityItems } from '@/data/maturity'
 import DownloadButtons from './download-buttons'
 
 /**
@@ -103,6 +108,15 @@ function parseScale(raw: string): ScaleInfo {
 }
 
 /* ── Sub-Components ─────────────────────────────────────────────────── */
+
+/** Short descriptions for each section, shown as tooltip icons on section headers */
+const SECTION_DESCRIPTIONS: Record<string, string> = {
+  A: 'Section A captures respondent demographics (role, organization size, industry, profit model). Used for subgroup analysis across all constructs.',
+  B: 'Section B measures the perceived severity of 18 technology adoption barriers using a 5-point scale (Not a barrier → Extreme barrier), plus a forced-choice Top 3 selection.',
+  C: 'Section C assesses perceived organizational technology readiness across 17 dimensions (e.g., leadership vision, culture, infrastructure, data governance) using a 5-point capability scale.',
+  D: 'Section D evaluates perceived organizational maturity across 8 IT capability domains using a 5-level maturity model (Ad Hoc → Optimized).',
+  E: 'Section E collects open-ended qualitative feedback about technology adoption experiences.',
+}
 
 /** Visual scale rendering */
 function ScaleVisualization({ scale }: { scale: ScaleInfo }) {
@@ -279,6 +293,28 @@ function ItemCard({
   const risCitation = row['RIS Citation']
   const isHighlighted = highlightedId === id
 
+  // Look up tooltip data for barrier, readiness, or maturity items
+  const sectionLabel = row['Section / Primary Construct']
+  const surveyItemText = row['Survey Item (Question Text)']
+  const tooltipItem = (() => {
+    if (sectionLabel.includes('Technology Adoption Barriers')) {
+      return barriers.find(
+        (b) => b.description.trim().toLowerCase() === surveyItemText.trim().toLowerCase()
+      )
+    }
+    if (sectionLabel.includes('Readiness')) {
+      return readinessItems.find(
+        (r) => r.description.trim().toLowerCase() === surveyItemText.trim().toLowerCase()
+      )
+    }
+    if (sectionLabel.includes('Maturity')) {
+      return maturityItems.find(
+        (m) => m.description.trim().toLowerCase() === surveyItemText.trim().toLowerCase()
+      )
+    }
+    return undefined
+  })()
+
   return (
     <article
       id={id}
@@ -304,9 +340,32 @@ function ItemCard({
       </div>
 
       {/* Question text (always visible) */}
-      <h4 className="text-base font-semibold text-gray-900 mb-3 leading-snug">
-        {row['Survey Item (Question Text)']}
-      </h4>
+      <div className="flex items-start gap-1.5 mb-3">
+        <h4 className="text-base font-semibold text-gray-900 leading-snug flex-1">
+          {row['Survey Item (Question Text)']}
+        </h4>
+        {tooltipItem && (
+          <Tooltip
+            content={
+              <div className="space-y-2 text-left">
+                <div className="font-bold text-sm border-b border-gray-600 pb-1">
+                  {tooltipItem.name}
+                </div>
+                {tooltipItem.examples && tooltipItem.examples.length > 0 && (
+                  <ul className="list-disc pl-4 text-xs text-gray-200 mt-1 space-y-1">
+                    {tooltipItem.examples.map((ex, i) => (
+                      <li key={i}>{ex}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            }
+            triggerAriaLabel={`View examples for ${tooltipItem.name}`}
+          >
+            <Info className="w-4 h-4 text-blue-500 hover:text-blue-700 mt-0.5 flex-shrink-0 cursor-help" />
+          </Tooltip>
+        )}
+      </div>
 
       {ac && (
         <div className="mb-3 p-2 rounded bg-amber-100 text-amber-900 text-xs font-medium">
@@ -564,28 +623,46 @@ const ConceptMappingComplex = () => {
           const isCollapsed = collapsedSections.has(section.key)
           return (
             <div key={section.key} className="mb-6 print:mb-4 print:break-inside-avoid">
-              {/* Section header / toggle */}
-              <button
-                onClick={() => toggleSection(section.key)}
-                className="w-full flex items-center justify-between px-5 py-4 rounded-t-lg text-left font-bold transition-colors print:rounded-none"
-                style={{ backgroundColor: section.bg, color: section.text }}
-                aria-expanded={!isCollapsed}
-                aria-controls={`section-panel-${section.key}`}
+              {/* Section header: toggle button + info tooltip */}
+              <div
+                className="flex items-stretch rounded-t-lg overflow-hidden print:rounded-none"
+                style={{ backgroundColor: section.bg }}
               >
-                <span className="text-lg">
-                  {section.label}{' '}
-                  <span className="font-normal text-sm opacity-75">
-                    ({sectionRows.length} item{sectionRows.length !== 1 ? 's' : ''})
-                  </span>
-                </span>
-                <span
-                  className="text-xl transition-transform duration-200 print:hidden"
-                  style={{ transform: isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}
-                  aria-hidden="true"
+                <button
+                  onClick={() => toggleSection(section.key)}
+                  className="flex-1 flex items-center justify-between px-5 py-4 text-left font-bold transition-colors"
+                  style={{ color: section.text }}
+                  aria-expanded={!isCollapsed}
+                  aria-controls={`section-panel-${section.key}`}
                 >
-                  ▾
-                </span>
-              </button>
+                  <span className="text-lg">
+                    {section.label}{' '}
+                    <span className="font-normal text-sm opacity-75">
+                      ({sectionRows.length} item{sectionRows.length !== 1 ? 's' : ''})
+                    </span>
+                  </span>
+                  <span
+                    className="text-xl transition-transform duration-200 print:hidden"
+                    style={{ transform: isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}
+                    aria-hidden="true"
+                  >
+                    ▾
+                  </span>
+                </button>
+                {SECTION_DESCRIPTIONS[section.key] && (
+                  <div className="flex items-center px-3 print:hidden">
+                    <Tooltip
+                      content={<span className="text-xs">{SECTION_DESCRIPTIONS[section.key]}</span>}
+                      triggerAriaLabel={`About ${section.label}`}
+                    >
+                      <Info
+                        className="w-4 h-4 cursor-help opacity-70 hover:opacity-100"
+                        style={{ color: section.text }}
+                      />
+                    </Tooltip>
+                  </div>
+                )}
+              </div>
 
               {/* Panel content */}
               <div

@@ -8,6 +8,8 @@ import { RxCross2 } from 'react-icons/rx'
 import { Tooltip } from '@/components/ui/tooltip'
 import { Info } from 'lucide-react'
 import { barriers } from '@/data/barriers'
+import { readinessItems } from '@/data/readiness'
+import { maturityItems } from '@/data/maturity'
 import DownloadButtons from './download-buttons'
 
 /**
@@ -56,6 +58,42 @@ const COLUMN_MAX_WIDTHS: Partial<Record<(typeof conceptMappingData.headers)[numb
 
 /** Max characters shown before truncation */
 const TRUNCATE_LENGTH = 120
+
+/** Descriptions shown in column header tooltips */
+const COLUMN_DESCRIPTIONS: Partial<Record<string, string>> = {
+  'Section / Primary Construct':
+    'The major survey section (A–E) and primary theoretical construct this item belongs to.',
+  'Sub-Construct / Grouping':
+    'The more specific thematic grouping within the section (e.g., "Strategic Leadership & Governance").',
+  'Survey Item (Question Text)': 'The exact question text presented to survey respondents.',
+  'Measurement Objective': 'The specific concept or phenomenon this item is designed to measure.',
+  'Item Code / Variable Name':
+    'The short alphanumeric item code (e.g., "B1") and the associated variable name used in exported data files.',
+  'Variable Type':
+    'The statistical measurement level of this item (e.g., Ordinal Likert, Categorical).',
+  'Theoretical Grounding (Source)':
+    "The academic frameworks, models, or prior studies that informed this item's design.",
+  'APA Citation (Full)':
+    'Full academic citation in APA 7th edition format for the primary theoretical source.',
+  'RIS Citation':
+    'Citation in RIS format, compatible with reference managers such as Zotero, Mendeley, and EndNote.',
+  'Source Link (URL/DOI)': 'A direct hyperlink or DOI to the primary source document or scale.',
+  'Scale Type / Response Options':
+    'The response format and scale labels presented to respondents for this item.',
+  'Qualtrics QID / Export Tag':
+    'The internal Qualtrics question ID and the column header name in exported response data.',
+  'Relationship to Other Items':
+    'Cross-references to other survey items that share theoretical overlap or empirical correlation.',
+}
+
+/** Short descriptions for each section, shown in section-filter tooltip icons */
+const SECTION_DESCRIPTIONS: Record<string, string> = {
+  A: 'Section A captures respondent demographics (role, organization size, industry, profit model). Used for subgroup analysis across all constructs.',
+  B: 'Section B measures the perceived severity of 18 technology adoption barriers using a 5-point scale (Not a barrier → Extreme barrier), plus a forced-choice Top 3 selection.',
+  C: 'Section C assesses perceived organizational technology readiness across 17 dimensions (e.g., leadership vision, culture, infrastructure, data governance) using a 5-point capability scale.',
+  D: 'Section D evaluates perceived organizational maturity across 8 IT capability domains using a 5-level maturity model (Ad Hoc → Optimized).',
+  E: 'Section E collects open-ended qualitative feedback about technology adoption experiences.',
+}
 
 /**
  * NOTE: Each ExpandableCell instance carries its own useState hook, which means
@@ -165,19 +203,28 @@ const ConceptMappingSimple = () => {
           {/* Section Filter Chips */}
           <div className="flex flex-wrap justify-center gap-2">
             {SECTIONS.map((s) => (
-              <button
-                key={s.key}
-                onClick={() => handleSectionClick(s.key)}
-                className="px-4 py-2 rounded-full border-2 transition-all duration-200 text-sm font-medium"
-                style={
-                  activeSection === s.key
-                    ? { backgroundColor: s.bg, borderColor: s.text, color: s.text }
-                    : { backgroundColor: 'white', borderColor: '#d1d5db', color: '#374151' }
-                }
-                aria-label={`Filter by ${s.label}${activeSection === s.key ? ', currently selected' : ''}`}
-              >
-                {s.label}
-              </button>
+              <span key={s.key} className="inline-flex items-center gap-1">
+                <button
+                  onClick={() => handleSectionClick(s.key)}
+                  className="px-4 py-2 rounded-full border-2 transition-all duration-200 text-sm font-medium"
+                  style={
+                    activeSection === s.key
+                      ? { backgroundColor: s.bg, borderColor: s.text, color: s.text }
+                      : { backgroundColor: 'white', borderColor: '#d1d5db', color: '#374151' }
+                  }
+                  aria-label={`Filter by ${s.label}${activeSection === s.key ? ', currently selected' : ''}`}
+                >
+                  {s.label}
+                </button>
+                {SECTION_DESCRIPTIONS[s.key] && (
+                  <Tooltip
+                    content={<span className="text-xs">{SECTION_DESCRIPTIONS[s.key]}</span>}
+                    triggerAriaLabel={`About ${s.label}`}
+                  >
+                    <Info className="w-3.5 h-3.5 text-gray-400 hover:text-gray-600 cursor-help" />
+                  </Tooltip>
+                )}
+              </span>
             ))}
           </div>
 
@@ -238,6 +285,14 @@ const ConceptMappingSimple = () => {
                     }
                   >
                     {header}
+                    {COLUMN_DESCRIPTIONS[header] && (
+                      <Tooltip
+                        content={<span className="text-xs">{COLUMN_DESCRIPTIONS[header]}</span>}
+                        triggerAriaLabel={`About the ${header} column`}
+                      >
+                        <Info className="inline w-3 h-3 ml-1 opacity-70 hover:opacity-100 cursor-help align-middle" />
+                      </Tooltip>
+                    )}
                   </th>
                 ))}
               </tr>
@@ -251,6 +306,12 @@ const ConceptMappingSimple = () => {
                   const isBarrierSection = String(row['Section / Primary Construct']).includes(
                     'Technology Adoption Barriers'
                   )
+                  const isReadinessSection = String(row['Section / Primary Construct']).includes(
+                    'Readiness'
+                  )
+                  const isMaturitySection = String(row['Section / Primary Construct']).includes(
+                    'Maturity'
+                  )
                   const surveyItemText = String(row['Survey Item (Question Text)'] ?? '')
                   const rowMatchingBarrier =
                     isBarrierSection && surveyItemText
@@ -260,6 +321,25 @@ const ConceptMappingSimple = () => {
                             surveyItemText.trim().toLowerCase()
                         )
                       : undefined
+                  const rowMatchingReadiness =
+                    isReadinessSection && surveyItemText
+                      ? readinessItems.find(
+                          (r) =>
+                            r.description.trim().toLowerCase() ===
+                            surveyItemText.trim().toLowerCase()
+                        )
+                      : undefined
+                  const rowMatchingMaturity =
+                    isMaturitySection && surveyItemText
+                      ? maturityItems.find(
+                          (m) =>
+                            m.description.trim().toLowerCase() ===
+                            surveyItemText.trim().toLowerCase()
+                        )
+                      : undefined
+                  // Unified tooltip item for this row (barrier, readiness, or maturity)
+                  const rowTooltipItem =
+                    rowMatchingBarrier ?? rowMatchingReadiness ?? rowMatchingMaturity
 
                   return (
                     <tr
@@ -270,9 +350,9 @@ const ConceptMappingSimple = () => {
                       {headers.map((header, colIdx) => {
                         const val = String(row[header as keyof RowData] ?? '')
 
-                        // Check if this specific cell should render the pre-computed barrier tooltip
-                        const matchingBarrier =
-                          header === 'Survey Item (Question Text)' ? rowMatchingBarrier : undefined
+                        // Check if this specific cell should render the tooltip
+                        const tooltipItem =
+                          header === 'Survey Item (Question Text)' ? rowTooltipItem : undefined
 
                         return (
                           <td
@@ -291,7 +371,7 @@ const ConceptMappingSimple = () => {
                                 : undefined
                             )}
                           >
-                            {matchingBarrier ? (
+                            {tooltipItem ? (
                               <div className="flex items-start gap-1.5">
                                 <div>
                                   <ExpandableCell value={val} header={header} />
@@ -300,19 +380,18 @@ const ConceptMappingSimple = () => {
                                   content={
                                     <div className="space-y-2 text-left">
                                       <div className="font-bold text-sm border-b border-gray-600 pb-1">
-                                        {matchingBarrier.name}
+                                        {tooltipItem.name}
                                       </div>
-                                      {matchingBarrier.examples &&
-                                        matchingBarrier.examples.length > 0 && (
-                                          <ul className="list-disc pl-4 text-xs text-gray-200 mt-1 space-y-1">
-                                            {matchingBarrier.examples.map((ex, i) => (
-                                              <li key={i}>{ex}</li>
-                                            ))}
-                                          </ul>
-                                        )}
+                                      {tooltipItem.examples && tooltipItem.examples.length > 0 && (
+                                        <ul className="list-disc pl-4 text-xs text-gray-200 mt-1 space-y-1">
+                                          {tooltipItem.examples.map((ex, i) => (
+                                            <li key={i}>{ex}</li>
+                                          ))}
+                                        </ul>
+                                      )}
                                     </div>
                                   }
-                                  triggerAriaLabel={`View examples for ${matchingBarrier.name}`}
+                                  triggerAriaLabel={`View examples for ${tooltipItem.name}`}
                                 >
                                   <Info className="w-4 h-4 text-blue-500 hover:text-blue-700 mt-0.5 flex-shrink-0 cursor-help" />
                                 </Tooltip>
