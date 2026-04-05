@@ -40,5 +40,5 @@ jobs:
         uses: google-labs-code/jules-invoke@v1
         with:
           prompt: ${{ steps.prompt.outputs.prompt_file && format('Fix GitHub issue #{0}: {1}\n\n{2}', github.event.issue.number, github.event.issue.title, github.event.issue.body) || 'See issue for details' }}
-          jules_api_key: ${{ secrets.JULES_API_KEY }}
+          jules_api_key: ${{ secrets.GOOGLE_JULES_API_KEY }}
           starting_branch: main
