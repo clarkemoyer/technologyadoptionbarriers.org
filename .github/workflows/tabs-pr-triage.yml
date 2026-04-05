@@ -15,7 +15,7 @@ name: TABS PR Triage
 
 on:
   schedule:
-    - cron: '0 8 * * *' # Daily at 08:00 UTC (4am ET / 3am ET DST)
+    - cron: '0 8 * * *' # Daily at 08:00 UTC (3am EST / 4am EDT)
   workflow_dispatch:
     inputs:
       stale_hours:
@@ -64,8 +64,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
           REPO_NAME: ${{ github.repository }}
-          STALE_HOURS: ${{ inputs.stale_hours || '24' }}
-          RETRIGGER: ${{ inputs.retrigger || 'false' }}
+          STALE_HOURS: ${{ github.event.inputs.stale_hours || '24' }}
+          RETRIGGER: ${{ github.event.inputs.retrigger || 'false' }}
 
       - name: Create triage issue on stalled/failed tasks
         if: steps.monitor.outcome == 'failure'
