@@ -370,9 +370,12 @@ const SELF_CHECK_NAME = 'Review Round'
 
 /**
  * Wait for all CI checks on the PR to complete (excluding this workflow's own check run).
- * Returns 'pass' if all succeed, 'fail' if any fail, null on timeout.
+ * Returns 'pass' if all succeed, 'fail' if any fail, 'closed' if PR was closed, 'timeout' on timeout.
  */
-async function waitForCi(repo: string, prNumber: string): Promise<'pass' | 'fail' | null> {
+async function waitForCi(
+  repo: string,
+  prNumber: string
+): Promise<'pass' | 'fail' | 'closed' | 'timeout'> {
   const startTime = Date.now()
   console.log(`Waiting for CI checks (timeout: ${CI_TIMEOUT_MS / 60000} min)...`)
 
@@ -382,7 +385,7 @@ async function waitForCi(repo: string, prNumber: string): Promise<'pass' | 'fail
     const pr = getPrState(repo, prNumber)
     if (pr.state !== 'OPEN') {
       console.log(`  PR is ${pr.state}, stopping.`)
-      return null
+      return 'closed'
     }
 
     const allChecks = ghJsonArray<CheckRun>(
@@ -419,7 +422,7 @@ async function waitForCi(repo: string, prNumber: string): Promise<'pass' | 'fail
   }
 
   console.log('\n  CI check wait timed out.')
-  return null
+  return 'timeout'
 }
 
 /**
@@ -608,12 +611,16 @@ async function main() {
         'Review clean but CI failed'
       )
       process.exit(1)
+    } else if (ciResult === 'closed') {
+      console.log('PR was closed while waiting for CI.')
+      writeSummary(prNumber, round, maxRounds, 'PR_CLOSED', 0, 'PR closed during CI wait')
+      process.exit(0)
     } else {
-      // timeout or PR closed
+      // timeout
       postComment(
         repo,
         prNumber,
-        `**Copilot Review Cycle:** Review passed after ${round} round(s). CI status could not be determined (timeout). Check CI manually before merging.`
+        `**Copilot Review Cycle:** Review passed after ${round} round(s), but CI did not complete within timeout. Check CI manually before merging.`
       )
       writeSummary(
         prNumber,
@@ -623,6 +630,7 @@ async function main() {
         0,
         'Review clean, CI timed out'
       )
+      process.exit(1)
     }
 
     process.exit(0)
@@ -679,7 +687,20 @@ async function main() {
     process.exit(1)
   }
 
-  if (ciResult === null) {
+  if (ciResult === 'closed') {
+    console.log('PR was closed while waiting for CI.')
+    writeSummary(
+      prNumber,
+      round,
+      maxRounds,
+      'PR_CLOSED',
+      comments.length,
+      'PR closed during CI wait'
+    )
+    process.exit(0)
+  }
+
+  if (ciResult === 'timeout') {
     postComment(
       repo,
       prNumber,
