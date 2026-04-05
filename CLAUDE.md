@@ -934,6 +934,67 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 
 **Rule**: Prefer official sources. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics — neither company provides official SDKs or MCP servers.
 
+## Parallel Development with Worktrees
+
+Git worktrees let you run multiple Claude Code sessions on the same repo without conflicts. Each worktree has its own branch and file state.
+
+**Create a worktree session:**
+
+```bash
+# From Claude Code Desktop
+claude --worktree feature-auth    # Creates .claude/worktrees/feature-auth/
+
+# Or start another for a different task
+claude --worktree bugfix-123
+```
+
+**Recommended pattern** (Anthropic's top productivity tip):
+
+- Spin up 3-5 worktrees for parallel work
+- Each gets its own Claude Code terminal session
+- Example: feature branch + bug fix + docs update running simultaneously
+- Worktrees share git history but have independent file state
+- Auto-cleaned when no changes are made
+
+**When to use**: Multi-task sprints, review + implement in parallel, testing a fix without stashing current work.
+
+## Remote Control
+
+Monitor and control Claude Code sessions from your phone or any browser.
+
+**Setup**: Run `/config` in Claude Code and enable "Remote Control for all sessions". Then visit [claude.ai/code](https://claude.ai/code) from any device.
+
+**Capabilities**: See real-time activity, approve/reject tool calls, redirect work, monitor multiple sessions. Requires Pro+ plan.
+
+**Limitation**: Windows does not support QR code connection. Use the web URL directly.
+
+## Secret Management Roadmap
+
+### Current: Environment Secrets
+
+All API tokens are stored in GitHub Environment secrets (per-environment isolation):
+
+| Environment      | Secrets                                  | Used By                   |
+| ---------------- | ---------------------------------------- | ------------------------- |
+| `qualtrics-prod` | QUALTRICS_API_TOKEN + 5 vars             | Analysis pipeline         |
+| `prolific-prod`  | TABS_PROLIFIC_TOKEN + 2 vars             | Operations pipeline       |
+| `google-prod`    | Service account email + key              | GA/GSC reports            |
+| `copilot`        | COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN | PR creation, review cycle |
+
+### Future: OIDC Federation
+
+For services that support it, OIDC token exchange eliminates static secrets:
+
+| Service                | OIDC Support            | Status                  |
+| ---------------------- | ----------------------- | ----------------------- |
+| Google Cloud (GA, GSC) | Yes                     | Candidate for migration |
+| Cloudflare             | Yes                     | Candidate for migration |
+| GitHub                 | Built-in (GITHUB_TOKEN) | Already using           |
+| Prolific               | No (token-only API)     | Not applicable          |
+| Qualtrics              | No (token-only API)     | Not applicable          |
+
+**Benefits**: No secrets to rotate, temporary credentials (expire in minutes), GitHub separating code write from secret management in 2026.
+
 ## Resources
 
 ### Making of TABS Documentation
