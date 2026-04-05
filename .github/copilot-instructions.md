@@ -469,3 +469,24 @@ ls -la .github/      # GitHub workflows and configs
    - **Verify**: Ensure you have pushed at least one commit (even an empty one) to your feature branch before creating the PR.
 
 # Remember: **NEVER CANCEL** long-running commands. **ALWAYS** test manually after changes. **ALWAYS** apply Google Fonts workaround before building.
+
+## Data Privacy & PII Protection
+
+**CRITICAL: This project handles research participant data. These rules apply to ALL agents (Copilot, Jules, Claude).**
+
+**NEVER commit:**
+- Prolific Participant IDs (PIDs) — 24-character hex strings (e.g., `5df961cb53e8466f17606ae1`)
+- Email addresses, names, or any direct identifiers
+- Raw Qualtrics CSV data
+- Prolific demographic data
+- API tokens, secrets, or credentials
+- Build artifacts (`*.log`, `patch_*.sh`, `ide_capabilities.txt`, `.env`)
+
+**Safe to commit (aggregates only):**
+- `src/data/sensitivity-analysis.json` — aggregate statistics
+- `src/data/disposition-summary.json` — aggregate counts
+- `src/data/data-audit.json` — aggregate waterfall
+
+**Step summaries:** Use aggregate counts only. Never include PID tables.
+
+**If you find PII in committed files:** Create a `security` issue. Do NOT try to fix it in a PR (it's already in git history).
