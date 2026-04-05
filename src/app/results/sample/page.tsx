@@ -3,49 +3,92 @@ import {
   ARTICLE_CLASSES,
   H1_CLASSES,
   H2_CLASSES,
-  H3_CLASSES,
   SECTION_CLASSES,
   PARAGRAPH_CLASSES,
 } from '@/lib/articleStyles'
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
-import LastUpdated from '@/components/last-updated'
+import demographicsData from '@/data/demographics.json'
 
 export const metadata: Metadata = {
   title: 'Sample & Demographics — TABS Results',
   description:
-    'Participant demographics for the Technology Adoption Barriers Survey across four result groups: roles, industries, organization sizes, and geographic distribution.',
+    'Participant demographics for the Technology Adoption Barriers Survey: age, gender, country, and employment breakdown of Prolific participants.',
   alternates: {
     canonical: '/results/sample',
   },
 }
 
-interface DemographicsData {
-  roles?: Record<string, number>
-  org_sizes?: Record<string, number>
-  profit_models?: Record<string, number>
-  tech_vs_nontech?: { technical: number; non_technical: number; other: number }
+type DemoCategory = { label: string; count: number; pct: number }
+type AgeRange = { range: string; count: number | null; pct: number | null }
+
+const fmt = (n: number | null | undefined): string =>
+  n === null || n === undefined ? '—' : n.toLocaleString()
+
+const fmtPct = (p: number | null | undefined): string =>
+  p === null || p === undefined ? '—' : `${p.toFixed(1)}%`
+
+/** Horizontal bar chart rendered with pure CSS/Tailwind. */
+const BarChart = ({ categories }: { categories: DemoCategory[] }) => {
+  if (!categories || categories.length === 0) {
+    return (
+      <p className="text-sm text-gray-500 italic">Data will appear after the next pipeline run.</p>
+    )
+  }
+  const max = Math.max(...categories.map((c) => c.count))
+  return (
+    <div className="space-y-2 my-4">
+      {categories.map((cat) => (
+        <div key={cat.label} className="flex items-center gap-3 text-sm">
+          <div
+            className="w-36 sm:w-48 shrink-0 text-right text-gray-700 truncate"
+            title={cat.label}
+          >
+            {cat.label}
+          </div>
+          <div className="flex-1 bg-gray-100 rounded h-5 overflow-hidden">
+            <div
+              className="h-5 bg-tabs-teal-deep rounded"
+              style={{ width: max > 0 ? `${(cat.count / max) * 100}%` : '0%' }}
+              aria-label={`${cat.label}: ${cat.count} (${fmtPct(cat.pct)})`}
+            />
+          </div>
+          <div className="w-20 shrink-0 text-gray-600 font-mono text-xs">
+            {fmt(cat.count)} <span className="text-gray-400">({fmtPct(cat.pct)})</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
 }
-
-interface SampleDetail {
-  demographics?: DemographicsData
-}
-
-const sampleDetails: Record<string, SampleDetail> =
-  ((sensitivityData as Record<string, unknown>).sample_details as Record<string, SampleDetail>) ??
-  {}
-
-const PRIMARY_GROUPS = [
-  { key: 'conservative_clean', label: 'Conservative Clean', color: 'border-green-500' },
-  { key: 'flexible_clean', label: 'Flexible Clean', color: 'border-blue-500' },
-  { key: 'prolific_accepted', label: 'Prolific Accepted', color: 'border-amber-500' },
-  { key: 'v2_finished', label: 'All V2 Finished', color: 'border-gray-400' },
-]
-
-const pct = (count: number, total: number | null | undefined): string =>
-  total ? `${((count / total) * 100).toFixed(1)}%` : '—'
 
 const SamplePage = () => {
+  const conservativeSample = sensitivityData.samples.find((s) => s.key === 'conservative_clean')
+  const flexibleSample = sensitivityData.samples.find((s) => s.key === 'flexible_clean')
+  const prolificSample = sensitivityData.samples.find((s) => s.key === 'prolific_accepted')
+  const v2FinishedSample = sensitivityData.samples.find((s) => s.key === 'v2_finished')
+  const v2AllSample = sensitivityData.samples.find((s) => s.key === 'v2_all')
+
+  const demo = demographicsData
+  const hasDemo = !!demo.totalParticipants
+  const ageRanges: AgeRange[] = Array.isArray(demo.age?.ranges)
+    ? (demo.age.ranges as AgeRange[])
+    : []
+  const genderCats: DemoCategory[] = Array.isArray(demo.gender?.categories)
+    ? (demo.gender.categories as DemoCategory[])
+    : []
+  const countryCats: DemoCategory[] = Array.isArray(demo.country?.categories)
+    ? (demo.country.categories as DemoCategory[])
+    : []
+  const employmentCats: DemoCategory[] = Array.isArray(demo.employmentStatus?.categories)
+    ? (demo.employmentStatus.categories as DemoCategory[])
+    : []
+
+  // Compute age bar max once (not inside the render loop)
+  const validAgeRanges = ageRanges.filter((x) => x.count !== null)
+  const ageBarMax =
+    validAgeRanges.length > 0 ? Math.max(...validAgeRanges.map((x) => x.count as number)) : 0
+
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
@@ -66,313 +109,71 @@ const SamplePage = () => {
         </nav>
 
         <h1 className={H1_CLASSES}>Sample &amp; Demographics</h1>
-        <LastUpdated
-          utcTimestamp={(sensitivityData as Record<string, unknown>).last_updated as string}
-        />
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
-            Demographics are computed independently for each of the four primary result groups. This
-            allows researchers to verify that the composition of their chosen dataset matches their
-            generalizability requirements. All statistics on this page are generated by the daily
-            analysis pipeline.
+            This page documents who participated in the TABS survey. Sample sizes are reported
+            across five inclusion-criteria definitions. Prolific platform demographics (age, gender,
+            country, employment) are aggregated from the Prolific bulk export — no individual-level
+            data is stored or displayed.
           </p>
+          {!hasDemo && (
+            <p className={PARAGRAPH_CLASSES}>
+              Prolific platform demographics will be displayed here once the demographics pipeline
+              has run. Survey demographics (role, industry, org size) appear in the{' '}
+              <Link href="/results/data-quality" className="text-blue-600 hover:underline">
+                Data Quality
+              </Link>{' '}
+              page.
+            </p>
+          )}
         </section>
 
-        {/* ── Demographic Data Sources ── */}
+        {/* ── Key Numbers ── */}
         <section className="mb-12 text-gray-800">
-          <h2 className={H2_CLASSES}>Demographic Data Sources</h2>
-          <p className={PARAGRAPH_CLASSES}>
-            Participant demographics are collected from two independent sources. These capture
-            different types of information and should not be conflated:
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
-            <div className="bg-teal-50 border border-teal-200 rounded-lg p-5">
-              <h3 className="text-sm font-bold text-teal-900 uppercase mb-2">
-                Survey Demographics (Qualtrics)
-              </h3>
-              <p className="text-sm text-teal-800 mb-3">
-                Self-reported by participants within the TABS survey instrument itself (questions
-                Q1&ndash;Q9). These are <strong>role-specific, organizational</strong> demographics
-                directly relevant to the research questions.
-              </p>
-              <ul className="text-xs text-teal-700 space-y-1 list-disc list-inside">
-                <li>Executive Role (Q1) &mdash; CIO, CTO, CEO, CFO, etc.</li>
-                <li>Decision Authority (Q2)</li>
-                <li>Industry (Q3)</li>
-                <li>Organization Size (Q4) &mdash; &lt;100 to 10,000+</li>
-                <li>Profit Model (Q5) &mdash; For-Profit, Non-Profit, Government</li>
-                <li>Revenue/Budget (Q6&ndash;Q7)</li>
-                <li>Geographic Scope &amp; Scale (Q8&ndash;Q9)</li>
-              </ul>
-              <p className="text-xs text-teal-600 mt-3 italic">
-                Source: Qualtrics CSV export &rarr;{' '}
-                <code className="bg-teal-100 px-1 rounded">tabs_v2_analysis.py</code>
-              </p>
-            </div>
-            <div className="bg-purple-50 border border-purple-200 rounded-lg p-5">
-              <h3 className="text-sm font-bold text-purple-900 uppercase mb-2">
-                Platform Demographics (Prolific)
-              </h3>
-              <p className="text-sm text-purple-800 mb-3">
-                Collected from Prolific&rsquo;s participant profile database at submission
-                completion. Includes <strong>base demographic fields</strong> (always exported) and{' '}
-                <strong>prescreener fields</strong> (up to 15 selectable per export from
-                Prolific&rsquo;s full filter catalog).
-              </p>
-              <h4 className="text-xs font-bold text-purple-800 mt-2 mb-1">
-                Base Fields (always included)
-              </h4>
-              <ul className="text-xs text-purple-700 space-y-1 list-disc list-inside">
-                <li>Age</li>
-                <li>Sex (as recorded on legal documents)</li>
-                <li>Ethnicity (simplified)</li>
-                <li>First Language</li>
-                <li>Country of Residence &amp; Nationality</li>
-                <li>Country of Birth</li>
-                <li>Student Status</li>
-                <li>Employment Status</li>
-              </ul>
-              <h4 className="text-xs font-bold text-purple-800 mt-3 mb-1">
-                Prescreener Fields (configurable, up to 15 per export)
-              </h4>
-              <ul className="text-xs text-purple-700 space-y-1 list-disc list-inside">
-                <li>Employment Sector (Private, Public, Non-profit)</li>
-                <li>Industry classification</li>
-                <li>Company/Organization Size</li>
-                <li>Occupation/Job Title category</li>
-                <li>Education Level</li>
-                <li>Household Income</li>
-                <li>Fluent Languages</li>
-                <li>Marital Status &amp; Number of Children</li>
-                <li>Health Conditions &amp; Disabilities</li>
-                <li>
-                  <em>…and hundreds more via</em>{' '}
-                  <code className="bg-purple-100 px-1 rounded">GET /api/v1/filters/</code>
-                </li>
-              </ul>
-              <p className="text-xs text-purple-600 mt-3 italic">
-                Source: Prolific API{' '}
-                <code className="bg-purple-100 px-1 rounded">
-                  POST /studies/&#123;id&#125;/demographic-export/
-                </code>{' '}
-                &mdash; snapshot at time of participation
-              </p>
-            </div>
-          </div>
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-            <p className="text-sm text-amber-900">
-              <strong>Important:</strong> The demographics shown below in the per-group breakdowns
-              are <strong>Survey Demographics (Qualtrics)</strong> &mdash; the organizational and
-              role-based characteristics that participants self-reported in the TABS instrument.
-              Prolific Platform Demographics are available separately via the Prolific demographic
-              export and are not displayed on this page to protect participant privacy.
-            </p>
-          </div>
-
-          {/* ── Cross-Validation Opportunity ── */}
-          <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4 mt-4">
-            <h3 className="text-sm font-bold text-indigo-900 mb-2">
-              Cross-Validation: Prolific &times; Qualtrics Demographic Overlap
-            </h3>
-            <p className="text-sm text-indigo-800 mb-3">
-              Several Prolific prescreener fields overlap with Qualtrics survey demographics,
-              enabling independent cross-validation of self-reported data. Researchers can compare
-              responses to flag discrepancies (e.g., a participant reporting &ldquo;CIO at a 10,000+
-              company&rdquo; in Qualtrics but &ldquo;Student&rdquo; or &ldquo;Company Size:
-              1&ndash;10&rdquo; in Prolific).
-            </p>
-            <div className="overflow-x-auto">
-              <table className="w-full text-xs border-collapse">
-                <thead>
-                  <tr className="bg-indigo-100">
-                    <th className="border border-indigo-200 px-3 py-1.5 text-left font-bold">
-                      Dimension
-                    </th>
-                    <th className="border border-indigo-200 px-3 py-1.5 text-left font-bold">
-                      Prolific Field (Platform)
-                    </th>
-                    <th className="border border-indigo-200 px-3 py-1.5 text-left font-bold">
-                      Qualtrics Field (Survey)
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="border border-indigo-200 px-3 py-1.5 font-medium">Industry</td>
-                    <td className="border border-indigo-200 px-3 py-1.5">
-                      <code className="text-xs bg-purple-100 px-1 rounded">industry</code>
-                    </td>
-                    <td className="border border-indigo-200 px-3 py-1.5">
-                      <code className="text-xs bg-teal-100 px-1 rounded">Q3_Industry</code>
-                    </td>
-                  </tr>
-                  <tr className="bg-indigo-50/50">
-                    <td className="border border-indigo-200 px-3 py-1.5 font-medium">
-                      Organization Size
-                    </td>
-                    <td className="border border-indigo-200 px-3 py-1.5">
-                      <code className="text-xs bg-purple-100 px-1 rounded">company_size</code>
-                    </td>
-                    <td className="border border-indigo-200 px-3 py-1.5">
-                      <code className="text-xs bg-teal-100 px-1 rounded">Q4_OrgSize</code>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-indigo-200 px-3 py-1.5 font-medium">Sector</td>
-                    <td className="border border-indigo-200 px-3 py-1.5">
-                      <code className="text-xs bg-purple-100 px-1 rounded">employment_sector</code>
-                    </td>
-                    <td className="border border-indigo-200 px-3 py-1.5">
-                      <code className="text-xs bg-teal-100 px-1 rounded">Q5_ProfitModel</code>
-                    </td>
-                  </tr>
-                  <tr className="bg-indigo-50/50">
-                    <td className="border border-indigo-200 px-3 py-1.5 font-medium">Role</td>
-                    <td className="border border-indigo-200 px-3 py-1.5">
-                      <code className="text-xs bg-purple-100 px-1 rounded">occupation</code>
-                    </td>
-                    <td className="border border-indigo-200 px-3 py-1.5">
-                      <code className="text-xs bg-teal-100 px-1 rounded">Q1_Role</code>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <p className="text-xs text-indigo-600 mt-2 italic">
-              Join key: Prolific Participant ID (PID). Prescreener fields are available when
-              configured as study filters in the Prolific study setup.
-            </p>
-            <div className="mt-3 pt-3 border-t border-indigo-200">
-              <h4 className="text-xs font-bold text-indigo-800 mb-1">
-                Prolific-Only Fields (augment survey data)
-              </h4>
-              <p className="text-xs text-indigo-700">
-                Prolific also provides demographic dimensions not captured by the TABS survey
-                instrument, including: <strong>Education Level</strong>,{' '}
-                <strong>Household Income</strong>, <strong>Fluent Languages</strong>,{' '}
-                <strong>Marital Status</strong>, <strong>Health Conditions</strong>, and more. These
-                can be used to augment aggregate demographic reports and assess sample
-                representativeness beyond what the survey captures.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Prolific Study Prescreening Criteria ── */}
-        <section className="mb-12 text-gray-800">
-          <h2 className={H2_CLASSES}>Prolific Study Prescreening Criteria</h2>
-          <p className={PARAGRAPH_CLASSES}>
-            The following eligibility screeners are configured on the live Prolific study. All
-            participants must match <strong>every</strong> criterion below to be eligible for
-            recruitment. These prescreener responses are also exported for demographic enrichment
-            and cross-validation against Qualtrics survey responses.
-          </p>
-          <div className="overflow-x-auto my-6">
-            <table className="w-full border-collapse font-sans text-sm">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">Screener</th>
-                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">
-                    Criterion
-                  </th>
-                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">
-                    Eligible Values
-                  </th>
-                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">
-                    Qualtrics Cross-Ref
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">
-                    Current Country of Residence
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">is any of</td>
-                  <td className="border border-gray-300 px-4 py-2">United States</td>
-                  <td className="border border-gray-300 px-4 py-2 text-gray-400 italic">
-                    Q8&ndash;Q9 (Geography)
-                  </td>
-                </tr>
-                <tr className="bg-gray-50">
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">
-                    Employment Status
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">is any of</td>
-                  <td className="border border-gray-300 px-4 py-2">Full-Time</td>
-                  <td className="border border-gray-300 px-4 py-2 text-gray-400 italic">&mdash;</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">Employer Type</td>
-                  <td className="border border-gray-300 px-4 py-2">is any of</td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    <ul className="list-disc list-inside text-xs space-y-0.5">
-                      <li>Employee of a for-profit company or business</li>
-                      <li>Employee of a not-for-profit, tax-exempt, or charitable organization</li>
-                      <li>Local government employee</li>
-                      <li>State government employee</li>
-                      <li>Federal government employee</li>
-                      <li>Self-employed (not-incorporated)</li>
-                      <li>Self-employed (incorporated)</li>
-                      <li>Working without pay in family business or farm</li>
-                    </ul>
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    <code className="text-xs bg-teal-100 px-1 rounded">Q5_ProfitModel</code>
-                  </td>
-                </tr>
-                <tr className="bg-gray-50">
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">Company Size</td>
-                  <td className="border border-gray-300 px-4 py-2">is any of</td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    50&ndash;249, 250&ndash;999, 1000+
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    <code className="text-xs bg-teal-100 px-1 rounded">Q4_OrgSize</code>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">Job Position</td>
-                  <td className="border border-gray-300 px-4 py-2">is any of</td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    <ul className="list-disc list-inside text-xs space-y-0.5">
-                      <li>C-Level (e.g. CEO, CFO), Owner, Partner, President</li>
-                      <li>Vice President (EVP, SVP, AVP, VP)</li>
-                      <li>Director (Group Director, Sr. Director, Director)</li>
-                      <li>Manager (Group Manager, Sr. Manager, Manager, Program Manager)</li>
-                    </ul>
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    <code className="text-xs bg-teal-100 px-1 rounded">Q1_Role</code>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-            <p className="text-sm text-green-900">
-              <strong>Enrichment Export:</strong> All 5 screener filter_ids are included in the
-              Prolific demographic export alongside 2 additional augmentation filters (education
-              level, household income), totaling 7 of the 15-filter API maximum. Screener responses
-              enable cross-validation against Qualtrics survey answers (e.g., Prolific
-              &ldquo;Company Size: 1000+&rdquo; vs Qualtrics Q4 &ldquo;10,000+&rdquo;). Raw
-              prescreener data is processed ephemerally and never committed to the repository.
-            </p>
+          <h2 className={H2_CLASSES}>Key Numbers</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 my-6">
+            {[
+              { label: 'Total Responses', value: String(v2AllSample?.n ?? '—') },
+              { label: 'Finished Responses', value: String(v2FinishedSample?.n ?? '—') },
+              { label: 'Prolific Approved', value: String(prolificSample?.n ?? '—') },
+              { label: 'Flexible Clean', value: String(flexibleSample?.n ?? '—') },
+              { label: 'Conservative Clean', value: String(conservativeSample?.n ?? '—') },
+              ...(hasDemo
+                ? [
+                    {
+                      label: 'Mean Age (Prolific)',
+                      value: demo.age?.mean != null ? String(demo.age.mean) : '—',
+                    },
+                  ]
+                : []),
+            ].map((stat) => (
+              <div
+                key={stat.label}
+                className="bg-gray-50 rounded-xl border border-gray-200 p-4 text-center"
+              >
+                <div className="text-2xl sm:text-3xl font-bold text-tabs-teal-deep font-mono">
+                  {stat.value}
+                </div>
+                <div className="text-xs sm:text-sm text-gray-600 mt-1">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </section>
 
         {/* ── Sample Size Summary ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Sample Size Summary</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The table below shows the number of respondents in each of the five sample definitions
+            used throughout the analysis. Definitions range from the most restrictive (Conservative
+            Clean) to the least restrictive (All V2).
+          </p>
           <div className="overflow-x-auto my-6">
             <table className="w-full border-collapse font-sans text-sm">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">#</th>
-                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">
-                    Result Group
-                  </th>
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">Sample</th>
                   <th className="border border-gray-300 px-4 py-2 text-left font-bold">
                     Description
                   </th>
@@ -380,141 +181,121 @@ const SamplePage = () => {
                 </tr>
               </thead>
               <tbody>
-                {PRIMARY_GROUPS.map((group, i) => {
-                  const sample = sensitivityData.samples.find((s) => s.key === group.key)
-                  return (
-                    <tr
-                      key={group.key}
-                      className={`border-l-4 ${group.color} ${i % 2 === 1 ? 'bg-gray-50' : ''}`}
-                    >
-                      <td className="border border-gray-300 px-4 py-2 font-bold text-gray-500">
-                        {i + 1}
-                      </td>
-                      <td className="border border-gray-300 px-4 py-2 font-semibold">
-                        {group.label}
-                      </td>
-                      <td className="border border-gray-300 px-4 py-2">
-                        {sample?.description ?? ''}
-                      </td>
-                      <td className="border border-gray-300 px-4 py-2 text-right font-mono font-bold">
-                        {sample?.n ?? '—'}
-                      </td>
-                    </tr>
-                  )
-                })}
+                {sensitivityData.samples.map((sample, i) => (
+                  <tr key={sample.key} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                    <td className="border border-gray-300 px-4 py-2 font-medium">{sample.label}</td>
+                    <td className="border border-gray-300 px-4 py-2">{sample.description}</td>
+                    <td className="border border-gray-300 px-4 py-2 text-right font-mono">
+                      {sample.n ?? '—'}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         </section>
 
-        {/* ── Demographics per Result Group ── */}
+        {/* ── Prolific Platform Demographics ── */}
         <section className="mb-12 text-gray-800">
-          <h2 className={H2_CLASSES}>Survey Demographics by Result Group (Qualtrics)</h2>
+          <h2 className={H2_CLASSES}>Prolific Platform Demographics</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Each result group below shows its organizational and role-based composition as
-            self-reported by participants in the TABS survey (questions Q1&ndash;Q9). This allows
-            assessment of whether data cleaning differentially affects sample composition across
-            executive roles, organization sizes, and sector types.
+            Demographics below are sourced from Prolific participant profiles (<em>not</em> from
+            survey responses). They describe the platform-level characteristics of approved
+            participants (N&nbsp;=&nbsp;{fmt(demo.totalParticipants ?? prolificSample?.n)}). All
+            counts are aggregated; cells with fewer than 5 participants are merged into &ldquo;Other
+            / Prefer not to say&rdquo;.
           </p>
 
-          {PRIMARY_GROUPS.map((group) => {
-            const sample = sensitivityData.samples.find((s) => s.key === group.key)
-            const details = sampleDetails[group.key]
-            const demo = details?.demographics
-            const hasDemoData =
-              demo && Object.values(demo.roles ?? {}).some((v) => (v as number) > 0)
-
-            return (
-              <div
-                key={group.key}
-                className={`border-l-4 ${group.color} bg-gray-50 rounded-lg p-5 mb-6`}
-              >
-                <h3 className={H3_CLASSES}>
-                  {group.label} (N={sample?.n ?? '—'})
-                </h3>
-
-                {hasDemoData ? (
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
-                    {/* Roles */}
-                    <div>
-                      <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">Roles</h4>
-                      <table className="w-full text-xs border-collapse">
-                        <tbody>
-                          {Object.entries(demo.roles ?? {}).map(([role, count]) => (
-                            <tr key={role} className="border-b border-gray-200">
-                              <td className="py-1 pr-2 font-medium">{role}</td>
-                              <td className="py-1 text-right font-mono">{count}</td>
-                              <td className="py-1 pl-1 text-right text-gray-500">
-                                {pct(count, sample?.n)}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
+          {/* Age distribution */}
+          <div className="mb-8">
+            <h3 className="text-base font-semibold text-gray-800 mb-2">
+              Age Distribution
+              {demo.age?.mean != null && (
+                <span className="ml-2 text-sm font-normal text-gray-500">
+                  Mean: {demo.age.mean}, Median: {demo.age.median ?? '—'}
+                </span>
+              )}
+            </h3>
+            {ageRanges.length > 0 ? (
+              <div className="space-y-2 my-4">
+                {ageRanges.map((r) => (
+                  <div key={r.range} className="flex items-center gap-3 text-sm">
+                    <div className="w-16 shrink-0 text-right text-gray-700 font-mono">
+                      {r.range}
                     </div>
-
-                    {/* Org Size */}
-                    <div>
-                      <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
-                        Organization Size
-                      </h4>
-                      <table className="w-full text-xs border-collapse">
-                        <tbody>
-                          {Object.entries(demo.org_sizes ?? {}).map(([size, count]) => (
-                            <tr key={size} className="border-b border-gray-200">
-                              <td className="py-1 pr-2 font-medium">{size}</td>
-                              <td className="py-1 text-right font-mono">{count}</td>
-                              <td className="py-1 pl-1 text-right text-gray-500">
-                                {pct(count, sample?.n)}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                    <div className="flex-1 bg-gray-100 rounded h-5 overflow-hidden">
+                      {r.count !== null && ageBarMax > 0 ? (
+                        <div
+                          className="h-5 bg-tabs-teal-deep rounded"
+                          style={{ width: `${(r.count / ageBarMax) * 100}%` }}
+                          aria-label={`${r.range}: ${r.count} (${fmtPct(r.pct)})`}
+                        />
+                      ) : (
+                        <div
+                          className="h-5 bg-gray-200 rounded"
+                          title="Suppressed: fewer than 5 participants"
+                        />
+                      )}
                     </div>
-
-                    {/* Profit Model */}
-                    <div>
-                      <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
-                        Profit Model
-                      </h4>
-                      <table className="w-full text-xs border-collapse">
-                        <tbody>
-                          {Object.entries(demo.profit_models ?? {}).map(([model, count]) => (
-                            <tr key={model} className="border-b border-gray-200">
-                              <td className="py-1 pr-2 font-medium">{model}</td>
-                              <td className="py-1 text-right font-mono">{count}</td>
-                              <td className="py-1 pl-1 text-right text-gray-500">
-                                {pct(count, sample?.n)}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                    <div className="w-28 shrink-0 text-gray-600 font-mono text-xs">
+                      {r.count !== null ? (
+                        <>
+                          {fmt(r.count)} <span className="text-gray-400">({fmtPct(r.pct)})</span>
+                        </>
+                      ) : (
+                        <span className="text-gray-400 italic">suppressed</span>
+                      )}
                     </div>
                   </div>
-                ) : (
-                  <p className="text-sm text-gray-500 italic mt-2">
-                    Demographics data will be populated by the next pipeline run.
-                  </p>
-                )}
+                ))}
               </div>
-            )
-          })}
+            ) : (
+              <p className="text-sm text-gray-500 italic my-4">
+                Age data will appear after the next pipeline run.
+              </p>
+            )}
+          </div>
+
+          {/* Gender */}
+          <div className="mb-8">
+            <h3 className="text-base font-semibold text-gray-800 mb-2">Gender</h3>
+            <BarChart categories={genderCats} />
+          </div>
+
+          {/* Country */}
+          <div className="mb-8">
+            <h3 className="text-base font-semibold text-gray-800 mb-2">
+              Country of Residence{' '}
+              <span className="text-sm font-normal text-gray-500">(top 10)</span>
+            </h3>
+            <BarChart categories={countryCats} />
+          </div>
+
+          {/* Employment status */}
+          <div className="mb-8">
+            <h3 className="text-base font-semibold text-gray-800 mb-2">Employment Status</h3>
+            <BarChart categories={employmentCats} />
+          </div>
         </section>
 
         {/* ── Privacy Note ── */}
         <section className="mb-12 text-gray-800">
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
             <p className="text-sm text-blue-900">
-              <strong>Privacy Note:</strong> Survey demographics (shown above) are aggregated from
-              self-reported Qualtrics responses (Q1&ndash;Q9) and displayed as category-level counts
-              and percentages only. Prolific platform demographics (base fields: age, sex,
-              ethnicity, etc.; prescreener fields: industry, company size, occupation, etc.) are
-              collected separately and are used for cross-validation and sample balancing but are
-              not displayed on this page to protect participant privacy. No individual-level data is
-              displayed from either source.
+              <strong>Privacy Note:</strong>{' '}
+              {demo.privacyNote ??
+                'Demographics data is collected via Prolific and aggregated to protect participant privacy. No individual-level data is displayed. All demographic breakdowns use category-level counts and percentages only.'}
             </p>
+            {hasDemo && demo.generatedAt && (
+              <p className="text-xs text-blue-700 mt-2">
+                Last updated:{' '}
+                {new Date(demo.generatedAt).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </p>
+            )}
           </div>
         </section>
 
@@ -526,13 +307,7 @@ const SamplePage = () => {
               <Link href="/results/descriptive" className="text-blue-600 hover:underline">
                 Descriptive Statistics
               </Link>{' '}
-              &mdash; means, SDs, and correlations for each result group
-            </li>
-            <li>
-              <Link href="/results/findings" className="text-blue-600 hover:underline">
-                Key Findings
-              </Link>{' '}
-              &mdash; effect sizes and cross-tabulations per result group
+              &mdash; what participants reported across all three constructs
             </li>
             <li>
               <Link href="/results/data-quality" className="text-blue-600 hover:underline">

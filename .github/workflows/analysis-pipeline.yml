@@ -44,12 +44,21 @@ jobs:
           AUTH_OUTPUT: ${{ runner.temp }}/auth-checks.csv
           STATUSES_OUTPUT: ${{ runner.temp }}/statuses.json
 
+      # Aggregate demographics: fetch from Prolific, aggregate to JSON (no PII in output)
+      - name: Aggregate demographics
+        run: python3 scripts/analysis/aggregate_demographics.py
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/demographics.json
+
       - uses: actions/upload-artifact@v7
         with:
           name: prolific-data
           path: |
             ${{ runner.temp }}/auth-checks.csv
             ${{ runner.temp }}/statuses.json
+            ${{ runner.temp }}/demographics.json
           retention-days: 1
 
   # ── Phase 2: Export Qualtrics + Enrich + Analyze ──────────────
@@ -79,17 +88,17 @@ jobs:
           QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
           OUTPUT_PATH: ${{ runner.temp }}/qualtrics-raw.csv
 
-      # Download Prolific data (auth checks + statuses — pseudonymous PIDs only)
+      # Download Prolific data (auth checks + statuses — pseudonymous PIDs only;
+      # demographics.json — aggregated only, no PII)
       - uses: actions/download-artifact@v8
         with:
           name: prolific-data
           path: ${{ runner.temp }}
 
       # Enrich Qualtrics CSV with Prolific auth checks and statuses.
-      # Demographics are not included here because they require the
-      # prolific-prod environment and contain per-participant personal data
-      # that should not be stored as artifacts. Survey demographics (Q1-Q9)
-      # are already in the Qualtrics CSV.
+      # The raw demographics CSV is NOT passed between jobs — only the aggregated
+      # demographics.json (no individual-level data) is forwarded via artifact.
+      # Survey demographics (Q1-Q9) are already in the Qualtrics CSV.
       - name: Enrich CSV with Prolific data
         run: |
           python scripts/analysis/enrich_qualtrics_csv.py \
@@ -122,6 +131,16 @@ jobs:
           python scripts/analysis/tabs_v2_analysis.py \
             "${{ runner.temp }}/qualtrics-enriched.csv" \
             --json "${{ runner.temp }}/sensitivity-analysis.json"
+
+      # Per-item descriptive statistics
+      - name: Item-level statistics
+        id: item_stats
+        continue-on-error: true
+        run: |
+          INPUT_CSV="${{ runner.temp }}/qualtrics-enriched.csv" \
+          OUTPUT_PATH="${{ runner.temp }}/item-stats.json" \
+            python3 scripts/analysis/generate_item_stats.py
+          echo "Item stats complete"
 
       # Advanced/inferential analysis
       - name: Advanced analysis (PCA, regression, ANOVA)
@@ -158,6 +177,7 @@ jobs:
         if: always()
         run: |
           FAILED=""
+          if [ "${{ steps.item_stats.outcome }}" = "failure" ]; then FAILED="$FAILED item_stats"; fi
           if [ "${{ steps.advanced.outcome }}" = "failure" ]; then FAILED="$FAILED advanced"; fi
           if [ "${{ steps.psychometrics.outcome }}" = "failure" ]; then FAILED="$FAILED psychometrics"; fi
           if [ "${{ steps.quality.outcome }}" = "failure" ]; then FAILED="$FAILED quality"; fi
@@ -190,6 +210,8 @@ jobs:
           path: |
             ${{ runner.temp }}/sensitivity-analysis.json
             ${{ runner.temp }}/data-audit.json
+            ${{ runner.temp }}/demographics.json
+            ${{ runner.temp }}/item-stats.json
           retention-days: 7
           if-no-files-found: warn
 
@@ -240,9 +262,9 @@ jobs:
       - uses: ./.github/actions/format-and-pr
         with:
           token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
-          files: 'src/data/sensitivity-analysis.json src/data/data-audit.json'
+          files: 'src/data/sensitivity-analysis.json src/data/data-audit.json src/data/demographics.json src/data/item-stats.json'
           commit-message: 'chore: update analysis results from daily pipeline'
-          pr-title: 'Update analysis results (sensitivity + audit)'
+          pr-title: 'Update analysis results (sensitivity + audit + demographics + item stats)'
           pr-body: |
             Automated update from the daily analysis pipeline.
 
