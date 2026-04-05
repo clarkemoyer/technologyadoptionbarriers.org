@@ -438,6 +438,8 @@ git commit -m "chore: update dependencies"
 
 Claude Code runs in **VS Code**, **Claude Desktop app**, and **web (claude.ai/code)**. All share `~/.claude/settings.json` and memory. MCP config locations differ:
 
+> **Note on project-level settings:** Project-level hooks are configured in a local `.claude/settings.json` file. This file is per-developer and not committed to the repository (`.claude/` is gitignored); create it locally as needed, or use `~/.claude/settings.json` if you prefer the global Claude settings location.
+
 | Platform       | MCP Config Location                           |
 | -------------- | --------------------------------------------- |
 | VS Code        | `.vscode/mcp.json` (per-project)              |
