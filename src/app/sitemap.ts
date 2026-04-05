@@ -281,6 +281,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    {
+      url: `${baseUrl}/bibliography-2-20-gartner-hype-cycle-methodology-2025`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-21-diffusion-of-innovations-organizational-rogers-1962`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
     // Branch introductions
     ...technologyAdoptionModelsSeries.branches.map((branch) => ({
       url: `${baseUrl}${branch.slug}`,
