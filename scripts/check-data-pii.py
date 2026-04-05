@@ -28,8 +28,9 @@ import re
 import sys
 from pathlib import Path
 
-# 24 lowercase hex characters — the Prolific PID / study-ID format
-_PID_RE = re.compile(r"^[0-9a-f]{24}$")
+# 24 lowercase hex characters — the Prolific PID / study-ID format.
+# No anchors: also catches PIDs embedded inside longer string values.
+_PID_RE = re.compile(r"[0-9a-f]{24}")
 
 # JSON key names whose *values* are known to be study-level identifiers,
 # not participant identifiers.  Extend this list if the data schema changes.
@@ -42,8 +43,8 @@ _ALLOWED_LEAF_KEYS: frozenset[str] = frozenset(
 
 
 def _find_hex_strings(obj: object, key_path: str = "") -> list[tuple[str, str]]:
-    """Recursively walk a JSON object and return (key_path, value) for every
-    string value that looks like a 24-char hex identifier."""
+    """Recursively walk a JSON object and return (key_path, match) for every
+    24-char hex substring found in any string value."""
     results: list[tuple[str, str]] = []
     if isinstance(obj, dict):
         for key, val in obj.items():
@@ -52,8 +53,9 @@ def _find_hex_strings(obj: object, key_path: str = "") -> list[tuple[str, str]]:
     elif isinstance(obj, list):
         for i, item in enumerate(obj):
             results.extend(_find_hex_strings(item, f"{key_path}[{i}]"))
-    elif isinstance(obj, str) and _PID_RE.match(obj):
-        results.append((key_path, obj))
+    elif isinstance(obj, str):
+        for m in _PID_RE.finditer(obj):
+            results.append((key_path, m.group()))
     return results
 
 
@@ -90,8 +92,8 @@ def check_file(path: Path) -> list[dict]:
     for key_path, value in _find_hex_strings(data):
         if _is_allowed(key_path):
             continue
-        # Redact the middle of the value so it isn't echoed into logs in full
-        redacted = value[:6] + "..." + value[-4:]
+        # Redact the middle of the 24-char hex value so it isn't echoed in full
+        redacted = value[:6] + "..." + value[-4:] if len(value) >= 10 else "***"
         violations.append({"file": str(path), "key": key_path, "value": redacted})
 
     return violations

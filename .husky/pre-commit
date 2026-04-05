@@ -32,8 +32,14 @@ STAGED_DATA_JSON=$(git diff --cached --name-only --diff-filter=ACMR | grep '^src
 if [ -n "$STAGED_DATA_JSON" ]; then
   echo "🔍 Checking staged src/data/ files for PII patterns..."
   if command -v python3 >/dev/null 2>&1; then
-    # shellcheck disable=SC2086
-    python3 scripts/check-data-pii.py $STAGED_DATA_JSON || {
+    # Build argument list safely: one file per line → separate positional args
+    set --
+    while IFS= read -r f; do
+      [ -n "$f" ] && set -- "$@" "$f"
+    done <<STAGED_FILES
+$STAGED_DATA_JSON
+STAGED_FILES
+    python3 scripts/check-data-pii.py "$@" || {
       echo "❌ PII patterns detected in staged src/data/ file(s). Remove participant IDs before committing."
       exit 1
     }
