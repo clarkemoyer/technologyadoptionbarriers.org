@@ -109,7 +109,8 @@ Copy `claude_desktop_config.json.example` in the repository root to your Claude 
 **Authentication:**
 
 - GitHub Copilot provides baseline access for Option A.
-- For Option A, a PAT is optional and may be added as `Authorization: Bearer $COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN` when you need broader scope or access to private resources; it can be omitted when baseline Copilot access is sufficient. For VS Code and other local IDE-based setups, follow `.vscode/mcp.with-github.json.example`.
+- For Option A, a PAT is optional. Add `Authorization: Bearer $COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN` when you need broader scope or access to private resources; it can be omitted when baseline Copilot access is sufficient.
+- For VS Code and other local IDE-based setups, follow `.vscode/mcp.with-github.json.example`.
 - For Option B (Docker), set `GITHUB_PERSONAL_ACCESS_TOKEN` with appropriate scopes (`repo`, `read:org`, etc.).
 
 **Documentation:** [GitHub MCP Server](https://github.com/github/github-mcp-server) | [GitHub Copilot Docs](https://docs.github.com/en/copilot)
@@ -135,9 +136,11 @@ Copy `claude_desktop_config.json.example` in the repository root to your Claude 
 **Important Notes:**
 
 - Requires OAuth access token
-- Uses Server-Sent Events (SSE) transport
+- Uses Server-Sent Events (SSE) transport; Claude Desktop users will need `mcp-remote` (see below)
 - Replace hostname with your Qualtrics brand/cluster hostname
 - See `qualtrics-mcp.md` for detailed setup instructions
+
+**Claude Desktop / local clients:** The Qualtrics MCP server uses SSE transport, which Claude Desktop does not support natively. `mcp-remote` ([github.com/geelen/mcp-remote](https://github.com/geelen/mcp-remote)) acts as a local bridge between stdio-based MCP clients (like Claude Desktop) and remote HTTP+SSE servers. It is invoked via `npx -y mcp-remote <url>` as shown in `claude_desktop_config.json.example`.
 
 Example Qualtrics MCP URL (used during this repo’s setup):
 
