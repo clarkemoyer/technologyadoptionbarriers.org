@@ -1,18 +1,15 @@
 name: Auto-Approve Bot Workflows
 
-# When a workflow run completes with action_required (bot PR gate),
-# automatically re-run it using a PAT so the actor becomes the repo
-# owner, bypassing the first-time contributor approval gate.
-#
-# This only re-runs workflows from copilot-swe-agent[bot].
-# Reference: https://github.com/orgs/community/discussions/167493
-
 on:
   workflow_run:
+    workflows:
+      - 'CI - Build and Test'
+      - 'CodeQL Advanced'
+      - 'Copilot Review Cycle'
+      - 'Validate Analysis Pipeline'
+      - 'Lighthouse CI'
+      - 'Auto-Start Review Cycle'
     types: [completed]
-
-permissions:
-  actions: write
 
 jobs:
   auto-approve:
@@ -20,12 +17,16 @@ jobs:
       github.event.workflow_run.conclusion == 'action_required' &&
       github.event.workflow_run.actor.id == 175728472
     runs-on: ubuntu-latest
+    environment: copilot
     steps:
       - name: Re-run workflow as repo owner
         env:
           GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
         run: |
-          echo "Re-running workflow ${{ github.event.workflow_run.id }} (was action_required from copilot-swe-agent[bot])"
+          echo "Auto-approving workflow run ${{ github.event.workflow_run.id }}"
+          echo "  Workflow: ${{ github.event.workflow_run.name }}"
+          echo "  Actor: ${{ github.event.workflow_run.actor.login }} (id: ${{ github.event.workflow_run.actor.id }})"
+          echo "  Conclusion: ${{ github.event.workflow_run.conclusion }}"
           gh api repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}/rerun \
             -X POST
-          echo "Done — workflow re-triggered under PAT owner context"
+          echo "Done — re-triggered under PAT owner context"
