@@ -267,6 +267,12 @@ describe('Key Findings Page', () => {
     render(<Page />)
     expect(screen.getByRole('heading', { name: /inferential statistics/i })).toBeInTheDocument()
   })
+
+  it('renders cross-tabulations section', async () => {
+    const { default: Page } = await import('@/app/results/findings/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /cross-tabulations/i })).toBeInTheDocument()
+  })
 })
 
 describe('Sample & Demographics Page', () => {
