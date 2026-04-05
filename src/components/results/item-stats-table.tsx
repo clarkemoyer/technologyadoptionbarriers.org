@@ -28,13 +28,21 @@ const ItemStatsTable: React.FC<ItemStatsTableProps> = ({
         <table className="w-full text-xs border-collapse bg-white/70 rounded shadow-sm">
           <thead>
             <tr className="border-b border-gray-300 bg-gray-100/50">
-              <th className="py-2 px-2 text-left font-semibold text-gray-600 w-12">Rank</th>
-              <th className="py-2 px-2 text-left font-semibold text-gray-600">Item</th>
-              <th className="py-2 px-2 text-right font-semibold text-gray-600 w-16">Mean</th>
-              <th className="py-2 px-2 text-left font-semibold text-gray-600 w-24">
+              <th scope="col" className="py-2 px-2 text-left font-semibold text-gray-600 w-12">
+                Rank
+              </th>
+              <th scope="col" className="py-2 px-2 text-left font-semibold text-gray-600">
+                Item
+              </th>
+              <th scope="col" className="py-2 px-2 text-right font-semibold text-gray-600 w-16">
+                Mean
+              </th>
+              <th scope="col" className="py-2 px-2 text-left font-semibold text-gray-600 w-24">
                 Visualization
               </th>
-              <th className="py-2 px-2 text-right font-semibold text-gray-600 w-16">SD</th>
+              <th scope="col" className="py-2 px-2 text-right font-semibold text-gray-600 w-16">
+                SD
+              </th>
             </tr>
           </thead>
           <tbody>

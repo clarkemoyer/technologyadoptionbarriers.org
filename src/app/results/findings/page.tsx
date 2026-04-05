@@ -237,19 +237,34 @@ const FindingsPage = () => {
                         <table className="w-full text-xs border-collapse bg-white/70 rounded">
                           <thead>
                             <tr className="border-b border-gray-300">
-                              <th className="py-1.5 px-2 text-left font-semibold text-gray-600">
+                              <th
+                                scope="col"
+                                className="py-1.5 px-2 text-left font-semibold text-gray-600"
+                              >
                                 Construct
                               </th>
-                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                              <th
+                                scope="col"
+                                className="py-1.5 px-2 text-right font-semibold text-gray-600"
+                              >
                                 Tech Mean
                               </th>
-                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                              <th
+                                scope="col"
+                                className="py-1.5 px-2 text-right font-semibold text-gray-600"
+                              >
                                 Non-Tech Mean
                               </th>
-                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                              <th
+                                scope="col"
+                                className="py-1.5 px-2 text-right font-semibold text-gray-600"
+                              >
                                 Cohen&rsquo;s d
                               </th>
-                              <th className="py-1.5 px-2 text-left font-semibold text-gray-600">
+                              <th
+                                scope="col"
+                                className="py-1.5 px-2 text-left font-semibold text-gray-600"
+                              >
                                 Size
                               </th>
                             </tr>
@@ -295,19 +310,34 @@ const FindingsPage = () => {
                             <table className="w-full text-xs border-collapse bg-white/70 rounded">
                               <thead>
                                 <tr className="border-b border-gray-300">
-                                  <th className="py-1.5 px-2 text-left font-semibold text-gray-600">
+                                  <th
+                                    scope="col"
+                                    className="py-1.5 px-2 text-left font-semibold text-gray-600"
+                                  >
                                     Construct
                                   </th>
-                                  <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                                  <th
+                                    scope="col"
+                                    className="py-1.5 px-2 text-right font-semibold text-gray-600"
+                                  >
                                     Large Mean
                                   </th>
-                                  <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                                  <th
+                                    scope="col"
+                                    className="py-1.5 px-2 text-right font-semibold text-gray-600"
+                                  >
                                     S/M Mean
                                   </th>
-                                  <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                                  <th
+                                    scope="col"
+                                    className="py-1.5 px-2 text-right font-semibold text-gray-600"
+                                  >
                                     Cohen&rsquo;s d
                                   </th>
-                                  <th className="py-1.5 px-2 text-left font-semibold text-gray-600">
+                                  <th
+                                    scope="col"
+                                    className="py-1.5 px-2 text-left font-semibold text-gray-600"
+                                  >
                                     Size
                                   </th>
                                 </tr>
@@ -388,11 +418,21 @@ const FindingsPage = () => {
                           <table className="w-full text-xs border-collapse bg-white/70 rounded">
                             <thead>
                               <tr className="border-b border-gray-300">
-                                <th className="py-1.5 px-2 text-left font-semibold">Group</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">n</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">B</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">R</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">M</th>
+                                <th scope="col" className="py-1.5 px-2 text-left font-semibold">
+                                  Group
+                                </th>
+                                <th scope="col" className="py-1.5 px-2 text-right font-semibold">
+                                  n
+                                </th>
+                                <th scope="col" className="py-1.5 px-2 text-right font-semibold">
+                                  B
+                                </th>
+                                <th scope="col" className="py-1.5 px-2 text-right font-semibold">
+                                  R
+                                </th>
+                                <th scope="col" className="py-1.5 px-2 text-right font-semibold">
+                                  M
+                                </th>
                               </tr>
                             </thead>
                             <tbody>
@@ -427,11 +467,21 @@ const FindingsPage = () => {
                           <table className="w-full text-xs border-collapse bg-white/70 rounded">
                             <thead>
                               <tr className="border-b border-gray-300">
-                                <th className="py-1.5 px-2 text-left font-semibold">Group</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">n</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">B</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">R</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">M</th>
+                                <th scope="col" className="py-1.5 px-2 text-left font-semibold">
+                                  Group
+                                </th>
+                                <th scope="col" className="py-1.5 px-2 text-right font-semibold">
+                                  n
+                                </th>
+                                <th scope="col" className="py-1.5 px-2 text-right font-semibold">
+                                  B
+                                </th>
+                                <th scope="col" className="py-1.5 px-2 text-right font-semibold">
+                                  R
+                                </th>
+                                <th scope="col" className="py-1.5 px-2 text-right font-semibold">
+                                  M
+                                </th>
                               </tr>
                             </thead>
                             <tbody>
@@ -579,11 +629,21 @@ const FindingsPage = () => {
                           <table className="w-full text-sm font-sans border-collapse">
                             <thead>
                               <tr className="bg-gray-50">
-                                <th className="text-left p-2 border-b">Construct</th>
-                                <th className="text-right p-2 border-b">t</th>
-                                <th className="text-right p-2 border-b">df</th>
-                                <th className="text-right p-2 border-b">p</th>
-                                <th className="text-center p-2 border-b">Sig.</th>
+                                <th scope="col" className="text-left p-2 border-b">
+                                  Construct
+                                </th>
+                                <th scope="col" className="text-right p-2 border-b">
+                                  t
+                                </th>
+                                <th scope="col" className="text-right p-2 border-b">
+                                  df
+                                </th>
+                                <th scope="col" className="text-right p-2 border-b">
+                                  p
+                                </th>
+                                <th scope="col" className="text-center p-2 border-b">
+                                  Sig.
+                                </th>
                               </tr>
                             </thead>
                             <tbody>
@@ -626,11 +686,21 @@ const FindingsPage = () => {
                           <table className="w-full text-sm font-sans border-collapse">
                             <thead>
                               <tr className="bg-gray-50">
-                                <th className="text-left p-2 border-b">Construct</th>
-                                <th className="text-right p-2 border-b">t</th>
-                                <th className="text-right p-2 border-b">df</th>
-                                <th className="text-right p-2 border-b">p</th>
-                                <th className="text-center p-2 border-b">Sig.</th>
+                                <th scope="col" className="text-left p-2 border-b">
+                                  Construct
+                                </th>
+                                <th scope="col" className="text-right p-2 border-b">
+                                  t
+                                </th>
+                                <th scope="col" className="text-right p-2 border-b">
+                                  df
+                                </th>
+                                <th scope="col" className="text-right p-2 border-b">
+                                  p
+                                </th>
+                                <th scope="col" className="text-center p-2 border-b">
+                                  Sig.
+                                </th>
                               </tr>
                             </thead>
                             <tbody>
@@ -672,11 +742,21 @@ const FindingsPage = () => {
                           <table className="w-full text-sm font-sans border-collapse">
                             <thead>
                               <tr className="bg-gray-50">
-                                <th className="text-left p-2 border-b">Construct</th>
-                                <th className="text-right p-2 border-b">F</th>
-                                <th className="text-right p-2 border-b">df</th>
-                                <th className="text-right p-2 border-b">p</th>
-                                <th className="text-center p-2 border-b">Sig.</th>
+                                <th scope="col" className="text-left p-2 border-b">
+                                  Construct
+                                </th>
+                                <th scope="col" className="text-right p-2 border-b">
+                                  F
+                                </th>
+                                <th scope="col" className="text-right p-2 border-b">
+                                  df
+                                </th>
+                                <th scope="col" className="text-right p-2 border-b">
+                                  p
+                                </th>
+                                <th scope="col" className="text-center p-2 border-b">
+                                  Sig.
+                                </th>
                               </tr>
                             </thead>
                             <tbody>
@@ -718,11 +798,21 @@ const FindingsPage = () => {
                           <table className="w-full text-sm font-sans border-collapse">
                             <thead>
                               <tr className="bg-gray-50">
-                                <th className="text-left p-2 border-b">Construct</th>
-                                <th className="text-right p-2 border-b">F</th>
-                                <th className="text-right p-2 border-b">df</th>
-                                <th className="text-right p-2 border-b">p</th>
-                                <th className="text-center p-2 border-b">Sig.</th>
+                                <th scope="col" className="text-left p-2 border-b">
+                                  Construct
+                                </th>
+                                <th scope="col" className="text-right p-2 border-b">
+                                  F
+                                </th>
+                                <th scope="col" className="text-right p-2 border-b">
+                                  df
+                                </th>
+                                <th scope="col" className="text-right p-2 border-b">
+                                  p
+                                </th>
+                                <th scope="col" className="text-center p-2 border-b">
+                                  Sig.
+                                </th>
                               </tr>
                             </thead>
                             <tbody>
