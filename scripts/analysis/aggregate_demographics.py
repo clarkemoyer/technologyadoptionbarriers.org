@@ -99,7 +99,7 @@ def _aggregate_categorical(
     if total == 0:
         return []
 
-    # Normalise empty / DATA_EXPIRED values
+    # Normalize empty / DATA_EXPIRED values
     cleaned = []
     for v in values:
         v = v.strip()
@@ -195,7 +195,7 @@ def aggregate_demographics(csv_path: str, min_cell: int = DEFAULT_MIN_CELL_SIZE)
         min_cell: Minimum category size; smaller cells merge into "Other".
 
     Returns:
-        Dictionary suitable for JSON serialisation (no individual-level data).
+        Dictionary suitable for JSON serialization (no individual-level data).
     """
     with open(csv_path, newline="", encoding="utf-8-sig") as fh:
         reader = csv.DictReader(fh)
@@ -340,9 +340,12 @@ def main() -> None:
         json.dump(data, fh, indent=2)
         fh.write("\n")
 
+    # Extract count separately to avoid logging the full data dict
+    total_written = int(data["totalParticipants"])
+
     print(
         f"Demographics JSON written: {output_path} "
-        f"(N={data['totalParticipants']} participants)"
+        f"(N={total_written} participants)"
     )
 
 

@@ -71,10 +71,23 @@ const SamplePage = () => {
 
   const demo = demographicsData
   const hasDemo = !!demo.totalParticipants
-  const ageRanges = (demo.age?.ranges ?? []) as AgeRange[]
-  const genderCats = (demo.gender?.categories ?? []) as DemoCategory[]
-  const countryCats = (demo.country?.categories ?? []) as DemoCategory[]
-  const employmentCats = (demo.employmentStatus?.categories ?? []) as DemoCategory[]
+  const ageRanges: AgeRange[] = Array.isArray(demo.age?.ranges)
+    ? (demo.age.ranges as AgeRange[])
+    : []
+  const genderCats: DemoCategory[] = Array.isArray(demo.gender?.categories)
+    ? (demo.gender.categories as DemoCategory[])
+    : []
+  const countryCats: DemoCategory[] = Array.isArray(demo.country?.categories)
+    ? (demo.country.categories as DemoCategory[])
+    : []
+  const employmentCats: DemoCategory[] = Array.isArray(demo.employmentStatus?.categories)
+    ? (demo.employmentStatus.categories as DemoCategory[])
+    : []
+
+  // Compute age bar max once (not inside the render loop)
+  const validAgeRanges = ageRanges.filter((x) => x.count !== null)
+  const ageBarMax =
+    validAgeRanges.length > 0 ? Math.max(...validAgeRanges.map((x) => x.count as number)) : 0
 
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -205,43 +218,36 @@ const SamplePage = () => {
             </h3>
             {ageRanges.length > 0 ? (
               <div className="space-y-2 my-4">
-                {ageRanges.map((r) => {
-                  const validRanges = ageRanges.filter((x) => x.count !== null)
-                  const max =
-                    validRanges.length > 0
-                      ? Math.max(...validRanges.map((x) => x.count as number))
-                      : 0
-                  return (
-                    <div key={r.range} className="flex items-center gap-3 text-sm">
-                      <div className="w-16 shrink-0 text-right text-gray-700 font-mono">
-                        {r.range}
-                      </div>
-                      <div className="flex-1 bg-gray-100 rounded h-5 overflow-hidden">
-                        {r.count !== null && max > 0 ? (
-                          <div
-                            className="h-5 bg-tabs-teal-deep rounded"
-                            style={{ width: `${(r.count / max) * 100}%` }}
-                            aria-label={`${r.range}: ${r.count} (${fmtPct(r.pct)})`}
-                          />
-                        ) : (
-                          <div
-                            className="h-5 bg-gray-200 rounded"
-                            title="Suppressed: fewer than 5 participants"
-                          />
-                        )}
-                      </div>
-                      <div className="w-28 shrink-0 text-gray-600 font-mono text-xs">
-                        {r.count !== null ? (
-                          <>
-                            {fmt(r.count)} <span className="text-gray-400">({fmtPct(r.pct)})</span>
-                          </>
-                        ) : (
-                          <span className="text-gray-400 italic">suppressed</span>
-                        )}
-                      </div>
+                {ageRanges.map((r) => (
+                  <div key={r.range} className="flex items-center gap-3 text-sm">
+                    <div className="w-16 shrink-0 text-right text-gray-700 font-mono">
+                      {r.range}
                     </div>
-                  )
-                })}
+                    <div className="flex-1 bg-gray-100 rounded h-5 overflow-hidden">
+                      {r.count !== null && ageBarMax > 0 ? (
+                        <div
+                          className="h-5 bg-tabs-teal-deep rounded"
+                          style={{ width: `${(r.count / ageBarMax) * 100}%` }}
+                          aria-label={`${r.range}: ${r.count} (${fmtPct(r.pct)})`}
+                        />
+                      ) : (
+                        <div
+                          className="h-5 bg-gray-200 rounded"
+                          title="Suppressed: fewer than 5 participants"
+                        />
+                      )}
+                    </div>
+                    <div className="w-28 shrink-0 text-gray-600 font-mono text-xs">
+                      {r.count !== null ? (
+                        <>
+                          {fmt(r.count)} <span className="text-gray-400">({fmtPct(r.pct)})</span>
+                        </>
+                      ) : (
+                        <span className="text-gray-400 italic">suppressed</span>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
             ) : (
               <p className="text-sm text-gray-500 italic my-4">

@@ -127,7 +127,7 @@ def generate_item_stats(csv_path: str, sample_key: str = "conservative_clean") -
         sample_key: Which sample definition to use (default: conservative_clean).
 
     Returns:
-        Dictionary suitable for JSON serialisation.
+        Dictionary suitable for JSON serialization.
     """
     idx, rows = load_data(csv_path)
     _v2, samples = filter_samples(rows, idx)
