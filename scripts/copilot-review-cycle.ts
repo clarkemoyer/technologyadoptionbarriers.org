@@ -10,7 +10,7 @@ const REVIEW_TIMEOUT_MS = 15 * 60 * 1000
 const FIX_POLL_INTERVAL_MS = 30_000
 const FIX_TIMEOUT_MS = 20 * 60 * 1000
 const CI_POLL_INTERVAL_MS = 30_000
-const CI_TIMEOUT_MS = 15 * 60 * 1000
+const CI_TIMEOUT_MS = Number(process.env.CI_TIMEOUT_MS ?? 30 * 60 * 1000)
 const MAX_RETRIES = 3
 
 // --- Types ---
