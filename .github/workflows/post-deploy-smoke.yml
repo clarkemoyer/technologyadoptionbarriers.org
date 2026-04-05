@@ -362,7 +362,7 @@ jobs:
           # that would only appear if pipeline JSON was present at build.
 
           # Shared fetch: sets DATA_CONTENT and FETCH_OK (0=success, 1=error).
-          # Always returns 0 so errexit does not abort the step.
+          # Always returns 0 so the caller can record failures and continue this step.
           fetch_data_page() {
             local url="$1" label="$2"
             local status curl_exit

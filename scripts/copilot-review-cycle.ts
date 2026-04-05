@@ -380,8 +380,6 @@ async function waitForCi(
   console.log(`Waiting for CI checks (timeout: ${CI_TIMEOUT_MS / 60000} min)...`)
 
   while (Date.now() - startTime < CI_TIMEOUT_MS) {
-    await sleep(CI_POLL_INTERVAL_MS)
-
     const pr = getPrState(repo, prNumber)
     if (pr.state !== 'OPEN') {
       console.log(`  PR is ${pr.state}, stopping.`)
@@ -398,6 +396,7 @@ async function waitForCi(
     if (checks.length === 0) {
       const elapsed = Math.round((Date.now() - startTime) / 1000)
       process.stdout.write(`  No checks yet... (${elapsed}s)\r`)
+      await sleep(CI_POLL_INTERVAL_MS)
       continue
     }
 
@@ -405,6 +404,7 @@ async function waitForCi(
     if (pending.length > 0) {
       const elapsed = Math.round((Date.now() - startTime) / 1000)
       process.stdout.write(`  ${pending.length} check(s) still running... (${elapsed}s)\r`)
+      await sleep(CI_POLL_INTERVAL_MS)
       continue
     }
 
