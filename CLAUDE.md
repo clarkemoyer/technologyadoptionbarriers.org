@@ -506,35 +506,55 @@ You can connect to MCP servers for enhanced capabilities:
 
 **Documentation**: [qualtrics-mcp.md](./qualtrics-mcp.md)
 
-#### GitHub MCP Servers
+#### GitHub MCP Server
 
-Two GitHub MCP servers are available with different access levels:
+**Repository management via MCP:**
 
-| MCP                         | Tool Prefix                   | Access          | Best For                                                                   |
-| --------------------------- | ----------------------------- | --------------- | -------------------------------------------------------------------------- |
-| **Local npx server**        | `mcp__github__`               | Full read/write | Comments, PRs, issues, branches, push files, reviews                       |
-| **Built-in Copilot plugin** | `mcp__plugin_github_github__` | Read-only       | Fast reads: PR details, file contents, search, Copilot agent delegation    |
-| **`gh` CLI**                | `Bash(gh ...)`                | Full read/write | Workflow dispatch, PR state changes (draft/ready), fallback for all writes |
+Two integration options are available depending on your environment:
 
-**Local npx server setup** (Claude Desktop — `claude_desktop_config.json`):
+**Option 1 – VS Code / GitHub Copilot Agent (remote HTTP):**
+
+- **Setup**: Install from VS Code MCP Marketplace (or use `.vscode/mcp.with-github.json.example`)
+- **Host**: `https://api.githubcopilot.com/mcp/`
+- **Auth**: VS Code GitHub integration (a PAT is optional and may be added as `Authorization: Bearer <token>` when you need broader scope or access to private resources)
+
+**Option 2 – Claude Desktop / local MCP clients (Docker):**
+
+Use the official `ghcr.io/github/github-mcp-server` Docker image (the deprecated
+`@modelcontextprotocol/server-github` npm package should **not** be used):
 
 ```json
 {
   "mcpServers": {
     "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
       "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "<token from gh auth token>"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<REPLACE_WITH_YOUR_GITHUB_PERSONAL_ACCESS_TOKEN>"
       }
     }
   }
 }
 ```
 
-**Important**: The built-in Copilot plugin injects its own token that cannot be overridden. It is read-only by design. Use the local npx server or `gh` CLI for all write operations.
+Copy `claude_desktop_config.json.example` to your Claude Desktop config path:
 
-**Token refresh**: The `gho_` OAuth token from `gh auth token` may expire. If MCP writes start failing with 401, run `gh auth refresh` and update the config.
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+
+**Capabilities (both options):**
+
+- Search code across repositories
+- Create/update issues
+- Manage pull requests
+- Access GitHub Actions logs
 
 ### External API Access
 

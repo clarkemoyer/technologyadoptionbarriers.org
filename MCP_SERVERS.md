@@ -46,7 +46,7 @@ This repository’s current “primary” MCP server set is:
 
 **Purpose:** Provides access to GitHub repository operations, workflows, issues, pull requests, and more.
 
-**For GitHub Copilot Agent (GitHub UI):**
+**Option A – GitHub Copilot Agent / VS Code (remote HTTP):**
 
 ```json
 {
@@ -64,20 +64,56 @@ This repository’s current “primary” MCP server set is:
 **Server Type:** Remote HTTP  
 **URL:** `https://api.githubcopilot.com/mcp/` (the `/readonly` variant is read-only)
 
+**Option B – Claude Desktop / local MCP clients (Docker):**
+
+Use the official Docker image (`ghcr.io/github/github-mcp-server`). The
+`@modelcontextprotocol/server-github` npm package is **deprecated** and officially superseded by this
+Docker image, which provides better isolation, is maintained by GitHub, and receives continued updates.
+
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<REPLACE_WITH_YOUR_GITHUB_PERSONAL_ACCESS_TOKEN>"
+      }
+    }
+  }
+}
+```
+
+Copy `claude_desktop_config.json.example` in the repository root to your Claude Desktop config path:
+
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+
+**Image:** `ghcr.io/github/github-mcp-server` ([github/github-mcp-server](https://github.com/github/github-mcp-server))
+
 **Capabilities:**
 
 - Repository management and navigation
-- Issue and pull request operations
+- Issue and pull request operations (read **and** write)
 - GitHub Actions workflow management
 - Code search and navigation
 - Commit and branch operations
 
 **Authentication:**
 
-- GitHub Copilot provides baseline access.
-- If you need broader scope or write operations outside the default limits, add an `Authorization: Bearer $COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN` header in GitHub UI config.
+- GitHub Copilot provides baseline access for Option A.
+- For Option A, a PAT is optional and may be added as `Authorization: Bearer $COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN` when you need broader scope or access to private resources; it can be omitted when baseline Copilot access is sufficient.
+- For VS Code and other local IDE-based setups, follow `.vscode/mcp.with-github.json.example`.
+- For Option B (Docker), set `GITHUB_PERSONAL_ACCESS_TOKEN` with appropriate scopes (`repo`, `read:org`, etc.).
 
-**Documentation:** [GitHub MCP Documentation](https://docs.github.com/en/copilot)
+**Documentation:** [GitHub MCP Server](https://github.com/github/github-mcp-server) | [GitHub Copilot Docs](https://docs.github.com/en/copilot)
 
 ---
 
@@ -103,6 +139,12 @@ This repository’s current “primary” MCP server set is:
 - Uses Server-Sent Events (SSE) transport
 - Replace hostname with your Qualtrics brand/cluster hostname
 - See `qualtrics-mcp.md` for detailed setup instructions
+
+**Claude Desktop users:** The `claude_desktop_config.json.example` file in the repository root uses
+[`mcp-remote`](https://www.npmjs.com/package/mcp-remote) (`npx mcp-remote <url>`) to bridge Claude
+Desktop's local-process model to the remote Qualtrics SSE endpoint. `mcp-remote` is the official
+[`@modelcontextprotocol/mcp-remote`](https://github.com/modelcontextprotocol/mcp-remote) npm
+package and is the standard way to connect Claude Desktop to any remote (HTTP/SSE) MCP server.
 
 Example Qualtrics MCP URL (used during this repo’s setup):
 
@@ -225,9 +267,10 @@ The script checks:
 To add additional MCP servers:
 
 1. Research available MCP servers at:
+   - [github/github-mcp-server](https://github.com/github/github-mcp-server) - Official GitHub MCP server (Docker)
    - [Model Context Protocol Servers](https://github.com/modelcontextprotocol/servers)
    - [MCP Examples](https://modelcontextprotocol.io/examples)
-   - [npm MCP packages](https://www.npmjs.com/search?q=%40modelcontextprotocol)
+   - **Prefer Docker images or remote HTTP servers over `npx`-based npm packages.** Docker images provide better isolation, are more reproducible, and avoid dependency conflicts. Remote HTTP servers require no local installation at all.
 
 2. Add the server configuration to `.copilot/mcp-config.json` (reference)
 
@@ -241,9 +284,9 @@ To add additional MCP servers:
 
 ### Server Not Found
 
-- Ensure the server package is installed or accessible via `npx`
+- For Docker-based servers: ensure Docker is running and the image has been pulled (`docker pull ghcr.io/github/github-mcp-server`)
+- For HTTP-based servers: verify network connectivity and the server URL
 - Check that the command and args are correct
-- Verify network connectivity for remote servers
 
 ### Authentication Failures
 
@@ -255,7 +298,7 @@ To add additional MCP servers:
 
 - For Qualtrics MCP: Ensure your MCP client supports Server-Sent Events (SSE)
 - For remote servers: Check network connectivity and firewall rules
-- For local servers: Ensure required packages can be installed
+- For Docker servers: Ensure Docker Desktop is running
 
 ### Server Initialization Hangs
 
