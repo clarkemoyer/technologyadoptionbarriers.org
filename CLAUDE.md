@@ -834,9 +834,11 @@ All Python scripts live in `scripts/analysis/`. They are the primary language fo
 
 ## Custom Agents
 
-Claude Code agents are defined in `.claude/agents/` (gitignored — local only). They provide specialized behavior invoked automatically or explicitly.
+Claude Code agents for this repo live in `.claude/agents/`, but that directory is gitignored and is **not** included when you clone the repository. These are optional, per-developer local agents scoped to this repo; they provide specialized behavior invoked automatically or explicitly once you create/populate `.claude/agents/` in your local checkout.
 
-### TABS Repo Agents
+If you want to use them, bootstrap them locally by creating `.claude/agents/` in your clone and adding the agent definition files from your personal setup or any team-shared examples available outside the repo.
+
+### Repo-scoped local agents (`.claude/agents/`)
 
 | Agent                  | Purpose                                                            | Model  | Tools                        |
 | ---------------------- | ------------------------------------------------------------------ | ------ | ---------------------------- |
@@ -871,7 +873,9 @@ Tasks run in this Claude Code session and auto-expire after 7 days. Use cloud tr
 
 ## Hooks
 
-Project-level hooks in `.claude/settings.json`:
+> **Local Claude Code only** — Project-level hooks are defined in `.claude/settings.json`, which is gitignored and **not present** for most contributors or in CI. These are an optional per-developer convenience; they do not replace the required `npm run format` step.
+
+Project-level hooks in `.claude/settings.json` (if you have it locally):
 
 ### Active Hooks
 
@@ -879,7 +883,7 @@ Project-level hooks in `.claude/settings.json`:
 | ------------- | ------------- | --------------------------------- |
 | `PostToolUse` | `Write\|Edit` | Auto-run Prettier on edited files |
 
-Hooks run automatically — no approval needed. They ensure formatting compliance without manual `npm run format`.
+If you have these hooks configured locally, they will auto-run Prettier after file edits. **However, all contributors must still run `npm run format` before committing** — hooks are not available in CI or for developers without a local `.claude/settings.json`.
 
 ### Available Hook Events
 
