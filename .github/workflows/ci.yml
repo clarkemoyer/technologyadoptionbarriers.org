@@ -49,6 +49,11 @@ jobs:
         env:
           CI: true
 
+      - name: Validate data schemas
+        # Quality gate: blocks the PR if any src/data/*.json file fails its
+        # JSON Schema or contains PROLIFIC_PID / participant-identifier patterns.
+        run: python3 scripts/validate_data_schemas.py
+
       - name: Build Next.js site
         run: npm run build
         env:

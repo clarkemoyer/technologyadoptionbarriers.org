@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "disposition-summary",
+  "description": "Aggregate disposition counts from the daily pipeline. Must contain NO participant-level identifiers.",
+  "type": "object",
+  "required": [
+    "updatedAt",
+    "study",
+    "completionProgress",
+    "dispositions",
+    "actions",
+    "iriPassRates",
+    "studyId",
+    "studyName"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "updatedAt": {
+      "type": "string",
+      "description": "ISO-8601 datetime of last pipeline run"
+    },
+    "study": {
+      "type": "object",
+      "required": ["id", "name", "status"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "status": { "type": "string" }
+      }
+    },
+    "completionProgress": {
+      "type": "object",
+      "required": ["target", "completed", "approved", "awaitingReview", "percentComplete"],
+      "properties": {
+        "target": { "type": "number" },
+        "completed": { "type": "number" },
+        "approved": { "type": "number" },
+        "awaitingReview": { "type": "number" },
+        "percentComplete": { "type": "number" }
+      }
+    },
+    "dispositions": {
+      "type": "object",
+      "description": "Counts per disposition label (e.g. CLEAN, AUTO-EXCLUDE). Values are integers.",
+      "additionalProperties": { "type": "number" }
+    },
+    "actions": {
+      "type": "object",
+      "required": ["approved", "rejected", "returned", "awaitingReview"],
+      "properties": {
+        "approved": { "type": "number" },
+        "rejected": { "type": "number" },
+        "returned": { "type": "number" },
+        "timedOut": { "type": "number" },
+        "awaitingReview": { "type": "number" },
+        "active": { "type": "number" },
+        "messaged": { "type": "number" }
+      }
+    },
+    "iriPassRates": {
+      "type": "object",
+      "required": ["barrier", "readiness", "maturity", "denominator"],
+      "properties": {
+        "barrier": { "type": "number" },
+        "readiness": { "type": "number" },
+        "maturity": { "type": "number" },
+        "denominator": { "type": "number" }
+      }
+    },
+    "studyId": { "type": "string" },
+    "studyName": { "type": "string" },
+    "totalResponses": { "type": "number" },
+    "uniqueParticipants": { "type": "number" },
+    "duplicatesRemoved": { "type": "number" }
+  }
+}

@@ -752,6 +752,64 @@ Pipeline data has strict PII boundaries:
 - De-identified public dataset excludes all direct identifiers
 - Raw demographic CSVs exist only in `${{ runner.temp }}` (ephemeral workspace)
 
+## Safety Hooks & Data Schema Validation
+
+### PreToolUse Hook (`.claude/settings.json`)
+
+A Claude Code PreToolUse hook runs automatically before every `Write`, `Edit`, or `MultiEdit`
+tool call to act as a **defence-in-depth layer** against accidentally committing participant
+identifiers into `src/data/`.
+
+**Hook script**: `scripts/check_pid_write.py`
+
+The hook blocks any write to `src/data/` whose content contains:
+
+| Pattern                            | Description                                              |
+| ---------------------------------- | -------------------------------------------------------- |
+| `PROLIFIC_PID` (any case)          | Verbatim column header from Prolific/Qualtrics exports   |
+| `prolific_pid` (any case)          | JSON field name variant                                  |
+| 3+ consecutive 24-char hex strings | Indicates a PID array (single study/org IDs are allowed) |
+
+**Exit codes**: `0` = allow, `2` = block (Claude treats exit 2 as a hard stop and shows the
+stderr message as the reason).
+
+```jsonc
+// .claude/settings.json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [{ "type": "command", "command": "python3 scripts/check_pid_write.py" }],
+      },
+    ],
+  },
+}
+```
+
+### JSON Schema Validation (CI quality gate)
+
+Every push and PR triggers **`scripts/validate_data_schemas.py`** as a CI step that runs
+before the Next.js build. The step fails the build — and blocks PR merge — if any
+`src/data/*.json` file:
+
+1. Cannot be parsed as valid JSON
+2. Fails its JSON Schema (required fields missing or wrong type)
+3. Contains PROLIFIC_PID or PID-array patterns (same rules as the hook)
+
+**Schemas** live in `.github/schemas/`:
+
+| File                                 | Schema                                             |
+| ------------------------------------ | -------------------------------------------------- |
+| `src/data/disposition-summary.json`  | `.github/schemas/disposition-summary.schema.json`  |
+| `src/data/sensitivity-analysis.json` | `.github/schemas/sensitivity-analysis.schema.json` |
+
+Run locally before pushing:
+
+```bash
+python3 scripts/validate_data_schemas.py
+```
+
 ## Workflow Dispatch Quick Reference
 
 All workflows support `workflow_dispatch` for manual triggering:
