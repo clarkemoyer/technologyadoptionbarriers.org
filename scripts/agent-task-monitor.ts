@@ -16,6 +16,9 @@
  */
 
 import { execSync } from 'child_process'
+import { writeFileSync, unlinkSync } from 'node:fs'
+import { join } from 'node:path'
+import { tmpdir } from 'node:os'
 import { appendGithubStepSummary, mdEscape } from '../src/lib/github-utils'
 
 // ── Configuration ──────────────────────────────────────────────────────────
@@ -238,20 +241,28 @@ function retriggerTask(task: AgentTask): void {
     return
   }
   console.log(`  Re-triggering task #${task.number}...`)
+  const tmpFile = join(tmpdir(), `agent-task-retrigger-${task.number}-${Date.now()}.md`)
   try {
     // Remove copilot assignee
-    gh(`api repos/${REPO}/issues/${task.number}/assignees -X DELETE ` + `-F "assignees[]=copilot"`)
+    gh(`api repos/${REPO}/issues/${task.number}/assignees -X DELETE -f "assignees[]=copilot"`)
     // Re-add copilot assignee to trigger a new agent session
-    gh(`api repos/${REPO}/issues/${task.number}/assignees -X POST ` + `-F "assignees[]=copilot"`)
-    // Add a comment so the history is clear
+    gh(`api repos/${REPO}/issues/${task.number}/assignees -X POST -f "assignees[]=copilot"`)
+    // Add a comment so the history is clear — write body to temp file to avoid shell escaping issues
     const body =
       `**Agent Task Monitor:** This task was automatically re-triggered because ` +
       `no activity was detected for more than ${STALE_HOURS} hours. ` +
       `Copilot has been re-assigned to resume work.`
-    gh(`issue comment ${task.number} -R ${REPO} --body "${body.replace(/"/g, '\\"')}"`)
+    writeFileSync(tmpFile, body, 'utf-8')
+    gh(`issue comment ${task.number} -R ${REPO} --body-file "${tmpFile}"`)
     console.log(`  ✓ Re-triggered #${task.number}.`)
   } catch (err: any) {
     console.warn(`  ⚠ Could not re-trigger #${task.number}: ${err.message?.slice(0, 200)}`)
+  } finally {
+    try {
+      unlinkSync(tmpFile)
+    } catch {
+      // ignore cleanup errors
+    }
   }
 }
 
