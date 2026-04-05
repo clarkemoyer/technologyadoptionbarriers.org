@@ -37,7 +37,13 @@ const getMagnitudeColor = (d: number | null | undefined): string => {
   return '#4f46e5' // Indigo 600 (Large)
 }
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+interface CustomTooltipProps {
+  active?: boolean
+  payload?: Array<{ value: number; name: string; payload: EffectSizeData }>
+  label?: string
+}
+
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload
     const dVal = data.d !== null ? data.d.toFixed(3) : '—'
