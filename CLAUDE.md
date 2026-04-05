@@ -893,7 +893,7 @@ Hooks run automatically — no approval needed. They help keep Claude-edited fil
 
 Claude Code operates under a tiered permission system configured in `~/.claude/settings.json`.
 
-### Denied (43 rules) — blocked entirely
+### Denied — blocked entirely
 
 - Git destructive: force push, reset --hard, clean, filter-branch
 - Secret leakage: any bash with API_TOKEN, SECRET, PRIVATE_KEY, PASSWORD
@@ -903,12 +903,12 @@ Claude Code operates under a tiered permission system configured in `~/.claude/s
 - GitHub merge via MCP (forces human approval)
 - Calendar event deletion
 
-### Prompts (18 tools) — requires approval each time
+### Prompts — requires approval each time
 
 - Computer Use: clicks, typing, key presses, drag, clipboard write, open app
 - Chrome: form fills, JS execution, file upload, click actions
 
-### Auto-allowed (500+ tools) — runs without prompting
+### Auto-allowed — runs without prompting
 
 - All GitHub MCP read/write (local npx server)
 - All Cloudflare create/read/update (NOT delete)
