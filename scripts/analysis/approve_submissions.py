@@ -21,6 +21,7 @@ import csv
 import os
 import sys
 from pathlib import Path
+from typing import Dict, Optional
 
 sys.path.insert(0, str(Path(__file__).parent))
 
@@ -38,7 +39,7 @@ def _require_env(name: str) -> str:
 def _write_step_summary(
     study_id: str, dry_run: bool, total_data_rows: int,
     clean_count: int, skipped: int, already_approved: int, newly_approved: int,
-    thank_you_stats: dict | None = None,
+    thank_you_stats: Optional[Dict[str, int]] = None,
 ) -> None:
     """Write a GitHub Actions step summary (always, even when nothing to approve)."""
     summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
@@ -232,6 +233,8 @@ def main():
     thank_you_stats = None
     if send_thank_you and not dry_run and clean_pids:
         print("\n── Sending thank-you messages ──────────────────────────────────────")
+        # Deferred import: avoids loading Prolific messaging code when not needed
+        # and prevents any circular-import risk at module load time.
         from send_thank_you import send_thank_you_to_pids  # noqa: PLC0415
         thank_you_stats = send_thank_you_to_pids(clean_pids, study_id, api_token, dry_run=False)
 
