@@ -730,6 +730,30 @@ gh run watch <RUN_ID> --repo clarkemoyer/technologyadoptionbarriers.org --exit-s
 
 **Timeouts**: Review polling 15min, fix waiting 20min, API retries 3x with exponential backoff.
 
+## Hooks
+
+Project-level hooks live in `.claude/settings.json`. **This file is gitignored and is not present in the repo by default** — each contributor must create it locally. Copy the committed template to get started:
+
+```bash
+cp .claude/settings.example.json .claude/settings.json
+```
+
+### Active Hooks
+
+| Event         | Matcher       | Action                            |
+| ------------- | ------------- | --------------------------------- |
+| `PostToolUse` | `Write\|Edit` | Auto-run Prettier on edited files |
+
+Hooks run automatically — no approval needed. They ensure formatting compliance without manual `npm run format`.
+
+### Available Hook Events
+
+| Event         | When                    | Use For                               |
+| ------------- | ----------------------- | ------------------------------------- |
+| `PostToolUse` | After any tool succeeds | Auto-format, auto-lint, notifications |
+| `PreToolUse`  | Before a tool runs      | Block dangerous commands              |
+| `Stop`        | When Claude finishes    | Verify tests pass before stopping     |
+
 ## Privacy & Data Flow
 
 Pipeline data has strict PII boundaries:
