@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<REPLACE_WITH_YOUR_GITHUB_PERSONAL_ACCESS_TOKEN>"
+      }
+    },
+    "qualtrics-surveys": {
+      "_comment": "mcp-remote bridges Claude Desktop (which lacks native remote/SSE MCP support) to the Qualtrics HTTP+SSE endpoint. Install via: npx -y mcp-remote --help. Source: https://github.com/geelen/mcp-remote",
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://<your-qualtrics-host>/API/mcp/survey-crud"],
+      "env": {
+        "QUALTRICS_OAUTH_TOKEN": "<YOUR_QUALTRICS_OAUTH_TOKEN>"
+      }
+    }
+  }
+}
