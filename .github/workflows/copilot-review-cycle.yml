@@ -20,6 +20,11 @@ on:
         required: false
         type: number
         default: 7
+      auto_merge:
+        description: 'Auto-merge PR when review passes and CI is green'
+        required: false
+        type: boolean
+        default: false
 
 concurrency:
   group: copilot-review-${{ github.event.pull_request.number || github.event.inputs.pr_number }}
@@ -62,4 +67,5 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
           ROUND: ${{ github.event.inputs.round || '1' }}
           MAX_ROUNDS: ${{ github.event.inputs.max_rounds || '7' }}
+          AUTO_MERGE: ${{ github.event.inputs.auto_merge || 'false' }}
           REPO_NAME: ${{ github.repository }}
