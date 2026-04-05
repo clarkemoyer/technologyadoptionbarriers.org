@@ -31,13 +31,21 @@ const CONSTRUCT_COLORS: Record<ConstructKey, { h: number; s: number }> = {
   maturity_mean: { h: 196, s: 65 }, // teal: higher = more mature (positive)
 }
 
+/** Minimum range used when all values are identical, to avoid division by zero. */
+const MIN_RANGE_DELTA = 0.01
+
+/** Lightness of the palest heatmap cell (low value), in percent. */
+const LIGHTNESS_MAX = 96
+/** Total lightness drop from palest to most saturated cell, in percent. */
+const LIGHTNESS_RANGE = 34
+
 function getMinMax(rows: CrossTabRow[], key: ConstructKey): [number, number] {
   const values = rows.map((r) => r[key]).filter((v): v is number => v !== null)
   if (values.length === 0) return [1, 5]
   const min = Math.min(...values)
   const max = Math.max(...values)
   // Ensure range is non-trivial so colours are visible even with small spreads
-  return [min, max > min ? max : min + 0.01]
+  return [min, max > min ? max : min + MIN_RANGE_DELTA]
 }
 
 function getCellStyle(
@@ -49,8 +57,8 @@ function getCellStyle(
   if (value === null) return {}
   const normalized = (value - min) / (max - min)
   const { h, s } = CONSTRUCT_COLORS[key]
-  // Lightness goes from 96 % (low, pale) → 62 % (high, saturated)
-  const l = Math.round(96 - normalized * 34)
+  // Lightness goes from LIGHTNESS_MAX (low, pale) → LIGHTNESS_MAX - LIGHTNESS_RANGE (high, saturated)
+  const l = Math.round(LIGHTNESS_MAX - normalized * LIGHTNESS_RANGE)
   return { backgroundColor: `hsl(${h}, ${s}%, ${l}%)` }
 }
 
