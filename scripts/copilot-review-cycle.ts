@@ -9,6 +9,12 @@ const REVIEW_POLL_INTERVAL_MS = 20_000
 const REVIEW_TIMEOUT_MS = 15 * 60 * 1000
 const FIX_POLL_INTERVAL_MS = 30_000
 const FIX_TIMEOUT_MS = 20 * 60 * 1000
+const CI_POLL_INTERVAL_MS = 30_000
+const CI_TIMEOUT_MS = (() => {
+  const raw = process.env.CI_TIMEOUT_MS?.trim()
+  const val = raw ? Number(raw) : NaN
+  return val > 0 ? val : 30 * 60 * 1000
+})()
 const MAX_RETRIES = 3
 
 // --- Types ---
@@ -168,6 +174,16 @@ function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComm
         `--assignee copilot`
     )
     console.log(`  Issue created: ${result}`)
+    // Extract new issue number from URL (e.g., "https://github.com/.../issues/123")
+    const newIssueNumber = parseInt(result.match(/\/(\d+)\s*$/)?.[1] || '0', 10)
+    // Close previous fix issues now that a new one exists
+    if (newIssueNumber > 0) {
+      closeFixIssues(repo, prNumber, 'Superseded by new review round.', newIssueNumber)
+    } else {
+      console.log(
+        '  Could not parse new issue number from gh output; skipping close of previous fix issues.'
+      )
+    }
   } catch (err: any) {
     console.log('  Could not create fix issue via Copilot coding agent.')
     console.log('  Posting fix request as PR comment instead.')
@@ -186,14 +202,16 @@ function dispatchNextRound(
   repo: string,
   prNumber: string,
   nextRound: number,
-  maxRounds: number
+  maxRounds: number,
+  autoMerge: boolean
 ): void {
   console.log(`Dispatching round ${nextRound}/${maxRounds}...`)
   gh(
     `workflow run copilot-review-cycle.yml -R ${repo} ` +
       `-f pr_number=${prNumber} ` +
       `-f round=${nextRound} ` +
-      `-f max_rounds=${maxRounds}`
+      `-f max_rounds=${maxRounds} ` +
+      `-f auto_merge=${autoMerge}`
   )
 }
 
@@ -350,6 +368,125 @@ async function waitForFixes(
   return false // timeout
 }
 
+// --- CI check types ---
+interface CheckRun {
+  name: string
+  status: string
+  conclusion: string | null
+  details_url: string
+}
+
+// Name of this workflow's check run — excluded from CI polling to avoid self-deadlock
+const SELF_CHECK_NAME = 'Review Round'
+
+/**
+ * Wait for all CI checks on the PR to complete (excluding this workflow's own check run).
+ * Returns 'pass' if all succeed, 'fail' if any fail, 'closed' if PR was closed, 'timeout' on timeout.
+ */
+async function waitForCi(
+  repo: string,
+  prNumber: string
+): Promise<'pass' | 'fail' | 'closed' | 'timeout'> {
+  const startTime = Date.now()
+  console.log(`Waiting for CI checks (timeout: ${CI_TIMEOUT_MS / 60000} min)...`)
+
+  while (Date.now() - startTime < CI_TIMEOUT_MS) {
+    const pr = getPrState(repo, prNumber)
+    if (pr.state !== 'OPEN') {
+      console.log(`  PR is ${pr.state}, stopping.`)
+      return 'closed'
+    }
+
+    const allChecks = ghJsonArray<CheckRun>(
+      `api "repos/${repo}/commits/${pr.headRefOid}/check-runs?filter=latest" --jq ".check_runs" --paginate`
+    )
+
+    // Filter out this workflow's own check run to prevent self-deadlock
+    const checks = allChecks.filter((c) => !c.name.startsWith(SELF_CHECK_NAME))
+
+    if (checks.length === 0) {
+      const elapsed = Math.round((Date.now() - startTime) / 1000)
+      process.stdout.write(`  No checks yet... (${elapsed}s)\r`)
+      await sleep(CI_POLL_INTERVAL_MS)
+      continue
+    }
+
+    const pending = checks.filter((c) => c.status !== 'completed')
+    if (pending.length > 0) {
+      const elapsed = Math.round((Date.now() - startTime) / 1000)
+      process.stdout.write(`  ${pending.length} check(s) still running... (${elapsed}s)\r`)
+      await sleep(CI_POLL_INTERVAL_MS)
+      continue
+    }
+
+    // All completed
+    const failed = checks.filter(
+      (c) => c.conclusion !== 'success' && c.conclusion !== 'skipped' && c.conclusion !== 'neutral'
+    )
+    if (failed.length > 0) {
+      console.log(`\n  CI failed: ${failed.map((c) => `${c.name} (${c.conclusion})`).join(', ')}`)
+      return 'fail'
+    }
+
+    console.log(`\n  All ${checks.length} CI checks passed.`)
+    return 'pass'
+  }
+
+  console.log('\n  CI check wait timed out.')
+  return 'timeout'
+}
+
+/**
+ * Close all open fix issues for a given PR number.
+ */
+function closeFixIssues(repo: string, prNumber: string, reason: string, excludeNumber = 0): void {
+  try {
+    const existingIssues = ghJsonArray<{ number: number; title: string }>(
+      `issue list -R ${repo} --state open --limit 100 ` +
+        `--search "fix: address Copilot review comments on PR #${prNumber} in:title" ` +
+        `--json number,title`
+    )
+    const title = `fix: address Copilot review comments on PR #${prNumber}`
+    for (const issue of existingIssues) {
+      if (issue.title === title && issue.number !== excludeNumber) {
+        console.log(`  Closing fix issue #${issue.number}: ${reason}`)
+        gh(`issue close ${issue.number} -R ${repo} -c "${reason}"`)
+      }
+    }
+  } catch {
+    // Non-fatal
+  }
+}
+
+/**
+ * Add a label to the PR if it doesn't already exist.
+ */
+function addLabel(repo: string, prNumber: string, label: string): void {
+  try {
+    gh(`pr edit ${prNumber} -R ${repo} --add-label "${label}"`)
+    console.log(`  Added label: ${label}`)
+  } catch (err: any) {
+    const msg = err.stderr?.toString() || err.message || 'Unknown error'
+    console.log(`  Could not add label "${label}": ${msg.slice(0, 200)}`)
+  }
+}
+
+/**
+ * Enable auto-merge on the PR (squash method).
+ */
+function enableAutoMerge(repo: string, prNumber: string): boolean {
+  console.log('  Enabling auto-merge...')
+  try {
+    gh(`pr merge ${prNumber} -R ${repo} --auto --squash`)
+    console.log('  Auto-merge enabled.')
+    return true
+  } catch (err: any) {
+    const msg = err.stderr?.toString() || err.message || ''
+    console.log(`  Could not enable auto-merge: ${msg.slice(0, 200)}`)
+    return false
+  }
+}
+
 function buildFixRequestComment(comments: ReviewComment[]): string {
   const lines = ['**Copilot Review Cycle:** The following comments need to be addressed:\n']
 
@@ -389,6 +526,7 @@ async function main() {
   const prNumber = process.env.PR_NUMBER
   const round = Math.max(1, parseInt(process.env.ROUND || '1', 10))
   const maxRounds = Math.max(1, parseInt(process.env.MAX_ROUNDS || '7', 10))
+  const autoMerge = process.env.AUTO_MERGE === 'true'
 
   if (!repo || !prNumber) {
     console.error('Missing required env: REPO_NAME, PR_NUMBER')
@@ -447,12 +585,66 @@ async function main() {
 
   if (comments.length === 0) {
     console.log('\nCopilot review is clean!')
-    postComment(
-      repo,
-      prNumber,
-      `**Copilot Review Cycle:** Passed after ${round} round(s) with no comments.`
-    )
-    writeSummary(prNumber, round, maxRounds, 'CLEAN', 0, 'Review passed')
+
+    // Close any remaining fix issues from previous rounds
+    closeFixIssues(repo, prNumber, 'All review comments resolved — review passed clean.')
+
+    // Wait for CI to pass before declaring ready
+    console.log('\nWaiting for CI before marking ready to merge...')
+    const ciResult = await waitForCi(repo, prNumber)
+
+    if (ciResult === 'pass') {
+      addLabel(repo, prNumber, 'ready-to-merge')
+      let mergeNote = ''
+      if (autoMerge) {
+        const merged = enableAutoMerge(repo, prNumber)
+        mergeNote = merged
+          ? ' Auto-merge has been enabled.'
+          : ' Auto-merge could not be enabled — merge manually.'
+      }
+      postComment(
+        repo,
+        prNumber,
+        `**Copilot Review Cycle:** ✅ Passed after ${round} round(s) — review clean, all CI checks green. Ready to merge.${mergeNote}`
+      )
+      writeSummary(prNumber, round, maxRounds, 'READY_TO_MERGE', 0, 'Review clean + CI green')
+    } else if (ciResult === 'fail') {
+      postComment(
+        repo,
+        prNumber,
+        `**Copilot Review Cycle:** Review passed after ${round} round(s), but CI is failing. Please investigate CI failures before merging.`
+      )
+      writeSummary(
+        prNumber,
+        round,
+        maxRounds,
+        'REVIEW_CLEAN_CI_FAIL',
+        0,
+        'Review clean but CI failed'
+      )
+      process.exit(1)
+    } else if (ciResult === 'closed') {
+      console.log('PR was closed while waiting for CI.')
+      writeSummary(prNumber, round, maxRounds, 'PR_CLOSED', 0, 'PR closed during CI wait')
+      process.exit(0)
+    } else {
+      // timeout
+      postComment(
+        repo,
+        prNumber,
+        `**Copilot Review Cycle:** Review passed after ${round} round(s), but CI did not complete within timeout. Check CI manually before merging.`
+      )
+      writeSummary(
+        prNumber,
+        round,
+        maxRounds,
+        'REVIEW_CLEAN_CI_TIMEOUT',
+        0,
+        'Review clean, CI timed out'
+      )
+      process.exit(1)
+    }
+
     process.exit(0)
   }
 
@@ -493,7 +685,51 @@ async function main() {
     process.exit(1)
   }
 
-  // Step 10: Dispatch next round
+  // Step 10: Wait for CI to pass before dispatching next review round
+  console.log('\nWaiting for CI on fixed commit before next review round...')
+  const ciResult = await waitForCi(repo, prNumber)
+
+  if (ciResult === 'fail') {
+    postComment(
+      repo,
+      prNumber,
+      `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Fixes were pushed but CI is failing. Pausing review cycle until CI is fixed.`
+    )
+    writeSummary(prNumber, round, maxRounds, 'CI_FAIL', comments.length, 'Fixes broke CI')
+    process.exit(1)
+  }
+
+  if (ciResult === 'closed') {
+    console.log('PR was closed while waiting for CI.')
+    writeSummary(
+      prNumber,
+      round,
+      maxRounds,
+      'PR_CLOSED',
+      comments.length,
+      'PR closed during CI wait'
+    )
+    process.exit(0)
+  }
+
+  if (ciResult === 'timeout') {
+    postComment(
+      repo,
+      prNumber,
+      `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Fixes were pushed but CI did not complete within timeout. Re-trigger the review cycle manually once CI passes.`
+    )
+    writeSummary(
+      prNumber,
+      round,
+      maxRounds,
+      'CI_TIMEOUT',
+      comments.length,
+      'CI timed out after fixes'
+    )
+    process.exit(1)
+  }
+
+  // Step 11: Dispatch next round
   writeSummary(
     prNumber,
     round,
@@ -502,7 +738,7 @@ async function main() {
     comments.length,
     `Dispatching round ${round + 1}`
   )
-  dispatchNextRound(repo, prNumber, round + 1, maxRounds)
+  dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
   console.log(`\nRound ${round} complete. Next round dispatched.`)
 }
 

@@ -361,28 +361,35 @@ jobs:
           # as static files). Verify rendered pages contain data-derived values
           # that would only appear if pipeline JSON was present at build.
 
-          # Shared fetch: sets DATA_CONTENT and returns non-zero on HTTP error
+          # Shared fetch: sets DATA_CONTENT and FETCH_OK (0=success, 1=error).
+          # Always returns 0 so the caller can record failures and continue this step.
           fetch_data_page() {
             local url="$1" label="$2"
             local status curl_exit
             DATA_CONTENT=""
+            FETCH_OK=1
+            : > /tmp/data-body
             status=$(curl -s -o /tmp/data-body -w '%{http_code}' -L --max-time 15 "$url" 2>/dev/null)
             curl_exit=$?
             if [ "$curl_exit" -ne 0 ]; then
               status="000"
+              DATA_CONTENT=""
+            else
+              DATA_CONTENT=$(cat /tmp/data-body 2>/dev/null || echo "")
             fi
-            DATA_CONTENT=$(cat /tmp/data-body 2>/dev/null || echo "")
             if [ "$status" != "200" ]; then
               echo "| $label | ❌ HTTP $status (expected 200) |" >> /tmp/data-results.txt
               DATA_FAIL=$((DATA_FAIL + 1))
-              return 1
+              return 0
             fi
+            FETCH_OK=0
             return 0
           }
 
           check_data_marker() {
             local url="$1" marker="$2" label="$3"
-            fetch_data_page "$url" "$label" || return
+            fetch_data_page "$url" "$label"
+            [ "$FETCH_OK" -ne 0 ] && return 0
             if echo "$DATA_CONTENT" | grep -F -q -- "$marker"; then
               echo "| $label | ✅ Data renders |" >> /tmp/data-results.txt
             else
@@ -395,7 +402,8 @@ jobs:
           check_data_regex() {
             local url="$1" pattern="$2" label="$3"
             local grep_status
-            fetch_data_page "$url" "$label" || return
+            fetch_data_page "$url" "$label"
+            [ "$FETCH_OK" -ne 0 ] && return 0
             echo "$DATA_CONTENT" | grep -qE -- "$pattern"
             grep_status=$?
             if [ "$grep_status" -eq 0 ]; then
@@ -411,7 +419,7 @@ jobs:
 
           # sensitivity-analysis.json → descriptive page renders sample labels with N values
           # "Conservative Clean (N=<number>)" only appears when JSON data is loaded
-          check_data_regex "${SITE_URL}/results/descriptive" "Conservative Clean \(N=[0-9]+" "sensitivity → descriptive"
+          check_data_regex "${SITE_URL}/results/descriptive" "Conservative Clean \(N=[0-9]+\)" "sensitivity → descriptive"
 
           # sensitivity-analysis.json → data-quality page renders sample definitions table
           check_data_marker "${SITE_URL}/results/data-quality" "Conservative Clean" "sensitivity → data-quality"
@@ -573,6 +581,7 @@ jobs:
       # ── Final verdict ────────────────────────────────────────────────
 
       - name: Fail if any checks failed
+        id: verdict
         if: always()
         run: |
           TOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} + ${REDIRECT_FAIL:-0} + ${CONTENT_FAIL:-0} + ${DATA_FAIL:-0} ))
@@ -592,7 +601,7 @@ jobs:
       # ── Create incident issue on failure ──────────────────────────────
 
       - name: Create production incident issue
-        if: failure()
+        if: always() && steps.verdict.outcome == 'failure'
         uses: actions/github-script@v8
         with:
           script: |
@@ -605,6 +614,12 @@ jobs:
             const dataFail = parseInt(process.env.DATA_FAIL || '0');
             const totalFail = routeFail + assetFail + infraFail + redirectFail + contentFail + dataFail;
             const siteUrl = process.env.SITE_URL;
+
+            // Safety guard: do not create an incident issue if no checks actually failed
+            if (totalFail === 0) {
+              core.info('totalFail is 0 — skipping incident issue creation.');
+              return;
+            }
 
             // Use the deployed commit SHA on workflow_run (matches commit status steps)
             const fullSha = context.eventName === 'workflow_run'
@@ -679,7 +694,7 @@ jobs:
       # ── Set commit status on failure ──────────────────────────────────
 
       - name: Set commit status (failure)
-        if: failure()
+        if: always() && (steps.verdict.outcome == 'failure' || failure())
         uses: actions/github-script@v8
         with:
           script: |
@@ -687,18 +702,22 @@ jobs:
               ? '${{ github.event.workflow_run.head_sha }}'
               : context.sha;
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const verdictOutcome = '${{ steps.verdict.outcome }}';
+            const description = verdictOutcome === 'failure'
+              ? '🚨 Production smoke test failed — site may be broken'
+              : '🚨 Smoke test workflow failed before checks ran';
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
               sha: sha || context.sha,
               state: 'failure',
               target_url: runUrl,
-              description: '🚨 Production smoke test failed — site may be broken',
+              description,
               context: 'post-deploy-smoke-test',
             });
 
       - name: Set commit status (success)
-        if: success()
+        if: always() && steps.verdict.outcome == 'success' && !failure()
         uses: actions/github-script@v8
         with:
           script: |
