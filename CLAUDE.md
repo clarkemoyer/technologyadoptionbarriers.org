@@ -995,6 +995,152 @@ For services that support it, OIDC token exchange eliminates static secrets:
 
 **Benefits**: No secrets to rotate, temporary credentials (expire in minutes), GitHub separating code write from secret management in 2026.
 
+## Google Jules (Gemini) Integration
+
+Jules is Google's autonomous coding agent powered by Gemini. It works independently from GitHub Copilot with its own concurrency pool (60 tasks on Ultra tier).
+
+### Setup
+
+**CLI** (installed globally):
+
+```bash
+npm install -g @google/jules
+jules login        # OAuth via browser
+jules              # Launch interactive TUI
+```
+
+**GitHub Action** (`.github/workflows/jules-on-label.yml`):
+When the `jules` label is added to an issue, the workflow dispatches Jules via `google-labs-code/jules-action@v1.0.0`. Requires `GOOGLE_JULES_API_KEY` in repo secrets.
+
+### How to Use Jules
+
+**Create a task (CLI):**
+
+```bash
+# Simple task
+jules remote new --repo clarkemoyer/technologyadoptionbarriers.org "write unit tests for the tooltip component"
+
+# Parallel sessions for the same task
+jules remote new --repo clarkemoyer/technologyadoptionbarriers.org --parallel 3 "fix all ESLint warnings"
+
+# List active sessions
+jules remote list --session --repo clarkemoyer/technologyadoptionbarriers.org
+
+# Pull completed work
+jules remote pull --session <ID>
+jules remote pull --session <ID> --apply  # Apply patch locally
+```
+
+**Assign via GitHub (label):**
+Add the `jules` label to any issue. The `jules-on-label.yml` workflow triggers Jules automatically.
+
+**Give feedback to Jules:**
+
+| Method                  | When                | How                                             |
+| ----------------------- | ------------------- | ----------------------------------------------- |
+| `@jules` on PR comment  | Jules has a PR open | Comment on the PR mentioning `@jules`           |
+| `jules remote new`      | Session is stuck    | Create a fresh session with better instructions |
+| Jules web UI            | Direct interaction  | [jules.google](https://jules.google/)           |
+| Jules API `sendMessage` | Programmatic        | Requires OAuth token (not API key)              |
+
+**Note:** The Jules API `sendMessage` endpoint requires an OAuth2 bearer token, not the API key from settings. The CLI handles OAuth internally. For programmatic feedback, create new sessions via CLI or comment on PRs.
+
+### Jules Scheduled Agents
+
+Jules supports scheduled skill-based agents. Enable in the Jules UI:
+
+| Agent       | Purpose                                                        | Recommended Schedule |
+| ----------- | -------------------------------------------------------------- | -------------------- |
+| Security    | Scan for vulnerabilities, hardcoded secrets, insecure patterns | Weekly               |
+| Performance | Bundle size, build time, render patterns                       | Weekly               |
+| Testing     | Test coverage gaps, missing edge cases                         | Weekly               |
+
+### Task Routing: Jules vs Copilot vs Claude
+
+| Task Type                                      | Best Agent                                                 | Why                                                        |
+| ---------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| Frontend visualization, charts, UI components  | **Jules**                                                  | Gemini excels at visual/creative work, 60 concurrent slots |
+| Pipeline scripts, workflow YAML, analysis code | **Copilot**                                                | Deep GitHub integration, knows Actions patterns            |
+| Orchestration, PR management, Prolific ops     | **Claude Code**                                            | Terminal access, MCP servers, interactive decision-making  |
+| Content pages, documentation, Making of TABS   | **Jules**                                                  | Good at content generation, handles large pages            |
+| Bug fixes, small changes                       | **Either**                                                 | Route to whichever has capacity                            |
+| Security/performance audits                    | **Jules**                                                  | Built-in scheduled agents                                  |
+| Code review                                    | **Copilot** (primary) + **Gemini Code Assist** (secondary) | Both review PRs automatically                              |
+
+## Multi-Agent Architecture
+
+TABS uses three AI coding agents working in parallel on independent infrastructure:
+
+```
+Issue Created
+    |
+    +--[assign copilot-swe-agent[bot]]--> Copilot (GitHub pool, ~4 concurrent)
+    |                                         |
+    +--[add 'jules' label]--------------> Jules (Google pool, 60 concurrent)
+    |                                         |
+    +--[this session]--------------------> Claude Code (local, 1 orchestrator)
+    |
+    v
+PR Created (by any agent)
+    |
+    +--[auto-review-on-ready.yml]-------> Copilot Review Cycle (up to 7 rounds)
+    +--[Jules PR watcher]---------------> Jules responds to @jules review comments
+    +--[Gemini Code Assist]-------------> Automated PR review (if installed)
+    |
+    v
+Clean Review + CI Green
+    |
+    v
+Human Final Review + Merge
+```
+
+### Concurrency Map
+
+| Agent                  | Pool         | Capacity              | Trigger                                  |
+| ---------------------- | ------------ | --------------------- | ---------------------------------------- |
+| **Copilot**            | GitHub       | ~4 concurrent         | Assign `copilot-swe-agent[bot]` to issue |
+| **Jules**              | Google Cloud | 60 concurrent (Ultra) | `jules` label on issue, CLI, or API      |
+| **Claude Code**        | Anthropic    | 1 per session         | Direct terminal interaction              |
+| **Gemini Code Assist** | Google       | Auto on PRs           | GitHub App (if installed)                |
+
+## Secret Management
+
+### Windows Credential Manager (local development)
+
+Secrets are stored encrypted in Windows Credential Manager (DPAPI) and loaded into sessions.
+
+**Store a secret (PowerShell, one-time):**
+
+```powershell
+cmdkey /generic:TABS_GOOGLE_JULES_API_KEY /user:api /pass:your-key
+cmdkey /generic:TABS_GITHUB_PAT /user:api /pass:your-pat
+cmdkey /generic:TABS_QUALTRICS_API_TOKEN /user:api /pass:your-token
+cmdkey /generic:TABS_PROLIFIC_API_TOKEN /user:api /pass:your-token
+```
+
+**Load into session (bash):**
+
+```bash
+source ~/.claude/load-secrets.sh
+```
+
+**Verify stored secrets:**
+
+```powershell
+cmdkey /list | findstr TABS_
+```
+
+**Security model:**
+
+- Encrypted at rest by DPAPI (AES-256, tied to Windows user account)
+- Not stored in any file (cannot be accidentally git committed)
+- Only accessible when logged in as the storing user
+- Persists across reboots
+
+### GitHub Environment Secrets (CI/CD)
+
+All API tokens for workflows are stored in GitHub Environment secrets (per-environment isolation). See the Secret Management Roadmap section for details.
+
 ## Resources
 
 ### Making of TABS Documentation
