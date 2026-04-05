@@ -10,7 +10,11 @@ const REVIEW_TIMEOUT_MS = 15 * 60 * 1000
 const FIX_POLL_INTERVAL_MS = 30_000
 const FIX_TIMEOUT_MS = 20 * 60 * 1000
 const CI_POLL_INTERVAL_MS = 30_000
-const CI_TIMEOUT_MS = Number(process.env.CI_TIMEOUT_MS ?? 30 * 60 * 1000)
+const CI_TIMEOUT_MS = (() => {
+  const raw = process.env.CI_TIMEOUT_MS?.trim()
+  const val = raw ? Number(raw) : NaN
+  return val > 0 ? val : 30 * 60 * 1000
+})()
 const MAX_RETRIES = 3
 
 // --- Types ---
@@ -173,7 +177,13 @@ function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComm
     // Extract new issue number from URL (e.g., "https://github.com/.../issues/123")
     const newIssueNumber = parseInt(result.match(/\/(\d+)\s*$/)?.[1] || '0', 10)
     // Close previous fix issues now that a new one exists
-    closeFixIssues(repo, prNumber, 'Superseded by new review round.', newIssueNumber)
+    if (newIssueNumber > 0) {
+      closeFixIssues(repo, prNumber, 'Superseded by new review round.', newIssueNumber)
+    } else {
+      console.log(
+        '  Could not parse new issue number from gh output; skipping close of previous fix issues.'
+      )
+    }
   } catch (err: any) {
     console.log('  Could not create fix issue via Copilot coding agent.')
     console.log('  Posting fix request as PR comment instead.')
