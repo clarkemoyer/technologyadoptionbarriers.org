@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
+import EffectSizeChart, { EffectSizeData } from '@/components/results/effect-size-chart'
 
 export const metadata: Metadata = {
   title: 'Key Findings — TABS Results',
@@ -178,120 +179,156 @@ const FindingsPage = () => {
                 </h3>
 
                 {hasEffects ? (
-                  <div className="space-y-4 mt-3">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-4">
                     {/* Tech vs Non-Tech */}
-                    <div>
-                      <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
-                        Technical (CIO/CTO) vs Non-Technical — n=
-                        {effects['tech_vs_nontech'].tech_n} vs n=
-                        {effects['tech_vs_nontech'].nontech_n}
-                      </h4>
-                      <div className="overflow-x-auto">
-                        <table className="w-full text-xs border-collapse bg-white/70 rounded">
-                          <thead>
-                            <tr className="border-b border-gray-300">
-                              <th className="py-1.5 px-2 text-left font-semibold text-gray-600">
-                                Construct
-                              </th>
-                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
-                                Tech Mean
-                              </th>
-                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
-                                Non-Tech Mean
-                              </th>
-                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
-                                Cohen&rsquo;s d
-                              </th>
-                              <th className="py-1.5 px-2 text-left font-semibold text-gray-600">
-                                Size
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {Object.entries(
-                              (effects['tech_vs_nontech'].constructs ?? {}) as Record<
-                                string,
-                                EffectSizeConstruct
-                              >
-                            ).map(([construct, vals]) => (
-                              <tr key={construct} className="border-b border-gray-200">
-                                <td className="py-1.5 px-2 font-medium capitalize">{construct}</td>
-                                <td className="py-1.5 px-2 text-right font-mono">
-                                  {vals.tech_mean?.toFixed(4) ?? '—'}
-                                </td>
-                                <td className="py-1.5 px-2 text-right font-mono">
-                                  {vals.nontech_mean?.toFixed(4) ?? '—'}
-                                </td>
-                                <td className="py-1.5 px-2 text-right font-mono font-semibold">
-                                  {fmt(vals.d)}
-                                </td>
-                                <td className="py-1.5 px-2 text-gray-600 italic">
-                                  {dSize(vals.d)}
-                                </td>
+                    <div className="space-y-4">
+                      <div>
+                        <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
+                          Technical (CIO/CTO) vs Non-Technical — n=
+                          {effects['tech_vs_nontech'].tech_n} vs n=
+                          {effects['tech_vs_nontech'].nontech_n}
+                        </h4>
+
+                        <EffectSizeChart
+                          title="Tech vs Non-Tech"
+                          data={Object.entries(
+                            (effects['tech_vs_nontech'].constructs ?? {}) as Record<
+                              string,
+                              EffectSizeConstruct
+                            >
+                          )
+                            .filter(([, v]) => v.d !== null)
+                            .map(
+                              ([c, v]) =>
+                                ({
+                                  construct: c,
+                                  d: v.d as number,
+                                  n1: effects['tech_vs_nontech'].tech_n as number,
+                                  n2: effects['tech_vs_nontech'].nontech_n as number,
+                                }) as EffectSizeData
+                            )}
+                        />
+
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-[10px] border-collapse bg-white/70 rounded">
+                            <thead>
+                              <tr className="border-b border-gray-300">
+                                <th className="py-1 px-2 text-left font-semibold text-gray-600">
+                                  Construct
+                                </th>
+                                <th className="py-1 px-2 text-right font-semibold text-gray-600">
+                                  Tech M
+                                </th>
+                                <th className="py-1 px-2 text-right font-semibold text-gray-600">
+                                  Non-Tech M
+                                </th>
+                                <th className="py-1 px-2 text-right font-semibold text-gray-600">
+                                  d
+                                </th>
                               </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                            </thead>
+                            <tbody>
+                              {Object.entries(
+                                (effects['tech_vs_nontech'].constructs ?? {}) as Record<
+                                  string,
+                                  EffectSizeConstruct
+                                >
+                              ).map(([construct, vals]) => (
+                                <tr key={construct} className="border-b border-gray-200">
+                                  <td className="py-1 px-2 font-medium capitalize text-gray-700">
+                                    {construct}
+                                  </td>
+                                  <td className="py-1 px-2 text-right font-mono">
+                                    {vals.tech_mean?.toFixed(3) ?? '—'}
+                                  </td>
+                                  <td className="py-1 px-2 text-right font-mono">
+                                    {vals.nontech_mean?.toFixed(3) ?? '—'}
+                                  </td>
+                                  <td className="py-1 px-2 text-right font-mono font-semibold">
+                                    {fmt(vals.d)}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
 
                     {/* Large vs Small/Medium */}
                     {effects['large_vs_small'] &&
                       Object.keys(effects['large_vs_small'].constructs ?? {}).length > 0 && (
-                        <div>
-                          <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
-                            Large Org (5000+) vs Small/Medium — n=
-                            {effects['large_vs_small'].large_n} vs n=
-                            {effects['large_vs_small'].small_medium_n}
-                          </h4>
-                          <div className="overflow-x-auto">
-                            <table className="w-full text-xs border-collapse bg-white/70 rounded">
-                              <thead>
-                                <tr className="border-b border-gray-300">
-                                  <th className="py-1.5 px-2 text-left font-semibold text-gray-600">
-                                    Construct
-                                  </th>
-                                  <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
-                                    Large Mean
-                                  </th>
-                                  <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
-                                    S/M Mean
-                                  </th>
-                                  <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
-                                    Cohen&rsquo;s d
-                                  </th>
-                                  <th className="py-1.5 px-2 text-left font-semibold text-gray-600">
-                                    Size
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {Object.entries(
-                                  (effects['large_vs_small'].constructs ?? {}) as Record<
-                                    string,
-                                    EffectSizeConstruct
-                                  >
-                                ).map(([construct, vals]) => (
-                                  <tr key={construct} className="border-b border-gray-200">
-                                    <td className="py-1.5 px-2 font-medium capitalize">
-                                      {construct}
-                                    </td>
-                                    <td className="py-1.5 px-2 text-right font-mono">
-                                      {vals.large_mean?.toFixed(4) ?? '—'}
-                                    </td>
-                                    <td className="py-1.5 px-2 text-right font-mono">
-                                      {vals.small_medium_mean?.toFixed(4) ?? '—'}
-                                    </td>
-                                    <td className="py-1.5 px-2 text-right font-mono font-semibold">
-                                      {fmt(vals.d)}
-                                    </td>
-                                    <td className="py-1.5 px-2 text-gray-600 italic">
-                                      {dSize(vals.d)}
-                                    </td>
+                        <div className="space-y-4">
+                          <div>
+                            <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
+                              Large (5000+) vs Small/Medium — n=
+                              {effects['large_vs_small'].large_n} vs n=
+                              {effects['large_vs_small'].small_medium_n}
+                            </h4>
+
+                            <EffectSizeChart
+                              title="Large vs Small/Medium"
+                              data={Object.entries(
+                                (effects['large_vs_small'].constructs ?? {}) as Record<
+                                  string,
+                                  EffectSizeConstruct
+                                >
+                              )
+                                .filter(([, v]) => v.d !== null)
+                                .map(
+                                  ([c, v]) =>
+                                    ({
+                                      construct: c,
+                                      d: v.d as number,
+                                      n1: effects['large_vs_small'].large_n as number,
+                                      n2: effects['large_vs_small'].small_medium_n as number,
+                                    }) as EffectSizeData
+                                )}
+                            />
+
+                            <div className="overflow-x-auto">
+                              <table className="w-full text-[10px] border-collapse bg-white/70 rounded">
+                                <thead>
+                                  <tr className="border-b border-gray-300">
+                                    <th className="py-1 px-2 text-left font-semibold text-gray-600">
+                                      Construct
+                                    </th>
+                                    <th className="py-1 px-2 text-right font-semibold text-gray-600">
+                                      Large M
+                                    </th>
+                                    <th className="py-1 px-2 text-right font-semibold text-gray-600">
+                                      S/M M
+                                    </th>
+                                    <th className="py-1 px-2 text-right font-semibold text-gray-600">
+                                      d
+                                    </th>
                                   </tr>
-                                ))}
-                              </tbody>
-                            </table>
+                                </thead>
+                                <tbody>
+                                  {Object.entries(
+                                    (effects['large_vs_small'].constructs ?? {}) as Record<
+                                      string,
+                                      EffectSizeConstruct
+                                    >
+                                  ).map(([construct, vals]) => (
+                                    <tr key={construct} className="border-b border-gray-200">
+                                      <td className="py-1 px-2 font-medium capitalize text-gray-700">
+                                        {construct}
+                                      </td>
+                                      <td className="py-1 px-2 text-right font-mono">
+                                        {vals.large_mean?.toFixed(3) ?? '—'}
+                                      </td>
+                                      <td className="py-1 px-2 text-right font-mono">
+                                        {vals.small_medium_mean?.toFixed(3) ?? '—'}
+                                      </td>
+                                      <td className="py-1 px-2 text-right font-mono font-semibold">
+                                        {fmt(vals.d)}
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
                           </div>
                         </div>
                       )}
