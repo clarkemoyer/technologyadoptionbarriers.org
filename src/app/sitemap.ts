@@ -565,6 +565,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/making-of-tabs/automation-infrastructure`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
     // /making-of-tabs/data-analysis → /results/data-quality (redirect)
     {
       url: `${baseUrl}/making-of-tabs/ai-validity-checks`,
