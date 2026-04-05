@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
+import EffectSizeChart, { EffectSizeData } from '@/components/effect-size-chart'
 
 export const metadata: Metadata = {
   title: 'Key Findings — TABS Results',
@@ -26,6 +27,8 @@ interface EffectSizeConstruct {
   large_mean?: number | null
   small_medium_mean?: number | null
   d?: number | null
+  ci_lower?: number | null
+  ci_upper?: number | null
 }
 
 interface EffectSizeGroup {
@@ -186,6 +189,21 @@ const FindingsPage = () => {
                         {effects['tech_vs_nontech'].tech_n} vs n=
                         {effects['tech_vs_nontech'].nontech_n}
                       </h4>
+
+                      <EffectSizeChart
+                        data={Object.entries(
+                          (effects['tech_vs_nontech'].constructs ?? {}) as Record<
+                            string,
+                            EffectSizeConstruct
+                          >
+                        ).map(([construct, vals]) => ({
+                          construct,
+                          d: vals.d ?? null,
+                          ci_lower: vals.ci_lower ?? null,
+                          ci_upper: vals.ci_upper ?? null,
+                        }))}
+                      />
+
                       <div className="overflow-x-auto">
                         <table className="w-full text-xs border-collapse bg-white/70 rounded">
                           <thead>
@@ -244,6 +262,21 @@ const FindingsPage = () => {
                             {effects['large_vs_small'].large_n} vs n=
                             {effects['large_vs_small'].small_medium_n}
                           </h4>
+
+                          <EffectSizeChart
+                            data={Object.entries(
+                              (effects['large_vs_small'].constructs ?? {}) as Record<
+                                string,
+                                EffectSizeConstruct
+                              >
+                            ).map(([construct, vals]) => ({
+                              construct,
+                              d: vals.d ?? null,
+                              ci_lower: vals.ci_lower ?? null,
+                              ci_upper: vals.ci_upper ?? null,
+                            }))}
+                          />
+
                           <div className="overflow-x-auto">
                             <table className="w-full text-xs border-collapse bg-white/70 rounded">
                               <thead>
