@@ -403,6 +403,22 @@ const BibliographyPage = () => {
               </div>
               <div className="text-sm text-gray-600">Microsoft (2025)</div>
             </Link>
+            <Link
+              href="/bibliography-2-20-gartner-hype-cycle-methodology-2025"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-green-700">20. Gartner Hype Cycle Methodology</div>
+              <div className="text-sm text-gray-600">Gartner (2025)</div>
+            </Link>
+            <Link
+              href="/bibliography-2-21-diffusion-of-innovations-organizational-rogers-1962"
+              className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-green-700">
+                21. Diffusion of Innovations (Organizational)
+              </div>
+              <div className="text-sm text-gray-600">Rogers (1962)</div>
+            </Link>
           </div>
         </section>
 
