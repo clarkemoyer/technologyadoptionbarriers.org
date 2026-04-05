@@ -1,0 +1,60 @@
+name: Close Copilot Fix Issues on PR Merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches: ['main']
+
+permissions:
+  issues: write
+
+jobs:
+  close-fix-issues:
+    name: Close stale Copilot fix issues
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+
+    steps:
+      - name: Close fix issues for merged PR
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const titlePattern = `fix: address Copilot review comments on PR #${prNumber}`;
+
+            // Use Search API to find only matching issues (avoids paginating all open issues)
+            const searchQuery = `repo:${context.repo.owner}/${context.repo.repo} is:issue is:open in:title "${titlePattern}"`;
+            const searchResults = await github.rest.search.issuesAndPullRequests({
+              q: searchQuery,
+              per_page: 100,
+            });
+
+            const matchingIssues = searchResults.data.items.filter(
+              (issue) => issue.title === titlePattern
+            );
+
+            if (matchingIssues.length === 0) {
+              console.log(`No open fix issues found for PR #${prNumber}`);
+              return;
+            }
+
+            console.log(`Found ${matchingIssues.length} fix issue(s) to close for PR #${prNumber}`);
+
+            for (const issue of matchingIssues) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed',
+                state_reason: 'completed',
+              });
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `Automatically closed — parent PR #${prNumber} has been merged.`,
+              });
+
+              console.log(`  Closed #${issue.number}`);
+            }
