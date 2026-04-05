@@ -581,6 +581,7 @@ jobs:
       # ── Final verdict ────────────────────────────────────────────────
 
       - name: Fail if any checks failed
+        id: verdict
         if: always()
         run: |
           TOTAL_FAIL=$(( ${ROUTE_FAIL:-0} + ${ASSET_FAIL:-0} + ${INFRA_FAIL:-0} + ${REDIRECT_FAIL:-0} + ${CONTENT_FAIL:-0} + ${DATA_FAIL:-0} ))
@@ -600,7 +601,7 @@ jobs:
       # ── Create incident issue on failure ──────────────────────────────
 
       - name: Create production incident issue
-        if: failure()
+        if: always() && steps.verdict.outcome == 'failure'
         uses: actions/github-script@v8
         with:
           script: |
@@ -613,6 +614,12 @@ jobs:
             const dataFail = parseInt(process.env.DATA_FAIL || '0');
             const totalFail = routeFail + assetFail + infraFail + redirectFail + contentFail + dataFail;
             const siteUrl = process.env.SITE_URL;
+
+            // Safety guard: do not create an incident issue if no checks actually failed
+            if (totalFail === 0) {
+              core.info('totalFail is 0 — skipping incident issue creation.');
+              return;
+            }
 
             // Use the deployed commit SHA on workflow_run (matches commit status steps)
             const fullSha = context.eventName === 'workflow_run'
@@ -687,7 +694,7 @@ jobs:
       # ── Set commit status on failure ──────────────────────────────────
 
       - name: Set commit status (failure)
-        if: failure()
+        if: always() && (steps.verdict.outcome == 'failure' || failure())
         uses: actions/github-script@v8
         with:
           script: |
@@ -695,18 +702,22 @@ jobs:
               ? '${{ github.event.workflow_run.head_sha }}'
               : context.sha;
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const verdictOutcome = '${{ steps.verdict.outcome }}';
+            const description = verdictOutcome === 'failure'
+              ? '🚨 Production smoke test failed — site may be broken'
+              : '🚨 Smoke test workflow failed before checks ran';
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
               sha: sha || context.sha,
               state: 'failure',
               target_url: runUrl,
-              description: '🚨 Production smoke test failed — site may be broken',
+              description,
               context: 'post-deploy-smoke-test',
             });
 
       - name: Set commit status (success)
-        if: success()
+        if: always() && steps.verdict.outcome == 'success' && !failure()
         uses: actions/github-script@v8
         with:
           script: |
