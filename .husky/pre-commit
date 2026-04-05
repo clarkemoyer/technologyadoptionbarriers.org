@@ -26,4 +26,20 @@ npm run lint || {
   exit 1
 }
 
+# PII check: scan staged src/data/*.json files for Prolific PID patterns.
+# Prolific participant IDs (24-char hex) must never be committed to src/data/.
+STAGED_DATA_JSON=$(git diff --cached --name-only --diff-filter=ACMR | grep '^src/data/.*\.json$' || true)
+if [ -n "$STAGED_DATA_JSON" ]; then
+  echo "🔍 Checking staged src/data/ files for PII patterns..."
+  if command -v python3 >/dev/null 2>&1; then
+    # shellcheck disable=SC2086
+    python3 scripts/check-data-pii.py $STAGED_DATA_JSON || {
+      echo "❌ PII patterns detected in staged src/data/ file(s). Remove participant IDs before committing."
+      exit 1
+    }
+  else
+    echo "⚠️  python3 not found — skipping PII check. Run 'python3 scripts/check-data-pii.py' manually."
+  fi
+fi
+
 echo "✅ Pre-commit checks passed."
