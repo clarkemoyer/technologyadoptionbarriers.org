@@ -37,7 +37,11 @@ test.describe('Findings Page Heatmap', () => {
   test('should apply color classes to barrier cells', async ({ page }) => {
     // The heatmap cells for barriers should have bg-amber-* classes
     // We can check if at least one such cell exists
-    const amberCell = page.locator('.bg-amber-50, .bg-amber-100, .bg-amber-200, .bg-amber-300, .bg-amber-400, .bg-amber-500, .bg-amber-600, .bg-amber-700').first()
+    const amberCell = page
+      .locator(
+        '.bg-amber-50, .bg-amber-100, .bg-amber-200, .bg-amber-300, .bg-amber-400, .bg-amber-500, .bg-amber-600, .bg-amber-700'
+      )
+      .first()
     await expect(amberCell).toBeVisible()
   })
 })
