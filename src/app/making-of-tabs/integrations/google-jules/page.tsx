@@ -113,48 +113,122 @@ const GoogleJulesIntegrationPage = () => {
           </ul>
         </section>
 
-        {/* ── Our Setup ── */}
+        {/* ── Secret Management ── */}
         <section className="mb-10 text-gray-800">
-          <h2 className={H2_CLASSES}>Our Setup &amp; Configuration</h2>
+          <h2 className={H2_CLASSES}>Secret Management</h2>
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
+            <li>
+              The Jules API <code>sendMessage</code> endpoint requires an OAuth2 bearer token, NOT
+              the API key from settings.
+            </li>
+            <li>
+              For local development, we store the API key in Windows Credential Manager (
+              <code>cmdkey /generic:TABS_GOOGLE_JULES_API_KEY</code>).
+            </li>
+            <li>
+              The Jules CLI handles OAuth internally — use <code>jules remote new</code> for
+              programmatic interaction.
+            </li>
+          </ul>
+        </section>
+
+        {/* ── Feedback Methods ── */}
+        <section className="mb-10 text-gray-800">
+          <h2 className={H2_CLASSES}>Feedback Methods</h2>
+          <p className="mb-4">When interacting with Jules, these methods have proven effective:</p>
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
+            <li>
+              <strong>@jules on PR comments:</strong> Works effectively when Jules has an active,
+              open pull request.
+            </li>
+            <li>
+              <strong>jules remote new via CLI:</strong> The best approach for giving detailed,
+              fresh instructions and creating a new session.
+            </li>
+            <li>
+              <strong>Jules web UI (jules.google):</strong> Direct, reliable interaction.
+            </li>
+            <li>
+              <strong>@jules on issue comments:</strong> Does <em>NOT</em> unblock waiting sessions
+              (tested and confirmed).
+            </li>
+            <li>
+              <strong>Jules API sendMessage:</strong> Requires an OAuth bearer token, not the
+              standard API key.
+            </li>
+          </ul>
+        </section>
+
+        {/* ── Concurrency & Workflows ── */}
+        <section className="mb-10 text-gray-800">
+          <h2 className={H2_CLASSES}>Concurrency &amp; Workflows</h2>
           <p className="mb-4">
-            TABS relies on the <strong>Ultra tier</strong> of Jules, which allows for up to{' '}
-            <strong>60 concurrent tasks</strong>. This immense concurrency makes it perfect for bulk
-            content updates and large-scale frontend refactors.
+            TABS relies on the <strong>Ultra tier</strong> of Jules, which provides up to{' '}
+            <strong>60 concurrent tasks</strong>. This massive pool is completely independent from
+            GitHub Copilot&apos;s concurrency pool, making it ideal for wide-scale refactors.
           </p>
-          <p className="mb-4">
-            The integration is managed through the <code>.github/workflows/jules-on-label.yml</code>{' '}
-            workflow. This uses the official{' '}
-            <a
-              href="https://github.com/google-labs-code/jules-action"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline hover:text-blue-800"
-            >
-              jules-action
-            </a>
-            , authenticating via the <code>GOOGLE_JULES_API_KEY</code> secret.
-          </p>
+          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
+            <li>
+              Tasks can be instantiated via the Jules CLI, the web UI, or our custom GitHub Action.
+            </li>
+            <li>
+              The <code>.github/workflows/jules-on-label.yml</code> workflow triggers Jules
+              automatically when the <code>jules</code> label is added to an issue.
+            </li>
+            <li>
+              The <code>auto-approve-bot-workflows.yml</code> action unblocks bot-generated pull
+              requests for smooth CI checks.
+            </li>
+            <li>
+              Scheduled agents (like Security, Performance, and Testing) are available for setup
+              directly in the Jules UI.
+            </li>
+          </ul>
         </section>
 
         {/* ── Task Routing ── */}
         <section className="mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>Task Routing in a Multi-Agent Setup</h2>
-          <p className="mb-4">With three primary AI agents, we route work strategically:</p>
-          <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
-            <li>
-              <strong>Copilot:</strong> Pipeline, workflow automation, and PR reviews. (~4
-              concurrent tasks)
-            </li>
-            <li>
-              <strong>Jules:</strong> Visualization, content, frontend work. (60 concurrent tasks)
-            </li>
-            <li>
-              <strong>Claude:</strong> Orchestration, complex analysis, API operations. (1 session)
-            </li>
-          </ul>
+          <p className="mb-4">
+            With three primary AI agents, we route work strategically based on strengths:
+          </p>
+          <div className="overflow-x-auto mb-8">
+            <table className="min-w-full text-left text-sm text-gray-800 border-collapse border border-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="border border-gray-200 px-4 py-2 font-semibold">Agent</th>
+                  <th className="border border-gray-200 px-4 py-2 font-semibold">Concurrency</th>
+                  <th className="border border-gray-200 px-4 py-2 font-semibold">Focus Areas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-gray-200 px-4 py-2 font-medium">Jules</td>
+                  <td className="border border-gray-200 px-4 py-2">60 (Ultra tier)</td>
+                  <td className="border border-gray-200 px-4 py-2">
+                    Visualization, charts, content pages, frontend components
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-200 px-4 py-2 font-medium">Copilot</td>
+                  <td className="border border-gray-200 px-4 py-2">~4</td>
+                  <td className="border border-gray-200 px-4 py-2">
+                    Pipeline scripts, workflow YAML, analysis code, GitHub Actions
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-200 px-4 py-2 font-medium">Claude Code</td>
+                  <td className="border border-gray-200 px-4 py-2">1 (Orchestrator)</td>
+                  <td className="border border-gray-200 px-4 py-2">
+                    PR management, Prolific operations, complex multi-step work
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
 
-        {/* ── Jules Features ── */}
+        {/* ── Jules Features We Use ── */}
         <section className="mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>Jules Features We Use</h2>
           <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
