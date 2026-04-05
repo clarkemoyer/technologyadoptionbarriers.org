@@ -65,8 +65,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
           REPO_NAME: ${{ github.repository }}
-          STALE_HOURS: ${{ inputs.stale_hours || '24' }}
+          STALE_HOURS: ${{ github.event.inputs.stale_hours || '24' }}
           # Pass the specific issue number as a filter via environment
-          TARGET_ISSUE: ${{ inputs.issue_number || '' }}
-          RETRIGGER: ${{ inputs.dry_run == true && 'false' || 'true' }}
-          DRY_RUN: ${{ inputs.dry_run || 'true' }}
+          TARGET_ISSUE: ${{ github.event.inputs.issue_number || '' }}
+          RETRIGGER: ${{ github.event.inputs.dry_run == 'true' && 'false' || 'true' }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'true' }}

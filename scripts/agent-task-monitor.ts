@@ -9,13 +9,15 @@
  * to the GitHub Issues REST API for older CLI versions.
  *
  * Environment variables:
- *   GH_TOKEN   – GitHub personal access token (required)
- *   REPO_NAME  – owner/repo slug (defaults to GITHUB_REPOSITORY)
- *   STALE_HOURS – hours of inactivity before a task is "stalled" (default: 24)
- *   RETRIGGER  – "true" to re-trigger stalled tasks by re-assigning copilot
+ *   GH_TOKEN     – GitHub personal access token (required)
+ *   REPO_NAME    – owner/repo slug (defaults to GITHUB_REPOSITORY)
+ *   STALE_HOURS  – hours of inactivity before a task is "stalled" (default: 24)
+ *   RETRIGGER    – "true" to re-trigger stalled tasks by re-assigning copilot
+ *   TARGET_ISSUE – issue number to process exclusively when re-running/debugging
+ *   DRY_RUN      – "true" to report findings without performing write operations
  */
 
-import { execSync } from 'child_process'
+import { execFileSync } from 'child_process'
 import { writeFileSync, unlinkSync } from 'node:fs'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
@@ -61,9 +63,9 @@ interface TaskReport {
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
-function gh(args: string): string {
+function gh(args: string[]): string {
   try {
-    return execSync(`gh ${args}`, {
+    return execFileSync('gh', args, {
       encoding: 'utf-8',
       env: { ...process.env, GH_TOKEN: process.env.GH_TOKEN },
       timeout: 60_000,
@@ -76,11 +78,11 @@ function gh(args: string): string {
   }
 }
 
-function ghJson<T>(args: string): T {
+function ghJson<T>(args: string[]): T {
   return JSON.parse(gh(args))
 }
 
-function ghJsonArray<T>(args: string): T[] {
+function ghJsonArray<T>(args: string[]): T[] {
   const raw = gh(args)
   try {
     const parsed = JSON.parse(raw)
@@ -110,7 +112,14 @@ function idleHours(updatedAt: string): number {
  */
 function tryAgentTaskList(): AgentTask[] | null {
   try {
-    const raw = gh(`agent-task list -R ${REPO} --json number,title,url,updatedAt,createdAt,state`)
+    const raw = gh([
+      'agent-task',
+      'list',
+      '-R',
+      REPO,
+      '--json',
+      'number,title,url,updatedAt,createdAt,state',
+    ])
     const items = JSON.parse(raw)
     if (!Array.isArray(items)) return null
     return items.map((item: any) => ({
@@ -135,20 +144,24 @@ function tryAgentTaskList(): AgentTask[] | null {
  */
 function listViaIssuesApi(): AgentTask[] {
   console.log('  (gh agent-task not available — using Issues API fallback)')
-  const raw = ghJsonArray<any>(
-    `api repos/${REPO}/issues?assignee=copilot&state=open&per_page=100 --paginate`
-  )
-  return raw.map((issue: any) => ({
-    number: issue.number,
-    title: issue.title ?? '',
-    url: issue.html_url ?? '',
-    updatedAt: issue.updated_at ?? new Date().toISOString(),
-    createdAt: issue.created_at ?? new Date().toISOString(),
-    state: issue.state ?? 'open',
-    assignees: (issue.assignees ?? []).map((a: any) => a.login),
-    labels: (issue.labels ?? []).map((l: any) => l.name),
-    body: issue.body ?? '',
-  }))
+  const raw = ghJsonArray<any>([
+    'api',
+    `repos/${REPO}/issues?assignee=copilot&state=open&per_page=100`,
+    '--paginate',
+  ])
+  return raw
+    .filter((issue: any) => !issue.pull_request)
+    .map((issue: any) => ({
+      number: issue.number,
+      title: issue.title ?? '',
+      url: issue.html_url ?? '',
+      updatedAt: issue.updated_at ?? new Date().toISOString(),
+      createdAt: issue.created_at ?? new Date().toISOString(),
+      state: issue.state ?? 'open',
+      assignees: (issue.assignees ?? []).map((a: any) => a.login),
+      labels: (issue.labels ?? []).map((l: any) => l.name),
+      body: issue.body ?? '',
+    }))
 }
 
 function listAgentTasks(): AgentTask[] {
@@ -166,16 +179,17 @@ function listAgentTasks(): AgentTask[] {
 // ── CI status ──────────────────────────────────────────────────────────────
 
 /**
- * Find the most recent open PR that was opened by copilot or references the
- * given issue number (common patterns: "Closes #N", "Fixes #N", "Part of #N").
+ * Find the most recent open PR whose body references the given issue number
+ * (common patterns: "Closes #N", "Fixes #N", "Part of #N").
  */
 function findAssociatedPr(issueNumber: number): PrStatus | null {
   try {
-    // Search for PRs that mention the issue number in the title or body
+    // Search for PRs that mention the issue number in the body
     const query = `repo:${REPO} is:pr is:open ${issueNumber} in:body`
-    const results = ghJson<{ items: any[] }>(
-      `api search/issues?q=${encodeURIComponent(query)}&per_page=5`
-    )
+    const results = ghJson<{ items: any[] }>([
+      'api',
+      `search/issues?q=${encodeURIComponent(query)}&per_page=5`,
+    ])
     const prs = (results.items ?? []).filter((i: any) => i.pull_request)
     if (prs.length === 0) return null
 
@@ -187,7 +201,7 @@ function findAssociatedPr(issueNumber: number): PrStatus | null {
     const prNumber = pr.number
 
     // Get head SHA for CI check
-    const prDetail = ghJson<any>(`api repos/${REPO}/pulls/${prNumber}`)
+    const prDetail = ghJson<any>(['api', `repos/${REPO}/pulls/${prNumber}`])
     const headSha = prDetail.head?.sha ?? ''
     const prUrl = prDetail.html_url ?? pr.html_url ?? ''
 
@@ -207,7 +221,7 @@ function getCiStatus(
   if (!headSha) return 'unknown'
   try {
     // Combined status (legacy CI)
-    const status = ghJson<any>(`api repos/${repo}/commits/${headSha}/status`)
+    const status = ghJson<any>(['api', `repos/${repo}/commits/${headSha}/status`])
     if (status.state === 'success') return 'pass'
     if (status.state === 'failure' || status.state === 'error') return 'fail'
     if (status.state === 'pending') return 'pending'
@@ -216,7 +230,7 @@ function getCiStatus(
   }
   try {
     // Check runs (modern CI)
-    const runs = ghJson<any>(`api repos/${repo}/commits/${headSha}/check-runs?per_page=100`)
+    const runs = ghJson<any>(['api', `repos/${repo}/commits/${headSha}/check-runs?per_page=100`])
     const checkRuns: any[] = runs.check_runs ?? []
     if (checkRuns.length === 0) return 'unknown'
     const failed = checkRuns.filter(
@@ -247,16 +261,30 @@ function retriggerTask(task: AgentTask): void {
   const tmpFile = join(tmpdir(), `agent-task-retrigger-${task.number}-${Date.now()}.md`)
   try {
     // Remove copilot assignee
-    gh(`api repos/${REPO}/issues/${task.number}/assignees -X DELETE -f "assignees[]=copilot"`)
+    gh([
+      'api',
+      `repos/${REPO}/issues/${task.number}/assignees`,
+      '-X',
+      'DELETE',
+      '-f',
+      'assignees[]=copilot',
+    ])
     // Re-add copilot assignee to trigger a new agent session
-    gh(`api repos/${REPO}/issues/${task.number}/assignees -X POST -f "assignees[]=copilot"`)
+    gh([
+      'api',
+      `repos/${REPO}/issues/${task.number}/assignees`,
+      '-X',
+      'POST',
+      '-f',
+      'assignees[]=copilot',
+    ])
     // Add a comment so the history is clear — write body to temp file to avoid shell escaping issues
     const body =
       `**Agent Task Monitor:** This task was automatically re-triggered because ` +
       `no activity was detected for more than ${STALE_HOURS} hours. ` +
       `Copilot has been re-assigned to resume work.`
     writeFileSync(tmpFile, body, 'utf-8')
-    gh(`issue comment ${task.number} -R ${REPO} --body-file "${tmpFile}"`)
+    gh(['issue', 'comment', String(task.number), '-R', REPO, '--body-file', tmpFile])
     console.log(`  ✓ Re-triggered #${task.number}.`)
   } catch (err: any) {
     console.warn(`  ⚠ Could not re-trigger #${task.number}: ${err.message?.slice(0, 200)}`)
