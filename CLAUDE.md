@@ -730,6 +730,40 @@ gh run watch <RUN_ID> --repo clarkemoyer/technologyadoptionbarriers.org --exit-s
 
 **Timeouts**: Review polling 15min, fix waiting 20min, API retries 3x with exponential backoff.
 
+**Retry on timeout**: If fixes aren't pushed within 20min, the script re-requests the fix and dispatches the next round anyway (instead of dying). The next round's review will catch whether comments were addressed.
+
+### Automated Chain: Issue → Agent → Review → Human
+
+When you assign a GitHub issue to the Copilot coding agent, the full chain runs hands-off:
+
+```
+1. Assign issue to copilot-swe-agent[bot]
+2. Copilot agent works autonomously (creates copilot/* branch)
+3. Agent opens draft PR [WIP]
+4. Agent finishes → marks PR ready for review
+5. auto-review-on-ready.yml fires (lightweight, no environment gate)
+6. Dispatches copilot-review-cycle.yml via workflow_dispatch
+7. Review cycle runs 1-7 rounds: review → fix → re-review
+8. Posts consolidated round history table when clean
+9. Human reviews final PR
+```
+
+**Key**: `auto-review-on-ready.yml` uses only `GITHUB_TOKEN` (no environment secrets), so it runs immediately for bot-created PRs without the `action_required` approval gate.
+
+**Assign via CLI**:
+
+```bash
+# Assign Copilot to an issue
+gh api repos/clarkemoyer/technologyadoptionbarriers.org/issues/<ISSUE#> \
+  -X PATCH -f "assignees[]=copilot-swe-agent[bot]"
+
+# Or use gh agent-task (gh v2.89+)
+gh agent-task create  # from within the repo directory
+
+# Monitor all agent tasks
+gh agent-task list
+```
+
 ## Privacy & Data Flow
 
 Pipeline data has strict PII boundaries:
@@ -798,7 +832,326 @@ All Python scripts live in `scripts/analysis/`. They are the primary language fo
 
 **Tests**: `scripts/analysis/tests/` contains Python unit tests. Run with `python -m pytest scripts/analysis/tests/`.
 
+## Custom Agents
+
+Claude Code agents are defined in `.claude/agents/` (gitignored — local only). They provide specialized behavior invoked automatically or explicitly.
+
+### TABS Repo Agents
+
+| Agent                  | Purpose                                                            | Model  | Tools                        |
+| ---------------------- | ------------------------------------------------------------------ | ------ | ---------------------------- |
+| `pipeline-validator`   | Check workflow runs, data freshness, production incidents          | Sonnet | Bash, Grep, Read, Glob       |
+| `data-quality-checker` | Audit committed JSON for PII, schema consistency, count mismatches | Sonnet | Read, Grep, Glob (read-only) |
+| `pr-manager`           | PR status, CI, reviews, merge readiness, trigger review cycles     | Sonnet | Bash, Grep, Read             |
+
+### Global Agents (`~/.claude/agents/`)
+
+| Agent                  | Purpose                                                                     |
+| ---------------------- | --------------------------------------------------------------------------- |
+| `copilot-review-cycle` | Full review cycle — request review, read comments, fix code, commit, repeat |
+| `pr-reviewer`          | FFC-specific PR review checklist (naming, security, a11y, static export)    |
+
+**Invoke**: Claude auto-selects agents based on task description. You can also say "use the pipeline-validator agent" explicitly.
+
+## Scheduled Tasks
+
+Claude Code Desktop supports scheduled tasks that run automatically.
+
+### Active Tasks
+
+| Task             | Schedule        | Purpose                                                                               |
+| ---------------- | --------------- | ------------------------------------------------------------------------------------- |
+| `tabs-pr-triage` | Weekdays 9am ET | Morning briefing: open PRs, pipeline health, data freshness, incidents, review cycles |
+
+**Manage**: Sidebar → Scheduled → click task to edit, run now, or disable.
+
+**Create new tasks**: Via CLI `/schedule` or `mcp__scheduled-tasks__create_scheduled_task`.
+
+Tasks run in this Claude Code session and auto-expire after 7 days. Use cloud triggers for persistent automation.
+
+## Hooks
+
+Project-level hooks in `.claude/settings.json`:
+
+### Active Hooks
+
+| Event         | Matcher       | Action                            |
+| ------------- | ------------- | --------------------------------- |
+| `PostToolUse` | `Write\|Edit` | Auto-run Prettier on edited files |
+
+Hooks run automatically — no approval needed. They help keep Claude-edited files formatted as you work, but they do not replace the standard `npm run format` / `npm run format:check` verification before pushing or merging; CI still enforces formatting.
+
+### Available Hook Events
+
+| Event         | When                    | Use For                               |
+| ------------- | ----------------------- | ------------------------------------- |
+| `PostToolUse` | After any tool succeeds | Auto-format, auto-lint, notifications |
+| `PreToolUse`  | Before a tool runs      | Block dangerous commands              |
+| `Stop`        | When Claude finishes    | Verify tests pass before stopping     |
+
+## Permission Model
+
+Claude Code operates under a tiered permission system configured in `~/.claude/settings.json`.
+
+### Denied (43 rules) — blocked entirely
+
+- Git destructive: force push, reset --hard, clean, filter-branch
+- Secret leakage: any bash with API_TOKEN, SECRET, PRIVATE_KEY, PASSWORD
+- Remote code execution: curl\|bash, wget\|sh
+- Filesystem: rm -rf
+- Cloudflare deletions: D1, R2, KV, Hyperdrive
+- GitHub merge via MCP (forces human approval)
+- Calendar event deletion
+
+### Prompts (18 tools) — requires approval each time
+
+- Computer Use: clicks, typing, key presses, drag, clipboard write, open app
+- Chrome: form fills, JS execution, file upload, click actions
+
+### Auto-allowed (500+ tools) — runs without prompting
+
+- All GitHub MCP read/write (local npx server)
+- All Cloudflare create/read/update (NOT delete)
+- Gmail drafts, Calendar create/update
+- All Canva, Playwright, Preview operations
+- All git and gh CLI operations (except destructive)
+- All web search and fetch
+
+**Safety principle**: Anything that permanently destroys data is either denied or requires per-use approval. Everything else is auto-allowed for productivity.
+
+## Dependency Provenance
+
+All MCP servers and API dependencies are tracked for provenance risk. See [issue #783](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/783) for the full chart.
+
+### Risk Tiers
+
+| Tier         | Criteria                                                 | Examples                                                       |
+| ------------ | -------------------------------------------------------- | -------------------------------------------------------------- |
+| **Low**      | Official, from the company, actively maintained          | GitHub MCP, Cloudflare MCP, Google Analytics MCP, `googleapis` |
+| **Medium**   | Community but mature (100+ stars, multiple contributors) | `peter-evans/create-pull-request`, Google Search Console MCP   |
+| **High**     | Community, single maintainer, or stale                   | Qualtrics MCP (academic), R Statistics MCP (stale)             |
+| **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` (deprecated)             |
+
+**Rule**: Prefer official sources. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics — neither company provides official SDKs or MCP servers.
+
+## Parallel Development with Worktrees
+
+Git worktrees let you run multiple Claude Code sessions on the same repo without conflicts. Each worktree has its own branch and file state.
+
+**Create a worktree session:**
+
+```bash
+# From Claude Code Desktop
+claude --worktree feature-auth    # Creates .claude/worktrees/feature-auth/
+
+# Or start another for a different task
+claude --worktree bugfix-123
+```
+
+**Recommended pattern** (Anthropic's top productivity tip):
+
+- Spin up 3-5 worktrees for parallel work
+- Each gets its own Claude Code terminal session
+- Example: feature branch + bug fix + docs update running simultaneously
+- Worktrees share git history but have independent file state
+- Auto-cleaned when no changes are made
+
+**When to use**: Multi-task sprints, review + implement in parallel, testing a fix without stashing current work.
+
+## Remote Control
+
+Monitor and control Claude Code sessions from your phone or any browser.
+
+**Setup**: Run `/config` in Claude Code and enable "Remote Control for all sessions". Then visit [claude.ai/code](https://claude.ai/code) from any device.
+
+**Capabilities**: See real-time activity, approve/reject tool calls, redirect work, monitor multiple sessions. Requires Pro+ plan.
+
+**Limitation**: Windows does not support QR code connection. Use the web URL directly.
+
+## Secret Management Roadmap
+
+### Current: Environment Secrets
+
+All API tokens are stored in GitHub Environment secrets (per-environment isolation):
+
+| Environment      | Secrets                                  | Used By                   |
+| ---------------- | ---------------------------------------- | ------------------------- |
+| `qualtrics-prod` | QUALTRICS_API_TOKEN + 5 vars             | Analysis pipeline         |
+| `prolific-prod`  | TABS_PROLIFIC_TOKEN + 2 vars             | Operations pipeline       |
+| `google-prod`    | Service account email + key              | GA/GSC reports            |
+| `copilot`        | COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN | PR creation, review cycle |
+
+### Future: OIDC Federation
+
+For services that support it, OIDC token exchange eliminates static secrets:
+
+| Service                | OIDC Support            | Status                  |
+| ---------------------- | ----------------------- | ----------------------- |
+| Google Cloud (GA, GSC) | Yes                     | Candidate for migration |
+| Cloudflare             | Yes                     | Candidate for migration |
+| GitHub                 | Built-in (GITHUB_TOKEN) | Already using           |
+| Prolific               | No (token-only API)     | Not applicable          |
+| Qualtrics              | No (token-only API)     | Not applicable          |
+
+**Benefits**: No secrets to rotate, temporary credentials (expire in minutes), GitHub separating code write from secret management in 2026.
+
+## Google Jules (Gemini) Integration
+
+Jules is Google's autonomous coding agent powered by Gemini. It works independently from GitHub Copilot with its own concurrency pool (60 tasks on Ultra tier).
+
+### Setup
+
+**CLI** (installed globally):
+
+```bash
+npm install -g @google/jules
+jules login        # OAuth via browser
+jules              # Launch interactive TUI
+```
+
+**GitHub Action** (`.github/workflows/jules-on-label.yml`):
+When the `jules` label is added to an issue, the workflow dispatches Jules via `google-labs-code/jules-action@v1.0.0`. Requires `GOOGLE_JULES_API_KEY` in repo secrets.
+
+### How to Use Jules
+
+**Create a task (CLI):**
+
+```bash
+# Simple task
+jules remote new --repo clarkemoyer/technologyadoptionbarriers.org "write unit tests for the tooltip component"
+
+# Parallel sessions for the same task
+jules remote new --repo clarkemoyer/technologyadoptionbarriers.org --parallel 3 "fix all ESLint warnings"
+
+# List active sessions
+jules remote list --session --repo clarkemoyer/technologyadoptionbarriers.org
+
+# Pull completed work
+jules remote pull --session <ID>
+jules remote pull --session <ID> --apply  # Apply patch locally
+```
+
+**Assign via GitHub (label):**
+Add the `jules` label to any issue. The `jules-on-label.yml` workflow triggers Jules automatically.
+
+**Give feedback to Jules:**
+
+| Method                  | When                | How                                             |
+| ----------------------- | ------------------- | ----------------------------------------------- |
+| `@jules` on PR comment  | Jules has a PR open | Comment on the PR mentioning `@jules`           |
+| `jules remote new`      | Session is stuck    | Create a fresh session with better instructions |
+| Jules web UI            | Direct interaction  | [jules.google](https://jules.google/)           |
+| Jules API `sendMessage` | Programmatic        | Requires OAuth token (not API key)              |
+
+**Note:** The Jules API `sendMessage` endpoint requires an OAuth2 bearer token, not the API key from settings. The CLI handles OAuth internally. For programmatic feedback, create new sessions via CLI or comment on PRs.
+
+### Jules Scheduled Agents
+
+Jules supports scheduled skill-based agents. Enable in the Jules UI:
+
+| Agent       | Purpose                                                        | Recommended Schedule |
+| ----------- | -------------------------------------------------------------- | -------------------- |
+| Security    | Scan for vulnerabilities, hardcoded secrets, insecure patterns | Weekly               |
+| Performance | Bundle size, build time, render patterns                       | Weekly               |
+| Testing     | Test coverage gaps, missing edge cases                         | Weekly               |
+
+### Task Routing: Jules vs Copilot vs Claude
+
+| Task Type                                      | Best Agent                                                 | Why                                                        |
+| ---------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| Frontend visualization, charts, UI components  | **Jules**                                                  | Gemini excels at visual/creative work, 60 concurrent slots |
+| Pipeline scripts, workflow YAML, analysis code | **Copilot**                                                | Deep GitHub integration, knows Actions patterns            |
+| Orchestration, PR management, Prolific ops     | **Claude Code**                                            | Terminal access, MCP servers, interactive decision-making  |
+| Content pages, documentation, Making of TABS   | **Jules**                                                  | Good at content generation, handles large pages            |
+| Bug fixes, small changes                       | **Either**                                                 | Route to whichever has capacity                            |
+| Security/performance audits                    | **Jules**                                                  | Built-in scheduled agents                                  |
+| Code review                                    | **Copilot** (primary) + **Gemini Code Assist** (secondary) | Both review PRs automatically                              |
+
+## Multi-Agent Architecture
+
+TABS uses three AI coding agents working in parallel on independent infrastructure:
+
+```
+Issue Created
+    |
+    +--[assign copilot-swe-agent[bot]]--> Copilot (GitHub pool, ~4 concurrent)
+    |                                         |
+    +--[add 'jules' label]--------------> Jules (Google pool, 60 concurrent)
+    |                                         |
+    +--[this session]--------------------> Claude Code (local, 1 orchestrator)
+    |
+    v
+PR Created (by any agent)
+    |
+    +--[auto-review-on-ready.yml]-------> Copilot Review Cycle (up to 7 rounds)
+    +--[Jules PR watcher]---------------> Jules responds to @jules review comments
+    +--[Gemini Code Assist]-------------> Automated PR review (if installed)
+    |
+    v
+Clean Review + CI Green
+    |
+    v
+Human Final Review + Merge
+```
+
+### Concurrency Map
+
+| Agent                  | Pool         | Capacity              | Trigger                                  |
+| ---------------------- | ------------ | --------------------- | ---------------------------------------- |
+| **Copilot**            | GitHub       | ~4 concurrent         | Assign `copilot-swe-agent[bot]` to issue |
+| **Jules**              | Google Cloud | 60 concurrent (Ultra) | `jules` label on issue, CLI, or API      |
+| **Claude Code**        | Anthropic    | 1 per session         | Direct terminal interaction              |
+| **Gemini Code Assist** | Google       | Auto on PRs           | GitHub App (if installed)                |
+
+## Secret Management
+
+### Windows Credential Manager (local development)
+
+Secrets are stored encrypted in Windows Credential Manager (DPAPI) and loaded into sessions.
+
+**Store a secret (PowerShell, one-time):**
+
+```powershell
+cmdkey /generic:TABS_GOOGLE_JULES_API_KEY /user:api /pass:your-key
+cmdkey /generic:TABS_GITHUB_PAT /user:api /pass:your-pat
+cmdkey /generic:TABS_QUALTRICS_API_TOKEN /user:api /pass:your-token
+cmdkey /generic:TABS_PROLIFIC_API_TOKEN /user:api /pass:your-token
+```
+
+**Load into session (bash):**
+
+```bash
+source ~/.claude/load-secrets.sh
+```
+
+**Verify stored secrets:**
+
+```powershell
+cmdkey /list | findstr TABS_
+```
+
+**Security model:**
+
+- Encrypted at rest by DPAPI (AES-256, tied to Windows user account)
+- Not stored in any file (cannot be accidentally git committed)
+- Only accessible when logged in as the storing user
+- Persists across reboots
+
+### GitHub Environment Secrets (CI/CD)
+
+All API tokens for workflows are stored in GitHub Environment secrets (per-environment isolation). See the Secret Management Roadmap section for details.
+
 ## Resources
+
+### Making of TABS Documentation
+
+The live website documents this infrastructure at `/making-of-tabs/`:
+
+- `/making-of-tabs/ai-assisted-development` — How AI agents build and maintain the site
+- `/making-of-tabs/development-workflow` — CI/CD pipeline, merge queue, automated testing
+- `/making-of-tabs/integrations/` — Cloudflare, GitHub, Google Analytics, Prolific, Qualtrics
+- `/making-of-tabs/data-analysis` — Analysis pipeline, psychometrics, quality audits
+- `/making-of-tabs/reproducible-analysis` — Reproducibility documentation
 
 ### Project Documentation
 
@@ -809,32 +1162,40 @@ All Python scripts live in `scripts/analysis/`. They are the primary language fo
 - [NAMING_CONVENTIONS.md](./NAMING_CONVENTIONS.md) - Detailed naming rules
 - [QUICK_START.md](./QUICK_START.md) - 5-minute setup guide
 
-### External Resources
+## Tips for Effective Development
 
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Tailwind CSS](https://tailwindcss.com/docs)
-- [React Testing Library](https://testing-library.com/react)
-- [Playwright](https://playwright.dev/)
-- [jest-axe](https://github.com/nickcolley/jest-axe)
-- [WCAG Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+1. **Read existing code first** - Understand patterns before making changes
+2. **Test locally** - Always run the full pre-commit checklist
+3. **Keep changes minimal** - Small PRs are easier to review
+4. **Follow existing patterns** - Consistency matters
+5. **Ask questions** - Open an issue if you're unsure
+6. **Document changes** - Update relevant docs when changing behavior
+7. **Accessibility matters** - Test with keyboard navigation
+8. **Mobile-first** - Always check responsive layouts
+
+---
+
+**Remember**: This is a production site serving a real organization. Quality, accessibility, and user experience are paramount.
 
 ## Your Workflow Checklist
 
-Before starting work:
+### Before You Start
 
 - [ ] Read the linked GitHub issue thoroughly
-- [ ] Understand the existing code patterns
+- [ ] Understand the problem you're solving
 - [ ] Check if tests exist for the area you're modifying
+- [ ] Review similar code to understand patterns
 
-While coding:
+### While Coding
 
-- [ ] Follow kebab-case naming for folders
-- [ ] Use `assetPath()` for all images
-- [ ] Write accessible HTML (ARIA labels, semantic elements)
-- [ ] Follow existing patterns and style
-- [ ] Add/update tests for your changes
+- [ ] Use kebab-case for all folder names
+- [ ] Use `assetPath()` for all image sources
+- [ ] Add ARIA labels to icon-only buttons
+- [ ] Write semantic HTML (buttons, not divs with onClick)
+- [ ] Follow existing code style and patterns
+- [ ] Add comments only where necessary
 
-Before committing:
+### Before Committing
 
 - [ ] Run `npm run format`
 - [ ] Run `npm run lint` (fix errors)
@@ -843,7 +1204,7 @@ Before committing:
 - [ ] Run `npm run test:e2e` (all pass)
 - [ ] Review your own changes in git diff
 
-When opening PR:
+### Opening Your PR
 
 - [ ] Use PR template
 - [ ] Link to issue
