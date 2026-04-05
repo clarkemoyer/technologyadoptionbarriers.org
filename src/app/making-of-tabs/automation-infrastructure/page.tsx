@@ -36,8 +36,8 @@ const AutomationInfrastructurePage = () => {
       <section className="mb-10">
         <h2 className={H2_CLASSES}>The Hands-Off Chain</h2>
         <p className="mb-4">
-          Every feature and fix follows an eight-step chain from GitHub Issue to merged PR. No
-          human writes code; the workflow is purely assignment, review, and approval.
+          Every feature and fix follows an eight-step chain from GitHub Issue to merged PR. No human
+          writes code; the workflow is purely assignment, review, and approval.
         </p>
 
         <div className="overflow-x-auto mb-6">
@@ -82,12 +82,7 @@ const AutomationInfrastructurePage = () => {
                   'Reads review comments, applies fixes, pushes updated commits',
                   'PR updated; CI re-runs',
                 ],
-                [
-                  '6',
-                  'GitHub Actions',
-                  'CI re-runs on the updated commits',
-                  'Green or red status',
-                ],
+                ['6', 'GitHub Actions', 'CI re-runs on the updated commits', 'Green or red status'],
                 [
                   '7',
                   'Human',
@@ -223,12 +218,7 @@ const AutomationInfrastructurePage = () => {
                   'No (not fetched in daily pipeline)',
                   'Ephemeral',
                 ],
-                [
-                  'Step summaries',
-                  'No (aggregate counts)',
-                  'No (Actions UI)',
-                  'Workflow lifetime',
-                ],
+                ['Step summaries', 'No (aggregate counts)', 'No (Actions UI)', 'Workflow lifetime'],
                 ['Workflow logs', 'Yes (PIDs in debug)', 'No (Actions UI)', '90 days'],
               ].map(([artifact, pids, committed, retention]) => (
                 <tr key={artifact} className="border-b border-gray-100">
@@ -263,18 +253,17 @@ const AutomationInfrastructurePage = () => {
         <p className="mb-4">
           Demographic data (age, sex, ethnicity, language, nationality) from Prolific profiles is
           not fetched during the daily pipeline. When fetched via manual workflows or standalone
-          scripts, any resulting CSV files are written only to runner temp or short-lived
-          artifacts and are never committed to the repository. The public dataset excludes all
-          direct identifiers.
+          scripts, any resulting CSV files are written only to runner temp or short-lived artifacts
+          and are never committed to the repository. The public dataset excludes all direct
+          identifiers.
         </p>
 
         <div className="rounded-xl border border-amber-200 bg-amber-50 p-5 mb-4">
           <h3 className="text-base font-semibold text-amber-900 mb-2">Privacy Rule</h3>
           <p className="text-sm text-amber-800">
-            <strong>Never commit PROLIFIC_PID or participant-level data</strong> to the
-            repository. Step summaries use aggregate counts only. Workflow logs containing PIDs
-            are retained only in the GitHub Actions UI for 90 days and are not accessible to the
-            public.
+            <strong>Never commit PROLIFIC_PID or participant-level data</strong> to the repository.
+            Step summaries use aggregate counts only. Workflow logs containing PIDs are retained
+            only in the GitHub Actions UI for 90 days and are not accessible to the public.
           </p>
         </div>
       </section>
@@ -338,22 +327,14 @@ const AutomationInfrastructurePage = () => {
             >
               <h3
                 className={`font-semibold text-${
-                  color === 'blue'
-                    ? 'blue-900'
-                    : color === 'purple'
-                      ? 'purple-900'
-                      : 'green-900'
+                  color === 'blue' ? 'blue-900' : color === 'purple' ? 'purple-900' : 'green-900'
                 } mb-1`}
               >
                 {name}
               </h3>
               <p
                 className={`text-xs text-${
-                  color === 'blue'
-                    ? 'blue-700'
-                    : color === 'purple'
-                      ? 'purple-700'
-                      : 'green-700'
+                  color === 'blue' ? 'blue-700' : color === 'purple' ? 'purple-700' : 'green-700'
                 } mb-3`}
               >
                 {role}
@@ -377,8 +358,8 @@ const AutomationInfrastructurePage = () => {
           <li>Agent pushes a branch and opens a PR, which triggers CI.</li>
           <li>CI (format, lint, tests, build, E2E) runs automatically and posts status.</li>
           <li>
-            Human marks the PR as “Ready for review” — Copilot PR Review reads the diff and
-            posts comments.
+            Human marks the PR as “Ready for review” — Copilot PR Review reads the diff and posts
+            comments.
           </li>
           <li>Copilot coding agent (or Claude) reads the review comments and pushes fixes.</li>
           <li>CI re-runs; if green, human reviews the final diff and approves.</li>
@@ -403,9 +384,7 @@ const AutomationInfrastructurePage = () => {
               v3. The centralized client is{' '}
               <code className="text-xs bg-gray-100 px-1 rounded">src/lib/qualtrics-api.ts</code>{' '}
               (TypeScript) and{' '}
-              <code className="text-xs bg-gray-100 px-1 rounded">
-                scripts/analysis/tabs_api.py
-              </code>{' '}
+              <code className="text-xs bg-gray-100 px-1 rounded">scripts/analysis/tabs_api.py</code>{' '}
               (Python). No third-party Qualtrics SDK is used.
             </p>
           </div>
@@ -425,7 +404,9 @@ const AutomationInfrastructurePage = () => {
           </div>
 
           <div className="rounded-xl border border-gray-200 p-5">
-            <h3 className="font-semibold text-gray-900 mb-2">Google Analytics &amp; Search Console</h3>
+            <h3 className="font-semibold text-gray-900 mb-2">
+              Google Analytics &amp; Search Console
+            </h3>
             <p className="text-sm text-gray-700 mb-2">
               Analytics and SEO metrics use the official{' '}
               <code className="text-xs bg-gray-100 px-1 rounded">@google-analytics/data</code> and{' '}
