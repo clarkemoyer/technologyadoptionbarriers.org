@@ -366,12 +366,15 @@ jobs:
             local url="$1" label="$2"
             local status curl_exit
             DATA_CONTENT=""
+            : > /tmp/data-body
             status=$(curl -s -o /tmp/data-body -w '%{http_code}' -L --max-time 15 "$url" 2>/dev/null)
             curl_exit=$?
             if [ "$curl_exit" -ne 0 ]; then
               status="000"
+              DATA_CONTENT=""
+            else
+              DATA_CONTENT=$(cat /tmp/data-body 2>/dev/null || echo "")
             fi
-            DATA_CONTENT=$(cat /tmp/data-body 2>/dev/null || echo "")
             if [ "$status" != "200" ]; then
               echo "| $label | ❌ HTTP $status (expected 200) |" >> /tmp/data-results.txt
               DATA_FAIL=$((DATA_FAIL + 1))

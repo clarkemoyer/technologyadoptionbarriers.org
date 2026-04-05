@@ -421,7 +421,7 @@ async function waitForCi(repo: string, prNumber: string): Promise<'pass' | 'fail
 function closeFixIssues(repo: string, prNumber: string, reason: string): void {
   try {
     const existingIssues = ghJsonArray<{ number: number; title: string }>(
-      `issue list -R ${repo} --state open ` +
+      `issue list -R ${repo} --state open --limit 100 ` +
         `--search "fix: address Copilot review comments on PR #${prNumber} in:title" ` +
         `--json number,title`
     )
