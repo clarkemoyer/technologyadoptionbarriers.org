@@ -666,21 +666,25 @@ export async function exportSubmissionsCSV(studyId: string, apiToken: string): P
     return 'id,participant_id,status,started_at,completed_at,time_taken\n'
   }
 
+  const numSubmissions = submissions.length
+  // Pre-allocate array to avoid dynamic resizing for large arrays (performance optimization)
+  const csvLines: string[] = new Array(numSubmissions + 1)
+
   // CSV header
   const headers = ['id', 'participant_id', 'status', 'started_at', 'completed_at', 'time_taken']
-  const csvLines = [headers.join(',')]
+  csvLines[0] = headers.join(',')
 
   // CSV rows with proper escaping
-  for (const submission of submissions) {
-    const row = [
+  for (let i = 0; i < numSubmissions; i++) {
+    const submission = submissions[i]
+    csvLines[i + 1] = [
       escapeCsvField(submission.id),
       escapeCsvField(submission.participant_id),
       escapeCsvField(submission.status),
       escapeCsvField(submission.started_at),
       escapeCsvField(submission.completed_at || ''),
       escapeCsvField(submission.time_taken?.toString() || ''),
-    ]
-    csvLines.push(row.join(','))
+    ].join(',')
   }
 
   return csvLines.join('\n')
