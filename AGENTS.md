@@ -215,6 +215,7 @@ Automatic deployment on push to `main` via `.github/workflows/deploy.yml`:
 **CRITICAL: This project handles research participant data. Strict rules apply to ALL agents.**
 
 **NEVER commit any of the following:**
+
 - **Prolific Participant IDs (PIDs)** — 24-character hex strings (e.g., `5df961cb53e8466f17606ae1`)
 - **Email addresses, names, or any direct identifiers**
 - **Raw Qualtrics CSV data** — stays on the runner, never uploaded as artifacts
@@ -222,23 +223,27 @@ Automatic deployment on push to `main` via `.github/workflows/deploy.yml`:
 - **API tokens, secrets, or credentials** in any file
 
 **What IS safe to commit (aggregates only):**
+
 - `src/data/sensitivity-analysis.json` — aggregate statistics per result group (means, SDs, alphas)
 - `src/data/disposition-summary.json` — aggregate disposition counts
 - `src/data/data-audit.json` — aggregate waterfall counts
 - `src/data/impact.json` — Google Analytics aggregates
 
 **PII patterns to watch for:**
+
 - 24-char hex strings: `/[0-9a-f]{24}/` (Prolific PIDs)
 - Email patterns: `/@/` in data files
 - Names in JSON values (not keys)
 - Per-participant rows in committed data
 
 **GitHub Actions step summaries:**
+
 - Use aggregate counts only (sent: X, skipped: Y, failed: Z)
 - NEVER include PID tables or per-participant data in `GITHUB_STEP_SUMMARY`
 - PIDs may appear in workflow logs for debugging (ephemeral, 90-day retention)
 
 **If you find PII in committed files:**
+
 1. Do NOT create a PR that "fixes" it (the PII is already in git history)
 2. Create a GitHub issue tagged `security` describing what was found
 3. The repo owner must use `git filter-branch` or BFG to remove from history
@@ -246,6 +251,7 @@ Automatic deployment on push to `main` via `.github/workflows/deploy.yml`:
 ### Build Artifacts — Never Commit
 
 **NEVER commit these file patterns:**
+
 - `*.log` (dev_server.log, dev_output.log, build.log)
 - `patch_*.sh` (temporary scripts)
 - `ide_capabilities.txt` (editor artifacts)
@@ -254,8 +260,6 @@ Automatic deployment on push to `main` via `.github/workflows/deploy.yml`:
 - `.env`, `.env.local`, `.env.*`
 
 These are build artifacts from local development or agent work sessions. If your workflow produces logs, write them to `${{ runner.temp }}` (GitHub Actions) or `/tmp` (local), never to the repo.
-
-
 
 ### Accessibility (A11y)
 
