@@ -3,12 +3,11 @@
 
 Reads the enriched Qualtrics CSV and computes per-item means and standard
 deviations for all Barriers (18 items), Readiness (17 items), and Maturity
-(8 items) scales. Uses the Conservative Clean sample by default.
+(8 items) scales. Generates statistics for all samples by default.
 
 Outputs ``src/data/item-stats.json`` with:
   - Per-item means, SDs, and N for each construct
-  - Top 5 / bottom 5 barriers by mean
-  - Grand means per construct
+  - Top k / bottom k items by mean (k = min(5, numItems // 2) to avoid overlap)
 
 Usage:
     INPUT_CSV=/path/to/qualtrics-enriched.csv \\
@@ -100,17 +99,21 @@ def _build_construct(
     # Sort copies for ranking (do not modify original order)
     ranked = sorted(items, key=lambda x: (-(x["mean"] or 0), x["name"]))
 
+    # Use min(5, numItems // 2) so top and bottom sets are always disjoint
+    k = min(5, len(ranked) // 2)
+
     return {
         "label": label,
         "numItems": len(items),
         "items": items,
         "top5": [
             {"rank": i + 1, "name": x["name"], "mean": x["mean"], "sd": x["sd"]}
-            for i, x in enumerate(ranked[:5])
+            for i, x in enumerate(ranked[:k])
         ],
         "bottom5": [
-            {"rank": len(ranked) - (4 - i), "name": x["name"], "mean": x["mean"], "sd": x["sd"]}
-            for i, x in enumerate(ranked[-5:])
+            # For bottom-k items: rank = total_items - (k - 1 - i) = total_items - k + 1 + i
+            {"rank": len(ranked) - (k - 1 - i), "name": x["name"], "mean": x["mean"], "sd": x["sd"]}
+            for i, x in enumerate(ranked[-k:])
         ],
     }
 
