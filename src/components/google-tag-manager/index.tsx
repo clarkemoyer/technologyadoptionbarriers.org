@@ -2,11 +2,16 @@
 
 import Script from 'next/script'
 
-// Google Tag Manager ID
-const GTM_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || 'GTM-P5GBFCTL'
+// Default GTM container ID fallback
+const DEFAULT_GTM_ID = 'GTM-P5GBFCTL'
 
-// Sanitize GTM_ID to prevent XSS (only allow alphanumeric and hyphens)
-const sanitizedGtmId = GTM_ID.replace(/[^a-zA-Z0-9-]/g, '')
+// Sanitize GTM ID to prevent XSS: only allow alphanumeric characters and hyphens.
+// Falls back to DEFAULT_GTM_ID for any input that contains unsafe characters or is absent.
+export function sanitizeGtmId(id: string | undefined): string {
+  return id && /^[a-zA-Z0-9-]+$/.test(id) ? id : DEFAULT_GTM_ID
+}
+
+const GTM_ID = sanitizeGtmId(process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID)
 
 export default function GoogleTagManager() {
   return (
@@ -21,7 +26,7 @@ export default function GoogleTagManager() {
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','${sanitizedGtmId}');
+            })(window,document,'script','dataLayer','${GTM_ID}');
           `,
         }}
       />
@@ -34,7 +39,7 @@ export function GoogleTagManagerNoScript() {
   return (
     <noscript>
       <iframe
-        src={`https://www.googletagmanager.com/ns.html?id=${sanitizedGtmId}`}
+        src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
         height="0"
         width="0"
         style={{ display: 'none', visibility: 'hidden' }}
