@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 const DataQualityPage = () => {
   return (
-    <main id="main-content" className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <main id="main-content" tabIndex={-1} className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-1">
