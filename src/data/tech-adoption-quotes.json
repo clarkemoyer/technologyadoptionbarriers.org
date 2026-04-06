@@ -41,7 +41,7 @@
     "role": "Science fiction author & biochemist",
     "year": 1970,
     "yearDisplay": "c. 1970",
-    "source": "Attributed",
+    "source": "Widely attributed; popularized via Isaac Asimov's nonfiction essays",
     "era": "Computing Era"
   },
   {
@@ -86,7 +86,7 @@
     "role": "Chairman of IBM",
     "year": 1943,
     "yearDisplay": "1943 (attribution disputed)",
-    "source": "Attributed remark",
+    "source": "Widely cited; no primary source found despite extensive research",
     "era": "Mid 20th Century"
   },
   {
@@ -95,7 +95,7 @@
     "role": "Head of 20th Century Fox",
     "year": 1946,
     "yearDisplay": "1946",
-    "source": "Attributed remark",
+    "source": "Widely cited; first appeared in print in the 1970s",
     "era": "Mid 20th Century"
   },
   {
@@ -122,17 +122,8 @@
     "role": "Management scholar",
     "year": 1990,
     "yearDisplay": "c. 1990",
-    "source": "Attributed",
+    "source": "Widely cited in management literature; also attr. to Robert Reich and others",
     "era": "Computing Era"
-  },
-  {
-    "quote": "It has become appallingly obvious that our technology has exceeded our humanity.",
-    "author": "Albert Einstein",
-    "role": "Theoretical physicist",
-    "year": 1950,
-    "yearDisplay": "c. 1950 (attribution uncertain)",
-    "source": "Attributed",
-    "era": "Mid 20th Century"
   },
   {
     "quote": "The real problem is not whether machines think but whether men do.",
@@ -185,7 +176,7 @@
     "role": "Computer scientist, Xerox PARC",
     "year": 1989,
     "yearDisplay": "c. 1989",
-    "source": "Attributed",
+    "source": "Widely cited; paraphrased from various Kay interviews and talks",
     "era": "Computing Era"
   },
   {
@@ -221,7 +212,7 @@
     "role": "Co-founder of Microsoft",
     "year": 1999,
     "yearDisplay": "1999",
-    "source": "Attributed",
+    "source": "Widely cited from late-1990s Gates speeches and columns",
     "era": "Internet Era"
   },
   {
@@ -239,7 +230,7 @@
     "role": "Co-founder of Microsoft",
     "year": 2008,
     "yearDisplay": "c. 2008",
-    "source": "Attributed",
+    "source": "Newsweek interview, c. 2008",
     "era": "Mobile Era"
   },
   {
@@ -324,31 +315,13 @@
     "era": "Computing Era"
   },
   {
-    "quote": "The measure of intelligence is the ability to change.",
-    "author": "Albert Einstein",
-    "role": "Theoretical physicist",
-    "year": 1950,
-    "yearDisplay": "c. 1950 (attribution uncertain)",
-    "source": "Attributed",
-    "era": "Mid 20th Century"
-  },
-  {
     "quote": "The electric light did not come from the continuous improvement of candles.",
     "author": "Oren Harari",
     "role": "Management professor, University of San Francisco",
     "year": 1994,
     "yearDisplay": "1994",
-    "source": "Attributed",
+    "source": "Widely cited; often misattributed to Peter Drucker",
     "era": "Internet Era"
-  },
-  {
-    "quote": "In the middle of difficulty lies opportunity.",
-    "author": "Albert Einstein",
-    "role": "Theoretical physicist",
-    "year": 1940,
-    "yearDisplay": "c. 1940 (paraphrased)",
-    "source": "Attributed",
-    "era": "Mid 20th Century"
   },
   {
     "quote": "Technology is a useful servant but a dangerous master.",
@@ -428,7 +401,7 @@
     "role": "Management consultant & author",
     "year": 2006,
     "yearDisplay": "c. 2006 (attributed posthumously)",
-    "source": "Attributed",
+    "source": "Popularized by Mark Fields (Ford Motor Co.); attribution to Drucker unverified",
     "era": "Mobile Era"
   },
   {
@@ -527,7 +500,7 @@
     "role": "CEO of OpenAI",
     "year": 2026,
     "yearDisplay": "2026",
-    "source": "Interview, early 2026",
+    "source": "Q&A with developers, San Francisco, Jan 2026 (via AI & Analytics Diaries)",
     "era": "AI Era"
   }
 ]
