@@ -1365,6 +1365,35 @@ def sensitivity_to_json(cuts, idx):
 
         return result_inf
 
+    def per_item_stats_for(rows):
+        """Compute per-item mean, SD, and rank for each construct."""
+        if not rows:
+            return {}
+        stats_out = {}
+        for construct_label, cols, sc, names in [
+            ("barriers", BARRIER_COLS, BARRIER_SCALE, BARRIER_NAMES),
+            ("readiness", READINESS_COLS, READINESS_SCALE, READINESS_NAMES),
+            ("maturity", MATURITY_COLS, MATURITY_SCALE, MATURITY_NAMES),
+        ]:
+            items = []
+            for i, col in enumerate(cols):
+                vals = [score(r, col, sc, idx) for r in rows]
+                vals = [v for v in vals if v is not None]
+                m, sd = mean_sd(vals)
+                items.append({
+                    "name": names[i],
+                    "mean": round(m, 4) if m is not None else None,
+                    "sd": round(sd, 4) if sd is not None else None,
+                    "n": len(vals)
+                })
+            # Sort by mean descending
+            items.sort(key=lambda x: -(x["mean"] or 0))
+            # Add rank
+            for rank, item in enumerate(items, 1):
+                item["rank"] = rank
+            stats_out[construct_label] = items
+        return stats_out
+
     # Build per-sample detail blocks
     result["sample_details"] = {}
     for sample_label, rows in cuts:
@@ -1374,6 +1403,7 @@ def sensitivity_to_json(cuts, idx):
             "effect_sizes": effect_sizes_for(rows),
             "cross_tabs": cross_tabs_for(rows),
             "inferential": inferential_for(rows),
+            "per_item": per_item_stats_for(rows),
         }
 
     return result
