@@ -428,21 +428,21 @@
           "constructs": {
             "barriers": {
               "t": -0.7046,
-              "p": 0.0,
+              "p": 0.4886,
               "df": 21.54,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 1.8986,
-              "p": 0.0,
+              "p": 0.0695,
               "df": 24.39,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 0.5143,
-              "p": 0.0,
+              "p": 0.6125,
               "df": 20.71,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -452,21 +452,21 @@
           "constructs": {
             "barriers": {
               "t": 2.2334,
-              "p": 0.0,
+              "p": 0.0335,
               "df": 28.73,
               "sig": true
             },
             "readiness": {
               "t": -0.2391,
-              "p": 0.0,
+              "p": 0.813,
               "df": 24.45,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 1.6084,
-              "p": 0.0,
+              "p": 0.1215,
               "df": 22.74,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -653,21 +653,21 @@
           "constructs": {
             "barriers": {
               "t": -1.6222,
-              "p": 0.0,
+              "p": 0.1107,
               "df": 52.75,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 3.0985,
-              "p": 0.0,
+              "p": 0.003,
               "df": 59.68,
               "sig": true
             },
             "maturity": {
               "t": 1.6863,
-              "p": 0.0,
+              "p": 0.0974,
               "df": 55.49,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -677,21 +677,21 @@
           "constructs": {
             "barriers": {
               "t": 2.8139,
-              "p": 0.0,
+              "p": 0.0078,
               "df": 37.49,
               "sig": true
             },
             "readiness": {
               "t": -1.24,
-              "p": 0.0,
+              "p": 0.2242,
               "df": 31.16,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 0.2731,
-              "p": 0.0,
+              "p": 0.7867,
               "df": 29.83,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -879,19 +879,19 @@
           "constructs": {
             "barriers": {
               "t": -0.7579,
-              "p": 0.0,
+              "p": 0.4505,
               "df": 89.58,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 3.5708,
-              "p": 0.0,
+              "p": 0.0006,
               "df": 95.79,
               "sig": true
             },
             "maturity": {
               "t": 2.0634,
-              "p": 0.0,
+              "p": 0.0419,
               "df": 91.22,
               "sig": true
             }
@@ -903,21 +903,21 @@
           "constructs": {
             "barriers": {
               "t": 1.8241,
-              "p": 0.0,
+              "p": 0.0715,
               "df": 87.98,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 0.2308,
-              "p": 0.0,
+              "p": 0.8181,
               "df": 74.64,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 1.6883,
-              "p": 0.0,
+              "p": 0.0953,
               "df": 78.16,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -1105,19 +1105,19 @@
           "constructs": {
             "barriers": {
               "t": -0.9799,
-              "p": 0.0,
+              "p": 0.3286,
               "df": 166.59,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 3.1308,
-              "p": 0.0,
+              "p": 0.002,
               "df": 173.03,
               "sig": true
             },
             "maturity": {
               "t": 2.082,
-              "p": 0.0,
+              "p": 0.0388,
               "df": 174.0,
               "sig": true
             }
@@ -1129,21 +1129,21 @@
           "constructs": {
             "barriers": {
               "t": 2.0111,
-              "p": 0.0,
+              "p": 0.0465,
               "df": 123.58,
               "sig": true
             },
             "readiness": {
               "t": 0.2035,
-              "p": 0.0,
+              "p": 0.8391,
               "df": 114.65,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 1.2458,
-              "p": 0.0,
+              "p": 0.2153,
               "df": 116.43,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -1331,19 +1331,19 @@
           "constructs": {
             "barriers": {
               "t": -1.0331,
-              "p": 0.0,
+              "p": 0.3031,
               "df": 166.68,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 3.1322,
-              "p": 0.0,
+              "p": 0.002,
               "df": 172.29,
               "sig": true
             },
             "maturity": {
               "t": 2.082,
-              "p": 0.0,
+              "p": 0.0388,
               "df": 174.0,
               "sig": true
             }
@@ -1355,21 +1355,21 @@
           "constructs": {
             "barriers": {
               "t": 2.0822,
-              "p": 0.0,
+              "p": 0.0394,
               "df": 125.8,
               "sig": true
             },
             "readiness": {
               "t": 0.2028,
-              "p": 0.0,
+              "p": 0.8397,
               "df": 114.35,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 1.2458,
-              "p": 0.0,
+              "p": 0.2153,
               "df": 116.43,
-              "sig": true
+              "sig": false
             }
           }
         },

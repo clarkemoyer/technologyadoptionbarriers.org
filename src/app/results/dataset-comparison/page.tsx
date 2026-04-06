@@ -150,7 +150,7 @@ const DatasetComparisonPage = () => {
                       key={`delta-${g.key}`}
                       className="text-right p-2 border-b font-semibold text-gray-500"
                     >
-                      &Delta; {g.label.split(' ')[0]}
+                      &Delta; {g.label}
                     </th>
                   ))}
                 </tr>

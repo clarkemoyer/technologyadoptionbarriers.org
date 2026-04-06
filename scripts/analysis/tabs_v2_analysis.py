@@ -280,11 +280,18 @@ def _regularized_incomplete_beta(x, a, b, max_iter=200, tol=1e-12):
         return 0.0
     if x >= 1:
         return 1.0
+    # Use the symmetry relation I_x(a,b) = 1 - I_{1-x}(b,a) when x is large.
+    # The continued fraction converges best when x < (a+1)/(a+b+2); for larger
+    # x the CF stalls and returns ~0 instead of the correct value near 1.
+    if x > (a + 1.0) / (a + b + 2.0):
+        return 1.0 - _regularized_incomplete_beta(1.0 - x, b, a, max_iter, tol)
     # Use the log-beta for numerical stability
     ln_prefix = _ln_beta_prefix(x, a, b)
-    # Continued fraction (modified Lentz's method)
+    # Continued fraction (modified Lentz's method, Numerical Recipes §6.4).
+    # c tracks the running numerator-convergent and must start at 1.0, not tiny,
+    # to avoid 1/c blowing up on the very first iteration.
     f = 1e-30
-    c = 1e-30
+    c = 1.0
     d = 1.0 - (a + b) * x / (a + 1.0)
     if abs(d) < 1e-30:
         d = 1e-30
@@ -365,6 +372,83 @@ def _f_cdf_right(f_val, df1, df2):
         return 1.0
     x = df2 / (df2 + df1 * f_val)
     return _regularized_incomplete_beta(x, df2 / 2.0, df1 / 2.0)
+
+
+def _regularized_incomplete_gamma_p(a, x, max_iter=100, tol=1e-12):
+    """Lower regularized incomplete gamma function P(a, x) = gamma(a, x) / Gamma(a)."""
+    if x <= 0:
+        return 0.0
+    if x > a + 1.0:
+        return 1.0 - _regularized_incomplete_gamma_q(a, x)
+    ap = a
+    delta = sum_val = 1.0 / a
+    for _ in range(max_iter):
+        ap += 1.0
+        delta *= x / ap
+        sum_val += delta
+        if abs(delta) < abs(sum_val) * tol:
+            break
+    return sum_val * math.exp(-x + a * math.log(x) - math.lgamma(a))
+
+
+def _regularized_incomplete_gamma_q(a, x, max_iter=100, tol=1e-12):
+    """Upper regularized incomplete gamma function Q(a, x) = Gamma(a, x) / Gamma(a)."""
+    if x <= 0:
+        return 1.0
+    if x < a + 1.0:
+        return 1.0 - _regularized_incomplete_gamma_p(a, x)
+    b = x + 1.0 - a
+    c = 1.0 / 1e-30
+    d = 1.0 / b
+    h = d
+    for i in range(1, max_iter + 1):
+        an = -i * (i - a)
+        b += 2.0
+        d = an * d + b
+        if abs(d) < 1e-30:
+            d = 1e-30
+        c = b + an / c
+        if abs(c) < 1e-30:
+            c = 1e-30
+        d = 1.0 / d
+        delta = d * c
+        h *= delta
+        if abs(delta - 1.0) < tol:
+            break
+    return math.exp(-x + a * math.log(x) - math.lgamma(a)) * h
+
+
+def _chi2_cdf_right(chi2, df):
+    """Right-tail p-value for Chi-square distribution: P(X^2 > chi2)."""
+    if chi2 <= 0:
+        return 1.0
+    if df <= 0:
+        return 1.0
+    return _regularized_incomplete_gamma_q(df / 2.0, chi2 / 2.0)
+
+
+def chi_square_test(observed):
+    """Compute Chi-square test of independence for a contingency table.
+
+    observed: list of lists (contingency table)
+    Returns (chi2_statistic, p_value, degrees_of_freedom)
+    """
+    if not observed or not observed[0]:
+        return (None, None, None)
+    row_totals = [sum(row) for row in observed]
+    col_totals = [sum(col) for col in zip(*observed)]
+    grand_total = sum(row_totals)
+    if grand_total == 0:
+        return (None, None, None)
+    chi2 = 0.0
+    for i in range(len(observed)):
+        for j in range(len(observed[0])):
+            expected = (row_totals[i] * col_totals[j]) / grand_total
+            if expected > 0:
+                chi2 += (observed[i][j] - expected) ** 2 / expected
+    df = (len(observed) - 1) * (len(observed[0]) - 1)
+    p = _chi2_cdf_right(chi2, df) if df > 0 else 1.0
+    return chi2, p, df
 
 
 # ─────────────────────────────────────────────────────────────
@@ -950,6 +1034,103 @@ def print_sensitivity(cuts, idx):
         print("  " + f"{label:<40}" + "".join(f"{v:>{col_width}}" for v in vals))
 
 
+def filter_bias_analysis(cuts, idx):
+    """Perform filter bias analysis across the primary result groups.
+
+    Compares demographic distributions (role, org size, profit model)
+    across the 4 result group framework to identify disproportionate
+    exclusion of certain categories.
+    """
+    label_to_key = {
+        "Conservative Clean": "conservative_clean",
+        "Flexible Clean": "flexible_clean",
+        "Prolific Accepted": "prolific_accepted",
+        "All V2 Finished": "v2_finished"
+    }
+
+    selected_cuts = [(label, rows) for label, rows in cuts if label in label_to_key]
+    if not selected_cuts:
+        return {}
+
+    dimensions = [
+        ("role", "Executive Role", lambda r: get_role(r, idx)),
+        ("org_size", "Organization Size", lambda r: r[idx['Q4_OrgSize']].strip() or "Unknown"),
+        ("profit_model", "Profit Model", lambda r: r[idx['Q5_ProfitModel']].strip() or "Unknown")
+    ]
+
+    bias_results = {}
+    for dim_key, dim_label, dim_fn in dimensions:
+        # Collect all possible values
+        all_vals = set()
+        for _, rows in selected_cuts:
+            for r in rows:
+                all_vals.add(dim_fn(r))
+        # Ensure we have a stable order
+        if dim_key == "org_size":
+            sorted_vals = [s for s in ALL_ORG_SIZES if s in all_vals]
+            # Add any others that might be there but not in ALL_ORG_SIZES
+            for v in sorted(all_vals):
+                if v not in sorted_vals:
+                    sorted_vals.append(v)
+        else:
+            sorted_vals = sorted(list(all_vals))
+
+        # Build contingency table
+        table = []
+        for _, rows in selected_cuts:
+            counts = Counter(dim_fn(r) for r in rows)
+            table.append([counts[v] for v in sorted_vals])
+
+        chi2, p, df = chi_square_test(table)
+
+        # Compute distributions per group
+        distributions = {}
+        for (label, rows), row_counts in zip(selected_cuts, table):
+            n = len(rows)
+            group_key = label_to_key[label]
+            distributions[group_key] = {
+                val: (row_counts[i] / n if n > 0 else 0)
+                for i, val in enumerate(sorted_vals)
+            }
+
+        bias_results[dim_key] = {
+            "label": dim_label,
+            "chi2": round(chi2, 4) if chi2 is not None else None,
+            "p": round(p, 4) if p is not None else None,
+            "df": df,
+            "values": sorted_vals,
+            "distributions": distributions
+        }
+
+    return bias_results
+
+
+def print_filter_bias(bias_results):
+    """Print filter bias analysis results."""
+    if not bias_results:
+        return
+    print(f"\n{'=' * 78}")
+    print("  FILTER BIAS ANALYSIS (Chi-Square Independence Test)")
+    print("=" * 78)
+
+    for dim_key, data in bias_results.items():
+        print(f"\n  {data['label']}:")
+        if data['p'] is not None:
+            sig = "SIGNIFICANT" if data['p'] < 0.05 else "not significant"
+            print(f"    Chi2 = {data['chi2']:.2f}, df = {data['df']}, p = {data['p']:.4f} ({sig})")
+        else:
+            print("    Insufficient data for Chi-square test.")
+
+        headers = list(data['distributions'].keys())
+        print(f"    {'Category':<30} " + "".join(f"{k[:10]:>12}" for k in headers))
+        for val in data['values']:
+            line = f"    {val[:30]:<30}"
+            for g_key in headers:
+                pct = data['distributions'][g_key].get(val, 0) * 100
+                line += f"{pct:11.1f}%"
+            print(line)
+
+
 def sensitivity_to_json(cuts, idx):
     """Return sensitivity analysis results as a JSON-serializable dict."""
     result = {"samples": [], "metrics": []}
@@ -1376,6 +1557,9 @@ def sensitivity_to_json(cuts, idx):
             "inferential": inferential_for(rows),
         }
 
+    # ── Filter Bias Analysis ──
+    result["filter_bias"] = filter_bias_analysis(cuts, idx)
+
     return result
 
 
@@ -1427,6 +1611,9 @@ def main():
         ("All V2", samples["v2_all"]),
     ]
     print_sensitivity(cuts, idx)
+
+    bias_results = filter_bias_analysis(cuts, idx)
+    print_filter_bias(bias_results)
 
     # JSON output
     if args.json_output:
