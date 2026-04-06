@@ -22,16 +22,7 @@ from tabs_api import (
     prolific_submissions,
     prolific_user_messages,
 )
-
-THANK_YOU_MESSAGE = (
-    "Hi, thank you for participating in our Technology Adoption Barriers Survey "
-    "and for taking the time to respond to our review message. Your submission "
-    "has been approved. We appreciate your thoughtful engagement and the insights "
-    "you shared — they are valuable to our research. Thank you again for your "
-    "contribution!"
-)
-
-SIGNATURE = "Your submission has been approved"
+from prolific_messages import SIGNATURE, THANK_YOU_MESSAGE
 
 
 def _require_env(name: str) -> str:

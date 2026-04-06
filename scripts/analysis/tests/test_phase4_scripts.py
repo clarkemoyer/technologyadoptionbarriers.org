@@ -212,6 +212,29 @@ class TestMessageFlagged:
             assert "Technology Adoption Barriers Survey" in msg
 
 
+# ── prolific_messages.py (shared constants) ──────────────────────
+
+class TestProlificMessages:
+    def test_module_exports_required_constants(self):
+        from prolific_messages import SIGNATURE, THANK_YOU_MESSAGE
+
+        assert isinstance(THANK_YOU_MESSAGE, str) and THANK_YOU_MESSAGE
+        assert isinstance(SIGNATURE, str) and SIGNATURE
+
+    def test_signature_is_substring_of_message(self):
+        from prolific_messages import SIGNATURE, THANK_YOU_MESSAGE
+
+        assert SIGNATURE in THANK_YOU_MESSAGE
+
+    def test_approve_submissions_uses_shared_constants(self):
+        """approve_submissions imports its constants from prolific_messages."""
+        import prolific_messages
+        import approve_submissions
+
+        assert approve_submissions.THANK_YOU_MESSAGE is prolific_messages.THANK_YOU_MESSAGE
+        assert approve_submissions.SIGNATURE is prolific_messages.SIGNATURE
+
+
 # ── send_thank_you.py ───────────────────────────────────────────
 
 class TestSendThankYou:
@@ -219,6 +242,14 @@ class TestSendThankYou:
         from send_thank_you import THANK_YOU_MESSAGE, SIGNATURE
         assert SIGNATURE in THANK_YOU_MESSAGE
         assert "Technology Adoption Barriers Survey" in THANK_YOU_MESSAGE
+
+    def test_constants_sourced_from_shared_module(self):
+        """Both scripts re-export the same objects from prolific_messages."""
+        import prolific_messages
+        from send_thank_you import SIGNATURE, THANK_YOU_MESSAGE
+
+        assert THANK_YOU_MESSAGE is prolific_messages.THANK_YOU_MESSAGE
+        assert SIGNATURE is prolific_messages.SIGNATURE
 
     def test_missing_env(self):
         result = subprocess.run(
