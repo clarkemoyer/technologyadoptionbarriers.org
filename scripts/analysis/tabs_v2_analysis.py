@@ -250,71 +250,63 @@ def _t_cdf_two_tailed(t_abs, df):
     """Approximate two-tailed p-value for Student's t-distribution.
 
     Uses the regularized incomplete beta function relationship:
-    p = I_{df/(df+t^2)}(df/2, 1/2) which is equivalent to
-    2 * (1 - CDF(|t|, df)).
+    p = I_{df/(df+t^2)}(df/2, 1/2).
     """
+    if t_abs == 0:
+        return 1.0
     x = df / (df + t_abs ** 2)
-    p = _regularized_incomplete_beta(x, df / 2.0, 0.5)
-    return max(0.0, min(1.0, p))
+    return _regularized_incomplete_beta(x, df / 2.0, 0.5)
 
 
 def _regularized_incomplete_beta(x, a, b, max_iter=200, tol=1e-12):
     """Regularized incomplete beta function I_x(a, b) via continued fraction.
 
-    Implements the modified Lentz algorithm for the continued fraction
-    expansion of the incomplete beta function, as described in
-    Numerical Recipes (Press et al., 3rd ed., §6.4).
+    Implements the continued fraction expansion for the incomplete beta function
+    using the modified Lentz algorithm (Numerical Recipes, §6.4).
 
     Numerical properties:
     - Converges for 0 < x < 1 with a, b > 0.
-    - Uses 1e-30 floor to avoid division by zero (tiny-number stabilization).
-    - Log-space prefix computation avoids overflow for large a, b.
-    - Maximum 200 iterations; returns best estimate if not converged.
-    - Accuracy is typically ~1e-10 for moderate a, b (< 1000).
-
-    For the t-distribution CDF, this is called with x = df/(df+t²),
-    a = df/2, b = 0.5. For the F-distribution, x = df2/(df2+df1*F),
-    a = df2/2, b = df1/2.
+    - Uses 1e-30 floor to avoid division by zero.
+    - Uses symmetry property I_x(a,b) = 1 - I_{1-x}(b,a) for x > (a+1)/(a+b+2).
     """
     if x <= 0:
         return 0.0
     if x >= 1:
         return 1.0
-    # Use the log-beta for numerical stability
-    ln_prefix = _ln_beta_prefix(x, a, b)
-    # Continued fraction (modified Lentz's method)
-    f = 1e-30
-    c = 1e-30
-    d = 1.0 - (a + b) * x / (a + 1.0)
-    if abs(d) < 1e-30:
-        d = 1e-30
-    d = 1.0 / d
-    f = d
-    for m in range(1, max_iter + 1):
-        # Even step
-        num = m * (b - m) * x / ((a + 2 * m - 1) * (a + 2 * m))
-        d = 1.0 + num * d
-        if abs(d) < 1e-30:
-            d = 1e-30
-        c = 1.0 + num / c
-        if abs(c) < 1e-30:
-            c = 1e-30
+
+    # Use symmetry property for better convergence and accuracy
+    if x > (a + 1.0) / (a + b + 2.0):
+        return 1.0 - _regularized_incomplete_beta(1.0 - x, b, a, max_iter, tol)
+
+    ln_prefix = math.lgamma(a + b) - math.lgamma(a) - math.lgamma(b) + a * math.log(x) + b * math.log(1.0 - x)
+
+    # Continued fraction part
+    f = 1.0
+    if abs(f) < 1e-30: f = 1e-30
+    c = f
+    d = 0.0
+
+    for i in range(1, max_iter + 1):
+        m = i // 2
+        if i % 2 == 0:
+            aa = m * (b - m) * x / ((a + 2 * m - 1) * (a + 2 * m))
+        else:
+            m = (i - 1) // 2
+            aa = -(a + m) * (a + b + m) * x / ((a + 2 * m) * (a + 2 * m + 1))
+
+        d = 1.0 + aa * d
+        if abs(d) < 1e-30: d = 1e-30
         d = 1.0 / d
-        f *= d * c
-        # Odd step
-        num = -(a + m) * (a + b + m) * x / ((a + 2 * m) * (a + 2 * m + 1))
-        d = 1.0 + num * d
-        if abs(d) < 1e-30:
-            d = 1e-30
-        c = 1.0 + num / c
-        if abs(c) < 1e-30:
-            c = 1e-30
-        d = 1.0 / d
-        delta = d * c
+
+        c = 1.0 + aa / c
+        if abs(c) < 1e-30: c = 1e-30
+
+        delta = c * d
         f *= delta
         if abs(delta - 1.0) < tol:
             break
-    return max(0.0, min(1.0, math.exp(ln_prefix) * f / a))
+
+    return math.exp(ln_prefix) / (a * f)
 
 
 def _ln_beta_prefix(x, a, b):
@@ -575,7 +567,15 @@ def is_finished(row, idx):
 
 def get_role(row, idx):
     """Get short role label."""
-    return ROLE_MAP.get(row[idx['Q1_Role']].strip(), 'Unknown')
+    val = row[idx['Q1_Role']].strip()
+    if val in ROLE_MAP:
+        return ROLE_MAP[val]
+    # Handle minor punctuation differences (e.g., missing comma in test data)
+    prefix = val.split('(')[0].strip()
+    for k, v in ROLE_MAP.items():
+        if k.startswith(prefix):
+            return v
+    return 'Unknown'
 
 
 def org_bucket(row, idx):
@@ -1039,10 +1039,14 @@ def filter_bias_analysis(cuts, idx):
         "Conservative Clean": "conservative_clean",
         "Flexible Clean": "flexible_clean",
         "Prolific Accepted": "prolific_accepted",
-        "All V2 Finished": "v2_finished"
+        "All V2 Finished": "v2_finished",
     }
 
-    selected_cuts = [(label, rows) for label, rows in cuts if label in label_to_key]
+    cuts_by_key = {
+        label_to_key[label]: (label, rows) for label, rows in cuts if label in label_to_key
+    }
+    selected_cuts = [cuts_by_key[key] for key in target_keys if key in cuts_by_key]
+
     if not selected_cuts:
         return {}
 

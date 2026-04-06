@@ -210,13 +210,17 @@
         {
           "filter_id": "current_country_of_residence",
           "label": "Current Country of Residence",
-          "selected_values": ["United States"],
+          "selected_values": [
+            "United States"
+          ],
           "base_field": true
         },
         {
           "filter_id": "employment_status",
           "label": "Employment Status",
-          "selected_values": ["Full-Time"],
+          "selected_values": [
+            "Full-Time"
+          ],
           "base_field": true
         },
         {
@@ -237,7 +241,11 @@
         {
           "filter_id": "company_size",
           "label": "Company Size",
-          "selected_values": ["50-249", "250-999", "1000+"],
+          "selected_values": [
+            "50-249",
+            "250-999",
+            "1000+"
+          ],
           "base_field": false
         },
         {
@@ -428,21 +436,21 @@
           "constructs": {
             "barriers": {
               "t": 0.3137,
-              "p": 0.0,
+              "p": 0.7566,
               "df": 22.96,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 0.3204,
-              "p": 0.0,
+              "p": 0.7517,
               "df": 22.1,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 0.0759,
-              "p": 0.0,
+              "p": 0.9402,
               "df": 21.01,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -452,27 +460,35 @@
           "constructs": {
             "barriers": {
               "t": -1.1605,
-              "p": 0.0,
+              "p": 0.2505,
               "df": 59.59,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": -0.6642,
-              "p": 0.0,
+              "p": 0.509,
               "df": 63.12,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": -1.245,
-              "p": 0.0,
+              "p": 0.218,
               "df": 60.25,
-              "sig": true
+              "sig": false
             }
           }
         },
         "anova_by_role": {
-          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
-          "group_ns": [17, 65, 7],
+          "groups": [
+            "Technical (CIO/CTO)",
+            "Non-Technical",
+            "Other"
+          ],
+          "group_ns": [
+            17,
+            65,
+            7
+          ],
           "constructs": {
             "barriers": {
               "f": 1.8051,
@@ -498,8 +514,16 @@
           }
         },
         "anova_by_org_size": {
-          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
-          "group_ns": [30, 24, 35],
+          "groups": [
+            "Small (<500)",
+            "Medium (500-4999)",
+            "Large (5000+)"
+          ],
+          "group_ns": [
+            30,
+            24,
+            35
+          ],
           "constructs": {
             "barriers": {
               "f": 1.5389,
@@ -653,21 +677,21 @@
           "constructs": {
             "barriers": {
               "t": 0.1386,
-              "p": 0.0,
+              "p": 0.8905,
               "df": 40.62,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 0.2367,
-              "p": 0.0,
+              "p": 0.8141,
               "df": 40.38,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 0.0818,
-              "p": 0.0,
+              "p": 0.9352,
               "df": 39.54,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -677,27 +701,35 @@
           "constructs": {
             "barriers": {
               "t": -0.5955,
-              "p": 0.0,
+              "p": 0.5529,
               "df": 95.22,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": -0.2437,
-              "p": 0.0,
+              "p": 0.808,
               "df": 95.72,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": -0.6211,
-              "p": 0.0,
+              "p": 0.536,
               "df": 95.9,
-              "sig": true
+              "sig": false
             }
           }
         },
         "anova_by_role": {
-          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
-          "group_ns": [28, 100, 11],
+          "groups": [
+            "Technical (CIO/CTO)",
+            "Non-Technical",
+            "Other"
+          ],
+          "group_ns": [
+            28,
+            100,
+            11
+          ],
           "constructs": {
             "barriers": {
               "f": 0.8539,
@@ -723,8 +755,16 @@
           }
         },
         "anova_by_org_size": {
-          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
-          "group_ns": [45, 43, 51],
+          "groups": [
+            "Small (<500)",
+            "Medium (500-4999)",
+            "Large (5000+)"
+          ],
+          "group_ns": [
+            45,
+            43,
+            51
+          ],
           "constructs": {
             "barriers": {
               "f": 0.2488,
@@ -878,21 +918,21 @@
           "constructs": {
             "barriers": {
               "t": 0.1723,
-              "p": 0.0,
+              "p": 0.8638,
               "df": 63.75,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 0.1436,
-              "p": 0.0,
+              "p": 0.8863,
               "df": 65.12,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 0.0718,
-              "p": 0.0,
+              "p": 0.943,
               "df": 63.25,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -902,27 +942,35 @@
           "constructs": {
             "barriers": {
               "t": -1.3862,
-              "p": 0.0,
+              "p": 0.1677,
               "df": 150.38,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": -1.1293,
-              "p": 0.0,
+              "p": 0.2605,
               "df": 151.88,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": -1.5954,
-              "p": 0.0,
+              "p": 0.1127,
               "df": 149.02,
-              "sig": true
+              "sig": false
             }
           }
         },
         "anova_by_role": {
-          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
-          "group_ns": [43, 140, 16],
+          "groups": [
+            "Technical (CIO/CTO)",
+            "Non-Technical",
+            "Other"
+          ],
+          "group_ns": [
+            43,
+            140,
+            16
+          ],
           "constructs": {
             "barriers": {
               "f": 0.3262,
@@ -948,8 +996,16 @@
           }
         },
         "anova_by_org_size": {
-          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
-          "group_ns": [63, 60, 76],
+          "groups": [
+            "Small (<500)",
+            "Medium (500-4999)",
+            "Large (5000+)"
+          ],
+          "group_ns": [
+            63,
+            60,
+            76
+          ],
           "constructs": {
             "barriers": {
               "f": 0.9983,
@@ -1103,21 +1159,21 @@
           "constructs": {
             "barriers": {
               "t": 0.7442,
-              "p": 0.0,
+              "p": 0.458,
               "df": 140.45,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 0.6448,
-              "p": 0.0,
+              "p": 0.5201,
               "df": 139.29,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 0.8781,
-              "p": 0.0,
+              "p": 0.3815,
               "df": 135.36,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -1127,27 +1183,35 @@
           "constructs": {
             "barriers": {
               "t": -1.7126,
-              "p": 0.0,
+              "p": 0.0879,
               "df": 282.83,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": -1.8023,
-              "p": 0.0,
+              "p": 0.0726,
               "df": 275.27,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": -2.3185,
-              "p": 0.0,
+              "p": 0.0211,
               "df": 277.47,
               "sig": true
             }
           }
         },
         "anova_by_role": {
-          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
-          "group_ns": [90, 306, 44],
+          "groups": [
+            "Technical (CIO/CTO)",
+            "Non-Technical",
+            "Other"
+          ],
+          "group_ns": [
+            90,
+            306,
+            44
+          ],
           "constructs": {
             "barriers": {
               "f": 0.3223,
@@ -1173,8 +1237,16 @@
           }
         },
         "anova_by_org_size": {
-          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
-          "group_ns": [151, 142, 147],
+          "groups": [
+            "Small (<500)",
+            "Medium (500-4999)",
+            "Large (5000+)"
+          ],
+          "group_ns": [
+            151,
+            142,
+            147
+          ],
           "constructs": {
             "barriers": {
               "f": 1.5049,
@@ -1328,21 +1400,21 @@
           "constructs": {
             "barriers": {
               "t": 0.8671,
-              "p": 0.0,
+              "p": 0.3872,
               "df": 155.84,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 0.9058,
-              "p": 0.0,
+              "p": 0.3664,
               "df": 153.59,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 1.0069,
-              "p": 0.0,
+              "p": 0.3156,
               "df": 151.32,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -1352,27 +1424,35 @@
           "constructs": {
             "barriers": {
               "t": -1.7504,
-              "p": 0.0,
+              "p": 0.081,
               "df": 324.52,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": -1.8619,
-              "p": 0.0,
+              "p": 0.0635,
               "df": 314.63,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": -2.1999,
-              "p": 0.0,
+              "p": 0.0285,
               "df": 321.54,
               "sig": true
             }
           }
         },
         "anova_by_role": {
-          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
-          "group_ns": [100, 350, 50],
+          "groups": [
+            "Technical (CIO/CTO)",
+            "Non-Technical",
+            "Other"
+          ],
+          "group_ns": [
+            100,
+            350,
+            50
+          ],
           "constructs": {
             "barriers": {
               "f": 0.4469,
@@ -1398,8 +1478,16 @@
           }
         },
         "anova_by_org_size": {
-          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
-          "group_ns": [168, 166, 166],
+          "groups": [
+            "Small (<500)",
+            "Medium (500-4999)",
+            "Large (5000+)"
+          ],
+          "group_ns": [
+            168,
+            166,
+            166
+          ],
           "constructs": {
             "barriers": {
               "f": 1.5576,
@@ -1433,7 +1521,18 @@
       "chi2": 9.7636,
       "p": 0.999,
       "df": 27,
-      "values": ["CEO", "CFO", "CHRO", "CIO", "CMO", "COO", "CRO", "CSO", "CTO", "Other"],
+      "values": [
+        "CEO",
+        "CFO",
+        "CHRO",
+        "CIO",
+        "CMO",
+        "COO",
+        "CRO",
+        "CSO",
+        "CTO",
+        "Other"
+      ],
       "distributions": {
         "conservative_clean": {
           "CEO": 0.12359550561797752,
@@ -1490,7 +1589,14 @@
       "chi2": 7.9153,
       "p": 0.9271,
       "df": 15,
-      "values": ["<100", "100-499", "500-999", "1000-4999", "5000-9999", "10000+"],
+      "values": [
+        "<100",
+        "100-499",
+        "500-999",
+        "1000-4999",
+        "5000-9999",
+        "10000+"
+      ],
       "distributions": {
         "conservative_clean": {
           "<100": 0.1797752808988764,
@@ -1531,7 +1637,11 @@
       "chi2": 4.2805,
       "p": 0.6388,
       "df": 6,
-      "values": ["For-Profit", "Government/Public Sector", "Non-Profit"],
+      "values": [
+        "For-Profit",
+        "Government/Public Sector",
+        "Non-Profit"
+      ],
       "distributions": {
         "conservative_clean": {
           "For-Profit": 0.29213483146067415,

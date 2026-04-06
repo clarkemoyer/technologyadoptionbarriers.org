@@ -20,16 +20,61 @@ export const metadata: Metadata = {
   },
 }
 
-interface SampleInfo {
-  key: string
-  label: string
-  n: number
+interface SensitivityData {
+  samples: {
+    key: string
+    label: string
+    description: string
+    n: number
+  }[]
+  metrics: {
+    key: string
+    label: string
+    values: Record<string, number | null>
+  }[]
+  sample_details: Record<string, SampleDetail>
+  filter_bias: Record<string, FilterBias>
+  last_updated: string
 }
 
-interface MetricInfo {
-  key: string
+interface SampleDetail {
+  demographics: {
+    roles: Record<string, number>
+    org_sizes: Record<string, number>
+    profit_models: Record<string, number>
+    tech_vs_nontech: {
+      technical: number
+      non_technical: number
+      other: number
+    }
+  }
+  effect_sizes: {
+    tech_vs_nontech?: {
+      tech_n: number
+      nontech_n: number
+      constructs: Record<
+        string,
+        { tech_mean: number | null; nontech_mean: number | null; d: number | null }
+      >
+    }
+    large_vs_small?: {
+      large_n: number
+      small_medium_n: number
+      constructs: Record<
+        string,
+        { large_mean: number | null; small_medium_mean: number | null; d: number | null }
+      >
+    }
+  }
+}
+
+interface FilterBias {
   label: string
-  values: Record<string, number | null>
+  chi2: number | null
+  p: number | null
+  df: number
+  values: string[]
+  distributions: Record<string, Record<string, number>>
 }
 
 const PRIMARY_GROUPS = [
@@ -47,15 +92,10 @@ const fmt = (val: number | null | undefined, decimals: number = 4): string => {
 const ORG_SIZE_ORDER = ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']
 
 const DatasetComparisonPage = () => {
-  const samples: SampleInfo[] = (sensitivityData.samples ?? []).filter((s) =>
-    PRIMARY_GROUPS.some((g) => g.key === s.key)
-  ) as SampleInfo[]
-
-  const metrics: MetricInfo[] = (sensitivityData.metrics ?? []) as MetricInfo[]
-  const sampleDetails = (sensitivityData as Record<string, unknown>).sample_details as Record<
-    string,
-    Record<string, unknown>
-  >
+  const typedData = sensitivityData as unknown as SensitivityData
+  const samples = typedData.samples.filter((s) => PRIMARY_GROUPS.some((g) => g.key === s.key))
+  const metrics = typedData.metrics
+  const sampleDetails = typedData.sample_details
 
   // Get the conservative clean values as the baseline for delta computation
   const baselineKey = 'conservative_clean'
@@ -80,9 +120,7 @@ const DatasetComparisonPage = () => {
         </nav>
 
         <h1 className={H1_CLASSES}>Dataset Comparison</h1>
-        <LastUpdated
-          utcTimestamp={(sensitivityData as Record<string, unknown>).last_updated as string}
-        />
+        <LastUpdated utcTimestamp={typedData.last_updated} />
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
@@ -150,7 +188,7 @@ const DatasetComparisonPage = () => {
                       key={`delta-${g.key}`}
                       className="text-right p-2 border-b font-semibold text-gray-500"
                     >
-                      &Delta; {g.label.split(' ')[0]}
+                      &Delta; {g.label}
                     </th>
                   ))}
                 </tr>
@@ -216,9 +254,9 @@ const DatasetComparisonPage = () => {
               </thead>
               <tbody>
                 {PRIMARY_GROUPS.map((group) => {
-                  const details = sampleDetails?.[group.key] as Record<string, unknown> | undefined
-                  const demo = details?.demographics as Record<string, unknown> | undefined
-                  const tvn = demo?.tech_vs_nontech as Record<string, number> | undefined
+                  const details = sampleDetails?.[group.key]
+                  const demo = details?.demographics
+                  const tvn = demo?.tech_vs_nontech
                   const tech = tvn?.technical ?? 0
                   const nontech = tvn?.non_technical ?? 0
                   const other = tvn?.other ?? 0
@@ -257,9 +295,9 @@ const DatasetComparisonPage = () => {
               </thead>
               <tbody>
                 {PRIMARY_GROUPS.map((group) => {
-                  const details = sampleDetails?.[group.key] as Record<string, unknown> | undefined
-                  const demo = details?.demographics as Record<string, unknown> | undefined
-                  const sizes = (demo?.org_sizes ?? {}) as Record<string, number>
+                  const details = sampleDetails?.[group.key]
+                  const demo = details?.demographics
+                  const sizes = demo?.org_sizes ?? {}
                   return (
                     <tr key={group.key} className={group.color}>
                       <td className="p-2 border-b font-medium">{group.label}</td>
@@ -287,47 +325,56 @@ const DatasetComparisonPage = () => {
             by more than 5% are highlighted.
           </p>
 
-          {((sensitivityData as Record<string, unknown>).filter_bias as
-            | Record<string, Record<string, unknown>>
-            | undefined) ? (
-            Object.entries(
-              (sensitivityData as Record<string, unknown>).filter_bias as Record<
-                string,
-                Record<string, unknown>
-              >
-            ).map(([dimKey, bias]) => {
-              const distributions = bias.distributions as Record<string, Record<string, number>>
+          {typedData.filter_bias ? (
+            Object.entries(typedData.filter_bias).map(([dimKey, bias]) => {
+              const distributions = bias.distributions
               const baselineDist = distributions['v2_finished'] || {}
               const conservativeDist = distributions['conservative_clean'] || {}
 
               return (
                 <div key={dimKey} className="mb-10">
-                  <h3 className={H3_CLASSES}>{bias.label as string} Independence Test</h3>
-                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4 flex flex-wrap gap-6 text-sm">
-                    <div>
-                      <span className="text-gray-500 font-medium">Chi-square (&chi;&sup2;):</span>{' '}
-                      <span className="font-mono font-bold text-gray-900">
-                        {fmt(bias.chi2 as number, 2)}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-gray-500 font-medium">Degrees of Freedom (df):</span>{' '}
-                      <span className="font-mono font-bold text-gray-900">{bias.df as number}</span>
-                    </div>
-                    <div>
-                      <span className="text-gray-500 font-medium">p-value:</span>{' '}
-                      <span
-                        className={`font-mono font-bold ${(bias.p as number) < 0.05 ? 'text-red-600' : 'text-green-600'}`}
-                      >
-                        {fmt(bias.p as number, 4)}
-                      </span>
-                    </div>
-                    <div className="flex-1 text-right italic text-gray-500 hidden sm:block">
-                      {(bias.p as number) < 0.05
+                  <h3 className={H3_CLASSES}>{bias.label} Independence Test</h3>
+                  {(() => {
+                    const pValue = bias.p
+                    const isMissingPValue = pValue == null
+                    const pValueClass = isMissingPValue
+                      ? 'text-gray-500'
+                      : pValue < 0.05
+                        ? 'text-red-600'
+                        : 'text-green-600'
+                    const pValueText = isMissingPValue ? '—' : fmt(pValue, 4)
+                    const biasMessage = isMissingPValue
+                      ? '— Insufficient data to assess composition shift'
+                      : pValue < 0.05
                         ? '⚠️ Significant composition shift detected'
-                        : '✅ No significant composition shift'}
-                    </div>
-                  </div>
+                        : '✅ No significant composition shift'
+
+                    return (
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4 flex flex-wrap gap-6 text-sm">
+                        <div>
+                          <span className="text-gray-500 font-medium">
+                            Chi-square (&chi;&sup2;):
+                          </span>{' '}
+                          <span className="font-mono font-bold text-gray-900">
+                            {fmt(bias.chi2, 2)}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-gray-500 font-medium">
+                            Degrees of Freedom (df):
+                          </span>{' '}
+                          <span className="font-mono font-bold text-gray-900">{bias.df}</span>
+                        </div>
+                        <div>
+                          <span className="text-gray-500 font-medium">p-value:</span>{' '}
+                          <span className={`font-mono font-bold ${pValueClass}`}>{pValueText}</span>
+                        </div>
+                        <div className="flex-1 text-right italic text-gray-500 hidden sm:block">
+                          {biasMessage}
+                        </div>
+                      </div>
+                    )
+                  })()}
 
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm font-sans border-collapse">
@@ -336,13 +383,13 @@ const DatasetComparisonPage = () => {
                           <th className="text-left p-2 border-b">Category</th>
                           {PRIMARY_GROUPS.map((g) => (
                             <th key={g.key} className="text-right p-2 border-b">
-                              {g.label.split(' ')[0]}
+                              {g.label}
                             </th>
                           ))}
                         </tr>
                       </thead>
                       <tbody>
-                        {(bias.values as string[]).map((val) => {
+                        {bias.values.map((val) => {
                           const consPct = conservativeDist[val] || 0
                           const basePct = baselineDist[val] || 0
                           const diff = consPct - basePct
@@ -423,13 +470,11 @@ const DatasetComparisonPage = () => {
                   <tr key={construct} className="hover:bg-gray-50">
                     <td className="p-2 border-b capitalize">{construct}</td>
                     {PRIMARY_GROUPS.map((group) => {
-                      const details = sampleDetails?.[group.key] as
-                        | Record<string, unknown>
-                        | undefined
-                      const es = details?.effect_sizes as Record<string, unknown> | undefined
-                      const tvn = es?.tech_vs_nontech as Record<string, unknown> | undefined
-                      const constructs = tvn?.constructs as Record<string, unknown> | undefined
-                      const c = constructs?.[construct] as Record<string, number | null> | undefined
+                      const details = sampleDetails?.[group.key]
+                      const es = details?.effect_sizes
+                      const tvn = es?.tech_vs_nontech
+                      const constructs = tvn?.constructs
+                      const c = constructs?.[construct]
                       return (
                         <td key={group.key} className="text-right p-2 border-b font-mono">
                           {c?.d != null ? c.d.toFixed(3) : '—'}
@@ -460,13 +505,11 @@ const DatasetComparisonPage = () => {
                   <tr key={construct} className="hover:bg-gray-50">
                     <td className="p-2 border-b capitalize">{construct}</td>
                     {PRIMARY_GROUPS.map((group) => {
-                      const details = sampleDetails?.[group.key] as
-                        | Record<string, unknown>
-                        | undefined
-                      const es = details?.effect_sizes as Record<string, unknown> | undefined
-                      const lvs = es?.large_vs_small as Record<string, unknown> | undefined
-                      const constructs = lvs?.constructs as Record<string, unknown> | undefined
-                      const c = constructs?.[construct] as Record<string, number | null> | undefined
+                      const details = sampleDetails?.[group.key]
+                      const es = details?.effect_sizes
+                      const lvs = es?.large_vs_small
+                      const constructs = lvs?.constructs
+                      const c = constructs?.[construct]
                       return (
                         <td key={group.key} className="text-right p-2 border-b font-mono">
                           {c?.d != null ? c.d.toFixed(3) : '—'}

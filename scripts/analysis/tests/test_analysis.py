@@ -32,6 +32,9 @@ from tabs_v2_analysis import (
     sensitivity_to_json,
     welch_t_test,
     oneway_anova,
+    chi_square_test,
+    filter_bias_analysis,
+    _t_cdf_two_tailed,
     BARRIER_SCALE,
     READINESS_SCALE,
     MATURITY_SCALE,
@@ -327,6 +330,10 @@ class TestSensitivityJSON:
             assert "values" in metric
             assert isinstance(metric["values"], dict)
 
+        # Check filter_bias block
+        assert "filter_bias" in result
+        assert "role" in result["filter_bias"]
+
     def test_sample_details_structure(self, test_data_csv):
         """sample_details must contain demographics, effect_sizes, cross_tabs, and inferential per group."""
         idx, data = load_data(test_data_csv)
@@ -457,6 +464,12 @@ class TestWelchTTest:
         assert t == pytest.approx(0.0, abs=1e-6)
         assert p == pytest.approx(1.0, abs=0.01)
 
+    def test_p_value_accuracy(self):
+        # Regression test for reported issue: t=0.31, df=23 should give p ~ 0.76
+        # Before fix, numerical instability in incomplete beta could return 0.0
+        p = _t_cdf_two_tailed(0.31, 23)
+        assert p == pytest.approx(0.7594, abs=0.001)
+
     def test_different_groups(self):
         g1 = [10.0, 11.0, 12.0, 13.0, 14.0]
         g2 = [1.0, 2.0, 3.0, 4.0, 5.0]
@@ -499,3 +512,76 @@ class TestOnewayAnova:
     def test_insufficient_groups(self):
         f, p, df_b, df_w = oneway_anova([1.0, 2.0])
         assert f is None
+
+
+# ── chi_square_test ─────────────────────────────────────────
+
+class TestChiSquare:
+    def test_independent(self):
+        # Perfectly independent 2x2 table
+        table = [
+            [10, 10],
+            [10, 10]
+        ]
+        chi2, p, df = chi_square_test(table)
+        assert chi2 == 0.0
+        assert p == 1.0
+        assert df == 1
+
+    def test_highly_dependent(self):
+        # Clear dependency
+        table = [
+            [50, 5],
+            [5, 50]
+        ]
+        chi2, p, df = chi_square_test(table)
+        assert chi2 > 60
+        assert p < 0.0001
+        assert df == 1
+
+    def test_insufficient_data(self):
+        chi2, p, df = chi_square_test([])
+        assert chi2 is None
+        chi2, p, df = chi_square_test([[0, 0], [0, 0]])
+        assert chi2 is None
+
+
+# ── filter_bias_analysis ───────────────────────────────────
+
+class TestFilterBiasAnalysis:
+    def test_structure(self, prod_format_csv):
+        idx, data = load_data(prod_format_csv)
+        _, samples = filter_samples(data, idx)
+
+        # Build cuts in a specific order to test deterministic sorting
+        cuts = [
+            ("All V2 Finished", samples["v2_finished"]),
+            ("Conservative Clean", samples["conservative_clean"]),
+            ("Flexible Clean", samples["flexible_clean"]),
+            ("Prolific Accepted", samples["prolific_accepted"]),
+        ]
+        bias = filter_bias_analysis(cuts, idx)
+
+        assert "role" in bias
+        assert "org_size" in bias
+        assert "profit_model" in bias
+
+        for key in ["role", "org_size", "profit_model"]:
+            dim = bias[key]
+            assert "label" in dim
+            assert "chi2" in dim
+            assert "p" in dim
+            assert "df" in dim
+            assert "values" in dim
+            assert "distributions" in dim
+
+            # Check that all 4 groups are in distributions
+            dist = dim["distributions"]
+            assert "conservative_clean" in dist
+            assert "flexible_clean" in dist
+            assert "prolific_accepted" in dist
+            assert "v2_finished" in dist
+
+            # Check that percentages sum to ~1.0
+            for group_key in dist:
+                assert sum(dist[group_key].values()) == pytest.approx(1.0)
