@@ -704,8 +704,8 @@ jobs:
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const verdictOutcome = '${{ steps.verdict.outcome }}';
             const description = verdictOutcome === 'failure'
-              ? '🚨 Production smoke test failed — site may be broken'
-              : '🚨 Smoke test workflow failed before checks ran';
+              ? '[ALERT] Production smoke test failed -- site may be broken'
+              : '[ALERT] Smoke test workflow failed before checks ran';
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
