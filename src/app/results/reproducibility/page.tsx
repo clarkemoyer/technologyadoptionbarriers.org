@@ -24,8 +24,10 @@ export const metadata: Metadata = {
 
 const GITHUB_SCRIPTS =
   'https://github.com/clarkemoyer/technologyadoptionbarriers.org/blob/main/scripts/analysis'
-const GITHUB_TESTS =
+const GITHUB_TESTS_TREE =
   'https://github.com/clarkemoyer/technologyadoptionbarriers.org/tree/main/scripts/analysis/tests'
+const GITHUB_TESTS_BLOB =
+  'https://github.com/clarkemoyer/technologyadoptionbarriers.org/blob/main/scripts/analysis/tests'
 
 const ReproducibleAnalysisPage = () => {
   return (
@@ -88,7 +90,7 @@ const ReproducibleAnalysisPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             To prevent divergence, all shared constants are defined in a single TypeScript file (
             <a
-              href={`${GITHUB_SCRIPTS}/../tabs-survey-constants.ts`}
+              href="https://github.com/clarkemoyer/technologyadoptionbarriers.org/blob/main/src/lib/tabs-survey-constants.ts"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 underline hover:text-blue-800 font-mono text-sm"
@@ -503,7 +505,7 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
                 <tr>
                   <td className="border border-gray-300 px-4 py-2">
                     <a
-                      href={`${GITHUB_TESTS}/test_data_production_format.csv`}
+                      href={`${GITHUB_TESTS_BLOB}/test_data_production_format.csv`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 underline hover:text-blue-800 font-mono text-xs"
@@ -519,7 +521,7 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
                 <tr className="bg-gray-50">
                   <td className="border border-gray-300 px-4 py-2">
                     <a
-                      href={`${GITHUB_TESTS}/generate_test_data.py`}
+                      href={`${GITHUB_TESTS_BLOB}/generate_test_data.py`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 underline hover:text-blue-800 font-mono text-xs"
@@ -540,16 +542,16 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
           <p className={PARAGRAPH_CLASSES}>
             The{' '}
             <a
-              href={GITHUB_TESTS}
+              href={GITHUB_TESTS_TREE}
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 underline hover:text-blue-800"
             >
               test suite
             </a>{' '}
-            includes 18 pytest modules covering every analysis script, cross-validation between
-            scripts, edge cases, CLI argument parsing, and the operational pipeline tools. Tests run
-            automatically in CI on every push.
+            includes a comprehensive set of pytest modules covering every analysis script,
+            cross-validation between scripts, edge cases, CLI argument parsing, and the operational
+            pipeline tools. Tests run automatically in CI on every push.
           </p>
         </section>
 
@@ -680,8 +682,8 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
               data access
             </li>
             <li>
-              <strong>Automated test suite:</strong> 18 pytest modules with CI integration verify
-              script correctness on every commit
+              <strong>Automated test suite:</strong> A comprehensive pytest suite with CI
+              integration verifies script correctness on every commit
             </li>
             <li>
               <strong>Versioned datasets:</strong> Each data release (N=200, N=500, annual) receives
@@ -717,7 +719,7 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
               View Scripts on GitHub
             </a>
             <a
-              href={GITHUB_TESTS}
+              href={GITHUB_TESTS_TREE}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-5 py-2.5 bg-gray-800 text-white rounded-lg hover:bg-gray-600 transition-colors font-sans text-sm"
