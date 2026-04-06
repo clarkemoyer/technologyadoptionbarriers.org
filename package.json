@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "NODE_OPTIONS='--max-old-space-size=4096' next build",
     "preview": "npx serve out -l 3000",
     "lint": "eslint",
     "format": "prettier --write .",
