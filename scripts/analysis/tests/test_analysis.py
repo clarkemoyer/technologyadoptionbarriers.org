@@ -99,17 +99,22 @@ class TestPearsonR:
 
 class TestCohensD:
     def test_identical_groups(self):
-        d = cohens_d([5, 5, 5], [5, 5, 5])
+        d, ci_l, ci_u = cohens_d([5, 5, 5], [5, 5, 5])
         # Zero difference but also zero pooled SD
         assert d is None
+        assert ci_l is None
+        assert ci_u is None
 
     def test_large_effect(self):
-        d = cohens_d([10, 11, 12], [1, 2, 3])
+        d, ci_l, ci_u = cohens_d([10, 11, 12], [1, 2, 3])
         assert d is not None
+        assert ci_l is not None
+        assert ci_u is not None
         assert abs(d) > 0.8  # large effect
+        assert ci_l <= d <= ci_u
 
     def test_insufficient_data(self):
-        assert cohens_d([5], [3]) is None
+        assert cohens_d([5], [3]) == (None, None, None)
 
 
 # ── cronbach_alpha ───────────────────────────────────────────
@@ -458,28 +463,35 @@ class TestWelchTTest:
     def test_equal_groups(self):
         g1 = [1.0, 2.0, 3.0, 4.0, 5.0]
         g2 = [1.0, 2.0, 3.0, 4.0, 5.0]
-        t, p, df = welch_t_test(g1, g2)
+        t, p, df, ci_l, ci_u = welch_t_test(g1, g2)
         assert t == pytest.approx(0.0, abs=1e-6)
         assert p == pytest.approx(1.0, abs=0.01)
+        assert ci_l < 0.0
+        assert ci_u > 0.0
 
     def test_different_groups(self):
         g1 = [10.0, 11.0, 12.0, 13.0, 14.0]
         g2 = [1.0, 2.0, 3.0, 4.0, 5.0]
-        t, p, df = welch_t_test(g1, g2)
+        t, p, df, ci_l, ci_u = welch_t_test(g1, g2)
         assert t > 0
         assert p < 0.01  # clearly significant
+        assert ci_l > 0.0  # mean diff is strictly positive
+        assert ci_l < ci_u
 
     def test_insufficient_data(self):
-        t, p, df = welch_t_test([1.0], [2.0, 3.0])
+        t, p, df, ci_l, ci_u = welch_t_test([1.0], [2.0, 3.0])
         assert t is None
         assert p is None
+        assert ci_l is None
 
     def test_filters_none(self):
         g1 = [1.0, None, 3.0, 5.0]
         g2 = [2.0, 4.0, None, 6.0]
-        t, p, df = welch_t_test(g1, g2)
+        t, p, df, ci_l, ci_u = welch_t_test(g1, g2)
         assert t is not None
         assert p is not None
+        assert ci_l is not None
+        assert ci_u is not None
 
 
 # ── oneway_anova ────────────────────────────────────────────
