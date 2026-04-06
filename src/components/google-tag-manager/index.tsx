@@ -2,7 +2,7 @@
 
 import Script from 'next/script'
 
-const DEFAULT_GTM_ID = 'GTM-P5GBFCTL'
+export const DEFAULT_GTM_ID = 'GTM-P5GBFCTL'
 
 /**
  * Validates a GTM container ID. Returns the ID unchanged if it contains only

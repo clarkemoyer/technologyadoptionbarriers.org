@@ -3,6 +3,7 @@ import { render } from '@testing-library/react'
 import GoogleTagManager, {
   GoogleTagManagerNoScript,
   sanitizeGtmId,
+  DEFAULT_GTM_ID,
 } from '../../src/components/google-tag-manager'
 
 // Mock next/script so dangerouslySetInnerHTML is rendered into a real DOM node
@@ -55,12 +56,13 @@ describe('GoogleTagManager component', () => {
   it('uses the default GTM ID when NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID is not set', () => {
     delete process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID
     const { getByTestId } = render(<GoogleTagManager />)
-    expect(getByTestId('mock-script').innerHTML).toContain('GTM-P5GBFCTL')
+    expect(getByTestId('mock-script').innerHTML).toContain(DEFAULT_GTM_ID)
   })
 
   it('uses a valid NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID when set', () => {
     process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID = 'GTM-VALID123'
-    // Re-import so the module-level sanitizedGtmId picks up the new env value
+    // Re-import so the module-level sanitizedGtmId constant is re-evaluated with
+    // the updated env value (module-level constants are computed at import time).
     const { default: GTM } = require('../../src/components/google-tag-manager')
     const { getByTestId } = render(<GTM />)
     expect(getByTestId('mock-script').innerHTML).toContain('GTM-VALID123')
@@ -94,8 +96,7 @@ describe('GoogleTagManagerNoScript component', () => {
 
   it('renders an iframe with the default GTM ID when env var is not set', () => {
     delete process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID
-    // jsdom does not expose children of <noscript>; render the iframe directly
-    const expectedId = sanitizeGtmId('GTM-P5GBFCTL')
+    const expectedId = sanitizeGtmId(DEFAULT_GTM_ID)
     const { getByTitle } = render(
       <iframe
         src={`https://www.googletagmanager.com/ns.html?id=${expectedId}`}
