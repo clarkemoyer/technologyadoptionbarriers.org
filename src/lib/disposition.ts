@@ -104,7 +104,7 @@ export function withinPersonSD(responses: string[]): number {
 
   // Map unique values to numeric indices
   const uniqueValues = [...new Set(nonEmpty)]
-  const numeric = nonEmpty.map((r) => uniqueValues.indexOf(r))
+  const numeric: number[] = nonEmpty.map((r) => uniqueValues.indexOf(r))
 
   const mean = numeric.reduce((a, b) => a + b, 0) / numeric.length
   const variance = numeric.reduce((sum, val) => sum + (val - mean) ** 2, 0) / numeric.length
