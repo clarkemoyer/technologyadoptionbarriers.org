@@ -308,6 +308,9 @@ $MSG_ROWS
 STATUSEOF
 
 # --- Preflight: ensure labels exist (idempotent) ---
+# Suppress all errors intentionally: the label may already exist, and
+# `gh label create` exits non-zero in that case. Other errors (auth, network)
+# will surface later when `gh issue create` or `gh issue edit` runs.
 for LABEL in "auto-close-eligible" "auto-closed"; do
   gh label create "$LABEL" --color "#ededed" --description "Daily report auto-management" 2>/dev/null || true
 done
@@ -354,7 +357,9 @@ echo "Daily report issue created: $TITLE ($ISSUE_URL)"
 # the cron runs slightly earlier today.
 echo "Checking for old auto-close-eligible issues..."
 CUTOFF_EPOCH=$(date -u -d '23 hours ago' +'%s')
-OLD_ISSUES=$(gh issue list --label "auto-close-eligible" --state "open" --json number,createdAt --jq ".[] | select(((.createdAt | sub(\"\\.[0-9]+Z$\"; \"Z\") | fromdateiso8601)) < ${CUTOFF_EPOCH}) | .number")
+# Strip fractional seconds (e.g. "2024-01-15T09:00:00.000Z" -> "2024-01-15T09:00:00Z")
+# before calling fromdateiso8601, which requires a strict RFC 3339 string.
+OLD_ISSUES=$(gh issue list --label "auto-close-eligible" --state "open" --json number,createdAt --jq ".[] | select(((.createdAt | split(\".\")[0] + \"Z\" | fromdateiso8601)) < ${CUTOFF_EPOCH}) | .number")
 
 for ISSUE_NUM in $OLD_ISSUES; do
   echo "Auto-closing issue #$ISSUE_NUM"
