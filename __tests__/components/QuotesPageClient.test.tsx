@@ -62,6 +62,15 @@ describe('QuotesPageClient', () => {
       expect(screen.getByText('Heraclitus')).toBeInTheDocument()
     })
 
+    it('trims leading and trailing whitespace from search', () => {
+      render(<QuotesPageClient />)
+      const searchInput = screen.getByLabelText('Search quotes')
+
+      fireEvent.change(searchInput, { target: { value: '  Heraclitus  ' } })
+
+      expect(screen.getByText('Heraclitus')).toBeInTheDocument()
+    })
+
     it('shows empty state when no quotes match', () => {
       render(<QuotesPageClient />)
       const searchInput = screen.getByLabelText('Search quotes')

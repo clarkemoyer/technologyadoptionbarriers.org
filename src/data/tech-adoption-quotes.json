@@ -520,5 +520,14 @@
     "yearDisplay": "2025",
     "source": "Fortune interview, 2025",
     "era": "AI Era"
+  },
+  {
+    "quote": "The rate of change is accelerating. The skills that make you valuable today might not matter in 2-3 years. Continuous learning isn't optional — it's survival.",
+    "author": "Sam Altman",
+    "role": "CEO of OpenAI",
+    "year": 2026,
+    "yearDisplay": "2026",
+    "source": "Interview, early 2026",
+    "era": "AI Era"
   }
 ]
