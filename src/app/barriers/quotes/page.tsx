@@ -4,7 +4,7 @@ import QuotesPageClient from './quotes-client'
 export const metadata: Metadata = {
   title: 'Famous Quotes on Technology Adoption | TABS',
   description:
-    "Explore 50+ famous quotes about technology adoption, innovation, and resistance to change — from ancient philosophers to modern AI leaders. A curated chronological journey through humanity's relationship with new technology.",
+    "Explore 50+ famous quotes on technology adoption barriers, innovation, and resistance to change. A curated chronological journey through history's relationship with new technology, from ancient philosophers to modern AI leaders.",
   keywords: [
     'technology adoption quotes',
     'innovation quotes',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Famous Quotes on Technology Adoption | TABS',
     description:
-      'Explore 50+ famous quotes about technology adoption, from ancient philosophers to modern AI leaders.',
+      'Explore 50+ famous quotes on technology adoption barriers, innovation, and resistance to change, from ancient philosophers to modern AI leaders.',
     type: 'website',
   },
 }
