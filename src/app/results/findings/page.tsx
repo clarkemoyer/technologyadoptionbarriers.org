@@ -172,7 +172,9 @@ const renderItemStatsTable = (
                   shiftDisplay = <span className="text-green-600 font-medium">▲ +{diff}</span>
                   if (diff >= 2) rowClass = 'bg-green-50 hover:bg-green-100 transition-colors'
                 } else if (diff < 0) {
-                  shiftDisplay = <span className="text-red-600 font-medium">▼ {diff}</span>
+                  shiftDisplay = (
+                    <span className="text-red-600 font-medium">▼ {Math.abs(diff)}</span>
+                  )
                   if (diff <= -2) rowClass = 'bg-red-50 hover:bg-red-100 transition-colors'
                 }
               } else if (baselineItems) {
@@ -360,20 +362,21 @@ const FindingsPage = () => {
                       Maturity
                     </h4>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {/* Note: Maturity only has 8 items. To avoid duplicate overlaps, we just display the top 4 and bottom 4. */}
                       {renderItemStatsTable(
-                        'Top 5 Maturity',
-                        groupStats.constructs.maturity.top5,
+                        'Top 4 Maturity',
+                        groupStats.constructs.maturity.top5.slice(0, 4),
                         group.key === 'conservative_clean'
                           ? null
-                          : baselineStats?.constructs.maturity.top5,
+                          : baselineStats?.constructs.maturity.top5.slice(0, 4),
                         true
                       )}
                       {renderItemStatsTable(
-                        'Bottom 5 Maturity',
-                        groupStats.constructs.maturity.bottom5,
+                        'Bottom 4 Maturity',
+                        groupStats.constructs.maturity.bottom5.slice(-4),
                         group.key === 'conservative_clean'
                           ? null
-                          : baselineStats?.constructs.maturity.bottom5,
+                          : baselineStats?.constructs.maturity.bottom5.slice(-4),
                         false
                       )}
                     </div>

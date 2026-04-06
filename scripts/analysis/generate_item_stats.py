@@ -18,8 +18,6 @@ Usage:
 Environment variables:
     INPUT_CSV    Path to the enriched Qualtrics CSV (required)
     OUTPUT_PATH  Destination path for item-stats.json (required)
-    SAMPLE       Sample to use: conservative_clean (default), flexible_clean,
-                 prolific_accepted, v2_finished, v2_all
 
 Author: Clarke Moyer / GitHub Copilot, Penn State Smeal DBA
 """
