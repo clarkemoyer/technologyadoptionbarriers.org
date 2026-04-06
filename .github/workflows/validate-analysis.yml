@@ -68,7 +68,7 @@ jobs:
           print('All constant validations passed')
           PYEOF
       - name: Upload constants as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: tabs-constants-json
           path: scripts/analysis/tabs_v2_constants.json
@@ -134,7 +134,7 @@ jobs:
           PYEOF
       - name: Upload test analysis output as artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: test-analysis-output
           path: scripts/analysis/analysis_output.txt
