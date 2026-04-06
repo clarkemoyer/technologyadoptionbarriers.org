@@ -1,3 +1,4 @@
+const { performance } = require('node:perf_hooks')
 const fs = require('fs')
 
 // Load the actual data to make it realistic
