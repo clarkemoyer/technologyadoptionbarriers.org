@@ -33,7 +33,7 @@ interface SensitivityData {
     values: Record<string, number | null>
   }[]
   sample_details: Record<string, SampleDetail>
-  filter_bias?: Record<string, FilterBias>
+  filter_bias: Record<string, FilterBias>
   last_updated: string
 }
 
@@ -72,7 +72,7 @@ interface FilterBias {
   label: string
   chi2: number | null
   p: number | null
-  df: number | null
+  df: number
   values: string[]
   distributions: Record<string, Record<string, number>>
 }
@@ -325,7 +325,7 @@ const DatasetComparisonPage = () => {
             by more than 5% are highlighted.
           </p>
 
-          {typedData.filter_bias && Object.keys(typedData.filter_bias).length > 0 ? (
+          {typedData.filter_bias ? (
             Object.entries(typedData.filter_bias).map(([dimKey, bias]) => {
               const distributions = bias.distributions
               const baselineDist = distributions['v2_finished'] || {}
@@ -363,9 +363,7 @@ const DatasetComparisonPage = () => {
                           <span className="text-gray-500 font-medium">
                             Degrees of Freedom (df):
                           </span>{' '}
-                          <span className="font-mono font-bold text-gray-900">
-                            {bias.df ?? '—'}
-                          </span>
+                          <span className="font-mono font-bold text-gray-900">{bias.df}</span>
                         </div>
                         <div>
                           <span className="text-gray-500 font-medium">p-value:</span>{' '}

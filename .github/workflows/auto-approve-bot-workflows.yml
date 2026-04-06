@@ -29,4 +29,4 @@ jobs:
           echo "  Conclusion: ${{ github.event.workflow_run.conclusion }}"
           gh api repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}/rerun \
             -X POST
-          echo "Done — re-triggered under PAT owner context"
+          echo "Done - re-triggered under PAT owner context"
