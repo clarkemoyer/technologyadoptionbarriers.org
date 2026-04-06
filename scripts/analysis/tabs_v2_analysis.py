@@ -21,6 +21,8 @@ import math
 import sys
 from collections import Counter
 
+from scipy.stats import chi2_contingency
+
 # ─────────────────────────────────────────────────────────────
 # Configuration
 # ─────────────────────────────────────────────────────────────
@@ -359,81 +361,26 @@ def _f_cdf_right(f_val, df1, df2):
     return _regularized_incomplete_beta(x, df2 / 2.0, df1 / 2.0)
 
 
-def _regularized_incomplete_gamma_p(a, x, max_iter=100, tol=1e-12):
-    """Lower regularized incomplete gamma function P(a, x) = gamma(a, x) / Gamma(a)."""
-    if x <= 0:
-        return 0.0
-    if x > a + 1.0:
-        return 1.0 - _regularized_incomplete_gamma_q(a, x)
-    ap = a
-    delta = sum_val = 1.0 / a
-    for _ in range(max_iter):
-        ap += 1.0
-        delta *= x / ap
-        sum_val += delta
-        if abs(delta) < abs(sum_val) * tol:
-            break
-    return sum_val * math.exp(-x + a * math.log(x) - math.lgamma(a))
-
-
-def _regularized_incomplete_gamma_q(a, x, max_iter=100, tol=1e-12):
-    """Upper regularized incomplete gamma function Q(a, x) = Gamma(a, x) / Gamma(a)."""
-    if x <= 0:
-        return 1.0
-    if x < a + 1.0:
-        return 1.0 - _regularized_incomplete_gamma_p(a, x)
-    b = x + 1.0 - a
-    c = 1.0 / 1e-30
-    d = 1.0 / b
-    h = d
-    for i in range(1, max_iter + 1):
-        an = -i * (i - a)
-        b += 2.0
-        d = an * d + b
-        if abs(d) < 1e-30:
-            d = 1e-30
-        c = b + an / c
-        if abs(c) < 1e-30:
-            c = 1e-30
-        d = 1.0 / d
-        delta = d * c
-        h *= delta
-        if abs(delta - 1.0) < tol:
-            break
-    return math.exp(-x + a * math.log(x) - math.lgamma(a)) * h
-
-
-def _chi2_cdf_right(chi2, df):
-    """Right-tail p-value for Chi-square distribution: P(X^2 > chi2)."""
-    if chi2 <= 0:
-        return 1.0
-    if df <= 0:
-        return 1.0
-    return _regularized_incomplete_gamma_q(df / 2.0, chi2 / 2.0)
-
-
 def chi_square_test(observed):
     """Compute Chi-square test of independence for a contingency table.
+
+    Uses scipy.stats.chi2_contingency for accurate p-value computation.
 
     observed: list of lists (contingency table)
     Returns (chi2_statistic, p_value, degrees_of_freedom)
     """
-    if not observed or not observed[0]:
+    if not observed or not observed[0] or sum(sum(row) for row in observed) == 0:
         return (None, None, None)
+    # Check for empty rows/cols (violates test assumptions)
     row_totals = [sum(row) for row in observed]
     col_totals = [sum(col) for col in zip(*observed)]
-    grand_total = sum(row_totals)
-    if grand_total == 0:
+    if any(t == 0 for t in row_totals) or any(t == 0 for t in col_totals):
         return (None, None, None)
-    chi2 = 0.0
-    for i in range(len(observed)):
-        for j in range(len(observed[0])):
-            expected = (row_totals[i] * col_totals[j]) / grand_total
-            if expected > 0:
-                chi2 += (observed[i][j] - expected) ** 2 / expected
-    df = (len(observed) - 1) * (len(observed[0]) - 1)
-    p = _chi2_cdf_right(chi2, df) if df > 0 else 1.0
-    return chi2, p, df
+    try:
+        chi2, p, df, _ = chi2_contingency(observed, correction=False)
+        return chi2, p, df
+    except ValueError:
+        return (None, None, None)
 
 
 # ─────────────────────────────────────────────────────────────
