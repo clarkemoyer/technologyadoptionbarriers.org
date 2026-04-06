@@ -1204,8 +1204,22 @@ def sensitivity_to_json(cuts, idx):
         demographics (age, sex, ethnicity, etc.).
         """
         if not rows:
-            return {"roles": {}, "org_sizes": {}, "profit_models": {},
-                    "tech_vs_nontech": {}, "other_roles": {}}
+            return {
+                "roles": {},
+                "org_sizes": {k: 0 for k in ALL_ORG_SIZES},
+                "profit_models": {
+                    k: 0 for k in ['For-Profit', 'Non-Profit', 'Government/Public Sector']
+                },
+                "tech_vs_nontech": {
+                    "technical": 0,
+                    "non_technical": 0,
+                    "other": 0,
+                },
+                "other_roles": {
+                    "total": 0,
+                    "categories": {},
+                },
+            }
 
         # Single pass over rows to compute all demographic counts at once,
         # avoiding redundant O(N) iterations per demographic dimension.
