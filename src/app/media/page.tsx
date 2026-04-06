@@ -3,6 +3,7 @@ import { appearances } from '@/data/appearances'
 import impactData from '@/data/impact.json'
 import metricsData from '@/data/qualtrics-metrics.json'
 import { assetPath } from '@/lib/assetPath'
+import { serializeJsonLd } from '@/lib/jsonLd'
 import { getSurveysCompletedCount } from '@/lib/qualtricsStats'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
@@ -62,7 +63,7 @@ const MediaPage = () => {
       <main className="pt-[80px]">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLdJson) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(orgLdJson) }}
         />
 
         <div className="bg-gray-900 py-16 text-white">
