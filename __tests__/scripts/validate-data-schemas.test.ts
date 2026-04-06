@@ -1,5 +1,3 @@
-import fs from 'fs'
-import path from 'path'
 import {
   DispositionSummarySchema,
   SensitivityAnalysisSchema,
@@ -94,6 +92,14 @@ describe('Data Schema Validation', () => {
       }
 
       expect(() => SensitivityAnalysisSchema.parse(invalidData)).toThrow()
+    })
+  })
+
+  describe('validateDataFiles', () => {
+    it('fails when files are missing', () => {
+      // Use an empty directory to simulate missing files
+      const result = validateDataFiles('/tmp/nonexistent-dir-for-tabs-tests')
+      expect(result).toBe(false)
     })
   })
 

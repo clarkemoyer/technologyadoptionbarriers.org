@@ -9,40 +9,40 @@ export const DispositionSummarySchema = z.object({
     id: z.string(),
     name: z.string(),
     status: z.string(),
-    totalAvailablePlaces: z.number(),
-    placesTaken: z.number(),
-    averageRewardPerHour: z.number(),
-    averageTimeTaken: z.number(),
-    reward: z.number(),
+    totalAvailablePlaces: z.number().min(0),
+    placesTaken: z.number().min(0),
+    averageRewardPerHour: z.number().min(0),
+    averageTimeTaken: z.number().min(0),
+    reward: z.number().min(0),
     publishedAt: z.string(),
   }),
   completionProgress: z.object({
-    target: z.number(),
-    completed: z.number(),
-    approved: z.number(),
-    awaitingReview: z.number(),
-    percentComplete: z.number(),
+    target: z.number().min(0),
+    completed: z.number().min(0),
+    approved: z.number().min(0),
+    awaitingReview: z.number().min(0),
+    percentComplete: z.number().min(0).max(100),
   }),
-  totalResponses: z.number().optional(),
-  uniqueParticipants: z.number().optional(),
-  duplicatesRemoved: z.number().optional(),
-  dispositions: z.record(z.string(), z.number()),
-  dispositionByStatus: z.record(z.string(), z.record(z.string(), z.number())).optional(),
-  autoExcludeBreakdown: z.record(z.string(), z.number()).optional(),
+  totalResponses: z.number().min(0).optional(),
+  uniqueParticipants: z.number().min(0).optional(),
+  duplicatesRemoved: z.number().min(0).optional(),
+  dispositions: z.record(z.string(), z.number().min(0)),
+  dispositionByStatus: z.record(z.string(), z.record(z.string(), z.number().min(0))).optional(),
+  autoExcludeBreakdown: z.record(z.string(), z.number().min(0)).optional(),
   actions: z.object({
-    approved: z.number(),
-    rejected: z.number(),
-    returned: z.number(),
-    timedOut: z.number(),
-    awaitingReview: z.number(),
-    active: z.number(),
-    messaged: z.number(),
+    approved: z.number().min(0),
+    rejected: z.number().min(0),
+    returned: z.number().min(0),
+    timedOut: z.number().min(0),
+    awaitingReview: z.number().min(0),
+    active: z.number().min(0),
+    messaged: z.number().min(0),
   }),
   iriPassRates: z.object({
-    barrier: z.number(),
-    readiness: z.number(),
-    maturity: z.number(),
-    denominator: z.number(),
+    barrier: z.number().min(0).max(100),
+    readiness: z.number().min(0).max(100),
+    maturity: z.number().min(0).max(100),
+    denominator: z.number().min(0),
   }),
   studyId: z.string().optional(),
   studyName: z.string().optional(),
@@ -56,7 +56,7 @@ export const SensitivityAnalysisSchema = z
         key: z.string(),
         label: z.string(),
         description: z.string(),
-        n: z.number(),
+        n: z.number().min(0),
       })
     ),
     metrics: z.array(
@@ -71,17 +71,17 @@ export const SensitivityAnalysisSchema = z
 
 // Schema for src/data/data-audit.json
 export const DataAuditSchema = z.object({
-  disposition_counts: z.record(z.string(), z.number()).optional(),
-  iri_pass_rates: z.record(z.string(), z.number()).optional(),
-  duration_stats: z.record(z.string(), z.number()).optional(),
-  straightlining_stats: z.record(z.string(), z.number()).optional(),
-  sample_sizes: z.record(z.string(), z.number()).optional(),
+  disposition_counts: z.record(z.string(), z.number().min(0)).optional(),
+  iri_pass_rates: z.record(z.string(), z.number().min(0).max(1)).optional(),
+  duration_stats: z.record(z.string(), z.number().min(0)).optional(),
+  straightlining_stats: z.record(z.string(), z.number().min(0)).optional(),
+  sample_sizes: z.record(z.string(), z.number().min(0)).optional(),
   waterfall_steps: z.array(
     z.object({
-      step: z.number(),
+      step: z.number().min(0),
       name: z.string(),
-      count: z.number(),
-      cumulative_excluded: z.number(),
+      count: z.number().min(0),
+      cumulative_excluded: z.number().min(0),
     })
   ),
 })
@@ -109,7 +109,8 @@ export function validateDataFiles(dataDir: string) {
     const filePath = path.join(dataDir, filename)
 
     if (!fs.existsSync(filePath)) {
-      console.warn(`Warning: File not found: ${filePath}`)
+      console.error(`❌ Validation failed for ${filename}: File not found at ${filePath}`)
+      hasErrors = true
       continue
     }
 
