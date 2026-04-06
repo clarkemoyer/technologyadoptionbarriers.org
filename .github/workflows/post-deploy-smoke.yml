@@ -390,7 +390,7 @@ jobs:
             local url="$1" marker="$2" label="$3"
             fetch_data_page "$url" "$label"
             [ "$FETCH_OK" -ne 0 ] && return 0
-            if echo "$DATA_CONTENT" | grep -F -q -- "$marker"; then
+            if grep -Fq -- "$marker" /tmp/data-body 2>/dev/null; then
               echo "| $label | ✅ Data renders |" >> /tmp/data-results.txt
             else
               echo "| $label | ❌ Missing: $marker |" >> /tmp/data-results.txt
@@ -404,7 +404,7 @@ jobs:
             local grep_status
             fetch_data_page "$url" "$label"
             [ "$FETCH_OK" -ne 0 ] && return 0
-            echo "$DATA_CONTENT" | grep -qE -- "$pattern"
+            grep -qE -- "$pattern" /tmp/data-body 2>/dev/null
             grep_status=$?
             if [ "$grep_status" -eq 0 ]; then
               echo "| $label | ✅ Data renders |" >> /tmp/data-results.txt
