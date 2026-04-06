@@ -8,7 +8,7 @@ export function sanitizeGtmId(gtmId: string): string {
   return gtmId.replace(/[^a-zA-Z0-9-]/g, '')
 }
 
-function isValidGtmId(gtmId: string): boolean {
+export function isValidGtmId(gtmId: string): boolean {
   return /^GTM-[A-Z0-9]+$/.test(gtmId)
 }
 
