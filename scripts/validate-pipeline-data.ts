@@ -187,7 +187,9 @@ export function main(): void {
     try {
       data = loadJson(filePath)
     } catch (err) {
-      console.error(`\u2717 ${task.name}.json \u2014 could not read/parse: ${(err as Error).message}`)
+      console.error(
+        `\u2717 ${task.name}.json \u2014 could not read/parse: ${(err as Error).message}`
+      )
       allPassed = false
       continue
     }
