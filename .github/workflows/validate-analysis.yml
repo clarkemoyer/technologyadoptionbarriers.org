@@ -27,9 +27,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
           cache: 'npm'
@@ -68,7 +68,7 @@ jobs:
           print('All constant validations passed')
           PYEOF
       - name: Upload constants as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: tabs-constants-json
           path: scripts/analysis/tabs_v2_constants.json
@@ -80,9 +80,9 @@ jobs:
     needs: validate-constants
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
           cache: 'npm'
@@ -91,18 +91,29 @@ jobs:
       - name: Generate constants JSON
         run: npx --no-install tsx scripts/analysis/generate-constants-json.ts
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: '3.12'
+      - name: Install Python dependencies
+        run: pip install -r scripts/analysis/requirements.txt pytest
       - name: Check Python syntax
         run: |
           python3 -m py_compile scripts/analysis/tabs_v2_analysis.py
           python3 -m py_compile scripts/analysis/tabs_v2_psychometrics.py
-          echo "Python scripts compile successfully"
+          python3 -m py_compile scripts/analysis/tabs_v2_data_audit.py
+          python3 -m py_compile scripts/analysis/tabs_v2_advanced.py
+          python3 -m py_compile scripts/analysis/tabs_v2_quality_audit.py
+          python3 -m py_compile scripts/analysis/enrich_qualtrics_csv.py
+          python3 -m py_compile scripts/analysis/tabs_api.py
+          echo "All Python scripts compile successfully"
+      - name: Run pytest suite
+        run: |
+          cd scripts/analysis
+          python3 -m pytest tests/ -v --tb=short 2>&1
       - name: Run analysis script on test data
         run: |
           cd scripts/analysis
-          python3 tabs_v2_analysis.py test_data.csv > analysis_output.txt 2>&1 || true
+          python3 tabs_v2_analysis.py tests/test_data_production_format.csv > analysis_output.txt 2>&1 || true
           tail -20 analysis_output.txt
           echo "Analysis script ran without fatal errors"
       - name: Test constants import in Python
@@ -123,7 +134,7 @@ jobs:
           PYEOF
       - name: Upload test analysis output as artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: test-analysis-output
           path: scripts/analysis/analysis_output.txt

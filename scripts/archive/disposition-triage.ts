@@ -12,11 +12,11 @@
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { dirname } from 'node:path'
-import { appendGithubStepSummary } from '../src/lib/github-utils'
-import { triageCsv, type DispositionRow } from '../src/lib/disposition'
+import { appendGithubStepSummary } from '../../src/lib/github-utils'
+import { triageCsv, type DispositionRow } from '../../src/lib/disposition'
 
 // Re-export for backward compatibility with tests
-export { computeDisposition, triageCsv, type DispositionRow } from '../src/lib/disposition'
+export { computeDisposition, triageCsv, type DispositionRow } from '../../src/lib/disposition'
 
 function toCsv(rows: DispositionRow[]): string {
   const headers = [

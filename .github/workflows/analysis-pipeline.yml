@@ -1,0 +1,255 @@
+name: TABS V2 Analysis Pipeline (REPLACED)
+
+# ⚠️  SUPERSEDED by daily-pipeline.yml which chains analysis + operations
+# into a single workflow with no inter-phase delay. This file is kept for
+# reference and manual dispatch only. The schedule trigger has been removed.
+
+on:
+  workflow_dispatch:
+    inputs:
+      note:
+        description: 'Superseded by daily-pipeline.yml. Use that instead.'
+        required: false
+
+concurrency:
+  group: analysis-pipeline
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  # ── Phase 1: Fetch Prolific data (separate environment) ───────
+  # Prolific artifacts contain auth check scores (HIGH/MIXED/LOW) and
+  # submission statuses (APPROVED/REJECTED/etc.) keyed by Prolific PID.
+  # PIDs are pseudonymous identifiers (not direct identifiers like names
+  # or emails) per Prolific's data model. No direct PII, no demographics.
+  # Artifacts have 1-day retention and are accessible only to repo members.
+  fetch-prolific:
+    name: Fetch Prolific Data
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Fetch auth checks and statuses
+        run: python3 scripts/analysis/fetch_prolific_data.py
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          PROLIFIC_STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          AUTH_OUTPUT: ${{ runner.temp }}/auth-checks.csv
+          STATUSES_OUTPUT: ${{ runner.temp }}/statuses.json
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: prolific-data
+          path: |
+            ${{ runner.temp }}/auth-checks.csv
+            ${{ runner.temp }}/statuses.json
+          retention-days: 1
+
+  # ── Phase 2: Export Qualtrics + Enrich + Analyze ──────────────
+  # Qualtrics export and all analysis happen in a single job so
+  # the raw CSV (which contains PII) never leaves the runner.
+  analyze:
+    name: Export, Enrich & Analyze
+    needs: fetch-prolific
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install -r scripts/analysis/requirements.txt
+
+      # Export Qualtrics CSV — stays on runner, never uploaded
+      - name: Export Qualtrics CSV
+        run: python3 scripts/analysis/export_qualtrics.py
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/qualtrics-raw.csv
+
+      # Download Prolific data (auth checks + statuses — pseudonymous PIDs only)
+      - uses: actions/download-artifact@v8
+        with:
+          name: prolific-data
+          path: ${{ runner.temp }}
+
+      # Enrich Qualtrics CSV with Prolific auth checks and statuses.
+      # Demographics are not included here because they require the
+      # prolific-prod environment and contain per-participant personal data
+      # that should not be stored as artifacts. Survey demographics (Q1-Q9)
+      # are already in the Qualtrics CSV.
+      - name: Enrich CSV with Prolific data
+        run: |
+          python scripts/analysis/enrich_qualtrics_csv.py \
+            --qualtrics "${{ runner.temp }}/qualtrics-raw.csv" \
+            --auth-checks "${{ runner.temp }}/auth-checks.csv" \
+            --statuses "${{ runner.temp }}/statuses.json" \
+            --output "${{ runner.temp }}/qualtrics-enriched.csv"
+
+      # Data audit — validate Python disposition matches TS pipeline
+      # Also produces a disposition CSV for the operations pipeline (daily-disposition-processing)
+      # to consume, eliminating a redundant Qualtrics export.
+      - name: Data audit (disposition waterfall)
+        run: |
+          python scripts/analysis/tabs_v2_data_audit.py \
+            --input "${{ runner.temp }}/qualtrics-enriched.csv" \
+            --output "${{ runner.temp }}/data-audit.json" \
+            --disposition-csv "${{ runner.temp }}/disposition.csv"
+
+      # De-identify for public release
+      - name: De-identify dataset
+        run: |
+          python scripts/deidentify_tabs_data.py \
+            "${{ runner.temp }}/qualtrics-enriched.csv" \
+            "${{ runner.temp }}/deidentified" \
+            --skip-review
+
+      # Sensitivity analysis (all 5 sample definitions)
+      - name: Descriptive analysis + sensitivity
+        run: |
+          python scripts/analysis/tabs_v2_analysis.py \
+            "${{ runner.temp }}/qualtrics-enriched.csv" \
+            --json "${{ runner.temp }}/sensitivity-analysis.json"
+
+      # Advanced/inferential analysis
+      - name: Advanced analysis (PCA, regression, ANOVA)
+        id: advanced
+        continue-on-error: true
+        run: |
+          python scripts/analysis/tabs_v2_advanced.py \
+            "${{ runner.temp }}/qualtrics-enriched.csv" \
+            > "${{ runner.temp }}/advanced-analysis.txt" 2>&1
+          echo "Advanced analysis complete"
+
+      # Psychometric validation
+      - name: Psychometrics (KMO, HTMT, reliability)
+        id: psychometrics
+        continue-on-error: true
+        run: |
+          python scripts/analysis/tabs_v2_psychometrics.py \
+            "${{ runner.temp }}/qualtrics-enriched.csv" \
+            > "${{ runner.temp }}/psychometrics.txt" 2>&1
+          echo "Psychometrics complete"
+
+      # Quality audit
+      - name: Quality audit (outliers, CMV)
+        id: quality
+        continue-on-error: true
+        run: |
+          python scripts/analysis/tabs_v2_quality_audit.py \
+            "${{ runner.temp }}/qualtrics-enriched.csv" \
+            > "${{ runner.temp }}/quality-audit.txt" 2>&1
+          echo "Quality audit complete"
+
+      # Fail the job if any analysis step failed (after uploading logs)
+      - name: Verify all analysis steps succeeded
+        if: always()
+        run: |
+          FAILED=""
+          if [ "${{ steps.advanced.outcome }}" = "failure" ]; then FAILED="$FAILED advanced"; fi
+          if [ "${{ steps.psychometrics.outcome }}" = "failure" ]; then FAILED="$FAILED psychometrics"; fi
+          if [ "${{ steps.quality.outcome }}" = "failure" ]; then FAILED="$FAILED quality"; fi
+          if [ -n "$FAILED" ]; then
+            echo "::error::Analysis steps failed:$FAILED (logs uploaded as artifacts)"
+            exit 1
+          fi
+
+      # Summary for GitHub Actions UI
+      - name: Generate summary
+        if: always()
+        run: |
+          echo "### Analysis Pipeline Results" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f "${{ runner.temp }}/sensitivity-analysis.json" ]; then
+            python3 scripts/analysis/tests/generate_summary.py "${{ runner.temp }}/sensitivity-analysis.json" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ -f "${{ runner.temp }}/data-audit.json" ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "#### Disposition Waterfall" >> "$GITHUB_STEP_SUMMARY"
+            python3 scripts/analysis/tests/generate_summary.py "${{ runner.temp }}/data-audit.json" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # Upload analysis outputs for website (JSON only — no PII)
+      # Always upload so results are available even if later steps fail
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: analysis-results
+          path: |
+            ${{ runner.temp }}/sensitivity-analysis.json
+            ${{ runner.temp }}/data-audit.json
+          retention-days: 7
+          if-no-files-found: warn
+
+      # Disposition CSV for the operations pipeline (daily-disposition-processing).
+      # Contains PROLIFIC_PID + Disposition — no other PII. Produced from the same
+      # enriched data the analysis uses, ensuring a single source of truth.
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}/disposition.csv
+          retention-days: 1
+          if-no-files-found: warn
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: analysis-logs
+          path: |
+            ${{ runner.temp }}/advanced-analysis.txt
+            ${{ runner.temp }}/psychometrics.txt
+            ${{ runner.temp }}/quality-audit.txt
+          retention-days: 7
+
+      # Public CSV for ScholarSphere (de-identified, no PII)
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: public-dataset
+          path: ${{ runner.temp }}/deidentified/TABS_V2_public_dataset.csv
+          retention-days: 30
+          if-no-files-found: warn
+
+  # ── Phase 3: Commit results to repo ───────────────────────────
+  commit-results:
+    name: Update Website Data
+    needs: analyze
+    runs-on: ubuntu-latest
+    environment: copilot
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: analysis-results
+          path: src/data
+
+      - uses: ./.github/actions/format-and-pr
+        with:
+          token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+          files: 'src/data/sensitivity-analysis.json src/data/data-audit.json'
+          commit-message: 'chore: update analysis results from daily pipeline'
+          pr-title: 'Update analysis results (sensitivity + audit)'
+          pr-body: |
+            Automated update from the daily analysis pipeline.
+
+            **Data flow**: Qualtrics export → Prolific enrichment (auth checks +
+            statuses) → disposition audit → de-identification → full analysis
+            suite (descriptive, advanced, psychometrics, quality).
+
+            All statistics computed across 5 sample definitions: Pipeline CLEAN,
+            Conservative Clean, Relaxed, All V2 Finished, All V2.
+          branch: chore/analysis-results

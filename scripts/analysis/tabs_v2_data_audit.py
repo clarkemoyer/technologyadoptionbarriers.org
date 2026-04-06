@@ -50,17 +50,21 @@ else:
     _CONSTANTS = {}
 
 # Survey blocks for partial straightlining detection
+# Use substantive item counts only — IRI items have predetermined correct
+# answers and must NOT be included in within-person SD calculations.
+# Including IRIs artificially inflates variance and masks straightlining.
+# See Issue #735 for the root-cause analysis.
 SURVEY_BLOCKS = [
     {
         "name": name.title(),
         "prefix": _CONSTANTS.get("COLUMN_PREFIXES", {}).get(name, f"Q_{name}_"),
-        "count": _CONSTANTS.get("ITEM_COUNTS", {}).get(name, 0) + 1,  # +1 for IRI item
+        "count": _CONSTANTS.get("ITEM_COUNTS", {}).get(name, 0),  # substantive items only (excludes IRI)
     }
     for name in ["barriers", "readiness", "maturity"]
 ] if _CONSTANTS else [
-    {"name": "Barriers", "prefix": "Q10-28_Barriers_", "count": 19},
-    {"name": "Readiness", "prefix": "Q47-64_Readiness_", "count": 18},
-    {"name": "Maturity", "prefix": "Q65-73_Maturity_", "count": 9},
+    {"name": "Barriers", "prefix": "Q10-28_Barriers_", "count": 18},
+    {"name": "Readiness", "prefix": "Q47-64_Readiness_", "count": 17},
+    {"name": "Maturity", "prefix": "Q65-73_Maturity_", "count": 8},
 ]
 
 PARTIAL_STRAIGHTLINING_SD_THRESHOLD = 0.5
@@ -245,12 +249,15 @@ def parse_csv(csv_path: str) -> List[Dict[str, Any]]:
     rows_by_pid = {}
     duplicate_count = 0
 
-    with open(csv_path, "r", encoding="utf-8") as f:
+    with open(csv_path, "r", encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f)
 
         for i, row in enumerate(reader):
-            # Rows are 1-indexed in the CSV; data rows start at index 3
-            # (rows 0-2 are header metadata, already consumed by DictReader)
+            # Skip Qualtrics metadata rows (question text + import IDs).
+            # DictReader consumes row 0 as headers; rows 1-2 are metadata
+            # that DictReader returns as data rows with column-name keys.
+            if i < 2:
+                continue
 
             # Verify required columns exist
             required = [
@@ -334,10 +341,19 @@ def parse_csv(csv_path: str) -> List[Dict[str, Any]]:
             # Compute disposition
             disposition_row["Disposition"] = compute_disposition(disposition_row)
 
-            # Deduplicate by PID: latest attempt wins
+            # Deduplicate by PID: prefer completed (Finished=TRUE/1) over incomplete.
+            # If participant retook the survey but didn't finish retake,
+            # keep the completed original (not the incomplete retake).
             if pid in rows_by_pid:
                 duplicate_count += 1
-            rows_by_pid[pid] = disposition_row
+                existing = rows_by_pid[pid]
+                existing_finished = existing["Finished"] in ("TRUE", "1")
+                new_finished = disposition_row["Finished"] in ("TRUE", "1")
+                if new_finished or not existing_finished:
+                    rows_by_pid[pid] = disposition_row
+                # else: keep existing completed response
+            else:
+                rows_by_pid[pid] = disposition_row
 
     if duplicate_count > 0:
         print(f"Dedup: {duplicate_count} duplicate PID(s) found — using latest attempt for each.")
@@ -541,6 +557,12 @@ def main():
         default="data_audit_results.json",
         help="Output JSON file (default: data_audit_results.json)",
     )
+    parser.add_argument(
+        "--disposition-csv",
+        type=str,
+        default=None,
+        help="Optional: also write a disposition CSV (same format as disposition_triage.py)",
+    )
 
     args = parser.parse_args()
 
@@ -566,6 +588,16 @@ def main():
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(stats, f, indent=2)
     print(f"\nJSON output written to: {output_path}")
+
+    # Optionally write disposition CSV (same format as disposition_triage.py)
+    # This allows the analysis pipeline to produce the disposition CSV that
+    # the operations pipeline consumes, eliminating a redundant Qualtrics export.
+    if args.disposition_csv:
+        from disposition_triage import rows_to_csv
+        csv_path = Path(args.disposition_csv)
+        csv_path.parent.mkdir(parents=True, exist_ok=True)
+        csv_path.write_text(rows_to_csv(rows), encoding="utf-8")
+        print(f"Disposition CSV written to: {csv_path}")
 
 
 if __name__ == "__main__":

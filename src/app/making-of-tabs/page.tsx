@@ -195,7 +195,7 @@ const MakingOfTabsPage = () => {
               {
                 title: 'AI-Assisted Development',
                 href: '/making-of-tabs/ai-assisted-development',
-                desc: 'The AI models and workflows we use to build and maintain the site.',
+                desc: 'The 3-agent setup (Copilot, Jules, Claude) and workflows we use to build and maintain the site.',
                 border: 'border-purple-200',
                 bg: 'bg-purple-50',
                 titleColor: 'text-purple-900',
@@ -238,6 +238,15 @@ const MakingOfTabsPage = () => {
                 textColor: 'text-amber-800',
               },
               {
+                title: 'Results & Data',
+                href: '/results',
+                desc: 'Survey results, descriptive statistics, scale reliability, sensitivity analysis, and open data.',
+                border: 'border-rose-200',
+                bg: 'bg-rose-50',
+                titleColor: 'text-rose-900',
+                textColor: 'text-rose-800',
+              },
+              {
                 title: 'SEO Benchmarking',
                 href: '/making-of-tabs/seo',
                 desc: 'Our public baseline, keyword gaps, strategy roadmap, and live performance dashboard.',
@@ -245,6 +254,15 @@ const MakingOfTabsPage = () => {
                 bg: 'bg-teal-50',
                 titleColor: 'text-teal-900',
                 textColor: 'text-teal-800',
+              },
+              {
+                title: 'Automation Infrastructure',
+                href: '/making-of-tabs/automation-infrastructure',
+                desc: 'The hands-off chain from issue to production, daily data pipelines, privacy boundaries, and AI agent coordination.',
+                border: 'border-indigo-200',
+                bg: 'bg-indigo-50',
+                titleColor: 'text-indigo-900',
+                textColor: 'text-indigo-800',
               },
             ].map((card) => (
               <Link
@@ -260,6 +278,13 @@ const MakingOfTabsPage = () => {
         </section>
 
         <section className="pt-8 border-t border-gray-200">
+          <p className="text-sm text-gray-600 mb-4">
+            Looking for survey results, descriptive statistics, or scale reliability? Visit the{' '}
+            <Link href="/results" className="text-blue-600 hover:underline font-medium">
+              Results
+            </Link>{' '}
+            section.
+          </p>
           <p className="text-sm text-gray-600 italic">
             This &quot;Making of&quot; section is a living document, updated as our toolset and
             methodologies evolve.

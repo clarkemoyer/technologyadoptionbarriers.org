@@ -337,7 +337,80 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/barriers/survey-stats`,
+      url: `${baseUrl}/barriers/quotes`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    // Results section
+    {
+      url: `${baseUrl}/results`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/results/sample`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/results/data-quality`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/results/descriptive`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/results/reliability`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/results/sensitivity`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/results/findings`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/dataset-comparison`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/survey-stats`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/dashboard`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/results/cmo-survey`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/reproducibility`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
@@ -418,12 +491,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
-    {
-      url: `${baseUrl}/making-of-tabs/cmo-survey`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
+    // /making-of-tabs/cmo-survey → /results/cmo-survey (redirect)
     {
       url: `${baseUrl}/making-of-tabs/integrations`,
       lastModified: now,
@@ -448,12 +516,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
-    {
-      url: `${baseUrl}/making-of-tabs/integrations/prolific/dashboard`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 0.8,
-    },
+    // /making-of-tabs/integrations/prolific/dashboard → /results/dashboard (redirect)
     {
       url: `${baseUrl}/making-of-tabs/integrations/microsoft-clarity`,
       lastModified: now,
@@ -468,6 +531,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/making-of-tabs/integrations/cloudflare`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/integrations/google-jules`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
@@ -508,6 +577,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/making-of-tabs/automation-infrastructure`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    // /making-of-tabs/data-analysis → /results/data-quality (redirect)
     {
       url: `${baseUrl}/making-of-tabs/ai-validity-checks`,
       lastModified: now,

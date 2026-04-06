@@ -46,7 +46,7 @@ npm run test:e2e    # Playwright E2E tests
 ### Tech Stack
 
 - **Framework**: Next.js 16.0.7 with App Router
-- **Language**: TypeScript (strict mode)
+- **Language**: TypeScript (strict mode) for the website; **Python** is the primary language for analysis and operational scripts
 - **Styling**: Tailwind CSS
 - **Testing**: Jest + Testing Library, Playwright, jest-axe
 - **Deployment**: GitHub Pages with custom domain
@@ -68,7 +68,31 @@ src/
 ├── data/                   # JSON content (FAQs, team, etc.)
 └── lib/
     └── assetPath.ts        # GitHub Pages basePath helper
+
+scripts/
+├── analysis/               # Python operational & analysis scripts (primary)
+├── archive/                # Archived TS scripts replaced by Python (reference only)
+└── *.ts                    # Active TS scripts (SEO, reporting, utilities)
 ```
+
+### Scripts: Python vs TypeScript
+
+**Python (`scripts/analysis/`)** is the primary language for:
+
+- Prolific submission operations (approve, reject, message, unreject)
+- Disposition triage and summary generation
+- Data analysis and psychometrics
+
+**Archived TS (`scripts/archive/`)** contains the original TypeScript implementations
+that have been replaced by Python equivalents. These are kept for reference only.
+See `scripts/archive/README.md` for the full mapping table.
+
+**Active TS (`scripts/*.ts`)** remains in use for:
+
+- SEO and analytics data collection
+- Qualtrics API operations
+- Report generation and email
+- GitHub/Copilot review automation
 
 ### Naming Convention Rules
 
@@ -410,11 +434,50 @@ git commit -m "chore: update dependencies"
 - **Lazy load when possible**: Use dynamic imports for large components
 - **Monitor Lighthouse scores**: CI runs Lighthouse on every PR
 
+## AI Coding Agents & Concurrency
+
+TABS operates a **multi-agent setup** with three distinct AI coding agents working in parallel across different infrastructure pools.
+
+| Agent       | Trigger                         | Concurrency | Pool         | Primary Role                                   |
+| ----------- | ------------------------------- | ----------- | ------------ | ---------------------------------------------- |
+| **Copilot** | Assign `copilot-swe-agent[bot]` | ~4          | GitHub       | Pipeline, workflow, and analysis work          |
+| **Jules**   | Add `jules` label to issue      | 60 (Ultra)  | Google Cloud | Visualization, content, and frontend work      |
+| **Claude**  | Direct session orchestration    | 1           | Anthropic    | Orchestration, PR management, complex analysis |
+
+_(Note: Gemini Code Assist also runs automatically on PRs if installed, but does not count against issue-to-PR agent concurrency)._
+
+### Google Jules Integration
+
+Jules is Google's autonomous coding agent powered by Gemini. We use the **Ultra tier**, which gives us up to 60 concurrent tasks.
+
+**How to use Jules:**
+
+1. Create a GitHub issue describing the needed change (frontend, content, or visualization).
+2. Add the `jules` label to the issue.
+3. The `.github/workflows/jules-on-label.yml` workflow triggers automatically.
+4. Jules clones the repo to a Google Cloud VM, processes the request, and opens a PR.
+
+**Features we use:**
+
+- Issue-to-PR coding via the `jules` label
+- Automatic issue finding and scheduled sessions
+- Build and quality checks before PR creation
+
+Jules and Copilot are complementary — Jules handles scale and frontend tasks, while Copilot handles backend automation and code review.
+
 ## IDE-Specific Capabilities
+
+Claude Code runs in **VS Code**, **Claude Desktop app**, and **web (claude.ai/code)**. All share `~/.claude/settings.json` and memory. MCP config locations differ:
+
+| Platform       | MCP Config Location                           |
+| -------------- | --------------------------------------------- |
+| VS Code        | `.vscode/mcp.json` (per-project)              |
+| Claude Desktop | `%APPDATA%\Claude\claude_desktop_config.json` |
+| Web            | Connectors page (cloud-managed)               |
 
 ### Terminal Access (Your Advantage!)
 
-As an IDE-integrated agent in VS Code/Antigravity, **you have terminal/CLI access** that cloud agents don't:
+As an IDE-integrated agent, **you have terminal/CLI access** that cloud agents don't:
 
 **You can run commands directly:**
 
@@ -474,26 +537,35 @@ You can connect to MCP servers for enhanced capabilities:
 
 **Documentation**: [qualtrics-mcp.md](./qualtrics-mcp.md)
 
-#### GitHub MCP Server
+#### GitHub MCP Servers
 
-**Repository management via MCP:**
+Two GitHub MCP servers are available with different access levels:
 
-- **Setup**: Install from VS Code MCP Marketplace
-- **Host**: `https://api.githubcopilot.com/mcp/`
-- **Auth**: Handled by VS Code GitHub integration
+| MCP                         | Tool Prefix                   | Access          | Best For                                                                   |
+| --------------------------- | ----------------------------- | --------------- | -------------------------------------------------------------------------- |
+| **Local npx server**        | `mcp__github__`               | Full read/write | Comments, PRs, issues, branches, push files, reviews                       |
+| **Built-in Copilot plugin** | `mcp__plugin_github_github__` | Read-only       | Fast reads: PR details, file contents, search, Copilot agent delegation    |
+| **`gh` CLI**                | `Bash(gh ...)`                | Full read/write | Workflow dispatch, PR state changes (draft/ready), fallback for all writes |
 
-**Capabilities:**
+**Local npx server setup** (Claude Desktop — `claude_desktop_config.json`):
 
-- Search code across repositories
-- Create/update issues
-- Manage pull requests
-- Access GitHub Actions logs
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<token from gh auth token>"
+      }
+    }
+  }
+}
+```
 
-**Example use cases:**
+**Important**: The built-in Copilot plugin injects its own token that cannot be overridden. It is read-only by design. Use the local npx server or `gh` CLI for all write operations.
 
-- "Find all usages of assetPath in this repo"
-- "Show recent issues labeled 'bug'"
-- "Get the latest CI run status"
+**Token refresh**: The `gho_` OAuth token from `gh auth token` may expire. If MCP writes start failing with 401, run `gh auth refresh` and update the config.
 
 ### External API Access
 
@@ -630,6 +702,133 @@ export GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KE
 # Copy .vscode/mcp.json.example to .vscode/mcp.json
 # VS Code will prompt for OAuth tokens when connecting
 ```
+
+## Daily Pipeline Architecture
+
+The unified `daily-pipeline.yml` chains analysis and operations into a single workflow (replaces the separate `analysis-pipeline.yml` and `daily-disposition-processing.yml`):
+
+```
+Phase 1: Fetch Prolific Data          (prolific-prod, ~10s)
+    |
+Phase 2: Export, Enrich & Analyze     (qualtrics-prod, ~60s)
+    |         7 steps: export -> enrich -> audit -> de-identify
+    |                  -> descriptive -> advanced -> psychometrics -> quality
+    |
+    +---> Phase 3a: Auto-Approve CLEAN    (prolific-prod)
+    +---> Phase 3b: Message FLAGs         (prolific-prod, 9 dispositions, sequential)
+    +---> Phase 3c: Generate Dashboard    (prolific-prod, after 3a)
+    |
+Phase 4: Commit Results               (copilot env, format-and-pr action)
+    |
+Phase 5: Daily Report Issue           (always runs, creates GitHub issue)
+```
+
+**Schedule**: Daily at 09:00 UTC (5am ET) via cron, plus `workflow_dispatch`.
+
+**Old workflows**: `analysis-pipeline.yml` and `daily-disposition-processing.yml` have schedule triggers removed and are marked REPLACED. They are kept for manual dispatch and fallback.
+
+**Artifact flow**: Disposition CSV passes between phases via GitHub Actions artifacts (1-day retention). Analysis JSON artifacts have 7-day retention.
+
+## Copilot Review Cycle
+
+Automated multi-round code review via `copilot-review-cycle.yml` and `scripts/copilot-review-cycle.ts`.
+
+**Trigger and monitor:**
+
+```bash
+# 1. Mark PR ready for review (if draft)
+gh pr ready <PR#> --repo clarkemoyer/technologyadoptionbarriers.org
+
+# 2. Trigger review cycle (up to 7 rounds)
+gh workflow run copilot-review-cycle.yml \
+  --repo clarkemoyer/technologyadoptionbarriers.org \
+  --field pr_number=<PR#> --field round=1 --field max_rounds=7
+
+# 3. Monitor in background (notifies on completion)
+gh run watch <RUN_ID> --repo clarkemoyer/technologyadoptionbarriers.org --exit-status
+```
+
+**How it works (per round):**
+
+1. Validate PR is open and not draft
+2. Request Copilot review (API call, falls back to `@copilot review` comment)
+3. Poll for review arrival (20s intervals, 15min timeout)
+4. If 0 comments: post "Passed" comment, done
+5. If comments found: create fix issue assigned to Copilot coding agent
+6. Wait for fixes (direct push or sub-PR auto-merge, 30s intervals, 20min timeout)
+7. Dispatch next round automatically
+8. Repeat until clean or max rounds reached
+
+**Timeouts**: Review polling 15min, fix waiting 20min, API retries 3x with exponential backoff.
+
+## Privacy & Data Flow
+
+Pipeline data has strict PII boundaries:
+
+| Data                        | Contains PIDs?             | Committed to Repo?   | Retention         |
+| --------------------------- | -------------------------- | -------------------- | ----------------- |
+| `sensitivity-analysis.json` | No (aggregate stats)       | Yes                  | Permanent         |
+| `data-audit.json`           | No (aggregate counts)      | Yes                  | Permanent         |
+| `disposition-summary.json`  | No (aggregate counts)      | Yes                  | Permanent         |
+| Disposition CSV             | Yes (PROLIFIC_PID)         | No (artifact only)   | 1 day             |
+| Qualtrics raw CSV           | Yes (PII fields)           | No (stays on runner) | Ephemeral         |
+| Prolific demographics       | Yes (per-participant)      | No (in-memory join)  | Ephemeral         |
+| Step summaries              | No (aggregate counts)      | No (Actions UI)      | Workflow lifetime |
+| Workflow logs               | Yes (PIDs in debug output) | No (Actions UI)      | 90 days           |
+
+**Rules**:
+
+- Never commit PROLIFIC_PID or participant-level data to the repository
+- Step summaries use aggregate counts only (no PID tables)
+- De-identified public dataset excludes all direct identifiers
+- Raw demographic CSVs exist only in `${{ runner.temp }}` (ephemeral workspace)
+
+## Workflow Dispatch Quick Reference
+
+All workflows support `workflow_dispatch` for manual triggering:
+
+| Workflow                           | Command                                                           | Purpose                                     |
+| ---------------------------------- | ----------------------------------------------------------------- | ------------------------------------------- |
+| `daily-pipeline.yml`               | `gh workflow run daily-pipeline.yml`                              | Full daily pipeline (analysis + operations) |
+| `analysis-pipeline.yml`            | `gh workflow run analysis-pipeline.yml --ref <branch>`            | Analysis only (REPLACED, kept for manual)   |
+| `daily-disposition-processing.yml` | `gh workflow run daily-disposition-processing.yml --ref <branch>` | Operations only (REPLACED, kept for manual) |
+| `copilot-review-cycle.yml`         | `gh workflow run copilot-review-cycle.yml --field pr_number=X`    | Multi-round Copilot review                  |
+| `qualtrics-api-smoke.yml`          | `gh workflow run qualtrics-api-smoke.yml`                         | Qualtrics API connectivity test             |
+| `prolific-approve-submissions.yml` | `gh workflow run prolific-approve-submissions.yml`                | Manual approve CLEAN                        |
+| `prolific-message-flagged.yml`     | `gh workflow run prolific-message-flagged.yml`                    | Manual message FLAGs                        |
+| `prolific-reject-auto-exclude.yml` | `gh workflow run prolific-reject-auto-exclude.yml`                | Manual reject (requires confirmation)       |
+| `validate-analysis.yml`            | `gh workflow run validate-analysis.yml`                           | Run Python analysis tests                   |
+| `ci.yml`                           | `gh workflow run ci.yml --ref <branch>`                           | CI (format, lint, test, build, E2E)         |
+| `jules-on-label.yml`               | `gh workflow run jules-on-label.yml` (or add `jules` label)       | Invoke Jules coding agent for an issue      |
+
+**Tip**: Use `--ref <branch>` to test workflow changes on a PR branch before merging.
+
+## Python Analysis Scripts
+
+All Python scripts live in `scripts/analysis/`. They are the primary language for pipeline operations.
+
+| Script                            | Purpose                                         | Called By              |
+| --------------------------------- | ----------------------------------------------- | ---------------------- |
+| `fetch_prolific_data.py`          | Fetch auth checks + submission statuses         | Pipeline Phase 1       |
+| `export_qualtrics.py`             | Export survey responses to CSV                  | Pipeline Phase 2       |
+| `enrich_qualtrics_csv.py`         | Join Qualtrics CSV with Prolific data           | Pipeline Phase 2       |
+| `tabs_v2_data_audit.py`           | Disposition waterfall + CSV output              | Pipeline Phase 2       |
+| `tabs_v2_analysis.py`             | Descriptive stats, sensitivity, inferential     | Pipeline Phase 2       |
+| `tabs_v2_advanced.py`             | PCA, regression, ANOVA                          | Pipeline Phase 2       |
+| `tabs_v2_psychometrics.py`        | KMO, HTMT, Cronbach's alpha, reliability        | Pipeline Phase 2       |
+| `tabs_v2_quality_audit.py`        | Outlier detection, common method variance       | Pipeline Phase 2       |
+| `approve_submissions.py`          | Bulk approve CLEAN on Prolific                  | Pipeline Phase 3a      |
+| `message_flagged.py`              | Send personalized messages to FLAG participants | Pipeline Phase 3b      |
+| `generate_disposition_summary.py` | Dashboard JSON from live Prolific + CSV         | Pipeline Phase 3c      |
+| `disposition_triage.py`           | Standalone triage (fallback for operations)     | Disposition processing |
+| `reject_auto_exclude.py`          | Reject AUTO-EXCLUDE participants                | Manual workflow only   |
+| `reject_failed_iri.py`            | Reject failed IRI participants                  | Manual workflow only   |
+| `tabs_api.py`                     | Shared API client (Qualtrics + Prolific)        | All scripts            |
+| `prolific_tools.py`               | Prolific API utilities                          | All Prolific scripts   |
+
+**Shared constants**: `tabs_v2_constants.json` (survey block definitions, item counts).
+
+**Tests**: `scripts/analysis/tests/` contains Python unit tests. Run with `python -m pytest scripts/analysis/tests/`.
 
 ## Resources
 

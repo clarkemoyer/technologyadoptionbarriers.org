@@ -52,17 +52,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - uses: actions/setup-python@v6
         with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
+          python-version: '3.12'
 
       - name: Export Qualtrics responses
-        run: npx --no-install tsx scripts/export-qualtrics-responses.ts
+        run: python3 scripts/analysis/export_qualtrics.py
         env:
           QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
           QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
@@ -70,7 +65,7 @@ jobs:
           OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
 
       - name: Run disposition triage
-        run: npx --no-install tsx scripts/disposition-triage.ts
+        run: python3 scripts/analysis/disposition_triage.py
         env:
           INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
           OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
@@ -109,14 +104,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - name: Setup Python
+        uses: actions/setup-python@v6
         with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
+          python-version: '3.12'
 
       - name: Download disposition CSV
         uses: actions/download-artifact@v8
@@ -125,7 +116,7 @@ jobs:
           path: ${{ runner.temp }}
 
       - name: 'Execute rejection'
-        run: npx --no-install tsx scripts/reject-failed-iri-submissions.ts
+        run: python3 scripts/analysis/reject_failed_iri.py
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}

@@ -1,0 +1,1433 @@
+{
+  "samples": [
+    {
+      "key": "conservative_clean",
+      "label": "Conservative Clean",
+      "description": "Prolific APPROVED + all quality checks (IRI, duration >= 540s, reCAPTCHA, straightlining, auth)",
+      "n": 78
+    },
+    {
+      "key": "flexible_clean",
+      "label": "Flexible Clean",
+      "description": "Prolific APPROVED + basic quality (all 3 IRIs + duration >= 480s)",
+      "n": 123
+    },
+    {
+      "key": "prolific_accepted",
+      "label": "Prolific Accepted",
+      "description": "All deduplicated V2 rows with Prolific APPROVED status",
+      "n": 224
+    },
+    {
+      "key": "v2_finished",
+      "label": "All V2 Finished",
+      "description": "Finished + duration >= 120s (extreme speeders excluded)",
+      "n": 345
+    },
+    {
+      "key": "v2_all",
+      "label": "All V2",
+      "description": "All V2 responses including incomplete",
+      "n": 408
+    }
+  ],
+  "metrics": [
+    {
+      "key": "barrier_mean",
+      "label": "Barrier Grand Mean",
+      "values": {
+        "conservative_clean": 2.8158,
+        "flexible_clean": 2.8293,
+        "prolific_accepted": 2.7783,
+        "v2_finished": 2.7323,
+        "v2_all": 2.7384
+      }
+    },
+    {
+      "key": "barrier_sd",
+      "label": "Barrier SD",
+      "values": {
+        "conservative_clean": 0.6347,
+        "flexible_clean": 0.7081,
+        "prolific_accepted": 0.7099,
+        "v2_finished": 0.768,
+        "v2_all": 0.7721
+      }
+    },
+    {
+      "key": "readiness_mean",
+      "label": "Readiness Grand Mean",
+      "values": {
+        "conservative_clean": 3.0535,
+        "flexible_clean": 3.0809,
+        "prolific_accepted": 3.1357,
+        "v2_finished": 3.254,
+        "v2_all": 3.254
+      }
+    },
+    {
+      "key": "readiness_sd",
+      "label": "Readiness SD",
+      "values": {
+        "conservative_clean": 0.5849,
+        "flexible_clean": 0.6497,
+        "prolific_accepted": 0.6696,
+        "v2_finished": 0.7272,
+        "v2_all": 0.7261
+      }
+    },
+    {
+      "key": "maturity_mean",
+      "label": "Maturity Grand Mean",
+      "values": {
+        "conservative_clean": 3.0322,
+        "flexible_clean": 3.0408,
+        "prolific_accepted": 3.1447,
+        "v2_finished": 3.2781,
+        "v2_all": 3.2781
+      }
+    },
+    {
+      "key": "maturity_sd",
+      "label": "Maturity SD",
+      "values": {
+        "conservative_clean": 0.7132,
+        "flexible_clean": 0.7872,
+        "prolific_accepted": 0.8033,
+        "v2_finished": 0.8035,
+        "v2_all": 0.8035
+      }
+    },
+    {
+      "key": "corr_br",
+      "label": "B-R Correlation",
+      "values": {
+        "conservative_clean": -0.5055,
+        "flexible_clean": -0.4479,
+        "prolific_accepted": -0.3444,
+        "v2_finished": -0.3318,
+        "v2_all": -0.3315
+      }
+    },
+    {
+      "key": "corr_bm",
+      "label": "B-M Correlation",
+      "values": {
+        "conservative_clean": -0.2453,
+        "flexible_clean": -0.2946,
+        "prolific_accepted": -0.2773,
+        "v2_finished": -0.2926,
+        "v2_all": -0.2926
+      }
+    },
+    {
+      "key": "corr_rm",
+      "label": "R-M Correlation",
+      "values": {
+        "conservative_clean": 0.5892,
+        "flexible_clean": 0.6835,
+        "prolific_accepted": 0.7032,
+        "v2_finished": 0.7454,
+        "v2_all": 0.7454
+      }
+    },
+    {
+      "key": "alpha_barriers",
+      "label": "Alpha Barriers",
+      "values": {
+        "conservative_clean": 0.8589,
+        "flexible_clean": 0.8731,
+        "prolific_accepted": 0.8751,
+        "v2_finished": 0.9003,
+        "v2_all": 0.9018
+      }
+    },
+    {
+      "key": "alpha_readiness",
+      "label": "Alpha Readiness",
+      "values": {
+        "conservative_clean": 0.8762,
+        "flexible_clean": 0.9154,
+        "prolific_accepted": 0.9201,
+        "v2_finished": 0.933,
+        "v2_all": 0.933
+      }
+    },
+    {
+      "key": "alpha_maturity",
+      "label": "Alpha Maturity",
+      "values": {
+        "conservative_clean": 0.8398,
+        "flexible_clean": 0.8819,
+        "prolific_accepted": 0.8903,
+        "v2_finished": 0.8913,
+        "v2_all": 0.8913
+      }
+    }
+  ],
+  "demographic_sources": {
+    "survey_demographics": {
+      "source": "Qualtrics CSV export (Q1-Q9)",
+      "type": "Organizational/role-based characteristics",
+      "fields": {
+        "Q1_Role": "Executive Role (CIO, CTO, CEO, CFO, COO, CHRO, CMO, CSO, CRO, Other)",
+        "Q2_DecisionAuth": "Decision Authority level",
+        "Q3_Industry": "Industry classification",
+        "Q4_OrgSize": "Organization Size (<100, 100-499, 500-999, 1000-4999, 5000-9999, 10000+)",
+        "Q5_ProfitModel": "Profit Model (For-Profit, Non-Profit, Government/Public Sector)",
+        "Q6_RevenueBudget": "Organizational revenue/budget range",
+        "Q7_PersonalBudget": "Personal budget responsibility",
+        "Q8_GeoScope": "Geographic scope",
+        "Q9_GeoScale": "Geographic scale"
+      },
+      "note": "Self-reported by participants within the TABS survey instrument. Used for all per-group demographic breakdowns, effect sizes, and cross-tabulations."
+    },
+    "platform_demographics": {
+      "source": "Prolific API (POST /studies/{id}/demographic-export/)",
+      "filters_api": "GET /api/v1/filters/ (returns full catalog of available prescreener categories)",
+      "type": "Personal/sociodemographic and professional characteristics",
+      "base_fields": {
+        "age": "Participant age (range filter)",
+        "sex": "Biological sex as recorded on legal documents",
+        "ethnicity": "Ethnic background (simplified)",
+        "language": "First/primary language",
+        "country_of_residence": "Current country of residence",
+        "nationality": "Nationality",
+        "country_of_birth": "Country of birth",
+        "student_status": "Current student status",
+        "employment_status": "Employment status"
+      },
+      "prescreener_fields": {
+        "employment_sector": "Employment sector (Private, Public, Non-profit, etc.)",
+        "industry": "Industry classification",
+        "company_size": "Company/organization size",
+        "occupation": "Occupation/job title category",
+        "education_level": "Highest level of education completed",
+        "household_income": "Household income bracket",
+        "fluent_languages": "Languages spoken fluently"
+      },
+      "study_screeners": [
+        {
+          "filter_id": "current_country_of_residence",
+          "label": "Current Country of Residence",
+          "selected_values": ["United States"],
+          "base_field": true
+        },
+        {
+          "filter_id": "employment_status",
+          "label": "Employment Status",
+          "selected_values": ["Full-Time"],
+          "base_field": true
+        },
+        {
+          "filter_id": "employment_sector",
+          "label": "Employer Type",
+          "selected_values": [
+            "Employee of a for-profit company or business or of an individual, for wages, salary, or commissions",
+            "Employee of a not-for-profit, tax-exempt, or charitable organization",
+            "Local government employee (city, county, etc.)",
+            "State government employee",
+            "Federal government employee",
+            "Self-employed in own not-incorporated business, professional practice, or farm",
+            "Self-employed in own incorporated business, professional practice, or farm",
+            "Working without pay in family business or farm"
+          ],
+          "base_field": false
+        },
+        {
+          "filter_id": "company_size",
+          "label": "Company Size",
+          "selected_values": ["50-249", "250-999", "1000+"],
+          "base_field": false
+        },
+        {
+          "filter_id": "occupation",
+          "label": "Job Position",
+          "selected_values": [
+            "C-Level (e.g. CEO, CFO), Owner, Partner, President",
+            "Vice President (EVP, SVP, AVP, VP)",
+            "Director (Group Director, Sr. Director, Director)",
+            "Manager (Group Manager, Sr. Manager, Manager, Program Manager)"
+          ],
+          "base_field": false
+        }
+      ],
+      "prescreener_note": "Up to 15 prescreener filters can be selected per export (configurable twice before locking). The 5 study screeners above are exported for cross-validation. Additional augmentation filters (education_level, household_income, fluent_languages) are also included, totaling 7 of the 15-filter maximum.",
+      "fields": {
+        "age": "Participant age",
+        "sex": "Biological sex",
+        "ethnicity": "Ethnic background",
+        "language": "Primary/first language",
+        "country_of_residence": "Current country of residence",
+        "nationality": "Nationality",
+        "country_of_birth": "Country of birth",
+        "student_status": "Current student status",
+        "employment_status": "Employment status",
+        "employment_sector": "Employment sector (prescreener)",
+        "industry": "Industry classification (prescreener)",
+        "company_size": "Company/organization size (prescreener)",
+        "occupation": "Occupation/job title category (prescreener)",
+        "education_level": "Education level (prescreener)",
+        "household_income": "Household income (prescreener)",
+        "fluent_languages": "Fluent languages (prescreener)"
+      },
+      "cross_validation": {
+        "description": "Prolific prescreener fields overlap with Qualtrics survey demographics, enabling independent cross-validation of self-reported data and sample balancing.",
+        "overlapping_fields": {
+          "industry": {
+            "prolific": "industry",
+            "qualtrics": "Q3_Industry"
+          },
+          "company_size": {
+            "prolific": "company_size",
+            "qualtrics": "Q4_OrgSize"
+          },
+          "employment_sector": {
+            "prolific": "employment_sector",
+            "qualtrics": "Q5_ProfitModel"
+          },
+          "occupation": {
+            "prolific": "occupation",
+            "qualtrics": "Q1_Role"
+          }
+        },
+        "use_cases": [
+          "Flag discrepancies between Prolific profile and survey responses",
+          "Balance samples using validated Prolific profile data",
+          "Augment survey demographics with additional Prolific fields (education, income, languages)"
+        ]
+      },
+      "note": "Base fields are always included in the Prolific demographic export. Prescreener fields are available when configured as study filters (up to 15 per export). The export is a snapshot of participants' prescreening responses at the time they took the study. Both base and prescreener data can be cross-referenced with Qualtrics survey data using Prolific Participant ID as join key."
+    }
+  },
+  "sample_details": {
+    "conservative_clean": {
+      "demographics": {
+        "roles": {
+          "Other": 13,
+          "CIO": 11,
+          "COO": 10,
+          "CMO": 9,
+          "CEO": 8,
+          "CHRO": 7,
+          "CSO": 7,
+          "CFO": 6,
+          "CTO": 4,
+          "CRO": 3
+        },
+        "org_sizes": {
+          "<100": 9,
+          "100-499": 27,
+          "500-999": 7,
+          "1000-4999": 18,
+          "5000-9999": 6,
+          "10000+": 11
+        },
+        "profit_models": {
+          "For-Profit": 56,
+          "Non-Profit": 14,
+          "Government/Public Sector": 8
+        },
+        "tech_vs_nontech": {
+          "technical": 15,
+          "non_technical": 50,
+          "other": 13
+        }
+      },
+      "effect_sizes": {
+        "tech_vs_nontech": {
+          "tech_n": 15,
+          "nontech_n": 50,
+          "constructs": {
+            "barriers": {
+              "tech_mean": 2.7222,
+              "nontech_mean": 2.8704,
+              "d": -0.2177
+            },
+            "readiness": {
+              "tech_mean": 3.325,
+              "nontech_mean": 3.0067,
+              "d": 0.5395
+            },
+            "maturity": {
+              "tech_mean": 3.1083,
+              "nontech_mean": 2.9903,
+              "d": 0.1637
+            }
+          }
+        },
+        "large_vs_small": {
+          "large_n": 17,
+          "small_medium_n": 61,
+          "constructs": {
+            "barriers": {
+              "large_mean": 3.0919,
+              "small_medium_mean": 2.7388,
+              "d": 0.568
+            },
+            "readiness": {
+              "large_mean": 3.0222,
+              "small_medium_mean": 3.0622,
+              "d": -0.068
+            }
+          }
+        }
+      },
+      "cross_tabs": {
+        "by_role": [
+          {
+            "group": "Technical (CIO/CTO)",
+            "n": 15,
+            "barrier_mean": 2.7222,
+            "readiness_mean": 3.325,
+            "maturity_mean": 3.1083
+          },
+          {
+            "group": "Non-Technical",
+            "n": 50,
+            "barrier_mean": 2.8704,
+            "readiness_mean": 3.0067,
+            "maturity_mean": 2.9903
+          },
+          {
+            "group": "Other",
+            "n": 13,
+            "barrier_mean": 2.7137,
+            "readiness_mean": 2.9201,
+            "maturity_mean": 3.1058
+          }
+        ],
+        "by_org_size": [
+          {
+            "group": "Small (<500)",
+            "n": 36,
+            "barrier_mean": 2.7828,
+            "readiness_mean": 3.0661,
+            "maturity_mean": 2.9606
+          },
+          {
+            "group": "Medium (500-4999)",
+            "n": 25,
+            "barrier_mean": 2.6756,
+            "readiness_mean": 3.0565,
+            "maturity_mean": 2.9536
+          },
+          {
+            "group": "Large (5000+)",
+            "n": 17,
+            "barrier_mean": 3.0919,
+            "readiness_mean": 3.0222,
+            "maturity_mean": 3.2996
+          }
+        ]
+      },
+      "inferential": {
+        "t_tests_tech_vs_nontech": {
+          "tech_n": 15,
+          "nontech_n": 50,
+          "constructs": {
+            "barriers": {
+              "t": -0.7046,
+              "p": 0.0,
+              "df": 21.54,
+              "sig": true
+            },
+            "readiness": {
+              "t": 1.8986,
+              "p": 0.0,
+              "df": 24.39,
+              "sig": true
+            },
+            "maturity": {
+              "t": 0.5143,
+              "p": 0.0,
+              "df": 20.71,
+              "sig": true
+            }
+          }
+        },
+        "t_tests_large_vs_small": {
+          "large_n": 17,
+          "small_medium_n": 61,
+          "constructs": {
+            "barriers": {
+              "t": 2.2334,
+              "p": 0.0,
+              "df": 28.73,
+              "sig": true
+            },
+            "readiness": {
+              "t": -0.2391,
+              "p": 0.0,
+              "df": 24.45,
+              "sig": true
+            },
+            "maturity": {
+              "t": 1.6084,
+              "p": 0.0,
+              "df": 22.74,
+              "sig": true
+            }
+          }
+        },
+        "anova_by_role": {
+          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
+          "group_ns": [15, 50, 13],
+          "constructs": {
+            "barriers": {
+              "f": 0.5097,
+              "p": 0.6027,
+              "df_between": 2,
+              "df_within": 75,
+              "sig": false
+            },
+            "readiness": {
+              "f": 2.1796,
+              "p": 0.1202,
+              "df_between": 2,
+              "df_within": 75,
+              "sig": false
+            },
+            "maturity": {
+              "f": 0.2361,
+              "p": 0.7903,
+              "df_between": 2,
+              "df_within": 75,
+              "sig": false
+            }
+          }
+        },
+        "anova_by_org_size": {
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [36, 25, 17],
+          "constructs": {
+            "barriers": {
+              "f": 2.3467,
+              "p": 0.1027,
+              "df_between": 2,
+              "df_within": 75,
+              "sig": false
+            },
+            "readiness": {
+              "f": 0.0323,
+              "p": 0.9683,
+              "df_between": 2,
+              "df_within": 75,
+              "sig": false
+            },
+            "maturity": {
+              "f": 1.5495,
+              "p": 0.2191,
+              "df_between": 2,
+              "df_within": 75,
+              "sig": false
+            }
+          }
+        }
+      }
+    },
+    "flexible_clean": {
+      "demographics": {
+        "roles": {
+          "CIO": 22,
+          "Other": 19,
+          "COO": 15,
+          "CMO": 12,
+          "CEO": 11,
+          "CFO": 11,
+          "CHRO": 10,
+          "CSO": 8,
+          "CRO": 8,
+          "CTO": 7
+        },
+        "org_sizes": {
+          "<100": 16,
+          "100-499": 38,
+          "500-999": 16,
+          "1000-4999": 30,
+          "5000-9999": 8,
+          "10000+": 15
+        },
+        "profit_models": {
+          "For-Profit": 86,
+          "Non-Profit": 25,
+          "Government/Public Sector": 12
+        },
+        "tech_vs_nontech": {
+          "technical": 29,
+          "non_technical": 75,
+          "other": 19
+        }
+      },
+      "effect_sizes": {
+        "tech_vs_nontech": {
+          "tech_n": 29,
+          "nontech_n": 75,
+          "constructs": {
+            "barriers": {
+              "tech_mean": 2.6475,
+              "nontech_mean": 2.9037,
+              "d": -0.3488
+            },
+            "readiness": {
+              "tech_mean": 3.4173,
+              "nontech_mean": 3.0086,
+              "d": 0.6298
+            },
+            "maturity": {
+              "tech_mean": 3.2716,
+              "nontech_mean": 2.9902,
+              "d": 0.3541
+            }
+          }
+        },
+        "large_vs_small": {
+          "large_n": 23,
+          "small_medium_n": 100,
+          "constructs": {
+            "barriers": {
+              "large_mean": 3.1597,
+              "small_medium_mean": 2.7533,
+              "d": 0.5866
+            },
+            "readiness": {
+              "large_mean": 2.9218,
+              "small_medium_mean": 3.1174,
+              "d": -0.3021
+            }
+          }
+        }
+      },
+      "cross_tabs": {
+        "by_role": [
+          {
+            "group": "Technical (CIO/CTO)",
+            "n": 29,
+            "barrier_mean": 2.6475,
+            "readiness_mean": 3.4173,
+            "maturity_mean": 3.2716
+          },
+          {
+            "group": "Non-Technical",
+            "n": 75,
+            "barrier_mean": 2.9037,
+            "readiness_mean": 3.0086,
+            "maturity_mean": 2.9902
+          },
+          {
+            "group": "Other",
+            "n": 19,
+            "barrier_mean": 2.8133,
+            "readiness_mean": 2.8524,
+            "maturity_mean": 2.8882
+          }
+        ],
+        "by_org_size": [
+          {
+            "group": "Small (<500)",
+            "n": 54,
+            "barrier_mean": 2.7505,
+            "readiness_mean": 3.0918,
+            "maturity_mean": 2.9344
+          },
+          {
+            "group": "Medium (500-4999)",
+            "n": 46,
+            "barrier_mean": 2.7566,
+            "readiness_mean": 3.1475,
+            "maturity_mean": 3.1432
+          },
+          {
+            "group": "Large (5000+)",
+            "n": 23,
+            "barrier_mean": 3.1597,
+            "readiness_mean": 2.9218,
+            "maturity_mean": 3.0856
+          }
+        ]
+      },
+      "inferential": {
+        "t_tests_tech_vs_nontech": {
+          "tech_n": 29,
+          "nontech_n": 75,
+          "constructs": {
+            "barriers": {
+              "t": -1.6222,
+              "p": 0.0,
+              "df": 52.75,
+              "sig": true
+            },
+            "readiness": {
+              "t": 3.0985,
+              "p": 0.0,
+              "df": 59.68,
+              "sig": true
+            },
+            "maturity": {
+              "t": 1.6863,
+              "p": 0.0,
+              "df": 55.49,
+              "sig": true
+            }
+          }
+        },
+        "t_tests_large_vs_small": {
+          "large_n": 23,
+          "small_medium_n": 100,
+          "constructs": {
+            "barriers": {
+              "t": 2.8139,
+              "p": 0.0,
+              "df": 37.49,
+              "sig": true
+            },
+            "readiness": {
+              "t": -1.24,
+              "p": 0.0,
+              "df": 31.16,
+              "sig": true
+            },
+            "maturity": {
+              "t": 0.2731,
+              "p": 0.0,
+              "df": 29.83,
+              "sig": true
+            }
+          }
+        },
+        "anova_by_role": {
+          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
+          "group_ns": [29, 75, 19],
+          "constructs": {
+            "barriers": {
+              "f": 1.3831,
+              "p": 0.2548,
+              "df_between": 2,
+              "df_within": 120,
+              "sig": false
+            },
+            "readiness": {
+              "f": 5.9775,
+              "p": 0.0034,
+              "df_between": 2,
+              "df_within": 120,
+              "sig": true
+            },
+            "maturity": {
+              "f": 1.7803,
+              "p": 0.173,
+              "df_between": 2,
+              "df_within": 120,
+              "sig": false
+            }
+          }
+        },
+        "anova_by_org_size": {
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [54, 46, 23],
+          "constructs": {
+            "barriers": {
+              "f": 3.1912,
+              "p": 0.0446,
+              "df_between": 2,
+              "df_within": 120,
+              "sig": true
+            },
+            "readiness": {
+              "f": 0.9385,
+              "p": 0.3941,
+              "df_between": 2,
+              "df_within": 120,
+              "sig": false
+            },
+            "maturity": {
+              "f": 0.9185,
+              "p": 0.4019,
+              "df_between": 2,
+              "df_within": 120,
+              "sig": false
+            }
+          }
+        }
+      }
+    },
+    "prolific_accepted": {
+      "demographics": {
+        "roles": {
+          "Other": 44,
+          "CIO": 36,
+          "COO": 23,
+          "CSO": 20,
+          "CMO": 19,
+          "CEO": 18,
+          "CHRO": 16,
+          "CFO": 16,
+          "CTO": 15,
+          "CRO": 15,
+          "Unknown": 2
+        },
+        "org_sizes": {
+          "<100": 37,
+          "100-499": 54,
+          "500-999": 33,
+          "1000-4999": 48,
+          "5000-9999": 20,
+          "10000+": 32
+        },
+        "profit_models": {
+          "For-Profit": 168,
+          "Non-Profit": 39,
+          "Government/Public Sector": 17
+        },
+        "tech_vs_nontech": {
+          "technical": 51,
+          "non_technical": 127,
+          "other": 44
+        }
+      },
+      "effect_sizes": {
+        "tech_vs_nontech": {
+          "tech_n": 51,
+          "nontech_n": 127,
+          "constructs": {
+            "barriers": {
+              "tech_mean": 2.7097,
+              "nontech_mean": 2.8036,
+              "d": -0.1275
+            },
+            "readiness": {
+              "tech_mean": 3.4402,
+              "nontech_mean": 3.0632,
+              "d": 0.5818
+            },
+            "maturity": {
+              "tech_mean": 3.3463,
+              "nontech_mean": 3.0728,
+              "d": 0.344
+            }
+          }
+        },
+        "large_vs_small": {
+          "large_n": 52,
+          "small_medium_n": 172,
+          "constructs": {
+            "barriers": {
+              "large_mean": 2.9306,
+              "small_medium_mean": 2.7323,
+              "d": 0.2808
+            },
+            "readiness": {
+              "large_mean": 3.1562,
+              "small_medium_mean": 3.1295,
+              "d": 0.0399
+            }
+          }
+        }
+      },
+      "cross_tabs": {
+        "by_role": [
+          {
+            "group": "Technical (CIO/CTO)",
+            "n": 51,
+            "barrier_mean": 2.7097,
+            "readiness_mean": 3.4402,
+            "maturity_mean": 3.3463
+          },
+          {
+            "group": "Non-Technical",
+            "n": 127,
+            "barrier_mean": 2.8036,
+            "readiness_mean": 3.0632,
+            "maturity_mean": 3.0728
+          },
+          {
+            "group": "Other",
+            "n": 44,
+            "barrier_mean": 2.7698,
+            "readiness_mean": 2.9513,
+            "maturity_mean": 3.0682
+          }
+        ],
+        "by_org_size": [
+          {
+            "group": "Small (<500)",
+            "n": 91,
+            "barrier_mean": 2.7167,
+            "readiness_mean": 3.0416,
+            "maturity_mean": 2.965
+          },
+          {
+            "group": "Medium (500-4999)",
+            "n": 81,
+            "barrier_mean": 2.7497,
+            "readiness_mean": 3.2283,
+            "maturity_mean": 3.2357
+          },
+          {
+            "group": "Large (5000+)",
+            "n": 52,
+            "barrier_mean": 2.9306,
+            "readiness_mean": 3.1562,
+            "maturity_mean": 3.3174
+          }
+        ]
+      },
+      "inferential": {
+        "t_tests_tech_vs_nontech": {
+          "tech_n": 51,
+          "nontech_n": 127,
+          "constructs": {
+            "barriers": {
+              "t": -0.7579,
+              "p": 0.0,
+              "df": 89.58,
+              "sig": true
+            },
+            "readiness": {
+              "t": 3.5708,
+              "p": 0.0,
+              "df": 95.79,
+              "sig": true
+            },
+            "maturity": {
+              "t": 2.0634,
+              "p": 0.0,
+              "df": 91.22,
+              "sig": true
+            }
+          }
+        },
+        "t_tests_large_vs_small": {
+          "large_n": 52,
+          "small_medium_n": 172,
+          "constructs": {
+            "barriers": {
+              "t": 1.8241,
+              "p": 0.0,
+              "df": 87.98,
+              "sig": true
+            },
+            "readiness": {
+              "t": 0.2308,
+              "p": 0.0,
+              "df": 74.64,
+              "sig": true
+            },
+            "maturity": {
+              "t": 1.6883,
+              "p": 0.0,
+              "df": 78.16,
+              "sig": true
+            }
+          }
+        },
+        "anova_by_role": {
+          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
+          "group_ns": [51, 127, 44],
+          "constructs": {
+            "barriers": {
+              "f": 0.3198,
+              "p": 0.7267,
+              "df_between": 2,
+              "df_within": 219,
+              "sig": false
+            },
+            "readiness": {
+              "f": 8.2371,
+              "p": 0.0004,
+              "df_between": 2,
+              "df_within": 219,
+              "sig": true
+            },
+            "maturity": {
+              "f": 2.3491,
+              "p": 0.0979,
+              "df_between": 2,
+              "df_within": 219,
+              "sig": false
+            }
+          }
+        },
+        "anova_by_org_size": {
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [91, 81, 52],
+          "constructs": {
+            "barriers": {
+              "f": 1.6136,
+              "p": 0.2015,
+              "df_between": 2,
+              "df_within": 221,
+              "sig": false
+            },
+            "readiness": {
+              "f": 1.7085,
+              "p": 0.1835,
+              "df_between": 2,
+              "df_within": 221,
+              "sig": false
+            },
+            "maturity": {
+              "f": 4.1094,
+              "p": 0.0177,
+              "df_between": 2,
+              "df_within": 221,
+              "sig": true
+            }
+          }
+        }
+      }
+    },
+    "v2_finished": {
+      "demographics": {
+        "roles": {
+          "Other": 61,
+          "CIO": 55,
+          "CEO": 33,
+          "CTO": 33,
+          "COO": 32,
+          "CFO": 31,
+          "CSO": 28,
+          "CMO": 24,
+          "CHRO": 22,
+          "CRO": 21,
+          "Unknown": 5
+        },
+        "org_sizes": {
+          "<100": 52,
+          "100-499": 92,
+          "500-999": 54,
+          "1000-4999": 70,
+          "5000-9999": 29,
+          "10000+": 48
+        },
+        "profit_models": {
+          "For-Profit": 262,
+          "Non-Profit": 57,
+          "Government/Public Sector": 26
+        },
+        "tech_vs_nontech": {
+          "technical": 88,
+          "non_technical": 191,
+          "other": 61
+        }
+      },
+      "effect_sizes": {
+        "tech_vs_nontech": {
+          "tech_n": 88,
+          "nontech_n": 191,
+          "constructs": {
+            "barriers": {
+              "tech_mean": 2.6613,
+              "nontech_mean": 2.75,
+              "d": -0.1114
+            },
+            "readiness": {
+              "tech_mean": 3.4857,
+              "nontech_mean": 3.2077,
+              "d": 0.3856
+            },
+            "maturity": {
+              "tech_mean": 3.4308,
+              "nontech_mean": 3.2321,
+              "d": 0.2487
+            }
+          }
+        },
+        "large_vs_small": {
+          "large_n": 77,
+          "small_medium_n": 268,
+          "constructs": {
+            "barriers": {
+              "large_mean": 2.8731,
+              "small_medium_mean": 2.6919,
+              "d": 0.2367
+            },
+            "readiness": {
+              "large_mean": 3.2701,
+              "small_medium_mean": 3.2494,
+              "d": 0.0285
+            }
+          }
+        }
+      },
+      "cross_tabs": {
+        "by_role": [
+          {
+            "group": "Technical (CIO/CTO)",
+            "n": 88,
+            "barrier_mean": 2.6613,
+            "readiness_mean": 3.4857,
+            "maturity_mean": 3.4308
+          },
+          {
+            "group": "Non-Technical",
+            "n": 191,
+            "barrier_mean": 2.75,
+            "readiness_mean": 3.2077,
+            "maturity_mean": 3.2321
+          },
+          {
+            "group": "Other",
+            "n": 61,
+            "barrier_mean": 2.7714,
+            "readiness_mean": 3.0259,
+            "maturity_mean": 3.161
+          }
+        ],
+        "by_org_size": [
+          {
+            "group": "Small (<500)",
+            "n": 144,
+            "barrier_mean": 2.644,
+            "readiness_mean": 3.176,
+            "maturity_mean": 3.1495
+          },
+          {
+            "group": "Medium (500-4999)",
+            "n": 124,
+            "barrier_mean": 2.7475,
+            "readiness_mean": 3.3353,
+            "maturity_mean": 3.3618
+          },
+          {
+            "group": "Large (5000+)",
+            "n": 77,
+            "barrier_mean": 2.8731,
+            "readiness_mean": 3.2701,
+            "maturity_mean": 3.3848
+          }
+        ]
+      },
+      "inferential": {
+        "t_tests_tech_vs_nontech": {
+          "tech_n": 88,
+          "nontech_n": 191,
+          "constructs": {
+            "barriers": {
+              "t": -0.8598,
+              "p": 0.0,
+              "df": 166.93,
+              "sig": true
+            },
+            "readiness": {
+              "t": 3.0223,
+              "p": 0.0,
+              "df": 173.27,
+              "sig": true
+            },
+            "maturity": {
+              "t": 1.9549,
+              "p": 0.0,
+              "df": 174.55,
+              "sig": true
+            }
+          }
+        },
+        "t_tests_large_vs_small": {
+          "large_n": 77,
+          "small_medium_n": 268,
+          "constructs": {
+            "barriers": {
+              "t": 1.8404,
+              "p": 0.0,
+              "df": 124.01,
+              "sig": true
+            },
+            "readiness": {
+              "t": 0.2124,
+              "p": 0.0,
+              "df": 117.34,
+              "sig": true
+            },
+            "maturity": {
+              "t": 1.2912,
+              "p": 0.0,
+              "df": 118.93,
+              "sig": true
+            }
+          }
+        },
+        "anova_by_role": {
+          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
+          "group_ns": [88, 191, 61],
+          "constructs": {
+            "barriers": {
+              "f": 0.503,
+              "p": 0.6052,
+              "df_between": 2,
+              "df_within": 337,
+              "sig": false
+            },
+            "readiness": {
+              "f": 8.1308,
+              "p": 0.0004,
+              "df_between": 2,
+              "df_within": 336,
+              "sig": true
+            },
+            "maturity": {
+              "f": 2.5511,
+              "p": 0.0795,
+              "df_between": 2,
+              "df_within": 336,
+              "sig": false
+            }
+          }
+        },
+        "anova_by_org_size": {
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [144, 124, 77],
+          "constructs": {
+            "barriers": {
+              "f": 2.286,
+              "p": 0.1032,
+              "df_between": 2,
+              "df_within": 342,
+              "sig": false
+            },
+            "readiness": {
+              "f": 1.6219,
+              "p": 0.199,
+              "df_between": 2,
+              "df_within": 341,
+              "sig": false
+            },
+            "maturity": {
+              "f": 3.2311,
+              "p": 0.0407,
+              "df_between": 2,
+              "df_within": 341,
+              "sig": true
+            }
+          }
+        }
+      }
+    },
+    "v2_all": {
+      "demographics": {
+        "roles": {
+          "Other": 63,
+          "Unknown": 60,
+          "CIO": 55,
+          "COO": 33,
+          "CEO": 33,
+          "CTO": 33,
+          "CFO": 32,
+          "CSO": 30,
+          "CMO": 24,
+          "CHRO": 23,
+          "CRO": 22
+        },
+        "org_sizes": {
+          "<100": 53,
+          "100-499": 94,
+          "500-999": 56,
+          "1000-4999": 71,
+          "5000-9999": 30,
+          "10000+": 49
+        },
+        "profit_models": {
+          "For-Profit": 269,
+          "Non-Profit": 58,
+          "Government/Public Sector": 26
+        },
+        "tech_vs_nontech": {
+          "technical": 88,
+          "non_technical": 197,
+          "other": 63
+        }
+      },
+      "effect_sizes": {
+        "tech_vs_nontech": {
+          "tech_n": 88,
+          "nontech_n": 197,
+          "constructs": {
+            "barriers": {
+              "tech_mean": 2.6613,
+              "nontech_mean": 2.7556,
+              "d": -0.1179
+            },
+            "readiness": {
+              "tech_mean": 3.4857,
+              "nontech_mean": 3.208,
+              "d": 0.3859
+            },
+            "maturity": {
+              "tech_mean": 3.4308,
+              "nontech_mean": 3.2321,
+              "d": 0.2486
+            }
+          }
+        },
+        "large_vs_small": {
+          "large_n": 79,
+          "small_medium_n": 329,
+          "constructs": {
+            "barriers": {
+              "large_mean": 2.884,
+              "small_medium_mean": 2.6965,
+              "d": 0.2435
+            },
+            "readiness": {
+              "large_mean": 3.2701,
+              "small_medium_mean": 3.2494,
+              "d": 0.0285
+            }
+          }
+        }
+      },
+      "cross_tabs": {
+        "by_role": [
+          {
+            "group": "Technical (CIO/CTO)",
+            "n": 88,
+            "barrier_mean": 2.6613,
+            "readiness_mean": 3.4857,
+            "maturity_mean": 3.4308
+          },
+          {
+            "group": "Non-Technical",
+            "n": 197,
+            "barrier_mean": 2.7556,
+            "readiness_mean": 3.208,
+            "maturity_mean": 3.2321
+          },
+          {
+            "group": "Other",
+            "n": 63,
+            "barrier_mean": 2.7867,
+            "readiness_mean": 3.0259,
+            "maturity_mean": 3.161
+          }
+        ],
+        "by_org_size": [
+          {
+            "group": "Small (<500)",
+            "n": 147,
+            "barrier_mean": 2.6596,
+            "readiness_mean": 3.1766,
+            "maturity_mean": 3.1495
+          },
+          {
+            "group": "Medium (500-4999)",
+            "n": 127,
+            "barrier_mean": 2.7397,
+            "readiness_mean": 3.3353,
+            "maturity_mean": 3.3618
+          },
+          {
+            "group": "Large (5000+)",
+            "n": 79,
+            "barrier_mean": 2.884,
+            "readiness_mean": 3.2701,
+            "maturity_mean": 3.3848
+          }
+        ]
+      },
+      "inferential": {
+        "t_tests_tech_vs_nontech": {
+          "tech_n": 88,
+          "nontech_n": 197,
+          "constructs": {
+            "barriers": {
+              "t": -0.9142,
+              "p": 0.0,
+              "df": 167.0,
+              "sig": true
+            },
+            "readiness": {
+              "t": 3.0241,
+              "p": 0.0,
+              "df": 172.53,
+              "sig": true
+            },
+            "maturity": {
+              "t": 1.9549,
+              "p": 0.0,
+              "df": 174.55,
+              "sig": true
+            }
+          }
+        },
+        "t_tests_large_vs_small": {
+          "large_n": 79,
+          "small_medium_n": 329,
+          "constructs": {
+            "barriers": {
+              "t": 1.911,
+              "p": 0.0,
+              "df": 126.18,
+              "sig": true
+            },
+            "readiness": {
+              "t": 0.2119,
+              "p": 0.0,
+              "df": 117.03,
+              "sig": true
+            },
+            "maturity": {
+              "t": 1.2912,
+              "p": 0.0,
+              "df": 118.93,
+              "sig": true
+            }
+          }
+        },
+        "anova_by_role": {
+          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
+          "group_ns": [88, 197, 63],
+          "constructs": {
+            "barriers": {
+              "f": 0.6054,
+              "p": 0.5465,
+              "df_between": 2,
+              "df_within": 341,
+              "sig": false
+            },
+            "readiness": {
+              "f": 8.1518,
+              "p": 0.0003,
+              "df_between": 2,
+              "df_within": 337,
+              "sig": true
+            },
+            "maturity": {
+              "f": 2.5511,
+              "p": 0.0795,
+              "df_between": 2,
+              "df_within": 336,
+              "sig": false
+            }
+          }
+        },
+        "anova_by_org_size": {
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [147, 127, 79],
+          "constructs": {
+            "barriers": {
+              "f": 2.1618,
+              "p": 0.1167,
+              "df_between": 2,
+              "df_within": 346,
+              "sig": false
+            },
+            "readiness": {
+              "f": 1.619,
+              "p": 0.1996,
+              "df_between": 2,
+              "df_within": 342,
+              "sig": false
+            },
+            "maturity": {
+              "f": 3.2311,
+              "p": 0.0407,
+              "df_between": 2,
+              "df_within": 341,
+              "sig": true
+            }
+          }
+        }
+      }
+    }
+  }
+}

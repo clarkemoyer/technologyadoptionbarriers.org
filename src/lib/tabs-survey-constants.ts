@@ -104,8 +104,10 @@ export const DURATION_THRESHOLDS = {
   smealBenchmarkMin: 300,
   smealBenchmarkMax: 540,
   /**
-   * Research analysis: minimum duration for "clean" sample inclusion.
-   * Conservative threshold (~8 minutes) for publication-grade analysis.
+   * Research analysis: minimum duration for "Flexible Clean" sample inclusion.
+   * This 480s (~8 min) threshold is used for Flexible Clean (Finished +
+   * Prolific APPROVED + all 3 IRIs + duration >= 480s). Conservative Clean uses smealBenchmarkMax
+   * (540s / 9 min) which also requires reCAPTCHA, straightlining, and auth checks.
    */
   cleanSample: 480,
 } as const
@@ -141,12 +143,16 @@ export const PROFIT_MODEL_VALUES = ['For-Profit', 'Non-Profit', 'Government/Publ
 
 /* ------------------------------------------------------------------ */
 /*  Survey Blocks (for straightlining analysis)                        */
+/*  Use substantive item counts only — IRI items have predetermined    */
+/*  correct answers and must NOT be included in within-person SD       */
+/*  calculations. Including IRIs artificially inflates variance and    */
+/*  masks straightlining. See Issue #735 for the root-cause analysis.  */
 /* ------------------------------------------------------------------ */
 
 export const SURVEY_BLOCKS = [
-  { name: 'Barriers', prefix: COLUMN_PREFIXES.barriers, count: ITEM_COUNTS.barriers + 1 }, // +1 for IRI
-  { name: 'Readiness', prefix: COLUMN_PREFIXES.readiness, count: ITEM_COUNTS.readiness + 1 },
-  { name: 'Maturity', prefix: COLUMN_PREFIXES.maturity, count: ITEM_COUNTS.maturity + 1 },
+  { name: 'Barriers', prefix: COLUMN_PREFIXES.barriers, count: ITEM_COUNTS.barriers }, // substantive items only (excludes IRI)
+  { name: 'Readiness', prefix: COLUMN_PREFIXES.readiness, count: ITEM_COUNTS.readiness },
+  { name: 'Maturity', prefix: COLUMN_PREFIXES.maturity, count: ITEM_COUNTS.maturity },
 ] as const
 
 /* ------------------------------------------------------------------ */

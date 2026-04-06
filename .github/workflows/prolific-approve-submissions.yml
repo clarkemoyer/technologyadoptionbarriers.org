@@ -49,14 +49,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - name: Setup Python
+        uses: actions/setup-python@v6
         with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
+          python-version: '3.12'
 
       - name: Verify Prolific API token
         run: |
@@ -98,7 +94,7 @@ jobs:
           echo "Study ID: ${STUDY_ID}"
           echo "Dry run: ${DRY_RUN}"
           echo ""
-          npx --no-install tsx scripts/approve-prolific-submissions.ts
+          python3 scripts/analysis/approve_submissions.py
 
       - name: Error summary
         if: failure()
