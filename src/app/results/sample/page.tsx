@@ -513,7 +513,7 @@ const SamplePage = () => {
                             <tbody>
                               <tr className="border-b border-gray-200">
                                 <td className="py-1.5 pr-2 font-medium">
-                                  <span className="inline-block w-2 h-2 rounded-full bg-blue-500 mr-1.5" />
+                                  <span className="inline-block w-2 h-2 rounded-full bg-blue-500 mr-1.5" aria-hidden="true" />
                                   Technical (CIO, CTO)
                                 </td>
                                 <td className="py-1.5 text-right font-mono">
@@ -525,7 +525,7 @@ const SamplePage = () => {
                               </tr>
                               <tr className="border-b border-gray-200">
                                 <td className="py-1.5 pr-2 font-medium">
-                                  <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1.5" />
+                                  <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1.5" aria-hidden="true" />
                                   Non-Technical (CEO, CFO, COO, CHRO, CMO, CSO, CRO)
                                 </td>
                                 <td className="py-1.5 text-right font-mono">
@@ -537,7 +537,7 @@ const SamplePage = () => {
                               </tr>
                               <tr className="border-b border-gray-200">
                                 <td className="py-1.5 pr-2 font-medium">
-                                  <span className="inline-block w-2 h-2 rounded-full bg-amber-500 mr-1.5" />
+                                  <span className="inline-block w-2 h-2 rounded-full bg-amber-500 mr-1.5" aria-hidden="true" />
                                   Other (self-reported)
                                 </td>
                                 <td className="py-1.5 text-right font-mono">
