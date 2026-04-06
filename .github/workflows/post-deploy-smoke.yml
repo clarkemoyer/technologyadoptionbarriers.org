@@ -447,8 +447,8 @@ jobs:
           check_content() {
             local url="$1" expected="$2" label="$3"
             local content
-            content=$(curl -s -L --max-time 15 "$url" 2>/dev/null || echo "")
-            if echo "$content" | grep -q "$expected"; then
+            curl -s -L --max-time 15 "$url" > /tmp/content-body 2>/dev/null
+            if grep -qF -- "$expected" /tmp/content-body 2>/dev/null; then
               echo "| $label | ✅ Contains: \"$expected\" |" >> /tmp/content-results.txt
             else
               echo "| $label | ❌ Missing: \"$expected\" |" >> /tmp/content-results.txt
