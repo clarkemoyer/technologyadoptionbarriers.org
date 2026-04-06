@@ -49,16 +49,20 @@ const getMaturityColor = (val: number | null) => {
 export default function CrossTabView({ data, label }: CrossTabViewProps) {
   const [view, setView] = useState<'heatmap' | 'table'>('heatmap')
 
-  // Set default view based on screen size on mount
+  // Set default view based on screen size on mount and handle resizing
   useEffect(() => {
-    const handleInitialView = () => {
-      if (window.innerWidth < 768) {
+    const mediaQuery = window.matchMedia('(max-width: 767px)')
+    const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      if (e.matches) {
         setView('table')
       }
     }
-    // Using requestAnimationFrame to avoid the synchronous setState warning
-    // and ensure it happens after the initial paint.
-    requestAnimationFrame(handleInitialView)
+
+    // Initial check
+    handleChange(mediaQuery)
+
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
   }, [])
 
   return (
@@ -68,7 +72,7 @@ export default function CrossTabView({ data, label }: CrossTabViewProps) {
     >
       <div className="flex items-center justify-between">
         <h4 className="text-xs font-bold text-gray-600 uppercase">{label}</h4>
-        <div className="flex bg-gray-200/50 p-1 rounded-md">
+        <div className="hidden md:flex bg-gray-200/50 p-1 rounded-md">
           <button
             type="button"
             onClick={() => setView('heatmap')}
