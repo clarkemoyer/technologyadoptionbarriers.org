@@ -168,6 +168,7 @@ def main():
     messages_sent = 0
     messages_already_sent = 0
     messages_failed = 0
+    current_statuses: dict = {}
     try:
         if not dry_run:
             print(f"Verifying Prolific API token and study {study_id}...")
@@ -224,7 +225,7 @@ def main():
             messages_sent = len(clean_pids)
         else:
             for pid in clean_pids:
-                status = current_statuses.get(pid, "UNKNOWN") if 'current_statuses' in locals() else "APPROVED"
+                status = current_statuses.get(pid, "UNKNOWN")
                 # Only message if they are APPROVED (already approved or just now approved)
                 if status == "APPROVED" or status == "AWAITING REVIEW":
                     try:
