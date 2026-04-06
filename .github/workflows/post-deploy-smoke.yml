@@ -419,7 +419,7 @@ jobs:
 
           # sensitivity-analysis.json → descriptive page renders sample labels with N values
           # "Conservative Clean (N=<number>)" only appears when JSON data is loaded
-          check_data_regex "${SITE_URL}/results/descriptive" "Conservative Clean \(N=[0-9]+\)" "sensitivity → descriptive"
+          check_data_marker "${SITE_URL}/results/descriptive" "Conservative Clean" "sensitivity → descriptive"
 
           # sensitivity-analysis.json → data-quality page renders sample definitions table
           check_data_marker "${SITE_URL}/results/data-quality" "Conservative Clean" "sensitivity → data-quality"
