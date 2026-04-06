@@ -135,6 +135,21 @@ def mean_sd(values):
     return (m, math.sqrt(var))
 
 
+def mean_ci(values, alpha=0.05):
+    """Compute mean and 95% confidence interval for a list of values."""
+    m, sd = mean_sd(values)
+    if m is None:
+        return (None, None, None, None)
+    values = [v for v in values if v is not None]
+    n = len(values)
+    if n < 2:
+        return (m, sd, None, None)
+    se = sd / math.sqrt(n)
+    t_crit = _t_critical(n - 1, alpha)
+    margin = t_crit * se
+    return (m, sd, m - margin, m + margin)
+
+
 def pearson_r(x, y):
     """Compute Pearson correlation coefficient between two lists."""
     pairs = [(a, b) for a, b in zip(x, y) if a is not None and b is not None]
@@ -163,6 +178,26 @@ def cohens_d(g1, g2):
     if pooled == 0:
         return None
     return (m1 - m2) / pooled
+
+
+def cohens_d_ci(g1, g2, alpha=0.05):
+    """Compute Cohen's d and its 95% confidence interval.
+
+    Uses the standard error approximation:
+    SE(d) = sqrt((n1+n2)/(n1*n2) + d^2/(2*(n1+n2)))
+    CI = d +/- z_crit * SE(d) (using normal approximation for d CI).
+    """
+    d = cohens_d(g1, g2)
+    if d is None:
+        return (None, None, None)
+    n1 = len([v for v in g1 if v is not None])
+    n2 = len([v for v in g2 if v is not None])
+    # SE for Cohen's d
+    se = math.sqrt((n1 + n2) / (n1 * n2) + (d ** 2) / (2 * (n1 + n2)))
+    # Use Z-critical for d (approx 1.96 for alpha=0.05)
+    z_crit = _t_critical(1000000, alpha) # Large df approximates Z
+    margin = z_crit * se
+    return (d, d - margin, d + margin)
 
 
 def cronbach_alpha(rows, cols, scale, idx):
@@ -218,32 +253,64 @@ def kurtosis_excess(vals):
 def welch_t_test(g1, g2):
     """Welch's t-test for independent samples with unequal variances.
 
-    Returns (t_statistic, p_value, degrees_of_freedom) or (None, None, None)
-    if either group has fewer than 2 observations.
-    Uses the Welch-Satterthwaite approximation for degrees of freedom
-    and a two-tailed p-value from the t-distribution.
+    Returns (t_statistic, p_value, degrees_of_freedom, ci_low, ci_high)
+    or (None, None, None, None, None) if insufficient data.
+    Uses the Welch-Satterthwaite approximation for degrees of freedom.
     """
     g1 = [v for v in g1 if v is not None]
     g2 = [v for v in g2 if v is not None]
     n1, n2 = len(g1), len(g2)
     if n1 < 2 or n2 < 2:
-        return (None, None, None)
+        return (None, None, None, None, None)
     m1 = sum(g1) / n1
     m2 = sum(g2) / n2
     s1_sq = sum((x - m1) ** 2 for x in g1) / (n1 - 1)
     s2_sq = sum((x - m2) ** 2 for x in g2) / (n2 - 1)
     se = math.sqrt(s1_sq / n1 + s2_sq / n2)
     if se == 0:
-        return (None, None, None)
+        return (None, None, None, None, None)
     t_stat = (m1 - m2) / se
     # Welch-Satterthwaite degrees of freedom
     num = (s1_sq / n1 + s2_sq / n2) ** 2
     denom = (s1_sq / n1) ** 2 / (n1 - 1) + (s2_sq / n2) ** 2 / (n2 - 1)
     if denom == 0:
-        return (None, None, None)
+        return (None, None, None, None, None)
     df = num / denom
     p = _t_cdf_two_tailed(abs(t_stat), df)
-    return (t_stat, p, df)
+
+    # 95% Confidence Interval for the mean difference
+    t_crit = _t_critical(df, 0.05)
+    margin = t_crit * se
+    ci_low = (m1 - m2) - margin
+    ci_high = (m1 - m2) + margin
+
+    return (t_stat, p, df, ci_low, ci_high)
+
+
+def _t_critical(df, alpha=0.05, max_iter=100, tol=1e-8):
+    """Find the critical t-value for a given degrees of freedom and alpha.
+
+    Uses binary search on _t_cdf_two_tailed.
+    """
+    if df <= 0:
+        return None
+
+    # Range for t: [0, 1000] should cover most practical cases.
+    # At df=1, alpha=0.05, t_crit is approx 12.7.
+    # At df=1, alpha=0.001, t_crit is approx 636.6.
+    low = 0.0
+    high = 1000.0
+
+    for _ in range(max_iter):
+        mid = (low + high) / 2.0
+        p = _t_cdf_two_tailed(mid, df)
+        if p > alpha:
+            low = mid
+        else:
+            high = mid
+        if (high - low) < tol:
+            break
+    return (low + high) / 2.0
 
 
 def _t_cdf_two_tailed(t_abs, df):
@@ -253,6 +320,8 @@ def _t_cdf_two_tailed(t_abs, df):
     p = I_{df/(df+t^2)}(df/2, 1/2) which is equivalent to
     2 * (1 - CDF(|t|, df)).
     """
+    if t_abs < 1e-12:
+        return 1.0
     x = df / (df + t_abs ** 2)
     p = _regularized_incomplete_beta(x, df / 2.0, 0.5)
     return max(0.0, min(1.0, p))
@@ -280,33 +349,33 @@ def _regularized_incomplete_beta(x, a, b, max_iter=200, tol=1e-12):
         return 0.0
     if x >= 1:
         return 1.0
+
+    # Symmetric transformation for faster convergence
+    if x > (a + 1.0) / (a + b + 2.0):
+        return 1.0 - _regularized_incomplete_beta(1.0 - x, b, a, max_iter, tol)
+
     # Use the log-beta for numerical stability
-    ln_prefix = _ln_beta_prefix(x, a, b)
+    ln_prefix = a * math.log(x) + b * math.log(1.0 - x) - _ln_beta(a, b)
+
     # Continued fraction (modified Lentz's method)
-    f = 1e-30
-    c = 1e-30
-    d = 1.0 - (a + b) * x / (a + 1.0)
-    if abs(d) < 1e-30:
-        d = 1e-30
-    d = 1.0 / d
-    f = d
-    for m in range(1, max_iter + 1):
-        # Even step
-        num = m * (b - m) * x / ((a + 2 * m - 1) * (a + 2 * m))
-        d = 1.0 + num * d
+    f = 1.0
+    if abs(f) < 1e-30:
+        f = 1e-30
+    c = f
+    d = 0.0
+
+    for j in range(1, max_iter + 1):
+        if j % 2 == 0:
+            m = j // 2
+            aa = m * (b - m) * x / ((a + 2 * m - 1) * (a + 2 * m))
+        else:
+            m = (j - 1) // 2
+            aa = -(a + m) * (a + b + m) * x / ((a + 2 * m) * (a + 2 * m + 1))
+
+        d = 1.0 + aa * d
         if abs(d) < 1e-30:
             d = 1e-30
-        c = 1.0 + num / c
-        if abs(c) < 1e-30:
-            c = 1e-30
-        d = 1.0 / d
-        f *= d * c
-        # Odd step
-        num = -(a + m) * (a + b + m) * x / ((a + 2 * m) * (a + 2 * m + 1))
-        d = 1.0 + num * d
-        if abs(d) < 1e-30:
-            d = 1e-30
-        c = 1.0 + num / c
+        c = 1.0 + aa / c
         if abs(c) < 1e-30:
             c = 1e-30
         d = 1.0 / d
@@ -314,12 +383,8 @@ def _regularized_incomplete_beta(x, a, b, max_iter=200, tol=1e-12):
         f *= delta
         if abs(delta - 1.0) < tol:
             break
-    return max(0.0, min(1.0, math.exp(ln_prefix) * f / a))
 
-
-def _ln_beta_prefix(x, a, b):
-    """Log of x^a * (1-x)^b / B(a, b)."""
-    return a * math.log(x) + b * math.log(1 - x) - _ln_beta(a, b)
+    return max(0.0, min(1.0, math.exp(ln_prefix) * (1.0 / f) / a))
 
 
 def _ln_beta(a, b):
@@ -1121,30 +1186,47 @@ def sensitivity_to_json(cuts, idx):
             return None
 
     metric_defs = [
-        ("barrier_mean", "Barrier Grand Mean", lambda rows: mean_sd(person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx))[0]),
-        ("barrier_sd", "Barrier SD", lambda rows: mean_sd(person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx))[1]),
-        ("readiness_mean", "Readiness Grand Mean", lambda rows: mean_sd(person_means(rows, READINESS_COLS, READINESS_SCALE, idx))[0]),
-        ("readiness_sd", "Readiness SD", lambda rows: mean_sd(person_means(rows, READINESS_COLS, READINESS_SCALE, idx))[1]),
-        ("maturity_mean", "Maturity Grand Mean", lambda rows: mean_sd(person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx))[0]),
-        ("maturity_sd", "Maturity SD", lambda rows: mean_sd(person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx))[1]),
-        ("corr_br", "B-R Correlation", lambda rows: pearson_r(person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx), person_means(rows, READINESS_COLS, READINESS_SCALE, idx))),
-        ("corr_bm", "B-M Correlation", lambda rows: pearson_r(person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx), person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx))),
-        ("corr_rm", "R-M Correlation", lambda rows: pearson_r(person_means(rows, READINESS_COLS, READINESS_SCALE, idx), person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx))),
-        ("alpha_barriers", "Alpha Barriers", lambda rows: cronbach_alpha(rows, BARRIER_COLS, BARRIER_SCALE, idx)),
-        ("alpha_readiness", "Alpha Readiness", lambda rows: cronbach_alpha(rows, READINESS_COLS, READINESS_SCALE, idx)),
-        ("alpha_maturity", "Alpha Maturity", lambda rows: cronbach_alpha(rows, MATURITY_COLS, MATURITY_SCALE, idx)),
+        ("barrier", "Barrier", lambda rows: person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx)),
+        ("readiness", "Readiness", lambda rows: person_means(rows, READINESS_COLS, READINESS_SCALE, idx)),
+        ("maturity", "Maturity", lambda rows: person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx)),
     ]
 
-    for key, label, fn in metric_defs:
-        values = {}
-        for sample_label, rows in cuts:
-            sample_key = sample_meta.get(sample_label, {}).get("key", sample_label.lower().replace(" ", "_"))
-            values[sample_key] = safe_compute(fn, rows)
-        result["metrics"].append({
-            "key": key,
-            "label": label,
-            "values": values,
-        })
+    metrics_results = {}
+
+    for sample_label, rows in cuts:
+        sample_key = sample_meta.get(sample_label, {}).get("key", sample_label.lower().replace(" ", "_"))
+        for construct_key, construct_label, means_fn in metric_defs:
+            pm = means_fn(rows)
+            m, sd, low, high = mean_ci(pm)
+
+            def update_metric(key, label, val):
+                if key not in metrics_results:
+                    metrics_results[key] = {"key": key, "label": label, "values": {}}
+                metrics_results[key]["values"][sample_key] = round(val, 4) if isinstance(val, float) else val
+
+            update_metric(f"{construct_key}_mean", f"{construct_label} Grand Mean", m)
+            update_metric(f"{construct_key}_ci_low", f"{construct_label} CI Low", low)
+            update_metric(f"{construct_key}_ci_high", f"{construct_label} CI High", high)
+            update_metric(f"{construct_key}_sd", f"{construct_label} SD", sd)
+
+        # Correlation and alpha metrics (still per-sample)
+        def add_misc(key, label, val):
+            if key not in metrics_results:
+                metrics_results[key] = {"key": key, "label": label, "values": {}}
+            metrics_results[key]["values"][sample_key] = round(val, 4) if isinstance(val, float) else val
+
+        bp = person_means(rows, BARRIER_COLS, BARRIER_SCALE, idx)
+        rp = person_means(rows, READINESS_COLS, READINESS_SCALE, idx)
+        mp = person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx)
+
+        add_misc("corr_br", "B-R Correlation", pearson_r(bp, rp))
+        add_misc("corr_bm", "B-M Correlation", pearson_r(bp, mp))
+        add_misc("corr_rm", "R-M Correlation", pearson_r(rp, mp))
+        add_misc("alpha_barriers", "Alpha Barriers", cronbach_alpha(rows, BARRIER_COLS, BARRIER_SCALE, idx))
+        add_misc("alpha_readiness", "Alpha Readiness", cronbach_alpha(rows, READINESS_COLS, READINESS_SCALE, idx))
+        add_misc("alpha_maturity", "Alpha Maturity", cronbach_alpha(rows, MATURITY_COLS, MATURITY_SCALE, idx))
+
+    result["metrics"] = list(metrics_results.values())
 
     # ── Demographics per sample ──
     def demographics_for(rows):
@@ -1195,13 +1277,15 @@ def sensitivity_to_json(cuts, idx):
         for label, cols, sc in ALL_CONSTRUCTS:
             t = person_means(tech, cols, sc, idx)
             nt = person_means(nontech, cols, sc, idx)
-            d = cohens_d(t, nt)
+            d, d_low, d_high = cohens_d_ci(t, nt)
             tm, _ = mean_sd(t)
             ntm, _ = mean_sd(nt)
             effects["tech_vs_nontech"]["constructs"][label] = {
                 "tech_mean": round(tm, 4) if tm is not None else None,
                 "nontech_mean": round(ntm, 4) if ntm is not None else None,
                 "d": round(d, 4) if d is not None else None,
+                "d_ci_low": round(d_low, 4) if d_low is not None else None,
+                "d_ci_high": round(d_high, 4) if d_high is not None else None,
             }
 
         large = [r for r in rows if r[idx['Q4_OrgSize']].strip() in LARGE_ORG_SIZES]
@@ -1211,13 +1295,15 @@ def sensitivity_to_json(cuts, idx):
                                  ("readiness", READINESS_COLS, READINESS_SCALE)]:
             l = person_means(large, cols, sc, idx)
             s = person_means(smmed, cols, sc, idx)
-            d = cohens_d(l, s)
+            d, d_low, d_high = cohens_d_ci(l, s)
             lm, _ = mean_sd(l)
             sm, _ = mean_sd(s)
             effects["large_vs_small"]["constructs"][label] = {
                 "large_mean": round(lm, 4) if lm is not None else None,
                 "small_medium_mean": round(sm, 4) if sm is not None else None,
                 "d": round(d, 4) if d is not None else None,
+                "d_ci_low": round(d_low, 4) if d_low is not None else None,
+                "d_ci_high": round(d_high, 4) if d_high is not None else None,
             }
 
         return effects
@@ -1288,11 +1374,13 @@ def sensitivity_to_json(cuts, idx):
         for label, cols, sc in ALL_CONSTRUCTS:
             t_vals = person_means(tech, cols, sc, idx)
             nt_vals = person_means(nontech, cols, sc, idx)
-            t_stat, p_val, df = welch_t_test(t_vals, nt_vals)
+            t_stat, p_val, df, ci_l, ci_h = welch_t_test(t_vals, nt_vals)
             t_tests[label] = {
                 "t": round(t_stat, 4) if t_stat is not None else None,
                 "p": round(p_val, 4) if p_val is not None else None,
                 "df": round(df, 2) if df is not None else None,
+                "ci_low": round(ci_l, 4) if ci_l is not None else None,
+                "ci_high": round(ci_h, 4) if ci_h is not None else None,
                 "sig": p_val is not None and p_val < 0.05,
             }
         result_inf["t_tests_tech_vs_nontech"] = {
@@ -1307,11 +1395,13 @@ def sensitivity_to_json(cuts, idx):
         for label, cols, sc in ALL_CONSTRUCTS:
             l_vals = person_means(large, cols, sc, idx)
             s_vals = person_means(smmed, cols, sc, idx)
-            t_stat, p_val, df = welch_t_test(l_vals, s_vals)
+            t_stat, p_val, df, ci_l, ci_h = welch_t_test(l_vals, s_vals)
             t_tests_org[label] = {
                 "t": round(t_stat, 4) if t_stat is not None else None,
                 "p": round(p_val, 4) if p_val is not None else None,
                 "df": round(df, 2) if df is not None else None,
+                "ci_low": round(ci_l, 4) if ci_l is not None else None,
+                "ci_high": round(ci_h, 4) if ci_h is not None else None,
                 "sig": p_val is not None and p_val < 0.05,
             }
         result_inf["t_tests_large_vs_small"] = {

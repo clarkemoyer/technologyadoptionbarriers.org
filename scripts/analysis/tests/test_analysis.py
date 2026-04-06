@@ -32,6 +32,10 @@ from tabs_v2_analysis import (
     sensitivity_to_json,
     welch_t_test,
     oneway_anova,
+    _t_critical,
+    _t_cdf_two_tailed,
+    mean_ci,
+    cohens_d_ci,
     BARRIER_SCALE,
     READINESS_SCALE,
     MATURITY_SCALE,
@@ -45,6 +49,39 @@ from tabs_v2_analysis import (
 
 
 # ── mean_sd ─────────────────────────────────────────────────
+
+class TestMeanCI:
+    def test_basic(self):
+        vals = [2, 4, 6]
+        m, s, low, high = mean_ci(vals)
+        assert m == 4.0
+        assert s == 2.0
+        # n=3, df=2. t_crit(2, 0.05) = 4.303
+        # se = 2 / sqrt(3) = 1.1547
+        # margin = 4.303 * 1.1547 = 4.968
+        # CI = [4 - 4.968, 4 + 4.968] = [-0.968, 8.968]
+        assert low == pytest.approx(-0.968, abs=0.01)
+        assert high == pytest.approx(8.968, abs=0.01)
+
+    def test_insufficient(self):
+        m, s, low, high = mean_ci([5])
+        assert m == 5.0
+        assert low is None
+
+
+class TestTCritical:
+    def test_known_values(self):
+        # df=1, t=12.706
+        assert _t_critical(1, 0.05) == pytest.approx(12.706, abs=0.01)
+        # df=30, t=2.042
+        assert _t_critical(30, 0.05) == pytest.approx(2.042, abs=0.01)
+        # large df, t=1.96
+        assert _t_critical(1000, 0.05) == pytest.approx(1.96, abs=0.01)
+
+    def test_invalid(self):
+        assert _t_critical(0) is None
+        assert _t_critical(-1) is None
+
 
 class TestMeanSD:
     def test_basic(self):
@@ -110,6 +147,22 @@ class TestCohensD:
 
     def test_insufficient_data(self):
         assert cohens_d([5], [3]) is None
+
+
+class TestCohensDCI:
+    def test_basic(self):
+        g1 = [10, 11, 12]
+        g2 = [1, 2, 3]
+        d, low, high = cohens_d_ci(g1, g2)
+        assert d > 8
+        assert low < d < high
+        # SE = sqrt(2/3 + 81/12) = sqrt(0.66 + 6.75) = sqrt(7.41) = 2.72
+        # margin = 1.96 * 2.72 = 5.33
+        # d=9, so CI is approx [3.67, 14.33]
+        assert low > 0
+
+    def test_insufficient(self):
+        assert cohens_d_ci([1], [2]) == (None, None, None)
 
 
 # ── cronbach_alpha ───────────────────────────────────────────
@@ -319,7 +372,7 @@ class TestSensitivityJSON:
         assert "metrics" in result
         assert len(result["samples"]) == 3
         assert all("key" in s and "n" in s for s in result["samples"])
-        assert len(result["metrics"]) == 12  # 3 constructs * 4 metrics (mean, sd, corr, alpha) roughly
+        assert len(result["metrics"]) == 18  # 3 constructs * 6 metrics (mean, ci_low, ci_high, sd, corr, alpha) roughly
 
         # Check that metric values are dicts keyed by sample key
         for metric in result["metrics"]:
@@ -453,26 +506,28 @@ class TestWelchTTest:
     def test_equal_groups(self):
         g1 = [1.0, 2.0, 3.0, 4.0, 5.0]
         g2 = [1.0, 2.0, 3.0, 4.0, 5.0]
-        t, p, df = welch_t_test(g1, g2)
+        t, p, df, low, high = welch_t_test(g1, g2)
         assert t == pytest.approx(0.0, abs=1e-6)
         assert p == pytest.approx(1.0, abs=0.01)
+        assert low < 0 < high
 
     def test_different_groups(self):
         g1 = [10.0, 11.0, 12.0, 13.0, 14.0]
         g2 = [1.0, 2.0, 3.0, 4.0, 5.0]
-        t, p, df = welch_t_test(g1, g2)
+        t, p, df, low, high = welch_t_test(g1, g2)
         assert t > 0
         assert p < 0.01  # clearly significant
+        assert low > 0
 
     def test_insufficient_data(self):
-        t, p, df = welch_t_test([1.0], [2.0, 3.0])
+        t, p, df, low, high = welch_t_test([1.0], [2.0, 3.0])
         assert t is None
         assert p is None
 
     def test_filters_none(self):
         g1 = [1.0, None, 3.0, 5.0]
         g2 = [2.0, 4.0, None, 6.0]
-        t, p, df = welch_t_test(g1, g2)
+        t, p, df, low, high = welch_t_test(g1, g2)
         assert t is not None
         assert p is not None
 
