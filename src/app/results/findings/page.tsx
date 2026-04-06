@@ -157,7 +157,7 @@ const renderItemStatsTable = (
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {items.map((item) => {
+            {items.map((item, index) => {
               // Find baseline rank
               const baselineMatch = baselineItems?.find((b) => b.name === item.name)
               const baselineRank = baselineMatch ? baselineMatch.rank : null
@@ -286,9 +286,8 @@ const FindingsPage = () => {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Per-Item Statistics</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The top and bottom items by mean score within each construct (top/bottom 5 for Barriers
-            and Readiness; top/bottom 4 for Maturity to avoid overlap in the 8-item scale). Rank
-            sensitivity is shown compared to the Conservative Clean baseline.
+            The top 5 and bottom 5 items by mean score within each construct. Rank sensitivity is
+            shown compared to the Conservative Clean baseline.
           </p>
 
           {PRIMARY_GROUPS.map((group) => {
@@ -314,7 +313,7 @@ const FindingsPage = () => {
                     </h4>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                       {renderItemStatsTable(
-                        `Top ${groupStats.constructs.barriers.top5.length} Barriers`,
+                        'Top 5 Barriers',
                         groupStats.constructs.barriers.top5,
                         group.key === 'conservative_clean'
                           ? null
@@ -322,7 +321,7 @@ const FindingsPage = () => {
                         true
                       )}
                       {renderItemStatsTable(
-                        `Bottom ${groupStats.constructs.barriers.bottom5.length} Barriers`,
+                        'Bottom 5 Barriers',
                         groupStats.constructs.barriers.bottom5,
                         group.key === 'conservative_clean'
                           ? null
@@ -339,7 +338,7 @@ const FindingsPage = () => {
                     </h4>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                       {renderItemStatsTable(
-                        `Top ${groupStats.constructs.readiness.top5.length} Readiness`,
+                        'Top 5 Readiness',
                         groupStats.constructs.readiness.top5,
                         group.key === 'conservative_clean'
                           ? null
@@ -347,7 +346,7 @@ const FindingsPage = () => {
                         true
                       )}
                       {renderItemStatsTable(
-                        `Bottom ${groupStats.constructs.readiness.bottom5.length} Readiness`,
+                        'Bottom 5 Readiness',
                         groupStats.constructs.readiness.bottom5,
                         group.key === 'conservative_clean'
                           ? null
@@ -363,20 +362,21 @@ const FindingsPage = () => {
                       Maturity
                     </h4>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {/* Note: Maturity only has 8 items. To avoid duplicate overlaps, we just display the top 4 and bottom 4. */}
                       {renderItemStatsTable(
-                        `Top ${groupStats.constructs.maturity.top5.length} Maturity`,
-                        groupStats.constructs.maturity.top5,
+                        'Top 4 Maturity',
+                        groupStats.constructs.maturity.top5.slice(0, 4),
                         group.key === 'conservative_clean'
                           ? null
-                          : baselineStats?.constructs.maturity.top5,
+                          : baselineStats?.constructs.maturity.top5.slice(0, 4),
                         true
                       )}
                       {renderItemStatsTable(
-                        `Bottom ${groupStats.constructs.maturity.bottom5.length} Maturity`,
-                        groupStats.constructs.maturity.bottom5,
+                        'Bottom 4 Maturity',
+                        groupStats.constructs.maturity.bottom5.slice(-4),
                         group.key === 'conservative_clean'
                           ? null
-                          : baselineStats?.constructs.maturity.bottom5,
+                          : baselineStats?.constructs.maturity.bottom5.slice(-4),
                         false
                       )}
                     </div>

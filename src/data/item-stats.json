@@ -474,9 +474,21 @@
             "name": "Workforce Capability",
             "mean": 3.1124,
             "sd": 1.3352
+          },
+          {
+            "rank": 5,
+            "name": "Strategic IT Planning",
+            "mean": 3.0899,
+            "sd": 1.3622
           }
         ],
         "bottom5": [
+          {
+            "rank": 4,
+            "name": "Workforce Capability",
+            "mean": 3.1124,
+            "sd": 1.3352
+          },
           {
             "rank": 5,
             "name": "Strategic IT Planning",
@@ -980,9 +992,21 @@
             "name": "Strategic IT Planning",
             "mean": 3.058,
             "sd": 1.4078
+          },
+          {
+            "rank": 5,
+            "name": "Process Mgmt & Standardization",
+            "mean": 3.0435,
+            "sd": 1.4492
           }
         ],
         "bottom5": [
+          {
+            "rank": 4,
+            "name": "Strategic IT Planning",
+            "mean": 3.058,
+            "sd": 1.4078
+          },
           {
             "rank": 5,
             "name": "Process Mgmt & Standardization",
@@ -1486,9 +1510,21 @@
             "name": "Process Mgmt & Standardization",
             "mean": 2.9949,
             "sd": 1.4584
+          },
+          {
+            "rank": 5,
+            "name": "Workforce Capability",
+            "mean": 2.9949,
+            "sd": 1.3721
           }
         ],
         "bottom5": [
+          {
+            "rank": 4,
+            "name": "Process Mgmt & Standardization",
+            "mean": 2.9949,
+            "sd": 1.4584
+          },
           {
             "rank": 5,
             "name": "Workforce Capability",
@@ -1992,9 +2028,21 @@
             "name": "Workforce Capability",
             "mean": 3.0228,
             "sd": 1.3862
+          },
+          {
+            "rank": 5,
+            "name": "Process Mgmt & Standardization",
+            "mean": 3.0046,
+            "sd": 1.4366
           }
         ],
         "bottom5": [
+          {
+            "rank": 4,
+            "name": "Workforce Capability",
+            "mean": 3.0228,
+            "sd": 1.3862
+          },
           {
             "rank": 5,
             "name": "Process Mgmt & Standardization",
@@ -2498,9 +2546,21 @@
             "name": "Workforce Capability",
             "mean": 3.0201,
             "sd": 1.3997
+          },
+          {
+            "rank": 5,
+            "name": "Strategic IT Planning",
+            "mean": 3.0121,
+            "sd": 1.4716
           }
         ],
         "bottom5": [
+          {
+            "rank": 4,
+            "name": "Workforce Capability",
+            "mean": 3.0201,
+            "sd": 1.3997
+          },
           {
             "rank": 5,
             "name": "Strategic IT Planning",
