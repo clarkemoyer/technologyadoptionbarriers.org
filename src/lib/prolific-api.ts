@@ -386,20 +386,38 @@ export async function getSubmissionDemographics(
 }
 
 /**
- * Fetch demographics for all submissions in a study.
- * Makes one API call per submission — use sparingly.
+ * Fetch demographics for all submissions in a study using bounded concurrency.
+ * Processes submissions in batches to avoid overwhelming the Prolific API with
+ * too many simultaneous requests while still being faster than fully sequential.
+ *
+ * @param studyId - The unique identifier of the study
+ * @param apiToken - Prolific API token
+ * @param concurrency - Maximum number of simultaneous requests (default: 5)
+ * @returns Map from participant_id to their demographics
  */
 export async function getStudyDemographics(
   studyId: string,
-  apiToken: string
+  apiToken: string,
+  concurrency = 5
 ): Promise<Map<string, SubmissionDemographics>> {
   const subs = await listStudySubmissions(studyId, apiToken)
   const results = new Map<string, SubmissionDemographics>()
+  const submissions = subs.results
 
-  for (const sub of subs.results) {
-    const demo = await getSubmissionDemographics(sub.id, apiToken)
-    if (demo) {
-      results.set(sub.participant_id, demo)
+  for (let i = 0; i < submissions.length; i += concurrency) {
+    const batch = submissions.slice(i, i + concurrency)
+    const batchResults = await Promise.all(
+      batch.map((sub) =>
+        getSubmissionDemographics(sub.id, apiToken).then((demo) => ({
+          participantId: sub.participant_id,
+          demo,
+        }))
+      )
+    )
+    for (const { participantId, demo } of batchResults) {
+      if (demo) {
+        results.set(participantId, demo)
+      }
     }
   }
 
