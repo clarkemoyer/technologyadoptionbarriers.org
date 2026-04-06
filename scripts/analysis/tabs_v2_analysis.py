@@ -133,7 +133,7 @@ OTHER_ROLE_CATEGORIES_PATTERNS = [
     ]),
     ("Technical Specialist", [
         r'\bengineer\b', r'\barchitect\b', r'\bdeveloper\b', r'\banalyst\b',
-        r'\badmin(?:istrator)?\b', r'\bsecurity\b', r'\bdata\b', r'\bIT\b',
+        r'\badmin(?:istrator)?\b', r'\bsecurity\b', r'\bdata\b', r'\b(?-i:IT)\b',
         r'\btechnolog', r'\bsystems?\b', r'\binfrastructure\b', r'\bnetwork\b',
     ]),
 ]

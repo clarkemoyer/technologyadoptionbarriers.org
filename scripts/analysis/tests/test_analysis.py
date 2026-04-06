@@ -8,6 +8,8 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from collections import Counter
+
 from tabs_v2_analysis import (
     mean_sd,
     pearson_r,
@@ -32,6 +34,8 @@ from tabs_v2_analysis import (
     sensitivity_to_json,
     welch_t_test,
     oneway_anova,
+    categorize_other_role,
+    OTHER_ROLE_CATEGORIES_PATTERNS,
     BARRIER_SCALE,
     READINESS_SCALE,
     MATURITY_SCALE,
@@ -499,3 +503,142 @@ class TestOnewayAnova:
     def test_insufficient_groups(self):
         f, p, df_b, df_w = oneway_anova([1.0, 2.0])
         assert f is None
+
+
+# ── categorize_other_role ────────────────────────────────────
+
+class TestCategorizeOtherRole:
+    """Unit tests for categorize_other_role() and OTHER_ROLE_CATEGORIES_PATTERNS."""
+
+    # --- empty / whitespace inputs ---
+
+    def test_empty_string(self):
+        assert categorize_other_role("") == "Uncategorized"
+
+    def test_whitespace_only(self):
+        assert categorize_other_role("   \t  ") == "Uncategorized"
+
+    def test_none_like_empty(self):
+        # None would raise AttributeError in strip(); guard is `not text`
+        assert categorize_other_role("") == "Uncategorized"
+
+    # --- IT acronym case sensitivity ---
+
+    def test_lowercase_it_is_not_technical_specialist(self):
+        assert categorize_other_role("it") == "Uncategorized"
+
+    def test_it_in_prose_does_not_match(self):
+        assert categorize_other_role("it's complicated") == "Uncategorized"
+
+    def test_it_in_sentence_does_not_match(self):
+        assert categorize_other_role("I think it's fine") == "Uncategorized"
+
+    def test_uppercase_IT_matches_technical_specialist(self):
+        assert categorize_other_role("IT") == "Technical Specialist"
+
+    def test_IT_standalone_matches_technical_specialist(self):
+        assert categorize_other_role("IT Specialist") == "Technical Specialist"
+
+    # --- representative inputs for every category ---
+
+    def test_c_suite_adjacent_chief(self):
+        assert categorize_other_role("Chief Digital Officer") == "C-Suite Adjacent"
+
+    def test_c_suite_adjacent_cdo(self):
+        assert categorize_other_role("CDO") == "C-Suite Adjacent"
+
+    def test_vp_svp_vp(self):
+        assert categorize_other_role("VP of Operations") == "VP / SVP"
+
+    def test_vp_svp_vice_president(self):
+        assert categorize_other_role("Vice President, Strategy") == "VP / SVP"
+
+    def test_director(self):
+        assert categorize_other_role("Director of Finance") == "Director"
+
+    def test_manager(self):
+        assert categorize_other_role("Program Manager") == "Manager / Program Lead"
+
+    def test_team_lead(self):
+        assert categorize_other_role("Team Lead") == "Manager / Program Lead"
+
+    def test_owner(self):
+        assert categorize_other_role("Owner") == "Owner / Founder / President"
+
+    def test_founder(self):
+        assert categorize_other_role("Founder and CEO") == "Owner / Founder / President"
+
+    def test_technical_specialist_engineer(self):
+        assert categorize_other_role("Software Engineer") == "Technical Specialist"
+
+    def test_technical_specialist_developer(self):
+        assert categorize_other_role("Senior Developer") == "Technical Specialist"
+
+    def test_technical_specialist_architect(self):
+        assert categorize_other_role("Solutions Architect") == "Technical Specialist"
+
+    def test_technical_specialist_analyst(self):
+        assert categorize_other_role("Data Analyst") == "Technical Specialist"
+
+    def test_technical_specialist_technology_keyword(self):
+        assert categorize_other_role("Head of Technology") == "Technical Specialist"
+
+    def test_uncategorized_random_text(self):
+        assert categorize_other_role("Something completely unrelated") == "Uncategorized"
+
+    # --- first-match / precedence behavior ---
+
+    def test_first_category_wins_over_second(self):
+        """Text that matches both C-Suite Adjacent and VP/SVP should return C-Suite Adjacent."""
+        # "chief" matches C-Suite Adjacent; "VP" matches VP/SVP
+        assert categorize_other_role("Chief VP") == "C-Suite Adjacent"
+
+    def test_first_category_wins_director_vs_manager(self):
+        """'Director' appears before 'Manager / Program Lead' in the list."""
+        # 'director' and 'lead' both present → Director wins
+        assert categorize_other_role("Director and Team Lead") == "Director"
+
+    # --- counter-based aggregation ---
+
+    def test_counter_aggregation(self):
+        inputs = ["", "   ", "Chief of Staff", "Chief Analytics Officer", "VP of Sales"]
+        results = Counter(categorize_other_role(t) for t in inputs)
+        assert results["Uncategorized"] == 2
+        assert results["C-Suite Adjacent"] == 2
+        assert results["VP / SVP"] == 1
+
+    # --- all configured categories have a matchable representative ---
+
+    def test_all_categories_have_representative(self):
+        """Every entry in OTHER_ROLE_CATEGORIES_PATTERNS can be matched by at least one pattern."""
+        import re
+
+        # A pool of candidate strings to try against each pattern.
+        candidates = [
+            "IT", "information technology", "technology", "technical",
+            "operations", "operator", "admin", "administrator",
+            "finance", "accounting", "procurement", "marketing",
+            "communications", "sales", "hr", "human resources", "people",
+            "product", "program", "project", "engineering", "engineer",
+            "developer", "analyst", "consultant", "owner", "founder",
+            "executive", "leadership", "support", "customer success",
+            "research", "data", "security", "compliance", "legal",
+            "chief", "CDO", "CPO", "CAO", "CLO", "CDIO", "CAIO", "CXO", "CCO",
+            "VP", "vice president", "SVP", "EVP", "AVP",
+            "director", "manager", "team lead", "supervisor",
+            "president", "partner", "principal", "proprietor",
+            "architect", "systems", "infrastructure", "network",
+        ]
+
+        for category, patterns in OTHER_ROLE_CATEGORIES_PATTERNS:
+            matched = False
+            for pat in patterns:
+                for candidate in candidates:
+                    if re.search(pat, candidate):
+                        matched = True
+                        break
+                if matched:
+                    break
+            assert matched, (
+                "No candidate matched any pattern for category {!r}".format(category)
+            )
