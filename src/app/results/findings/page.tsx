@@ -610,7 +610,7 @@ const FindingsPage = () => {
               inf && (inf.t_tests_tech_vs_nontech?.constructs || inf.anova_by_role?.constructs)
 
             return (
-              <div key={group.key} className={`border-l-4 ${group.color} pl-5 mb-10`}>
+              <div key={group.key} className={`border-l-4 ${group.color} bg-gray-50 rounded-lg p-5 mb-10`}>
                 <h3 className={H3_CLASSES}>{group.label}</h3>
 
                 {hasData ? (
