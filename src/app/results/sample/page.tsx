@@ -51,6 +51,8 @@ const PRIMARY_GROUPS = [
 const pct = (count: number, total: number | null | undefined): string =>
   total ? `${((count / total) * 100).toFixed(1)}%` : '—'
 
+const sampleLookup = new Map(sensitivityData.samples.map((s) => [s.key, s]))
+
 const SamplePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -387,7 +389,7 @@ const SamplePage = () => {
               </thead>
               <tbody>
                 {PRIMARY_GROUPS.map((group, i) => {
-                  const sample = sensitivityData.samples.find((s) => s.key === group.key)
+                  const sample = sampleLookup.get(group.key)
                   return (
                     <tr
                       key={group.key}
@@ -424,7 +426,7 @@ const SamplePage = () => {
           </p>
 
           {PRIMARY_GROUPS.map((group) => {
-            const sample = sensitivityData.samples.find((s) => s.key === group.key)
+            const sample = sampleLookup.get(group.key)
             const details = sampleDetails[group.key]
             const demo = details?.demographics
             const hasDemoData =
