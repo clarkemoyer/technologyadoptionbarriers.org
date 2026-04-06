@@ -307,11 +307,62 @@ $MSG_ROWS
 **Dashboard:** [View live dashboard](https://technologyadoptionbarriers.org/making-of-tabs/integrations/prolific/dashboard)
 STATUSEOF
 
+# --- Ensure required labels exist (idempotent) ---
+gh label create "auto-close-eligible" \
+  --color "0075ca" \
+  --description "Daily report eligible for auto-close (no critical findings)" \
+  --force 2>/dev/null || true
+gh label create "auto-closed" \
+  --color "ededed" \
+  --description "Daily report automatically closed by the daily pipeline" \
+  --force 2>/dev/null || true
+
+# --- Critical findings check (for auto-closing) ---
+# Critical if:
+# 1. Any job failed (TRIAGE, APPROVE, MESSAGE, DASHBOARD)
+# 2. Recommendations contain "Critical", "Anomaly", or "Action"
+# 3. New rejections (DELTA_REJECTED > 0)
+# 4. New returns (DELTA_RETURNED > 0)
+# 5. Total awaiting review > 0
+# 6. Messaging failures (TOTAL_FAILED > 0)
+
+CRITICAL_FINDINGS=false
+[ "${TRIAGE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
+[ "${APPROVE_RESULT_STATUS:-}" = "failure" ] && CRITICAL_FINDINGS=true
+[ "${MESSAGE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
+[ "${DASHBOARD_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
+echo "$RECOMMENDATIONS" | grep -qE "Critical|Anomaly|Action" && CRITICAL_FINDINGS=true
+[ "$DELTA_REJECTED" -gt 0 ] && CRITICAL_FINDINGS=true
+[ "$DELTA_RETURNED" -gt 0 ] && CRITICAL_FINDINGS=true
+[ "$TODAY_AWAITING" -gt 0 ] && CRITICAL_FINDINGS=true
+[ "$TOTAL_FAILED" -gt 0 ] && CRITICAL_FINDINGS=true
+
 # --- Create issue ---
 TITLE="Daily Disposition Report -- $DATE"
-gh issue create \
+# Build label args as an array to avoid comma-separated parsing ambiguity
+LABEL_ARGS=(--label "documentation")
+if [ "$CRITICAL_FINDINGS" = false ]; then
+  LABEL_ARGS+=(--label "auto-close-eligible")
+fi
+
+ISSUE_URL=$(gh issue create \
   --title "$TITLE" \
   --body-file /tmp/report-body.md \
-  --label "documentation"
+  "${LABEL_ARGS[@]}")
 
-echo "Daily report issue created: $TITLE"
+echo "Daily report issue created: $TITLE ($ISSUE_URL)"
+
+# --- Auto-close previous eligible issues (>23h old) ---
+# We use 23h to ensure the "daily" report from yesterday is caught even if
+# the cron runs slightly earlier today.
+echo "Checking for old auto-close-eligible issues..."
+CUTOFF_EPOCH=$(date -u -d '23 hours ago' +'%s')
+OLD_ISSUES=$(gh issue list --label "auto-close-eligible" --state "open" --json number,createdAt \
+  --jq ".[] | select(((.createdAt | sub(\"\\.[0-9]+Z$\"; \"Z\") | fromdateiso8601)) < ${CUTOFF_EPOCH}) | .number")
+
+for ISSUE_NUM in $OLD_ISSUES; do
+  echo "Auto-closing issue #$ISSUE_NUM"
+  gh issue comment "$ISSUE_NUM" --body "Auto-closing this report as it has been open for >23h with no critical findings."
+  gh issue edit "$ISSUE_NUM" --add-label "auto-closed" --remove-label "auto-close-eligible"
+  gh issue close "$ISSUE_NUM"
+done
