@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
+import CrossTabView, { type CrossTabRow } from './cross-tab-view'
 
 export const metadata: Metadata = {
   title: 'Key Findings — TABS Results',
@@ -34,14 +35,6 @@ interface EffectSizeGroup {
   large_n?: number
   small_medium_n?: number
   constructs?: Record<string, EffectSizeConstruct>
-}
-
-interface CrossTabRow {
-  group: string
-  n: number
-  barrier_mean: number | null
-  readiness_mean: number | null
-  maturity_mean: number | null
 }
 
 interface InferentialConstruct {
@@ -332,81 +325,15 @@ const FindingsPage = () => {
                 </h3>
 
                 {hasData ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-3">
                     {/* By Role */}
-                    {(ct.by_role?.length ?? 0) > 0 && (
-                      <div>
-                        <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">By Role</h4>
-                        <div className="overflow-x-auto">
-                          <table className="w-full text-xs border-collapse bg-white/70 rounded">
-                            <thead>
-                              <tr className="border-b border-gray-300">
-                                <th className="py-1.5 px-2 text-left font-semibold">Group</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">n</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">B</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">R</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">M</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {(ct.by_role as CrossTabRow[]).map((row) => (
-                                <tr key={row.group} className="border-b border-gray-200">
-                                  <td className="py-1.5 px-2 font-medium">{row.group}</td>
-                                  <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
-                                  <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.barrier_mean?.toFixed(2) ?? '—'}
-                                  </td>
-                                  <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.readiness_mean?.toFixed(2) ?? '—'}
-                                  </td>
-                                  <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.maturity_mean?.toFixed(2) ?? '—'}
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
+                    {ct.by_role && ct.by_role.length > 0 && (
+                      <CrossTabView data={ct.by_role} label="By Role" />
                     )}
 
                     {/* By Org Size */}
-                    {(ct.by_org_size?.length ?? 0) > 0 && (
-                      <div>
-                        <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
-                          By Org Size
-                        </h4>
-                        <div className="overflow-x-auto">
-                          <table className="w-full text-xs border-collapse bg-white/70 rounded">
-                            <thead>
-                              <tr className="border-b border-gray-300">
-                                <th className="py-1.5 px-2 text-left font-semibold">Group</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">n</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">B</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">R</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">M</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {(ct.by_org_size as CrossTabRow[]).map((row) => (
-                                <tr key={row.group} className="border-b border-gray-200">
-                                  <td className="py-1.5 px-2 font-medium">{row.group}</td>
-                                  <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
-                                  <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.barrier_mean?.toFixed(2) ?? '—'}
-                                  </td>
-                                  <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.readiness_mean?.toFixed(2) ?? '—'}
-                                  </td>
-                                  <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.maturity_mean?.toFixed(2) ?? '—'}
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
+                    {ct.by_org_size && ct.by_org_size.length > 0 && (
+                      <CrossTabView data={ct.by_org_size} label="By Org Size" />
                     )}
                   </div>
                 ) : (
