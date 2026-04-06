@@ -13,6 +13,7 @@
     "qualtrics:mcp:token:force": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/set-qualtrics-mcp-token.ps1 -Force",
     "qualtrics:mcp:client": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/set-qualtrics-mcp-client.ps1",
     "qualtrics:flow:dump": "tsx scripts/qualtrics-dump-flow.ts",
+    "benchmark:find-vs-map": "node scripts/benchmark_find_vs_map.js",
     "release:notes": "tsx scripts/generate-release-notes.ts",
     "check-links": "linkinator ./out --recurse --config .linkinatorrc.json",
     "test": "jest",
