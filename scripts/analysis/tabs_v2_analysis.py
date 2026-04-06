@@ -1245,7 +1245,9 @@ def sensitivity_to_json(cuts, idx):
                 # Defensive index check guards against malformed/short rows.
                 if has_other_text and other_text_idx is not None and other_text_idx < len(r):
                     text = r[other_text_idx].strip()
-                    other_cats[categorize_other_role(text)] += 1
+                else:
+                    text = ''
+                other_cats[categorize_other_role(text)] += 1
             org_sizes[r[idx['Q4_OrgSize']].strip()] += 1
             profit_models[r[idx['Q5_ProfitModel']].strip()] += 1
 
