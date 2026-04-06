@@ -340,6 +340,15 @@ describe('Barriers component', () => {
   })
 
   describe('Accessibility', () => {
+    it('should have alt text on all img elements', () => {
+      const { container } = render(<Barriers />)
+      const images = container.querySelectorAll('img')
+      images.forEach((img) => {
+        expect(img).toHaveAttribute('alt')
+        expect(img.getAttribute('alt')).not.toBe('')
+      })
+    })
+
     it('should not have accessibility violations', async () => {
       const { container } = render(<Barriers />)
       const results = await axe(container)

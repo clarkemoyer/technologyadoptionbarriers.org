@@ -57,7 +57,7 @@ const Barriers = () => {
           {/* Search Input */}
           <div className="relative mb-[30px]">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <LiaSearchSolid className="h-6 w-6 text-gray-400" />
+              <LiaSearchSolid aria-hidden="true" className="h-6 w-6 text-gray-400" />
             </div>
             <input
               type="text"
@@ -73,7 +73,7 @@ const Barriers = () => {
                 className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600"
                 aria-label="Clear search query"
               >
-                <RxCross2 className="h-5 w-5" />
+                <RxCross2 aria-hidden="true" className="h-5 w-5" />
               </button>
             )}
           </div>
