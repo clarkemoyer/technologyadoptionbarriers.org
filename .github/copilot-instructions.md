@@ -475,6 +475,7 @@ ls -la .github/      # GitHub workflows and configs
 **CRITICAL: This project handles research participant data. These rules apply to ALL agents (Copilot, Jules, Claude).**
 
 **NEVER commit:**
+
 - Prolific Participant IDs (PIDs) — 24-character hex strings (e.g., `5df961cb53e8466f17606ae1`)
 - Email addresses, names, or any direct identifiers
 - Raw Qualtrics CSV data
@@ -483,6 +484,7 @@ ls -la .github/      # GitHub workflows and configs
 - Build artifacts (`*.log`, `patch_*.sh`, `ide_capabilities.txt`, `.env`)
 
 **Safe to commit (aggregates only):**
+
 - `src/data/sensitivity-analysis.json` — aggregate statistics
 - `src/data/disposition-summary.json` — aggregate counts
 - `src/data/data-audit.json` — aggregate waterfall
