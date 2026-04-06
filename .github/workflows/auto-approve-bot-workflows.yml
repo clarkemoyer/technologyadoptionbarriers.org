@@ -24,14 +24,15 @@ jobs:
           echo "Checking for action_required workflows from Copilot..."
           RUNS=$(gh api "repos/${{ github.repository }}/actions/runs?status=action_required&per_page=100" \
             --jq '.workflow_runs[] | select(.actor.login == "Copilot") | .id')
-          
-          COUNT=$(echo "$RUNS" | grep -c '[0-9]' || echo 0)
-          
+
+          COUNT=$(gh api "repos/${{ github.repository }}/actions/runs?status=action_required&per_page=100" \
+            --jq '.workflow_runs | map(select(.actor.login == "Copilot")) | length')
+
           if [ "$COUNT" -eq 0 ]; then
             echo "No blocked runs found. All clear."
             exit 0
           fi
-          
+
           echo "Found $COUNT blocked runs. Re-running..."
           for RUN_ID in $RUNS; do
             gh api "repos/${{ github.repository }}/actions/runs/$RUN_ID/rerun" -X POST 2>/dev/null \

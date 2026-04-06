@@ -2,8 +2,24 @@
 
 import Script from 'next/script'
 
+export const DEFAULT_GTM_ID = 'GTM-P5GBFCTL'
+
+export function sanitizeGtmId(gtmId: string): string {
+  return gtmId.replace(/[^a-zA-Z0-9-]/g, '')
+}
+
+function isValidGtmId(gtmId: string): boolean {
+  return /^GTM-[A-Z0-9]+$/.test(gtmId)
+}
+
 // Google Tag Manager ID
-const GTM_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || 'GTM-P5GBFCTL'
+const GTM_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || DEFAULT_GTM_ID
+
+// Sanitize GTM_ID to prevent XSS (only allow alphanumeric and hyphens)
+const sanitizedGtmId = sanitizeGtmId(GTM_ID)
+
+// Validate the sanitized ID against the expected GTM format; fall back to the default if invalid
+const validatedGtmId = isValidGtmId(sanitizedGtmId) ? sanitizedGtmId : DEFAULT_GTM_ID
 
 export default function GoogleTagManager() {
   return (
@@ -18,7 +34,7 @@ export default function GoogleTagManager() {
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','${GTM_ID}');
+            })(window,document,'script','dataLayer','${validatedGtmId}');
           `,
         }}
       />
@@ -31,7 +47,7 @@ export function GoogleTagManagerNoScript() {
   return (
     <noscript>
       <iframe
-        src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+        src={`https://www.googletagmanager.com/ns.html?id=${validatedGtmId}`}
         height="0"
         width="0"
         style={{ display: 'none', visibility: 'hidden' }}
