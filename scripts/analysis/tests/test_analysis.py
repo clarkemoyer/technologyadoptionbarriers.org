@@ -405,6 +405,11 @@ class TestSensitivityJSON:
             assert "org_sizes" in demo
             assert "profit_models" in demo
             assert "tech_vs_nontech" in demo
+            assert "other_roles" in demo, f"missing other_roles for {key}"
+            assert "total" in demo["other_roles"], f"other_roles missing total for {key}"
+            assert "categories" in demo["other_roles"], f"other_roles missing categories for {key}"
+            assert isinstance(demo["other_roles"]["total"], int)
+            assert isinstance(demo["other_roles"]["categories"], dict)
 
             # Effect sizes has required structure
             if details["effect_sizes"]:
