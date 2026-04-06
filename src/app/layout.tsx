@@ -132,7 +132,9 @@ export default function RootLayout({
         </a>
         {/* <PopupProvider> */}
         <Header />
-        {children}
+        <div id="main-content" tabIndex={-1}>
+          {children}
+        </div>
         <Footer />
         <CookieConsent />
         {/* <PopupsRootClient /> */}
