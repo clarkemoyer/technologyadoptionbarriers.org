@@ -1,14 +1,12 @@
 """Tests for tabs_v2_analysis.py — statistical functions and sample filtering."""
 
 import math
+import re
 import sys
+from collections import Counter
 from pathlib import Path
 
 import pytest
-
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-from collections import Counter
 
 from tabs_v2_analysis import (
     mean_sd,
@@ -518,7 +516,7 @@ class TestCategorizeOtherRole:
     def test_whitespace_only(self):
         assert categorize_other_role("   \t  ") == "Uncategorized"
 
-    def test_none_like_empty(self):
+    def test_empty_string_again_matches_uncategorized(self):
         # None would raise AttributeError in strip(); guard is `not text`
         assert categorize_other_role("") == "Uncategorized"
 
@@ -611,8 +609,6 @@ class TestCategorizeOtherRole:
 
     def test_all_categories_have_representative(self):
         """Every entry in OTHER_ROLE_CATEGORIES_PATTERNS can be matched by at least one pattern."""
-        import re
-
         # A pool of candidate strings to try against each pattern.
         candidates = [
             "IT", "information technology", "technology", "technical",
