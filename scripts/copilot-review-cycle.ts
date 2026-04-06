@@ -735,7 +735,14 @@ async function main() {
       prNumber,
       `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Timed out waiting for Copilot review. You can re-trigger manually.`
     )
-    writeSummary(prNumber, round, maxRounds, 'TIMEOUT', 0, `Review timeout, dispatching round ${round + 1}`)
+    writeSummary(
+      prNumber,
+      round,
+      maxRounds,
+      'TIMEOUT',
+      0,
+      `Review timeout, dispatching round ${round + 1}`
+    )
     dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
     process.exit(0)
   }
@@ -883,7 +890,14 @@ async function main() {
       prNumber,
       `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Fixes were pushed but CI is failing. Pausing review cycle until CI is fixed.`
     )
-    writeSummary(prNumber, round, maxRounds, 'CI_FAIL', comments.length, `Fixes broke CI, dispatching round ${round + 1}`)
+    writeSummary(
+      prNumber,
+      round,
+      maxRounds,
+      'CI_FAIL',
+      comments.length,
+      `Fixes broke CI, dispatching round ${round + 1}`
+    )
     dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
     process.exit(0)
   }
