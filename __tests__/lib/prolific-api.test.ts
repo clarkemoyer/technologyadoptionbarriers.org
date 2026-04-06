@@ -6,7 +6,9 @@ import {
   getCurrentUser,
   getStudy,
   getStudyStatistics,
+  getStudyDemographics,
   getSubmission,
+  getSubmissionDemographics,
   listStudies,
   listStudySubmissions,
   exportSubmissionsCSV,
@@ -21,6 +23,7 @@ import {
   ProlificApiErrorClass,
   type Study,
   type Submission,
+  type SubmissionDemographics,
   type Message,
   type PaginatedResponse,
 } from '../../src/lib/prolific-api'
@@ -1036,6 +1039,190 @@ describe('Prolific API Client', () => {
         expect.stringContaining('/messages/?created_after='),
         expect.objectContaining({ headers: expect.any(Headers) })
       )
+    })
+  })
+
+  describe('getSubmissionDemographics', () => {
+    const mockDemographics: SubmissionDemographics = {
+      submission_id: 'submission-456',
+      participant_id: 'participant-1',
+      started_at: '2024-01-05T10:00:00Z',
+      completed_at: '2024-01-05T10:15:00Z',
+      time_taken: 900,
+      total_approvals: 42,
+      demographics: { age: 30, country: 'US', employment_status: 'full_time' },
+    }
+
+    it('should return demographics on success', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        text: async () => JSON.stringify(mockDemographics),
+      })
+
+      const result = await getSubmissionDemographics(mockSubmissionId, mockApiToken)
+
+      expect(result).toEqual(mockDemographics)
+      expect(global.fetch).toHaveBeenCalledWith(
+        `https://api.prolific.com/api/v1/submissions/${mockSubmissionId}/demographics/`,
+        expect.any(Object)
+      )
+    })
+
+    it('should return null when the endpoint returns 404', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: false,
+        status: 404,
+        text: async () => '',
+      })
+
+      const result = await getSubmissionDemographics(mockSubmissionId, mockApiToken)
+
+      expect(result).toBeNull()
+    })
+
+    it('should return null when the response body is empty', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        text: async () => '',
+      })
+
+      const result = await getSubmissionDemographics(mockSubmissionId, mockApiToken)
+
+      expect(result).toBeNull()
+    })
+
+    it('should return null when the response body is whitespace only', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        text: async () => '   ',
+      })
+
+      const result = await getSubmissionDemographics(mockSubmissionId, mockApiToken)
+
+      expect(result).toBeNull()
+    })
+
+    it('should throw ProlificApiErrorClass on non-404 error status', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+        text: async () => '',
+      })
+
+      await expect(getSubmissionDemographics(mockSubmissionId, mockApiToken)).rejects.toThrow(
+        ProlificApiErrorClass
+      )
+    })
+  })
+
+  describe('getStudyDemographics', () => {
+    const makeSub = (id: string, participantId: string): Submission => ({
+      id,
+      participant_id: participantId,
+      study_id: mockStudyId,
+      status: 'APPROVED',
+      started_at: '2024-01-05T10:00:00Z',
+      completed_at: '2024-01-05T10:15:00Z',
+      time_taken: 900,
+    })
+
+    const makeDemo = (submissionId: string, participantId: string): SubmissionDemographics => ({
+      submission_id: submissionId,
+      participant_id: participantId,
+      started_at: '2024-01-05T10:00:00Z',
+      completed_at: '2024-01-05T10:15:00Z',
+      time_taken: 900,
+      total_approvals: 10,
+      demographics: { age: 25 },
+    })
+
+    it('should return an empty Map when the study has no submissions', async () => {
+      const emptyPage: PaginatedResponse<Submission> = {
+        results: [],
+        meta: { count: 0, next: null, previous: null },
+      }
+
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: async () => emptyPage,
+      })
+
+      const result = await getStudyDemographics(mockStudyId, mockApiToken)
+
+      expect(result.size).toBe(0)
+      // Only one fetch call: listStudySubmissions
+      expect(global.fetch).toHaveBeenCalledTimes(1)
+    })
+
+    it('should populate the Map with participant_id keys for all successful submissions', async () => {
+      const subsPage: PaginatedResponse<Submission> = {
+        results: [makeSub('sub-1', 'p-1'), makeSub('sub-2', 'p-2')],
+        meta: { count: 2, next: null, previous: null },
+      }
+      const demo1 = makeDemo('sub-1', 'p-1')
+      const demo2 = makeDemo('sub-2', 'p-2')
+
+      ;(global.fetch as jest.Mock)
+        .mockResolvedValueOnce({ ok: true, json: async () => subsPage }) // listStudySubmissions
+        .mockResolvedValueOnce({ ok: true, status: 200, text: async () => JSON.stringify(demo1) }) // sub-1 demographics
+        .mockResolvedValueOnce({ ok: true, status: 200, text: async () => JSON.stringify(demo2) }) // sub-2 demographics
+
+      const result = await getStudyDemographics(mockStudyId, mockApiToken)
+
+      expect(result.size).toBe(2)
+      expect(result.get('p-1')).toEqual(demo1)
+      expect(result.get('p-2')).toEqual(demo2)
+    })
+
+    it('should omit entries where the demographics endpoint returns null (404)', async () => {
+      const subsPage: PaginatedResponse<Submission> = {
+        results: [makeSub('sub-1', 'p-1'), makeSub('sub-2', 'p-2'), makeSub('sub-3', 'p-3')],
+        meta: { count: 3, next: null, previous: null },
+      }
+      const demo1 = makeDemo('sub-1', 'p-1')
+      const demo3 = makeDemo('sub-3', 'p-3')
+
+      ;(global.fetch as jest.Mock)
+        .mockResolvedValueOnce({ ok: true, json: async () => subsPage }) // listStudySubmissions
+        .mockResolvedValueOnce({ ok: true, status: 200, text: async () => JSON.stringify(demo1) }) // p-1: success
+        .mockResolvedValueOnce({ ok: false, status: 404, text: async () => '' }) // p-2: 404 → null
+        .mockResolvedValueOnce({ ok: true, status: 200, text: async () => JSON.stringify(demo3) }) // p-3: success
+
+      const result = await getStudyDemographics(mockStudyId, mockApiToken)
+
+      expect(result.size).toBe(2)
+      expect(result.has('p-1')).toBe(true)
+      expect(result.has('p-2')).toBe(false)
+      expect(result.has('p-3')).toBe(true)
+    })
+
+    it('should respect the concurrency parameter and fetch all submissions', async () => {
+      // Six submissions, concurrency=2 — verify all six demographics are fetched
+      const subs = ['sub-1', 'sub-2', 'sub-3', 'sub-4', 'sub-5', 'sub-6'].map((id, i) =>
+        makeSub(id, `p-${i + 1}`)
+      )
+      const subsPage: PaginatedResponse<Submission> = {
+        results: subs,
+        meta: { count: subs.length, next: null, previous: null },
+      }
+
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce({ ok: true, json: async () => subsPage })
+      for (let i = 0; i < subs.length; i++) {
+        ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          text: async () => JSON.stringify(makeDemo(subs[i].id, subs[i].participant_id)),
+        })
+      }
+
+      const result = await getStudyDemographics(mockStudyId, mockApiToken, 2)
+
+      expect(result.size).toBe(6)
+      // 1 submissions fetch + 6 demographics fetches
+      expect(global.fetch).toHaveBeenCalledTimes(7)
     })
   })
 })

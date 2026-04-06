@@ -386,23 +386,61 @@ export async function getSubmissionDemographics(
 }
 
 /**
- * Fetch demographics for all submissions in a study.
- * Makes one API call per submission — use sparingly.
+ * Run async tasks with a bounded concurrency limit.
+ * At most `limit` tasks execute in parallel; the rest wait in a shared queue.
+ *
+ * @param items - Input items to process
+ * @param limit - Maximum number of concurrent in-flight tasks
+ * @param fn - Async function to apply to each item
+ * @returns Results in the same order as the input items
  */
-export async function getStudyDemographics(
-  studyId: string,
-  apiToken: string
-): Promise<Map<string, SubmissionDemographics>> {
-  const subs = await listStudySubmissions(studyId, apiToken)
-  const results = new Map<string, SubmissionDemographics>()
+async function runWithConcurrency<T, R>(
+  items: T[],
+  limit: number,
+  fn: (item: T) => Promise<R>
+): Promise<R[]> {
+  const results: R[] = new Array(items.length)
+  const queue = items.map((item, index) => ({ item, index }))
 
-  for (const sub of subs.results) {
-    const demo = await getSubmissionDemographics(sub.id, apiToken)
-    if (demo) {
-      results.set(sub.participant_id, demo)
+  async function worker() {
+    let task
+    while ((task = queue.shift()) !== undefined) {
+      results[task.index] = await fn(task.item)
     }
   }
 
+  const workers = Array.from({ length: Math.min(limit, items.length) }, worker)
+  await Promise.all(workers)
+  return results
+}
+
+/**
+ * Fetch demographics for all submissions in a study.
+ * Makes one API call per submission using a bounded concurrency pool to
+ * avoid overwhelming the Prolific API with too many simultaneous requests.
+ *
+ * @param studyId - The unique identifier of the study
+ * @param apiToken - Prolific API token
+ * @param concurrency - Max simultaneous demographic requests (default: 5)
+ */
+export async function getStudyDemographics(
+  studyId: string,
+  apiToken: string,
+  concurrency = 5
+): Promise<Map<string, SubmissionDemographics>> {
+  const subs = await listStudySubmissions(studyId, apiToken)
+
+  const pairs = await runWithConcurrency(subs.results, concurrency, async (sub) => ({
+    participantId: sub.participant_id,
+    demo: await getSubmissionDemographics(sub.id, apiToken),
+  }))
+
+  const results = new Map<string, SubmissionDemographics>()
+  for (const { participantId, demo } of pairs) {
+    if (demo) {
+      results.set(participantId, demo)
+    }
+  }
   return results
 }
 
