@@ -22,11 +22,11 @@ export const metadata: Metadata = {
   },
 }
 
-const GITHUB_SCRIPTS =
+const GITHUB_SCRIPTS_BLOB_BASE =
   'https://github.com/clarkemoyer/technologyadoptionbarriers.org/blob/main/scripts/analysis'
-const GITHUB_TESTS_TREE =
+const GITHUB_TESTS_TREE_URL =
   'https://github.com/clarkemoyer/technologyadoptionbarriers.org/tree/main/scripts/analysis/tests'
-const GITHUB_TESTS_BLOB =
+const GITHUB_TESTS_BLOB_BASE =
   'https://github.com/clarkemoyer/technologyadoptionbarriers.org/blob/main/scripts/analysis/tests'
 
 const ReproducibleAnalysisPage = () => {
@@ -111,7 +111,7 @@ const ReproducibleAnalysisPage = () => {
               </li>
               <li>
                 <a
-                  href={`${GITHUB_SCRIPTS}/generate-constants-json.ts`}
+                  href={`${GITHUB_SCRIPTS_BLOB_BASE}/generate-constants-json.ts`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 underline hover:text-blue-800"
@@ -125,7 +125,7 @@ const ReproducibleAnalysisPage = () => {
               </li>
               <li>
                 <a
-                  href={`${GITHUB_SCRIPTS}/tabs_v2_data_audit.py`}
+                  href={`${GITHUB_SCRIPTS_BLOB_BASE}/tabs_v2_data_audit.py`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 underline hover:text-blue-800"
@@ -157,7 +157,7 @@ const ReproducibleAnalysisPage = () => {
               <h3 className={H3_CLASSES}>
                 1. Data Audit (
                 <a
-                  href={`${GITHUB_SCRIPTS}/tabs_v2_data_audit.py`}
+                  href={`${GITHUB_SCRIPTS_BLOB_BASE}/tabs_v2_data_audit.py`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 underline hover:text-blue-800"
@@ -184,7 +184,7 @@ const ReproducibleAnalysisPage = () => {
               <h3 className={H3_CLASSES}>
                 2. Statistical Analysis (
                 <a
-                  href={`${GITHUB_SCRIPTS}/tabs_v2_analysis.py`}
+                  href={`${GITHUB_SCRIPTS_BLOB_BASE}/tabs_v2_analysis.py`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 underline hover:text-blue-800"
@@ -210,7 +210,7 @@ const ReproducibleAnalysisPage = () => {
               <h3 className={H3_CLASSES}>
                 3. Psychometric Validation (
                 <a
-                  href={`${GITHUB_SCRIPTS}/tabs_v2_psychometrics.py`}
+                  href={`${GITHUB_SCRIPTS_BLOB_BASE}/tabs_v2_psychometrics.py`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 underline hover:text-blue-800"
@@ -236,7 +236,7 @@ const ReproducibleAnalysisPage = () => {
               <h3 className={H3_CLASSES}>
                 4. Advanced Statistics (
                 <a
-                  href={`${GITHUB_SCRIPTS}/tabs_v2_advanced.py`}
+                  href={`${GITHUB_SCRIPTS_BLOB_BASE}/tabs_v2_advanced.py`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 underline hover:text-blue-800"
@@ -261,7 +261,7 @@ const ReproducibleAnalysisPage = () => {
               <h3 className={H3_CLASSES}>
                 5. Data Quality Audit (
                 <a
-                  href={`${GITHUB_SCRIPTS}/tabs_v2_quality_audit.py`}
+                  href={`${GITHUB_SCRIPTS_BLOB_BASE}/tabs_v2_quality_audit.py`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 underline hover:text-blue-800"
@@ -471,7 +471,7 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
                 <tr>
                   <td className="border border-gray-300 px-4 py-2">
                     <a
-                      href={`${GITHUB_SCRIPTS}/test_data.csv`}
+                      href={`${GITHUB_SCRIPTS_BLOB_BASE}/test_data.csv`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 underline hover:text-blue-800 font-mono text-xs"
@@ -479,16 +479,17 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
                       test_data.csv
                     </a>
                   </td>
-                  <td className="border border-gray-300 px-4 py-2 text-right font-mono">7</td>
+                  <td className="border border-gray-300 px-4 py-2 text-right font-mono">5</td>
                   <td className="border border-gray-300 px-4 py-2">
-                    Simplified format for quick logic checks (clean, IRI fail, duration fail,
-                    Don&rsquo;t Know)
+                    Simplified format for quick logic checks with 5 actual response rows (clean, IRI
+                    fail, duration fail, Don&rsquo;t Know); blank Qualtrics-style metadata rows are
+                    not included in the count
                   </td>
                 </tr>
                 <tr className="bg-gray-50">
                   <td className="border border-gray-300 px-4 py-2">
                     <a
-                      href={`${GITHUB_SCRIPTS}/test_data_qualtrics.csv`}
+                      href={`${GITHUB_SCRIPTS_BLOB_BASE}/test_data_qualtrics.csv`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 underline hover:text-blue-800 font-mono text-xs"
@@ -496,7 +497,7 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
                       test_data_qualtrics.csv
                     </a>
                   </td>
-                  <td className="border border-gray-300 px-4 py-2 text-right font-mono">13</td>
+                  <td className="border border-gray-300 px-4 py-2 text-right font-mono">15</td>
                   <td className="border border-gray-300 px-4 py-2">
                     Full Qualtrics CSV format with realistic headers and diverse demographic
                     combinations
@@ -505,23 +506,25 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
                 <tr>
                   <td className="border border-gray-300 px-4 py-2">
                     <a
-                      href={`${GITHUB_TESTS_BLOB}/test_data_production_format.csv`}
+                      href={GITHUB_TESTS_TREE_URL}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 underline hover:text-blue-800 font-mono text-xs"
                     >
-                      tests/test_data_production_format.csv
+                      tests/
                     </a>
                   </td>
                   <td className="border border-gray-300 px-4 py-2 text-right font-mono">500</td>
                   <td className="border border-gray-300 px-4 py-2">
-                    Production-format synthetic data covering all branches in every analysis script
+                    Production-format synthetic dataset used by the analysis scripts; direct CSV
+                    link removed until the file is sanitized per the repository PII policy. See the
+                    tests directory or generator script for implementation details.
                   </td>
                 </tr>
                 <tr className="bg-gray-50">
                   <td className="border border-gray-300 px-4 py-2">
                     <a
-                      href={`${GITHUB_TESTS_BLOB}/generate_test_data.py`}
+                      href={`${GITHUB_TESTS_BLOB_BASE}/generate_test_data.py`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 underline hover:text-blue-800 font-mono text-xs"
@@ -542,7 +545,7 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
           <p className={PARAGRAPH_CLASSES}>
             The{' '}
             <a
-              href={GITHUB_TESTS_TREE}
+              href={GITHUB_TESTS_TREE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 underline hover:text-blue-800"
@@ -667,7 +670,7 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
             <li>
               <strong>Pinned dependencies:</strong>{' '}
               <a
-                href={`${GITHUB_SCRIPTS}/requirements.txt`}
+                href={`${GITHUB_SCRIPTS_BLOB_BASE}/requirements.txt`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 underline hover:text-blue-800"
@@ -677,7 +680,7 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
               locks exact package versions for reproducibility across environments
             </li>
             <li>
-              <strong>Test data included:</strong> Three test datasets (7 + 13 + 500 records) and a
+              <strong>Test data included:</strong> Three test datasets (5 + 15 + 500 records) and a
               deterministic generator exercise all processing paths without requiring production
               data access
             </li>
@@ -719,7 +722,7 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
               View Scripts on GitHub
             </a>
             <a
-              href={GITHUB_TESTS_TREE}
+              href={GITHUB_TESTS_TREE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-5 py-2.5 bg-gray-800 text-white rounded-lg hover:bg-gray-600 transition-colors font-sans text-sm"
