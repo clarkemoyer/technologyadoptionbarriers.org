@@ -35,7 +35,6 @@ interface Review {
 
 interface ReviewComment {
   id: number
-  node_id: string
   path: string
   line: number | null
   body: string
@@ -44,7 +43,7 @@ interface ReviewComment {
 interface ReviewThread {
   id: string // GraphQL node ID
   isResolved: boolean
-  comments: { nodes: Array<{ databaseId: number }> }
+  comments: { nodes: Array<{ databaseId: number; author: { login: string } | null }> }
 }
 
 // --- Helpers ---
@@ -145,12 +144,12 @@ function getReviewThreads(repo: string, prNumber: string): ReviewThread[] {
         '{',
         `  repository(owner: "${owner}", name: "${name}") {`,
         `    pullRequest(number: ${prNum}) {`,
-        `      reviewThreads(first: 100, ${afterArg} orderBy: {field: CREATED_AT, direction: DESC}) {`,
+        `      reviewThreads(first: 100, ${afterArg}) {`,
         '        pageInfo { hasNextPage endCursor }',
         '        nodes {',
         '          id',
         '          isResolved',
-        '          comments(first: 10) { nodes { databaseId } }',
+        '          comments(first: 100) { nodes { databaseId author { login } } }',
         '        }',
         '      }',
         '    }',
@@ -186,9 +185,42 @@ function getReviewThreads(repo: string, prNumber: string): ReviewThread[] {
 }
 
 /**
- * Resolve all unresolved review threads whose comments match
+ * Check if a review thread was initiated by a Copilot bot.
+ */
+function isCopilotThread(thread: ReviewThread): boolean {
+  return thread.comments.nodes.some(
+    (c) => c.author?.login?.toLowerCase().includes('copilot') ?? false
+  )
+}
+
+/**
+ * Resolve a single review thread by its GraphQL node ID.
+ * Returns true on success, false on failure.
+ */
+function resolveThread(threadId: string): boolean {
+  const mutation = `mutation { resolveReviewThread(input: {threadId: "${threadId}"}) { thread { id } } }`
+  const tmpFile = join(tmpdir(), `gql-resolve-${Date.now()}.txt`)
+  writeFileSync(tmpFile, mutation, 'utf-8')
+  try {
+    gh(`api graphql -F query=@${tmpFile}`)
+    return true
+  } catch (err: any) {
+    console.log(`  Warning: Could not resolve thread ${threadId}: ${err.message?.slice(0, 100)}`)
+    return false
+  } finally {
+    try {
+      unlinkSync(tmpFile)
+    } catch {
+      /* ignore */
+    }
+  }
+}
+
+/**
+ * Resolve all unresolved Copilot review threads whose comments match
  * the given review comment IDs. This prevents old threads from
  * being re-flagged in subsequent Copilot review rounds.
+ * Only resolves threads initiated by Copilot — human threads are left intact.
  */
 function resolveReviewThreads(repo: string, prNumber: string, reviewCommentIds: number[]): number {
   if (reviewCommentIds.length === 0) return 0
@@ -199,29 +231,30 @@ function resolveReviewThreads(repo: string, prNumber: string, reviewCommentIds: 
   let resolved = 0
   for (const thread of threads) {
     if (thread.isResolved) continue
+    if (!isCopilotThread(thread)) continue
 
     const hasMatchingComment = thread.comments.nodes.some((c) => commentIdSet.has(c.databaseId))
     if (!hasMatchingComment) continue
 
-    try {
-      const mutation = `mutation { resolveReviewThread(input: {threadId: "${thread.id}"}) { thread { id } } }`
-      const tmpFile = join(tmpdir(), `gql-resolve-${Date.now()}.txt`)
-      writeFileSync(tmpFile, mutation, 'utf-8')
-      try {
-        gh(`api graphql -F query=@${tmpFile}`)
-        resolved++
-      } finally {
-        try {
-          unlinkSync(tmpFile)
-        } catch {
-          /* ignore */
-        }
-      }
-    } catch (err: any) {
-      console.log(`  Warning: Could not resolve thread ${thread.id}: ${err.message?.slice(0, 100)}`)
-    }
+    if (resolveThread(thread.id)) resolved++
   }
 
+  return resolved
+}
+
+/**
+ * Resolve all unresolved Copilot-initiated review threads on a PR.
+ * Used when the review cycle passes clean to close out all remaining threads.
+ * Human-initiated threads are left intact.
+ */
+function resolveAllCopilotThreads(repo: string, prNumber: string): number {
+  const threads = getReviewThreads(repo, prNumber)
+  let resolved = 0
+  for (const thread of threads) {
+    if (thread.isResolved) continue
+    if (!isCopilotThread(thread)) continue
+    if (resolveThread(thread.id)) resolved++
+  }
   return resolved
 }
 
@@ -735,32 +768,12 @@ async function main() {
   if (comments.length === 0) {
     console.log('\nCopilot review is clean!')
 
-    // Resolve all remaining unresolved review threads — cycle is complete
-    console.log('Resolving all remaining review threads...')
-    const allThreads = getReviewThreads(repo, prNumber)
-    let resolvedOnClean = 0
-    for (const thread of allThreads) {
-      if (thread.isResolved) continue
-      try {
-        const mutation = `mutation { resolveReviewThread(input: {threadId: "${thread.id}"}) { thread { id } } }`
-        const tmpFile = join(tmpdir(), `gql-resolve-clean-${Date.now()}.txt`)
-        writeFileSync(tmpFile, mutation, 'utf-8')
-        try {
-          gh(`api graphql -F query=@${tmpFile}`)
-          resolvedOnClean++
-        } finally {
-          try {
-            unlinkSync(tmpFile)
-          } catch {
-            /* ignore */
-          }
-        }
-      } catch {
-        // non-fatal
-      }
-    }
+    // Resolve all remaining Copilot-initiated review threads — cycle is complete
+    // Human-initiated threads are left intact to preserve human review workflows.
+    console.log('Resolving remaining Copilot review threads...')
+    const resolvedOnClean = resolveAllCopilotThreads(repo, prNumber)
     if (resolvedOnClean > 0) {
-      console.log(`  Resolved ${resolvedOnClean} remaining thread(s).`)
+      console.log(`  Resolved ${resolvedOnClean} Copilot thread(s).`)
     }
 
     // Close any remaining fix issues from previous rounds
