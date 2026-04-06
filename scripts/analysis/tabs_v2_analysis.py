@@ -134,6 +134,31 @@ def mean_sd(values):
     var = sum((x - m) ** 2 for x in values) / (n - 1)
     return (m, math.sqrt(var))
 
+def mean_ci(values, confidence=0.95):
+    """Compute the confidence interval for the mean.
+
+    Returns (ci_lower, ci_upper) or (None, None) if insufficient data.
+    Uses the t-distribution and the custom _t_ppf_two_tailed function.
+    """
+    m, s = mean_sd(values)
+    if m is None or s is None:
+        return (None, None)
+
+    values = [v for v in values if v is not None]
+    n = len(values)
+    if n < 2:
+        return (None, None)
+
+    df = n - 1
+    alpha = 1.0 - confidence
+    t_crit = _t_ppf_two_tailed(alpha, df)
+
+    if t_crit is None:
+        return (None, None)
+
+    margin = t_crit * (s / math.sqrt(n))
+    return (m - margin, m + margin)
+
 
 def pearson_r(x, y):
     """Compute Pearson correlation coefficient between two lists."""
@@ -150,19 +175,61 @@ def pearson_r(x, y):
     return sum((a - mx) * (b - my) for a, b in pairs) / ((n - 1) * sx * sy)
 
 
-def cohens_d(g1, g2):
-    """Compute Cohen's d effect size between two groups."""
-    m1, s1 = mean_sd(g1)
-    m2, s2 = mean_sd(g2)
-    if m1 is None or m2 is None:
-        return None
+import random
+
+def _calc_d(g1, g2):
+    """Helper to calculate raw Cohen's d for two lists of numbers."""
     n1, n2 = len(g1), len(g2)
     if n1 < 2 or n2 < 2:
         return None
-    pooled = math.sqrt(((n1 - 1) * s1 ** 2 + (n2 - 1) * s2 ** 2) / (n1 + n2 - 2))
+    m1 = sum(g1) / n1
+    m2 = sum(g2) / n2
+    s1_sq = sum((x - m1) ** 2 for x in g1) / (n1 - 1)
+    s2_sq = sum((x - m2) ** 2 for x in g2) / (n2 - 1)
+    pooled = math.sqrt(((n1 - 1) * s1_sq + (n2 - 1) * s2_sq) / (n1 + n2 - 2))
     if pooled == 0:
         return None
     return (m1 - m2) / pooled
+
+def cohens_d(g1, g2, bootstrap_iters=2000, confidence=0.95):
+    """Compute Cohen's d effect size between two groups and its 95% CI via percentile bootstrap.
+
+    Returns (d, ci_lower, ci_upper) or (None, None, None) if insufficient data.
+    """
+    # Filter Nones to get accurate counts
+    g1 = [v for v in g1 if v is not None]
+    g2 = [v for v in g2 if v is not None]
+
+    d = _calc_d(g1, g2)
+    if d is None:
+        return (None, None, None)
+
+    n1, n2 = len(g1), len(g2)
+
+    # Non-parametric bootstrap
+    boot_d = []
+    # Seed fixed for reproducibility in testing, though random is fine in production
+    rng = random.Random(42)
+    for _ in range(bootstrap_iters):
+        bg1 = [g1[rng.randint(0, n1 - 1)] for _ in range(n1)]
+        bg2 = [g2[rng.randint(0, n2 - 1)] for _ in range(n2)]
+        bd = _calc_d(bg1, bg2)
+        if bd is not None:
+            boot_d.append(bd)
+
+    if not boot_d:
+        return (d, None, None)
+
+    boot_d.sort()
+    alpha = 1.0 - confidence
+    lower_idx = int(len(boot_d) * (alpha / 2.0))
+    upper_idx = int(len(boot_d) * (1.0 - alpha / 2.0))
+
+    # Ensure indices are within bounds
+    lower_idx = max(0, min(lower_idx, len(boot_d) - 1))
+    upper_idx = max(0, min(upper_idx, len(boot_d) - 1))
+
+    return (d, boot_d[lower_idx], boot_d[upper_idx])
 
 
 def cronbach_alpha(rows, cols, scale, idx):
@@ -215,11 +282,41 @@ def kurtosis_excess(vals):
     return k4 - 3 * (n - 1) ** 2 / ((n - 2) * (n - 3))
 
 
+def _t_ppf_two_tailed(p, df, tol=1e-5):
+    """Approximate critical t-value for a given two-tailed probability and degrees of freedom.
+
+    Uses binary search to find t such that _t_cdf_two_tailed(t, df) == p.
+    """
+    if df <= 0 or p <= 0 or p >= 1:
+        return None
+    # Binary search bounds
+    low = 0.0
+    high = 100.0  # Safe upper bound for practical t-values
+
+    # Increase upper bound if necessary
+    while _t_cdf_two_tailed(high, df) > p:
+        high *= 2.0
+
+    best_t = 0.0
+    for _ in range(100):  # max iterations
+        mid = (low + high) / 2.0
+        current_p = _t_cdf_two_tailed(mid, df)
+        if abs(current_p - p) < tol:
+            return mid
+        if current_p > p:
+            # larger p-value means t is too small (closer to center)
+            low = mid
+        else:
+            high = mid
+        best_t = mid
+    return best_t
+
+
 def welch_t_test(g1, g2):
     """Welch's t-test for independent samples with unequal variances.
 
-    Returns (t_statistic, p_value, degrees_of_freedom) or (None, None, None)
-    if either group has fewer than 2 observations.
+    Returns (t_statistic, p_value, degrees_of_freedom, ci_lower, ci_upper)
+    or (None, None, None, None, None) if either group has fewer than 2 observations.
     Uses the Welch-Satterthwaite approximation for degrees of freedom
     and a two-tailed p-value from the t-distribution.
     """
@@ -227,23 +324,32 @@ def welch_t_test(g1, g2):
     g2 = [v for v in g2 if v is not None]
     n1, n2 = len(g1), len(g2)
     if n1 < 2 or n2 < 2:
-        return (None, None, None)
+        return (None, None, None, None, None)
     m1 = sum(g1) / n1
     m2 = sum(g2) / n2
     s1_sq = sum((x - m1) ** 2 for x in g1) / (n1 - 1)
     s2_sq = sum((x - m2) ** 2 for x in g2) / (n2 - 1)
     se = math.sqrt(s1_sq / n1 + s2_sq / n2)
     if se == 0:
-        return (None, None, None)
+        return (None, None, None, None, None)
     t_stat = (m1 - m2) / se
     # Welch-Satterthwaite degrees of freedom
     num = (s1_sq / n1 + s2_sq / n2) ** 2
     denom = (s1_sq / n1) ** 2 / (n1 - 1) + (s2_sq / n2) ** 2 / (n2 - 1)
     if denom == 0:
-        return (None, None, None)
+        return (None, None, None, None, None)
     df = num / denom
     p = _t_cdf_two_tailed(abs(t_stat), df)
-    return (t_stat, p, df)
+
+    # Calculate 95% Confidence Interval for mean difference
+    t_crit = _t_ppf_two_tailed(0.05, df)
+    if t_crit is not None:
+        ci_lower = (m1 - m2) - t_crit * se
+        ci_upper = (m1 - m2) + t_crit * se
+    else:
+        ci_lower, ci_upper = None, None
+
+    return (t_stat, p, df, ci_lower, ci_upper)
 
 
 def _t_cdf_two_tailed(t_abs, df):
@@ -801,7 +907,7 @@ def print_effect_sizes(rows, idx):
                              ("Maturity", MATURITY_COLS, MATURITY_SCALE)]:
         t = person_means(tech, cols, sc, idx)
         nt = person_means(nontech, cols, sc, idx)
-        d = cohens_d(t, nt)
+        d, d_cil, d_ciu = cohens_d(t, nt)
         tm, _ = mean_sd(t)
         ntm, _ = mean_sd(nt)
         if d is not None:
@@ -822,7 +928,7 @@ def print_effect_sizes(rows, idx):
                              ("Readiness", READINESS_COLS, READINESS_SCALE)]:
         l = person_means(large, cols, sc, idx)
         s = person_means(smmed, cols, sc, idx)
-        d = cohens_d(l, s)
+        d, d_cil, d_ciu = cohens_d(l, s)
         lm, _ = mean_sd(l)
         sm, _ = mean_sd(s)
         if d is not None:
@@ -842,7 +948,7 @@ def print_effect_sizes(rows, idx):
     if high_budget and low_budget:
         hb = person_means(high_budget, BARRIER_COLS, BARRIER_SCALE, idx)
         lb = person_means(low_budget, BARRIER_COLS, BARRIER_SCALE, idx)
-        d = cohens_d(hb, lb)
+        d, d_cil, d_ciu = cohens_d(hb, lb)
         hbm, _ = mean_sd(hb)
         lbm, _ = mean_sd(lb)
         print(f"\n  Budget Adequacy — High (n={len(high_budget)}) vs Low (n={len(low_budget)}):")
@@ -1195,13 +1301,21 @@ def sensitivity_to_json(cuts, idx):
         for label, cols, sc in ALL_CONSTRUCTS:
             t = person_means(tech, cols, sc, idx)
             nt = person_means(nontech, cols, sc, idx)
-            d = cohens_d(t, nt)
+            d, d_ci_l, d_ci_u = cohens_d(t, nt)
             tm, _ = mean_sd(t)
             ntm, _ = mean_sd(nt)
+            tm_ci_l, tm_ci_u = mean_ci(t)
+            ntm_ci_l, ntm_ci_u = mean_ci(nt)
             effects["tech_vs_nontech"]["constructs"][label] = {
                 "tech_mean": round(tm, 4) if tm is not None else None,
+                "tech_mean_ci_lower": round(tm_ci_l, 4) if tm_ci_l is not None else None,
+                "tech_mean_ci_upper": round(tm_ci_u, 4) if tm_ci_u is not None else None,
                 "nontech_mean": round(ntm, 4) if ntm is not None else None,
+                "nontech_mean_ci_lower": round(ntm_ci_l, 4) if ntm_ci_l is not None else None,
+                "nontech_mean_ci_upper": round(ntm_ci_u, 4) if ntm_ci_u is not None else None,
                 "d": round(d, 4) if d is not None else None,
+                "d_ci_lower": round(d_ci_l, 4) if d_ci_l is not None else None,
+                "d_ci_upper": round(d_ci_u, 4) if d_ci_u is not None else None,
             }
 
         large = [r for r in rows if r[idx['Q4_OrgSize']].strip() in LARGE_ORG_SIZES]
@@ -1211,13 +1325,21 @@ def sensitivity_to_json(cuts, idx):
                                  ("readiness", READINESS_COLS, READINESS_SCALE)]:
             l = person_means(large, cols, sc, idx)
             s = person_means(smmed, cols, sc, idx)
-            d = cohens_d(l, s)
+            d, d_ci_l, d_ci_u = cohens_d(l, s)
             lm, _ = mean_sd(l)
             sm, _ = mean_sd(s)
+            lm_ci_l, lm_ci_u = mean_ci(l)
+            sm_ci_l, sm_ci_u = mean_ci(s)
             effects["large_vs_small"]["constructs"][label] = {
                 "large_mean": round(lm, 4) if lm is not None else None,
+                "large_mean_ci_lower": round(lm_ci_l, 4) if lm_ci_l is not None else None,
+                "large_mean_ci_upper": round(lm_ci_u, 4) if lm_ci_u is not None else None,
                 "small_medium_mean": round(sm, 4) if sm is not None else None,
+                "small_medium_mean_ci_lower": round(sm_ci_l, 4) if sm_ci_l is not None else None,
+                "small_medium_mean_ci_upper": round(sm_ci_u, 4) if sm_ci_u is not None else None,
                 "d": round(d, 4) if d is not None else None,
+                "d_ci_lower": round(d_ci_l, 4) if d_ci_l is not None else None,
+                "d_ci_upper": round(d_ci_u, 4) if d_ci_u is not None else None,
             }
 
         return effects
@@ -1288,11 +1410,13 @@ def sensitivity_to_json(cuts, idx):
         for label, cols, sc in ALL_CONSTRUCTS:
             t_vals = person_means(tech, cols, sc, idx)
             nt_vals = person_means(nontech, cols, sc, idx)
-            t_stat, p_val, df = welch_t_test(t_vals, nt_vals)
+            t_stat, p_val, df, ci_l, ci_u = welch_t_test(t_vals, nt_vals)
             t_tests[label] = {
                 "t": round(t_stat, 4) if t_stat is not None else None,
                 "p": round(p_val, 4) if p_val is not None else None,
                 "df": round(df, 2) if df is not None else None,
+                "mean_diff_ci_lower": round(ci_l, 4) if ci_l is not None else None,
+                "mean_diff_ci_upper": round(ci_u, 4) if ci_u is not None else None,
                 "sig": p_val is not None and p_val < 0.05,
             }
         result_inf["t_tests_tech_vs_nontech"] = {
@@ -1307,11 +1431,13 @@ def sensitivity_to_json(cuts, idx):
         for label, cols, sc in ALL_CONSTRUCTS:
             l_vals = person_means(large, cols, sc, idx)
             s_vals = person_means(smmed, cols, sc, idx)
-            t_stat, p_val, df = welch_t_test(l_vals, s_vals)
+            t_stat, p_val, df, ci_l, ci_u = welch_t_test(l_vals, s_vals)
             t_tests_org[label] = {
                 "t": round(t_stat, 4) if t_stat is not None else None,
                 "p": round(p_val, 4) if p_val is not None else None,
                 "df": round(df, 2) if df is not None else None,
+                "mean_diff_ci_lower": round(ci_l, 4) if ci_l is not None else None,
+                "mean_diff_ci_upper": round(ci_u, 4) if ci_u is not None else None,
                 "sig": p_val is not None and p_val < 0.05,
             }
         result_inf["t_tests_large_vs_small"] = {
