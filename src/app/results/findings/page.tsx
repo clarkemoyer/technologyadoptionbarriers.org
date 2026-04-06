@@ -83,7 +83,11 @@ const sampleDetails: Record<string, SampleDetail> =
   {}
 
 // Pre-compute sample map for O(1) lookups during rendering
-const sampleMap = new Map(sensitivityData.samples.map((s) => [s.key, s]))
+const sampleMap = new Map<string, (typeof sensitivityData.samples)[number]>(
+  sensitivityData.samples.map(
+    (s): [string, (typeof sensitivityData.samples)[number]] => [s.key, s],
+  ),
+)
 
 const PRIMARY_GROUPS = [
   { key: 'conservative_clean', label: 'Conservative Clean', color: 'border-green-500' },
