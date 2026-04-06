@@ -47,8 +47,9 @@ describe('GoogleTagManager', () => {
   it('uses default GTM ID in script output when env var is invalid', () => {
     process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID = 'GTM-EVIL"><script>alert("XSS")</script>'
 
-    // jest.doMock is called AFTER jest.resetModules() (in beforeEach) so it registers
-    // the mock in a clean state. The subsequent require() picks up this mock correctly.
+    // jest.resetModules() (in beforeEach) clears the module cache. jest.doMock must
+    // be called AFTER resetModules so that when require() loads the component below,
+    // it picks up this mock for next/script instead of the real module.
     let capturedHtml = ''
     jest.doMock('next/script', () => ({
       __esModule: true,
