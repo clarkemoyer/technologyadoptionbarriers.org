@@ -250,71 +250,63 @@ def _t_cdf_two_tailed(t_abs, df):
     """Approximate two-tailed p-value for Student's t-distribution.
 
     Uses the regularized incomplete beta function relationship:
-    p = I_{df/(df+t^2)}(df/2, 1/2) which is equivalent to
-    2 * (1 - CDF(|t|, df)).
+    p = I_{df/(df+t^2)}(df/2, 1/2).
     """
+    if t_abs == 0:
+        return 1.0
     x = df / (df + t_abs ** 2)
-    p = _regularized_incomplete_beta(x, df / 2.0, 0.5)
-    return max(0.0, min(1.0, p))
+    return _regularized_incomplete_beta(x, df / 2.0, 0.5)
 
 
 def _regularized_incomplete_beta(x, a, b, max_iter=200, tol=1e-12):
     """Regularized incomplete beta function I_x(a, b) via continued fraction.
 
-    Implements the modified Lentz algorithm for the continued fraction
-    expansion of the incomplete beta function, as described in
-    Numerical Recipes (Press et al., 3rd ed., §6.4).
+    Implements the continued fraction expansion for the incomplete beta function
+    using the modified Lentz algorithm (Numerical Recipes, §6.4).
 
     Numerical properties:
     - Converges for 0 < x < 1 with a, b > 0.
-    - Uses 1e-30 floor to avoid division by zero (tiny-number stabilization).
-    - Log-space prefix computation avoids overflow for large a, b.
-    - Maximum 200 iterations; returns best estimate if not converged.
-    - Accuracy is typically ~1e-10 for moderate a, b (< 1000).
-
-    For the t-distribution CDF, this is called with x = df/(df+t²),
-    a = df/2, b = 0.5. For the F-distribution, x = df2/(df2+df1*F),
-    a = df2/2, b = df1/2.
+    - Uses 1e-30 floor to avoid division by zero.
+    - Uses symmetry property I_x(a,b) = 1 - I_{1-x}(b,a) for x > (a+1)/(a+b+2).
     """
     if x <= 0:
         return 0.0
     if x >= 1:
         return 1.0
-    # Use the log-beta for numerical stability
-    ln_prefix = _ln_beta_prefix(x, a, b)
-    # Continued fraction (modified Lentz's method)
-    f = 1e-30
-    c = 1e-30
-    d = 1.0 - (a + b) * x / (a + 1.0)
-    if abs(d) < 1e-30:
-        d = 1e-30
-    d = 1.0 / d
-    f = d
-    for m in range(1, max_iter + 1):
-        # Even step
-        num = m * (b - m) * x / ((a + 2 * m - 1) * (a + 2 * m))
-        d = 1.0 + num * d
-        if abs(d) < 1e-30:
-            d = 1e-30
-        c = 1.0 + num / c
-        if abs(c) < 1e-30:
-            c = 1e-30
+
+    # Use symmetry property for better convergence and accuracy
+    if x > (a + 1.0) / (a + b + 2.0):
+        return 1.0 - _regularized_incomplete_beta(1.0 - x, b, a, max_iter, tol)
+
+    ln_prefix = math.lgamma(a + b) - math.lgamma(a) - math.lgamma(b) + a * math.log(x) + b * math.log(1.0 - x)
+
+    # Continued fraction part
+    f = 1.0
+    if abs(f) < 1e-30: f = 1e-30
+    c = f
+    d = 0.0
+
+    for i in range(1, max_iter + 1):
+        m = i // 2
+        if i % 2 == 0:
+            aa = m * (b - m) * x / ((a + 2 * m - 1) * (a + 2 * m))
+        else:
+            m = (i - 1) // 2
+            aa = -(a + m) * (a + b + m) * x / ((a + 2 * m) * (a + 2 * m + 1))
+
+        d = 1.0 + aa * d
+        if abs(d) < 1e-30: d = 1e-30
         d = 1.0 / d
-        f *= d * c
-        # Odd step
-        num = -(a + m) * (a + b + m) * x / ((a + 2 * m) * (a + 2 * m + 1))
-        d = 1.0 + num * d
-        if abs(d) < 1e-30:
-            d = 1e-30
-        c = 1.0 + num / c
-        if abs(c) < 1e-30:
-            c = 1e-30
-        d = 1.0 / d
-        delta = d * c
+
+        c = 1.0 + aa / c
+        if abs(c) < 1e-30: c = 1e-30
+
+        delta = c * d
         f *= delta
         if abs(delta - 1.0) < tol:
             break
-    return max(0.0, min(1.0, math.exp(ln_prefix) * f / a))
+
+    return math.exp(ln_prefix) / (a * f)
 
 
 def _ln_beta_prefix(x, a, b):
@@ -365,6 +357,83 @@ def _f_cdf_right(f_val, df1, df2):
         return 1.0
     x = df2 / (df2 + df1 * f_val)
     return _regularized_incomplete_beta(x, df2 / 2.0, df1 / 2.0)
+
+
+def _regularized_incomplete_gamma_p(a, x, max_iter=100, tol=1e-12):
+    """Lower regularized incomplete gamma function P(a, x) = gamma(a, x) / Gamma(a)."""
+    if x <= 0:
+        return 0.0
+    if x > a + 1.0:
+        return 1.0 - _regularized_incomplete_gamma_q(a, x)
+    ap = a
+    delta = sum_val = 1.0 / a
+    for _ in range(max_iter):
+        ap += 1.0
+        delta *= x / ap
+        sum_val += delta
+        if abs(delta) < abs(sum_val) * tol:
+            break
+    return sum_val * math.exp(-x + a * math.log(x) - math.lgamma(a))
+
+
+def _regularized_incomplete_gamma_q(a, x, max_iter=100, tol=1e-12):
+    """Upper regularized incomplete gamma function Q(a, x) = Gamma(a, x) / Gamma(a)."""
+    if x <= 0:
+        return 1.0
+    if x < a + 1.0:
+        return 1.0 - _regularized_incomplete_gamma_p(a, x)
+    b = x + 1.0 - a
+    c = 1.0 / 1e-30
+    d = 1.0 / b
+    h = d
+    for i in range(1, max_iter + 1):
+        an = -i * (i - a)
+        b += 2.0
+        d = an * d + b
+        if abs(d) < 1e-30:
+            d = 1e-30
+        c = b + an / c
+        if abs(c) < 1e-30:
+            c = 1e-30
+        d = 1.0 / d
+        delta = d * c
+        h *= delta
+        if abs(delta - 1.0) < tol:
+            break
+    return math.exp(-x + a * math.log(x) - math.lgamma(a)) * h
+
+
+def _chi2_cdf_right(chi2, df):
+    """Right-tail p-value for Chi-square distribution: P(X^2 > chi2)."""
+    if chi2 <= 0:
+        return 1.0
+    if df <= 0:
+        return 1.0
+    return _regularized_incomplete_gamma_q(df / 2.0, chi2 / 2.0)
+
+
+def chi_square_test(observed):
+    """Compute Chi-square test of independence for a contingency table.
+
+    observed: list of lists (contingency table)
+    Returns (chi2_statistic, p_value, degrees_of_freedom)
+    """
+    if not observed or not observed[0]:
+        return (None, None, None)
+    row_totals = [sum(row) for row in observed]
+    col_totals = [sum(col) for col in zip(*observed)]
+    grand_total = sum(row_totals)
+    if grand_total == 0:
+        return (None, None, None)
+    chi2 = 0.0
+    for i in range(len(observed)):
+        for j in range(len(observed[0])):
+            expected = (row_totals[i] * col_totals[j]) / grand_total
+            if expected > 0:
+                chi2 += (observed[i][j] - expected) ** 2 / expected
+    df = (len(observed) - 1) * (len(observed[0]) - 1)
+    p = _chi2_cdf_right(chi2, df) if df > 0 else 1.0
+    return chi2, p, df
 
 
 # ─────────────────────────────────────────────────────────────
@@ -498,7 +567,15 @@ def is_finished(row, idx):
 
 def get_role(row, idx):
     """Get short role label."""
-    return ROLE_MAP.get(row[idx['Q1_Role']].strip(), 'Unknown')
+    val = row[idx['Q1_Role']].strip()
+    if val in ROLE_MAP:
+        return ROLE_MAP[val]
+    # Handle minor punctuation differences (e.g., missing comma in test data)
+    prefix = val.split('(')[0].strip()
+    for k, v in ROLE_MAP.items():
+        if k.startswith(prefix):
+            return v
+    return 'Unknown'
 
 
 def org_bucket(row, idx):
@@ -950,6 +1027,108 @@ def print_sensitivity(cuts, idx):
         print("  " + f"{label:<40}" + "".join(f"{v:>{col_width}}" for v in vals))
 
 
+def filter_bias_analysis(cuts, idx):
+    """Perform filter bias analysis across the primary result groups.
+
+    Compares demographic distributions (role, org size, profit model)
+    across the 4 result group framework to identify disproportionate
+    exclusion of certain categories.
+    """
+    target_keys = ["conservative_clean", "flexible_clean", "prolific_accepted", "v2_finished"]
+    label_to_key = {
+        "Conservative Clean": "conservative_clean",
+        "Flexible Clean": "flexible_clean",
+        "Prolific Accepted": "prolific_accepted",
+        "All V2 Finished": "v2_finished",
+    }
+
+    cuts_by_key = {
+        label_to_key[label]: (label, rows) for label, rows in cuts if label in label_to_key
+    }
+    selected_cuts = [cuts_by_key[key] for key in target_keys if key in cuts_by_key]
+
+    if not selected_cuts:
+        return {}
+
+    dimensions = [
+        ("role", "Executive Role", lambda r: get_role(r, idx)),
+        ("org_size", "Organization Size", lambda r: r[idx['Q4_OrgSize']].strip() or "Unknown"),
+        ("profit_model", "Profit Model", lambda r: r[idx['Q5_ProfitModel']].strip() or "Unknown")
+    ]
+
+    bias_results = {}
+    for dim_key, dim_label, dim_fn in dimensions:
+        # Collect all possible values
+        all_vals = set()
+        for _, rows in selected_cuts:
+            for r in rows:
+                all_vals.add(dim_fn(r))
+        # Ensure we have a stable order
+        if dim_key == "org_size":
+            sorted_vals = [s for s in ALL_ORG_SIZES if s in all_vals]
+            # Add any others that might be there but not in ALL_ORG_SIZES
+            for v in sorted(all_vals):
+                if v not in sorted_vals:
+                    sorted_vals.append(v)
+        else:
+            sorted_vals = sorted(list(all_vals))
+
+        # Build contingency table
+        table = []
+        for _, rows in selected_cuts:
+            counts = Counter(dim_fn(r) for r in rows)
+            table.append([counts[v] for v in sorted_vals])
+
+        chi2, p, df = chi_square_test(table)
+
+        # Compute distributions per group
+        distributions = {}
+        for (label, rows), row_counts in zip(selected_cuts, table):
+            n = len(rows)
+            group_key = label_to_key[label]
+            distributions[group_key] = {
+                val: (row_counts[i] / n if n > 0 else 0)
+                for i, val in enumerate(sorted_vals)
+            }
+
+        bias_results[dim_key] = {
+            "label": dim_label,
+            "chi2": round(chi2, 4) if chi2 is not None else None,
+            "p": round(p, 4) if p is not None else None,
+            "df": df,
+            "values": sorted_vals,
+            "distributions": distributions
+        }
+
+    return bias_results
+
+
+def print_filter_bias(bias_results):
+    """Print filter bias analysis results."""
+    if not bias_results:
+        return
+    print(f"\n{'=' * 78}")
+    print("  FILTER BIAS ANALYSIS (Chi-Square Independence Test)")
+    print("=" * 78)
+
+    for dim_key, data in bias_results.items():
+        print(f"\n  {data['label']}:")
+        if data['p'] is not None:
+            sig = "SIGNIFICANT" if data['p'] < 0.05 else "not significant"
+            print(f"    Chi2 = {data['chi2']:.2f}, df = {data['df']}, p = {data['p']:.4f} ({sig})")
+        else:
+            print("    Insufficient data for Chi-square test.")
+
+        headers = list(data['distributions'].keys())
+        print(f"    {'Category':<30} " + "".join(f"{k[:10]:>12}" for k in headers))
+        for val in data['values']:
+            line = f"    {val[:30]:<30}"
+            for g_key in headers:
+                pct = data['distributions'][g_key].get(val, 0) * 100
+                line += f"{pct:11.1f}%"
+            print(line)
+
+
 def sensitivity_to_json(cuts, idx):
     """Return sensitivity analysis results as a JSON-serializable dict."""
     result = {"samples": [], "metrics": []}
@@ -1376,6 +1555,9 @@ def sensitivity_to_json(cuts, idx):
             "inferential": inferential_for(rows),
         }
 
+    # ── Filter Bias Analysis ──
+    result["filter_bias"] = filter_bias_analysis(cuts, idx)
+
     return result
 
 
@@ -1427,6 +1609,9 @@ def main():
         ("All V2", samples["v2_all"]),
     ]
     print_sensitivity(cuts, idx)
+
+    bias_results = filter_bias_analysis(cuts, idx)
+    print_filter_bias(bias_results)
 
     # JSON output
     if args.json_output:

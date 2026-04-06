@@ -1,41 +1,32 @@
 name: Auto-Approve Bot Workflows
 
-# Poll every 15 minutes for action_required workflows from the Copilot bot
-# and re-run them under the repo owner's context.
-#
-# This avoids the infinite loop where workflow_run triggers also need approval.
-
 on:
-  schedule:
-    - cron: '*/15 * * * *'
-  workflow_dispatch:
-
-permissions:
-  actions: write
+  workflow_run:
+    workflows:
+      - 'CI - Build and Test'
+      - 'CodeQL Advanced'
+      - 'Copilot Review Cycle'
+      - 'Validate Analysis Pipeline'
+      - 'Lighthouse CI'
+      - 'Auto-Start Review Cycle'
+    types: [completed]
 
 jobs:
-  unblock-bot-workflows:
+  auto-approve:
+    if: >-
+      github.event.workflow_run.conclusion == 'action_required' &&
+      github.event.workflow_run.actor.id == 198982749
     runs-on: ubuntu-latest
+    environment: copilot
     steps:
-      - name: Re-run action_required workflows from Copilot
+      - name: Re-run workflow as repo owner
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
         run: |
-          echo "Checking for action_required workflows from Copilot..."
-          RUNS=$(gh api "repos/${{ github.repository }}/actions/runs?status=action_required&per_page=100" \
-            --jq '.workflow_runs[] | select(.actor.login == "Copilot") | .id')
-          
-          COUNT=$(echo "$RUNS" | grep -c '[0-9]' || echo 0)
-          
-          if [ "$COUNT" -eq 0 ]; then
-            echo "No blocked runs found. All clear."
-            exit 0
-          fi
-          
-          echo "Found $COUNT blocked runs. Re-running..."
-          for RUN_ID in $RUNS; do
-            gh api "repos/${{ github.repository }}/actions/runs/$RUN_ID/rerun" -X POST 2>/dev/null \
-              && echo "  Re-ran: $RUN_ID" \
-              || echo "  Failed: $RUN_ID"
-          done
-          echo "Done."
+          echo "Auto-approving workflow run ${{ github.event.workflow_run.id }}"
+          echo "  Workflow: ${{ github.event.workflow_run.name }}"
+          echo "  Actor: ${{ github.event.workflow_run.actor.login }} (id: ${{ github.event.workflow_run.actor.id }})"
+          echo "  Conclusion: ${{ github.event.workflow_run.conclusion }}"
+          gh api repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}/rerun \
+            -X POST
+          echo "Done - re-triggered under PAT owner context"
