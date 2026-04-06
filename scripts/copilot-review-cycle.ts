@@ -40,6 +40,12 @@ interface ReviewComment {
   body: string
 }
 
+interface ReviewThread {
+  id: string // GraphQL node ID
+  isResolved: boolean
+  comments: { nodes: Array<{ databaseId: number; author: { login: string } | null }> }
+}
+
 // --- Helpers ---
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -116,6 +122,140 @@ function getReviewComments(repo: string, prNumber: string, reviewId: number): Re
   return ghJsonArray<ReviewComment>(
     `api repos/${repo}/pulls/${prNumber}/reviews/${reviewId}/comments --paginate`
   )
+}
+
+/**
+ * Fetch all review threads on a PR via GitHub GraphQL API.
+ * Returns threads with resolution status and comment database IDs
+ * so we can match them to REST API review comments.
+ */
+function getReviewThreads(repo: string, prNumber: string): ReviewThread[] {
+  const [owner, name] = repo.split('/')
+  const prNum = parseInt(prNumber, 10)
+  const allThreads: ReviewThread[] = []
+
+  try {
+    let hasNext = true
+    let cursor = ''
+
+    while (hasNext) {
+      const afterArg = cursor ? `after: "${cursor}",` : ''
+      const query = [
+        '{',
+        `  repository(owner: "${owner}", name: "${name}") {`,
+        `    pullRequest(number: ${prNum}) {`,
+        `      reviewThreads(first: 100, ${afterArg}) {`,
+        '        pageInfo { hasNextPage endCursor }',
+        '        nodes {',
+        '          id',
+        '          isResolved',
+        '          comments(first: 100) { nodes { databaseId author { login } } }',
+        '        }',
+        '      }',
+        '    }',
+        '  }',
+        '}',
+      ].join(' ')
+
+      const tmpFile = join(tmpdir(), `gql-threads-${Date.now()}.txt`)
+      writeFileSync(tmpFile, query, 'utf-8')
+      try {
+        const raw = gh(`api graphql -F query=@${tmpFile}`)
+        const parsed = JSON.parse(raw)
+        const threads = parsed.data?.repository?.pullRequest?.reviewThreads
+        if (!threads) break
+        allThreads.push(...threads.nodes)
+        hasNext = threads.pageInfo.hasNextPage
+        cursor = threads.pageInfo.endCursor || ''
+      } finally {
+        try {
+          unlinkSync(tmpFile)
+        } catch {
+          /* ignore */
+        }
+      }
+    }
+  } catch (err: any) {
+    console.log(
+      `  Warning: Could not fetch review threads via GraphQL: ${err.message?.slice(0, 200)}`
+    )
+  }
+
+  return allThreads
+}
+
+/**
+ * Check if a review thread was initiated by a Copilot bot.
+ */
+function isCopilotThread(thread: ReviewThread): boolean {
+  return thread.comments.nodes.some(
+    (c) => c.author?.login?.toLowerCase().includes('copilot') ?? false
+  )
+}
+
+/**
+ * Resolve a single review thread by its GraphQL node ID.
+ * Returns true on success, false on failure.
+ */
+function resolveThread(threadId: string): boolean {
+  const mutation = `mutation { resolveReviewThread(input: {threadId: "${threadId}"}) { thread { id } } }`
+  const tmpFile = join(tmpdir(), `gql-resolve-${Date.now()}.txt`)
+  writeFileSync(tmpFile, mutation, 'utf-8')
+  try {
+    gh(`api graphql -F query=@${tmpFile}`)
+    return true
+  } catch (err: any) {
+    console.log(`  Warning: Could not resolve thread ${threadId}: ${err.message?.slice(0, 100)}`)
+    return false
+  } finally {
+    try {
+      unlinkSync(tmpFile)
+    } catch {
+      /* ignore */
+    }
+  }
+}
+
+/**
+ * Resolve all unresolved Copilot review threads whose comments match
+ * the given review comment IDs. This prevents old threads from
+ * being re-flagged in subsequent Copilot review rounds.
+ * Only resolves threads initiated by Copilot — human threads are left intact.
+ */
+function resolveReviewThreads(repo: string, prNumber: string, reviewCommentIds: number[]): number {
+  if (reviewCommentIds.length === 0) return 0
+
+  const commentIdSet = new Set(reviewCommentIds)
+  const threads = getReviewThreads(repo, prNumber)
+
+  let resolved = 0
+  for (const thread of threads) {
+    if (thread.isResolved) continue
+    if (!isCopilotThread(thread)) continue
+
+    const hasMatchingComment = thread.comments.nodes.some((c) => commentIdSet.has(c.databaseId))
+    if (!hasMatchingComment) continue
+
+    if (resolveThread(thread.id)) resolved++
+  }
+
+  return resolved
+}
+
+/**
+ * Resolve all unresolved Copilot-initiated review threads on a PR.
+ * Used when the review cycle passes clean to close out all remaining threads.
+ * Human-initiated threads are left intact.
+ */
+function resolveAllCopilotThreads(repo: string, prNumber: string): number {
+  const threads = getReviewThreads(repo, prNumber)
+  let resolved = 0
+  for (const thread of threads) {
+    if (thread.isResolved) continue
+    if (!isCopilotThread(thread)) continue
+    if (resolveThread(thread.id)) resolved++
+  }
+  return resolved
 }
 
 function requestCopilotReview(repo: string, prNumber: string): void {
@@ -628,6 +768,14 @@ async function main() {
   if (comments.length === 0) {
     console.log('\nCopilot review is clean!')
 
+    // Resolve all remaining Copilot-initiated review threads — cycle is complete
+    // Human-initiated threads are left intact to preserve human review workflows.
+    console.log('Resolving remaining Copilot review threads...')
+    const resolvedOnClean = resolveAllCopilotThreads(repo, prNumber)
+    if (resolvedOnClean > 0) {
+      console.log(`  Resolved ${resolvedOnClean} Copilot thread(s).`)
+    }
+
     // Close any remaining fix issues from previous rounds
     closeFixIssues(repo, prNumber, 'All review comments resolved — review passed clean.')
 
@@ -788,14 +936,20 @@ async function main() {
     process.exit(1)
   }
 
-  // Step 11: Dispatch next round
+  // Step 11: Resolve review threads from this round so they don't re-trigger
+  console.log('\nResolving review threads from this round...')
+  const commentIds = comments.map((c) => c.id)
+  const resolvedCount = resolveReviewThreads(repo, prNumber, commentIds)
+  console.log(`  Resolved ${resolvedCount}/${comments.length} thread(s).`)
+
+  // Step 12: Dispatch next round
   writeSummary(
     prNumber,
     round,
     maxRounds,
     'FIXES_PUSHED',
     comments.length,
-    `Dispatching round ${round + 1}`
+    `Dispatching round ${round + 1} (resolved ${resolvedCount} threads)`
   )
   dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
   console.log(`\nRound ${round} complete. Next round dispatched.`)
