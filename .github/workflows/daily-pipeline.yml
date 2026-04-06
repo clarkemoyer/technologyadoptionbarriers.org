@@ -12,6 +12,7 @@ name: Daily Pipeline (Analysis + Operations)
 #   Phase 2: Qualtrics API → raw CSV → enrich → disposition waterfall → analysis
 #   Phase 3: Approve CLEAN on Prolific, message FLAGs, generate dashboard JSON
 #   Phase 4: Commit all data (analysis JSON + dashboard JSON) to repo
+      - name: Validate all data (schema + PII checks)
 #   Phase 5: Create daily report issue with deltas
 #
 # Safety: Only approves CLEAN (all checks passed) and sends review
@@ -348,6 +349,9 @@ jobs:
         with:
           name: dashboard-data
           path: src/data
+
+      - name: Validate data (schema + PII)
+        run: python3 scripts/validate-data.py
 
       - uses: ./.github/actions/format-and-pr
         with:
