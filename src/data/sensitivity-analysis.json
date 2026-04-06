@@ -210,17 +210,13 @@
         {
           "filter_id": "current_country_of_residence",
           "label": "Current Country of Residence",
-          "selected_values": [
-            "United States"
-          ],
+          "selected_values": ["United States"],
           "base_field": true
         },
         {
           "filter_id": "employment_status",
           "label": "Employment Status",
-          "selected_values": [
-            "Full-Time"
-          ],
+          "selected_values": ["Full-Time"],
           "base_field": true
         },
         {
@@ -241,11 +237,7 @@
         {
           "filter_id": "company_size",
           "label": "Company Size",
-          "selected_values": [
-            "50-249",
-            "250-999",
-            "1000+"
-          ],
+          "selected_values": ["50-249", "250-999", "1000+"],
           "base_field": false
         },
         {
@@ -479,16 +471,8 @@
           }
         },
         "anova_by_role": {
-          "groups": [
-            "Technical (CIO/CTO)",
-            "Non-Technical",
-            "Other"
-          ],
-          "group_ns": [
-            17,
-            65,
-            7
-          ],
+          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
+          "group_ns": [17, 65, 7],
           "constructs": {
             "barriers": {
               "f": 1.8051,
@@ -514,16 +498,8 @@
           }
         },
         "anova_by_org_size": {
-          "groups": [
-            "Small (<500)",
-            "Medium (500-4999)",
-            "Large (5000+)"
-          ],
-          "group_ns": [
-            30,
-            24,
-            35
-          ],
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [30, 24, 35],
           "constructs": {
             "barriers": {
               "f": 1.5389,
@@ -720,16 +696,8 @@
           }
         },
         "anova_by_role": {
-          "groups": [
-            "Technical (CIO/CTO)",
-            "Non-Technical",
-            "Other"
-          ],
-          "group_ns": [
-            28,
-            100,
-            11
-          ],
+          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
+          "group_ns": [28, 100, 11],
           "constructs": {
             "barriers": {
               "f": 0.8539,
@@ -755,16 +723,8 @@
           }
         },
         "anova_by_org_size": {
-          "groups": [
-            "Small (<500)",
-            "Medium (500-4999)",
-            "Large (5000+)"
-          ],
-          "group_ns": [
-            45,
-            43,
-            51
-          ],
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [45, 43, 51],
           "constructs": {
             "barriers": {
               "f": 0.2488,
@@ -961,16 +921,8 @@
           }
         },
         "anova_by_role": {
-          "groups": [
-            "Technical (CIO/CTO)",
-            "Non-Technical",
-            "Other"
-          ],
-          "group_ns": [
-            43,
-            140,
-            16
-          ],
+          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
+          "group_ns": [43, 140, 16],
           "constructs": {
             "barriers": {
               "f": 0.3262,
@@ -996,16 +948,8 @@
           }
         },
         "anova_by_org_size": {
-          "groups": [
-            "Small (<500)",
-            "Medium (500-4999)",
-            "Large (5000+)"
-          ],
-          "group_ns": [
-            63,
-            60,
-            76
-          ],
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [63, 60, 76],
           "constructs": {
             "barriers": {
               "f": 0.9983,
@@ -1202,16 +1146,8 @@
           }
         },
         "anova_by_role": {
-          "groups": [
-            "Technical (CIO/CTO)",
-            "Non-Technical",
-            "Other"
-          ],
-          "group_ns": [
-            90,
-            306,
-            44
-          ],
+          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
+          "group_ns": [90, 306, 44],
           "constructs": {
             "barriers": {
               "f": 0.3223,
@@ -1237,16 +1173,8 @@
           }
         },
         "anova_by_org_size": {
-          "groups": [
-            "Small (<500)",
-            "Medium (500-4999)",
-            "Large (5000+)"
-          ],
-          "group_ns": [
-            151,
-            142,
-            147
-          ],
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [151, 142, 147],
           "constructs": {
             "barriers": {
               "f": 1.5049,
@@ -1443,16 +1371,8 @@
           }
         },
         "anova_by_role": {
-          "groups": [
-            "Technical (CIO/CTO)",
-            "Non-Technical",
-            "Other"
-          ],
-          "group_ns": [
-            100,
-            350,
-            50
-          ],
+          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
+          "group_ns": [100, 350, 50],
           "constructs": {
             "barriers": {
               "f": 0.4469,
@@ -1478,16 +1398,8 @@
           }
         },
         "anova_by_org_size": {
-          "groups": [
-            "Small (<500)",
-            "Medium (500-4999)",
-            "Large (5000+)"
-          ],
-          "group_ns": [
-            168,
-            166,
-            166
-          ],
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [168, 166, 166],
           "constructs": {
             "barriers": {
               "f": 1.5576,
@@ -1521,18 +1433,7 @@
       "chi2": 9.7636,
       "p": 0.999,
       "df": 27,
-      "values": [
-        "CEO",
-        "CFO",
-        "CHRO",
-        "CIO",
-        "CMO",
-        "COO",
-        "CRO",
-        "CSO",
-        "CTO",
-        "Other"
-      ],
+      "values": ["CEO", "CFO", "CHRO", "CIO", "CMO", "COO", "CRO", "CSO", "CTO", "Other"],
       "distributions": {
         "conservative_clean": {
           "CEO": 0.12359550561797752,
@@ -1589,14 +1490,7 @@
       "chi2": 7.9153,
       "p": 0.9271,
       "df": 15,
-      "values": [
-        "<100",
-        "100-499",
-        "500-999",
-        "1000-4999",
-        "5000-9999",
-        "10000+"
-      ],
+      "values": ["<100", "100-499", "500-999", "1000-4999", "5000-9999", "10000+"],
       "distributions": {
         "conservative_clean": {
           "<100": 0.1797752808988764,
@@ -1637,11 +1531,7 @@
       "chi2": 4.2805,
       "p": 0.6388,
       "df": 6,
-      "values": [
-        "For-Profit",
-        "Government/Public Sector",
-        "Non-Profit"
-      ],
+      "values": ["For-Profit", "Government/Public Sector", "Non-Profit"],
       "distributions": {
         "conservative_clean": {
           "For-Profit": 0.29213483146067415,
