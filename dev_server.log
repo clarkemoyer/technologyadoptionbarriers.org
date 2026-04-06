@@ -1,0 +1,182 @@
+
+> technologyadoptionbarriers-org@0.3.1 dev
+> next dev --turbopack
+
+▲ Next.js 16.2.2 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+✓ Ready in 532ms
+
+○ Compiling / ...
+ GET / 200 in 6.2s (next.js: 5.4s, application-code: 823ms)
+ GET / 200 in 118ms (next.js: 5ms, application-code: 114ms)
+ GET /this-page-does-not-exist/ 404 in 1132ms (next.js: 847ms, application-code: 284ms)
+ GET /non-existent-page/ 404 in 1153ms (next.js: 983ms, application-code: 170ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 84ms (next.js: 10ms, application-code: 74ms)
+ GET /another-missing-page/ 404 in 213ms (next.js: 25ms, application-code: 187ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+ GET / 200 in 298ms (next.js: 5ms, application-code: 293ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 187ms (next.js: 4ms, application-code: 183ms)
+ GET /barriers/ 200 in 1936ms (next.js: 1729ms, application-code: 207ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 457ms (next.js: 3ms, application-code: 454ms)
+ GET / 200 in 441ms (next.js: 5ms, application-code: 435ms)
+ GET / 200 in 197ms (next.js: 8ms, application-code: 189ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 192ms (next.js: 3ms, application-code: 189ms)
+ GET / 200 in 189ms (next.js: 3ms, application-code: 186ms)
+ GET / 200 in 430ms (next.js: 17ms, application-code: 412ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 265ms (next.js: 7ms, application-code: 258ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 168ms (next.js: 3ms, application-code: 165ms)
+ GET / 200 in 362ms (next.js: 12ms, application-code: 350ms)
+ GET / 200 in 439ms (next.js: 7ms, application-code: 432ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 265ms (next.js: 4ms, application-code: 261ms)
+ GET / 200 in 220ms (next.js: 5ms, application-code: 215ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 183ms (next.js: 5ms, application-code: 178ms)
+ GET / 200 in 226ms (next.js: 3ms, application-code: 224ms)
+ GET / 200 in 187ms (next.js: 4ms, application-code: 182ms)
+ GET / 200 in 446ms (next.js: 16ms, application-code: 430ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 155ms (next.js: 3ms, application-code: 152ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 163ms (next.js: 4ms, application-code: 159ms)
+ GET / 200 in 423ms (next.js: 3ms, application-code: 420ms)
+ GET / 200 in 367ms (next.js: 10ms, application-code: 357ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 303ms (next.js: 5ms, application-code: 298ms)
+ GET / 200 in 176ms (next.js: 5ms, application-code: 170ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 176ms (next.js: 3ms, application-code: 173ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 152ms (next.js: 3ms, application-code: 149ms)
+ GET / 200 in 418ms (next.js: 14ms, application-code: 404ms)
+ GET / 200 in 296ms (next.js: 4ms, application-code: 292ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 145ms (next.js: 11ms, application-code: 134ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 135ms (next.js: 3ms, application-code: 132ms)
+ GET / 200 in 320ms (next.js: 4ms, application-code: 316ms)
+ GET / 200 in 241ms (next.js: 5ms, application-code: 236ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 162ms (next.js: 4ms, application-code: 159ms)
+ GET / 200 in 261ms (next.js: 3ms, application-code: 259ms)
+ GET / 200 in 298ms (next.js: 11ms, application-code: 286ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /get-involved/ 200 in 1223ms (next.js: 786ms, application-code: 437ms)
+ GET /get-involved/ 200 in 1264ms (next.js: 869ms, application-code: 396ms)
+ GET /get-involved/ 200 in 420ms (next.js: 4ms, application-code: 416ms)
+ GET /get-involved/ 200 in 350ms (next.js: 3ms, application-code: 347ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 393ms (next.js: 4ms, application-code: 389ms)
+ GET / 200 in 320ms (next.js: 3ms, application-code: 316ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /get-involved/ 200 in 221ms (next.js: 8ms, application-code: 213ms)
+ GET /get-involved/ 200 in 173ms (next.js: 4ms, application-code: 169ms)
+ GET /get-involved/ 200 in 129ms (next.js: 3ms, application-code: 127ms)
+ GET /get-involved/ 200 in 68ms (next.js: 3ms, application-code: 64ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 144ms (next.js: 6ms, application-code: 138ms)
+ GET / 200 in 383ms (next.js: 6ms, application-code: 377ms)
+ GET / 200 in 327ms (next.js: 5ms, application-code: 322ms)
+ GET / 200 in 341ms (next.js: 5ms, application-code: 336ms)
+ GET / 200 in 167ms (next.js: 4ms, application-code: 163ms)
+ GET / 200 in 730ms (next.js: 4ms, application-code: 726ms)
+ GET /media/ 200 in 1905ms (next.js: 1267ms, application-code: 637ms)
+ GET / 200 in 502ms (next.js: 5ms, application-code: 497ms)
+ GET / 200 in 412ms (next.js: 14ms, application-code: 399ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 116ms (next.js: 5ms, application-code: 111ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 122ms (next.js: 5ms, application-code: 117ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /start/ 200 in 1050ms (next.js: 924ms, application-code: 125ms)
+ GET / 200 in 382ms (next.js: 8ms, application-code: 375ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /start/ 200 in 121ms (next.js: 6ms, application-code: 115ms)
+ GET /start/ 200 in 243ms (next.js: 4ms, application-code: 239ms)
+ GET / 200 in 391ms (next.js: 9ms, application-code: 382ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /start/ 200 in 119ms (next.js: 4ms, application-code: 115ms)
+ GET /start/ 200 in 180ms (next.js: 3ms, application-code: 177ms)
+ GET /start/ 200 in 151ms (next.js: 4ms, application-code: 147ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /start/cfo/ 200 in 1378ms (next.js: 1048ms, generate-params: 632ms, application-code: 330ms)
+ GET /start/ceo/ 200 in 1965ms (next.js: 1676ms, generate-params: 621ms, application-code: 289ms)
+ GET /start/cio/ 200 in 427ms (next.js: 53ms, generate-params: 49ms, application-code: 375ms)
+ GET /start/ciso/ 200 in 321ms (next.js: 5ms, generate-params: 72µs, application-code: 316ms)
+ GET /start/coo/ 200 in 367ms (next.js: 46ms, generate-params: 43ms, application-code: 320ms)
+ GET /start/cmo/ 200 in 278ms (next.js: 5ms, generate-params: 53µs, application-code: 273ms)
+ GET /start/cto/ 200 in 339ms (next.js: 56ms, generate-params: 52ms, application-code: 283ms)
+ GET /start/cso/ 200 in 261ms (next.js: 4ms, generate-params: 46µs, application-code: 257ms)
+ GET /start/chro/ 200 in 422ms (next.js: 50ms, generate-params: 46ms, application-code: 373ms)
+ GET /start/cro/ 200 in 344ms (next.js: 5ms, generate-params: 59µs, application-code: 339ms)
+ GET /start/other/ 200 in 370ms (next.js: 50ms, generate-params: 46ms, application-code: 320ms)
+ GET /start/ceo/ 200 in 297ms (next.js: 10ms, generate-params: 182µs, application-code: 288ms)
+ GET /start/cto/ 200 in 172ms (next.js: 48ms, generate-params: 44ms, application-code: 124ms)
+ GET /start/ceo/ 200 in 316ms (next.js: 15ms, generate-params: 49µs, application-code: 301ms)
+ GET /start/ceo/ 200 in 356ms (next.js: 56ms, generate-params: 53ms, application-code: 300ms)
+ GET /start/ 200 in 248ms (next.js: 4ms, application-code: 244ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /start/cfo/ 200 in 194ms (next.js: 58ms, generate-params: 54ms, application-code: 136ms)
+ GET /start/ 200 in 94ms (next.js: 5ms, application-code: 89ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+ GET /start/ceo/ 200 in 231ms (next.js: 4ms, generate-params: 55µs, application-code: 227ms)
+ GET /start/ 200 in 170ms (next.js: 6ms, application-code: 164ms)
+ GET /start/ceo/ 200 in 386ms (next.js: 54ms, generate-params: 49ms, application-code: 333ms)
+ GET /start/ 200 in 278ms (next.js: 4ms, application-code: 274ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /start/ 200 in 143ms (next.js: 3ms, application-code: 139ms)
+ GET /start/ceo/ 200 in 377ms (next.js: 48ms, generate-params: 44ms, application-code: 329ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /start/cfo/ 200 in 391ms (next.js: 59ms, generate-params: 55ms, application-code: 332ms)
+ GET / 200 in 283ms (next.js: 3ms, application-code: 280ms)
+ GET / 200 in 160ms (next.js: 5ms, application-code: 155ms)
+ GET / 200 in 121ms (next.js: 3ms, application-code: 118ms)
+ GET / 200 in 166ms (next.js: 3ms, application-code: 163ms)
+ GET / 200 in 187ms (next.js: 3ms, application-code: 184ms)
+ GET / 200 in 277ms (next.js: 8ms, application-code: 269ms)
+ GET / 200 in 371ms (next.js: 3ms, application-code: 368ms)
+ GET / 200 in 296ms (next.js: 3ms, application-code: 293ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 153ms (next.js: 6ms, application-code: 147ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /technology-adoption-models/ 200 in 1409ms (next.js: 1171ms, application-code: 238ms)
+ GET /article-1-branch-introduction-the-users-journey/ 200 in 1323ms (next.js: 1083ms, application-code: 240ms)
+ GET /article-2-branch-introduction-the-organizations-playbook/ 200 in 1458ms (next.js: 1238ms, application-code: 221ms)
+ GET /article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance/ 200 in 630ms (next.js: 357ms, application-code: 273ms)
+ GET /article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance/ 200 in 1666ms (next.js: 1213ms, application-code: 453ms)
+ GET /article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance/ 200 in 344ms (next.js: 4ms, application-code: 340ms)
+ GET / 200 in 326ms (next.js: 6ms, application-code: 320ms)
+ GET / 200 in 394ms (next.js: 4ms, application-code: 390ms)
+ GET / 200 in 300ms (next.js: 15ms, application-code: 285ms)
+ GET / 200 in 150ms (next.js: 4ms, application-code: 145ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /survey-complete/ 200 in 1515ms (next.js: 1326ms, application-code: 188ms)
+ GET / 200 in 182ms (next.js: 4ms, application-code: 179ms)
+ GET / 200 in 336ms (next.js: 10ms, application-code: 326ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 378ms (next.js: 4ms, application-code: 374ms)
+ GET /get-involved/ 200 in 313ms (next.js: 12ms, application-code: 302ms)
+[browser] Image with src "http://localhost:3000/Images/TABS-Logo-Full.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /get-involved/ 200 in 225ms (next.js: 5ms, application-code: 220ms)
+ GET /privacy-policy/ 200 in 1481ms (next.js: 919ms, application-code: 562ms)
+ GET /privacy-policy/ 200 in 1477ms (next.js: 853ms, application-code: 624ms)
+ GET /barriers/ 200 in 268ms (next.js: 9ms, application-code: 259ms)
+ GET /barriers/ 200 in 181ms (next.js: 3ms, application-code: 178ms)
+ GET /for-organizations/technology-leaders/ 200 in 1264ms (next.js: 770ms, application-code: 494ms)
+ GET /for-organizations/technology-leaders/ 200 in 1380ms (next.js: 886ms, application-code: 494ms)
