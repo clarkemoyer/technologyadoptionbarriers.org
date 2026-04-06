@@ -276,6 +276,99 @@ const DatasetComparisonPage = () => {
           </div>
         </section>
 
+        {/* ── Filter Bias Analysis ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Filter Bias Analysis</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            This analysis tests whether stricter quality filters disproportionately exclude certain
+            demographics. A Chi-square test for independence is computed across the four result
+            groups for role, organization size, and profit model.
+          </p>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm font-sans border-collapse mb-8">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="text-left p-2 border-b">Demographic Category</th>
+                  <th className="text-right p-2 border-b">Chi-Square (χ²)</th>
+                  <th className="text-right p-2 border-b">df</th>
+                  <th className="text-right p-2 border-b">p-value</th>
+                  <th className="text-left p-2 border-b">Interpretation</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(() => {
+                  const fba = sensitivityData.filter_bias_analysis as
+                    | Record<string, { chi2: number; p_value: number; df: number }>
+                    | undefined
+                  if (!fba) {
+                    return (
+                      <tr>
+                        <td colSpan={5} className="p-2 text-center border-b">
+                          No filter bias analysis data available.
+                        </td>
+                      </tr>
+                    )
+                  }
+
+                  const getInterpretation = (p: number) => {
+                    if (p < 0.05) {
+                      return (
+                        <span className="text-red-700 font-medium">
+                          Significant difference (potential bias)
+                        </span>
+                      )
+                    }
+                    return (
+                      <span className="text-gray-600">
+                        No significant difference (demographics stable)
+                      </span>
+                    )
+                  }
+
+                  return (
+                    <>
+                      <tr>
+                        <td className="p-2 border-b">Role (Tech vs Non-Tech)</td>
+                        <td className="p-2 border-b text-right">{fba.role?.chi2.toFixed(2)}</td>
+                        <td className="p-2 border-b text-right">{fba.role?.df}</td>
+                        <td className="p-2 border-b text-right">{fba.role?.p_value.toFixed(4)}</td>
+                        <td className="p-2 border-b">{getInterpretation(fba.role?.p_value)}</td>
+                      </tr>
+                      <tr>
+                        <td className="p-2 border-b">Organization Size</td>
+                        <td className="p-2 border-b text-right">
+                          {fba.organization_size?.chi2.toFixed(2)}
+                        </td>
+                        <td className="p-2 border-b text-right">{fba.organization_size?.df}</td>
+                        <td className="p-2 border-b text-right">
+                          {fba.organization_size?.p_value.toFixed(4)}
+                        </td>
+                        <td className="p-2 border-b">
+                          {getInterpretation(fba.organization_size?.p_value)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="p-2 border-b">Profit Model</td>
+                        <td className="p-2 border-b text-right">
+                          {fba.profit_model?.chi2.toFixed(2)}
+                        </td>
+                        <td className="p-2 border-b text-right">{fba.profit_model?.df}</td>
+                        <td className="p-2 border-b text-right">
+                          {fba.profit_model?.p_value.toFixed(4)}
+                        </td>
+                        <td className="p-2 border-b">
+                          {getInterpretation(fba.profit_model?.p_value)}
+                        </td>
+                      </tr>
+                    </>
+                  )
+                })()}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
         {/* ── Effect Size Comparison ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Effect Size Comparison</h2>
