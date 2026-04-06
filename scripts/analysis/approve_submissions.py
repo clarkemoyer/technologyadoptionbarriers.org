@@ -21,7 +21,14 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from tabs_api import prolific_bulk_approve, prolific_study_info, prolific_submission_statuses
+from tabs_api import (
+    prolific_bulk_approve,
+    prolific_send_message,
+    prolific_study_info,
+    prolific_submission_statuses,
+    prolific_user_messages,
+)
+from send_thank_you import THANK_YOU_MESSAGE, SIGNATURE
 
 
 def _require_env(name: str) -> str:
@@ -35,6 +42,7 @@ def _require_env(name: str) -> str:
 def _write_step_summary(
     study_id: str, dry_run: bool, total_data_rows: int,
     clean_count: int, skipped: int, already_approved: int, newly_approved: int,
+    messages_sent: int = 0, messages_already_sent: int = 0, messages_failed: int = 0,
 ) -> None:
     """Write a GitHub Actions step summary (always, even when nothing to approve)."""
     summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
@@ -54,6 +62,9 @@ def _write_step_summary(
         f"| Skipped (empty PID) | {skipped} |",
         f"| Already APPROVED | {already_approved} |",
         f"| Newly approved | {newly_approved} |",
+        f"| Thank-you messages sent | {messages_sent} |",
+        f"| Thank-you already sent | {messages_already_sent} |",
+        f"| Thank-you messages failed | {messages_failed} |",
         "",
     ]
     with open(summary_file, "a") as f:
@@ -154,6 +165,9 @@ def main():
     study_name = study_id
     newly_approved = 0
     already_approved = 0
+    messages_sent = 0
+    messages_already_sent = 0
+    messages_failed = 0
     try:
         if not dry_run:
             print(f"Verifying Prolific API token and study {study_id}...")
@@ -198,16 +212,56 @@ def main():
             print(f"  (plus {already_approved} already approved = {already_approved + newly_approved} total CLEAN)")
         else:
             print(f"All {already_approved} CLEAN submissions are already APPROVED. Nothing to do.")
+
+        # Send thank-you messages to all CLEAN participants
+        print("\nSending thank-you messages...")
+
+        # In a live run, clean_pids with a non-approvable status are NOT approved,
+        # so we should ideally only message the ones that are successfully approved.
+        # newly_approved + already_approved = the group of actually approved participants.
+        if dry_run:
+            print(f"DRY RUN — {len(clean_pids)} participants would be checked for thank-you messages")
+            messages_sent = len(clean_pids)
+        else:
+            for pid in clean_pids:
+                status = current_statuses.get(pid, "UNKNOWN") if 'current_statuses' in locals() else "APPROVED"
+                # Only message if they are APPROVED (already approved or just now approved)
+                if status == "APPROVED" or status == "AWAITING REVIEW":
+                    try:
+                        # Check for existing thank-you message
+                        existing = prolific_user_messages(pid, api_token)
+                        already_sent = any(
+                            (m.get("data") or {}).get("study_id") == study_id
+                            and SIGNATURE in (m.get("body") or "")
+                            for m in existing
+                        )
+                        if already_sent:
+                            print(f"  SKIP {pid} — already received thank-you")
+                            messages_already_sent += 1
+                            continue
+
+                        prolific_send_message(study_id, pid, THANK_YOU_MESSAGE, api_token)
+                        print(f"  SENT {pid}")
+                        messages_sent += 1
+                    except Exception as e:
+                        print(f"  FAILED to message {pid}: {e}")
+                        messages_failed += 1
+
+            print(f"\nMessage Summary:")
+            print(f"  Sent: {messages_sent}")
+            print(f"  Already sent (skipped): {messages_already_sent}")
+            print(f"  Failed: {messages_failed}")
+
     except Exception as e:
         error_msg = f"Failed to process approvals for study {study_id}: {e}"
         print(f"Error: {error_msg}", file=sys.stderr)
         _write_step_summary(study_id, dry_run, total_data_rows, len(clean_pids), skipped,
-                            already_approved, newly_approved)
+                            already_approved, newly_approved, messages_sent, messages_already_sent, messages_failed)
         _append_failure_summary(error_msg)
         sys.exit(1)
 
     _write_step_summary(study_id, dry_run, total_data_rows, len(clean_pids), skipped,
-                        already_approved, newly_approved)
+                        already_approved, newly_approved, messages_sent, messages_already_sent, messages_failed)
 
     print("\nDone")
 
