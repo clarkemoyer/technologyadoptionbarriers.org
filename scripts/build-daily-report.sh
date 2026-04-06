@@ -307,11 +307,49 @@ $MSG_ROWS
 **Dashboard:** [View live dashboard](https://technologyadoptionbarriers.org/making-of-tabs/integrations/prolific/dashboard)
 STATUSEOF
 
+# --- Critical findings check (for auto-closing) ---
+# Critical if:
+# 1. Any job failed (TRIAGE, APPROVE, MESSAGE, DASHBOARD)
+# 2. Recommendations contain "Critical", "Anomaly", or "Action"
+# 3. New rejections (DELTA_REJECTED > 0)
+# 4. New returns (DELTA_RETURNED > 0)
+# 5. Total awaiting review > 0
+# 6. Messaging failures (TOTAL_FAILED > 0)
+
+CRITICAL_FINDINGS=false
+[ "${TRIAGE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
+[ "${APPROVE_RESULT_STATUS:-}" = "failure" ] && CRITICAL_FINDINGS=true
+[ "${MESSAGE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
+[ "${DASHBOARD_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
+echo "$RECOMMENDATIONS" | grep -qE "Critical|Anomaly|Action" && CRITICAL_FINDINGS=true
+[ "$DELTA_REJECTED" -gt 0 ] && CRITICAL_FINDINGS=true
+[ "$DELTA_RETURNED" -gt 0 ] && CRITICAL_FINDINGS=true
+[ "$TODAY_AWAITING" -gt 0 ] && CRITICAL_FINDINGS=true
+[ "$TOTAL_FAILED" -gt 0 ] && CRITICAL_FINDINGS=true
+
 # --- Create issue ---
 TITLE="Daily Disposition Report -- $DATE"
-gh issue create \
+LABELS="documentation"
+if [ "$CRITICAL_FINDINGS" = false ]; then
+  LABELS="$LABELS,auto-close-eligible"
+fi
+
+ISSUE_URL=$(gh issue create \
   --title "$TITLE" \
   --body-file /tmp/report-body.md \
-  --label "documentation"
+  --label "$LABELS")
 
-echo "Daily report issue created: $TITLE"
+echo "Daily report issue created: $TITLE ($ISSUE_URL)"
+
+# --- Auto-close previous eligible issues (>23h old) ---
+# We use 23h to ensure the "daily" report from yesterday is caught even if
+# the cron runs slightly earlier today.
+echo "Checking for old auto-close-eligible issues..."
+OLD_ISSUES=$(gh issue list --label "auto-close-eligible" --state "open" --json number,createdAt --jq -r ".[] | select(.createdAt < \"$(date -u -d '23 hours ago' +'%Y-%m-%dT%H:%M:%SZ')\") | .number")
+
+for ISSUE_NUM in $OLD_ISSUES; do
+  echo "Auto-closing issue #$ISSUE_NUM"
+  gh issue comment "$ISSUE_NUM" --body "Auto-closing this report as it has been open for >24h with no critical findings."
+  gh issue edit "$ISSUE_NUM" --add-label "auto-closed" --remove-label "auto-close-eligible"
+  gh issue close "$ISSUE_NUM"
+done
