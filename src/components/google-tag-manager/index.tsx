@@ -2,11 +2,19 @@
 
 import Script from 'next/script'
 
-// Google Tag Manager ID
-const GTM_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || 'GTM-P5GBFCTL'
+const DEFAULT_GTM_ID = 'GTM-P5GBFCTL'
 
-// Sanitize GTM_ID to prevent XSS (only allow alphanumeric and hyphens)
-const sanitizedGtmId = GTM_ID.replace(/[^a-zA-Z0-9-]/g, '')
+// Sanitize GTM_ID to prevent XSS: only allow alphanumeric characters and hyphens.
+// Falls back to the default if the value contains any other characters.
+// Exported so it can be unit-tested directly without duplicating the logic.
+export function sanitizeGtmId(rawId: string): string {
+  return /^[a-zA-Z0-9-]+$/.test(rawId) ? rawId : DEFAULT_GTM_ID
+}
+
+// Evaluate once at module load time
+const sanitizedGtmId = sanitizeGtmId(
+  process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || DEFAULT_GTM_ID
+)
 
 export default function GoogleTagManager() {
   return (
