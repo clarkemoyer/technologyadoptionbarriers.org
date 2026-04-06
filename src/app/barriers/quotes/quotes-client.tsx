@@ -127,25 +127,26 @@ export default function QuotesPageClient() {
 
   const sortedQuotes = useMemo(() => [...(quotes as Quote[])].sort((a, b) => a.year - b.year), [])
 
-  const eras = useMemo(() => {
-    const seen = new Set<string>()
-    return sortedQuotes.reduce<string[]>((acc, q) => {
-      if (!seen.has(q.era)) {
-        seen.add(q.era)
-        acc.push(q.era)
-      }
-      return acc
-    }, [])
-  }, [sortedQuotes])
+  const eras = useMemo(() => [...new Set(sortedQuotes.map((q) => q.era))], [sortedQuotes])
+
+  const eraCounts = useMemo(
+    () =>
+      sortedQuotes.reduce<Record<string, number>>((counts, q) => {
+        counts[q.era] = (counts[q.era] ?? 0) + 1
+        return counts
+      }, {}),
+    [sortedQuotes]
+  )
 
   const filteredQuotes = useMemo(() => {
+    const lowerQuery = searchQuery.toLowerCase()
     return sortedQuotes.filter((q) => {
       const matchesEra = selectedEra === 'All' || q.era === selectedEra
       const matchesSearch =
-        searchQuery === '' ||
-        q.quote.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        q.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        q.source.toLowerCase().includes(searchQuery.toLowerCase())
+        lowerQuery === '' ||
+        q.quote.toLowerCase().includes(lowerQuery) ||
+        q.author.toLowerCase().includes(lowerQuery) ||
+        q.source.toLowerCase().includes(lowerQuery)
       return matchesEra && matchesSearch
     })
   }, [sortedQuotes, selectedEra, searchQuery])
@@ -211,23 +212,20 @@ export default function QuotesPageClient() {
               >
                 All ({sortedQuotes.length})
               </button>
-              {eras.map((era) => {
-                const count = sortedQuotes.filter((q) => q.era === era).length
-                return (
-                  <button
-                    key={era}
-                    onClick={() => setSelectedEra(era)}
-                    className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-                      selectedEra === era
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    }`}
-                    aria-pressed={selectedEra === era}
-                  >
-                    {era} ({count})
-                  </button>
-                )
-              })}
+              {eras.map((era) => (
+                <button
+                  key={era}
+                  onClick={() => setSelectedEra(era)}
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                    selectedEra === era
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                  aria-pressed={selectedEra === era}
+                >
+                  {era} ({eraCounts[era] ?? 0})
+                </button>
+              ))}
             </div>
           </div>
         </div>
@@ -251,7 +249,7 @@ export default function QuotesPageClient() {
         ) : (
           <div className="space-y-6 sm:space-y-8">
             {filteredQuotes.map((quote, index) => (
-              <QuoteCard key={`${quote.author}-${quote.year}`} quote={quote} index={index} />
+              <QuoteCard key={quote.quote} quote={quote} index={index} />
             ))}
           </div>
         )}
