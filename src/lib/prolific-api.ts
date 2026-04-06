@@ -668,7 +668,7 @@ export async function exportSubmissionsCSV(studyId: string, apiToken: string): P
 
   // CSV header
   const headers = ['id', 'participant_id', 'status', 'started_at', 'completed_at', 'time_taken']
-  const csvLines = [headers.join(',')]
+  const csvLines: string[] = [headers.join(',')]
 
   // CSV rows with proper escaping
   for (const submission of submissions) {
