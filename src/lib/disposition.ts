@@ -102,9 +102,20 @@ export function withinPersonSD(responses: string[]): number {
   const nonEmpty = responses.filter((r) => r !== '')
   if (nonEmpty.length < 2) return NaN
 
-  // Map unique values to numeric indices
-  const uniqueValues = [...new Set(nonEmpty)]
-  const numeric = nonEmpty.map((r) => uniqueValues.indexOf(r))
+  // Map unique values to numeric indices for O(1) lookups
+  const uniqueValuesMap = new Map<string, number>()
+  let uniqueCount = 0
+  const numeric: number[] = new Array<number>(nonEmpty.length)
+
+  for (let i = 0; i < nonEmpty.length; i++) {
+    const r = nonEmpty[i]
+    let idx = uniqueValuesMap.get(r)
+    if (idx === undefined) {
+      idx = uniqueCount++
+      uniqueValuesMap.set(r, idx)
+    }
+    numeric[i] = idx
+  }
 
   const mean = numeric.reduce((a, b) => a + b, 0) / numeric.length
   const variance = numeric.reduce((sum, val) => sum + (val - mean) ** 2, 0) / numeric.length
