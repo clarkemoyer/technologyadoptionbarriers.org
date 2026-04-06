@@ -735,8 +735,9 @@ async function main() {
       prNumber,
       `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Timed out waiting for Copilot review. You can re-trigger manually.`
     )
-    writeSummary(prNumber, round, maxRounds, 'TIMEOUT', 0, 'Review did not arrive')
-    process.exit(1)
+    writeSummary(prNumber, round, maxRounds, 'TIMEOUT', 0, `Review timeout, dispatching round ${round + 1}`)
+    dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
+    process.exit(0)
   }
 
   // Step 5: Check comments
@@ -791,9 +792,10 @@ async function main() {
         maxRounds,
         'REVIEW_CLEAN_CI_FAIL',
         0,
-        'Review clean but CI failed'
+        `Review clean, CI failed, dispatching round ${round + 1}`
       )
-      process.exit(1)
+      dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
+      process.exit(0)
     } else if (ciResult === 'closed') {
       console.log('PR was closed while waiting for CI.')
       writeSummary(prNumber, round, maxRounds, 'PR_CLOSED', 0, 'PR closed during CI wait')
@@ -811,9 +813,10 @@ async function main() {
         maxRounds,
         'REVIEW_CLEAN_CI_TIMEOUT',
         0,
-        'Review clean, CI timed out'
+        `Review clean, CI timed out, dispatching round ${round + 1}`
       )
-      process.exit(1)
+      dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
+      process.exit(0)
     }
 
     process.exit(0)
@@ -880,8 +883,9 @@ async function main() {
       prNumber,
       `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Fixes were pushed but CI is failing. Pausing review cycle until CI is fixed.`
     )
-    writeSummary(prNumber, round, maxRounds, 'CI_FAIL', comments.length, 'Fixes broke CI')
-    process.exit(1)
+    writeSummary(prNumber, round, maxRounds, 'CI_FAIL', comments.length, `Fixes broke CI, dispatching round ${round + 1}`)
+    dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
+    process.exit(0)
   }
 
   if (ciResult === 'closed') {
@@ -898,20 +902,22 @@ async function main() {
   }
 
   if (ciResult === 'timeout') {
+    console.log('\nCI timed out after fixes. Dispatching next round — it will re-check.')
     postComment(
       repo,
       prNumber,
-      `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Fixes were pushed but CI did not complete within timeout. Re-trigger the review cycle manually once CI passes.`
+      `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Fixes pushed but CI timed out (likely action_required gate). Dispatching next round automatically.`
     )
     writeSummary(
       prNumber,
       round,
       maxRounds,
-      'CI_TIMEOUT',
+      'CI_TIMEOUT_CONTINUE',
       comments.length,
-      'CI timed out after fixes'
+      `CI timeout, dispatching round ${round + 1}`
     )
-    process.exit(1)
+    dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
+    process.exit(0)
   }
 
   // Step 11: Resolve review threads from this round so they don't re-trigger
