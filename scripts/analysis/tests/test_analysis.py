@@ -2,9 +2,7 @@
 
 import math
 import re
-import sys
 from collections import Counter
-from pathlib import Path
 
 import pytest
 
@@ -630,7 +628,7 @@ class TestCategorizeOtherRole:
             matched = False
             for pat in patterns:
                 for candidate in candidates:
-                    if re.search(pat, candidate):
+                    if re.search(pat, candidate, re.IGNORECASE):
                         matched = True
                         break
                 if matched:
