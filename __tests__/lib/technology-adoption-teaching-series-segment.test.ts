@@ -20,7 +20,9 @@ describe('technology-adoption-teaching-series-segment', () => {
   describe('buildTeachingSeriesSlideSegment', () => {
     it('combines slide ID and slugified title', () => {
       expect(buildTeachingSeriesSlideSegment(1, 'Introduction')).toBe('slide-01-introduction')
-      expect(buildTeachingSeriesSlideSegment(2, 'Complex Title Here')).toBe('slide-02-complex-title-here')
+      expect(buildTeachingSeriesSlideSegment(2, 'Complex Title Here')).toBe(
+        'slide-02-complex-title-here'
+      )
     })
 
     it('uses slide ID twice when title slugifies to an empty string', () => {
@@ -31,7 +33,9 @@ describe('technology-adoption-teaching-series-segment', () => {
     })
 
     it('handles titles with special characters gracefully', () => {
-      expect(buildTeachingSeriesSlideSegment(3, 'Slide with: punctuation!')).toBe('slide-03-slide-with-punctuation')
+      expect(buildTeachingSeriesSlideSegment(3, 'Slide with: punctuation!')).toBe(
+        'slide-03-slide-with-punctuation'
+      )
       expect(buildTeachingSeriesSlideSegment(4, 'Émphasis & Møre')).toBe('slide-04-emphasis-m-re')
     })
   })
