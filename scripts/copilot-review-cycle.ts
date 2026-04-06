@@ -286,7 +286,7 @@ function postComment(repo: string, prNumber: string, body: string): void {
 }
 
 function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComment[]): void {
-  console.log('Assigning Copilot coding agent to fix comments...')
+  console.log('Requesting fixes via @copilot PR comment (pushes to same branch)...')
 
   const commentList = comments
     .map((c, i) => {
@@ -295,44 +295,22 @@ function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComm
     })
     .join('\n')
 
+  // Comment on the PR with @copilot — Copilot pushes fixes to the SAME branch.
+  // This avoids creating separate issues/sub-PRs that cause cascading review loops.
   const body = [
-    `Fix the following Copilot code review comments on PR #${prNumber}:\n`,
+    `@copilot Please fix the following review comments directly on this PR branch:\n`,
     commentList,
-    `\nPush fixes to the PR branch directly or via a sub-PR (branch: copilot/sub-pr-<number>).`,
+    `\nPush the fixes as a new commit to this PR branch. Do NOT create a separate PR or issue.`,
   ].join('\n')
 
-  // Create a temporary issue and assign Copilot to it
-  const tmpFile = join(tmpdir(), `copilot-fix-issue-${Date.now()}.md`)
-  writeFileSync(tmpFile, body, 'utf-8')
   try {
-    const result = gh(
-      `issue create -R ${repo} ` +
-        `--title "fix: address Copilot review comments on PR #${prNumber}" ` +
-        `--body-file "${tmpFile}" ` +
-        `--assignee copilot-swe-agent[bot]`
-    )
-    console.log(`  Issue created: ${result}`)
-    // Extract new issue number from URL (e.g., "https://github.com/.../issues/123")
-    const newIssueNumber = parseInt(result.match(/\/(\d+)\s*$/)?.[1] || '0', 10)
-    // Close previous fix issues now that a new one exists
-    if (newIssueNumber > 0) {
-      closeFixIssues(repo, prNumber, 'Superseded by new review round.', newIssueNumber)
-    } else {
-      console.log(
-        '  Could not parse new issue number from gh output; skipping close of previous fix issues.'
-      )
-    }
+    postComment(repo, prNumber, body)
+    console.log('  Fix request posted as @copilot PR comment.')
   } catch (err: any) {
-    console.log('  Could not create fix issue via Copilot coding agent.')
-    console.log('  Posting fix request as PR comment instead.')
+    console.log(`  Failed to post @copilot comment: ${err.message || err}`)
+    // Fallback: post without @copilot mention
     const fallbackBody = buildFixRequestComment(comments)
     postComment(repo, prNumber, fallbackBody)
-  } finally {
-    try {
-      unlinkSync(tmpFile)
-    } catch {
-      // ignore
-    }
   }
 }
 
