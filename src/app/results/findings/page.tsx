@@ -302,6 +302,184 @@ const FindingsPage = () => {
           </p>
         </section>
 
+        {/* ── Technology Maturity Analysis ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Technology Maturity Analysis</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Technology maturity measures the extent to which an organization has formalized and
+            optimized its technology processes. Higher scores indicate more advanced process
+            management. This section highlights maturity trends across different result groups,
+            respondent roles, and organizational characteristics.
+          </p>
+
+          {PRIMARY_GROUPS.map((group) => {
+            const sample = sensitivityData.samples.find((s) => s.key === group.key)
+            const details = sampleDetails[group.key]
+            const ct = details?.cross_tabs
+            const maturityMean = sensitivityData.metrics.find((m) => m.key === 'maturity_mean')
+              ?.values?.[group.key as keyof (typeof sensitivityData.metrics)[0]['values']]
+            const byRole = ct?.by_role
+            const effects = details?.effect_sizes
+            const inf = details?.inferential
+
+            return (
+              <div
+                key={group.key}
+                className={`border-l-4 ${group.color} bg-gray-50 rounded-lg p-5 mb-6`}
+              >
+                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-4 border-b border-gray-200 pb-2">
+                  <h3 className="text-lg font-bold text-gray-900">
+                    {group.label} (N={sample?.n ?? '—'})
+                  </h3>
+                  <div className="text-sm font-medium text-gray-500 mt-1 sm:mt-0">
+                    Grand Mean: <span className="text-gray-900 font-mono">{fmt(maturityMean)}</span>
+                  </div>
+                </div>
+
+                {byRole && byRole.length > 0 ? (
+                  <div className="mt-3 grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* Role Breakdown Table */}
+                    <div>
+                      <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
+                        Maturity by Role
+                      </h4>
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-xs border-collapse bg-white/70 rounded text-left">
+                          <thead>
+                            <tr className="border-b border-gray-300">
+                              <th className="py-1.5 px-2 font-semibold text-gray-600">
+                                Role Group
+                              </th>
+                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                                n
+                              </th>
+                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                                Mean
+                              </th>
+                              <th className="py-1.5 px-2 text-left font-semibold text-gray-600">
+                                &Delta; Grand
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {byRole.map((row) => {
+                              const hasDiff = row.maturity_mean != null && maturityMean != null
+                              const diff = hasDiff
+                                ? (row.maturity_mean as number) - (maturityMean as number)
+                                : 0
+                              return (
+                                <tr key={row.group} className="border-b border-gray-200">
+                                  <td className="py-1.5 px-2 font-medium">{row.group}</td>
+                                  <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
+                                  <td className="py-1.5 px-2 text-right font-mono">
+                                    {row.maturity_mean?.toFixed(2) ?? '—'}
+                                  </td>
+                                  <td className="py-1.5 px-2 font-mono text-[10px]">
+                                    {hasDiff ? (
+                                      <div className="flex items-center gap-2">
+                                        <div
+                                          className={`h-1.5 rounded-full ${
+                                            diff >= 0 ? 'bg-green-500' : 'bg-rose-500'
+                                          }`}
+                                          style={{
+                                            width: `${Math.min(Math.abs(diff) * 40, 60)}px`,
+                                          }}
+                                        ></div>
+                                        <span
+                                          className={diff >= 0 ? 'text-green-700' : 'text-rose-700'}
+                                        >
+                                          {diff >= 0 ? '+' : ''}
+                                          {diff.toFixed(2)}
+                                        </span>
+                                      </div>
+                                    ) : (
+                                      <span className="text-gray-400">—</span>
+                                    )}
+                                  </td>
+                                </tr>
+                              )
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    {/* Maturity Statistics (Effect Sizes & Inferential) */}
+                    <div className="space-y-4">
+                      <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
+                        Maturity Statistical Tests
+                      </h4>
+
+                      {/* Technical Comparison */}
+                      {effects?.tech_vs_nontech?.constructs?.maturity && (
+                        <div className="bg-white/50 p-3 rounded border border-gray-200">
+                          <p className="text-[10px] font-bold text-gray-500 uppercase mb-1">
+                            Technical vs Non-Technical
+                          </p>
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="text-xs font-medium">Effect Size (d)</span>
+                            <span className="text-xs font-mono font-bold">
+                              {fmt(effects.tech_vs_nontech.constructs.maturity.d)}
+                            </span>
+                          </div>
+                          {inf?.t_tests_tech_vs_nontech?.constructs?.maturity && (
+                            <div className="flex justify-between items-center text-[10px]">
+                              <span className="text-gray-600">
+                                Welch&rsquo;s t=
+                                {inf.t_tests_tech_vs_nontech.constructs.maturity.t?.toFixed(2)}, p=
+                                {formatPValue(inf.t_tests_tech_vs_nontech.constructs.maturity.p)}
+                              </span>
+                              {inf.t_tests_tech_vs_nontech.constructs.maturity.sig && (
+                                <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-bold">
+                                  Significant
+                                </span>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* ANOVA Results */}
+                      {inf?.anova_by_role?.constructs?.maturity && (
+                        <div className="bg-white/50 p-3 rounded border border-gray-200">
+                          <p className="text-[10px] font-bold text-gray-500 uppercase mb-1">
+                            One-way ANOVA by Role
+                          </p>
+                          <div className="flex justify-between items-center mb-1 text-xs">
+                            <span className="text-gray-600">F-Statistic</span>
+                            <span className="font-mono">
+                              {inf.anova_by_role.constructs.maturity.f?.toFixed(2)}
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center text-[10px]">
+                            <span className="text-gray-600">
+                              df=
+                              {formatAnovaDf(
+                                inf.anova_by_role.constructs.maturity.df_between,
+                                inf.anova_by_role.constructs.maturity.df_within
+                              )}
+                              , p={formatPValue(inf.anova_by_role.constructs.maturity.p)}
+                            </span>
+                            {inf.anova_by_role.constructs.maturity.sig && (
+                              <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-bold">
+                                Significant
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-sm text-gray-500 italic mt-2">
+                    Maturity data will be populated by the next pipeline run.
+                  </p>
+                )}
+              </div>
+            )
+          })}
+        </section>
+
         {/* ── Effect Sizes by Result Group ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Effect Sizes (Cohen&rsquo;s d)</h2>
