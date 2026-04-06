@@ -396,10 +396,19 @@ export async function getStudyDemographics(
   const subs = await listStudySubmissions(studyId, apiToken)
   const results = new Map<string, SubmissionDemographics>()
 
-  for (const sub of subs.results) {
+  const demoPromises = subs.results.map(async (sub) => {
     const demo = await getSubmissionDemographics(sub.id, apiToken)
     if (demo) {
-      results.set(sub.participant_id, demo)
+      return { participant_id: sub.participant_id, demo }
+    }
+    return null
+  })
+
+  const demos = await Promise.all(demoPromises)
+
+  for (const item of demos) {
+    if (item) {
+      results.set(item.participant_id, item.demo)
     }
   }
 
