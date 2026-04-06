@@ -18,6 +18,7 @@ Author: Clarke Moyer, Penn State Smeal DBA
 
 import csv
 import math
+import re
 import sys
 from collections import Counter
 
@@ -107,6 +108,36 @@ ROLE_MAP = {
 }
 TECH_TITLES = {'CIO', 'CTO'}
 NONTECH_TITLES = {'CEO', 'CFO', 'COO', 'CHRO', 'CMO', 'CSO', 'CRO'}
+
+# Categorization patterns for "Other (please specify)" role free-text responses.
+# Checked in order; first match wins.  Categories are intentionally broad to avoid
+# exposing individual responses while still providing useful groupings.
+OTHER_ROLE_CATEGORIES_PATTERNS = [
+    ("C-Suite Adjacent", [
+        r'\bchief\b', r'\bCDO\b', r'\bCPO\b', r'\bCAO\b', r'\bCLO\b',
+        r'\bCDIO\b', r'\bCAIO\b', r'\bCXO\b', r'\bCCO\b',
+    ]),
+    ("VP / SVP", [
+        r'\bvice\s+president\b', r'\bvp\b', r'\bsvp\b', r'\bevp\b', r'\bavp\b',
+    ]),
+    ("Director", [
+        r'\bdirector\b',
+    ]),
+    ("Manager / Program Lead", [
+        r'\bmanager\b', r'\bprogram\s+lead\b', r'\bproject\s+lead\b',
+        r'\bteam\s+lead\b', r'\blead\b', r'\bsupervisor\b',
+    ]),
+    ("Owner / Founder / President", [
+        r'\bowner\b', r'\bfounder\b', r'\bpresident\b', r'\bpartner\b',
+        r'\bprincipal\b', r'\bproprietor\b',
+    ]),
+    ("Technical Specialist", [
+        r'\bengineer\b', r'\barchitect\b', r'\bdeveloper\b', r'\banalyst\b',
+        r'\badmin(?:istrator)?\b', r'\bsecurity\b', r'\bdata\b', r'\bIT\b',
+        r'\btechnolog', r'\bsystems?\b', r'\binfrastructure\b', r'\bnetwork\b',
+    ]),
+]
+
 LARGE_ORG_SIZES = ('5000-9999', '10000+')
 ALL_ORG_SIZES = ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']
 
@@ -499,6 +530,22 @@ def is_finished(row, idx):
 def get_role(row, idx):
     """Get short role label."""
     return ROLE_MAP.get(row[idx['Q1_Role']].strip(), 'Unknown')
+
+
+def categorize_other_role(text):
+    """Categorize a free-text 'Other' role response into a broad group.
+
+    Returns one of the category labels from OTHER_ROLE_CATEGORIES_PATTERNS,
+    or 'Uncategorized' if no pattern matches.
+    """
+    if not text or not text.strip():
+        return "Uncategorized"
+    t = text.strip()
+    for category, patterns in OTHER_ROLE_CATEGORIES_PATTERNS:
+        for pat in patterns:
+            if re.search(pat, t, re.IGNORECASE):
+                return category
+    return "Uncategorized"
 
 
 def org_bucket(row, idx):
@@ -1147,6 +1194,8 @@ def sensitivity_to_json(cuts, idx):
         })
 
     # ── Demographics per sample ──
+    has_other_text = 'Q1_Role_11_TEXT' in idx
+
     def demographics_for(rows):
         """Compute SURVEY demographics breakdown for a set of rows.
 
@@ -1155,12 +1204,21 @@ def sensitivity_to_json(cuts, idx):
         demographics (age, sex, ethnicity, etc.).
         """
         if not rows:
-            return {"roles": {}, "org_sizes": {}, "profit_models": {}, "tech_vs_nontech": {}}
-        n = len(rows)
+            return {"roles": {}, "org_sizes": {}, "profit_models": {},
+                    "tech_vs_nontech": {}, "other_roles": {}}
         roles = Counter(get_role(r, idx) for r in rows)
         tech_n = sum(1 for r in rows if get_role(r, idx) in TECH_TITLES)
         nontech_n = sum(1 for r in rows if get_role(r, idx) in NONTECH_TITLES)
         other_n = sum(1 for r in rows if get_role(r, idx) == 'Other')
+
+        # Categorize "Other" role free-text responses into broad groups.
+        # Only aggregate category counts are stored — no individual text is kept.
+        other_cats = Counter()
+        if has_other_text:
+            for r in rows:
+                if get_role(r, idx) == 'Other':
+                    text = r[idx['Q1_Role_11_TEXT']].strip()
+                    other_cats[categorize_other_role(text)] += 1
 
         org_sizes = {}
         for os_val in ALL_ORG_SIZES:
@@ -1180,6 +1238,10 @@ def sensitivity_to_json(cuts, idx):
                 "technical": tech_n,
                 "non_technical": nontech_n,
                 "other": other_n,
+            },
+            "other_roles": {
+                "total": other_n,
+                "categories": dict(other_cats.most_common()),
             },
         }
 

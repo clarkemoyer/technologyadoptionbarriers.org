@@ -20,11 +20,17 @@ export const metadata: Metadata = {
   },
 }
 
+interface OtherRolesData {
+  total: number
+  categories: Record<string, number>
+}
+
 interface DemographicsData {
   roles?: Record<string, number>
   org_sizes?: Record<string, number>
   profit_models?: Record<string, number>
   tech_vs_nontech?: { technical: number; non_technical: number; other: number }
+  other_roles?: OtherRolesData
 }
 
 interface SampleDetail {
@@ -434,65 +440,160 @@ const SamplePage = () => {
                 </h3>
 
                 {hasDemoData ? (
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
-                    {/* Roles */}
-                    <div>
-                      <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">Roles</h4>
-                      <table className="w-full text-xs border-collapse">
-                        <tbody>
-                          {Object.entries(demo.roles ?? {}).map(([role, count]) => (
-                            <tr key={role} className="border-b border-gray-200">
-                              <td className="py-1 pr-2 font-medium">{role}</td>
-                              <td className="py-1 text-right font-mono">{count}</td>
-                              <td className="py-1 pl-1 text-right text-gray-500">
-                                {pct(count, sample?.n)}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                  <>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
+                      {/* Roles */}
+                      <div>
+                        <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">Roles</h4>
+                        <table className="w-full text-xs border-collapse">
+                          <tbody>
+                            {Object.entries(demo.roles ?? {}).map(([role, count]) => (
+                              <tr key={role} className="border-b border-gray-200">
+                                <td className="py-1 pr-2 font-medium">{role}</td>
+                                <td className="py-1 text-right font-mono">{count}</td>
+                                <td className="py-1 pl-1 text-right text-gray-500">
+                                  {pct(count, sample?.n)}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Org Size */}
+                      <div>
+                        <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
+                          Organization Size
+                        </h4>
+                        <table className="w-full text-xs border-collapse">
+                          <tbody>
+                            {Object.entries(demo.org_sizes ?? {}).map(([size, count]) => (
+                              <tr key={size} className="border-b border-gray-200">
+                                <td className="py-1 pr-2 font-medium">{size}</td>
+                                <td className="py-1 text-right font-mono">{count}</td>
+                                <td className="py-1 pl-1 text-right text-gray-500">
+                                  {pct(count, sample?.n)}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Profit Model */}
+                      <div>
+                        <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
+                          Profit Model
+                        </h4>
+                        <table className="w-full text-xs border-collapse">
+                          <tbody>
+                            {Object.entries(demo.profit_models ?? {}).map(([model, count]) => (
+                              <tr key={model} className="border-b border-gray-200">
+                                <td className="py-1 pr-2 font-medium">{model}</td>
+                                <td className="py-1 text-right font-mono">{count}</td>
+                                <td className="py-1 pl-1 text-right text-gray-500">
+                                  {pct(count, sample?.n)}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
 
-                    {/* Org Size */}
-                    <div>
-                      <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
-                        Organization Size
-                      </h4>
-                      <table className="w-full text-xs border-collapse">
-                        <tbody>
-                          {Object.entries(demo.org_sizes ?? {}).map(([size, count]) => (
-                            <tr key={size} className="border-b border-gray-200">
-                              <td className="py-1 pr-2 font-medium">{size}</td>
-                              <td className="py-1 text-right font-mono">{count}</td>
-                              <td className="py-1 pl-1 text-right text-gray-500">
-                                {pct(count, sample?.n)}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+                    {/* Tech vs Non-Tech Breakdown & Other Role Categories */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                      {/* Tech / Non-Tech / Other */}
+                      {demo.tech_vs_nontech && (
+                        <div className="bg-white border border-gray-200 rounded-lg p-4">
+                          <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
+                            Technical vs. Non-Technical Breakdown
+                          </h4>
+                          <table className="w-full text-xs border-collapse">
+                            <tbody>
+                              <tr className="border-b border-gray-200">
+                                <td className="py-1.5 pr-2 font-medium">
+                                  <span className="inline-block w-2 h-2 rounded-full bg-blue-500 mr-1.5" />
+                                  Technical (CIO, CTO)
+                                </td>
+                                <td className="py-1.5 text-right font-mono">
+                                  {demo.tech_vs_nontech.technical}
+                                </td>
+                                <td className="py-1.5 pl-1 text-right text-gray-500">
+                                  {pct(demo.tech_vs_nontech.technical, sample?.n)}
+                                </td>
+                              </tr>
+                              <tr className="border-b border-gray-200">
+                                <td className="py-1.5 pr-2 font-medium">
+                                  <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1.5" />
+                                  Non-Technical (CEO, CFO, COO, CHRO, CMO, CSO, CRO)
+                                </td>
+                                <td className="py-1.5 text-right font-mono">
+                                  {demo.tech_vs_nontech.non_technical}
+                                </td>
+                                <td className="py-1.5 pl-1 text-right text-gray-500">
+                                  {pct(demo.tech_vs_nontech.non_technical, sample?.n)}
+                                </td>
+                              </tr>
+                              <tr className="border-b border-gray-200">
+                                <td className="py-1.5 pr-2 font-medium">
+                                  <span className="inline-block w-2 h-2 rounded-full bg-amber-500 mr-1.5" />
+                                  Other (self-reported)
+                                </td>
+                                <td className="py-1.5 text-right font-mono">
+                                  {demo.tech_vs_nontech.other}
+                                </td>
+                                <td className="py-1.5 pl-1 text-right text-gray-500">
+                                  {pct(demo.tech_vs_nontech.other, sample?.n)}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <p className="text-[10px] text-gray-400 mt-2 italic">
+                            Grouping used for ANOVA and effect-size comparisons on the{' '}
+                            <Link
+                              href="/results/findings"
+                              className="text-blue-500 hover:underline"
+                            >
+                              Findings
+                            </Link>{' '}
+                            page.
+                          </p>
+                        </div>
+                      )}
 
-                    {/* Profit Model */}
-                    <div>
-                      <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
-                        Profit Model
-                      </h4>
-                      <table className="w-full text-xs border-collapse">
-                        <tbody>
-                          {Object.entries(demo.profit_models ?? {}).map(([model, count]) => (
-                            <tr key={model} className="border-b border-gray-200">
-                              <td className="py-1 pr-2 font-medium">{model}</td>
-                              <td className="py-1 text-right font-mono">{count}</td>
-                              <td className="py-1 pl-1 text-right text-gray-500">
-                                {pct(count, sample?.n)}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                      {/* Other Role Categories */}
+                      {demo.other_roles &&
+                        demo.other_roles.total > 0 &&
+                        Object.keys(demo.other_roles.categories).length > 0 && (
+                          <div className="bg-white border border-gray-200 rounded-lg p-4">
+                            <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
+                              &ldquo;Other&rdquo; Role Categories (n=
+                              {demo.other_roles.total})
+                            </h4>
+                            <p className="text-[10px] text-gray-500 mb-2">
+                              Free-text responses categorized by keyword matching. Individual
+                              responses are not displayed to protect participant privacy.
+                            </p>
+                            <table className="w-full text-xs border-collapse">
+                              <tbody>
+                                {Object.entries(demo.other_roles.categories).map(
+                                  ([category, count]) => (
+                                    <tr key={category} className="border-b border-gray-200">
+                                      <td className="py-1 pr-2 font-medium">{category}</td>
+                                      <td className="py-1 text-right font-mono">{count}</td>
+                                      <td className="py-1 pl-1 text-right text-gray-500">
+                                        {pct(count, demo.other_roles?.total)}
+                                      </td>
+                                    </tr>
+                                  )
+                                )}
+                              </tbody>
+                            </table>
+                          </div>
+                        )}
                     </div>
-                  </div>
+                  </>
                 ) : (
                   <p className="text-sm text-gray-500 italic mt-2">
                     Demographics data will be populated by the next pipeline run.
@@ -501,6 +602,116 @@ const SamplePage = () => {
               </div>
             )
           })}
+        </section>
+
+        {/* ── Other Role Classification ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Understanding &ldquo;Other&rdquo; Roles</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Participants who selected &ldquo;Other (please specify)&rdquo; for their executive role
+            (Q1) provided a free-text description. The analysis pipeline categorizes these responses
+            into broad groups using keyword matching to provide insight into the composition of the
+            &ldquo;Other&rdquo; category without exposing individual responses.
+          </p>
+          <div className="overflow-x-auto my-6">
+            <table className="w-full border-collapse font-sans text-sm">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">Category</th>
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">
+                    Description
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">
+                    Example Patterns
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    C-Suite Adjacent
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Chief-level titles not in the standard 9 C-suite options
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
+                    CDO, CPO, CAO, CLO, CAIO, Chief Data Officer, Chief Privacy Officer
+                  </td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">VP / SVP</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Vice President, Senior VP, or Executive VP titles
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
+                    Vice President, VP, SVP, EVP, AVP
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">Director</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Director-level titles across functions
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
+                    Director of &hellip;, Senior Director, Group Director
+                  </td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    Manager / Program Lead
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Management and team-lead roles
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
+                    Manager, Program Lead, Team Lead, Supervisor
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    Owner / Founder / President
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Business ownership or presidency roles
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
+                    Owner, Founder, President, Partner, Principal
+                  </td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    Technical Specialist
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Individual contributor or specialist technical roles
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
+                    Engineer, Architect, Analyst, IT Administrator, Security
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">Uncategorized</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Responses that did not match any keyword pattern, or blank entries
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
+                    &mdash;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+            <p className="text-sm text-amber-900">
+              <strong>Note:</strong> These categories are computed automatically by the daily
+              analysis pipeline using keyword matching on free-text responses. A single response is
+              assigned to the first matching category. &ldquo;C-Suite Adjacent&rdquo; and &ldquo;VP
+              / SVP&rdquo; respondents may represent roles functionally equivalent to the named
+              C-suite titles but with different organizational naming conventions. Researchers may
+              wish to consider reclassifying these into the Technical or Non-Technical grouping for
+              sensitivity analyses.
+            </p>
+          </div>
         </section>
 
         {/* ── Privacy Note ── */}
