@@ -12,18 +12,15 @@ const PRIMARY_GROUPS = [
 
 const ITERATIONS = 100000
 
-// Pre-built at module scope, mirroring how samplesByKey is used in production
-const samplesByKey = new Map((sensitivityData.samples || []).map((s) => [s.key, s]))
-
 function benchmarkFind() {
   const start = performance.now()
   for (let i = 0; i < ITERATIONS; i++) {
     // Mimic the two places where the loop happens
     for (const group of PRIMARY_GROUPS) {
-      sensitivityData.samples.find((s) => s.key === group.key)
+      const sample = sensitivityData.samples.find((s) => s.key === group.key)
     }
     for (const group of PRIMARY_GROUPS) {
-      sensitivityData.samples.find((s) => s.key === group.key)
+      const sample = sensitivityData.samples.find((s) => s.key === group.key)
     }
   }
   const end = performance.now()
@@ -32,12 +29,15 @@ function benchmarkFind() {
 
 function benchmarkMap() {
   const start = performance.now()
+  // The map creation happens once per module load
+  const samplesByKey = new Map((sensitivityData.samples || []).map((s) => [s.key, s]))
+
   for (let i = 0; i < ITERATIONS; i++) {
     for (const group of PRIMARY_GROUPS) {
-      samplesByKey.get(group.key)
+      const sample = samplesByKey.get(group.key)
     }
     for (const group of PRIMARY_GROUPS) {
-      samplesByKey.get(group.key)
+      const sample = samplesByKey.get(group.key)
     }
   }
   const end = performance.now()
