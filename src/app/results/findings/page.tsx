@@ -71,11 +71,17 @@ interface InferentialData {
   anova_by_org_size?: InferentialGroup
 }
 
+interface MaturityLevelDistribution {
+  n: number
+  levels: Record<string, { count: number; percentage: number }>
+}
+
 interface SampleDetail {
   demographics?: Record<string, unknown>
   effect_sizes?: Record<string, EffectSizeGroup>
   cross_tabs?: { by_role?: CrossTabRow[]; by_org_size?: CrossTabRow[] }
   inferential?: InferentialData
+  maturity_distribution?: MaturityLevelDistribution
 }
 
 const sampleDetails: Record<string, SampleDetail> =
@@ -414,6 +420,138 @@ const FindingsPage = () => {
                     Cross-tabulation data will be populated by the next pipeline run.
                   </p>
                 )}
+              </div>
+            )
+          })}
+        </section>
+
+        {/* ── Technology Maturity ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Technology Maturity</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Technology Maturity construct measures the current level of technology process
+            maturity within the organization. Below is the distribution of maturity levels and
+            cross-tabulations by role and organization size.
+          </p>
+
+          {PRIMARY_GROUPS.map((group) => {
+            const sample = sensitivityData.samples.find((s) => s.key === group.key)
+            const details = sampleDetails[group.key]
+            const md = details?.maturity_distribution
+            const ct = details?.cross_tabs
+
+            const hasMd = md && md.n > 0
+            const hasCt = ct && ((ct.by_role?.length ?? 0) > 0 || (ct.by_org_size?.length ?? 0) > 0)
+
+            if (!hasMd && !hasCt) return null
+
+            return (
+              <div
+                key={group.key}
+                className={`border-l-4 ${group.color} bg-gray-50 rounded-lg p-5 mb-6`}
+              >
+                <h3 className={H3_CLASSES}>
+                  {group.label} (N={sample?.n ?? '—'})
+                </h3>
+
+                <div className="space-y-6 mt-3">
+                  {/* Maturity Distribution */}
+                  {hasMd && (
+                    <div>
+                      <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
+                        Maturity Level Distribution
+                      </h4>
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-xs border-collapse bg-white/70 rounded">
+                          <thead>
+                            <tr className="border-b border-gray-300">
+                              <th className="py-1.5 px-2 text-left font-semibold">Level</th>
+                              <th className="py-1.5 px-2 text-right font-semibold">Count</th>
+                              <th className="py-1.5 px-2 text-right font-semibold">%</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {Object.entries(md.levels).map(([level, data]) => (
+                              <tr key={level} className="border-b border-gray-200">
+                                <td className="py-1.5 px-2 font-medium">{level}</td>
+                                <td className="py-1.5 px-2 text-right font-mono">{data.count}</td>
+                                <td className="py-1.5 px-2 text-right font-mono">
+                                  {data.percentage.toFixed(1)}%
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Maturity x Role */}
+                  {hasCt && (ct.by_role?.length ?? 0) > 0 && (
+                    <div>
+                      <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
+                        Maturity by Role
+                      </h4>
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-xs border-collapse bg-white/70 rounded">
+                          <thead>
+                            <tr className="border-b border-gray-300">
+                              <th className="py-1.5 px-2 text-left font-semibold">Group</th>
+                              <th className="py-1.5 px-2 text-right font-semibold">n</th>
+                              <th className="py-1.5 px-2 text-right font-semibold">
+                                Maturity Mean
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {ct.by_role?.map((row) => (
+                              <tr key={row.group} className="border-b border-gray-200">
+                                <td className="py-1.5 px-2 font-medium">{row.group}</td>
+                                <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
+                                <td className="py-1.5 px-2 text-right font-mono">
+                                  {row.maturity_mean?.toFixed(2) ?? '—'}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Maturity x Org Size */}
+                  {hasCt && (ct.by_org_size?.length ?? 0) > 0 && (
+                    <div>
+                      <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
+                        Maturity by Organization Size
+                      </h4>
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-xs border-collapse bg-white/70 rounded">
+                          <thead>
+                            <tr className="border-b border-gray-300">
+                              <th className="py-1.5 px-2 text-left font-semibold">Group</th>
+                              <th className="py-1.5 px-2 text-right font-semibold">n</th>
+                              <th className="py-1.5 px-2 text-right font-semibold">
+                                Maturity Mean
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {ct.by_org_size?.map((row) => (
+                              <tr key={row.group} className="border-b border-gray-200">
+                                <td className="py-1.5 px-2 font-medium">{row.group}</td>
+                                <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
+                                <td className="py-1.5 px-2 text-right font-mono">
+                                  {row.maturity_mean?.toFixed(2) ?? '—'}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             )
           })}

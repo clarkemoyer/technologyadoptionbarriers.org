@@ -1274,6 +1274,38 @@ def sensitivity_to_json(cuts, idx):
 
         return groups
 
+    # ── Maturity Distribution per sample ──
+    def maturity_distribution_for(rows):
+        """Compute the distribution of Maturity levels based on person means.
+
+        Rounds each person's mean to the nearest integer to categorize them
+        into one of the 5 maturity levels.
+        """
+        if not rows:
+            return {}
+
+        m_means = person_means(rows, MATURITY_COLS, MATURITY_SCALE, idx)
+        m_means = [m for m in m_means if m is not None]
+        n = len(m_means)
+        if n == 0:
+            return {}
+
+        counts = {i: 0 for i in range(1, 6)}
+        for m in m_means:
+            level = max(1, min(5, round(m)))
+            counts[level] += 1
+
+        return {
+            "n": n,
+            "levels": {
+                "Level 1: Initial/Ad Hoc": {"count": counts[1], "percentage": counts[1] / n * 100},
+                "Level 2: Developing/Repeatable": {"count": counts[2], "percentage": counts[2] / n * 100},
+                "Level 3: Defined/Standardized": {"count": counts[3], "percentage": counts[3] / n * 100},
+                "Level 4: Managed/Quantitatively Managed": {"count": counts[4], "percentage": counts[4] / n * 100},
+                "Level 5: Optimizing/Innovating": {"count": counts[5], "percentage": counts[5] / n * 100},
+            }
+        }
+
     # ── Inferential statistics per sample ──
     def inferential_for(rows):
         """Compute inferential statistics: t-tests and ANOVA per sample."""
@@ -1374,6 +1406,7 @@ def sensitivity_to_json(cuts, idx):
             "effect_sizes": effect_sizes_for(rows),
             "cross_tabs": cross_tabs_for(rows),
             "inferential": inferential_for(rows),
+            "maturity_distribution": maturity_distribution_for(rows),
         }
 
     return result

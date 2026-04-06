@@ -20,11 +20,11 @@ const ResultsPage = () => {
   const totalN = sensitivityData.samples.find((s) => s.key === 'v2_all')?.n ?? '—'
 
   const alphaBarriers = sensitivityData.metrics.find((m) => m.key === 'alpha_barriers')?.values
-    ?.conservative_clean
+    ?.conservative_clean as number | undefined
   const alphaReadiness = sensitivityData.metrics.find((m) => m.key === 'alpha_readiness')?.values
-    ?.conservative_clean
+    ?.conservative_clean as number | undefined
   const alphaMaturity = sensitivityData.metrics.find((m) => m.key === 'alpha_maturity')?.values
-    ?.conservative_clean
+    ?.conservative_clean as number | undefined
   const alphaValues = [alphaBarriers, alphaReadiness, alphaMaturity].filter(
     (v): v is number => typeof v === 'number' && isFinite(v)
   )
