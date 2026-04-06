@@ -16,7 +16,8 @@
  */
 
 import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { join, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { z } from 'zod'
 
 // ── Schemas ──────────────────────────────────────────────────────────────────
@@ -159,7 +160,9 @@ export function validateDataAudit(data: unknown): ValidationResult {
 
 // ── Main entry point ──────────────────────────────────────────────────────────
 
-function main(): void {
+export function main(): void {
+  const __filename = fileURLToPath(import.meta.url)
+  const __dirname = dirname(__filename)
   const dataDir = join(__dirname, '..', 'src', 'data')
 
   const fileArg = process.argv.find((a) => a.startsWith('--file='))
@@ -184,16 +187,16 @@ function main(): void {
     try {
       data = loadJson(filePath)
     } catch (err) {
-      console.error(`✗ ${task.name}.json — could not read/parse: ${(err as Error).message}`)
+      console.error(`\u2717 ${task.name}.json \u2014 could not read/parse: ${(err as Error).message}`)
       allPassed = false
       continue
     }
 
     const result = task.schema(data)
     if (result.ok) {
-      console.log(`✓ ${result.file}`)
+      console.log(`\u2713 ${result.file}`)
     } else {
-      console.error(`✗ ${result.file} — ${result.errors.length} error(s):`)
+      console.error(`\u2717 ${result.file} \u2014 ${result.errors.length} error(s):`)
       for (const e of result.errors) {
         console.error(e)
       }
@@ -207,8 +210,7 @@ function main(): void {
 }
 
 // Run only when executed directly (not when imported as a module in tests)
-const isDirectRun =
-  typeof require !== 'undefined' && typeof module !== 'undefined' && require.main === module
+const isDirectRun = process.argv[1] === fileURLToPath(import.meta.url)
 if (isDirectRun) {
   main()
 }
