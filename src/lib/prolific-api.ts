@@ -388,18 +388,24 @@ export async function getSubmissionDemographics(
 /**
  * Fetch demographics for all submissions in a study.
  * Makes one API call per submission — use sparingly.
+ * Requests are issued in batches to avoid overwhelming the Prolific API.
  */
 export async function getStudyDemographics(
   studyId: string,
-  apiToken: string
+  apiToken: string,
+  concurrency = 5
 ): Promise<Map<string, SubmissionDemographics>> {
   const subs = await listStudySubmissions(studyId, apiToken)
   const results = new Map<string, SubmissionDemographics>()
 
-  for (const sub of subs.results) {
-    const demo = await getSubmissionDemographics(sub.id, apiToken)
-    if (demo) {
-      results.set(sub.participant_id, demo)
+  for (let i = 0; i < subs.results.length; i += concurrency) {
+    const batch = subs.results.slice(i, i + concurrency)
+    const demos = await Promise.all(batch.map((sub) => getSubmissionDemographics(sub.id, apiToken)))
+    for (let j = 0; j < batch.length; j++) {
+      const demo = demos[j]
+      if (demo) {
+        results.set(batch[j].participant_id, demo)
+      }
     }
   }
 
