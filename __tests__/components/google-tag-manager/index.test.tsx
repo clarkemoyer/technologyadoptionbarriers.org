@@ -1,4 +1,5 @@
 import ReactDOMServer from 'react-dom/server'
+import { DEFAULT_GTM_ID } from '@/components/google-tag-manager'
 
 describe('GoogleTagManager', () => {
   const OLD_ENV = process.env
@@ -19,7 +20,7 @@ describe('GoogleTagManager', () => {
 
     // Use ReactDOMServer.renderToString because JSDOM sometimes struggles with noscript innerHTML
     const htmlString = ReactDOMServer.renderToString(<GTMNoScript />)
-    expect(htmlString).toContain('id=GTM-P5GBFCTL')
+    expect(htmlString).toContain(`id=${DEFAULT_GTM_ID}`)
   })
 
   it('uses provided ID when valid', () => {
@@ -39,14 +40,15 @@ describe('GoogleTagManager', () => {
     const htmlString = ReactDOMServer.renderToString(<GTMNoScript />)
 
     // The malicious ID should be completely rejected and we fall back to default
-    expect(htmlString).toContain('id=GTM-P5GBFCTL')
+    expect(htmlString).toContain(`id=${DEFAULT_GTM_ID}`)
     expect(htmlString).not.toContain('XSS')
   })
 
   it('uses default GTM ID in script output when env var is invalid', () => {
     process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID = 'GTM-EVIL"><script>alert("XSS")</script>'
 
-    // Mock next/script to render as a regular script element so we can inspect the HTML
+    // jest.doMock is called AFTER jest.resetModules() (in beforeEach) so it registers
+    // the mock in a clean state. The subsequent require() picks up this mock correctly.
     let capturedHtml = ''
     jest.doMock('next/script', () => ({
       __esModule: true,
@@ -61,7 +63,7 @@ describe('GoogleTagManager', () => {
     ReactDOMServer.renderToString(<GoogleTagManager />)
 
     // The malicious ID must not appear in the script; the safe default must be used
-    expect(capturedHtml).toContain('GTM-P5GBFCTL')
+    expect(capturedHtml).toContain(DEFAULT_GTM_ID)
     expect(capturedHtml).not.toContain('XSS')
   })
 })

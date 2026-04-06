@@ -3,7 +3,7 @@
 import Script from 'next/script'
 
 // Google Tag Manager ID
-const DEFAULT_GTM_ID = 'GTM-P5GBFCTL'
+export const DEFAULT_GTM_ID = 'GTM-P5GBFCTL'
 // Ensure it only contains alphanumeric characters and hyphens to prevent XSS
 const rawGtmId = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || DEFAULT_GTM_ID
 const GTM_ID = /^[a-zA-Z0-9-]+$/.test(rawGtmId) ? rawGtmId : DEFAULT_GTM_ID
