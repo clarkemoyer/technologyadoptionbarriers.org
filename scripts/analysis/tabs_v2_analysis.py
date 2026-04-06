@@ -1206,34 +1206,44 @@ def sensitivity_to_json(cuts, idx):
         if not rows:
             return {"roles": {}, "org_sizes": {}, "profit_models": {},
                     "tech_vs_nontech": {}, "other_roles": {}}
-        roles = Counter(get_role(r, idx) for r in rows)
-        tech_n = sum(1 for r in rows if get_role(r, idx) in TECH_TITLES)
-        nontech_n = sum(1 for r in rows if get_role(r, idx) in NONTECH_TITLES)
-        other_n = sum(1 for r in rows if get_role(r, idx) == 'Other')
 
-        # Categorize "Other" role free-text responses into broad groups.
-        # Only aggregate category counts are stored — no individual text is kept.
+        # Single pass over rows to compute all demographic counts at once,
+        # avoiding redundant O(N) iterations per demographic dimension.
+        roles = Counter()
+        tech_n = 0
+        nontech_n = 0
+        other_n = 0
         other_cats = Counter()
-        if has_other_text:
-            for r in rows:
-                if get_role(r, idx) == 'Other':
-                    text = r[idx['Q1_Role_11_TEXT']].strip()
+        org_sizes = Counter()
+        profit_models = Counter()
+        other_text_idx = idx.get('Q1_Role_11_TEXT')
+
+        for r in rows:
+            role = get_role(r, idx)
+            roles[role] += 1
+            if role in TECH_TITLES:
+                tech_n += 1
+            elif role in NONTECH_TITLES:
+                nontech_n += 1
+            elif role == 'Other':
+                other_n += 1
+                # Categorize free-text response into broad groups.
+                # Defensive index check guards against malformed/short rows.
+                if has_other_text and other_text_idx is not None and other_text_idx < len(r):
+                    text = r[other_text_idx].strip()
                     other_cats[categorize_other_role(text)] += 1
+            org_sizes[r[idx['Q4_OrgSize']].strip()] += 1
+            profit_models[r[idx['Q5_ProfitModel']].strip()] += 1
 
-        org_sizes = {}
-        for os_val in ALL_ORG_SIZES:
-            ct = sum(1 for r in rows if r[idx['Q4_OrgSize']].strip() == os_val)
-            org_sizes[os_val] = ct
-
-        profit_models = {}
-        for pm in ['For-Profit', 'Non-Profit', 'Government/Public Sector']:
-            ct = sum(1 for r in rows if r[idx['Q5_ProfitModel']].strip() == pm)
-            profit_models[pm] = ct
+        # Preserve ordered output for org sizes and profit models.
+        org_sizes_out = {k: org_sizes.get(k, 0) for k in ALL_ORG_SIZES}
+        profit_models_out = {k: profit_models.get(k, 0)
+                             for k in ['For-Profit', 'Non-Profit', 'Government/Public Sector']}
 
         return {
             "roles": dict(roles.most_common()),
-            "org_sizes": org_sizes,
-            "profit_models": profit_models,
+            "org_sizes": org_sizes_out,
+            "profit_models": profit_models_out,
             "tech_vs_nontech": {
                 "technical": tech_n,
                 "non_technical": nontech_n,
