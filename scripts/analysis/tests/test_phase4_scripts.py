@@ -234,6 +234,14 @@ class TestProlificMessages:
         assert approve_submissions.THANK_YOU_MESSAGE is prolific_messages.THANK_YOU_MESSAGE
         assert approve_submissions.SIGNATURE is prolific_messages.SIGNATURE
 
+    def test_approve_and_send_thank_you_share_same_constants(self):
+        """approve_submissions and send_thank_you resolve to identical objects."""
+        import approve_submissions
+        from send_thank_you import SIGNATURE, THANK_YOU_MESSAGE
+
+        assert approve_submissions.THANK_YOU_MESSAGE is THANK_YOU_MESSAGE
+        assert approve_submissions.SIGNATURE is SIGNATURE
+
 
 # ── send_thank_you.py ───────────────────────────────────────────
 

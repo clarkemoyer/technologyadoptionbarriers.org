@@ -221,11 +221,12 @@ def main():
         # newly_approved + already_approved = the group of actually approved participants.
         if dry_run:
             print(f"DRY RUN — {len(clean_pids)} participants would be checked for thank-you messages")
-            messages_sent = len(clean_pids)
+            messages_sent = 0
         else:
             for pid in clean_pids:
                 status = current_statuses.get(pid, "UNKNOWN")
-                # Only message if they are APPROVED (already approved or just now approved)
+                # Only message participants who are APPROVED or AWAITING REVIEW
+                # (AWAITING REVIEW submissions are being approved in this same run)
                 if status in ("APPROVED", "AWAITING REVIEW"):
                     try:
                         # Check for existing thank-you message
