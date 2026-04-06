@@ -398,13 +398,17 @@ export async function getStudyDemographics(
   const subs = await listStudySubmissions(studyId, apiToken)
   const results = new Map<string, SubmissionDemographics>()
 
-  for (let i = 0; i < subs.results.length; i += concurrency) {
-    const batch = subs.results.slice(i, i + concurrency)
+  for (
+    let batchStartIndex = 0;
+    batchStartIndex < subs.results.length;
+    batchStartIndex += concurrency
+  ) {
+    const batch = subs.results.slice(batchStartIndex, batchStartIndex + concurrency)
     const demos = await Promise.all(batch.map((sub) => getSubmissionDemographics(sub.id, apiToken)))
-    for (let j = 0; j < batch.length; j++) {
-      const demo = demos[j]
+    for (let batchIndex = 0; batchIndex < batch.length; batchIndex++) {
+      const demo = demos[batchIndex]
       if (demo) {
-        results.set(batch[j].participant_id, demo)
+        results.set(batch[batchIndex].participant_id, demo)
       }
     }
   }
