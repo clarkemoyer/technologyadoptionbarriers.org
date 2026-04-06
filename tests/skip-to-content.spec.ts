@@ -33,16 +33,24 @@ test.describe('Skip-to-content link', () => {
 
       const skipLink = page.locator('a[href="#main-content"]')
 
-      // Before focus: Tailwind v4 sr-only clips the element with clip-path: inset(50%)
-      const beforeClipPath = await skipLink.evaluate((el) => getComputedStyle(el).clipPath)
-      expect(beforeClipPath).toBe('inset(50%)')
+      // Before focus: the element is visually hidden (1×1px)
+      const beforeRect = await skipLink.evaluate((el) => {
+        const rect = el.getBoundingClientRect()
+        return { width: rect.width, height: rect.height }
+      })
+      expect(beforeRect.width).toBeLessThanOrEqual(1)
+      expect(beforeRect.height).toBeLessThanOrEqual(1)
 
-      // Press Tab — skip link receives focus and focus:not-sr-only removes the clip-path
+      // Press Tab — skip link receives focus and focus:not-sr-only reveals it
       await page.keyboard.press('Tab')
 
-      // After focus: clip-path is removed so the element is fully visible
-      const afterClipPath = await skipLink.evaluate((el) => getComputedStyle(el).clipPath)
-      expect(afterClipPath).toBe('none')
+      // After focus: the element occupies visible space (well over 1px in each dimension)
+      const afterRect = await skipLink.evaluate((el) => {
+        const rect = el.getBoundingClientRect()
+        return { width: rect.width, height: rect.height }
+      })
+      expect(afterRect.width).toBeGreaterThan(10)
+      expect(afterRect.height).toBeGreaterThan(10)
     })
 
     test(`moves focus to #main-content on ${path}`, async ({ page }) => {
@@ -52,7 +60,10 @@ test.describe('Skip-to-content link', () => {
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
 
-      // The focused element should now be #main-content
+      // Wait for the hash navigation to settle
+      await page.waitForFunction(() => location.hash === '#main-content')
+
+      // The #main-content target (tabIndex={-1}) should have received focus
       const focusedId = await page.evaluate(() => {
         return (document.activeElement as HTMLElement | null)?.id ?? null
       })
