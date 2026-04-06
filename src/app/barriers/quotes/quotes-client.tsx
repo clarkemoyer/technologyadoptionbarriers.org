@@ -139,7 +139,7 @@ export default function QuotesPageClient() {
   )
 
   const filteredQuotes = useMemo(() => {
-    const lowerQuery = searchQuery.toLowerCase()
+    const lowerQuery = searchQuery.trim().toLowerCase()
     return sortedQuotes.filter((q) => {
       const matchesEra = selectedEra === 'All' || q.era === selectedEra
       const matchesSearch =
