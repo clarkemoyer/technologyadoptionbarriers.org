@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import { assetPath } from '@/lib/assetPath'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import SeriesNavigation from '@/components/series-navigation'
+import ImageLightbox from '@/components/ui/image-lightbox'
 
 export const metadata: Metadata = {
   title: 'Technology Adoption Models & Frameworks – Series Overview',
@@ -52,12 +52,12 @@ const ModelsPage = () => {
           </p>
 
           <div className="my-6 sm:my-10">
-            <Image
+            <ImageLightbox
               src={assetPath('/Images/articles/Tech-Adoption-Triangle.png')}
               alt="The Tech Adoption Triangle: Organizational, User, and Consumer Adoption"
               width={1024}
               height={1024}
-              className="w-full h-auto rounded-lg shadow-sm"
+              imgClassName="rounded-lg shadow-sm"
             />
           </div>
 
@@ -149,12 +149,12 @@ const ModelsPage = () => {
 
           <figure className="my-6 sm:my-10">
             <div className="relative w-full h-auto">
-              <Image
+              <ImageLightbox
                 src={assetPath('/Images/articles/Series-Roadmap.png')}
                 alt="Series Roadmap: Evolutionary Tree of Technology Adoption Models"
                 width={1024}
                 height={600}
-                className="w-full h-auto rounded-lg shadow-sm"
+                imgClassName="rounded-lg shadow-sm"
               />
             </div>
           </figure>
