@@ -157,6 +157,35 @@ class TestDetectPartialStraightlining:
         assert flag == 1
         assert "Barriers" in blocks
 
+    def test_iri_excluded_from_straightlining(self):
+        """IRI items must NOT be included in partial straightlining SD.
+
+        Regression test for Issue #735: including IRI items (which have
+        predetermined correct answers) artificially inflated within-person
+        SD and masked straightlining for ~15 responses.
+        """
+        # All 18 substantive barrier items are identical (straightlining)
+        # but the IRI item (#19) has a different answer
+        row = {}
+        for i in range(1, 19):
+            row[f"Q10-28_Barriers_{i}"] = "Moderate Barrier"
+        row["Q10-28_Barriers_19"] = "Major Barrier"  # IRI (correct answer)
+
+        flag, blocks = detect_partial_straightlining(row)
+        # Should be flagged: all 18 substantive items are identical
+        # The IRI item must NOT mask the straightlining
+        assert flag == 1, (
+            "Straightlining was not detected — IRI item may be included "
+            "in SD calculation (see Issue #735)"
+        )
+        assert "Barriers" in blocks
+
+    def test_iri_only_not_flagged(self):
+        """If only the IRI item is present, block should not be evaluated."""
+        row = {"Q10-28_Barriers_19": "Major Barrier"}
+        flag, blocks = detect_partial_straightlining(row)
+        assert flag == 0
+
 
 # ── parse_csv ────────────────────────────────────────────────
 

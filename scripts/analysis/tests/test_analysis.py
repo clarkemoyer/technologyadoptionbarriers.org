@@ -1,12 +1,10 @@
 """Tests for tabs_v2_analysis.py — statistical functions and sample filtering."""
 
 import math
-import sys
-from pathlib import Path
+import re
+from collections import Counter
 
 import pytest
-
-sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from tabs_v2_analysis import (
     mean_sd,
@@ -30,6 +28,10 @@ from tabs_v2_analysis import (
     load_data,
     filter_samples,
     sensitivity_to_json,
+    welch_t_test,
+    oneway_anova,
+    categorize_other_role,
+    OTHER_ROLE_CATEGORIES_PATTERNS,
     BARRIER_SCALE,
     READINESS_SCALE,
     MATURITY_SCALE,
@@ -97,17 +99,22 @@ class TestPearsonR:
 
 class TestCohensD:
     def test_identical_groups(self):
-        d = cohens_d([5, 5, 5], [5, 5, 5])
+        d, ci_l, ci_u = cohens_d([5, 5, 5], [5, 5, 5])
         # Zero difference but also zero pooled SD
         assert d is None
+        assert ci_l is None
+        assert ci_u is None
 
     def test_large_effect(self):
-        d = cohens_d([10, 11, 12], [1, 2, 3])
+        d, ci_l, ci_u = cohens_d([10, 11, 12], [1, 2, 3])
         assert d is not None
+        assert ci_l is not None
+        assert ci_u is not None
         assert abs(d) > 0.8  # large effect
+        assert ci_l <= d <= ci_u
 
     def test_insufficient_data(self):
-        assert cohens_d([5], [3]) is None
+        assert cohens_d([5], [3]) == (None, None, None)
 
 
 # ── cronbach_alpha ───────────────────────────────────────────
@@ -324,3 +331,325 @@ class TestSensitivityJSON:
             assert "key" in metric
             assert "values" in metric
             assert isinstance(metric["values"], dict)
+
+    def test_sample_details_structure(self, test_data_csv):
+        """sample_details must contain demographics, effect_sizes, cross_tabs, and inferential per group."""
+        idx, data = load_data(test_data_csv)
+        _, samples = filter_samples(data, idx)
+
+        cuts = [
+            ("Conservative Clean", samples["conservative_clean"]),
+            ("Flexible Clean", samples["flexible_clean"]),
+            ("All V2", samples["v2_all"]),
+        ]
+        result = sensitivity_to_json(cuts, idx)
+
+        # demographic_sources metadata documents both data sources
+        assert "demographic_sources" in result
+        ds = result["demographic_sources"]
+        assert "survey_demographics" in ds
+        assert "platform_demographics" in ds
+        assert "Q1_Role" in ds["survey_demographics"]["fields"]
+        assert "age" in ds["platform_demographics"]["fields"]
+        # Both use dict format with descriptions
+        assert isinstance(ds["survey_demographics"]["fields"], dict)
+        assert isinstance(ds["platform_demographics"]["fields"], dict)
+
+        # Platform demographics has base + prescreener field categories
+        pd = ds["platform_demographics"]
+        assert "base_fields" in pd, "missing base_fields"
+        assert "prescreener_fields" in pd, "missing prescreener_fields"
+        assert "cross_validation" in pd, "missing cross_validation"
+        assert "study_screeners" in pd, "missing study_screeners"
+        assert "age" in pd["base_fields"]
+        assert "country_of_birth" in pd["base_fields"]
+        assert "company_size" in pd["prescreener_fields"]
+        assert "industry" in pd["prescreener_fields"]
+        assert "employment_sector" in pd["prescreener_fields"]
+        assert "occupation" in pd["prescreener_fields"]
+        assert "education_level" in pd["prescreener_fields"]
+        assert "household_income" in pd["prescreener_fields"]
+        assert "fluent_languages" in pd["prescreener_fields"]
+
+        # Study screeners document exact eligibility criteria
+        screeners = pd["study_screeners"]
+        assert isinstance(screeners, list)
+        assert len(screeners) == 5  # 5 screeners configured on live study
+        screener_ids = [s["filter_id"] for s in screeners]
+        assert "current_country_of_residence" in screener_ids
+        assert "employment_status" in screener_ids
+        assert "employment_sector" in screener_ids
+        assert "company_size" in screener_ids
+        assert "occupation" in screener_ids
+        for s in screeners:
+            assert "label" in s, f"screener {s['filter_id']} missing label"
+            assert "selected_values" in s, f"screener {s['filter_id']} missing selected_values"
+            assert "base_field" in s, f"screener {s['filter_id']} missing base_field"
+            assert isinstance(s["selected_values"], list)
+        # Cross-validation documents overlapping fields and use cases
+        cv = pd["cross_validation"]
+        assert "overlapping_fields" in cv
+        assert "use_cases" in cv
+        assert "industry" in cv["overlapping_fields"]
+        assert "company_size" in cv["overlapping_fields"]
+
+        assert "sample_details" in result
+        # One detail block per sample cut
+        assert len(result["sample_details"]) == 3
+
+        for key, details in result["sample_details"].items():
+            # All four sections present
+            assert "demographics" in details, f"missing demographics for {key}"
+            assert "effect_sizes" in details, f"missing effect_sizes for {key}"
+            assert "cross_tabs" in details, f"missing cross_tabs for {key}"
+            assert "inferential" in details, f"missing inferential for {key}"
+
+            # Demographics has required sub-keys
+            demo = details["demographics"]
+            assert "roles" in demo
+            assert "org_sizes" in demo
+            assert "profit_models" in demo
+            assert "tech_vs_nontech" in demo
+            assert "other_roles" in demo, f"missing other_roles for {key}"
+            assert "total" in demo["other_roles"], f"other_roles missing total for {key}"
+            assert "categories" in demo["other_roles"], f"other_roles missing categories for {key}"
+            assert isinstance(demo["other_roles"]["total"], int)
+            assert isinstance(demo["other_roles"]["categories"], dict)
+
+            # Effect sizes has required structure
+            if details["effect_sizes"]:
+                es = details["effect_sizes"]
+                assert "tech_vs_nontech" in es
+                assert "large_vs_small" in es
+                assert "constructs" in es["tech_vs_nontech"]
+
+            # Cross-tabs has required structure
+            if details["cross_tabs"]:
+                ct = details["cross_tabs"]
+                assert "by_role" in ct
+                assert "by_org_size" in ct
+
+            # Inferential has required structure
+            if details["inferential"]:
+                inf = details["inferential"]
+                assert "t_tests_tech_vs_nontech" in inf
+                assert "t_tests_large_vs_small" in inf
+                assert "anova_by_role" in inf
+                assert "anova_by_org_size" in inf
+
+                # t-test structure
+                for t_key in ["t_tests_tech_vs_nontech", "t_tests_large_vs_small"]:
+                    assert "constructs" in inf[t_key]
+                    for construct in inf[t_key]["constructs"].values():
+                        assert "t" in construct
+                        assert "p" in construct
+                        assert "df" in construct
+                        assert "sig" in construct
+
+                # ANOVA structure
+                for a_key in ["anova_by_role", "anova_by_org_size"]:
+                    assert "groups" in inf[a_key]
+                    assert "group_ns" in inf[a_key]
+                    assert "constructs" in inf[a_key]
+                    for construct in inf[a_key]["constructs"].values():
+                        assert "f" in construct
+                        assert "p" in construct
+                        assert "sig" in construct
+
+
+# ── welch_t_test ────────────────────────────────────────────
+
+class TestWelchTTest:
+    def test_equal_groups(self):
+        g1 = [1.0, 2.0, 3.0, 4.0, 5.0]
+        g2 = [1.0, 2.0, 3.0, 4.0, 5.0]
+        t, p, df, ci_l, ci_u = welch_t_test(g1, g2)
+        assert t == pytest.approx(0.0, abs=1e-6)
+        assert p == pytest.approx(1.0, abs=0.01)
+        assert ci_l < 0.0
+        assert ci_u > 0.0
+
+    def test_different_groups(self):
+        g1 = [10.0, 11.0, 12.0, 13.0, 14.0]
+        g2 = [1.0, 2.0, 3.0, 4.0, 5.0]
+        t, p, df, ci_l, ci_u = welch_t_test(g1, g2)
+        assert t > 0
+        assert p < 0.01  # clearly significant
+        assert ci_l > 0.0  # mean diff is strictly positive
+        assert ci_l < ci_u
+
+    def test_insufficient_data(self):
+        t, p, df, ci_l, ci_u = welch_t_test([1.0], [2.0, 3.0])
+        assert t is None
+        assert p is None
+        assert ci_l is None
+
+    def test_filters_none(self):
+        g1 = [1.0, None, 3.0, 5.0]
+        g2 = [2.0, 4.0, None, 6.0]
+        t, p, df, ci_l, ci_u = welch_t_test(g1, g2)
+        assert t is not None
+        assert p is not None
+        assert ci_l is not None
+        assert ci_u is not None
+
+
+# ── oneway_anova ────────────────────────────────────────────
+
+class TestOnewayAnova:
+    def test_identical_groups(self):
+        g = [1.0, 2.0, 3.0, 4.0, 5.0]
+        f, p, df_b, df_w = oneway_anova(g, g, g)
+        assert f == pytest.approx(0.0, abs=1e-6)
+        assert p == pytest.approx(1.0, abs=0.01)
+
+    def test_different_groups(self):
+        g1 = [10.0, 11.0, 12.0]
+        g2 = [1.0, 2.0, 3.0]
+        g3 = [50.0, 51.0, 52.0]
+        f, p, df_b, df_w = oneway_anova(g1, g2, g3)
+        assert f > 0
+        assert p < 0.01
+        assert df_b == 2
+        assert df_w == 6
+
+    def test_insufficient_groups(self):
+        f, p, df_b, df_w = oneway_anova([1.0, 2.0])
+        assert f is None
+
+
+# ── categorize_other_role ────────────────────────────────────
+
+class TestCategorizeOtherRole:
+    """Unit tests for categorize_other_role() and OTHER_ROLE_CATEGORIES_PATTERNS."""
+
+    # --- empty / whitespace inputs ---
+
+    def test_empty_string(self):
+        assert categorize_other_role("") == "Uncategorized"
+
+    def test_whitespace_only(self):
+        assert categorize_other_role("   \t  ") == "Uncategorized"
+
+    def test_empty_string_again_matches_uncategorized(self):
+        # None would raise AttributeError in strip(); guard is `not text`
+        assert categorize_other_role("") == "Uncategorized"
+
+    # --- IT acronym case sensitivity ---
+
+    def test_lowercase_it_is_not_technical_specialist(self):
+        assert categorize_other_role("it") == "Uncategorized"
+
+    def test_it_in_prose_does_not_match(self):
+        assert categorize_other_role("it's complicated") == "Uncategorized"
+
+    def test_it_in_sentence_does_not_match(self):
+        assert categorize_other_role("I think it's fine") == "Uncategorized"
+
+    def test_uppercase_IT_matches_technical_specialist(self):
+        assert categorize_other_role("IT") == "Technical Specialist"
+
+    def test_IT_standalone_matches_technical_specialist(self):
+        assert categorize_other_role("IT Specialist") == "Technical Specialist"
+
+    # --- representative inputs for every category ---
+
+    def test_c_suite_adjacent_chief(self):
+        assert categorize_other_role("Chief Digital Officer") == "C-Suite Adjacent"
+
+    def test_c_suite_adjacent_cdo(self):
+        assert categorize_other_role("CDO") == "C-Suite Adjacent"
+
+    def test_vp_svp_vp(self):
+        assert categorize_other_role("VP of Operations") == "VP / SVP"
+
+    def test_vp_svp_vice_president(self):
+        assert categorize_other_role("Vice President, Strategy") == "VP / SVP"
+
+    def test_director(self):
+        assert categorize_other_role("Director of Finance") == "Director"
+
+    def test_manager(self):
+        assert categorize_other_role("Program Manager") == "Manager / Program Lead"
+
+    def test_team_lead(self):
+        assert categorize_other_role("Team Lead") == "Manager / Program Lead"
+
+    def test_owner(self):
+        assert categorize_other_role("Owner") == "Owner / Founder / President"
+
+    def test_founder(self):
+        assert categorize_other_role("Founder and CEO") == "Owner / Founder / President"
+
+    def test_technical_specialist_engineer(self):
+        assert categorize_other_role("Software Engineer") == "Technical Specialist"
+
+    def test_technical_specialist_developer(self):
+        assert categorize_other_role("Senior Developer") == "Technical Specialist"
+
+    def test_technical_specialist_architect(self):
+        assert categorize_other_role("Solutions Architect") == "Technical Specialist"
+
+    def test_technical_specialist_analyst(self):
+        assert categorize_other_role("Data Analyst") == "Technical Specialist"
+
+    def test_technical_specialist_technology_keyword(self):
+        assert categorize_other_role("Head of Technology") == "Technical Specialist"
+
+    def test_uncategorized_random_text(self):
+        assert categorize_other_role("Something completely unrelated") == "Uncategorized"
+
+    # --- first-match / precedence behavior ---
+
+    def test_first_category_wins_over_second(self):
+        """Text that matches both C-Suite Adjacent and VP/SVP should return C-Suite Adjacent."""
+        # "chief" matches C-Suite Adjacent; "VP" matches VP/SVP
+        assert categorize_other_role("Chief VP") == "C-Suite Adjacent"
+
+    def test_first_category_wins_director_vs_manager(self):
+        """'Director' appears before 'Manager / Program Lead' in the list."""
+        # 'director' and 'lead' both present → Director wins
+        assert categorize_other_role("Director and Team Lead") == "Director"
+
+    # --- counter-based aggregation ---
+
+    def test_counter_aggregation(self):
+        inputs = ["", "   ", "Chief of Staff", "Chief Analytics Officer", "VP of Sales"]
+        results = Counter(categorize_other_role(t) for t in inputs)
+        assert results["Uncategorized"] == 2
+        assert results["C-Suite Adjacent"] == 2
+        assert results["VP / SVP"] == 1
+
+    # --- all configured categories have a matchable representative ---
+
+    def test_all_categories_have_representative(self):
+        """Every entry in OTHER_ROLE_CATEGORIES_PATTERNS can be matched by at least one pattern."""
+        # A pool of candidate strings to try against each pattern.
+        candidates = [
+            "IT", "information technology", "technology", "technical",
+            "operations", "operator", "admin", "administrator",
+            "finance", "accounting", "procurement", "marketing",
+            "communications", "sales", "hr", "human resources", "people",
+            "product", "program", "project", "engineering", "engineer",
+            "developer", "analyst", "consultant", "owner", "founder",
+            "executive", "leadership", "support", "customer success",
+            "research", "data", "security", "compliance", "legal",
+            "chief", "CDO", "CPO", "CAO", "CLO", "CDIO", "CAIO", "CXO", "CCO",
+            "VP", "vice president", "SVP", "EVP", "AVP",
+            "director", "manager", "team lead", "supervisor",
+            "president", "partner", "principal", "proprietor",
+            "architect", "systems", "infrastructure", "network",
+        ]
+
+        for category, patterns in OTHER_ROLE_CATEGORIES_PATTERNS:
+            matched = False
+            for pat in patterns:
+                for candidate in candidates:
+                    if re.search(pat, candidate, re.IGNORECASE):
+                        matched = True
+                        break
+                if matched:
+                    break
+            assert matched, (
+                "No candidate matched any pattern for category {!r}".format(category)
+            )

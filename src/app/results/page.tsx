@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, PARAGRAPH_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
+import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
   title: 'Results — TABS',
@@ -33,13 +34,16 @@ const ResultsPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Results</h1>
+        <LastUpdated
+          utcTimestamp={(sensitivityData as Record<string, unknown>).last_updated as string}
+        />
 
         <section className="mb-10 text-gray-800">
           <p className={PARAGRAPH_CLASSES}>
             The Technology Adoption Barriers Survey (TABS) collects data from organizational leaders
             about the barriers, readiness, and maturity factors that influence technology adoption.
-            This section presents all survey results, from sample demographics through statistical
-            analysis, with full transparency into data quality and methodology.
+            Every metric is computed independently across four primary result groups so researchers
+            can choose the dataset that matches their quality requirements.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             All statistics are generated automatically by the{' '}
@@ -88,7 +92,7 @@ const ResultsPage = () => {
               {
                 title: 'Sample & Demographics',
                 href: '/results/sample',
-                desc: 'Who participated: roles, industries, organization sizes, and geographic distribution.',
+                desc: 'Participant roles, org sizes, and profit models — broken down per result group.',
                 border: 'border-blue-200',
                 bg: 'bg-blue-50',
                 titleColor: 'text-blue-900',
@@ -106,7 +110,7 @@ const ResultsPage = () => {
               {
                 title: 'Descriptive Statistics',
                 href: '/results/descriptive',
-                desc: 'Grand means, standard deviations, and distributions for all three constructs.',
+                desc: 'Grand means, SDs, and inter-construct correlations — computed per result group.',
                 border: 'border-green-200',
                 bg: 'bg-green-50',
                 titleColor: 'text-green-900',
@@ -124,7 +128,7 @@ const ResultsPage = () => {
               {
                 title: 'Sensitivity Analysis',
                 href: '/results/sensitivity',
-                desc: 'Every metric computed across five sample definitions to demonstrate robustness.',
+                desc: 'Every metric across all datasets plus deltas showing how results change with cleaning.',
                 border: 'border-rose-200',
                 bg: 'bg-rose-50',
                 titleColor: 'text-rose-900',
@@ -133,11 +137,20 @@ const ResultsPage = () => {
               {
                 title: 'Key Findings',
                 href: '/results/findings',
-                desc: 'Inferential statistics and hypothesis testing (forthcoming).',
+                desc: 'Effect sizes, t-tests, ANOVA, and cross-tabulations per result group.',
                 border: 'border-gray-200',
                 bg: 'bg-gray-50',
                 titleColor: 'text-gray-900',
                 textColor: 'text-gray-600',
+              },
+              {
+                title: 'Dataset Comparison',
+                href: '/results/dataset-comparison',
+                desc: 'Side-by-side statistics, demographics, and effect sizes across all four result groups.',
+                border: 'border-emerald-200',
+                bg: 'bg-emerald-50',
+                titleColor: 'text-emerald-900',
+                textColor: 'text-emerald-800',
               },
               {
                 title: 'Survey Statistics',

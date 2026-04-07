@@ -22,7 +22,53 @@ from tabs_api import (
     prolific_send_message,
     prolific_unreject,
     prolific_get_submission_ids,
+    QUALTRICS_PROLIFIC_FILTER_MAP,
+    PROLIFIC_AUGMENTATION_FILTERS,
+    PROLIFIC_ENRICHMENT_FILTER_IDS,
+    PROLIFIC_STUDY_SCREENERS,
 )
+
+
+# ── Constants ────────────────────────────────────────────────
+
+class TestProlificConstants:
+    def test_study_screeners_structure(self):
+        """PROLIFIC_STUDY_SCREENERS has correct structure for all 5 screeners."""
+        assert isinstance(PROLIFIC_STUDY_SCREENERS, list)
+        assert len(PROLIFIC_STUDY_SCREENERS) == 5
+        for s in PROLIFIC_STUDY_SCREENERS:
+            assert "filter_id" in s
+            assert "label" in s
+            assert "selected_values" in s
+            assert "base_field" in s
+            assert isinstance(s["selected_values"], list)
+            assert len(s["selected_values"]) > 0
+
+    def test_study_screener_filter_ids(self):
+        """All expected screener filter_ids are present."""
+        ids = [s["filter_id"] for s in PROLIFIC_STUDY_SCREENERS]
+        assert "current_country_of_residence" in ids
+        assert "employment_status" in ids
+        assert "employment_sector" in ids
+        assert "company_size" in ids
+        assert "occupation" in ids
+
+    def test_enrichment_filter_ids_include_screeners(self):
+        """PROLIFIC_ENRICHMENT_FILTER_IDS includes all non-base screener filter_ids."""
+        non_base = [s["filter_id"] for s in PROLIFIC_STUDY_SCREENERS if not s["base_field"]]
+        for fid in non_base:
+            assert fid in PROLIFIC_ENRICHMENT_FILTER_IDS, f"{fid} missing from enrichment list"
+
+    def test_enrichment_filter_ids_within_api_limit(self):
+        """Total enrichment filter_ids must not exceed Prolific's 15-filter limit."""
+        assert len(PROLIFIC_ENRICHMENT_FILTER_IDS) <= 15
+
+    def test_qualtrics_prolific_filter_map_keys(self):
+        """Cross-validation map has expected Qualtrics question keys."""
+        assert "Q1_Role" in QUALTRICS_PROLIFIC_FILTER_MAP
+        assert "Q3_Industry" in QUALTRICS_PROLIFIC_FILTER_MAP
+        assert "Q4_OrgSize" in QUALTRICS_PROLIFIC_FILTER_MAP
+        assert "Q5_ProfitModel" in QUALTRICS_PROLIFIC_FILTER_MAP
 
 
 # ── HTTP helpers ─────────────────────────────────────────────
@@ -190,6 +236,61 @@ class TestProlificDemographics:
         content = Path(output).read_text()
         assert "PID1" in content
         assert "Male" in content
+
+    def test_demographics_csv_with_filters(self, tmp_path):
+        """Passing filter_ids includes them in the request payload."""
+        from tabs_api import prolific_demographics_csv
+
+        captured_bodies: list = []
+
+        def mock_urlopen(req, timeout=120):
+            captured_bodies.append(req.data)
+            resp = MagicMock()
+            resp.read.return_value = b"pid,age,industry\nP1,30,Tech\n"
+            resp.__enter__ = lambda s: resp
+            resp.__exit__ = MagicMock(return_value=False)
+            return resp
+
+        with patch("tabs_api.urlopen", side_effect=mock_urlopen):
+            output = str(tmp_path / "demo_filtered.csv")
+            prolific_demographics_csv(
+                "study1", "token", output,
+                filter_ids=["industry", "company_size"],
+            )
+
+        payload = json.loads(captured_bodies[0])
+        assert len(payload["filters"]) == 2
+        assert {"filter_id": "industry"} in payload["filters"]
+        assert {"filter_id": "company_size"} in payload["filters"]
+
+    def test_filter_map_constants(self):
+        """QUALTRICS_PROLIFIC_FILTER_MAP and PROLIFIC_ENRICHMENT_FILTER_IDS are valid."""
+        from tabs_api import (
+            QUALTRICS_PROLIFIC_FILTER_MAP,
+            PROLIFIC_AUGMENTATION_FILTERS,
+            PROLIFIC_ENRICHMENT_FILTER_IDS,
+        )
+
+        # Cross-validation map covers key Qualtrics fields
+        assert "Q1_Role" in QUALTRICS_PROLIFIC_FILTER_MAP
+        assert "Q3_Industry" in QUALTRICS_PROLIFIC_FILTER_MAP
+        assert "Q4_OrgSize" in QUALTRICS_PROLIFIC_FILTER_MAP
+        assert "Q5_ProfitModel" in QUALTRICS_PROLIFIC_FILTER_MAP
+        for entry in QUALTRICS_PROLIFIC_FILTER_MAP.values():
+            assert "filter_id" in entry
+            assert "description" in entry
+
+        # Augmentation filters provide additional dimensions
+        assert "education_level" in PROLIFIC_AUGMENTATION_FILTERS
+        assert "household_income" in PROLIFIC_AUGMENTATION_FILTERS
+        assert "fluent_languages" in PROLIFIC_AUGMENTATION_FILTERS
+
+        # Combined list includes both cross-validation and augmentation
+        assert len(PROLIFIC_ENRICHMENT_FILTER_IDS) == (
+            len(QUALTRICS_PROLIFIC_FILTER_MAP) + len(PROLIFIC_AUGMENTATION_FILTERS)
+        )
+        assert "occupation" in PROLIFIC_ENRICHMENT_FILTER_IDS
+        assert "education_level" in PROLIFIC_ENRICHMENT_FILTER_IDS
 
 
 # ── Prolific write operations (mocked) ─────────────────────
