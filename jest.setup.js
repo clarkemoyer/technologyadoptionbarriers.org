@@ -27,15 +27,3 @@ console.error = (...args) => {
 
   originalError(redacted)
 }
-
-// Mock Recharts ResponsiveContainer to bypass jsdom missing ResizeObserver/measurement APIs
-// Using standard JS since this file is not processed with TSX by Next.js Jest transformer
-jest.mock('recharts', () => {
-  const OriginalModule = jest.requireActual('recharts')
-  const React = require('react')
-  return {
-    ...OriginalModule,
-    ResponsiveContainer: ({ children }) =>
-      React.createElement('div', { style: { width: '100%', height: 300 } }, children),
-  }
-})
