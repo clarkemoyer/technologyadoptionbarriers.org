@@ -5,6 +5,8 @@ on:
 jobs:
   create:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     environment: zotero-prod
     steps:
       - name: Set up Python
