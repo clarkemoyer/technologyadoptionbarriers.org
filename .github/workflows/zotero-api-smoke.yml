@@ -1,0 +1,31 @@
+name: Zotero API Smoke Test
+on:
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    environment: zotero-prod
+    steps:
+      - name: Test Zotero API — list top-level collections (read-only)
+        run: |
+          echo "Testing Zotero API with user ${{ vars.ZOTERO_USER_ID }}..."
+          RESPONSE=$(curl -s -w "\n%{http_code}" \
+            -H "Zotero-API-Version: 3" \
+            -H "Zotero-API-Key: ${{ secrets.ZOTERO_API_KEY }}" \
+            "${{ vars.ZOTERO_BASE_URL }}/users/${{ vars.ZOTERO_USER_ID }}/collections/top")
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+
+          echo "HTTP status: $HTTP_CODE"
+
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "::error::Zotero API returned HTTP $HTTP_CODE"
+            echo "$BODY"
+            exit 1
+          fi
+
+          COUNT=$(echo "$BODY" | jq 'length')
+          echo "✅ Zotero API is working — found $COUNT top-level collections"
+          echo "$BODY" | jq '.[].data | {key, name, numItems}'
