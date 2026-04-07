@@ -861,7 +861,10 @@ def deidentify_selected(
     print(f"  Report: {pii_report_path}")
 
     if dry_run:
-        print("\n[DRY RUN] Stopping after PII scan. Review the report above.")
+        if pii_flags:
+            print("\n[DRY RUN] PII scan complete — flags found (exit code 1). Review the report above.")
+        else:
+            print("\n[DRY RUN] PII scan complete — no flags found (exit code 0).")
         return 1 if pii_flags else 0
 
     if pii_flags and not skip_review:
@@ -991,7 +994,7 @@ def main() -> int:
     idx = make_idx(headers)
     print(f"  Loaded {len(data)} rows, {len(headers)} columns")
 
-    # Validate required enrichment and tiering columns
+    # Validate required enrichment, tiering, and IRI attention-check columns
     required_columns = [
         "PROLIFIC_PID",
         "Prolific_Status",
