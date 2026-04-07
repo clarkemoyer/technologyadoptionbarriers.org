@@ -560,6 +560,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/making-of-tabs/ai-assisted-development/squash-merge-incident`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.5,
+    },
+    {
       url: `${baseUrl}/making-of-tabs/development-workflow`,
       lastModified: now,
       changeFrequency: 'monthly',

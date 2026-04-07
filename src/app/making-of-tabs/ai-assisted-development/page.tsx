@@ -371,9 +371,15 @@ const AIAssistedDevelopmentPage = () => {
             <h3 className={H3_CLASSES}>Where AI Struggles</h3>
             <ul className="list-disc pl-6 space-y-2 mb-4">
               <li>
-                <strong>Complex merge conflicts</strong> — when multiple branches have diverged
-                significantly, AI agents sometimes revert unrelated changes or create inconsistent
-                resolutions
+                <strong>Merge strategy failures</strong> — squash merging stale branches can
+                silently revert dozens of previously merged PRs. We learned this the hard way when
+                a single squash merge{' '}
+                <Link
+                  href="/making-of-tabs/ai-assisted-development/squash-merge-incident"
+                  className="text-blue-600 hover:underline"
+                >
+                  reverted 25+ PRs across 67 files
+                </Link>
               </li>
               <li>
                 <strong>Nuanced design decisions</strong> — visual layout choices, color palette
