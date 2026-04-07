@@ -52,9 +52,8 @@ _HTML_ENTITIES = {
 }
 
 _DOI_PATTERN = re.compile(
-    # Match the DOI suffix after https://doi.org/
-    # Stops at whitespace, quotes, or angle brackets (after HTML-entity decoding).
-    # Does NOT exclude parentheses — they are valid inside DOI suffixes.
+    # Captures the DOI suffix after https://doi.org/, excluding whitespace,
+    # quotes, and angle brackets (valid after HTML-entity decoding of the source).
     r"""https?://doi\.org/([^\s"'<>]+)""",
     re.IGNORECASE,
 )
@@ -275,9 +274,18 @@ def _ensure_collection_hierarchy(zot, dry_run: bool) -> dict[str, str]:
 
 
 def _build_doi_index(zot) -> dict[str, str]:
-    """Fetch all items and return {normalised_doi: item_key}."""
+    """Fetch all items and return {normalised_doi: item_key}.
+
+    For libraries with thousands of items pyzotero paginates automatically via
+    ``zot.everything()``.  Each page is ~100 items; typical TABS library sizes
+    are well within practical limits.
+    """
     print("Building DOI index from Zotero library…")
-    items = zot.everything(zot.items())
+    try:
+        items = zot.everything(zot.items())
+    except Exception as exc:
+        print(f"Error fetching items from Zotero: {exc}", file=sys.stderr)
+        sys.exit(1)
     doi_index: dict[str, str] = {}
     for item in items:
         data = item.get("data", {})
@@ -315,7 +323,11 @@ def _add_items_to_collection(
     try:
         existing = zot.everything(zot.collection_items(collection_key))
         existing_keys = {i["data"]["key"] for i in existing}
-    except Exception:
+    except Exception as exc:
+        print(
+            f"Warning: could not fetch existing members of collection {collection_key}: {exc}",
+            file=sys.stderr,
+        )
         existing_keys = set()
 
     to_add = [k for k in item_keys if k not in existing_keys]
@@ -447,7 +459,7 @@ def main() -> None:
     unmatched: list[tuple[str, set[str]]] = []
 
     for subcol_key, dois in doi_by_subcollection.items():
-        zotero_col_key = collection_keys.get(subcol_key, collection_keys.get("other", ""))
+        zotero_col_key = collection_keys.get(subcol_key) or collection_keys.get("other", "")
         matched_item_keys: list[str] = []
         for doi in dois:
             item_key = doi_index.get(_normalise_doi(doi))
