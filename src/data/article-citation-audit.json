@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-07T12:11:03",
+  "generated": "2026-04-07T12:11:03Z",
   "issue": 1347,
   "summary": {
     "total_articles": 16,
@@ -345,7 +345,6 @@
       "title": "NIST Risk Management Framework",
       "strategy": "known-key",
       "articles": [
-        "article-2-5-the-modern-mandate-frameworks-for-cybersecurity-and-risk",
         "article-2-5-the-modern-mandate-frameworks-for-cybersecurity-and-risk"
       ]
     },
@@ -590,13 +589,13 @@
     },
     {
       "ref": "Innovation Value Institute._2016",
-      "title": "IT capability maturity framework (IT-CMF) â€“ The building block framework",
+      "title": "IT capability maturity framework (IT-CMF) – The building block framework",
       "articles": ["article-2-2-from-chaos-to-control-a-guide-to-maturity-models"],
       "reason": "Organizational/government document without traditional Zotero entry"
     },
     {
       "ref": "NIST._2023",
-      "title": "Artificial Intelligence Risk Management Framework (AI RMF 1",
+      "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
       "articles": ["article-2-7-the-ai-frontier-frameworks-for-adopting-ai-ml-and-genai"],
       "reason": "Organizational/government document without traditional Zotero entry"
     },
