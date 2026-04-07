@@ -72,7 +72,6 @@ import math
 import re
 import sys
 from datetime import datetime
-from io import StringIO
 from pathlib import Path
 
 # ─────────────────────────────────────────────────────────────
@@ -523,7 +522,16 @@ def select_crp_sample(
     tier12_ids = tier1_ids | {p["response_id"] for p in tier2}
 
     # Tier 3: Remaining Accepted, ranked by quality score
-    tier3_pool = [p for p in accepted if p["response_id"] not in tier12_ids]
+    # Only include rows that meet a minimum eligibility bar: finished and
+    # duration >= MIN_DURATION_ALL (2 min) to exclude clearly incomplete or
+    # extremely short responses from the public dataset.
+    tier3_pool = [
+        p for p in accepted
+        if p["response_id"] not in tier12_ids
+        and p["finished"]
+        and p["duration"] is not None
+        and p["duration"] >= MIN_DURATION_ALL
+    ]
     for p in tier3_pool:
         p["tier"] = 3
 
@@ -705,9 +713,14 @@ def sha256_file(path: Path) -> str:
 def scan_pii(
     rows: list[dict[str, str]],
     free_text_columns: list[str],
-    row_offset: int = 2,
+    row_offset: int = 4,
 ) -> list[dict]:
-    """Scan free-text columns for PII patterns."""
+    """Scan free-text columns for PII patterns.
+
+    Defaults to Qualtrics input row numbering (3 header rows => first data row
+    is CSV row 4). Callers scanning one-header-row public output should pass
+    ``row_offset=2`` explicitly.
+    """
     flags: list[dict] = []
     for row_idx, row in enumerate(rows):
         for col in free_text_columns:
@@ -839,7 +852,7 @@ def deidentify_selected(
     print(f"  Scanned columns: {available_text_cols}")
     print(f"  PII flags found: {len(pii_flags)}")
 
-    pii_report_path = output_dir / "pii_review_report.txt"
+    pii_report_path = output_dir / "pii_review_report_CONFIDENTIAL.txt"
     write_pii_report(pii_report_path, pii_flags)
     print(f"  Report: {pii_report_path}")
 
@@ -1013,10 +1026,11 @@ def main() -> int:
         print(f"\n  CONFIDENTIAL files (do NOT release):")
         print(f"    - {args.output_dir / 'responseid_mapping_CONFIDENTIAL.csv'}")
         print(f"    - {args.output_dir / 'prolific_linkage_CONFIDENTIAL.csv'}")
+        print(f"    - {args.output_dir / 'pii_review_report_CONFIDENTIAL.txt'}")
         print(f"    - {args.output_dir / 'selection_manifest.txt'}")
     else:
         print("  CRP DATASET FAILED — PII detected in output")
-        print("  Review pii_review_report.txt and re-run.")
+        print("  Review pii_review_report_CONFIDENTIAL.txt and re-run.")
     print("=" * 78)
 
     return 0 if success else 1
