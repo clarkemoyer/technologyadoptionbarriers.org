@@ -1,0 +1,64 @@
+name: Sync Zotero Bibliography
+
+on:
+  schedule:
+    # Run weekly on Mondays at 06:00 UTC
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  # Official GitHub flag to force Node.js 24 runtime ahead of the June 2026 mandatory deadline.
+  # Ref: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  sync-bibliography:
+    runs-on: ubuntu-latest
+    environment: zotero-prod
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install -r scripts/requirements-zotero.txt
+
+      - name: Fetch bibliography from Zotero
+        env:
+          ZOTERO_API_KEY: ${{ secrets.ZOTERO_API_KEY }}
+          ZOTERO_LIBRARY_ID: ${{ vars.ZOTERO_LIBRARY_ID }}
+          ZOTERO_LIBRARY_TYPE: ${{ vars.ZOTERO_LIBRARY_TYPE }}
+          ZOTERO_COLLECTION_NAME: ${{ vars.ZOTERO_COLLECTION_NAME }}
+          OUTPUT_PATH: src/data/bibliography.json
+        run: python scripts/fetch-zotero-bibliography.py
+
+      - name: Create data-update PR
+        uses: ./.github/actions/format-and-pr
+        with:
+          token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+          files: 'src/data/bibliography.json'
+          commit-message: 'chore: sync bibliography data from Zotero'
+          pr-title: 'Update bibliography from Zotero'
+          pr-body: |
+            Automated bibliography sync from the "Website Citations" Zotero collection.
+
+            **What changed**: The `src/data/bibliography.json` file has been updated
+            with the latest entries from Zotero. The comprehensive bibliography page
+            reads from this file at build time, so any DOI corrections, page-range
+            additions, or new entries in Zotero will now appear on the website after
+            this PR is merged.
+
+            **Review checklist**:
+            - [ ] Verify item counts look correct (expect 42 entries across 2 tracks)
+            - [ ] Spot-check a few entries for accuracy
+            - [ ] Confirm no PII is included (bibliography data should be public)
+          branch: chore/bibliography-sync

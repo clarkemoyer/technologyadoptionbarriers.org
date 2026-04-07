@@ -1,0 +1,2 @@
+# Zotero bibliography sync script dependencies
+pyzotero==1.6.6
