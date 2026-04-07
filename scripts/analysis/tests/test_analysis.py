@@ -1,7 +1,9 @@
 """Tests for tabs_v2_analysis.py — statistical functions and sample filtering."""
 
 import math
+import re
 import sys
+from collections import Counter
 from pathlib import Path
 
 import pytest
@@ -26,12 +28,14 @@ from tabs_v2_analysis import (
     has_partial_straightlining,
     is_finished,
     get_role,
+    categorize_other_role,
     org_bucket,
     load_data,
     filter_samples,
     sensitivity_to_json,
     welch_t_test,
     oneway_anova,
+    OTHER_ROLE_CATEGORIES_PATTERNS,
     BARRIER_SCALE,
     READINESS_SCALE,
     MATURITY_SCALE,
@@ -405,6 +409,11 @@ class TestSensitivityJSON:
             assert "org_sizes" in demo
             assert "profit_models" in demo
             assert "tech_vs_nontech" in demo
+            assert "other_roles" in demo, f"missing other_roles for {key}"
+            assert "total" in demo["other_roles"], f"other_roles missing total for {key}"
+            assert "categories" in demo["other_roles"], f"other_roles missing categories for {key}"
+            assert isinstance(demo["other_roles"]["total"], int)
+            assert isinstance(demo["other_roles"]["categories"], dict)
 
             # Effect sizes has required structure
             if details["effect_sizes"]:
@@ -552,3 +561,68 @@ class TestOnewayAnova:
     def test_insufficient_groups(self):
         f, p, df_b, df_w = oneway_anova([1.0, 2.0])
         assert f is None
+
+
+# ── categorize_other_role ──────────────────────────────────
+
+class TestCategorizeOtherRole:
+    """Tests for the Other role free-text categorization function."""
+
+    def test_empty_string(self):
+        assert categorize_other_role("") == "Uncategorized"
+
+    def test_whitespace_only(self):
+        assert categorize_other_role("   \t  ") == "Uncategorized"
+
+    def test_none_input(self):
+        assert categorize_other_role(None) == "Uncategorized"
+
+    def test_csuite_adjacent(self):
+        assert categorize_other_role("Chief Data Officer") == "C-Suite Adjacent"
+        assert categorize_other_role("CDO") == "C-Suite Adjacent"
+
+    def test_vp_svp(self):
+        assert categorize_other_role("Vice President of Engineering") == "VP / SVP"
+        assert categorize_other_role("SVP Operations") == "VP / SVP"
+
+    def test_director(self):
+        assert categorize_other_role("Director of Programs") == "Director"
+
+    def test_manager(self):
+        assert categorize_other_role("Program Manager") == "Manager / Program Lead"
+        assert categorize_other_role("Team Lead") == "Manager / Program Lead"
+
+    def test_owner_founder(self):
+        assert categorize_other_role("Business Owner") == "Owner / Founder / President"
+        assert categorize_other_role("Co-Founder") == "Owner / Founder / President"
+
+    def test_technical_specialist(self):
+        assert categorize_other_role("Software Engineer") == "Technical Specialist"
+        assert categorize_other_role("Systems Architect") == "Technical Specialist"
+        assert categorize_other_role("Data Analyst") == "Technical Specialist"
+
+    def test_it_case_sensitive(self):
+        """The IT acronym pattern must not match the pronoun 'it'."""
+        assert categorize_other_role("it") == "Uncategorized"
+        assert categorize_other_role("it's complicated") == "Uncategorized"
+        # Uppercase IT should match
+        assert categorize_other_role("IT Department") == "Technical Specialist"
+
+    def test_first_match_wins(self):
+        """First matching category in the ordered list should win."""
+        assert categorize_other_role("Chief Engineer") == "C-Suite Adjacent"
+
+    def test_every_category_has_match(self):
+        """Every configured category should be reachable."""
+        examples = {
+            "C-Suite Adjacent": "Chief Data Officer",
+            "VP / SVP": "Vice President",
+            "Director": "Director of IT",
+            "Manager / Program Lead": "Program Manager",
+            "Owner / Founder / President": "Owner",
+            "Technical Specialist": "Software Engineer",
+        }
+        for cat, _ in OTHER_ROLE_CATEGORIES_PATTERNS:
+            text = examples.get(cat, "")
+            result = categorize_other_role(text)
+            assert result == cat, f"Expected {cat!r} for {text!r}, got {result!r}"
