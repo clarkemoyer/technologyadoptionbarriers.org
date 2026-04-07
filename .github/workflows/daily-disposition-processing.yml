@@ -1,19 +1,15 @@
-name: Daily Disposition Processing
+name: Daily Disposition Processing (REPLACED)
 
-# Automated daily processing of survey responses:
-#   1. Export Qualtrics responses + run triage
-#   2. Auto-approve CLEAN submissions
-#   3. Send FLAG/return-offer messages to new un-messaged participants
-#   4. Update dashboard data (disposition-summary.json)
-#   5. Create daily report issue with deltas
-#
-# Safety: Only approves CLEAN (all checks passed) and sends review
-# messages. Does NOT reject anyone — all rejections require manual trigger.
+# ⚠️  SUPERSEDED by daily-pipeline.yml which chains analysis + operations
+# into a single workflow with no inter-phase delay. This file is kept for
+# reference and manual dispatch only. The schedule trigger has been removed.
 
 on:
-  schedule:
-    - cron: '0 11 * * *' # Daily at 11:00 UTC (7am ET) — runs after analysis pipeline (09:00 UTC)
   workflow_dispatch:
+    inputs:
+      note:
+        description: 'Superseded by daily-pipeline.yml. Use that instead.'
+        required: false
 
 concurrency:
   group: daily-disposition-processing
@@ -25,28 +21,41 @@ permissions:
   issues: write
 
 jobs:
-  # Step 1: Export + Triage (Python — replaces TS disposition-triage.ts)
-  # Uses Python for Qualtrics export and disposition triage. The Python
-  # waterfall is cross-validated against the TS version (see test_cross_validation.py).
+  # Step 1: Get disposition CSV — prefer analysis pipeline artifact, fallback to fresh export
   triage:
-    name: Export & Triage
+    name: Get Disposition Data
     runs-on: ubuntu-latest
     environment: qualtrics-prod
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
-      - name: Export Qualtrics responses
-        run: python3 scripts/analysis/export_qualtrics.py
+      # Try to download the disposition CSV from today's analysis pipeline run.
+      # Uses the same artifact name the analysis pipeline uploads.
+      - name: Download disposition CSV from analysis pipeline
+        id: download-artifact
+        uses: actions/download-artifact@v8
+        continue-on-error: true
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}
+
+      # Fallback: if the artifact isn't available, do a fresh export + triage
+      - name: Fallback — Export Qualtrics responses
+        if: steps.download-artifact.outcome == 'failure'
+        run: |
+          echo "::warning::Analysis pipeline artifact not available — falling back to fresh Qualtrics export"
+          python3 scripts/analysis/export_qualtrics.py
         env:
           QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
           QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
           QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
           OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
 
-      - name: Run disposition triage
+      - name: Fallback — Run disposition triage
+        if: steps.download-artifact.outcome == 'failure'
         run: |
           set -euo pipefail
           python3 scripts/analysis/disposition_triage.py 2>&1 | tee ${{ runner.temp }}/triage-output.txt
@@ -54,25 +63,21 @@ jobs:
           INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
           OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
 
-      - name: Extract triage metrics
+      - name: Report data source
         run: |
-          set -euo pipefail
-          total_line="$(grep -m1 '\*\*Total responses:\*\*' ${{ runner.temp }}/triage-output.txt || echo '**Total responses:** 0')"
-          printf '%s\n' "$total_line" | sed 's/.*\*\*Total responses:\*\* //' > ${{ runner.temp }}/triage-total.txt
-          grep -E "^\|" ${{ runner.temp }}/triage-output.txt | grep -v "Disposition\|---" > ${{ runner.temp }}/triage-breakdown.txt || true
+          if [ -f "${{ runner.temp }}/disposition.csv" ]; then
+            ROWS=$(wc -l < "${{ runner.temp }}/disposition.csv")
+            echo "Disposition CSV has $ROWS lines (including header)"
+            echo "Source: ${{ steps.download-artifact.outcome == 'success' && 'analysis pipeline artifact' || 'fresh Qualtrics export (fallback)' }}"
+          else
+            echo "::error::No disposition CSV available"
+            exit 1
+          fi
 
       - uses: actions/upload-artifact@v7
         with:
-          name: disposition-csv
+          name: disposition-csv-ops
           path: ${{ runner.temp }}/disposition.csv
-          retention-days: 1
-
-      - uses: actions/upload-artifact@v7
-        with:
-          name: triage-metrics
-          path: |
-            ${{ runner.temp }}/triage-total.txt
-            ${{ runner.temp }}/triage-breakdown.txt
           retention-days: 1
 
   # Step 2: Auto-approve CLEAN
@@ -83,12 +88,12 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - uses: actions/download-artifact@v8
         with:
-          name: disposition-csv
+          name: disposition-csv-ops
           path: ${{ runner.temp }}
 
       - name: Approve CLEAN submissions
@@ -130,12 +135,12 @@ jobs:
           - AUTO-EXCLUDE:SPEED_IRI
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - uses: actions/download-artifact@v8
         with:
-          name: disposition-csv
+          name: disposition-csv-ops
           path: ${{ runner.temp }}
 
       - name: Send messages for ${{ matrix.disposition }}
@@ -172,12 +177,12 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - uses: actions/download-artifact@v8
         with:
-          name: disposition-csv
+          name: disposition-csv-ops
           path: ${{ runner.temp }}
 
       - name: Generate disposition summary

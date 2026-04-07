@@ -480,11 +480,19 @@ def main():
             f"| SKIPPED (already messaged): {skipped_messaged} | FAILED: {failed}"
         )
 
-    # ── Step summary ──
-    summary_rows = [
-        f"| `{r['pid']}` | {r['duration'] / 60:.1f} min | {r['disposition']} |"
-        for r in filtered
-    ]
+    # ── Step summary (aggregate counts only — no PIDs for participant privacy) ──
+    if dry_run:
+        results_lines = [
+            f"- **Would message:** {len(filtered)} participants",
+        ]
+    else:
+        results_lines = [
+            f"- **Sent:** {sent}",
+            f"- **Skipped (already actioned):** {skipped_actioned}",
+            f"- **Skipped (already messaged):** {skipped_messaged}",
+            f"- **Not found:** {skipped_not_found}",
+            f"- **Failed:** {failed}",
+        ]
 
     _append_step_summary("\n".join([
         "## Prolific Flagged Submission Messaging",
@@ -492,21 +500,15 @@ def main():
         f"- **Study ID:** {_md_escape(study_id)}",
         f"- **Disposition filter:** {disposition_filter}",
         f"- **Mode:** {'DRY RUN' if dry_run else 'LIVE'}",
+        f"- **Matched:** {len(filtered)} participants",
         "",
-        "### Participants",
+        "### Results",
         "",
-        "| PID | Duration | Disposition |",
-        "|---|---|---|",
-        *summary_rows,
-        "",
-        f"**Total:** {len(filtered)}",
+        *results_lines,
         "",
         "### Sample Message",
         "",
         "> " + filtered[0]["message"],
-        "",
-        "> **Dry run** \u2014 no messages sent." if dry_run
-        else "> **All listed participants have been messaged.**",
         "",
     ]))
 

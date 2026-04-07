@@ -40,6 +40,12 @@ interface ReviewComment {
   body: string
 }
 
+interface ReviewThread {
+  id: string // GraphQL node ID
+  isResolved: boolean
+  comments: { nodes: Array<{ databaseId: number; author: { login: string } | null }> }
+}
+
 // --- Helpers ---
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -118,16 +124,148 @@ function getReviewComments(repo: string, prNumber: string, reviewId: number): Re
   )
 }
 
+/**
+ * Fetch all review threads on a PR via GitHub GraphQL API.
+ * Returns threads with resolution status and comment database IDs
+ * so we can match them to REST API review comments.
+ */
+function getReviewThreads(repo: string, prNumber: string): ReviewThread[] {
+  const [owner, name] = repo.split('/')
+  const prNum = parseInt(prNumber, 10)
+  const allThreads: ReviewThread[] = []
+
+  try {
+    let hasNext = true
+    let cursor = ''
+
+    while (hasNext) {
+      const afterArg = cursor ? `after: "${cursor}",` : ''
+      const query = [
+        '{',
+        `  repository(owner: "${owner}", name: "${name}") {`,
+        `    pullRequest(number: ${prNum}) {`,
+        `      reviewThreads(first: 100, ${afterArg}) {`,
+        '        pageInfo { hasNextPage endCursor }',
+        '        nodes {',
+        '          id',
+        '          isResolved',
+        '          comments(first: 100) { nodes { databaseId author { login } } }',
+        '        }',
+        '      }',
+        '    }',
+        '  }',
+        '}',
+      ].join(' ')
+
+      const tmpFile = join(tmpdir(), `gql-threads-${Date.now()}.txt`)
+      writeFileSync(tmpFile, query, 'utf-8')
+      try {
+        const raw = gh(`api graphql -F query=@${tmpFile}`)
+        const parsed = JSON.parse(raw)
+        const threads = parsed.data?.repository?.pullRequest?.reviewThreads
+        if (!threads) break
+        allThreads.push(...threads.nodes)
+        hasNext = threads.pageInfo.hasNextPage
+        cursor = threads.pageInfo.endCursor || ''
+      } finally {
+        try {
+          unlinkSync(tmpFile)
+        } catch {
+          /* ignore */
+        }
+      }
+    }
+  } catch (err: any) {
+    console.log(
+      `  Warning: Could not fetch review threads via GraphQL: ${err.message?.slice(0, 200)}`
+    )
+  }
+
+  return allThreads
+}
+
+/**
+ * Check if a review thread was initiated by a Copilot bot.
+ */
+function isCopilotThread(thread: ReviewThread): boolean {
+  return thread.comments.nodes.some(
+    (c) => c.author?.login?.toLowerCase().includes('copilot') ?? false
+  )
+}
+
+/**
+ * Resolve a single review thread by its GraphQL node ID.
+ * Returns true on success, false on failure.
+ */
+function resolveThread(threadId: string): boolean {
+  const mutation = `mutation { resolveReviewThread(input: {threadId: "${threadId}"}) { thread { id } } }`
+  const tmpFile = join(tmpdir(), `gql-resolve-${Date.now()}.txt`)
+  writeFileSync(tmpFile, mutation, 'utf-8')
+  try {
+    gh(`api graphql -F query=@${tmpFile}`)
+    return true
+  } catch (err: any) {
+    console.log(`  Warning: Could not resolve thread ${threadId}: ${err.message?.slice(0, 100)}`)
+    return false
+  } finally {
+    try {
+      unlinkSync(tmpFile)
+    } catch {
+      /* ignore */
+    }
+  }
+}
+
+/**
+ * Resolve all unresolved Copilot review threads whose comments match
+ * the given review comment IDs. This prevents old threads from
+ * being re-flagged in subsequent Copilot review rounds.
+ * Only resolves threads initiated by Copilot — human threads are left intact.
+ */
+function resolveReviewThreads(repo: string, prNumber: string, reviewCommentIds: number[]): number {
+  if (reviewCommentIds.length === 0) return 0
+
+  const commentIdSet = new Set(reviewCommentIds)
+  const threads = getReviewThreads(repo, prNumber)
+
+  let resolved = 0
+  for (const thread of threads) {
+    if (thread.isResolved) continue
+    if (!isCopilotThread(thread)) continue
+
+    const hasMatchingComment = thread.comments.nodes.some((c) => commentIdSet.has(c.databaseId))
+    if (!hasMatchingComment) continue
+
+    if (resolveThread(thread.id)) resolved++
+  }
+
+  return resolved
+}
+
+/**
+ * Resolve all unresolved Copilot-initiated review threads on a PR.
+ * Used when the review cycle passes clean to close out all remaining threads.
+ * Human-initiated threads are left intact.
+ */
+function resolveAllCopilotThreads(repo: string, prNumber: string): number {
+  const threads = getReviewThreads(repo, prNumber)
+  let resolved = 0
+  for (const thread of threads) {
+    if (thread.isResolved) continue
+    if (!isCopilotThread(thread)) continue
+    if (resolveThread(thread.id)) resolved++
+  }
+  return resolved
+}
+
 function requestCopilotReview(repo: string, prNumber: string): void {
   console.log('Requesting Copilot review...')
   try {
-    gh(
-      `api repos/${repo}/pulls/${prNumber}/requested_reviewers ` +
-        `-X POST -f "reviewers[]=copilot-pull-request-reviewer[bot]"`
-    )
-    console.log('  Review requested via API.')
+    // Official method since gh v2.88.0 (March 2026)
+    gh(`pr edit ${prNumber} -R ${repo} --add-reviewer @copilot`)
+    console.log('  Review requested via gh CLI (--add-reviewer @copilot).')
   } catch {
-    console.log('  API request failed, falling back to @copilot comment...')
+    console.log('  gh CLI failed, falling back to @copilot comment...')
     gh(`pr comment ${prNumber} -R ${repo} --body "@copilot review"`)
     console.log('  Review requested via comment.')
   }
@@ -148,7 +286,7 @@ function postComment(repo: string, prNumber: string, body: string): void {
 }
 
 function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComment[]): void {
-  console.log('Assigning Copilot coding agent to fix comments...')
+  console.log('Requesting fixes via @copilot PR comment (pushes to same branch)...')
 
   const commentList = comments
     .map((c, i) => {
@@ -157,44 +295,22 @@ function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComm
     })
     .join('\n')
 
+  // Comment on the PR with @copilot — Copilot pushes fixes to the SAME branch.
+  // This avoids creating separate issues/sub-PRs that cause cascading review loops.
   const body = [
-    `Fix the following Copilot code review comments on PR #${prNumber}:\n`,
+    `@copilot Please fix the following review comments directly on this PR branch:\n`,
     commentList,
-    `\nPush fixes to the PR branch directly or via a sub-PR (branch: copilot/sub-pr-<number>).`,
+    `\nPush the fixes as a new commit to this PR branch. Do NOT create a separate PR or issue.`,
   ].join('\n')
 
-  // Create a temporary issue and assign Copilot to it
-  const tmpFile = join(tmpdir(), `copilot-fix-issue-${Date.now()}.md`)
-  writeFileSync(tmpFile, body, 'utf-8')
   try {
-    const result = gh(
-      `issue create -R ${repo} ` +
-        `--title "fix: address Copilot review comments on PR #${prNumber}" ` +
-        `--body-file "${tmpFile}" ` +
-        `--assignee copilot`
-    )
-    console.log(`  Issue created: ${result}`)
-    // Extract new issue number from URL (e.g., "https://github.com/.../issues/123")
-    const newIssueNumber = parseInt(result.match(/\/(\d+)\s*$/)?.[1] || '0', 10)
-    // Close previous fix issues now that a new one exists
-    if (newIssueNumber > 0) {
-      closeFixIssues(repo, prNumber, 'Superseded by new review round.', newIssueNumber)
-    } else {
-      console.log(
-        '  Could not parse new issue number from gh output; skipping close of previous fix issues.'
-      )
-    }
+    postComment(repo, prNumber, body)
+    console.log('  Fix request posted as @copilot PR comment.')
   } catch (err: any) {
-    console.log('  Could not create fix issue via Copilot coding agent.')
-    console.log('  Posting fix request as PR comment instead.')
+    console.log(`  Failed to post @copilot comment: ${err.message || err}`)
+    // Fallback: post without @copilot mention
     const fallbackBody = buildFixRequestComment(comments)
     postComment(repo, prNumber, fallbackBody)
-  } finally {
-    try {
-      unlinkSync(tmpFile)
-    } catch {
-      // ignore
-    }
   }
 }
 
@@ -520,6 +636,50 @@ function writeSummary(
   appendGithubStepSummary(md)
 }
 
+/**
+ * Build a consolidated history of all Copilot review rounds for a PR.
+ * Posted as the final comment when the review cycle passes clean.
+ */
+function buildRoundHistory(repo: string, prNumber: string, finalRound: number): string {
+  const reviews = getReviews(repo, prNumber)
+  const copilotReviews = reviews
+    .filter((r) => isCopilotReview(r))
+    .sort((a, b) => new Date(a.submitted_at).getTime() - new Date(b.submitted_at).getTime())
+
+  const rows: string[] = []
+  const roundDetails: string[] = []
+
+  for (let i = 0; i < copilotReviews.length; i++) {
+    const review = copilotReviews[i]
+    const comments = getReviewComments(repo, prNumber, review.id)
+    const files = [...new Set(comments.map((c) => c.path.split('/').pop()))].join(', ') || '\u2014'
+    const status = comments.length === 0 ? '\u2705 Clean' : '\ud83d\udd27 Fixed'
+    const date = review.submitted_at.slice(0, 16).replace('T', ' ')
+    rows.push(`| ${i + 1} | ${comments.length} | ${files} | ${status} | ${date} |`)
+
+    if (comments.length > 0) {
+      roundDetails.push(`### Round ${i + 1} Comments (${comments.length})\n`)
+      for (const c of comments) {
+        const loc = c.line ? `${c.path}:${c.line}` : c.path
+        const body = c.body.replace(/\n/g, ' ').slice(0, 120)
+        roundDetails.push(`- \`${loc}\` \u2014 ${body}`)
+      }
+      roundDetails.push('')
+    }
+  }
+
+  let md = '## Copilot Review Cycle Summary\n\n'
+  md += '| Round | Comments | Files | Status | Date (UTC) |\n'
+  md += '|---|---|---|---|---|\n'
+  md += rows.join('\n') + '\n\n'
+  if (roundDetails.length > 0) {
+    md += roundDetails.join('\n') + '\n'
+  }
+  md += '### Result\n\n'
+  md += `\u2705 All automated review comments addressed in ${finalRound} round(s). Ready for final human review.\n`
+  return md
+}
+
 // --- Main ---
 async function main() {
   const repo = process.env.REPO_NAME
@@ -575,8 +735,16 @@ async function main() {
       prNumber,
       `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Timed out waiting for Copilot review. You can re-trigger manually.`
     )
-    writeSummary(prNumber, round, maxRounds, 'TIMEOUT', 0, 'Review did not arrive')
-    process.exit(1)
+    writeSummary(
+      prNumber,
+      round,
+      maxRounds,
+      'TIMEOUT',
+      0,
+      `Review timeout, dispatching round ${round + 1}`
+    )
+    dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
+    process.exit(0)
   }
 
   // Step 5: Check comments
@@ -586,8 +754,19 @@ async function main() {
   if (comments.length === 0) {
     console.log('\nCopilot review is clean!')
 
+    // Resolve all remaining Copilot-initiated review threads — cycle is complete
+    // Human-initiated threads are left intact to preserve human review workflows.
+    console.log('Resolving remaining Copilot review threads...')
+    const resolvedOnClean = resolveAllCopilotThreads(repo, prNumber)
+    if (resolvedOnClean > 0) {
+      console.log(`  Resolved ${resolvedOnClean} Copilot thread(s).`)
+    }
+
     // Close any remaining fix issues from previous rounds
     closeFixIssues(repo, prNumber, 'All review comments resolved — review passed clean.')
+
+    // Build consolidated round history for the final comment
+    const roundHistory = buildRoundHistory(repo, prNumber, round)
 
     // Wait for CI to pass before declaring ready
     console.log('\nWaiting for CI before marking ready to merge...')
@@ -605,7 +784,7 @@ async function main() {
       postComment(
         repo,
         prNumber,
-        `**Copilot Review Cycle:** ✅ Passed after ${round} round(s) — review clean, all CI checks green. Ready to merge.${mergeNote}`
+        `${roundHistory}\n\n**Copilot Review Cycle:** ✅ Passed after ${round} round(s) — review clean, all CI checks green. Ready to merge.${mergeNote}`
       )
       writeSummary(prNumber, round, maxRounds, 'READY_TO_MERGE', 0, 'Review clean + CI green')
     } else if (ciResult === 'fail') {
@@ -620,9 +799,10 @@ async function main() {
         maxRounds,
         'REVIEW_CLEAN_CI_FAIL',
         0,
-        'Review clean but CI failed'
+        `Review clean, CI failed, dispatching round ${round + 1}`
       )
-      process.exit(1)
+      dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
+      process.exit(0)
     } else if (ciResult === 'closed') {
       console.log('PR was closed while waiting for CI.')
       writeSummary(prNumber, round, maxRounds, 'PR_CLOSED', 0, 'PR closed during CI wait')
@@ -640,9 +820,10 @@ async function main() {
         maxRounds,
         'REVIEW_CLEAN_CI_TIMEOUT',
         0,
-        'Review clean, CI timed out'
+        `Review clean, CI timed out, dispatching round ${round + 1}`
       )
-      process.exit(1)
+      dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
+      process.exit(0)
     }
 
     process.exit(0)
@@ -675,14 +856,28 @@ async function main() {
   const fixed = await waitForFixes(repo, prNumber, headSha, pr.headRefName)
 
   if (!fixed) {
-    console.log('\nNo fixes were pushed within timeout.')
-    postComment(
-      repo,
-      prNumber,
-      `**Copilot Review Cycle (Round ${round}/${maxRounds}):** No fixes pushed within timeout. ${comments.length} comment(s) may need manual fixes.`
-    )
-    writeSummary(prNumber, round, maxRounds, 'FIX_TIMEOUT', comments.length, 'No fixes pushed')
-    process.exit(1)
+    console.log('\nNo fixes within timeout. Re-requesting fix...')
+    assignCopilotToFix(repo, prNumber, comments)
+    const retryFixed = await waitForFixes(repo, prNumber, headSha, pr.headRefName)
+
+    if (!retryFixed) {
+      console.log('\nRetry also timed out. Dispatching next round — review will re-check.')
+      postComment(
+        repo,
+        prNumber,
+        `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Fix timeout after retry. Dispatching next round to re-check. ${comments.length} comment(s) may still need attention.`
+      )
+      writeSummary(
+        prNumber,
+        round,
+        maxRounds,
+        'FIX_TIMEOUT_RETRY',
+        comments.length,
+        `Dispatching round ${round + 1} after retry`
+      )
+      dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
+      process.exit(0)
+    }
   }
 
   // Step 10: Wait for CI to pass before dispatching next review round
@@ -695,8 +890,16 @@ async function main() {
       prNumber,
       `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Fixes were pushed but CI is failing. Pausing review cycle until CI is fixed.`
     )
-    writeSummary(prNumber, round, maxRounds, 'CI_FAIL', comments.length, 'Fixes broke CI')
-    process.exit(1)
+    writeSummary(
+      prNumber,
+      round,
+      maxRounds,
+      'CI_FAIL',
+      comments.length,
+      `Fixes broke CI, dispatching round ${round + 1}`
+    )
+    dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
+    process.exit(0)
   }
 
   if (ciResult === 'closed') {
@@ -713,30 +916,38 @@ async function main() {
   }
 
   if (ciResult === 'timeout') {
+    console.log('\nCI timed out after fixes. Dispatching next round — it will re-check.')
     postComment(
       repo,
       prNumber,
-      `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Fixes were pushed but CI did not complete within timeout. Re-trigger the review cycle manually once CI passes.`
+      `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Fixes pushed but CI timed out (likely action_required gate). Dispatching next round automatically.`
     )
     writeSummary(
       prNumber,
       round,
       maxRounds,
-      'CI_TIMEOUT',
+      'CI_TIMEOUT_CONTINUE',
       comments.length,
-      'CI timed out after fixes'
+      `CI timeout, dispatching round ${round + 1}`
     )
-    process.exit(1)
+    dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
+    process.exit(0)
   }
 
-  // Step 11: Dispatch next round
+  // Step 11: Resolve review threads from this round so they don't re-trigger
+  console.log('\nResolving review threads from this round...')
+  const commentIds = comments.map((c) => c.id)
+  const resolvedCount = resolveReviewThreads(repo, prNumber, commentIds)
+  console.log(`  Resolved ${resolvedCount}/${comments.length} thread(s).`)
+
+  // Step 12: Dispatch next round
   writeSummary(
     prNumber,
     round,
     maxRounds,
     'FIXES_PUSHED',
     comments.length,
-    `Dispatching round ${round + 1}`
+    `Dispatching round ${round + 1} (resolved ${resolvedCount} threads)`
   )
   dispatchNextRound(repo, prNumber, round + 1, maxRounds, autoMerge)
   console.log(`\nRound ${round} complete. Next round dispatched.`)

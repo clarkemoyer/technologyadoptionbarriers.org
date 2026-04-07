@@ -35,11 +35,12 @@ const AIAssistedDevelopmentPage = () => {
 
         <section className="mb-10 text-gray-800">
           <p className="mb-6">
-            The TABS website is built almost entirely with AI coding agents. This is not a marketing
-            claim — it is a literal description of how code gets written. A human defines the goal,
-            an AI agent researches the codebase, writes the implementation, and a different AI
-            reviews the result. The human approves, requests changes, or redirects. This page
-            documents exactly how that works, which models we use, and what we have learned.
+            The TABS website is built almost entirely with AI coding agents working in a 3-agent
+            setup (Copilot, Jules, and Claude). This is not a marketing claim — it is a literal
+            description of how code gets written. A human defines the goal, an AI agent researches
+            the codebase, writes the implementation, and a different AI reviews the result. The
+            human approves, requests changes, or redirects. This page documents exactly how that
+            works, which models we use, and what we have learned.
           </p>
         </section>
 

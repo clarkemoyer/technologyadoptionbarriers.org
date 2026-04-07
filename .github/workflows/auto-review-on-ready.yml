@@ -1,0 +1,28 @@
+name: Auto-Start Review Cycle
+
+# Lightweight trigger that dispatches the review cycle when a PR is marked
+# ready for review. Uses only GITHUB_TOKEN (no environment secrets), so it
+# runs immediately even for bot-created PRs (no action_required gate).
+
+on:
+  pull_request:
+    types: [ready_for_review]
+    branches: ['main']
+
+jobs:
+  dispatch-review:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - name: Dispatch review cycle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "PR #${{ github.event.pull_request.number }} marked ready for review"
+          echo "Dispatching Copilot review cycle (up to 7 rounds)..."
+          gh workflow run copilot-review-cycle.yml \
+            -R ${{ github.repository }} \
+            -f pr_number=${{ github.event.pull_request.number }} \
+            -f round=1 \
+            -f max_rounds=7
+          echo "Review cycle dispatched."
