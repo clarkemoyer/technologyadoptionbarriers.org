@@ -545,8 +545,16 @@ class TestWriteReport:
 
     def test_report_includes_no_pdf_items(self, tmp_path: Path) -> None:
         output = tmp_path / "report.json"
-        no_pdf = [{"key": "A", "title": "Missing PDF", "item_type": "journalArticle",
-                   "doi": "", "year": "2020", "is_non_journal": False}]
+        no_pdf = [
+            {
+                "key": "A",
+                "title": "Missing PDF",
+                "item_type": "journalArticle",
+                "doi": "",
+                "year": "2020",
+                "is_non_journal": False,
+            }
+        ]
         zd.write_report(output, [], [], {}, no_pdf)
 
         data = json.loads(output.read_text())

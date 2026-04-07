@@ -264,7 +264,7 @@ def _annotate_with_children(
         raw["_pdf_key"] = pdf_key
         raw["_note_keys"] = note_keys
         annotated.append(ZoteroItem(raw))
-        # Polite rate-limiting: Zotero API allows ~6 req/s
+        # Polite rate-limiting: Zotero API allows ~6 req/s (1/6 ≈ 0.167 s per request)
         time.sleep(0.17)
     return annotated
 
@@ -446,7 +446,6 @@ def clean_collection(
         # Remove sparse duplicates from collection
         for dup_key in dup_keys_in_col:
             if not dry_run:
-                zot.delete_tags(*[])  # no-op placeholder (actual call below)
                 zot.remove_item_from_collection(dup_key, col_key)
             removed.append(dup_key)
             print(

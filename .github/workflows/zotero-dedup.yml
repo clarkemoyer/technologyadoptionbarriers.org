@@ -44,6 +44,8 @@ jobs:
   test:
     name: Unit Tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -71,6 +73,8 @@ jobs:
   ci-check:
     name: CI Duplicate Check
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     # Only run when Zotero secrets are available (scheduled or manual dispatch)
     if: |
       github.event_name == 'schedule' ||
@@ -100,28 +104,29 @@ jobs:
             MODE="ci-check"
           fi
 
-          FLAGS="--collection \"$COLLECTION\" --library-type \"$LIBRARY_TYPE\""
-          case "$MODE" in
-            detect-only)    FLAGS="$FLAGS --detect-only" ;;
-            dry-run)        FLAGS="$FLAGS --dry-run" ;;
-            enrich-and-clean) ;;  # no extra flag needed
-            ci-check)       FLAGS="$FLAGS --ci-check" ;;
-          esac
-
-          echo "flags=$FLAGS" >> "$GITHUB_OUTPUT"
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
           echo "collection=$COLLECTION" >> "$GITHUB_OUTPUT"
+          echo "library_type=$LIBRARY_TYPE" >> "$GITHUB_OUTPUT"
 
       - name: Run deduplication script
         env:
           ZOTERO_LIBRARY_ID: ${{ secrets.ZOTERO_LIBRARY_ID }}
           ZOTERO_API_KEY: ${{ secrets.ZOTERO_API_KEY }}
-          ZOTERO_LIBRARY_TYPE: ${{ github.event.inputs.library_type || 'user' }}
+          ZOTERO_LIBRARY_TYPE: ${{ steps.flags.outputs.library_type }}
+          DEDUP_MODE: ${{ steps.flags.outputs.mode }}
+          DEDUP_COLLECTION: ${{ steps.flags.outputs.collection }}
         run: |
           cd scripts/zotero
-          # shellcheck disable=SC2086
-          python3 zotero_dedup.py ${{ steps.flags.outputs.flags }} \
-            --output zotero_dedup_report.json
+          ARGS=(--output zotero_dedup_report.json)
+          ARGS+=(--collection "$DEDUP_COLLECTION")
+          ARGS+=(--library-type "$ZOTERO_LIBRARY_TYPE")
+          case "$DEDUP_MODE" in
+            detect-only)      ARGS+=(--detect-only) ;;
+            dry-run)          ARGS+=(--dry-run --detect-only) ;;
+            ci-check)         ARGS+=(--ci-check) ;;
+            enrich-and-clean) ;;  # no extra flag; runs all phases live
+          esac
+          python3 zotero_dedup.py "${ARGS[@]}"
 
       - name: Write step summary
         if: always()
