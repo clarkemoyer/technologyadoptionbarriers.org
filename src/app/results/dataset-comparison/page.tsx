@@ -125,6 +125,41 @@ const DatasetComparisonPage = () => {
               </tbody>
             </table>
           </div>
+
+          <h3 className={H3_CLASSES}>Profit Model Distribution</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm font-sans border-collapse">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="text-left p-2 border-b">Result Group</th>
+                  <th className="text-right p-2 border-b">For-Profit</th>
+                  <th className="text-right p-2 border-b">Non-Profit</th>
+                  <th className="text-right p-2 border-b">Government</th>
+                </tr>
+              </thead>
+              <tbody>
+                {PRIMARY_GROUPS.map((group) => {
+                  const details = sampleDetails?.[group.key] as Record<string, unknown> | undefined
+                  const demo = details?.demographics as Record<string, unknown> | undefined
+                  const pm = (demo?.profit_models ?? {}) as Record<string, number>
+                  return (
+                    <tr key={group.key} className={group.color}>
+                      <td className="p-2 border-b font-medium">{group.label}</td>
+                      <td className="text-right p-2 border-b font-mono">
+                        {pm['for_profit'] || '—'}
+                      </td>
+                      <td className="text-right p-2 border-b font-mono">
+                        {pm['non_profit'] || '—'}
+                      </td>
+                      <td className="text-right p-2 border-b font-mono">
+                        {pm['government'] || '—'}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
         </section>
 
         {/* ── Core Metrics Comparison ── */}
@@ -271,6 +306,120 @@ const DatasetComparisonPage = () => {
                     </tr>
                   )
                 })}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* ── Filter Bias Analysis ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Filter Bias Analysis</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            This analysis tests whether stricter quality filters disproportionately exclude certain
+            demographics. A Chi-square test for independence is computed across the four result
+            groups for role, organization size, and profit model.
+          </p>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm font-sans border-collapse mb-8">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="text-left p-2 border-b">Demographic Category</th>
+                  <th className="text-right p-2 border-b">Chi-Square (χ²)</th>
+                  <th className="text-right p-2 border-b">df</th>
+                  <th className="text-right p-2 border-b">p-value</th>
+                  <th className="text-left p-2 border-b">Interpretation</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(() => {
+                  type Chi2Result = {
+                    ok: boolean
+                    chi2: number | null
+                    p_value: number | null
+                    df: number | null
+                    error: string | null
+                  }
+
+                  const fba = (sensitivityData as Record<string, unknown>).filter_bias_analysis as
+                    | Record<string, Chi2Result>
+                    | undefined
+                  if (!fba) {
+                    return (
+                      <tr>
+                        <td colSpan={5} className="p-2 text-center border-b">
+                          No filter bias analysis data available.
+                        </td>
+                      </tr>
+                    )
+                  }
+
+                  const getInterpretation = (result: Chi2Result | undefined) => {
+                    if (!result) return '—'
+                    if (!result.ok) {
+                      return (
+                        <span className="text-orange-600" title={result.error || 'Unknown error'}>
+                          Unable to compute
+                        </span>
+                      )
+                    }
+                    if (result.p_value !== null && result.p_value < 0.05) {
+                      return (
+                        <span className="text-red-700 font-medium">
+                          Significant difference (potential bias)
+                        </span>
+                      )
+                    }
+                    return (
+                      <span className="text-gray-600">
+                        No significant difference (demographics stable)
+                      </span>
+                    )
+                  }
+
+                  const formatStat = (val: number | null | undefined, digits: number = 2) => {
+                    if (val === null || val === undefined) return '—'
+                    return val.toFixed(digits)
+                  }
+
+                  return (
+                    <>
+                      <tr>
+                        <td className="p-2 border-b">Role (Tech vs Non-Tech)</td>
+                        <td className="p-2 border-b text-right">{formatStat(fba.role?.chi2)}</td>
+                        <td className="p-2 border-b text-right">{fba.role?.df ?? '—'}</td>
+                        <td className="p-2 border-b text-right">
+                          {formatStat(fba.role?.p_value, 4)}
+                        </td>
+                        <td className="p-2 border-b">{getInterpretation(fba.role)}</td>
+                      </tr>
+                      <tr>
+                        <td className="p-2 border-b">Organization Size</td>
+                        <td className="p-2 border-b text-right">
+                          {formatStat(fba.organization_size?.chi2)}
+                        </td>
+                        <td className="p-2 border-b text-right">
+                          {fba.organization_size?.df ?? '—'}
+                        </td>
+                        <td className="p-2 border-b text-right">
+                          {formatStat(fba.organization_size?.p_value, 4)}
+                        </td>
+                        <td className="p-2 border-b">{getInterpretation(fba.organization_size)}</td>
+                      </tr>
+                      <tr>
+                        <td className="p-2 border-b">Profit Model</td>
+                        <td className="p-2 border-b text-right">
+                          {formatStat(fba.profit_model?.chi2)}
+                        </td>
+                        <td className="p-2 border-b text-right">{fba.profit_model?.df ?? '—'}</td>
+                        <td className="p-2 border-b text-right">
+                          {formatStat(fba.profit_model?.p_value, 4)}
+                        </td>
+                        <td className="p-2 border-b">{getInterpretation(fba.profit_model)}</td>
+                      </tr>
+                    </>
+                  )
+                })()}
               </tbody>
             </table>
           </div>

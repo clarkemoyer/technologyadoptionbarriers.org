@@ -1376,6 +1376,84 @@ def sensitivity_to_json(cuts, idx):
             "inferential": inferential_for(rows),
         }
 
+    def filter_bias_analysis_for(cuts_list):
+        """
+        Computes a chi-square test for independence across the four result groups
+        for role, organization size, and profit model.
+        Returns the p-value and chi-square statistic.
+        """
+        import scipy.stats
+
+        # Extract the demographic counts for each group
+        # These will be lists of lists (contingency tables)
+        role_counts = [] # Tech vs Non-tech vs Other
+        org_size_counts = []
+        profit_model_counts = []
+
+        # Only use the 4 main groups
+        main_cuts = cuts_list[:4]
+
+        for sample_label, rows in main_cuts:
+            # Tech vs Non-tech
+            tech_n = sum(1 for r in rows if get_role(r, idx) in TECH_TITLES)
+            nontech_n = sum(1 for r in rows if get_role(r, idx) in NONTECH_TITLES)
+            other_n = sum(1 for r in rows if get_role(r, idx) == 'Other')
+            role_counts.append([tech_n, nontech_n, other_n])
+
+            # Org Size
+            org_sizes = []
+            for os_val in ALL_ORG_SIZES:
+                org_sizes.append(sum(1 for r in rows if r[idx['Q4_OrgSize']].strip() == os_val))
+            org_size_counts.append(org_sizes)
+
+            # Profit Model
+            profit_models = []
+            for pm_val in ['For-Profit', 'Non-Profit', 'Government/Public Sector']:
+                profit_models.append(sum(1 for r in rows if r[idx['Q5_ProfitModel']].strip() == pm_val))
+            profit_model_counts.append(profit_models)
+
+        def _run_chi2(contingency_table):
+            try:
+                # Convert to numpy array for easier filtering
+                import numpy as np
+                table = np.array(contingency_table)
+                # Remove columns (categories) that are all zeros
+                col_sums = table.sum(axis=0)
+                table = table[:, col_sums > 0]
+                # Remove rows (groups) that are all zeros
+                row_sums = table.sum(axis=1)
+                table = table[row_sums > 0, :]
+
+                # If table is too small to compute chi2, raise error explicitly
+                if table.shape[0] < 2 or table.shape[1] < 2:
+                    raise ValueError("After removing zero-frequency categories, table is too small for chi-square test.")
+
+                chi2, p, dof, ex = scipy.stats.chi2_contingency(table)
+                return {
+                    "ok": True,
+                    "chi2": round(float(chi2), 2),
+                    "p_value": round(float(p), 4),
+                    "df": int(dof),
+                    "error": None
+                }
+            except Exception as e:
+                return {
+                    "ok": False,
+                    "chi2": None,
+                    "p_value": None,
+                    "df": None,
+                    "error": str(e)
+                }
+
+        return {
+            "role": _run_chi2(role_counts),
+            "organization_size": _run_chi2(org_size_counts),
+            "profit_model": _run_chi2(profit_model_counts)
+        }
+
+    # Filter Bias Analysis (Chi-square test across groups)
+    result["filter_bias_analysis"] = filter_bias_analysis_for(cuts)
+
     return result
 
 

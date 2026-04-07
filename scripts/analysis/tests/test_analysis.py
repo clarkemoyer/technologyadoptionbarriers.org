@@ -327,6 +327,30 @@ class TestSensitivityJSON:
             assert "values" in metric
             assert isinstance(metric["values"], dict)
 
+    def test_filter_bias_analysis_schema(self, test_data_csv):
+        """filter_bias_analysis must exist and match the expected schema."""
+        idx, data = load_data(test_data_csv)
+        _, samples = filter_samples(data, idx)
+
+        cuts = [
+            ("Conservative Clean", samples["conservative_clean"]),
+            ("Flexible Clean", samples["flexible_clean"]),
+            ("All V2", samples["v2_all"]),
+        ]
+        result = sensitivity_to_json(cuts, idx)
+
+        assert "filter_bias_analysis" in result
+        fba = result["filter_bias_analysis"]
+
+        for dem_key in ["role", "organization_size", "profit_model"]:
+            assert dem_key in fba
+            demo_result = fba[dem_key]
+            assert "ok" in demo_result
+            assert "chi2" in demo_result
+            assert "p_value" in demo_result
+            assert "df" in demo_result
+            assert "error" in demo_result
+
     def test_sample_details_structure(self, test_data_csv):
         """sample_details must contain demographics, effect_sizes, cross_tabs, and inferential per group."""
         idx, data = load_data(test_data_csv)

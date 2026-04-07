@@ -295,6 +295,12 @@ describe('Dataset Comparison Page', () => {
     render(<Page />)
     expect(screen.getByRole('heading', { name: /core metrics comparison/i })).toBeInTheDocument()
   })
+
+  it('renders filter bias analysis section', async () => {
+    const { default: Page } = await import('@/app/results/dataset-comparison/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /filter bias analysis/i })).toBeInTheDocument()
+  })
 })
 
 describe('Scale Reliability Page', () => {
