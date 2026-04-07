@@ -506,24 +506,6 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
                 <tr>
                   <td className="border border-gray-300 px-4 py-2">
                     <a
-                      href={GITHUB_TESTS_TREE_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 underline hover:text-blue-800 font-mono text-xs"
-                    >
-                      tests/
-                    </a>
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-right font-mono">500</td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    Production-format synthetic dataset used by the analysis scripts; direct CSV
-                    link removed until the file is sanitized per the repository PII policy. See the
-                    tests directory or generator script for implementation details.
-                  </td>
-                </tr>
-                <tr className="bg-gray-50">
-                  <td className="border border-gray-300 px-4 py-2">
-                    <a
                       href={`${GITHUB_TESTS_BLOB_BASE}/generate_test_data.py`}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -534,8 +516,9 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
                   </td>
                   <td className="border border-gray-300 px-4 py-2 text-right font-mono">—</td>
                   <td className="border border-gray-300 px-4 py-2">
-                    Deterministic generator (seed=42) that creates the 500-record dataset with
-                    realistic response distributions
+                    Deterministic generator for the production-format synthetic dataset. Public
+                    directory browsing is intentionally not linked here while the repository
+                    remediates and sanitizes the test CSV per the PII policy.
                   </td>
                 </tr>
               </tbody>
