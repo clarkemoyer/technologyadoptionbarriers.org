@@ -68,6 +68,7 @@ from __future__ import annotations
 import argparse
 import csv
 import hashlib
+import itertools
 import math
 import re
 import sys
@@ -170,9 +171,17 @@ def load_qualtrics_csv(csv_path: str) -> tuple[list[str], list[list[str]]]:
     """Load Qualtrics CSV with 3 header rows. Returns (headers, data_rows)."""
     with open(csv_path, "r", encoding="utf-8-sig") as f:
         reader = csv.reader(f)
-        headers = next(reader)
-        next(reader)  # description row
-        next(reader)  # import ID row
+        try:
+            headers = next(reader)
+            next(reader)  # description row
+            next(reader)  # import ID row
+        except StopIteration as exc:
+            print(
+                "Error: invalid Qualtrics CSV input; expected 3 header rows "
+                "(header, description, import ID) before data rows.",
+                file=sys.stderr,
+            )
+            raise SystemExit(2) from exc
         data = list(reader)
     return headers, data
 
@@ -534,6 +543,15 @@ def select_crp_sample(
 
     tier3_pool.sort(key=sort_key_quality)
 
+    eligible = len(tier1) + len(tier2) + len(tier3_pool)
+    if eligible < target_n:
+        print(
+            f"  WARNING: Only {eligible} eligible responses after Tier 3 eligibility "
+            f"filter (finished + duration >= {MIN_DURATION_ALL}s); "
+            f"target is {target_n}. Final sample will be under-sized.",
+            file=sys.stderr,
+        )
+
     slots_remaining = max(0, target_n - len(tier1) - len(tier2))
     for i, p in enumerate(tier3_pool):
         if i < slots_remaining:
@@ -755,8 +773,11 @@ def redact_pii(rows: list[dict[str, str]], flags: list[dict]) -> int:
 def rows_to_dicts(
     selected_rows: list[list[str]], headers: list[str],
 ) -> list[dict[str, str]]:
-    """Convert list-of-lists rows to list-of-dicts."""
-    return [dict(zip(headers, row[:len(headers)])) for row in selected_rows]
+    """Convert list-of-lists rows to list-of-dicts, padding short rows with ''."""
+    return [
+        dict(itertools.zip_longest(headers, row[:len(headers)], fillvalue=""))
+        for row in selected_rows
+    ]
 
 
 def replace_response_ids(
@@ -994,14 +1015,17 @@ def main() -> int:
     # ── Generate manifest ──
     print("\n--- Generating selection manifest ---")
     manifest = generate_manifest(profiles, args.target_n)
-    print(manifest)
 
-    # Save manifest
+    # Save manifest to disk only — contents are confidential (ResponseIds +
+    # detailed auth/quality flags); do NOT print to stdout to avoid leaking
+    # into terminal scrollback, CI logs, or shared artifacts.
     args.output_dir.mkdir(parents=True, exist_ok=True)
-    manifest_path = args.output_dir / "selection_manifest.txt"
+    manifest_path = args.output_dir / "selection_manifest_CONFIDENTIAL.txt"
     with open(manifest_path, "w", encoding="utf-8") as f:
         f.write(manifest)
-    print(f"\n  Manifest saved: {manifest_path}")
+    print("\n  Manifest generated (contents withheld from stdout; confidential).")
+    print(f"  Summary: selected {len(selected)} responses for target N={args.target_n}.")
+    print(f"  Manifest saved: {manifest_path}")
 
     if args.dry_run:
         print("\n[DRY RUN] Stopping before de-identification.")
@@ -1024,7 +1048,7 @@ def main() -> int:
         print(f"    - {args.output_dir / 'responseid_mapping_CONFIDENTIAL.csv'}")
         print(f"    - {args.output_dir / 'prolific_linkage_CONFIDENTIAL.csv'}")
         print(f"    - {args.output_dir / 'pii_review_report_CONFIDENTIAL.txt'}")
-        print(f"    - {args.output_dir / 'selection_manifest.txt'}")
+        print(f"    - {args.output_dir / 'selection_manifest_CONFIDENTIAL.txt'}")
     else:
         print("  CRP DATASET FAILED — PII detected in output")
         print("  Review pii_review_report_CONFIDENTIAL.txt and re-run.")
