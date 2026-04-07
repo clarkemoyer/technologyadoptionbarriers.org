@@ -311,8 +311,7 @@ STATUSEOF
 # Critical if:
 # 1. Any job failed (TRIAGE, APPROVE, MESSAGE, DASHBOARD)
 # 2. Dashboard data is unavailable (HAS_DASHBOARD=false)
-# 3. Recommendations contain a critical-priority emoji (🔴 Critical, 🟡 Action, 🟠 Anomaly)
-#    Note: ⏳ Waiting and 🔵 Low are non-critical and do not block auto-close.
+# 3. Recommendations contain "Critical", "Anomaly", or "Action"
 # 4. New rejections (DELTA_REJECTED > 0)
 # 5. New returns (DELTA_RETURNED > 0)
 # 6. Total awaiting review > 0
@@ -324,36 +323,23 @@ CRITICAL_FINDINGS=false
 [ "${MESSAGE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${DASHBOARD_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "$HAS_DASHBOARD" = false ] && CRITICAL_FINDINGS=true
-echo "$RECOMMENDATIONS" | grep -qP "🔴|🟡|🟠" && CRITICAL_FINDINGS=true
+echo "$RECOMMENDATIONS" | grep -qE "🔴|🟡|🟠" && CRITICAL_FINDINGS=true
 [ "$DELTA_REJECTED" -gt 0 ] && CRITICAL_FINDINGS=true
 [ "$DELTA_RETURNED" -gt 0 ] && CRITICAL_FINDINGS=true
 [ "$TODAY_AWAITING" -gt 0 ] && CRITICAL_FINDINGS=true
 [ "$TOTAL_FAILED" -gt 0 ] && CRITICAL_FINDINGS=true
 
-# --- Ensure required labels exist (idempotent) ---
-gh label create "auto-close-eligible" \
-  --color "0075ca" \
-  --description "Report with no critical findings, eligible for auto-close" \
-  --force
-gh label create "auto-closed" \
-  --color "e4e669" \
-  --description "Automatically closed after >23h with no critical findings" \
-  --force
-
 # --- Create issue ---
 TITLE="Daily Disposition Report -- $DATE"
+LABELS="documentation"
 if [ "$CRITICAL_FINDINGS" = false ]; then
-  ISSUE_URL=$(gh issue create \
-    --title "$TITLE" \
-    --body-file /tmp/report-body.md \
-    --label "documentation" \
-    --label "auto-close-eligible")
-else
-  ISSUE_URL=$(gh issue create \
-    --title "$TITLE" \
-    --body-file /tmp/report-body.md \
-    --label "documentation")
+  LABELS="$LABELS,auto-close-eligible"
 fi
+
+ISSUE_URL=$(gh issue create \
+  --title "$TITLE" \
+  --body-file /tmp/report-body.md \
+  --label "$LABELS")
 
 echo "Daily report issue created: $TITLE ($ISSUE_URL)"
 
@@ -365,7 +351,7 @@ OLD_ISSUES=$(gh issue list --label "auto-close-eligible" --state "open" --json n
 
 for ISSUE_NUM in $OLD_ISSUES; do
   echo "Auto-closing issue #$ISSUE_NUM"
-  gh issue comment "$ISSUE_NUM" --body "Auto-closing this report as it has been open for >23h with no critical findings."
+  gh issue comment "$ISSUE_NUM" --body "Auto-closing this report as it has been open for >24h with no critical findings."
   gh issue edit "$ISSUE_NUM" --add-label "auto-closed" --remove-label "auto-close-eligible"
   gh issue close "$ISSUE_NUM"
 done
