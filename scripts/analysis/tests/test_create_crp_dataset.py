@@ -86,6 +86,7 @@ class TestScanPiiRowOffset:
         rows = _make_text_rows("Email me at test@example.com")
         flags = scan_pii(rows, FREE_TEXT_COLUMNS)
         assert flags, "Expected a PII flag for the email address"
+        assert flags[0]["pattern_type"] == "email address"
         assert flags[0]["row_number"] == 4  # 0 + 4 = 4
 
     def test_explicit_row_offset_2_for_single_header_output(self):
@@ -262,9 +263,6 @@ class TestTier3EligibilityFilter:
             iri_count=1,
         )
         select_crp_sample([p], target_n=1)
-        # Profile should be in tier 3 pool but not selected (since it's ineligible)
-        assert p["tier"] == 3 or p["selected"] is False
-        # Key invariant: must NOT be selected into the dataset
         assert p["selected"] is False
 
     def test_tier3_excludes_below_min_duration(self):
