@@ -255,6 +255,15 @@ const MakingOfTabsPage = () => {
                 titleColor: 'text-teal-900',
                 textColor: 'text-teal-800',
               },
+              {
+                title: 'Automation Infrastructure',
+                href: '/making-of-tabs/automation-infrastructure',
+                desc: 'The hands-off chain from issue to production, daily data pipelines, privacy boundaries, and AI agent coordination.',
+                border: 'border-indigo-200',
+                bg: 'bg-indigo-50',
+                titleColor: 'text-indigo-900',
+                textColor: 'text-indigo-800',
+              },
             ].map((card) => (
               <Link
                 key={card.href}
