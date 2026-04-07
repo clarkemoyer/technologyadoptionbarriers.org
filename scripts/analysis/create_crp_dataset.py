@@ -90,23 +90,6 @@ SMEAL_UPPER = 540                   # upper bound of Smeal window
 RECAPTCHA_THRESHOLD = 0.5
 PARTIAL_STRAIGHTLINING_SD_THRESHOLD = 0.5
 
-# Scale maps
-BARRIER_SCALE = {
-    "Not a Barrier": 1, "Minor Barrier": 2, "Moderate Barrier": 3,
-    "Significant Barrier": 4, "Major Barrier": 5,
-}
-READINESS_SCALE = {
-    "Very Low Readiness/Capability": 1, "Low Readiness/Capability": 2,
-    "Moderate Readiness/Capability": 3, "High Readiness/Capability": 4,
-    "Very High Readiness/Capability": 5,
-}
-MATURITY_SCALE = {
-    "Level 1: Initial/Ad Hoc": 1, "Level 2: Developing/Repeatable": 2,
-    "Level 3: Defined/Standardized": 3,
-    "Level 4: Managed/Quantitatively Managed": 4,
-    "Level 5: Optimizing/Innovating": 5,
-}
-
 # Column definitions
 BARRIER_COLS = [f"Q10-28_Barriers_{i}" for i in range(1, 19)]
 BARRIER_IRI = "Q10-28_Barriers_19"
@@ -986,6 +969,22 @@ def main() -> int:
     headers, data = load_qualtrics_csv(str(args.input_csv))
     idx = make_idx(headers)
     print(f"  Loaded {len(data)} rows, {len(headers)} columns")
+
+    # Validate required enrichment columns
+    required_columns = ["PROLIFIC_PID", "Prolific_Status", "ResponseId", "StartDate"]
+    missing_columns = [col for col in required_columns if col not in idx]
+    if missing_columns:
+        print(
+            "Error: input CSV is missing required columns: "
+            + ", ".join(missing_columns),
+            file=sys.stderr,
+        )
+        print(
+            "Run scripts/analysis/enrich_qualtrics_csv.py first, then re-run "
+            "create_crp_dataset.py with the enriched export.",
+            file=sys.stderr,
+        )
+        return 2
 
     # ── V2 filter and dedup ──
     print("\n--- V2 filtering and deduplication ---")
