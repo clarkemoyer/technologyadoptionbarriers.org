@@ -1,12 +1,10 @@
 """Tests for tabs_v2_analysis.py — statistical functions and sample filtering."""
 
 import math
-import sys
-from pathlib import Path
+import re
+from collections import Counter
 
 import pytest
-
-sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from tabs_v2_analysis import (
     mean_sd,
@@ -32,6 +30,8 @@ from tabs_v2_analysis import (
     sensitivity_to_json,
     welch_t_test,
     oneway_anova,
+    categorize_other_role,
+    OTHER_ROLE_CATEGORIES_PATTERNS,
     BARRIER_SCALE,
     READINESS_SCALE,
     MATURITY_SCALE,
@@ -99,17 +99,22 @@ class TestPearsonR:
 
 class TestCohensD:
     def test_identical_groups(self):
-        d = cohens_d([5, 5, 5], [5, 5, 5])
+        d, ci_l, ci_u = cohens_d([5, 5, 5], [5, 5, 5])
         # Zero difference but also zero pooled SD
         assert d is None
+        assert ci_l is None
+        assert ci_u is None
 
     def test_large_effect(self):
-        d = cohens_d([10, 11, 12], [1, 2, 3])
+        d, ci_l, ci_u = cohens_d([10, 11, 12], [1, 2, 3])
         assert d is not None
+        assert ci_l is not None
+        assert ci_u is not None
         assert abs(d) > 0.8  # large effect
+        assert ci_l <= d <= ci_u
 
     def test_insufficient_data(self):
-        assert cohens_d([5], [3]) is None
+        assert cohens_d([5], [3]) == (None, None, None)
 
 
 # ── cronbach_alpha ───────────────────────────────────────────
@@ -405,6 +410,11 @@ class TestSensitivityJSON:
             assert "org_sizes" in demo
             assert "profit_models" in demo
             assert "tech_vs_nontech" in demo
+            assert "other_roles" in demo, f"missing other_roles for {key}"
+            assert "total" in demo["other_roles"], f"other_roles missing total for {key}"
+            assert "categories" in demo["other_roles"], f"other_roles missing categories for {key}"
+            assert isinstance(demo["other_roles"]["total"], int)
+            assert isinstance(demo["other_roles"]["categories"], dict)
 
             # Effect sizes has required structure
             if details["effect_sizes"]:
@@ -453,28 +463,35 @@ class TestWelchTTest:
     def test_equal_groups(self):
         g1 = [1.0, 2.0, 3.0, 4.0, 5.0]
         g2 = [1.0, 2.0, 3.0, 4.0, 5.0]
-        t, p, df = welch_t_test(g1, g2)
+        t, p, df, ci_l, ci_u = welch_t_test(g1, g2)
         assert t == pytest.approx(0.0, abs=1e-6)
         assert p == pytest.approx(1.0, abs=0.01)
+        assert ci_l < 0.0
+        assert ci_u > 0.0
 
     def test_different_groups(self):
         g1 = [10.0, 11.0, 12.0, 13.0, 14.0]
         g2 = [1.0, 2.0, 3.0, 4.0, 5.0]
-        t, p, df = welch_t_test(g1, g2)
+        t, p, df, ci_l, ci_u = welch_t_test(g1, g2)
         assert t > 0
         assert p < 0.01  # clearly significant
+        assert ci_l > 0.0  # mean diff is strictly positive
+        assert ci_l < ci_u
 
     def test_insufficient_data(self):
-        t, p, df = welch_t_test([1.0], [2.0, 3.0])
+        t, p, df, ci_l, ci_u = welch_t_test([1.0], [2.0, 3.0])
         assert t is None
         assert p is None
+        assert ci_l is None
 
     def test_filters_none(self):
         g1 = [1.0, None, 3.0, 5.0]
         g2 = [2.0, 4.0, None, 6.0]
-        t, p, df = welch_t_test(g1, g2)
+        t, p, df, ci_l, ci_u = welch_t_test(g1, g2)
         assert t is not None
         assert p is not None
+        assert ci_l is not None
+        assert ci_u is not None
 
 
 # ── oneway_anova ────────────────────────────────────────────
@@ -499,3 +516,140 @@ class TestOnewayAnova:
     def test_insufficient_groups(self):
         f, p, df_b, df_w = oneway_anova([1.0, 2.0])
         assert f is None
+
+
+# ── categorize_other_role ────────────────────────────────────
+
+class TestCategorizeOtherRole:
+    """Unit tests for categorize_other_role() and OTHER_ROLE_CATEGORIES_PATTERNS."""
+
+    # --- empty / whitespace inputs ---
+
+    def test_empty_string(self):
+        assert categorize_other_role("") == "Uncategorized"
+
+    def test_whitespace_only(self):
+        assert categorize_other_role("   \t  ") == "Uncategorized"
+
+    def test_empty_string_again_matches_uncategorized(self):
+        # None would raise AttributeError in strip(); guard is `not text`
+        assert categorize_other_role("") == "Uncategorized"
+
+    # --- IT acronym case sensitivity ---
+
+    def test_lowercase_it_is_not_technical_specialist(self):
+        assert categorize_other_role("it") == "Uncategorized"
+
+    def test_it_in_prose_does_not_match(self):
+        assert categorize_other_role("it's complicated") == "Uncategorized"
+
+    def test_it_in_sentence_does_not_match(self):
+        assert categorize_other_role("I think it's fine") == "Uncategorized"
+
+    def test_uppercase_IT_matches_technical_specialist(self):
+        assert categorize_other_role("IT") == "Technical Specialist"
+
+    def test_IT_standalone_matches_technical_specialist(self):
+        assert categorize_other_role("IT Specialist") == "Technical Specialist"
+
+    # --- representative inputs for every category ---
+
+    def test_c_suite_adjacent_chief(self):
+        assert categorize_other_role("Chief Digital Officer") == "C-Suite Adjacent"
+
+    def test_c_suite_adjacent_cdo(self):
+        assert categorize_other_role("CDO") == "C-Suite Adjacent"
+
+    def test_vp_svp_vp(self):
+        assert categorize_other_role("VP of Operations") == "VP / SVP"
+
+    def test_vp_svp_vice_president(self):
+        assert categorize_other_role("Vice President, Strategy") == "VP / SVP"
+
+    def test_director(self):
+        assert categorize_other_role("Director of Finance") == "Director"
+
+    def test_manager(self):
+        assert categorize_other_role("Program Manager") == "Manager / Program Lead"
+
+    def test_team_lead(self):
+        assert categorize_other_role("Team Lead") == "Manager / Program Lead"
+
+    def test_owner(self):
+        assert categorize_other_role("Owner") == "Owner / Founder / President"
+
+    def test_founder(self):
+        assert categorize_other_role("Founder and CEO") == "Owner / Founder / President"
+
+    def test_technical_specialist_engineer(self):
+        assert categorize_other_role("Software Engineer") == "Technical Specialist"
+
+    def test_technical_specialist_developer(self):
+        assert categorize_other_role("Senior Developer") == "Technical Specialist"
+
+    def test_technical_specialist_architect(self):
+        assert categorize_other_role("Solutions Architect") == "Technical Specialist"
+
+    def test_technical_specialist_analyst(self):
+        assert categorize_other_role("Data Analyst") == "Technical Specialist"
+
+    def test_technical_specialist_technology_keyword(self):
+        assert categorize_other_role("Head of Technology") == "Technical Specialist"
+
+    def test_uncategorized_random_text(self):
+        assert categorize_other_role("Something completely unrelated") == "Uncategorized"
+
+    # --- first-match / precedence behavior ---
+
+    def test_first_category_wins_over_second(self):
+        """Text that matches both C-Suite Adjacent and VP/SVP should return C-Suite Adjacent."""
+        # "chief" matches C-Suite Adjacent; "VP" matches VP/SVP
+        assert categorize_other_role("Chief VP") == "C-Suite Adjacent"
+
+    def test_first_category_wins_director_vs_manager(self):
+        """'Director' appears before 'Manager / Program Lead' in the list."""
+        # 'director' and 'lead' both present → Director wins
+        assert categorize_other_role("Director and Team Lead") == "Director"
+
+    # --- counter-based aggregation ---
+
+    def test_counter_aggregation(self):
+        inputs = ["", "   ", "Chief of Staff", "Chief Analytics Officer", "VP of Sales"]
+        results = Counter(categorize_other_role(t) for t in inputs)
+        assert results["Uncategorized"] == 2
+        assert results["C-Suite Adjacent"] == 2
+        assert results["VP / SVP"] == 1
+
+    # --- all configured categories have a matchable representative ---
+
+    def test_all_categories_have_representative(self):
+        """Every entry in OTHER_ROLE_CATEGORIES_PATTERNS can be matched by at least one pattern."""
+        # A pool of candidate strings to try against each pattern.
+        candidates = [
+            "IT", "information technology", "technology", "technical",
+            "operations", "operator", "admin", "administrator",
+            "finance", "accounting", "procurement", "marketing",
+            "communications", "sales", "hr", "human resources", "people",
+            "product", "program", "project", "engineering", "engineer",
+            "developer", "analyst", "consultant", "owner", "founder",
+            "executive", "leadership", "support", "customer success",
+            "research", "data", "security", "compliance", "legal",
+            "chief", "CDO", "CPO", "CAO", "CLO", "CDIO", "CAIO", "CXO", "CCO",
+            "VP", "vice president", "SVP", "EVP", "AVP",
+            "director", "manager", "team lead", "supervisor",
+            "president", "partner", "principal", "proprietor",
+            "architect", "systems", "infrastructure", "network",
+        ]
+
+        for category, patterns in OTHER_ROLE_CATEGORIES_PATTERNS:
+            matched = False
+            for pat in patterns:
+                for candidate in candidates:
+                    if re.search(pat, candidate, re.IGNORECASE):
+                        matched = True
+                        break
+                if matched:
+                    break
+            assert matched, (
+                "No candidate matched any pattern for category {!r}".format(category)
+            )
