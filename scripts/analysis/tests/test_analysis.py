@@ -1,9 +1,7 @@
 """Tests for tabs_v2_analysis.py — statistical functions and sample filtering."""
 
 import math
-import re
 import sys
-from collections import Counter
 from pathlib import Path
 
 import pytest
