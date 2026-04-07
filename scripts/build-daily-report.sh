@@ -315,12 +315,14 @@ STATUSEOF
 # 4. New returns (DELTA_RETURNED > 0)
 # 5. Total awaiting review > 0
 # 6. Messaging failures (TOTAL_FAILED > 0)
+# 7. Dashboard data unavailable (HAS_DASHBOARD = false)
 
 CRITICAL_FINDINGS=false
 [ "${TRIAGE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${APPROVE_RESULT_STATUS:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${MESSAGE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${DASHBOARD_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
+[ "$HAS_DASHBOARD" = false ] && CRITICAL_FINDINGS=true
 echo "$RECOMMENDATIONS" | grep -qE "Critical|Anomaly|Action" && CRITICAL_FINDINGS=true
 [ "$DELTA_REJECTED" -gt 0 ] && CRITICAL_FINDINGS=true
 [ "$DELTA_RETURNED" -gt 0 ] && CRITICAL_FINDINGS=true
