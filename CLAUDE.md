@@ -434,6 +434,37 @@ git commit -m "chore: update dependencies"
 - **Lazy load when possible**: Use dynamic imports for large components
 - **Monitor Lighthouse scores**: CI runs Lighthouse on every PR
 
+## AI Coding Agents & Concurrency
+
+TABS operates a **multi-agent setup** with three distinct AI coding agents working in parallel across different infrastructure pools.
+
+| Agent       | Trigger                         | Concurrency | Pool         | Primary Role                                   |
+| ----------- | ------------------------------- | ----------- | ------------ | ---------------------------------------------- |
+| **Copilot** | Assign `copilot-swe-agent[bot]` | ~4          | GitHub       | Pipeline, workflow, and analysis work          |
+| **Jules**   | Add `jules` label to issue      | 60 (Ultra)  | Google Cloud | Visualization, content, and frontend work      |
+| **Claude**  | Direct session orchestration    | 1           | Anthropic    | Orchestration, PR management, complex analysis |
+
+_(Note: Gemini Code Assist also runs automatically on PRs if installed, but does not count against issue-to-PR agent concurrency)._
+
+### Google Jules Integration
+
+Jules is Google's autonomous coding agent powered by Gemini. We use the **Ultra tier**, which gives us up to 60 concurrent tasks.
+
+**How to use Jules:**
+
+1. Create a GitHub issue describing the needed change (frontend, content, or visualization).
+2. Add the `jules` label to the issue.
+3. The `.github/workflows/jules-on-label.yml` workflow triggers automatically.
+4. Jules clones the repo to a Google Cloud VM, processes the request, and opens a PR.
+
+**Features we use:**
+
+- Issue-to-PR coding via the `jules` label
+- Automatic issue finding and scheduled sessions
+- Build and quality checks before PR creation
+
+Jules and Copilot are complementary — Jules handles scale and frontend tasks, while Copilot handles backend automation and code review.
+
 ## IDE-Specific Capabilities
 
 Claude Code runs in **VS Code**, **Claude Desktop app**, and **web (claude.ai/code)**. All share `~/.claude/settings.json` and memory. MCP config locations differ:
@@ -813,6 +844,40 @@ gh run watch <RUN_ID> --repo clarkemoyer/technologyadoptionbarriers.org --exit-s
 
 **Timeouts**: Review polling 15min, fix waiting 20min, API retries 3x with exponential backoff.
 
+**Retry on timeout**: If fixes aren't pushed within 20min, the script re-requests the fix and dispatches the next round anyway (instead of dying). The next round's review will catch whether comments were addressed.
+
+### Automated Chain: Issue → Agent → Review → Human
+
+When you assign a GitHub issue to the Copilot coding agent, the full chain runs hands-off:
+
+```
+1. Assign issue to copilot-swe-agent[bot]
+2. Copilot agent works autonomously (creates copilot/* branch)
+3. Agent opens draft PR [WIP]
+4. Agent finishes → marks PR ready for review
+5. auto-review-on-ready.yml fires (lightweight, no environment gate)
+6. Dispatches copilot-review-cycle.yml via workflow_dispatch
+7. Review cycle runs 1-7 rounds: review → fix → re-review
+8. Posts consolidated round history table when clean
+9. Human reviews final PR
+```
+
+**Key**: `auto-review-on-ready.yml` uses only `GITHUB_TOKEN` (no environment secrets), so it runs immediately for bot-created PRs without the `action_required` approval gate.
+
+**Assign via CLI**:
+
+```bash
+# Assign Copilot to an issue
+gh api repos/clarkemoyer/technologyadoptionbarriers.org/issues/<ISSUE#> \
+  -X PATCH -f "assignees[]=copilot-swe-agent[bot]"
+
+# Or use gh agent-task (gh v2.89+)
+gh agent-task create  # from within the repo directory
+
+# Monitor all agent tasks
+gh agent-task list
+```
+
 ## Privacy & Data Flow
 
 Pipeline data has strict PII boundaries:
@@ -851,6 +916,7 @@ All workflows support `workflow_dispatch` for manual triggering:
 | `prolific-reject-auto-exclude.yml` | `gh workflow run prolific-reject-auto-exclude.yml`                | Manual reject (requires confirmation)       |
 | `validate-analysis.yml`            | `gh workflow run validate-analysis.yml`                           | Run Python analysis tests                   |
 | `ci.yml`                           | `gh workflow run ci.yml --ref <branch>`                           | CI (format, lint, test, build, E2E)         |
+| `jules-on-label.yml`               | `gh workflow run jules-on-label.yml` (or add `jules` label)       | Invoke Jules coding agent for an issue      |
 
 **Tip**: Use `--ref <branch>` to test workflow changes on a PR branch before merging.
 
@@ -881,7 +947,119 @@ All Python scripts live in `scripts/analysis/`. They are the primary language fo
 
 **Tests**: `scripts/analysis/tests/` contains Python unit tests. Run with `python -m pytest scripts/analysis/tests/`.
 
+## Custom Agents
+
+Claude Code agents are defined in `.claude/agents/` (gitignored — local only). They provide specialized behavior invoked automatically or explicitly.
+
+### TABS Repo Agents
+
+| Agent                  | Purpose                                                            | Model  | Tools                        |
+| ---------------------- | ------------------------------------------------------------------ | ------ | ---------------------------- |
+| `pipeline-validator`   | Check workflow runs, data freshness, production incidents          | Sonnet | Bash, Grep, Read, Glob       |
+| `data-quality-checker` | Audit committed JSON for PII, schema consistency, count mismatches | Sonnet | Read, Grep, Glob (read-only) |
+| `pr-manager`           | PR status, CI, reviews, merge readiness, trigger review cycles     | Sonnet | Bash, Grep, Read             |
+
+### Global Agents (`~/.claude/agents/`)
+
+| Agent                  | Purpose                                                                     |
+| ---------------------- | --------------------------------------------------------------------------- |
+| `copilot-review-cycle` | Full review cycle — request review, read comments, fix code, commit, repeat |
+| `pr-reviewer`          | FFC-specific PR review checklist (naming, security, a11y, static export)    |
+
+**Invoke**: Claude auto-selects agents based on task description. You can also say "use the pipeline-validator agent" explicitly.
+
+## Scheduled Tasks
+
+Claude Code Desktop supports scheduled tasks that run automatically.
+
+### Active Tasks
+
+| Task             | Schedule        | Purpose                                                                               |
+| ---------------- | --------------- | ------------------------------------------------------------------------------------- |
+| `tabs-pr-triage` | Weekdays 9am ET | Morning briefing: open PRs, pipeline health, data freshness, incidents, review cycles |
+
+**Manage**: Sidebar → Scheduled → click task to edit, run now, or disable.
+
+**Create new tasks**: Via CLI `/schedule` or `mcp__scheduled-tasks__create_scheduled_task`.
+
+Tasks run in this Claude Code session and auto-expire after 7 days. Use cloud triggers for persistent automation.
+
+## Hooks
+
+Project-level hooks in `.claude/settings.json`:
+
+### Active Hooks
+
+| Event         | Matcher       | Action                            |
+| ------------- | ------------- | --------------------------------- |
+| `PostToolUse` | `Write\|Edit` | Auto-run Prettier on edited files |
+
+Hooks run automatically — no approval needed. They ensure formatting compliance without manual `npm run format`.
+
+### Available Hook Events
+
+| Event         | When                    | Use For                               |
+| ------------- | ----------------------- | ------------------------------------- |
+| `PostToolUse` | After any tool succeeds | Auto-format, auto-lint, notifications |
+| `PreToolUse`  | Before a tool runs      | Block dangerous commands              |
+| `Stop`        | When Claude finishes    | Verify tests pass before stopping     |
+
+## Permission Model
+
+Claude Code operates under a tiered permission system configured in `~/.claude/settings.json`.
+
+### Denied (43 rules) — blocked entirely
+
+- Git destructive: force push, reset --hard, clean, filter-branch
+- Secret leakage: any bash with API_TOKEN, SECRET, PRIVATE_KEY, PASSWORD
+- Remote code execution: curl\|bash, wget\|sh
+- Filesystem: rm -rf
+- Cloudflare deletions: D1, R2, KV, Hyperdrive
+- GitHub merge via MCP (forces human approval)
+- Calendar event deletion
+
+### Prompts (18 tools) — requires approval each time
+
+- Computer Use: clicks, typing, key presses, drag, clipboard write, open app
+- Chrome: form fills, JS execution, file upload, click actions
+
+### Auto-allowed (500+ tools) — runs without prompting
+
+- All GitHub MCP read/write (local npx server)
+- All Cloudflare create/read/update (NOT delete)
+- Gmail drafts, Calendar create/update
+- All Canva, Playwright, Preview operations
+- All git and gh CLI operations (except destructive)
+- All web search and fetch
+
+**Safety principle**: Anything that permanently destroys data is either denied or requires per-use approval. Everything else is auto-allowed for productivity.
+
+## Dependency Provenance
+
+All MCP servers and API dependencies are tracked for provenance risk. See [issue #783](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/783) for the full chart.
+
+### Risk Tiers
+
+| Tier         | Criteria                                                 | Examples                                                       |
+| ------------ | -------------------------------------------------------- | -------------------------------------------------------------- |
+| **Low**      | Official, from the company, actively maintained          | GitHub MCP, Cloudflare MCP, Google Analytics MCP, `googleapis` |
+| **Medium**   | Community but mature (100+ stars, multiple contributors) | `peter-evans/create-pull-request`, Google Search Console MCP   |
+| **High**     | Community, single maintainer, or stale                   | Qualtrics MCP (academic), R Statistics MCP (stale)             |
+| **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` (deprecated)             |
+
+**Rule**: Prefer official sources. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics — neither company provides official SDKs or MCP servers.
+
 ## Resources
+
+### Making of TABS Documentation
+
+The live website documents this infrastructure at `/making-of-tabs/`:
+
+- `/making-of-tabs/ai-assisted-development` — How AI agents build and maintain the site
+- `/making-of-tabs/development-workflow` — CI/CD pipeline, merge queue, automated testing
+- `/making-of-tabs/integrations/` — Cloudflare, GitHub, Google Analytics, Prolific, Qualtrics
+- `/making-of-tabs/data-analysis` — Analysis pipeline, psychometrics, quality audits
+- `/making-of-tabs/reproducible-analysis` — Reproducibility documentation
 
 ### Project Documentation
 

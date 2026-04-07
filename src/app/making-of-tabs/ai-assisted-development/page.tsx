@@ -35,11 +35,12 @@ const AIAssistedDevelopmentPage = () => {
 
         <section className="mb-10 text-gray-800">
           <p className="mb-6">
-            The TABS website is built almost entirely with AI coding agents. This is not a marketing
-            claim — it is a literal description of how code gets written. A human defines the goal,
-            an AI agent researches the codebase, writes the implementation, and a different AI
-            reviews the result. The human approves, requests changes, or redirects. This page
-            documents exactly how that works, which models we use, and what we have learned.
+            The TABS website is built almost entirely with AI coding agents working in a 3-agent
+            setup (Copilot, Jules, and Claude). This is not a marketing claim — it is a literal
+            description of how code gets written. A human defines the goal, an AI agent researches
+            the codebase, writes the implementation, and a different AI reviews the result. The
+            human approves, requests changes, or redirects. This page documents exactly how that
+            works, which models we use, and what we have learned.
           </p>
         </section>
 
@@ -370,9 +371,15 @@ const AIAssistedDevelopmentPage = () => {
             <h3 className={H3_CLASSES}>Where AI Struggles</h3>
             <ul className="list-disc pl-6 space-y-2 mb-4">
               <li>
-                <strong>Complex merge conflicts</strong> — when multiple branches have diverged
-                significantly, AI agents sometimes revert unrelated changes or create inconsistent
-                resolutions
+                <strong>Merge strategy failures</strong> — squash merging stale branches can
+                silently revert dozens of previously merged PRs. We learned this the hard way when a
+                single squash merge{' '}
+                <Link
+                  href="/making-of-tabs/ai-assisted-development/squash-merge-incident"
+                  className="text-blue-600 hover:underline"
+                >
+                  reverted 25+ PRs across 67 files
+                </Link>
               </li>
               <li>
                 <strong>Nuanced design decisions</strong> — visual layout choices, color palette

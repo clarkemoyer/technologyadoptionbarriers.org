@@ -395,7 +395,7 @@ jobs:
             local url="$1" marker="$2" label="$3"
             fetch_data_page "$url" "$label"
             [ "$FETCH_OK" -ne 0 ] && return 0
-            if echo "$DATA_CONTENT" | grep -F -q -- "$marker"; then
+            if grep -F -q -- "$marker" /tmp/data-body; then
               echo "| $label | ✅ Data renders |" >> /tmp/data-results.txt
             else
               echo "| $label | ❌ Missing: $marker |" >> /tmp/data-results.txt
@@ -410,7 +410,7 @@ jobs:
             fetch_data_page "$url" "$label"
             [ "$FETCH_OK" -ne 0 ] && return 0
             grep_status=0
-            echo "$DATA_CONTENT" | grep -qE -- "$pattern" || grep_status=$?
+            grep -qE -- "$pattern" /tmp/data-body || grep_status=$?
             if [ "$grep_status" -eq 0 ]; then
               echo "| $label | ✅ Data renders |" >> /tmp/data-results.txt
             elif [ "$grep_status" -eq 1 ]; then
@@ -423,8 +423,9 @@ jobs:
           }
 
           # sensitivity-analysis.json → descriptive page renders sample labels with N values
-          # "Conservative Clean (N=<number>)" only appears when JSON data is loaded
-          check_data_regex "${SITE_URL}/results/descriptive" "Conservative Clean \(N=[0-9]+\)" "sensitivity → descriptive"
+          # Note: RSC serialization splits "Conservative Clean" and "(N=78)" across chunks,
+          # so we check for the label which only appears when JSON data is loaded.
+          check_data_marker "${SITE_URL}/results/descriptive" "Conservative Clean" "sensitivity → descriptive"
 
           # sensitivity-analysis.json → data-quality page renders sample definitions table
           check_data_marker "${SITE_URL}/results/data-quality" "Conservative Clean" "sensitivity → data-quality"
@@ -451,9 +452,8 @@ jobs:
 
           check_content() {
             local url="$1" expected="$2" label="$3"
-            local content
-            content=$(curl -s -L --max-time 15 "$url" 2>/dev/null || echo "")
-            if echo "$content" | grep -q "$expected"; then
+            curl -s -L --max-time 15 "$url" -o /tmp/content-body 2>/dev/null || true
+            if grep -q "$expected" /tmp/content-body 2>/dev/null; then
               echo "| $label | ✅ Contains: \"$expected\" |" >> /tmp/content-results.txt
             else
               echo "| $label | ❌ Missing: \"$expected\" |" >> /tmp/content-results.txt
