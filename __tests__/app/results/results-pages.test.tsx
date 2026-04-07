@@ -251,6 +251,21 @@ jest.mock('@/data/data-audit.json', () => ({
   dispositionCounts: {},
   dispositionByStatus: {},
 }))
+jest.mock('@/data/citation-metrics.json', () => ({
+  updatedAt: '2026-04-04T09:00:00Z',
+  totalReferences: 342,
+  uniqueJournals: 87,
+  dateRange: { earliest: 1989, latest: 2025 },
+  itemTypes: [
+    { type: 'Journal Articles', count: 280 },
+    { type: 'Conference Papers', count: 40 },
+    { type: 'Books', count: 22 },
+  ],
+  topCollections: [
+    { name: 'TAM & Extensions', count: 95 },
+    { name: 'Barriers', count: 72 },
+  ],
+}))
 
 /* ── Tests ─────────────────────────────────────────────────── */
 
@@ -352,5 +367,33 @@ describe('Scale Reliability Page', () => {
     const { default: Page } = await import('@/app/results/reliability/page')
     render(<Page />)
     expect(screen.getByRole('heading', { name: /scale reliability/i })).toBeInTheDocument()
+  })
+})
+
+describe('Research Foundation Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/research-foundation/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /research foundation/i })).toBeInTheDocument()
+  })
+
+  it('renders total references stat', async () => {
+    const { default: Page } = await import('@/app/results/research-foundation/page')
+    render(<Page />)
+    expect(screen.getByText('Total References')).toBeInTheDocument()
+  })
+
+  it('renders item types table', async () => {
+    const { default: Page } = await import('@/app/results/research-foundation/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /reference types/i })).toBeInTheDocument()
+    expect(screen.getByText('Journal Articles')).toBeInTheDocument()
+  })
+
+  it('renders top collections table', async () => {
+    const { default: Page } = await import('@/app/results/research-foundation/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /top collections/i })).toBeInTheDocument()
+    expect(screen.getByText('TAM & Extensions')).toBeInTheDocument()
   })
 })
