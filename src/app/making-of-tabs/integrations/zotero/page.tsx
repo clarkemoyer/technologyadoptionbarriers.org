@@ -288,6 +288,154 @@ const ZoteroIntegrationPage = () => {
         </section>
 
         <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Website Citations Collection</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            A dedicated &ldquo;Website Citations&rdquo; collection in Zotero mirrors every reference
+            that appears on the public website. This ensures that no citation exists on the site
+            without a vetted, traceable Zotero entry behind it.
+          </p>
+          <div className="overflow-x-auto my-6">
+            <table className="min-w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b border-gray-300 text-left">
+                  <th className="py-2 pr-4 font-semibold">Subcollection</th>
+                  <th className="py-2 font-semibold">Contents</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                <tr>
+                  <td className="py-2 pr-4 font-mono text-xs">
+                    Bibliography Series &mdash; Branch 1
+                  </td>
+                  <td className="py-2">
+                    Individual user adoption models (TAM, UTAUT, TRI, etc.) &mdash; maps to the 21
+                    Branch 1 bibliography pages
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-4 font-mono text-xs">
+                    Bibliography Series &mdash; Branch 2
+                  </td>
+                  <td className="py-2">
+                    Organizational frameworks (TOE, CMMI, Gartner, etc.) &mdash; maps to the 21+
+                    Branch 2 bibliography pages
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-4 font-mono text-xs">Article Series</td>
+                  <td className="py-2">
+                    All references cited across the 16 long-form articles, with Branch 1 and Branch
+                    2 subcollections
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-4 font-mono text-xs">Concept Maps</td>
+                  <td className="py-2">
+                    Theoretical groundings for the concept mapping visualizations (simple, complex,
+                    and combined)
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-4 font-mono text-xs">Software &amp; Tools</td>
+                  <td className="py-2">
+                    npm and Python packages used to build the website and analysis pipeline, with
+                    license and version tracking
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-4 font-mono text-xs">Results &amp; Analysis</td>
+                  <td className="py-2">
+                    References cited on the results and reproducibility pages (populated as pages
+                    grow)
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Developer Setup</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The integration uses{' '}
+            <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">pyzotero</code>{' '}
+            for all programmatic access. Local development connects to the Zotero desktop
+            application (no API key required); CI/CD workflows use the cloud API via the{' '}
+            <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">zotero-prod</code>{' '}
+            GitHub environment.
+          </p>
+
+          <div className="bg-gray-900 text-green-400 rounded-lg p-6 my-6 font-mono text-sm overflow-x-auto">
+            <pre>{`# Install pyzotero
+pip install pyzotero
+
+# Local access (Zotero desktop must be running)
+from pyzotero import zotero
+zot = zotero.Zotero(0, "user")
+zot.endpoint = "http://localhost:23119/api"
+items = zot.top(limit=10)              # Read items
+colls = zot.collections_top()          # Read collections
+results = zot.items(q="adoption")      # Search
+
+# Cloud access (for writes and CI)
+zot = zotero.Zotero(1527234, "user", api_key)
+zot.create_collections([{"name": "New Collection"}])
+zot.update_item({"key": "ABC", "version": 1, "collections": ["KEY"]})
+
+# MCP server (Claude Desktop / VS Code)
+# Config: uvx --from "pyzotero[mcp]" pyzotero-mcp
+# 10 tools: search, get_item, get_children, list_collections,
+#   list_tags, get_fulltext, find_related, get_citations,
+#   get_references, search_semantic_scholar`}</pre>
+          </div>
+
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 my-8 font-sans text-base">
+            <h3 className="font-bold text-gray-900 mb-3">Environment Variables</h3>
+            <div className="overflow-x-auto">
+              <table className="min-w-full border-collapse text-sm">
+                <thead>
+                  <tr className="border-b border-gray-300 text-left">
+                    <th className="py-2 pr-4 font-semibold">Variable</th>
+                    <th className="py-2 pr-4 font-semibold">Source</th>
+                    <th className="py-2 font-semibold">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  <tr>
+                    <td className="py-2 pr-4 font-mono text-xs">ZOTERO_API_KEY</td>
+                    <td className="py-2 pr-4">
+                      GitHub Secret (<code>zotero-prod</code>) or Windows Credential Manager
+                    </td>
+                    <td className="py-2">API key with read/write/notes permissions</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4 font-mono text-xs">ZOTERO_USER_ID</td>
+                    <td className="py-2 pr-4">GitHub Variable or hardcoded</td>
+                    <td className="py-2">
+                      <code>1527234</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4 font-mono text-xs">ZOTERO_BASE_URL</td>
+                    <td className="py-2 pr-4">GitHub Variable</td>
+                    <td className="py-2">
+                      <code>https://api.zotero.org</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4 font-mono text-xs">ZOTERO_LIBRARY_TYPE</td>
+                    <td className="py-2 pr-4">GitHub Variable</td>
+                    <td className="py-2">
+                      <code>user</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Security &amp; Access</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
