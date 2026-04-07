@@ -9,10 +9,12 @@
  * to the GitHub Issues REST API for older CLI versions.
  *
  * Environment variables:
- *   GH_TOKEN   – GitHub personal access token (required)
- *   REPO_NAME  – owner/repo slug (defaults to GITHUB_REPOSITORY)
- *   STALE_HOURS – hours of inactivity before a task is "stalled" (default: 24)
- *   RETRIGGER  – "true" to re-trigger stalled tasks by re-assigning copilot
+ *   GH_TOKEN     – GitHub personal access token (required)
+ *   REPO_NAME    – owner/repo slug (defaults to GITHUB_REPOSITORY)
+ *   STALE_HOURS  – hours of inactivity before a task is "stalled" (default: 24)
+ *   RETRIGGER    – "true" to re-trigger stalled tasks by re-assigning copilot
+ *   TARGET_ISSUE – issue number to process exclusively when re-running/debugging
+ *   DRY_RUN      – "true" to report findings without performing write operations
  */
 
 import { execSync } from 'child_process'
@@ -23,11 +25,14 @@ import { appendGithubStepSummary, mdEscape } from '../src/lib/github-utils'
 
 // ── Configuration ──────────────────────────────────────────────────────────
 
-const STALE_HOURS = Math.max(1, parseInt(process.env.STALE_HOURS || '24', 10))
+const _staleHoursParsed = parseInt(process.env.STALE_HOURS || '24', 10)
+const STALE_HOURS = Number.isFinite(_staleHoursParsed) ? Math.max(1, _staleHoursParsed) : 24
 const REPO = process.env.REPO_NAME || process.env.GITHUB_REPOSITORY || ''
 const RETRIGGER = process.env.RETRIGGER === 'true'
 /** When set, only process the single issue with this number. */
-const TARGET_ISSUE = process.env.TARGET_ISSUE ? parseInt(process.env.TARGET_ISSUE, 10) : null
+const _targetIssueParsed = process.env.TARGET_ISSUE ? parseInt(process.env.TARGET_ISSUE, 10) : null
+const TARGET_ISSUE =
+  _targetIssueParsed !== null && Number.isFinite(_targetIssueParsed) ? _targetIssueParsed : null
 /** When true, report findings without performing any write operations. */
 const DRY_RUN = process.env.DRY_RUN === 'true'
 
@@ -138,17 +143,19 @@ function listViaIssuesApi(): AgentTask[] {
   const raw = ghJsonArray<any>(
     `api repos/${REPO}/issues?assignee=copilot&state=open&per_page=100 --paginate`
   )
-  return raw.map((issue: any) => ({
-    number: issue.number,
-    title: issue.title ?? '',
-    url: issue.html_url ?? '',
-    updatedAt: issue.updated_at ?? new Date().toISOString(),
-    createdAt: issue.created_at ?? new Date().toISOString(),
-    state: issue.state ?? 'open',
-    assignees: (issue.assignees ?? []).map((a: any) => a.login),
-    labels: (issue.labels ?? []).map((l: any) => l.name),
-    body: issue.body ?? '',
-  }))
+  return raw
+    .filter((issue: any) => !issue.pull_request)
+    .map((issue: any) => ({
+      number: issue.number,
+      title: issue.title ?? '',
+      url: issue.html_url ?? '',
+      updatedAt: issue.updated_at ?? new Date().toISOString(),
+      createdAt: issue.created_at ?? new Date().toISOString(),
+      state: issue.state ?? 'open',
+      assignees: (issue.assignees ?? []).map((a: any) => a.login),
+      labels: (issue.labels ?? []).map((l: any) => l.name),
+      body: issue.body ?? '',
+    }))
 }
 
 function listAgentTasks(): AgentTask[] {
@@ -166,17 +173,48 @@ function listAgentTasks(): AgentTask[] {
 // ── CI status ──────────────────────────────────────────────────────────────
 
 /**
- * Find the most recent open PR that was opened by copilot or references the
- * given issue number (common patterns: "Closes #N", "Fixes #N", "Part of #N").
+ * Find the most recent open PR whose body references the given issue number
+ * (common patterns: "Closes #N", "Fixes #N", "Part of #N").
  */
 function findAssociatedPr(issueNumber: number): PrStatus | null {
   try {
-    // Search for PRs that mention the issue number in the title or body
-    const query = `repo:${REPO} is:pr is:open ${issueNumber} in:body`
-    const results = ghJson<{ items: any[] }>(
-      `api search/issues?q=${encodeURIComponent(query)}&per_page=5`
-    )
-    const prs = (results.items ?? []).filter((i: any) => i.pull_request)
+    // Search for PRs that use explicit issue reference tokens in the body.
+    // Avoid searching for the bare issue number, which can match unrelated
+    // dates, version numbers, and other numeric text.
+    const referenceTokens = [
+      `#${issueNumber}`,
+      `close #${issueNumber}`,
+      `closes #${issueNumber}`,
+      `closed #${issueNumber}`,
+      `fix #${issueNumber}`,
+      `fixes #${issueNumber}`,
+      `fixed #${issueNumber}`,
+      `resolve #${issueNumber}`,
+      `resolves #${issueNumber}`,
+      `resolved #${issueNumber}`,
+      `part of #${issueNumber}`,
+      `refs #${issueNumber}`,
+      `references #${issueNumber}`,
+    ]
+
+    const prMap = new Map<number, any>()
+    for (const token of referenceTokens) {
+      const query = `repo:${REPO} is:pr is:open "${token}" in:body`
+      try {
+        const results = ghJson<{ items: any[] }>(
+          `api search/issues?q=${encodeURIComponent(query)}&per_page=5`
+        )
+        for (const item of results.items ?? []) {
+          if (item.pull_request && typeof item.number === 'number' && !prMap.has(item.number)) {
+            prMap.set(item.number, item)
+          }
+        }
+      } catch {
+        // ignore per-token search failures; continue to next token
+      }
+    }
+
+    const prs = Array.from(prMap.values())
     if (prs.length === 0) return null
 
     // Pick the most recently updated PR
@@ -192,18 +230,14 @@ function findAssociatedPr(issueNumber: number): PrStatus | null {
     const prUrl = prDetail.html_url ?? pr.html_url ?? ''
 
     // Check combined commit status
-    const ciStatus = getCiStatus(REPO, prNumber, headSha)
+    const ciStatus = getCiStatus(REPO, headSha)
     return { prNumber, prUrl, ciStatus, headSha }
   } catch {
     return null
   }
 }
 
-function getCiStatus(
-  repo: string,
-  prNumber: number,
-  headSha: string
-): 'pass' | 'fail' | 'pending' | 'unknown' {
+function getCiStatus(repo: string, headSha: string): 'pass' | 'fail' | 'pending' | 'unknown' {
   if (!headSha) return 'unknown'
   try {
     // Combined status (legacy CI)
@@ -219,12 +253,24 @@ function getCiStatus(
     const runs = ghJson<any>(`api repos/${repo}/commits/${headSha}/check-runs?per_page=100`)
     const checkRuns: any[] = runs.check_runs ?? []
     if (checkRuns.length === 0) return 'unknown'
-    const failed = checkRuns.filter(
-      (r: any) => r.conclusion === 'failure' || r.conclusion === 'timed_out'
-    )
-    if (failed.length > 0) return 'fail'
+
     const pending = checkRuns.filter((r: any) => r.status !== 'completed')
     if (pending.length > 0) return 'pending'
+
+    const passingConclusions = new Set(['success', 'neutral', 'skipped'])
+    const failingConclusions = new Set([
+      'failure',
+      'timed_out',
+      'cancelled',
+      'action_required',
+      'startup_failure',
+    ])
+
+    for (const run of checkRuns) {
+      const conclusion = run.conclusion
+      if (failingConclusions.has(conclusion)) return 'fail'
+      if (!passingConclusions.has(conclusion)) return 'unknown'
+    }
     return 'pass'
   } catch {
     return 'unknown'
