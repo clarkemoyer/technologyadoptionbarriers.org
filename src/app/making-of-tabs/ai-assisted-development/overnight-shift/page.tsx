@@ -64,7 +64,7 @@ const OvernightShiftPage = () => {
           <figure className="mb-6">
             <img
               src={assetPath('/Images/making-of-tabs/copilot-overnight-shift.png')}
-              alt="Screenshot of a Claude Code terminal session wrapping up the Zotero integration work."
+              alt="Claude Code session handing 9 issues to Copilot for overnight processing and signing off, 'Go sleep — Copilot's got the overnight shift.'"
               className="w-full rounded-lg border border-gray-200 shadow-md"
             />
             <figcaption className="mt-3 text-sm text-gray-500 italic text-center">
@@ -87,7 +87,10 @@ const OvernightShiftPage = () => {
 
           <div className="space-y-4 mb-6">
             <div className="flex gap-4 items-start">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center text-sm font-bold">
+              <span
+                className="flex-shrink-0 w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center text-sm font-bold"
+                aria-hidden="true"
+              >
                 ✓
               </span>
               <div>
@@ -100,7 +103,10 @@ const OvernightShiftPage = () => {
             </div>
 
             <div className="flex gap-4 items-start">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold">
+              <span
+                className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold"
+                aria-hidden="true"
+              >
                 ⏳
               </span>
               <div>
@@ -113,7 +119,10 @@ const OvernightShiftPage = () => {
             </div>
 
             <div className="flex gap-4 items-start">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-sm font-bold">
+              <span
+                className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-sm font-bold"
+                aria-hidden="true"
+              >
                 9
               </span>
               <div>
@@ -127,7 +136,10 @@ const OvernightShiftPage = () => {
             </div>
 
             <div className="flex gap-4 items-start">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-600 text-white flex items-center justify-center text-sm font-bold">
+              <span
+                className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-600 text-white flex items-center justify-center text-sm font-bold"
+                aria-hidden="true"
+              >
                 📋
               </span>
               <div>
