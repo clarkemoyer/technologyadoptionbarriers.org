@@ -166,7 +166,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
-    // Organizational Bibliography Articles (19 models)
+    // Organizational Bibliography Articles (21 models)
     {
       url: `${baseUrl}/bibliography-2-1-resource-based-view-rbv-wernerfelt-1984`,
       lastModified: now,
@@ -277,6 +277,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/bibliography-2-19-microsoft-ai-adoption-framework-2025`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-20-gartner-hype-cycle-methodology-2025`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-21-diffusion-of-innovations-organizational-rogers-1962`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.6,
