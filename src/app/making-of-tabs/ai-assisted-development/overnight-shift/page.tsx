@@ -64,12 +64,15 @@ const OvernightShiftPage = () => {
           <figure className="mb-6">
             <img
               src={assetPath('/Images/making-of-tabs/copilot-overnight-shift.png')}
-              alt="Claude Code terminal session showing a status summary: PRs #1281 and #1283 merged, PR #1293 auto-merge waiting, 9 issues assigned to Copilot overnight, and issue #1347 documented for next session. The final message reads: You're good. Go sleep — Copilot's got the overnight shift."
+              alt="Screenshot of a Claude Code terminal session wrapping up the Zotero integration work."
               className="w-full rounded-lg border border-gray-200 shadow-md"
             />
             <figcaption className="mt-3 text-sm text-gray-500 italic text-center">
-              Claude Code wrapping up the Zotero integration session — everything is either merged,
-              auto-merging, assigned to Copilot, or documented for the next session.
+              Claude Code wrapping up the Zotero integration session: PRs #1281 and #1283 are
+              merged, PR #1293 is waiting on auto-merge, 9 issues are assigned to Copilot for
+              overnight processing, and issue #1347 is documented for the next session. The final
+              sign-off reads, &ldquo;You&apos;re good. Go sleep — Copilot&apos;s got the overnight
+              shift.&rdquo;
             </figcaption>
           </figure>
         </section>
