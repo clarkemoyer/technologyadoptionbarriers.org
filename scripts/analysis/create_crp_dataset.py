@@ -57,7 +57,7 @@ Usage:
 
 Exit codes:
     0  Success
-    1  PII detected in output (verification failed)
+    1  PII flagged / review required (input free-text or output verification)
     2  Input / configuration error
 
 Author: Clarke Moyer, Penn State Smeal DBA
@@ -839,7 +839,8 @@ def deidentify_selected(
 ) -> int:
     """Run the full 5-step NIST de-identification on selected rows.
 
-    Returns True on success, False if PII verification fails.
+    Returns:
+        0 on success, 1 if PII verification/review fails.
     """
     output_dir.mkdir(parents=True, exist_ok=True)
     rows = rows_to_dicts(selected_rows, headers)
@@ -982,6 +983,7 @@ def main() -> int:
         "PROLIFIC_PID", "Prolific_Status", "ResponseId", "StartDate",
         "Finished", "Duration (in seconds)",
         BARRIER_IRI, READINESS_IRI, MATURITY_IRI,
+        "Auth_LLM", "Auth_Bots", "Q_RecaptchaScore", "Q_StraightliningCount",
     ]
     missing_columns = [col for col in required_columns if col not in idx]
     if missing_columns:
