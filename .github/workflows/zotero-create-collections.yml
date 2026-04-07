@@ -1,0 +1,74 @@
+name: Zotero — Create Website Citations Collection
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    environment: zotero-prod
+    steps:
+      - name: Install pyzotero
+        run: pip install pyzotero==1.11.0
+
+      - name: Create collections
+        env:
+          ZOTERO_API_KEY: ${{ secrets.ZOTERO_API_KEY }}
+          ZOTERO_USER_ID: ${{ vars.ZOTERO_USER_ID }}
+        run: |
+          python3 << 'PYEOF'
+          import json, os
+          from pyzotero import zotero
+
+          zot = zotero.Zotero(os.environ['ZOTERO_USER_ID'], 'user', os.environ['ZOTERO_API_KEY'])
+
+          # Check if Website Citations already exists
+          parent_key = None
+          for c in zot.collections_top():
+              if c['data']['name'] == 'Website Citations':
+                  parent_key = c['key']
+                  print(f"Found existing 'Website Citations': {parent_key}")
+                  break
+
+          if not parent_key:
+              print("Creating 'Website Citations' collection...")
+              result = zot.create_collections([{'name': 'Website Citations'}])
+              for idx, obj in result.get('successful', {}).items():
+                  parent_key = obj['data']['key']
+              print(f"Created: {parent_key}")
+
+          if not parent_key:
+              print("ERROR: Could not create collection")
+              exit(1)
+
+          # Check existing subcollections
+          existing = {c['data']['name'] for c in zot.collections_sub(parent_key)}
+          print(f"Existing subcollections: {existing}")
+
+          subs_to_create = []
+          for name in [
+              'Bibliography Series — Branch 1 (User Adoption Models)',
+              'Bibliography Series — Branch 2 (Organizational Frameworks)',
+              'Article Series',
+              'Concept Maps',
+              'Results & Analysis',
+              'Software & Tools',
+          ]:
+              if name not in existing:
+                  subs_to_create.append({'name': name, 'parentCollection': parent_key})
+
+          if subs_to_create:
+              print(f"Creating {len(subs_to_create)} subcollections...")
+              sub_result = zot.create_collections(subs_to_create)
+              print(json.dumps(sub_result, indent=2))
+          else:
+              print("All subcollections already exist.")
+
+          # Verify
+          all_subs = zot.collections_sub(parent_key)
+          print(f"\n✅ Website Citations ({parent_key}) — {len(all_subs)} subcollections:")
+          for s in all_subs:
+              print(f"  {s['key']} — {s['data']['name']}")
+          PYEOF
