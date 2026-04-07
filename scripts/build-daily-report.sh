@@ -324,7 +324,7 @@ CRITICAL_FINDINGS=false
 [ "${MESSAGE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${DASHBOARD_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "$HAS_DASHBOARD" = false ] && CRITICAL_FINDINGS=true
-echo "$RECOMMENDATIONS" | grep -qP "🔴|🟡|🟠" && CRITICAL_FINDINGS=true
+echo "$RECOMMENDATIONS" | grep -qE "🔴|🟡|🟠" && CRITICAL_FINDINGS=true
 [ "$DELTA_REJECTED" -gt 0 ] && CRITICAL_FINDINGS=true
 [ "$DELTA_RETURNED" -gt 0 ] && CRITICAL_FINDINGS=true
 [ "$TODAY_AWAITING" -gt 0 ] && CRITICAL_FINDINGS=true
