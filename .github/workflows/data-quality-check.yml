@@ -48,7 +48,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Scan src/data/*.json for PID patterns
+      - name: Scan src/data/**/*.json for PID patterns
         id: pii_scan
         run: |
           python3 scripts/check-data-pii.py 2>&1 | tee /tmp/pii-scan-output.txt

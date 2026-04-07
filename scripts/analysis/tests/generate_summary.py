@@ -25,12 +25,14 @@ def _assert_no_pids(text: str) -> None:
 
     This is a defence-in-depth guard to ensure the step summary never
     accidentally leaks a participant identifier into the public workflow UI.
+    Only the count and unique count are reported — no match fragments.
     """
     matches = _PID_RE.findall(text)
     if matches:
-        redacted = [m[:6] + "..." + m[-4:] for m in matches]
+        unique_count = len(set(matches))
         raise RuntimeError(
-            f"Step summary contains {len(matches)} potential PID(s): {redacted}. "
+            f"Step summary contains {len(matches)} potential PID match(es) "
+            f"across {unique_count} unique value(s). "
             "Aborting to prevent accidental data exposure in the public Actions UI."
         )
 
@@ -66,5 +68,9 @@ if __name__ == "__main__":
         data = json.load(f)
 
     summary = generate_summary(data)
-    _assert_no_pids(summary)  # defence-in-depth: block any accidental PID leak
+    try:
+        _assert_no_pids(summary)  # defence-in-depth: block any accidental PID leak
+    except RuntimeError as exc:
+        print(f"⛔ {exc}", file=sys.stderr)
+        sys.exit(1)
     print(summary)
