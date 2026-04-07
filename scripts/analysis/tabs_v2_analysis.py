@@ -1231,6 +1231,8 @@ def sensitivity_to_json(cuts, idx):
         org_sizes = Counter()
         profit_models = Counter()
         other_text_idx = idx.get('Q1_Role_11_TEXT')
+        org_size_idx = idx.get('Q4_OrgSize')
+        profit_model_idx = idx.get('Q5_ProfitModel')
 
         for r in rows:
             role = get_role(r, idx)
@@ -1248,8 +1250,10 @@ def sensitivity_to_json(cuts, idx):
                 else:
                     text = ''
                 other_cats[categorize_other_role(text)] += 1
-            org_sizes[r[idx['Q4_OrgSize']].strip()] += 1
-            profit_models[r[idx['Q5_ProfitModel']].strip()] += 1
+            if org_size_idx is not None and org_size_idx < len(r):
+                org_sizes[r[org_size_idx].strip()] += 1
+            if profit_model_idx is not None and profit_model_idx < len(r):
+                profit_models[r[profit_model_idx].strip()] += 1
 
         # Preserve ordered output for org sizes and profit models.
         org_sizes_out = {k: org_sizes.get(k, 0) for k in ALL_ORG_SIZES}
