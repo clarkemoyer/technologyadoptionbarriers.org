@@ -158,10 +158,14 @@ const MOCK_SENSITIVITY_DATA = {
   sample_details: {
     conservative_clean: {
       demographics: {
-        roles: {},
+        roles: { CIO: 10, Other: 5, CEO: 8 },
         org_sizes: {},
         profit_models: {},
-        tech_vs_nontech: { technical: 0, non_technical: 0, other: 0 },
+        tech_vs_nontech: { technical: 15, non_technical: 50, other: 12 },
+        other_roles: {
+          total: 5,
+          categories: { 'C-Suite Adjacent': 2, Director: 2, Uncategorized: 1 },
+        },
       },
       effect_sizes: {},
       cross_tabs: { by_role: [], by_org_size: [] },
@@ -297,6 +301,28 @@ describe('Sample & Demographics Page', () => {
     const { default: Page } = await import('@/app/results/sample/page')
     render(<Page />)
     expect(screen.getByRole('heading', { name: /sample & demographics/i })).toBeInTheDocument()
+  })
+
+  it('renders tech vs non-tech breakdown when data is present', async () => {
+    const { default: Page } = await import('@/app/results/sample/page')
+    render(<Page />)
+    expect(screen.getAllByText(/technical vs\. non-technical breakdown/i).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/Technical \(CIO, CTO\)/i).length).toBeGreaterThan(0)
+  })
+
+  it('renders Other role categories when data is present', async () => {
+    const { default: Page } = await import('@/app/results/sample/page')
+    render(<Page />)
+    expect(screen.getAllByText(/other.*role categories/i).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/C-Suite Adjacent/i).length).toBeGreaterThan(0)
+  })
+
+  it('renders Understanding Other Roles methodology section', async () => {
+    const { default: Page } = await import('@/app/results/sample/page')
+    render(<Page />)
+    expect(
+      screen.getByRole('heading', { name: /understanding.*other.*roles/i })
+    ).toBeInTheDocument()
   })
 })
 
