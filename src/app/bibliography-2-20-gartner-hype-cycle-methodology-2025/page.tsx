@@ -102,7 +102,7 @@ const GartnerHypeCycleMethodologyPage = () => {
               <strong>Board and Executive Communication:</strong> Senior leaders require concise,
               credible summaries of the technology landscape. The Hype Cycle&rsquo;s graphical
               format provides an immediately interpretable visualization that supports executive
-              decision- making and board-level technology governance.
+              decision-making and board-level technology governance.
             </li>
           </ul>
 
@@ -136,8 +136,8 @@ const GartnerHypeCycleMethodologyPage = () => {
               adoption decisions.
             </li>
             <li>
-              <strong>Priority Matrix Companion:</strong> The Priority Matrix overlays time-to-
-              plateau with benefit rating to provide a two-dimensional view of technology
+              <strong>Priority Matrix Companion:</strong> The Priority Matrix overlays
+              time-to-plateau with benefit rating to provide a two-dimensional view of technology
               prioritization, directly supporting portfolio-level adoption planning.
             </li>
           </ul>
