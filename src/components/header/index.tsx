@@ -78,14 +78,7 @@ const Header: React.FC = () => {
   const menuItems: MenuItem[] = useMemo(
     () => [
       { label: 'Home', path: '/' },
-      {
-        label: 'Tech Adoption Barriers',
-        path: '/barriers',
-        children: [
-          { label: 'All Barriers', path: '/barriers' },
-          { label: 'Famous Quotes', path: '/barriers/quotes' },
-        ],
-      },
+      { label: 'Tech Adoption Barriers', path: '/barriers' },
       {
         label: 'Results',
         path: '/results',

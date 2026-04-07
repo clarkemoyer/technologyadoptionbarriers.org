@@ -195,7 +195,7 @@ const MakingOfTabsPage = () => {
               {
                 title: 'AI-Assisted Development',
                 href: '/making-of-tabs/ai-assisted-development',
-                desc: 'The 3-agent setup (Copilot, Jules, Claude) and workflows we use to build and maintain the site.',
+                desc: 'The AI models and workflows we use to build and maintain the site.',
                 border: 'border-purple-200',
                 bg: 'bg-purple-50',
                 titleColor: 'text-purple-900',
@@ -254,15 +254,6 @@ const MakingOfTabsPage = () => {
                 bg: 'bg-teal-50',
                 titleColor: 'text-teal-900',
                 textColor: 'text-teal-800',
-              },
-              {
-                title: 'Automation Infrastructure',
-                href: '/making-of-tabs/automation-infrastructure',
-                desc: 'The hands-off chain from issue to production, daily data pipelines, privacy boundaries, and AI agent coordination.',
-                border: 'border-indigo-200',
-                bg: 'bg-indigo-50',
-                titleColor: 'text-indigo-900',
-                textColor: 'text-indigo-800',
               },
             ].map((card) => (
               <Link

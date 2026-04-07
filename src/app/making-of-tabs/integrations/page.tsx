@@ -101,15 +101,6 @@ const IntegrationsPage = () => {
                 DNS, global CDN, SSL/TLS, caching strategy, and security headers
               </p>
             </Link>
-            <Link
-              href="/making-of-tabs/integrations/google-jules"
-              className="block rounded-xl border border-rose-200 bg-rose-50 p-5 transition-shadow hover:shadow-md"
-            >
-              <p className="font-bold text-rose-900 mb-1">Google Jules</p>
-              <p className="text-sm text-rose-800">
-                Autonomous coding agent powered by Gemini for frontend work and content updates
-              </p>
-            </Link>
           </div>
         </section>
 

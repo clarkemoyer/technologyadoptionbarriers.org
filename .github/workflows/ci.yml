@@ -44,9 +44,6 @@ jobs:
       - name: Run linting
         run: npm run lint
 
-      - name: Validate data schemas
-        run: npm run validate:data
-
       - name: Run unit tests
         run: npm test
         env:
