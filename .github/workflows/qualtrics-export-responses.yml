@@ -15,6 +15,11 @@ concurrency:
 permissions:
   contents: read
 
+env:
+  # Official GitHub flag to force Node.js 24 runtime ahead of the June 2026 mandatory deadline.
+  # Ref: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   export:
     name: Export Responses to CSV
@@ -24,7 +29,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 

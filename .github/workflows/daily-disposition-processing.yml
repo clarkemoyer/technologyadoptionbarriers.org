@@ -20,6 +20,11 @@ permissions:
   pull-requests: write
   issues: write
 
+env:
+  # Official GitHub flag to force Node.js 24 runtime ahead of the June 2026 mandatory deadline.
+  # Ref: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   # Step 1: Get disposition CSV — prefer analysis pipeline artifact, fallback to fresh export
   triage:
@@ -28,7 +33,7 @@ jobs:
     environment: qualtrics-prod
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
@@ -88,7 +93,7 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - uses: actions/download-artifact@v8
@@ -135,7 +140,7 @@ jobs:
           - AUTO-EXCLUDE:SPEED_IRI
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - uses: actions/download-artifact@v8
@@ -177,7 +182,7 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - uses: actions/download-artifact@v8

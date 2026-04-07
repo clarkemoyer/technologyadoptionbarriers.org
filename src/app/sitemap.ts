@@ -166,7 +166,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
-    // Organizational Bibliography Articles (19 models)
+    // Organizational Bibliography Articles (21 models)
     {
       url: `${baseUrl}/bibliography-2-1-resource-based-view-rbv-wernerfelt-1984`,
       lastModified: now,
@@ -281,6 +281,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    {
+      url: `${baseUrl}/bibliography-2-20-gartner-hype-cycle-methodology-2025`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/bibliography-2-21-diffusion-of-innovations-organizational-rogers-1962`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
     // Branch introductions
     ...technologyAdoptionModelsSeries.branches.map((branch) => ({
       url: `${baseUrl}${branch.slug}`,
@@ -335,12 +347,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/barriers/quotes`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.8,
     },
     // Results section
     {
@@ -536,12 +542,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/making-of-tabs/integrations/google-jules`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
       url: `${baseUrl}/making-of-tabs/ai-assisted-development`,
       lastModified: now,
       changeFrequency: 'monthly',
@@ -573,12 +573,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/making-of-tabs/seo`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/making-of-tabs/automation-infrastructure`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,

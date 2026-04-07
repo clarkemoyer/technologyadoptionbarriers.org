@@ -62,9 +62,7 @@ const MediaPage = () => {
       <main className="pt-[80px]">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(orgLdJson).replace(/</g, '\\u003c').replace(/>/g, '\\u003e'),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLdJson) }}
         />
 
         <div className="bg-gray-900 py-16 text-white">

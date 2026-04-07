@@ -45,15 +45,15 @@ from tabs_v2_analysis import (
 
 class TestCohensD_Extended:
     def test_nonzero_effect(self):
-        d, ci_l, ci_u = cohens_d([1, 2, 3, 4], [5, 6, 7, 8])
+        d = cohens_d([1, 2, 3, 4], [5, 6, 7, 8])
         assert d is not None
         assert d < 0  # group1 < group2
 
     def test_empty_groups(self):
-        assert cohens_d([], [1, 2, 3]) == (None, None, None)
+        assert cohens_d([], [1, 2, 3]) is None
 
     def test_none_values_in_groups(self):
-        assert cohens_d([None, None], [1, 2, 3]) == (None, None, None)
+        assert cohens_d([None, None], [1, 2, 3]) is None
 
 
 class TestKurtosisExcess:
