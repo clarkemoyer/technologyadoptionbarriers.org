@@ -320,7 +320,7 @@ const Article23Page = () => {
             </li>
             <li>
               Teece, D. J., Pisano, G., &amp; Shuen, A. (1997). Dynamic capabilities and strategic
-              management. <em>Strategic Management Journal, 18</em>(7), 509&ndash;533.{' '}
+              management. <em>Strategic Management Journal, 18</em>(S1), 509&ndash;533.{' '}
               <Citation doi="10.1002/(SICI)1097-0266(199708)18:7<509::AID-SMJ882>3.0.CO;2-Z" />
             </li>
           </ol>
