@@ -203,7 +203,7 @@ const ConceptMappingSimple = () => {
           {/* Section Filter Chips */}
           <div className="flex flex-wrap justify-center gap-2">
             {SECTIONS.map((s) => (
-              <span key={s.key} className="inline-flex items-center gap-1">
+              <div key={s.key} className="inline-flex items-center gap-1">
                 <button
                   onClick={() => handleSectionClick(s.key)}
                   className="px-4 py-2 rounded-full border-2 transition-all duration-200 text-sm font-medium"
@@ -224,7 +224,7 @@ const ConceptMappingSimple = () => {
                     <Info className="w-3.5 h-3.5 text-gray-400 hover:text-gray-600 cursor-help" />
                   </Tooltip>
                 )}
-              </span>
+              </div>
             ))}
           </div>
 
