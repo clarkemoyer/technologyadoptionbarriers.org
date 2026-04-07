@@ -576,6 +576,7 @@ def generate_manifest(profiles: list[dict], target_n: int) -> str:
     tier3 = [p for p in accepted if p["tier"] == 3]
     tier3_selected = [p for p in tier3 if p["selected"]]
     tier3_excluded = [p for p in tier3 if not p["selected"]]
+    ineligible = [p for p in accepted if p["tier"] is None]
 
     w("=" * 78)
     w("  CRP DATASET SELECTION MANIFEST")
@@ -597,6 +598,8 @@ def generate_manifest(profiles: list[dict], target_n: int) -> str:
     w(f"  {'─' * 35} {'─' * 6} {'─' * 11}")
     w(f"  {'TOTAL SELECTED':<35} {len(selected):>6}")
     w(f"  {'Tier 3 Excluded':<35} {len(tier3_excluded):>6}")
+    if ineligible:
+        w(f"  {'Ineligible (not finished/too short)':<35} {len(ineligible):>6}")
     w(f"  {'Total Prolific Accepted':<35} {len(accepted):>6}")
 
     # ── Tier 2 breakdown by disposition ──
@@ -661,8 +664,8 @@ def generate_manifest(profiles: list[dict], target_n: int) -> str:
         w(f"\n  {'Score Range':<15} {'Selected':>9} {'Excluded':>9} {'Total':>6}")
         w(f"  {'─' * 15} {'─' * 9} {'─' * 9} {'─' * 6}")
         for lo, hi in bins:
-            s = sum(1 for x in selected_scores if lo <= x < hi)
-            e = sum(1 for x in excluded_scores if lo <= x < hi)
+            s = sum(1 for x in selected_scores if lo <= x <= hi) if hi == 100 else sum(1 for x in selected_scores if lo <= x < hi)
+            e = sum(1 for x in excluded_scores if lo <= x <= hi) if hi == 100 else sum(1 for x in excluded_scores if lo <= x < hi)
             if s + e > 0:
                 w(f"  {lo:>3}–{hi:<3}        {s:>9} {e:>9} {s + e:>6}")
 
