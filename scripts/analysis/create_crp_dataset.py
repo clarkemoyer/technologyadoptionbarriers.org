@@ -415,9 +415,9 @@ def sort_key_quality(entry: dict) -> tuple:
     )
 
 
-# ──────────────────────────���──────────────────────────────────
+# ─────────────────────────────────────────────────────────────
 # V2 filtering, deduplication, and tiered selection
-# ───��───────────────��──────────────────────────────��──────────
+# ─────────────────────────────────────────────────────────────
 
 
 def filter_v2_and_dedup(
@@ -539,9 +539,9 @@ def select_crp_sample(
     return profiles  # all profiles now have tier/selected set
 
 
-# ─────────────────────────────────────────��───────────────────
+# ──────────────────────────────────────────────────────────────
 # Selection manifest and reporting
-# ──────────────���──────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────
 
 
 def generate_manifest(profiles: list[dict], target_n: int) -> str:
@@ -614,7 +614,7 @@ def generate_manifest(profiles: list[dict], target_n: int) -> str:
     if speed_responses:
         w(f"\n  {'ResponseId':<20} {'Score':>6} {'Dur(s)':>7} {'reCAPTCHA':>10} "
           f"{'Auth_LLM':>9} {'Auth_Bot':>9} {'SL':>3} {'PSL':>4} {'Result':>10}")
-        w(f"  {'─' * 20} {'─' * 6} {'��' * 7} {'─' * 10} "
+        w(f"  {'─' * 20} {'─' * 6} {'──' * 7} {'─' * 10} "
           f"{'─' * 9} {'─' * 9} {'─' * 3} {'─' * 4} {'─' * 10}")
         for p in sorted(speed_responses, key=lambda x: -x["quality_score"]):
             auth_llm = "FLAG" if p["llm_flag"] else "PASS"
@@ -919,9 +919,9 @@ def deidentify_selected(
     return True
 
 
-# ───────────────────────���─────────────────────────────────────
+# ───────────────────────────────────────────────────────────────
 # Main
-# ─────────────────────────────────────────���───────────────────
+# ───────────────────────────────────────────────────────────────
 
 
 def main() -> int:
