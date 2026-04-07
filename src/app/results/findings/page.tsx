@@ -10,7 +10,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
-import EffectSizeChart, { EffectSizeData } from '@/components/effect-size-chart'
+import EffectSizeChart from '@/components/effect-size-chart'
 
 export const metadata: Metadata = {
   title: 'Key Findings — TABS Results',
