@@ -3,7 +3,9 @@
 import Script from 'next/script'
 
 // Google Tag Manager ID
-const GTM_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || 'GTM-P5GBFCTL'
+// Ensure it only contains alphanumeric characters and hyphens to prevent XSS
+const rawGtmId = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || 'GTM-P5GBFCTL'
+const GTM_ID = /^[a-zA-Z0-9-]+$/.test(rawGtmId) ? rawGtmId : 'GTM-P5GBFCTL'
 
 // Sanitize GTM_ID to prevent XSS (only allow alphanumeric and hyphens)
 const sanitizedGtmId = GTM_ID.replace(/[^a-zA-Z0-9-]/g, '')
