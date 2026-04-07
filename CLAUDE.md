@@ -669,7 +669,8 @@ export GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KE
 
 # Option 2: VS Code MCP (recommended for Qualtrics/GitHub)
 # Copy .vscode/mcp.json.example to .vscode/mcp.json
-# VS Code will prompt for OAuth tokens when connecting
+# VS Code will prompt for OAuth tokens when connecting to Qualtrics/GitHub MCP servers
+# Zotero MCP uses the local Zotero Desktop API, so ensure Zotero Desktop is available and ZOTERO_USER_ID is set
 ```
 
 ## Daily Pipeline Architecture
