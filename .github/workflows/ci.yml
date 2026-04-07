@@ -49,6 +49,9 @@ jobs:
         env:
           CI: true
 
+      - name: Scan src/data/**/*.json for PII patterns
+        run: python3 scripts/check-data-pii.py
+
       - name: Build Next.js site
         run: npm run build
         env:
