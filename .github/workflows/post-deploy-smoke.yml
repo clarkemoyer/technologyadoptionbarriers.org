@@ -453,7 +453,7 @@ jobs:
             http_status="$(curl -s -L --max-time 15 --write-out '%{http_code}' "$url" -o /tmp/content-body 2>/dev/null)"
             curl_exit=$?
 
-            if [ "$curl_exit" -ne 0 ] || [ "$http_status" -lt 200 ] || [ "$http_status" -ge 400 ]; then
+            if [ "$curl_exit" -ne 0 ] || [ "$http_status" -lt 200 ] || [ "$http_status" -ge 300 ]; then
               : > /tmp/content-body
               echo "| $label | ❌ Fetch failed (curl=$curl_exit, http=$http_status) |" >> /tmp/content-results.txt
               CONTENT_FAIL=$((CONTENT_FAIL + 1))
