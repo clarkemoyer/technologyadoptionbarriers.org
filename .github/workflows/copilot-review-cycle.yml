@@ -35,6 +35,11 @@ permissions:
   pull-requests: write
   issues: write
 
+env:
+  # Official GitHub flag to force Node.js 24 runtime ahead of the June 2026 mandatory deadline.
+  # Ref: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   review-cycle:
     name: Review Round ${{ github.event.inputs.round || '1' }}
