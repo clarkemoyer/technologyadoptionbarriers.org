@@ -323,11 +323,17 @@ CRITICAL_FINDINGS=false
 [ "${MESSAGE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${DASHBOARD_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "$HAS_DASHBOARD" = false ] && CRITICAL_FINDINGS=true
-echo "$RECOMMENDATIONS" | grep -qE "Critical|Anomaly|Action" && CRITICAL_FINDINGS=true
+# Regex matches priority tokens/emoji to avoid header text "Recommended Action"
+echo "$RECOMMENDATIONS" | grep -qE "🔴 Critical|🟠 Anomaly|🟡 Action" && CRITICAL_FINDINGS=true
 [ "$DELTA_REJECTED" -gt 0 ] && CRITICAL_FINDINGS=true
 [ "$DELTA_RETURNED" -gt 0 ] && CRITICAL_FINDINGS=true
 [ "$TODAY_AWAITING" -gt 0 ] && CRITICAL_FINDINGS=true
 [ "$TOTAL_FAILED" -gt 0 ] && CRITICAL_FINDINGS=true
+
+# --- Ensure labels exist ---
+# Use || true as idempotent guard
+gh label create "auto-close-eligible" --color "EDEDED" --description "Issues eligible for automatic closure after 24h" 2>/dev/null || true
+gh label create "auto-closed" --color "000000" --description "Issues closed automatically" 2>/dev/null || true
 
 # --- Create issue ---
 TITLE="Daily Disposition Report -- $DATE"
