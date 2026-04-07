@@ -298,8 +298,20 @@ const DatasetComparisonPage = () => {
               </thead>
               <tbody>
                 {(() => {
-                  const fba = sensitivityData.filter_bias_analysis as
-                    | Record<string, { chi2: number; p_value: number; df: number }>
+                  type ChiResult = {
+                    ok: boolean
+                    chi2: number | null
+                    p_value: number | null
+                    df: number | null
+                    error: string | null
+                  }
+                  const fba = (sensitivityData as Record<string, unknown>).filter_bias_analysis as
+                    | (Record<string, ChiResult> & {
+                        profit_model_distribution?: {
+                          labels: string[]
+                          groups: Record<string, Record<string, number>>
+                        }
+                      })
                     | undefined
                   if (!fba) {
                     return (
@@ -311,7 +323,10 @@ const DatasetComparisonPage = () => {
                     )
                   }
 
-                  const getInterpretation = (p: number) => {
+                  const getInterpretation = (p: number | null | undefined) => {
+                    if (p == null) {
+                      return <span className="text-gray-400 italic">Unable to compute</span>
+                    }
                     if (p < 0.05) {
                       return (
                         <span className="text-red-700 font-medium">
@@ -326,47 +341,81 @@ const DatasetComparisonPage = () => {
                     )
                   }
 
+                  const renderRow = (label: string, key: string) => {
+                    const r = fba[key] as ChiResult | undefined
+                    const errTitle = r?.error ? `Error: ${r.error}` : undefined
+                    return (
+                      <tr key={key} title={errTitle}>
+                        <td className="p-2 border-b">{label}</td>
+                        <td className="p-2 border-b text-right font-mono">{fmt(r?.chi2, 2)}</td>
+                        <td className="p-2 border-b text-right font-mono">
+                          {r?.df != null ? r.df : '—'}
+                        </td>
+                        <td className="p-2 border-b text-right font-mono">{fmt(r?.p_value, 4)}</td>
+                        <td className="p-2 border-b">{getInterpretation(r?.p_value)}</td>
+                      </tr>
+                    )
+                  }
+
                   return (
                     <>
-                      <tr>
-                        <td className="p-2 border-b">Role (Tech vs Non-Tech)</td>
-                        <td className="p-2 border-b text-right">{fba.role?.chi2.toFixed(2)}</td>
-                        <td className="p-2 border-b text-right">{fba.role?.df}</td>
-                        <td className="p-2 border-b text-right">{fba.role?.p_value.toFixed(4)}</td>
-                        <td className="p-2 border-b">{getInterpretation(fba.role?.p_value)}</td>
-                      </tr>
-                      <tr>
-                        <td className="p-2 border-b">Organization Size</td>
-                        <td className="p-2 border-b text-right">
-                          {fba.organization_size?.chi2.toFixed(2)}
-                        </td>
-                        <td className="p-2 border-b text-right">{fba.organization_size?.df}</td>
-                        <td className="p-2 border-b text-right">
-                          {fba.organization_size?.p_value.toFixed(4)}
-                        </td>
-                        <td className="p-2 border-b">
-                          {getInterpretation(fba.organization_size?.p_value)}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="p-2 border-b">Profit Model</td>
-                        <td className="p-2 border-b text-right">
-                          {fba.profit_model?.chi2.toFixed(2)}
-                        </td>
-                        <td className="p-2 border-b text-right">{fba.profit_model?.df}</td>
-                        <td className="p-2 border-b text-right">
-                          {fba.profit_model?.p_value.toFixed(4)}
-                        </td>
-                        <td className="p-2 border-b">
-                          {getInterpretation(fba.profit_model?.p_value)}
-                        </td>
-                      </tr>
+                      {renderRow('Role (Tech vs Non-Tech)', 'role')}
+                      {renderRow('Organization Size', 'organization_size')}
+                      {renderRow('Profit Model', 'profit_model')}
                     </>
                   )
                 })()}
               </tbody>
             </table>
           </div>
+
+          {/* Profit Model Distribution (side-by-side counts to support the chi-square result) */}
+          {(() => {
+            const fba = (sensitivityData as Record<string, unknown>).filter_bias_analysis as
+              | {
+                  profit_model_distribution?: {
+                    labels: string[]
+                    groups: Record<string, Record<string, number>>
+                  }
+                }
+              | undefined
+            const dist = fba?.profit_model_distribution
+            if (!dist) return null
+            return (
+              <>
+                <h3 className={H3_CLASSES}>Profit Model Distribution</h3>
+                <div className="overflow-x-auto mb-6">
+                  <table className="w-full text-sm font-sans border-collapse">
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th className="text-left p-2 border-b">Result Group</th>
+                        {dist.labels.map((lbl) => (
+                          <th key={lbl} className="text-right p-2 border-b">
+                            {lbl}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {PRIMARY_GROUPS.map((group) => {
+                        const counts = dist.groups[group.label] ?? {}
+                        return (
+                          <tr key={group.key} className={group.color}>
+                            <td className="p-2 border-b font-medium">{group.label}</td>
+                            {dist.labels.map((lbl) => (
+                              <td key={lbl} className="text-right p-2 border-b font-mono">
+                                {counts[lbl] != null ? counts[lbl] : '—'}
+                              </td>
+                            ))}
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )
+          })()}
         </section>
 
         {/* ── Effect Size Comparison ── */}

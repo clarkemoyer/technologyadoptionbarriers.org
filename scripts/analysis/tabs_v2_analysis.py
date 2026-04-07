@@ -1604,8 +1604,20 @@ def sensitivity_to_json(cuts, idx):
         org_size_counts = []
         profit_model_counts = []
 
-        # Only use the 4 main groups
-        main_cuts = cuts_list[:4]
+        # Only use the 4 main groups, selected explicitly by label so the
+        # analysis does not depend on the ordering of cuts_list.
+        required_labels = [
+            'Conservative Clean',
+            'Flexible Clean',
+            'Prolific Accepted',
+            'All V2 Finished',
+        ]
+        cuts_by_label = {sample_label: rows for sample_label, rows in cuts_list}
+        missing_labels = [label for label in required_labels if label not in cuts_by_label]
+        if missing_labels:
+            # Not all required groups are present — skip the analysis gracefully.
+            return None
+        main_cuts = [(label, cuts_by_label[label]) for label in required_labels]
 
         for sample_label, rows in main_cuts:
             # Tech vs Non-tech
@@ -1628,19 +1640,54 @@ def sensitivity_to_json(cuts, idx):
 
         def _run_chi2(contingency_table):
             try:
-                chi2, p, dof, ex = scipy.stats.chi2_contingency(contingency_table)
-                return {"chi2": round(float(chi2), 2), "p_value": round(float(p), 4), "df": int(dof)}
+                import numpy as _np
+                table = _np.array(contingency_table, dtype=float)
+                # Drop columns that are all-zero across every group to avoid
+                # degenerate expected-frequency errors in chi2_contingency.
+                col_mask = table.sum(axis=0) > 0
+                table = table[:, col_mask]
+                # Also drop all-zero rows.
+                row_mask = table.sum(axis=1) > 0
+                table = table[row_mask, :]
+                chi2, p, dof, ex = scipy.stats.chi2_contingency(table)
+                return {
+                    "ok": True,
+                    "chi2": round(float(chi2), 2),
+                    "p_value": round(float(p), 4),
+                    "df": int(dof),
+                    "error": None
+                }
             except Exception as e:
-                return {"chi2": 0.0, "p_value": 1.0, "df": 0, "error": str(e)}
+                return {
+                    "ok": False,
+                    "chi2": None,
+                    "p_value": None,
+                    "df": None,
+                    "error": str(e)
+                }
+
+        # Collect per-group profit-model counts to power the distribution table.
+        profit_model_labels = ['For-Profit', 'Non-Profit', 'Government/Public Sector']
+        group_labels = [label for label, _ in main_cuts]
+        profit_model_dist = {
+            label: {pm: counts[i] for i, pm in enumerate(profit_model_labels)}
+            for label, counts in zip(group_labels, profit_model_counts)
+        }
 
         return {
             "role": _run_chi2(role_counts),
             "organization_size": _run_chi2(org_size_counts),
-            "profit_model": _run_chi2(profit_model_counts)
+            "profit_model": _run_chi2(profit_model_counts),
+            "profit_model_distribution": {
+                "labels": profit_model_labels,
+                "groups": profit_model_dist,
+            },
         }
 
     # Filter Bias Analysis (Chi-square test across groups)
-    result["filter_bias_analysis"] = filter_bias_analysis_for(cuts)
+    fba_result = filter_bias_analysis_for(cuts)
+    if fba_result is not None:
+        result["filter_bias_analysis"] = fba_result
 
     return result
 

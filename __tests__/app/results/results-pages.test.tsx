@@ -212,6 +212,29 @@ const MOCK_SENSITIVITY_DATA = {
       inferential: {},
     },
   },
+  // filter_bias_analysis: mix of ok:true and ok:false to exercise both rendering paths
+  filter_bias_analysis: {
+    role: { ok: true, chi2: 1.23, p_value: 0.54, df: 6, error: null },
+    organization_size: { ok: true, chi2: 4.56, p_value: 0.03, df: 15, error: null },
+    profit_model: { ok: false, chi2: null, p_value: null, df: null, error: 'degenerate table' },
+    profit_model_distribution: {
+      labels: ['For-Profit', 'Non-Profit', 'Government/Public Sector'],
+      groups: {
+        'Conservative Clean': {
+          'For-Profit': 50,
+          'Non-Profit': 15,
+          'Government/Public Sector': 12,
+        },
+        'Flexible Clean': { 'For-Profit': 80, 'Non-Profit': 22, 'Government/Public Sector': 16 },
+        'Prolific Accepted': {
+          'For-Profit': 140,
+          'Non-Profit': 38,
+          'Government/Public Sector': 30,
+        },
+        'All V2 Finished': { 'For-Profit': 220, 'Non-Profit': 65, 'Government/Public Sector': 47 },
+      },
+    },
+  },
 }
 
 const MOCK_DISPOSITION_DATA = {
@@ -294,6 +317,33 @@ describe('Dataset Comparison Page', () => {
     const { default: Page } = await import('@/app/results/dataset-comparison/page')
     render(<Page />)
     expect(screen.getByRole('heading', { name: /core metrics comparison/i })).toBeInTheDocument()
+  })
+
+  it('renders Filter Bias Analysis heading and chi-square rows without crashing', async () => {
+    const { default: Page } = await import('@/app/results/dataset-comparison/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /filter bias analysis/i })).toBeInTheDocument()
+    // All three demographic category rows are present
+    expect(screen.getByText(/role \(tech vs non-tech\)/i)).toBeInTheDocument()
+    // "Organization Size" also appears as a section heading; assert at least one match
+    expect(screen.getAllByText(/organization size/i).length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByText(/profit model/i).length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('renders profit model distribution table when data is present', async () => {
+    const { default: Page } = await import('@/app/results/dataset-comparison/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /profit model distribution/i })).toBeInTheDocument()
+    // Profit-model category labels appear as column headers
+    expect(screen.getByText('For-Profit')).toBeInTheDocument()
+    expect(screen.getByText('Non-Profit')).toBeInTheDocument()
+  })
+
+  it('renders "Unable to compute" for categories with ok:false without crashing', async () => {
+    // Mock has profit_model: { ok: false } so "Unable to compute" must appear at least once
+    const { default: Page } = await import('@/app/results/dataset-comparison/page')
+    render(<Page />)
+    expect(screen.getByText(/unable to compute/i)).toBeInTheDocument()
   })
 })
 
