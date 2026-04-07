@@ -276,6 +276,148 @@ const DatasetComparisonPage = () => {
           </div>
         </section>
 
+        {/* ── Filter Bias Analysis ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Filter Bias Analysis</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            This analysis tests whether stricter quality filters disproportionately exclude certain
+            demographics. A Chi-square test for independence is computed across the four result
+            groups for role, organization size, and profit model.
+          </p>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm font-sans border-collapse mb-8">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="text-left p-2 border-b">Demographic Category</th>
+                  <th className="text-right p-2 border-b">Chi-Square (χ²)</th>
+                  <th className="text-right p-2 border-b">df</th>
+                  <th className="text-right p-2 border-b">p-value</th>
+                  <th className="text-left p-2 border-b">Interpretation</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(() => {
+                  type ChiResult = {
+                    ok: boolean
+                    chi2: number | null
+                    p_value: number | null
+                    df: number | null
+                    error: string | null
+                  }
+                  const fba = (sensitivityData as Record<string, unknown>).filter_bias_analysis as
+                    | (Record<string, ChiResult> & {
+                        profit_model_distribution?: {
+                          labels: string[]
+                          groups: Record<string, Record<string, number>>
+                        }
+                      })
+                    | undefined
+                  if (!fba) {
+                    return (
+                      <tr>
+                        <td colSpan={5} className="p-2 text-center border-b">
+                          No filter bias analysis data available.
+                        </td>
+                      </tr>
+                    )
+                  }
+
+                  const getInterpretation = (p: number | null | undefined) => {
+                    if (p == null) {
+                      return <span className="text-gray-400 italic">Unable to compute</span>
+                    }
+                    if (p < 0.05) {
+                      return (
+                        <span className="text-red-700 font-medium">
+                          Significant difference (potential bias)
+                        </span>
+                      )
+                    }
+                    return (
+                      <span className="text-gray-600">
+                        No significant difference (demographics stable)
+                      </span>
+                    )
+                  }
+
+                  const renderRow = (label: string, key: string) => {
+                    const r = fba[key] as ChiResult | undefined
+                    const errTitle = r?.error ? `Error: ${r.error}` : undefined
+                    return (
+                      <tr key={key} title={errTitle}>
+                        <td className="p-2 border-b">{label}</td>
+                        <td className="p-2 border-b text-right font-mono">{fmt(r?.chi2, 2)}</td>
+                        <td className="p-2 border-b text-right font-mono">
+                          {r?.df != null ? r.df : '—'}
+                        </td>
+                        <td className="p-2 border-b text-right font-mono">{fmt(r?.p_value, 4)}</td>
+                        <td className="p-2 border-b">{getInterpretation(r?.p_value)}</td>
+                      </tr>
+                    )
+                  }
+
+                  return (
+                    <>
+                      {renderRow('Role (Tech vs Non-Tech)', 'role')}
+                      {renderRow('Organization Size', 'organization_size')}
+                      {renderRow('Profit Model', 'profit_model')}
+                    </>
+                  )
+                })()}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Profit Model Distribution (side-by-side counts to support the chi-square result) */}
+          {(() => {
+            const fba = (sensitivityData as Record<string, unknown>).filter_bias_analysis as
+              | {
+                  profit_model_distribution?: {
+                    labels: string[]
+                    groups: Record<string, Record<string, number>>
+                  }
+                }
+              | undefined
+            const dist = fba?.profit_model_distribution
+            if (!dist) return null
+            return (
+              <>
+                <h3 className={H3_CLASSES}>Profit Model Distribution</h3>
+                <div className="overflow-x-auto mb-6">
+                  <table className="w-full text-sm font-sans border-collapse">
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th className="text-left p-2 border-b">Result Group</th>
+                        {dist.labels.map((lbl) => (
+                          <th key={lbl} className="text-right p-2 border-b">
+                            {lbl}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {PRIMARY_GROUPS.map((group) => {
+                        const counts = dist.groups[group.label] ?? {}
+                        return (
+                          <tr key={group.key} className={group.color}>
+                            <td className="p-2 border-b font-medium">{group.label}</td>
+                            {dist.labels.map((lbl) => (
+                              <td key={lbl} className="text-right p-2 border-b font-mono">
+                                {counts[lbl] != null ? counts[lbl] : '—'}
+                              </td>
+                            ))}
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )
+          })()}
+        </section>
+
         {/* ── Effect Size Comparison ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Effect Size Comparison</h2>

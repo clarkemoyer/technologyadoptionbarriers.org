@@ -446,6 +446,59 @@ class TestSensitivityJSON:
                         assert "p" in construct
                         assert "sig" in construct
 
+    def test_filter_bias_analysis_schema(self, test_data_csv):
+        """filter_bias_analysis must be present and have the expected per-category shape."""
+        idx, data = load_data(test_data_csv)
+        _, samples = filter_samples(data, idx)
+
+        # sensitivity_to_json requires all four labelled cuts for filter_bias_analysis.
+        cuts = [
+            ("Conservative Clean", samples["conservative_clean"]),
+            ("Flexible Clean", samples["flexible_clean"]),
+            ("Prolific Accepted", samples["prolific_accepted"]),
+            ("All V2 Finished", samples["v2_finished"]),
+        ]
+        result = sensitivity_to_json(cuts, idx)
+
+        assert "filter_bias_analysis" in result, "filter_bias_analysis key missing from output"
+        fba = result["filter_bias_analysis"]
+
+        # Top-level keys
+        for category in ("role", "organization_size", "profit_model"):
+            assert category in fba, f"missing '{category}' in filter_bias_analysis"
+            entry = fba[category]
+            assert "ok" in entry, f"'{category}' missing 'ok'"
+            if entry["ok"]:
+                assert entry["chi2"] is not None, f"'{category}' ok=True but chi2 is None"
+                assert entry["p_value"] is not None, f"'{category}' ok=True but p_value is None"
+                assert entry["df"] is not None, f"'{category}' ok=True but df is None"
+                assert entry["error"] is None, f"'{category}' ok=True but error is set"
+                assert isinstance(entry["chi2"], float)
+                assert 0.0 <= entry["p_value"] <= 1.0
+                assert isinstance(entry["df"], int)
+            else:
+                assert entry["chi2"] is None
+                assert entry["p_value"] is None
+                assert entry["df"] is None
+                assert isinstance(entry["error"], str)
+
+        # profit_model_distribution sub-key
+        assert "profit_model_distribution" in fba, "profit_model_distribution missing"
+        dist = fba["profit_model_distribution"]
+        assert "labels" in dist
+        assert "groups" in dist
+        assert isinstance(dist["labels"], list)
+        assert len(dist["labels"]) == 3  # For-Profit, Non-Profit, Government/Public Sector
+        # One entry per required group
+        for label in ("Conservative Clean", "Flexible Clean", "Prolific Accepted", "All V2 Finished"):
+            assert label in dist["groups"], f"profit_model_distribution missing group '{label}'"
+            group_counts = dist["groups"][label]
+            for pm_label in dist["labels"]:
+                assert pm_label in group_counts, (
+                    f"profit_model_distribution group '{label}' missing label '{pm_label}'"
+                )
+                assert isinstance(group_counts[pm_label], int)
+
 
 # ── welch_t_test ────────────────────────────────────────────
 
