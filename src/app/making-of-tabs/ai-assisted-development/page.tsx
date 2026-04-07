@@ -372,8 +372,8 @@ const AIAssistedDevelopmentPage = () => {
             <ul className="list-disc pl-6 space-y-2 mb-4">
               <li>
                 <strong>Merge strategy failures</strong> — squash merging stale branches can
-                silently revert dozens of previously merged PRs. We learned this the hard way when
-                a single squash merge{' '}
+                silently revert dozens of previously merged PRs. We learned this the hard way when a
+                single squash merge{' '}
                 <Link
                   href="/making-of-tabs/ai-assisted-development/squash-merge-incident"
                   className="text-blue-600 hover:underline"

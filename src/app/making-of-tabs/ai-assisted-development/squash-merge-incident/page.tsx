@@ -60,13 +60,14 @@ const SquashMergeIncidentPage = () => {
           <p className="mb-4">
             During a batch merge session managed by Claude Code, PR #927 (a 5-file feature adding an
             effect size chart) was squash-merged into main. The branch had been forked from main
-            approximately 27 hours earlier. During that window, 35 other PRs had been merged to main.
+            approximately 27 hours earlier. During that window, 35 other PRs had been merged to
+            main.
           </p>
           <p className="mb-4">
             The squash merge silently reverted every change to every file the branch touched &mdash;
-            not just the 5 files that were part of the feature, but 62 additional files that had been
-            modified between the branch&apos;s fork point and the merge time. GitHub&apos;s diff
-            showed 67 changed files, but this red flag was missed.
+            not just the 5 files that were part of the feature, but 62 additional files that had
+            been modified between the branch&apos;s fork point and the merge time. GitHub&apos;s
+            diff showed 67 changed files, but this red flag was missed.
           </p>
           <p className="mb-4">
             A second squash merge (PR #803) was identified during the investigation. It had the same
@@ -79,9 +80,9 @@ const SquashMergeIncidentPage = () => {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Root Cause: How Squash Merge Reverts Code</h2>
           <p className="mb-4">
-            GitHub&apos;s squash merge algorithm computes a single diff between the current main HEAD
-            and the branch tip. When a branch is behind main, this diff includes stale versions of
-            every file the branch touches. Squash merge treats those stale versions as the
+            GitHub&apos;s squash merge algorithm computes a single diff between the current main
+            HEAD and the branch tip. When a branch is behind main, this diff includes stale versions
+            of every file the branch touches. Squash merge treats those stale versions as the
             &ldquo;intended state&rdquo; and overwrites whatever is currently on main.
           </p>
 
@@ -89,22 +90,28 @@ const SquashMergeIncidentPage = () => {
             <h3 className={H3_CLASSES}>The Mechanism</h3>
             <ol className="list-decimal pl-6 space-y-2 text-sm">
               <li>
-                Branch forks from main at commit <code className="text-xs bg-gray-200 px-1 rounded">A</code>
+                Branch forks from main at commit{' '}
+                <code className="text-xs bg-gray-200 px-1 rounded">A</code>
               </li>
               <li>
-                35 PRs merge to main, advancing it to commit <code className="text-xs bg-gray-200 px-1 rounded">Z</code>
+                35 PRs merge to main, advancing it to commit{' '}
+                <code className="text-xs bg-gray-200 px-1 rounded">Z</code>
               </li>
               <li>
-                Branch still contains commit <code className="text-xs bg-gray-200 px-1 rounded">A</code>&apos;s
-                versions of all 67 files it touches
+                Branch still contains commit{' '}
+                <code className="text-xs bg-gray-200 px-1 rounded">A</code>&apos;s versions of all
+                67 files it touches
               </li>
               <li>
-                Squash merge computes diff: &ldquo;branch tip vs. main HEAD (<code className="text-xs bg-gray-200 px-1 rounded">Z</code>)&rdquo;
+                Squash merge computes diff: &ldquo;branch tip vs. main HEAD (
+                <code className="text-xs bg-gray-200 px-1 rounded">Z</code>)&rdquo;
               </li>
               <li>
-                Every file where the branch has the <code className="text-xs bg-gray-200 px-1 rounded">A</code>-era
-                version gets overwritten onto main, silently reverting all changes made
-                between <code className="text-xs bg-gray-200 px-1 rounded">A</code> and <code className="text-xs bg-gray-200 px-1 rounded">Z</code>
+                Every file where the branch has the{' '}
+                <code className="text-xs bg-gray-200 px-1 rounded">A</code>-era version gets
+                overwritten onto main, silently reverting all changes made between{' '}
+                <code className="text-xs bg-gray-200 px-1 rounded">A</code> and{' '}
+                <code className="text-xs bg-gray-200 px-1 rounded">Z</code>
               </li>
             </ol>
           </div>
@@ -128,7 +135,10 @@ const SquashMergeIncidentPage = () => {
             <div className="rounded-xl border border-red-200 bg-red-50 p-4">
               <h3 className="text-sm font-bold text-red-900 mb-1">Security (Critical)</h3>
               <ul className="list-disc pl-5 text-sm text-red-800 space-y-1">
-                <li>XSS sanitization for Google Tag Manager IDs (PR #1154) &mdash; re-exposed injection vulnerability</li>
+                <li>
+                  XSS sanitization for Google Tag Manager IDs (PR #1154) &mdash; re-exposed
+                  injection vulnerability
+                </li>
                 <li>JSON-LD sanitization on media page (PR #1226) &mdash; re-exposed XSS vector</li>
               </ul>
             </div>
@@ -144,18 +154,33 @@ const SquashMergeIncidentPage = () => {
             <div className="rounded-xl border border-yellow-200 bg-yellow-50 p-4">
               <h3 className="text-sm font-bold text-yellow-900 mb-1">Statistical Analysis</h3>
               <ul className="list-disc pl-5 text-sm text-yellow-800 space-y-1">
-                <li>95% confidence intervals via bootstrap (PR #1191) &mdash; <code className="text-xs bg-yellow-100 px-1 rounded">cohens_d</code> reverted from tuple to float return</li>
-                <li>Welch&apos;s t-test confidence intervals removed (5-tuple reverted to 3-tuple)</li>
-                <li>Role categorization patterns for &ldquo;Other&rdquo; responses deleted (PR #1279)</li>
+                <li>
+                  95% confidence intervals via bootstrap (PR #1191) &mdash;{' '}
+                  <code className="text-xs bg-yellow-100 px-1 rounded">cohens_d</code> reverted from
+                  tuple to float return
+                </li>
+                <li>
+                  Welch&apos;s t-test confidence intervals removed (5-tuple reverted to 3-tuple)
+                </li>
+                <li>
+                  Role categorization patterns for &ldquo;Other&rdquo; responses deleted (PR #1279)
+                </li>
                 <li>Mean confidence interval function removed entirely</li>
               </ul>
             </div>
 
             <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-              <h3 className="text-sm font-bold text-blue-900 mb-1">Data Quality &amp; Infrastructure</h3>
+              <h3 className="text-sm font-bold text-blue-900 mb-1">
+                Data Quality &amp; Infrastructure
+              </h3>
               <ul className="list-disc pl-5 text-sm text-blue-800 space-y-1">
-                <li>JSON schema validation script and CI step (PR #1077) &mdash; removed from pipeline</li>
-                <li>13 workflow files downgraded from <code className="text-xs bg-blue-100 px-1 rounded">setup-python@v6</code> to v5</li>
+                <li>
+                  JSON schema validation script and CI step (PR #1077) &mdash; removed from pipeline
+                </li>
+                <li>
+                  13 workflow files downgraded from{' '}
+                  <code className="text-xs bg-blue-100 px-1 rounded">setup-python@v6</code> to v5
+                </li>
                 <li>Action versions across 30 workflows downgraded (PR #803 squash)</li>
                 <li>Sensitivity analysis data reverted to stale sample counts</li>
               </ul>
@@ -188,8 +213,8 @@ const SquashMergeIncidentPage = () => {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>How It Was Detected</h2>
           <p className="mb-4">
-            The damage was not immediately obvious. The site continued to build and deploy because the
-            reverted code was still valid &mdash; it was simply an older version. Detection came
+            The damage was not immediately obvious. The site continued to build and deploy because
+            the reverted code was still valid &mdash; it was simply an older version. Detection came
             through a combination of:
           </p>
           <ul className="list-disc pl-6 space-y-2 mb-4">
@@ -205,15 +230,16 @@ const SquashMergeIncidentPage = () => {
               between the pre-squash commit and current main revealed wholesale reversions
             </li>
             <li>
-              Python test failures: tests expected <code className="text-xs bg-gray-200 px-1 rounded">cohens_d</code> to
-              return a tuple <code className="text-xs bg-gray-200 px-1 rounded">(d, ci_lower, ci_upper)</code> but the
-              reverted function returned a bare float
+              Python test failures: tests expected{' '}
+              <code className="text-xs bg-gray-200 px-1 rounded">cohens_d</code> to return a tuple{' '}
+              <code className="text-xs bg-gray-200 px-1 rounded">(d, ci_lower, ci_upper)</code> but
+              the reverted function returned a bare float
             </li>
           </ul>
           <p className="mb-4">
             <strong>Key lesson:</strong> The file count in a PR diff is a critical signal. A feature
-            PR showing significantly more changed files than expected is a red flag that the branch is
-            stale and the merge will carry unintended changes.
+            PR showing significantly more changed files than expected is a red flag that the branch
+            is stale and the merge will carry unintended changes.
           </p>
         </section>
 
@@ -222,8 +248,9 @@ const SquashMergeIncidentPage = () => {
           <h2 className={H2_CLASSES}>The Restoration</h2>
           <p className="mb-4">
             Restoration was performed in two PRs with a total of 7 commits, comparing each file
-            against the pre-squash commit (<code className="text-xs bg-gray-200 px-1 rounded">7ccd6d2</code>) to
-            identify the correct state:
+            against the pre-squash commit (
+            <code className="text-xs bg-gray-200 px-1 rounded">7ccd6d2</code>) to identify the
+            correct state:
           </p>
 
           <div className="overflow-x-auto mb-6">
@@ -240,19 +267,18 @@ const SquashMergeIncidentPage = () => {
                   <td className="p-3 font-mono text-xs">#1330</td>
                   <td className="p-3">6 commits</td>
                   <td className="p-3">
-                    30 source/config files restored, 30 workflow files restored,
-                    Node.js 24 env var re-applied, package.json dependencies fixed,
-                    Python analysis functions restored (cohens_d CIs, mean_ci, welch_t_test CIs,
-                    role categorization patterns)
+                    30 source/config files restored, 30 workflow files restored, Node.js 24 env var
+                    re-applied, package.json dependencies fixed, Python analysis functions restored
+                    (cohens_d CIs, mean_ci, welch_t_test CIs, role categorization patterns)
                   </td>
                 </tr>
                 <tr className="border-b border-gray-100">
                   <td className="p-3 font-mono text-xs">#1341</td>
                   <td className="p-3">1 commit</td>
                   <td className="p-3">
-                    10 remaining deleted files: 3 pages (Quotes, Automation Infrastructure,
-                    Google Jules), 4 test suites (GTM XSS, Quotes client, teaching series,
-                    skip-to-content E2E), quotes data file, Zotero workflow
+                    10 remaining deleted files: 3 pages (Quotes, Automation Infrastructure, Google
+                    Jules), 4 test suites (GTM XSS, Quotes client, teaching series, skip-to-content
+                    E2E), quotes data file, Zotero workflow
                   </td>
                 </tr>
               </tbody>
@@ -260,7 +286,8 @@ const SquashMergeIncidentPage = () => {
           </div>
 
           <p className="mb-4">
-            Files that had been modified by later PRs (e.g., <code className="text-xs bg-gray-200 px-1 rounded">tabs_v2_analysis.py</code> was
+            Files that had been modified by later PRs (e.g.,{' '}
+            <code className="text-xs bg-gray-200 px-1 rounded">tabs_v2_analysis.py</code> was
             touched by both #927 and the subsequent #1216 filter bias analysis) required careful
             merging: restore from pre-#927, then re-apply the legitimate post-#927 additions.
           </p>
@@ -269,9 +296,7 @@ const SquashMergeIncidentPage = () => {
         {/* ── Permanent Fixes ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Permanent Safeguards</h2>
-          <p className="mb-4">
-            Three changes were made to prevent this from recurring:
-          </p>
+          <p className="mb-4">Three changes were made to prevent this from recurring:</p>
 
           <div className="space-y-6 mb-6">
             <div className="flex gap-4">
@@ -281,10 +306,10 @@ const SquashMergeIncidentPage = () => {
               <div>
                 <h3 className={H3_CLASSES}>Squash Merge Disabled at Repository Level</h3>
                 <p>
-                  The &ldquo;Allow squash merging&rdquo; option was unchecked in the repository&apos;s
-                  Pull Requests settings. Only merge commits and rebase merging are now permitted.
-                  This is a hard block &mdash; GitHub will reject any attempt to squash merge,
-                  regardless of who or what initiates it.
+                  The &ldquo;Allow squash merging&rdquo; option was unchecked in the
+                  repository&apos;s Pull Requests settings. Only merge commits and rebase merging
+                  are now permitted. This is a hard block &mdash; GitHub will reject any attempt to
+                  squash merge, regardless of who or what initiates it.
                 </p>
               </div>
             </div>
@@ -297,11 +322,13 @@ const SquashMergeIncidentPage = () => {
                 <h3 className={H3_CLASSES}>AI Agent Memory Updated</h3>
                 <p>
                   A persistent memory entry was created for Claude Code: &ldquo;NEVER use
-                  <code className="text-xs bg-gray-200 px-1 rounded ml-1">gh pr merge --squash</code>.
-                  Always use
-                  <code className="text-xs bg-gray-200 px-1 rounded ml-1">gh pr merge --merge</code>.&rdquo;
-                  This memory loads automatically in every future conversation, ensuring the agent
-                  cannot repeat the mistake even if operating autonomously.
+                  <code className="text-xs bg-gray-200 px-1 rounded ml-1">
+                    gh pr merge --squash
+                  </code>
+                  . Always use
+                  <code className="text-xs bg-gray-200 px-1 rounded ml-1">gh pr merge --merge</code>
+                  .&rdquo; This memory loads automatically in every future conversation, ensuring
+                  the agent cannot repeat the mistake even if operating autonomously.
                 </p>
               </div>
             </div>
@@ -314,8 +341,8 @@ const SquashMergeIncidentPage = () => {
                 <h3 className={H3_CLASSES}>File Count Verification Before Merge</h3>
                 <p>
                   Before any merge, the PR&apos;s changed file count is now verified against the
-                  expected scope. A 3-file feature PR showing 67 changed files is a clear signal that
-                  the branch is stale and carrying unintended reversions.
+                  expected scope. A 3-file feature PR showing 67 changed files is a clear signal
+                  that the branch is stale and carrying unintended reversions.
                 </p>
               </div>
             </div>
@@ -348,15 +375,15 @@ const SquashMergeIncidentPage = () => {
               agents need explicit rules for red flags that humans catch intuitively.
             </li>
             <li>
-              <strong>Detection matters as much as prevention.</strong> The smoke test caught content
-              regressions on the live site. Without automated post-deploy checks, the reversions
-              could have persisted for days before anyone noticed missing features.
+              <strong>Detection matters as much as prevention.</strong> The smoke test caught
+              content regressions on the live site. Without automated post-deploy checks, the
+              reversions could have persisted for days before anyone noticed missing features.
             </li>
             <li>
               <strong>Persistent memory prevents repeat failures.</strong> The agent&apos;s memory
-              system means this specific mistake will never recur in future sessions. This is the
-              AI equivalent of a runbook update &mdash; encoding operational lessons into the
-              system itself.
+              system means this specific mistake will never recur in future sessions. This is the AI
+              equivalent of a runbook update &mdash; encoding operational lessons into the system
+              itself.
             </li>
           </ul>
         </section>
@@ -371,7 +398,9 @@ const SquashMergeIncidentPage = () => {
             </div>
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-36 font-mono text-gray-500">Apr 5-6</div>
-              <div>35 PRs merge to main (security fixes, accessibility, statistics, pages, tests)</div>
+              <div>
+                35 PRs merge to main (security fixes, accessibility, statistics, pages, tests)
+              </div>
             </div>
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-36 font-mono text-gray-500">Apr 7, 00:39</div>
@@ -387,11 +416,15 @@ const SquashMergeIncidentPage = () => {
             </div>
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-36 font-mono text-gray-500">Apr 7, 02:30</div>
-              <div>PR #803 identified as second squash merge with same issue (30 workflow files)</div>
+              <div>
+                PR #803 identified as second squash merge with same issue (30 workflow files)
+              </div>
             </div>
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-36 font-mono text-gray-500">Apr 7, 03:20</div>
-              <div>PR #1330 opened: 30 source files + 30 workflow files + package.json restored</div>
+              <div>
+                PR #1330 opened: 30 source files + 30 workflow files + package.json restored
+              </div>
             </div>
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-36 font-mono text-gray-500">Apr 7, 03:50</div>
