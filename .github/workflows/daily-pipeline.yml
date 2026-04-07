@@ -19,7 +19,7 @@ name: Daily Pipeline (Analysis + Operations)
 
 on:
   schedule:
-    - cron: '0 9 * * *' # Daily at 09:00 UTC (5am ET)
+    - cron: '30 10 * * *' # Daily at 10:30 UTC (6:30am ET) — results ready by 7:00am ET
   workflow_dispatch:
 
 concurrency:

@@ -1,0 +1,21 @@
+755:## Workflow Dispatch Quick Reference
+756-
+757-All workflows support `workflow_dispatch` for manual triggering:
+758-
+759-| Workflow                           | Command                                                           | Purpose                                     |
+760-| ---------------------------------- | ----------------------------------------------------------------- | ------------------------------------------- |
+761-| `daily-pipeline.yml`               | `gh workflow run daily-pipeline.yml`                              | Full daily pipeline (analysis + operations) |
+762-| `analysis-pipeline.yml`            | `gh workflow run analysis-pipeline.yml --ref <branch>`            | Analysis only (REPLACED, kept for manual)   |
+763-| `daily-disposition-processing.yml` | `gh workflow run daily-disposition-processing.yml --ref <branch>` | Operations only (REPLACED, kept for manual) |
+764-| `copilot-review-cycle.yml`         | `gh workflow run copilot-review-cycle.yml --field pr_number=X`    | Multi-round Copilot review                  |
+765-| `qualtrics-api-smoke.yml`          | `gh workflow run qualtrics-api-smoke.yml`                         | Qualtrics API connectivity test             |
+766-| `prolific-approve-submissions.yml` | `gh workflow run prolific-approve-submissions.yml`                | Manual approve CLEAN                        |
+767-| `prolific-message-flagged.yml`     | `gh workflow run prolific-message-flagged.yml`                    | Manual message FLAGs                        |
+768-| `prolific-reject-auto-exclude.yml` | `gh workflow run prolific-reject-auto-exclude.yml`                | Manual reject (requires confirmation)       |
+769-| `validate-analysis.yml`            | `gh workflow run validate-analysis.yml`                           | Run Python analysis tests                   |
+770-| `ci.yml`                           | `gh workflow run ci.yml --ref <branch>`                           | CI (format, lint, test, build, E2E)         |
+771-
+772-**Tip**: Use `--ref <branch>` to test workflow changes on a PR branch before merging.
+773-
+774-## Python Analysis Scripts
+775-
