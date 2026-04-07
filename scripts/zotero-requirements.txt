@@ -1,0 +1,4 @@
+# Zotero Website Citations Sync — Python dependencies
+# Install with: pip install -r scripts/zotero-requirements.txt
+
+pyzotero==1.11.0
