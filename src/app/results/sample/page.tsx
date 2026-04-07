@@ -35,6 +35,9 @@ const sampleDetails: Record<string, SampleDetail> =
   ((sensitivityData as Record<string, unknown>).sample_details as Record<string, SampleDetail>) ??
   {}
 
+// Pre-compute a Map for O(1) sample lookups to prevent O(N*M) array finds during rendering
+const samplesByKey = new Map((sensitivityData.samples || []).map((s) => [s.key, s]))
+
 const PRIMARY_GROUPS = [
   { key: 'conservative_clean', label: 'Conservative Clean', color: 'border-green-500' },
   { key: 'flexible_clean', label: 'Flexible Clean', color: 'border-blue-500' },
@@ -381,7 +384,7 @@ const SamplePage = () => {
               </thead>
               <tbody>
                 {PRIMARY_GROUPS.map((group, i) => {
-                  const sample = sensitivityData.samples.find((s) => s.key === group.key)
+                  const sample = samplesByKey.get(group.key)
                   return (
                     <tr
                       key={group.key}
@@ -418,7 +421,7 @@ const SamplePage = () => {
           </p>
 
           {PRIMARY_GROUPS.map((group) => {
-            const sample = sensitivityData.samples.find((s) => s.key === group.key)
+            const sample = samplesByKey.get(group.key)
             const details = sampleDetails[group.key]
             const demo = details?.demographics
             const hasDemoData =
