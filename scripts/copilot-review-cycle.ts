@@ -139,12 +139,15 @@ function getReviewThreads(repo: string, prNumber: string): ReviewThread[] {
     let cursor = ''
 
     while (hasNext) {
-      const afterArg = cursor ? `after: "${cursor}",` : ''
+      const reviewThreadsArgs = ['first: 100']
+      if (cursor) {
+        reviewThreadsArgs.push(`after: "${cursor}"`)
+      }
       const query = [
         '{',
         `  repository(owner: "${owner}", name: "${name}") {`,
         `    pullRequest(number: ${prNum}) {`,
-        `      reviewThreads(first: 100, ${afterArg}) {`,
+        `      reviewThreads(${reviewThreadsArgs.join(', ')}) {`,
         '        pageInfo { hasNextPage endCursor }',
         '        nodes {',
         '          id',

@@ -186,11 +186,13 @@ def main():
             current_statuses = prolific_submission_statuses(study_id, api_token)
 
             pids_to_approve = []
+            already_approved_pids: list[str] = []
             non_approvable = 0
             for pid in clean_pids:
                 status = current_statuses.get(pid, "UNKNOWN")
                 if status == "APPROVED":
                     already_approved += 1
+                    already_approved_pids.append(pid)
                 elif status == "AWAITING REVIEW":
                     pids_to_approve.append(pid)
                 else:
@@ -226,35 +228,36 @@ def main():
         messages_failed = 0
 
         # In a live run, clean_pids with a non-approvable status are NOT approved,
-        # so we should ideally only message the ones that are successfully approved.
+        # so only message the ones that are known to be approved.
         # newly_approved + already_approved = the group of actually approved participants.
         if dry_run:
             print(f"DRY RUN — {len(clean_pids)} participants would be checked for thank-you messages")
             messages_sent = len(clean_pids)
         else:
+            approved_message_pids = set(already_approved_pids) | set(pids_to_approve)
             for pid in clean_pids:
-                status = current_statuses.get(pid, "UNKNOWN") if 'current_statuses' in locals() else "APPROVED"
-                # Only message if they are APPROVED (already approved or just now approved)
-                if status == "APPROVED" or status == "AWAITING REVIEW":
-                    try:
-                        # Check for existing thank-you message
-                        existing = prolific_user_messages(pid, api_token)
-                        already_sent = any(
-                            (m.get("data") or {}).get("study_id") == study_id
-                            and SIGNATURE in (m.get("body") or "")
-                            for m in existing
-                        )
-                        if already_sent:
-                            print(f"  SKIP {pid} — already received thank-you")
-                            messages_already_sent += 1
-                            continue
+                if pid not in approved_message_pids:
+                    continue
 
-                        prolific_send_message(study_id, pid, THANK_YOU_MESSAGE, api_token)
-                        print(f"  SENT {pid}")
-                        messages_sent += 1
-                    except Exception as e:
-                        print(f"  FAILED to message {pid}: {e}")
-                        messages_failed += 1
+                try:
+                    # Check for existing thank-you message
+                    existing = prolific_user_messages(pid, api_token)
+                    already_sent = any(
+                        (m.get("data") or {}).get("study_id") == study_id
+                        and SIGNATURE in (m.get("body") or "")
+                        for m in existing
+                    )
+                    if already_sent:
+                        print(f"  SKIP {pid} — already received thank-you")
+                        messages_already_sent += 1
+                        continue
+
+                    prolific_send_message(study_id, pid, THANK_YOU_MESSAGE, api_token)
+                    print(f"  SENT {pid}")
+                    messages_sent += 1
+                except Exception as e:
+                    print(f"  FAILED to message {pid}: {e}")
+                    messages_failed += 1
 
             print(f"\nMessage Summary:")
             print(f"  Sent: {messages_sent}")

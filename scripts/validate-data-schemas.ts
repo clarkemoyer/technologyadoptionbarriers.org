@@ -135,8 +135,8 @@ export function validateDataFiles(dataDir: string) {
   return !hasErrors
 }
 
-// Run validation if called directly
-if (require.main === module) {
+// Run validation when called directly via tsx/node
+function main() {
   const dataDir = path.join(process.cwd(), 'src', 'data')
   console.log(`Validating data files in ${dataDir}...`)
 
@@ -149,4 +149,10 @@ if (require.main === module) {
     console.log('All data files validated successfully.')
     process.exit(0)
   }
+}
+
+// ESM-safe entrypoint guard (tsx uses CJS for .ts files; typeof check prevents
+// ReferenceError if the module is ever loaded in a pure-ESM context)
+if (typeof require !== 'undefined' && require.main === module) {
+  main()
 }
