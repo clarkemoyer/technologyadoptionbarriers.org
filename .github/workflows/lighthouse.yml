@@ -16,11 +16,6 @@ on:
   workflow_dispatch:
 
 # Only run if the deployment was successful
-env:
-  # Official GitHub flag to force Node.js 24 runtime ahead of the June 2026 mandatory deadline.
-  # Ref: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   lighthouse:
     # Only run on successful deployment, scheduled run, or manual trigger

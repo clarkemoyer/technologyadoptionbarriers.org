@@ -21,20 +21,15 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  # Official GitHub flag to force Node.js 24 runtime ahead of the June 2026 mandatory deadline.
-  # Ref: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   validate-constants:
     name: Validate Shared Constants
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
           cache: 'npm'
@@ -73,7 +68,7 @@ jobs:
           print('All constant validations passed')
           PYEOF
       - name: Upload constants as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: tabs-constants-json
           path: scripts/analysis/tabs_v2_constants.json
@@ -85,9 +80,9 @@ jobs:
     needs: validate-constants
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
           cache: 'npm'
@@ -96,7 +91,7 @@ jobs:
       - name: Generate constants JSON
         run: npx --no-install tsx scripts/analysis/generate-constants-json.ts
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Install Python dependencies
@@ -139,7 +134,7 @@ jobs:
           PYEOF
       - name: Upload test analysis output as artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: test-analysis-output
           path: scripts/analysis/analysis_output.txt

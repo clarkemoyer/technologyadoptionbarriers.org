@@ -19,7 +19,7 @@ name: Daily Pipeline (Analysis + Operations)
 
 on:
   schedule:
-    - cron: '0 9 * * *' # Daily at 09:00 UTC (5am ET)
+    - cron: '30 10 * * *' # Daily at 10:30 UTC (6:30am ET) — results ready by 7:00am ET
   workflow_dispatch:
 
 concurrency:
@@ -31,11 +31,6 @@ permissions:
   pull-requests: write
   issues: write
 
-env:
-  # Official GitHub flag to force Node.js 24 runtime ahead of the June 2026 mandatory deadline.
-  # Ref: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   # ── Phase 1: Fetch Prolific data ─────────────────────────────
   # Auth check scores (HIGH/MIXED/LOW) and submission statuses keyed by
@@ -46,7 +41,7 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
@@ -77,7 +72,7 @@ jobs:
     environment: qualtrics-prod
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
@@ -225,7 +220,7 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - uses: actions/download-artifact@v8
@@ -272,7 +267,7 @@ jobs:
           - AUTO-EXCLUDE:SPEED_IRI
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - uses: actions/download-artifact@v8
@@ -312,7 +307,7 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - uses: actions/download-artifact@v8
