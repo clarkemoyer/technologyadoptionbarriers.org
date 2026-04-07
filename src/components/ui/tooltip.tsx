@@ -23,7 +23,11 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children, triggerAria
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
+  }, [])
+
+  useEffect(() => {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
     }

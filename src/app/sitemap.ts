@@ -348,12 +348,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.9,
     },
-    {
-      url: `${baseUrl}/barriers/quotes`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
     // Results section
     {
       url: `${baseUrl}/results`,
@@ -548,12 +542,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/making-of-tabs/integrations/google-jules`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
       url: `${baseUrl}/making-of-tabs/ai-assisted-development`,
       lastModified: now,
       changeFrequency: 'monthly',
@@ -585,12 +573,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/making-of-tabs/seo`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/making-of-tabs/automation-infrastructure`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,

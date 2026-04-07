@@ -37,9 +37,6 @@ const RESULTS_SUB_ITEMS = [
   'Open Data & Reproducibility',
 ]
 
-/** Known sub-item labels for the Tech Adoption Barriers dropdown */
-const BARRIERS_SUB_ITEMS = ['All Barriers', 'Famous Quotes']
-
 /** Known sub-item labels for the Making of TABS dropdown */
 const MAKING_OF_TABS_SUB_ITEMS = [
   'Overview',
@@ -122,17 +119,6 @@ describe('Header desktop dropdown independence', () => {
     fireEvent.click(makingButton)
 
     for (const label of MAKING_OF_TABS_SUB_ITEMS) {
-      expect(screen.getByRole('link', { name: label })).toBeInTheDocument()
-    }
-  })
-
-  it('Tech Adoption Barriers dropdown renders sub-items when clicked', () => {
-    render(<Header />)
-
-    const barriersButton = getDesktopDropdownButton(/tech adoption barriers/i)
-    fireEvent.click(barriersButton)
-
-    for (const label of BARRIERS_SUB_ITEMS) {
       expect(screen.getByRole('link', { name: label })).toBeInTheDocument()
     }
   })
@@ -230,19 +216,6 @@ describe('Header mobile dropdown independence', () => {
 
     expect(makingButton).toHaveAttribute('aria-expanded', 'true')
     for (const label of MAKING_OF_TABS_SUB_ITEMS) {
-      expect(screen.getByRole('link', { name: label })).toBeInTheDocument()
-    }
-  })
-
-  it('mobile Tech Adoption Barriers dropdown opens independently', () => {
-    render(<Header />)
-    openMobileMenu()
-
-    const barriersButton = getMobileDropdownButton(/tech adoption barriers/i)
-    fireEvent.click(barriersButton)
-
-    expect(barriersButton).toHaveAttribute('aria-expanded', 'true')
-    for (const label of BARRIERS_SUB_ITEMS) {
       expect(screen.getByRole('link', { name: label })).toBeInTheDocument()
     }
   })

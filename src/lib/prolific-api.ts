@@ -396,19 +396,10 @@ export async function getStudyDemographics(
   const subs = await listStudySubmissions(studyId, apiToken)
   const results = new Map<string, SubmissionDemographics>()
 
-  const demoPromises = subs.results.map(async (sub) => {
+  for (const sub of subs.results) {
     const demo = await getSubmissionDemographics(sub.id, apiToken)
     if (demo) {
-      return { participant_id: sub.participant_id, demo }
-    }
-    return null
-  })
-
-  const demos = await Promise.all(demoPromises)
-
-  for (const item of demos) {
-    if (item) {
-      results.set(item.participant_id, item.demo)
+      results.set(sub.participant_id, demo)
     }
   }
 
@@ -675,25 +666,21 @@ export async function exportSubmissionsCSV(studyId: string, apiToken: string): P
     return 'id,participant_id,status,started_at,completed_at,time_taken\n'
   }
 
-  const numSubmissions = submissions.length
-  // Pre-allocate array to avoid dynamic resizing for large arrays (performance optimization)
-  const csvLines = new Array(numSubmissions + 1)
-
   // CSV header
   const headers = ['id', 'participant_id', 'status', 'started_at', 'completed_at', 'time_taken']
-  csvLines[0] = headers.join(',')
+  const csvLines = [headers.join(',')]
 
   // CSV rows with proper escaping
-  for (let i = 0; i < numSubmissions; i++) {
-    const submission = submissions[i]
-    csvLines[i + 1] = [
+  for (const submission of submissions) {
+    const row = [
       escapeCsvField(submission.id),
       escapeCsvField(submission.participant_id),
       escapeCsvField(submission.status),
       escapeCsvField(submission.started_at),
       escapeCsvField(submission.completed_at || ''),
       escapeCsvField(submission.time_taken?.toString() || ''),
-    ].join(',')
+    ]
+    csvLines.push(row.join(','))
   }
 
   return csvLines.join('\n')

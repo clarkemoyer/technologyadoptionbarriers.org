@@ -80,13 +80,11 @@ const DispositionDashboardPage = () => {
   const total = d.uniqueParticipants
   const dispositions = d.dispositions as Record<string, number>
 
-  // Pre-compute maps for O(1) lookups
-  const sampleMap = new Map(sensitivityData.samples.map((s) => [s.key, s]))
-  const metricMap = new Map(sensitivityData.metrics.map((m) => [m.key, m]))
-
   // Sensitivity data lookups used in multiple places on this page
-  const conservativeCleanN = sampleMap.get('conservative_clean')?.n ?? null
-  const prolificAcceptedN = sampleMap.get('prolific_accepted')?.n ?? null
+  const conservativeCleanN =
+    sensitivityData.samples.find((s) => s.key === 'conservative_clean')?.n ?? null
+  const prolificAcceptedN =
+    sensitivityData.samples.find((s) => s.key === 'prolific_accepted')?.n ?? null
 
   const approvedPct = total > 0 ? ((d.actions.approved / total) * 100).toFixed(1) : '0'
   const flaggedCount =
@@ -448,7 +446,7 @@ const DispositionDashboardPage = () => {
           {/* Four Result Groups — full statistics per dataset */}
           {(() => {
             const getVal = (metricKey: string, sampleKey: string): number | null => {
-              const m = metricMap.get(metricKey)
+              const m = sensitivityData.metrics.find((x) => x.key === metricKey)
               if (!m) return null
               return (m.values as Record<string, number | null>)[sampleKey] ?? null
             }
@@ -499,7 +497,7 @@ const DispositionDashboardPage = () => {
             return (
               <div className="space-y-6">
                 {groups.map((group) => {
-                  const sample = sampleMap.get(group.key)
+                  const sample = sensitivityData.samples.find((s) => s.key === group.key)
                   return (
                     <div
                       key={group.key}

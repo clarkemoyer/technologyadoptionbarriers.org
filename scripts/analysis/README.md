@@ -38,16 +38,6 @@ Key packages:
 - **matplotlib** 3.10.8: Data visualization (optional for scripts; used in Jupyter notebooks)
 - **seaborn** 0.13.2: Enhanced statistical visualizations
 
-## AI Agent Coordination
-
-This repository utilizes a multi-agent setup where different AI coding assistants are responsible for different sets of scripts and capabilities based on their strengths.
-
-- **GitHub Copilot**: Handles backend automation, data pipeline scripts, CI/CD workflows, and code review across Python and TypeScript.
-- **Google Jules (Gemini Ultra)**: Highly capable for complex data visualization work, creating charting components, and large-scale parallel frontend updates (60 concurrent limit).
-- **Claude Code**: Primarily used for orchestrating work, PR management, handling complex Prolific API operations, and advanced analysis tasks.
-
-When generating or refactoring scripts in this directory, tasks are typically routed according to this agent delegation model.
-
 ## Scripts Overview
 
 | Script                       | Purpose                                                  | Input          | Output                    |
