@@ -421,6 +421,41 @@ const AIAssistedDevelopmentPage = () => {
           </p>
         </section>
 
+        {/* ── Stories from Development ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Stories from Development</h2>
+          <p className="mb-6">
+            Real moments from the TABS development process that illustrate how multi-agent AI
+            development works in practice — the wins and the failures.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link
+              href="/making-of-tabs/ai-assisted-development/overnight-shift"
+              className="block rounded-xl border border-purple-200 bg-purple-50 p-6 hover:shadow-md transition-shadow"
+            >
+              <h3 className="text-lg font-bold text-purple-900 mb-2">
+                &ldquo;Copilot&apos;s Got the Overnight Shift&rdquo;
+              </h3>
+              <p className="text-sm text-purple-800">
+                Claude Code finishes a session, assigns 9 issues to Copilot for overnight
+                processing, and signs off. A real screenshot of multi-agent handoff.
+              </p>
+            </Link>
+
+            <Link
+              href="/making-of-tabs/ai-assisted-development/squash-merge-incident"
+              className="block rounded-xl border border-red-200 bg-red-50 p-6 hover:shadow-md transition-shadow"
+            >
+              <h3 className="text-lg font-bold text-red-900 mb-2">The Squash Merge Incident</h3>
+              <p className="text-sm text-red-800">
+                A single squash merge silently reverted 25+ PRs across 67 files. How speed amplifies
+                mistakes, and the safeguards we built afterward.
+              </p>
+            </Link>
+          </div>
+        </section>
+
         <section className="pt-8 border-t border-gray-200">
           <p className="text-sm text-gray-600 italic">
             This page was, naturally, written by an AI agent and reviewed by GitHub Copilot. The
