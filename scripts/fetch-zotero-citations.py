@@ -73,7 +73,7 @@ def _parse_year(date_str: str | None) -> int | None:
     # Try the first four characters if they look like a year
     if len(date_str) >= 4 and date_str[:4].isdigit():
         year = int(date_str[:4])
-        if 1000 <= year <= datetime.now(timezone.utc).year + 1:
+        if 1000 <= year <= datetime.now(timezone.utc).year:
             return year
     return None
 
