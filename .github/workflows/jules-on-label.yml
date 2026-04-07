@@ -1,0 +1,27 @@
+name: Jules Agent (Gemini)
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  invoke-jules:
+    if: github.event.label.name == 'jules'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-labs-code/jules-action@v1.0.0
+        with:
+          prompt: |
+            Fix GitHub issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}
+
+            ${{ github.event.issue.body }}
+
+            Instructions:
+            - Follow the project CLAUDE.md conventions
+            - Use kebab-case for folders, assetPath() for images
+            - Run npm run format before committing
+            - Run npm run lint and fix errors
+            - Use conventional commit messages (feat:, fix:, docs:, chore:)
+            - Create a PR targeting main
+          jules_api_key: ${{ secrets.GOOGLE_JULES_API_KEY }}
+          starting_branch: main

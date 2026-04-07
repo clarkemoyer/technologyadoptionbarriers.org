@@ -197,6 +197,7 @@ def main():
 
     summary = {
         "updatedAt": datetime.now(timezone.utc).isoformat(),
+        "last_updated": datetime.now(timezone.utc).isoformat(),
         # Study metadata from Prolific API (matches Prolific UI exactly)
         "study": {
             "id": study_id,

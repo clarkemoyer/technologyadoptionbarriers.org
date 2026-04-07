@@ -396,10 +396,19 @@ export async function getStudyDemographics(
   const subs = await listStudySubmissions(studyId, apiToken)
   const results = new Map<string, SubmissionDemographics>()
 
-  for (const sub of subs.results) {
+  const demoPromises = subs.results.map(async (sub) => {
     const demo = await getSubmissionDemographics(sub.id, apiToken)
     if (demo) {
-      results.set(sub.participant_id, demo)
+      return { participant_id: sub.participant_id, demo }
+    }
+    return null
+  })
+
+  const demos = await Promise.all(demoPromises)
+
+  for (const item of demos) {
+    if (item) {
+      results.set(item.participant_id, item.demo)
     }
   }
 
@@ -407,21 +416,122 @@ export async function getStudyDemographics(
 }
 
 /**
+ * Prolific prescreener filter_ids that correspond to Qualtrics survey demographics (Q1–Q9).
+ * Used for cross-validation of self-reported survey data against Prolific profile data.
+ *
+ * Pass these to `exportStudyDemographics(studyId, apiToken, filterIds)` to include
+ * prescreener responses alongside base demographics in the export.
+ *
+ * Privacy: Prescreener data contains PII and must be handled ephemerally — never
+ * committed to the repository or displayed on public pages.
+ *
+ * @see https://docs.prolific.com/api-reference/filters/get-filters
+ * @see https://docs.prolific.com/api-reference/studies/export-demographic-data
+ */
+export const QUALTRICS_PROLIFIC_FILTER_MAP: Record<
+  string,
+  { filter_id: string; description: string }
+> = {
+  Q1_Role: { filter_id: 'occupation', description: 'Occupation/job title category' },
+  Q3_Industry: { filter_id: 'industry', description: 'Industry classification' },
+  Q4_OrgSize: { filter_id: 'company_size', description: 'Company/organization size' },
+  Q5_ProfitModel: {
+    filter_id: 'employment_sector',
+    description: 'Employment sector (Private, Public, Non-profit)',
+  },
+}
+
+/** Additional Prolific prescreener filter_ids that augment (not overlap) survey data. */
+export const PROLIFIC_AUGMENTATION_FILTERS: Record<string, string> = {
+  education_level: 'Highest level of education completed',
+  household_income: 'Household income bracket',
+  fluent_languages: 'Languages spoken fluently',
+}
+
+/** All enrichment filter_ids (cross-validation + augmentation). */
+export const PROLIFIC_ENRICHMENT_FILTER_IDS: string[] = [
+  ...Object.values(QUALTRICS_PROLIFIC_FILTER_MAP).map((v) => v.filter_id),
+  ...Object.keys(PROLIFIC_AUGMENTATION_FILTERS),
+]
+
+/**
+ * Exact Prolific prescreening criteria configured on the live study.
+ * Participants must match ALL of these criteria to be eligible.
+ *
+ * "Current Country of Residence" and "Employment Status" are also base
+ * fields in every Prolific demographic export (always included).
+ */
+export const PROLIFIC_STUDY_SCREENERS = [
+  {
+    filter_id: 'current_country_of_residence',
+    label: 'Current Country of Residence',
+    selected_values: ['United States'],
+    base_field: true,
+  },
+  {
+    filter_id: 'employment_status',
+    label: 'Employment Status',
+    selected_values: ['Full-Time'],
+    base_field: true,
+  },
+  {
+    filter_id: 'employment_sector',
+    label: 'Employer Type',
+    selected_values: [
+      'Employee of a for-profit company or business or of an individual, for wages, salary, or commissions',
+      'Employee of a not-for-profit, tax-exempt, or charitable organization',
+      'Local government employee (city, county, etc.)',
+      'State government employee',
+      'Federal government employee',
+      'Self-employed in own not-incorporated business, professional practice, or farm',
+      'Self-employed in own incorporated business, professional practice, or farm',
+      'Working without pay in family business or farm',
+    ],
+    base_field: false,
+  },
+  {
+    filter_id: 'company_size',
+    label: 'Company Size',
+    selected_values: ['50-249', '250-999', '1000+'],
+    base_field: false,
+  },
+  {
+    filter_id: 'occupation',
+    label: 'Job Position',
+    selected_values: [
+      'C-Level (e.g. CEO, CFO), Owner, Partner, President',
+      'Vice President (EVP, SVP, AVP, VP)',
+      'Director (Group Director, Sr. Director, Director)',
+      'Manager (Group Manager, Sr. Manager, Manager, Program Manager)',
+    ],
+    base_field: false,
+  },
+] as const
+
+/**
  * Export demographic data for all participants in a study (bulk).
  * This is the API equivalent of the "Download demographic data" button in the Prolific UI.
  *
- * Returns CSV content with: age, sex, ethnicity, language, residency, nationality,
+ * Base fields always included: age, sex, ethnicity, language, residency, nationality,
  * birth country, student status, employment status, and submission metadata.
+ *
+ * When filterIds are provided, the export also includes responses to those prescreener
+ * filters (up to 15 per export). Use PROLIFIC_ENRICHMENT_FILTER_IDS for cross-validation.
+ *
+ * Privacy: Demographic exports contain PII and must be handled ephemerally.
  *
  * @param studyId - The Prolific study ID
  * @param apiToken - Prolific API token
+ * @param filterIds - Optional array of Prolific prescreener filter_ids to include
  * @returns CSV string with demographic data, or null on error
  * @see https://docs.prolific.com/api-reference/studies/export-demographic-data
  */
 export async function exportStudyDemographics(
   studyId: string,
-  apiToken: string
+  apiToken: string,
+  filterIds?: string[]
 ): Promise<string | null> {
+  const filters = (filterIds ?? []).map((id) => ({ filter_id: id }))
   const url = `${PROLIFIC_API_BASE_URL}/studies/${studyId}/demographic-export/`
   const response = await fetch(url, {
     method: 'POST',
@@ -429,7 +539,7 @@ export async function exportStudyDemographics(
       Authorization: `Token ${apiToken}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ filters: [] }),
+    body: JSON.stringify({ filters }),
   })
 
   if (!response.ok) {
@@ -565,21 +675,25 @@ export async function exportSubmissionsCSV(studyId: string, apiToken: string): P
     return 'id,participant_id,status,started_at,completed_at,time_taken\n'
   }
 
+  const numSubmissions = submissions.length
+  // Pre-allocate array to avoid dynamic resizing for large arrays (performance optimization)
+  const csvLines = new Array(numSubmissions + 1)
+
   // CSV header
   const headers = ['id', 'participant_id', 'status', 'started_at', 'completed_at', 'time_taken']
-  const csvLines = [headers.join(',')]
+  csvLines[0] = headers.join(',')
 
   // CSV rows with proper escaping
-  for (const submission of submissions) {
-    const row = [
+  for (let i = 0; i < numSubmissions; i++) {
+    const submission = submissions[i]
+    csvLines[i + 1] = [
       escapeCsvField(submission.id),
       escapeCsvField(submission.participant_id),
       escapeCsvField(submission.status),
       escapeCsvField(submission.started_at),
       escapeCsvField(submission.completed_at || ''),
       escapeCsvField(submission.time_taken?.toString() || ''),
-    ]
-    csvLines.push(row.join(','))
+    ].join(',')
   }
 
   return csvLines.join('\n')
