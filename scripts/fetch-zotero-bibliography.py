@@ -31,6 +31,10 @@ except ImportError:
     sys.exit(1)
 
 
+# Maximum number of characters for the title portion of an inventory display entry.
+MAX_INVENTORY_TITLE_LENGTH = 65
+
+
 # ---------------------------------------------------------------------------
 # Author helpers
 # ---------------------------------------------------------------------------
@@ -93,7 +97,7 @@ def _inventory_author_str(authors: list) -> str:
 def make_inventory_display(authors: list, year: str, title: str) -> str:
     """Build the one-line inventory entry: 'Author (year) - Short title'."""
     author_str = _inventory_author_str(authors)
-    short_title = title[:65] + "..." if len(title) > 65 else title
+    short_title = title[:MAX_INVENTORY_TITLE_LENGTH] + "..." if len(title) > MAX_INVENTORY_TITLE_LENGTH else title
     return f"{author_str} ({year}) - {short_title}"
 
 

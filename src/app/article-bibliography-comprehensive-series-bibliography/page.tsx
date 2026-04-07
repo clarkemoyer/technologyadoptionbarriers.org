@@ -62,7 +62,15 @@ function ApaReference({ item }: { item: BibItem }) {
   const doiLink = item.doi ? `https://doi.org/${item.doi}` : ''
   const link = doiLink || item.url || ''
 
-  const renderLink = (href: string) => (href ? <> {href}</> : null)
+  const renderLink = (href: string) =>
+    href ? (
+      <>
+        {' '}
+        <a href={href} target="_blank" rel="noopener noreferrer">
+          {href}
+        </a>
+      </>
+    ) : null
 
   if (item.itemType === 'journalArticle') {
     // Author(s) (year). Title. *Journal, Vol*(Issue), pages. doi
