@@ -1594,9 +1594,16 @@ def sensitivity_to_json(cuts, idx):
         """
         Computes a chi-square test for independence across the four result groups
         for role, organization size, and profit model.
-        Returns the p-value and chi-square statistic.
+
+        Returns None when the required sample groups ('Conservative Clean',
+        'Flexible Clean', 'Prolific Accepted', 'All V2 Finished') are not all
+        present in cuts_list — callers must guard against None.
+
+        Otherwise returns a dict with 'role', 'organization_size', 'profit_model'
+        (each {ok, chi2, p_value, df, error}) and 'profit_model_distribution'.
         """
         import scipy.stats
+        import numpy as _np
 
         # Extract the demographic counts for each group
         # These will be lists of lists (contingency tables)
@@ -1640,7 +1647,6 @@ def sensitivity_to_json(cuts, idx):
 
         def _run_chi2(contingency_table):
             try:
-                import numpy as _np
                 table = _np.array(contingency_table, dtype=float)
                 # Drop columns that are all-zero across every group to avoid
                 # degenerate expected-frequency errors in chi2_contingency.
