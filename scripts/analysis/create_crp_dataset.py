@@ -835,7 +835,8 @@ def write_pii_report(path: Path, flags: list[dict]) -> None:
 
 def deidentify_selected(
     selected_rows: list[list[str]], headers: list[str], output_dir: Path,
-) -> bool:
+    skip_review: bool = False,
+) -> int:
     """Run the full 5-step NIST de-identification on selected rows.
 
     Returns True on success, False if PII verification fails.
@@ -855,6 +856,11 @@ def deidentify_selected(
     print(f"  Report: {pii_report_path}")
 
     redaction_count = 0
+    if pii_flags and not skip_review:
+        print(f"\n  {len(pii_flags)} PII flag(s) require human review.")
+        print(f"  Review: {pii_report_path}")
+        print("  Re-run with --skip-review to proceed with automated redaction.")
+        return 1
     if pii_flags:
         redaction_count = redact_pii(rows, pii_flags)
         print(f"  Redactions applied: {redaction_count}")
@@ -909,7 +915,7 @@ def deidentify_selected(
             print(f"    Row {flag['row_number']}, {flag['column']}: {flag['pattern_type']}")
         public_path.unlink(missing_ok=True)
         print("  Public dataset REMOVED. Manual review required.")
-        return False
+        return 1
 
     print("  PASS: No PII patterns detected in output.")
 
@@ -927,7 +933,7 @@ def deidentify_selected(
         f.write(f"Redactions applied: {redaction_count}\n")
     print(f"  Audit log: {log_path}")
 
-    return True
+    return 0
 
 
 # ───────────────────────────────────────────────────────────────
@@ -949,6 +955,8 @@ def main() -> int:
                         help="Output directory (default: ./crp_dataset_output)")
     parser.add_argument("--dry-run", action="store_true",
                         help="Show selection without writing de-identified files")
+    parser.add_argument("--skip-review", action="store_true",
+                        help="Proceed with automated PII redaction without human review")
     args = parser.parse_args()
 
     if not args.input_csv.exists():
@@ -969,8 +977,12 @@ def main() -> int:
     idx = make_idx(headers)
     print(f"  Loaded {len(data)} rows, {len(headers)} columns")
 
-    # Validate required enrichment columns
-    required_columns = ["PROLIFIC_PID", "Prolific_Status", "ResponseId", "StartDate"]
+    # Validate required enrichment and tiering columns
+    required_columns = [
+        "PROLIFIC_PID", "Prolific_Status", "ResponseId", "StartDate",
+        "Finished", "Duration (in seconds)",
+        BARRIER_IRI, READINESS_IRI, MATURITY_IRI,
+    ]
     missing_columns = [col for col in required_columns if col not in idx]
     if missing_columns:
         print(
@@ -1031,10 +1043,12 @@ def main() -> int:
     print("=" * 78)
 
     selected_rows = [p["row"] for p in selected]
-    success = deidentify_selected(selected_rows, headers, args.output_dir)
+    rc = deidentify_selected(
+        selected_rows, headers, args.output_dir, skip_review=args.skip_review
+    )
 
     print("\n" + "=" * 78)
-    if success:
+    if rc == 0:
         print("  CRP DATASET COMPLETE")
         print(f"  Public dataset:  {args.output_dir / 'TABS_V2_CRP_public_dataset.csv'}")
         print(f"  Rows: {len(selected)}")
@@ -1048,7 +1062,7 @@ def main() -> int:
         print("  Review pii_review_report_CONFIDENTIAL.txt and re-run.")
     print("=" * 78)
 
-    return 0 if success else 1
+    return rc
 
 
 if __name__ == "__main__":
