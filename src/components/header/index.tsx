@@ -81,10 +81,7 @@ const Header: React.FC = () => {
       {
         label: 'Tech Adoption Barriers',
         path: '/barriers',
-        children: [
-          { label: 'All Barriers', path: '/barriers' },
-          { label: 'Famous Quotes', path: '/barriers/quotes' },
-        ],
+        children: [{ label: 'All Barriers', path: '/barriers' }],
       },
       {
         label: 'Results',

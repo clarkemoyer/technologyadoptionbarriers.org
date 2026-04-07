@@ -38,7 +38,7 @@ const RESULTS_SUB_ITEMS = [
 ]
 
 /** Known sub-item labels for the Tech Adoption Barriers dropdown */
-const BARRIERS_SUB_ITEMS = ['All Barriers', 'Famous Quotes']
+const BARRIERS_SUB_ITEMS = ['All Barriers']
 
 /** Known sub-item labels for the Making of TABS dropdown */
 const MAKING_OF_TABS_SUB_ITEMS = [

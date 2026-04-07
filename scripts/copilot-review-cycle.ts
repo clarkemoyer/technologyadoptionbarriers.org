@@ -733,6 +733,22 @@ async function main() {
 
   if (!review) {
     console.log('\nCopilot review did not arrive within timeout.')
+    if (round >= maxRounds) {
+      postComment(
+        repo,
+        prNumber,
+        `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Timed out waiting for Copilot review and max rounds reached. Human attention needed.`
+      )
+      writeSummary(
+        prNumber,
+        round,
+        maxRounds,
+        'TIMEOUT_MAX_ROUNDS',
+        0,
+        'Review timeout at max rounds'
+      )
+      process.exit(1)
+    }
     postComment(
       repo,
       prNumber,
