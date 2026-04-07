@@ -2,13 +2,21 @@ name: Zotero — Create Website Citations Collection
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   create:
     runs-on: ubuntu-latest
     environment: zotero-prod
     steps:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
       - name: Install pyzotero
-        run: pip install pyzotero
+        run: pip install pyzotero==1.11.0
 
       - name: Create collections
         env:
@@ -16,7 +24,7 @@ jobs:
           ZOTERO_USER_ID: ${{ vars.ZOTERO_USER_ID }}
         run: |
           python3 << 'PYEOF'
-          import json, os
+          import json, os, sys
           from pyzotero import zotero
 
           zot = zotero.Zotero(os.environ['ZOTERO_USER_ID'], 'user', os.environ['ZOTERO_API_KEY'])
@@ -38,7 +46,7 @@ jobs:
 
           if not parent_key:
               print("ERROR: Could not create collection")
-              exit(1)
+              sys.exit(1)
 
           # Check existing subcollections
           existing = {c['data']['name'] for c in zot.collections_sub(parent_key)}
@@ -65,7 +73,7 @@ jobs:
 
           # Verify
           all_subs = zot.collections_sub(parent_key)
-          print(f"\n✅ Website Citations ({parent_key}) — {len(all_subs)} subcollections:")
+          print(f"\nWebsite Citations ({parent_key}) — {len(all_subs)} subcollections:")
           for s in all_subs:
               print(f"  {s['key']} — {s['data']['name']}")
           PYEOF

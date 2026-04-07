@@ -29,13 +29,13 @@ const IntegrationsPage = () => {
         <section className="mb-10 text-gray-800">
           <p className="mb-6">
             Running a long-term academic survey across multiple platforms requires reliable,
-            automated plumbing. This page explains the three major platform integrations that keep
-            TABS running: <strong>Qualtrics</strong> (the survey engine), <strong>Prolific</strong>{' '}
-            (the participant recruitment platform), and{' '}
-            <strong>Google Analytics & Search Console</strong> (impact measurement and SEO
-            transparency). Each integration is managed through GitHub Actions workflows and
-            TypeScript client libraries, so the entire operational lifecycle — from survey creation
-            to data collection to analytics — is version-controlled and reproducible.
+            automated plumbing. This page explains the major platform integrations that keep TABS
+            running: <strong>Qualtrics</strong> (the survey engine), <strong>Prolific</strong>{' '}
+            (participant recruitment), <strong>Google Analytics &amp; Search Console</strong>{' '}
+            (impact measurement), <strong>Zotero</strong> (reference library and AI-accessible
+            vetted sources), and supporting infrastructure from GitHub, Cloudflare, and Microsoft
+            Clarity. Each integration is managed through GitHub Actions workflows and client
+            libraries, so the entire operational lifecycle is version-controlled and reproducible.
           </p>
         </section>
 
@@ -170,9 +170,15 @@ const IntegrationsPage = () => {
               <table className="min-w-full border-collapse text-sm">
                 <thead>
                   <tr className="border-b border-gray-300 text-left">
-                    <th className="py-2 pr-4 font-semibold">Workflow</th>
-                    <th className="py-2 pr-4 font-semibold">Purpose</th>
-                    <th className="py-2 font-semibold">Read / Write</th>
+                    <th scope="col" className="py-2 pr-4 font-semibold">
+                      Workflow
+                    </th>
+                    <th scope="col" className="py-2 pr-4 font-semibold">
+                      Purpose
+                    </th>
+                    <th scope="col" className="py-2 font-semibold">
+                      Read / Write
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
@@ -491,9 +497,15 @@ const IntegrationsPage = () => {
               <table className="min-w-full border-collapse text-sm">
                 <thead>
                   <tr className="border-b border-gray-300 text-left">
-                    <th className="py-2 pr-4 font-semibold">Environment</th>
-                    <th className="py-2 pr-4 font-semibold">Service</th>
-                    <th className="py-2 font-semibold">Workflows</th>
+                    <th scope="col" className="py-2 pr-4 font-semibold">
+                      Environment
+                    </th>
+                    <th scope="col" className="py-2 pr-4 font-semibold">
+                      Service
+                    </th>
+                    <th scope="col" className="py-2 font-semibold">
+                      Workflows
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
@@ -604,9 +616,15 @@ const IntegrationsPage = () => {
               <table className="min-w-full border-collapse text-sm">
                 <thead>
                   <tr className="border-b border-gray-300 text-left">
-                    <th className="py-2 pr-4 font-semibold">Platform</th>
-                    <th className="py-2 pr-4 font-semibold">Access Method</th>
-                    <th className="py-2 font-semibold">Use Case</th>
+                    <th scope="col" className="py-2 pr-4 font-semibold">
+                      Platform
+                    </th>
+                    <th scope="col" className="py-2 pr-4 font-semibold">
+                      Access Method
+                    </th>
+                    <th scope="col" className="py-2 font-semibold">
+                      Use Case
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">

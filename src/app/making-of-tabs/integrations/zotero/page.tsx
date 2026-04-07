@@ -29,7 +29,7 @@ const ZoteroIntegrationPage = () => {
                 Making of TABS
               </Link>
               <span className="mx-2" aria-hidden="true">
-                &rsaquo;
+                ›
               </span>
             </li>
             <li>
@@ -37,10 +37,10 @@ const ZoteroIntegrationPage = () => {
                 href="/making-of-tabs/integrations"
                 className="hover:text-blue-600 hover:underline"
               >
-                Integrations
+                Technical Integrations
               </Link>
               <span className="mx-2" aria-hidden="true">
-                &rsaquo;
+                ›
               </span>
             </li>
             <li className="text-gray-800" aria-current="page">
@@ -121,9 +121,15 @@ const ZoteroIntegrationPage = () => {
             <table className="min-w-full border-collapse text-sm">
               <thead>
                 <tr className="border-b border-gray-300 text-left">
-                  <th className="py-2 pr-4 font-semibold">Platform</th>
-                  <th className="py-2 pr-4 font-semibold">Access Method</th>
-                  <th className="py-2 font-semibold">Use Case</th>
+                  <th scope="col" className="py-2 pr-4 font-semibold">
+                    Platform
+                  </th>
+                  <th scope="col" className="py-2 pr-4 font-semibold">
+                    Access Method
+                  </th>
+                  <th scope="col" className="py-2 font-semibold">
+                    Use Case
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -168,8 +174,12 @@ const ZoteroIntegrationPage = () => {
               <table className="min-w-full border-collapse text-sm">
                 <thead>
                   <tr className="border-b border-gray-300 text-left">
-                    <th className="py-2 pr-4 font-semibold">Tool</th>
-                    <th className="py-2 font-semibold">Description</th>
+                    <th scope="col" className="py-2 pr-4 font-semibold">
+                      Tool
+                    </th>
+                    <th scope="col" className="py-2 font-semibold">
+                      Description
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
@@ -226,8 +236,12 @@ const ZoteroIntegrationPage = () => {
               <table className="min-w-full border-collapse text-sm">
                 <thead>
                   <tr className="border-b border-gray-300 text-left">
-                    <th className="py-2 pr-4 font-semibold">Tool</th>
-                    <th className="py-2 font-semibold">Description</th>
+                    <th scope="col" className="py-2 pr-4 font-semibold">
+                      Tool
+                    </th>
+                    <th scope="col" className="py-2 font-semibold">
+                      Description
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
@@ -298,8 +312,12 @@ const ZoteroIntegrationPage = () => {
             <table className="min-w-full border-collapse text-sm">
               <thead>
                 <tr className="border-b border-gray-300 text-left">
-                  <th className="py-2 pr-4 font-semibold">Subcollection</th>
-                  <th className="py-2 font-semibold">Contents</th>
+                  <th scope="col" className="py-2 pr-4 font-semibold">
+                    Subcollection
+                  </th>
+                  <th scope="col" className="py-2 font-semibold">
+                    Contents
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -395,9 +413,15 @@ zot.update_item({"key": "ABC", "version": 1, "collections": ["KEY"]})
               <table className="min-w-full border-collapse text-sm">
                 <thead>
                   <tr className="border-b border-gray-300 text-left">
-                    <th className="py-2 pr-4 font-semibold">Variable</th>
-                    <th className="py-2 pr-4 font-semibold">Source</th>
-                    <th className="py-2 font-semibold">Value</th>
+                    <th scope="col" className="py-2 pr-4 font-semibold">
+                      Variable
+                    </th>
+                    <th scope="col" className="py-2 pr-4 font-semibold">
+                      Source
+                    </th>
+                    <th scope="col" className="py-2 font-semibold">
+                      Value
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
