@@ -186,9 +186,18 @@ def _get_zotero_dois(
 # ---------------------------------------------------------------------------
 
 
+def _s2_sleep(api_key: Optional[str]) -> None:
+    """Sleep to respect Semantic Scholar rate limits.
+
+    Free tier:  100 req / 5 min ≈ 0.33 req/s  → sleep 3 s to be safe.
+    Paid tier:  1 req / s                       → sleep 1.1 s to be safe.
+    """
+    time.sleep(1.1 if api_key else 3.0)
+
+
 def _get_paper_by_doi(doi: str, api_key: Optional[str]) -> Optional[dict]:
     """Look up a Semantic Scholar paper by DOI; returns None if not found."""
-    time.sleep(0.6)  # stay well within the free-tier rate limit
+    _s2_sleep(api_key)
     result = _s2_get(
         f"{S2_BASE}/paper/DOI:{quote(doi, safe='')}",
         params={"fields": PAPER_FIELDS},
@@ -203,7 +212,7 @@ def _get_citations(
     limit: int = 100,
 ) -> list[dict]:
     """Return a list of papers that cite *paper_id*."""
-    time.sleep(0.6)
+    _s2_sleep(api_key)
     result = _s2_get(
         f"{S2_BASE}/paper/{paper_id}/citations",
         params={"fields": PAPER_FIELDS, "limit": limit},
@@ -222,7 +231,7 @@ def _get_recommendations(
     limit: int = 20,
 ) -> list[dict]:
     """Return related / recommended papers for *paper_id*."""
-    time.sleep(0.6)
+    _s2_sleep(api_key)
     result = _s2_get(
         f"{S2_REC_BASE}/papers/forpaper/{paper_id}",
         params={"fields": PAPER_FIELDS, "limit": limit},
@@ -260,7 +269,9 @@ def _filter_papers(
         pub_date_str = paper.get("publicationDate") or ""
         if pub_date_str:
             try:
-                pub_date = date.fromisoformat(pub_date_str[:10])
+                # Guard against strings shorter than 10 chars before slicing
+                date_prefix = pub_date_str[:10] if len(pub_date_str) >= 10 else pub_date_str
+                pub_date = date.fromisoformat(date_prefix)
                 if pub_date < cutoff_date:
                     continue
             except ValueError:
@@ -384,10 +395,10 @@ def main() -> int:
     library_id = _require_env("ZOTERO_LIBRARY_ID")
     library_type = os.environ.get("ZOTERO_LIBRARY_TYPE", "user").strip() or "user"
     collection_name = os.environ.get("ZOTERO_COLLECTION", "").strip() or None
-    days_back = int(os.environ.get("DAYS_BACK", "90") or "90")
-    min_citations = int(os.environ.get("MIN_CITATIONS", "0") or "0")
-    top_n = int(os.environ.get("TOP_N_REFS", "25") or "25")
-    report_output = os.environ.get("REPORT_OUTPUT", "/tmp/ss-report.md") or "/tmp/ss-report.md"
+    days_back = int(os.environ.get("DAYS_BACK") or "90")
+    min_citations = int(os.environ.get("MIN_CITATIONS") or "0")
+    top_n = int(os.environ.get("TOP_N_REFS") or "25")
+    report_output = os.environ.get("REPORT_OUTPUT") or "/tmp/ss-report.md"
     s2_api_key = os.environ.get("S2_API_KEY", "").strip() or None
 
     cutoff_date = date.today() - timedelta(days=days_back)
