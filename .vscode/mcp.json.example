@@ -7,6 +7,14 @@
         "Accept": "application/json, text/event-stream",
         "Authorization": "Bearer ${input:qualtrics_oauth_token}"
       }
+    },
+    "zotero": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["--from", "pyzotero[mcp]", "pyzotero-mcp"],
+      "env": {
+        "ZOTERO_USER_ID": "<your-zotero-user-id>"
+      }
     }
   },
   "inputs": [

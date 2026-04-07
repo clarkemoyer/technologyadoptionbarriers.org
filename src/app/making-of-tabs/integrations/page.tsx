@@ -101,6 +101,16 @@ const IntegrationsPage = () => {
                 DNS, global CDN, SSL/TLS, caching strategy, and security headers
               </p>
             </Link>
+            <Link
+              href="/making-of-tabs/integrations/zotero"
+              className="block rounded-xl border border-red-200 bg-red-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-red-900 mb-1">Zotero</p>
+              <p className="text-sm text-red-800">
+                Reference library, AI-accessible vetted sources of truth, and Semantic Scholar
+                integration
+              </p>
+            </Link>
           </div>
         </section>
 
@@ -502,6 +512,11 @@ const IntegrationsPage = () => {
                     <td className="py-2 pr-4">Google Analytics &amp; Search Console</td>
                     <td className="py-2">2 workflows</td>
                   </tr>
+                  <tr>
+                    <td className="py-2 pr-4 font-mono text-xs">zotero-prod</td>
+                    <td className="py-2 pr-4">Zotero Web API v3</td>
+                    <td className="py-2">1 workflow</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -515,6 +530,111 @@ const IntegrationsPage = () => {
               jest-axe), static site build, and Playwright end-to-end tests. The site deploys
               automatically to GitHub Pages when changes merge to the main branch.
             </p>
+          </div>
+        </section>
+
+        {/* ── Zotero ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Zotero — Reference Library &amp; Vetted Sources</h2>
+
+          <p className="mb-4">
+            <a
+              href="https://www.zotero.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              Zotero
+            </a>{' '}
+            is the project&apos;s reference management system, housing over 3,300 academic sources
+            across 199 collections. The Zotero integration gives AI agents direct access to fully
+            vetted sources of truth from the research archive — enabling citation verification,
+            literature discovery, and cross-referencing with external databases like Semantic
+            Scholar.
+          </p>
+
+          <div className="mb-8">
+            <h3 className={H3_CLASSES}>How It Works</h3>
+            <p className="mb-4">
+              The integration uses{' '}
+              <a
+                href="https://github.com/urschrei/pyzotero"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline hover:text-blue-800"
+              >
+                pyzotero
+              </a>
+              , a Python client for the Zotero Web API v3. It operates in two modes: locally via
+              Zotero desktop&apos;s built-in API server (no authentication required) and via the
+              cloud API for CI/CD workflows. An MCP (Model Context Protocol) server exposes the
+              library to AI agents across Claude Desktop, VS Code, and Claude Code.
+            </p>
+          </div>
+
+          <div className="mb-8">
+            <h3 className={H3_CLASSES}>AI Agent Capabilities</h3>
+            <p className="mb-4">Through the MCP server, AI agents can:</p>
+            <ul className="mb-4 list-disc space-y-2 pl-6">
+              <li>
+                <strong>Search the library</strong> — Full-text and metadata search across all
+                3,300+ references
+              </li>
+              <li>
+                <strong>Retrieve item details</strong> — Authors, abstracts, DOIs, publication
+                dates, and tags
+              </li>
+              <li>
+                <strong>Access PDF content</strong> — Extract full-text from attached documents
+              </li>
+              <li>
+                <strong>Browse collections</strong> — Navigate the 199-collection hierarchy
+                organized by course, topic, and research area
+              </li>
+              <li>
+                <strong>Cross-reference with Semantic Scholar</strong> — Find related papers,
+                citations, and references, with automatic checks against the local library
+              </li>
+            </ul>
+          </div>
+
+          <div className="mb-8">
+            <h3 className={H3_CLASSES}>Integration Architecture</h3>
+            <div className="overflow-x-auto">
+              <table className="min-w-full border-collapse text-sm">
+                <thead>
+                  <tr className="border-b border-gray-300 text-left">
+                    <th className="py-2 pr-4 font-semibold">Platform</th>
+                    <th className="py-2 pr-4 font-semibold">Access Method</th>
+                    <th className="py-2 font-semibold">Use Case</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  <tr>
+                    <td className="py-2 pr-4">Claude Desktop</td>
+                    <td className="py-2 pr-4">pyzotero MCP (10 tools)</td>
+                    <td className="py-2">Interactive research and literature review</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4">VS Code / Copilot</td>
+                    <td className="py-2 pr-4">pyzotero MCP (10 tools)</td>
+                    <td className="py-2">Citation lookup while writing code and documentation</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4">Claude Code</td>
+                    <td className="py-2 pr-4">pyzotero Python library</td>
+                    <td className="py-2">Programmatic library operations and automation</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4">GitHub Actions</td>
+                    <td className="py-2 pr-4">
+                      pyzotero + <code>zotero-prod</code> environment
+                    </td>
+                    <td className="py-2">CI/CD reference validation and bibliography sync</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
 
