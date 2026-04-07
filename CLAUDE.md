@@ -691,9 +691,11 @@ const response = await gaClient.runReport({
 **Python usage:**
 
 ```python
+import os
 from pyzotero import zotero
 
 # Cloud API (CI/GitHub Actions)
+api_key = os.environ['ZOTERO_API_KEY']
 zot = zotero.Zotero(1527234, 'user', api_key)
 
 # Local API (development — no key needed)

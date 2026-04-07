@@ -396,6 +396,8 @@ colls = zot.collections_top()          # Read collections
 results = zot.items(q="adoption")      # Search
 
 # Cloud access (for writes and CI)
+import os
+api_key = os.environ["ZOTERO_API_KEY"]
 zot = zotero.Zotero(1527234, "user", api_key)
 zot.create_collections([{"name": "New Collection"}])
 zot.update_item({"key": "ABC", "version": 1, "collections": ["KEY"]})

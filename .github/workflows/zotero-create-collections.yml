@@ -29,9 +29,9 @@ jobs:
 
           zot = zotero.Zotero(os.environ['ZOTERO_USER_ID'], 'user', os.environ['ZOTERO_API_KEY'])
 
-          # Check if Website Citations already exists
+          # Check if Website Citations already exists (paginate to cover all top-level collections)
           parent_key = None
-          for c in zot.collections_top():
+          for c in zot.everything(zot.collections_top()):
               if c['data']['name'] == 'Website Citations':
                   parent_key = c['key']
                   print(f"Found existing 'Website Citations': {parent_key}")
@@ -48,8 +48,8 @@ jobs:
               print("ERROR: Could not create collection")
               sys.exit(1)
 
-          # Check existing subcollections
-          existing = {c['data']['name'] for c in zot.collections_sub(parent_key)}
+          # Check existing subcollections (paginate to cover all subcollections)
+          existing = {c['data']['name'] for c in zot.everything(zot.collections_sub(parent_key))}
           print(f"Existing subcollections: {existing}")
 
           subs_to_create = []
@@ -71,8 +71,8 @@ jobs:
           else:
               print("All subcollections already exist.")
 
-          # Verify
-          all_subs = zot.collections_sub(parent_key)
+          # Verify (paginate for completeness)
+          all_subs = zot.everything(zot.collections_sub(parent_key))
           print(f"\nWebsite Citations ({parent_key}) — {len(all_subs)} subcollections:")
           for s in all_subs:
               print(f"  {s['key']} — {s['data']['name']}")
