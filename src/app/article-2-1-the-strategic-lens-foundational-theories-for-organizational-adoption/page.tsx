@@ -8,6 +8,7 @@ import {
   REFERENCES_H2_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
+import Citation from '@/components/ui/citation'
 import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
@@ -298,29 +299,32 @@ const Article21Page = () => {
           <h2 className={REFERENCES_H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li>
-              Tornatzky, L. G., &amp; Fleischer, M. (1990). The processes of technological
-              innovation. Lexington Books.
+              Tornatzky, L. G., &amp; Fleischer, M. (1990).{' '}
+              <em>The processes of technological innovation.</em> Lexington Books.
             </li>
             <li>
-              Wernerfelt, B. (1984). A resource-based view of the firm. Strategic Management
-              Journal, 5(2), 171-180.
+              Wernerfelt, B. (1984). A resource-based view of the firm.{' '}
+              <em>Strategic Management Journal, 5</em>(2), 171–180.{' '}
+              <Citation doi="10.1002/smj.4250050207" />
             </li>
             <li>
-              Barney, J. B. (1991). Firm resources and sustained competitive advantage. Journal of
-              Management, 17(1), 99-120.
+              Barney, J. B. (1991). Firm resources and sustained competitive advantage.{' '}
+              <em>Journal of Management, 17</em>(1), 99–120.{' '}
+              <Citation doi="10.1177/014920639101700108" />
             </li>
             <li>
               Teece, D. J., Pisano, G., &amp; Shuen, A. (1997). Dynamic capabilities and strategic
-              management. Strategic Management Journal, 18(S1), 509-533.
+              management. <em>Strategic Management Journal, 18</em>(7), 509–533.{' '}
+              <Citation doi="10.1002/(SICI)1097-0266(199708)18:7<509::AID-SMJ882>3.0.CO;2-Z" />
             </li>
             <li>
               Davenport, T. H., &amp; Short, J. E. (1990). The new industrial engineering:
-              Information technology and business process redesign. Sloan Management Review, 31(4),
-              11-27.
+              Information technology and business process redesign.{' '}
+              <em>Sloan Management Review, 31</em>(4), 11–27.
             </li>
             <li>
-              Deming, W. E. (1982). Quality, productivity, and competitive position. MIT Center for
-              Advanced Engineering Study.
+              Deming, W. E. (1982). <em>Quality, productivity, and competitive position.</em> MIT
+              Center for Advanced Engineering Study.
             </li>
           </ol>
         </section>

@@ -8,6 +8,7 @@ import {
   REFERENCES_H2_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
+import Citation from '@/components/ui/citation'
 import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
@@ -356,16 +357,19 @@ const Article26Page = () => {
           <h2 className={REFERENCES_H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li>
-              Amazon Web Services. (2009/2024). AWS Cloud Adoption Framework. AWS Whitepaper and
-              Framework Documentation.
+              Amazon Web Services. (2024). <em>AWS Cloud Adoption Framework.</em> AWS Whitepaper and
+              Framework Documentation.{' '}
+              <Citation url="https://aws.amazon.com/cloud-adoption-framework/" />
             </li>
             <li>
               Amazon Web Services. (2024). Accelerating your return on cloud investment by adopting
-              a strategic transformation and change methodology. AWS Prescriptive Guidance.
+              a strategic transformation and change methodology. <em>AWS Prescriptive Guidance.</em>{' '}
+              <Citation url="https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-cloud-transformation/welcome.html" />
             </li>
             <li>
-              Microsoft. (2025). Microsoft Cloud Adoption Framework for Azure. Microsoft Learn
-              Documentation.
+              Microsoft. (2025). Microsoft Cloud Adoption Framework for Azure.{' '}
+              <em>Microsoft Learn Documentation.</em>{' '}
+              <Citation url="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/" />
             </li>
           </ol>
         </section>
