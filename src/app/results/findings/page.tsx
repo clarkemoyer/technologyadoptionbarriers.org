@@ -85,12 +85,85 @@ const sampleDetails: Record<string, SampleDetail> =
   ((sensitivityData as Record<string, unknown>).sample_details as Record<string, SampleDetail>) ??
   {}
 
+// Pre-compute sample map for O(1) lookups during rendering
+const sampleMap = new Map(sensitivityData.samples.map((s) => [s.key, s]))
+
 const PRIMARY_GROUPS = [
   { key: 'conservative_clean', label: 'Conservative Clean', color: 'border-green-500' },
   { key: 'flexible_clean', label: 'Flexible Clean', color: 'border-blue-500' },
   { key: 'prolific_accepted', label: 'Prolific Accepted', color: 'border-amber-500' },
   { key: 'v2_finished', label: 'All V2 Finished', color: 'border-gray-400' },
 ]
+
+// Heatmap Color Scale (Red-based: low barriers = light, high barriers = dark)
+// We use a base RGB of (220, 38, 38) -> Tailwind red-600
+const getHeatmapColor = (val: number | null, min: number, max: number): string => {
+  if (val === null) return 'transparent'
+  // Calculate relative intensity (0 to 1)
+  const range = max - min
+  // Guard against divide-by-zero if all values are identical
+  const intensity = range === 0 ? 0.5 : (val - min) / range
+  // Map intensity to an opacity from 0.1 to 0.9 to ensure text remains readable
+  const opacity = 0.1 + intensity * 0.8
+  return `rgba(220, 38, 38, ${opacity})`
+}
+
+interface HeatmapDataCell {
+  val: number | null
+  n: number | null
+}
+
+interface HeatmapData {
+  rowLabels: string[]
+  matrixData: Record<string, Record<string, HeatmapDataCell>>
+  minMean: number
+  maxMean: number
+}
+
+const buildHeatmapData = (
+  sampleDetails: Record<string, SampleDetail>,
+  categoryKey: 'by_role' | 'by_org_size'
+): HeatmapData => {
+  const allGroups = new Set<string>()
+  const matrixData: Record<string, Record<string, HeatmapDataCell>> = {}
+
+  PRIMARY_GROUPS.forEach((g) => {
+    const details = sampleDetails[g.key]
+    const ct = details?.cross_tabs
+    if (ct && ct[categoryKey]) {
+      ct[categoryKey]?.forEach((row) => {
+        allGroups.add(row.group)
+      })
+    }
+  })
+
+  const rowLabels = Array.from(allGroups)
+  let minMean = Infinity
+  let maxMean = -Infinity
+
+  rowLabels.forEach((label) => {
+    matrixData[label] = {}
+    PRIMARY_GROUPS.forEach((g) => {
+      const details = sampleDetails[g.key]
+      const ct = details?.cross_tabs
+      let val: number | null = null
+      let n: number | null = null
+
+      if (ct && ct[categoryKey]) {
+        const row = ct[categoryKey]?.find((r) => r.group === label)
+        if (row) {
+          val = row.barrier_mean
+          n = row.n
+          if (val !== null && val < minMean) minMean = val
+          if (val !== null && val > maxMean) maxMean = val
+        }
+      }
+      matrixData[label][g.key] = { val, n }
+    })
+  })
+
+  return { rowLabels, matrixData, minMean, maxMean }
+}
 
 const fmt = (val: number | null | undefined, decimals: number = 2): string => {
   if (val === null || val === undefined) return '—'
@@ -118,6 +191,85 @@ const dSize = (d: number | null | undefined): string => {
   if (abs < 0.5) return 'small'
   if (abs < 0.8) return 'medium'
   return 'large'
+}
+
+const CrossTabHeatmap = ({ title, data }: { title: string; data: HeatmapData }) => {
+  const { rowLabels, matrixData, minMean, maxMean } = data
+
+  if (rowLabels.length === 0) {
+    return (
+      <p className="text-sm text-gray-500 italic mt-2">
+        {title} data will be populated by the next pipeline run.
+      </p>
+    )
+  }
+
+  return (
+    <div className="mb-10">
+      <h3 className={H3_CLASSES}>{title}</h3>
+      <p className="text-sm text-gray-600 mb-3">
+        Color intensity represents the mean barrier score (darker = higher barriers). Range across
+        all groups: {minMean === Infinity ? '—' : minMean.toFixed(2)} to{' '}
+        {maxMean === -Infinity ? '—' : maxMean.toFixed(2)}.
+      </p>
+
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm border-collapse bg-white rounded shadow-sm border border-gray-200">
+          <thead>
+            <tr className="bg-gray-50 border-b border-gray-200">
+              <th className="py-2 px-3 text-left font-semibold text-gray-700 min-w-[150px]">
+                Group
+              </th>
+              {PRIMARY_GROUPS.map((g) => (
+                <th
+                  key={g.key}
+                  className="py-2 px-3 text-center font-semibold text-gray-700 min-w-[120px]"
+                >
+                  {g.label}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rowLabels.map((rowLabel) => (
+              <tr key={rowLabel} className="border-b border-gray-100 last:border-b-0">
+                <td className="py-2 px-3 font-medium text-gray-800 bg-gray-50/50">{rowLabel}</td>
+                {PRIMARY_GROUPS.map((g) => {
+                  const cell = matrixData[rowLabel]?.[g.key]
+                  const hasData = cell && cell.val !== null
+
+                  return (
+                    <td
+                      key={g.key}
+                      className="py-2 px-3 text-center"
+                      style={{
+                        backgroundColor: hasData
+                          ? getHeatmapColor(cell.val, minMean, maxMean)
+                          : 'transparent',
+                      }}
+                    >
+                      {hasData ? (
+                        <div className="flex flex-col">
+                          <span className="font-mono font-bold text-gray-900 drop-shadow-sm">
+                            {cell.val?.toFixed(2)}
+                          </span>
+                          <span className="text-xs text-gray-800 opacity-80 font-mono mt-0.5">
+                            n={cell.n}
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="text-gray-400">—</span>
+                      )}
+                    </td>
+                  )
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
 }
 
 const FindingsPage = () => {
@@ -153,6 +305,184 @@ const FindingsPage = () => {
           </p>
         </section>
 
+        {/* ── Technology Maturity Analysis ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Technology Maturity Analysis</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Technology maturity measures the extent to which an organization has formalized and
+            optimized its technology processes. Higher scores indicate more advanced process
+            management. This section highlights maturity trends across different result groups,
+            respondent roles, and organizational characteristics.
+          </p>
+
+          {PRIMARY_GROUPS.map((group) => {
+            const sample = sensitivityData.samples.find((s) => s.key === group.key)
+            const details = sampleDetails[group.key]
+            const ct = details?.cross_tabs
+            const maturityMean = sensitivityData.metrics.find((m) => m.key === 'maturity_mean')
+              ?.values?.[group.key as keyof (typeof sensitivityData.metrics)[0]['values']]
+            const byRole = ct?.by_role
+            const effects = details?.effect_sizes
+            const inf = details?.inferential
+
+            return (
+              <div
+                key={group.key}
+                className={`border-l-4 ${group.color} bg-gray-50 rounded-lg p-5 mb-6`}
+              >
+                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-4 border-b border-gray-200 pb-2">
+                  <h3 className="text-lg font-bold text-gray-900">
+                    {group.label} (N={sample?.n ?? '—'})
+                  </h3>
+                  <div className="text-sm font-medium text-gray-500 mt-1 sm:mt-0">
+                    Grand Mean: <span className="text-gray-900 font-mono">{fmt(maturityMean)}</span>
+                  </div>
+                </div>
+
+                {byRole && byRole.length > 0 ? (
+                  <div className="mt-3 grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* Role Breakdown Table */}
+                    <div>
+                      <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
+                        Maturity by Role
+                      </h4>
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-xs border-collapse bg-white/70 rounded text-left">
+                          <thead>
+                            <tr className="border-b border-gray-300">
+                              <th className="py-1.5 px-2 font-semibold text-gray-600">
+                                Role Group
+                              </th>
+                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                                n
+                              </th>
+                              <th className="py-1.5 px-2 text-right font-semibold text-gray-600">
+                                Mean
+                              </th>
+                              <th className="py-1.5 px-2 text-left font-semibold text-gray-600">
+                                &Delta; Grand
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {byRole.map((row) => {
+                              const hasDiff = row.maturity_mean != null && maturityMean != null
+                              const diff = hasDiff
+                                ? (row.maturity_mean as number) - (maturityMean as number)
+                                : 0
+                              return (
+                                <tr key={row.group} className="border-b border-gray-200">
+                                  <td className="py-1.5 px-2 font-medium">{row.group}</td>
+                                  <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
+                                  <td className="py-1.5 px-2 text-right font-mono">
+                                    {row.maturity_mean?.toFixed(2) ?? '—'}
+                                  </td>
+                                  <td className="py-1.5 px-2 font-mono text-[10px]">
+                                    {hasDiff ? (
+                                      <div className="flex items-center gap-2">
+                                        <div
+                                          className={`h-1.5 rounded-full ${
+                                            diff >= 0 ? 'bg-green-500' : 'bg-rose-500'
+                                          }`}
+                                          style={{
+                                            width: `${Math.min(Math.abs(diff) * 40, 60)}px`,
+                                          }}
+                                        ></div>
+                                        <span
+                                          className={diff >= 0 ? 'text-green-700' : 'text-rose-700'}
+                                        >
+                                          {diff >= 0 ? '+' : ''}
+                                          {diff.toFixed(2)}
+                                        </span>
+                                      </div>
+                                    ) : (
+                                      <span className="text-gray-400">—</span>
+                                    )}
+                                  </td>
+                                </tr>
+                              )
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    {/* Maturity Statistics (Effect Sizes & Inferential) */}
+                    <div className="space-y-4">
+                      <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
+                        Maturity Statistical Tests
+                      </h4>
+
+                      {/* Technical Comparison */}
+                      {effects?.tech_vs_nontech?.constructs?.maturity && (
+                        <div className="bg-white/50 p-3 rounded border border-gray-200">
+                          <p className="text-[10px] font-bold text-gray-500 uppercase mb-1">
+                            Technical vs Non-Technical
+                          </p>
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="text-xs font-medium">Effect Size (d)</span>
+                            <span className="text-xs font-mono font-bold">
+                              {fmt(effects.tech_vs_nontech.constructs.maturity.d)}
+                            </span>
+                          </div>
+                          {inf?.t_tests_tech_vs_nontech?.constructs?.maturity && (
+                            <div className="flex justify-between items-center text-[10px]">
+                              <span className="text-gray-600">
+                                Welch&rsquo;s t=
+                                {inf.t_tests_tech_vs_nontech.constructs.maturity.t?.toFixed(2)}, p=
+                                {formatPValue(inf.t_tests_tech_vs_nontech.constructs.maturity.p)}
+                              </span>
+                              {inf.t_tests_tech_vs_nontech.constructs.maturity.sig && (
+                                <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-bold">
+                                  Significant
+                                </span>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* ANOVA Results */}
+                      {inf?.anova_by_role?.constructs?.maturity && (
+                        <div className="bg-white/50 p-3 rounded border border-gray-200">
+                          <p className="text-[10px] font-bold text-gray-500 uppercase mb-1">
+                            One-way ANOVA by Role
+                          </p>
+                          <div className="flex justify-between items-center mb-1 text-xs">
+                            <span className="text-gray-600">F-Statistic</span>
+                            <span className="font-mono">
+                              {inf.anova_by_role.constructs.maturity.f?.toFixed(2)}
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center text-[10px]">
+                            <span className="text-gray-600">
+                              df=
+                              {formatAnovaDf(
+                                inf.anova_by_role.constructs.maturity.df_between,
+                                inf.anova_by_role.constructs.maturity.df_within
+                              )}
+                              , p={formatPValue(inf.anova_by_role.constructs.maturity.p)}
+                            </span>
+                            {inf.anova_by_role.constructs.maturity.sig && (
+                              <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-bold">
+                                Significant
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-sm text-gray-500 italic mt-2">
+                    Maturity data will be populated by the next pipeline run.
+                  </p>
+                )}
+              </div>
+            )
+          })}
+        </section>
+
         {/* ── Effect Sizes by Result Group ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Effect Sizes (Cohen&rsquo;s d)</h2>
@@ -163,7 +493,7 @@ const FindingsPage = () => {
           </p>
 
           {PRIMARY_GROUPS.map((group) => {
-            const sample = sensitivityData.samples.find((s) => s.key === group.key)
+            const sample = sampleMap.get(group.key)
             const details = sampleDetails[group.key]
             const effects = details?.effect_sizes
             const hasEffects =
@@ -341,115 +671,22 @@ const FindingsPage = () => {
 
         {/* ── Cross-Tabulations by Result Group ── */}
         <section className="mb-12 text-gray-800">
-          <h2 className={H2_CLASSES}>Cross-Tabulations</h2>
+          <h2 className={H2_CLASSES}>Cross-Tabulations Heatmap</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Cross-tabulations show construct means broken down by respondent subgroups (role, org
-            size). These are computed for each result group to check whether group-level patterns
-            hold across data cleaning levels.
+            Cross-tabulations show mean barrier scores broken down by respondent subgroups (role,
+            org size). The heatmap provides a side-by-side comparison across all data cleaning
+            levels to visualize patterns and variations.
           </p>
 
-          {PRIMARY_GROUPS.map((group) => {
-            const sample = sensitivityData.samples.find((s) => s.key === group.key)
-            const details = sampleDetails[group.key]
-            const ct = details?.cross_tabs
-            const hasData =
-              ct && ((ct.by_role?.length ?? 0) > 0 || (ct.by_org_size?.length ?? 0) > 0)
+          <CrossTabHeatmap
+            title="Mean Barrier Score by Role"
+            data={buildHeatmapData(sampleDetails, 'by_role')}
+          />
 
-            return (
-              <div
-                key={group.key}
-                className={`border-l-4 ${group.color} bg-gray-50 rounded-lg p-5 mb-6`}
-              >
-                <h3 className={H3_CLASSES}>
-                  {group.label} (N={sample?.n ?? '—'})
-                </h3>
-
-                {hasData ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-                    {/* By Role */}
-                    {(ct.by_role?.length ?? 0) > 0 && (
-                      <div>
-                        <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">By Role</h4>
-                        <div className="overflow-x-auto">
-                          <table className="w-full text-xs border-collapse bg-white/70 rounded">
-                            <thead>
-                              <tr className="border-b border-gray-300">
-                                <th className="py-1.5 px-2 text-left font-semibold">Group</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">n</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">B</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">R</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">M</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {(ct.by_role as CrossTabRow[]).map((row) => (
-                                <tr key={row.group} className="border-b border-gray-200">
-                                  <td className="py-1.5 px-2 font-medium">{row.group}</td>
-                                  <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
-                                  <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.barrier_mean?.toFixed(2) ?? '—'}
-                                  </td>
-                                  <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.readiness_mean?.toFixed(2) ?? '—'}
-                                  </td>
-                                  <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.maturity_mean?.toFixed(2) ?? '—'}
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* By Org Size */}
-                    {(ct.by_org_size?.length ?? 0) > 0 && (
-                      <div>
-                        <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
-                          By Org Size
-                        </h4>
-                        <div className="overflow-x-auto">
-                          <table className="w-full text-xs border-collapse bg-white/70 rounded">
-                            <thead>
-                              <tr className="border-b border-gray-300">
-                                <th className="py-1.5 px-2 text-left font-semibold">Group</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">n</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">B</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">R</th>
-                                <th className="py-1.5 px-2 text-right font-semibold">M</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {(ct.by_org_size as CrossTabRow[]).map((row) => (
-                                <tr key={row.group} className="border-b border-gray-200">
-                                  <td className="py-1.5 px-2 font-medium">{row.group}</td>
-                                  <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
-                                  <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.barrier_mean?.toFixed(2) ?? '—'}
-                                  </td>
-                                  <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.readiness_mean?.toFixed(2) ?? '—'}
-                                  </td>
-                                  <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.maturity_mean?.toFixed(2) ?? '—'}
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <p className="text-sm text-gray-500 italic mt-2">
-                    Cross-tabulation data will be populated by the next pipeline run.
-                  </p>
-                )}
-              </div>
-            )
-          })}
+          <CrossTabHeatmap
+            title="Mean Barrier Score by Organization Size"
+            data={buildHeatmapData(sampleDetails, 'by_org_size')}
+          />
         </section>
 
         {/* ── Inferential Statistics by Result Group ── */}
