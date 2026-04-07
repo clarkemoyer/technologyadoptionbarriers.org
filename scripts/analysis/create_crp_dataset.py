@@ -295,8 +295,7 @@ def classify_disposition(row: list[str], idx: dict[str, int]) -> str:
     if not is_finished(row, idx):
         return "INCOMPLETE"
 
-    # Steps 1-2: Auth flags
-    llm_flag, bots_flag = has_auth_flag(row, idx)
+    # Steps 1-2: Auth flags (need raw values to distinguish LOW vs MIXED)
     llm_val = get_val(row, idx, "Auth_LLM").upper()
     bots_val = get_val(row, idx, "Auth_Bots").upper()
     if llm_val == "LOW" or bots_val == "LOW":
