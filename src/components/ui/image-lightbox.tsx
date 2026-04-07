@@ -97,7 +97,7 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
         type="button"
         onClick={openLightbox}
         className={`relative cursor-zoom-in group block w-full ${className}`}
-        aria-label={`View full-screen: ${alt}`}
+        aria-label={`Expand image: ${alt}`}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -107,9 +107,9 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
           height={height}
           className={`w-full h-auto ${imgClassName}`}
         />
-        {/* Hover overlay hint */}
-        <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/10 transition-colors duration-200 rounded-lg">
-          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-white/90 text-gray-800 px-3 py-1.5 rounded-full text-sm font-medium shadow-md">
+        {/* Visual hover hint and always-accessible label */}
+        <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/10 group-focus-visible:bg-black/10 transition-colors duration-200 rounded-lg">
+          <span className="opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-200 bg-white/90 text-gray-800 px-3 py-1.5 rounded-full text-sm font-medium shadow-md">
             Click to expand
           </span>
         </span>
