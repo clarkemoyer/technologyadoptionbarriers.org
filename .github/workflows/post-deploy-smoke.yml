@@ -409,8 +409,8 @@ jobs:
             local grep_status
             fetch_data_page "$url" "$label"
             [ "$FETCH_OK" -ne 0 ] && return 0
-            echo "$DATA_CONTENT" | grep -qE -- "$pattern"
-            grep_status=$?
+            grep_status=0
+            echo "$DATA_CONTENT" | grep -qE -- "$pattern" || grep_status=$?
             if [ "$grep_status" -eq 0 ]; then
               echo "| $label | ✅ Data renders |" >> /tmp/data-results.txt
             elif [ "$grep_status" -eq 1 ]; then
@@ -709,8 +709,8 @@ jobs:
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const verdictOutcome = '${{ steps.verdict.outcome }}';
             const description = verdictOutcome === 'failure'
-              ? '🚨 Production smoke test failed — site may be broken'
-              : '🚨 Smoke test workflow failed before checks ran';
+              ? 'FAIL: Production smoke test failed -- site may be broken'
+              : 'FAIL: Smoke test workflow failed before checks ran';
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
