@@ -2,6 +2,9 @@ name: Zotero — Create Website Citations Collection
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   create:
     runs-on: ubuntu-latest
