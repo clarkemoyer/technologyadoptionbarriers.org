@@ -7,9 +7,9 @@ test.describe('Full-site search', () => {
 
   test('search input is visible and accessible', async ({ page }) => {
     const searchInput = page.getByPlaceholder('Search site...')
-    const searchbox = page.getByRole('searchbox')
+    const combobox = page.getByRole('combobox')
     await expect(searchInput).toBeVisible()
-    await expect(searchbox).toBeVisible()
+    await expect(combobox).toBeVisible()
   })
 
   test('opens results dropdown when typing', async ({ page }) => {

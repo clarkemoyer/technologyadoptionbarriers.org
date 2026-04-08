@@ -133,12 +133,16 @@ export function search(documents: SearchDocument[], query: string, limit = 10): 
         document: doc,
         score,
         matchedFields,
-        snippet: createSnippet(doc.content, query),
+        snippet: '',
       }
     })
     .filter((result) => result.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
+    .map((result) => ({
+      ...result,
+      snippet: createSnippet(result.document.content, query),
+    }))
 
   return results
 }

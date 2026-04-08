@@ -21,6 +21,14 @@ export default function SearchInput() {
     loadSearchIndex().then(setIndex)
   }, [])
 
+  // Re-run active query once the search index has loaded
+  useEffect(() => {
+    if (index.length > 0 && query.trim().length > 0) {
+      handleSearch(query)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index])
+
   // Cleanup pending timeout on unmount
   useEffect(() => {
     return () => {
@@ -82,10 +90,16 @@ export default function SearchInput() {
         }
         break
       case 'Escape':
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current)
+          timeoutRef.current = null
+        }
+        searchRequestIdRef.current += 1
         setIsOpen(false)
         setQuery('')
         setResults([])
         setSelectedIndex(-1)
+        setIsLoading(false)
         break
     }
   }
@@ -114,13 +128,14 @@ export default function SearchInput() {
         <input
           ref={inputRef}
           type="search"
+          role="combobox"
           placeholder="Search site..."
           value={query}
           onChange={(e) => handleSearch(e.target.value)}
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
           className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          aria-expanded={isOpen && results.length > 0}
+          aria-expanded={isOpen && query.trim().length > 0}
           aria-controls="search-results"
           aria-autocomplete="list"
           autoComplete="off"
