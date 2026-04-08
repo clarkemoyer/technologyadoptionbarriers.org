@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description:
     'Frozen N=200 dataset used for the TABS Comprehensive Research Paper (CRP). A moment-in-time snapshot with three-tier quality selection, de-identified per NIST Expert Determination protocol.',
   alternates: {
-    canonical: 'https://technologyadoptionbarriers.org/results/crp-2026',
+    canonical: '/results/crp-2026',
   },
 }
 
