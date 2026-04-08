@@ -4,7 +4,7 @@
 
 A client-side full-text search tool that works seamlessly on GitHub Pages deployment. The search:
 
-- Indexes all pages at build time
+- Indexes a fixed set of pages and all FAQs via a manual script
 - Runs entirely in the browser (no backend required)
 - Works with GitHub Pages basePath deployment
 - Provides responsive, accessible search UI
@@ -32,8 +32,8 @@ A client-side full-text search tool that works seamlessly on GitHub Pages deploy
    - ~9KB compressed
 
 4. **Index Generator** (`scripts/generate-search-index.ts`)
-   - TypeScript script that runs during build
-   - Parses page metadata and FAQ data
+   - TypeScript script run manually or as a pre-build step
+   - Indexes a fixed set of main pages and all FAQ entries
    - Generates `public/search-index.json`
 
 ## Usage
@@ -117,17 +117,16 @@ const response = await fetch(`${basePath}/search-index.json`)
 
 ## Build Integration
 
-The search index is generated at build time:
+The search index is generated manually (or as a pre-build step):
 
 ```bash
-# During build process (in next.config.ts or CI)
 npx tsx scripts/generate-search-index.ts
 ```
 
 This creates:
 
 - `public/search-index.json` (new file with ~9KB)
-- Indexed all pages and FAQs
+- Indexes the configured set of main pages and all FAQs
 - Ready for production deployment
 
 ## Testing

@@ -2,8 +2,8 @@
 
 /**
  * Generate search index from site pages
- * Runs at build time to create search-index.json
- * Indexes page metadata and strips HTML for search
+ * Run manually (e.g., `npx tsx scripts/generate-search-index.ts`) to create public/search-index.json.
+ * Indexes a fixed set of main pages and all FAQ entries.
  */
 
 import { promises as fs } from 'fs'
@@ -19,9 +19,6 @@ interface SearchItem {
   category?: string
 }
 
-/**
- * Strip HTML tags from content
- */
 /**
  * Truncate content to reasonable size
  */

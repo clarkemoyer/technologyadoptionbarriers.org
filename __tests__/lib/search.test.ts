@@ -144,7 +144,7 @@ describe('Search Library', () => {
       expect(results).toEqual([])
     })
 
-    it('returns empty array for single character query', () => {
+    it('handles single character query (returns an array)', () => {
       const results = search(mockDocuments, 'a')
       // Single chars should still work but may return broad results
       expect(Array.isArray(results)).toBe(true)

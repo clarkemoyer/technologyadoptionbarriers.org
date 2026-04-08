@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
+import { useRouter } from 'next/navigation'
 import { search, loadSearchIndex, highlightTerms, SearchResult, SearchDocument } from '@/lib/search'
 
 export default function SearchInput() {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<SearchResult[]>([])
@@ -89,7 +91,7 @@ export default function SearchInput() {
       case 'Enter':
         e.preventDefault()
         if (selectedIndex >= 0 && results[selectedIndex]) {
-          window.location.href = results[selectedIndex].document.url
+          router.push(results[selectedIndex].document.url)
         }
         break
       case 'Escape':
@@ -131,7 +133,6 @@ export default function SearchInput() {
         <input
           ref={inputRef}
           type="search"
-          aria-label="Search"
           role="combobox"
           aria-label="Search site"
           placeholder="Search site..."
@@ -143,6 +144,7 @@ export default function SearchInput() {
           aria-expanded={isOpen && query.trim().length > 0}
           aria-controls="search-results"
           aria-autocomplete="list"
+          aria-activedescendant={selectedIndex >= 0 ? `search-option-${selectedIndex}` : undefined}
           autoComplete="off"
         />
         <svg
@@ -179,13 +181,14 @@ export default function SearchInput() {
               {results.map((result, index) => (
                 <li
                   key={result.document.id}
+                  id={`search-option-${index}`}
                   role="option"
                   aria-selected={selectedIndex === index}
                   className={`px-4 py-3 cursor-pointer transition-colors ${
                     selectedIndex === index ? 'bg-blue-50' : 'hover:bg-gray-50'
                   }`}
                   onClick={() => {
-                    window.location.href = result.document.url
+                    router.push(result.document.url)
                   }}
                   onMouseEnter={() => setSelectedIndex(index)}
                 >
