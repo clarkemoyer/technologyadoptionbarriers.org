@@ -1,7 +1,7 @@
 name: CRP Dataset Builder
 
 # Produces the final CRP public dataset (N=200) for the
-# Comprehensive Research Package. Manual trigger only.
+# Comprehensive Research Paper. Manual trigger only.
 #
 # Data flow (3 jobs):
 #   Phase 1: Prolific API → auth checks + submission statuses
@@ -10,8 +10,10 @@ name: CRP Dataset Builder
 #            (single job so enriched CSV stays ephemeral on runner)
 #   Phase 3: Commit public CSV + analysis JSON to repo via PR
 #
-# Confidential files (manifest, linkage, mapping, PII report)
-# are uploaded as artifacts only — never committed to the repo.
+# Only public outputs are uploaded as artifacts (public dataset CSV
+# and analysis snapshot JSON). Confidential files (manifest, linkage,
+# mapping, PII report) stay ephemeral on the runner and are neither
+# uploaded as artifacts nor committed to the repo.
 
 on:
   workflow_dispatch:
