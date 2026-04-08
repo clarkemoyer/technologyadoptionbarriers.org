@@ -695,28 +695,15 @@ const SamplePage = () => {
                 </tr>
               </thead>
               <tbody>
-                {roleCategories.length > 0 ? (
-                  roleCategories.map((cat, i) => (
-                    <tr key={cat.label} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
-                      <td className="border border-gray-300 px-4 py-2 font-semibold">
-                        {cat.label}
-                      </td>
-                      <td className="border border-gray-300 px-4 py-2">{cat.description}</td>
-                      <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                        {cat.examples || '\u2014'}
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan={3}
-                      className="border border-gray-300 px-4 py-4 text-sm text-gray-600"
-                    >
-                      Role-category methodology details are not available in the current dataset.
+                {roleCategories.map((cat, i) => (
+                  <tr key={cat.label} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                    <td className="border border-gray-300 px-4 py-2 font-semibold">{cat.label}</td>
+                    <td className="border border-gray-300 px-4 py-2">{cat.description}</td>
+                    <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
+                      {cat.examples || '\u2014'}
                     </td>
                   </tr>
-                )}
+                ))}
               </tbody>
             </table>
           </div>

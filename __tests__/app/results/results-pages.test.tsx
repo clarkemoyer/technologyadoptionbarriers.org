@@ -366,6 +366,19 @@ describe('Sample & Demographics Page', () => {
       ;(MOCK_SENSITIVITY_DATA as Record<string, unknown>).role_categories = saved
     }
   })
+
+  it('renders fallback categories when role_categories is an empty array', async () => {
+    const saved = MOCK_SENSITIVITY_DATA.role_categories
+    ;(MOCK_SENSITIVITY_DATA as Record<string, unknown>).role_categories = []
+    try {
+      const { default: Page } = await import('@/app/results/sample/page')
+      render(<Page />)
+      expect(screen.getByText('C-Suite Adjacent')).toBeInTheDocument()
+      expect(screen.getByText('Uncategorized')).toBeInTheDocument()
+    } finally {
+      ;(MOCK_SENSITIVITY_DATA as Record<string, unknown>).role_categories = saved
+    }
+  })
 })
 
 describe('Dataset Comparison Page', () => {
