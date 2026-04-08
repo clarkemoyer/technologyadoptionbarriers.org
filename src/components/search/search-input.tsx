@@ -43,6 +43,14 @@ export default function SearchInput() {
     }
   }, [])
 
+  // Close and reset the search dropdown after a result is selected
+  const closeSearch = () => {
+    setIsOpen(false)
+    setQuery('')
+    setResults([])
+    setSelectedIndex(-1)
+  }
+
   // Handle search
   const handleSearch = (q: string) => {
     setQuery(q)
@@ -92,10 +100,7 @@ export default function SearchInput() {
         e.preventDefault()
         if (selectedIndex >= 0 && results[selectedIndex]) {
           router.push(results[selectedIndex].document.url)
-          setIsOpen(false)
-          setQuery('')
-          setResults([])
-          setSelectedIndex(-1)
+          closeSearch()
         }
         break
       case 'Escape':
@@ -193,10 +198,7 @@ export default function SearchInput() {
                   }`}
                   onClick={() => {
                     router.push(result.document.url)
-                    setIsOpen(false)
-                    setQuery('')
-                    setResults([])
-                    setSelectedIndex(-1)
+                    closeSearch()
                   }}
                   onMouseEnter={() => setSelectedIndex(index)}
                 >
