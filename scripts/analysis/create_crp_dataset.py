@@ -115,7 +115,7 @@ COLUMNS_TO_DROP: set[str] = {
     "distributionChannel",
 }
 # Prolific demographic columns prefix
-PROLIFIC_DEMO_PREFIX = "prolific_"
+PROLIFIC_DEMO_PREFIX = "Prolific_"
 
 # —— Columns to preserve in Prolific linkage file ——
 PROLIFIC_LINKAGE_COLUMNS = [
@@ -398,6 +398,9 @@ def filter_v2_and_dedup(
     """
     Return only completed V2 responses from Prolific participants,
     keeping the first response per PROLIFIC_PID.
+
+    A "V2 Prolific response" is a row with a non-empty PROLIFIC_PID and
+    Prolific_Status (injected by enrich_qualtrics_csv.py) where Finished==1.
     """
     seen: set[str] = set()
     result: list[list[str]] = []
@@ -405,6 +408,8 @@ def filter_v2_and_dedup(
         pid = get_val(row, idx, "PROLIFIC_PID")
         status = get_prolific_status(row, idx)
         if not pid or not status:
+            continue
+        if not get_finished(row, idx):
             continue
         if pid in seen:
             continue
@@ -668,7 +673,14 @@ def scan_pii(
     text_cols: list[str],
     row_offset: int = 3,
 ) -> list[dict]:
-    """Scan free-text columns for PII patterns. Returns list of flag dicts."""
+    """Scan free-text columns for PII patterns. Returns list of flag dicts.
+
+    Each flag contains:
+        row_number   — 1-based row number (for human-readable reports)
+        row_index    — 0-based index into *rows* (for in-place redaction)
+        column       — column name
+        pattern_type — PII pattern category
+    """
     flags = []
     for i, row in enumerate(rows):
         for col in text_cols:
@@ -679,6 +691,7 @@ def scan_pii(
                 if pattern.search(val):
                     flags.append({
                         "row_number": i + row_offset,
+                        "row_index": i,
                         "column": col,
                         "pattern_type": pattern_type,
                     })
@@ -711,7 +724,7 @@ def redact_pii(
     """Apply regex redaction in-place. Returns count of redactions."""
     redaction_count = 0
     for flag in flags:
-        row_idx = flag["row_number"] - 3  # undo row_offset
+        row_idx = flag["row_index"]
         col = flag["column"]
         val = rows[row_idx].get(col, "")
         if not val:
@@ -733,9 +746,9 @@ def redact_pii(
 def extract_linkage(
     rows: list[dict[str, str]],
     linkage_cols: list[str],
-) -> list[dict[str, str]]:
-    """Extract columns for the Prolific linkage file."""
-    return [{col: row.get(col, "") for col in linkage_cols} for row in rows]
+) -> list[list[str]]:
+    """Extract columns for the Prolific linkage file as aligned row lists."""
+    return [[row.get(col, "") for col in linkage_cols] for row in rows]
 
 
 def replace_response_ids(
@@ -811,10 +824,9 @@ def deidentify_selected(
 
     Returns:
         0   De-identification complete and output verified clean.
-        1   Stopped early: --dry-run completed (regardless of PII flags), or
+        1   Stopped early: --dry-run completed (regardless of PII flags),
             PII found and --skip-review not set (human review required), or
             output verification failed after redaction.
-       -1   PII detected in output after redaction (verification failed).
     """
     output_dir.mkdir(parents=True, exist_ok=True)
     rows = rows_to_dicts(selected_rows, headers)
@@ -891,14 +903,15 @@ def deidentify_selected(
     # Verify: re-scan for PII
     print("\n--- Verification: re-scan output for PII ---")
     verify_cols = [c for c in available_text_cols if c in kept_headers]
-    verify_flags = scan_pii(filtered_rows, verify_cols, row_offset=2)
+    verify_rows = rows_to_dicts(filtered_rows, kept_headers)
+    verify_flags = scan_pii(verify_rows, verify_cols, row_offset=2)
     if verify_flags:
         print(f"  FAIL: {len(verify_flags)} PII pattern(s) still detected!")
         for flag in verify_flags:
             print(f"    Row {flag['row_number']}, {flag['column']}: {flag['pattern_type']}")
         public_path.unlink(missing_ok=True)
         print("  Public dataset REMOVED. Manual review required.")
-        return -1
+        return 1
 
     print("  PASS: No PII patterns detected in output.")
 
@@ -1061,15 +1074,12 @@ def main() -> int:
         print(f"    - {args.output_dir / 'prolific_linkage_CONFIDENTIAL.csv'}")
         print(f"    - {args.output_dir / 'pii_review_report_CONFIDENTIAL.txt'}")
         print(f"    - {args.output_dir / 'selection_manifest_CONFIDENTIAL.txt'}")
-    elif result == 1:
+    else:
         if args.dry_run:
             print("  [DRY RUN] Selection manifest and PII scan complete.")
         else:
-            print("  CRP DATASET PAUSED — PII review required")
+            print("  CRP DATASET PAUSED — review required")
             print("  Review pii_review_report_CONFIDENTIAL.txt, then re-run with --skip-review.")
-    else:
-        print("  CRP DATASET FAILED — PII detected in output")
-        print("  Review pii_review_report_CONFIDENTIAL.txt and re-run.")
     print("=" * 78)
 
     return 0 if result == 0 else 1
