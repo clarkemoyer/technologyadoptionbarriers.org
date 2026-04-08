@@ -203,11 +203,11 @@ def make_idx(headers: list[str]) -> dict[str, int]:
 
 
 def get_val(row: list[str], idx: dict[str, int], col: str) -> str:
-    """Return the cell value for a column, or '' if column is absent."""
+    """Return the stripped cell value for a column, or '' if column is absent."""
     i = idx.get(col)
     if i is None or i >= len(row):
         return ""
-    return row[i]
+    return row[i].strip()
 
 
 def rows_to_dicts(rows: list[list[str]], headers: list[str]) -> list[dict[str, str]]:
@@ -353,6 +353,12 @@ def count_disposition(data: list[list[str]], idx: dict[str, int]) -> dict[str, i
         status = get_prolific_status(row, idx)
         if not pid or not status:
             continue
+        # Apply the same V2 cohort gate as filter_v2_and_dedup so counts['v2']
+        # reflects "in V2" rather than merely "has pid/status".
+        start_date = get_val(row, idx, "StartDate")
+        response_id = get_val(row, idx, "ResponseId")
+        if start_date < V2_START and response_id != PROLIFIC_TEST_ID:
+            continue
         counts["v2"] += 1
         if pid in seen_pids:
             continue
@@ -416,32 +422,39 @@ def filter_v2_and_dedup(
 ) -> list[list[str]]:
     """
     Return only completed V2 responses from Prolific participants,
-    keeping the first response per PROLIFIC_PID.
+    keeping the best response per PROLIFIC_PID.
 
     A "V2 Prolific response" satisfies all of:
       - Non-empty PROLIFIC_PID and Prolific_Status (injected by enrich_qualtrics_csv.py)
       - StartDate >= V2_START, OR ResponseId == PROLIFIC_TEST_ID (the live test row)
-      - Finished == 1 / TRUE
+
+    Deduplication rule (matches tabs_v2_analysis.py):
+      - Prefer a finished response over an incomplete one.
+      - Among multiple finished (or multiple incomplete) responses, the latest row wins.
+    Only rows that are ultimately finished are returned.
     """
-    seen: set[str] = set()
-    result: list[list[str]] = []
+    by_pid: dict[str, list[str]] = {}
     for row in data:
         pid = get_val(row, idx, "PROLIFIC_PID")
         status = get_prolific_status(row, idx)
         if not pid or not status:
             continue
-        # V2 cohort gate: match tabs_v2_analysis.py exactly
         start_date = get_val(row, idx, "StartDate")
         response_id = get_val(row, idx, "ResponseId")
         if start_date < V2_START and response_id != PROLIFIC_TEST_ID:
             continue
-        if not get_finished(row, idx):
-            continue
-        if pid in seen:
-            continue
-        seen.add(pid)
-        result.append(row)
-    return result
+        existing = by_pid.get(pid)
+        if existing is None:
+            by_pid[pid] = row
+        else:
+            existing_finished = get_finished(existing, idx)
+            new_finished = get_finished(row, idx)
+            # Take new row if it is finished OR the existing one wasn't
+            if new_finished or not existing_finished:
+                by_pid[pid] = row
+            # else: existing is finished but new isn't — keep existing
+
+    return [row for row in by_pid.values() if get_finished(row, idx)]
 
 
 # ─────────────────────────────────────────────────────────────
@@ -528,11 +541,17 @@ def select_crp_sample(
     profiles: list[dict],
     target_n: int,
 ) -> None:
-    """Mark profiles[i]['selected'] = True for the tiered CRP selection."""
+    """Mark profiles[i]['selected'] = True for the tiered CRP selection.
+
+    Selects up to target_n profiles in tier order (1 → 2 → 3).
+    Tier 1 is capped at target_n so the public dataset never exceeds N.
+    """
     selected = 0
 
-    # Tier 1 first
+    # Tier 1 first (capped at target_n)
     for p in profiles:
+        if selected >= target_n:
+            break
         if p["prolific_status"] == "APPROVED" and p["tier"] == 1:
             p["selected"] = True
             selected += 1
