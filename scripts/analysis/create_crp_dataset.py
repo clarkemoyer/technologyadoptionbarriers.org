@@ -535,8 +535,10 @@ def select_crp_sample(
     StartDate first, then ResponseId as a lexicographic tiebreaker — so
     the selected set is stable regardless of CSV row order.
     """
-    # Sort deterministically: earliest StartDate first, then ResponseId
-    profiles.sort(key=lambda p: (p["start_date"], p["response_id"]))
+    # Sort deterministically: earliest StartDate first, then ResponseId.
+    # start_date and response_id are always strings (get_val returns '' if absent),
+    # so the sort is safe even when a column is missing.
+    profiles.sort(key=lambda p: (p.get("start_date") or "", p.get("response_id") or ""))
     selected = 0
 
     # Tier 1 first (capped at target_n)
