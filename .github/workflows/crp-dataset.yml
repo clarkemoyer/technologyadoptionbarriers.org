@@ -3,10 +3,11 @@ name: CRP Dataset Builder
 # Produces the final CRP public dataset (N=200) for the
 # Comprehensive Research Package. Manual trigger only.
 #
-# Data flow:
+# Data flow (3 jobs):
 #   Phase 1: Prolific API → auth checks + submission statuses
-#   Phase 2: Qualtrics API → raw CSV → enrich → CRP builder → analysis snapshot
-#            (single job so enriched CSV never leaves the runner)
+#   Phase 2: Qualtrics API → raw CSV → enrich with Prolific data →
+#            CRP dataset builder (N=200) → analysis snapshot
+#            (single job so enriched CSV stays ephemeral on runner)
 #   Phase 3: Commit public CSV + analysis JSON to repo via PR
 #
 # Confidential files (manifest, linkage, mapping, PII report)
