@@ -3,26 +3,24 @@ name: CRP Dataset Builder
 # Produces the final CRP public dataset (N=200) for the
 # Comprehensive Research Paper. Manual trigger only.
 #
-# Data flow (2 jobs):
-#   Phase 1+2: Fetch Prolific auth checks + statuses, then export Qualtrics,
-#              enrich, build CRP dataset (N=200), run analysis snapshot.
-#              All PID-bearing files (auth-checks.csv, statuses.json,
-#              enriched CSV, manifest, linkage, mapping, PII report) stay
-#              ephemeral on the runner — none are uploaded as artifacts.
-#              Runs under qualtrics-prod environment; TABS_PROLIFIC_TOKEN
-#              and PROLIFIC_STUDY_ID must also be accessible there (either
-#              added to the qualtrics-prod environment or as repository-level
-#              secrets/variables).
-#   Phase 3:   Commit public CSV + analysis JSON to repo via PR.
+# Data flow (3 jobs):
+#   Phase 1: Prolific API → auth checks + submission statuses
+#            (prolific-prod environment — matches daily-pipeline.yml)
+#   Phase 2: Qualtrics API → raw CSV → enrich with Prolific data →
+#            CRP dataset builder (N=200) → analysis snapshot
+#            (qualtrics-prod environment; enriched CSV stays ephemeral)
+#   Phase 3: Commit public CSV + analysis JSON to repo via PR
 #
-# Only public, de-identified outputs are uploaded as long-lived artifacts
-# (public dataset CSV and analysis snapshot JSON).
+# The Prolific data artifact (PIDs + auth flags) has 1-day retention,
+# matching the daily pipeline. All other PII-bearing intermediates
+# (enriched CSV, manifest, linkage, mapping, PII report) stay
+# ephemeral on the runner and are never uploaded or committed.
 
 on:
   workflow_dispatch:
     inputs:
       skip_review:
-        description: 'Skip PII human review (auto-redact). Default true because confidential review reports stay on the runner and are not uploaded.'
+        description: 'Skip PII human review (auto-redact).'
         required: false
         type: boolean
         default: true
@@ -36,16 +34,41 @@ permissions:
   pull-requests: write
 
 jobs:
-  # ── Phase 1+2: Fetch Prolific data + Export, Enrich, Build CRP ─
-  # Single job so all PID-bearing intermediates (auth-checks.csv,
-  # statuses.json, enriched CSV) stay runner-ephemeral and are never
-  # uploaded as artifacts.
-  #
-  # Uses qualtrics-prod environment. TABS_PROLIFIC_TOKEN and
-  # PROLIFIC_STUDY_ID must also be accessible in this environment (or as
-  # repository-level secrets/variables) for the Prolific fetch to succeed.
+  # ── Phase 1: Fetch Prolific data ─────────────────────────────
+  # Requires prolific-prod environment for TABS_PROLIFIC_TOKEN.
+  # Matches daily-pipeline.yml Phase 1 exactly.
+  fetch-prolific:
+    name: 'Phase 1: Fetch Prolific Data'
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Fetch auth checks and statuses
+        run: python3 scripts/analysis/fetch_prolific_data.py
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          PROLIFIC_STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          AUTH_OUTPUT: ${{ runner.temp }}/auth-checks.csv
+          STATUSES_OUTPUT: ${{ runner.temp }}/statuses.json
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: prolific-data
+          path: |
+            ${{ runner.temp }}/auth-checks.csv
+            ${{ runner.temp }}/statuses.json
+          retention-days: 1
+
+  # ── Phase 2: Export, Enrich, Build CRP, Analyze ─────────────
+  # Requires qualtrics-prod environment for Qualtrics API secrets.
+  # Enriched CSV stays ephemeral on the runner.
   build-crp:
-    name: 'Phase 1+2: Fetch Prolific & Build CRP Dataset'
+    name: 'Phase 2: Build CRP Dataset'
+    needs: fetch-prolific
     runs-on: ubuntu-latest
     environment: qualtrics-prod
     steps:
@@ -57,14 +80,6 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r scripts/analysis/requirements.txt
 
-      - name: Fetch auth checks and statuses
-        run: python3 scripts/analysis/fetch_prolific_data.py
-        env:
-          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
-          PROLIFIC_STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
-          AUTH_OUTPUT: ${{ runner.temp }}/auth-checks.csv
-          STATUSES_OUTPUT: ${{ runner.temp }}/statuses.json
-
       - name: Export Qualtrics CSV
         run: python3 scripts/analysis/export_qualtrics.py
         env:
@@ -72,6 +87,11 @@ jobs:
           QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
           QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
           OUTPUT_PATH: ${{ runner.temp }}/qualtrics-raw.csv
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: prolific-data
+          path: ${{ runner.temp }}
 
       - name: Enrich CSV with Prolific data
         run: |
@@ -99,14 +119,12 @@ jobs:
           enriched = tmp / "qualtrics-enriched.csv"
           output = tmp / "qualtrics-enriched-crp-sample.csv"
 
-          # Read selected original ResponseIds from the mapping file
           selected_ids = set()
           with mapping.open(newline="", encoding="utf-8") as f:
               for row in csv.DictReader(f):
                   selected_ids.add(row["original_response_id"])
           print(f"  Selected ResponseIds from mapping: {len(selected_ids)}")
 
-          # Filter enriched CSV (preserve 3 Qualtrics header rows)
           with enriched.open(newline="", encoding="utf-8-sig") as f:
               all_rows = list(csv.reader(f))
           headers = all_rows[:3]
@@ -132,9 +150,6 @@ jobs:
             --json "${{ runner.temp }}/crp-sensitivity-analysis.json"
 
       # Only public, de-identified outputs are uploaded as artifacts.
-      # All PID-bearing files (auth-checks.csv, statuses.json, enriched CSV,
-      # manifest, linkage, mapping, PII report) are NOT uploaded — they remain
-      # ephemeral on the runner and are discarded when the job completes.
       - uses: actions/upload-artifact@v7
         with:
           name: crp-public-dataset
@@ -146,6 +161,9 @@ jobs:
           name: crp-analysis-snapshot
           path: ${{ runner.temp }}/crp-sensitivity-analysis.json
           retention-days: 7
+
+      # All PII-bearing files (enriched CSV, manifest, linkage, mapping,
+      # PII report) are NOT uploaded — they stay ephemeral on the runner.
 
   # ── Phase 3: Commit public dataset + analysis to repo ────────
   commit-results:
