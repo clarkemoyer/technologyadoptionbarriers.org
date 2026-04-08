@@ -151,7 +151,7 @@ export default function SearchInput() {
           onKeyDown={handleKeyDown}
           className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           aria-expanded={isOpen && query.trim().length > 0}
-          aria-controls="search-results"
+          aria-controls="search-listbox"
           aria-autocomplete="list"
           aria-activedescendant={selectedIndex >= 0 ? `search-option-${selectedIndex}` : undefined}
           autoComplete="off"
@@ -186,7 +186,7 @@ export default function SearchInput() {
               <p className="mt-2">Searching...</p>
             </div>
           ) : results.length > 0 ? (
-            <ul role="listbox" className="divide-y divide-gray-200">
+            <ul id="search-listbox" role="listbox" className="divide-y divide-gray-200">
               {results.map((result, index) => (
                 <li
                   key={result.document.id}
