@@ -145,24 +145,16 @@ jobs:
             "${{ runner.temp }}/qualtrics-enriched-crp-sample.csv" \
             --json "${{ runner.temp }}/crp-sensitivity-analysis.json"
 
-      - name: Stage public files for commit
-        run: |
-          mkdir -p public/datasets
-          cp "${{ runner.temp }}/crp-output/TABS_V2_CRP_public_dataset.csv" \
-             public/datasets/TABS_V2_CRP_2026_public_dataset.csv
-          cp "${{ runner.temp }}/crp-sensitivity-analysis.json" \
-             src/data/crp-sensitivity-analysis.json
-
       - uses: actions/upload-artifact@v7
         with:
           name: crp-public-dataset
-          path: public/datasets/TABS_V2_CRP_2026_public_dataset.csv
+          path: ${{ runner.temp }}/crp-output/TABS_V2_CRP_public_dataset.csv
           retention-days: 7
 
       - uses: actions/upload-artifact@v7
         with:
           name: crp-analysis-snapshot
-          path: src/data/crp-sensitivity-analysis.json
+          path: ${{ runner.temp }}/crp-sensitivity-analysis.json
           retention-days: 7
 
       # Confidential files — never committed, artifact-only
@@ -194,6 +186,11 @@ jobs:
         with:
           name: crp-public-dataset
           path: public/datasets
+
+      - name: Rename public dataset to include year
+        run: |
+          mv public/datasets/TABS_V2_CRP_public_dataset.csv \
+             public/datasets/TABS_V2_CRP_2026_public_dataset.csv
 
       - uses: actions/download-artifact@v8
         with:
