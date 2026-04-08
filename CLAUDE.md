@@ -726,7 +726,7 @@ import os
 from pyzotero import zotero
 
 # Cloud API (CI/GitHub Actions)
-zot = zotero.Zotero(int(os.environ['ZOTERO_USER_ID']), 'user', api_key)
+zot = zotero.Zotero(int(os.environ['ZOTERO_USER_ID']), 'user', os.environ['ZOTERO_API_KEY'])
 
 # Local API (development — no key needed)
 zot = zotero.Zotero(0, 'user')
@@ -749,7 +749,7 @@ All external API integrations use **GitHub environment secrets** for secure cred
 | `qualtrics-prod` | Qualtrics API v3        | 6 secrets, 5 vars | ✅ Active (5 workflows)    |
 | `prolific-prod`  | Prolific API v1         | 2 secrets, 3 vars | ✅ Active (2 workflows)    |
 | `google-prod`    | Google Analytics & SEO  | 6 secrets         | ✅ Active (2 workflows)    |
-| `zotero-prod`    | Zotero Web API v3       | 1 secret, 3 vars  | ✅ Active (1 workflow)     |
+| `zotero-prod`    | Zotero Web API v3       | 1 secret, 3 vars  | ✅ Active (2 workflows)    |
 | `microsoft-prod` | Microsoft Forms         | 1 secret          | ⚠️ Configured (future use) |
 | `stripe-prod`    | Payment processing      | 1 secret          | ⚠️ Configured (future use) |
 | `github-pages`   | GitHub Pages deployment | Auto token        | ✅ Active (deployment)     |
@@ -780,7 +780,7 @@ export ZOTERO_USER_ID="<your-zotero-user-id>"
 
 # Option 2: VS Code MCP (recommended for Qualtrics/GitHub/Zotero)
 # Copy .vscode/mcp.json.example to .vscode/mcp.json
-# VS Code will prompt for OAuth tokens when connecting
+# VS Code will prompt for OAuth tokens when connecting to Qualtrics/GitHub MCPs
 ```
 
 ## Daily Pipeline Architecture

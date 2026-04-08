@@ -29,11 +29,12 @@ const IntegrationsPage = () => {
         <section className="mb-10 text-gray-800">
           <p className="mb-6">
             Running a long-term academic survey across multiple platforms requires reliable,
-            automated plumbing. This page explains the three major platform integrations that keep
+            automated plumbing. This page explains the four major platform integrations that keep
             TABS running: <strong>Qualtrics</strong> (the survey engine), <strong>Prolific</strong>{' '}
-            (the participant recruitment platform), and{' '}
+            (the participant recruitment platform),{' '}
             <strong>Google Analytics & Search Console</strong> (impact measurement and SEO
-            transparency). Each integration is managed through GitHub Actions workflows and
+            transparency), and <strong>Zotero</strong> (the vetted reference library powering
+            AI-assisted research). Each integration is managed through GitHub Actions workflows and
             TypeScript client libraries, so the entire operational lifecycle — from survey creation
             to data collection to analytics — is version-controlled and reproducible.
           </p>
@@ -515,7 +516,7 @@ const IntegrationsPage = () => {
                   <tr>
                     <td className="py-2 pr-4 font-mono text-xs">zotero-prod</td>
                     <td className="py-2 pr-4">Zotero Web API v3</td>
-                    <td className="py-2">1 workflow</td>
+                    <td className="py-2">2 workflows</td>
                   </tr>
                 </tbody>
               </table>

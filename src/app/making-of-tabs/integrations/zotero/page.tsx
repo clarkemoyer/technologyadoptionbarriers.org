@@ -29,7 +29,7 @@ const ZoteroIntegrationPage = () => {
                 Making of TABS
               </Link>
               <span className="mx-2" aria-hidden="true">
-                &rsaquo;
+                ›
               </span>
             </li>
             <li>
@@ -37,10 +37,10 @@ const ZoteroIntegrationPage = () => {
                 href="/making-of-tabs/integrations"
                 className="hover:text-blue-600 hover:underline"
               >
-                Integrations
+                Technical Integrations
               </Link>
               <span className="mx-2" aria-hidden="true">
-                &rsaquo;
+                ›
               </span>
             </li>
             <li className="text-gray-800" aria-current="page">
