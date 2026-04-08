@@ -1,0 +1,23 @@
+{
+  "last_updated": "placeholder",
+  "samples": [
+    {
+      "key": "conservative_clean",
+      "label": "Conservative Clean",
+      "description": "CRP Tier 1: Prolific APPROVED + all quality checks (IRI 3/3, duration >= 540s, reCAPTCHA >= 0.5, no straightlining, no auth flags)",
+      "n": 78
+    },
+    {
+      "key": "flexible_clean",
+      "label": "Flexible Clean",
+      "description": "CRP Tier 1+2: Prolific APPROVED + basic quality (all 3 IRIs + duration >= 480s)",
+      "n": 123
+    },
+    {
+      "key": "prolific_accepted",
+      "label": "CRP Sample",
+      "description": "Frozen N=200 CRP dataset — Prolific Accepted responses selected via three-tier quality strategy",
+      "n": 200
+    }
+  ]
+}

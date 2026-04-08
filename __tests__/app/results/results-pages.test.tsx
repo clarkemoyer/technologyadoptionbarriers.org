@@ -273,6 +273,14 @@ jest.mock('@/data/data-audit.json', () => ({
   dispositionCounts: {},
   dispositionByStatus: {},
 }))
+jest.mock('@/data/crp-sensitivity-analysis.json', () => ({
+  last_updated: 'placeholder',
+  samples: [
+    { key: 'conservative_clean', label: 'Conservative Clean', description: 'test', n: 78 },
+    { key: 'flexible_clean', label: 'Flexible Clean', description: 'test', n: 123 },
+    { key: 'prolific_accepted', label: 'CRP Sample', description: 'test', n: 200 },
+  ],
+}))
 
 /* ── Tests ─────────────────────────────────────────────────── */
 
