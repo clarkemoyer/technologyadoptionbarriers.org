@@ -134,7 +134,7 @@ jobs:
             --skip-review
 
       - name: Build CRP-only enriched CSV for analysis
-        id: crp-filter
+        id: crp_filter
         if: steps.crp.outcome == 'success'
         continue-on-error: true
         run: |
@@ -170,8 +170,8 @@ jobs:
           PY
 
       - name: Run CRP analysis snapshot (N=200 subset)
-        id: crp-analysis
-        if: steps.crp.outcome == 'success' && steps.crp-filter.outcome == 'success'
+        id: crp_analysis
+        if: steps.crp.outcome == 'success' && steps.crp_filter.outcome == 'success'
         continue-on-error: true
         run: |
           # Guard: skip if filtered CSV has no data rows (only headers)
@@ -196,7 +196,7 @@ jobs:
           fi
 
       - name: Stage CRP analysis snapshot
-        if: steps.crp.outcome == 'success' && steps.crp-analysis.outcome == 'success'
+        if: steps.crp.outcome == 'success' && steps.crp_analysis.outcome == 'success'
         run: |
           if [ -f "${{ runner.temp }}/crp-sensitivity-analysis.json" ]; then
             mkdir -p "${{ runner.temp }}/crp-public"
@@ -318,7 +318,7 @@ jobs:
       # CRP analysis snapshot — only uploaded when the JSON was actually produced
       # (skipped silently when the empty-sample guard exits 0 without writing JSON)
       - uses: actions/upload-artifact@v7
-        if: steps.crp.outcome == 'success' && steps.crp-filter.outcome == 'success' && steps.crp-analysis.outcome == 'success'
+        if: steps.crp.outcome == 'success' && steps.crp_filter.outcome == 'success' && steps.crp_analysis.outcome == 'success'
         with:
           name: crp-analysis-snapshot
           path: ${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json
@@ -494,7 +494,7 @@ jobs:
           fi
 
       - name: Compute files to format
-        id: format-files
+        id: format_files
         run: |
           FILES="src/data/sensitivity-analysis.json src/data/data-audit.json src/data/disposition-summary.json"
           if [ -f "src/data/crp-sensitivity-analysis.json" ]; then
@@ -505,7 +505,7 @@ jobs:
       - uses: ./.github/actions/format-and-pr
         with:
           token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
-          files: ${{ steps.format-files.outputs.list }}
+          files: ${{ steps.format_files.outputs.list }}
           commit-message: 'chore: update daily pipeline data (analysis + dashboard + CRP)'
           pr-title: 'Update daily pipeline data'
           pr-body: |
