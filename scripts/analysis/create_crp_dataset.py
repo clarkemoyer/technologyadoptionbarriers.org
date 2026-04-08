@@ -42,9 +42,8 @@ Usage:
 
 Exit codes:
     0  Success
-    1  PII flagged (requires human review), --dry-run completed,
-       or output verification failed after redaction
-    2  Input / configuration error
+    1  PII flagged (requires human review) or --dry-run completed
+    2  Output verification failed after automated redaction, or input/configuration error
 
 Author: Clarke Moyer, Penn State Smeal DBA
 """
@@ -531,11 +530,12 @@ def select_crp_sample(
     Selects up to target_n profiles in tier order (1 → 2 → 3).
     Tier 1 is capped at target_n so the public dataset never exceeds N.
 
-    Profiles are sorted deterministically before selection — earliest
-    StartDate first, then ResponseId as a lexicographic tiebreaker — so
-    the selected set is stable regardless of CSV row order.
+    **Side-effect**: profiles is sorted in-place (earliest StartDate first,
+    then ResponseId as a tiebreaker) before iterating, so the selected set
+    is stable regardless of CSV row order.  Callers that rely on the original
+    ordering should pass a copy.
     """
-    # Sort deterministically: earliest StartDate first, then ResponseId.
+    # Sort in-place deterministically: earliest StartDate first, then ResponseId.
     # start_date and response_id are always strings (get_val returns '' if absent),
     # so the sort is safe even when a column is missing.
     profiles.sort(key=lambda p: (p.get("start_date") or "", p.get("response_id") or ""))
@@ -800,14 +800,38 @@ def extract_linkage(
 def replace_response_ids(
     rows: list[dict[str, str]],
 ) -> tuple[list[dict[str, str]], list[tuple[str, str]]]:
-    """Replace ResponseId with a SHA-256 pseudonym. Returns (rows, mapping)."""
+    """Replace ResponseId with a SHA-256 pseudonym. Returns (rows, mapping).
+
+    Uses the first 32 hex characters (128 bits) of the SHA-256 digest.
+    Raises ValueError immediately if a truncation collision is detected so
+    that callers cannot silently merge two distinct respondents.
+    """
+    digest_prefix_len = 32
     mapping = []
+    original_to_anon: dict[str, str] = {}
+    anon_to_original: dict[str, str] = {}
+
     for row in rows:
         original = row.get("ResponseId", "")
-        if original:
-            anon = hashlib.sha256(original.encode()).hexdigest()[:16]
-            row["ResponseId"] = anon
-            mapping.append((original, anon))
+        if not original:
+            continue
+
+        anon = original_to_anon.get(original)
+        if anon is None:
+            anon = hashlib.sha256(original.encode()).hexdigest()[:digest_prefix_len]
+            existing_original = anon_to_original.get(anon)
+            if existing_original is not None and existing_original != original:
+                raise ValueError(
+                    "SHA-256 pseudonym collision detected for ResponseId values "
+                    f"{existing_original!r} and {original!r}. "
+                    "Increase the digest prefix length."
+                )
+            original_to_anon[original] = anon
+            anon_to_original[anon] = original
+
+        row["ResponseId"] = anon
+        mapping.append((original, anon))
+
     return rows, mapping
 
 
@@ -871,8 +895,9 @@ def deidentify_selected(
     Returns:
         0   De-identification complete and output verified clean.
         1   Stopped early: --dry-run completed (regardless of PII flags),
-            PII found and --skip-review not set (human review required), or
-            output verification failed after redaction.
+            or PII found and --skip-review not set (human review required).
+        2   Output verification failed after automated redaction (public
+            dataset removed; manual investigation required).
     """
     output_dir.mkdir(parents=True, exist_ok=True)
     rows = rows_to_dicts(selected_rows, headers)
@@ -957,7 +982,7 @@ def deidentify_selected(
             print(f"    Row {flag['row_number']}, {flag['column']}: {flag['pattern_type']}")
         public_path.unlink(missing_ok=True)
         print("  Public dataset REMOVED. Manual review required.")
-        return 1
+        return 2
 
     print("  PASS: No PII patterns detected in output.")
 
@@ -988,8 +1013,8 @@ def main() -> int:
         description="Build the final CRP public dataset (N=200) with "
                     "tiered quality-based selection and NIST de-identification.",
         epilog=(
-            "Exit codes: 0=success, 1=PII review required, output verification "
-            "failed after redaction, or dry-run, 2=input error"
+            "Exit codes: 0=success, 1=PII review required or dry-run, "
+            "2=output verification failed or input error"
         ),
     )
     parser.add_argument("input_csv", type=Path,
@@ -1123,12 +1148,16 @@ def main() -> int:
     else:
         if args.dry_run:
             print("  [DRY RUN] Selection manifest and PII scan complete.")
+        elif result == 2:
+            print("  CRP DATASET FAILED — output verification detected residual PII")
+            print("  Public dataset was removed. Investigate pii_review_report_CONFIDENTIAL.txt")
+            print("  and address the patterns before re-running.")
         else:
             print("  CRP DATASET PAUSED — review required")
             print("  Review pii_review_report_CONFIDENTIAL.txt, then re-run with --skip-review.")
     print("=" * 78)
 
-    return 0 if result == 0 else 1
+    return result if result in (0, 2) else 1
 
 
 if __name__ == "__main__":
