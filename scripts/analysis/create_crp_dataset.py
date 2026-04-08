@@ -54,10 +54,11 @@ Usage:
     python create_crp_dataset.py <enriched_qualtrics_csv>
     python create_crp_dataset.py data.csv --target-n 200 --output-dir ./output
     python create_crp_dataset.py data.csv --dry-run
+    python create_crp_dataset.py data.csv --skip-review
 
 Exit codes:
     0  Success
-    1  PII flagged / review required (input free-text or output verification)
+    1  PII flagged (requires human review) or --dry-run completed
     2  Input / configuration error
 
 Author: Clarke Moyer, Penn State Smeal DBA
@@ -835,17 +836,20 @@ def write_pii_report(path: Path, flags: list[dict]) -> None:
 
 def deidentify_selected(
     selected_rows: list[list[str]], headers: list[str], output_dir: Path,
-    skip_review: bool = False,
+    skip_review: bool = False, dry_run: bool = False,
 ) -> int:
     """Run the full 5-step NIST de-identification on selected rows.
 
     Returns:
-        0 on success, 1 if PII verification/review fails.
+        0   De-identification complete and output verified clean.
+        1   Stopped early: --dry-run completed, or PII found and
+            --skip-review not set (human review required).
+       -1   PII detected in output after redaction (verification failed).
     """
     output_dir.mkdir(parents=True, exist_ok=True)
     rows = rows_to_dicts(selected_rows, headers)
 
-    # Step 1: PII scan and redaction
+    # Step 1: PII scan — always run, even in dry-run
     print("\n--- De-identification Step 1: Free-text PII scan ---")
     available_text_cols = [c for c in FREE_TEXT_COLUMNS if c in headers]
     pii_flags = scan_pii(rows, available_text_cols)
@@ -856,12 +860,20 @@ def deidentify_selected(
     write_pii_report(pii_report_path, pii_flags)
     print(f"  Report: {pii_report_path}")
 
-    redaction_count = 0
+    if dry_run:
+        if pii_flags:
+            print("\n[DRY RUN] PII scan complete — flags found (exit code 1). Review the report above.")
+        else:
+            print("\n[DRY RUN] PII scan complete — no flags found (exit code 0).")
+        return 1 if pii_flags else 0
+
     if pii_flags and not skip_review:
-        print(f"\n  {len(pii_flags)} PII flag(s) require human review.")
-        print(f"  Review: {pii_report_path}")
-        print("  Re-run with --skip-review to proceed with automated redaction.")
+        print(f"\n{len(pii_flags)} PII flag(s) require human review.")
+        print(f"Review: {pii_report_path}")
+        print("Re-run with --skip-review to proceed with automated redaction.")
         return 1
+
+    redaction_count = 0
     if pii_flags:
         redaction_count = redact_pii(rows, pii_flags)
         print(f"  Redactions applied: {redaction_count}")
@@ -916,7 +928,7 @@ def deidentify_selected(
             print(f"    Row {flag['row_number']}, {flag['column']}: {flag['pattern_type']}")
         public_path.unlink(missing_ok=True)
         print("  Public dataset REMOVED. Manual review required.")
-        return 1
+        return -1
 
     print("  PASS: No PII patterns detected in output.")
 
@@ -946,7 +958,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(
         description="Build the final CRP public dataset (N=200) with "
                     "tiered quality-based selection and NIST de-identification.",
-        epilog="Exit codes: 0=success, 1=PII in output, 2=input error",
+        epilog="Exit codes: 0=success, 1=PII review required or dry-run, 2=input error",
     )
     parser.add_argument("input_csv", type=Path,
                         help="Path to enriched Qualtrics CSV (3 header rows)")
@@ -955,9 +967,12 @@ def main() -> int:
     parser.add_argument("--output-dir", type=Path, default=Path("./crp_dataset_output"),
                         help="Output directory (default: ./crp_dataset_output)")
     parser.add_argument("--dry-run", action="store_true",
-                        help="Show selection without writing de-identified files")
-    parser.add_argument("--skip-review", action="store_true",
-                        help="Proceed with automated PII redaction without human review")
+                        help="Show selection and scan PII without writing de-identified files")
+    parser.add_argument(
+        "--skip-review",
+        action="store_true",
+        help="Proceed with automated PII redaction without human review confirmation",
+    )
     args = parser.parse_args()
 
     if not args.input_csv.exists():
@@ -971,6 +986,7 @@ def main() -> int:
     print(f"  Target N: {args.target_n}")
     print(f"  Output:   {args.output_dir}")
     print(f"  Dry run:  {args.dry_run}")
+    print(f"  Skip review: {args.skip_review}")
     print("=" * 78)
 
     print("\n--- Loading enriched Qualtrics CSV ---")
@@ -978,23 +994,34 @@ def main() -> int:
     idx = make_idx(headers)
     print(f"  Loaded {len(data)} rows, {len(headers)} columns")
 
-    # Validate required enrichment and tiering columns
+    # Validate required enrichment, tiering, and IRI attention-check columns
     required_columns = [
-        "PROLIFIC_PID", "Prolific_Status", "ResponseId", "StartDate",
-        "Finished", "Duration (in seconds)",
-        BARRIER_IRI, READINESS_IRI, MATURITY_IRI,
-        "Auth_LLM", "Auth_Bots", "Q_RecaptchaScore", "Q_StraightliningCount",
+        "PROLIFIC_PID",
+        "Prolific_Status",
+        "ResponseId",
+        "StartDate",
+        "Finished",
+        "Duration (in seconds)",
+        BARRIER_IRI,
+        READINESS_IRI,
+        MATURITY_IRI,
     ]
     missing_columns = [col for col in required_columns if col not in idx]
     if missing_columns:
         print(
-            "Error: input CSV is missing required columns: "
+            "Error: input CSV is missing required columns for enrichment/tiering: "
             + ", ".join(missing_columns),
             file=sys.stderr,
         )
         print(
-            "Run scripts/analysis/enrich_qualtrics_csv.py first, then re-run "
-            "create_crp_dataset.py with the enriched export.",
+            "Ensure you are using the enriched Qualtrics export and that the "
+            "core Qualtrics columns needed for tiering have not been removed "
+            "or renamed.",
+            file=sys.stderr,
+        )
+        print(
+            "Run scripts/analysis/enrich_qualtrics_csv.py first if enrichment "
+            "columns are missing.",
             file=sys.stderr,
         )
         return 2
@@ -1035,22 +1062,20 @@ def main() -> int:
     print(f"  Manifest saved: {manifest_path}")
     print("  (Full manifest withheld from stdout — contains confidential ResponseIds.)")
 
-    if args.dry_run:
-        print("\n[DRY RUN] Stopping before de-identification.")
-        return 0
-
     # ── De-identify ──
     print("\n" + "=" * 78)
     print("  DE-IDENTIFICATION PIPELINE")
     print("=" * 78)
 
     selected_rows = [p["row"] for p in selected]
-    rc = deidentify_selected(
-        selected_rows, headers, args.output_dir, skip_review=args.skip_review
+    result = deidentify_selected(
+        selected_rows, headers, args.output_dir,
+        skip_review=args.skip_review,
+        dry_run=args.dry_run,
     )
 
     print("\n" + "=" * 78)
-    if rc == 0:
+    if result == 0:
         print("  CRP DATASET COMPLETE")
         print(f"  Public dataset:  {args.output_dir / 'TABS_V2_CRP_public_dataset.csv'}")
         print(f"  Rows: {len(selected)}")
@@ -1059,12 +1084,18 @@ def main() -> int:
         print(f"    - {args.output_dir / 'prolific_linkage_CONFIDENTIAL.csv'}")
         print(f"    - {args.output_dir / 'pii_review_report_CONFIDENTIAL.txt'}")
         print(f"    - {args.output_dir / 'selection_manifest_CONFIDENTIAL.txt'}")
+    elif result == 1:
+        if args.dry_run:
+            print("  [DRY RUN] Selection manifest and PII scan complete.")
+        else:
+            print("  CRP DATASET PAUSED — PII review required")
+            print("  Review pii_review_report_CONFIDENTIAL.txt, then re-run with --skip-review.")
     else:
         print("  CRP DATASET FAILED — PII detected in output")
         print("  Review pii_review_report_CONFIDENTIAL.txt and re-run.")
     print("=" * 78)
 
-    return rc
+    return 0 if result == 0 else 1
 
 
 if __name__ == "__main__":
