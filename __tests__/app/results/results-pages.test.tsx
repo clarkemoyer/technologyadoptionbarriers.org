@@ -331,7 +331,7 @@ describe('Sample & Demographics Page', () => {
   it('renders Other Role Categories panel when other_roles data is present', async () => {
     const { default: Page } = await import('@/app/results/sample/page')
     render(<Page />)
-    // The conservative_clean group has other_roles.total=2 and categories set
+    // The conservative_clean group has other_roles.total=4 and categories set
     expect(screen.getByText(/other.*role categories/i)).toBeInTheDocument()
   })
 
@@ -346,6 +346,22 @@ describe('Sample & Demographics Page', () => {
     // Technical Specialist appears in both the demo panel and methodology table
     expect(screen.getAllByText('Technical Specialist').length).toBeGreaterThanOrEqual(2)
     expect(screen.getByText('Uncategorized')).toBeInTheDocument()
+  })
+
+  it('renders empty-state row when role_categories is absent from JSON', async () => {
+    // roleCategories is derived inside the component, so temporarily removing it
+    // from the shared mock object is sufficient — no module re-load required.
+    const saved = MOCK_SENSITIVITY_DATA.role_categories
+    ;(MOCK_SENSITIVITY_DATA as Record<string, unknown>).role_categories = undefined
+    try {
+      const { default: Page } = await import('@/app/results/sample/page')
+      render(<Page />)
+      expect(
+        screen.getByText(/role-category methodology details are not available/i)
+      ).toBeInTheDocument()
+    } finally {
+      ;(MOCK_SENSITIVITY_DATA as Record<string, unknown>).role_categories = saved
+    }
   })
 })
 

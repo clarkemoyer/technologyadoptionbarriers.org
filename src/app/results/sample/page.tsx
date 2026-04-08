@@ -47,44 +47,6 @@ const sampleDetails: Record<string, SampleDetail> =
   ((sensitivityData as Record<string, unknown>).sample_details as Record<string, SampleDetail>) ??
   {}
 
-const FALLBACK_ROLE_CATEGORIES: RoleCategoryInfo[] = [
-  {
-    label: 'Executive leaders',
-    description:
-      'Senior organizational leaders responsible for overall strategy, governance, and high-level decision-making.',
-    examples: 'CEO, executive director, founder, president, vice president',
-  },
-  {
-    label: 'Finance leaders',
-    description:
-      'Professionals responsible for budgeting, accounting, financial planning, and fiscal oversight.',
-    examples: 'CFO, finance director, controller, accountant, treasurer',
-  },
-  {
-    label: 'Operations leaders',
-    description:
-      'Staff overseeing service delivery, internal workflows, logistics, and day-to-day organizational operations.',
-    examples: 'COO, operations director, program manager, office manager',
-  },
-  {
-    label: 'Technology leaders',
-    description:
-      'Professionals responsible for IT systems, digital tools, data infrastructure, cybersecurity, and technical strategy.',
-    examples: 'CTO, IT director, systems administrator, data manager, technical lead',
-  },
-]
-
-// Role category metadata is sourced from the JSON when available so the UI stays
-// in sync with the pipeline. Fall back to stable local rows so the methodology
-// table does not render with an empty <tbody> while committed JSON is lagging.
-const roleCategoriesFromData = (sensitivityData as Record<string, unknown>).role_categories as
-  | RoleCategoryInfo[]
-  | undefined
-const roleCategories: RoleCategoryInfo[] =
-  Array.isArray(roleCategoriesFromData) && roleCategoriesFromData.length > 0
-    ? roleCategoriesFromData
-    : FALLBACK_ROLE_CATEGORIES
-
 const PRIMARY_GROUPS = [
   { key: 'conservative_clean', label: 'Conservative Clean', color: 'border-green-500' },
   { key: 'flexible_clean', label: 'Flexible Clean', color: 'border-blue-500' },
@@ -98,6 +60,15 @@ const pct = (count: number, total: number | null | undefined): string =>
 const sampleLookup = new Map(sensitivityData.samples.map((s) => [s.key, s]))
 
 const SamplePage = () => {
+  // Role category metadata is sourced from the JSON when available so the UI stays
+  // in sync with the pipeline. If the JSON does not provide categories, leave the
+  // list empty so the table's empty-state row remains reachable.
+  const roleCategoriesFromData = (sensitivityData as Record<string, unknown>).role_categories as
+    | RoleCategoryInfo[]
+    | undefined
+  const roleCategories: RoleCategoryInfo[] = Array.isArray(roleCategoriesFromData)
+    ? roleCategoriesFromData
+    : []
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
