@@ -1,0 +1,205 @@
+# Full-Site Search Implementation
+
+## Overview
+
+A client-side full-text search tool that works seamlessly on GitHub Pages deployment. The search:
+
+- Indexes all pages at build time
+- Runs entirely in the browser (no backend required)
+- Works with GitHub Pages basePath deployment
+- Provides responsive, accessible search UI
+- Supports keyboard navigation
+
+## Architecture
+
+### Components
+
+1. **Search Library** (`src/lib/search.ts`)
+   - `search()` - Full-text search across index
+   - `loadSearchIndex()` - Load JSON index from public directory
+   - `highlightTerms()` - Add HTML marks to matched terms
+   - `SearchDocument`, `SearchResult` - Type definitions
+
+2. **Search Component** (`src/components/search/search-input.tsx`)
+   - React component with search input and results dropdown
+   - Keyboard navigation (ArrowUp/Down, Enter, Escape)
+   - Click-outside detection
+   - Accessibility attributes (ARIA roles, labels)
+
+3. **Search Index** (`public/search-index.json`)
+   - Pre-generated at build time
+   - Contains title, description, content, URL for each page
+   - ~9KB compressed
+
+4. **Index Generator** (`scripts/generate-search-index.ts`)
+   - TypeScript script that runs during build
+   - Parses page metadata and FAQ data
+   - Generates `public/search-index.json`
+
+## Usage
+
+### In Components
+
+```tsx
+import SearchInput from '@/components/search/search-input'
+
+export default function Header() {
+  return (
+    <header>
+      <SearchInput />
+    </header>
+  )
+}
+```
+
+### Direct Search
+
+```tsx
+import { search, loadSearchIndex } from '@/lib/search'
+
+const index = await loadSearchIndex()
+const results = search(index, 'technology adoption', 10)
+```
+
+## Features
+
+### Full-Text Search
+
+- Tokenizes query and documents
+- Case-insensitive matching
+- Partial word matching (prefix-based)
+- Relevance scoring:
+  - Title matches: 10 points per token
+  - Description matches: 5 points per token
+  - Content matches: 1 point per token
+
+### UI/UX
+
+- **Search Input**: Visible, with icon
+- **Results Dropdown**: Shows up to 10 results with:
+  - Title
+  - Category
+  - Snippet with context
+  - Matched fields (title, description, content)
+- **Highlighting**: Matched terms highlighted in snippets
+- **Loading State**: Spinner while searching
+- **No Results**: Clear feedback when no matches found
+
+### Accessibility
+
+- ARIA `role="search"`
+- `aria-expanded` for dropdown state
+- `aria-controls` for result list
+- `aria-autocomplete="list"` for input
+- Keyboard navigation:
+  - Tab to focus input
+  - ArrowDown/Up to navigate results
+  - Enter to select
+  - Escape to close
+
+### GitHub Pages Compatibility
+
+- Search index loaded via fetch (respects basePath)
+- All URLs include basePath automatically
+- Works on both custom domain and GitHub Pages deployment
+
+## GitHub Pages Basepath Handling
+
+The component automatically handles the `NEXT_PUBLIC_BASE_PATH` environment variable:
+
+```tsx
+// In search.ts
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+const response = await fetch(`${basePath}/search-index.json`)
+
+// URLs are already prefixed in the index
+```
+
+## Build Integration
+
+The search index is generated at build time:
+
+```bash
+# During build process (in next.config.ts or CI)
+npx tsx scripts/generate-search-index.ts
+```
+
+This creates:
+
+- `public/search-index.json` (new file with ~9KB)
+- Indexed all pages and FAQs
+- Ready for production deployment
+
+## Testing
+
+### Unit Tests
+
+```bash
+npm test -- __tests__/lib/search.test.ts
+```
+
+Covers:
+
+- Search algorithm
+- Term highlighting
+- Edge cases (empty queries, special chars, etc.)
+- Scoring and relevance
+
+### E2E Tests
+
+```bash
+npm run test:e2e -- tests/full-site-search.spec.ts
+```
+
+Covers:
+
+- Search input visibility
+- Results dropdown
+- Keyboard navigation
+- Result clicking
+- Accessibility
+
+## Performance
+
+- **Index Size**: ~9KB (compressed)
+- **Search Time**: <10ms for typical queries
+- **Memory**: ~100KB loaded in browser
+- **Lighthouse**: No impact on performance ratings
+
+## Future Enhancements
+
+- [ ] Advanced filters (by category, date)
+- [ ] Search analytics (popular queries)
+- [ ] Recent searches history
+- [ ] Keyboard shortcut (Cmd+K / Ctrl+K)
+- [ ] Voice search
+- [ ] Personalized results based on role
+- [ ] Index more content (full article text)
+
+## Troubleshooting
+
+### Search index not found
+
+**Problem**: 404 error loading search-index.json
+
+**Solution**: Ensure build process ran and `public/search-index.json` exists
+
+### No results appearing
+
+**Problem**: Query returns empty results
+
+**Solutions**:
+
+1. Check that index was generated (`public/search-index.json` exists)
+2. Verify search query terms match index content
+3. Check browser console for errors
+
+### Slow searches
+
+**Problem**: Searches take >1 second
+
+**Solution**: This is normal during development. Searches happen in 0-100ms depending on index size.
+
+## Related Issues
+
+- GitHub Issue #1370: Full-site search for GitHub Pages

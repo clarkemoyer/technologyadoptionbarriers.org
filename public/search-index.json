@@ -1,0 +1,74 @@
+[
+  {
+    "id": "page-1",
+    "url": "/",
+    "title": "Home",
+    "description": "Technology Adoption Barriers Survey",
+    "content": "Technology Adoption Barriers Survey. Welcome to TABS - Technology Adoption Barriers Survey.",
+    "category": "Home"
+  },
+  {
+    "id": "page-2",
+    "url": "/barriers",
+    "title": "Barriers",
+    "description": "Technology adoption barriers and documentation",
+    "content": "Technology adoption barriers. This page documents key barriers that organizations encounter when implementing new technologies.",
+    "category": "Documentation"
+  },
+  {
+    "id": "page-3",
+    "url": "/survey-complete",
+    "title": "Survey Complete",
+    "description": "Survey completion confirmation",
+    "content": "Thank you for completing the Technology Adoption Barriers Survey. Your responses help us understand adoption challenges.",
+    "category": "Survey"
+  },
+  {
+    "id": "page-4",
+    "url": "/for-organizations",
+    "title": "For Organizations",
+    "description": "Resources for organizational leaders",
+    "content": "Resources for organizational leaders. Explore strategies for addressing technology adoption barriers in your organization.",
+    "category": "Resources"
+  },
+  {
+    "id": "page-5",
+    "url": "/technology-adoption-models",
+    "title": "Technology Adoption Models",
+    "description": "Academic frameworks and models",
+    "content": "Technology adoption models and frameworks. Learn about academic theories and models used to understand adoption patterns.",
+    "category": "Academic"
+  },
+  {
+    "id": "page-6",
+    "url": "/media",
+    "title": "Media & Press Kit",
+    "description": "Press kit and media resources",
+    "content": "Media resources and press kit for Technology Adoption Barriers Survey research.",
+    "category": "Media"
+  },
+  {
+    "id": "faq-1",
+    "url": "/barriers#faqs",
+    "title": "What are the main barriers to technology adoption?",
+    "description": "Frequently asked question",
+    "content": "Main barriers include organizational resistance to change, lack of training and support, budget constraints, and integration challenges.",
+    "category": "FAQ"
+  },
+  {
+    "id": "faq-2",
+    "url": "/barriers#faqs",
+    "title": "How long does technology adoption typically take?",
+    "description": "Frequently asked question",
+    "content": "Timeline varies based on technology complexity and organizational readiness. Typically ranges from 3 months to 2 years.",
+    "category": "FAQ"
+  },
+  {
+    "id": "faq-3",
+    "url": "/barriers#faqs",
+    "title": "What strategies help overcome adoption barriers?",
+    "description": "Frequently asked question",
+    "content": "Effective strategies include executive sponsorship, change management programs, user training, clear communication, and addressing specific barriers.",
+    "category": "FAQ"
+  }
+]
