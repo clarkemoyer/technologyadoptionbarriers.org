@@ -24,10 +24,10 @@ interface ImageLightboxProps {
  * Features:
  * - Full-screen overlay with scalable image rendering
  * - Keyboard accessible (Escape to close)
- * - Focus management (traps focus, restores on close)
+ * - Focus trap (Tab/Shift+Tab cycle within modal, focus restored on close)
  * - Body scroll lock while open
  * - Click-outside-to-close
- * - ARIA attributes for accessibility
+ * - ARIA attributes for accessibility (aria-labelledby with sr-only heading)
  */
 const ImageLightbox: React.FC<ImageLightboxProps> = ({
   src,
@@ -48,6 +48,9 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
   const closeLightbox = useCallback(() => {
     setIsOpen(false)
   }, [])
+
+  // Derive a stable DOM id from the alt text
+  const titleId = `image-lightbox-title-${alt.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
 
   // Handle body scroll lock and Escape key
   useEffect(() => {
@@ -70,19 +73,49 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
     }
   }, [isOpen, closeLightbox])
 
-  // Focus management for modal
+  // Focus management and focus trap for modal
   useEffect(() => {
     if (isOpen && modalRef.current) {
       previousFocusRef.current = document.activeElement as HTMLElement
 
-      const focusableElements = modalRef.current.querySelectorAll(
-        'button:not([disabled]), [href]:not([disabled]), [tabindex]:not([tabindex="-1"]):not([disabled])'
-      )
-      if (focusableElements.length > 0) {
-        ;(focusableElements[0] as HTMLElement).focus()
+      const getFocusableElements = () =>
+        modalRef.current?.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href]:not([disabled]), [tabindex]:not([tabindex="-1"]):not([disabled])'
+        ) ?? []
+
+      // Focus the first focusable element (close button)
+      const focusable = getFocusableElements()
+      if (focusable.length > 0) {
+        focusable[0].focus()
       }
 
+      // Trap Tab / Shift+Tab within the modal
+      const handleTab = (event: KeyboardEvent) => {
+        if (event.key !== 'Tab') return
+
+        const elements = getFocusableElements()
+        if (elements.length === 0) return
+
+        const first = elements[0]
+        const last = elements[elements.length - 1]
+
+        if (event.shiftKey) {
+          if (document.activeElement === first) {
+            event.preventDefault()
+            last.focus()
+          }
+        } else {
+          if (document.activeElement === last) {
+            event.preventDefault()
+            first.focus()
+          }
+        }
+      }
+
+      document.addEventListener('keydown', handleTab)
+
       return () => {
+        document.removeEventListener('keydown', handleTab)
         if (previousFocusRef.current) {
           previousFocusRef.current.focus()
         }
@@ -105,6 +138,8 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
           alt={alt}
           width={width}
           height={height}
+          loading="lazy"
+          decoding="async"
           className={`w-full h-auto ${imgClassName}`}
         />
         {/* Visual hover hint and always-accessible label */}
@@ -122,13 +157,18 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
           onClick={closeLightbox}
           role="dialog"
           aria-modal="true"
-          aria-label={`Full-screen view: ${alt}`}
+          aria-labelledby={titleId}
         >
           <div
             ref={modalRef}
             className="relative w-full h-full flex items-center justify-center p-4 sm:p-8"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Screen reader only heading for accessibility */}
+            <h2 id={titleId} className="sr-only">
+              Full-screen image view
+            </h2>
+
             {/* Close button */}
             <button
               onClick={closeLightbox}
