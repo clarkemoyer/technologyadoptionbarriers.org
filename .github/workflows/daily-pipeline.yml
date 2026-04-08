@@ -122,20 +122,30 @@ jobs:
 
       # ── CRP Dataset (N=200) ──
       # Produces the frozen public dataset for the Comprehensive Research Paper.
-      # Runs every pipeline execution so the CRP snapshot stays current.
+      # Once the canonical CSV exists in the repo, the CRP build is skipped
+      # to preserve the moment-in-time snapshot used for the CRP submission.
+      # To regenerate, delete public/datasets/TABS_V2_CRP_2026_public_dataset.csv
+      # from the repo and re-run the pipeline.
       - name: Build CRP dataset (N=200)
         id: crp
         continue-on-error: true
         run: |
+          if [ -f "public/datasets/TABS_V2_CRP_2026_public_dataset.csv" ]; then
+            echo "CRP dataset already exists in repo — skipping to preserve frozen snapshot"
+            echo "To regenerate: delete public/datasets/TABS_V2_CRP_2026_public_dataset.csv and re-run"
+            echo "produced=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           python scripts/analysis/create_crp_dataset.py \
             "${{ runner.temp }}/qualtrics-enriched.csv" \
             --target-n 200 \
             --output-dir "${{ runner.temp }}/crp-output" \
             --skip-review
+          echo "produced=true" >> "$GITHUB_OUTPUT"
 
       - name: Build CRP-only enriched CSV for analysis
         id: crp_filter
-        if: steps.crp.outcome == 'success'
+        if: steps.crp.outputs.produced == 'true'
         continue-on-error: true
         run: |
           python3 - <<'PY'
@@ -171,7 +181,7 @@ jobs:
 
       - name: Run CRP analysis snapshot (N=200 subset)
         id: crp_analysis
-        if: steps.crp.outcome == 'success' && steps.crp_filter.outcome == 'success'
+        if: steps.crp.outputs.produced == 'true' && steps.crp_filter.outcome == 'success'
         continue-on-error: true
         run: |
           # Guard: skip if filtered CSV has no data rows (only headers)
@@ -185,7 +195,7 @@ jobs:
             --json "${{ runner.temp }}/crp-sensitivity-analysis.json"
 
       - name: Stage CRP public CSV
-        if: steps.crp.outcome == 'success'
+        if: steps.crp.outputs.produced == 'true'
         run: |
           if [ -f "${{ runner.temp }}/crp-output/TABS_V2_CRP_public_dataset.csv" ]; then
             mkdir -p "${{ runner.temp }}/crp-public"
@@ -196,7 +206,7 @@ jobs:
           fi
 
       - name: Stage CRP analysis snapshot
-        if: steps.crp.outcome == 'success' && steps.crp_analysis.outcome == 'success'
+        if: steps.crp.outputs.produced == 'true' && steps.crp_analysis.outcome == 'success'
         run: |
           if [ -f "${{ runner.temp }}/crp-sensitivity-analysis.json" ]; then
             mkdir -p "${{ runner.temp }}/crp-public"
@@ -307,7 +317,7 @@ jobs:
       # decoupled from the filter+analysis chain. The public CSV is produced by
       # create_crp_dataset.py and does not depend on the analysis snapshot.
       - uses: actions/upload-artifact@v7
-        if: steps.crp.outcome == 'success'
+        if: steps.crp.outputs.produced == 'true'
         with:
           name: crp-dataset
           path: ${{ runner.temp }}/crp-public/TABS_V2_CRP_2026_public_dataset.csv
@@ -318,7 +328,7 @@ jobs:
       # CRP analysis snapshot — only uploaded when the JSON was actually produced
       # (skipped silently when the empty-sample guard exits 0 without writing JSON)
       - uses: actions/upload-artifact@v7
-        if: steps.crp.outcome == 'success' && steps.crp_filter.outcome == 'success' && steps.crp_analysis.outcome == 'success'
+        if: steps.crp.outputs.produced == 'true' && steps.crp_filter.outcome == 'success' && steps.crp_analysis.outcome == 'success'
         with:
           name: crp-analysis-snapshot
           path: ${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json
