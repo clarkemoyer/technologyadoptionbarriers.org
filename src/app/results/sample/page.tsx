@@ -79,7 +79,7 @@ const DEFAULT_ROLE_CATEGORIES: RoleCategoryInfo[] = [
   {
     label: 'Director',
     description: 'Director-level titles across functions',
-    examples: 'Director of \u2026, Senior Director, Group Director',
+    examples: 'Director of ..., Senior Director, Group Director',
   },
   {
     label: 'Manager / Program Lead',
@@ -99,7 +99,7 @@ const DEFAULT_ROLE_CATEGORIES: RoleCategoryInfo[] = [
   {
     label: 'Uncategorized',
     description: 'Responses that did not match any keyword pattern, or blank entries',
-    examples: '\u2014',
+    examples: '',
   },
 ]
 
