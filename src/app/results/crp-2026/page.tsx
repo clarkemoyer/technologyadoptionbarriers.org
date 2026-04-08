@@ -141,9 +141,9 @@ const CRP2026Page = () => {
                 pts).
               </p>
               <p className="text-gray-600 font-sans text-sm">
-                Responses scoring below the Conservative Clean threshold are retained in the
-                Flexible Clean and Prolific Accepted tiers but excluded from the primary analysis
-                sample.
+                All N={CRP_SAMPLE_SIZE} responses are included in the CRP dataset. The quality score
+                determines Tier 3 selection priority and supports sensitivity analysis across sample
+                definitions (Conservative Clean vs. full CRP sample).
               </p>
             </div>
 
@@ -224,7 +224,7 @@ const CRP2026Page = () => {
             </ul>
           </div>
           <p className="text-sm text-gray-500 font-sans mt-2">
-            The mirror link will be available after the CRP dataset workflow runs.
+            The mirror link provides a direct download of the frozen dataset from this repository.
           </p>
         </section>
 
