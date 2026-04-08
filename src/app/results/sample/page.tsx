@@ -47,9 +47,43 @@ const sampleDetails: Record<string, SampleDetail> =
   ((sensitivityData as Record<string, unknown>).sample_details as Record<string, SampleDetail>) ??
   {}
 
-// Role category metadata sourced from the JSON so the UI stays in sync with the pipeline.
+const FALLBACK_ROLE_CATEGORIES: RoleCategoryInfo[] = [
+  {
+    label: 'Executive leaders',
+    description:
+      'Senior organizational leaders responsible for overall strategy, governance, and high-level decision-making.',
+    examples: 'CEO, executive director, founder, president, vice president',
+  },
+  {
+    label: 'Finance leaders',
+    description:
+      'Professionals responsible for budgeting, accounting, financial planning, and fiscal oversight.',
+    examples: 'CFO, finance director, controller, accountant, treasurer',
+  },
+  {
+    label: 'Operations leaders',
+    description:
+      'Staff overseeing service delivery, internal workflows, logistics, and day-to-day organizational operations.',
+    examples: 'COO, operations director, program manager, office manager',
+  },
+  {
+    label: 'Technology leaders',
+    description:
+      'Professionals responsible for IT systems, digital tools, data infrastructure, cybersecurity, and technical strategy.',
+    examples: 'CTO, IT director, systems administrator, data manager, technical lead',
+  },
+]
+
+// Role category metadata is sourced from the JSON when available so the UI stays
+// in sync with the pipeline. Fall back to stable local rows so the methodology
+// table does not render with an empty <tbody> while committed JSON is lagging.
+const roleCategoriesFromData = (sensitivityData as Record<string, unknown>).role_categories as
+  | RoleCategoryInfo[]
+  | undefined
 const roleCategories: RoleCategoryInfo[] =
-  ((sensitivityData as Record<string, unknown>).role_categories as RoleCategoryInfo[]) ?? []
+  Array.isArray(roleCategoriesFromData) && roleCategoriesFromData.length > 0
+    ? roleCategoriesFromData
+    : FALLBACK_ROLE_CATEGORIES
 
 const PRIMARY_GROUPS = [
   { key: 'conservative_clean', label: 'Conservative Clean', color: 'border-green-500' },
@@ -648,15 +682,28 @@ const SamplePage = () => {
                 </tr>
               </thead>
               <tbody>
-                {roleCategories.map((cat, i) => (
-                  <tr key={cat.label} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
-                    <td className="border border-gray-300 px-4 py-2 font-semibold">{cat.label}</td>
-                    <td className="border border-gray-300 px-4 py-2">{cat.description}</td>
-                    <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                      {cat.examples || '\u2014'}
+                {roleCategories.length > 0 ? (
+                  roleCategories.map((cat, i) => (
+                    <tr key={cat.label} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                      <td className="border border-gray-300 px-4 py-2 font-semibold">
+                        {cat.label}
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">{cat.description}</td>
+                      <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
+                        {cat.examples || '\u2014'}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan={3}
+                      className="border border-gray-300 px-4 py-4 text-sm text-gray-600"
+                    >
+                      Role-category methodology details are not available in the current dataset.
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>

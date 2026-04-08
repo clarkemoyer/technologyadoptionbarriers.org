@@ -32,7 +32,6 @@ from tabs_v2_analysis import (
     oneway_anova,
     categorize_other_role,
     OTHER_ROLE_CATEGORIES_PATTERNS,
-    OTHER_ROLE_CATEGORIES_DESCRIPTIONS,
     BARRIER_SCALE,
     READINESS_SCALE,
     MATURITY_SCALE,

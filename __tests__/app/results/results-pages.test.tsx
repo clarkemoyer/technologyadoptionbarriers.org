@@ -15,7 +15,7 @@ import '@testing-library/jest-dom'
 const MOCK_SENSITIVITY_DATA = {
   last_updated: '2026-04-04T09:00:00Z',
   samples: [
-    { key: 'conservative_clean', label: 'Conservative Clean', description: 'test', n: 77 },
+    { key: 'conservative_clean', label: 'Conservative Clean', description: 'test', n: 20 },
     { key: 'flexible_clean', label: 'Flexible Clean', description: 'test', n: 118 },
     { key: 'prolific_accepted', label: 'Prolific Accepted', description: 'test', n: 208 },
     { key: 'v2_finished', label: 'All V2 Finished', description: 'test', n: 332 },
@@ -158,11 +158,11 @@ const MOCK_SENSITIVITY_DATA = {
   sample_details: {
     conservative_clean: {
       demographics: {
-        roles: { CIO: 5, CTO: 3, Other: 2 },
+        roles: { CIO: 5, CTO: 3, 'Operations Director': 8, Other: 4 },
         org_sizes: {},
         profit_models: {},
-        tech_vs_nontech: { technical: 8, non_technical: 10, other: 2 },
-        other_roles: { total: 2, categories: { 'Technical Specialist': 2 } },
+        tech_vs_nontech: { technical: 8, non_technical: 8, other: 4 },
+        other_roles: { total: 4, categories: { 'Technical Specialist': 4 } },
       },
       effect_sizes: {},
       cross_tabs: { by_role: [], by_org_size: [] },
