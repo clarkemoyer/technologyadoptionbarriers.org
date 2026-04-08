@@ -64,25 +64,31 @@ from pathlib import Path
 # Configuration — mirrors tabs_v2_analysis.py exactly
 # ─────────────────────────────────────────────────────────────
 
+# —— V2 cohort filter (matches tabs_v2_analysis.py) ——
+V2_START = "2026-03-23 14:00:00"
+# Prolific live test of V2 instrument (valid V2 response, predates V2_START)
+PROLIFIC_TEST_ID = "R_1QK12IJpHjC3wd6"
+
 # —— Thresholds ——
 DURATION_TIER1_MIN = 540       # seconds (Smeal eDBA benchmark)
 DURATION_TIER3_MIN = 300       # seconds (minimum acceptable)
 RECAPTCHA_TIER1_MIN = 0.5      # Qualtrics reCAPTCHA threshold
 RECAPTCHA_TIER3_MIN = 0.3      # Relaxed threshold for tier 3
-PARTIAL_STRAIGHTLINING_SD_THRESHOLD = 0.3  # within-person SD threshold
+PARTIAL_STRAIGHTLINING_SD_THRESHOLD = 0.5  # within-person SD threshold
 
 # —— IRI attention-check columns and correct answers ——
 BARRIER_IRI = "Q10-28_Barriers_19"
 READINESS_IRI = "Q47-64_Readiness_18"
 MATURITY_IRI = "Q65-73_Maturity_9"
-IRI_BARRIER_ANSWER = "4"
-IRI_READINESS_ANSWER = "5"
-IRI_MATURITY_ANSWER = "2"
+# Expected answers are Qualtrics choice labels (matches CSV export values)
+IRI_BARRIER_ANSWER = "Major Barrier"
+IRI_READINESS_ANSWER = "Low Readiness/Capability"
+IRI_MATURITY_ANSWER = "Level 2: Developing/Repeatable"
 
-# —— Columns used to assess partial straightlining ——
-BARRIER_COLS = [f"Q10-28_Barriers_{i}" for i in range(1, 20)]
-READINESS_COLS = [f"Q47-64_Readiness_{i}" for i in range(1, 19)]
-MATURITY_COLS = [f"Q65-73_Maturity_{i}" for i in range(1, 10)]
+# —— Columns used to assess partial straightlining (IRI items excluded) ——
+BARRIER_COLS = [f"Q10-28_Barriers_{i}" for i in range(1, 19)]
+READINESS_COLS = [f"Q47-64_Readiness_{i}" for i in range(1, 18)]
+MATURITY_COLS = [f"Q65-73_Maturity_{i}" for i in range(1, 9)]
 
 # —— Columns to drop from public dataset ——
 COLUMNS_TO_DROP: set[str] = {
@@ -168,14 +174,26 @@ TIMESTAMP_COLUMNS = [
 
 
 def load_qualtrics_csv(path: str) -> tuple[list[str], list[list[str]]]:
-    """Load a Qualtrics CSV with 3 header rows, returning (headers, data_rows)."""
+    """Load a Qualtrics CSV with 3 header rows, returning (headers, data_rows).
+
+    Qualtrics exports include three header rows before data:
+      Row 1 — column names
+      Row 2 — question text / description
+      Row 3 — import IDs
+    Data rows start at row 4.
+    """
     with open(path, newline="", encoding="utf-8-sig") as f:
         reader = csv.reader(f)
         rows = list(reader)
     if len(rows) < 4:
-        raise ValueError(f"Expected at least 4 rows (3 headers + 1 data), got {len(rows)}")
+        print(
+            f"Input error: expected at least 4 rows (3 headers + 1 data) in Qualtrics CSV,"
+            f" got {len(rows)}",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
     headers = rows[0]
-    data = rows[3:]   # Skip header row, import-id row, and choices row
+    data = rows[3:]   # Skip column names, question text, and import ID rows
     return headers, data
 
 
@@ -214,9 +232,9 @@ def get_duration(row: list[str], idx: dict[str, int]) -> float:
 
 
 def get_finished(row: list[str], idx: dict[str, int]) -> bool:
-    """Return True if Finished == '1' or 'True'."""
-    val = get_val(row, idx, "Finished").strip()
-    return val in ("1", "True", "true")
+    """Return True for standard Qualtrics finished values."""
+    val = get_val(row, idx, "Finished").strip().lower()
+    return val in ("1", "true")
 
 
 def count_iri_correct(row: list[str], idx: dict[str, int]) -> int:
@@ -400,8 +418,10 @@ def filter_v2_and_dedup(
     Return only completed V2 responses from Prolific participants,
     keeping the first response per PROLIFIC_PID.
 
-    A "V2 Prolific response" is a row with a non-empty PROLIFIC_PID and
-    Prolific_Status (injected by enrich_qualtrics_csv.py) where Finished==1.
+    A "V2 Prolific response" satisfies all of:
+      - Non-empty PROLIFIC_PID and Prolific_Status (injected by enrich_qualtrics_csv.py)
+      - StartDate >= V2_START, OR ResponseId == PROLIFIC_TEST_ID (the live test row)
+      - Finished == 1 / TRUE
     """
     seen: set[str] = set()
     result: list[list[str]] = []
@@ -409,6 +429,11 @@ def filter_v2_and_dedup(
         pid = get_val(row, idx, "PROLIFIC_PID")
         status = get_prolific_status(row, idx)
         if not pid or not status:
+            continue
+        # V2 cohort gate: match tabs_v2_analysis.py exactly
+        start_date = get_val(row, idx, "StartDate")
+        response_id = get_val(row, idx, "ResponseId")
+        if start_date < V2_START and response_id != PROLIFIC_TEST_ID:
             continue
         if not get_finished(row, idx):
             continue
@@ -672,9 +697,14 @@ PII_PATTERNS: list[tuple[str, re.Pattern]] = [
 def scan_pii(
     rows: list[dict[str, str]],
     text_cols: list[str],
-    row_offset: int = 3,
+    row_offset: int = 4,
 ) -> list[dict]:
     """Scan free-text columns for PII patterns. Returns list of flag dicts.
+
+    row_offset maps 0-based row index to 1-based CSV row number for reports.
+    Default of 4 matches the standard Qualtrics export (3 header rows, so the
+    first data row is CSV row 4).  Pass row_offset=2 for a single-header-row
+    output (e.g., the public dataset after column filtering).
 
     Each flag contains:
         row_number   — 1-based row number (for human-readable reports)
