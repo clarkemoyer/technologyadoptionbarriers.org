@@ -134,7 +134,9 @@ jobs:
             --skip-review
 
       - name: Build CRP-only enriched CSV for analysis
+        id: crp-filter
         if: steps.crp.outcome == 'success'
+        continue-on-error: true
         run: |
           python3 - <<'PY'
           import csv, pathlib, sys
@@ -168,14 +170,16 @@ jobs:
           PY
 
       - name: Run CRP analysis snapshot (N=200 subset)
-        if: steps.crp.outcome == 'success'
+        id: crp-analysis
+        if: steps.crp.outcome == 'success' && steps.crp-filter.outcome == 'success'
+        continue-on-error: true
         run: |
           python scripts/analysis/tabs_v2_analysis.py \
             "${{ runner.temp }}/qualtrics-enriched-crp-sample.csv" \
             --json "${{ runner.temp }}/crp-sensitivity-analysis.json"
 
       - name: Stage CRP public files
-        if: steps.crp.outcome == 'success'
+        if: steps.crp.outcome == 'success' && steps.crp-analysis.outcome == 'success'
         run: |
           mkdir -p "${{ runner.temp }}/crp-public"
           cp "${{ runner.temp }}/crp-output/TABS_V2_CRP_public_dataset.csv" \
@@ -282,7 +286,7 @@ jobs:
 
       # CRP public dataset + analysis snapshot (N=200 subset)
       - uses: actions/upload-artifact@v7
-        if: steps.crp.outcome == 'success'
+        if: steps.crp.outcome == 'success' && steps.crp-analysis.outcome == 'success'
         with:
           name: crp-dataset
           path: |
@@ -447,10 +451,19 @@ jobs:
             echo "No CRP dataset artifact — skipping"
           fi
 
+      - name: Compute files to format
+        id: format-files
+        run: |
+          FILES="src/data/sensitivity-analysis.json src/data/data-audit.json src/data/disposition-summary.json"
+          if [ -f "src/data/crp-sensitivity-analysis.json" ]; then
+            FILES="$FILES src/data/crp-sensitivity-analysis.json"
+          fi
+          echo "list=$FILES" >> "$GITHUB_OUTPUT"
+
       - uses: ./.github/actions/format-and-pr
         with:
           token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
-          files: 'src/data/sensitivity-analysis.json src/data/data-audit.json src/data/disposition-summary.json src/data/crp-sensitivity-analysis.json'
+          files: ${{ steps.format-files.outputs.list }}
           commit-message: 'chore: update daily pipeline data (analysis + dashboard + CRP)'
           pr-title: 'Update daily pipeline data'
           pr-body: |
