@@ -8,6 +8,7 @@
 
 import { promises as fs } from 'fs'
 import path from 'path'
+import { faqs } from '../src/data/faqs'
 
 interface SearchItem {
   id: string
@@ -21,19 +22,6 @@ interface SearchItem {
 /**
  * Strip HTML tags from content
  */
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, '') // Remove HTML tags
-    .replace(/&nbsp;/g, ' ') // Replace nbsp with space
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/\s+/g, ' ') // Normalize whitespace
-    .trim()
-}
-
 /**
  * Truncate content to reasonable size
  */
@@ -45,9 +33,8 @@ function truncateContent(content: string, maxLength = 500): string {
 /**
  * Find all page routes in src/app
  */
-async function findPageRoutes(dir: string): Promise<SearchItem[]> {
+async function findPageRoutes(_dir: string): Promise<SearchItem[]> {
   const items: SearchItem[] = []
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
   // Hard-coded main pages to index
   const mainPages = [
@@ -78,7 +65,7 @@ async function findPageRoutes(dir: string): Promise<SearchItem[]> {
   let id = 1
 
   for (const page of mainPages) {
-    const url = page.path ? `${basePath}/${page.path}` : basePath || '/'
+    const url = page.path ? `/${page.path}` : '/'
 
     // Create a reasonable text content snippet
     const content = `Technology Adoption Barriers Survey. ${page.description}`
@@ -93,30 +80,16 @@ async function findPageRoutes(dir: string): Promise<SearchItem[]> {
   }
 
   // FAQ entries
-  try {
-    const faqFile = path.join(dir, './src/data/faqs.ts')
-    const faqContent = await fs.readFile(faqFile, 'utf-8')
-    const faqMatch = faqContent.match(/export const faqs.*?=\s*\[([\s\S]*?)\]/m)
-
-    if (faqMatch) {
-      // Simple parsing - extract question.title values
-      const questionMatches = faqContent.matchAll(
-        /question:\s*{\s*title:\s*['"](.*?)['"],?\s*description:/g
-      )
-      for (const match of questionMatches) {
-        const question = match[1]
-        items.push({
-          id: `faq-${id++}`,
-          url: `${basePath}/barriers#faqs`,
-          title: question,
-          description: 'Frequently asked question',
-          content: truncateContent(question),
-          category: 'FAQ',
-        })
-      }
-    }
-  } catch (error) {
-    console.warn('Could not load FAQs:', error instanceof Error ? error.message : String(error))
+  // FAQ entries — use the typed data directly instead of regex-parsing the source file
+  for (const faq of faqs) {
+    items.push({
+      id: `faq-${id++}`,
+      url: '/barriers#faqs',
+      title: faq.question,
+      description: 'Frequently asked question',
+      content: truncateContent(faq.question),
+      category: 'FAQ',
+    })
   }
 
   return items

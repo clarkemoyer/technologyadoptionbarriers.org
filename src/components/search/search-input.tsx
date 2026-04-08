@@ -131,6 +131,7 @@ export default function SearchInput() {
         <input
           ref={inputRef}
           type="search"
+          aria-label="Search"
           role="combobox"
           placeholder="Search site..."
           value={query}

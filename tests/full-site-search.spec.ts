@@ -101,11 +101,13 @@ test.describe('Full-site search', () => {
     // Search with lowercase
     await searchInput.click()
     await searchInput.fill('technology')
+    await expect(page.locator('[role="option"]').first()).toBeVisible()
     const resultsLower = await page.locator('[role="option"]').count()
 
     // Clear and search with uppercase
     await searchInput.clear()
     await searchInput.fill('TECHNOLOGY')
+    await expect(page.locator('[role="option"]').first()).toBeVisible()
     const resultsUpper = await page.locator('[role="option"]').count()
 
     expect(resultsLower + resultsUpper).toBeGreaterThan(0)
