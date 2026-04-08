@@ -93,13 +93,13 @@ export default function SearchInput() {
         if (timeoutRef.current) {
           clearTimeout(timeoutRef.current)
           timeoutRef.current = null
+          setIsLoading(false)
         }
         searchRequestIdRef.current += 1
         setIsOpen(false)
         setQuery('')
         setResults([])
         setSelectedIndex(-1)
-        setIsLoading(false)
         break
     }
   }

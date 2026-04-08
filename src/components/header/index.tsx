@@ -4,7 +4,6 @@ import React, { useState, useEffect, useMemo, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FiMenu } from 'react-icons/fi'
-import SearchInput from '@/components/search/search-input'
 import { RxCross2 } from 'react-icons/rx'
 import { motion, AnimatePresence } from 'framer-motion'
 import { technologyAdoptionModelsSeries } from '@/data/technology-adoption-models-series'
@@ -14,6 +13,7 @@ import {
 } from '@/data/technology-adoption-teaching-series'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 import { personaNavigation } from '@/data/persona-navigation'
+import SearchInput from '@/components/search/search-input'
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const TAKE_TABS_URL = TABS_WEBSITE_QUALTRICS_SURVEY_URL
 
