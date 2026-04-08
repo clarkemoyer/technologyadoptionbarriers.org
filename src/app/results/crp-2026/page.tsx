@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description:
     'Frozen N=200 dataset used for the TABS Comprehensive Research Paper (CRP). A moment-in-time snapshot with three-tier quality selection, de-identified per NIST Expert Determination protocol.',
   alternates: {
-    canonical: '/results/crp-2026',
+    canonical: 'https://technologyadoptionbarriers.org/results/crp-2026',
   },
 }
 
@@ -176,7 +176,7 @@ const CRP2026Page = () => {
               <a
                 href={assetPath('/datasets/TABS_V2_CRP_2026_public_dataset.csv')}
                 download
-                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-sans text-base font-medium shadow-sm"
+                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 transition-colors font-sans text-base font-medium shadow-sm"
               >
                 <svg
                   className="w-5 h-5 mr-2"
