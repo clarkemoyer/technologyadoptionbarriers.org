@@ -312,86 +312,6 @@ def get_response_id(row: list[str], idx: dict[str, int]) -> str:
 # ─────────────────────────────────────────────────────────────
 
 
-def count_disposition(data: list[list[str]], idx: dict[str, int]) -> dict[str, int]:
-    """
-    Re-create the disposition waterfall used in tabs_v2_data_audit.py
-    (for manifest reporting only — does not affect selection).
-    """
-    counts: dict[str, int] = {
-        "total": 0,
-        "v2": 0,
-        "v2_deduplicated": 0,
-        "prolific_accepted": 0,
-        "tier1_clean": 0,
-        "tier2_acceptable": 0,
-        "tier3_borderline": 0,
-        "below_tier3": 0,
-    }
-    seen_pids: set[str] = set()
-    for row in data:
-        counts["total"] += 1
-        pid = get_val(row, idx, "PROLIFIC_PID")
-        status = get_prolific_status(row, idx)
-        if not pid or not status:
-            continue
-        # Apply the same V2 cohort gate as filter_v2_and_dedup:
-        # count as "v2" only if StartDate >= V2_START or ResponseId == PROLIFIC_TEST_ID.
-        start_date = get_val(row, idx, "StartDate")
-        response_id = get_val(row, idx, "ResponseId")
-        if start_date < V2_START and response_id != PROLIFIC_TEST_ID:
-            continue
-        counts["v2"] += 1  # = "confirmed V2 cohort member"
-        if pid in seen_pids:
-            continue
-        seen_pids.add(pid)
-        counts["v2_deduplicated"] += 1
-        if status != "APPROVED":
-            continue
-        counts["prolific_accepted"] += 1
-
-        duration = get_duration(row, idx)
-        iri = count_iri_correct(row, idx)
-        recaptcha = get_recaptcha_score(row, idx)
-        straightlining = get_straightlining_count(row, idx)
-        llm_flag, bots_flag = has_auth_flag(row, idx)
-        partial_sl = has_partial_straightlining(row, idx)
-
-        is_tier1 = (
-            iri == 3
-            and duration >= DURATION_TIER1_MIN
-            and straightlining == 0
-            and recaptcha >= RECAPTCHA_TIER1_MIN
-            and not llm_flag
-            and not bots_flag
-            and not partial_sl
-        )
-        is_tier2 = (
-            iri >= 1
-            and duration >= DURATION_TIER1_MIN
-            and straightlining == 0
-            and recaptcha >= RECAPTCHA_TIER1_MIN
-            and not llm_flag
-            and not bots_flag
-            and not partial_sl
-        )
-        is_tier3 = (
-            iri >= 2
-            and duration >= DURATION_TIER3_MIN
-            and straightlining == 0
-            and recaptcha >= RECAPTCHA_TIER3_MIN
-        )
-
-        if is_tier1:
-            counts["tier1_clean"] += 1
-        elif is_tier2:
-            counts["tier2_acceptable"] += 1
-        elif is_tier3:
-            counts["tier3_borderline"] += 1
-        else:
-            counts["below_tier3"] += 1
-
-    return counts
-
 
 # ─────────────────────────────────────────────────────────────
 # V2 filtering and deduplication
@@ -612,73 +532,6 @@ def generate_manifest(profiles: list[dict], target_n: int) -> str:
 # ─────────────────────────────────────────────────────────────
 
 
-def print_profile_table(profiles: list[dict]) -> None:
-    """Print a summary table of quality profiles (selected only)."""
-    selected = [p for p in profiles if p.get("selected")]
-    if not selected:
-        print("  (no profiles selected)")
-        return
-
-    print(f"  {'ResponseId':>20} {'Tier':>5} {'Dur':>6} {'IRI':>4}"
-          f" {'reCap':>6} {'SL':>3} {'PSL':>4} {'LLM':>5} {'Bot':>5}")
-    print("  " + "-" * 65)
-    for p in selected:
-        print(f"  {p['response_id']:>20} {p['tier']:>5} {p['duration']:>6.0f}"
-              f" {p['iri_correct']:>4} {p['recaptcha']:>6.2f}"
-              f" {p['straightlining']:>3} {'Y' if p['partial_sl'] else 'N':>4}"
-              f" {'F' if p['llm_flag'] else '.':>5} {'F' if p['bots_flag'] else '.':>5}")
-
-
-def print_disposition_report(profiles: list[dict], target_n: int) -> None:
-    """Print tiered selection disposition report."""
-    accepted = [p for p in profiles if p["prolific_status"] == "APPROVED"]
-    tier_counts: dict[int, int] = {0: 0, 1: 0, 2: 0, 3: 0}
-    for p in accepted:
-        tier_counts[p["tier"]] = tier_counts.get(p["tier"], 0) + 1
-    selected_counts: dict[int, int] = {0: 0, 1: 0, 2: 0, 3: 0}
-    for p in accepted:
-        if p.get("selected"):
-            selected_counts[p["tier"]] = selected_counts.get(p["tier"], 0) + 1
-
-    print(f"  Total Prolific Accepted:        {len(accepted):>5}")
-    print(f"  Tier 1 (Conservative Clean):    {tier_counts[1]:>5}"
-          f"   selected: {selected_counts[1]:>4}")
-    print(f"  Tier 2 (Acceptable Quality):    {tier_counts[2]:>5}"
-          f"   selected: {selected_counts[2]:>4}")
-    print(f"  Tier 3 (Borderline):            {tier_counts[3]:>5}"
-          f"   selected: {selected_counts[3]:>4}")
-    print(f"  Below Tier 3:                   {tier_counts[0]:>5}")
-    print(f"  " + "-" * 40)
-    total_sel = sum(selected_counts.values())
-    print(f"  Total Selected:                 {total_sel:>5}")
-
-
-# ─────────────────────────────────────────────────────────────
-# Tier-by-tier reporting helper
-# ─────────────────────────────────────────────────────────────
-
-
-def print_tier_details(profiles: list[dict]) -> None:
-    """Print per-tier breakdown with quality metrics for each participant."""
-    accepted = [p for p in profiles if p["prolific_status"] == "APPROVED"]
-    for tier_label, tier_num in [("Tier 1", 1), ("Tier 2", 2), ("Tier 3", 3), ("Below Tier 3", 0)]:
-        tier_profiles = [p for p in accepted if p["tier"] == tier_num]
-        if not tier_profiles:
-            print(f"\n  {tier_label}: (none)")
-            continue
-        print(f"\n  {tier_label} ({len(tier_profiles)} profiles):")
-        print(f"  {'ResponseId':>20} {'Dur':>6} {'IRI':>4} {'reCap':>6}"
-              f" {'SL':>3} {'PSL':>4} {'LLM':>5} {'Bot':>5} {'Status':>10}")
-        print("  " + "-" * 70)
-        for p in tier_profiles:
-            status = "SELECTED" if p.get("selected") else "-"
-            print(f"  {p['response_id']:>20} {p['duration']:>6.0f}"
-                  f" {p['iri_correct']:>4} {p['recaptcha']:>6.2f}"
-                  f" {p['straightlining']:>3}"
-                  f" {'Y' if p['partial_sl'] else 'N':>4}"
-                  f" {'F' if p['llm_flag'] else '.':>5}"
-                  f" {'F' if p['bots_flag'] else '.':>5}"
-                  f" {status:>10}")
 
 
 # ─────────────────────────────────────────────────────────────
@@ -721,6 +574,7 @@ def scan_pii(
     Each flag contains:
         row_number   — 1-based row number (for human-readable reports)
         row_index    — 0-based index into *rows* (for in-place redaction)
+        response_id  — ResponseId for locating the response
         column       — column name
         pattern_type — PII pattern category
     """
@@ -735,6 +589,7 @@ def scan_pii(
                     flags.append({
                         "row_number": i + row_offset,
                         "row_index": i,
+                        "response_id": row.get("ResponseId", ""),
                         "column": col,
                         "pattern_type": pattern_type,
                     })
@@ -754,10 +609,11 @@ def write_pii_report(
         if not flags:
             f.write("No PII patterns detected.\n")
             return
-        f.write(f"{'Row':>6}  {'Column':>30}  {'Pattern':>20}\n")
-        f.write("-" * 60 + "\n")
+        f.write(f"{'Row':>6}  {'ResponseId':>20}  {'Column':>30}  {'Pattern':>20}\n")
+        f.write("-" * 80 + "\n")
         for flag in flags:
-            f.write(f"{flag['row_number']:>6}  {flag['column']:>30}  {flag['pattern_type']:>20}\n")
+            rid = flag.get('response_id', '')
+            f.write(f"{flag['row_number']:>6}  {rid:>20}  {flag['column']:>30}  {flag['pattern_type']:>20}\n")
 
 
 def redact_pii(
