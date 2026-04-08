@@ -1,0 +1,70 @@
+name: Zotero Citation Metrics
+
+on:
+  schedule:
+    # Run weekly on Mondays at 06:00 UTC
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  fetch-metrics:
+    runs-on: ubuntu-latest
+    environment: zotero-prod
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pyzotero
+        run: pip install pyzotero
+
+      - name: Fetch citation metrics
+        run: python scripts/fetch-zotero-citations.py
+        env:
+          ZOTERO_LIBRARY_ID: ${{ secrets.ZOTERO_LIBRARY_ID }}
+          ZOTERO_API_KEY: ${{ secrets.ZOTERO_API_KEY }}
+          ZOTERO_LIBRARY_TYPE: ${{ vars.ZOTERO_LIBRARY_TYPE }}
+
+      - name: Upload citation metrics artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: citation-metrics
+          path: src/data/citation-metrics.json
+          retention-days: 7
+
+  create-pr:
+    needs: fetch-metrics
+    runs-on: ubuntu-latest
+    environment: copilot
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Download citation metrics
+        uses: actions/download-artifact@v8
+        with:
+          name: citation-metrics
+          path: src/data
+
+      - uses: ./.github/actions/format-and-pr
+        with:
+          token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+          files: 'src/data/citation-metrics.json'
+          commit-message: 'chore: update Zotero citation metrics'
+          pr-title: 'Update Zotero citation metrics'
+          pr-body: |
+            Automated update of `src/data/citation-metrics.json` from the Zotero library.
+
+            This PR contains the latest citation metrics fetched by the weekly workflow.
+          branch: chore/zotero-citation-metrics

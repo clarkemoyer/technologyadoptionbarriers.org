@@ -188,6 +188,15 @@ const ResultsPage = () => {
                 titleColor: 'text-cyan-900',
                 textColor: 'text-cyan-800',
               },
+              {
+                title: 'Research Foundation',
+                href: '/results/research-foundation',
+                desc: 'Citation metrics from the Zotero library: total references, unique journals, date range, and top collections.',
+                border: 'border-violet-200',
+                bg: 'bg-violet-50',
+                titleColor: 'text-violet-900',
+                textColor: 'text-violet-800',
+              },
             ].map((card) => (
               <Link
                 key={card.href}
