@@ -187,8 +187,8 @@ def load_qualtrics_csv(path: str) -> tuple[list[str], list[list[str]]]:
         rows = list(reader)
     if len(rows) < 4:
         print(
-            f"Input error: expected at least 4 rows (3 headers + 1 data) in Qualtrics CSV,"
-            f" got {len(rows)}",
+            f"Input error: expected at least 4 rows (3 headers + 1 data)"
+            f" in Qualtrics CSV, got {len(rows)}",
             file=sys.stderr,
         )
         raise SystemExit(2)
