@@ -25,7 +25,8 @@ test.describe('Full-site search', () => {
   test('shows "no results" message for non-matching query', async ({ page }) => {
     const searchInput = page.getByPlaceholder('Search site...')
     await searchInput.click()
-    await searchInput.fill('xyznonexistentterm123')
+    // Use a string whose tokens are not substrings of any indexed content token
+    await searchInput.fill('kvjwxfbqps')
 
     // Should show no results message
     await expect(page.locator('text=No results found')).toBeVisible()
@@ -110,7 +111,8 @@ test.describe('Full-site search', () => {
     await expect(page.locator('[role="option"]').first()).toBeVisible()
     const resultsUpper = await page.locator('[role="option"]').count()
 
-    expect(resultsLower + resultsUpper).toBeGreaterThan(0)
+    expect(resultsLower).toBeGreaterThan(0)
+    expect(resultsLower).toBe(resultsUpper)
   })
 
   test('search input is accessible with keyboard', async ({ page }) => {
@@ -141,8 +143,7 @@ test.describe('Full-site search', () => {
     await searchInput.click()
     await searchInput.fill('@#$%')
 
-    // Should not crash, just show no results or handle gracefully
-    const resultsContainer = page.locator('[role="listbox"]')
-    await expect(resultsContainer).toBeVisible()
+    // Should not crash - outer results container is still visible
+    await expect(page.locator('#search-results')).toBeVisible()
   })
 })

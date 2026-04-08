@@ -133,6 +133,7 @@ export default function SearchInput() {
           type="search"
           aria-label="Search"
           role="combobox"
+          aria-label="Search site"
           placeholder="Search site..."
           value={query}
           onChange={(e) => handleSearch(e.target.value)}
@@ -165,17 +166,16 @@ export default function SearchInput() {
         <div
           id="search-results"
           className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto"
-          role="listbox"
         >
           {isLoading ? (
-            <div className="px-4 py-8 text-center text-gray-500">
+            <div role="status" aria-live="polite" className="px-4 py-8 text-center text-gray-500">
               <div className="inline-block">
                 <div className="animate-spin h-5 w-5 border-2 border-blue-500 border-t-transparent rounded-full" />
               </div>
               <p className="mt-2">Searching...</p>
             </div>
           ) : results.length > 0 ? (
-            <ul className="divide-y divide-gray-200">
+            <ul role="listbox" className="divide-y divide-gray-200">
               {results.map((result, index) => (
                 <li
                   key={result.document.id}
@@ -208,7 +208,7 @@ export default function SearchInput() {
               ))}
             </ul>
           ) : (
-            <div className="px-4 py-8 text-center text-gray-500">
+            <div role="status" aria-live="polite" className="px-4 py-8 text-center text-gray-500">
               <p>No results found</p>
               <p className="text-sm mt-2">Try different keywords</p>
             </div>

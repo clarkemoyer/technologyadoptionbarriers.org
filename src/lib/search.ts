@@ -166,13 +166,28 @@ export async function loadSearchIndex(): Promise<SearchDocument[]> {
 }
 
 /**
- * Highlight query terms in a snippet
+ * Escape HTML special characters to prevent XSS
+ */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+/**
+ * Highlight query terms in a snippet.
+ * HTML-escapes the input text first so that dangerouslySetInnerHTML is safe
+ * even if the snippet contains angle brackets or other HTML characters.
  */
 export function highlightTerms(text: string, query: string): string {
-  if (!query.trim()) return text
+  const escaped = escapeHtml(text)
+  if (!query.trim()) return escaped
 
   const tokens = tokenize(query)
-  let highlighted = text
+  let highlighted = escaped
 
   for (const token of tokens) {
     const regex = new RegExp(`\\b${token}\\w*\\b`, 'gi')

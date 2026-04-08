@@ -124,7 +124,7 @@ async function generateSearchIndex() {
 }
 
 // Run if executed directly
-if (require.main === module) {
+if (typeof require !== 'undefined' && require.main === module) {
   generateSearchIndex()
 }
 
