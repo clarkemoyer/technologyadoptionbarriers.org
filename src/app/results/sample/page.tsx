@@ -63,6 +63,8 @@ const sampleLookup = new Map(sensitivityData.samples.map((s) => [s.key, s]))
 // does not yet include `role_categories` (e.g. before the first daily run
 // after deployment).  Once the pipeline populates the field, the data-driven
 // values take precedence automatically.
+// Keep in sync with: scripts/analysis/tabs_v2_analysis.py
+//   → OTHER_ROLE_CATEGORIES_PATTERNS + OTHER_ROLE_CATEGORIES_DESCRIPTIONS
 const DEFAULT_ROLE_CATEGORIES: RoleCategoryInfo[] = [
   {
     label: 'C-Suite Adjacent',

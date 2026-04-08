@@ -359,6 +359,9 @@ describe('Sample & Demographics Page', () => {
       // Fallback categories should render, not the empty-state row
       expect(screen.getByText('C-Suite Adjacent')).toBeInTheDocument()
       expect(screen.getByText('Uncategorized')).toBeInTheDocument()
+      expect(
+        screen.queryByText(/role-category methodology details are not available/i)
+      ).not.toBeInTheDocument()
     } finally {
       ;(MOCK_SENSITIVITY_DATA as Record<string, unknown>).role_categories = saved
     }
