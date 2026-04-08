@@ -463,7 +463,7 @@ Jules is Google's autonomous coding agent powered by Gemini. We use the **Ultra 
 - Automatic issue finding and scheduled sessions
 - Build and quality checks before PR creation
 
-Jules and Copilot are complementary — Jules handles scale and frontend tasks, while Copilot handles backend automation and code review.
+Jules and Copilot are complementary - Jules handles scale and frontend tasks, while Copilot handles backend automation and code review.
 
 ## IDE-Specific Capabilities
 
@@ -547,7 +547,7 @@ Two GitHub MCP servers are available with different access levels:
 | **Built-in Copilot plugin** | `mcp__plugin_github_github__` | Read-only       | Fast reads: PR details, file contents, search, Copilot agent delegation    |
 | **`gh` CLI**                | `Bash(gh ...)`                | Full read/write | Workflow dispatch, PR state changes (draft/ready), fallback for all writes |
 
-**Local npx server setup** (Claude Desktop — `claude_desktop_config.json`):
+**Local npx server setup** (Claude Desktop - `claude_desktop_config.json`):
 
 ```json
 {
@@ -866,7 +866,7 @@ All Python scripts live in `scripts/analysis/`. They are the primary language fo
 
 ## Custom Agents
 
-Claude Code agents are defined in `.claude/agents/` (gitignored — local only). They provide specialized behavior invoked automatically or explicitly.
+Claude Code agents are defined in `.claude/agents/` (gitignored - local only). They provide specialized behavior invoked automatically or explicitly.
 
 ### TABS Repo Agents
 
@@ -880,7 +880,7 @@ Claude Code agents are defined in `.claude/agents/` (gitignored — local only).
 
 | Agent                  | Purpose                                                                     |
 | ---------------------- | --------------------------------------------------------------------------- |
-| `copilot-review-cycle` | Full review cycle — request review, read comments, fix code, commit, repeat |
+| `copilot-review-cycle` | Full review cycle - request review, read comments, fix code, commit, repeat |
 | `pr-reviewer`          | FFC-specific PR review checklist (naming, security, a11y, static export)    |
 
 **Invoke**: Claude auto-selects agents based on task description. You can also say "use the pipeline-validator agent" explicitly.
@@ -911,7 +911,7 @@ Project-level hooks in `.claude/settings.json`:
 | ------------- | ------------- | --------------------------------- |
 | `PostToolUse` | `Write\|Edit` | Auto-run Prettier on edited files |
 
-Hooks run automatically — no approval needed. They ensure formatting compliance without manual `npm run format`.
+Hooks run automatically - no approval needed. They ensure formatting compliance without manual `npm run format`.
 
 ### Available Hook Events
 
@@ -925,7 +925,7 @@ Hooks run automatically — no approval needed. They ensure formatting complianc
 
 Claude Code operates under a tiered permission system configured in `~/.claude/settings.json`.
 
-### Denied (43 rules) — blocked entirely
+### Denied (43 rules) - blocked entirely
 
 - Git destructive: force push, reset --hard, clean, filter-branch
 - Secret leakage: any bash with API_TOKEN, SECRET, PRIVATE_KEY, PASSWORD
@@ -935,12 +935,12 @@ Claude Code operates under a tiered permission system configured in `~/.claude/s
 - GitHub merge via MCP (forces human approval)
 - Calendar event deletion
 
-### Prompts (18 tools) — requires approval each time
+### Prompts (18 tools) - requires approval each time
 
 - Computer Use: clicks, typing, key presses, drag, clipboard write, open app
 - Chrome: form fills, JS execution, file upload, click actions
 
-### Auto-allowed (500+ tools) — runs without prompting
+### Auto-allowed (500+ tools) - runs without prompting
 
 - All GitHub MCP read/write (local npx server)
 - All Cloudflare create/read/update (NOT delete)
@@ -964,7 +964,7 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 | **High**     | Community, single maintainer, or stale                   | Qualtrics MCP (academic), R Statistics MCP (stale)             |
 | **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` (deprecated)             |
 
-**Rule**: Prefer official sources. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics — neither company provides official SDKs or MCP servers.
+**Rule**: Prefer official sources. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics - neither company provides official SDKs or MCP servers.
 
 ## Resources
 
@@ -972,11 +972,11 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 
 The live website documents this infrastructure at `/making-of-tabs/`:
 
-- `/making-of-tabs/ai-assisted-development` — How AI agents build and maintain the site
-- `/making-of-tabs/development-workflow` — CI/CD pipeline, merge queue, automated testing
-- `/making-of-tabs/integrations/` — Cloudflare, GitHub, Google Analytics, Prolific, Qualtrics
-- `/making-of-tabs/data-analysis` — Analysis pipeline, psychometrics, quality audits
-- `/making-of-tabs/reproducible-analysis` — Reproducibility documentation
+- `/making-of-tabs/ai-assisted-development` - How AI agents build and maintain the site
+- `/making-of-tabs/development-workflow` - CI/CD pipeline, merge queue, automated testing
+- `/making-of-tabs/integrations/` - Cloudflare, GitHub, Google Analytics, Prolific, Qualtrics
+- `/making-of-tabs/data-analysis` - Analysis pipeline, psychometrics, quality audits
+- `/making-of-tabs/reproducible-analysis` - Reproducibility documentation
 
 ### Project Documentation
 
