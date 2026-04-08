@@ -8,7 +8,7 @@ result for ScholarSphere deposit.
 Tier Selection Strategy
 =======================
 
-  Tier 1 — Conservative Clean (auto-include all)
+  Tier 1 — Conservative Clean (include up to target_n; capped at N)
       Prolific APPROVED + ALL quality checks:
         - All 3 IRI attention checks correct
         - Duration >= 540 s (Smeal eDBA benchmark)
@@ -94,7 +94,8 @@ MATURITY_COLS = [f"Q65-73_Maturity_{i}" for i in range(1, 9)]
 COLUMNS_TO_DROP: set[str] = {
     # Direct identifiers
     "PROLIFIC_PID",
-    "ResponseId",
+    # ResponseId is retained after pseudonymisation so the public dataset
+    # can be linked back to internal records via the confidential mapping file.
     # Quasi-identifiers and platform noise
     "IPAddress",
     "LocationLatitude",
@@ -133,31 +134,12 @@ PROLIFIC_LINKAGE_COLUMNS = [
 ]
 
 # —— Free-text columns to PII-scan ——
+# Keep this list aligned with scripts/deidentify_tabs_data.py and the
+# production-format Qualtrics export schema used by this repository.
 FREE_TEXT_COLUMNS = [
-    "Q49_Technology",
-    "Q51_Technology",
-    "Q52_Technology",
-    "Q53_Technology",
-    "Q54_Technology",
-    "Q55_Technology",
-    "Q83",
-    "Q84",
-    "Q85",
-    "Q86",
-    "Q87",
-    "Q88",
-    "Q89",
-    "Q90",
-    "Q91",
-    "Q92",
-    "Q93",
-    "Q94",
-    "Q95",
-    "Q96",
-    "Q97",
-    "Q98",
-    "Q99",
-    "Q100",
+    "Q1_Role_11_TEXT",
+    "Q3_Industry_26_TEXT",
+    "Q74_Feedback",
 ]
 
 # —— Timestamp columns to generalize ——
@@ -476,6 +458,7 @@ def build_response_profile(
     partial_sl = has_partial_straightlining(row, idx)
     prolific_status = get_prolific_status(row, idx)
     response_id = get_response_id(row, idx)
+    start_date = get_val(row, idx, "StartDate")
 
     is_tier1 = (
         prolific_status == "APPROVED"
@@ -518,6 +501,7 @@ def build_response_profile(
 
     return {
         "response_id": response_id,
+        "start_date": start_date,
         "prolific_status": prolific_status,
         "finished": finished,
         "duration": duration,
@@ -546,7 +530,13 @@ def select_crp_sample(
 
     Selects up to target_n profiles in tier order (1 → 2 → 3).
     Tier 1 is capped at target_n so the public dataset never exceeds N.
+
+    Profiles are sorted deterministically before selection — earliest
+    StartDate first, then ResponseId as a lexicographic tiebreaker — so
+    the selected set is stable regardless of CSV row order.
     """
+    # Sort deterministically: earliest StartDate first, then ResponseId
+    profiles.sort(key=lambda p: (p["start_date"], p["response_id"]))
     selected = 0
 
     # Tier 1 first (capped at target_n)
