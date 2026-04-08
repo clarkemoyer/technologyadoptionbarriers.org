@@ -187,9 +187,13 @@ jobs:
       - name: Stage CRP public CSV
         if: steps.crp.outcome == 'success'
         run: |
-          mkdir -p "${{ runner.temp }}/crp-public"
-          cp "${{ runner.temp }}/crp-output/TABS_V2_CRP_public_dataset.csv" \
-             "${{ runner.temp }}/crp-public/TABS_V2_CRP_2026_public_dataset.csv"
+          if [ -f "${{ runner.temp }}/crp-output/TABS_V2_CRP_public_dataset.csv" ]; then
+            mkdir -p "${{ runner.temp }}/crp-public"
+            cp "${{ runner.temp }}/crp-output/TABS_V2_CRP_public_dataset.csv" \
+               "${{ runner.temp }}/crp-public/TABS_V2_CRP_2026_public_dataset.csv"
+          else
+            echo "CRP public CSV not found — skipping"
+          fi
 
       - name: Stage CRP analysis snapshot
         if: steps.crp.outcome == 'success' && steps.crp-analysis.outcome == 'success'
@@ -468,15 +472,12 @@ jobs:
           path: ${{ runner.temp }}/crp-json
 
       - name: Stage CRP files into repo
-        id: stage-crp
         run: |
-          CRP_STAGED=false
           if [ -f "${{ runner.temp }}/crp-csv/TABS_V2_CRP_2026_public_dataset.csv" ]; then
             mkdir -p public/datasets
             cp "${{ runner.temp }}/crp-csv/TABS_V2_CRP_2026_public_dataset.csv" \
                public/datasets/TABS_V2_CRP_2026_public_dataset.csv
             echo "  Staged: public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
-            CRP_STAGED=true
           else
             echo "  CRP public CSV not available — skipping"
           fi
@@ -484,11 +485,9 @@ jobs:
             cp "${{ runner.temp }}/crp-json/crp-sensitivity-analysis.json" \
                src/data/crp-sensitivity-analysis.json
             echo "  Staged: src/data/crp-sensitivity-analysis.json"
-            CRP_STAGED=true
           else
             echo "  CRP analysis JSON not available — skipping"
           fi
-          echo "staged=$CRP_STAGED" >> "$GITHUB_OUTPUT"
 
       - name: Compute files to format
         id: format-files
