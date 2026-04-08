@@ -348,17 +348,17 @@ describe('Sample & Demographics Page', () => {
     expect(screen.getByText('Uncategorized')).toBeInTheDocument()
   })
 
-  it('renders empty-state row when role_categories is absent from JSON', async () => {
-    // roleCategories is derived inside the component, so temporarily removing it
-    // from the shared mock object is sufficient — no module re-load required.
+  it('renders fallback categories when role_categories is absent from JSON', async () => {
+    // When JSON does not provide role_categories, the component falls back to
+    // hardcoded category definitions so the methodology table always renders.
     const saved = MOCK_SENSITIVITY_DATA.role_categories
     ;(MOCK_SENSITIVITY_DATA as Record<string, unknown>).role_categories = undefined
     try {
       const { default: Page } = await import('@/app/results/sample/page')
       render(<Page />)
-      expect(
-        screen.getByText(/role-category methodology details are not available/i)
-      ).toBeInTheDocument()
+      // Fallback categories should render, not the empty-state row
+      expect(screen.getByText('C-Suite Adjacent')).toBeInTheDocument()
+      expect(screen.getByText('Uncategorized')).toBeInTheDocument()
     } finally {
       ;(MOCK_SENSITIVITY_DATA as Record<string, unknown>).role_categories = saved
     }

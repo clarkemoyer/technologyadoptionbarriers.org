@@ -61,14 +61,52 @@ const sampleLookup = new Map(sensitivityData.samples.map((s) => [s.key, s]))
 
 const SamplePage = () => {
   // Role category metadata is sourced from the JSON when available so the UI stays
-  // in sync with the pipeline. If the JSON does not provide categories, leave the
-  // list empty so the table's empty-state row remains reachable.
+  // in sync with the pipeline.  When the JSON does not yet include the field
+  // (e.g. before the first pipeline run after deployment), fall back to a
+  // static copy so the methodology table always renders.
   const roleCategoriesFromData = (sensitivityData as Record<string, unknown>).role_categories as
     | RoleCategoryInfo[]
     | undefined
+  const DEFAULT_ROLE_CATEGORIES: RoleCategoryInfo[] = [
+    {
+      label: 'C-Suite Adjacent',
+      description: 'Chief-level titles not in the standard 9 C-suite options',
+      examples: 'CDO, CPO, CAO, CLO, CAIO, Chief Data Officer, Chief Privacy Officer',
+    },
+    {
+      label: 'VP / SVP',
+      description: 'Vice President, Senior VP, or Executive VP titles',
+      examples: 'Vice President, VP, SVP, EVP, AVP',
+    },
+    {
+      label: 'Director',
+      description: 'Director-level titles across functions',
+      examples: 'Director of \u2026, Senior Director, Group Director',
+    },
+    {
+      label: 'Manager / Program Lead',
+      description: 'Management and team-lead roles',
+      examples: 'Manager, Program Lead, Team Lead, Supervisor',
+    },
+    {
+      label: 'Owner / Founder / President',
+      description: 'Business ownership or presidency roles',
+      examples: 'Owner, Founder, President, Partner, Principal',
+    },
+    {
+      label: 'Technical Specialist',
+      description: 'Individual contributor or specialist technical roles',
+      examples: 'Engineer, Architect, Analyst, IT Administrator, Security',
+    },
+    {
+      label: 'Uncategorized',
+      description: 'Responses that did not match any keyword pattern, or blank entries',
+      examples: '\u2014',
+    },
+  ]
   const roleCategories: RoleCategoryInfo[] = Array.isArray(roleCategoriesFromData)
     ? roleCategoriesFromData
-    : []
+    : DEFAULT_ROLE_CATEGORIES
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
