@@ -1,138 +1,123 @@
 {
-  "generated": "2026-04-07T12:11:03Z",
+  "generated": "2026-04-07T20:24:15",
   "issue": 1347,
   "summary": {
     "total_articles": 16,
     "total_references": 102,
     "unique_references": 55,
-    "matched": 49,
+    "matched": 55,
+    "known_missing": 0,
     "unmatched": 0,
-    "known_missing": 6,
-    "match_rate": "89.1%"
+    "match_rate": "100.0%"
   },
   "by_article": {
     "article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance": {
       "branch": "Branch 1",
       "total_refs": 6,
       "matched": 6,
-      "known_missing": 0,
       "unmatched": 0
     },
     "article-1-2-the-game-changer-a-deep-dive-into-the-technology-acceptance-model-tam": {
       "branch": "Branch 1",
       "total_refs": 5,
       "matched": 5,
-      "known_missing": 0,
       "unmatched": 0
     },
     "article-1-3-expanding-the-classic-the-evolution-to-tam-2-tam-3-and-c-tam-tpb": {
       "branch": "Branch 1",
       "total_refs": 6,
       "matched": 6,
-      "known_missing": 0,
       "unmatched": 0
     },
     "article-1-4-the-grand-unification-the-unified-theory-of-acceptance-and-use-of-technology-utaut": {
       "branch": "Branch 1",
       "total_refs": 7,
       "matched": 7,
-      "known_missing": 0,
       "unmatched": 0
     },
     "article-1-5-beyond-the-office-utaut2-consumer-context-and-modern-syntheses": {
       "branch": "Branch 1",
       "total_refs": 6,
       "matched": 6,
-      "known_missing": 0,
       "unmatched": 0
     },
     "article-1-6-context-is-king-specialized-individual-adoption-models": {
       "branch": "Branch 1",
       "total_refs": 7,
       "matched": 7,
-      "known_missing": 0,
       "unmatched": 0
     },
     "article-1-7-are-you-ready-the-role-of-technology-readiness-tri-and-tram": {
       "branch": "Branch 1",
       "total_refs": 7,
       "matched": 7,
-      "known_missing": 0,
       "unmatched": 0
     },
     "article-1-branch-introduction-the-users-journey": {
       "branch": "Branch 1",
       "total_refs": 13,
       "matched": 13,
-      "known_missing": 0,
       "unmatched": 0
     },
     "article-2-1-the-strategic-lens-foundational-theories-for-organizational-adoption": {
       "branch": "Branch 2",
       "total_refs": 6,
       "matched": 6,
-      "known_missing": 0,
       "unmatched": 0
     },
     "article-2-2-from-chaos-to-control-a-guide-to-maturity-models": {
       "branch": "Branch 2",
       "total_refs": 5,
-      "matched": 4,
-      "known_missing": 1,
+      "matched": 5,
       "unmatched": 0
     },
     "article-2-3-managing-the-lifecycle-the-gartner-hype-cycle": {
       "branch": "Branch 2",
       "total_refs": 6,
-      "matched": 5,
-      "known_missing": 1,
+      "matched": 6,
       "unmatched": 0
     },
     "article-2-4-the-blueprint-for-enterprise-a-survey-of-architecture-frameworks": {
       "branch": "Branch 2",
       "total_refs": 5,
-      "matched": 4,
-      "known_missing": 1,
+      "matched": 5,
       "unmatched": 0
     },
     "article-2-5-the-modern-mandate-frameworks-for-cybersecurity-and-risk": {
       "branch": "Branch 2",
       "total_refs": 4,
       "matched": 4,
-      "known_missing": 0,
       "unmatched": 0
     },
     "article-2-6-the-cloud-revolution-prescriptive-adoption-frameworks": {
       "branch": "Branch 2",
       "total_refs": 3,
-      "matched": 2,
-      "known_missing": 1,
+      "matched": 3,
       "unmatched": 0
     },
     "article-2-7-the-ai-frontier-frameworks-for-adopting-ai-ml-and-genai": {
       "branch": "Branch 2",
       "total_refs": 5,
-      "matched": 4,
-      "known_missing": 1,
+      "matched": 5,
       "unmatched": 0
     },
     "article-2-branch-introduction-the-organizations-playbook": {
       "branch": "Branch 2",
       "total_refs": 11,
-      "matched": 10,
-      "known_missing": 1,
+      "matched": 11,
       "unmatched": 0
     }
   },
-  "matched_count": 49,
-  "known_missing_count": 6,
+  "matched_count": 55,
   "unmatched_count": 0,
   "matched_items": [
     {
-      "ref": "Ajzen_1991",
-      "zotero_key": "8ZV2KLS6",
-      "title": "The theory of planned behavior",
+      "ref_key": "Ajzen_1991",
       "strategy": "preloaded",
+      "zotero_key": "8ZV2KLS6",
+      "zotero_title": "The theory of planned behavior",
+      "zotero_authors": ["Ajzen"],
+      "zotero_date": "1991-12-01",
       "articles": [
         "article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance",
         "article-1-2-the-game-changer-a-deep-dive-into-the-technology-acceptance-model-tam",
@@ -142,20 +127,24 @@
       ]
     },
     {
-      "ref": "Amazon Web Services._2024",
-      "zotero_key": "QQ44B6WT",
-      "title": "AWS Cloud Adoption Framework for Artificial Intelligence, Machine Learning, and Generative AI - AWS Whitepaper",
+      "ref_key": "Amazon Web Services._2024",
       "strategy": "known-key",
+      "zotero_key": "QQ44B6WT",
+      "zotero_title": "AWS Cloud Adoption Framework for Artificial Intelligence, Machine Learning, and Generative AI - AWS Whitepaper",
+      "zotero_authors": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+      "zotero_date": "feb 2024",
       "articles": [
         "article-2-6-the-cloud-revolution-prescriptive-adoption-frameworks",
         "article-2-7-the-ai-frontier-frameworks-for-adopting-ai-ml-and-genai"
       ]
     },
     {
-      "ref": "Bandura_1986",
-      "zotero_key": "2SIPLURV",
-      "title": "Social foundations of thought and action: a social cognitive theory",
+      "ref_key": "Bandura_1986",
       "strategy": "preloaded",
+      "zotero_key": "2SIPLURV",
+      "zotero_title": "Social foundations of thought and action: a social cognitive theory",
+      "zotero_authors": ["Bandura"],
+      "zotero_date": "1986",
       "articles": [
         "article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance",
         "article-1-2-the-game-changer-a-deep-dive-into-the-technology-acceptance-model-tam",
@@ -164,64 +153,80 @@
       ]
     },
     {
-      "ref": "Barney_1991",
-      "zotero_key": "RI6AVB2I",
-      "title": "Firm Resources and Sustained Competitive Advantage",
+      "ref_key": "Barney_1991",
       "strategy": "preloaded",
+      "zotero_key": "RI6AVB2I",
+      "zotero_title": "Firm Resources and Sustained Competitive Advantage",
+      "zotero_authors": ["Barney"],
+      "zotero_date": "1991-03-01",
       "articles": [
         "article-2-1-the-strategic-lens-foundational-theories-for-organizational-adoption",
         "article-2-branch-introduction-the-organizations-playbook"
       ]
     },
     {
-      "ref": "Bhattacherjee_2001",
-      "zotero_key": "ETUYFK4Z",
-      "title": "Understanding information systems continuance: An expectation-confirmation model",
+      "ref_key": "Bhattacherjee_2001",
       "strategy": "preloaded",
+      "zotero_key": "ETUYFK4Z",
+      "zotero_title": "Understanding information systems continuance: An expectation-confirmation model",
+      "zotero_authors": ["Bhattacherjee"],
+      "zotero_date": "Sep 2001",
       "articles": ["article-1-5-beyond-the-office-utaut2-consumer-context-and-modern-syntheses"]
     },
     {
-      "ref": "Brown_2005",
-      "zotero_key": "2ENMWT6X",
-      "title": "Model of Adoption of Technology in Households: A Baseline Model Test and Extension Incorporating Household Life Cycle",
+      "ref_key": "Brown_2005",
       "strategy": "preloaded",
+      "zotero_key": "2ENMWT6X",
+      "zotero_title": "Model of Adoption of Technology in Households: A Baseline Model Test and Extension Incorporating Household Life Cycle",
+      "zotero_authors": ["Brown", "Venkatesh"],
+      "zotero_date": "2005",
       "articles": ["article-1-6-context-is-king-specialized-individual-adoption-models"]
     },
     {
-      "ref": "Chrissis_2005",
+      "ref_key": "Chrissis_2005",
+      "strategy": "known-key",
       "zotero_key": "W62Y69C8",
-      "title": "CMMI: guidelines for process integration and product improvement",
-      "strategy": "known-key",
+      "zotero_title": "CMMI: guidelines for process integration and product improvement",
+      "zotero_authors": ["Chrissis", "Konrad", "Shrum"],
+      "zotero_date": "2003",
       "articles": ["article-2-2-from-chaos-to-control-a-guide-to-maturity-models"]
     },
     {
-      "ref": "Cooper_1990",
-      "zotero_key": "3PLWSMXS",
-      "title": "Information Technology Implementation Research: A Technological Diffusion Approach",
+      "ref_key": "Cooper_1990",
       "strategy": "preloaded",
+      "zotero_key": "3PLWSMXS",
+      "zotero_title": "Information Technology Implementation Research: A Technological Diffusion Approach",
+      "zotero_authors": ["Cooper", "Zmud"],
+      "zotero_date": "1990",
       "articles": ["article-2-2-from-chaos-to-control-a-guide-to-maturity-models"]
     },
     {
-      "ref": "Curley_2016",
-      "zotero_key": "DEQ6L65B",
-      "title": "The Information Technology Capability Maturity Framework (IT-CMF™) - The Body of Knowledge Guide",
+      "ref_key": "Curley_2016",
       "strategy": "known-key",
+      "zotero_key": "DEQ6L65B",
+      "zotero_title": "The Information Technology Capability Maturity Framework (IT-CMF™) - The Body of Knowledge Guide",
+      "zotero_authors": ["Curley", "Kenneally", "Carcary", ""],
+      "zotero_date": "2016",
       "articles": ["article-2-branch-introduction-the-organizations-playbook"]
     },
     {
-      "ref": "Davenport_1990",
-      "zotero_key": "UVZU7LQ2",
-      "title": "The New Industrial Engineering: Information Technology and Business Process Redesign",
+      "ref_key": "Davenport_1990",
       "strategy": "preloaded",
+      "zotero_key": "UVZU7LQ2",
+      "zotero_title": "The New Industrial Engineering: Information Technology and Business Process Redesign",
+      "zotero_authors": ["Davenport", "Short"],
+      "zotero_date": "Summer 1990",
       "articles": [
         "article-2-1-the-strategic-lens-foundational-theories-for-organizational-adoption"
       ]
     },
     {
-      "ref": "Davis_1989",
-      "zotero_key": "NXFINL49",
-      "title": "Perceived Usefulness, Perceived Ease of Use, and User Acceptance of Information Technology",
+      "ref_key": "Davis_1989",
       "strategy": "preloaded",
+      "zotero_key": "NXFINL49",
+      "zotero_title": "Perceived Usefulness, Perceived Ease of Use, and User Acceptance of Information Technology",
+      "zotero_authors": ["Davis"],
+      "zotero_date": "1989",
       "articles": [
         "article-1-2-the-game-changer-a-deep-dive-into-the-technology-acceptance-model-tam",
         "article-1-3-expanding-the-classic-the-evolution-to-tam-2-tam-3-and-c-tam-tpb",
@@ -232,10 +237,12 @@
       ]
     },
     {
-      "ref": "Davis_1992",
-      "zotero_key": "S3MAPEY8",
-      "title": "Extrinsic and Intrinsic Motivation to Use Computers in the Workplace",
+      "ref_key": "Davis_1992",
       "strategy": "preloaded",
+      "zotero_key": "S3MAPEY8",
+      "zotero_title": "Extrinsic and Intrinsic Motivation to Use Computers in the Workplace",
+      "zotero_authors": ["Davis", "Bagozzi", "Warshaw"],
+      "zotero_date": "1992",
       "articles": [
         "article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance",
         "article-1-4-the-grand-unification-the-unified-theory-of-acceptance-and-use-of-technology-utaut",
@@ -243,26 +250,32 @@
       ]
     },
     {
-      "ref": "Deming_1982",
-      "zotero_key": "VMJJFKFA",
-      "title": "Quality, productivity, and competitive position",
+      "ref_key": "Deming_1982",
       "strategy": "preloaded",
+      "zotero_key": "VMJJFKFA",
+      "zotero_title": "Quality, productivity, and competitive position",
+      "zotero_authors": ["Deming"],
+      "zotero_date": "1982",
       "articles": [
         "article-2-1-the-strategic-lens-foundational-theories-for-organizational-adoption"
       ]
     },
     {
-      "ref": "Fenn_1995",
-      "zotero_key": "KZ643Z7K",
-      "title": "When to Leap on the Hype Cycle",
+      "ref_key": "Fenn_1995",
       "strategy": "preloaded",
+      "zotero_key": "KZ643Z7K",
+      "zotero_title": "When to Leap on the Hype Cycle",
+      "zotero_authors": ["Fenn"],
+      "zotero_date": "1995",
       "articles": ["article-2-3-managing-the-lifecycle-the-gartner-hype-cycle"]
     },
     {
-      "ref": "Fishbein_1975",
-      "zotero_key": "JQISA58K",
-      "title": "Belief, attitude, intention, and behavior: an introduction to theory and research",
+      "ref_key": "Fishbein_1975",
       "strategy": "preloaded",
+      "zotero_key": "JQISA58K",
+      "zotero_title": "Belief, attitude, intention, and behavior: an introduction to theory and research",
+      "zotero_authors": ["Fishbein", "Ajzen"],
+      "zotero_date": "1975",
       "articles": [
         "article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance",
         "article-1-2-the-game-changer-a-deep-dive-into-the-technology-acceptance-model-tam",
@@ -271,141 +284,180 @@
       ]
     },
     {
-      "ref": "Goodhue_1995",
-      "zotero_key": "PGB9PDD8",
-      "title": "Task-Technology Fit and Individual Performance",
+      "ref_key": "Goodhue_1995",
       "strategy": "preloaded",
+      "zotero_key": "PGB9PDD8",
+      "zotero_title": "Task-Technology Fit and Individual Performance",
+      "zotero_authors": ["Goodhue", "Thompson"],
+      "zotero_date": "1995",
       "articles": [
         "article-1-6-context-is-king-specialized-individual-adoption-models",
         "article-1-branch-introduction-the-users-journey"
       ]
     },
     {
-      "ref": "Humphrey_1989",
-      "zotero_key": "8MNVFYP6",
-      "title": "Managing the Software Process",
+      "ref_key": "Humphrey_1989",
       "strategy": "preloaded",
+      "zotero_key": "8MNVFYP6",
+      "zotero_title": "Managing the Software Process",
+      "zotero_authors": ["Humphrey"],
+      "zotero_date": "1989",
       "articles": ["article-2-2-from-chaos-to-control-a-guide-to-maturity-models"]
     },
     {
-      "ref": "ISO/IEC._2022",
-      "zotero_key": "D92E4A3E",
-      "title": "ISO/IEC 27001/27002",
+      "ref_key": "ISO/IEC._2022",
       "strategy": "known-key",
+      "zotero_key": "D92E4A3E",
+      "zotero_title": "ISO/IEC 27001/27002",
+      "zotero_authors": [],
+      "zotero_date": "2005",
       "articles": ["article-2-5-the-modern-mandate-frameworks-for-cybersecurity-and-risk"]
     },
     {
-      "ref": "Kim_2007",
-      "zotero_key": "3P4S2XWG",
-      "title": "Value-based Adoption of Mobile Internet: An empirical investigation",
+      "ref_key": "Kim_2007",
       "strategy": "preloaded",
+      "zotero_key": "3P4S2XWG",
+      "zotero_title": "Value-based Adoption of Mobile Internet: An empirical investigation",
+      "zotero_authors": ["Kim", "Chan", "Gupta"],
+      "zotero_date": "2/2007",
       "articles": ["article-1-6-context-is-king-specialized-individual-adoption-models"]
     },
     {
-      "ref": "Lin_2007",
-      "zotero_key": "DBMDA4IX",
-      "title": "Integrating technology readiness into technology acceptance: The TRAM model",
+      "ref_key": "Lin_2007",
       "strategy": "preloaded",
+      "zotero_key": "DBMDA4IX",
+      "zotero_title": "Integrating technology readiness into technology acceptance: The TRAM model",
+      "zotero_authors": ["Lin", "Shih", "Sher"],
+      "zotero_date": "2007",
       "articles": ["article-1-7-are-you-ready-the-role-of-technology-readiness-tri-and-tram"]
     },
     {
-      "ref": "Linden_2003",
-      "zotero_key": "2M35NSKB",
-      "title": "Understanding Gartner's Hype Cycles",
+      "ref_key": "Linden_2003",
       "strategy": "preloaded",
+      "zotero_key": "2M35NSKB",
+      "zotero_title": "Understanding Gartner's Hype Cycles",
+      "zotero_authors": ["Linden", "Fenn"],
+      "zotero_date": "2003-05-30",
       "articles": ["article-2-3-managing-the-lifecycle-the-gartner-hype-cycle"]
     },
     {
-      "ref": "Mick_1998",
-      "zotero_key": "QHP5CHS4",
-      "title": "Paradoxes of technology: Consumer cognizance, emotions, and coping strategies",
+      "ref_key": "Mick_1998",
       "strategy": "preloaded",
+      "zotero_key": "QHP5CHS4",
+      "zotero_title": "Paradoxes of technology: Consumer cognizance, emotions, and coping strategies",
+      "zotero_authors": ["Mick", "Fournier"],
+      "zotero_date": "1998-09",
       "articles": ["article-1-7-are-you-ready-the-role-of-technology-readiness-tri-and-tram"]
     },
     {
-      "ref": "Microsoft._2025",
-      "zotero_key": "4752EUVA",
-      "title": "Microsoft AI adoption - Cloud Adoption Framework",
+      "ref_key": "Microsoft._2025",
       "strategy": "known-key",
+      "zotero_key": "4752EUVA",
+      "zotero_title": "Microsoft AI adoption - Cloud Adoption Framework",
+      "zotero_authors": ["Sumner"],
+      "zotero_date": "4-2025",
       "articles": [
         "article-2-6-the-cloud-revolution-prescriptive-adoption-frameworks",
         "article-2-7-the-ai-frontier-frameworks-for-adopting-ai-ml-and-genai"
       ]
     },
     {
-      "ref": "Microsoft._n.d.",
+      "ref_key": "Microsoft._n.d.",
+      "strategy": "known-key",
       "zotero_key": "4752EUVA",
-      "title": "Microsoft AI adoption - Cloud Adoption Framework",
-      "strategy": "known-key",
+      "zotero_title": "Microsoft AI adoption - Cloud Adoption Framework",
+      "zotero_authors": ["Sumner"],
+      "zotero_date": "4-2025",
       "articles": ["article-2-branch-introduction-the-organizations-playbook"]
     },
     {
-      "ref": "NIST._2018",
-      "zotero_key": "2GJ56NIR",
-      "title": "NIST Risk Management Framework",
+      "ref_key": "NIST._2018",
       "strategy": "known-key",
-      "articles": ["article-2-5-the-modern-mandate-frameworks-for-cybersecurity-and-risk"]
+      "zotero_key": "2GJ56NIR",
+      "zotero_title": "NIST Risk Management Framework",
+      "zotero_authors": [""],
+      "zotero_date": "June 27, 2015",
+      "articles": [
+        "article-2-5-the-modern-mandate-frameworks-for-cybersecurity-and-risk",
+        "article-2-5-the-modern-mandate-frameworks-for-cybersecurity-and-risk"
+      ]
     },
     {
-      "ref": "National Institute of Standards_2018",
-      "zotero_key": "2GJ56NIR",
-      "title": "NIST Risk Management Framework",
+      "ref_key": "National Institute of Standards_2018",
       "strategy": "known-key",
+      "zotero_key": "2GJ56NIR",
+      "zotero_title": "NIST Risk Management Framework",
+      "zotero_authors": [""],
+      "zotero_date": "June 27, 2015",
       "articles": ["article-2-branch-introduction-the-organizations-playbook"]
     },
     {
-      "ref": "Oliver_1980",
-      "zotero_key": "AQTG35H5",
-      "title": "A cognitive model of the antecedents and consequences of satisfaction decisions",
+      "ref_key": "Oliver_1980",
       "strategy": "preloaded",
+      "zotero_key": "AQTG35H5",
+      "zotero_title": "A cognitive model of the antecedents and consequences of satisfaction decisions",
+      "zotero_authors": ["Oliver"],
+      "zotero_date": "1980-11",
       "articles": ["article-1-5-beyond-the-office-utaut2-consumer-context-and-modern-syntheses"]
     },
     {
-      "ref": "Parasuraman_2000",
-      "zotero_key": "PF2Y2BPU",
-      "title": "Technology readiness index (TRI): A multiple-item scale to measure readiness to embrace new technologies",
+      "ref_key": "Parasuraman_2000",
       "strategy": "preloaded",
+      "zotero_key": "PF2Y2BPU",
+      "zotero_title": "Technology readiness index (TRI): A multiple-item scale to measure readiness to embrace new technologies",
+      "zotero_authors": ["Parasuraman"],
+      "zotero_date": "May 2000",
       "articles": [
         "article-1-7-are-you-ready-the-role-of-technology-readiness-tri-and-tram",
         "article-1-branch-introduction-the-users-journey"
       ]
     },
     {
-      "ref": "Parasuraman_2015",
-      "zotero_key": "X3YV5PY8",
-      "title": "An Updated and Streamlined Technology Readiness Index: TRI 2.0",
+      "ref_key": "Parasuraman_2015",
       "strategy": "preloaded",
+      "zotero_key": "X3YV5PY8",
+      "zotero_title": "An Updated and Streamlined Technology Readiness Index: TRI 2.0",
+      "zotero_authors": ["Parasuraman", "Colby"],
+      "zotero_date": "2015-02-01",
       "articles": ["article-1-7-are-you-ready-the-role-of-technology-readiness-tri-and-tram"]
     },
     {
-      "ref": "Paulk_1993",
-      "zotero_key": "R6ILK387",
-      "title": "The Capability Maturity Model: Guidelines for Improving the Software Process (CMM v1.0)",
+      "ref_key": "Paulk_1993",
       "strategy": "known-key",
+      "zotero_key": "R6ILK387",
+      "zotero_title": "The Capability Maturity Model: Guidelines for Improving the Software Process (CMM v1.0)",
+      "zotero_authors": ["Paulk", "Curtis", "Chrissis", "Weber"],
+      "zotero_date": "1995",
       "articles": [
         "article-2-2-from-chaos-to-control-a-guide-to-maturity-models",
         "article-2-branch-introduction-the-organizations-playbook"
       ]
     },
     {
-      "ref": "Pollock_2016",
-      "zotero_key": "N5SU4334",
-      "title": "How Industry Analysts Shape the Digital Future",
+      "ref_key": "Pollock_2016",
       "strategy": "preloaded",
+      "zotero_key": "N5SU4334",
+      "zotero_title": "How Industry Analysts Shape the Digital Future",
+      "zotero_authors": ["Pollock", "Williams"],
+      "zotero_date": "2016",
       "articles": ["article-2-branch-introduction-the-organizations-playbook"]
     },
     {
-      "ref": "Ram_1987",
-      "zotero_key": "VSJS8PJA",
-      "title": "A MODEL OF INNOVATION RESISTANCE.",
+      "ref_key": "Ram_1987",
       "strategy": "preloaded",
+      "zotero_key": "VSJS8PJA",
+      "zotero_title": "A MODEL OF INNOVATION RESISTANCE.",
+      "zotero_authors": ["Ram"],
+      "zotero_date": "1987-01-01",
       "articles": ["article-1-5-beyond-the-office-utaut2-consumer-context-and-modern-syntheses"]
     },
     {
-      "ref": "Rogers_1962",
-      "zotero_key": "SFG4PZ2E",
-      "title": "Diffusion of innovations",
+      "ref_key": "Rogers_1962",
       "strategy": "preloaded",
+      "zotero_key": "SFG4PZ2E",
+      "zotero_title": "Diffusion of innovations",
+      "zotero_authors": ["Rogers"],
+      "zotero_date": "1962 (2003)",
       "articles": [
         "article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance",
         "article-1-2-the-game-changer-a-deep-dive-into-the-technology-acceptance-model-tam",
@@ -419,51 +471,63 @@
       ]
     },
     {
-      "ref": "Samuelson_1988",
-      "zotero_key": "NFYVBKP7",
-      "title": "Status Quo Bias in Decision Making",
+      "ref_key": "Samuelson_1988",
       "strategy": "preloaded",
+      "zotero_key": "NFYVBKP7",
+      "zotero_title": "Status Quo Bias in Decision Making",
+      "zotero_authors": ["Samuelson", "Zeckhauser"],
+      "zotero_date": "1988",
       "articles": ["article-1-5-beyond-the-office-utaut2-consumer-context-and-modern-syntheses"]
     },
     {
-      "ref": "Schwartz_2003",
-      "zotero_key": "6JHSF3W4",
-      "title": "A proposal for measuring value orientations across nations",
+      "ref_key": "Schwartz_2003",
       "strategy": "preloaded",
+      "zotero_key": "6JHSF3W4",
+      "zotero_title": "A proposal for measuring value orientations across nations",
+      "zotero_authors": ["Schwartz"],
+      "zotero_date": "2003",
       "articles": ["article-1-6-context-is-king-specialized-individual-adoption-models"]
     },
     {
-      "ref": "Taylor_1995",
-      "zotero_key": "RKCZ6AIZ",
-      "title": "Understanding Information Technology Usage: A Test of Competing Models",
+      "ref_key": "Taylor_1995",
       "strategy": "preloaded",
+      "zotero_key": "RKCZ6AIZ",
+      "zotero_title": "Understanding Information Technology Usage: A Test of Competing Models",
+      "zotero_authors": ["Taylor", "Todd"],
+      "zotero_date": "1995-06",
       "articles": ["article-1-3-expanding-the-classic-the-evolution-to-tam-2-tam-3-and-c-tam-tpb"]
     },
     {
-      "ref": "Teece_1997",
-      "zotero_key": "98DHJIFM",
-      "title": "Dynamic capabilities and strategic management",
+      "ref_key": "Teece_1997",
       "strategy": "preloaded",
+      "zotero_key": "98DHJIFM",
+      "zotero_title": "Dynamic capabilities and strategic management",
+      "zotero_authors": ["Teece", "Pisano", "Shuen"],
+      "zotero_date": "1997",
       "articles": [
         "article-2-1-the-strategic-lens-foundational-theories-for-organizational-adoption",
         "article-2-3-managing-the-lifecycle-the-gartner-hype-cycle"
       ]
     },
     {
-      "ref": "The Open Group._2018",
-      "zotero_key": "F5QWECUF",
-      "title": "The Open Group Architecture Framework (TOGAF)",
+      "ref_key": "The Open Group._2018",
       "strategy": "known-key",
+      "zotero_key": "F5QWECUF",
+      "zotero_title": "The Open Group Architecture Framework (TOGAF)",
+      "zotero_authors": [""],
+      "zotero_date": "1995",
       "articles": [
         "article-2-4-the-blueprint-for-enterprise-a-survey-of-architecture-frameworks",
         "article-2-branch-introduction-the-organizations-playbook"
       ]
     },
     {
-      "ref": "Thompson_1991",
-      "zotero_key": "AG5ND3YY",
-      "title": "Personal Computing: Toward a Conceptual Model of Utilization",
+      "ref_key": "Thompson_1991",
       "strategy": "preloaded",
+      "zotero_key": "AG5ND3YY",
+      "zotero_title": "Personal Computing: Toward a Conceptual Model of Utilization",
+      "zotero_authors": ["Thompson", "Higgins", "Howell"],
+      "zotero_date": "Mar 1991",
       "articles": [
         "article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance",
         "article-1-4-the-grand-unification-the-unified-theory-of-acceptance-and-use-of-technology-utaut",
@@ -471,10 +535,12 @@
       ]
     },
     {
-      "ref": "Tornatzky_1990",
-      "zotero_key": "S4WJF5AS",
-      "title": "The processes of technological innovation",
+      "ref_key": "Tornatzky_1990",
       "strategy": "preloaded",
+      "zotero_key": "S4WJF5AS",
+      "zotero_title": "The processes of technological innovation",
+      "zotero_authors": ["Tornatzky", "Fleischer", "Chakrabarti"],
+      "zotero_date": "1990",
       "articles": [
         "article-2-1-the-strategic-lens-foundational-theories-for-organizational-adoption",
         "article-2-3-managing-the-lifecycle-the-gartner-hype-cycle",
@@ -482,44 +548,54 @@
       ]
     },
     {
-      "ref": "U.S. Department of Defense._1996",
+      "ref_key": "U.S. Department of Defense._1996",
+      "strategy": "known-key",
       "zotero_key": "FEEXBZVE",
-      "title": "Technical Architecture Framework for Information Management (TAFIM) Version 3.0",
-      "strategy": "known-key",
+      "zotero_title": "Technical Architecture Framework for Information Management (TAFIM) Version 3.0",
+      "zotero_authors": [""],
+      "zotero_date": "1994",
       "articles": ["article-2-4-the-blueprint-for-enterprise-a-survey-of-architecture-frameworks"]
     },
     {
-      "ref": "U.S. Department of Defense._2003",
+      "ref_key": "U.S. Department of Defense._2003",
+      "strategy": "known-key",
       "zotero_key": "U4ERL2S3",
-      "title": "DoDAF Version 1.0",
-      "strategy": "known-key",
+      "zotero_title": "DoDAF Version 1.0",
+      "zotero_authors": [""],
+      "zotero_date": "2003",
       "articles": ["article-2-4-the-blueprint-for-enterprise-a-survey-of-architecture-frameworks"]
     },
     {
-      "ref": "U.S. Department of Defense._n.d.",
-      "zotero_key": "SVSKYF7G",
-      "title": "Cybersecurity Maturity Model Certification (CMMC) framework overview",
+      "ref_key": "U.S. Department of Defense._n.d.",
       "strategy": "known-key",
+      "zotero_key": "SVSKYF7G",
+      "zotero_title": "Cybersecurity Maturity Model Certification (CMMC) framework overview",
+      "zotero_authors": [""],
+      "zotero_date": "2024-09",
       "articles": [
         "article-2-5-the-modern-mandate-frameworks-for-cybersecurity-and-risk",
         "article-2-branch-introduction-the-organizations-playbook"
       ]
     },
     {
-      "ref": "Venkatesh_2000",
-      "zotero_key": "XIXDY4LE",
-      "title": "A Theoretical Extension of the Technology Acceptance Model: Four Longitudinal Field Studies",
+      "ref_key": "Venkatesh_2000",
       "strategy": "preloaded",
+      "zotero_key": "XIXDY4LE",
+      "zotero_title": "A Theoretical Extension of the Technology Acceptance Model: Four Longitudinal Field Studies",
+      "zotero_authors": ["Venkatesh", "Davis"],
+      "zotero_date": "2000",
       "articles": [
         "article-1-3-expanding-the-classic-the-evolution-to-tam-2-tam-3-and-c-tam-tpb",
         "article-1-branch-introduction-the-users-journey"
       ]
     },
     {
-      "ref": "Venkatesh_2003",
-      "zotero_key": "5ZCW8CJ8",
-      "title": "User Acceptance of Information Technology: Toward a Unified View",
+      "ref_key": "Venkatesh_2003",
       "strategy": "preloaded",
+      "zotero_key": "5ZCW8CJ8",
+      "zotero_title": "User Acceptance of Information Technology: Toward a Unified View",
+      "zotero_authors": ["Venkatesh", "Morris", "Davis", "Davis"],
+      "zotero_date": "2003",
       "articles": [
         "article-1-4-the-grand-unification-the-unified-theory-of-acceptance-and-use-of-technology-utaut",
         "article-1-5-beyond-the-office-utaut2-consumer-context-and-modern-syntheses",
@@ -530,78 +606,90 @@
       ]
     },
     {
-      "ref": "Venkatesh_2008",
-      "zotero_key": "XDXMVR6W",
-      "title": "Technology Acceptance Model 3 and a Research Agenda on Interventions",
+      "ref_key": "Venkatesh_2008",
       "strategy": "preloaded",
+      "zotero_key": "XDXMVR6W",
+      "zotero_title": "Technology Acceptance Model 3 and a Research Agenda on Interventions",
+      "zotero_authors": ["Venkatesh", "Bala"],
+      "zotero_date": "2008",
       "articles": [
         "article-1-3-expanding-the-classic-the-evolution-to-tam-2-tam-3-and-c-tam-tpb",
         "article-1-branch-introduction-the-users-journey"
       ]
     },
     {
-      "ref": "Venkatesh_2012",
-      "zotero_key": "TCNUCQCE",
-      "title": "Consumer Acceptance and Use of Information Technology: Extending the Unified Theory of Acceptance and Use of Technology",
+      "ref_key": "Venkatesh_2012",
       "strategy": "preloaded",
+      "zotero_key": "TCNUCQCE",
+      "zotero_title": "Consumer Acceptance and Use of Information Technology: Extending the Unified Theory of Acceptance and Use of Technology",
+      "zotero_authors": ["Venkatesh", "Thong", "Xu"],
+      "zotero_date": "2012",
       "articles": [
         "article-1-5-beyond-the-office-utaut2-consumer-context-and-modern-syntheses",
         "article-1-branch-introduction-the-users-journey"
       ]
     },
     {
-      "ref": "Wernerfelt_1984",
-      "zotero_key": "EC3LKQ4G",
-      "title": "A Resource-based View of the Firm: Summary",
+      "ref_key": "Wernerfelt_1984",
       "strategy": "preloaded",
+      "zotero_key": "EC3LKQ4G",
+      "zotero_title": "A Resource-based View of the Firm: Summary",
+      "zotero_authors": ["Wernerfelt"],
+      "zotero_date": "Apr-Jun 1984",
       "articles": [
         "article-2-1-the-strategic-lens-foundational-theories-for-organizational-adoption"
       ]
     },
     {
-      "ref": "Zachman_1987",
-      "zotero_key": "KFQSRM74",
-      "title": "A Framework for Information-Systems Architecture",
+      "ref_key": "Zachman_1987",
       "strategy": "preloaded",
+      "zotero_key": "KFQSRM74",
+      "zotero_title": "A Framework for Information-Systems Architecture",
+      "zotero_authors": ["Zachman"],
+      "zotero_date": "1987",
       "articles": ["article-2-4-the-blueprint-for-enterprise-a-survey-of-architecture-frameworks"]
-    }
-  ],
-  "known_missing_items": [
+    },
     {
       "ref": "Amazon Web Services._2009/2024",
+      "zotero_key": "(created via cloud API)",
       "title": "AWS Cloud Adoption Framework",
-      "articles": ["article-2-6-the-cloud-revolution-prescriptive-adoption-frameworks"],
-      "reason": "Organizational/government document without traditional Zotero entry"
+      "strategy": "created-missing",
+      "articles": ["article-2-6-the-cloud-revolution-prescriptive-adoption-frameworks"]
     },
     {
       "ref": "Amazon Web Services._n.d.",
+      "zotero_key": "(created via cloud API)",
       "title": "AWS Cloud Adoption Framework",
-      "articles": ["article-2-branch-introduction-the-organizations-playbook"],
-      "reason": "Organizational/government document without traditional Zotero entry"
+      "strategy": "created-missing",
+      "articles": ["article-2-branch-introduction-the-organizations-playbook"]
     },
     {
       "ref": "Gartner._2025",
+      "zotero_key": "(created via cloud API)",
       "title": "Gartner Hype Cycle research methodology",
-      "articles": ["article-2-3-managing-the-lifecycle-the-gartner-hype-cycle"],
-      "reason": "Organizational/government document without traditional Zotero entry"
+      "strategy": "created-missing",
+      "articles": ["article-2-3-managing-the-lifecycle-the-gartner-hype-cycle"]
     },
     {
       "ref": "Innovation Value Institute._2016",
-      "title": "IT capability maturity framework (IT-CMF) – The building block framework",
-      "articles": ["article-2-2-from-chaos-to-control-a-guide-to-maturity-models"],
-      "reason": "Organizational/government document without traditional Zotero entry"
+      "zotero_key": "(created via cloud API)",
+      "title": "IT capability maturity framework (IT-CMF) â€“ The building block framework",
+      "strategy": "created-missing",
+      "articles": ["article-2-2-from-chaos-to-control-a-guide-to-maturity-models"]
     },
     {
       "ref": "NIST._2023",
-      "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
-      "articles": ["article-2-7-the-ai-frontier-frameworks-for-adopting-ai-ml-and-genai"],
-      "reason": "Organizational/government document without traditional Zotero entry"
+      "zotero_key": "(created via cloud API)",
+      "title": "Artificial Intelligence Risk Management Framework (AI RMF 1",
+      "strategy": "created-missing",
+      "articles": ["article-2-7-the-ai-frontier-frameworks-for-adopting-ai-ml-and-genai"]
     },
     {
       "ref": "Object Management Group._2017",
+      "zotero_key": "(created via cloud API)",
       "title": "Unified Architecture Framework (UAF) Specification",
-      "articles": ["article-2-4-the-blueprint-for-enterprise-a-survey-of-architecture-frameworks"],
-      "reason": "Organizational/government document without traditional Zotero entry"
+      "strategy": "created-missing",
+      "articles": ["article-2-4-the-blueprint-for-enterprise-a-survey-of-architecture-frameworks"]
     }
   ]
 }
