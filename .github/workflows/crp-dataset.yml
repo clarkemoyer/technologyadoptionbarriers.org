@@ -4,15 +4,19 @@ name: CRP Dataset Builder
 # Comprehensive Research Paper. Manual trigger only.
 #
 # Data flow (2 jobs):
-#   Phase 1: Prolific API + Qualtrics API → enrich → CRP builder →
-#            analysis snapshot (single job so all PII-bearing files
-#            stay ephemeral on the runner — never uploaded as artifacts)
-#   Phase 2: Commit public CSV + analysis JSON to repo via PR
+#   Phase 1+2: Fetch Prolific auth checks + statuses, then export Qualtrics,
+#              enrich, build CRP dataset (N=200), run analysis snapshot.
+#              All PID-bearing files (auth-checks.csv, statuses.json,
+#              enriched CSV, manifest, linkage, mapping, PII report) stay
+#              ephemeral on the runner — none are uploaded as artifacts.
+#              Runs under qualtrics-prod environment; TABS_PROLIFIC_TOKEN
+#              and PROLIFIC_STUDY_ID must also be accessible there (either
+#              added to the qualtrics-prod environment or as repository-level
+#              secrets/variables).
+#   Phase 3:   Commit public CSV + analysis JSON to repo via PR.
 #
-# Only public outputs are uploaded as artifacts (public dataset CSV
-# and analysis snapshot JSON). All PII-bearing intermediates (enriched
-# CSV, auth checks, statuses, manifest, linkage, mapping, PII report)
-# stay ephemeral on the runner and are never uploaded or committed.
+# Only public, de-identified outputs are uploaded as long-lived artifacts
+# (public dataset CSV and analysis snapshot JSON).
 
 on:
   workflow_dispatch:
@@ -32,12 +36,16 @@ permissions:
   pull-requests: write
 
 jobs:
-  # ── Phase 1: Fetch, Export, Enrich, Build CRP, Analyze ──────
-  # Single job so ALL PII-bearing files (Prolific PIDs, auth checks,
-  # enriched CSV, confidential manifest/linkage) stay ephemeral on
-  # the runner and are never uploaded as artifacts.
+  # ── Phase 1+2: Fetch Prolific data + Export, Enrich, Build CRP ─
+  # Single job so all PID-bearing intermediates (auth-checks.csv,
+  # statuses.json, enriched CSV) stay runner-ephemeral and are never
+  # uploaded as artifacts.
+  #
+  # Uses qualtrics-prod environment. TABS_PROLIFIC_TOKEN and
+  # PROLIFIC_STUDY_ID must also be accessible in this environment (or as
+  # repository-level secrets/variables) for the Prolific fetch to succeed.
   build-crp:
-    name: 'Phase 1: Build CRP Dataset'
+    name: 'Phase 1+2: Fetch Prolific & Build CRP Dataset'
     runs-on: ubuntu-latest
     environment: qualtrics-prod
     steps:
@@ -49,7 +57,7 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r scripts/analysis/requirements.txt
 
-      - name: Fetch Prolific auth checks and statuses
+      - name: Fetch auth checks and statuses
         run: python3 scripts/analysis/fetch_prolific_data.py
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
@@ -123,7 +131,10 @@ jobs:
             "${{ runner.temp }}/qualtrics-enriched-crp-sample.csv" \
             --json "${{ runner.temp }}/crp-sensitivity-analysis.json"
 
-      # Only public, de-identified outputs are uploaded as artifacts
+      # Only public, de-identified outputs are uploaded as artifacts.
+      # All PID-bearing files (auth-checks.csv, statuses.json, enriched CSV,
+      # manifest, linkage, mapping, PII report) are NOT uploaded — they remain
+      # ephemeral on the runner and are discarded when the job completes.
       - uses: actions/upload-artifact@v7
         with:
           name: crp-public-dataset
@@ -136,14 +147,9 @@ jobs:
           path: ${{ runner.temp }}/crp-sensitivity-analysis.json
           retention-days: 7
 
-      # All PII-bearing files (auth checks, statuses, enriched CSV,
-      # manifest, linkage, mapping, PII report) are NOT uploaded.
-      # They remain ephemeral on the runner and are discarded when
-      # the job completes.
-
-  # ── Phase 2: Commit public dataset + analysis to repo ────────
+  # ── Phase 3: Commit public dataset + analysis to repo ────────
   commit-results:
-    name: 'Phase 2: Commit Results'
+    name: 'Phase 3: Commit Results'
     needs: build-crp
     runs-on: ubuntu-latest
     environment: copilot
