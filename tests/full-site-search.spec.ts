@@ -1,4 +1,19 @@
 import { test, expect } from '@playwright/test'
+import type { Page } from '@playwright/test'
+
+async function openHeaderSearch(page: Page) {
+  const searchInput = page.getByPlaceholder('Search site...')
+  if ((await searchInput.count()) > 0 && (await searchInput.first().isVisible())) {
+    return searchInput.first()
+  }
+
+  await page
+    .locator('header')
+    .getByRole('button', { name: /^Search$/ })
+    .click()
+  await expect(searchInput).toBeVisible()
+  return searchInput.first()
+}
 
 test.describe('Full-site search', () => {
   test.beforeEach(async ({ page }) => {
@@ -6,14 +21,14 @@ test.describe('Full-site search', () => {
   })
 
   test('search input is visible and accessible', async ({ page }) => {
-    const searchInput = page.getByPlaceholder('Search site...')
+    const searchInput = await openHeaderSearch(page)
     const combobox = page.getByRole('combobox')
     await expect(searchInput).toBeVisible()
     await expect(combobox).toBeVisible()
   })
 
   test('opens results dropdown when typing', async ({ page }) => {
-    const searchInput = page.getByPlaceholder('Search site...')
+    const searchInput = await openHeaderSearch(page)
     await searchInput.click()
     await searchInput.fill('technology')
 
@@ -23,20 +38,16 @@ test.describe('Full-site search', () => {
   })
 
   test('shows "no results" message for non-matching query', async ({ page }) => {
-    // This string has no common English word substrings — the search's token.includes(t) check
-    // would match common tokens like 'is', 'on', 'term' if those appear as substrings of the query.
-    const NON_MATCHING_SEARCH_TERM = 'kvjwxfbqps'
-
-    const searchInput = page.getByPlaceholder('Search site...')
+    const searchInput = await openHeaderSearch(page)
     await searchInput.click()
-    await searchInput.fill(NON_MATCHING_SEARCH_TERM)
+    await searchInput.fill('%%%%')
 
     // Should show no results message
     await expect(page.locator('text=No results found')).toBeVisible()
   })
 
   test('displays search results with title and snippet', async ({ page }) => {
-    const searchInput = page.getByPlaceholder('Search site...')
+    const searchInput = await openHeaderSearch(page)
     await searchInput.click()
     await searchInput.fill('adoption')
 
@@ -50,7 +61,7 @@ test.describe('Full-site search', () => {
   })
 
   test('keyboard navigation works', async ({ page }) => {
-    const searchInput = page.getByPlaceholder('Search site...')
+    const searchInput = await openHeaderSearch(page)
     await searchInput.click()
     await searchInput.fill('technology')
 
@@ -69,7 +80,7 @@ test.describe('Full-site search', () => {
   })
 
   test('clicking result navigates to page', async ({ page }) => {
-    const searchInput = page.getByPlaceholder('Search site...')
+    const searchInput = await openHeaderSearch(page)
     await searchInput.click()
     await searchInput.fill('barriers')
 
@@ -84,7 +95,7 @@ test.describe('Full-site search', () => {
   })
 
   test('closes search on outside click', async ({ page }) => {
-    const searchInput = page.getByPlaceholder('Search site...')
+    const searchInput = await openHeaderSearch(page)
     await searchInput.click()
     await searchInput.fill('technology')
 
@@ -100,7 +111,7 @@ test.describe('Full-site search', () => {
   })
 
   test('search is case-insensitive', async ({ page }) => {
-    const searchInput = page.getByPlaceholder('Search site...')
+    const searchInput = await openHeaderSearch(page)
 
     // Search with lowercase
     await searchInput.click()
@@ -121,7 +132,7 @@ test.describe('Full-site search', () => {
   })
 
   test('search input is accessible with keyboard', async ({ page }) => {
-    const searchInput = page.getByPlaceholder('Search site...')
+    const searchInput = await openHeaderSearch(page)
 
     // Tab to search input
     await page.keyboard.press('Tab')
@@ -144,7 +155,7 @@ test.describe('Full-site search', () => {
   })
 
   test('search handles special characters', async ({ page }) => {
-    const searchInput = page.getByPlaceholder('Search site...')
+    const searchInput = await openHeaderSearch(page)
     await searchInput.click()
     await searchInput.fill('@#$%')
 
