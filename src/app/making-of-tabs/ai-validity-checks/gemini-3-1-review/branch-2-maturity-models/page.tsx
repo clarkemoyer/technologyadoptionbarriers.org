@@ -75,9 +75,9 @@ export default function Page() {
             <span className="text-green-600 font-bold">Verified Accurate</span>
           </p>
           <p className="mb-4">
-            The review confirmed the accuracy of the Gartner Hype Cycle description. The five
-            phases - Innovation Trigger, Peak of Inflated Expectations, Trough of Disillusionment,
-            Slope of Enlightenment, and Plateau of Productivity - are factually correct and align with
+            The review confirmed the accuracy of the Gartner Hype Cycle description. The five phases
+            - Innovation Trigger, Peak of Inflated Expectations, Trough of Disillusionment, Slope of
+            Enlightenment, and Plateau of Productivity - are factually correct and align with
             Gartner&apos;s official methodology.
           </p>
           <div className="mt-8 flex justify-between">

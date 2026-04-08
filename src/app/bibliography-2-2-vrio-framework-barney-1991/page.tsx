@@ -124,9 +124,9 @@ const VRIOFrameworkPage = () => {
             A resource is valuable when it enables a firm to exploit opportunities or neutralize
             threats in its environment. This criterion directly addresses whether a resource
             contributes to competitive positioning in the firm&rsquo;s specific market context.
-            Resources that do not create value - that do not help the firm increase revenues, decrease
-            costs, or improve competitive positioning - represent competitive disadvantages regardless
-            of their other characteristics.
+            Resources that do not create value - that do not help the firm increase revenues,
+            decrease costs, or improve competitive positioning - represent competitive disadvantages
+            regardless of their other characteristics.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Value is context-dependent: a resource valuable in one competitive environment may not
@@ -365,9 +365,9 @@ const VRIOFrameworkPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Potential for Tautological Reasoning:</strong> Critics note that the framework
-            can become somewhat circular - resources that lead to superior performance are identified
-            as meeting VRIO criteria, but the primary evidence that resources meet VRIO criteria is
-            that they lead to superior performance. This circularity can reduce the
+            can become somewhat circular - resources that lead to superior performance are
+            identified as meeting VRIO criteria, but the primary evidence that resources meet VRIO
+            criteria is that they lead to superior performance. This circularity can reduce the
             framework&rsquo;s predictive power and make it difficult to falsify empirically.
           </p>
           <p className={PARAGRAPH_CLASSES}>

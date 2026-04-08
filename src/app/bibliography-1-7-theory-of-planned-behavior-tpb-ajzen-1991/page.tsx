@@ -69,15 +69,15 @@ const BibliographyArticlePage = () => {
               limitations, environmental obstacles, or structural barriers.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              Ajzen recognized that many significant behaviors - including technology adoption - involve
-              elements beyond complete volitional control. While individuals might intend to adopt a
-              technology, environmental factors, organizational policies, technical infrastructure,
-              prerequisite knowledge or skills, or other people’s actions might prevent successful
-              adoption. The original TRA’s inability to incorporate these control factors
-              represented a significant theoretical and practical limitation. The Theory of Planned
-              Behavior was explicitly constructed to overcome this limitation by adding a third
-              predictor variable: perceived behavioral control. By incorporating the extent to which
-              individuals believe they can successfully perform behavior, even when facing
+              Ajzen recognized that many significant behaviors - including technology adoption -
+              involve elements beyond complete volitional control. While individuals might intend to
+              adopt a technology, environmental factors, organizational policies, technical
+              infrastructure, prerequisite knowledge or skills, or other people’s actions might
+              prevent successful adoption. The original TRA’s inability to incorporate these control
+              factors represented a significant theoretical and practical limitation. The Theory of
+              Planned Behavior was explicitly constructed to overcome this limitation by adding a
+              third predictor variable: perceived behavioral control. By incorporating the extent to
+              which individuals believe they can successfully perform behavior, even when facing
               obstacles, the TPB created a more nuanced and comprehensive model applicable to
               behaviors where volitional control varies. Ajzen’s motivation also reflected broader
               theoretical ambitions. The Theory of Planned Behavior aimed to provide a general
@@ -526,8 +526,8 @@ const BibliographyArticlePage = () => {
               </li>
               <li>
                 <strong>Focus on behavioral intention:</strong> While earlier theories recognized
-                intentions as behavior antecedents, the TPB elevated intention as central
-                construct - the immediate determinant of behavior. This focus on intention as primary
+                intentions as behavior antecedents, the TPB elevated intention as central construct
+                - the immediate determinant of behavior. This focus on intention as primary
                 mechanism meant that all other factors affect behavior through intention
                 modification (except perceived behavioral control which also has direct effects).
                 This conceptualization shifted focus from proximal behavior determinants toward the

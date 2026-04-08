@@ -299,7 +299,8 @@ const ProlificIntegrationPage = () => {
                 className="text-blue-600 underline hover:text-blue-800"
               >
                 Qualtrics Integration
-              </Link>{' '} - survey engine and Survey Flow architecture
+              </Link>{' '}
+              - survey engine and Survey Flow architecture
             </li>
             <li>
               <Link
@@ -307,7 +308,8 @@ const ProlificIntegrationPage = () => {
                 className="text-blue-600 underline hover:text-blue-800"
               >
                 Google Analytics Integration
-              </Link>{' '} - impact measurement and verified visitors
+              </Link>{' '}
+              - impact measurement and verified visitors
             </li>
           </ul>
         </section>

@@ -421,7 +421,8 @@ const CloudflareIntegrationPage = () => {
                 className="text-blue-600 underline hover:text-blue-800"
               >
                 GitHub Integration
-              </Link>{' '} - CI/CD, deployment, and the GitHub Pages origin
+              </Link>{' '}
+              - CI/CD, deployment, and the GitHub Pages origin
             </li>
             <li>
               <Link
@@ -429,7 +430,8 @@ const CloudflareIntegrationPage = () => {
                 className="text-blue-600 underline hover:text-blue-800"
               >
                 Google Analytics Integration
-              </Link>{' '} - impact measurement that runs through Cloudflare&rsquo;s proxy
+              </Link>{' '}
+              - impact measurement that runs through Cloudflare&rsquo;s proxy
             </li>
             <li>
               <Link
@@ -437,7 +439,8 @@ const CloudflareIntegrationPage = () => {
                 className="text-blue-600 underline hover:text-blue-800"
               >
                 Microsoft Clarity Integration
-              </Link>{' '} - behavioral analytics that also passes through the CDN
+              </Link>{' '}
+              - behavioral analytics that also passes through the CDN
             </li>
             <li>
               <Link

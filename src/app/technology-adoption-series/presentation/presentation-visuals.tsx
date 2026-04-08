@@ -1375,7 +1375,8 @@ function Visual20_DeepDiveSourcingStrategy() {
         ))}
       </div>
       <div className="text-center text-base text-slate-400">
-        <span className="font-semibold text-cyan-400">&ldquo;Best tool for the job&rdquo;</span> - evaluate based on mission, lifecycle position, and adoption implications.
+        <span className="font-semibold text-cyan-400">&ldquo;Best tool for the job&rdquo;</span> -
+        evaluate based on mission, lifecycle position, and adoption implications.
       </div>
     </div>
   )
@@ -1460,7 +1461,8 @@ function Visual23_DeepDiveLegacyMigration() {
       </div>
       <div className="text-center text-base text-slate-400">
         Legacy migration is{' '}
-        <span className="font-semibold text-amber-300">involuntary adoption</span> - over-communicate, train extensively, and move fast.
+        <span className="font-semibold text-amber-300">involuntary adoption</span> -
+        over-communicate, train extensively, and move fast.
       </div>
     </div>
   )
@@ -1785,7 +1787,9 @@ function LifecycleTimelineChart({
           Unequal phase durations create the asymmetric &quot;imperfect curves&quot; seen in real
           adoption data
         </text>
-        <text x="800" y="755" textAnchor="middle" fontSize="16" fill="#cbd5e1"> - the S-curve is an idealization; actual diffusion is shaped by market, regulatory, and
+        <text x="800" y="755" textAnchor="middle" fontSize="16" fill="#cbd5e1">
+          {' '}
+          - the S-curve is an idealization; actual diffusion is shaped by market, regulatory, and
           network effects.
         </text>
 

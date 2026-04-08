@@ -49,7 +49,8 @@ const ContentArchitecturePage = () => {
             TABS uses Next.js with{' '}
             <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
               output: &apos;export&apos;
-            </code>{' '} - every page is pre-rendered to static HTML at build time. There is no server. The
+            </code>{' '}
+            - every page is pre-rendered to static HTML at build time. There is no server. The
             entire site is a collection of HTML, CSS, and JavaScript files hosted on GitHub Pages.
           </p>
 
@@ -241,7 +242,7 @@ const ContentArchitecturePage = () => {
               enhancements
             </li>
             <li>
-              <strong>Breakpoints</strong> - {' '}
+              <strong>Breakpoints</strong> -{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">sm</code> (640px),{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">md</code> (768px),{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">lg</code> (1024px),{' '}

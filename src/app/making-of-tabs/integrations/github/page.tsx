@@ -410,7 +410,8 @@ const GitHubIntegrationPage = () => {
               className="text-blue-600 underline hover:text-blue-800"
             >
               Conventional Commits
-            </a>{' '} - every commit message and PR title starts with a type prefix (<code>feat:</code>,{' '}
+            </a>{' '}
+            - every commit message and PR title starts with a type prefix (<code>feat:</code>,{' '}
             <code>fix:</code>, <code>docs:</code>, <code>chore:</code>), enforced by a{' '}
             <code>commitlint</code> hook.
           </p>
@@ -484,7 +485,8 @@ const GitHubIntegrationPage = () => {
                 className="text-blue-600 underline hover:text-blue-800"
               >
                 Cloudflare Integration
-              </Link>{' '} - DNS, CDN, and security layer that sits in front of GitHub Pages
+              </Link>{' '}
+              - DNS, CDN, and security layer that sits in front of GitHub Pages
             </li>
             <li>
               <Link
@@ -492,7 +494,8 @@ const GitHubIntegrationPage = () => {
                 className="text-blue-600 underline hover:text-blue-800"
               >
                 Google Analytics Integration
-              </Link>{' '} - the GA4 data pipeline that feeds impact.json
+              </Link>{' '}
+              - the GA4 data pipeline that feeds impact.json
             </li>
             <li>
               <Link
@@ -500,7 +503,8 @@ const GitHubIntegrationPage = () => {
                 className="text-blue-600 underline hover:text-blue-800"
               >
                 Qualtrics Integration
-              </Link>{' '} - the survey automation workflows
+              </Link>{' '}
+              - the survey automation workflows
             </li>
             <li>
               <Link

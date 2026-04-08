@@ -266,9 +266,9 @@ const BibliographyArticlePage = () => {
               Perceived usefulness: Measured through multi-item scales assessing users’ beliefs that
               using a system enhances work performance. Items capture perceptions that system use
               improves job performance, increases work productivity, enhances work effectiveness,
-              and makes work more efficient. Perceived usefulness represents outcome
-              expectations - beliefs that technology adoption produces valued consequences (improved
-              performance, greater productivity, enhanced effectiveness).
+              and makes work more efficient. Perceived usefulness represents outcome expectations -
+              beliefs that technology adoption produces valued consequences (improved performance,
+              greater productivity, enhanced effectiveness).
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>
@@ -465,10 +465,10 @@ const BibliographyArticlePage = () => {
                 <strong>Specialization of general behavioral theory:</strong> Earlier IS research
                 either developed purely descriptive accounts of technology acceptance factors or
                 attempted applying general behavior models without specialization. Davis’s
-                fundamental innovation was taking the Theory of Reasoned Action - a general behavioral
-                framework - and specializing it to technology contexts by identifying perceived
-                usefulness and ease of use as the primary beliefs shaping technology attitudes. This
-                specialization combined theoretical rigor with practical relevance
+                fundamental innovation was taking the Theory of Reasoned Action - a general
+                behavioral framework - and specializing it to technology contexts by identifying
+                perceived usefulness and ease of use as the primary beliefs shaping technology
+                attitudes. This specialization combined theoretical rigor with practical relevance
               </li>
               <li>
                 <strong>Quantitative attitude measurement:</strong> Earlier IS studies often
@@ -505,9 +505,9 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>Longitudinal behavioral prediction:</strong> Earlier attitude studies
                 typically examined cross-sectional relationships. Davis demonstrated longitudinal
-                prediction - measured attitudes predicting subsequent actual usage months later. This
-                temporal validation distinguished TAM from studies showing attitudes and behavior
-                correlate but unable to establish temporal precedence
+                prediction - measured attitudes predicting subsequent actual usage months later.
+                This temporal validation distinguished TAM from studies showing attitudes and
+                behavior correlate but unable to establish temporal precedence
               </li>
             </ul>
           </section>
@@ -518,16 +518,16 @@ const BibliographyArticlePage = () => {
             <p className={PARAGRAPH_CLASSES}>
               The Technology Acceptance Model identifies barriers to technology adoption organized
               around two primary psychosocial dimensions: Perceived usefulness barriers: The model
-              identifies that users fail to adopt technologies when they perceive low
-              usefulness - when they question whether technology adoption will enhance work
-              performance or productivity. Perceived usefulness barriers include beliefs that
-              technology adoption does not address important work needs. Users adopting technology
-              that solves problems they don’t experience or adds capabilities they don’t require
-              develop low usefulness perceptions. For example, workers in jobs not involving data
-              analysis perceive spreadsheet technology as low usefulness. Technologies addressing
-              specific job types but not others create use barriers within organizations. Usefulness
-              barriers additionally emerge from beliefs that technology adoption offers minimal
-              performance benefits relative to current practices.
+              identifies that users fail to adopt technologies when they perceive low usefulness -
+              when they question whether technology adoption will enhance work performance or
+              productivity. Perceived usefulness barriers include beliefs that technology adoption
+              does not address important work needs. Users adopting technology that solves problems
+              they don’t experience or adds capabilities they don’t require develop low usefulness
+              perceptions. For example, workers in jobs not involving data analysis perceive
+              spreadsheet technology as low usefulness. Technologies addressing specific job types
+              but not others create use barriers within organizations. Usefulness barriers
+              additionally emerge from beliefs that technology adoption offers minimal performance
+              benefits relative to current practices.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Users whose existing processes prove reasonably efficient perceive new technology as

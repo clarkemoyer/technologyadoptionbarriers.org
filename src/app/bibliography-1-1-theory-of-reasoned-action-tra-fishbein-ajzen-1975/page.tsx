@@ -77,9 +77,9 @@ const BibliographyArticlePage = () => {
               immediate antecedent of behavior - is determined by exactly two factors: (1) the
               individual’s attitude toward the specific behavior and (2) the individual’s subjective
               norm regarding that behavior (perceived social pressure to perform or not perform the
-              behavior). This elegant parsimony represented a significant theoretical advance - rather
-              than invoking numerous psychological and social variables, TRA suggested that behavior
-              stems from these two primary determinants.
+              behavior). This elegant parsimony represented a significant theoretical advance -
+              rather than invoking numerous psychological and social variables, TRA suggested that
+              behavior stems from these two primary determinants.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               The model also addressed a practical need in the early 1970s. As social psychologists
@@ -148,11 +148,11 @@ const BibliographyArticlePage = () => {
               </li>
               <li>
                 <strong>Multiple behavior domains:</strong> The theory’s internal validity was
-                strengthened by demonstrating consistent relationships across diverse
-                behaviors - voting, family planning, smoking, drinking, donating blood, occupational
-                choices, energy conservation, and many others. Consistent relationships across
-                domains suggested the model captured fundamental psychological mechanisms rather
-                than domain-specific artifacts
+                strengthened by demonstrating consistent relationships across diverse behaviors -
+                voting, family planning, smoking, drinking, donating blood, occupational choices,
+                energy conservation, and many others. Consistent relationships across domains
+                suggested the model captured fundamental psychological mechanisms rather than
+                domain-specific artifacts
               </li>
               <li>
                 <strong>Cross-population consistency:</strong> Internal validity was supported by
@@ -184,9 +184,9 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>Real behavior measurement:</strong> Rather than measuring only behavioral
                 intentions or hypothetical choices, external validity studies measured actual
-                behavior - actual blood donation by donors, actual voting by registered voters, actual
-                technology adoption by employees. Finding that intentions predicted these actual
-                behaviors strengthened external validity claims
+                behavior - actual blood donation by donors, actual voting by registered voters,
+                actual technology adoption by employees. Finding that intentions predicted these
+                actual behaviors strengthened external validity claims
               </li>
               <li>
                 <strong>Diverse behavioral contexts:</strong> External validity was demonstrated
@@ -267,7 +267,8 @@ const BibliographyArticlePage = () => {
                 about what colleagues think regarding adoption - Have credible organizational
                 leaders publicly advocate for adoption Communication strategy design: TRA guides
                 marketing and communication strategy. Since both attitudes and subjective norms
-                influence intentions, effective communication should address both pathways - providing information about consequences (attitude-based) and social validation
+                influence intentions, effective communication should address both pathways -
+                providing information about consequences (attitude-based) and social validation
                 (subjective norm-based)
               </li>
               <li>
@@ -306,7 +307,8 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
             <p className={PARAGRAPH_CLASSES}>
               The Theory of Reasoned Action measures specific psychological and behavioral
-              variables: Behavioral intention: The core outcome variable is behavioral intention - the individual’s conscious intention or plan to perform or not perform a specific
+              variables: Behavioral intention: The core outcome variable is behavioral intention -
+              the individual’s conscious intention or plan to perform or not perform a specific
               behavior. This represents a conscious decision or commitment regarding whether to
               adopt a technology. TRA measures intention as a psychological construct using
               intention scales asking about willingness, plans, and likelihood of performing the
@@ -415,10 +417,10 @@ const BibliographyArticlePage = () => {
                 technology adoption. This extensibility speaks to the model’s fundamental soundness
               </li>
               <li>
-                <strong>Theoretical clarity:</strong> The model is precisely specified - variables are
-                clearly defined, relationships explicitly stated, and boundaries of applicability
-                identified. This clarity facilitates research application and theoretical
-                development
+                <strong>Theoretical clarity:</strong> The model is precisely specified - variables
+                are clearly defined, relationships explicitly stated, and boundaries of
+                applicability identified. This clarity facilitates research application and
+                theoretical development
               </li>
             </ul>
           </section>
@@ -547,9 +549,8 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>Beyond demographic prediction:</strong> Demographic characteristics (age,
                 gender, socioeconomic status) sometimes predicted behavior better than attitudes.
-                TRA suggested that demographic effects operate through psychological
-                pathways - demography influences attitudes/norms, which determine intentions and
-                behavior
+                TRA suggested that demographic effects operate through psychological pathways -
+                demography influences attitudes/norms, which determine intentions and behavior
               </li>
               <li>
                 <strong>Toward psychological mechanism focus:</strong> TRA shifted focus from
@@ -594,8 +595,8 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>Conflict between attitudes and norms:</strong> When attitudes and subjective
                 norms conflict - the individual likes the technology but believes important others
-                disapprove - the resulting weaker intention produces lower adoption probability. This
-                conflicted state creates psychological tension reducing adoption likelihood
+                disapprove - the resulting weaker intention produces lower adoption probability.
+                This conflicted state creates psychological tension reducing adoption likelihood
               </li>
               <li>
                 <strong>Weak or missing behavioral beliefs:</strong> Adoption barriers emerge when

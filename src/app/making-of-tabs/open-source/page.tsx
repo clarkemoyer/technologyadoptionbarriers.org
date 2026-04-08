@@ -77,7 +77,8 @@ const OpenSourcePage = () => {
           </ul>
 
           <p className="mb-6">
-            We chose Apache 2.0 over MIT or GPL because it provides explicit patent protection - important for a project connected to academic research - while remaining maximally
+            We chose Apache 2.0 over MIT or GPL because it provides explicit patent protection -
+            important for a project connected to academic research - while remaining maximally
             permissive for adoption.
           </p>
         </section>

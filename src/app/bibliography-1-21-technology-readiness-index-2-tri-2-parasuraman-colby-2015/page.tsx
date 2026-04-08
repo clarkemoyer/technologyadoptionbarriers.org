@@ -219,10 +219,10 @@ const BibliographyArticlePage = () => {
               Segmentation validity was assessed by examining whether TRI-based customer segments
               differed meaningfully on multiple behavioral criteria. Using latent class analysis,
               the authors derived five distinct consumer segments based on their TR profiles: (1)
-              Skeptics (38% of consumers) - detached, cautious about technology; (2) Explorers
-              (18%) - high motivation and low inhibition; (3) Avoiders (16%) - high resistance and low
-              motivation; (4) Pioneers (16%) - strong positive and negative views; and (5) Hesitators
-              (13%) - low innovativeness.
+              Skeptics (38% of consumers) - detached, cautious about technology; (2) Explorers (18%)
+              - high motivation and low inhibition; (3) Avoiders (16%) - high resistance and low
+              motivation; (4) Pioneers (16%) - strong positive and negative views; and (5)
+              Hesitators (13%) - low innovativeness.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               These segments showed dramatically different demographic characteristics and

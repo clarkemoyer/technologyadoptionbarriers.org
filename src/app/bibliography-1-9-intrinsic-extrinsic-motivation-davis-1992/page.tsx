@@ -62,8 +62,8 @@ const BibliographyArticlePage = () => {
               use). The fundamental motivation for this framework stemmed from recognizing that the
               TAM, while successfully predicting technology acceptance, did not capture the full
               range of motivational factors driving technology use in organizational contexts. The
-              authors recognized that the TAM treated technology adoption as instrumental
-              behavior - individuals adopt technology because it provides external benefits (improved
+              authors recognized that the TAM treated technology adoption as instrumental behavior -
+              individuals adopt technology because it provides external benefits (improved
               performance, productivity) and requires manageable effort (ease of use). However, this
               extrinsic motivation perspective overlooked that some individuals adopt technology due
               to intrinsic motivation: they find the technology enjoyable, interesting, or
@@ -255,11 +255,11 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>User experience optimization:</strong> Organizations can use the framework
                 to guide user experience improvements beyond functionality. While adequate
-                functionality ensures minimum usefulness, additional attention to user
-                experience - visual design, interactive responsiveness, engaging feedback, aesthetic
-                appeal - can enhance intrinsic motivation. Systems feeling polished and well-designed
-                create more engaging experiences than functionally equivalent systems with poor
-                visual design or frustrating interactions
+                functionality ensures minimum usefulness, additional attention to user experience -
+                visual design, interactive responsiveness, engaging feedback, aesthetic appeal - can
+                enhance intrinsic motivation. Systems feeling polished and well-designed create more
+                engaging experiences than functionally equivalent systems with poor visual design or
+                frustrating interactions
               </li>
               <li>
                 <strong>Motivation maintenance for long-term adoption:</strong> The framework

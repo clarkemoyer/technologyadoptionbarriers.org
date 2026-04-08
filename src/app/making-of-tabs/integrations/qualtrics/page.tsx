@@ -362,7 +362,8 @@ const QualtricsIntegrationPage = () => {
                 className="text-blue-600 underline hover:text-blue-800"
               >
                 Prolific Integration
-              </Link>{' '} - participant recruitment and the Qualtrics–Prolific bridge
+              </Link>{' '}
+              - participant recruitment and the Qualtrics–Prolific bridge
             </li>
             <li>
               <Link
@@ -370,7 +371,8 @@ const QualtricsIntegrationPage = () => {
                 className="text-blue-600 underline hover:text-blue-800"
               >
                 Google Analytics Integration
-              </Link>{' '} - impact measurement and verified visitors
+              </Link>{' '}
+              - impact measurement and verified visitors
             </li>
           </ul>
         </section>

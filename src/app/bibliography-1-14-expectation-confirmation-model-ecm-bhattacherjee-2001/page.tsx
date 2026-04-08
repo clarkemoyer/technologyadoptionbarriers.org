@@ -62,11 +62,11 @@ const BibliographyArticlePage = () => {
               distinction is crucial because long-term viability of information systems depends on
               continued use rather than first-time adoption. The motivation for creating ECM-ISC
               emerged from recognizing that system discontinuance - users stopping use after initial
-              adoption - represents a significant problem in business-to-consumer electronic commerce
-              and information systems implementation. For Internet service providers (ISPs), online
-              retailers, online banks, online travel agencies, and other information system
-              providers, acquiring new customers may cost as much as five times more than retaining
-              existing customers through continued use.
+              adoption - represents a significant problem in business-to-consumer electronic
+              commerce and information systems implementation. For Internet service providers
+              (ISPs), online retailers, online banks, online travel agencies, and other information
+              system providers, acquiring new customers may cost as much as five times more than
+              retaining existing customers through continued use.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               This economic reality made understanding continuance decisions critical for
@@ -366,8 +366,8 @@ const BibliographyArticlePage = () => {
               ECM-ISC represents an important theoretical shift in several dimensions: First,
               ECM-ISC addresses a different decision stage than prior acceptance models. TAM and
               related models focused on initial adoption - the decision to begin using systems.
-              ECM-ISC examines continuance - the decision to maintain use after initial adoption. This
-              temporal shift acknowledges that different psychological processes govern initial
+              ECM-ISC examines continuance - the decision to maintain use after initial adoption.
+              This temporal shift acknowledges that different psychological processes govern initial
               adoption versus sustained use. Second, ECM-ISC incorporates actual use experience as
               fundamental, whereas acceptance models operated with limited experience information.
               Acceptance models predict initial use intentions based on beliefs formed with minimal
@@ -423,18 +423,18 @@ const BibliographyArticlePage = () => {
             <p className={PARAGRAPH_CLASSES}>
               Low satisfaction and negative user experiences represent direct barriers to continued
               system use. Even when expectations are confirmed, users who have negative emotional
-              responses to systems - who experience frustration, dissatisfaction, or irritation - will
-              be inclined to discontinue. The model identifies satisfaction as a central driver of
-              continuance intentions, suggesting that dissatisfactory user experiences constitute a
-              significant barrier. Dissatisfaction might stem from poor interface design, inadequate
-              system reliability, insufficient responsiveness to user needs, poor customer support,
-              or generally frustrating interactions with systems. Perceived lack of usefulness
-              represents another significant barrier. Systems users do not perceive as useful - that
-              do not deliver tangible benefits, do not improve task performance, do not contribute
-              to productivity, and do not provide clear value - face discontinuance risk. The model
-              identifies perceived usefulness as an independent predictor of continuance intentions,
-              suggesting that users who fail to see ongoing benefits from system use will
-              discontinue.
+              responses to systems - who experience frustration, dissatisfaction, or irritation -
+              will be inclined to discontinue. The model identifies satisfaction as a central driver
+              of continuance intentions, suggesting that dissatisfactory user experiences constitute
+              a significant barrier. Dissatisfaction might stem from poor interface design,
+              inadequate system reliability, insufficient responsiveness to user needs, poor
+              customer support, or generally frustrating interactions with systems. Perceived lack
+              of usefulness represents another significant barrier. Systems users do not perceive as
+              useful - that do not deliver tangible benefits, do not improve task performance, do
+              not contribute to productivity, and do not provide clear value - face discontinuance
+              risk. The model identifies perceived usefulness as an independent predictor of
+              continuance intentions, suggesting that users who fail to see ongoing benefits from
+              system use will discontinue.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               This barrier is particularly significant when systems require sustained effort or time
@@ -444,8 +444,8 @@ const BibliographyArticlePage = () => {
               decision to continue using one system involves implicit comparison to alternatives. If
               users become aware of superior alternatives that would better meet their needs, are
               easier to use, or are less expensive, they face incentive to switch. The barrier
-              operates through relative comparison - even systems providing confirmed expectations and
-              adequate satisfaction may be abandoned if better alternatives become available.
+              operates through relative comparison - even systems providing confirmed expectations
+              and adequate satisfaction may be abandoned if better alternatives become available.
               Inadequate expectation management represents an indirect barrier to continuance.
               Systems with marketing communications or pre-use descriptions promising capabilities
               that actual systems do not deliver create disappointment and disconfirmation.

@@ -52,7 +52,8 @@ const GoogleAnalyticsIntegrationPage = () => {
             resonates, and report meaningful engagement numbers to stakeholders.
           </p>
           <p className="mb-6">
-            This page explains how we integrate with GA4, how our automated reporting works, and - most importantly - the methodology behind our{' '}
+            This page explains how we integrate with GA4, how our automated reporting works, and -
+            most importantly - the methodology behind our{' '}
             <strong>&quot;Verified Visitors&quot;</strong> metric, which filters out test and
             automation traffic to surface only genuine human visitors.
           </p>
@@ -290,10 +291,12 @@ const GoogleAnalyticsIntegrationPage = () => {
             </p>
             <ol className="mb-4 list-decimal space-y-2 pl-6">
               <li>
-                <code>dimensionFilter</code> with <code>inListFilter</code> on <code>hostName</code>{' '} - filter was silently ignored
+                <code>dimensionFilter</code> with <code>inListFilter</code> on <code>hostName</code>{' '}
+                - filter was silently ignored
               </li>
               <li>
-                <code>dimensionFilter</code> with <code>stringFilter</code> on <code>hostName</code>{' '} - filter was silently ignored
+                <code>dimensionFilter</code> with <code>stringFilter</code> on <code>hostName</code>{' '}
+                - filter was silently ignored
               </li>
               <li>
                 Adding <code>hostName</code> as a dimension alongside the filter - still returned
@@ -406,7 +409,8 @@ const GoogleAnalyticsIntegrationPage = () => {
                 className="text-blue-600 underline hover:text-blue-800"
               >
                 Qualtrics Integration
-              </Link>{' '} - survey engine and API workflows
+              </Link>{' '}
+              - survey engine and API workflows
             </li>
             <li>
               <Link
@@ -414,7 +418,8 @@ const GoogleAnalyticsIntegrationPage = () => {
                 className="text-blue-600 underline hover:text-blue-800"
               >
                 Prolific Integration
-              </Link>{' '} - participant recruitment methodology
+              </Link>{' '}
+              - participant recruitment methodology
             </li>
           </ul>
         </section>

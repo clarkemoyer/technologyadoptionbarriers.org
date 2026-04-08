@@ -337,10 +337,10 @@ const BibliographyArticlePage = () => {
               The overlap between dimensions could be better understood or the scale could
               potentially be simplified by better understanding the relationships among dimensions.
               Seventh, the model does not explicitly address the role of facilitating conditions,
-              social influence, or perceived organizational support - factors that research has shown
-              influence technology adoption and use. The TRI focuses on individual predispositions
-              but may be incomplete without considering contextual factors that influence adoption
-              decisions.
+              social influence, or perceived organizational support - factors that research has
+              shown influence technology adoption and use. The TRI focuses on individual
+              predispositions but may be incomplete without considering contextual factors that
+              influence adoption decisions.
             </p>
           </section>
           <section className="mb-6">

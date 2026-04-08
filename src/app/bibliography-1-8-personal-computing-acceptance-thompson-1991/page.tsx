@@ -107,9 +107,9 @@ const BibliographyArticlePage = () => {
               reliabilities for some scales indicated that future studies should develop stronger
               measures. The researchers examined discriminant validity by conducting a principal
               components analysis of measurement scales. They confirmed that each construct loaded
-              more highly on its hypothesized factor than on other factors, with only one
-              exception - facilitating conditions items loaded slightly higher on social factors for
-              some items. This finding indicated appropriate construct separation. Cross-construct
+              more highly on its hypothesized factor than on other factors, with only one exception
+              - facilitating conditions items loaded slightly higher on social factors for some
+              items. This finding indicated appropriate construct separation. Cross-construct
               correlations were computed and reported in Table 6 of the study. These
               intercorrelations between constructs revealed moderate relationships, suggesting that
               while constructs were related, they measured distinct dimensions.
@@ -211,10 +211,10 @@ const BibliographyArticlePage = () => {
               technology matched job tasks. 3.Long-Term Consequences: Measures perceived future
               payoffs from PC use, including career advancement and productivity gains. Six items
               (LT1-LT6) with alpha of .76 assessed beliefs about future benefits and career impacts.
-              4.Affect: Measures emotional attitudes toward PCs - whether individuals like or dislike
-              them. Three items (AF1-AF3) with alpha of .61 measured affective responses and liking
-              for PCs. 5.Social Factors: Measures the perceived importance of others’ opinions
-              regarding PC use and social norms about technology.
+              4.Affect: Measures emotional attitudes toward PCs - whether individuals like or
+              dislike them. Three items (AF1-AF3) with alpha of .61 measured affective responses and
+              liking for PCs. 5.Social Factors: Measures the perceived importance of others’
+              opinions regarding PC use and social norms about technology.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Four items (SF1- SF4) with alpha of .65 assessed social influence and normative
@@ -238,8 +238,8 @@ const BibliographyArticlePage = () => {
               justification rather than representing purely empirical discovery. This theoretical
               foundation gives the model explanatory power beyond mere statistical association.
               2.Comprehensive construct coverage: Rather than focusing on single factors, the model
-              integrates multiple dimensions - affective, social, cognitive, and contextual - providing
-              a more holistic view of PC utilization determinants. This comprehensiveness
+              integrates multiple dimensions - affective, social, cognitive, and contextual -
+              providing a more holistic view of PC utilization determinants. This comprehensiveness
               acknowledged that technology adoption is multifaceted. 3.Actual behavior measurement:
               Unlike many technology acceptance models that measure intentions or beliefs,
               Thompson’s model directly measures utilization behavior. This operationalization
@@ -366,8 +366,8 @@ const BibliographyArticlePage = () => {
               The negative relationship between complexity and long-term consequences suggests that
               perceptions of difficulty undermine beliefs about future benefits. 2.Poor
               Task-Technology Fit: Job fit emerged as perhaps the most important barrier, with a
-              strong positive path to utilization (.26, p &lt; .01). The inverse - poor job
-              fit - represents a significant barrier.
+              strong positive path to utilization (.26, p &lt; .01). The inverse - poor job fit -
+              represents a significant barrier.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               When users perceive that PCs do not align with their actual job tasks or requirements,
@@ -404,13 +404,12 @@ const BibliographyArticlePage = () => {
               which software or hardware upgrades can be purchased or the extent to which home
               computers are an advantage in the job package.” 6.Negative Perceptions of
               Consequences: Long-term consequences showed a significant effect on utilization (.10,
-              p &lt; .01). When employees perceive that PC use will not lead to tangible
-              benefits - improved job performance, career advancement, productivity gains, or
-              professional development - they have little incentive to invest effort in learning and
-              using systems. The barrier manifests as skepticism about ROI, doubts about
-              productivity improvements, and uncertainty about career relevance. 7.Organizational
-              and Job Context Misalignment: Beyond job fit, broader organizational factors create
-              barriers.
+              p &lt; .01). When employees perceive that PC use will not lead to tangible benefits -
+              improved job performance, career advancement, productivity gains, or professional
+              development - they have little incentive to invest effort in learning and using
+              systems. The barrier manifests as skepticism about ROI, doubts about productivity
+              improvements, and uncertainty about career relevance. 7.Organizational and Job Context
+              Misalignment: Beyond job fit, broader organizational factors create barriers.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               The authors discuss how “certain factors that have a significant influence on EUC

@@ -56,16 +56,15 @@ const BibliographyArticlePage = () => {
             <p className={PARAGRAPH_CLASSES}>
               Taylor and Todd developed their competing models framework to address fundamental
               ambiguities and theoretical gaps in information technology adoption research. By the
-              mid-1990s, multiple theoretical frameworks had been proposed to explain IT
-              adoption - Davis’s Technology Acceptance Model (TAM), the Theory of Planned Behavior
-              (TPB), Thompson et al.’s expected consequences model, and others. However, no
-              comprehensive empirical comparison existed to determine which framework provided
-              superior explanatory power or how different theoretical approaches related to one
-              another. The authors note in their introduction that “different theoretical models
-              have been applied to predict IT usage” but “little research has compared alternative
-              models.” This research gap meant that IS researchers and practitioners lacked clear
-              guidance about which theories offered the most robust understanding of technology
-              adoption.
+              mid-1990s, multiple theoretical frameworks had been proposed to explain IT adoption -
+              Davis’s Technology Acceptance Model (TAM), the Theory of Planned Behavior (TPB),
+              Thompson et al.’s expected consequences model, and others. However, no comprehensive
+              empirical comparison existed to determine which framework provided superior
+              explanatory power or how different theoretical approaches related to one another. The
+              authors note in their introduction that “different theoretical models have been
+              applied to predict IT usage” but “little research has compared alternative models.”
+              This research gap meant that IS researchers and practitioners lacked clear guidance
+              about which theories offered the most robust understanding of technology adoption.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Organizations also lacked a coherent framework for understanding which factors truly

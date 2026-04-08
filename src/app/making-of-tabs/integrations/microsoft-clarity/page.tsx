@@ -337,7 +337,8 @@ const MicrosoftClarityIntegrationPage = () => {
                 className="text-blue-600 underline hover:text-blue-800"
               >
                 Google Analytics Integration
-              </Link>{' '} - quantitative impact measurement and the Verified Visitors methodology
+              </Link>{' '}
+              - quantitative impact measurement and the Verified Visitors methodology
             </li>
             <li>
               <Link
@@ -345,7 +346,8 @@ const MicrosoftClarityIntegrationPage = () => {
                 className="text-blue-600 underline hover:text-blue-800"
               >
                 Cloudflare Integration
-              </Link>{' '} - CDN, DNS, and security layer
+              </Link>{' '}
+              - CDN, DNS, and security layer
             </li>
             <li>
               <Link

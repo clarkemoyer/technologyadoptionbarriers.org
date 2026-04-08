@@ -66,8 +66,8 @@ export default function Page() {
           <p className="mb-4">
             Tornatzky and Fleischer&apos;s (1990) TOE framework is correctly described. The site
             accurately breaks down the three contexts - Technological, Organizational, and
-            Environmental - that influence the process by which an organization adopts and implements
-            technological innovations.
+            Environmental - that influence the process by which an organization adopts and
+            implements technological innovations.
           </p>
           <h2 className={H2_CLASSES}>Resource-Based View (RBV) & VRIO</h2>
           <p className="mb-4">

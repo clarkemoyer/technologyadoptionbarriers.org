@@ -308,8 +308,8 @@ const BibliographyArticlePage = () => {
               distinguishes between alternative explanations for status quo bias. Rather than
               attributing all status quo persistence to irrational psychology, the analysis
               considers whether rational economic factors (transition costs, uncertainty) might
-              account for observed patterns. This intellectual honesty - recognizing that some status
-              quo persistence reflects rational decision-making - strengthens the theoretical
+              account for observed patterns. This intellectual honesty - recognizing that some
+              status quo persistence reflects rational decision-making - strengthens the theoretical
               framework by identifying when bias operates and when persistence reflects optimal
               behavior.
             </p>
@@ -436,9 +436,9 @@ const BibliographyArticlePage = () => {
               emphasizing disadvantages of new options. Current technology benefits are known and
               confirmed through experience; alternative technology benefits are uncertain and
               hypothetical. This asymmetry creates bias favoring status quo. Second, sunk cost
-              commitment contributes - individuals who have invested time learning current technology,
-              invested money in equipment and complementary systems, or developed expertise around
-              existing technology are reluctant to abandon these investments.
+              commitment contributes - individuals who have invested time learning current
+              technology, invested money in equipment and complementary systems, or developed
+              expertise around existing technology are reluctant to abandon these investments.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Third, psychological commitment creates attachment to familiar alternatives, making
@@ -460,14 +460,14 @@ const BibliographyArticlePage = () => {
               proven technologies rather than gamble on uncertain alternatives. This barrier
               reflects rational decision-making in the face of uncertainty, not merely psychological
               bias. However, the research suggests that uncertainty often exceeds objective risk
-              levels due to psychological amplification - individuals overestimate risks of unfamiliar
-              alternatives while underestimating risks of familiar options. Loss aversion and
-              reference-dependent preferences create barriers to technology change. Individuals
+              levels due to psychological amplification - individuals overestimate risks of
+              unfamiliar alternatives while underestimating risks of familiar options. Loss aversion
+              and reference-dependent preferences create barriers to technology change. Individuals
               weigh potential losses from switching technology (loss of familiar capabilities,
               disruption to established workflows, risk of worse performance) more heavily than
               potential gains from adopting superior technology. This asymmetry - where losses loom
-              larger than comparable gains - creates systematic bias against technological change even
-              when objective analysis suggests gains exceed losses. Cognitive limitations and
+              larger than comparable gains - creates systematic bias against technological change
+              even when objective analysis suggests gains exceed losses. Cognitive limitations and
               analysis costs inhibit thorough evaluation of alternatives.
             </p>
             <p className={PARAGRAPH_CLASSES}>
@@ -502,18 +502,18 @@ const BibliographyArticlePage = () => {
             </h3>
             <p className={PARAGRAPH_CLASSES}>
               The status quo bias framework suggests multiple strategies that leaders - including
-              technology developers, organizational managers, marketers, and policymakers - can employ
-              to reduce adoption barriers and promote technology change: To overcome status quo
-              inertia, leaders should create decision contexts where individuals actively choose
+              technology developers, organizational managers, marketers, and policymakers - can
+              employ to reduce adoption barriers and promote technology change: To overcome status
+              quo inertia, leaders should create decision contexts where individuals actively choose
               technology rather than allowing defaults to persist. Decision moments that force
-              active selection - removing the option to maintain status quo without conscious
-              choice - can interrupt psychological inertia. For organizational technology adoption,
-              this might involve eliminating legacy systems, creating decision deadlines, or
-              requiring active reselection during system transitions. For consumer technology,
-              forcing active selection during renewal or replacement moments can break status quo
-              inertia by requiring individuals to consciously choose alternatives rather than
-              drifting with existing technology. To address transition costs as adoption barriers,
-              leaders should actively work to reduce switching costs and facilitate transitions.
+              active selection - removing the option to maintain status quo without conscious choice
+              - can interrupt psychological inertia. For organizational technology adoption, this
+              might involve eliminating legacy systems, creating decision deadlines, or requiring
+              active reselection during system transitions. For consumer technology, forcing active
+              selection during renewal or replacement moments can break status quo inertia by
+              requiring individuals to consciously choose alternatives rather than drifting with
+              existing technology. To address transition costs as adoption barriers, leaders should
+              actively work to reduce switching costs and facilitate transitions.
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>

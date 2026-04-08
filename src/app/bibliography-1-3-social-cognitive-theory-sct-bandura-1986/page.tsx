@@ -75,8 +75,8 @@ const BibliographyArticlePage = () => {
               computers and new information systems began widespread organizational deployment in
               the 1980s, researchers and practitioners struggled to explain the variance in adoption
               rates among similar users. Bandura’s SCT provided a theoretical lens for understanding
-              these differences through the concept of self-efficacy - an individual’s belief in their
-              capability to execute the behaviors necessary to produce specific outcomes.
+              these differences through the concept of self-efficacy - an individual’s belief in
+              their capability to execute the behaviors necessary to produce specific outcomes.
             </p>
           </section>
           <section className="mb-6">
@@ -460,12 +460,12 @@ const BibliographyArticlePage = () => {
               </li>
               <li>
                 <strong>Integration of personal agency:</strong> Unlike deterministic models viewing
-                humans as products of circumstances, SCT emphasized “agentic
-                perspective” - individuals actively shape their circumstances, set goals, regulate
-                behavior, and create their own development pathways. For technology adoption, this
-                agentic perspective recognizes that individuals are not passive recipients of
-                technology but active agents who choose whether and how to engage with technology
-                based on their beliefs and circumstances
+                humans as products of circumstances, SCT emphasized “agentic perspective” -
+                individuals actively shape their circumstances, set goals, regulate behavior, and
+                create their own development pathways. For technology adoption, this agentic
+                perspective recognizes that individuals are not passive recipients of technology but
+                active agents who choose whether and how to engage with technology based on their
+                beliefs and circumstances
               </li>
               <li>
                 <strong>Specification of change mechanisms:</strong> While earlier theories often
@@ -476,8 +476,8 @@ const BibliographyArticlePage = () => {
               </li>
               <li>
                 <strong>Temporal dynamics:</strong> SCT provided greater attention to temporal
-                dynamics of behavior change - how initial self-efficacy enables initial attempts, how
-                success experiences build efficacy for future challenges, and how this cycle of
+                dynamics of behavior change - how initial self-efficacy enables initial attempts,
+                how success experiences build efficacy for future challenges, and how this cycle of
                 effort-success-efficacy-greater-effort creates sustained behavior change. Earlier
                 models provided less guidance on these temporal processes
               </li>
@@ -502,8 +502,8 @@ const BibliographyArticlePage = () => {
                 (high self-efficacy), low outcome expectations create barriers. If individuals
                 believe that adopting a technology won’t produce valued outcomes - whether in terms
                 of work efficiency, career advancement, social acceptance, or other valued
-                consequences - they may rationally choose non-adoption despite being capable of using
-                the technology
+                consequences - they may rationally choose non-adoption despite being capable of
+                using the technology
               </li>
               <li>
                 <strong>Insufficient mastery experiences:</strong> Lack of structured opportunities
@@ -534,11 +534,11 @@ const BibliographyArticlePage = () => {
               </li>
               <li>
                 <strong>Environmental barriers beyond individual control:</strong> SCT acknowledges
-                that adoption can be blocked by circumstances beyond individual
-                psychology - inadequate training resources, insufficient time allocated for learning,
-                lack of access to technology, incompatibility with existing systems, or
-                organizational policies discouraging adoption. These environmental barriers operate
-                independently from self-efficacy
+                that adoption can be blocked by circumstances beyond individual psychology -
+                inadequate training resources, insufficient time allocated for learning, lack of
+                access to technology, incompatibility with existing systems, or organizational
+                policies discouraging adoption. These environmental barriers operate independently
+                from self-efficacy
               </li>
               <li>
                 <strong>Misalignment between personal and organizational goals:</strong> When
@@ -578,8 +578,8 @@ const BibliographyArticlePage = () => {
                 credible sources. This involves investing in quality training from competent
                 instructors, pairing struggling employees with mentors, providing constructive
                 feedback that emphasizes capability development, and ensuring leaders visibly
-                support and encourage technology adoption. The credibility of the persuader
-                matters - encouragement from respected leaders proves more efficacious than generic
+                support and encourage technology adoption. The credibility of the persuader matters
+                - encouragement from respected leaders proves more efficacious than generic
                 exhortation
               </li>
               <li>

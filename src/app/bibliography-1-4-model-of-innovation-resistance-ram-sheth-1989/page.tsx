@@ -72,15 +72,15 @@ const BibliographyArticlePage = () => {
               sometimes failed in markets while technically inferior solutions succeeded. The
               Betamax videocassette recorder, for example, offered better technical quality than VHS
               but failed to achieve market adoption. Innovation researchers recognized that
-              understanding resistance was as important as understanding acceptance - that resistance
-              often reflected legitimate concerns rather than irrational conservatism. Ram grounded
-              his work in consumer behavior and adoption research, hypothesizing that individuals
-              evaluate innovations through multiple lenses: functional risk (will the innovation
-              perform promised functions?), social risk (what will others think of my adoption?),
-              psychological risk (does adoption conflict with my self-image?), and economic risk (is
-              the cost justified?). Rather than treating resistance as a barrier to overcome, Ram
-              posited that resistance reflected meaningful concerns that should be understood and
-              addressed.
+              understanding resistance was as important as understanding acceptance - that
+              resistance often reflected legitimate concerns rather than irrational conservatism.
+              Ram grounded his work in consumer behavior and adoption research, hypothesizing that
+              individuals evaluate innovations through multiple lenses: functional risk (will the
+              innovation perform promised functions?), social risk (what will others think of my
+              adoption?), psychological risk (does adoption conflict with my self-image?), and
+              economic risk (is the cost justified?). Rather than treating resistance as a barrier
+              to overcome, Ram posited that resistance reflected meaningful concerns that should be
+              understood and addressed.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               The model was specifically motivated by several observations: First, many innovations
@@ -308,8 +308,8 @@ const BibliographyArticlePage = () => {
               Resources to Highest-Impact Mitigation: Organizations should prioritize addressing the
               strongest resistance factor rather than attempting to address all factors equally.
               3.Sequence Mitigation Efforts: Ram suggests that functional risk often requires
-              addressing first - if potential adopters doubt functionality, other risk dimensions may
-              be moot. Only after functional viability is established does economic risk become
+              addressing first - if potential adopters doubt functionality, other risk dimensions
+              may be moot. Only after functional viability is established does economic risk become
               salient. 4.Segment Risk Profiles: Different adopter segments may have different
               resistance profiles. Younger consumers might be less concerned about social risk;
               lower-income consumers particularly sensitive to economic risk. Targeted mitigation

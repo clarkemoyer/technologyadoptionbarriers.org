@@ -277,13 +277,13 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
             <p className={PARAGRAPH_CLASSES}>
               Despite its strengths, the Diffusion of Innovations model has notable limitations:
-              Pro-innovation bias: Rogers acknowledged that the model exhibits pro- innovation
-              bias - the assumption that innovations are inherently desirable and should be diffused
-              as widely and rapidly as possible. However, this bias limits applicability to
-              situations where diffusion is genuinely beneficial. Some innovations may be
-              undesirable for certain populations or in certain contexts, yet the framework treats
-              resistance as a problem to overcome rather than exploring whether rejection might
-              sometimes be rational.
+              Pro-innovation bias: Rogers acknowledged that the model exhibits pro- innovation bias
+              - the assumption that innovations are inherently desirable and should be diffused as
+              widely and rapidly as possible. However, this bias limits applicability to situations
+              where diffusion is genuinely beneficial. Some innovations may be undesirable for
+              certain populations or in certain contexts, yet the framework treats resistance as a
+              problem to overcome rather than exploring whether rejection might sometimes be
+              rational.
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>
@@ -390,9 +390,9 @@ const BibliographyArticlePage = () => {
               </li>
               <li>
                 <strong>Recognition of heterogeneity:</strong> Earlier diffusion accounts sometimes
-                implied that all individuals would eventually adopt beneficial innovations - a linear
-                progress view. Rogers emphasized that adoption rates vary substantially across
-                populations, some individuals (laggards) may never adopt even successful
+                implied that all individuals would eventually adopt beneficial innovations - a
+                linear progress view. Rogers emphasized that adoption rates vary substantially
+                across populations, some individuals (laggards) may never adopt even successful
                 innovations, and heterogeneity in adoption timelines was normal and expected, not
                 anomalous
               </li>

@@ -37,7 +37,8 @@ const AccessibilityPage = () => {
           <p className="mb-6">
             A research project about technology adoption barriers has a particular obligation to be
             accessible to everyone. If someone cannot use our website because of a disability, we
-            have failed at the most basic level. Accessibility is not a feature we add at the end - it is tested automatically in every pull request and enforced in code review.
+            have failed at the most basic level. Accessibility is not a feature we add at the end -
+            it is tested automatically in every pull request and enforced in code review.
           </p>
         </section>
 

@@ -147,7 +147,8 @@ export default async function LifecyclePositioningPage() {
                 </Link>
                 {LIFECYCLE_SLIDE_DESCRIPTIONS[slide.number] ? (
                   <span className="text-gray-600">
-                    {' '} - {LIFECYCLE_SLIDE_DESCRIPTIONS[slide.number]}
+                    {' '}
+                    - {LIFECYCLE_SLIDE_DESCRIPTIONS[slide.number]}
                   </span>
                 ) : null}
               </li>
