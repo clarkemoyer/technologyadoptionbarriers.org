@@ -205,9 +205,11 @@ jobs:
         continue-on-error: true
         run: |
           # Guard: skip if filtered CSV has no data rows (only headers)
-          DATA_ROWS=$(tail -n +4 "${{ runner.temp }}/qualtrics-enriched-crp-sample.csv" | wc -l)
+          DATA_ROWS=$(tail -n +4 "${{ runner.temp }}/qualtrics-enriched-crp-sample.csv" | awk 'END { print NR }')
           if [ "$DATA_ROWS" -eq 0 ]; then
-            echo "CRP analysis skipped: filtered sample has 0 data rows (no JSON produced)"
+            echo "CRP analysis skipped: filtered sample has 0 data rows"
+            echo '{"status":"skipped","reason":"No APPROVED CRP rows available for analysis","row_count":0}' \
+              > "${{ runner.temp }}/crp-sensitivity-analysis.json"
             exit 0
           fi
           python scripts/analysis/tabs_v2_analysis.py \
