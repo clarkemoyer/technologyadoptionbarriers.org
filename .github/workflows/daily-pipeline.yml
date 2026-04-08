@@ -207,9 +207,7 @@ jobs:
           # Guard: skip if filtered CSV has no data rows (only headers)
           DATA_ROWS=$(tail -n +4 "${{ runner.temp }}/qualtrics-enriched-crp-sample.csv" | awk 'END { print NR }')
           if [ "$DATA_ROWS" -eq 0 ]; then
-            echo "CRP analysis skipped: filtered sample has 0 data rows"
-            echo '{"status":"skipped","reason":"No APPROVED CRP rows available for analysis","row_count":0}' \
-              > "${{ runner.temp }}/crp-sensitivity-analysis.json"
+            echo "CRP analysis skipped: filtered sample has 0 data rows (no JSON written)"
             exit 0
           fi
           python scripts/analysis/tabs_v2_analysis.py \
@@ -346,7 +344,8 @@ jobs:
           retention-days: 7
           if-no-files-found: warn
 
-      # CRP analysis snapshot (optional — only when full chain succeeds)
+      # CRP analysis snapshot — only uploaded when the full CRP chain succeeds
+      # AND the analysis actually produced JSON (empty-sample guard skips without writing)
       # CRP analysis snapshot — only uploaded when the JSON was actually produced
       # (skipped silently when the empty-sample guard exits 0 without writing JSON)
       - uses: actions/upload-artifact@v7
