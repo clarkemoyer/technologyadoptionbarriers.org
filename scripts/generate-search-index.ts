@@ -35,28 +35,42 @@ async function findPageRoutes(_dir: string): Promise<SearchItem[]> {
 
   // Hard-coded main pages to index
   const mainPages = [
-    { path: '', title: 'Home', description: 'Technology Adoption Barriers Survey' },
+    {
+      path: '',
+      title: 'Home',
+      description: 'Technology Adoption Barriers Survey',
+      category: 'Home',
+    },
     {
       path: 'barriers',
       title: 'Barriers',
       description: 'Technology adoption barriers and documentation',
+      category: 'Documentation',
     },
     {
       path: 'survey-complete',
       title: 'Survey Complete',
       description: 'Survey completion confirmation',
+      category: 'Survey',
     },
     {
       path: 'for-organizations',
       title: 'For Organizations',
       description: 'Resources for organizational leaders',
+      category: 'Resources',
     },
     {
       path: 'technology-adoption-models',
       title: 'Technology Adoption Models',
       description: 'Academic frameworks and models',
+      category: 'Academic',
     },
-    { path: 'media', title: 'Media & Press Kit', description: 'Press kit and media resources' },
+    {
+      path: 'media',
+      title: 'Media & Press Kit',
+      description: 'Press kit and media resources',
+      category: 'Media',
+    },
   ]
 
   let id = 1
@@ -73,18 +87,19 @@ async function findPageRoutes(_dir: string): Promise<SearchItem[]> {
       title: page.title,
       description: page.description,
       content: truncateContent(content),
+      category: page.category,
     })
   }
 
-  // FAQ entries
   // FAQ entries — use the typed data directly instead of regex-parsing the source file
   for (const faq of faqs) {
+    const faqContent = `${faq.question} ${faq.answer}`
     items.push({
       id: `faq-${id++}`,
       url: '/barriers#faqs',
       title: faq.question,
       description: 'Frequently asked question',
-      content: truncateContent(faq.question),
+      content: truncateContent(faqContent),
       category: 'FAQ',
     })
   }

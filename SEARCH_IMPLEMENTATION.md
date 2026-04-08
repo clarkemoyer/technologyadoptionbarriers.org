@@ -99,20 +99,21 @@ const results = search(index, 'technology adoption', 10)
 
 ### GitHub Pages Compatibility
 
-- Search index loaded via fetch (respects basePath)
-- All URLs include basePath automatically
+- Search index loaded via fetch with `basePath` prefix (respects `NEXT_PUBLIC_BASE_PATH`)
+- Document URLs in the index are stored **without** the basePath prefix — Next.js applies `basePath` automatically during `router.push()` navigation
 - Works on both custom domain and GitHub Pages deployment
 
 ## GitHub Pages Basepath Handling
 
-The component automatically handles the `NEXT_PUBLIC_BASE_PATH` environment variable:
+The component automatically handles the `NEXT_PUBLIC_BASE_PATH` environment variable for loading the search index. Document URLs in the index remain relative to the app root so that Next.js applies `basePath` during navigation:
 
 ```tsx
-// In search.ts
+// In search.ts — fetch uses basePath for the JSON file
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const response = await fetch(`${basePath}/search-index.json`)
 
-// URLs are already prefixed in the index
+// In search-input.tsx — router.push lets Next.js apply basePath to document URLs
+router.push(result.document.url) // e.g. '/barriers' → Next resolves to '/<repo>/barriers' on Pages
 ```
 
 ## Build Integration

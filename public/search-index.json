@@ -4,7 +4,7 @@
     "url": "/",
     "title": "Home",
     "description": "Technology Adoption Barriers Survey",
-    "content": "Technology Adoption Barriers Survey. Welcome to TABS - Technology Adoption Barriers Survey.",
+    "content": "Technology Adoption Barriers Survey. Technology Adoption Barriers Survey",
     "category": "Home"
   },
   {
@@ -12,7 +12,7 @@
     "url": "/barriers",
     "title": "Barriers",
     "description": "Technology adoption barriers and documentation",
-    "content": "Technology adoption barriers. This page documents key barriers that organizations encounter when implementing new technologies.",
+    "content": "Technology Adoption Barriers Survey. Technology adoption barriers and documentation",
     "category": "Documentation"
   },
   {
@@ -20,7 +20,7 @@
     "url": "/survey-complete",
     "title": "Survey Complete",
     "description": "Survey completion confirmation",
-    "content": "Thank you for completing the Technology Adoption Barriers Survey. Your responses help us understand adoption challenges.",
+    "content": "Technology Adoption Barriers Survey. Survey completion confirmation",
     "category": "Survey"
   },
   {
@@ -28,7 +28,7 @@
     "url": "/for-organizations",
     "title": "For Organizations",
     "description": "Resources for organizational leaders",
-    "content": "Resources for organizational leaders. Explore strategies for addressing technology adoption barriers in your organization.",
+    "content": "Technology Adoption Barriers Survey. Resources for organizational leaders",
     "category": "Resources"
   },
   {
@@ -36,7 +36,7 @@
     "url": "/technology-adoption-models",
     "title": "Technology Adoption Models",
     "description": "Academic frameworks and models",
-    "content": "Technology adoption models and frameworks. Learn about academic theories and models used to understand adoption patterns.",
+    "content": "Technology Adoption Barriers Survey. Academic frameworks and models",
     "category": "Academic"
   },
   {
@@ -44,31 +44,39 @@
     "url": "/media",
     "title": "Media & Press Kit",
     "description": "Press kit and media resources",
-    "content": "Media resources and press kit for Technology Adoption Barriers Survey research.",
+    "content": "Technology Adoption Barriers Survey. Press kit and media resources",
     "category": "Media"
   },
   {
-    "id": "faq-1",
+    "id": "faq-7",
     "url": "/barriers#faqs",
-    "title": "What are the main barriers to technology adoption?",
+    "title": "What is the Technology Adoption Barriers Survey (TABS)?",
     "description": "Frequently asked question",
-    "content": "Main barriers include organizational resistance to change, lack of training and support, budget constraints, and integration challenges.",
+    "content": "What is the Technology Adoption Barriers Survey (TABS)? TABS is a research initiative that collects insights from organizational leaders to help identify and overcome obstacles to technology adoption. The survey helps organizations analyze their own challenges and benchmark against industry trends, with findings shared annually to benefit the broader community.",
     "category": "FAQ"
   },
   {
-    "id": "faq-2",
+    "id": "faq-8",
     "url": "/barriers#faqs",
-    "title": "How long does technology adoption typically take?",
+    "title": "Why do technology adoption barriers matter?",
     "description": "Frequently asked question",
-    "content": "Timeline varies based on technology complexity and organizational readiness. Typically ranges from 3 months to 2 years.",
+    "content": "Why do technology adoption barriers matter? Technology adoption barriers negatively affect organizational competitiveness and performance. Understanding and addressing these barriers helps organizations make better technology decisions, improve implementation success rates, and achieve better return on investment from technology initiatives. Barriers prevent organizations from leveraging innovations that could significantly improve their operations and outcomes.",
     "category": "FAQ"
   },
   {
-    "id": "faq-3",
+    "id": "faq-9",
     "url": "/barriers#faqs",
-    "title": "What strategies help overcome adoption barriers?",
+    "title": "What are the most common technology adoption barriers?",
     "description": "Frequently asked question",
-    "content": "Effective strategies include executive sponsorship, change management programs, user training, clear communication, and addressing specific barriers.",
+    "content": "What are the most common technology adoption barriers? The most common barriers include: Cost (financial constraints for hardware, software, and training), Lack of Awareness (insufficient understanding of available technologies), Fear of Change (resistance to altering established routines), Complexity (technology perceived as difficult to learn), Compatibility Issues (integration challenges with existing systems), Infrastructure Limitations (inadequate supporting infrastructure), Skill Gaps (inability to keep pace with rapid technological change), and Security Concerns (risks and compliance challenges).",
+    "category": "FAQ"
+  },
+  {
+    "id": "faq-10",
+    "url": "/barriers#faqs",
+    "title": "How can I participate in TABS research?",
+    "description": "Frequently asked question",
+    "content": "How can I participate in TABS research? You can get involved with TABS in several ways: participate in the annual survey to share your organization's experiences, contribute financially to support continued research, volunteer your expertise to help with research and analysis, or become a sponsor to enable broader research initiatives. All contributions help advance understanding of technology adoption challenges and solutions. Note: TABS is not a 501(c)(3) organization, so contributions are not tax-deductible as charitable donations.",
     "category": "FAQ"
   }
 ]

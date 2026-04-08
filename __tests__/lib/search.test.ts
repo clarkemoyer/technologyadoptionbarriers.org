@@ -124,6 +124,35 @@ describe('Search Library', () => {
       const highlighted = highlightTerms('', 'technology')
       expect(highlighted).toBe('')
     })
+
+    it('HTML-escapes special characters to prevent XSS', () => {
+      const text = '<script>alert("xss")</script>'
+      const highlighted = highlightTerms(text, 'script')
+      // Raw angle brackets must not appear in output
+      expect(highlighted).not.toContain('<script>')
+      expect(highlighted).not.toContain('</script>')
+      // Entities must be present
+      expect(highlighted).toContain('&lt;')
+      expect(highlighted).toContain('&gt;')
+    })
+
+    it('HTML-escapes ampersands before other entities to avoid double-escaping', () => {
+      const text = 'A&B and <tag>'
+      const highlighted = highlightTerms(text, 'xyz')
+      expect(highlighted).toContain('&amp;')
+      expect(highlighted).toContain('&lt;')
+      expect(highlighted).not.toContain('&&')
+    })
+
+    it('still highlights terms in text containing HTML characters', () => {
+      const text = 'Tech & adoption <best> practices'
+      const highlighted = highlightTerms(text, 'adoption')
+      expect(highlighted).toContain('<mark>')
+      expect(highlighted).toContain('</mark>')
+      // Angle brackets from original text must be escaped
+      expect(highlighted).toContain('&lt;')
+      expect(highlighted).toContain('&gt;')
+    })
   })
 
   describe('Edge cases', () => {

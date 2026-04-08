@@ -32,7 +32,10 @@ test.describe('Full-site search', () => {
     await searchInput.click()
     await searchInput.fill('technology')
 
-    // Results should appear
+    // Results should appear once the debounced search has populated options
+    const firstResult = page.locator('[role="option"]').first()
+    await expect(firstResult).toBeVisible()
+
     const resultsContainer = page.locator('[role="listbox"]')
     await expect(resultsContainer).toBeVisible()
   })
@@ -40,7 +43,9 @@ test.describe('Full-site search', () => {
   test('shows "no results" message for non-matching query', async ({ page }) => {
     const searchInput = await openHeaderSearch(page)
     await searchInput.click()
-    await searchInput.fill('%%%%')
+    // Use a string with no common English word substrings so it cannot match via the
+    // token.includes(t) substring check in the search algorithm.
+    await searchInput.fill('kvjwxfbqps')
 
     // Should show no results message
     await expect(page.locator('text=No results found')).toBeVisible()

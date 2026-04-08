@@ -92,6 +92,10 @@ export default function SearchInput() {
         e.preventDefault()
         if (selectedIndex >= 0 && results[selectedIndex]) {
           router.push(results[selectedIndex].document.url)
+          setIsOpen(false)
+          setQuery('')
+          setResults([])
+          setSelectedIndex(-1)
         }
         break
       case 'Escape':
@@ -189,6 +193,10 @@ export default function SearchInput() {
                   }`}
                   onClick={() => {
                     router.push(result.document.url)
+                    setIsOpen(false)
+                    setQuery('')
+                    setResults([])
+                    setSelectedIndex(-1)
                   }}
                   onMouseEnter={() => setSelectedIndex(index)}
                 >
