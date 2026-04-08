@@ -802,9 +802,9 @@ def replace_response_ids(
 ) -> tuple[list[dict[str, str]], list[tuple[str, str]]]:
     """Replace ResponseId with a SHA-256 pseudonym. Returns (rows, mapping).
 
-    Uses the first 32 hex characters (128 bits) of the SHA-256 digest.
-    Raises ValueError immediately if a truncation collision is detected so
-    that callers cannot silently merge two distinct respondents.
+    Uses the first 32 hex characters (128 bits of the 256-bit digest) as the
+    pseudonym.  Raises ValueError immediately if a truncation collision is
+    detected so that callers cannot silently merge two distinct respondents.
     """
     digest_prefix_len = 32
     mapping = []
@@ -1157,6 +1157,10 @@ def main() -> int:
             print("  Review pii_review_report_CONFIDENTIAL.txt, then re-run with --skip-review.")
     print("=" * 78)
 
+    # Map deidentify_selected result to main() exit codes:
+    #   0 → 0  success
+    #   2 → 2  verification failure (distinct from input errors, also 2)
+    #   1 → 1  PII review required or dry-run
     return result if result in (0, 2) else 1
 
 
