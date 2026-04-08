@@ -353,13 +353,13 @@ def count_disposition(data: list[list[str]], idx: dict[str, int]) -> dict[str, i
         status = get_prolific_status(row, idx)
         if not pid or not status:
             continue
-        # Apply the same V2 cohort gate as filter_v2_and_dedup so counts['v2']
-        # reflects "in V2" rather than merely "has pid/status".
+        # Apply the same V2 cohort gate as filter_v2_and_dedup:
+        # count as "v2" only if StartDate >= V2_START or ResponseId == PROLIFIC_TEST_ID.
         start_date = get_val(row, idx, "StartDate")
         response_id = get_val(row, idx, "ResponseId")
         if start_date < V2_START and response_id != PROLIFIC_TEST_ID:
             continue
-        counts["v2"] += 1
+        counts["v2"] += 1  # = "confirmed V2 cohort member"
         if pid in seen_pids:
             continue
         seen_pids.add(pid)
@@ -449,7 +449,8 @@ def filter_v2_and_dedup(
         else:
             existing_finished = get_finished(existing, idx)
             new_finished = get_finished(row, idx)
-            # Take new row if it is finished OR the existing one wasn't
+            # Take new row if it is finished OR the existing one wasn't;
+            # when both have the same finish state, the new (later) row wins.
             if new_finished or not existing_finished:
                 by_pid[pid] = row
             # else: existing is finished but new isn't — keep existing
