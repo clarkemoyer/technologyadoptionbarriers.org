@@ -539,6 +539,28 @@ def generate_manifest(profiles: list[dict], target_n: int) -> str:
 # ─────────────────────────────────────────────────────────────
 
 
+def _make_preview(val: str, pattern: re.Pattern, pattern_type: str, max_len: int = 64) -> str:
+    """Return a redacted snippet showing context around the first pattern match.
+
+    The matched span is replaced with [REDACTED_<TYPE>] so the preview never
+    contains the raw PII value.  Up to 20 chars of surrounding context are
+    shown on each side to help distinguish false positives.
+    """
+    m = pattern.search(val)
+    if not m:
+        return ""
+    start, end = m.start(), m.end()
+    ctx = 20
+    s = max(0, start - ctx)
+    e = min(len(val), end + ctx)
+    prefix = ("…" if s > 0 else "") + val[s:start]
+    suffix = val[end:e] + ("…" if e < len(val) else "")
+    preview = f"{prefix}[REDACTED_{pattern_type.upper()}]{suffix}"
+    if len(preview) > max_len:
+        preview = preview[:max_len] + "…"
+    return preview
+
+
 # PII regex patterns (NIST SP 800-188 categories)
 PII_PATTERNS: list[tuple[str, re.Pattern]] = [
     ("email", re.compile(
@@ -577,6 +599,7 @@ def scan_pii(
         response_id  — ResponseId for locating the response
         column       — column name
         pattern_type — PII pattern category
+        preview      — redacted context snippet (PII replaced, not shown)
     """
     flags = []
     for i, row in enumerate(rows):
@@ -592,6 +615,7 @@ def scan_pii(
                         "response_id": row.get("ResponseId", ""),
                         "column": col,
                         "pattern_type": pattern_type,
+                        "preview": _make_preview(val, pattern, pattern_type),
                     })
     return flags
 
@@ -600,7 +624,12 @@ def write_pii_report(
     path: Path,
     flags: list[dict],
 ) -> None:
-    """Write a PII review report to disk (flags only, no raw values)."""
+    """Write a PII review report to disk (flags only, no raw values).
+
+    Each entry includes ResponseId (to locate the source response) and a
+    context preview where the matched span is replaced by [REDACTED_<TYPE>],
+    so reviewers can distinguish false positives without seeing raw PII.
+    """
     with open(path, "w", encoding="utf-8") as f:
         f.write("PII REVIEW REPORT — CRP DATASET (CONFIDENTIAL)\n")
         f.write("=" * 72 + "\n\n")
@@ -609,11 +638,17 @@ def write_pii_report(
         if not flags:
             f.write("No PII patterns detected.\n")
             return
-        f.write(f"{'Row':>6}  {'ResponseId':>20}  {'Column':>30}  {'Pattern':>20}\n")
-        f.write("-" * 80 + "\n")
+        f.write(f"{'Row':>6}  {'ResponseId':>20}  {'Column':>30}  {'Pattern':>15}\n")
+        f.write("-" * 78 + "\n")
         for flag in flags:
             rid = flag.get('response_id', '')
-            f.write(f"{flag['row_number']:>6}  {rid:>20}  {flag['column']:>30}  {flag['pattern_type']:>20}\n")
+            f.write(
+                f"{flag['row_number']:>6}  {rid:>20}  "
+                f"{flag['column']:>30}  {flag['pattern_type']:>15}\n"
+            )
+            preview = flag.get('preview', '')
+            if preview:
+                f.write(f"         Context: {preview}\n")
 
 
 def redact_pii(
