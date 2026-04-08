@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import type { KeyboardEvent } from 'react'
 import { search, loadSearchIndex, highlightTerms, SearchResult, SearchDocument } from '@/lib/search'
 
 export default function SearchInput() {
@@ -12,10 +13,21 @@ export default function SearchInput() {
   const [index, setIndex] = useState<SearchDocument[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const searchRequestIdRef = useRef(0)
 
   // Load search index on mount
   useEffect(() => {
     loadSearchIndex().then(setIndex)
+  }, [])
+
+  // Cleanup pending timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
   }, [])
 
   // Handle search
@@ -23,22 +35,37 @@ export default function SearchInput() {
     setQuery(q)
     setSelectedIndex(-1)
 
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      timeoutRef.current = null
+    }
+
     if (q.trim().length === 0) {
+      searchRequestIdRef.current += 1
       setResults([])
+      setIsLoading(false)
       return
     }
 
     setIsLoading(true)
-    // Use setTimeout to avoid blocking UI
-    setTimeout(() => {
+    const requestId = ++searchRequestIdRef.current
+
+    // Use setTimeout to debounce and avoid blocking UI
+    timeoutRef.current = setTimeout(() => {
       const searchResults = search(index, q)
+
+      if (requestId !== searchRequestIdRef.current) {
+        return
+      }
+
       setResults(searchResults)
       setIsLoading(false)
-    }, 0)
+      timeoutRef.current = null
+    }, 150)
   }
 
   // Handle keyboard navigation
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault()

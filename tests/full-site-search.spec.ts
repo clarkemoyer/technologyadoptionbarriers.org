@@ -7,8 +7,9 @@ test.describe('Full-site search', () => {
 
   test('search input is visible and accessible', async ({ page }) => {
     const searchInput = page.getByPlaceholder('Search site...')
+    const searchbox = page.getByRole('searchbox')
     await expect(searchInput).toBeVisible()
-    await expect(searchInput).toHaveAttribute('role', 'search')
+    await expect(searchbox).toBeVisible()
   })
 
   test('opens results dropdown when typing', async ({ page }) => {
@@ -72,9 +73,10 @@ test.describe('Full-site search', () => {
     const resultItem = page.locator('[role="option"]').first()
     await expect(resultItem).toBeVisible()
 
-    // Note: We can't fully test navigation without mocking, but we can verify
-    // the result is clickable
-    await expect(resultItem).toBeInViewport()
+    const initialUrl = page.url()
+    await resultItem.click()
+    await page.waitForURL((url) => url.toString() !== initialUrl)
+    await expect(page).not.toHaveURL(initialUrl)
   })
 
   test('closes search on outside click', async ({ page }) => {
