@@ -25,6 +25,12 @@ interface OtherRolesData {
   categories: Record<string, number>
 }
 
+interface RoleCategoryInfo {
+  label: string
+  description: string
+  examples: string
+}
+
 interface DemographicsData {
   roles?: Record<string, number>
   org_sizes?: Record<string, number>
@@ -54,6 +60,15 @@ const pct = (count: number, total: number | null | undefined): string =>
 const sampleLookup = new Map(sensitivityData.samples.map((s) => [s.key, s]))
 
 const SamplePage = () => {
+  // Role category metadata is sourced from the JSON when available so the UI stays
+  // in sync with the pipeline. If the JSON does not provide categories, leave the
+  // list empty so the table's empty-state row remains reachable.
+  const roleCategoriesFromData = (sensitivityData as Record<string, unknown>).role_categories as
+    | RoleCategoryInfo[]
+    | undefined
+  const roleCategories: RoleCategoryInfo[] = Array.isArray(roleCategoriesFromData)
+    ? roleCategoriesFromData
+    : []
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
@@ -638,77 +653,28 @@ const SamplePage = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">
-                    C-Suite Adjacent
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    Chief-level titles not in the standard 9 C-suite options
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                    CDO, CPO, CAO, CLO, CAIO, Chief Data Officer, Chief Privacy Officer
-                  </td>
-                </tr>
-                <tr className="bg-gray-50">
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">VP / SVP</td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    Vice President, Senior VP, or Executive VP titles
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                    Vice President, VP, SVP, EVP, AVP
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">Director</td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    Director-level titles across functions
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                    Director of &hellip;, Senior Director, Group Director
-                  </td>
-                </tr>
-                <tr className="bg-gray-50">
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">
-                    Manager / Program Lead
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    Management and team-lead roles
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                    Manager, Program Lead, Team Lead, Supervisor
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">
-                    Owner / Founder / President
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    Business ownership or presidency roles
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                    Owner, Founder, President, Partner, Principal
-                  </td>
-                </tr>
-                <tr className="bg-gray-50">
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">
-                    Technical Specialist
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    Individual contributor or specialist technical roles
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                    Engineer, Architect, Analyst, IT Administrator, Security
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">Uncategorized</td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    Responses that did not match any keyword pattern, or blank entries
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                    &mdash;
-                  </td>
-                </tr>
+                {roleCategories.length > 0 ? (
+                  roleCategories.map((cat, i) => (
+                    <tr key={cat.label} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                      <td className="border border-gray-300 px-4 py-2 font-semibold">
+                        {cat.label}
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">{cat.description}</td>
+                      <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
+                        {cat.examples || '\u2014'}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan={3}
+                      className="border border-gray-300 px-4 py-4 text-sm text-gray-600"
+                    >
+                      Role-category methodology details are not available in the current dataset.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
