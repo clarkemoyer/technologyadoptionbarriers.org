@@ -303,7 +303,9 @@ jobs:
           retention-days: 30
           if-no-files-found: warn
 
-      # CRP public dataset CSV (upload whenever CRP build succeeds)
+      # CRP public dataset CSV — gated only on CRP build success, intentionally
+      # decoupled from the filter+analysis chain. The public CSV is produced by
+      # create_crp_dataset.py and does not depend on the analysis snapshot.
       - uses: actions/upload-artifact@v7
         if: steps.crp.outcome == 'success'
         with:
