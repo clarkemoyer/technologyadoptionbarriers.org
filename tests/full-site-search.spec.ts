@@ -23,10 +23,13 @@ test.describe('Full-site search', () => {
   })
 
   test('shows "no results" message for non-matching query', async ({ page }) => {
+    // This string has no common English word substrings — the search's token.includes(t) check
+    // would match common tokens like 'is', 'on', 'term' if those appear as substrings of the query.
+    const NON_MATCHING_SEARCH_TERM = 'kvjwxfbqps'
+
     const searchInput = page.getByPlaceholder('Search site...')
     await searchInput.click()
-    // Use a string whose tokens are not substrings of any indexed content token
-    await searchInput.fill('kvjwxfbqps')
+    await searchInput.fill(NON_MATCHING_SEARCH_TERM)
 
     // Should show no results message
     await expect(page.locator('text=No results found')).toBeVisible()
@@ -112,7 +115,9 @@ test.describe('Full-site search', () => {
     const resultsUpper = await page.locator('[role="option"]').count()
 
     expect(resultsLower).toBeGreaterThan(0)
-    expect(resultsLower).toBe(resultsUpper)
+    expect(resultsLower, 'case-insensitive search should return same number of results').toBe(
+      resultsUpper
+    )
   })
 
   test('search input is accessible with keyboard', async ({ page }) => {

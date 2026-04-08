@@ -166,7 +166,9 @@ export async function loadSearchIndex(): Promise<SearchDocument[]> {
 }
 
 /**
- * Escape HTML special characters to prevent XSS
+ * Escape HTML special characters to prevent XSS.
+ * IMPORTANT: The ampersand (&) MUST be replaced first to avoid double-escaping
+ * other entities (e.g., &lt; becoming &amp;lt; if & were replaced second).
  */
 function escapeHtml(str: string): string {
   return str
