@@ -204,14 +204,22 @@ jobs:
         if: steps.crp.outputs.produced == 'true' && steps.crp_filter.outcome == 'success'
         continue-on-error: true
         run: |
+          set -euo pipefail
+          CSV_PATH="${{ runner.temp }}/qualtrics-enriched-crp-sample.csv"
+
+          if [ ! -f "$CSV_PATH" ]; then
+            echo "CRP analysis input CSV not found: $CSV_PATH" >&2
+            exit 1
+          fi
+
           # Guard: skip if filtered CSV has no data rows (only headers)
-          DATA_ROWS=$(tail -n +4 "${{ runner.temp }}/qualtrics-enriched-crp-sample.csv" | awk 'END { print NR }')
+          DATA_ROWS=$(tail -n +4 "$CSV_PATH" | awk 'END { print NR }')
           if [ "$DATA_ROWS" -eq 0 ]; then
             echo "CRP analysis skipped: filtered sample has 0 data rows (no JSON written)"
             exit 0
           fi
           python scripts/analysis/tabs_v2_analysis.py \
-            "${{ runner.temp }}/qualtrics-enriched-crp-sample.csv" \
+            "$CSV_PATH" \
             --json "${{ runner.temp }}/crp-sensitivity-analysis.json"
 
       - name: Stage CRP public CSV
@@ -344,12 +352,19 @@ jobs:
           retention-days: 7
           if-no-files-found: warn
 
-      # CRP analysis snapshot — only uploaded when the full CRP chain succeeds
-      # AND the analysis actually produced JSON (empty-sample guard skips without writing)
-      # CRP analysis snapshot — only uploaded when the JSON was actually produced
-      # (skipped silently when the empty-sample guard exits 0 without writing JSON)
-      - uses: actions/upload-artifact@v7
+      # CRP analysis snapshot — only uploaded when JSON was actually produced
+      - name: Detect CRP analysis snapshot
+        id: crp_snapshot
         if: steps.crp.outputs.produced == 'true' && steps.crp_filter.outcome == 'success' && steps.crp_analysis.outcome == 'success'
+        run: |
+          if [ -f "${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json" ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/upload-artifact@v7
+        if: steps.crp_snapshot.outputs.exists == 'true'
         with:
           name: crp-analysis-snapshot
           path: ${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json
