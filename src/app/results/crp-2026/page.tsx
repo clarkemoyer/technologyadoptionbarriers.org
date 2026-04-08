@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
 }
 
-// Derived from src/data/crp-sensitivity-analysis.json — updated by the crp-dataset.yml workflow
+// Derived from src/data/crp-sensitivity-analysis.json — updated by the daily pipeline
 type CrpSample = { key: string; n: number }
 const crpSamples = (crpData as { samples: CrpSample[] }).samples
 const CRP_SAMPLE_SIZE = crpSamples.find((s) => s.key === 'prolific_accepted')?.n ?? 200
