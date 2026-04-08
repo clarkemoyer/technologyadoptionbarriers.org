@@ -135,8 +135,8 @@ const CRP2026Page = () => {
                 indicators, scaled to a 100-point range. The six indicators are: IRI attention check
                 performance (35 pts), survey completion duration (20 pts), reCAPTCHA bot-detection
                 score (15 pts), Prolific authentication flags (15 pts), full straightlining
-                detection (8 pts), and partial straightlining / within-person response variance
-                (7 pts).
+                detection (8 pts), and partial straightlining / within-person response variance (7
+                pts).
               </p>
               <p className="text-gray-600 font-sans text-sm">
                 Responses scoring below the Conservative Clean threshold are retained in the
