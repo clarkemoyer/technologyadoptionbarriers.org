@@ -156,6 +156,7 @@ jobs:
             exit 0
           fi
 
+          set -euo pipefail
           python scripts/analysis/create_crp_dataset.py \
             "${{ runner.temp }}/qualtrics-enriched.csv" \
             --target-n 200 \
