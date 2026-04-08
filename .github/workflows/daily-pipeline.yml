@@ -130,12 +130,24 @@ jobs:
         id: crp
         continue-on-error: true
         run: |
-          if [ -f "public/datasets/TABS_V2_CRP_2026_public_dataset.csv" ]; then
-            echo "CRP dataset already exists in repo — skipping to preserve frozen snapshot"
-            echo "To regenerate: delete public/datasets/TABS_V2_CRP_2026_public_dataset.csv and re-run"
+          CRP_CSV="public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
+          PIPELINE_BRANCH="chore/daily-pipeline-data"
+
+          # Check 1: already on main (current checkout)
+          if [ -f "$CRP_CSV" ]; then
+            echo "CRP dataset already exists on main — skipping to preserve frozen snapshot"
             echo "produced=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+
+          # Check 2: already on pending daily-pipeline PR branch (not yet merged)
+          git fetch --no-tags --depth=1 origin "$PIPELINE_BRANCH:refs/remotes/origin/$PIPELINE_BRANCH" 2>/dev/null || true
+          if git show "origin/$PIPELINE_BRANCH:$CRP_CSV" >/dev/null 2>&1; then
+            echo "CRP dataset already exists on origin/$PIPELINE_BRANCH — skipping to preserve frozen snapshot"
+            echo "produced=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           python scripts/analysis/create_crp_dataset.py \
             "${{ runner.temp }}/qualtrics-enriched.csv" \
             --target-n 200 \
