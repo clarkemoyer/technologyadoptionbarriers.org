@@ -11,7 +11,7 @@
     "zotero": {
       "type": "stdio",
       "command": "uvx",
-      "args": ["--from", "pyzotero[mcp]", "pyzotero-mcp"],
+      "args": ["--from", "pyzotero[mcp]==1.11.0", "pyzotero-mcp"],
       "env": {
         "ZOTERO_USER_ID": "<your-zotero-user-id>"
       }

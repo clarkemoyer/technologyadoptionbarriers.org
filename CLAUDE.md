@@ -572,7 +572,7 @@ Two GitHub MCP servers are available with different access levels:
 **Reference library management via MCP tools:**
 
 - **Package**: `pyzotero[mcp]` (v1.11.0) — Python wrapper for the Zotero API
-- **Setup**: `uvx --from "pyzotero[mcp]" pyzotero-mcp` (stdio transport)
+- **Setup**: `uvx --from "pyzotero[mcp]==1.11.0" pyzotero-mcp` (stdio transport)
 - **Auth**: Connects to local Zotero desktop (localhost:23119), no API key needed
 - **User ID**: Set `ZOTERO_USER_ID` to your Zotero account's user ID (e.g., `export ZOTERO_USER_ID="<your-zotero-user-id>"`)
 
