@@ -346,9 +346,12 @@ describe('Sample & Demographics Page', () => {
     // Technical Specialist appears in both the demo panel and methodology table
     expect(screen.getAllByText('Technical Specialist').length).toBeGreaterThanOrEqual(2)
     expect(screen.getByText('Uncategorized')).toBeInTheDocument()
-    // Data-driven precedence: mock has only 3 categories, so fallback-only
-    // labels like "VP / SVP" should NOT appear in the methodology table
-    expect(screen.queryByText('VP / SVP')).not.toBeInTheDocument()
+    // Data-driven precedence: mock has only 3 categories (C-Suite Adjacent,
+    // Technical Specialist, Uncategorized). The fallback includes 7 categories
+    // with additional labels like "Director" and "Manager / Program Lead".
+    // "Director" only appears in the fallback, never in the mock data or any
+    // other page section, so its absence confirms data-driven precedence.
+    expect(screen.queryByText('Manager / Program Lead')).not.toBeInTheDocument()
   })
 
   it('renders fallback categories when role_categories is absent from JSON', async () => {
