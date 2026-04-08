@@ -26,6 +26,9 @@ export default function SearchInput() {
     if (index.length > 0 && query.trim().length > 0) {
       handleSearch(query)
     }
+    // Re-run active query once the search index has loaded.
+    // Intentionally only depends on `index` — we want this to fire exactly once when the index
+    // becomes available, using the latest `query` and `handleSearch` via closure.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index])
 
