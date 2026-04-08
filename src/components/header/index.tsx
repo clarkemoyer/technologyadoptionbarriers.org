@@ -91,6 +91,7 @@ const Header: React.FC = () => {
         path: '/results',
         children: [
           { label: 'Overview', path: '/results' },
+          { label: 'CRP 2026 Dataset', path: '/results/crp-2026' },
           { label: 'Sample & Demographics', path: '/results/sample' },
           { label: 'Data Quality Pipeline', path: '/results/data-quality' },
           { label: 'Descriptive Statistics', path: '/results/descriptive' },
