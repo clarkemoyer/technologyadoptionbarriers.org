@@ -245,7 +245,7 @@ TECHNOLOGY LIFECYCLE STAGES
 
 **BLEEDING EDGE:** Forefront of development. Experimental, unproven, high risk. Monitor only. Technologies at this stage lack production validation and carry significant integration risk. Gartner's Hype Cycle classifies these as "Innovation Trigger" technologies with less than 5% market penetration (Gartner, 2023). Examples include emerging protocols, pre-release frameworks, and experimental platforms without established support ecosystems.
 
-**LEADING EDGE:** Proven concepts, early adoption. Innovation with managed risk. **Target Zone.** These technologies have crossed what Geoffrey Moore describes as "the chasm" — the gap between early adopters and the early majority (Moore, _Crossing the Chasm_, 1991; 3rd ed. 2014). They offer competitive advantage with growing community support, documented best practices, and vendor commitment to long-term development.
+**LEADING EDGE:** Proven concepts, early adoption. Innovation with managed risk. **Target Zone.** These technologies have crossed what Geoffrey Moore describes as "the chasm" - the gap between early adopters and the early majority (Moore, _Crossing the Chasm_, 1991; 3rd ed. 2014). They offer competitive advantage with growing community support, documented best practices, and vendor commitment to long-term development.
 
 **MAINSTREAM:** Widely adopted, stable, mature tooling. Predictable outcomes. **Target Zone.** Everett Rogers' Diffusion of Innovations framework places these in the "late majority" adoption phase, with market penetration above 50% (Rogers, _Diffusion of Innovations_, 1962; 5th ed. 2003). Characterized by extensive documentation, large talent pools, established security patching cadences, and predictable total cost of ownership.
 
@@ -253,7 +253,7 @@ TECHNOLOGY LIFECYCLE STAGES
 
 **END OF SUPPORT / LIFE:** No updates, security patches, or bug fixes. Migration mandatory. Microsoft's Modern Lifecycle Policy and similar vendor frameworks define end-of-support as the cessation of security updates, creating unacceptable compliance and security risk (Microsoft, 2024). CISA has repeatedly identified end-of-life software as a top exploited vulnerability category in its Known Exploited Vulnerabilities catalog (CISA KEV, 2023).
 
-**Visual:** Lifecycle curve showing dual relationship between innovation potential (declining over time) and adoption risk (U-shaped — high at both extremes, lowest at mainstream)
+**Visual:** Lifecycle curve showing dual relationship between innovation potential (declining over time) and adoption risk (U-shaped - high at both extremes, lowest at mainstream)
 
 ```text
      ┌─────────────────────────────────────────────────────────────┐
@@ -1159,7 +1159,7 @@ These slides are optional topics to support Q&A. They are not part of the core 1
 
 **Visual:** Multi-domain lifecycle classification matrix (container orchestration, IaC, languages, CI/CD, and service mesh)
 
-REAL-WORLD TECHNOLOGY LIFECYCLE EXAMPLES (Current snapshot — update as needed):
+REAL-WORLD TECHNOLOGY LIFECYCLE EXAMPLES (Current snapshot - update as needed):
 
 **CONTAINER ORCHESTRATION:**
 
@@ -1725,7 +1725,7 @@ WARNING SIGNS TO WATCH:
 
 AI/ML PRESENTS UNIQUE LIFECYCLE CHALLENGES:
 
-CURRENT AI/ML LIFECYCLE LANDSCAPE (Snapshot — update as needed):
+CURRENT AI/ML LIFECYCLE LANDSCAPE (Snapshot - update as needed):
 
 BLEEDING EDGE:
 
@@ -1960,7 +1960,7 @@ To truly understand technology adoption, we must move beyond a simple user-versu
 
 LIFECYCLE TIMELINE: HARD DISK DRIVES (HDDs)
 
-This chart shows a **hardware technology** progressing through every lifecycle phase with proportional bar widths representing years spent in each phase. Unequal phase durations explain why real-world adoption curves are asymmetric — the theoretical S-curve is an idealization.
+This chart shows a **hardware technology** progressing through every lifecycle phase with proportional bar widths representing years spent in each phase. Unequal phase durations explain why real-world adoption curves are asymmetric - the theoretical S-curve is an idealization.
 
 **PHASE DURATIONS:**
 
@@ -1974,10 +1974,10 @@ This chart shows a **hardware technology** progressing through every lifecycle p
 
 **WHY THE CURVE IS IMPERFECT:**
 
-- **Long incubation (14 yrs):** Early HDDs required massive capital, no ecosystem, limited use cases — technology existed but adoption infrastructure didn't
+- **Long incubation (14 yrs):** Early HDDs required massive capital, no ecosystem, limited use cases - technology existed but adoption infrastructure didn't
 - **Extended mainstream (30 yrs):** Network effects + manufacturing scale-up + absence of viable alternatives created a long plateau
-- **Rapid decline (compressed tail):** SSD price crossover triggered accelerating displacement — once viable alternatives exist, decline is non-linear
-- **Result:** Right-skewed bell curve — slow start, long peak, steep right tail
+- **Rapid decline (compressed tail):** SSD price crossover triggered accelerating displacement - once viable alternatives exist, decline is non-linear
+- **Result:** Right-skewed bell curve - slow start, long peak, steep right tail
 
 **TIMELINE INSIGHT:** Rogers (2003) notes that the S-curve inflection point occurs at 10–25% adoption. For HDDs, this took ~20 years from invention. Gartner's "20% threshold" for crossing the chasm aligns with the mid-1970s when HDDs moved from mainframe-only to minicomputer markets.
 
@@ -1985,10 +1985,10 @@ This chart shows a **hardware technology** progressing through every lifecycle p
 
 **Speaker Notes:**
 
-- "Notice the bar widths are proportional to years. HDDs spent 30 years in mainstream — that's the long plateau you see in real adoption data."
+- "Notice the bar widths are proportional to years. HDDs spent 30 years in mainstream - that's the long plateau you see in real adoption data."
 - "The curves we draw in textbooks are symmetric, but real technology lifecycles are not. The incubation period and the decline period are almost never the same length."
 - "For hardware, physical manufacturing constraints and infrastructure dependencies create long bleeding-edge phases."
-- "HDDs are now in 'trending behind' — still widely used for bulk storage, but SSDs are the default for performance."
+- "HDDs are now in 'trending behind' - still widely used for bulk storage, but SSDs are the default for performance."
 
 Sources:
 
@@ -2005,7 +2005,7 @@ Sources:
 
 LIFECYCLE TIMELINE: ADOBE FLASH
 
-This chart shows a **software technology** with a complete lifecycle including a definitive End of Life — one of the most documented software sunsets in history.
+This chart shows a **software technology** with a complete lifecycle including a definitive End of Life - one of the most documented software sunsets in history.
 
 **PHASE DURATIONS:**
 
@@ -2023,24 +2023,24 @@ This chart shows a **software technology** with a complete lifecycle including a
 - **Short bleeding edge (4 yrs):** Web was exploding; demand for rich media was immediate; low barrier to entry for creators
 - **Compressed mainstream (7 yrs):** Rapid adoption driven by network effects (everyone had Flash installed), but equally rapid displacement once a viable open standard (HTML5) emerged
 - **Steep EOL cliff (1 yr):** Unlike hardware, software can be "killed" via updates. Adobe's kill switch made Flash literally stop working on a specific date
-- **Result:** Left-skewed with a steep right tail — fast rise, compressed peak, cliff-edge decline
+- **Result:** Left-skewed with a steep right tail - fast rise, compressed peak, cliff-edge decline
 
-**TIMELINE INSIGHT:** Flash achieved ~98% browser penetration (W3Techs, 2009) — far beyond Rogers' laggard threshold. Yet it went from near-universal to zero in under a decade. This demonstrates that adoption curves can reverse rapidly when platform gatekeepers (Apple, Google, Mozilla) withdraw support.
+**TIMELINE INSIGHT:** Flash achieved ~98% browser penetration (W3Techs, 2009) - far beyond Rogers' laggard threshold. Yet it went from near-universal to zero in under a decade. This demonstrates that adoption curves can reverse rapidly when platform gatekeepers (Apple, Google, Mozilla) withdraw support.
 
 **Visual:** Software Lifecycle Timeline
 
 **Speaker Notes:**
 
-- "Flash is the canonical example of a complete software lifecycle — from innovation to literal kill switch."
+- "Flash is the canonical example of a complete software lifecycle - from innovation to literal kill switch."
 - "Compare this to HDDs: Flash's entire lifecycle (25 years) fits inside HDD's mainstream phase alone (30 years). Software cycles are dramatically compressed."
-- "The asymmetry here is different from hardware. Software rises fast but can also die fast — especially when a platform dependency is removed."
+- "The asymmetry here is different from hardware. Software rises fast but can also die fast - especially when a platform dependency is removed."
 - "This is why 'End of Support' matters so much: once vendors stop updating, the clock is ticking very fast."
 
 Sources:
 
 - Adobe, "Flash Player EOL General Information Page" (2020)
 - W3Techs, "Historical yearly trends in the usage of client-side programming languages" (2023)
-- Jobs, S. "Thoughts on Flash" — apple.com (April 2010)
+- Jobs, S. "Thoughts on Flash" - apple.com (April 2010)
 - Statista, "Share of websites using Flash" (2011–2020)
 
 ---
@@ -2051,7 +2051,7 @@ Sources:
 
 LIFECYCLE TIMELINE: BARCODE / UPC SYSTEMS IN SUPPLY CHAIN
 
-This chart shows a **supply chain technology** — one that underpins global commerce — progressing through lifecycle phases with an extraordinarily long bleeding edge.
+This chart shows a **supply chain technology** - one that underpins global commerce - progressing through lifecycle phases with an extraordinarily long bleeding edge.
 
 **PHASE DURATIONS:**
 
@@ -2067,14 +2067,14 @@ This chart shows a **supply chain technology** — one that underpins global com
 
 - **Extremely long bleeding edge (22 yrs):** The barcode was invented in 1952 but couldn't be adopted because: (1) laser scanners didn't exist yet, (2) no universal standard existed, (3) no critical mass of participating retailers. Technology readiness ≠ adoption readiness
 - **Extended mainstream (35 yrs):** Deep infrastructure lock-in + universal standardization + zero marginal cost of printing barcodes created extreme stickiness
-- **Slow decline (10+ yrs):** Unlike software, supply chain technologies can't be "killed" — they must be phased out across millions of global participants. RFID adoption is gradual, not cliff-edge
-- **Result:** Highly right-skewed — very long left tail (incubation), extended plateau, gradual right tail
+- **Slow decline (10+ yrs):** Unlike software, supply chain technologies can't be "killed" - they must be phased out across millions of global participants. RFID adoption is gradual, not cliff-edge
+- **Result:** Highly right-skewed - very long left tail (incubation), extended plateau, gradual right tail
 
-**TIMELINE INSIGHT:** The barcode demonstrates that infrastructure-dependent technologies can take decades to cross the chasm. Rogers' S-curve model assumes relatively homogeneous adoption units — but supply chains involve coordinating thousands of independent organizations, which dramatically extends the diffusion timeline. The 22-year gap between invention and first commercial use is one of the longest documented "incubation periods" in technology history.
+**TIMELINE INSIGHT:** The barcode demonstrates that infrastructure-dependent technologies can take decades to cross the chasm. Rogers' S-curve model assumes relatively homogeneous adoption units - but supply chains involve coordinating thousands of independent organizations, which dramatically extends the diffusion timeline. The 22-year gap between invention and first commercial use is one of the longest documented "incubation periods" in technology history.
 
 **SUPPLY CHAIN CONSIDERATIONS:**
 
-- Supply chain technologies require **ecosystem-wide coordination** — one participant can't adopt alone
+- Supply chain technologies require **ecosystem-wide coordination** - one participant can't adopt alone
 - Standardization bodies (GS1, ISO) play a critical role in enabling adoption
 - Infrastructure investments (scanners, databases, networks) must precede technology adoption
 - Switching costs are distributed across the entire supply chain, not just one organization
@@ -2084,19 +2084,19 @@ This chart shows a **supply chain technology** — one that underpins global com
 
 **Speaker Notes:**
 
-- "Barcodes were invented in 1952 but the first item wasn't scanned until 1974 — a 22-year gap between invention and adoption. That's the real 'bleeding edge' in practice."
+- "Barcodes were invented in 1952 but the first item wasn't scanned until 1974 - a 22-year gap between invention and adoption. That's the real 'bleeding edge' in practice."
 - "Supply chain is different from hardware or software: you can't adopt a supply chain technology alone. You need the entire ecosystem to participate."
 - "The 35-year mainstream phase shows how deeply entrenched infrastructure technologies become. Over 6 billion barcode scans happen daily."
 - "Notice the declining phase is gradual, not cliff-edge. You can't push a software update to millions of physical scanners worldwide. This is why supply chain transitions take decades."
-- "GS1's 'Sunrise 2027' initiative aims to migrate from 1D barcodes to QR codes — but even that planned transition will take years beyond the target date."
+- "GS1's 'Sunrise 2027' initiative aims to migrate from 1D barcodes to QR codes - but even that planned transition will take years beyond the target date."
 
 Sources:
 
-- GS1, "The History of the Barcode" (2024) — gs1.org
-- McKinsey & Company, "Supply Chain 4.0 — the next-generation digital supply chain" (2024)
+- GS1, "The History of the Barcode" (2024) - gs1.org
+- McKinsey & Company, "Supply Chain 4.0 - the next-generation digital supply chain" (2024)
 - Zebra Technologies, "Global Shopper Study" (2024)
 - IEEE, "RFID vs Barcode: A Comparative Analysis for Supply Chain Management" (2023)
-- GS1 US, "Sunrise 2027: Transition to 2D Barcodes" (2024) — gs1us.org
+- GS1 US, "Sunrise 2027: Transition to 2D Barcodes" (2024) - gs1us.org
 
 ---
 
@@ -2121,9 +2121,9 @@ This snapshot emphasizes **portfolio risk and investment timing** in storage dec
 
 **KEY INSIGHTS:**
 
-- **HDDs appear in "Trending Behind"** — they haven't disappeared but their role has narrowed to bulk/cold storage. The timeline view showed a long mainstream (30 yrs); the moment-in-time view shows that era is ending
-- **Multiple generations coexist:** PCIe Gen 5 (leading edge) is shipping while SAS HDDs (end of support) are still in production — a 20+ year technology gap in active use
-- **The bleeding edge is radical:** DNA and glass storage represent fundamentally different paradigms, not incremental improvements — suggesting a potential discontinuous jump
+- **HDDs appear in "Trending Behind"** - they haven't disappeared but their role has narrowed to bulk/cold storage. The timeline view showed a long mainstream (30 yrs); the moment-in-time view shows that era is ending
+- **Multiple generations coexist:** PCIe Gen 5 (leading edge) is shipping while SAS HDDs (end of support) are still in production - a 20+ year technology gap in active use
+- **The bleeding edge is radical:** DNA and glass storage represent fundamentally different paradigms, not incremental improvements - suggesting a potential discontinuous jump
 - **Flash dominates the middle:** TLC NVMe is the center of gravity today, just as HDDs were in 2005
 
 **DECISION LENS (RISK + CAPEX):** Use this view to separate (1) technologies to expand, (2) technologies to contain, and (3) technologies to retire. The timeline explains historical motion; this slide supports current portfolio allocation.
@@ -2133,8 +2133,8 @@ This snapshot emphasizes **portfolio risk and investment timing** in storage dec
 **Speaker Notes:**
 
 - "The timeline showed us one technology's journey. This companion shows the full competitive landscape at a single moment."
-- "Notice how many technologies coexist simultaneously — from DNA storage in labs to 10K RPM drives being decommissioned. The lifecycle model explains why organizations must manage this complexity."
-- "HDDs aren't dead — they're trending behind. That means plan your migration, don't panic. But also don't start new projects on them."
+- "Notice how many technologies coexist simultaneously - from DNA storage in labs to 10K RPM drives being decommissioned. The lifecycle model explains why organizations must manage this complexity."
+- "HDDs aren't dead - they're trending behind. That means plan your migration, don't panic. But also don't start new projects on them."
 - "The bleeding edge here is fascinating: DNA and glass storage aren't incremental. They represent potential paradigm shifts, which is why they're years from mainstream."
 
 Sources:
@@ -2152,7 +2152,7 @@ Sources:
 
 RICH WEB EXPERIENCES: A MOMENT IN TIME (2025)
 
-The previous slide showed Adobe Flash's complete lifecycle from 1996 to its 2021 kill switch. This companion slide **freezes the frame at 2025** and maps today's rich web experience technologies across lifecycle stages — showing what replaced Flash and what's coming next.
+The previous slide showed Adobe Flash's complete lifecycle from 1996 to its 2021 kill switch. This companion slide **freezes the frame at 2025** and maps today's rich web experience technologies across lifecycle stages - showing what replaced Flash and what's coming next.
 
 **LIFECYCLE POSITIONING:**
 
@@ -2167,27 +2167,27 @@ The previous slide showed Adobe Flash's complete lifecycle from 1996 to its 2021
 
 **KEY INSIGHTS:**
 
-- **Flash appears in "End of Support"** — the timeline showed its decline, but the moment-in-time view shows it's now surrounded by successors that each replaced a specific Flash capability
-- **No single replacement:** Flash was a monolithic platform; it was replaced by multiple technologies — Canvas for graphics, CSS for animation, WebSocket for real-time, Wasm for performance
-- **The cycle repeats:** jQuery (77% of sites) is now in "trending behind" — the same trajectory Flash followed a decade earlier
-- **WebAssembly is the next potential platform shift:** Like Flash in 2002, Wasm enables experiences the browser wasn't designed for (Figma, Photoshop) — but it's open-standard, avoiding Flash's platform lock-in
+- **Flash appears in "End of Support"** - the timeline showed its decline, but the moment-in-time view shows it's now surrounded by successors that each replaced a specific Flash capability
+- **No single replacement:** Flash was a monolithic platform; it was replaced by multiple technologies - Canvas for graphics, CSS for animation, WebSocket for real-time, Wasm for performance
+- **The cycle repeats:** jQuery (77% of sites) is now in "trending behind" - the same trajectory Flash followed a decade earlier
+- **WebAssembly is the next potential platform shift:** Like Flash in 2002, Wasm enables experiences the browser wasn't designed for (Figma, Photoshop) - but it's open-standard, avoiding Flash's platform lock-in
 
-**COMPARISON TO TIMELINE VIEW:** Slide 28 showed Flash's compressed 25-year lifecycle. This slide reveals why it declined — the mainstream is now filled with open-standard alternatives that collectively surpass what Flash offered. The moment-in-time view makes the competitive pressure visible.
+**COMPARISON TO TIMELINE VIEW:** Slide 28 showed Flash's compressed 25-year lifecycle. This slide reveals why it declined - the mainstream is now filled with open-standard alternatives that collectively surpass what Flash offered. The moment-in-time view makes the competitive pressure visible.
 
 **Visual:** Rich Web Experiences Moment in Time
 
 **Speaker Notes:**
 
-- "Flash was one platform that did everything. It was replaced by an ecosystem of specialized technologies — each better at one thing."
-- "Look at the end-of-life column: ActiveX, Java Web Start, Silverlight, Flash. These were all proprietary platforms. The pattern is clear — proprietary web technologies have a shorter lifecycle."
+- "Flash was one platform that did everything. It was replaced by an ecosystem of specialized technologies - each better at one thing."
+- "Look at the end-of-life column: ActiveX, Java Web Start, Silverlight, Flash. These were all proprietary platforms. The pattern is clear - proprietary web technologies have a shorter lifecycle."
 - "jQuery is the one to watch. It's on 77% of websites but declining in new projects. It's following Flash's trajectory about 10 years behind."
-- "WebAssembly is fascinating — it's Flash done right. Near-native performance, but built on open standards. Will it avoid Flash's fate? The open-standard approach suggests yes."
+- "WebAssembly is fascinating - it's Flash done right. Near-native performance, but built on open standards. Will it avoid Flash's fate? The open-standard approach suggests yes."
 
 Sources:
 
 - W3Techs, "Usage Statistics of JavaScript Libraries" (2025)
 - Can I Use, "WebGPU, WebTransport, View Transitions browser support" (2025)
-- HTTP Archive, "Web Almanac 2024 — JavaScript chapter" (2024)
+- HTTP Archive, "Web Almanac 2024 - JavaScript chapter" (2024)
 - MDN Web Docs, "Web Platform Feature Status" (2025)
 
 ---
@@ -2213,10 +2213,10 @@ This snapshot emphasizes **ecosystem coordination and standards governance** acr
 
 **KEY INSIGHTS:**
 
-- **Barcodes appear in BOTH mainstream AND trending behind** — standard UPC/EAN barcodes are still mainstream (6B+ scans/day), but proprietary 1D formats are declining. The technology isn't monolithic
-- **The GS1 Sunrise 2027 transition is visible:** QR codes are "leading edge" — adopted by major CPGs but retailers are lagging, exactly the ecosystem coordination challenge the barcode timeline revealed
-- **Blockchain hype is cooling:** TradeLens shut down, Amazon scaled back Just Walk Out. Bleeding edge isn't just "new" — it also includes technologies that may never reach mainstream
-- **Supply chain has the widest active span:** From Kimball tags (EOL since 1990s) to blockchain (bleeding edge) — a 30+ year gap of coexisting technologies, wider than storage or web
+- **Barcodes appear in BOTH mainstream AND trending behind** - standard UPC/EAN barcodes are still mainstream (6B+ scans/day), but proprietary 1D formats are declining. The technology isn't monolithic
+- **The GS1 Sunrise 2027 transition is visible:** QR codes are "leading edge" - adopted by major CPGs but retailers are lagging, exactly the ecosystem coordination challenge the barcode timeline revealed
+- **Blockchain hype is cooling:** TradeLens shut down, Amazon scaled back Just Walk Out. Bleeding edge isn't just "new" - it also includes technologies that may never reach mainstream
+- **Supply chain has the widest active span:** From Kimball tags (EOL since 1990s) to blockchain (bleeding edge) - a 30+ year gap of coexisting technologies, wider than storage or web
 
 **DECISION LENS (COORDINATION + STANDARDS):** Treat this as a readiness map: what can your organization adopt alone, what requires partner synchronization, and what depends on industry/regulatory deadlines.
 
@@ -2224,20 +2224,20 @@ This snapshot emphasizes **ecosystem coordination and standards governance** acr
 
 - Ecosystem coordination requirements mean technologies move through stages more slowly than hardware or software
 - Regulatory mandates (FDA UDI, EU Digital Product Passport) can accelerate or force transitions
-- Cost asymmetry: printing a barcode costs fractions of a cent; an RFID tag costs $0.05-0.15 — economics gate adoption
+- Cost asymmetry: printing a barcode costs fractions of a cent; an RFID tag costs $0.05-0.15 - economics gate adoption
 
 **Visual:** Supply Chain Identification Moment in Time
 
 **Speaker Notes:**
 
-- "Notice the barcode appears in two stages — mainstream for standard UPC but trending behind for proprietary formats. Technologies aren't monolithic."
-- "RFID has been 'the future of supply chain' for 25 years. It's still leading edge at item level. This is the supply chain coordination problem — you can't adopt alone."
+- "Notice the barcode appears in two stages - mainstream for standard UPC but trending behind for proprietary formats. Technologies aren't monolithic."
+- "RFID has been 'the future of supply chain' for 25 years. It's still leading edge at item level. This is the supply chain coordination problem - you can't adopt alone."
 - "The bleeding edge is notable for what's NOT working: blockchain track-and-trace is cooling, computer vision checkout is scaling back. Not every bleeding edge technology makes it."
 - "The Sunrise 2027 transition from 1D to 2D barcodes will be the biggest supply chain identification shift since the original barcode adoption in the 1970s."
 
 Sources:
 
-- GS1 US, "Sunrise 2027: Transition to 2D Barcodes" (2024) — gs1us.org
+- GS1 US, "Sunrise 2027: Transition to 2D Barcodes" (2024) - gs1us.org
 - IDTechEx, "RFID Forecasts, Players and Opportunities 2024–2034" (2024)
 - McKinsey & Company, "Supply Chain 4.0" (2024)
 - Auburn University RFID Lab, "Item-Level RFID Adoption Report" (2024)
@@ -2250,7 +2250,7 @@ Sources:
 
 ML/AI LIFECYCLE TIMELINE: MACHINE LEARNING & ARTIFICIAL INTELLIGENCE
 
-From Turing's 1950 paper to ChatGPT — a 75+ year journey through multiple AI winters, false starts, and the explosive deep learning revolution that finally brought AI to the mainstream.
+From Turing's 1950 paper to ChatGPT - a 75+ year journey through multiple AI winters, false starts, and the explosive deep learning revolution that finally brought AI to the mainstream.
 
 **LIFECYCLE PHASES:**
 
@@ -2262,23 +2262,23 @@ From Turing's 1950 paper to ChatGPT — a 75+ year journey through multiple AI w
 
 **KEY INSIGHTS:**
 
-- **The longest bleeding edge of any example (47 years)** — more than double the barcode's 22-year bleeding edge. AI had the concepts but lacked compute, data, and algorithms
-- **Two "AI winters" created a stutter-step pattern** — adoption didn't follow a smooth S-curve. The first winter (1974-1980) and second winter (1987-1993) were periods where funding, interest, and practical applications collapsed
-- **The breakthrough was infrastructure, not theory** — neural networks existed since the 1950s. What changed was GPU compute (NVIDIA CUDA 2007), massive datasets (ImageNet 2009), and algorithmic refinements (dropout, batch normalization, attention)
-- **Incomplete lifecycle — no decline phase yet** — unlike HDDs, Flash, or barcodes, ML/AI has no "trending behind" phase. This is a technology still ascending, making it unique among our examples
-- **Fastest bleeding-to-mainstream transition once triggered** — from AlexNet (2012) to ChatGPT (2022) was only 10 years. The 47-year bleeding edge compressed into explosive growth once the infrastructure aligned
+- **The longest bleeding edge of any example (47 years)** - more than double the barcode's 22-year bleeding edge. AI had the concepts but lacked compute, data, and algorithms
+- **Two "AI winters" created a stutter-step pattern** - adoption didn't follow a smooth S-curve. The first winter (1974-1980) and second winter (1987-1993) were periods where funding, interest, and practical applications collapsed
+- **The breakthrough was infrastructure, not theory** - neural networks existed since the 1950s. What changed was GPU compute (NVIDIA CUDA 2007), massive datasets (ImageNet 2009), and algorithmic refinements (dropout, batch normalization, attention)
+- **Incomplete lifecycle - no decline phase yet** - unlike HDDs, Flash, or barcodes, ML/AI has no "trending behind" phase. This is a technology still ascending, making it unique among our examples
+- **Fastest bleeding-to-mainstream transition once triggered** - from AlexNet (2012) to ChatGPT (2022) was only 10 years. The 47-year bleeding edge compressed into explosive growth once the infrastructure aligned
 
-**WHY AI IS DIFFERENT:** The other examples show complete or declining lifecycles. AI/ML shows a technology currently in its mainstream ascent. This illustrates a critical lesson: **some technologies spend decades in bleeding edge before a sudden phase transition.** The lifecycle model doesn't predict timing — it maps where you are once you can see the pattern.
+**WHY AI IS DIFFERENT:** The other examples show complete or declining lifecycles. AI/ML shows a technology currently in its mainstream ascent. This illustrates a critical lesson: **some technologies spend decades in bleeding edge before a sudden phase transition.** The lifecycle model doesn't predict timing - it maps where you are once you can see the pattern.
 
 **Visual:** ML/AI Lifecycle Timeline
 
 **Speaker Notes:**
 
-- "This is our most dramatic example. 47 years of bleeding edge — nearly half a century where AI was 'the future' but couldn't deliver on its promises."
+- "This is our most dramatic example. 47 years of bleeding edge - nearly half a century where AI was 'the future' but couldn't deliver on its promises."
 - "Notice the two AI winters. The lifecycle model usually shows smooth transitions, but AI had collapse-and-restart cycles. Funding dried up, researchers left the field, and practical applications disappeared."
-- "The turning point wasn't a single paper — it was an infrastructure convergence: GPU compute, big data, and cloud computing. When all three aligned around 2012, the bleeding-to-leading-edge transition happened fast."
+- "The turning point wasn't a single paper - it was an infrastructure convergence: GPU compute, big data, and cloud computing. When all three aligned around 2012, the bleeding-to-leading-edge transition happened fast."
 - "This is the only example where we can't show the full lifecycle. There's no trending behind, no end of support. We're living in the mainstream adoption phase right now. Ask yourself: will this pattern follow HDDs (30-year mainstream) or Flash (7-year mainstream)?"
-- "The lesson for technology adopters: a long bleeding edge doesn't mean the technology won't succeed — it may mean the enabling infrastructure hasn't arrived yet."
+- "The lesson for technology adopters: a long bleeding edge doesn't mean the technology won't succeed - it may mean the enabling infrastructure hasn't arrived yet."
 
 **Transition:**
 
@@ -2286,11 +2286,11 @@ From Turing's 1950 paper to ChatGPT — a 75+ year journey through multiple AI w
 
 Sources:
 
-- Stanford University HAI, "Artificial Intelligence Index Report" (2024) — aiindex.stanford.edu
-- Turing, A.M., "Computing Machinery and Intelligence" (1950) — Mind journal
+- Stanford University HAI, "Artificial Intelligence Index Report" (2024) - aiindex.stanford.edu
+- Turing, A.M., "Computing Machinery and Intelligence" (1950) - Mind journal
 - McCarthy et al., "A Proposal for the Dartmouth Summer Research Project on AI" (1956)
 - Krizhevsky, Sutskever & Hinton, "ImageNet Classification with Deep CNNs" (2012)
-- Vaswani et al., "Attention Is All You Need" (2017) — the Transformers paper
+- Vaswani et al., "Attention Is All You Need" (2017) - the Transformers paper
 - Gartner, "Hype Cycle for Artificial Intelligence" (2024)
 
 ---
@@ -2316,11 +2316,11 @@ This slide is the **governance and workforce view** of AI in 2025: what to exper
 
 **KEY INSIGHTS:**
 
-- **The mainstream is only ~5 years old** — LLMs went from research curiosity to enterprise standard in record time. ChatGPT (Nov 2022) accelerated enterprise adoption by 5-10 years
-- **Leading edge is moving at unprecedented speed** — AI agents, multimodal models, and code generation tools are evolving monthly, not annually. The leading-to-mainstream transition may be the fastest in technology history
-- **Traditional ML is already "trending behind"** — sklearn pipelines and XGBoost dominated 2015-2022 but are being displaced by foundation models for many tasks. This transition happened in under 5 years
-- **The AI winter artifacts are visible at the bottom** — expert system shells (1980s) and symbolic AI frameworks represent the previous AI paradigm. Their position in End of Life shows how completely the field has pivoted
-- **AGI remains firmly bleeding edge** — despite media hype, there is no scientific consensus on timeline, definition, or even feasibility. It's the "DNA storage" of the AI world — transformative if achieved, but years (or decades) away
+- **The mainstream is only ~5 years old** - LLMs went from research curiosity to enterprise standard in record time. ChatGPT (Nov 2022) accelerated enterprise adoption by 5-10 years
+- **Leading edge is moving at unprecedented speed** - AI agents, multimodal models, and code generation tools are evolving monthly, not annually. The leading-to-mainstream transition may be the fastest in technology history
+- **Traditional ML is already "trending behind"** - sklearn pipelines and XGBoost dominated 2015-2022 but are being displaced by foundation models for many tasks. This transition happened in under 5 years
+- **The AI winter artifacts are visible at the bottom** - expert system shells (1980s) and symbolic AI frameworks represent the previous AI paradigm. Their position in End of Life shows how completely the field has pivoted
+- **AGI remains firmly bleeding edge** - despite media hype, there is no scientific consensus on timeline, definition, or even feasibility. It's the "DNA storage" of the AI world - transformative if achieved, but years (or decades) away
 
 **DECISION LENS (GOVERNANCE + TALENT):**
 
@@ -2332,18 +2332,18 @@ This slide is the **governance and workforce view** of AI in 2025: what to exper
 
 **Speaker Notes:**
 
-- "This is the most dynamic moment-in-time snapshot we've seen. The AI landscape is changing faster than storage, web, or supply chain — sometimes quarterly."
+- "This is the most dynamic moment-in-time snapshot we've seen. The AI landscape is changing faster than storage, web, or supply chain - sometimes quarterly."
 - "Look at the bottom: CLIPS and Jess were the 'AI' of the 1980s. Expert systems were supposed to revolutionize business. They're now end-of-life. Will today's LLMs follow the same pattern in 20 years? The lifecycle model says eventually, yes."
 - "Traditional ML is trending behind, and that happened shockingly fast. Data scientists who built careers on sklearn and XGBoost in 2018 are now pivoting to LLMs and agents. This is the personal impact of lifecycle transitions."
-- "AI agents are the one to watch. They're in leading edge right now — proven concepts, early adoption. If they cross to mainstream, they'll change how we build software. That transition could happen in 2025-2026."
-- "AGI is our reality check. Despite the hype, it's firmly bleeding edge — no production use, no clear timeline. Responsible technology adoption means knowing which stage you're actually in, not which stage the marketing says."
+- "AI agents are the one to watch. They're in leading edge right now - proven concepts, early adoption. If they cross to mainstream, they'll change how we build software. That transition could happen in 2025-2026."
+- "AGI is our reality check. Despite the hype, it's firmly bleeding edge - no production use, no clear timeline. Responsible technology adoption means knowing which stage you're actually in, not which stage the marketing says."
 
 Sources:
 
-- Stanford University HAI, "Artificial Intelligence Index Report" (2024) — aiindex.stanford.edu
+- Stanford University HAI, "Artificial Intelligence Index Report" (2024) - aiindex.stanford.edu
 - Gartner, "Hype Cycle for Artificial Intelligence" (2024)
-- State of AI Report (2024) — stateof.ai
-- McKinsey, "The State of AI in Early 2024" — mckinsey.com
+- State of AI Report (2024) - stateof.ai
+- McKinsey, "The State of AI in Early 2024" - mckinsey.com
 - NVIDIA, "CUDA Toolkit and GPU Computing History" (2024)
 
 ---
@@ -2369,19 +2369,19 @@ This slide is the **operational model lifecycle view**: model selection, depreca
 
 **KEY INSIGHTS:**
 
-- **The entire mainstream is less than 3 years old** — ChatGPT launched Nov 2022, and the entire cloud LLM API ecosystem built up around it in under 24 months. No other technology in our series went from niche research to enterprise standard this fast
-- **GPT-3 is already "trending behind"** — a model that was groundbreaking in June 2020 is deprecated by 2024. That's a 4-year leading-to-trending-behind transition. Compare to HDDs (30 years mainstream) or barcodes (35 years)
-- **Reasoning and agents are the next wave** — o1-style chain-of-thought and agentic tool use (Claude Code, Devin) are leading edge today. If they cross to mainstream, they'll redefine how LLMs are used — from "answer questions" to "complete tasks"
-- **RAG is already the enterprise default** — vector database + LLM retrieval is the standard pattern for grounded enterprise answers, moving faster than most enterprise technology adoption
-- **Open-weight models are a parallel mainstream** — Llama 3, Mistral, and Qwen enable self-hosted deployment and fine-tuning, creating a two-track mainstream (cloud API vs. self-hosted) that's unique to LLMs
-- **ELIZA to Claude: 60 years in one chart** — the full span from 1960s pattern-matching to 2025 autonomous agents illustrates the cumulative nature of the LLM revolution. Each generation built on the last, but the pace of improvement is exponential
+- **The entire mainstream is less than 3 years old** - ChatGPT launched Nov 2022, and the entire cloud LLM API ecosystem built up around it in under 24 months. No other technology in our series went from niche research to enterprise standard this fast
+- **GPT-3 is already "trending behind"** - a model that was groundbreaking in June 2020 is deprecated by 2024. That's a 4-year leading-to-trending-behind transition. Compare to HDDs (30 years mainstream) or barcodes (35 years)
+- **Reasoning and agents are the next wave** - o1-style chain-of-thought and agentic tool use (Claude Code, Devin) are leading edge today. If they cross to mainstream, they'll redefine how LLMs are used - from "answer questions" to "complete tasks"
+- **RAG is already the enterprise default** - vector database + LLM retrieval is the standard pattern for grounded enterprise answers, moving faster than most enterprise technology adoption
+- **Open-weight models are a parallel mainstream** - Llama 3, Mistral, and Qwen enable self-hosted deployment and fine-tuning, creating a two-track mainstream (cloud API vs. self-hosted) that's unique to LLMs
+- **ELIZA to Claude: 60 years in one chart** - the full span from 1960s pattern-matching to 2025 autonomous agents illustrates the cumulative nature of the LLM revolution. Each generation built on the last, but the pace of improvement is exponential
 
 **THE LLM OBSOLESCENCE CLOCK:**
 
 Unlike storage or supply chain technologies where transitions take decades, LLM generations turn over in **12-24 months**:
 
 - GPT-2 (2019) → GPT-3 (2020) → GPT-3.5 (2022) → GPT-4 (2023) → GPT-4o (2024) → o1 (2024)
-- Each generation doesn't just improve — it **deprecates** the previous one via API shutdown
+- Each generation doesn't just improve - it **deprecates** the previous one via API shutdown
 
 This creates unprecedented adoption pressure: organizations that deployed GPT-3 solutions in 2021 had to migrate by 2024. The lifecycle model's phases still apply, but the clock speed is 10-50x faster than hardware or infrastructure technologies.
 
@@ -2395,18 +2395,18 @@ This creates unprecedented adoption pressure: organizations that deployed GPT-3 
 
 **Speaker Notes:**
 
-- "This is the tightest zoom we've done — just LLMs. And even within this narrow focus, the lifecycle stages are fully populated from bleeding edge to end of life."
+- "This is the tightest zoom we've done - just LLMs. And even within this narrow focus, the lifecycle stages are fully populated from bleeding edge to end of life."
 - "GPT-3 trending behind is the stat that shocks people. In 2020, it was the most impressive AI demo anyone had seen. By 2024, its API is deprecated. That's a 4-year cycle from breakthrough to replacement."
 - "RAG becoming mainstream this fast tells us something about enterprise adoption: when the pain point is clear (hallucination) and the solution is accessible (vector DB + API), adoption can compress dramatically."
 - "Look at the leading edge: reasoning models, agents, long-context, on-device. Any one of these could reshape the LLM market in 2025-2026. We're watching multiple potential mainstream transitions simultaneously."
-- "The 12-24 month generation cycle is why we need the lifecycle model. It's not about specific models — it's about understanding which _category_ of approach is bleeding, leading, or mainstream, so you don't build on something that's about to be deprecated."
+- "The 12-24 month generation cycle is why we need the lifecycle model. It's not about specific models - it's about understanding which _category_ of approach is bleeding, leading, or mainstream, so you don't build on something that's about to be deprecated."
 - "ELIZA to Claude Code: 60 years in one slide. But most of the practical value was created in the last 3. That's the AI lifecycle in a nutshell."
 
 Sources:
 
-- OpenAI, "Model Deprecations and Migration Guide" (2025) — platform.openai.com
-- Anthropic, "Claude Model Cards and Changelogs" (2025) — docs.anthropic.com
-- Hugging Face, "Open LLM Leaderboard" (2025) — huggingface.co
-- Weizenbaum, J., "ELIZA — A Computer Program for the Study of Natural Language" (1966)
+- OpenAI, "Model Deprecations and Migration Guide" (2025) - platform.openai.com
+- Anthropic, "Claude Model Cards and Changelogs" (2025) - docs.anthropic.com
+- Hugging Face, "Open LLM Leaderboard" (2025) - huggingface.co
+- Weizenbaum, J., "ELIZA - A Computer Program for the Study of Natural Language" (1966)
 - Brown et al., "Language Models are Few-Shot Learners" (GPT-3, 2020)
 - Touvron et al., "Llama 3" (Meta, 2024)

@@ -164,7 +164,7 @@ const BibliographyArticlePage = () => {
             <ul className={BODY_LIST_CLASSES}>
               <li>
                 <strong>Different user populations:</strong> Davis examined TAM with different
-                organizational populations—demonstrating that the fundamental relationships held
+                organizational populations - demonstrating that the fundamental relationships held
                 across different user groups, suggesting broad applicability rather than
                 population-specific effects
               </li>
@@ -267,7 +267,7 @@ const BibliographyArticlePage = () => {
               using a system enhances work performance. Items capture perceptions that system use
               improves job performance, increases work productivity, enhances work effectiveness,
               and makes work more efficient. Perceived usefulness represents outcome
-              expectations—beliefs that technology adoption produces valued consequences (improved
+              expectations - beliefs that technology adoption produces valued consequences (improved
               performance, greater productivity, enhanced effectiveness).
             </p>
             <ul className={BODY_LIST_CLASSES}>
@@ -277,7 +277,7 @@ const BibliographyArticlePage = () => {
                 Items assess perceptions that learning a system is easy, that interaction with a
                 system is clear and understandable, that the system is easy to operate, and that
                 using the system flexibly becomes easy. Perceived ease of use represents effort
-                expectations—beliefs that technology use requires moderate rather than excessive
+                expectations - beliefs that technology use requires moderate rather than excessive
                 learning or effort
               </li>
               <li>
@@ -296,7 +296,7 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>Actual system usage:</strong> Measured through system usage logs (amount of
                 time using system, frequency of use, breadth of features used) or user self- report
-                of usage frequency. Actual usage represents meaningful behavioral outcomes—whether
+                of usage frequency. Actual usage represents meaningful behavioral outcomes - whether
                 favorable beliefs and intentions translated into actual technology utilization
               </li>
             </ul>
@@ -309,7 +309,7 @@ const BibliographyArticlePage = () => {
               primary belief categories (perceived usefulness and ease of use). This economy of
               constructs makes the model relatively simple to understand, measure, and apply
               compared to models incorporating numerous factors. The parsimony does not sacrifice
-              explanatory power—these two constructs explain substantial variance in technology
+              explanatory power - these two constructs explain substantial variance in technology
               acceptance. This combination of simplicity and explanatory power makes TAM remarkably
               practical and implementable.
             </p>
@@ -354,7 +354,7 @@ const BibliographyArticlePage = () => {
                 <strong>Clear conceptual distinction:</strong> The clear distinction between
                 perceived ease of use (effort required) and perceived usefulness (performance
                 benefits) represents conceptual clarity. These distinct constructs address different
-                decision dimensions—people care about both whether technology works and whether it
+                decision dimensions - people care about both whether technology works and whether it
                 requires excessive effort. Separating these concerns enables nuanced understanding
                 of technology acceptance drivers
               </li>
@@ -465,8 +465,8 @@ const BibliographyArticlePage = () => {
                 <strong>Specialization of general behavioral theory:</strong> Earlier IS research
                 either developed purely descriptive accounts of technology acceptance factors or
                 attempted applying general behavior models without specialization. Davis’s
-                fundamental innovation was taking the Theory of Reasoned Action—a general behavioral
-                framework—and specializing it to technology contexts by identifying perceived
+                fundamental innovation was taking the Theory of Reasoned Action - a general behavioral
+                framework - and specializing it to technology contexts by identifying perceived
                 usefulness and ease of use as the primary beliefs shaping technology attitudes. This
                 specialization combined theoretical rigor with practical relevance
               </li>
@@ -505,7 +505,7 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>Longitudinal behavioral prediction:</strong> Earlier attitude studies
                 typically examined cross-sectional relationships. Davis demonstrated longitudinal
-                prediction—measured attitudes predicting subsequent actual usage months later. This
+                prediction - measured attitudes predicting subsequent actual usage months later. This
                 temporal validation distinguished TAM from studies showing attitudes and behavior
                 correlate but unable to establish temporal precedence
               </li>
@@ -519,7 +519,7 @@ const BibliographyArticlePage = () => {
               The Technology Acceptance Model identifies barriers to technology adoption organized
               around two primary psychosocial dimensions: Perceived usefulness barriers: The model
               identifies that users fail to adopt technologies when they perceive low
-              usefulness—when they question whether technology adoption will enhance work
+              usefulness - when they question whether technology adoption will enhance work
               performance or productivity. Perceived usefulness barriers include beliefs that
               technology adoption does not address important work needs. Users adopting technology
               that solves problems they don’t experience or adds capabilities they don’t require

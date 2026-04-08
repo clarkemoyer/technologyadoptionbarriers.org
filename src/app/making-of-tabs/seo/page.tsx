@@ -8,9 +8,9 @@ import dynamic from 'next/dynamic'
 const SEOHistoryChart = dynamic(() => import('@/components/tabs/seo-history-chart'))
 
 export const metadata: Metadata = {
-  title: 'SEO Transparency & Dashboard — Making of TABS',
+  title: 'SEO Transparency & Dashboard - Making of TABS',
   description:
-    'SEO metrics, baseline audit, and strategic roadmap for the Technology Adoption Barriers project — a transparent, build-time snapshot.',
+    'SEO metrics, baseline audit, and strategic roadmap for the Technology Adoption Barriers project - a transparent, build-time snapshot.',
   alternates: {
     canonical: '/making-of-tabs/seo',
   },

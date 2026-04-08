@@ -3,7 +3,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/artic
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'The Squash Merge Incident — AI-Assisted Development — Making of TABS',
+  title: 'The Squash Merge Incident - AI-Assisted Development - Making of TABS',
   description:
     'How a single squash merge silently reverted 25+ pull requests, the root cause analysis, the full restoration effort, and the permanent safeguards now in place.',
   alternates: {

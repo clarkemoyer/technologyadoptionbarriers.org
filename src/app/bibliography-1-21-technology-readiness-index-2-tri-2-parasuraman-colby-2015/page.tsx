@@ -112,7 +112,7 @@ const BibliographyArticlePage = () => {
             </p>
             <p className={PARAGRAPH_CLASSES}>
               One of the key strengths of the TRI 1.0 was its applicability to real business
-              problems— customer segmentation, marketing strategy, product development decisions.
+              problems - customer segmentation, marketing strategy, product development decisions.
               The new version needed to maintain this practical utility while becoming more
               efficient in terms of length and clarity.
             </p>
@@ -219,10 +219,10 @@ const BibliographyArticlePage = () => {
               Segmentation validity was assessed by examining whether TRI-based customer segments
               differed meaningfully on multiple behavioral criteria. Using latent class analysis,
               the authors derived five distinct consumer segments based on their TR profiles: (1)
-              Skeptics (38% of consumers)— detached, cautious about technology; (2) Explorers
-              (18%)—high motivation and low inhibition; (3) Avoiders (16%)—high resistance and low
-              motivation; (4) Pioneers (16%)—strong positive and negative views; and (5) Hesitators
-              (13%)—low innovativeness.
+              Skeptics (38% of consumers) - detached, cautious about technology; (2) Explorers
+              (18%) - high motivation and low inhibition; (3) Avoiders (16%) - high resistance and low
+              motivation; (4) Pioneers (16%) - strong positive and negative views; and (5) Hesitators
+              (13%) - low innovativeness.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               These segments showed dramatically different demographic characteristics and
@@ -266,18 +266,18 @@ const BibliographyArticlePage = () => {
               Rather than assuming all customers have similar technology attitudes and needs,
               organizations can identify which segments exist in their customer base and what
               proportions they represent. For each identified segment, the model instructs
-              organizations to develop tailored marketing approaches. Explorers—characterized by
-              high motivation and low inhibition—respond to messages emphasizing innovation,
+              organizations to develop tailored marketing approaches. Explorers - characterized by
+              high motivation and low inhibition - respond to messages emphasizing innovation,
               cutting-edge features, and technological sophistication. These early adopters should
               receive information about advanced functionality and serve as target users for new
               feature rollouts.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              Skeptics—characterized by detached ambivalence—require messages emphasizing
+              Skeptics - characterized by detached ambivalence - require messages emphasizing
               reliability, proven track record, ease of use, and support availability. These
               customers are unmoved by technology innovation rhetoric and require reassurance that
-              the system is trustworthy and simple. Pioneers—holding strong positive and negative
-              views simultaneously— require balanced messaging that acknowledges both the benefits
+              the system is trustworthy and simple. Pioneers - holding strong positive and negative
+              views simultaneously - require balanced messaging that acknowledges both the benefits
               and limitations of technology. These customers appreciate transparency about
               trade-offs and appreciate vendors who address rather than ignore concerns. Avoiders
               require strong emphasis on simplicity, support, and non-technology alternatives. These
@@ -469,8 +469,8 @@ const BibliographyArticlePage = () => {
               contemporary technology landscapes. Items referencing obsolete technologies or
               outdated pricing structures have been replaced with more contemporary language.
               However, the underlying conceptual dimensions remain unchanged. The fundamental
-              structure of technology readiness—as consisting of motivator dimensions (Optimism,
-              Innovativeness) and inhibitor dimensions (Discomfort, Insecurity)—remains consistent
+              structure of technology readiness - as consisting of motivator dimensions (Optimism,
+              Innovativeness) and inhibitor dimensions (Discomfort, Insecurity) - remains consistent
               between versions. Unlike the Technology Acceptance Model, which measures perceived
               usefulness and ease of use for specific systems, TRI 2.0 (like TRI 1.0) measures
               general, dispositional technology readiness applicable across contexts.
@@ -496,7 +496,7 @@ const BibliographyArticlePage = () => {
               TRI 2.0 identifies barriers to technology adoption through its two inhibitor
               dimensions and provides nuanced understanding of how these barriers manifest across
               different customer segments. Discomfort represents the first major category of
-              barriers—psychological barriers related to perceived complexity and loss of control
+              barriers - psychological barriers related to perceived complexity and loss of control
               over technology. The updated TRI 2.0 captures this through concerns about inadequate
               technical support when problems arise, perception that technology systems are too
               complex, difficulty troubleshooting technology problems, and feelings that technology
@@ -515,7 +515,7 @@ const BibliographyArticlePage = () => {
               and helpful. The concern that “technical support lines are not helpful because they
               don’t explain things in terms you understand” represents a significant barrier for
               many consumers who fear that support, when needed, may not actually resolve their
-              problems. Insecurity represents the second major category of barriers—trust-based
+              problems. Insecurity represents the second major category of barriers - trust-based
               barriers related to privacy, security, and skepticism about technology benefits. TRI
               2.0 captures insecurity through concerns about privacy and information security in
               technology transactions, reluctance to conduct financial transactions through
@@ -569,7 +569,7 @@ const BibliographyArticlePage = () => {
               Some individuals fear that relying on technology might create unhealthy dependency or
               that personal skills might become devalued if machines can perform similar functions.
               These existential concerns about technology’s role in society and human agency
-              represent deeper psychological barriers. Rapid change barriers also emerged—the
+              represent deeper psychological barriers. Rapid change barriers also emerged - the
               concern that any technology purchased today will be obsolete in a short time period.
               For some consumers, this creates reluctance to invest in technology or to commit to
               learning systems that may quickly become outdated. The “moving target” nature of

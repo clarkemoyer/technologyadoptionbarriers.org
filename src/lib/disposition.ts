@@ -165,11 +165,11 @@ export function computeDisposition(row: Omit<DispositionRow, 'Disposition'>): st
   // Step 0: Incomplete
   if (row.Finished !== 'TRUE' && row.Finished !== '1') return 'INCOMPLETE'
 
-  // Step 1: Prolific AUTH CHECK — hard fail (LLM or Bots rated "Low")
+  // Step 1: Prolific AUTH CHECK - hard fail (LLM or Bots rated "Low")
   if (row.Auth_LLM.toUpperCase() === 'LOW' || row.Auth_Bots.toUpperCase() === 'LOW')
     return 'FLAG-AUTH-FAIL'
 
-  // Step 2: Prolific AUTH CHECK — mixed (LLM or Bots rated "Mixed")
+  // Step 2: Prolific AUTH CHECK - mixed (LLM or Bots rated "Mixed")
   if (row.Auth_LLM.toUpperCase() === 'MIXED' || row.Auth_Bots.toUpperCase() === 'MIXED')
     return 'FLAG-AUTH-MIXED'
 
@@ -232,7 +232,7 @@ export function triageCsv(inputCsv: string): DispositionRow[] {
 
   // Use a Map keyed by PID to deduplicate. Qualtrics exports rows in
   // chronological order, so later entries (retakes) overwrite earlier ones.
-  // Decision: use latest attempt only — documented in issue #521.
+  // Decision: use latest attempt only - documented in issue #521.
   const byPid = new Map<string, DispositionRow>()
   let duplicateCount = 0
 
@@ -265,7 +265,7 @@ export function triageCsv(inputCsv: string): DispositionRow[] {
     const flaggedBlocks = detectPartialStraightlining(fields, headers, SURVEY_BLOCKS)
     const partialStraightliningFlag: 0 | 1 = flaggedBlocks.length > 0 ? 1 : 0
 
-    // Auth check fields default to empty — populated by enrichment step
+    // Auth check fields default to empty - populated by enrichment step
     // (scripts/fetch-prolific-auth-checks.ts) before final triage.
     const authLlm = ''
     const authBots = ''
@@ -298,7 +298,7 @@ export function triageCsv(inputCsv: string): DispositionRow[] {
   }
 
   if (duplicateCount > 0) {
-    console.log(`Dedup: ${duplicateCount} duplicate PID(s) found — using latest attempt for each.`)
+    console.log(`Dedup: ${duplicateCount} duplicate PID(s) found - using latest attempt for each.`)
   }
 
   return Array.from(byPid.values())

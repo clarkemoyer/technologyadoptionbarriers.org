@@ -17,7 +17,7 @@ export type ReadinessItem = {
   examples?: string[]
 }
 
-// Perceived Organizational Technology Readiness — Official TABS Survey Items
+// Perceived Organizational Technology Readiness - Official TABS Survey Items
 // Source: TABS Survey Section C (https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO)
 export const readinessItems: ReadinessItem[] = [
   // Strategic Leadership & Governance

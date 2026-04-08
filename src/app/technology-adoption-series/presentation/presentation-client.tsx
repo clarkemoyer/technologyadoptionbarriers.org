@@ -101,7 +101,7 @@ const SECTIONS: SectionMap = {
 
 const SectionMapContext = createContext<SectionMap>(SECTIONS)
 
-const MAX_FRAME_SIZE = 1800 // estimated chars — fill frames with substantial content
+const MAX_FRAME_SIZE = 1800 // estimated chars - fill frames with substantial content
 const MAX_LIST_ITEMS = 10
 
 // ── Helpers ──────────────────────────────────────────────────────────
@@ -116,7 +116,7 @@ function isVisualDescription(node: MarkdownNode): boolean {
 function isStatement(node: MarkdownNode): boolean {
   if (node.type !== 'paragraph') return false
   const c = node.text
-  // Only match known statement prefixes — avoid capturing label-style bold lines
+  // Only match known statement prefixes - avoid capturing label-style bold lines
   // like "**Technology Adoption Definition:**" which end with a colon.
   if (/^\*\*.*:\*?\*?$/.test(c.trim())) return false
   return (
@@ -403,7 +403,7 @@ function expandToFrames(
 
     for (const node of rawNodes) {
       if (isVisualDescription(node)) {
-        // Visual descriptions are handled separately — skip them
+        // Visual descriptions are handled separately - skip them
       } else if (isStatement(node)) {
         statements.push(extractStatementText(node.type === 'paragraph' ? node.text : ''))
       } else {
@@ -523,7 +523,7 @@ function expandToFrames(
       })
     }
 
-    // ── Visual frame — always show if we have a dark-native component,
+    // ── Visual frame - always show if we have a dark-native component,
     //    regardless of whether the markdown has a Visual: description ──
     const visualId = SLIDE_TO_VISUAL_ID[slide.number]
     if (visualId) {
@@ -656,7 +656,7 @@ function useKeyboardNavigation(
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      // Help overlay toggle — always active
+      // Help overlay toggle - always active
       if (e.key === '?') {
         e.preventDefault()
         setShowHelp((h) => !h)
@@ -935,7 +935,7 @@ function PresentationFooter({ currentSlide }: { currentSlide: number }) {
     }))
     .sort((a, b) => a.start - b.start)
 
-  // Calculate section ranges — last section extends to infinity so it
+  // Calculate section ranges - last section extends to infinity so it
   // captures any source slide number, even in filtered decks where
   // frames.length < max source slide number.
   const sectionRanges = sections.map((sec, i) => {

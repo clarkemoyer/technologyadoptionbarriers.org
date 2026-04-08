@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { TechnologyAdoptionSeriesResourcePage } from '../_resource-page'
 
 export const metadata: Metadata = {
-  title: 'Handout materials — Technology Adoption Teaching Series',
+  title: 'Handout materials - Technology Adoption Teaching Series',
   description:
     'Printable participant handouts to support the Technology Adoption Teaching Series session.',
 }

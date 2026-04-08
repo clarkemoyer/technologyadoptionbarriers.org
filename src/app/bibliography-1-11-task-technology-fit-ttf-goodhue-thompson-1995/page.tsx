@@ -274,7 +274,7 @@ const BibliographyArticlePage = () => {
               systems with high task-technology fit, implementation strategies should maximize
               utilization: 1.Design Systems to Enhance Utilization: When fit is strong, ensuring
               high utilization becomes the priority. Implementation should reduce barriers to
-              use—training, support, and access. 2.Manage Expectations Realistically: For systems
+              use - training, support, and access. 2.Manage Expectations Realistically: For systems
               with poor fit, managers should not expect performance improvements from increased use.
               The authors note that “heavy utilization of poorly-fitting systems may actually reduce
               productivity by forcing work processes through inadequate technology.” 3.Consider
@@ -425,8 +425,8 @@ const BibliographyArticlePage = () => {
               temporal concerns through time-lagged analysis, strengthening causal inference.
               11.Alternative Explanation Testing: The authors test and rule out social desirability
               bias, selection bias, and alternative explanations, improving confidence in findings.
-              12.Intuitive Theoretical Logic: The core insight—that technology impact depends on
-              match between tasks and capabilities—is theoretically intuitive while empirically
+              12.Intuitive Theoretical Logic: The core insight - that technology impact depends on
+              match between tasks and capabilities - is theoretically intuitive while empirically
               demonstrating substantial effect sizes.
             </p>
           </section>
@@ -436,7 +436,7 @@ const BibliographyArticlePage = () => {
               Despite significant strengths, the Task-Technology Fit model has notable limitations:
               1.Primarily Cross-Sectional Design: The main study captures a single time point. While
               time-lagged analyses provide some temporal evidence, true longitudinal designs would
-              strengthen causal inference. Reverse causality cannot be definitively ruled out—higher
+              strengthen causal inference. Reverse causality cannot be definitively ruled out - higher
               performers might perceive greater fit even if fit is not objectively superior.
               2.Single Technology System: While 25 organizations are studied, all use the same
               technology (ICD). Generalization to whether fit theory applies to different technology

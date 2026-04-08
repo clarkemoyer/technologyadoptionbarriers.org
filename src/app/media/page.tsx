@@ -350,7 +350,7 @@ const MediaPage = () => {
               </div>
               <div className="p-5 rounded-xl bg-orange-50 border border-orange-100">
                 <div className="text-2xl font-bold text-orange-600">
-                  {metricsData.questionCount > 0 ? metricsData.questionCount.toLocaleString() : '—'}
+                  {metricsData.questionCount > 0 ? metricsData.questionCount.toLocaleString() : ' - '}
                 </div>
                 <div className="mt-1 text-sm text-gray-700">Survey Questions</div>
               </div>
@@ -405,7 +405,7 @@ const MediaPage = () => {
                     <h3 className="text-lg font-semibold">Key Messages</h3>
                     <ul className="mt-2 list-disc pl-5 text-gray-700 space-y-1.5">
                       <li>
-                        Technology adoption succeeds or fails based on organizational barriers—not
+                        Technology adoption succeeds or fails based on organizational barriers - not
                         just tools.
                       </li>
                       <li>

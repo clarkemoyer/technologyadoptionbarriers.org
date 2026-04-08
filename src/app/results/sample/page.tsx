@@ -12,7 +12,7 @@ import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
-  title: 'Sample & Demographics — TABS Results',
+  title: 'Sample & Demographics - TABS Results',
   description:
     'Participant demographics for the Technology Adoption Barriers Survey across four result groups: roles, industries, organization sizes, and geographic distribution.',
   alternates: {
@@ -49,7 +49,7 @@ const PRIMARY_GROUPS = [
 ]
 
 const pct = (count: number, total: number | null | undefined): string =>
-  total ? `${((count / total) * 100).toFixed(1)}%` : '—'
+  total ? `${((count / total) * 100).toFixed(1)}%` : ' - '
 
 const sampleLookup = new Map(sensitivityData.samples.map((s) => [s.key, s]))
 
@@ -405,7 +405,7 @@ const SamplePage = () => {
                         {sample?.description ?? ''}
                       </td>
                       <td className="border border-gray-300 px-4 py-2 text-right font-mono font-bold">
-                        {sample?.n ?? '—'}
+                        {sample?.n ?? ' - '}
                       </td>
                     </tr>
                   )
@@ -438,7 +438,7 @@ const SamplePage = () => {
                 className={`border-l-4 ${group.color} bg-gray-50 rounded-lg p-5 mb-6`}
               >
                 <h3 className={H3_CLASSES}>
-                  {group.label} (N={sample?.n ?? '—'})
+                  {group.label} (N={sample?.n ?? ' - '})
                 </h3>
 
                 {hasDemoData ? (
