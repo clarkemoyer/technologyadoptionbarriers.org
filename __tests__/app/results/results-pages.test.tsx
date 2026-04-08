@@ -348,9 +348,9 @@ describe('Sample & Demographics Page', () => {
     expect(screen.getByText('Uncategorized')).toBeInTheDocument()
     // Data-driven precedence: mock has only 3 categories (C-Suite Adjacent,
     // Technical Specialist, Uncategorized). The fallback includes 7 categories
-    // with additional labels like "Director" and "Manager / Program Lead".
-    // "Director" only appears in the fallback, never in the mock data or any
-    // other page section, so its absence confirms data-driven precedence.
+    // with additional labels like "Manager / Program Lead".
+    // "Manager / Program Lead" is used here as the sentinel because it should
+    // only appear when fallback categories are rendered.
     expect(screen.queryByText('Manager / Program Lead')).not.toBeInTheDocument()
   })
 

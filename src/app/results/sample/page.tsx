@@ -66,6 +66,7 @@ const sampleLookup = new Map(sensitivityData.samples.map((s) => [s.key, s]))
 // precedence automatically.
 // Keep in sync with: scripts/analysis/tabs_v2_analysis.py
 //   → OTHER_ROLE_CATEGORIES_PATTERNS + OTHER_ROLE_CATEGORIES_DESCRIPTIONS
+//     plus the explicit "Uncategorized" entry appended to the JSON output.
 const DEFAULT_ROLE_CATEGORIES: RoleCategoryInfo[] = [
   {
     label: 'C-Suite Adjacent',
