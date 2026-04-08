@@ -133,14 +133,22 @@ jobs:
           CRP_CSV="public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
           PIPELINE_BRANCH="chore/daily-pipeline-data"
 
-          # Check 1: already on main (current checkout)
+          # Check 1: already in current checkout
           if [ -f "$CRP_CSV" ]; then
-            echo "CRP dataset already exists on main — skipping to preserve frozen snapshot"
+            echo "CRP dataset already exists in checkout — skipping to preserve frozen snapshot"
             echo "produced=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          # Check 2: already on pending daily-pipeline PR branch (not yet merged)
+          # Check 2: already on origin/main (covers workflow_dispatch from non-main branch)
+          git fetch --no-tags --depth=1 origin "main:refs/remotes/origin/main" 2>/dev/null || true
+          if git show "origin/main:$CRP_CSV" >/dev/null 2>&1; then
+            echo "CRP dataset already exists on origin/main — skipping to preserve frozen snapshot"
+            echo "produced=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Check 3: already on pending daily-pipeline PR branch (not yet merged)
           git fetch --no-tags --depth=1 origin "$PIPELINE_BRANCH:refs/remotes/origin/$PIPELINE_BRANCH" 2>/dev/null || true
           if git show "origin/$PIPELINE_BRANCH:$CRP_CSV" >/dev/null 2>&1; then
             echo "CRP dataset already exists on origin/$PIPELINE_BRANCH — skipping to preserve frozen snapshot"
@@ -199,7 +207,7 @@ jobs:
           # Guard: skip if filtered CSV has no data rows (only headers)
           DATA_ROWS=$(tail -n +4 "${{ runner.temp }}/qualtrics-enriched-crp-sample.csv" | wc -l)
           if [ "$DATA_ROWS" -eq 0 ]; then
-            echo "CRP analysis skipped: filtered sample has 0 data rows"
+            echo "CRP analysis skipped: filtered sample has 0 data rows (no JSON produced)"
             exit 0
           fi
           python scripts/analysis/tabs_v2_analysis.py \
