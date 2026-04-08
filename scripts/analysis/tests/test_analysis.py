@@ -32,6 +32,7 @@ from tabs_v2_analysis import (
     oneway_anova,
     categorize_other_role,
     OTHER_ROLE_CATEGORIES_PATTERNS,
+    OTHER_ROLE_CATEGORIES_DESCRIPTIONS,
     BARRIER_SCALE,
     READINESS_SCALE,
     MATURITY_SCALE,
@@ -455,6 +456,39 @@ class TestSensitivityJSON:
                         assert "f" in construct
                         assert "p" in construct
                         assert "sig" in construct
+
+    def test_role_categories_in_output(self, test_data_csv):
+        """role_categories must be present and match OTHER_ROLE_CATEGORIES_PATTERNS + Uncategorized."""
+        idx, data = load_data(test_data_csv)
+        _, samples = filter_samples(data, idx)
+
+        cuts = [
+            ("Conservative Clean", samples["conservative_clean"]),
+            ("Flexible Clean", samples["flexible_clean"]),
+            ("All V2", samples["v2_all"]),
+        ]
+        result = sensitivity_to_json(cuts, idx)
+
+        assert "role_categories" in result, "role_categories key missing from JSON output"
+        cats = result["role_categories"]
+        assert isinstance(cats, list), "role_categories should be a list"
+
+        # Should have one entry per pattern category + "Uncategorized"
+        expected_labels = [cat for cat, _ in OTHER_ROLE_CATEGORIES_PATTERNS] + ["Uncategorized"]
+        actual_labels = [c["label"] for c in cats]
+        assert actual_labels == expected_labels, (
+            f"role_categories labels mismatch: {actual_labels} != {expected_labels}"
+        )
+
+        for entry in cats:
+            assert "label" in entry, "role_categories entry missing 'label'"
+            assert "description" in entry, f"role_categories entry '{entry['label']}' missing 'description'"
+            assert "examples" in entry, f"role_categories entry '{entry['label']}' missing 'examples'"
+            # All named categories (not Uncategorized) must have a non-empty description
+            if entry["label"] != "Uncategorized":
+                assert entry["description"], (
+                    f"role_categories entry '{entry['label']}' has empty description"
+                )
 
     def test_filter_bias_analysis_schema(self, test_data_csv):
         """filter_bias_analysis must be present and have the expected per-category shape."""

@@ -158,10 +158,11 @@ const MOCK_SENSITIVITY_DATA = {
   sample_details: {
     conservative_clean: {
       demographics: {
-        roles: {},
+        roles: { CIO: 5, CTO: 3, Other: 2 },
         org_sizes: {},
         profit_models: {},
-        tech_vs_nontech: { technical: 0, non_technical: 0, other: 0 },
+        tech_vs_nontech: { technical: 8, non_technical: 10, other: 2 },
+        other_roles: { total: 2, categories: { 'Technical Specialist': 2 } },
       },
       effect_sizes: {},
       cross_tabs: { by_role: [], by_org_size: [] },
@@ -173,6 +174,7 @@ const MOCK_SENSITIVITY_DATA = {
         org_sizes: {},
         profit_models: {},
         tech_vs_nontech: { technical: 0, non_technical: 0, other: 0 },
+        other_roles: { total: 0, categories: {} },
       },
       effect_sizes: {},
       cross_tabs: { by_role: [], by_org_size: [] },
@@ -184,6 +186,7 @@ const MOCK_SENSITIVITY_DATA = {
         org_sizes: {},
         profit_models: {},
         tech_vs_nontech: { technical: 0, non_technical: 0, other: 0 },
+        other_roles: { total: 0, categories: {} },
       },
       effect_sizes: {},
       cross_tabs: { by_role: [], by_org_size: [] },
@@ -195,6 +198,7 @@ const MOCK_SENSITIVITY_DATA = {
         org_sizes: {},
         profit_models: {},
         tech_vs_nontech: { technical: 0, non_technical: 0, other: 0 },
+        other_roles: { total: 0, categories: {} },
       },
       effect_sizes: {},
       cross_tabs: { by_role: [], by_org_size: [] },
@@ -206,12 +210,30 @@ const MOCK_SENSITIVITY_DATA = {
         org_sizes: {},
         profit_models: {},
         tech_vs_nontech: { technical: 0, non_technical: 0, other: 0 },
+        other_roles: { total: 0, categories: {} },
       },
       effect_sizes: {},
       cross_tabs: { by_role: [], by_org_size: [] },
       inferential: {},
     },
   },
+  role_categories: [
+    {
+      label: 'C-Suite Adjacent',
+      description: 'Chief-level titles not in the standard 9 C-suite options',
+      examples: 'CDO, CPO, CAO',
+    },
+    {
+      label: 'Technical Specialist',
+      description: 'Individual contributor or specialist technical roles',
+      examples: 'Engineer, Architect, Analyst',
+    },
+    {
+      label: 'Uncategorized',
+      description: 'Responses that did not match any keyword pattern, or blank entries',
+      examples: '',
+    },
+  ],
   // filter_bias_analysis: mix of ok:true and ok:false to exercise both rendering paths
   filter_bias_analysis: {
     role: { ok: true, chi2: 1.23, p_value: 0.54, df: 6, error: null },
@@ -297,6 +319,33 @@ describe('Sample & Demographics Page', () => {
     const { default: Page } = await import('@/app/results/sample/page')
     render(<Page />)
     expect(screen.getByRole('heading', { name: /sample & demographics/i })).toBeInTheDocument()
+  })
+
+  it('renders Technical vs. Non-Technical Breakdown panel when tech_vs_nontech data is present', async () => {
+    const { default: Page } = await import('@/app/results/sample/page')
+    render(<Page />)
+    // The conservative_clean group has non-zero roles (hasDemoData=true) and tech_vs_nontech defined
+    expect(screen.getByText(/technical vs\. non-technical breakdown/i)).toBeInTheDocument()
+  })
+
+  it('renders Other Role Categories panel when other_roles data is present', async () => {
+    const { default: Page } = await import('@/app/results/sample/page')
+    render(<Page />)
+    // The conservative_clean group has other_roles.total=2 and categories set
+    expect(screen.getByText(/other.*role categories/i)).toBeInTheDocument()
+  })
+
+  it('renders Understanding Other Roles methodology section from role_categories data', async () => {
+    const { default: Page } = await import('@/app/results/sample/page')
+    render(<Page />)
+    expect(
+      screen.getByRole('heading', { name: /understanding.*other.*roles/i })
+    ).toBeInTheDocument()
+    // Category labels from mock role_categories should appear in the methodology table
+    expect(screen.getByText('C-Suite Adjacent')).toBeInTheDocument()
+    // Technical Specialist appears in both the demo panel and methodology table
+    expect(screen.getAllByText('Technical Specialist').length).toBeGreaterThanOrEqual(2)
+    expect(screen.getByText('Uncategorized')).toBeInTheDocument()
   })
 })
 
