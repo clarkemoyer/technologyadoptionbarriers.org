@@ -34,8 +34,8 @@ const IntegrationsPage = () => {
             (the participant recruitment platform),{' '}
             <strong>Google Analytics & Search Console</strong> (impact measurement and SEO
             transparency), and <strong>Zotero</strong> (the vetted reference library powering
-            AI-assisted research). Each integration is managed through GitHub Actions workflows and
-            TypeScript client libraries, so the entire operational lifecycle — from survey creation
+            AI-assisted research). Each integration is managed through GitHub Actions workflows and TypeScript or Python
+            client libraries, so the entire operational lifecycle — from survey creation
             to data collection to analytics — is version-controlled and reproducible.
           </p>
         </section>
