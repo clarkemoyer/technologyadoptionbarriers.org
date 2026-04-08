@@ -179,7 +179,7 @@ jobs:
             --json "${{ runner.temp }}/crp-sensitivity-analysis.json"
 
       - name: Stage CRP public files
-        if: steps.crp.outcome == 'success' && steps.crp-analysis.outcome == 'success'
+        if: steps.crp.outcome == 'success' && steps.crp-filter.outcome == 'success' && steps.crp-analysis.outcome == 'success'
         run: |
           mkdir -p "${{ runner.temp }}/crp-public"
           cp "${{ runner.temp }}/crp-output/TABS_V2_CRP_public_dataset.csv" \
@@ -286,7 +286,7 @@ jobs:
 
       # CRP public dataset + analysis snapshot (N=200 subset)
       - uses: actions/upload-artifact@v7
-        if: steps.crp.outcome == 'success' && steps.crp-analysis.outcome == 'success'
+        if: steps.crp.outcome == 'success' && steps.crp-filter.outcome == 'success' && steps.crp-analysis.outcome == 'success'
         with:
           name: crp-dataset
           path: |
