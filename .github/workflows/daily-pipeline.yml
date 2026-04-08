@@ -315,13 +315,15 @@ jobs:
           if-no-files-found: warn
 
       # CRP analysis snapshot (optional — only when full chain succeeds)
+      # CRP analysis snapshot — only uploaded when the JSON was actually produced
+      # (skipped silently when the empty-sample guard exits 0 without writing JSON)
       - uses: actions/upload-artifact@v7
         if: steps.crp.outcome == 'success' && steps.crp-filter.outcome == 'success' && steps.crp-analysis.outcome == 'success'
         with:
           name: crp-analysis-snapshot
           path: ${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json
           retention-days: 7
-          if-no-files-found: warn
+          if-no-files-found: ignore
 
   # ── Phase 3a: Auto-approve CLEAN ─────────────────────────────
   approve-clean:
