@@ -273,6 +273,14 @@ jest.mock('@/data/data-audit.json', () => ({
   dispositionCounts: {},
   dispositionByStatus: {},
 }))
+jest.mock('@/data/crp-sensitivity-analysis.json', () => ({
+  last_updated: 'placeholder',
+  samples: [
+    { key: 'conservative_clean', label: 'Conservative Clean', description: 'test', n: 78 },
+    { key: 'flexible_clean', label: 'Flexible Clean', description: 'test', n: 123 },
+    { key: 'prolific_accepted', label: 'CRP Sample', description: 'test', n: 200 },
+  ],
+}))
 
 /* ── Tests ─────────────────────────────────────────────────── */
 
@@ -417,5 +425,19 @@ describe('Scale Reliability Page', () => {
     const { default: Page } = await import('@/app/results/reliability/page')
     render(<Page />)
     expect(screen.getByRole('heading', { name: /scale reliability/i })).toBeInTheDocument()
+  })
+})
+
+describe('CRP 2026 Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /TABS 2026 CRP Results/i })).toBeInTheDocument()
+  })
+
+  it('renders download section', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /download the dataset/i })).toBeInTheDocument()
   })
 })

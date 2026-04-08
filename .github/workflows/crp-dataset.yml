@@ -1,0 +1,178 @@
+name: CRP Dataset Builder
+
+# Produces the final CRP public dataset (N=200) for the
+# Comprehensive Research Paper. Manual trigger only.
+#
+# Data flow (2 jobs):
+#   Phase 1: Prolific API + Qualtrics API → enrich → CRP builder →
+#            analysis snapshot (single job so all PII-bearing files
+#            stay ephemeral on the runner — never uploaded as artifacts)
+#   Phase 2: Commit public CSV + analysis JSON to repo via PR
+#
+# Only public outputs are uploaded as artifacts (public dataset CSV
+# and analysis snapshot JSON). All PII-bearing intermediates (enriched
+# CSV, auth checks, statuses, manifest, linkage, mapping, PII report)
+# stay ephemeral on the runner and are never uploaded or committed.
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_review:
+        description: 'Skip PII human review (auto-redact). Default true because confidential review reports stay on the runner and are not uploaded.'
+        required: false
+        type: boolean
+        default: true
+
+concurrency:
+  group: crp-dataset
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  # ── Phase 1: Fetch, Export, Enrich, Build CRP, Analyze ──────
+  # Single job so ALL PII-bearing files (Prolific PIDs, auth checks,
+  # enriched CSV, confidential manifest/linkage) stay ephemeral on
+  # the runner and are never uploaded as artifacts.
+  build-crp:
+    name: 'Phase 1: Build CRP Dataset'
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install -r scripts/analysis/requirements.txt
+
+      - name: Fetch Prolific auth checks and statuses
+        run: python3 scripts/analysis/fetch_prolific_data.py
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          PROLIFIC_STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          AUTH_OUTPUT: ${{ runner.temp }}/auth-checks.csv
+          STATUSES_OUTPUT: ${{ runner.temp }}/statuses.json
+
+      - name: Export Qualtrics CSV
+        run: python3 scripts/analysis/export_qualtrics.py
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/qualtrics-raw.csv
+
+      - name: Enrich CSV with Prolific data
+        run: |
+          python scripts/analysis/enrich_qualtrics_csv.py \
+            --qualtrics "${{ runner.temp }}/qualtrics-raw.csv" \
+            --auth-checks "${{ runner.temp }}/auth-checks.csv" \
+            --statuses "${{ runner.temp }}/statuses.json" \
+            --output "${{ runner.temp }}/qualtrics-enriched.csv"
+
+      - name: Build CRP dataset (N=200)
+        run: |
+          python scripts/analysis/create_crp_dataset.py \
+            "${{ runner.temp }}/qualtrics-enriched.csv" \
+            --target-n 200 \
+            --output-dir "${{ runner.temp }}/crp-output" \
+            ${{ inputs.skip_review && '--skip-review' || '' }}
+
+      - name: Build CRP-only enriched CSV for analysis
+        run: |
+          python3 - <<'PY'
+          import csv, pathlib, sys
+
+          tmp = pathlib.Path("${{ runner.temp }}")
+          mapping = tmp / "crp-output" / "responseid_mapping_CONFIDENTIAL.csv"
+          enriched = tmp / "qualtrics-enriched.csv"
+          output = tmp / "qualtrics-enriched-crp-sample.csv"
+
+          # Read selected original ResponseIds from the mapping file
+          selected_ids = set()
+          with mapping.open(newline="", encoding="utf-8") as f:
+              for row in csv.DictReader(f):
+                  selected_ids.add(row["original_response_id"])
+          print(f"  Selected ResponseIds from mapping: {len(selected_ids)}")
+
+          # Filter enriched CSV (preserve 3 Qualtrics header rows)
+          with enriched.open(newline="", encoding="utf-8-sig") as f:
+              all_rows = list(csv.reader(f))
+          headers = all_rows[:3]
+          rid_idx = all_rows[0].index("ResponseId")
+          data = [r for r in all_rows[3:] if len(r) > rid_idx and r[rid_idx] in selected_ids]
+          print(f"  Filtered rows: {len(data)} (expected {len(selected_ids)})")
+
+          if len(data) != len(selected_ids):
+              print(f"  ERROR: Row count mismatch — expected {len(selected_ids)}, got {len(data)}", file=sys.stderr)
+              print(f"  Missing count: {len(selected_ids) - len(data)}", file=sys.stderr)
+              sys.exit(1)
+
+          with output.open("w", newline="", encoding="utf-8") as f:
+              w = csv.writer(f)
+              w.writerows(headers)
+              w.writerows(data)
+          PY
+
+      - name: Run CRP analysis snapshot (N=200 subset only)
+        run: |
+          python scripts/analysis/tabs_v2_analysis.py \
+            "${{ runner.temp }}/qualtrics-enriched-crp-sample.csv" \
+            --json "${{ runner.temp }}/crp-sensitivity-analysis.json"
+
+      # Only public, de-identified outputs are uploaded as artifacts
+      - uses: actions/upload-artifact@v7
+        with:
+          name: crp-public-dataset
+          path: ${{ runner.temp }}/crp-output/TABS_V2_CRP_public_dataset.csv
+          retention-days: 7
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: crp-analysis-snapshot
+          path: ${{ runner.temp }}/crp-sensitivity-analysis.json
+          retention-days: 7
+
+      # All PII-bearing files (auth checks, statuses, enriched CSV,
+      # manifest, linkage, mapping, PII report) are NOT uploaded.
+      # They remain ephemeral on the runner and are discarded when
+      # the job completes.
+
+  # ── Phase 2: Commit public dataset + analysis to repo ────────
+  commit-results:
+    name: 'Phase 2: Commit Results'
+    needs: build-crp
+    runs-on: ubuntu-latest
+    environment: copilot
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Create public/datasets directory
+        run: mkdir -p public/datasets
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: crp-public-dataset
+          path: public/datasets
+
+      - name: Rename public dataset to include year
+        run: |
+          mv public/datasets/TABS_V2_CRP_public_dataset.csv \
+             public/datasets/TABS_V2_CRP_2026_public_dataset.csv
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: crp-analysis-snapshot
+          path: src/data
+
+      - uses: ./.github/actions/format-and-pr
+        with:
+          token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+          files: 'src/data/crp-sensitivity-analysis.json'
+          commit-message: 'feat: add CRP 2026 public dataset and analysis snapshot'
+          pr-title: 'TABS 2026 CRP Dataset (N=200)'
+          pr-body: 'Automated CRP dataset production. Contains de-identified public CSV and frozen analysis snapshot for the CRP paper.'
+          branch: chore/crp-2026-dataset
