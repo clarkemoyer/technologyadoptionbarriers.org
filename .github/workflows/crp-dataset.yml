@@ -158,18 +158,9 @@ jobs:
           path: ${{ runner.temp }}/crp-sensitivity-analysis.json
           retention-days: 7
 
-      # Confidential files — never committed, artifact-only
-      - uses: actions/upload-artifact@v7
-        with:
-          name: crp-confidential
-          path: |
-            ${{ runner.temp }}/crp-output/*manifest*
-            ${{ runner.temp }}/crp-output/*linkage*
-            ${{ runner.temp }}/crp-output/*mapping*
-            ${{ runner.temp }}/crp-output/*pii*
-            ${{ runner.temp }}/crp-output/*PII*
-          retention-days: 7
-          if-no-files-found: warn
+      # Confidential CRP outputs (manifest, linkage, mapping, PII report)
+      # remain ephemeral on the runner and are NOT uploaded as artifacts
+      # to prevent exposure of participant identifiers in a public repo.
 
   # ── Phase 3: Commit public dataset + analysis to repo ────────
   commit-results:

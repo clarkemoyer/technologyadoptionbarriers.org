@@ -80,7 +80,7 @@ const CRP2026Page = () => {
             {[
               { label: 'CRP Sample Size', value: `N=${CRP_SAMPLE_SIZE}` },
               { label: 'Conservative Clean', value: String(CRP_CONSERVATIVE_CLEAN) },
-              { label: 'Flexible Clean', value: String(CRP_FLEXIBLE_CLEAN) },
+              { label: 'Flexible Clean (total)', value: String(CRP_FLEXIBLE_CLEAN) },
               { label: 'Selection Tiers', value: String(CRP_SELECTION_TIERS) },
             ].map((stat) => (
               <div
