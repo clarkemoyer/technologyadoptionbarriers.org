@@ -60,9 +60,10 @@ const pct = (count: number, total: number | null | undefined): string =>
 const sampleLookup = new Map(sensitivityData.samples.map((s) => [s.key, s]))
 
 // Static fallback for role category metadata.  Used when the pipeline JSON
-// does not yet include `role_categories` (e.g. before the first daily run
-// after deployment).  Once the pipeline populates the field, the data-driven
-// values take precedence automatically.
+// does not yet include `role_categories`, or when `role_categories` is present
+// but empty (e.g. before the first daily run after deployment).  Once the
+// pipeline provides one or more role categories, the data-driven values take
+// precedence automatically.
 // Keep in sync with: scripts/analysis/tabs_v2_analysis.py
 //   → OTHER_ROLE_CATEGORIES_PATTERNS + OTHER_ROLE_CATEGORIES_DESCRIPTIONS
 const DEFAULT_ROLE_CATEGORIES: RoleCategoryInfo[] = [
