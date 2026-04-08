@@ -104,25 +104,26 @@ const CRP2026Page = () => {
             <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
               <h3 className={H3_CLASSES}>Three-Tier Selection Methodology</h3>
               <p className={PARAGRAPH_CLASSES}>
-                The CRP dataset applies a three-tier selection methodology to maximize data quality
-                while preserving statistical power. Each tier imposes progressively stricter
-                inclusion criteria, allowing readers to assess sensitivity of findings to sample
-                definition choices.
+                The CRP dataset selects N={CRP_SAMPLE_SIZE} responses from Prolific Accepted
+                participants using a three-tier quality-based strategy. Higher tiers are
+                automatically included; remaining slots are filled by quality-ranked responses from
+                lower tiers.
               </p>
               <ul className={BODY_LIST_CLASSES}>
                 <li>
-                  <strong>Tier 1 &mdash; Prolific Accepted:</strong> All responses that passed
-                  Prolific platform authentication and completed the full survey
+                  <strong>Tier 1 &mdash; Conservative Clean (auto-include):</strong> All responses
+                  passing every quality gate: 3/3 IRI attention checks, duration &ge; 540s,
+                  reCAPTCHA &ge; 0.5, no straightlining, no auth flags (N={CRP_CONSERVATIVE_CLEAN})
                 </li>
                 <li>
-                  <strong>Tier 2 &mdash; Flexible Clean:</strong> Responses passing basic quality
-                  filters including duration thresholds and IRI attention checks (N=
-                  {CRP_FLEXIBLE_CLEAN})
+                  <strong>Tier 2 &mdash; Flexible Clean surplus (auto-include):</strong> Responses
+                  passing basic quality (all 3 IRIs + duration &ge; 480s) that did not qualify for
+                  Tier 1 (N={CRP_FLEXIBLE_CLEAN - CRP_CONSERVATIVE_CLEAN})
                 </li>
                 <li>
-                  <strong>Tier 3 &mdash; Conservative Clean:</strong> Most restrictive sample
-                  applying all quality indicators including straightlining detection and reCAPTCHA
-                  scoring (N={CRP_CONSERVATIVE_CLEAN})
+                  <strong>Tier 3 &mdash; Quality-ranked fill:</strong> Remaining Prolific Accepted
+                  responses ranked by a 100-point composite quality score, selected until N=
+                  {CRP_SAMPLE_SIZE} is reached
                 </li>
               </ul>
             </div>
@@ -170,12 +171,13 @@ const CRP2026Page = () => {
             <p className={PARAGRAPH_CLASSES}>
               The CRP 2026 public dataset is available for download in CSV format. This file
               contains the de-identified, frozen N={CRP_SAMPLE_SIZE} sample used for all CRP
-              analyses.
+              analyses. The dataset is permanently archived at Penn State ScholarSphere.
             </p>
             <div className="flex flex-wrap gap-4 my-4">
               <a
-                href={assetPath('/datasets/TABS_V2_CRP_2026_public_dataset.csv')}
-                download
+                href="https://scholarsphere.psu.edu/resources/cc6df3e4-17d3-4594-86f6-48a433cde962"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 transition-colors font-sans text-base font-medium shadow-sm"
               >
                 <svg
@@ -192,7 +194,14 @@ const CRP2026Page = () => {
                     d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                   />
                 </svg>
-                Download CRP 2026 Dataset (CSV)
+                Download from ScholarSphere
+              </a>
+              <a
+                href={assetPath('/datasets/TABS_V2_CRP_2026_public_dataset.csv')}
+                download
+                className="inline-flex items-center px-6 py-3 bg-white text-blue-600 border border-blue-300 rounded-lg hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 transition-colors font-sans text-base font-medium"
+              >
+                Mirror: Direct CSV Download
               </a>
             </div>
             <ul className="text-sm text-blue-900 space-y-1 font-sans">
@@ -210,17 +219,8 @@ const CRP2026Page = () => {
               </li>
             </ul>
           </div>
-          <p className={PARAGRAPH_CLASSES}>
-            The dataset is also permanently archived at{' '}
-            <a
-              href="https://scholarsphere.psu.edu/resources/cc6df3e4-17d3-4594-86f6-48a433cde962"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline hover:text-blue-800"
-            >
-              Penn State ScholarSphere
-            </a>{' '}
-            for long-term institutional preservation with a permanent DOI.
+          <p className="text-sm text-gray-500 font-sans mt-2">
+            The mirror link will be available after the CRP dataset workflow runs.
           </p>
         </section>
 
