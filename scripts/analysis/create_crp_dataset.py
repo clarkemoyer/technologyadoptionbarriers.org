@@ -114,7 +114,8 @@ COLUMNS_TO_DROP: set[str] = {
     "UserLanguage",
     "distributionChannel",
 }
-# Prolific demographic columns prefix
+# Prolific demographic columns prefix — must match the prefix applied by
+# enrich_qualtrics_csv.py (which writes "Prolific_<col>", capital P).
 PROLIFIC_DEMO_PREFIX = "Prolific_"
 
 # —— Columns to preserve in Prolific linkage file ——
@@ -747,7 +748,10 @@ def extract_linkage(
     rows: list[dict[str, str]],
     linkage_cols: list[str],
 ) -> list[list[str]]:
-    """Extract columns for the Prolific linkage file as aligned row lists."""
+    """Extract and convert dict rows to list format aligned with linkage_cols order.
+
+    Returns rows as lists (not dicts) so they are compatible with csv.writer.
+    """
     return [[row.get(col, "") for col in linkage_cols] for row in rows]
 
 
@@ -903,8 +907,8 @@ def deidentify_selected(
     # Verify: re-scan for PII
     print("\n--- Verification: re-scan output for PII ---")
     verify_cols = [c for c in available_text_cols if c in kept_headers]
-    verify_rows = rows_to_dicts(filtered_rows, kept_headers)
-    verify_flags = scan_pii(verify_rows, verify_cols, row_offset=2)
+    verify_dicts = rows_to_dicts(filtered_rows, kept_headers)
+    verify_flags = scan_pii(verify_dicts, verify_cols, row_offset=2)
     if verify_flags:
         print(f"  FAIL: {len(verify_flags)} PII pattern(s) still detected!")
         for flag in verify_flags:
