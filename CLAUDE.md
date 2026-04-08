@@ -777,6 +777,7 @@ export GOOGLE_SERVICE_ACCOUNT_EMAIL="service@project.iam.gserviceaccount.com"
 export GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
 export ZOTERO_API_KEY="your-zotero-api-key"
 export ZOTERO_USER_ID="<your-zotero-user-id>"
+export ZOTERO_BASE_URL="https://api.zotero.org"
 
 # Option 2: VS Code MCP (recommended for Qualtrics/GitHub/Zotero)
 # Copy .vscode/mcp.json.example to .vscode/mcp.json
