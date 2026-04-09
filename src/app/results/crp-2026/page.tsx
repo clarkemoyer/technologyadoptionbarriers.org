@@ -281,7 +281,7 @@ const CRP2026Page = () => {
               <Link href="/results/crp-2026/glossary" className="text-blue-600 hover:underline">
                 Statistics Glossary
               </Link>{' '}
-              &mdash; what every statistic means and how it's calculated
+              &mdash; what every statistic means and how it&apos;s calculated
             </li>
             <li>
               <Link href="/results/reproducibility" className="text-blue-600 hover:underline">

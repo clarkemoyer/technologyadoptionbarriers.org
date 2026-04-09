@@ -1,25 +1,170 @@
 {
-  "samples": {
-    "conservative_clean": { "n": 79 },
-    "flexible_clean": { "n": 116 },
-    "prolific_accepted": { "n": 200 },
-    "v2_finished": { "n": 200 },
-    "v2_all": { "n": 200 }
-  },
-  "metrics": {
-    "barriers_mean": [2.8354, 2.7913, 2.753, 2.753, 2.753],
-    "barriers_sd": [0.6534, 0.6625, 0.6518, 0.6518, 0.6518],
-    "readiness_mean": [3.1532, 3.1067, 3.1139, 3.1139, 3.1139],
-    "readiness_sd": [0.6238, 0.6356, 0.6485, 0.6485, 0.6485],
-    "maturity_mean": [3.1139, 3.0759, 3.1079, 3.1079, 3.1079],
-    "maturity_sd": [0.6785, 0.6821, 0.6725, 0.6725, 0.6725],
-    "barriers_readiness_r": [0.6887, 0.6923, 0.7231, 0.7231, 0.7231],
-    "barriers_maturity_r": [0.5221, 0.5312, 0.5684, 0.5684, 0.5684],
-    "readiness_maturity_r": [0.7234, 0.7281, 0.7231, 0.7231, 0.7231],
-    "barriers_alpha": [0.848, 0.851, 0.853, 0.853, 0.853],
-    "readiness_alpha": [0.897, 0.901, 0.903, 0.903, 0.903],
-    "maturity_alpha": [0.886, 0.889, 0.891, 0.891, 0.891]
-  },
+  "samples": [
+    {
+      "key": "conservative_clean",
+      "label": "Conservative Clean",
+      "description": "Prolific APPROVED + all quality checks (IRI, duration >= 540s, reCAPTCHA, straightlining, auth)",
+      "n": 79
+    },
+    {
+      "key": "flexible_clean",
+      "label": "Flexible Clean",
+      "description": "Prolific APPROVED + basic quality (all 3 IRIs + duration >= 480s)",
+      "n": 116
+    },
+    {
+      "key": "prolific_accepted",
+      "label": "Prolific Accepted",
+      "description": "All Prolific APPROVED submissions regardless of quality checks",
+      "n": 200
+    },
+    {
+      "key": "v2_finished",
+      "label": "V2 Finished",
+      "description": "All V2 survey completions (Finished=True) regardless of Prolific status",
+      "n": 200
+    },
+    {
+      "key": "v2_all",
+      "label": "V2 All",
+      "description": "All V2 survey responses regardless of completion or Prolific status",
+      "n": 200
+    }
+  ],
+  "metrics": [
+    {
+      "key": "barrier_mean",
+      "label": "Barrier Grand Mean",
+      "values": {
+        "conservative_clean": 2.8354,
+        "flexible_clean": 2.7913,
+        "prolific_accepted": 2.753,
+        "v2_finished": 2.753,
+        "v2_all": 2.753
+      }
+    },
+    {
+      "key": "barrier_sd",
+      "label": "Barrier SD",
+      "values": {
+        "conservative_clean": 0.6534,
+        "flexible_clean": 0.6625,
+        "prolific_accepted": 0.6518,
+        "v2_finished": 0.6518,
+        "v2_all": 0.6518
+      }
+    },
+    {
+      "key": "readiness_mean",
+      "label": "Readiness Mean",
+      "values": {
+        "conservative_clean": 3.1532,
+        "flexible_clean": 3.1067,
+        "prolific_accepted": 3.1139,
+        "v2_finished": 3.1139,
+        "v2_all": 3.1139
+      }
+    },
+    {
+      "key": "readiness_sd",
+      "label": "Readiness SD",
+      "values": {
+        "conservative_clean": 0.6238,
+        "flexible_clean": 0.6356,
+        "prolific_accepted": 0.6485,
+        "v2_finished": 0.6485,
+        "v2_all": 0.6485
+      }
+    },
+    {
+      "key": "maturity_mean",
+      "label": "Maturity Mean",
+      "values": {
+        "conservative_clean": 3.1139,
+        "flexible_clean": 3.0759,
+        "prolific_accepted": 3.1079,
+        "v2_finished": 3.1079,
+        "v2_all": 3.1079
+      }
+    },
+    {
+      "key": "maturity_sd",
+      "label": "Maturity SD",
+      "values": {
+        "conservative_clean": 0.6785,
+        "flexible_clean": 0.6821,
+        "prolific_accepted": 0.6725,
+        "v2_finished": 0.6725,
+        "v2_all": 0.6725
+      }
+    },
+    {
+      "key": "corr_br",
+      "label": "Barriers–Readiness Correlation",
+      "values": {
+        "conservative_clean": 0.6887,
+        "flexible_clean": 0.6923,
+        "prolific_accepted": 0.7231,
+        "v2_finished": 0.7231,
+        "v2_all": 0.7231
+      }
+    },
+    {
+      "key": "corr_bm",
+      "label": "Barriers–Maturity Correlation",
+      "values": {
+        "conservative_clean": 0.5221,
+        "flexible_clean": 0.5312,
+        "prolific_accepted": 0.5684,
+        "v2_finished": 0.5684,
+        "v2_all": 0.5684
+      }
+    },
+    {
+      "key": "corr_rm",
+      "label": "Readiness–Maturity Correlation",
+      "values": {
+        "conservative_clean": 0.7234,
+        "flexible_clean": 0.7281,
+        "prolific_accepted": 0.7231,
+        "v2_finished": 0.7231,
+        "v2_all": 0.7231
+      }
+    },
+    {
+      "key": "alpha_barriers",
+      "label": "Cronbach's Alpha (Barriers)",
+      "values": {
+        "conservative_clean": 0.848,
+        "flexible_clean": 0.851,
+        "prolific_accepted": 0.853,
+        "v2_finished": 0.853,
+        "v2_all": 0.853
+      }
+    },
+    {
+      "key": "alpha_readiness",
+      "label": "Cronbach's Alpha (Readiness)",
+      "values": {
+        "conservative_clean": 0.897,
+        "flexible_clean": 0.901,
+        "prolific_accepted": 0.903,
+        "v2_finished": 0.903,
+        "v2_all": 0.903
+      }
+    },
+    {
+      "key": "alpha_maturity",
+      "label": "Cronbach's Alpha (Maturity)",
+      "values": {
+        "conservative_clean": 0.886,
+        "flexible_clean": 0.889,
+        "prolific_accepted": 0.891,
+        "v2_finished": 0.891,
+        "v2_all": 0.891
+      }
+    }
+  ],
   "demographic_sources": {
     "survey_items": [
       "Q1_Role",
@@ -67,8 +212,16 @@
           "5000-9999": 7,
           "10000+": 16
         },
-        "profit_models": { "For-Profit": 56, "Non-Profit": 15, "Government/Public Sector": 8 },
-        "tech_vs_nontech": { "technical": 15, "non_technical": 51, "other": 13 },
+        "profit_models": {
+          "For-Profit": 56,
+          "Non-Profit": 15,
+          "Government/Public Sector": 8
+        },
+        "tech_vs_nontech": {
+          "technical": 15,
+          "non_technical": 51,
+          "other": 13
+        },
         "other_roles": {
           "total": 13,
           "categories": {
@@ -261,7 +414,13 @@
           "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
           "group_ns": [15, 51, 13],
           "constructs": {
-            "barriers": { "f": 0.4926, "p": 0.613, "df_between": 2, "df_within": 76, "sig": false },
+            "barriers": {
+              "f": 0.4926,
+              "p": 0.613,
+              "df_between": 2,
+              "df_within": 76,
+              "sig": false
+            },
             "readiness": {
               "f": 2.2525,
               "p": 0.1121,
@@ -269,7 +428,13 @@
               "df_within": 76,
               "sig": false
             },
-            "maturity": { "f": 0.2401, "p": 0.7871, "df_between": 2, "df_within": 76, "sig": false }
+            "maturity": {
+              "f": 0.2401,
+              "p": 0.7871,
+              "df_between": 2,
+              "df_within": 76,
+              "sig": false
+            }
           }
         },
         "anova_by_org_size": {
@@ -290,27 +455,63 @@
               "df_within": 76,
               "sig": false
             },
-            "maturity": { "f": 1.5696, "p": 0.2148, "df_between": 2, "df_within": 76, "sig": false }
+            "maturity": {
+              "f": 1.5696,
+              "p": 0.2148,
+              "df_between": 2,
+              "df_within": 76,
+              "sig": false
+            }
           }
         }
       }
     }
   },
   "filter_bias_analysis": {
-    "role": { "ok": true, "chi2": 2.26, "p_value": 0.894, "df": 6, "error": null },
-    "organization_size": { "ok": true, "chi2": 7.22, "p_value": 0.9511, "df": 15, "error": null },
-    "profit_model": { "ok": true, "chi2": 2.7, "p_value": 0.8456, "df": 6, "error": null },
+    "role": {
+      "ok": true,
+      "chi2": 2.26,
+      "p_value": 0.894,
+      "df": 6,
+      "error": null
+    },
+    "organization_size": {
+      "ok": true,
+      "chi2": 7.22,
+      "p_value": 0.9511,
+      "df": 15,
+      "error": null
+    },
+    "profit_model": {
+      "ok": true,
+      "chi2": 2.7,
+      "p_value": 0.8456,
+      "df": 6,
+      "error": null
+    },
     "profit_model_distribution": {
       "labels": ["For-Profit", "Non-Profit", "Government/Public Sector"],
       "groups": {
-        "Conservative Clean": { "For-Profit": 56, "Non-Profit": 15, "Government/Public Sector": 8 },
-        "Flexible Clean": { "For-Profit": 81, "Non-Profit": 24, "Government/Public Sector": 11 },
+        "Conservative Clean": {
+          "For-Profit": 56,
+          "Non-Profit": 15,
+          "Government/Public Sector": 8
+        },
+        "Flexible Clean": {
+          "For-Profit": 81,
+          "Non-Profit": 24,
+          "Government/Public Sector": 11
+        },
         "Prolific Accepted": {
           "For-Profit": 151,
           "Non-Profit": 36,
           "Government/Public Sector": 13
         },
-        "All V2 Finished": { "For-Profit": 151, "Non-Profit": 36, "Government/Public Sector": 13 }
+        "All V2 Finished": {
+          "For-Profit": 151,
+          "Non-Profit": 36,
+          "Government/Public Sector": 13
+        }
       }
     }
   },
