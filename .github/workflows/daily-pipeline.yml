@@ -246,14 +246,18 @@ jobs:
       # enriched Qualtrics CSV (which has Prolific auth data).
       - name: Enrich CRP CSV with auth flags (via SESSION_ID join)
         id: crp_enrich
-        continue-on-error: true
         run: |
+          set -euo pipefail
           CRP_CSV="public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
           ENRICHED_CSV="${{ runner.temp }}/qualtrics-enriched.csv"
           OUTPUT="${{ runner.temp }}/crp-enriched-for-analysis.csv"
-          if [ ! -f "$CRP_CSV" ] || [ ! -f "$ENRICHED_CSV" ]; then
-            echo "CRP or enriched CSV missing — skipping enrichment"
-            exit 0
+          if [ ! -f "$CRP_CSV" ]; then
+            echo "::error::CRP public CSV not found at $CRP_CSV"
+            exit 1
+          fi
+          if [ ! -f "$ENRICHED_CSV" ]; then
+            echo "::error::Enriched Qualtrics CSV not found — cannot join auth flags"
+            exit 1
           fi
           python3 -c "
           import csv
@@ -323,20 +327,12 @@ jobs:
 
       - name: Unified analysis (CRP frozen N=200)
         id: crp_unified
-        continue-on-error: true
         run: |
           set -euo pipefail
-          # Prefer enriched CRP (with auth flags), fall back to public CSV
-          if [ -f "${{ runner.temp }}/crp-enriched-for-analysis.csv" ]; then
-            CRP_CSV="${{ runner.temp }}/crp-enriched-for-analysis.csv"
-            echo "Using enriched CRP CSV (with auth flags via SESSION_ID join)"
-          else
-            CRP_CSV="public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
-            echo "Fallback: using public CRP CSV (conservative_clean may differ)"
-          fi
+          CRP_CSV="${{ runner.temp }}/crp-enriched-for-analysis.csv"
           if [ ! -f "$CRP_CSV" ]; then
-            echo "No CRP CSV available — skipping CRP analysis"
-            exit 0
+            echo "::error::Enriched CRP CSV not found — CRP enrichment step must have failed"
+            exit 1
           fi
           python scripts/analysis/tabs_v2_unified_data_analysis.py \
             "$CRP_CSV" \
@@ -406,7 +402,6 @@ jobs:
           if-no-files-found: warn
 
       - uses: actions/upload-artifact@v7
-        if: always()
         with:
           name: crp-analysis-results
           path: |
@@ -414,7 +409,7 @@ jobs:
             ${{ runner.temp }}/crp-sensitivity-analysis.json
             ${{ runner.temp }}/crp-validation.json
           retention-days: 7
-          if-no-files-found: ignore
+          if-no-files-found: error
 
   # ── Phase 3a: Auto-approve CLEAN ─────────────────────────────
   approve-clean:
@@ -561,35 +556,37 @@ jobs:
           path: ${{ runner.temp }}/crp-csv
 
       - uses: actions/download-artifact@v8
-        continue-on-error: true
         with:
           name: crp-analysis-results
           path: ${{ runner.temp }}/crp-json
 
       - name: Stage CRP files into repo
         run: |
+          set -euo pipefail
+          # CRP public CSV — only staged on first build (produced=true)
           if [ -f "${{ runner.temp }}/crp-csv/TABS_V2_CRP_2026_public_dataset.csv" ]; then
             mkdir -p public/datasets
             cp "${{ runner.temp }}/crp-csv/TABS_V2_CRP_2026_public_dataset.csv" \
                public/datasets/TABS_V2_CRP_2026_public_dataset.csv
             echo "  Staged: public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
-          else
-            echo "  CRP public CSV not available — skipping"
           fi
-          if [ -f "${{ runner.temp }}/crp-json/crp-sensitivity-analysis.json" ]; then
-            cp "${{ runner.temp }}/crp-json/crp-sensitivity-analysis.json" \
-               src/data/crp-sensitivity-analysis.json
-            echo "  Staged: src/data/crp-sensitivity-analysis.json"
-          else
-            echo "  CRP analysis JSON not available — skipping"
+
+          # CRP analysis JSONs — MUST exist, produced daily
+          if [ ! -f "${{ runner.temp }}/crp-json/crp-sensitivity-analysis.json" ]; then
+            echo "::error::crp-sensitivity-analysis.json missing from CRP analysis results"
+            exit 1
           fi
-          if [ -f "${{ runner.temp }}/crp-json/crp-validation.json" ]; then
-            cp "${{ runner.temp }}/crp-json/crp-validation.json" \
-               src/data/crp-validation.json
-            echo "  Staged: src/data/crp-validation.json"
-          else
-            echo "  CRP validation JSON not available — skipping"
+          cp "${{ runner.temp }}/crp-json/crp-sensitivity-analysis.json" \
+             src/data/crp-sensitivity-analysis.json
+          echo "  Staged: src/data/crp-sensitivity-analysis.json"
+
+          if [ ! -f "${{ runner.temp }}/crp-json/crp-validation.json" ]; then
+            echo "::error::crp-validation.json missing from CRP analysis results"
+            exit 1
           fi
+          cp "${{ runner.temp }}/crp-json/crp-validation.json" \
+             src/data/crp-validation.json
+          echo "  Staged: src/data/crp-validation.json"
 
       - name: Compute files to format
         id: format_files
