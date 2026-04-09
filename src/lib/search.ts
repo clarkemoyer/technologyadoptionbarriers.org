@@ -44,25 +44,33 @@ function tokensMatch(contentToken: string, queryToken: string): boolean {
 }
 
 /**
- * Create a snippet showing matched context
+ * Create a snippet showing matched context.
+ * Uses the same tokensMatch() logic as calculateScore() so only meaningful
+ * matches (≥ 3 chars) anchor the snippet position.
  */
 function createSnippet(content: string, query: string, length = 150): string {
-  const tokens = tokenize(query)
+  const queryTokens = tokenize(query)
+  const contentTokens = tokenize(content)
   const contentLower = content.toLowerCase()
 
-  // Find first match
-  for (const token of tokens) {
-    const index = contentLower.indexOf(token)
-    if (index !== -1) {
-      const start = Math.max(0, index - 50)
-      const end = Math.min(content.length, index + length)
-      let snippet = content.substring(start, end)
+  // Find first position in the raw content where a meaningful token match occurs
+  for (const queryToken of queryTokens) {
+    for (const contentToken of contentTokens) {
+      if (tokensMatch(contentToken, queryToken)) {
+        // Find this content token in the original (lowercased) string
+        const index = contentLower.indexOf(contentToken)
+        if (index !== -1) {
+          const start = Math.max(0, index - 50)
+          const end = Math.min(content.length, index + length)
+          let snippet = content.substring(start, end)
 
-      // Add ellipsis if truncated
-      if (start > 0) snippet = '...' + snippet
-      if (end < content.length) snippet = snippet + '...'
+          // Add ellipsis if truncated
+          if (start > 0) snippet = '...' + snippet
+          if (end < content.length) snippet = snippet + '...'
 
-      return snippet
+          return snippet
+        }
+      }
     }
   }
 
@@ -104,7 +112,8 @@ function calculateScore(document: SearchDocument, queryTokens: string[]): number
 }
 
 /**
- * Get matched field names for a query
+ * Get matched field names for a query.
+ * Uses tokensMatch() so results are consistent with calculateScore().
  */
 function getMatchedFields(document: SearchDocument, queryTokens: string[]): string[] {
   const fields: string[] = []
