@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-interface SeriesNavItem {
+export interface SeriesNavItem {
   title: string
   href: string
   isCurrent?: boolean
@@ -227,12 +227,28 @@ export default function UnifiedNavigation({
       <div className="xl:hidden fixed bottom-6 right-6 z-50" ref={panelRef}>
         {mobileOpen && (
           <div className="absolute bottom-14 right-0 w-72 max-h-[60vh] overflow-y-auto bg-white rounded-xl shadow-2xl border border-gray-200 p-4 space-y-4">
-            {seriesContent && (
+            {hasSeries && (
               <details>
                 <summary className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2 cursor-pointer">
                   {seriesLabel}
                 </summary>
-                <div className="mt-2">{seriesContent}</div>
+                <ul className="mt-2 space-y-1 text-sm">
+                  {seriesItems!.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        onClick={handleLinkClick}
+                        className={`block py-0.5 ${
+                          item.isCurrent
+                            ? 'font-bold text-gray-900'
+                            : 'text-gray-600 hover:text-gray-900'
+                        }`}
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </details>
             )}
             {hasToc && (

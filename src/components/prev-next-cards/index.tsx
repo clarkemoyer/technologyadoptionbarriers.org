@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-interface PrevNextItem {
+export interface PrevNextItem {
   title: string
   href: string
 }
