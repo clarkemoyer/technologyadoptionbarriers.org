@@ -9,28 +9,6 @@ export interface ResultsSeriesItem {
 export const resultsSeries: ResultsSeriesItem[] = [
   { title: 'Results Overview', href: '/results' },
   {
-    title: 'CRP 2026 Dataset',
-    href: '/results/crp-2026',
-    children: [
-      {
-        title: 'CRP Sample & Demographics',
-        href: '/results/crp-2026/sample',
-      },
-      {
-        title: 'CRP Descriptive Statistics',
-        href: '/results/crp-2026/descriptive',
-      },
-      {
-        title: 'CRP Scale Reliability',
-        href: '/results/crp-2026/reliability',
-      },
-      {
-        title: 'CRP Sensitivity Analysis',
-        href: '/results/crp-2026/sensitivity',
-      },
-    ],
-  },
-  {
     title: 'TABS Full Dataset',
     href: '/results/full-dataset',
     isGroup: true,
@@ -47,7 +25,6 @@ export const resultsSeries: ResultsSeriesItem[] = [
   { title: 'Dashboard', href: '/results/dashboard' },
   { title: 'Dataset Comparison', href: '/results/dataset-comparison' },
   { title: 'CMO Survey', href: '/results/cmo-survey' },
-  { title: 'Survey Statistics', href: '/results/survey-stats' },
 ]
 
 /** Flat ordered list for prev/next navigation (excludes group-only nodes) */
