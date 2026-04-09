@@ -148,7 +148,7 @@
     "url": "/barriers/quotes",
     "title": "Famous Quotes on Technology Adoption | TABS",
     "description": "Explore 50+ famous quotes on technology adoption barriers, innovation, and resistance to change. A curated chronological journey through history",
-    "content": "Famous Quotes on Technology Adoption | TABS. Explore 50+ famous quotes on technology adoption barriers, innovation, and resistance to change. A curated chronological journey through history. type 'next' QuotesPageClient './quotes-client' metadata: Metadata default QuotesPage()",
+    "content": "Famous Quotes on Technology Adoption | TABS. Explore 50+ famous quotes on technology adoption barriers, innovation, and resistance to change. A curated chronological journey through history",
     "category": "Barriers"
   },
   {
@@ -156,7 +156,7 @@
     "url": "/barriers/survey-stats",
     "title": "Redirecting — TABS",
     "description": "",
-    "content": "Redirecting — TABS. type 'next' ClientRedirect '@/components/client-redirect' metadata: Metadata alternates: default SurveyStatsRedirect()",
+    "content": "Redirecting — TABS",
     "category": "Barriers"
   },
   {
@@ -540,7 +540,7 @@
     "url": "/faq",
     "title": "Frequently Asked Questions | TABS",
     "description": "Find answers to over 40 frequently asked questions about the Technology Adoption Barriers Survey (TABS) — the survey, research methodology, getting involved, privacy, teaching resources, and more.",
-    "content": "Frequently Asked Questions | TABS. Find answers to over 40 frequently asked questions about the Technology Adoption Barriers Survey (TABS) — the survey, research methodology, getting involved, privacy, teaching resources, and more.. type 'next' FaqPageClient './faq-client' metadata: Metadata default FaqPage()",
+    "content": "Frequently Asked Questions | TABS. Find answers to over 40 frequently asked questions about the Technology Adoption Barriers Survey (TABS) — the survey, research methodology, getting involved, privacy, teaching resources, and more.",
     "category": "General"
   },
   {
@@ -588,7 +588,7 @@
     "url": "/get-involved",
     "title": "Get Involved | TABS",
     "description": "Discover all the ways you can support the Technology Adoption Barriers Survey (TABS) - from taking the survey to volunteering, contributing, or using our dataset in your research.",
-    "content": "Get Involved | TABS. Discover all the ways you can support the Technology Adoption Barriers Survey (TABS) - from taking the survey to volunteering, contributing, or using our dataset in your research.. Get Involved with TABS There are many ways support technology adoption research. Find the opportunity that fits your interests and expertise. Ways Contribute Whether you have minutes take the survey, resources contribute, skills volunteer, research interests pursue there way for you make impact. id= className= Who Should Participate Time Commitment Benefits ))} ))} Have Questions? Talk. Call Clarke Moyer (520) 222-8104 Not sure which opportunity right for you? Reach out and help you find the best fit.",
+    "content": "Get Involved | TABS. Discover all the ways you can support the Technology Adoption Barriers Survey (TABS) - from taking the survey to volunteering, contributing, or using our dataset in your research.. Get Involved with TABS There are many ways support technology adoption research. Find the opportunity that fits your interests and expertise. Ways Contribute Whether you have minutes take the survey, resources contribute, skills volunteer, research interests pursue there way for you make impact. id= className= Who Should Participate Time Commitment Benefits ))} ))} Have Questions? Talk. Call Clarke Moyer Not sure which opportunity right for you? Reach out and help you find the best fit.",
     "category": "General"
   },
   {
@@ -740,7 +740,7 @@
     "url": "/making-of-tabs/cmo-survey",
     "title": "Redirecting — TABS",
     "description": "",
-    "content": "Redirecting — TABS. type 'next' ClientRedirect '@/components/client-redirect' metadata: Metadata alternates: default CMOSurveyRedirect()",
+    "content": "Redirecting — TABS",
     "category": "Making of TABS"
   },
   {
@@ -756,7 +756,7 @@
     "url": "/making-of-tabs/data-analysis",
     "title": "Redirecting — TABS",
     "description": "",
-    "content": "Redirecting — TABS. type 'next' ClientRedirect '@/components/client-redirect' metadata: Metadata alternates: default DataAnalysisRedirect()",
+    "content": "Redirecting — TABS",
     "category": "Making of TABS"
   },
   {
@@ -820,7 +820,7 @@
     "url": "/making-of-tabs/integrations/prolific/dashboard",
     "title": "Redirecting — TABS",
     "description": "",
-    "content": "Redirecting — TABS. type 'next' ClientRedirect '@/components/client-redirect' metadata: Metadata alternates: default DashboardRedirect()",
+    "content": "Redirecting — TABS",
     "category": "Making of TABS"
   },
   {
@@ -860,7 +860,7 @@
     "url": "/making-of-tabs/reproducible-analysis",
     "title": "Redirecting — TABS",
     "description": "",
-    "content": "Redirecting — TABS. type 'next' ClientRedirect '@/components/client-redirect' metadata: Metadata alternates: default ReproducibleAnalysisRedirect()",
+    "content": "Redirecting — TABS",
     "category": "Making of TABS"
   },
   {
@@ -908,7 +908,7 @@
     "url": "/media",
     "title": "Media",
     "description": "Press kit, media contact details, and project resources for the Technology Adoption Barriers Survey (TABS).",
-    "content": "Media. Press kit, media contact details, and project resources for the Technology Adoption Barriers Survey (TABS).. Media Press kit, media contact details, and project resources. Appearances Presentation Video Impact Press Kit Downloads Contact Appearances Speaking engagements and public presentations about technology adoption barriers. ))} TABS Presentation View our interactive presentation covering the TABS mission, challenges, solutions, and project roadmap. Navigate through slides using arrow keys the on-screen controls. View Presentation Your browser does not support the video tag. Introduction The TABS Project Transcript Captions Captions are enabled the player. You can download the transcript below (it auto-generated and may contain errors), email contact@technologyadoptionbarriers....",
+    "content": "Media. Press kit, media contact details, and project resources for the Technology Adoption Barriers Survey (TABS).. Media Press kit, media contact details, and project resources. Appearances Presentation Video Impact Press Kit Downloads Contact Appearances Speaking engagements and public presentations about technology adoption barriers. ))} TABS Presentation View our interactive presentation covering the TABS mission, challenges, solutions, and project roadmap. Navigate through slides using arrow keys the on-screen controls. View Presentation Your browser does not support the video tag. Introduction The TABS Project Transcript Captions Captions are enabled the player. You can download the transcript below (it auto-generated and may contain errors), email with corrections. Transcript: The_T...",
     "category": "General"
   },
   {
@@ -1060,7 +1060,7 @@
     "url": "/technology-adoption-series/handout-materials",
     "title": "Handout materials — Technology Adoption Teaching Series",
     "description": "Printable participant handouts to support the Technology Adoption Teaching Series session.",
-    "content": "Handout materials — Technology Adoption Teaching Series. Printable participant handouts to support the Technology Adoption Teaching Series session.. type 'next' '../_resource-page' metadata: Metadata dynamic 'force-static' default async HandoutMaterialsPage()",
+    "content": "Handout materials — Technology Adoption Teaching Series. Printable participant handouts to support the Technology Adoption Teaching Series session.",
     "category": "Teaching Series"
   },
   {
@@ -1092,7 +1092,7 @@
     "url": "/technology-adoption-series/opening-and-closing-scripts",
     "title": "Opening and closing scripts — Technology Adoption Teaching Series",
     "description": "Facilitator scripts for starting and ending the Technology Adoption Teaching Series workshop.",
-    "content": "Opening and closing scripts — Technology Adoption Teaching Series. Facilitator scripts for starting and ending the Technology Adoption Teaching Series workshop.. type 'next' '../_resource-page' metadata: Metadata dynamic 'force-static' default async OpeningAndClosingScriptsPage()",
+    "content": "Opening and closing scripts — Technology Adoption Teaching Series. Facilitator scripts for starting and ending the Technology Adoption Teaching Series workshop.",
     "category": "Teaching Series"
   },
   {
@@ -1124,7 +1124,7 @@
     "url": "/technology-adoption-series/qa-preparation-guide",
     "title": "Q&A preparation guide — Technology Adoption Teaching Series",
     "description": "A facilitator guide for preparing questions and handling Q&A during the Technology Adoption Teaching Series.",
-    "content": "Q&A preparation guide — Technology Adoption Teaching Series. A facilitator guide for preparing questions and handling Q&A during the Technology Adoption Teaching Series.. type 'next' '../_resource-page' metadata: Metadata dynamic 'force-static' default async QAPreparationGuidePage()",
+    "content": "Q&A preparation guide — Technology Adoption Teaching Series. A facilitator guide for preparing questions and handling Q&A during the Technology Adoption Teaching Series.",
     "category": "Teaching Series"
   },
   {
@@ -1132,7 +1132,7 @@
     "url": "/technology-adoption-series/technology-lifecycle-assessment-template",
     "title": "Technology lifecycle assessment template — Technology Adoption Teaching Series",
     "description": "A practical template for assessing technology lifecycle positioning and adoption risk.",
-    "content": "Technology lifecycle assessment template — Technology Adoption Teaching Series. A practical template for assessing technology lifecycle positioning and adoption risk.. type 'next' '../_resource-page' metadata: Metadata dynamic 'force-static' default async TechnologyLifecycleAssessmentTemplatePage()",
+    "content": "Technology lifecycle assessment template — Technology Adoption Teaching Series. A practical template for assessing technology lifecycle positioning and adoption risk.",
     "category": "Teaching Series"
   },
   {
@@ -1140,7 +1140,7 @@
     "url": "/technology-adoption-series/workshop-and-trainer-materials",
     "title": "Workshop and trainer materials — Technology Adoption Teaching Series",
     "description": "Workshop agenda and trainer notes to run the Technology Adoption Teaching Series in a live session.",
-    "content": "Workshop and trainer materials — Technology Adoption Teaching Series. Workshop agenda and trainer notes to run the Technology Adoption Teaching Series in a live session.. type 'next' '../_resource-page' metadata: Metadata dynamic 'force-static' default async WorkshopAndTrainerMaterialsPage()",
+    "content": "Workshop and trainer materials — Technology Adoption Teaching Series. Workshop agenda and trainer notes to run the Technology Adoption Teaching Series in a live session.",
     "category": "Teaching Series"
   },
   {
@@ -1248,7 +1248,239 @@
     "category": "See Yourself"
   },
   {
-    "id": "faq-157",
+    "id": "page-157",
+    "url": "/technology-adoption-series/slide-01-what-is-technology-adoption",
+    "title": "What is Technology Adoption? | Technology Adoption Teaching Series",
+    "description": "Part 1: What is Technology Adoption? — Slide 1: What is Technology Adoption?",
+    "content": "What is Technology Adoption?. Part 1: What is Technology Adoption?. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-158",
+    "url": "/technology-adoption-series/slide-02-the-technology-adoption-framework",
+    "title": "The Technology Adoption Framework | Technology Adoption Teaching Series",
+    "description": "Part 1: What is Technology Adoption? — Slide 2: The Technology Adoption Framework",
+    "content": "The Technology Adoption Framework. Part 1: What is Technology Adoption?. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-159",
+    "url": "/technology-adoption-series/slide-03-voluntary-vs-involuntary-user-adoption",
+    "title": "Voluntary vs. Involuntary User Adoption | Technology Adoption Teaching Series",
+    "description": "Part 1: What is Technology Adoption? — Slide 3: Voluntary vs. Involuntary User Adoption",
+    "content": "Voluntary vs. Involuntary User Adoption. Part 1: What is Technology Adoption?. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-160",
+    "url": "/technology-adoption-series/slide-04-why-technology-dies-on-the-shelf",
+    "title": "Why Technology Dies on the Shelf | Technology Adoption Teaching Series",
+    "description": "Part 1: What is Technology Adoption? — Slide 4: Why Technology Dies on the Shelf",
+    "content": "Why Technology Dies on the Shelf. Part 1: What is Technology Adoption?. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-161",
+    "url": "/technology-adoption-series/slide-05-a-strategic-approach-to-technology-adoption",
+    "title": "A Strategic Approach to Technology Adoption | Technology Adoption Teaching Series",
+    "description": "Part 2: Strategic Approaches & Lifecycle Planning — Slide 5: A Strategic Approach to Technology Adoption",
+    "content": "A Strategic Approach to Technology Adoption. Part 2: Strategic Approaches & Lifecycle Planning. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-162",
+    "url": "/technology-adoption-series/slide-06-technology-lifecycle-positioning",
+    "title": "Technology Lifecycle Positioning | Technology Adoption Teaching Series",
+    "description": "Part 2: Strategic Approaches & Lifecycle Planning — Slide 6: Technology Lifecycle Positioning",
+    "content": "Technology Lifecycle Positioning. Part 2: Strategic Approaches & Lifecycle Planning. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-163",
+    "url": "/technology-adoption-series/slide-07-lifecycle-position-drives-everything-you-build",
+    "title": "Lifecycle Position Drives Everything You Build | Technology Adoption Teaching Series",
+    "description": "Part 2: Strategic Approaches & Lifecycle Planning — Slide 7: Lifecycle Position Drives Everything You Build",
+    "content": "Lifecycle Position Drives Everything You Build. Part 2: Strategic Approaches & Lifecycle Planning. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-164",
+    "url": "/technology-adoption-series/slide-08-strategic-lifecycle-positioning",
+    "title": "Strategic Lifecycle Positioning | Technology Adoption Teaching Series",
+    "description": "Part 2: Strategic Approaches & Lifecycle Planning — Slide 8: Strategic Lifecycle Positioning",
+    "content": "Strategic Lifecycle Positioning. Part 2: Strategic Approaches & Lifecycle Planning. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-165",
+    "url": "/technology-adoption-series/slide-09-solution-and-architecture-approaches",
+    "title": "Solution and Architecture Approaches | Technology Adoption Teaching Series",
+    "description": "Part 2: Strategic Approaches & Lifecycle Planning — Slide 9: Solution and Architecture Approaches",
+    "content": "Solution and Architecture Approaches. Part 2: Strategic Approaches & Lifecycle Planning. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-166",
+    "url": "/technology-adoption-series/slide-10-connecting-lifecycle-to-architecture-approaches",
+    "title": "Connecting Lifecycle to Architecture Approaches | Technology Adoption Teaching Series",
+    "description": "Part 2: Strategic Approaches & Lifecycle Planning — Slide 10: Connecting Lifecycle to Architecture Approaches",
+    "content": "Connecting Lifecycle to Architecture Approaches. Part 2: Strategic Approaches & Lifecycle Planning. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-167",
+    "url": "/technology-adoption-series/slide-11-lifecycle-planning-for-adoption-success",
+    "title": "Lifecycle Planning for Adoption Success | Technology Adoption Teaching Series",
+    "description": "Part 2: Strategic Approaches & Lifecycle Planning — Slide 11: Lifecycle Planning for Adoption Success",
+    "content": "Lifecycle Planning for Adoption Success. Part 2: Strategic Approaches & Lifecycle Planning. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-168",
+    "url": "/technology-adoption-series/slide-12-development-decisions-that-flow-from-adoption",
+    "title": "Development Decisions That Flow From Adoption | Technology Adoption Teaching Series",
+    "description": "Part 2: Strategic Approaches & Lifecycle Planning — Slide 12: Development Decisions That Flow From Adoption",
+    "content": "Development Decisions That Flow From Adoption. Part 2: Strategic Approaches & Lifecycle Planning. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-169",
+    "url": "/technology-adoption-series/slide-13-technical-capabilities-that-enable-adoption",
+    "title": "Technical Capabilities That Enable Adoption | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 13: Technical Capabilities That Enable Adoption",
+    "content": "Technical Capabilities That Enable Adoption. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-170",
+    "url": "/technology-adoption-series/slide-14-measuring-adoption-success",
+    "title": "Measuring Adoption Success | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 14: Measuring Adoption Success",
+    "content": "Measuring Adoption Success. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-171",
+    "url": "/technology-adoption-series/slide-15-case-study-adoption-success-in-action",
+    "title": "Case Study: Adoption Success in Action | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 15: Case Study: Adoption Success in Action",
+    "content": "Case Study: Adoption Success in Action. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-172",
+    "url": "/technology-adoption-series/slide-16-best-practices-for-voluntary-adoption",
+    "title": "Best Practices for Voluntary Adoption | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 16: Best Practices for Voluntary Adoption",
+    "content": "Best Practices for Voluntary Adoption. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-173",
+    "url": "/technology-adoption-series/slide-17-q-a-and-optional-deep-dives",
+    "title": "Q&A and Optional Deep Dives | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 17: Q&A and Optional Deep Dives",
+    "content": "Q&A and Optional Deep Dives. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-174",
+    "url": "/technology-adoption-series/slide-18-technology-lifecycle-examples-in-practice",
+    "title": "Technology Lifecycle Examples in Practice | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 18: Technology Lifecycle Examples in Practice",
+    "content": "Technology Lifecycle Examples in Practice. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-175",
+    "url": "/technology-adoption-series/slide-19-common-cloud-platform-technologies",
+    "title": "Common Cloud Platform Technologies | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 19: Common Cloud Platform Technologies",
+    "content": "Common Cloud Platform Technologies. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-176",
+    "url": "/technology-adoption-series/slide-20-technology-selection-framework",
+    "title": "Technology Selection Framework | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 20: Technology Selection Framework",
+    "content": "Technology Selection Framework. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-177",
+    "url": "/technology-adoption-series/slide-21-anti-patterns-in-technology-adoption",
+    "title": "Anti-Patterns in Technology Adoption | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 21: Anti-Patterns in Technology Adoption",
+    "content": "Anti-Patterns in Technology Adoption. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-178",
+    "url": "/technology-adoption-series/slide-22-organizational-vs-user-adoption-deep-dive",
+    "title": "Organizational vs User Adoption Deep Dive | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 22: Organizational vs User Adoption Deep Dive",
+    "content": "Organizational vs User Adoption Deep Dive. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-179",
+    "url": "/technology-adoption-series/slide-23-handling-inherited-legacy-systems",
+    "title": "Handling Inherited Legacy Systems | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 23: Handling Inherited Legacy Systems",
+    "content": "Handling Inherited Legacy Systems. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-180",
+    "url": "/technology-adoption-series/slide-24-ai-ml-technology-adoption-considerations",
+    "title": "AI/ML Technology Adoption Considerations | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 24: AI/ML Technology Adoption Considerations",
+    "content": "AI/ML Technology Adoption Considerations. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-181",
+    "url": "/technology-adoption-series/slide-25-technology-lifecycle-cycles",
+    "title": "Technology Lifecycle Cycles | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 25: Technology Lifecycle Cycles",
+    "content": "Technology Lifecycle Cycles. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-182",
+    "url": "/technology-adoption-series/slide-26-the-trifecta-of-adoption",
+    "title": "The Trifecta of Adoption | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 26: The Trifecta of Adoption",
+    "content": "The Trifecta of Adoption. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-183",
+    "url": "/technology-adoption-series/slide-27-hardware-lifecycle-timeline-hdds",
+    "title": "Hardware Lifecycle Timeline: HDDs | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 27: Hardware Lifecycle Timeline: HDDs",
+    "content": "Hardware Lifecycle Timeline: HDDs. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-184",
+    "url": "/technology-adoption-series/slide-28-software-lifecycle-timeline-adobe-flash",
+    "title": "Software Lifecycle Timeline: Adobe Flash | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 28: Software Lifecycle Timeline: Adobe Flash",
+    "content": "Software Lifecycle Timeline: Adobe Flash. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "page-185",
+    "url": "/technology-adoption-series/slide-29-supply-chain-lifecycle-timeline-barcodes",
+    "title": "Supply Chain Lifecycle Timeline: Barcodes | Technology Adoption Teaching Series",
+    "description": "Part 3: Outcomes of Adoption — Slide 29: Supply Chain Lifecycle Timeline: Barcodes",
+    "content": "Supply Chain Lifecycle Timeline: Barcodes. Part 3: Outcomes of Adoption. Technology Adoption Teaching Series.",
+    "category": "Teaching Series"
+  },
+  {
+    "id": "faq-186",
     "url": "/faq#faqs",
     "title": "What is the Technology Adoption Barriers Survey (TABS)?",
     "description": "Frequently asked question",
@@ -1256,7 +1488,7 @@
     "category": "FAQ"
   },
   {
-    "id": "faq-158",
+    "id": "faq-187",
     "url": "/faq#faqs",
     "title": "Why do technology adoption barriers matter?",
     "description": "Frequently asked question",
@@ -1264,7 +1496,7 @@
     "category": "FAQ"
   },
   {
-    "id": "faq-159",
+    "id": "faq-188",
     "url": "/faq#faqs",
     "title": "What are the most common technology adoption barriers?",
     "description": "Frequently asked question",
@@ -1272,7 +1504,7 @@
     "category": "FAQ"
   },
   {
-    "id": "faq-160",
+    "id": "faq-189",
     "url": "/faq#faqs",
     "title": "How can I participate in TABS research?",
     "description": "Frequently asked question",

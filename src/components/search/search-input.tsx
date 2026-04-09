@@ -1,12 +1,16 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import { search, loadSearchIndex, highlightTerms, SearchResult, SearchDocument } from '@/lib/search'
 
 export default function SearchInput() {
   const router = useRouter()
+  // Unique prefix for ARIA IDs so multiple mounted instances don't collide
+  const idPrefix = useId()
+  const listboxId = `${idPrefix}-listbox`
+  const optionId = (index: number) => `${idPrefix}-option-${index}`
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<SearchResult[]>([])
@@ -151,9 +155,9 @@ export default function SearchInput() {
           onKeyDown={handleKeyDown}
           className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           aria-expanded={isOpen && query.trim().length > 0}
-          aria-controls="search-listbox"
+          aria-controls={listboxId}
           aria-autocomplete="list"
-          aria-activedescendant={selectedIndex >= 0 ? `search-option-${selectedIndex}` : undefined}
+          aria-activedescendant={selectedIndex >= 0 ? optionId(selectedIndex) : undefined}
           autoComplete="off"
         />
         <svg
@@ -186,11 +190,11 @@ export default function SearchInput() {
               <p className="mt-2">Searching...</p>
             </div>
           ) : results.length > 0 ? (
-            <ul id="search-listbox" role="listbox" className="divide-y divide-gray-200">
+            <ul id={listboxId} role="listbox" className="divide-y divide-gray-200">
               {results.map((result, index) => (
                 <li
                   key={result.document.id}
-                  id={`search-option-${index}`}
+                  id={optionId(index)}
                   role="option"
                   aria-selected={selectedIndex === index}
                   className={`px-4 py-3 cursor-pointer transition-colors ${

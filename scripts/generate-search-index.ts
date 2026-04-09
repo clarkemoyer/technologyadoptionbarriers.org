@@ -15,6 +15,7 @@
 import { promises as fs } from 'fs'
 import path from 'path'
 import { faqs } from '../src/data/faqs'
+import { technologyAdoptionTeachingSeries } from '../src/data/technology-adoption-teaching-series'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -100,26 +101,47 @@ function extractStaticMetadata(source: string): {
  * code, and keep only the text content that a visitor would see.
  */
 function extractVisibleText(source: string): string {
-  // Isolate the JSX returned by the component
-  const returnMatch = source.match(/return\s*\(\s*([\s\S]*)\)\s*\}/)
-  const jsx = returnMatch ? returnMatch[1] : source
+  // Strip contact details to avoid centralising scrapeable PII in the index
+  const stripContactDetails = (text: string): string =>
+    text
+      // Remove email addresses
+      .replace(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi, ' ')
+      // Remove common phone number formats, including optional country code
+      .replace(/\b(?:\+?\d{1,3}[\s.-]?)?(?:\(?\d{3}\)?[\s.-]?)\d{3}[\s.-]?\d{4}\b/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
 
-  let text = jsx
-    // Remove {/* comments */}
-    .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
-    // Remove JS expressions like {variable}, {fn()}, but keep string literals inside
-    .replace(/\{[^}]*\}/g, ' ')
-    // Remove self-closing tags: <Component ... />
-    .replace(/<[A-Za-z][^>]*\/>/g, ' ')
-    // Remove opening/closing tags but keep inner text
-    .replace(/<\/?[A-Za-z][^>]*>/g, ' ')
-    // Remove className and other JSX attribute noise that leaked through
-    .replace(/className="[^"]*"/g, '')
-    // Remove remaining HTML entities
-    .replace(/&[a-z]+;/g, ' ')
-    // Collapse whitespace
-    .replace(/\s+/g, ' ')
-    .trim()
+  // Isolate the JSX returned by the component.
+  // Handle both `return (...)` and bare `return <...>` forms.
+  const returnParenMatch = source.match(/return\s*\(\s*([\s\S]*)\)\s*\}/)
+  let jsx: string
+  if (returnParenMatch) {
+    jsx = returnParenMatch[1]
+  } else {
+    // For pages that return JSX directly without wrapping parentheses,
+    // e.g. `return <FaqPageClient />` or a multi-line bare JSX return.
+    const returnTagMatch = source.match(/return\s+(<[\s\S]*)/)
+    jsx = returnTagMatch ? returnTagMatch[1] : source
+  }
+
+  let text = stripContactDetails(
+    jsx
+      // Remove {/* comments */}
+      .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
+      // Remove JS expressions like {variable}, {fn()}, but keep string literals inside
+      .replace(/\{[^}]*\}/g, ' ')
+      // Remove self-closing tags: <Component ... />
+      .replace(/<[A-Za-z][^>]*\/>/g, ' ')
+      // Remove opening/closing tags but keep inner text
+      .replace(/<\/?[A-Za-z][^>]*>/g, ' ')
+      // Remove className and other JSX attribute noise that leaked through
+      .replace(/className="[^"]*"/g, '')
+      // Remove remaining HTML entities
+      .replace(/&[a-z]+;/g, ' ')
+      // Collapse whitespace
+      .replace(/\s+/g, ' ')
+      .trim()
+  )
 
   // Remove very short fragments (likely code noise) and common JSX artifacts
   const stopWords = new Set([
@@ -196,6 +218,28 @@ function filePathToUrl(filePath: string, appDir: string): string {
 // ---------------------------------------------------------------------------
 // Dynamic route expansion
 // ---------------------------------------------------------------------------
+
+/**
+ * Expand dynamic [slide] routes from the teaching series data source.
+ */
+function expandTeachingSeriesRoutes(): SearchItem[] {
+  const items: SearchItem[] = []
+
+  for (const part of technologyAdoptionTeachingSeries.parts) {
+    for (const slide of part.slides) {
+      items.push({
+        id: '', // assigned later
+        url: `/technology-adoption-series/${slide.segment}`,
+        title: `${slide.title} | Technology Adoption Teaching Series`,
+        description: `${part.title} — Slide ${slide.number}: ${slide.title}`,
+        content: `${slide.title}. ${part.title}. Technology Adoption Teaching Series.`,
+        category: 'Teaching Series',
+      })
+    }
+  }
+
+  return items
+}
 
 /**
  * Expand dynamic [role] routes from the personas data source.
@@ -288,6 +332,14 @@ async function generateSearchIndex() {
   } catch (err) {
     console.warn('   ⚠ Could not expand persona routes:', (err as Error).message)
   }
+
+  // Expand teaching series slide routes
+  const seriesItems = expandTeachingSeriesRoutes()
+  for (const item of seriesItems) {
+    item.id = `page-${id++}`
+    items.push(item)
+  }
+  console.log(`   Expanded ${seriesItems.length} teaching series slide routes`)
 
   // FAQ entries
   for (const faq of faqs) {
