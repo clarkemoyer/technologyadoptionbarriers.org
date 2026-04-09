@@ -692,7 +692,7 @@ const DataQualityPage = () => {
                             key={s.key}
                             className="border border-gray-300 px-4 py-2 text-right font-mono"
                           >
-                            {(metric.values as Record<string, number | null>)[s.key] ?? '—'}
+                            {fmt((metric.values as Record<string, number | null>)[s.key])}
                           </td>
                         ))}
                       </tr>
