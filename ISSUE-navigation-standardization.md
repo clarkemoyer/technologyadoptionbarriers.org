@@ -14,25 +14,25 @@ Site navigation is inconsistent across pages and collections. Mobile menus use d
 
 ### Navigation Components
 
-| Component | File | Desktop | Mobile | Used On |
-|---|---|---|---|---|
-| **Header Nav** | `src/components/header/index.tsx` | Horizontal bar + 3 mega menus | Hamburger → slide-down with 11+ JS state toggles | All pages |
-| **Series Nav** | `src/components/series-navigation/index.tsx` | 2-col grid at top of page | `<details>/<summary>` collapsibles | Tech Adoption Models articles only |
-| **Teaching Nav** | `src/components/teaching-series-navigation/index.tsx` | 4-col grid at top of page | Responsive grid | Teaching Series slides only |
-| **Article TOC** | `src/components/article-toc/index.tsx` | Fixed right sidebar + progress bar | FAB button + popup | Some long articles |
-| **Footer Nav** | `src/components/footer/index.tsx` | 5-col grid | 1-2 col grid | All pages |
+| Component        | File                                                  | Desktop                            | Mobile                                           | Used On                            |
+| ---------------- | ----------------------------------------------------- | ---------------------------------- | ------------------------------------------------ | ---------------------------------- |
+| **Header Nav**   | `src/components/header/index.tsx`                     | Horizontal bar + 3 mega menus      | Hamburger → slide-down with 11+ JS state toggles | All pages                          |
+| **Series Nav**   | `src/components/series-navigation/index.tsx`          | 2-col grid at top of page          | `<details>/<summary>` collapsibles               | Tech Adoption Models articles only |
+| **Teaching Nav** | `src/components/teaching-series-navigation/index.tsx` | 4-col grid at top of page          | Responsive grid                                  | Teaching Series slides only        |
+| **Article TOC**  | `src/components/article-toc/index.tsx`                | Fixed right sidebar + progress bar | FAB button + popup                               | Some long articles                 |
+| **Footer Nav**   | `src/components/footer/index.tsx`                     | 5-col grid                         | 1-2 col grid                                     | All pages                          |
 
 ### Collections Missing Series Navigation and Prev/Next
 
-| Collection | Approx. Pages | Has Series Nav? | Has Prev/Next? |
-|---|---|---|---|
-| Making of TABS | ~15 pages, 3+ levels deep | No | No |
-| Results | ~10 pages | No | No |
-| CRP 2026 | ~8 pages | No | No |
-| See Yourself (Personas) | ~12 pages | No | No |
-| For Organizations | ~4 pages | No | No |
-| Concept Mapping | 3 pages | No | No |
-| Bibliography | 41+ pages | No | No |
+| Collection              | Approx. Pages             | Has Series Nav? | Has Prev/Next? |
+| ----------------------- | ------------------------- | --------------- | -------------- |
+| Making of TABS          | ~15 pages, 3+ levels deep | No              | No             |
+| Results                 | ~10 pages                 | No              | No             |
+| CRP 2026                | ~8 pages                  | No              | No             |
+| See Yourself (Personas) | ~12 pages                 | No              | No             |
+| For Organizations       | ~4 pages                  | No              | No             |
+| Concept Mapping         | 3 pages                   | No              | No             |
+| Bibliography            | 41+ pages                 | No              | No             |
 
 Only Technology Adoption Models and Teaching Series currently have series navigation and prev/next links.
 
@@ -60,6 +60,7 @@ Only Technology Adoption Models and Teaching Series currently have series naviga
 **Replace the current separate top-of-page series box and sidebar TOC with a single unified sidebar panel.** Content should start immediately — no large navigation box pushing the article down.
 
 **Desktop (xl+ screens):**
+
 - Fixed right sidebar, always visible
 - **Top section**: Series/collection links (collapsible by branch or group), with "You are here" highlighting on the current page
 - **Divider**
@@ -67,17 +68,20 @@ Only Technology Adoption Models and Teaching Series currently have series naviga
 - If the page is not in a series, only the page TOC section appears
 
 **Mobile (< xl screens):**
+
 - FAB button (bottom-right) opens a single unified panel
 - Series section starts **collapsed** by default (since jumping within the current page is the more common action)
 - Page TOC section starts **expanded**
 - Panel closes on link tap
 
 **Reading progress bar:**
+
 - Thin teal bar fixed below the header showing scroll progress
 - **Applied to ALL long pages** — articles, results, stats, bibliography — not just the pages that currently have it
 - Provides "how much is left" context, especially valuable on data-heavy pages
 
 **What this replaces:**
+
 - The top-of-page gray box in `series-navigation/index.tsx` → moves into the sidebar
 - The top-of-page gray box in `teaching-series-navigation/index.tsx` → moves into the sidebar
 - The separate `article-toc/index.tsx` sidebar → merged into the unified sidebar component
@@ -134,6 +138,7 @@ These apply to results pages, stats pages, bibliography, and long articles:
 ## Implementation Plan
 
 ### Phase 1: Unified Sidebar Component
+
 - Create a single `unified-navigation` component that handles both series context and page TOC
 - Accept series data as a prop (optional — pages not in a series just show page TOC)
 - Implement desktop sidebar (fixed right, two sections with divider)
@@ -142,44 +147,52 @@ These apply to results pages, stats pages, bibliography, and long articles:
 - Include "You are here" highlighting for current page in series
 
 ### Phase 2: Reading Progress Bar
+
 - Extract progress bar from `article-toc` into a standalone component
 - Apply to all long pages (articles, results, stats, bibliography)
 - Fixed below header, teal fill, 0-100% based on scroll position
 
 ### Phase 3: Previous/Next Cards
+
 - Create a `prev-next-cards` component
 - Large card-style with arrow + page title
 - Place at bottom of all collection pages
 - Data driven from the same series data source as the sidebar
 
 ### Phase 4: Breadcrumbs
+
 - Create a `breadcrumb` component
 - Auto-generate from URL path segments with display-name mapping
 - Render on pages 2+ levels deep
 - One line, immediately below header / progress bar
 
 ### Phase 5: Extend Series Data to All Collections
+
 - Create data files for collections that don't have them yet (Making of TABS, Results, CRP 2026, Personas, Organizations, Concept Mapping, Bibliography)
 - Each defines page order, grouping, and display titles
 - These data files drive the sidebar, prev/next cards, and breadcrumbs
 
 ### Phase 6: Footer Alignment
+
 - Restructure footer content groups to match header mega menu groupings
 - Same pages, same order
 - Keep policy/legal row unchanged
 
 ### Phase 7: Dense Page Enhancements
+
 - Add section-level "back to top" links on results and stats pages
 - Add sticky table headers on results pages with long tables
 - Ensure all H2s have shareable anchor IDs across all pages
 
 ### Phase 8: Retire Old Components
+
 - Remove `series-navigation/index.tsx` (replaced by unified sidebar)
 - Remove `teaching-series-navigation/index.tsx` (replaced by unified sidebar)
 - Remove `article-toc/index.tsx` (replaced by unified sidebar + standalone progress bar)
 - Update all pages to use the new components
 
 ### Phase 9: Testing
+
 - Unit tests for all new components (including jest-axe accessibility)
 - E2E tests validating navigation links across all collections
 - Mobile viewport testing for FAB, panel, prev/next cards, breadcrumbs
