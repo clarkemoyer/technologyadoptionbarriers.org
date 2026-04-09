@@ -1024,17 +1024,17 @@ def main():
                 return {k: sanitize(v) for k, v in obj.items()}
             if isinstance(obj, list):
                 return [sanitize(v) for v in obj]
-            if isinstance(obj, float) and (math.isnan(obj) or math.isinf(obj)):
-                return None
-            if isinstance(obj, (np.floating,)):
-                v = float(obj)
-                return None if (math.isnan(v) or math.isinf(v)) else v
-            if isinstance(obj, (np.integer,)):
-                return int(obj)
             if isinstance(obj, np.ndarray):
                 return sanitize(obj.tolist())
             if isinstance(obj, np.bool_):
                 return bool(obj)
+            if isinstance(obj, (np.integer,)):
+                return int(obj)
+            # Coerce np.floating to Python float, then apply a single NaN/Inf guard
+            if isinstance(obj, np.floating):
+                obj = float(obj)
+            if isinstance(obj, float) and (math.isnan(obj) or math.isinf(obj)):
+                return None
             return obj
 
         with open(json_output, 'w') as f:

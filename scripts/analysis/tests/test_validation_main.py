@@ -24,9 +24,9 @@ VALIDATION_SCRIPT = str(SCRIPTS / "tabs_v2_validation.py")
 _FAST = ["--n-boot", "50", "--n-sim", "50"]
 
 # ── Column names matching the production Qualtrics export format ────────────
-_BARRIER_COLS = [f"Q10-28_Barriers_{i}" for i in range(1, 20)]   # 18 items + IRI
-_READINESS_COLS = [f"Q47-64_Readiness_{i}" for i in range(1, 19)]  # 17 items + IRI
-_MATURITY_COLS = [f"Q65-73_Maturity_{i}" for i in range(1, 10)]   # 8 items + IRI
+_BARRIER_COLS = [f"Q10-28_Barriers_{i}" for i in range(1, 20)]   # 19 items (18 + IRI)
+_READINESS_COLS = [f"Q47-64_Readiness_{i}" for i in range(1, 19)]  # 18 items (17 + IRI)
+_MATURITY_COLS = [f"Q65-73_Maturity_{i}" for i in range(1, 10)]   # 9 items (8 + IRI)
 
 _HEADERS = [
     "ResponseId", "StartDate", "EndDate", "RecordedDate", "Status", "Finished",
