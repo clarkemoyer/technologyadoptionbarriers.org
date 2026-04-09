@@ -205,8 +205,10 @@ const CrpFindingsPage = () => {
                         ).map(([construct, vals]) => ({
                           construct,
                           d: vals.d ?? null,
-                          ci_lower: vals.ci_lower ?? null,
-                          ci_upper: vals.ci_upper ?? null,
+                          ci_lower:
+                            ((vals as Record<string, unknown>).d_ci_lower as number | null) ?? null,
+                          ci_upper:
+                            ((vals as Record<string, unknown>).d_ci_upper as number | null) ?? null,
                         }))}
                       />
 
@@ -278,8 +280,12 @@ const CrpFindingsPage = () => {
                             ).map(([construct, vals]) => ({
                               construct,
                               d: vals.d ?? null,
-                              ci_lower: vals.ci_lower ?? null,
-                              ci_upper: vals.ci_upper ?? null,
+                              ci_lower:
+                                ((vals as Record<string, unknown>).d_ci_lower as number | null) ??
+                                null,
+                              ci_upper:
+                                ((vals as Record<string, unknown>).d_ci_upper as number | null) ??
+                                null,
                             }))}
                           />
 
