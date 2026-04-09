@@ -816,8 +816,8 @@ def build_cfa_models():
 
 def load_crp200(csv_path):
     """Load pre-selected CRP-200 dataset (already filtered/frozen).
-    Expects Qualtrics 3-row header format."""
-    df = pd.read_csv(csv_path, encoding='utf-8-sig', skiprows=[1, 2])
+    The CRP public CSV has a single header row (de-identified format)."""
+    df = pd.read_csv(csv_path, encoding='utf-8-sig')
     df['Duration (in seconds)'] = pd.to_numeric(df['Duration (in seconds)'], errors='coerce')
 
     # Encode scales

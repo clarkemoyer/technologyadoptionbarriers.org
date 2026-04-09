@@ -2261,7 +2261,7 @@ def validate_construct(df, cols, names, construct_name, cfa_model=None):
     return result
 
 
-def run_validation(df, skip=False):
+def run_validation(df, skip=False, crp200=False):
     """Run full validation pipeline. Returns dict matching crp-validation.json schema."""
     if skip:
         return {"skipped": True, "reason": "--skip-validation flag was used"}
@@ -2501,7 +2501,7 @@ def run_validation(df, skip=False):
 
     output['metadata'] = {
         'n_total': len(df),
-        'crp200_mode': False,
+        'crp200_mode': crp200,
         'constructs': ['Barriers', 'Readiness', 'Maturity'],
         'n_barriers': 18,
         'n_readiness': 17,
@@ -2637,7 +2637,7 @@ Examples:
             print(f"  {scale_name} missing: {info['missing_pct']}%")
 
     # ── Validation ──
-    validation_data = run_validation(df, skip=args.skip_validation)
+    validation_data = run_validation(df, skip=args.skip_validation, crp200=args.crp200)
 
     # ── Assemble unified output ──
     unified = OrderedDict()
@@ -2648,7 +2648,9 @@ Examples:
         "primary_sample": args.primary_sample if not args.crp200 else None,
         "source": args.csv_path,
     }
-    unified["sensitivity"] = sensitivity_data
+    # In CRP mode, sensitivity section is not computed (no raw Qualtrics rows).
+    # Emit an empty skeleton so downstream JSON extraction doesn't get null.
+    unified["sensitivity"] = sensitivity_data if sensitivity_data is not None else {"samples": [], "metrics": []}
     unified["advanced"] = advanced_data
     unified["quality"] = quality_data
     unified["validation"] = validation_data
