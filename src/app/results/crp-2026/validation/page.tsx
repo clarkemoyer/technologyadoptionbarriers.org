@@ -8,6 +8,7 @@ import {
   PARAGRAPH_CLASSES,
 } from '@/lib/articleStyles'
 import Link from 'next/link'
+import validationData from '@/data/crp-validation.json'
 
 export const metadata: Metadata = {
   title: 'Instrument Validation — TABS CRP 2026',
@@ -19,13 +20,14 @@ export const metadata: Metadata = {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   FROZEN CRP-200 VALIDATION DATA (from tabs_v2_validation.py)
-   This is a one-time computation against the frozen N=200 dataset.
-   It is NOT pipeline data and does not change.
+   CRP-200 VALIDATION DATA — imported from crp-validation.json
+   All values are produced by tabs_v2_validation.py against the
+   frozen N=200 dataset and committed as JSON.
 ══════════════════════════════════════════════════════════════════ */
 
-const N_CLEAN = 200
+const N_CLEAN = validationData.metadata.n_total
 
+/** Shape expected by the card / table components below. */
 type ConstructValidation = {
   construct: string
   n_items: number
@@ -54,89 +56,44 @@ type ConstructValidation = {
   inter_item_sd: number
 }
 
-const CONSTRUCTS: ConstructValidation[] = [
-  {
-    construct: 'Barriers',
-    n_items: 18,
-    n_valid: 192,
-    cronbach_alpha: 0.8728,
-    alpha_95ci: [0.845, 0.8976],
-    mcdonalds_omega: 0.8729,
-    composite_reliability: 0.8729,
-    ave_from_loadings: 0.2886,
-    split_half: 0.8962,
-    kmo: 0.8508,
-    bartlett_chi2: 1135.51,
-    bartlett_p: 0,
-    parallel_factors: 2,
-    variance_explained: 0.3994,
-    top_eigenvalues: [5.874, 1.903, 1.146, 1.015],
-    cfa_chi2: 376.183,
-    cfa_df: 135,
-    cfa_p: 0,
-    cfa_cfi: 0.766,
-    cfa_tli: 0.7348,
-    cfa_rmsea: 0.0967,
-    inter_item_mean: 0.275,
-    inter_item_min: -0.06,
-    inter_item_max: 0.64,
-    inter_item_sd: 0.13,
-  },
-  {
-    construct: 'Readiness',
-    n_items: 17,
-    n_valid: 181,
-    cronbach_alpha: 0.9171,
-    alpha_95ci: [0.8984, 0.9332],
-    mcdonalds_omega: 0.9183,
-    composite_reliability: 0.9183,
-    ave_from_loadings: 0.4001,
-    split_half: 0.9121,
-    kmo: 0.9266,
-    bartlett_chi2: 1278.99,
-    bartlett_p: 0,
-    parallel_factors: 1,
-    variance_explained: 0.4001,
-    top_eigenvalues: [7.392, 1.071, 0.966, 0.888],
-    cfa_chi2: 203.253,
-    cfa_df: 119,
-    cfa_p: 0,
-    cfa_cfi: 0.9297,
-    cfa_tli: 0.9196,
-    cfa_rmsea: 0.0627,
-    inter_item_mean: 0.395,
-    inter_item_min: 0.12,
-    inter_item_max: 0.7,
-    inter_item_sd: 0.11,
-  },
-  {
-    construct: 'Maturity',
-    n_items: 8,
-    n_valid: 191,
-    cronbach_alpha: 0.8847,
-    alpha_95ci: [0.8582, 0.9077],
-    mcdonalds_omega: 0.8857,
-    composite_reliability: 0.8857,
-    ave_from_loadings: 0.4934,
-    split_half: 0.8957,
-    kmo: 0.9121,
-    bartlett_chi2: 650.13,
-    bartlett_p: 0,
-    parallel_factors: 1,
-    variance_explained: 0.4934,
-    top_eigenvalues: [4.444, 0.716, 0.643, 0.567],
-    cfa_chi2: 32.147,
-    cfa_df: 20,
-    cfa_p: 0.0418,
-    cfa_cfi: 0.981,
-    cfa_tli: 0.9733,
-    cfa_rmsea: 0.0565,
-    inter_item_mean: 0.487,
-    inter_item_min: 0.3,
-    inter_item_max: 0.67,
-    inter_item_sd: 0.08,
-  },
-]
+const ITEM_COUNTS: Record<string, number> = {
+  Barriers: validationData.metadata.n_barriers,
+  Readiness: validationData.metadata.n_readiness,
+  Maturity: validationData.metadata.n_maturity,
+}
+
+const CONSTRUCTS: ConstructValidation[] = (['Barriers', 'Readiness', 'Maturity'] as const).map(
+  (name) => {
+    const d = validationData[name]
+    return {
+      construct: name,
+      n_items: ITEM_COUNTS[name],
+      n_valid: d.n_listwise,
+      cronbach_alpha: d.cronbach_alpha,
+      alpha_95ci: d.cronbach_alpha_ci as [number, number],
+      mcdonalds_omega: d.mcdonalds_omega,
+      composite_reliability: d.composite_reliability,
+      ave_from_loadings: d.ave,
+      split_half: d.split_half,
+      kmo: d.kmo_bartlett.kmo_overall,
+      bartlett_chi2: d.kmo_bartlett.bartlett_chi2,
+      bartlett_p: d.kmo_bartlett.bartlett_p,
+      parallel_factors: d.parallel_analysis.n_factors,
+      variance_explained: d.efa.total_variance,
+      top_eigenvalues: d.parallel_analysis.eigenvalues_real,
+      cfa_chi2: d.cfa.chi2,
+      cfa_df: d.cfa.df,
+      cfa_p: d.cfa.chi2_p,
+      cfa_cfi: d.cfa.cfi,
+      cfa_tli: d.cfa.tli,
+      cfa_rmsea: d.cfa.rmsea,
+      inter_item_mean: d.inter_item.mean_r,
+      inter_item_min: d.inter_item.min_r,
+      inter_item_max: d.inter_item.max_r,
+      inter_item_sd: d.inter_item.sd_r,
+    }
+  }
+)
 
 type HTMTPair = {
   pair: string
@@ -146,29 +103,13 @@ type HTMTPair = {
   passes_090: boolean
 }
 
-const HTMT_DATA: HTMTPair[] = [
-  {
-    pair: 'Barriers-Readiness',
-    htmt: 0.4981,
-    ci_95: [0.3963, 0.6527],
-    passes_085: true,
-    passes_090: true,
-  },
-  {
-    pair: 'Barriers-Maturity',
-    htmt: 0.4407,
-    ci_95: [0.3684, 0.5458],
-    passes_085: true,
-    passes_090: true,
-  },
-  {
-    pair: 'Readiness-Maturity',
-    htmt: 0.8044,
-    ci_95: [0.7098, 0.8804],
-    passes_085: true,
-    passes_090: true,
-  },
-]
+const HTMT_DATA: HTMTPair[] = validationData.htmt.map((h) => ({
+  pair: h.pair.replace(' vs ', '-'),
+  htmt: h.htmt,
+  ci_95: [h.ci_lower, h.ci_upper] as [number, number],
+  passes_085: h.below_085,
+  passes_090: h.below_090,
+}))
 
 type FLPair = {
   pair: string
@@ -178,46 +119,20 @@ type FLPair = {
   passes: boolean
 }
 
-const FL_DATA: FLPair[] = [
-  {
-    pair: 'Barriers-Readiness',
-    sqrt_ave_1: 0.5372,
-    sqrt_ave_2: 0.6325,
-    correlation: -0.3814,
-    passes: true,
-  },
-  {
-    pair: 'Barriers-Maturity',
-    sqrt_ave_1: 0.5372,
-    sqrt_ave_2: 0.7024,
-    correlation: -0.3156,
-    passes: true,
-  },
-  {
-    pair: 'Readiness-Maturity',
-    sqrt_ave_1: 0.6325,
-    sqrt_ave_2: 0.7024,
-    correlation: 0.7194,
-    passes: false,
-  },
-]
+const FL_DATA: FLPair[] = validationData.fornell_larcker.map((fl) => ({
+  pair: fl.pair.replace(' vs ', '-'),
+  sqrt_ave_1: fl.sqrt_ave1,
+  sqrt_ave_2: fl.sqrt_ave2,
+  correlation:
+    validationData.construct_correlations[
+      fl.pair.split(' vs ')[0] as keyof typeof validationData.construct_correlations
+    ][fl.pair.split(' vs ')[1] as 'Barriers' | 'Readiness' | 'Maturity'],
+  passes: fl.pass,
+}))
 
-const CORR_MATRIX: Record<string, Record<string, number>> = {
-  Barriers: { Barriers: 1.0, Readiness: -0.3814, Maturity: -0.3156 },
-  Readiness: { Barriers: -0.3814, Readiness: 1.0, Maturity: 0.7194 },
-  Maturity: { Barriers: -0.3156, Readiness: 0.7194, Maturity: 1.0 },
-}
+const CORR_MATRIX: Record<string, Record<string, number>> = validationData.construct_correlations
 
-const BARRIERS_4F_CFA = {
-  chi2: 307.835,
-  df: 129,
-  chi2_p: 0,
-  cfi: 0.8265,
-  tli: 0.7942,
-  rmsea: 0.0852,
-  aic: 80.79,
-  bic: 217.61,
-}
+const BARRIERS_4F_CFA = validationData.barriers_4f_cfa
 
 /* ── Formatting helpers ── */
 const fmt = (val: number | null | undefined, digits = 3): string => {

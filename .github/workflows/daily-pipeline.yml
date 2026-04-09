@@ -82,7 +82,9 @@ jobs:
           python-version: '3.12'
 
       - name: Install Python dependencies
-        run: pip install -r scripts/analysis/requirements.txt
+        run: |
+          pip install -r scripts/analysis/requirements.txt
+          pip install -r scripts/analysis/requirements-validation.txt
 
       - name: Export Qualtrics CSV
         run: python3 scripts/analysis/export_qualtrics.py
@@ -223,6 +225,22 @@ jobs:
             "$CSV_PATH" \
             --json "${{ runner.temp }}/crp-sensitivity-analysis.json"
 
+      - name: Run CRP validation pipeline (N=200 frozen)
+        id: crp_validation
+        if: steps.crp.outputs.produced == 'true' && steps.crp_filter.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          CSV_PATH="${{ runner.temp }}/qualtrics-enriched-crp-sample.csv"
+          if [ ! -f "$CSV_PATH" ]; then
+            echo "CRP validation input CSV not found: $CSV_PATH" >&2
+            exit 1
+          fi
+          python scripts/analysis/tabs_v2_validation.py \
+            "$CSV_PATH" \
+            --crp200 \
+            --json "${{ runner.temp }}/crp-validation.json"
+
       - name: Stage CRP public CSV
         if: steps.crp.outputs.produced == 'true'
         run: |
@@ -243,6 +261,17 @@ jobs:
                "${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json"
           else
             echo "CRP analysis JSON not found — skipping"
+          fi
+
+      - name: Stage CRP validation snapshot
+        if: steps.crp.outputs.produced == 'true' && steps.crp_validation.outcome == 'success'
+        run: |
+          if [ -f "${{ runner.temp }}/crp-validation.json" ]; then
+            mkdir -p "${{ runner.temp }}/crp-public"
+            cp "${{ runner.temp }}/crp-validation.json" \
+               "${{ runner.temp }}/crp-public/crp-validation.json"
+          else
+            echo "CRP validation JSON not found — skipping"
           fi
 
       - name: Descriptive analysis + sensitivity
@@ -369,6 +398,25 @@ jobs:
         with:
           name: crp-analysis-snapshot
           path: ${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json
+          retention-days: 7
+          if-no-files-found: ignore
+
+      # CRP validation snapshot — psychometric validation output
+      - name: Detect CRP validation snapshot
+        id: crp_validation_snapshot
+        if: steps.crp.outputs.produced == 'true' && steps.crp_filter.outcome == 'success' && steps.crp_validation.outcome == 'success'
+        run: |
+          if [ -f "${{ runner.temp }}/crp-public/crp-validation.json" ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/upload-artifact@v7
+        if: steps.crp_validation_snapshot.outputs.exists == 'true'
+        with:
+          name: crp-validation-snapshot
+          path: ${{ runner.temp }}/crp-public/crp-validation.json
           retention-days: 7
           if-no-files-found: ignore
 
@@ -522,6 +570,12 @@ jobs:
           name: crp-analysis-snapshot
           path: ${{ runner.temp }}/crp-json
 
+      - uses: actions/download-artifact@v8
+        continue-on-error: true
+        with:
+          name: crp-validation-snapshot
+          path: ${{ runner.temp }}/crp-validation-json
+
       - name: Stage CRP files into repo
         run: |
           if [ -f "${{ runner.temp }}/crp-csv/TABS_V2_CRP_2026_public_dataset.csv" ]; then
@@ -539,6 +593,13 @@ jobs:
           else
             echo "  CRP analysis JSON not available — skipping"
           fi
+          if [ -f "${{ runner.temp }}/crp-validation-json/crp-validation.json" ]; then
+            cp "${{ runner.temp }}/crp-validation-json/crp-validation.json" \
+               src/data/crp-validation.json
+            echo "  Staged: src/data/crp-validation.json"
+          else
+            echo "  CRP validation JSON not available — skipping"
+          fi
 
       - name: Compute files to format
         id: format_files
@@ -546,6 +607,9 @@ jobs:
           FILES="src/data/sensitivity-analysis.json src/data/data-audit.json src/data/disposition-summary.json"
           if [ -f "src/data/crp-sensitivity-analysis.json" ]; then
             FILES="$FILES src/data/crp-sensitivity-analysis.json"
+          fi
+          if [ -f "src/data/crp-validation.json" ]; then
+            FILES="$FILES src/data/crp-validation.json"
           fi
           echo "list=$FILES" >> "$GITHUB_OUTPUT"
 

@@ -8,6 +8,7 @@ import {
   PARAGRAPH_CLASSES,
 } from '@/lib/articleStyles'
 import Link from 'next/link'
+import validationData from '@/data/crp-validation.json'
 
 export const metadata: Metadata = {
   title: 'Barrier Factor Structure — TABS CRP 2026',
@@ -18,27 +19,10 @@ export const metadata: Metadata = {
   },
 }
 
-/* ── Barrier item labels (verified from CSV subheader) ── */
-const BARRIER_ITEMS: Record<string, string> = {
-  B1: 'Resistance to Change',
-  B2: 'Lack of Leadership Support',
-  B3: 'Risk-Averse Culture',
-  B4: 'Insufficient Workforce Skills',
-  B5: 'Inadequate Training',
-  B6: 'High Implementation Cost',
-  B7: 'Legacy System Integration',
-  B8: 'Inadequate IT Infrastructure',
-  B9: 'Difficulty Demonstrating Value',
-  B10: 'No Clear Strategy/Roadmap',
-  B11: 'Insufficient Governance',
-  B12: 'Workflow Disruption',
-  B13: 'Cybersecurity Concerns',
-  B14: 'Data Privacy Compliance',
-  B15: 'Lack of Trust in Tech/Vendors',
-  B16: 'Regulatory Complexity',
-  B17: 'External Pressure Without Readiness',
-  B18: 'Vendor/Partner Difficulty',
-}
+/* ── Barrier item labels (from crp-validation.json) ── */
+const BARRIER_ITEMS: Record<string, string> = Object.fromEntries(
+  validationData.factor_analysis.barrier_names.map((name, i) => [`B${i + 1}`, name])
+)
 
 /* ── Concept-mapping theory groups ── */
 const THEORY_GROUPS = [
@@ -72,63 +56,50 @@ const THEORY_GROUPS = [
   },
 ]
 
-/* ── EFA 2-factor solution ── */
-const EFA_FACTORS = [
-  {
-    name: 'F1: Internal / Organizational',
-    color: 'bg-indigo-50 border-indigo-400',
-    headerColor: 'bg-indigo-600',
-    items: [
-      'B1',
-      'B2',
-      'B3',
-      'B4',
-      'B5',
-      'B6',
-      'B7',
-      'B8',
-      'B9',
-      'B10',
-      'B11',
-      'B12',
-      'B15',
-      'B17',
-    ],
-    stats: { items: 14, alpha: 0.872, eigenvalue: 5.874, varianceExplained: '28.5%' },
-  },
-  {
-    name: 'F2: External / Compliance',
-    color: 'bg-pink-50 border-pink-400',
-    headerColor: 'bg-pink-600',
-    items: ['B13', 'B14', 'B16', 'B18'],
-    stats: { items: 4, alpha: 0.666, eigenvalue: 1.903, varianceExplained: '11.4%' },
-  },
+/* ── EFA 2-factor solution (from crp-validation.json) ── */
+const EFA_COLORS = [
+  { color: 'bg-indigo-50 border-indigo-400', headerColor: 'bg-indigo-600' },
+  { color: 'bg-pink-50 border-pink-400', headerColor: 'bg-pink-600' },
 ]
 
-/* ── Forced 3-group split of F1 ── */
-const THREE_GROUPS = [
-  {
-    name: 'F1a: Strategy & Culture',
-    color: 'bg-violet-50 border-violet-400',
-    headerColor: 'bg-violet-600',
-    items: ['B1', 'B2', 'B3', 'B5', 'B9', 'B10', 'B11', 'B15', 'B17'],
-    stats: { items: 9, alpha: 0.833, cr: 0.834, ave: 0.366 },
-  },
-  {
-    name: 'F1b: Technical Capacity',
-    color: 'bg-cyan-50 border-cyan-400',
-    headerColor: 'bg-cyan-600',
-    items: ['B4', 'B6', 'B7', 'B8', 'B12'],
-    stats: { items: 5, alpha: 0.746, cr: 0.748, ave: 0.374 },
-  },
-  {
-    name: 'F2: External / Compliance',
-    color: 'bg-pink-50 border-pink-400',
-    headerColor: 'bg-pink-600',
-    items: ['B13', 'B14', 'B16', 'B18'],
-    stats: { items: 4, alpha: 0.666, cr: 0.695, ave: 0.405 },
-  },
+const loadingsMatrix = validationData.factor_analysis.loadings_matrix
+
+const EFA_FACTORS = validationData.factor_analysis.efa_factors.map((f, idx) => {
+  const tag = `F${idx + 1}`
+  return {
+    name: f.name,
+    ...EFA_COLORS[idx],
+    items: loadingsMatrix.filter((r) => r.assigned === tag).map((r) => r.id),
+    stats: {
+      items: f.items,
+      alpha: f.alpha,
+      eigenvalue: f.eigenvalue,
+      varianceExplained: `${f.variance_pct}%`,
+    },
+  }
+})
+
+/* ── Forced 3-group split of F1 (from crp-validation.json) ── */
+const THREE_GROUP_COLORS = [
+  { color: 'bg-violet-50 border-violet-400', headerColor: 'bg-violet-600' },
+  { color: 'bg-cyan-50 border-cyan-400', headerColor: 'bg-cyan-600' },
+  { color: 'bg-pink-50 border-pink-400', headerColor: 'bg-pink-600' },
 ]
+
+/* Item lists for the 3-group decomposition — F1a/F1b split is exploratory, items
+   derived from the forced 2-factor extraction within F1 (see discussion below). */
+const THREE_GROUP_ITEMS = [
+  ['B1', 'B2', 'B3', 'B5', 'B9', 'B10', 'B11', 'B15', 'B17'],
+  ['B4', 'B6', 'B7', 'B8', 'B12'],
+  ['B13', 'B14', 'B16', 'B18'],
+]
+
+const THREE_GROUPS = validationData.factor_analysis.three_groups.map((g, idx) => ({
+  name: g.name,
+  ...THREE_GROUP_COLORS[idx],
+  items: THREE_GROUP_ITEMS[idx],
+  stats: { items: g.items, alpha: g.alpha, cr: g.cr, ave: g.ave },
+}))
 
 const ItemChip = ({ id }: { id: string }) => (
   <span className="inline-block px-2 py-0.5 text-xs font-mono bg-white rounded border border-gray-300 mr-1 mb-1">
@@ -275,8 +246,10 @@ const FactorAnalysisPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Horn&rsquo;s Parallel Analysis compared actual eigenvalues against the 95th percentile
             of random-data eigenvalues and retained exactly two factors. The two factors explain a
-            cumulative 39.9% of variance. Factor correlations (r = .505) confirm the oblique
-            rotation was appropriate.
+            cumulative {(validationData.Barriers.efa.total_variance * 100).toFixed(1)}% of variance.
+            Factor correlations (r = .
+            {validationData.factor_analysis.factor_correlation.toFixed(3).slice(2)}) confirm the
+            oblique rotation was appropriate.
           </p>
 
           <div className="overflow-x-auto mb-6">
@@ -297,29 +270,45 @@ const FactorAnalysisPage = () => {
               <tbody>
                 <tr>
                   <td className="px-3 py-1.5 border">Eigenvalue</td>
-                  <td className="text-right px-3 py-1.5 border">5.874</td>
-                  <td className="text-right px-3 py-1.5 border">1.903</td>
+                  <td className="text-right px-3 py-1.5 border">
+                    {validationData.factor_analysis.efa_factors[0].eigenvalue.toFixed(3)}
+                  </td>
+                  <td className="text-right px-3 py-1.5 border">
+                    {validationData.factor_analysis.efa_factors[1].eigenvalue.toFixed(3)}
+                  </td>
                 </tr>
                 <tr className="bg-gray-50">
                   <td className="px-3 py-1.5 border">Variance Explained</td>
-                  <td className="text-right px-3 py-1.5 border">28.5%</td>
-                  <td className="text-right px-3 py-1.5 border">11.4%</td>
+                  <td className="text-right px-3 py-1.5 border">
+                    {validationData.factor_analysis.efa_factors[0].variance_pct}%
+                  </td>
+                  <td className="text-right px-3 py-1.5 border">
+                    {validationData.factor_analysis.efa_factors[1].variance_pct}%
+                  </td>
                 </tr>
                 <tr>
                   <td className="px-3 py-1.5 border">Items</td>
-                  <td className="text-right px-3 py-1.5 border">14</td>
-                  <td className="text-right px-3 py-1.5 border">4</td>
+                  <td className="text-right px-3 py-1.5 border">
+                    {validationData.factor_analysis.efa_factors[0].items}
+                  </td>
+                  <td className="text-right px-3 py-1.5 border">
+                    {validationData.factor_analysis.efa_factors[1].items}
+                  </td>
                 </tr>
                 <tr className="bg-gray-50">
                   <td className="px-3 py-1.5 border">KMO (overall)</td>
                   <td className="text-right px-3 py-1.5 border" colSpan={2}>
-                    0.851
+                    {validationData.Barriers.kmo_bartlett.kmo_overall.toFixed(3)}
                   </td>
                 </tr>
                 <tr>
                   <td className="px-3 py-1.5 border">Bartlett&rsquo;s &chi;&sup2;</td>
                   <td className="text-right px-3 py-1.5 border" colSpan={2}>
-                    1,135.5 (p &lt; .001)
+                    {validationData.Barriers.kmo_bartlett.bartlett_chi2.toLocaleString('en-US', {
+                      minimumFractionDigits: 1,
+                      maximumFractionDigits: 1,
+                    })}{' '}
+                    (p &lt; .001)
                   </td>
                 </tr>
               </tbody>
@@ -438,53 +427,37 @@ const FactorAnalysisPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {[
-                  { id: 'B1', f1: 0.747, f2: -0.253, assigned: 'F1' },
-                  { id: 'B2', f1: 0.824, f2: -0.217, assigned: 'F1' },
-                  { id: 'B3', f1: 0.738, f2: -0.126, assigned: 'F1' },
-                  { id: 'B4', f1: 0.684, f2: -0.075, assigned: 'F1' },
-                  { id: 'B5', f1: 0.568, f2: 0.017, assigned: 'F1' },
-                  { id: 'B6', f1: 0.431, f2: 0.1, assigned: 'F1' },
-                  { id: 'B7', f1: 0.52, f2: 0.042, assigned: 'F1' },
-                  { id: 'B8', f1: 0.486, f2: 0.12, assigned: 'F1' },
-                  { id: 'B9', f1: 0.543, f2: -0.036, assigned: 'F1' },
-                  { id: 'B10', f1: 0.731, f2: -0.026, assigned: 'F1' },
-                  { id: 'B11', f1: 0.437, f2: 0.155, assigned: 'F1' },
-                  { id: 'B12', f1: 0.539, f2: 0.09, assigned: 'F1' },
-                  { id: 'B15', f1: 0.397, f2: 0.187, assigned: 'F1' },
-                  { id: 'B17', f1: 0.475, f2: 0.071, assigned: 'F1' },
-                  { id: 'B13', f1: -0.227, f2: 0.85, assigned: 'F2' },
-                  { id: 'B14', f1: -0.208, f2: 0.952, assigned: 'F2' },
-                  { id: 'B16', f1: 0.147, f2: 0.354, assigned: 'F2' },
-                  { id: 'B18', f1: 0.232, f2: 0.268, assigned: 'F2' },
-                ].map((row, i) => (
-                  <tr
-                    key={row.id}
-                    className={
-                      row.assigned === 'F2' ? 'bg-pink-50' : i % 2 === 0 ? '' : 'bg-gray-50'
-                    }
-                  >
-                    <td className="px-2 py-1 border font-bold">{row.id}</td>
-                    <td className="px-2 py-1 border text-gray-700">{BARRIER_ITEMS[row.id]}</td>
-                    <td
-                      className={`text-right px-2 py-1 border ${row.assigned === 'F1' ? 'font-bold text-indigo-700' : 'text-gray-400'}`}
+                {/* Sort: F1-assigned items first, then F2, preserving item order within each group */}
+                {[...loadingsMatrix]
+                  .sort((a, b) => (a.assigned === b.assigned ? 0 : a.assigned === 'F1' ? -1 : 1))
+                  .map((row, i) => (
+                    <tr
+                      key={row.id}
+                      className={
+                        row.assigned === 'F2' ? 'bg-pink-50' : i % 2 === 0 ? '' : 'bg-gray-50'
+                      }
                     >
-                      {row.f1.toFixed(3)}
-                    </td>
-                    <td
-                      className={`text-right px-2 py-1 border ${row.assigned === 'F2' ? 'font-bold text-pink-700' : 'text-gray-400'}`}
-                    >
-                      {row.f2.toFixed(3)}
-                    </td>
-                    <td className="text-center px-2 py-1 border">
-                      <span
-                        className={`px-2 py-0.5 rounded text-xs font-bold ${row.assigned === 'F1' ? 'bg-indigo-100 text-indigo-700' : 'bg-pink-100 text-pink-700'}`}
+                      <td className="px-2 py-1 border font-bold">{row.id}</td>
+                      <td className="px-2 py-1 border text-gray-700">{BARRIER_ITEMS[row.id]}</td>
+                      <td
+                        className={`text-right px-2 py-1 border ${row.assigned === 'F1' ? 'font-bold text-indigo-700' : 'text-gray-400'}`}
                       >
-                        {row.assigned}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
+                        {row.f1.toFixed(3)}
+                      </td>
+                      <td
+                        className={`text-right px-2 py-1 border ${row.assigned === 'F2' ? 'font-bold text-pink-700' : 'text-gray-400'}`}
+                      >
+                        {row.f2.toFixed(3)}
+                      </td>
+                      <td className="text-center px-2 py-1 border">
+                        <span
+                          className={`px-2 py-0.5 rounded text-xs font-bold ${row.assigned === 'F1' ? 'bg-indigo-100 text-indigo-700' : 'bg-pink-100 text-pink-700'}`}
+                        >
+                          {row.assigned}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

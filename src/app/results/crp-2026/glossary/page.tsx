@@ -3,11 +3,11 @@ import {
   ARTICLE_CLASSES,
   H1_CLASSES,
   H2_CLASSES,
-  H3_CLASSES,
   SECTION_CLASSES,
   PARAGRAPH_CLASSES,
 } from '@/lib/articleStyles'
 import Link from 'next/link'
+import validationData from '@/data/crp-validation.json'
 
 export const metadata: Metadata = {
   title: 'Statistics Glossary — TABS CRP 2026',
@@ -17,6 +17,21 @@ export const metadata: Metadata = {
     canonical: '/results/crp-2026/glossary',
   },
 }
+
+/* ── Validation data shortcuts ── */
+const b = validationData.Barriers
+const r = validationData.Readiness
+const m = validationData.Maturity
+const htmt = validationData.htmt
+const fl = validationData.fornell_larcker
+const fa = validationData.factor_analysis
+const b4 = validationData.barriers_4f_cfa
+
+/** Format a number without leading zero, e.g. 0.873 → ".873" */
+const f3 = (v: number) => v.toFixed(3).replace(/^0/, '')
+
+/** Format a number to 2 decimal places without leading zero */
+const f2 = (v: number) => v.toFixed(2).replace(/^0/, '')
 
 /* ── Glossary entry type ── */
 type GlossaryEntry = {
@@ -41,8 +56,7 @@ const ENTRIES: GlossaryEntry[] = [
       'α = (k / (k − 1)) × (1 − Σs²ᵢ / s²ₜ), where k = number of items, s²ᵢ = variance of each item, s²ₜ = variance of the total score. TABS also reports the Feldt (1965) 95% confidence interval.',
     thresholds:
       '≥ 0.70 acceptable, ≥ 0.80 good, ≥ 0.90 excellent. Values above 0.95 may indicate item redundancy.',
-    tabsContext:
-      'Barriers α = .873, Readiness α = .917, Maturity α = .885 – all in the "good to excellent" range.',
+    tabsContext: `Barriers α = ${f3(b.cronbach_alpha)}, Readiness α = ${f3(r.cronbach_alpha)}, Maturity α = ${f3(m.cronbach_alpha)} – all in the "good to excellent" range.`,
   },
   {
     id: 'mcdonalds-omega',
@@ -54,8 +68,7 @@ const ENTRIES: GlossaryEntry[] = [
       'ω = (Σλᵢ)² / ((Σλᵢ)² + Σ(1 − λ²ᵢ)), where λᵢ are the standardized factor loadings from a single-factor model. This is equivalent to total reliability omega.',
     thresholds:
       'Same thresholds as alpha (≥ 0.70 acceptable). Omega is generally preferred over alpha by modern psychometricians because it relaxes the tau-equivalent assumption.',
-    tabsContext:
-      'Barriers ω = .873, Readiness ω = .918, Maturity ω = .886 – very close to alpha values, suggesting reasonably tau-equivalent item loadings.',
+    tabsContext: `Barriers ω = ${f3(b.mcdonalds_omega)}, Readiness ω = ${f3(r.mcdonalds_omega)}, Maturity ω = ${f3(m.mcdonalds_omega)} – very close to alpha values, suggesting reasonably tau-equivalent item loadings.`,
   },
   {
     id: 'composite-reliability',
@@ -67,8 +80,7 @@ const ENTRIES: GlossaryEntry[] = [
       'CR = (Σλᵢ)² / ((Σλᵢ)² + Σε²ᵢ), where λᵢ are standardized factor loadings and ε²ᵢ = 1 − λ²ᵢ are the error variances. Numerically equivalent to omega when computed from the same loadings.',
     thresholds:
       '≥ 0.70 acceptable, ≥ 0.80 good. When CR exceeds 0.70 but AVE falls below 0.50, convergent validity is "adequate" per Fornell & Larcker (1981).',
-    tabsContext:
-      'Barriers CR = .873, Readiness CR = .918, Maturity CR = .886 – all above 0.80, compensating for below-threshold AVE values.',
+    tabsContext: `Barriers CR = ${f3(b.composite_reliability)}, Readiness CR = ${f3(r.composite_reliability)}, Maturity CR = ${f3(m.composite_reliability)} – all above 0.80, compensating for below-threshold AVE values.`,
   },
   {
     id: 'split-half',
@@ -80,8 +92,7 @@ const ENTRIES: GlossaryEntry[] = [
       'rₛₕ = 2r / (1 + r), where r is the Pearson correlation between the two half-scores. This is the Spearman-Brown prophecy formula, which estimates what the reliability would be if both halves were combined.',
     thresholds:
       'Same as alpha: ≥ 0.70 acceptable. Split-half reliability provides a useful cross-check against alpha – large discrepancies suggest item ordering effects.',
-    tabsContext:
-      'Barriers = .896, Readiness = .912, Maturity = .896 – all consistent with alpha/omega values.',
+    tabsContext: `Barriers = ${f3(b.split_half)}, Readiness = ${f3(r.split_half)}, Maturity = ${f3(m.split_half)} – all consistent with alpha/omega values.`,
   },
   {
     id: 'alpha-if-deleted',
@@ -108,8 +119,7 @@ const ENTRIES: GlossaryEntry[] = [
       'For item i, CITCᵢ = r(xᵢ, T₋ᵢ), where T₋ᵢ is the sum of all items except item i.',
     thresholds:
       '≥ 0.30 acceptable. Items below 0.30 may not be measuring the same construct as the other items, or may be interpreted inconsistently by respondents.',
-    tabsContext:
-      "B13 (Cybersecurity Concerns, CITC = .17) is the only item below the 0.30 threshold. Its specialized nature means cybersecurity barriers don't track with organizational/strategic barriers for all respondents.",
+    tabsContext: `B13 (Cybersecurity Concerns, CITC = ${f2(b.itc_min!)}) is the only item below the 0.30 threshold. Its specialized nature means cybersecurity barriers don't track with organizational/strategic barriers for all respondents.`,
   },
   {
     id: 'inter-item-correlation',
@@ -121,8 +131,7 @@ const ENTRIES: GlossaryEntry[] = [
       'Standard Pearson r between each pair of items. Summary: mean of all unique pairwise correlations, plus minimum, maximum, and standard deviation.',
     thresholds:
       'Mean inter-item correlation between 0.15 and 0.50 is optimal (Clark & Watson, 1995). Below 0.15 suggests items are too heterogeneous; above 0.50 suggests redundancy. No negative correlations should exist for a unidimensional scale.',
-    tabsContext:
-      'Barriers mean r = .275, Readiness mean r = .395, Maturity mean r = .487. All within acceptable ranges, with Maturity approaching the upper bound (consistent with its 8-item high-homogeneity scale).',
+    tabsContext: `Barriers mean r = ${f3(b.inter_item.mean_r)}, Readiness mean r = ${f3(r.inter_item.mean_r)}, Maturity mean r = ${f3(m.inter_item.mean_r)}. All within acceptable ranges, with Maturity approaching the upper bound (consistent with its 8-item high-homogeneity scale).`,
   },
 
   /* ── Factor Analysis ── */
@@ -136,8 +145,7 @@ const ENTRIES: GlossaryEntry[] = [
       'KMO = ΣΣr²ᵢⱼ / (ΣΣr²ᵢⱼ + ΣΣp²ᵢⱼ), where rᵢⱼ are correlations and pᵢⱼ are partial correlations. Values closer to 1.0 mean factor analysis is more appropriate.',
     thresholds:
       '≥ 0.50 minimum (miserable), ≥ 0.60 mediocre, ≥ 0.70 middling, ≥ 0.80 meritorious, ≥ 0.90 marvelous (Kaiser, 1974).',
-    tabsContext:
-      'Barriers KMO = .851 (meritorious), Readiness KMO = .927 (marvelous), Maturity KMO = .912 (marvelous).',
+    tabsContext: `Barriers KMO = ${f3(b.kmo_bartlett.kmo_overall)} (meritorious), Readiness KMO = ${f3(r.kmo_bartlett.kmo_overall)} (marvelous), Maturity KMO = ${f3(m.kmo_bartlett.kmo_overall)} (marvelous).`,
   },
   {
     id: 'bartlett',
@@ -175,8 +183,7 @@ const ENTRIES: GlossaryEntry[] = [
       'Generate many (typically 100–1,000) random datasets with the same N and k. Compute eigenvalues for each. Retain factors whose actual eigenvalues exceed the 95th percentile of the random eigenvalues.',
     thresholds:
       'Retain factors where actual eigenvalue > 95th percentile random eigenvalue. This is more accurate than the Kaiser criterion (eigenvalue > 1.0), which tends to over-extract factors.',
-    tabsContext:
-      'Barriers: 2 factors retained (eigenvalues 5.87, 1.90 > random thresholds). Readiness: 1 factor (only first eigenvalue 7.39 exceeds threshold). Maturity: 1 factor (eigenvalue 4.44 exceeds threshold).',
+    tabsContext: `Barriers: ${b.parallel_analysis.n_factors} factors retained (eigenvalues ${b.parallel_analysis.eigenvalues_real[0].toFixed(2)}, ${b.parallel_analysis.eigenvalues_real[1].toFixed(2)} > random thresholds). Readiness: ${r.parallel_analysis.n_factors} factor (only first eigenvalue ${r.parallel_analysis.eigenvalues_real[0].toFixed(2)} exceeds threshold). Maturity: ${m.parallel_analysis.n_factors} factor (eigenvalue ${m.parallel_analysis.eigenvalues_real[0].toFixed(2)} exceeds threshold).`,
   },
   {
     id: 'cfa',
@@ -188,8 +195,7 @@ const ENTRIES: GlossaryEntry[] = [
       'Fit a structural equation model where latent factors predict observed items. Estimate factor loadings, error variances, and factor correlations using ML estimation. Evaluate fit using multiple indices (CFI, TLI, RMSEA, SRMR).',
     thresholds:
       'CFI ≥ .95 (good), ≥ .90 (acceptable). TLI ≥ .95 (good), ≥ .90 (acceptable). RMSEA ≤ .06 (good), ≤ .08 (acceptable). SRMR ≤ .08 (good).',
-    tabsContext:
-      'Maturity CFA fits well (CFI = .981, TLI = .973, RMSEA = .057). Barriers single-factor CFA shows poor fit (CFI = .766), expected for a multi-factor construct. The 4-factor Barriers CFA (CFI = .827) improves but remains below threshold, reflecting the exploratory nature of the current sample.',
+    tabsContext: `Maturity CFA fits well (CFI = ${f3(m.cfa.cfi)}, TLI = ${f3(m.cfa.tli)}, RMSEA = ${f3(m.cfa.rmsea)}). Barriers single-factor CFA shows poor fit (CFI = ${f3(b.cfa.cfi)}), expected for a multi-factor construct. The 4-factor Barriers CFA (CFI = ${f3(b4.cfi)}) improves but remains below threshold, reflecting the exploratory nature of the current sample.`,
   },
 
   /* ── Validity ── */
@@ -203,8 +209,7 @@ const ENTRIES: GlossaryEntry[] = [
       'AVE = Σλ²ᵢ / k, where λᵢ are the standardized factor loadings and k is the number of items. This is the mean of the squared loadings – the average communality.',
     thresholds:
       '≥ 0.50 indicates that the construct explains more variance in its items than error does. When AVE < 0.50 but CR > 0.70, convergent validity is "adequate" per Fornell & Larcker (1981). Below 0.50 is common in broad, multi-faceted constructs with many items.',
-    tabsContext:
-      'Barriers AVE = .289, Readiness AVE = .400, Maturity AVE = .493. All below the ideal .50, but all have CR > .80. The 18-item Barriers scale measures diverse barrier types, naturally reducing AVE. Maturity (8 homogeneous items) is closest to the threshold.',
+    tabsContext: `Barriers AVE = ${f3(b.ave)}, Readiness AVE = ${f3(r.ave)}, Maturity AVE = ${f3(m.ave)}. All below the ideal .50, but all have CR > .80. The 18-item Barriers scale measures diverse barrier types, naturally reducing AVE. Maturity (${validationData.metadata.n_maturity} homogeneous items) is closest to the threshold.`,
   },
   {
     id: 'htmt',
@@ -216,8 +221,7 @@ const ENTRIES: GlossaryEntry[] = [
       'HTMT = mean(heterotrait-heteromethod correlations) / geometric mean of (mean(monotrait-heteromethod correlations) for each construct). Bootstrap confidence intervals (2,000 iterations) are reported for inferential testing.',
     thresholds:
       '< 0.85 conservative threshold (Henseler et al., 2015). < 0.90 liberal threshold. If the 95% CI includes 1.0, constructs may not be distinct.',
-    tabsContext:
-      'B-R: .498, B-M: .441, R-M: .804. All pass the conservative .85 threshold. The R-M value (.804) is the highest, reflecting the known Readiness-Maturity conceptual overlap, but remains below threshold.',
+    tabsContext: `B-R: ${f3(htmt[0].htmt)}, B-M: ${f3(htmt[1].htmt)}, R-M: ${f3(htmt[2].htmt)}. All pass the conservative .85 threshold. The R-M value (${f3(htmt[2].htmt)}) is the highest, reflecting the known Readiness-Maturity conceptual overlap, but remains below threshold.`,
   },
   {
     id: 'fornell-larcker',
@@ -229,8 +233,7 @@ const ENTRIES: GlossaryEntry[] = [
       'For each construct pair (A, B): check whether √AVE(A) > |r(A,B)| and √AVE(B) > |r(A,B)|. Both conditions must hold for discriminant validity.',
     thresholds:
       'Pass: √AVE > inter-construct correlation. Fail: the constructs may overlap too much. Fornell-Larcker has been criticized as overly lenient; HTMT is now preferred. When they disagree, HTMT takes precedence.',
-    tabsContext:
-      'B-R: passes (√AVE .537/.633 > |r| .381). B-M: passes (.537/.702 > .316). R-M: fails (√AVE .633 < r .719). The R-M failure is expected given their shared "organizational capability" dimension and is well-documented in the CRP.',
+    tabsContext: `B-R: passes (√AVE ${f3(fl[0].sqrt_ave1)}/${f3(fl[0].sqrt_ave2)} > |r| ${f3(fl[0].abs_r)}). B-M: passes (${f3(fl[1].sqrt_ave1)}/${f3(fl[1].sqrt_ave2)} > ${f3(fl[1].abs_r)}). R-M: fails (√AVE ${f3(fl[2].sqrt_ave1)} < r ${f3(fl[2].abs_r)}). The R-M failure is expected given their shared "organizational capability" dimension and is well-documented in the CRP.`,
   },
 
   /* ── Normality ── */
@@ -272,8 +275,7 @@ const ENTRIES: GlossaryEntry[] = [
       'Computed from the eigendecomposition of the correlation matrix R. The eigenvalue λⱼ for factor j is the sum of squared factor loadings for that factor across all items.',
     thresholds:
       "Kaiser criterion: retain factors with eigenvalue > 1.0 (explains more than a single item's worth of variance). However, Parallel Analysis is more accurate and is used by TABS.",
-    tabsContext:
-      'Barriers: λ₁=5.87, λ₂=1.90, λ₃=1.15 (only 2 exceed parallel analysis threshold). Readiness: λ₁=7.39 (1 factor). Maturity: λ₁=4.44 (1 factor).',
+    tabsContext: `Barriers: λ₁=${b.parallel_analysis.eigenvalues_real[0].toFixed(2)}, λ₂=${b.parallel_analysis.eigenvalues_real[1].toFixed(2)}, λ₃=${b.parallel_analysis.eigenvalues_real[2].toFixed(2)} (only ${b.parallel_analysis.n_factors} exceed parallel analysis threshold). Readiness: λ₁=${r.parallel_analysis.eigenvalues_real[0].toFixed(2)} (${r.parallel_analysis.n_factors} factor). Maturity: λ₁=${m.parallel_analysis.eigenvalues_real[0].toFixed(2)} (${m.parallel_analysis.n_factors} factor).`,
   },
   {
     id: 'communality',
@@ -298,8 +300,7 @@ const ENTRIES: GlossaryEntry[] = [
       'Sum of (eigenvalue / k) × 100 for each retained factor, where k is the number of items.',
     thresholds:
       '> 50% is commonly cited as a minimum in social sciences, but 40-60% is typical for survey instruments measuring complex constructs.',
-    tabsContext:
-      'Barriers 2-factor: 39.9%. Readiness 1-factor: 40.0%. Maturity 1-factor: 49.3%. All within the typical range for organizational behavior surveys.',
+    tabsContext: `Barriers ${b.efa.n_factors}-factor: ${(b.efa.total_variance * 100).toFixed(1)}%. Readiness ${r.efa.n_factors}-factor: ${(r.efa.total_variance * 100).toFixed(1)}%. Maturity ${m.efa.n_factors}-factor: ${(m.efa.total_variance * 100).toFixed(1)}%. All within the typical range for organizational behavior surveys.`,
   },
   {
     id: 'promax',
@@ -311,8 +312,7 @@ const ENTRIES: GlossaryEntry[] = [
       'Start with a Varimax (orthogonal) rotation, then raise the loadings to a power (kappa, typically 4) and use the resulting matrix as a target for oblique Procrustes rotation. This simplifies the loading pattern while allowing inter-factor correlations.',
     thresholds:
       'If inter-factor correlations exceed |r| > .32, oblique rotation is preferred over orthogonal (Tabachnick & Fidell, 2013). Report factor correlations to justify the choice.',
-    tabsContext:
-      'Barriers F1-F2 correlation = .505, well above .32, confirming Promax was the correct choice.',
+    tabsContext: `Barriers F1-F2 correlation = ${f3(fa.factor_correlation)}, well above .32, confirming Promax was the correct choice.`,
   },
   {
     id: 'cfi',
@@ -323,8 +323,7 @@ const ENTRIES: GlossaryEntry[] = [
     howCalculated:
       'CFI = 1 − max((χ²ₘ − dfₘ), 0) / max((χ²₀ − df₀), (χ²ₘ − dfₘ), 0), where m = proposed model, 0 = null model.',
     thresholds: '≥ .95 good fit, ≥ .90 acceptable fit (Hu & Bentler, 1999).',
-    tabsContext:
-      'Maturity CFI = .981 (excellent). Readiness CFI = .930 (acceptable). Barriers single-factor CFI = .766 (poor, expected for multi-dimensional construct).',
+    tabsContext: `Maturity CFI = ${f3(m.cfa.cfi)} (excellent). Readiness CFI = ${f3(r.cfa.cfi)} (acceptable). Barriers single-factor CFI = ${f3(b.cfa.cfi)} (poor, expected for multi-dimensional construct).`,
   },
   {
     id: 'tli',
@@ -334,8 +333,7 @@ const ENTRIES: GlossaryEntry[] = [
       'Similar to CFI but penalizes model complexity. Values can exceed 1.0 or fall below 0. More conservative than CFI for models with many parameters.',
     howCalculated: 'TLI = ((χ²₀/df₀) − (χ²ₘ/dfₘ)) / ((χ²₀/df₀) − 1).',
     thresholds: '≥ .95 good fit, ≥ .90 acceptable (same as CFI).',
-    tabsContext:
-      'Maturity TLI = .973 (excellent). Readiness TLI = .920 (acceptable). Barriers TLI = .735 (poor).',
+    tabsContext: `Maturity TLI = ${f3(m.cfa.tli)} (excellent). Readiness TLI = ${f3(r.cfa.tli)} (acceptable). Barriers TLI = ${f3(b.cfa.tli)} (poor).`,
   },
   {
     id: 'rmsea',
@@ -345,8 +343,7 @@ const ENTRIES: GlossaryEntry[] = [
       'The average amount of misfit per degree of freedom. It estimates how well the model fits the population covariance matrix (not just the sample). Lower is better.',
     howCalculated: 'RMSEA = √(max((χ²ₘ − dfₘ) / (dfₘ × (N−1)), 0)).',
     thresholds: '≤ .06 good, ≤ .08 acceptable, > .10 poor (Browne & Cudeck, 1993).',
-    tabsContext:
-      'Maturity RMSEA = .057 (good). Readiness RMSEA = .063 (acceptable). Barriers RMSEA = .097 (borderline poor).',
+    tabsContext: `Maturity RMSEA = ${f3(m.cfa.rmsea)} (good). Readiness RMSEA = ${f3(r.cfa.rmsea)} (acceptable). Barriers RMSEA = ${f3(b.cfa.rmsea)} (borderline poor).`,
   },
   {
     id: 'srmr',
