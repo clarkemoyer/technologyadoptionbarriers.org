@@ -269,6 +269,10 @@ def run_efa(data, construct_name, n_factors=None, max_factors=6, rng=None):
     and promax rotation. Returns full loading matrix and diagnostics.
 
     Args:
+        data: DataFrame of item scores.
+        construct_name: Label used in result dict.
+        n_factors: Override factor count (skips parallel analysis if set).
+        max_factors: Upper bound for parallel analysis factor search.
         rng: Optional np.random.Generator passed to parallel_analysis for
              reproducible factor retention.
     """
@@ -638,6 +642,11 @@ def validate_construct(df, cols, names, construct_name, cfa_model=None, rng=None
     """Run all validations for a single construct.
 
     Args:
+        df: Full respondent DataFrame.
+        cols: Column names for this construct's items.
+        names: Human-readable item labels (parallel to cols).
+        construct_name: Display label (e.g. 'Barriers').
+        cfa_model: Optional lavaan-style CFA model string.
         rng: Optional np.random.Generator for reproducible stochastic steps
              (parallel analysis in EFA).
     """
@@ -749,6 +758,8 @@ def compute_discriminant_validity(df, construct_results, rng=None):
     """HTMT with bootstrap CIs, Fornell-Larcker, and construct correlations.
 
     Args:
+        df: Full respondent DataFrame.
+        construct_results: List of per-construct result dicts (from validate_construct).
         rng: Optional np.random.Generator for reproducible HTMT bootstrap CIs.
     """
     print(f"\n{'='*70}")
