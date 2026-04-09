@@ -1,26 +1,26 @@
 {
-  "updatedAt": "2026-04-09T01:32:17.919696+00:00",
-  "last_updated": "2026-04-09T01:32:17.919709+00:00",
+  "updatedAt": "2026-04-09T10:50:18.397376+00:00",
+  "last_updated": "2026-04-09T10:50:18.397385+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 260,
-    "averageRewardPerHour": 3994.65,
+    "placesTaken": 261,
+    "averageRewardPerHour": 3986.55,
     "averageTimeTaken": 10,
     "reward": 700,
     "publishedAt": "2026-03-23T18:00:28.650000Z"
   },
   "completionProgress": {
     "target": 500,
-    "completed": 260,
+    "completed": 261,
     "approved": 230,
-    "awaitingReview": 30,
-    "percentComplete": 52.0
+    "awaitingReview": 31,
+    "percentComplete": 52.2
   },
-  "totalResponses": 441,
-  "uniqueParticipants": 428,
+  "totalResponses": 443,
+  "uniqueParticipants": 429,
   "duplicatesRemoved": 0,
   "dispositions": {
     "INCOMPLETE": 66,
@@ -29,7 +29,7 @@
     "FLAG-SPEED": 7,
     "FLAG-PARTIAL-STRAIGHTLINING": 33,
     "FLAG-SINGLE-IRI": 77,
-    "AUTO-EXCLUDE": 115,
+    "AUTO-EXCLUDE": 116,
     "FLAG-RECAPTCHA": 3
   },
   "dispositionByStatus": {
@@ -61,7 +61,7 @@
     },
     "AUTO-EXCLUDE": {
       "REJECTED": 29,
-      "AWAITING REVIEW": 21,
+      "AWAITING REVIEW": 22,
       "RETURNED": 62,
       "APPROVED": 3
     },
@@ -73,23 +73,23 @@
     "IRI3_SPEED": 13,
     "IRI3": 28,
     "IRI2_SPEED": 11,
-    "IRI2": 49,
+    "IRI2": 50,
     "SPEED_IRI": 14
   },
   "actions": {
     "approved": 230,
     "rejected": 29,
-    "returned": 146,
+    "returned": 147,
     "timedOut": 6,
-    "awaitingReview": 30,
+    "awaitingReview": 31,
     "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 57.2,
-    "readiness": 69.6,
-    "maturity": 80.9,
-    "denominator": 362
+    "barrier": 57.0,
+    "readiness": 69.4,
+    "maturity": 81.0,
+    "denominator": 363
   },
   "studyId": "69c17630acada6abeead2da5",
   "studyName": "Technology Adoption Barriers Survey (2026)"
