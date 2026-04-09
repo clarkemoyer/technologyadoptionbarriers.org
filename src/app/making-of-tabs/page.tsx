@@ -144,10 +144,9 @@ const MakingOfTabsPage = () => {
               <h3 className={H3_CLASSES}>Google Analytics 4 (GA4)</h3>
               <p className="mb-4">
                 To understand how researchers and participants interact with our findings, we
-                utilize
-                <strong>Google Analytics 4</strong>. This provides us with aggregate, privacy-safe
-                insights into traffic sources, popular content, and user engagement, helping us
-                refine our dissemination strategy.
+                utilize <strong>Google Analytics 4</strong>. This provides us with aggregate,
+                privacy-safe insights into traffic sources, popular content, and user engagement,
+                helping us refine our dissemination strategy.
               </p>
             </div>
 
