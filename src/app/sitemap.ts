@@ -463,6 +463,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/results/crp-2026/factor-analysis`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/crp-2026/glossary`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/crp-2026/validation`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
     // Start / persona pages
     {
       url: `${baseUrl}/start`,

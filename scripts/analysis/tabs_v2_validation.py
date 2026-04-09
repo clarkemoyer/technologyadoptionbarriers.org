@@ -222,10 +222,15 @@ def corrected_item_total(data):
 def composite_reliability(loadings):
     """CR = (sum of loadings)^2 / ((sum of loadings)^2 + sum of error variances).
     loadings: 1-D array of standardized factor loadings."""
-    lam = np.array(loadings)
+    lam = np.array(loadings, dtype=float)
+    if len(lam) == 0 or np.any(np.isnan(lam)):
+        return np.nan
     sum_lam = lam.sum()
     error_var = 1 - lam ** 2
-    cr = sum_lam ** 2 / (sum_lam ** 2 + error_var.sum())
+    denom = sum_lam ** 2 + error_var.sum()
+    if denom == 0:
+        return np.nan
+    cr = sum_lam ** 2 / denom
     return cr
 
 
@@ -385,24 +390,25 @@ def run_cfa(data, model_spec, construct_name):
     try:
         mod = semopy.Model(model_spec)
         mod.fit(d)
-        est = mod.inspect()
-
-        # Fit indices
+        # Fit indices — semopy.calc_stats() returns metrics as row index,
+        # 'Value' as the single column.  Access: fit_stats.loc[metric, 'Value'].
         fit_stats = semopy.calc_stats(mod)
-        result['chi2'] = round(float(fit_stats.loc['Value', 'chi2']), 3) if 'chi2' in fit_stats.columns else None
-        result['df'] = int(fit_stats.loc['Value', 'DoF']) if 'DoF' in fit_stats.columns else None
-        result['chi2_p'] = round(float(fit_stats.loc['Value', 'chi2 p-value']), 4) if 'chi2 p-value' in fit_stats.columns else None
-        result['cfi'] = round(float(fit_stats.loc['Value', 'CFI']), 4) if 'CFI' in fit_stats.columns else None
-        result['tli'] = round(float(fit_stats.loc['Value', 'TLI']), 4) if 'TLI' in fit_stats.columns else None
-        result['rmsea'] = round(float(fit_stats.loc['Value', 'RMSEA']), 4) if 'RMSEA' in fit_stats.columns else None
-        result['srmr'] = round(float(fit_stats.loc['Value', 'SRMR']), 4) if 'SRMR' in fit_stats.columns else None
-        result['aic'] = round(float(fit_stats.loc['Value', 'AIC']), 2) if 'AIC' in fit_stats.columns else None
-        result['bic'] = round(float(fit_stats.loc['Value', 'BIC']), 2) if 'BIC' in fit_stats.columns else None
+        result['chi2'] = round(float(fit_stats.loc['chi2', 'Value']), 3) if 'chi2' in fit_stats.index else None
+        result['df'] = int(fit_stats.loc['DoF', 'Value']) if 'DoF' in fit_stats.index else None
+        result['chi2_p'] = round(float(fit_stats.loc['chi2 p-value', 'Value']), 4) if 'chi2 p-value' in fit_stats.index else None
+        result['cfi'] = round(float(fit_stats.loc['CFI', 'Value']), 4) if 'CFI' in fit_stats.index else None
+        result['tli'] = round(float(fit_stats.loc['TLI', 'Value']), 4) if 'TLI' in fit_stats.index else None
+        result['rmsea'] = round(float(fit_stats.loc['RMSEA', 'Value']), 4) if 'RMSEA' in fit_stats.index else None
+        result['srmr'] = round(float(fit_stats.loc['SRMR', 'Value']), 4) if 'SRMR' in fit_stats.index else None
+        result['aic'] = round(float(fit_stats.loc['AIC', 'Value']), 2) if 'AIC' in fit_stats.index else None
+        result['bic'] = round(float(fit_stats.loc['BIC', 'Value']), 2) if 'BIC' in fit_stats.index else None
 
-        # Standardized loadings (lval = item name, rval = factor name in semopy)
-        loadings = est[(est['op'] == '~') & (est['Estimate'].notna())]
+        # Standardized loadings (lval = item name, rval = factor name in semopy).
+        # Use std_est=True so composite_reliability() receives standardized values.
+        est_std = mod.inspect(std_est=True)
+        loadings = est_std[(est_std['op'] == '~') & (est_std['Est. Std'].notna())]
         result['standardized_loadings'] = {
-            row['lval']: round(float(row['Estimate']), 4)
+            row['lval']: round(float(row['Est. Std']), 4)
             for _, row in loadings.iterrows()
         }
 
@@ -849,7 +855,7 @@ def main():
     use_crp200 = '--crp200' in sys.argv
     if '--json' in sys.argv:
         idx = sys.argv.index('--json')
-        if idx + 1 < len(sys.argv):
+        if idx + 1 < len(sys.argv) and not sys.argv[idx + 1].startswith('--'):
             json_output = sys.argv[idx + 1]
 
     # Load data

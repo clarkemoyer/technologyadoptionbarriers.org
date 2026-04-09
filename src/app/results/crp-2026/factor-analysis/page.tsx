@@ -283,9 +283,15 @@ const FactorAnalysisPage = () => {
             <table className="w-full text-sm font-sans border-collapse">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="text-left px-3 py-2 border">Statistic</th>
-                  <th className="text-right px-3 py-2 border">F1: Internal</th>
-                  <th className="text-right px-3 py-2 border">F2: External</th>
+                  <th scope="col" className="text-left px-3 py-2 border">
+                    Statistic
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    F1: Internal
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    F2: External
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -374,11 +380,21 @@ const FactorAnalysisPage = () => {
             <table className="w-full text-sm font-sans border-collapse">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="text-left px-3 py-2 border">Group</th>
-                  <th className="text-right px-3 py-2 border">Items</th>
-                  <th className="text-right px-3 py-2 border">&alpha;</th>
-                  <th className="text-right px-3 py-2 border">CR</th>
-                  <th className="text-right px-3 py-2 border">AVE</th>
+                  <th scope="col" className="text-left px-3 py-2 border">
+                    Group
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    Items
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    &alpha;
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    CR
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    AVE
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -404,11 +420,21 @@ const FactorAnalysisPage = () => {
             <table className="w-full text-xs sm:text-sm font-mono border-collapse">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="text-left px-2 py-1.5 border">Item</th>
-                  <th className="text-left px-2 py-1.5 border">Barrier</th>
-                  <th className="text-right px-2 py-1.5 border">F1 Loading</th>
-                  <th className="text-right px-2 py-1.5 border">F2 Loading</th>
-                  <th className="text-center px-2 py-1.5 border">Assigned</th>
+                  <th scope="col" className="text-left px-2 py-1.5 border">
+                    Item
+                  </th>
+                  <th scope="col" className="text-left px-2 py-1.5 border">
+                    Barrier
+                  </th>
+                  <th scope="col" className="text-right px-2 py-1.5 border">
+                    F1 Loading
+                  </th>
+                  <th scope="col" className="text-right px-2 py-1.5 border">
+                    F2 Loading
+                  </th>
+                  <th scope="col" className="text-center px-2 py-1.5 border">
+                    Assigned
+                  </th>
                 </tr>
               </thead>
               <tbody>

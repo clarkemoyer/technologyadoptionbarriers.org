@@ -589,9 +589,11 @@ const ValidationPage = () => {
             <table className="w-full text-sm font-sans border-collapse mb-4">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="text-left px-3 py-2 border">Measure</th>
+                  <th scope="col" className="text-left px-3 py-2 border">
+                    Measure
+                  </th>
                   {CONSTRUCTS.map((c) => (
-                    <th key={c.construct} className="text-right px-3 py-2 border">
+                    <th scope="col" key={c.construct} className="text-right px-3 py-2 border">
                       {c.construct}
                     </th>
                   ))}
@@ -665,9 +667,15 @@ const ValidationPage = () => {
             <table className="w-full text-sm font-sans border-collapse">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="text-left px-3 py-2 border">Index</th>
-                  <th className="text-right px-3 py-2 border">Value</th>
-                  <th className="text-right px-3 py-2 border">Verdict</th>
+                  <th scope="col" className="text-left px-3 py-2 border">
+                    Index
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    Value
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    Verdict
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -777,11 +785,21 @@ const ValidationPage = () => {
             <table className="w-full text-sm font-sans border-collapse">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="text-left px-3 py-2 border">Construct Pair</th>
-                  <th className="text-right px-3 py-2 border">HTMT</th>
-                  <th className="text-right px-3 py-2 border">95% Bootstrap CI</th>
-                  <th className="text-center px-3 py-2 border">&lt; .85</th>
-                  <th className="text-center px-3 py-2 border">&lt; .90</th>
+                  <th scope="col" className="text-left px-3 py-2 border">
+                    Construct Pair
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    HTMT
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    95% Bootstrap CI
+                  </th>
+                  <th scope="col" className="text-center px-3 py-2 border">
+                    &lt; .85
+                  </th>
+                  <th scope="col" className="text-center px-3 py-2 border">
+                    &lt; .90
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -811,15 +829,21 @@ const ValidationPage = () => {
             <table className="w-full text-sm font-sans border-collapse">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="text-left px-3 py-2 border">Pair</th>
-                  <th className="text-right px-3 py-2 border">
+                  <th scope="col" className="text-left px-3 py-2 border">
+                    Pair
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
                     &radic;AVE<sub>1</sub>
                   </th>
-                  <th className="text-right px-3 py-2 border">
+                  <th scope="col" className="text-right px-3 py-2 border">
                     &radic;AVE<sub>2</sub>
                   </th>
-                  <th className="text-right px-3 py-2 border">|r|</th>
-                  <th className="text-center px-3 py-2 border">Pass</th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    |r|
+                  </th>
+                  <th scope="col" className="text-center px-3 py-2 border">
+                    Pass
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -935,11 +959,21 @@ const ValidationPage = () => {
             <table className="w-full text-sm font-sans border-collapse mb-4">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="text-left px-3 py-2 border">Construct</th>
-                  <th className="text-right px-3 py-2 border">Mean r</th>
-                  <th className="text-right px-3 py-2 border">Min r</th>
-                  <th className="text-right px-3 py-2 border">Max r</th>
-                  <th className="text-right px-3 py-2 border">SD</th>
+                  <th scope="col" className="text-left px-3 py-2 border">
+                    Construct
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    Mean r
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    Min r
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    Max r
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    SD
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -976,10 +1010,18 @@ const ValidationPage = () => {
             <table className="w-full text-sm font-sans border-collapse mb-6">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="text-left px-3 py-2 border">Criterion</th>
-                  <th className="text-center px-3 py-2 border">Barriers</th>
-                  <th className="text-center px-3 py-2 border">Readiness</th>
-                  <th className="text-center px-3 py-2 border">Maturity</th>
+                  <th scope="col" className="text-left px-3 py-2 border">
+                    Criterion
+                  </th>
+                  <th scope="col" className="text-center px-3 py-2 border">
+                    Barriers
+                  </th>
+                  <th scope="col" className="text-center px-3 py-2 border">
+                    Readiness
+                  </th>
+                  <th scope="col" className="text-center px-3 py-2 border">
+                    Maturity
+                  </th>
                 </tr>
               </thead>
               <tbody>
