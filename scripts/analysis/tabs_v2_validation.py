@@ -812,7 +812,7 @@ def compute_discriminant_validity(df, construct_results, n_boot=2000, rng=None):
     for cr in construct_results:
         name = cr['construct']
         ave = cr.get('ave_from_loadings')
-        if ave is not None and not math.isnan(ave):
+        if ave is not None and isinstance(ave, (int, float)) and not math.isnan(ave):
             ave_dict[name] = ave
 
     # Construct correlation matrix

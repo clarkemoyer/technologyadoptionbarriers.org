@@ -60,7 +60,7 @@ _MATURITY_VALS = [
 ]
 
 
-def _make_row(i: int, rng: '_rnd.Random') -> list:
+def _make_row(i: int, rng: _rnd.Random) -> list:
     """Return one clean data row passing IRI + duration filters.
 
     Uses a seeded random generator so the fixture is fully deterministic but
