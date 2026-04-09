@@ -113,7 +113,7 @@ function extractVisibleText(source: string): string {
   let text = jsx
     // Remove {/* comments */}
     .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
-    // Remove JS expressions like {variable}, {fn()}, but keep string literals inside
+    // Remove all JSX expressions ({variable}, {fn()}, {`template`}, etc.)
     .replace(/\{[^}]*\}/g, ' ')
     // Remove React fragments: <> and </>
     .replace(/<\/?>/g, ' ')
@@ -121,8 +121,15 @@ function extractVisibleText(source: string): string {
     .replace(/<[A-Za-z][^>]*\/>/g, ' ')
     // Remove opening/closing tags but keep inner text
     .replace(/<\/?[A-Za-z][^>]*>/g, ' ')
-    // Remove className and other JSX attribute noise that leaked through
-    .replace(/className="[^"]*"/g, '')
+    // Remove residual JSX prop patterns (word="value", word={, word= bare)
+    .replace(/\b\w+="[^"]*"/g, ' ')
+    .replace(/\b\w+=\{/g, ' ')
+    .replace(
+      /\b(?:id|className|style|aria-\w+|role|onClick|onChange|onFocus|onKeyDown|onMouseEnter|href|src|alt|ref|key|type|name|value|placeholder|autoComplete|dangerouslySetInnerHTML)=/g,
+      ' '
+    )
+    // Remove residual angle-bracket fragments, parens, brackets noise
+    .replace(/[<>(){}[\]]/g, ' ')
     // Remove remaining HTML entities
     .replace(/&[a-z]+;/g, ' ')
     // Strip email addresses to avoid centralizing scrapeable contact details
@@ -279,7 +286,7 @@ async function generateSearchIndex() {
   console.log('🔍 Generating search index...')
 
   const appDir = path.resolve('src/app')
-  const allPageFiles = await findPageFiles(appDir)
+  const allPageFiles = (await findPageFiles(appDir)).sort()
 
   console.log(`   Found ${allPageFiles.length} page.tsx files`)
 
@@ -343,12 +350,13 @@ async function generateSearchIndex() {
   }
   console.log(`   Expanded ${teachingItems.length} teaching series routes`)
 
-  // FAQ entries
-  for (const faq of faqs) {
+  // FAQ entries — each gets a unique URL fragment to avoid deduplication collisions
+  for (let i = 0; i < faqs.length; i++) {
+    const faq = faqs[i]
     const faqContent = `${faq.question} ${faq.answer}`
     items.push({
       id: `faq-${id++}`,
-      url: '/faq',
+      url: `/faq#faq-${i + 1}`,
       title: faq.question,
       description: 'Frequently asked question',
       content: truncateContent(faqContent),
@@ -369,6 +377,9 @@ async function generateSearchIndex() {
   if (dupeCount > 0) {
     console.log(`   Removed ${dupeCount} duplicate URLs`)
   }
+
+  // Sort by URL for deterministic output (avoids noisy diffs across OS/filesystems)
+  deduped.sort((a, b) => a.url.localeCompare(b.url))
 
   // Write index
   const publicDir = path.resolve('public')

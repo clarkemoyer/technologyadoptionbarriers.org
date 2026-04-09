@@ -87,7 +87,8 @@ test.describe('Full-site search', () => {
   test('clicking result navigates to page', async ({ page }) => {
     const searchInput = await openHeaderSearch(page)
     await searchInput.click()
-    await searchInput.fill('barriers')
+    // Use a specific term that matches a page other than the homepage
+    await searchInput.fill('privacy policy')
 
     // Wait for and click result
     const resultItem = page.locator('[role="option"]').first()
