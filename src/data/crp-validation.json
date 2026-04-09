@@ -1,177 +1,72 @@
 {
-  "n_clean": 116,
+  "validation_date": "2026-04-09T10:42:51.437946",
+  "n_clean": 200,
   "constructs": [
     {
-      "name": "Barriers",
-      "items": 19,
-      "mean": 2.814,
-      "sd": 0.681,
-      "reliability": {
-        "alpha": 0.886,
-        "omega": 0.889,
-        "cr": 0.893,
-        "split_half": 0.857,
-        "ave": 0.239
+      "construct": "Barriers",
+      "n_items": 18,
+      "n_valid_listwise": 192,
+      "cronbach_alpha": 0.8728,
+      "alpha_95ci": [
+        0.845,
+        0.8976
+      ],
+      "mcdonalds_omega": 0.8729,
+      "composite_reliability": 0.8729,
+      "ave_from_loadings": 0.2886,
+      "single_factor_loadings": {
+        "Resistance to Change": 0.5965,
+        "Lack of Leadership Support": 0.6918,
+        "Risk-Averse Culture": 0.657,
+        "Insufficient Workforce Skills": 0.6463,
+        "Inadequate Training": 0.5816,
+        "High Implementation Cost": 0.4869,
+        "Legacy System Integration": 0.5506,
+        "Inadequate IT Infrastructure": 0.5588,
+        "Difficulty Demonstrating Value": 0.5207,
+        "No Clear Strategy/Roadmap": 0.7158,
+        "Insufficient Governance": 0.5217,
+        "Workflow Disruption": 0.5903,
+        "Cybersecurity Concerns": 0.2272,
+        "Data Privacy Compliance": 0.2916,
+        "Lack of Trust in Tech/Vendors": 0.5022,
+        "Regulatory Complexity": 0.3392,
+        "External Pressure Without Readiness": 0.5158,
+        "Vendor/Partner Difficulty": 0.3832
       },
-      "cfa": {
-        "cfi": 0.892,
-        "tli": 0.878,
-        "rmsea": 0.072,
-        "aic": 2847.3,
-        "bic": 2977.1,
-        "chi2": 387.4,
-        "df": 98,
-        "chi2_p": 0.0001
-      }
-    },
-    {
-      "name": "Readiness",
-      "items": 18,
-      "mean": 3.041,
-      "sd": 0.789,
-      "reliability": {
-        "alpha": 0.902,
-        "omega": 0.905,
-        "cr": 0.908,
-        "split_half": 0.872,
-        "ave": 0.383
+      "split_half_spearman_brown": 0.8962,
+      "corrected_item_total": {
+        "Resistance to Change": 0.4991,
+        "Lack of Leadership Support": 0.592,
+        "Risk-Averse Culture": 0.5745,
+        "Insufficient Workforce Skills": 0.5851,
+        "Inadequate Training": 0.5324,
+        "High Implementation Cost": 0.4548,
+        "Legacy System Integration": 0.5218,
+        "Inadequate IT Infrastructure": 0.536,
+        "Difficulty Demonstrating Value": 0.4615,
+        "No Clear Strategy/Roadmap": 0.6471,
+        "Insufficient Governance": 0.4923,
+        "Workflow Disruption": 0.565,
+        "Cybersecurity Concerns": 0.2815,
+        "Data Privacy Compliance": 0.3632,
+        "Lack of Trust in Tech/Vendors": 0.4865,
+        "Regulatory Complexity": 0.3521,
+        "External Pressure Without Readiness": 0.4884,
+        "Vendor/Partner Difficulty": 0.3988
       },
-      "cfa": {
-        "cfi": 0.923,
-        "tli": 0.913,
-        "rmsea": 0.058,
-        "aic": 2391.2,
-        "bic": 2516.4,
-        "chi2": 267.8,
-        "df": 87,
-        "chi2_p": 0.0001
-      }
-    },
-    {
-      "name": "Maturity",
-      "items": 8,
-      "mean": 2.847,
-      "sd": 0.862,
-      "reliability": {
-        "alpha": 0.856,
-        "omega": 0.863,
-        "cr": 0.868,
-        "split_half": 0.821,
-        "ave": 0.438
-      },
-      "cfa": {
-        "cfi": 0.962,
-        "tli": 0.943,
-        "rmsea": 0.042,
-        "aic": 783.1,
-        "bic": 863.9,
-        "chi2": 89.2,
-        "df": 18,
-        "chi2_p": 0.0001
-      }
+      "citc_flagged_below_030": [
+        "Cybersecurity Concerns"
+      ],
+      "alpha_if_deleted": [
+        {
+          "item": "Resistance to Change",
+          "column": "Q10-28_Barriers_1",
+          "alpha_if_deleted": 0.866,
+          "change": -0.0068,
+          "flag_increase": false
+        }
+      ]
     }
-  ],
-  "discriminant_validity": {
-    "htmt": [
-      {
-        "pair": "Barriers—Readiness",
-        "htmt": 0.603,
-        "ci_lower": 0.522,
-        "ci_upper": 0.684,
-        "threshold": 0.85,
-        "pass": true
-      },
-      {
-        "pair": "Barriers—Maturity",
-        "htmt": 0.522,
-        "ci_lower": 0.431,
-        "ci_upper": 0.613,
-        "threshold": 0.85,
-        "pass": true
-      },
-      {
-        "pair": "Readiness—Maturity",
-        "htmt": 0.803,
-        "ci_lower": 0.733,
-        "ci_upper": 0.873,
-        "threshold": 0.85,
-        "pass": true
-      }
-    ],
-    "fornell_larcker": [
-      {
-        "pair": "Barriers—Readiness",
-        "r": 0.531,
-        "r_squared": 0.282,
-        "ave_barriers": 0.239,
-        "ave_readiness": 0.383,
-        "pass": true
-      },
-      {
-        "pair": "Barriers—Maturity",
-        "r": 0.452,
-        "r_squared": 0.204,
-        "ave_barriers": 0.239,
-        "ave_maturity": 0.438,
-        "pass": true
-      },
-      {
-        "pair": "Readiness—Maturity",
-        "r": 0.723,
-        "r_squared": 0.523,
-        "ave_readiness": 0.383,
-        "ave_maturity": 0.438,
-        "pass": false
-      }
-    ],
-    "construct_correlations": {
-      "Barriers": {
-        "Barriers": 1.0,
-        "Readiness": 0.531,
-        "Maturity": 0.452
-      },
-      "Readiness": {
-        "Barriers": 0.531,
-        "Readiness": 1.0,
-        "Maturity": 0.723
-      },
-      "Maturity": {
-        "Barriers": 0.452,
-        "Readiness": 0.723,
-        "Maturity": 1.0
-      }
-    }
-  },
-  "barriers_4f_cfa": {
-    "cfi": 0.892,
-    "tli": 0.878,
-    "rmsea": 0.072,
-    "aic": 2847.3,
-    "bic": 2977.1,
-    "chi2": 387.4,
-    "df": 98,
-    "chi2_p": 0.0001
-  },
-  "kmo": {
-    "barriers": 0.840,
-    "readiness": 0.902,
-    "maturity": 0.885
-  },
-  "bartlett": {
-    "barriers": {
-      "chi2": 1847.3,
-      "df": 171,
-      "p": 0.0001
-    },
-    "readiness": {
-      "chi2": 2134.8,
-      "df": 153,
-      "p": 0.0001
-    },
-    "maturity": {
-      "chi2": 892.1,
-      "df": 28,
-      "p": 0.0001
-    }
-  }
+  ]
 }
