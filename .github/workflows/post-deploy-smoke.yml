@@ -92,7 +92,9 @@ jobs:
           set -uo pipefail
 
           # Find every non-HTML file, excluding:
-          #   - .nojekyll (hidden deployment marker)
+          #   - dotfiles (e.g. .nojekyll, .gitkeep) — GitHub Pages does
+          #     not serve files whose name starts with a dot, so testing
+          #     them would always produce a 404.
           #   - _next/static/** (build-specific hashed paths that differ
           #     between the deploy build and this discovery build; pages
           #     already validate these assets implicitly when they return 200)
@@ -101,7 +103,7 @@ jobs:
           #     infrastructure checks already verify sitemap.xml separately)
           find out -type f \
             -not -name '*.html' \
-            -not -name '.nojekyll' \
+            -not -name '.*' \
             -not -name 'sitemap-[0-9]*.xml' \
             -not -path 'out/_next/static/*' \
             | sort | while read -r f; do
