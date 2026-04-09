@@ -1214,10 +1214,12 @@ def load_data_pandas(csv_path, crp200=False):
         df['iri_all_ok'] = df['iri_barrier_ok'] & df['iri_readiness_ok'] & df['iri_maturity_ok']
         clean = df[(df['Duration (in seconds)'] >= MIN_DURATION_CLEAN) & df['iri_all_ok']].copy()
         print(f"  V2 total: {len(df)} | Clean (>={MIN_DURATION_CLEAN}s + 3 IRIs): {len(clean)}")
-        return clean
+        # Return (clean_df, full_v2_df) — quality audit needs the full population
+        return clean, df
     else:
         print(f"  CRP-200 dataset: {len(df)} respondents loaded")
-        return df
+        # In CRP mode, the full population IS the selected sample
+        return df, df
 
 
 # ============================================================================
@@ -1932,11 +1934,16 @@ def run_advanced_analysis(df):
 # ============================================================================
 
 def run_quality_audit(df, all_rows_raw=None, idx_raw=None):
-    """Run data quality audit on pandas DataFrame.
+    """Run data quality audit on the FULL V2 population DataFrame.
+
+    In live mode, df should be the full V2 population (pre-IRI/duration filter)
+    so that missing data, straightlining, and response quality metrics reflect
+    all respondents — not just those who passed quality gates.
+
+    In CRP mode, df is the selected N=200 sample (the full relevant population).
 
     For disposition funnel and IRI filter bias we need the raw rows and idx
-    from the Qualtrics CSV (pre-filtering). If not provided, those sections
-    are skipped (e.g., in CRP mode).
+    from the Qualtrics CSV. If not provided, those sections are skipped.
 
     Returns a dict with keys: disposition_funnel, missing_data, response_quality,
     distributional, construct_diagnostics, iri_filter_bias.
@@ -2577,7 +2584,10 @@ Examples:
     print("=" * 80)
 
     # ── Load data for pandas-based analyses ──
-    df = load_data_pandas(args.csv_path, crp200=args.crp200)
+    # df_clean: IRI+duration filtered (used for analysis, validation, advanced)
+    # df_full_v2: all V2 rows before quality filtering (used for quality audit)
+    df_clean, df_full_v2 = load_data_pandas(args.csv_path, crp200=args.crp200)
+    df = df_clean  # primary analysis DataFrame
     N = len(df)
 
     # ── For sensitivity section, we need raw CSV rows ──
@@ -2624,14 +2634,16 @@ Examples:
         print(f"  Regression: R^2={advanced_data['regression']['r_squared']}")
 
     # ── Quality audit ──
+    # Pass the FULL V2 population (pre-filtering) for accurate quality metrics.
+    # Missing data, straightlining, and response quality should reflect ALL
+    # respondents, not just those who passed IRI+duration filters.
     print(f"\n{'='*78}")
-    print(f"  DATA QUALITY AUDIT (N={N})")
+    print(f"  DATA QUALITY AUDIT (full V2: N={len(df_full_v2)}, clean: N={N})")
     print(f"{'='*78}")
-    # For quality audit disposition funnel, pass raw V2 rows
     all_v2_raw = None
     if not args.crp200 and v2_rows_raw is not None:
         all_v2_raw = v2_rows_raw
-    quality_data = run_quality_audit(df, all_rows_raw=all_v2_raw, idx_raw=idx_raw)
+    quality_data = run_quality_audit(df_full_v2, all_rows_raw=all_v2_raw, idx_raw=idx_raw)
     for scale_name, info in quality_data.get("missing_data", {}).items():
         if isinstance(info, dict) and "missing_pct" in info:
             print(f"  {scale_name} missing: {info['missing_pct']}%")
