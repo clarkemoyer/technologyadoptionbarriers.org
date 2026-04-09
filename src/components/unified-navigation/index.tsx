@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -228,75 +228,11 @@ export default function UnifiedNavigation({
         {mobileOpen && (
           <div className="absolute bottom-14 right-0 w-72 max-h-[60vh] overflow-y-auto bg-white rounded-xl shadow-2xl border border-gray-200 p-4 space-y-4">
             {seriesContent && (
-              <details open={false}>
+              <details>
                 <summary className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2 cursor-pointer">
                   {seriesLabel}
                 </summary>
-                <div className="mt-2">
-                  {hasSeries && (
-                    <ul className="space-y-1 text-sm">
-                      {seriesItems.map((item) => (
-                        <li key={item.href}>
-                          {item.children ? (
-                            <details
-                              className="group"
-                              open={item.isCurrent || item.children.some((c) => c.isCurrent)}
-                            >
-                              <summary className="flex cursor-pointer items-center gap-1 py-1 text-gray-600 hover:text-gray-900">
-                                <span
-                                  className="text-[10px] transition-transform group-open:rotate-90"
-                                  aria-hidden="true"
-                                >
-                                  ▶
-                                </span>
-                                <Link
-                                  href={item.href}
-                                  onClick={handleLinkClick}
-                                  className={
-                                    item.isCurrent
-                                      ? 'font-bold text-gray-900'
-                                      : 'hover:text-gray-900'
-                                  }
-                                >
-                                  {item.title}
-                                </Link>
-                              </summary>
-                              <ul className="ml-4 mt-1 space-y-1 border-l border-gray-200 pl-2">
-                                {item.children.map((child) => (
-                                  <li key={child.href}>
-                                    <Link
-                                      href={child.href}
-                                      onClick={handleLinkClick}
-                                      className={`block py-0.5 ${
-                                        child.isCurrent
-                                          ? 'border-l-2 border-tabs-teal-deep bg-blue-50 pl-2 font-bold text-gray-900'
-                                          : 'text-gray-600 hover:text-gray-900'
-                                      }`}
-                                    >
-                                      {child.title}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </details>
-                          ) : (
-                            <Link
-                              href={item.href}
-                              onClick={handleLinkClick}
-                              className={`block py-1 ${
-                                item.isCurrent
-                                  ? 'border-l-2 border-tabs-teal-deep bg-blue-50 pl-2 font-bold text-gray-900'
-                                  : 'text-gray-600 hover:text-gray-900'
-                              }`}
-                            >
-                              {item.title}
-                            </Link>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
+                <div className="mt-2">{seriesContent}</div>
               </details>
             )}
             {hasToc && (
