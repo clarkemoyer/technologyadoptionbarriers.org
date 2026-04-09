@@ -174,8 +174,10 @@ function extractVisibleText(source: string): string {
   let text = jsx
     // Remove {/* comments */}
     .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
-    // Remove all JSX expressions ({variable}, {fn()}, {`template`}, etc.)
-    .replace(/\{[^}]*\}/g, ' ')
+    // Remove JSX expressions — handle nested braces by repeated passes
+    .replace(/\{[^{}]*\}/g, ' ')
+    .replace(/\{[^{}]*\}/g, ' ')
+    .replace(/\{[^{}]*\}/g, ' ')
     // Remove React fragments: <> and </>
     .replace(/<\/?>/g, ' ')
     // Remove self-closing tags: <Component ... />
@@ -189,6 +191,12 @@ function extractVisibleText(source: string): string {
       /\b(?:id|className|style|aria-\w+|role|onClick|onChange|onFocus|onKeyDown|onMouseEnter|href|src|alt|ref|key|type|name|value|placeholder|autoComplete|dangerouslySetInnerHTML)=/g,
       ' '
     )
+    // Remove JS method calls and dot-notation (e.g. .toFixed, val.toString, obj.prop)
+    .replace(
+      /\.(?:toFixed|toString|indexOf|map|filter|reduce|forEach|concat|slice|join|replace|match|split|trim|push|length|includes|find|some|every|keys|values|entries)\b/g,
+      ' '
+    )
+    .replace(/\b\w+\.\w+/g, ' ')
     // Remove residual angle-bracket fragments, parens, brackets noise
     .replace(/[<>(){}[\]]/g, ' ')
     // Remove remaining HTML entities
@@ -201,28 +209,42 @@ function extractVisibleText(source: string): string {
     .replace(/\s+/g, ' ')
     .trim()
 
-  // Remove very short fragments (likely code noise) and common JSX artifacts
+  // Remove single-char fragments and common JSX/CSS/JS artifacts via stopWords.
+  // Keep meaningful 2-char terms like AI, ML, UX, HR, IT, etc.
   const stopWords = new Set([
+    // CSS/Tailwind noise
     'px',
     'py',
+    'pt',
+    'pb',
+    'pl',
+    'pr',
     'mt',
     'mb',
+    'ml',
+    'mr',
     'sm',
     'md',
     'lg',
     'xl',
     'bg',
-    'text',
     'flex',
     'block',
     'grid',
     'gap',
+    'w-full',
+    'h-full',
+    // JSX/HTML attribute names
     'href',
     'src',
     'alt',
     'div',
     'span',
     'ref',
+    'className',
+    'onClick',
+    'onChange',
+    // JS keywords
     'true',
     'false',
     'null',
@@ -235,9 +257,39 @@ function extractVisibleText(source: string): string {
     'import',
     'export',
     'from',
-    'className',
+    'async',
+    'await',
+    'new',
+    'this',
+    // Common leaked JS identifiers
+    'map',
+    'filter',
+    'reduce',
+    'forEach',
+    'toString',
+    'toFixed',
+    'indexOf',
+    'push',
+    'concat',
+    'slice',
+    'join',
+    'replace',
+    'match',
+    'split',
+    'trim',
+    'Record',
+    'Array',
+    'Object',
+    'String',
+    'Number',
+    'Boolean',
+    'props',
+    'children',
+    'params',
+    'key',
+    'index',
   ])
-  const words = text.split(' ').filter((w) => w.length > 2 && !stopWords.has(w.toLowerCase()))
+  const words = text.split(' ').filter((w) => w.length > 1 && !stopWords.has(w))
   return words.join(' ')
 }
 
@@ -279,25 +331,32 @@ function filePathToUrl(filePath: string, appDir: string): string {
 
 /**
  * Expand dynamic [role] routes from the personas data source.
+ *
+ * Cannot import personas.ts directly because it transitively uses @/ path
+ * aliases that tsx doesn't resolve from the scripts/ directory.  Instead,
+ * extract each persona block individually with a regex that matches the
+ * known object shape (id, slug, title, shortTitle, description).
  */
 async function expandPersonaRoutes(): Promise<SearchItem[]> {
-  // Import personas at runtime so the script works from the repo root
   const personasPath = path.resolve('src/lib/personas.ts')
   const source = await fs.readFile(personasPath, 'utf-8')
 
   const items: SearchItem[] = []
-  // Extract persona objects: { id, slug, title, ..., description }
-  const personaRegex =
-    /slug:\s*'([^']+)',\s*\n\s*title:\s*'([^']+)',[\s\S]*?description:\s*\n?\s*'([\s\S]*?)'/g
+
+  // Match each persona object block: { id: '...', slug: '...', title: '...', ... description: '...' }
+  // The regex captures slug, title, and description while allowing arbitrary fields between them.
+  const blockRegex =
+    /\{\s*\n\s*id:\s*'[^']+',\s*\n\s*slug:\s*'([^']+)',\s*\n\s*title:\s*'([^']+)',[\s\S]*?description:\s*\n?\s*'([\s\S]*?)'/g
   let match
-  while ((match = personaRegex.exec(source)) !== null) {
-    const [, slug, title, description] = match
+  while ((match = blockRegex.exec(source)) !== null) {
+    const [, slug, title, rawDesc] = match
+    const description = rawDesc.replace(/\s+/g, ' ').trim()
     items.push({
-      id: '', // assigned later
+      id: '', // assigned later via stableId()
       url: `/start/${slug}`,
       title: `${title} | TABS Survey`,
-      description: description.replace(/\s+/g, ' ').trim(),
-      content: `${title}. ${description.replace(/\s+/g, ' ').trim()}`,
+      description,
+      content: `${title}. ${description}`,
       category: 'See Yourself',
     })
   }

@@ -25,7 +25,7 @@ export interface SearchResult {
 function tokenize(text: string): string[] {
   return text
     .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
+    .replace(/[^\w\s-]/g, ' ')
     .split(/\s+/)
     .filter((token) => token.length > 1)
 }

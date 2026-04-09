@@ -155,7 +155,7 @@ export default function SearchInput() {
           onKeyDown={handleKeyDown}
           className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           aria-expanded={isOpen && query.trim().length > 0}
-          aria-controls={listboxId}
+          aria-controls={results.length > 0 ? listboxId : undefined}
           aria-autocomplete="list"
           aria-activedescendant={selectedIndex >= 0 ? optionId(selectedIndex) : undefined}
           autoComplete="off"
