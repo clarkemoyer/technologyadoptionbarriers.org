@@ -1,7 +1,7 @@
 name: CRP Dataset Builder
 
 # Produces the final CRP public dataset (N=200) for the
-# Comprehensive Research Paper. Manual trigger only.
+# Culminating Research Project. Manual trigger only.
 #
 # Data flow (2 jobs):
 #   Phase 1: Prolific API + Qualtrics API → enrich → CRP builder →

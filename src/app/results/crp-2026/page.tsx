@@ -15,7 +15,7 @@ import crpData from '@/data/crp-sensitivity-analysis.json'
 export const metadata: Metadata = {
   title: 'TABS 2026 CRP Results',
   description:
-    'Frozen N=200 dataset used for the TABS Culminating Research Project (CRP), Penn State Smeal College of Business DBA program. A moment-in-time snapshot with three-tier quality selection, de-identified per NIST Expert Determination protocol.',
+    'Frozen N=200 dataset for the TABS Culminating Research Project (CRP) at Penn State Smeal College of Business. De-identified with three-tier quality selection.',
   alternates: {
     canonical: '/results/crp-2026',
   },
@@ -62,7 +62,7 @@ const CRP2026Page = () => {
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             This page presents the frozen, moment-in-time dataset (N={CRP_SAMPLE_SIZE}) used for the
-            TABS Culminating Research Project (CRP) for the Penn State Smeal College of Business
+            TABS Culminating Research Project (CRP) in the Penn State Smeal College of Business
             Doctor of Business Administration (DBA) program. Unlike the{' '}
             <Link href="/results" className="text-blue-600 hover:underline font-medium">
               live pipeline results
