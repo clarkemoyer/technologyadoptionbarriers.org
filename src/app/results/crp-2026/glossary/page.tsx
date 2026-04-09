@@ -1,0 +1,501 @@
+import type { Metadata } from 'next'
+import {
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  H3_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+} from '@/lib/articleStyles'
+import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Statistics Glossary — TABS CRP 2026',
+  description:
+    'Plain-language explanations of every psychometric and statistical method used in the TABS instrument validation, including formulas, thresholds, and interpretive guidance.',
+  alternates: {
+    canonical: '/results/crp-2026/glossary',
+  },
+}
+
+/* ── Glossary entry type ── */
+type GlossaryEntry = {
+  id: string
+  term: string
+  category: string
+  whatItMeasures: string
+  howCalculated: string
+  thresholds: string
+  tabsContext?: string
+}
+
+const ENTRIES: GlossaryEntry[] = [
+  /* ── Reliability ── */
+  {
+    id: 'cronbach-alpha',
+    term: "Cronbach's Alpha (α)",
+    category: 'Reliability',
+    whatItMeasures:
+      'Internal consistency reliability – the degree to which all items in a scale measure the same underlying construct. Higher alpha means items are more closely related.',
+    howCalculated:
+      'α = (k / (k − 1)) × (1 − Σs²ᵢ / s²ₜ), where k = number of items, s²ᵢ = variance of each item, s²ₜ = variance of the total score. TABS also reports the Feldt (1965) 95% confidence interval.',
+    thresholds:
+      '≥ 0.70 acceptable, ≥ 0.80 good, ≥ 0.90 excellent. Values above 0.95 may indicate item redundancy.',
+    tabsContext:
+      'Barriers α = .873, Readiness α = .917, Maturity α = .885 – all in the "good to excellent" range.',
+  },
+  {
+    id: 'mcdonalds-omega',
+    term: "McDonald's Omega (ω)",
+    category: 'Reliability',
+    whatItMeasures:
+      'Model-based reliability that accounts for varying item-factor loadings. Unlike alpha, which assumes all items contribute equally (tau-equivalent model), omega uses the actual factor loading weights from a single-factor model.',
+    howCalculated:
+      'ω = (Σλᵢ)² / ((Σλᵢ)² + Σ(1 − λ²ᵢ)), where λᵢ are the standardized factor loadings from a single-factor model. This is equivalent to total reliability omega.',
+    thresholds:
+      'Same thresholds as alpha (≥ 0.70 acceptable). Omega is generally preferred over alpha by modern psychometricians because it relaxes the tau-equivalent assumption.',
+    tabsContext:
+      'Barriers ω = .873, Readiness ω = .918, Maturity ω = .886 – very close to alpha values, suggesting reasonably tau-equivalent item loadings.',
+  },
+  {
+    id: 'composite-reliability',
+    term: 'Composite Reliability (CR)',
+    category: 'Reliability',
+    whatItMeasures:
+      'The proportion of variance in the composite score that is attributable to the true score. CR is computed from factor loadings and is a key component of construct validity assessment alongside AVE.',
+    howCalculated:
+      'CR = (Σλᵢ)² / ((Σλᵢ)² + Σε²ᵢ), where λᵢ are standardized factor loadings and ε²ᵢ = 1 − λ²ᵢ are the error variances. Numerically equivalent to omega when computed from the same loadings.',
+    thresholds:
+      '≥ 0.70 acceptable, ≥ 0.80 good. When CR exceeds 0.70 but AVE falls below 0.50, convergent validity is "adequate" per Fornell & Larcker (1981).',
+    tabsContext:
+      'Barriers CR = .873, Readiness CR = .918, Maturity CR = .886 – all above 0.80, compensating for below-threshold AVE values.',
+  },
+  {
+    id: 'split-half',
+    term: 'Split-Half Reliability',
+    category: 'Reliability',
+    whatItMeasures:
+      'An alternative reliability estimate that splits the scale into two halves (odd-numbered vs even-numbered items), computes the correlation between halves, and adjusts for test length.',
+    howCalculated:
+      'rₛₕ = 2r / (1 + r), where r is the Pearson correlation between the two half-scores. This is the Spearman-Brown prophecy formula, which estimates what the reliability would be if both halves were combined.',
+    thresholds:
+      'Same as alpha: ≥ 0.70 acceptable. Split-half reliability provides a useful cross-check against alpha – large discrepancies suggest item ordering effects.',
+    tabsContext:
+      'Barriers = .896, Readiness = .912, Maturity = .896 – all consistent with alpha/omega values.',
+  },
+  {
+    id: 'alpha-if-deleted',
+    term: 'Alpha-if-Deleted',
+    category: 'Reliability',
+    whatItMeasures:
+      'What Cronbach\'s alpha would be if a specific item were removed from the scale. Items whose deletion would increase alpha may be weakening internal consistency.',
+    howCalculated:
+      'Recompute Cronbach\'s alpha on the remaining k−1 items for each item in turn. Report the change (Δα) and flag items where deletion would increase alpha.',
+    thresholds:
+      'If Δα > 0, the item may be a candidate for removal (though substantive justification should outweigh statistical criteria alone).',
+    tabsContext:
+      'B13 (Cybersecurity Concerns) is the only item whose deletion would increase Barriers alpha. Retained for substantive coverage of a critical barrier domain.',
+  },
+
+  /* ── Item Analysis ── */
+  {
+    id: 'corrected-itc',
+    term: 'Corrected Item-Total Correlation (CITC)',
+    category: 'Item Analysis',
+    whatItMeasures:
+      'The Pearson correlation between each item and the sum of all other items in the scale (excluding that item). This avoids the part-whole correlation inflation that occurs if the item is included in its own total. It measures how well each item \'tracks\' with the rest of the scale.',
+    howCalculated:
+      'For item i, CITCᵢ = r(xᵢ, T₋ᵢ), where T₋ᵢ is the sum of all items except item i.',
+    thresholds:
+      '≥ 0.30 acceptable. Items below 0.30 may not be measuring the same construct as the other items, or may be interpreted inconsistently by respondents.',
+    tabsContext:
+      'B13 (Cybersecurity Concerns, CITC = .17) is the only item below the 0.30 threshold. Its specialized nature means cybersecurity barriers don\'t track with organizational/strategic barriers for all respondents.',
+  },
+  {
+    id: 'inter-item-correlation',
+    term: 'Inter-Item Correlation Matrix',
+    category: 'Item Analysis',
+    whatItMeasures:
+      'The full matrix of pairwise Pearson correlations between all items in a scale. Summary statistics (mean, min, max, SD) describe how tightly items cluster together.',
+    howCalculated:
+      'Standard Pearson r between each pair of items. Summary: mean of all unique pairwise correlations, plus minimum, maximum, and standard deviation.',
+    thresholds:
+      'Mean inter-item correlation between 0.15 and 0.50 is optimal (Clark & Watson, 1995). Below 0.15 suggests items are too heterogeneous; above 0.50 suggests redundancy. No negative correlations should exist for a unidimensional scale.',
+    tabsContext:
+      'Barriers mean r = .275, Readiness mean r = .395, Maturity mean r = .487. All within acceptable ranges, with Maturity approaching the upper bound (consistent with its 8-item high-homogeneity scale).',
+  },
+
+  /* ── Factor Analysis ── */
+  {
+    id: 'kmo',
+    term: 'Kaiser-Meyer-Olkin (KMO) Measure',
+    category: 'Factor Analysis',
+    whatItMeasures:
+      'Sampling adequacy for factor analysis. It compares the magnitudes of observed correlations to partial correlations. High KMO means the correlations between variables are largely explained by other variables, making factor analysis appropriate.',
+    howCalculated:
+      'KMO = ΣΣr²ᵢⱼ / (ΣΣr²ᵢⱼ + ΣΣp²ᵢⱼ), where rᵢⱼ are correlations and pᵢⱼ are partial correlations. Values closer to 1.0 mean factor analysis is more appropriate.',
+    thresholds:
+      '≥ 0.50 minimum (miserable), ≥ 0.60 mediocre, ≥ 0.70 middling, ≥ 0.80 meritorious, ≥ 0.90 marvelous (Kaiser, 1974).',
+    tabsContext:
+      'Barriers KMO = .851 (meritorious), Readiness KMO = .927 (marvelous), Maturity KMO = .912 (marvelous).',
+  },
+  {
+    id: 'bartlett',
+    term: 'Bartlett\'s Test of Sphericity',
+    category: 'Factor Analysis',
+    whatItMeasures:
+      'Whether the correlation matrix is significantly different from an identity matrix (where all correlations are zero). A significant result means the items share enough variance to support factor analysis.',
+    howCalculated:
+      'χ² = −(N − 1 − (2k+5)/6) × ln|R|, where N = sample size, k = number of variables, |R| = determinant of the correlation matrix. Tested against a chi-squared distribution with k(k−1)/2 degrees of freedom.',
+    thresholds:
+      'p < .05 required. In practice, large samples almost always produce significant results, so this is a necessary but not sufficient condition.',
+    tabsContext:
+      'All three constructs: p < .001 – highly significant, confirming factor analysis is appropriate.',
+  },
+  {
+    id: 'efa',
+    term: 'Exploratory Factor Analysis (EFA)',
+    category: 'Factor Analysis',
+    whatItMeasures:
+      'The underlying latent factor structure of a set of items without imposing a pre-specified model. EFA identifies how many factors the data supports and which items load on each factor.',
+    howCalculated:
+      'TABS uses Maximum Likelihood (ML) estimation with Promax oblique rotation. ML is preferred for normally-distributed data; Promax allows factors to correlate (appropriate for related constructs). The number of factors is determined by Parallel Analysis, not the Kaiser criterion.',
+    thresholds:
+      'Factor loadings ≥ 0.30 are typically considered meaningful. Cross-loadings (high loading on multiple factors) above 0.30 suggest item complexity.',
+    tabsContext:
+      'Barriers: 2 factors (F1 Internal, F2 External). Readiness: 1 factor. Maturity: 1 factor. See the Factor Analysis page for the full loading matrix.',
+  },
+  {
+    id: 'parallel-analysis',
+    term: 'Horn\'s Parallel Analysis',
+    category: 'Factor Analysis',
+    whatItMeasures:
+      'The number of factors to retain in EFA. It compares actual eigenvalues from the data against eigenvalues generated from random data of the same dimensionality. Factors are retained only when actual eigenvalues exceed the random expectation.',
+    howCalculated:
+      'Generate many (typically 100–1,000) random datasets with the same N and k. Compute eigenvalues for each. Retain factors whose actual eigenvalues exceed the 95th percentile of the random eigenvalues.',
+    thresholds:
+      'Retain factors where actual eigenvalue > 95th percentile random eigenvalue. This is more accurate than the Kaiser criterion (eigenvalue > 1.0), which tends to over-extract factors.',
+    tabsContext:
+      'Barriers: 2 factors retained (eigenvalues 5.87, 1.90 > random thresholds). Readiness: 1 factor (only first eigenvalue 7.39 exceeds threshold). Maturity: 1 factor (eigenvalue 4.44 exceeds threshold).',
+  },
+  {
+    id: 'cfa',
+    term: 'Confirmatory Factor Analysis (CFA)',
+    category: 'Factor Analysis',
+    whatItMeasures:
+      'Tests whether a pre-specified factor structure fits the observed data. Unlike EFA (which discovers structure), CFA confirms whether a hypothesized model adequately reproduces the observed covariance matrix.',
+    howCalculated:
+      'Fit a structural equation model where latent factors predict observed items. Estimate factor loadings, error variances, and factor correlations using ML estimation. Evaluate fit using multiple indices (CFI, TLI, RMSEA, SRMR).',
+    thresholds:
+      'CFI ≥ .95 (good), ≥ .90 (acceptable). TLI ≥ .95 (good), ≥ .90 (acceptable). RMSEA ≤ .06 (good), ≤ .08 (acceptable). SRMR ≤ .08 (good).',
+    tabsContext:
+      'Maturity CFA fits well (CFI = .981, TLI = .973, RMSEA = .057). Barriers single-factor CFA shows poor fit (CFI = .766), expected for a multi-factor construct. The 4-factor Barriers CFA (CFI = .827) improves but remains below threshold, reflecting the exploratory nature of the current sample.',
+  },
+
+  /* ── Validity ── */
+  {
+    id: 'ave',
+    term: 'Average Variance Extracted (AVE)',
+    category: 'Validity',
+    whatItMeasures:
+      'The proportion of variance in the items that is captured by the latent construct (as opposed to measurement error). AVE is the core measure of convergent validity – whether items converge on their intended construct.',
+    howCalculated:
+      'AVE = Σλ²ᵢ / k, where λᵢ are the standardized factor loadings and k is the number of items. This is the mean of the squared loadings – the average communality.',
+    thresholds:
+      '≥ 0.50 indicates that the construct explains more variance in its items than error does. When AVE < 0.50 but CR > 0.70, convergent validity is "adequate" per Fornell & Larcker (1981). Below 0.50 is common in broad, multi-faceted constructs with many items.',
+    tabsContext:
+      'Barriers AVE = .289, Readiness AVE = .400, Maturity AVE = .493. All below the ideal .50, but all have CR > .80. The 18-item Barriers scale measures diverse barrier types, naturally reducing AVE. Maturity (8 homogeneous items) is closest to the threshold.',
+  },
+  {
+    id: 'htmt',
+    term: 'Heterotrait-Monotrait Ratio (HTMT)',
+    category: 'Validity',
+    whatItMeasures:
+      'Discriminant validity – whether two constructs are empirically distinct. HTMT estimates the correlation between constructs as if they were measured perfectly (correcting for measurement error). Lower values indicate better discrimination.',
+    howCalculated:
+      'HTMT = mean(heterotrait-heteromethod correlations) / geometric mean of (mean(monotrait-heteromethod correlations) for each construct). Bootstrap confidence intervals (2,000 iterations) are reported for inferential testing.',
+    thresholds:
+      '< 0.85 conservative threshold (Henseler et al., 2015). < 0.90 liberal threshold. If the 95% CI includes 1.0, constructs may not be distinct.',
+    tabsContext:
+      'B-R: .498, B-M: .441, R-M: .804. All pass the conservative .85 threshold. The R-M value (.804) is the highest, reflecting the known Readiness-Maturity conceptual overlap, but remains below threshold.',
+  },
+  {
+    id: 'fornell-larcker',
+    term: 'Fornell-Larcker Criterion',
+    category: 'Validity',
+    whatItMeasures:
+      'Discriminant validity by comparing the square root of each construct\'s AVE against its correlations with other constructs. If a construct shares more variance with its own items than with another construct, they are discriminant.',
+    howCalculated:
+      'For each construct pair (A, B): check whether √AVE(A) > |r(A,B)| and √AVE(B) > |r(A,B)|. Both conditions must hold for discriminant validity.',
+    thresholds:
+      'Pass: √AVE > inter-construct correlation. Fail: the constructs may overlap too much. Fornell-Larcker has been criticized as overly lenient; HTMT is now preferred. When they disagree, HTMT takes precedence.',
+    tabsContext:
+      'B-R: passes (√AVE .537/.633 > |r| .381). B-M: passes (.537/.702 > .316). R-M: fails (√AVE .633 < r .719). The R-M failure is expected given their shared "organizational capability" dimension and is well-documented in the CRP.',
+  },
+
+  /* ── Normality ── */
+  {
+    id: 'shapiro-wilk',
+    term: 'Shapiro-Wilk Test',
+    category: 'Normality',
+    whatItMeasures:
+      'Whether a variable follows a normal distribution. A significant result (p < .05) means the distribution departs significantly from normality.',
+    howCalculated:
+      'W = (Σaᵢx₍ᵢ₎)² / Σ(xᵢ − x̄)², where x₍ᵢ₎ are the ordered values and aᵢ are tabulated coefficients. W ranges from 0 to 1, with 1 indicating perfect normality.',
+    thresholds:
+      'p > .05 suggests normality. In large samples (N > 100), even trivial departures from normality produce significant results, so practical significance (skewness, kurtosis) matters more than p-values.',
+    tabsContext:
+      'All 43 items are significantly non-normal by Shapiro-Wilk (p < .001), typical for Likert-type data. ML estimation is robust to moderate non-normality at N=200.',
+  },
+  {
+    id: 'skewness-kurtosis',
+    term: 'Skewness and Kurtosis',
+    category: 'Normality',
+    whatItMeasures:
+      'Skewness measures distributional asymmetry (0 = symmetric). Kurtosis measures tail heaviness relative to a normal distribution (0 = normal, positive = heavy tails, negative = light tails).',
+    howCalculated:
+      'Skewness = E[(X−μ)³] / σ³. Kurtosis (excess) = E[(X−μ)⁴] / σ⁴ − 3. Both are standardized moments of the distribution.',
+    thresholds:
+      '|Skewness| < 2.0 and |Kurtosis| < 7.0 are considered acceptable for ML estimation (Curran et al., 1996). West et al. (1995) use stricter |skew| < 2, |kurtosis| < 7.',
+    tabsContext:
+      'All TABS items fall within |skew| < 1.2 and |kurtosis| < 1.5 – well within acceptable limits for parametric analysis.',
+  },
+
+  /* ── Additional ── */
+  {
+    id: 'eigenvalue',
+    term: 'Eigenvalue',
+    category: 'Factor Analysis',
+    whatItMeasures:
+      'The amount of total variance in the items that a single factor accounts for. Each factor\'s eigenvalue represents its explanatory power. Eigenvalues sum to the number of variables.',
+    howCalculated:
+      'Computed from the eigendecomposition of the correlation matrix R. The eigenvalue λⱼ for factor j is the sum of squared factor loadings for that factor across all items.',
+    thresholds:
+      'Kaiser criterion: retain factors with eigenvalue > 1.0 (explains more than a single item\'s worth of variance). However, Parallel Analysis is more accurate and is used by TABS.',
+    tabsContext:
+      'Barriers: λ₁=5.87, λ₂=1.90, λ₃=1.15 (only 2 exceed parallel analysis threshold). Readiness: λ₁=7.39 (1 factor). Maturity: λ₁=4.44 (1 factor).',
+  },
+  {
+    id: 'communality',
+    term: 'Communality',
+    category: 'Factor Analysis',
+    whatItMeasures:
+      'The proportion of an item\'s variance that is explained by the extracted factors. It is the item-level analogue of R² – "how much of this item is captured by the factors?"',
+    howCalculated:
+      'h²ᵢ = Σλ²ᵢⱼ across all retained factors, where λᵢⱼ is the loading of item i on factor j. Equivalently, 1 minus the uniqueness.',
+    thresholds:
+      '≥ 0.40 is generally considered adequate. Low communalities (≤ 0.20) indicate the item is not well-explained by the factor structure.',
+    tabsContext:
+      'B14 (Data Privacy) has the highest communality (.949) – it defines F2. B18 (Vendor Difficulty) has the lowest (.126) among barriers items.',
+  },
+  {
+    id: 'variance-explained',
+    term: 'Cumulative Variance Explained',
+    category: 'Factor Analysis',
+    whatItMeasures:
+      'The total percentage of item variance accounted for by all retained factors combined. Higher values mean the factor solution captures more of the systematic variation in the data.',
+    howCalculated:
+      'Sum of (eigenvalue / k) × 100 for each retained factor, where k is the number of items.',
+    thresholds:
+      '> 50% is commonly cited as a minimum in social sciences, but 40-60% is typical for survey instruments measuring complex constructs.',
+    tabsContext:
+      'Barriers 2-factor: 39.9%. Readiness 1-factor: 40.0%. Maturity 1-factor: 49.3%. All within the typical range for organizational behavior surveys.',
+  },
+  {
+    id: 'promax',
+    term: 'Promax Rotation',
+    category: 'Factor Analysis',
+    whatItMeasures:
+      'An oblique rotation method for factor analysis that allows extracted factors to be correlated. This is appropriate when the underlying constructs are theoretically related (as opposed to Varimax, which forces orthogonal/uncorrelated factors).',
+    howCalculated:
+      'Start with a Varimax (orthogonal) rotation, then raise the loadings to a power (kappa, typically 4) and use the resulting matrix as a target for oblique Procrustes rotation. This simplifies the loading pattern while allowing inter-factor correlations.',
+    thresholds:
+      'If inter-factor correlations exceed |r| > .32, oblique rotation is preferred over orthogonal (Tabachnick & Fidell, 2013). Report factor correlations to justify the choice.',
+    tabsContext:
+      'Barriers F1-F2 correlation = .505, well above .32, confirming Promax was the correct choice.',
+  },
+  {
+    id: 'cfi',
+    term: 'Comparative Fit Index (CFI)',
+    category: 'CFA Fit Indices',
+    whatItMeasures:
+      'How much better the hypothesized model fits compared to a null (independence) model where all items are uncorrelated. Ranges from 0 to 1.',
+    howCalculated:
+      'CFI = 1 − max((χ²ₘ − dfₘ), 0) / max((χ²₀ − df₀), (χ²ₘ − dfₘ), 0), where m = proposed model, 0 = null model.',
+    thresholds:
+      '≥ .95 good fit, ≥ .90 acceptable fit (Hu & Bentler, 1999).',
+    tabsContext:
+      'Maturity CFI = .981 (excellent). Readiness CFI = .930 (acceptable). Barriers single-factor CFI = .766 (poor, expected for multi-dimensional construct).',
+  },
+  {
+    id: 'tli',
+    term: 'Tucker-Lewis Index (TLI)',
+    category: 'CFA Fit Indices',
+    whatItMeasures:
+      'Similar to CFI but penalizes model complexity. Values can exceed 1.0 or fall below 0. More conservative than CFI for models with many parameters.',
+    howCalculated:
+      'TLI = ((χ²₀/df₀) − (χ²ₘ/dfₘ)) / ((χ²₀/df₀) − 1).',
+    thresholds:
+      '≥ .95 good fit, ≥ .90 acceptable (same as CFI).',
+    tabsContext:
+      'Maturity TLI = .973 (excellent). Readiness TLI = .920 (acceptable). Barriers TLI = .735 (poor).',
+  },
+  {
+    id: 'rmsea',
+    term: 'Root Mean Square Error of Approximation (RMSEA)',
+    category: 'CFA Fit Indices',
+    whatItMeasures:
+      'The average amount of misfit per degree of freedom. It estimates how well the model fits the population covariance matrix (not just the sample). Lower is better.',
+    howCalculated:
+      'RMSEA = √(max((χ²ₘ − dfₘ) / (dfₘ × (N−1)), 0)).',
+    thresholds:
+      '≤ .06 good, ≤ .08 acceptable, > .10 poor (Browne & Cudeck, 1993).',
+    tabsContext:
+      'Maturity RMSEA = .057 (good). Readiness RMSEA = .063 (acceptable). Barriers RMSEA = .097 (borderline poor).',
+  },
+  {
+    id: 'srmr',
+    term: 'Standardized Root Mean Square Residual (SRMR)',
+    category: 'CFA Fit Indices',
+    whatItMeasures:
+      'The average discrepancy between the observed and model-implied correlation matrices, standardized to a 0–1 scale. Lower values indicate the model reproduces the correlations more faithfully.',
+    howCalculated:
+      'SRMR = √(ΣΣ(sᵢⱼ − σ̂ᵢⱼ)² / (k(k+1)/2)), where s and σ̂ are observed and predicted correlations.',
+    thresholds:
+      '≤ .08 good fit (Hu & Bentler, 1999). SRMR is less sensitive to sample size than chi-squared tests.',
+    tabsContext:
+      'SRMR is not always available from all estimation methods. When computed, all TABS constructs fall within acceptable ranges.',
+  },
+]
+
+/* ── Group entries by category ── */
+const categories = [...new Set(ENTRIES.map((e) => e.category))]
+
+const GlossaryEntryCard = ({ entry }: { entry: GlossaryEntry }) => (
+  <div id={entry.id} className="scroll-mt-32 mb-8 last:mb-0">
+    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 font-sans">
+      {entry.term}
+    </h3>
+    <div className="space-y-3 text-sm sm:text-base font-sans text-gray-700 pl-0 sm:pl-4">
+      <div>
+        <span className="font-semibold text-tabs-teal-deep">What it measures:</span>{' '}
+        {entry.whatItMeasures}
+      </div>
+      <div>
+        <span className="font-semibold text-tabs-teal-deep">How it&rsquo;s calculated:</span>{' '}
+        {entry.howCalculated}
+      </div>
+      <div>
+        <span className="font-semibold text-tabs-teal-deep">Thresholds:</span>{' '}
+        {entry.thresholds}
+      </div>
+      {entry.tabsContext && (
+        <div className="bg-gray-50 border border-gray-200 rounded p-3">
+          <span className="font-semibold text-gray-800">TABS result:</span>{' '}
+          {entry.tabsContext}
+        </div>
+      )}
+    </div>
+  </div>
+)
+
+const GlossaryPage = () => {
+  return (
+    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+      <article className={ARTICLE_CLASSES}>
+        <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center gap-1">
+            <li>
+              <Link href="/results" className="hover:text-blue-600 hover:underline">
+                Results
+              </Link>
+              <span className="mx-2" aria-hidden="true">&rsaquo;</span>
+            </li>
+            <li>
+              <Link href="/results/crp-2026" className="hover:text-blue-600 hover:underline">
+                CRP 2026
+              </Link>
+              <span className="mx-2" aria-hidden="true">&rsaquo;</span>
+            </li>
+            <li className="text-gray-800" aria-current="page">
+              Statistics Glossary
+            </li>
+          </ol>
+        </nav>
+
+        <h1 className={H1_CLASSES}>Statistics Glossary</h1>
+
+        <div className="mb-6">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 border border-green-200">
+            Published: April 2026
+          </span>
+        </div>
+
+        <section className={SECTION_CLASSES}>
+          <p className={PARAGRAPH_CLASSES}>
+            This glossary explains every psychometric and statistical method used in the TABS
+            instrument validation. Each entry describes what the statistic measures, how it is
+            calculated, commonly accepted thresholds, and the TABS-specific results from the
+            CRP-200 frozen dataset (N=200).
+          </p>
+          <p className="text-sm text-gray-500 font-sans mb-6">
+            Jump to:{' '}
+            {categories.map((cat, i) => (
+              <span key={cat}>
+                {i > 0 && ' | '}
+                <a href={`#cat-${cat.toLowerCase().replace(/\s+/g, '-')}`} className="text-blue-600 hover:underline">
+                  {cat}
+                </a>
+              </span>
+            ))}
+          </p>
+        </section>
+
+        {categories.map((cat) => (
+          <section key={cat} id={`cat-${cat.toLowerCase().replace(/\s+/g, '-')}`} className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>{cat}</h2>
+            {ENTRIES.filter((e) => e.category === cat).map((entry) => (
+              <GlossaryEntryCard key={entry.id} entry={entry} />
+            ))}
+          </section>
+        ))}
+
+        {/* ── References ── */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Key References</h2>
+          <div className="text-sm font-sans text-gray-600 space-y-2">
+            <p>Browne, M.W. & Cudeck, R. (1993). Alternative ways of assessing model fit. In K.A. Bollen & J.S. Long (Eds.), <em>Testing Structural Equation Models</em> (pp. 136-162). Sage.</p>
+            <p>Clark, L.A. & Watson, D. (1995). Constructing validity: Basic issues in objective scale development. <em>Psychological Assessment</em>, 7(3), 309-319.</p>
+            <p>Curran, P.J., West, S.G. & Finch, J.F. (1996). The robustness of test statistics to nonnormality and specification error. <em>Psychological Methods</em>, 1(1), 16-29.</p>
+            <p>Feldt, L.S. (1965). The approximate sampling distribution of Kuder-Richardson reliability coefficient twenty. <em>Psychometrika</em>, 30, 357-370.</p>
+            <p>Fornell, C. & Larcker, D.F. (1981). Evaluating structural equation models with unobservable variables and measurement error. <em>Journal of Marketing Research</em>, 18(1), 39-50.</p>
+            <p>Henseler, J., Ringle, C.M. & Sarstedt, M. (2015). A new criterion for assessing discriminant validity in variance-based SEM. <em>Journal of the Academy of Marketing Science</em>, 43(1), 115-135.</p>
+            <p>Hu, L. & Bentler, P.M. (1999). Cutoff criteria for fit indexes in covariance structure analysis. <em>Structural Equation Modeling</em>, 6(1), 1-55.</p>
+            <p>Kaiser, H.F. (1974). An index of factorial simplicity. <em>Psychometrika</em>, 39, 31-36.</p>
+            <p>Tabachnick, B.G. & Fidell, L.S. (2013). <em>Using Multivariate Statistics</em> (6th ed.). Pearson.</p>
+          </div>
+        </section>
+
+        {/* ── Navigation ── */}
+        <section className="border-t border-gray-200 pt-8 mt-8">
+          <div className="flex flex-wrap gap-4 text-sm font-sans">
+            <Link href="/results/crp-2026/validation" className="text-blue-600 hover:underline">
+              Instrument Validation Results &rarr;
+            </Link>
+            <Link href="/results/crp-2026/factor-analysis" className="text-blue-600 hover:underline">
+              Factor Analysis &rarr;
+            </Link>
+            <Link href="/results/crp-2026/reliability" className="text-blue-600 hover:underline">
+              Scale Reliability &rarr;
+            </Link>
+            <Link href="/results/crp-2026" className="text-blue-600 hover:underline">
+              &larr; CRP 2026 Overview
+            </Link>
+          </div>
+        </section>
+      </article>
+    </main>
+  )
+}
+
+export default GlossaryPage
