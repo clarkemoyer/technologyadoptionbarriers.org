@@ -217,6 +217,9 @@ OTHER_ROLE_CLASSIFICATIONS = {
     'HR Manager': 'Non-Technical', 'Marketing Manager': 'Non-Technical',
 }
 
+# Pre-computed lowercase lookup for classify_role() — avoids repeated .lower() calls in the loop.
+_OTHER_ROLE_CLASSIFICATIONS_LOWER = {k.lower(): v for k, v in OTHER_ROLE_CLASSIFICATIONS.items()}
+
 
 def classify_role(text):
     """Classify a free-text 'Other' role as Technical, Non-Technical, or Other.
@@ -227,8 +230,8 @@ def classify_role(text):
     if not text or not text.strip():
         return 'Other'
     text_lower = text.lower()
-    for keyword, classification in OTHER_ROLE_CLASSIFICATIONS.items():
-        if keyword.lower() in text_lower:
+    for keyword, classification in _OTHER_ROLE_CLASSIFICATIONS_LOWER.items():
+        if keyword in text_lower:
             return classification
     return 'Other'
 
