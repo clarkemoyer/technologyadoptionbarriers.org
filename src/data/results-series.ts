@@ -1,0 +1,64 @@
+export interface ResultsSeriesItem {
+  title: string
+  href: string
+  children?: ResultsSeriesItem[]
+}
+
+export const resultsSeries: ResultsSeriesItem[] = [
+  { title: 'Results Overview', href: '/results' },
+  {
+    title: 'CRP 2026 Dataset',
+    href: '/results/crp-2026',
+    children: [
+      {
+        title: 'CRP Sample & Demographics',
+        href: '/results/crp-2026/sample',
+      },
+      {
+        title: 'CRP Descriptive Statistics',
+        href: '/results/crp-2026/descriptive',
+      },
+      {
+        title: 'CRP Scale Reliability',
+        href: '/results/crp-2026/reliability',
+      },
+      {
+        title: 'CRP Sensitivity Analysis',
+        href: '/results/crp-2026/sensitivity',
+      },
+    ],
+  },
+  {
+    title: 'TABS Full Dataset',
+    href: '/results',
+    children: [
+      { title: 'Sample & Demographics', href: '/results/sample' },
+      { title: 'Descriptive Statistics', href: '/results/descriptive' },
+      { title: 'Scale Reliability', href: '/results/reliability' },
+      { title: 'Sensitivity Analysis', href: '/results/sensitivity' },
+      { title: 'Research Findings', href: '/results/findings' },
+      { title: 'Data Quality', href: '/results/data-quality' },
+      { title: 'Reproducibility', href: '/results/reproducibility' },
+    ],
+  },
+  { title: 'Dashboard', href: '/results/dashboard' },
+  { title: 'Dataset Comparison', href: '/results/dataset-comparison' },
+  { title: 'CMO Survey', href: '/results/cmo-survey' },
+  { title: 'Survey Statistics', href: '/results/survey-stats' },
+]
+
+/** Flat ordered list for prev/next navigation */
+export function flattenResultsSeries(): Array<{
+  title: string
+  href: string
+}> {
+  const result: Array<{ title: string; href: string }> = []
+  function walk(items: ResultsSeriesItem[]) {
+    for (const item of items) {
+      result.push({ title: item.title, href: item.href })
+      if (item.children) walk(item.children)
+    }
+  }
+  walk(resultsSeries)
+  return result
+}
