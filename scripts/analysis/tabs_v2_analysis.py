@@ -271,7 +271,16 @@ def is_technical(role, other_text=''):
 
 
 def get_other_text(row, idx):
-    """Get free-text 'Other' role response for a row, or empty string if unavailable."""
+    """Get free-text 'Other' role response for a row, or empty string if unavailable.
+
+    Args:
+        row: A list representing a single CSV row of response data.
+        idx: A dict mapping Qualtrics column names to zero-based row indices.
+
+    Returns:
+        The stripped free-text value of the 'Q1_Role_11_TEXT' column if present,
+        otherwise an empty string.
+    """
     other_text_idx = idx.get('Q1_Role_11_TEXT')
     if other_text_idx is not None and other_text_idx < len(row):
         return row[other_text_idx].strip()
@@ -1495,11 +1504,16 @@ def sensitivity_to_json(cuts, idx):
             "org_sizes": org_sizes_out,
             "profit_models": profit_models_out,
             "tech_vs_nontech": {
+                # Counts under Scenario C binary classification: 'Other' free-text
+                # responses reclassified as Technical/Non-Technical are included here;
+                # only truly unclassifiable responses count toward 'other'.
                 "technical": tech_n,
                 "non_technical": nontech_n,
-                "other": other_n,
+                "other": other_n,  # unclassified under Scenario C (not reclassifiable)
             },
             "other_roles": {
+                # Raw count of all responses with role == 'Other' (before
+                # Scenario C reclassification), used for free-text audit display.
                 "total": sum(1 for r in rows if get_role(r, idx) == 'Other'),
                 "categories": dict(other_cats.most_common()),
             },
