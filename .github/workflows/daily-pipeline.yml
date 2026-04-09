@@ -229,9 +229,8 @@ jobs:
               d = json.load(f)
           with open('${{ runner.temp }}/sensitivity-analysis.json', 'w') as f:
               json.dump(d.get('sensitivity', {}), f, indent=2)
-          if 'validation' in d and d['validation']:
-              with open('${{ runner.temp }}/live-validation.json', 'w') as f:
-                  json.dump(d['validation'], f, indent=2)
+          with open('${{ runner.temp }}/live-validation.json', 'w') as f:
+              json.dump(d.get('validation') or {}, f, indent=2)
           print('Extracted: sensitivity-analysis.json, live-validation.json')
           "
 
@@ -345,9 +344,8 @@ jobs:
               d = json.load(f)
           with open('${{ runner.temp }}/crp-sensitivity-analysis.json', 'w') as f:
               json.dump(d.get('sensitivity', {}), f, indent=2)
-          if 'validation' in d and d['validation']:
-              with open('${{ runner.temp }}/crp-validation.json', 'w') as f:
-                  json.dump(d['validation'], f, indent=2)
+          with open('${{ runner.temp }}/crp-validation.json', 'w') as f:
+              json.dump(d.get('validation') or {}, f, indent=2)
           print('Extracted: crp-sensitivity-analysis.json, crp-validation.json')
           "
 
@@ -511,7 +509,9 @@ jobs:
   generate-dashboard:
     name: 'Phase 3: Generate Dashboard'
     needs: [analyze, approve-clean]
-    if: ${{ needs.analyze.result == 'success' && needs.approve-clean.result == 'success' }}
+    # Run if analyze succeeded, even if approve-clean failed (Prolific API glitch
+    # should not prevent dashboard generation or analysis commit)
+    if: ${{ needs.analyze.result == 'success' }}
     runs-on: ubuntu-latest
     environment: prolific-prod
     steps:
