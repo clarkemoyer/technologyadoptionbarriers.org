@@ -191,7 +191,7 @@ const CrpFindingsPage = () => {
                     {/* Tech vs Non-Tech */}
                     <div>
                       <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
-                        Technical (CIO/CTO) vs Non-Technical — n=
+                        Technical vs Non-Technical — n=
                         {effects['tech_vs_nontech'].tech_n} vs n=
                         {effects['tech_vs_nontech'].nontech_n}
                       </h4>
