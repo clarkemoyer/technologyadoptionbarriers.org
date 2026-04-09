@@ -442,9 +442,7 @@ const Header: React.FC = () => {
                                         key={`group-${child.label}`}
                                         className="px-4 pt-3 pb-1 text-[11px] font-bold uppercase tracking-wider text-gray-400"
                                       >
-                                        <span role="heading" aria-level={3}>
-                                          {child.label}
-                                        </span>
+                                        {child.label}
                                       </li>
                                     ) : (
                                       <li key={child.path}>
@@ -1351,9 +1349,7 @@ const Header: React.FC = () => {
                                   key={`group-${child.label}`}
                                   className="px-4 pt-3 pb-1 text-[11px] font-bold uppercase tracking-wider text-gray-400"
                                 >
-                                  <span role="heading" aria-level={3}>
-                                    {child.label}
-                                  </span>
+                                  {child.label}
                                 </li>
                               ) : (
                                 <li key={child.path}>
