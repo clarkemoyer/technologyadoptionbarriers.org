@@ -359,21 +359,21 @@
               "p": 0.0499,
               "df": 28.32,
               "sig": true,
-              "mean_diff": 0.3542
+              "mean_diff": -0.3384
             },
             "readiness": {
-              "t": -0.1996,
+              "t": 0.1996,
               "p": 0.8435,
               "df": 24.24,
               "sig": false,
-              "mean_diff": -0.0333
+              "mean_diff": 0.4569
             },
             "maturity": {
               "t": 1.6095,
               "p": 0.1214,
               "df": 22.52,
               "sig": false,
-              "mean_diff": 0.3412
+              "mean_diff": 0.1412
             }
           }
         },

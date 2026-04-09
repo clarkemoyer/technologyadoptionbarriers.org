@@ -236,17 +236,46 @@ def classify_role(text):
     return 'Other'
 
 
+def classify_role_binary(role, other_text=''):
+    """Return the Scenario C binary role group for a respondent.
+
+    Returns:
+        'Technical' for roles in TECH_TITLES
+        'Non-Technical' for roles in NONTECH_TITLES
+        For role == 'Other', uses classify_role(other_text) and returns
+        'Technical' or 'Non-Technical' when the free-text value can be
+        reclassified; otherwise returns None.
+
+    This helper is the single source of truth for all Scenario C
+    Technical/Non-Technical grouping logic (counts, effect sizes,
+    inferential tests, and JSON output).
+    """
+    if role in TECH_TITLES:
+        return 'Technical'
+    if role in NONTECH_TITLES:
+        return 'Non-Technical'
+    if role == 'Other':
+        classified = classify_role(other_text)
+        if classified in ('Technical', 'Non-Technical'):
+            return classified
+    return None
+
+
 def is_technical(role, other_text=''):
     """Return True if role maps to the Technical group under Scenario C.
 
     Roles in TECH_TITLES (CIO, CTO, CISO) are always technical.
     'Other' roles are classified via classify_role() on the free-text value.
     """
-    if role in TECH_TITLES:
-        return True
-    if role == 'Other':
-        return classify_role(other_text) == 'Technical'
-    return False
+    return classify_role_binary(role, other_text) == 'Technical'
+
+
+def get_other_text(row, idx):
+    """Get free-text 'Other' role response for a row, or empty string if unavailable."""
+    other_text_idx = idx.get('Q1_Role_11_TEXT')
+    if other_text_idx is not None and other_text_idx < len(row):
+        return row[other_text_idx].strip()
+    return ''
 
 
 # ─────────────────────────────────────────────────────────────
@@ -932,9 +961,9 @@ def print_demographics(rows, idx, label="Clean"):
     for role, ct in roles.most_common():
         print(f"    {role:6s}: {ct:3d} ({ct / len(rows) * 100:5.1f}%)")
 
-    tech = [r for r in rows if get_role(r, idx) in TECH_TITLES]
-    nontech = [r for r in rows if get_role(r, idx) in NONTECH_TITLES]
-    other = [r for r in rows if get_role(r, idx) == 'Other']
+    tech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical']
+    nontech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical']
+    other = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]
     print(f"\n  Technical: n={len(tech)} ({len(tech) / len(rows) * 100:.1f}%)")
     print(f"  Non-Technical:       n={len(nontech)} ({len(nontech) / len(rows) * 100:.1f}%)")
     print(f"  Other:               n={len(other)} ({len(other) / len(rows) * 100:.1f}%)")
@@ -1045,8 +1074,8 @@ def print_effect_sizes(rows, idx):
     print("  EFFECT SIZES (Cohen's d)")
     print("=" * 78)
 
-    tech = [r for r in rows if get_role(r, idx) in TECH_TITLES]
-    nontech = [r for r in rows if get_role(r, idx) in NONTECH_TITLES]
+    tech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical']
+    nontech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical']
 
     print(f"\n  Tech (n={len(tech)}) vs Non-Tech (n={len(nontech)}):")
     for label, cols, sc in [("Barriers", BARRIER_COLS, BARRIER_SCALE),
@@ -1131,9 +1160,9 @@ def print_cross_tabs(rows, idx):
     # Tech vs NonTech
     print("\n  Tech vs Non-Tech:")
     for gname, grows in [
-        ("Technical", [r for r in rows if get_role(r, idx) in TECH_TITLES]),
-        ("Non-Technical", [r for r in rows if get_role(r, idx) in NONTECH_TITLES]),
-        ("Other", [r for r in rows if get_role(r, idx) == 'Other']),
+        ("Technical", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical']),
+        ("Non-Technical", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical']),
+        ("Other", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]),
     ]:
         if not grows:
             continue
@@ -1436,24 +1465,23 @@ def sensitivity_to_json(cuts, idx):
         other_cats = Counter()
         org_sizes = Counter()
         profit_models = Counter()
-        other_text_idx = idx.get('Q1_Role_11_TEXT')
 
         for r in rows:
             role = get_role(r, idx)
             roles[role] += 1
-            if role in TECH_TITLES:
+            # Use Scenario C binary classification: 'Other' free-text responses
+            # that match a known Technical/Non-Technical keyword are reclassified.
+            other_text = get_other_text(r, idx) if role == 'Other' else ''
+            binary = classify_role_binary(role, other_text)
+            if binary == 'Technical':
                 tech_n += 1
-            elif role in NONTECH_TITLES:
+            elif binary == 'Non-Technical':
                 nontech_n += 1
-            elif role == 'Other':
+            else:
                 other_n += 1
-                # Categorize free-text response into broad groups.
-                # Defensive index check guards against malformed/short rows.
-                if has_other_text and other_text_idx is not None and other_text_idx < len(r):
-                    text = r[other_text_idx].strip()
-                else:
-                    text = ''
-                other_cats[categorize_other_role(text)] += 1
+                # Still categorize all raw 'Other' responses for audit purposes.
+                if role == 'Other':
+                    other_cats[categorize_other_role(other_text)] += 1
             org_sizes[r[idx['Q4_OrgSize']].strip()] += 1
             profit_models[r[idx['Q5_ProfitModel']].strip()] += 1
 
@@ -1472,7 +1500,7 @@ def sensitivity_to_json(cuts, idx):
                 "other": other_n,
             },
             "other_roles": {
-                "total": other_n,
+                "total": sum(1 for r in rows if get_role(r, idx) == 'Other'),
                 "categories": dict(other_cats.most_common()),
             },
         }
@@ -1483,8 +1511,8 @@ def sensitivity_to_json(cuts, idx):
         if not rows:
             return {}
         effects = {}
-        tech = [r for r in rows if get_role(r, idx) in TECH_TITLES]
-        nontech = [r for r in rows if get_role(r, idx) in NONTECH_TITLES]
+        tech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical']
+        nontech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical']
         effects["tech_vs_nontech"] = {"tech_n": len(tech), "nontech_n": len(nontech), "constructs": {}}
         for label, cols, sc in ALL_CONSTRUCTS:
             t = person_means(tech, cols, sc, idx)
@@ -1540,9 +1568,9 @@ def sensitivity_to_json(cuts, idx):
         groups = {}
         # Role-based
         role_groups = [
-            ("Technical", [r for r in rows if get_role(r, idx) in TECH_TITLES]),
-            ("Non-Technical", [r for r in rows if get_role(r, idx) in NONTECH_TITLES]),
-            ("Other", [r for r in rows if get_role(r, idx) == 'Other']),
+            ("Technical", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical']),
+            ("Non-Technical", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical']),
+            ("Other", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]),
         ]
         role_results = []
         for gname, grows in role_groups:
@@ -1592,8 +1620,8 @@ def sensitivity_to_json(cuts, idx):
         result_inf = {}
 
         # 1. Welch's t-tests: Tech vs Non-Tech per construct
-        tech = [r for r in rows if get_role(r, idx) in TECH_TITLES]
-        nontech = [r for r in rows if get_role(r, idx) in NONTECH_TITLES]
+        tech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical']
+        nontech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical']
         t_tests = {}
         for label, cols, sc in ALL_CONSTRUCTS:
             t_vals = person_means(tech, cols, sc, idx)
@@ -1633,8 +1661,8 @@ def sensitivity_to_json(cuts, idx):
             "constructs": t_tests_org,
         }
 
-        # 3. One-way ANOVA: by Role (Tech / Non-Tech / Other)
-        other = [r for r in rows if get_role(r, idx) == 'Other']
+        # 3. One-way ANOVA: by Role (Tech / Non-Tech / Other under Scenario C binary)
+        other = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]
         anova_role = {}
         for label, cols, sc in ALL_CONSTRUCTS:
             g1 = person_means(tech, cols, sc, idx)
@@ -1727,10 +1755,10 @@ def sensitivity_to_json(cuts, idx):
         main_cuts = [(label, cuts_by_label[label]) for label in required_labels]
 
         for sample_label, rows in main_cuts:
-            # Tech vs Non-tech
-            tech_n = sum(1 for r in rows if get_role(r, idx) in TECH_TITLES)
-            nontech_n = sum(1 for r in rows if get_role(r, idx) in NONTECH_TITLES)
-            other_n = sum(1 for r in rows if get_role(r, idx) == 'Other')
+            # Tech vs Non-tech (Scenario C binary classification)
+            tech_n = sum(1 for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical')
+            nontech_n = sum(1 for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical')
+            other_n = sum(1 for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None)
             role_counts.append([tech_n, nontech_n, other_n])
 
             # Org Size
