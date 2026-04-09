@@ -145,6 +145,9 @@ export function search(documents: SearchDocument[], query: string, limit = 10): 
   }
 
   const queryTokens = tokenize(query)
+  if (queryTokens.length === 0) {
+    return []
+  }
 
   const results = documents
     .map((doc) => {

@@ -391,7 +391,7 @@ async function generateSearchIndex() {
   console.log(`✅ Search index generated: ${deduped.length} items`)
   console.log(`   Written to: public/search-index.json`)
 
-  return items
+  return deduped
 }
 
 // Run if executed directly
