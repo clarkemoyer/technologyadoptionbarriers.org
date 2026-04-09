@@ -105,9 +105,9 @@ function extractStaticMetadata(source: string): {
  */
 function extractVisibleText(source: string): string {
   // Isolate the JSX returned by the component.
-  // Try `return (...)` first, then fall back to `return <...>` (no parens).
-  const returnParenMatch = source.match(/return\s*\(\s*([\s\S]*)\)\s*\}/)
-  const returnTagMatch = !returnParenMatch ? source.match(/return\s*(<[\s\S]*>)\s*\}/) : null
+  // Try `return (...)` first (non-greedy), then fall back to `return <...>`.
+  const returnParenMatch = source.match(/return\s*\(\s*([\s\S]*?)\)\s*\}/)
+  const returnTagMatch = !returnParenMatch ? source.match(/return\s*(<[\s\S]*?>)\s*\}/) : null
   const jsx = returnParenMatch?.[1] ?? returnTagMatch?.[1] ?? ''
 
   let text = jsx
@@ -115,6 +115,8 @@ function extractVisibleText(source: string): string {
     .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
     // Remove JS expressions like {variable}, {fn()}, but keep string literals inside
     .replace(/\{[^}]*\}/g, ' ')
+    // Remove React fragments: <> and </>
+    .replace(/<\/?>/g, ' ')
     // Remove self-closing tags: <Component ... />
     .replace(/<[A-Za-z][^>]*\/>/g, ' ')
     // Remove opening/closing tags but keep inner text

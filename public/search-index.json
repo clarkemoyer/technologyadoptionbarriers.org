@@ -140,7 +140,7 @@
     "url": "/barriers",
     "title": "Technology Adoption Barriers",
     "description": "Explore the key barriers to technology adoption identified through the TABS research. Understand the obstacles organizations face when implementing new technology.",
-    "content": "Technology Adoption Barriers. Explore the key barriers to technology adoption identified through the TABS research. Understand the obstacles organizations face when implementing new technology.. Technology Adoption Barriers Explore factors that can slow prevent the adoption new technology organizations. </>",
+    "content": "Technology Adoption Barriers. Explore the key barriers to technology adoption identified through the TABS research. Understand the obstacles organizations face when implementing new technology.. Technology Adoption Barriers Explore factors that can slow prevent the adoption new technology organizations.",
     "category": "Barriers"
   },
   {
@@ -588,7 +588,7 @@
     "url": "/get-involved",
     "title": "Get Involved | TABS",
     "description": "Discover all the ways you can support the Technology Adoption Barriers Survey (TABS) - from taking the survey to volunteering, contributing, or using our dataset in your research.",
-    "content": "Get Involved | TABS. Discover all the ways you can support the Technology Adoption Barriers Survey (TABS) - from taking the survey to volunteering, contributing, or using our dataset in your research.. Get Involved with TABS There are many ways support technology adoption research. Find the opportunity that fits your interests and expertise. Ways Contribute Whether you have minutes take the survey, resources contribute, skills volunteer, research interests pursue there way for you make impact. id= className= Who Should Participate Time Commitment Benefits ))} ))} Have Questions? Talk. Call Clarke Moyer Not sure which opportunity right for you? Reach out and help you find the best fit.",
+    "content": "Get Involved | TABS. Discover all the ways you can support the Technology Adoption Barriers Survey (TABS) - from taking the survey to volunteering, contributing, or using our dataset in your research.. Get Involved with TABS There are many ways support technology adoption research. Find the opportunity that fits your interests and expertise. Ways Contribute Whether you have minutes take the survey, resources contribute, skills volunteer, research interests pursue there way for you make impact. id= className= Who Should Participate Time Commitment Benefits",
     "category": "General"
   },
   {
@@ -604,7 +604,7 @@
     "url": "/making-of-tabs/ai-assisted-development/overnight-shift",
     "title": "Copilot",
     "description": "A real screenshot from a Claude Code session showing multi-agent orchestration: Claude finishing work, assigning 9 issues to Copilot for overnight processing, and signing off.",
-    "content": "Copilot. A real screenshot from a Claude Code session showing multi-agent orchestration: Claude finishing work, assigning 9 issues to Copilot for overnight processing, and signing off.. Making TABS AI-Assisted Development Copilot Got the Overnight Shift Sleep Copilot Got the Overnight Shift Zotero Integration Session April 6–7, 2026 real, unscripted moment Claude Code session that captures the multi-agent workflow action: one agent finishing its work, delegating issues another agent for overnight processing, and signing off. The Moment Claude Code wrapping the Zotero integration session: PRs #1281 and #1283 are merged, #1293 waiting auto-merge, issues are assigned Copilot for overnight processing, and issue #1347 documented for the next session. The final sign-off reads, You good. sleep Co...",
+    "content": "Copilot. A real screenshot from a Claude Code session showing multi-agent orchestration: Claude finishing work, assigning 9 issues to Copilot for overnight processing, and signing off.. Making TABS AI-Assisted Development Copilot Got the Overnight Shift Sleep Copilot Got the Overnight Shift Zotero Integration Session April 6–7, 2026 real, unscripted moment Claude Code session that captures the multi-agent workflow action: one agent finishing its work, delegating issues another agent for overnight processing, and signing off. The Moment <img src={assetPath('/Images/making-of-tabs/copilot-overnight-shift.png'",
     "category": "Making of TABS"
   },
   {
@@ -900,7 +900,7 @@
     "url": "/making-of-tabs/tabs-presentation",
     "title": "TABS Presentation | The Making of TABS",
     "description": "Interactive TABS presentation slides, embedded for easy viewing and sharing from the Making of TABS section.",
-    "content": "TABS Presentation | The Making of TABS. Interactive TABS presentation slides, embedded for easy viewing and sharing from the Making of TABS section.. TABS Presentation This the interactive TABS presentation slides). Use arrow keys the on-screen controls navigate. Open full-screen Back The Making TABS Back Home Embedded Presentation Tip: click inside the presentation before using keyboard navigation.",
+    "content": "TABS Presentation | The Making of TABS. Interactive TABS presentation slides, embedded for easy viewing and sharing from the Making of TABS section.. TABS Presentation This the interactive TABS presentation slides). Use arrow keys the on-screen controls navigate. href={assetPath('/tabs-presentation'",
     "category": "Making of TABS"
   },
   {
@@ -908,7 +908,7 @@
     "url": "/media",
     "title": "Media",
     "description": "Press kit, media contact details, and project resources for the Technology Adoption Barriers Survey (TABS).",
-    "content": "Media. Press kit, media contact details, and project resources for the Technology Adoption Barriers Survey (TABS).. Media Press kit, media contact details, and project resources. Appearances Presentation Video Impact Press Kit Downloads Contact Appearances Speaking engagements and public presentations about technology adoption barriers. ))} TABS Presentation View our interactive presentation covering the TABS mission, challenges, solutions, and project roadmap. Navigate through slides using arrow keys the on-screen controls. View Presentation Your browser does not support the video tag. Introduction The TABS Project Transcript Captions Captions are enabled the player. You can download the transcript below (it auto-generated and may contain errors), email with corrections. Transcript: The_T...",
+    "content": "Media. Press kit, media contact details, and project resources for the Technology Adoption Barriers Survey (TABS).. Media Press kit, media contact details, and project resources. Appearances Presentation Video Impact Press Kit Downloads Contact Appearances Speaking engagements and public presentations about technology adoption barriers.",
     "category": "General"
   },
   {
@@ -940,7 +940,7 @@
     "url": "/results/dashboard",
     "title": "Prolific Dashboard — TABS Results",
     "description": "Live disposition breakdown for the Technology Adoption Barriers Survey: approvals, rejections, flags, and manual review status.",
-    "content": "Prolific Dashboard — TABS Results. Live disposition breakdown for the Technology Adoption Barriers Survey: approvals, rejections, flags, and manual review status.. Results Prolific Dashboard Response Disposition Dashboard Live quality triage results for the Data updated automatically the disposition pipeline Overview Total Participants Approved Auto-Exclude Flagged for Review Disposition Breakdown pct total ((count total) 100).toFixed(1) '0' barWidth total (count total) 100 })} Auto-Exclude Breakdown The auto-excluded submissions are broken down severity. Failed all IRIs with speed violation the strongest exclusion signal. ].map((sub) Record count breakdown[sub.key] autoExcludeTotal dispositions['AUTO-EXCLUDE'] pct autoExcludeTotal ((count autoExcludeTotal) 100).toFixed(0) '0' auto-exclude...",
+    "content": "Prolific Dashboard — TABS Results. Live disposition breakdown for the Technology Adoption Barriers Survey: approvals, rejections, flags, and manual review status.. Results Prolific Dashboard Response Disposition Dashboard Live quality triage results for the Data updated automatically the disposition pipeline Overview Total Participants Approved Auto-Exclude Flagged for Review Disposition Breakdown pct total ((count total) 100).toFixed(1) '0' barWidth total (count total) 100",
     "category": "Results"
   },
   {
@@ -956,7 +956,7 @@
     "url": "/results/dataset-comparison",
     "title": "Dataset Comparison — TABS Results",
     "description": "Side-by-side comparison of all statistics across the four primary result groups of the Technology Adoption Barriers Survey.",
-    "content": "Dataset Comparison — TABS Results. Side-by-side comparison of all statistics across the four primary result groups of the Technology Adoption Barriers Survey.. Results Dataset Comparison Dataset Comparison This page provides comprehensive side-by-side comparison all four primary result groups. Each group represents independent dataset with progressively less restrictive quality criteria. Researchers can use this comparison assess how data cleaning decisions affect statistical conclusions. Sample Overview Result Group Definition className= })} Core Metrics Comparison All descriptive statistics, reliability coefficients, and correlations are shown for each result group. The &Delta; column shows the difference Conservative Clean (the strictest dataset). Deltas 0.05 are highlighted amber. Metr...",
+    "content": "Dataset Comparison — TABS Results. Side-by-side comparison of all statistics across the four primary result groups of the Technology Adoption Barriers Survey.. Results Dataset Comparison Dataset Comparison This page provides comprehensive side-by-side comparison all four primary result groups. Each group represents independent dataset with progressively less restrictive quality criteria. Researchers can use this comparison assess how data cleaning decisions affect statistical conclusions. Sample Overview Result Group Definition className=",
     "category": "Results"
   },
   {
@@ -964,7 +964,7 @@
     "url": "/results/descriptive",
     "title": "Descriptive Statistics — TABS Results",
     "description": "Grand means, standard deviations, and inter-construct correlations for the Technology Adoption Barriers Survey across barriers, readiness, and maturity constructs.",
-    "content": "Descriptive Statistics — TABS Results. Grand means, standard deviations, and inter-construct correlations for the Technology Adoption Barriers Survey across barriers, readiness, and maturity constructs.. metric.values Record )[sample] fmt (val: number null, decimals: number 4): string DescriptivePage Results Descriptive Statistics Descriptive Statistics This page presents the grand means, standard deviations, and inter-construct correlations for the three TABS constructs: Barriers, Readiness, and Maturity. All values are computed the daily analysis pipeline using person-level construct means. Barriers The Barriers construct measures the severity technology adoption obstacles perceived organizational leaders. Higher values indicate greater perceived barriers. Sample Grand Mean className= (N...",
+    "content": "Descriptive Statistics — TABS Results. Grand means, standard deviations, and inter-construct correlations for the Technology Adoption Barriers Survey across barriers, readiness, and maturity constructs.. metric.values Record )[sample] fmt (val: number null, decimals: number 4): string (val === null) '—' val.toFixed(decimals",
     "category": "Results"
   },
   {
@@ -972,7 +972,7 @@
     "url": "/results/findings",
     "title": "Key Findings — TABS Results",
     "description": "Effect sizes, cross-tabulations, t-tests, and ANOVA from the Technology Adoption Barriers Survey, computed independently across four result groups.",
-    "content": "Key Findings — TABS Results. Effect sizes, cross-tabulations, t-tests, and ANOVA from the Technology Adoption Barriers Survey, computed independently across four result groups.. Results Key Findings Key Findings All effect sizes, cross-tabulations, t-tests, and ANOVA are computed independently for each the four primary result groups. This ensures that any finding can validated against the researcher chosen dataset. Effect Sizes (Cohen Cohen measures the standardized difference between group means. Values |d| 0.2 are negligible, 0.2 0.5 small, 0.5 0.8 medium, and 0.8 large. Each comparison computed separately for each result group. ).length (N= ).map(([construct, vals]) ))} Construct Tech Mean Non-Tech Mean Cohen Size Record< string, EffectSizeConstruct ).map(([construct, vals]) ))} ).lengt...",
+    "content": "Key Findings — TABS Results. Effect sizes, cross-tabulations, t-tests, and ANOVA from the Technology Adoption Barriers Survey, computed independently across four result groups.. Results Key Findings Key Findings All effect sizes, cross-tabulations, t-tests, and ANOVA are computed independently for each the four primary result groups. This ensures that any finding can validated against the researcher chosen dataset. Effect Sizes (Cohen Cohen measures the standardized difference between group means. Values |d| 0.2 are negligible, 0.2 0.5 small, 0.5 0.8 medium, and 0.8 large. Each comparison computed separately for each result group. ).length (N= ).map(([construct, vals])",
     "category": "Results"
   },
   {
@@ -980,7 +980,7 @@
     "url": "/results",
     "title": "Results — TABS",
     "description": "Survey results from the Technology Adoption Barriers Survey: sample demographics, descriptive statistics, scale reliability, sensitivity analysis, and open data.",
-    "content": "Results — TABS. Survey results from the Technology Adoption Barriers Survey: sample demographics, descriptive statistics, scale reliability, sensitivity analysis, and open data.. Results The Technology Adoption Barriers Survey (TABS) collects data organizational leaders about the barriers, readiness, and maturity factors that influence technology adoption. Every metric computed independently across four primary result groups researchers can choose the dataset that matches their quality requirements. All statistics are generated automatically the daily analysis pipeline and updated every time new data collected. ].map((stat) ))} Explore the Data Each page below covers different aspect the survey results. Pages are updated daily live pipeline data. ].map((card) ))} How Cite APA Format: Moyer...",
+    "content": "Results — TABS. Survey results from the Technology Adoption Barriers Survey: sample demographics, descriptive statistics, scale reliability, sensitivity analysis, and open data.. Results The Technology Adoption Barriers Survey (TABS) collects data organizational leaders about the barriers, readiness, and maturity factors that influence technology adoption. Every metric computed independently across four primary result groups researchers can choose the dataset that matches their quality requirements. All statistics are generated automatically the daily analysis pipeline and updated every time new data collected. label: 'Total Responses', value: String(totalN",
     "category": "Results"
   },
   {
@@ -988,7 +988,7 @@
     "url": "/results/reliability",
     "title": "Scale Reliability — TABS Results",
     "description": "Cronbach",
-    "content": "Scale Reliability — TABS Results. Cronbach. metric.values Record )[sample] fmt (val: number null): string ReliabilityPage Results Scale Reliability Scale Reliability Scale reliability assessed using Cronbach alpha the most widely used measure internal consistency. coefficient 0.70 generally considered acceptable for research purposes (Nunnally Bernstein, 1994), while values above 0.80 indicate good excellent reliability. All three TABS constructs demonstrate excellent internal consistency, with every Cronbach alpha exceeding 0.84 across all five sample definitions. This indicates that the survey items within each construct are measuring the same underlying factor reliably, regardless which inclusion criteria are applied. Cronbach Alpha Construct and Sample Construct ))} className= ))} ))} ...",
+    "content": "Scale Reliability — TABS Results. Cronbach. metric.values Record )[sample] fmt (val: number null): string (val === null) '—' val.toFixed(4",
     "category": "Results"
   },
   {
@@ -1036,7 +1036,7 @@
     "url": "/start",
     "title": "Find Your Role | TABS Survey",
     "description": "Select your leadership role to see how your participation in the Technology Adoption Barriers Survey can provide valuable insights for your position and industry.",
-    "content": "Find Your Role | TABS Survey. Select your leadership role to see how your participation in the Technology Adoption Barriers Survey can provide valuable insights for your position and industry.. See Yourself the Survey Your leadership role shapes how you experience technology adoption. Select your role below learn how your participation matters. Select Your Role Each leadership role brings unique insights technology adoption. Choose your role see why your perspective matters. href= Learn more â†’ ))} Not Sure Which Role Choose? problem! You can take the survey directly. The first question will ask about your role, and you can select the option that best fits your position. Take the Survey Now",
+    "content": "Find Your Role | TABS Survey. Select your leadership role to see how your participation in the Technology Adoption Barriers Survey can provide valuable insights for your position and industry.. See Yourself the Survey Your leadership role shapes how you experience technology adoption. Select your role below learn how your participation matters. Select Your Role Each leadership role brings unique insights technology adoption. Choose your role see why your perspective matters. href= Learn more â†’",
     "category": "See Yourself"
   },
   {
@@ -1068,7 +1068,7 @@
     "url": "/technology-adoption-series/lifecycle-positioning",
     "title": "Technology Lifecycle Positioning — Focused Briefing",
     "description": "A focused lifecycle-positioning briefing: adoption foundations, the dual-curve target zone, transition signals, and decision lenses across hardware, supply chain, and AI/ML.",
-    "content": "Technology Lifecycle Positioning — Focused Briefing. A focused lifecycle-positioning briefing: adoption foundations, the dual-curve target zone, transition signals, and decision lenses across hardware, supply chain, and AI/ML.. Technology Lifecycle Positioning Where technology sits its lifecycle bleeding edge end support shapes every decision about adoption, architecture, and investment. This focused deck moves adoption foundations the dual-curve target zone, then applies clear decision lenses hardware, supply chain, and AI/ML examples. Estimated time: ~30 minutes for presentation, ~45 minutes with discussion. Loading presentation… Launch Standard (HD) Launch High-Res (4K) Use arrow keys swipe navigate Press for all shortcuts Included slides This focused presentation includes slides drawn ...",
+    "content": "Technology Lifecycle Positioning — Focused Briefing. A focused lifecycle-positioning briefing: adoption foundations, the dual-curve target zone, transition signals, and decision lenses across hardware, supply chain, and AI/ML.. Technology Lifecycle Positioning Where technology sits its lifecycle bleeding edge end support shapes every decision about adoption, architecture, and investment. This focused deck moves adoption foundations the dual-curve target zone, then applies clear decision lenses hardware, supply chain, and AI/ML examples. Estimated time: ~30 minutes for presentation, ~45 minutes with discussion. Loading presentation… <iframe title=\"Technology Lifecycle Positioning presentation\" src={assetPath('/technology-adoption-series/lifecycle-positioning/presentation'",
     "category": "Teaching Series"
   },
   {
@@ -1100,7 +1100,7 @@
     "url": "/technology-adoption-series",
     "title": "Technology Adoption Teaching Series — Overview",
     "description": "A practical, slide-by-slide teaching series on technology adoption: definitions, frameworks, lifecycle planning, and adoption success patterns.",
-    "content": "Technology Adoption Teaching Series — Overview. A practical, slide-by-slide teaching series on technology adoption: definitions, frameworks, lifecycle planning, and adoption success patterns.. Technology Adoption Teaching Series Loading slide deck… Launch Standard (HD) Launch High-Res (4K) Use arrow keys swipe navigate Press for all shortcuts This series turns the presentation deck into set standalone articles. Each page one “slide” worth content, expanded into readable reference you can share, link to, and revisit. Series index aria-label= Slide ))} ))} Slide-by-slide reference Each slide below rendered the same source content the full-screen deck. Use this section when you want read, search, link specific slide content. id= aria-label= Slide Open slide page slideNumber= null} slideNumber...",
+    "content": "Technology Adoption Teaching Series — Overview. A practical, slide-by-slide teaching series on technology adoption: definitions, frameworks, lifecycle planning, and adoption success patterns.. Technology Adoption Teaching Series Loading slide deck… <iframe title=\"Technology Adoption Teaching Series slide deck\" src={assetPath('/technology-adoption-series/presentation'",
     "category": "Teaching Series"
   },
   {
