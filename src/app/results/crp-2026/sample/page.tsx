@@ -46,13 +46,11 @@ const sampleDetails: Record<string, SampleDetail> =
   ((sensitivityData as Record<string, unknown>).sample_details as Record<string, SampleDetail>) ??
   {}
 
-const CRP_PRIMARY_GROUPS = ['conservative_clean', 'flexible_clean', 'prolific_accepted'] as const
-
 const PRIMARY_GROUPS = [
   { key: 'conservative_clean', label: 'Conservative Clean', color: 'border-green-500' },
   { key: 'flexible_clean', label: 'Flexible Clean', color: 'border-blue-500' },
   { key: 'prolific_accepted', label: 'Prolific Accepted', color: 'border-amber-500' },
-].filter((g) => (CRP_PRIMARY_GROUPS as readonly string[]).includes(g.key))
+]
 
 const pct = (count: number, total: number | null | undefined): string =>
   total ? `${((count / total) * 100).toFixed(1)}%` : '—'
