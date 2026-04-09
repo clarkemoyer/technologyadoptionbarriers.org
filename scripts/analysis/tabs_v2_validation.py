@@ -264,9 +264,14 @@ def ave_from_loadings(loadings):
 # 5. EFA WITH PROMAX ROTATION
 # ============================================================================
 
-def run_efa(data, construct_name, n_factors=None, max_factors=6):
+def run_efa(data, construct_name, n_factors=None, max_factors=6, rng=None):
     """Run EFA with KMO, Bartlett's, parallel analysis for factor retention,
-    and promax rotation. Returns full loading matrix and diagnostics."""
+    and promax rotation. Returns full loading matrix and diagnostics.
+
+    Args:
+        rng: Optional np.random.Generator passed to parallel_analysis for
+             reproducible factor retention.
+    """
     d = data.dropna()
     result = {
         'construct': construct_name,
@@ -296,7 +301,7 @@ def run_efa(data, construct_name, n_factors=None, max_factors=6):
 
     # Parallel analysis for factor retention
     if n_factors is None:
-        n_factors = parallel_analysis(d, max_factors=max_factors)
+        n_factors = parallel_analysis(d, max_factors=max_factors, rng=rng)
         result['parallel_analysis_factors'] = n_factors
 
     result['n_factors'] = n_factors
@@ -339,9 +344,20 @@ def run_efa(data, construct_name, n_factors=None, max_factors=6):
     return result
 
 
-def parallel_analysis(data, n_iter=1000, max_factors=6, percentile=95):
+def parallel_analysis(data, n_iter=1000, max_factors=6, percentile=95, rng=None):
     """Horn's parallel analysis: compare actual eigenvalues against
-    eigenvalues from random data of the same shape."""
+    eigenvalues from random data of the same shape.
+
+    Args:
+        data: DataFrame of item scores.
+        n_iter: Number of random datasets to simulate.
+        max_factors: Maximum number of factors to consider.
+        percentile: Percentile of random eigenvalue distribution to use as threshold.
+        rng: Optional np.random.Generator for reproducible results.
+    """
+    if rng is None:
+        rng = np.random.default_rng()
+
     d = data.dropna()
     n, p = d.shape
 
@@ -352,7 +368,7 @@ def parallel_analysis(data, n_iter=1000, max_factors=6, percentile=95):
     # Random eigenvalues
     random_evs = np.zeros((n_iter, p))
     for i in range(n_iter):
-        rand_data = np.random.normal(size=(n, p))
+        rand_data = rng.standard_normal(size=(n, p))
         rand_corr = np.corrcoef(rand_data, rowvar=False)
         random_evs[i] = np.sort(np.linalg.eigvalsh(rand_corr))[::-1]
 
@@ -375,7 +391,13 @@ def parallel_analysis(data, n_iter=1000, max_factors=6, percentile=95):
 
 def run_cfa(data, model_spec, construct_name):
     """Run CFA using semopy. model_spec is a lavaan-style model string.
-    Returns fit indices: chi2, df, p, CFI, TLI, RMSEA, SRMR."""
+    Returns fit indices: chi2, df, p, CFI, TLI, RMSEA, SRMR.
+
+    The 'loadings' key contains unstandardized path estimates from
+    semopy's inspect() output (Estimate column, op == '~').  These are
+    NOT standardized; use the single_factor_loadings from run_efa() for
+    standardized values.
+    """
     if not HAS_SEMOPY:
         return {'construct': construct_name, 'error': 'semopy not installed'}
 
@@ -399,11 +421,12 @@ def run_cfa(data, model_spec, construct_name):
         result['aic'] = round(float(fit_stats.loc['Value', 'AIC']), 2) if 'AIC' in fit_stats.columns else None
         result['bic'] = round(float(fit_stats.loc['Value', 'BIC']), 2) if 'BIC' in fit_stats.columns else None
 
-        # Standardized loadings
-        loadings = est[(est['op'] == '~') & (est['Estimate'].notna())]
-        result['standardized_loadings'] = {
+        # Unstandardized factor loadings — semopy represents the =~ measurement
+        # paths as item ~ Factor (op '~') in inspect() output.
+        loading_rows = est[(est['op'] == '~') & (est['Estimate'].notna())]
+        result['loadings'] = {
             row['rval']: round(float(row['Estimate']), 4)
-            for _, row in loadings.iterrows()
+            for _, row in loading_rows.iterrows()
         }
 
     except Exception as e:
@@ -448,8 +471,19 @@ def htmt_ratio(data1, data2):
     return between_mean / geo if geo > 0 else np.nan
 
 
-def htmt_bootstrap_ci(data1, data2, n_boot=2000, ci=0.95):
-    """Bootstrap CI for HTMT ratio."""
+def htmt_bootstrap_ci(data1, data2, n_boot=2000, ci=0.95, rng=None):
+    """Bootstrap CI for HTMT ratio.
+
+    Args:
+        data1: DataFrame for construct 1.
+        data2: DataFrame for construct 2.
+        n_boot: Number of bootstrap iterations.
+        ci: Confidence level.
+        rng: Optional np.random.Generator for reproducible results.
+    """
+    if rng is None:
+        rng = np.random.default_rng()
+
     combined = pd.concat([data1, data2], axis=1).dropna()
     if len(combined) < 10:
         return np.nan, (np.nan, np.nan)
@@ -459,7 +493,7 @@ def htmt_bootstrap_ci(data1, data2, n_boot=2000, ci=0.95):
     boot_vals = []
 
     for _ in range(n_boot):
-        idx = np.random.choice(n, size=n, replace=True)
+        idx = rng.integers(0, n, size=n)
         b = combined.iloc[idx]
         b1 = b.iloc[:, :data1.shape[1]]
         b2 = b.iloc[:, data1.shape[1]:]
@@ -600,8 +634,13 @@ def alpha_if_deleted(data, item_names):
 # MAIN PIPELINE
 # ============================================================================
 
-def validate_construct(df, cols, names, construct_name, cfa_model=None):
-    """Run all validations for a single construct."""
+def validate_construct(df, cols, names, construct_name, cfa_model=None, rng=None):
+    """Run all validations for a single construct.
+
+    Args:
+        rng: Optional np.random.Generator for reproducible stochastic steps
+             (parallel analysis in EFA).
+    """
     data = df[cols]
     print(f"\n{'='*70}")
     print(f"  {construct_name} ({len(cols)} items)")
@@ -614,8 +653,11 @@ def validate_construct(df, cols, names, construct_name, cfa_model=None):
 
     # --- Cronbach's alpha ---
     alpha, (ci_lo, ci_hi) = cronbach_alpha_ci(data)
-    result['cronbach_alpha'] = round(alpha, 4)
-    result['alpha_95ci'] = [round(ci_lo, 4), round(ci_hi, 4)]
+    result['cronbach_alpha'] = None if math.isnan(alpha) else round(alpha, 4)
+    result['alpha_95ci'] = [
+        None if math.isnan(ci_lo) else round(ci_lo, 4),
+        None if math.isnan(ci_hi) else round(ci_hi, 4),
+    ]
     print(f"  Cronbach's alpha: {alpha:.4f} [{ci_lo:.4f}, {ci_hi:.4f}]")
 
     # --- McDonald's omega ---
@@ -678,7 +720,7 @@ def validate_construct(df, cols, names, construct_name, cfa_model=None):
     print(f"  Normality: {non_normal}/{len(norm)} items non-normal (Shapiro-Wilk p<.05)")
 
     # --- EFA ---
-    efa = run_efa(data, construct_name)
+    efa = run_efa(data, construct_name, rng=rng)
     result['efa'] = efa
     if 'kmo_model' in efa:
         print(f"  KMO: {efa['kmo_model']:.4f}")
@@ -703,8 +745,12 @@ def validate_construct(df, cols, names, construct_name, cfa_model=None):
     return result
 
 
-def compute_discriminant_validity(df, construct_results):
-    """HTMT with bootstrap CIs, Fornell-Larcker, and construct correlations."""
+def compute_discriminant_validity(df, construct_results, rng=None):
+    """HTMT with bootstrap CIs, Fornell-Larcker, and construct correlations.
+
+    Args:
+        rng: Optional np.random.Generator for reproducible HTMT bootstrap CIs.
+    """
     print(f"\n{'='*70}")
     print(f"  DISCRIMINANT VALIDITY")
     print(f"{'='*70}")
@@ -721,7 +767,7 @@ def compute_discriminant_validity(df, construct_results):
         print(f"\n  {name1} vs {name2}:")
 
         # HTMT with bootstrap CI
-        h, (ci_lo, ci_hi) = htmt_bootstrap_ci(d1, d2, n_boot=2000)
+        h, (ci_lo, ci_hi) = htmt_bootstrap_ci(d1, d2, n_boot=2000, rng=rng)
         print(f"    HTMT: {h:.4f} [{ci_lo:.4f}, {ci_hi:.4f}] {'PASS' if h < 0.85 else 'FAIL (>.85)'}")
         htmt_results.append({
             'pair': f"{name1}-{name2}",
@@ -840,16 +886,27 @@ def rename_cols_for_cfa(df, cols):
 
 def main():
     if len(sys.argv) < 2:
-        print(f"Usage: {sys.argv[0]} <qualtrics_csv_path> [--json output.json] [--crp200]")
+        print(f"Usage: {sys.argv[0]} <qualtrics_csv_path> [--json output.json] [--crp200] [--seed N]")
         sys.exit(1)
 
     csv_path = sys.argv[1]
     json_output = None
     use_crp200 = '--crp200' in sys.argv
+    seed = None
     if '--json' in sys.argv:
         idx = sys.argv.index('--json')
         if idx + 1 < len(sys.argv):
             json_output = sys.argv[idx + 1]
+    if '--seed' in sys.argv:
+        idx = sys.argv.index('--seed')
+        if idx + 1 < len(sys.argv):
+            try:
+                seed = int(sys.argv[idx + 1])
+            except ValueError:
+                print("Warning: --seed requires an integer argument; using unseeded RNG")
+
+    # Single RNG instance threaded through all stochastic analyses
+    rng = np.random.default_rng(seed)
 
     # Load data
     if use_crp200:
@@ -867,17 +924,17 @@ def main():
 
     barrier_result = validate_construct(
         df, BARRIER_COLS, BARRIER_NAMES, 'Barriers',
-        cfa_model=cfa_models['barriers_1f']
+        cfa_model=cfa_models['barriers_1f'], rng=rng
     )
 
     readiness_result = validate_construct(
         df, READINESS_COLS, READINESS_NAMES, 'Readiness',
-        cfa_model=cfa_models['readiness_1f']
+        cfa_model=cfa_models['readiness_1f'], rng=rng
     )
 
     maturity_result = validate_construct(
         df, MATURITY_COLS, MATURITY_NAMES, 'Maturity',
-        cfa_model=cfa_models['maturity_1f']
+        cfa_model=cfa_models['maturity_1f'], rng=rng
     )
 
     construct_results = [barrier_result, readiness_result, maturity_result]
@@ -895,7 +952,7 @@ def main():
         print(f"  Error: {barrier_4f_cfa['error']}")
 
     # ── Discriminant validity ──
-    discrim = compute_discriminant_validity(df, construct_results)
+    discrim = compute_discriminant_validity(df, construct_results, rng=rng)
 
     # ── Summary table ──
     print(f"\n{'='*70}")
@@ -932,11 +989,14 @@ def main():
             if isinstance(obj, (np.integer,)):
                 return int(obj)
             if isinstance(obj, (np.floating,)):
-                return float(obj)
+                v = float(obj)
+                return None if math.isnan(v) else v
             if isinstance(obj, np.ndarray):
                 return obj.tolist()
             if isinstance(obj, np.bool_):
                 return bool(obj)
+            if isinstance(obj, float) and math.isnan(obj):
+                return None
             return obj
 
         class NumpyEncoder(json.JSONEncoder):
