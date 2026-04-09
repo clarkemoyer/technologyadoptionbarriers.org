@@ -323,7 +323,7 @@ def print_disposition(data):
     for row in data:
         if row.get('StartDate', '') >= V2_START_DATE or row.get('ResponseId') == V2_EXPLICIT_INCLUSION:
             v2_count += 1
-            duration_secs = int(row.get('Duration', 0))
+            duration_secs = int(row.get('Duration (in seconds)', row.get('Duration', 0)) or 0)
             iri_count = iri_correct_count(row)
             
             if duration_secs >= 480:
