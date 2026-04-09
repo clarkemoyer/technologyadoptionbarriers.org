@@ -82,6 +82,10 @@ function categorize(urlPath: string): string {
 /**
  * Extract the static `export const metadata` object from a page source file.
  * Returns { title, description } or nulls when not found.
+ *
+ * Uses a string-aware brace-counter to scope extraction to the `export const
+ * metadata = { ... }` block so nested objects like `openGraph.title` are never
+ * accidentally matched in place of the top-level title.
  */
 function extractStaticMetadata(source: string): {
   title: string | null
@@ -90,13 +94,65 @@ function extractStaticMetadata(source: string): {
   let title: string | null = null
   let description: string | null = null
 
-  // Match title — use backreference to match the same quote delimiter,
-  // allowing apostrophes inside single-quoted strings and vice versa.
-  const titleMatch = source.match(/title:\s*(['"`])([\s\S]*?)\1/)
+  // Locate `export const metadata = {` (with optional `: TypeAnnotation`)
+  const exportMatch = source.match(/export\s+const\s+metadata\s*(?::\s*[\w.]+\s*)?\s*=\s*\{/)
+  if (!exportMatch || exportMatch.index === undefined) {
+    return { title, description }
+  }
+
+  // Walk the source from the opening `{`, respecting string boundaries,
+  // to find the matching closing `}`.
+  const blockStart = exportMatch.index + exportMatch[0].length - 1
+  let depth = 0
+  let inString: "'" | '"' | '`' | null = null
+  let escaped = false
+  let blockEnd = -1
+
+  for (let i = blockStart; i < source.length; i++) {
+    const ch = source[i]
+
+    if (inString) {
+      if (escaped) {
+        escaped = false
+        continue
+      }
+      if (ch === '\\') {
+        escaped = true
+        continue
+      }
+      if (ch === inString) inString = null
+      continue
+    }
+
+    if (ch === "'" || ch === '"' || ch === '`') {
+      inString = ch as "'" | '"' | '`'
+      continue
+    }
+
+    if (ch === '{') {
+      depth++
+      continue
+    }
+
+    if (ch === '}') {
+      depth--
+      if (depth === 0) {
+        blockEnd = i
+        break
+      }
+    }
+  }
+
+  if (blockEnd === -1) return { title, description }
+
+  const metadataBlock = source.slice(blockStart, blockEnd + 1)
+
+  // Match title — backreference ensures apostrophes inside the string are kept
+  const titleMatch = metadataBlock.match(/(?:^|[,{]\s*)title:\s*(['"`])([\s\S]*?)\1/)
   if (titleMatch) title = titleMatch[2].replace(/\s+/g, ' ').trim()
 
-  // Match description — may span multiple lines between quotes
-  const descMatch = source.match(/description:\s*\n?\s*(['"`])([\s\S]*?)\1/)
+  // Match description — may span multiple lines
+  const descMatch = metadataBlock.match(/(?:^|[,{]\s*)description:\s*\n?\s*(['"`])([\s\S]*?)\1/)
   if (descMatch) description = descMatch[2].replace(/\s+/g, ' ').trim()
 
   return { title, description }
@@ -354,13 +410,15 @@ async function generateSearchIndex() {
   }
   console.log(`   Expanded ${teachingItems.length} teaching series routes`)
 
-  // FAQ entries — each gets a unique URL fragment to avoid deduplication collisions
+  // FAQ entries — link to /faq (no fragment; accordion IDs use dynamic useId()
+  // prefixes so deep-linking is not reliably possible).  Each entry gets a
+  // unique id so the deduplication below does not collapse them into one.
   for (let i = 0; i < faqs.length; i++) {
     const faq = faqs[i]
     const faqContent = `${faq.question} ${faq.answer}`
     items.push({
       id: `faq-${i + 1}`,
-      url: `/faq#faq-${i + 1}`,
+      url: '/faq',
       title: faq.question,
       description: 'Frequently asked question',
       content: truncateContent(faqContent),
@@ -370,11 +428,14 @@ async function generateSearchIndex() {
 
   console.log(`   Added ${faqs.length} FAQ entries`)
 
-  // Deduplicate by URL — static pages are richer so they win over expanded routes
+  // Deduplicate by URL — static pages are richer so they win over expanded routes.
+  // FAQ entries share the /faq URL with the static page but are individually
+  // distinct; they bypass URL-based dedup using a composite url+id key.
   const seen = new Set<string>()
   const deduped = items.filter((item) => {
-    if (seen.has(item.url)) return false
-    seen.add(item.url)
+    const key = item.category === 'FAQ' ? `${item.url}\0${item.id}` : item.url
+    if (seen.has(key)) return false
+    seen.add(key)
     return true
   })
   const dupeCount = items.length - deduped.length
