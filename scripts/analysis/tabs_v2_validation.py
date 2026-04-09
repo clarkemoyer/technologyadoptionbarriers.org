@@ -57,7 +57,10 @@ except ImportError:
 
 
 # ============================================================================
-# CONSTANTS (mirrored from tabs_v2_analysis.py — single source of truth)
+# CONSTANTS
+# Canonical source: scripts/analysis/tabs_v2_constants.json (auto-generated
+# from src/lib/tabs-survey-constants.ts). Values here must remain in sync;
+# update both if scales, column names, or thresholds change.
 # ============================================================================
 
 V2_START = "2026-03-23 14:00:00"
@@ -264,7 +267,7 @@ def ave_from_loadings(loadings):
 # 5. EFA WITH PROMAX ROTATION
 # ============================================================================
 
-def run_efa(data, construct_name, n_factors=None, max_factors=6, rng=None):
+def run_efa(data, construct_name, n_factors=None, max_factors=6, n_sim=1000, rng=None):
     """Run EFA with KMO, Bartlett's, parallel analysis for factor retention,
     and promax rotation. Returns full loading matrix and diagnostics.
 
@@ -273,6 +276,7 @@ def run_efa(data, construct_name, n_factors=None, max_factors=6, rng=None):
         construct_name: Label used in result dict.
         n_factors: Override factor count (skips parallel analysis if set).
         max_factors: Upper bound for parallel analysis factor search.
+        n_sim: Number of random datasets for Horn's parallel analysis.
         rng: Optional np.random.Generator passed to parallel_analysis for
              reproducible factor retention.
     """
@@ -305,7 +309,7 @@ def run_efa(data, construct_name, n_factors=None, max_factors=6, rng=None):
 
     # Parallel analysis for factor retention
     if n_factors is None:
-        n_factors = parallel_analysis(d, max_factors=max_factors, rng=rng)
+        n_factors = parallel_analysis(d, n_iter=n_sim, max_factors=max_factors, rng=rng)
         result['parallel_analysis_factors'] = n_factors
 
     result['n_factors'] = n_factors
@@ -426,10 +430,15 @@ def run_cfa(data, model_spec, construct_name):
         result['bic'] = round(float(fit_stats.loc['Value', 'BIC']), 2) if 'BIC' in fit_stats.columns else None
 
         # Unstandardized factor loadings — semopy represents the =~ measurement
-        # paths as item ~ Factor (op '~') in inspect() output.
-        loading_rows = est[(est['op'] == '~') & (est['Estimate'].notna())]
+        # paths as item ~ Factor (op '~') in inspect() output, so the item is
+        # stored in lval and the factor/construct in rval.
+        loading_rows = est[
+            (est['op'] == '~')
+            & (est['rval'] == construct_name)
+            & (est['Estimate'].notna())
+        ]
         result['loadings'] = {
-            row['rval']: round(float(row['Estimate']), 4)
+            row['lval']: round(float(row['Estimate']), 4)
             for _, row in loading_rows.iterrows()
         }
 
@@ -638,7 +647,7 @@ def alpha_if_deleted(data, item_names):
 # MAIN PIPELINE
 # ============================================================================
 
-def validate_construct(df, cols, names, construct_name, cfa_model=None, rng=None):
+def validate_construct(df, cols, names, construct_name, cfa_model=None, n_sim=1000, rng=None):
     """Run all validations for a single construct.
 
     Args:
@@ -647,6 +656,7 @@ def validate_construct(df, cols, names, construct_name, cfa_model=None, rng=None
         names: Human-readable item labels (parallel to cols).
         construct_name: Display label (e.g. 'Barriers').
         cfa_model: Optional lavaan-style CFA model string.
+        n_sim: Number of random datasets for Horn's parallel analysis.
         rng: Optional np.random.Generator for reproducible stochastic steps
              (parallel analysis in EFA).
     """
@@ -729,7 +739,7 @@ def validate_construct(df, cols, names, construct_name, cfa_model=None, rng=None
     print(f"  Normality: {non_normal}/{len(norm)} items non-normal (Shapiro-Wilk p<.05)")
 
     # --- EFA ---
-    efa = run_efa(data, construct_name, rng=rng)
+    efa = run_efa(data, construct_name, n_sim=n_sim, rng=rng)
     result['efa'] = efa
     if 'kmo_model' in efa:
         print(f"  KMO: {efa['kmo_model']:.4f}")
@@ -754,12 +764,13 @@ def validate_construct(df, cols, names, construct_name, cfa_model=None, rng=None
     return result
 
 
-def compute_discriminant_validity(df, construct_results, rng=None):
+def compute_discriminant_validity(df, construct_results, n_boot=2000, rng=None):
     """HTMT with bootstrap CIs, Fornell-Larcker, and construct correlations.
 
     Args:
         df: Full respondent DataFrame.
         construct_results: List of per-construct result dicts (from validate_construct).
+        n_boot: Number of bootstrap iterations for HTMT confidence intervals.
         rng: Optional np.random.Generator for reproducible HTMT bootstrap CIs.
     """
     print(f"\n{'='*70}")
@@ -778,7 +789,7 @@ def compute_discriminant_validity(df, construct_results, rng=None):
         print(f"\n  {name1} vs {name2}:")
 
         # HTMT with bootstrap CI
-        h, (ci_lo, ci_hi) = htmt_bootstrap_ci(d1, d2, n_boot=2000, rng=rng)
+        h, (ci_lo, ci_hi) = htmt_bootstrap_ci(d1, d2, n_boot=n_boot, rng=rng)
         print(f"    HTMT: {h:.4f} [{ci_lo:.4f}, {ci_hi:.4f}] {'PASS' if h < 0.85 else 'FAIL (>.85)'}")
         htmt_results.append({
             'pair': f"{name1}-{name2}",
@@ -886,7 +897,7 @@ def load_crp200(csv_path):
 
 def rename_cols_for_cfa(df, cols):
     """Rename columns to CFA-safe names (no dashes/special chars).
-    Returns (renamed_df, col_map, reverse_map)."""
+    Returns (renamed_df, col_map) where col_map maps original → safe name."""
     col_map = {}
     for col in cols:
         safe = col.replace('-', '_').replace(' ', '_')
@@ -897,24 +908,36 @@ def rename_cols_for_cfa(df, cols):
 
 def main():
     if len(sys.argv) < 2:
-        print(f"Usage: {sys.argv[0]} <qualtrics_csv_path> [--json output.json] [--crp200] [--seed N]")
+        print(
+            f"Usage: {sys.argv[0]} <qualtrics_csv_path> "
+            "[--json output.json] [--crp200] [--seed N] [--n-boot N] [--n-sim N]"
+        )
         sys.exit(1)
 
     csv_path = sys.argv[1]
     json_output = None
     use_crp200 = '--crp200' in sys.argv
     seed = None
+    n_boot = 2000
+    n_sim = 1000
+
+    def _int_arg(flag, default):
+        if flag in sys.argv:
+            idx = sys.argv.index(flag)
+            if idx + 1 < len(sys.argv):
+                try:
+                    return int(sys.argv[idx + 1])
+                except ValueError:
+                    print(f"Warning: {flag} requires an integer argument; using default {default}")
+        return default
+
     if '--json' in sys.argv:
         idx = sys.argv.index('--json')
         if idx + 1 < len(sys.argv):
             json_output = sys.argv[idx + 1]
-    if '--seed' in sys.argv:
-        idx = sys.argv.index('--seed')
-        if idx + 1 < len(sys.argv):
-            try:
-                seed = int(sys.argv[idx + 1])
-            except ValueError:
-                print("Warning: --seed requires an integer argument; using unseeded RNG")
+    seed = _int_arg('--seed', None)
+    n_boot = _int_arg('--n-boot', 2000)
+    n_sim = _int_arg('--n-sim', 1000)
 
     # Single RNG instance threaded through all stochastic analyses
     rng = np.random.default_rng(seed)
@@ -935,17 +958,17 @@ def main():
 
     barrier_result = validate_construct(
         df, BARRIER_COLS, BARRIER_NAMES, 'Barriers',
-        cfa_model=cfa_models['barriers_1f'], rng=rng
+        cfa_model=cfa_models['barriers_1f'], n_sim=n_sim, rng=rng
     )
 
     readiness_result = validate_construct(
         df, READINESS_COLS, READINESS_NAMES, 'Readiness',
-        cfa_model=cfa_models['readiness_1f'], rng=rng
+        cfa_model=cfa_models['readiness_1f'], n_sim=n_sim, rng=rng
     )
 
     maturity_result = validate_construct(
         df, MATURITY_COLS, MATURITY_NAMES, 'Maturity',
-        cfa_model=cfa_models['maturity_1f'], rng=rng
+        cfa_model=cfa_models['maturity_1f'], n_sim=n_sim, rng=rng
     )
 
     construct_results = [barrier_result, readiness_result, maturity_result]
@@ -963,7 +986,7 @@ def main():
         print(f"  Error: {barrier_4f_cfa['error']}")
 
     # ── Discriminant validity ──
-    discrim = compute_discriminant_validity(df, construct_results, rng=rng)
+    discrim = compute_discriminant_validity(df, construct_results, n_boot=n_boot, rng=rng)
 
     # ── Summary table ──
     print(f"\n{'='*70}")
@@ -995,30 +1018,27 @@ def main():
         output['barriers_4f_cfa'] = barrier_4f_cfa
         output['discriminant_validity'] = discrim
 
-        # Convert any numpy types for JSON serialization
-        def convert(obj):
-            if isinstance(obj, (np.integer,)):
-                return int(obj)
+        # Recursively replace NaN/Inf floats with None for standards-compliant JSON.
+        def sanitize(obj):
+            if isinstance(obj, dict):
+                return {k: sanitize(v) for k, v in obj.items()}
+            if isinstance(obj, list):
+                return [sanitize(v) for v in obj]
+            if isinstance(obj, float) and (math.isnan(obj) or math.isinf(obj)):
+                return None
             if isinstance(obj, (np.floating,)):
                 v = float(obj)
-                return None if math.isnan(v) else v
+                return None if (math.isnan(v) or math.isinf(v)) else v
+            if isinstance(obj, (np.integer,)):
+                return int(obj)
             if isinstance(obj, np.ndarray):
-                return obj.tolist()
+                return sanitize(obj.tolist())
             if isinstance(obj, np.bool_):
                 return bool(obj)
-            if isinstance(obj, float) and math.isnan(obj):
-                return None
             return obj
 
-        class NumpyEncoder(json.JSONEncoder):
-            def default(self, obj):
-                v = convert(obj)
-                if v is not obj:
-                    return v
-                return super().default(obj)
-
         with open(json_output, 'w') as f:
-            json.dump(output, f, indent=2, cls=NumpyEncoder)
+            json.dump(sanitize(output), f, indent=2)
         print(f"\n  JSON output written to: {json_output}")
 
     print(f"\n{'='*70}")
