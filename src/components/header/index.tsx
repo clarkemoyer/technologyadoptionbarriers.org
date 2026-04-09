@@ -25,6 +25,8 @@ interface MenuItem {
   children?: Array<{
     label: string
     path: string
+    isGroupHeader?: boolean
+    isDivider?: boolean
   }>
 }
 
@@ -87,8 +89,17 @@ const Header: React.FC = () => {
         label: 'Results',
         path: '/results',
         children: [
-          { label: 'Overview', path: '/results' },
-          { label: 'CRP 2026 Dataset', path: '/results/crp-2026' },
+          { label: 'CRP 2026 Dataset', path: '/results/crp-2026', isGroupHeader: true },
+          { label: 'CRP Overview & Download', path: '/results/crp-2026' },
+          { label: 'CRP Sample & Demographics', path: '/results/crp-2026/sample' },
+          { label: 'CRP Descriptive Statistics', path: '/results/crp-2026/descriptive' },
+          { label: 'CRP Scale Reliability', path: '/results/crp-2026/reliability' },
+          { label: 'CRP Sensitivity Analysis', path: '/results/crp-2026/sensitivity' },
+          { label: 'CRP Key Findings', path: '/results/crp-2026/findings' },
+          { label: 'CRP Data Quality', path: '/results/crp-2026/data-quality' },
+          { label: '', path: '', isDivider: true },
+          { label: 'Live Results (Updated Daily)', path: '/results', isGroupHeader: true },
+          { label: 'Results Overview', path: '/results' },
           { label: 'Sample & Demographics', path: '/results/sample' },
           { label: 'Data Quality Pipeline', path: '/results/data-quality' },
           { label: 'Descriptive Statistics', path: '/results/descriptive' },
@@ -416,20 +427,35 @@ const Header: React.FC = () => {
                               <div
                                 id={`dropdown-${item.path.replace(/\//g, '-')}`}
                                 ref={dropdownMenuRef}
-                                className="absolute left-0 top-full w-64 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
+                                className="absolute left-0 top-full w-72 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg max-h-[80vh] overflow-y-auto"
                               >
                                 <ul className="py-2">
-                                  {item.children.map((child) => (
-                                    <li key={child.path}>
-                                      <Link
-                                        href={child.path}
-                                        onClick={handleLinkClick}
-                                        className="block px-4 py-2 text-[13px] text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                  {item.children.map((child, ci) =>
+                                    child.isDivider ? (
+                                      <li
+                                        key={`divider-${ci}`}
+                                        aria-hidden="true"
+                                        className="my-1 border-t border-gray-200"
+                                      />
+                                    ) : child.isGroupHeader ? (
+                                      <li
+                                        key={`group-${child.label}`}
+                                        className="px-4 pt-3 pb-1 text-[11px] font-bold uppercase tracking-wider text-gray-400"
                                       >
                                         {child.label}
-                                      </Link>
-                                    </li>
-                                  ))}
+                                      </li>
+                                    ) : (
+                                      <li key={child.path}>
+                                        <Link
+                                          href={child.path}
+                                          onClick={handleLinkClick}
+                                          className="block px-4 py-2 text-[13px] text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                        >
+                                          {child.label}
+                                        </Link>
+                                      </li>
+                                    )
+                                  )}
                                 </ul>
                               </div>
                             )}
@@ -1311,17 +1337,32 @@ const Header: React.FC = () => {
                             id={`mobile-dropdown-${item.path.replace(/\//g, '-')}`}
                             className="ml-4 mt-1 space-y-1"
                           >
-                            {item.children.map((child) => (
-                              <li key={child.path}>
-                                <Link
-                                  href={child.path}
-                                  onClick={handleLinkClick}
-                                  className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                            {item.children.map((child, ci) =>
+                              child.isDivider ? (
+                                <li
+                                  key={`divider-${ci}`}
+                                  aria-hidden="true"
+                                  className="my-1 border-t border-gray-200"
+                                />
+                              ) : child.isGroupHeader ? (
+                                <li
+                                  key={`group-${child.label}`}
+                                  className="px-4 pt-3 pb-1 text-[11px] font-bold uppercase tracking-wider text-gray-400"
                                 >
                                   {child.label}
-                                </Link>
-                              </li>
-                            ))}
+                                </li>
+                              ) : (
+                                <li key={child.path}>
+                                  <Link
+                                    href={child.path}
+                                    onClick={handleLinkClick}
+                                    className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                  >
+                                    {child.label}
+                                  </Link>
+                                </li>
+                              )
+                            )}
                           </ul>
                         )}
                       </div>
