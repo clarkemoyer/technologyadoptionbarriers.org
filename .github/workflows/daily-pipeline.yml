@@ -366,6 +366,8 @@ jobs:
           fi
 
       # ── Artifacts ──────────────────────────────────────────────
+      # Only upload extracted JSONs that are safe for src/data/ commit.
+      # live-unified.json stays on runner only (internal diagnostic).
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -373,7 +375,15 @@ jobs:
           path: |
             ${{ runner.temp }}/sensitivity-analysis.json
             ${{ runner.temp }}/data-audit.json
-            ${{ runner.temp }}/live-unified.json
+          retention-days: 7
+          if-no-files-found: warn
+
+      # Full unified JSON — internal only, never committed to repo
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: unified-analysis-internal
+          path: ${{ runner.temp }}/live-unified.json
           retention-days: 7
           if-no-files-found: warn
 

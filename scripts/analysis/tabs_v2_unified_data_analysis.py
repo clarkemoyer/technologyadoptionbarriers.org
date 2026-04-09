@@ -1462,8 +1462,13 @@ def sensitivity_to_json(cuts, idx):
             "org_sizes": {k: org_sizes.get(k, 0) for k in ALL_ORG_SIZES},
             "profit_models": {k: profit_models.get(k, 0) for k in ['For-Profit', 'Non-Profit', 'Government/Public Sector']},
             "tech_vs_nontech": {"technical": tech_n, "non_technical": nontech_n, "other": other_n},
-            "other_roles": {"total": sum(1 for r in rows if _get_role_from_row(r, idx) == 'Other'),
-                            "categories": dict(other_cats.most_common())},
+            "other_roles": {
+                "total": sum(1 for r in rows if _get_role_from_row(r, idx) == 'Other'),
+                # k-anonymity suppression: suppress category counts below 5 to prevent
+                # re-identification in small cells (NIST SP 800-188 compliant).
+                "categories": {cat: (ct if ct >= 5 else "<5")
+                               for cat, ct in other_cats.most_common()},
+            },
         }
 
     # Effect sizes per sample
