@@ -392,26 +392,55 @@ def _is_finished(row, idx):
 
 
 def _get_recaptcha_score(row, idx):
-    """Get reCAPTCHA score."""
-    if 'Q_RecaptchaScore' not in idx:
-        return 1.0
-    val = row[idx['Q_RecaptchaScore']].strip()
-    if val == '':
-        return 1.0
-    try:
-        return float(val)
-    except ValueError:
-        return 1.0
+    """Get reCAPTCHA score.
+
+    Handles three column formats (checked in priority order):
+    - Q_RecaptchaScore (numeric 0.0-1.0, from enriched Qualtrics CSV)
+    - RecaptchaPass (derived boolean, from CRP public CSV)
+    - Q_RecaptchaStatus ('complete'/'error', fallback)
+    """
+    if 'Q_RecaptchaScore' in idx:
+        val = row[idx['Q_RecaptchaScore']].strip()
+        if val == '':
+            return 1.0
+        try:
+            return float(val)
+        except ValueError:
+            return 1.0
+    if 'RecaptchaPass' in idx:
+        val = row[idx['RecaptchaPass']].strip().upper() if idx['RecaptchaPass'] < len(row) else ''
+        return 1.0 if val == 'TRUE' else 0.0
+    if 'Q_RecaptchaStatus' in idx:
+        status = row[idx['Q_RecaptchaStatus']].strip().lower()
+        return 1.0 if status == 'complete' else 0.0
+    return 1.0
 
 
 def _get_straightlining_count(row, idx):
-    """Get Qualtrics straightlining count."""
-    if 'Q_StraightliningCount' not in idx:
-        return 0
-    try:
-        return int(row[idx['Q_StraightliningCount']].strip() or '0')
-    except (ValueError, KeyError):
-        return 0
+    """Get Qualtrics straightlining count.
+
+    Handles three column formats (checked in priority order):
+    - Q_StraightliningCount (integer, from enriched Qualtrics CSV)
+    - StraightliningCount (derived integer, from CRP public CSV)
+    - Q_StraightliningPercentage (float %, fallback)
+    """
+    if 'Q_StraightliningCount' in idx:
+        try:
+            return int(row[idx['Q_StraightliningCount']].strip() or '0')
+        except (ValueError, KeyError):
+            return 0
+    if 'StraightliningCount' in idx:
+        try:
+            return int(row[idx['StraightliningCount']].strip() or '0')
+        except (ValueError, KeyError):
+            return 0
+    if 'Q_StraightliningPercentage' in idx:
+        try:
+            pct = float(row[idx['Q_StraightliningPercentage']].strip() or '0')
+            return 0 if pct == 0 else 1
+        except (ValueError, KeyError):
+            return 0
+    return 0
 
 
 def _within_person_sd(responses):
@@ -448,7 +477,17 @@ def _has_partial_straightlining(row, idx, threshold=PARTIAL_STRAIGHTLINING_SD_TH
 
 
 def _has_auth_flag(row, idx):
-    """Check if Prolific auth checks flag this response."""
+    """Check if Prolific auth checks flag this response.
+
+    Handles two column formats:
+    - Auth_LLM + Auth_Bots (raw Prolific columns, from enriched CSV)
+    - Auth_Flagged (derived boolean, from CRP public CSV)
+    """
+    # CRP public CSV: derived boolean column
+    if 'Auth_Flagged' in idx:
+        val = row[idx['Auth_Flagged']].strip().upper() if idx['Auth_Flagged'] < len(row) else ''
+        return val == 'TRUE'
+    # Enriched CSV: raw Prolific auth columns
     if 'Auth_LLM' not in idx or 'Auth_Bots' not in idx:
         return False
     llm = row[idx['Auth_LLM']].strip().upper() if idx['Auth_LLM'] < len(row) else ''

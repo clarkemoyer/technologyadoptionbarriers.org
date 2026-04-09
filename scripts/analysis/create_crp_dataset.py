@@ -849,6 +849,45 @@ def deidentify_selected(
     generalize_timestamps(rows, available_ts)
     print(f"  Generalized: {available_ts}")
 
+    # Step 4b: Add derived quality flag columns for reproducibility
+    # Auth_LLM and Auth_Bots are dropped in Step 5 (platform-specific), but the
+    # conservative_clean sample definition depends on them. Add a single boolean
+    # Auth_Flagged column so the public dataset can reproduce the exact N=79.
+    print("\n--- De-identification Step 4b: Add derived quality columns ---")
+    auth_llm_idx = headers.index("Auth_LLM") if "Auth_LLM" in headers else None
+    auth_bots_idx = headers.index("Auth_Bots") if "Auth_Bots" in headers else None
+    recap_score_idx = headers.index("Q_RecaptchaScore") if "Q_RecaptchaScore" in headers else None
+    sl_count_idx = headers.index("Q_StraightliningCount") if "Q_StraightliningCount" in headers else None
+
+    # Add derived columns at the end
+    headers.append("Auth_Flagged")
+    headers.append("RecaptchaPass")
+    headers.append("StraightliningCount")
+    for r in rows:
+        # Auth_Flagged: True if either Auth_LLM or Auth_Bots is LOW or MIXED
+        if auth_llm_idx is not None and auth_bots_idx is not None:
+            llm = r[auth_llm_idx].strip().upper() if auth_llm_idx < len(r) else ""
+            bots = r[auth_bots_idx].strip().upper() if auth_bots_idx < len(r) else ""
+            flagged = llm in ("LOW", "MIXED") or bots in ("LOW", "MIXED")
+        else:
+            flagged = False
+        r.append("True" if flagged else "False")
+        # RecaptchaPass: True if Q_RecaptchaScore >= 0.5
+        if recap_score_idx is not None and recap_score_idx < len(r):
+            try:
+                score = float(r[recap_score_idx].strip() or "1.0")
+                r.append("True" if score >= 0.5 else "False")
+            except ValueError:
+                r.append("True")
+        else:
+            r.append("True")
+        # StraightliningCount: integer from Q_StraightliningCount
+        if sl_count_idx is not None and sl_count_idx < len(r):
+            r.append(r[sl_count_idx].strip() or "0")
+        else:
+            r.append("0")
+    print(f"  Added: Auth_Flagged, RecaptchaPass, StraightliningCount")
+
     # Step 5: Column exclusion
     print("\n--- De-identification Step 5: Column exclusion ---")
     dropped = sorted(COLUMNS_TO_DROP & set(headers))

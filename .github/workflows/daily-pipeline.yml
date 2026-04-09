@@ -239,14 +239,103 @@ jobs:
       # Runs EVERY DAY against the frozen CSV in the repo, NOT gated
       # on CSV creation. This ensures code changes (bug fixes, new
       # stats) are reflected in CRP pages without touching the data.
+      #
+      # The CRP public CSV is de-identified and lacks Auth_LLM/Auth_Bots
+      # columns needed for conservative_clean filtering. We re-attach
+      # these quality flags by joining on SESSION_ID from the daily
+      # enriched Qualtrics CSV (which has Prolific auth data).
+      - name: Enrich CRP CSV with auth flags (via SESSION_ID join)
+        id: crp_enrich
+        continue-on-error: true
+        run: |
+          CRP_CSV="public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
+          ENRICHED_CSV="${{ runner.temp }}/qualtrics-enriched.csv"
+          OUTPUT="${{ runner.temp }}/crp-enriched-for-analysis.csv"
+          if [ ! -f "$CRP_CSV" ] || [ ! -f "$ENRICHED_CSV" ]; then
+            echo "CRP or enriched CSV missing — skipping enrichment"
+            exit 0
+          fi
+          python3 -c "
+          import csv
+
+          # Load auth flags from enriched CSV, keyed by SESSION_ID
+          auth_by_session = {}
+          with open('$ENRICHED_CSV', encoding='utf-8-sig') as f:
+              reader = csv.reader(f)
+              eh = next(reader); next(reader); next(reader)  # 3-row Qualtrics header
+              eidx = {h: i for i, h in enumerate(eh)}
+              sid_col = eidx.get('SESSION_ID')
+              llm_col = eidx.get('Auth_LLM')
+              bots_col = eidx.get('Auth_Bots')
+              recap_col = eidx.get('Q_RecaptchaScore')
+              sl_col = eidx.get('Q_StraightliningCount')
+              if sid_col is not None:
+                  for r in reader:
+                      sid = r[sid_col].strip()
+                      if sid:
+                          auth_by_session[sid] = {
+                              'Auth_Flagged': 'True' if (
+                                  (llm_col is not None and r[llm_col].strip().upper() in ('LOW','MIXED')) or
+                                  (bots_col is not None and r[bots_col].strip().upper() in ('LOW','MIXED'))
+                              ) else 'False',
+                              'RecaptchaPass': 'True',
+                              'StraightliningCount': '0',
+                          }
+                          if recap_col is not None:
+                              try:
+                                  score = float(r[recap_col].strip() or '1.0')
+                                  auth_by_session[sid]['RecaptchaPass'] = 'True' if score >= 0.5 else 'False'
+                              except ValueError:
+                                  pass
+                          if sl_col is not None:
+                              auth_by_session[sid]['StraightliningCount'] = r[sl_col].strip() or '0'
+
+          print(f'  Auth flags loaded for {len(auth_by_session)} sessions')
+
+          # Read CRP CSV and append derived columns
+          with open('$CRP_CSV', encoding='utf-8-sig') as f:
+              reader = csv.reader(f)
+              crp_headers = next(reader)
+              crp_rows = list(reader)
+          crp_idx = {h: i for i, h in enumerate(crp_headers)}
+          crp_sid_col = crp_idx.get('SESSION_ID')
+
+          new_cols = ['Auth_Flagged', 'RecaptchaPass', 'StraightliningCount']
+          out_headers = crp_headers + new_cols
+          out_rows = []
+          matched = 0
+          for r in crp_rows:
+              sid = r[crp_sid_col].strip() if crp_sid_col is not None else ''
+              auth = auth_by_session.get(sid, {'Auth_Flagged': 'False', 'RecaptchaPass': 'True', 'StraightliningCount': '0'})
+              r.extend([auth['Auth_Flagged'], auth['RecaptchaPass'], auth['StraightliningCount']])
+              out_rows.append(r)
+              if sid in auth_by_session:
+                  matched += 1
+
+          print(f'  Matched {matched}/{len(crp_rows)} CRP rows to enriched auth data')
+
+          with open('$OUTPUT', 'w', newline='', encoding='utf-8') as f:
+              w = csv.writer(f)
+              w.writerow(out_headers)
+              w.writerows(out_rows)
+          print(f'  Wrote enriched CRP CSV: $OUTPUT')
+          "
+
       - name: Unified analysis (CRP frozen N=200)
         id: crp_unified
         continue-on-error: true
         run: |
           set -euo pipefail
-          CRP_CSV="public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
+          # Prefer enriched CRP (with auth flags), fall back to public CSV
+          if [ -f "${{ runner.temp }}/crp-enriched-for-analysis.csv" ]; then
+            CRP_CSV="${{ runner.temp }}/crp-enriched-for-analysis.csv"
+            echo "Using enriched CRP CSV (with auth flags via SESSION_ID join)"
+          else
+            CRP_CSV="public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
+            echo "Fallback: using public CRP CSV (conservative_clean may differ)"
+          fi
           if [ ! -f "$CRP_CSV" ]; then
-            echo "CRP public CSV not in repo — skipping CRP analysis"
+            echo "No CRP CSV available — skipping CRP analysis"
             exit 0
           fi
           python scripts/analysis/tabs_v2_unified_data_analysis.py \
