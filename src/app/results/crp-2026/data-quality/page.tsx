@@ -103,7 +103,7 @@ const DataQualityPage = () => {
             </li>
             <li>
               <strong>Sample Definition</strong> &mdash; Three nested samples are computed, from
-              most restrictive (Conservative Clean) to least (All V2)
+              most restrictive (Conservative Clean) to least restrictive (Prolific Accepted)
             </li>
             <li>
               <strong>Statistical Analysis</strong> &mdash; Every metric is computed independently
@@ -505,10 +505,8 @@ const DataQualityPage = () => {
             </table>
           </div>
           <p className="text-sm text-gray-500">
-            Constraints: Conservative Clean &sube; Flexible Clean &sube; Prolific Accepted &sube;
-            All V2, and All V2 Finished &sube; All V2. Prolific Accepted and All V2 Finished overlap
-            but neither is guaranteed to be a subset of the other (Prolific Accepted includes
-            INCOMPLETE+APPROVED responses; All V2 Finished includes non-APPROVED responses).
+            Constraints: Conservative Clean &sube; Flexible Clean &sube; Prolific Accepted. The CRP
+            dataset uses these three nested sample definitions for sensitivity analysis.
           </p>
         </section>
 
@@ -588,35 +586,8 @@ const DataQualityPage = () => {
               </p>
             </div>
 
-            {/* All V2 Finished */}
-            <div className="border border-gray-200 bg-gray-50 rounded-lg p-5">
-              <h3 className="text-base font-bold text-gray-900 mb-2">
-                4. All V2 Finished (Completed Responses)
-              </h3>
-              <p className="text-sm text-gray-700 mb-3">
-                All finished responses above a minimum duration threshold. Not filtered by Prolific
-                status &mdash; includes returned, timed-out, and awaiting-review participants.
-              </p>
-              <ol className="text-sm text-gray-800 space-y-1 list-decimal list-inside ml-2">
-                <li>Qualtrics Finished == TRUE</li>
-                <li>Duration &ge; 120 seconds (extreme speeders excluded)</li>
-              </ol>
-            </div>
-
-            {/* All V2 */}
-            <div className="border border-gray-200 bg-gray-50 rounded-lg p-5">
-              <h3 className="text-base font-bold text-gray-900 mb-2">
-                5. All V2 (Complete Dataset)
-              </h3>
-              <p className="text-sm text-gray-700 mb-3">
-                Every V2 response including incomplete, deduplicated by PROLIFIC_PID. This is the
-                universe from which all other samples are drawn.
-              </p>
-              <ol className="text-sm text-gray-800 space-y-1 list-decimal list-inside ml-2">
-                <li>StartDate on or after V2 launch (2026-03-23)</li>
-                <li>Deduplicated by PROLIFIC_PID (prefer completed response)</li>
-              </ol>
-            </div>
+            {/* Note: All V2 Finished and All V2 sample definitions are not
+                included in the CRP dataset — only the three groups above. */}
           </div>
 
           {/* Disposition CLEAN vs Conservative Clean */}
