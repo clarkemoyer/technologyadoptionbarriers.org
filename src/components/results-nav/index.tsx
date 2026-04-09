@@ -45,7 +45,7 @@ export function ResultsNav({ children }: ResultsNavProps) {
   const flat = flattenResultsSeries()
   const currentIndex = flat.findIndex((item) => normalizePath(item.href) === currentPath)
   const prev = currentIndex > 0 ? flat[currentIndex - 1] : null
-  const next = currentIndex < flat.length - 1 ? flat[currentIndex + 1] : null
+  const next = currentIndex !== -1 && currentIndex < flat.length - 1 ? flat[currentIndex + 1] : null
 
   return (
     <>

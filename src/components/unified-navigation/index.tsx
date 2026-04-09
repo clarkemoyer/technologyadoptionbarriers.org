@@ -60,6 +60,10 @@ export default function UnifiedNavigation({
       if (!el.id) {
         el.id = slugify(el.textContent || '')
       }
+      // Ensure headings clear the sticky header when targeted
+      if (!el.style.scrollMarginTop) {
+        el.style.scrollMarginTop = '100px'
+      }
       return { id: el.id, text: el.textContent || '' }
     })
     setHeadings(items)
@@ -121,7 +125,12 @@ export default function UnifiedNavigation({
             {item.children ? (
               <details
                 className="group"
-                defaultOpen={item.isCurrent || item.children.some((c) => c.isCurrent)}
+                ref={(node) => {
+                  if (node && !node.hasAttribute('data-init')) {
+                    node.open = item.isCurrent || item.children!.some((c) => c.isCurrent)
+                    node.setAttribute('data-init', '')
+                  }
+                }}
               >
                 <summary className="flex cursor-pointer items-center gap-1 py-1 text-gray-600 hover:text-gray-900">
                   <span
@@ -230,7 +239,10 @@ export default function UnifiedNavigation({
       {/* Mobile FAB + panel */}
       <div className="xl:hidden fixed bottom-6 right-6 z-50" ref={panelRef}>
         {mobileOpen && (
-          <div className="absolute bottom-14 right-0 w-72 max-h-[60vh] overflow-y-auto bg-white rounded-xl shadow-2xl border border-gray-200 p-4 space-y-4">
+          <div
+            id="mobile-nav-panel"
+            className="absolute bottom-14 right-0 w-72 max-h-[60vh] overflow-y-auto bg-white rounded-xl shadow-2xl border border-gray-200 p-4 space-y-4"
+          >
             {hasSeries && (
               <details>
                 <summary className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2 cursor-pointer">
@@ -241,7 +253,12 @@ export default function UnifiedNavigation({
                     <li key={`mobile:${item.href}:${item.title}`}>
                       {item.children ? (
                         <details
-                          defaultOpen={item.isCurrent || item.children.some((c) => c.isCurrent)}
+                          ref={(node) => {
+                            if (node && !node.hasAttribute('data-init')) {
+                              node.open = item.isCurrent || item.children!.some((c) => c.isCurrent)
+                              node.setAttribute('data-init', '')
+                            }
+                          }}
                         >
                           <summary className="flex cursor-pointer items-center gap-1 py-0.5 text-gray-600 hover:text-gray-900">
                             <span
@@ -335,6 +352,8 @@ export default function UnifiedNavigation({
         <button
           type="button"
           aria-label="Navigation"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-nav-panel"
           onClick={() => setMobileOpen((v) => !v)}
           className="flex h-12 w-12 items-center justify-center rounded-full bg-tabs-teal-deep text-white shadow-lg hover:opacity-90 transition-opacity"
         >
