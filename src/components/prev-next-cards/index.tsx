@@ -19,7 +19,7 @@ export default function PrevNextCards({ prev, next, className }: PrevNextCardsPr
       aria-label="Previous and next pages"
       className={`grid grid-cols-1 sm:grid-cols-2 gap-4 ${className ?? ''}`}
     >
-      {prev ? (
+      {prev && (
         <Link
           href={prev.href}
           className="block p-4 sm:p-6 rounded-lg border border-gray-200 hover:border-tabs-teal-deep hover:shadow-md transition-all"
@@ -27,10 +27,8 @@ export default function PrevNextCards({ prev, next, className }: PrevNextCardsPr
           <span className="text-tabs-teal-deep text-sm font-sans mb-1 block">← Previous</span>
           <span className="text-gray-900 font-semibold font-serif block">{prev.title}</span>
         </Link>
-      ) : (
-        <span />
       )}
-      {next ? (
+      {next && (
         <Link
           href={next.href}
           className="block p-4 sm:p-6 rounded-lg border border-gray-200 hover:border-tabs-teal-deep hover:shadow-md transition-all text-right sm:col-start-2"
@@ -38,8 +36,6 @@ export default function PrevNextCards({ prev, next, className }: PrevNextCardsPr
           <span className="text-tabs-teal-deep text-sm font-sans mb-1 block">Next →</span>
           <span className="text-gray-900 font-semibold font-serif block">{next.title}</span>
         </Link>
-      ) : (
-        <span />
       )}
     </nav>
   )

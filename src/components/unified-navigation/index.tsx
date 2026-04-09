@@ -121,7 +121,7 @@ export default function UnifiedNavigation({
             {item.children ? (
               <details
                 className="group"
-                open={item.isCurrent || item.children.some((c) => c.isCurrent)}
+                defaultOpen={item.isCurrent || item.children.some((c) => c.isCurrent)}
               >
                 <summary className="flex cursor-pointer items-center gap-1 py-1 text-gray-600 hover:text-gray-900">
                   <span
@@ -240,7 +240,9 @@ export default function UnifiedNavigation({
                   {seriesItems!.map((item) => (
                     <li key={`mobile:${item.href}:${item.title}`}>
                       {item.children ? (
-                        <details open={item.isCurrent || item.children.some((c) => c.isCurrent)}>
+                        <details
+                          defaultOpen={item.isCurrent || item.children.some((c) => c.isCurrent)}
+                        >
                           <summary className="flex cursor-pointer items-center gap-1 py-0.5 text-gray-600 hover:text-gray-900">
                             <span
                               className="text-[10px] transition-transform [details[open]>&]:rotate-90"
