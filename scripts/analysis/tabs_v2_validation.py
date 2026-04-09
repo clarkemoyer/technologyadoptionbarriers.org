@@ -978,27 +978,33 @@ def main():
     print(f"{'='*70}")
     safe_barrier_data = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
     barrier_4f_factors = ['OrgCultural', 'Strategic', 'Resource', 'RiskTrust']
-    barrier_4f_cfa: dict = {}
-    for factor_name in barrier_4f_factors:
-        factor_result = run_cfa(safe_barrier_data, cfa_models['barriers_4f'], factor_name)
-        if 'error' in factor_result:
-            barrier_4f_cfa = factor_result
-            break
-        if not barrier_4f_cfa:
-            barrier_4f_cfa = {
-                'construct': 'Barriers_4F',
-                'cfi': factor_result.get('cfi'),
-                'tli': factor_result.get('tli'),
-                'rmsea': factor_result.get('rmsea'),
-                'srmr': factor_result.get('srmr'),
-                'loadings': {},
-            }
-        barrier_4f_cfa['loadings'][factor_name] = factor_result.get('loadings', {})
-    if 'error' not in barrier_4f_cfa:
+    # Run once per latent factor to extract per-factor loadings.
+    # Fit indices (CFI/TLI/RMSEA/SRMR) are model-level — identical across all runs
+    # since the same full model is fitted each time; taken from the first run.
+    barrier_4f_runs = [
+        run_cfa(safe_barrier_data, cfa_models['barriers_4f'], factor_name)
+        for factor_name in barrier_4f_factors
+    ]
+    barrier_4f_error = next(
+        (r['error'] for r in barrier_4f_runs if 'error' in r), None
+    )
+    if barrier_4f_error is None:
+        barrier_4f_cfa = {
+            'construct': 'Barriers_4F',
+            'cfi': barrier_4f_runs[0].get('cfi'),
+            'tli': barrier_4f_runs[0].get('tli'),
+            'rmsea': barrier_4f_runs[0].get('rmsea'),
+            'srmr': barrier_4f_runs[0].get('srmr'),
+            'loadings': {
+                fn: r.get('loadings', {})
+                for fn, r in zip(barrier_4f_factors, barrier_4f_runs)
+            },
+        }
         print(f"  CFI={barrier_4f_cfa.get('cfi')}, TLI={barrier_4f_cfa.get('tli')}, "
               f"RMSEA={barrier_4f_cfa.get('rmsea')}, SRMR={barrier_4f_cfa.get('srmr')}")
     else:
-        print(f"  Error: {barrier_4f_cfa['error']}")
+        barrier_4f_cfa = {'construct': 'Barriers_4F', 'error': barrier_4f_error}
+        print(f"  Error: {barrier_4f_error}")
 
     # ── Discriminant validity ──
     discrim = compute_discriminant_validity(df, construct_results, n_boot=n_boot, rng=rng)
