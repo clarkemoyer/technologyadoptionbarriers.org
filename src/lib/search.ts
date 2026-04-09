@@ -110,17 +110,17 @@ function getMatchedFields(document: SearchDocument, queryTokens: string[]): stri
   const fields: string[] = []
 
   const titleTokens = tokenize(document.title)
-  if (queryTokens.some((t) => titleTokens.some((tt) => tt.includes(t) || t.includes(tt)))) {
+  if (queryTokens.some((t) => titleTokens.some((tt) => tokensMatch(tt, t)))) {
     fields.push('title')
   }
 
   const descTokens = tokenize(document.description)
-  if (queryTokens.some((t) => descTokens.some((dt) => dt.includes(t) || t.includes(dt)))) {
+  if (queryTokens.some((t) => descTokens.some((dt) => tokensMatch(dt, t)))) {
     fields.push('description')
   }
 
   const contentTokens = tokenize(document.content)
-  if (queryTokens.some((t) => contentTokens.some((ct) => ct.includes(t) || t.includes(ct)))) {
+  if (queryTokens.some((t) => contentTokens.some((ct) => tokensMatch(ct, t)))) {
     fields.push('content')
   }
 

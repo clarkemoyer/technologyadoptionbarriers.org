@@ -15,6 +15,10 @@
 import { promises as fs } from 'fs'
 import path from 'path'
 import { faqs } from '../src/data/faqs'
+import {
+  technologyAdoptionTeachingSeries,
+  technologyAdoptionTeachingSeriesResources,
+} from '../src/data/technology-adoption-teaching-series'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -100,9 +104,11 @@ function extractStaticMetadata(source: string): {
  * code, and keep only the text content that a visitor would see.
  */
 function extractVisibleText(source: string): string {
-  // Isolate the JSX returned by the component
-  const returnMatch = source.match(/return\s*\(\s*([\s\S]*)\)\s*\}/)
-  const jsx = returnMatch ? returnMatch[1] : source
+  // Isolate the JSX returned by the component.
+  // Try `return (...)` first, then fall back to `return <...>` (no parens).
+  const returnParenMatch = source.match(/return\s*\(\s*([\s\S]*)\)\s*\}/)
+  const returnTagMatch = !returnParenMatch ? source.match(/return\s*(<[\s\S]*>)\s*\}/) : null
+  const jsx = returnParenMatch?.[1] ?? returnTagMatch?.[1] ?? ''
 
   let text = jsx
     // Remove {/* comments */}
@@ -117,6 +123,10 @@ function extractVisibleText(source: string): string {
     .replace(/className="[^"]*"/g, '')
     // Remove remaining HTML entities
     .replace(/&[a-z]+;/g, ' ')
+    // Strip email addresses to avoid centralizing scrapeable contact details
+    .replace(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi, ' ')
+    // Strip phone numbers (optional country code, various separators)
+    .replace(/\b(?:\+?\d{1,3}[\s.-]?)?(?:\(?\d{3}\)?[\s.-]?)\d{3}[\s.-]?\d{4}\b/g, ' ')
     // Collapse whitespace
     .replace(/\s+/g, ' ')
     .trim()
@@ -225,6 +235,40 @@ async function expandPersonaRoutes(): Promise<SearchItem[]> {
   return items
 }
 
+/**
+ * Expand dynamic [slide] routes from the teaching series data source.
+ */
+function expandTeachingSeriesRoutes(): SearchItem[] {
+  const rootSlug = technologyAdoptionTeachingSeries.root.slug
+  const items: SearchItem[] = []
+
+  for (const part of technologyAdoptionTeachingSeries.parts) {
+    for (const slide of part.slides) {
+      items.push({
+        id: '', // assigned later
+        url: `${rootSlug}/${slide.segment}`,
+        title: `${slide.title} — Technology Adoption Teaching Series`,
+        description: `${part.title}: ${slide.title}`,
+        content: `${slide.title}. ${part.title}. Technology Adoption Teaching Series.`,
+        category: 'Teaching Series',
+      })
+    }
+  }
+
+  for (const resource of technologyAdoptionTeachingSeriesResources) {
+    items.push({
+      id: '', // assigned later
+      url: `${rootSlug}/${resource.segment}`,
+      title: `${resource.title} — Technology Adoption Teaching Series`,
+      description: `Teaching series resource: ${resource.title}`,
+      content: `${resource.title}. Technology Adoption Teaching Series resource.`,
+      category: 'Teaching Series',
+    })
+  }
+
+  return items
+}
+
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
@@ -288,6 +332,14 @@ async function generateSearchIndex() {
   } catch (err) {
     console.warn('   ⚠ Could not expand persona routes:', (err as Error).message)
   }
+
+  // Expand teaching series slide routes
+  const teachingItems = expandTeachingSeriesRoutes()
+  for (const item of teachingItems) {
+    item.id = `page-${id++}`
+    items.push(item)
+  }
+  console.log(`   Expanded ${teachingItems.length} teaching series routes`)
 
   // FAQ entries
   for (const faq of faqs) {

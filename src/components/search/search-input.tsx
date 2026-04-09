@@ -1,11 +1,15 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import { search, loadSearchIndex, highlightTerms, SearchResult, SearchDocument } from '@/lib/search'
 
 export default function SearchInput() {
+  const instanceId = useId()
+  const listboxId = `search-listbox-${instanceId}`
+  const optionId = (index: number) => `search-option-${instanceId}-${index}`
+  const resultsId = `search-results-${instanceId}`
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -151,9 +155,9 @@ export default function SearchInput() {
           onKeyDown={handleKeyDown}
           className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           aria-expanded={isOpen && query.trim().length > 0}
-          aria-controls="search-listbox"
+          aria-controls={listboxId}
           aria-autocomplete="list"
-          aria-activedescendant={selectedIndex >= 0 ? `search-option-${selectedIndex}` : undefined}
+          aria-activedescendant={selectedIndex >= 0 ? optionId(selectedIndex) : undefined}
           autoComplete="off"
         />
         <svg
@@ -175,7 +179,7 @@ export default function SearchInput() {
       {/* Search Results Dropdown */}
       {isOpen && (query.trim().length > 0 || results.length > 0) && (
         <div
-          id="search-results"
+          id={resultsId}
           className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto"
         >
           {isLoading ? (
@@ -186,21 +190,26 @@ export default function SearchInput() {
               <p className="mt-2">Searching...</p>
             </div>
           ) : results.length > 0 ? (
-            <ul id="search-listbox" role="listbox" className="divide-y divide-gray-200">
-              {results.map((result, index) => (
+            <ul
+              id={listboxId}
+              role="listbox"
+              aria-label="Search results"
+              className="divide-y divide-gray-200"
+            >
+              {results.map((result, idx) => (
                 <li
                   key={result.document.id}
-                  id={`search-option-${index}`}
+                  id={optionId(idx)}
                   role="option"
-                  aria-selected={selectedIndex === index}
+                  aria-selected={selectedIndex === idx}
                   className={`px-4 py-3 cursor-pointer transition-colors ${
-                    selectedIndex === index ? 'bg-blue-50' : 'hover:bg-gray-50'
+                    selectedIndex === idx ? 'bg-blue-50' : 'hover:bg-gray-50'
                   }`}
                   onClick={() => {
                     router.push(result.document.url)
                     closeSearch()
                   }}
-                  onMouseEnter={() => setSelectedIndex(index)}
+                  onMouseEnter={() => setSelectedIndex(idx)}
                 >
                   <h4 className="font-semibold text-gray-900 mb-1">{result.document.title}</h4>
                   {result.document.category && (

@@ -164,7 +164,9 @@ test.describe('Full-site search', () => {
     await searchInput.click()
     await searchInput.fill('@#$%')
 
-    // Should not crash - outer results container is still visible
-    await expect(page.locator('#search-results')).toBeVisible()
+    // Should not crash - search dropdown is still visible (no results or results shown)
+    await expect(
+      page.locator('[role="search"] >> text=No results found').or(page.locator('[role="listbox"]'))
+    ).toBeVisible()
   })
 })
