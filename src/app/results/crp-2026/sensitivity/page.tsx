@@ -211,9 +211,8 @@ const CrpSensitivityPage = () => {
                   </thead>
                   <tbody>
                     {metrics.map((metric, i) => {
-                      const baseVal = (metric.values as Record<string, number | null>)[
-                        primaryKey
-                      ] as number | null
+                      const baseVal =
+                        (metric.values as Record<string, number | null>)[primaryKey] ?? null
                       return (
                         <tr key={metric.key} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
                           <td className="border border-gray-300 px-4 py-2 font-medium">
@@ -223,9 +222,8 @@ const CrpSensitivityPage = () => {
                             {fmt(baseVal, 4)}
                           </td>
                           {comparisonGroups.map((g) => {
-                            const compVal = (metric.values as Record<string, number | null>)[
-                              g.key
-                            ] as number | null
+                            const compVal =
+                              (metric.values as Record<string, number | null>)[g.key] ?? null
                             const delta =
                               baseVal !== null && compVal !== null ? compVal - baseVal : null
                             return (
