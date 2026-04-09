@@ -22,25 +22,25 @@ Site navigation is inconsistent across pages and collections. Mobile menus use d
 | **Article TOC**  | `src/components/article-toc/index.tsx`                | Fixed right sidebar + progress bar | FAB button + popup                               | Some long articles                 |
 | **Footer Nav**   | `src/components/footer/index.tsx`                     | 5-col grid                         | 1-2 col grid                                     | All pages                          |
 
-### Collections Missing Series Navigation and Prev/Next
+### Collections Missing Standardized Series Navigation
 
-| Collection              | Approx. Pages             | Has Series Nav? | Has Prev/Next? |
-| ----------------------- | ------------------------- | --------------- | -------------- |
-| Making of TABS          | ~15 pages, 3+ levels deep | No              | No             |
-| Results                 | ~10 pages                 | No              | No             |
-| CRP 2026                | ~8 pages                  | No              | No             |
-| See Yourself (Personas) | ~12 pages                 | No              | No             |
-| For Organizations       | ~4 pages                  | No              | No             |
-| Concept Mapping         | 3 pages                   | No              | No             |
-| Bibliography            | 41+ pages                 | No              | No             |
+| Collection              | Approx. Pages             | Has Dedicated Series Nav Component? | Has Standardized Prev/Next?                 |
+| ----------------------- | ------------------------- | ----------------------------------- | ------------------------------------------- |
+| Making of TABS          | ~15 pages, 3+ levels deep | No                                  | No (some pages have ad-hoc prev/next links) |
+| Results                 | ~10 pages                 | No                                  | No                                          |
+| CRP 2026                | ~8 pages                  | No                                  | No                                          |
+| See Yourself (Personas) | ~12 pages                 | No                                  | No                                          |
+| For Organizations       | ~4 pages                  | No                                  | No                                          |
+| Concept Mapping         | 3 pages                   | No                                  | No                                          |
+| Bibliography            | 41+ pages                 | No                                  | No                                          |
 
-Only Technology Adoption Models and Teaching Series currently have series navigation and prev/next links.
+Technology Adoption Models and Teaching Series are the only sections shown here with dedicated, reusable series-navigation components and standardized prev/next patterns. Some other sections, including parts of Making of TABS, already use ad-hoc prev/next links on individual pages.
 
 ### Key Inconsistencies
 
 1. **Three different mobile nav patterns**: JS toggles (header), native `<details>` (series nav), FAB popup (article TOC)
 2. **Series navigation pushes content down**: The top-of-page box on Models and Teaching pages takes significant vertical space before the reader reaches the article
-3. **No breadcrumbs anywhere**: Deep pages like `/making-of-tabs/ai-validity-checks/gemini-3-1-review/methodology` have no wayfinding
+3. **Breadcrumbs are inconsistent across deep pages**: Some areas already render breadcrumb navigation, but many deep pages still lack reliable wayfinding and hierarchy cues
 4. **Progress bar only on some pages**: The reading progress indicator exists in `article-toc` but isn't used on stats or results pages that are equally long
 5. **Footer groups don't match header groups**: Different organization, different page order
 6. **Dense pages lack navigation aids**: Results pages with heavy tables and data have no section jumping, no sticky headers, no "back to top"
