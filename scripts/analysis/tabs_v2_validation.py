@@ -56,7 +56,7 @@ except ImportError:
 
 
 # ============================================================================
-# CONSTANTS (mirrored from tabs_v2_analysis.py — single source of truth)
+# CONSTANTS (duplicated from tabs_v2_analysis.py for standalone use; keep in sync)
 # ============================================================================
 
 V2_START = "2026-03-23 14:00:00"
@@ -448,7 +448,7 @@ def htmt_ratio(data1, data2):
     return between_mean / geo if geo > 0 else np.nan
 
 
-def htmt_bootstrap_ci(data1, data2, n_boot=2000, ci=0.95):
+def htmt_bootstrap_ci(data1, data2, n_boot=2000, ci=0.95, seed=42):
     """Bootstrap CI for HTMT ratio."""
     combined = pd.concat([data1, data2], axis=1).dropna()
     if len(combined) < 10:
@@ -458,8 +458,9 @@ def htmt_bootstrap_ci(data1, data2, n_boot=2000, ci=0.95):
     n = len(combined)
     boot_vals = []
 
+    rng = np.random.default_rng(seed)
     for _ in range(n_boot):
-        idx = np.random.choice(n, size=n, replace=True)
+        idx = rng.choice(n, size=n, replace=True)
         b = combined.iloc[idx]
         b1 = b.iloc[:, :data1.shape[1]]
         b2 = b.iloc[:, data1.shape[1]:]

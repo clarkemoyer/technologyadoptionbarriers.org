@@ -267,7 +267,7 @@ const FactorAnalysisPage = () => {
 
         <FlowArrow label="EFA with Promax rotation + Horn's Parallel Analysis" />
 
-        {/* ═══════════════════════════════════════════════���══════════
+        {/* ══════════════════════════════════════════════════════════
             LEVEL 2: EFA 2-FACTOR
         ══════════════════════════════════════════════════════════ */}
         <section className={SECTION_CLASSES}>
