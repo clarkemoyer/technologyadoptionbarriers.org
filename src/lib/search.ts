@@ -153,14 +153,24 @@ export function search(documents: SearchDocument[], query: string, limit = 10): 
 export async function loadSearchIndex(): Promise<SearchDocument[]> {
   try {
     const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
-    const response = await fetch(`${basePath}/search-index.json`)
+    const searchIndexPath = `${basePath}/search-index.json`
+    // In browser environments, construct an absolute URL so fetch works in all
+    // contexts (including Jest/jsdom where a relative URL throws).
+    const searchIndexUrl =
+      typeof window !== 'undefined' && window.location?.origin
+        ? new URL(searchIndexPath, window.location.origin).toString()
+        : searchIndexPath
+
+    const response = await fetch(searchIndexUrl)
     if (!response.ok) {
       throw new Error(`Failed to load search index: ${response.status}`)
     }
     const data = await response.json()
     return Array.isArray(data) ? data : []
   } catch (error) {
-    console.error('Error loading search index:', error)
+    if (process.env.NODE_ENV !== 'test') {
+      console.error('Error loading search index:', error)
+    }
     return []
   }
 }
