@@ -4,8 +4,8 @@ import React, { useState, useEffect, useMemo, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FiMenu } from 'react-icons/fi'
-import { LiaSearchSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
+import SearchInput from '@/components/search/search-input'
 import { motion, AnimatePresence } from 'framer-motion'
 import { technologyAdoptionModelsSeries } from '@/data/technology-adoption-models-series'
 import {
@@ -25,6 +25,8 @@ interface MenuItem {
   children?: Array<{
     label: string
     path: string
+    isGroupHeader?: boolean
+    isDivider?: boolean
   }>
 }
 
@@ -32,7 +34,6 @@ const SCROLL_OFFSET = 100
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
@@ -47,7 +48,6 @@ const Header: React.FC = () => {
   const [isMobileOrganizationsOpen, setIsMobileOrganizationsOpen] = useState(false)
   const [mobileOpenDropdown, setMobileOpenDropdown] = useState<string | null>(null)
   const [activeSection, setActiveSection] = useState<string>('')
-  const [searchQuery, setSearchQuery] = useState('')
   const megaMenuRef = useRef<HTMLDivElement>(null)
   const activeMegaMenuButtonRef = useRef<HTMLLIElement | null>(null)
   const dropdownMenuRef = useRef<HTMLDivElement>(null)
@@ -87,8 +87,17 @@ const Header: React.FC = () => {
         label: 'Results',
         path: '/results',
         children: [
-          { label: 'Overview', path: '/results' },
-          { label: 'CRP 2026 Dataset', path: '/results/crp-2026' },
+          { label: 'CRP 2026 Dataset', path: '/results/crp-2026', isGroupHeader: true },
+          { label: 'CRP Overview & Download', path: '/results/crp-2026' },
+          { label: 'CRP Sample & Demographics', path: '/results/crp-2026/sample' },
+          { label: 'CRP Descriptive Statistics', path: '/results/crp-2026/descriptive' },
+          { label: 'CRP Scale Reliability', path: '/results/crp-2026/reliability' },
+          { label: 'CRP Sensitivity Analysis', path: '/results/crp-2026/sensitivity' },
+          { label: 'CRP Key Findings', path: '/results/crp-2026/findings' },
+          { label: 'CRP Data Quality', path: '/results/crp-2026/data-quality' },
+          { label: '', path: '', isDivider: true },
+          { label: 'Live Results (Updated Daily)', path: '/results', isGroupHeader: true },
+          { label: 'Results Overview', path: '/results' },
           { label: 'Sample & Demographics', path: '/results/sample' },
           { label: 'Data Quality Pipeline', path: '/results/data-quality' },
           { label: 'Descriptive Statistics', path: '/results/descriptive' },
@@ -227,17 +236,6 @@ const Header: React.FC = () => {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [activeMegaMenu, openDropdown])
 
-  const handleSearchToggle = () => setIsSearchOpen(!isSearchOpen)
-
-  const handleSearch = () => {
-    if (!searchQuery.trim()) return
-    const hostname = window.location.hostname || 'technologyadoptionbarriers.org'
-    const query = encodeURIComponent(`site:${hostname} ${searchQuery}`)
-    window.open(`https://www.google.com/search?q=${query}`, '_blank')
-    setIsSearchOpen(false)
-    setSearchQuery('')
-  }
-
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false)
     setActiveMegaMenu(null)
@@ -307,68 +305,94 @@ const Header: React.FC = () => {
               </Link>
             </div>
 
-            {/* Menu or Search */}
-            {!isSearchOpen ? (
-              <div className="flex items-center justify-end sm:pl-[50px] md:pl-[70px] w-full">
-                {/* Primary CTA (always visible, incl. mobile) */}
-                <a
-                  href={TAKE_TABS_URL}
-                  onClick={handleLinkClick}
-                  data-testid="header-take-tabs-cta"
-                  className="order-3 inline-flex shrink-0 items-center whitespace-nowrap rounded-md bg-blue-600 px-3 py-2 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:px-4 sm:text-[14px]"
-                >
-                  Take the TABS
-                </a>
+            {/* Menu and Search */}
+            <div className="flex items-center justify-end sm:pl-[50px] md:pl-[70px] w-full">
+              {/* Primary CTA (always visible, incl. mobile) */}
+              <a
+                href={TAKE_TABS_URL}
+                onClick={handleLinkClick}
+                data-testid="header-take-tabs-cta"
+                className="order-3 inline-flex shrink-0 items-center whitespace-nowrap rounded-md bg-blue-600 px-3 py-2 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:px-4 sm:text-[14px]"
+              >
+                Take the TABS
+              </a>
 
-                {/* Desktop Menu */}
-                <nav className="order-1 hidden xl:block transition-all duration-300">
-                  <ul className="flex items-center space-x-0 2xl:space-x-[1px] font-navbar font-[600]">
-                    {menuItems.map((item, index) => (
-                      <li
-                        key={index}
-                        className="relative py-6"
-                        ref={
-                          item.hasMegaMenu
-                            ? (node) => {
-                                if (activeMegaMenu === item.megaMenuId) {
-                                  activeMegaMenuButtonRef.current = node
+              {/* Desktop Menu */}
+              <nav className="order-1 hidden xl:block transition-all duration-300">
+                <ul className="flex items-center space-x-0 2xl:space-x-[1px] font-navbar font-[600]">
+                  {menuItems.map((item, index) => (
+                    <li
+                      key={index}
+                      className="relative py-6"
+                      ref={
+                        item.hasMegaMenu
+                          ? (node) => {
+                              if (activeMegaMenu === item.megaMenuId) {
+                                activeMegaMenuButtonRef.current = node
+                              }
+                            }
+                          : item.children?.length
+                            ? (node: HTMLLIElement | null) => {
+                                if (openDropdown === item.path) {
+                                  dropdownButtonRef.current = node
                                 }
                               }
-                            : item.children?.length
-                              ? (node: HTMLLIElement | null) => {
-                                  if (openDropdown === item.path) {
-                                    dropdownButtonRef.current = node
-                                  }
-                                }
-                              : null
-                        }
-                        onMouseEnter={() => {
-                          if (item.children?.length) setOpenDropdown(item.path)
-                        }}
-                        onMouseLeave={() => {
-                          if (item.children?.length) setOpenDropdown(null)
-                        }}
-                      >
-                        {item.hasMegaMenu ? (
+                            : null
+                      }
+                      onMouseEnter={() => {
+                        if (item.children?.length) setOpenDropdown(item.path)
+                      }}
+                      onMouseLeave={() => {
+                        if (item.children?.length) setOpenDropdown(null)
+                      }}
+                    >
+                      {item.hasMegaMenu ? (
+                        <button
+                          onClick={() => toggleMegaMenu(item.megaMenuId || '')}
+                          onMouseEnter={() => item.megaMenuId && setActiveMegaMenu(item.megaMenuId)}
+                          onFocus={() => item.megaMenuId && setActiveMegaMenu(item.megaMenuId)}
+                          className={`flex items-center px-1.5 xl:px-2 2xl:px-3 py-2 text-[12px] xl:text-[13px] 2xl:text-[14px] transition-colors duration-200 ${
+                            isActive(item.path) || activeMegaMenu === item.megaMenuId
+                              ? 'text-blue-600'
+                              : 'text-gray-600 hover:text-gray-500'
+                          }`}
+                          aria-expanded={activeMegaMenu === item.megaMenuId}
+                          aria-controls="mega-menu"
+                        >
+                          {item.label}
+                          <svg
+                            className={`w-4 h-4 ml-1 transition-transform ${
+                              activeMegaMenu === item.megaMenuId ? 'rotate-180' : ''
+                            }`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        </button>
+                      ) : item.children?.length ? (
+                        <>
                           <button
-                            onClick={() => toggleMegaMenu(item.megaMenuId || '')}
-                            onMouseEnter={() =>
-                              item.megaMenuId && setActiveMegaMenu(item.megaMenuId)
-                            }
-                            onFocus={() => item.megaMenuId && setActiveMegaMenu(item.megaMenuId)}
+                            onClick={() => toggleDropdown(item.path)}
+                            onFocus={() => setOpenDropdown(item.path)}
                             className={`flex items-center px-1.5 xl:px-2 2xl:px-3 py-2 text-[12px] xl:text-[13px] 2xl:text-[14px] transition-colors duration-200 ${
-                              isActive(item.path) || activeMegaMenu === item.megaMenuId
+                              isActive(item.path)
                                 ? 'text-blue-600'
                                 : 'text-gray-600 hover:text-gray-500'
                             }`}
-                            aria-expanded={activeMegaMenu === item.megaMenuId}
-                            aria-controls="mega-menu"
+                            aria-expanded={openDropdown === item.path}
+                            aria-controls={`dropdown-${item.path.replace(/\//g, '-')}`}
                           >
                             {item.label}
                             <svg
-                              className={`w-4 h-4 ml-1 transition-transform ${
-                                activeMegaMenu === item.megaMenuId ? 'rotate-180' : ''
-                              }`}
+                              className={`w-4 h-4 ml-1 transition-transform ${openDropdown === item.path ? 'rotate-180' : ''}`}
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
@@ -382,44 +406,29 @@ const Header: React.FC = () => {
                               />
                             </svg>
                           </button>
-                        ) : item.children?.length ? (
-                          <>
-                            <button
-                              onClick={() => toggleDropdown(item.path)}
-                              onFocus={() => setOpenDropdown(item.path)}
-                              className={`flex items-center px-1.5 xl:px-2 2xl:px-3 py-2 text-[12px] xl:text-[13px] 2xl:text-[14px] transition-colors duration-200 ${
-                                isActive(item.path)
-                                  ? 'text-blue-600'
-                                  : 'text-gray-600 hover:text-gray-500'
-                              }`}
-                              aria-expanded={openDropdown === item.path}
-                              aria-controls={`dropdown-${item.path.replace(/\//g, '-')}`}
-                            >
-                              {item.label}
-                              <svg
-                                className={`w-4 h-4 ml-1 transition-transform ${openDropdown === item.path ? 'rotate-180' : ''}`}
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                aria-hidden="true"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M19 9l-7 7-7-7"
-                                />
-                              </svg>
-                            </button>
 
-                            {openDropdown === item.path && (
-                              <div
-                                id={`dropdown-${item.path.replace(/\//g, '-')}`}
-                                ref={dropdownMenuRef}
-                                className="absolute left-0 top-full w-64 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
-                              >
-                                <ul className="py-2">
-                                  {item.children.map((child) => (
+                          {openDropdown === item.path && (
+                            <div
+                              id={`dropdown-${item.path.replace(/\//g, '-')}`}
+                              ref={dropdownMenuRef}
+                              className="absolute left-0 top-full w-72 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg max-h-[80vh] overflow-y-auto"
+                            >
+                              <ul className="py-2">
+                                {item.children.map((child, ci) =>
+                                  child.isDivider ? (
+                                    <li
+                                      key={`divider-${ci}`}
+                                      aria-hidden="true"
+                                      className="my-1 border-t border-gray-200"
+                                    />
+                                  ) : child.isGroupHeader ? (
+                                    <li
+                                      key={`group-${child.label}`}
+                                      className="px-4 pt-3 pb-1 text-[11px] font-bold uppercase tracking-wider text-gray-400"
+                                    >
+                                      {child.label}
+                                    </li>
+                                  ) : (
                                     <li key={child.path}>
                                       <Link
                                         href={child.path}
@@ -429,93 +438,48 @@ const Header: React.FC = () => {
                                         {child.label}
                                       </Link>
                                     </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-                          </>
-                        ) : (
-                          <Link
-                            href={item.path}
-                            onClick={handleLinkClick}
-                            className={`flex items-center px-1.5 xl:px-2 2xl:px-3 py-2 text-[12px] xl:text-[13px] 2xl:text-[14px] transition-colors duration-200 ${
-                              isActive(item.path)
-                                ? 'text-blue-600'
-                                : 'text-gray-600 hover:text-gray-500'
-                            }`}
-                          >
-                            {item.label}
-                          </Link>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
+                                  )
+                                )}
+                              </ul>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <Link
+                          href={item.path}
+                          onClick={handleLinkClick}
+                          className={`flex items-center px-1.5 xl:px-2 2xl:px-3 py-2 text-[12px] xl:text-[13px] 2xl:text-[14px] transition-colors duration-200 ${
+                            isActive(item.path)
+                              ? 'text-blue-600'
+                              : 'text-gray-600 hover:text-gray-500'
+                          }`}
+                        >
+                          {item.label}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </nav>
 
-                {/* Search Icon */}
-                <div className="order-2 hidden xl:flex items-center">
-                  <button
-                    onClick={handleSearchToggle}
-                    className="p-2 text-gray-600 hover:text-blue-600 transition-colors"
-                    aria-label="Search"
-                  >
-                    <LiaSearchSolid className="h-5 w-5 cursor-pointer" />
-                  </button>
-                </div>
-
-                {/* Mobile Menu Button */}
-                <button
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="order-2 xl:hidden p-2 text-gray-600 hover:text-blue-600"
-                  aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-                >
-                  {isMobileMenuOpen ? (
-                    <RxCross2 className="h-6 w-6" />
-                  ) : (
-                    <FiMenu className="h-6 w-6" />
-                  )}
-                </button>
+              {/* Search */}
+              <div className="order-2 hidden xl:flex items-center">
+                <SearchInput />
               </div>
-            ) : (
-              // Search Input
-              <div className="w-full flex items-center justify-end gap-2 transition-all duration-300">
-                <div className="order-1 w-full max-w-[750px] flex items-center justify-between">
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="w-full px-4 py-2 focus:outline-none"
-                    autoFocus
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                    aria-label="Search input"
-                  />
-                  <button
-                    onClick={handleSearch}
-                    className="ml-2 p-2 text-gray-600 hover:text-blue-600 transition-colors"
-                    aria-label="Submit search"
-                  >
-                    <LiaSearchSolid className="cursor-pointer h-5 w-5" />
-                  </button>
-                  <button
-                    onClick={handleSearchToggle}
-                    className="ml-2 p-2 text-gray-600 hover:text-blue-600 transition-colors"
-                    aria-label="Close search"
-                  >
-                    <RxCross2 className="cursor-pointer h-5 w-5" />
-                  </button>
-                </div>
 
-                <a
-                  href={TAKE_TABS_URL}
-                  onClick={handleLinkClick}
-                  data-testid="header-take-tabs-cta"
-                  className="order-2 inline-flex shrink-0 items-center whitespace-nowrap rounded-md bg-blue-600 px-3 py-2 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:px-4 sm:text-[14px]"
-                >
-                  Take the TABS
-                </a>
-              </div>
-            )}
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="order-2 xl:hidden p-2 text-gray-600 hover:text-blue-600"
+                aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+              >
+                {isMobileMenuOpen ? (
+                  <RxCross2 className="h-6 w-6" />
+                ) : (
+                  <FiMenu className="h-6 w-6" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1311,17 +1275,32 @@ const Header: React.FC = () => {
                             id={`mobile-dropdown-${item.path.replace(/\//g, '-')}`}
                             className="ml-4 mt-1 space-y-1"
                           >
-                            {item.children.map((child) => (
-                              <li key={child.path}>
-                                <Link
-                                  href={child.path}
-                                  onClick={handleLinkClick}
-                                  className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                            {item.children.map((child, ci) =>
+                              child.isDivider ? (
+                                <li
+                                  key={`divider-${ci}`}
+                                  aria-hidden="true"
+                                  className="my-1 border-t border-gray-200"
+                                />
+                              ) : child.isGroupHeader ? (
+                                <li
+                                  key={`group-${child.label}`}
+                                  className="px-4 pt-3 pb-1 text-[11px] font-bold uppercase tracking-wider text-gray-400"
                                 >
                                   {child.label}
-                                </Link>
-                              </li>
-                            ))}
+                                </li>
+                              ) : (
+                                <li key={child.path}>
+                                  <Link
+                                    href={child.path}
+                                    onClick={handleLinkClick}
+                                    className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                  >
+                                    {child.label}
+                                  </Link>
+                                </li>
+                              )
+                            )}
                           </ul>
                         )}
                       </div>

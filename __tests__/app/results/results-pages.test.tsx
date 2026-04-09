@@ -274,12 +274,18 @@ jest.mock('@/data/data-audit.json', () => ({
   dispositionByStatus: {},
 }))
 jest.mock('@/data/crp-sensitivity-analysis.json', () => ({
-  last_updated: 'placeholder',
+  ...MOCK_SENSITIVITY_DATA,
   samples: [
     { key: 'conservative_clean', label: 'Conservative Clean', description: 'test', n: 78 },
     { key: 'flexible_clean', label: 'Flexible Clean', description: 'test', n: 123 },
     { key: 'prolific_accepted', label: 'CRP Sample', description: 'test', n: 200 },
   ],
+}))
+
+// Mock EffectSizeChart so we can inspect the data props it receives.
+jest.mock('@/components/effect-size-chart', () => ({
+  __esModule: true,
+  default: jest.fn(() => null),
 }))
 
 /* ── Tests ─────────────────────────────────────────────────── */
@@ -439,5 +445,94 @@ describe('CRP 2026 Page', () => {
     const { default: Page } = await import('@/app/results/crp-2026/page')
     render(<Page />)
     expect(screen.getByRole('heading', { name: /download the dataset/i })).toBeInTheDocument()
+  })
+})
+
+describe('CRP 2026 Descriptive Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/descriptive/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /CRP 2026.*Descriptive/i })).toBeInTheDocument()
+  })
+})
+
+describe('CRP 2026 Reliability Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/reliability/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /CRP 2026.*Reliability/i })).toBeInTheDocument()
+  })
+})
+
+describe('CRP 2026 Sensitivity Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/sensitivity/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /CRP 2026.*Sensitivity/i })).toBeInTheDocument()
+  })
+})
+
+describe('CRP 2026 Findings Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/findings/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /CRP 2026.*Findings/i })).toBeInTheDocument()
+  })
+
+  it('maps d_ci_lower/d_ci_upper from JSON to ci_lower/ci_upper for EffectSizeChart', async () => {
+    type ChartEntry = { construct: string; ci_lower: number | null; ci_upper: number | null }
+    const MockChart = jest.requireMock('@/components/effect-size-chart').default as jest.Mock<
+      null,
+      [{ data: ChartEntry[] }]
+    >
+    MockChart.mockClear()
+
+    const sampleDetail = MOCK_SENSITIVITY_DATA.sample_details.conservative_clean
+    const savedEffects = (sampleDetail as Record<string, unknown>).effect_sizes
+    ;(sampleDetail as Record<string, unknown>).effect_sizes = {
+      tech_vs_nontech: {
+        tech_n: 10,
+        nontech_n: 8,
+        constructs: {
+          barriers: {
+            d: 0.85,
+            d_ci_lower: 0.6,
+            d_ci_upper: 1.1,
+            tech_mean: 3.5,
+            nontech_mean: 2.8,
+          },
+        },
+      },
+    }
+
+    try {
+      const { default: Page } = await import('@/app/results/crp-2026/findings/page')
+      render(<Page />)
+
+      expect(MockChart).toHaveBeenCalled()
+      const renderedItems = MockChart.mock.calls.flatMap(([props]) => props.data)
+      const barriersEntry = renderedItems.find((e) => e.construct === 'barriers')
+      expect(barriersEntry).toBeDefined()
+      expect(barriersEntry?.ci_lower).toBe(0.6)
+      expect(barriersEntry?.ci_upper).toBe(1.1)
+    } finally {
+      ;(sampleDetail as Record<string, unknown>).effect_sizes = savedEffects
+    }
+  })
+})
+
+describe('CRP 2026 Sample Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/sample/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /CRP 2026.*Sample/i })).toBeInTheDocument()
+  })
+})
+
+describe('CRP 2026 Data Quality Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/data-quality/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /CRP 2026.*Data Quality/i })).toBeInTheDocument()
   })
 })

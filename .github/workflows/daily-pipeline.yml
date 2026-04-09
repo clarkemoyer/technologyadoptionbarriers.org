@@ -342,6 +342,36 @@ jobs:
           retention-days: 30
           if-no-files-found: warn
 
+      # CRP public dataset CSV — gated only on CRP build success, intentionally
+      # decoupled from the filter+analysis chain. The public CSV is produced by
+      # create_crp_dataset.py and does not depend on the analysis snapshot.
+      - uses: actions/upload-artifact@v7
+        if: steps.crp.outputs.produced == 'true'
+        with:
+          name: crp-dataset
+          path: ${{ runner.temp }}/crp-public/TABS_V2_CRP_2026_public_dataset.csv
+          retention-days: 7
+          if-no-files-found: warn
+
+      # CRP analysis snapshot — only uploaded when JSON was actually produced
+      - name: Detect CRP analysis snapshot
+        id: crp_snapshot
+        if: steps.crp.outputs.produced == 'true' && steps.crp_filter.outcome == 'success' && steps.crp_analysis.outcome == 'success'
+        run: |
+          if [ -f "${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json" ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/upload-artifact@v7
+        if: steps.crp_snapshot.outputs.exists == 'true'
+        with:
+          name: crp-analysis-snapshot
+          path: ${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json
+          retention-days: 7
+          if-no-files-found: ignore
+
   # ── Phase 3a: Auto-approve CLEAN ─────────────────────────────
   approve-clean:
     name: 'Phase 3: Auto-Approve CLEAN'
@@ -468,7 +498,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      # Download both analysis results and dashboard data into src/data
+      # Download analysis results and dashboard data into src/data
       - uses: actions/download-artifact@v8
         with:
           name: analysis-results
@@ -479,20 +509,61 @@ jobs:
           name: dashboard-data
           path: src/data
 
+      # Download CRP artifacts (separate uploads — may not both exist)
+      - uses: actions/download-artifact@v8
+        continue-on-error: true
+        with:
+          name: crp-dataset
+          path: ${{ runner.temp }}/crp-csv
+
+      - uses: actions/download-artifact@v8
+        continue-on-error: true
+        with:
+          name: crp-analysis-snapshot
+          path: ${{ runner.temp }}/crp-json
+
+      - name: Stage CRP files into repo
+        run: |
+          if [ -f "${{ runner.temp }}/crp-csv/TABS_V2_CRP_2026_public_dataset.csv" ]; then
+            mkdir -p public/datasets
+            cp "${{ runner.temp }}/crp-csv/TABS_V2_CRP_2026_public_dataset.csv" \
+               public/datasets/TABS_V2_CRP_2026_public_dataset.csv
+            echo "  Staged: public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
+          else
+            echo "  CRP public CSV not available — skipping"
+          fi
+          if [ -f "${{ runner.temp }}/crp-json/crp-sensitivity-analysis.json" ]; then
+            cp "${{ runner.temp }}/crp-json/crp-sensitivity-analysis.json" \
+               src/data/crp-sensitivity-analysis.json
+            echo "  Staged: src/data/crp-sensitivity-analysis.json"
+          else
+            echo "  CRP analysis JSON not available — skipping"
+          fi
+
+      - name: Compute files to format
+        id: format_files
+        run: |
+          FILES="src/data/sensitivity-analysis.json src/data/data-audit.json src/data/disposition-summary.json"
+          if [ -f "src/data/crp-sensitivity-analysis.json" ]; then
+            FILES="$FILES src/data/crp-sensitivity-analysis.json"
+          fi
+          echo "list=$FILES" >> "$GITHUB_OUTPUT"
+
       - uses: ./.github/actions/format-and-pr
         with:
           token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
-          files: 'src/data/sensitivity-analysis.json src/data/data-audit.json src/data/disposition-summary.json'
-          commit-message: 'chore: update daily pipeline data (analysis + dashboard)'
+          files: ${{ steps.format_files.outputs.list }}
+          commit-message: 'chore: update daily pipeline data (analysis + dashboard + CRP)'
           pr-title: 'Update daily pipeline data'
           pr-body: |
             Automated update from the unified daily pipeline.
 
             **Data flow**: Qualtrics export → Prolific enrichment →
-            disposition waterfall → analysis suite → approve CLEAN →
-            dashboard summary.
+            disposition waterfall → analysis suite → CRP dataset (N=200) →
+            approve CLEAN → dashboard summary.
 
             All statistics computed across 5 sample definitions.
+            CRP dataset: N=200 tiered selection + NIST de-identification.
           branch: chore/daily-pipeline-data
 
   # ── Phase 5: Daily report issue ──────────────────────────────
