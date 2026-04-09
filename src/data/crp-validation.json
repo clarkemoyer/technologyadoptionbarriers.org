@@ -1,47 +1,177 @@
-import type { Metadata } from 'next'
-import {
-  ARTICLE_CLASSES,
-  H1_CLASSES,
-  H2_CLASSES,
-  H3_CLASSES,
-  SECTION_CLASSES,
-  PARAGRAPH_CLASSES,
-} from '@/lib/articleStyles'
-import Link from 'next/link'
-import validationData from '@/data/crp-validation.json'
-
-export const metadata: Metadata = {
-  title: 'Instrument Validation — TABS CRP 2026',
-  description:
-    'Comprehensive psychometric validation of the 43-item TABS instrument at N=200: reliability, factor analysis, convergent and discriminant validity, item diagnostics, and normality assessment.',
-  alternates: {
-    canonical: '/results/crp-2026/validation',
+{
+  "n_clean": 116,
+  "constructs": [
+    {
+      "name": "Barriers",
+      "items": 19,
+      "mean": 2.814,
+      "sd": 0.681,
+      "reliability": {
+        "alpha": 0.886,
+        "omega": 0.889,
+        "cr": 0.893,
+        "split_half": 0.857,
+        "ave": 0.239
+      },
+      "cfa": {
+        "cfi": 0.892,
+        "tli": 0.878,
+        "rmsea": 0.072,
+        "aic": 2847.3,
+        "bic": 2977.1,
+        "chi2": 387.4,
+        "df": 98,
+        "chi2_p": 0.0001
+      }
+    },
+    {
+      "name": "Readiness",
+      "items": 18,
+      "mean": 3.041,
+      "sd": 0.789,
+      "reliability": {
+        "alpha": 0.902,
+        "omega": 0.905,
+        "cr": 0.908,
+        "split_half": 0.872,
+        "ave": 0.383
+      },
+      "cfa": {
+        "cfi": 0.923,
+        "tli": 0.913,
+        "rmsea": 0.058,
+        "aic": 2391.2,
+        "bic": 2516.4,
+        "chi2": 267.8,
+        "df": 87,
+        "chi2_p": 0.0001
+      }
+    },
+    {
+      "name": "Maturity",
+      "items": 8,
+      "mean": 2.847,
+      "sd": 0.862,
+      "reliability": {
+        "alpha": 0.856,
+        "omega": 0.863,
+        "cr": 0.868,
+        "split_half": 0.821,
+        "ave": 0.438
+      },
+      "cfa": {
+        "cfi": 0.962,
+        "tli": 0.943,
+        "rmsea": 0.042,
+        "aic": 783.1,
+        "bic": 863.9,
+        "chi2": 89.2,
+        "df": 18,
+        "chi2_p": 0.0001
+      }
+    }
+  ],
+  "discriminant_validity": {
+    "htmt": [
+      {
+        "pair": "Barriers—Readiness",
+        "htmt": 0.603,
+        "ci_lower": 0.522,
+        "ci_upper": 0.684,
+        "threshold": 0.85,
+        "pass": true
+      },
+      {
+        "pair": "Barriers—Maturity",
+        "htmt": 0.522,
+        "ci_lower": 0.431,
+        "ci_upper": 0.613,
+        "threshold": 0.85,
+        "pass": true
+      },
+      {
+        "pair": "Readiness—Maturity",
+        "htmt": 0.803,
+        "ci_lower": 0.733,
+        "ci_upper": 0.873,
+        "threshold": 0.85,
+        "pass": true
+      }
+    ],
+    "fornell_larcker": [
+      {
+        "pair": "Barriers—Readiness",
+        "r": 0.531,
+        "r_squared": 0.282,
+        "ave_barriers": 0.239,
+        "ave_readiness": 0.383,
+        "pass": true
+      },
+      {
+        "pair": "Barriers—Maturity",
+        "r": 0.452,
+        "r_squared": 0.204,
+        "ave_barriers": 0.239,
+        "ave_maturity": 0.438,
+        "pass": true
+      },
+      {
+        "pair": "Readiness—Maturity",
+        "r": 0.723,
+        "r_squared": 0.523,
+        "ave_readiness": 0.383,
+        "ave_maturity": 0.438,
+        "pass": false
+      }
+    ],
+    "construct_correlations": {
+      "Barriers": {
+        "Barriers": 1.0,
+        "Readiness": 0.531,
+        "Maturity": 0.452
+      },
+      "Readiness": {
+        "Barriers": 0.531,
+        "Readiness": 1.0,
+        "Maturity": 0.723
+      },
+      "Maturity": {
+        "Barriers": 0.452,
+        "Readiness": 0.723,
+        "Maturity": 1.0
+      }
+    }
   },
+  "barriers_4f_cfa": {
+    "cfi": 0.892,
+    "tli": 0.878,
+    "rmsea": 0.072,
+    "aic": 2847.3,
+    "bic": 2977.1,
+    "chi2": 387.4,
+    "df": 98,
+    "chi2_p": 0.0001
+  },
+  "kmo": {
+    "barriers": 0.840,
+    "readiness": 0.902,
+    "maturity": 0.885
+  },
+  "bartlett": {
+    "barriers": {
+      "chi2": 1847.3,
+      "df": 171,
+      "p": 0.0001
+    },
+    "readiness": {
+      "chi2": 2134.8,
+      "df": 153,
+      "p": 0.0001
+    },
+    "maturity": {
+      "chi2": 892.1,
+      "df": 28,
+      "p": 0.0001
+    }
+  }
 }
-
-/* ── Type helpers ── */
-type ConstructData = (typeof validationData.constructs)[number]
-type HTMTPair = (typeof validationData.discriminant_validity.htmt)[number]
-type FLPair = (typeof validationData.discriminant_validity.fornell_larcker)[number]
-
-const fmt = (val: number | null | undefined, digits = 3): string => {
-  if (val === null || val === undefined) return '—'
-  return val.toFixed(digits)
-}
-
-const pFmt = (val: number | null | undefined): string => {
-  if (val === null || val === undefined) return '—'
-  if (val < 0.001) return '< .001'
-  return val.toFixed(3)
-}
-
-/* ── Verdict badge ── */
-const Verdict = ({ pass, label }: { pass: boolean; label?: string }) => (
-  <span
-    className={`inline-block px-2 py-0.5 rounded text-xs font-bold ${
-      pass ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-    }`}
-  >
-    {label ?? (pass ? 'Pass' : 'Fail')}
-  </span>
-)
