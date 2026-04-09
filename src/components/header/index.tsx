@@ -440,10 +440,11 @@ const Header: React.FC = () => {
                                     ) : child.isGroupHeader ? (
                                       <li
                                         key={`group-${child.label}`}
-                                        aria-hidden="true"
                                         className="px-4 pt-3 pb-1 text-[11px] font-bold uppercase tracking-wider text-gray-400"
                                       >
-                                        {child.label}
+                                        <span role="heading" aria-level={3}>
+                                          {child.label}
+                                        </span>
                                       </li>
                                     ) : (
                                       <li key={child.path}>
@@ -1348,10 +1349,11 @@ const Header: React.FC = () => {
                               ) : child.isGroupHeader ? (
                                 <li
                                   key={`group-${child.label}`}
-                                  aria-hidden="true"
                                   className="px-4 pt-3 pb-1 text-[11px] font-bold uppercase tracking-wider text-gray-400"
                                 >
-                                  {child.label}
+                                  <span role="heading" aria-level={3}>
+                                    {child.label}
+                                  </span>
                                 </li>
                               ) : (
                                 <li key={child.path}>

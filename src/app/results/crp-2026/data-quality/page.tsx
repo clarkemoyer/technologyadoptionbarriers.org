@@ -12,13 +12,19 @@ import Link from 'next/link'
 import sensitivityData from '@/data/crp-sensitivity-analysis.json'
 
 export const metadata: Metadata = {
-  title: 'CRP 2026 Data Quality - TABS',
+  title: 'CRP 2026 Data Quality — TABS',
   description:
-    'How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across five sample definitions.',
+    'How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across 3 primary groups.',
   alternates: {
     canonical: '/results/crp-2026/data-quality',
   },
 }
+
+const CRP_SAMPLE_KEYS = new Set(['conservative_clean', 'flexible_clean', 'prolific_accepted'])
+const crpSamples = sensitivityData.samples.filter((s) => CRP_SAMPLE_KEYS.has(s.key))
+
+const fmt = (v: unknown): string =>
+  typeof v === 'number' ? (Number.isInteger(v) ? String(v) : v.toFixed(4)) : '—'
 
 const DataQualityPage = () => {
   return (
@@ -486,7 +492,7 @@ const DataQualityPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {sensitivityData.samples.map((sample, i) => (
+                {crpSamples.map((sample, i) => (
                   <tr key={sample.key} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
                     <td className="border border-gray-300 px-4 py-2 font-medium">{sample.label}</td>
                     <td className="border border-gray-300 px-4 py-2">{sample.description}</td>
@@ -663,7 +669,7 @@ const DataQualityPage = () => {
                       <th className="border border-gray-300 px-4 py-2 text-left font-bold">
                         Metric
                       </th>
-                      {sensitivityData.samples.map((s) => (
+                      {crpSamples.map((s) => (
                         <th
                           key={s.key}
                           className="border border-gray-300 px-4 py-2 text-right font-bold"
@@ -681,7 +687,7 @@ const DataQualityPage = () => {
                         <td className="border border-gray-300 px-4 py-2 font-medium">
                           {metric.label}
                         </td>
-                        {sensitivityData.samples.map((s) => (
+                        {crpSamples.map((s) => (
                           <td
                             key={s.key}
                             className="border border-gray-300 px-4 py-2 text-right font-mono"
