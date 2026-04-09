@@ -121,7 +121,7 @@ jobs:
             --skip-review
 
       # ── CRP Dataset (N=200) ──
-      # Produces the frozen public dataset for the Comprehensive Research Paper.
+      # Produces the frozen public dataset for the Culminating Research Project.
       # Once the canonical CSV exists in the repo, the CRP build is skipped
       # to preserve the moment-in-time snapshot used for the CRP submission.
       # To regenerate, delete public/datasets/TABS_V2_CRP_2026_public_dataset.csv
