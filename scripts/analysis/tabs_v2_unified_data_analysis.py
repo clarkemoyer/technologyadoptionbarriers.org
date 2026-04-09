@@ -1102,13 +1102,20 @@ def alpha_if_deleted(data, item_names):
 # DATA LOADING
 # ============================================================================
 
-def load_qualtrics_csv(csv_path):
-    """Load Qualtrics CSV with 3-row header and return (idx, data_rows)."""
+def load_qualtrics_csv(csv_path, single_header=False):
+    """Load CSV and return (idx, data_rows).
+
+    Args:
+        csv_path: Path to CSV file.
+        single_header: If True, CSV has 1 header row (CRP public format).
+                       If False (default), CSV has 3-row Qualtrics header.
+    """
     with open(csv_path, 'r', encoding='utf-8-sig') as f:
         reader = csv.reader(f)
         row1 = next(reader)
-        row2 = next(reader)
-        row3 = next(reader)
+        if not single_header:
+            next(reader)  # skip Qualtrics description row
+            next(reader)  # skip Qualtrics import ID row
         data = list(reader)
     idx = {h: i for i, h in enumerate(row1)}
     return idx, data
@@ -1149,7 +1156,13 @@ def filter_samples(data, idx):
                    and _get_duration(r, idx) is not None
                    and _get_duration(r, idx) >= MIN_DURATION_ALL]
 
-    prolific_accepted = [r for r in v2 if _get_prolific_status(r, idx) == 'APPROVED']
+    # If Prolific_Status column exists, filter by APPROVED.
+    # If not (e.g., CRP public CSV), treat all rows as accepted — the CRP
+    # dataset only contains Prolific-accepted respondents by construction.
+    if 'Prolific_Status' in idx:
+        prolific_accepted = [r for r in v2 if _get_prolific_status(r, idx) == 'APPROVED']
+    else:
+        prolific_accepted = list(v2)
 
     flexible_clean = [r for r in prolific_accepted
                       if _is_finished(r, idx)
@@ -1650,6 +1663,9 @@ def sensitivity_to_json(cuts, idx):
          "examples": OTHER_ROLE_CATEGORIES_DESCRIPTIONS.get(cat, {}).get("examples", "")}
         for cat, _ in OTHER_ROLE_CATEGORIES_PATTERNS
     ] + [{"label": "Uncategorized", "description": "Responses that did not match any keyword pattern", "examples": ""}]
+
+    # Timestamp — consumed by 10+ results pages via utcTimestamp component
+    result["last_updated"] = datetime.utcnow().isoformat() + "Z"
 
     return result
 
@@ -2590,39 +2606,28 @@ Examples:
     df = df_clean  # primary analysis DataFrame
     N = len(df)
 
-    # ── For sensitivity section, we need raw CSV rows ──
-    sensitivity_data = None
-    v2_rows_raw = None
-    idx_raw = None
-    if not args.crp200:
-        idx_raw, data_raw = load_qualtrics_csv(args.csv_path)
-        v2_rows_raw, samples_raw = filter_samples(data_raw, idx_raw)
+    # ── Sensitivity section (raw CSV rows for 5-sample cuts) ──
+    # In CRP mode, use single_header=True since the public CSV has 1 header row.
+    # Sensitivity runs for BOTH live and CRP — CRP pages need sample cuts too.
+    idx_raw, data_raw = load_qualtrics_csv(args.csv_path, single_header=args.crp200)
+    v2_rows_raw, samples_raw = filter_samples(data_raw, idx_raw)
 
-        sample_labels = {
-            "conservative_clean": "Conservative Clean",
-            "flexible_clean": "Flexible Clean",
-            "prolific_accepted": "Prolific Accepted",
-            "v2_finished": "All V2 Finished",
-            "v2_all": "All V2",
-        }
+    cuts = [
+        ("Conservative Clean", samples_raw["conservative_clean"]),
+        ("Flexible Clean", samples_raw["flexible_clean"]),
+        ("Prolific Accepted", samples_raw["prolific_accepted"]),
+        ("All V2 Finished", samples_raw["v2_finished"]),
+        ("All V2", samples_raw["v2_all"]),
+    ]
 
-        cuts = [
-            ("Conservative Clean", samples_raw["conservative_clean"]),
-            ("Flexible Clean", samples_raw["flexible_clean"]),
-            ("Prolific Accepted", samples_raw["prolific_accepted"]),
-            ("All V2 Finished", samples_raw["v2_finished"]),
-            ("All V2", samples_raw["v2_all"]),
-        ]
+    print(f"\n{'='*78}")
+    print(f"  SENSITIVITY ANALYSIS SAMPLES")
+    print(f"{'='*78}")
+    for label, rows in cuts:
+        print(f"  {label:25s}: N={len(rows)}")
 
-        # Print disposition waterfall
-        print(f"\n{'='*78}")
-        print(f"  SENSITIVITY ANALYSIS SAMPLES")
-        print(f"{'='*78}")
-        for label, rows in cuts:
-            print(f"  {label:25s}: N={len(rows)}")
-
-        sensitivity_data = sensitivity_to_json(cuts, idx_raw)
-        print(f"  Sensitivity analysis computed across {len(cuts)} sample definitions")
+    sensitivity_data = sensitivity_to_json(cuts, idx_raw)
+    print(f"  Sensitivity analysis computed across {len(cuts)} sample definitions")
 
     # ── Advanced analysis ──
     print(f"\n{'='*78}")
@@ -2640,10 +2645,7 @@ Examples:
     print(f"\n{'='*78}")
     print(f"  DATA QUALITY AUDIT (full V2: N={len(df_full_v2)}, clean: N={N})")
     print(f"{'='*78}")
-    all_v2_raw = None
-    if not args.crp200 and v2_rows_raw is not None:
-        all_v2_raw = v2_rows_raw
-    quality_data = run_quality_audit(df_full_v2, all_rows_raw=all_v2_raw, idx_raw=idx_raw)
+    quality_data = run_quality_audit(df_full_v2, all_rows_raw=v2_rows_raw, idx_raw=idx_raw)
     for scale_name, info in quality_data.get("missing_data", {}).items():
         if isinstance(info, dict) and "missing_pct" in info:
             print(f"  {scale_name} missing: {info['missing_pct']}%")
@@ -2660,9 +2662,7 @@ Examples:
         "primary_sample": args.primary_sample if not args.crp200 else None,
         "source": args.csv_path,
     }
-    # In CRP mode, sensitivity section is not computed (no raw Qualtrics rows).
-    # Emit an empty skeleton so downstream JSON extraction doesn't get null.
-    unified["sensitivity"] = sensitivity_data if sensitivity_data is not None else {"samples": [], "metrics": []}
+    unified["sensitivity"] = sensitivity_data
     unified["advanced"] = advanced_data
     unified["quality"] = quality_data
     unified["validation"] = validation_data
