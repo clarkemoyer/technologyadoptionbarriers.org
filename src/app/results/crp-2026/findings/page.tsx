@@ -26,8 +26,8 @@ interface EffectSizeConstruct {
   large_mean?: number | null
   small_medium_mean?: number | null
   d?: number | null
-  ci_lower?: number | null
-  ci_upper?: number | null
+  d_ci_lower?: number | null
+  d_ci_upper?: number | null
 }
 
 interface EffectSizeGroup {
@@ -205,10 +205,8 @@ const CrpFindingsPage = () => {
                         ).map(([construct, vals]) => ({
                           construct,
                           d: vals.d ?? null,
-                          ci_lower:
-                            ((vals as Record<string, unknown>).d_ci_lower as number | null) ?? null,
-                          ci_upper:
-                            ((vals as Record<string, unknown>).d_ci_upper as number | null) ?? null,
+                          ci_lower: vals.d_ci_lower ?? null,
+                          ci_upper: vals.d_ci_upper ?? null,
                         }))}
                       />
 
@@ -280,12 +278,8 @@ const CrpFindingsPage = () => {
                             ).map(([construct, vals]) => ({
                               construct,
                               d: vals.d ?? null,
-                              ci_lower:
-                                ((vals as Record<string, unknown>).d_ci_lower as number | null) ??
-                                null,
-                              ci_upper:
-                                ((vals as Record<string, unknown>).d_ci_upper as number | null) ??
-                                null,
+                              ci_lower: vals.d_ci_lower ?? null,
+                              ci_upper: vals.d_ci_upper ?? null,
                             }))}
                           />
 
