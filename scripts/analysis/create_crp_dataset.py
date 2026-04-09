@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """create_crp_dataset.py — Build the final CRP public dataset (N=200).
 
-CRP = Culminating Research Project (Penn State Smeal College of Business
-Doctor of Business Administration (DBA) program).
+CRP = Culminating Research Project, Penn State Smeal College of Business,
+Doctor of Business Administration (DBA) program.
 
 Selects N=200 responses from Prolific Accepted participants using a
 three-tier quality-based selection strategy, then de-identifies the
