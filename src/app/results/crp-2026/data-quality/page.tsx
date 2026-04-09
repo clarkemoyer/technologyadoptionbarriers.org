@@ -102,12 +102,12 @@ const DataQualityPage = () => {
               assigns each response to exactly one disposition category
             </li>
             <li>
-              <strong>Sample Definition</strong> &mdash; Five nested samples are computed, from most
-              restrictive (Conservative Clean) to least (All V2)
+              <strong>Sample Definition</strong> &mdash; Three nested samples are computed, from
+              most restrictive (Conservative Clean) to least (All V2)
             </li>
             <li>
               <strong>Statistical Analysis</strong> &mdash; Every metric is computed independently
-              across all five samples
+              across all three samples
             </li>
           </ol>
         </section>
@@ -475,7 +475,7 @@ const DataQualityPage = () => {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Sample Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Five nested sample definitions are used, from most to least restrictive. The{' '}
+            Three nested sample definitions are used, from most to least restrictive. The{' '}
             <strong>Prolific Accepted</strong> count matches the Prolific platform&rsquo;s
             &ldquo;Approved&rdquo; tab exactly. The clean samples apply additional quality filters
             on top of Prolific approval.
@@ -653,12 +653,12 @@ const DataQualityPage = () => {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Sensitivity Analysis</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Every key statistic is computed across all five sample definitions. If a finding holds
+            Every key statistic is computed across all three sample definitions. If a finding holds
             across Conservative Clean (N=
-            {sensitivityData.samples.find((s) => s.key === 'conservative_clean')?.n ?? '?'}) and
-            Flexible Clean (N=
-            {sensitivityData.samples.find((s) => s.key === 'flexible_clean')?.n ?? '?'}), it is
-            robust to inclusion criteria.
+            {crpSamples.find((s) => s.key === 'conservative_clean')?.n ?? '?'}) and Flexible Clean
+            (N=
+            {crpSamples.find((s) => s.key === 'flexible_clean')?.n ?? '?'}), it is robust to
+            inclusion criteria.
           </p>
           {sensitivityData.metrics.length > 0 &&
             sensitivityData.metrics.some((m) => Object.keys(m.values).length > 0) && (
@@ -848,7 +848,7 @@ const DataQualityPage = () => {
               <Link href="/results/crp-2026/reliability" className="text-blue-600 hover:underline">
                 Scale Reliability
               </Link>{' '}
-              &mdash; Cronbach&rsquo;s alpha across all five samples
+              &mdash; Cronbach&rsquo;s alpha across all three samples
             </li>
             <li>
               <Link href="/results/crp-2026/sensitivity" className="text-blue-600 hover:underline">
