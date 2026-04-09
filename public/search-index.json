@@ -976,6 +976,62 @@
     "category": "Results"
   },
   {
+    "id": "results-crp-2026",
+    "url": "/results/crp-2026",
+    "title": "TABS 2026 CRP Results",
+    "description": "Frozen N=200 dataset for the TABS Culminating Research Project (CRP) at Penn State Smeal College of Business. Selected via three-tier quality review and de-identified per NIST protocol.",
+    "content": "TABS 2026 CRP Results. Frozen N=200 dataset for the TABS Culminating Research Project (CRP) at Penn State Smeal College of Business. Selected via three-tier quality review and de-identified per NIST protocol.. Results CRP 2026 TABS 2026 CRP Results Published: April 2026 This page presents the frozen, moment-in-time dataset N= used for the TABS Culminating Research Project CRP in the Penn State Smeal College of Business Doctor of Business Administration DBA program. Unlike the live pipeline results which update daily as survey responses are collected, the CRP dataset is static snapshot locked at the point of manuscript submission. Freezing the dataset ensures that every statistic, table, and figure in the final paper can be independently reproduced. The live pipeline continues to collect da...",
+    "category": "Results"
+  },
+  {
+    "id": "results-crp-2026-data-quality",
+    "url": "/results/crp-2026/data-quality",
+    "title": "CRP 2026 Data Quality — TABS",
+    "description": "How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across 3 primary groups.",
+    "content": "CRP 2026 Data Quality — TABS. How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across 3 primary groups.. Results CRP 2026 Data Quality Pipeline CRP 2026: Data Quality Pipeline Published: April 2026 The TABS project applies multi-stage data quality pipeline to every survey response. This page documents how responses flow collection through validation to analysis, the quality checks applied at each stage, the edge cases we discovered and resolved, and the sensitivity analysis that demonstrates our findings are robust to inclusion criteria. All statistics on page are generated automatically by the daily analysis pipeline and updated every time the pipeline runs. The numbers shown here the Prolific platform exactly....",
+    "category": "Results"
+  },
+  {
+    "id": "results-crp-2026-descriptive",
+    "url": "/results/crp-2026/descriptive",
+    "title": "CRP 2026 Descriptive Statistics — TABS",
+    "description": "Grand means, standard deviations, and inter-construct correlations for the TABS CRP 2026 frozen dataset across barriers, readiness, and maturity constructs.",
+    "content": "CRP 2026 Descriptive Statistics — TABS. Grand means, standard deviations, and inter-construct correlations for the TABS CRP 2026 frozen dataset across barriers, readiness, and maturity constructs.. metric as sample ?? fmt val: number null, decimals: number string if val === '—' val decimals",
+    "category": "Results"
+  },
+  {
+    "id": "results-crp-2026-findings",
+    "url": "/results/crp-2026/findings",
+    "title": "CRP 2026 Key Findings — TABS",
+    "description": "Effect sizes, cross-tabulations, t-tests, and ANOVA from the CRP 2026 replication, computed independently across three CRP sample definitions.",
+    "content": "CRP 2026 Key Findings — TABS. Effect sizes, cross-tabulations, t-tests, and ANOVA from the CRP 2026 replication, computed independently across three CRP sample definitions.. Results CRP 2026 Key Findings CRP 2026: Key Findings Published: April 2026 All effect sizes, cross-tabulations, t-tests, and ANOVA are computed independently for each of the three CRP sample definitions. This ensures that any finding can be validated against the researcher chosen dataset. Effect Sizes Cohen Cohen measures the standardized difference between group means. Values of |d| are negligible, small, medium, and large. Each comparison is computed separately for each result group. CRP_GROUPS group sample === details sampleDetails effects details?.effect_sizes hasEffects effects && effects 'tech_vs_nontech' && effe...",
+    "category": "Results"
+  },
+  {
+    "id": "results-crp-2026-reliability",
+    "url": "/results/crp-2026/reliability",
+    "title": "CRP 2026 Scale Reliability — TABS",
+    "description": "Cronbach's alpha reliability coefficients for the Technology Adoption Barriers Survey CRP 2026 frozen dataset across three sample definitions, demonstrating excellent internal consistency.",
+    "content": "CRP 2026 Scale Reliability — TABS. Cronbach's alpha reliability coefficients for the Technology Adoption Barriers Survey CRP 2026 frozen dataset across three sample definitions, demonstrating excellent internal consistency.. metric as sample ?? fmt val: number string if val === '—' val",
+    "category": "Results"
+  },
+  {
+    "id": "results-crp-2026-sample",
+    "url": "/results/crp-2026/sample",
+    "title": "CRP 2026 Sample & Demographics — TABS",
+    "description": "Participant demographics for the Technology Adoption Barriers Survey across three result groups: roles, industries, organization sizes, and geographic distribution.",
+    "content": "CRP 2026 Sample & Demographics — TABS. Participant demographics for the Technology Adoption Barriers Survey across three result groups: roles, industries, organization sizes, and geographic distribution.. Results CRP 2026 Sample Demographics CRP 2026: Sample Demographics Published: April 2026 Demographics are computed independently for each of the three primary result groups. This allows researchers to verify that the composition of their chosen dataset matches their generalizability requirements. All statistics on page are generated by the daily analysis pipeline. Demographic Data Sources Participant demographics are collected two independent sources. These capture different types of information and should not be conflated: Survey Demographics Qualtrics Self-reported by participants withi...",
+    "category": "Results"
+  },
+  {
+    "id": "results-crp-2026-sensitivity",
+    "url": "/results/crp-2026/sensitivity",
+    "title": "CRP 2026 Sensitivity Analysis — TABS",
+    "description": "Full sensitivity analysis for the CRP 2026 Technology Adoption Barriers Survey: every metric computed across three CRP sample definitions to demonstrate robustness to inclusion criteria.",
+    "content": "CRP 2026 Sensitivity Analysis — TABS. Full sensitivity analysis for the CRP 2026 Technology Adoption Barriers Survey: every metric computed across three CRP sample definitions to demonstrate robustness to inclusion criteria.. Results CRP 2026 Sensitivity Analysis CRP 2026: Sensitivity Analysis Published: April 2026 Sensitivity analysis tests whether findings are robust to the choice of inclusion criteria. Every metric means, standard deviations, inter-construct correlations, and reliability coefficients is computed independently across three CRP sample definitions. If finding holds across Conservative Clean N= and Prolific Accepted N= it is robust to inclusion criteria. Sample Definitions The three primary result groups below are used throughout analysis. They are nested most restrictive t...",
+    "category": "Results"
+  },
+  {
     "id": "results-dashboard",
     "url": "/results/dashboard",
     "title": "Prolific Dashboard — TABS Results",
