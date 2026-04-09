@@ -1,14 +1,14 @@
 [
   {
-    "id": "page-115",
+    "id": "page-home",
     "url": "/",
-    "title": "Technology Adoption Barriers Survey (TABS) | What",
+    "title": "Technology Adoption Barriers Survey (TABS) | What's in your way?",
     "description": "Technology Adoption Barriers Survey (TABS) collects insights from organizational leaders to identify and overcome obstacles to technology adoption. Know the Barriers, Break the Barriers.",
-    "content": "Technology Adoption Barriers Survey (TABS) | What. Technology Adoption Barriers Survey (TABS) collects insights from organizational leaders to identify and overcome obstacles to technology adoption. Know the Barriers, Break the Barriers.",
+    "content": "Technology Adoption Barriers Survey (TABS) | What's in your way?. Technology Adoption Barriers Survey (TABS) collects insights from organizational leaders to identify and overcome obstacles to technology adoption. Know the Barriers, Break the Barriers.",
     "category": "Home"
   },
   {
-    "id": "page-1",
+    "id": "article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance",
     "url": "/article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance",
     "title": "Article 1.1: The Bedrock – Foundational Theories That Shaped Tech Acceptance",
     "description": "An overview of pre-TAM theories that laid the groundwork for technology acceptance research, including key constructs that influenced later adoption models.",
@@ -16,7 +16,7 @@
     "category": "Article Series"
   },
   {
-    "id": "page-2",
+    "id": "article-1-2-the-game-changer-a-deep-dive-into-the-technology-acceptance-model-tam",
     "url": "/article-1-2-the-game-changer-a-deep-dive-into-the-technology-acceptance-model-tam",
     "title": "Article 1.2: The Game Changer – A Deep Dive into the Technology Acceptance Model (TAM)",
     "description": "A comprehensive examination of the Technology Acceptance Model (TAM), exploring how perceived usefulness and ease of use drive technology adoption.",
@@ -24,7 +24,7 @@
     "category": "Article Series"
   },
   {
-    "id": "page-3",
+    "id": "article-1-3-expanding-the-classic-the-evolution-to-tam-2-tam-3-and-c-tam-tpb",
     "url": "/article-1-3-expanding-the-classic-the-evolution-to-tam-2-tam-3-and-c-tam-tpb",
     "title": "Article 1.3: Expanding the Classic – The Evolution to TAM 2, TAM 3, and C-TAM-TPB",
     "description": "Exploring the evolution of the Technology Acceptance Model through TAM 2, TAM 3, and the integrated C-TAM-TPB framework, revealing how organizational context, social influences, and system design shape technology adoption.",
@@ -32,15 +32,15 @@
     "category": "Article Series"
   },
   {
-    "id": "page-4",
+    "id": "article-1-4-the-grand-unification-the-unified-theory-of-acceptance-and-use-of-technology-utaut",
     "url": "/article-1-4-the-grand-unification-the-unified-theory-of-acceptance-and-use-of-technology-utaut",
     "title": "Article 1.4: The Grand Unification – The Unified Theory of Acceptance and Use of Technology (UTAUT)",
-    "description": "A comprehensive exploration of UTAUT",
-    "content": "Article 1.4: The Grand Unification – The Unified Theory of Acceptance and Use of Technology (UTAUT). A comprehensive exploration of UTAUT. Article 1.4: The Grand Unification The Unified Theory Acceptance and Use Technology UTAUT Opening Narrative the early 2000s, the technology adoption research landscape resembled what scholars called model soup. For nearly three decades, researchers had developed, refined, and championed various theoretical frameworks explain why some employees embraced new technologies while others resisted. The Technology Acceptance Model dominated some circles. The Theory Planned Behavior held sway others. The Diffusion Innovations perspective offered its own compelling logic. Meanwhile, researchers continued proposing new models–the Motivational Model, the Combined T...",
+    "description": "A comprehensive exploration of UTAUT's development, structure, and significance as a major synthesis of eight prominent technology adoption models, revealing how performance expectancy, effort expectancy, social influence, and facilitating conditions drive technology adoption across diverse user populations.",
+    "content": "Article 1.4: The Grand Unification – The Unified Theory of Acceptance and Use of Technology (UTAUT). A comprehensive exploration of UTAUT's development, structure, and significance as a major synthesis of eight prominent technology adoption models, revealing how performance expectancy, effort expectancy, social influence, and facilitating conditions drive technology adoption across diverse user populations.. Article 1.4: The Grand Unification The Unified Theory Acceptance and Use Technology UTAUT Opening Narrative the early 2000s, the technology adoption research landscape resembled what scholars called model soup. For nearly three decades, researchers had developed, refined, and championed various theoretical frameworks explain why some employees embraced new technologies while others res...",
     "category": "Article Series"
   },
   {
-    "id": "page-5",
+    "id": "article-1-5-beyond-the-office-utaut2-consumer-context-and-modern-syntheses",
     "url": "/article-1-5-beyond-the-office-utaut2-consumer-context-and-modern-syntheses",
     "title": "Article 1.5: Beyond the Office – UTAUT2, Consumer Context, and Modern Syntheses",
     "description": "Exploring the evolution of UTAUT beyond organizational contexts to consumer adoption through UTAUT2, examining how hedonic motivation, price value, and habit shape voluntary technology adoption in consumer markets, and discussing modern meta-analyses and extensions that continue to refine technology adoption theory.",
@@ -48,7 +48,7 @@
     "category": "Article Series"
   },
   {
-    "id": "page-6",
+    "id": "article-1-6-context-is-king-specialized-individual-adoption-models",
     "url": "/article-1-6-context-is-king-specialized-individual-adoption-models",
     "title": "Article 1.6: Context is King – Specialized Individual Adoption Models",
     "description": "Exploring specialized models that address context-specific adoption factors: Task-Technology Fit, household adoption dynamics, and value-based frameworks.",
@@ -56,7 +56,7 @@
     "category": "Article Series"
   },
   {
-    "id": "page-7",
+    "id": "article-1-7-are-you-ready-the-role-of-technology-readiness-tri-and-tram",
     "url": "/article-1-7-are-you-ready-the-role-of-technology-readiness-tri-and-tram",
     "title": "Article 1.7: Are You Ready? – The Role of Technology Readiness (TRI & TRAM)",
     "description": "Exploring how individual technology readiness–combining optimism, innovativeness, discomfort, and insecurity–shapes adoption decisions across contexts.",
@@ -64,15 +64,15 @@
     "category": "Article Series"
   },
   {
-    "id": "page-8",
+    "id": "article-1-branch-introduction-the-users-journey",
     "url": "/article-1-branch-introduction-the-users-journey",
-    "title": "Article 1: Branch Introduction – The User",
+    "title": "Article 1: Branch Introduction – The User's Journey",
     "description": "Branch introduction to the evolution of individual technology acceptance and use models, from foundational theories through TAM, UTAUT, and specialized adoption frameworks.",
-    "content": "Article 1: Branch Introduction – The User. Branch introduction to the evolution of individual technology acceptance and use models, from foundational theories through TAM, UTAUT, and specialized adoption frameworks.. Article Branch Introduction The User’s Journey our introductory article, established the landscape technology adoption through the lens trifecta: Organizational, User, and Consumer Adoption. positioned Organizational Adoption–the C-Suite’s strategic focus–as the apex. now turn our attention the other two domains, which together form the deeply human side the adoption equation: the internal employee’s decision use new system and the external customer’s choice integrate technology into their lives. This branch our series, The User’s Journey, delves into the rich intellectual his...",
+    "content": "Article 1: Branch Introduction – The User's Journey. Branch introduction to the evolution of individual technology acceptance and use models, from foundational theories through TAM, UTAUT, and specialized adoption frameworks.. Article Branch Introduction The User’s Journey our introductory article, established the landscape technology adoption through the lens trifecta: Organizational, User, and Consumer Adoption. positioned Organizational Adoption–the C-Suite’s strategic focus–as the apex. now turn our attention the other two domains, which together form the deeply human side the adoption equation: the internal employee’s decision use new system and the external customer’s choice integrate technology into their lives. This branch our series, The User’s Journey, delves into the rich intell...",
     "category": "Article Series"
   },
   {
-    "id": "page-9",
+    "id": "article-2-1-the-strategic-lens-foundational-theories-for-organizational-adoption",
     "url": "/article-2-1-the-strategic-lens-foundational-theories-for-organizational-adoption",
     "title": "Article 2.1: The Strategic Lens â€“ Foundational Theories for Organizational Adoption",
     "description": "An analysis of the core management and strategic theoriesâ€“TOE, RBV, VRIO, Dynamic Capabilities, and BPRâ€“that provide the intellectual foundation for organizational technology adoption decisions.",
@@ -80,7 +80,7 @@
     "category": "Article Series"
   },
   {
-    "id": "page-10",
+    "id": "article-2-2-from-chaos-to-control-a-guide-to-maturity-models",
     "url": "/article-2-2-from-chaos-to-control-a-guide-to-maturity-models",
     "title": "Article 2.2: From Chaos to Control â€“ A Guide to Maturity Models",
     "description": "A practical overview of maturity modelsâ€“CMM, CMMI, IT-CMF, and Cooper-Zmud implementation stagesâ€“and how they guide organizational change and capability development.",
@@ -88,7 +88,7 @@
     "category": "Article Series"
   },
   {
-    "id": "page-11",
+    "id": "article-2-3-managing-the-lifecycle-the-gartner-hype-cycle",
     "url": "/article-2-3-managing-the-lifecycle-the-gartner-hype-cycle",
     "title": "Article 2.3: Managing the Lifecycle â€“ The Gartner Hype Cycle",
     "description": "How the Gartner Hype Cycle explains expectations, maturity, and adoption timing for emerging technologies, and how leaders can use it as a strategic decision tool.",
@@ -96,7 +96,7 @@
     "category": "Article Series"
   },
   {
-    "id": "page-12",
+    "id": "article-2-4-the-blueprint-for-enterprise-a-survey-of-architecture-frameworks",
     "url": "/article-2-4-the-blueprint-for-enterprise-a-survey-of-architecture-frameworks",
     "title": "Article 2.4: The Blueprint for Enterprise â€“ A Survey of Architecture Frameworks",
     "description": "A survey of enterprise architecture frameworksâ€“TAFIM, TOGAF, DoDAF, and UAFâ€“and how they support planning, governance, and adoption at scale.",
@@ -104,7 +104,7 @@
     "category": "Article Series"
   },
   {
-    "id": "page-13",
+    "id": "article-2-5-the-modern-mandate-frameworks-for-cybersecurity-and-risk",
     "url": "/article-2-5-the-modern-mandate-frameworks-for-cybersecurity-and-risk",
     "title": "Article 2.5: The Modern Mandate â€“ Frameworks for Cybersecurity and Risk",
     "description": "Frameworks for cybersecurity and risk managementâ€“NIST RMF, NIST CSF, CMMC, and ISO 27001â€“that shape organizational technology adoption decisions.",
@@ -112,7 +112,7 @@
     "category": "Article Series"
   },
   {
-    "id": "page-14",
+    "id": "article-2-6-the-cloud-revolution-prescriptive-adoption-frameworks",
     "url": "/article-2-6-the-cloud-revolution-prescriptive-adoption-frameworks",
     "title": "Article 2.6: The Cloud Revolution â€“ Prescriptive Adoption Frameworks",
     "description": "How cloud vendors productized adoption theory into prescriptive frameworksâ€“AWS CAF, AWS ETF, and Microsoft Azure CAFâ€“transforming how organizations plan and execute technology adoption.",
@@ -120,7 +120,7 @@
     "category": "Article Series"
   },
   {
-    "id": "page-15",
+    "id": "article-2-7-the-ai-frontier-frameworks-for-adopting-ai-ml-and-genai",
     "url": "/article-2-7-the-ai-frontier-frameworks-for-adopting-ai-ml-and-genai",
     "title": "Article 2.7: The AI Frontier â€“ Frameworks for Adopting AI, ML, and GenAI",
     "description": "How emerging AI adoption frameworksâ€“AWS CAF-AI, Microsoft AI guidance, and responsible AI principlesâ€“address the unique challenges of adopting artificial intelligence at organizational scale.",
@@ -128,7 +128,7 @@
     "category": "Article Series"
   },
   {
-    "id": "page-16",
+    "id": "article-2-branch-introduction-the-organizations-playbook",
     "url": "/article-2-branch-introduction-the-organizations-playbook",
     "title": "Article 2: Branch Introduction â€“ The Organizationâ€™s Playbook",
     "description": "Branch introduction to organizational technology adoption frameworks, covering strategy, maturity models, hype cycles, enterprise architecture, security, cloud adoption, and AI adoption.",
@@ -136,7 +136,7 @@
     "category": "Article Series"
   },
   {
-    "id": "page-17",
+    "id": "article-bibliography-comprehensive-series-bibliography",
     "url": "/article-bibliography-comprehensive-series-bibliography",
     "title": "Comprehensive Series Bibliography: Foundations of Technology Adoption",
     "description": "Definitive, exhaustive bibliography for the “Technology Adoption Models” series, covering individual user journeys and organizational playbooks with fully cited APA references.",
@@ -144,7 +144,7 @@
     "category": "Article Series"
   },
   {
-    "id": "page-18",
+    "id": "barriers",
     "url": "/barriers",
     "title": "Technology Adoption Barriers",
     "description": "Explore the key barriers to technology adoption identified through the TABS research. Understand the obstacles organizations face when implementing new technology.",
@@ -152,15 +152,15 @@
     "category": "Barriers"
   },
   {
-    "id": "page-19",
+    "id": "barriers-quotes",
     "url": "/barriers/quotes",
     "title": "Famous Quotes on Technology Adoption | TABS",
-    "description": "Explore 50+ famous quotes on technology adoption barriers, innovation, and resistance to change. A curated chronological journey through history",
-    "content": "Famous Quotes on Technology Adoption | TABS. Explore 50+ famous quotes on technology adoption barriers, innovation, and resistance to change. A curated chronological journey through history",
+    "description": "Explore 50+ famous quotes on technology adoption barriers, innovation, and resistance to change. A curated chronological journey through history's relationship with new technology, from ancient philosophers to modern AI leaders.",
+    "content": "Famous Quotes on Technology Adoption | TABS. Explore 50+ famous quotes on technology adoption barriers, innovation, and resistance to change. A curated chronological journey through history's relationship with new technology, from ancient philosophers to modern AI leaders.",
     "category": "Barriers"
   },
   {
-    "id": "page-20",
+    "id": "barriers-survey-stats",
     "url": "/barriers/survey-stats",
     "title": "Redirecting — TABS",
     "description": "",
@@ -168,7 +168,7 @@
     "category": "Barriers"
   },
   {
-    "id": "page-21",
+    "id": "bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975",
     "url": "/bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975",
     "title": "Bibliography: Theory of Reasoned Action (TRA) – Fishbein & Ajzen (1975)",
     "description": "Deep dive into Theory of Reasoned Action (TRA) by Martin Fishbein and Icek Ajzen (1975), exploring its foundational contributions to technology adoption research.",
@@ -176,7 +176,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-22",
+    "id": "bibliography-1-10-decomposed-tpb-taylor-todd-1995",
     "url": "/bibliography-1-10-decomposed-tpb-taylor-todd-1995",
     "title": "Bibliography: Decomposed TPB – Taylor & Todd (1995)",
     "description": "Deep dive into Understanding Information Technology Usage: A Test of by Shirley Taylor, Peter A. Todd (1995), exploring its foundational contributions to technology adoption research.",
@@ -184,7 +184,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-23",
+    "id": "bibliography-1-11-task-technology-fit-ttf-goodhue-thompson-1995",
     "url": "/bibliography-1-11-task-technology-fit-ttf-goodhue-thompson-1995",
     "title": "Bibliography: Task-Technology Fit (TTF) – Goodhue & Thompson (1995)",
     "description": "Deep dive into Task-Technology Fit and Individual Performance by Dorothy L. Goodhue, Thomas B. Thompson (1995), exploring its foundational contributions to technology adoption research.",
@@ -192,7 +192,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-24",
+    "id": "bibliography-1-12-technology-readiness-index-tri-parasuraman-2000",
     "url": "/bibliography-1-12-technology-readiness-index-tri-parasuraman-2000",
     "title": "Bibliography: Technology Readiness Index (TRI) – Parasuraman (2000)",
     "description": "Deep dive into the Technology Readiness Index (TRI) by A. Parasuraman (2000), exploring its foundational contributions to technology adoption research.",
@@ -200,7 +200,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-25",
+    "id": "bibliography-1-13-technology-acceptance-model-2-tam2-venkatesh-davis-2000",
     "url": "/bibliography-1-13-technology-acceptance-model-2-tam2-venkatesh-davis-2000",
     "title": "Bibliography: Technology Acceptance Model 2 (TAM2) – Venkatesh & Davis (2000)",
     "description": "Deep dive into the Technology Acceptance Model 2 (TAM2) by Viswanath Venkatesh and Fred D. Davis (2000), exploring social influence and cognitive instrumental processes that determine perceived usefulness in technology adoption.",
@@ -208,7 +208,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-26",
+    "id": "bibliography-1-14-expectation-confirmation-model-ecm-bhattacherjee-2001",
     "url": "/bibliography-1-14-expectation-confirmation-model-ecm-bhattacherjee-2001",
     "title": "Bibliography: Expectation-Confirmation Model (ECM) – Bhattacherjee (2001)",
     "description": "Deep dive into Expectation-Confirmation Model of Information Systems by Anol Bhattacherjee (2001), exploring its foundational contributions to technology adoption research.",
@@ -216,7 +216,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-27",
+    "id": "bibliography-1-15-unified-theory-utaut-venkatesh-2003",
     "url": "/bibliography-1-15-unified-theory-utaut-venkatesh-2003",
     "title": "Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) – Venkatesh et al. (2003)",
     "description": "Deep dive into the Unified Theory of Acceptance and Use of Technology (UTAUT) by Venkatesh, Morris, Davis, and Davis (2003), a landmark synthesis of eight competing technology adoption models into a single unified framework.",
@@ -224,7 +224,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-28",
+    "id": "bibliography-1-16-math-venkatesh-brown-2001",
     "url": "/bibliography-1-16-math-venkatesh-brown-2001",
     "title": "Bibliography: Model of Adoption of Technology in Households (MATH) – Venkatesh & Brown (2001)",
     "description": "Deep dive into Model of Adoption of Technology in Households (MATH) by Susan A. Brown and Viswanath Venkatesh (2005), exploring its foundational contributions to technology adoption research.",
@@ -232,7 +232,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-29",
+    "id": "bibliography-1-17-value-based-adoption-kim-2007",
     "url": "/bibliography-1-17-value-based-adoption-kim-2007",
     "title": "Bibliography: Value-Based Adoption Model – Kim et al. (2007)",
     "description": "Deep dive into the Value-Based Adoption of Mobile Internet (VAM) model by Kim et al. (2007), exploring its foundational contributions to technology adoption research.",
@@ -240,7 +240,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-30",
+    "id": "bibliography-1-18-tram-lin-2007",
     "url": "/bibliography-1-18-tram-lin-2007",
     "title": "Bibliography: Technology Readiness and Acceptance Model (TRAM) – Lin et al. (2007)",
     "description": "Deep dive into the Technology Readiness and Acceptance Model (TRAM) by Lin et al. (2007), exploring its foundational contributions to technology adoption research.",
@@ -248,7 +248,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-31",
+    "id": "bibliography-1-19-technology-acceptance-model-3-tam3-venkatesh-bala-2008",
     "url": "/bibliography-1-19-technology-acceptance-model-3-tam3-venkatesh-bala-2008",
     "title": "Bibliography: Technology Acceptance Model 3 (TAM3) – Venkatesh & Bala (2008)",
     "description": "Deep dive into the Technology Acceptance Model 3 (TAM3) by Viswanath Venkatesh and Hillol Bala (2008), providing a complete nomological network of TAM with determinants of perceived usefulness and perceived ease of use plus a research agenda on interventions.",
@@ -256,7 +256,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-32",
+    "id": "bibliography-1-2-diffusion-of-innovations-rogers",
     "url": "/bibliography-1-2-diffusion-of-innovations-rogers",
     "title": "Bibliography: Diffusion of Innovations – Rogers",
     "description": "Deep dive into Diffusion of Innovations by Everett M. Rogers (1962), exploring its foundational contributions to technology adoption research.",
@@ -264,7 +264,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-33",
+    "id": "bibliography-1-20-utaut2-venkatesh-2012",
     "url": "/bibliography-1-20-utaut2-venkatesh-2012",
     "title": "Bibliography: Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) – Venkatesh et al. (2012)",
     "description": "Deep dive into the Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) by Venkatesh, Thong, and Xu (2012), extending the UTAUT framework to consumer technology adoption with hedonic motivation, price value, and habit.",
@@ -272,7 +272,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-34",
+    "id": "bibliography-1-21-technology-readiness-index-2-tri-2-parasuraman-colby-2015",
     "url": "/bibliography-1-21-technology-readiness-index-2-tri-2-parasuraman-colby-2015",
     "title": "Bibliography: Technology Readiness Index 2.0 (TRI 2.0) – Parasuraman & Colby (2015)",
     "description": "Deep dive into Technology Readiness Index 2.0 by A. Parasuraman, (2015), exploring its foundational contributions to technology adoption research.",
@@ -280,7 +280,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-35",
+    "id": "bibliography-1-3-social-cognitive-theory-sct-bandura-1986",
     "url": "/bibliography-1-3-social-cognitive-theory-sct-bandura-1986",
     "title": "Bibliography: Social Cognitive Theory (SCT) – Bandura (1986)",
     "description": "Deep dive into Social Cognitive Theory (SCT) by Albert Bandura (1986), exploring its foundational contributions to technology adoption research.",
@@ -288,7 +288,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-36",
+    "id": "bibliography-1-4-model-of-innovation-resistance-ram-sheth-1989",
     "url": "/bibliography-1-4-model-of-innovation-resistance-ram-sheth-1989",
     "title": "Bibliography: Model of Innovation Resistance – Ram & Sheth (1989)",
     "description": "Deep dive into A Model of Innovation Resistance by Sundaresan Ram (1987), exploring its foundational contributions to technology adoption research.",
@@ -296,7 +296,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-37",
+    "id": "bibliography-1-5-status-quo-bias-samuelson-zeckhauser-1988",
     "url": "/bibliography-1-5-status-quo-bias-samuelson-zeckhauser-1988",
     "title": "Bibliography: Status Quo Bias – Samuelson & Zeckhauser (1988)",
     "description": "Deep dive into Status Quo Bias (also referenced as Status Quo Effect) by William Samuelson and Richard Zeckhauser (1988), exploring its foundational contributions to technology adoption research.",
@@ -304,7 +304,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-38",
+    "id": "bibliography-1-6-technology-acceptance-model-tam-davis-1989",
     "url": "/bibliography-1-6-technology-acceptance-model-tam-davis-1989",
     "title": "Bibliography: Technology Acceptance Model (TAM) – Davis (1989)",
     "description": "Deep dive into Technology Acceptance Model by Fred D. Davis (1989), exploring its foundational contributions to technology adoption research.",
@@ -312,7 +312,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-39",
+    "id": "bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991",
     "url": "/bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991",
     "title": "Bibliography: Theory of Planned Behavior (TPB) – Ajzen (1991)",
     "description": "Deep dive into Theory of Planned Behavior by Icek Ajzen (1991), exploring its foundational contributions to technology adoption research.",
@@ -320,7 +320,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-40",
+    "id": "bibliography-1-8-personal-computing-acceptance-thompson-1991",
     "url": "/bibliography-1-8-personal-computing-acceptance-thompson-1991",
     "title": "Bibliography: Personal Computing Acceptance – Thompson et al. (1991)",
     "description": "Deep dive into Toward a Conceptual Model of Personal Computing by Ronald L. Thompson, Christopher A. Higgins, Jane M. Howell (1991), exploring its foundational contributions to technology adoption research.",
@@ -328,7 +328,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-41",
+    "id": "bibliography-1-9-intrinsic-extrinsic-motivation-davis-1992",
     "url": "/bibliography-1-9-intrinsic-extrinsic-motivation-davis-1992",
     "title": "Bibliography: Intrinsic & Extrinsic Motivation – Davis et al. (1992)",
     "description": "Deep dive into Extrinsic and Intrinsic Motivation Framework for Technology by Fred D. Davis, Richard P. Bagozzi, and Paul R. Warshaw (1992), exploring its foundational contributions to technology adoption research.",
@@ -336,23 +336,23 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-42",
+    "id": "bibliography-2-1-resource-based-view-rbv-wernerfelt-1984",
     "url": "/bibliography-2-1-resource-based-view-rbv-wernerfelt-1984",
     "title": "Bibliography: A Resource-Based View (RBV) – Wernerfelt (1984)",
-    "description": "An exploration of Wernerfelt",
-    "content": "Bibliography: A Resource-Based View (RBV) – Wernerfelt (1984). An exploration of Wernerfelt. Bibliography: Resource-Based View RBV Wernerfelt 1984 Framework Identification Framework Name: Resource-Based View RBV Authors: Birger Wernerfelt Publication Date: 1984 Citation Information Wernerfelt, 1984 resource-based view the firm. Strategic Management Journal 171 180. 1984, Birger Wernerfelt published Resource-Based View the Firm the Strategic Management Journal, introducing revolutionary perspective that would fundamentally reshape how organizations think about competitive advantage and strategic decision-making. time when strategic analysis was dominated product-market positioning frameworks, Wernerfelt proposed radical reorientation: rather than asking What markets should serve? organizati...",
+    "description": "An exploration of Wernerfelt's Resource-Based View of the firm, a foundational framework for understanding how organizational resources and capabilities drive competitive advantage and strategic technology adoption.",
+    "content": "Bibliography: A Resource-Based View (RBV) – Wernerfelt (1984). An exploration of Wernerfelt's Resource-Based View of the firm, a foundational framework for understanding how organizational resources and capabilities drive competitive advantage and strategic technology adoption.. Bibliography: Resource-Based View RBV Wernerfelt 1984 Framework Identification Framework Name: Resource-Based View RBV Authors: Birger Wernerfelt Publication Date: 1984 Citation Information Wernerfelt, 1984 resource-based view the firm. Strategic Management Journal 171 180. 1984, Birger Wernerfelt published Resource-Based View the Firm the Strategic Management Journal, introducing revolutionary perspective that would fundamentally reshape how organizations think about competitive advantage and strategic decision-ma...",
     "category": "Bibliography"
   },
   {
-    "id": "page-43",
+    "id": "bibliography-2-10-tafim-dod-1994",
     "url": "/bibliography-2-10-tafim-dod-1994",
     "title": "Bibliography: Technical Architecture Framework for Information Management (TAFIM) – U.S. DoD (1994)",
-    "description": "An exploration of the U.S. Department of Defense",
-    "content": "Bibliography: Technical Architecture Framework for Information Management (TAFIM) – U.S. DoD (1994). An exploration of the U.S. Department of Defense. Technical Architecture Framework for Information Management TAFIM U.S. DoD 1994 Framework Identification Framework Name: Technical Architecture Framework for Information Management TAFIM Authors: U.S. Department Defense Publication Date: 1994 Version 3.0: 1996 Citation Information U.S. Department Defense. 1996 Technical Architecture Framework for Information Management TAFIM Version 3.0. Volume Technical Reference Model. The Technical Architecture Framework for Information Management TAFIM developed the U.S. Department Defense and formally released with Version 3.0 April 30, 1996, represents one the most influential early enterprise architec...",
+    "description": "An exploration of the U.S. Department of Defense's Technical Architecture Framework for Information Management (TAFIM), a pioneering enterprise architecture framework that established standards-based interoperability principles for large-scale information technology adoption.",
+    "content": "Bibliography: Technical Architecture Framework for Information Management (TAFIM) – U.S. DoD (1994). An exploration of the U.S. Department of Defense's Technical Architecture Framework for Information Management (TAFIM), a pioneering enterprise architecture framework that established standards-based interoperability principles for large-scale information technology adoption.. Technical Architecture Framework for Information Management TAFIM U.S. DoD 1994 Framework Identification Framework Name: Technical Architecture Framework for Information Management TAFIM Authors: U.S. Department Defense Publication Date: 1994 Version 3.0: 1996 Citation Information U.S. Department Defense. 1996 Technical Architecture Framework for Information Management TAFIM Version 3.0. Volume Technical Reference Mod...",
     "category": "Bibliography"
   },
   {
-    "id": "page-44",
+    "id": "bibliography-2-11-gartner-hype-cycle-fenn-1995",
     "url": "/bibliography-2-11-gartner-hype-cycle-fenn-1995",
     "title": "Bibliography: Gartner Hype Cycle – Fenn (1995)",
     "description": "An exploration of the Gartner Hype Cycle framework developed by Jackie Fenn, a widely used consulting model for understanding technology adoption timing, maturity, and the gap between inflated expectations and realized value.",
@@ -360,7 +360,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-45",
+    "id": "bibliography-2-12-togaf-the-open-group-1995",
     "url": "/bibliography-2-12-togaf-the-open-group-1995",
     "title": "Bibliography: TOGAF – The Open Group Architecture Framework (1995)",
     "description": "An in-depth review of TOGAF (The Open Group Architecture Framework), covering its Architecture Development Method, four domains, enterprise-wide technology adoption guidance, internal and external validity, and relevance to overcoming technology adoption barriers.",
@@ -368,7 +368,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-46",
+    "id": "bibliography-2-13-dodaf-dod-2003",
     "url": "/bibliography-2-13-dodaf-dod-2003",
     "title": "Bibliography: DoDAF – Department of Defense Architecture Framework (2003)",
     "description": "An in-depth overview of the Department of Defense Architecture Framework (DoDAF), a military enterprise architecture standard created in 2003 to resolve interoperability crises, enable multi-service coordination, and govern technology adoption across defense and government environments.",
@@ -376,7 +376,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-47",
+    "id": "bibliography-2-14-cmmi-chrissis-2005",
     "url": "/bibliography-2-14-cmmi-chrissis-2005",
     "title": "Bibliography: CMMI – Capability Maturity Model Integration (Chrissis et al., 2005)",
     "description": "An in-depth overview of the Capability Maturity Model Integration (CMMI) framework developed by Chrissis, Konrad, and Shrum at Carnegie Mellon SEI, covering its five maturity levels, process areas, and relevance to technology adoption and organizational process improvement.",
@@ -384,7 +384,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-48",
+    "id": "bibliography-2-15-it-cmf-innovation-value-institute-2016",
     "url": "/bibliography-2-15-it-cmf-innovation-value-institute-2016",
     "title": "Bibliography: IT Capability Maturity Framework (IT-CMF) \\u2013 Innovation Value Institute (2016)",
     "description": "Overview of the IT Capability Maturity Framework (IT-CMF\\u2122) developed by the Innovation Value Institute at University of Ireland Maynooth. Covers the seven Building Blocks, five maturity levels, internal and external validity, and relevance to technology adoption and IT value realization.",
@@ -392,7 +392,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-49",
+    "id": "bibliography-2-16-aws-caf-ai-2024",
     "url": "/bibliography-2-16-aws-caf-ai-2024",
     "title": "Bibliography: AWS Cloud Adoption Framework for AI/ML (CAF-AI) – AWS (2024)",
     "description": "An exploration of the AWS Cloud Adoption Framework for Artificial Intelligence, Machine Learning, and Generative AI (CAF-AI), a comprehensive organizational framework published by Amazon Web Services in 2024 for guiding enterprise AI adoption.",
@@ -400,7 +400,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-50",
+    "id": "bibliography-2-17-aws-etf-prescriptive-guidance-2024",
     "url": "/bibliography-2-17-aws-etf-prescriptive-guidance-2024",
     "title": "Bibliography: AWS Prescriptive Guidance – Enterprise Transformation Framework (ETF) (2024)",
     "description": "An exploration of the AWS Prescriptive Guidance on Strategic Transformation and Change Methodology (Enterprise Transformation Framework), a comprehensive framework published by Amazon Web Services in 2024 for accelerating return on cloud investment through systematic organizational transformation.",
@@ -408,7 +408,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-51",
+    "id": "bibliography-2-18-microsoft-cloud-adoption-framework-2025",
     "url": "/bibliography-2-18-microsoft-cloud-adoption-framework-2025",
     "title": "Bibliography: Microsoft Cloud Adoption Framework for Azure (CAF) (2025)",
     "description": "An exploration of the Microsoft Cloud Adoption Framework for Azure (CAF), the most comprehensive cloud-specific adoption framework in widespread organizational use, continuously evolved through 2025 to address strategy, governance, security, and organizational change management throughout cloud adoption journeys.",
@@ -416,7 +416,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-52",
+    "id": "bibliography-2-19-microsoft-ai-adoption-framework-2025",
     "url": "/bibliography-2-19-microsoft-ai-adoption-framework-2025",
     "title": "Bibliography: Microsoft AI Adoption Framework (2025)",
     "description": "An exploration of the Microsoft AI Adoption Framework (April 2025), which extends the Microsoft Cloud Adoption Framework to address the unique organizational, governance, data readiness, and responsible AI challenges of adopting artificial intelligence and generative AI within enterprise organizations.",
@@ -424,15 +424,15 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-53",
+    "id": "bibliography-2-2-vrio-framework-barney-1991",
     "url": "/bibliography-2-2-vrio-framework-barney-1991",
     "title": "Bibliography: VRIO Framework – Barney (1991)",
-    "description": "An exploration of Jay Barney",
-    "content": "Bibliography: VRIO Framework – Barney (1991). An exploration of Jay Barney. Bibliography: VRIO Framework Barney 1991 Framework Identification Framework Name: VRIO Framework Authors: Jay Barney Publication Date: 1991 Citation Information Barney, 1991 Firm resources and sustained competitive advantage. Journal Management 120. 1991, Jay Barney published Firm Resources and Sustained Competitive Advantage the Journal Management, creating what would become one the most widely applied frameworks strategic management: the VRIO Framework. Building Wernerfelt 1984 Resource-Based View, Barney addressed critical that had limited the practical application resource-based thinking—the lack clear, operational criteria for determining which resources truly create sustained competitive advantage. The VRIO F...",
+    "description": "An exploration of Jay Barney's VRIO Framework for analyzing firm resources and sustained competitive advantage, providing practical criteria for evaluating which organizational capabilities drive technology adoption success.",
+    "content": "Bibliography: VRIO Framework – Barney (1991). An exploration of Jay Barney's VRIO Framework for analyzing firm resources and sustained competitive advantage, providing practical criteria for evaluating which organizational capabilities drive technology adoption success.. Bibliography: VRIO Framework Barney 1991 Framework Identification Framework Name: VRIO Framework Authors: Jay Barney Publication Date: 1991 Citation Information Barney, 1991 Firm resources and sustained competitive advantage. Journal Management 120. 1991, Jay Barney published Firm Resources and Sustained Competitive Advantage the Journal Management, creating what would become one the most widely applied frameworks strategic management: the VRIO Framework. Building Wernerfelt 1984 Resource-Based View, Barney addressed criti...",
     "category": "Bibliography"
   },
   {
-    "id": "page-54",
+    "id": "bibliography-2-20-gartner-hype-cycle-methodology-2025",
     "url": "/bibliography-2-20-gartner-hype-cycle-methodology-2025",
     "title": "Bibliography: Gartner Hype Cycle Research Methodology (2025)",
     "description": "An exploration of the Gartner Hype Cycle Research Methodology (2025), a widely used organizational tool for tracking technology maturity and managing enterprise technology adoption decisions across the five-phase hype cycle.",
@@ -440,7 +440,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-55",
+    "id": "bibliography-2-21-diffusion-of-innovations-organizational-rogers-1962",
     "url": "/bibliography-2-21-diffusion-of-innovations-organizational-rogers-1962",
     "title": "Bibliography: Diffusion of Innovations – Organizational Perspective – Rogers (1962)",
     "description": "An exploration of Diffusion of Innovations by Everett M. Rogers (1962) from an organizational adoption perspective, examining how the five adopter categories, innovation attributes, and diffusion channels apply to enterprise and institutional technology adoption decisions.",
@@ -448,7 +448,7 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-56",
+    "id": "bibliography-2-3-dynamic-capabilities-teece-1997",
     "url": "/bibliography-2-3-dynamic-capabilities-teece-1997",
     "title": "Bibliography: Dynamic Capabilities Framework – Teece, Pisano, & Shuen (1997)",
     "description": "An exploration of the Dynamic Capabilities Framework and how it extends the Resource-Based View to address sustained competitive advantage in rapidly changing, turbulent environments through organizational sensing, seizing, and transformation.",
@@ -456,23 +456,23 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-57",
+    "id": "bibliography-2-4-total-quality-management-tqm-deming-1982",
     "url": "/bibliography-2-4-total-quality-management-tqm-deming-1982",
     "title": "Bibliography: Total Quality Management (TQM) – Deming (1982)",
-    "description": "An exploration of W. Edwards Deming",
-    "content": "Bibliography: Total Quality Management (TQM) – Deming (1982). An exploration of W. Edwards Deming. Total Quality Management TQM Edwards Deming 1982 Framework Identification Framework Name: Total Quality Management TQM Authors: Edwards Deming Publication Date: 1982 Citation Information Deming, 1982 Quality, productivity, and competitive position. Massachusetts Institute Technology, Center for Advanced Engineering Study. Edwards Deming Total Quality Management TQM philosophy, articulated most comprehensively Quality, Productivity, and Competitive Position 1982 fundamentally transformed how organizations approach technology adoption, process improvement, and organizational change. Rather than viewing quality statistical problem managed the end production processes, Deming argued that quality ...",
+    "description": "An exploration of W. Edwards Deming's Total Quality Management philosophy, a foundational framework for understanding how management systems, continuous improvement, and organizational culture drive quality and technology adoption success.",
+    "content": "Bibliography: Total Quality Management (TQM) – Deming (1982). An exploration of W. Edwards Deming's Total Quality Management philosophy, a foundational framework for understanding how management systems, continuous improvement, and organizational culture drive quality and technology adoption success.. Total Quality Management TQM Edwards Deming 1982 Framework Identification Framework Name: Total Quality Management TQM Authors: Edwards Deming Publication Date: 1982 Citation Information Deming, 1982 Quality, productivity, and competitive position. Massachusetts Institute Technology, Center for Advanced Engineering Study. Edwards Deming Total Quality Management TQM philosophy, articulated most comprehensively Quality, Productivity, and Competitive Position 1982 fundamentally transformed how o...",
     "category": "Bibliography"
   },
   {
-    "id": "page-58",
+    "id": "bibliography-2-5-capability-maturity-model-cmm-humphrey-1989",
     "url": "/bibliography-2-5-capability-maturity-model-cmm-humphrey-1989",
     "title": "Bibliography: Capability Maturity Model (CMM) – Humphrey (1989)",
-    "description": "An exploration of Watts S. Humphrey",
-    "content": "Bibliography: Capability Maturity Model (CMM) – Humphrey (1989). An exploration of Watts S. Humphrey. Capability Maturity Model CMM Watts Humphrey 1989 Framework Identification Framework Name: Capability Maturity Model CMM Authors: Watts Humphrey Publication Date: 1989 Citation Information Humphrey, 1989 Managing the software process. Addison-Wesley. Watts Humphrey Capability Maturity Model CMM developed Carnegie Mellon University Software Engineering Institute SEI for the U.S. Department Defense, transformed how organizations assess and improve software development capability. Published comprehensively Managing the Software Process 1989 the CMM introduced the revolutionary idea that software development capability can assessed through five distinct maturity levels, and that organizations ...",
+    "description": "An exploration of Watts S. Humphrey's Capability Maturity Model, a foundational framework for assessing and improving software development capability through five distinct maturity levels.",
+    "content": "Bibliography: Capability Maturity Model (CMM) – Humphrey (1989). An exploration of Watts S. Humphrey's Capability Maturity Model, a foundational framework for assessing and improving software development capability through five distinct maturity levels.. Capability Maturity Model CMM Watts Humphrey 1989 Framework Identification Framework Name: Capability Maturity Model CMM Authors: Watts Humphrey Publication Date: 1989 Citation Information Humphrey, 1989 Managing the software process. Addison-Wesley. Watts Humphrey Capability Maturity Model CMM developed Carnegie Mellon University Software Engineering Institute SEI for the U.S. Department Defense, transformed how organizations assess and improve software development capability. Published comprehensively Managing the Software Process 1989 t...",
     "category": "Bibliography"
   },
   {
-    "id": "page-59",
+    "id": "bibliography-2-6-toe-framework-tornatzky-1990",
     "url": "/bibliography-2-6-toe-framework-tornatzky-1990",
     "title": "Bibliography: Technology-Organization-Environment (TOE) Framework – Tornatzky, Fleischer & Chakrabarti (1990)",
     "description": "An exploration of the Technology-Organization-Environment (TOE) Framework by Tornatzky, Fleischer, and Chakrabarti, a foundational model for understanding organizational technology adoption through three comprehensive contextual dimensions.",
@@ -480,15 +480,15 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-60",
+    "id": "bibliography-2-7-it-implementation-research-cooper-zmud-1990",
     "url": "/bibliography-2-7-it-implementation-research-cooper-zmud-1990",
     "title": "Bibliography: IT Implementation Research – Cooper & Zmud (1990)",
-    "description": "An exploration of Cooper and Zmud",
-    "content": "Bibliography: IT Implementation Research – Cooper & Zmud (1990). An exploration of Cooper and Zmud. Implementation Research: Technological Diffusion Approach Cooper Zmud 1990 Framework Identification Framework Name: Implementation Research: Technological Diffusion Approach Authors: Randolph Cooper and Robert Zmud Publication Date: 1990 Citation Information Cooper, B., Zmud, 1990 Information technology implementation research: technological diffusion approach. Management Science 123 139. Randolph Cooper and Robert Zmud Information Technology Implementation Research: Technological Diffusion Approach, published Management Science 1990 provided landmark synthesis fragmented implementation research streams into unified framework organized around six stages implementation and the critical role t...",
+    "description": "An exploration of Cooper and Zmud's IT Implementation Process Model, a foundational framework for understanding information technology implementation through six stages and the critical role of task-technology compatibility.",
+    "content": "Bibliography: IT Implementation Research – Cooper & Zmud (1990). An exploration of Cooper and Zmud's IT Implementation Process Model, a foundational framework for understanding information technology implementation through six stages and the critical role of task-technology compatibility.. Implementation Research: Technological Diffusion Approach Cooper Zmud 1990 Framework Identification Framework Name: Implementation Research: Technological Diffusion Approach Authors: Randolph Cooper and Robert Zmud Publication Date: 1990 Citation Information Cooper, B., Zmud, 1990 Information technology implementation research: technological diffusion approach. Management Science 123 139. Randolph Cooper and Robert Zmud Information Technology Implementation Research: Technological Diffusion Approach, pub...",
     "category": "Bibliography"
   },
   {
-    "id": "page-61",
+    "id": "bibliography-2-8-business-process-redesign-davenport-short-1990",
     "url": "/bibliography-2-8-business-process-redesign-davenport-short-1990",
     "title": "Bibliography: Business Process Redesign (BPR) – Davenport & Short (1990)",
     "description": "An exploration of the Business Process Redesign framework by Davenport and Short, which established how information technology enables radical redesign of core business processes for competitive advantage.",
@@ -496,15 +496,15 @@
     "category": "Bibliography"
   },
   {
-    "id": "page-62",
+    "id": "bibliography-2-9-business-process-reengineering-hammer-champy-1993",
     "url": "/bibliography-2-9-business-process-reengineering-hammer-champy-1993",
     "title": "Bibliography: Business Process Reengineering (BPR) – Hammer & Champy (1993)",
-    "description": "An exploration of Hammer and Champy",
-    "content": "Bibliography: Business Process Reengineering (BPR) – Hammer & Champy (1993). An exploration of Hammer and Champy. Business Process Reengineering BPR Hammer Champy 1993 Framework Identification Framework Name: Business Process Reengineering BPR Authors: Michael Hammer and James Champy Publication Date: 1993 Citation Information Hammer, M., Champy, 1993 Reengineering the corporation: manifesto for business revolution 1st ed. HarperBusiness. 1993, Michael Hammer and James Champy published Reengineering the Corporation: Manifesto for Business Revolution one the most provocative and widely read management books the 1990s. Defining Business Process Reengineering the fundamental rethinking and radical redesign business processes achieve dramatic improvements critical, contemporary measures perfor...",
+    "description": "An exploration of Hammer and Champy's Business Process Reengineering framework, the influential manifesto for radical organizational transformation through fundamental process redesign enabled by information technology.",
+    "content": "Bibliography: Business Process Reengineering (BPR) – Hammer & Champy (1993). An exploration of Hammer and Champy's Business Process Reengineering framework, the influential manifesto for radical organizational transformation through fundamental process redesign enabled by information technology.. Business Process Reengineering BPR Hammer Champy 1993 Framework Identification Framework Name: Business Process Reengineering BPR Authors: Michael Hammer and James Champy Publication Date: 1993 Citation Information Hammer, M., Champy, 1993 Reengineering the corporation: manifesto for business revolution 1st ed. HarperBusiness. 1993, Michael Hammer and James Champy published Reengineering the Corporation: Manifesto for Business Revolution one the most provocative and widely read management books th...",
     "category": "Bibliography"
   },
   {
-    "id": "page-63",
+    "id": "concept-mapping-complex",
     "url": "/concept-mapping/complex",
     "title": "Concept Mapping (Complex View)",
     "description": "Detailed academic concept mapping for the Technology Adoption Barriers Survey (TABS). View all 57 survey items with section-grouped accordion panels, scale visualizations, citation copy, and cross-reference linking.",
@@ -512,7 +512,7 @@
     "category": "Concept Mapping"
   },
   {
-    "id": "page-64",
+    "id": "concept-mapping-simple",
     "url": "/concept-mapping/simple",
     "title": "Concept Mapping (Simple View)",
     "description": "Interactive concept mapping table for the Technology Adoption Barriers Survey (TABS). View all 57 survey items with construct mappings, variable names, scales, and theoretical grounding.",
@@ -520,7 +520,7 @@
     "category": "Concept Mapping"
   },
   {
-    "id": "page-65",
+    "id": "concept-mapping-summary",
     "url": "/concept-mapping/summary",
     "title": "Concept Mapping Summary | TABS",
     "description": "TABS V2 survey structure summary showing section counts, question types, scale methods, and revision notes from the verified concept mapping.",
@@ -528,7 +528,7 @@
     "category": "Concept Mapping"
   },
   {
-    "id": "page-66",
+    "id": "contribution-policy",
     "url": "/contribution-policy",
     "title": "Contribution Policy | Technology Adoption Barriers Survey (TABS)",
     "description": "Contribution Policy for the Technology Adoption Barriers Survey (TABS) website",
@@ -536,7 +536,7 @@
     "category": "Legal"
   },
   {
-    "id": "page-67",
+    "id": "cookie-policy",
     "url": "/cookie-policy",
     "title": "Cookie Policy | Technology Adoption Barriers Survey (TABS)",
     "description": "Cookie Policy for the Technology Adoption Barriers Survey (TABS) website",
@@ -544,7 +544,7 @@
     "category": "Legal"
   },
   {
-    "id": "page-68",
+    "id": "faq",
     "url": "/faq",
     "title": "Frequently Asked Questions | TABS",
     "description": "Find answers to over 40 frequently asked questions about the Technology Adoption Barriers Survey (TABS) — the survey, research methodology, getting involved, privacy, teaching resources, and more.",
@@ -552,7 +552,7 @@
     "category": "General"
   },
   {
-    "id": "faq-191",
+    "id": "faq-1",
     "url": "/faq#faq-1",
     "title": "What is the Technology Adoption Barriers Survey (TABS)?",
     "description": "Frequently asked question",
@@ -560,7 +560,7 @@
     "category": "FAQ"
   },
   {
-    "id": "faq-192",
+    "id": "faq-2",
     "url": "/faq#faq-2",
     "title": "Why do technology adoption barriers matter?",
     "description": "Frequently asked question",
@@ -568,7 +568,7 @@
     "category": "FAQ"
   },
   {
-    "id": "faq-193",
+    "id": "faq-3",
     "url": "/faq#faq-3",
     "title": "What are the most common technology adoption barriers?",
     "description": "Frequently asked question",
@@ -576,7 +576,7 @@
     "category": "FAQ"
   },
   {
-    "id": "faq-194",
+    "id": "faq-4",
     "url": "/faq#faq-4",
     "title": "How can I participate in TABS research?",
     "description": "Frequently asked question",
@@ -584,7 +584,7 @@
     "category": "FAQ"
   },
   {
-    "id": "page-72",
+    "id": "for-organizations",
     "url": "/for-organizations",
     "title": "For Professional Organizations | TABS",
     "description": "Partner with TABS to provide your members with valuable technology adoption insights. Learn how professional organizations can support their members through the Technology Adoption Barriers Survey.",
@@ -592,7 +592,7 @@
     "category": "For Organizations"
   },
   {
-    "id": "page-69",
+    "id": "for-organizations-executive-leaders",
     "url": "/for-organizations/executive-leaders",
     "title": "For Executive Leaders | TABS",
     "description": "Partner with TABS to support your CEO and C-suite executive members. Help executive leaders set strategic direction for technology adoption.",
@@ -600,7 +600,7 @@
     "category": "For Organizations"
   },
   {
-    "id": "page-70",
+    "id": "for-organizations-finance-leaders",
     "url": "/for-organizations/finance-leaders",
     "title": "For Finance Leaders | TABS",
     "description": "Partner with TABS to support your CFO and finance executive members. Help finance leaders understand technology ROI and adoption barriers.",
@@ -608,7 +608,7 @@
     "category": "For Organizations"
   },
   {
-    "id": "page-71",
+    "id": "for-organizations-operations-leaders",
     "url": "/for-organizations/operations-leaders",
     "title": "For Operations Leaders | TABS",
     "description": "Partner with TABS to support your COO and operations executive members. Help operations leaders optimize technology implementation and scaling.",
@@ -616,7 +616,7 @@
     "category": "For Organizations"
   },
   {
-    "id": "page-73",
+    "id": "for-organizations-technology-leaders",
     "url": "/for-organizations/technology-leaders",
     "title": "For Technology Leaders | TABS",
     "description": "Partner with TABS to support your CTO, CIO, and CISO members. Help technology leaders benchmark their technology adoption challenges and gain valuable insights.",
@@ -624,7 +624,7 @@
     "category": "For Organizations"
   },
   {
-    "id": "page-74",
+    "id": "get-involved",
     "url": "/get-involved",
     "title": "Get Involved | TABS",
     "description": "Discover all the ways you can support the Technology Adoption Barriers Survey (TABS) - from taking the survey to volunteering, contributing, or using our dataset in your research.",
@@ -632,7 +632,7 @@
     "category": "General"
   },
   {
-    "id": "page-107",
+    "id": "making-of-tabs",
     "url": "/making-of-tabs",
     "title": "The Making of TABS",
     "description": "A behind-the-scenes look at the tools, services, and processes used to create and maintain the Technology Adoption Barriers Survey (TABS).",
@@ -640,7 +640,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-75",
+    "id": "making-of-tabs-accessibility",
     "url": "/making-of-tabs/accessibility",
     "title": "Accessibility & Inclusive Design — Making of TABS",
     "description": "How the TABS project approaches web accessibility — automated testing with jest-axe, WCAG AA compliance, keyboard navigation, and the accessibility-first review process.",
@@ -648,7 +648,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-77",
+    "id": "making-of-tabs-ai-assisted-development",
     "url": "/making-of-tabs/ai-assisted-development",
     "title": "AI-Assisted Development — Making of TABS",
     "description": "How the TABS project uses AI coding agents — Claude, GPT-4o, GitHub Copilot, and Gemini — to build and maintain its website, with honest lessons on what works and what does not.",
@@ -656,15 +656,15 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-76",
+    "id": "making-of-tabs-ai-assisted-development-overnight-shift",
     "url": "/making-of-tabs/ai-assisted-development/overnight-shift",
-    "title": "Copilot",
+    "title": "Copilot's Got the Overnight Shift — AI-Assisted Development — Making of TABS",
     "description": "A real screenshot from a Claude Code session showing multi-agent orchestration: Claude finishing work, assigning 9 issues to Copilot for overnight processing, and signing off.",
-    "content": "Copilot. A real screenshot from a Claude Code session showing multi-agent orchestration: Claude finishing work, assigning 9 issues to Copilot for overnight processing, and signing off.. Making TABS AI-Assisted Development Copilot Got the Overnight Shift Sleep Copilot Got the Overnight Shift Zotero Integration Session April 6–7, 2026 real, unscripted moment Claude Code session that captures the multi-agent workflow action: one agent finishing its work, delegating issues another agent for overnight processing, and signing off. The Moment img assetPath '/Images/making-of-tabs/copilot-overnight-shift.png'",
+    "content": "Copilot's Got the Overnight Shift — AI-Assisted Development — Making of TABS. A real screenshot from a Claude Code session showing multi-agent orchestration: Claude finishing work, assigning 9 issues to Copilot for overnight processing, and signing off.. Making TABS AI-Assisted Development Copilot Got the Overnight Shift Sleep Copilot Got the Overnight Shift Zotero Integration Session April 6–7, 2026 real, unscripted moment Claude Code session that captures the multi-agent workflow action: one agent finishing its work, delegating issues another agent for overnight processing, and signing off. The Moment img assetPath '/Images/making-of-tabs/copilot-overnight-shift.png'",
     "category": "Making of TABS"
   },
   {
-    "id": "page-78",
+    "id": "making-of-tabs-ai-assisted-development-squash-merge-incident",
     "url": "/making-of-tabs/ai-assisted-development/squash-merge-incident",
     "title": "The Squash Merge Incident — AI-Assisted Development — Making of TABS",
     "description": "How a single squash merge silently reverted 25+ pull requests, the root cause analysis, the full restoration effort, and the permanent safeguards now in place.",
@@ -672,7 +672,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-91",
+    "id": "making-of-tabs-ai-validity-checks",
     "url": "/making-of-tabs/ai-validity-checks",
     "title": "AI Validity Checks — Making of TABS",
     "description": "An overview of how we use advanced AI models to perform rigorous validity checks on our academic and organizational content.",
@@ -680,7 +680,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-90",
+    "id": "making-of-tabs-ai-validity-checks-gemini-3-1-review",
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review",
     "title": "Gemini 3.1 Validity Review — Making of TABS",
     "description": "The comprehensive validity review conducted by Gemini 3.1 Pro on the TABS public content.",
@@ -688,7 +688,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-79",
+    "id": "making-of-tabs-ai-validity-checks-gemini-3-1-review-bibliography-and-citations",
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review/bibliography-and-citations",
     "title": "Bibliography & Citations Review — Making of TABS",
     "description": "Gemini 3.1 Pro validity check of the TABS comprehensive bibliography.",
@@ -696,7 +696,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-80",
+    "id": "making-of-tabs-ai-validity-checks-gemini-3-1-review-branch-1-psychological-models",
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-1-psychological-models",
     "title": "Psychological Models Review — Making of TABS",
     "description": "Gemini 3.1 Pro validity check of foundational psychological models in TABS.",
@@ -704,7 +704,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-81",
+    "id": "making-of-tabs-ai-validity-checks-gemini-3-1-review-branch-1-sociological-models",
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-1-sociological-models",
     "title": "Sociological Models Review — Making of TABS",
     "description": "Gemini 3.1 Pro validity check of sociological models in TABS.",
@@ -712,7 +712,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-82",
+    "id": "making-of-tabs-ai-validity-checks-gemini-3-1-review-branch-1-specialized-models",
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-1-specialized-models",
     "title": "Specialized Models Review — Making of TABS",
     "description": "Gemini 3.1 Pro validity check of specialized adoption models in TABS.",
@@ -720,7 +720,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-83",
+    "id": "making-of-tabs-ai-validity-checks-gemini-3-1-review-branch-1-unified-models",
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-1-unified-models",
     "title": "Unified Models Review — Making of TABS",
     "description": "Gemini 3.1 Pro validity check of unified adoption models in TABS.",
@@ -728,7 +728,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-84",
+    "id": "making-of-tabs-ai-validity-checks-gemini-3-1-review-branch-2-cloud-and-ai-frameworks",
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-2-cloud-and-ai-frameworks",
     "title": "Cloud & AI Frameworks Review — Making of TABS",
     "description": "Gemini 3.1 Pro validity check of modern cloud and AI adoption frameworks in TABS.",
@@ -736,7 +736,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-85",
+    "id": "making-of-tabs-ai-validity-checks-gemini-3-1-review-branch-2-enterprise-architecture",
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-2-enterprise-architecture",
     "title": "Enterprise Architecture Review — Making of TABS",
     "description": "Gemini 3.1 Pro validity check of enterprise architecture frameworks in TABS.",
@@ -744,7 +744,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-86",
+    "id": "making-of-tabs-ai-validity-checks-gemini-3-1-review-branch-2-maturity-models",
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-2-maturity-models",
     "title": "Maturity Models Review — Making of TABS",
     "description": "Gemini 3.1 Pro validity check of maturity models and hype cycles in TABS.",
@@ -752,7 +752,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-87",
+    "id": "making-of-tabs-ai-validity-checks-gemini-3-1-review-branch-2-strategic-models",
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-2-strategic-models",
     "title": "Strategic Models Review — Making of TABS",
     "description": "Gemini 3.1 Pro validity check of strategic organizational models in TABS.",
@@ -760,7 +760,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-88",
+    "id": "making-of-tabs-ai-validity-checks-gemini-3-1-review-conclusion",
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review/conclusion",
     "title": "Conclusion: Gemini 3.1 Review — Making of TABS",
     "description": "The final conclusion of the Gemini 3.1 Pro validity check on TABS content.",
@@ -768,7 +768,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-89",
+    "id": "making-of-tabs-ai-validity-checks-gemini-3-1-review-methodology",
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review/methodology",
     "title": "Methodology: Gemini 3.1 Review — Making of TABS",
     "description": "The methodology used by Gemini 3.1 Pro to audit the TABS content.",
@@ -776,7 +776,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-92",
+    "id": "making-of-tabs-automation-infrastructure",
     "url": "/making-of-tabs/automation-infrastructure",
     "title": "Automation Infrastructure — Making of TABS",
     "description": "How the TABS project automates the full lifecycle from issue assignment to human review — daily data pipelines, privacy-safe boundaries, AI agent coordination, and dependency provenance.",
@@ -784,7 +784,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-93",
+    "id": "making-of-tabs-cmo-survey",
     "url": "/making-of-tabs/cmo-survey",
     "title": "Redirecting — TABS",
     "description": "",
@@ -792,7 +792,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-94",
+    "id": "making-of-tabs-content-architecture",
     "url": "/making-of-tabs/content-architecture",
     "title": "Content Architecture — Making of TABS",
     "description": "How the TABS site is organized — 149+ statically generated pages, data-driven content, SEO strategy, responsive design, and the static export approach.",
@@ -800,7 +800,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-95",
+    "id": "making-of-tabs-data-analysis",
     "url": "/making-of-tabs/data-analysis",
     "title": "Redirecting — TABS",
     "description": "",
@@ -808,7 +808,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-96",
+    "id": "making-of-tabs-development-workflow",
     "url": "/making-of-tabs/development-workflow",
     "title": "Development Workflow — Making of TABS",
     "description": "The CI/CD pipeline, merge queue, automated testing, and operational workflows that keep the TABS website reliable and continuously deployed.",
@@ -816,7 +816,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-102",
+    "id": "making-of-tabs-integrations",
     "url": "/making-of-tabs/integrations",
     "title": "Technical Integrations & Workflows — Making of TABS",
     "description": "A detailed guide to the API integrations, automated workflows, and Survey Flow architecture that power the Technology Adoption Barriers Survey (TABS).",
@@ -824,7 +824,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-97",
+    "id": "making-of-tabs-integrations-cloudflare",
     "url": "/making-of-tabs/integrations/cloudflare",
     "title": "Cloudflare Integration — Making of TABS",
     "description": "How TABS uses Cloudflare as the DNS, CDN, SSL, and security layer in front of GitHub Pages — including caching strategy, performance optimizations, and security headers.",
@@ -832,7 +832,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-98",
+    "id": "making-of-tabs-integrations-github",
     "url": "/making-of-tabs/integrations/github",
     "title": "GitHub Integration — Making of TABS",
     "description": "How TABS uses GitHub as a comprehensive DevOps platform: 12 Actions workflows, automated code review, CodeQL security scanning, Dependabot, GitHub Pages deployment, and release management.",
@@ -840,7 +840,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-99",
+    "id": "making-of-tabs-integrations-google-analytics",
     "url": "/making-of-tabs/integrations/google-analytics",
     "title": "Google Analytics Integration — Making of TABS",
     "description": "How TABS uses Google Analytics 4 for impact measurement, including the Verified Visitors methodology that filters out CI/Playwright test traffic to report accurate production visitor counts.",
@@ -848,7 +848,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-100",
+    "id": "making-of-tabs-integrations-google-jules",
     "url": "/making-of-tabs/integrations/google-jules",
     "title": "Google Jules (Gemini) Integration — Making of TABS",
     "description": "How TABS uses Google Jules, powered by Gemini, for autonomous visualization, content, and frontend workflows.",
@@ -856,7 +856,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-101",
+    "id": "making-of-tabs-integrations-microsoft-clarity",
     "url": "/making-of-tabs/integrations/microsoft-clarity",
     "title": "Microsoft Clarity Integration — Making of TABS",
     "description": "How TABS integrates Microsoft Clarity for heatmaps and session recordings, with privacy-first consent gating, SPA route tracking, and cookie cleanup.",
@@ -864,7 +864,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-104",
+    "id": "making-of-tabs-integrations-prolific",
     "url": "/making-of-tabs/integrations/prolific",
     "title": "Prolific Integration — Making of TABS",
     "description": "How TABS uses Prolific for participant recruitment, the Qualtrics–Prolific bridge architecture, and automated data collection workflows.",
@@ -872,7 +872,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-103",
+    "id": "making-of-tabs-integrations-prolific-dashboard",
     "url": "/making-of-tabs/integrations/prolific/dashboard",
     "title": "Redirecting — TABS",
     "description": "",
@@ -880,7 +880,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-105",
+    "id": "making-of-tabs-integrations-qualtrics",
     "url": "/making-of-tabs/integrations/qualtrics",
     "title": "Qualtrics Integration — Making of TABS",
     "description": "How TABS uses Qualtrics for survey design, data collection, and automated management via the Qualtrics REST API v3 and GitHub Actions workflows.",
@@ -888,7 +888,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-106",
+    "id": "making-of-tabs-open-source",
     "url": "/making-of-tabs/open-source",
     "title": "Open Source & Community — Making of TABS",
     "description": "Why the TABS project is open source — Apache 2.0 licensing, community health files, contribution guidelines, academic citation, and how we build in public.",
@@ -896,7 +896,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-108",
+    "id": "making-of-tabs-reproducible-analysis",
     "url": "/making-of-tabs/reproducible-analysis",
     "title": "Redirecting — TABS",
     "description": "",
@@ -904,7 +904,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-111",
+    "id": "making-of-tabs-seo",
     "url": "/making-of-tabs/seo",
     "title": "SEO Transparency & Dashboard — Making of TABS",
     "description": "SEO metrics, baseline audit, and strategic roadmap for the Technology Adoption Barriers project — a transparent, build-time snapshot.",
@@ -912,7 +912,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-109",
+    "id": "making-of-tabs-seo-baseline-audit",
     "url": "/making-of-tabs/seo/baseline-audit",
     "title": "Baseline SEO Audit — Making of TABS",
     "description": "This page has moved. See the consolidated SEO Transparency page.",
@@ -920,7 +920,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-110",
+    "id": "making-of-tabs-seo-dashboard",
     "url": "/making-of-tabs/seo/dashboard",
     "title": "SEO Performance Dashboard — Making of TABS",
     "description": "This page has moved. See the consolidated SEO Transparency page.",
@@ -928,7 +928,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-112",
+    "id": "making-of-tabs-seo-strategy",
     "url": "/making-of-tabs/seo/strategy",
     "title": "SEO Strategy Roadmap — Making of TABS",
     "description": "This page has moved. See the consolidated SEO Transparency page.",
@@ -936,7 +936,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-113",
+    "id": "making-of-tabs-tabs-presentation",
     "url": "/making-of-tabs/tabs-presentation",
     "title": "TABS Presentation | The Making of TABS",
     "description": "Interactive TABS presentation slides, embedded for easy viewing and sharing from the Making of TABS section.",
@@ -944,7 +944,7 @@
     "category": "Making of TABS"
   },
   {
-    "id": "page-114",
+    "id": "media",
     "url": "/media",
     "title": "Media",
     "description": "Press kit, media contact details, and project resources for the Technology Adoption Barriers Survey (TABS).",
@@ -952,7 +952,7 @@
     "category": "General"
   },
   {
-    "id": "page-116",
+    "id": "privacy-policy",
     "url": "/privacy-policy",
     "title": "Privacy Policy | Technology Adoption Barriers Survey (TABS)",
     "description": "Privacy Policy for the Technology Adoption Barriers Survey (TABS) website",
@@ -960,7 +960,7 @@
     "category": "Legal"
   },
   {
-    "id": "page-123",
+    "id": "results",
     "url": "/results",
     "title": "Results — TABS",
     "description": "Survey results from the Technology Adoption Barriers Survey: sample demographics, descriptive statistics, scale reliability, sensitivity analysis, and open data.",
@@ -968,7 +968,7 @@
     "category": "Results"
   },
   {
-    "id": "page-117",
+    "id": "results-cmo-survey",
     "url": "/results/cmo-survey",
     "title": "CMO Survey Comparison — TABS Results",
     "description": "Learn how The CMO Survey has influenced and inspired the Technology Adoption Barriers Survey (TABS) methodology, design, and longitudinal research approach.",
@@ -976,7 +976,7 @@
     "category": "Results"
   },
   {
-    "id": "page-118",
+    "id": "results-dashboard",
     "url": "/results/dashboard",
     "title": "Prolific Dashboard — TABS Results",
     "description": "Live disposition breakdown for the Technology Adoption Barriers Survey: approvals, rejections, flags, and manual review status.",
@@ -984,7 +984,7 @@
     "category": "Results"
   },
   {
-    "id": "page-119",
+    "id": "results-data-quality",
     "url": "/results/data-quality",
     "title": "Data Quality Pipeline — TABS Results",
     "description": "How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across five sample definitions.",
@@ -992,7 +992,7 @@
     "category": "Results"
   },
   {
-    "id": "page-120",
+    "id": "results-dataset-comparison",
     "url": "/results/dataset-comparison",
     "title": "Dataset Comparison — TABS Results",
     "description": "Side-by-side comparison of all statistics across the four primary result groups of the Technology Adoption Barriers Survey.",
@@ -1000,7 +1000,7 @@
     "category": "Results"
   },
   {
-    "id": "page-121",
+    "id": "results-descriptive",
     "url": "/results/descriptive",
     "title": "Descriptive Statistics — TABS Results",
     "description": "Grand means, standard deviations, and inter-construct correlations for the Technology Adoption Barriers Survey across barriers, readiness, and maturity constructs.",
@@ -1008,7 +1008,7 @@
     "category": "Results"
   },
   {
-    "id": "page-122",
+    "id": "results-findings",
     "url": "/results/findings",
     "title": "Key Findings — TABS Results",
     "description": "Effect sizes, cross-tabulations, t-tests, and ANOVA from the Technology Adoption Barriers Survey, computed independently across four result groups.",
@@ -1016,15 +1016,15 @@
     "category": "Results"
   },
   {
-    "id": "page-124",
+    "id": "results-reliability",
     "url": "/results/reliability",
     "title": "Scale Reliability — TABS Results",
-    "description": "Cronbach",
-    "content": "Scale Reliability — TABS Results. Cronbach. metric.values Record sample fmt val: number string val === '—' val.toFixed",
+    "description": "Cronbach's alpha reliability coefficients for the Technology Adoption Barriers Survey scales across five sample definitions, demonstrating excellent internal consistency.",
+    "content": "Scale Reliability — TABS Results. Cronbach's alpha reliability coefficients for the Technology Adoption Barriers Survey scales across five sample definitions, demonstrating excellent internal consistency.. metric.values Record sample fmt val: number string val === '—' val.toFixed",
     "category": "Results"
   },
   {
-    "id": "page-125",
+    "id": "results-reproducibility",
     "url": "/results/reproducibility",
     "title": "Open Data & Reproducibility — TABS Results",
     "description": "How the TABS project ensures reproducible, transparent research through shared constants, automated validation, and open-source analysis scripts that anyone can run.",
@@ -1032,7 +1032,7 @@
     "category": "Results"
   },
   {
-    "id": "page-126",
+    "id": "results-sample",
     "url": "/results/sample",
     "title": "Sample & Demographics — TABS Results",
     "description": "Participant demographics for the Technology Adoption Barriers Survey across four result groups: roles, industries, organization sizes, and geographic distribution.",
@@ -1040,7 +1040,7 @@
     "category": "Results"
   },
   {
-    "id": "page-127",
+    "id": "results-sensitivity",
     "url": "/results/sensitivity",
     "title": "Sensitivity Analysis — TABS Results",
     "description": "Full sensitivity analysis for the Technology Adoption Barriers Survey: every metric computed across five sample definitions to demonstrate robustness to inclusion criteria.",
@@ -1048,7 +1048,7 @@
     "category": "Results"
   },
   {
-    "id": "page-128",
+    "id": "results-survey-stats",
     "url": "/results/survey-stats",
     "title": "Survey Statistics — TABS Results",
     "description": "Live survey metrics and response data from the Technology Adoption Barriers Survey (TABS), pulled from Qualtrics via GitHub Actions.",
@@ -1056,7 +1056,7 @@
     "category": "Results"
   },
   {
-    "id": "page-129",
+    "id": "security-acknowledgements",
     "url": "/security-acknowledgements",
     "title": "Security Acknowledgements | Technology Adoption Barriers Survey (TABS)",
     "description": "Security Acknowledgements for the Technology Adoption Barriers Survey (TABS) website",
@@ -1064,7 +1064,7 @@
     "category": "Legal"
   },
   {
-    "id": "page-130",
+    "id": "start",
     "url": "/start",
     "title": "Find Your Role | TABS Survey",
     "description": "Select your leadership role to see how your participation in the Technology Adoption Barriers Survey can provide valuable insights for your position and industry.",
@@ -1072,7 +1072,7 @@
     "category": "See Yourself"
   },
   {
-    "id": "page-146",
+    "id": "start-ceo",
     "url": "/start/ceo",
     "title": "Chief Executive Officer | TABS Survey",
     "description": "As a CEO, you set the strategic vision for technology adoption. Your perspective on organizational barriers and enablers is invaluable for understanding how technology decisions cascade throughout organizations.",
@@ -1080,7 +1080,7 @@
     "category": "See Yourself"
   },
   {
-    "id": "page-147",
+    "id": "start-cfo",
     "url": "/start/cfo",
     "title": "Chief Financial Officer | TABS Survey",
     "description": "As a CFO, you understand the financial implications of technology investments. Your perspective on budgeting constraints and financial risk management is critical for understanding how financial leaders perceive technology adoption barriers.",
@@ -1088,7 +1088,7 @@
     "category": "See Yourself"
   },
   {
-    "id": "page-154",
+    "id": "start-chro",
     "url": "/start/chro",
     "title": "Chief Human Resources Officer | TABS Survey",
     "description": "As a CHRO, you understand the people side of technology adoption. Your perspective on workforce readiness, training, and change resistance reveals how HR leaders perceive organizational barriers.",
@@ -1096,7 +1096,7 @@
     "category": "See Yourself"
   },
   {
-    "id": "page-148",
+    "id": "start-cio",
     "url": "/start/cio",
     "title": "Chief Information Officer | TABS Survey",
     "description": "As a CIO, you lead technology strategy and implementation. Your frontline perspective on technical barriers, integration challenges, and organizational resistance provides crucial insights into how technical leaders perceive adoption obstacles.",
@@ -1104,7 +1104,7 @@
     "category": "See Yourself"
   },
   {
-    "id": "page-149",
+    "id": "start-ciso",
     "url": "/start/ciso",
     "title": "Chief Information Security Officer | TABS Survey",
     "description": "As a CISO, security and compliance shape your technology decisions. Your perspective on risk management and balancing innovation with protection is essential for understanding how security leaders perceive adoption challenges.",
@@ -1112,7 +1112,7 @@
     "category": "See Yourself"
   },
   {
-    "id": "page-151",
+    "id": "start-cmo",
     "url": "/start/cmo",
     "title": "Chief Marketing Officer | TABS Survey",
     "description": "As a CMO, you drive customer-facing technology and data-driven marketing. Your perspective on marketing technology and digital transformation reveals how marketing leaders perceive adoption challenges.",
@@ -1120,7 +1120,7 @@
     "category": "See Yourself"
   },
   {
-    "id": "page-150",
+    "id": "start-coo",
     "url": "/start/coo",
     "title": "Chief Operating Officer | TABS Survey",
     "description": "As a COO, you oversee operational efficiency and process integration. Your perspective on workflow disruption and operational readiness reveals how operations leaders perceive critical adoption barriers.",
@@ -1128,7 +1128,7 @@
     "category": "See Yourself"
   },
   {
-    "id": "page-155",
+    "id": "start-cro",
     "url": "/start/cro",
     "title": "Chief Revenue Officer | TABS Survey",
     "description": "As a CRO, you drive revenue growth through technology-enabled sales and customer success. Your perspective on sales technology reveals how revenue leaders perceive adoption barriers.",
@@ -1136,7 +1136,7 @@
     "category": "See Yourself"
   },
   {
-    "id": "page-153",
+    "id": "start-cso",
     "url": "/start/cso",
     "title": "Chief Strategy Officer | TABS Survey",
     "description": "As a CSO, you align technology with business strategy. Your perspective on strategic planning and competitive positioning reveals how strategy leaders perceive technology adoption challenges.",
@@ -1144,7 +1144,7 @@
     "category": "See Yourself"
   },
   {
-    "id": "page-152",
+    "id": "start-cto",
     "url": "/start/cto",
     "title": "Chief Technology Officer | TABS Survey",
     "description": "As a CTO, you lead technology innovation and product development. Your perspective on emerging technologies and technical debt reveals how technology leaders perceive innovation barriers.",
@@ -1152,7 +1152,7 @@
     "category": "See Yourself"
   },
   {
-    "id": "page-156",
+    "id": "start-other",
     "url": "/start/other",
     "title": "Other Senior Leadership Role | TABS Survey",
     "description": "As a senior leader in your organization, your perspective on technology adoption barriers is valuable. Your unique role provides insights that help build a complete picture of how different leadership positions perceive organizational challenges.",
@@ -1160,7 +1160,7 @@
     "category": "See Yourself"
   },
   {
-    "id": "page-131",
+    "id": "survey-complete",
     "url": "/survey-complete",
     "title": "Survey Complete | TABS",
     "description": "Thank you for participating in the Technology Adoption Barriers Survey (TABS) survey.",
@@ -1168,7 +1168,7 @@
     "category": "General"
   },
   {
-    "id": "page-132",
+    "id": "technology-adoption-models",
     "url": "/technology-adoption-models",
     "title": "Technology Adoption Models & Frameworks – Series Overview",
     "description": "A multi-part series exploring the most influential technology adoption models and frameworks, from foundational theories to modern enterprise, cloud, and AI playbooks.",
@@ -1176,7 +1176,7 @@
     "category": "Adoption Models"
   },
   {
-    "id": "page-138",
+    "id": "technology-adoption-series",
     "url": "/technology-adoption-series",
     "title": "Technology Adoption Teaching Series — Overview",
     "description": "A practical, slide-by-slide teaching series on technology adoption: definitions, frameworks, lifecycle planning, and adoption success patterns.",
@@ -1184,7 +1184,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-133",
+    "id": "technology-adoption-series-handout-materials",
     "url": "/technology-adoption-series/handout-materials",
     "title": "Handout materials — Technology Adoption Teaching Series",
     "description": "Printable participant handouts to support the Technology Adoption Teaching Series session.",
@@ -1192,7 +1192,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-134",
+    "id": "technology-adoption-series-lifecycle-positioning",
     "url": "/technology-adoption-series/lifecycle-positioning",
     "title": "Technology Lifecycle Positioning — Focused Briefing",
     "description": "A focused lifecycle-positioning briefing: adoption foundations, the dual-curve target zone, transition signals, and decision lenses across hardware, supply chain, and AI/ML.",
@@ -1200,7 +1200,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-136",
+    "id": "technology-adoption-series-lifecycle-positioning-presentation",
     "url": "/technology-adoption-series/lifecycle-positioning/presentation",
     "title": "Technology Lifecycle Positioning — Presentation",
     "description": "Interactive presentation on technology lifecycle positioning: the dual-curve model, real-world timeline examples, and lifecycle cycles.",
@@ -1208,7 +1208,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-135",
+    "id": "technology-adoption-series-lifecycle-positioning-presentation-4k",
     "url": "/technology-adoption-series/lifecycle-positioning/presentation/4k",
     "title": "Technology Lifecycle Positioning — Presentation (4K)",
     "description": "High-resolution 4K presentation on technology lifecycle positioning: the dual-curve model, real-world timeline examples, and lifecycle cycles.",
@@ -1216,7 +1216,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-137",
+    "id": "technology-adoption-series-opening-and-closing-scripts",
     "url": "/technology-adoption-series/opening-and-closing-scripts",
     "title": "Opening and closing scripts — Technology Adoption Teaching Series",
     "description": "Facilitator scripts for starting and ending the Technology Adoption Teaching Series workshop.",
@@ -1224,7 +1224,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-140",
+    "id": "technology-adoption-series-presentation",
     "url": "/technology-adoption-series/presentation",
     "title": "Teaching Series Presentation",
     "description": "Interactive presentation slides for the Technology Adoption Barriers Survey (TABS) teaching series on technology adoption models and frameworks.",
@@ -1232,7 +1232,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-139",
+    "id": "technology-adoption-series-presentation-4k",
     "url": "/technology-adoption-series/presentation/4k",
     "title": "Teaching Series Presentation (4K)",
     "description": "High-resolution 4K presentation slides for the Technology Adoption Barriers Survey (TABS) teaching series.",
@@ -1240,7 +1240,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-141",
+    "id": "technology-adoption-series-qa-preparation-guide",
     "url": "/technology-adoption-series/qa-preparation-guide",
     "title": "Q&A preparation guide — Technology Adoption Teaching Series",
     "description": "A facilitator guide for preparing questions and handling Q&A during the Technology Adoption Teaching Series.",
@@ -1248,7 +1248,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-157",
+    "id": "technology-adoption-series-slide-01-what-is-technology-adoption",
     "url": "/technology-adoption-series/slide-01-what-is-technology-adoption",
     "title": "What is Technology Adoption? — Technology Adoption Teaching Series",
     "description": "Part 1: What is Technology Adoption?: What is Technology Adoption?",
@@ -1256,7 +1256,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-158",
+    "id": "technology-adoption-series-slide-02-the-technology-adoption-framework",
     "url": "/technology-adoption-series/slide-02-the-technology-adoption-framework",
     "title": "The Technology Adoption Framework — Technology Adoption Teaching Series",
     "description": "Part 1: What is Technology Adoption?: The Technology Adoption Framework",
@@ -1264,7 +1264,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-159",
+    "id": "technology-adoption-series-slide-03-voluntary-vs-involuntary-user-adoption",
     "url": "/technology-adoption-series/slide-03-voluntary-vs-involuntary-user-adoption",
     "title": "Voluntary vs. Involuntary User Adoption — Technology Adoption Teaching Series",
     "description": "Part 1: What is Technology Adoption?: Voluntary vs. Involuntary User Adoption",
@@ -1272,7 +1272,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-160",
+    "id": "technology-adoption-series-slide-04-why-technology-dies-on-the-shelf",
     "url": "/technology-adoption-series/slide-04-why-technology-dies-on-the-shelf",
     "title": "Why Technology Dies on the Shelf — Technology Adoption Teaching Series",
     "description": "Part 1: What is Technology Adoption?: Why Technology Dies on the Shelf",
@@ -1280,7 +1280,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-161",
+    "id": "technology-adoption-series-slide-05-a-strategic-approach-to-technology-adoption",
     "url": "/technology-adoption-series/slide-05-a-strategic-approach-to-technology-adoption",
     "title": "A Strategic Approach to Technology Adoption — Technology Adoption Teaching Series",
     "description": "Part 2: Strategic Approaches & Lifecycle Planning: A Strategic Approach to Technology Adoption",
@@ -1288,7 +1288,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-162",
+    "id": "technology-adoption-series-slide-06-technology-lifecycle-positioning",
     "url": "/technology-adoption-series/slide-06-technology-lifecycle-positioning",
     "title": "Technology Lifecycle Positioning — Technology Adoption Teaching Series",
     "description": "Part 2: Strategic Approaches & Lifecycle Planning: Technology Lifecycle Positioning",
@@ -1296,7 +1296,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-163",
+    "id": "technology-adoption-series-slide-07-lifecycle-position-drives-everything-you-build",
     "url": "/technology-adoption-series/slide-07-lifecycle-position-drives-everything-you-build",
     "title": "Lifecycle Position Drives Everything You Build — Technology Adoption Teaching Series",
     "description": "Part 2: Strategic Approaches & Lifecycle Planning: Lifecycle Position Drives Everything You Build",
@@ -1304,7 +1304,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-164",
+    "id": "technology-adoption-series-slide-08-strategic-lifecycle-positioning",
     "url": "/technology-adoption-series/slide-08-strategic-lifecycle-positioning",
     "title": "Strategic Lifecycle Positioning — Technology Adoption Teaching Series",
     "description": "Part 2: Strategic Approaches & Lifecycle Planning: Strategic Lifecycle Positioning",
@@ -1312,7 +1312,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-165",
+    "id": "technology-adoption-series-slide-09-solution-and-architecture-approaches",
     "url": "/technology-adoption-series/slide-09-solution-and-architecture-approaches",
     "title": "Solution and Architecture Approaches — Technology Adoption Teaching Series",
     "description": "Part 2: Strategic Approaches & Lifecycle Planning: Solution and Architecture Approaches",
@@ -1320,7 +1320,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-166",
+    "id": "technology-adoption-series-slide-10-connecting-lifecycle-to-architecture-approaches",
     "url": "/technology-adoption-series/slide-10-connecting-lifecycle-to-architecture-approaches",
     "title": "Connecting Lifecycle to Architecture Approaches — Technology Adoption Teaching Series",
     "description": "Part 2: Strategic Approaches & Lifecycle Planning: Connecting Lifecycle to Architecture Approaches",
@@ -1328,7 +1328,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-167",
+    "id": "technology-adoption-series-slide-11-lifecycle-planning-for-adoption-success",
     "url": "/technology-adoption-series/slide-11-lifecycle-planning-for-adoption-success",
     "title": "Lifecycle Planning for Adoption Success — Technology Adoption Teaching Series",
     "description": "Part 2: Strategic Approaches & Lifecycle Planning: Lifecycle Planning for Adoption Success",
@@ -1336,7 +1336,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-168",
+    "id": "technology-adoption-series-slide-12-development-decisions-that-flow-from-adoption",
     "url": "/technology-adoption-series/slide-12-development-decisions-that-flow-from-adoption",
     "title": "Development Decisions That Flow From Adoption — Technology Adoption Teaching Series",
     "description": "Part 2: Strategic Approaches & Lifecycle Planning: Development Decisions That Flow From Adoption",
@@ -1344,7 +1344,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-169",
+    "id": "technology-adoption-series-slide-13-technical-capabilities-that-enable-adoption",
     "url": "/technology-adoption-series/slide-13-technical-capabilities-that-enable-adoption",
     "title": "Technical Capabilities That Enable Adoption — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: Technical Capabilities That Enable Adoption",
@@ -1352,7 +1352,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-170",
+    "id": "technology-adoption-series-slide-14-measuring-adoption-success",
     "url": "/technology-adoption-series/slide-14-measuring-adoption-success",
     "title": "Measuring Adoption Success — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: Measuring Adoption Success",
@@ -1360,7 +1360,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-171",
+    "id": "technology-adoption-series-slide-15-case-study-adoption-success-in-action",
     "url": "/technology-adoption-series/slide-15-case-study-adoption-success-in-action",
     "title": "Case Study: Adoption Success in Action — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: Case Study: Adoption Success in Action",
@@ -1368,7 +1368,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-172",
+    "id": "technology-adoption-series-slide-16-best-practices-for-voluntary-adoption",
     "url": "/technology-adoption-series/slide-16-best-practices-for-voluntary-adoption",
     "title": "Best Practices for Voluntary Adoption — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: Best Practices for Voluntary Adoption",
@@ -1376,7 +1376,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-173",
+    "id": "technology-adoption-series-slide-17-q-a-and-optional-deep-dives",
     "url": "/technology-adoption-series/slide-17-q-a-and-optional-deep-dives",
     "title": "Q&A and Optional Deep Dives — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: Q&A and Optional Deep Dives",
@@ -1384,7 +1384,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-174",
+    "id": "technology-adoption-series-slide-18-technology-lifecycle-examples-in-practice",
     "url": "/technology-adoption-series/slide-18-technology-lifecycle-examples-in-practice",
     "title": "Technology Lifecycle Examples in Practice — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: Technology Lifecycle Examples in Practice",
@@ -1392,7 +1392,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-175",
+    "id": "technology-adoption-series-slide-19-common-cloud-platform-technologies",
     "url": "/technology-adoption-series/slide-19-common-cloud-platform-technologies",
     "title": "Common Cloud Platform Technologies — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: Common Cloud Platform Technologies",
@@ -1400,7 +1400,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-176",
+    "id": "technology-adoption-series-slide-20-technology-selection-framework",
     "url": "/technology-adoption-series/slide-20-technology-selection-framework",
     "title": "Technology Selection Framework — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: Technology Selection Framework",
@@ -1408,7 +1408,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-177",
+    "id": "technology-adoption-series-slide-21-anti-patterns-in-technology-adoption",
     "url": "/technology-adoption-series/slide-21-anti-patterns-in-technology-adoption",
     "title": "Anti-Patterns in Technology Adoption — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: Anti-Patterns in Technology Adoption",
@@ -1416,7 +1416,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-178",
+    "id": "technology-adoption-series-slide-22-organizational-vs-user-adoption-deep-dive",
     "url": "/technology-adoption-series/slide-22-organizational-vs-user-adoption-deep-dive",
     "title": "Organizational vs User Adoption Deep Dive — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: Organizational vs User Adoption Deep Dive",
@@ -1424,7 +1424,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-179",
+    "id": "technology-adoption-series-slide-23-handling-inherited-legacy-systems",
     "url": "/technology-adoption-series/slide-23-handling-inherited-legacy-systems",
     "title": "Handling Inherited Legacy Systems — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: Handling Inherited Legacy Systems",
@@ -1432,7 +1432,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-180",
+    "id": "technology-adoption-series-slide-24-ai-ml-technology-adoption-considerations",
     "url": "/technology-adoption-series/slide-24-ai-ml-technology-adoption-considerations",
     "title": "AI/ML Technology Adoption Considerations — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: AI/ML Technology Adoption Considerations",
@@ -1440,7 +1440,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-181",
+    "id": "technology-adoption-series-slide-25-technology-lifecycle-cycles",
     "url": "/technology-adoption-series/slide-25-technology-lifecycle-cycles",
     "title": "Technology Lifecycle Cycles — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: Technology Lifecycle Cycles",
@@ -1448,7 +1448,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-182",
+    "id": "technology-adoption-series-slide-26-the-trifecta-of-adoption",
     "url": "/technology-adoption-series/slide-26-the-trifecta-of-adoption",
     "title": "The Trifecta of Adoption — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: The Trifecta of Adoption",
@@ -1456,7 +1456,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-183",
+    "id": "technology-adoption-series-slide-27-hardware-lifecycle-timeline-hdds",
     "url": "/technology-adoption-series/slide-27-hardware-lifecycle-timeline-hdds",
     "title": "Hardware Lifecycle Timeline: HDDs — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: Hardware Lifecycle Timeline: HDDs",
@@ -1464,7 +1464,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-184",
+    "id": "technology-adoption-series-slide-28-software-lifecycle-timeline-adobe-flash",
     "url": "/technology-adoption-series/slide-28-software-lifecycle-timeline-adobe-flash",
     "title": "Software Lifecycle Timeline: Adobe Flash — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: Software Lifecycle Timeline: Adobe Flash",
@@ -1472,7 +1472,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-185",
+    "id": "technology-adoption-series-slide-29-supply-chain-lifecycle-timeline-barcodes",
     "url": "/technology-adoption-series/slide-29-supply-chain-lifecycle-timeline-barcodes",
     "title": "Supply Chain Lifecycle Timeline: Barcodes — Technology Adoption Teaching Series",
     "description": "Part 3: Outcomes of Adoption: Supply Chain Lifecycle Timeline: Barcodes",
@@ -1480,7 +1480,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-142",
+    "id": "technology-adoption-series-technology-lifecycle-assessment-template",
     "url": "/technology-adoption-series/technology-lifecycle-assessment-template",
     "title": "Technology lifecycle assessment template — Technology Adoption Teaching Series",
     "description": "A practical template for assessing technology lifecycle positioning and adoption risk.",
@@ -1488,7 +1488,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-143",
+    "id": "technology-adoption-series-workshop-and-trainer-materials",
     "url": "/technology-adoption-series/workshop-and-trainer-materials",
     "title": "Workshop and trainer materials — Technology Adoption Teaching Series",
     "description": "Workshop agenda and trainer notes to run the Technology Adoption Teaching Series in a live session.",
@@ -1496,7 +1496,7 @@
     "category": "Teaching Series"
   },
   {
-    "id": "page-144",
+    "id": "terms-of-service",
     "url": "/terms-of-service",
     "title": "Terms of Service | Technology Adoption Barriers Survey (TABS)",
     "description": "Terms of Service for the Technology Adoption Barriers Survey (TABS) website",
@@ -1504,7 +1504,7 @@
     "category": "Legal"
   },
   {
-    "id": "page-145",
+    "id": "vulnerability-disclosure-policy",
     "url": "/vulnerability-disclosure-policy",
     "title": "Vulnerability Disclosure Policy | Technology Adoption Barriers Survey (TABS)",
     "description": "Vulnerability Disclosure Policy for the Technology Adoption Barriers Survey (TABS) website",

@@ -37,6 +37,11 @@ interface SearchItem {
 // Helpers
 // ---------------------------------------------------------------------------
 
+/** Generate a stable ID from a URL path (avoids noisy diffs when pages are added). */
+function stableId(urlPath: string): string {
+  return urlPath === '/' ? 'page-home' : urlPath.replace(/^\//, '').replace(/[/#]/g, '-')
+}
+
 /** Truncate content to a reasonable size for the JSON index. */
 function truncateContent(content: string, maxLength = 800): string {
   if (content.length <= maxLength) return content
@@ -85,14 +90,14 @@ function extractStaticMetadata(source: string): {
   let title: string | null = null
   let description: string | null = null
 
-  // Match title — handles single-quoted, double-quoted, and backtick strings,
-  // including values that span multiple concatenated lines.
-  const titleMatch = source.match(/title:\s*['"`]([^'"`]+)['"`]/)
-  if (titleMatch) title = titleMatch[1].trim()
+  // Match title — use backreference to match the same quote delimiter,
+  // allowing apostrophes inside single-quoted strings and vice versa.
+  const titleMatch = source.match(/title:\s*(['"`])([\s\S]*?)\1/)
+  if (titleMatch) title = titleMatch[2].replace(/\s+/g, ' ').trim()
 
   // Match description — may span multiple lines between quotes
-  const descMatch = source.match(/description:\s*\n?\s*['"`]([\s\S]*?)['"`]/)
-  if (descMatch) description = descMatch[1].replace(/\s+/g, ' ').trim()
+  const descMatch = source.match(/description:\s*\n?\s*(['"`])([\s\S]*?)\1/)
+  if (descMatch) description = descMatch[2].replace(/\s+/g, ' ').trim()
 
   return { title, description }
 }
@@ -291,7 +296,6 @@ async function generateSearchIndex() {
   console.log(`   Found ${allPageFiles.length} page.tsx files`)
 
   const items: SearchItem[] = []
-  let id = 1
   let skippedDynamic = 0
 
   for (const filePath of allPageFiles) {
@@ -317,7 +321,7 @@ async function generateSearchIndex() {
       .trim()
 
     items.push({
-      id: `page-${id++}`,
+      id: stableId(urlPath),
       url: urlPath,
       title,
       description: description || '',
@@ -334,7 +338,7 @@ async function generateSearchIndex() {
   try {
     const personaItems = await expandPersonaRoutes()
     for (const item of personaItems) {
-      item.id = `page-${id++}`
+      item.id = stableId(item.url)
       items.push(item)
     }
     console.log(`   Expanded ${personaItems.length} persona routes`)
@@ -345,7 +349,7 @@ async function generateSearchIndex() {
   // Expand teaching series slide routes
   const teachingItems = expandTeachingSeriesRoutes()
   for (const item of teachingItems) {
-    item.id = `page-${id++}`
+    item.id = stableId(item.url)
     items.push(item)
   }
   console.log(`   Expanded ${teachingItems.length} teaching series routes`)
@@ -355,7 +359,7 @@ async function generateSearchIndex() {
     const faq = faqs[i]
     const faqContent = `${faq.question} ${faq.answer}`
     items.push({
-      id: `faq-${id++}`,
+      id: `faq-${i + 1}`,
       url: `/faq#faq-${i + 1}`,
       title: faq.question,
       description: 'Frequently asked question',
