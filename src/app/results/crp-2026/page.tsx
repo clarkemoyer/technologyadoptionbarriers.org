@@ -15,7 +15,7 @@ import crpData from '@/data/crp-sensitivity-analysis.json'
 export const metadata: Metadata = {
   title: 'TABS 2026 CRP Results',
   description:
-    'Frozen N=200 dataset for the TABS Culminating Research Project (CRP) at Penn State Smeal College of Business. De-identified with three-tier quality selection.',
+    'Frozen N=200 dataset for the TABS Culminating Research Project (CRP) at Penn State Smeal College of Business. Selected via three-tier quality review and de-identified per NIST protocol.',
   alternates: {
     canonical: '/results/crp-2026',
   },
