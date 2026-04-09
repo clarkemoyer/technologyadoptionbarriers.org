@@ -202,7 +202,7 @@ const CrpReliabilityPage = () => {
               &mdash; frozen dataset methodology and download
             </li>
             <li>
-              <Link href="/results/data-quality" className="text-blue-600 hover:underline">
+              <Link href="/results/crp-2026/data-quality" className="text-blue-600 hover:underline">
                 Data Quality Pipeline
               </Link>{' '}
               &mdash; how the samples are defined and validated

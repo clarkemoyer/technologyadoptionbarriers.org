@@ -20,8 +20,6 @@ export const metadata: Metadata = {
   },
 }
 
-const CRP_PRIMARY_GROUPS = ['conservative_clean', 'flexible_clean', 'prolific_accepted']
-
 const DataQualityPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -29,8 +27,16 @@ const DataQualityPage = () => {
         <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-1">
             <li>
-              <Link href="/results/crp-2026" className="hover:text-blue-600 hover:underline">
+              <Link href="/results" className="hover:text-blue-600 hover:underline">
                 Results
+              </Link>
+              <span className="mx-2" aria-hidden="true">
+                &rsaquo;
+              </span>
+            </li>
+            <li>
+              <Link href="/results/crp-2026" className="hover:text-blue-600 hover:underline">
+                CRP 2026
               </Link>
               <span className="mx-2" aria-hidden="true">
                 &rsaquo;
@@ -798,13 +804,13 @@ const DataQualityPage = () => {
           </p>
           <div className="flex flex-wrap gap-4 my-6">
             <Link
-              href="/results/crp-2026/reproducibility"
+              href="/results/reproducibility"
               className="inline-flex items-center px-5 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors font-sans text-sm"
             >
               Open Data &amp; Reproducibility
             </Link>
             <Link
-              href="/results/crp-2026/dashboard"
+              href="/results/dashboard"
               className="inline-flex items-center px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-sans text-sm"
             >
               Prolific Dashboard
