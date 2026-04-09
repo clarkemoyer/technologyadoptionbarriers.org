@@ -1,0 +1,47 @@
+import type { Metadata } from 'next'
+import {
+  ARTICLE_CLASSES,
+  H1_CLASSES,
+  H2_CLASSES,
+  H3_CLASSES,
+  SECTION_CLASSES,
+  PARAGRAPH_CLASSES,
+} from '@/lib/articleStyles'
+import Link from 'next/link'
+import validationData from '@/data/crp-validation.json'
+
+export const metadata: Metadata = {
+  title: 'Instrument Validation — TABS CRP 2026',
+  description:
+    'Comprehensive psychometric validation of the 43-item TABS instrument at N=200: reliability, factor analysis, convergent and discriminant validity, item diagnostics, and normality assessment.',
+  alternates: {
+    canonical: '/results/crp-2026/validation',
+  },
+}
+
+/* ── Type helpers ── */
+type ConstructData = (typeof validationData.constructs)[number]
+type HTMTPair = (typeof validationData.discriminant_validity.htmt)[number]
+type FLPair = (typeof validationData.discriminant_validity.fornell_larcker)[number]
+
+const fmt = (val: number | null | undefined, digits = 3): string => {
+  if (val === null || val === undefined) return '—'
+  return val.toFixed(digits)
+}
+
+const pFmt = (val: number | null | undefined): string => {
+  if (val === null || val === undefined) return '—'
+  if (val < 0.001) return '< .001'
+  return val.toFixed(3)
+}
+
+/* ── Verdict badge ── */
+const Verdict = ({ pass, label }: { pass: boolean; label?: string }) => (
+  <span
+    className={`inline-block px-2 py-0.5 rounded text-xs font-bold ${
+      pass ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+    }`}
+  >
+    {label ?? (pass ? 'Pass' : 'Fail')}
+  </span>
+)
