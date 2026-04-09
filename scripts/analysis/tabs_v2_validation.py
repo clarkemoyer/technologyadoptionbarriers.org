@@ -149,9 +149,9 @@ def load_and_filter(csv_path):
     v2_mask = (df['StartDate'] >= V2_START) | (df['ResponseId'] == PROLIFIC_TEST_ID)
     df = df[v2_mask].copy()
 
-    # Encode scales
+    # Encode scales (strip whitespace before mapping for all scales)
     for col in BARRIER_COLS + [BARRIER_IRI]:
-        df[col] = df[col].map(BARRIER_SCALE)
+        df[col] = df[col].apply(lambda x: BARRIER_SCALE.get(str(x).strip(), np.nan) if pd.notna(x) else np.nan)
     for col in READINESS_COLS + [READINESS_IRI]:
         df[col] = df[col].apply(lambda x: np.nan if str(x).strip() == "Don't Know"
                                 else READINESS_SCALE.get(str(x).strip(), np.nan) if pd.notna(x) else np.nan)
@@ -881,9 +881,9 @@ def load_crp200(csv_path):
     df = pd.read_csv(csv_path, encoding='utf-8-sig', skiprows=[1, 2])
     df['Duration (in seconds)'] = pd.to_numeric(df['Duration (in seconds)'], errors='coerce')
 
-    # Encode scales
+    # Encode scales (strip whitespace before mapping for all scales)
     for col in BARRIER_COLS + [BARRIER_IRI]:
-        df[col] = df[col].map(BARRIER_SCALE)
+        df[col] = df[col].apply(lambda x: BARRIER_SCALE.get(str(x).strip(), np.nan) if pd.notna(x) else np.nan)
     for col in READINESS_COLS + [READINESS_IRI]:
         df[col] = df[col].apply(lambda x: np.nan if str(x).strip() == "Don't Know"
                                 else READINESS_SCALE.get(str(x).strip(), np.nan) if pd.notna(x) else np.nan)
@@ -933,8 +933,15 @@ def main():
 
     if '--json' in sys.argv:
         idx = sys.argv.index('--json')
-        if idx + 1 < len(sys.argv):
+        if idx + 1 < len(sys.argv) and not sys.argv[idx + 1].startswith('--'):
             json_output = sys.argv[idx + 1]
+        else:
+            print("Error: --json requires an output path.")
+            print(
+                f"Usage: {sys.argv[0]} <qualtrics_csv_path> "
+                "[--json output.json] [--crp200] [--seed N] [--n-boot N] [--n-sim N]"
+            )
+            sys.exit(1)
     seed = _int_arg('--seed', None)
     n_boot = _int_arg('--n-boot', 2000)
     n_sim = _int_arg('--n-sim', 1000)

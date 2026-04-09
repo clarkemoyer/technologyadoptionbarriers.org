@@ -1,6 +1,10 @@
 # Extra dependencies for tabs_v2_validation.py (EFA/CFA, omega, KMO/Bartlett)
 # Install with: pip install -r requirements-validation.txt
 # (requires base requirements.txt first)
+#
+# NOTE: factor_analyzer==0.5.1 requires scikit-learn<1.6 (uses deprecated
+# force_all_finite kwarg removed in sklearn 1.6). Pin sklearn accordingly.
 
 factor_analyzer==0.5.1
+scikit-learn<1.6
 semopy==2.3.11
