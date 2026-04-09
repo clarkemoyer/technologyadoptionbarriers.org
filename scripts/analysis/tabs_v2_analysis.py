@@ -180,7 +180,37 @@ ALL_CONSTRUCTS = [
 
 # Scenario C: binary tech/non-tech classification for "Other (please specify)" free-text roles.
 # Maps normalized keywords to classification bucket ("Technical" or "Non-Technical").
-# Checked via case-insensitive substring match; first match wins.
+# Ordered list of (regex_pattern, classification) pairs for classify_role().
+# More-specific patterns (e.g. "Vice President of Engineering") MUST come before
+# the broader catch-all for the same prefix (e.g. "Vice President") to avoid
+# misclassification.  Patterns use word boundaries (\b) so partial word matches
+# (e.g. "vp" inside "svp") are handled correctly.
+_OTHER_ROLE_PATTERNS: list[tuple[re.Pattern[str], str]] = [
+    # ── Technical ──────────────────────────────────────────────────────────
+    (re.compile(r'\b(cio|chief information officer)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(cto|chief technology officer)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(ciso|chief information security officer|chief security officer)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\bchief (information|technology|security|data|digital|analytics|innovation|artificial)\b', re.IGNORECASE), 'Technical'),
+    # "Vice President of {technical domain}" — must precede the generic VP catch-all
+    (re.compile(r'\b(vp|vice president) of (it|information technology|engineering|technology|information|security|data|software|infrastructure|cyber|digital|analytics)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(svp|evp|avp|senior vice president|executive vice president|assistant vice president) of (it|information technology|engineering|technology|information|security|data|software|infrastructure|cyber|digital|analytics)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\bdirector of (it|information technology|engineering|technology|information|security|data|software|infrastructure|cyber|digital)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(it|technology|software|data|infrastructure|network|security|systems) director\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(software |systems |network |security |data |infrastructure |database |cloud |devops |platform )?(engineer|architect|developer|programmer)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\bsystems administrator\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(network|infrastructure|cybersecurity|data scientist|data engineer|software|database)\b', re.IGNORECASE), 'Technical'),
+    # ── Non-Technical ───────────────────────────────────────────────────────
+    (re.compile(r'\bchief (executive|financial|operating|human|marketing|revenue|strategy|product|privacy|legal|compliance)\b', re.IGNORECASE), 'Non-Technical'),
+    # "VP/Vice President of {non-technical domain}" — must precede the generic VP catch-all
+    (re.compile(r'\b(vp|vice president|svp|evp|avp) of (finance|financial|operations|human resources|hr|marketing|sales|strategy|legal|compliance|product)\b', re.IGNORECASE), 'Non-Technical'),
+    # Generic VP / Vice President without a technical qualifier → Non-Technical
+    (re.compile(r'\b(vice president|vp|svp|evp|avp|senior vp|executive vp)\b', re.IGNORECASE), 'Non-Technical'),
+    (re.compile(r'\b(president|owner|founder|co-founder)\b', re.IGNORECASE), 'Non-Technical'),
+    (re.compile(r'\b(managing director|executive director)\b', re.IGNORECASE), 'Non-Technical'),
+    (re.compile(r'\b(program manager|project manager|operations manager|finance manager|hr manager|marketing manager)\b', re.IGNORECASE), 'Non-Technical'),
+]
+
+# Keep the dict for backwards-compat (used by callers that inspect the mapping).
 OTHER_ROLE_CLASSIFICATIONS = {
     # Technical roles
     'CIO': 'Technical', 'CTO': 'Technical', 'CISO': 'Technical',
@@ -191,6 +221,9 @@ OTHER_ROLE_CLASSIFICATIONS = {
     'VP of IT': 'Technical', 'VP of Technology': 'Technical',
     'VP of Engineering': 'Technical', 'VP of Information': 'Technical',
     'VP of Security': 'Technical', 'VP of Data': 'Technical',
+    'Vice President of Engineering': 'Technical', 'Vice President of IT': 'Technical',
+    'Vice President of Technology': 'Technical', 'Vice President of Information': 'Technical',
+    'Vice President of Security': 'Technical', 'Vice President of Data': 'Technical',
     'Director of IT': 'Technical', 'Director of Technology': 'Technical',
     'Director of Engineering': 'Technical', 'Director of Information': 'Technical',
     'IT Director': 'Technical', 'Technology Director': 'Technical',
@@ -217,21 +250,19 @@ OTHER_ROLE_CLASSIFICATIONS = {
     'HR Manager': 'Non-Technical', 'Marketing Manager': 'Non-Technical',
 }
 
-# Pre-computed lowercase lookup for classify_role() — avoids repeated .lower() calls in the loop.
-_OTHER_ROLE_CLASSIFICATIONS_LOWER = {k.lower(): v for k, v in OTHER_ROLE_CLASSIFICATIONS.items()}
-
 
 def classify_role(text):
     """Classify a free-text 'Other' role as Technical, Non-Technical, or Other.
 
-    Checks OTHER_ROLE_CLASSIFICATIONS keywords via case-insensitive substring
-    match; first match wins.  Returns 'Other' if no keyword matches.
+    Uses ordered regex patterns with word boundaries (_OTHER_ROLE_PATTERNS);
+    more-specific patterns are listed first to prevent generic catch-alls
+    (e.g. "Vice President") from misclassifying specific roles like
+    "Vice President of Engineering".  Returns 'Other' if no pattern matches.
     """
     if not text or not text.strip():
         return 'Other'
-    text_lower = text.lower()
-    for keyword, classification in _OTHER_ROLE_CLASSIFICATIONS_LOWER.items():
-        if keyword in text_lower:
+    for pattern, classification in _OTHER_ROLE_PATTERNS:
+        if pattern.search(text):
             return classification
     return 'Other'
 

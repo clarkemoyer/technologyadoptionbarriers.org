@@ -865,16 +865,26 @@ const ValidationPage = () => {
             <table className="w-full text-sm font-sans border-collapse mb-4">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="text-left px-3 py-2 border" />
-                  <th className="text-right px-3 py-2 border">Barriers</th>
-                  <th className="text-right px-3 py-2 border">Readiness</th>
-                  <th className="text-right px-3 py-2 border">Maturity</th>
+                  <th scope="col" className="text-left px-3 py-2 border">
+                    Construct
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    Barriers
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    Readiness
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    Maturity
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {['Barriers', 'Readiness', 'Maturity'].map((row, ri) => (
                   <tr key={row} className={ri % 2 === 1 ? 'bg-gray-50' : ''}>
-                    <td className="px-3 py-1.5 border font-medium">{row}</td>
+                    <th scope="row" className="px-3 py-1.5 border font-medium text-left">
+                      {row}
+                    </th>
                     {['Barriers', 'Readiness', 'Maturity'].map((col) => {
                       const val = CORR_MATRIX[row][col]
                       const isDiag = row === col
