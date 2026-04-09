@@ -6,18 +6,10 @@ import PrevNextCards from '@/components/prev-next-cards'
 import ReadingProgressBar from '@/components/reading-progress-bar'
 import UnifiedNavigation, { type SeriesNavItem } from '@/components/unified-navigation'
 import { resultsSeries, flattenResultsSeries, type ResultsSeriesItem } from '@/data/results-series'
+import { normalizePath } from '@/lib/normalizePath'
 
 interface ResultsNavProps {
   children: React.ReactNode
-}
-
-function normalizePath(pathname: string): string {
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
-  const withoutBasePath =
-    basePath && pathname.startsWith(basePath) ? pathname.slice(basePath.length) : pathname
-  const withoutTrailingSlash =
-    withoutBasePath.length > 1 ? withoutBasePath.replace(/\/$/, '') : withoutBasePath
-  return withoutTrailingSlash || '/'
 }
 
 function mapToNavItems(items: ResultsSeriesItem[], currentPath: string): SeriesNavItem[] {

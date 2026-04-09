@@ -139,22 +139,25 @@ export default function UnifiedNavigation({
                   >
                     ▶
                   </span>
-                  {item.isGroup ? (
-                    <span
-                      className={item.isCurrent ? 'font-bold text-gray-900' : 'hover:text-gray-900'}
-                    >
-                      {item.title}
-                    </span>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      onClick={handleLinkClick}
-                      className={item.isCurrent ? 'font-bold text-gray-900' : 'hover:text-gray-900'}
-                    >
-                      {item.title}
-                    </Link>
-                  )}
+                  <span
+                    className={item.isCurrent ? 'font-bold text-gray-900' : 'hover:text-gray-900'}
+                  >
+                    {item.title}
+                  </span>
                 </summary>
+                {!item.isGroup && (
+                  <Link
+                    href={item.href}
+                    onClick={handleLinkClick}
+                    className={`block ml-4 pl-2 py-0.5 text-sm ${
+                      item.isCurrent
+                        ? 'border-l-2 border-tabs-teal-deep bg-blue-50 font-bold text-gray-900'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    {item.title}
+                  </Link>
+                )}
                 <ul className="ml-4 mt-1 space-y-1 border-l border-gray-200 pl-2">
                   {item.children.map((child) => (
                     <li key={`${child.href}:${child.title}`}>
@@ -267,26 +270,27 @@ export default function UnifiedNavigation({
                             >
                               ▶
                             </span>
-                            {item.isGroup ? (
-                              <span
-                                className={
-                                  item.isCurrent ? 'font-bold text-gray-900' : 'hover:text-gray-900'
-                                }
-                              >
-                                {item.title}
-                              </span>
-                            ) : (
-                              <Link
-                                href={item.href}
-                                onClick={handleLinkClick}
-                                className={
-                                  item.isCurrent ? 'font-bold text-gray-900' : 'hover:text-gray-900'
-                                }
-                              >
-                                {item.title}
-                              </Link>
-                            )}
+                            <span
+                              className={
+                                item.isCurrent ? 'font-bold text-gray-900' : 'hover:text-gray-900'
+                              }
+                            >
+                              {item.title}
+                            </span>
                           </summary>
+                          {!item.isGroup && (
+                            <Link
+                              href={item.href}
+                              onClick={handleLinkClick}
+                              className={`block ml-4 pl-2 py-0.5 ${
+                                item.isCurrent
+                                  ? 'font-bold text-gray-900'
+                                  : 'text-gray-600 hover:text-gray-900'
+                              }`}
+                            >
+                              {item.title}
+                            </Link>
+                          )}
                           <ul className="ml-4 mt-1 space-y-1 border-l border-gray-200 pl-2">
                             {item.children.map((child) => (
                               <li key={`mobile:${child.href}:${child.title}`}>
@@ -324,7 +328,14 @@ export default function UnifiedNavigation({
               </details>
             )}
             {hasToc && (
-              <details open>
+              <details
+                ref={(node) => {
+                  if (node && !node.hasAttribute('data-init')) {
+                    node.open = true
+                    node.setAttribute('data-init', '')
+                  }
+                }}
+              >
                 <summary className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2 cursor-pointer">
                   On this page
                 </summary>

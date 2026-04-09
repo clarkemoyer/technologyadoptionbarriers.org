@@ -10,18 +10,10 @@ import {
   flattenMakingOfTabsSeries,
   type MakingOfTabsItem,
 } from '@/data/making-of-tabs-series'
+import { normalizePath } from '@/lib/normalizePath'
 
 interface MakingOfTabsNavProps {
   children: React.ReactNode
-}
-
-function normalizePath(pathname: string): string {
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
-  const withoutBasePath =
-    basePath && pathname.startsWith(basePath) ? pathname.slice(basePath.length) : pathname
-  const withoutTrailingSlash =
-    withoutBasePath.length > 1 ? withoutBasePath.replace(/\/$/, '') : withoutBasePath
-  return withoutTrailingSlash || '/'
 }
 
 function mapToNavItems(items: MakingOfTabsItem[], currentPath: string): SeriesNavItem[] {
