@@ -202,45 +202,6 @@ jobs:
               w.writerows(data)
           PY
 
-      - name: Run CRP analysis snapshot (N=200 subset)
-        id: crp_analysis
-        if: steps.crp.outputs.produced == 'true' && steps.crp_filter.outcome == 'success'
-        continue-on-error: true
-        run: |
-          set -euo pipefail
-          CSV_PATH="${{ runner.temp }}/qualtrics-enriched-crp-sample.csv"
-
-          if [ ! -f "$CSV_PATH" ]; then
-            echo "CRP analysis input CSV not found: $CSV_PATH" >&2
-            exit 1
-          fi
-
-          # Guard: skip if filtered CSV has no data rows (only headers)
-          DATA_ROWS=$(tail -n +4 "$CSV_PATH" | awk 'END { print NR }')
-          if [ "$DATA_ROWS" -eq 0 ]; then
-            echo "CRP analysis skipped: filtered sample has 0 data rows (no JSON written)"
-            exit 0
-          fi
-          python scripts/analysis/tabs_v2_analysis.py \
-            "$CSV_PATH" \
-            --json "${{ runner.temp }}/crp-sensitivity-analysis.json"
-
-      - name: Run CRP validation pipeline (N=200 frozen)
-        id: crp_validation
-        if: steps.crp.outputs.produced == 'true' && steps.crp_filter.outcome == 'success'
-        continue-on-error: true
-        run: |
-          set -euo pipefail
-          CSV_PATH="${{ runner.temp }}/qualtrics-enriched-crp-sample.csv"
-          if [ ! -f "$CSV_PATH" ]; then
-            echo "CRP validation input CSV not found: $CSV_PATH" >&2
-            exit 1
-          fi
-          python scripts/analysis/tabs_v2_validation.py \
-            "$CSV_PATH" \
-            --crp200 \
-            --json "${{ runner.temp }}/crp-validation.json"
-
       - name: Stage CRP public CSV
         if: steps.crp.outputs.produced == 'true'
         run: |
@@ -252,72 +213,58 @@ jobs:
             echo "CRP public CSV not found — skipping"
           fi
 
-      - name: Stage CRP analysis snapshot
-        if: steps.crp.outputs.produced == 'true' && steps.crp_analysis.outcome == 'success'
+      # ── Unified Analysis: LIVE dataset ─────────────────────────
+      # Single script replaces tabs_v2_analysis.py + advanced.py +
+      # quality_audit.py + psychometrics.py + validation.py
+      - name: Unified analysis (LIVE dataset)
         run: |
-          if [ -f "${{ runner.temp }}/crp-sensitivity-analysis.json" ]; then
-            mkdir -p "${{ runner.temp }}/crp-public"
-            cp "${{ runner.temp }}/crp-sensitivity-analysis.json" \
-               "${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json"
-          else
-            echo "CRP analysis JSON not found — skipping"
-          fi
-
-      - name: Stage CRP validation snapshot
-        if: steps.crp.outputs.produced == 'true' && steps.crp_validation.outcome == 'success'
-        run: |
-          if [ -f "${{ runner.temp }}/crp-validation.json" ]; then
-            mkdir -p "${{ runner.temp }}/crp-public"
-            cp "${{ runner.temp }}/crp-validation.json" \
-               "${{ runner.temp }}/crp-public/crp-validation.json"
-          else
-            echo "CRP validation JSON not found — skipping"
-          fi
-
-      - name: Descriptive analysis + sensitivity
-        run: |
-          python scripts/analysis/tabs_v2_analysis.py \
+          set -euo pipefail
+          python scripts/analysis/tabs_v2_unified_data_analysis.py \
             "${{ runner.temp }}/qualtrics-enriched.csv" \
-            --json "${{ runner.temp }}/sensitivity-analysis.json"
+            --json "${{ runner.temp }}/live-unified.json"
+          # Extract backward-compatible JSONs for page imports
+          python3 -c "
+          import json
+          with open('${{ runner.temp }}/live-unified.json') as f:
+              d = json.load(f)
+          with open('${{ runner.temp }}/sensitivity-analysis.json', 'w') as f:
+              json.dump(d.get('sensitivity', {}), f, indent=2)
+          if 'validation' in d and d['validation']:
+              with open('${{ runner.temp }}/live-validation.json', 'w') as f:
+                  json.dump(d['validation'], f, indent=2)
+          print('Extracted: sensitivity-analysis.json, live-validation.json')
+          "
 
-      - name: Advanced analysis (PCA, regression, ANOVA)
-        id: advanced
+      # ── Unified Analysis: CRP frozen dataset ──────────────────
+      # Runs EVERY DAY against the frozen CSV in the repo, NOT gated
+      # on CSV creation. This ensures code changes (bug fixes, new
+      # stats) are reflected in CRP pages without touching the data.
+      - name: Unified analysis (CRP frozen N=200)
+        id: crp_unified
         continue-on-error: true
         run: |
-          python scripts/analysis/tabs_v2_advanced.py \
-            "${{ runner.temp }}/qualtrics-enriched.csv" \
-            > "${{ runner.temp }}/advanced-analysis.txt" 2>&1
-          echo "Advanced analysis complete"
-
-      - name: Psychometrics (KMO, HTMT, reliability)
-        id: psychometrics
-        continue-on-error: true
-        run: |
-          python scripts/analysis/tabs_v2_psychometrics.py \
-            "${{ runner.temp }}/qualtrics-enriched.csv" \
-            > "${{ runner.temp }}/psychometrics.txt" 2>&1
-          echo "Psychometrics complete"
-
-      - name: Quality audit (outliers, CMV)
-        id: quality
-        continue-on-error: true
-        run: |
-          python scripts/analysis/tabs_v2_quality_audit.py \
-            "${{ runner.temp }}/qualtrics-enriched.csv" \
-            > "${{ runner.temp }}/quality-audit.txt" 2>&1
-          echo "Quality audit complete"
-
-      - name: Verify all analysis steps succeeded
-        if: always()
-        run: |
-          FAILED=""
-          if [ "${{ steps.advanced.outcome }}" = "failure" ]; then FAILED="$FAILED advanced"; fi
-          if [ "${{ steps.psychometrics.outcome }}" = "failure" ]; then FAILED="$FAILED psychometrics"; fi
-          if [ "${{ steps.quality.outcome }}" = "failure" ]; then FAILED="$FAILED quality"; fi
-          if [ -n "$FAILED" ]; then
-            echo "::error::Analysis steps failed:$FAILED (logs uploaded as artifacts)"
-            exit 1
+          set -euo pipefail
+          CRP_CSV="public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
+          if [ ! -f "$CRP_CSV" ]; then
+            echo "CRP public CSV not in repo — skipping CRP analysis"
+            exit 0
           fi
+          python scripts/analysis/tabs_v2_unified_data_analysis.py \
+            "$CRP_CSV" \
+            --crp200 \
+            --json "${{ runner.temp }}/crp-unified.json"
+          # Extract backward-compatible JSONs for page imports
+          python3 -c "
+          import json
+          with open('${{ runner.temp }}/crp-unified.json') as f:
+              d = json.load(f)
+          with open('${{ runner.temp }}/crp-sensitivity-analysis.json', 'w') as f:
+              json.dump(d.get('sensitivity', {}), f, indent=2)
+          if 'validation' in d and d['validation']:
+              with open('${{ runner.temp }}/crp-validation.json', 'w') as f:
+                  json.dump(d['validation'], f, indent=2)
+          print('Extracted: crp-sensitivity-analysis.json, crp-validation.json')
+          "
 
       - name: Generate summary
         if: always()
@@ -333,7 +280,7 @@ jobs:
             python3 scripts/analysis/tests/generate_summary.py "${{ runner.temp }}/data-audit.json" >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      # Artifacts — analysis results (JSON, no PII)
+      # ── Artifacts ──────────────────────────────────────────────
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -341,10 +288,10 @@ jobs:
           path: |
             ${{ runner.temp }}/sensitivity-analysis.json
             ${{ runner.temp }}/data-audit.json
+            ${{ runner.temp }}/live-unified.json
           retention-days: 7
           if-no-files-found: warn
 
-      # Disposition CSV — PROLIFIC_PID + disposition flags, no other PII
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -356,24 +303,11 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: analysis-logs
-          path: |
-            ${{ runner.temp }}/advanced-analysis.txt
-            ${{ runner.temp }}/psychometrics.txt
-            ${{ runner.temp }}/quality-audit.txt
-          retention-days: 7
-
-      - uses: actions/upload-artifact@v7
-        if: always()
-        with:
           name: public-dataset
           path: ${{ runner.temp }}/deidentified/TABS_V2_public_dataset.csv
           retention-days: 30
           if-no-files-found: warn
 
-      # CRP public dataset CSV — gated only on CRP build success, intentionally
-      # decoupled from the filter+analysis chain. The public CSV is produced by
-      # create_crp_dataset.py and does not depend on the analysis snapshot.
       - uses: actions/upload-artifact@v7
         if: steps.crp.outputs.produced == 'true'
         with:
@@ -382,41 +316,14 @@ jobs:
           retention-days: 7
           if-no-files-found: warn
 
-      # CRP analysis snapshot — only uploaded when JSON was actually produced
-      - name: Detect CRP analysis snapshot
-        id: crp_snapshot
-        if: steps.crp.outputs.produced == 'true' && steps.crp_filter.outcome == 'success' && steps.crp_analysis.outcome == 'success'
-        run: |
-          if [ -f "${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json" ]; then
-            echo "exists=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "exists=false" >> "$GITHUB_OUTPUT"
-          fi
-
       - uses: actions/upload-artifact@v7
-        if: steps.crp_snapshot.outputs.exists == 'true'
+        if: always()
         with:
-          name: crp-analysis-snapshot
-          path: ${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json
-          retention-days: 7
-          if-no-files-found: ignore
-
-      # CRP validation snapshot — psychometric validation output
-      - name: Detect CRP validation snapshot
-        id: crp_validation_snapshot
-        if: steps.crp.outputs.produced == 'true' && steps.crp_filter.outcome == 'success' && steps.crp_validation.outcome == 'success'
-        run: |
-          if [ -f "${{ runner.temp }}/crp-public/crp-validation.json" ]; then
-            echo "exists=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "exists=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - uses: actions/upload-artifact@v7
-        if: steps.crp_validation_snapshot.outputs.exists == 'true'
-        with:
-          name: crp-validation-snapshot
-          path: ${{ runner.temp }}/crp-public/crp-validation.json
+          name: crp-analysis-results
+          path: |
+            ${{ runner.temp }}/crp-unified.json
+            ${{ runner.temp }}/crp-sensitivity-analysis.json
+            ${{ runner.temp }}/crp-validation.json
           retention-days: 7
           if-no-files-found: ignore
 
@@ -557,7 +464,7 @@ jobs:
           name: dashboard-data
           path: src/data
 
-      # Download CRP artifacts (separate uploads — may not both exist)
+      # Download CRP artifacts
       - uses: actions/download-artifact@v8
         continue-on-error: true
         with:
@@ -567,14 +474,8 @@ jobs:
       - uses: actions/download-artifact@v8
         continue-on-error: true
         with:
-          name: crp-analysis-snapshot
+          name: crp-analysis-results
           path: ${{ runner.temp }}/crp-json
-
-      - uses: actions/download-artifact@v8
-        continue-on-error: true
-        with:
-          name: crp-validation-snapshot
-          path: ${{ runner.temp }}/crp-validation-json
 
       - name: Stage CRP files into repo
         run: |
@@ -593,8 +494,8 @@ jobs:
           else
             echo "  CRP analysis JSON not available — skipping"
           fi
-          if [ -f "${{ runner.temp }}/crp-validation-json/crp-validation.json" ]; then
-            cp "${{ runner.temp }}/crp-validation-json/crp-validation.json" \
+          if [ -f "${{ runner.temp }}/crp-json/crp-validation.json" ]; then
+            cp "${{ runner.temp }}/crp-json/crp-validation.json" \
                src/data/crp-validation.json
             echo "  Staged: src/data/crp-validation.json"
           else
