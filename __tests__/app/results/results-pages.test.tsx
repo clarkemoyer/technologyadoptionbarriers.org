@@ -10,6 +10,34 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
+/* ── Mock next/navigation (required by ResultsNav wrapper) ── */
+const mockedUsePathname = jest.fn().mockReturnValue('/results')
+jest.mock('next/navigation', () => ({
+  usePathname: () => mockedUsePathname(),
+}))
+
+/* ── Mock browser APIs not available in jsdom ── */
+beforeAll(() => {
+  if (typeof window.IntersectionObserver === 'undefined') {
+    Object.defineProperty(window, 'IntersectionObserver', {
+      value: class {
+        observe() {}
+        unobserve() {}
+        disconnect() {}
+      },
+    })
+  }
+  if (typeof window.ResizeObserver === 'undefined') {
+    Object.defineProperty(window, 'ResizeObserver', {
+      value: class {
+        observe() {}
+        unobserve() {}
+        disconnect() {}
+      },
+    })
+  }
+})
+
 /* ── Mock data imports ─────────────────────────────────────── */
 
 const MOCK_SENSITIVITY_DATA = {
@@ -299,6 +327,9 @@ describe('Results Overview', () => {
 })
 
 describe('Sensitivity Analysis Page', () => {
+  beforeEach(() => {
+    mockedUsePathname.mockReturnValue('/results/sensitivity')
+  })
   it('renders heading', async () => {
     const { default: Page } = await import('@/app/results/sensitivity/page')
     render(<Page />)
@@ -329,6 +360,9 @@ describe('Key Findings Page', () => {
 })
 
 describe('Sample & Demographics Page', () => {
+  beforeEach(() => {
+    mockedUsePathname.mockReturnValue('/results/sample')
+  })
   it('renders heading', async () => {
     const { default: Page } = await import('@/app/results/sample/page')
     render(<Page />)
