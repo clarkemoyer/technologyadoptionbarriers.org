@@ -1,6 +1,8 @@
 export interface ResultsSeriesItem {
   title: string
   href: string
+  /** When true, item is a non-navigable grouping header (excluded from prev/next) */
+  isGroup?: boolean
   children?: ResultsSeriesItem[]
 }
 
@@ -30,7 +32,8 @@ export const resultsSeries: ResultsSeriesItem[] = [
   },
   {
     title: 'TABS Full Dataset',
-    href: '/results',
+    href: '/results/full-dataset',
+    isGroup: true,
     children: [
       { title: 'Sample & Demographics', href: '/results/sample' },
       { title: 'Descriptive Statistics', href: '/results/descriptive' },
@@ -47,7 +50,7 @@ export const resultsSeries: ResultsSeriesItem[] = [
   { title: 'Survey Statistics', href: '/results/survey-stats' },
 ]
 
-/** Flat ordered list for prev/next navigation */
+/** Flat ordered list for prev/next navigation (excludes group-only nodes) */
 export function flattenResultsSeries(): Array<{
   title: string
   href: string
@@ -55,7 +58,9 @@ export function flattenResultsSeries(): Array<{
   const result: Array<{ title: string; href: string }> = []
   function walk(items: ResultsSeriesItem[]) {
     for (const item of items) {
-      result.push({ title: item.title, href: item.href })
+      if (!item.isGroup) {
+        result.push({ title: item.title, href: item.href })
+      }
       if (item.children) walk(item.children)
     }
   }

@@ -19,13 +19,19 @@ describe('Breadcrumbs', () => {
     expect(container.querySelector('nav')).not.toBeInTheDocument()
   })
 
-  it('renders breadcrumbs for deep pages', () => {
+  it('renders breadcrumbs for deep pages with display-name mapping', () => {
     mockedUsePathname.mockReturnValue('/results/crp-2026/sample')
     render(<Breadcrumbs />)
     expect(screen.getByRole('navigation', { name: /breadcrumb/i })).toBeInTheDocument()
     expect(screen.getByText('Results')).toBeInTheDocument()
-    expect(screen.getByText('Crp 2026')).toBeInTheDocument()
+    expect(screen.getByText('CRP 2026')).toBeInTheDocument()
     expect(screen.getByText('Sample')).toBeInTheDocument()
+  })
+
+  it('maps known acronyms correctly', () => {
+    mockedUsePathname.mockReturnValue('/making-of-tabs/integrations')
+    render(<Breadcrumbs />)
+    expect(screen.getByText('Making of TABS')).toBeInTheDocument()
   })
 
   it('last item has aria-current="page"', () => {

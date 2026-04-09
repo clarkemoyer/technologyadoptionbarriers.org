@@ -18,22 +18,44 @@ jest.mock('next/navigation', () => ({
 
 /* ── Mock browser APIs not available in jsdom ── */
 beforeAll(() => {
+  class MockIntersectionObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+
+  class MockResizeObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+
+  if (typeof globalThis.IntersectionObserver === 'undefined') {
+    Object.defineProperty(globalThis, 'IntersectionObserver', {
+      value: MockIntersectionObserver,
+      configurable: true,
+      writable: true,
+    })
+  }
   if (typeof window.IntersectionObserver === 'undefined') {
     Object.defineProperty(window, 'IntersectionObserver', {
-      value: class {
-        observe() {}
-        unobserve() {}
-        disconnect() {}
-      },
+      value: MockIntersectionObserver,
+      configurable: true,
+      writable: true,
+    })
+  }
+  if (typeof globalThis.ResizeObserver === 'undefined') {
+    Object.defineProperty(globalThis, 'ResizeObserver', {
+      value: MockResizeObserver,
+      configurable: true,
+      writable: true,
     })
   }
   if (typeof window.ResizeObserver === 'undefined') {
     Object.defineProperty(window, 'ResizeObserver', {
-      value: class {
-        observe() {}
-        unobserve() {}
-        disconnect() {}
-      },
+      value: MockResizeObserver,
+      configurable: true,
+      writable: true,
     })
   }
 })

@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 export default function ReadingProgressBar() {
   const [headerH, setHeaderH] = useState(0)
   const [progress, setProgress] = useState(0)
+  const rafId = useRef(0)
 
   useEffect(() => {
     const header = document.getElementById('header')
@@ -16,21 +17,24 @@ export default function ReadingProgressBar() {
     return () => ro.disconnect()
   }, [])
 
-  const handleScroll = useCallback(() => {
-    const scrollTop = window.scrollY
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight
-    if (docHeight <= 0) {
-      setProgress(0)
-      return
-    }
-    setProgress(Math.min(100, (scrollTop / docHeight) * 100))
-  }, [])
-
   useEffect(() => {
+    function handleScroll() {
+      if (rafId.current) return
+      rafId.current = requestAnimationFrame(() => {
+        rafId.current = 0
+        const scrollTop = window.scrollY
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight
+        const next = docHeight <= 0 ? 0 : Math.round(Math.min(100, (scrollTop / docHeight) * 100))
+        setProgress((prev) => (prev === next ? prev : next))
+      })
+    }
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [handleScroll])
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (rafId.current) cancelAnimationFrame(rafId.current)
+    }
+  }, [])
 
   return (
     <div

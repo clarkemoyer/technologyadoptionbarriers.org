@@ -9,7 +9,23 @@ interface BreadcrumbsProps {
   className?: string
 }
 
+/** Known segment → display label mappings for proper casing of acronyms/terms */
+const SEGMENT_LABELS: Record<string, string> = {
+  tabs: 'TABS',
+  crp: 'CRP',
+  cmo: 'CMO',
+  faq: 'FAQ',
+  'crp-2026': 'CRP 2026',
+  'making-of-tabs': 'Making of TABS',
+  'cmo-survey': 'CMO Survey',
+  'data-quality': 'Data Quality',
+  'survey-stats': 'Survey Statistics',
+  'dataset-comparison': 'Dataset Comparison',
+  'ai-assisted-development': 'AI-Assisted Development',
+}
+
 function capitalize(segment: string): string {
+  if (SEGMENT_LABELS[segment]) return SEGMENT_LABELS[segment]
   return segment.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 

@@ -3,11 +3,14 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { slugify } from '@/lib/slugify'
 
 export interface SeriesNavItem {
   title: string
   href: string
   isCurrent?: boolean
+  /** When true, item is a non-navigable grouping header */
+  isGroup?: boolean
   children?: SeriesNavItem[]
 }
 
@@ -22,13 +25,6 @@ interface UnifiedNavigationProps {
 interface TocHeading {
   id: string
   text: string
-}
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '')
 }
 
 export default function UnifiedNavigation({
@@ -121,7 +117,7 @@ export default function UnifiedNavigation({
       </p>
       <ul className="space-y-1 text-sm">
         {seriesItems.map((item) => (
-          <li key={item.href}>
+          <li key={`${item.href}:${item.title}`}>
             {item.children ? (
               <details
                 className="group"
@@ -134,17 +130,25 @@ export default function UnifiedNavigation({
                   >
                     ▶
                   </span>
-                  <Link
-                    href={item.href}
-                    onClick={handleLinkClick}
-                    className={item.isCurrent ? 'font-bold text-gray-900' : 'hover:text-gray-900'}
-                  >
-                    {item.title}
-                  </Link>
+                  {item.isGroup ? (
+                    <span
+                      className={item.isCurrent ? 'font-bold text-gray-900' : 'hover:text-gray-900'}
+                    >
+                      {item.title}
+                    </span>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      onClick={handleLinkClick}
+                      className={item.isCurrent ? 'font-bold text-gray-900' : 'hover:text-gray-900'}
+                    >
+                      {item.title}
+                    </Link>
+                  )}
                 </summary>
                 <ul className="ml-4 mt-1 space-y-1 border-l border-gray-200 pl-2">
                   {item.children.map((child) => (
-                    <li key={child.href}>
+                    <li key={`${child.href}:${child.title}`}>
                       <Link
                         href={child.href}
                         onClick={handleLinkClick}
@@ -234,18 +238,67 @@ export default function UnifiedNavigation({
                 </summary>
                 <ul className="mt-2 space-y-1 text-sm">
                   {seriesItems!.map((item) => (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        onClick={handleLinkClick}
-                        className={`block py-0.5 ${
-                          item.isCurrent
-                            ? 'font-bold text-gray-900'
-                            : 'text-gray-600 hover:text-gray-900'
-                        }`}
-                      >
-                        {item.title}
-                      </Link>
+                    <li key={`mobile:${item.href}:${item.title}`}>
+                      {item.children ? (
+                        <details open={item.isCurrent || item.children.some((c) => c.isCurrent)}>
+                          <summary className="flex cursor-pointer items-center gap-1 py-0.5 text-gray-600 hover:text-gray-900">
+                            <span
+                              className="text-[10px] transition-transform [details[open]>&]:rotate-90"
+                              aria-hidden="true"
+                            >
+                              ▶
+                            </span>
+                            {item.isGroup ? (
+                              <span
+                                className={
+                                  item.isCurrent ? 'font-bold text-gray-900' : 'hover:text-gray-900'
+                                }
+                              >
+                                {item.title}
+                              </span>
+                            ) : (
+                              <Link
+                                href={item.href}
+                                onClick={handleLinkClick}
+                                className={
+                                  item.isCurrent ? 'font-bold text-gray-900' : 'hover:text-gray-900'
+                                }
+                              >
+                                {item.title}
+                              </Link>
+                            )}
+                          </summary>
+                          <ul className="ml-4 mt-1 space-y-1 border-l border-gray-200 pl-2">
+                            {item.children.map((child) => (
+                              <li key={`mobile:${child.href}:${child.title}`}>
+                                <Link
+                                  href={child.href}
+                                  onClick={handleLinkClick}
+                                  className={`block py-0.5 ${
+                                    child.isCurrent
+                                      ? 'font-bold text-gray-900'
+                                      : 'text-gray-600 hover:text-gray-900'
+                                  }`}
+                                >
+                                  {child.title}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </details>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          onClick={handleLinkClick}
+                          className={`block py-0.5 ${
+                            item.isCurrent
+                              ? 'font-bold text-gray-900'
+                              : 'text-gray-600 hover:text-gray-900'
+                          }`}
+                        >
+                          {item.title}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>

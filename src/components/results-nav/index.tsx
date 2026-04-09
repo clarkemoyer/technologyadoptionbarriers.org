@@ -24,7 +24,8 @@ function mapToNavItems(items: ResultsSeriesItem[], currentPath: string): SeriesN
   return items.map((item) => ({
     title: item.title,
     href: item.href,
-    isCurrent: normalizePath(item.href) === currentPath,
+    isCurrent: !item.isGroup && normalizePath(item.href) === currentPath,
+    isGroup: item.isGroup,
     children: item.children
       ? item.children.map((child) => ({
           title: child.title,
@@ -48,9 +49,11 @@ export function ResultsNav({ children }: ResultsNavProps) {
 
   return (
     <>
-      <Breadcrumbs />
-      {children}
-      <PrevNextCards prev={prev} next={next} className="mt-12" />
+      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
+        <Breadcrumbs />
+        {children}
+        <PrevNextCards prev={prev} next={next} className="mt-12" />
+      </div>
       <UnifiedNavigation seriesItems={seriesNavItems} seriesLabel="Results" />
       <ReadingProgressBar />
     </>

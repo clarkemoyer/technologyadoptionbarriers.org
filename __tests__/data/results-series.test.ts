@@ -16,7 +16,21 @@ describe('results-series data', () => {
     checkItems(resultsSeries)
   })
 
-  it('flattenResultsSeries returns all items in order', () => {
+  it('contains no duplicate hrefs among navigable items', () => {
+    const flat = flattenResultsSeries()
+    const hrefs = flat.map((item) => item.href)
+    expect(new Set(hrefs).size).toBe(hrefs.length)
+  })
+
+  it('flattenResultsSeries excludes group-only nodes', () => {
+    const flat = flattenResultsSeries()
+    const groupItems = resultsSeries.filter((item) => item.isGroup)
+    for (const group of groupItems) {
+      expect(flat.find((f) => f.href === group.href && f.title === group.title)).toBeUndefined()
+    }
+  })
+
+  it('flattenResultsSeries returns all navigable items in order', () => {
     const flat = flattenResultsSeries()
     expect(flat.length).toBeGreaterThan(0)
     expect(flat[0].title).toBe('Results Overview')

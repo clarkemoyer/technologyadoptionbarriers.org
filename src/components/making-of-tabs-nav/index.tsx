@@ -52,9 +52,11 @@ export function MakingOfTabsNav({ children }: MakingOfTabsNavProps) {
 
   return (
     <>
-      <Breadcrumbs />
-      {children}
-      <PrevNextCards prev={prev} next={next} className="mt-12" />
+      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
+        <Breadcrumbs />
+        {children}
+        <PrevNextCards prev={prev} next={next} className="mt-12" />
+      </div>
       <UnifiedNavigation seriesItems={seriesNavItems} seriesLabel="Making of TABS" />
       <ReadingProgressBar />
     </>
