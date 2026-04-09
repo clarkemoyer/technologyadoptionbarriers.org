@@ -346,7 +346,7 @@ async function generateSearchIndex() {
     const faqContent = `${faq.question} ${faq.answer}`
     items.push({
       id: `faq-${id++}`,
-      url: '/faq#faqs',
+      url: '/faq',
       title: faq.question,
       description: 'Frequently asked question',
       content: truncateContent(faqContent),
@@ -356,14 +356,26 @@ async function generateSearchIndex() {
 
   console.log(`   Added ${faqs.length} FAQ entries`)
 
+  // Deduplicate by URL — static pages are richer so they win over expanded routes
+  const seen = new Set<string>()
+  const deduped = items.filter((item) => {
+    if (seen.has(item.url)) return false
+    seen.add(item.url)
+    return true
+  })
+  const dupeCount = items.length - deduped.length
+  if (dupeCount > 0) {
+    console.log(`   Removed ${dupeCount} duplicate URLs`)
+  }
+
   // Write index
   const publicDir = path.resolve('public')
   await fs.mkdir(publicDir, { recursive: true })
 
   const indexPath = path.join(publicDir, 'search-index.json')
-  await fs.writeFile(indexPath, JSON.stringify(items, null, 2))
+  await fs.writeFile(indexPath, JSON.stringify(deduped, null, 2))
 
-  console.log(`✅ Search index generated: ${items.length} items`)
+  console.log(`✅ Search index generated: ${deduped.length} items`)
   console.log(`   Written to: public/search-index.json`)
 
   return items
