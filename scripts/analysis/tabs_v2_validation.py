@@ -26,7 +26,6 @@ Usage:
 Author: Clarke Moyer, Penn State Smeal DBA
 """
 
-import csv
 import json
 import math
 import sys
@@ -978,7 +977,23 @@ def main():
     print(f"  4-FACTOR BARRIERS CFA")
     print(f"{'='*70}")
     safe_barrier_data = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
-    barrier_4f_cfa = run_cfa(safe_barrier_data, cfa_models['barriers_4f'], 'Barriers_4F')
+    barrier_4f_factors = ['OrgCultural', 'Strategic', 'Resource', 'RiskTrust']
+    barrier_4f_cfa: dict = {}
+    for factor_name in barrier_4f_factors:
+        factor_result = run_cfa(safe_barrier_data, cfa_models['barriers_4f'], factor_name)
+        if 'error' in factor_result:
+            barrier_4f_cfa = factor_result
+            break
+        if not barrier_4f_cfa:
+            barrier_4f_cfa = {
+                'construct': 'Barriers_4F',
+                'cfi': factor_result.get('cfi'),
+                'tli': factor_result.get('tli'),
+                'rmsea': factor_result.get('rmsea'),
+                'srmr': factor_result.get('srmr'),
+                'loadings': {},
+            }
+        barrier_4f_cfa['loadings'][factor_name] = factor_result.get('loadings', {})
     if 'error' not in barrier_4f_cfa:
         print(f"  CFI={barrier_4f_cfa.get('cfi')}, TLI={barrier_4f_cfa.get('tli')}, "
               f"RMSEA={barrier_4f_cfa.get('rmsea')}, SRMR={barrier_4f_cfa.get('srmr')}")
@@ -1037,8 +1052,9 @@ def main():
                 return None
             return obj
 
-        with open(json_output, 'w') as f:
+        with open(json_output, 'w', encoding='utf-8') as f:
             json.dump(sanitize(output), f, indent=2)
+            f.write('\n')
         print(f"\n  JSON output written to: {json_output}")
 
     print(f"\n{'='*70}")

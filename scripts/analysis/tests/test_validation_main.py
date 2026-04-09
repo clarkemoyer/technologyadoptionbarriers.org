@@ -168,7 +168,7 @@ class TestValidationMain:
         )
         assert result.returncode == 0
         raw = Path(json_path).read_text()
-        # json.loads raises if NaN or Infinity are present
+        # Parse the output, then explicitly reject bare NaN via the raw JSON text check below.
         data = json.loads(raw)
         assert "NaN" not in raw, "JSON output contains bare NaN (not valid JSON)"
         assert isinstance(data, dict), "Top-level JSON output must be a dict"
