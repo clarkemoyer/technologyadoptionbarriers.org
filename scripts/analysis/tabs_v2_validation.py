@@ -28,6 +28,7 @@ Author: Clarke Moyer, Penn State Smeal DBA
 
 import json
 import math
+import random
 import sys
 import warnings
 from collections import OrderedDict
@@ -811,7 +812,7 @@ def compute_discriminant_validity(df, construct_results, n_boot=2000, rng=None):
     for cr in construct_results:
         name = cr['construct']
         ave = cr.get('ave_from_loadings')
-        if ave:
+        if ave is not None and not math.isnan(ave):
             ave_dict[name] = ave
 
     # Construct correlation matrix
@@ -940,6 +941,11 @@ def main():
 
     # Single RNG instance threaded through all stochastic analyses
     rng = np.random.default_rng(seed)
+    # Also seed the legacy global RNGs so factor_analyzer/semopy (which may use
+    # NumPy's global state) produce deterministic output when --seed is provided.
+    if seed is not None:
+        np.random.seed(seed)
+        random.seed(seed)
 
     # Load data
     if use_crp200:
@@ -978,33 +984,47 @@ def main():
     print(f"{'='*70}")
     safe_barrier_data = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
     barrier_4f_factors = ['OrgCultural', 'Strategic', 'Resource', 'RiskTrust']
-    # Run once per latent factor to extract per-factor loadings.
-    # Fit indices (CFI/TLI/RMSEA/SRMR) are model-level — identical across all runs
-    # since the same full model is fitted each time; taken from the first run.
-    barrier_4f_runs = [
-        run_cfa(safe_barrier_data, cfa_models['barriers_4f'], factor_name)
-        for factor_name in barrier_4f_factors
-    ]
-    barrier_4f_error = next(
-        (r['error'] for r in barrier_4f_runs if 'error' in r), None
-    )
-    if barrier_4f_error is None:
-        barrier_4f_cfa = {
-            'construct': 'Barriers_4F',
-            'cfi': barrier_4f_runs[0].get('cfi'),
-            'tli': barrier_4f_runs[0].get('tli'),
-            'rmsea': barrier_4f_runs[0].get('rmsea'),
-            'srmr': barrier_4f_runs[0].get('srmr'),
-            'loadings': {
-                fn: r.get('loadings', {})
-                for fn, r in zip(barrier_4f_factors, barrier_4f_runs)
-            },
-        }
-        print(f"  CFI={barrier_4f_cfa.get('cfi')}, TLI={barrier_4f_cfa.get('tli')}, "
-              f"RMSEA={barrier_4f_cfa.get('rmsea')}, SRMR={barrier_4f_cfa.get('srmr')}")
+    # Fit the full 4-factor model once, then partition loading rows by latent
+    # factor name.  This avoids fitting the same semopy model four separate
+    # times (which dominates CLI runtime for real datasets).
+    if not HAS_SEMOPY:
+        barrier_4f_cfa = {'construct': 'Barriers_4F', 'error': 'semopy not installed'}
     else:
-        barrier_4f_cfa = {'construct': 'Barriers_4F', 'error': barrier_4f_error}
-        print(f"  Error: {barrier_4f_error}")
+        try:
+            _d4 = safe_barrier_data.dropna()
+            _mod4 = semopy.Model(cfa_models['barriers_4f'])
+            _mod4.fit(_d4)
+            _est4 = _mod4.inspect()
+            _fit4 = semopy.calc_stats(_mod4)
+
+            def _stat4(col):
+                return round(float(_fit4.loc['Value', col]), 4) if col in _fit4.columns else None
+
+            _load_rows = _est4[
+                (_est4['op'] == '~')
+                & (_est4['rval'].isin(barrier_4f_factors))
+                & (_est4['Estimate'].notna())
+            ]
+            barrier_4f_cfa = {
+                'construct': 'Barriers_4F',
+                'n_valid': len(_d4),
+                'cfi': _stat4('CFI'),
+                'tli': _stat4('TLI'),
+                'rmsea': _stat4('RMSEA'),
+                'srmr': _stat4('SRMR'),
+                'loadings': {
+                    fn: {
+                        row['lval']: round(float(row['Estimate']), 4)
+                        for _, row in _load_rows[_load_rows['rval'] == fn].iterrows()
+                    }
+                    for fn in barrier_4f_factors
+                },
+            }
+            print(f"  CFI={barrier_4f_cfa.get('cfi')}, TLI={barrier_4f_cfa.get('tli')}, "
+                  f"RMSEA={barrier_4f_cfa.get('rmsea')}, SRMR={barrier_4f_cfa.get('srmr')}")
+        except Exception as _e4:
+            barrier_4f_cfa = {'construct': 'Barriers_4F', 'error': str(_e4)}
+            print(f"  Error: {_e4}")
 
     # ── Discriminant validity ──
     discrim = compute_discriminant_validity(df, construct_results, n_boot=n_boot, rng=rng)

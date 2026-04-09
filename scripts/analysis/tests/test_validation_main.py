@@ -11,6 +11,7 @@ tests finish in a few seconds instead of minutes.
 
 import csv
 import json
+import random as _rnd
 import subprocess
 import sys
 from pathlib import Path
@@ -59,11 +60,16 @@ _MATURITY_VALS = [
 ]
 
 
-def _make_row(i: int) -> list:
-    """Return one clean data row passing IRI + duration filters."""
-    barriers = [_BARRIER_VALS[(i + j) % 5] for j in range(18)] + ["Major Barrier"]
-    readiness = [_READINESS_VALS[(i + j) % 5] for j in range(17)] + ["Low Readiness/Capability"]
-    maturity = [_MATURITY_VALS[(i + j) % 5] for j in range(8)] + ["Level 2: Developing/Repeatable"]
+def _make_row(i: int, rng: '_rnd.Random') -> list:
+    """Return one clean data row passing IRI + duration filters.
+
+    Uses a seeded random generator so the fixture is fully deterministic but
+    each row is independent, avoiding the singular correlation matrix that
+    results from cyclic deterministic patterns.
+    """
+    barriers = [rng.choice(_BARRIER_VALS) for _ in range(18)] + ["Major Barrier"]
+    readiness = [rng.choice(_READINESS_VALS) for _ in range(17)] + ["Low Readiness/Capability"]
+    maturity = [rng.choice(_MATURITY_VALS) for _ in range(8)] + ["Level 2: Developing/Repeatable"]
     return [
         f"R_{i:04d}",                        # ResponseId
         "2026-03-24 08:00:00",               # StartDate (passes V2 filter)
@@ -94,15 +100,16 @@ def _make_row(i: int) -> list:
 
 @pytest.fixture
 def small_csv(tmp_path) -> str:
-    """30-row clean fixture -- enough for reliability/HTMT stats, fast to run."""
+    """50-row clean fixture -- enough for reliability/HTMT stats, fast to run."""
     path = tmp_path / "small_validation.csv"
+    rng = _rnd.Random(42)   # fixed seed: deterministic but not collinear
     with open(path, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(_HEADERS)
         writer.writerow([""] * len(_HEADERS))   # Qualtrics sub-header row 1
         writer.writerow([""] * len(_HEADERS))   # Qualtrics sub-header row 2
-        for i in range(30):
-            writer.writerow(_make_row(i))
+        for i in range(50):
+            writer.writerow(_make_row(i, rng))
     return str(path)
 
 
@@ -168,9 +175,11 @@ class TestValidationMain:
         )
         assert result.returncode == 0
         raw = Path(json_path).read_text()
-        # Parse the output, then explicitly reject bare NaN via the raw JSON text check below.
+        # Parse the output, then explicitly reject bare NaN/Infinity via the raw JSON text
+        # check below (json.loads accepts these non-standard tokens by default).
         data = json.loads(raw)
         assert "NaN" not in raw, "JSON output contains bare NaN (not valid JSON)"
+        assert "Infinity" not in raw, "JSON output contains bare Infinity (not valid JSON)"
         assert isinstance(data, dict), "Top-level JSON output must be a dict"
 
     def test_json_seed_reproducible(self, small_csv, tmp_path):
