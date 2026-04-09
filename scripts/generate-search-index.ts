@@ -90,13 +90,36 @@ function extractStaticMetadata(source: string): {
   let title: string | null = null
   let description: string | null = null
 
+  // Scope extraction to the top-level `export const metadata` block to avoid
+  // accidentally matching nested openGraph.title or twitter.title fields.
+  const metaStart = source.match(/export\s+const\s+metadata[\s\S]*?=\s*\{/)
+  if (!metaStart || metaStart.index === undefined) return { title, description }
+
+  // Find the matching closing brace by tracking depth
+  let depth = 0
+  let blockEnd = -1
+  const startIdx = metaStart.index + metaStart[0].length - 1
+  for (let i = startIdx; i < source.length; i++) {
+    if (source[i] === '{') depth++
+    else if (source[i] === '}') {
+      depth--
+      if (depth === 0) {
+        blockEnd = i
+        break
+      }
+    }
+  }
+  if (blockEnd === -1) return { title, description }
+
+  const metadataBlock = source.slice(startIdx, blockEnd + 1)
+
   // Match title — use backreference to match the same quote delimiter,
-  // allowing apostrophes inside single-quoted strings and vice versa.
-  const titleMatch = source.match(/title:\s*(['"`])([\s\S]*?)\1/)
+  // allowing apostrophes inside single-quoted strings.
+  const titleMatch = metadataBlock.match(/(?:^|[,{]\s*)title:\s*(['"`])([\s\S]*?)\1/)
   if (titleMatch) title = titleMatch[2].replace(/\s+/g, ' ').trim()
 
   // Match description — may span multiple lines between quotes
-  const descMatch = source.match(/description:\s*\n?\s*(['"`])([\s\S]*?)\1/)
+  const descMatch = metadataBlock.match(/(?:^|[,{]\s*)description:\s*\n?\s*(['"`])([\s\S]*?)\1/)
   if (descMatch) description = descMatch[2].replace(/\s+/g, ' ').trim()
 
   return { title, description }
@@ -354,13 +377,13 @@ async function generateSearchIndex() {
   }
   console.log(`   Expanded ${teachingItems.length} teaching series routes`)
 
-  // FAQ entries — each gets a unique URL fragment to avoid deduplication collisions
+  // FAQ entries — all link to /faq since individual FAQ anchors don't exist on the page
   for (let i = 0; i < faqs.length; i++) {
     const faq = faqs[i]
     const faqContent = `${faq.question} ${faq.answer}`
     items.push({
       id: `faq-${i + 1}`,
-      url: `/faq#faq-${i + 1}`,
+      url: '/faq',
       title: faq.question,
       description: 'Frequently asked question',
       content: truncateContent(faqContent),
@@ -370,11 +393,11 @@ async function generateSearchIndex() {
 
   console.log(`   Added ${faqs.length} FAQ entries`)
 
-  // Deduplicate by URL — static pages are richer so they win over expanded routes
+  // Deduplicate by stable ID — static pages win over expanded routes when URLs collide
   const seen = new Set<string>()
   const deduped = items.filter((item) => {
-    if (seen.has(item.url)) return false
-    seen.add(item.url)
+    if (seen.has(item.id)) return false
+    seen.add(item.id)
     return true
   })
   const dupeCount = items.length - deduped.length
