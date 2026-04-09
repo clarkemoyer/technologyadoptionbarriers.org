@@ -27,7 +27,20 @@ function tokenize(text: string): string[] {
     .toLowerCase()
     .replace(/[^\w\s-]/g, '')
     .split(/\s+/)
-    .filter((token) => token.length > 0)
+    .filter((token) => token.length > 1)
+}
+
+/**
+ * Check if two tokens are a meaningful match.
+ * Exact substring matching only counts when both tokens are at least 3 chars,
+ * preventing short noise tokens (e.g. "s", "by") from producing false positives.
+ */
+function tokensMatch(contentToken: string, queryToken: string): boolean {
+  if (contentToken === queryToken) return true
+  if (contentToken.length >= 3 && queryToken.length >= 3) {
+    return contentToken.includes(queryToken) || queryToken.includes(contentToken)
+  }
+  return false
 }
 
 /**
@@ -66,7 +79,7 @@ function calculateScore(document: SearchDocument, queryTokens: string[]): number
   // Title matches are worth more (10 points per token)
   const titleTokens = tokenize(document.title)
   for (const token of queryTokens) {
-    if (titleTokens.some((t) => t.includes(token) || token.includes(t))) {
+    if (titleTokens.some((t) => tokensMatch(t, token))) {
       score += 10
     }
   }
@@ -74,7 +87,7 @@ function calculateScore(document: SearchDocument, queryTokens: string[]): number
   // Description matches (5 points per token)
   const descTokens = tokenize(document.description)
   for (const token of queryTokens) {
-    if (descTokens.some((t) => t.includes(token) || token.includes(t))) {
+    if (descTokens.some((t) => tokensMatch(t, token))) {
       score += 5
     }
   }
@@ -82,7 +95,7 @@ function calculateScore(document: SearchDocument, queryTokens: string[]): number
   // Content matches (1 point per token)
   const contentTokens = tokenize(document.content)
   for (const token of queryTokens) {
-    if (contentTokens.some((t) => t.includes(token) || token.includes(t))) {
+    if (contentTokens.some((t) => tokensMatch(t, token))) {
       score += 1
     }
   }
