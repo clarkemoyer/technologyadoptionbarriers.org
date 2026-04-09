@@ -25,31 +25,52 @@ export interface SearchResult {
 function tokenize(text: string): string[] {
   return text
     .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
+    .replace(/[^\w\s-]/g, ' ')
     .split(/\s+/)
-    .filter((token) => token.length > 0)
+    .filter((token) => token.length > 1)
 }
 
 /**
- * Create a snippet showing matched context
+ * Check if two tokens are a meaningful match.
+ * Exact substring matching only counts when both tokens are at least 3 chars,
+ * preventing short noise tokens (e.g. "s", "by") from producing false positives.
+ */
+function tokensMatch(contentToken: string, queryToken: string): boolean {
+  if (contentToken === queryToken) return true
+  if (contentToken.length >= 3 && queryToken.length >= 3) {
+    return contentToken.includes(queryToken) || queryToken.includes(contentToken)
+  }
+  return false
+}
+
+/**
+ * Create a snippet showing matched context.
+ * Uses the same tokensMatch() logic as calculateScore() so only meaningful
+ * matches (≥ 3 chars) anchor the snippet position.
  */
 function createSnippet(content: string, query: string, length = 150): string {
-  const tokens = tokenize(query)
+  const queryTokens = tokenize(query)
+  const contentTokens = tokenize(content)
   const contentLower = content.toLowerCase()
 
-  // Find first match
-  for (const token of tokens) {
-    const index = contentLower.indexOf(token)
-    if (index !== -1) {
-      const start = Math.max(0, index - 50)
-      const end = Math.min(content.length, index + length)
-      let snippet = content.substring(start, end)
+  // Find first position in the raw content where a meaningful token match occurs
+  for (const queryToken of queryTokens) {
+    for (const contentToken of contentTokens) {
+      if (tokensMatch(contentToken, queryToken)) {
+        // Find this content token in the original (lowercased) string
+        const index = contentLower.indexOf(contentToken)
+        if (index !== -1) {
+          const start = Math.max(0, index - 50)
+          const end = Math.min(content.length, index + length)
+          let snippet = content.substring(start, end)
 
-      // Add ellipsis if truncated
-      if (start > 0) snippet = '...' + snippet
-      if (end < content.length) snippet = snippet + '...'
+          // Add ellipsis if truncated
+          if (start > 0) snippet = '...' + snippet
+          if (end < content.length) snippet = snippet + '...'
 
-      return snippet
+          return snippet
+        }
+      }
     }
   }
 
@@ -66,7 +87,7 @@ function calculateScore(document: SearchDocument, queryTokens: string[]): number
   // Title matches are worth more (10 points per token)
   const titleTokens = tokenize(document.title)
   for (const token of queryTokens) {
-    if (titleTokens.some((t) => t.includes(token) || token.includes(t))) {
+    if (titleTokens.some((t) => tokensMatch(t, token))) {
       score += 10
     }
   }
@@ -74,7 +95,7 @@ function calculateScore(document: SearchDocument, queryTokens: string[]): number
   // Description matches (5 points per token)
   const descTokens = tokenize(document.description)
   for (const token of queryTokens) {
-    if (descTokens.some((t) => t.includes(token) || token.includes(t))) {
+    if (descTokens.some((t) => tokensMatch(t, token))) {
       score += 5
     }
   }
@@ -82,7 +103,7 @@ function calculateScore(document: SearchDocument, queryTokens: string[]): number
   // Content matches (1 point per token)
   const contentTokens = tokenize(document.content)
   for (const token of queryTokens) {
-    if (contentTokens.some((t) => t.includes(token) || token.includes(t))) {
+    if (contentTokens.some((t) => tokensMatch(t, token))) {
       score += 1
     }
   }
@@ -91,23 +112,24 @@ function calculateScore(document: SearchDocument, queryTokens: string[]): number
 }
 
 /**
- * Get matched field names for a query
+ * Get matched field names for a query.
+ * Uses tokensMatch() so results are consistent with calculateScore().
  */
 function getMatchedFields(document: SearchDocument, queryTokens: string[]): string[] {
   const fields: string[] = []
 
   const titleTokens = tokenize(document.title)
-  if (queryTokens.some((t) => titleTokens.some((tt) => tt.includes(t) || t.includes(tt)))) {
+  if (queryTokens.some((t) => titleTokens.some((tt) => tokensMatch(tt, t)))) {
     fields.push('title')
   }
 
   const descTokens = tokenize(document.description)
-  if (queryTokens.some((t) => descTokens.some((dt) => dt.includes(t) || t.includes(dt)))) {
+  if (queryTokens.some((t) => descTokens.some((dt) => tokensMatch(dt, t)))) {
     fields.push('description')
   }
 
   const contentTokens = tokenize(document.content)
-  if (queryTokens.some((t) => contentTokens.some((ct) => ct.includes(t) || t.includes(ct)))) {
+  if (queryTokens.some((t) => contentTokens.some((ct) => tokensMatch(ct, t)))) {
     fields.push('content')
   }
 
@@ -123,6 +145,9 @@ export function search(documents: SearchDocument[], query: string, limit = 10): 
   }
 
   const queryTokens = tokenize(query)
+  if (queryTokens.length === 0) {
+    return []
+  }
 
   const results = documents
     .map((doc) => {

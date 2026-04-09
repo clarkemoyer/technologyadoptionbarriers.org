@@ -87,7 +87,8 @@ test.describe('Full-site search', () => {
   test('clicking result navigates to page', async ({ page }) => {
     const searchInput = await openHeaderSearch(page)
     await searchInput.click()
-    await searchInput.fill('barriers')
+    // Use a specific term that matches a page other than the homepage
+    await searchInput.fill('privacy policy')
 
     // Wait for and click result
     const resultItem = page.locator('[role="option"]').first()
@@ -164,7 +165,9 @@ test.describe('Full-site search', () => {
     await searchInput.click()
     await searchInput.fill('@#$%')
 
-    // Should not crash - outer results container is still visible
-    await expect(page.locator('#search-results')).toBeVisible()
+    // Should not crash - search dropdown is still visible (no results or results shown)
+    await expect(
+      page.locator('[role="search"] >> text=No results found').or(page.locator('[role="listbox"]'))
+    ).toBeVisible()
   })
 })
