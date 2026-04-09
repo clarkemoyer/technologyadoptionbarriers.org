@@ -11,7 +11,7 @@ import Link from 'next/link'
 import sensitivityData from '@/data/crp-sensitivity-analysis.json'
 
 export const metadata: Metadata = {
-  title: 'CRP 2026 Sample & Demographics - TABS',
+  title: 'CRP 2026 Sample & Demographics — TABS',
   description:
     'Participant demographics for the Technology Adoption Barriers Survey across three result groups: roles, industries, organization sizes, and geographic distribution.',
   alternates: {
@@ -46,21 +46,20 @@ const sampleDetails: Record<string, SampleDetail> =
   ((sensitivityData as Record<string, unknown>).sample_details as Record<string, SampleDetail>) ??
   {}
 
+const CRP_PRIMARY_GROUPS = ['conservative_clean', 'flexible_clean', 'prolific_accepted'] as const
+
 const PRIMARY_GROUPS = [
   { key: 'conservative_clean', label: 'Conservative Clean', color: 'border-green-500' },
   { key: 'flexible_clean', label: 'Flexible Clean', color: 'border-blue-500' },
   { key: 'prolific_accepted', label: 'Prolific Accepted', color: 'border-amber-500' },
-  { key: 'v2_finished', label: 'All V2 Finished', color: 'border-gray-400' },
-]
+].filter((g) => (CRP_PRIMARY_GROUPS as readonly string[]).includes(g.key))
 
 const pct = (count: number, total: number | null | undefined): string =>
   total ? `${((count / total) * 100).toFixed(1)}%` : '—'
 
 const sampleLookup = new Map(sensitivityData.samples.map((s) => [s.key, s]))
 
-const CRP_PRIMARY_GROUPS = ['conservative_clean', 'flexible_clean', 'prolific_accepted']
-
-const SamplePage = () => {
+const CrpSamplePage = () => {
   // Role category metadata is sourced from the JSON when available so the UI stays
   // in sync with the pipeline. If the JSON does not provide categories, leave the
   // list empty so the table's empty-state row remains reachable.
@@ -76,8 +75,16 @@ const SamplePage = () => {
         <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-1">
             <li>
-              <Link href="/results/crp-2026" className="hover:text-blue-600 hover:underline">
+              <Link href="/results" className="hover:text-blue-600 hover:underline">
                 Results
+              </Link>
+              <span className="mx-2" aria-hidden="true">
+                &rsaquo;
+              </span>
+            </li>
+            <li>
+              <Link href="/results/crp-2026" className="hover:text-blue-600 hover:underline">
+                CRP 2026
               </Link>
               <span className="mx-2" aria-hidden="true">
                 &rsaquo;
@@ -743,4 +750,4 @@ const SamplePage = () => {
   )
 }
 
-export default SamplePage
+export default CrpSamplePage
