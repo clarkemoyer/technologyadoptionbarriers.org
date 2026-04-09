@@ -115,14 +115,14 @@ const CRP2026Page = () => {
               </p>
               <ul className={BODY_LIST_CLASSES}>
                 <li>
-                  <strong>Tier 1 — Conservative Clean (auto-include):</strong> All responses
-                  passing every quality gate: 3/3 IRI attention checks, duration ≥ 540s,
-                  reCAPTCHA ≥ 0.5, no straightlining, no auth flags (N={CRP_CONSERVATIVE_CLEAN})
+                  <strong>Tier 1 — Conservative Clean (auto-include):</strong> All responses passing
+                  every quality gate: 3/3 IRI attention checks, duration ≥ 540s, reCAPTCHA ≥ 0.5, no
+                  straightlining, no auth flags (N={CRP_CONSERVATIVE_CLEAN})
                 </li>
                 <li>
-                  <strong>Tier 2 — Flexible Clean surplus (auto-include):</strong> Responses
-                  passing basic quality (all 3 IRIs + duration ≥ 480s) that did not qualify for
-                  Tier 1 (N={CRP_FLEXIBLE_CLEAN - CRP_CONSERVATIVE_CLEAN})
+                  <strong>Tier 2 — Flexible Clean surplus (auto-include):</strong> Responses passing
+                  basic quality (all 3 IRIs + duration ≥ 480s) that did not qualify for Tier 1 (N=
+                  {CRP_FLEXIBLE_CLEAN - CRP_CONSERVATIVE_CLEAN})
                 </li>
                 <li>
                   <strong>Tier 3 — Quality-ranked fill:</strong> Remaining Prolific Accepted
@@ -269,7 +269,10 @@ const CRP2026Page = () => {
               &mdash; full psychometric validation at N={CRP_SAMPLE_SIZE}
             </li>
             <li>
-              <Link href="/results/crp-2026/factor-analysis" className="text-blue-600 hover:underline">
+              <Link
+                href="/results/crp-2026/factor-analysis"
+                className="text-blue-600 hover:underline"
+              >
                 Factor Analysis
               </Link>{' '}
               &mdash; hierarchical barrier factor structure

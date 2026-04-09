@@ -78,7 +78,22 @@ const EFA_FACTORS = [
     name: 'F1: Internal / Organizational',
     color: 'bg-indigo-50 border-indigo-400',
     headerColor: 'bg-indigo-600',
-    items: ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B10', 'B11', 'B12', 'B15', 'B17'],
+    items: [
+      'B1',
+      'B2',
+      'B3',
+      'B4',
+      'B5',
+      'B6',
+      'B7',
+      'B8',
+      'B9',
+      'B10',
+      'B11',
+      'B12',
+      'B15',
+      'B17',
+    ],
     stats: { items: 14, alpha: 0.872, eigenvalue: 5.874, varianceExplained: '28.5%' },
   },
   {
@@ -182,13 +197,17 @@ const FactorAnalysisPage = () => {
               <Link href="/results" className="hover:text-blue-600 hover:underline">
                 Results
               </Link>
-              <span className="mx-2" aria-hidden="true">&rsaquo;</span>
+              <span className="mx-2" aria-hidden="true">
+                &rsaquo;
+              </span>
             </li>
             <li>
               <Link href="/results/crp-2026" className="hover:text-blue-600 hover:underline">
                 CRP 2026
               </Link>
-              <span className="mx-2" aria-hidden="true">&rsaquo;</span>
+              <span className="mx-2" aria-hidden="true">
+                &rsaquo;
+              </span>
             </li>
             <li className="text-gray-800" aria-current="page">
               Factor Analysis
@@ -241,8 +260,8 @@ const FactorAnalysisPage = () => {
             ))}
           </div>
           <p className="text-sm text-gray-500 font-sans">
-            Total: 2 + 6 + 4 + 6 = 18 items. The four groups have unequal sizes by design
-            because real-world barrier categories differ in breadth.
+            Total: 2 + 6 + 4 + 6 = 18 items. The four groups have unequal sizes by design because
+            real-world barrier categories differ in breadth.
           </p>
         </section>
 
@@ -254,8 +273,8 @@ const FactorAnalysisPage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Level 2: EFA-Derived Structure (2 Factors)</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Horn&rsquo;s Parallel Analysis compared actual eigenvalues against the 95th percentile of
-            random-data eigenvalues and retained exactly two factors. The two factors explain a
+            Horn&rsquo;s Parallel Analysis compared actual eigenvalues against the 95th percentile
+            of random-data eigenvalues and retained exactly two factors. The two factors explain a
             cumulative 39.9% of variance. Factor correlations (r = .505) confirm the oblique
             rotation was appropriate.
           </p>
@@ -270,11 +289,33 @@ const FactorAnalysisPage = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr><td className="px-3 py-1.5 border">Eigenvalue</td><td className="text-right px-3 py-1.5 border">5.874</td><td className="text-right px-3 py-1.5 border">1.903</td></tr>
-                <tr className="bg-gray-50"><td className="px-3 py-1.5 border">Variance Explained</td><td className="text-right px-3 py-1.5 border">28.5%</td><td className="text-right px-3 py-1.5 border">11.4%</td></tr>
-                <tr><td className="px-3 py-1.5 border">Items</td><td className="text-right px-3 py-1.5 border">14</td><td className="text-right px-3 py-1.5 border">4</td></tr>
-                <tr className="bg-gray-50"><td className="px-3 py-1.5 border">KMO (overall)</td><td className="text-right px-3 py-1.5 border" colSpan={2}>0.851</td></tr>
-                <tr><td className="px-3 py-1.5 border">Bartlett&rsquo;s &chi;&sup2;</td><td className="text-right px-3 py-1.5 border" colSpan={2}>1,135.5 (p &lt; .001)</td></tr>
+                <tr>
+                  <td className="px-3 py-1.5 border">Eigenvalue</td>
+                  <td className="text-right px-3 py-1.5 border">5.874</td>
+                  <td className="text-right px-3 py-1.5 border">1.903</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="px-3 py-1.5 border">Variance Explained</td>
+                  <td className="text-right px-3 py-1.5 border">28.5%</td>
+                  <td className="text-right px-3 py-1.5 border">11.4%</td>
+                </tr>
+                <tr>
+                  <td className="px-3 py-1.5 border">Items</td>
+                  <td className="text-right px-3 py-1.5 border">14</td>
+                  <td className="text-right px-3 py-1.5 border">4</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="px-3 py-1.5 border">KMO (overall)</td>
+                  <td className="text-right px-3 py-1.5 border" colSpan={2}>
+                    0.851
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-3 py-1.5 border">Bartlett&rsquo;s &chi;&sup2;</td>
+                  <td className="text-right px-3 py-1.5 border" colSpan={2}>
+                    1,135.5 (p &lt; .001)
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -288,12 +329,13 @@ const FactorAnalysisPage = () => {
           <h3 className={H3_CLASSES}>What Changed from Theory?</h3>
           <p className={PARAGRAPH_CLASSES}>
             The theory-based 4-group structure collapsed into 2 empirical factors. All items from
-            Organizational &amp; Cultural, Strategic &amp; Operational, and Resource &amp; Skill loaded
-            together onto F1 (Internal/Organizational), along with B15 (Trust) and B17 (External
-            Pressure) from the Risk/Trust group. The remaining Risk/Trust items (B13 Cybersecurity,
-            B14 Data Privacy, B16 Regulatory, B18 Vendor Difficulty) formed F2 (External/Compliance).
-            This suggests that organizational leaders perceive internal barriers as a unified
-            challenge, while external compliance constraints form a distinct dimension.
+            Organizational &amp; Cultural, Strategic &amp; Operational, and Resource &amp; Skill
+            loaded together onto F1 (Internal/Organizational), along with B15 (Trust) and B17
+            (External Pressure) from the Risk/Trust group. The remaining Risk/Trust items (B13
+            Cybersecurity, B14 Data Privacy, B16 Regulatory, B18 Vendor Difficulty) formed F2
+            (External/Compliance). This suggests that organizational leaders perceive internal
+            barriers as a unified challenge, while external compliance constraints form a distinct
+            dimension.
           </p>
         </section>
 
@@ -307,17 +349,17 @@ const FactorAnalysisPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Because F1 contains 14 of the 18 items, we explored whether it could be meaningfully
             sub-divided. Horn&rsquo;s Parallel Analysis on F1 alone recommends retaining only 1
-            factor, so any split is not statistically mandated. However, a forced 2-factor extraction
-            within F1 produces two interpretable sub-groups with high inter-correlation (r = .775),
-            confirming they are facets of a single broader construct.
+            factor, so any split is not statistically mandated. However, a forced 2-factor
+            extraction within F1 produces two interpretable sub-groups with high inter-correlation
+            (r = .775), confirming they are facets of a single broader construct.
           </p>
 
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6 font-sans text-sm">
             <p className="font-bold text-amber-800 mb-1">Important methodological note</p>
             <p className="text-amber-700">
-              The 3-group solution is exploratory and intended for practitioner reporting, not
-              as a replacement for the statistically supported 2-factor structure. Parallel Analysis
-              does not support splitting F1. Use with appropriate caveats.
+              The 3-group solution is exploratory and intended for practitioner reporting, not as a
+              replacement for the statistically supported 2-factor structure. Parallel Analysis does
+              not support splitting F1. Use with appropriate caveats.
             </p>
           </div>
 
@@ -376,31 +418,42 @@ const FactorAnalysisPage = () => {
                   { id: 'B3', f1: 0.738, f2: -0.126, assigned: 'F1' },
                   { id: 'B4', f1: 0.684, f2: -0.075, assigned: 'F1' },
                   { id: 'B5', f1: 0.568, f2: 0.017, assigned: 'F1' },
-                  { id: 'B6', f1: 0.431, f2: 0.100, assigned: 'F1' },
-                  { id: 'B7', f1: 0.520, f2: 0.042, assigned: 'F1' },
-                  { id: 'B8', f1: 0.486, f2: 0.120, assigned: 'F1' },
+                  { id: 'B6', f1: 0.431, f2: 0.1, assigned: 'F1' },
+                  { id: 'B7', f1: 0.52, f2: 0.042, assigned: 'F1' },
+                  { id: 'B8', f1: 0.486, f2: 0.12, assigned: 'F1' },
                   { id: 'B9', f1: 0.543, f2: -0.036, assigned: 'F1' },
                   { id: 'B10', f1: 0.731, f2: -0.026, assigned: 'F1' },
                   { id: 'B11', f1: 0.437, f2: 0.155, assigned: 'F1' },
-                  { id: 'B12', f1: 0.539, f2: 0.090, assigned: 'F1' },
+                  { id: 'B12', f1: 0.539, f2: 0.09, assigned: 'F1' },
                   { id: 'B15', f1: 0.397, f2: 0.187, assigned: 'F1' },
                   { id: 'B17', f1: 0.475, f2: 0.071, assigned: 'F1' },
-                  { id: 'B13', f1: -0.227, f2: 0.850, assigned: 'F2' },
+                  { id: 'B13', f1: -0.227, f2: 0.85, assigned: 'F2' },
                   { id: 'B14', f1: -0.208, f2: 0.952, assigned: 'F2' },
                   { id: 'B16', f1: 0.147, f2: 0.354, assigned: 'F2' },
                   { id: 'B18', f1: 0.232, f2: 0.268, assigned: 'F2' },
                 ].map((row, i) => (
-                  <tr key={row.id} className={row.assigned === 'F2' ? 'bg-pink-50' : i % 2 === 0 ? '' : 'bg-gray-50'}>
+                  <tr
+                    key={row.id}
+                    className={
+                      row.assigned === 'F2' ? 'bg-pink-50' : i % 2 === 0 ? '' : 'bg-gray-50'
+                    }
+                  >
                     <td className="px-2 py-1 border font-bold">{row.id}</td>
                     <td className="px-2 py-1 border text-gray-700">{BARRIER_ITEMS[row.id]}</td>
-                    <td className={`text-right px-2 py-1 border ${row.assigned === 'F1' ? 'font-bold text-indigo-700' : 'text-gray-400'}`}>
+                    <td
+                      className={`text-right px-2 py-1 border ${row.assigned === 'F1' ? 'font-bold text-indigo-700' : 'text-gray-400'}`}
+                    >
                       {row.f1.toFixed(3)}
                     </td>
-                    <td className={`text-right px-2 py-1 border ${row.assigned === 'F2' ? 'font-bold text-pink-700' : 'text-gray-400'}`}>
+                    <td
+                      className={`text-right px-2 py-1 border ${row.assigned === 'F2' ? 'font-bold text-pink-700' : 'text-gray-400'}`}
+                    >
                       {row.f2.toFixed(3)}
                     </td>
                     <td className="text-center px-2 py-1 border">
-                      <span className={`px-2 py-0.5 rounded text-xs font-bold ${row.assigned === 'F1' ? 'bg-indigo-100 text-indigo-700' : 'bg-pink-100 text-pink-700'}`}>
+                      <span
+                        className={`px-2 py-0.5 rounded text-xs font-bold ${row.assigned === 'F1' ? 'bg-indigo-100 text-indigo-700' : 'bg-pink-100 text-pink-700'}`}
+                      >
                         {row.assigned}
                       </span>
                     </td>
@@ -421,26 +474,26 @@ const FactorAnalysisPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The concept-mapping sub-constructs represent distinct theoretical traditions, but
             organizational leaders perceive barriers through a simpler lens: things within their
-            control (internal organizational challenges) versus things imposed from outside (regulatory
-            and compliance mandates). The data&rsquo;s factor structure reflects this lived experience
-            of adoption barriers.
+            control (internal organizational challenges) versus things imposed from outside
+            (regulatory and compliance mandates). The data&rsquo;s factor structure reflects this
+            lived experience of adoption barriers.
           </p>
 
           <h3 className={H3_CLASSES}>The 14/4 Imbalance</h3>
           <p className={PARAGRAPH_CLASSES}>
             F1 containing 14 items while F2 has only 4 is a legitimate asymmetry, not a flaw.
-            Internal organizational barriers are inherently more diverse (spanning culture, strategy,
-            resources, skills, governance, and infrastructure) while external compliance constraints
-            cluster tightly. The 3-group decomposition offers a more balanced practitioner view
-            (9 / 5 / 4) for organizations seeking targeted intervention.
+            Internal organizational barriers are inherently more diverse (spanning culture,
+            strategy, resources, skills, governance, and infrastructure) while external compliance
+            constraints cluster tightly. The 3-group decomposition offers a more balanced
+            practitioner view (9 / 5 / 4) for organizations seeking targeted intervention.
           </p>
 
           <h3 className={H3_CLASSES}>Practical Application</h3>
           <p className={PARAGRAPH_CLASSES}>
             For academic reporting, use the statistically supported 2-factor structure. For
             practitioner dashboards and action planning, the 3-group decomposition provides more
-            granular and actionable groupings: Strategy &amp; Culture barriers call for leadership and
-            governance interventions, Technical Capacity barriers call for investment and
+            granular and actionable groupings: Strategy &amp; Culture barriers call for leadership
+            and governance interventions, Technical Capacity barriers call for investment and
             infrastructure work, and External/Compliance barriers call for regulatory engagement and
             vendor management.
           </p>

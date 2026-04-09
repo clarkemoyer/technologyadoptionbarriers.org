@@ -88,9 +88,9 @@ const ENTRIES: GlossaryEntry[] = [
     term: 'Alpha-if-Deleted',
     category: 'Reliability',
     whatItMeasures:
-      'What Cronbach\'s alpha would be if a specific item were removed from the scale. Items whose deletion would increase alpha may be weakening internal consistency.',
+      "What Cronbach's alpha would be if a specific item were removed from the scale. Items whose deletion would increase alpha may be weakening internal consistency.",
     howCalculated:
-      'Recompute Cronbach\'s alpha on the remaining k−1 items for each item in turn. Report the change (Δα) and flag items where deletion would increase alpha.',
+      "Recompute Cronbach's alpha on the remaining k−1 items for each item in turn. Report the change (Δα) and flag items where deletion would increase alpha.",
     thresholds:
       'If Δα > 0, the item may be a candidate for removal (though substantive justification should outweigh statistical criteria alone).',
     tabsContext:
@@ -103,13 +103,13 @@ const ENTRIES: GlossaryEntry[] = [
     term: 'Corrected Item-Total Correlation (CITC)',
     category: 'Item Analysis',
     whatItMeasures:
-      'The Pearson correlation between each item and the sum of all other items in the scale (excluding that item). This avoids the part-whole correlation inflation that occurs if the item is included in its own total. It measures how well each item \'tracks\' with the rest of the scale.',
+      "The Pearson correlation between each item and the sum of all other items in the scale (excluding that item). This avoids the part-whole correlation inflation that occurs if the item is included in its own total. It measures how well each item 'tracks' with the rest of the scale.",
     howCalculated:
       'For item i, CITCᵢ = r(xᵢ, T₋ᵢ), where T₋ᵢ is the sum of all items except item i.',
     thresholds:
       '≥ 0.30 acceptable. Items below 0.30 may not be measuring the same construct as the other items, or may be interpreted inconsistently by respondents.',
     tabsContext:
-      'B13 (Cybersecurity Concerns, CITC = .17) is the only item below the 0.30 threshold. Its specialized nature means cybersecurity barriers don\'t track with organizational/strategic barriers for all respondents.',
+      "B13 (Cybersecurity Concerns, CITC = .17) is the only item below the 0.30 threshold. Its specialized nature means cybersecurity barriers don't track with organizational/strategic barriers for all respondents.",
   },
   {
     id: 'inter-item-correlation',
@@ -141,7 +141,7 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'bartlett',
-    term: 'Bartlett\'s Test of Sphericity',
+    term: "Bartlett's Test of Sphericity",
     category: 'Factor Analysis',
     whatItMeasures:
       'Whether the correlation matrix is significantly different from an identity matrix (where all correlations are zero). A significant result means the items share enough variance to support factor analysis.',
@@ -167,7 +167,7 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'parallel-analysis',
-    term: 'Horn\'s Parallel Analysis',
+    term: "Horn's Parallel Analysis",
     category: 'Factor Analysis',
     whatItMeasures:
       'The number of factors to retain in EFA. It compares actual eigenvalues from the data against eigenvalues generated from random data of the same dimensionality. Factors are retained only when actual eigenvalues exceed the random expectation.',
@@ -224,7 +224,7 @@ const ENTRIES: GlossaryEntry[] = [
     term: 'Fornell-Larcker Criterion',
     category: 'Validity',
     whatItMeasures:
-      'Discriminant validity by comparing the square root of each construct\'s AVE against its correlations with other constructs. If a construct shares more variance with its own items than with another construct, they are discriminant.',
+      "Discriminant validity by comparing the square root of each construct's AVE against its correlations with other constructs. If a construct shares more variance with its own items than with another construct, they are discriminant.",
     howCalculated:
       'For each construct pair (A, B): check whether √AVE(A) > |r(A,B)| and √AVE(B) > |r(A,B)|. Both conditions must hold for discriminant validity.',
     thresholds:
@@ -267,11 +267,11 @@ const ENTRIES: GlossaryEntry[] = [
     term: 'Eigenvalue',
     category: 'Factor Analysis',
     whatItMeasures:
-      'The amount of total variance in the items that a single factor accounts for. Each factor\'s eigenvalue represents its explanatory power. Eigenvalues sum to the number of variables.',
+      "The amount of total variance in the items that a single factor accounts for. Each factor's eigenvalue represents its explanatory power. Eigenvalues sum to the number of variables.",
     howCalculated:
       'Computed from the eigendecomposition of the correlation matrix R. The eigenvalue λⱼ for factor j is the sum of squared factor loadings for that factor across all items.',
     thresholds:
-      'Kaiser criterion: retain factors with eigenvalue > 1.0 (explains more than a single item\'s worth of variance). However, Parallel Analysis is more accurate and is used by TABS.',
+      "Kaiser criterion: retain factors with eigenvalue > 1.0 (explains more than a single item's worth of variance). However, Parallel Analysis is more accurate and is used by TABS.",
     tabsContext:
       'Barriers: λ₁=5.87, λ₂=1.90, λ₃=1.15 (only 2 exceed parallel analysis threshold). Readiness: λ₁=7.39 (1 factor). Maturity: λ₁=4.44 (1 factor).',
   },
@@ -322,8 +322,7 @@ const ENTRIES: GlossaryEntry[] = [
       'How much better the hypothesized model fits compared to a null (independence) model where all items are uncorrelated. Ranges from 0 to 1.',
     howCalculated:
       'CFI = 1 − max((χ²ₘ − dfₘ), 0) / max((χ²₀ − df₀), (χ²ₘ − dfₘ), 0), where m = proposed model, 0 = null model.',
-    thresholds:
-      '≥ .95 good fit, ≥ .90 acceptable fit (Hu & Bentler, 1999).',
+    thresholds: '≥ .95 good fit, ≥ .90 acceptable fit (Hu & Bentler, 1999).',
     tabsContext:
       'Maturity CFI = .981 (excellent). Readiness CFI = .930 (acceptable). Barriers single-factor CFI = .766 (poor, expected for multi-dimensional construct).',
   },
@@ -333,10 +332,8 @@ const ENTRIES: GlossaryEntry[] = [
     category: 'CFA Fit Indices',
     whatItMeasures:
       'Similar to CFI but penalizes model complexity. Values can exceed 1.0 or fall below 0. More conservative than CFI for models with many parameters.',
-    howCalculated:
-      'TLI = ((χ²₀/df₀) − (χ²ₘ/dfₘ)) / ((χ²₀/df₀) − 1).',
-    thresholds:
-      '≥ .95 good fit, ≥ .90 acceptable (same as CFI).',
+    howCalculated: 'TLI = ((χ²₀/df₀) − (χ²ₘ/dfₘ)) / ((χ²₀/df₀) − 1).',
+    thresholds: '≥ .95 good fit, ≥ .90 acceptable (same as CFI).',
     tabsContext:
       'Maturity TLI = .973 (excellent). Readiness TLI = .920 (acceptable). Barriers TLI = .735 (poor).',
   },
@@ -346,10 +343,8 @@ const ENTRIES: GlossaryEntry[] = [
     category: 'CFA Fit Indices',
     whatItMeasures:
       'The average amount of misfit per degree of freedom. It estimates how well the model fits the population covariance matrix (not just the sample). Lower is better.',
-    howCalculated:
-      'RMSEA = √(max((χ²ₘ − dfₘ) / (dfₘ × (N−1)), 0)).',
-    thresholds:
-      '≤ .06 good, ≤ .08 acceptable, > .10 poor (Browne & Cudeck, 1993).',
+    howCalculated: 'RMSEA = √(max((χ²ₘ − dfₘ) / (dfₘ × (N−1)), 0)).',
+    thresholds: '≤ .06 good, ≤ .08 acceptable, > .10 poor (Browne & Cudeck, 1993).',
     tabsContext:
       'Maturity RMSEA = .057 (good). Readiness RMSEA = .063 (acceptable). Barriers RMSEA = .097 (borderline poor).',
   },
@@ -373,9 +368,7 @@ const categories = [...new Set(ENTRIES.map((e) => e.category))]
 
 const GlossaryEntryCard = ({ entry }: { entry: GlossaryEntry }) => (
   <div id={entry.id} className="scroll-mt-32 mb-8 last:mb-0">
-    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 font-sans">
-      {entry.term}
-    </h3>
+    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 font-sans">{entry.term}</h3>
     <div className="space-y-3 text-sm sm:text-base font-sans text-gray-700 pl-0 sm:pl-4">
       <div>
         <span className="font-semibold text-tabs-teal-deep">What it measures:</span>{' '}
@@ -386,13 +379,11 @@ const GlossaryEntryCard = ({ entry }: { entry: GlossaryEntry }) => (
         {entry.howCalculated}
       </div>
       <div>
-        <span className="font-semibold text-tabs-teal-deep">Thresholds:</span>{' '}
-        {entry.thresholds}
+        <span className="font-semibold text-tabs-teal-deep">Thresholds:</span> {entry.thresholds}
       </div>
       {entry.tabsContext && (
         <div className="bg-gray-50 border border-gray-200 rounded p-3">
-          <span className="font-semibold text-gray-800">TABS result:</span>{' '}
-          {entry.tabsContext}
+          <span className="font-semibold text-gray-800">TABS result:</span> {entry.tabsContext}
         </div>
       )}
     </div>
@@ -409,13 +400,17 @@ const GlossaryPage = () => {
               <Link href="/results" className="hover:text-blue-600 hover:underline">
                 Results
               </Link>
-              <span className="mx-2" aria-hidden="true">&rsaquo;</span>
+              <span className="mx-2" aria-hidden="true">
+                &rsaquo;
+              </span>
             </li>
             <li>
               <Link href="/results/crp-2026" className="hover:text-blue-600 hover:underline">
                 CRP 2026
               </Link>
-              <span className="mx-2" aria-hidden="true">&rsaquo;</span>
+              <span className="mx-2" aria-hidden="true">
+                &rsaquo;
+              </span>
             </li>
             <li className="text-gray-800" aria-current="page">
               Statistics Glossary
@@ -435,15 +430,18 @@ const GlossaryPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             This glossary explains every psychometric and statistical method used in the TABS
             instrument validation. Each entry describes what the statistic measures, how it is
-            calculated, commonly accepted thresholds, and the TABS-specific results from the
-            CRP-200 frozen dataset (N=200).
+            calculated, commonly accepted thresholds, and the TABS-specific results from the CRP-200
+            frozen dataset (N=200).
           </p>
           <p className="text-sm text-gray-500 font-sans mb-6">
             Jump to:{' '}
             {categories.map((cat, i) => (
               <span key={cat}>
                 {i > 0 && ' | '}
-                <a href={`#cat-${cat.toLowerCase().replace(/\s+/g, '-')}`} className="text-blue-600 hover:underline">
+                <a
+                  href={`#cat-${cat.toLowerCase().replace(/\s+/g, '-')}`}
+                  className="text-blue-600 hover:underline"
+                >
                   {cat}
                 </a>
               </span>
@@ -452,7 +450,11 @@ const GlossaryPage = () => {
         </section>
 
         {categories.map((cat) => (
-          <section key={cat} id={`cat-${cat.toLowerCase().replace(/\s+/g, '-')}`} className={SECTION_CLASSES}>
+          <section
+            key={cat}
+            id={`cat-${cat.toLowerCase().replace(/\s+/g, '-')}`}
+            className={SECTION_CLASSES}
+          >
             <h2 className={H2_CLASSES}>{cat}</h2>
             {ENTRIES.filter((e) => e.category === cat).map((entry) => (
               <GlossaryEntryCard key={entry.id} entry={entry} />
@@ -464,15 +466,45 @@ const GlossaryPage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key References</h2>
           <div className="text-sm font-sans text-gray-600 space-y-2">
-            <p>Browne, M.W. & Cudeck, R. (1993). Alternative ways of assessing model fit. In K.A. Bollen & J.S. Long (Eds.), <em>Testing Structural Equation Models</em> (pp. 136-162). Sage.</p>
-            <p>Clark, L.A. & Watson, D. (1995). Constructing validity: Basic issues in objective scale development. <em>Psychological Assessment</em>, 7(3), 309-319.</p>
-            <p>Curran, P.J., West, S.G. & Finch, J.F. (1996). The robustness of test statistics to nonnormality and specification error. <em>Psychological Methods</em>, 1(1), 16-29.</p>
-            <p>Feldt, L.S. (1965). The approximate sampling distribution of Kuder-Richardson reliability coefficient twenty. <em>Psychometrika</em>, 30, 357-370.</p>
-            <p>Fornell, C. & Larcker, D.F. (1981). Evaluating structural equation models with unobservable variables and measurement error. <em>Journal of Marketing Research</em>, 18(1), 39-50.</p>
-            <p>Henseler, J., Ringle, C.M. & Sarstedt, M. (2015). A new criterion for assessing discriminant validity in variance-based SEM. <em>Journal of the Academy of Marketing Science</em>, 43(1), 115-135.</p>
-            <p>Hu, L. & Bentler, P.M. (1999). Cutoff criteria for fit indexes in covariance structure analysis. <em>Structural Equation Modeling</em>, 6(1), 1-55.</p>
-            <p>Kaiser, H.F. (1974). An index of factorial simplicity. <em>Psychometrika</em>, 39, 31-36.</p>
-            <p>Tabachnick, B.G. & Fidell, L.S. (2013). <em>Using Multivariate Statistics</em> (6th ed.). Pearson.</p>
+            <p>
+              Browne, M.W. & Cudeck, R. (1993). Alternative ways of assessing model fit. In K.A.
+              Bollen & J.S. Long (Eds.), <em>Testing Structural Equation Models</em> (pp. 136-162).
+              Sage.
+            </p>
+            <p>
+              Clark, L.A. & Watson, D. (1995). Constructing validity: Basic issues in objective
+              scale development. <em>Psychological Assessment</em>, 7(3), 309-319.
+            </p>
+            <p>
+              Curran, P.J., West, S.G. & Finch, J.F. (1996). The robustness of test statistics to
+              nonnormality and specification error. <em>Psychological Methods</em>, 1(1), 16-29.
+            </p>
+            <p>
+              Feldt, L.S. (1965). The approximate sampling distribution of Kuder-Richardson
+              reliability coefficient twenty. <em>Psychometrika</em>, 30, 357-370.
+            </p>
+            <p>
+              Fornell, C. & Larcker, D.F. (1981). Evaluating structural equation models with
+              unobservable variables and measurement error. <em>Journal of Marketing Research</em>,
+              18(1), 39-50.
+            </p>
+            <p>
+              Henseler, J., Ringle, C.M. & Sarstedt, M. (2015). A new criterion for assessing
+              discriminant validity in variance-based SEM.{' '}
+              <em>Journal of the Academy of Marketing Science</em>, 43(1), 115-135.
+            </p>
+            <p>
+              Hu, L. & Bentler, P.M. (1999). Cutoff criteria for fit indexes in covariance structure
+              analysis. <em>Structural Equation Modeling</em>, 6(1), 1-55.
+            </p>
+            <p>
+              Kaiser, H.F. (1974). An index of factorial simplicity. <em>Psychometrika</em>, 39,
+              31-36.
+            </p>
+            <p>
+              Tabachnick, B.G. & Fidell, L.S. (2013). <em>Using Multivariate Statistics</em> (6th
+              ed.). Pearson.
+            </p>
           </div>
         </section>
 
@@ -482,7 +514,10 @@ const GlossaryPage = () => {
             <Link href="/results/crp-2026/validation" className="text-blue-600 hover:underline">
               Instrument Validation Results &rarr;
             </Link>
-            <Link href="/results/crp-2026/factor-analysis" className="text-blue-600 hover:underline">
+            <Link
+              href="/results/crp-2026/factor-analysis"
+              className="text-blue-600 hover:underline"
+            >
               Factor Analysis &rarr;
             </Link>
             <Link href="/results/crp-2026/reliability" className="text-blue-600 hover:underline">
