@@ -120,6 +120,131 @@ jobs:
             "${{ runner.temp }}/deidentified" \
             --skip-review
 
+      # ── CRP Dataset (N=200) ──
+      # Produces the frozen public dataset for the Culminating Research Project.
+      # Once the canonical CSV exists in the repo, the CRP build is skipped
+      # to preserve the moment-in-time snapshot used for the CRP submission.
+      # To regenerate, delete public/datasets/TABS_V2_CRP_2026_public_dataset.csv
+      # from the repo and re-run the pipeline.
+      - name: Build CRP dataset (N=200)
+        id: crp
+        continue-on-error: true
+        run: |
+          CRP_CSV="public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
+          PIPELINE_BRANCH="chore/daily-pipeline-data"
+
+          # Check 1: already in current checkout
+          if [ -f "$CRP_CSV" ]; then
+            echo "CRP dataset already exists in checkout — skipping to preserve frozen snapshot"
+            echo "produced=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Check 2: already on origin/main (covers workflow_dispatch from non-main branch)
+          git fetch --no-tags --depth=1 origin "main:refs/remotes/origin/main" 2>/dev/null || true
+          if git show "origin/main:$CRP_CSV" >/dev/null 2>&1; then
+            echo "CRP dataset already exists on origin/main — skipping to preserve frozen snapshot"
+            echo "produced=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Check 3: already on pending daily-pipeline PR branch (not yet merged)
+          git fetch --no-tags --depth=1 origin "$PIPELINE_BRANCH:refs/remotes/origin/$PIPELINE_BRANCH" 2>/dev/null || true
+          if git show "origin/$PIPELINE_BRANCH:$CRP_CSV" >/dev/null 2>&1; then
+            echo "CRP dataset already exists on origin/$PIPELINE_BRANCH — skipping to preserve frozen snapshot"
+            echo "produced=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          set -euo pipefail
+          python scripts/analysis/create_crp_dataset.py \
+            "${{ runner.temp }}/qualtrics-enriched.csv" \
+            --target-n 200 \
+            --output-dir "${{ runner.temp }}/crp-output" \
+            --skip-review
+          echo "produced=true" >> "$GITHUB_OUTPUT"
+
+      - name: Build CRP-only enriched CSV for analysis
+        id: crp_filter
+        if: steps.crp.outputs.produced == 'true'
+        continue-on-error: true
+        run: |
+          python3 - <<'PY'
+          import csv, pathlib, sys
+
+          tmp = pathlib.Path("${{ runner.temp }}")
+          mapping = tmp / "crp-output" / "responseid_mapping_CONFIDENTIAL.csv"
+          enriched = tmp / "qualtrics-enriched.csv"
+          output = tmp / "qualtrics-enriched-crp-sample.csv"
+
+          selected_ids = set()
+          with mapping.open(newline="", encoding="utf-8") as f:
+              for row in csv.DictReader(f):
+                  selected_ids.add(row["original_response_id"])
+          print(f"  Selected ResponseIds from mapping: {len(selected_ids)}")
+
+          with enriched.open(newline="", encoding="utf-8-sig") as f:
+              all_rows = list(csv.reader(f))
+          headers = all_rows[:3]
+          rid_idx = all_rows[0].index("ResponseId")
+          data = [r for r in all_rows[3:] if len(r) > rid_idx and r[rid_idx] in selected_ids]
+          print(f"  Filtered rows: {len(data)} (expected {len(selected_ids)})")
+
+          if len(data) != len(selected_ids):
+              print(f"  ERROR: Row count mismatch — expected {len(selected_ids)}, got {len(data)}", file=sys.stderr)
+              sys.exit(1)
+
+          with output.open("w", newline="", encoding="utf-8") as f:
+              w = csv.writer(f)
+              w.writerows(headers)
+              w.writerows(data)
+          PY
+
+      - name: Run CRP analysis snapshot (N=200 subset)
+        id: crp_analysis
+        if: steps.crp.outputs.produced == 'true' && steps.crp_filter.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          CSV_PATH="${{ runner.temp }}/qualtrics-enriched-crp-sample.csv"
+
+          if [ ! -f "$CSV_PATH" ]; then
+            echo "CRP analysis input CSV not found: $CSV_PATH" >&2
+            exit 1
+          fi
+
+          # Guard: skip if filtered CSV has no data rows (only headers)
+          DATA_ROWS=$(tail -n +4 "$CSV_PATH" | awk 'END { print NR }')
+          if [ "$DATA_ROWS" -eq 0 ]; then
+            echo "CRP analysis skipped: filtered sample has 0 data rows (no JSON written)"
+            exit 0
+          fi
+          python scripts/analysis/tabs_v2_analysis.py \
+            "$CSV_PATH" \
+            --json "${{ runner.temp }}/crp-sensitivity-analysis.json"
+
+      - name: Stage CRP public CSV
+        if: steps.crp.outputs.produced == 'true'
+        run: |
+          if [ -f "${{ runner.temp }}/crp-output/TABS_V2_CRP_public_dataset.csv" ]; then
+            mkdir -p "${{ runner.temp }}/crp-public"
+            cp "${{ runner.temp }}/crp-output/TABS_V2_CRP_public_dataset.csv" \
+               "${{ runner.temp }}/crp-public/TABS_V2_CRP_2026_public_dataset.csv"
+          else
+            echo "CRP public CSV not found — skipping"
+          fi
+
+      - name: Stage CRP analysis snapshot
+        if: steps.crp.outputs.produced == 'true' && steps.crp_analysis.outcome == 'success'
+        run: |
+          if [ -f "${{ runner.temp }}/crp-sensitivity-analysis.json" ]; then
+            mkdir -p "${{ runner.temp }}/crp-public"
+            cp "${{ runner.temp }}/crp-sensitivity-analysis.json" \
+               "${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json"
+          else
+            echo "CRP analysis JSON not found — skipping"
+          fi
+
       - name: Descriptive analysis + sensitivity
         run: |
           python scripts/analysis/tabs_v2_analysis.py \
@@ -216,6 +341,36 @@ jobs:
           path: ${{ runner.temp }}/deidentified/TABS_V2_public_dataset.csv
           retention-days: 30
           if-no-files-found: warn
+
+      # CRP public dataset CSV — gated only on CRP build success, intentionally
+      # decoupled from the filter+analysis chain. The public CSV is produced by
+      # create_crp_dataset.py and does not depend on the analysis snapshot.
+      - uses: actions/upload-artifact@v7
+        if: steps.crp.outputs.produced == 'true'
+        with:
+          name: crp-dataset
+          path: ${{ runner.temp }}/crp-public/TABS_V2_CRP_2026_public_dataset.csv
+          retention-days: 7
+          if-no-files-found: warn
+
+      # CRP analysis snapshot — only uploaded when JSON was actually produced
+      - name: Detect CRP analysis snapshot
+        id: crp_snapshot
+        if: steps.crp.outputs.produced == 'true' && steps.crp_filter.outcome == 'success' && steps.crp_analysis.outcome == 'success'
+        run: |
+          if [ -f "${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json" ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/upload-artifact@v7
+        if: steps.crp_snapshot.outputs.exists == 'true'
+        with:
+          name: crp-analysis-snapshot
+          path: ${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json
+          retention-days: 7
+          if-no-files-found: ignore
 
   # ── Phase 3a: Auto-approve CLEAN ─────────────────────────────
   approve-clean:
@@ -343,7 +498,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      # Download both analysis results and dashboard data into src/data
+      # Download analysis results and dashboard data into src/data
       - uses: actions/download-artifact@v8
         with:
           name: analysis-results
@@ -354,20 +509,61 @@ jobs:
           name: dashboard-data
           path: src/data
 
+      # Download CRP artifacts (separate uploads — may not both exist)
+      - uses: actions/download-artifact@v8
+        continue-on-error: true
+        with:
+          name: crp-dataset
+          path: ${{ runner.temp }}/crp-csv
+
+      - uses: actions/download-artifact@v8
+        continue-on-error: true
+        with:
+          name: crp-analysis-snapshot
+          path: ${{ runner.temp }}/crp-json
+
+      - name: Stage CRP files into repo
+        run: |
+          if [ -f "${{ runner.temp }}/crp-csv/TABS_V2_CRP_2026_public_dataset.csv" ]; then
+            mkdir -p public/datasets
+            cp "${{ runner.temp }}/crp-csv/TABS_V2_CRP_2026_public_dataset.csv" \
+               public/datasets/TABS_V2_CRP_2026_public_dataset.csv
+            echo "  Staged: public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
+          else
+            echo "  CRP public CSV not available — skipping"
+          fi
+          if [ -f "${{ runner.temp }}/crp-json/crp-sensitivity-analysis.json" ]; then
+            cp "${{ runner.temp }}/crp-json/crp-sensitivity-analysis.json" \
+               src/data/crp-sensitivity-analysis.json
+            echo "  Staged: src/data/crp-sensitivity-analysis.json"
+          else
+            echo "  CRP analysis JSON not available — skipping"
+          fi
+
+      - name: Compute files to format
+        id: format_files
+        run: |
+          FILES="src/data/sensitivity-analysis.json src/data/data-audit.json src/data/disposition-summary.json"
+          if [ -f "src/data/crp-sensitivity-analysis.json" ]; then
+            FILES="$FILES src/data/crp-sensitivity-analysis.json"
+          fi
+          echo "list=$FILES" >> "$GITHUB_OUTPUT"
+
       - uses: ./.github/actions/format-and-pr
         with:
           token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
-          files: 'src/data/sensitivity-analysis.json src/data/data-audit.json src/data/disposition-summary.json'
-          commit-message: 'chore: update daily pipeline data (analysis + dashboard)'
+          files: ${{ steps.format_files.outputs.list }}
+          commit-message: 'chore: update daily pipeline data (analysis + dashboard + CRP)'
           pr-title: 'Update daily pipeline data'
           pr-body: |
             Automated update from the unified daily pipeline.
 
             **Data flow**: Qualtrics export → Prolific enrichment →
-            disposition waterfall → analysis suite → approve CLEAN →
-            dashboard summary.
+            disposition waterfall → analysis suite → CRP dataset (N=200) →
+            approve CLEAN → dashboard summary.
 
             All statistics computed across 5 sample definitions.
+            CRP dataset: N=200 tiered selection + NIST de-identification.
           branch: chore/daily-pipeline-data
 
   # ── Phase 5: Daily report issue ──────────────────────────────

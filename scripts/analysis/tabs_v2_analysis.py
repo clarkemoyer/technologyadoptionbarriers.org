@@ -138,6 +138,35 @@ OTHER_ROLE_CATEGORIES_PATTERNS = [
     ]),
 ]
 
+# Human-readable descriptions and example keywords for each OTHER_ROLE_CATEGORIES_PATTERNS entry.
+# Kept alongside the patterns so adding/renaming a category updates the UI automatically via JSON.
+OTHER_ROLE_CATEGORIES_DESCRIPTIONS = {
+    "C-Suite Adjacent": {
+        "description": "Chief-level titles not in the standard 9 C-suite options",
+        "examples": "CDO, CPO, CAO, CLO, CAIO, Chief Data Officer, Chief Privacy Officer",
+    },
+    "VP / SVP": {
+        "description": "Vice President, Senior VP, or Executive VP titles",
+        "examples": "Vice President, VP, SVP, EVP, AVP",
+    },
+    "Director": {
+        "description": "Director-level titles across functions",
+        "examples": "Director of ..., Senior Director, Group Director",
+    },
+    "Manager / Program Lead": {
+        "description": "Management and team-lead roles",
+        "examples": "Manager, Program Lead, Team Lead, Supervisor",
+    },
+    "Owner / Founder / President": {
+        "description": "Business ownership or presidency roles",
+        "examples": "Owner, Founder, President, Partner, Principal",
+    },
+    "Technical Specialist": {
+        "description": "Individual contributor or specialist technical roles",
+        "examples": "Engineer, Architect, Analyst, IT Administrator, Security",
+    },
+}
+
 LARGE_ORG_SIZES = ('5000-9999', '10000+')
 ALL_ORG_SIZES = ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']
 
@@ -1694,6 +1723,23 @@ def sensitivity_to_json(cuts, idx):
     fba_result = filter_bias_analysis_for(cuts)
     if fba_result is not None:
         result["filter_bias_analysis"] = fba_result
+
+    # Role category metadata — sourced from OTHER_ROLE_CATEGORIES_PATTERNS so the UI
+    # stays consistent with the pipeline without duplicating category names.
+    result["role_categories"] = [
+        {
+            "label": cat,
+            "description": OTHER_ROLE_CATEGORIES_DESCRIPTIONS.get(cat, {}).get("description", ""),
+            "examples": OTHER_ROLE_CATEGORIES_DESCRIPTIONS.get(cat, {}).get("examples", ""),
+        }
+        for cat, _ in OTHER_ROLE_CATEGORIES_PATTERNS
+    ] + [
+        {
+            "label": "Uncategorized",
+            "description": "Responses that did not match any keyword pattern, or blank entries",
+            "examples": "",
+        }
+    ]
 
     return result
 
