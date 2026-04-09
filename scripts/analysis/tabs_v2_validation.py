@@ -139,6 +139,13 @@ READINESS_SUBCONSTRUCTS = {
 # DATA LOADING
 # ============================================================================
 
+def _encode_scale(series, scale_dict):
+    """Map a pandas Series to numeric using scale_dict, normalizing whitespace."""
+    return series.apply(
+        lambda x: scale_dict.get(str(x).strip(), float('nan')) if pd.notna(x) else float('nan')
+    )
+
+
 def load_and_filter(csv_path):
     """Load Qualtrics CSV, apply V2 filter + clean criteria, return numeric df."""
     df = pd.read_csv(csv_path, encoding='utf-8-sig', skiprows=[1, 2])
@@ -151,7 +158,7 @@ def load_and_filter(csv_path):
 
     # Encode scales (strip whitespace before mapping for all scales)
     for col in BARRIER_COLS + [BARRIER_IRI]:
-        df[col] = df[col].apply(lambda x: BARRIER_SCALE.get(str(x).strip(), np.nan) if pd.notna(x) else np.nan)
+        df[col] = _encode_scale(df[col], BARRIER_SCALE)
     for col in READINESS_COLS + [READINESS_IRI]:
         df[col] = df[col].apply(lambda x: np.nan if str(x).strip() == "Don't Know"
                                 else READINESS_SCALE.get(str(x).strip(), np.nan) if pd.notna(x) else np.nan)
@@ -883,7 +890,7 @@ def load_crp200(csv_path):
 
     # Encode scales (strip whitespace before mapping for all scales)
     for col in BARRIER_COLS + [BARRIER_IRI]:
-        df[col] = df[col].apply(lambda x: BARRIER_SCALE.get(str(x).strip(), np.nan) if pd.notna(x) else np.nan)
+        df[col] = _encode_scale(df[col], BARRIER_SCALE)
     for col in READINESS_COLS + [READINESS_IRI]:
         df[col] = df[col].apply(lambda x: np.nan if str(x).strip() == "Don't Know"
                                 else READINESS_SCALE.get(str(x).strip(), np.nan) if pd.notna(x) else np.nan)
