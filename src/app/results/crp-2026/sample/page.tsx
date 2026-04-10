@@ -9,6 +9,7 @@ import {
 } from '@/lib/articleStyles'
 import Link from 'next/link'
 import sensitivityData from '@/data/crp-sensitivity-analysis.json'
+import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 
 export const metadata: Metadata = {
   title: 'CRP 2026 Sample & Demographics — TABS',
@@ -632,8 +633,8 @@ const CrpSamplePage = () => {
                   </>
                 ) : (
                   <p className="text-sm text-red-600 font-medium mt-2">
-                    [DATA UNAVAILABLE — pipeline error] Demographics data missing from
-                    crp-sensitivity-analysis.json. Check the daily pipeline workflow.
+                    {DATA_UNAVAILABLE} Demographics data missing from crp-sensitivity-analysis.json.
+                    Check the daily pipeline workflow.
                   </p>
                 )}
               </div>

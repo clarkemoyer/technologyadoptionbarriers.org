@@ -11,6 +11,7 @@ import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
 import EffectSizeChart from '@/components/effect-size-chart'
+import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 
 export const metadata: Metadata = {
   title: 'Key Findings — TABS Results',
@@ -331,8 +332,7 @@ const FindingsPage = () => {
                   </div>
                 ) : (
                   <p className="text-sm text-red-600 font-medium mt-2">
-                    [DATA UNAVAILABLE — pipeline error] Effect size data missing. Check the daily
-                    pipeline workflow.
+                    {DATA_UNAVAILABLE} Effect size data missing. Check the daily pipeline workflow.
                   </p>
                 )}
               </div>
@@ -445,8 +445,8 @@ const FindingsPage = () => {
                   </div>
                 ) : (
                   <p className="text-sm text-red-600 font-medium mt-2">
-                    [DATA UNAVAILABLE — pipeline error] Cross-tabulation data missing. Check the
-                    daily pipeline workflow.
+                    {DATA_UNAVAILABLE} Cross-tabulation data missing. Check the daily pipeline
+                    workflow.
                   </p>
                 )}
               </div>
@@ -662,8 +662,8 @@ const FindingsPage = () => {
                   </div>
                 ) : (
                   <p className="text-sm text-red-600 font-medium mt-2">
-                    [DATA UNAVAILABLE — pipeline error] Inferential statistics missing. Check the
-                    daily pipeline workflow.
+                    {DATA_UNAVAILABLE} Inferential statistics missing. Check the daily pipeline
+                    workflow.
                   </p>
                 )}
               </div>

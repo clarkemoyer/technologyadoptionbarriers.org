@@ -979,8 +979,8 @@
     "id": "results-crp-2026",
     "url": "/results/crp-2026",
     "title": "TABS 2026 CRP Results",
-    "description": "Frozen N=200 dataset used for the TABS Culminating Research Project (CRP). A moment-in-time snapshot with three-tier quality selection, de-identified per NIST Expert Determination protocol.",
-    "content": "TABS 2026 CRP Results. Frozen N=200 dataset used for the TABS Culminating Research Project (CRP). A moment-in-time snapshot with three-tier quality selection, de-identified per NIST Expert Determination protocol.. Results CRP 2026 TABS 2026 CRP Results Published: April 2026 This page presents the frozen, moment-in-time dataset N= used for the TABS Culminating Research Project CRP Unlike the live pipeline results which update daily as survey responses are collected, the CRP dataset is static snapshot locked at the point of manuscript submission. Freezing the dataset ensures that every statistic, table, and figure in the final paper can be independently reproduced. The live pipeline continues to collect data beyond N= but the CRP references only fixed sample. label: 'Conservative Clean', val...",
+    "description": "Snapshot dataset used for the TABS Culminating Research Project (CRP). A moment-in-time capture with three-tier quality selection, de-identified per NIST Expert Determination protocol.",
+    "content": "TABS 2026 CRP Results. Snapshot dataset used for the TABS Culminating Research Project (CRP). A moment-in-time capture with three-tier quality selection, de-identified per NIST Expert Determination protocol.. Results CRP 2026 TABS 2026 CRP Results Published: April 2026 This page presents the frozen, moment-in-time dataset CRP_SAMPLE_SIZE",
     "category": "Results"
   },
   {
@@ -1004,7 +1004,7 @@
     "url": "/results/crp-2026/factor-analysis",
     "title": "Barrier Factor Structure — TABS CRP 2026",
     "description": "Hierarchical factor analysis of the 18-item TABS Barriers scale showing theory-based groupings, EFA-derived 2-factor structure, and exploratory 3-group decomposition at N=200.",
-    "content": "Barrier Factor Structure — TABS CRP 2026. Hierarchical factor analysis of the 18-item TABS Barriers scale showing theory-based groupings, EFA-derived 2-factor structure, and exploratory 3-group decomposition at N=200.. Results CRP 2026 Factor Analysis Barrier Factor Structure Published: April 2026 The 18-item TABS Barriers scale was developed through concept-mapping process that identified four theoretical sub-constructs. Exploratory Factor Analysis EFA on the CRP-200 frozen dataset N=200, listwise valid N=192 reveals statistically supported 2-factor structure, with an exploratory 3-group decomposition available for practitioner-oriented reporting. This page walks through each level of the hierarchy. See the Statistics Glossary for definitions of all psychometric terms used on page, or the...",
+    "content": "Barrier Factor Structure — TABS CRP 2026. Hierarchical factor analysis of the 18-item TABS Barriers scale showing theory-based groupings, EFA-derived 2-factor structure, and exploratory 3-group decomposition at N=200.. Results CRP 2026 Factor Analysis Barrier Factor Structure Published: April 2026 The -item TABS Barriers scale was developed through concept-mapping process that identified four theoretical sub-constructs. Exploratory Factor Analysis EFA on the CRP-200 frozen dataset N= listwise valid N= reveals statistically supported 2-factor structure, with an exploratory 3-group decomposition available for practitioner-oriented reporting. This page walks through each level of the hierarchy. See the Statistics Glossary for definitions of all psychometric terms used on page, or the Instrume...",
     "category": "Results"
   },
   {
@@ -1076,7 +1076,7 @@
     "url": "/results/dataset-comparison",
     "title": "Dataset Comparison — TABS Results",
     "description": "Side-by-side comparison of all statistics across the four primary result groups of the Technology Adoption Barriers Survey.",
-    "content": "Dataset Comparison — TABS Results. Side-by-side comparison of all statistics across the four primary result groups of the Technology Adoption Barriers Survey.. Results Dataset Comparison Dataset Comparison This page provides comprehensive side-by-side comparison of all four primary result groups. Each group represents an independent dataset with progressively less restrictive quality criteria. Researchers can use comparison to assess how data cleaning decisions affect statistical conclusions. Sample Overview Result Group Definition PRIMARY_GROUPS group, sample samples === desc === ?.description ?? ''",
+    "content": "Dataset Comparison — TABS Results. Side-by-side comparison of all statistics across the four primary result groups of the Technology Adoption Barriers Survey.. Results Dataset Comparison Dataset Comparison This page provides comprehensive side-by-side comparison of all four primary result groups. Each group represents an independent dataset with progressively less restrictive quality criteria. Researchers can use comparison to assess how data cleaning decisions affect statistical conclusions. !dataAvailable && Sample or metric data missing sensitivity- Check the daily pipeline workflow.",
     "category": "Results"
   },
   {

@@ -11,6 +11,7 @@ import {
 import Link from 'next/link'
 import { assetPath } from '@/lib/assetPath'
 import crpData from '@/data/crp-sensitivity-analysis.json'
+import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 
 export const metadata: Metadata = {
   title: 'TABS 2026 CRP Results',
@@ -32,10 +33,6 @@ const CRP_SAMPLE_SIZE = crpSamples.find((s) => s.key === 'prolific_accepted')?.n
 const CRP_CONSERVATIVE_CLEAN = crpSamples.find((s) => s.key === 'conservative_clean')?.n ?? null
 const CRP_FLEXIBLE_CLEAN = crpSamples.find((s) => s.key === 'flexible_clean')?.n ?? null
 const CRP_SELECTION_TIERS = 3
-
-/** Sentinel string rendered when pipeline data is missing. The post-deploy
- *  smoke test scans for this marker to detect broken pipeline data. */
-const DATA_UNAVAILABLE = '[DATA UNAVAILABLE — pipeline error]'
 
 /** Format a number or show the unavailable marker. */
 const d = (val: number | null): string => (val !== null ? String(val) : DATA_UNAVAILABLE)

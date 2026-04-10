@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
+import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 
 export const metadata: Metadata = {
   title: 'Dataset Comparison — TABS Results',
@@ -24,6 +25,7 @@ interface SampleInfo {
   key: string
   label: string
   n: number
+  description?: string
 }
 
 interface MetricInfo {
@@ -104,8 +106,8 @@ const DatasetComparisonPage = () => {
         {!dataAvailable && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
             <p className="text-sm text-red-600 font-medium">
-              [DATA UNAVAILABLE — pipeline error] Sample or metric data missing from
-              sensitivity-analysis.json. Check the daily pipeline workflow.
+              {DATA_UNAVAILABLE} Sample or metric data missing from sensitivity-analysis.json.
+              Check the daily pipeline workflow.
             </p>
           </div>
         )}
