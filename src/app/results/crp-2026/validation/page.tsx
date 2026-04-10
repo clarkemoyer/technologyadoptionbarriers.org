@@ -937,7 +937,7 @@ const ValidationPage = () => {
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 font-sans text-sm mb-6">
               <p className="font-bold text-red-800">
                 At least one Barriers item falls below the CITC threshold (minimum CITC ={' '}
-                {validationData.Barriers.itc_min == null
+                {validationData.Barriers.itc_min === null
                   ? 'N/A'
                   : validationData.Barriers.itc_min.toFixed(2).replace(/^0/, '')}
                 ).

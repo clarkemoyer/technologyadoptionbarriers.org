@@ -80,7 +80,7 @@ const EFA_FACTORS = validationData.factor_analysis.efa_factors.map((f, idx) => {
     items: loadingsMatrix.filter((r) => getDominantFactor(r) === tag).map((r) => r.id),
     stats: {
       items: f.items,
-      ...(f.alpha != null ? { alpha: f.alpha } : {}),
+      ...(f.alpha !== null && f.alpha !== undefined ? { alpha: f.alpha } : {}),
       eigenvalue: f.eigenvalue,
       varianceExplained: `${f.variance_pct}%`,
     } as Record<string, string | number>,
@@ -108,9 +108,9 @@ const THREE_GROUPS = validationData.factor_analysis.three_groups.map((g, idx) =>
   items: THREE_GROUP_ITEMS[idx] ?? [],
   stats: {
     items: g.items,
-    alpha: g.alpha as number | null | undefined,
-    cr: g.cr as number | null | undefined,
-    ave: g.ave as number | null | undefined,
+    alpha: g.alpha,
+    cr: g.cr,
+    ave: g.ave,
   },
 }))
 
@@ -407,13 +407,19 @@ const FactorAnalysisPage = () => {
                         <td className="px-3 py-1.5 border font-medium">{g.name}</td>
                         <td className="text-right px-3 py-1.5 border">{g.stats.items}</td>
                         <td className="text-right px-3 py-1.5 border">
-                          {g.stats.alpha != null ? g.stats.alpha.toFixed(3) : '\u2014'}
+                          {g.stats.alpha !== null && g.stats.alpha !== undefined
+                            ? g.stats.alpha.toFixed(3)
+                            : '\u2014'}
                         </td>
                         <td className="text-right px-3 py-1.5 border">
-                          {g.stats.cr != null ? g.stats.cr.toFixed(3) : '\u2014'}
+                          {g.stats.cr !== null && g.stats.cr !== undefined
+                            ? g.stats.cr.toFixed(3)
+                            : '\u2014'}
                         </td>
                         <td className="text-right px-3 py-1.5 border">
-                          {g.stats.ave != null ? g.stats.ave.toFixed(3) : '\u2014'}
+                          {g.stats.ave !== null && g.stats.ave !== undefined
+                            ? g.stats.ave.toFixed(3)
+                            : '\u2014'}
                         </td>
                       </tr>
                     ))}
