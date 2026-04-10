@@ -536,3 +536,39 @@ describe('CRP 2026 Data Quality Page', () => {
     expect(screen.getByRole('heading', { name: /CRP 2026.*Data Quality/i })).toBeInTheDocument()
   })
 })
+
+describe('CRP 2026 Factor Analysis Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/factor-analysis/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /Barrier Factor Structure/i })).toBeInTheDocument()
+  })
+})
+
+describe('CRP 2026 Glossary Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/glossary/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /Statistics Glossary/i })).toBeInTheDocument()
+  })
+
+  it('renders at least one glossary entry', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/glossary/page')
+    render(<Page />)
+    expect(screen.getAllByText(/Cronbach/i).length).toBeGreaterThan(0)
+  })
+})
+
+describe('CRP 2026 Validation Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/validation/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /Instrument Validation/i })).toBeInTheDocument()
+  })
+
+  it('renders a summary table', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/validation/page')
+    render(<Page />)
+    expect(screen.getAllByRole('table').length).toBeGreaterThan(0)
+  })
+})

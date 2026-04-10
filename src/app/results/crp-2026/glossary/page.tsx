@@ -104,8 +104,7 @@ const ENTRIES: GlossaryEntry[] = [
       "Recompute Cronbach's alpha on the remaining k−1 items for each item in turn. Report the change (Δα) and flag items where deletion would increase alpha.",
     thresholds:
       'If Δα > 0, the item may be a candidate for removal (though substantive justification should outweigh statistical criteria alone).',
-    tabsContext:
-      'B13 (Cybersecurity Concerns) is the only item whose deletion would increase Barriers alpha. Retained for substantive coverage of a critical barrier domain.',
+    tabsContext: `The current validation summary does not export per-item alpha-if-deleted values. Overall Barriers alpha is ${f3(b.cronbach_alpha)}, indicating adequate scale reliability. Any item whose deletion would substantially increase alpha would be a candidate for review on substantive grounds.`,
   },
 
   /* ── Item Analysis ── */
@@ -119,7 +118,9 @@ const ENTRIES: GlossaryEntry[] = [
       'For item i, CITCᵢ = r(xᵢ, T₋ᵢ), where T₋ᵢ is the sum of all items except item i.',
     thresholds:
       '≥ 0.30 acceptable. Items below 0.30 may not be measuring the same construct as the other items, or may be interpreted inconsistently by respondents.',
-    tabsContext: `B13 (Cybersecurity Concerns, CITC = ${b.itc_min != null ? f2(b.itc_min) : 'N/A'}) is the only item below the 0.30 threshold. Its specialized nature means cybersecurity barriers don't track with organizational/strategic barriers for all respondents.`,
+    tabsContext: b.itc_all_above_030
+      ? `All Barriers items meet the ≥ 0.30 CITC threshold (minimum observed CITC = ${b.itc_min != null ? f2(b.itc_min) : 'N/A'}).`
+      : `At least one Barriers item falls below the 0.30 threshold (minimum observed CITC = ${b.itc_min != null ? f2(b.itc_min) : 'N/A'}). Items below threshold are typically retained when substantive coverage justifies it.`,
   },
   {
     id: 'inter-item-correlation',
@@ -248,7 +249,7 @@ const ENTRIES: GlossaryEntry[] = [
     thresholds:
       'p > .05 suggests normality. In large samples (N > 100), even trivial departures from normality produce significant results, so practical significance (skewness, kurtosis) matters more than p-values.',
     tabsContext:
-      'All 43 items are significantly non-normal by Shapiro-Wilk (p < .001), typical for Likert-type data. ML estimation is robust to moderate non-normality at N=200.',
+      'For Likert-type items at N=200, significant non-normality by Shapiro-Wilk is typical. ML estimation is robust to moderate non-normality at this sample size, so practical indicators (skewness, kurtosis) are more informative than p-values. Item-level Shapiro-Wilk results are not exported in the current validation summary.',
   },
   {
     id: 'skewness-kurtosis',
@@ -261,7 +262,7 @@ const ENTRIES: GlossaryEntry[] = [
     thresholds:
       '|Skewness| < 2.0 and |Kurtosis| < 7.0 are considered acceptable for ML estimation (Curran et al., 1996). West et al. (1995) use stricter |skew| < 2, |kurtosis| < 7.',
     tabsContext:
-      'All TABS items fall within |skew| < 1.2 and |kurtosis| < 1.5 – well within acceptable limits for parametric analysis.',
+      'Item-level skewness and kurtosis distributions for the CRP-200 dataset are not exported in the current validation summary. Acceptable limits for ML estimation are |skew| < 2.0 and |kurtosis| < 7.0 (Curran et al., 1996).',
   },
 
   /* ── Additional ── */

@@ -196,10 +196,11 @@ const FactorAnalysisPage = () => {
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
-            The 18-item TABS Barriers scale was developed through a concept-mapping process that
-            identified four theoretical sub-constructs. Exploratory Factor Analysis (EFA) on the
-            CRP-200 frozen dataset (N=200, listwise valid N=192) reveals a statistically supported
-            2-factor structure, with an exploratory 3-group decomposition available for
+            The {validationData.metadata.n_barriers}-item TABS Barriers scale was developed through
+            a concept-mapping process that identified four theoretical sub-constructs. Exploratory
+            Factor Analysis (EFA) on the CRP-200 frozen dataset (N={validationData.metadata.n_total}
+            , listwise valid N={validationData.Barriers.n_listwise}) reveals a statistically
+            supported 2-factor structure, with an exploratory 3-group decomposition available for
             practitioner-oriented reporting. This page walks through each level of the hierarchy.
           </p>
           <p className="text-sm text-gray-500 font-sans mb-6">

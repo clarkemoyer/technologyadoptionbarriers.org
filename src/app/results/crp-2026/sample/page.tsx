@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 interface OtherRolesData {
   total: number
-  categories: Record<string, number | string>
+  categories: Record<string, number>
 }
 
 interface RoleCategoryInfo {

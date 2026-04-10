@@ -21,8 +21,9 @@ export const metadata: Metadata = {
 
 /* ══════════════════════════════════════════════════════════════════
    CRP-200 VALIDATION DATA — imported from crp-validation.json
-   All values are produced by tabs_v2_validation.py against the
-   frozen N=200 dataset and committed as JSON.
+   All values come from src/data/crp-validation.json, which the
+   daily pipeline generates by extracting the `validation` section
+   from tabs_v2_unified_data_analysis.py for the frozen N=200 dataset.
 ══════════════════════════════════════════════════════════════════ */
 
 const N_CLEAN = validationData.metadata.n_total
