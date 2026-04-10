@@ -134,6 +134,68 @@ const CORR_MATRIX: Record<string, Record<string, number>> = validationData.const
 
 const BARRIERS_4F_CFA = validationData.barriers_4f_cfa
 
+/** Validation summary rows derived from crp-validation.json verdicts. */
+const VERDICT_ROWS: { label: string; vals: boolean[] }[] = (() => {
+  const constructs = ['Barriers', 'Readiness', 'Maturity'] as const
+  type ConstructKey = (typeof constructs)[number]
+  const verdicts = validationData.verdicts as Record<
+    ConstructKey,
+    {
+      alpha_above_070: boolean
+      cr_above_070: boolean
+      ave_above_050: boolean
+      kmo_above_060: boolean
+      cfa_cfi_above_090: boolean
+      itc_all_above_030: boolean
+    }
+  >
+  const getVals = (fn: (c: ConstructKey) => boolean): boolean[] => constructs.map(fn)
+
+  return [
+    {
+      label: 'Internal Consistency (\u03B1 \u2265 .80)',
+      vals: getVals((c) => verdicts[c].alpha_above_070),
+    },
+    {
+      label: 'Composite Reliability (CR \u2265 .70)',
+      vals: getVals((c) => verdicts[c].cr_above_070),
+    },
+    {
+      label: 'Convergent Validity (AVE \u2265 .50)',
+      vals: getVals((c) => verdicts[c].ave_above_050),
+    },
+    {
+      label: 'AVE Compensated by CR > .70',
+      vals: getVals((c) => verdicts[c].cr_above_070 && !verdicts[c].ave_above_050),
+    },
+    {
+      label: 'KMO \u2265 .80',
+      vals: getVals((c) => verdicts[c].kmo_above_060),
+    },
+    {
+      label: 'CFA CFI \u2265 .90',
+      vals: getVals((c) => verdicts[c].cfa_cfi_above_090),
+    },
+    {
+      label: 'CFA RMSEA \u2264 .08',
+      vals: getVals((c) => {
+        const rmsea = (validationData[c] as { cfa: { rmsea: number | null } }).cfa.rmsea
+        return rmsea !== null && rmsea <= 0.08
+      }),
+    },
+    {
+      label: 'HTMT < .85 (all pairs)',
+      vals: getVals((c) =>
+        validationData.htmt.filter((h) => h.pair.includes(c)).every((h) => h.below_085)
+      ),
+    },
+    {
+      label: 'No CITC < .30 flags',
+      vals: getVals((c) => verdicts[c].itc_all_above_030),
+    },
+  ]
+})()
+
 /* ── Formatting helpers ── */
 const fmt = (val: number | null | undefined, digits = 3): string => {
   if (val === null || val === undefined) return '\u2014'
@@ -860,12 +922,15 @@ const ValidationPage = () => {
             43 items:
           </p>
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 font-sans text-sm mb-6">
-            <p className="font-bold text-red-800">B13: Cybersecurity Concerns (CITC = .17)</p>
+            <p className="font-bold text-red-800">
+              B13: Cybersecurity Concerns (CITC ={' '}
+              {validationData.Barriers.itc_min.toFixed(2).replace(/^0/, '')})
+            </p>
             <p className="text-red-700 mt-1">
               This item measures a specialized, technical barrier domain that does not track closely
               with organizational/strategic barriers. Retained for substantive coverage:
-              cybersecurity is a critical barrier domain for IT leaders. Removing it would increase
-              Barriers &alpha; from .873 to .880 (negligible gain).
+              cybersecurity is a critical barrier domain for IT leaders. Removing it would only
+              negligibly improve Barriers reliability.
             </p>
           </div>
 
@@ -940,17 +1005,7 @@ const ValidationPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {[
-                  { label: 'Internal Consistency (\u03B1 \u2265 .80)', vals: [true, true, true] },
-                  { label: 'Composite Reliability (CR \u2265 .70)', vals: [true, true, true] },
-                  { label: 'Convergent Validity (AVE \u2265 .50)', vals: [false, false, false] },
-                  { label: 'AVE Compensated by CR > .70', vals: [true, true, true] },
-                  { label: 'KMO \u2265 .80', vals: [true, true, true] },
-                  { label: 'CFA CFI \u2265 .90', vals: [false, true, true] },
-                  { label: 'CFA RMSEA \u2264 .08', vals: [false, true, true] },
-                  { label: 'HTMT < .85 (all pairs)', vals: [true, true, true] },
-                  { label: 'No CITC < .30 flags', vals: [false, true, true] },
-                ].map((row, i) => (
+                {VERDICT_ROWS.map((row, i) => (
                   <tr key={row.label} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
                     <td className="px-3 py-1.5 border">{row.label}</td>
                     {row.vals.map((v, j) => (

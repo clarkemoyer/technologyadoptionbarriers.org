@@ -312,7 +312,15 @@ jobs:
               sys.exit(1)
 
           new_cols = ['Auth_Flagged', 'RecaptchaPass', 'StraightliningCount']
-          out_headers = crp_headers + new_cols
+          existing_auth = [c for c in new_cols if c in crp_idx]
+          if existing_auth:
+              # Columns already present (e.g. dataset regenerated) — overwrite in-place
+              print(f'  Auth columns already in CRP CSV; overwriting in-place: {existing_auth}')
+              out_headers = list(crp_headers)
+              auth_col_idxs = {c: crp_idx[c] for c in new_cols}
+          else:
+              out_headers = crp_headers + new_cols
+              auth_col_idxs = None
           out_rows = []
           matched = 0
           unmatched_sids = []
@@ -323,7 +331,11 @@ jobs:
                   unmatched_sids.append(sid)
               else:
                   matched += 1
-                  r.extend([auth['Auth_Flagged'], auth['RecaptchaPass'], auth['StraightliningCount']])
+                  if auth_col_idxs is not None:
+                      for col, col_idx in auth_col_idxs.items():
+                          r[col_idx] = auth[col]
+                  else:
+                      r.extend([auth[c] for c in new_cols])
                   out_rows.append(r)
 
           print(f'  Matched {matched}/{len(crp_rows)} CRP rows to enriched auth data')
