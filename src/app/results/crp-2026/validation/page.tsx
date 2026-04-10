@@ -852,9 +852,8 @@ const ValidationPage = () => {
               passes the .85 threshold. This reflects their shared &ldquo;organizational
               capability&rdquo; dimension: Readiness originates from the TRI/adoption literature and
               Maturity from CMMI/IT governance. Both scales provide distinct value to their
-              respective practitioner communities despite measuring overlapping variance. A bifactor
-              CFA confirms they are empirically distinguishable (HTMT &lt; .85, CR &gt; .80 for
-              both).
+              respective practitioner communities despite measuring overlapping variance, and the
+              HTMT result suggests the constructs remain distinguishable under that criterion.
             </p>
           </div>
         </section>
@@ -918,21 +917,30 @@ const ValidationPage = () => {
           <h3 className={H3_CLASSES}>Flagged Items</h3>
           <p className={PARAGRAPH_CLASSES}>
             Items are flagged if their corrected item-total correlation falls below .30, or if
-            deleting them would increase Cronbach&rsquo;s alpha. Only one item is flagged across all
-            43 items:
+            deleting them would increase Cronbach&rsquo;s alpha. The current validation summary
+            reports whether any items fall below the CITC threshold and the minimum observed CITC:
           </p>
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 font-sans text-sm mb-6">
-            <p className="font-bold text-red-800">
-              B13: Cybersecurity Concerns (CITC ={' '}
-              {validationData.Barriers.itc_min.toFixed(2).replace(/^0/, '')})
-            </p>
-            <p className="text-red-700 mt-1">
-              This item measures a specialized, technical barrier domain that does not track closely
-              with organizational/strategic barriers. Retained for substantive coverage:
-              cybersecurity is a critical barrier domain for IT leaders. Removing it would only
-              negligibly improve Barriers reliability.
-            </p>
-          </div>
+          {validationData.Barriers.itc_all_above_030 ? (
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4 font-sans text-sm mb-6">
+              <p className="font-bold text-green-800">No Barriers items are flagged by CITC.</p>
+              <p className="text-green-700 mt-1">
+                All corrected item-total correlations are at or above .30 for the Barriers scale.
+              </p>
+            </div>
+          ) : (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 font-sans text-sm mb-6">
+              <p className="font-bold text-red-800">
+                At least one Barriers item falls below the CITC threshold (minimum CITC ={' '}
+                {validationData.Barriers.itc_min.toFixed(2).replace(/^0/, '')}).
+              </p>
+              <p className="text-red-700 mt-1">
+                This item measures a specialized, technical barrier domain that does not track
+                closely with organizational/strategic barriers. Retained for substantive coverage:
+                cybersecurity is a critical barrier domain for IT leaders. Removing it would only
+                negligibly improve Barriers reliability.
+              </p>
+            </div>
+          )}
 
           <h3 className={H3_CLASSES}>Inter-Item Correlation Summary</h3>
           <div className="overflow-x-auto">
@@ -1023,7 +1031,7 @@ const ValidationPage = () => {
             .87) and adequate factor structure at N=200. Readiness and Maturity show excellent CFA
             fit as unidimensional scales. Barriers is inherently multi-dimensional (2-factor EFA),
             so single-factor CFA fit is expected to be poor. All HTMT ratios pass the conservative
-            .85 threshold. The one item-level flag (B13 Cybersecurity) is retained for substantive
+            .85 threshold. Any item-level flags (CITC &lt; .30) are retained for substantive
             reasons. AVE values below .50 are compensated by CR &gt; .80 per Fornell &amp; Larcker
             (1981) and are typical for broad, multi-faceted organizational behavior constructs.
           </p>
