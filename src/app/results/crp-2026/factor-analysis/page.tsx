@@ -81,7 +81,6 @@ const EFA_FACTORS = validationData.factor_analysis.efa_factors.map((f, idx) => {
     items: loadingsMatrix.filter((r) => getDominantFactor(r) === tag).map((r) => r.id),
     stats: {
       items: f.items,
-      ...(f.alpha !== null && f.alpha !== undefined ? { alpha: f.alpha } : {}),
       eigenvalue: f.eigenvalue,
       varianceExplained: `${f.variance_pct}%`,
     } as Record<string, string | number>,
@@ -103,17 +102,20 @@ const THREE_GROUP_ITEMS = [
   ['B13', 'B14', 'B16', 'B18'],
 ]
 
-const THREE_GROUPS = validationData.factor_analysis.three_groups.map((g, idx) => ({
-  name: g.name,
-  ...THREE_GROUP_COLORS[idx],
-  items: THREE_GROUP_ITEMS[idx] ?? [],
-  stats: {
-    items: g.items,
-    alpha: g.alpha,
-    cr: g.cr,
-    ave: g.ave,
-  },
-}))
+type ThreeGroupEntry = { name: string; items: number; alpha: number; cr: number; ave: number }
+const THREE_GROUPS = (validationData.factor_analysis.three_groups as ThreeGroupEntry[]).map(
+  (g, idx) => ({
+    name: g.name,
+    ...THREE_GROUP_COLORS[idx],
+    items: THREE_GROUP_ITEMS[idx] ?? [],
+    stats: {
+      items: g.items,
+      alpha: g.alpha,
+      cr: g.cr,
+      ave: g.ave,
+    },
+  })
+)
 
 const ItemChip = ({ id }: { id: string }) => (
   <span className="inline-block px-2 py-0.5 text-xs font-mono bg-white rounded border border-gray-300 mr-1 mb-1">
