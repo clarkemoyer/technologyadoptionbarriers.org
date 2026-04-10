@@ -153,7 +153,7 @@ const VERDICT_ROWS: { label: string; vals: boolean[] }[] = (() => {
 
   return [
     {
-      label: 'Internal Consistency (\u03B1 \u2265 .80)',
+      label: 'Internal Consistency (\u03B1 \u2265 .70)',
       vals: getVals((c) => verdicts[c].alpha_above_070),
     },
     {
@@ -169,7 +169,7 @@ const VERDICT_ROWS: { label: string; vals: boolean[] }[] = (() => {
       vals: getVals((c) => verdicts[c].cr_above_070 && !verdicts[c].ave_above_050),
     },
     {
-      label: 'KMO \u2265 .80',
+      label: 'KMO \u2265 .60',
       vals: getVals((c) => verdicts[c].kmo_above_060),
     },
     {
