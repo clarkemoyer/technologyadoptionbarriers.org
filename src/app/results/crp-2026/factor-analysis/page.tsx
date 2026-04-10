@@ -80,10 +80,10 @@ const EFA_FACTORS = validationData.factor_analysis.efa_factors.map((f, idx) => {
     items: loadingsMatrix.filter((r) => getDominantFactor(r) === tag).map((r) => r.id),
     stats: {
       items: f.items,
-      alpha: f.alpha,
+      ...(f.alpha != null ? { alpha: f.alpha } : {}),
       eigenvalue: f.eigenvalue,
       varianceExplained: `${f.variance_pct}%`,
-    },
+    } as Record<string, string | number>,
   }
 })
 
@@ -105,8 +105,13 @@ const THREE_GROUP_ITEMS = [
 const THREE_GROUPS = validationData.factor_analysis.three_groups.map((g, idx) => ({
   name: g.name,
   ...THREE_GROUP_COLORS[idx],
-  items: THREE_GROUP_ITEMS[idx],
-  stats: { items: g.items, alpha: g.alpha, cr: g.cr, ave: g.ave },
+  items: THREE_GROUP_ITEMS[idx] ?? [],
+  stats: {
+    items: g.items,
+    alpha: g.alpha as number | null | undefined,
+    cr: g.cr as number | null | undefined,
+    ave: g.ave as number | null | undefined,
+  },
 }))
 
 const ItemChip = ({ id }: { id: string }) => (
@@ -366,47 +371,65 @@ const FactorAnalysisPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            {THREE_GROUPS.map((g) => (
-              <GroupCard key={g.name} {...g} stats={g.stats} />
-            ))}
-          </div>
-
-          <h3 className={H3_CLASSES}>3-Group Reliability Summary</h3>
-          <div className="overflow-x-auto mb-6">
-            <table className="w-full text-sm font-sans border-collapse">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th scope="col" className="text-left px-3 py-2 border">
-                    Group
-                  </th>
-                  <th scope="col" className="text-right px-3 py-2 border">
-                    Items
-                  </th>
-                  <th scope="col" className="text-right px-3 py-2 border">
-                    &alpha;
-                  </th>
-                  <th scope="col" className="text-right px-3 py-2 border">
-                    CR
-                  </th>
-                  <th scope="col" className="text-right px-3 py-2 border">
-                    AVE
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {THREE_GROUPS.map((g, i) => (
-                  <tr key={g.name} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
-                    <td className="px-3 py-1.5 border font-medium">{g.name}</td>
-                    <td className="text-right px-3 py-1.5 border">{g.stats.items}</td>
-                    <td className="text-right px-3 py-1.5 border">{g.stats.alpha.toFixed(3)}</td>
-                    <td className="text-right px-3 py-1.5 border">{g.stats.cr.toFixed(3)}</td>
-                    <td className="text-right px-3 py-1.5 border">{g.stats.ave.toFixed(3)}</td>
-                  </tr>
+          {THREE_GROUPS.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                {THREE_GROUPS.map((g) => (
+                  <GroupCard key={g.name} {...g} stats={g.stats} />
                 ))}
-              </tbody>
-            </table>
-          </div>
+              </div>
+
+              <h3 className={H3_CLASSES}>3-Group Reliability Summary</h3>
+              <div className="overflow-x-auto mb-6">
+                <table className="w-full text-sm font-sans border-collapse">
+                  <thead>
+                    <tr className="bg-gray-100">
+                      <th scope="col" className="text-left px-3 py-2 border">
+                        Group
+                      </th>
+                      <th scope="col" className="text-right px-3 py-2 border">
+                        Items
+                      </th>
+                      <th scope="col" className="text-right px-3 py-2 border">
+                        &alpha;
+                      </th>
+                      <th scope="col" className="text-right px-3 py-2 border">
+                        CR
+                      </th>
+                      <th scope="col" className="text-right px-3 py-2 border">
+                        AVE
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {THREE_GROUPS.map((g, i) => (
+                      <tr key={g.name} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                        <td className="px-3 py-1.5 border font-medium">{g.name}</td>
+                        <td className="text-right px-3 py-1.5 border">{g.stats.items}</td>
+                        <td className="text-right px-3 py-1.5 border">
+                          {g.stats.alpha != null ? g.stats.alpha.toFixed(3) : '\u2014'}
+                        </td>
+                        <td className="text-right px-3 py-1.5 border">
+                          {g.stats.cr != null ? g.stats.cr.toFixed(3) : '\u2014'}
+                        </td>
+                        <td className="text-right px-3 py-1.5 border">
+                          {g.stats.ave != null ? g.stats.ave.toFixed(3) : '\u2014'}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          ) : (
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 font-sans text-sm mb-6">
+              <p className="text-gray-600">
+                3-group decomposition data is not available in the current pipeline output. This
+                section will populate on the next pipeline run that includes{' '}
+                <code className="font-mono">three_groups</code> data.
+              </p>
+            </div>
+          )}
 
           <h3 className={H3_CLASSES}>Item-Level Factor Loadings</h3>
           <p className="text-sm text-gray-500 font-sans mb-4">
