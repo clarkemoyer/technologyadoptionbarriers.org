@@ -6,7 +6,9 @@
 export function normalizePath(pathname: string): string {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
   const withoutBasePath =
-    basePath && pathname.startsWith(basePath) ? pathname.slice(basePath.length) : pathname
+    basePath && (pathname === basePath || pathname.startsWith(`${basePath}/`))
+      ? pathname.slice(basePath.length)
+      : pathname
   const withoutTrailingSlash =
     withoutBasePath.length > 1 ? withoutBasePath.replace(/\/$/, '') : withoutBasePath
   return withoutTrailingSlash || '/'

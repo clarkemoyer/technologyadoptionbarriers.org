@@ -41,7 +41,10 @@ export default function Breadcrumbs({ items, className }: BreadcrumbsProps) {
   const crumbs: Array<{ label: string; href?: string }> = items ?? []
 
   if (!items) {
-    const raw = pathname.startsWith(basePath) ? pathname.slice(basePath.length) : pathname
+    const raw =
+      basePath && (pathname === basePath || pathname.startsWith(`${basePath}/`))
+        ? pathname.slice(basePath.length)
+        : pathname
     const segments = raw.split('/').filter(Boolean)
 
     if (segments.length < 2) return null
