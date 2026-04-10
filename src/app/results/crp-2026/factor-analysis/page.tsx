@@ -432,8 +432,7 @@ const FactorAnalysisPage = () => {
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 font-sans text-sm mb-6">
               <p className="text-red-600 font-medium">
                 {DATA_UNAVAILABLE} 3-group decomposition data missing from crp-validation.json (
-                <code className="font-mono">three_groups</code>). Check the daily pipeline
-                workflow.
+                <code className="font-mono">three_groups</code>). Check the daily pipeline workflow.
               </p>
             </div>
           )}

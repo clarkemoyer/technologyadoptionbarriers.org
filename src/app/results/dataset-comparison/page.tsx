@@ -106,8 +106,8 @@ const DatasetComparisonPage = () => {
         {!dataAvailable && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
             <p className="text-sm text-red-600 font-medium">
-              {DATA_UNAVAILABLE} Sample or metric data missing from sensitivity-analysis.json.
-              Check the daily pipeline workflow.
+              {DATA_UNAVAILABLE} Sample or metric data missing from sensitivity-analysis.json. Check
+              the daily pipeline workflow.
             </p>
           </div>
         )}
