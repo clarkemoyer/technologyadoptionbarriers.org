@@ -221,14 +221,14 @@
     "efa_factors": [
       {
         "name": "F1: Internal Organizational Barriers",
-        "items": 14,
+        "items": 12,
         "alpha": 0.872,
         "eigenvalue": 5.874,
         "variance_pct": 28.5
       },
       {
         "name": "F2: External Risk & Trust Barriers",
-        "items": 4,
+        "items": 6,
         "alpha": 0.666,
         "eigenvalue": 1.903,
         "variance_pct": 11.4
@@ -295,8 +295,8 @@
       { "id": "B14", "f1": -0.014, "f2": 0.799, "assigned": "F2" },
       { "id": "B15", "f1": 0.105, "f2": 0.629, "assigned": "F2" },
       { "id": "B16", "f1": 0.114, "f2": 0.517, "assigned": "F2" },
-      { "id": "B17", "f1": 0.228, "f2": 0.356, "assigned": "F1" },
-      { "id": "B18", "f1": 0.243, "f2": 0.327, "assigned": "F1" }
+      { "id": "B17", "f1": 0.228, "f2": 0.356, "assigned": "F2" },
+      { "id": "B18", "f1": 0.243, "f2": 0.327, "assigned": "F2" }
     ]
   },
   "verdicts": {
