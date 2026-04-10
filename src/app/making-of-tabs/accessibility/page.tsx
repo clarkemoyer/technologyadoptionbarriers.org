@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
+import { MakingOfTabsNav } from '@/components/making-of-tabs-nav'
 
 export const metadata: Metadata = {
   title: 'Accessibility & Inclusive Design — Making of TABS',

@@ -50,6 +50,9 @@ export default function UnifiedNavigation({
     return () => ro.disconnect()
   }, [])
 
+  // Scroll margin derived from dynamic header height + a small gap
+  const scrollMargin = `${(headerH || 80) + 20}px`
+
   // Scan article for H2 headings
   useEffect(() => {
     const article = document.querySelector('article')
@@ -61,19 +64,18 @@ export default function UnifiedNavigation({
         el.id = slugify(el.textContent || '')
       }
       // Ensure headings clear the sticky header when targeted
-      if (!el.style.scrollMarginTop) {
-        el.style.scrollMarginTop = '100px'
-      }
+      el.style.scrollMarginTop = scrollMargin
       return { id: el.id, text: el.textContent || '' }
     })
     setHeadings(items)
-  }, [pathname])
+  }, [pathname, scrollMargin])
 
-  // Scroll spy with IntersectionObserver
+  // Scroll spy with IntersectionObserver — rootMargin tracks dynamic header height
   useEffect(() => {
     const article = document.querySelector('article')
     if (!article || headings.length === 0) return
 
+    const topOffset = headerH || 80
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -82,7 +84,7 @@ export default function UnifiedNavigation({
           }
         }
       },
-      { rootMargin: '-80px 0px -60% 0px', threshold: 0.1 }
+      { rootMargin: `-${topOffset}px 0px -60% 0px`, threshold: 0.1 }
     )
 
     for (const h of headings) {
@@ -91,7 +93,7 @@ export default function UnifiedNavigation({
     }
 
     return () => observer.disconnect()
-  }, [headings])
+  }, [headings, headerH])
 
   // Close mobile panel on outside click
   useEffect(() => {

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { normalizePath } from '@/lib/normalizePath'
 
 interface BreadcrumbsProps {
   /** Override the auto-generated breadcrumb items */
@@ -58,15 +59,11 @@ function capitalize(segment: string): string {
 
 export default function Breadcrumbs({ items, className }: BreadcrumbsProps) {
   const pathname = usePathname()
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
   const crumbs: Array<{ label: string; href?: string }> = items ?? []
 
   if (!items) {
-    const raw =
-      basePath && (pathname === basePath || pathname.startsWith(`${basePath}/`))
-        ? pathname.slice(basePath.length)
-        : pathname
+    const raw = normalizePath(pathname)
     const segments = raw.split('/').filter(Boolean)
 
     if (segments.length < 2) return null
