@@ -271,7 +271,7 @@ jobs:
               required_cols = ['SESSION_ID', 'Auth_LLM', 'Auth_Bots']
               missing_cols = [c for c in required_cols if c not in eidx]
               if missing_cols:
-                  print(f'ERROR: enriched CSV missing required columns: {missing_cols}', file=sys.stderr)
+                  print(f'ERROR: enriched CSV missing required columns: {", ".join(missing_cols)}', file=sys.stderr)
                   sys.exit(1)
               sid_col = eidx['SESSION_ID']
               llm_col = eidx['Auth_LLM']
@@ -330,7 +330,7 @@ jobs:
           if unmatched_sids:
               print(f'  ERROR: {len(unmatched_sids)} CRP SESSION_IDs not found in enriched CSV', file=sys.stderr)
               preview = unmatched_sids[:10]
-              print(f'  Unmatched SESSION_ID sample (up to 10): {preview}', file=sys.stderr)
+              print(f'  Unmatched SESSION_ID sample (up to 10): {", ".join(preview)}', file=sys.stderr)
               print('  Refusing to continue: missing auth enrichment would change conservative_clean results.', file=sys.stderr)
               sys.exit(1)
 
