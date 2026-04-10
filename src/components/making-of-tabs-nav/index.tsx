@@ -20,14 +20,9 @@ function mapToNavItems(items: MakingOfTabsItem[], currentPath: string): SeriesNa
   return items.map((item) => ({
     title: item.title,
     href: item.href,
-    isCurrent: normalizePath(item.href) === currentPath,
-    children: item.children
-      ? item.children.map((child) => ({
-          title: child.title,
-          href: child.href,
-          isCurrent: normalizePath(child.href) === currentPath,
-        }))
-      : undefined,
+    isCurrent: !item.isGroup && normalizePath(item.href) === currentPath,
+    isGroup: item.isGroup,
+    children: item.children ? mapToNavItems(item.children, currentPath) : undefined,
   }))
 }
 

@@ -8,6 +8,7 @@ export default function ReadingProgressBar() {
   const rafId = useRef(0)
 
   useEffect(() => {
+    if (typeof ResizeObserver === 'undefined') return
     const header = document.getElementById('header')
     if (!header) return
     const ro = new ResizeObserver(([entry]) => {

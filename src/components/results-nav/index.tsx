@@ -18,13 +18,7 @@ function mapToNavItems(items: ResultsSeriesItem[], currentPath: string): SeriesN
     href: item.href,
     isCurrent: !item.isGroup && normalizePath(item.href) === currentPath,
     isGroup: item.isGroup,
-    children: item.children
-      ? item.children.map((child) => ({
-          title: child.title,
-          href: child.href,
-          isCurrent: normalizePath(child.href) === currentPath,
-        }))
-      : undefined,
+    children: item.children ? mapToNavItems(item.children, currentPath) : undefined,
   }))
 }
 

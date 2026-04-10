@@ -32,6 +32,11 @@ const DEFAULT_HEADER_HEIGHT = 80
 /** Extra pixels below the sticky header for comfortable scroll targeting */
 const SCROLL_MARGIN_GAP = 20
 
+/** Recursively check if any descendant has isCurrent set */
+function hasCurrentDescendant(items: SeriesNavItem[]): boolean {
+  return items.some((c) => c.isCurrent || (c.children && hasCurrentDescendant(c.children)))
+}
+
 export default function UnifiedNavigation({
   seriesItems,
   seriesLabel = 'In this series',
@@ -44,8 +49,9 @@ export default function UnifiedNavigation({
   const [mobileOpen, setMobileOpen] = useState(false)
   const panelRef = useRef<HTMLDivElement>(null)
 
-  // Track header height
+  // Track header height (with feature detection for ResizeObserver)
   useEffect(() => {
+    if (typeof ResizeObserver === 'undefined') return
     const header = document.getElementById('header')
     if (!header) return
     const ro = new ResizeObserver(([entry]) => {
@@ -59,16 +65,21 @@ export default function UnifiedNavigation({
   const effectiveHeaderH = headerH || DEFAULT_HEADER_HEIGHT
   const scrollMargin = `${effectiveHeaderH + SCROLL_MARGIN_GAP}px`
 
-  // Scan article for H2 headings
+  // Scan article for H2 headings — ensure unique IDs
   useEffect(() => {
     const article = document.querySelector('article')
     if (!article) return
 
     const h2s = Array.from(article.querySelectorAll('h2'))
-    const items: TocHeading[] = h2s.map((el) => {
+    const usedIds = new Set<string>()
+    const items: TocHeading[] = h2s.map((el, idx) => {
       if (!el.id) {
-        el.id = slugify(el.textContent || '')
+        let candidate = slugify(el.textContent || '')
+        if (!candidate) candidate = `section-${idx}`
+        while (usedIds.has(candidate)) candidate = `${candidate}-${idx}`
+        el.id = candidate
       }
+      usedIds.add(el.id)
       // Ensure headings clear the sticky header when targeted
       el.style.scrollMarginTop = scrollMargin
       return { id: el.id, text: el.textContent || '' }
@@ -78,6 +89,7 @@ export default function UnifiedNavigation({
 
   // Scroll spy with IntersectionObserver — rootMargin tracks dynamic header height
   useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return
     const article = document.querySelector('article')
     if (!article || headings.length === 0) return
 
@@ -121,20 +133,20 @@ export default function UnifiedNavigation({
     setMobileOpen(false)
   }
 
-  const seriesContent = hasSeries && (
-    <div>
-      <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">
-        {seriesLabel}
-      </p>
+  /** Render series tree recursively to support arbitrary nesting depth */
+  function renderSeriesTree(items: SeriesNavItem[], keyPrefix = '') {
+    return (
       <ul className="space-y-1 text-sm">
-        {seriesItems.map((item) => (
-          <li key={`${item.href}:${item.title}`}>
+        {items.map((item) => (
+          <li key={`${keyPrefix}${item.href}:${item.title}`}>
             {item.children ? (
               <details
                 className="group"
                 ref={(node) => {
                   if (node && !node.hasAttribute('data-init')) {
-                    node.open = item.isCurrent || item.children!.some((c) => c.isCurrent)
+                    node.open =
+                      item.isCurrent ||
+                      (item.children ? hasCurrentDescendant(item.children) : false)
                     node.setAttribute('data-init', '')
                   }
                 }}
@@ -165,23 +177,9 @@ export default function UnifiedNavigation({
                     {item.title}
                   </Link>
                 )}
-                <ul className="ml-4 mt-1 space-y-1 border-l border-gray-200 pl-2">
-                  {item.children.map((child) => (
-                    <li key={`${child.href}:${child.title}`}>
-                      <Link
-                        href={child.href}
-                        onClick={handleLinkClick}
-                        className={`block py-0.5 ${
-                          child.isCurrent
-                            ? 'border-l-2 border-tabs-teal-deep bg-blue-50 pl-2 font-bold text-gray-900'
-                            : 'text-gray-600 hover:text-gray-900'
-                        }`}
-                      >
-                        {child.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                <div className="ml-4 mt-1 border-l border-gray-200 pl-2">
+                  {renderSeriesTree(item.children, `${keyPrefix}${item.href}:`)}
+                </div>
               </details>
             ) : (
               <Link
@@ -199,6 +197,15 @@ export default function UnifiedNavigation({
           </li>
         ))}
       </ul>
+    )
+  }
+
+  const seriesContent = hasSeries && (
+    <div>
+      <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">
+        {seriesLabel}
+      </p>
+      {renderSeriesTree(seriesItems)}
     </div>
   )
 
@@ -234,7 +241,7 @@ export default function UnifiedNavigation({
         aria-label="Page navigation"
         className={`hidden xl:block fixed z-30 ${className ?? ''}`}
         style={{
-          top: `${headerH + 40}px`,
+          top: `${effectiveHeaderH + 40}px`,
           right: 'max(1rem, calc((100vw - 1200px) / 2 - 240px))',
           width: '210px',
         }}
@@ -258,80 +265,7 @@ export default function UnifiedNavigation({
                 <summary className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2 cursor-pointer">
                   {seriesLabel}
                 </summary>
-                <ul className="mt-2 space-y-1 text-sm">
-                  {seriesItems!.map((item) => (
-                    <li key={`mobile:${item.href}:${item.title}`}>
-                      {item.children ? (
-                        <details
-                          ref={(node) => {
-                            if (node && !node.hasAttribute('data-init')) {
-                              node.open = item.isCurrent || item.children!.some((c) => c.isCurrent)
-                              node.setAttribute('data-init', '')
-                            }
-                          }}
-                        >
-                          <summary className="flex cursor-pointer items-center gap-1 py-0.5 text-gray-600 hover:text-gray-900">
-                            <span
-                              className="text-[10px] transition-transform [details[open]>&]:rotate-90"
-                              aria-hidden="true"
-                            >
-                              ▶
-                            </span>
-                            <span
-                              className={
-                                item.isCurrent ? 'font-bold text-gray-900' : 'hover:text-gray-900'
-                              }
-                            >
-                              {item.title}
-                            </span>
-                          </summary>
-                          {!item.isGroup && (
-                            <Link
-                              href={item.href}
-                              onClick={handleLinkClick}
-                              className={`block ml-4 pl-2 py-0.5 ${
-                                item.isCurrent
-                                  ? 'font-bold text-gray-900'
-                                  : 'text-gray-600 hover:text-gray-900'
-                              }`}
-                            >
-                              {item.title}
-                            </Link>
-                          )}
-                          <ul className="ml-4 mt-1 space-y-1 border-l border-gray-200 pl-2">
-                            {item.children.map((child) => (
-                              <li key={`mobile:${child.href}:${child.title}`}>
-                                <Link
-                                  href={child.href}
-                                  onClick={handleLinkClick}
-                                  className={`block py-0.5 ${
-                                    child.isCurrent
-                                      ? 'font-bold text-gray-900'
-                                      : 'text-gray-600 hover:text-gray-900'
-                                  }`}
-                                >
-                                  {child.title}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </details>
-                      ) : (
-                        <Link
-                          href={item.href}
-                          onClick={handleLinkClick}
-                          className={`block py-0.5 ${
-                            item.isCurrent
-                              ? 'font-bold text-gray-900'
-                              : 'text-gray-600 hover:text-gray-900'
-                          }`}
-                        >
-                          {item.title}
-                        </Link>
-                      )}
-                    </li>
-                  ))}
-                </ul>
+                <div className="mt-2">{renderSeriesTree(seriesItems, 'mobile:')}</div>
               </details>
             )}
             {hasToc && (
