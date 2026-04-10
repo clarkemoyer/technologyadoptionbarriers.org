@@ -64,9 +64,11 @@ const EFA_COLORS = [
 
 const loadingsMatrix = validationData.factor_analysis.loadings_matrix
 
-/* Derive dominant factor from absolute loadings — more robust than relying on the
-   JSON `assigned` field, which may reflect theory-driven grouping rather than
-   numeric dominance. */
+/**
+ * Returns the dominant EFA factor ('F1' or 'F2') for a loadings-matrix row by
+ * comparing absolute factor loadings. Uses numeric dominance rather than the
+ * JSON `assigned` field, which may reflect theory-driven grouping.
+ */
 const getDominantFactor = (row: (typeof loadingsMatrix)[number]) =>
   Math.abs(row.f1) >= Math.abs(row.f2) ? 'F1' : 'F2'
 
@@ -332,11 +334,11 @@ const FactorAnalysisPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The theory-based 4-group structure collapsed into 2 empirical factors. All items from
             Organizational &amp; Cultural, Strategic &amp; Operational, and Resource &amp; Skill
-            loaded together onto F1 (Internal/Organizational). All six Risk/Trust items (B13
-            Cybersecurity, B14 Data Privacy, B15 Trust, B16 Regulatory, B17 External Pressure, B18
-            Vendor Difficulty) loaded onto F2 (External/Compliance). This suggests that
-            organizational leaders perceive internal barriers as a unified challenge, while external
-            compliance and trust constraints form a distinct dimension.
+            loaded together onto F1 (Internal/Organizational). All {EFA_FACTORS[1].items.length}{' '}
+            Risk/Trust items (B13 Cybersecurity, B14 Data Privacy, B15 Trust, B16 Regulatory, B17
+            External Pressure, B18 Vendor Difficulty) loaded onto F2 (External/Compliance). This
+            suggests that organizational leaders perceive internal barriers as a unified challenge,
+            while external compliance and trust constraints form a distinct dimension.
           </p>
         </section>
 
