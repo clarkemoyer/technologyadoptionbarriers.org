@@ -494,7 +494,7 @@ jobs:
             local url="$1" label="$2"
             local body
             body="$(curl -s -L --max-time 15 "$url" 2>/dev/null)"
-            if echo "$body" | grep -q "DATA UNAVAILABLE"; then
+            if echo "$body" | grep -qF "DATA UNAVAILABLE"; then
               echo "| $label | ❌ Contains [DATA UNAVAILABLE] sentinel — pipeline data missing |" >> /tmp/content-results.txt
               SENTINEL_FAIL=$((SENTINEL_FAIL + 1))
             else
