@@ -393,7 +393,7 @@ jobs:
 
       # ── Artifacts ──────────────────────────────────────────────
       # Only upload extracted JSONs that are safe for src/data/ commit.
-      # live-unified.json stays on runner only (internal diagnostic).
+      # Full unified JSON is uploaded separately as internal-only artifact.
       - uses: actions/upload-artifact@v7
         if: always()
         with:

@@ -63,38 +63,43 @@ const ITEM_COUNTS: Record<string, number> = {
   Maturity: validationData.metadata.n_maturity,
 }
 
-const CONSTRUCTS: ConstructValidation[] = (['Barriers', 'Readiness', 'Maturity'] as const).map(
-  (name) => {
-    const d = validationData[name]
-    return {
-      construct: name,
-      n_items: ITEM_COUNTS[name],
-      n_valid: d.n_listwise,
-      cronbach_alpha: d.cronbach_alpha,
-      alpha_95ci: d.cronbach_alpha_ci as [number, number],
-      mcdonalds_omega: d.mcdonalds_omega,
-      composite_reliability: d.composite_reliability,
-      ave_from_loadings: d.ave,
-      split_half: d.split_half,
-      kmo: d.kmo_bartlett.kmo_overall,
-      bartlett_chi2: d.kmo_bartlett.bartlett_chi2,
-      bartlett_p: d.kmo_bartlett.bartlett_p,
-      parallel_factors: d.parallel_analysis.n_factors,
-      variance_explained: d.efa.total_variance,
-      top_eigenvalues: d.parallel_analysis.eigenvalues_real,
-      cfa_chi2: d.cfa.chi2,
-      cfa_df: d.cfa.df,
-      cfa_p: d.cfa.chi2_p,
-      cfa_cfi: d.cfa.cfi,
-      cfa_tli: d.cfa.tli,
-      cfa_rmsea: d.cfa.rmsea,
-      inter_item_mean: d.inter_item.mean_r,
-      inter_item_min: d.inter_item.min_r,
-      inter_item_max: d.inter_item.max_r,
-      inter_item_sd: d.inter_item.sd_r,
-    }
+// Derived from validationData.metadata.constructs — typed as literal union
+// for safe indexing into validationData's top-level keys.
+const CONSTRUCT_NAMES = validationData.metadata.constructs as (
+  | 'Barriers'
+  | 'Readiness'
+  | 'Maturity'
+)[]
+const CONSTRUCTS: ConstructValidation[] = CONSTRUCT_NAMES.map((name) => {
+  const d = validationData[name]
+  return {
+    construct: name,
+    n_items: ITEM_COUNTS[name],
+    n_valid: d.n_listwise,
+    cronbach_alpha: d.cronbach_alpha,
+    alpha_95ci: d.cronbach_alpha_ci as [number, number],
+    mcdonalds_omega: d.mcdonalds_omega,
+    composite_reliability: d.composite_reliability,
+    ave_from_loadings: d.ave,
+    split_half: d.split_half,
+    kmo: d.kmo_bartlett.kmo_overall,
+    bartlett_chi2: d.kmo_bartlett.bartlett_chi2,
+    bartlett_p: d.kmo_bartlett.bartlett_p,
+    parallel_factors: d.parallel_analysis.n_factors,
+    variance_explained: d.efa.total_variance,
+    top_eigenvalues: d.parallel_analysis.eigenvalues_real,
+    cfa_chi2: d.cfa.chi2,
+    cfa_df: d.cfa.df,
+    cfa_p: d.cfa.chi2_p,
+    cfa_cfi: d.cfa.cfi,
+    cfa_tli: d.cfa.tli,
+    cfa_rmsea: d.cfa.rmsea,
+    inter_item_mean: d.inter_item.mean_r,
+    inter_item_min: d.inter_item.min_r,
+    inter_item_max: d.inter_item.max_r,
+    inter_item_sd: d.inter_item.sd_r,
   }
-)
+})
 
 type HTMTPair = {
   pair: string
