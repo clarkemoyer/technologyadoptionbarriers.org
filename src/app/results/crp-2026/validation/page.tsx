@@ -934,10 +934,10 @@ const ValidationPage = () => {
                 {validationData.Barriers.itc_min.toFixed(2).replace(/^0/, '')}).
               </p>
               <p className="text-red-700 mt-1">
-                This item measures a specialized, technical barrier domain that does not track
-                closely with organizational/strategic barriers. Retained for substantive coverage:
-                cybersecurity is a critical barrier domain for IT leaders. Removing it would only
-                negligibly improve Barriers reliability.
+                This item&rsquo;s CITC score falls below the conventional .30 threshold. The current
+                validation summary does not identify which item produced the minimum CITC, so no
+                item-specific rationale is reported here. Review the full item statistics in the
+                pipeline output for details.
               </p>
             </div>
           )}
