@@ -1,7 +1,7 @@
 {
   "Barriers": {
     "cronbach_alpha": 0.8728,
-    "cronbach_alpha_ci": [0.843, 0.899],
+    "cronbach_alpha_ci": [0.845, 0.8976],
     "n_listwise": 192,
     "mcdonalds_omega": 0.8729,
     "composite_reliability": 0.8729,
@@ -10,65 +10,65 @@
     "kmo_bartlett": {
       "kmo_overall": 0.8508,
       "bartlett_chi2": 1135.51,
-      "bartlett_p": 0.0
+      "bartlett_p": 1.2408888250155992e-149
     },
     "parallel_analysis": {
       "n_factors": 2,
-      "eigenvalues_real": [5.874, 1.903, 1.146, 1.015]
+      "eigenvalues_real": [5.8741, 1.9033, 1.146, 1.0148]
     },
     "efa": {
       "construct": "Barriers",
       "n_factors": 2,
-      "variance_explained": [0.285, 0.114],
+      "variance_explained": [0.2849, 0.1144],
       "total_variance": 0.3994,
       "factor_correlations": [
-        [1.0, 0.505],
-        [0.505, 1.0]
+        [1.0, 0.5049],
+        [0.5049, 1.0]
       ],
       "loadings": {
-        "B1": [0.747, -0.253],
-        "B2": [0.824, -0.217],
-        "B3": [0.738, -0.126],
-        "B4": [0.684, -0.075],
-        "B5": [0.63, -0.027],
-        "B6": [0.371, 0.117],
-        "B7": [0.503, 0.197],
-        "B8": [0.476, 0.059],
-        "B9": [0.487, 0.194],
-        "B10": [0.643, 0.126],
-        "B11": [0.605, 0.121],
-        "B12": [0.537, 0.185],
-        "B13": [-0.091, 0.838],
-        "B14": [-0.014, 0.799],
-        "B15": [0.105, 0.629],
-        "B16": [0.114, 0.517],
-        "B17": [0.228, 0.356],
-        "B18": [0.243, 0.327]
+        "B1": [0.7466, -0.2531],
+        "B2": [0.8244, -0.2172],
+        "B3": [0.7383, -0.1262],
+        "B4": [0.6844, -0.0745],
+        "B5": [0.5679, 0.0174],
+        "B6": [0.4306, 0.1003],
+        "B7": [0.5198, 0.0423],
+        "B8": [0.4856, 0.1202],
+        "B9": [0.5432, -0.0355],
+        "B10": [0.7312, -0.0264],
+        "B11": [0.437, 0.155],
+        "B12": [0.5394, 0.0901],
+        "B13": [-0.227, 0.8502],
+        "B14": [-0.2075, 0.952],
+        "B15": [0.3967, 0.187],
+        "B16": [0.1465, 0.3538],
+        "B17": [0.4753, 0.0712],
+        "B18": [0.232, 0.2677]
       }
     },
     "cfa": {
       "construct": "Barriers",
-      "chi2": 376.183,
-      "df": 135,
-      "chi2_p": 0.0,
-      "cfi": 0.766,
-      "tli": 0.7348,
-      "rmsea": 0.0967,
+      "chi2": null,
+      "df": null,
+      "chi2_p": null,
+      "cfi": null,
+      "tli": null,
+      "rmsea": null,
       "srmr": null
     },
     "inter_item": {
-      "mean_r": 0.275,
-      "min_r": -0.06,
-      "max_r": 0.64,
-      "sd_r": 0.13
+      "mean_r": 0.2769,
+      "min_r": -0.0453,
+      "max_r": 0.669,
+      "sd_r": 0.1175
     },
-    "itc_min": 0.17,
+    "itc_min": 0.28,
     "itc_all_above_030": false
   },
   "Readiness": {
     "cronbach_alpha": 0.9171,
-    "cronbach_alpha_ci": [0.901, 0.931],
-    "n_listwise": 192,
+    "cronbach_alpha_ci": [0.8984, 0.9337],
+    "n_listwise": 181,
     "mcdonalds_omega": 0.9183,
     "composite_reliability": 0.9183,
     "ave": 0.4001,
@@ -76,11 +76,11 @@
     "kmo_bartlett": {
       "kmo_overall": 0.9266,
       "bartlett_chi2": 1278.99,
-      "bartlett_p": 0.0
+      "bartlett_p": 5.598940441600992e-185
     },
     "parallel_analysis": {
       "n_factors": 1,
-      "eigenvalues_real": [7.392, 1.071, 0.966, 0.888]
+      "eigenvalues_real": [7.3921, 1.0705, 0.9659, 0.888]
     },
     "efa": {
       "construct": "Readiness",
@@ -88,31 +88,49 @@
       "variance_explained": [0.4001],
       "total_variance": 0.4001,
       "factor_correlations": null,
-      "loadings": {}
+      "loadings": {
+        "R1": [0.6989],
+        "R2": [0.6682],
+        "R3": [0.6528],
+        "R4": [0.5702],
+        "R5": [0.638],
+        "R6": [0.6945],
+        "R7": [0.6611],
+        "R8": [0.6377],
+        "R9": [0.5935],
+        "R10": [0.6044],
+        "R11": [0.6619],
+        "R12": [0.6031],
+        "R13": [0.6128],
+        "R14": [0.6073],
+        "R15": [0.6601],
+        "R16": [0.6917],
+        "R17": [0.4516]
+      }
     },
     "cfa": {
       "construct": "Readiness",
-      "chi2": 203.253,
-      "df": 119,
-      "chi2_p": 0.0,
-      "cfi": 0.9297,
-      "tli": 0.9196,
-      "rmsea": 0.0627,
+      "chi2": null,
+      "df": null,
+      "chi2_p": null,
+      "cfi": null,
+      "tli": null,
+      "rmsea": null,
       "srmr": null
     },
     "inter_item": {
-      "mean_r": 0.395,
-      "min_r": 0.12,
-      "max_r": 0.7,
-      "sd_r": 0.11
+      "mean_r": 0.3969,
+      "min_r": 0.1887,
+      "max_r": 0.6075,
+      "sd_r": 0.0724
     },
-    "itc_min": null,
+    "itc_min": 0.44,
     "itc_all_above_030": true
   },
   "Maturity": {
     "cronbach_alpha": 0.8847,
-    "cronbach_alpha_ci": [0.86, 0.906],
-    "n_listwise": 192,
+    "cronbach_alpha_ci": [0.8582, 0.9078],
+    "n_listwise": 191,
     "mcdonalds_omega": 0.8857,
     "composite_reliability": 0.8857,
     "ave": 0.4934,
@@ -120,11 +138,11 @@
     "kmo_bartlett": {
       "kmo_overall": 0.9121,
       "bartlett_chi2": 650.13,
-      "bartlett_p": 0.0
+      "bartlett_p": 5.061310067052528e-119
     },
     "parallel_analysis": {
       "n_factors": 1,
-      "eigenvalues_real": [4.444, 0.716, 0.643, 0.567]
+      "eigenvalues_real": [4.4439, 0.7161, 0.6427, 0.5667]
     },
     "efa": {
       "construct": "Maturity",
@@ -132,49 +150,58 @@
       "variance_explained": [0.4934],
       "total_variance": 0.4934,
       "factor_correlations": null,
-      "loadings": {}
+      "loadings": {
+        "M1": [0.7486],
+        "M2": [0.7536],
+        "M3": [0.6383],
+        "M4": [0.6644],
+        "M5": [0.6644],
+        "M6": [0.7921],
+        "M7": [0.6882],
+        "M8": [0.6537]
+      }
     },
     "cfa": {
       "construct": "Maturity",
-      "chi2": 32.147,
-      "df": 20,
-      "chi2_p": 0.0425,
-      "cfi": 0.981,
-      "tli": 0.9733,
-      "rmsea": 0.0565,
+      "chi2": null,
+      "df": null,
+      "chi2_p": null,
+      "cfi": null,
+      "tli": null,
+      "rmsea": null,
       "srmr": null
     },
     "inter_item": {
-      "mean_r": 0.487,
-      "min_r": 0.3,
-      "max_r": 0.67,
-      "sd_r": 0.08
+      "mean_r": 0.4902,
+      "min_r": 0.3503,
+      "max_r": 0.6055,
+      "sd_r": 0.0622
     },
-    "itc_min": null,
+    "itc_min": 0.6,
     "itc_all_above_030": true
   },
   "htmt": [
     {
       "pair": "Barriers vs Readiness",
       "htmt": 0.4981,
-      "ci_lower": 0.3963,
-      "ci_upper": 0.6527,
+      "ci_lower": 0.4022,
+      "ci_upper": 0.6546,
       "below_085": true,
       "below_090": true
     },
     {
       "pair": "Barriers vs Maturity",
       "htmt": 0.4407,
-      "ci_lower": 0.3684,
-      "ci_upper": 0.5458,
+      "ci_lower": 0.3673,
+      "ci_upper": 0.5542,
       "below_085": true,
       "below_090": true
     },
     {
       "pair": "Readiness vs Maturity",
       "htmt": 0.8044,
-      "ci_lower": 0.7098,
-      "ci_upper": 0.8804,
+      "ci_lower": 0.714,
+      "ci_upper": 0.881,
       "below_085": true,
       "below_090": true
     }
@@ -203,61 +230,49 @@
     }
   ],
   "construct_correlations": {
-    "Barriers": { "Barriers": 1.0, "Readiness": -0.3814, "Maturity": -0.3156 },
-    "Readiness": { "Barriers": -0.3814, "Readiness": 1.0, "Maturity": 0.7194 },
-    "Maturity": { "Barriers": -0.3156, "Readiness": 0.7194, "Maturity": 1.0 }
+    "Barriers": {
+      "Barriers": 1.0,
+      "Readiness": -0.3814,
+      "Maturity": -0.3156
+    },
+    "Readiness": {
+      "Barriers": -0.3814,
+      "Readiness": 1.0,
+      "Maturity": 0.7194
+    },
+    "Maturity": {
+      "Barriers": -0.3156,
+      "Readiness": 0.7194,
+      "Maturity": 1.0
+    }
   },
   "barriers_4f_cfa": {
-    "chi2": 307.835,
-    "df": 129,
-    "chi2_p": 0.0,
-    "cfi": 0.8265,
-    "tli": 0.7942,
-    "rmsea": 0.0852,
-    "aic": 80.79,
-    "bic": 217.61
+    "chi2": null,
+    "df": null,
+    "chi2_p": null,
+    "cfi": null,
+    "tli": null,
+    "rmsea": null,
+    "aic": null,
+    "bic": null
   },
   "factor_analysis": {
     "efa_factors": [
       {
-        "name": "F1: Internal Organizational Barriers",
-        "items": 12,
-        "alpha": 0.872,
-        "eigenvalue": 5.874,
+        "name": "F1",
+        "items": 14,
+        "eigenvalue": 5.8741,
         "variance_pct": 28.5
       },
       {
-        "name": "F2: External Risk & Trust Barriers",
-        "items": 6,
-        "alpha": 0.666,
-        "eigenvalue": 1.903,
+        "name": "F2",
+        "items": 4,
+        "eigenvalue": 1.9033,
         "variance_pct": 11.4
       }
     ],
-    "three_groups": [
-      {
-        "name": "F1a: Strategic & Capability",
-        "items": 9,
-        "alpha": 0.833,
-        "cr": 0.834,
-        "ave": 0.366
-      },
-      {
-        "name": "F1b: Operational & Resource",
-        "items": 5,
-        "alpha": 0.746,
-        "cr": 0.748,
-        "ave": 0.374
-      },
-      {
-        "name": "F2: External Risk & Trust",
-        "items": 4,
-        "alpha": 0.666,
-        "cr": 0.695,
-        "ave": 0.405
-      }
-    ],
-    "factor_correlation": 0.505,
+    "three_groups": [],
+    "factor_correlation": 0.5049,
     "barrier_names": [
       "Resistance to Change",
       "Lack of Leadership Support",
@@ -279,24 +294,114 @@
       "Vendor/Partner Difficulty"
     ],
     "loadings_matrix": [
-      { "id": "B1", "f1": 0.747, "f2": -0.253, "assigned": "F1" },
-      { "id": "B2", "f1": 0.824, "f2": -0.217, "assigned": "F1" },
-      { "id": "B3", "f1": 0.738, "f2": -0.126, "assigned": "F1" },
-      { "id": "B4", "f1": 0.684, "f2": -0.075, "assigned": "F1" },
-      { "id": "B5", "f1": 0.63, "f2": -0.027, "assigned": "F1" },
-      { "id": "B6", "f1": 0.371, "f2": 0.117, "assigned": "F1" },
-      { "id": "B7", "f1": 0.503, "f2": 0.197, "assigned": "F1" },
-      { "id": "B8", "f1": 0.476, "f2": 0.059, "assigned": "F1" },
-      { "id": "B9", "f1": 0.487, "f2": 0.194, "assigned": "F1" },
-      { "id": "B10", "f1": 0.643, "f2": 0.126, "assigned": "F1" },
-      { "id": "B11", "f1": 0.605, "f2": 0.121, "assigned": "F1" },
-      { "id": "B12", "f1": 0.537, "f2": 0.185, "assigned": "F1" },
-      { "id": "B13", "f1": -0.091, "f2": 0.838, "assigned": "F2" },
-      { "id": "B14", "f1": -0.014, "f2": 0.799, "assigned": "F2" },
-      { "id": "B15", "f1": 0.105, "f2": 0.629, "assigned": "F2" },
-      { "id": "B16", "f1": 0.114, "f2": 0.517, "assigned": "F2" },
-      { "id": "B17", "f1": 0.228, "f2": 0.356, "assigned": "F2" },
-      { "id": "B18", "f1": 0.243, "f2": 0.327, "assigned": "F2" }
+      {
+        "id": "B1",
+        "f1": 0.7466,
+        "f2": -0.2531,
+        "assigned": "F1"
+      },
+      {
+        "id": "B2",
+        "f1": 0.8244,
+        "f2": -0.2172,
+        "assigned": "F1"
+      },
+      {
+        "id": "B3",
+        "f1": 0.7383,
+        "f2": -0.1262,
+        "assigned": "F1"
+      },
+      {
+        "id": "B4",
+        "f1": 0.6844,
+        "f2": -0.0745,
+        "assigned": "F1"
+      },
+      {
+        "id": "B5",
+        "f1": 0.5679,
+        "f2": 0.0174,
+        "assigned": "F1"
+      },
+      {
+        "id": "B6",
+        "f1": 0.4306,
+        "f2": 0.1003,
+        "assigned": "F1"
+      },
+      {
+        "id": "B7",
+        "f1": 0.5198,
+        "f2": 0.0423,
+        "assigned": "F1"
+      },
+      {
+        "id": "B8",
+        "f1": 0.4856,
+        "f2": 0.1202,
+        "assigned": "F1"
+      },
+      {
+        "id": "B9",
+        "f1": 0.5432,
+        "f2": -0.0355,
+        "assigned": "F1"
+      },
+      {
+        "id": "B10",
+        "f1": 0.7312,
+        "f2": -0.0264,
+        "assigned": "F1"
+      },
+      {
+        "id": "B11",
+        "f1": 0.437,
+        "f2": 0.155,
+        "assigned": "F1"
+      },
+      {
+        "id": "B12",
+        "f1": 0.5394,
+        "f2": 0.0901,
+        "assigned": "F1"
+      },
+      {
+        "id": "B13",
+        "f1": -0.227,
+        "f2": 0.8502,
+        "assigned": "F2"
+      },
+      {
+        "id": "B14",
+        "f1": -0.2075,
+        "f2": 0.952,
+        "assigned": "F2"
+      },
+      {
+        "id": "B15",
+        "f1": 0.3967,
+        "f2": 0.187,
+        "assigned": "F1"
+      },
+      {
+        "id": "B16",
+        "f1": 0.1465,
+        "f2": 0.3538,
+        "assigned": "F2"
+      },
+      {
+        "id": "B17",
+        "f1": 0.4753,
+        "f2": 0.0712,
+        "assigned": "F1"
+      },
+      {
+        "id": "B18",
+        "f1": 0.232,
+        "f2": 0.2677,
+        "assigned": "F2"
+      }
     ]
   },
   "verdicts": {
@@ -310,7 +415,7 @@
       "kmo_above_060": true,
       "bartlett_significant": true,
       "cfa_cfi_above_090": false,
-      "pass_count": 6,
+      "pass_count": 2,
       "total_criteria": 9
     },
     "Readiness": {
@@ -322,8 +427,8 @@
       "split_half_above_070": true,
       "kmo_above_060": true,
       "bartlett_significant": true,
-      "cfa_cfi_above_090": true,
-      "pass_count": 8,
+      "cfa_cfi_above_090": false,
+      "pass_count": 3,
       "total_criteria": 9
     },
     "Maturity": {
@@ -335,8 +440,8 @@
       "split_half_above_070": true,
       "kmo_above_060": true,
       "bartlett_significant": true,
-      "cfa_cfi_above_090": true,
-      "pass_count": 8,
+      "cfa_cfi_above_090": false,
+      "pass_count": 3,
       "total_criteria": 9
     }
   },
@@ -346,7 +451,6 @@
     "constructs": ["Barriers", "Readiness", "Maturity"],
     "n_barriers": 18,
     "n_readiness": 17,
-    "n_maturity": 8,
-    "seed_source": "hard-coded values from initial validation run — will be regenerated by daily pipeline"
+    "n_maturity": 8
   }
 }
