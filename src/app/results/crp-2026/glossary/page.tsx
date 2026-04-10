@@ -289,7 +289,7 @@ const ENTRIES: GlossaryEntry[] = [
     thresholds:
       '≥ 0.40 is generally considered adequate. Low communalities (≤ 0.20) indicate the item is not well-explained by the factor structure.',
     tabsContext:
-      'B14 (Data Privacy) has the highest communality (.949) – it defines F2. B18 (Vendor Difficulty) has the lowest (.126) among barriers items.',
+      'In TABS, communalities are interpreted item-by-item to check whether each question is adequately represented by the retained factor structure. Items with lower communalities are candidates for closer review because the extracted factors explain less of their variance.',
   },
   {
     id: 'variance-explained',

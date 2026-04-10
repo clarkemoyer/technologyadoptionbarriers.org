@@ -346,8 +346,8 @@ const FactorAnalysisPage = () => {
             Because F1 contains 14 of the 18 items, we explored whether it could be meaningfully
             sub-divided. Horn&rsquo;s Parallel Analysis on F1 alone recommends retaining only 1
             factor, so any split is not statistically mandated. However, a forced 2-factor
-            extraction within F1 produces two interpretable sub-groups with high inter-correlation
-            (r = .775), confirming they are facets of a single broader construct.
+            extraction within F1 produces two interpretable, closely related sub-groups, suggesting
+            they are best understood as facets of a single broader construct.
           </p>
 
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6 font-sans text-sm">
