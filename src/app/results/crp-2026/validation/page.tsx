@@ -45,12 +45,12 @@ type ConstructValidation = {
   parallel_factors: number
   variance_explained: number
   top_eigenvalues: number[]
-  cfa_chi2: number
-  cfa_df: number
-  cfa_p: number
-  cfa_cfi: number
-  cfa_tli: number
-  cfa_rmsea: number
+  cfa_chi2: number | null
+  cfa_df: number | null
+  cfa_p: number | null
+  cfa_cfi: number | null
+  cfa_tli: number | null
+  cfa_rmsea: number | null
   inter_item_mean: number
   inter_item_min: number
   inter_item_max: number
@@ -445,8 +445,14 @@ const CFACard = ({ c }: { c: ConstructValidation }) => (
             <td className="py-1.5 text-right font-mono font-bold">{fmt(c.cfa_cfi)}</td>
             <td className="py-1.5 text-right">
               <Verdict
-                pass={c.cfa_cfi >= 0.9}
-                label={c.cfa_cfi >= 0.95 ? 'Good' : c.cfa_cfi >= 0.9 ? 'Acceptable' : 'Poor'}
+                pass={(c.cfa_cfi ?? 0) >= 0.9}
+                label={
+                  (c.cfa_cfi ?? 0) >= 0.95
+                    ? 'Good'
+                    : (c.cfa_cfi ?? 0) >= 0.9
+                      ? 'Acceptable'
+                      : 'Poor'
+                }
               />
             </td>
           </tr>
@@ -462,8 +468,14 @@ const CFACard = ({ c }: { c: ConstructValidation }) => (
             <td className="py-1.5 text-right font-mono font-bold">{fmt(c.cfa_tli)}</td>
             <td className="py-1.5 text-right">
               <Verdict
-                pass={c.cfa_tli >= 0.9}
-                label={c.cfa_tli >= 0.95 ? 'Good' : c.cfa_tli >= 0.9 ? 'Acceptable' : 'Poor'}
+                pass={(c.cfa_tli ?? 0) >= 0.9}
+                label={
+                  (c.cfa_tli ?? 0) >= 0.95
+                    ? 'Good'
+                    : (c.cfa_tli ?? 0) >= 0.9
+                      ? 'Acceptable'
+                      : 'Poor'
+                }
               />
             </td>
           </tr>
@@ -479,8 +491,14 @@ const CFACard = ({ c }: { c: ConstructValidation }) => (
             <td className="py-1.5 text-right font-mono font-bold">{fmt(c.cfa_rmsea)}</td>
             <td className="py-1.5 text-right">
               <Verdict
-                pass={c.cfa_rmsea <= 0.08}
-                label={c.cfa_rmsea <= 0.06 ? 'Good' : c.cfa_rmsea <= 0.08 ? 'Acceptable' : 'Poor'}
+                pass={(c.cfa_rmsea ?? 1) <= 0.08}
+                label={
+                  (c.cfa_rmsea ?? 1) <= 0.06
+                    ? 'Good'
+                    : (c.cfa_rmsea ?? 1) <= 0.08
+                      ? 'Acceptable'
+                      : 'Poor'
+                }
               />
             </td>
           </tr>
@@ -678,11 +696,11 @@ const ValidationPage = () => {
                   </td>
                   <td className="text-right px-3 py-1.5 border">
                     <Verdict
-                      pass={BARRIERS_4F_CFA.cfi >= 0.9}
+                      pass={(BARRIERS_4F_CFA.cfi ?? 0) >= 0.9}
                       label={
-                        BARRIERS_4F_CFA.cfi >= 0.95
+                        (BARRIERS_4F_CFA.cfi ?? 0) >= 0.95
                           ? 'Good'
-                          : BARRIERS_4F_CFA.cfi >= 0.9
+                          : (BARRIERS_4F_CFA.cfi ?? 0) >= 0.9
                             ? 'Acceptable'
                             : 'Poor'
                       }
@@ -696,11 +714,11 @@ const ValidationPage = () => {
                   </td>
                   <td className="text-right px-3 py-1.5 border">
                     <Verdict
-                      pass={BARRIERS_4F_CFA.tli >= 0.9}
+                      pass={(BARRIERS_4F_CFA.tli ?? 0) >= 0.9}
                       label={
-                        BARRIERS_4F_CFA.tli >= 0.95
+                        (BARRIERS_4F_CFA.tli ?? 0) >= 0.95
                           ? 'Good'
-                          : BARRIERS_4F_CFA.tli >= 0.9
+                          : (BARRIERS_4F_CFA.tli ?? 0) >= 0.9
                             ? 'Acceptable'
                             : 'Poor'
                       }
@@ -714,11 +732,11 @@ const ValidationPage = () => {
                   </td>
                   <td className="text-right px-3 py-1.5 border">
                     <Verdict
-                      pass={BARRIERS_4F_CFA.rmsea <= 0.08}
+                      pass={(BARRIERS_4F_CFA.rmsea ?? 1) <= 0.08}
                       label={
-                        BARRIERS_4F_CFA.rmsea <= 0.06
+                        (BARRIERS_4F_CFA.rmsea ?? 1) <= 0.06
                           ? 'Good'
-                          : BARRIERS_4F_CFA.rmsea <= 0.08
+                          : (BARRIERS_4F_CFA.rmsea ?? 1) <= 0.08
                             ? 'Acceptable'
                             : 'Poor'
                       }

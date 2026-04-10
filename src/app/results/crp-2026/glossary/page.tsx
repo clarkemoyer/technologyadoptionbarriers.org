@@ -27,11 +27,11 @@ const fl = validationData.fornell_larcker
 const fa = validationData.factor_analysis
 const b4 = validationData.barriers_4f_cfa
 
-/** Format a number without leading zero, e.g. 0.873 → ".873" */
-const f3 = (v: number) => v.toFixed(3).replace(/^0/, '')
+/** Format a number without leading zero, e.g. 0.873 → ".873". Returns "N/A" if null. */
+const f3 = (v: number | null | undefined) => (v != null ? v.toFixed(3).replace(/^0/, '') : 'N/A')
 
-/** Format a number to 2 decimal places without leading zero */
-const f2 = (v: number) => v.toFixed(2).replace(/^0/, '')
+/** Format a number to 2 decimal places without leading zero. Returns "N/A" if null. */
+const f2 = (v: number | null | undefined) => (v != null ? v.toFixed(2).replace(/^0/, '') : 'N/A')
 
 /* ── Glossary entry type ── */
 type GlossaryEntry = {
