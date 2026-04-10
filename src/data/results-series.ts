@@ -9,6 +9,21 @@ export interface ResultsSeriesItem {
 export const resultsSeries: ResultsSeriesItem[] = [
   { title: 'Results Overview', href: '/results' },
   {
+    title: 'CRP 2026',
+    href: '/results/crp-2026',
+    children: [
+      { title: 'Sample & Demographics', href: '/results/crp-2026/sample' },
+      { title: 'Descriptive Statistics', href: '/results/crp-2026/descriptive' },
+      { title: 'Sensitivity Analysis', href: '/results/crp-2026/sensitivity' },
+      { title: 'Scale Reliability', href: '/results/crp-2026/reliability' },
+      { title: 'Key Findings', href: '/results/crp-2026/findings' },
+      { title: 'Data Quality', href: '/results/crp-2026/data-quality' },
+      { title: 'Factor Analysis', href: '/results/crp-2026/factor-analysis' },
+      { title: 'Instrument Validation', href: '/results/crp-2026/validation' },
+      { title: 'Statistics Glossary', href: '/results/crp-2026/glossary' },
+    ],
+  },
+  {
     title: 'TABS Full Dataset',
     href: '/results/full-dataset',
     isGroup: true,
@@ -24,6 +39,7 @@ export const resultsSeries: ResultsSeriesItem[] = [
   },
   { title: 'Dashboard', href: '/results/dashboard' },
   { title: 'Dataset Comparison', href: '/results/dataset-comparison' },
+  { title: 'Survey Statistics', href: '/results/survey-stats' },
   { title: 'CMO Survey', href: '/results/cmo-survey' },
 ]
 
