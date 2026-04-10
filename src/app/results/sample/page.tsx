@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
+import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 import { ResultsNav } from '@/components/results-nav'
 
 export const metadata: Metadata = {
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
 
 interface OtherRolesData {
   total: number
-  categories: Record<string, number>
+  categories: Record<string, number | string>
 }
 
 interface RoleCategoryInfo {
@@ -605,7 +606,9 @@ const SamplePage = () => {
                                         <td className="py-1 pr-2 font-medium">{category}</td>
                                         <td className="py-1 text-right font-mono">{count}</td>
                                         <td className="py-1 pl-1 text-right text-gray-500">
-                                          {pct(count, demo.other_roles?.total)}
+                                          {typeof count === 'number'
+                                            ? pct(count, demo.other_roles?.total)
+                                            : '—'}
                                         </td>
                                       </tr>
                                     )
@@ -617,8 +620,9 @@ const SamplePage = () => {
                       </div>
                     </>
                   ) : (
-                    <p className="text-sm text-gray-500 italic mt-2">
-                      Demographics data will be populated by the next pipeline run.
+                    <p className="text-sm text-red-600 font-medium mt-2">
+                      {DATA_UNAVAILABLE} Demographics data missing from sensitivity-analysis.json.
+                      Check the daily pipeline workflow.
                     </p>
                   )}
                 </div>

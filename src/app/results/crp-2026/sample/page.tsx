@@ -9,6 +9,7 @@ import {
 } from '@/lib/articleStyles'
 import Link from 'next/link'
 import sensitivityData from '@/data/crp-sensitivity-analysis.json'
+import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 
 export const metadata: Metadata = {
   title: 'CRP 2026 Sample & Demographics — TABS',
@@ -617,7 +618,9 @@ const CrpSamplePage = () => {
                                       <td className="py-1 pr-2 font-medium">{category}</td>
                                       <td className="py-1 text-right font-mono">{count}</td>
                                       <td className="py-1 pl-1 text-right text-gray-500">
-                                        {pct(count, demo.other_roles?.total)}
+                                        {typeof count === 'number'
+                                          ? pct(count, demo.other_roles?.total)
+                                          : '—'}
                                       </td>
                                     </tr>
                                   )
@@ -629,8 +632,9 @@ const CrpSamplePage = () => {
                     </div>
                   </>
                 ) : (
-                  <p className="text-sm text-gray-500 italic mt-2">
-                    Demographics data will be populated by the next pipeline run.
+                  <p className="text-sm text-red-600 font-medium mt-2">
+                    {DATA_UNAVAILABLE} Demographics data missing from crp-sensitivity-analysis.json.
+                    Check the daily pipeline workflow.
                   </p>
                 )}
               </div>

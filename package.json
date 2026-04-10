@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "prebuild": "tsx scripts/generate-search-index.ts",
     "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
     "preview": "npx serve out -l 3000",
     "lint": "eslint",
@@ -32,7 +33,7 @@
     "lightningcss": "^1.32.0",
     "lucide-react": "^1.7.0",
     "next": "^16.2.1",
-    "nodemailer": "^8.0.4",
+    "nodemailer": "^8.0.5",
     "postcss": "^8.5.8",
     "react": "19.2.4",
     "react-dom": "19.2.4",
