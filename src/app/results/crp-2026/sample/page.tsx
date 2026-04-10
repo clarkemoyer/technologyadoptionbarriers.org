@@ -631,8 +631,9 @@ const CrpSamplePage = () => {
                     </div>
                   </>
                 ) : (
-                  <p className="text-sm text-gray-500 italic mt-2">
-                    Demographics data will be populated by the next pipeline run.
+                  <p className="text-sm text-red-600 font-medium mt-2">
+                    [DATA UNAVAILABLE — pipeline error] Demographics data missing from
+                    crp-sensitivity-analysis.json. Check the daily pipeline workflow.
                   </p>
                 )}
               </div>

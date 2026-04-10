@@ -47,11 +47,19 @@ const fmt = (val: number | null | undefined, decimals: number = 4): string => {
 const ORG_SIZE_ORDER = ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']
 
 const DatasetComparisonPage = () => {
-  const samples: SampleInfo[] = (sensitivityData.samples ?? []).filter((s) =>
-    PRIMARY_GROUPS.some((g) => g.key === s.key)
-  ) as SampleInfo[]
+  const rawSamples = sensitivityData.samples as SampleInfo[] | undefined
+  const rawMetrics = sensitivityData.metrics as MetricInfo[] | undefined
+  const dataAvailable =
+    Array.isArray(rawSamples) &&
+    rawSamples.length > 0 &&
+    Array.isArray(rawMetrics) &&
+    rawMetrics.length > 0
 
-  const metrics: MetricInfo[] = (sensitivityData.metrics ?? []) as MetricInfo[]
+  const samples: SampleInfo[] = (rawSamples ?? []).filter((s) =>
+    PRIMARY_GROUPS.some((g) => g.key === s.key)
+  )
+
+  const metrics: MetricInfo[] = rawMetrics ?? []
   const sampleDetails = (sensitivityData as Record<string, unknown>).sample_details as Record<
     string,
     Record<string, unknown>
@@ -92,6 +100,15 @@ const DatasetComparisonPage = () => {
             decisions affect statistical conclusions.
           </p>
         </section>
+
+        {!dataAvailable && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
+            <p className="text-sm text-red-600 font-medium">
+              [DATA UNAVAILABLE — pipeline error] Sample or metric data missing from
+              sensitivity-analysis.json. Check the daily pipeline workflow.
+            </p>
+          </div>
+        )}
 
         {/* ── Sample Overview ── */}
         <section className="mb-12 text-gray-800">

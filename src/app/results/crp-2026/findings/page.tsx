@@ -336,8 +336,9 @@ const CrpFindingsPage = () => {
                       )}
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-500 italic mt-2">
-                    Effect sizes will be populated by the next pipeline run.
+                  <p className="text-sm text-red-600 font-medium mt-2">
+                    [DATA UNAVAILABLE — pipeline error] Effect size data missing. Check the daily
+                    pipeline workflow.
                   </p>
                 )}
               </div>
@@ -449,8 +450,9 @@ const CrpFindingsPage = () => {
                     )}
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-500 italic mt-2">
-                    Cross-tabulation data will be populated by the next pipeline run.
+                  <p className="text-sm text-red-600 font-medium mt-2">
+                    [DATA UNAVAILABLE — pipeline error] Cross-tabulation data missing. Check the
+                    daily pipeline workflow.
                   </p>
                 )}
               </div>
@@ -665,8 +667,9 @@ const CrpFindingsPage = () => {
                     )}
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-500 italic mt-2">
-                    Inferential statistics will be populated by the next pipeline run.
+                  <p className="text-sm text-red-600 font-medium mt-2">
+                    [DATA UNAVAILABLE — pipeline error] Inferential statistics missing. Check the
+                    daily pipeline workflow.
                   </p>
                 )}
               </div>
