@@ -258,43 +258,45 @@ jobs:
             echo "::error::Enriched Qualtrics CSV not found — cannot join auth flags"
             exit 1
           fi
-          python3 -c "
+          python3 - <<PY
           import csv
+          import sys
 
           # Load auth flags from enriched CSV, keyed by SESSION_ID
-          import sys
           auth_by_session = {}
           with open('$ENRICHED_CSV', encoding='utf-8-sig') as f:
               reader = csv.reader(f)
               eh = next(reader); next(reader); next(reader)  # 3-row Qualtrics header
               eidx = {h: i for i, h in enumerate(eh)}
-              sid_col = eidx.get('SESSION_ID')
-              llm_col = eidx.get('Auth_LLM')
-              bots_col = eidx.get('Auth_Bots')
+              required_cols = ['SESSION_ID', 'Auth_LLM', 'Auth_Bots']
+              missing_cols = [c for c in required_cols if c not in eidx]
+              if missing_cols:
+                  print(f'ERROR: enriched CSV missing required columns: {missing_cols}', file=sys.stderr)
+                  sys.exit(1)
+              sid_col = eidx['SESSION_ID']
+              llm_col = eidx['Auth_LLM']
+              bots_col = eidx['Auth_Bots']
               recap_col = eidx.get('Q_RecaptchaScore')
               sl_col = eidx.get('Q_StraightliningCount')
-              if sid_col is None:
-                  print('ERROR: SESSION_ID column not found in enriched CSV', file=sys.stderr)
-                  sys.exit(1)
               for r in reader:
                   sid = r[sid_col].strip()
                   if sid:
                       auth_by_session[sid] = {
-                              'Auth_Flagged': 'True' if (
-                                  (llm_col is not None and r[llm_col].strip().upper() in ('LOW','MIXED')) or
-                                  (bots_col is not None and r[bots_col].strip().upper() in ('LOW','MIXED'))
-                              ) else 'False',
-                              'RecaptchaPass': 'True',
-                              'StraightliningCount': '0',
-                          }
-                          if recap_col is not None:
-                              try:
-                                  score = float(r[recap_col].strip() or '1.0')
-                                  auth_by_session[sid]['RecaptchaPass'] = 'True' if score >= 0.5 else 'False'
-                              except ValueError:
-                                  pass
-                          if sl_col is not None:
-                              auth_by_session[sid]['StraightliningCount'] = r[sl_col].strip() or '0'
+                          'Auth_Flagged': 'True' if (
+                              r[llm_col].strip().upper() in ('LOW', 'MIXED') or
+                              r[bots_col].strip().upper() in ('LOW', 'MIXED')
+                          ) else 'False',
+                          'RecaptchaPass': 'True',
+                          'StraightliningCount': '0',
+                      }
+                      if recap_col is not None:
+                          try:
+                              score = float(r[recap_col].strip() or '1.0')
+                              auth_by_session[sid]['RecaptchaPass'] = 'True' if score >= 0.5 else 'False'
+                          except ValueError:
+                              pass
+                      if sl_col is not None:
+                          auth_by_session[sid]['StraightliningCount'] = r[sl_col].strip() or '0'
 
           print(f'  Auth flags loaded for {len(auth_by_session)} sessions')
 
@@ -319,26 +321,25 @@ jobs:
               auth = auth_by_session.get(sid)
               if auth is None:
                   unmatched_sids.append(sid)
-                  auth = {'Auth_Flagged': 'False', 'RecaptchaPass': 'True', 'StraightliningCount': '0'}
               else:
                   matched += 1
-              r.extend([auth['Auth_Flagged'], auth['RecaptchaPass'], auth['StraightliningCount']])
-              out_rows.append(r)
+                  r.extend([auth['Auth_Flagged'], auth['RecaptchaPass'], auth['StraightliningCount']])
+                  out_rows.append(r)
 
           print(f'  Matched {matched}/{len(crp_rows)} CRP rows to enriched auth data')
           if unmatched_sids:
-              print(f'  WARNING: {len(unmatched_sids)} CRP SESSION_IDs not found in enriched CSV')
-              print(f'  Unmatched auth flags defaulted to False (conservative — these rows will pass auth check)')
-              if len(unmatched_sids) > 10:
-                  print(f'  ERROR: Too many unmatched rows — enriched CSV may be stale or corrupted', file=sys.stderr)
-                  sys.exit(1)
+              print(f'  ERROR: {len(unmatched_sids)} CRP SESSION_IDs not found in enriched CSV', file=sys.stderr)
+              preview = unmatched_sids[:10]
+              print(f'  Unmatched SESSION_ID sample (up to 10): {preview}', file=sys.stderr)
+              print('  Refusing to continue: missing auth enrichment would change conservative_clean results.', file=sys.stderr)
+              sys.exit(1)
 
           with open('$OUTPUT', 'w', newline='', encoding='utf-8') as f:
               w = csv.writer(f)
               w.writerow(out_headers)
               w.writerows(out_rows)
           print(f'  Wrote enriched CRP CSV: $OUTPUT')
-          "
+          PY
 
       - name: Unified analysis (CRP frozen N=200)
         id: crp_unified
