@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/crp-sensitivity-analysis.json'
 import EffectSizeChart from '@/components/effect-size-chart'
+import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 
 export const metadata: Metadata = {
   title: 'CRP 2026 Key Findings — TABS',
@@ -336,8 +337,8 @@ const CrpFindingsPage = () => {
                       )}
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-500 italic mt-2">
-                    Effect sizes will be populated by the next pipeline run.
+                  <p className="text-sm text-red-600 font-medium mt-2">
+                    {DATA_UNAVAILABLE} Effect size data missing. Check the daily pipeline workflow.
                   </p>
                 )}
               </div>
@@ -449,8 +450,9 @@ const CrpFindingsPage = () => {
                     )}
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-500 italic mt-2">
-                    Cross-tabulation data will be populated by the next pipeline run.
+                  <p className="text-sm text-red-600 font-medium mt-2">
+                    {DATA_UNAVAILABLE} Cross-tabulation data missing. Check the daily pipeline
+                    workflow.
                   </p>
                 )}
               </div>
@@ -665,8 +667,9 @@ const CrpFindingsPage = () => {
                     )}
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-500 italic mt-2">
-                    Inferential statistics will be populated by the next pipeline run.
+                  <p className="text-sm text-red-600 font-medium mt-2">
+                    {DATA_UNAVAILABLE} Inferential statistics missing. Check the daily pipeline
+                    workflow.
                   </p>
                 )}
               </div>

@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
+import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 
 export const metadata: Metadata = {
   title: 'Dataset Comparison — TABS Results',
@@ -24,6 +25,7 @@ interface SampleInfo {
   key: string
   label: string
   n: number
+  description?: string
 }
 
 interface MetricInfo {
@@ -47,11 +49,19 @@ const fmt = (val: number | null | undefined, decimals: number = 4): string => {
 const ORG_SIZE_ORDER = ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']
 
 const DatasetComparisonPage = () => {
-  const samples: SampleInfo[] = (sensitivityData.samples ?? []).filter((s) =>
-    PRIMARY_GROUPS.some((g) => g.key === s.key)
-  ) as SampleInfo[]
+  const rawSamples = sensitivityData.samples as SampleInfo[] | undefined
+  const rawMetrics = sensitivityData.metrics as MetricInfo[] | undefined
+  const dataAvailable =
+    Array.isArray(rawSamples) &&
+    rawSamples.length > 0 &&
+    Array.isArray(rawMetrics) &&
+    rawMetrics.length > 0
 
-  const metrics: MetricInfo[] = (sensitivityData.metrics ?? []) as MetricInfo[]
+  const samples: SampleInfo[] = (Array.isArray(rawSamples) ? rawSamples : []).filter((s) =>
+    PRIMARY_GROUPS.some((g) => g.key === s.key)
+  )
+
+  const metrics: MetricInfo[] = Array.isArray(rawMetrics) ? rawMetrics : []
   const sampleDetails = (sensitivityData as Record<string, unknown>).sample_details as Record<
     string,
     Record<string, unknown>
@@ -93,6 +103,15 @@ const DatasetComparisonPage = () => {
           </p>
         </section>
 
+        {!dataAvailable && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
+            <p className="text-sm text-red-600 font-medium">
+              {DATA_UNAVAILABLE} Sample or metric data missing from sensitivity-analysis.json. Check
+              the daily pipeline workflow.
+            </p>
+          </div>
+        )}
+
         {/* ── Sample Overview ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Sample Overview</h2>
@@ -109,8 +128,7 @@ const DatasetComparisonPage = () => {
               <tbody>
                 {PRIMARY_GROUPS.map((group, i) => {
                   const sample = samples.find((s) => s.key === group.key)
-                  const desc =
-                    sensitivityData.samples.find((s) => s.key === group.key)?.description ?? ''
+                  const desc = samples.find((s) => s.key === group.key)?.description ?? ''
                   return (
                     <tr key={group.key} className={group.color}>
                       <td className="p-3 border-b">{i + 1}</td>

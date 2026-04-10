@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
+import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 
 export const metadata: Metadata = {
   title: 'Sample & Demographics — TABS Results',
@@ -623,8 +624,9 @@ const SamplePage = () => {
                     </div>
                   </>
                 ) : (
-                  <p className="text-sm text-gray-500 italic mt-2">
-                    Demographics data will be populated by the next pipeline run.
+                  <p className="text-sm text-red-600 font-medium mt-2">
+                    {DATA_UNAVAILABLE} Demographics data missing from sensitivity-analysis.json.
+                    Check the daily pipeline workflow.
                   </p>
                 )}
               </div>

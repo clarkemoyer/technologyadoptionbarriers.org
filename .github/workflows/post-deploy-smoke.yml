@@ -486,8 +486,45 @@ jobs:
           # Making of TABS — still functional after restructure
           check_content "${SITE_URL}/making-of-tabs" "Making of TABS" "/making-of-tabs"
 
+          # Check for pipeline data failure sentinel on key pages.
+          # Pages render "[DATA UNAVAILABLE — pipeline error]" when JSON data
+          # is missing or malformed. Any occurrence is a pipeline failure.
+          SENTINEL_FAIL=0
+          check_no_sentinel() {
+            local url="$1" label="$2"
+            local http_status curl_exit
+
+            http_status="$(curl -s -L --max-time 15 --write-out '%{http_code}' "$url" -o /tmp/sentinel-body 2>/dev/null)"
+            curl_exit=$?
+
+            if [ "$curl_exit" -ne 0 ] || [ "$http_status" -lt 200 ] || [ "$http_status" -ge 400 ]; then
+              : > /tmp/sentinel-body
+              echo "| $label | ❌ Fetch failed (curl=$curl_exit, http=$http_status) — sentinel check inconclusive |" >> /tmp/content-results.txt
+              SENTINEL_FAIL=$((SENTINEL_FAIL + 1))
+              return
+            fi
+
+            if grep -F -q -- "[DATA UNAVAILABLE — pipeline error]" /tmp/sentinel-body 2>/dev/null; then
+              echo "| $label | ❌ Contains [DATA UNAVAILABLE] sentinel — pipeline data missing |" >> /tmp/content-results.txt
+              SENTINEL_FAIL=$((SENTINEL_FAIL + 1))
+            else
+              echo "| $label | ✅ No data-unavailable markers |" >> /tmp/content-results.txt
+            fi
+          }
+
+          check_no_sentinel "${SITE_URL}/results/sample" "/results/sample"
+          check_no_sentinel "${SITE_URL}/results/findings" "/results/findings"
+          check_no_sentinel "${SITE_URL}/results/dataset-comparison" "/results/dataset-comparison"
+          check_no_sentinel "${SITE_URL}/results/crp-2026" "/results/crp-2026"
+          check_no_sentinel "${SITE_URL}/results/crp-2026/sample" "/results/crp-2026/sample"
+          check_no_sentinel "${SITE_URL}/results/crp-2026/findings" "/results/crp-2026/findings"
+          check_no_sentinel "${SITE_URL}/results/crp-2026/validation" "/results/crp-2026/validation"
+          check_no_sentinel "${SITE_URL}/results/crp-2026/factor-analysis" "/results/crp-2026/factor-analysis"
+
+          CONTENT_FAIL=$((CONTENT_FAIL + SENTINEL_FAIL))
+
           echo ""
-          echo "Content validation: $CONTENT_FAIL failed"
+          echo "Content validation: $CONTENT_FAIL failed (including $SENTINEL_FAIL data-unavailable checks)"
           cat /tmp/content-results.txt
 
           echo "CONTENT_FAIL=$CONTENT_FAIL" >> "$GITHUB_ENV"

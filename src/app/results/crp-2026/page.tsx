@@ -11,25 +11,31 @@ import {
 import Link from 'next/link'
 import { assetPath } from '@/lib/assetPath'
 import crpData from '@/data/crp-sensitivity-analysis.json'
+import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 
 export const metadata: Metadata = {
   title: 'TABS 2026 CRP Results',
   description:
-    'Frozen N=200 dataset used for the TABS Culminating Research Project (CRP). A moment-in-time snapshot with three-tier quality selection, de-identified per NIST Expert Determination protocol.',
+    'Snapshot dataset used for the TABS Culminating Research Project (CRP). A moment-in-time capture with three-tier quality selection, de-identified per NIST Expert Determination protocol.',
   alternates: {
     canonical: '/results/crp-2026',
   },
 }
 
-// Derived from src/data/crp-sensitivity-analysis.json — updated by the daily pipeline
+// Derived from src/data/crp-sensitivity-analysis.json — updated by the daily pipeline.
+// No fallback values — if the JSON is missing or malformed, the page must show
+// a visible "data unavailable" state rather than fake numbers.
 type CrpSample = { key: string; n: number }
 const crpSamples: CrpSample[] = Array.isArray((crpData as { samples?: unknown }).samples)
   ? (crpData as { samples: CrpSample[] }).samples
   : []
-const CRP_SAMPLE_SIZE = crpSamples.find((s) => s.key === 'prolific_accepted')?.n ?? 200
-const CRP_CONSERVATIVE_CLEAN = crpSamples.find((s) => s.key === 'conservative_clean')?.n ?? 78
-const CRP_FLEXIBLE_CLEAN = crpSamples.find((s) => s.key === 'flexible_clean')?.n ?? 123
+const CRP_SAMPLE_SIZE = crpSamples.find((s) => s.key === 'prolific_accepted')?.n ?? null
+const CRP_CONSERVATIVE_CLEAN = crpSamples.find((s) => s.key === 'conservative_clean')?.n ?? null
+const CRP_FLEXIBLE_CLEAN = crpSamples.find((s) => s.key === 'flexible_clean')?.n ?? null
 const CRP_SELECTION_TIERS = 3
+
+/** Format a number or show the unavailable marker. */
+const d = (val: number | null): string => (val !== null ? String(val) : DATA_UNAVAILABLE)
 
 const CRP2026Page = () => {
   return (
@@ -63,8 +69,8 @@ const CRP2026Page = () => {
         {/* ── Hero Description ── */}
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
-            This page presents the frozen, moment-in-time dataset (N={CRP_SAMPLE_SIZE}) used for the
-            TABS Culminating Research Project (CRP). Unlike the{' '}
+            This page presents the frozen, moment-in-time dataset (N={d(CRP_SAMPLE_SIZE)}) used for
+            the TABS Culminating Research Project (CRP). Unlike the{' '}
             <Link href="/results" className="text-blue-600 hover:underline font-medium">
               live pipeline results
             </Link>{' '}
@@ -74,7 +80,7 @@ const CRP2026Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             Freezing the dataset ensures that every statistic, table, and figure in the final paper
             can be independently reproduced. The live pipeline continues to collect data beyond N=
-            {CRP_SAMPLE_SIZE}, but the CRP references only this fixed sample.
+            {d(CRP_SAMPLE_SIZE)}, but the CRP references only this fixed sample.
           </p>
         </section>
 
@@ -82,9 +88,9 @@ const CRP2026Page = () => {
         <section className="mb-12">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { label: 'CRP Sample Size', value: `N=${CRP_SAMPLE_SIZE}` },
-              { label: 'Conservative Clean', value: String(CRP_CONSERVATIVE_CLEAN) },
-              { label: 'Flexible Clean (total)', value: String(CRP_FLEXIBLE_CLEAN) },
+              { label: 'CRP Sample Size', value: `N=${d(CRP_SAMPLE_SIZE)}` },
+              { label: 'Conservative Clean', value: d(CRP_CONSERVATIVE_CLEAN) },
+              { label: 'Flexible Clean (total)', value: d(CRP_FLEXIBLE_CLEAN) },
               { label: 'Selection Tiers', value: String(CRP_SELECTION_TIERS) },
             ].map((stat) => (
               <div
@@ -108,7 +114,7 @@ const CRP2026Page = () => {
             <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
               <h3 className={H3_CLASSES}>Three-Tier Selection Methodology</h3>
               <p className={PARAGRAPH_CLASSES}>
-                The CRP dataset selects N={CRP_SAMPLE_SIZE} responses from Prolific Accepted
+                The CRP dataset selects N={d(CRP_SAMPLE_SIZE)} responses from Prolific Accepted
                 participants using a three-tier quality-based strategy. Higher tiers are
                 automatically included; remaining slots are filled by quality-ranked responses from
                 lower tiers.
@@ -117,17 +123,20 @@ const CRP2026Page = () => {
                 <li>
                   <strong>Tier 1 — Conservative Clean (auto-include):</strong> All responses passing
                   every quality gate: 3/3 IRI attention checks, duration ≥ 540s, reCAPTCHA ≥ 0.5, no
-                  straightlining, no auth flags (N={CRP_CONSERVATIVE_CLEAN})
+                  straightlining, no auth flags (N={d(CRP_CONSERVATIVE_CLEAN)})
                 </li>
                 <li>
                   <strong>Tier 2 — Flexible Clean surplus (auto-include):</strong> Responses passing
                   basic quality (all 3 IRIs + duration ≥ 480s) that did not qualify for Tier 1 (N=
-                  {CRP_FLEXIBLE_CLEAN - CRP_CONSERVATIVE_CLEAN})
+                  {CRP_FLEXIBLE_CLEAN !== null && CRP_CONSERVATIVE_CLEAN !== null
+                    ? CRP_FLEXIBLE_CLEAN - CRP_CONSERVATIVE_CLEAN
+                    : DATA_UNAVAILABLE}
+                  )
                 </li>
                 <li>
                   <strong>Tier 3 — Quality-ranked fill:</strong> Remaining Prolific Accepted
                   responses ranked by a 100-point composite quality score, selected until N=
-                  {CRP_SAMPLE_SIZE} is reached
+                  {d(CRP_SAMPLE_SIZE)} is reached
                 </li>
               </ul>
             </div>
@@ -143,9 +152,9 @@ const CRP2026Page = () => {
                 pts).
               </p>
               <p className="text-gray-600 font-sans text-sm">
-                All N={CRP_SAMPLE_SIZE} responses are included in the CRP dataset. The quality score
-                determines Tier 3 selection priority and supports sensitivity analysis across sample
-                definitions (Conservative Clean vs. full CRP sample).
+                All N={d(CRP_SAMPLE_SIZE)} responses are included in the CRP dataset. The quality
+                score determines Tier 3 selection priority and supports sensitivity analysis across
+                sample definitions (Conservative Clean vs. full CRP sample).
               </p>
             </div>
 
@@ -176,7 +185,7 @@ const CRP2026Page = () => {
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 my-6">
             <p className={PARAGRAPH_CLASSES}>
               The CRP 2026 public dataset is available for download in CSV format. This file
-              contains the de-identified, frozen N={CRP_SAMPLE_SIZE} sample used for all CRP
+              contains the de-identified, frozen N={d(CRP_SAMPLE_SIZE)} sample used for all CRP
               analyses. The dataset is permanently archived at Penn State ScholarSphere.
             </p>
             <div className="flex flex-wrap gap-4 my-4">
@@ -215,7 +224,7 @@ const CRP2026Page = () => {
                 <strong>Format:</strong> CSV (comma-separated values)
               </li>
               <li>
-                <strong>Records:</strong> {CRP_SAMPLE_SIZE} de-identified responses
+                <strong>Records:</strong> {d(CRP_SAMPLE_SIZE)} de-identified responses
               </li>
               <li>
                 <strong>De-identification:</strong> NIST Expert Determination protocol (5-step)
@@ -239,7 +248,7 @@ const CRP2026Page = () => {
               Moyer, C. (2026).{' '}
               <em>
                 Technology Adoption Barriers Survey (TABS): CRP 2026 public dataset (N=
-                {CRP_SAMPLE_SIZE})
+                {d(CRP_SAMPLE_SIZE)})
               </em>{' '}
               [Data set]. Penn State ScholarSphere.{' '}
               <span className="not-italic">
@@ -266,7 +275,7 @@ const CRP2026Page = () => {
               <Link href="/results/crp-2026/validation" className="text-blue-600 hover:underline">
                 Instrument Validation
               </Link>{' '}
-              &mdash; full psychometric validation at N={CRP_SAMPLE_SIZE}
+              &mdash; full psychometric validation at N={d(CRP_SAMPLE_SIZE)}
             </li>
             <li>
               <Link
