@@ -27,6 +27,11 @@ interface TocHeading {
   text: string
 }
 
+/** Default header height used before ResizeObserver reports actual value */
+const DEFAULT_HEADER_HEIGHT = 80
+/** Extra pixels below the sticky header for comfortable scroll targeting */
+const SCROLL_MARGIN_GAP = 20
+
 export default function UnifiedNavigation({
   seriesItems,
   seriesLabel = 'In this series',
@@ -51,7 +56,8 @@ export default function UnifiedNavigation({
   }, [])
 
   // Scroll margin derived from dynamic header height + a small gap
-  const scrollMargin = `${(headerH || 80) + 20}px`
+  const effectiveHeaderH = headerH || DEFAULT_HEADER_HEIGHT
+  const scrollMargin = `${effectiveHeaderH + SCROLL_MARGIN_GAP}px`
 
   // Scan article for H2 headings
   useEffect(() => {
@@ -75,7 +81,6 @@ export default function UnifiedNavigation({
     const article = document.querySelector('article')
     if (!article || headings.length === 0) return
 
-    const topOffset = headerH || 80
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -84,7 +89,7 @@ export default function UnifiedNavigation({
           }
         }
       },
-      { rootMargin: `-${topOffset}px 0px -60% 0px`, threshold: 0.1 }
+      { rootMargin: `-${effectiveHeaderH}px 0px -60% 0px`, threshold: 0.1 }
     )
 
     for (const h of headings) {
@@ -93,7 +98,7 @@ export default function UnifiedNavigation({
     }
 
     return () => observer.disconnect()
-  }, [headings, headerH])
+  }, [headings, effectiveHeaderH])
 
   // Close mobile panel on outside click
   useEffect(() => {
