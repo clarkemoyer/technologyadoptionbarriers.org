@@ -979,8 +979,8 @@
     "id": "results-crp-2026",
     "url": "/results/crp-2026",
     "title": "TABS 2026 CRP Results",
-    "description": "Frozen N=200 dataset for the TABS Culminating Research Project (CRP) at Penn State Smeal College of Business. Selected via three-tier quality review and de-identified per NIST protocol.",
-    "content": "TABS 2026 CRP Results. Frozen N=200 dataset for the TABS Culminating Research Project (CRP) at Penn State Smeal College of Business. Selected via three-tier quality review and de-identified per NIST protocol.. Results CRP 2026 TABS 2026 CRP Results Published: April 2026 This page presents the frozen, moment-in-time dataset N= used for the TABS Culminating Research Project CRP in the Penn State Smeal College of Business Doctor of Business Administration DBA program. Unlike the live pipeline results which update daily as survey responses are collected, the CRP dataset is static snapshot locked at the point of manuscript submission. Freezing the dataset ensures that every statistic, table, and figure in the final paper can be independently reproduced. The live pipeline continues to collect da...",
+    "description": "Frozen N=200 dataset used for the TABS Culminating Research Project (CRP). A moment-in-time snapshot with three-tier quality selection, de-identified per NIST Expert Determination protocol.",
+    "content": "TABS 2026 CRP Results. Frozen N=200 dataset used for the TABS Culminating Research Project (CRP). A moment-in-time snapshot with three-tier quality selection, de-identified per NIST Expert Determination protocol.. Results CRP 2026 TABS 2026 CRP Results Published: April 2026 This page presents the frozen, moment-in-time dataset N= used for the TABS Culminating Research Project CRP Unlike the live pipeline results which update daily as survey responses are collected, the CRP dataset is static snapshot locked at the point of manuscript submission. Freezing the dataset ensures that every statistic, table, and figure in the final paper can be independently reproduced. The live pipeline continues to collect data beyond N= but the CRP references only fixed sample. label: 'Conservative Clean', val...",
     "category": "Results"
   },
   {
@@ -1000,11 +1000,27 @@
     "category": "Results"
   },
   {
+    "id": "results-crp-2026-factor-analysis",
+    "url": "/results/crp-2026/factor-analysis",
+    "title": "Barrier Factor Structure — TABS CRP 2026",
+    "description": "Hierarchical factor analysis of the 18-item TABS Barriers scale showing theory-based groupings, EFA-derived 2-factor structure, and exploratory 3-group decomposition at N=200.",
+    "content": "Barrier Factor Structure — TABS CRP 2026. Hierarchical factor analysis of the 18-item TABS Barriers scale showing theory-based groupings, EFA-derived 2-factor structure, and exploratory 3-group decomposition at N=200.. Results CRP 2026 Factor Analysis Barrier Factor Structure Published: April 2026 The 18-item TABS Barriers scale was developed through concept-mapping process that identified four theoretical sub-constructs. Exploratory Factor Analysis EFA on the CRP-200 frozen dataset N=200, listwise valid N=192 reveals statistically supported 2-factor structure, with an exploratory 3-group decomposition available for practitioner-oriented reporting. This page walks through each level of the hierarchy. See the Statistics Glossary for definitions of all psychometric terms used on page, or the...",
+    "category": "Results"
+  },
+  {
     "id": "results-crp-2026-findings",
     "url": "/results/crp-2026/findings",
     "title": "CRP 2026 Key Findings — TABS",
     "description": "Effect sizes, cross-tabulations, t-tests, and ANOVA from the CRP 2026 replication, computed independently across three CRP sample definitions.",
     "content": "CRP 2026 Key Findings — TABS. Effect sizes, cross-tabulations, t-tests, and ANOVA from the CRP 2026 replication, computed independently across three CRP sample definitions.. Results CRP 2026 Key Findings CRP 2026: Key Findings Published: April 2026 All effect sizes, cross-tabulations, t-tests, and ANOVA are computed independently for each of the three CRP sample definitions. This ensures that any finding can be validated against the researcher chosen dataset. Effect Sizes Cohen Cohen measures the standardized difference between group means. Values of |d| are negligible, small, medium, and large. Each comparison is computed separately for each result group. CRP_GROUPS group sample === details sampleDetails effects details?.effect_sizes hasEffects effects && effects 'tech_vs_nontech' && effe...",
+    "category": "Results"
+  },
+  {
+    "id": "results-crp-2026-glossary",
+    "url": "/results/crp-2026/glossary",
+    "title": "Statistics Glossary — TABS CRP 2026",
+    "description": "Plain-language explanations of every psychometric and statistical method used in the TABS instrument validation, including formulas, thresholds, and interpretive guidance.",
+    "content": "Statistics Glossary — TABS CRP 2026. Plain-language explanations of every psychometric and statistical method used in the TABS instrument validation, including formulas, thresholds, and interpretive guidance.. Results CRP 2026 Statistics Glossary Statistics Glossary Published: April 2026 This glossary explains every psychometric and statistical method used in the TABS instrument validation. Each entry describes what the statistic measures, how it is calculated, commonly accepted thresholds, and the TABS-specific results the CRP-200 frozen dataset N=200 Jump to: categories cat, `#cat-$ /\\s+/g, '-'",
     "category": "Results"
   },
   {
@@ -1029,6 +1045,14 @@
     "title": "CRP 2026 Sensitivity Analysis — TABS",
     "description": "Full sensitivity analysis for the CRP 2026 Technology Adoption Barriers Survey: every metric computed across three CRP sample definitions to demonstrate robustness to inclusion criteria.",
     "content": "CRP 2026 Sensitivity Analysis — TABS. Full sensitivity analysis for the CRP 2026 Technology Adoption Barriers Survey: every metric computed across three CRP sample definitions to demonstrate robustness to inclusion criteria.. Results CRP 2026 Sensitivity Analysis CRP 2026: Sensitivity Analysis Published: April 2026 Sensitivity analysis tests whether findings are robust to the choice of inclusion criteria. Every metric means, standard deviations, inter-construct correlations, and reliability coefficients is computed independently across three CRP sample definitions. If finding holds across Conservative Clean N= and Prolific Accepted N= it is robust to inclusion criteria. Sample Definitions The three primary result groups below are used throughout analysis. They are nested most restrictive t...",
+    "category": "Results"
+  },
+  {
+    "id": "results-crp-2026-validation",
+    "url": "/results/crp-2026/validation",
+    "title": "Instrument Validation — TABS CRP 2026",
+    "description": "Comprehensive psychometric validation of the 43-item TABS instrument at N=200: reliability, factor analysis, convergent and discriminant validity, item diagnostics, and normality assessment.",
+    "content": "Instrument Validation — TABS CRP 2026. Comprehensive psychometric validation of the 43-item TABS instrument at N=200: reliability, factor analysis, convergent and discriminant validity, item diagnostics, and normality assessment.. Results CRP 2026 Instrument Validation Instrument Validation Published: April 2026 This page presents the comprehensive psychometric validation of the 43-item TABS instrument 18 Barriers 17 Readiness Maturity using the CRP-200 frozen dataset. All computations are produced by the open-source script Appendix and are fully reproducible. Terms are linked to the Statistics Glossary See also Factor Analysis for the hierarchical barrier factor structure. 1. Reliability Five complementary reliability measures confirm strong internal consistency across all three TABS cons...",
     "category": "Results"
   },
   {

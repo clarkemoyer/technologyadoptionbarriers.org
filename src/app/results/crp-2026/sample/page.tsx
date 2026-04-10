@@ -617,7 +617,9 @@ const CrpSamplePage = () => {
                                       <td className="py-1 pr-2 font-medium">{category}</td>
                                       <td className="py-1 text-right font-mono">{count}</td>
                                       <td className="py-1 pl-1 text-right text-gray-500">
-                                        {pct(count, demo.other_roles?.total)}
+                                        {typeof count === 'number'
+                                          ? pct(count, demo.other_roles?.total)
+                                          : '—'}
                                       </td>
                                     </tr>
                                   )

@@ -15,7 +15,7 @@ import crpData from '@/data/crp-sensitivity-analysis.json'
 export const metadata: Metadata = {
   title: 'TABS 2026 CRP Results',
   description:
-    'Frozen N=200 dataset for the TABS Culminating Research Project (CRP) at Penn State Smeal College of Business. Selected via three-tier quality review and de-identified per NIST protocol.',
+    'Frozen N=200 dataset used for the TABS Culminating Research Project (CRP). A moment-in-time snapshot with three-tier quality selection, de-identified per NIST Expert Determination protocol.',
   alternates: {
     canonical: '/results/crp-2026',
   },
@@ -64,8 +64,7 @@ const CRP2026Page = () => {
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             This page presents the frozen, moment-in-time dataset (N={CRP_SAMPLE_SIZE}) used for the
-            TABS Culminating Research Project (CRP) in the Penn State Smeal College of Business
-            Doctor of Business Administration (DBA) program. Unlike the{' '}
+            TABS Culminating Research Project (CRP). Unlike the{' '}
             <Link href="/results" className="text-blue-600 hover:underline font-medium">
               live pipeline results
             </Link>{' '}
@@ -116,17 +115,17 @@ const CRP2026Page = () => {
               </p>
               <ul className={BODY_LIST_CLASSES}>
                 <li>
-                  <strong>Tier 1 &mdash; Conservative Clean (auto-include):</strong> All responses
-                  passing every quality gate: 3/3 IRI attention checks, duration &ge; 540s,
-                  reCAPTCHA &ge; 0.5, no straightlining, no auth flags (N={CRP_CONSERVATIVE_CLEAN})
+                  <strong>Tier 1 — Conservative Clean (auto-include):</strong> All responses passing
+                  every quality gate: 3/3 IRI attention checks, duration ≥ 540s, reCAPTCHA ≥ 0.5, no
+                  straightlining, no auth flags (N={CRP_CONSERVATIVE_CLEAN})
                 </li>
                 <li>
-                  <strong>Tier 2 &mdash; Flexible Clean surplus (auto-include):</strong> Responses
-                  passing basic quality (all 3 IRIs + duration &ge; 480s) that did not qualify for
-                  Tier 1 (N={CRP_FLEXIBLE_CLEAN - CRP_CONSERVATIVE_CLEAN})
+                  <strong>Tier 2 — Flexible Clean surplus (auto-include):</strong> Responses passing
+                  basic quality (all 3 IRIs + duration ≥ 480s) that did not qualify for Tier 1 (N=
+                  {CRP_FLEXIBLE_CLEAN - CRP_CONSERVATIVE_CLEAN})
                 </li>
                 <li>
-                  <strong>Tier 3 &mdash; Quality-ranked fill:</strong> Remaining Prolific Accepted
+                  <strong>Tier 3 — Quality-ranked fill:</strong> Remaining Prolific Accepted
                   responses ranked by a 100-point composite quality score, selected until N=
                   {CRP_SAMPLE_SIZE} is reached
                 </li>
@@ -263,6 +262,27 @@ const CRP2026Page = () => {
         <section className="pt-8 border-t border-gray-200">
           <h2 className="text-sm font-semibold text-gray-700 mb-3">Related</h2>
           <ul className="text-sm text-gray-600 space-y-1">
+            <li>
+              <Link href="/results/crp-2026/validation" className="text-blue-600 hover:underline">
+                Instrument Validation
+              </Link>{' '}
+              &mdash; full psychometric validation at N={CRP_SAMPLE_SIZE}
+            </li>
+            <li>
+              <Link
+                href="/results/crp-2026/factor-analysis"
+                className="text-blue-600 hover:underline"
+              >
+                Factor Analysis
+              </Link>{' '}
+              &mdash; hierarchical barrier factor structure
+            </li>
+            <li>
+              <Link href="/results/crp-2026/glossary" className="text-blue-600 hover:underline">
+                Statistics Glossary
+              </Link>{' '}
+              &mdash; what every statistic means and how it&apos;s calculated
+            </li>
             <li>
               <Link href="/results/reproducibility" className="text-blue-600 hover:underline">
                 Open Data &amp; Reproducibility

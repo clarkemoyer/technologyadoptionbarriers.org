@@ -82,7 +82,9 @@ jobs:
           python-version: '3.12'
 
       - name: Install Python dependencies
-        run: pip install -r scripts/analysis/requirements.txt
+        run: |
+          pip install -r scripts/analysis/requirements.txt
+          pip install -r scripts/analysis/requirements-validation.txt
 
       - name: Export Qualtrics CSV
         run: python3 scripts/analysis/export_qualtrics.py
@@ -200,29 +202,6 @@ jobs:
               w.writerows(data)
           PY
 
-      - name: Run CRP analysis snapshot (N=200 subset)
-        id: crp_analysis
-        if: steps.crp.outputs.produced == 'true' && steps.crp_filter.outcome == 'success'
-        continue-on-error: true
-        run: |
-          set -euo pipefail
-          CSV_PATH="${{ runner.temp }}/qualtrics-enriched-crp-sample.csv"
-
-          if [ ! -f "$CSV_PATH" ]; then
-            echo "CRP analysis input CSV not found: $CSV_PATH" >&2
-            exit 1
-          fi
-
-          # Guard: skip if filtered CSV has no data rows (only headers)
-          DATA_ROWS=$(tail -n +4 "$CSV_PATH" | awk 'END { print NR }')
-          if [ "$DATA_ROWS" -eq 0 ]; then
-            echo "CRP analysis skipped: filtered sample has 0 data rows (no JSON written)"
-            exit 0
-          fi
-          python scripts/analysis/tabs_v2_analysis.py \
-            "$CSV_PATH" \
-            --json "${{ runner.temp }}/crp-sensitivity-analysis.json"
-
       - name: Stage CRP public CSV
         if: steps.crp.outputs.produced == 'true'
         run: |
@@ -234,61 +213,169 @@ jobs:
             echo "CRP public CSV not found — skipping"
           fi
 
-      - name: Stage CRP analysis snapshot
-        if: steps.crp.outputs.produced == 'true' && steps.crp_analysis.outcome == 'success'
+      # ── Unified Analysis: LIVE dataset ─────────────────────────
+      # Single script replaces tabs_v2_analysis.py + advanced.py +
+      # quality_audit.py + psychometrics.py + validation.py
+      - name: Unified analysis (LIVE dataset)
         run: |
-          if [ -f "${{ runner.temp }}/crp-sensitivity-analysis.json" ]; then
-            mkdir -p "${{ runner.temp }}/crp-public"
-            cp "${{ runner.temp }}/crp-sensitivity-analysis.json" \
-               "${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json"
-          else
-            echo "CRP analysis JSON not found — skipping"
-          fi
-
-      - name: Descriptive analysis + sensitivity
-        run: |
-          python scripts/analysis/tabs_v2_analysis.py \
+          set -euo pipefail
+          python scripts/analysis/tabs_v2_unified_data_analysis.py \
             "${{ runner.temp }}/qualtrics-enriched.csv" \
-            --json "${{ runner.temp }}/sensitivity-analysis.json"
+            --json "${{ runner.temp }}/live-unified.json"
+          # Extract backward-compatible JSONs for page imports
+          python3 << 'PYEOF'
+          import json
+          with open('${{ runner.temp }}/live-unified.json') as f:
+              d = json.load(f)
+          with open('${{ runner.temp }}/sensitivity-analysis.json', 'w') as f:
+              json.dump(d.get('sensitivity', {}), f, indent=2)
+          with open('${{ runner.temp }}/live-validation.json', 'w') as f:
+              json.dump(d.get('validation') or {}, f, indent=2)
+          print('Extracted: sensitivity-analysis.json, live-validation.json')
+          PYEOF
 
-      - name: Advanced analysis (PCA, regression, ANOVA)
-        id: advanced
-        continue-on-error: true
+      # ── Unified Analysis: CRP frozen dataset ──────────────────
+      # Runs EVERY DAY against the frozen CSV in the repo, NOT gated
+      # on CSV creation. This ensures code changes (bug fixes, new
+      # stats) are reflected in CRP pages without touching the data.
+      #
+      # The CRP public CSV is de-identified and lacks Auth_LLM/Auth_Bots
+      # columns needed for conservative_clean filtering. We re-attach
+      # these quality flags by joining on SESSION_ID from the daily
+      # enriched Qualtrics CSV (which has Prolific auth data).
+      - name: Enrich CRP CSV with auth flags (via SESSION_ID join)
+        id: crp_enrich
         run: |
-          python scripts/analysis/tabs_v2_advanced.py \
-            "${{ runner.temp }}/qualtrics-enriched.csv" \
-            > "${{ runner.temp }}/advanced-analysis.txt" 2>&1
-          echo "Advanced analysis complete"
-
-      - name: Psychometrics (KMO, HTMT, reliability)
-        id: psychometrics
-        continue-on-error: true
-        run: |
-          python scripts/analysis/tabs_v2_psychometrics.py \
-            "${{ runner.temp }}/qualtrics-enriched.csv" \
-            > "${{ runner.temp }}/psychometrics.txt" 2>&1
-          echo "Psychometrics complete"
-
-      - name: Quality audit (outliers, CMV)
-        id: quality
-        continue-on-error: true
-        run: |
-          python scripts/analysis/tabs_v2_quality_audit.py \
-            "${{ runner.temp }}/qualtrics-enriched.csv" \
-            > "${{ runner.temp }}/quality-audit.txt" 2>&1
-          echo "Quality audit complete"
-
-      - name: Verify all analysis steps succeeded
-        if: always()
-        run: |
-          FAILED=""
-          if [ "${{ steps.advanced.outcome }}" = "failure" ]; then FAILED="$FAILED advanced"; fi
-          if [ "${{ steps.psychometrics.outcome }}" = "failure" ]; then FAILED="$FAILED psychometrics"; fi
-          if [ "${{ steps.quality.outcome }}" = "failure" ]; then FAILED="$FAILED quality"; fi
-          if [ -n "$FAILED" ]; then
-            echo "::error::Analysis steps failed:$FAILED (logs uploaded as artifacts)"
+          set -euo pipefail
+          CRP_CSV="public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
+          ENRICHED_CSV="${{ runner.temp }}/qualtrics-enriched.csv"
+          OUTPUT="${{ runner.temp }}/crp-enriched-for-analysis.csv"
+          if [ ! -f "$CRP_CSV" ]; then
+            echo "::error::CRP public CSV not found at $CRP_CSV"
             exit 1
           fi
+          if [ ! -f "$ENRICHED_CSV" ]; then
+            echo "::error::Enriched Qualtrics CSV not found — cannot join auth flags"
+            exit 1
+          fi
+          python3 - <<PY
+          import csv
+          import sys
+
+          # Load auth flags from enriched CSV, keyed by SESSION_ID
+          auth_by_session = {}
+          with open('$ENRICHED_CSV', encoding='utf-8-sig') as f:
+              reader = csv.reader(f)
+              eh = next(reader); next(reader); next(reader)  # 3-row Qualtrics header
+              eidx = {h: i for i, h in enumerate(eh)}
+              required_cols = ['SESSION_ID', 'Auth_LLM', 'Auth_Bots']
+              missing_cols = [c for c in required_cols if c not in eidx]
+              if missing_cols:
+                  print(f'ERROR: enriched CSV missing required columns: {", ".join(missing_cols)}', file=sys.stderr)
+                  sys.exit(1)
+              sid_col = eidx['SESSION_ID']
+              llm_col = eidx['Auth_LLM']
+              bots_col = eidx['Auth_Bots']
+              recap_col = eidx.get('Q_RecaptchaScore')
+              sl_col = eidx.get('Q_StraightliningCount')
+              for r in reader:
+                  sid = r[sid_col].strip()
+                  if sid:
+                      auth_by_session[sid] = {
+                          'Auth_Flagged': 'True' if (
+                              r[llm_col].strip().upper() in ('LOW', 'MIXED') or
+                              r[bots_col].strip().upper() in ('LOW', 'MIXED')
+                          ) else 'False',
+                          'RecaptchaPass': 'True',
+                          'StraightliningCount': '0',
+                      }
+                      if recap_col is not None:
+                          try:
+                              score = float(r[recap_col].strip() or '1.0')
+                              auth_by_session[sid]['RecaptchaPass'] = 'True' if score >= 0.5 else 'False'
+                          except ValueError:
+                              pass
+                      if sl_col is not None:
+                          auth_by_session[sid]['StraightliningCount'] = r[sl_col].strip() or '0'
+
+          print(f'  Auth flags loaded for {len(auth_by_session)} sessions')
+
+          # Read CRP CSV and append derived columns
+          with open('$CRP_CSV', encoding='utf-8-sig') as f:
+              reader = csv.reader(f)
+              crp_headers = next(reader)
+              crp_rows = list(reader)
+          crp_idx = {h: i for i, h in enumerate(crp_headers)}
+          crp_sid_col = crp_idx.get('SESSION_ID')
+          if crp_sid_col is None:
+              print('ERROR: SESSION_ID column not found in CRP CSV', file=sys.stderr)
+              sys.exit(1)
+
+          new_cols = ['Auth_Flagged', 'RecaptchaPass', 'StraightliningCount']
+          existing_auth = [c for c in new_cols if c in crp_idx]
+          cols_to_add = [c for c in new_cols if c not in crp_idx]
+          # Build output headers: keep existing, append only missing auth columns
+          out_headers = crp_headers + cols_to_add
+          # Map existing auth col names to their row index (only cols already present)
+          auth_col_idxs = {c: crp_idx[c] for c in existing_auth}
+          if existing_auth:
+              print(f'  Auth columns already in CRP CSV; overwriting in-place: {existing_auth}')
+          if cols_to_add:
+              print(f'  Appending new auth columns: {cols_to_add}')
+          out_rows = []
+          matched = 0
+          unmatched_sids = []
+          for r in crp_rows:
+              sid = r[crp_sid_col].strip()
+              auth = auth_by_session.get(sid)
+              if auth is None:
+                  unmatched_sids.append(sid)
+              else:
+                  matched += 1
+                  for col, col_idx in auth_col_idxs.items():
+                      r[col_idx] = auth[col]
+                  r.extend([auth[c] for c in cols_to_add])
+                  out_rows.append(r)
+
+          print(f'  Matched {matched}/{len(crp_rows)} CRP rows to enriched auth data')
+          if unmatched_sids:
+              print(f'  ERROR: {len(unmatched_sids)} CRP SESSION_IDs not found in enriched CSV', file=sys.stderr)
+              preview = unmatched_sids[:10]
+              print(f'  Unmatched SESSION_ID sample (up to 10): {", ".join(preview)}', file=sys.stderr)
+              print('  Refusing to continue: missing auth enrichment would change conservative_clean results.', file=sys.stderr)
+              sys.exit(1)
+
+          with open('$OUTPUT', 'w', newline='', encoding='utf-8') as f:
+              w = csv.writer(f)
+              w.writerow(out_headers)
+              w.writerows(out_rows)
+          print(f'  Wrote enriched CRP CSV: $OUTPUT')
+          PY
+
+      - name: Unified analysis (CRP frozen N=200)
+        id: crp_unified
+        run: |
+          set -euo pipefail
+          CRP_CSV="${{ runner.temp }}/crp-enriched-for-analysis.csv"
+          if [ ! -f "$CRP_CSV" ]; then
+            echo "::error::Enriched CRP CSV not found — CRP enrichment step must have failed"
+            exit 1
+          fi
+          python scripts/analysis/tabs_v2_unified_data_analysis.py \
+            "$CRP_CSV" \
+            --crp200 \
+            --json "${{ runner.temp }}/crp-unified.json"
+          # Extract backward-compatible JSONs for page imports
+          python3 << 'PYEOF'
+          import json
+          with open('${{ runner.temp }}/crp-unified.json') as f:
+              d = json.load(f)
+          with open('${{ runner.temp }}/crp-sensitivity-analysis.json', 'w') as f:
+              json.dump(d.get('sensitivity', {}), f, indent=2)
+          with open('${{ runner.temp }}/crp-validation.json', 'w') as f:
+              json.dump(d.get('validation') or {}, f, indent=2)
+          print('Extracted: crp-sensitivity-analysis.json, crp-validation.json')
+          PYEOF
 
       - name: Generate summary
         if: always()
@@ -304,7 +391,9 @@ jobs:
             python3 scripts/analysis/tests/generate_summary.py "${{ runner.temp }}/data-audit.json" >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      # Artifacts — analysis results (JSON, no PII)
+      # ── Artifacts ──────────────────────────────────────────────
+      # Only upload extracted JSONs that are safe for src/data/ commit.
+      # Full unified JSON is uploaded separately as internal-only artifact.
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -315,7 +404,15 @@ jobs:
           retention-days: 7
           if-no-files-found: warn
 
-      # Disposition CSV — PROLIFIC_PID + disposition flags, no other PII
+      # Full unified JSON — internal only, never committed to repo
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: unified-analysis-internal
+          path: ${{ runner.temp }}/live-unified.json
+          retention-days: 7
+          if-no-files-found: warn
+
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -327,24 +424,11 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: analysis-logs
-          path: |
-            ${{ runner.temp }}/advanced-analysis.txt
-            ${{ runner.temp }}/psychometrics.txt
-            ${{ runner.temp }}/quality-audit.txt
-          retention-days: 7
-
-      - uses: actions/upload-artifact@v7
-        if: always()
-        with:
           name: public-dataset
           path: ${{ runner.temp }}/deidentified/TABS_V2_public_dataset.csv
           retention-days: 30
           if-no-files-found: warn
 
-      # CRP public dataset CSV — gated only on CRP build success, intentionally
-      # decoupled from the filter+analysis chain. The public CSV is produced by
-      # create_crp_dataset.py and does not depend on the analysis snapshot.
       - uses: actions/upload-artifact@v7
         if: steps.crp.outputs.produced == 'true'
         with:
@@ -353,24 +437,15 @@ jobs:
           retention-days: 7
           if-no-files-found: warn
 
-      # CRP analysis snapshot — only uploaded when JSON was actually produced
-      - name: Detect CRP analysis snapshot
-        id: crp_snapshot
-        if: steps.crp.outputs.produced == 'true' && steps.crp_filter.outcome == 'success' && steps.crp_analysis.outcome == 'success'
-        run: |
-          if [ -f "${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json" ]; then
-            echo "exists=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "exists=false" >> "$GITHUB_OUTPUT"
-          fi
-
       - uses: actions/upload-artifact@v7
-        if: steps.crp_snapshot.outputs.exists == 'true'
         with:
-          name: crp-analysis-snapshot
-          path: ${{ runner.temp }}/crp-public/crp-sensitivity-analysis.json
+          name: crp-analysis-results
+          path: |
+            ${{ runner.temp }}/crp-unified.json
+            ${{ runner.temp }}/crp-sensitivity-analysis.json
+            ${{ runner.temp }}/crp-validation.json
           retention-days: 7
-          if-no-files-found: ignore
+          if-no-files-found: error
 
   # ── Phase 3a: Auto-approve CLEAN ─────────────────────────────
   approve-clean:
@@ -462,7 +537,9 @@ jobs:
   generate-dashboard:
     name: 'Phase 3: Generate Dashboard'
     needs: [analyze, approve-clean]
-    if: ${{ needs.analyze.result == 'success' && needs.approve-clean.result == 'success' }}
+    # Run if analyze succeeded, even if approve-clean failed (Prolific API glitch
+    # should not prevent dashboard generation or analysis commit)
+    if: ${{ needs.analyze.result == 'success' }}
     runs-on: ubuntu-latest
     environment: prolific-prod
     steps:
@@ -509,7 +586,7 @@ jobs:
           name: dashboard-data
           path: src/data
 
-      # Download CRP artifacts (separate uploads — may not both exist)
+      # Download CRP artifacts
       - uses: actions/download-artifact@v8
         continue-on-error: true
         with:
@@ -517,28 +594,37 @@ jobs:
           path: ${{ runner.temp }}/crp-csv
 
       - uses: actions/download-artifact@v8
-        continue-on-error: true
         with:
-          name: crp-analysis-snapshot
+          name: crp-analysis-results
           path: ${{ runner.temp }}/crp-json
 
       - name: Stage CRP files into repo
         run: |
+          set -euo pipefail
+          # CRP public CSV — only staged on first build (produced=true)
           if [ -f "${{ runner.temp }}/crp-csv/TABS_V2_CRP_2026_public_dataset.csv" ]; then
             mkdir -p public/datasets
             cp "${{ runner.temp }}/crp-csv/TABS_V2_CRP_2026_public_dataset.csv" \
                public/datasets/TABS_V2_CRP_2026_public_dataset.csv
             echo "  Staged: public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
-          else
-            echo "  CRP public CSV not available — skipping"
           fi
-          if [ -f "${{ runner.temp }}/crp-json/crp-sensitivity-analysis.json" ]; then
-            cp "${{ runner.temp }}/crp-json/crp-sensitivity-analysis.json" \
-               src/data/crp-sensitivity-analysis.json
-            echo "  Staged: src/data/crp-sensitivity-analysis.json"
-          else
-            echo "  CRP analysis JSON not available — skipping"
+
+          # CRP analysis JSONs — MUST exist, produced daily
+          if [ ! -f "${{ runner.temp }}/crp-json/crp-sensitivity-analysis.json" ]; then
+            echo "::error::crp-sensitivity-analysis.json missing from CRP analysis results"
+            exit 1
           fi
+          cp "${{ runner.temp }}/crp-json/crp-sensitivity-analysis.json" \
+             src/data/crp-sensitivity-analysis.json
+          echo "  Staged: src/data/crp-sensitivity-analysis.json"
+
+          if [ ! -f "${{ runner.temp }}/crp-json/crp-validation.json" ]; then
+            echo "::error::crp-validation.json missing from CRP analysis results"
+            exit 1
+          fi
+          cp "${{ runner.temp }}/crp-json/crp-validation.json" \
+             src/data/crp-validation.json
+          echo "  Staged: src/data/crp-validation.json"
 
       - name: Compute files to format
         id: format_files
@@ -546,6 +632,9 @@ jobs:
           FILES="src/data/sensitivity-analysis.json src/data/data-audit.json src/data/disposition-summary.json"
           if [ -f "src/data/crp-sensitivity-analysis.json" ]; then
             FILES="$FILES src/data/crp-sensitivity-analysis.json"
+          fi
+          if [ -f "src/data/crp-validation.json" ]; then
+            FILES="$FILES src/data/crp-validation.json"
           fi
           echo "list=$FILES" >> "$GITHUB_OUTPUT"
 
