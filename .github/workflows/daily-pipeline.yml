@@ -223,7 +223,7 @@ jobs:
             "${{ runner.temp }}/qualtrics-enriched.csv" \
             --json "${{ runner.temp }}/live-unified.json"
           # Extract backward-compatible JSONs for page imports
-          python3 -c "
+          python3 << 'PYEOF'
           import json
           with open('${{ runner.temp }}/live-unified.json') as f:
               d = json.load(f)
@@ -232,7 +232,7 @@ jobs:
           with open('${{ runner.temp }}/live-validation.json', 'w') as f:
               json.dump(d.get('validation') or {}, f, indent=2)
           print('Extracted: sensitivity-analysis.json, live-validation.json')
-          "
+          PYEOF
 
       # ── Unified Analysis: CRP frozen dataset ──────────────────
       # Runs EVERY DAY against the frozen CSV in the repo, NOT gated
@@ -366,7 +366,7 @@ jobs:
             --crp200 \
             --json "${{ runner.temp }}/crp-unified.json"
           # Extract backward-compatible JSONs for page imports
-          python3 -c "
+          python3 << 'PYEOF'
           import json
           with open('${{ runner.temp }}/crp-unified.json') as f:
               d = json.load(f)
@@ -375,7 +375,7 @@ jobs:
           with open('${{ runner.temp }}/crp-validation.json', 'w') as f:
               json.dump(d.get('validation') or {}, f, indent=2)
           print('Extracted: crp-sensitivity-analysis.json, crp-validation.json')
-          "
+          PYEOF
 
       - name: Generate summary
         if: always()
