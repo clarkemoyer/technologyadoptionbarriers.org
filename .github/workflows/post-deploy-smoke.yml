@@ -504,7 +504,7 @@ jobs:
               return
             fi
 
-            if grep -q "DATA UNAVAILABLE" /tmp/sentinel-body 2>/dev/null; then
+            if grep -F -q -- "[DATA UNAVAILABLE — pipeline error]" /tmp/sentinel-body 2>/dev/null; then
               echo "| $label | ❌ Contains [DATA UNAVAILABLE] sentinel — pipeline data missing |" >> /tmp/content-results.txt
               SENTINEL_FAIL=$((SENTINEL_FAIL + 1))
             else

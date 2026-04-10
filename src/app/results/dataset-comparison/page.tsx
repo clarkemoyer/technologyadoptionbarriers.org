@@ -126,8 +126,7 @@ const DatasetComparisonPage = () => {
               <tbody>
                 {PRIMARY_GROUPS.map((group, i) => {
                   const sample = samples.find((s) => s.key === group.key)
-                  const desc =
-                    sensitivityData.samples.find((s) => s.key === group.key)?.description ?? ''
+                  const desc = samples.find((s) => s.key === group.key)?.description ?? ''
                   return (
                     <tr key={group.key} className={group.color}>
                       <td className="p-3 border-b">{i + 1}</td>
