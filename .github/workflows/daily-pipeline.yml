@@ -262,6 +262,7 @@ jobs:
           import csv
 
           # Load auth flags from enriched CSV, keyed by SESSION_ID
+          import sys
           auth_by_session = {}
           with open('$ENRICHED_CSV', encoding='utf-8-sig') as f:
               reader = csv.reader(f)
@@ -272,11 +273,13 @@ jobs:
               bots_col = eidx.get('Auth_Bots')
               recap_col = eidx.get('Q_RecaptchaScore')
               sl_col = eidx.get('Q_StraightliningCount')
-              if sid_col is not None:
-                  for r in reader:
-                      sid = r[sid_col].strip()
-                      if sid:
-                          auth_by_session[sid] = {
+              if sid_col is None:
+                  print('ERROR: SESSION_ID column not found in enriched CSV', file=sys.stderr)
+                  sys.exit(1)
+              for r in reader:
+                  sid = r[sid_col].strip()
+                  if sid:
+                      auth_by_session[sid] = {
                               'Auth_Flagged': 'True' if (
                                   (llm_col is not None and r[llm_col].strip().upper() in ('LOW','MIXED')) or
                                   (bots_col is not None and r[bots_col].strip().upper() in ('LOW','MIXED'))
@@ -302,20 +305,33 @@ jobs:
               crp_rows = list(reader)
           crp_idx = {h: i for i, h in enumerate(crp_headers)}
           crp_sid_col = crp_idx.get('SESSION_ID')
+          if crp_sid_col is None:
+              print('ERROR: SESSION_ID column not found in CRP CSV', file=sys.stderr)
+              sys.exit(1)
 
           new_cols = ['Auth_Flagged', 'RecaptchaPass', 'StraightliningCount']
           out_headers = crp_headers + new_cols
           out_rows = []
           matched = 0
+          unmatched_sids = []
           for r in crp_rows:
-              sid = r[crp_sid_col].strip() if crp_sid_col is not None else ''
-              auth = auth_by_session.get(sid, {'Auth_Flagged': 'False', 'RecaptchaPass': 'True', 'StraightliningCount': '0'})
+              sid = r[crp_sid_col].strip()
+              auth = auth_by_session.get(sid)
+              if auth is None:
+                  unmatched_sids.append(sid)
+                  auth = {'Auth_Flagged': 'False', 'RecaptchaPass': 'True', 'StraightliningCount': '0'}
+              else:
+                  matched += 1
               r.extend([auth['Auth_Flagged'], auth['RecaptchaPass'], auth['StraightliningCount']])
               out_rows.append(r)
-              if sid in auth_by_session:
-                  matched += 1
 
           print(f'  Matched {matched}/{len(crp_rows)} CRP rows to enriched auth data')
+          if unmatched_sids:
+              print(f'  WARNING: {len(unmatched_sids)} CRP SESSION_IDs not found in enriched CSV')
+              print(f'  Unmatched auth flags defaulted to False (conservative — these rows will pass auth check)')
+              if len(unmatched_sids) > 10:
+                  print(f'  ERROR: Too many unmatched rows — enriched CSV may be stale or corrupted', file=sys.stderr)
+                  sys.exit(1)
 
           with open('$OUTPUT', 'w', newline='', encoding='utf-8') as f:
               w = csv.writer(f)

@@ -119,7 +119,7 @@ const ENTRIES: GlossaryEntry[] = [
       'For item i, CITCᵢ = r(xᵢ, T₋ᵢ), where T₋ᵢ is the sum of all items except item i.',
     thresholds:
       '≥ 0.30 acceptable. Items below 0.30 may not be measuring the same construct as the other items, or may be interpreted inconsistently by respondents.',
-    tabsContext: `B13 (Cybersecurity Concerns, CITC = ${f2(b.itc_min!)}) is the only item below the 0.30 threshold. Its specialized nature means cybersecurity barriers don't track with organizational/strategic barriers for all respondents.`,
+    tabsContext: `B13 (Cybersecurity Concerns, CITC = ${b.itc_min != null ? f2(b.itc_min) : 'N/A'}) is the only item below the 0.30 threshold. Its specialized nature means cybersecurity barriers don't track with organizational/strategic barriers for all respondents.`,
   },
   {
     id: 'inter-item-correlation',

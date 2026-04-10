@@ -84,7 +84,7 @@
     },
     "efa": {
       "construct": "Readiness",
-      "n_factors": 3,
+      "n_factors": 1,
       "variance_explained": [0.4001],
       "total_variance": 0.4001,
       "factor_correlations": null,
