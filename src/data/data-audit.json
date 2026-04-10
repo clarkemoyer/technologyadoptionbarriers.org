@@ -1,22 +1,22 @@
 {
   "disposition_counts": {
     "INCOMPLETE": 66,
-    "CLEAN": 80,
-    "FLAG-SMEAL": 47,
+    "CLEAN": 83,
+    "FLAG-SMEAL": 48,
     "FLAG-SPEED": 7,
     "FLAG-PARTIAL-STRAIGHTLINING": 33,
-    "FLAG-SINGLE-IRI": 77,
+    "FLAG-SINGLE-IRI": 78,
     "AUTO-EXCLUDE": 116,
     "FLAG-RECAPTCHA": 3
   },
   "iri_pass_rates": {
-    "barrier": 0.48484848484848486,
-    "readiness": 0.5897435897435898,
-    "maturity": 0.6853146853146853
+    "barrier": 0.49078341013824883,
+    "readiness": 0.5921658986175116,
+    "maturity": 0.6889400921658986
   },
   "duration_stats": {
-    "mean": 660.8041958041958,
-    "median": 532,
+    "mean": 660.2834101382489,
+    "median": 536,
     "q25": 318,
     "q75": 794,
     "min": 2,
@@ -24,12 +24,12 @@
   },
   "straightlining_stats": {
     "full_block_flagged": 14,
-    "partial_flagged": 130
+    "partial_flagged": 131
   },
   "sample_sizes": {
-    "total": 429,
-    "complete": 363,
-    "clean": 80
+    "total": 434,
+    "complete": 368,
+    "clean": 83
   },
   "waterfall_steps": [
     {
@@ -65,38 +65,38 @@
     {
       "step": 5,
       "name": "FLAG-SINGLE-IRI",
-      "count": 77,
-      "cumulative_excluded": 266
+      "count": 78,
+      "cumulative_excluded": 267
     },
     {
       "step": 6,
       "name": "FLAG-SMEAL",
-      "count": 47,
-      "cumulative_excluded": 313
+      "count": 48,
+      "cumulative_excluded": 315
     },
     {
       "step": 7,
       "name": "FLAG-RECAPTCHA",
       "count": 3,
-      "cumulative_excluded": 316
+      "cumulative_excluded": 318
     },
     {
       "step": 8,
       "name": "FLAG-STRAIGHTLINING",
       "count": 0,
-      "cumulative_excluded": 316
+      "cumulative_excluded": 318
     },
     {
       "step": 9,
       "name": "FLAG-PARTIAL-STRAIGHTLINING",
       "count": 33,
-      "cumulative_excluded": 349
+      "cumulative_excluded": 351
     },
     {
       "step": 10,
       "name": "CLEAN",
-      "count": 80,
-      "cumulative_excluded": 80
+      "count": 83,
+      "cumulative_excluded": 83
     }
   ]
 }
