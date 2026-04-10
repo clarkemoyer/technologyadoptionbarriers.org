@@ -64,12 +64,18 @@ const EFA_COLORS = [
 
 const loadingsMatrix = validationData.factor_analysis.loadings_matrix
 
+/* Derive dominant factor from absolute loadings — more robust than relying on the
+   JSON `assigned` field, which may reflect theory-driven grouping rather than
+   numeric dominance. */
+const getDominantFactor = (row: (typeof loadingsMatrix)[number]) =>
+  Math.abs(row.f1) >= Math.abs(row.f2) ? 'F1' : 'F2'
+
 const EFA_FACTORS = validationData.factor_analysis.efa_factors.map((f, idx) => {
   const tag = `F${idx + 1}`
   return {
     name: f.name,
     ...EFA_COLORS[idx],
-    items: loadingsMatrix.filter((r) => r.assigned === tag).map((r) => r.id),
+    items: loadingsMatrix.filter((r) => getDominantFactor(r) === tag).map((r) => r.id),
     stats: {
       items: f.items,
       alpha: f.alpha,
@@ -326,12 +332,11 @@ const FactorAnalysisPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The theory-based 4-group structure collapsed into 2 empirical factors. All items from
             Organizational &amp; Cultural, Strategic &amp; Operational, and Resource &amp; Skill
-            loaded together onto F1 (Internal/Organizational), along with B15 (Trust) and B17
-            (External Pressure) from the Risk/Trust group. The remaining Risk/Trust items (B13
-            Cybersecurity, B14 Data Privacy, B16 Regulatory, B18 Vendor Difficulty) formed F2
-            (External/Compliance). This suggests that organizational leaders perceive internal
-            barriers as a unified challenge, while external compliance constraints form a distinct
-            dimension.
+            loaded together onto F1 (Internal/Organizational). All six Risk/Trust items (B13
+            Cybersecurity, B14 Data Privacy, B15 Trust, B16 Regulatory, B17 External Pressure, B18
+            Vendor Difficulty) loaded onto F2 (External/Compliance). This suggests that
+            organizational leaders perceive internal barriers as a unified challenge, while external
+            compliance and trust constraints form a distinct dimension.
           </p>
         </section>
 
@@ -428,37 +433,44 @@ const FactorAnalysisPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* Sort: F1-assigned items first, then F2, preserving item order within each group */}
+                {/* Sort by computed dominant factor: items with higher |f1| first, then |f2| */}
                 {[...loadingsMatrix]
-                  .sort((a, b) => (a.assigned === b.assigned ? 0 : a.assigned === 'F1' ? -1 : 1))
-                  .map((row, i) => (
-                    <tr
-                      key={row.id}
-                      className={
-                        row.assigned === 'F2' ? 'bg-pink-50' : i % 2 === 0 ? '' : 'bg-gray-50'
-                      }
-                    >
-                      <td className="px-2 py-1 border font-bold">{row.id}</td>
-                      <td className="px-2 py-1 border text-gray-700">{BARRIER_ITEMS[row.id]}</td>
-                      <td
-                        className={`text-right px-2 py-1 border ${row.assigned === 'F1' ? 'font-bold text-indigo-700' : 'text-gray-400'}`}
+                  .sort((a, b) => {
+                    const aDom = getDominantFactor(a)
+                    const bDom = getDominantFactor(b)
+                    return aDom === bDom ? 0 : aDom === 'F1' ? -1 : 1
+                  })
+                  .map((row, i) => {
+                    const dominantFactor = getDominantFactor(row)
+                    return (
+                      <tr
+                        key={row.id}
+                        className={
+                          dominantFactor === 'F2' ? 'bg-pink-50' : i % 2 === 0 ? '' : 'bg-gray-50'
+                        }
                       >
-                        {row.f1.toFixed(3)}
-                      </td>
-                      <td
-                        className={`text-right px-2 py-1 border ${row.assigned === 'F2' ? 'font-bold text-pink-700' : 'text-gray-400'}`}
-                      >
-                        {row.f2.toFixed(3)}
-                      </td>
-                      <td className="text-center px-2 py-1 border">
-                        <span
-                          className={`px-2 py-0.5 rounded text-xs font-bold ${row.assigned === 'F1' ? 'bg-indigo-100 text-indigo-700' : 'bg-pink-100 text-pink-700'}`}
+                        <td className="px-2 py-1 border font-bold">{row.id}</td>
+                        <td className="px-2 py-1 border text-gray-700">{BARRIER_ITEMS[row.id]}</td>
+                        <td
+                          className={`text-right px-2 py-1 border ${dominantFactor === 'F1' ? 'font-bold text-indigo-700' : 'text-gray-400'}`}
                         >
-                          {row.assigned}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                          {row.f1.toFixed(3)}
+                        </td>
+                        <td
+                          className={`text-right px-2 py-1 border ${dominantFactor === 'F2' ? 'font-bold text-pink-700' : 'text-gray-400'}`}
+                        >
+                          {row.f2.toFixed(3)}
+                        </td>
+                        <td className="text-center px-2 py-1 border">
+                          <span
+                            className={`px-2 py-0.5 rounded text-xs font-bold ${dominantFactor === 'F1' ? 'bg-indigo-100 text-indigo-700' : 'bg-pink-100 text-pink-700'}`}
+                          >
+                            {dominantFactor}
+                          </span>
+                        </td>
+                      </tr>
+                    )
+                  })}
               </tbody>
             </table>
           </div>
