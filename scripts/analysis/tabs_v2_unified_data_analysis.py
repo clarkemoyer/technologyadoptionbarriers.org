@@ -167,7 +167,7 @@ ROLE_MAP = {
     'CMO (e.g., Director of Communications, Public Affairs Officer, Chief Marketing & Communications Officer)': 'CMO',
     'CSO (e.g., Director of Strategic Planning, Policy Director, Chief Strategy Officer)': 'CSO',
     'CRO (e.g., Director of Budget/Finance, Director of Development/Fundraising, Head of Revenue Operations)': 'CRO',
-    'CISO (e.g., VP of Information Security, Chief Cybersecurity Officer)': 'CISO',
+    'CISO (e.g., Director of Cybersecurity, Chief Security Officer)': 'CISO',
     'Other (please specify)': 'Other'
 }
 TECH_TITLES = {'CIO', 'CTO', 'CISO'}
@@ -250,6 +250,8 @@ _OTHER_ROLE_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r'\b(software |systems |network |security |data |infrastructure |database |cloud |devops |platform )?(engineer|architect|developer|programmer)\b', re.IGNORECASE), 'Technical'),
     (re.compile(r'\bsystems administrator\b', re.IGNORECASE), 'Technical'),
     (re.compile(r'\b(network|infrastructure|cybersecurity|data scientist|data engineer|software|database)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(analytics|ai|artificial intelligence)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(online learning|e-learning|digital learning)\b', re.IGNORECASE), 'Technical'),
     # Non-Technical
     (re.compile(r'\bchief (executive|financial|operating|human|marketing|revenue|strategy|product|privacy|legal|compliance)\b', re.IGNORECASE), 'Non-Technical'),
     (re.compile(r'\b(vp|vice president|svp|evp|avp) of (finance|financial|operations|human resources|hr|marketing|sales|strategy|legal|compliance|product)\b', re.IGNORECASE), 'Non-Technical'),
@@ -302,6 +304,8 @@ def classify_role_binary(role, other_text=''):
         classified = classify_role(other_text)
         if classified in ('Technical', 'Non-Technical'):
             return classified
+        # Unmatched free-text (no technology signal) defaults to Non-Technical
+        return 'Non-Technical'
     return None
 
 
@@ -1562,7 +1566,7 @@ def sensitivity_to_json(cuts, idx):
         role_groups = [
             ("Technical", [r for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) == 'Technical']),
             ("Non-Technical", [r for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) == 'Non-Technical']),
-            ("Other", [r for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) is None]),
+            ("Unclassified", [r for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) is None]),
         ]
         role_results = []
         for gname, grows in role_groups:
@@ -1634,21 +1638,26 @@ def sensitivity_to_json(cuts, idx):
             }
         result_inf["t_tests_large_vs_small"] = {"large_n": len(large), "small_medium_n": len(smmed), "constructs": t_tests_org}
 
-        other = [r for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) is None]
+        # Dynamically build groups to avoid reporting 3 groups when only 2 are populated.
+        unclassified = [r for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) is None]
+        role_anova_groups = [
+            ("Technical", tech),
+            ("Non-Technical", nontech),
+            ("Unclassified", unclassified),
+        ]
+        role_anova_groups = [(name, grp) for name, grp in role_anova_groups if grp]
         anova_role = {}
         for label, cols, sc in ALL_CONSTRUCTS:
-            g1 = _person_means_rows(tech, cols, sc, idx)
-            g2 = _person_means_rows(nontech, cols, sc, idx)
-            g3 = _person_means_rows(other, cols, sc, idx)
-            f_stat, p_val, df_b, df_w = oneway_anova(g1, g2, g3)
+            group_vals = [_person_means_rows(grp, cols, sc, idx) for _, grp in role_anova_groups]
+            f_stat, p_val, df_b, df_w = oneway_anova(*group_vals)
             anova_role[label] = {
                 "f": round(f_stat, 4) if f_stat is not None else None,
                 "p": round(p_val, 4) if p_val is not None else None,
                 "df_between": df_b, "df_within": df_w,
                 "sig": p_val is not None and p_val < 0.05,
             }
-        result_inf["anova_by_role"] = {"groups": ["Technical", "Non-Technical", "Other"],
-                                       "group_ns": [len(tech), len(nontech), len(other)], "constructs": anova_role}
+        result_inf["anova_by_role"] = {"groups": [name for name, _ in role_anova_groups],
+                                       "group_ns": [len(grp) for _, grp in role_anova_groups], "constructs": anova_role}
 
         small_orgs = [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('<100', '100-499')]
         med_orgs = [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('500-999', '1000-4999')]
@@ -1695,8 +1704,8 @@ def sensitivity_to_json(cuts, idx):
         for sample_label, rows in main_cuts:
             tech_n = sum(1 for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) == 'Technical')
             nontech_n = sum(1 for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) == 'Non-Technical')
-            other_n = sum(1 for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) is None)
-            role_counts.append([tech_n, nontech_n, other_n])
+            unclassified_n = sum(1 for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) is None)
+            role_counts.append([tech_n, nontech_n, unclassified_n])
             org_sizes = [sum(1 for r in rows if r[idx['Q4_OrgSize']].strip() == os_val) for os_val in ALL_ORG_SIZES]
             org_size_counts.append(org_sizes)
             profit_models = [sum(1 for r in rows if r[idx['Q5_ProfitModel']].strip() == pm_val)

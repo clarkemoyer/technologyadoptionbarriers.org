@@ -31,6 +31,10 @@ from tabs_v2_analysis import (
     welch_t_test,
     oneway_anova,
     categorize_other_role,
+    classify_role,
+    classify_role_binary,
+    is_technical,
+    ROLE_MAP,
     OTHER_ROLE_CATEGORIES_PATTERNS,
     BARRIER_SCALE,
     READINESS_SCALE,
@@ -739,3 +743,102 @@ class TestCategorizeOtherRole:
             assert matched, (
                 "No candidate matched any pattern for category {!r}".format(category)
             )
+
+
+# ── ROLE_MAP CISO string ────────────────────────────────────
+
+class TestRoleMapCISO:
+    """Verify ROLE_MAP contains the correct CISO description string."""
+
+    def test_ciso_key_matches_csv_data(self):
+        assert 'CISO (e.g., Director of Cybersecurity, Chief Security Officer)' in ROLE_MAP
+
+    def test_ciso_maps_to_ciso(self):
+        assert ROLE_MAP['CISO (e.g., Director of Cybersecurity, Chief Security Officer)'] == 'CISO'
+
+    def test_old_ciso_key_absent(self):
+        assert 'CISO (e.g., VP of Information Security, Chief Cybersecurity Officer)' not in ROLE_MAP
+
+    def test_exactly_one_ciso_key(self):
+        ciso_keys = [k for k, v in ROLE_MAP.items() if v == 'CISO']
+        assert len(ciso_keys) == 1, f"Expected 1 CISO key, found {len(ciso_keys)}: {ciso_keys}"
+
+    def test_get_role_ciso(self):
+        idx = {"Q1_Role": 0}
+        assert get_role(["CISO (e.g., Director of Cybersecurity, Chief Security Officer)"], idx) == "CISO"
+
+
+# ── classify_role (free-text patterns) ──────────────────────
+
+class TestClassifyRole:
+    """Unit tests for classify_role() regex-based classification."""
+
+    def test_technical_analytics(self):
+        assert classify_role('analytics director') == 'Technical'
+
+    def test_technical_ai(self):
+        assert classify_role('Director - AI & Operational Analytics') == 'Technical'
+
+    def test_technical_online_learning(self):
+        assert classify_role('Director online learning') == 'Technical'
+
+    def test_technical_cybersecurity(self):
+        assert classify_role('Director of Cybersecurity') == 'Technical'
+
+    def test_unmatched_sales_director(self):
+        # "Sales Director" does not match any Technical pattern; unmatched → 'Other'
+        assert classify_role('Sales Director') == 'Other'
+
+    def test_empty_string(self):
+        assert classify_role('') == 'Other'
+
+    def test_whitespace(self):
+        assert classify_role('   ') == 'Other'
+
+    def test_no_tech_signal(self):
+        assert classify_role('Contractor') == 'Other'
+
+
+# ── classify_role_binary (Scenario C) ───────────────────────
+
+class TestClassifyRoleBinary:
+    """Unit tests for classify_role_binary() — Scenario C complete classification."""
+
+    def test_tech_titles(self):
+        for role in ('CIO', 'CTO', 'CISO'):
+            assert classify_role_binary(role) == 'Technical'
+
+    def test_nontech_titles(self):
+        for role in ('CEO', 'CFO', 'COO', 'CHRO', 'CMO', 'CSO', 'CRO'):
+            assert classify_role_binary(role) == 'Non-Technical'
+
+    def test_other_technical_freetext(self):
+        assert classify_role_binary('Other', 'Director - AI & Operational Analytics') == 'Technical'
+        assert classify_role_binary('Other', 'analytics director') == 'Technical'
+        assert classify_role_binary('Other', 'Director online learning') == 'Technical'
+
+    def test_other_unmatched_defaults_nontech(self):
+        """Unmatched 'Other' free-text defaults to Non-Technical."""
+        assert classify_role_binary('Other', 'Sales Director') == 'Non-Technical'
+        assert classify_role_binary('Other', 'Contractor') == 'Non-Technical'
+        assert classify_role_binary('Other', 'Director of Library') == 'Non-Technical'
+        assert classify_role_binary('Other', 'Individual contributor') == 'Non-Technical'
+
+    def test_other_blank_defaults_nontech(self):
+        """Blank or empty free-text defaults to Non-Technical."""
+        assert classify_role_binary('Other', '') == 'Non-Technical'
+        assert classify_role_binary('Other', '  ') == 'Non-Technical'
+
+    def test_other_none_text_defaults_nontech(self):
+        """Respondent typed 'None' as free-text → Non-Technical."""
+        assert classify_role_binary('Other', 'None') == 'Non-Technical'
+
+    def test_unknown_role_returns_none(self):
+        """Roles not in ROLE_MAP ('Unknown') still return None."""
+        assert classify_role_binary('Unknown') is None
+
+    def test_is_technical_helper(self):
+        assert is_technical('CIO') is True
+        assert is_technical('CEO') is False
+        assert is_technical('Other', 'analytics director') is True
+        assert is_technical('Other', 'Contractor') is False
