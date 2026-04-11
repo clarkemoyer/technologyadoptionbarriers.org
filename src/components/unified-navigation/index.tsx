@@ -31,6 +31,8 @@ interface TocHeading {
 const DEFAULT_HEADER_HEIGHT = 80
 /** Extra pixels below the sticky header for comfortable scroll targeting */
 const SCROLL_MARGIN_GAP = 20
+/** Minimum gap in pixels between the sidebar bottom and the viewport/footer edge */
+const MIN_BOTTOM_GAP = 20
 
 /** Recursively check if any descendant has isCurrent set */
 function hasCurrentDescendant(items: SeriesNavItem[]): boolean {
@@ -47,7 +49,7 @@ export default function UnifiedNavigation({
   const [headings, setHeadings] = useState<TocHeading[]>([])
   const [activeId, setActiveId] = useState<string>('')
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [footerOffset, setFooterOffset] = useState(20)
+  const [footerOffset, setFooterOffset] = useState(MIN_BOTTOM_GAP)
   const panelRef = useRef<HTMLDivElement>(null)
 
   // Track header height (with feature detection for ResizeObserver)
@@ -64,7 +66,6 @@ export default function UnifiedNavigation({
 
   // Track footer position so the sidebar never overlaps it
   useEffect(() => {
-    const MIN_BOTTOM_GAP = 20
     const update = () => {
       const footer = document.querySelector('footer')
       if (!footer) {
