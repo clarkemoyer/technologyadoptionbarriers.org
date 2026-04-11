@@ -120,61 +120,6 @@ const DevelopmentWorkflowPage = () => {
             </div>
           </section>
 
-          {/* ── Parallel Development with Git Worktrees ── */}
-          <section className="mb-12 text-gray-800">
-            <h2 className={H2_CLASSES}>Parallel Development with Git Worktrees</h2>
-            <p className="mb-6">
-              When working with AI agents like Claude Code, Anthropic&apos;s team recommends git
-              worktrees as the top productivity pattern. This allows developers to spin up 3-5
-              concurrent worktrees, with separate Claude Code sessions working on different tasks in
-              parallel.
-            </p>
-
-            <div className="mb-6 space-y-4">
-              <div className="p-4 rounded-lg border border-gray-200 bg-gray-50">
-                <h3 className="font-bold text-gray-900 mb-2">Example Scenario:</h3>
-                <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
-                  <li>
-                    Worktree 1:{' '}
-                    <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
-                      feat/add-new-dashboard
-                    </code>{' '}
-                    (Building a new feature)
-                  </li>
-                  <li>
-                    Worktree 2:{' '}
-                    <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
-                      fix/navigation-bug
-                    </code>{' '}
-                    (Solving a UI glitch)
-                  </li>
-                  <li>
-                    Worktree 3:{' '}
-                    <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
-                      docs/update-readme
-                    </code>{' '}
-                    (Writing documentation)
-                  </li>
-                </ul>
-                <p className="mt-4 mb-2 text-sm text-gray-700">
-                  To create those worktrees from your main clone, use distinct folders for each
-                  branch:
-                </p>
-                <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-xs text-gray-100">
-                  <code>{`git worktree add ../tabs-dashboard feat/add-new-dashboard
-git worktree add ../tabs-nav-fix fix/navigation-bug
-git worktree add ../tabs-docs docs/update-readme`}</code>
-                </pre>
-              </div>
-            </div>
-
-            <p className="mb-6 text-red-700 font-medium bg-red-50 p-4 border border-red-200 rounded-lg">
-              <strong>⚠️ Critical Note:</strong> Each worktree <strong>must</strong> have its own
-              dedicated terminal window and its own independent Claude Code session to avoid state
-              conflicts.
-            </p>
-          </section>
-
           {/* ── CI Details ── */}
           <section className="mb-12 text-gray-800">
             <h2 className={H2_CLASSES}>CI Pipeline: 7 Checks</h2>
@@ -264,6 +209,105 @@ git worktree add ../tabs-docs docs/update-readme`}</code>
             <p>
               This is especially valuable for a statically exported site — a broken build in the
               merge queue stops the deploy before it ever reaches GitHub Pages.
+            </p>
+          </section>
+
+          {/* ── Parallel Development ── */}
+          <section className="mb-12 text-gray-800">
+            <h2 className={H2_CLASSES}>Parallel Development: Git Worktrees</h2>
+            <p className="mb-6">
+              To maintain high velocity, TABS developers leverage the <strong>Git Worktree</strong>{' '}
+              pattern. While standard development involves switching branches in a single directory,
+              worktrees allow multiple branches to be checked out simultaneously in separate
+              folders.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div className="p-5 rounded-xl border border-blue-100 bg-blue-50/50">
+                <h3 className="font-bold text-blue-900 mb-2">Standard Switching</h3>
+                <ul className="text-sm space-y-2 text-blue-800">
+                  <li className="flex gap-2">
+                    <span className="text-blue-500" aria-hidden="true" title="Disadvantage">
+                      ✕
+                    </span>
+                    Stashing changes required
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-blue-500" aria-hidden="true" title="Disadvantage">
+                      ✕
+                    </span>
+                    Re-running installs/builds
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-blue-500" aria-hidden="true" title="Disadvantage">
+                      ✕
+                    </span>
+                    Loss of terminal state
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-blue-500" aria-hidden="true" title="Disadvantage">
+                      ✕
+                    </span>
+                    One task at a time
+                  </li>
+                </ul>
+              </div>
+
+              <div className="p-5 rounded-xl border border-green-100 bg-green-50/50">
+                <h3 className="font-bold text-green-900 mb-2">Worktree Parallelism</h3>
+                <ul className="text-sm space-y-2 text-green-800">
+                  <li className="flex gap-2">
+                    <span className="text-green-500" aria-hidden="true" title="Advantage">
+                      ✓
+                    </span>
+                    No stashing or &quot;dirty tree&quot; issues
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-green-500" aria-hidden="true" title="Advantage">
+                      ✓
+                    </span>
+                    Independent build artifacts
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-green-500" aria-hidden="true" title="Advantage">
+                      ✓
+                    </span>
+                    Persistent terminal/IDE state
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-green-500" aria-hidden="true" title="Advantage">
+                      ✓
+                    </span>
+                    3-5 parallel agent sessions
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <p className="mb-6">
+              This pattern is particularly effective when working with AI coding agents. A developer
+              can spin up 3-5 separate worktrees, each with its own terminal and Claude Code
+              session, to handle different aspects of the project in parallel:
+            </p>
+
+            <div className="mb-6 rounded-lg bg-gray-900 text-gray-100 p-4 overflow-x-auto">
+              <pre className="text-sm font-mono whitespace-pre-wrap">
+                <code>{`# Create worktrees for parallel tasks
+git worktree add -b feat/viz ../tabs-feature main
+git worktree add -b fix/nav ../tabs-bugfix main
+git worktree add -b docs/api ../tabs-docs main
+
+# Start separate Claude sessions in each directory
+~/tabs-feature $ claude "Implement new heatmap viz"
+~/tabs-bugfix  $ claude "Fix mobile nav overflow"
+~/tabs-docs    $ claude "Update API documentation"`}</code>
+              </pre>
+            </div>
+
+            <p>
+              By decoupling the local development environment from a single branch, we eliminate the
+              &quot;waiting for CI&quot; or &quot;waiting for build&quot; bottlenecks that slow down
+              traditional workflows.
             </p>
           </section>
 

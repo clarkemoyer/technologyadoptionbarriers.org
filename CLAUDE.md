@@ -392,29 +392,6 @@ If you can't use the composite action, add these steps before any commit-creatin
 
 ## Git Workflow
 
-### Parallel Development with Git Worktrees
-
-Anthropic's engineering team recommends **git worktrees** as the top productivity
-pattern when working with Claude Code. This allows you to spin up 3-5 concurrent
-worktrees, with separate Claude Code sessions working on different tasks in parallel.
-
-**Example Scenario:**
-
-- Worktree 1: `feat/add-new-dashboard` (Building a new feature)
-- Worktree 2: `fix/navigation-bug` (Solving a UI glitch)
-- Worktree 3: `docs/update-readme` (Writing documentation)
-
-**Useful Commands:**
-
-```bash
-git worktree add ../tabs-dashboard feat/add-new-dashboard
-git worktree list
-git worktree remove ../tabs-dashboard
-```
-
-**⚠️ Critical Note:** Each worktree **must** have its own dedicated terminal
-window and its own independent Claude Code session to avoid state conflicts.
-
 ### Branch Naming
 
 ```bash
@@ -461,13 +438,39 @@ git commit -m "chore: update dependencies"
 
 TABS operates a **multi-agent setup** with three distinct AI coding agents working in parallel across different infrastructure pools.
 
-| Agent       | Trigger                         | Concurrency | Pool         | Primary Role                                   |
-| ----------- | ------------------------------- | ----------- | ------------ | ---------------------------------------------- |
-| **Copilot** | Assign `copilot-swe-agent[bot]` | ~4          | GitHub       | Pipeline, workflow, and analysis work          |
-| **Jules**   | Add `jules` label to issue      | 60 (Ultra)  | Google Cloud | Visualization, content, and frontend work      |
-| **Claude**  | Direct session orchestration    | 1           | Anthropic    | Orchestration, PR management, complex analysis |
+| Agent       | Trigger                         | Concurrency    | Pool         | Primary Role                                   |
+| ----------- | ------------------------------- | -------------- | ------------ | ---------------------------------------------- |
+| **Copilot** | Assign `copilot-swe-agent[bot]` | ~4             | GitHub       | Pipeline, workflow, and analysis work          |
+| **Jules**   | Add `jules` label to issue      | 60 (Ultra)     | Google Cloud | Visualization, content, and frontend work      |
+| **Claude**  | Direct session orchestration    | 1 per worktree | Anthropic    | Orchestration, PR management, complex analysis |
 
 _(Note: Gemini Code Assist also runs automatically on PRs if installed, but does not count against issue-to-PR agent concurrency)._
+
+### Parallel Development with Git Worktrees
+
+To maximize productivity, TABS developers use the **Git Worktree** pattern. This allows you to have multiple branches checked out simultaneously in different directories, each with its own Claude Code session.
+
+**Why use worktrees?**
+
+- **Zero context switching**: Keep your state (terminals, logs, running servers) for multiple tasks.
+- **Parallel execution**: Run a long-running build or test suite in one worktree while coding in another.
+- **Claude Concurrency**: Each worktree directory can host a separate `claude` session, allowing you to parallelize your own work.
+
+**Example: Parallel Workflow**
+
+```bash
+# From the main repo directory, create worktrees with new branches:
+git worktree add -b fix/issue-123 ../tabs-bugfix main
+git worktree add -b docs/update-readme ../tabs-docs main
+git worktree add -b feat/new-viz ../tabs-feature main
+
+# Now you can open 3 separate terminals/Claude sessions:
+cd ../tabs-bugfix && claude
+cd ../tabs-docs && claude
+cd ../tabs-feature && claude
+```
+
+**Note**: Each worktree needs its own terminal and Claude session. When finished, remove them with `git worktree remove <path>`.
 
 ### Google Jules Integration
 
