@@ -15,7 +15,7 @@ ANALYSIS_DIR = TESTS_DIR.parent
 sys.path.insert(0, str(ANALYSIS_DIR))
 sys.path.insert(0, str(TESTS_DIR))
 
-from tabs_v2_unified_data_analysis import filter_samples, V2_START  # noqa: E402
+from tabs_v2_unified_data_analysis import filter_samples, PROLIFIC_TEST_ID  # noqa: E402
 from _helpers import MINIMAL_HEADERS, make_clean_row  # noqa: E402
 
 
@@ -90,7 +90,7 @@ class TestFilterSamplesLivePath:
         assert len(v2) == 0
 
     def test_date_only_same_day_excluded_without_crp200(self):
-        """'2026-03-23' (date-only) is BEFORE '2026-03-23 14:00:00' — excluded live path.
+        """'2026-03-23' (date-only) is BEFORE V2_START — excluded on the live path.
 
         This documents the exact bug that crp200=True fixes: a date-only
         StartDate from the same launch day is excluded on the live path because
@@ -106,7 +106,6 @@ class TestFilterSamplesLivePath:
 
     def test_prolific_test_id_always_passes(self):
         """Explicit PROLIFIC_TEST_ID ResponseId bypasses the date filter."""
-        from tabs_v2_unified_data_analysis import PROLIFIC_TEST_ID
         idx = _idx()
         rows = [_row("2026-01-01 00:00:00", pid="P_TEST", response_id=PROLIFIC_TEST_ID)]
         v2, _ = filter_samples(rows, idx, crp200=False)
