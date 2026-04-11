@@ -167,7 +167,7 @@ ROLE_MAP = {
     'CMO (e.g., Director of Communications, Public Affairs Officer, Chief Marketing & Communications Officer)': 'CMO',
     'CSO (e.g., Director of Strategic Planning, Policy Director, Chief Strategy Officer)': 'CSO',
     'CRO (e.g., Director of Budget/Finance, Director of Development/Fundraising, Head of Revenue Operations)': 'CRO',
-    'CISO (e.g., VP of Information Security, Chief Cybersecurity Officer)': 'CISO',
+    'CISO (e.g., Director of Cybersecurity, Chief Security Officer)': 'CISO',
     'Other (please specify)': 'Other'
 }
 TECH_TITLES = {'CIO', 'CTO', 'CISO'}
@@ -250,6 +250,8 @@ _OTHER_ROLE_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r'\b(software |systems |network |security |data |infrastructure |database |cloud |devops |platform )?(engineer|architect|developer|programmer)\b', re.IGNORECASE), 'Technical'),
     (re.compile(r'\bsystems administrator\b', re.IGNORECASE), 'Technical'),
     (re.compile(r'\b(network|infrastructure|cybersecurity|data scientist|data engineer|software|database)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(analytics|ai|artificial intelligence)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(online learning|e-learning|digital learning)\b', re.IGNORECASE), 'Technical'),
     # Non-Technical
     (re.compile(r'\bchief (executive|financial|operating|human|marketing|revenue|strategy|product|privacy|legal|compliance)\b', re.IGNORECASE), 'Non-Technical'),
     (re.compile(r'\b(vp|vice president|svp|evp|avp) of (finance|financial|operations|human resources|hr|marketing|sales|strategy|legal|compliance|product)\b', re.IGNORECASE), 'Non-Technical'),
@@ -302,6 +304,8 @@ def classify_role_binary(role, other_text=''):
         classified = classify_role(other_text)
         if classified in ('Technical', 'Non-Technical'):
             return classified
+        # Unmatched free-text (no technology signal) defaults to Non-Technical
+        return 'Non-Technical'
     return None
 
 

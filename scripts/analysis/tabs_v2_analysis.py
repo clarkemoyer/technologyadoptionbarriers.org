@@ -104,7 +104,7 @@ ROLE_MAP = {
     'CMO (e.g., Director of Communications, Public Affairs Officer, Chief Marketing & Communications Officer)': 'CMO',
     'CSO (e.g., Director of Strategic Planning, Policy Director, Chief Strategy Officer)': 'CSO',
     'CRO (e.g., Director of Budget/Finance, Director of Development/Fundraising, Head of Revenue Operations)': 'CRO',
-    'CISO (e.g., VP of Information Security, Chief Cybersecurity Officer)': 'CISO',
+    'CISO (e.g., Director of Cybersecurity, Chief Security Officer)': 'CISO',
     'Other (please specify)': 'Other'
 }
 TECH_TITLES = {'CIO', 'CTO', 'CISO'}
@@ -199,6 +199,8 @@ _OTHER_ROLE_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r'\b(software |systems |network |security |data |infrastructure |database |cloud |devops |platform )?(engineer|architect|developer|programmer)\b', re.IGNORECASE), 'Technical'),
     (re.compile(r'\bsystems administrator\b', re.IGNORECASE), 'Technical'),
     (re.compile(r'\b(network|infrastructure|cybersecurity|data scientist|data engineer|software|database)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(analytics|ai|artificial intelligence)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(online learning|e-learning|digital learning)\b', re.IGNORECASE), 'Technical'),
     # ── Non-Technical ───────────────────────────────────────────────────────
     (re.compile(r'\bchief (executive|financial|operating|human|marketing|revenue|strategy|product|privacy|legal|compliance)\b', re.IGNORECASE), 'Non-Technical'),
     # "VP/Vice President of {non-technical domain}" — must precede the generic VP catch-all
@@ -232,6 +234,10 @@ OTHER_ROLE_CLASSIFICATIONS = {
     'Network': 'Technical', 'Infrastructure': 'Technical', 'Cybersecurity': 'Technical',
     'Data Scientist': 'Technical', 'Data Engineer': 'Technical',
     'Software': 'Technical', 'Database': 'Technical',
+    'Analytics': 'Technical', 'AI': 'Technical',
+    'Artificial Intelligence': 'Technical',
+    'Online Learning': 'Technical', 'E-Learning': 'Technical',
+    'Digital Learning': 'Technical',
     # Non-Technical roles
     'Chief Executive': 'Non-Technical', 'Chief Financial': 'Non-Technical',
     'Chief Operating': 'Non-Technical', 'Chief Human': 'Non-Technical',
@@ -275,7 +281,8 @@ def classify_role_binary(role, other_text=''):
         'Non-Technical' for roles in NONTECH_TITLES
         For role == 'Other', uses classify_role(other_text) and returns
         'Technical' or 'Non-Technical' when the free-text value can be
-        reclassified; otherwise returns None.
+        reclassified; unmatched free-text defaults to 'Non-Technical'
+        (no technology signal in title).
 
     This helper is the single source of truth for all Scenario C
     Technical/Non-Technical grouping logic (counts, effect sizes,
@@ -289,6 +296,8 @@ def classify_role_binary(role, other_text=''):
         classified = classify_role(other_text)
         if classified in ('Technical', 'Non-Technical'):
             return classified
+        # Unmatched free-text (no technology signal) defaults to Non-Technical
+        return 'Non-Technical'
     return None
 
 
