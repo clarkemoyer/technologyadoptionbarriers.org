@@ -152,7 +152,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 1
 
-    print("✅ No PID patterns found.")
+    print("No PID patterns found.")
     return 0
 
 
