@@ -76,7 +76,7 @@ export default function PrivacyPolicy() {
           </ul>
 
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500] mt-[1em]">
-            <strong>3.4. Embedded Content from Other Websites</strong>
+            <strong>3.2. Embedded Content from Other Websites</strong>
           </p>
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             Articles on this site may include embedded content (e.g., videos, images, articles).
