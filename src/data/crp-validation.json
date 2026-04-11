@@ -274,6 +274,7 @@
     "three_groups": [
       {
         "name": "F1a — Strategy & Culture",
+        "item_ids": ["B1", "B2", "B3", "B5", "B9", "B10", "B11", "B15", "B17"],
         "items": 9,
         "alpha": 0.8383,
         "cr": 0.8445,
@@ -281,6 +282,7 @@
       },
       {
         "name": "F1b — Resources & Operations",
+        "item_ids": ["B4", "B6", "B7", "B8", "B12"],
         "items": 5,
         "alpha": 0.6617,
         "cr": 0.6659,
@@ -288,6 +290,7 @@
       },
       {
         "name": "F2 — External & Compliance",
+        "item_ids": ["B13", "B14", "B16", "B18"],
         "items": 4,
         "alpha": 0.6707,
         "cr": 0.7299,

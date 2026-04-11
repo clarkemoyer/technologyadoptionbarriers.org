@@ -2575,6 +2575,7 @@ def run_validation(df, skip=False, crp200=False):
             alpha_val = (k / (k - 1)) * (off_diag / total_var) if (k > 1 and total_var) else None
         entry = {
             'name': grp_name,
+            'item_ids': list(grp_ids),
             'items': len(grp_ids),
             'alpha': round(alpha_val, 4) if alpha_val is not None else None,
             'cr': round(cr_val, 4) if cr_val is not None else None,
