@@ -275,7 +275,14 @@ const DevelopmentWorkflowPage = () => {
             </p>
 
             <div className="bg-gray-900 rounded-lg p-5 font-mono text-sm text-gray-300 mb-6 overflow-x-auto whitespace-pre-wrap">
-              {`# Parallel Session 1\n~/tabs-feature $ claude "Implement new heatmap viz"\n\n# Parallel Session 2\n~/tabs-bugfix $ claude "Fix mobile nav overflow"\n\n# Parallel Session 3\n~/tabs-docs $ claude "Update API documentation"`}
+              {`# Parallel Session 1
+~/tabs-feature $ claude "Implement new heatmap viz"
+
+# Parallel Session 2
+~/tabs-bugfix $ claude "Fix mobile nav overflow"
+
+# Parallel Session 3
+~/tabs-docs $ claude "Update API documentation"`}
             </div>
 
             <p>
