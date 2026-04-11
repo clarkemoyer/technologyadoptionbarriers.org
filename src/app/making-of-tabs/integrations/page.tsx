@@ -19,13 +19,15 @@ const IntegrationsPage = () => {
           <section className="mb-10 text-gray-800">
             <p className="mb-6">
               Running a long-term academic survey across multiple platforms requires reliable,
-              automated plumbing. This page explains the three major platform integrations that keep
+              automated plumbing. This page explains the four major platform integrations that keep
               TABS running: <strong>Qualtrics</strong> (the survey engine),{' '}
-              <strong>Prolific</strong> (the participant recruitment platform), and{' '}
+              <strong>Prolific</strong> (the participant recruitment platform),{' '}
               <strong>Google Analytics & Search Console</strong> (impact measurement and SEO
-              transparency). Each integration is managed through GitHub Actions workflows and
-              TypeScript client libraries, so the entire operational lifecycle — from survey
-              creation to data collection to analytics — is version-controlled and reproducible.
+              transparency), and <strong>Zotero</strong> (the vetted reference library powering
+              AI-assisted research). Each integration is managed through GitHub Actions workflows
+              and TypeScript or Python client libraries, so the entire operational lifecycle — from
+              survey creation to data collection to analytics — is version-controlled and
+              reproducible.
             </p>
           </section>
 
@@ -89,6 +91,15 @@ const IntegrationsPage = () => {
                 <p className="font-bold text-amber-900 mb-1">Cloudflare</p>
                 <p className="text-sm text-amber-800">
                   DNS, global CDN, SSL/TLS, caching strategy, and security headers
+                </p>
+              </Link>
+              <Link
+                href="/making-of-tabs/integrations/zotero"
+                className="block rounded-xl border border-red-200 bg-red-50 p-5 transition-shadow hover:shadow-md"
+              >
+                <p className="font-bold text-red-900 mb-1">Zotero</p>
+                <p className="text-sm text-red-800">
+                  Vetted reference library, citation validation, and AI-assisted research grounding
                 </p>
               </Link>
             </div>
