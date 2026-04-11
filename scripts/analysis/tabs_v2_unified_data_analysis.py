@@ -2549,18 +2549,21 @@ def run_validation(df, skip=False, crp200=False):
     lm_by_id = {r['id']: r for r in loadings_matrix}
     three_groups = []
     for grp_name, grp_ids, factor_key in THREE_GROUP_DEFS:
+        missing = [
+            bid for bid in grp_ids
+            if bid not in lm_by_id or lm_by_id[bid].get(factor_key) is None
+        ]
         lambdas = [
-            loading
+            lm_by_id[bid].get(factor_key)
             for bid in grp_ids
-            if bid in lm_by_id
-            for loading in [lm_by_id[bid].get(factor_key)]
-            if loading is not None
+            if bid in lm_by_id and lm_by_id[bid].get(factor_key) is not None
         ]
         k = len(lambdas)
         alpha_val = None
         cr_val = None
         ave_val = None
-        if lambdas:
+        # Only compute stats when we have the complete item set
+        if lambdas and not missing:
             sum_lam = sum(lambdas)
             sum_lam2 = sum(l ** 2 for l in lambdas)
             error_sum = sum(1 - l ** 2 for l in lambdas)
@@ -2570,13 +2573,16 @@ def run_validation(df, skip=False, crp200=False):
             off_diag = sum_lam ** 2 - sum_lam2
             total_var = k + off_diag
             alpha_val = (k / (k - 1)) * (off_diag / total_var) if (k > 1 and total_var) else None
-        three_groups.append({
+        entry = {
             'name': grp_name,
             'items': k,
             'alpha': round(alpha_val, 4) if alpha_val is not None else None,
             'cr': round(cr_val, 4) if cr_val is not None else None,
             'ave': round(ave_val, 4) if ave_val is not None else None,
-        })
+        }
+        if missing:
+            entry['missing_items'] = missing
+        three_groups.append(entry)
 
     output['factor_analysis'] = {
         'efa_factors': efa_factors,
