@@ -55,6 +55,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   reproducibility: 'Reproducibility',
   validation: 'Instrument Validation',
   glossary: 'Statistics Glossary',
+  ga4: 'GA4',
   cloudflare: 'Cloudflare',
   prolific: 'Prolific',
   qualtrics: 'Qualtrics',

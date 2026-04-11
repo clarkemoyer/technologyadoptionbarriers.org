@@ -17,8 +17,6 @@ const MicrosoftClarityIntegrationPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <MakingOfTabsNav>
         <article className={ARTICLE_CLASSES}>
-          {/* Breadcrumb */}
-
           <h1 className={H1_CLASSES}>Microsoft Clarity</h1>
           <p className="mb-8 text-lg sm:text-xl text-gray-600 font-sans">
             Consent-gated behavioral analytics with heatmaps, session recordings, and SPA route

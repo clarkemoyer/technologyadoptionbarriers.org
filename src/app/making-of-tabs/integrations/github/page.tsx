@@ -17,8 +17,6 @@ const GitHubIntegrationPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <MakingOfTabsNav>
         <article className={ARTICLE_CLASSES}>
-          {/* Breadcrumb */}
-
           <h1 className={H1_CLASSES}>GitHub</h1>
           <p className="mb-8 text-lg sm:text-xl text-gray-600 font-sans">
             GitHub is the operational backbone of TABS — it hosts the code, enforces quality gates,

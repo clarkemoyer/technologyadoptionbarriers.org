@@ -73,17 +73,17 @@ export default function UnifiedNavigation({
     const h2s = Array.from(article.querySelectorAll('h2'))
     const usedIds = new Map<string, number>()
     const items: TocHeading[] = h2s.map((el, idx) => {
+      let base: string
       if (!el.id) {
-        let base = slugify(el.textContent || '')
+        base = slugify(el.textContent || '')
         if (!base) base = `section-${idx}`
-        let candidate = base
-        const count = usedIds.get(base) ?? 0
-        if (count > 0) candidate = `${base}-${count + 1}`
-        usedIds.set(base, count + 1)
-        el.id = candidate
       } else {
-        usedIds.set(el.id, (usedIds.get(el.id) ?? 0) + 1)
+        base = el.id
       }
+      const count = usedIds.get(base) ?? 0
+      const candidate = count > 0 ? `${base}-${count + 1}` : base
+      usedIds.set(base, count + 1)
+      el.id = candidate
       // Ensure headings clear the sticky header when targeted
       el.style.scrollMarginTop = scrollMargin
       return { id: el.id, text: el.textContent || '' }
