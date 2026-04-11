@@ -115,7 +115,7 @@ function idleHours(updatedAt: string): number {
  */
 function tryAgentTaskList(): AgentTask[] | null {
   try {
-    const raw = gh(`agent-task list -R ${REPO} --json number,title,url,updatedAt,createdAt,state`)
+    const raw = gh(`agent-task list --json number,title,url,updatedAt,createdAt,state`)
     const items = JSON.parse(raw)
     if (!Array.isArray(items)) return null
     return items.map((item: any) => ({
@@ -141,7 +141,7 @@ function tryAgentTaskList(): AgentTask[] | null {
 function listViaIssuesApi(): AgentTask[] {
   console.log('  (gh agent-task not available — using Issues API fallback)')
   const raw = ghJsonArray<any>(
-    `api repos/${REPO}/issues?assignee=copilot&state=open&per_page=100 --paginate`
+    `api "repos/${REPO}/issues?assignee=copilot&state=open&per_page=100" --paginate`
   )
   return raw
     .filter((issue: any) => !issue.pull_request)
