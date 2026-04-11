@@ -107,19 +107,7 @@ describe('UnifiedNavigation — footer-aware bottom offset', () => {
     header.id = 'header'
     document.body.appendChild(header)
 
-    class MockResizeObserver {
-      observe() {}
-      unobserve() {}
-      disconnect() {}
-    }
     global.ResizeObserver = MockResizeObserver as unknown as typeof ResizeObserver
-
-    class MockIntersectionObserver {
-      constructor() {}
-      observe() {}
-      unobserve() {}
-      disconnect() {}
-    }
     global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver
   })
 
