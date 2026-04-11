@@ -212,6 +212,93 @@ const DevelopmentWorkflowPage = () => {
             </p>
           </section>
 
+          {/* ── Parallel Development ── */}
+          <section className="mb-12 text-gray-800">
+            <h2 className={H2_CLASSES}>Parallel Development: Git Worktrees</h2>
+            <p className="mb-6">
+              To maintain high velocity, TABS developers leverage the <strong>Git Worktree</strong>{' '}
+              pattern. While standard development involves switching branches in a single directory,
+              worktrees allow multiple branches to be checked out simultaneously in separate
+              folders.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div className="p-5 rounded-xl border border-blue-100 bg-blue-50/50">
+                <h3 className="font-bold text-blue-900 mb-2">Standard Switching</h3>
+                <ul className="text-sm space-y-2 text-blue-800">
+                  <li className="flex gap-2">
+                    <span className="text-blue-500">✕</span>
+                    Stashing changes required
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-blue-500">✕</span>
+                    Re-running installs/builds
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-blue-500">✕</span>
+                    Loss of terminal state
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-blue-500">✕</span>
+                    One task at a time
+                  </li>
+                </ul>
+              </div>
+
+              <div className="p-5 rounded-xl border border-green-100 bg-green-50/50">
+                <h3 className="font-bold text-green-900 mb-2">Worktree Parallelism</h3>
+                <ul className="text-sm space-y-2 text-green-800">
+                  <li className="flex gap-2">
+                    <span className="text-green-500">✓</span>
+                    No stashing or &quot;dirty tree&quot; issues
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-green-500">✓</span>
+                    Independent build artifacts
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-green-500">✓</span>
+                    Persistent terminal/IDE state
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-green-500">✓</span>
+                    3-5 parallel agent sessions
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <p className="mb-6">
+              This pattern is particularly effective when working with AI coding agents. A developer
+              can spin up 3-5 separate worktrees, each with its own terminal and Claude Code
+              session, to handle different aspects of the project in parallel:
+            </p>
+
+            <div className="bg-gray-900 rounded-lg p-5 font-mono text-sm text-gray-300 mb-6 overflow-x-auto">
+              <div className="flex gap-4 mb-2">
+                <span className="text-gray-500"># Parallel Session 1</span>
+                <span className="text-blue-400">~/tabs-feature $</span>
+                <span>claude &quot;Implement new heatmap viz&quot;</span>
+              </div>
+              <div className="flex gap-4 mb-2">
+                <span className="text-gray-500"># Parallel Session 2</span>
+                <span className="text-amber-400">~/tabs-bugfix $</span>
+                <span>claude &quot;Fix mobile nav overflow&quot;</span>
+              </div>
+              <div className="flex gap-4 mb-2">
+                <span className="text-gray-500"># Parallel Session 3</span>
+                <span className="text-emerald-400">~/tabs-docs $</span>
+                <span>claude &quot;Update API documentation&quot;</span>
+              </div>
+            </div>
+
+            <p>
+              By decoupling the local development environment from a single branch, we eliminate the
+              &quot;waiting for CI&quot; or &quot;waiting for build&quot; bottlenecks that slow down
+              traditional workflows.
+            </p>
+          </section>
+
           {/* ── Automated Operations ── */}
           <section className="mb-12 text-gray-800">
             <h2 className={H2_CLASSES}>Automated Operations</h2>
