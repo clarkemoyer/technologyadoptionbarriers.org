@@ -1160,10 +1160,41 @@ def load_qualtrics_csv(csv_path, single_header=False):
     return idx, data
 
 
-def filter_samples(data, idx):
-    """Create sample cuts from V2 data. Returns (v2_rows, samples_dict)."""
-    v2_all_rows = [r for r in data if r[idx['StartDate']] >= V2_START
-                   or ('ResponseId' in idx and r[idx['ResponseId']] == PROLIFIC_TEST_ID)]
+def filter_samples(data, idx, crp200=False):
+    """Create sample cuts from V2 data. Returns (v2_rows, samples_dict).
+
+    Args:
+        data: list of row lists from load_qualtrics_csv (values accessed via idx)
+        idx:  column-name-to-index map (header → column position)
+        crp200: when True, skip the V2_START date filter entirely.
+                The frozen CRP dataset is V2-only by construction, so no
+                date filtering is needed. When False, StartDate values are
+                parsed as datetimes and compared against V2_START, which
+                avoids the lexicographic pitfall where a date-only string
+                (e.g. after upstream de-identification strips the time
+                component) sorts before the V2_START datetime string and
+                would silently exclude same-day responses from the sample.
+    """
+    if crp200:
+        v2_all_rows = list(data)
+    else:
+        from datetime import datetime as _dt
+        _v2_start = _dt.fromisoformat(V2_START)
+
+        def _after_v2_start(row):
+            raw = row[idx['StartDate']]
+            try:
+                # Accept both "YYYY-MM-DD HH:MM:SS" and "YYYY-MM-DD" formats
+                ts = _dt.fromisoformat(raw)
+            except (ValueError, TypeError):
+                return False
+            return ts >= _v2_start
+
+        v2_all_rows = [
+            r for r in data
+            if _after_v2_start(r)
+            or ('ResponseId' in idx and r[idx['ResponseId']] == PROLIFIC_TEST_ID)
+        ]
 
     # Deduplicate by PROLIFIC_PID
     if 'PROLIFIC_PID' in idx:
@@ -2654,7 +2685,7 @@ Examples:
     # In CRP mode, use single_header=True since the public CSV has 1 header row.
     # Sensitivity runs for BOTH live and CRP — CRP pages need sample cuts too.
     idx_raw, data_raw = load_qualtrics_csv(args.csv_path, single_header=args.crp200)
-    v2_rows_raw, samples_raw = filter_samples(data_raw, idx_raw)
+    v2_rows_raw, samples_raw = filter_samples(data_raw, idx_raw, crp200=args.crp200)
 
     cuts = [
         ("Conservative Clean", samples_raw["conservative_clean"]),
