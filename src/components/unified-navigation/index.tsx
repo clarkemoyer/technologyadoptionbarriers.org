@@ -51,6 +51,8 @@ export default function UnifiedNavigation({
   const [mobileOpen, setMobileOpen] = useState(false)
   const [footerOffset, setFooterOffset] = useState(MIN_BOTTOM_GAP)
   const panelRef = useRef<HTMLDivElement>(null)
+  const footerOffsetRef = useRef(MIN_BOTTOM_GAP)
+  const rafIdRef = useRef<number | null>(null)
 
   // Track header height (with feature detection for ResizeObserver)
   useEffect(() => {
@@ -65,23 +67,44 @@ export default function UnifiedNavigation({
   }, [])
 
   // Track footer position so the sidebar never overlaps it
+  // Throttled via requestAnimationFrame; skips setState when value is unchanged.
   useEffect(() => {
     const update = () => {
       const footer = document.querySelector('footer')
+      let next: number
       if (!footer) {
-        setFooterOffset(MIN_BOTTOM_GAP)
-        return
+        next = MIN_BOTTOM_GAP
+      } else {
+        const rect = footer.getBoundingClientRect()
+        const rawVisibleFooterPx = window.innerHeight - rect.top
+        const maxVisibleFooterPx = Math.min(rect.height, window.innerHeight)
+        const footerVisiblePx = Math.max(0, Math.min(rawVisibleFooterPx, maxVisibleFooterPx))
+        next = footerVisiblePx > 0 ? footerVisiblePx + MIN_BOTTOM_GAP : MIN_BOTTOM_GAP
       }
-      const rect = footer.getBoundingClientRect()
-      const footerVisiblePx = Math.max(0, window.innerHeight - rect.top)
-      setFooterOffset(footerVisiblePx > 0 ? footerVisiblePx + MIN_BOTTOM_GAP : MIN_BOTTOM_GAP)
+      if (next !== footerOffsetRef.current) {
+        footerOffsetRef.current = next
+        setFooterOffset(next)
+      }
     }
+
+    const onScroll = () => {
+      if (rafIdRef.current !== null) return
+      rafIdRef.current = requestAnimationFrame(() => {
+        rafIdRef.current = null
+        update()
+      })
+    }
+
     update()
-    window.addEventListener('scroll', update, { passive: true })
-    window.addEventListener('resize', update, { passive: true })
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll, { passive: true })
     return () => {
-      window.removeEventListener('scroll', update)
-      window.removeEventListener('resize', update)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current)
+        rafIdRef.current = null
+      }
     }
   }, [])
 
