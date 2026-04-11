@@ -687,8 +687,10 @@ function buildRoundHistory(repo: string, prNumber: string, finalRound: number): 
 async function main() {
   const repo = process.env.REPO_NAME
   const prNumber = process.env.PR_NUMBER
-  const round = Math.max(1, parseInt(process.env.ROUND || '1', 10))
-  const maxRounds = Math.max(1, parseInt(process.env.MAX_ROUNDS || '14', 10))
+  const parsedRound = parseInt(process.env.ROUND || '1', 10)
+  const round = Math.max(1, Number.isFinite(parsedRound) ? parsedRound : 1)
+  const parsedMaxRounds = parseInt(process.env.MAX_ROUNDS || '14', 10)
+  const maxRounds = Math.max(1, Number.isFinite(parsedMaxRounds) ? parsedMaxRounds : 14)
   const autoMerge = process.env.AUTO_MERGE === 'true'
 
   if (!repo || !prNumber) {
