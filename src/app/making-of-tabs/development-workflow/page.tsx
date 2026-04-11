@@ -227,19 +227,27 @@ const DevelopmentWorkflowPage = () => {
                 <h3 className="font-bold text-blue-900 mb-2">Standard Switching</h3>
                 <ul className="text-sm space-y-2 text-blue-800">
                   <li className="flex gap-2">
-                    <span className="text-blue-500">✕</span>
+                    <span className="text-blue-500" aria-hidden="true">
+                      ✕
+                    </span>
                     Stashing changes required
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-blue-500">✕</span>
+                    <span className="text-blue-500" aria-hidden="true">
+                      ✕
+                    </span>
                     Re-running installs/builds
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-blue-500">✕</span>
+                    <span className="text-blue-500" aria-hidden="true">
+                      ✕
+                    </span>
                     Loss of terminal state
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-blue-500">✕</span>
+                    <span className="text-blue-500" aria-hidden="true">
+                      ✕
+                    </span>
                     One task at a time
                   </li>
                 </ul>
@@ -249,19 +257,27 @@ const DevelopmentWorkflowPage = () => {
                 <h3 className="font-bold text-green-900 mb-2">Worktree Parallelism</h3>
                 <ul className="text-sm space-y-2 text-green-800">
                   <li className="flex gap-2">
-                    <span className="text-green-500">✓</span>
+                    <span className="text-green-500" aria-hidden="true">
+                      ✓
+                    </span>
                     No stashing or &quot;dirty tree&quot; issues
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-green-500">✓</span>
+                    <span className="text-green-500" aria-hidden="true">
+                      ✓
+                    </span>
                     Independent build artifacts
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-green-500">✓</span>
+                    <span className="text-green-500" aria-hidden="true">
+                      ✓
+                    </span>
                     Persistent terminal/IDE state
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-green-500">✓</span>
+                    <span className="text-green-500" aria-hidden="true">
+                      ✓
+                    </span>
                     3-5 parallel agent sessions
                   </li>
                 </ul>
@@ -274,15 +290,17 @@ const DevelopmentWorkflowPage = () => {
               session, to handle different aspects of the project in parallel:
             </p>
 
-            <div className="bg-gray-900 rounded-lg p-5 font-mono text-sm text-gray-300 mb-6 overflow-x-auto whitespace-pre-wrap">
-              {`# Parallel Session 1
+            <div className="mb-6 rounded-lg bg-gray-900 text-gray-100 p-4 overflow-x-auto">
+              <pre className="text-sm font-mono">
+                <code>{`# Parallel Session 1
 ~/tabs-feature $ claude "Implement new heatmap viz"
 
 # Parallel Session 2
 ~/tabs-bugfix $ claude "Fix mobile nav overflow"
 
 # Parallel Session 3
-~/tabs-docs $ claude "Update API documentation"`}
+~/tabs-docs $ claude "Update API documentation"`}</code>
+              </pre>
             </div>
 
             <p>
