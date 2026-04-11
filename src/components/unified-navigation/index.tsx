@@ -47,6 +47,7 @@ export default function UnifiedNavigation({
   const [headings, setHeadings] = useState<TocHeading[]>([])
   const [activeId, setActiveId] = useState<string>('')
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [footerOffset, setFooterOffset] = useState(20)
   const panelRef = useRef<HTMLDivElement>(null)
 
   // Track header height (with feature detection for ResizeObserver)
@@ -59,6 +60,28 @@ export default function UnifiedNavigation({
     })
     ro.observe(header)
     return () => ro.disconnect()
+  }, [])
+
+  // Track footer position so the sidebar never overlaps it
+  useEffect(() => {
+    const MIN_BOTTOM_GAP = 20
+    const update = () => {
+      const footer = document.querySelector('footer')
+      if (!footer) {
+        setFooterOffset(MIN_BOTTOM_GAP)
+        return
+      }
+      const rect = footer.getBoundingClientRect()
+      const footerVisiblePx = Math.max(0, window.innerHeight - rect.top)
+      setFooterOffset(footerVisiblePx > 0 ? footerVisiblePx + MIN_BOTTOM_GAP : MIN_BOTTOM_GAP)
+    }
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
   }, [])
 
   // Scroll margin derived from dynamic header height + a small gap
@@ -250,11 +273,12 @@ export default function UnifiedNavigation({
         className={`hidden xl:block fixed z-30 ${className ?? ''}`}
         style={{
           top: `${effectiveHeaderH + 40}px`,
+          bottom: `${footerOffset}px`,
           right: 'max(1rem, calc((100vw - 1200px) / 2 - 240px))',
           width: '210px',
         }}
       >
-        <div className="space-y-6 max-h-[calc(100vh-160px)] overflow-y-auto pr-2">
+        <div className="space-y-6 h-full overflow-y-auto pr-2">
           {seriesContent}
           {hasSeries && hasToc && <hr className="border-gray-200" />}
           {tocContent}
