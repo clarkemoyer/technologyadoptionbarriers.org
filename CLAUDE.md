@@ -460,9 +460,9 @@ To maximize productivity, TABS developers use the **Git Worktree** pattern. This
 
 ```bash
 # From the main repo directory:
-git worktree add ../tabs-bugfix fix/issue-123
-git worktree add ../tabs-docs docs/update-readme
-git worktree add ../tabs-feature feat/new-viz
+git worktree add -b fix/issue-123 ../tabs-bugfix
+git worktree add -b docs/update-readme ../tabs-docs
+git worktree add -b feat/new-viz ../tabs-feature
 
 # Now you can open 3 separate terminals/Claude sessions:
 cd ../tabs-bugfix && claude
