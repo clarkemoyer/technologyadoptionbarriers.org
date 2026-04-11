@@ -2537,7 +2537,9 @@ def run_validation(df, skip=False, crp200=False):
         factor_correlation = None
 
     # ── Three-group decomposition of Barriers (F1a/F1b split + F2) ──
-    # Groups match the page's THREE_GROUP_ITEMS definition.
+    # Canonical group definitions — emitted as `item_ids` in each
+    # three_groups entry of crp-validation.json so the UI consumes
+    # them from data rather than maintaining a separate list.
     THREE_GROUP_DEFS = [
         ('F1a \u2014 Strategy & Culture',
          ['B1', 'B2', 'B3', 'B5', 'B9', 'B10', 'B11', 'B15', 'B17'], 'f1'),
@@ -2564,13 +2566,12 @@ def run_validation(df, skip=False, crp200=False):
         ave_val = None
         # Only compute stats when we have the complete item set
         if lambdas and not missing:
-            sum_lam = sum(lambdas)
-            sum_lam2 = sum(l ** 2 for l in lambdas)
-            error_sum = sum(1 - l ** 2 for l in lambdas)
-            cr_val = sum_lam ** 2 / (sum_lam ** 2 + error_sum) if (sum_lam ** 2 + error_sum) else None
-            ave_val = sum_lam2 / k
+            cr_raw = composite_reliability(lambdas)
+            cr_val = None if (cr_raw is None or np.isnan(cr_raw)) else float(cr_raw)
+            ave_val = ave_from_loadings(lambdas)
             # Approximate alpha from the factor-model implied correlation matrix
-            off_diag = sum_lam ** 2 - sum_lam2
+            lam_arr = np.array(lambdas, dtype=float)
+            off_diag = float(lam_arr.sum() ** 2 - (lam_arr ** 2).sum())
             total_var = k + off_diag
             alpha_val = (k / (k - 1)) * (off_diag / total_var) if (k > 1 and total_var) else None
         entry = {
