@@ -404,18 +404,12 @@ worktrees, with separate Claude Code sessions working on different tasks in para
 - Worktree 2: `fix/navigation-bug` (Solving a UI glitch)
 - Worktree 3: `docs/update-readme` (Writing documentation)
 
+**Useful Commands:**
+
 ```bash
-# Create worktrees in sibling directories (one branch per directory)
 git worktree add ../tabs-dashboard feat/add-new-dashboard
-git worktree add ../tabs-nav-fix fix/navigation-bug
-git worktree add ../tabs-docs docs/update-readme
-
-# List all active worktrees
 git worktree list
-
-# Remove a worktree when done
 git worktree remove ../tabs-dashboard
-git worktree prune   # Clean up stale references
 ```
 
 **⚠️ Critical Note:** Each worktree **must** have its own dedicated terminal

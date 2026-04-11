@@ -126,7 +126,7 @@ const DevelopmentWorkflowPage = () => {
             <p className="mb-6">
               When working with AI agents like Claude Code, Anthropic&apos;s team recommends git
               worktrees as the top productivity pattern. This allows developers to spin up 3-5
-              concurrent worktrees, with separate AI sessions working on different tasks in
+              concurrent worktrees, with separate Claude Code sessions working on different tasks in
               parallel.
             </p>
 
@@ -163,14 +163,7 @@ const DevelopmentWorkflowPage = () => {
                 <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-xs text-gray-100">
                   <code>{`git worktree add ../tabs-dashboard feat/add-new-dashboard
 git worktree add ../tabs-nav-fix fix/navigation-bug
-git worktree add ../tabs-docs docs/update-readme
-
-# List all active worktrees
-git worktree list
-
-# Remove a worktree when done
-git worktree remove ../tabs-dashboard
-git worktree prune   # Clean up stale references`}</code>
+git worktree add ../tabs-docs docs/update-readme`}</code>
                 </pre>
               </div>
             </div>
