@@ -273,7 +273,7 @@
     ],
     "three_groups": [
       {
-        "name": "F1a — Strategy & Culture",
+        "name": "F1a \u2014 Strategy & Culture",
         "item_ids": ["B1", "B2", "B3", "B5", "B9", "B10", "B11", "B15", "B17"],
         "items": 9,
         "alpha": 0.8383,
@@ -281,7 +281,7 @@
         "ave": 0.3898
       },
       {
-        "name": "F1b — Resources & Operations",
+        "name": "F1b \u2014 Resources & Operations",
         "item_ids": ["B4", "B6", "B7", "B8", "B12"],
         "items": 5,
         "alpha": 0.6617,
@@ -289,7 +289,7 @@
         "ave": 0.2902
       },
       {
-        "name": "F2 — External & Compliance",
+        "name": "F2 \u2014 External & Compliance",
         "item_ids": ["B13", "B14", "B16", "B18"],
         "items": 4,
         "alpha": 0.6707,
