@@ -688,7 +688,7 @@ async function main() {
   const repo = process.env.REPO_NAME
   const prNumber = process.env.PR_NUMBER
   const round = Math.max(1, parseInt(process.env.ROUND || '1', 10))
-  const maxRounds = Math.max(1, parseInt(process.env.MAX_ROUNDS || '7', 10))
+  const maxRounds = Math.max(1, parseInt(process.env.MAX_ROUNDS || '14', 10))
   const autoMerge = process.env.AUTO_MERGE === 'true'
 
   if (!repo || !prNumber) {
