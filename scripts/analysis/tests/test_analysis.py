@@ -759,6 +759,10 @@ class TestRoleMapCISO:
     def test_old_ciso_key_absent(self):
         assert 'CISO (e.g., VP of Information Security, Chief Cybersecurity Officer)' not in ROLE_MAP
 
+    def test_exactly_one_ciso_key(self):
+        ciso_keys = [k for k, v in ROLE_MAP.items() if v == 'CISO']
+        assert len(ciso_keys) == 1, f"Expected 1 CISO key, found {len(ciso_keys)}: {ciso_keys}"
+
     def test_get_role_ciso(self):
         idx = {"Q1_Role": 0}
         assert get_role(["CISO (e.g., Director of Cybersecurity, Chief Security Officer)"], idx) == "CISO"
@@ -781,7 +785,7 @@ class TestClassifyRole:
     def test_technical_cybersecurity(self):
         assert classify_role('Director of Cybersecurity') == 'Technical'
 
-    def test_nontech_sales_director(self):
+    def test_unmatched_sales_director(self):
         # "Sales Director" does not match any Technical pattern; unmatched → 'Other'
         assert classify_role('Sales Director') == 'Other'
 
