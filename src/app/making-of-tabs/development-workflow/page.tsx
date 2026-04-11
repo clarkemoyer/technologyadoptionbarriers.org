@@ -156,12 +156,28 @@ const DevelopmentWorkflowPage = () => {
                     (Writing documentation)
                   </li>
                 </ul>
+                <p className="mt-4 mb-2 text-sm text-gray-700">
+                  To create those worktrees from your main clone, use distinct folders for each
+                  branch:
+                </p>
+                <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-xs text-gray-100">
+                  <code>{`git worktree add ../tabs-dashboard feat/add-new-dashboard
+git worktree add ../tabs-nav-fix fix/navigation-bug
+git worktree add ../tabs-docs docs/update-readme
+
+# List all active worktrees
+git worktree list
+
+# Remove a worktree when done
+git worktree remove ../tabs-dashboard
+git worktree prune   # Clean up stale references`}</code>
+                </pre>
               </div>
             </div>
 
             <p className="mb-6 text-red-700 font-medium bg-red-50 p-4 border border-red-200 rounded-lg">
               <strong>⚠️ Critical Note:</strong> Each worktree <strong>must</strong> have its own
-              dedicated terminal window and its own independent Claude session to avoid state
+              dedicated terminal window and its own independent Claude Code session to avoid state
               conflicts.
             </p>
           </section>
