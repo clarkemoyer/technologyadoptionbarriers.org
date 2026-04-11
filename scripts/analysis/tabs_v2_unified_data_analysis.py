@@ -2567,9 +2567,60 @@ def run_validation(df, skip=False, crp200=False):
     else:
         factor_correlation = None
 
+    # ── Three-group decomposition of Barriers (F1a/F1b split + F2) ──
+    # Canonical group definitions — emitted as `item_ids` in each
+    # three_groups entry of crp-validation.json so the UI consumes
+    # them from data rather than maintaining a separate list.
+    THREE_GROUP_DEFS = [
+        ('F1a \u2014 Strategy & Culture',
+         ['B1', 'B2', 'B3', 'B5', 'B9', 'B10', 'B11', 'B15', 'B17'], 'f1'),
+        ('F1b \u2014 Resources & Operations',
+         ['B4', 'B6', 'B7', 'B8', 'B12'], 'f1'),
+        ('F2 \u2014 External & Compliance',
+         ['B13', 'B14', 'B16', 'B18'], 'f2'),
+    ]
+    lm_by_id = {r['id']: r for r in loadings_matrix}
+    three_groups = []
+    for grp_name, grp_ids, factor_key in THREE_GROUP_DEFS:
+        missing = [
+            bid for bid in grp_ids
+            if bid not in lm_by_id or lm_by_id[bid].get(factor_key) is None
+        ]
+        lambdas = [
+            lm_by_id[bid].get(factor_key)
+            for bid in grp_ids
+            if bid in lm_by_id and lm_by_id[bid].get(factor_key) is not None
+        ]
+        k = len(lambdas)
+        alpha_val = None
+        cr_val = None
+        ave_val = None
+        # Only compute stats when we have the complete item set
+        if lambdas and not missing:
+            cr_raw = composite_reliability(lambdas)
+            cr_val = None if (cr_raw is None or np.isnan(cr_raw)) else float(cr_raw)
+            ave_val = ave_from_loadings(lambdas)
+            # Approximate alpha from the factor-model implied correlation matrix
+            lam_arr = np.array(lambdas, dtype=float)
+            off_diag = float(lam_arr.sum() ** 2 - (lam_arr ** 2).sum())
+            total_var = k + off_diag
+            alpha_val = (k / (k - 1)) * (off_diag / total_var) if (k > 1 and total_var) else None
+        entry = {
+            'name': grp_name,
+            'item_ids': list(grp_ids),
+            'items': len(grp_ids),
+            'alpha': round(alpha_val, 4) if alpha_val is not None else None,
+            'cr': round(cr_val, 4) if cr_val is not None else None,
+            'ave': round(ave_val, 4) if ave_val is not None else None,
+        }
+        if missing:
+            entry['items_computed'] = k
+            entry['missing_items'] = missing
+        three_groups.append(entry)
+
     output['factor_analysis'] = {
         'efa_factors': efa_factors,
-        'three_groups': [],  # populated only when specifically computed
+        'three_groups': three_groups,
         'factor_correlation': factor_correlation,
         'barrier_names': BARRIER_NAMES,
         'loadings_matrix': loadings_matrix,
