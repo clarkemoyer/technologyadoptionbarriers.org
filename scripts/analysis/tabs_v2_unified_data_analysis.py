@@ -2536,9 +2536,43 @@ def run_validation(df, skip=False, crp200=False):
     else:
         factor_correlation = None
 
+    # ── Three-group decomposition of Barriers (F1a/F1b split + F2) ──
+    # Groups match the page's THREE_GROUP_ITEMS definition.
+    THREE_GROUP_DEFS = [
+        ('F1a \u2014 Strategy & Culture',
+         ['B1', 'B2', 'B3', 'B5', 'B9', 'B10', 'B11', 'B15', 'B17'], 'f1'),
+        ('F1b \u2014 Resources & Operations',
+         ['B4', 'B6', 'B7', 'B8', 'B12'], 'f1'),
+        ('F2 \u2014 External & Compliance',
+         ['B13', 'B14', 'B16', 'B18'], 'f2'),
+    ]
+    lm_by_id = {r['id']: r for r in loadings_matrix}
+    three_groups = []
+    for grp_name, grp_ids, factor_key in THREE_GROUP_DEFS:
+        lambdas = [lm_by_id[bid][factor_key] for bid in grp_ids if bid in lm_by_id]
+        if not lambdas:
+            continue
+        k = len(lambdas)
+        sum_lam = sum(lambdas)
+        sum_lam2 = sum(l ** 2 for l in lambdas)
+        error_sum = sum(1 - l ** 2 for l in lambdas)
+        cr_val = sum_lam ** 2 / (sum_lam ** 2 + error_sum) if (sum_lam ** 2 + error_sum) else None
+        ave_val = sum_lam2 / k
+        # Approximate alpha from the factor-model implied correlation matrix
+        off_diag = sum_lam ** 2 - sum_lam2
+        total_var = k + off_diag
+        alpha_val = (k / (k - 1)) * (off_diag / total_var) if (k > 1 and total_var) else None
+        three_groups.append({
+            'name': grp_name,
+            'items': k,
+            'alpha': round(alpha_val, 4) if alpha_val is not None else None,
+            'cr': round(cr_val, 4) if cr_val is not None else None,
+            'ave': round(ave_val, 4),
+        })
+
     output['factor_analysis'] = {
         'efa_factors': efa_factors,
-        'three_groups': [],  # populated only when specifically computed
+        'three_groups': three_groups,
         'factor_correlation': factor_correlation,
         'barrier_names': BARRIER_NAMES,
         'loadings_matrix': loadings_matrix,

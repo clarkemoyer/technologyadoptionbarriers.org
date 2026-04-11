@@ -271,7 +271,29 @@
         "variance_pct": 11.4
       }
     ],
-    "three_groups": [],
+    "three_groups": [
+      {
+        "name": "F1a — Strategy & Culture",
+        "items": 9,
+        "alpha": 0.8383,
+        "cr": 0.8445,
+        "ave": 0.3898
+      },
+      {
+        "name": "F1b — Resources & Operations",
+        "items": 5,
+        "alpha": 0.6617,
+        "cr": 0.6659,
+        "ave": 0.2902
+      },
+      {
+        "name": "F2 — External & Compliance",
+        "items": 4,
+        "alpha": 0.6707,
+        "cr": 0.7299,
+        "ave": 0.4565
+      }
+    ],
     "factor_correlation": 0.5049,
     "barrier_names": [
       "Resistance to Change",
