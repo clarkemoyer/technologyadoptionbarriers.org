@@ -1012,10 +1012,10 @@ def print_demographics(rows, idx, label="Clean"):
 
     tech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical']
     nontech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical']
-    other = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]
+    unclassified = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]
     print(f"\n  Technical: n={len(tech)} ({len(tech) / len(rows) * 100:.1f}%)")
     print(f"  Non-Technical:       n={len(nontech)} ({len(nontech) / len(rows) * 100:.1f}%)")
-    print(f"  Other:               n={len(other)} ({len(other) / len(rows) * 100:.1f}%)")
+    print(f"  Unclassified:        n={len(unclassified)} ({len(unclassified) / len(rows) * 100:.1f}%)")
 
     print("\n  Org Size:")
     for os_val in ALL_ORG_SIZES:
@@ -1211,7 +1211,7 @@ def print_cross_tabs(rows, idx):
     for gname, grows in [
         ("Technical", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical']),
         ("Non-Technical", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical']),
-        ("Other", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]),
+        ("Unclassified", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]),
     ]:
         if not grows:
             continue
@@ -1624,7 +1624,7 @@ def sensitivity_to_json(cuts, idx):
         role_groups = [
             ("Technical", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical']),
             ("Non-Technical", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical']),
-            ("Other", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]),
+            ("Unclassified", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]),
         ]
         role_results = []
         for gname, grows in role_groups:
@@ -1715,14 +1715,20 @@ def sensitivity_to_json(cuts, idx):
             "constructs": t_tests_org,
         }
 
-        # 3. One-way ANOVA: by Role (Tech / Non-Tech / Other under Scenario C binary)
-        other = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]
+        # 3. One-way ANOVA: by Role (Tech / Non-Tech / Unclassified under Scenario C binary)
+        # Dynamically build groups to avoid reporting 3 groups when only 2 are populated.
+        unclassified = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]
+        role_anova_groups = [
+            ("Technical", tech),
+            ("Non-Technical", nontech),
+            ("Unclassified", unclassified),
+        ]
+        # Keep only non-empty groups for ANOVA
+        role_anova_groups = [(name, grp) for name, grp in role_anova_groups if grp]
         anova_role = {}
         for label, cols, sc in ALL_CONSTRUCTS:
-            g1 = person_means(tech, cols, sc, idx)
-            g2 = person_means(nontech, cols, sc, idx)
-            g3 = person_means(other, cols, sc, idx)
-            f_stat, p_val, df_b, df_w = oneway_anova(g1, g2, g3)
+            group_vals = [person_means(grp, cols, sc, idx) for _, grp in role_anova_groups]
+            f_stat, p_val, df_b, df_w = oneway_anova(*group_vals)
             anova_role[label] = {
                 "f": round(f_stat, 4) if f_stat is not None else None,
                 "p": round(p_val, 4) if p_val is not None else None,
@@ -1731,8 +1737,8 @@ def sensitivity_to_json(cuts, idx):
                 "sig": p_val is not None and p_val < 0.05,
             }
         result_inf["anova_by_role"] = {
-            "groups": ["Technical", "Non-Technical", "Other"],
-            "group_ns": [len(tech), len(nontech), len(other)],
+            "groups": [name for name, _ in role_anova_groups],
+            "group_ns": [len(grp) for _, grp in role_anova_groups],
             "constructs": anova_role,
         }
 
@@ -1789,7 +1795,7 @@ def sensitivity_to_json(cuts, idx):
 
         # Extract the demographic counts for each group
         # These will be lists of lists (contingency tables)
-        role_counts = [] # Tech vs Non-tech vs Other
+        role_counts = [] # Tech vs Non-tech vs Unclassified
         org_size_counts = []
         profit_model_counts = []
 
@@ -1812,8 +1818,8 @@ def sensitivity_to_json(cuts, idx):
             # Tech vs Non-tech (Scenario C binary classification)
             tech_n = sum(1 for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical')
             nontech_n = sum(1 for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical')
-            other_n = sum(1 for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None)
-            role_counts.append([tech_n, nontech_n, other_n])
+            unclassified_n = sum(1 for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None)
+            role_counts.append([tech_n, nontech_n, unclassified_n])
 
             # Org Size
             org_sizes = []
