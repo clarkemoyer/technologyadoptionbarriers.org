@@ -82,18 +82,6 @@ These are services we directly integrate into our application code.
 - No Facebook SDK or direct Facebook domain requests are made; all event data is proxied through SociableKit
 - Privacy Considerations: Loading the widget may send user data (IP address, browser info, etc.) to SociableKit. Users should review SociableKit's privacy policy for details. Widget is only loaded after user consents to marketing cookies.
 
-## Transitive Dependencies
-
-These are third-party services loaded by our direct integrations. We do not directly control these, but they are important to disclose for transparency.
-
-### Other Potential Transitive Dependencies
-
-Third-party services we use may load additional services. While we cannot exhaustively list all transitive dependencies, major ones include:
-
-- **Google Services:** Analytics, Fonts, APIs
-- **Meta/Facebook:** Various tracking and analytics services
-- **Content Delivery Networks (CDNs):** For serving third-party scripts and assets
-
 ### Research & Survey Platform
 
 #### 6. Prolific API
@@ -130,6 +118,18 @@ Third-party services we use may load additional services. While we cannot exhaus
   - No client-side tracking or cookies
   - API token secured in encrypted GitHub environment secrets
   - Follows GDPR and data protection best practices
+
+## Transitive Dependencies
+
+These are third-party services loaded by our direct integrations. We do not directly control these, but they are important to disclose for transparency.
+
+### Other Potential Transitive Dependencies
+
+Third-party services we use may load additional services. While we cannot exhaustively list all transitive dependencies, major ones include:
+
+- **Google Services:** Analytics, Fonts, APIs
+- **Meta/Facebook:** Various tracking and analytics services
+- **Content Delivery Networks (CDNs):** For serving third-party scripts and assets
 
 ## Development Dependencies
 
