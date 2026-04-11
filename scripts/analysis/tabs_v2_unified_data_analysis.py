@@ -2549,25 +2549,33 @@ def run_validation(df, skip=False, crp200=False):
     lm_by_id = {r['id']: r for r in loadings_matrix}
     three_groups = []
     for grp_name, grp_ids, factor_key in THREE_GROUP_DEFS:
-        lambdas = [lm_by_id[bid][factor_key] for bid in grp_ids if bid in lm_by_id]
-        if not lambdas:
-            continue
+        lambdas = [
+            loading
+            for bid in grp_ids
+            if bid in lm_by_id
+            for loading in [lm_by_id[bid].get(factor_key)]
+            if loading is not None
+        ]
         k = len(lambdas)
-        sum_lam = sum(lambdas)
-        sum_lam2 = sum(l ** 2 for l in lambdas)
-        error_sum = sum(1 - l ** 2 for l in lambdas)
-        cr_val = sum_lam ** 2 / (sum_lam ** 2 + error_sum) if (sum_lam ** 2 + error_sum) else None
-        ave_val = sum_lam2 / k
-        # Approximate alpha from the factor-model implied correlation matrix
-        off_diag = sum_lam ** 2 - sum_lam2
-        total_var = k + off_diag
-        alpha_val = (k / (k - 1)) * (off_diag / total_var) if (k > 1 and total_var) else None
+        alpha_val = None
+        cr_val = None
+        ave_val = None
+        if lambdas:
+            sum_lam = sum(lambdas)
+            sum_lam2 = sum(l ** 2 for l in lambdas)
+            error_sum = sum(1 - l ** 2 for l in lambdas)
+            cr_val = sum_lam ** 2 / (sum_lam ** 2 + error_sum) if (sum_lam ** 2 + error_sum) else None
+            ave_val = sum_lam2 / k
+            # Approximate alpha from the factor-model implied correlation matrix
+            off_diag = sum_lam ** 2 - sum_lam2
+            total_var = k + off_diag
+            alpha_val = (k / (k - 1)) * (off_diag / total_var) if (k > 1 and total_var) else None
         three_groups.append({
             'name': grp_name,
             'items': k,
             'alpha': round(alpha_val, 4) if alpha_val is not None else None,
             'cr': round(cr_val, 4) if cr_val is not None else None,
-            'ave': round(ave_val, 4),
+            'ave': round(ave_val, 4) if ave_val is not None else None,
         })
 
     output['factor_analysis'] = {
