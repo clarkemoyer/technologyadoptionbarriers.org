@@ -446,32 +446,6 @@ TABS operates a **multi-agent setup** with three distinct AI coding agents worki
 
 _(Note: Gemini Code Assist also runs automatically on PRs if installed, but does not count against issue-to-PR agent concurrency)._
 
-### Parallel Development with Git Worktrees
-
-To maximize productivity, TABS developers use the **Git Worktree** pattern. This allows you to have multiple branches checked out simultaneously in different directories, each with its own Claude Code session.
-
-**Why use worktrees?**
-
-- **Zero context switching**: Keep your state (terminals, logs, running servers) for multiple tasks.
-- **Parallel execution**: Run a long-running build or test suite in one worktree while coding in another.
-- **Claude Concurrency**: Each worktree directory can host a separate `claude` session, allowing you to parallelize your own work.
-
-**Example: Parallel Workflow**
-
-```bash
-# From the main repo directory:
-git worktree add -b fix/issue-123 ../tabs-bugfix main
-git worktree add -b docs/update-readme ../tabs-docs main
-git worktree add -b feat/new-viz ../tabs-feature main
-
-# Now you can open 3 separate terminals/Claude sessions:
-cd ../tabs-bugfix && claude
-cd ../tabs-docs && claude
-cd ../tabs-feature && claude
-```
-
-**Note**: Each worktree needs its own terminal and Claude session. When finished, remove them with `git worktree remove <path>`.
-
 ### Google Jules Integration
 
 Jules is Google's autonomous coding agent powered by Gemini. We use the **Ultra tier**, which gives us up to 60 concurrent tasks.
