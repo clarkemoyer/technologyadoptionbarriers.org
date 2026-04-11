@@ -44,7 +44,7 @@ describe('UnifiedNavigation', () => {
   afterEach(() => {
     document.getElementById('header')?.remove()
     document.querySelector('article')?.remove()
-    document.querySelector('footer')?.remove()
+    document.getElementById('site-footer')?.remove()
   })
 
   it('renders nothing when no series items and no headings detected yet', () => {
@@ -125,12 +125,13 @@ describe('UnifiedNavigation — footer-aware bottom offset', () => {
 
   afterEach(() => {
     document.getElementById('header')?.remove()
-    document.querySelector('footer')?.remove()
+    document.getElementById('site-footer')?.remove()
     jest.restoreAllMocks()
   })
 
   function stubFooterRect(rect: Partial<DOMRect>) {
     const footer = document.createElement('footer')
+    footer.id = 'site-footer'
     document.body.appendChild(footer)
     jest.spyOn(footer, 'getBoundingClientRect').mockReturnValue({
       top: 0,

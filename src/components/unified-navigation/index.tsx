@@ -70,7 +70,7 @@ export default function UnifiedNavigation({
   // Throttled via requestAnimationFrame; skips setState when value is unchanged.
   useEffect(() => {
     const update = () => {
-      const footer = document.querySelector('footer')
+      const footer = document.getElementById('site-footer')
       let next: number
       if (!footer) {
         next = MIN_BOTTOM_GAP
