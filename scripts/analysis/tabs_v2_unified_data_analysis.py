@@ -1164,8 +1164,8 @@ def filter_samples(data, idx, crp200=False):
     """Create sample cuts from V2 data. Returns (v2_rows, samples_dict).
 
     Args:
-        data: list of row dicts from load_qualtrics_csv
-        idx:  column-name-to-index map
+        data: list of row lists from load_qualtrics_csv (values accessed via idx)
+        idx:  column-name-to-index map (header → column position)
         crp200: when True, skip the V2_START date filter entirely.
                 The frozen CRP dataset is V2-only by construction, and NIST
                 de-identification strips times from dates so the string
