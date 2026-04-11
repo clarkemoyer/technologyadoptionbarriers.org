@@ -392,6 +392,29 @@ If you can't use the composite action, add these steps before any commit-creatin
 
 ## Git Workflow
 
+### Parallel Development with Git Worktrees
+
+Anthropic's engineering team recommends **git worktrees** as the top productivity
+pattern when working with Claude Code. This allows you to spin up 3-5 concurrent
+worktrees, with separate Claude Code sessions working on different tasks in parallel.
+
+**Example Scenario:**
+
+- Worktree 1: `feat/add-new-dashboard` (Building a new feature)
+- Worktree 2: `fix/navigation-bug` (Solving a UI glitch)
+- Worktree 3: `docs/update-readme` (Writing documentation)
+
+**Useful Commands:**
+
+```bash
+git worktree add ../tabs-dashboard feat/add-new-dashboard
+git worktree list
+git worktree remove ../tabs-dashboard
+```
+
+**⚠️ Critical Note:** Each worktree **must** have its own dedicated terminal
+window and its own independent Claude Code session to avoid state conflicts.
+
 ### Branch Naming
 
 ```bash
