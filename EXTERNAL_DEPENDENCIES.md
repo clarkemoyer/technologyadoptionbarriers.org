@@ -82,80 +82,9 @@ These are services we directly integrate into our application code.
 - No Facebook SDK or direct Facebook domain requests are made; all event data is proxied through SociableKit
 - Privacy Considerations: Loading the widget may send user data (IP address, browser info, etc.) to SociableKit. Users should review SociableKit's privacy policy for details. Widget is only loaded after user consents to marketing cookies.
 
-### Forms & User Input
-
-#### 6. Microsoft Forms
-
-- **Purpose:** Charity application form
-- **Form URL:** `https://forms.office.com/r/vePxGq6JqG`
-- **Implementation:** Embedded via iframe in `src/components/ui/ApplicationFormButton.tsx`
-- **Sandbox Attributes:** `allow-scripts allow-forms allow-popups`
-- **Load Trigger:** On-demand when user clicks "Apply to Become a Supported Charity"
-- **Data Collected:** User-submitted form data
-- **User Control:** Modal can be closed without submitting
-- **Privacy Policy:** https://privacy.microsoft.com/
-- **Important:** Microsoft Forms may load additional third-party services (see Transitive Dependencies)
-
-### Donation Platform
-
-#### 7. Zeffy
-
-- **Purpose:** Zero-fee donation processing platform
-- **Implementation:** Embedded widget
-- **Domain:** `www.zeffy.com`
-- **Preconnect:** Configured in `src/app/layout.tsx`
-- **Data Collected:** Donation transaction data
-- **Privacy Policy:** https://www.zeffy.com/privacy
-
-### Transparency & Validation
-
-#### 8. GuideStar (Candid)
-
-- **Purpose:** Display charity transparency seal
-- **Implementation:** Widget embedded in footer
-- **Domain:** `widgets.guidestar.org`
-- **Preconnect:** Configured in `src/app/layout.tsx`
-- **Data Collected:** Minimal (widget display only)
-- **Privacy Policy:** https://www.guidestar.org/privacy
-
-### External Volunteer Platforms
-
-#### 9. Idealist.org
-
-- **Purpose:** Volunteer opportunity listings
-- **Implementation:** Link to external profile
-- **URL:** `https://www.idealist.org/` (link to the project's profile/opportunities page, if used)
-- **Data Collected:** None (external link only)
-- **Privacy Policy:** https://www.idealist.org/en/privacy
-
-## Transitive Dependencies
-
-These are third-party services loaded by our direct integrations. We do not directly control these, but they are important to disclose for transparency.
-
-### 1. HubSpot (via Microsoft Forms)
-
-- **Source:** Microsoft Forms integration
-- **Service:** `feedback-web-fetcher`
-- **Purpose:** Form analytics and feedback collection for Microsoft Forms
-- **Implementation:** Automatically loaded by Microsoft Forms iframe
-- **User Control:** Only loads when application form modal is opened
-- **Privacy Policy:** https://legal.hubspot.com/privacy-policy
-- **Note:** This is a Microsoft-controlled service, not directly integrated by the TABS codebase
-
-**Discovery:** Identified through page speed analysis.
-
-### Other Potential Transitive Dependencies
-
-Third-party services we use may load additional services. While we cannot exhaustively list all transitive dependencies, major ones include:
-
-- **Google Services:** Analytics, Fonts, APIs
-- **Meta/Facebook:** Various tracking and analytics services
-- **Microsoft Services:** Forms backend, authentication, cloud services
-- **Content Delivery Networks (CDNs):** For serving third-party scripts and assets
-
 ### Research & Survey Platform
 
-#### 8. Prolific API
+#### 6. Prolific API
 
 - **Purpose:** Survey participant recruitment and data collection
 - **API Base URL:** `https://api.prolific.com/api/v1/`
@@ -189,6 +118,18 @@ Third-party services we use may load additional services. While we cannot exhaus
   - No client-side tracking or cookies
   - API token secured in encrypted GitHub environment secrets
   - Follows GDPR and data protection best practices
+
+## Transitive Dependencies
+
+These are third-party services loaded by our direct integrations. We do not directly control these, but they are important to disclose for transparency.
+
+### Other Potential Transitive Dependencies
+
+Third-party services we use may load additional services. While we cannot exhaustively list all transitive dependencies, major ones include:
+
+- **Google Services:** Analytics, Fonts, APIs
+- **Meta/Facebook:** Various tracking and analytics services
+- **Content Delivery Networks (CDNs):** For serving third-party scripts and assets
 
 ## Development Dependencies
 
@@ -238,8 +179,6 @@ See `package.json` for complete list of development dependencies.
 
 #### Functional Cookies (Always Active)
 
-- Zeffy donation forms
-- Microsoft Forms (when opened)
 - Essential website features
 
 #### Analytics Cookies (Requires Consent)
@@ -257,9 +196,7 @@ See `package.json` for complete list of development dependencies.
 ### Data Retention
 
 - **Analytics Data:** Varies by service (typically 14-26 months)
-- **Form Submissions:** Stored by Microsoft Forms per their retention policy
 - **Cookie Preferences:** 12 months
-- **Donation Data:** Managed by Zeffy per their privacy policy
 
 ### User Rights
 
@@ -282,26 +219,21 @@ To improve performance, we preconnect to frequently used domains:
 ```typescript
 // src/app/layout.tsx
 <link rel="preconnect" href="https://www.googletagmanager.com" />
-<link rel="preconnect" href="https://www.zeffy.com" />
-<link rel="preconnect" href="https://widgets.guidestar.org" />
 ```
 
 ### Lazy Loading
 
 - Google Tag Manager: `lazyOnload` strategy
-- Microsoft Forms: On-demand (only when modal opened)
-- Zeffy Widget: Embedded but optimized
 - Analytics: Conditional loading based on consent
 
 ## Security Measures
 
 ### Third-Party Script Security
 
-1. **Iframe Sandboxing:** Microsoft Forms iframe restricted with `allow-scripts allow-forms allow-popups`
-2. **Content Security Policy:** Configured to allow only necessary domains
-3. **HTTPS Only:** All external resources loaded via HTTPS
-4. **Regular Audits:** Dependencies monitored for security vulnerabilities
-5. **CodeQL Scanning:** Automated security analysis via GitHub Actions
+1. **Content Security Policy:** Configured to allow only necessary domains
+2. **HTTPS Only:** All external resources loaded via HTTPS
+3. **Regular Audits:** Dependencies monitored for security vulnerabilities
+4. **CodeQL Scanning:** Automated security analysis via GitHub Actions
 
 ### Dependency Management
 

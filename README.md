@@ -309,23 +309,7 @@ MCP provides standardized interfaces for AI coding agents to interact with exter
 - **Live Site**: [https://technologyadoptionbarriers.org](https://technologyadoptionbarriers.org)
 - **Hosting**: GitHub Pages (apex domain)
 - **Deployment**: Automated via GitHub Actions on push to `main` branch
-- **Custom Domain**: Provided by Free for Charity (see acknowledgment below)
-
-## Free for Charity Acknowledgment
-
-**Domain Name & Services:** [https://www.freeforcharity.com](https://www.freeforcharity.com)
-
-This project benefits from **Free for Charity's** generous program providing free domain names and technology services to qualified nonprofit organizations. Free for Charity supports charitable causes by offering essential web infrastructure at no cost.
-
-**Services Provided:**
-
-- Custom domain name (technologyadoptionbarriers.org)
-- Domain management and DNS services
-- Technical support for nonprofit technology needs
-
-We are grateful for Free for Charity's support of our mission to document and address technology adoption barriers. Their commitment to empowering nonprofits through free technology services makes projects like TABS possible.
-
-**Learn More:** If you represent a nonprofit organization, visit [Free for Charity](https://www.freeforcharity.com) to see if you qualify for their program.
+- **Custom Domain**: technologyadoptionbarriers.org
 
 ## Development Status
 
