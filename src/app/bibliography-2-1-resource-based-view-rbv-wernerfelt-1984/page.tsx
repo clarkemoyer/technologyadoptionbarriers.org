@@ -262,7 +262,7 @@ const ResourceBasedViewPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Tautological Tendencies:</strong> Critics have noted that the framework can
-            become somewhat circular - resources that lead to superior performance are explained as
+            become somewhat circular—resources that lead to superior performance are explained as
             being rare and inimitable, but the only evidence that resources are rare and inimitable
             is that they lead to superior performance. This circularity makes the framework
             difficult to falsify empirically and can reduce its predictive power.

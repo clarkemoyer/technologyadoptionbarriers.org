@@ -11,11 +11,6 @@ expect.extend(toHaveNoViolations)
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
   usePathname: jest.fn(() => '/'),
-  useRouter: jest.fn(() => ({
-    push: jest.fn(),
-    replace: jest.fn(),
-    prefetch: jest.fn(),
-  })),
 }))
 
 // Mock framer-motion to avoid animation issues in tests

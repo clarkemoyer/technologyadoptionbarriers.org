@@ -7,16 +7,6 @@ import Header from '../../src/components/header'
 // Extend Jest matchers
 expect.extend(toHaveNoViolations)
 
-// Mock next/navigation used by Header (and nested SearchInput)
-jest.mock('next/navigation', () => ({
-  usePathname: jest.fn(() => '/'),
-  useRouter: jest.fn(() => ({
-    push: jest.fn(),
-    replace: jest.fn(),
-    prefetch: jest.fn(),
-  })),
-}))
-
 // Mock framer-motion to avoid animation issues in tests
 jest.mock('framer-motion', () => ({
   motion: {
@@ -32,16 +22,9 @@ jest.mock('framer-motion', () => ({
 
 // --- Helpers ---
 
-/** Known sub-item labels for the Results dropdown (link items only, excludes group headers and dividers) */
+/** Known sub-item labels for the Results dropdown */
 const RESULTS_SUB_ITEMS = [
-  'CRP Overview & Download',
-  'CRP Sample & Demographics',
-  'CRP Descriptive Statistics',
-  'CRP Scale Reliability',
-  'CRP Sensitivity Analysis',
-  'CRP Key Findings',
-  'CRP Data Quality',
-  'Results Overview',
+  'Overview',
   'Sample & Demographics',
   'Data Quality Pipeline',
   'Descriptive Statistics',

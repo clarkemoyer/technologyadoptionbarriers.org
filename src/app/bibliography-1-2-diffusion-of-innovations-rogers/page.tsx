@@ -57,7 +57,7 @@ const BibliographyArticlePage = () => {
               in understanding technology adoption across diverse contexts. The core problem
               motivating this model was simple yet profound: there is a wide gap between when
               innovations become available and when they are actually adopted. Many innovations
-              require lengthy periods - sometimes years - from their introduction until they achieve
+              require lengthy periods— sometimes years—from their introduction until they achieve
               widespread adoption. This gap creates practical challenges for individuals and
               organizations seeking to accelerate adoption rates. The framework emerged from
               Rogers’s recognition that understanding how innovations spread through populations
@@ -277,13 +277,13 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
             <p className={PARAGRAPH_CLASSES}>
               Despite its strengths, the Diffusion of Innovations model has notable limitations:
-              Pro-innovation bias: Rogers acknowledged that the model exhibits pro- innovation bias
-              - the assumption that innovations are inherently desirable and should be diffused as
-              widely and rapidly as possible. However, this bias limits applicability to situations
-              where diffusion is genuinely beneficial. Some innovations may be undesirable for
-              certain populations or in certain contexts, yet the framework treats resistance as a
-              problem to overcome rather than exploring whether rejection might sometimes be
-              rational.
+              Pro-innovation bias: Rogers acknowledged that the model exhibits pro- innovation
+              bias—the assumption that innovations are inherently desirable and should be diffused
+              as widely and rapidly as possible. However, this bias limits applicability to
+              situations where diffusion is genuinely beneficial. Some innovations may be
+              undesirable for certain populations or in certain contexts, yet the framework treats
+              resistance as a problem to overcome rather than exploring whether rejection might
+              sometimes be rational.
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>
@@ -355,7 +355,7 @@ const BibliographyArticlePage = () => {
             <ul className={BODY_LIST_CLASSES}>
               <li>
                 <strong>Explicit time dimension:</strong> Earlier research often treated adoption as
-                a discrete event - individuals either adopted or did not - without examining how
+                a discrete event—individuals either adopted or did not—without examining how
                 adoption decisions unfolded over time. Rogers elevated the temporal dimension to
                 central theoretical importance. The five-stage innovation- decision process provided
                 a detailed temporal framework for understanding adoption as unfolding through
@@ -390,9 +390,9 @@ const BibliographyArticlePage = () => {
               </li>
               <li>
                 <strong>Recognition of heterogeneity:</strong> Earlier diffusion accounts sometimes
-                implied that all individuals would eventually adopt beneficial innovations - a
-                linear progress view. Rogers emphasized that adoption rates vary substantially
-                across populations, some individuals (laggards) may never adopt even successful
+                implied that all individuals would eventually adopt beneficial innovations—a linear
+                progress view. Rogers emphasized that adoption rates vary substantially across
+                populations, some individuals (laggards) may never adopt even successful
                 innovations, and heterogeneity in adoption timelines was normal and expected, not
                 anomalous
               </li>

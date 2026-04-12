@@ -305,7 +305,7 @@ const BibliographyArticlePage = () => {
               in all customer communications. Rather than generic claims about the technology,
               organizations should highlight specifically how the technology serves the values their
               target customers hold. For value-oriented messaging to be effective, it must be
-              authentic - the technology genuinely must deliver the value-based benefits promised.
+              authentic—the technology genuinely must deliver the value-based benefits promised.
               Organizations should use VAM to inform corporate social responsibility and
               sustainability messaging.
             </p>

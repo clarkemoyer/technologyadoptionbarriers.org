@@ -66,7 +66,7 @@ const BibliographyArticlePage = () => {
               motivation stemmed from the observation that the two models captured different aspects
               of technology adoption that needed to be integrated. The Technology Acceptance Model
               focuses on perceived usefulness and ease of use of specific information technology
-              systems - what might be termed “system-specific” perceptions.
+              systems—what might be termed “system-specific” perceptions.
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>
@@ -395,7 +395,7 @@ const BibliographyArticlePage = () => {
               alone. Second, the integrated model significantly improves explanatory power. By
               capturing variance attributable to both general technology readiness and
               system-specific perceptions, TRAM explains approximately 55% of variance in adoption
-              intention - substantially more than typical TAM-only models. This improved explanatory
+              intention—substantially more than typical TAM-only models. This improved explanatory
               power indicates that the integration captures meaningful theoretical ground. Third,
               TRAM preserves the strengths of both component models while addressing their
               limitations. The TAM remains valuable for understanding system-specific perceptions,

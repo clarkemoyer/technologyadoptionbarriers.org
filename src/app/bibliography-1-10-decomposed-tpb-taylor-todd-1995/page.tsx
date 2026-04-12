@@ -56,15 +56,16 @@ const BibliographyArticlePage = () => {
             <p className={PARAGRAPH_CLASSES}>
               Taylor and Todd developed their competing models framework to address fundamental
               ambiguities and theoretical gaps in information technology adoption research. By the
-              mid-1990s, multiple theoretical frameworks had been proposed to explain IT adoption -
-              Davis’s Technology Acceptance Model (TAM), the Theory of Planned Behavior (TPB),
-              Thompson et al.’s expected consequences model, and others. However, no comprehensive
-              empirical comparison existed to determine which framework provided superior
-              explanatory power or how different theoretical approaches related to one another. The
-              authors note in their introduction that “different theoretical models have been
-              applied to predict IT usage” but “little research has compared alternative models.”
-              This research gap meant that IS researchers and practitioners lacked clear guidance
-              about which theories offered the most robust understanding of technology adoption.
+              mid-1990s, multiple theoretical frameworks had been proposed to explain IT
+              adoption—Davis’s Technology Acceptance Model (TAM), the Theory of Planned Behavior
+              (TPB), Thompson et al.’s expected consequences model, and others. However, no
+              comprehensive empirical comparison existed to determine which framework provided
+              superior explanatory power or how different theoretical approaches related to one
+              another. The authors note in their introduction that “different theoretical models
+              have been applied to predict IT usage” but “little research has compared alternative
+              models.” This research gap meant that IS researchers and practitioners lacked clear
+              guidance about which theories offered the most robust understanding of technology
+              adoption.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Organizations also lacked a coherent framework for understanding which factors truly
@@ -76,7 +77,7 @@ const BibliographyArticlePage = () => {
               adopt or resist information technologies? The motivation was also grounded in
               theoretical development. The Technology Acceptance Model (TAM) had become increasingly
               influential but also increasingly critiqued. Critics argued that TAM’s two primary
-              constructs - Perceived Usefulness (PU) and Perceived Ease of Use (PEOU) - might be too
+              constructs—Perceived Usefulness (PU) and Perceived Ease of Use (PEOU)— might be too
               simplified and that the theory neglected important factors like social influences,
               control beliefs, and consequences.
             </p>
@@ -118,7 +119,7 @@ const BibliographyArticlePage = () => {
                 validity through multiple techniques: Convergent and Discriminant Validity: The
                 authors examined factor loadings and construct correlations. All measurement items
                 loaded significantly on their hypothesized constructs (t-values &gt; 2.0), and
-                constructs showed appropriate correlations with one another - related enough to
+                constructs showed appropriate correlations with one another—related enough to
                 indicate common underlying domain but distinct enough to represent separate
                 dimensions
               </li>
@@ -166,9 +167,9 @@ const BibliographyArticlePage = () => {
             <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
             <p className={PARAGRAPH_CLASSES}>
               Taylor and Todd employed a two-study design specifically to strengthen external
-              validity claims: Multi-Technology Approach: Study 1 examined email adoption - a
+              validity claims: Multi-Technology Approach: Study 1 examined email adoption—a
               relatively optional technology where use provided immediate benefits but was not
-              mandatory. Study 2 examined a new information system - a more mandatory technology
+              mandatory. Study 2 examined a new information system—a more mandatory technology
               implemented as part of organizational operations. This contrast allowed testing
               whether models generalized across voluntary versus mandated adoption contexts. The
               different technological characteristics created two distinct adoption scenarios: email
@@ -269,7 +270,7 @@ const BibliographyArticlePage = () => {
                 <strong>Intervention Sequencing:</strong> The models suggest an intervention
                 sequence. First, reduce Perceived Ease of Use barriers through training, simplified
                 interfaces, and accessible support. As users gain capability, Perceived Usefulness
-                becomes increasingly salient - systems that are easier to use are perceived as more
+                becomes increasingly salient—systems that are easier to use are perceived as more
                 useful. Then, as individuals develop intentions to use systems, social norms and
                 organizational support become important for sustaining usage
               </li>
@@ -446,7 +447,7 @@ const BibliographyArticlePage = () => {
             </p>
             <p className={PARAGRAPH_CLASSES}>
               The models show associations between constructs but cannot definitively establish
-              causality. Reverse causality is possible - for example, frequent users might develop
+              causality. Reverse causality is possible—for example, frequent users might develop
               higher Perceived Usefulness perceptions rather than high usefulness perceptions
               driving usage. 4.Limited Context Variety: While two studies provide more context than
               one, both occur in university settings. Generalization to corporate, government, or
@@ -517,7 +518,7 @@ const BibliographyArticlePage = () => {
               indirectly through attitude and usefulness), revealing mechanistic complexity.
               7.Systematic Model Comparison: The paper’s structured comparison of model fit indices
               across different specifications provided evidence-based guidance about theory
-              selection - advancing beyond authors championing their preferred theory.
+              selection—advancing beyond authors championing their preferred theory.
               8.Population-Specific Validation: By testing models across different user populations
               and technologies, Taylor and Todd acknowledged that adoption might vary by context
               while also seeking universal principles applying across contexts.

@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
   ]
 
   return (
-    <footer id="site-footer" className="w-full bg-black text-white">
+    <footer className="w-full bg-black text-white">
       {/* Contact/CTA Section - Merged from BottomCTA */}
       <div
         id="contact"
