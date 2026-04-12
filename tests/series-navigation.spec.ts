@@ -1,24 +1,21 @@
 import { test, expect, type Page } from '@playwright/test'
 import { technologyAdoptionModelsSeries } from '../src/data/technology-adoption-models-series'
-
-function escapeRegExp(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-}
+import { escapeRegExp } from './utils/escape-regexp'
 
 /**
  * Technology Adoption Models Series Navigation Tests
  *
  * These tests verify:
- * 1. Desktop mega menu navigation works correctly
+ * 1. Desktop sidebar navigation works correctly
  * 2. Mobile accordion navigation works correctly
  * 3. All series pages load with correct H1 titles
  * 4. Placeholder pages display "Coming soon"
- * 5. Keyboard navigation (Escape key closes mega menu)
+ * 5. Keyboard navigation (Escape key closes sidebar overlay)
  *
- * NOTE: Desktop mega menu tests are currently skipped due to a known limitation.
- * The mega menu uses client-side React state and AnimatePresence animations that
- * don't hydrate reliably in Playwright tests against static builds. The feature
- * works correctly when manually tested in browsers. See issue comments for details.
+ * NOTE: Desktop sidebar tests in the first describe block are currently skipped
+ * because they reference the legacy mega-menu UI that has been replaced. The
+ * sidebar-based navigation is covered by the mobile accordion tests and the
+ * teaching-series spec.
  */
 
 test.describe('Series Navigation - Desktop Mega Menu', () => {

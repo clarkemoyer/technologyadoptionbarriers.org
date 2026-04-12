@@ -1,12 +1,6 @@
 import { test, expect, type Page } from '@playwright/test'
-import {
-  technologyAdoptionTeachingSeries,
-  technologyAdoptionTeachingSeriesResources,
-} from '../src/data/technology-adoption-teaching-series'
-
-function escapeRegExp(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-}
+import { technologyAdoptionTeachingSeries } from '../src/data/technology-adoption-teaching-series'
+import { escapeRegExp } from './utils/escape-regexp'
 
 async function seedCookieConsent(page: Page) {
   await page.addInitScript(() => {
@@ -22,20 +16,7 @@ async function seedCookieConsent(page: Page) {
   })
 }
 
-async function openTeachingMegaMenu(page: Page) {
-  const megaMenuButton = page.getByRole('button', {
-    name: /Technology Adoption Teaching Series/i,
-  })
-  await expect(megaMenuButton).toBeVisible()
-
-  const megaMenu = page.locator('#mega-menu')
-
-  await megaMenuButton.click()
-  await expect(megaMenu).toBeVisible({ timeout: 10000 })
-  return megaMenu
-}
-
-async function openMobileMenu(page: Page) {
+async function openSidebar(page: Page) {
   const openMenuButton = page.getByRole('button', { name: /open navigation menu/i })
   await expect(openMenuButton).toBeVisible()
 
@@ -44,36 +25,37 @@ async function openMobileMenu(page: Page) {
   // Wait for hydration by checking the button becomes interactive
   await openMenuButton.click()
   await expect(dialog).toBeVisible({ timeout: 15000 })
+  return dialog
 }
 
 test.describe('Teaching Series - Sidebar Navigation', () => {
-  test('desktop: opens mega menu and shows parts + first slide', async ({ page }) => {
-    test.skip(
-      Boolean(process.env.CI),
-      'Desktop mega-menu hydration/animation can be flaky in static builds (CI). Run locally when investigating; see tests/series-navigation.spec.ts for context.'
-    )
-
+  test('desktop: sidebar shows teaching parts + first slide', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 720 })
     await page.emulateMedia({ reducedMotion: 'reduce' })
 
     await seedCookieConsent(page)
     await page.goto('/', { waitUntil: 'domcontentloaded' })
 
-    const megaMenu = await openTeachingMegaMenu(page)
+    // On desktop the sidebar is always visible; click Teaching section
+    const teachingButton = page.getByRole('button', { name: /^Teaching$/i })
+    await expect(teachingButton).toBeVisible({ timeout: 15000 })
+    await teachingButton.click()
 
-    await expect(
-      megaMenu.getByRole('link', {
-        name: technologyAdoptionTeachingSeries.root.title,
-      })
-    ).toBeVisible()
-
+    // Verify accordion groups appear
     const part1Title = technologyAdoptionTeachingSeries.parts[0].title
-    await expect(megaMenu.getByRole('link', { name: part1Title })).toBeVisible()
+    const part1Button = page.getByRole('button', {
+      name: new RegExp(escapeRegExp(part1Title), 'i'),
+    })
+    await expect(part1Button).toBeVisible()
 
-    await expect(megaMenu.getByRole('link', { name: /Slide 1:/i })).toBeVisible()
-
-    const firstResource = technologyAdoptionTeachingSeriesResources[0]
-    await expect(megaMenu.getByRole('link', { name: firstResource.title })).toBeVisible()
+    // Expand first part and verify a slide link
+    await part1Button.click()
+    const firstSlide = technologyAdoptionTeachingSeries.parts[0].slides.filter(
+      (s) => !s.isOptional
+    )[0]
+    await expect(
+      page.getByRole('link', { name: new RegExp(`Slide ${firstSlide.number}:`, 'i') })
+    ).toBeVisible()
   })
 
   test('mobile: teaching series is accessible from hamburger menu', async ({ page }) => {
@@ -83,10 +65,7 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
     await seedCookieConsent(page)
     await page.goto('/', { waitUntil: 'domcontentloaded' })
 
-    await openMobileMenu(page)
-
-    // Click Teaching top-level item in sidebar
-    const navigationDialog = page.getByRole('dialog', { name: /navigation menu/i })
+    const navigationDialog = await openSidebar(page)
     const teachingButton = navigationDialog.getByRole('button', { name: /^Teaching$/i })
     await expect(teachingButton).toBeVisible()
     await teachingButton.click()

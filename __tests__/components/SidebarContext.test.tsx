@@ -17,10 +17,13 @@ function TestConsumer() {
 describe('SidebarContext', () => {
   it('should throw when useSidebar is called outside SidebarProvider', () => {
     const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
-    expect(() => render(<TestConsumer />)).toThrow(
-      'useSidebar must be used within a SidebarProvider'
-    )
-    spy.mockRestore()
+    try {
+      expect(() => render(<TestConsumer />)).toThrow(
+        'useSidebar must be used within a SidebarProvider'
+      )
+    } finally {
+      spy.mockRestore()
+    }
   })
 
   it('should default isMobileOpen to false', () => {
