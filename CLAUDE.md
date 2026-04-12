@@ -41,6 +41,26 @@ npm run test:e2e    # Playwright E2E tests
 
 **If any of these fail**, fix the issues before pushing. CI will reject PRs that don't pass these checks.
 
+## Versioning Strategy & Requirements
+
+TABS tracks rapidly evolving AI and protocol standards under the Linux Foundation AI & Data (AAIF).
+
+### Minimum Tool Versions
+
+- **GitHub CLI (`gh`)**: 2.89.0+ (Required for `gh agent-task` and agentic review features)
+- **MCP Protocol**:
+  - [SEP-1699](https://modelcontextprotocol.io/seps/1699-support-sse-polling-via-server-side-disconnect): SSE polling and server-side disconnect (Resumability)
+  - [SEP-1865](https://modelcontextprotocol.io/seps/1865-mcp-apps-interactive-user-interfaces-for-mcp): MCP Apps (Interactive UIs / "Server Cards")
+
+### Core Dependencies
+
+- **Next.js**: 16.2.1+
+- **React**: 19.2.4+
+- **TypeScript**: 6.0.2+
+- **Tailwind CSS**: 4.1.12+
+
+Agents should verify these versions using `gh --version` and checking `package.json` before starting complex infrastructure tasks.
+
 ## Architecture Overview
 
 ### Tech Stack

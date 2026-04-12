@@ -1,6 +1,6 @@
 # External Dependencies and Third-Party Services
 
-**Last Updated:** January 15, 2026
+**Last Updated:** April 12, 2026
 
 This document provides a comprehensive list of all external dependencies and third-party services used by the Technology Adoption Barriers Survey (TABS) website. This includes both direct integrations (services we explicitly configure) and transitive dependencies (services loaded by our direct integrations).
 
@@ -242,11 +242,34 @@ To improve performance, we preconnect to frequently used domains:
 - **Vulnerability Scanning:** Regular npm audit runs
 - **Version Pinning:** Exact versions in package-lock.json
 
+## Dependency Freshness & Governance
+
+As part of the [AAIF](https://lfaidata.foundation/) lifecycle, TABS maintains strict governance over external dependencies and AI integrations.
+
+### Quarterly Freshness Audit (Last Check: April 12, 2026)
+
+The following dependencies were identified as outdated or missing during the current quarterly audit:
+
+| Package | Status | Latest | Action |
+|---------|--------|--------|--------|
+| `next` | Outdated | 16.2.3 | Plan upgrade to 16.2.3 |
+| `react` | Outdated | 19.2.5 | Coordinate with Next.js upgrade |
+| `postcss` | Outdated | 8.5.9 | Upgrade recommended |
+| `@google-analytics/data` | Missing | 5.2.1 | Restore to local environment |
+| `lucide-react` | Outdated | 1.8.0 | Upgrade recommended |
+
+### MCP & API Governance Policy
+
+1. **Official Preference**: Always prefer official MCP servers (GitHub, Qualtrics, Google) over community variants.
+2. **Security Review**: New MCP servers must undergo a provenance and security review (see [Issue #783](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/783)).
+3. **Version Compatibility**: All integrations must support the minimum versions defined in `CLAUDE.md`.
+4. **Credential Isolation**: Tokens must never be stored in code; use GitHub Environments and Secrets.
+
 ## Monitoring and Compliance
 
 ### Regular Reviews
 
-- **Quarterly:** Review all third-party services for continued necessity
+- **Quarterly:** Review all third-party services for continued necessity (Jan, Apr, Jul, Oct)
 - **As Needed:** Evaluate new services before integration
 - **Continuous:** Monitor for security vulnerabilities and updates
 
@@ -278,6 +301,7 @@ For questions about our external dependencies or privacy practices:
 | 2024-12-11 | Added SociableKit Facebook Events Widget - implementation complete  |
 | 2024-12-09 | Added Facebook Events integration documentation                     |
 | 2024-12-07 | Initial documentation of all external dependencies and integrations |
+| 2026-04-12 | Added Dependency Freshness & Governance section; quarterly audit    |
 
 ---
 
