@@ -595,11 +595,14 @@ def _regularized_incomplete_beta(x, a, b, max_iter=200, tol=1e-12):
         return 0.0
     if x >= 1:
         return 1.0
+    # Symmetry relation for better convergence (Numerical Recipes §6.4).
+    # The continued fraction converges faster when x < (a+1)/(a+b+2).
+    if x > (a + 1.0) / (a + b + 2.0):
+        return 1.0 - _regularized_incomplete_beta(1.0 - x, b, a, max_iter, tol)
     # Use the log-beta for numerical stability
     ln_prefix = _ln_beta_prefix(x, a, b)
     # Continued fraction (modified Lentz's method)
-    f = 1e-30
-    c = 1e-30
+    c = 1.0
     d = 1.0 - (a + b) * x / (a + 1.0)
     if abs(d) < 1e-30:
         d = 1e-30

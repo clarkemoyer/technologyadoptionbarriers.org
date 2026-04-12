@@ -455,27 +455,27 @@
           "constructs": {
             "barriers": {
               "t": -0.3818,
-              "p": 0.0,
+              "p": 0.7056,
               "df": 27.4,
               "mean_diff_ci_lower": -0.0667,
               "mean_diff_ci_upper": -0.0667,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 1.5878,
-              "p": 0.0,
+              "p": 0.123,
               "df": 29.6,
               "mean_diff_ci_lower": 0.236,
               "mean_diff_ci_upper": 0.236,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 1.0178,
-              "p": 0.0,
+              "p": 0.3178,
               "df": 27.09,
               "mean_diff_ci_lower": 0.201,
               "mean_diff_ci_upper": 0.201,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -485,27 +485,27 @@
           "constructs": {
             "barriers": {
               "t": 2.0178,
-              "p": 0.0,
+              "p": 0.0534,
               "df": 27.74,
               "mean_diff_ci_lower": 0.3156,
               "mean_diff_ci_upper": 0.3156,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": -0.3043,
-              "p": 0.0,
+              "p": 0.7636,
               "df": 23.46,
               "mean_diff_ci_lower": -0.0503,
               "mean_diff_ci_upper": -0.0503,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 1.5311,
-              "p": 0.0,
+              "p": 0.1398,
               "df": 22.26,
               "mean_diff_ci_lower": 0.3235,
               "mean_diff_ci_upper": 0.3235,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -515,24 +515,24 @@
           "constructs": {
             "barriers": {
               "f": 0.1622,
-              "p": 0.0,
+              "p": 0.6882,
               "df_between": 1,
               "df_within": 81,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "f": 2.5132,
-              "p": 0.0,
+              "p": 0.1168,
               "df_between": 1,
               "df_within": 81,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "f": 1.173,
-              "p": 0.0,
+              "p": 0.282,
               "df_between": 1,
               "df_within": 81,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -549,7 +549,7 @@
             },
             "readiness": {
               "f": 0.0779,
-              "p": 0.9252,
+              "p": 0.9251,
               "df_between": 2,
               "df_within": 80,
               "sig": false
@@ -719,15 +719,15 @@
           "constructs": {
             "barriers": {
               "t": -1.2356,
-              "p": 0.0,
+              "p": 0.2217,
               "df": 56.99,
               "mean_diff_ci_lower": -0.1748,
               "mean_diff_ci_upper": -0.1748,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 2.8442,
-              "p": 0.0,
+              "p": 0.006,
               "df": 61.28,
               "mean_diff_ci_lower": 0.3455,
               "mean_diff_ci_upper": 0.3455,
@@ -735,7 +735,7 @@
             },
             "maturity": {
               "t": 2.0871,
-              "p": 0.0,
+              "p": 0.0411,
               "df": 60.99,
               "mean_diff_ci_lower": 0.3145,
               "mean_diff_ci_upper": 0.3145,
@@ -749,7 +749,7 @@
           "constructs": {
             "barriers": {
               "t": 2.0631,
-              "p": 0.0,
+              "p": 0.0466,
               "df": 35.11,
               "mean_diff_ci_lower": 0.322,
               "mean_diff_ci_upper": 0.322,
@@ -757,19 +757,19 @@
             },
             "readiness": {
               "t": -1.1654,
-              "p": 0.0,
+              "p": 0.2524,
               "df": 32.41,
               "mean_diff_ci_lower": -0.1807,
               "mean_diff_ci_upper": -0.1807,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 0.3733,
-              "p": 0.0,
+              "p": 0.7115,
               "df": 31.18,
               "mean_diff_ci_lower": 0.0742,
               "mean_diff_ci_upper": 0.0742,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -779,21 +779,21 @@
           "constructs": {
             "barriers": {
               "f": 1.477,
-              "p": 0.0,
+              "p": 0.2265,
               "df_between": 1,
               "df_within": 128,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "f": 7.248,
-              "p": 0.0,
+              "p": 0.008,
               "df_between": 1,
               "df_within": 128,
               "sig": true
             },
             "maturity": {
               "f": 3.9218,
-              "p": 0.0,
+              "p": 0.0498,
               "df_between": 1,
               "df_within": 128,
               "sig": true
@@ -984,15 +984,15 @@
           "constructs": {
             "barriers": {
               "t": -0.3761,
-              "p": 0.0,
+              "p": 0.7077,
               "df": 93.47,
               "mean_diff_ci_lower": -0.0417,
               "mean_diff_ci_upper": -0.0417,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 3.767,
-              "p": 0.0,
+              "p": 0.0003,
               "df": 101.26,
               "mean_diff_ci_lower": 0.3647,
               "mean_diff_ci_upper": 0.3647,
@@ -1000,7 +1000,7 @@
             },
             "maturity": {
               "t": 2.4919,
-              "p": 0.0,
+              "p": 0.0144,
               "df": 98.26,
               "mean_diff_ci_lower": 0.299,
               "mean_diff_ci_upper": 0.299,
@@ -1014,27 +1014,27 @@
           "constructs": {
             "barriers": {
               "t": 1.3721,
-              "p": 0.0,
+              "p": 0.1736,
               "df": 86.13,
               "mean_diff_ci_lower": 0.1512,
               "mean_diff_ci_upper": 0.1512,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 0.2766,
-              "p": 0.0,
+              "p": 0.7828,
               "df": 75.95,
               "mean_diff_ci_lower": 0.0316,
               "mean_diff_ci_upper": 0.0316,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 1.7241,
-              "p": 0.0,
+              "p": 0.0886,
               "df": 79.2,
               "mean_diff_ci_lower": 0.2268,
               "mean_diff_ci_upper": 0.2268,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -1044,21 +1044,21 @@
           "constructs": {
             "barriers": {
               "f": 0.1485,
-              "p": 0.0,
+              "p": 0.7003,
               "df_between": 1,
               "df_within": 232,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "f": 13.5545,
-              "p": 0.0,
+              "p": 0.0003,
               "df_between": 1,
               "df_within": 232,
               "sig": true
             },
             "maturity": {
               "f": 6.1393,
-              "p": 0.0,
+              "p": 0.0139,
               "df_between": 1,
               "df_within": 232,
               "sig": true
@@ -1249,15 +1249,15 @@
           "constructs": {
             "barriers": {
               "t": -0.9229,
-              "p": 0.0,
+              "p": 0.3573,
               "df": 177.91,
               "mean_diff_ci_lower": -0.0837,
               "mean_diff_ci_upper": -0.0837,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 3.5895,
-              "p": 0.0,
+              "p": 0.0004,
               "df": 183.55,
               "mean_diff_ci_lower": 0.2912,
               "mean_diff_ci_upper": 0.2912,
@@ -1265,7 +1265,7 @@
             },
             "maturity": {
               "t": 2.4728,
-              "p": 0.0,
+              "p": 0.0143,
               "df": 192.93,
               "mean_diff_ci_lower": 0.2235,
               "mean_diff_ci_upper": 0.2235,
@@ -1279,27 +1279,27 @@
           "constructs": {
             "barriers": {
               "t": 1.7512,
-              "p": 0.0,
+              "p": 0.0821,
               "df": 138.05,
               "mean_diff_ci_lower": 0.1651,
               "mean_diff_ci_upper": 0.1651,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 0.2712,
-              "p": 0.0,
+              "p": 0.7867,
               "df": 131.43,
               "mean_diff_ci_lower": 0.0245,
               "mean_diff_ci_upper": 0.0245,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 1.3546,
-              "p": 0.0,
+              "p": 0.1779,
               "df": 130.14,
               "mean_diff_ci_lower": 0.1393,
               "mean_diff_ci_upper": 0.1393,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -1309,21 +1309,21 @@
           "constructs": {
             "barriers": {
               "f": 0.8803,
-              "p": 0.0,
+              "p": 0.3487,
               "df_between": 1,
               "df_within": 374,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "f": 12.913,
-              "p": 0.0,
+              "p": 0.0004,
               "df_between": 1,
               "df_within": 373,
               "sig": true
             },
             "maturity": {
               "f": 5.8335,
-              "p": 0.0,
+              "p": 0.0162,
               "df_between": 1,
               "df_within": 373,
               "sig": true
@@ -1522,15 +1522,15 @@
           "constructs": {
             "barriers": {
               "t": -1.0024,
-              "p": 0.0,
+              "p": 0.3175,
               "df": 177.89,
               "mean_diff_ci_lower": -0.0909,
               "mean_diff_ci_upper": -0.0909,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 3.5888,
-              "p": 0.0,
+              "p": 0.0004,
               "df": 182.99,
               "mean_diff_ci_lower": 0.2909,
               "mean_diff_ci_upper": 0.2909,
@@ -1538,7 +1538,7 @@
             },
             "maturity": {
               "t": 2.4728,
-              "p": 0.0,
+              "p": 0.0143,
               "df": 192.93,
               "mean_diff_ci_lower": 0.2235,
               "mean_diff_ci_upper": 0.2235,
@@ -1552,27 +1552,27 @@
           "constructs": {
             "barriers": {
               "t": 1.8185,
-              "p": 0.0,
+              "p": 0.0711,
               "df": 140.23,
               "mean_diff_ci_lower": 0.1708,
               "mean_diff_ci_upper": 0.1708,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "t": 0.2706,
-              "p": 0.0,
+              "p": 0.7871,
               "df": 131.1,
               "mean_diff_ci_lower": 0.0245,
               "mean_diff_ci_upper": 0.0245,
-              "sig": true
+              "sig": false
             },
             "maturity": {
               "t": 1.3546,
-              "p": 0.0,
+              "p": 0.1779,
               "df": 130.14,
               "mean_diff_ci_lower": 0.1393,
               "mean_diff_ci_upper": 0.1393,
-              "sig": true
+              "sig": false
             }
           }
         },
@@ -1582,21 +1582,21 @@
           "constructs": {
             "barriers": {
               "f": 1.0328,
-              "p": 0.0,
+              "p": 0.3102,
               "df_between": 1,
               "df_within": 378,
-              "sig": true
+              "sig": false
             },
             "readiness": {
               "f": 12.9291,
-              "p": 0.0,
+              "p": 0.0004,
               "df_between": 1,
               "df_within": 374,
               "sig": true
             },
             "maturity": {
               "f": 5.8335,
-              "p": 0.0,
+              "p": 0.0162,
               "df_between": 1,
               "df_within": 373,
               "sig": true

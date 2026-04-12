@@ -34,6 +34,9 @@ from tabs_v2_analysis import (
     classify_role,
     classify_role_binary,
     is_technical,
+    _regularized_incomplete_beta,
+    _t_cdf_two_tailed,
+    _f_cdf_right,
     ROLE_MAP,
     OTHER_ROLE_CATEGORIES_PATTERNS,
     BARRIER_SCALE,
@@ -842,3 +845,94 @@ class TestClassifyRoleBinary:
         assert is_technical('CEO') is False
         assert is_technical('Other', 'analytics director') is True
         assert is_technical('Other', 'Contractor') is False
+
+
+# ── _regularized_incomplete_beta / _t_cdf_two_tailed / _f_cdf_right ───
+
+class TestRegularizedIncompleteBeta:
+    """Regression tests for the incomplete beta function convergence fix.
+
+    The original implementation had two bugs:
+    1. c was initialized to 1e-30 instead of 1.0 (Lentz algorithm misuse)
+    2. No symmetry relation was used, causing poor convergence when
+       x > (a+1)/(a+b+2) with large a and small b (e.g., b=0.5)
+    """
+
+    def test_boundary_zero(self):
+        assert _regularized_incomplete_beta(0.0, 1.0, 1.0) == 0.0
+
+    def test_boundary_one(self):
+        assert _regularized_incomplete_beta(1.0, 1.0, 1.0) == 1.0
+
+    def test_uniform_case(self):
+        # I_x(1, 1) = x for the uniform Beta(1,1)
+        assert _regularized_incomplete_beta(0.5, 1.0, 1.0) == pytest.approx(0.5, abs=1e-8)
+        assert _regularized_incomplete_beta(0.3, 1.0, 1.0) == pytest.approx(0.3, abs=1e-8)
+
+    def test_large_a_small_b(self):
+        """The case that triggered the bug: large a, b=0.5, x near 1."""
+        # I_0.99(40, 0.5) should be close to 1 but NOT exactly 0.0 or 1.0
+        result = _regularized_incomplete_beta(0.99, 40.0, 0.5)
+        assert 0.0 < result < 1.0
+
+    def test_symmetry(self):
+        """I_x(a, b) = 1 - I_{1-x}(b, a)."""
+        x, a, b = 0.3, 2.0, 5.0
+        lhs = _regularized_incomplete_beta(x, a, b)
+        rhs = 1.0 - _regularized_incomplete_beta(1.0 - x, b, a)
+        assert lhs == pytest.approx(rhs, abs=1e-8)
+
+
+class TestTCdfTwoTailed:
+    """Tests for t-distribution p-value computation."""
+
+    def test_zero_t_gives_one(self):
+        """t=0 means no difference; p should be 1.0."""
+        assert _t_cdf_two_tailed(0.0, 10) == pytest.approx(1.0, abs=0.01)
+
+    def test_large_t_gives_small_p(self):
+        """Large |t| → small p."""
+        p = _t_cdf_two_tailed(10.0, 50)
+        assert p < 0.001
+
+    def test_nonzero_p_with_moderate_t_and_large_df(self):
+        """Regression: moderate t with large df must NOT produce p=0.0.
+
+        This was the exact bug: df/2 ≈ 40+ with b=0.5 caused the
+        continued fraction to incorrectly converge to 0.0.
+        """
+        # t=0.2635, df≈82.68 → p should be ≈0.793 (not 0.0)
+        p = _t_cdf_two_tailed(0.2635, 82.68)
+        assert p == pytest.approx(0.793, abs=0.01)
+
+    def test_known_values_from_issue(self):
+        """Verify p-values reported in the bug report."""
+        # t=-0.2635, df large → p ≈ 0.7928
+        p = _t_cdf_two_tailed(3.9083, 82.68)
+        assert p == pytest.approx(0.0002, abs=0.001)
+
+
+class TestFCdfRight:
+    """Tests for F-distribution right-tail p-value."""
+
+    def test_f_zero_gives_one(self):
+        assert _f_cdf_right(0.0, 2, 30) == 1.0
+
+    def test_large_f_gives_small_p(self):
+        p = _f_cdf_right(100.0, 2, 50)
+        assert p < 0.001
+
+    def test_df1_equals_1_nonzero_p(self):
+        """Regression: df1=1 → b=0.5 in the beta function.
+
+        This was the exact bug path for anova_by_role (df_between=1).
+        """
+        # F=0.0785, df1=1, df2=large → p should be ≈0.78 (not 0.0)
+        p = _f_cdf_right(0.0785, 1, 80)
+        assert p == pytest.approx(0.78, abs=0.02)
+
+    def test_df1_equals_2_still_works(self):
+        """anova_by_org_size path (df1=2) was correct before; verify it stays."""
+        # F=2.3884, df1=2, df2=76 → p ≈ 0.0986
+        p = _f_cdf_right(2.3884, 2, 76)
+        assert p == pytest.approx(0.0986, abs=0.005)
