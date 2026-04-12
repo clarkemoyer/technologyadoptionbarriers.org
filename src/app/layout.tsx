@@ -139,9 +139,11 @@ export default function RootLayout({
                 {children}
               </div>
             </div>
+            <div className="mt-auto">
+              <Footer />
+            </div>
           </div>
         </SidebarProvider>
-        <Footer />
         <CookieConsent />
         {/* <PopupsRootClient /> */}
         {/* </PopupProvider> */}

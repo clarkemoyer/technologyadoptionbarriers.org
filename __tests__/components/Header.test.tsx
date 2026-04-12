@@ -33,6 +33,11 @@ describe('Header component', () => {
     expect(screen.getByRole('banner')).toBeInTheDocument()
   })
 
+  it('should display the mobile navigation toggle button with an accessible name', () => {
+    renderHeader()
+    expect(screen.getByRole('button', { name: /open navigation menu/i })).toBeInTheDocument()
+  })
+
   it('should display the TABS logo', () => {
     renderHeader()
     expect(screen.getByAltText('TABS Logo')).toBeInTheDocument()

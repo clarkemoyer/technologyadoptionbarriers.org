@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useState, useCallback } from 'react'
+import React, { createContext, useContext, useState, useCallback, useMemo } from 'react'
 
 interface SidebarContextValue {
   isMobileOpen: boolean
@@ -16,11 +16,12 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
   const openMobile = useCallback(() => setIsMobileOpen(true), [])
   const closeMobile = useCallback(() => setIsMobileOpen(false), [])
 
-  return (
-    <SidebarContext.Provider value={{ isMobileOpen, openMobile, closeMobile }}>
-      {children}
-    </SidebarContext.Provider>
+  const value = useMemo(
+    () => ({ isMobileOpen, openMobile, closeMobile }),
+    [isMobileOpen, openMobile, closeMobile]
   )
+
+  return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>
 }
 
 export function useSidebar() {

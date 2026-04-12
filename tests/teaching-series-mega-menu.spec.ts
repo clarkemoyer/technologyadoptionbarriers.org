@@ -46,7 +46,7 @@ async function openMobileMenu(page: Page) {
   await expect(dialog).toBeVisible({ timeout: 15000 })
 }
 
-test.describe('Teaching Series - Header Mega Menu', () => {
+test.describe('Teaching Series - Sidebar Navigation', () => {
   test('desktop: opens mega menu and shows parts + first slide', async ({ page }) => {
     test.skip(
       Boolean(process.env.CI),
@@ -93,7 +93,7 @@ test.describe('Teaching Series - Header Mega Menu', () => {
 
     // Verify teaching accordion groups appear
     const part1Title = technologyAdoptionTeachingSeries.parts[0].title
-    const part1Button = page.getByRole('button', {
+    const part1Button = navigationDialog.getByRole('button', {
       name: new RegExp(escapeRegExp(part1Title), 'i'),
     })
     await expect(part1Button).toBeVisible()
@@ -104,7 +104,7 @@ test.describe('Teaching Series - Header Mega Menu', () => {
     const firstSlide = technologyAdoptionTeachingSeries.parts[0].slides.filter(
       (s) => !s.isOptional
     )[0]
-    const slideLink = page.getByRole('link', {
+    const slideLink = navigationDialog.getByRole('link', {
       name: new RegExp(`Slide ${firstSlide.number}:`, 'i'),
     })
     await slideLink.scrollIntoViewIfNeeded()
