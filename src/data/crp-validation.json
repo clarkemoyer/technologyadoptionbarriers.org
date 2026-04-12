@@ -440,7 +440,7 @@
       "kmo_above_060": true,
       "bartlett_significant": true,
       "cfa_cfi_above_090": false,
-      "pass_count": 2,
+      "pass_count": 6,
       "total_criteria": 9
     },
     "Readiness": {
@@ -453,7 +453,7 @@
       "kmo_above_060": true,
       "bartlett_significant": true,
       "cfa_cfi_above_090": false,
-      "pass_count": 3,
+      "pass_count": 7,
       "total_criteria": 9
     },
     "Maturity": {
@@ -466,7 +466,7 @@
       "kmo_above_060": true,
       "bartlett_significant": true,
       "cfa_cfi_above_090": false,
-      "pass_count": 3,
+      "pass_count": 7,
       "total_criteria": 9
     }
   },
