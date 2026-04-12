@@ -222,15 +222,6 @@ The script checks:
 
 ## Adding New MCP Servers
 
-### Policy: prefer official, first-party sources
-
-Before adding any MCP server, prefer official first-party implementations over community-developed alternatives. We actively monitor platform providers for expanded or updated official MCP support:
-
-- **Prolific:** No official MCP server exists yet (see [issue #786](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/786)); we monitor their developer communications for any announcement.
-- **Qualtrics/SAP:** Already using the first-party platform endpoint (`/API/mcp/survey-crud`). We monitor for GA availability, stable versioning guarantees, and any officially packaged distribution.
-
-### Steps to add a new server
-
 To add additional MCP servers:
 
 1. Research available MCP servers at:
@@ -245,6 +236,13 @@ To add additional MCP servers:
 4. Test the configuration using `bash scripts/validate-mcp-config.sh`
 
 5. Commit changes following the repository's contribution guidelines
+
+## Monitoring for Official Releases
+
+We actively monitor for official MCP server releases from our primary platform providers to reduce dependency risk and improve stability.
+
+- **Prolific:** Currently, no official Prolific MCP server exists. We continue to monitor their developer communications.
+- **Qualtrics/SAP:** As SAP is a member of the [AI Alliance](https://theaialliance.ai/), we monitor for official Qualtrics MCP implementations that may emerge from their AI ecosystem initiatives.
 
 ## Troubleshooting
 

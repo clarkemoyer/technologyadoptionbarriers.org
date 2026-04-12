@@ -589,10 +589,6 @@ Two GitHub MCP servers are available with different access levels:
 }
 ```
 
-> **Note**: The `@modelcontextprotocol/server-github` npm package is deprecated. For Copilot agents
-> and cloud use, prefer the GitHub hosted MCP endpoint (`https://api.githubcopilot.com/mcp/`). The
-> `npx` config above is documented here as a local-dev fallback for Claude Desktop only.
-
 **Important**: The built-in Copilot plugin injects its own token that cannot be overridden. It is read-only by design. Use the local npx server or `gh` CLI for all write operations.
 
 **Token refresh**: The `gho_` OAuth token from `gh auth token` may expire. If MCP writes start failing with 401, run `gh auth refresh` and update the config.
@@ -1068,17 +1064,16 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 
 ### Risk Tiers
 
-| Tier         | Criteria                                                 | Examples                                                                                                                        |
-| ------------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| **Low**      | Official, from the company, actively maintained          | GitHub MCP (hosted endpoint), Cloudflare MCP, Google Analytics MCP, `googleapis`, Qualtrics MCP (first-party platform endpoint) |
-| **Medium**   | Community but mature (100+ stars, multiple contributors) | `peter-evans/create-pull-request`, Google Search Console MCP                                                                    |
-| **High**     | Community, single maintainer, or stale                   | R Statistics MCP (stale)                                                                                                        |
-| **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` npm package (deprecated; local-dev fallback only — prefer GitHub hosted endpoint for cloud/Copilot use) |
+| Tier         | Criteria                                                 | Examples                                                       |
+| ------------ | -------------------------------------------------------- | -------------------------------------------------------------- |
+| **Low**      | Official, from the company, actively maintained          | GitHub MCP, Cloudflare MCP, Google Analytics MCP, `googleapis` |
+| **Medium**   | Community but mature (100+ stars, multiple contributors) | `peter-evans/create-pull-request`, Google Search Console MCP   |
+| **High**     | Community, single maintainer, or stale                   | R Statistics MCP (stale)                                       |
+| **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` (deprecated)             |
 
-**Rule**: Prefer official sources. We actively track Prolific and Qualtrics (SAP) for expanded first-party MCP support.
-
-- **Prolific**: No official MCP exists; currently using `src/lib/prolific-api.ts` (TypeScript) and `scripts/analysis/` (Python).
-- **Qualtrics/SAP**: Already using the first-party platform MCP endpoint (`/API/mcp/survey-crud`); monitoring for expanded official support (GA status, stable API guarantees, official packaging).
+**Rule**: Prefer official sources. We actively track Prolific and Qualtrics (SAP) for official MCP server releases.
+- **Prolific**: No official MCP exists; currently using custom Python scripts (`scripts/analysis/`).
+- **Qualtrics/SAP**: Monitoring via SAP's membership in the [AI Alliance](https://theaialliance.ai/); currently using the first-party platform MCP endpoint and custom Python scripts.
 
 ## Resources
 
