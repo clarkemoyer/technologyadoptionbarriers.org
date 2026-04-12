@@ -3,16 +3,18 @@ import { technologyAdoptionTeachingSeries } from '../src/data/technology-adoptio
 import { escapeRegExp } from './utils/escape-regexp'
 import { seedCookieConsent } from './utils/seed-cookie-consent'
 
+/** Shared timeout for sidebar visibility expectations (tolerates slow CI hydration). */
+const NAVIGATION_TIMEOUT_MS = 15_000
+
 async function openSidebar(page: Page) {
-  const navigationTimeoutMs = 15000
   const openMenuButton = page.getByRole('button', { name: /open navigation menu/i })
-  await expect(openMenuButton).toBeVisible({ timeout: navigationTimeoutMs })
+  await expect(openMenuButton).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
 
   const dialog = page.getByRole('dialog', { name: /navigation menu/i })
 
   // Open the navigation menu and wait for the dialog to become visible
   await openMenuButton.click()
-  await expect(dialog).toBeVisible({ timeout: navigationTimeoutMs })
+  await expect(dialog).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
   return dialog
 }
 
@@ -26,7 +28,7 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
 
     // On desktop the sidebar is always visible; scope all locators to it
     const sidebar = page.getByRole('complementary', { name: /site navigation/i })
-    await expect(sidebar).toBeVisible({ timeout: 15000 })
+    await expect(sidebar).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
 
     // Click Teaching section
     const teachingButton = sidebar.getByRole('button', { name: /^Teaching$/i })
