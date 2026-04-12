@@ -17,10 +17,12 @@ async function updateSeoDashboardSync() {
     const now = new Date()
     data.dashboardSyncedAt = now.toISOString()
 
-    // (Comment 1) Only attempt to fetch new data if credentials are fundamentally available, including GA_PROPERTY_ID
+    // (Comment 1) Only attempt to fetch new data if credentials are available:
+    // either via OIDC Application Default Credentials (GOOGLE_APPLICATION_CREDENTIALS,
+    // set by google-github-actions/auth in CI) or explicit service-account key env vars.
     if (
-      process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL &&
-      process.env.GOOGLE_PRIVATE_KEY &&
+      (process.env.GOOGLE_APPLICATION_CREDENTIALS ||
+        (process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL && process.env.GOOGLE_PRIVATE_KEY)) &&
       process.env.GA_PROPERTY_ID
     ) {
       console.log('Fetching live SEO and GA4 data...')

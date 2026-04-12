@@ -9,6 +9,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  id-token: write # Required for OIDC token exchange with Google Cloud
 
 env:
   # Official GitHub flag to force Node.js 24 runtime ahead of the June 2026 mandatory deadline.
@@ -16,7 +17,58 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  sync-timestamp:
+  sync-google-data:
+    runs-on: ubuntu-latest
+    environment: google-prod
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Authenticate to Google Cloud (OIDC)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Update SEO Dashboard Metrics and Time Series
+        id: sync_script
+        run: npx tsx scripts/update-seo-dashboard-sync.ts
+        env:
+          GA_PROPERTY_ID: ${{ secrets.GA_PROPERTY_ID }}
+          GSC_SITE_URL: 'sc-domain:technologyadoptionbarriers.org'
+
+      - name: Trigger SEO Regression Alert
+        if: steps.sync_script.outputs.REGRESSION_DETECTED == 'true'
+        run: |
+          gh issue create \
+            --title "🚨 CRITICAL: SEO Regression Detected (-${{ steps.sync_script.outputs.IMPRESSIONS_DROP }}% Impressions)" \
+            --body "The automated SEO dashboard sync script detected a massive drop in trailing 28-day organic impressions versus the previous baseline.\\n\\n**Drop Percentage:** \`-${{ steps.sync_script.outputs.IMPRESSIONS_DROP }}%\`\\n\\n*Please check Google Search Console coverage index immediately or review recent static export build logs.*" \
+            --label "bug" \
+            --label "high-priority"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Format updated SEO data files
+        run: npx prettier --write "src/data/seo-*.json"
+
+      - name: Upload SEO data artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: seo-dashboard-data
+          path: src/data/seo-*.json
+          retention-days: 1
+
+  create-pr:
+    needs: sync-google-data
     runs-on: ubuntu-latest
     environment: copilot
     steps:
@@ -30,30 +82,13 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
-      - name: Update SEO Dashboard Metrics and Time Series
-        id: sync_script
-        run: npx tsx scripts/update-seo-dashboard-sync.ts
-        env:
-          GA_PROPERTY_ID: ${{ secrets.GA_PROPERTY_ID }}
-          GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
-          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
-          GSC_SITE_URL: 'sc-domain:technologyadoptionbarriers.org'
-
-      - name: Trigger SEO Regression Alert
-        if: steps.sync_script.outputs.REGRESSION_DETECTED == 'true'
-        run: |
-          gh issue create \
-            --title "🚨 CRITICAL: SEO Regression Detected (-${{ steps.sync_script.outputs.IMPRESSIONS_DROP }}% Impressions)" \
-            --body "The automated SEO dashboard sync script detected a massive drop in trailing 28-day organic impressions versus the previous baseline.\\n\\n**Drop Percentage:** \`-${{ steps.sync_script.outputs.IMPRESSIONS_DROP }}%\`\\n\\n*Please check Google Search Console coverage index immediately or review recent static export build logs.*" \
-            --label "bug" \
-            --label "high-priority"
-        env:
-          GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
-
-      - name: Format updated SEO data files
-        run: npx prettier --write "src/data/seo-*.json"
+      - name: Download SEO data artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: seo-dashboard-data
+          path: src/data
 
       - name: Create pull request with updated sync time
         id: cpr
