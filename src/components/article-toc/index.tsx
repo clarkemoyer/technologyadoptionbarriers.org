@@ -28,7 +28,7 @@ interface TOCItem {
 
 /**
  * Self-contained reading-progress bar + table-of-contents sidebar for
- * article pages. Drop it anywhere inside the page – it finds the nearest
+ * article pages. Drop it anywhere inside the page - it finds the nearest
  * `<article>` element, scans for `<h2>` headings, assigns IDs if needed,
  * and renders:
  *   • a thin progress bar fixed below the site header

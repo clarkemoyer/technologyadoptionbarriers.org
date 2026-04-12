@@ -13,7 +13,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'Bibliography: Technical Architecture Framework for Information Management (TAFIM) – U.S. DoD (1994)',
+    'Bibliography: Technical Architecture Framework for Information Management (TAFIM) - U.S. DoD (1994)',
   description:
     "An exploration of the U.S. Department of Defense's Technical Architecture Framework for Information Management (TAFIM), a pioneering enterprise architecture framework that established standards-based interoperability principles for large-scale information technology adoption.",
 }

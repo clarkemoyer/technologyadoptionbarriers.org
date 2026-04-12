@@ -13,7 +13,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: DoDAF – Department of Defense Architecture Framework (2003)',
+  title: 'Bibliography: DoDAF - Department of Defense Architecture Framework (2003)',
   description:
     'An in-depth overview of the Department of Defense Architecture Framework (DoDAF), a military enterprise architecture standard created in 2003 to resolve interoperability crises, enable multi-service coordination, and govern technology adoption across defense and government environments.',
 }

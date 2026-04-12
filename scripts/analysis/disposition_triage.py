@@ -8,8 +8,8 @@ waterfall, and writes a disposition CSV with the same columns and format
 as the TypeScript version.
 
 Environment variables:
-  INPUT_PATH   – Path to the raw Qualtrics CSV export (required)
-  OUTPUT_PATH  – Path to write the disposition CSV (required)
+  INPUT_PATH   - Path to the raw Qualtrics CSV export (required)
+  OUTPUT_PATH  - Path to write the disposition CSV (required)
 """
 
 import csv

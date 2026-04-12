@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function ContributionPolicy() {
   return (
-    <main className="ffc-container py-16">
+    <main className="tabs-container py-16">
       <div className="max-w-4xl mx-auto">
         <h1 className="font-[var(--font-faustina)] text-[48px] leading-[60px] mb-8">
           Contribution Policy

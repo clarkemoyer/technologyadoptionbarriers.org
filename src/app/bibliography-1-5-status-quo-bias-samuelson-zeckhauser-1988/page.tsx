@@ -11,7 +11,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Status Quo Bias – Samuelson & Zeckhauser (1988)',
+  title: 'Bibliography: Status Quo Bias - Samuelson & Zeckhauser (1988)',
   description:
     'Deep dive into Status Quo Bias (also referenced as Status Quo Effect) by William Samuelson and Richard Zeckhauser (1988), exploring its foundational contributions to technology adoption research.',
 }
@@ -20,7 +20,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Status Quo Bias – Samuelson & Zeckhauser (1988)</h1>
+        <h1 className={H1_CLASSES}>Status Quo Bias - Samuelson & Zeckhauser (1988)</h1>
 
         {/* Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -57,8 +57,8 @@ const BibliographyArticlePage = () => {
               Samuelson and Zeckhauser developed their theory of status quo bias in response to a
               striking and consistent empirical observation: individuals demonstrably deviate from
               predictions of rational choice theory by disproportionately selecting existing
-              alternatives in decision-making situations. Across numerous decision contexts—from
-              consumer choices to investment decisions to public policy preferences—individuals
+              alternatives in decision-making situations. Across numerous decision contexts - from
+              consumer choices to investment decisions to public policy preferences - individuals
               exhibit a systematic tendency to maintain existing states of affairs even when
               rational analysis suggests superior alternatives are available. The motivation emerged
               from careful observation of real-world decision patterns that contradicted classical
@@ -158,9 +158,9 @@ const BibliographyArticlePage = () => {
               dissonance and psychological factors).
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              By examining patterns in the data—such as whether persistence varied with the
+              By examining patterns in the data - such as whether persistence varied with the
               magnitude of available alternatives, whether persistence was stronger in initial
-              decisions, and whether persistence reflected information limitations—the researchers
+              decisions, and whether persistence reflected information limitations - the researchers
               assessed which explanations accounted for observed patterns.
             </p>
           </section>
@@ -216,7 +216,7 @@ const BibliographyArticlePage = () => {
               develop strategies to promote adaptive decision-making. Employees’ reluctance to
               change health insurance plans, retirement savings allocations, or work arrangements
               often reflects status quo bias rather than genuine satisfaction with current
-              arrangements. Managers can address this by actively facilitating choice— creating
+              arrangements. Managers can address this by actively facilitating choice - creating
               decision moments where employees must actively select arrangements rather than
               allowing defaults to persist. Organizations can also address status quo bias by
               ensuring that current default arrangements are optimal, recognizing that defaults will
@@ -308,8 +308,8 @@ const BibliographyArticlePage = () => {
               distinguishes between alternative explanations for status quo bias. Rather than
               attributing all status quo persistence to irrational psychology, the analysis
               considers whether rational economic factors (transition costs, uncertainty) might
-              account for observed patterns. This intellectual honesty—recognizing that some status
-              quo persistence reflects rational decision-making—strengthens the theoretical
+              account for observed patterns. This intellectual honesty - recognizing that some
+              status quo persistence reflects rational decision-making - strengthens the theoretical
               framework by identifying when bias operates and when persistence reflects optimal
               behavior.
             </p>
@@ -372,7 +372,7 @@ const BibliographyArticlePage = () => {
             <p className={PARAGRAPH_CLASSES}>
               Field studies measure status quo persistence through revealed preference (observing
               that individuals maintain choices), but this persistence might reflect multiple causes
-              beyond bias—genuine preference satisfaction, high switching costs, limited awareness
+              beyond bias - genuine preference satisfaction, high switching costs, limited awareness
               of alternatives, or rational updating of beliefs. Disentangling these causes from the
               observational data is difficult, potentially leading to overestimation of bias
               magnitude. Sixth, the model may not adequately address how information quality and
@@ -436,9 +436,9 @@ const BibliographyArticlePage = () => {
               emphasizing disadvantages of new options. Current technology benefits are known and
               confirmed through experience; alternative technology benefits are uncertain and
               hypothetical. This asymmetry creates bias favoring status quo. Second, sunk cost
-              commitment contributes—individuals who have invested time learning current technology,
-              invested money in equipment and complementary systems, or developed expertise around
-              existing technology are reluctant to abandon these investments.
+              commitment contributes - individuals who have invested time learning current
+              technology, invested money in equipment and complementary systems, or developed
+              expertise around existing technology are reluctant to abandon these investments.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Third, psychological commitment creates attachment to familiar alternatives, making
@@ -460,14 +460,14 @@ const BibliographyArticlePage = () => {
               proven technologies rather than gamble on uncertain alternatives. This barrier
               reflects rational decision-making in the face of uncertainty, not merely psychological
               bias. However, the research suggests that uncertainty often exceeds objective risk
-              levels due to psychological amplification—individuals overestimate risks of unfamiliar
-              alternatives while underestimating risks of familiar options. Loss aversion and
-              reference-dependent preferences create barriers to technology change. Individuals
+              levels due to psychological amplification - individuals overestimate risks of
+              unfamiliar alternatives while underestimating risks of familiar options. Loss aversion
+              and reference-dependent preferences create barriers to technology change. Individuals
               weigh potential losses from switching technology (loss of familiar capabilities,
               disruption to established workflows, risk of worse performance) more heavily than
-              potential gains from adopting superior technology. This asymmetry—where losses loom
-              larger than comparable gains—creates systematic bias against technological change even
-              when objective analysis suggests gains exceed losses. Cognitive limitations and
+              potential gains from adopting superior technology. This asymmetry - where losses loom
+              larger than comparable gains - creates systematic bias against technological change
+              even when objective analysis suggests gains exceed losses. Cognitive limitations and
               analysis costs inhibit thorough evaluation of alternatives.
             </p>
             <p className={PARAGRAPH_CLASSES}>
@@ -501,19 +501,19 @@ const BibliographyArticlePage = () => {
               What does the model instruct leaders to do in order to reduce these barriers?
             </h3>
             <p className={PARAGRAPH_CLASSES}>
-              The status quo bias framework suggests multiple strategies that leaders— including
-              technology developers, organizational managers, marketers, and policymakers—can employ
-              to reduce adoption barriers and promote technology change: To overcome status quo
-              inertia, leaders should create decision contexts where individuals actively choose
+              The status quo bias framework suggests multiple strategies that leaders - including
+              technology developers, organizational managers, marketers, and policymakers - can
+              employ to reduce adoption barriers and promote technology change: To overcome status
+              quo inertia, leaders should create decision contexts where individuals actively choose
               technology rather than allowing defaults to persist. Decision moments that force
-              active selection—removing the option to maintain status quo without conscious
-              choice—can interrupt psychological inertia. For organizational technology adoption,
-              this might involve eliminating legacy systems, creating decision deadlines, or
-              requiring active reselection during system transitions. For consumer technology,
-              forcing active selection during renewal or replacement moments can break status quo
-              inertia by requiring individuals to consciously choose alternatives rather than
-              drifting with existing technology. To address transition costs as adoption barriers,
-              leaders should actively work to reduce switching costs and facilitate transitions.
+              active selection - removing the option to maintain status quo without conscious choice
+              - can interrupt psychological inertia. For organizational technology adoption, this
+              might involve eliminating legacy systems, creating decision deadlines, or requiring
+              active reselection during system transitions. For consumer technology, forcing active
+              selection during renewal or replacement moments can break status quo inertia by
+              requiring individuals to consciously choose alternatives rather than drifting with
+              existing technology. To address transition costs as adoption barriers, leaders should
+              actively work to reduce switching costs and facilitate transitions.
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>

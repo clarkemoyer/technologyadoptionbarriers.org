@@ -4,31 +4,31 @@
       "key": "conservative_clean",
       "label": "Conservative Clean",
       "description": "Prolific APPROVED + all quality checks (IRI, duration >= 540s, reCAPTCHA, straightlining, auth)",
-      "n": 78
+      "n": 83
     },
     {
       "key": "flexible_clean",
       "label": "Flexible Clean",
       "description": "Prolific APPROVED + basic quality (all 3 IRIs + duration >= 480s)",
-      "n": 125
+      "n": 130
     },
     {
       "key": "prolific_accepted",
       "label": "Prolific Accepted",
       "description": "All deduplicated V2 rows with Prolific APPROVED status",
-      "n": 229
+      "n": 234
     },
     {
       "key": "v2_finished",
       "label": "All V2 Finished",
       "description": "Finished + duration >= 120s (extreme speeders excluded)",
-      "n": 351
+      "n": 376
     },
     {
       "key": "v2_all",
       "label": "All V2",
       "description": "All V2 responses including incomplete",
-      "n": 416
+      "n": 445
     }
   ],
   "metrics": [
@@ -36,132 +36,132 @@
       "key": "barrier_mean",
       "label": "Barrier Grand Mean",
       "values": {
-        "conservative_clean": 2.8158,
-        "flexible_clean": 2.8094,
-        "prolific_accepted": 2.7759,
-        "v2_finished": 2.739,
-        "v2_all": 2.7449
+        "conservative_clean": 2.8409,
+        "flexible_clean": 2.8257,
+        "prolific_accepted": 2.7857,
+        "v2_finished": 2.7433,
+        "v2_all": 2.7488
       }
     },
     {
       "key": "barrier_sd",
       "label": "Barrier SD",
       "values": {
-        "conservative_clean": 0.6347,
-        "flexible_clean": 0.7199,
-        "prolific_accepted": 0.7163,
-        "v2_finished": 0.7672,
-        "v2_all": 0.7712
+        "conservative_clean": 0.631,
+        "flexible_clean": 0.7149,
+        "prolific_accepted": 0.7141,
+        "v2_finished": 0.7711,
+        "v2_all": 0.7747
       }
     },
     {
       "key": "readiness_mean",
       "label": "Readiness Grand Mean",
       "values": {
-        "conservative_clean": 3.0535,
-        "flexible_clean": 3.0979,
-        "prolific_accepted": 3.1409,
-        "v2_finished": 3.2566,
-        "v2_all": 3.2566
+        "conservative_clean": 3.0622,
+        "flexible_clean": 3.1018,
+        "prolific_accepted": 3.1422,
+        "v2_finished": 3.2517,
+        "v2_all": 3.2518
       }
     },
     {
       "key": "readiness_sd",
       "label": "Readiness SD",
       "values": {
-        "conservative_clean": 0.5849,
-        "flexible_clean": 0.6607,
-        "prolific_accepted": 0.6768,
-        "v2_finished": 0.7235,
-        "v2_all": 0.7224
+        "conservative_clean": 0.5751,
+        "flexible_clean": 0.6521,
+        "prolific_accepted": 0.6718,
+        "v2_finished": 0.7116,
+        "v2_all": 0.7107
       }
     },
     {
       "key": "maturity_mean",
       "label": "Maturity Grand Mean",
       "values": {
-        "conservative_clean": 3.0322,
-        "flexible_clean": 3.0631,
-        "prolific_accepted": 3.1563,
-        "v2_finished": 3.2747,
-        "v2_all": 3.2747
+        "conservative_clean": 3.0424,
+        "flexible_clean": 3.0684,
+        "prolific_accepted": 3.1572,
+        "v2_finished": 3.2727,
+        "v2_all": 3.2727
       }
     },
     {
       "key": "maturity_sd",
       "label": "Maturity SD",
       "values": {
-        "conservative_clean": 0.7132,
-        "flexible_clean": 0.8014,
-        "prolific_accepted": 0.8087,
-        "v2_finished": 0.8006,
-        "v2_all": 0.8006
+        "conservative_clean": 0.7112,
+        "flexible_clean": 0.7968,
+        "prolific_accepted": 0.8058,
+        "v2_finished": 0.8049,
+        "v2_all": 0.8049
       }
     },
     {
       "key": "corr_br",
       "label": "B-R Correlation",
       "values": {
-        "conservative_clean": -0.5055,
-        "flexible_clean": -0.4685,
-        "prolific_accepted": -0.3464,
-        "v2_finished": -0.3198,
-        "v2_all": -0.3196
+        "conservative_clean": -0.452,
+        "flexible_clean": -0.4442,
+        "prolific_accepted": -0.3351,
+        "v2_finished": -0.3133,
+        "v2_all": -0.3131
       }
     },
     {
       "key": "corr_bm",
       "label": "B-M Correlation",
       "values": {
-        "conservative_clean": -0.2453,
-        "flexible_clean": -0.3267,
-        "prolific_accepted": -0.2819,
-        "v2_finished": -0.2916,
-        "v2_all": -0.2916
+        "conservative_clean": -0.2098,
+        "flexible_clean": -0.3074,
+        "prolific_accepted": -0.2733,
+        "v2_finished": -0.3,
+        "v2_all": -0.3
       }
     },
     {
       "key": "corr_rm",
       "label": "R-M Correlation",
       "values": {
-        "conservative_clean": 0.5892,
-        "flexible_clean": 0.6985,
-        "prolific_accepted": 0.7125,
-        "v2_finished": 0.7377,
-        "v2_all": 0.7377
+        "conservative_clean": 0.5876,
+        "flexible_clean": 0.6951,
+        "prolific_accepted": 0.7104,
+        "v2_finished": 0.7334,
+        "v2_all": 0.7334
       }
     },
     {
       "key": "alpha_barriers",
       "label": "Alpha Barriers",
       "values": {
-        "conservative_clean": 0.8589,
-        "flexible_clean": 0.8778,
-        "prolific_accepted": 0.8773,
-        "v2_finished": 0.8993,
-        "v2_all": 0.9008
+        "conservative_clean": 0.8557,
+        "flexible_clean": 0.8759,
+        "prolific_accepted": 0.8765,
+        "v2_finished": 0.9005,
+        "v2_all": 0.9019
       }
     },
     {
       "key": "alpha_readiness",
       "label": "Alpha Readiness",
       "values": {
-        "conservative_clean": 0.8762,
-        "flexible_clean": 0.9186,
-        "prolific_accepted": 0.921,
-        "v2_finished": 0.9323,
-        "v2_all": 0.9323
+        "conservative_clean": 0.87,
+        "flexible_clean": 0.9149,
+        "prolific_accepted": 0.9191,
+        "v2_finished": 0.9295,
+        "v2_all": 0.9295
       }
     },
     {
       "key": "alpha_maturity",
       "label": "Alpha Maturity",
       "values": {
-        "conservative_clean": 0.8398,
-        "flexible_clean": 0.8869,
-        "prolific_accepted": 0.8916,
-        "v2_finished": 0.8909,
-        "v2_all": 0.8909
+        "conservative_clean": 0.8327,
+        "flexible_clean": 0.8818,
+        "prolific_accepted": 0.8889,
+        "v2_finished": 0.8894,
+        "v2_all": 0.8894
       }
     }
   ],
@@ -180,7 +180,7 @@
         "Q8_GeoScope": "Geographic scope",
         "Q9_GeoScale": "Geographic scale"
       },
-      "note": "Self-reported by participants within the TABS survey instrument. Used for all per-group demographic breakdowns, effect sizes, and cross-tabulations."
+      "note": "Self-reported by participants within the TABS survey instrument."
     },
     "platform_demographics": {
       "source": "Prolific API (POST /studies/{id}/demographic-export/)",
@@ -252,7 +252,7 @@
           "base_field": false
         }
       ],
-      "prescreener_note": "Up to 15 prescreener filters can be selected per export (configurable twice before locking). The 5 study screeners above are exported for cross-validation. Additional augmentation filters (education_level, household_income, fluent_languages) are also included, totaling 7 of the 15-filter maximum.",
+      "prescreener_note": "Up to 15 prescreener filters can be selected per export.",
       "fields": {
         "age": "Participant age",
         "sex": "Biological sex",
@@ -272,7 +272,7 @@
         "fluent_languages": "Fluent languages (prescreener)"
       },
       "cross_validation": {
-        "description": "Prolific prescreener fields overlap with Qualtrics survey demographics, enabling independent cross-validation of self-reported data and sample balancing.",
+        "description": "Prolific prescreener fields overlap with Qualtrics survey demographics.",
         "overlapping_fields": {
           "industry": {
             "prolific": "industry",
@@ -294,120 +294,115 @@
         "use_cases": [
           "Flag discrepancies between Prolific profile and survey responses",
           "Balance samples using validated Prolific profile data",
-          "Augment survey demographics with additional Prolific fields (education, income, languages)"
+          "Augment survey demographics with additional Prolific fields"
         ]
       },
-      "note": "Base fields are always included in the Prolific demographic export. Prescreener fields are available when configured as study filters (up to 15 per export). The export is a snapshot of participants' prescreening responses at the time they took the study. Both base and prescreener data can be cross-referenced with Qualtrics survey data using Prolific Participant ID as join key."
+      "note": "Base fields are always included in the Prolific demographic export."
     }
   },
   "sample_details": {
     "conservative_clean": {
       "demographics": {
         "roles": {
-          "Other": 13,
-          "CIO": 11,
+          "Other": 14,
+          "CIO": 12,
           "COO": 10,
+          "CEO": 10,
           "CMO": 9,
-          "CEO": 8,
+          "CSO": 8,
           "CHRO": 7,
-          "CSO": 7,
           "CFO": 6,
           "CTO": 4,
           "CRO": 3
         },
         "org_sizes": {
-          "<100": 9,
-          "100-499": 27,
-          "500-999": 7,
+          "<100": 11,
+          "100-499": 29,
+          "500-999": 8,
           "1000-4999": 18,
           "5000-9999": 6,
           "10000+": 11
         },
         "profit_models": {
-          "For-Profit": 56,
-          "Non-Profit": 14,
-          "Government/Public Sector": 8
+          "For-Profit": 59,
+          "Non-Profit": 15,
+          "Government/Public Sector": 9
         },
         "tech_vs_nontech": {
-          "technical": 15,
-          "non_technical": 50,
-          "other": 13
+          "technical": 19,
+          "non_technical": 64,
+          "other": 0
         },
         "other_roles": {
-          "total": 13,
-          "categories": {
-            "Director": 7,
-            "Uncategorized": 3,
-            "VP / SVP": 2,
-            "Manager / Program Lead": 1
-          }
+          "total": 14,
+          "categories": {}
         }
       },
       "effect_sizes": {
         "tech_vs_nontech": {
-          "tech_n": 15,
-          "nontech_n": 50,
+          "tech_n": 19,
+          "nontech_n": 64,
           "constructs": {
             "barriers": {
-              "tech_mean": 2.7222,
-              "tech_mean_ci_lower": 2.7222,
-              "tech_mean_ci_upper": 2.7222,
-              "nontech_mean": 2.8704,
-              "nontech_mean_ci_lower": 2.8704,
-              "nontech_mean_ci_upper": 2.8704,
-              "d": -0.2177,
-              "d_ci_lower": -0.8168,
-              "d_ci_upper": 0.4053
+              "tech_mean": 2.7895,
+              "tech_mean_ci_lower": 2.7895,
+              "tech_mean_ci_upper": 2.7895,
+              "nontech_mean": 2.8562,
+              "nontech_mean_ci_lower": 2.8562,
+              "nontech_mean_ci_upper": 2.8562,
+              "d": -0.1052,
+              "d_ci_lower": -0.6426,
+              "d_ci_upper": 0.4666
             },
             "readiness": {
-              "tech_mean": 3.325,
-              "tech_mean_ci_lower": 3.325,
-              "tech_mean_ci_upper": 3.325,
-              "nontech_mean": 3.0067,
-              "nontech_mean_ci_lower": 3.0067,
-              "nontech_mean_ci_upper": 3.0067,
-              "d": 0.5395,
-              "d_ci_lower": -0.0057,
-              "d_ci_upper": 1.1803
+              "tech_mean": 3.2442,
+              "tech_mean_ci_lower": 3.2442,
+              "tech_mean_ci_upper": 3.2442,
+              "nontech_mean": 3.0081,
+              "nontech_mean_ci_lower": 3.0081,
+              "nontech_mean_ci_upper": 3.0081,
+              "d": 0.4142,
+              "d_ci_lower": -0.115,
+              "d_ci_upper": 0.9658
             },
             "maturity": {
-              "tech_mean": 3.1083,
-              "tech_mean_ci_lower": 3.1083,
-              "tech_mean_ci_upper": 3.1083,
-              "nontech_mean": 2.9903,
-              "nontech_mean_ci_lower": 2.9903,
-              "nontech_mean_ci_upper": 2.9903,
-              "d": 0.1637,
-              "d_ci_lower": -0.4472,
-              "d_ci_upper": 0.8245
+              "tech_mean": 3.1974,
+              "tech_mean_ci_lower": 3.1974,
+              "tech_mean_ci_upper": 3.1974,
+              "nontech_mean": 2.9963,
+              "nontech_mean_ci_lower": 2.9963,
+              "nontech_mean_ci_upper": 2.9963,
+              "d": 0.283,
+              "d_ci_lower": -0.2782,
+              "d_ci_upper": 0.8557
             }
           }
         },
         "large_vs_small": {
           "large_n": 17,
-          "small_medium_n": 61,
+          "small_medium_n": 66,
           "constructs": {
             "barriers": {
               "large_mean": 3.0919,
               "large_mean_ci_lower": 3.0919,
               "large_mean_ci_upper": 3.0919,
-              "small_medium_mean": 2.7388,
-              "small_medium_mean_ci_lower": 2.7388,
-              "small_medium_mean_ci_upper": 2.7388,
-              "d": 0.568,
-              "d_ci_lower": 0.0798,
-              "d_ci_upper": 1.0803
+              "small_medium_mean": 2.7763,
+              "small_medium_mean_ci_lower": 2.7763,
+              "small_medium_mean_ci_upper": 2.7763,
+              "d": 0.5077,
+              "d_ci_lower": 0.0298,
+              "d_ci_upper": 1.0077
             },
             "readiness": {
               "large_mean": 3.0222,
               "large_mean_ci_lower": 3.0222,
               "large_mean_ci_upper": 3.0222,
-              "small_medium_mean": 3.0622,
-              "small_medium_mean_ci_lower": 3.0622,
-              "small_medium_mean_ci_upper": 3.0622,
-              "d": -0.068,
-              "d_ci_lower": -0.6382,
-              "d_ci_upper": 0.4935
+              "small_medium_mean": 3.0725,
+              "small_medium_mean_ci_lower": 3.0725,
+              "small_medium_mean_ci_upper": 3.0725,
+              "d": -0.087,
+              "d_ci_lower": -0.6485,
+              "d_ci_upper": 0.4637
             }
           }
         }
@@ -415,41 +410,34 @@
       "cross_tabs": {
         "by_role": [
           {
-            "group": "Technical (CIO/CTO)",
-            "n": 15,
-            "barrier_mean": 2.7222,
-            "readiness_mean": 3.325,
-            "maturity_mean": 3.1083
+            "group": "Technical",
+            "n": 19,
+            "barrier_mean": 2.7895,
+            "readiness_mean": 3.2442,
+            "maturity_mean": 3.1974
           },
           {
             "group": "Non-Technical",
-            "n": 50,
-            "barrier_mean": 2.8704,
-            "readiness_mean": 3.0067,
-            "maturity_mean": 2.9903
-          },
-          {
-            "group": "Other",
-            "n": 13,
-            "barrier_mean": 2.7137,
-            "readiness_mean": 2.9201,
-            "maturity_mean": 3.1058
+            "n": 64,
+            "barrier_mean": 2.8562,
+            "readiness_mean": 3.0081,
+            "maturity_mean": 2.9963
           }
         ],
         "by_org_size": [
           {
             "group": "Small (<500)",
-            "n": 36,
-            "barrier_mean": 2.7828,
-            "readiness_mean": 3.0661,
-            "maturity_mean": 2.9606
+            "n": 40,
+            "barrier_mean": 2.8378,
+            "readiness_mean": 3.086,
+            "maturity_mean": 2.9896
           },
           {
             "group": "Medium (500-4999)",
-            "n": 25,
-            "barrier_mean": 2.6756,
-            "readiness_mean": 3.0565,
-            "maturity_mean": 2.9536
+            "n": 26,
+            "barrier_mean": 2.6816,
+            "readiness_mean": 3.0517,
+            "maturity_mean": 2.9554
           },
           {
             "group": "Large (5000+)",
@@ -462,115 +450,115 @@
       },
       "inferential": {
         "t_tests_tech_vs_nontech": {
-          "tech_n": 15,
-          "nontech_n": 50,
+          "tech_n": 19,
+          "nontech_n": 64,
           "constructs": {
             "barriers": {
-              "t": -0.7046,
+              "t": -0.3818,
               "p": 0.0,
-              "df": 21.54,
-              "mean_diff_ci_lower": -0.1482,
-              "mean_diff_ci_upper": -0.1482,
+              "df": 27.4,
+              "mean_diff_ci_lower": -0.0667,
+              "mean_diff_ci_upper": -0.0667,
               "sig": true
             },
             "readiness": {
-              "t": 1.8986,
+              "t": 1.5878,
               "p": 0.0,
-              "df": 24.39,
-              "mean_diff_ci_lower": 0.3183,
-              "mean_diff_ci_upper": 0.3183,
+              "df": 29.6,
+              "mean_diff_ci_lower": 0.236,
+              "mean_diff_ci_upper": 0.236,
               "sig": true
             },
             "maturity": {
-              "t": 0.5143,
+              "t": 1.0178,
               "p": 0.0,
-              "df": 20.71,
-              "mean_diff_ci_lower": 0.118,
-              "mean_diff_ci_upper": 0.118,
+              "df": 27.09,
+              "mean_diff_ci_lower": 0.201,
+              "mean_diff_ci_upper": 0.201,
               "sig": true
             }
           }
         },
         "t_tests_large_vs_small": {
           "large_n": 17,
-          "small_medium_n": 61,
+          "small_medium_n": 66,
           "constructs": {
             "barriers": {
-              "t": 2.2334,
+              "t": 2.0178,
               "p": 0.0,
-              "df": 28.73,
-              "mean_diff_ci_lower": 0.3531,
-              "mean_diff_ci_upper": 0.3531,
+              "df": 27.74,
+              "mean_diff_ci_lower": 0.3156,
+              "mean_diff_ci_upper": 0.3156,
               "sig": true
             },
             "readiness": {
-              "t": -0.2391,
+              "t": -0.3043,
               "p": 0.0,
-              "df": 24.45,
-              "mean_diff_ci_lower": -0.04,
-              "mean_diff_ci_upper": -0.04,
+              "df": 23.46,
+              "mean_diff_ci_lower": -0.0503,
+              "mean_diff_ci_upper": -0.0503,
               "sig": true
             },
             "maturity": {
-              "t": 1.6084,
+              "t": 1.5311,
               "p": 0.0,
-              "df": 22.74,
-              "mean_diff_ci_lower": 0.3418,
-              "mean_diff_ci_upper": 0.3418,
+              "df": 22.26,
+              "mean_diff_ci_lower": 0.3235,
+              "mean_diff_ci_upper": 0.3235,
               "sig": true
             }
           }
         },
         "anova_by_role": {
-          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
-          "group_ns": [15, 50, 13],
+          "groups": ["Technical", "Non-Technical"],
+          "group_ns": [19, 64],
           "constructs": {
             "barriers": {
-              "f": 0.5097,
-              "p": 0.6027,
-              "df_between": 2,
-              "df_within": 75,
-              "sig": false
+              "f": 0.1622,
+              "p": 0.0,
+              "df_between": 1,
+              "df_within": 81,
+              "sig": true
             },
             "readiness": {
-              "f": 2.1796,
-              "p": 0.1202,
-              "df_between": 2,
-              "df_within": 75,
-              "sig": false
+              "f": 2.5132,
+              "p": 0.0,
+              "df_between": 1,
+              "df_within": 81,
+              "sig": true
             },
             "maturity": {
-              "f": 0.2361,
-              "p": 0.7903,
-              "df_between": 2,
-              "df_within": 75,
-              "sig": false
+              "f": 1.173,
+              "p": 0.0,
+              "df_between": 1,
+              "df_within": 81,
+              "sig": true
             }
           }
         },
         "anova_by_org_size": {
           "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
-          "group_ns": [36, 25, 17],
+          "group_ns": [40, 26, 17],
           "constructs": {
             "barriers": {
-              "f": 2.3467,
-              "p": 0.1027,
+              "f": 2.2393,
+              "p": 0.1132,
               "df_between": 2,
-              "df_within": 75,
+              "df_within": 80,
               "sig": false
             },
             "readiness": {
-              "f": 0.0323,
-              "p": 0.9683,
+              "f": 0.0779,
+              "p": 0.9252,
               "df_between": 2,
-              "df_within": 75,
+              "df_within": 80,
               "sig": false
             },
             "maturity": {
-              "f": 1.5495,
-              "p": 0.2191,
+              "f": 1.4314,
+              "p": 0.245,
               "df_between": 2,
-              "df_within": 75,
+              "df_within": 80,
               "sig": false
             }
           }
@@ -580,111 +568,105 @@
     "flexible_clean": {
       "demographics": {
         "roles": {
-          "CIO": 22,
-          "Other": 19,
+          "CIO": 23,
+          "Other": 20,
           "COO": 16,
+          "CEO": 13,
           "CMO": 12,
-          "CEO": 11,
           "CFO": 11,
           "CHRO": 10,
-          "CSO": 9,
+          "CSO": 10,
           "CRO": 8,
           "CTO": 7
         },
         "org_sizes": {
-          "<100": 17,
-          "100-499": 38,
-          "500-999": 16,
+          "<100": 19,
+          "100-499": 40,
+          "500-999": 17,
           "1000-4999": 30,
           "5000-9999": 8,
           "10000+": 16
         },
         "profit_models": {
-          "For-Profit": 86,
-          "Non-Profit": 26,
-          "Government/Public Sector": 13
+          "For-Profit": 89,
+          "Non-Profit": 27,
+          "Government/Public Sector": 14
         },
         "tech_vs_nontech": {
-          "technical": 29,
-          "non_technical": 77,
-          "other": 19
+          "technical": 33,
+          "non_technical": 97,
+          "other": 0
         },
         "other_roles": {
-          "total": 19,
-          "categories": {
-            "Director": 9,
-            "Manager / Program Lead": 3,
-            "Uncategorized": 3,
-            "VP / SVP": 3,
-            "C-Suite Adjacent": 1
-          }
+          "total": 20,
+          "categories": {}
         }
       },
       "effect_sizes": {
         "tech_vs_nontech": {
-          "tech_n": 29,
-          "nontech_n": 77,
+          "tech_n": 33,
+          "nontech_n": 97,
           "constructs": {
             "barriers": {
-              "tech_mean": 2.6475,
-              "tech_mean_ci_lower": 2.6475,
-              "tech_mean_ci_upper": 2.6475,
-              "nontech_mean": 2.8694,
-              "nontech_mean_ci_lower": 2.8694,
-              "nontech_mean_ci_upper": 2.8694,
-              "d": -0.296,
-              "d_ci_lower": -0.7265,
-              "d_ci_upper": 0.1256
+              "tech_mean": 2.6953,
+              "tech_mean_ci_lower": 2.6953,
+              "tech_mean_ci_upper": 2.6953,
+              "nontech_mean": 2.8701,
+              "nontech_mean_ci_lower": 2.8701,
+              "nontech_mean_ci_upper": 2.8701,
+              "d": -0.2449,
+              "d_ci_lower": -0.6115,
+              "d_ci_upper": 0.1333
             },
             "readiness": {
-              "tech_mean": 3.4173,
-              "tech_mean_ci_lower": 3.4173,
-              "tech_mean_ci_upper": 3.4173,
-              "nontech_mean": 3.0382,
-              "nontech_mean_ci_lower": 3.0382,
-              "nontech_mean_ci_upper": 3.0382,
-              "d": 0.5709,
-              "d_ci_lower": 0.1835,
-              "d_ci_upper": 0.973
+              "tech_mean": 3.3596,
+              "tech_mean_ci_lower": 3.3596,
+              "tech_mean_ci_upper": 3.3596,
+              "nontech_mean": 3.0141,
+              "nontech_mean_ci_lower": 3.0141,
+              "nontech_mean_ci_upper": 3.0141,
+              "d": 0.5425,
+              "d_ci_lower": 0.1675,
+              "d_ci_upper": 0.9275
             },
             "maturity": {
-              "tech_mean": 3.2716,
-              "tech_mean_ci_lower": 3.2716,
-              "tech_mean_ci_upper": 3.2716,
-              "nontech_mean": 3.0278,
-              "nontech_mean_ci_lower": 3.0278,
-              "nontech_mean_ci_upper": 3.0278,
-              "d": 0.3,
-              "d_ci_lower": -0.1212,
-              "d_ci_upper": 0.692
+              "tech_mean": 3.303,
+              "tech_mean_ci_lower": 3.303,
+              "tech_mean_ci_upper": 3.303,
+              "nontech_mean": 2.9886,
+              "nontech_mean_ci_lower": 2.9886,
+              "nontech_mean_ci_upper": 2.9886,
+              "d": 0.3991,
+              "d_ci_lower": 0.0432,
+              "d_ci_upper": 0.7816
             }
           }
         },
         "large_vs_small": {
           "large_n": 24,
-          "small_medium_n": 101,
+          "small_medium_n": 106,
           "constructs": {
             "barriers": {
               "large_mean": 3.0883,
               "large_mean_ci_lower": 3.0883,
               "large_mean_ci_upper": 3.0883,
-              "small_medium_mean": 2.7431,
-              "small_medium_mean_ci_lower": 2.7431,
-              "small_medium_mean_ci_upper": 2.7431,
-              "d": 0.4863,
-              "d_ci_lower": 0.0303,
-              "d_ci_upper": 0.9472
+              "small_medium_mean": 2.7663,
+              "small_medium_mean_ci_lower": 2.7663,
+              "small_medium_mean_ci_upper": 2.7663,
+              "d": 0.4557,
+              "d_ci_lower": 0.0135,
+              "d_ci_upper": 0.9076
             },
             "readiness": {
               "large_mean": 2.9544,
               "large_mean_ci_lower": 2.9544,
               "large_mean_ci_upper": 2.9544,
-              "small_medium_mean": 3.132,
-              "small_medium_mean_ci_lower": 3.132,
-              "small_medium_mean_ci_upper": 3.132,
-              "d": -0.2692,
-              "d_ci_lower": -0.7348,
-              "d_ci_upper": 0.1984
+              "small_medium_mean": 3.1351,
+              "small_medium_mean_ci_lower": 3.1351,
+              "small_medium_mean_ci_upper": 3.1351,
+              "d": -0.2776,
+              "d_ci_lower": -0.7586,
+              "d_ci_upper": 0.1849
             }
           }
         }
@@ -692,41 +674,34 @@
       "cross_tabs": {
         "by_role": [
           {
-            "group": "Technical (CIO/CTO)",
-            "n": 29,
-            "barrier_mean": 2.6475,
-            "readiness_mean": 3.4173,
-            "maturity_mean": 3.2716
+            "group": "Technical",
+            "n": 33,
+            "barrier_mean": 2.6953,
+            "readiness_mean": 3.3596,
+            "maturity_mean": 3.303
           },
           {
             "group": "Non-Technical",
-            "n": 77,
-            "barrier_mean": 2.8694,
-            "readiness_mean": 3.0382,
-            "maturity_mean": 3.0278
-          },
-          {
-            "group": "Other",
-            "n": 19,
-            "barrier_mean": 2.8133,
-            "readiness_mean": 2.8524,
-            "maturity_mean": 2.8882
+            "n": 97,
+            "barrier_mean": 2.8701,
+            "readiness_mean": 3.0141,
+            "maturity_mean": 2.9886
           }
         ],
         "by_org_size": [
           {
             "group": "Small (<500)",
-            "n": 55,
-            "barrier_mean": 2.7318,
-            "readiness_mean": 3.119,
-            "maturity_mean": 2.9674
+            "n": 59,
+            "barrier_mean": 2.7726,
+            "readiness_mean": 3.1289,
+            "maturity_mean": 2.9866
           },
           {
             "group": "Medium (500-4999)",
-            "n": 46,
-            "barrier_mean": 2.7566,
-            "readiness_mean": 3.1475,
-            "maturity_mean": 3.1432
+            "n": 47,
+            "barrier_mean": 2.7583,
+            "readiness_mean": 3.143,
+            "maturity_mean": 3.1402
           },
           {
             "group": "Large (5000+)",
@@ -739,115 +714,115 @@
       },
       "inferential": {
         "t_tests_tech_vs_nontech": {
-          "tech_n": 29,
-          "nontech_n": 77,
+          "tech_n": 33,
+          "nontech_n": 97,
           "constructs": {
             "barriers": {
-              "t": -1.3992,
+              "t": -1.2356,
               "p": 0.0,
-              "df": 53.53,
-              "mean_diff_ci_lower": -0.2219,
-              "mean_diff_ci_upper": -0.2219,
+              "df": 56.99,
+              "mean_diff_ci_lower": -0.1748,
+              "mean_diff_ci_upper": -0.1748,
               "sig": true
             },
             "readiness": {
-              "t": 2.8592,
+              "t": 2.8442,
               "p": 0.0,
-              "df": 60.75,
-              "mean_diff_ci_lower": 0.3791,
-              "mean_diff_ci_upper": 0.3791,
+              "df": 61.28,
+              "mean_diff_ci_lower": 0.3455,
+              "mean_diff_ci_upper": 0.3455,
               "sig": true
             },
             "maturity": {
-              "t": 1.4538,
+              "t": 2.0871,
               "p": 0.0,
-              "df": 56.44,
-              "mean_diff_ci_lower": 0.2438,
-              "mean_diff_ci_upper": 0.2438,
+              "df": 60.99,
+              "mean_diff_ci_lower": 0.3145,
+              "mean_diff_ci_upper": 0.3145,
               "sig": true
             }
           }
         },
         "t_tests_large_vs_small": {
           "large_n": 24,
-          "small_medium_n": 101,
+          "small_medium_n": 106,
           "constructs": {
             "barriers": {
-              "t": 2.1981,
+              "t": 2.0631,
               "p": 0.0,
-              "df": 35.88,
-              "mean_diff_ci_lower": 0.3451,
-              "mean_diff_ci_upper": 0.3451,
+              "df": 35.11,
+              "mean_diff_ci_lower": 0.322,
+              "mean_diff_ci_upper": 0.322,
               "sig": true
             },
             "readiness": {
-              "t": -1.1376,
+              "t": -1.1654,
               "p": 0.0,
-              "df": 33.23,
-              "mean_diff_ci_lower": -0.1776,
-              "mean_diff_ci_upper": -0.1776,
+              "df": 32.41,
+              "mean_diff_ci_lower": -0.1807,
+              "mean_diff_ci_upper": -0.1807,
               "sig": true
             },
             "maturity": {
-              "t": 0.4077,
+              "t": 0.3733,
               "p": 0.0,
-              "df": 31.7,
-              "mean_diff_ci_lower": 0.0814,
-              "mean_diff_ci_upper": 0.0814,
+              "df": 31.18,
+              "mean_diff_ci_lower": 0.0742,
+              "mean_diff_ci_upper": 0.0742,
               "sig": true
             }
           }
         },
         "anova_by_role": {
-          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
-          "group_ns": [29, 77, 19],
+          "groups": ["Technical", "Non-Technical"],
+          "group_ns": [33, 97],
           "constructs": {
             "barriers": {
-              "f": 1.001,
-              "p": 0.3705,
-              "df_between": 2,
-              "df_within": 122,
-              "sig": false
+              "f": 1.477,
+              "p": 0.0,
+              "df_between": 1,
+              "df_within": 128,
+              "sig": true
             },
             "readiness": {
-              "f": 5.3686,
-              "p": 0.0058,
-              "df_between": 2,
-              "df_within": 122,
+              "f": 7.248,
+              "p": 0.0,
+              "df_between": 1,
+              "df_within": 128,
               "sig": true
             },
             "maturity": {
-              "f": 1.521,
-              "p": 0.2226,
-              "df_between": 2,
-              "df_within": 122,
-              "sig": false
+              "f": 3.9218,
+              "p": 0.0,
+              "df_between": 1,
+              "df_within": 128,
+              "sig": true
             }
           }
         },
         "anova_by_org_size": {
           "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
-          "group_ns": [55, 46, 24],
+          "group_ns": [59, 47, 24],
           "constructs": {
             "barriers": {
-              "f": 2.29,
-              "p": 0.1056,
+              "f": 2.0216,
+              "p": 0.1367,
               "df_between": 2,
-              "df_within": 122,
+              "df_within": 127,
               "sig": false
             },
             "readiness": {
-              "f": 0.7205,
-              "p": 0.4886,
+              "f": 0.7545,
+              "p": 0.4723,
               "df_between": 2,
-              "df_within": 122,
+              "df_within": 127,
               "sig": false
             },
             "maturity": {
-              "f": 0.6994,
-              "p": 0.4989,
+              "f": 0.5671,
+              "p": 0.5686,
               "df_between": 2,
-              "df_within": 122,
+              "df_within": 127,
               "sig": false
             }
           }
@@ -857,113 +832,106 @@
     "prolific_accepted": {
       "demographics": {
         "roles": {
-          "Other": 45,
-          "CIO": 36,
+          "Other": 46,
+          "CIO": 37,
           "COO": 24,
-          "CSO": 21,
+          "CSO": 22,
+          "CEO": 20,
           "CMO": 19,
-          "CEO": 18,
           "CHRO": 17,
           "CFO": 17,
           "CTO": 15,
           "CRO": 15,
-          "Unknown": 2
+          "CISO": 2
         },
         "org_sizes": {
-          "<100": 40,
-          "100-499": 55,
-          "500-999": 33,
+          "<100": 42,
+          "100-499": 57,
+          "500-999": 34,
           "1000-4999": 48,
           "5000-9999": 20,
           "10000+": 33
         },
         "profit_models": {
-          "For-Profit": 171,
-          "Non-Profit": 40,
-          "Government/Public Sector": 18
+          "For-Profit": 174,
+          "Non-Profit": 41,
+          "Government/Public Sector": 19
         },
         "tech_vs_nontech": {
-          "technical": 51,
-          "non_technical": 131,
-          "other": 45
+          "technical": 58,
+          "non_technical": 176,
+          "other": 0
         },
         "other_roles": {
-          "total": 45,
-          "categories": {
-            "Director": 23,
-            "Uncategorized": 7,
-            "VP / SVP": 6,
-            "Manager / Program Lead": 5,
-            "C-Suite Adjacent": 3,
-            "Owner / Founder / President": 1
-          }
+          "total": 46,
+          "categories": {}
         }
       },
       "effect_sizes": {
         "tech_vs_nontech": {
-          "tech_n": 51,
-          "nontech_n": 131,
+          "tech_n": 58,
+          "nontech_n": 176,
           "constructs": {
             "barriers": {
-              "tech_mean": 2.7097,
-              "tech_mean_ci_lower": 2.7097,
-              "tech_mean_ci_upper": 2.7097,
-              "nontech_mean": 2.7922,
-              "nontech_mean_ci_lower": 2.7922,
-              "nontech_mean_ci_upper": 2.7922,
-              "d": -0.111,
-              "d_ci_lower": -0.447,
-              "d_ci_upper": 0.2352
+              "tech_mean": 2.7543,
+              "tech_mean_ci_lower": 2.7543,
+              "tech_mean_ci_upper": 2.7543,
+              "nontech_mean": 2.796,
+              "nontech_mean_ci_lower": 2.796,
+              "nontech_mean_ci_upper": 2.796,
+              "d": -0.0584,
+              "d_ci_lower": -0.3528,
+              "d_ci_upper": 0.2547
             },
             "readiness": {
-              "tech_mean": 3.4402,
-              "tech_mean_ci_lower": 3.4402,
-              "tech_mean_ci_upper": 3.4402,
-              "nontech_mean": 3.0725,
-              "nontech_mean_ci_lower": 3.0725,
-              "nontech_mean_ci_upper": 3.0725,
-              "d": 0.5571,
-              "d_ci_lower": 0.2553,
-              "d_ci_upper": 0.8862
+              "tech_mean": 3.4165,
+              "tech_mean_ci_lower": 3.4165,
+              "tech_mean_ci_upper": 3.4165,
+              "nontech_mean": 3.0518,
+              "nontech_mean_ci_lower": 3.0518,
+              "nontech_mean_ci_upper": 3.0518,
+              "d": 0.5574,
+              "d_ci_lower": 0.2709,
+              "d_ci_upper": 0.8559
             },
             "maturity": {
-              "tech_mean": 3.3463,
-              "tech_mean_ci_lower": 3.3463,
-              "tech_mean_ci_upper": 3.3463,
-              "nontech_mean": 3.0925,
-              "nontech_mean_ci_lower": 3.0925,
-              "nontech_mean_ci_upper": 3.0925,
-              "d": 0.3152,
-              "d_ci_lower": 0.0013,
-              "d_ci_upper": 0.6507
+              "tech_mean": 3.3821,
+              "tech_mean_ci_lower": 3.3821,
+              "tech_mean_ci_upper": 3.3821,
+              "nontech_mean": 3.0831,
+              "nontech_mean_ci_lower": 3.0831,
+              "nontech_mean_ci_upper": 3.0831,
+              "d": 0.3751,
+              "d_ci_lower": 0.0762,
+              "d_ci_upper": 0.6858
             }
           }
         },
         "large_vs_small": {
           "large_n": 53,
-          "small_medium_n": 176,
+          "small_medium_n": 181,
           "constructs": {
             "barriers": {
               "large_mean": 2.9026,
               "large_mean_ci_lower": 2.9026,
               "large_mean_ci_upper": 2.9026,
-              "small_medium_mean": 2.7377,
-              "small_medium_mean_ci_lower": 2.7377,
-              "small_medium_mean_ci_upper": 2.7377,
-              "d": 0.2308,
-              "d_ci_lower": -0.0751,
-              "d_ci_upper": 0.5559
+              "small_medium_mean": 2.7514,
+              "small_medium_mean_ci_lower": 2.7514,
+              "small_medium_mean_ci_upper": 2.7514,
+              "d": 0.2121,
+              "d_ci_lower": -0.0832,
+              "d_ci_upper": 0.5226
             },
             "readiness": {
               "large_mean": 3.1666,
               "large_mean_ci_lower": 3.1666,
               "large_mean_ci_upper": 3.1666,
-              "small_medium_mean": 3.1332,
-              "small_medium_mean_ci_lower": 3.1332,
-              "small_medium_mean_ci_upper": 3.1332,
-              "d": 0.0492,
-              "d_ci_lower": -0.278,
-              "d_ci_upper": 0.3798
+              "small_medium_mean": 3.135,
+              "small_medium_mean_ci_lower": 3.135,
+              "small_medium_mean_ci_upper": 3.135,
+              "d": 0.0469,
+              "d_ci_lower": -0.2843,
+              "d_ci_upper": 0.3913
             }
           }
         }
@@ -971,41 +939,34 @@
       "cross_tabs": {
         "by_role": [
           {
-            "group": "Technical (CIO/CTO)",
-            "n": 51,
-            "barrier_mean": 2.7097,
-            "readiness_mean": 3.4402,
-            "maturity_mean": 3.3463
+            "group": "Technical",
+            "n": 58,
+            "barrier_mean": 2.7543,
+            "readiness_mean": 3.4165,
+            "maturity_mean": 3.3821
           },
           {
             "group": "Non-Technical",
-            "n": 131,
-            "barrier_mean": 2.7922,
-            "readiness_mean": 3.0725,
-            "maturity_mean": 3.0925
-          },
-          {
-            "group": "Other",
-            "n": 45,
-            "barrier_mean": 2.7885,
-            "readiness_mean": 2.9615,
-            "maturity_mean": 3.0778
+            "n": 176,
+            "barrier_mean": 2.796,
+            "readiness_mean": 3.0518,
+            "maturity_mean": 3.0831
           }
         ],
         "by_org_size": [
           {
             "group": "Small (<500)",
-            "n": 95,
-            "barrier_mean": 2.7275,
-            "readiness_mean": 3.0522,
-            "maturity_mean": 2.9902
+            "n": 99,
+            "barrier_mean": 2.752,
+            "readiness_mean": 3.0608,
+            "maturity_mean": 3.0007
           },
           {
             "group": "Medium (500-4999)",
-            "n": 81,
-            "barrier_mean": 2.7497,
-            "readiness_mean": 3.2283,
-            "maturity_mean": 3.2357
+            "n": 82,
+            "barrier_mean": 2.7507,
+            "readiness_mean": 3.2247,
+            "maturity_mean": 3.2328
           },
           {
             "group": "Large (5000+)",
@@ -1018,115 +979,115 @@
       },
       "inferential": {
         "t_tests_tech_vs_nontech": {
-          "tech_n": 51,
-          "nontech_n": 131,
+          "tech_n": 58,
+          "nontech_n": 176,
           "constructs": {
             "barriers": {
-              "t": -0.6664,
+              "t": -0.3761,
               "p": 0.0,
-              "df": 89.53,
-              "mean_diff_ci_lower": -0.0825,
-              "mean_diff_ci_upper": -0.0825,
+              "df": 93.47,
+              "mean_diff_ci_lower": -0.0417,
+              "mean_diff_ci_upper": -0.0417,
               "sig": true
             },
             "readiness": {
-              "t": 3.4731,
+              "t": 3.767,
               "p": 0.0,
-              "df": 96.83,
-              "mean_diff_ci_lower": 0.3677,
-              "mean_diff_ci_upper": 0.3677,
+              "df": 101.26,
+              "mean_diff_ci_lower": 0.3647,
+              "mean_diff_ci_upper": 0.3647,
               "sig": true
             },
             "maturity": {
-              "t": 1.9135,
+              "t": 2.4919,
               "p": 0.0,
-              "df": 91.54,
-              "mean_diff_ci_lower": 0.2537,
-              "mean_diff_ci_upper": 0.2537,
+              "df": 98.26,
+              "mean_diff_ci_lower": 0.299,
+              "mean_diff_ci_upper": 0.299,
               "sig": true
             }
           }
         },
         "t_tests_large_vs_small": {
           "large_n": 53,
-          "small_medium_n": 176,
+          "small_medium_n": 181,
           "constructs": {
             "barriers": {
-              "t": 1.4903,
+              "t": 1.3721,
               "p": 0.0,
-              "df": 87.3,
-              "mean_diff_ci_lower": 0.1649,
-              "mean_diff_ci_upper": 0.1649,
+              "df": 86.13,
+              "mean_diff_ci_lower": 0.1512,
+              "mean_diff_ci_upper": 0.1512,
               "sig": true
             },
             "readiness": {
-              "t": 0.2911,
+              "t": 0.2766,
               "p": 0.0,
-              "df": 77.12,
-              "mean_diff_ci_lower": 0.0334,
-              "mean_diff_ci_upper": 0.0334,
+              "df": 75.95,
+              "mean_diff_ci_lower": 0.0316,
+              "mean_diff_ci_upper": 0.0316,
               "sig": true
             },
             "maturity": {
-              "t": 1.7382,
+              "t": 1.7241,
               "p": 0.0,
-              "df": 80.21,
-              "mean_diff_ci_lower": 0.2295,
-              "mean_diff_ci_upper": 0.2295,
+              "df": 79.2,
+              "mean_diff_ci_lower": 0.2268,
+              "mean_diff_ci_upper": 0.2268,
               "sig": true
             }
           }
         },
         "anova_by_role": {
-          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
-          "group_ns": [51, 131, 45],
+          "groups": ["Technical", "Non-Technical"],
+          "group_ns": [58, 176],
           "constructs": {
             "barriers": {
-              "f": 0.2564,
-              "p": 0.774,
-              "df_between": 2,
-              "df_within": 224,
-              "sig": false
+              "f": 0.1485,
+              "p": 0.0,
+              "df_between": 1,
+              "df_within": 232,
+              "sig": true
             },
             "readiness": {
-              "f": 7.7042,
-              "p": 0.0006,
-              "df_between": 2,
-              "df_within": 224,
+              "f": 13.5545,
+              "p": 0.0,
+              "df_between": 1,
+              "df_within": 232,
               "sig": true
             },
             "maturity": {
-              "f": 2.0486,
-              "p": 0.1313,
-              "df_between": 2,
-              "df_within": 224,
-              "sig": false
+              "f": 6.1393,
+              "p": 0.0,
+              "df_between": 1,
+              "df_within": 232,
+              "sig": true
             }
           }
         },
         "anova_by_org_size": {
           "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
-          "group_ns": [95, 81, 53],
+          "group_ns": [99, 82, 53],
           "constructs": {
             "barriers": {
-              "f": 1.101,
-              "p": 0.3343,
+              "f": 0.9181,
+              "p": 0.4007,
               "df_between": 2,
-              "df_within": 226,
+              "df_within": 231,
               "sig": false
             },
             "readiness": {
-              "f": 1.536,
-              "p": 0.2175,
+              "f": 1.3845,
+              "p": 0.2525,
               "df_between": 2,
-              "df_within": 226,
+              "df_within": 231,
               "sig": false
             },
             "maturity": {
-              "f": 3.7428,
-              "p": 0.0252,
+              "f": 3.5616,
+              "p": 0.03,
               "df_between": 2,
-              "df_within": 226,
+              "df_within": 231,
               "sig": true
             }
           }
@@ -1136,113 +1097,106 @@
     "v2_finished": {
       "demographics": {
         "roles": {
-          "Other": 63,
-          "CIO": 55,
-          "COO": 33,
-          "CEO": 33,
-          "CTO": 33,
-          "CFO": 31,
-          "CSO": 28,
+          "Other": 70,
+          "CIO": 58,
+          "CEO": 38,
+          "COO": 35,
+          "CTO": 35,
+          "CFO": 33,
+          "CSO": 31,
           "CMO": 25,
-          "CHRO": 23,
+          "CHRO": 24,
           "CRO": 22,
-          "Unknown": 5
+          "CISO": 5
         },
         "org_sizes": {
-          "<100": 53,
-          "100-499": 92,
-          "500-999": 54,
-          "1000-4999": 72,
-          "5000-9999": 30,
-          "10000+": 50
+          "<100": 57,
+          "100-499": 103,
+          "500-999": 57,
+          "1000-4999": 74,
+          "5000-9999": 31,
+          "10000+": 54
         },
         "profit_models": {
-          "For-Profit": 267,
-          "Non-Profit": 58,
-          "Government/Public Sector": 26
+          "For-Profit": 284,
+          "Non-Profit": 62,
+          "Government/Public Sector": 30
         },
         "tech_vs_nontech": {
-          "technical": 88,
-          "non_technical": 195,
-          "other": 63
+          "technical": 103,
+          "non_technical": 273,
+          "other": 0
         },
         "other_roles": {
-          "total": 63,
-          "categories": {
-            "Director": 28,
-            "VP / SVP": 11,
-            "Uncategorized": 10,
-            "Manager / Program Lead": 8,
-            "C-Suite Adjacent": 4,
-            "Owner / Founder / President": 2
-          }
+          "total": 70,
+          "categories": {}
         }
       },
       "effect_sizes": {
         "tech_vs_nontech": {
-          "tech_n": 88,
-          "nontech_n": 195,
+          "tech_n": 103,
+          "nontech_n": 273,
           "constructs": {
             "barriers": {
-              "tech_mean": 2.6613,
-              "tech_mean_ci_lower": 2.6613,
-              "tech_mean_ci_upper": 2.6613,
-              "nontech_mean": 2.7639,
-              "nontech_mean_ci_lower": 2.7639,
-              "nontech_mean_ci_upper": 2.7639,
-              "d": -0.1288,
-              "d_ci_lower": -0.3874,
-              "d_ci_upper": 0.1284
+              "tech_mean": 2.6825,
+              "tech_mean_ci_lower": 2.6825,
+              "tech_mean_ci_upper": 2.6825,
+              "nontech_mean": 2.7662,
+              "nontech_mean_ci_lower": 2.7662,
+              "nontech_mean_ci_upper": 2.7662,
+              "d": -0.1085,
+              "d_ci_lower": -0.3399,
+              "d_ci_upper": 0.1228
             },
             "readiness": {
-              "tech_mean": 3.4857,
-              "tech_mean_ci_lower": 3.4857,
-              "tech_mean_ci_upper": 3.4857,
-              "nontech_mean": 3.2145,
-              "nontech_mean_ci_lower": 3.2145,
-              "nontech_mean_ci_upper": 3.2145,
-              "d": 0.3771,
-              "d_ci_lower": 0.117,
-              "d_ci_upper": 0.6384
+              "tech_mean": 3.463,
+              "tech_mean_ci_lower": 3.463,
+              "tech_mean_ci_upper": 3.463,
+              "nontech_mean": 3.1717,
+              "nontech_mean_ci_lower": 3.1717,
+              "nontech_mean_ci_upper": 3.1717,
+              "d": 0.4157,
+              "d_ci_lower": 0.2004,
+              "d_ci_upper": 0.6516
             },
             "maturity": {
-              "tech_mean": 3.4308,
-              "tech_mean_ci_lower": 3.4308,
-              "tech_mean_ci_upper": 3.4308,
-              "nontech_mean": 3.2325,
-              "nontech_mean_ci_lower": 3.2325,
-              "nontech_mean_ci_upper": 3.2325,
-              "d": 0.2492,
-              "d_ci_lower": 0.0021,
-              "d_ci_upper": 0.5079
+              "tech_mean": 3.4348,
+              "tech_mean_ci_lower": 3.4348,
+              "tech_mean_ci_upper": 3.4348,
+              "nontech_mean": 3.2113,
+              "nontech_mean_ci_lower": 3.2113,
+              "nontech_mean_ci_upper": 3.2113,
+              "d": 0.2794,
+              "d_ci_lower": 0.0675,
+              "d_ci_upper": 0.5074
             }
           }
         },
         "large_vs_small": {
-          "large_n": 80,
-          "small_medium_n": 271,
+          "large_n": 85,
+          "small_medium_n": 291,
           "constructs": {
             "barriers": {
-              "large_mean": 2.8811,
-              "large_mean_ci_lower": 2.8811,
-              "large_mean_ci_upper": 2.8811,
-              "small_medium_mean": 2.697,
-              "small_medium_mean_ci_lower": 2.697,
-              "small_medium_mean_ci_upper": 2.697,
-              "d": 0.2409,
-              "d_ci_lower": -0.0132,
-              "d_ci_upper": 0.4972
+              "large_mean": 2.871,
+              "large_mean_ci_lower": 2.871,
+              "large_mean_ci_upper": 2.871,
+              "small_medium_mean": 2.706,
+              "small_medium_mean_ci_lower": 2.706,
+              "small_medium_mean_ci_upper": 2.706,
+              "d": 0.2147,
+              "d_ci_lower": -0.0297,
+              "d_ci_upper": 0.4587
             },
             "readiness": {
-              "large_mean": 3.2744,
-              "large_mean_ci_lower": 3.2744,
-              "large_mean_ci_upper": 3.2744,
-              "small_medium_mean": 3.2513,
-              "small_medium_mean_ci_lower": 3.2513,
-              "small_medium_mean_ci_upper": 3.2513,
-              "d": 0.0318,
-              "d_ci_lower": -0.2196,
-              "d_ci_upper": 0.2903
+              "large_mean": 3.2707,
+              "large_mean_ci_lower": 3.2707,
+              "large_mean_ci_upper": 3.2707,
+              "small_medium_mean": 3.2462,
+              "small_medium_mean_ci_lower": 3.2462,
+              "small_medium_mean_ci_upper": 3.2462,
+              "d": 0.0344,
+              "d_ci_lower": -0.2104,
+              "d_ci_upper": 0.2791
             }
           }
         }
@@ -1250,162 +1204,155 @@
       "cross_tabs": {
         "by_role": [
           {
-            "group": "Technical (CIO/CTO)",
-            "n": 88,
-            "barrier_mean": 2.6613,
-            "readiness_mean": 3.4857,
-            "maturity_mean": 3.4308
+            "group": "Technical",
+            "n": 103,
+            "barrier_mean": 2.6825,
+            "readiness_mean": 3.463,
+            "maturity_mean": 3.4348
           },
           {
             "group": "Non-Technical",
-            "n": 195,
-            "barrier_mean": 2.7639,
-            "readiness_mean": 3.2145,
-            "maturity_mean": 3.2325
-          },
-          {
-            "group": "Other",
-            "n": 63,
-            "barrier_mean": 2.7628,
-            "readiness_mean": 3.0294,
-            "maturity_mean": 3.1478
+            "n": 273,
+            "barrier_mean": 2.7662,
+            "readiness_mean": 3.1717,
+            "maturity_mean": 3.2113
           }
         ],
         "by_org_size": [
           {
             "group": "Small (<500)",
-            "n": 145,
-            "barrier_mean": 2.6469,
-            "readiness_mean": 3.1743,
-            "maturity_mean": 3.1493
+            "n": 160,
+            "barrier_mean": 2.6817,
+            "readiness_mean": 3.1771,
+            "maturity_mean": 3.1535
           },
           {
             "group": "Medium (500-4999)",
-            "n": 126,
-            "barrier_mean": 2.7547,
-            "readiness_mean": 3.3407,
-            "maturity_mean": 3.347
+            "n": 131,
+            "barrier_mean": 2.7356,
+            "readiness_mean": 3.3311,
+            "maturity_mean": 3.349
           },
           {
             "group": "Large (5000+)",
-            "n": 80,
-            "barrier_mean": 2.8811,
-            "readiness_mean": 3.2744,
-            "maturity_mean": 3.3891
+            "n": 85,
+            "barrier_mean": 2.871,
+            "readiness_mean": 3.2707,
+            "maturity_mean": 3.3804
           }
         ]
       },
       "inferential": {
         "t_tests_tech_vs_nontech": {
-          "tech_n": 88,
-          "nontech_n": 195,
+          "tech_n": 103,
+          "nontech_n": 273,
           "constructs": {
             "barriers": {
-              "t": -0.9979,
+              "t": -0.9229,
               "p": 0.0,
-              "df": 165.85,
-              "mean_diff_ci_lower": -0.1026,
-              "mean_diff_ci_upper": -0.1026,
+              "df": 177.91,
+              "mean_diff_ci_lower": -0.0837,
+              "mean_diff_ci_upper": -0.0837,
               "sig": true
             },
             "readiness": {
-              "t": 2.9612,
+              "t": 3.5895,
               "p": 0.0,
-              "df": 171.38,
-              "mean_diff_ci_lower": 0.2712,
-              "mean_diff_ci_upper": 0.2712,
+              "df": 183.55,
+              "mean_diff_ci_lower": 0.2912,
+              "mean_diff_ci_upper": 0.2912,
               "sig": true
             },
             "maturity": {
-              "t": 1.9615,
+              "t": 2.4728,
               "p": 0.0,
-              "df": 172.34,
-              "mean_diff_ci_lower": 0.1983,
-              "mean_diff_ci_upper": 0.1983,
+              "df": 192.93,
+              "mean_diff_ci_lower": 0.2235,
+              "mean_diff_ci_upper": 0.2235,
               "sig": true
             }
           }
         },
         "t_tests_large_vs_small": {
-          "large_n": 80,
-          "small_medium_n": 271,
+          "large_n": 85,
+          "small_medium_n": 291,
           "constructs": {
             "barriers": {
-              "t": 1.9149,
+              "t": 1.7512,
               "p": 0.0,
-              "df": 131.45,
-              "mean_diff_ci_lower": 0.1841,
-              "mean_diff_ci_upper": 0.1841,
+              "df": 138.05,
+              "mean_diff_ci_lower": 0.1651,
+              "mean_diff_ci_upper": 0.1651,
               "sig": true
             },
             "readiness": {
-              "t": 0.2437,
+              "t": 0.2712,
               "p": 0.0,
-              "df": 124.76,
-              "mean_diff_ci_lower": 0.023,
-              "mean_diff_ci_upper": 0.023,
+              "df": 131.43,
+              "mean_diff_ci_lower": 0.0245,
+              "mean_diff_ci_upper": 0.0245,
               "sig": true
             },
             "maturity": {
-              "t": 1.4306,
+              "t": 1.3546,
               "p": 0.0,
-              "df": 125.99,
-              "mean_diff_ci_lower": 0.1483,
-              "mean_diff_ci_upper": 0.1483,
+              "df": 130.14,
+              "mean_diff_ci_lower": 0.1393,
+              "mean_diff_ci_upper": 0.1393,
               "sig": true
             }
           }
         },
         "anova_by_role": {
-          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
-          "group_ns": [88, 195, 63],
+          "groups": ["Technical", "Non-Technical"],
+          "group_ns": [103, 273],
           "constructs": {
             "barriers": {
-              "f": 0.5819,
-              "p": 0.5594,
-              "df_between": 2,
-              "df_within": 343,
-              "sig": false
+              "f": 0.8803,
+              "p": 0.0,
+              "df_between": 1,
+              "df_within": 374,
+              "sig": true
             },
             "readiness": {
-              "f": 8.1159,
-              "p": 0.0004,
-              "df_between": 2,
-              "df_within": 342,
+              "f": 12.913,
+              "p": 0.0,
+              "df_between": 1,
+              "df_within": 373,
               "sig": true
             },
             "maturity": {
-              "f": 2.7405,
-              "p": 0.066,
-              "df_between": 2,
-              "df_within": 342,
-              "sig": false
+              "f": 5.8335,
+              "p": 0.0,
+              "df_between": 1,
+              "df_within": 373,
+              "sig": true
             }
           }
         },
         "anova_by_org_size": {
           "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
-          "group_ns": [145, 126, 80],
+          "group_ns": [160, 131, 85],
           "constructs": {
             "barriers": {
-              "f": 2.4655,
-              "p": 0.0865,
+              "f": 1.6897,
+              "p": 0.186,
               "df_between": 2,
-              "df_within": 348,
+              "df_within": 373,
               "sig": false
             },
             "readiness": {
-              "f": 1.8135,
-              "p": 0.1646,
+              "f": 1.7248,
+              "p": 0.1796,
               "df_between": 2,
-              "df_within": 347,
+              "df_within": 372,
               "sig": false
             },
             "maturity": {
-              "f": 3.1419,
-              "p": 0.0444,
+              "f": 3.1367,
+              "p": 0.0446,
               "df_between": 2,
-              "df_within": 347,
+              "df_within": 372,
               "sig": true
             }
           }
@@ -1415,113 +1362,107 @@
     "v2_all": {
       "demographics": {
         "roles": {
-          "Other": 65,
-          "Unknown": 62,
-          "CIO": 55,
-          "COO": 34,
-          "CEO": 33,
-          "CTO": 33,
-          "CFO": 32,
-          "CSO": 30,
+          "Other": 73,
+          "CIO": 59,
+          "Unknown": 59,
+          "CEO": 38,
+          "COO": 36,
+          "CTO": 35,
+          "CFO": 34,
+          "CSO": 33,
           "CMO": 25,
-          "CHRO": 24,
-          "CRO": 23
+          "CHRO": 25,
+          "CRO": 23,
+          "CISO": 5
         },
         "org_sizes": {
-          "<100": 54,
-          "100-499": 94,
-          "500-999": 56,
-          "1000-4999": 73,
-          "5000-9999": 31,
-          "10000+": 51
+          "<100": 58,
+          "100-499": 107,
+          "500-999": 59,
+          "1000-4999": 75,
+          "5000-9999": 32,
+          "10000+": 55
         },
         "profit_models": {
-          "For-Profit": 274,
-          "Non-Profit": 59,
-          "Government/Public Sector": 26
+          "For-Profit": 292,
+          "Non-Profit": 64,
+          "Government/Public Sector": 30
         },
         "tech_vs_nontech": {
-          "technical": 88,
-          "non_technical": 201,
-          "other": 65
+          "technical": 104,
+          "non_technical": 282,
+          "other": 59
         },
         "other_roles": {
-          "total": 65,
-          "categories": {
-            "Director": 28,
-            "Uncategorized": 12,
-            "VP / SVP": 11,
-            "Manager / Program Lead": 8,
-            "C-Suite Adjacent": 4,
-            "Owner / Founder / President": 2
-          }
+          "total": 73,
+          "categories": {}
         }
       },
       "effect_sizes": {
         "tech_vs_nontech": {
-          "tech_n": 88,
-          "nontech_n": 201,
+          "tech_n": 104,
+          "nontech_n": 282,
           "constructs": {
             "barriers": {
-              "tech_mean": 2.6613,
-              "tech_mean_ci_lower": 2.6613,
-              "tech_mean_ci_upper": 2.6613,
-              "nontech_mean": 2.7692,
-              "nontech_mean_ci_lower": 2.7692,
-              "nontech_mean_ci_upper": 2.7692,
-              "d": -0.1348,
-              "d_ci_lower": -0.3767,
-              "d_ci_upper": 0.1279
+              "tech_mean": 2.6825,
+              "tech_mean_ci_lower": 2.6825,
+              "tech_mean_ci_upper": 2.6825,
+              "nontech_mean": 2.7734,
+              "nontech_mean_ci_lower": 2.7734,
+              "nontech_mean_ci_upper": 2.7734,
+              "d": -0.1173,
+              "d_ci_lower": -0.3498,
+              "d_ci_upper": 0.112
             },
             "readiness": {
-              "tech_mean": 3.4857,
-              "tech_mean_ci_lower": 3.4857,
-              "tech_mean_ci_upper": 3.4857,
-              "nontech_mean": 3.2148,
-              "nontech_mean_ci_lower": 3.2148,
-              "nontech_mean_ci_upper": 3.2148,
-              "d": 0.3774,
-              "d_ci_lower": 0.1193,
-              "d_ci_upper": 0.6367
+              "tech_mean": 3.463,
+              "tech_mean_ci_lower": 3.463,
+              "tech_mean_ci_upper": 3.463,
+              "nontech_mean": 3.1721,
+              "nontech_mean_ci_lower": 3.1721,
+              "nontech_mean_ci_upper": 3.1721,
+              "d": 0.4158,
+              "d_ci_lower": 0.1906,
+              "d_ci_upper": 0.6513
             },
             "maturity": {
-              "tech_mean": 3.4308,
-              "tech_mean_ci_lower": 3.4308,
-              "tech_mean_ci_upper": 3.4308,
-              "nontech_mean": 3.2325,
-              "nontech_mean_ci_lower": 3.2325,
-              "nontech_mean_ci_upper": 3.2325,
-              "d": 0.2492,
-              "d_ci_lower": 0.0021,
-              "d_ci_upper": 0.5079
+              "tech_mean": 3.4348,
+              "tech_mean_ci_lower": 3.4348,
+              "tech_mean_ci_upper": 3.4348,
+              "nontech_mean": 3.2113,
+              "nontech_mean_ci_lower": 3.2113,
+              "nontech_mean_ci_upper": 3.2113,
+              "d": 0.2794,
+              "d_ci_lower": 0.0675,
+              "d_ci_upper": 0.5074
             }
           }
         },
         "large_vs_small": {
-          "large_n": 82,
-          "small_medium_n": 334,
+          "large_n": 87,
+          "small_medium_n": 358,
           "constructs": {
             "barriers": {
-              "large_mean": 2.8915,
-              "large_mean_ci_lower": 2.8915,
-              "large_mean_ci_upper": 2.8915,
-              "small_medium_mean": 2.7015,
-              "small_medium_mean_ci_lower": 2.7015,
-              "small_medium_mean_ci_upper": 2.7015,
-              "d": 0.2473,
-              "d_ci_lower": -0.0012,
-              "d_ci_upper": 0.4979
+              "large_mean": 2.8809,
+              "large_mean_ci_lower": 2.8809,
+              "large_mean_ci_upper": 2.8809,
+              "small_medium_mean": 2.7101,
+              "small_medium_mean_ci_lower": 2.7101,
+              "small_medium_mean_ci_upper": 2.7101,
+              "d": 0.2212,
+              "d_ci_lower": -0.0175,
+              "d_ci_upper": 0.459
             },
             "readiness": {
-              "large_mean": 3.2744,
-              "large_mean_ci_lower": 3.2744,
-              "large_mean_ci_upper": 3.2744,
-              "small_medium_mean": 3.2514,
-              "small_medium_mean_ci_lower": 3.2514,
-              "small_medium_mean_ci_upper": 3.2514,
-              "d": 0.0318,
-              "d_ci_lower": -0.2349,
-              "d_ci_upper": 0.2869
+              "large_mean": 3.2707,
+              "large_mean_ci_lower": 3.2707,
+              "large_mean_ci_upper": 3.2707,
+              "small_medium_mean": 3.2462,
+              "small_medium_mean_ci_lower": 3.2462,
+              "small_medium_mean_ci_upper": 3.2462,
+              "d": 0.0344,
+              "d_ci_lower": -0.216,
+              "d_ci_upper": 0.2796
             }
           }
         }
@@ -1529,162 +1470,162 @@
       "cross_tabs": {
         "by_role": [
           {
-            "group": "Technical (CIO/CTO)",
-            "n": 88,
-            "barrier_mean": 2.6613,
-            "readiness_mean": 3.4857,
-            "maturity_mean": 3.4308
+            "group": "Technical",
+            "n": 104,
+            "barrier_mean": 2.6825,
+            "readiness_mean": 3.463,
+            "maturity_mean": 3.4348
           },
           {
             "group": "Non-Technical",
-            "n": 201,
-            "barrier_mean": 2.7692,
-            "readiness_mean": 3.2148,
-            "maturity_mean": 3.2325
+            "n": 282,
+            "barrier_mean": 2.7734,
+            "readiness_mean": 3.1721,
+            "maturity_mean": 3.2113
           },
           {
-            "group": "Other",
-            "n": 65,
-            "barrier_mean": 2.7778,
-            "readiness_mean": 3.0294,
-            "maturity_mean": 3.1478
+            "group": "Unclassified",
+            "n": 59,
+            "barrier_mean": null,
+            "readiness_mean": null,
+            "maturity_mean": null
           }
         ],
         "by_org_size": [
           {
             "group": "Small (<500)",
-            "n": 148,
-            "barrier_mean": 2.6623,
-            "readiness_mean": 3.175,
-            "maturity_mean": 3.1493
+            "n": 165,
+            "barrier_mean": 2.6952,
+            "readiness_mean": 3.1777,
+            "maturity_mean": 3.1535
           },
           {
             "group": "Medium (500-4999)",
-            "n": 129,
-            "barrier_mean": 2.747,
-            "readiness_mean": 3.3407,
-            "maturity_mean": 3.347
+            "n": 134,
+            "barrier_mean": 2.7284,
+            "readiness_mean": 3.3311,
+            "maturity_mean": 3.349
           },
           {
             "group": "Large (5000+)",
-            "n": 82,
-            "barrier_mean": 2.8915,
-            "readiness_mean": 3.2744,
-            "maturity_mean": 3.3891
+            "n": 87,
+            "barrier_mean": 2.8809,
+            "readiness_mean": 3.2707,
+            "maturity_mean": 3.3804
           }
         ]
       },
       "inferential": {
         "t_tests_tech_vs_nontech": {
-          "tech_n": 88,
-          "nontech_n": 201,
+          "tech_n": 104,
+          "nontech_n": 282,
           "constructs": {
             "barriers": {
-              "t": -1.0494,
+              "t": -1.0024,
               "p": 0.0,
-              "df": 165.89,
-              "mean_diff_ci_lower": -0.1079,
-              "mean_diff_ci_upper": -0.1079,
+              "df": 177.89,
+              "mean_diff_ci_lower": -0.0909,
+              "mean_diff_ci_upper": -0.0909,
               "sig": true
             },
             "readiness": {
-              "t": 2.9632,
+              "t": 3.5888,
               "p": 0.0,
-              "df": 170.66,
-              "mean_diff_ci_lower": 0.271,
-              "mean_diff_ci_upper": 0.271,
+              "df": 182.99,
+              "mean_diff_ci_lower": 0.2909,
+              "mean_diff_ci_upper": 0.2909,
               "sig": true
             },
             "maturity": {
-              "t": 1.9615,
+              "t": 2.4728,
               "p": 0.0,
-              "df": 172.34,
-              "mean_diff_ci_lower": 0.1983,
-              "mean_diff_ci_upper": 0.1983,
+              "df": 192.93,
+              "mean_diff_ci_lower": 0.2235,
+              "mean_diff_ci_upper": 0.2235,
               "sig": true
             }
           }
         },
         "t_tests_large_vs_small": {
-          "large_n": 82,
-          "small_medium_n": 334,
+          "large_n": 87,
+          "small_medium_n": 358,
           "constructs": {
             "barriers": {
-              "t": 1.9827,
+              "t": 1.8185,
               "p": 0.0,
-              "df": 133.68,
-              "mean_diff_ci_lower": 0.19,
-              "mean_diff_ci_upper": 0.19,
+              "df": 140.23,
+              "mean_diff_ci_lower": 0.1708,
+              "mean_diff_ci_upper": 0.1708,
               "sig": true
             },
             "readiness": {
-              "t": 0.2433,
+              "t": 0.2706,
               "p": 0.0,
-              "df": 124.42,
-              "mean_diff_ci_lower": 0.023,
-              "mean_diff_ci_upper": 0.023,
+              "df": 131.1,
+              "mean_diff_ci_lower": 0.0245,
+              "mean_diff_ci_upper": 0.0245,
               "sig": true
             },
             "maturity": {
-              "t": 1.4306,
+              "t": 1.3546,
               "p": 0.0,
-              "df": 125.99,
-              "mean_diff_ci_lower": 0.1483,
-              "mean_diff_ci_upper": 0.1483,
+              "df": 130.14,
+              "mean_diff_ci_lower": 0.1393,
+              "mean_diff_ci_upper": 0.1393,
               "sig": true
             }
           }
         },
         "anova_by_role": {
-          "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
-          "group_ns": [88, 201, 65],
+          "groups": ["Technical", "Non-Technical", "Unclassified"],
+          "group_ns": [104, 282, 59],
           "constructs": {
             "barriers": {
-              "f": 0.6707,
-              "p": 0.512,
-              "df_between": 2,
-              "df_within": 347,
-              "sig": false
+              "f": 1.0328,
+              "p": 0.0,
+              "df_between": 1,
+              "df_within": 378,
+              "sig": true
             },
             "readiness": {
-              "f": 8.1371,
-              "p": 0.0004,
-              "df_between": 2,
-              "df_within": 343,
+              "f": 12.9291,
+              "p": 0.0,
+              "df_between": 1,
+              "df_within": 374,
               "sig": true
             },
             "maturity": {
-              "f": 2.7405,
-              "p": 0.066,
-              "df_between": 2,
-              "df_within": 342,
-              "sig": false
+              "f": 5.8335,
+              "p": 0.0,
+              "df_between": 1,
+              "df_within": 373,
+              "sig": true
             }
           }
         },
         "anova_by_org_size": {
           "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
-          "group_ns": [148, 129, 82],
+          "group_ns": [165, 134, 87],
           "constructs": {
             "barriers": {
-              "f": 2.3259,
-              "p": 0.0992,
+              "f": 1.6902,
+              "p": 0.1859,
               "df_between": 2,
-              "df_within": 352,
+              "df_within": 377,
               "sig": false
             },
             "readiness": {
-              "f": 1.8106,
-              "p": 0.1651,
+              "f": 1.7217,
+              "p": 0.1802,
               "df_between": 2,
-              "df_within": 348,
+              "df_within": 373,
               "sig": false
             },
             "maturity": {
-              "f": 3.1419,
-              "p": 0.0444,
+              "f": 3.1367,
+              "p": 0.0446,
               "df_between": 2,
-              "df_within": 347,
+              "df_within": 372,
               "sig": true
             }
           }
@@ -1695,22 +1636,22 @@
   "filter_bias_analysis": {
     "role": {
       "ok": true,
-      "chi2": 3.22,
-      "p_value": 0.7805,
-      "df": 6,
+      "chi2": 1.0,
+      "p_value": 0.8017,
+      "df": 3,
       "error": null
     },
     "organization_size": {
       "ok": true,
-      "chi2": 8.21,
-      "p_value": 0.915,
+      "chi2": 7.43,
+      "p_value": 0.9445,
       "df": 15,
       "error": null
     },
     "profit_model": {
       "ok": true,
-      "chi2": 3.1,
-      "p_value": 0.796,
+      "chi2": 3.15,
+      "p_value": 0.7904,
       "df": 6,
       "error": null
     },
@@ -1718,26 +1659,64 @@
       "labels": ["For-Profit", "Non-Profit", "Government/Public Sector"],
       "groups": {
         "Conservative Clean": {
-          "For-Profit": 56,
-          "Non-Profit": 14,
-          "Government/Public Sector": 8
+          "For-Profit": 59,
+          "Non-Profit": 15,
+          "Government/Public Sector": 9
         },
         "Flexible Clean": {
-          "For-Profit": 86,
-          "Non-Profit": 26,
-          "Government/Public Sector": 13
+          "For-Profit": 89,
+          "Non-Profit": 27,
+          "Government/Public Sector": 14
         },
         "Prolific Accepted": {
-          "For-Profit": 171,
-          "Non-Profit": 40,
-          "Government/Public Sector": 18
+          "For-Profit": 174,
+          "Non-Profit": 41,
+          "Government/Public Sector": 19
         },
         "All V2 Finished": {
-          "For-Profit": 267,
-          "Non-Profit": 58,
-          "Government/Public Sector": 26
+          "For-Profit": 284,
+          "Non-Profit": 62,
+          "Government/Public Sector": 30
         }
       }
     }
-  }
+  },
+  "role_categories": [
+    {
+      "label": "C-Suite Adjacent",
+      "description": "Chief-level titles not in the standard 9 C-suite options",
+      "examples": "CDO, CPO, CAO, CLO, CAIO, Chief Data Officer, Chief Privacy Officer"
+    },
+    {
+      "label": "VP / SVP",
+      "description": "Vice President, Senior VP, or Executive VP titles",
+      "examples": "Vice President, VP, SVP, EVP, AVP"
+    },
+    {
+      "label": "Director",
+      "description": "Director-level titles across functions",
+      "examples": "Director of ..., Senior Director, Group Director"
+    },
+    {
+      "label": "Manager / Program Lead",
+      "description": "Management and team-lead roles",
+      "examples": "Manager, Program Lead, Team Lead, Supervisor"
+    },
+    {
+      "label": "Owner / Founder / President",
+      "description": "Business ownership or presidency roles",
+      "examples": "Owner, Founder, President, Partner, Principal"
+    },
+    {
+      "label": "Technical Specialist",
+      "description": "Individual contributor or specialist technical roles",
+      "examples": "Engineer, Architect, Analyst, IT Administrator, Security"
+    },
+    {
+      "label": "Uncategorized",
+      "description": "Responses that did not match any keyword pattern",
+      "examples": ""
+    }
+  ],
+  "last_updated": "2026-04-11T23:54:22.845463Z"
 }

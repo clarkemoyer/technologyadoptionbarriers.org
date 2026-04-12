@@ -9,7 +9,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Technology Acceptance Model 3 (TAM3) – Venkatesh & Bala (2008)',
+  title: 'Bibliography: Technology Acceptance Model 3 (TAM3) - Venkatesh & Bala (2008)',
   description:
     'Deep dive into the Technology Acceptance Model 3 (TAM3) by Viswanath Venkatesh and Hillol Bala (2008), providing a complete nomological network of TAM with determinants of perceived usefulness and perceived ease of use plus a research agenda on interventions.',
 }

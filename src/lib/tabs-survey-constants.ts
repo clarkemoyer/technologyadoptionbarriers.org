@@ -1,5 +1,5 @@
 /**
- * TABS V2 Instrument Constants — Single Source of Truth
+ * TABS V2 Instrument Constants - Single Source of Truth
  *
  * This file defines all shared constants for the TABS V2 survey instrument.
  * Both the live TypeScript disposition pipeline and the public Python analysis
@@ -143,7 +143,7 @@ export const PROFIT_MODEL_VALUES = ['For-Profit', 'Non-Profit', 'Government/Publ
 
 /* ------------------------------------------------------------------ */
 /*  Survey Blocks (for straightlining analysis)                        */
-/*  Use substantive item counts only — IRI items have predetermined    */
+/*  Use substantive item counts only - IRI items have predetermined    */
 /*  correct answers and must NOT be included in within-person SD       */
 /*  calculations. Including IRIs artificially inflates variance and    */
 /*  masks straightlining. See Issue #735 for the root-cause analysis.  */

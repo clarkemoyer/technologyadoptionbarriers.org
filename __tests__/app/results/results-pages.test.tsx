@@ -3,7 +3,7 @@
  *
  * These tests verify that each results page renders without errors
  * when given the current (possibly placeholder) JSON data. They do
- * NOT test interactive behavior — only that the component tree mounts.
+ * NOT test interactive behavior - only that the component tree mounts.
  */
 
 import React from 'react'

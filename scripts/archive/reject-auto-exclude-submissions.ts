@@ -18,14 +18,14 @@
  * ╚══════════════════════════════════════════════════════════════════╝
  *
  * Environment variables:
- *   PROLIFIC_API_TOKEN  – Prolific API token (required)
- *   STUDY_ID            – Prolific study ID (required)
- *   CSV_FILE_PATH       – Path to disposition CSV (required)
- *   CONFIRM_REJECT      – Must be exactly "REJECT" to execute live (required for live)
- *   DRY_RUN             – When "false" AND CONFIRM_REJECT=="REJECT", reject live (default: true)
- *   PID_LIST            – Optional comma-separated list of PIDs to process (default: all matching)
+ *   PROLIFIC_API_TOKEN  - Prolific API token (required)
+ *   STUDY_ID            - Prolific study ID (required)
+ *   CSV_FILE_PATH       - Path to disposition CSV (required)
+ *   CONFIRM_REJECT      - Must be exactly "REJECT" to execute live (required for live)
+ *   DRY_RUN             - When "false" AND CONFIRM_REJECT=="REJECT", reject live (default: true)
+ *   PID_LIST            - Optional comma-separated list of PIDs to process (default: all matching)
  *                         Supports: single PID, comma-separated batch, or empty for all
- *   SUB_TYPE            – Optional sub-type filter: IRI3_SPEED, IRI3, IRI2_SPEED, IRI2, SPEED_IRI, ALL
+ *   SUB_TYPE            - Optional sub-type filter: IRI3_SPEED, IRI3, IRI2_SPEED, IRI2, SPEED_IRI, ALL
  *                         Defaults to ALL (process all AUTO-EXCLUDE sub-types)
  */
 
@@ -72,11 +72,11 @@ interface RejectionRecord {
  *   - Speed_Flag == 1 AND IRI_Fail_Count >= 1
  *
  * Sub-types (in severity order):
- *   1. "IRI3_SPEED"  – All 3 IRI checks failed AND under 5 minutes (worst)
- *   2. "IRI3"        – All 3 IRI checks failed, normal speed
- *   3. "IRI2_SPEED"  – 2 of 3 IRI failed AND under 5 minutes
- *   4. "IRI2"        – 2 of 3 IRI checks failed, normal speed
- *   5. "SPEED_IRI"   – Speed flag + 1 IRI failure (compound signal)
+ *   1. "IRI3_SPEED"  - All 3 IRI checks failed AND under 5 minutes (worst)
+ *   2. "IRI3"        - All 3 IRI checks failed, normal speed
+ *   3. "IRI2_SPEED"  - 2 of 3 IRI failed AND under 5 minutes
+ *   4. "IRI2"        - 2 of 3 IRI checks failed, normal speed
+ *   5. "SPEED_IRI"   - Speed flag + 1 IRI failure (compound signal)
  */
 function classifySubType(speedFlag: number, iriFailCount: number): string {
   if (iriFailCount >= 3 && speedFlag === 1) return 'IRI3_SPEED'
@@ -342,7 +342,7 @@ async function main() {
   /* ---------- Execute or dry run -------------------------------------- */
   if (dryRun) {
     console.log('================================================================')
-    console.log('  DRY RUN — no submissions will be rejected')
+    console.log('  DRY RUN - no submissions will be rejected')
     console.log(`  Would reject: ${filtered.length} participants`)
     console.log('  Each would receive a personalized message.')
     console.log('  Set DRY_RUN=false and CONFIRM_REJECT=REJECT to execute')
@@ -369,7 +369,7 @@ async function main() {
     for (const r of filtered) {
       const subId = pidToSubId.get(r.pid)
       if (!subId) {
-        console.log(`  WARNING: No submission found for PID ${r.pid} — skipping`)
+        console.log(`  WARNING: No submission found for PID ${r.pid} - skipping`)
         notFound.push(r.pid)
         continue
       }
@@ -400,7 +400,7 @@ async function main() {
     [
       '## Prolific AUTO-EXCLUDE Rejection',
       '',
-      '> **DESTRUCTIVE OPERATION** — rejected participants will NOT be paid.',
+      '> **DESTRUCTIVE OPERATION** - rejected participants will NOT be paid.',
       '',
       `- **Run time (UTC):** ${new Date().toISOString()}`,
       `- **Operator:** ${mdEscape(user.name)}`,
@@ -425,7 +425,7 @@ async function main() {
       ...buildMessageExamples(bySubType),
       '',
       dryRun
-        ? '> **Dry run** — no rejections executed.'
+        ? '> **Dry run** - no rejections executed.'
         : '> **All listed participants have been rejected with personalized messages.**',
       '',
     ].join('\n')

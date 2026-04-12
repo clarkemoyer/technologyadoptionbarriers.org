@@ -17,7 +17,7 @@ import {
 import { getTechnologyAdoptionSeriesSlides } from '@/lib/technology-adoption-series'
 
 export const metadata: Metadata = {
-  title: 'Technology Adoption Teaching Series — Overview',
+  title: 'Technology Adoption Teaching Series - Overview',
   description:
     'A practical, slide-by-slide teaching series on technology adoption: definitions, frameworks, lifecycle planning, and adoption success patterns.',
 }
@@ -215,7 +215,7 @@ export default async function TechnologyAdoptionSeriesPage() {
             {optionalSlides.length ? (
               <details className="rounded border border-gray-200 bg-gray-50 p-4">
                 <summary className="cursor-pointer text-sm font-semibold text-gray-900">
-                  Optional deep dives (Slides 17–24)
+                  Optional deep dives (Slides 17-24)
                 </summary>
                 <div className="mt-6 space-y-10">
                   {optionalSlides.map((slide) => {

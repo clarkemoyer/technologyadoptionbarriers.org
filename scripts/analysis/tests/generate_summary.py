@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate GitHub step summary markdown from analysis JSON output.
 
-Design contract — aggregate counts only
+Design contract - aggregate counts only
 ----------------------------------------
 This script intentionally emits *only* aggregate statistics (sample Ns,
 disposition counts).  It must never include per-participant data such as
@@ -16,7 +16,7 @@ import json
 import re
 import sys
 
-# 24 lowercase hex characters — matches Prolific PID / study ID format.
+# 24 lowercase hex characters - matches Prolific PID / study ID format.
 _PID_RE = re.compile(r"[0-9a-f]{24}")
 
 
@@ -25,7 +25,7 @@ def _assert_no_pids(text: str) -> None:
 
     This is a defence-in-depth guard to ensure the step summary never
     accidentally leaks a participant identifier into the public workflow UI.
-    Only the count and unique count are reported — no match fragments.
+    Only the count and unique count are reported - no match fragments.
     """
     matches = _PID_RE.findall(text)
     if matches:

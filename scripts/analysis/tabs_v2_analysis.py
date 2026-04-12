@@ -27,7 +27,7 @@ from collections import Counter
 # ─────────────────────────────────────────────────────────────
 
 V2_START = "2026-03-23 14:00:00"
-# Prolific live test of V2 instrument (2026-03-23 09:07 AM, COO, 876s) — valid V2 response
+# Prolific live test of V2 instrument (2026-03-23 09:07 AM, COO, 876s) - valid V2 response
 PROLIFIC_TEST_ID = 'R_1QK12IJpHjC3wd6'
 
 # Duration thresholds for sample definitions
@@ -41,7 +41,7 @@ IRI_THRESHOLD_RELAXED = 2      # at least 2 of 3 IRIs correct
 RECAPTCHA_THRESHOLD = 0.5
 PARTIAL_STRAIGHTLINING_SD_THRESHOLD = 0.5
 
-# Scale maps — verified against actual Qualtrics CSV response values
+# Scale maps - verified against actual Qualtrics CSV response values
 BARRIER_SCALE = {
     "Not a Barrier": 1, "Minor Barrier": 2, "Moderate Barrier": 3,
     "Significant Barrier": 4, "Major Barrier": 5
@@ -57,7 +57,7 @@ MATURITY_SCALE = {
     "Level 5: Optimizing/Innovating": 5
 }
 
-# Column definitions — from Qualtrics export
+# Column definitions - from Qualtrics export
 BARRIER_COLS = [f"Q10-28_Barriers_{i}" for i in range(1, 19)]
 BARRIER_IRI = "Q10-28_Barriers_19"
 READINESS_COLS = [f"Q47-64_Readiness_{i}" for i in range(1, 18)]
@@ -70,7 +70,7 @@ IRI_BARRIER_ANSWER = "Major Barrier"
 IRI_READINESS_ANSWER = "Low Readiness/Capability"
 IRI_MATURITY_ANSWER = "Level 2: Developing/Repeatable"
 
-# Item names — verified against CSV subheader row
+# Item names - verified against CSV subheader row
 BARRIER_NAMES = [
     "Resistance to Change", "Lack of Leadership Support", "Risk-Averse Culture",
     "Insufficient Workforce Skills", "Inadequate Training", "High Implementation Cost",
@@ -104,9 +104,10 @@ ROLE_MAP = {
     'CMO (e.g., Director of Communications, Public Affairs Officer, Chief Marketing & Communications Officer)': 'CMO',
     'CSO (e.g., Director of Strategic Planning, Policy Director, Chief Strategy Officer)': 'CSO',
     'CRO (e.g., Director of Budget/Finance, Director of Development/Fundraising, Head of Revenue Operations)': 'CRO',
+    'CISO (e.g., Director of Cybersecurity, Chief Security Officer)': 'CISO',
     'Other (please specify)': 'Other'
 }
-TECH_TITLES = {'CIO', 'CTO'}
+TECH_TITLES = {'CIO', 'CTO', 'CISO'}
 NONTECH_TITLES = {'CEO', 'CFO', 'COO', 'CHRO', 'CMO', 'CSO', 'CRO'}
 
 # Categorization patterns for "Other (please specify)" role free-text responses.
@@ -138,6 +139,35 @@ OTHER_ROLE_CATEGORIES_PATTERNS = [
     ]),
 ]
 
+# Human-readable descriptions and example keywords for each OTHER_ROLE_CATEGORIES_PATTERNS entry.
+# Kept alongside the patterns so adding/renaming a category updates the UI automatically via JSON.
+OTHER_ROLE_CATEGORIES_DESCRIPTIONS = {
+    "C-Suite Adjacent": {
+        "description": "Chief-level titles not in the standard 9 C-suite options",
+        "examples": "CDO, CPO, CAO, CLO, CAIO, Chief Data Officer, Chief Privacy Officer",
+    },
+    "VP / SVP": {
+        "description": "Vice President, Senior VP, or Executive VP titles",
+        "examples": "Vice President, VP, SVP, EVP, AVP",
+    },
+    "Director": {
+        "description": "Director-level titles across functions",
+        "examples": "Director of ..., Senior Director, Group Director",
+    },
+    "Manager / Program Lead": {
+        "description": "Management and team-lead roles",
+        "examples": "Manager, Program Lead, Team Lead, Supervisor",
+    },
+    "Owner / Founder / President": {
+        "description": "Business ownership or presidency roles",
+        "examples": "Owner, Founder, President, Partner, Principal",
+    },
+    "Technical Specialist": {
+        "description": "Individual contributor or specialist technical roles",
+        "examples": "Engineer, Architect, Analyst, IT Administrator, Security",
+    },
+}
+
 LARGE_ORG_SIZES = ('5000-9999', '10000+')
 ALL_ORG_SIZES = ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']
 
@@ -147,6 +177,154 @@ ALL_CONSTRUCTS = [
     ("readiness", READINESS_COLS, READINESS_SCALE),
     ("maturity", MATURITY_COLS, MATURITY_SCALE),
 ]
+
+# Scenario C: binary tech/non-tech classification for "Other (please specify)" free-text roles.
+# Maps normalized keywords to classification bucket ("Technical" or "Non-Technical").
+# Ordered list of (regex_pattern, classification) pairs for classify_role().
+# More-specific patterns (e.g. "Vice President of Engineering") MUST come before
+# the broader catch-all for the same prefix (e.g. "Vice President") to avoid
+# misclassification.  Patterns use word boundaries (\b) so partial word matches
+# (e.g. "vp" inside "svp") are handled correctly.
+_OTHER_ROLE_PATTERNS: list[tuple[re.Pattern[str], str]] = [
+    # ── Technical ──────────────────────────────────────────────────────────
+    (re.compile(r'\b(cio|chief information officer)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(cto|chief technology officer)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(ciso|chief information security officer|chief security officer)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\bchief (information|technology|security|data|digital|analytics|innovation|artificial)\b', re.IGNORECASE), 'Technical'),
+    # "Vice President of {technical domain}" - must precede the generic VP catch-all
+    (re.compile(r'\b(vp|vice president) of (it|information technology|engineering|technology|information|security|data|software|infrastructure|cyber|digital|analytics)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(svp|evp|avp|senior vice president|executive vice president|assistant vice president) of (it|information technology|engineering|technology|information|security|data|software|infrastructure|cyber|digital|analytics)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\bdirector of (it|information technology|engineering|technology|information|security|data|software|infrastructure|cyber|digital)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(it|technology|software|data|infrastructure|network|security|systems) director\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(software |systems |network |security |data |infrastructure |database |cloud |devops |platform )?(engineer|architect|developer|programmer)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\bsystems administrator\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(network|infrastructure|cybersecurity|data scientist|data engineer|software|database)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(analytics|ai|artificial intelligence)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(online learning|e-learning|digital learning)\b', re.IGNORECASE), 'Technical'),
+    # ── Non-Technical ───────────────────────────────────────────────────────
+    (re.compile(r'\bchief (executive|financial|operating|human|marketing|revenue|strategy|product|privacy|legal|compliance)\b', re.IGNORECASE), 'Non-Technical'),
+    # "VP/Vice President of {non-technical domain}" - must precede the generic VP catch-all
+    (re.compile(r'\b(vp|vice president|svp|evp|avp) of (finance|financial|operations|human resources|hr|marketing|sales|strategy|legal|compliance|product)\b', re.IGNORECASE), 'Non-Technical'),
+    # Generic VP / Vice President without a technical qualifier → Non-Technical
+    (re.compile(r'\b(vice president|vp|svp|evp|avp|senior vp|executive vp)\b', re.IGNORECASE), 'Non-Technical'),
+    (re.compile(r'\b(president|owner|founder|co-founder)\b', re.IGNORECASE), 'Non-Technical'),
+    (re.compile(r'\b(managing director|executive director)\b', re.IGNORECASE), 'Non-Technical'),
+    (re.compile(r'\b(program manager|project manager|operations manager|finance manager|hr manager|marketing manager)\b', re.IGNORECASE), 'Non-Technical'),
+]
+
+# Keep the dict for backwards-compat (used by callers that inspect the mapping).
+OTHER_ROLE_CLASSIFICATIONS = {
+    # Technical roles
+    'CIO': 'Technical', 'CTO': 'Technical', 'CISO': 'Technical',
+    'Chief Information': 'Technical', 'Chief Technology': 'Technical',
+    'Chief Security': 'Technical', 'Chief Data': 'Technical',
+    'Chief Digital': 'Technical', 'Chief Analytics': 'Technical',
+    'Chief Innovation': 'Technical', 'Chief Artificial': 'Technical',
+    'VP of IT': 'Technical', 'VP of Technology': 'Technical',
+    'VP of Engineering': 'Technical', 'VP of Information': 'Technical',
+    'VP of Security': 'Technical', 'VP of Data': 'Technical',
+    'Vice President of Engineering': 'Technical', 'Vice President of IT': 'Technical',
+    'Vice President of Technology': 'Technical', 'Vice President of Information': 'Technical',
+    'Vice President of Security': 'Technical', 'Vice President of Data': 'Technical',
+    'Director of IT': 'Technical', 'Director of Technology': 'Technical',
+    'Director of Engineering': 'Technical', 'Director of Information': 'Technical',
+    'IT Director': 'Technical', 'Technology Director': 'Technical',
+    'Engineer': 'Technical', 'Architect': 'Technical', 'Developer': 'Technical',
+    'Programmer': 'Technical', 'Systems Administrator': 'Technical',
+    'Network': 'Technical', 'Infrastructure': 'Technical', 'Cybersecurity': 'Technical',
+    'Data Scientist': 'Technical', 'Data Engineer': 'Technical',
+    'Software': 'Technical', 'Database': 'Technical',
+    'Analytics': 'Technical', 'AI': 'Technical',
+    'Artificial Intelligence': 'Technical',
+    'Online Learning': 'Technical', 'E-Learning': 'Technical',
+    'Digital Learning': 'Technical',
+    # Non-Technical roles
+    'Chief Executive': 'Non-Technical', 'Chief Financial': 'Non-Technical',
+    'Chief Operating': 'Non-Technical', 'Chief Human': 'Non-Technical',
+    'Chief Marketing': 'Non-Technical', 'Chief Revenue': 'Non-Technical',
+    'Chief Strategy': 'Non-Technical', 'Chief Product': 'Non-Technical',
+    'Chief Privacy': 'Non-Technical', 'Chief Legal': 'Non-Technical',
+    'Chief Compliance': 'Non-Technical',
+    'VP of Finance': 'Non-Technical', 'VP of Operations': 'Non-Technical',
+    'VP of Human': 'Non-Technical', 'VP of Marketing': 'Non-Technical',
+    'VP of Sales': 'Non-Technical', 'VP of Strategy': 'Non-Technical',
+    'Vice President': 'Non-Technical', 'President': 'Non-Technical',
+    'Owner': 'Non-Technical', 'Founder': 'Non-Technical',
+    'Managing Director': 'Non-Technical', 'Executive Director': 'Non-Technical',
+    'Program Manager': 'Non-Technical', 'Project Manager': 'Non-Technical',
+    'Operations Manager': 'Non-Technical', 'Finance Manager': 'Non-Technical',
+    'HR Manager': 'Non-Technical', 'Marketing Manager': 'Non-Technical',
+}
+
+
+def classify_role(text):
+    """Classify a free-text 'Other' role as Technical, Non-Technical, or Other.
+
+    Uses ordered regex patterns with word boundaries (_OTHER_ROLE_PATTERNS);
+    more-specific patterns are listed first to prevent generic catch-alls
+    (e.g. "Vice President") from misclassifying specific roles like
+    "Vice President of Engineering".  Returns 'Other' if no pattern matches.
+    """
+    if not text or not text.strip():
+        return 'Other'
+    for pattern, classification in _OTHER_ROLE_PATTERNS:
+        if pattern.search(text):
+            return classification
+    return 'Other'
+
+
+def classify_role_binary(role, other_text=''):
+    """Return the Scenario C binary role group for a respondent.
+
+    Returns:
+        'Technical' for roles in TECH_TITLES
+        'Non-Technical' for roles in NONTECH_TITLES
+        For role == 'Other', uses classify_role(other_text) and returns
+        'Technical' or 'Non-Technical' when the free-text value can be
+        reclassified; unmatched free-text defaults to 'Non-Technical'
+        (no technology signal in title).
+
+    This helper is the single source of truth for all Scenario C
+    Technical/Non-Technical grouping logic (counts, effect sizes,
+    inferential tests, and JSON output).
+    """
+    if role in TECH_TITLES:
+        return 'Technical'
+    if role in NONTECH_TITLES:
+        return 'Non-Technical'
+    if role == 'Other':
+        classified = classify_role(other_text)
+        if classified in ('Technical', 'Non-Technical'):
+            return classified
+        # Unmatched free-text (no technology signal) defaults to Non-Technical
+        return 'Non-Technical'
+    return None
+
+
+def is_technical(role, other_text=''):
+    """Return True if role maps to the Technical group under Scenario C.
+
+    Roles in TECH_TITLES (CIO, CTO, CISO) are always technical.
+    'Other' roles are classified via classify_role() on the free-text value.
+    """
+    return classify_role_binary(role, other_text) == 'Technical'
+
+
+def get_other_text(row, idx):
+    """Get free-text 'Other' role response for a row, or empty string if unavailable.
+
+    Args:
+        row: A list representing a single CSV row of response data.
+        idx: A dict mapping Qualtrics column names to zero-based row indices.
+
+    Returns:
+        The stripped free-text value of the 'Q1_Role_11_TEXT' column if present,
+        otherwise an empty string.
+    """
+    other_text_idx = idx.get('Q1_Role_11_TEXT')
+    if other_text_idx is not None and other_text_idx < len(row):
+        return row[other_text_idx].strip()
+    return ''
 
 
 # ─────────────────────────────────────────────────────────────
@@ -686,15 +864,15 @@ def filter_samples(data, idx):
     """Create sample cuts from V2 data, grounded in Prolific operational reality.
 
     Sample hierarchy:
-      1. Conservative Clean — Prolific APPROVED + passes ALL quality checks
+      1. Conservative Clean - Prolific APPROVED + passes ALL quality checks
                               (all 3 IRIs, duration >= 540s, reCAPTCHA >= 0.5,
                               no straightlining, no partial straightlining, auth pass)
-      2. Flexible Clean     — Prolific APPROVED + passes basic quality checks
-                              (all 3 IRIs, duration >= 480s) — includes manually
+      2. Flexible Clean     - Prolific APPROVED + passes basic quality checks
+                              (all 3 IRIs, duration >= 480s) - includes manually
                               reviewed FLAG responses that were approved
-      3. Prolific Accepted  — All deduplicated V2 responses with Prolific APPROVED status (matches Prolific UI exactly)
-      4. All V2 Finished    — Finished + duration >= 120s
-      5. All V2             — All V2 responses including incomplete
+      3. Prolific Accepted  - All deduplicated V2 responses with Prolific APPROVED status (matches Prolific UI exactly)
+      4. All V2 Finished    - Finished + duration >= 120s
+      5. All V2             - All V2 responses including incomplete
 
     Constraint: Conservative Clean ⊆ Flexible Clean ⊆ Prolific Accepted
 
@@ -705,7 +883,7 @@ def filter_samples(data, idx):
     v2_all_rows = [r for r in data if r[idx['StartDate']] >= V2_START
                    or ('ResponseId' in idx and r[idx['ResponseId']] == PROLIFIC_TEST_ID)]
 
-    # Deduplicate by PROLIFIC_PID — prefer completed (Finished=TRUE/1) over incomplete.
+    # Deduplicate by PROLIFIC_PID - prefer completed (Finished=TRUE/1) over incomplete.
     # If a participant has both a completed response and an incomplete retake,
     # keep the completed one (the retake shouldn't overwrite valid data).
     # Among completed responses, latest row wins.
@@ -730,9 +908,9 @@ def filter_samples(data, idx):
                     and r[finished_idx_col].strip().upper() in ('TRUE', '1')
                 )
                 if new_finished or not existing_finished:
-                    # New row is finished, or existing wasn't — take new
+                    # New row is finished, or existing wasn't - take new
                     by_pid[pid] = r
-                # else: existing is finished but new isn't — keep existing
+                # else: existing is finished but new isn't - keep existing
         v2 = list(by_pid.values())
     else:
         v2 = v2_all_rows
@@ -743,7 +921,7 @@ def filter_samples(data, idx):
 
     # Prolific Accepted = ALL deduplicated V2 responses with Prolific APPROVED status.
     # Must match the Prolific UI "Approved" count exactly (currently 206).
-    # Includes incomplete/short responses — Prolific approved them, so they count.
+    # Includes incomplete/short responses - Prolific approved them, so they count.
     # Clean samples apply quality filters on top of this.
     prolific_accepted = [r for r in v2 if _get_prolific_status(r, idx) == 'APPROVED']
 
@@ -832,12 +1010,12 @@ def print_demographics(rows, idx, label="Clean"):
     for role, ct in roles.most_common():
         print(f"    {role:6s}: {ct:3d} ({ct / len(rows) * 100:5.1f}%)")
 
-    tech = [r for r in rows if get_role(r, idx) in TECH_TITLES]
-    nontech = [r for r in rows if get_role(r, idx) in NONTECH_TITLES]
-    other = [r for r in rows if get_role(r, idx) == 'Other']
-    print(f"\n  Technical (CIO/CTO): n={len(tech)} ({len(tech) / len(rows) * 100:.1f}%)")
+    tech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical']
+    nontech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical']
+    unclassified = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]
+    print(f"\n  Technical: n={len(tech)} ({len(tech) / len(rows) * 100:.1f}%)")
     print(f"  Non-Technical:       n={len(nontech)} ({len(nontech) / len(rows) * 100:.1f}%)")
-    print(f"  Other:               n={len(other)} ({len(other) / len(rows) * 100:.1f}%)")
+    print(f"  Unclassified:        n={len(unclassified)} ({len(unclassified) / len(rows) * 100:.1f}%)")
 
     print("\n  Org Size:")
     for os_val in ALL_ORG_SIZES:
@@ -945,8 +1123,8 @@ def print_effect_sizes(rows, idx):
     print("  EFFECT SIZES (Cohen's d)")
     print("=" * 78)
 
-    tech = [r for r in rows if get_role(r, idx) in TECH_TITLES]
-    nontech = [r for r in rows if get_role(r, idx) in NONTECH_TITLES]
+    tech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical']
+    nontech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical']
 
     print(f"\n  Tech (n={len(tech)}) vs Non-Tech (n={len(nontech)}):")
     for label, cols, sc in [("Barriers", BARRIER_COLS, BARRIER_SCALE),
@@ -998,7 +1176,7 @@ def print_effect_sizes(rows, idx):
         d, d_cil, d_ciu = cohens_d(hb, lb)
         hbm, _ = mean_sd(hb)
         lbm, _ = mean_sd(lb)
-        print(f"\n  Budget Adequacy — High (n={len(high_budget)}) vs Low (n={len(low_budget)}):")
+        print(f"\n  Budget Adequacy - High (n={len(high_budget)}) vs Low (n={len(low_budget)}):")
         if d is not None:
             hbm_str = f"{hbm:.2f}" if hbm is not None else "NA"
             lbm_str = f"{lbm:.2f}" if lbm is not None else "NA"
@@ -1031,9 +1209,9 @@ def print_cross_tabs(rows, idx):
     # Tech vs NonTech
     print("\n  Tech vs Non-Tech:")
     for gname, grows in [
-        ("Technical (CIO/CTO)", [r for r in rows if get_role(r, idx) in TECH_TITLES]),
-        ("Non-Technical", [r for r in rows if get_role(r, idx) in NONTECH_TITLES]),
-        ("Other", [r for r in rows if get_role(r, idx) == 'Other']),
+        ("Technical", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical']),
+        ("Non-Technical", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical']),
+        ("Unclassified", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]),
     ]:
         if not grows:
             continue
@@ -1068,7 +1246,7 @@ def print_cross_tabs(rows, idx):
 def print_sensitivity(cuts, idx):
     """Print sensitivity analysis across all sample cuts."""
     print(f"\n{'=' * 78}")
-    print("  SENSITIVITY ANALYSIS — ALL SAMPLE DEFINITIONS")
+    print("  SENSITIVITY ANALYSIS - ALL SAMPLE DEFINITIONS")
     print("=" * 78)
 
     col_width = 12
@@ -1306,7 +1484,7 @@ def sensitivity_to_json(cuts, idx):
         """Compute SURVEY demographics breakdown for a set of rows.
 
         These are organizational/role-based demographics from Qualtrics survey
-        responses (Q1_Role, Q4_OrgSize, Q5_ProfitModel) — NOT Prolific platform
+        responses (Q1_Role, Q4_OrgSize, Q5_ProfitModel) - NOT Prolific platform
         demographics (age, sex, ethnicity, etc.).
         """
         if not rows:
@@ -1336,24 +1514,23 @@ def sensitivity_to_json(cuts, idx):
         other_cats = Counter()
         org_sizes = Counter()
         profit_models = Counter()
-        other_text_idx = idx.get('Q1_Role_11_TEXT')
 
         for r in rows:
             role = get_role(r, idx)
             roles[role] += 1
-            if role in TECH_TITLES:
+            # Use Scenario C binary classification: 'Other' free-text responses
+            # that match a known Technical/Non-Technical keyword are reclassified.
+            other_text = get_other_text(r, idx) if role == 'Other' else ''
+            binary = classify_role_binary(role, other_text)
+            if binary == 'Technical':
                 tech_n += 1
-            elif role in NONTECH_TITLES:
+            elif binary == 'Non-Technical':
                 nontech_n += 1
-            elif role == 'Other':
+            else:
                 other_n += 1
-                # Categorize free-text response into broad groups.
-                # Defensive index check guards against malformed/short rows.
-                if has_other_text and other_text_idx is not None and other_text_idx < len(r):
-                    text = r[other_text_idx].strip()
-                else:
-                    text = ''
-                other_cats[categorize_other_role(text)] += 1
+                # Still categorize all raw 'Other' responses for audit purposes.
+                if role == 'Other':
+                    other_cats[categorize_other_role(other_text)] += 1
             org_sizes[r[idx['Q4_OrgSize']].strip()] += 1
             profit_models[r[idx['Q5_ProfitModel']].strip()] += 1
 
@@ -1367,12 +1544,17 @@ def sensitivity_to_json(cuts, idx):
             "org_sizes": org_sizes_out,
             "profit_models": profit_models_out,
             "tech_vs_nontech": {
+                # Counts under Scenario C binary classification: 'Other' free-text
+                # responses reclassified as Technical/Non-Technical are included here;
+                # only truly unclassifiable responses count toward 'other'.
                 "technical": tech_n,
                 "non_technical": nontech_n,
-                "other": other_n,
+                "other": other_n,  # unclassified under Scenario C (not reclassifiable)
             },
             "other_roles": {
-                "total": other_n,
+                # Raw count of all responses with role == 'Other' (before
+                # Scenario C reclassification), used for free-text audit display.
+                "total": sum(1 for r in rows if get_role(r, idx) == 'Other'),
                 "categories": dict(other_cats.most_common()),
             },
         }
@@ -1383,8 +1565,8 @@ def sensitivity_to_json(cuts, idx):
         if not rows:
             return {}
         effects = {}
-        tech = [r for r in rows if get_role(r, idx) in TECH_TITLES]
-        nontech = [r for r in rows if get_role(r, idx) in NONTECH_TITLES]
+        tech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical']
+        nontech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical']
         effects["tech_vs_nontech"] = {"tech_n": len(tech), "nontech_n": len(nontech), "constructs": {}}
         for label, cols, sc in ALL_CONSTRUCTS:
             t = person_means(tech, cols, sc, idx)
@@ -1440,9 +1622,9 @@ def sensitivity_to_json(cuts, idx):
         groups = {}
         # Role-based
         role_groups = [
-            ("Technical (CIO/CTO)", [r for r in rows if get_role(r, idx) in TECH_TITLES]),
-            ("Non-Technical", [r for r in rows if get_role(r, idx) in NONTECH_TITLES]),
-            ("Other", [r for r in rows if get_role(r, idx) == 'Other']),
+            ("Technical", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical']),
+            ("Non-Technical", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical']),
+            ("Unclassified", [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]),
         ]
         role_results = []
         for gname, grows in role_groups:
@@ -1492,8 +1674,8 @@ def sensitivity_to_json(cuts, idx):
         result_inf = {}
 
         # 1. Welch's t-tests: Tech vs Non-Tech per construct
-        tech = [r for r in rows if get_role(r, idx) in TECH_TITLES]
-        nontech = [r for r in rows if get_role(r, idx) in NONTECH_TITLES]
+        tech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical']
+        nontech = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical']
         t_tests = {}
         for label, cols, sc in ALL_CONSTRUCTS:
             t_vals = person_means(tech, cols, sc, idx)
@@ -1533,14 +1715,20 @@ def sensitivity_to_json(cuts, idx):
             "constructs": t_tests_org,
         }
 
-        # 3. One-way ANOVA: by Role (Tech / Non-Tech / Other)
-        other = [r for r in rows if get_role(r, idx) == 'Other']
+        # 3. One-way ANOVA: by Role (Tech / Non-Tech / Unclassified under Scenario C binary)
+        # Dynamically build groups to avoid reporting 3 groups when only 2 are populated.
+        unclassified = [r for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None]
+        role_anova_groups = [
+            ("Technical", tech),
+            ("Non-Technical", nontech),
+            ("Unclassified", unclassified),
+        ]
+        # Keep only non-empty groups for ANOVA
+        role_anova_groups = [(name, grp) for name, grp in role_anova_groups if grp]
         anova_role = {}
         for label, cols, sc in ALL_CONSTRUCTS:
-            g1 = person_means(tech, cols, sc, idx)
-            g2 = person_means(nontech, cols, sc, idx)
-            g3 = person_means(other, cols, sc, idx)
-            f_stat, p_val, df_b, df_w = oneway_anova(g1, g2, g3)
+            group_vals = [person_means(grp, cols, sc, idx) for _, grp in role_anova_groups]
+            f_stat, p_val, df_b, df_w = oneway_anova(*group_vals)
             anova_role[label] = {
                 "f": round(f_stat, 4) if f_stat is not None else None,
                 "p": round(p_val, 4) if p_val is not None else None,
@@ -1549,8 +1737,8 @@ def sensitivity_to_json(cuts, idx):
                 "sig": p_val is not None and p_val < 0.05,
             }
         result_inf["anova_by_role"] = {
-            "groups": ["Technical (CIO/CTO)", "Non-Technical", "Other"],
-            "group_ns": [len(tech), len(nontech), len(other)],
+            "groups": [name for name, _ in role_anova_groups],
+            "group_ns": [len(grp) for _, grp in role_anova_groups],
             "constructs": anova_role,
         }
 
@@ -1597,7 +1785,7 @@ def sensitivity_to_json(cuts, idx):
 
         Returns None when the required sample groups ('Conservative Clean',
         'Flexible Clean', 'Prolific Accepted', 'All V2 Finished') are not all
-        present in cuts_list — callers must guard against None.
+        present in cuts_list - callers must guard against None.
 
         Otherwise returns a dict with 'role', 'organization_size', 'profit_model'
         (each {ok, chi2, p_value, df, error}) and 'profit_model_distribution'.
@@ -1607,7 +1795,7 @@ def sensitivity_to_json(cuts, idx):
 
         # Extract the demographic counts for each group
         # These will be lists of lists (contingency tables)
-        role_counts = [] # Tech vs Non-tech vs Other
+        role_counts = [] # Tech vs Non-tech vs Unclassified
         org_size_counts = []
         profit_model_counts = []
 
@@ -1622,16 +1810,16 @@ def sensitivity_to_json(cuts, idx):
         cuts_by_label = {sample_label: rows for sample_label, rows in cuts_list}
         missing_labels = [label for label in required_labels if label not in cuts_by_label]
         if missing_labels:
-            # Not all required groups are present — skip the analysis gracefully.
+            # Not all required groups are present - skip the analysis gracefully.
             return None
         main_cuts = [(label, cuts_by_label[label]) for label in required_labels]
 
         for sample_label, rows in main_cuts:
-            # Tech vs Non-tech
-            tech_n = sum(1 for r in rows if get_role(r, idx) in TECH_TITLES)
-            nontech_n = sum(1 for r in rows if get_role(r, idx) in NONTECH_TITLES)
-            other_n = sum(1 for r in rows if get_role(r, idx) == 'Other')
-            role_counts.append([tech_n, nontech_n, other_n])
+            # Tech vs Non-tech (Scenario C binary classification)
+            tech_n = sum(1 for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Technical')
+            nontech_n = sum(1 for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) == 'Non-Technical')
+            unclassified_n = sum(1 for r in rows if classify_role_binary(get_role(r, idx), get_other_text(r, idx)) is None)
+            role_counts.append([tech_n, nontech_n, unclassified_n])
 
             # Org Size
             org_sizes = []
@@ -1694,6 +1882,23 @@ def sensitivity_to_json(cuts, idx):
     fba_result = filter_bias_analysis_for(cuts)
     if fba_result is not None:
         result["filter_bias_analysis"] = fba_result
+
+    # Role category metadata - sourced from OTHER_ROLE_CATEGORIES_PATTERNS so the UI
+    # stays consistent with the pipeline without duplicating category names.
+    result["role_categories"] = [
+        {
+            "label": cat,
+            "description": OTHER_ROLE_CATEGORIES_DESCRIPTIONS.get(cat, {}).get("description", ""),
+            "examples": OTHER_ROLE_CATEGORIES_DESCRIPTIONS.get(cat, {}).get("examples", ""),
+        }
+        for cat, _ in OTHER_ROLE_CATEGORIES_PATTERNS
+    ] + [
+        {
+            "label": "Uncategorized",
+            "description": "Responses that did not match any keyword pattern, or blank entries",
+            "examples": "",
+        }
+    ]
 
     return result
 

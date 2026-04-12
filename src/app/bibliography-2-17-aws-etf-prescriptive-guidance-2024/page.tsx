@@ -14,7 +14,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'Bibliography: AWS Prescriptive Guidance – Enterprise Transformation Framework (ETF) (2024)',
+    'Bibliography: AWS Prescriptive Guidance - Enterprise Transformation Framework (ETF) (2024)',
   description:
     'An exploration of the AWS Prescriptive Guidance on Strategic Transformation and Change Methodology (Enterprise Transformation Framework), a comprehensive framework published by Amazon Web Services in 2024 for accelerating return on cloud investment through systematic organizational transformation.',
 }

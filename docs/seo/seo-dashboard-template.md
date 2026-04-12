@@ -3,7 +3,7 @@
 **Report Period:** `[YYYY-MM-DD]` to `[YYYY-MM-DD]`
 **Generated:** `[YYYY-MM-DD]`
 **Data Sources:** Google Search Console, Google Analytics 4, Moz/Ahrefs (free tier)
-**Related Issue:** [#473 — SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
+**Related Issue:** [#473 - SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
 
 ---
 
@@ -62,10 +62,10 @@
 
 | Position Range | Keyword Count | Previous Count | Change |
 | :------------- | ------------: | -------------: | -----: |
-| 1–3 (Top 3)    |         `[X]` |          `[X]` | `[±X]` |
-| 4–10 (Page 1)  |         `[X]` |          `[X]` | `[±X]` |
-| 11–20 (Page 2) |         `[X]` |          `[X]` | `[±X]` |
-| 21–50          |         `[X]` |          `[X]` | `[±X]` |
+| 1-3 (Top 3)    |         `[X]` |          `[X]` | `[±X]` |
+| 4-10 (Page 1)  |         `[X]` |          `[X]` | `[±X]` |
+| 11-20 (Page 2) |         `[X]` |          `[X]` | `[±X]` |
+| 21-50          |         `[X]` |          `[X]` | `[±X]` |
 | 50+            |         `[X]` |          `[X]` | `[±X]` |
 
 ---

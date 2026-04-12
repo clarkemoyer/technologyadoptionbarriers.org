@@ -10,7 +10,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) – Venkatesh et al. (2003)',
+    'Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) - Venkatesh et al. (2003)',
   description:
     'Deep dive into the Unified Theory of Acceptance and Use of Technology (UTAUT) by Venkatesh, Morris, Davis, and Davis (2003), a landmark synthesis of eight competing technology adoption models into a single unified framework.',
 }

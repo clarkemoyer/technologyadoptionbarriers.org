@@ -3,7 +3,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Bibliography & Citations Review — Making of TABS',
+  title: 'Bibliography & Citations Review - Making of TABS',
   description: 'Gemini 3.1 Pro validity check of the TABS comprehensive bibliography.',
   alternates: {
     canonical: '/making-of-tabs/ai-validity-checks/gemini-3-1-review/bibliography-and-citations',

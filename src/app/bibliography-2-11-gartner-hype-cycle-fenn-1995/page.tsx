@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Gartner Hype Cycle – Fenn (1995)',
+  title: 'Bibliography: Gartner Hype Cycle - Fenn (1995)',
   description:
     'An exploration of the Gartner Hype Cycle framework developed by Jackie Fenn, a widely used consulting model for understanding technology adoption timing, maturity, and the gap between inflated expectations and realized value.',
 }

@@ -5,10 +5,10 @@
  * a voluntary return instead.
  *
  * Environment:
- *   PROLIFIC_API_TOKEN  – Prolific API token (required)
- *   STUDY_ID            – Prolific study ID (required)
- *   PID_LIST            – Comma-separated PIDs to unreject (required)
- *   DRY_RUN             – When "false", unreject live (default: true)
+ *   PROLIFIC_API_TOKEN  - Prolific API token (required)
+ *   STUDY_ID            - Prolific study ID (required)
+ *   PID_LIST            - Comma-separated PIDs to unreject (required)
+ *   DRY_RUN             - When "false", unreject live (default: true)
  */
 
 import { getCurrentUser, listStudySubmissions, unrejectSubmission } from '../src/lib/prolific-api'
@@ -68,7 +68,7 @@ async function main() {
       continue
     }
     if (sub.status !== 'REJECTED') {
-      console.log(`  SKIP: ${pid} — status is ${sub.status} (not REJECTED)`)
+      console.log(`  SKIP: ${pid} - status is ${sub.status} (not REJECTED)`)
       skipped++
       continue
     }
@@ -82,7 +82,7 @@ async function main() {
         unrejected++
       } catch (error: unknown) {
         const msg = error instanceof Error ? error.message : String(error)
-        console.error(`  FAILED: ${pid} — ${msg}`)
+        console.error(`  FAILED: ${pid} - ${msg}`)
         failed++
       }
     }

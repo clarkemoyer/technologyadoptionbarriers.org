@@ -1055,7 +1055,7 @@ export const TechnologyAdoptionSeriesSlideVisual = ({
           ))}
         </div>
         <div className="mt-3 text-sm text-gray-700">
-          Adoption depends on trust, explainability, and governance—not just model accuracy.
+          Adoption depends on trust, explainability, and governance - not just model accuracy.
         </div>
       </VisualCard>
     )

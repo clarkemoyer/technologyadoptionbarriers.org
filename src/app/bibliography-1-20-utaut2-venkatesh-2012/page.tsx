@@ -10,7 +10,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'Bibliography: Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) – Venkatesh et al. (2012)',
+    'Bibliography: Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) - Venkatesh et al. (2012)',
   description:
     'Deep dive into the Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) by Venkatesh, Thong, and Xu (2012), extending the UTAUT framework to consumer technology adoption with hedonic motivation, price value, and habit.',
 }

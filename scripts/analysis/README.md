@@ -92,7 +92,7 @@ Computes all descriptive and inferential statistics reported in the CRP Results 
 
 **Constraints**: Conservative Clean ⊆ Flexible Clean ⊆ Prolific Accepted ⊆ All V2, and All V2 Finished ⊆ All V2
 
-Prolific Accepted is defined by Prolific approval status (all V2 APPROVED responses). All V2 Finished is defined by survey completion plus duration ≥ 120s. These two sets overlap but neither is guaranteed to be a subset of the other — a response can be APPROVED but INCOMPLETE (rare edge case), or FINISHED but not APPROVED. Conservative Clean is the primary analysis sample for the CRP. The sensitivity analysis runs all statistics across all 5 definitions to demonstrate robustness.
+Prolific Accepted is defined by Prolific approval status (all V2 APPROVED responses). All V2 Finished is defined by survey completion plus duration ≥ 120s. These two sets overlap but neither is guaranteed to be a subset of the other - a response can be APPROVED but INCOMPLETE (rare edge case), or FINISHED but not APPROVED. Conservative Clean is the primary analysis sample for the CRP. The sensitivity analysis runs all statistics across all 5 definitions to demonstrate robustness.
 
 **Deduplication**: When a participant retakes the survey, the completed response is preferred over an incomplete retake. Among completed responses, latest wins.
 
@@ -417,7 +417,7 @@ Readiness and maturity items allow "Don't Know" responses. These are automatical
 
 ### Performance on Large Datasets
 
-For N > 10,000 responses, expect 2–5 minutes computation time. Monitor memory usage:
+For N > 10,000 responses, expect 2-5 minutes computation time. Monitor memory usage:
 
 ```bash
 # On Linux/Mac
@@ -445,10 +445,10 @@ For questions about the scripts or data, contact:
 
 Key publications supporting the analysis methodology:
 
-- **Factor Analysis**: Fabrigar, L. R., et al. (1999). Evaluating the use of exploratory factor analysis in psychological research. _Psychological Methods_, 4(3), 272–299.
-- **Reliability**: Cronbach, L. J. (1951). Coefficient alpha and the internal structure of tests. _Psychometrika_, 16(3), 297–334.
-- **Validity**: Fornell, C., & Larcker, D. F. (1981). Evaluating structural equation models with unobservable variables and measurement error. _Journal of Marketing Research_, 18(1), 39–50.
-- **HTMT**: Henseler, J., et al. (2015). A new criterion for assessing discriminant validity in variance-based structural equation modeling. _Journal of the Academy of Marketing Science_, 43(1), 115–135.
+- **Factor Analysis**: Fabrigar, L. R., et al. (1999). Evaluating the use of exploratory factor analysis in psychological research. _Psychological Methods_, 4(3), 272-299.
+- **Reliability**: Cronbach, L. J. (1951). Coefficient alpha and the internal structure of tests. _Psychometrika_, 16(3), 297-334.
+- **Validity**: Fornell, C., & Larcker, D. F. (1981). Evaluating structural equation models with unobservable variables and measurement error. _Journal of Marketing Research_, 18(1), 39-50.
+- **HTMT**: Henseler, J., et al. (2015). A new criterion for assessing discriminant validity in variance-based structural equation modeling. _Journal of the Academy of Marketing Science_, 43(1), 115-135.
 
 ---
 

@@ -12,8 +12,8 @@ You're working on a **Next.js 16.0.7 + TypeScript** website for Technology Adopt
 - Production URL: https://technologyadoptionbarriers.org
 - All changes go through PR workflow (no direct commits to `main`)
 - CI enforces formatting, linting, tests, and accessibility checks
-- **External APIs**: Qualtrics (surveys), Prolific (participant data)
-- **MCP Integration**: Qualtrics MCP and GitHub MCP available in IDE
+- **External APIs**: Qualtrics (surveys), Prolific (participant data), Zotero (reference library)
+- **MCP Integration**: Qualtrics MCP, GitHub MCP, and Zotero MCP (pyzotero) available in IDE
 
 ## Your Strengths in This Context
 
@@ -438,13 +438,39 @@ git commit -m "chore: update dependencies"
 
 TABS operates a **multi-agent setup** with three distinct AI coding agents working in parallel across different infrastructure pools.
 
-| Agent       | Trigger                         | Concurrency | Pool         | Primary Role                                   |
-| ----------- | ------------------------------- | ----------- | ------------ | ---------------------------------------------- |
-| **Copilot** | Assign `copilot-swe-agent[bot]` | ~4          | GitHub       | Pipeline, workflow, and analysis work          |
-| **Jules**   | Add `jules` label to issue      | 60 (Ultra)  | Google Cloud | Visualization, content, and frontend work      |
-| **Claude**  | Direct session orchestration    | 1           | Anthropic    | Orchestration, PR management, complex analysis |
+| Agent       | Trigger                         | Concurrency    | Pool         | Primary Role                                   |
+| ----------- | ------------------------------- | -------------- | ------------ | ---------------------------------------------- |
+| **Copilot** | Assign `copilot-swe-agent[bot]` | ~4             | GitHub       | Pipeline, workflow, and analysis work          |
+| **Jules**   | Add `jules` label to issue      | 60 (Ultra)     | Google Cloud | Visualization, content, and frontend work      |
+| **Claude**  | Direct session orchestration    | 1 per worktree | Anthropic    | Orchestration, PR management, complex analysis |
 
 _(Note: Gemini Code Assist also runs automatically on PRs if installed, but does not count against issue-to-PR agent concurrency)._
+
+### Parallel Development with Git Worktrees
+
+To maximize productivity, TABS developers use the **Git Worktree** pattern. This allows you to have multiple branches checked out simultaneously in different directories, each with its own Claude Code session.
+
+**Why use worktrees?**
+
+- **Zero context switching**: Keep your state (terminals, logs, running servers) for multiple tasks.
+- **Parallel execution**: Run a long-running build or test suite in one worktree while coding in another.
+- **Claude Concurrency**: Each worktree directory can host a separate `claude` session, allowing you to parallelize your own work.
+
+**Example: Parallel Workflow**
+
+```bash
+# From the main repo directory, create worktrees with new branches:
+git worktree add -b fix/issue-123 ../tabs-bugfix main
+git worktree add -b docs/update-readme ../tabs-docs main
+git worktree add -b feat/new-viz ../tabs-feature main
+
+# Now you can open 3 separate terminals/Claude sessions:
+cd ../tabs-bugfix && claude
+cd ../tabs-docs && claude
+cd ../tabs-feature && claude
+```
+
+**Note**: Each worktree needs its own terminal and Claude session. When finished, remove them with `git worktree remove <path>`.
 
 ### Google Jules Integration
 
@@ -463,7 +489,7 @@ Jules is Google's autonomous coding agent powered by Gemini. We use the **Ultra 
 - Automatic issue finding and scheduled sessions
 - Build and quality checks before PR creation
 
-Jules and Copilot are complementary — Jules handles scale and frontend tasks, while Copilot handles backend automation and code review.
+Jules and Copilot are complementary - Jules handles scale and frontend tasks, while Copilot handles backend automation and code review.
 
 ## IDE-Specific Capabilities
 
@@ -547,7 +573,7 @@ Two GitHub MCP servers are available with different access levels:
 | **Built-in Copilot plugin** | `mcp__plugin_github_github__` | Read-only       | Fast reads: PR details, file contents, search, Copilot agent delegation    |
 | **`gh` CLI**                | `Bash(gh ...)`                | Full read/write | Workflow dispatch, PR state changes (draft/ready), fallback for all writes |
 
-**Local npx server setup** (Claude Desktop — `claude_desktop_config.json`):
+**Local npx server setup** (Claude Desktop - `claude_desktop_config.json`):
 
 ```json
 {
@@ -566,6 +592,51 @@ Two GitHub MCP servers are available with different access levels:
 **Important**: The built-in Copilot plugin injects its own token that cannot be overridden. It is read-only by design. Use the local npx server or `gh` CLI for all write operations.
 
 **Token refresh**: The `gho_` OAuth token from `gh auth token` may expire. If MCP writes start failing with 401, run `gh auth refresh` and update the config.
+
+#### Zotero MCP Server (pyzotero)
+
+**Reference library management via MCP tools:**
+
+- **Package**: `pyzotero[mcp]` (v1.11.0) - Python wrapper for the Zotero API
+- **Setup**: `uvx --from "pyzotero[mcp]==1.11.0" pyzotero-mcp` (stdio transport)
+- **Auth**: Connects to local Zotero desktop (localhost:23119), no API key needed
+- **User ID**: Set `ZOTERO_USER_ID` to your Zotero account's user ID (e.g., `export ZOTERO_USER_ID="<your-zotero-user-id>"`)
+
+**Zotero Library Tools (6):**
+
+- `search(query, fulltext, itemtype, collection, tag)` - Search library by content, type, or tag
+- `get_item(key)` - Retrieve a single item by key
+- `get_children(key)` - Get child items (attachments, notes)
+- `list_collections(limit)` - List all collections
+- `list_tags(collection)` - List tags, optionally filtered by collection
+- `get_fulltext(key)` - Extract full-text content from PDFs
+
+**Semantic Scholar Tools (4):**
+
+- `find_related(doi)` - Find semantically similar papers
+- `get_citations(doi)` - Papers that cite a given paper
+- `get_references(doi)` - Papers referenced by a given paper
+- `search_semantic_scholar(query)` - Cross-database search with library cross-check
+
+**Configuration locations:**
+
+| Platform       | Config File                                   |
+| -------------- | --------------------------------------------- |
+| VS Code        | `.vscode/mcp.json` (type: stdio)              |
+| Claude Desktop | `%APPDATA%\Claude\claude_desktop_config.json` |
+| Claude Code    | Direct Python access via `pyzotero` library   |
+
+**Direct Python access (Claude Code):**
+
+```python
+from pyzotero import zotero
+zot = zotero.Zotero(0, 'user')
+zot.endpoint = 'http://localhost:23119/api'
+items = zot.top(limit=10)
+collections = zot.collections_top()
+```
+
+**Library stats**: 3,368 items, 199 collections, 40 item types
 
 ### External API Access
 
@@ -663,6 +734,38 @@ const response = await gaClient.runReport({
 
 - `scripts/update-seo-dashboard-sync.ts` - Fetch GSC + GA4 data and flag regressions
 
+#### Zotero Web API v3
+
+**Reference library management - vetted sources of truth for the CRP:**
+
+- **Base URL**: `https://api.zotero.org`
+- **Auth**: `Zotero-API-Key` header (or local API at `localhost:23119` - no key needed)
+- **Client**: `pyzotero` Python library (v1.11.0)
+- **Environment**: `zotero-prod` (GitHub Actions)
+- **User ID**: Set via `ZOTERO_USER_ID` environment variable
+- **Library**: 3,368 items, 199 collections
+
+**Python usage:**
+
+```python
+import os
+from pyzotero import zotero
+
+# Cloud API (CI/GitHub Actions)
+zot = zotero.Zotero(int(os.environ['ZOTERO_USER_ID']), 'user', os.environ['ZOTERO_API_KEY'])
+
+# Local API (development - no key needed)
+zot = zotero.Zotero(0, 'user')
+zot.endpoint = 'http://localhost:23119/api'
+
+# Common operations
+items = zot.top(limit=10)                    # Top-level items
+results = zot.items(q='technology adoption') # Search
+colls = zot.all_collections()                # All collections
+children = zot.children(item_key)            # Attachments/notes
+zot.dump(attachment_key, path='./downloads') # Download PDF
+```
+
 ### GitHub Environments Summary
 
 All external API integrations use **GitHub environment secrets** for secure credential management:
@@ -672,6 +775,7 @@ All external API integrations use **GitHub environment secrets** for secure cred
 | `qualtrics-prod` | Qualtrics API v3        | 6 secrets, 5 vars | ✅ Active (5 workflows)    |
 | `prolific-prod`  | Prolific API v1         | 2 secrets, 3 vars | ✅ Active (2 workflows)    |
 | `google-prod`    | Google Analytics & SEO  | 6 secrets         | ✅ Active (2 workflows)    |
+| `zotero-prod`    | Zotero Web API v3       | 1 secret, 3 vars  | ✅ Active (2 workflows)    |
 | `microsoft-prod` | Microsoft Forms         | 1 secret          | ⚠️ Configured (future use) |
 | `stripe-prod`    | Payment processing      | 1 secret          | ⚠️ Configured (future use) |
 | `github-pages`   | GitHub Pages deployment | Auto token        | ✅ Active (deployment)     |
@@ -697,10 +801,13 @@ export PROLIFIC_API_TOKEN="your-token-here"
 export GA_PROPERTY_ID="properties/123456789"
 export GOOGLE_SERVICE_ACCOUNT_EMAIL="service@project.iam.gserviceaccount.com"
 export GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+export ZOTERO_API_KEY="your-zotero-api-key"
+export ZOTERO_USER_ID="<your-zotero-user-id>"
+export ZOTERO_BASE_URL="https://api.zotero.org"
 
-# Option 2: VS Code MCP (recommended for Qualtrics/GitHub)
+# Option 2: VS Code MCP (recommended for Qualtrics/GitHub/Zotero)
 # Copy .vscode/mcp.json.example to .vscode/mcp.json
-# VS Code will prompt for OAuth tokens when connecting
+# VS Code will prompt for OAuth tokens when connecting to Qualtrics/GitHub MCPs
 ```
 
 ## Daily Pipeline Architecture
@@ -866,7 +973,7 @@ All Python scripts live in `scripts/analysis/`. They are the primary language fo
 
 ## Custom Agents
 
-Claude Code agents are defined in `.claude/agents/` (gitignored — local only). They provide specialized behavior invoked automatically or explicitly.
+Claude Code agents are defined in `.claude/agents/` (gitignored - local only). They provide specialized behavior invoked automatically or explicitly.
 
 ### TABS Repo Agents
 
@@ -880,7 +987,7 @@ Claude Code agents are defined in `.claude/agents/` (gitignored — local only).
 
 | Agent                  | Purpose                                                                     |
 | ---------------------- | --------------------------------------------------------------------------- |
-| `copilot-review-cycle` | Full review cycle — request review, read comments, fix code, commit, repeat |
+| `copilot-review-cycle` | Full review cycle - request review, read comments, fix code, commit, repeat |
 | `pr-reviewer`          | FFC-specific PR review checklist (naming, security, a11y, static export)    |
 
 **Invoke**: Claude auto-selects agents based on task description. You can also say "use the pipeline-validator agent" explicitly.
@@ -911,7 +1018,7 @@ Project-level hooks in `.claude/settings.json`:
 | ------------- | ------------- | --------------------------------- |
 | `PostToolUse` | `Write\|Edit` | Auto-run Prettier on edited files |
 
-Hooks run automatically — no approval needed. They ensure formatting compliance without manual `npm run format`.
+Hooks run automatically - no approval needed. They ensure formatting compliance without manual `npm run format`.
 
 ### Available Hook Events
 
@@ -925,7 +1032,7 @@ Hooks run automatically — no approval needed. They ensure formatting complianc
 
 Claude Code operates under a tiered permission system configured in `~/.claude/settings.json`.
 
-### Denied (43 rules) — blocked entirely
+### Denied (43 rules) - blocked entirely
 
 - Git destructive: force push, reset --hard, clean, filter-branch
 - Secret leakage: any bash with API_TOKEN, SECRET, PRIVATE_KEY, PASSWORD
@@ -935,12 +1042,12 @@ Claude Code operates under a tiered permission system configured in `~/.claude/s
 - GitHub merge via MCP (forces human approval)
 - Calendar event deletion
 
-### Prompts (18 tools) — requires approval each time
+### Prompts (18 tools) - requires approval each time
 
 - Computer Use: clicks, typing, key presses, drag, clipboard write, open app
 - Chrome: form fills, JS execution, file upload, click actions
 
-### Auto-allowed (500+ tools) — runs without prompting
+### Auto-allowed (500+ tools) - runs without prompting
 
 - All GitHub MCP read/write (local npx server)
 - All Cloudflare create/read/update (NOT delete)
@@ -964,7 +1071,7 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 | **High**     | Community, single maintainer, or stale                   | Qualtrics MCP (academic), R Statistics MCP (stale)             |
 | **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` (deprecated)             |
 
-**Rule**: Prefer official sources. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics — neither company provides official SDKs or MCP servers.
+**Rule**: Prefer official sources. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics - neither company provides official SDKs or MCP servers.
 
 ## Resources
 
@@ -972,11 +1079,11 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 
 The live website documents this infrastructure at `/making-of-tabs/`:
 
-- `/making-of-tabs/ai-assisted-development` — How AI agents build and maintain the site
-- `/making-of-tabs/development-workflow` — CI/CD pipeline, merge queue, automated testing
-- `/making-of-tabs/integrations/` — Cloudflare, GitHub, Google Analytics, Prolific, Qualtrics
-- `/making-of-tabs/data-analysis` — Analysis pipeline, psychometrics, quality audits
-- `/making-of-tabs/reproducible-analysis` — Reproducibility documentation
+- `/making-of-tabs/ai-assisted-development` - How AI agents build and maintain the site
+- `/making-of-tabs/development-workflow` - CI/CD pipeline, merge queue, automated testing
+- `/making-of-tabs/integrations/` - Cloudflare, GitHub, Google Analytics, Prolific, Qualtrics
+- `/making-of-tabs/data-analysis` - Analysis pipeline, psychometrics, quality audits
+- `/making-of-tabs/reproducible-analysis` - Reproducibility documentation
 
 ### Project Documentation
 

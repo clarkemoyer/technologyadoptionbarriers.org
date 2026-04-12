@@ -3,7 +3,7 @@
 **Report Period:** `[YYYY-MM-DD]` to `[YYYY-MM-DD]`
 **Prepared By:** `[Author Name]`
 **Date:** `[YYYY-MM-DD]`
-**Related Issue:** [#473 — SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
+**Related Issue:** [#473 - SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
 
 ---
 
@@ -14,9 +14,9 @@
 3. **Automated data:** Use output from `scripts/collect-seo-keywords.ts` and `scripts/collect-page-seo-metrics.ts` (saved to `reports/seo/`) to populate keyword and page tables.
 4. **Reference the dashboard** at `docs/seo/seo-dashboard-template.md` for a quick-view format of the same data.
 5. **Companion documents:**
-   - [Competitor Profiles](./competitor-profiles.md) — detailed profiles for 12 competitors
-   - [Competitive SERP Benchmarking](./competitive-serp-benchmarking.md) — keyword-by-keyword SERP analysis
-   - [SEO Dashboard](./seo-dashboard-template.md) — quick-view KPI dashboard
+   - [Competitor Profiles](./competitor-profiles.md) - detailed profiles for 12 competitors
+   - [Competitive SERP Benchmarking](./competitive-serp-benchmarking.md) - keyword-by-keyword SERP analysis
+   - [SEO Dashboard](./seo-dashboard-template.md) - quick-view KPI dashboard
 
 ---
 
@@ -38,7 +38,7 @@
 
 ### Overview
 
-`[2–3 paragraph summary of overall SEO performance for the reporting period. Include key wins, challenges, and strategic context. Example below:]`
+`[2-3 paragraph summary of overall SEO performance for the reporting period. Include key wins, challenges, and strategic context. Example below:]`
 
 > During `[period]`, technologyadoptionbarriers.org continued its growth trajectory with organic clicks increasing `[X%]` to `[X]` total clicks and impressions growing `[X%]` to `[X]`. Average position improved from `[X]` to `[X]`, reflecting ongoing content optimization efforts.
 >
@@ -57,15 +57,15 @@
 
 ### Top 3 Wins
 
-1. **`[Win title]`** — `[brief description, e.g., "technology adoption survey" moved from position 6 to position 4]`
-2. **`[Win title]`** — `[brief description]`
-3. **`[Win title]`** — `[brief description]`
+1. **`[Win title]`** - `[brief description, e.g., "technology adoption survey" moved from position 6 to position 4]`
+2. **`[Win title]`** - `[brief description]`
+3. **`[Win title]`** - `[brief description]`
 
 ### Top 3 Challenges
 
-1. **`[Challenge title]`** — `[brief description, e.g., "digital transformation barriers" stuck at position 22 despite content updates]`
-2. **`[Challenge title]`** — `[brief description]`
-3. **`[Challenge title]`** — `[brief description]`
+1. **`[Challenge title]`** - `[brief description, e.g., "digital transformation barriers" stuck at position 22 despite content updates]`
+2. **`[Challenge title]`** - `[brief description]`
+3. **`[Challenge title]`** - `[brief description]`
 
 ---
 
@@ -96,10 +96,10 @@
 
 | Position Range | Count | % of Total | Change vs. Prior |
 | :------------- | ----: | ---------: | ---------------: |
-| 1–3 (Top 3)    | `[X]` |     `[X%]` |           `[±X]` |
-| 4–10 (Page 1)  | `[X]` |     `[X%]` |           `[±X]` |
-| 11–20 (Page 2) | `[X]` |     `[X%]` |           `[±X]` |
-| 21–50          | `[X]` |     `[X%]` |           `[±X]` |
+| 1-3 (Top 3)    | `[X]` |     `[X%]` |           `[±X]` |
+| 4-10 (Page 1)  | `[X]` |     `[X%]` |           `[±X]` |
+| 11-20 (Page 2) | `[X]` |     `[X%]` |           `[±X]` |
+| 21-50          | `[X]` |     `[X%]` |           `[±X]` |
 | 50+            | `[X]` |     `[X%]` |           `[±X]` |
 
 ### 2.4 Keyword Category Performance
@@ -130,7 +130,7 @@
 
 ### 3.2 Underperforming Pages (Optimization Opportunities)
 
-Pages with high impressions but below-average CTR — indicating ranking content that fails to attract clicks.
+Pages with high impressions but below-average CTR - indicating ranking content that fails to attract clicks.
 
 | Page URL | Impressions |      CTR | Avg Position | Likely Issue                  | Recommended Action                           |
 | :------- | ----------: | -------: | -----------: | :---------------------------- | :------------------------------------------- |
@@ -170,9 +170,9 @@ Pages with high impressions but below-average CTR — indicating ranking content
 
 > **Opportunity level criteria:**
 >
-> - **High** — TABS within 5 positions of competitor; realistic to overtake with optimization
-> - **Medium** — Gap of 5–15 positions; achievable with dedicated content investment
-> - **Low** — Gap >15 positions; long-term play requiring DA growth
+> - **High** - TABS within 5 positions of competitor; realistic to overtake with optimization
+> - **Medium** - Gap of 5-15 positions; achievable with dedicated content investment
+> - **Low** - Gap >15 positions; long-term play requiring DA growth
 
 ### 4.3 Competitive Strengths and Weaknesses
 
@@ -224,14 +224,14 @@ Pages with high impressions but below-average CTR — indicating ranking content
 |   2 | `[action description]` | `[name/team]` | P1       | `[e.g., capture featured snippet for 3 keywords]` |   ⬜   |
 |   3 | `[action description]` | `[name/team]` | P2       | `[e.g., +5 new indexed pages]`                    |   ⬜   |
 
-### Medium-Term Initiatives (Next 1–3 Months)
+### Medium-Term Initiatives (Next 1-3 Months)
 
 |   # | Initiative     | Objective     | Resources Needed | Success Metric |
 | --: | :------------- | :------------ | :--------------- | :------------- |
 |   1 | `[initiative]` | `[objective]` | `[resources]`    | `[metric]`     |
 |   2 | `[initiative]` | `[objective]` | `[resources]`    | `[metric]`     |
 
-### Long-Term Strategy (3–12 Months)
+### Long-Term Strategy (3-12 Months)
 
 |   # | Strategy                 | Goal     | Dependencies     |
 | --: | :----------------------- | :------- | :--------------- |
@@ -263,7 +263,7 @@ Pages with high impressions but below-average CTR — indicating ranking content
 
 - Free tool data (Moz, Ubersuggest) provides directional estimates, not exact figures.
 - SERP positions fluctuate daily; point-in-time snapshots may not reflect average positions.
-- Google Search Console data has a 2–3 day reporting delay.
+- Google Search Console data has a 2-3 day reporting delay.
 - GA4 engagement metrics use session-based calculation which may differ from historical UA metrics.
 - Competitor traffic estimates are from SimilarWeb free tier and represent total site traffic, not just technology-adoption-related content.
 
@@ -290,16 +290,16 @@ Pages with high impressions but below-average CTR — indicating ranking content
 
 | Term                  | Definition                                                                                       |
 | :-------------------- | :----------------------------------------------------------------------------------------------- |
-| **CTR**               | Click-Through Rate — percentage of impressions that resulted in a click                          |
-| **DA**                | Domain Authority — Moz metric (0–100) predicting a site's ability to rank                        |
-| **DR**                | Domain Rating — Ahrefs metric similar to DA                                                      |
+| **CTR**               | Click-Through Rate - percentage of impressions that resulted in a click                          |
+| **DA**                | Domain Authority - Moz metric (0-100) predicting a site's ability to rank                        |
+| **DR**                | Domain Rating - Ahrefs metric similar to DA                                                      |
 | **Impressions**       | Number of times a page appeared in search results                                                |
 | **Position**          | Average ranking position in Google search results (1 = top)                                      |
 | **SERP**              | Search Engine Results Page                                                                       |
-| **CLS**               | Cumulative Layout Shift — Core Web Vital measuring visual stability                              |
-| **LCP**               | Largest Contentful Paint — Core Web Vital measuring loading performance                          |
-| **INP**               | Interaction to Next Paint — Core Web Vital measuring responsiveness/interactivity (replaces FID) |
-| **FID**               | First Input Delay — legacy interactivity metric replaced by INP and no longer a Core Web Vital   |
+| **CLS**               | Cumulative Layout Shift - Core Web Vital measuring visual stability                              |
+| **LCP**               | Largest Contentful Paint - Core Web Vital measuring loading performance                          |
+| **INP**               | Interaction to Next Paint - Core Web Vital measuring responsiveness/interactivity (replaces FID) |
+| **FID**               | First Input Delay - legacy interactivity metric replaced by INP and no longer a Core Web Vital   |
 | **Long-tail keyword** | Specific, multi-word search query with lower volume but higher intent                            |
 | **Featured Snippet**  | Highlighted answer box at top of Google search results                                           |
-| **PAA**               | People Also Ask — expandable question boxes in Google SERPs                                      |
+| **PAA**               | People Also Ask - expandable question boxes in Google SERPs                                      |

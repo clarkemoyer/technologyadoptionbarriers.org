@@ -78,7 +78,7 @@ export default function NotFound() {
             </p>
           </div>
           <p className="text-[16px] md:text-[18px] text-gray-500 leading-[28px] font-[500]">
-            Don&apos;t worry though – unlike failed technology adoption, we can help you find your
+            Don&apos;t worry though - unlike failed technology adoption, we can help you find your
             way!
           </p>
         </div>

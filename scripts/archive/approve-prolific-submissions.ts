@@ -6,14 +6,14 @@
  * participant IDs, and bulk-approves them via the Prolific API.
  *
  * Environment variables:
- *   PROLIFIC_API_TOKEN   – Prolific API token (required)
- *   STUDY_ID             – Prolific study ID (required)
- *   CSV_FILE_PATH        – Path to the CSV file to parse (one of CSV_FILE_PATH or CSV_CONTENT required)
- *   CSV_CONTENT          – Inline CSV content to parse (one of CSV_FILE_PATH or CSV_CONTENT required)
- *   PID_COLUMN           – Column header for participant IDs (default: auto-detect)
- *   DISPOSITION_COLUMN   – Column header for disposition (default: auto-detect "Disposition" / Column D)
- *   DRY_RUN              – When "false", approve live; otherwise dry run (default: true)
- *   VERBOSE_DRY_RUN      – When "true", log individual PIDs in dry-run mode (default: false)
+ *   PROLIFIC_API_TOKEN   - Prolific API token (required)
+ *   STUDY_ID             - Prolific study ID (required)
+ *   CSV_FILE_PATH        - Path to the CSV file to parse (one of CSV_FILE_PATH or CSV_CONTENT required)
+ *   CSV_CONTENT          - Inline CSV content to parse (one of CSV_FILE_PATH or CSV_CONTENT required)
+ *   PID_COLUMN           - Column header for participant IDs (default: auto-detect)
+ *   DISPOSITION_COLUMN   - Column header for disposition (default: auto-detect "Disposition" / Column D)
+ *   DRY_RUN              - When "false", approve live; otherwise dry run (default: true)
+ *   VERBOSE_DRY_RUN      - When "true", log individual PIDs in dry-run mode (default: false)
  */
 
 import { getCurrentUser, bulkApproveSubmissions } from '../src/lib/prolific-api'
@@ -180,7 +180,7 @@ async function main() {
       if (pid) {
         cleanPids.push(pid)
       } else {
-        console.warn(`⚠️  Row ${i + 1}: Disposition is CLEAN but PID is empty – skipping`)
+        console.warn(`⚠️  Row ${i + 1}: Disposition is CLEAN but PID is empty - skipping`)
         skippedRows++
       }
     }
@@ -219,7 +219,7 @@ async function main() {
   /* ---------- approve ------------------------------------------------- */
   if (dryRun) {
     const verboseDryRun = envFlag('VERBOSE_DRY_RUN', false)
-    console.log('🔒 DRY RUN – no submissions will be approved')
+    console.log('🔒 DRY RUN - no submissions will be approved')
     console.log(`   CLEAN submissions that would be approved: ${cleanPids.length}`)
     if (verboseDryRun) {
       console.log('   Participant IDs that would be approved:')
@@ -255,7 +255,7 @@ async function main() {
       `| Approved | ${dryRun ? '0 (dry run)' : String(cleanPids.length)} |`,
       '',
       dryRun
-        ? '> **Dry run** – re-run with `dry_run` unchecked to approve submissions.'
+        ? '> **Dry run** - re-run with `dry_run` unchecked to approve submissions.'
         : '✅ **All CLEAN submissions have been approved.**',
       '',
     ].join('\n')

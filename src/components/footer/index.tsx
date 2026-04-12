@@ -269,7 +269,7 @@ const Footer: React.FC = () => {
                   href={branch.slug}
                   className="text-gray-400 hover:text-white text-sm py-1 block"
                 >
-                  {branch.title.split('–')[0].trim()}
+                  {branch.title.split('-')[0].trim()}
                 </Link>
               ))}
               <Link

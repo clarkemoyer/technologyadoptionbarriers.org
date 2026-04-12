@@ -11,7 +11,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Technology Readiness Index (TRI) – Parasuraman (2000)',
+  title: 'Bibliography: Technology Readiness Index (TRI) - Parasuraman (2000)',
   description:
     'Deep dive into the Technology Readiness Index (TRI) by A. Parasuraman (2000), exploring its foundational contributions to technology adoption research.',
 }
@@ -20,7 +20,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Technology Readiness Index (TRI) – Parasuraman (2000)</h1>
+        <h1 className={H1_CLASSES}>Technology Readiness Index (TRI) - Parasuraman (2000)</h1>
 
         {/* Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -60,8 +60,8 @@ const BibliographyArticlePage = () => {
             consumer contexts. The author noted that companies’ use of technology in selling to and
             serving customers was growing at a rapid pace, and customers were encountering
             increasingly sophisticated technology-based products and services. However, systematic
-            understanding of customers’ technology readiness— their propensity to embrace and use
-            new technologies—remained limited and underdeveloped. The development of the TRI was
+            understanding of customers’ technology readiness - their propensity to embrace and use
+            new technologies - remained limited and underdeveloped. The development of the TRI was
             driven by specific practical concerns. The increasing incidence of customer frustration
             with technology-based systems suggested an urgent need to understand why some
             individuals embrace new technologies while others resist them.
@@ -81,8 +81,8 @@ const BibliographyArticlePage = () => {
             simultaneously.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The author identified eight technology paradoxes through this research—fundamental
-            contradictions in how consumers viewed technology—including freedom/enslavement,
+            The author identified eight technology paradoxes through this research - fundamental
+            contradictions in how consumers viewed technology - including freedom/enslavement,
             control/chaos, and competence/incompetence. Understanding these paradoxes was essential
             to developing a measure that would capture the full spectrum of technology-related
             beliefs and attitudes. The practical motivation for developing TRI centered on enabling
@@ -273,7 +273,7 @@ const BibliographyArticlePage = () => {
               beliefs. Rather than reducing technology readiness to a single dimension, the
               four-factor structure acknowledges that consumers simultaneously hold positive and
               negative beliefs about technology. This is particularly valuable because it allows for
-              nuanced understanding of “technology paradoxes”—the contradictions inherent in
+              nuanced understanding of “technology paradoxes” - the contradictions inherent in
               technology adoption decisions. Third, the TRI was developed through rigorous
               mixed-methods research combining qualitative insights with large-scale quantitative
               validation.
@@ -337,10 +337,10 @@ const BibliographyArticlePage = () => {
               The overlap between dimensions could be better understood or the scale could
               potentially be simplified by better understanding the relationships among dimensions.
               Seventh, the model does not explicitly address the role of facilitating conditions,
-              social influence, or perceived organizational support—factors that research has shown
-              influence technology adoption and use. The TRI focuses on individual predispositions
-              but may be incomplete without considering contextual factors that influence adoption
-              decisions.
+              social influence, or perceived organizational support - factors that research has
+              shown influence technology adoption and use. The TRI focuses on individual
+              predispositions but may be incomplete without considering contextual factors that
+              influence adoption decisions.
             </p>
           </section>
           <section className="mb-6">
@@ -361,13 +361,13 @@ const BibliographyArticlePage = () => {
             </p>
             <p className={PARAGRAPH_CLASSES}>
               This gives the TRI greater complexity and ability to capture the paradoxical nature of
-              technology attitudes—the simultaneous presence of positive and negative beliefs. The
+              technology attitudes - the simultaneous presence of positive and negative beliefs. The
               TRI explicitly acknowledges and measures inhibitor dimensions (Discomfort and
               Insecurity), reflecting the finding that technology adoption is influenced not just by
               positive motivations but also by negative concerns and anxieties. Most prior models
               focused primarily on positive drivers of adoption, potentially missing important
               sources of resistance. The TRI emerged from and explicitly addresses the “technology
-              paradoxes” identified in consumer research—the contradictions and paradoxes that
+              paradoxes” identified in consumer research - the contradictions and paradoxes that
               characterize how consumers view technology. Older models did not systematically
               address these paradoxes. The TRI’s conceptual foundation in these paradoxes makes it
               more grounded in consumer psychology. Additionally, the TRI was designed to function
@@ -458,8 +458,8 @@ const BibliographyArticlePage = () => {
               comprehensive support. Marketing communications should highlight how intuitive and
               simple the technology is to use, providing concrete examples of how easy the learning
               process can be. Companies should invest in clear, accessible user interfaces that are
-              specifically designed for novice users. Providing multiple support channels—online
-              help, phone support, in-person training— helps reduce anxiety about being unable to
+              specifically designed for novice users. Providing multiple support channels - online
+              help, phone support, in-person training - helps reduce anxiety about being unable to
               figure out how to use the technology. Organizations should provide extensive training
               and education to help Discomfort-oriented customers develop competence and confidence.
             </p>

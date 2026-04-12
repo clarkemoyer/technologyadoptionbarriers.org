@@ -1,8 +1,8 @@
 # Content Gap & Keyword Opportunity Analysis
 
 **Last Updated:** 2026-03-23
-**Related Issue:** [#484 — Content Gap & Keyword Opportunity Analysis](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/484)
-**Parent Issue:** [#473 — SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
+**Related Issue:** [#484 - Content Gap & Keyword Opportunity Analysis](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/484)
+**Parent Issue:** [#473 - SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
 **Companion Documents:**
 
 - [Competitor Profiles](./competitor-profiles.md)
@@ -24,11 +24,11 @@
   - [Category 4: Organizational Change & Leadership Gaps](#category-4-organizational-change--leadership-gaps)
   - [Category 5: Industry-Specific Adoption Gaps](#category-5-industry-specific-adoption-gaps)
   - [Category 6: Research & Methodology Gaps](#category-6-research--methodology-gaps)
-- [Low-Hanging Fruit: Page 2–3 Optimization Targets](#low-hanging-fruit-page-23-optimization-targets)
+- [Low-Hanging Fruit: Page 2-3 Optimization Targets](#low-hanging-fruit-page-23-optimization-targets)
 - [New Content Opportunities](#new-content-opportunities)
-  - [Priority 1: Quick Wins (0–3 Months)](#priority-1-quick-wins-03-months)
-  - [Priority 2: Medium-Term Investments (3–6 Months)](#priority-2-medium-term-investments-36-months)
-  - [Priority 3: Long-Term Strategic Content (6–12 Months)](#priority-3-long-term-strategic-content-612-months)
+  - [Priority 1: Quick Wins (0-3 Months)](#priority-1-quick-wins-03-months)
+  - [Priority 2: Medium-Term Investments (3-6 Months)](#priority-2-medium-term-investments-36-months)
+  - [Priority 3: Long-Term Strategic Content (6-12 Months)](#priority-3-long-term-strategic-content-612-months)
 - [Existing Content Improvement Recommendations](#existing-content-improvement-recommendations)
   - [Content Depth Improvements](#content-depth-improvements)
   - [Internal Linking Opportunities](#internal-linking-opportunities)
@@ -45,14 +45,14 @@ This document identifies keyword gaps and content opportunities where competitor
 
 **Key findings:**
 
-1. **35 keyword gaps identified** across 6 topic clusters where competitors rank (positions 1–20) but TABS has no dedicated content or ranks beyond page 3.
+1. **35 keyword gaps identified** across 6 topic clusters where competitors rank (positions 1-20) but TABS has no dedicated content or ranks beyond page 3.
 2. **TABS has strong coverage** of academic adoption models (21 individual + 19 organizational bibliography articles), but **gaps exist** in applied/practitioner content, industry-specific barriers, digital divide demographics, and emerging technology adoption.
-3. **12 low-hanging fruit keywords** identified where TABS likely ranks on pages 2–3 (positions 11–30) and could improve with content optimization and internal linking.
+3. **12 low-hanging fruit keywords** identified where TABS likely ranks on pages 2-3 (positions 11-30) and could improve with content optimization and internal linking.
 4. **25 new content topics recommended**, each with format suggestion, estimated search volume, difficulty, and priority score.
 5. **15 existing pages** have specific improvement recommendations including content depth expansion, keyword targeting, and internal linking enhancements.
 6. **Content consolidation opportunities** exist in the teaching series where individual slide pages could be consolidated into comprehensive topic guides.
 
-**Strategic recommendation:** TABS should prioritize (a) filling gaps in practitioner-focused barrier content that bridges academic models to real-world adoption challenges, (b) creating industry-specific adoption guides leveraging survey data, and (c) optimizing existing bibliography articles for featured snippet capture. These three actions align with TABS's unique differentiator — combining academic rigor with practitioner focus and original survey data.
+**Strategic recommendation:** TABS should prioritize (a) filling gaps in practitioner-focused barrier content that bridges academic models to real-world adoption challenges, (b) creating industry-specific adoption guides leveraging survey data, and (c) optimizing existing bibliography articles for featured snippet capture. These three actions align with TABS's unique differentiator - combining academic rigor with practitioner focus and original survey data.
 
 ---
 
@@ -65,25 +65,25 @@ This document identifies keyword gaps and content opportunities where competitor
 | TABS sitemap (`src/app/sitemap.ts`)                                                  | Complete content inventory (170+ URLs)         | Map existing content coverage                |
 | Competitor Profiles ([doc](./competitor-profiles.md))                                | 12 competitor content strategies, DA estimates | Identify competitor keyword targets          |
 | SERP Benchmarking ([doc](./competitive-serp-benchmarking.md))                        | 25 priority keyword positions                  | Baseline TABS vs. competitor rankings        |
-| Google Search Console (via `src/lib/google-search-console.ts`)                       | TABS keyword rankings, impressions, clicks     | Identify page 2–3 ranking opportunities      |
+| Google Search Console (via `src/lib/google-search-console.ts`)                       | TABS keyword rankings, impressions, clicks     | Identify page 2-3 ranking opportunities      |
 | Public SERP analysis                                                                 | Search result composition for target keywords  | Identify gaps and SERP feature opportunities |
 | Keyword research tools (Google Keyword Planner, Google Trends, public SERP analysis) | Search volume, keyword difficulty estimates    | Prioritize opportunities by potential impact |
 
 ### Analysis Approach
 
-1. **Content inventory mapping** — Categorize all TABS pages by topic cluster and content type
-2. **Competitor keyword profiling** — Identify keywords driving traffic to competitor pages in overlapping topic areas
-3. **Gap identification** — Cross-reference competitor keywords against TABS content to find uncovered topics
-4. **Opportunity scoring** — Rank each gap by search volume × relevance × feasibility (inverse of difficulty)
-5. **Recommendation prioritization** — Categorize into quick wins, medium-term, and long-term investments
+1. **Content inventory mapping** - Categorize all TABS pages by topic cluster and content type
+2. **Competitor keyword profiling** - Identify keywords driving traffic to competitor pages in overlapping topic areas
+3. **Gap identification** - Cross-reference competitor keywords against TABS content to find uncovered topics
+4. **Opportunity scoring** - Rank each gap by search volume × relevance × feasibility (inverse of difficulty)
+5. **Recommendation prioritization** - Categorize into quick wins, medium-term, and long-term investments
 
 ### Scoring Framework
 
 Each recommendation uses an **Impact vs. Effort** score:
 
-- **Impact (1–5):** Estimated organic traffic potential based on search volume and keyword relevance
-- **Effort (1–5):** Content creation complexity, where 1 = minor update and 5 = entirely new comprehensive page
-- **Priority Score** = Impact × (6 − Effort), yielding a range of 1–25 (higher = higher priority)
+- **Impact (1-5):** Estimated organic traffic potential based on search volume and keyword relevance
+- **Effort (1-5):** Content creation complexity, where 1 = minor update and 5 = entirely new comprehensive page
+- **Priority Score** = Impact × (6 − Effort), yielding a range of 1-25 (higher = higher priority)
   - _Example:_ A high-impact (5) / low-effort (2) task scores 5 × (6 − 2) = **20** (top priority)
   - _Example:_ A moderate-impact (3) / high-effort (5) task scores 3 × (6 − 5) = **3** (lower priority)
 
@@ -120,34 +120,34 @@ The following map shows TABS's current content coverage across key topic cluster
 |                                | Diffusion of Innovations                    | ✅       | Bibliography 1-2                               | Single comprehensive page                               |
 |                                | Theory of Planned Behavior                  | ✅       | Bibliography 1-7, 1-10                         | TPB + Decomposed TPB                                    |
 |                                | Model comparison / selection guide          | ⚠️       | Series articles (general)                      | No single comparison page                               |
-|                                | Applied model case studies                  | ❌       | —                                              | No real-world application examples                      |
+|                                | Applied model case studies                  | ❌       | -                                              | No real-world application examples                      |
 | **Barriers to Adoption**       | General barriers overview                   | ✅       | `/barriers`                                    | Survey-driven; unique data                              |
 |                                | Barrier categories (cost, complexity, etc.) | ⚠️       | `/barriers` (general)                          | Not broken out into dedicated pages                     |
-|                                | Industry-specific barriers                  | ❌       | —                                              | No healthcare, education, manufacturing, etc.           |
+|                                | Industry-specific barriers                  | ❌       | -                                              | No healthcare, education, manufacturing, etc.           |
 |                                | Role-specific barriers                      | ⚠️       | Persona pages, `/for-organizations/*`          | Thin content; navigational                              |
-|                                | Legacy system barriers                      | ❌       | —                                              | High-value gap identified in competitor analysis        |
-|                                | Cybersecurity adoption barriers             | ❌       | —                                              | High-value gap                                          |
-| **Digital Divide**             | Digital divide overview                     | ❌       | —                                              | Major gap; competitors (Pew, NDIA, ITU) rank strongly   |
-|                                | Demographics of adoption gaps               | ❌       | —                                              | Pew Research dominant but TABS has relevant survey data |
-|                                | Rural vs. urban technology access           | ❌       | —                                              | NDIA, World Bank cover this space                       |
-|                                | Age-based technology adoption               | ❌       | —                                              | High search volume; Pew Research dominant               |
+|                                | Legacy system barriers                      | ❌       | -                                              | High-value gap identified in competitor analysis        |
+|                                | Cybersecurity adoption barriers             | ❌       | -                                              | High-value gap                                          |
+| **Digital Divide**             | Digital divide overview                     | ❌       | -                                              | Major gap; competitors (Pew, NDIA, ITU) rank strongly   |
+|                                | Demographics of adoption gaps               | ❌       | -                                              | Pew Research dominant but TABS has relevant survey data |
+|                                | Rural vs. urban technology access           | ❌       | -                                              | NDIA, World Bank cover this space                       |
+|                                | Age-based technology adoption               | ❌       | -                                              | High search volume; Pew Research dominant               |
 | **Organizational Change**      | Change management frameworks                | ⚠️       | Organizational bibliography articles           | Academic focus; no practitioner guidance                |
-|                                | Digital transformation strategy             | ❌       | —                                              | McKinsey, Deloitte, Forrester dominant                  |
+|                                | Digital transformation strategy             | ❌       | -                                              | McKinsey, Deloitte, Forrester dominant                  |
 |                                | Executive decision-making in adoption       | ⚠️       | `/for-organizations/executive-leaders`         | Thin page; needs expansion                              |
-|                                | ROI of technology adoption                  | ❌       | —                                              | High-value gap for decision-makers                      |
+|                                | ROI of technology adoption                  | ❌       | -                                              | High-value gap for decision-makers                      |
 | **Research Methodology**       | Survey design for adoption studies          | ⚠️       | Making of TABS pages                           | Internal focus; not targeting researchers               |
-|                                | Measuring adoption outcomes                 | ❌       | —                                              | Research community demand                               |
-|                                | Adoption metrics and KPIs                   | ❌       | —                                              | Practitioner + researcher demand                        |
-| **Emerging Technology**        | AI adoption barriers                        | ❌       | —                                              | Rapidly growing search interest                         |
+|                                | Measuring adoption outcomes                 | ❌       | -                                              | Research community demand                               |
+|                                | Adoption metrics and KPIs                   | ❌       | -                                              | Practitioner + researcher demand                        |
+| **Emerging Technology**        | AI adoption barriers                        | ❌       | -                                              | Rapidly growing search interest                         |
 |                                | Cloud adoption frameworks                   | ✅       | Bibliography 2-16, 2-17, 2-18, 2-19            | AWS CAF, Microsoft CAF covered                          |
-|                                | IoT adoption challenges                     | ❌       | —                                              | Industry-specific demand                                |
-|                                | Automation and workforce adoption           | ❌       | —                                              | Growing search volume                                   |
+|                                | IoT adoption challenges                     | ❌       | -                                              | Industry-specific demand                                |
+|                                | Automation and workforce adoption           | ❌       | -                                              | Growing search volume                                   |
 
 ---
 
 ## Keyword Gap Analysis
 
-The following tables identify specific keywords where competitors rank in positions 1–20 but TABS does not rank or ranks beyond position 30. Keywords are categorized by topic cluster and prioritized by search volume, relevance to TABS, and competition difficulty.
+The following tables identify specific keywords where competitors rank in positions 1-20 but TABS does not rank or ranks beyond position 30. Keywords are categorized by topic cluster and prioritized by search volume, relevance to TABS, and competition difficulty.
 
 ### Category 1: Technology Adoption Model Gaps
 
@@ -218,40 +218,40 @@ The following tables identify specific keywords where competitors rank in positi
 
 | Category                           | Gaps Identified | Avg. Monthly Volume | Avg. Difficulty | TABS Content Overlap            |
 | ---------------------------------- | --------------- | ------------------- | --------------- | ------------------------------- |
-| Technology Adoption Models         | 7               | 653                 | Low–Medium      | Partial (academic, not applied) |
-| Barriers & Challenges              | 8               | 1,209               | Medium–High     | Partial (general barriers page) |
-| Digital Divide & Inclusion         | 6               | 2,017               | Medium–High     | None                            |
-| Organizational Change & Leadership | 6               | 752                 | Low–Medium      | Partial (thin org pages)        |
+| Technology Adoption Models         | 7               | 653                 | Low-Medium      | Partial (academic, not applied) |
+| Barriers & Challenges              | 8               | 1,209               | Medium-High     | Partial (general barriers page) |
+| Digital Divide & Inclusion         | 6               | 2,017               | Medium-High     | None                            |
+| Organizational Change & Leadership | 6               | 752                 | Low-Medium      | Partial (thin org pages)        |
 | Industry-Specific Adoption         | 5               | 820                 | Medium          | None                            |
-| Research & Methodology             | 3               | 530                 | Low–Medium      | Partial (Making of TABS)        |
-| **Total**                          | **35**          | **1,041**           | **Medium**      | —                               |
+| Research & Methodology             | 3               | 530                 | Low-Medium      | Partial (Making of TABS)        |
+| **Total**                          | **35**          | **1,041**           | **Medium**      | -                               |
 
 ---
 
-## Low-Hanging Fruit: Page 2–3 Optimization Targets
+## Low-Hanging Fruit: Page 2-3 Optimization Targets
 
-These are keywords where TABS likely ranks in positions 11–30 based on content relevance, existing indexed pages, and partial keyword alignment. These represent the highest-ROI optimization targets because content already exists — it just needs enhancement.
+These are keywords where TABS likely ranks in positions 11-30 based on content relevance, existing indexed pages, and partial keyword alignment. These represent the highest-ROI optimization targets because content already exists - it just needs enhancement.
 
 | #   | Keyword                                 | Est. TABS Position | Existing TABS Page                                                   | Optimization Action                                                                        | Effort | Expected Gain    |
 | --- | --------------------------------------- | ------------------ | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------ | ---------------- |
-| 1   | technology acceptance model             | 15–25              | `/bibliography-1-6-technology-acceptance-model-tam-davis-1989`       | Add practical examples, improve meta description, add FAQ section                          | Low    | +10–15 positions |
-| 2   | UTAUT model                             | 15–25              | `/bibliography-1-15-unified-theory-utaut-venkatesh-2003`             | Add comparison table with TAM, improve heading structure, expand applications              | Low    | +10–15 positions |
-| 3   | technology adoption barriers            | 11–20              | `/barriers`                                                          | Expand barrier categories, add data visualizations, improve keyword density                | Medium | +5–10 positions  |
-| 4   | diffusion of innovations theory         | 15–25              | `/bibliography-1-2-diffusion-of-innovations-rogers`                  | Add adoption curve diagram, modern examples, expand practitioner section                   | Low    | +10–15 positions |
-| 5   | technology adoption models              | 20–30              | `/technology-adoption-series` (root)                                 | Strengthen intro content, add model comparison table, improve internal links               | Medium | +5–15 positions  |
-| 6   | what is technology adoption             | 20–30              | Homepage + series root                                               | Create dedicated explainer page or expand series root with definitional content            | Medium | +10–20 positions |
-| 7   | technology readiness index              | 15–25              | `/bibliography-1-12-technology-readiness-index-tri-parasuraman-2000` | Add TRI 2.0 comparison, scoring methodology details, use-case examples                     | Low    | +5–10 positions  |
-| 8   | barriers to innovation in organizations | 20–30              | `/barriers` + org pages                                              | Create dedicated page linking barriers to organizational adoption context                  | Medium | +10–15 positions |
-| 9   | TAM model in information systems        | 15–25              | Bibliography TAM pages                                               | Add IS-specific section to TAM article, cite key IS journals                               | Low    | +5–10 positions  |
-| 10  | technology adoption survey              | 11–20              | `/barriers/survey-stats`                                             | Expand survey methodology description, add sample questions, link to Qualtrics integration | Medium | +5–10 positions  |
-| 11  | organizational technology adoption      | 20–30              | `/for-organizations`                                                 | Expand page depth, add framework comparison, link to org bibliography series               | Medium | +10–15 positions |
-| 12  | theory of planned behavior technology   | 15–25              | `/bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991`        | Add technology-specific TPB applications, meta title optimization                          | Low    | +5–10 positions  |
+| 1   | technology acceptance model             | 15-25              | `/bibliography-1-6-technology-acceptance-model-tam-davis-1989`       | Add practical examples, improve meta description, add FAQ section                          | Low    | +10-15 positions |
+| 2   | UTAUT model                             | 15-25              | `/bibliography-1-15-unified-theory-utaut-venkatesh-2003`             | Add comparison table with TAM, improve heading structure, expand applications              | Low    | +10-15 positions |
+| 3   | technology adoption barriers            | 11-20              | `/barriers`                                                          | Expand barrier categories, add data visualizations, improve keyword density                | Medium | +5-10 positions  |
+| 4   | diffusion of innovations theory         | 15-25              | `/bibliography-1-2-diffusion-of-innovations-rogers`                  | Add adoption curve diagram, modern examples, expand practitioner section                   | Low    | +10-15 positions |
+| 5   | technology adoption models              | 20-30              | `/technology-adoption-series` (root)                                 | Strengthen intro content, add model comparison table, improve internal links               | Medium | +5-15 positions  |
+| 6   | what is technology adoption             | 20-30              | Homepage + series root                                               | Create dedicated explainer page or expand series root with definitional content            | Medium | +10-20 positions |
+| 7   | technology readiness index              | 15-25              | `/bibliography-1-12-technology-readiness-index-tri-parasuraman-2000` | Add TRI 2.0 comparison, scoring methodology details, use-case examples                     | Low    | +5-10 positions  |
+| 8   | barriers to innovation in organizations | 20-30              | `/barriers` + org pages                                              | Create dedicated page linking barriers to organizational adoption context                  | Medium | +10-15 positions |
+| 9   | TAM model in information systems        | 15-25              | Bibliography TAM pages                                               | Add IS-specific section to TAM article, cite key IS journals                               | Low    | +5-10 positions  |
+| 10  | technology adoption survey              | 11-20              | `/barriers/survey-stats`                                             | Expand survey methodology description, add sample questions, link to Qualtrics integration | Medium | +5-10 positions  |
+| 11  | organizational technology adoption      | 20-30              | `/for-organizations`                                                 | Expand page depth, add framework comparison, link to org bibliography series               | Medium | +10-15 positions |
+| 12  | theory of planned behavior technology   | 15-25              | `/bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991`        | Add technology-specific TPB applications, meta title optimization                          | Low    | +5-10 positions  |
 
 ---
 
 ## New Content Opportunities
 
-### Priority 1: Quick Wins (0–3 Months)
+### Priority 1: Quick Wins (0-3 Months)
 
 These opportunities require creating new pages or substantially expanding existing thin pages. They target keywords with lower difficulty and strong TABS content alignment.
 
@@ -266,7 +266,7 @@ These opportunities require creating new pages or substantially expanding existi
 | 7   | **Legacy System Modernization Barriers**                          | `/barriers/legacy-system-barriers`      | Barrier deep-dive with case examples      | legacy system modernization challenges, legacy system barriers                  | 1,100               | Medium     | 4      | 3      | 12             |
 | 8   | **Nonprofit Technology Adoption Guide**                           | `/for-organizations/nonprofits`         | Role/sector guide                         | nonprofit technology adoption, technology for nonprofits                        | 390                 | Low        | 4      | 2      | 16             |
 
-### Priority 2: Medium-Term Investments (3–6 Months)
+### Priority 2: Medium-Term Investments (3-6 Months)
 
 These require new content creation with moderate research and development effort. They target medium-difficulty keywords with substantial search volume.
 
@@ -282,7 +282,7 @@ These require new content creation with moderate research and development effort
 | 16  | **Organizational Readiness Assessment for Technology Adoption**       | `/organizational-readiness-assessment`      | Interactive guide / checklist               | organizational readiness for technology, technology readiness assessment | 480                 | Medium     | 4      | 3      | 12             |
 | 17  | **Resistance to Technology Change: Causes, Effects, and Solutions**   | `/barriers/resistance-to-change`            | Barrier deep-dive with academic foundations | resistance to technology change, technology change resistance            | 1,900               | High       | 4      | 3      | 12             |
 
-### Priority 3: Long-Term Strategic Content (6–12 Months)
+### Priority 3: Long-Term Strategic Content (6-12 Months)
 
 These require substantial research, data collection, or industry expertise. They target competitive keywords with high search volume and establish TABS as a thought leader.
 
@@ -305,118 +305,118 @@ These require substantial research, data collection, or industry expertise. They
 
 The following existing pages can rank higher with specific content updates, expanded sections, and improved keyword targeting.
 
-#### 1. `/barriers` — Barriers Overview Page
+#### 1. `/barriers` - Barriers Overview Page
 
 **Current state:** General overview of technology adoption barriers with survey-driven data.
 **Improvement recommendations:**
 
-- **Add barrier category breakdown** — Create subheadings for specific barrier types (cost, complexity, training, security, change resistance, legacy systems) with dedicated content for each
-- **Expand with data visualizations** — Add charts/graphs from TABS survey data showing barrier prevalence and severity rankings
-- **Add "Barriers by Role" section** — Cross-link to persona pages with role-specific barrier insights
-- **Optimize meta title** — Update to "Technology Adoption Barriers: Research-Based Guide to Overcoming Adoption Challenges"
-- **Add FAQ schema** — Include 5–8 FAQs addressing common barrier questions for SERP feature capture
+- **Add barrier category breakdown** - Create subheadings for specific barrier types (cost, complexity, training, security, change resistance, legacy systems) with dedicated content for each
+- **Expand with data visualizations** - Add charts/graphs from TABS survey data showing barrier prevalence and severity rankings
+- **Add "Barriers by Role" section** - Cross-link to persona pages with role-specific barrier insights
+- **Optimize meta title** - Update to "Technology Adoption Barriers: Research-Based Guide to Overcoming Adoption Challenges"
+- **Add FAQ schema** - Include 5-8 FAQs addressing common barrier questions for SERP feature capture
 - **Impact:** 5 | **Effort:** 3 | **Priority Score:** 15
 
-#### 2. `/barriers/survey-stats` — Survey Statistics Page
+#### 2. `/barriers/survey-stats` - Survey Statistics Page
 
 **Current state:** Displays survey response statistics.
 **Improvement recommendations:**
 
-- **Add survey methodology section** — Describe TABS survey design, sample size, demographics, and Qualtrics/Prolific integration
-- **Include comparison benchmarks** — Compare TABS findings with published industry adoption statistics (Gartner, Forrester)
-- **Add downloadable data summary** — Offer a research-friendly data summary (PDF or CSV)
+- **Add survey methodology section** - Describe TABS survey design, sample size, demographics, and Qualtrics/Prolific integration
+- **Include comparison benchmarks** - Compare TABS findings with published industry adoption statistics (Gartner, Forrester)
+- **Add downloadable data summary** - Offer a research-friendly data summary (PDF or CSV)
 - **Optimize for keyword** "technology adoption survey" and "technology adoption statistics"
 - **Impact:** 4 | **Effort:** 3 | **Priority Score:** 12
 
-#### 3. `/bibliography-1-6-technology-acceptance-model-tam-davis-1989` — TAM Bibliography
+#### 3. `/bibliography-1-6-technology-acceptance-model-tam-davis-1989` - TAM Bibliography
 
 **Current state:** Academic documentation of the Technology Acceptance Model.
 **Improvement recommendations:**
 
-- **Add "TAM in Practice" section** — 2–3 real-world examples of TAM application
-- **Add comparison with TAM2 and TAM3** — Cross-reference table linking to related bibliography entries
-- **Add "Strengths & Limitations" section** — Commonly searched subtopic
-- **Add FAQ section** — "What is TAM?", "How is TAM used?", "What are TAM variables?"
-- **Optimize meta title** — "Technology Acceptance Model (TAM): Complete Guide — Davis 1989"
+- **Add "TAM in Practice" section** - 2-3 real-world examples of TAM application
+- **Add comparison with TAM2 and TAM3** - Cross-reference table linking to related bibliography entries
+- **Add "Strengths & Limitations" section** - Commonly searched subtopic
+- **Add FAQ section** - "What is TAM?", "How is TAM used?", "What are TAM variables?"
+- **Optimize meta title** - "Technology Acceptance Model (TAM): Complete Guide - Davis 1989"
 - **Impact:** 5 | **Effort:** 2 | **Priority Score:** 20
 
-#### 4. `/bibliography-1-15-unified-theory-utaut-venkatesh-2003` — UTAUT Bibliography
+#### 4. `/bibliography-1-15-unified-theory-utaut-venkatesh-2003` - UTAUT Bibliography
 
 **Current state:** Academic documentation of UTAUT.
 **Improvement recommendations:**
 
 - **Add visual diagram** of UTAUT constructs and relationships
-- **Add comparison with UTAUT2** — Differences, improvements, and when to use each
+- **Add comparison with UTAUT2** - Differences, improvements, and when to use each
 - **Add "Applying UTAUT" section** with step-by-step guidance for practitioners
-- **Include table of UTAUT moderators** — Age, gender, experience, voluntariness
-- **Optimize for featured snippet** — Add concise definition paragraph at the top
+- **Include table of UTAUT moderators** - Age, gender, experience, voluntariness
+- **Optimize for featured snippet** - Add concise definition paragraph at the top
 - **Impact:** 5 | **Effort:** 2 | **Priority Score:** 20
 
-#### 5. `/bibliography-1-2-diffusion-of-innovations-rogers` — Diffusion of Innovations
+#### 5. `/bibliography-1-2-diffusion-of-innovations-rogers` - Diffusion of Innovations
 
 **Current state:** Academic documentation of Rogers' Diffusion of Innovations theory.
 **Improvement recommendations:**
 
 - **Add adoption curve diagram** with the five adopter categories
-- **Add modern technology examples** — Map real tech products to adopter categories
-- **Add "Applying DOI to Your Organization" section** — Practical guidance
-- **Expand with innovation characteristics** — Detailed explanation of relative advantage, compatibility, complexity, trialability, observability
+- **Add modern technology examples** - Map real tech products to adopter categories
+- **Add "Applying DOI to Your Organization" section** - Practical guidance
+- **Expand with innovation characteristics** - Detailed explanation of relative advantage, compatibility, complexity, trialability, observability
 - **Impact:** 4 | **Effort:** 2 | **Priority Score:** 16
 
-#### 6. `/for-organizations` — For Organizations Landing Page
+#### 6. `/for-organizations` - For Organizations Landing Page
 
 **Current state:** Entry point to role-specific organizational guidance.
 **Improvement recommendations:**
 
-- **Expand from navigation page to substantive content** — Add 1,500+ words on organizational technology adoption challenges
-- **Add framework overview** — Brief comparison of organizational adoption frameworks
-- **Add "Assessment Checklist"** — Quick organizational readiness self-assessment
-- **Improve internal linking** — Deep links to relevant bibliography entries and barrier pages
+- **Expand from navigation page to substantive content** - Add 1,500+ words on organizational technology adoption challenges
+- **Add framework overview** - Brief comparison of organizational adoption frameworks
+- **Add "Assessment Checklist"** - Quick organizational readiness self-assessment
+- **Improve internal linking** - Deep links to relevant bibliography entries and barrier pages
 - **Target keyword** "organizational technology adoption" and "technology adoption for organizations"
 - **Impact:** 4 | **Effort:** 3 | **Priority Score:** 12
 
-#### 7. `/for-organizations/executive-leaders` — Executive Leaders Page
+#### 7. `/for-organizations/executive-leaders` - Executive Leaders Page
 
 **Current state:** Thin page targeting executive decision-makers.
 **Improvement recommendations:**
 
 - **Expand to 2,000+ words** covering executive responsibilities in technology adoption
-- **Add ROI considerations section** — Link executive concern to cost/benefit analysis
-- **Add "Common Executive Mistakes" section** — Based on survey data and research
-- **Add executive briefing download** — PDF summarizing key findings
+- **Add ROI considerations section** - Link executive concern to cost/benefit analysis
+- **Add "Common Executive Mistakes" section** - Based on survey data and research
+- **Add executive briefing download** - PDF summarizing key findings
 - **Target keywords** "CTO technology adoption," "executive technology strategy"
 - **Impact:** 4 | **Effort:** 3 | **Priority Score:** 12
 
-#### 8. `/faq` — FAQ Page
+#### 8. `/faq` - FAQ Page
 
 **Current state:** Common questions about TABS.
 **Improvement recommendations:**
 
-- **Expand question scope** — Add questions about technology adoption generally, not just TABS specifically
-- **Implement FAQ schema markup** — Structured data for SERP feature capture
-- **Group questions by category** — About TABS, About Technology Adoption, About the Survey, Research & Methodology
-- **Target long-tail keywords** in question wording — e.g., "what are the main barriers to technology adoption"
+- **Expand question scope** - Add questions about technology adoption generally, not just TABS specifically
+- **Implement FAQ schema markup** - Structured data for SERP feature capture
+- **Group questions by category** - About TABS, About Technology Adoption, About the Survey, Research & Methodology
+- **Target long-tail keywords** in question wording - e.g., "what are the main barriers to technology adoption"
 - **Impact:** 4 | **Effort:** 2 | **Priority Score:** 16
 
-#### 9. `/technology-adoption-series` — Series Root Page
+#### 9. `/technology-adoption-series` - Series Root Page
 
 **Current state:** Navigation hub for the adoption models article series.
 **Improvement recommendations:**
 
-- **Add 1,000+ words of substantive overview content** — Define what technology adoption models are and why they matter
-- **Add a model comparison table** — Quick-reference grid of all 40 models with key attributes
-- **Add "How to Use This Series" guidance** — Help visitors find the most relevant model for their needs
-- **Optimize for "technology adoption models" keyword** — Currently competes with its own child pages
+- **Add 1,000+ words of substantive overview content** - Define what technology adoption models are and why they matter
+- **Add a model comparison table** - Quick-reference grid of all 40 models with key attributes
+- **Add "How to Use This Series" guidance** - Help visitors find the most relevant model for their needs
+- **Optimize for "technology adoption models" keyword** - Currently competes with its own child pages
 - **Impact:** 5 | **Effort:** 3 | **Priority Score:** 15
 
-#### 10. `/start` — Getting Started Page
+#### 10. `/start` - Getting Started Page
 
 **Current state:** Persona selection entry point.
 **Improvement recommendations:**
 
-- **Add context-setting content** — Explain what TABS offers and why barrier identification matters
-- **Expand persona descriptions** — 2–3 sentences per persona explaining what they'll find
-- **Add "Quick Assessment" call to action** — Direct path to the survey
+- **Add context-setting content** - Explain what TABS offers and why barrier identification matters
+- **Expand persona descriptions** - 2-3 sentences per persona explaining what they'll find
+- **Add "Quick Assessment" call to action** - Direct path to the survey
 - **Target keyword** "technology adoption barriers assessment" and "identify technology barriers"
 - **Impact:** 3 | **Effort:** 2 | **Priority Score:** 12
 
@@ -451,55 +451,55 @@ Some existing content could benefit from consolidation to reduce thin pages and 
 
 ## Content Calendar
 
-### Phase 1: Quick Wins (Months 1–3)
+### Phase 1: Quick Wins (Months 1-3)
 
 Focus on optimizing existing content and creating high-priority new pages that leverage existing knowledge.
 
 | Month | Action                                                          | Type             | Target Page(s)                          | Est. Hours |
 | ----- | --------------------------------------------------------------- | ---------------- | --------------------------------------- | ---------- |
-| 1     | Optimize TAM bibliography article (add examples, FAQ, meta)     | Content update   | `/bibliography-1-6-*`                   | 4–6        |
-| 1     | Optimize UTAUT bibliography article (add diagram, comparison)   | Content update   | `/bibliography-1-15-*`                  | 4–6        |
-| 1     | Optimize Diffusion of Innovations article (add curve, examples) | Content update   | `/bibliography-1-2-*`                   | 4–6        |
-| 1     | Expand FAQ page with general adoption questions + FAQ schema    | Content update   | `/faq`                                  | 3–4        |
-| 2     | Create "TAM Model Explained" practitioner guide                 | New page         | `/tam-model-explained`                  | 8–12       |
-| 2     | Create "UTAUT Model Explained" practitioner guide               | New page         | `/utaut-model-explained`                | 8–12       |
-| 2     | Create "Technology Adoption Survey Questions" guide             | New page         | `/technology-adoption-survey-questions` | 6–8        |
-| 3     | Create "Technology Adoption Model Comparison Guide"             | New page         | `/technology-adoption-model-comparison` | 10–14      |
-| 3     | Create "Cost Barriers to Technology Adoption" deep-dive         | New page         | `/barriers/cost-barriers`               | 6–8        |
-| 3     | Create "Nonprofit Technology Adoption Guide"                    | New page         | `/for-organizations/nonprofits`         | 6–8        |
-| 3     | Implement internal linking improvements across all pages        | Technical update | Site-wide                               | 6–10       |
+| 1     | Optimize TAM bibliography article (add examples, FAQ, meta)     | Content update   | `/bibliography-1-6-*`                   | 4-6        |
+| 1     | Optimize UTAUT bibliography article (add diagram, comparison)   | Content update   | `/bibliography-1-15-*`                  | 4-6        |
+| 1     | Optimize Diffusion of Innovations article (add curve, examples) | Content update   | `/bibliography-1-2-*`                   | 4-6        |
+| 1     | Expand FAQ page with general adoption questions + FAQ schema    | Content update   | `/faq`                                  | 3-4        |
+| 2     | Create "TAM Model Explained" practitioner guide                 | New page         | `/tam-model-explained`                  | 8-12       |
+| 2     | Create "UTAUT Model Explained" practitioner guide               | New page         | `/utaut-model-explained`                | 8-12       |
+| 2     | Create "Technology Adoption Survey Questions" guide             | New page         | `/technology-adoption-survey-questions` | 6-8        |
+| 3     | Create "Technology Adoption Model Comparison Guide"             | New page         | `/technology-adoption-model-comparison` | 10-14      |
+| 3     | Create "Cost Barriers to Technology Adoption" deep-dive         | New page         | `/barriers/cost-barriers`               | 6-8        |
+| 3     | Create "Nonprofit Technology Adoption Guide"                    | New page         | `/for-organizations/nonprofits`         | 6-8        |
+| 3     | Implement internal linking improvements across all pages        | Technical update | Site-wide                               | 6-10       |
 
-### Phase 2: Medium-Term Growth (Months 4–6)
+### Phase 2: Medium-Term Growth (Months 4-6)
 
 Expand into barrier subcategories and organizational content.
 
 | Month | Action                                                 | Type           | Target Page(s)                              | Est. Hours |
 | ----- | ------------------------------------------------------ | -------------- | ------------------------------------------- | ---------- |
-| 4     | Create "How to Measure Technology Adoption" guide      | New page       | `/measuring-technology-adoption`            | 10–14      |
-| 4     | Create "Legacy System Modernization Barriers"          | New page       | `/barriers/legacy-system-barriers`          | 8–10       |
-| 4     | Expand `/for-organizations` landing page               | Content update | `/for-organizations`                        | 6–8        |
-| 5     | Create "Change Management for Technology Adoption"     | New page       | `/change-management-technology-adoption`    | 10–14      |
-| 5     | Create "Cybersecurity Adoption Barriers"               | New page       | `/barriers/cybersecurity-adoption-barriers` | 8–10       |
-| 5     | Create "Executive Guide to Technology Adoption"        | New page       | `/for-organizations/executive-guide`        | 8–12       |
-| 6     | Create "Diffusion of Innovation Examples" case studies | New page       | `/diffusion-of-innovation-examples`         | 10–14      |
-| 6     | Create "Technology Adoption Failure" analysis          | New page       | `/technology-adoption-failure`              | 8–10       |
-| 6     | Create "Resistance to Technology Change" deep-dive     | New page       | `/barriers/resistance-to-change`            | 8–10       |
-| 6     | Expand all role-specific `/for-organizations/*` pages  | Content update | 4 role pages                                | 12–16      |
+| 4     | Create "How to Measure Technology Adoption" guide      | New page       | `/measuring-technology-adoption`            | 10-14      |
+| 4     | Create "Legacy System Modernization Barriers"          | New page       | `/barriers/legacy-system-barriers`          | 8-10       |
+| 4     | Expand `/for-organizations` landing page               | Content update | `/for-organizations`                        | 6-8        |
+| 5     | Create "Change Management for Technology Adoption"     | New page       | `/change-management-technology-adoption`    | 10-14      |
+| 5     | Create "Cybersecurity Adoption Barriers"               | New page       | `/barriers/cybersecurity-adoption-barriers` | 8-10       |
+| 5     | Create "Executive Guide to Technology Adoption"        | New page       | `/for-organizations/executive-guide`        | 8-12       |
+| 6     | Create "Diffusion of Innovation Examples" case studies | New page       | `/diffusion-of-innovation-examples`         | 10-14      |
+| 6     | Create "Technology Adoption Failure" analysis          | New page       | `/technology-adoption-failure`              | 8-10       |
+| 6     | Create "Resistance to Technology Change" deep-dive     | New page       | `/barriers/resistance-to-change`            | 8-10       |
+| 6     | Expand all role-specific `/for-organizations/*` pages  | Content update | 4 role pages                                | 12-16      |
 
-### Phase 3: Strategic Expansion (Months 7–12)
+### Phase 3: Strategic Expansion (Months 7-12)
 
 Enter competitive keyword spaces with comprehensive, data-driven content.
 
 | Month   | Action                                                         | Type        | Target Page(s)                           | Est. Hours |
 | ------- | -------------------------------------------------------------- | ----------- | ---------------------------------------- | ---------- |
-| 7–8     | Create "AI Adoption Barriers" comprehensive guide              | New page    | `/barriers/ai-adoption-barriers`         | 14–18      |
-| 7–8     | Create "Healthcare Technology Adoption Barriers"               | New page    | `/barriers/healthcare-adoption-barriers` | 12–16      |
-| 8–9     | Create "Small Business Technology Adoption Guide"              | New page    | `/for-organizations/small-businesses`    | 10–14      |
-| 9–10    | Create "Technology Adoption by Industry: Comparative Analysis" | New page    | `/barriers/industry-comparison`          | 16–20      |
-| 10–11   | Create "Digital Divide Statistics & Research"                  | New page    | `/digital-divide-statistics`             | 14–18      |
-| 11–12   | Create "Government Technology Adoption" guide                  | New page    | `/barriers/government-adoption`          | 10–14      |
-| 11–12   | Create "Manufacturing Technology Adoption" guide               | New page    | `/barriers/manufacturing-adoption`       | 10–14      |
-| Ongoing | Monthly content refresh and keyword monitoring                 | Maintenance | All pages                                | 4–6/month  |
+| 7-8     | Create "AI Adoption Barriers" comprehensive guide              | New page    | `/barriers/ai-adoption-barriers`         | 14-18      |
+| 7-8     | Create "Healthcare Technology Adoption Barriers"               | New page    | `/barriers/healthcare-adoption-barriers` | 12-16      |
+| 8-9     | Create "Small Business Technology Adoption Guide"              | New page    | `/for-organizations/small-businesses`    | 10-14      |
+| 9-10    | Create "Technology Adoption by Industry: Comparative Analysis" | New page    | `/barriers/industry-comparison`          | 16-20      |
+| 10-11   | Create "Digital Divide Statistics & Research"                  | New page    | `/digital-divide-statistics`             | 14-18      |
+| 11-12   | Create "Government Technology Adoption" guide                  | New page    | `/barriers/government-adoption`          | 10-14      |
+| 11-12   | Create "Manufacturing Technology Adoption" guide               | New page    | `/barriers/manufacturing-adoption`       | 10-14      |
+| Ongoing | Monthly content refresh and keyword monitoring                 | Maintenance | All pages                                | 4-6/month  |
 
 ---
 
@@ -507,7 +507,7 @@ Enter competitive keyword spaces with comprehensive, data-driven content.
 
 ### All Recommendations Ranked
 
-| Rank | Recommendation                             | Type           | Impact (1–5) | Effort (1–5) | Priority Score | Timeline    |
+| Rank | Recommendation                             | Type           | Impact (1-5) | Effort (1-5) | Priority Score | Timeline    |
 | ---- | ------------------------------------------ | -------------- | ------------ | ------------ | -------------- | ----------- |
 | 1    | TAM Model Explained page                   | New content    | 5            | 2            | 20             | Month 2     |
 | 2    | UTAUT Model Explained page                 | New content    | 5            | 2            | 20             | Month 2     |
@@ -534,15 +534,15 @@ Enter competitive keyword spaces with comprehensive, data-driven content.
 | 23   | Technology Adoption Failure page           | New content    | 4            | 3            | 12             | Month 6     |
 | 24   | Expand `/start` page                       | Content update | 3            | 2            | 12             | Month 3     |
 | 25   | Expand executive leaders page              | Content update | 4            | 3            | 12             | Month 6     |
-| 26   | AI Adoption Barriers                       | New content    | 5            | 4            | 10             | Month 7–8   |
+| 26   | AI Adoption Barriers                       | New content    | 5            | 4            | 10             | Month 7-8   |
 | 27   | Technology ROI Measurement                 | New content    | 5            | 4            | 10             | Month 5     |
-| 28   | Healthcare Adoption Barriers               | New content    | 4            | 4            | 8              | Month 7–8   |
-| 29   | Small Business Technology Adoption         | New content    | 4            | 4            | 8              | Month 8–9   |
+| 28   | Healthcare Adoption Barriers               | New content    | 4            | 4            | 8              | Month 7-8   |
+| 29   | Small Business Technology Adoption         | New content    | 4            | 4            | 8              | Month 8-9   |
 | 30   | Digital Literacy and Adoption              | New content    | 3            | 4            | 6              | Month 10    |
-| 31   | Manufacturing Technology Adoption          | New content    | 3            | 4            | 6              | Month 11–12 |
-| 32   | Government Technology Adoption             | New content    | 3            | 4            | 6              | Month 11–12 |
-| 33   | Industry Comparison Analysis               | New content    | 4            | 5            | 4              | Month 9–10  |
-| 34   | Digital Divide Statistics                  | New content    | 3            | 5            | 3              | Month 10–11 |
+| 31   | Manufacturing Technology Adoption          | New content    | 3            | 4            | 6              | Month 11-12 |
+| 32   | Government Technology Adoption             | New content    | 3            | 4            | 6              | Month 11-12 |
+| 33   | Industry Comparison Analysis               | New content    | 4            | 5            | 4              | Month 9-10  |
+| 34   | Digital Divide Statistics                  | New content    | 3            | 5            | 3              | Month 10-11 |
 | 35   | Digital Transformation Framework           | New content    | 3            | 5            | 3              | Month 12    |
 
 ### Priority Quadrant Summary
@@ -584,12 +584,12 @@ EFFORT├──────────────────┼────�
 
 TABS has automated SEO data collection through:
 
-- **Google Search Console API** — `src/lib/google-search-console.ts` (keyword rankings, impressions, clicks)
-- **Google Analytics 4 API** — `src/lib/google-analytics.ts` (page-level traffic, engagement metrics)
-- **Automated weekly collection** — `.github/workflows/seo-metrics.yml` (Mondays 01:00 UTC)
+- **Google Search Console API** - `src/lib/google-search-console.ts` (keyword rankings, impressions, clicks)
+- **Google Analytics 4 API** - `src/lib/google-analytics.ts` (page-level traffic, engagement metrics)
+- **Automated weekly collection** - `.github/workflows/seo-metrics.yml` (Mondays 01:00 UTC)
 - **Collection scripts**:
-  - `scripts/collect-seo-keywords.ts` — Top 100 keywords by clicks, top 50 landing pages
-  - `scripts/collect-page-seo-metrics.ts` — Per-page SEO performance with GSC + GA4 merge
+  - `scripts/collect-seo-keywords.ts` - Top 100 keywords by clicks, top 50 landing pages
+  - `scripts/collect-page-seo-metrics.ts` - Per-page SEO performance with GSC + GA4 merge
 
 ### Recommended Tools for Ongoing Analysis
 
@@ -597,8 +597,8 @@ TABS has automated SEO data collection through:
 | ------------------------- | -------------------------------------------------- | ----------------------- | ---------------------------- |
 | Google Search Console     | Keyword position tracking, indexing status         | Free                    | ★★★★★ (already integrated)   |
 | Google Analytics 4        | Traffic analysis, engagement metrics               | Free                    | ★★★★★ (already integrated)   |
-| SE Ranking or Moz Pro     | Competitor keyword tracking, rank monitoring       | $50–100/month           | ★★★★☆ (recommended)          |
-| Semrush or Ahrefs         | Comprehensive keyword gap analysis, backlink audit | $100–200/month          | ★★★☆☆ (aspirational)         |
+| SE Ranking or Moz Pro     | Competitor keyword tracking, rank monitoring       | $50-100/month           | ★★★★☆ (recommended)          |
+| Semrush or Ahrefs         | Comprehensive keyword gap analysis, backlink audit | $100-200/month          | ★★★☆☆ (aspirational)         |
 | Google Keyword Planner    | Search volume estimates, keyword ideas             | Free (with Ads account) | ★★★★☆ (for content planning) |
 | Screaming Frog SEO Spider | Technical SEO audit, internal link analysis        | Free (500 URLs)         | ★★★★☆ (one-time audits)      |
 
@@ -608,9 +608,9 @@ TABS has automated SEO data collection through:
 | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------ |
 | [Competitor Profiles](./competitor-profiles.md)                                                                        | 12 competitor strategies, DA estimates, content focus | Identifies which competitors own which keyword spaces              |
 | [Competitive SERP Benchmarking](./competitive-serp-benchmarking.md)                                                    | 25 priority keyword positions, SERP features          | Provides baseline ranking data and SERP opportunity analysis       |
-| Page Performance Analysis (planned — [#479](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/479)) | Top/bottom performing pages with traffic data         | Will provide actual traffic data to validate gap priorities        |
-| On-Page SEO Audit (planned — [#480](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/480))         | Technical SEO issues, meta tag audit                  | Will identify technical fixes that complement content improvements |
-| SEO Dashboard (planned — [#483](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/483))             | Ongoing monitoring and reporting templates            | Will track progress on implementing these recommendations          |
+| Page Performance Analysis (planned - [#479](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/479)) | Top/bottom performing pages with traffic data         | Will provide actual traffic data to validate gap priorities        |
+| On-Page SEO Audit (planned - [#480](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/480))         | Technical SEO issues, meta tag audit                  | Will identify technical fixes that complement content improvements |
+| SEO Dashboard (planned - [#483](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/483))             | Ongoing monitoring and reporting templates            | Will track progress on implementing these recommendations          |
 
 ---
 

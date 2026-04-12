@@ -13,7 +13,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: IT Implementation Research – Cooper & Zmud (1990)',
+  title: 'Bibliography: IT Implementation Research - Cooper & Zmud (1990)',
   description:
     "An exploration of Cooper and Zmud's IT Implementation Process Model, a foundational framework for understanding information technology implementation through six stages and the critical role of task-technology compatibility.",
 }

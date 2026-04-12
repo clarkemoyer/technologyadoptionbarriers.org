@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Diffusion of Innovations – Organizational Perspective – Rogers (1962)',
+  title: 'Bibliography: Diffusion of Innovations - Organizational Perspective - Rogers (1962)',
   description:
     'An exploration of Diffusion of Innovations by Everett M. Rogers (1962) from an organizational adoption perspective, examining how the five adopter categories, innovation attributes, and diffusion channels apply to enterprise and institutional technology adoption decisions.',
 }

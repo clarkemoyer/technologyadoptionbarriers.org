@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""validate-deck.py — Offline PPTX deck statistics validator.
+"""validate-deck.py - Offline PPTX deck statistics validator.
 
 Reads a Qualtrics CSV export and a PPTX presentation file (or directory of
 unpacked slide XML), computes survey statistics (item means, standard
@@ -37,7 +37,7 @@ from dataclasses import dataclass, field
 from io import StringIO
 from pathlib import Path
 
-# Optional heavy-weight libraries — the script falls back to pure-Python
+# Optional heavy-weight libraries - the script falls back to pure-Python
 # implementations when they are absent.
 try:
     from scipy import stats as scipy_stats
@@ -128,9 +128,9 @@ def parse_qualtrics_csv(
     reader = csv.reader(StringIO(text))
 
     try:
-        headers: list[str] = next(reader)  # Row 1 – column labels
-        next(reader)  # Row 2 – long descriptions (skip)
-        next(reader)  # Row 3 – import IDs (skip)
+        headers: list[str] = next(reader)  # Row 1 - column labels
+        next(reader)  # Row 2 - long descriptions (skip)
+        next(reader)  # Row 3 - import IDs (skip)
     except StopIteration:
         _log("Error: CSV has fewer than 3 header rows (expected Qualtrics 3-row format)")
         return [], []
@@ -329,12 +329,12 @@ def compute_construct_scores(
 
     Returns a dict keyed by construct name, each containing:
 
-    * ``items`` – matched column names
-    * ``item_means`` / ``item_sds`` – per-item descriptive stats
-    * ``grand_mean`` / ``grand_sd`` – construct-level (mean of respondent
+    * ``items`` - matched column names
+    * ``item_means`` / ``item_sds`` - per-item descriptive stats
+    * ``grand_mean`` / ``grand_sd`` - construct-level (mean of respondent
       means)
-    * ``n`` – number of respondents with at least one valid item value
-    * ``respondent_means`` – list of per-respondent mean scores
+    * ``n`` - number of respondents with at least one valid item value
+    * ``respondent_means`` - list of per-respondent mean scores
     """
 
     results: dict[str, dict] = {}
@@ -881,7 +881,7 @@ def main() -> int:
         print_report(report)
 
     if report.total == 0:
-        _log("Warning: no checks were performed — verify CSV columns match construct patterns")
+        _log("Warning: no checks were performed - verify CSV columns match construct patterns")
         return 1
     return 0 if report.all_passed else 1
 
