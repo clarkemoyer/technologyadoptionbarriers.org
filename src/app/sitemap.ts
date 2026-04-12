@@ -348,12 +348,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.9,
     },
-    {
-      url: `${baseUrl}/barriers/quotes`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
     // Results section
     {
       url: `${baseUrl}/results`,
@@ -423,6 +417,66 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/results/reproducibility`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/crp-2026`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/results/crp-2026/sample`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/crp-2026/descriptive`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/crp-2026/reliability`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/crp-2026/sensitivity`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/crp-2026/findings`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/crp-2026/data-quality`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/crp-2026/factor-analysis`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/crp-2026/glossary`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/crp-2026/validation`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
@@ -548,7 +602,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/making-of-tabs/integrations/google-jules`,
+      url: `${baseUrl}/making-of-tabs/integrations/zotero`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
@@ -558,6 +612,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/ai-assisted-development/squash-merge-incident`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/ai-assisted-development/overnight-shift`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.5,
     },
     {
       url: `${baseUrl}/making-of-tabs/development-workflow`,
@@ -585,12 +651,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/making-of-tabs/seo`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/making-of-tabs/automation-infrastructure`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,

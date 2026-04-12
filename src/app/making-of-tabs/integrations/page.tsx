@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
-
 export const metadata: Metadata = {
   title: 'Technical Integrations & Workflows — Making of TABS',
   description:
@@ -10,32 +9,21 @@ export const metadata: Metadata = {
 
 const IntegrationsPage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
-          <Link href="/making-of-tabs" className="hover:text-blue-600 hover:underline">
-            Making of TABS
-          </Link>
-          <span className="mx-2" aria-hidden="true">
-            ›
-          </span>
-          <span className="text-gray-800" aria-current="page">
-            Technical Integrations
-          </span>
-        </nav>
-
         <h1 className={H1_CLASSES}>Technical Integrations &amp; Workflows</h1>
 
         <section className="mb-10 text-gray-800">
           <p className="mb-6">
             Running a long-term academic survey across multiple platforms requires reliable,
-            automated plumbing. This page explains the three major platform integrations that keep
+            automated plumbing. This page explains the four major platform integrations that keep
             TABS running: <strong>Qualtrics</strong> (the survey engine), <strong>Prolific</strong>{' '}
-            (the participant recruitment platform), and{' '}
+            (the participant recruitment platform),{' '}
             <strong>Google Analytics & Search Console</strong> (impact measurement and SEO
-            transparency). Each integration is managed through GitHub Actions workflows and
-            TypeScript client libraries, so the entire operational lifecycle — from survey creation
-            to data collection to analytics — is version-controlled and reproducible.
+            transparency), and <strong>Zotero</strong> (the vetted reference library powering
+            AI-assisted research). Each integration is managed through GitHub Actions workflows and
+            TypeScript or Python client libraries, so the entire operational lifecycle — from survey
+            creation to data collection to analytics — is version-controlled and reproducible.
           </p>
         </section>
 
@@ -102,12 +90,12 @@ const IntegrationsPage = () => {
               </p>
             </Link>
             <Link
-              href="/making-of-tabs/integrations/google-jules"
-              className="block rounded-xl border border-rose-200 bg-rose-50 p-5 transition-shadow hover:shadow-md"
+              href="/making-of-tabs/integrations/zotero"
+              className="block rounded-xl border border-red-200 bg-red-50 p-5 transition-shadow hover:shadow-md"
             >
-              <p className="font-bold text-rose-900 mb-1">Google Jules</p>
-              <p className="text-sm text-rose-800">
-                Autonomous coding agent powered by Gemini for frontend work and content updates
+              <p className="font-bold text-red-900 mb-1">Zotero</p>
+              <p className="text-sm text-red-800">
+                Vetted reference library, citation validation, and AI-assisted research grounding
               </p>
             </Link>
           </div>
@@ -567,7 +555,7 @@ const IntegrationsPage = () => {
           </p>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

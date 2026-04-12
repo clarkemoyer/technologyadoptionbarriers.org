@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import { assetPath } from '@/lib/assetPath'
-
 export const metadata: Metadata = {
   title: 'TABS Presentation | The Making of TABS',
   description:
@@ -11,7 +10,7 @@ export const metadata: Metadata = {
 
 const TabsPresentationEmbedPage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>TABS Presentation</h1>
 
@@ -58,7 +57,7 @@ const TabsPresentationEmbedPage = () => {
           </p>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
-
 export const metadata: Metadata = {
   title: 'Gemini 3.1 Validity Review — Making of TABS',
   description:
@@ -13,34 +12,8 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-1">
-            <li>
-              <Link href="/making-of-tabs" className="hover:text-blue-600 hover:underline">
-                Making of TABS
-              </Link>
-              <span className="mx-2" aria-hidden="true">
-                ›
-              </span>
-            </li>
-            <li>
-              <Link
-                href="/making-of-tabs/ai-validity-checks"
-                className="hover:text-blue-600 hover:underline"
-              >
-                AI Validity Checks
-              </Link>
-              <span className="mx-2" aria-hidden="true">
-                ›
-              </span>
-            </li>
-            <li className="text-gray-800" aria-current="page">
-              Gemini 3.1 Review
-            </li>
-          </ol>
-        </nav>
         <h1 className={H1_CLASSES}>Gemini 3.1 Validity Review</h1>
 
         <section className="mb-10 text-gray-800">
@@ -127,6 +100,6 @@ export default function Page() {
           </div>
         </section>
       </article>
-    </main>
+    </div>
   )
 }

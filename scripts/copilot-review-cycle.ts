@@ -687,8 +687,10 @@ function buildRoundHistory(repo: string, prNumber: string, finalRound: number): 
 async function main() {
   const repo = process.env.REPO_NAME
   const prNumber = process.env.PR_NUMBER
-  const round = Math.max(1, parseInt(process.env.ROUND || '1', 10))
-  const maxRounds = Math.max(1, parseInt(process.env.MAX_ROUNDS || '7', 10))
+  const parsedRound = parseInt(process.env.ROUND || '1', 10)
+  const round = Math.max(1, Number.isFinite(parsedRound) ? parsedRound : 1)
+  const parsedMaxRounds = parseInt(process.env.MAX_ROUNDS || '14', 10)
+  const maxRounds = Math.max(1, Number.isFinite(parsedMaxRounds) ? parsedMaxRounds : 14)
   const autoMerge = process.env.AUTO_MERGE === 'true'
 
   if (!repo || !prNumber) {
@@ -733,6 +735,22 @@ async function main() {
 
   if (!review) {
     console.log('\nCopilot review did not arrive within timeout.')
+    if (round >= maxRounds) {
+      postComment(
+        repo,
+        prNumber,
+        `**Copilot Review Cycle (Round ${round}/${maxRounds}):** Timed out waiting for Copilot review and max rounds reached. Human attention needed.`
+      )
+      writeSummary(
+        prNumber,
+        round,
+        maxRounds,
+        'TIMEOUT_MAX_ROUNDS',
+        0,
+        'Review timeout at max rounds'
+      )
+      process.exit(1)
+    }
     postComment(
       repo,
       prNumber,

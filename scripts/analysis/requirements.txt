@@ -11,3 +11,4 @@ seaborn==0.13.2
 
 # These are the versions used in the final analysis for the CRP
 # Run: pip install -r requirements.txt
+# For EFA/CFA validation: pip install -r requirements-validation.txt (optional)

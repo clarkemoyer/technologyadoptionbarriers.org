@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
-
 export const metadata: Metadata = {
   title: 'Development Workflow — Making of TABS',
   description:
@@ -13,24 +12,8 @@ export const metadata: Metadata = {
 
 const DevelopmentWorkflowPage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-1">
-            <li>
-              <Link href="/making-of-tabs" className="hover:text-blue-600 hover:underline">
-                Making of TABS
-              </Link>
-              <span className="mx-2" aria-hidden="true">
-                ›
-              </span>
-            </li>
-            <li className="text-gray-800" aria-current="page">
-              Development Workflow
-            </li>
-          </ol>
-        </nav>
-
         <h1 className={H1_CLASSES}>Development Workflow</h1>
 
         <section className="mb-10 text-gray-800">
@@ -224,6 +207,104 @@ const DevelopmentWorkflowPage = () => {
           </p>
         </section>
 
+        {/* ── Parallel Development ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Parallel Development: Git Worktrees</h2>
+          <p className="mb-6">
+            To maintain high velocity, TABS developers leverage the <strong>Git Worktree</strong>{' '}
+            pattern. While standard development involves switching branches in a single directory,
+            worktrees allow multiple branches to be checked out simultaneously in separate folders.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div className="p-5 rounded-xl border border-blue-100 bg-blue-50/50">
+              <h3 className="font-bold text-blue-900 mb-2">Standard Switching</h3>
+              <ul className="text-sm space-y-2 text-blue-800">
+                <li className="flex gap-2">
+                  <span className="text-blue-500" aria-hidden="true" title="Disadvantage">
+                    ✕
+                  </span>
+                  Stashing changes required
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-blue-500" aria-hidden="true" title="Disadvantage">
+                    ✕
+                  </span>
+                  Re-running installs/builds
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-blue-500" aria-hidden="true" title="Disadvantage">
+                    ✕
+                  </span>
+                  Loss of terminal state
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-blue-500" aria-hidden="true" title="Disadvantage">
+                    ✕
+                  </span>
+                  One task at a time
+                </li>
+              </ul>
+            </div>
+
+            <div className="p-5 rounded-xl border border-green-100 bg-green-50/50">
+              <h3 className="font-bold text-green-900 mb-2">Worktree Parallelism</h3>
+              <ul className="text-sm space-y-2 text-green-800">
+                <li className="flex gap-2">
+                  <span className="text-green-500" aria-hidden="true" title="Advantage">
+                    ✓
+                  </span>
+                  No stashing or &quot;dirty tree&quot; issues
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-green-500" aria-hidden="true" title="Advantage">
+                    ✓
+                  </span>
+                  Independent build artifacts
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-green-500" aria-hidden="true" title="Advantage">
+                    ✓
+                  </span>
+                  Persistent terminal/IDE state
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-green-500" aria-hidden="true" title="Advantage">
+                    ✓
+                  </span>
+                  3-5 parallel agent sessions
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <p className="mb-6">
+            This pattern is particularly effective when working with AI coding agents. A developer
+            can spin up 3-5 separate worktrees, each with its own terminal and Claude Code session,
+            to handle different aspects of the project in parallel:
+          </p>
+
+          <div className="mb-6 rounded-lg bg-gray-900 text-gray-100 p-4 overflow-x-auto">
+            <pre className="text-sm font-mono whitespace-pre-wrap">
+              <code>{`# Create worktrees for parallel tasks
+git worktree add -b feat/viz ../tabs-feature main
+git worktree add -b fix/nav ../tabs-bugfix main
+git worktree add -b docs/api ../tabs-docs main
+
+# Start separate Claude sessions in each directory
+~/tabs-feature $ claude "Implement new heatmap viz"
+~/tabs-bugfix  $ claude "Fix mobile nav overflow"
+~/tabs-docs    $ claude "Update API documentation"`}</code>
+            </pre>
+          </div>
+
+          <p>
+            By decoupling the local development environment from a single branch, we eliminate the
+            &quot;waiting for CI&quot; or &quot;waiting for build&quot; bottlenecks that slow down
+            traditional workflows.
+          </p>
+        </section>
+
         {/* ── Automated Operations ── */}
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Automated Operations</h2>
@@ -315,7 +396,7 @@ const DevelopmentWorkflowPage = () => {
           </p>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

@@ -99,24 +99,8 @@ const DispositionDashboardPage = () => {
   const flaggedPct = total > 0 ? ((flaggedCount / total) * 100).toFixed(1) : '0'
 
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-1">
-            <li>
-              <Link href="/results" className="hover:text-blue-600 hover:underline">
-                Results
-              </Link>
-              <span className="mx-2" aria-hidden="true">
-                &rsaquo;
-              </span>
-            </li>
-            <li className="text-gray-800" aria-current="page">
-              Prolific Dashboard
-            </li>
-          </ol>
-        </nav>
-
         <h1 className={H1_CLASSES}>Response Disposition Dashboard</h1>
         <LastUpdated
           utcTimestamp={(dispositionData as Record<string, unknown>).last_updated as string}
@@ -745,7 +729,7 @@ const DispositionDashboardPage = () => {
           </p>
         </footer>
       </article>
-    </main>
+    </div>
   )
 }
 

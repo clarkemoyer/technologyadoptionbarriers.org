@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 import { assetPath } from '@/lib/assetPath'
-
 export const metadata: Metadata = {
   title: 'The Making of TABS',
   description:
@@ -11,7 +10,7 @@ export const metadata: Metadata = {
 
 const MakingOfTabsPage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>The Making of TABS</h1>
 
@@ -141,7 +140,7 @@ const MakingOfTabsPage = () => {
           <div className="mb-8">
             <h3 className={H3_CLASSES}>Google Analytics 4 (GA4)</h3>
             <p className="mb-4">
-              To understand how researchers and participants interact with our findings, we utilize
+              To understand how researchers and participants interact with our findings, we utilize{' '}
               <strong>Google Analytics 4</strong>. This provides us with aggregate, privacy-safe
               insights into traffic sources, popular content, and user engagement, helping us refine
               our dissemination strategy.
@@ -255,15 +254,6 @@ const MakingOfTabsPage = () => {
                 titleColor: 'text-teal-900',
                 textColor: 'text-teal-800',
               },
-              {
-                title: 'Automation Infrastructure',
-                href: '/making-of-tabs/automation-infrastructure',
-                desc: 'The hands-off chain from issue to production, daily data pipelines, privacy boundaries, and AI agent coordination.',
-                border: 'border-indigo-200',
-                bg: 'bg-indigo-50',
-                titleColor: 'text-indigo-900',
-                textColor: 'text-indigo-800',
-              },
             ].map((card) => (
               <Link
                 key={card.href}
@@ -291,7 +281,7 @@ const MakingOfTabsPage = () => {
           </p>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

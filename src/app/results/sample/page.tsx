@@ -10,7 +10,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
-
+import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 export const metadata: Metadata = {
   title: 'Sample & Demographics — TABS Results',
   description:
@@ -22,7 +22,13 @@ export const metadata: Metadata = {
 
 interface OtherRolesData {
   total: number
-  categories: Record<string, number>
+  categories: Record<string, number | string>
+}
+
+interface RoleCategoryInfo {
+  label: string
+  description: string
+  examples: string
 }
 
 interface DemographicsData {
@@ -54,25 +60,18 @@ const pct = (count: number, total: number | null | undefined): string =>
 const sampleLookup = new Map(sensitivityData.samples.map((s) => [s.key, s]))
 
 const SamplePage = () => {
+  // Role category metadata is sourced from the JSON when available so the UI stays
+  // in sync with the pipeline. If the JSON does not provide categories, leave the
+  // list empty so the table's empty-state row remains reachable.
+  const roleCategoriesFromData = (sensitivityData as Record<string, unknown>).role_categories as
+    | RoleCategoryInfo[]
+    | undefined
+  const roleCategories: RoleCategoryInfo[] = Array.isArray(roleCategoriesFromData)
+    ? roleCategoriesFromData
+    : []
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-1">
-            <li>
-              <Link href="/results" className="hover:text-blue-600 hover:underline">
-                Results
-              </Link>
-              <span className="mx-2" aria-hidden="true">
-                &rsaquo;
-              </span>
-            </li>
-            <li className="text-gray-800" aria-current="page">
-              Sample &amp; Demographics
-            </li>
-          </ol>
-        </nav>
-
         <h1 className={H1_CLASSES}>Sample &amp; Demographics</h1>
         <LastUpdated
           utcTimestamp={(sensitivityData as Record<string, unknown>).last_updated as string}
@@ -594,7 +593,9 @@ const SamplePage = () => {
                                       <td className="py-1 pr-2 font-medium">{category}</td>
                                       <td className="py-1 text-right font-mono">{count}</td>
                                       <td className="py-1 pl-1 text-right text-gray-500">
-                                        {pct(count, demo.other_roles?.total)}
+                                        {typeof count === 'number'
+                                          ? pct(count, demo.other_roles?.total)
+                                          : '—'}
                                       </td>
                                     </tr>
                                   )
@@ -606,8 +607,9 @@ const SamplePage = () => {
                     </div>
                   </>
                 ) : (
-                  <p className="text-sm text-gray-500 italic mt-2">
-                    Demographics data will be populated by the next pipeline run.
+                  <p className="text-sm text-red-600 font-medium mt-2">
+                    {DATA_UNAVAILABLE} Demographics data missing from sensitivity-analysis.json.
+                    Check the daily pipeline workflow.
                   </p>
                 )}
               </div>
@@ -638,77 +640,28 @@ const SamplePage = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">
-                    C-Suite Adjacent
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    Chief-level titles not in the standard 9 C-suite options
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                    CDO, CPO, CAO, CLO, CAIO, Chief Data Officer, Chief Privacy Officer
-                  </td>
-                </tr>
-                <tr className="bg-gray-50">
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">VP / SVP</td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    Vice President, Senior VP, or Executive VP titles
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                    Vice President, VP, SVP, EVP, AVP
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">Director</td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    Director-level titles across functions
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                    Director of &hellip;, Senior Director, Group Director
-                  </td>
-                </tr>
-                <tr className="bg-gray-50">
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">
-                    Manager / Program Lead
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    Management and team-lead roles
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                    Manager, Program Lead, Team Lead, Supervisor
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">
-                    Owner / Founder / President
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    Business ownership or presidency roles
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                    Owner, Founder, President, Partner, Principal
-                  </td>
-                </tr>
-                <tr className="bg-gray-50">
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">
-                    Technical Specialist
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    Individual contributor or specialist technical roles
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                    Engineer, Architect, Analyst, IT Administrator, Security
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-300 px-4 py-2 font-semibold">Uncategorized</td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    Responses that did not match any keyword pattern, or blank entries
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
-                    &mdash;
-                  </td>
-                </tr>
+                {roleCategories.length > 0 ? (
+                  roleCategories.map((cat, i) => (
+                    <tr key={cat.label} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                      <td className="border border-gray-300 px-4 py-2 font-semibold">
+                        {cat.label}
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">{cat.description}</td>
+                      <td className="border border-gray-300 px-4 py-2 text-xs text-gray-600">
+                        {cat.examples || '\u2014'}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan={3}
+                      className="border border-gray-300 px-4 py-4 text-sm text-gray-600"
+                    >
+                      Role-category methodology details are not available in the current dataset.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
@@ -770,7 +723,7 @@ const SamplePage = () => {
           </ul>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

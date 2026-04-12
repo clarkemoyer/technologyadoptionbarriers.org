@@ -4,7 +4,6 @@ import Link from 'next/link'
 import seoMetrics from '@/data/seo-metrics.json'
 import seoTimeSeries from '@/data/seo-time-series.json'
 import dynamic from 'next/dynamic'
-
 const SEOHistoryChart = dynamic(() => import('@/components/tabs/seo-history-chart'))
 
 export const metadata: Metadata = {
@@ -33,24 +32,8 @@ const SEOTransparencyPage = () => {
   const formattedSnapshotDate = utcDateFormatter.format(syncDateObj)
 
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-1">
-            <li>
-              <Link href="/making-of-tabs" className="hover:text-blue-600 hover:underline">
-                Making of TABS
-              </Link>
-              <span className="mx-2" aria-hidden="true">
-                ›
-              </span>
-            </li>
-            <li className="text-gray-800" aria-current="page">
-              SEO Benchmarking & Transparency
-            </li>
-          </ol>
-        </nav>
-
         <h1 className={H1_CLASSES}>SEO Benchmarking & Transparency</h1>
 
         <section className="mb-10 text-gray-800">
@@ -546,7 +529,7 @@ const SEOTransparencyPage = () => {
           </ul>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

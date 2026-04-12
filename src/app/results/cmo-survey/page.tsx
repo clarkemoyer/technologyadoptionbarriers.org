@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
-
 export const metadata: Metadata = {
   title: 'CMO Survey Comparison — TABS Results',
   description:
@@ -13,24 +12,8 @@ export const metadata: Metadata = {
 
 const CMOSurveyPage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-1">
-            <li>
-              <Link href="/results" className="hover:text-blue-600 hover:underline">
-                Results
-              </Link>
-              <span className="mx-2" aria-hidden="true">
-                &rsaquo;
-              </span>
-            </li>
-            <li className="text-gray-800" aria-current="page">
-              CMO Survey Comparison
-            </li>
-          </ol>
-        </nav>
-
         <h1 className={H1_CLASSES}>The CMO Survey: Inspiring TABS</h1>
 
         <section className="mb-10 text-gray-800">
@@ -467,7 +450,7 @@ const CMOSurveyPage = () => {
           </p>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

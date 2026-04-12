@@ -10,12 +10,62 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
+/* ── Mock next/navigation (required by ResultsNav wrapper) ── */
+const mockedUsePathname = jest.fn().mockReturnValue('/results')
+jest.mock('next/navigation', () => ({
+  usePathname: () => mockedUsePathname(),
+}))
+
+/* ── Mock browser APIs not available in jsdom ── */
+beforeAll(() => {
+  class MockIntersectionObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+
+  class MockResizeObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+
+  if (typeof globalThis.IntersectionObserver === 'undefined') {
+    Object.defineProperty(globalThis, 'IntersectionObserver', {
+      value: MockIntersectionObserver,
+      configurable: true,
+      writable: true,
+    })
+  }
+  if (typeof window.IntersectionObserver === 'undefined') {
+    Object.defineProperty(window, 'IntersectionObserver', {
+      value: MockIntersectionObserver,
+      configurable: true,
+      writable: true,
+    })
+  }
+  if (typeof globalThis.ResizeObserver === 'undefined') {
+    Object.defineProperty(globalThis, 'ResizeObserver', {
+      value: MockResizeObserver,
+      configurable: true,
+      writable: true,
+    })
+  }
+  if (typeof window.ResizeObserver === 'undefined') {
+    Object.defineProperty(window, 'ResizeObserver', {
+      value: MockResizeObserver,
+      configurable: true,
+      writable: true,
+    })
+  }
+})
+
 /* ── Mock data imports ─────────────────────────────────────── */
 
 const MOCK_SENSITIVITY_DATA = {
   last_updated: '2026-04-04T09:00:00Z',
   samples: [
-    { key: 'conservative_clean', label: 'Conservative Clean', description: 'test', n: 77 },
+    { key: 'conservative_clean', label: 'Conservative Clean', description: 'test', n: 20 },
     { key: 'flexible_clean', label: 'Flexible Clean', description: 'test', n: 118 },
     { key: 'prolific_accepted', label: 'Prolific Accepted', description: 'test', n: 208 },
     { key: 'v2_finished', label: 'All V2 Finished', description: 'test', n: 332 },
@@ -158,10 +208,11 @@ const MOCK_SENSITIVITY_DATA = {
   sample_details: {
     conservative_clean: {
       demographics: {
-        roles: {},
+        roles: { CIO: 5, CTO: 3, 'Operations Director': 8, Other: 4 },
         org_sizes: {},
         profit_models: {},
-        tech_vs_nontech: { technical: 0, non_technical: 0, other: 0 },
+        tech_vs_nontech: { technical: 8, non_technical: 8, other: 4 },
+        other_roles: { total: 4, categories: { 'Technical Specialist': 4 } },
       },
       effect_sizes: {},
       cross_tabs: { by_role: [], by_org_size: [] },
@@ -173,6 +224,7 @@ const MOCK_SENSITIVITY_DATA = {
         org_sizes: {},
         profit_models: {},
         tech_vs_nontech: { technical: 0, non_technical: 0, other: 0 },
+        other_roles: { total: 0, categories: {} },
       },
       effect_sizes: {},
       cross_tabs: { by_role: [], by_org_size: [] },
@@ -184,6 +236,7 @@ const MOCK_SENSITIVITY_DATA = {
         org_sizes: {},
         profit_models: {},
         tech_vs_nontech: { technical: 0, non_technical: 0, other: 0 },
+        other_roles: { total: 0, categories: {} },
       },
       effect_sizes: {},
       cross_tabs: { by_role: [], by_org_size: [] },
@@ -195,6 +248,7 @@ const MOCK_SENSITIVITY_DATA = {
         org_sizes: {},
         profit_models: {},
         tech_vs_nontech: { technical: 0, non_technical: 0, other: 0 },
+        other_roles: { total: 0, categories: {} },
       },
       effect_sizes: {},
       cross_tabs: { by_role: [], by_org_size: [] },
@@ -206,12 +260,30 @@ const MOCK_SENSITIVITY_DATA = {
         org_sizes: {},
         profit_models: {},
         tech_vs_nontech: { technical: 0, non_technical: 0, other: 0 },
+        other_roles: { total: 0, categories: {} },
       },
       effect_sizes: {},
       cross_tabs: { by_role: [], by_org_size: [] },
       inferential: {},
     },
   },
+  role_categories: [
+    {
+      label: 'C-Suite Adjacent',
+      description: 'Chief-level titles not in the standard 9 C-suite options',
+      examples: 'CDO, CPO, CAO',
+    },
+    {
+      label: 'Technical Specialist',
+      description: 'Individual contributor or specialist technical roles',
+      examples: 'Engineer, Architect, Analyst',
+    },
+    {
+      label: 'Uncategorized',
+      description: 'Responses that did not match any keyword pattern, or blank entries',
+      examples: '',
+    },
+  ],
   // filter_bias_analysis: mix of ok:true and ok:false to exercise both rendering paths
   filter_bias_analysis: {
     role: { ok: true, chi2: 1.23, p_value: 0.54, df: 6, error: null },
@@ -251,6 +323,20 @@ jest.mock('@/data/data-audit.json', () => ({
   dispositionCounts: {},
   dispositionByStatus: {},
 }))
+jest.mock('@/data/crp-sensitivity-analysis.json', () => ({
+  ...MOCK_SENSITIVITY_DATA,
+  samples: [
+    { key: 'conservative_clean', label: 'Conservative Clean', description: 'test', n: 78 },
+    { key: 'flexible_clean', label: 'Flexible Clean', description: 'test', n: 123 },
+    { key: 'prolific_accepted', label: 'CRP Sample', description: 'test', n: 200 },
+  ],
+}))
+
+// Mock EffectSizeChart so we can inspect the data props it receives.
+jest.mock('@/components/effect-size-chart', () => ({
+  __esModule: true,
+  default: jest.fn(() => null),
+}))
 
 /* ── Tests ─────────────────────────────────────────────────── */
 
@@ -263,6 +349,9 @@ describe('Results Overview', () => {
 })
 
 describe('Sensitivity Analysis Page', () => {
+  beforeEach(() => {
+    mockedUsePathname.mockReturnValue('/results/sensitivity')
+  })
   it('renders heading', async () => {
     const { default: Page } = await import('@/app/results/sensitivity/page')
     render(<Page />)
@@ -293,10 +382,56 @@ describe('Key Findings Page', () => {
 })
 
 describe('Sample & Demographics Page', () => {
+  beforeEach(() => {
+    mockedUsePathname.mockReturnValue('/results/sample')
+  })
   it('renders heading', async () => {
     const { default: Page } = await import('@/app/results/sample/page')
     render(<Page />)
     expect(screen.getByRole('heading', { name: /sample & demographics/i })).toBeInTheDocument()
+  })
+
+  it('renders Technical vs. Non-Technical Breakdown panel when tech_vs_nontech data is present', async () => {
+    const { default: Page } = await import('@/app/results/sample/page')
+    render(<Page />)
+    // The conservative_clean group has non-zero roles (hasDemoData=true) and tech_vs_nontech defined
+    expect(screen.getByText(/technical vs\. non-technical breakdown/i)).toBeInTheDocument()
+  })
+
+  it('renders Other Role Categories panel when other_roles data is present', async () => {
+    const { default: Page } = await import('@/app/results/sample/page')
+    render(<Page />)
+    // The conservative_clean group has other_roles.total=4 and categories set
+    expect(screen.getByText(/other.*role categories/i)).toBeInTheDocument()
+  })
+
+  it('renders Understanding Other Roles methodology section from role_categories data', async () => {
+    const { default: Page } = await import('@/app/results/sample/page')
+    render(<Page />)
+    expect(
+      screen.getByRole('heading', { name: /understanding.*other.*roles/i })
+    ).toBeInTheDocument()
+    // Category labels from mock role_categories should appear in the methodology table
+    expect(screen.getByText('C-Suite Adjacent')).toBeInTheDocument()
+    // Technical Specialist appears in both the demo panel and methodology table
+    expect(screen.getAllByText('Technical Specialist').length).toBeGreaterThanOrEqual(2)
+    expect(screen.getByText('Uncategorized')).toBeInTheDocument()
+  })
+
+  it('renders empty-state row when role_categories is absent from JSON', async () => {
+    // roleCategories is derived inside the component, so temporarily removing it
+    // from the shared mock object is sufficient — no module re-load required.
+    const saved = MOCK_SENSITIVITY_DATA.role_categories
+    ;(MOCK_SENSITIVITY_DATA as Record<string, unknown>).role_categories = undefined
+    try {
+      const { default: Page } = await import('@/app/results/sample/page')
+      render(<Page />)
+      expect(
+        screen.getByText(/role-category methodology details are not available/i)
+      ).toBeInTheDocument()
+    } finally {
+      ;(MOCK_SENSITIVITY_DATA as Record<string, unknown>).role_categories = saved
+    }
   })
 })
 
@@ -352,5 +487,144 @@ describe('Scale Reliability Page', () => {
     const { default: Page } = await import('@/app/results/reliability/page')
     render(<Page />)
     expect(screen.getByRole('heading', { name: /scale reliability/i })).toBeInTheDocument()
+  })
+})
+
+describe('CRP 2026 Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /TABS 2026 CRP Results/i })).toBeInTheDocument()
+  })
+
+  it('renders download section', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /download the dataset/i })).toBeInTheDocument()
+  })
+})
+
+describe('CRP 2026 Descriptive Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/descriptive/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /CRP 2026.*Descriptive/i })).toBeInTheDocument()
+  })
+})
+
+describe('CRP 2026 Reliability Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/reliability/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /CRP 2026.*Reliability/i })).toBeInTheDocument()
+  })
+})
+
+describe('CRP 2026 Sensitivity Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/sensitivity/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /CRP 2026.*Sensitivity/i })).toBeInTheDocument()
+  })
+})
+
+describe('CRP 2026 Findings Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/findings/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /CRP 2026.*Findings/i })).toBeInTheDocument()
+  })
+
+  it('maps d_ci_lower/d_ci_upper from JSON to ci_lower/ci_upper for EffectSizeChart', async () => {
+    type ChartEntry = { construct: string; ci_lower: number | null; ci_upper: number | null }
+    const MockChart = jest.requireMock('@/components/effect-size-chart').default as jest.Mock<
+      null,
+      [{ data: ChartEntry[] }]
+    >
+    MockChart.mockClear()
+
+    const sampleDetail = MOCK_SENSITIVITY_DATA.sample_details.conservative_clean
+    const savedEffects = (sampleDetail as Record<string, unknown>).effect_sizes
+    ;(sampleDetail as Record<string, unknown>).effect_sizes = {
+      tech_vs_nontech: {
+        tech_n: 10,
+        nontech_n: 8,
+        constructs: {
+          barriers: {
+            d: 0.85,
+            d_ci_lower: 0.6,
+            d_ci_upper: 1.1,
+            tech_mean: 3.5,
+            nontech_mean: 2.8,
+          },
+        },
+      },
+    }
+
+    try {
+      const { default: Page } = await import('@/app/results/crp-2026/findings/page')
+      render(<Page />)
+
+      expect(MockChart).toHaveBeenCalled()
+      const renderedItems = MockChart.mock.calls.flatMap(([props]) => props.data)
+      const barriersEntry = renderedItems.find((e) => e.construct === 'barriers')
+      expect(barriersEntry).toBeDefined()
+      expect(barriersEntry?.ci_lower).toBe(0.6)
+      expect(barriersEntry?.ci_upper).toBe(1.1)
+    } finally {
+      ;(sampleDetail as Record<string, unknown>).effect_sizes = savedEffects
+    }
+  })
+})
+
+describe('CRP 2026 Sample Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/sample/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /CRP 2026.*Sample/i })).toBeInTheDocument()
+  })
+})
+
+describe('CRP 2026 Data Quality Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/data-quality/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /CRP 2026.*Data Quality/i })).toBeInTheDocument()
+  })
+})
+
+describe('CRP 2026 Factor Analysis Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/factor-analysis/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /Barrier Factor Structure/i })).toBeInTheDocument()
+  })
+})
+
+describe('CRP 2026 Glossary Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/glossary/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /Statistics Glossary/i })).toBeInTheDocument()
+  })
+
+  it('renders at least one glossary entry', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/glossary/page')
+    render(<Page />)
+    expect(screen.getAllByText(/Cronbach/i).length).toBeGreaterThan(0)
+  })
+})
+
+describe('CRP 2026 Validation Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/validation/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /Instrument Validation/i })).toBeInTheDocument()
+  })
+
+  it('renders a summary table', async () => {
+    const { default: Page } = await import('@/app/results/crp-2026/validation/page')
+    render(<Page />)
+    expect(screen.getAllByRole('table').length).toBeGreaterThan(0)
   })
 })

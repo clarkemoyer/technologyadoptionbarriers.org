@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
-
 export const metadata: Metadata = {
   title: 'AI-Assisted Development — Making of TABS',
   description:
@@ -13,24 +12,8 @@ export const metadata: Metadata = {
 
 const AIAssistedDevelopmentPage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-1">
-            <li>
-              <Link href="/making-of-tabs" className="hover:text-blue-600 hover:underline">
-                Making of TABS
-              </Link>
-              <span className="mx-2" aria-hidden="true">
-                ›
-              </span>
-            </li>
-            <li className="text-gray-800" aria-current="page">
-              AI-Assisted Development
-            </li>
-          </ol>
-        </nav>
-
         <h1 className={H1_CLASSES}>AI-Assisted Development</h1>
 
         <section className="mb-10 text-gray-800">
@@ -371,9 +354,15 @@ const AIAssistedDevelopmentPage = () => {
             <h3 className={H3_CLASSES}>Where AI Struggles</h3>
             <ul className="list-disc pl-6 space-y-2 mb-4">
               <li>
-                <strong>Complex merge conflicts</strong> — when multiple branches have diverged
-                significantly, AI agents sometimes revert unrelated changes or create inconsistent
-                resolutions
+                <strong>Merge strategy failures</strong> — squash merging stale branches can
+                silently revert dozens of previously merged PRs. We learned this the hard way when a
+                single squash merge{' '}
+                <Link
+                  href="/making-of-tabs/ai-assisted-development/squash-merge-incident"
+                  className="text-blue-600 hover:underline"
+                >
+                  reverted 25+ PRs across 67 files
+                </Link>
               </li>
               <li>
                 <strong>Nuanced design decisions</strong> — visual layout choices, color palette
@@ -415,6 +404,41 @@ const AIAssistedDevelopmentPage = () => {
           </p>
         </section>
 
+        {/* ── Stories from Development ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Stories from Development</h2>
+          <p className="mb-6">
+            Real moments from the TABS development process that illustrate how multi-agent AI
+            development works in practice — the wins and the failures.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link
+              href="/making-of-tabs/ai-assisted-development/overnight-shift"
+              className="block rounded-xl border border-purple-200 bg-purple-50 p-6 hover:shadow-md transition-shadow"
+            >
+              <h3 className="text-lg font-bold text-purple-900 mb-2">
+                &ldquo;Copilot&apos;s Got the Overnight Shift&rdquo;
+              </h3>
+              <p className="text-sm text-purple-800">
+                Claude Code finishes a session, assigns 9 issues to Copilot for overnight
+                processing, and signs off. A real screenshot of multi-agent handoff.
+              </p>
+            </Link>
+
+            <Link
+              href="/making-of-tabs/ai-assisted-development/squash-merge-incident"
+              className="block rounded-xl border border-red-200 bg-red-50 p-6 hover:shadow-md transition-shadow"
+            >
+              <h3 className="text-lg font-bold text-red-900 mb-2">The Squash Merge Incident</h3>
+              <p className="text-sm text-red-800">
+                A single squash merge silently reverted 25+ PRs across 67 files. How speed amplifies
+                mistakes, and the safeguards we built afterward.
+              </p>
+            </Link>
+          </div>
+        </section>
+
         <section className="pt-8 border-t border-gray-200">
           <p className="text-sm text-gray-600 italic">
             This page was, naturally, written by an AI agent and reviewed by GitHub Copilot. The
@@ -422,7 +446,7 @@ const AIAssistedDevelopmentPage = () => {
           </p>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

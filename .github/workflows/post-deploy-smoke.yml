@@ -92,7 +92,8 @@ jobs:
           set -uo pipefail
 
           # Find every non-HTML file, excluding:
-          #   - .nojekyll (hidden deployment marker)
+          #   - dotfiles (e.g. .nojekyll, .gitkeep) — GitHub Pages does
+          #     not serve files whose names start with '.'
           #   - _next/static/** (build-specific hashed paths that differ
           #     between the deploy build and this discovery build; pages
           #     already validate these assets implicitly when they return 200)
@@ -101,7 +102,7 @@ jobs:
           #     infrastructure checks already verify sitemap.xml separately)
           find out -type f \
             -not -name '*.html' \
-            -not -name '.nojekyll' \
+            -not -name '.*' \
             -not -name 'sitemap-[0-9]*.xml' \
             -not -path 'out/_next/static/*' \
             | sort | while read -r f; do
@@ -366,21 +367,17 @@ jobs:
           # as static files). Verify rendered pages contain data-derived values
           # that would only appear if pipeline JSON was present at build.
 
-          # Shared fetch: sets DATA_CONTENT and FETCH_OK (0=success, 1=error).
+          # Shared fetch: sets FETCH_OK (0=success, 1=error) and writes body to /tmp/data-body.
           # Always returns 0 so the caller can record failures and continue this step.
           fetch_data_page() {
             local url="$1" label="$2"
             local status curl_exit
-            DATA_CONTENT=""
             FETCH_OK=1
             : > /tmp/data-body
             status=$(curl -s -o /tmp/data-body -w '%{http_code}' -L --max-time 15 "$url" 2>/dev/null)
             curl_exit=$?
             if [ "$curl_exit" -ne 0 ]; then
               status="000"
-              DATA_CONTENT=""
-            else
-              DATA_CONTENT=$(cat /tmp/data-body 2>/dev/null || echo "")
             fi
             if [ "$status" != "200" ]; then
               echo "| $label | ❌ HTTP $status (expected 200) |" >> /tmp/data-results.txt
@@ -452,7 +449,19 @@ jobs:
 
           check_content() {
             local url="$1" expected="$2" label="$3"
-            curl -s -L --max-time 15 "$url" -o /tmp/content-body 2>/dev/null || true
+            local http_status
+            local curl_exit
+
+            http_status="$(curl -s -L --max-time 15 --write-out '%{http_code}' "$url" -o /tmp/content-body 2>/dev/null)"
+            curl_exit=$?
+
+            if [ "$curl_exit" -ne 0 ] || [ "$http_status" -lt 200 ] || [ "$http_status" -ge 400 ]; then
+              : > /tmp/content-body
+              echo "| $label | ❌ Fetch failed (curl=$curl_exit, http=$http_status) |" >> /tmp/content-results.txt
+              CONTENT_FAIL=$((CONTENT_FAIL + 1))
+              return
+            fi
+
             if grep -q "$expected" /tmp/content-body 2>/dev/null; then
               echo "| $label | ✅ Contains: \"$expected\" |" >> /tmp/content-results.txt
             else
@@ -477,8 +486,45 @@ jobs:
           # Making of TABS — still functional after restructure
           check_content "${SITE_URL}/making-of-tabs" "Making of TABS" "/making-of-tabs"
 
+          # Check for pipeline data failure sentinel on key pages.
+          # Pages render "[DATA UNAVAILABLE — pipeline error]" when JSON data
+          # is missing or malformed. Any occurrence is a pipeline failure.
+          SENTINEL_FAIL=0
+          check_no_sentinel() {
+            local url="$1" label="$2"
+            local http_status curl_exit
+
+            http_status="$(curl -s -L --max-time 15 --write-out '%{http_code}' "$url" -o /tmp/sentinel-body 2>/dev/null)"
+            curl_exit=$?
+
+            if [ "$curl_exit" -ne 0 ] || [ "$http_status" -lt 200 ] || [ "$http_status" -ge 400 ]; then
+              : > /tmp/sentinel-body
+              echo "| $label | ❌ Fetch failed (curl=$curl_exit, http=$http_status) — sentinel check inconclusive |" >> /tmp/content-results.txt
+              SENTINEL_FAIL=$((SENTINEL_FAIL + 1))
+              return
+            fi
+
+            if grep -F -q -- "[DATA UNAVAILABLE — pipeline error]" /tmp/sentinel-body 2>/dev/null; then
+              echo "| $label | ❌ Contains [DATA UNAVAILABLE] sentinel — pipeline data missing |" >> /tmp/content-results.txt
+              SENTINEL_FAIL=$((SENTINEL_FAIL + 1))
+            else
+              echo "| $label | ✅ No data-unavailable markers |" >> /tmp/content-results.txt
+            fi
+          }
+
+          check_no_sentinel "${SITE_URL}/results/sample" "/results/sample"
+          check_no_sentinel "${SITE_URL}/results/findings" "/results/findings"
+          check_no_sentinel "${SITE_URL}/results/dataset-comparison" "/results/dataset-comparison"
+          check_no_sentinel "${SITE_URL}/results/crp-2026" "/results/crp-2026"
+          check_no_sentinel "${SITE_URL}/results/crp-2026/sample" "/results/crp-2026/sample"
+          check_no_sentinel "${SITE_URL}/results/crp-2026/findings" "/results/crp-2026/findings"
+          check_no_sentinel "${SITE_URL}/results/crp-2026/validation" "/results/crp-2026/validation"
+          check_no_sentinel "${SITE_URL}/results/crp-2026/factor-analysis" "/results/crp-2026/factor-analysis"
+
+          CONTENT_FAIL=$((CONTENT_FAIL + SENTINEL_FAIL))
+
           echo ""
-          echo "Content validation: $CONTENT_FAIL failed"
+          echo "Content validation: $CONTENT_FAIL failed (including $SENTINEL_FAIL data-unavailable checks)"
           cat /tmp/content-results.txt
 
           echo "CONTENT_FAIL=$CONTENT_FAIL" >> "$GITHUB_ENV"

@@ -9,7 +9,6 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
-
 export const metadata: Metadata = {
   title: 'Sensitivity Analysis — TABS Results',
   description:
@@ -32,24 +31,8 @@ const SensitivityPage = () => {
   const v2AllN = samples.find((s) => s.key === 'v2_all')?.n ?? '?'
 
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
-        <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-1">
-            <li>
-              <Link href="/results" className="hover:text-blue-600 hover:underline">
-                Results
-              </Link>
-              <span className="mx-2" aria-hidden="true">
-                &rsaquo;
-              </span>
-            </li>
-            <li className="text-gray-800" aria-current="page">
-              Sensitivity Analysis
-            </li>
-          </ol>
-        </nav>
-
         <h1 className={H1_CLASSES}>Sensitivity Analysis</h1>
         <LastUpdated
           utcTimestamp={(sensitivityData as Record<string, unknown>).last_updated as string}
@@ -323,7 +306,7 @@ const SensitivityPage = () => {
           </p>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 
