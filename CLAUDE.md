@@ -1086,7 +1086,7 @@ With MCP moving under the Linux Foundation's AI/Data Foundation, the protocol an
 
 **Version Requirements:**
 
-- All Python tools distributed via `uvx` must be strictly pinned (e.g., `uvx --from 'pyzotero[mcp]==1.11.0' pyzotero-mcp`)
+- All Python tools distributed via `uvx` must be strictly pinned (e.g., `uvx --from 'pyzotero[mcp]==1.11.0' zotero-mcp`)
 - VS Code MCP configs must pin the `--from` args to matched versions
 - If this repository later adds an `@modelcontextprotocol/sdk` dependency, pin it explicitly and update it promptly when new protocol versions are adopted
 
