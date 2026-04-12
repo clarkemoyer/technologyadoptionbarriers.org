@@ -102,10 +102,12 @@ test.describe('Mobile Header Spacing', () => {
       { width: 393, height: 851, name: 'Pixel 5' },
     ]
 
+    // Seed consent once before the loop — addInitScript persists for the page lifetime
+    await seedCookieConsent(page)
+
     for (const viewport of mobileViewports) {
       await page.setViewportSize({ width: viewport.width, height: viewport.height })
 
-      await seedCookieConsent(page)
       await page.goto('/', { waitUntil: 'domcontentloaded' })
 
       const header = page.locator('header#header')
