@@ -936,3 +936,73 @@ class TestFCdfRight:
         # F=2.3884, df1=2, df2=76 → p ≈ 0.0986
         p = _f_cdf_right(2.3884, 2, 76)
         assert p == pytest.approx(0.0986, abs=0.005)
+
+
+# ── Cross-module parity ─────────────────────────────────────
+
+class TestCrossModuleParity:
+    """Assert both copies of the statistical helpers produce identical results.
+
+    _regularized_incomplete_beta (and its dependents _t_cdf_two_tailed,
+    _f_cdf_right) are duplicated in tabs_v2_analysis.py and
+    tabs_v2_unified_data_analysis.py.  These tests guard against the two
+    implementations drifting apart in the future.
+    """
+
+    # Representative (x, a, b) inputs covering:
+    #   - the exact bug path (large a, b=0.5)
+    #   - typical t-distribution params
+    #   - typical F-distribution params
+    #   - boundary-adjacent values
+    BETA_INPUTS = [
+        (0.99, 40.0, 0.5),    # bug path: large a, small b, x near 1
+        (0.3, 2.0, 5.0),      # moderate params
+        (0.5, 1.0, 1.0),      # uniform Beta(1,1)
+        (0.01, 0.5, 40.0),    # small x, small a, large b
+        (0.85, 41.34, 0.5),   # t-dist: df≈82.68, moderate t
+        (0.7, 38.0, 1.0),     # F-dist: df1=2, df2=76
+    ]
+
+    def test_incomplete_beta_parity(self):
+        """Both modules must return the same I_x(a,b) for every test point."""
+        from tabs_v2_unified_data_analysis import (
+            _regularized_incomplete_beta as unified_beta,
+        )
+
+        for x, a, b in self.BETA_INPUTS:
+            val_analysis = _regularized_incomplete_beta(x, a, b)
+            val_unified = unified_beta(x, a, b)
+            assert val_analysis == pytest.approx(val_unified, abs=1e-12), (
+                f"Mismatch for (x={x}, a={a}, b={b}): "
+                f"analysis={val_analysis}, unified={val_unified}"
+            )
+
+    def test_t_cdf_parity(self):
+        """Both modules must return the same two-tailed p for representative t values."""
+        from tabs_v2_unified_data_analysis import (
+            _t_cdf_two_tailed as unified_t_cdf,
+        )
+
+        t_df_pairs = [(0.2635, 82.68), (3.9083, 82.68), (0.0, 10.0), (10.0, 50.0)]
+        for t_abs, df in t_df_pairs:
+            p_analysis = _t_cdf_two_tailed(t_abs, df)
+            p_unified = unified_t_cdf(t_abs, df)
+            assert p_analysis == pytest.approx(p_unified, abs=1e-12), (
+                f"Mismatch for t={t_abs}, df={df}: "
+                f"analysis={p_analysis}, unified={p_unified}"
+            )
+
+    def test_f_cdf_parity(self):
+        """Both modules must return the same right-tail p for representative F values."""
+        from tabs_v2_unified_data_analysis import (
+            _f_cdf_right as unified_f_cdf,
+        )
+
+        f_df_pairs = [(0.0785, 1, 80), (2.3884, 2, 76), (100.0, 2, 50), (0.0, 2, 30)]
+        for f_val, df1, df2 in f_df_pairs:
+            p_analysis = _f_cdf_right(f_val, df1, df2)
+            p_unified = unified_f_cdf(f_val, df1, df2)
+            assert p_analysis == pytest.approx(p_unified, abs=1e-12), (
+                f"Mismatch for F={f_val}, df1={df1}, df2={df2}: "
+                f"analysis={p_analysis}, unified={p_unified}"
+            )
