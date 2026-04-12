@@ -425,19 +425,13 @@ const AutomationInfrastructurePage = () => {
             <div className="rounded-xl border border-gray-200 p-5">
               <h3 className="font-semibold text-gray-900 mb-2">GitHub MCP Server</h3>
               <p className="text-sm text-gray-700 mb-2">
-                AI agents access GitHub — creating issues, pushing files, managing PRs — through
-                GitHub&apos;s hosted MCP endpoint (
-                <code className="text-xs bg-gray-100 px-1 rounded">
-                  https://api.githubcopilot.com/mcp/
-                </code>
-                ), which is the preferred approach for cloud and Copilot agent use. The{' '}
+                AI agents access GitHub — creating issues, pushing files, managing PRs — through the
+                standard{' '}
                 <code className="text-xs bg-gray-100 px-1 rounded">
                   @modelcontextprotocol/server-github
                 </code>{' '}
-                npm package is a local-dev fallback (Claude Desktop) only; it is deprecated for
-                cloud use. Qualtrics MCP uses the first-party MCP endpoint built into the Qualtrics
-                platform (
-                <code className="text-xs bg-gray-100 px-1 rounded">/API/mcp/survey-crud</code>).
+                MCP server, not via third-party wrappers. Qualtrics MCP uses the first-party MCP
+                endpoint built into the Qualtrics platform.
               </p>
               <p className="text-xs text-gray-600 italic">
                 Note: We actively monitor Prolific and Qualtrics (SAP, a member of the{' '}
@@ -448,8 +442,7 @@ const AutomationInfrastructurePage = () => {
                   className="underline"
                 >
                   AI Alliance
-                </a>
-                ) for official MCP server releases to further reduce dependency risk.
+                </a>) for official MCP server releases to further reduce dependency risk.
               </p>
             </div>
           </div>

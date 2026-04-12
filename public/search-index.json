@@ -820,7 +820,7 @@
     "url": "/making-of-tabs/integrations",
     "title": "Technical Integrations & Workflows — Making of TABS",
     "description": "A detailed guide to the API integrations, automated workflows, and Survey Flow architecture that power the Technology Adoption Barriers Survey (TABS).",
-    "content": "Technical Integrations & Workflows — Making of TABS. A detailed guide to the API integrations, automated workflows, and Survey Flow architecture that power the Technology Adoption Barriers Survey (TABS).. Technical Integrations Workflows Running long-term academic survey across multiple platforms requires reliable, automated plumbing. This page explains the three major platform integrations that keep TABS running: Qualtrics the survey engine Prolific the participant recruitment platform and Google Analytics Search Console impact measurement and SEO transparency Each integration is managed through GitHub Actions workflows and TypeScript client libraries, so the entire operational lifecycle survey creation to data collection to analytics is version-controlled and reproducible. Integration De...",
+    "content": "Technical Integrations & Workflows — Making of TABS. A detailed guide to the API integrations, automated workflows, and Survey Flow architecture that power the Technology Adoption Barriers Survey (TABS).. Technical Integrations Workflows Running long-term academic survey across multiple platforms requires reliable, automated plumbing. This page explains the four major platform integrations that keep TABS running: Qualtrics the survey engine Prolific the participant recruitment platform Google Analytics Search Console impact measurement and SEO transparency and Zotero the vetted reference library powering AI-assisted research Each integration is managed through GitHub Actions workflows and TypeScript or Python client libraries, so the entire operational lifecycle survey creation to data col...",
     "category": "Making of TABS"
   },
   {
@@ -885,6 +885,14 @@
     "title": "Qualtrics Integration — Making of TABS",
     "description": "How TABS uses Qualtrics for survey design, data collection, and automated management via the Qualtrics REST API v3 and GitHub Actions workflows.",
     "content": "Qualtrics Integration — Making of TABS. How TABS uses Qualtrics for survey design, data collection, and automated management via the Qualtrics REST API v3 and GitHub Actions workflows.. Qualtrics Integration Qualtrics is the survey engine at the heart of the TABS research project. It hosts the survey instrument, manages branching logic, captures respondent data, and handles the post-survey redirect flow. We interact with Qualtrics programmatically via its REST API v3 which enables us to copy surveys, inspect definitions, apply configuration changes, and data all GitHub Actions. Why Qualtrics We chose Qualtrics for several reasons critical to long-term academic survey: Sophisticated logic capabilities Complex question branching adapts to the respondent role and industry, ensuring participan...",
+    "category": "Making of TABS"
+  },
+  {
+    "id": "making-of-tabs-integrations-zotero",
+    "url": "/making-of-tabs/integrations/zotero",
+    "title": "Zotero Integration — Making of TABS",
+    "description": "How TABS integrates Zotero as the canonical reference library, giving AI agents direct access to vetted academic sources via the pyzotero MCP server and Web API.",
+    "content": "Zotero Integration — Making of TABS. How TABS integrates Zotero as the canonical reference library, giving AI agents direct access to vetted academic sources via the pyzotero MCP server and Web API.. Making of TABS Technical Integrations Zotero Zotero Reference Library Vetted Sources The TABS project maintains Zotero library of over 3,300 academic references organized across 199 collections. This library serves as the canonical, vetted source of truth for every citation in the Culminating Research Project CRP The Zotero integration gives AI agents direct, programmatic access to archive enabling citation verification, literature discovery, full-text PDF retrieval, and cross-referencing with external databases like Semantic Scholar. Why Zotero Academic research demands an auditable chain cla...",
     "category": "Making of TABS"
   },
   {

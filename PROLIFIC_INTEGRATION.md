@@ -16,6 +16,7 @@ This document describes the Prolific API integration for collecting and managing
 - [Usage Examples](#usage-examples)
 - [API Features](#api-features)
 - [Security Considerations](#security-considerations)
+- [Monitoring for Official Releases](#monitoring-for-official-releases)
 - [Troubleshooting](#troubleshooting)
 
 ## Overview
@@ -603,6 +604,12 @@ console.log(csv)
 - **Attention Checks**: Built-in quality control mechanisms
 - **Review Workflow**: Manual review for flagged submissions
 
+## Monitoring for Official Releases
+
+As of early 2026, no official Prolific MCP (Model Context Protocol) server exists. The TABS project maintains a policy of adopting only official or well-audited community projects for infrastructure.
+
+We actively monitor Prolific for an official MCP release. Until such a release occurs, the custom Python scripts in `scripts/analysis/` remain the primary and recommended method for programmatic Prolific operations.
+
 ## Security Considerations
 
 ### API Token Security
@@ -752,10 +759,6 @@ Potential improvements for future iterations:
 6. **Bonus Payments**: Automate bonus payments based on performance
 7. **Multi-Study Analysis**: Compare metrics across multiple studies
 8. **Export Formats**: Support additional export formats (JSON, Excel)
-
-## Monitoring for Official MCP
-
-We actively monitor Prolific for an official MCP (Model Context Protocol) server release. Currently, no official Prolific MCP server exists. Until an official release is available, we use our custom Python scripts (`scripts/analysis/`) and TypeScript library (`src/lib/prolific-api.ts`) for all Prolific API operations to ensure maximum reliability and minimize dependency risk.
 
 ## Contributing
 

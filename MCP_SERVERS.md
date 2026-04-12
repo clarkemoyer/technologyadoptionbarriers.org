@@ -203,6 +203,13 @@ curl -i https://<your-qualtrics-host>/API/mcp/survey-crud
 curl -i https://learn.microsoft.com/api/mcp
 ```
 
+## Monitoring for Official Releases
+
+We maintain a policy of adopting only official or well-audited community MCP servers. We actively monitor the following platforms for official releases:
+
+- **Prolific**: No official MCP server currently exists. We continue to use custom Python scripts in `scripts/analysis/` for operational tasks.
+- **Qualtrics/SAP**: We monitor for official MCP releases through SAP's membership in the [AI Alliance](https://theaialliance.ai/). We currently utilize the first-party platform MCP endpoint and custom Python scripts.
+
 ## Validating MCP Configuration
 
 A validation script is provided to test the MCP configuration:
@@ -236,13 +243,6 @@ To add additional MCP servers:
 4. Test the configuration using `bash scripts/validate-mcp-config.sh`
 
 5. Commit changes following the repository's contribution guidelines
-
-## Monitoring for Official Releases
-
-We actively monitor for official MCP server releases from our primary platform providers to reduce dependency risk and improve long-term stability.
-
-- **Prolific:** Currently, no official Prolific MCP server exists. We continue to monitor their developer communications.
-- **Qualtrics/SAP:** We already use the first-party Qualtrics platform MCP endpoint (`/API/mcp/survey-crud`). We monitor official SAP/Qualtrics channels for expanded support: GA status, stable versioning guarantees, broader tool coverage, and comprehensive docs. SAP is a member of the [AI Alliance](https://theaialliance.ai/).
 
 ## Troubleshooting
 

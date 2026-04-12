@@ -105,6 +105,7 @@ These are services we directly integrate into our application code.
   - Calculate study statistics and metrics
   - Automated weekly data collection
 - **Security:** API token secured in GitHub Secrets, server-side only, no client exposure
+- **MCP Monitoring:** We actively monitor Prolific for an official MCP server release; currently using custom Python scripts.
 
 **Technical Details:**
 
