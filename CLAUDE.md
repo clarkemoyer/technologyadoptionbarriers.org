@@ -1073,6 +1073,23 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 
 **Rule**: Prefer official sources. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics — neither company provides official SDKs or MCP servers.
 
+### Versioning Strategy & Staying Current
+
+With MCP moving under the Linux Foundation's AI/Data Foundation (AAIF), the protocol and tooling are evolving rapidly. We maintain a quarterly dependency freshness check to ensure our agents and integrations stay current.
+
+**Quarterly Review Checklist:**
+
+- [ ] **Track MCP roadmap**: Monitor support for upcoming features like streamable HTTP, session resumption, and Server Cards
+- [ ] **Track `gh` CLI releases**: Review release notes for new agent features and Copilot API expansions
+- [ ] **Monitor AAIF announcements**: Stay informed on Linux Foundation governance and standardizations
+- [ ] **Dependency Freshness Check**: Audit all MCP server versions and API client libraries
+
+**Version Requirements:**
+
+- All Python tools distributed via `uvx` must be strictly pinned (e.g., `uvx --from pyzotero[mcp]==1.11.0`)
+- VS Code MCP configs must pin the `--from` args to matched versions
+- Update `@modelcontextprotocol/sdk` dependencies promptly when new protocol versions are released
+
 ## Resources
 
 ### Making of TABS Documentation
