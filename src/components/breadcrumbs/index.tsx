@@ -59,6 +59,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   cloudflare: 'Cloudflare',
   prolific: 'Prolific',
   qualtrics: 'Qualtrics',
+  zotero: 'Zotero',
 }
 
 function capitalize(segment: string): string {
