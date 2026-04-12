@@ -430,12 +430,12 @@ const AutomationInfrastructurePage = () => {
                 <code className="text-xs bg-gray-100 px-1 rounded">
                   https://api.githubcopilot.com/mcp/
                 </code>
-                ), not via the deprecated{' '}
+                ). This is the preferred approach for Copilot agents and cloud use. The deprecated{' '}
                 <code className="text-xs bg-gray-100 px-1 rounded">
                   @modelcontextprotocol/server-github
                 </code>{' '}
-                npm package. Qualtrics MCP uses the first-party MCP endpoint built into the
-                Qualtrics platform (
+                npm package is retained only as a local-dev fallback for Claude Desktop. Qualtrics
+                MCP uses the first-party MCP endpoint built into the Qualtrics platform (
                 <code className="text-xs bg-gray-100 px-1 rounded">/API/mcp/survey-crud</code>).
               </p>
               <p className="text-xs text-gray-600 italic">
