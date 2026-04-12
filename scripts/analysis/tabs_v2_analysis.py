@@ -1549,7 +1549,7 @@ def sensitivity_to_json(cuts, idx):
                 # only truly unclassifiable responses count toward 'other'.
                 "technical": tech_n,
                 "non_technical": nontech_n,
-                "other": other_n,  # unclassified under binary classification (not reclassifiable)
+                "other": other_n,  # roles not recognized by binary classification (e.g. unknown/empty)
             },
             "other_roles": {
                 # Raw count of all responses with role == 'Other' (before
