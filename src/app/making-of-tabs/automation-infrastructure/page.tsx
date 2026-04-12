@@ -431,14 +431,11 @@ const AutomationInfrastructurePage = () => {
                   @modelcontextprotocol/server-github
                 </code>{' '}
                 MCP server, not via third-party wrappers. Qualtrics MCP uses the first-party MCP
-                endpoint built into the Qualtrics platform (
-                <code className="text-xs bg-gray-100 px-1 rounded">/API/mcp/survey-crud</code>).
+                endpoint built into the Qualtrics platform.
               </p>
               <p className="text-xs text-gray-600 italic">
-                Note: We actively monitor Prolific and Qualtrics/SAP for official MCP server
-                releases. SAP has publicly committed to open AI interoperability standards; we track
-                their developer channels for a first-party implementation that may further reduce
-                dependency risk.
+                Note: We actively monitor Prolific and Qualtrics (SAP, an AAIF member) for official
+                MCP server releases to further reduce dependency risk.
               </p>
             </div>
           </div>

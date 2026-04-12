@@ -1064,17 +1064,17 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 
 ### Risk Tiers
 
-| Tier         | Criteria                                                 | Examples                                                                                                      |
-| ------------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| **Low**      | Official, from the company, actively maintained          | GitHub MCP, Cloudflare MCP, Google Analytics MCP, `googleapis`, Qualtrics MCP (first-party platform endpoint) |
-| **Medium**   | Community but mature (100+ stars, multiple contributors) | `peter-evans/create-pull-request`, Google Search Console MCP                                                  |
-| **High**     | Community, single maintainer, or stale                   | R Statistics MCP (stale)                                                                                      |
-| **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` (deprecated)                                                            |
+| Tier         | Criteria                                                 | Examples                                                       |
+| ------------ | -------------------------------------------------------- | -------------------------------------------------------------- |
+| **Low**      | Official, from the company, actively maintained          | GitHub MCP, Cloudflare MCP, Google Analytics MCP, `googleapis` |
+| **Medium**   | Community but mature (100+ stars, multiple contributors) | `peter-evans/create-pull-request`, Google Search Console MCP   |
+| **High**     | Community, single maintainer, or stale                   | Qualtrics MCP (academic), R Statistics MCP (stale)             |
+| **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` (deprecated)             |
 
 **Rule**: Prefer official sources. We actively track Prolific and Qualtrics (SAP) for official MCP server releases.
 
 - **Prolific**: No official MCP exists; currently using custom Python scripts (`scripts/analysis/`).
-- **Qualtrics/SAP**: Monitoring for an official first-party MCP server release; currently using the first-party Qualtrics platform MCP endpoint (`/API/mcp/survey-crud`) and custom Python scripts.
+- **Qualtrics/SAP**: Monitoring via SAP's AAIF membership; currently using an academic community MCP and custom Python scripts.
 
 ## Resources
 

@@ -144,7 +144,7 @@ For the GitHub remote MCP server endpoint (hosted by GitHub):
 
 ## Monitoring for Official MCP
 
-We actively monitor Qualtrics and its parent company SAP for official MCP (Model Context Protocol) server releases. SAP has publicly committed to open AI interoperability standards, and we track their official developer channels for any first-party MCP implementations that may provide a more robust alternative to current custom solutions.
+We actively monitor Qualtrics and its parent company SAP for official MCP (Model Context Protocol) server releases. SAP is a member of the **Artificial Intelligence Alliance Foundation (AAIF)**, which focuses on open and transparent AI development. We track their official channels for any first-party MCP implementations that may provide a more robust alternative to current community-developed or custom solutions.
 
 ## Safety warning: manage:all scope
 
