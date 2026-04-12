@@ -248,15 +248,22 @@ As part of the [AAIF](https://lfaidata.foundation/) lifecycle, TABS maintains st
 
 ### Quarterly Freshness Audit (Last Check: April 12, 2026)
 
-The following dependencies were identified as outdated or missing during the current quarterly audit:
+The current quarterly audit identified two categories of follow-up items: dependencies that are outdated relative to the latest available release, and dependencies that are already declared/installed but still require environment verification.
+
+#### Outdated Dependencies
+
+| Package        | Current | Latest | Action                          |
+| -------------- | ------- | ------ | ------------------------------- |
+| `next`         | 15.x    | 16.2.3 | Plan upgrade to 16.2.3          |
+| `react`        | 19.x    | 19.2.5 | Coordinate with Next.js upgrade |
+| `postcss`      | 8.x     | 8.5.9  | Upgrade recommended             |
+| `lucide-react` | 0.x     | 1.8.0  | Upgrade recommended             |
+
+#### Installed Dependencies Requiring Verification
 
 | Package                  | Status    | Latest | Action                                                     |
 | ------------------------ | --------- | ------ | ---------------------------------------------------------- |
-| `next`                   | Outdated  | 16.2.3 | Plan upgrade to 16.2.3                                     |
-| `react`                  | Outdated  | 19.2.5 | Coordinate with Next.js upgrade                            |
-| `postcss`                | Outdated  | 8.5.9  | Upgrade recommended                                        |
 | `@google-analytics/data` | Installed | 5.2.1  | Declared in `package.json`; verify local install if needed |
-| `lucide-react`           | Outdated  | 1.8.0  | Upgrade recommended                                        |
 
 ### MCP & API Governance Policy
 
