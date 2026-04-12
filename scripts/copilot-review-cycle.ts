@@ -288,9 +288,16 @@ function postComment(repo: string, prNumber: string, body: string): void {
   }
 }
 
-function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComment[]): void {
-  console.log('Requesting fixes via @copilot PR comment (pushes to same branch)...')
+function assignCopilotToFix(
+  repo: string,
+  prNumber: string,
+  headBranch: string,
+  comments: ReviewComment[]
+): void {
+  // Close any duplicate fix requests from previous rounds before creating a new one.
+  closeFixIssues(repo, prNumber, 'Superseded by new fix request.')
 
+  const title = `fix: address Copilot review comments on PR #${prNumber}`
   const commentList = comments
     .map((c, i) => {
       const loc = c.line ? `${c.path}:${c.line}` : c.path
@@ -298,16 +305,46 @@ function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComm
     })
     .join('\n')
 
-  // Comment on the PR with @copilot — Copilot pushes fixes to the SAME branch.
-  // This avoids creating separate issues/sub-PRs that cause cascading review loops.
-  const body = [
+  // Prefer gh agent-task create (gh v2.89+) which gives the Copilot coding agent
+  // a structured task with full context. Falls back to @copilot PR comment for
+  // older gh CLI versions that don't support the agent-task subcommand.
+  const agentBody = [
+    `Please fix the following Copilot review comments on PR #${prNumber} (branch \`${headBranch}\`).\n`,
+    `Push fixes as a new commit to branch \`${headBranch}\` or open a sub-PR targeting it.\n`,
+    `**Review Comments:**\n`,
+    commentList,
+  ].join('\n')
+
+  const tmpFile = join(tmpdir(), `agent-task-body-${Date.now()}.md`)
+  writeFileSync(tmpFile, agentBody, 'utf-8')
+  try {
+    console.log('Creating agent task for fix request...')
+    gh(`agent-task create -R ${repo} --title "${title}" --body-file "${tmpFile}"`)
+    console.log('  Agent task created via gh agent-task create.')
+    return
+  } catch (agentErr: any) {
+    console.log(
+      `  gh agent-task not available (${agentErr.message?.slice(0, 100)}); falling back to @copilot comment.`
+    )
+  } finally {
+    try {
+      unlinkSync(tmpFile)
+    } catch {
+      /* ignore */
+    }
+  }
+
+  // Fallback: @copilot PR comment — Copilot pushes fixes to the same branch.
+  // This avoids creating separate issues/sub-PRs that can cause cascading review loops.
+  console.log('Requesting fixes via @copilot PR comment (pushes to same branch)...')
+  const prBody = [
     `@copilot Please fix the following review comments directly on this PR branch:\n`,
     commentList,
     `\nPush the fixes as a new commit to this PR branch. Do NOT create a separate PR or issue.`,
   ].join('\n')
 
   try {
-    postComment(repo, prNumber, body)
+    postComment(repo, prNumber, prBody)
     console.log('  Fix request posted as @copilot PR comment.')
   } catch (err: any) {
     console.log(`  Failed to post @copilot comment: ${err.message || err}`)
@@ -870,7 +907,7 @@ async function main() {
   }
 
   // Step 8: Assign Copilot coding agent to fix comments
-  assignCopilotToFix(repo, prNumber, comments)
+  assignCopilotToFix(repo, prNumber, pr.headRefName, comments)
 
   // Step 9: Wait for fixes — direct push or Copilot sub-PR (auto-merged)
   const headSha = pr.headRefOid
@@ -878,7 +915,7 @@ async function main() {
 
   if (!fixed) {
     console.log('\nNo fixes within timeout. Re-requesting fix...')
-    assignCopilotToFix(repo, prNumber, comments)
+    assignCopilotToFix(repo, prNumber, pr.headRefName, comments)
     const retryFixed = await waitForFixes(repo, prNumber, headSha, pr.headRefName)
 
     if (!retryFixed) {
