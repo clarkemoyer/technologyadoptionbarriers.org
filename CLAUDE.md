@@ -1072,6 +1072,7 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 | **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` (deprecated)             |
 
 **Rule**: Prefer official sources. We actively track Prolific and Qualtrics (SAP) for official MCP server releases.
+
 - **Prolific**: No official MCP exists; currently using custom Python scripts (`scripts/analysis/`).
 - **Qualtrics/SAP**: Monitoring via SAP's AAIF membership; currently using an academic community MCP and custom Python scripts.
 
