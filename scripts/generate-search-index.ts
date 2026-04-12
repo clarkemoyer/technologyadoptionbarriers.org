@@ -75,6 +75,45 @@ function categorize(urlPath: string): string {
   return 'General'
 }
 
+/**
+ * Returns `true` when `text` already ends with terminal punctuation
+ * (`.`, `!`, `?`, `:`, `;`, em-dash, en-dash, or hyphen), optionally
+ * followed by closing quotes/brackets/parentheses.
+ *
+ * Used to decide whether a `'. '` separator is needed between content
+ * segments in the search index — prevents double-period artifacts like
+ * `(TABS)..` while preserving intentional punctuation (`U.S.`, `Ph.D.`).
+ *
+ * @example
+ * endsWithTerminalPunctuation('Hello.')   // true
+ * endsWithTerminalPunctuation('Hello!"')  // true
+ * endsWithTerminalPunctuation('Title:')   // true
+ * endsWithTerminalPunctuation('Hello')    // false
+ */
+export function endsWithTerminalPunctuation(text: string): boolean {
+  return /[.!?:;—–-][)\]}'"]*$/.test(text.trimEnd())
+}
+
+/**
+ * Joins pre-trimmed content segments with appropriate separators.
+ *
+ * Only inserts `'. '` when the preceding segment does **not** already end
+ * with terminal punctuation; otherwise uses a plain `' '`.  Collapses
+ * internal whitespace and trims the result.
+ */
+export function joinSegments(segments: string[]): string {
+  return segments
+    .reduce((acc, seg, i) => {
+      const trimmedSeg = seg.trim()
+      if (i === 0) return trimmedSeg
+      const trimmed = acc.trimEnd()
+      const separator = endsWithTerminalPunctuation(trimmed) ? ' ' : '. '
+      return trimmed + separator + trimmedSeg
+    }, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
 // ---------------------------------------------------------------------------
 // Metadata + content extraction
 // ---------------------------------------------------------------------------
@@ -432,22 +471,7 @@ async function generateSearchIndex() {
     const segments = [title, description, visibleText]
       .map((segment) => segment?.trim())
       .filter((s): s is string => Boolean(s))
-    const content = segments
-      .reduce((acc, seg, i) => {
-        const trimmedSeg = seg.trim()
-        if (i === 0) return trimmedSeg
-        // Only add '. ' when the previous segment doesn't already end with
-        // terminal punctuation — prevents double-period artifacts like
-        // "(TABS).." while preserving intentional punctuation ("U.S.", "Ph.D.")
-        // Also treat common title/description terminal punctuation and punctuation
-        // followed by trailing closers/quotes as terminal, e.g. `Hello!"`,
-        // `Hello:)`, `Hello;` or `Hello—`.
-        const trimmed = acc.trimEnd()
-        const separator = /[.!?:;—–-][)\]}'"]*$/.test(trimmed) ? ' ' : '. '
-        return trimmed + separator + trimmedSeg
-      }, '')
-      .replace(/\s+/g, ' ')
-      .trim()
+    const content = joinSegments(segments)
 
     items.push({
       id: stableId(urlPath),

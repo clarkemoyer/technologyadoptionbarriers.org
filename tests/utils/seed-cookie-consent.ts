@@ -33,6 +33,13 @@ function isValidCookieConsentShape(parsed: unknown): boolean {
 type CookieConsentSeedOptions = {
   storageKey?: string
   storageValue?: string
+  /**
+   * When `true`, localStorage failures inside the init script are surfaced
+   * via `console.error` so Playwright can detect them (the init-script
+   * context cannot throw back to Node).  Defaults to `true` when the `CI`
+   * env var is set, `false` otherwise.
+   */
+  strict?: boolean
 }
 
 function resolveCookieConsentSeed(options?: CookieConsentSeedOptions) {
@@ -46,6 +53,8 @@ function resolveCookieConsentSeed(options?: CookieConsentSeedOptions) {
     process.env.PLAYWRIGHT_COOKIE_CONSENT_STORAGE_VALUE ??
     JSON.stringify(FALLBACK_COOKIE_CONSENT)
 
+  const strict = options?.strict ?? Boolean(process.env.CI)
+
   try {
     const parsed = JSON.parse(storageValue)
     if (!isValidCookieConsentShape(parsed)) {
@@ -54,17 +63,20 @@ function resolveCookieConsentSeed(options?: CookieConsentSeedOptions) {
       return {
         storageKey,
         storageValue: JSON.stringify(FALLBACK_COOKIE_CONSENT),
+        strict,
       }
     }
     return {
       storageKey,
       storageValue: JSON.stringify(parsed),
+      strict,
     }
   } catch {
     // storageValue is not valid JSON — fall back to the known-good default.
     return {
       storageKey,
       storageValue: JSON.stringify(FALLBACK_COOKIE_CONSENT),
+      strict,
     }
   }
 }
@@ -78,19 +90,24 @@ function resolveCookieConsentSeed(options?: CookieConsentSeedOptions) {
  * single hardcoded app-side schema.
  */
 export async function seedCookieConsent(page: Page, options?: CookieConsentSeedOptions) {
-  const { storageKey, storageValue } = resolveCookieConsentSeed(options)
+  const { storageKey, storageValue, strict } = resolveCookieConsentSeed(options)
 
   await page.addInitScript(
-    ({ storageKey: initStorageKey, storageValue: initStorageValue }) => {
+    ({ storageKey: initStorageKey, storageValue: initStorageValue, strict: initStrict }) => {
       try {
         localStorage.setItem(initStorageKey, initStorageValue)
-      } catch {
-        // Ignore storage access failures in restricted init-script contexts.
+      } catch (err) {
+        if (initStrict) {
+          // Surface the failure so the test runner can detect it instead of
+          // silently proceeding with the consent banner still visible.
+          console.error('[seedCookieConsent] localStorage.setItem failed:', err)
+        }
       }
     },
     {
       storageKey,
       storageValue,
+      strict,
     }
   )
 }
