@@ -442,7 +442,8 @@ const AutomationInfrastructurePage = () => {
                   className="underline"
                 >
                   AI Alliance
-                </a>) for official MCP server releases to further reduce dependency risk.
+                </a>
+                ) for official MCP server releases to further reduce dependency risk.
               </p>
             </div>
           </div>
