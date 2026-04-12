@@ -9,6 +9,27 @@ const FALLBACK_COOKIE_CONSENT = {
   marketing: false,
 } as const
 
+/** Keys the cookie-consent component expects on the stored object. */
+const EXPECTED_CONSENT_KEYS: ReadonlyArray<keyof typeof FALLBACK_COOKIE_CONSENT> = [
+  'necessary',
+  'functional',
+  'analytics',
+  'marketing',
+]
+
+/**
+ * Lightweight shape check: parsed value must be a non-null object whose keys
+ * are a superset of the expected consent keys, each with a boolean value.
+ * Returns `true` only when the shape is valid.
+ */
+function isValidCookieConsentShape(parsed: unknown): boolean {
+  if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+    return false
+  }
+  const record = parsed as Record<string, unknown>
+  return EXPECTED_CONSENT_KEYS.every((key) => typeof record[key] === 'boolean')
+}
+
 type CookieConsentSeedOptions = {
   storageKey?: string
   storageValue?: string
@@ -26,9 +47,18 @@ function resolveCookieConsentSeed(options?: CookieConsentSeedOptions) {
     JSON.stringify(FALLBACK_COOKIE_CONSENT)
 
   try {
+    const parsed = JSON.parse(storageValue)
+    if (!isValidCookieConsentShape(parsed)) {
+      // Valid JSON but wrong shape (e.g. `"true"`, `{}`, or missing keys) —
+      // fall back to the known-good default to prevent silent banner flakiness.
+      return {
+        storageKey,
+        storageValue: JSON.stringify(FALLBACK_COOKIE_CONSENT),
+      }
+    }
     return {
       storageKey,
-      storageValue: JSON.stringify(JSON.parse(storageValue)),
+      storageValue: JSON.stringify(parsed),
     }
   } catch {
     // storageValue is not valid JSON — fall back to the known-good default.

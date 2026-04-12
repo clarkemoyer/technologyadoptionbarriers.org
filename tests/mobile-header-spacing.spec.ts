@@ -102,6 +102,19 @@ test.describe('Mobile Header Spacing', () => {
 
     // Verify the hero heading is still in the DOM underneath the overlay
     await expect(heroHeading).toBeAttached()
+
+    // Re-read layout after the overlay opens so this test verifies spacing
+    // in the "menu open" state, as the test name implies.
+    const openHeaderBox = await header.boundingBox()
+    expect(openHeaderBox).not.toBeNull()
+
+    const openHeroBox = await heroHeading.boundingBox()
+    expect(openHeroBox).not.toBeNull()
+
+    if (openHeaderBox && openHeroBox) {
+      const openHeaderBottom = openHeaderBox.y + openHeaderBox.height
+      expect(openHeroBox.y).toBeGreaterThanOrEqual(openHeaderBottom)
+    }
   })
 
   test('should maintain proper spacing on different mobile viewports', async ({ page }) => {
