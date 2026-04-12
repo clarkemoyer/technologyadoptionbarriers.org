@@ -1,3 +1,4 @@
+import React from 'react'
 import type { Metadata } from 'next'
 import {
   ARTICLE_CLASSES,
@@ -751,26 +752,17 @@ const FindingsPage = () => {
                           <tr className="bg-gray-50 text-gray-500">
                             <th className="border border-gray-300 px-3 py-1 sticky left-0 bg-gray-50" />
                             {PRIMARY_GROUPS.map((g) => (
-                              <>
-                                <th
-                                  key={`${g.key}-m`}
-                                  className="border border-gray-300 px-2 py-1 text-right font-medium"
-                                >
+                              <React.Fragment key={g.key}>
+                                <th className="border border-gray-300 px-2 py-1 text-right font-medium">
                                   M
                                 </th>
-                                <th
-                                  key={`${g.key}-sd`}
-                                  className="border border-gray-300 px-2 py-1 text-right font-medium"
-                                >
+                                <th className="border border-gray-300 px-2 py-1 text-right font-medium">
                                   SD
                                 </th>
-                                <th
-                                  key={`${g.key}-n`}
-                                  className="border border-gray-300 px-2 py-1 text-right font-medium"
-                                >
+                                <th className="border border-gray-300 px-2 py-1 text-right font-medium">
                                   N
                                 </th>
-                              </>
+                              </React.Fragment>
                             ))}
                             <th className="border border-gray-300 px-2 py-1 text-center font-medium">
                               Δ
@@ -788,30 +780,21 @@ const FindingsPage = () => {
                                 {PRIMARY_GROUPS.map((g) => {
                                   const stat = item.groups[g.key]
                                   return (
-                                    <>
-                                      <td
-                                        key={`${g.key}-m`}
-                                        className="border border-gray-300 px-2 py-1.5 text-right font-mono"
-                                      >
+                                    <React.Fragment key={g.key}>
+                                      <td className="border border-gray-300 px-2 py-1.5 text-right font-mono">
                                         {stat?.mean !== null && stat?.mean !== undefined
                                           ? stat.mean.toFixed(2)
                                           : '—'}
                                       </td>
-                                      <td
-                                        key={`${g.key}-sd`}
-                                        className="border border-gray-300 px-2 py-1.5 text-right font-mono text-gray-500"
-                                      >
+                                      <td className="border border-gray-300 px-2 py-1.5 text-right font-mono text-gray-500">
                                         {stat?.sd !== null && stat?.sd !== undefined
                                           ? stat.sd.toFixed(2)
                                           : '—'}
                                       </td>
-                                      <td
-                                        key={`${g.key}-n`}
-                                        className="border border-gray-300 px-2 py-1.5 text-right font-mono text-gray-500"
-                                      >
+                                      <td className="border border-gray-300 px-2 py-1.5 text-right font-mono text-gray-500">
                                         {stat?.n ?? '—'}
                                       </td>
-                                    </>
+                                    </React.Fragment>
                                   )
                                 })}
                                 <td className="border border-gray-300 px-2 py-1.5 text-center font-mono font-semibold">
