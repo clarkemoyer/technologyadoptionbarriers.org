@@ -77,7 +77,7 @@ function categorize(urlPath: string): string {
 
 /**
  * Returns `true` when `text` already ends with terminal punctuation
- * (`.`, `!`, `?`, `:`, `;`, em-dash, en-dash, or hyphen), optionally
+ * (`.`, `!`, `?`, `:`, `;`, em-dash, or en-dash), optionally
  * followed by closing quotes/brackets/parentheses.
  *
  * Used to decide whether a `'. '` separator is needed between content

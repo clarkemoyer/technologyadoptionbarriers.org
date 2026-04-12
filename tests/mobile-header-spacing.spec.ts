@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { seedCookieConsent } from './utils/seed-cookie-consent'
+import { seedCookieConsent, assertCookieConsentSeeded } from './utils/seed-cookie-consent'
 
 /**
  * Test to ensure mobile header doesn't overlap with page content
@@ -17,6 +17,7 @@ test.describe('Mobile Header Spacing', () => {
 
     // Navigate to homepage
     await page.goto('/', { waitUntil: 'domcontentloaded' })
+    await assertCookieConsentSeeded(page)
 
     // Wait for the header to be visible as a deterministic UI signal
     const header = page.locator('header#header')
@@ -63,6 +64,7 @@ test.describe('Mobile Header Spacing', () => {
 
     // Navigate to homepage
     await page.goto('/', { waitUntil: 'domcontentloaded' })
+    await assertCookieConsentSeeded(page)
 
     // Wait for the header to be visible as a deterministic UI signal
     const header = page.locator('header#header')
@@ -131,6 +133,7 @@ test.describe('Mobile Header Spacing', () => {
       await page.setViewportSize({ width: viewport.width, height: viewport.height })
 
       await page.goto('/', { waitUntil: 'domcontentloaded' })
+      await assertCookieConsentSeeded(page)
 
       const header = page.locator('header#header')
       await expect(header).toBeVisible()
