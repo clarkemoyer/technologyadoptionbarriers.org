@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, act } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { SidebarProvider, useSidebar } from '../../src/components/sidebar/sidebar-context'
 
@@ -41,9 +41,7 @@ describe('SidebarContext', () => {
         <TestConsumer />
       </SidebarProvider>
     )
-    act(() => {
-      screen.getByRole('button', { name: 'open' }).click()
-    })
+    fireEvent.click(screen.getByRole('button', { name: 'open' }))
     expect(screen.getByTestId('state')).toHaveTextContent('true')
   })
 
@@ -53,14 +51,10 @@ describe('SidebarContext', () => {
         <TestConsumer />
       </SidebarProvider>
     )
-    act(() => {
-      screen.getByRole('button', { name: 'open' }).click()
-    })
+    fireEvent.click(screen.getByRole('button', { name: 'open' }))
     expect(screen.getByTestId('state')).toHaveTextContent('true')
 
-    act(() => {
-      screen.getByRole('button', { name: 'close' }).click()
-    })
+    fireEvent.click(screen.getByRole('button', { name: 'close' }))
     expect(screen.getByTestId('state')).toHaveTextContent('false')
   })
 })
