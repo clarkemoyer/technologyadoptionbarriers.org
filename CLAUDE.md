@@ -1064,6 +1064,8 @@ Claude Code operates under a tiered permission system configured in `~/.claude/s
 
 ### Dependency Risk Chart
 
+> **Snapshot**: Stars, last-activity, and last-release figures were captured in **Apr 2026** (see [#783](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/783) for the tracking issue). Verify before adopting any dependency listed here.
+
 #### MCP Servers
 
 | Dependency                                                    | Publisher              | Official?    | Stars        | Last Activity | Risk                                          |
