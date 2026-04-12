@@ -131,11 +131,13 @@ export default function RootLayout({
         </a>
         {/* <PopupProvider> */}
         <SidebarProvider>
-          <Header />
-          <div className="flex min-h-[calc(100vh-56px)]">
-            <Sidebar />
-            <div id="main-content" tabIndex={-1} className="flex-1 min-w-0">
-              {children}
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <div className="flex flex-1">
+              <Sidebar />
+              <div id="main-content" tabIndex={-1} className="flex-1 min-w-0">
+                {children}
+              </div>
             </div>
           </div>
         </SidebarProvider>

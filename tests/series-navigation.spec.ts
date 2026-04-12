@@ -1,6 +1,10 @@
 import { test, expect } from '@playwright/test'
 import { technologyAdoptionModelsSeries } from '../src/data/technology-adoption-models-series'
 
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
 /**
  * Technology Adoption Models Series Navigation Tests
  *
@@ -144,25 +148,10 @@ test.describe('Series Navigation - Mobile Accordion', () => {
     const openMenuButton = page.getByRole('button', { name: /open navigation menu/i })
     await expect(openMenuButton).toBeVisible()
 
-    // Wait for React hydration before clicking
-    await page.waitForTimeout(1000)
-
     const dialog = page.getByRole('dialog', { name: /navigation menu/i })
 
-    // Mobile sidebar is client-side state; give hydration a couple chances.
-    for (let attempt = 0; attempt < 5; attempt += 1) {
-      // Only click if dialog is not already visible
-      const isDialogVisible = await dialog.isVisible().catch(() => false)
-      if (isDialogVisible) return
-
-      await openMenuButton.click()
-      await page.waitForTimeout(1000)
-
-      if (await dialog.isVisible().catch(() => false)) {
-        return
-      }
-    }
-
+    // Wait for hydration by clicking and waiting for dialog visibility
+    await openMenuButton.click()
     await expect(dialog).toBeVisible({ timeout: 15000 })
   }
 
@@ -173,9 +162,6 @@ test.describe('Series Navigation - Mobile Accordion', () => {
     await page.goto('/', { waitUntil: 'domcontentloaded' })
 
     // Dismiss cookie consent banner so it can't intercept mobile menu clicks.
-    // The banner may appear after hydration, so wait briefly for it.
-    await page.waitForTimeout(250)
-
     const cookieBanner = page.locator('[role="region"][aria-label="Cookie consent notice"]')
     const cookieBannerAppeared = await cookieBanner
       .waitFor({ state: 'visible', timeout: 2000 })
@@ -192,7 +178,8 @@ test.describe('Series Navigation - Mobile Accordion', () => {
     await openMobileMenu(page)
 
     // Click Models top-level item in sidebar
-    const modelsButton = page.getByRole('dialog').getByText('Models')
+    const navigationDialog = page.getByRole('dialog', { name: /navigation menu/i })
+    const modelsButton = navigationDialog.getByRole('button', { name: /^Models$/i })
     await expect(modelsButton).toBeVisible()
     await modelsButton.click()
 
@@ -205,12 +192,14 @@ test.describe('Series Navigation - Mobile Accordion', () => {
     await openMobileMenu(page)
 
     // Click Models section
-    const modelsButton = page.getByRole('dialog').getByText('Models')
+    const navigationDialog = page.getByRole('dialog', { name: /navigation menu/i })
+    const modelsButton = navigationDialog.getByRole('button', { name: /^Models$/i })
     await modelsButton.click()
 
-    // Find and click Branch 1 accordion button
+    // Find and click Branch 1 accordion button (title derived from series data)
+    const branch1ShortTitle = technologyAdoptionModelsSeries.branches[0].title.split('–')[0].trim()
     const branch1Button = page.getByRole('button', {
-      name: /Branch 1/i,
+      name: new RegExp(escapeRegExp(branch1ShortTitle), 'i'),
     })
     await expect(branch1Button).toBeVisible()
     await branch1Button.click()
@@ -226,12 +215,14 @@ test.describe('Series Navigation - Mobile Accordion', () => {
     await openMobileMenu(page)
 
     // Click Models section
-    const modelsButton = page.getByRole('dialog').getByText('Models')
+    const navigationDialog = page.getByRole('dialog', { name: /navigation menu/i })
+    const modelsButton = navigationDialog.getByRole('button', { name: /^Models$/i })
     await modelsButton.click()
 
-    // Find and click Branch 2 accordion button
+    // Find and click Branch 2 accordion button (title derived from series data)
+    const branch2ShortTitle = technologyAdoptionModelsSeries.branches[1].title.split('–')[0].trim()
     const branch2Button = page.getByRole('button', {
-      name: /Branch 2/i,
+      name: new RegExp(escapeRegExp(branch2ShortTitle), 'i'),
     })
     await expect(branch2Button).toBeVisible()
     await branch2Button.click()

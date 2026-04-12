@@ -3,6 +3,7 @@ import { render, screen, fireEvent, within } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import Sidebar from '../../src/components/sidebar'
+import { SidebarProvider } from '../../src/components/sidebar/sidebar-context'
 
 // Extend Jest matchers
 expect.extend(toHaveNoViolations)
@@ -17,9 +18,17 @@ jest.mock('next/navigation', () => ({
   })),
 }))
 
+function renderSidebar() {
+  return render(
+    <SidebarProvider>
+      <Sidebar />
+    </SidebarProvider>
+  )
+}
+
 describe('Sidebar navigation', () => {
   it('renders all top-level section items', () => {
-    render(<Sidebar />)
+    renderSidebar()
     const nav = screen.getByRole('navigation', { name: 'Main site navigation' })
     expect(within(nav).getByText('Home')).toBeInTheDocument()
     expect(within(nav).getByText('Survey')).toBeInTheDocument()
@@ -31,7 +40,7 @@ describe('Sidebar navigation', () => {
   })
 
   it('clicking a top-level item shows its accordion groups', () => {
-    render(<Sidebar />)
+    renderSidebar()
     const nav = screen.getByRole('navigation', { name: 'Main site navigation' })
     // Click Results top-level button
     fireEvent.click(within(nav).getByText('Results'))
@@ -40,7 +49,7 @@ describe('Sidebar navigation', () => {
   })
 
   it('switches dynamic zone when different top-level item is clicked', () => {
-    render(<Sidebar />)
+    renderSidebar()
     const nav = screen.getByRole('navigation', { name: 'Main site navigation' })
 
     // Click Results
@@ -53,7 +62,7 @@ describe('Sidebar navigation', () => {
   })
 
   it('accordion groups toggle — only one open at a time', () => {
-    render(<Sidebar />)
+    renderSidebar()
     const nav = screen.getByRole('navigation', { name: 'Main site navigation' })
 
     // Activate Results section
@@ -71,13 +80,13 @@ describe('Sidebar navigation', () => {
   })
 
   it('has accessible navigation landmark', () => {
-    render(<Sidebar />)
+    renderSidebar()
     const nav = screen.getByRole('navigation', { name: 'Main site navigation' })
     expect(nav).toBeInTheDocument()
   })
 
   it('should not have accessibility violations', async () => {
-    const { container } = render(<Sidebar />)
+    const { container } = renderSidebar()
     const results = await axe(container)
     expect(results).toHaveNoViolations()
   })

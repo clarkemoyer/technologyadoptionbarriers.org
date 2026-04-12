@@ -8,11 +8,7 @@ interface SidebarContextValue {
   closeMobile: () => void
 }
 
-const SidebarContext = createContext<SidebarContextValue>({
-  isMobileOpen: false,
-  openMobile: () => {},
-  closeMobile: () => {},
-})
+const SidebarContext = createContext<SidebarContextValue | undefined>(undefined)
 
 export function SidebarProvider({ children }: { children: React.ReactNode }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
@@ -28,5 +24,9 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useSidebar() {
-  return useContext(SidebarContext)
+  const context = useContext(SidebarContext)
+  if (!context) {
+    throw new Error('useSidebar must be used within a SidebarProvider')
+  }
+  return context
 }

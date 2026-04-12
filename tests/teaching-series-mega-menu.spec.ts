@@ -30,17 +30,7 @@ async function openTeachingMegaMenu(page: Page) {
 
   const megaMenu = page.locator('#mega-menu')
 
-  // The mega menu is client-side state; give hydration a couple chances.
-  for (let attempt = 0; attempt < 3; attempt += 1) {
-    await megaMenuButton.click()
-
-    if (await megaMenu.isVisible().catch(() => false)) {
-      return megaMenu
-    }
-
-    await page.waitForTimeout(750)
-  }
-
+  await megaMenuButton.click()
   await expect(megaMenu).toBeVisible({ timeout: 10000 })
   return megaMenu
 }
@@ -49,24 +39,10 @@ async function openMobileMenu(page: Page) {
   const openMenuButton = page.getByRole('button', { name: /open navigation menu/i })
   await expect(openMenuButton).toBeVisible()
 
-  // Wait for React hydration before clicking
-  await page.waitForTimeout(1000)
-
   const dialog = page.getByRole('dialog', { name: /navigation menu/i })
 
-  // Mobile sidebar is client-side state; give hydration a couple chances.
-  for (let attempt = 0; attempt < 5; attempt += 1) {
-    const isDialogVisible = await dialog.isVisible().catch(() => false)
-    if (isDialogVisible) return
-
-    await openMenuButton.click()
-    await page.waitForTimeout(1000)
-
-    if (await dialog.isVisible().catch(() => false)) {
-      return
-    }
-  }
-
+  // Wait for hydration by checking the button becomes interactive
+  await openMenuButton.click()
   await expect(dialog).toBeVisible({ timeout: 15000 })
 }
 
@@ -110,7 +86,8 @@ test.describe('Teaching Series - Header Mega Menu', () => {
     await openMobileMenu(page)
 
     // Click Teaching top-level item in sidebar
-    const teachingButton = page.getByRole('dialog').getByText('Teaching')
+    const navigationDialog = page.getByRole('dialog', { name: /navigation menu/i })
+    const teachingButton = navigationDialog.getByRole('button', { name: /^Teaching$/i })
     await expect(teachingButton).toBeVisible()
     await teachingButton.click()
 

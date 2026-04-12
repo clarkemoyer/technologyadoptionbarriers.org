@@ -58,7 +58,6 @@ test.describe('Mobile Header Spacing', () => {
     await page.waitForLoadState('networkidle')
 
     // Dismiss cookie consent banner if it appears
-    await page.waitForTimeout(250)
     const cookieBanner = page.locator('[role="region"][aria-label="Cookie consent notice"]')
     const cookieBannerAppeared = await cookieBanner
       .waitFor({ state: 'visible', timeout: 2000 })
@@ -70,29 +69,31 @@ test.describe('Mobile Header Spacing', () => {
       await expect(cookieBanner).toBeHidden({ timeout: 5000 })
     }
 
-    // Find the sidebar mobile menu button
+    // Verify header doesn't cover hero content in normal (closed) state
+    const header = page.locator('header#header')
+    await expect(header).toBeVisible()
+    const headerBox = await header.boundingBox()
+    expect(headerBox).not.toBeNull()
+
+    const heroHeading = page.getByRole('heading', {
+      name: 'Technology Adoption Barriers Survey.',
+      level: 1,
+    })
+    await expect(heroHeading).toBeVisible()
+    const heroBox = await heroHeading.boundingBox()
+    expect(heroBox).not.toBeNull()
+
+    if (headerBox && heroBox) {
+      const headerBottom = headerBox.y + headerBox.height
+      expect(heroBox.y).toBeGreaterThanOrEqual(headerBottom)
+    }
+
+    // Open sidebar overlay
     const menuButton = page.getByRole('button', { name: /open navigation menu/i })
     await expect(menuButton).toBeVisible()
 
-    // Wait for React hydration
-    await page.waitForTimeout(1000)
-
     const dialog = page.getByRole('dialog', { name: /navigation menu/i })
-
-    // Mobile sidebar is client-side state; give hydration a couple chances.
-    for (let attempt = 0; attempt < 5; attempt += 1) {
-      const isDialogVisible = await dialog.isVisible().catch(() => false)
-      if (isDialogVisible) break
-
-      await menuButton.click()
-      await page.waitForTimeout(1000)
-
-      if (await dialog.isVisible().catch(() => false)) {
-        break
-      }
-    }
-
-    // Wait for sidebar overlay to open
+    await menuButton.click()
     await expect(dialog).toBeVisible({ timeout: 15000 })
 
     // Verify the sidebar has a Home link
@@ -100,10 +101,6 @@ test.describe('Mobile Header Spacing', () => {
     await expect(homeLink).toBeVisible()
 
     // Verify the hero heading is still in the DOM underneath the overlay
-    const heroHeading = page.getByRole('heading', {
-      name: 'Technology Adoption Barriers Survey.',
-      level: 1,
-    })
     await expect(heroHeading).toBeAttached()
   })
 
