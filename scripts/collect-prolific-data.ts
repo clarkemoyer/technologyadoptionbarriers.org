@@ -192,7 +192,7 @@ async function main() {
           `| Approved | ${stats.approvedSubmissions} |`,
           `| Rejected | ${stats.rejectedSubmissions} |`,
           `| Awaiting review | ${stats.awaitingReviewSubmissions} |`,
-          `| Average time (minutes) | ${stats.averageTimeMinutes === null ? ' - ' : stats.averageTimeMinutes.toFixed(2)} |`,
+          `| Average time (minutes) | ${stats.averageTimeMinutes === null ? '-' : stats.averageTimeMinutes.toFixed(2)} |`,
           '',
           '### CSV Export',
           '',
@@ -202,7 +202,7 @@ async function main() {
             : '- **Saved to:** (not generated)',
           exportCsv && csvInfo
             ? `- **Rows (including header):** ${csvInfo.totalLines}`
-            : '- **Rows (including header):**  - ',
+            : '- **Rows (including header):** -',
           exportCsv && csvInfo && csvPreviewLines > 0
             ? [
                 '',
