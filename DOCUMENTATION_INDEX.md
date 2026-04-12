@@ -386,14 +386,14 @@ This index provides a comprehensive guide to all documentation in the TABS repos
 - `CITATION.cff` - Citation info
 - `COMMUNITY_HEALTH_FILES.md` - GitHub guide
 
-**Process (5 files):**
+**Process (6 files):**
 
 - `RELEASING.md` - Release process
 - `CHANGELOG.md` - Release history
 - `DEPENDABOT.md` - Dependency management
 - `ISSUE_RESOLUTION.md` - Issue workflow
 - `SITE_IMPROVEMENTS.md` - Site enhancements
-- `MAINTENANCE.md` - Lifecycle management
+- `docs/MAINTENANCE.md` - Lifecycle management
 
 **AI Agents (3 files):**
 
