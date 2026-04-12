@@ -31,6 +31,7 @@ function resolveCookieConsentSeed(options?: CookieConsentSeedOptions) {
       storageValue: JSON.stringify(JSON.parse(storageValue)),
     }
   } catch {
+    // storageValue is not valid JSON — fall back to the known-good default.
     return {
       storageKey,
       storageValue: JSON.stringify(FALLBACK_COOKIE_CONSENT),
