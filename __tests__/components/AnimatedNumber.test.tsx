@@ -7,7 +7,6 @@ expect.extend(toHaveNoViolations)
 
 // Mock framer-motion completely
 jest.mock('framer-motion', () => {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const ReactModule = require('react')
   const MockSpan = ReactModule.forwardRef(
     (
