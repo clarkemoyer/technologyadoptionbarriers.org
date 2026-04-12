@@ -306,9 +306,9 @@ export default function PrivacyPolicy() {
             </li>
           </ol>
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
-            Your information may be transferred to - and maintained on - computers located outside
-            of your state, province, country, or other governmental jurisdiction where data
-            protection laws may differ:
+            Your information may be transferred to, and maintained on, computers located outside of
+            your state, province, country, or other governmental jurisdiction where data protection
+            laws may differ:
           </p>
           <ul className="list-inside list-disc space-y-[4px] pb-[1em]">
             <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">

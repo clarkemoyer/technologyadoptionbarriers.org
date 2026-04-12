@@ -28,7 +28,7 @@ const UsersJourneyPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             In our introductory article, we established the landscape of technology adoption through
             the lens of a trifecta: Organizational, User, and Consumer Adoption. We positioned
-            Organizational Adoption-the C-Suite’s strategic focus-as the apex. We now turn our
+            Organizational Adoption - the C-Suite’s strategic focus - as the apex. We now turn our
             attention to the other two domains, which together form the deeply human side of the
             adoption equation: the internal employee’s decision to use a new system and the external
             customer’s choice to integrate a technology into their lives.
