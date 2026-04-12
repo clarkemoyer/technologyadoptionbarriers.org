@@ -123,12 +123,12 @@ test.describe('Teaching Series - Header Mega Menu', () => {
 
     await part1Button.click()
 
-    // Verify slide links are visible
+    // Verify slide links are visible (sidebar only shows non-optional slides)
     const firstSlide = technologyAdoptionTeachingSeries.parts[0].slides.filter(
       (s) => !s.isOptional
     )[0]
     const slideLink = page.getByRole('link', {
-      name: new RegExp(`Slide ${firstSlide.number}`, 'i'),
+      name: new RegExp(`Slide ${firstSlide.number}:`, 'i'),
     })
     await slideLink.scrollIntoViewIfNeeded()
     await expect(slideLink).toBeVisible()

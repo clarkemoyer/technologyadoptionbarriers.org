@@ -195,10 +195,16 @@ export default function Sidebar() {
     [closeMobile]
   )
 
-  // Mobile: close on link click
-  const handleLinkClick = useCallback(() => {
-    closeMobile()
-  }, [closeMobile])
+  // Mobile: close on navigation link click (not accordion button clicks)
+  const handleLinkClick = useCallback(
+    (e: React.MouseEvent) => {
+      const target = e.target as HTMLElement
+      if (target.closest('a')) {
+        closeMobile()
+      }
+    },
+    [closeMobile]
+  )
 
   // Focus trap & Escape key for mobile overlay
   useEffect(() => {
