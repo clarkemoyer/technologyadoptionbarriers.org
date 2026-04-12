@@ -1,0 +1,1178 @@
+{
+  "last_updated": null,
+  "constructs": {
+    "barriers": {
+      "items": [
+        {
+          "col": "Q10-28_Barriers_1",
+          "name": "Resistance to Change",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_2",
+          "name": "Lack of Leadership Support",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_3",
+          "name": "Risk-Averse Culture",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_4",
+          "name": "Insufficient Workforce Skills",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_5",
+          "name": "Inadequate Training",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_6",
+          "name": "High Implementation Cost",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_7",
+          "name": "Legacy System Integration",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_8",
+          "name": "Inadequate IT Infrastructure",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_9",
+          "name": "Difficulty Demonstrating Value",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_10",
+          "name": "No Clear Strategy/Roadmap",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_11",
+          "name": "Insufficient Governance",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_12",
+          "name": "Workflow Disruption",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_13",
+          "name": "Cybersecurity Concerns",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_14",
+          "name": "Data Privacy Compliance",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_15",
+          "name": "Lack of Trust in Tech/Vendors",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_16",
+          "name": "Regulatory Complexity",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_17",
+          "name": "External Pressure Without Readiness",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q10-28_Barriers_18",
+          "name": "Vendor/Partner Difficulty",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        }
+      ]
+    },
+    "readiness": {
+      "items": [
+        {
+          "col": "Q47-64_Readiness_1",
+          "name": "Vision/Leadership",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_2",
+          "name": "Tech-Strategy Alignment",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_3",
+          "name": "IT Governance Effectiveness",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_4",
+          "name": "Culture Openness",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_5",
+          "name": "Innovation Support",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_6",
+          "name": "Technical Workforce",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_7",
+          "name": "Training Programs",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_8",
+          "name": "Change Management",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_9",
+          "name": "IT Infrastructure",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_10",
+          "name": "System Interoperability",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_11",
+          "name": "Technical Support",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_12",
+          "name": "Data Governance",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_13",
+          "name": "Data Quality",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_14",
+          "name": "Data Analytics",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_15",
+          "name": "Business Process Maturity",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_16",
+          "name": "Performance Monitoring",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q47-64_Readiness_17",
+          "name": "Budget Adequacy",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        }
+      ]
+    },
+    "maturity": {
+      "items": [
+        {
+          "col": "Q65-73_Maturity_1",
+          "name": "IT Investment & Value Mgmt",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q65-73_Maturity_2",
+          "name": "IT-Enabled Innovation",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q65-73_Maturity_3",
+          "name": "Process Mgmt & Standardization",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q65-73_Maturity_4",
+          "name": "Data Governance & Analytics",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q65-73_Maturity_5",
+          "name": "Tech Risk & Resilience",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q65-73_Maturity_6",
+          "name": "Strategic IT Planning",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q65-73_Maturity_7",
+          "name": "Workforce Capability",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        },
+        {
+          "col": "Q65-73_Maturity_8",
+          "name": "Change Leadership",
+          "groups": {
+            "conservative_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "flexible_clean": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "prolific_accepted": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            },
+            "v2_finished": {
+              "mean": null,
+              "sd": null,
+              "n": 0
+            }
+          },
+          "max_delta": null
+        }
+      ]
+    }
+  }
+}
