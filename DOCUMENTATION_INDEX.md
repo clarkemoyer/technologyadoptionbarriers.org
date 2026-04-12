@@ -120,6 +120,13 @@ This index provides a comprehensive guide to all documentation in the TABS repos
 - Key learnings
 - Best practices
 
+**[MAINTENANCE.md](./docs/MAINTENANCE.md)** - **LIFECYCLE MANAGEMENT**
+
+- Quarterly dependency checks
+- Security review schedule
+- Monitoring strategy
+- Versioning policy
+
 ---
 
 ## 🔌 API Integration
@@ -386,6 +393,7 @@ This index provides a comprehensive guide to all documentation in the TABS repos
 - `DEPENDABOT.md` - Dependency management
 - `ISSUE_RESOLUTION.md` - Issue workflow
 - `SITE_IMPROVEMENTS.md` - Site enhancements
+- `MAINTENANCE.md` - Lifecycle management
 
 **AI Agents (3 files):**
 
@@ -403,7 +411,7 @@ This index provides a comprehensive guide to all documentation in the TABS repos
 
 ### Total Documentation
 
-**Total Files:** 53 documentation files  
+**Total Files:** 54 documentation files
 **Total Size:** ~500KB of documentation  
 **Categories:** 10 categories
 
@@ -445,6 +453,7 @@ This index provides a comprehensive guide to all documentation in the TABS repos
 2. Security: [SECURITY.md](./SECURITY.md)
 3. Releases: [RELEASING.md](./RELEASING.md)
 4. Dependencies: [DEPENDABOT.md](./DEPENDABOT.md)
+5. Maintenance: [MAINTENANCE.md](./docs/MAINTENANCE.md)
 
 ---
 
