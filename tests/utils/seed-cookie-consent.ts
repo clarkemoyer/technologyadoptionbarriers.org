@@ -1,5 +1,18 @@
 import type { Page } from '@playwright/test'
 
+/* ------------------------------------------------------------------
+ * Global type augmentation — lets helpers reference
+ * `window.__seedCookieConsentError` without unsafe casts.
+ * Because this file already has top-level exports, TypeScript treats
+ * it as a module, so `declare global` properly augments the browser
+ * `Window` interface.
+ * ----------------------------------------------------------------*/
+declare global {
+  interface Window {
+    __seedCookieConsentError?: string
+  }
+}
+
 const FALLBACK_COOKIE_CONSENT_STORAGE_KEY = 'cookie-consent'
 
 const FALLBACK_COOKIE_CONSENT = {
