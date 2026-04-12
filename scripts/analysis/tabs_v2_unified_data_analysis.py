@@ -236,7 +236,7 @@ ALL_CONSTRUCTS = [
     ("maturity", MATURITY_COLS, MATURITY_SCALE),
 ]
 
-# Scenario C binary tech/non-tech classification patterns
+# Binary tech/non-tech role classification patterns
 _OTHER_ROLE_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     # Technical
     (re.compile(r'\b(cio|chief information officer)\b', re.IGNORECASE), 'Technical'),
@@ -295,7 +295,7 @@ def classify_role(text):
 
 
 def classify_role_binary(role, other_text=''):
-    """Return the Scenario C binary role group for a respondent."""
+    """Return the binary Tech/Non-Tech role group for a respondent."""
     if role in TECH_TITLES:
         return 'Technical'
     if role in NONTECH_TITLES:
@@ -310,7 +310,7 @@ def classify_role_binary(role, other_text=''):
 
 
 def is_technical(role, other_text=''):
-    """Return True if role maps to the Technical group under Scenario C."""
+    """Return True if role maps to the Technical group under the binary classification."""
     return classify_role_binary(role, other_text) == 'Technical'
 
 
