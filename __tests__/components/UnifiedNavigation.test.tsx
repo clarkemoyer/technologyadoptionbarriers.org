@@ -82,9 +82,13 @@ describe('UnifiedNavigation', () => {
     expect(screen.getByRole('navigation', { name: /page navigation/i })).toBeInTheDocument()
   })
 
-  it('renders mobile FAB button', () => {
+  it('renders mobile FAB button when viewport is too narrow for desktop sidebar', () => {
+    // Simulate a narrow viewport so the desktop sidebar cannot fit
+    const originalInnerWidth = window.innerWidth
+    Object.defineProperty(window, 'innerWidth', { value: 200, configurable: true })
     render(<UnifiedNavigation seriesItems={[{ title: 'Page 1', href: '/page-1' }]} />)
     expect(screen.getByRole('button', { name: /navigation/i })).toBeInTheDocument()
+    Object.defineProperty(window, 'innerWidth', { value: originalInnerWidth, configurable: true })
   })
 
   it('passes accessibility checks with series items', async () => {
@@ -107,12 +111,17 @@ describe('UnifiedNavigation — footer-aware bottom offset', () => {
     header.id = 'header'
     document.body.appendChild(header)
 
+    // Article is required so the desktop sidebar can determine its position
+    const article = document.createElement('article')
+    document.body.appendChild(article)
+
     global.ResizeObserver = MockResizeObserver as unknown as typeof ResizeObserver
     global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver
   })
 
   afterEach(() => {
     document.getElementById('header')?.remove()
+    document.querySelector('article')?.remove()
     document.getElementById('site-footer')?.remove()
     jest.restoreAllMocks()
   })

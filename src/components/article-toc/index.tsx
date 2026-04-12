@@ -43,6 +43,8 @@ export default function ArticleTOC() {
   const [progress, setProgress] = useState(0)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [headerH, setHeaderH] = useState(80)
+  const [tocLeft, setTocLeft] = useState(0)
+  const [canShowDesktop, setCanShowDesktop] = useState(false)
   const observerRef = useRef<IntersectionObserver | null>(null)
 
   /* ---------- track header height (shrinks on scroll) ---------- */
@@ -54,6 +56,23 @@ export default function ArticleTOC() {
     })
     ro.observe(header)
     return () => ro.disconnect()
+  }, [])
+
+  /* ---------- track article position for TOC placement ---------- */
+  useEffect(() => {
+    const TOC_WIDTH = 210
+    const TOC_GAP = 24
+    const update = () => {
+      const article = document.querySelector('article')
+      if (!article) return
+      const rect = article.getBoundingClientRect()
+      const rightSpace = window.innerWidth - rect.right
+      setCanShowDesktop(rightSpace >= TOC_WIDTH + TOC_GAP)
+      setTocLeft(rect.right + TOC_GAP)
+    }
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
   }, [])
 
   /* ---------- scan headings on mount ---------- */
@@ -126,87 +145,91 @@ export default function ArticleTOC() {
         />
       </div>
 
-      {/* ---- desktop sidebar (xl+) ---- */}
-      <nav
-        aria-label="Table of contents"
-        className="hidden xl:block fixed z-30 transition-[top] duration-300"
-        style={{
-          top: `${headerH + 40}px`,
-          right: 'max(1rem, calc((100vw - 1200px) / 2 - 240px))',
-          width: '210px',
-        }}
-      >
-        <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">
-          On this page
-        </p>
-        <ul
-          className="space-y-1.5 border-l-2 border-gray-200 pl-3 overflow-y-auto"
-          style={{ maxHeight: `calc(100vh - ${headerH + 100}px)` }}
-        >
-          {items.map((item) => (
-            <li key={item.id}>
-              <a
-                href={`#${item.id}`}
-                className={`block text-[12px] leading-snug py-0.5 transition-colors ${
-                  activeId === item.id
-                    ? 'text-tabs-teal-deep font-semibold -ml-[14px] pl-[12px] border-l-2 border-tabs-teal-deep'
-                    : 'text-gray-500 hover:text-gray-800'
-                }`}
-              >
-                {item.text}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      {/* ---- mobile floating button + popup (< xl) ---- */}
-      <div className="xl:hidden fixed bottom-6 right-6 z-50">
-        {mobileOpen && (
-          <nav
-            aria-label="Table of contents"
-            className="absolute bottom-14 right-0 w-72 max-h-[50vh] overflow-y-auto bg-white rounded-xl shadow-2xl border border-gray-200 p-4"
-          >
-            <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">
-              On this page
-            </p>
-            <ul className="space-y-1">
-              {items.map((item) => (
-                <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    onClick={() => setMobileOpen(false)}
-                    className={`block text-sm py-1 ${
-                      activeId === item.id
-                        ? 'text-tabs-teal-deep font-semibold'
-                        : 'text-gray-600 hover:text-gray-900'
-                    }`}
-                  >
-                    {item.text}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
-
-        <button
-          onClick={() => setMobileOpen((o) => !o)}
-          aria-expanded={mobileOpen}
+      {/* ---- desktop sidebar (shown only when enough space) ---- */}
+      {canShowDesktop && (
+        <nav
           aria-label="Table of contents"
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-tabs-teal-deep text-white shadow-lg hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tabs-teal-deep focus-visible:ring-offset-2"
+          className="fixed z-30 transition-[top] duration-300"
+          style={{
+            top: `${headerH + 40}px`,
+            left: `${tocLeft}px`,
+            width: '210px',
+          }}
         >
-          {/* list-bullet icon */}
-          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h7"
-            />
-          </svg>
-        </button>
-      </div>
+          <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">
+            On this page
+          </p>
+          <ul
+            className="space-y-1.5 border-l-2 border-gray-200 pl-3 overflow-y-auto"
+            style={{ maxHeight: `calc(100vh - ${headerH + 100}px)` }}
+          >
+            {items.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className={`block text-[12px] leading-snug py-0.5 transition-colors ${
+                    activeId === item.id
+                      ? 'text-tabs-teal-deep font-semibold -ml-[14px] pl-[12px] border-l-2 border-tabs-teal-deep'
+                      : 'text-gray-500 hover:text-gray-800'
+                  }`}
+                >
+                  {item.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+
+      {/* ---- mobile floating button + popup (shown when desktop TOC doesn't fit) ---- */}
+      {!canShowDesktop && (
+        <div className="fixed bottom-6 right-6 z-50">
+          {mobileOpen && (
+            <nav
+              aria-label="Table of contents"
+              className="absolute bottom-14 right-0 w-72 max-h-[50vh] overflow-y-auto bg-white rounded-xl shadow-2xl border border-gray-200 p-4"
+            >
+              <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">
+                On this page
+              </p>
+              <ul className="space-y-1">
+                {items.map((item) => (
+                  <li key={item.id}>
+                    <a
+                      href={`#${item.id}`}
+                      onClick={() => setMobileOpen(false)}
+                      className={`block text-sm py-1 ${
+                        activeId === item.id
+                          ? 'text-tabs-teal-deep font-semibold'
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      {item.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+
+          <button
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-expanded={mobileOpen}
+            aria-label="Table of contents"
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-tabs-teal-deep text-white shadow-lg hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tabs-teal-deep focus-visible:ring-offset-2"
+          >
+            {/* list-bullet icon */}
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h7"
+              />
+            </svg>
+          </button>
+        </div>
+      )}
     </>
   )
 }
