@@ -672,12 +672,14 @@ const FindingsPage = () => {
               <div className="flex flex-wrap justify-center gap-3">
                 <Link
                   href="/results/crp-2026/validation"
+                  aria-label="View completed Regression Models analysis"
                   className="inline-flex items-center gap-1.5 bg-white border border-green-300 rounded-full px-4 py-1.5 text-sm text-green-700 hover:bg-green-100 transition-colors"
                 >
                   <span aria-hidden="true">✓</span> Regression Models
                 </Link>
                 <Link
                   href="/results/crp-2026/factor-analysis"
+                  aria-label="View completed Factor Analysis results"
                   className="inline-flex items-center gap-1.5 bg-white border border-green-300 rounded-full px-4 py-1.5 text-sm text-green-700 hover:bg-green-100 transition-colors"
                 >
                   <span aria-hidden="true">✓</span> Factor Analysis
