@@ -48,9 +48,9 @@ test.describe('Header Take the TABS CTA', () => {
 
     await expectCtaTopRight(page)
 
-    // Ensure we did not need to open the mobile menu for CTA visibility
-    const menuButton = page.getByRole('button', { name: /open menu|close menu/i })
-    await expect(menuButton).toBeVisible()
+    // The sidebar has a floating button on mobile (not in header)
+    const navButton = page.getByRole('button', { name: /open navigation menu/i })
+    await expect(navButton).toBeVisible()
 
     await page.evaluate(() => window.scrollTo(0, 600))
     await page.waitForFunction(() => window.scrollY >= 500)

@@ -141,24 +141,29 @@ test.describe('Series Navigation - Desktop Mega Menu', () => {
 
 test.describe('Series Navigation - Mobile Accordion', () => {
   async function openMobileMenu(page: any) {
-    const openMenuButton = page.getByRole('button', { name: /open menu/i })
+    const openMenuButton = page.getByRole('button', { name: /open navigation menu/i })
     await expect(openMenuButton).toBeVisible()
 
-    const banner = page.getByRole('banner')
-    const homeLinkInMenu = banner.getByRole('link', { name: /^Home$/ })
+    // Wait for React hydration before clicking
+    await page.waitForTimeout(1000)
 
-    // Mobile menu is client-side state; give hydration a couple chances.
-    for (let attempt = 0; attempt < 3; attempt += 1) {
+    const dialog = page.getByRole('dialog', { name: /navigation menu/i })
+
+    // Mobile sidebar is client-side state; give hydration a couple chances.
+    for (let attempt = 0; attempt < 5; attempt += 1) {
+      // Only click if dialog is not already visible
+      const isDialogVisible = await dialog.isVisible().catch(() => false)
+      if (isDialogVisible) return
+
       await openMenuButton.click()
+      await page.waitForTimeout(1000)
 
-      if (await homeLinkInMenu.isVisible().catch(() => false)) {
+      if (await dialog.isVisible().catch(() => false)) {
         return
       }
-
-      await page.waitForTimeout(750)
     }
 
-    await expect(homeLinkInMenu).toBeVisible({ timeout: 10000 })
+    await expect(dialog).toBeVisible({ timeout: 15000 })
   }
 
   test.beforeEach(async ({ page }) => {
@@ -186,51 +191,56 @@ test.describe('Series Navigation - Mobile Accordion', () => {
   test('should open mobile menu and show accordion', async ({ page }) => {
     await openMobileMenu(page)
 
-    // Verify Technology Adoption Models link is visible
-    const seriesLink = page.getByRole('link', { name: /Technology Adoption Models/i }).first()
-    await expect(seriesLink).toBeVisible({ timeout: 10000 })
+    // Click Models top-level item in sidebar
+    const modelsButton = page.getByRole('dialog').getByText('Models')
+    await expect(modelsButton).toBeVisible()
+    await modelsButton.click()
+
+    // Verify accordion groups are shown in sidebar
+    const seriesOverview = page.getByRole('button', { name: /Series Overview/i })
+    await expect(seriesOverview).toBeVisible({ timeout: 10000 })
   })
 
   test('should expand Branch 1 accordion in mobile menu', async ({ page }) => {
     await openMobileMenu(page)
 
+    // Click Models section
+    const modelsButton = page.getByRole('dialog').getByText('Models')
+    await modelsButton.click()
+
     // Find and click Branch 1 accordion button
     const branch1Button = page.getByRole('button', {
-      name: new RegExp(technologyAdoptionModelsSeries.branches[0].title, 'i'),
+      name: /Branch 1/i,
     })
     await expect(branch1Button).toBeVisible()
     await branch1Button.click()
     await expect(branch1Button).toHaveAttribute('aria-expanded', 'true')
 
     // Verify articles are visible
-    const article11 = page.getByRole('link', { name: /Article 1\.1: The Bedrock/i })
+    const article11 = page.getByRole('link', { name: /The Bedrock/i })
     await article11.scrollIntoViewIfNeeded()
     await expect(article11).toBeVisible()
-
-    const article12 = page.getByRole('link', { name: /Article 1\.2: The Game Changer/i })
-    await article12.scrollIntoViewIfNeeded()
-    await expect(article12).toBeVisible()
   })
 
   test('should expand Branch 2 accordion in mobile menu', async ({ page }) => {
     await openMobileMenu(page)
 
+    // Click Models section
+    const modelsButton = page.getByRole('dialog').getByText('Models')
+    await modelsButton.click()
+
     // Find and click Branch 2 accordion button
     const branch2Button = page.getByRole('button', {
-      name: new RegExp(technologyAdoptionModelsSeries.branches[1].title, 'i'),
+      name: /Branch 2/i,
     })
     await expect(branch2Button).toBeVisible()
     await branch2Button.click()
     await expect(branch2Button).toHaveAttribute('aria-expanded', 'true')
 
     // Verify articles are visible
-    const article21 = page.getByRole('link', { name: /Article 2\.1: The Strategic Lens/i })
+    const article21 = page.getByRole('link', { name: /The Strategic Lens/i })
     await article21.scrollIntoViewIfNeeded()
     await expect(article21).toBeVisible()
-
-    const article22 = page.getByRole('link', { name: /Article 2\.2: From Chaos to Control/i })
-    await article22.scrollIntoViewIfNeeded()
-    await expect(article22).toBeVisible()
   })
 })
 

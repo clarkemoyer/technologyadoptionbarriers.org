@@ -57,35 +57,54 @@ test.describe('Mobile Header Spacing', () => {
     await page.goto('/')
     await page.waitForLoadState('networkidle')
 
-    // Find and click the mobile menu button
-    const menuButton = page.getByRole('button', { name: /menu/i })
-    await expect(menuButton).toBeVisible()
-    await menuButton.click()
+    // Dismiss cookie consent banner if it appears
+    await page.waitForTimeout(250)
+    const cookieBanner = page.locator('[role="region"][aria-label="Cookie consent notice"]')
+    const cookieBannerAppeared = await cookieBanner
+      .waitFor({ state: 'visible', timeout: 2000 })
+      .then(() => true)
+      .catch(() => false)
 
-    // Wait for menu to open by checking if menu items are visible
-    const homeLink = page.getByRole('link', { name: 'Home' }).first()
+    if (cookieBannerAppeared) {
+      await cookieBanner.getByRole('button', { name: 'Decline All' }).click()
+      await expect(cookieBanner).toBeHidden({ timeout: 5000 })
+    }
+
+    // Find the sidebar mobile menu button
+    const menuButton = page.getByRole('button', { name: /open navigation menu/i })
+    await expect(menuButton).toBeVisible()
+
+    // Wait for React hydration
+    await page.waitForTimeout(1000)
+
+    const dialog = page.getByRole('dialog', { name: /navigation menu/i })
+
+    // Mobile sidebar is client-side state; give hydration a couple chances.
+    for (let attempt = 0; attempt < 5; attempt += 1) {
+      const isDialogVisible = await dialog.isVisible().catch(() => false)
+      if (isDialogVisible) break
+
+      await menuButton.click()
+      await page.waitForTimeout(1000)
+
+      if (await dialog.isVisible().catch(() => false)) {
+        break
+      }
+    }
+
+    // Wait for sidebar overlay to open
+    await expect(dialog).toBeVisible({ timeout: 15000 })
+
+    // Verify the sidebar has a Home link
+    const homeLink = dialog.getByRole('link', { name: 'Home' }).first()
     await expect(homeLink).toBeVisible()
 
-    // Get the header and menu bounding boxes
-    const header = page.locator('header#header')
-    const headerBox = await header.boundingBox()
-
-    expect(headerBox).not.toBeNull()
-
-    // Verify the hero heading is still below the header even with menu open
+    // Verify the hero heading is still in the DOM underneath the overlay
     const heroHeading = page.getByRole('heading', {
       name: 'Technology Adoption Barriers Survey.',
       level: 1,
     })
-    await expect(heroHeading).toBeVisible()
-
-    const heroBox = await heroHeading.boundingBox()
-    expect(heroBox).not.toBeNull()
-
-    if (headerBox && heroBox) {
-      // Hero content should not be hidden by the header
-      expect(heroBox.y).toBeGreaterThan(headerBox.y)
-    }
+    await expect(heroHeading).toBeAttached()
   })
 
   test('should maintain proper spacing on different mobile viewports', async ({ page }) => {

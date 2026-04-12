@@ -10,6 +10,7 @@ import {
   type SidebarGroup,
 } from '@/data/sidebar-navigation'
 import { normalizePath } from '@/lib/normalizePath'
+import { useSidebar } from './sidebar-context'
 
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
@@ -133,17 +134,16 @@ export default function Sidebar() {
   const pathname = usePathname()
   const currentPath = normalizePath(pathname)
   const detectedSection = getActiveSectionId(currentPath)
+  const { isMobileOpen, closeMobile } = useSidebar()
 
   const [activeSection, setActiveSection] = useState<string>(detectedSection)
   const [openGroup, setOpenGroup] = useState<string | null>(null)
-  const [isMobileOpen, setIsMobileOpen] = useState(false)
   const sidebarRef = useRef<HTMLElement>(null)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
 
   // Sync active section with current URL
   useEffect(() => {
     setActiveSection(detectedSection)
-    // Persist to sessionStorage
     try {
       sessionStorage.setItem(STORAGE_KEY, detectedSection)
     } catch {
@@ -173,34 +173,32 @@ export default function Sidebar() {
   }, [])
 
   // Handle top-level item click
-  const handleTopLevelClick = useCallback((section: SidebarSection) => {
-    setActiveSection(section.id)
-    try {
-      sessionStorage.setItem(STORAGE_KEY, section.id)
-    } catch {
-      // sessionStorage unavailable
-    }
-    // Open first group of the new section
-    if (section.groups.length > 0) {
-      setOpenGroup(section.groups[0].title)
-    } else {
-      setOpenGroup(null)
-    }
-    // Close mobile overlay on direct-link items
-    if (section.href) {
-      setIsMobileOpen(false)
-    }
-  }, [])
-
-  // Close mobile sidebar
-  const closeMobile = useCallback(() => {
-    setIsMobileOpen(false)
-  }, [])
+  const handleTopLevelClick = useCallback(
+    (section: SidebarSection) => {
+      setActiveSection(section.id)
+      try {
+        sessionStorage.setItem(STORAGE_KEY, section.id)
+      } catch {
+        // sessionStorage unavailable
+      }
+      // Open first group of the new section
+      if (section.groups.length > 0) {
+        setOpenGroup(section.groups[0].title)
+      } else {
+        setOpenGroup(null)
+      }
+      // Close mobile overlay on direct-link items
+      if (section.href) {
+        closeMobile()
+      }
+    },
+    [closeMobile]
+  )
 
   // Mobile: close on link click
   const handleLinkClick = useCallback(() => {
-    setIsMobileOpen(false)
-  }, [])
+    closeMobile()
+  }, [closeMobile])
 
   // Focus trap & Escape key for mobile overlay
   useEffect(() => {
@@ -303,24 +301,6 @@ export default function Sidebar() {
         {sidebarContent}
       </aside>
 
-      {/* Mobile hamburger button — rendered in the header via a portal or prop,
-          but we also provide a standalone trigger here for layout integration */}
-      <button
-        className="lg:hidden fixed bottom-4 left-4 z-40 rounded-full bg-slate-900 p-3 text-white shadow-lg hover:bg-slate-800 transition-colors"
-        onClick={() => setIsMobileOpen(true)}
-        aria-label="Open navigation menu"
-        aria-haspopup="dialog"
-      >
-        <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-      </button>
-
       {/* Mobile overlay */}
       {isMobileOpen && (
         <div
@@ -363,35 +343,5 @@ export default function Sidebar() {
         </div>
       )}
     </>
-  )
-}
-
-/**
- * MobileSidebarTrigger — a button component the header can render
- * to open the mobile sidebar.
- */
-export function MobileSidebarTrigger({
-  onClick,
-  className,
-}: {
-  onClick: () => void
-  className?: string
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={className}
-      aria-label="Open navigation menu"
-      aria-haspopup="dialog"
-    >
-      <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M4 6h16M4 12h16M4 18h16"
-        />
-      </svg>
-    </button>
   )
 }

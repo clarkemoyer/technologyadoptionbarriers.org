@@ -3,6 +3,7 @@ import './globals.css'
 import Header from './../components/header'
 import Footer from './../components/footer'
 import Sidebar from './../components/sidebar'
+import { SidebarProvider } from './../components/sidebar/sidebar-context'
 import CookieConsent from './../components/cookie-consent'
 import ClarityRouteTracker from './../components/clarity-route-tracker'
 import GoogleTagManager, { GoogleTagManagerNoScript } from './../components/google-tag-manager'
@@ -129,13 +130,15 @@ export default function RootLayout({
           Skip to main content
         </a>
         {/* <PopupProvider> */}
-        <Header />
-        <div className="flex min-h-[calc(100vh-56px)]">
-          <Sidebar />
-          <div id="main-content" tabIndex={-1} className="flex-1 min-w-0">
-            {children}
+        <SidebarProvider>
+          <Header />
+          <div className="flex min-h-[calc(100vh-56px)]">
+            <Sidebar />
+            <div id="main-content" tabIndex={-1} className="flex-1 min-w-0">
+              {children}
+            </div>
           </div>
-        </div>
+        </SidebarProvider>
         <Footer />
         <CookieConsent />
         {/* <PopupsRootClient /> */}

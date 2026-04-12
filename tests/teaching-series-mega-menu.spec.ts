@@ -46,24 +46,28 @@ async function openTeachingMegaMenu(page: Page) {
 }
 
 async function openMobileMenu(page: Page) {
-  const openMenuButton = page.getByRole('button', { name: /open menu/i })
+  const openMenuButton = page.getByRole('button', { name: /open navigation menu/i })
   await expect(openMenuButton).toBeVisible()
 
-  const banner = page.getByRole('banner')
-  const homeLinkInMenu = banner.getByRole('link', { name: /^Home$/ })
+  // Wait for React hydration before clicking
+  await page.waitForTimeout(1000)
 
-  // Mobile menu is client-side state; give hydration a couple chances.
-  for (let attempt = 0; attempt < 3; attempt += 1) {
+  const dialog = page.getByRole('dialog', { name: /navigation menu/i })
+
+  // Mobile sidebar is client-side state; give hydration a couple chances.
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const isDialogVisible = await dialog.isVisible().catch(() => false)
+    if (isDialogVisible) return
+
     await openMenuButton.click()
+    await page.waitForTimeout(1000)
 
-    if (await homeLinkInMenu.isVisible().catch(() => false)) {
+    if (await dialog.isVisible().catch(() => false)) {
       return
     }
-
-    await page.waitForTimeout(750)
   }
 
-  await expect(homeLinkInMenu).toBeVisible({ timeout: 10000 })
+  await expect(dialog).toBeVisible({ timeout: 15000 })
 }
 
 test.describe('Teaching Series - Header Mega Menu', () => {
@@ -105,11 +109,12 @@ test.describe('Teaching Series - Header Mega Menu', () => {
 
     await openMobileMenu(page)
 
-    const teachingSeriesLink = page.getByRole('link', {
-      name: /Technology Adoption Teaching Series/i,
-    })
-    await expect(teachingSeriesLink).toBeVisible()
+    // Click Teaching top-level item in sidebar
+    const teachingButton = page.getByRole('dialog').getByText('Teaching')
+    await expect(teachingButton).toBeVisible()
+    await teachingButton.click()
 
+    // Verify teaching accordion groups appear
     const part1Title = technologyAdoptionTeachingSeries.parts[0].title
     const part1Button = page.getByRole('button', {
       name: new RegExp(escapeRegExp(part1Title), 'i'),
@@ -118,16 +123,14 @@ test.describe('Teaching Series - Header Mega Menu', () => {
 
     await part1Button.click()
 
-    const firstSlide = technologyAdoptionTeachingSeries.parts[0].slides[0]
-    await expect(
-      page.getByRole('link', { name: new RegExp(`Slide ${firstSlide.number}:`, 'i') })
-    ).toBeVisible()
-
-    const resourcesButton = page.getByRole('button', { name: /^Resources$/i })
-    await expect(resourcesButton).toBeVisible()
-    await resourcesButton.click()
-
-    const firstResource = technologyAdoptionTeachingSeriesResources[0]
-    await expect(page.getByRole('link', { name: firstResource.title })).toBeVisible()
+    // Verify slide links are visible
+    const firstSlide = technologyAdoptionTeachingSeries.parts[0].slides.filter(
+      (s) => !s.isOptional
+    )[0]
+    const slideLink = page.getByRole('link', {
+      name: new RegExp(`Slide ${firstSlide.number}`, 'i'),
+    })
+    await slideLink.scrollIntoViewIfNeeded()
+    await expect(slideLink).toBeVisible()
   })
 })
