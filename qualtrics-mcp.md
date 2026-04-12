@@ -144,7 +144,7 @@ For the GitHub remote MCP server endpoint (hosted by GitHub):
 
 ## Monitoring for Official MCP
 
-We actively monitor Qualtrics and its parent company SAP for official MCP (Model Context Protocol) server releases. SAP is a member of the [AI Alliance](https://theaialliance.ai/), which focuses on open and transparent AI development. We track their official channels for any first-party MCP implementations that may provide a more robust alternative to current community-developed or custom solutions.
+Qualtrics already exposes a first-party MCP endpoint (`/API/mcp/survey-crud`) that this project uses directly. We actively monitor official SAP/Qualtrics channels for expanded official support — specifically: general availability (GA) status, stable versioning guarantees, broader tool coverage, and comprehensive documentation. SAP is a member of the [AI Alliance](https://theaialliance.ai/).
 
 ## Safety warning: manage:all scope
 

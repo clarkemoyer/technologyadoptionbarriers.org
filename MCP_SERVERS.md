@@ -242,7 +242,7 @@ To add additional MCP servers:
 We actively monitor for official MCP server releases from our primary platform providers to reduce dependency risk and improve long-term stability.
 
 - **Prolific:** Currently, no official Prolific MCP server exists. We continue to monitor their developer communications.
-- **Qualtrics/SAP:** As SAP is a member of the [AI Alliance](https://theaialliance.ai/), we monitor for official Qualtrics MCP implementations that may emerge from their ecosystem initiatives.
+- **Qualtrics/SAP:** We already use the first-party Qualtrics platform MCP endpoint (`/API/mcp/survey-crud`). We monitor official SAP/Qualtrics channels for expanded support: GA status, stable versioning guarantees, broader tool coverage, and comprehensive docs. SAP is a member of the [AI Alliance](https://theaialliance.ai/).
 
 ## Troubleshooting
 

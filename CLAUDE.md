@@ -1066,7 +1066,7 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 
 | Tier         | Criteria                                                 | Examples                                                       |
 | ------------ | -------------------------------------------------------- | -------------------------------------------------------------- |
-| **Low**      | Official, from the company, actively maintained          | GitHub MCP, Cloudflare MCP, Google Analytics MCP, `googleapis` |
+| **Low**      | Official, from the company, actively maintained          | GitHub MCP, Qualtrics platform MCP (`/API/mcp/survey-crud`), Cloudflare MCP, Google Analytics MCP, `googleapis` |
 | **Medium**   | Community but mature (100+ stars, multiple contributors) | `peter-evans/create-pull-request`, Google Search Console MCP   |
 | **High**     | Community, single maintainer, or stale                   | R Statistics MCP (stale)                                       |
 | **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` (deprecated)             |
@@ -1074,7 +1074,7 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 **Rule**: Prefer official sources. We actively track Prolific and Qualtrics (SAP) for official MCP server releases.
 
 - **Prolific**: No official MCP exists; currently using custom Python scripts (`scripts/analysis/`).
-- **Qualtrics/SAP**: Monitoring via SAP's membership in the [AI Alliance](https://theaialliance.ai/); currently using the first-party platform MCP endpoint and custom Python scripts.
+- **Qualtrics/SAP**: Currently using the first-party platform MCP endpoint (`/API/mcp/survey-crud`) — **Low** risk tier. We monitor official SAP/Qualtrics channels for expanded support (GA status, stable versioning, comprehensive docs). SAP is an AI Alliance member.
 
 ## Resources
 
