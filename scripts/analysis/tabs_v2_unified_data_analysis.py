@@ -2512,7 +2512,7 @@ def run_validation(df, skip=False, crp200=False):
 
         # CFA
         cfa_data = cr.get('cfa', {})
-        block['cfa'] = {
+        cfa_block = {
             'construct': cname,
             'chi2': cfa_data.get('chi2'),
             'df': cfa_data.get('df'),
@@ -2522,6 +2522,9 @@ def run_validation(df, skip=False, crp200=False):
             'rmsea': cfa_data.get('rmsea'),
             'srmr': cfa_data.get('srmr'),
         }
+        if 'error' in cfa_data:
+            cfa_block['error'] = cfa_data['error']
+        block['cfa'] = cfa_block
 
         # Inter-item
         iic = cr.get('inter_item_correlations', {})
@@ -2550,6 +2553,8 @@ def run_validation(df, skip=False, crp200=False):
     if 'error' not in barrier_4f_cfa:
         for k in ['chi2', 'df', 'chi2_p', 'cfi', 'tli', 'rmsea', 'aic', 'bic']:
             b4f_out[k] = barrier_4f_cfa.get(k)
+    else:
+        b4f_out['error'] = barrier_4f_cfa['error']
     output['barriers_4f_cfa'] = b4f_out
 
     # Factor analysis summary (for EFA factors)
