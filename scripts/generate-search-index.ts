@@ -75,6 +75,46 @@ function categorize(urlPath: string): string {
   return 'General'
 }
 
+/**
+ * Returns `true` when `text` already ends with terminal punctuation
+ * (`.`, `!`, `?`, `:`, `;`, em-dash, or en-dash), optionally
+ * followed by closing quotes/brackets/parentheses.
+ *
+ * Used to decide whether a `'. '` separator is needed between content
+ * segments in the search index — prevents double-period artifacts like
+ * `(TABS)..` while preserving intentional punctuation (`U.S.`, `Ph.D.`).
+ *
+ * @example
+ * endsWithTerminalPunctuation('Hello.')   // true
+ * endsWithTerminalPunctuation('Hello!"')  // true
+ * endsWithTerminalPunctuation('Title:')   // true
+ * endsWithTerminalPunctuation('Hello')    // false
+ */
+export function endsWithTerminalPunctuation(text: string): boolean {
+  return /[.!?:;—–][)\]}'"\u2018\u2019\u201C\u201D\u00BB]*$/.test(text.trimEnd())
+}
+
+/**
+ * Joins pre-trimmed content segments with appropriate separators.
+ *
+ * Only inserts `'. '` when the preceding segment does **not** already end
+ * with terminal punctuation; otherwise uses a plain `' '`.  Collapses
+ * internal whitespace and trims the result.
+ */
+export function joinSegments(segments: string[]): string {
+  return segments
+    .filter((s) => s.trim().length > 0)
+    .reduce((acc, seg, i) => {
+      const trimmedSeg = seg.trim()
+      if (i === 0) return trimmedSeg
+      const trimmed = acc.trimEnd()
+      const separator = endsWithTerminalPunctuation(trimmed) ? ' ' : '. '
+      return trimmed + separator + trimmedSeg
+    }, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
 // ---------------------------------------------------------------------------
 // Metadata + content extraction
 // ---------------------------------------------------------------------------
@@ -429,11 +469,10 @@ async function generateSearchIndex() {
     if (!title) continue
 
     const visibleText = extractVisibleText(source)
-    const content = [title, description, visibleText]
-      .filter(Boolean)
-      .join('. ')
-      .replace(/\s+/g, ' ')
-      .trim()
+    const segments = [title, description, visibleText]
+      .map((segment) => segment?.trim())
+      .filter((s): s is string => Boolean(s))
+    const content = joinSegments(segments)
 
     items.push({
       id: stableId(urlPath),
