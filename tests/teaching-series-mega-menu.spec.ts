@@ -22,7 +22,7 @@ async function openSidebar(page: Page) {
 
   const dialog = page.getByRole('dialog', { name: /navigation menu/i })
 
-  // Wait for hydration by checking the button becomes interactive
+  // Open the navigation menu and wait for the dialog to become visible
   await openMenuButton.click()
   await expect(dialog).toBeVisible({ timeout: 15000 })
   return dialog

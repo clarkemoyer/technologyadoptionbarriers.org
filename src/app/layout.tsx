@@ -135,9 +135,9 @@ export default function RootLayout({
             <Header />
             <div className="flex flex-1">
               <Sidebar />
-              <div id="main-content" tabIndex={-1} className="flex-1 min-w-0">
+              <main id="main-content" tabIndex={-1} className="flex-1 min-w-0">
                 {children}
-              </div>
+              </main>
             </div>
             <div className="mt-auto">
               <Footer />
