@@ -1,7 +1,7 @@
 import { test, expect, type Page } from '@playwright/test'
 import { technologyAdoptionTeachingSeries } from '../src/data/technology-adoption-teaching-series'
 import { escapeRegExp } from './utils/escape-regexp'
-import { seedCookieConsent } from './utils/seed-cookie-consent'
+import { seedCookieConsent, assertCookieConsentSeeded } from './utils/seed-cookie-consent'
 
 /** Shared timeout for sidebar visibility expectations (tolerates slow CI hydration). */
 const NAVIGATION_TIMEOUT_MS = 15_000
@@ -25,6 +25,7 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
 
     await seedCookieConsent(page)
     await page.goto('/', { waitUntil: 'domcontentloaded' })
+    await assertCookieConsentSeeded(page)
 
     // On desktop the sidebar is always visible; scope all locators to it
     const sidebar = page.getByRole('complementary', { name: /site navigation/i })
@@ -57,6 +58,7 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
 
     await seedCookieConsent(page)
     await page.goto('/', { waitUntil: 'domcontentloaded' })
+    await assertCookieConsentSeeded(page)
 
     const navigationDialog = await openSidebar(page)
     const teachingButton = navigationDialog.getByRole('button', { name: /^Teaching$/i })

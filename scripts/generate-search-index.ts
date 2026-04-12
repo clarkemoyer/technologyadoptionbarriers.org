@@ -91,7 +91,7 @@ function categorize(urlPath: string): string {
  * endsWithTerminalPunctuation('Hello')    // false
  */
 export function endsWithTerminalPunctuation(text: string): boolean {
-  return /[.!?:;—–][)\]}'"]*$/.test(text.trimEnd())
+  return /[.!?:;—–][)\]}'"\u2018\u2019\u201C\u201D\u00BB]*$/.test(text.trimEnd())
 }
 
 /**

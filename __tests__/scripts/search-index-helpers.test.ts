@@ -20,6 +20,9 @@ describe('endsWithTerminalPunctuation', () => {
     [true, "Hello!'"],
     [true, 'End.}'],
     [true, 'Finish?)"'],
+    [true, 'Hello!\u201D'],
+    [true, 'Hello!\u2019'],
+    [true, 'End.\u00BB'],
   ])('returns %s for %p (terminal punctuation with trailing closers)', (expected, input) => {
     expect(endsWithTerminalPunctuation(input)).toBe(expected)
   })

@@ -98,15 +98,14 @@ export async function seedCookieConsent(page: Page, options?: CookieConsentSeedO
     ({ storageKey: initStorageKey, storageValue: initStorageValue, strict: initStrict }) => {
       // Clear any stale error flag from a previous navigation/init-script
       // run so a successful setItem doesn't trip assertCookieConsentSeeded().
-      ;(window as unknown as Record<string, unknown>).__seedCookieConsentError = undefined
+      window.__seedCookieConsentError = undefined
       try {
         localStorage.setItem(initStorageKey, initStorageValue)
       } catch (err) {
         if (initStrict) {
           // Set a deterministic in-page flag so assertCookieConsentSeeded()
           // can surface the failure as a test-level error after navigation.
-          ;(window as unknown as Record<string, unknown>).__seedCookieConsentError =
-            err instanceof Error ? err.message : String(err)
+          window.__seedCookieConsentError = err instanceof Error ? err.message : String(err)
         }
       }
     },
@@ -130,9 +129,7 @@ export async function seedCookieConsent(page: Page, options?: CookieConsentSeedO
  */
 export async function assertCookieConsentSeeded(page: Page, options?: CookieConsentSeedOptions) {
   const { storageKey } = resolveCookieConsentSeed(options)
-  const error = await page.evaluate(
-    () => (window as unknown as Record<string, unknown>).__seedCookieConsentError
-  )
+  const error = await page.evaluate(() => window.__seedCookieConsentError)
   if (error) {
     throw new Error(`[seedCookieConsent] localStorage.setItem failed in strict mode: ${error}`)
   }

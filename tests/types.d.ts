@@ -1,0 +1,10 @@
+/**
+ * Global type augmentation for custom in-page flags used by E2E test helpers.
+ *
+ * Declaring these on `Window` lets helpers like `seedCookieConsent` access
+ * `window.__seedCookieConsentError` without unsafe `as unknown as Record`
+ * casts, improving discoverability and compile-time safety.
+ */
+interface Window {
+  __seedCookieConsentError?: string
+}
