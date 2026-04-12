@@ -16,8 +16,6 @@ const AutomationInfrastructurePage = () => {
   return (
     <main className={ARTICLE_CLASSES}>
       <MakingOfTabsNav>
-        {/* Breadcrumb */}
-
         <h1 className={H1_CLASSES}>Automation Infrastructure</h1>
 
         <p className="text-gray-600 mb-8">

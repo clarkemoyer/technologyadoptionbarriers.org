@@ -31,6 +31,8 @@ interface TocHeading {
 const DEFAULT_HEADER_HEIGHT = 80
 /** Extra pixels below the sticky header for comfortable scroll targeting */
 const SCROLL_MARGIN_GAP = 20
+/** Minimum gap in pixels between the sidebar bottom and the viewport/footer edge */
+const MIN_BOTTOM_GAP = 20
 
 /** Recursively check if any descendant has isCurrent set */
 function hasCurrentDescendant(items: SeriesNavItem[]): boolean {
@@ -47,7 +49,10 @@ export default function UnifiedNavigation({
   const [headings, setHeadings] = useState<TocHeading[]>([])
   const [activeId, setActiveId] = useState<string>('')
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [footerOffset, setFooterOffset] = useState(MIN_BOTTOM_GAP)
   const panelRef = useRef<HTMLDivElement>(null)
+  const footerOffsetRef = useRef(MIN_BOTTOM_GAP)
+  const rafIdRef = useRef<number | null>(null)
 
   // Track header height (with feature detection for ResizeObserver)
   useEffect(() => {
@@ -61,6 +66,48 @@ export default function UnifiedNavigation({
     return () => ro.disconnect()
   }, [])
 
+  // Track footer position so the sidebar never overlaps it
+  // Throttled via requestAnimationFrame; skips setState when value is unchanged.
+  useEffect(() => {
+    const update = () => {
+      const footer = document.getElementById('site-footer')
+      let next: number
+      if (!footer) {
+        next = MIN_BOTTOM_GAP
+      } else {
+        const rect = footer.getBoundingClientRect()
+        const rawVisibleFooterPx = window.innerHeight - rect.top
+        const maxVisibleFooterPx = Math.min(rect.height, window.innerHeight)
+        const footerVisiblePx = Math.max(0, Math.min(rawVisibleFooterPx, maxVisibleFooterPx))
+        next = footerVisiblePx > 0 ? footerVisiblePx + MIN_BOTTOM_GAP : MIN_BOTTOM_GAP
+      }
+      if (next !== footerOffsetRef.current) {
+        footerOffsetRef.current = next
+        setFooterOffset(next)
+      }
+    }
+
+    const onScroll = () => {
+      if (rafIdRef.current !== null) return
+      rafIdRef.current = requestAnimationFrame(() => {
+        rafIdRef.current = null
+        update()
+      })
+    }
+
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current)
+        rafIdRef.current = null
+      }
+    }
+  }, [])
+
   // Scroll margin derived from dynamic header height + a small gap
   const effectiveHeaderH = headerH || DEFAULT_HEADER_HEIGHT
   const scrollMargin = `${effectiveHeaderH + SCROLL_MARGIN_GAP}px`
@@ -71,15 +118,23 @@ export default function UnifiedNavigation({
     if (!article) return
 
     const h2s = Array.from(article.querySelectorAll('h2'))
-    const usedIds = new Set<string>()
+    const usedFinalIds = new Set<string>()
     const items: TocHeading[] = h2s.map((el, idx) => {
+      let base: string
       if (!el.id) {
-        let candidate = slugify(el.textContent || '')
-        if (!candidate) candidate = `section-${idx}`
-        while (usedIds.has(candidate)) candidate = `${candidate}-${idx}`
-        el.id = candidate
+        base = slugify(el.textContent || '')
+        if (!base) base = `section-${idx}`
+      } else {
+        base = el.id
       }
-      usedIds.add(el.id)
+      let candidate = base
+      let suffix = 2
+      while (usedFinalIds.has(candidate)) {
+        candidate = `${base}-${suffix}`
+        suffix++
+      }
+      usedFinalIds.add(candidate)
+      el.id = candidate
       // Ensure headings clear the sticky header when targeted
       el.style.scrollMarginTop = scrollMargin
       return { id: el.id, text: el.textContent || '' }
@@ -242,11 +297,12 @@ export default function UnifiedNavigation({
         className={`hidden xl:block fixed z-30 ${className ?? ''}`}
         style={{
           top: `${effectiveHeaderH + 40}px`,
+          bottom: `${footerOffset}px`,
           right: 'max(1rem, calc((100vw - 1200px) / 2 - 240px))',
           width: '210px',
         }}
       >
-        <div className="space-y-6 max-h-[calc(100vh-160px)] overflow-y-auto pr-2">
+        <div className="space-y-6 h-full overflow-y-auto pr-2">
           {seriesContent}
           {hasSeries && hasToc && <hr className="border-gray-200" />}
           {tocContent}

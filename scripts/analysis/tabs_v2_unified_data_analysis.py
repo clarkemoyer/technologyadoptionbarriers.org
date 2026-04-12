@@ -167,7 +167,7 @@ ROLE_MAP = {
     'CMO (e.g., Director of Communications, Public Affairs Officer, Chief Marketing & Communications Officer)': 'CMO',
     'CSO (e.g., Director of Strategic Planning, Policy Director, Chief Strategy Officer)': 'CSO',
     'CRO (e.g., Director of Budget/Finance, Director of Development/Fundraising, Head of Revenue Operations)': 'CRO',
-    'CISO (e.g., VP of Information Security, Chief Cybersecurity Officer)': 'CISO',
+    'CISO (e.g., Director of Cybersecurity, Chief Security Officer)': 'CISO',
     'Other (please specify)': 'Other'
 }
 TECH_TITLES = {'CIO', 'CTO', 'CISO'}
@@ -250,6 +250,8 @@ _OTHER_ROLE_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r'\b(software |systems |network |security |data |infrastructure |database |cloud |devops |platform )?(engineer|architect|developer|programmer)\b', re.IGNORECASE), 'Technical'),
     (re.compile(r'\bsystems administrator\b', re.IGNORECASE), 'Technical'),
     (re.compile(r'\b(network|infrastructure|cybersecurity|data scientist|data engineer|software|database)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(analytics|ai|artificial intelligence)\b', re.IGNORECASE), 'Technical'),
+    (re.compile(r'\b(online learning|e-learning|digital learning)\b', re.IGNORECASE), 'Technical'),
     # Non-Technical
     (re.compile(r'\bchief (executive|financial|operating|human|marketing|revenue|strategy|product|privacy|legal|compliance)\b', re.IGNORECASE), 'Non-Technical'),
     (re.compile(r'\b(vp|vice president|svp|evp|avp) of (finance|financial|operations|human resources|hr|marketing|sales|strategy|legal|compliance|product)\b', re.IGNORECASE), 'Non-Technical'),
@@ -302,6 +304,8 @@ def classify_role_binary(role, other_text=''):
         classified = classify_role(other_text)
         if classified in ('Technical', 'Non-Technical'):
             return classified
+        # Unmatched free-text (no technology signal) defaults to Non-Technical
+        return 'Non-Technical'
     return None
 
 
@@ -1160,10 +1164,41 @@ def load_qualtrics_csv(csv_path, single_header=False):
     return idx, data
 
 
-def filter_samples(data, idx):
-    """Create sample cuts from V2 data. Returns (v2_rows, samples_dict)."""
-    v2_all_rows = [r for r in data if r[idx['StartDate']] >= V2_START
-                   or ('ResponseId' in idx and r[idx['ResponseId']] == PROLIFIC_TEST_ID)]
+def filter_samples(data, idx, crp200=False):
+    """Create sample cuts from V2 data. Returns (v2_rows, samples_dict).
+
+    Args:
+        data: list of row lists from load_qualtrics_csv (values accessed via idx)
+        idx:  column-name-to-index map (header → column position)
+        crp200: when True, skip the V2_START date filter entirely.
+                The frozen CRP dataset is V2-only by construction, so no
+                date filtering is needed. When False, StartDate values are
+                parsed as datetimes and compared against V2_START, which
+                avoids the lexicographic pitfall where a date-only string
+                (e.g. after upstream de-identification strips the time
+                component) sorts before the V2_START datetime string and
+                would silently exclude same-day responses from the sample.
+    """
+    if crp200:
+        v2_all_rows = list(data)
+    else:
+        from datetime import datetime as _dt
+        _v2_start = _dt.fromisoformat(V2_START)
+
+        def _after_v2_start(row):
+            raw = row[idx['StartDate']]
+            try:
+                # Accept both "YYYY-MM-DD HH:MM:SS" and "YYYY-MM-DD" formats
+                ts = _dt.fromisoformat(raw)
+            except (ValueError, TypeError):
+                return False
+            return ts >= _v2_start
+
+        v2_all_rows = [
+            r for r in data
+            if _after_v2_start(r)
+            or ('ResponseId' in idx and r[idx['ResponseId']] == PROLIFIC_TEST_ID)
+        ]
 
     # Deduplicate by PROLIFIC_PID
     if 'PROLIFIC_PID' in idx:
@@ -1531,7 +1566,7 @@ def sensitivity_to_json(cuts, idx):
         role_groups = [
             ("Technical", [r for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) == 'Technical']),
             ("Non-Technical", [r for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) == 'Non-Technical']),
-            ("Other", [r for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) is None]),
+            ("Unclassified", [r for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) is None]),
         ]
         role_results = []
         for gname, grows in role_groups:
@@ -1603,21 +1638,26 @@ def sensitivity_to_json(cuts, idx):
             }
         result_inf["t_tests_large_vs_small"] = {"large_n": len(large), "small_medium_n": len(smmed), "constructs": t_tests_org}
 
-        other = [r for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) is None]
+        # Dynamically build groups to avoid reporting 3 groups when only 2 are populated.
+        unclassified = [r for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) is None]
+        role_anova_groups = [
+            ("Technical", tech),
+            ("Non-Technical", nontech),
+            ("Unclassified", unclassified),
+        ]
+        role_anova_groups = [(name, grp) for name, grp in role_anova_groups if grp]
         anova_role = {}
         for label, cols, sc in ALL_CONSTRUCTS:
-            g1 = _person_means_rows(tech, cols, sc, idx)
-            g2 = _person_means_rows(nontech, cols, sc, idx)
-            g3 = _person_means_rows(other, cols, sc, idx)
-            f_stat, p_val, df_b, df_w = oneway_anova(g1, g2, g3)
+            group_vals = [_person_means_rows(grp, cols, sc, idx) for _, grp in role_anova_groups]
+            f_stat, p_val, df_b, df_w = oneway_anova(*group_vals)
             anova_role[label] = {
                 "f": round(f_stat, 4) if f_stat is not None else None,
                 "p": round(p_val, 4) if p_val is not None else None,
                 "df_between": df_b, "df_within": df_w,
                 "sig": p_val is not None and p_val < 0.05,
             }
-        result_inf["anova_by_role"] = {"groups": ["Technical", "Non-Technical", "Other"],
-                                       "group_ns": [len(tech), len(nontech), len(other)], "constructs": anova_role}
+        result_inf["anova_by_role"] = {"groups": [name for name, _ in role_anova_groups],
+                                       "group_ns": [len(grp) for _, grp in role_anova_groups], "constructs": anova_role}
 
         small_orgs = [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('<100', '100-499')]
         med_orgs = [r for r in rows if r[idx['Q4_OrgSize']].strip() in ('500-999', '1000-4999')]
@@ -1664,8 +1704,8 @@ def sensitivity_to_json(cuts, idx):
         for sample_label, rows in main_cuts:
             tech_n = sum(1 for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) == 'Technical')
             nontech_n = sum(1 for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) == 'Non-Technical')
-            other_n = sum(1 for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) is None)
-            role_counts.append([tech_n, nontech_n, other_n])
+            unclassified_n = sum(1 for r in rows if classify_role_binary(_get_role_from_row(r, idx), _get_other_text_from_row(r, idx)) is None)
+            role_counts.append([tech_n, nontech_n, unclassified_n])
             org_sizes = [sum(1 for r in rows if r[idx['Q4_OrgSize']].strip() == os_val) for os_val in ALL_ORG_SIZES]
             org_size_counts.append(org_sizes)
             profit_models = [sum(1 for r in rows if r[idx['Q5_ProfitModel']].strip() == pm_val)
@@ -2536,9 +2576,60 @@ def run_validation(df, skip=False, crp200=False):
     else:
         factor_correlation = None
 
+    # ── Three-group decomposition of Barriers (F1a/F1b split + F2) ──
+    # Canonical group definitions — emitted as `item_ids` in each
+    # three_groups entry of crp-validation.json so the UI consumes
+    # them from data rather than maintaining a separate list.
+    THREE_GROUP_DEFS = [
+        ('F1a \u2014 Strategy & Culture',
+         ['B1', 'B2', 'B3', 'B5', 'B9', 'B10', 'B11', 'B15', 'B17'], 'f1'),
+        ('F1b \u2014 Resources & Operations',
+         ['B4', 'B6', 'B7', 'B8', 'B12'], 'f1'),
+        ('F2 \u2014 External & Compliance',
+         ['B13', 'B14', 'B16', 'B18'], 'f2'),
+    ]
+    lm_by_id = {r['id']: r for r in loadings_matrix}
+    three_groups = []
+    for grp_name, grp_ids, factor_key in THREE_GROUP_DEFS:
+        missing = [
+            bid for bid in grp_ids
+            if bid not in lm_by_id or lm_by_id[bid].get(factor_key) is None
+        ]
+        lambdas = [
+            lm_by_id[bid].get(factor_key)
+            for bid in grp_ids
+            if bid in lm_by_id and lm_by_id[bid].get(factor_key) is not None
+        ]
+        k = len(lambdas)
+        alpha_val = None
+        cr_val = None
+        ave_val = None
+        # Only compute stats when we have the complete item set
+        if lambdas and not missing:
+            cr_raw = composite_reliability(lambdas)
+            cr_val = None if (cr_raw is None or np.isnan(cr_raw)) else float(cr_raw)
+            ave_val = ave_from_loadings(lambdas)
+            # Approximate alpha from the factor-model implied correlation matrix
+            lam_arr = np.array(lambdas, dtype=float)
+            off_diag = float(lam_arr.sum() ** 2 - (lam_arr ** 2).sum())
+            total_var = k + off_diag
+            alpha_val = (k / (k - 1)) * (off_diag / total_var) if (k > 1 and total_var) else None
+        entry = {
+            'name': grp_name,
+            'item_ids': list(grp_ids),
+            'items': len(grp_ids),
+            'alpha': round(alpha_val, 4) if alpha_val is not None else None,
+            'cr': round(cr_val, 4) if cr_val is not None else None,
+            'ave': round(ave_val, 4) if ave_val is not None else None,
+        }
+        if missing:
+            entry['items_computed'] = k
+            entry['missing_items'] = missing
+        three_groups.append(entry)
+
     output['factor_analysis'] = {
         'efa_factors': efa_factors,
-        'three_groups': [],  # populated only when specifically computed
+        'three_groups': three_groups,
         'factor_correlation': factor_correlation,
         'barrier_names': BARRIER_NAMES,
         'loadings_matrix': loadings_matrix,
@@ -2654,7 +2745,7 @@ Examples:
     # In CRP mode, use single_header=True since the public CSV has 1 header row.
     # Sensitivity runs for BOTH live and CRP — CRP pages need sample cuts too.
     idx_raw, data_raw = load_qualtrics_csv(args.csv_path, single_header=args.crp200)
-    v2_rows_raw, samples_raw = filter_samples(data_raw, idx_raw)
+    v2_rows_raw, samples_raw = filter_samples(data_raw, idx_raw, crp200=args.crp200)
 
     cuts = [
         ("Conservative Clean", samples_raw["conservative_clean"]),

@@ -95,20 +95,19 @@ const THREE_GROUP_COLORS = [
   { color: 'bg-pink-50 border-pink-400', headerColor: 'bg-pink-600' },
 ]
 
-/* Item lists for the 3-group decomposition — F1a/F1b split is exploratory, items
-   derived from the forced 2-factor extraction within F1 (see discussion below). */
-const THREE_GROUP_ITEMS = [
-  ['B1', 'B2', 'B3', 'B5', 'B9', 'B10', 'B11', 'B15', 'B17'],
-  ['B4', 'B6', 'B7', 'B8', 'B12'],
-  ['B13', 'B14', 'B16', 'B18'],
-]
-
-type ThreeGroupEntry = { name: string; items: number; alpha: number; cr: number; ave: number }
+type ThreeGroupEntry = {
+  name: string
+  item_ids?: string[]
+  items: number
+  alpha: number
+  cr: number
+  ave: number
+}
 const THREE_GROUPS = (validationData.factor_analysis.three_groups as ThreeGroupEntry[]).map(
   (g, idx) => ({
     name: g.name,
     ...THREE_GROUP_COLORS[idx],
-    items: THREE_GROUP_ITEMS[idx] ?? [],
+    items: g.item_ids ?? [],
     stats: {
       items: g.items,
       alpha: g.alpha,

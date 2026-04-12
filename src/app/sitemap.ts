@@ -602,6 +602,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/making-of-tabs/integrations/zotero`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/making-of-tabs/ai-assisted-development`,
       lastModified: now,
       changeFrequency: 'monthly',

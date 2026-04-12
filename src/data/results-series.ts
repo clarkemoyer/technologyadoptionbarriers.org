@@ -32,7 +32,7 @@ export const resultsSeries: ResultsSeriesItem[] = [
       { title: 'Descriptive Statistics', href: '/results/descriptive' },
       { title: 'Scale Reliability', href: '/results/reliability' },
       { title: 'Sensitivity Analysis', href: '/results/sensitivity' },
-      { title: 'Research Findings', href: '/results/findings' },
+      { title: 'Key Findings', href: '/results/findings' },
       { title: 'Data Quality', href: '/results/data-quality' },
       { title: 'Reproducibility', href: '/results/reproducibility' },
     ],

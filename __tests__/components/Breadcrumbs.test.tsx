@@ -25,7 +25,7 @@ describe('Breadcrumbs', () => {
     expect(screen.getByRole('navigation', { name: /breadcrumb/i })).toBeInTheDocument()
     expect(screen.getByText('Results')).toBeInTheDocument()
     expect(screen.getByText('CRP 2026')).toBeInTheDocument()
-    expect(screen.getByText('Sample')).toBeInTheDocument()
+    expect(screen.getByText('Sample & Demographics')).toBeInTheDocument()
   })
 
   it('maps known acronyms correctly', () => {
@@ -37,7 +37,7 @@ describe('Breadcrumbs', () => {
   it('last item has aria-current="page"', () => {
     mockedUsePathname.mockReturnValue('/results/sensitivity')
     render(<Breadcrumbs />)
-    const lastItem = screen.getByText('Sensitivity').closest('li')
+    const lastItem = screen.getByText('Sensitivity Analysis').closest('li')
     expect(lastItem).toHaveAttribute('aria-current', 'page')
   })
 
