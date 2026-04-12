@@ -662,20 +662,26 @@ const FindingsPage = () => {
             })}
           </section>
 
-          {/* ── Forthcoming Analyses ── */}
+          {/* ── Completed Analyses ── */}
           <section className="mb-12 text-gray-800">
-            <h2 className={H2_CLASSES}>Forthcoming Analyses</h2>
-            <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 text-center">
+            <h2 className={H2_CLASSES}>Completed Analyses</h2>
+            <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center">
               <p className="text-gray-600 max-w-lg mx-auto mb-6 font-sans text-base">
-                The following additional analyses are planned for future releases:
+                The following additional analyses have been completed:
               </p>
               <div className="flex flex-wrap justify-center gap-3">
-                <span className="inline-block bg-white border border-gray-300 rounded-full px-4 py-1.5 text-sm text-gray-600">
-                  Regression Models
-                </span>
-                <span className="inline-block bg-white border border-gray-300 rounded-full px-4 py-1.5 text-sm text-gray-600">
-                  Factor Analysis
-                </span>
+                <Link
+                  href="/results/crp-2026/validation"
+                  className="inline-flex items-center gap-1.5 bg-white border border-green-300 rounded-full px-4 py-1.5 text-sm text-green-700 hover:bg-green-100 transition-colors"
+                >
+                  <span aria-hidden="true">✓</span> Regression Models
+                </Link>
+                <Link
+                  href="/results/crp-2026/factor-analysis"
+                  className="inline-flex items-center gap-1.5 bg-white border border-green-300 rounded-full px-4 py-1.5 text-sm text-green-700 hover:bg-green-100 transition-colors"
+                >
+                  <span aria-hidden="true">✓</span> Factor Analysis
+                </Link>
               </div>
             </div>
           </section>
