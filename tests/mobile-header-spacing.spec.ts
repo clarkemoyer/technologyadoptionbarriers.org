@@ -1,4 +1,18 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, type Page } from '@playwright/test'
+
+async function seedCookieConsent(page: Page) {
+  await page.addInitScript(() => {
+    localStorage.setItem(
+      'cookie-consent',
+      JSON.stringify({
+        necessary: true,
+        functional: true,
+        analytics: false,
+        marketing: false,
+      })
+    )
+  })
+}
 
 /**
  * Test to ensure mobile header doesn't overlap with page content
@@ -11,13 +25,13 @@ test.describe('Mobile Header Spacing', () => {
     // Set mobile viewport (iPhone 12 Pro size)
     await page.setViewportSize({ width: 390, height: 844 })
 
+    // Seed consent so the banner never appears
+    await seedCookieConsent(page)
+
     // Navigate to homepage
-    await page.goto('/')
+    await page.goto('/', { waitUntil: 'domcontentloaded' })
 
-    // Wait for page to load
-    await page.waitForLoadState('networkidle')
-
-    // Get the header element
+    // Wait for the header to be visible as a deterministic UI signal
     const header = page.locator('header#header')
     await expect(header).toBeVisible()
 
@@ -53,23 +67,13 @@ test.describe('Mobile Header Spacing', () => {
     // Set mobile viewport
     await page.setViewportSize({ width: 390, height: 844 })
 
+    // Seed consent so the banner never appears
+    await seedCookieConsent(page)
+
     // Navigate to homepage
-    await page.goto('/')
-    await page.waitForLoadState('networkidle')
+    await page.goto('/', { waitUntil: 'domcontentloaded' })
 
-    // Dismiss cookie consent banner if it appears
-    const cookieBanner = page.locator('[role="region"][aria-label="Cookie consent notice"]')
-    const cookieBannerAppeared = await cookieBanner
-      .waitFor({ state: 'visible', timeout: 2000 })
-      .then(() => true)
-      .catch(() => false)
-
-    if (cookieBannerAppeared) {
-      await cookieBanner.getByRole('button', { name: /decline/i }).click()
-      await expect(cookieBanner).toBeHidden({ timeout: 5000 })
-    }
-
-    // Verify header doesn't cover hero content in normal (closed) state
+    // Wait for the header to be visible as a deterministic UI signal
     const header = page.locator('header#header')
     await expect(header).toBeVisible()
     const headerBox = await header.boundingBox()
@@ -113,10 +117,12 @@ test.describe('Mobile Header Spacing', () => {
 
     for (const viewport of mobileViewports) {
       await page.setViewportSize({ width: viewport.width, height: viewport.height })
-      await page.goto('/')
-      await page.waitForLoadState('networkidle')
+
+      await seedCookieConsent(page)
+      await page.goto('/', { waitUntil: 'domcontentloaded' })
 
       const header = page.locator('header#header')
+      await expect(header).toBeVisible()
 
       const headerBox = await header.boundingBox()
 
