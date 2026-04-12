@@ -907,7 +907,7 @@ class TestTCdfTwoTailed:
 
     def test_known_values_from_issue(self):
         """Verify p-values reported in the bug report."""
-        # t=-0.2635, df large → p ≈ 0.7928
+        # t=3.9083, df≈82.68 → p should be ≈0.0002
         p = _t_cdf_two_tailed(3.9083, 82.68)
         assert p == pytest.approx(0.0002, abs=0.001)
 
