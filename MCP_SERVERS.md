@@ -222,6 +222,15 @@ The script checks:
 
 ## Adding New MCP Servers
 
+### Policy: prefer official, first-party sources
+
+Before adding any MCP server, prefer official first-party implementations over community-developed alternatives. We actively monitor platform providers for expanded or updated official MCP support:
+
+- **Prolific:** No official MCP server exists yet; we monitor their developer communications for any announcement.
+- **Qualtrics/SAP:** Already using the first-party platform endpoint (`/API/mcp/survey-crud`). We monitor for GA availability, stable versioning guarantees, and any officially packaged distribution.
+
+### Steps to add a new server
+
 To add additional MCP servers:
 
 1. Research available MCP servers at:
@@ -229,17 +238,13 @@ To add additional MCP servers:
    - [MCP Examples](https://modelcontextprotocol.io/examples)
    - [npm MCP packages](https://www.npmjs.com/search?q=%40modelcontextprotocol)
 
-2. **Monitoring for Official Releases:** We actively monitor for official MCP server releases from our primary platform providers.
-   - **Prolific:** Currently, no official Prolific MCP server exists. We continue to monitor their developer communications.
-   - **Qualtrics/SAP:** As SAP is a member of the **Artificial Intelligence Alliance Foundation (AAIF)**, we monitor for official Qualtrics MCP implementations that may emerge from SAP's AI initiatives.
+2. Add the server configuration to `.copilot/mcp-config.json` (reference)
 
-3. Add the server configuration to `.copilot/mcp-config.json` (reference)
+3. Document the server in this file (MCP_SERVERS.md)
 
-4. Document the server in this file (MCP_SERVERS.md)
+4. Test the configuration using `bash scripts/validate-mcp-config.sh`
 
-5. Test the configuration using `bash scripts/validate-mcp-config.sh`
-
-6. Commit changes following the repository's contribution guidelines
+5. Commit changes following the repository's contribution guidelines
 
 ## Troubleshooting
 
