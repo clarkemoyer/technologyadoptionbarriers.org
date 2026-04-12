@@ -5,14 +5,14 @@ import Breadcrumbs from '@/components/breadcrumbs'
 import PrevNextCards from '@/components/prev-next-cards'
 import ReadingProgressBar from '@/components/reading-progress-bar'
 import UnifiedNavigation, { type SeriesNavItem } from '@/components/unified-navigation'
-import { resultsSeries, flattenResultsSeries, type ResultsSeriesItem } from '@/data/results-series'
+import {
+  makingOfTabsSeries,
+  flattenMakingOfTabsSeries,
+  type MakingOfTabsItem,
+} from '@/data/making-of-tabs-series'
 import { normalizePath } from '@/lib/normalizePath'
 
-interface ResultsNavProps {
-  children: React.ReactNode
-}
-
-function mapToNavItems(items: ResultsSeriesItem[], currentPath: string): SeriesNavItem[] {
+function mapToNavItems(items: MakingOfTabsItem[], currentPath: string): SeriesNavItem[] {
   return items.map((item) => ({
     title: item.title,
     href: item.href,
@@ -22,13 +22,13 @@ function mapToNavItems(items: ResultsSeriesItem[], currentPath: string): SeriesN
   }))
 }
 
-export function ResultsNav({ children }: ResultsNavProps) {
+export default function MakingOfTabsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const currentPath = normalizePath(pathname)
 
-  const seriesNavItems = mapToNavItems(resultsSeries, currentPath)
+  const seriesNavItems = mapToNavItems(makingOfTabsSeries, currentPath)
 
-  const flat = flattenResultsSeries()
+  const flat = flattenMakingOfTabsSeries()
   const currentIndex = flat.findIndex((item) => normalizePath(item.href) === currentPath)
   const prev = currentIndex > 0 ? flat[currentIndex - 1] : null
   const next = currentIndex !== -1 && currentIndex < flat.length - 1 ? flat[currentIndex + 1] : null
@@ -40,7 +40,7 @@ export function ResultsNav({ children }: ResultsNavProps) {
         {children}
         <PrevNextCards prev={prev} next={next} className="mt-12" />
       </div>
-      <UnifiedNavigation seriesItems={seriesNavItems} seriesLabel="Results" />
+      <UnifiedNavigation seriesItems={seriesNavItems} seriesLabel="Making of TABS" />
       <ReadingProgressBar />
     </>
   )
