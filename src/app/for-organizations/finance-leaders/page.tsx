@@ -108,7 +108,7 @@ const FinanceLeadersPage = () => {
             <div className="bg-green-50 p-[30px] rounded-[12px] border-2 border-green-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Risk">
-                  âš-ï¸
+                  ⚠️
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">Risk Assessment</h3>
