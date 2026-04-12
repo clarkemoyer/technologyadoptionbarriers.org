@@ -4,7 +4,7 @@ Welcome, Claude! This document provides specific instructions for working on the
 
 ## About This Project
 
-You're working on a **Next.js 16.0.7 + TypeScript** website for Technology Adoption Barriers, a nonprofit focused on documenting and addressing technology adoption challenges.
+You're working on a **Next.js 16.2.1 + TypeScript** website for Technology Adoption Barriers, a nonprofit focused on documenting and addressing technology adoption challenges.
 
 **Key Facts:**
 
@@ -65,7 +65,7 @@ Agents should verify these versions using `gh --version` and checking `package.j
 
 ### Tech Stack
 
-- **Framework**: Next.js 16.0.7 with App Router
+- **Framework**: Next.js 16.2.1 with App Router
 - **Language**: TypeScript (strict mode) for the website; **Python** is the primary language for analysis and operational scripts
 - **Styling**: Tailwind CSS
 - **Testing**: Jest + Testing Library, Playwright, jest-axe
