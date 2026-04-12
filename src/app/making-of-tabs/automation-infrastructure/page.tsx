@@ -425,17 +425,23 @@ const AutomationInfrastructurePage = () => {
             <div className="rounded-xl border border-gray-200 p-5">
               <h3 className="font-semibold text-gray-900 mb-2">GitHub MCP Server</h3>
               <p className="text-sm text-gray-700 mb-2">
-                AI agents access GitHub — creating issues, pushing files, managing PRs — through the
-                official{' '}
+                AI agents access GitHub — creating issues, pushing files, managing PRs — through
+                GitHub&apos;s hosted MCP endpoint (
+                <code className="text-xs bg-gray-100 px-1 rounded">
+                  https://api.githubcopilot.com/mcp/
+                </code>
+                ), not via the deprecated{' '}
                 <code className="text-xs bg-gray-100 px-1 rounded">
                   @modelcontextprotocol/server-github
                 </code>{' '}
-                MCP server, not via third-party wrappers. Qualtrics MCP uses the first-party MCP
-                endpoint built into the Qualtrics platform.
+                npm package. Qualtrics MCP uses the first-party MCP endpoint built into the
+                Qualtrics platform (
+                <code className="text-xs bg-gray-100 px-1 rounded">/API/mcp/survey-crud</code>).
               </p>
               <p className="text-xs text-gray-600 italic">
-                Note: We actively monitor Prolific and Qualtrics (SAP, an AAIF member) for official
-                MCP server releases to further reduce dependency risk.
+                Note: We actively monitor Prolific for an official MCP server announcement, and
+                monitor Qualtrics/SAP for expanded official support of their existing first-party
+                endpoint (GA status, stable versioning, and official documentation).
               </p>
             </div>
           </div>
