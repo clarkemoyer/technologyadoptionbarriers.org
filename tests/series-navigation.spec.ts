@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, type Page } from '@playwright/test'
 import { technologyAdoptionModelsSeries } from '../src/data/technology-adoption-models-series'
 
 function escapeRegExp(value: string): string {
@@ -144,7 +144,7 @@ test.describe('Series Navigation - Desktop Mega Menu', () => {
 })
 
 test.describe('Series Navigation - Mobile Accordion', () => {
-  async function openMobileMenu(page: any) {
+  async function openMobileMenu(page: Page) {
     const openMenuButton = page.getByRole('button', { name: /open navigation menu/i })
     await expect(openMenuButton).toBeVisible()
 
@@ -184,7 +184,7 @@ test.describe('Series Navigation - Mobile Accordion', () => {
     await modelsButton.click()
 
     // Verify accordion groups are shown in sidebar
-    const seriesOverview = page.getByRole('button', { name: /Series Overview/i })
+    const seriesOverview = navigationDialog.getByRole('button', { name: /Series Overview/i })
     await expect(seriesOverview).toBeVisible({ timeout: 10000 })
   })
 
