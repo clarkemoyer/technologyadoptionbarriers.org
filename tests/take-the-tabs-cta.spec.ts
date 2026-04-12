@@ -48,7 +48,7 @@ test.describe('Header Take the TABS CTA', () => {
 
     await expectCtaTopRight(page)
 
-    // The sidebar has a floating button on mobile (not in header)
+    // The mobile navigation toggle should be visible without opening the menu.
     const navButton = page.getByRole('button', { name: /open navigation menu/i })
     await expect(navButton).toBeVisible()
 
