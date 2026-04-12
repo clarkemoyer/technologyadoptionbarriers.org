@@ -231,7 +231,7 @@ To add additional MCP servers:
 
 2. **Monitoring for Official Releases:** We actively monitor for official MCP server releases from our primary platform providers.
    - **Prolific:** Currently, no official Prolific MCP server exists. We continue to monitor their developer communications.
-   - **Qualtrics/SAP:** As SAP is a member of the **Artificial Intelligence Alliance Foundation (AAIF)**, we monitor for official Qualtrics MCP implementations that may emerge from SAP's AI initiatives.
+   - **Qualtrics/SAP:** SAP has publicly committed to open AI interoperability standards; we monitor their official developer channels for an official first-party Qualtrics MCP implementation.
 
 3. Add the server configuration to `.copilot/mcp-config.json` (reference)
 
