@@ -1,18 +1,5 @@
-import { test, expect, type Page } from '@playwright/test'
-
-async function seedCookieConsent(page: Page) {
-  await page.addInitScript(() => {
-    localStorage.setItem(
-      'cookie-consent',
-      JSON.stringify({
-        necessary: true,
-        functional: true,
-        analytics: false,
-        marketing: false,
-      })
-    )
-  })
-}
+import { test, expect } from '@playwright/test'
+import { seedCookieConsent } from './utils/seed-cookie-consent'
 
 /**
  * Test to ensure mobile header doesn't overlap with page content

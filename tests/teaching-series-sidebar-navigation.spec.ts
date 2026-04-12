@@ -1,20 +1,7 @@
 import { test, expect, type Page } from '@playwright/test'
 import { technologyAdoptionTeachingSeries } from '../src/data/technology-adoption-teaching-series'
 import { escapeRegExp } from './utils/escape-regexp'
-
-async function seedCookieConsent(page: Page) {
-  await page.addInitScript(() => {
-    localStorage.setItem(
-      'cookie-consent',
-      JSON.stringify({
-        necessary: true,
-        functional: true,
-        analytics: false,
-        marketing: false,
-      })
-    )
-  })
-}
+import { seedCookieConsent } from './utils/seed-cookie-consent'
 
 async function openSidebar(page: Page) {
   const openMenuButton = page.getByRole('button', { name: /open navigation menu/i })
