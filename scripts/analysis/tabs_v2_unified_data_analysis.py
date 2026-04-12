@@ -2652,7 +2652,7 @@ def run_validation(df, skip=False, crp200=False):
             "bartlett_significant": efa_data.get('bartlett_p', 1.0) < 0.05 if efa_data.get('bartlett_p') is not None else False,
             "cfa_cfi_above_090": (cfa_data.get('cfi') or 0) >= 0.90,
         }
-        v["pass_count"] = sum(1 for val in v.values() if val is True)
+        v["pass_count"] = sum(1 for val in v.values() if val == True)
         v["total_criteria"] = 9
         verdicts[cname] = v
     output['verdicts'] = verdicts
