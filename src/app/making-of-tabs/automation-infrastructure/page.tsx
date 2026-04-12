@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const AutomationInfrastructurePage = () => {
   return (
-    <main className={ARTICLE_CLASSES}>
+    <div className={ARTICLE_CLASSES}>
       <h1 className={H1_CLASSES}>Automation Infrastructure</h1>
 
       <p className="text-gray-600 mb-8">
@@ -420,7 +420,7 @@ const AutomationInfrastructurePage = () => {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   )
 }
 

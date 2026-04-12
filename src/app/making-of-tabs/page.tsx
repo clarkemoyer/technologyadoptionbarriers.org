@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const MakingOfTabsPage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>The Making of TABS</h1>
 
@@ -281,7 +281,7 @@ const MakingOfTabsPage = () => {
           </p>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

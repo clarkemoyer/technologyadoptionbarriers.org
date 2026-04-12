@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const DashboardStubPage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <div className="max-w-2xl mx-auto px-4 py-16 text-center text-gray-700">
         <p className="text-lg mb-4">
           This page has been consolidated into the{' '}
@@ -28,7 +28,7 @@ const DashboardStubPage = () => {
           Go to Performance Dashboard ↓
         </Link>
       </div>
-    </main>
+    </div>
   )
 }
 

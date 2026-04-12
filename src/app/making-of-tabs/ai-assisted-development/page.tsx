@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const AIAssistedDevelopmentPage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>AI-Assisted Development</h1>
 
@@ -446,7 +446,7 @@ const AIAssistedDevelopmentPage = () => {
           </p>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

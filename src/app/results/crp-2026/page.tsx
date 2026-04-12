@@ -38,7 +38,7 @@ const d = (val: number | null): string => (val !== null ? String(val) : DATA_UNA
 
 const CRP2026Page = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>TABS 2026 CRP Results</h1>
 
@@ -301,7 +301,7 @@ const CRP2026Page = () => {
           </ul>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

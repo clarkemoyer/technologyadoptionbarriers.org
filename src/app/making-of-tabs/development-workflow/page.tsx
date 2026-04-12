@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const DevelopmentWorkflowPage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Development Workflow</h1>
 
@@ -396,7 +396,7 @@ git worktree add -b docs/api ../tabs-docs main
           </p>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

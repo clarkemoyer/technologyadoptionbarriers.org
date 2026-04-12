@@ -35,7 +35,7 @@ const DescriptivePage = () => {
   const samples = sensitivityData.samples
 
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Descriptive Statistics</h1>
         <LastUpdated
@@ -302,7 +302,7 @@ const DescriptivePage = () => {
           </ul>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

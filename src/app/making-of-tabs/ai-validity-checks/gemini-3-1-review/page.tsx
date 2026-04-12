@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Gemini 3.1 Validity Review</h1>
 
@@ -100,6 +100,6 @@ export default function Page() {
           </div>
         </section>
       </article>
-    </main>
+    </div>
   )
 }

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const CloudflareIntegrationPage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Cloudflare</h1>
         <p className="mb-8 text-lg sm:text-xl text-gray-600 font-sans">
@@ -424,7 +424,7 @@ const CloudflareIntegrationPage = () => {
           </ul>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

@@ -33,7 +33,7 @@ const CrpSensitivityPage = () => {
   const prolificAcceptedN = samples.find((s) => s.key === 'prolific_accepted')?.n ?? '?'
 
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>CRP 2026: Sensitivity Analysis</h1>
         <span className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full mb-6">
@@ -303,7 +303,7 @@ const CrpSensitivityPage = () => {
           </p>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

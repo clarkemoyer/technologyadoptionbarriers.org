@@ -31,7 +31,7 @@ const GITHUB_TESTS_BLOB_BASE =
 
 const ReproducibleAnalysisPage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Reproducible Analysis Pipeline</h1>
         <LastUpdated
@@ -707,7 +707,7 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
           </div>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

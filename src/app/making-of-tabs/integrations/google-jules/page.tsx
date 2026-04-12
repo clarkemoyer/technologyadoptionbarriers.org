@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const GoogleJulesIntegrationPage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Google Jules (Gemini) Integration</h1>
         <p className="mb-8 text-lg sm:text-xl text-gray-600 font-sans">
@@ -257,7 +257,7 @@ const GoogleJulesIntegrationPage = () => {
           </p>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 

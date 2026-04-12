@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const ContentArchitecturePage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Content Architecture</h1>
 
@@ -309,7 +309,7 @@ const ContentArchitecturePage = () => {
           <p className="text-sm text-gray-600 italic">149 pages, zero servers, one build step.</p>
         </section>
       </article>
-    </main>
+    </div>
   )
 }
 
