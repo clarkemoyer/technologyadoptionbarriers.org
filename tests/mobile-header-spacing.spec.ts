@@ -22,6 +22,10 @@ test.describe('Mobile Header Spacing', () => {
     const header = page.locator('header#header')
     await expect(header).toBeVisible()
 
+    // Wait for fonts to finish loading so layout is fully settled before
+    // reading bounding boxes (avoids late layout-shift flakiness).
+    await page.evaluate(() => document.fonts.ready)
+
     // Get bounding box for header
     const headerBox = await header.boundingBox()
     expect(headerBox).not.toBeNull()
@@ -63,6 +67,11 @@ test.describe('Mobile Header Spacing', () => {
     // Wait for the header to be visible as a deterministic UI signal
     const header = page.locator('header#header')
     await expect(header).toBeVisible()
+
+    // Wait for fonts to finish loading so layout is fully settled before
+    // reading bounding boxes (avoids late layout-shift flakiness).
+    await page.evaluate(() => document.fonts.ready)
+
     const headerBox = await header.boundingBox()
     expect(headerBox).not.toBeNull()
 
@@ -112,6 +121,9 @@ test.describe('Mobile Header Spacing', () => {
 
       const header = page.locator('header#header')
       await expect(header).toBeVisible()
+
+      // Wait for fonts to finish loading so layout is fully settled
+      await page.evaluate(() => document.fonts.ready)
 
       const headerBox = await header.boundingBox()
 

@@ -431,6 +431,7 @@ async function generateSearchIndex() {
     const visibleText = extractVisibleText(source)
     const content = [title, description, visibleText]
       .filter(Boolean)
+      .map((s) => s!.replace(/\.+$/, ''))
       .join('. ')
       .replace(/\s+/g, ' ')
       .trim()

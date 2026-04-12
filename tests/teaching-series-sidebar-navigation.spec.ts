@@ -45,9 +45,9 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
     // Expand first part and verify a slide link
     await part1Button.click()
     const firstSlide = technologyAdoptionTeachingSeries.parts[0].slides.find((s) => !s.isOptional)
-    expect(firstSlide, 'expected at least one non-optional slide in part 1').toBeDefined()
+    if (!firstSlide) throw new Error('Expected at least one non-optional slide in part 1')
     await expect(
-      sidebar.getByRole('link', { name: new RegExp(`Slide ${firstSlide!.number}:`, 'i') })
+      sidebar.getByRole('link', { name: new RegExp(`Slide ${firstSlide.number}:`, 'i') })
     ).toBeVisible()
   })
 
@@ -74,9 +74,9 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
 
     // Verify slide links are visible (sidebar only shows non-optional slides)
     const firstSlide = technologyAdoptionTeachingSeries.parts[0].slides.find((s) => !s.isOptional)
-    expect(firstSlide, 'expected at least one non-optional slide in part 1').toBeDefined()
+    if (!firstSlide) throw new Error('Expected at least one non-optional slide in part 1')
     const slideLink = navigationDialog.getByRole('link', {
-      name: new RegExp(`Slide ${firstSlide!.number}:`, 'i'),
+      name: new RegExp(`Slide ${firstSlide.number}:`, 'i'),
     })
     await slideLink.scrollIntoViewIfNeeded()
     await expect(slideLink).toBeVisible()
