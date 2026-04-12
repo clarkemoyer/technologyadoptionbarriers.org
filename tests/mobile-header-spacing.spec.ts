@@ -65,7 +65,7 @@ test.describe('Mobile Header Spacing', () => {
       .catch(() => false)
 
     if (cookieBannerAppeared) {
-      await cookieBanner.getByRole('button', { name: 'Decline All' }).click()
+      await cookieBanner.getByRole('button', { name: /decline/i }).click()
       await expect(cookieBanner).toBeHidden({ timeout: 5000 })
     }
 

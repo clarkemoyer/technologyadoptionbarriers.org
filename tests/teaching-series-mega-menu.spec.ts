@@ -36,14 +36,18 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
     await seedCookieConsent(page)
     await page.goto('/', { waitUntil: 'domcontentloaded' })
 
-    // On desktop the sidebar is always visible; click Teaching section
-    const teachingButton = page.getByRole('button', { name: /^Teaching$/i })
-    await expect(teachingButton).toBeVisible({ timeout: 15000 })
+    // On desktop the sidebar is always visible; scope all locators to it
+    const sidebar = page.getByRole('complementary', { name: /site navigation/i })
+    await expect(sidebar).toBeVisible({ timeout: 15000 })
+
+    // Click Teaching section
+    const teachingButton = sidebar.getByRole('button', { name: /^Teaching$/i })
+    await expect(teachingButton).toBeVisible()
     await teachingButton.click()
 
     // Verify accordion groups appear
     const part1Title = technologyAdoptionTeachingSeries.parts[0].title
-    const part1Button = page.getByRole('button', {
+    const part1Button = sidebar.getByRole('button', {
       name: new RegExp(escapeRegExp(part1Title), 'i'),
     })
     await expect(part1Button).toBeVisible()
@@ -54,7 +58,7 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
       (s) => !s.isOptional
     )[0]
     await expect(
-      page.getByRole('link', { name: new RegExp(`Slide ${firstSlide.number}:`, 'i') })
+      sidebar.getByRole('link', { name: new RegExp(`Slide ${firstSlide.number}:`, 'i') })
     ).toBeVisible()
   })
 
