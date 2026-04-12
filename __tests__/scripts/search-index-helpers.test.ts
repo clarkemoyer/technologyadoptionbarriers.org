@@ -2,36 +2,36 @@ import { endsWithTerminalPunctuation, joinSegments } from '../../scripts/generat
 
 describe('endsWithTerminalPunctuation', () => {
   it.each([
-    ['Hello.', true],
-    ['Hello!', true],
-    ['Hello?', true],
-    ['Title:', true],
-    ['List;', true],
-    ['Dash—', true],
-    ['Range–', true],
-    ['Hyphen-', true],
-  ])('returns %s for %p (basic terminal punctuation)', (input, expected) => {
+    [true, 'Hello.'],
+    [true, 'Hello!'],
+    [true, 'Hello?'],
+    [true, 'Title:'],
+    [true, 'List;'],
+    [true, 'Dash—'],
+    [true, 'Range–'],
+    [true, 'Hyphen-'],
+  ])('returns %s for %p (basic terminal punctuation)', (expected, input) => {
     expect(endsWithTerminalPunctuation(input)).toBe(expected)
   })
 
   it.each([
-    ['Hello!"', true],
-    ['Hello!)', true],
-    ['Done.]', true],
-    ["Hello!'", true],
-    ['End.}', true],
-    ['Finish?)"', true],
-  ])('returns %s for %p (terminal punctuation with trailing closers)', (input, expected) => {
+    [true, 'Hello!"'],
+    [true, 'Hello!)'],
+    [true, 'Done.]'],
+    [true, "Hello!'"],
+    [true, 'End.}'],
+    [true, 'Finish?)"'],
+  ])('returns %s for %p (terminal punctuation with trailing closers)', (expected, input) => {
     expect(endsWithTerminalPunctuation(input)).toBe(expected)
   })
 
   it.each([
-    ['Hello', false],
-    ['U.S.A', false],
-    ['', false],
-    ['(TABS)', false],
-    ['word', false],
-  ])('returns %s for %p (no terminal punctuation)', (input, expected) => {
+    [false, 'Hello'],
+    [false, 'U.S.A'],
+    [false, ''],
+    [false, '(TABS)'],
+    [false, 'word'],
+  ])('returns %s for %p (no terminal punctuation)', (expected, input) => {
     expect(endsWithTerminalPunctuation(input)).toBe(expected)
   })
 
@@ -95,5 +95,17 @@ describe('joinSegments', () => {
 
   it('trims leading/trailing whitespace from segments', () => {
     expect(joinSegments(['  Title  ', '  Desc  '])).toBe('Title. Desc')
+  })
+
+  it('filters out empty segments', () => {
+    expect(joinSegments(['', 'Title', '', 'Desc', ''])).toBe('Title. Desc')
+  })
+
+  it('filters out whitespace-only segments', () => {
+    expect(joinSegments(['   ', 'Title', '  ', 'Desc'])).toBe('Title. Desc')
+  })
+
+  it('does not produce leading separator when first segment is empty', () => {
+    expect(joinSegments(['', '', 'Hello'])).toBe('Hello')
   })
 })

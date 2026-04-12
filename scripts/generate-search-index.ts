@@ -103,6 +103,7 @@ export function endsWithTerminalPunctuation(text: string): boolean {
  */
 export function joinSegments(segments: string[]): string {
   return segments
+    .filter((s) => s.trim().length > 0)
     .reduce((acc, seg, i) => {
       const trimmedSeg = seg.trim()
       if (i === 0) return trimmedSeg

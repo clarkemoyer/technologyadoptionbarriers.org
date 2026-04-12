@@ -34,10 +34,12 @@ type CookieConsentSeedOptions = {
   storageKey?: string
   storageValue?: string
   /**
-   * When `true`, localStorage failures inside the init script are surfaced
-   * via `console.error` so Playwright can detect them (the init-script
-   * context cannot throw back to Node).  Defaults to `true` when the `CI`
-   * env var is set, `false` otherwise.
+   * When `true`, localStorage failures inside the init script set the
+   * deterministic in-page flag `window.__seedCookieConsentError` with the
+   * error message.  Use {@link assertCookieConsentSeeded} after navigation
+   * to surface the failure as a test-level error.
+   *
+   * Defaults to `true` when the `CI` env var is set, `false` otherwise.
    */
   strict?: boolean
 }
@@ -98,9 +100,10 @@ export async function seedCookieConsent(page: Page, options?: CookieConsentSeedO
         localStorage.setItem(initStorageKey, initStorageValue)
       } catch (err) {
         if (initStrict) {
-          // Surface the failure so the test runner can detect it instead of
-          // silently proceeding with the consent banner still visible.
-          console.error('[seedCookieConsent] localStorage.setItem failed:', err)
+          // Set a deterministic in-page flag so assertCookieConsentSeeded()
+          // can surface the failure as a test-level error after navigation.
+          ;(window as unknown as Record<string, unknown>).__seedCookieConsentError =
+            err instanceof Error ? err.message : String(err)
         }
       }
     },
@@ -110,4 +113,31 @@ export async function seedCookieConsent(page: Page, options?: CookieConsentSeedO
       strict,
     }
   )
+}
+
+/**
+ * Asserts that cookie consent was successfully seeded in localStorage.
+ *
+ * Call **after** `page.goto()` to verify the init-script succeeded.
+ * Throws a targeted error when strict mode detected a localStorage failure
+ * (via the `window.__seedCookieConsentError` flag) or when the storage key
+ * is missing entirely.
+ */
+export async function assertCookieConsentSeeded(
+  page: Page,
+  storageKey: string = FALLBACK_COOKIE_CONSENT_STORAGE_KEY
+) {
+  const error = await page.evaluate(
+    () => (window as unknown as Record<string, unknown>).__seedCookieConsentError
+  )
+  if (error) {
+    throw new Error(`[seedCookieConsent] localStorage.setItem failed in strict mode: ${error}`)
+  }
+
+  const value = await page.evaluate((key) => localStorage.getItem(key), storageKey)
+  if (value === null) {
+    throw new Error(
+      `[seedCookieConsent] localStorage key "${storageKey}" was not set after navigation`
+    )
+  }
 }
