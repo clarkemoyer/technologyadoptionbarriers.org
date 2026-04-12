@@ -1075,20 +1075,20 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 
 ### Versioning Strategy & Staying Current
 
-With MCP moving under the Linux Foundation's AI/Data Foundation (AAIF), the protocol and tooling are evolving rapidly. We maintain a quarterly dependency freshness check to ensure our agents and integrations stay current.
+With MCP moving under the Linux Foundation's AI/Data Foundation, the protocol and tooling are evolving rapidly. We maintain a quarterly dependency freshness check to ensure our agents and integrations stay current.
 
 **Quarterly Review Checklist:**
 
 - [ ] **Track MCP roadmap**: Monitor support for upcoming features like streamable HTTP, session resumption, and Server Cards
 - [ ] **Track `gh` CLI releases**: Review release notes for new agent features and Copilot API expansions
-- [ ] **Monitor AAIF announcements**: Stay informed on Linux Foundation governance and standardizations
+- [ ] **Monitor Linux Foundation AI/Data Foundation announcements**: Stay informed on Linux Foundation governance and standardization
 - [ ] **Dependency Freshness Check**: Audit all MCP server versions and API client libraries
 
 **Version Requirements:**
 
-- All Python tools distributed via `uvx` must be strictly pinned (e.g., `uvx --from pyzotero[mcp]==1.11.0`)
+- All Python tools distributed via `uvx` must be strictly pinned (e.g., `uvx --from 'pyzotero[mcp]==1.11.0' pyzotero-mcp`)
 - VS Code MCP configs must pin the `--from` args to matched versions
-- Update `@modelcontextprotocol/sdk` dependencies promptly when new protocol versions are released
+- If this repository later adds an `@modelcontextprotocol/sdk` dependency, pin it explicitly and update it promptly when new protocol versions are adopted
 
 ## Resources
 
