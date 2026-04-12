@@ -799,10 +799,10 @@ class TestClassifyRole:
         assert classify_role('Contractor') == 'Other'
 
 
-# ── classify_role_binary (Scenario C) ───────────────────────
+# ── classify_role_binary (binary role classification) ───────────────────────
 
 class TestClassifyRoleBinary:
-    """Unit tests for classify_role_binary() — Scenario C complete classification."""
+    """Unit tests for classify_role_binary() — binary Tech/Non-Tech classification."""
 
     def test_tech_titles(self):
         for role in ('CIO', 'CTO', 'CISO'):
