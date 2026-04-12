@@ -439,10 +439,11 @@ async function generateSearchIndex() {
         // Only add '. ' when the previous segment doesn't already end with
         // terminal punctuation — prevents double-period artifacts like
         // "(TABS).." while preserving intentional punctuation ("U.S.", "Ph.D.")
-        // Also treat punctuation followed by trailing closers/quotes as terminal,
-        // e.g. `Hello!"` or `Hello!)`.
+        // Also treat common title/description terminal punctuation and punctuation
+        // followed by trailing closers/quotes as terminal, e.g. `Hello!"`,
+        // `Hello:)`, `Hello;` or `Hello—`.
         const trimmed = acc.trimEnd()
-        const separator = /[.!?][)\]}'"]*$/.test(trimmed) ? ' ' : '. '
+        const separator = /[.!?:;—–-][)\]}'"]*$/.test(trimmed) ? ' ' : '. '
         return trimmed + separator + trimmedSeg
       }, '')
       .replace(/\s+/g, ' ')
