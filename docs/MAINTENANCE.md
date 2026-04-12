@@ -29,7 +29,7 @@ Monitor the following channels for announcements related to the Model Context Pr
 
 - **MCP Specification**: [modelcontextprotocol.io/seps](https://modelcontextprotocol.io/seps)
 - **GitHub CLI Releases**: [github.com/cli/cli/releases](https://github.com/cli/cli/releases)
-- **AAIF (AI Alliance)**: [lfaidata.foundation](https://lfaidata.foundation/)
+- **Linux Foundation AI & Data**: [lfaidata.foundation](https://lfaidata.foundation/)
 - **Anthropic Developer Blog**: [www.anthropic.com/news](https://www.anthropic.com/news)
 
 ### Pipeline Health

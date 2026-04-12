@@ -47,7 +47,7 @@ TABS tracks rapidly evolving AI and protocol standards under the Linux Foundatio
 
 ### Minimum Tool Versions
 
-- **GitHub CLI (`gh`)**: 2.89.0+ (Required for `gh agent-task` and agentic review features)
+- **GitHub CLI (`gh`)**: 2.67.0+ for `gh agent-task list` and existing monitoring automation; 2.89.0+ only for newer `gh agent-task` subcommands and agentic review features
 - **MCP Protocol**:
   - [SEP-1699](https://modelcontextprotocol.io/seps/1699-support-sse-polling-via-server-side-disconnect): SSE polling and server-side disconnect (Resumability)
   - [SEP-1865](https://modelcontextprotocol.io/seps/1865-mcp-apps-interactive-user-interfaces-for-mcp): MCP Apps (Interactive UIs / "Server Cards")
