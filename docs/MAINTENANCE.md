@@ -8,17 +8,7 @@ This document outlines the recurring maintenance tasks required to keep the TABS
 
 **Schedule:** January, April, July, October (First week)
 
-1. **Scan Dependencies**:
-   - Run `npm outdated`.
-   - For Python analysis dependencies, use an isolated virtualenv so the results do not depend on whichever Python environment is currently active:
-     ```bash
-     python -m venv .venv-maintenance
-     . .venv-maintenance/bin/activate
-     python -m pip install --upgrade pip
-     python -m pip install -r scripts/analysis/requirements.txt -r scripts/analysis/requirements-validation.txt
-     python -m pip list --outdated
-     deactivate
-     ```
+1. **Scan Dependencies**: Run `npm outdated` and `pip list --outdated`.
 2. **Audit Findings**: Document the current status in `EXTERNAL_DEPENDENCIES.md`.
 3. **Update Core Tools**: Ensure `gh` CLI and MCP SDKs meet the minimum requirements in `CLAUDE.md`.
 4. **Plan Upgrades**: Create issues for major version upgrades that require testing.
@@ -44,8 +34,8 @@ Monitor the following channels for announcements related to the Model Context Pr
 
 ### Pipeline Health
 
-- Monitor daily runs of [`.github/workflows/daily-pipeline.yml`](../.github/workflows/daily-pipeline.yml) for failures.
-- Check [`.github/workflows/qualtrics-api-smoke.yml`](../.github/workflows/qualtrics-api-smoke.yml) results for connectivity issues.
+- Monitor daily runs of `daily-pipeline.yml` for failures.
+- Check `qualtrics-api-smoke.yml` results for connectivity issues.
 
 ## Versioning Policy
 
