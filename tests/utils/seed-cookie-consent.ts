@@ -96,6 +96,9 @@ export async function seedCookieConsent(page: Page, options?: CookieConsentSeedO
 
   await page.addInitScript(
     ({ storageKey: initStorageKey, storageValue: initStorageValue, strict: initStrict }) => {
+      // Clear any stale error flag from a previous navigation/init-script
+      // run so a successful setItem doesn't trip assertCookieConsentSeeded().
+      ;(window as unknown as Record<string, unknown>).__seedCookieConsentError = undefined
       try {
         localStorage.setItem(initStorageKey, initStorageValue)
       } catch (err) {
@@ -119,14 +122,14 @@ export async function seedCookieConsent(page: Page, options?: CookieConsentSeedO
  * Asserts that cookie consent was successfully seeded in localStorage.
  *
  * Call **after** `page.goto()` to verify the init-script succeeded.
+ * Uses the same storage-key resolution as {@link seedCookieConsent}, so
+ * per-call overrides and environment-based configuration stay in sync.
  * Throws a targeted error when strict mode detected a localStorage failure
  * (via the `window.__seedCookieConsentError` flag) or when the storage key
  * is missing entirely.
  */
-export async function assertCookieConsentSeeded(
-  page: Page,
-  storageKey: string = FALLBACK_COOKIE_CONSENT_STORAGE_KEY
-) {
+export async function assertCookieConsentSeeded(page: Page, options?: CookieConsentSeedOptions) {
+  const { storageKey } = resolveCookieConsentSeed(options)
   const error = await page.evaluate(
     () => (window as unknown as Record<string, unknown>).__seedCookieConsentError
   )

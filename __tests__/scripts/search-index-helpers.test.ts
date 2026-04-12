@@ -9,7 +9,6 @@ describe('endsWithTerminalPunctuation', () => {
     [true, 'List;'],
     [true, 'Dash—'],
     [true, 'Range–'],
-    [true, 'Hyphen-'],
   ])('returns %s for %p (basic terminal punctuation)', (expected, input) => {
     expect(endsWithTerminalPunctuation(input)).toBe(expected)
   })
@@ -31,6 +30,7 @@ describe('endsWithTerminalPunctuation', () => {
     [false, ''],
     [false, '(TABS)'],
     [false, 'word'],
+    [false, 'Hyphen-'],
   ])('returns %s for %p (no terminal punctuation)', (expected, input) => {
     expect(endsWithTerminalPunctuation(input)).toBe(expected)
   })
