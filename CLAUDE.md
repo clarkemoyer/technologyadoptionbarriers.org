@@ -1074,7 +1074,7 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 **Rule**: Prefer official sources. We actively track Prolific and Qualtrics (SAP) for official MCP server releases.
 
 - **Prolific**: No official MCP exists; currently using custom Python scripts (`scripts/analysis/`).
-- **Qualtrics/SAP**: Monitoring via SAP's membership in the [AI Alliance](https://theaialliance.ai/); currently using the first-party platform MCP endpoint and custom Python scripts.
+- **Qualtrics/SAP**: Currently using the first-party platform MCP endpoint (`/API/mcp/survey-crud`); monitoring official SAP/Qualtrics channels for expanded support (GA status, stable versioning, comprehensive docs). SAP is an [AI Alliance](https://theaialliance.ai/) member.
 
 ## Resources
 
