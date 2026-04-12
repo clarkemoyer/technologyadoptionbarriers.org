@@ -755,7 +755,7 @@ Potential improvements for future iterations:
 
 ## Monitoring for Official MCP
 
-We actively monitor Prolific for an official MCP (Model Context Protocol) server release. As of January 2026, no official Prolific MCP server exists. Until an official release is available, we use our custom Python scripts (`scripts/analysis/`) and TypeScript library (`src/lib/prolific-api.ts`) for all Prolific API operations to ensure maximum reliability and minimize dependency risk.
+We actively monitor Prolific for an official MCP (Model Context Protocol) server release. As of April 2026, no official Prolific MCP server exists. Until an official release is available, we use our custom Python scripts (`scripts/analysis/`) and TypeScript library (`src/lib/prolific-api.ts`) for all Prolific API operations to ensure maximum reliability and minimize dependency risk.
 
 ## Contributing
 
