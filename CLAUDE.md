@@ -1064,12 +1064,12 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 
 ### Risk Tiers
 
-| Tier         | Criteria                                                 | Examples                                                       |
-| ------------ | -------------------------------------------------------- | -------------------------------------------------------------- |
+| Tier         | Criteria                                                 | Examples                                                                                                        |
+| ------------ | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | **Low**      | Official, from the company, actively maintained          | GitHub MCP, Qualtrics platform MCP (`/API/mcp/survey-crud`), Cloudflare MCP, Google Analytics MCP, `googleapis` |
-| **Medium**   | Community but mature (100+ stars, multiple contributors) | `peter-evans/create-pull-request`, Google Search Console MCP   |
-| **High**     | Community, single maintainer, or stale                   | R Statistics MCP (stale)                                       |
-| **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` (deprecated)             |
+| **Medium**   | Community but mature (100+ stars, multiple contributors) | `peter-evans/create-pull-request`, Google Search Console MCP                                                    |
+| **High**     | Community, single maintainer, or stale                   | R Statistics MCP (stale)                                                                                        |
+| **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` (deprecated)                                                              |
 
 **Rule**: Prefer official sources. We actively track Prolific and Qualtrics (SAP) for official MCP server releases.
 
