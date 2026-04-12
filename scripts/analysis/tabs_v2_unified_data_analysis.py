@@ -236,7 +236,7 @@ ALL_CONSTRUCTS = [
     ("maturity", MATURITY_COLS, MATURITY_SCALE),
 ]
 
-# Scenario C binary tech/non-tech classification patterns
+# Binary tech/non-tech role classification patterns
 _OTHER_ROLE_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     # Technical
     (re.compile(r'\b(cio|chief information officer)\b', re.IGNORECASE), 'Technical'),
@@ -295,7 +295,7 @@ def classify_role(text):
 
 
 def classify_role_binary(role, other_text=''):
-    """Return the Scenario C binary role group for a respondent."""
+    """Return the binary Tech/Non-Tech role group for a respondent."""
     if role in TECH_TITLES:
         return 'Technical'
     if role in NONTECH_TITLES:
@@ -310,7 +310,7 @@ def classify_role_binary(role, other_text=''):
 
 
 def is_technical(role, other_text=''):
-    """Return True if role maps to the Technical group under Scenario C."""
+    """Return True if role maps to the Technical group under the binary classification."""
     return classify_role_binary(role, other_text) == 'Technical'
 
 
@@ -523,6 +523,21 @@ def _org_bucket(row, idx):
 # STATISTICAL HELPER FUNCTIONS
 # ============================================================================
 
+
+def count_bool_true(mapping):
+    """Count boolean-True values in *mapping*, accepting numpy.bool_.
+
+    Only ``bool`` and ``numpy.bool_`` instances are considered.  Non-boolean
+    truthy values (e.g. ``1``, ``1.0``, ``np.int64(1)``) are intentionally
+    excluded so that ``pass_count`` is never silently inflated by non-verdict
+    fields that happen to be added to the dict before counting.
+    """
+    return sum(
+        1 for val in mapping.values()
+        if isinstance(val, (bool, np.bool_)) and bool(val)
+    )
+
+
 def mean_sd(values):
     """Compute mean and sample standard deviation."""
     values = [v for v in values if v is not None]
@@ -696,9 +711,12 @@ def _regularized_incomplete_beta(x, a, b, max_iter=200, tol=1e-12):
         return 0.0
     if x >= 1:
         return 1.0
+    # Symmetry relation for better convergence (Numerical Recipes §6.4).
+    # The continued fraction converges faster when x < (a+1)/(a+b+2).
+    if x > (a + 1.0) / (a + b + 2.0):
+        return 1.0 - _regularized_incomplete_beta(1.0 - x, b, a, max_iter, tol)
     ln_prefix = _ln_beta_prefix(x, a, b)
-    f = 1e-30
-    c = 1e-30
+    c = 1.0
     d = 1.0 - (a + b) * x / (a + 1.0)
     if abs(d) < 1e-30:
         d = 1e-30
@@ -2652,7 +2670,8 @@ def run_validation(df, skip=False, crp200=False):
             "bartlett_significant": efa_data.get('bartlett_p', 1.0) < 0.05 if efa_data.get('bartlett_p') is not None else False,
             "cfa_cfi_above_090": (cfa_data.get('cfi') or 0) >= 0.90,
         }
-        v["pass_count"] = sum(1 for val in v.values() if val is True)
+        # Count only boolean-like pass/fail results, while still accepting numpy.bool_
+        v["pass_count"] = count_bool_true(v)
         v["total_criteria"] = 9
         verdicts[cname] = v
     output['verdicts'] = verdicts
