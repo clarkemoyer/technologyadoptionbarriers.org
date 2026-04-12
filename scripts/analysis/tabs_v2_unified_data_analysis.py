@@ -2652,8 +2652,10 @@ def run_validation(df, skip=False, crp200=False):
             "bartlett_significant": efa_data.get('bartlett_p', 1.0) < 0.05 if efa_data.get('bartlett_p') is not None else False,
             "cfa_cfi_above_090": (cfa_data.get('cfi') or 0) >= 0.90,
         }
-        # Use == True (not "is True") to handle numpy.bool_ from statistical comparisons
-        v["pass_count"] = sum(1 for val in v.values() if val == True)
+        # Count only boolean-like pass/fail results, while still accepting numpy.bool_
+        v["pass_count"] = sum(
+            1 for val in v.values() if isinstance(val, (bool, np.bool_)) and bool(val)
+        )
         v["total_criteria"] = 9
         verdicts[cname] = v
     output['verdicts'] = verdicts
