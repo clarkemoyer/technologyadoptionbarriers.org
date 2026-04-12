@@ -433,6 +433,10 @@ const AutomationInfrastructurePage = () => {
                 MCP server, not via third-party wrappers. Qualtrics MCP uses the first-party MCP
                 endpoint built into the Qualtrics platform.
               </p>
+              <p className="text-xs text-gray-600 italic">
+                Note: We actively monitor Prolific and Qualtrics (SAP, an AAIF member) for official
+                MCP server releases to further reduce dependency risk.
+              </p>
             </div>
           </div>
         </section>
