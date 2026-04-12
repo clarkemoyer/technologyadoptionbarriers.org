@@ -523,6 +523,21 @@ def _org_bucket(row, idx):
 # STATISTICAL HELPER FUNCTIONS
 # ============================================================================
 
+
+def count_bool_true(mapping):
+    """Count boolean-True values in *mapping*, accepting numpy.bool_.
+
+    Only ``bool`` and ``numpy.bool_`` instances are considered.  Non-boolean
+    truthy values (e.g. ``1``, ``1.0``, ``np.int64(1)``) are intentionally
+    excluded so that ``pass_count`` is never silently inflated by non-verdict
+    fields that happen to be added to the dict before counting.
+    """
+    return sum(
+        1 for val in mapping.values()
+        if isinstance(val, (bool, np.bool_)) and bool(val)
+    )
+
+
 def mean_sd(values):
     """Compute mean and sample standard deviation."""
     values = [v for v in values if v is not None]
@@ -2653,9 +2668,7 @@ def run_validation(df, skip=False, crp200=False):
             "cfa_cfi_above_090": (cfa_data.get('cfi') or 0) >= 0.90,
         }
         # Count only boolean-like pass/fail results, while still accepting numpy.bool_
-        v["pass_count"] = sum(
-            1 for val in v.values() if isinstance(val, (bool, np.bool_)) and bool(val)
-        )
+        v["pass_count"] = count_bool_true(v)
         v["total_criteria"] = 9
         verdicts[cname] = v
     output['verdicts'] = verdicts
