@@ -2,7 +2,7 @@
 
 Verifies that pass_count uses equality (==) not identity (is) to count
 boolean verdicts, so numpy.bool_ values are counted correctly.
-See: https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/XXX
+See: https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/1471
 """
 
 import numpy as np
@@ -15,6 +15,7 @@ class TestPassCountEquality:
     @staticmethod
     def _count_pass(verdicts: dict) -> int:
         """Replicate the pass_count logic from run_validation (line ~2655)."""
+        # == True (not "is True") needed to count numpy.bool_ values correctly
         return sum(1 for val in verdicts.values() if val == True)  # noqa: E712
 
     def test_native_python_bools(self):
