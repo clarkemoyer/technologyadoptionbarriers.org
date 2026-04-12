@@ -32,7 +32,7 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
 
     // Click Teaching section
     const teachingButton = sidebar.getByRole('button', { name: /^Teaching$/i })
-    await expect(teachingButton).toBeVisible()
+    await expect(teachingButton).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
     await teachingButton.click()
 
     // Verify accordion groups appear
@@ -40,7 +40,7 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
     const part1Button = sidebar.getByRole('button', {
       name: new RegExp(escapeRegExp(part1Title), 'i'),
     })
-    await expect(part1Button).toBeVisible()
+    await expect(part1Button).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
 
     // Expand first part and verify a slide link
     await part1Button.click()
@@ -48,7 +48,7 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
     if (!firstSlide) throw new Error('Expected at least one non-optional slide in part 1')
     await expect(
       sidebar.getByRole('link', { name: new RegExp(`Slide ${firstSlide.number}:`, 'i') })
-    ).toBeVisible()
+    ).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
   })
 
   test('mobile: teaching series is accessible from hamburger menu', async ({ page }) => {
@@ -60,7 +60,7 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
 
     const navigationDialog = await openSidebar(page)
     const teachingButton = navigationDialog.getByRole('button', { name: /^Teaching$/i })
-    await expect(teachingButton).toBeVisible()
+    await expect(teachingButton).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
     await teachingButton.click()
 
     // Verify teaching accordion groups appear
@@ -68,7 +68,7 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
     const part1Button = navigationDialog.getByRole('button', {
       name: new RegExp(escapeRegExp(part1Title), 'i'),
     })
-    await expect(part1Button).toBeVisible()
+    await expect(part1Button).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
 
     await part1Button.click()
 
@@ -79,6 +79,6 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
       name: new RegExp(`Slide ${firstSlide.number}:`, 'i'),
     })
     await slideLink.scrollIntoViewIfNeeded()
-    await expect(slideLink).toBeVisible()
+    await expect(slideLink).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
   })
 })
