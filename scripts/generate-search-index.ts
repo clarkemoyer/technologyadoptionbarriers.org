@@ -429,10 +429,17 @@ async function generateSearchIndex() {
     if (!title) continue
 
     const visibleText = extractVisibleText(source)
-    const content = [title, description, visibleText]
-      .filter((s): s is string => Boolean(s))
-      .map((s) => s.replace(/\.+$/, ''))
-      .join('. ')
+    const segments = [title, description, visibleText].filter((s): s is string => Boolean(s))
+    const content = segments
+      .reduce((acc, seg, i) => {
+        if (i === 0) return seg
+        // Only add '. ' when the previous segment doesn't already end with
+        // terminal punctuation — prevents double-period artifacts like
+        // "(TABS).." while preserving intentional punctuation ("U.S.", "Ph.D.")
+        const trimmed = acc.trimEnd()
+        const separator = /[.!?]$/.test(trimmed) ? ' ' : '. '
+        return trimmed + separator + seg
+      }, '')
       .replace(/\s+/g, ' ')
       .trim()
 

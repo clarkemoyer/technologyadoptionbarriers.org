@@ -99,7 +99,7 @@ const DispositionDashboardPage = () => {
   const flaggedPct = total > 0 ? ((flaggedCount / total) * 100).toFixed(1) : '0'
 
   return (
-    <div className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Response Disposition Dashboard</h1>
         <LastUpdated

@@ -70,7 +70,7 @@ const SamplePage = () => {
     ? roleCategoriesFromData
     : []
   return (
-    <div className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Sample &amp; Demographics</h1>
         <LastUpdated

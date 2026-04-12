@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function SurveyStatsPage() {
   return (
-    <div className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] bg-white">
       <div className="bg-blue-600 py-[60px] text-center text-white">
         <h1 className="text-[48px] font-bold">Survey Statistics</h1>
         <p className="text-[20px] opacity-90">
