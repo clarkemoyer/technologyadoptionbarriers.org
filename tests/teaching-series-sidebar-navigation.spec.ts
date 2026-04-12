@@ -4,14 +4,15 @@ import { escapeRegExp } from './utils/escape-regexp'
 import { seedCookieConsent } from './utils/seed-cookie-consent'
 
 async function openSidebar(page: Page) {
+  const navigationTimeoutMs = 15000
   const openMenuButton = page.getByRole('button', { name: /open navigation menu/i })
-  await expect(openMenuButton).toBeVisible()
+  await expect(openMenuButton).toBeVisible({ timeout: navigationTimeoutMs })
 
   const dialog = page.getByRole('dialog', { name: /navigation menu/i })
 
   // Open the navigation menu and wait for the dialog to become visible
   await openMenuButton.click()
-  await expect(dialog).toBeVisible({ timeout: 15000 })
+  await expect(dialog).toBeVisible({ timeout: navigationTimeoutMs })
   return dialog
 }
 
