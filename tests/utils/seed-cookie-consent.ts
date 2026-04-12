@@ -6,14 +6,18 @@ import type { Page } from '@playwright/test'
  */
 export async function seedCookieConsent(page: Page) {
   await page.addInitScript(() => {
-    localStorage.setItem(
-      'cookie-consent',
-      JSON.stringify({
-        necessary: true,
-        functional: true,
-        analytics: false,
-        marketing: false,
-      })
-    )
+    try {
+      localStorage.setItem(
+        'cookie-consent',
+        JSON.stringify({
+          necessary: true,
+          functional: true,
+          analytics: false,
+          marketing: false,
+        })
+      )
+    } catch {
+      // Ignore storage access failures in restricted init-script contexts.
+    }
   })
 }
