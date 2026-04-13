@@ -7,9 +7,11 @@ import { SIDEBAR_GAP, SIDEBAR_MIN_SPACE } from '@/lib/sidebar-constants'
  * Measures the space to the right of the first `<article>` element and
  * decides whether there is room for a fixed desktop sidebar.
  *
- * Uses `useLayoutEffect` so the correct variant (desktop sidebar vs mobile
- * FAB) renders on the first paint — avoiding a visible flash where the FAB
- * appears briefly on wide viewports before being replaced by the sidebar.
+ * Uses `useLayoutEffect` to measure layout before paint during client-side
+ * renders after hydration, which helps avoid a visible flash where the FAB
+ * briefly appears before being replaced by the sidebar on later client
+ * updates. In Next.js App Router, the initial server-rendered HTML still
+ * uses the default mobile state until hydration completes.
  *
  * Returns `{ canShowDesktop, tocLeft }`.
  */
@@ -24,7 +26,17 @@ export function useSidebarPlacement() {
 
     const update = () => {
       const article = document.querySelector('article')
-      if (!article) return
+      if (!article) {
+        if (prevCanShowDesktopRef.current !== false) {
+          prevCanShowDesktopRef.current = false
+          setCanShowDesktop(false)
+        }
+        if (prevTocLeftRef.current !== 0) {
+          prevTocLeftRef.current = 0
+          setTocLeft(0)
+        }
+        return
+      }
       const rect = article.getBoundingClientRect()
       const rightSpace = window.innerWidth - rect.right
       const nextCanShow = rightSpace >= SIDEBAR_MIN_SPACE
