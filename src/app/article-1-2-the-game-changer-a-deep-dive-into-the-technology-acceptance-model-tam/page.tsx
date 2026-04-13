@@ -95,18 +95,18 @@ const Article12Page = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Simple enough to understand and apply</strong> without requiring extensive
+              <strong>Simple enough to understand and apply </strong>without requiring extensive
               training in behavioral science
             </li>
             <li>
-              <strong>Powerful enough to explain substantial variance</strong> in adoption outcomes
+              <strong>Powerful enough to explain substantial variance </strong>in adoption outcomes
             </li>
             <li>
-              <strong>Technology-specific enough</strong> to capture what actually matters in system
+              <strong>Technology-specific enough </strong>to capture what actually matters in system
               adoption decisions
             </li>
             <li>
-              <strong>Theoretically grounded</strong> in established behavioral science rather than
+              <strong>Theoretically grounded </strong>in established behavioral science rather than
               invented ad hoc
             </li>
           </ul>
@@ -164,21 +164,21 @@ const Article12Page = () => {
           <p className={PARAGRAPH_CLASSES}>Ease of use captures user beliefs about:</p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Learning difficulty:</strong> How hard is it to master this system?
+              <strong>Learning difficulty: </strong>How hard is it to master this system?
             </li>
             <li>
-              <strong>Operational ease:</strong> How straightforward is using the system day-to-day?
+              <strong>Operational ease: </strong>How straightforward is using the system day-to-day?
             </li>
             <li>
-              <strong>Cognitive load:</strong> Does using the system require constant concentration
+              <strong>Cognitive load: </strong>Does using the system require constant concentration
               or mental effort?
             </li>
             <li>
-              <strong>Physical effort:</strong> Does it require repetitive movements, precise input,
+              <strong>Physical effort: </strong>Does it require repetitive movements, precise input,
               or strenuous physical action?
             </li>
             <li>
-              <strong>Flexibility:</strong> Can I use the system flexibly, or does it force me into
+              <strong>Flexibility: </strong>Can I use the system flexibly, or does it force me into
               rigid paths?
             </li>
           </ul>
