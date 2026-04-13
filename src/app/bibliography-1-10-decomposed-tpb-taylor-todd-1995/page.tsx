@@ -581,9 +581,9 @@ const BibliographyArticlePage = () => {
                 colleagues resist or question system adoption, social norms inhibit individual
                 adoption. The model shows subjective norm significantly predicts behavioral
                 intention (path = .13 in Study 1, .16 in Study 2), suggesting that peer opposition
-                constitutes a barrier like academia, adoption barriers arise when relevant
-                professional communities (disciplinary colleagues, academic associations) question
-                system relevance or approach it skeptically.
+                constitutes a barrier. In contexts like academia, adoption barriers arise when
+                relevant professional communities (disciplinary colleagues, academic associations)
+                question system relevance or approach it skeptically.
               </li>
             </ul>
             <p className={PARAGRAPH_CLASSES}>
