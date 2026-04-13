@@ -6,7 +6,7 @@
 
 ## Problem
 
-Site navigation is inconsistent across pages and collections. Mobile menus use different patterns depending on context — some auto-expand, some use chevron toggles, some use native `<details>` collapsibles. In-page navigation varies from page to page. Many collections and series have no previous/next links and no way to see sibling pages. Page ordering differs between the header, footer, and in-page navigation. The result is a site that's hard to navigate, especially on mobile, and especially on the denser article, stats, and bibliography pages.
+Site navigation is inconsistent across pages and collections. Mobile menus use different patterns depending on context - some auto-expand, some use chevron toggles, some use native `<details>` collapsibles. In-page navigation varies from page to page. Many collections and series have no previous/next links and no way to see sibling pages. Page ordering differs between the header, footer, and in-page navigation. The result is a site that's hard to navigate, especially on mobile, and especially on the denser article, stats, and bibliography pages.
 
 ---
 
@@ -49,15 +49,15 @@ Technology Adoption Models and Teaching Series are the only sections shown here 
 
 ## Design Decisions
 
-### A. Mobile Menu Pattern — Hybrid
+### A. Mobile Menu Pattern - Hybrid
 
 - **Header**: Keep custom JS toggles with Framer Motion animations. The header is a branded experience and warrants the polish.
 - **In-page navigation**: Standardize on native `<details>/<summary>` for any collapsible sections within page content. Simpler, accessible by default, consistent.
 - **Key change**: All in-page components that need collapsible behavior use the same native pattern. No more mixing FAB popups, JS toggles, and `<details>` across different components.
 
-### B. In-Page Navigation — Unified Sidebar + Progress Bar
+### B. In-Page Navigation - Unified Sidebar + Progress Bar
 
-**Replace the current separate top-of-page series box and sidebar TOC with a single unified sidebar panel.** Content should start immediately — no large navigation box pushing the article down.
+**Replace the current separate top-of-page series box and sidebar TOC with a single unified sidebar panel.** Content should start immediately - no large navigation box pushing the article down.
 
 **Desktop (xl+ screens):**
 
@@ -77,7 +77,7 @@ Technology Adoption Models and Teaching Series are the only sections shown here 
 **Reading progress bar:**
 
 - Thin teal bar fixed below the header showing scroll progress
-- **Applied to ALL long pages** — articles, results, stats, bibliography — not just the pages that currently have it
+- **Applied to ALL long pages** - articles, results, stats, bibliography - not just the pages that currently have it
 - Provides "how much is left" context, especially valuable on data-heavy pages
 
 **What this replaces:**
@@ -87,7 +87,7 @@ Technology Adoption Models and Teaching Series are the only sections shown here 
 - The separate `article-toc/index.tsx` sidebar → merged into the unified sidebar component
 - Three components become one, with the series data source varying by collection
 
-### C. Previous/Next Links — Large Card-Style at Bottom
+### C. Previous/Next Links - Large Card-Style at Bottom
 
 - Two cards side-by-side at the bottom of every page that's part of a collection
 - Each card shows an arrow (← / →) and the **title** of the previous/next page
@@ -95,7 +95,7 @@ Technology Adoption Models and Teaching Series are the only sections shown here 
 - Follows the pattern used by Next.js docs, Stripe docs, Tailwind docs
 - "None" or absent when at the first/last page of a series
 
-### D. Breadcrumbs — Pages 2+ Levels Deep
+### D. Breadcrumbs - Pages 2+ Levels Deep
 
 - Breadcrumb trail at the top of any page that is 2 or more levels below root
 - Format: `Home > Making of TABS > Integrations > Prolific`
@@ -103,14 +103,14 @@ Technology Adoption Models and Teaching Series are the only sections shown here 
 - Not shown on shallow pages (e.g., `/faq`, `/media`) where it adds no value
 - Combined with the sidebar "You are here" indicator, gives full wayfinding at both the site level and the collection level
 
-### E. Page Order — Collections Own Their Order; Header/Footer Match
+### E. Page Order - Collections Own Their Order; Header/Footer Match
 
 - Each collection defines its own canonical reading order (e.g., Teaching Series goes Part 1 → Part 2 → Part 3; Models series follows branch structure)
 - The **header and footer always list the same pages in the same order** as each other
 - Collection reading order drives prev/next links; header order drives the menu listing
 - Single data source per collection (the existing TypeScript data files in `src/data/`) extended to cover all collections, not just Models and Teaching
 
-### F. Footer Navigation — Mirror Header + Policy Row
+### F. Footer Navigation - Mirror Header + Policy Row
 
 - Footer content groups match the header's mega menu groupings
 - Same pages, same order within each group
@@ -123,15 +123,15 @@ Technology Adoption Models and Teaching Series are the only sections shown here 
 
 These apply to results pages, stats pages, bibliography, and long articles:
 
-1. **Section-level "back to top" links** — Subtle link at the end of each major section (especially on results pages with many tables) that scrolls back to the sidebar TOC or page top. Reduces scrolling on mobile.
+1. **Section-level "back to top" links** - Subtle link at the end of each major section (especially on results pages with many tables) that scrolls back to the sidebar TOC or page top. Reduces scrolling on mobile.
 
-2. **Bibliography navigation** — The 41+ bibliography pages are reference material, not linear reading. The sidebar should show all entries so users can jump directly to any one, rather than relying solely on sequential prev/next.
+2. **Bibliography navigation** - The 41+ bibliography pages are reference material, not linear reading. The sidebar should show all entries so users can jump directly to any one, rather than relying solely on sequential prev/next.
 
-3. **Anchor links on key sections** — All H2s get URL-friendly IDs so specific sections are shareable (e.g., `/results/descriptive#response-rates`). The article TOC already generates these — ensure it's consistent across all pages.
+3. **Anchor links on key sections** - All H2s get URL-friendly IDs so specific sections are shareable (e.g., `/results/descriptive#response-rates`). The article TOC already generates these - ensure it's consistent across all pages.
 
-4. **Sticky table headers** — Results pages with long data tables should use sticky column headers so readers don't lose context when scrolling.
+4. **Sticky table headers** - Results pages with long data tables should use sticky column headers so readers don't lose context when scrolling.
 
-5. **"You are here" indicator** — In the sidebar's series section, the current page is clearly marked (bold + highlight background) so readers see their position at a glance.
+5. **"You are here" indicator** - In the sidebar's series section, the current page is clearly marked (bold + highlight background) so readers see their position at a glance.
 
 ---
 
@@ -140,7 +140,7 @@ These apply to results pages, stats pages, bibliography, and long articles:
 ### Phase 1: Unified Sidebar Component
 
 - Create a single `unified-navigation` component that handles both series context and page TOC
-- Accept series data as a prop (optional — pages not in a series just show page TOC)
+- Accept series data as a prop (optional - pages not in a series just show page TOC)
 - Implement desktop sidebar (fixed right, two sections with divider)
 - Implement mobile FAB + panel (series collapsed, TOC expanded by default)
 - Include scroll spy for active heading detection

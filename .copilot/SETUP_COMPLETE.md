@@ -1,7 +1,7 @@
 # MCP Servers Setup Complete ✅
 
 **Date:** January 21, 2026  
-**Issues:** #162, #173 — Establish MCP servers for coding agents
+**Issues:** #162, #173 - Establish MCP servers for coding agents
 
 ## Configuration Summary
 

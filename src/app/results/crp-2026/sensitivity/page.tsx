@@ -11,7 +11,7 @@ import sensitivityData from '@/data/crp-sensitivity-analysis.json'
 import { ResultsNav } from '@/components/results-nav'
 
 export const metadata: Metadata = {
-  title: 'CRP 2026 Sensitivity Analysis — TABS',
+  title: 'CRP 2026 Sensitivity Analysis - TABS',
   description:
     'Full sensitivity analysis for the CRP 2026 Technology Adoption Barriers Survey: every metric computed across three CRP sample definitions to demonstrate robustness to inclusion criteria.',
   alternates: {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 }
 
 const fmt = (val: number | null | undefined, decimals: number = 4): string => {
-  if (val === null || val === undefined) return '—'
+  if (val === null || val === undefined) return '-'
   return val.toFixed(decimals)
 }
 
@@ -84,7 +84,7 @@ const CrpSensitivityPage = () => {
                       </td>
                       <td className="border border-gray-300 px-4 py-2">{sample.description}</td>
                       <td className="border border-gray-300 px-4 py-2 text-right font-mono">
-                        {sample.n ?? '—'}
+                        {sample.n ?? '-'}
                       </td>
                     </tr>
                   ))}
@@ -222,7 +222,7 @@ const CrpSensitivityPage = () => {
                                 >
                                   {delta !== null
                                     ? `${delta >= 0 ? '+' : ''}${delta.toFixed(4)}`
-                                    : '—'}
+                                    : '-'}
                                 </td>
                               )
                             })}

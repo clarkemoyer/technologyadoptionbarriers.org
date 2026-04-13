@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ResultsNav } from '@/components/results-nav'
 
 export const metadata: Metadata = {
-  title: 'CMO Survey Comparison — TABS Results',
+  title: 'CMO Survey Comparison - TABS Results',
   description:
     'Learn how The CMO Survey has influenced and inspired the Technology Adoption Barriers Survey (TABS) methodology, design, and longitudinal research approach.',
   alternates: {

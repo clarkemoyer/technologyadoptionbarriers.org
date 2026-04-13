@@ -37,14 +37,14 @@ function envInt(name: string, defaultValue: number): number {
 
 function formatIsoMaybe(value: unknown): string {
   if (typeof value !== 'string' || value.trim() === '') {
-    return '—'
+    return '-'
   }
   return value
 }
 
 function percent(numerator: number, denominator: number): string {
   if (!Number.isFinite(numerator) || !Number.isFinite(denominator) || denominator <= 0) {
-    return '—'
+    return '-'
   }
   return `${((numerator / denominator) * 100).toFixed(1)}%`
 }
@@ -192,7 +192,7 @@ async function main() {
           `| Approved | ${stats.approvedSubmissions} |`,
           `| Rejected | ${stats.rejectedSubmissions} |`,
           `| Awaiting review | ${stats.awaitingReviewSubmissions} |`,
-          `| Average time (minutes) | ${stats.averageTimeMinutes === null ? '—' : stats.averageTimeMinutes.toFixed(2)} |`,
+          `| Average time (minutes) | ${stats.averageTimeMinutes === null ? '-' : stats.averageTimeMinutes.toFixed(2)} |`,
           '',
           '### CSV Export',
           '',
@@ -202,7 +202,7 @@ async function main() {
             : '- **Saved to:** (not generated)',
           exportCsv && csvInfo
             ? `- **Rows (including header):** ${csvInfo.totalLines}`
-            : '- **Rows (including header):** —',
+            : '- **Rows (including header):** -',
           exportCsv && csvInfo && csvPreviewLines > 0
             ? [
                 '',

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { MakingOfTabsNav } from '@/components/making-of-tabs-nav'
 
 export const metadata: Metadata = {
-  title: 'AI Validity Checks — Making of TABS',
+  title: 'AI Validity Checks - Making of TABS',
   description:
     'An overview of how we use advanced AI models to perform rigorous validity checks on our academic and organizational content.',
 }

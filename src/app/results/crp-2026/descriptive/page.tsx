@@ -12,7 +12,7 @@ import sensitivityData from '@/data/crp-sensitivity-analysis.json'
 import { ResultsNav } from '@/components/results-nav'
 
 export const metadata: Metadata = {
-  title: 'CRP 2026 Descriptive Statistics — TABS',
+  title: 'CRP 2026 Descriptive Statistics - TABS',
   description:
     'Grand means, standard deviations, and inter-construct correlations for the TABS CRP 2026 frozen dataset across barriers, readiness, and maturity constructs.',
   alternates: {
@@ -29,7 +29,7 @@ const getMetricValue = (key: string, sample: string): number | null => {
 }
 
 const fmt = (val: number | null, decimals: number = 4): string => {
-  if (val === null) return '—'
+  if (val === null) return '-'
   return val.toFixed(decimals)
 }
 
@@ -82,7 +82,7 @@ const CrpDescriptivePage = () => {
                   {samples.map((sample, i) => (
                     <tr key={sample.key} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
                       <td className="border border-gray-300 px-4 py-2 font-medium">
-                        {sample.label} (N={sample.n ?? '—'})
+                        {sample.label} (N={sample.n ?? '-'})
                       </td>
                       <td className="border border-gray-300 px-4 py-2 text-right font-mono">
                         {fmt(getMetricValue('barrier_mean', sample.key))}
@@ -119,7 +119,7 @@ const CrpDescriptivePage = () => {
                   {samples.map((sample, i) => (
                     <tr key={sample.key} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
                       <td className="border border-gray-300 px-4 py-2 font-medium">
-                        {sample.label} (N={sample.n ?? '—'})
+                        {sample.label} (N={sample.n ?? '-'})
                       </td>
                       <td className="border border-gray-300 px-4 py-2 text-right font-mono">
                         {fmt(getMetricValue('readiness_mean', sample.key))}
@@ -157,7 +157,7 @@ const CrpDescriptivePage = () => {
                   {samples.map((sample, i) => (
                     <tr key={sample.key} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
                       <td className="border border-gray-300 px-4 py-2 font-medium">
-                        {sample.label} (N={sample.n ?? '—'})
+                        {sample.label} (N={sample.n ?? '-'})
                       </td>
                       <td className="border border-gray-300 px-4 py-2 text-right font-mono">
                         {fmt(getMetricValue('maturity_mean', sample.key))}
@@ -188,7 +188,7 @@ const CrpDescriptivePage = () => {
               { key: 'flexible_clean', label: 'Flexible Clean' },
               { key: 'prolific_accepted', label: 'Prolific Accepted' },
             ].map((group) => {
-              const n = samples.find((s) => s.key === group.key)?.n ?? '—'
+              const n = samples.find((s) => s.key === group.key)?.n ?? '-'
               const br = getMetricValue('corr_br', group.key)
               const bm = getMetricValue('corr_bm', group.key)
               const rm = getMetricValue('corr_rm', group.key)

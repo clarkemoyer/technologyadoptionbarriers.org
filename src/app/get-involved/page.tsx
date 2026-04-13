@@ -95,7 +95,7 @@ const GetInvolvedPage = () => {
       title: 'Volunteer to Help TABS Operations',
       icon: '🙋',
       description:
-        'We need more than contributions — we need skilled people to help run the survey, analyze data, improve the website, and support TABS operations. Use your skills to advance technology adoption research.',
+        'We need more than contributions - we need skilled people to help run the survey, analyze data, improve the website, and support TABS operations. Use your skills to advance technology adoption research.',
       whoShouldParticipate:
         'Researchers, data scientists, web developers, technical writers, and anyone with skills that can help improve TABS operations and impact.',
       commitment: 'Flexible - from a few hours to ongoing involvement',

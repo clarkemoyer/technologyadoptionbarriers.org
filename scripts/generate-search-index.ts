@@ -147,11 +147,11 @@ function extractStaticMetadata(source: string): {
 
   const metadataBlock = source.slice(blockStart, blockEnd + 1)
 
-  // Match title — backreference ensures apostrophes inside the string are kept
+  // Match title - backreference ensures apostrophes inside the string are kept
   const titleMatch = metadataBlock.match(/(?:^|[,{]\s*)title:\s*(['"`])([\s\S]*?)\1/)
   if (titleMatch) title = titleMatch[2].replace(/\s+/g, ' ').trim()
 
-  // Match description — may span multiple lines
+  // Match description - may span multiple lines
   const descMatch = metadataBlock.match(/(?:^|[,{]\s*)description:\s*\n?\s*(['"`])([\s\S]*?)\1/)
   if (descMatch) description = descMatch[2].replace(/\s+/g, ' ').trim()
 
@@ -174,7 +174,7 @@ function extractVisibleText(source: string): string {
   let text = jsx
     // Remove {/* comments */}
     .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
-    // Remove JSX expressions — handle nested braces by repeated passes
+    // Remove JSX expressions - handle nested braces by repeated passes
     .replace(/\{[^{}]*\}/g, ' ')
     .replace(/\{[^{}]*\}/g, ' ')
     .replace(/\{[^{}]*\}/g, ' ')
@@ -376,7 +376,7 @@ function expandTeachingSeriesRoutes(): SearchItem[] {
       items.push({
         id: '', // assigned later
         url: `${rootSlug}/${slide.segment}`,
-        title: `${slide.title} — Technology Adoption Teaching Series`,
+        title: `${slide.title} - Technology Adoption Teaching Series`,
         description: `${part.title}: ${slide.title}`,
         content: `${slide.title}. ${part.title}. Technology Adoption Teaching Series.`,
         category: 'Teaching Series',
@@ -388,7 +388,7 @@ function expandTeachingSeriesRoutes(): SearchItem[] {
     items.push({
       id: '', // assigned later
       url: `${rootSlug}/${resource.segment}`,
-      title: `${resource.title} — Technology Adoption Teaching Series`,
+      title: `${resource.title} - Technology Adoption Teaching Series`,
       description: `Teaching series resource: ${resource.title}`,
       content: `${resource.title}. Technology Adoption Teaching Series resource.`,
       category: 'Teaching Series',
@@ -416,7 +416,7 @@ async function generateSearchIndex() {
   for (const filePath of allPageFiles) {
     const urlPath = filePathToUrl(filePath, appDir)
 
-    // Skip dynamic route templates — they are expanded separately
+    // Skip dynamic route templates - they are expanded separately
     if (urlPath.includes('[')) {
       skippedDynamic++
       continue
@@ -469,7 +469,7 @@ async function generateSearchIndex() {
   }
   console.log(`   Expanded ${teachingItems.length} teaching series routes`)
 
-  // FAQ entries — link to /faq (no fragment; accordion IDs use dynamic useId()
+  // FAQ entries - link to /faq (no fragment; accordion IDs use dynamic useId()
   // prefixes so deep-linking is not reliably possible).  Each entry gets a
   // unique id so the deduplication below does not collapse them into one.
   for (let i = 0; i < faqs.length; i++) {
@@ -487,7 +487,7 @@ async function generateSearchIndex() {
 
   console.log(`   Added ${faqs.length} FAQ entries`)
 
-  // Deduplicate by URL — static pages are richer so they win over expanded routes.
+  // Deduplicate by URL - static pages are richer so they win over expanded routes.
   // FAQ entries share the /faq URL with the static page but are individually
   // distinct; they bypass URL-based dedup using a composite url+id key.
   const seen = new Set<string>()

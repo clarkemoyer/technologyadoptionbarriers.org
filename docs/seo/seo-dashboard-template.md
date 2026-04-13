@@ -3,7 +3,7 @@
 **Report Period:** `[YYYY-MM-DD]` to `[YYYY-MM-DD]`
 **Generated:** `[YYYY-MM-DD]`
 **Data Sources:** Google Search Console, Google Analytics 4, Moz/Ahrefs (free tier)
-**Related Issue:** [#473 — SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
+**Related Issue:** [#473 - SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
 
 ---
 

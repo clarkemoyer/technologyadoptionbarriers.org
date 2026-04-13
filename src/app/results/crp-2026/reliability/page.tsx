@@ -11,7 +11,7 @@ import sensitivityData from '@/data/crp-sensitivity-analysis.json'
 import { ResultsNav } from '@/components/results-nav'
 
 export const metadata: Metadata = {
-  title: 'CRP 2026 Scale Reliability — TABS',
+  title: 'CRP 2026 Scale Reliability - TABS',
   description:
     "Cronbach's alpha reliability coefficients for the Technology Adoption Barriers Survey CRP 2026 frozen dataset across three sample definitions, demonstrating excellent internal consistency.",
   alternates: {
@@ -28,7 +28,7 @@ const getMetricValue = (key: string, sample: string): number | null => {
 }
 
 const fmt = (val: number | null): string => {
-  if (val === null) return '—'
+  if (val === null) return '-'
   return val.toFixed(4)
 }
 

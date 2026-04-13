@@ -81,9 +81,12 @@ describe('ConceptMappingSummary component', () => {
 
       const table = screen.getByRole('table')
       const rows = within(table).getAllByRole('row')
-      // Header + 6 data rows + total = 8 rows; Section A is row index 1
+      // Header (index 0) + 6 data rows (index 1-6) + total (index 7)
+      // Section A (rows[1]) has null attentionChecks
       const sectionARow = rows[1]
-      expect(within(sectionARow).getAllByText('-').length).toBeGreaterThan(0)
+      const cells = within(sectionARow).getAllByRole('cell')
+      // Attention Checks is column index 3: Section, Question Type, Substantive Items, Attention Checks
+      expect(cells[3]).toHaveTextContent('-')
     })
   })
 

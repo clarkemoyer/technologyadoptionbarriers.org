@@ -276,7 +276,7 @@ describe('Header mobile dropdown independence', () => {
     expect(resultsButton).toHaveAttribute('aria-expanded', 'true')
     expect(makingButton).toHaveAttribute('aria-expanded', 'false')
 
-    // Open Making of TABS — Results should close
+    // Open Making of TABS - Results should close
     fireEvent.click(makingButton)
     expect(makingButton).toHaveAttribute('aria-expanded', 'true')
     expect(resultsButton).toHaveAttribute('aria-expanded', 'false')

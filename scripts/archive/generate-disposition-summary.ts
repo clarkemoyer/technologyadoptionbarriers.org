@@ -2,8 +2,8 @@
  * Generate disposition-summary.json from live Prolific API data + disposition CSV.
  *
  * This script combines:
- *   1. Prolific API — real submission statuses (approved, rejected, returned, etc.)
- *   2. Disposition CSV — triage results (CLEAN, AUTO-EXCLUDE, FLAG-*, etc.)
+ *   1. Prolific API - real submission statuses (approved, rejected, returned, etc.)
+ *   2. Disposition CSV - triage results (CLEAN, AUTO-EXCLUDE, FLAG-*, etc.)
  *
  * Output: src/data/disposition-summary.json (committed to repo, drives the dashboard page)
  *
@@ -151,7 +151,7 @@ async function main() {
       console.warn(`⚠️  ANOMALY: AUTO-EXCLUDE PID ${pid} is APPROVED on Prolific`)
     }
 
-    // IRI pass rates — count only finished responses (exclude INCOMPLETE)
+    // IRI pass rates - count only finished responses (exclude INCOMPLETE)
     // This aligns with CRP analysis which uses V2 finished as denominator.
     // See: https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/675
     if (disposition !== 'INCOMPLETE') {

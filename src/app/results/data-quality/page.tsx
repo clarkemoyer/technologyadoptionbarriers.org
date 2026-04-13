@@ -14,7 +14,7 @@ import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
-  title: 'Data Quality Pipeline — TABS Results',
+  title: 'Data Quality Pipeline - TABS Results',
   description:
     'How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across five sample definitions.',
   alternates: {
@@ -484,7 +484,7 @@ const DataQualityPage = () => {
                       </td>
                       <td className="border border-gray-300 px-4 py-2">{sample.description}</td>
                       <td className="border border-gray-300 px-4 py-2 text-right font-mono">
-                        {sample.n ?? '—'}
+                        {sample.n ?? '-'}
                       </td>
                     </tr>
                   ))}
@@ -681,7 +681,7 @@ const DataQualityPage = () => {
                               key={s.key}
                               className="border border-gray-300 px-4 py-2 text-right font-mono"
                             >
-                              {(metric.values as Record<string, number | null>)[s.key] ?? '—'}
+                              {(metric.values as Record<string, number | null>)[s.key] ?? '-'}
                             </td>
                           ))}
                         </tr>

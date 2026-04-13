@@ -222,7 +222,7 @@ Immediate Actions (First week):
 ## Q: "How does this framework apply to AI/ML technologies?"
 
 A: "AI/ML is actually a perfect example of why lifecycle positioning matters so much. The AI/ML landscape right now is spread across the entire lifecycle spectrum, and making the wrong choice can kill adoption.
-Current AI/ML Lifecycle (Snapshot — update as needed):
+Current AI/ML Lifecycle (Snapshot - update as needed):
 Bleeding Edge:
 
 - Experimental architectures from recent papers
@@ -435,4 +435,4 @@ Design Phase (Critical - Don't Skip):
    - Commit to a small, fixed cadence of improvements
 
 Key Message:
-"Even when resources are tight, a small amount of deliberate user involvement is the cheapest insurance you can buy against building the wrong thing. The goal isn't perfection — it's reducing adoption risk with the minimum effective effort."
+"Even when resources are tight, a small amount of deliberate user involvement is the cheapest insurance you can buy against building the wrong thing. The goal isn't perfection - it's reducing adoption risk with the minimum effective effort."

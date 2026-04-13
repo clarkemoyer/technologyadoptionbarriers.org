@@ -12,7 +12,7 @@ import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
-  title: 'Scale Reliability — TABS Results',
+  title: 'Scale Reliability - TABS Results',
   description:
     "Cronbach's alpha reliability coefficients for the Technology Adoption Barriers Survey scales across five sample definitions, demonstrating excellent internal consistency.",
   alternates: {
@@ -27,7 +27,7 @@ const getMetricValue = (key: string, sample: string): number | null => {
 }
 
 const fmt = (val: number | null): string => {
-  if (val === null) return '—'
+  if (val === null) return '-'
   return val.toFixed(4)
 }
 

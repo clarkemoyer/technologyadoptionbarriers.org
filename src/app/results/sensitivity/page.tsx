@@ -12,7 +12,7 @@ import LastUpdated from '@/components/last-updated'
 import { ResultsNav } from '@/components/results-nav'
 
 export const metadata: Metadata = {
-  title: 'Sensitivity Analysis — TABS Results',
+  title: 'Sensitivity Analysis - TABS Results',
   description:
     'Full sensitivity analysis for the Technology Adoption Barriers Survey: every metric computed across five sample definitions to demonstrate robustness to inclusion criteria.',
   alternates: {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 }
 
 const fmt = (val: number | null | undefined, decimals: number = 4): string => {
-  if (val === null || val === undefined) return '—'
+  if (val === null || val === undefined) return '-'
   return val.toFixed(decimals)
 }
 
@@ -82,7 +82,7 @@ const SensitivityPage = () => {
                       </td>
                       <td className="border border-gray-300 px-4 py-2">{sample.description}</td>
                       <td className="border border-gray-300 px-4 py-2 text-right font-mono">
-                        {sample.n ?? '—'}
+                        {sample.n ?? '-'}
                       </td>
                     </tr>
                   ))}
@@ -227,7 +227,7 @@ const SensitivityPage = () => {
                                 >
                                   {delta !== null
                                     ? `${delta >= 0 ? '+' : ''}${delta.toFixed(4)}`
-                                    : '—'}
+                                    : '-'}
                                 </td>
                               )
                             })}

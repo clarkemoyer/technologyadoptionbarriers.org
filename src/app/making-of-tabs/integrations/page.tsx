@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { MakingOfTabsNav } from '@/components/making-of-tabs-nav'
 
 export const metadata: Metadata = {
-  title: 'Technical Integrations & Workflows — Making of TABS',
+  title: 'Technical Integrations & Workflows - Making of TABS',
   description:
     'A detailed guide to the API integrations, automated workflows, and Survey Flow architecture that power the Technology Adoption Barriers Survey (TABS).',
 }
@@ -25,8 +25,8 @@ const IntegrationsPage = () => {
               <strong>Google Analytics & Search Console</strong> (impact measurement and SEO
               transparency), and <strong>Zotero</strong> (the vetted reference library powering
               AI-assisted research). Each integration is managed through GitHub Actions workflows
-              and TypeScript or Python client libraries, so the entire operational lifecycle — from
-              survey creation to data collection to analytics — is version-controlled and
+              and TypeScript or Python client libraries, so the entire operational lifecycle - from
+              survey creation to data collection to analytics - is version-controlled and
               reproducible.
             </p>
           </section>
@@ -107,7 +107,7 @@ const IntegrationsPage = () => {
 
           {/* ── Qualtrics ── */}
           <section className="mb-12 text-gray-800">
-            <h2 className={H2_CLASSES}>Qualtrics — The Survey Engine</h2>
+            <h2 className={H2_CLASSES}>Qualtrics - The Survey Engine</h2>
 
             <p className="mb-4">
               Qualtrics hosts the TABS survey instrument. The platform provides sophisticated logic
@@ -122,7 +122,7 @@ const IntegrationsPage = () => {
                 REST API v3
               </a>
               , which enables us to copy surveys, inspect definitions, apply configuration changes,
-              and export data — all from GitHub Actions.
+              and export data - all from GitHub Actions.
             </p>
 
             <div className="mb-8">
@@ -138,15 +138,15 @@ const IntegrationsPage = () => {
                 <p className="mb-2 font-semibold">Key environment values</p>
                 <ul className="list-disc space-y-1 pl-5">
                   <li>
-                    <code>QUALTRICS_BASE_URL</code> — The datacenter root (e.g.,{' '}
+                    <code>QUALTRICS_BASE_URL</code> - The datacenter root (e.g.,{' '}
                     <code>https://yul1.qualtrics.com</code>)
                   </li>
                   <li>
-                    <code>QUALTRICS_SURVEY_ID</code> — The active survey ID (updated during annual
+                    <code>QUALTRICS_SURVEY_ID</code> - The active survey ID (updated during annual
                     rollover)
                   </li>
                   <li>
-                    <code>QUALTRICS_API_TOKEN</code> — API authentication secret
+                    <code>QUALTRICS_API_TOKEN</code> - API authentication secret
                   </li>
                 </ul>
               </div>
@@ -216,27 +216,27 @@ const IntegrationsPage = () => {
               </p>
               <ol className="mb-4 list-decimal space-y-2 pl-6">
                 <li>
-                  <strong>Test connectivity</strong> — Run the smoke test workflow to verify
+                  <strong>Test connectivity</strong> - Run the smoke test workflow to verify
                   credentials.
                 </li>
                 <li>
-                  <strong>Copy the survey</strong> — Use the copy workflow to clone the current
+                  <strong>Copy the survey</strong> - Use the copy workflow to clone the current
                   survey.
                 </li>
                 <li>
-                  <strong>Update the environment variable</strong> — Point{' '}
+                  <strong>Update the environment variable</strong> - Point{' '}
                   <code>QUALTRICS_SURVEY_ID</code> at the new survey ID.
                 </li>
                 <li>
-                  <strong>Verify configuration</strong> — Run the verification workflow against the
+                  <strong>Verify configuration</strong> - Run the verification workflow against the
                   new survey.
                 </li>
                 <li>
-                  <strong>Apply Prolific integration</strong> — If the copy didn&apos;t preserve
+                  <strong>Apply Prolific integration</strong> - If the copy didn&apos;t preserve
                   Survey Flow branches, re-apply them.
                 </li>
                 <li>
-                  <strong>Update Prolific</strong> — Point the Prolific study&apos;s external URL at
+                  <strong>Update Prolific</strong> - Point the Prolific study&apos;s external URL at
                   the new Qualtrics survey link.
                 </li>
               </ol>
@@ -245,7 +245,7 @@ const IntegrationsPage = () => {
 
           {/* ── Prolific ── */}
           <section className="mb-12 text-gray-800">
-            <h2 className={H2_CLASSES}>Prolific — Participant Recruitment</h2>
+            <h2 className={H2_CLASSES}>Prolific - Participant Recruitment</h2>
 
             <p className="mb-4">
               <a
@@ -257,7 +257,7 @@ const IntegrationsPage = () => {
                 Prolific
               </a>{' '}
               specializes in high-quality academic research recruitment. It enables pre-screening
-              participants by job seniority, industry sector, and other criteria — ensuring the
+              participants by job seniority, industry sector, and other criteria - ensuring the
               survey reaches the right audience. The TABS integration uses Prolific&apos;s REST API
               v1 for automated weekly data collection.
             </p>
@@ -292,11 +292,11 @@ const IntegrationsPage = () => {
 
           {/* ── Survey Flow Architecture ── */}
           <section className="mb-12 text-gray-800">
-            <h2 className={H2_CLASSES}>Survey Flow Architecture — The Two-Branch Design</h2>
+            <h2 className={H2_CLASSES}>Survey Flow Architecture - The Two-Branch Design</h2>
 
             <p className="mb-4">
               The most critical piece of the Qualtrics–Prolific integration is the{' '}
-              <strong>Survey Flow</strong> — the sequence of logic steps that Qualtrics executes for
+              <strong>Survey Flow</strong> - the sequence of logic steps that Qualtrics executes for
               each respondent. The TABS survey uses a &quot;redirect lockdown&quot; pattern that
               ensures every respondent ends up at the correct destination, regardless of how they
               arrived at the survey.
@@ -328,7 +328,7 @@ const IntegrationsPage = () => {
 
               <div className="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4">
                 <p className="mb-2 font-semibold text-blue-900">
-                  Branch 1 — If SOURCE is not empty
+                  Branch 1 - If SOURCE is not empty
                 </p>
                 <p className="text-sm text-blue-800">
                   When the <code>SOURCE</code> field has any value (e.g., <code>TABS_Website</code>{' '}
@@ -340,7 +340,7 @@ const IntegrationsPage = () => {
 
               <div className="mb-6 rounded-lg border border-green-200 bg-green-50 p-4">
                 <p className="mb-2 font-semibold text-green-900">
-                  Branch 2 — If PROLIFIC_PID is not empty
+                  Branch 2 - If PROLIFIC_PID is not empty
                 </p>
                 <p className="text-sm text-green-800">
                   This is a safety net. If a Prolific participant arrives without{' '}
@@ -355,7 +355,7 @@ const IntegrationsPage = () => {
               <p className="text-sm text-gray-600 italic">
                 Branch 1 is evaluated first. Because Prolific links typically include{' '}
                 <code>SOURCE=prolific</code>, Branch 1 catches Prolific participants and redirects
-                them to the website completion page. This is intentional — the website thank-you
+                them to the website completion page. This is intentional - the website thank-you
                 page is appropriate for all respondents, and Prolific tracks completion
                 independently via its authenticity script.
               </p>
@@ -403,7 +403,7 @@ const IntegrationsPage = () => {
                 <code>scripts/qualtrics-apply-prolific-integration.ts</code>) that reads the current
                 Survey Flow, removes any existing TABS branches, rebuilds the two branches with
                 hard-coded URLs, and writes the flow back via the Qualtrics API. The script is
-                idempotent — running it multiple times produces the same result.
+                idempotent - running it multiple times produces the same result.
               </p>
               <p className="mb-4">
                 A companion workflow (<code>qualtrics-prolific-apply.yml</code>) runs this script in
@@ -426,7 +426,7 @@ const IntegrationsPage = () => {
           {/* ── Google Analytics & Search Console ── */}
           <section className="mb-12 text-gray-800">
             <h2 className={H2_CLASSES}>
-              Google Analytics &amp; Search Console — Impact &amp; SEO Measurement
+              Google Analytics &amp; Search Console - Impact &amp; SEO Measurement
             </h2>
 
             <p className="mb-4">
@@ -450,7 +450,7 @@ const IntegrationsPage = () => {
             <div className="mb-8">
               <h3 className={H3_CLASSES}>Verified Visitors Methodology</h3>
               <p className="mb-4">
-                Raw GA4 numbers can be misleading — 99.6% of recorded traffic came from{' '}
+                Raw GA4 numbers can be misleading - 99.6% of recorded traffic came from{' '}
                 <code>localhost</code> (Playwright tests, CI runs, AI agents). The &quot;Verified
                 Visitors&quot; metric filters to the production hostname only, showing actual human
                 visitors.
@@ -466,7 +466,7 @@ const IntegrationsPage = () => {
 
           {/* ── GitHub Actions ── */}
           <section className="mb-12 text-gray-800">
-            <h2 className={H2_CLASSES}>GitHub Actions — The Automation Layer</h2>
+            <h2 className={H2_CLASSES}>GitHub Actions - The Automation Layer</h2>
 
             <p className="mb-4">
               GitHub Actions ties everything together. Every integration workflow runs in a secure,
@@ -478,7 +478,7 @@ const IntegrationsPage = () => {
             <div className="mb-8">
               <h3 className={H3_CLASSES}>Environments &amp; Secrets</h3>
               <p className="mb-4">
-                API tokens are stored as GitHub Actions environment secrets — encrypted at rest and
+                API tokens are stored as GitHub Actions environment secrets - encrypted at rest and
                 never exposed in logs. Each external service has its own environment:
               </p>
               <div className="overflow-x-auto">
@@ -532,20 +532,20 @@ const IntegrationsPage = () => {
 
             <ul className="mb-4 list-disc space-y-2 pl-6">
               <li>
-                <strong>Prolific Integration Guide</strong> — Complete setup, Survey Flow
+                <strong>Prolific Integration Guide</strong> - Complete setup, Survey Flow
                 architecture, verification, and annual rollover (
                 <code>PROLIFIC_INTEGRATION.md</code>)
               </li>
               <li>
-                <strong>Qualtrics API Cheat Sheet</strong> — Quick reference for common API calls,
+                <strong>Qualtrics API Cheat Sheet</strong> - Quick reference for common API calls,
                 including tenant-specific field values (<code>qualtrics-api-cheatsheet.md</code>)
               </li>
               <li>
-                <strong>API Integration Guide</strong> — Comprehensive reference for all three APIs,
+                <strong>API Integration Guide</strong> - Comprehensive reference for all three APIs,
                 environments, secrets, and workflows (<code>API_INTEGRATION_GUIDE.md</code>)
               </li>
               <li>
-                <strong>MCP Servers</strong> — Model Context Protocol integration for AI coding
+                <strong>MCP Servers</strong> - Model Context Protocol integration for AI coding
                 agents (<code>MCP_SERVERS.md</code>)
               </li>
             </ul>

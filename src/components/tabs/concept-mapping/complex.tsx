@@ -265,7 +265,7 @@ function FieldRow({
     <div className="py-2 sm:grid sm:grid-cols-[200px_1fr] gap-2 border-b border-gray-100 last:border-0">
       <dt className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{label}</dt>
       <dd className="mt-1 sm:mt-0 text-sm text-gray-800 break-words">
-        {children ?? (value || <span className="text-gray-400">—</span>)}
+        {children ?? (value || <span className="text-gray-400">-</span>)}
       </dd>
     </div>
   )
@@ -407,7 +407,7 @@ function ItemCard({
           {sourceLink && sourceLink !== 'N/A' && isUrl(sourceLink) ? (
             <LinkBadge url={sourceLink} />
           ) : (
-            <span className="text-gray-400">{sourceLink || '—'}</span>
+            <span className="text-gray-400">{sourceLink || '-'}</span>
           )}
         </FieldRow>
         <FieldRow label="Scale Type / Response Options">
@@ -428,7 +428,7 @@ function ItemCard({
               )}
             </span>
           ) : (
-            <span className="text-gray-400">—</span>
+            <span className="text-gray-400">-</span>
           )}
         </FieldRow>
       </dl>
@@ -440,7 +440,7 @@ function ItemCard({
 
 const ConceptMappingComplex = () => {
   const [searchQuery, setSearchQuery] = useState('')
-  /** Track collapsed sections — empty Set means all expanded by default. */
+  /** Track collapsed sections - empty Set means all expanded by default. */
   const [collapsedSections, setCollapsedSections] = useState<Set<string>>(new Set())
   const [highlightedId, setHighlightedId] = useState<string | null>(null)
   const highlightTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)

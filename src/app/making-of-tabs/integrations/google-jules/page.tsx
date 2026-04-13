@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { MakingOfTabsNav } from '@/components/making-of-tabs-nav'
 
 export const metadata: Metadata = {
-  title: 'Google Jules (Gemini) Integration — Making of TABS',
+  title: 'Google Jules (Gemini) Integration - Making of TABS',
   description:
     'How TABS uses Google Jules, powered by Gemini, for autonomous visualization, content, and frontend workflows.',
   alternates: {
@@ -100,7 +100,7 @@ const GoogleJulesIntegrationPage = () => {
                 <code>cmdkey /generic:TABS_GOOGLE_JULES_API_KEY</code>).
               </li>
               <li>
-                The Jules CLI handles OAuth internally — use <code>jules remote new</code> for
+                The Jules CLI handles OAuth internally - use <code>jules remote new</code> for
                 programmatic interaction.
               </li>
             </ul>

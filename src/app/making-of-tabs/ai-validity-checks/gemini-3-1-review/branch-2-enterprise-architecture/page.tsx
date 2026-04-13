@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { MakingOfTabsNav } from '@/components/making-of-tabs-nav'
 
 export const metadata: Metadata = {
-  title: 'Enterprise Architecture Review — Making of TABS',
+  title: 'Enterprise Architecture Review - Making of TABS',
   description: 'Gemini 3.1 Pro validity check of enterprise architecture frameworks in TABS.',
   alternates: {
     canonical:
