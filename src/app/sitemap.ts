@@ -35,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     },
-    // Individual Bibliography Articles (21 models) — derived from single source of truth
+    // Bibliography Articles (42 total: 21 individual + 21 organizational) — derived from single source of truth
     ...[
       ...technologyAdoptionModelsSeries.bibliographyArticles.individual,
       ...technologyAdoptionModelsSeries.bibliographyArticles.organizational,
