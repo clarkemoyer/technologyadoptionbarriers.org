@@ -548,7 +548,7 @@ const BibliographyArticlePage = () => {
           {/* References */}
           <section className={SECTION_CLASSES}>
             <h2 className={H2_CLASSES}>References</h2>
-            <ol className="list-decimal pl-6 space-y-3 text-gray-800">
+            <ol className="list-decimal list-inside space-y-3 text-sm text-gray-800">
               <li>
                 Berry, L. L. (1981). &ldquo;The Employee as Customer.&rdquo; Journal of Retail
                 Banking, vol.3, no. 1, pp. 33-40.

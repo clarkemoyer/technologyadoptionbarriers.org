@@ -617,7 +617,7 @@ const BibliographyArticlePage = () => {
           {/* References */}
           <section className={SECTION_CLASSES}>
             <h2 className={H2_CLASSES}>References</h2>
-            <ol className="list-decimal pl-6 space-y-3 text-gray-800">
+            <ol className="list-decimal list-inside space-y-2 text-sm text-gray-800">
               <li>
                 Rogers, E. M. (1962). <em>Diffusion of innovations</em> . The Free Press.
               </li>

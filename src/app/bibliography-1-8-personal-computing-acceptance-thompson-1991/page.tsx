@@ -559,7 +559,7 @@ const BibliographyArticlePage = () => {
           {/* References */}
           <section className={SECTION_CLASSES}>
             <h2 className={H2_CLASSES}>References</h2>
-            <ol className="list-decimal pl-6 space-y-3 text-gray-800">
+            <ol className="list-decimal list-inside space-y-3 text-sm text-gray-800">
               <li>
                 Thompson, R. L., Higgins, C. A., &amp; Howell, J. M. (1991). Toward a conceptual
                 model of personal computing utilization. <em>MIS Quarterly</em>, 15(1), 125-143.

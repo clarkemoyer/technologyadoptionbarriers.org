@@ -545,7 +545,7 @@ const BibliographyArticlePage = () => {
                 <strong>Following Models or Theories:</strong> Following Models: Extended ECM models
                 incorporating additional variables (such as switching costs, habit, social
                 influences), models examining continuance across diverse information systems (social
-                media, productivity software, enterprise systems), Technology Abandonment models,
+                media, productivity software, enterprise systems), technology abandonment models,
                 Digital Engagement and Sustained Use models. Following Theories: Research on
                 information systems habit and behavioral inertia, studies of customer loyalty in
                 digital contexts, discontinuance and switching behavior research, service
@@ -557,7 +557,7 @@ const BibliographyArticlePage = () => {
           {/* References */}
           <section className={SECTION_CLASSES}>
             <h2 className={H2_CLASSES}>References</h2>
-            <ol className="list-decimal pl-6 space-y-3 text-gray-800">
+            <ol className="list-decimal list-inside space-y-3 text-sm text-gray-800">
               <li>
                 Ajzen, I. &ldquo;The Theory of Planned Behavior.&rdquo;{' '}
                 <em>Organizational Behavior and Human Decision Processes</em> 50, no. 2 (1991):

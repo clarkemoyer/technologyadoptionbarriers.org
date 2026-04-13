@@ -521,7 +521,7 @@ const BibliographyArticlePage = () => {
           {/* References */}
           <section className={SECTION_CLASSES}>
             <h2 className={H2_CLASSES}>References</h2>
-            <ol className="list-decimal pl-6 space-y-3 text-gray-800">
+            <ol className="list-decimal list-inside space-y-3 text-sm text-gray-800">
               <li>
                 Ajzen, I. &ldquo;The Theory of Planned Behavior.&rdquo;{' '}
                 <em>Organizational Behavior and Human Decision Processes</em> 50, no. 2 (1991):
