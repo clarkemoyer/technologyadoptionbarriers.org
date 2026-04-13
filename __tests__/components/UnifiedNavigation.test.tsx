@@ -86,9 +86,12 @@ describe('UnifiedNavigation', () => {
     // Simulate a narrow viewport so the desktop sidebar cannot fit
     const originalInnerWidth = window.innerWidth
     Object.defineProperty(window, 'innerWidth', { value: 200, configurable: true })
-    render(<UnifiedNavigation seriesItems={[{ title: 'Page 1', href: '/page-1' }]} />)
-    expect(screen.getByRole('button', { name: /navigation/i })).toBeInTheDocument()
-    Object.defineProperty(window, 'innerWidth', { value: originalInnerWidth, configurable: true })
+    try {
+      render(<UnifiedNavigation seriesItems={[{ title: 'Page 1', href: '/page-1' }]} />)
+      expect(screen.getByRole('button', { name: /navigation/i })).toBeInTheDocument()
+    } finally {
+      Object.defineProperty(window, 'innerWidth', { value: originalInnerWidth, configurable: true })
+    }
   })
 
   it('passes accessibility checks with series items', async () => {

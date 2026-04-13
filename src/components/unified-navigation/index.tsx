@@ -201,9 +201,14 @@ export default function UnifiedNavigation({
     return () => observer.disconnect()
   }, [headings, effectiveHeaderH])
 
+  // Reset mobile panel when switching to desktop sidebar
+  useEffect(() => {
+    if (canShowDesktop) setMobileOpen(false)
+  }, [canShowDesktop])
+
   // Close mobile panel on outside click
   useEffect(() => {
-    if (!mobileOpen) return
+    if (!mobileOpen || canShowDesktop) return
     function handleClick(e: MouseEvent) {
       if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
         setMobileOpen(false)
@@ -211,7 +216,7 @@ export default function UnifiedNavigation({
     }
     document.addEventListener('mousedown', handleClick)
     return () => document.removeEventListener('mousedown', handleClick)
-  }, [mobileOpen])
+  }, [mobileOpen, canShowDesktop])
 
   const hasSeries = seriesItems && seriesItems.length > 0
   const hasToc = headings.length > 0

@@ -97,6 +97,11 @@ export default function ArticleTOC() {
     }
   }, [])
 
+  /* ---------- reset mobile panel when switching to desktop ---------- */
+  useEffect(() => {
+    if (canShowDesktop) setMobileOpen(false)
+  }, [canShowDesktop])
+
   /* ---------- scan headings on mount ---------- */
   useEffect(() => {
     const article = document.querySelector('article')
