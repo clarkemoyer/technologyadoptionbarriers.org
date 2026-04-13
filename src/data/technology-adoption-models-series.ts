@@ -235,13 +235,21 @@ export const technologyAdoptionModelsSeries: SeriesStructure = {
         title: 'UTAUT',
         slug: '/bibliography-1-15-unified-theory-utaut-venkatesh-2003',
       },
-      { id: 'bib-1-16', title: 'MATH', slug: '/bibliography-1-16-math-venkatesh-brown-2001' },
+      {
+        id: 'bib-1-16',
+        title: 'Model of Adoption of Technology in Households (MATH)',
+        slug: '/bibliography-1-16-math-venkatesh-brown-2001',
+      },
       {
         id: 'bib-1-17',
         title: 'Value-Based Adoption',
         slug: '/bibliography-1-17-value-based-adoption-kim-2007',
       },
-      { id: 'bib-1-18', title: 'TRAM', slug: '/bibliography-1-18-tram-lin-2007' },
+      {
+        id: 'bib-1-18',
+        title: 'Technology Readiness and Acceptance Model (TRAM)',
+        slug: '/bibliography-1-18-tram-lin-2007',
+      },
       {
         id: 'bib-1-19',
         title: 'TAM3',
@@ -300,18 +308,34 @@ export const technologyAdoptionModelsSeries: SeriesStructure = {
         title: 'Business Process Reengineering',
         slug: '/bibliography-2-9-business-process-reengineering-hammer-champy-1993',
       },
-      { id: 'bib-2-10', title: 'TAFIM', slug: '/bibliography-2-10-tafim-dod-1994' },
+      {
+        id: 'bib-2-10',
+        title: 'Technical Architecture Framework for Information Management (TAFIM)',
+        slug: '/bibliography-2-10-tafim-dod-1994',
+      },
       {
         id: 'bib-2-11',
         title: 'Gartner Hype Cycle',
         slug: '/bibliography-2-11-gartner-hype-cycle-fenn-1995',
       },
-      { id: 'bib-2-12', title: 'TOGAF', slug: '/bibliography-2-12-togaf-the-open-group-1995' },
-      { id: 'bib-2-13', title: 'DoDAF', slug: '/bibliography-2-13-dodaf-dod-2003' },
-      { id: 'bib-2-14', title: 'CMMI', slug: '/bibliography-2-14-cmmi-chrissis-2005' },
+      {
+        id: 'bib-2-12',
+        title: 'The Open Group Architecture Framework (TOGAF)',
+        slug: '/bibliography-2-12-togaf-the-open-group-1995',
+      },
+      {
+        id: 'bib-2-13',
+        title: 'DoD Architecture Framework (DoDAF)',
+        slug: '/bibliography-2-13-dodaf-dod-2003',
+      },
+      {
+        id: 'bib-2-14',
+        title: 'Capability Maturity Model Integration (CMMI)',
+        slug: '/bibliography-2-14-cmmi-chrissis-2005',
+      },
       {
         id: 'bib-2-15',
-        title: 'IT-CMF',
+        title: 'IT Capability Maturity Framework (IT-CMF)',
         slug: '/bibliography-2-15-it-cmf-innovation-value-institute-2016',
       },
       { id: 'bib-2-16', title: 'AWS CAF for AI/ML', slug: '/bibliography-2-16-aws-caf-ai-2024' },
@@ -337,7 +361,7 @@ export const technologyAdoptionModelsSeries: SeriesStructure = {
       },
       {
         id: 'bib-2-21',
-        title: 'Diffusion of Innovations (Org.)',
+        title: 'Diffusion of Innovations (Organizational)',
         slug: '/bibliography-2-21-diffusion-of-innovations-organizational-rogers-1962',
       },
     ],
