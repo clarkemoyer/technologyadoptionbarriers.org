@@ -2,11 +2,15 @@
 
 Ensures that CFA fit indices are correctly extracted from semopy.calc_stats()
 which returns stat names as *columns* (not row index) in semopy ≥2.x.
+
+The ``TestRunCFAMocked`` class exercises the orientation logic using a mocked
+semopy so that it runs in **all** CI environments (even when semopy is not
+installed).
 """
 
 import sys
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import numpy as np
 import pandas as pd
@@ -50,8 +54,94 @@ def synth_data():
     return data, model_spec
 
 
+# ---------------------------------------------------------------------------
+# Mock-based tests — always run (no semopy install required)
+# ---------------------------------------------------------------------------
+
+def _semopy2x_stats():
+    """DataFrame matching semopy ≥2.x: stat names are columns, 'Value' is the row."""
+    return pd.DataFrame(
+        {
+            "chi2": [25.5],
+            "DoF": [5.0],
+            "chi2 p-value": [0.0001],
+            "CFI": [0.95],
+            "TLI": [0.93],
+            "RMSEA": [0.06],
+            "SRMR": [0.04],
+            "AIC": [1234.56],
+            "BIC": [1278.9],
+        },
+        index=["Value"],
+    )
+
+
+def _legacy_stats():
+    """DataFrame matching hypothetical older semopy: stat names are row indices."""
+    stats = ["chi2", "DoF", "chi2 p-value", "CFI", "TLI", "RMSEA", "SRMR", "AIC", "BIC"]
+    vals = [25.5, 5.0, 0.0001, 0.95, 0.93, 0.06, 0.04, 1234.56, 1278.9]
+    return pd.DataFrame({"Value": vals}, index=stats)
+
+
+def _run_with_mock_stats(synth_data, stats_df):
+    """Import the analysis module with mocked semopy and invoke run_cfa."""
+    data, model_spec = synth_data
+
+    mock_semopy = MagicMock()
+    mock_model = MagicMock()
+    mock_semopy.Model.return_value = mock_model
+    mock_semopy.calc_stats.return_value = stats_df
+    mock_model.inspect.return_value = pd.DataFrame(
+        columns=["lval", "op", "Est. Std"]
+    )
+
+    with patch.dict(sys.modules, {"semopy": mock_semopy}):
+        with patch.object(sys, "argv", ["test", "/dev/null"]):
+            if "tabs_v2_unified_data_analysis" in sys.modules:
+                del sys.modules["tabs_v2_unified_data_analysis"]
+            import tabs_v2_unified_data_analysis as mod
+            mod.semopy = mock_semopy
+            mod.HAS_SEMOPY = True
+            return mod.run_cfa(data, model_spec, "MockCFA")
+
+
+class TestRunCFAMocked:
+    """Test run_cfa() orientation logic with mocked semopy (runs in all CI)."""
+
+    def test_semopy2x_column_orientation(self, synth_data):
+        """Column-oriented stats (semopy ≥2.x) should produce correct fit indices."""
+        result = _run_with_mock_stats(synth_data, _semopy2x_stats())
+
+        assert "error" not in result, f"Unexpected error: {result.get('error')}"
+        assert result["cfi"] == 0.95
+        assert result["tli"] == 0.93
+        assert result["rmsea"] == 0.06
+        assert result["chi2"] == 25.5
+        assert result["df"] == 5
+        assert result["chi2_p"] == 0.0001
+        assert result["srmr"] == 0.04
+        assert result["aic"] == 1234.56
+        assert result["bic"] == 1278.9
+
+    def test_legacy_row_orientation(self, synth_data):
+        """Row-oriented stats (hypothetical older semopy) should also work."""
+        result = _run_with_mock_stats(synth_data, _legacy_stats())
+
+        assert "error" not in result, f"Unexpected error: {result.get('error')}"
+        assert result["cfi"] == 0.95
+        assert result["tli"] == 0.93
+        assert result["rmsea"] == 0.06
+        assert result["chi2"] == 25.5
+        assert result["df"] == 5
+
+
+# ---------------------------------------------------------------------------
+# Tests requiring real semopy (skipped when semopy is not installed)
+# ---------------------------------------------------------------------------
+
+
 class TestRunCFA:
-    """Verify run_cfa extracts non-null fit indices from semopy."""
+    """Verify run_cfa extracts non-null fit indices from real semopy."""
 
     @requires_semopy
     def test_cfa_produces_nonnull_indices(self, synth_data):
