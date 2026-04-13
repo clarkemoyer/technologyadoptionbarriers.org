@@ -716,9 +716,9 @@ const BibliographyArticlePage = () => {
               <li>
                 Fishbein, M., and Ajzen, I. (1975).{' '}
                 <em>
-                  Belief, attitude, intention, and behavior: An introduction to theory and research
-                </em>
-                . Addison-Wesley.
+                  Belief, attitude, intention, and behavior: An introduction to theory and research.
+                </em>{' '}
+                Addison-Wesley.
               </li>
               <li>
                 Zuboff, S. (1988).{' '}

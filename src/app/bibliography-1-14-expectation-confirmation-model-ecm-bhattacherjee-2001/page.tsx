@@ -607,9 +607,9 @@ const BibliographyArticlePage = () => {
               <li>
                 Fishbein, M., and Ajzen, I.{' '}
                 <em>
-                  Belief, Attitude, Intention and Behavior: An Introduction to Theory and Research
-                </em>
-                . Reading, MA: Addison-Wesley, 1975.
+                  Belief, Attitude, Intention and Behavior: An Introduction to Theory and Research.
+                </em>{' '}
+                Reading, MA: Addison-Wesley, 1975.
               </li>
               <li>
                 Agarwal, R., and Prasad, J. &quot;The Antecedents and Consequents of User

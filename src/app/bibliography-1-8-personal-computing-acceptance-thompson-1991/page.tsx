@@ -582,9 +582,9 @@ const BibliographyArticlePage = () => {
               <li>
                 Fishbein, M., and Ajzen, I. (1975).{' '}
                 <em>
-                  Belief, attitude, intention and behavior: An introduction to theory and research
-                </em>
-                . Reading, MA: Addison-Wesley.
+                  Belief, attitude, intention and behavior: An introduction to theory and research.
+                </em>{' '}
+                Reading, MA: Addison-Wesley.
               </li>
               <li>
                 Porter, L. W., and Lawler, E. E. (1968).{' '}

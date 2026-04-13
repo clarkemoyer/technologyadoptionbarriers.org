@@ -636,9 +636,9 @@ const BibliographyArticlePage = () => {
                 Wellin, E. (1955). Water boiling in a Peruvian village. In B. D. Paul (Ed.),{' '}
                 <em>
                   Health, culture, and community: Case studies of public reactions to health
-                  programs
-                </em>
-                . Russell Sage Foundation.
+                  programs.
+                </em>{' '}
+                Russell Sage Foundation.
               </li>
             </ol>
             <p className={PARAGRAPH_CLASSES}>

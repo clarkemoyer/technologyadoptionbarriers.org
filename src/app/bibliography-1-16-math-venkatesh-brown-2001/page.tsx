@@ -550,9 +550,9 @@ const BibliographyArticlePage = () => {
               <li>
                 Fishbein, M., and Ajzen, I.{' '}
                 <em>
-                  Belief, Attitude, Intention and Behavior: An Introduction to Theory and Research
-                </em>
-                . Reading, MA: Addison-Wesley, 1975.
+                  Belief, Attitude, Intention and Behavior: An Introduction to Theory and Research.
+                </em>{' '}
+                Reading, MA: Addison-Wesley, 1975.
               </li>
               <li>
                 Rogers, E. M. <em>Diffusion of Innovations</em>. 4th ed. New York: Free Press, 1995.
