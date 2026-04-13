@@ -8,18 +8,18 @@ import {
   PARAGRAPH_CLASSES,
 } from '@/lib/articleStyles'
 import Link from 'next/link'
-import validationData from '@/data/crp-validation.json'
+import validationData from '@/data/live-validation.json'
 import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 export const metadata: Metadata = {
-  title: 'Barrier Factor Structure - TABS CRP 2026',
+  title: 'Barrier Factor Structure - TABS Full Dataset',
   description:
-    'Hierarchical factor analysis of the 18-item TABS Barriers scale showing theory-based groupings, EFA-derived 2-factor structure, and exploratory 3-group decomposition at N=200.',
+    'Hierarchical factor analysis of the 18-item TABS Barriers scale showing theory-based groupings, EFA-derived 2-factor structure, and exploratory 3-group decomposition using the full dataset.',
   alternates: {
-    canonical: '/results/crp-2026/factor-analysis',
+    canonical: '/results/factor-analysis',
   },
 }
 
-/* ── Barrier item labels (from crp-validation.json) ── */
+/* ── Barrier item labels (from live-validation.json) ── */
 const BARRIER_ITEMS: Record<string, string> = Object.fromEntries(
   validationData.factor_analysis.barrier_names.map((name, i) => [`B${i + 1}`, name])
 )
@@ -56,7 +56,7 @@ const THEORY_GROUPS = [
   },
 ]
 
-/* ── EFA 2-factor solution (from crp-validation.json) ── */
+/* ── EFA 2-factor solution (from live-validation.json) ── */
 const EFA_COLORS = [
   { color: 'bg-indigo-50 border-indigo-400', headerColor: 'bg-indigo-600' },
   { color: 'bg-pink-50 border-pink-400', headerColor: 'bg-pink-600' },
@@ -86,7 +86,7 @@ const EFA_FACTORS = validationData.factor_analysis.efa_factors.map((f, idx) => {
   }
 })
 
-/* ── Forced 3-group split of F1 (from crp-validation.json) ── */
+/* ── Forced 3-group split of F1 (from live-validation.json) ── */
 const THREE_GROUP_COLORS = [
   { color: 'bg-violet-50 border-violet-400', headerColor: 'bg-violet-600' },
   { color: 'bg-cyan-50 border-cyan-400', headerColor: 'bg-cyan-600' },
@@ -186,13 +186,14 @@ const FactorAnalysisPage = () => {
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
-            The {validationData.metadata.n_barriers}-item TABS Barriers scale was developed through
-            a concept-mapping process that identified four theoretical sub-constructs. Exploratory
-            Factor Analysis (EFA) on the CRP-200 frozen dataset (N=
-            {validationData.metadata.n_total}, listwise valid N=
-            {validationData.Barriers.n_listwise}) reveals a statistically supported 2-factor
-            structure, with an exploratory 3-group decomposition available for practitioner-oriented
-            reporting. This page walks through each level of the hierarchy.
+            The TABS Barriers scale includes {validationData.metadata.n_barriers} items and was
+            developed through a concept-mapping process that identified four theoretical
+            sub-constructs. Exploratory Factor Analysis (EFA) on the full TABS dataset reveals a
+            statistically supported 2-factor structure. The full dataset included{' '}
+            {validationData.metadata.n_total} responses, with {validationData.Barriers.n_listwise}{' '}
+            listwise valid responses for the factor analysis. An exploratory 3-group decomposition
+            is also available for practitioner-oriented reporting. This page walks through each
+            level of the hierarchy.
           </p>
           <p className="text-sm text-gray-500 font-sans mb-6">
             See the{' '}
@@ -200,7 +201,7 @@ const FactorAnalysisPage = () => {
               Statistics Glossary
             </Link>{' '}
             for definitions of all psychometric terms used on this page, or the{' '}
-            <Link href="/results/crp-2026/validation" className="text-blue-600 hover:underline">
+            <Link href="/results/validation" className="text-blue-600 hover:underline">
               Instrument Validation
             </Link>{' '}
             page for the full results across all three constructs.
@@ -239,9 +240,11 @@ const FactorAnalysisPage = () => {
             Horn&rsquo;s Parallel Analysis compared actual eigenvalues against the 95th percentile
             of random-data eigenvalues and retained exactly two factors. The two factors explain a
             cumulative {(validationData.Barriers.efa.total_variance * 100).toFixed(1)}% of variance.
-            Factor correlations (r = .
-            {validationData.factor_analysis.factor_correlation.toFixed(3).slice(2)}) confirm the
-            oblique rotation was appropriate.
+            Factor correlations (r ={' '}
+            {validationData.factor_analysis.factor_correlation
+              .toFixed(3)
+              .replace(/^(-?)0\./, '$1.')}
+            ) confirm the oblique rotation was appropriate.
           </p>
 
           <div className="overflow-x-auto mb-6">
@@ -408,7 +411,7 @@ const FactorAnalysisPage = () => {
           ) : (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 font-sans text-sm mb-6">
               <p className="text-red-600 font-medium">
-                {DATA_UNAVAILABLE} 3-group decomposition data missing from crp-validation.json (
+                {DATA_UNAVAILABLE} 3-group decomposition data missing from live-validation.json (
                 <code className="font-mono">three_groups</code>). Check the daily pipeline workflow.
               </p>
             </div>
@@ -441,12 +444,17 @@ const FactorAnalysisPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* Sort by computed dominant factor: items with higher |f1| first, then |f2| */}
+                {/* Sort by dominant factor first (F1 before F2), then by magnitude within each group */}
                 {[...loadingsMatrix]
                   .sort((a, b) => {
                     const aDom = getDominantFactor(a)
                     const bDom = getDominantFactor(b)
-                    return aDom === bDom ? 0 : aDom === 'F1' ? -1 : 1
+                    if (aDom !== bDom) {
+                      return aDom === 'F1' ? -1 : 1
+                    }
+                    const aMagnitude = aDom === 'F1' ? Math.abs(a.f1) : Math.abs(a.f2)
+                    const bMagnitude = bDom === 'F1' ? Math.abs(b.f1) : Math.abs(b.f2)
+                    return bMagnitude - aMagnitude
                   })
                   .map((row, i) => {
                     const dominantFactor = getDominantFactor(row)
@@ -522,17 +530,17 @@ const FactorAnalysisPage = () => {
         {/* ── Navigation ── */}
         <section className="border-t border-gray-200 pt-8 mt-8">
           <div className="flex flex-wrap gap-4 text-sm font-sans">
-            <Link href="/results/crp-2026/validation" className="text-blue-600 hover:underline">
+            <Link href="/results/validation" className="text-blue-600 hover:underline">
               Instrument Validation Results &rarr;
             </Link>
             <Link href="/results/glossary" className="text-blue-600 hover:underline">
               Statistics Glossary &rarr;
             </Link>
-            <Link href="/results/crp-2026/reliability" className="text-blue-600 hover:underline">
+            <Link href="/results/reliability" className="text-blue-600 hover:underline">
               Scale Reliability &rarr;
             </Link>
-            <Link href="/results/crp-2026" className="text-blue-600 hover:underline">
-              &larr; CRP 2026 Overview
+            <Link href="/results" className="text-blue-600 hover:underline">
+              &larr; Results Overview
             </Link>
           </div>
         </section>

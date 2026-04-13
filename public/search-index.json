@@ -786,9 +786,9 @@
   {
     "id": "making-of-tabs-cmo-survey",
     "url": "/making-of-tabs/cmo-survey",
-    "title": "Redirecting — TABS",
-    "description": "",
-    "content": "Redirecting — TABS",
+    "title": "CMO Survey Comparison - Making of TABS",
+    "description": "Learn how The CMO Survey has influenced and inspired the Technology Adoption Barriers Survey (TABS) methodology, design, and longitudinal research approach.",
+    "content": "CMO Survey Comparison - Making of TABS. Learn how The CMO Survey has influenced and inspired the Technology Adoption Barriers Survey (TABS) methodology, design, and longitudinal research approach. The CMO Survey: Inspiring TABS The Technology Adoption Barriers Survey TABS draws significant inspiration one of the most successful longitudinal research initiatives in business: The CMO Survey Since 2008, The CMO Survey has provided invaluable insights into marketing trends, spending patterns, and strategic priorities, serving as trusted benchmark for marketing leaders worldwide. This page explores how The CMO Survey proven methodology, longitudinal approach, and commitment to open access have shaped the development and vision of TABS. Quick Facts: The CMO Survey Timeline Launched: 2008 Frequen...",
     "category": "Making of TABS"
   },
   {
@@ -976,14 +976,6 @@
     "category": "Results"
   },
   {
-    "id": "results-cmo-survey",
-    "url": "/results/cmo-survey",
-    "title": "CMO Survey Comparison — TABS Results",
-    "description": "Learn how The CMO Survey has influenced and inspired the Technology Adoption Barriers Survey (TABS) methodology, design, and longitudinal research approach.",
-    "content": "CMO Survey Comparison — TABS Results. Learn how The CMO Survey has influenced and inspired the Technology Adoption Barriers Survey (TABS) methodology, design, and longitudinal research approach. The CMO Survey: Inspiring TABS The Technology Adoption Barriers Survey TABS draws significant inspiration one of the most successful longitudinal research initiatives in business: The CMO Survey Since 2008, The CMO Survey has provided invaluable insights into marketing trends, spending patterns, and strategic priorities, serving as trusted benchmark for marketing leaders worldwide. This page explores how The CMO Survey proven methodology, longitudinal approach, and commitment to open access have shaped the development and vision of TABS. Quick Facts: The CMO Survey Timeline Launched: 2008 Frequency...",
-    "category": "Results"
-  },
-  {
     "id": "results-crp-2026",
     "url": "/results/crp-2026",
     "title": "TABS 2026 CRP Results",
@@ -1021,14 +1013,6 @@
     "title": "CRP 2026 Key Findings — TABS",
     "description": "Effect sizes, cross-tabulations, t-tests, and ANOVA from the CRP 2026 replication, computed independently across three CRP sample definitions.",
     "content": "CRP 2026 Key Findings — TABS. Effect sizes, cross-tabulations, t-tests, and ANOVA from the CRP 2026 replication, computed independently across three CRP sample definitions. CRP 2026: Key Findings Published: April 2026 All effect sizes, cross-tabulations, t-tests, and ANOVA are computed independently for each of the three CRP sample definitions. This ensures that any finding can be validated against the researcher chosen dataset. Effect Sizes Cohen Cohen measures the standardized difference between group means. Values of |d| are negligible, small, medium, and large. Each comparison is computed separately for each result group. CRP_GROUPS group sample === details sampleDetails effects details?.effect_sizes hasEffects effects && effects 'tech_vs_nontech' && effects 'tech_vs_nontech' .construc...",
-    "category": "Results"
-  },
-  {
-    "id": "results-crp-2026-glossary",
-    "url": "/results/crp-2026/glossary",
-    "title": "Statistics Glossary — TABS CRP 2026",
-    "description": "Plain-language explanations of every psychometric and statistical method used in the TABS instrument validation, including formulas, thresholds, and interpretive guidance.",
-    "content": "Statistics Glossary — TABS CRP 2026. Plain-language explanations of every psychometric and statistical method used in the TABS instrument validation, including formulas, thresholds, and interpretive guidance. Statistics Glossary Published: April 2026 This glossary explains every psychometric and statistical method used in the TABS instrument validation. Each entry describes what the statistic measures, how it is calculated, commonly accepted thresholds, and the TABS-specific results the CRP-200 frozen dataset N=200 Jump to: categories cat, `#cat-$ /\\s+/g, '-'",
     "category": "Results"
   },
   {
@@ -1096,11 +1080,27 @@
     "category": "Results"
   },
   {
+    "id": "results-factor-analysis",
+    "url": "/results/factor-analysis",
+    "title": "Barrier Factor Structure - TABS Full Dataset",
+    "description": "Hierarchical factor analysis of the 18-item TABS Barriers scale showing theory-based groupings, EFA-derived 2-factor structure, and exploratory 3-group decomposition using the full dataset.",
+    "content": "Barrier Factor Structure - TABS Full Dataset. Hierarchical factor analysis of the 18-item TABS Barriers scale showing theory-based groupings, EFA-derived 2-factor structure, and exploratory 3-group decomposition using the full dataset. Barrier Factor Structure Published: April 2026 The -item TABS Barriers scale was developed through concept-mapping process that identified four theoretical sub-constructs. Exploratory Factor Analysis EFA on the full TABS dataset N= listwise valid N= reveals statistically supported 2-factor structure, with an exploratory 3-group decomposition available for practitioner-oriented reporting. This page walks through each level of the hierarchy. See the Statistics Glossary for definitions of all psychometric terms used on page, or the Instrument Validation page fo...",
+    "category": "Results"
+  },
+  {
     "id": "results-findings",
     "url": "/results/findings",
     "title": "Key Findings — TABS Results",
     "description": "Effect sizes, cross-tabulations, t-tests, and ANOVA from the Technology Adoption Barriers Survey, computed independently across four result groups.",
     "content": "Key Findings — TABS Results. Effect sizes, cross-tabulations, t-tests, and ANOVA from the Technology Adoption Barriers Survey, computed independently across four result groups. Key Findings All effect sizes, cross-tabulations, t-tests, and ANOVA are computed independently for each of the four primary result groups. This ensures that any finding can be validated against the researcher chosen dataset. Effect Sizes Cohen Cohen measures the standardized difference between group means. Values of |d| are negligible, small, medium, and large. Each comparison is computed separately for each result group. PRIMARY_GROUPS group sample === details sampleDetails effects details?.effect_sizes hasEffects effects && effects 'tech_vs_nontech' && effects 'tech_vs_nontech' .constructs ?? N= hasEffects Techni...",
+    "category": "Results"
+  },
+  {
+    "id": "results-glossary",
+    "url": "/results/glossary",
+    "title": "Statistics Glossary - TABS Results",
+    "description": "Plain-language explanations of every psychometric and statistical method used in the TABS instrument validation, including formulas, thresholds, and interpretive guidance.",
+    "content": "Statistics Glossary - TABS Results. Plain-language explanations of every psychometric and statistical method used in the TABS instrument validation, including formulas, thresholds, and interpretive guidance. Statistics Glossary Published: April 2026 This glossary explains every psychometric and statistical method used in the TABS instrument validation. Each entry describes what the statistic measures, how it is calculated, commonly accepted thresholds, and the TABS-specific results the CRP-200 frozen dataset N=200 Jump to: categories cat, `#cat-$ /\\s+/g, '-'",
     "category": "Results"
   },
   {
@@ -1141,6 +1141,14 @@
     "title": "Survey Statistics — TABS Results",
     "description": "Live survey metrics and response data from the Technology Adoption Barriers Survey (TABS), pulled from Qualtrics via GitHub Actions.",
     "content": "Survey Statistics — TABS Results. Live survey metrics and response data from the Technology Adoption Barriers Survey (TABS), pulled from Qualtrics via GitHub Actions. Survey Statistics Live metrics pulled Qualtrics via GitHub Actions.",
+    "category": "Results"
+  },
+  {
+    "id": "results-validation",
+    "url": "/results/validation",
+    "title": "Instrument Validation - TABS Full Dataset",
+    "description": "Comprehensive psychometric validation of the 43-item TABS instrument using the full dataset: reliability, factor analysis, convergent and discriminant validity, item diagnostics, and normality assessment.",
+    "content": "Instrument Validation - TABS Full Dataset. Comprehensive psychometric validation of the 43-item TABS instrument using the full dataset: reliability, factor analysis, convergent and discriminant validity, item diagnostics, and normality assessment. Instrument Validation Published: April 2026 This page presents the comprehensive psychometric validation of the 43-item TABS instrument 18 Barriers 17 Readiness Maturity using the full TABS dataset. All computations are produced by the open-source script Appendix and are fully reproducible. Terms are linked to the Statistics Glossary See also Factor Analysis for the hierarchical barrier factor structure. 1. Reliability Five complementary reliability measures confirm strong internal consistency across all three TABS constructs. Every construct exc...",
     "category": "Results"
   },
   {

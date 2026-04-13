@@ -101,6 +101,7 @@ export const makingOfTabsSeries: MakingOfTabsItem[] = [
     title: 'SEO Transparency',
     href: '/making-of-tabs/seo',
   },
+  { title: 'CMO Survey Inspiration', href: '/making-of-tabs/cmo-survey' },
 ]
 
 export function flattenMakingOfTabsSeries(): Array<{
