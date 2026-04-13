@@ -341,7 +341,7 @@ jobs:
 
           : > /tmp/redirect-results.txt
 
-          # Old Making of TABS pages → Results section
+          # Legacy redirects between Making of TABS and Results sections
           check_redirect "${SITE_URL}/making-of-tabs/data-analysis" "/results/data-quality" "/making-of-tabs/data-analysis"
           # CMO Survey moved TO making-of-tabs (PR #1516), old results path redirects there
           check_redirect "${SITE_URL}/results/cmo-survey" "/making-of-tabs/cmo-survey" "/results/cmo-survey"
