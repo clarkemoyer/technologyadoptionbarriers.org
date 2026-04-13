@@ -74,7 +74,7 @@ jobs:
 
       - name: Create triage issue on stalled/failed tasks
         if: steps.monitor.outcome == 'failure'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           github-token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
           script: |
