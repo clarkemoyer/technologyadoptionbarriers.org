@@ -573,9 +573,159 @@ const BibliographyArticlePage = () => {
             <p className={PARAGRAPH_CLASSES}>
               Achievement-oriented features (productivity tools, efficiency enhancements) appeal to
               achievement-focused segments. Social features (communication, community) appeal to
-              socially-motivated segments. Entertainment features
+              socially-motivated segments. Entertainment features appeal to pleasure-motivated
+              segments. Security features appeal to security-focused segments.
+            </p>
+            <h3 className={H3_CLASSES}>Develop Segment-Specific Value Positioning</h3>
+            <p className={PARAGRAPH_CLASSES}>
+              The model instructs organizations to develop differentiated marketing positioning for
+              different value segments. Rather than generic claims that mobile internet is
+              &ldquo;useful and easy,&rdquo; organizations should develop specific value
+              propositions for each segment:
+            </p>
+            <ul className={BODY_LIST_CLASSES}>
+              <li>
+                To achievement-oriented customers: &ldquo;Mobile internet makes you more productive
+                and successful&rdquo;
+              </li>
+              <li>
+                To autonomy-oriented customers: &ldquo;Mobile internet gives you freedom and
+                control&rdquo;
+              </li>
+              <li>
+                To socially-motivated customers: &ldquo;Mobile internet keeps you connected to
+                people you care about&rdquo;
+              </li>
+              <li>
+                To pleasure-motivated customers: &ldquo;Mobile internet brings entertainment and
+                enjoyment&rdquo;
+              </li>
+              <li>
+                To security-focused customers: &ldquo;Mobile internet with world-class security and
+                privacy protection&rdquo;
+              </li>
+            </ul>
+            <h3 className={H3_CLASSES}>Communicate Value-Relevant Benefits</h3>
+            <p className={PARAGRAPH_CLASSES}>
+              Organizations should explicitly communicate how mobile internet delivers benefits
+              aligned with customer values. Rather than assuming customers will recognize these
+              benefits, organizations should make the connection clear. For example, if a mobile
+              internet service enables field workers to be more efficient (achievement benefit),
+              marketing should emphasize this benefit to achievement-oriented professionals, not
+              just feature lists.
+            </p>
+            <h3 className={H3_CLASSES}>Address Value Conflicts</h3>
+            <p className={PARAGRAPH_CLASSES}>
+              For barriers rooted in value conflicts, organizations should address the conflict
+              directly. For example, if some customers fear mobile internet undermines family time
+              (conflict between connectivity value and family time value), marketing might emphasize
+              features that support family connection (group plans, family communication features,
+              scheduled digital detox features) showing the technology can support both values.
+            </p>
+            <h3 className={H3_CLASSES}>Provide Value-Aligned Service Options</h3>
+            <p className={PARAGRAPH_CLASSES}>
+              The model instructs that organizations might develop different service tiers or
+              configurations for different value segments. Pleasure-motivated customers might prefer
+              entertainment-rich services; achievement-oriented customers might prefer
+              productivity-focused service configurations. Providing choice allows customers to
+              tailor the service to their values.
+            </p>
+            <h3 className={H3_CLASSES}>Build Trust for Security-Conscious Segments</h3>
+            <p className={PARAGRAPH_CLASSES}>
+              For security-focused customers, organizations should transparently communicate
+              security and privacy practices. Third-party certifications, detailed explanations of
+              data protection, and privacy guarantees address barriers rooted in security values.
+            </p>
+            <h3 className={H3_CLASSES}>Emphasize Community for Socially-Motivated Segments</h3>
+            <p className={PARAGRAPH_CLASSES}>
+              For socially-motivated customers, organizations should emphasize community features,
+              user networks, and relationship-building capabilities. Social proof through
+              testimonials about how the service strengthens relationships appeals to this segment.
+            </p>
+            <h3 className={H3_CLASSES}>Highlight Customization for Autonomy-Focused Segments</h3>
+            <p className={PARAGRAPH_CLASSES}>
+              For autonomy-oriented customers, organizations should emphasize customization options,
+              user control, and freedom of choice. Services that allow users to configure features,
+              control data sharing, and maintain independence appeal to this segment.
+            </p>
+            <h3 className={H3_CLASSES}>Create Authentic Value Alignment</h3>
+            <p className={PARAGRAPH_CLASSES}>
+              The model emphasizes that value-based positioning must be authentic. If organizations
+              claim mobile internet enables achievement but the technology actually facilitates
+              procrastination, the misalignment becomes apparent and undermines trust. Value-aligned
+              positioning is only effective if the technology genuinely delivers promised
+              value-related benefits.
+            </p>
+            <h3 className={H3_CLASSES}>Use Value Language in Communications</h3>
+            <p className={PARAGRAPH_CLASSES}>
+              The model instructs that organizations should shift from technical feature language to
+              value-relevant language. Instead of &ldquo;Supports multimedia synchronization,&rdquo;
+              use &ldquo;Keeps you connected to what matters.&rdquo; Instead of &ldquo;Advanced
+              encryption protocols,&rdquo; use &ldquo;Your privacy is protected.&rdquo;
+              Value-relevant language resonates with customers&rsquo; deeper motivations.
+            </p>
+            <h3 className={H3_CLASSES}>Conduct Value Research in Target Markets</h3>
+            <p className={PARAGRAPH_CLASSES}>
+              Organizations should understand what values are most salient in their target
+              geographic and demographic markets. Cultural differences in values are significant;
+              value-based strategies that work in individualistic cultures might not work in
+              collectivist cultures. Market-specific value research ensures segment-relevant
+              positioning.
+            </p>
+            <h3 className={H3_CLASSES}>Train Sales and Support Teams on Value Motivation</h3>
+            <p className={PARAGRAPH_CLASSES}>
+              The model instructs that customer-facing employees should understand value-driven
+              motivation. Salespeople should be trained to understand customer values and match
+              value propositions accordingly. Support teams should be trained to recognize when
+              customer dissatisfaction reflects value misalignment versus technical problems,
+              allowing appropriate response.
+            </p>
+            <h3 className={H3_CLASSES}>Monitor Value Evolution</h3>
+            <p className={PARAGRAPH_CLASSES}>
+              The model suggests that organizations should periodically reassess market values. As
+              consumer values evolve (e.g., increasing environmental consciousness, changing family
+              values), organizations should adjust value positioning accordingly. Staying aligned
+              with evolving customer values maintains relevance over time.
+            </p>
+            <h3 className={H3_CLASSES}>Address Structural Value Barriers</h3>
+            <p className={PARAGRAPH_CLASSES}>
+              Some value barriers reflect institutional or structural factors beyond individual
+              control. For example, if security-conscious customers value privacy but business
+              models require data collection, organizations must either change business models or be
+              honest about this conflict. Authenticity in addressing value conflicts is essential
+              for trust.
+            </p>
+            <h3 className={H3_CLASSES}>Develop Messaging that Bridges Values</h3>
+            <p className={PARAGRAPH_CLASSES}>
+              The model suggests developing messaging showing how mobile internet can serve multiple
+              values simultaneously. For instance, messaging might show how mobile internet enables
+              achievement (success at work) while maintaining family connection (staying in touch
+              with family), bridging both achievement and social values.
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              The overarching principle from VAM is that successful technology adoption requires
+              understanding that different customers adopt for fundamentally different value-based
+              reasons. Organizations that recognize this diversity and develop strategies addressing
+              multiple value segments will achieve higher adoption rates than those using
+              one-size-fits-all positioning focused only on narrow utilitarian benefits.
             </p>
           </section>
+
+          {/* 7. Following Models or Theories */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>7. Following Models or Theories</h2>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>Following Models:</strong> Extensions of VAM to other technologies and
+              services; Studies examining how values moderate technology acceptance relationships;
+              Value-based adoption models in e-commerce and digital services
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>Following Theories:</strong> Research on value-technology fit; Cross-cultural
+              applications of value-based adoption frameworks; Longitudinal studies examining value
+              changes through adoption
+            </p>
+          </section>
+
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
             Readers are encouraged to consult the original publication for complete details.

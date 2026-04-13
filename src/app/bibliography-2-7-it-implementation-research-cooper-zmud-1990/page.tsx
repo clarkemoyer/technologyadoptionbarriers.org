@@ -213,7 +213,7 @@ const CooperZmudPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The results showed strong support for the task-technology compatibility premise. The
             overall logistic regression model for MRP adoption was significant (p &lt; 0.02), with
-            three of four hypotheses supported (p &le; 0.05). Manufacturing method emerged as the
+            three of four hypotheses supported (p ≤ 0.05). Manufacturing method emerged as the
             strongest predictor: continuous, repetitive manufacturing methods were significantly
             more likely to adopt MRP than intermittent job shop methods. Bill-of-material levels and
             parts complexity also significantly predicted adoption. The research demonstrated that

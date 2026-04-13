@@ -581,10 +581,439 @@ const BibliographyArticlePage = () => {
                 colleagues resist or question system adoption, social norms inhibit individual
                 adoption. The model shows subjective norm significantly predicts behavioral
                 intention (path = .13 in Study 1, .16 in Study 2), suggesting that peer opposition
-                constitutes a barrier
+                constitutes a barrier like academia, adoption barriers arise when relevant
+                professional communities (disciplinary colleagues, academic associations) question
+                system relevance or approach it skeptically.
               </li>
             </ul>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>
+                4. Perceived Behavioral Control Barriers (Resource and Capability Barriers)
+              </strong>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              The model identifies barriers to perceived capacity and control:
+            </p>
+            <ul className={BODY_LIST_CLASSES}>
+              <li>
+                <strong>Insufficient Technical Support and Resources:</strong> When help desk
+                support is unavailable, response times are slow, or technical assistance is
+                inadequate, users perceive low behavioral control. The model shows PBC significantly
+                predicts intention (path = .21 in Study 1, .18 in Study 2), indicating that resource
+                barriers substantially limit adoption.
+              </li>
+              <li>
+                <strong>Lack of Training and Development Opportunities:</strong> Without adequate
+                training programs, users doubt their capability to use systems effectively. Training
+                barriers directly reduce perceived behavioral control.
+              </li>
+              <li>
+                <strong>Poor System Access:</strong> If users lack convenient access to systems,
+                cannot obtain necessary equipment, or face administrative obstacles to obtaining
+                credentials, behavioral control is low.
+              </li>
+              <li>
+                <strong>Competing Demands and Time Constraints:</strong> Users facing heavy
+                workloads may perceive insufficient time and cognitive capacity to learn new
+                systems. Time scarcity creates a behavioral control barrier by making adoption seem
+                infeasible.
+              </li>
+              <li>
+                <strong>Knowledge and Skills Gaps:</strong> Users lacking prerequisite knowledge
+                (e.g., computer literacy, specific domain knowledge) perceive low behavioral
+                control. Age, prior technology experience, and educational background influence this
+                barrier.
+              </li>
+              <li>
+                <strong>Organizational Infrastructure Deficiencies:</strong> Systems requiring
+                reliable infrastructure (network connectivity, power, equipment maintenance) create
+                barriers when infrastructure is inadequate.
+              </li>
+            </ul>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>5. Attitude Barriers (Affective Resistance)</strong>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              The model reveals that negative attitudes form significant barriers:
+            </p>
+            <ul className={BODY_LIST_CLASSES}>
+              <li>
+                <strong>Dislike of Technology:</strong> Even with perceived usefulness and ease of
+                use, if systems generate negative affective responses (frustration, anxiety,
+                unease), attitudes remain negative. Attitude significantly predicts intention (path
+                = .53 in Study 1, .49 in Study 2).
+              </li>
+              <li>
+                <strong>Computer Anxiety and Technophobia:</strong> Users with general anxiety about
+                technology develop negative attitudes even toward relatively simple systems.
+              </li>
+              <li>
+                <strong>Loss of Autonomy or Professional Judgment:</strong> If systems reduce
+                perceived professional autonomy or require conformity to rigid procedures, negative
+                attitudes develop despite objective usefulness.
+              </li>
+              <li>
+                <strong>Change Anxiety:</strong> Systems representing organizational change create
+                anxiety about competence, job security, or professional relevance that translates to
+                negative attitudes.
+              </li>
+            </ul>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>6. Intention-Behavior Barriers (Volitional Barriers)</strong>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              While the model predicts intention well, barriers to intention-behavior translation
+              include:
+            </p>
+            <ul className={BODY_LIST_CLASSES}>
+              <li>
+                <strong>Insufficient Commitment:</strong> Users may develop moderate intention to
+                use but lack strong commitment, causing usage to be sporadic or superficial.
+              </li>
+              <li>
+                <strong>Competing Priorities:</strong> Even with adoption intention, competing
+                demands and competing technologies may displace system usage.
+              </li>
+              <li>
+                <strong>Habit and Path Dependency:</strong> Existing work processes and systems
+                create inertia. Stated intention may not translate to usage if established habits
+                are easier than adopting new systems.
+              </li>
+              <li>
+                <strong>Organizational Obstacles to Implementation:</strong> Organizational systems,
+                policies, and processes may not support stated intentions to use new technology.
+              </li>
+            </ul>
+            <p className={PARAGRAPH_CLASSES}>
+              The model reveals that adoption barriers operate through multiple channels. Purely
+              technical barriers (ease of use, system quality) create obstacles, but equally
+              important are perceptual barriers (perceived usefulness despite actual benefits),
+              social barriers (peer resistance and organizational norms), and behavioral control
+              barriers (inadequate support and resources). Addressing adoption requires multi-level
+              intervention across these barrier categories.
+            </p>
           </section>
+          <section className="mb-6">
+            <h3 className={H3_CLASSES}>
+              What does the model instruct leaders to do in order to reduce these barriers?
+            </h3>
+            <p className={PARAGRAPH_CLASSES}>
+              Taylor and Todd provide explicit guidance for leadership actions to reduce adoption
+              barriers:
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>For Perceived Usefulness Barriers:</strong>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              The model&rsquo;s strong emphasis on Perceived Usefulness (with path coefficients of
+              .40-.42 to intention being the strongest direct effect) indicates that this is the
+              primary lever for adoption. The authors recommend:
+            </p>
+            <ol className={BODY_LIST_CLASSES}>
+              <li>
+                <strong>Clear Communication of Value Proposition:</strong> Leaders should explicitly
+                articulate how systems improve job performance, increase efficiency, or reduce
+                burdensome tasks. The research shows that &ldquo;usefulness is the primary
+                determinant of intentions to use IT,&rdquo; suggesting that &ldquo;communication
+                should focus on functional benefits.&rdquo;
+              </li>
+              <li>
+                <strong>Job-Relevant Application Definition:</strong> Rather than generic training,
+                application examples should map directly to individuals&rsquo; job functions.
+                Leaders should work with department heads to identify specific ways systems enhance
+                particular roles.
+              </li>
+              <li>
+                <strong>Pilot Programs and Case Demonstrations:</strong> Early adopter successes
+                should be publicized. When users see peers in similar roles achieving documented
+                improvements from system use, perceived usefulness increases. The authors recommend
+                that &ldquo;visible success stories of early adopters demonstrating improved job
+                performance&rdquo; strengthen usefulness perceptions.
+              </li>
+              <li>
+                <strong>Realistic Expectations Management:</strong> Leaders must ensure that
+                promised benefits are achievable and realistic. The model&rsquo;s strong effect
+                suggests that if usefulness promises are not fulfilled, subsequent adoption suffers.
+                Over-promising creates barriers when implementation reveals limited benefits.
+              </li>
+              <li>
+                <strong>Iterative Refinement:</strong> Rather than static implementation, leaders
+                should gather usage data and refine systems to enhance actual usefulness. As
+                objective usefulness increases, perceptions follow.
+              </li>
+              <li>
+                <strong>Integration with Organizational Priorities:</strong> Leaders should
+                explicitly connect system adoption to organizational strategy and individual
+                performance metrics. When performance evaluations reward system usage and
+                demonstrate performance improvements, perceived usefulness increases.
+              </li>
+            </ol>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>For Perceived Ease of Use Barriers:</strong>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              With path coefficients of .40-.45 to Attitude and substantial indirect effects through
+              Perceived Usefulness, PEOU represents the second critical barrier reduction lever:
+            </p>
+            <ol className={BODY_LIST_CLASSES}>
+              <li>
+                <strong>Systematic User Interface Design:</strong> Leaders should allocate resources
+                to user-centered interface design. The model&rsquo;s strong negative relationship
+                between PEOU and Perceived Usefulness (path = -.49 to -.51, indicating that complex
+                systems are perceived as less useful) reveals that improving ease of use enhances
+                usefulness perceptions simultaneously.
+              </li>
+              <li>
+                <strong>Comprehensive Training Program Design:</strong> Training should be carefully
+                structured to build competence progressively. The authors suggest that
+                &ldquo;training focused on building perceived ease of use through hands-on
+                experience in low-pressure environments&rdquo; reduces PEOU barriers.
+              </li>
+              <li>
+                <strong>Accessible, Responsive Technical Support:</strong> Help desk availability
+                and responsiveness directly influence PEOU. Leaders should ensure that
+                &ldquo;technical support is immediately available when users encounter
+                difficulties,&rdquo; recognizing that unresolved support requests perpetuate
+                perceptions of difficulty.
+              </li>
+              <li>
+                <strong>Development of Accessible Documentation:</strong> Written materials, video
+                tutorials, and help systems should be professionally developed to guide users.
+                &ldquo;Easily accessible reference materials increase perceived ease of use.&rdquo;
+              </li>
+              <li>
+                <strong>Iterative System Simplification:</strong> Post-implementation, leaders
+                should collect usage data identifying where users struggle and simplify those
+                functions. Continuous improvement of interface design over time reduces PEOU
+                barriers.
+              </li>
+              <li>
+                <strong>Peer Support and Mentoring:</strong> Rather than relying solely on formal
+                support, leaders should facilitate peer learning where experienced users help
+                newcomers. Peer-to-peer training often improves perceived ease of use because peers
+                understand contextual challenges.
+              </li>
+              <li>
+                <strong>Expectations About Learning Curves:</strong> Leaders should transparently
+                communicate that learning takes time but becomes easier with experience. Tempering
+                expectations about immediate mastery reduces anxiety and helps users persist through
+                initial difficulty periods.
+              </li>
+            </ol>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>For Social Influence Barriers:</strong>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              With path coefficients of .13-.16 from subjective norms to intention, the model
+              indicates that social factors, while smaller than usefulness factors, significantly
+              influence adoption:
+            </p>
+            <ol className={BODY_LIST_CLASSES}>
+              <li>
+                <strong>Leadership Visibly Supports Adoption:</strong> Executives and department
+                heads should actively use systems and publicly acknowledge their own usage. The
+                authors note that &ldquo;visible leadership endorsement of technology adoption
+                signals organizational norm supporting usage.&rdquo;
+              </li>
+              <li>
+                <strong>Identify and Empower Champions:</strong> Organizations should identify
+                enthusiastic early adopters and formalize their championing role. Champions should
+                be visible - giving presentations, providing one-on-one coaching, and being publicly
+                recognized as system experts.
+              </li>
+              <li>
+                <strong>Peer Learning Communities:</strong> Establish communities of practice around
+                new systems. &ldquo;Communities of practice where users support one another increase
+                subjective norms supporting adoption&rdquo; through normalization of usage.
+              </li>
+              <li>
+                <strong>Public Recognition of Adopters:</strong> Celebrate users who achieve success
+                with systems through awards, recognition programs, and publicity. Public recognition
+                signals that adoption is organizationally valued.
+              </li>
+              <li>
+                <strong>Integration of System Use into Workflow Norms:</strong> Make system usage
+                part of standard operating procedures and daily expectations. When systems become
+                part of &ldquo;how we do things here,&rdquo; subjective norms naturally support
+                adoption.
+              </li>
+              <li>
+                <strong>Cross-Functional Advocacy:</strong> Identify respected opinion leaders
+                across departments and involve them in championing adoption. Diverse advocates
+                demonstrate broad organizational support beyond IT departments.
+              </li>
+              <li>
+                <strong>Address Opinion Leader Resistance:</strong> Critically, the model implies
+                that influential voices opposing adoption create substantial barriers. Leaders
+                should engage skeptical opinion leaders directly, addressing their concerns and
+                potentially converting them to champions.
+              </li>
+            </ol>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>For Perceived Behavioral Control Barriers:</strong>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              With path coefficients of .18-.21 from PBC to intention, resource and capability
+              barriers represent a significant but secondary leverage point:
+            </p>
+            <ol className={BODY_LIST_CLASSES}>
+              <li>
+                <strong>Proactive Resource Provisioning:</strong> Organizations should ensure that
+                systems are accessible, equipment is available, and technical infrastructure is
+                reliable. &ldquo;Removing objective barriers to use increases perceived behavioral
+                control.&rdquo;
+              </li>
+              <li>
+                <strong>Comprehensive Training and Development:</strong> Beyond single training
+                sessions, leaders should offer ongoing skill development, advanced training, and
+                refresher programs. Progressive training builds competence and sustains perceived
+                behavioral control.
+              </li>
+              <li>
+                <strong>Flexible Support Options:</strong> Different users have different support
+                needs. Leaders should offer multiple support channels (help desk, peer support,
+                online resources, formal training) allowing users to select approaches matching
+                their learning styles.
+              </li>
+              <li>
+                <strong>Workspace and Infrastructure Optimization:</strong> Ensure that workspaces
+                support system usage. Adequate computers, reliable networks, and ergonomic
+                environments remove physical barriers to control.
+              </li>
+              <li>
+                <strong>Time Allocation for Learning:</strong> Leaders should communicate that
+                investment in learning is valued and provide time within work schedules for training
+                and skill development. When people feel pressured to adopt systems without allocated
+                time, perceived control decreases.
+              </li>
+              <li>
+                <strong>Administrative Streamlining:</strong> Remove bureaucratic obstacles to
+                system access, such as complicated credential acquisition or lengthy approval
+                processes.
+              </li>
+              <li>
+                <strong>Accountability Structures:</strong> When organizational accountability
+                systems reward system usage, perceived behavioral control increases. Clear
+                expectations and reinforcement mechanisms communicate that the organization expects
+                usage and will support it.
+              </li>
+            </ol>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>For Attitude Barriers:</strong>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              Attitude shows substantial effects on intention (path = .49-.53), making attitude
+              improvement important:
+            </p>
+            <ol className={BODY_LIST_CLASSES}>
+              <li>
+                <strong>Emphasize Positive Aspects and Benefits:</strong> Marketing and
+                communication should emphasize positive elements - efficiency gains, reduced tedious
+                work, new capabilities. &ldquo;Framing systems positively and highlighting benefits
+                that appeal to user values&rdquo; improves attitudes.
+              </li>
+              <li>
+                <strong>Address Anxiety and Concerns:</strong> For users with technology anxiety,
+                leaders should create safe learning environments, recognize anxiety legitimacy, and
+                provide reassurance about capability. &ldquo;Acknowledging technology anxiety and
+                providing low-pressure learning environments&rdquo; reduces negative affect.
+              </li>
+              <li>
+                <strong>Autonomy and Professional Respect:</strong> System design and implementation
+                should preserve professional autonomy and acknowledge user expertise. Systems that
+                reduce judgment or impose rigid procedures create negative attitudes. &ldquo;Systems
+                should be designed to augment, not replace, professional judgment.&rdquo;
+              </li>
+              <li>
+                <strong>Change Communication and Framing:</strong> When systems represent
+                organizational change, leaders should frame change as enhancement rather than
+                replacement or threat. &ldquo;Communication emphasizing continuity and positive
+                change outcomes&rdquo; improves attitudes toward change-inducing systems.
+              </li>
+              <li>
+                <strong>Quick Wins and Immediate Benefits:</strong> Highlight early benefits users
+                experience. Quick wins improve attitudes and motivate persistence through learning
+                curves.
+              </li>
+            </ol>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>Integrated Multi-Barrier Approach:</strong>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              The research indicates that &ldquo;no single factor dominates adoption; rather,
+              multiple factors combine to shape intentions and behavior.&rdquo; Therefore,
+              comprehensive adoption strategies must address all barrier categories:
+            </p>
+            <ul className={BODY_LIST_CLASSES}>
+              <li>
+                Address the strongest barrier (Perceived Usefulness) through clear communication and
+                visible benefits
+              </li>
+              <li>
+                Simultaneously reduce Perceived Ease of Use barriers through design and training
+              </li>
+              <li>Cultivate social support through championing and norms management</li>
+              <li>Provide resources enabling Behavioral Control</li>
+              <li>Build positive attitudes through framing and anxiety management</li>
+            </ul>
+            <p className={PARAGRAPH_CLASSES}>
+              The model further suggests that barriers interact. For example, &ldquo;complex systems
+              (high PEOU barrier) are perceived as less useful (reducing usefulness perceptions),
+              which reduces intention independent of improving ease of use alone.&rdquo; Leaders
+              should therefore tackle multiple barriers simultaneously rather than sequentially.
+            </p>
+          </section>
+
+          {/* 7. Following Models or Theories */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>7. Following Models or Theories</h2>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>Following Models:</strong> Subsequent extensions of TAM incorporating
+              additional moderators and mediators; models examining extended technology acceptance
+              frameworks; investigations of technology adoption across diverse populations and
+              contexts
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>Following Theories:</strong> Venkatesh and Davis (2000) - Technology
+              Acceptance Model 2; refinements incorporating trust, social influences, and
+              organizational factors; unified models of technology acceptance and use
+            </p>
+          </section>
+
+          {/* Series Navigation */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>Series Navigation</h2>
+            <p className={PARAGRAPH_CLASSES}>
+              This article is part of a Technology Adoption Models Literature Review series:
+            </p>
+            <ol className={BODY_LIST_CLASSES}>
+              <li>Ram (1987) - A Model of Innovation Resistance</li>
+              <li>
+                Thompson et al. (1991) - Toward a Conceptual Model of Personal Computing Utilization
+              </li>
+              <li>
+                Taylor and Todd (1995) - Understanding Information Technology Usage: A Test of
+                Competing Models
+              </li>
+              <li>Goodhue and Thompson (1995) - Task-Technology Fit and Individual Performance</li>
+            </ol>
+          </section>
+
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className={BODY_LIST_CLASSES}>
+              <li>
+                Taylor, S., and Todd, P. A. (1995). Understanding information technology usage: A
+                test of competing models. <em>Information Systems Research</em>, 6(2), 144-176.
+              </li>
+              <li>
+                Davis, F. D. (1989). Perceived usefulness, ease of use, and user acceptance of
+                information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
+              </li>
+            </ol>
+          </section>
+
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
             Readers are encouraged to consult the original publication for complete details.

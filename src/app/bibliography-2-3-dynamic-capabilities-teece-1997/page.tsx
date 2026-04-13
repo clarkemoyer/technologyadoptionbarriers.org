@@ -538,7 +538,7 @@ const DynamicCapabilitiesPage = () => {
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
-            &larr; Back to Complete Bibliography
+            ← Back to Complete Bibliography
           </Link>
         </section>
       </article>
