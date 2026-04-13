@@ -45,6 +45,20 @@ function isAttentionCheck(row: RowData): boolean {
   return code.endsWith('_AC')
 }
 
+/**
+ * Normalize a raw RIS Citation string from the dataset.
+ * Multi-entry values use `\n||\n` as a record separator, which is not valid
+ * in the RIS format. This strips the separator and joins records with a
+ * standard blank line so reference managers can import the file correctly.
+ */
+function normalizeRis(raw: string): string {
+  return raw
+    .split(/\n\|\|\n/)
+    .map((entry) => entry.trim())
+    .filter(Boolean)
+    .join('\n\n')
+}
+
 /** Check if a string looks like a URL */
 function isUrl(value: string): boolean {
   return /^https?:\/\//i.test(value.trim())
@@ -199,7 +213,8 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 /** RIS download button */
 function RisDownloadButton({ ris, itemCode }: { ris: string; itemCode: string }) {
   const handleDownload = useCallback(() => {
-    const blob = new Blob([ris], { type: 'application/x-research-info-systems' })
+    const normalized = normalizeRis(ris)
+    const blob = new Blob([normalized], { type: 'application/x-research-info-systems' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
@@ -395,7 +410,7 @@ function ItemCard({
           {risCitation && risCitation !== 'N/A' ? (
             <span className="flex flex-wrap items-center gap-2">
               <span className="text-xs text-gray-600 font-mono whitespace-pre-wrap">
-                {risCitation}
+                {normalizeRis(risCitation)}
               </span>
               <RisDownloadButton ris={risCitation} itemCode={code} />
             </span>
