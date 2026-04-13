@@ -11,7 +11,7 @@ import Link from 'next/link'
 import validationData from '@/data/crp-validation.json'
 import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 export const metadata: Metadata = {
-  title: 'Barrier Factor Structure — TABS CRP 2026',
+  title: 'Barrier Factor Structure - TABS CRP 2026',
   description:
     'Hierarchical factor analysis of the 18-item TABS Barriers scale showing theory-based groupings, EFA-derived 2-factor structure, and exploratory 3-group decomposition at N=200.',
   alternates: {

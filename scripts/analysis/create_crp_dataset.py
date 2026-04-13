@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""create_crp_dataset.py — Build the final CRP public dataset (N=200).
+"""create_crp_dataset.py - Build the final CRP public dataset (N=200).
 
 CRP = Culminating Research Project, Penn State Smeal College of Business,
 Doctor of Business Administration (DBA) program.
@@ -11,7 +11,7 @@ result for ScholarSphere deposit.
 Tier Selection Strategy
 =======================
 
-  Tier 1 — Conservative Clean (include up to target_n; capped at N)
+  Tier 1 - Conservative Clean (include up to target_n; capped at N)
       Prolific APPROVED + ALL quality checks:
         - All 3 IRI attention checks correct
         - Duration >= 540 s (Smeal eDBA benchmark)
@@ -20,10 +20,10 @@ Tier Selection Strategy
         - No auth flags (Auth_LLM and Auth_Bots not LOW or MIXED)
         - No partial straightlining (within-person SD above threshold)
 
-  Tier 2 — Acceptable Quality (supplement to N=200 if Tier 1 falls short)
+  Tier 2 - Acceptable Quality (supplement to N=200 if Tier 1 falls short)
       Same as Tier 1 but allows 1 or 2 correct IRI checks instead of all 3
 
-  Tier 3 — Borderline (supplement only if both Tier 1 + 2 exhausted)
+  Tier 3 - Borderline (supplement only if both Tier 1 + 2 exhausted)
       APPROVED + duration >= 300 s + no full straightlining
       + reCAPTCHA >= 0.3 + at most 1 IRI miss
 
@@ -63,22 +63,22 @@ from datetime import datetime
 from pathlib import Path
 
 # ─────────────────────────────────────────────────────────────
-# Configuration — mirrors tabs_v2_analysis.py exactly
+# Configuration - mirrors tabs_v2_analysis.py exactly
 # ─────────────────────────────────────────────────────────────
 
-# —— V2 cohort filter (matches tabs_v2_analysis.py) ——
+# -- V2 cohort filter (matches tabs_v2_analysis.py) --
 V2_START = "2026-03-23 14:00:00"
 # Prolific live test of V2 instrument (valid V2 response, predates V2_START)
 PROLIFIC_TEST_ID = "R_1QK12IJpHjC3wd6"
 
-# —— Thresholds ——
+# -- Thresholds --
 DURATION_TIER1_MIN = 540       # seconds (Smeal eDBA benchmark)
 DURATION_TIER3_MIN = 300       # seconds (minimum acceptable)
 RECAPTCHA_TIER1_MIN = 0.5      # Qualtrics reCAPTCHA threshold
 RECAPTCHA_TIER3_MIN = 0.3      # Relaxed threshold for tier 3
 PARTIAL_STRAIGHTLINING_SD_THRESHOLD = 0.5  # within-person SD threshold
 
-# —— IRI attention-check columns and correct answers ——
+# -- IRI attention-check columns and correct answers --
 BARRIER_IRI = "Q10-28_Barriers_19"
 READINESS_IRI = "Q47-64_Readiness_18"
 MATURITY_IRI = "Q65-73_Maturity_9"
@@ -87,12 +87,12 @@ IRI_BARRIER_ANSWER = "Major Barrier"
 IRI_READINESS_ANSWER = "Low Readiness/Capability"
 IRI_MATURITY_ANSWER = "Level 2: Developing/Repeatable"
 
-# —— Columns used to assess partial straightlining (IRI items excluded) ——
+# -- Columns used to assess partial straightlining (IRI items excluded) --
 BARRIER_COLS = [f"Q10-28_Barriers_{i}" for i in range(1, 19)]
 READINESS_COLS = [f"Q47-64_Readiness_{i}" for i in range(1, 18)]
 MATURITY_COLS = [f"Q65-73_Maturity_{i}" for i in range(1, 9)]
 
-# —— Columns to drop from public dataset ——
+# -- Columns to drop from public dataset --
 COLUMNS_TO_DROP: set[str] = {
     # Direct identifiers
     "PROLIFIC_PID",
@@ -123,11 +123,11 @@ COLUMNS_TO_DROP: set[str] = {
     "UserLanguage",
     "distributionChannel",
 }
-# Prolific demographic columns prefix — must match the prefix applied by
+# Prolific demographic columns prefix - must match the prefix applied by
 # enrich_qualtrics_csv.py (which writes "Prolific_<col>", capital P).
 PROLIFIC_DEMO_PREFIX = "Prolific_"
 
-# —— Columns to preserve in Prolific linkage file ——
+# -- Columns to preserve in Prolific linkage file --
 PROLIFIC_LINKAGE_COLUMNS = [
     "PROLIFIC_PID",
     "ResponseId",
@@ -135,7 +135,7 @@ PROLIFIC_LINKAGE_COLUMNS = [
     "Prolific_Status",
 ]
 
-# —— Free-text columns to PII-scan ——
+# -- Free-text columns to PII-scan --
 # Keep this list aligned with scripts/deidentify_tabs_data.py and the
 # production-format Qualtrics export schema used by this repository.
 FREE_TEXT_COLUMNS = [
@@ -144,7 +144,7 @@ FREE_TEXT_COLUMNS = [
     "Q74_Feedback",
 ]
 
-# —— Timestamp columns to generalize ——
+# -- Timestamp columns to generalize --
 TIMESTAMP_COLUMNS = [
     "StartDate",
     "EndDate",
@@ -161,9 +161,9 @@ def load_qualtrics_csv(path: str) -> tuple[list[str], list[list[str]]]:
     """Load a Qualtrics CSV with 3 header rows, returning (headers, data_rows).
 
     Qualtrics exports include three header rows before data:
-      Row 1 — column names
-      Row 2 — question text / description
-      Row 3 — import IDs
+      Row 1 - column names
+      Row 2 - question text / description
+      Row 3 - import IDs
     Data rows start at row 4.
     """
     with open(path, newline="", encoding="utf-8-sig") as f:
@@ -357,7 +357,7 @@ def filter_v2_and_dedup(
             # when both have the same finish state, the new (later) row wins.
             if new_finished or not existing_finished:
                 by_pid[pid] = row
-            # else: existing is finished but new isn't — keep existing
+            # else: existing is finished but new isn't - keep existing
 
     return [row for row in by_pid.values() if get_finished(row, idx)]
 
@@ -505,7 +505,7 @@ def generate_manifest(profiles: list[dict], target_n: int) -> str:
         tier_counts[p["tier"]] = tier_counts.get(p["tier"], 0) + 1
 
     lines = [
-        "SELECTION MANIFEST — CRP DATASET (CONFIDENTIAL)",
+        "SELECTION MANIFEST - CRP DATASET (CONFIDENTIAL)",
         "=" * 72,
         f"Generated: {datetime.utcnow().isoformat()}Z",
         f"Target N: {target_n}",
@@ -597,12 +597,12 @@ def scan_pii(
     output (e.g., the public dataset after column filtering).
 
     Each flag contains:
-        row_number   — 1-based row number (for human-readable reports)
-        row_index    — 0-based index into *rows* (for in-place redaction)
-        response_id  — ResponseId for locating the response
-        column       — column name
-        pattern_type — PII pattern category
-        preview      — redacted context snippet (PII replaced, not shown)
+        row_number   - 1-based row number (for human-readable reports)
+        row_index    - 0-based index into *rows* (for in-place redaction)
+        response_id  - ResponseId for locating the response
+        column       - column name
+        pattern_type - PII pattern category
+        preview      - redacted context snippet (PII replaced, not shown)
     """
     flags = []
     for i, row in enumerate(rows):
@@ -634,7 +634,7 @@ def write_pii_report(
     so reviewers can distinguish false positives without seeing raw PII.
     """
     with open(path, "w", encoding="utf-8") as f:
-        f.write("PII REVIEW REPORT — CRP DATASET (CONFIDENTIAL)\n")
+        f.write("PII REVIEW REPORT - CRP DATASET (CONFIDENTIAL)\n")
         f.write("=" * 72 + "\n\n")
         f.write(f"Generated: {datetime.utcnow().isoformat()}Z\n")
         f.write(f"Total flags: {len(flags)}\n\n")
@@ -796,7 +796,7 @@ def deidentify_selected(
     output_dir.mkdir(parents=True, exist_ok=True)
     rows = rows_to_dicts(selected_rows, headers)
 
-    # Step 1: PII scan — always run, even in dry-run
+    # Step 1: PII scan - always run, even in dry-run
     print("\n--- De-identification Step 1: Free-text PII scan ---")
     available_text_cols = [c for c in FREE_TEXT_COLUMNS if c in headers]
     pii_flags = scan_pii(rows, available_text_cols)
@@ -809,9 +809,9 @@ def deidentify_selected(
 
     if dry_run:
         if pii_flags:
-            print("\n[DRY RUN] PII scan complete — flags found. Review the report above.")
+            print("\n[DRY RUN] PII scan complete - flags found. Review the report above.")
         else:
-            print("\n[DRY RUN] PII scan complete — no flags found.")
+            print("\n[DRY RUN] PII scan complete - no flags found.")
         return 1
 
     if pii_flags and not skip_review:
@@ -922,7 +922,7 @@ def deidentify_selected(
     # Audit log
     log_path = output_dir / "deidentification_log.txt"
     with open(log_path, "w", encoding="utf-8") as f:
-        f.write("DE-IDENTIFICATION AUDIT LOG — CRP DATASET\n")
+        f.write("DE-IDENTIFICATION AUDIT LOG - CRP DATASET\n")
         f.write("=" * 72 + "\n\n")
         f.write(f"Timestamp: {datetime.utcnow().isoformat()}Z\n")
         f.write(f"Output SHA-256: {output_hash}\n")
@@ -1047,14 +1047,14 @@ def main() -> int:
     print("\n--- Generating selection manifest ---")
     manifest = generate_manifest(profiles, args.target_n)
 
-    # Save manifest (confidential — contains ResponseIds and auth flags)
+    # Save manifest (confidential - contains ResponseIds and auth flags)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     manifest_path = args.output_dir / "selection_manifest_CONFIDENTIAL.txt"
     with open(manifest_path, "w", encoding="utf-8") as f:
         f.write(manifest)
     print(f"  Summary: selected {len(selected)} responses for target N={args.target_n}.")
     print(f"  Manifest saved: {manifest_path}")
-    print("  (Full manifest withheld from stdout — contains confidential ResponseIds.)")
+    print("  (Full manifest withheld from stdout - contains confidential ResponseIds.)")
 
     # ── De-identify ──
     print("\n" + "=" * 78)
@@ -1082,11 +1082,11 @@ def main() -> int:
         if args.dry_run:
             print("  [DRY RUN] Selection manifest and PII scan complete.")
         elif result == 2:
-            print("  CRP DATASET FAILED — output verification detected residual PII")
+            print("  CRP DATASET FAILED - output verification detected residual PII")
             print("  Public dataset was removed. Investigate pii_review_report_CONFIDENTIAL.txt")
             print("  and address the patterns before re-running.")
         else:
-            print("  CRP DATASET PAUSED — review required")
+            print("  CRP DATASET PAUSED - review required")
             print("  Review pii_review_report_CONFIDENTIAL.txt, then re-run with --skip-review.")
     print("=" * 78)
 

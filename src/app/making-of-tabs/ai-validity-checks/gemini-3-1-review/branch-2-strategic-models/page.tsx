@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Strategic Models Review — Making of TABS',
+  title: 'Strategic Models Review - Making of TABS',
   description: 'Gemini 3.1 Pro validity check of strategic organizational models in TABS.',
   alternates: {
     canonical: '/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-2-strategic-models',
@@ -27,9 +27,9 @@ export default function Page() {
           </p>
           <p className="mb-4">
             Tornatzky and Fleischer&apos;s (1990) TOE framework is correctly described. The site
-            accurately breaks down the three contexts—Technological, Organizational, and
-            Environmental—that influence the process by which an organization adopts and implements
-            technological innovations.
+            accurately breaks down the three contexts - Technological, Organizational, and
+            Environmental - that influence the process by which an organization adopts and
+            implements technological innovations.
           </p>
           <h2 className={H2_CLASSES}>Resource-Based View (RBV) & VRIO</h2>
           <p className="mb-4">

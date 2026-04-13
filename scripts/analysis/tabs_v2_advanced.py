@@ -166,7 +166,7 @@ for name, arr in [("Barriers", B_arr), ("Readiness", R_arr), ("Maturity", M_arr)
     print(f"  {name:<20} {arr.mean():>6.2f} {arr.std(ddof=1):>6.2f} {t:>8.3f} {len(arr)-1:>4} {p:>10.6f} {d:>6.2f}")
 
 # 1b. Independent t-tests: Tech vs Non-Tech
-print(f"\n  1B: Independent t-tests — Tech (CIO/CTO) vs Non-Tech")
+print(f"\n  1B: Independent t-tests - Tech (CIO/CTO) vs Non-Tech")
 tech_idx_list = [i for i, r in enumerate(rows) if map_role(r[idx['Q1_Role']]) in ('CIO', 'CTO')]
 nontech_idx_list = [i for i, r in enumerate(rows) if map_role(r[idx['Q1_Role']]) in ('CEO','CFO','CMO','COO','CHRO','CSO','CRO')]
 print(f"  Tech n={len(tech_idx_list)}, Non-Tech n={len(nontech_idx_list)}")
@@ -177,7 +177,7 @@ for name, vals in [("Barriers", B), ("Readiness", R), ("Maturity", M)]:
     tech = np.array([vals[i] for i in tech_idx_list if vals[i] is not None])
     nt = np.array([vals[i] for i in nontech_idx_list if vals[i] is not None])
     if len(tech) < 2 or len(nt) < 2:
-        print(f"  {name:<12}  — skipped (insufficient group size: tech={len(tech)}, nontech={len(nt)})")
+        print(f"  {name:<12}  - skipped (insufficient group size: tech={len(tech)}, nontech={len(nt)})")
         continue
     t, p = sp.ttest_ind(tech, nt, equal_var=False)  # Welch's t
     pooled_sd = np.sqrt(((len(tech)-1)*tech.var(ddof=1) + (len(nt)-1)*nt.var(ddof=1)) / (len(tech)+len(nt)-2))
@@ -187,7 +187,7 @@ for name, vals in [("Barriers", B), ("Readiness", R), ("Maturity", M)]:
     print(f"  {name:<12} {tech.mean():>7.2f} {nt.mean():>7.2f} {t:>8.3f} {len(tech)+len(nt)-2:>6} {p:>10.6f} {d:>+6.2f} [{ci_lo:>+.2f}, {ci_hi:>+.2f}]")
 
 # 1c. Independent t-test: Large vs Small/Med org
-print(f"\n  1C: Independent t-tests — Large (\u226510K) vs Small/Med Orgs")
+print(f"\n  1C: Independent t-tests - Large (\u226510K) vs Small/Med Orgs")
 large_idx = [i for i, r in enumerate(rows) if r[idx['Q4_OrgSize']] in ('5000-9999', '10000+')]
 small_idx = [i for i, r in enumerate(rows) if r[idx['Q4_OrgSize']] in ('<100', '100-499', '500-999', '1000-4999')]
 print(f"  Large n={len(large_idx)}, Small/Med n={len(small_idx)}")
@@ -202,7 +202,7 @@ for name, vals in [("Barriers", B), ("Readiness", R), ("Maturity", M)]:
     print(f"  {name:<12} {lg.mean():>8.2f} {sm.mean():>7.2f} {t:>8.3f} {p:>10.6f} {d:>+6.2f}")
 
 # 1d. One-way ANOVA: Decision Authority (3 levels)
-print(f"\n  1D: One-Way ANOVA — Decision Authority")
+print(f"\n  1D: One-Way ANOVA - Decision Authority")
 auth_groups = defaultdict(list)
 for i, r in enumerate(rows):
     a = r[idx['Q2_DecisionAuth']].lower()
@@ -231,7 +231,7 @@ for name, vals in [("Barriers", B), ("Readiness", R), ("Maturity", M)]:
             print(f"    {lbl}: M={g.mean():.2f}, SD={g.std(ddof=1):.2f}")
 
 # 1e. One-way ANOVA: Org Size (3 levels: small, medium, large)
-print(f"\n  1E: One-Way ANOVA — Organization Size (3 groups)")
+print(f"\n  1E: One-Way ANOVA - Organization Size (3 groups)")
 size_groups = {'Small': [], 'Medium': [], 'Large': []}
 for i, r in enumerate(rows):
     s = r[idx['Q4_OrgSize']]
@@ -358,9 +358,9 @@ if det_corr > 0:
     df_bart = p * (p - 1) / 2
     p_bart = 1 - sp.chi2.cdf(chi2, df_bart)
     print(f"  χ²({int(df_bart)}) = {chi2:.1f}, p {'< .001' if p_bart < .001 else f'= {p_bart:.6f}'}")
-    print(f"  Conclusion: {'Reject H0 — correlations are significantly non-zero → PCA appropriate' if p_bart < .05 else 'Fail to reject H0'}")
+    print(f"  Conclusion: {'Reject H0 - correlations are significantly non-zero → PCA appropriate' if p_bart < .05 else 'Fail to reject H0'}")
 else:
-    print(f"  Correlation matrix is singular (det ≈ 0) — Bartlett's test trivially significant")
+    print(f"  Correlation matrix is singular (det ≈ 0) - Bartlett's test trivially significant")
 
 # ══════════════════════════════════════════════════════════════
 # SECTION 3: INTERACTION EFFECTS
@@ -370,7 +370,7 @@ print(f"  SECTION 3: INTERACTION EFFECTS")
 print(f"{'='*80}")
 
 # 3A: Org Size × Role Type on Barriers
-print(f"\n  3A: Two-Way Interaction — Org Size × Role Type on Barriers")
+print(f"\n  3A: Two-Way Interaction - Org Size × Role Type on Barriers")
 # Build 2x2: (Small/Med vs Large) × (Tech vs NonTech)
 cells = defaultdict(list)
 for i, r in enumerate(rows):
@@ -392,8 +392,8 @@ print(f"  {'':>15} {'Tech':>12} {'NonTech':>12}")
 for sg in ['Small/Med', 'Large']:
     t_vals = cells.get((sg, 'Tech'), [])
     n_vals = cells.get((sg, 'NonTech'), [])
-    t_m = f"{np.mean(t_vals):.2f} (n={len(t_vals)})" if t_vals else "—"
-    n_m = f"{np.mean(n_vals):.2f} (n={len(n_vals)})" if n_vals else "—"
+    t_m = f"{np.mean(t_vals):.2f} (n={len(t_vals)})" if t_vals else "-"
+    n_m = f"{np.mean(n_vals):.2f} (n={len(n_vals)})" if n_vals else "-"
     print(f"  {sg:>15} {t_m:>12} {n_m:>12}")
 
 # Simple interaction test using 2x2 ANOVA-like approach
@@ -409,7 +409,7 @@ if all(len(c) > 0 for c in all_cells):
     print(f"  Interaction (difference of differences): {tech_diff - nt_diff:+.2f}")
 
 # 3B: Budget moderates B-R relationship?
-print(f"\n  3B: Budget Moderation — Does Budget Adequacy Moderate the B-R Relationship?")
+print(f"\n  3B: Budget Moderation - Does Budget Adequacy Moderate the B-R Relationship?")
 budget_col = 'Q47-64_Readiness_17'
 high_budget = []
 low_budget = []
@@ -459,8 +459,8 @@ print(f"  {'':>15} {'Small/Med':>18} {'Large':>18}")
 for auth in ['Primary', 'Shared', 'Input']:
     sm = auth_size_cells.get((auth, 'Small/Med'), [])
     lg = auth_size_cells.get((auth, 'Large'), [])
-    sm_s = f"{np.mean(sm):.2f} (n={len(sm)})" if sm else "—"
-    lg_s = f"{np.mean(lg):.2f} (n={len(lg)})" if lg else "—"
+    sm_s = f"{np.mean(sm):.2f} (n={len(sm)})" if sm else "-"
+    lg_s = f"{np.mean(lg):.2f} (n={len(lg)})" if lg else "-"
     print(f"  {auth:>15} {sm_s:>18} {lg_s:>18}")
 
 # ══════════════════════════════════════════════════════════════
@@ -493,7 +493,7 @@ for name, vals in [("Barriers", B), ("Readiness", R), ("Maturity", M)]:
             print(f"    {lbl}: M={g.mean():.2f} (SD={g.std(ddof=1):.2f}, n={len(g)})")
 
 # 4B: Geographic scope
-print(f"\n  4B: Geographic Scope — US vs International")
+print(f"\n  4B: Geographic Scope - US vs International")
 us_idx = [i for i, r in enumerate(rows) if 'United States' in r[idx['Q8_GeoScope']]]
 intl_idx = [i for i, r in enumerate(rows) if r[idx['Q8_GeoScope']] and 'United States' not in r[idx['Q8_GeoScope']]]
 print(f"  US n={len(us_idx)}, International n={len(intl_idx)}")
@@ -536,8 +536,8 @@ for role in ['CIO', 'CTO', 'CEO', 'CFO', 'CMO', 'COO', 'CHRO', 'CSO', 'CRO', 'Ot
         gap = rm - bm
         print(f"  {role:<8} {len(d['B']):>4} {bm:>7.2f} {rm:>7.2f} {mm:>7.2f} {gap:>+8.2f}")
 
-# 4E: Multiple regression — B predicted by R, M, OrgSize, Role
-print(f"\n  4E: Multiple Regression — Barriers predicted by Readiness, Maturity, OrgSize, RoleType")
+# 4E: Multiple regression - B predicted by R, M, OrgSize, Role
+print(f"\n  4E: Multiple Regression - Barriers predicted by Readiness, Maturity, OrgSize, RoleType")
 # Build regression matrix
 reg_data = []
 for i, r in enumerate(rows):
@@ -579,17 +579,17 @@ try:
         sig = '***' if p_val < .001 else ('**' if p_val < .01 else ('*' if p_val < .05 else ''))
         print(f"  {name:<15} {betas[j]:>+8.3f} {se_betas[j]:>8.3f} {t_val:>8.3f} {p_val:>10.6f} {sig:>5}")
 except np.linalg.LinAlgError:
-    print(f"  Regression failed — singular matrix")
+    print(f"  Regression failed - singular matrix")
 
 # 4F: Kruskal-Wallis for non-parametric robustness
-print(f"\n  4F: Kruskal-Wallis (non-parametric) — Org Size on Barriers")
+print(f"\n  4F: Kruskal-Wallis (non-parametric) - Org Size on Barriers")
 kw_groups = []
 for sg in ['Small', 'Medium', 'Large']:
     g = np.array([B[j] for j in size_groups[sg] if B[j] is not None])
     kw_groups.append(g)
 H, p_kw = sp.kruskal(*kw_groups)
 print(f"  H({len(kw_groups)-1}) = {H:.3f}, p = {p_kw:.6f}")
-print(f"  {'Significant' if p_kw < .05 else 'Not significant'} — confirms {'parametric ANOVA result' if p_kw < .05 else 'ANOVA result'}")
+print(f"  {'Significant' if p_kw < .05 else 'Not significant'} - confirms {'parametric ANOVA result' if p_kw < .05 else 'ANOVA result'}")
 
 # Post-hoc pairwise Mann-Whitney
 if p_kw < .05:

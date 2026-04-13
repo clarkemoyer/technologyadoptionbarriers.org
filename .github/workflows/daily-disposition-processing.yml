@@ -26,7 +26,7 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  # Step 1: Get disposition CSV — prefer analysis pipeline artifact, fallback to fresh export
+  # Step 1: Get disposition CSV - prefer analysis pipeline artifact, fallback to fresh export
   triage:
     name: Get Disposition Data
     runs-on: ubuntu-latest
@@ -48,10 +48,10 @@ jobs:
           path: ${{ runner.temp }}
 
       # Fallback: if the artifact isn't available, do a fresh export + triage
-      - name: Fallback — Export Qualtrics responses
+      - name: Fallback - Export Qualtrics responses
         if: steps.download-artifact.outcome == 'failure'
         run: |
-          echo "::warning::Analysis pipeline artifact not available — falling back to fresh Qualtrics export"
+          echo "::warning::Analysis pipeline artifact not available - falling back to fresh Qualtrics export"
           python3 scripts/analysis/export_qualtrics.py
         env:
           QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
@@ -59,7 +59,7 @@ jobs:
           QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
           OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
 
-      - name: Fallback — Run disposition triage
+      - name: Fallback - Run disposition triage
         if: steps.download-artifact.outcome == 'failure'
         run: |
           set -euo pipefail

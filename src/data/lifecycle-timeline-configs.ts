@@ -70,7 +70,7 @@ export const LIFECYCLE_CONFIGS: Record<number, LifecycleTimelineConfig> = {
         textColor: '#fff',
       },
     ],
-    note: 'Extremely long bleeding edge (22 yrs) — infrastructure lag',
+    note: 'Extremely long bleeding edge (22 yrs) - infrastructure lag',
     source: 'GS1 Barcode History (2024); McKinsey Supply Chain 4.0 (2024)',
   },
   33: {
@@ -80,7 +80,7 @@ export const LIFECYCLE_CONFIGS: Record<number, LifecycleTimelineConfig> = {
       { label: 'Leading Edge', years: '1997–2020', duration: 23, color: '#22d3ee' },
       { label: 'Mainstream', years: '2020–2030+', duration: 10, color: '#22c55e' },
     ],
-    note: 'Longest bleeding edge of any example (47 yrs) — multiple AI winters delayed adoption',
+    note: 'Longest bleeding edge of any example (47 yrs) - multiple AI winters delayed adoption',
     source:
       'Stanford HAI AI Index (2024); Turing (1950); McCarthy Dartmouth (1956); Krizhevsky/AlexNet (2012)',
   },

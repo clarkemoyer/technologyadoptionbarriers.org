@@ -1,4 +1,4 @@
-"""Tests for tabs_v2_analysis.py — statistical functions and sample filtering."""
+"""Tests for tabs_v2_analysis.py - statistical functions and sample filtering."""
 
 import math
 import re
@@ -805,7 +805,7 @@ class TestClassifyRole:
 # ── classify_role_binary (Tech/Non-Tech) ────────────────────
 
 class TestClassifyRoleBinary:
-    """Unit tests for classify_role_binary() — binary Tech/Non-Tech classification."""
+    """Unit tests for classify_role_binary() - binary Tech/Non-Tech classification."""
 
     def test_tech_titles(self):
         for role in ('CIO', 'CTO', 'CISO'):

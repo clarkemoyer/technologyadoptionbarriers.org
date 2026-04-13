@@ -61,7 +61,7 @@ describe('Sidebar navigation', () => {
     expect(screen.getByRole('button', { name: /About TABS/i })).toBeInTheDocument()
   })
 
-  it('accordion groups toggle — only one open at a time', () => {
+  it('accordion groups toggle - only one open at a time', () => {
     renderSidebar()
     const nav = screen.getByRole('navigation', { name: 'Main site navigation' })
 
@@ -72,7 +72,7 @@ describe('Sidebar navigation', () => {
     const crpButton = screen.getByRole('button', { name: /CRP 2026 Dataset/i })
     expect(crpButton).toHaveAttribute('aria-expanded', 'true')
 
-    // Click Live Results group — CRP should close
+    // Click Live Results group - CRP should close
     const liveButton = screen.getByRole('button', { name: /Live Results/i })
     fireEvent.click(liveButton)
     expect(liveButton).toHaveAttribute('aria-expanded', 'true')

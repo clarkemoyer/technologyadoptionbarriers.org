@@ -24,7 +24,7 @@ on:
         required: false
         type: string
       dry_run:
-        description: 'Dry run — preview rejections without executing'
+        description: 'Dry run - preview rejections without executing'
         required: true
         type: boolean
         default: true

@@ -68,7 +68,7 @@ warnings.filterwarnings('ignore', category=FutureWarning)
 warnings.filterwarnings('ignore', category=RuntimeWarning)
 
 # ============================================================================
-# OPTIONAL IMPORTS — degrade gracefully
+# OPTIONAL IMPORTS - degrade gracefully
 # ============================================================================
 
 try:
@@ -995,15 +995,25 @@ def run_cfa(data, model_spec, construct_name):
         mod = semopy.Model(model_spec)
         mod.fit(d)
         fit_stats = semopy.calc_stats(mod)
-        result['chi2'] = round(float(fit_stats.loc['chi2', 'Value']), 3) if 'chi2' in fit_stats.index else None
-        result['df'] = int(fit_stats.loc['DoF', 'Value']) if 'DoF' in fit_stats.index else None
-        result['chi2_p'] = round(float(fit_stats.loc['chi2 p-value', 'Value']), 4) if 'chi2 p-value' in fit_stats.index else None
-        result['cfi'] = round(float(fit_stats.loc['CFI', 'Value']), 4) if 'CFI' in fit_stats.index else None
-        result['tli'] = round(float(fit_stats.loc['TLI', 'Value']), 4) if 'TLI' in fit_stats.index else None
-        result['rmsea'] = round(float(fit_stats.loc['RMSEA', 'Value']), 4) if 'RMSEA' in fit_stats.index else None
-        result['srmr'] = round(float(fit_stats.loc['SRMR', 'Value']), 4) if 'SRMR' in fit_stats.index else None
-        result['aic'] = round(float(fit_stats.loc['AIC', 'Value']), 2) if 'AIC' in fit_stats.index else None
-        result['bic'] = round(float(fit_stats.loc['BIC', 'Value']), 2) if 'BIC' in fit_stats.index else None
+        # semopy 2.x returns stats as *columns* with a single 'Value' row;
+        # handle both orientations so the code works regardless of version.
+        if 'Value' in fit_stats.index and 'CFI' not in fit_stats.index:
+            # Stats are columns, 'Value' is the row label (semopy ≥2.x)
+            def _stat(name):
+                return float(fit_stats.loc['Value', name]) if name in fit_stats.columns else None
+        else:
+            # Stats are row labels (hypothetical older layout)
+            def _stat(name):
+                return float(fit_stats.loc[name, 'Value']) if name in fit_stats.index else None
+        result['chi2'] = round(_stat('chi2'), 3) if _stat('chi2') is not None else None
+        result['df'] = int(_stat('DoF')) if _stat('DoF') is not None else None
+        result['chi2_p'] = round(_stat('chi2 p-value'), 4) if _stat('chi2 p-value') is not None else None
+        result['cfi'] = round(_stat('CFI'), 4) if _stat('CFI') is not None else None
+        result['tli'] = round(_stat('TLI'), 4) if _stat('TLI') is not None else None
+        result['rmsea'] = round(_stat('RMSEA'), 4) if _stat('RMSEA') is not None else None
+        result['srmr'] = round(_stat('SRMR'), 4) if _stat('SRMR') is not None else None
+        result['aic'] = round(_stat('AIC'), 2) if _stat('AIC') is not None else None
+        result['bic'] = round(_stat('BIC'), 2) if _stat('BIC') is not None else None
         est_std = mod.inspect(std_est=True)
         loadings = est_std[(est_std['op'] == '~') & (est_std['Est. Std'].notna())]
         result['standardized_loadings'] = {
@@ -1249,7 +1259,7 @@ def filter_samples(data, idx, crp200=False):
                    and _get_duration(r, idx) >= MIN_DURATION_ALL]
 
     # If Prolific_Status column exists, filter by APPROVED.
-    # If not (e.g., CRP public CSV), treat all rows as accepted — the CRP
+    # If not (e.g., CRP public CSV), treat all rows as accepted - the CRP
     # dataset only contains Prolific-accepted respondents by construction.
     if 'Prolific_Status' in idx:
         prolific_accepted = [r for r in v2 if _get_prolific_status(r, idx) == 'APPROVED']
@@ -1319,7 +1329,7 @@ def load_data_pandas(csv_path, crp200=False):
         df['iri_all_ok'] = df['iri_barrier_ok'] & df['iri_readiness_ok'] & df['iri_maturity_ok']
         clean = df[(df['Duration (in seconds)'] >= MIN_DURATION_CLEAN) & df['iri_all_ok']].copy()
         print(f"  V2 total: {len(df)} | Clean (>={MIN_DURATION_CLEAN}s + 3 IRIs): {len(clean)}")
-        # Return (clean_df, full_v2_df) — quality audit needs the full population
+        # Return (clean_df, full_v2_df) - quality audit needs the full population
         return clean, df
     else:
         print(f"  CRP-200 dataset: {len(df)} respondents loaded")
@@ -1766,7 +1776,7 @@ def sensitivity_to_json(cuts, idx):
         for cat, _ in OTHER_ROLE_CATEGORIES_PATTERNS
     ] + [{"label": "Uncategorized", "description": "Responses that did not match any keyword pattern", "examples": ""}]
 
-    # Timestamp — consumed by 10+ results pages via utcTimestamp component
+    # Timestamp - consumed by 10+ results pages via utcTimestamp component
     result["last_updated"] = datetime.utcnow().isoformat() + "Z"
 
     return result
@@ -2056,7 +2066,7 @@ def run_quality_audit(df, all_rows_raw=None, idx_raw=None):
 
     In live mode, df should be the full V2 population (pre-IRI/duration filter)
     so that missing data, straightlining, and response quality metrics reflect
-    all respondents — not just those who passed quality gates.
+    all respondents - not just those who passed quality gates.
 
     In CRP mode, df is the selected N=200 sample (the full relevant population).
 
@@ -2512,7 +2522,7 @@ def run_validation(df, skip=False, crp200=False):
 
         # CFA
         cfa_data = cr.get('cfa', {})
-        block['cfa'] = {
+        cfa_block = {
             'construct': cname,
             'chi2': cfa_data.get('chi2'),
             'df': cfa_data.get('df'),
@@ -2522,6 +2532,9 @@ def run_validation(df, skip=False, crp200=False):
             'rmsea': cfa_data.get('rmsea'),
             'srmr': cfa_data.get('srmr'),
         }
+        if 'error' in cfa_data:
+            cfa_block['error'] = cfa_data['error']
+        block['cfa'] = cfa_block
 
         # Inter-item
         iic = cr.get('inter_item_correlations', {})
@@ -2550,6 +2563,8 @@ def run_validation(df, skip=False, crp200=False):
     if 'error' not in barrier_4f_cfa:
         for k in ['chi2', 'df', 'chi2_p', 'cfi', 'tli', 'rmsea', 'aic', 'bic']:
             b4f_out[k] = barrier_4f_cfa.get(k)
+    else:
+        b4f_out['error'] = barrier_4f_cfa['error']
     output['barriers_4f_cfa'] = b4f_out
 
     # Factor analysis summary (for EFA factors)
@@ -2595,7 +2610,7 @@ def run_validation(df, skip=False, crp200=False):
         factor_correlation = None
 
     # ── Three-group decomposition of Barriers (F1a/F1b split + F2) ──
-    # Canonical group definitions — emitted as `item_ids` in each
+    # Canonical group definitions - emitted as `item_ids` in each
     # three_groups entry of crp-validation.json so the UI consumes
     # them from data rather than maintaining a separate list.
     THREE_GROUP_DEFS = [
@@ -2669,10 +2684,11 @@ def run_validation(df, skip=False, crp200=False):
             "kmo_above_060": (efa_data.get('kmo_model') or 0) >= 0.60,
             "bartlett_significant": efa_data.get('bartlett_p', 1.0) < 0.05 if efa_data.get('bartlett_p') is not None else False,
             "cfa_cfi_above_090": (cfa_data.get('cfi') or 0) >= 0.90,
+            "cfa_rmsea_below_008": cfa_data['rmsea'] <= 0.08 if cfa_data.get('rmsea') is not None else False,
         }
         # Count only boolean-like pass/fail results, while still accepting numpy.bool_
         v["pass_count"] = count_bool_true(v)
-        v["total_criteria"] = 9
+        v["total_criteria"] = 10
         verdicts[cname] = v
     output['verdicts'] = verdicts
 
@@ -2762,7 +2778,7 @@ Examples:
 
     # ── Sensitivity section (raw CSV rows for 5-sample cuts) ──
     # In CRP mode, use single_header=True since the public CSV has 1 header row.
-    # Sensitivity runs for BOTH live and CRP — CRP pages need sample cuts too.
+    # Sensitivity runs for BOTH live and CRP - CRP pages need sample cuts too.
     idx_raw, data_raw = load_qualtrics_csv(args.csv_path, single_header=args.crp200)
     v2_rows_raw, samples_raw = filter_samples(data_raw, idx_raw, crp200=args.crp200)
 

@@ -13,7 +13,7 @@ describe('ConceptMappingSimple component', () => {
     expect(screen.getByLabelText('Concept Mapping Table')).toBeInTheDocument()
   })
 
-  it('should render all 13 column headers', () => {
+  it('should render all 7 column headers', () => {
     render(<ConceptMappingSimple />)
     conceptMappingData.headers.forEach((header) => {
       expect(screen.getByText(header, { selector: 'th' })).toBeInTheDocument()

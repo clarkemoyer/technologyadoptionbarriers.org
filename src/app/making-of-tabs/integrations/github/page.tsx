@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'GitHub Integration — Making of TABS',
+  title: 'GitHub Integration - Making of TABS',
   description:
     'How TABS uses GitHub as a comprehensive DevOps platform: 12 Actions workflows, automated code review, CodeQL security scanning, Dependabot, GitHub Pages deployment, and release management.',
   alternates: {
@@ -16,7 +16,7 @@ const GitHubIntegrationPage = () => {
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>GitHub</h1>
         <p className="mb-8 text-lg sm:text-xl text-gray-600 font-sans">
-          GitHub is the operational backbone of TABS — it hosts the code, enforces quality gates,
+          GitHub is the operational backbone of TABS - it hosts the code, enforces quality gates,
           deploys the site, scans for vulnerabilities, and orchestrates every external-API data
           pipeline.
         </p>
@@ -26,8 +26,8 @@ const GitHubIntegrationPage = () => {
           <h2 className={H2_CLASSES}>Role Overview</h2>
           <p className="mb-4">
             Most projects treat GitHub as a place to store code and open pull requests. TABS uses it
-            as a <strong>full DevOps platform</strong>. Every automated task — from daily analytics
-            reports to weekly participant-data collection — runs inside GitHub Actions, is gated by
+            as a <strong>full DevOps platform</strong>. Every automated task - from daily analytics
+            reports to weekly participant-data collection - runs inside GitHub Actions, is gated by
             environment secrets, and produces auditable step summaries.
           </p>
           <div className="rounded-lg bg-gray-50 p-4 text-sm font-mono mb-6 whitespace-pre-wrap">
@@ -214,7 +214,7 @@ const GitHubIntegrationPage = () => {
             <h3 className={H3_CLASSES}>GitHub Copilot Review</h3>
             <p className="mb-4">
               Every pull request is automatically reviewed by GitHub Copilot when marked as{' '}
-              <em>Ready for review</em>. Copilot scans for common issues — accessibility problems,
+              <em>Ready for review</em>. Copilot scans for common issues - accessibility problems,
               missing ARIA labels, type safety gaps, and unused code. Review comments appear inline
               on the PR diff and must be addressed before merging.
             </p>
@@ -252,11 +252,11 @@ const GitHubIntegrationPage = () => {
             </p>
             <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
               <li>
-                <strong>JavaScript / TypeScript</strong> — source code analysis for injection
+                <strong>JavaScript / TypeScript</strong> - source code analysis for injection
                 vulnerabilities, insecure data handling, and logic errors
               </li>
               <li>
-                <strong>GitHub Actions</strong> — workflow security analysis for secret exposure,
+                <strong>GitHub Actions</strong> - workflow security analysis for secret exposure,
                 untrusted input usage, and privilege escalation
               </li>
             </ul>
@@ -267,12 +267,12 @@ const GitHubIntegrationPage = () => {
             <p className="mb-4">Dependabot monitors two ecosystems weekly (Monday 09:00 UTC):</p>
             <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
               <li>
-                <strong>npm</strong> — groups production and development dependency updates (minor +
+                <strong>npm</strong> - groups production and development dependency updates (minor +
                 patch) into separate PRs, with major versions handled individually for careful
                 review. Limited to 10 open PRs.
               </li>
               <li>
-                <strong>GitHub Actions</strong> — updates action versions. Limited to 5 open PRs.
+                <strong>GitHub Actions</strong> - updates action versions. Limited to 5 open PRs.
               </li>
             </ul>
           </div>
@@ -324,26 +324,26 @@ const GitHubIntegrationPage = () => {
         <section className="mb-10 text-gray-800">
           <h2 className={H2_CLASSES}>Automated Data Pipelines</h2>
           <p className="mb-4">
-            Several workflows act as <strong>data pipelines</strong> — they fetch data from external
+            Several workflows act as <strong>data pipelines</strong> - they fetch data from external
             APIs, update JSON files in the repository, and create auto-merge PRs. This keeps the
             site&rsquo;s displayed metrics current without manual intervention:
           </p>
           <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
-              <strong>GA daily report</strong> — fetches analytics from GA4, updates{' '}
+              <strong>GA daily report</strong> - fetches analytics from GA4, updates{' '}
               <code>impact.json</code>, creates a PR via{' '}
               <code>peter-evans/create-pull-request</code>, and auto-merges it
             </li>
             <li>
-              <strong>Qualtrics metrics update</strong> — fetches survey response counts and updates{' '}
+              <strong>Qualtrics metrics update</strong> - fetches survey response counts and updates{' '}
               <code>qualtrics-metrics.json</code>, also auto-merged
             </li>
             <li>
-              <strong>SEO Dashboard Sync</strong> — queries GSC and GA4 to update the public SEO
+              <strong>SEO Dashboard Sync</strong> - queries GSC and GA4 to update the public SEO
               Transparency Dashboard, with automated regression alerts.
             </li>
             <li>
-              <strong>Prolific data collection</strong> — weekly export of participant submission
+              <strong>Prolific data collection</strong> - weekly export of participant submission
               data, uploaded as a CI artifact
             </li>
           </ul>
@@ -382,7 +382,7 @@ const GitHubIntegrationPage = () => {
             >
               Conventional Commits
             </a>{' '}
-            — every commit message and PR title starts with a type prefix (<code>feat:</code>,{' '}
+            - every commit message and PR title starts with a type prefix (<code>feat:</code>,{' '}
             <code>fix:</code>, <code>docs:</code>, <code>chore:</code>), enforced by a{' '}
             <code>commitlint</code> hook.
           </p>
@@ -424,7 +424,7 @@ const GitHubIntegrationPage = () => {
           <ul className="list-disc pl-5 space-y-3 mb-6 font-sans text-base">
             <li>
               <strong>Environment secrets are essential.</strong> Storing API tokens in
-              environment-scoped secrets (not repository-level) limits blast radius — a workflow
+              environment-scoped secrets (not repository-level) limits blast radius - a workflow
               only has access to the environment it declares.
             </li>
             <li>
@@ -457,7 +457,7 @@ const GitHubIntegrationPage = () => {
               >
                 Cloudflare Integration
               </Link>{' '}
-              — DNS, CDN, and security layer that sits in front of GitHub Pages
+              - DNS, CDN, and security layer that sits in front of GitHub Pages
             </li>
             <li>
               <Link
@@ -466,7 +466,7 @@ const GitHubIntegrationPage = () => {
               >
                 Google Analytics Integration
               </Link>{' '}
-              — the GA4 data pipeline that feeds impact.json
+              - the GA4 data pipeline that feeds impact.json
             </li>
             <li>
               <Link
@@ -475,7 +475,7 @@ const GitHubIntegrationPage = () => {
               >
                 Qualtrics Integration
               </Link>{' '}
-              — the survey automation workflows
+              - the survey automation workflows
             </li>
             <li>
               <Link

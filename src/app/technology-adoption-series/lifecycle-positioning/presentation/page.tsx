@@ -11,7 +11,7 @@ import {
 } from '../constants'
 
 export const metadata: Metadata = {
-  title: 'Technology Lifecycle Positioning — Presentation',
+  title: 'Technology Lifecycle Positioning - Presentation',
   description:
     'Interactive presentation on technology lifecycle positioning: the dual-curve model, real-world timeline examples, and lifecycle cycles.',
 }

@@ -1,7 +1,7 @@
 import type { Page } from '@playwright/test'
 
 /* ------------------------------------------------------------------
- * Global type augmentation — lets helpers reference
+ * Global type augmentation - lets helpers reference
  * `window.__seedCookieConsentError` without unsafe casts.
  * Because this file already has top-level exports, TypeScript treats
  * it as a module, so `declare global` properly augments the browser
@@ -73,7 +73,7 @@ function resolveCookieConsentSeed(options?: CookieConsentSeedOptions) {
   try {
     const parsed = JSON.parse(storageValue)
     if (!isValidCookieConsentShape(parsed)) {
-      // Valid JSON but wrong shape (e.g. `"true"`, `{}`, or missing keys) —
+      // Valid JSON but wrong shape (e.g. `"true"`, `{}`, or missing keys) -
       // fall back to the known-good default to prevent silent banner flakiness.
       return {
         storageKey,
@@ -87,7 +87,7 @@ function resolveCookieConsentSeed(options?: CookieConsentSeedOptions) {
       strict,
     }
   } catch {
-    // storageValue is not valid JSON — fall back to the known-good default.
+    // storageValue is not valid JSON - fall back to the known-good default.
     return {
       storageKey,
       storageValue: JSON.stringify(FALLBACK_COOKIE_CONSENT),

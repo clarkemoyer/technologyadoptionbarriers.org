@@ -11,7 +11,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/crp-sensitivity-analysis.json'
 export const metadata: Metadata = {
-  title: 'CRP 2026 Data Quality — TABS',
+  title: 'CRP 2026 Data Quality - TABS',
   description:
     'How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across 3 primary groups.',
   alternates: {
@@ -23,7 +23,7 @@ const CRP_SAMPLE_KEYS = new Set(['conservative_clean', 'flexible_clean', 'prolif
 const crpSamples = sensitivityData.samples.filter((s) => CRP_SAMPLE_KEYS.has(s.key))
 
 const fmt = (v: unknown): string =>
-  typeof v === 'number' ? (Number.isInteger(v) ? String(v) : v.toFixed(4)) : '—'
+  typeof v === 'number' ? (Number.isInteger(v) ? String(v) : v.toFixed(4)) : '-'
 
 const DataQualityPage = () => {
   return (
@@ -472,7 +472,7 @@ const DataQualityPage = () => {
                     <td className="border border-gray-300 px-4 py-2 font-medium">{sample.label}</td>
                     <td className="border border-gray-300 px-4 py-2">{sample.description}</td>
                     <td className="border border-gray-300 px-4 py-2 text-right font-mono">
-                      {sample.n ?? '—'}
+                      {sample.n ?? '-'}
                     </td>
                   </tr>
                 ))}
@@ -562,7 +562,7 @@ const DataQualityPage = () => {
             </div>
 
             {/* Note: All V2 Finished and All V2 sample definitions are not
-                included in the CRP dataset — only the three groups above. */}
+                included in the CRP dataset - only the three groups above. */}
           </div>
 
           {/* Disposition CLEAN vs Conservative Clean */}

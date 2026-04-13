@@ -1,4 +1,4 @@
-"""Tests for Phase 4 scripts — reject, message, thank-you, custom, unreject."""
+"""Tests for Phase 4 scripts - reject, message, thank-you, custom, unreject."""
 
 import csv
 import subprocess
