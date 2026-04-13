@@ -1,4 +1,4 @@
-"""Tests for generate_disposition_summary.py — JSON output structure and metrics."""
+"""Tests for generate_disposition_summary.py - JSON output structure and metrics."""
 
 import csv
 import json

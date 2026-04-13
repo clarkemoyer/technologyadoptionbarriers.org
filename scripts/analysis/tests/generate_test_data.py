@@ -163,7 +163,7 @@ def gen_likert(scale_values, bias="mid", count=18, straightline=False, dont_know
 def build_respondent(idx, disposition_type):
     """Build a single respondent row."""
 
-    # Demographics — ensure full coverage of all values
+    # Demographics - ensure full coverage of all values
     role = ROLES[idx % len(ROLES)]
     role_other = "VP of Innovation" if "Other" in role else ""
     decision = DECISION_AUTH[idx % len(DECISION_AUTH)]
@@ -337,7 +337,7 @@ def build_respondent(idx, disposition_type):
     elif idx == 3 and not finished:
         finished_override = "0"
 
-    # Feedback — mix of clean and PII-containing
+    # Feedback - mix of clean and PII-containing
     if random.random() < 0.05:
         feedback = random.choice(PII_FEEDBACK)
     else:

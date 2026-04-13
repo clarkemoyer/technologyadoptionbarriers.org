@@ -31,9 +31,9 @@ export default function Page() {
             </p>
             <p className="mb-4">
               The review confirmed that TRA is correctly attributed to Martin Fishbein and Icek
-              Ajzen (1975). The core constructs-Attitude Toward Behavior and Subjective Norm leading
-              to Behavioral Intention-are accurately described. The site correctly notes TRA&apos;s
-              origins in social psychology rather than technology specifically.
+              Ajzen (1975). The core constructs - Attitude Toward Behavior and Subjective Norm
+              leading to Behavioral Intention - are accurately described. The site correctly notes
+              TRA&apos;s origins in social psychology rather than technology specifically.
             </p>
             <h2 className={H2_CLASSES}>Theory of Planned Behavior (TPB)</h2>
             <p className="mb-4">

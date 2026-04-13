@@ -43,7 +43,7 @@ export default function Page() {
             </p>
             <p className="mb-4">
               The recently released NIST AI RMF (2023) is accurately summarized. The four core
-              functions-Govern, Map, Measure, and Manage-are correctly identified, and the
+              functions - Govern, Map, Measure, and Manage - are correctly identified, and the
               framework&apos;s focus on trustworthiness characteristics (validity, reliability,
               safety, security, privacy, fairness) is factually sound.
             </p>

@@ -25,10 +25,10 @@ const MakingOfTabsPage = () => {
               high availability requires a suite of specialized tools and services.
             </p>
             <p className="mb-6">
-              This page provides an overview of the &quot;stack&quot;-the collection of technologies
-              and methodologies-we employ to bring TABS to life. From the survey instrument itself
-              to the analytics that help us understand our audience, every component plays a
-              critical role.
+              This page provides an overview of the &quot;stack&quot; - the collection of
+              technologies and methodologies - we employ to bring TABS to life. From the survey
+              instrument itself to the analytics that help us understand our audience, every
+              component plays a critical role.
             </p>
           </section>
 

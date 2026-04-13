@@ -405,7 +405,7 @@ const MediaPage = () => {
                     <h3 className="text-lg font-semibold">Key Messages</h3>
                     <ul className="mt-2 list-disc pl-5 text-gray-700 space-y-1.5">
                       <li>
-                        Technology adoption succeeds or fails based on organizational barriers-not
+                        Technology adoption succeeds or fails based on organizational barriers, not
                         just tools.
                       </li>
                       <li>

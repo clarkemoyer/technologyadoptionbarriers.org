@@ -41,8 +41,8 @@ export default function Page() {
             </p>
             <p className="mb-4">
               Parasuraman&apos;s (2000) TRI and its integration with TAM (TRAM by Lin et al., 2007)
-              were audited. The four dimensions of technology readiness-Optimism, Innovativeness,
-              Discomfort, and Insecurity-are correctly defined. The site accurately portrays how
+              were audited. The four dimensions of technology readiness - Optimism, Innovativeness,
+              Discomfort, and Insecurity - are correctly defined. The site accurately portrays how
               personality traits influence technology acceptance.
             </p>
             <div className="mt-8 flex justify-between">

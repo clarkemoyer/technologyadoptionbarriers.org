@@ -43,9 +43,9 @@ export default function Page() {
             </p>
             <p className="mb-4">
               Albert Bandura&apos;s (1986) Social Cognitive Theory was audited for accuracy. The
-              site correctly emphasizes the concept of &quot;reciprocal determinism&quot;-the
+              site correctly emphasizes the concept of &quot;reciprocal determinism&quot; - the
               dynamic interaction between personal, behavioral, and environmental factors. The
-              application of SCT to computer self-efficacy (Compeau & Higgins, 1995) is also
+              application of SCT to computer self-efficacy (Compeau &amp; Higgins, 1995) is also
               factually correct.
             </p>
             <div className="mt-8 flex justify-between">
