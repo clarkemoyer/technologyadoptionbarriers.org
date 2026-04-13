@@ -111,11 +111,29 @@ function idleHours(updatedAt: string): number {
 
 /**
  * Try `gh agent-task list` (available in gh CLI ≥ 2.67).
- * Returns null if the command is not available.
+ * Returns null if the command is not available or if the current git context
+ * does not match REPO (to avoid mixing tasks from one repo with API calls
+ * targeting another).
  */
 function tryAgentTaskList(): AgentTask[] | null {
   try {
-    const raw = gh(`agent-task list -R ${REPO} --json number,title,url,updatedAt,createdAt,state`)
+    // Verify the git repo inferred by gh matches REPO before relying on it.
+    // If they differ, fall through to the Issues API which always targets REPO
+    // explicitly via the URL path.
+    let currentRepo: string
+    try {
+      currentRepo = gh('repo view --json nameWithOwner --jq .nameWithOwner')
+    } catch {
+      return null
+    }
+    if (currentRepo.toLowerCase() !== REPO.toLowerCase()) {
+      console.warn(
+        `  ⚠ git context is "${currentRepo}" but REPO is "${REPO}" - skipping gh agent-task list`
+      )
+      return null
+    }
+
+    const raw = gh(`agent-task list --json number,title,url,updatedAt,createdAt,state`)
     const items = JSON.parse(raw)
     if (!Array.isArray(items)) return null
     return items.map((item: any) => ({
@@ -141,7 +159,7 @@ function tryAgentTaskList(): AgentTask[] | null {
 function listViaIssuesApi(): AgentTask[] {
   console.log('  (gh agent-task not available - using Issues API fallback)')
   const raw = ghJsonArray<any>(
-    `api repos/${REPO}/issues?assignee=copilot&state=open&per_page=100 --paginate`
+    `api "repos/${REPO}/issues?assignee=copilot&state=open&per_page=100" --paginate`
   )
   return raw
     .filter((issue: any) => !issue.pull_request)
@@ -202,7 +220,7 @@ function findAssociatedPr(issueNumber: number): PrStatus | null {
       const query = `repo:${REPO} is:pr is:open "${token}" in:body`
       try {
         const results = ghJson<{ items: any[] }>(
-          `api search/issues?q=${encodeURIComponent(query)}&per_page=5`
+          `api "search/issues?q=${encodeURIComponent(query)}&per_page=5"`
         )
         for (const item of results.items ?? []) {
           if (item.pull_request && typeof item.number === 'number' && !prMap.has(item.number)) {

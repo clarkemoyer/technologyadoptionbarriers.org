@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Header from './../components/header'
 import Footer from './../components/footer'
+import Sidebar from './../components/sidebar'
+import { SidebarProvider } from './../components/sidebar/sidebar-context'
 import CookieConsent from './../components/cookie-consent'
 import ClarityRouteTracker from './../components/clarity-route-tracker'
 import GoogleTagManager, { GoogleTagManagerNoScript } from './../components/google-tag-manager'
@@ -128,11 +130,20 @@ export default function RootLayout({
           Skip to main content
         </a>
         {/* <PopupProvider> */}
-        <Header />
-        <div id="main-content" tabIndex={-1}>
-          {children}
-        </div>
-        <Footer />
+        <SidebarProvider>
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <div className="flex flex-1">
+              <Sidebar />
+              <main id="main-content" tabIndex={-1} className="flex-1 min-w-0">
+                {children}
+              </main>
+            </div>
+            <div className="mt-auto">
+              <Footer />
+            </div>
+          </div>
+        </SidebarProvider>
         <CookieConsent />
         {/* <PopupsRootClient /> */}
         {/* </PopupProvider> */}

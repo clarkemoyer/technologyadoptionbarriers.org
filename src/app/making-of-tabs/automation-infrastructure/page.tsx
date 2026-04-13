@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
-import { MakingOfTabsNav } from '@/components/making-of-tabs-nav'
-
 export const metadata: Metadata = {
   title: 'Automation Infrastructure - Making of TABS',
   description:
@@ -14,8 +12,8 @@ export const metadata: Metadata = {
 
 const AutomationInfrastructurePage = () => {
   return (
-    <main className={ARTICLE_CLASSES}>
-      <MakingOfTabsNav>
+    <div className="pt-20 sm:pt-[120px] bg-white">
+      <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Automation Infrastructure</h1>
 
         <p className="text-gray-600 mb-8">
@@ -436,8 +434,8 @@ const AutomationInfrastructurePage = () => {
             </div>
           </div>
         </section>
-      </MakingOfTabsNav>
-    </main>
+      </article>
+    </div>
   )
 }
 

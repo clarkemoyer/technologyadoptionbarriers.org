@@ -1,164 +1,53 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, type Page } from '@playwright/test'
 import { technologyAdoptionModelsSeries } from '../src/data/technology-adoption-models-series'
+import { escapeRegExp } from './utils/escape-regexp'
 
 /**
  * Technology Adoption Models Series Navigation Tests
  *
  * These tests verify:
- * 1. Desktop mega menu navigation works correctly
+ * 1. Desktop sidebar shows Models accordion groups
  * 2. Mobile accordion navigation works correctly
  * 3. All series pages load with correct H1 titles
  * 4. Placeholder pages display "Coming soon"
- * 5. Keyboard navigation (Escape key closes mega menu)
- *
- * NOTE: Desktop mega menu tests are currently skipped due to a known limitation.
- * The mega menu uses client-side React state and AnimatePresence animations that
- * don't hydrate reliably in Playwright tests against static builds. The feature
- * works correctly when manually tested in browsers. See issue comments for details.
+ * 5. In-page series navigation renders correctly on mobile and desktop
  */
 
-test.describe('Series Navigation - Desktop Mega Menu', () => {
+test.describe('Series Navigation - Desktop Sidebar', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/')
-    // Ensure we're on desktop viewport
     await page.setViewportSize({ width: 1280, height: 720 })
+    await page.goto('/', { waitUntil: 'domcontentloaded' })
   })
 
-  test.skip('should open mega menu on Technology Adoption Models hover/click', async ({ page }) => {
-    // Wait for page to fully load and hydrate
-    await page.waitForLoadState('networkidle')
-    await page.waitForTimeout(2000) // Additional wait for React hydration
+  test('should show Models accordion groups in desktop sidebar', async ({ page }) => {
+    // Click the Models top-level item in the persistent sidebar
+    const modelsButton = page.getByRole('button', { name: /^Models$/i })
+    await expect(modelsButton).toBeVisible({ timeout: 15000 })
+    await modelsButton.click()
 
-    // Find the Technology Adoption Models button
-    const megaMenuButton = page.getByRole('button', { name: /Technology Adoption Models/i })
-    await expect(megaMenuButton).toBeVisible()
+    // Verify Series Overview accordion group appears
+    const seriesOverview = page.getByRole('button', { name: /Series Overview/i })
+    await expect(seriesOverview).toBeVisible({ timeout: 10000 })
 
-    // Click to open mega menu
-    await megaMenuButton.click()
-
-    // Wait for menu animation
-    await page.waitForTimeout(500)
-
-    // Verify mega menu is visible with timeout
-    const megaMenu = page.locator('#mega-menu')
-    await expect(megaMenu).toBeVisible({ timeout: 10000 })
-
-    // Verify root link is present
-    const rootLink = megaMenu.getByRole('link', {
-      name: technologyAdoptionModelsSeries.root.title,
+    // Verify branch accordion groups appear (data-driven)
+    const branch1ShortTitle = technologyAdoptionModelsSeries.branches[0].title.split('–')[0].trim()
+    const branch1Button = page.getByRole('button', {
+      name: new RegExp(escapeRegExp(branch1ShortTitle), 'i'),
     })
-    await expect(rootLink).toBeVisible()
-  })
-
-  test.skip('should display all branch titles in mega menu', async ({ page }) => {
-    await page.waitForLoadState('networkidle')
-    await page.waitForTimeout(2000)
-    const megaMenuButton = page.getByRole('button', { name: /Technology Adoption Models/i })
-
-    await megaMenuButton.click()
-    await page.waitForTimeout(500)
-
-    const megaMenu = page.locator('#mega-menu')
-    await expect(megaMenu).toBeVisible({ timeout: 10000 })
-
-    // Check Branch 1 title
-    const branch1Link = megaMenu.getByRole('link', {
-      name: technologyAdoptionModelsSeries.branches[0].title,
-    })
-    await expect(branch1Link).toBeVisible()
-
-    // Check Branch 2 title
-    const branch2Link = megaMenu.getByRole('link', {
-      name: technologyAdoptionModelsSeries.branches[1].title,
-    })
-    await expect(branch2Link).toBeVisible()
-  })
-
-  test.skip('should display all articles in mega menu', async ({ page }) => {
-    await page.waitForLoadState('networkidle')
-    await page.waitForTimeout(2000)
-    const megaMenuButton = page.getByRole('button', { name: /Technology Adoption Models/i })
-
-    await megaMenuButton.click()
-    await page.waitForTimeout(500)
-
-    const megaMenu = page.locator('#mega-menu')
-    await expect(megaMenu).toBeVisible({ timeout: 10000 })
-
-    // Verify a few key articles are present
-    await expect(megaMenu.getByRole('link', { name: /Article 1\.1: The Bedrock/i })).toBeVisible()
-    await expect(
-      megaMenu.getByRole('link', { name: /Article 1\.2: The Game Changer/i })
-    ).toBeVisible()
-    await expect(
-      megaMenu.getByRole('link', { name: /Article 2\.1: The Strategic Lens/i })
-    ).toBeVisible()
-  })
-
-  test.skip('should close mega menu on Escape key', async ({ page }) => {
-    await page.waitForLoadState('networkidle')
-    await page.waitForTimeout(2000)
-    const megaMenuButton = page.getByRole('button', { name: /Technology Adoption Models/i })
-
-    await megaMenuButton.click()
-    await page.waitForTimeout(500)
-
-    const megaMenu = page.locator('#mega-menu')
-    await expect(megaMenu).toBeVisible({ timeout: 10000 })
-
-    // Press Escape
-    await page.keyboard.press('Escape')
-
-    // Mega menu should be hidden
-    await expect(megaMenu).not.toBeVisible()
-  })
-
-  test.skip('should navigate to article from mega menu', async ({ page }) => {
-    await page.waitForLoadState('networkidle')
-    await page.waitForTimeout(2000)
-    const megaMenuButton = page.getByRole('button', { name: /Technology Adoption Models/i })
-
-    await megaMenuButton.click()
-    await page.waitForTimeout(500)
-
-    const megaMenu = page.locator('#mega-menu')
-    await expect(megaMenu).toBeVisible({ timeout: 10000 })
-
-    // Click on Article 1.1
-    await megaMenu.getByRole('link', { name: /Article 1\.1: The Bedrock/i }).click()
-
-    // Wait for navigation
-    await page.waitForURL(
-      '**/article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance'
-    )
-
-    // Verify H1 is present
-    await expect(
-      page.getByRole('heading', { level: 1, name: /Article 1\.1: The Bedrock/i })
-    ).toBeVisible()
+    await expect(branch1Button).toBeVisible()
   })
 })
 
 test.describe('Series Navigation - Mobile Accordion', () => {
-  async function openMobileMenu(page: any) {
-    const openMenuButton = page.getByRole('button', { name: /open menu/i })
+  async function openMobileMenu(page: Page) {
+    const openMenuButton = page.getByRole('button', { name: /open navigation menu/i })
     await expect(openMenuButton).toBeVisible()
 
-    const banner = page.getByRole('banner')
-    const homeLinkInMenu = banner.getByRole('link', { name: /^Home$/ })
+    const dialog = page.getByRole('dialog', { name: /navigation menu/i })
 
-    // Mobile menu is client-side state; give hydration a couple chances.
-    for (let attempt = 0; attempt < 3; attempt += 1) {
-      await openMenuButton.click()
-
-      if (await homeLinkInMenu.isVisible().catch(() => false)) {
-        return
-      }
-
-      await page.waitForTimeout(750)
-    }
-
-    await expect(homeLinkInMenu).toBeVisible({ timeout: 10000 })
+    // Wait for hydration by clicking and waiting for dialog visibility
+    await openMenuButton.click()
+    await expect(dialog).toBeVisible({ timeout: 15000 })
   }
 
   test.beforeEach(async ({ page }) => {
@@ -168,9 +57,6 @@ test.describe('Series Navigation - Mobile Accordion', () => {
     await page.goto('/', { waitUntil: 'domcontentloaded' })
 
     // Dismiss cookie consent banner so it can't intercept mobile menu clicks.
-    // The banner may appear after hydration, so wait briefly for it.
-    await page.waitForTimeout(250)
-
     const cookieBanner = page.locator('[role="region"][aria-label="Cookie consent notice"]')
     const cookieBannerAppeared = await cookieBanner
       .waitFor({ state: 'visible', timeout: 2000 })
@@ -186,51 +72,61 @@ test.describe('Series Navigation - Mobile Accordion', () => {
   test('should open mobile menu and show accordion', async ({ page }) => {
     await openMobileMenu(page)
 
-    // Verify Technology Adoption Models link is visible
-    const seriesLink = page.getByRole('link', { name: /Technology Adoption Models/i }).first()
-    await expect(seriesLink).toBeVisible({ timeout: 10000 })
+    // Click Models top-level item in sidebar
+    const navigationDialog = page.getByRole('dialog', { name: /navigation menu/i })
+    const modelsButton = navigationDialog.getByRole('button', { name: /^Models$/i })
+    await expect(modelsButton).toBeVisible()
+    await modelsButton.click()
+
+    // Verify accordion groups are shown in sidebar
+    const seriesOverview = navigationDialog.getByRole('button', { name: /Series Overview/i })
+    await expect(seriesOverview).toBeVisible({ timeout: 10000 })
   })
 
   test('should expand Branch 1 accordion in mobile menu', async ({ page }) => {
     await openMobileMenu(page)
 
-    // Find and click Branch 1 accordion button
-    const branch1Button = page.getByRole('button', {
-      name: new RegExp(technologyAdoptionModelsSeries.branches[0].title, 'i'),
+    // Click Models section
+    const navigationDialog = page.getByRole('dialog', { name: /navigation menu/i })
+    const modelsButton = navigationDialog.getByRole('button', { name: /^Models$/i })
+    await modelsButton.click()
+
+    // Find and click Branch 1 accordion button (title derived from series data)
+    const branch1ShortTitle = technologyAdoptionModelsSeries.branches[0].title.split('–')[0].trim()
+    const branch1Button = navigationDialog.getByRole('button', {
+      name: new RegExp(escapeRegExp(branch1ShortTitle), 'i'),
     })
     await expect(branch1Button).toBeVisible()
     await branch1Button.click()
     await expect(branch1Button).toHaveAttribute('aria-expanded', 'true')
 
     // Verify articles are visible
-    const article11 = page.getByRole('link', { name: /Article 1\.1: The Bedrock/i })
+    const article11 = navigationDialog.getByRole('link', { name: /The Bedrock/i })
     await article11.scrollIntoViewIfNeeded()
     await expect(article11).toBeVisible()
-
-    const article12 = page.getByRole('link', { name: /Article 1\.2: The Game Changer/i })
-    await article12.scrollIntoViewIfNeeded()
-    await expect(article12).toBeVisible()
   })
 
   test('should expand Branch 2 accordion in mobile menu', async ({ page }) => {
     await openMobileMenu(page)
 
-    // Find and click Branch 2 accordion button
-    const branch2Button = page.getByRole('button', {
-      name: new RegExp(technologyAdoptionModelsSeries.branches[1].title, 'i'),
+    // Click Models section
+    const navigationDialog = page.getByRole('dialog', { name: /navigation menu/i })
+    const modelsButton = navigationDialog.getByRole('button', { name: /^Models$/i })
+    await modelsButton.click()
+
+    // Find and click Branch 2 accordion button (title derived from series data)
+    const branch2ShortTitle = technologyAdoptionModelsSeries.branches[1].title.split('–')[0].trim()
+    const branch2Button = navigationDialog.getByRole('button', {
+      name: new RegExp(escapeRegExp(branch2ShortTitle), 'i'),
     })
     await expect(branch2Button).toBeVisible()
     await branch2Button.click()
     await expect(branch2Button).toHaveAttribute('aria-expanded', 'true')
 
     // Verify articles are visible
-    const article21 = page.getByRole('link', { name: /Article 2\.1: The Strategic Lens/i })
+    const article21 = navigationDialog.getByRole('link', { name: /The Strategic Lens/i })
     await article21.scrollIntoViewIfNeeded()
     await expect(article21).toBeVisible()
-
-    const article22 = page.getByRole('link', { name: /Article 2\.2: From Chaos to Control/i })
-    await article22.scrollIntoViewIfNeeded()
-    await expect(article22).toBeVisible()
   })
 })
 

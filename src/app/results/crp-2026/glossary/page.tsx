@@ -8,8 +8,6 @@ import {
 } from '@/lib/articleStyles'
 import Link from 'next/link'
 import validationData from '@/data/crp-validation.json'
-import { ResultsNav } from '@/components/results-nav'
-
 export const metadata: Metadata = {
   title: 'Statistics Glossary - TABS CRP 2026',
   description:
@@ -391,122 +389,120 @@ const GlossaryEntryCard = ({ entry }: { entry: GlossaryEntry }) => (
 
 const GlossaryPage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
-      <ResultsNav>
-        <article className={ARTICLE_CLASSES}>
-          <h1 className={H1_CLASSES}>Statistics Glossary</h1>
+    <div className="pt-20 sm:pt-[120px] bg-white">
+      <article className={ARTICLE_CLASSES}>
+        <h1 className={H1_CLASSES}>Statistics Glossary</h1>
 
-          <div className="mb-6">
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 border border-green-200">
-              Published: April 2026
-            </span>
+        <div className="mb-6">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 border border-green-200">
+            Published: April 2026
+          </span>
+        </div>
+
+        <section className={SECTION_CLASSES}>
+          <p className={PARAGRAPH_CLASSES}>
+            This glossary explains every psychometric and statistical method used in the TABS
+            instrument validation. Each entry describes what the statistic measures, how it is
+            calculated, commonly accepted thresholds, and the TABS-specific results from the CRP-200
+            frozen dataset (N=200).
+          </p>
+          <p className="text-sm text-gray-500 font-sans mb-6">
+            Jump to:{' '}
+            {categories.map((cat, i) => (
+              <span key={cat}>
+                {i > 0 && ' | '}
+                <a
+                  href={`#cat-${cat.toLowerCase().replace(/\s+/g, '-')}`}
+                  className="text-blue-600 hover:underline"
+                >
+                  {cat}
+                </a>
+              </span>
+            ))}
+          </p>
+        </section>
+
+        {categories.map((cat) => (
+          <section
+            key={cat}
+            id={`cat-${cat.toLowerCase().replace(/\s+/g, '-')}`}
+            className={SECTION_CLASSES}
+          >
+            <h2 className={H2_CLASSES}>{cat}</h2>
+            {ENTRIES.filter((e) => e.category === cat).map((entry) => (
+              <GlossaryEntryCard key={entry.id} entry={entry} />
+            ))}
+          </section>
+        ))}
+
+        {/* ── References ── */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Key References</h2>
+          <div className="text-sm font-sans text-gray-600 space-y-2">
+            <p>
+              Browne, M.W. & Cudeck, R. (1993). Alternative ways of assessing model fit. In K.A.
+              Bollen & J.S. Long (Eds.), <em>Testing Structural Equation Models</em> (pp. 136-162).
+              Sage.
+            </p>
+            <p>
+              Clark, L.A. & Watson, D. (1995). Constructing validity: Basic issues in objective
+              scale development. <em>Psychological Assessment</em>, 7(3), 309-319.
+            </p>
+            <p>
+              Curran, P.J., West, S.G. & Finch, J.F. (1996). The robustness of test statistics to
+              nonnormality and specification error. <em>Psychological Methods</em>, 1(1), 16-29.
+            </p>
+            <p>
+              Feldt, L.S. (1965). The approximate sampling distribution of Kuder-Richardson
+              reliability coefficient twenty. <em>Psychometrika</em>, 30, 357-370.
+            </p>
+            <p>
+              Fornell, C. & Larcker, D.F. (1981). Evaluating structural equation models with
+              unobservable variables and measurement error. <em>Journal of Marketing Research</em>,
+              18(1), 39-50.
+            </p>
+            <p>
+              Henseler, J., Ringle, C.M. & Sarstedt, M. (2015). A new criterion for assessing
+              discriminant validity in variance-based SEM.{' '}
+              <em>Journal of the Academy of Marketing Science</em>, 43(1), 115-135.
+            </p>
+            <p>
+              Hu, L. & Bentler, P.M. (1999). Cutoff criteria for fit indexes in covariance structure
+              analysis. <em>Structural Equation Modeling</em>, 6(1), 1-55.
+            </p>
+            <p>
+              Kaiser, H.F. (1974). An index of factorial simplicity. <em>Psychometrika</em>, 39,
+              31-36.
+            </p>
+            <p>
+              Tabachnick, B.G. & Fidell, L.S. (2013). <em>Using Multivariate Statistics</em> (6th
+              ed.). Pearson.
+            </p>
           </div>
+        </section>
 
-          <section className={SECTION_CLASSES}>
-            <p className={PARAGRAPH_CLASSES}>
-              This glossary explains every psychometric and statistical method used in the TABS
-              instrument validation. Each entry describes what the statistic measures, how it is
-              calculated, commonly accepted thresholds, and the TABS-specific results from the
-              CRP-200 frozen dataset (N=200).
-            </p>
-            <p className="text-sm text-gray-500 font-sans mb-6">
-              Jump to:{' '}
-              {categories.map((cat, i) => (
-                <span key={cat}>
-                  {i > 0 && ' | '}
-                  <a
-                    href={`#cat-${cat.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="text-blue-600 hover:underline"
-                  >
-                    {cat}
-                  </a>
-                </span>
-              ))}
-            </p>
-          </section>
-
-          {categories.map((cat) => (
-            <section
-              key={cat}
-              id={`cat-${cat.toLowerCase().replace(/\s+/g, '-')}`}
-              className={SECTION_CLASSES}
+        {/* ── Navigation ── */}
+        <section className="border-t border-gray-200 pt-8 mt-8">
+          <div className="flex flex-wrap gap-4 text-sm font-sans">
+            <Link href="/results/crp-2026/validation" className="text-blue-600 hover:underline">
+              Instrument Validation Results &rarr;
+            </Link>
+            <Link
+              href="/results/crp-2026/factor-analysis"
+              className="text-blue-600 hover:underline"
             >
-              <h2 className={H2_CLASSES}>{cat}</h2>
-              {ENTRIES.filter((e) => e.category === cat).map((entry) => (
-                <GlossaryEntryCard key={entry.id} entry={entry} />
-              ))}
-            </section>
-          ))}
-
-          {/* ── References ── */}
-          <section className={SECTION_CLASSES}>
-            <h2 className={H2_CLASSES}>Key References</h2>
-            <div className="text-sm font-sans text-gray-600 space-y-2">
-              <p>
-                Browne, M.W. & Cudeck, R. (1993). Alternative ways of assessing model fit. In K.A.
-                Bollen & J.S. Long (Eds.), <em>Testing Structural Equation Models</em> (pp.
-                136-162). Sage.
-              </p>
-              <p>
-                Clark, L.A. & Watson, D. (1995). Constructing validity: Basic issues in objective
-                scale development. <em>Psychological Assessment</em>, 7(3), 309-319.
-              </p>
-              <p>
-                Curran, P.J., West, S.G. & Finch, J.F. (1996). The robustness of test statistics to
-                nonnormality and specification error. <em>Psychological Methods</em>, 1(1), 16-29.
-              </p>
-              <p>
-                Feldt, L.S. (1965). The approximate sampling distribution of Kuder-Richardson
-                reliability coefficient twenty. <em>Psychometrika</em>, 30, 357-370.
-              </p>
-              <p>
-                Fornell, C. & Larcker, D.F. (1981). Evaluating structural equation models with
-                unobservable variables and measurement error. <em>Journal of Marketing Research</em>
-                , 18(1), 39-50.
-              </p>
-              <p>
-                Henseler, J., Ringle, C.M. & Sarstedt, M. (2015). A new criterion for assessing
-                discriminant validity in variance-based SEM.{' '}
-                <em>Journal of the Academy of Marketing Science</em>, 43(1), 115-135.
-              </p>
-              <p>
-                Hu, L. & Bentler, P.M. (1999). Cutoff criteria for fit indexes in covariance
-                structure analysis. <em>Structural Equation Modeling</em>, 6(1), 1-55.
-              </p>
-              <p>
-                Kaiser, H.F. (1974). An index of factorial simplicity. <em>Psychometrika</em>, 39,
-                31-36.
-              </p>
-              <p>
-                Tabachnick, B.G. & Fidell, L.S. (2013). <em>Using Multivariate Statistics</em> (6th
-                ed.). Pearson.
-              </p>
-            </div>
-          </section>
-
-          {/* ── Navigation ── */}
-          <section className="border-t border-gray-200 pt-8 mt-8">
-            <div className="flex flex-wrap gap-4 text-sm font-sans">
-              <Link href="/results/crp-2026/validation" className="text-blue-600 hover:underline">
-                Instrument Validation Results &rarr;
-              </Link>
-              <Link
-                href="/results/crp-2026/factor-analysis"
-                className="text-blue-600 hover:underline"
-              >
-                Factor Analysis &rarr;
-              </Link>
-              <Link href="/results/crp-2026/reliability" className="text-blue-600 hover:underline">
-                Scale Reliability &rarr;
-              </Link>
-              <Link href="/results/crp-2026" className="text-blue-600 hover:underline">
-                &larr; CRP 2026 Overview
-              </Link>
-            </div>
-          </section>
-        </article>
-      </ResultsNav>
-    </main>
+              Factor Analysis &rarr;
+            </Link>
+            <Link href="/results/crp-2026/reliability" className="text-blue-600 hover:underline">
+              Scale Reliability &rarr;
+            </Link>
+            <Link href="/results/crp-2026" className="text-blue-600 hover:underline">
+              &larr; CRP 2026 Overview
+            </Link>
+          </div>
+        </section>
+      </article>
+    </div>
   )
 }
 
