@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""validate-deck.py — Offline PPTX deck statistics validator.
+"""validate-deck.py - Offline PPTX deck statistics validator.
 
 Reads a Qualtrics CSV export and a PPTX presentation file (or directory of
 unpacked slide XML), computes survey statistics (item means, standard
@@ -37,7 +37,7 @@ from dataclasses import dataclass, field
 from io import StringIO
 from pathlib import Path
 
-# Optional heavy-weight libraries — the script falls back to pure-Python
+# Optional heavy-weight libraries - the script falls back to pure-Python
 # implementations when they are absent.
 try:
     from scipy import stats as scipy_stats
@@ -881,7 +881,7 @@ def main() -> int:
         print_report(report)
 
     if report.total == 0:
-        _log("Warning: no checks were performed — verify CSV columns match construct patterns")
+        _log("Warning: no checks were performed - verify CSV columns match construct patterns")
         return 1
     return 0 if report.all_passed else 1
 

@@ -2,10 +2,10 @@
 """Export Qualtrics survey responses for the analysis pipeline.
 
 Reads environment variables:
-  QUALTRICS_API_TOKEN   — Qualtrics API token (required)
-  QUALTRICS_BASE_URL    — Qualtrics base URL (required)
-  QUALTRICS_SURVEY_ID   — Survey ID (required)
-  OUTPUT_PATH           — Path to write CSV (default: /tmp/qualtrics-raw.csv)
+  QUALTRICS_API_TOKEN   - Qualtrics API token (required)
+  QUALTRICS_BASE_URL    - Qualtrics base URL (required)
+  QUALTRICS_SURVEY_ID   - Survey ID (required)
+  OUTPUT_PATH           - Path to write CSV (default: /tmp/qualtrics-raw.csv)
 """
 import os
 import sys

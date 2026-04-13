@@ -41,7 +41,7 @@ test.describe('Skip-to-content link', () => {
       expect(beforeRect.width).toBeLessThanOrEqual(1)
       expect(beforeRect.height).toBeLessThanOrEqual(1)
 
-      // Press Tab — skip link receives focus and focus:not-sr-only reveals it
+      // Press Tab - skip link receives focus and focus:not-sr-only reveals it
       await page.keyboard.press('Tab')
 
       // After focus: the element occupies visible space (well over 1px in each dimension)
