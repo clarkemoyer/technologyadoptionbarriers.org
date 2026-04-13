@@ -10,7 +10,7 @@ import {
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Zotero Integration — Making of TABS',
+  title: 'Zotero Integration - Making of TABS',
   description:
     'How TABS integrates Zotero as the canonical reference library, giving AI agents direct access to vetted academic sources via the pyzotero MCP server and Web API.',
   alternates: {
@@ -49,7 +49,7 @@ const ZoteroIntegrationPage = () => {
           </ol>
         </nav>
 
-        <h1 className={H1_CLASSES}>Zotero — Reference Library &amp; Vetted Sources</h1>
+        <h1 className={H1_CLASSES}>Zotero - Reference Library &amp; Vetted Sources</h1>
 
         <section className="mb-12 text-gray-800">
           <p className={PARAGRAPH_CLASSES}>
@@ -65,7 +65,7 @@ const ZoteroIntegrationPage = () => {
             library of over 3,300 academic references organized across 199 collections. This library
             serves as the canonical, vetted source of truth for every citation in the Culminating
             Research Project (CRP). The Zotero integration gives AI agents direct, programmatic
-            access to this archive — enabling citation verification, literature discovery, full-text
+            access to this archive - enabling citation verification, literature discovery, full-text
             PDF retrieval, and cross-referencing with external databases like Semantic Scholar.
           </p>
         </section>
@@ -98,14 +98,14 @@ const ZoteroIntegrationPage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Local API</strong> — Connects to the Zotero desktop application at{' '}
+              <strong>Local API</strong> - Connects to the Zotero desktop application at{' '}
               <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">
                 localhost:23119
               </code>
               . No API key required. Used during interactive development.
             </li>
             <li>
-              <strong>Cloud API</strong> — Connects to{' '}
+              <strong>Cloud API</strong> - Connects to{' '}
               <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">
                 api.zotero.org
               </code>{' '}
@@ -164,7 +164,7 @@ const ZoteroIntegrationPage = () => {
         </section>
 
         <section className="mb-12 text-gray-800">
-          <h2 className={H2_CLASSES}>MCP Server — AI Agent Access</h2>
+          <h2 className={H2_CLASSES}>MCP Server - AI Agent Access</h2>
           <p className={PARAGRAPH_CLASSES}>
             The pyzotero MCP server exposes 10 tools to AI agents via the Model Context Protocol.
             When an AI agent needs to verify a citation, find related work, or retrieve a PDF, it
@@ -190,14 +190,14 @@ const ZoteroIntegrationPage = () => {
                   <tr>
                     <td className="py-2 pr-4 font-mono text-xs">search</td>
                     <td className="py-2">
-                      Query by content, item type, collection, or tag — with optional full-text PDF
+                      Query by content, item type, collection, or tag - with optional full-text PDF
                       search
                     </td>
                   </tr>
                   <tr>
                     <td className="py-2 pr-4 font-mono text-xs">get_item</td>
                     <td className="py-2">
-                      Retrieve a single item by key — full metadata including abstract, DOI, and
+                      Retrieve a single item by key - full metadata including abstract, DOI, and
                       creators
                     </td>
                   </tr>
@@ -290,14 +290,14 @@ const ZoteroIntegrationPage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Smeal eDBA CBM Personal</strong> — Active research references organized by
+              <strong>Smeal eDBA CBM Personal</strong> - Active research references organized by
               course, topic, and CRP chapter
             </li>
             <li>
-              <strong>CBM Old DBA</strong> — Earlier coursework references from the program
+              <strong>CBM Old DBA</strong> - Earlier coursework references from the program
             </li>
             <li>
-              <strong>Exported Items</strong> — Cross-referenced and shared items
+              <strong>Exported Items</strong> - Cross-referenced and shared items
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
@@ -312,22 +312,22 @@ const ZoteroIntegrationPage = () => {
           <h2 className={H2_CLASSES}>Security &amp; Access</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>API key</strong> — Stored in the{' '}
+              <strong>API key</strong> - Stored in the{' '}
               <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">
                 zotero-prod
               </code>{' '}
               GitHub environment as <code>ZOTERO_API_KEY</code>, never committed to the repository
             </li>
             <li>
-              <strong>Local access</strong> — No API key needed when connecting to the Zotero
+              <strong>Local access</strong> - No API key needed when connecting to the Zotero
               desktop application (localhost only)
             </li>
             <li>
-              <strong>Read + write permissions</strong> — The API key has full library access, notes
+              <strong>Read + write permissions</strong> - The API key has full library access, notes
               access, and write access for collection management
             </li>
             <li>
-              <strong>MCP configs gitignored</strong> — Only{' '}
+              <strong>MCP configs gitignored</strong> - Only{' '}
               <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">
                 .vscode/mcp.json.example
               </code>{' '}

@@ -29,7 +29,7 @@
 - Run in this order:
   1. `npm run format` (avoids CI `format:check` failures)
   2. `npm run lint` (fix errors; don’t add new ones)
-  3. `npm test` (includes `jest-axe` accessibility checks; ARIA/name issues fail here — see `__tests__/components/*.test.tsx`)
+  3. `npm test` (includes `jest-axe` accessibility checks; ARIA/name issues fail here - see `__tests__/components/*.test.tsx`)
   4. `npm run build` (static export must succeed)
   5. `npm run test:e2e` (Playwright runs against `npm run preview`)
 - If you’re working with a GitHub Pages basePath locally, match CI by running E2E with an empty basePath: `NEXT_PUBLIC_BASE_PATH='' npm run test:e2e`.
@@ -140,7 +140,7 @@ npm test     # Run automated tests (requires build first)
 
 **Note: Folder structure uses consistent kebab-case naming. All folders MUST use kebab-case.**
 
-**IMPORTANT:** When updating this structure, generally show all items fully. When new pages or folders are added, explicitly list them here. For large, sequentially numbered sets of pages (e.g., `article-1-1` through `article-1-7` or `bibliography-1-1` through `bibliography-1-21`), you may use explicit ranges instead of listing every item. Do NOT use vague placeholders like `[other policy pages]` or `[other feature folders]` — show the actual folder names or a clear numeric range.
+**IMPORTANT:** When updating this structure, generally show all items fully. When new pages or folders are added, explicitly list them here. For large, sequentially numbered sets of pages (e.g., `article-1-1` through `article-1-7` or `bibliography-1-1` through `bibliography-1-21`), you may use explicit ranges instead of listing every item. Do NOT use vague placeholders like `[other policy pages]` or `[other feature folders]` - show the actual folder names or a clear numeric range.
 
 ```
 src/
@@ -476,7 +476,7 @@ ls -la .github/      # GitHub workflows and configs
 
 **NEVER commit:**
 
-- Prolific Participant IDs (PIDs) — 24-character hex strings (e.g., `5df961cb53e8466f17606ae1`)
+- Prolific Participant IDs (PIDs) - 24-character hex strings (e.g., `5df961cb53e8466f17606ae1`)
 - Email addresses, names, or any direct identifiers
 - Raw Qualtrics CSV data
 - Prolific demographic data
@@ -485,9 +485,9 @@ ls -la .github/      # GitHub workflows and configs
 
 **Safe to commit (aggregates only):**
 
-- `src/data/sensitivity-analysis.json` — aggregate statistics
-- `src/data/disposition-summary.json` — aggregate counts
-- `src/data/data-audit.json` — aggregate waterfall
+- `src/data/sensitivity-analysis.json` - aggregate statistics
+- `src/data/disposition-summary.json` - aggregate counts
+- `src/data/data-audit.json` - aggregate waterfall
 
 **Step summaries:** Use aggregate counts only. Never include PID tables.
 

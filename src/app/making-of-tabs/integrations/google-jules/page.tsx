@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Google Jules (Gemini) Integration — Making of TABS',
+  title: 'Google Jules (Gemini) Integration - Making of TABS',
   description:
     'How TABS uses Google Jules, powered by Gemini, for autonomous visualization, content, and frontend workflows.',
   alternates: {
@@ -97,7 +97,7 @@ const GoogleJulesIntegrationPage = () => {
               <code>cmdkey /generic:TABS_GOOGLE_JULES_API_KEY</code>).
             </li>
             <li>
-              The Jules CLI handles OAuth internally — use <code>jules remote new</code> for
+              The Jules CLI handles OAuth internally - use <code>jules remote new</code> for
               programmatic interaction.
             </li>
           </ul>

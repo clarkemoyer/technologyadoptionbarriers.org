@@ -87,7 +87,7 @@ describe('ImageLightbox', () => {
     render(<ImageLightbox {...defaultProps} />)
     fireEvent.click(screen.getByRole('button', { name: /expand image/i }))
 
-    // The full-screen image inside the modal — click it
+    // The full-screen image inside the modal - click it
     const images = screen.getAllByAltText('Test Diagram')
     const lightboxImg = images[images.length - 1] // The one inside the dialog
     fireEvent.click(lightboxImg)

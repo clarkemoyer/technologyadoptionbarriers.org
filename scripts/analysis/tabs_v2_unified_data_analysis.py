@@ -68,7 +68,7 @@ warnings.filterwarnings('ignore', category=FutureWarning)
 warnings.filterwarnings('ignore', category=RuntimeWarning)
 
 # ============================================================================
-# OPTIONAL IMPORTS — degrade gracefully
+# OPTIONAL IMPORTS - degrade gracefully
 # ============================================================================
 
 try:
@@ -1259,7 +1259,7 @@ def filter_samples(data, idx, crp200=False):
                    and _get_duration(r, idx) >= MIN_DURATION_ALL]
 
     # If Prolific_Status column exists, filter by APPROVED.
-    # If not (e.g., CRP public CSV), treat all rows as accepted — the CRP
+    # If not (e.g., CRP public CSV), treat all rows as accepted - the CRP
     # dataset only contains Prolific-accepted respondents by construction.
     if 'Prolific_Status' in idx:
         prolific_accepted = [r for r in v2 if _get_prolific_status(r, idx) == 'APPROVED']
@@ -1329,7 +1329,7 @@ def load_data_pandas(csv_path, crp200=False):
         df['iri_all_ok'] = df['iri_barrier_ok'] & df['iri_readiness_ok'] & df['iri_maturity_ok']
         clean = df[(df['Duration (in seconds)'] >= MIN_DURATION_CLEAN) & df['iri_all_ok']].copy()
         print(f"  V2 total: {len(df)} | Clean (>={MIN_DURATION_CLEAN}s + 3 IRIs): {len(clean)}")
-        # Return (clean_df, full_v2_df) — quality audit needs the full population
+        # Return (clean_df, full_v2_df) - quality audit needs the full population
         return clean, df
     else:
         print(f"  CRP-200 dataset: {len(df)} respondents loaded")
@@ -1776,7 +1776,7 @@ def sensitivity_to_json(cuts, idx):
         for cat, _ in OTHER_ROLE_CATEGORIES_PATTERNS
     ] + [{"label": "Uncategorized", "description": "Responses that did not match any keyword pattern", "examples": ""}]
 
-    # Timestamp — consumed by 10+ results pages via utcTimestamp component
+    # Timestamp - consumed by 10+ results pages via utcTimestamp component
     result["last_updated"] = datetime.utcnow().isoformat() + "Z"
 
     return result
@@ -2066,7 +2066,7 @@ def run_quality_audit(df, all_rows_raw=None, idx_raw=None):
 
     In live mode, df should be the full V2 population (pre-IRI/duration filter)
     so that missing data, straightlining, and response quality metrics reflect
-    all respondents — not just those who passed quality gates.
+    all respondents - not just those who passed quality gates.
 
     In CRP mode, df is the selected N=200 sample (the full relevant population).
 
@@ -2610,7 +2610,7 @@ def run_validation(df, skip=False, crp200=False):
         factor_correlation = None
 
     # ── Three-group decomposition of Barriers (F1a/F1b split + F2) ──
-    # Canonical group definitions — emitted as `item_ids` in each
+    # Canonical group definitions - emitted as `item_ids` in each
     # three_groups entry of crp-validation.json so the UI consumes
     # them from data rather than maintaining a separate list.
     THREE_GROUP_DEFS = [
@@ -2778,7 +2778,7 @@ Examples:
 
     # ── Sensitivity section (raw CSV rows for 5-sample cuts) ──
     # In CRP mode, use single_header=True since the public CSV has 1 header row.
-    # Sensitivity runs for BOTH live and CRP — CRP pages need sample cuts too.
+    # Sensitivity runs for BOTH live and CRP - CRP pages need sample cuts too.
     idx_raw, data_raw = load_qualtrics_csv(args.csv_path, single_header=args.crp200)
     v2_rows_raw, samples_raw = filter_samples(data_raw, idx_raw, crp200=args.crp200)
 

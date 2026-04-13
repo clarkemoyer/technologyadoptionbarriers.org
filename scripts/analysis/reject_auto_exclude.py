@@ -220,7 +220,7 @@ def main():
         print(f"    Message: {r['message']}")
         print()
 
-    # ── Verify API (live mode only — dry run stays offline-safe) ──
+    # ── Verify API (live mode only - dry run stays offline-safe) ──
     study_name = study_id
     if not dry_run:
         print("Verifying Prolific API connection...")
@@ -232,7 +232,7 @@ def main():
     # ── Execute or dry run ──
     if dry_run:
         print("================================================================")
-        print("  DRY RUN — no submissions will be rejected")
+        print("  DRY RUN - no submissions will be rejected")
         print(f"  Would reject: {len(filtered)} participants")
         print("  Set DRY_RUN=false and CONFIRM_REJECT=REJECT to execute")
         print("================================================================")
@@ -255,7 +255,7 @@ def main():
         for r in filtered:
             sub_id = pid_to_sub_id.get(r["pid"])
             if not sub_id:
-                print(f"  WARNING: No submission found for PID {r['pid']} — skipping")
+                print(f"  WARNING: No submission found for PID {r['pid']} - skipping")
                 not_found.append(r["pid"])
                 continue
 
@@ -292,7 +292,7 @@ def main():
     _append_step_summary("\n".join([
         "## Prolific AUTO-EXCLUDE Rejection",
         "",
-        "> **DESTRUCTIVE OPERATION** — rejected participants will NOT be paid.",
+        "> **DESTRUCTIVE OPERATION** - rejected participants will NOT be paid.",
         "",
         f"- **Study ID:** {_md_escape(study_id)}",
         f"- **Mode:** {'DRY RUN' if dry_run else 'LIVE REJECTION'}",
@@ -313,7 +313,7 @@ def main():
         "",
         *examples,
         "",
-        "> **Dry run** — no rejections executed." if dry_run
+        "> **Dry run** - no rejections executed." if dry_run
         else "> **All listed participants have been rejected with personalized messages.**",
         "",
     ]))

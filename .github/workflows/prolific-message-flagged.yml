@@ -8,11 +8,11 @@
 # Supported dispositions:
 #   FLAG-SPEED, FLAG-SINGLE-IRI, FLAG-SMEAL,
 #   FLAG-RECAPTCHA, FLAG-PARTIAL-STRAIGHTLINING,
-#   AUTO-EXCLUDE:SPEED_IRI (speed + 1 IRI fail — asks for background/thoughts)
-#   AUTO-EXCLUDE:IRI2_RETURN (2/3 IRI fail — offers voluntary return)
-#   AUTO-EXCLUDE:IRI3_RETURN (3/3 IRI fail — offers voluntary return)
-#   AUTO-EXCLUDE:IRI3_SPEED_RETURN (3/3 IRI + speed — offers voluntary return)
-#   AUTO-EXCLUDE:IRI2_SPEED_RETURN (2/3 IRI + speed — offers voluntary return)
+#   AUTO-EXCLUDE:SPEED_IRI (speed + 1 IRI fail - asks for background/thoughts)
+#   AUTO-EXCLUDE:IRI2_RETURN (2/3 IRI fail - offers voluntary return)
+#   AUTO-EXCLUDE:IRI3_RETURN (3/3 IRI fail - offers voluntary return)
+#   AUTO-EXCLUDE:IRI3_SPEED_RETURN (3/3 IRI + speed - offers voluntary return)
+#   AUTO-EXCLUDE:IRI2_SPEED_RETURN (2/3 IRI + speed - offers voluntary return)
 #
 # Safety:
 #   - Manual trigger only (workflow_dispatch)
@@ -45,7 +45,7 @@ on:
         required: false
         type: string
       dry_run:
-        description: 'Dry run — preview messages without sending'
+        description: 'Dry run - preview messages without sending'
         required: true
         type: boolean
         default: true

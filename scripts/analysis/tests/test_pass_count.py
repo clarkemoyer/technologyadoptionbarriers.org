@@ -49,9 +49,9 @@ class TestCountBoolTrue:
         """int(1), float(1.0), np.int64(1) must NOT be counted."""
         v = {
             "a": np.bool_(True),
-            "b": 1,               # int — truthy but not bool
-            "c": 1.0,             # float — truthy but not bool
-            "d": np.int64(1),     # numpy int — truthy but not bool
+            "b": 1,               # int - truthy but not bool
+            "c": 1.0,             # float - truthy but not bool
+            "d": np.int64(1),     # numpy int - truthy but not bool
             "e": np.bool_(False),
         }
         assert count_bool_true(v) == 1  # only np.bool_(True)

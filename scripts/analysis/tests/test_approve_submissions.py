@@ -1,4 +1,4 @@
-"""Tests for approve_submissions.py — CSV parsing and PID extraction."""
+"""Tests for approve_submissions.py - CSV parsing and PID extraction."""
 
 import csv
 import json
@@ -188,7 +188,7 @@ class TestApproveCSVParsing:
         assert "required" in result.stderr.lower()
 
     def test_participant_id_header_rejected(self, tmp_path):
-        """Rejects 'participant_id' — only PROLIFIC_PID is accepted for safety."""
+        """Rejects 'participant_id' - only PROLIFIC_PID is accepted for safety."""
         csv_path = _write_csv(
             tmp_path,
             ["participant_id", "Disposition"],

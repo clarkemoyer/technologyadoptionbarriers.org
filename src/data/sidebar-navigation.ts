@@ -1,5 +1,5 @@
 /**
- * Sidebar Navigation — Single source of truth for all site navigation.
+ * Sidebar Navigation - Single source of truth for all site navigation.
  *
  * Replaces nav data previously scattered across:
  * - header/index.tsx (inline menuItems)

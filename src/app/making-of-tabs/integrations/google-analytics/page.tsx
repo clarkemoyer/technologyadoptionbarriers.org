@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Google Analytics Integration — Making of TABS',
+  title: 'Google Analytics Integration - Making of TABS',
   description:
     'How TABS uses Google Analytics 4 for impact measurement, including the Verified Visitors methodology that filters out CI/Playwright test traffic to report accurate production visitor counts.',
   alternates: {
@@ -20,12 +20,12 @@ const GoogleAnalyticsIntegrationPage = () => {
           <p className="mb-6">
             Google Analytics 4 (GA4) tracks how researchers, participants, and the public interact
             with the TABS website. Understanding real visitor behavior is critical for an academic
-            research project — it helps us measure dissemination impact, identify which content
+            research project - it helps us measure dissemination impact, identify which content
             resonates, and report meaningful engagement numbers to stakeholders.
           </p>
           <p className="mb-6">
-            This page explains how we integrate with GA4, how our automated reporting works, and —
-            most importantly — the methodology behind our{' '}
+            This page explains how we integrate with GA4, how our automated reporting works, and -
+            most importantly - the methodology behind our{' '}
             <strong>&quot;Verified Visitors&quot;</strong> metric, which filters out test and
             automation traffic to surface only genuine human visitors.
           </p>
@@ -74,19 +74,19 @@ const GoogleAnalyticsIntegrationPage = () => {
               </a>
               . A service account authenticates with a private key stored as a GitHub Actions secret
               in the <code>google-prod</code> environment. The service account has read-only access
-              to the GA4 property — it cannot modify tracking configuration or delete data.
+              to the GA4 property - it cannot modify tracking configuration or delete data.
             </p>
             <div className="rounded-lg bg-gray-50 p-4 text-sm">
               <p className="mb-2 font-semibold">Key environment values</p>
               <ul className="list-disc space-y-1 pl-5">
                 <li>
-                  <code>GA_PROPERTY_ID</code> — The GA4 property identifier
+                  <code>GA_PROPERTY_ID</code> - The GA4 property identifier
                 </li>
                 <li>
-                  <code>GOOGLE_SERVICE_ACCOUNT_EMAIL</code> — Service account email
+                  <code>GOOGLE_SERVICE_ACCOUNT_EMAIL</code> - Service account email
                 </li>
                 <li>
-                  <code>GOOGLE_PRIVATE_KEY</code> — Service account private key (secret)
+                  <code>GOOGLE_PRIVATE_KEY</code> - Service account private key (secret)
                 </li>
               </ul>
             </div>
@@ -104,12 +104,12 @@ const GoogleAnalyticsIntegrationPage = () => {
 
           <ol className="mb-6 list-decimal space-y-3 pl-6">
             <li>
-              <strong>Detailed JSON report</strong> — Saved to <code>reports/</code> with per-page
+              <strong>Detailed JSON report</strong> - Saved to <code>reports/</code> with per-page
               breakdowns, user counts, sessions, and engagement rates. This archive provides a
               longitudinal record of site performance.
             </li>
             <li>
-              <strong>Public impact stats</strong> — Written to <code>src/data/impact.json</code>,
+              <strong>Public impact stats</strong> - Written to <code>src/data/impact.json</code>,
               which is imported by the homepage and media page to display live metrics like active
               users, page views, and verified visitors. These numbers update automatically when the
               workflow runs.
@@ -147,11 +147,11 @@ const GoogleAnalyticsIntegrationPage = () => {
             <p className="mb-4">
               When we first displayed analytics on the site, we showed <strong>Page Views</strong>{' '}
               (65,930) as a measure of engagement. This number seemed impressive but didn&apos;t
-              feel right — the project was relatively new and hadn&apos;t received that level of
+              feel right - the project was relatively new and hadn&apos;t received that level of
               organic attention.
             </p>
             <p className="mb-4">
-              Switching to <strong>Active Users</strong> (23,766) didn&apos;t help — the number was
+              Switching to <strong>Active Users</strong> (23,766) didn&apos;t help - the number was
               still far too high. The question was: where was all this traffic coming from?
             </p>
           </div>
@@ -198,17 +198,17 @@ const GoogleAnalyticsIntegrationPage = () => {
             </p>
             <ul className="mb-4 list-disc space-y-2 pl-6">
               <li>
-                <strong>Playwright E2E tests</strong> — The CI/CD pipeline runs full end-to-end
+                <strong>Playwright E2E tests</strong> - The CI/CD pipeline runs full end-to-end
                 tests using real Chromium browsers against a local preview server. Because the tests
                 execute in real browsers, GTM and GA4 tags fire normally, creating real GA4
                 sessions.
               </li>
               <li>
-                <strong>AI coding agents</strong> — Multiple AI tools use Playwright to browse and
+                <strong>AI coding agents</strong> - Multiple AI tools use Playwright to browse and
                 validate the site during development, each generating distinct browser sessions.
               </li>
               <li>
-                <strong>Local development</strong> — Developer sessions on{' '}
+                <strong>Local development</strong> - Developer sessions on{' '}
                 <code>localhost:3000</code> also trigger GA4 tracking.
               </li>
             </ul>
@@ -218,7 +218,7 @@ const GoogleAnalyticsIntegrationPage = () => {
               <p>
                 Unlike traditional bot traffic that might have unusual user agents or patterns,
                 Playwright E2E tests run in real Chromium with real JavaScript execution. They are
-                indistinguishable from human traffic to GA4 — they just happen to be on{' '}
+                indistinguishable from human traffic to GA4 - they just happen to be on{' '}
                 <code>localhost</code> instead of the production domain.
               </p>
             </div>
@@ -264,14 +264,14 @@ const GoogleAnalyticsIntegrationPage = () => {
             <ol className="mb-4 list-decimal space-y-2 pl-6">
               <li>
                 <code>dimensionFilter</code> with <code>inListFilter</code> on <code>hostName</code>{' '}
-                — filter was silently ignored
+                - filter was silently ignored
               </li>
               <li>
                 <code>dimensionFilter</code> with <code>stringFilter</code> on <code>hostName</code>{' '}
-                — filter was silently ignored
+                - filter was silently ignored
               </li>
               <li>
-                Adding <code>hostName</code> as a dimension alongside the filter — still returned
+                Adding <code>hostName</code> as a dimension alongside the filter - still returned
                 localhost rows
               </li>
             </ol>
@@ -337,7 +337,7 @@ const GoogleAnalyticsIntegrationPage = () => {
             <p className="mb-4">
               If your CI/CD pipeline runs E2E tests in real browsers (Playwright, Cypress, Selenium)
               against a site that has analytics tags, those tests will generate real analytics data.
-              This is not a bug — it&apos;s expected behavior. Plan for it from day one by either
+              This is not a bug - it&apos;s expected behavior. Plan for it from day one by either
               excluding localhost at the property level or filtering in your reporting pipeline.
             </p>
           </div>
@@ -356,7 +356,7 @@ const GoogleAnalyticsIntegrationPage = () => {
             <h3 className={H3_CLASSES}>3. Always Show Your Methodology</h3>
             <p className="mb-4">
               Raw analytics numbers without context are meaningless at best, misleading at worst.
-              This page exists because we believe in transparency — if we display a number on the
+              This page exists because we believe in transparency - if we display a number on the
               site, we should explain exactly how it was derived and what it does and does not
               represent.
             </p>
@@ -382,7 +382,7 @@ const GoogleAnalyticsIntegrationPage = () => {
               >
                 Qualtrics Integration
               </Link>{' '}
-              — survey engine and API workflows
+              - survey engine and API workflows
             </li>
             <li>
               <Link
@@ -391,7 +391,7 @@ const GoogleAnalyticsIntegrationPage = () => {
               >
                 Prolific Integration
               </Link>{' '}
-              — participant recruitment methodology
+              - participant recruitment methodology
             </li>
           </ul>
         </section>

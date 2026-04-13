@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-TABS API Clients — Qualtrics + Prolific
+TABS API Clients - Qualtrics + Prolific
 ========================================
 
 Lightweight Python clients for the Qualtrics and Prolific REST APIs.
@@ -43,7 +43,7 @@ from urllib.error import HTTPError
 # prescreener responses in the demographic export for cross-validation.
 #
 # Privacy: Prescreener data contains PII and must be handled ephemerally
-# (runner.temp) — never committed to the repository.
+# (runner.temp) - never committed to the repository.
 #
 # API reference: GET /api/v1/filters/ returns the full filter catalog.
 # Export limit: up to 15 filter_ids per demographic export request.
@@ -144,7 +144,7 @@ PROLIFIC_STUDY_SCREENERS: List[Dict[str, Any]] = [
 
 
 # ---------------------------------------------------------------------------
-# HTTP helpers (stdlib only — no requests dependency)
+# HTTP helpers (stdlib only - no requests dependency)
 # ---------------------------------------------------------------------------
 
 def _http(method: str, url: str, headers: Dict[str, str],
@@ -434,7 +434,7 @@ def prolific_study_info(study_id: str, api_token: str) -> Dict:
 
 
 # ---------------------------------------------------------------------------
-# Prolific Write Operations (Phase 4 — affects real participants)
+# Prolific Write Operations (Phase 4 - affects real participants)
 # ---------------------------------------------------------------------------
 
 # Prolific rejection categories matching the UI checkboxes.
@@ -450,7 +450,7 @@ REJECTION_CATEGORIES = {
 
 
 def prolific_bulk_approve(study_id: str, participant_ids: List[str], api_token: str) -> Dict:
-    """Bulk approve submissions. LIVE OPERATION — affects real participants."""
+    """Bulk approve submissions. LIVE OPERATION - affects real participants."""
     headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
     url = f"{_PROLIFIC_BASE}/submissions/bulk-approve/"
     body = {"study_id": study_id, "participant_ids": participant_ids}
@@ -460,7 +460,7 @@ def prolific_bulk_approve(study_id: str, participant_ids: List[str], api_token: 
 def prolific_bulk_reject(
     study_id: str, participant_ids: List[str], api_token: str
 ) -> Dict:
-    """Bulk reject submissions. DESTRUCTIVE OPERATION — affects real participants."""
+    """Bulk reject submissions. DESTRUCTIVE OPERATION - affects real participants."""
     headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
     url = f"{_PROLIFIC_BASE}/submissions/bulk-reject/"
     body = {"study_id": study_id, "participant_ids": participant_ids}

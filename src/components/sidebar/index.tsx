@@ -299,7 +299,7 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Desktop sidebar — always visible at lg+ */}
+      {/* Desktop sidebar - always visible at lg+ */}
       <aside
         className="hidden lg:flex lg:flex-col lg:w-[280px] lg:shrink-0 bg-slate-900 text-white h-[calc(100vh-56px)] sticky top-[56px] overflow-y-auto"
         aria-label="Site navigation"

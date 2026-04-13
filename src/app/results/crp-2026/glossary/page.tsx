@@ -9,7 +9,7 @@ import {
 import Link from 'next/link'
 import validationData from '@/data/crp-validation.json'
 export const metadata: Metadata = {
-  title: 'Statistics Glossary — TABS CRP 2026',
+  title: 'Statistics Glossary - TABS CRP 2026',
   description:
     'Plain-language explanations of every psychometric and statistical method used in the TABS instrument validation, including formulas, thresholds, and interpretive guidance.',
   alternates: {

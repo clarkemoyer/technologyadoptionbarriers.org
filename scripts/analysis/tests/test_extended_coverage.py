@@ -30,7 +30,7 @@ from _helpers import make_qualtrics_csv, make_csv, make_json, MINIMAL_HEADERS, m
 
 
 # ═══════════════════════════════════════════════════════════════
-# tabs_v2_analysis.py — additional coverage
+# tabs_v2_analysis.py - additional coverage
 # ═══════════════════════════════════════════════════════════════
 
 from tabs_v2_analysis import (
@@ -171,7 +171,7 @@ class TestPrintFunctions:
 
 
 # ═══════════════════════════════════════════════════════════════
-# tabs_v2_data_audit.py — additional coverage
+# tabs_v2_data_audit.py - additional coverage
 # ═══════════════════════════════════════════════════════════════
 
 from tabs_v2_data_audit import (
@@ -248,7 +248,7 @@ class TestPrintSummary:
 
 
 # ═══════════════════════════════════════════════════════════════
-# tabs_api.py — additional coverage
+# tabs_api.py - additional coverage
 # ═══════════════════════════════════════════════════════════════
 
 from tabs_api import (
@@ -345,7 +345,7 @@ class TestDemographicsFailure:
 
 
 # ═══════════════════════════════════════════════════════════════
-# enrich_qualtrics_csv.py — additional coverage
+# enrich_qualtrics_csv.py - additional coverage
 # ═══════════════════════════════════════════════════════════════
 
 from enrich_qualtrics_csv import enrich
