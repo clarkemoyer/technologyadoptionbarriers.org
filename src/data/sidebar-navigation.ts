@@ -148,17 +148,19 @@ function modelsToGroups(): SidebarGroup[] {
     })),
   ]
 
-  const bibOverviewLinks: SidebarLink[] = series.bibliography
-    ? [{ title: 'Comprehensive Bibliography', href: series.bibliography.slug }]
-    : []
+  const bibOverviewLinks: SidebarLink[] = [
+    { title: 'Comprehensive Bibliography', href: series.bibliography.slug },
+  ]
 
-  const bibIndividualLinks: SidebarLink[] = series.bibliographyArticles
-    ? series.bibliographyArticles.individual.map((a) => ({ title: a.title, href: a.slug }))
-    : []
+  const bibIndividualLinks: SidebarLink[] = series.bibliographyArticles.individual.map((a) => ({
+    title: a.title,
+    href: a.slug,
+  }))
 
-  const bibOrgLinks: SidebarLink[] = series.bibliographyArticles
-    ? series.bibliographyArticles.organizational.map((a) => ({ title: a.title, href: a.slug }))
-    : []
+  const bibOrgLinks: SidebarLink[] = series.bibliographyArticles.organizational.map((a) => ({
+    title: a.title,
+    href: a.slug,
+  }))
 
   return [
     { title: 'Series Overview', links: overview },

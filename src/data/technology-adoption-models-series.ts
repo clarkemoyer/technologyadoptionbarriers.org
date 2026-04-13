@@ -34,11 +34,11 @@ export interface SeriesStructure {
     slug: string
   }
   branches: SeriesBranch[]
-  bibliography?: {
+  bibliography: {
     title: string
     slug: string
   }
-  bibliographyArticles?: {
+  bibliographyArticles: {
     individual: BibliographyEntry[]
     organizational: BibliographyEntry[]
   }
