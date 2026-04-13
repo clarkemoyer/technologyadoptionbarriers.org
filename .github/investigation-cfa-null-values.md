@@ -18,6 +18,7 @@
 ### 1. Semopy IS Installed and Working
 
 **Local verification:**
+
 ```bash
 $ pip show semopy
 Name: semopy
@@ -26,12 +27,14 @@ Requires: numdifftools, numpy, pandas, scikit-learn, scipy, statsmodels, sympy
 ```
 
 **Workflow logs confirm (daily-pipeline.yml run #24315895721):**
+
 ```
 Step: Install Python dependencies
 Successfully installed semopy-2.3.11
 ```
 
 **Dependencies satisfied:**
+
 - pandas==2.3.3 ✅
 - numpy==2.2.6 ✅
 - scipy==1.15.3 ✅
@@ -43,6 +46,7 @@ Successfully installed semopy-2.3.11
 ### 2. The Fix IS Correct
 
 **All 3 unit tests PASS:**
+
 ```bash
 $ cd scripts/analysis && python -m pytest tests/test_run_cfa.py -v
 
@@ -54,6 +58,7 @@ tests/test_run_cfa.py::TestRunCFA::test_cfa_without_semopy PASSED        [100%]
 ```
 
 These tests verify:
+
 - ✅ CFI, TLI, RMSEA, chi2, df, chi2_p are all non-null floats
 - ✅ CFI is in valid range [0, 1]
 - ✅ Error handling works correctly when semopy is unavailable
@@ -61,6 +66,7 @@ These tests verify:
 ### 3. The Root Cause: DataFrame Axis Mismatch
 
 **Old code (main branch):**
+
 ```python
 # scripts/analysis/tabs_v2_unified_data_analysis.py (before fix)
 result['chi2'] = round(float(fit_stats.loc['chi2', 'Value']), 3) if 'chi2' in fit_stats.index else None
@@ -72,6 +78,7 @@ result['tli'] = round(float(fit_stats.loc['TLI', 'Value']), 4) if 'TLI' in fit_s
 **Problem:** semopy 2.x returns fit statistics as **columns** with a single 'Value' row, not as row indices. The check `'CFI' in fit_stats.index` evaluates to False → returns None for all fit indices.
 
 **Fixed code (this PR - commit b3d6258):**
+
 ```python
 # Handle both DataFrame orientations (semopy 2.x vs hypothetical older versions)
 if 'Value' in fit_stats.index and 'CFI' not in fit_stats.index:
@@ -94,10 +101,12 @@ result['tli'] = round(_stat('TLI'), 4) if _stat('TLI') is not None else None
 ### 4. Why crp-validation.json Shows Nulls in the Repo
 
 **Timeline:**
+
 - c183678 (main) - Last update to crp-validation.json (has null CFA values from old buggy code)
 - b3d6258 (this PR) - Fix for DataFrame axis mismatch
 
 **Current state:**
+
 - `src/data/crp-validation.json` last modified in commit c183678
 - Contains null values for all CFA fit indices:
   ```json
@@ -128,6 +137,7 @@ result['tli'] = round(_stat('TLI'), 4) if _stat('TLI') is not None else None
 4. **Since nulls → nulls (no change), file doesn't appear in PR**
 
 **Why the file is staged but not committed:**
+
 - Workflow logs show: `Staged: src/data/crp-validation.json`
 - But PRs only include: `crp-sensitivity-analysis.json` and `sensitivity-analysis.json`
 - This is because peter-evans/create-pull-request performs a `git diff` and only commits files with actual changes
