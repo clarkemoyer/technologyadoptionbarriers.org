@@ -45,6 +45,20 @@ function isAttentionCheck(row: RowData): boolean {
   return code.endsWith('_AC')
 }
 
+/**
+ * Normalize a raw RIS Citation string from the dataset.
+ * Multi-entry values use `\n||\n` as a record separator, which is not valid
+ * in the RIS format. This strips the separator and joins records with a
+ * standard blank line so reference managers can import the file correctly.
+ */
+function normalizeRis(raw: string): string {
+  return raw
+    .split(/\n\|\|\n/)
+    .map((entry) => entry.trim())
+    .filter(Boolean)
+    .join('\n\n')
+}
+
 /** Check if a string looks like a URL */
 function isUrl(value: string): boolean {
   return /^https?:\/\//i.test(value.trim())
@@ -199,7 +213,8 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 /** RIS download button */
 function RisDownloadButton({ ris, itemCode }: { ris: string; itemCode: string }) {
   const handleDownload = useCallback(() => {
-    const blob = new Blob([ris], { type: 'application/x-research-info-systems' })
+    const normalized = normalizeRis(ris)
+    const blob = new Blob([normalized], { type: 'application/x-research-info-systems' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
@@ -373,7 +388,7 @@ function ItemCard({
         </div>
       )}
 
-      {/* All 13 fields as definition-list */}
+      {/* 14 of 15 fields as definition-list (Survey Item rendered as card heading above) */}
       <dl>
         <FieldRow label="Section / Primary Construct" value={row['Section / Primary Construct']} />
         <FieldRow label="Sub-Construct / Grouping" value={row['Sub-Construct / Grouping']} />
@@ -395,7 +410,7 @@ function ItemCard({
           {risCitation && risCitation !== 'N/A' ? (
             <span className="flex flex-wrap items-center gap-2">
               <span className="text-xs text-gray-600 font-mono whitespace-pre-wrap">
-                {risCitation}
+                {normalizeRis(risCitation)}
               </span>
               <RisDownloadButton ris={risCitation} itemCode={code} />
             </span>
@@ -404,10 +419,26 @@ function ItemCard({
           )}
         </FieldRow>
         <FieldRow label="Source Link">
-          {sourceLink && sourceLink !== 'N/A' && isUrl(sourceLink) ? (
-            <LinkBadge url={sourceLink} />
+          {sourceLink && sourceLink !== 'N/A' ? (
+            <span className="flex flex-wrap gap-1">
+              {sourceLink
+                .split('||')
+                .map((part) => part.trim())
+                .filter(Boolean)
+                .map((trimmed, i) =>
+                  isUrl(trimmed) ? (
+                    <LinkBadge key={i} url={trimmed} />
+                  ) : (
+                    <span key={i} className="text-sm text-gray-800">
+                      {trimmed}
+                    </span>
+                  )
+                )}
+            </span>
+          ) : sourceLink === 'N/A' ? (
+            <span className="text-gray-500">N/A</span>
           ) : (
-            <span className="text-gray-400">{sourceLink || '-'}</span>
+            <span className="text-gray-400">-</span>
           )}
         </FieldRow>
         <FieldRow label="Scale Type / Response Options">
@@ -431,6 +462,8 @@ function ItemCard({
             <span className="text-gray-400">-</span>
           )}
         </FieldRow>
+        <FieldRow label="Zotero Key(s)" value={row['Zotero Key(s)']} />
+        <FieldRow label="Zotero Status" value={row['Zotero Status']} />
       </dl>
     </article>
   )

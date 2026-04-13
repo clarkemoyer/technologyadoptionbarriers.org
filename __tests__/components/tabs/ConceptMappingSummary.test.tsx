@@ -21,7 +21,7 @@ describe('ConceptMappingSummary component', () => {
       expect(within(statsBar).getByText('54')).toBeInTheDocument()
       expect(within(statsBar).getByText('3')).toBeInTheDocument()
       expect(within(statsBar).getByText('5')).toBeInTheDocument()
-      expect(within(statsBar).getByText('13')).toBeInTheDocument()
+      expect(within(statsBar).getByText('15')).toBeInTheDocument()
     })
 
     it('should render quick stat labels', () => {
