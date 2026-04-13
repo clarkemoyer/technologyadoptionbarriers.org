@@ -139,7 +139,7 @@ const CORR_MATRIX: Record<string, Record<string, number>> = validationData.const
 
 const BARRIERS_4F_CFA = validationData.barriers_4f_cfa
 
-/** Validation summary rows derived from crp-validation.json verdicts. */
+/** Validation summary rows derived from crp-validation.json verdicts block. */
 const VERDICT_ROWS: { label: string; vals: (boolean | null)[] }[] = (() => {
   const constructs = ['Barriers', 'Readiness', 'Maturity'] as const
   type ConstructKey = (typeof constructs)[number]
@@ -151,6 +151,7 @@ const VERDICT_ROWS: { label: string; vals: (boolean | null)[] }[] = (() => {
       ave_above_050: boolean
       kmo_above_060: boolean
       cfa_cfi_above_090: boolean
+      cfa_rmsea_below_008?: boolean
       itc_all_above_030: boolean
     }
   >
@@ -189,7 +190,7 @@ const VERDICT_ROWS: { label: string; vals: (boolean | null)[] }[] = (() => {
       label: 'CFA RMSEA \u2264 .08',
       vals: getVals((c) => {
         const rmsea = validationData[c]?.cfa?.rmsea
-        return rmsea != null ? rmsea <= 0.08 : null
+        return rmsea != null ? (verdicts[c].cfa_rmsea_below_008 ?? rmsea <= 0.08) : null
       }),
     },
     {
