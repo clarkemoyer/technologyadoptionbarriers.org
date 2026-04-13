@@ -373,7 +373,7 @@ function ItemCard({
         </div>
       )}
 
-      {/* All 13 fields as definition-list */}
+      {/* All 15 fields as definition-list */}
       <dl>
         <FieldRow label="Section / Primary Construct" value={row['Section / Primary Construct']} />
         <FieldRow label="Sub-Construct / Grouping" value={row['Sub-Construct / Grouping']} />
@@ -404,10 +404,21 @@ function ItemCard({
           )}
         </FieldRow>
         <FieldRow label="Source Link">
-          {sourceLink && sourceLink !== 'N/A' && isUrl(sourceLink) ? (
-            <LinkBadge url={sourceLink} />
+          {sourceLink && sourceLink !== 'N/A' ? (
+            <span className="flex flex-wrap gap-1">
+              {sourceLink.split('||').map((part, i) => {
+                const trimmed = part.trim()
+                return isUrl(trimmed) ? (
+                  <LinkBadge key={i} url={trimmed} />
+                ) : (
+                  <span key={i} className="text-sm text-gray-800">
+                    {trimmed}
+                  </span>
+                )
+              })}
+            </span>
           ) : (
-            <span className="text-gray-400">{sourceLink || '-'}</span>
+            <span className="text-gray-400">-</span>
           )}
         </FieldRow>
         <FieldRow label="Scale Type / Response Options">
@@ -431,6 +442,8 @@ function ItemCard({
             <span className="text-gray-400">-</span>
           )}
         </FieldRow>
+        <FieldRow label="Zotero Key(s)" value={row['Zotero Key(s)']} />
+        <FieldRow label="Zotero Status" value={row['Zotero Status']} />
       </dl>
     </article>
   )

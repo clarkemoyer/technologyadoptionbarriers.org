@@ -76,7 +76,7 @@ describe('ConceptMappingSummary component', () => {
       expect(screen.getByLabelText('gray section indicator')).toBeInTheDocument()
     })
 
-    it('should render em-dash for null attention checks', () => {
+    it('should render hyphen for null attention checks', () => {
       render(<ConceptMappingSummary />)
 
       const table = screen.getByRole('table')
