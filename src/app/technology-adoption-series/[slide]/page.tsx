@@ -1014,8 +1014,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!slide) return {}
 
   return {
-    title: `Slide ${slide.number}: ${slide.title} — Technology Adoption Teaching Series`,
-    description: `Technology Adoption Teaching Series — Slide ${slide.number}: ${slide.title}.`,
+    title: `Slide ${slide.number}: ${slide.title} - Technology Adoption Teaching Series`,
+    description: `Technology Adoption Teaching Series - Slide ${slide.number}: ${slide.title}.`,
   }
 }
 

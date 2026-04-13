@@ -1,4 +1,4 @@
-"""Tests for tabs_api.py — API client functions (unit tests with mocks)."""
+"""Tests for tabs_api.py - API client functions (unit tests with mocks)."""
 
 import csv
 import io

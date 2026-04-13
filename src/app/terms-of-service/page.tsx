@@ -22,7 +22,7 @@ export default function TermsOfService() {
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">&nbsp;</p>
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">&nbsp;</p>
 
-          {/* Empty spacing removed — use margin if needed */}
+          {/* Empty spacing removed - use margin if needed */}
 
           {/* Introduction */}
           <h1 className="text-[30px] text-gray-800 pb-[10px] leading-[1em] font-[500]">

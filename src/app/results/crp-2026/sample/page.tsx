@@ -11,7 +11,7 @@ import Link from 'next/link'
 import sensitivityData from '@/data/crp-sensitivity-analysis.json'
 import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 export const metadata: Metadata = {
-  title: 'CRP 2026 Sample & Demographics — TABS',
+  title: 'CRP 2026 Sample & Demographics - TABS',
   description:
     'Participant demographics for the Technology Adoption Barriers Survey across three result groups: roles, industries, organization sizes, and geographic distribution.',
   alternates: {
@@ -53,7 +53,7 @@ const PRIMARY_GROUPS = [
 ]
 
 const pct = (count: number, total: number | null | undefined): string =>
-  total ? `${((count / total) * 100).toFixed(1)}%` : '—'
+  total ? `${((count / total) * 100).toFixed(1)}%` : '-'
 
 const sampleLookup = new Map(sensitivityData.samples.map((s) => [s.key, s]))
 
@@ -404,7 +404,7 @@ const CrpSamplePage = () => {
                         {sample?.description ?? ''}
                       </td>
                       <td className="border border-gray-300 px-4 py-2 text-right font-mono font-bold">
-                        {sample?.n ?? '—'}
+                        {sample?.n ?? '-'}
                       </td>
                     </tr>
                   )
@@ -437,7 +437,7 @@ const CrpSamplePage = () => {
                 className={`border-l-4 ${group.color} bg-gray-50 rounded-lg p-5 mb-6`}
               >
                 <h3 className={H3_CLASSES}>
-                  {group.label} (N={sample?.n ?? '—'})
+                  {group.label} (N={sample?.n ?? '-'})
                 </h3>
 
                 {hasDemoData ? (
@@ -595,7 +595,7 @@ const CrpSamplePage = () => {
                                       <td className="py-1 pl-1 text-right text-gray-500">
                                         {typeof count === 'number'
                                           ? pct(count, demo.other_roles?.total)
-                                          : '—'}
+                                          : '-'}
                                       </td>
                                     </tr>
                                   )

@@ -1,4 +1,4 @@
-"""Tests for tabs_v2_data_audit.py — disposition waterfall and CSV parsing."""
+"""Tests for tabs_v2_data_audit.py - disposition waterfall and CSV parsing."""
 
 import sys
 from pathlib import Path
@@ -175,7 +175,7 @@ class TestDetectPartialStraightlining:
         # Should be flagged: all 18 substantive items are identical
         # The IRI item must NOT mask the straightlining
         assert flag == 1, (
-            "Straightlining was not detected — IRI item may be included "
+            "Straightlining was not detected - IRI item may be included "
             "in SD calculation (see Issue #735)"
         )
         assert "Barriers" in blocks

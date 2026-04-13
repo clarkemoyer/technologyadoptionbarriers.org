@@ -14,7 +14,7 @@ import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
-  title: 'Open Data & Reproducibility — TABS Results',
+  title: 'Open Data & Reproducibility - TABS Results',
   description:
     'How the TABS project ensures reproducible, transparent research through shared constants, automated validation, and open-source analysis scripts that anyone can run.',
   alternates: {
@@ -299,7 +299,7 @@ const ReproducibleAnalysisPage = () => {
             The analysis script supports five sample definitions, from most to least restrictive.
             Each applies different quality filters to the same underlying V2 dataset. Running all
             statistics against every sample definition demonstrates whether findings are robust to
-            inclusion criteria — a key requirement for publication-grade research.
+            inclusion criteria - a key requirement for publication-grade research.
           </p>
           <div className="overflow-x-auto my-6">
             <table className="w-full border-collapse font-sans text-sm">
@@ -316,7 +316,7 @@ const ReproducibleAnalysisPage = () => {
                     <td className="border border-gray-300 px-4 py-2 font-medium">{sample.label}</td>
                     <td className="border border-gray-300 px-4 py-2">{sample.description}</td>
                     <td className="border border-gray-300 px-4 py-2 text-right font-mono">
-                      {sample.n ?? '—'}
+                      {sample.n ?? '-'}
                     </td>
                   </tr>
                 ))}
@@ -371,7 +371,7 @@ const ReproducibleAnalysisPage = () => {
                             key={s.key}
                             className="border border-gray-300 px-4 py-2 text-right font-mono"
                           >
-                            {(metric.values as Record<string, number | null>)[s.key] ?? '—'}
+                            {(metric.values as Record<string, number | null>)[s.key] ?? '-'}
                           </td>
                         ))}
                       </tr>
@@ -498,7 +498,7 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
                       tests/generate_test_data.py
                     </a>
                   </td>
-                  <td className="border border-gray-300 px-4 py-2 text-right font-mono">—</td>
+                  <td className="border border-gray-300 px-4 py-2 text-right font-mono">-</td>
                   <td className="border border-gray-300 px-4 py-2">
                     Deterministic generator for the production-format synthetic dataset. Public
                     directory browsing is intentionally not linked here while the repository

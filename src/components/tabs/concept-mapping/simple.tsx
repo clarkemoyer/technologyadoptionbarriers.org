@@ -88,7 +88,7 @@ function ExpandableCell({ value, header }: { value: string; header: string }) {
   const shouldTruncate = EXPANDABLE_COLUMNS.has(header) && value.length > TRUNCATE_LENGTH
 
   if (!value) {
-    return <span className="text-gray-400">—</span>
+    return <span className="text-gray-400">-</span>
   }
 
   if (isUrl(value)) {

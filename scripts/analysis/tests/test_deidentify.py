@@ -1,4 +1,4 @@
-"""Tests for deidentify_tabs_data.py — NIST de-identification pipeline."""
+"""Tests for deidentify_tabs_data.py - NIST de-identification pipeline."""
 
 import sys
 from pathlib import Path

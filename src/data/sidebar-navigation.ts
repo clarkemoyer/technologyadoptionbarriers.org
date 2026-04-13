@@ -1,5 +1,5 @@
 /**
- * Sidebar Navigation — Single source of truth for all site navigation.
+ * Sidebar Navigation - Single source of truth for all site navigation.
  *
  * Replaces nav data previously scattered across:
  * - header/index.tsx (inline menuItems)
@@ -148,15 +148,27 @@ function modelsToGroups(): SidebarGroup[] {
     })),
   ]
 
-  const bibLinks: SidebarLink[] = series.bibliography
-    ? [{ title: 'Series Bibliography', href: series.bibliography.slug }]
-    : []
+  const bibOverviewLinks: SidebarLink[] = [
+    { title: 'Comprehensive Bibliography', href: series.bibliography.slug },
+  ]
+
+  const bibIndividualLinks: SidebarLink[] = series.bibliographyArticles.individual.map((a) => ({
+    title: a.title,
+    href: a.slug,
+  }))
+
+  const bibOrgLinks: SidebarLink[] = series.bibliographyArticles.organizational.map((a) => ({
+    title: a.title,
+    href: a.slug,
+  }))
 
   return [
     { title: 'Series Overview', links: overview },
     { title: "Branch 1: The User's Journey", links: branch1Links },
     { title: "Branch 2: The Organization's Playbook", links: branch2Links },
-    { title: 'Bibliography', links: bibLinks },
+    { title: 'Bibliography', links: bibOverviewLinks },
+    { title: '📚 Individual Models', links: bibIndividualLinks },
+    { title: '🏢 Organizational Models', links: bibOrgLinks },
   ].filter((g) => g.links.length > 0)
 }
 

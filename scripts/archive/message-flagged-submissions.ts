@@ -527,7 +527,7 @@ async function main() {
         const submissionStatus = statusMap.get(r.pid)
         if (submissionStatus && SKIP_STATUSES.has(submissionStatus)) {
           skippedAlreadyActioned++
-          console.log(`  SKIPPED ${r.pid} — submission is ${submissionStatus}`)
+          console.log(`  SKIPPED ${r.pid} - submission is ${submissionStatus}`)
           continue
         }
 
@@ -542,12 +542,12 @@ async function main() {
         const alreadySent = studyMessages.some((m) => m.body.includes(messageSignature))
         if (alreadySent) {
           skippedAlreadyMessaged++
-          console.log(`  SKIPPED ${r.pid} — already received this ${r.disposition} message`)
+          console.log(`  SKIPPED ${r.pid} - already received this ${r.disposition} message`)
           continue
         }
         if (studyMessages.length > 0) {
           console.log(
-            `  NOTE: ${r.pid} has ${studyMessages.length} existing message(s) but none match this disposition type — sending new message`
+            `  NOTE: ${r.pid} has ${studyMessages.length} existing message(s) but none match this disposition type - sending new message`
           )
         }
 

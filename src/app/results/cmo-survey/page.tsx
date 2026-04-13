@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'CMO Survey Comparison — TABS Results',
+  title: 'CMO Survey Comparison - TABS Results',
   description:
     'Learn how The CMO Survey has influenced and inspired the Technology Adoption Barriers Survey (TABS) methodology, design, and longitudinal research approach.',
   alternates: {

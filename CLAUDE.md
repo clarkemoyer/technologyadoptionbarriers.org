@@ -489,7 +489,7 @@ Jules is Google's autonomous coding agent powered by Gemini. We use the **Ultra 
 - Automatic issue finding and scheduled sessions
 - Build and quality checks before PR creation
 
-Jules and Copilot are complementary — Jules handles scale and frontend tasks, while Copilot handles backend automation and code review.
+Jules and Copilot are complementary - Jules handles scale and frontend tasks, while Copilot handles backend automation and code review.
 
 ## IDE-Specific Capabilities
 
@@ -573,7 +573,7 @@ Two GitHub MCP servers are available with different access levels:
 | **Built-in Copilot plugin** | `mcp__plugin_github_github__` | Read-only       | Fast reads: PR details, file contents, search, Copilot agent delegation    |
 | **`gh` CLI**                | `Bash(gh ...)`                | Full read/write | Workflow dispatch, PR state changes (draft/ready), fallback for all writes |
 
-**Local npx server setup** (Claude Desktop — `claude_desktop_config.json`):
+**Local npx server setup** (Claude Desktop - `claude_desktop_config.json`):
 
 ```json
 {
@@ -597,26 +597,26 @@ Two GitHub MCP servers are available with different access levels:
 
 **Reference library management via MCP tools:**
 
-- **Package**: `pyzotero[mcp]` (v1.11.0) — Python wrapper for the Zotero API
+- **Package**: `pyzotero[mcp]` (v1.11.0) - Python wrapper for the Zotero API
 - **Setup**: `uvx --from "pyzotero[mcp]==1.11.0" pyzotero-mcp` (stdio transport)
 - **Auth**: Connects to local Zotero desktop (localhost:23119), no API key needed
 - **User ID**: Set `ZOTERO_USER_ID` to your Zotero account's user ID (e.g., `export ZOTERO_USER_ID="<your-zotero-user-id>"`)
 
 **Zotero Library Tools (6):**
 
-- `search(query, fulltext, itemtype, collection, tag)` — Search library by content, type, or tag
-- `get_item(key)` — Retrieve a single item by key
-- `get_children(key)` — Get child items (attachments, notes)
-- `list_collections(limit)` — List all collections
-- `list_tags(collection)` — List tags, optionally filtered by collection
-- `get_fulltext(key)` — Extract full-text content from PDFs
+- `search(query, fulltext, itemtype, collection, tag)` - Search library by content, type, or tag
+- `get_item(key)` - Retrieve a single item by key
+- `get_children(key)` - Get child items (attachments, notes)
+- `list_collections(limit)` - List all collections
+- `list_tags(collection)` - List tags, optionally filtered by collection
+- `get_fulltext(key)` - Extract full-text content from PDFs
 
 **Semantic Scholar Tools (4):**
 
-- `find_related(doi)` — Find semantically similar papers
-- `get_citations(doi)` — Papers that cite a given paper
-- `get_references(doi)` — Papers referenced by a given paper
-- `search_semantic_scholar(query)` — Cross-database search with library cross-check
+- `find_related(doi)` - Find semantically similar papers
+- `get_citations(doi)` - Papers that cite a given paper
+- `get_references(doi)` - Papers referenced by a given paper
+- `search_semantic_scholar(query)` - Cross-database search with library cross-check
 
 **Configuration locations:**
 
@@ -736,10 +736,10 @@ const response = await gaClient.runReport({
 
 #### Zotero Web API v3
 
-**Reference library management — vetted sources of truth for the CRP:**
+**Reference library management - vetted sources of truth for the CRP:**
 
 - **Base URL**: `https://api.zotero.org`
-- **Auth**: `Zotero-API-Key` header (or local API at `localhost:23119` — no key needed)
+- **Auth**: `Zotero-API-Key` header (or local API at `localhost:23119` - no key needed)
 - **Client**: `pyzotero` Python library (v1.11.0)
 - **Environment**: `zotero-prod` (GitHub Actions)
 - **User ID**: Set via `ZOTERO_USER_ID` environment variable
@@ -754,7 +754,7 @@ from pyzotero import zotero
 # Cloud API (CI/GitHub Actions)
 zot = zotero.Zotero(int(os.environ['ZOTERO_USER_ID']), 'user', os.environ['ZOTERO_API_KEY'])
 
-# Local API (development — no key needed)
+# Local API (development - no key needed)
 zot = zotero.Zotero(0, 'user')
 zot.endpoint = 'http://localhost:23119/api'
 
@@ -973,7 +973,7 @@ All Python scripts live in `scripts/analysis/`. They are the primary language fo
 
 ## Custom Agents
 
-Claude Code agents are defined in `.claude/agents/` (gitignored — local only). They provide specialized behavior invoked automatically or explicitly.
+Claude Code agents are defined in `.claude/agents/` (gitignored - local only). They provide specialized behavior invoked automatically or explicitly.
 
 ### TABS Repo Agents
 
@@ -987,7 +987,7 @@ Claude Code agents are defined in `.claude/agents/` (gitignored — local only).
 
 | Agent                  | Purpose                                                                     |
 | ---------------------- | --------------------------------------------------------------------------- |
-| `copilot-review-cycle` | Full review cycle — request review, read comments, fix code, commit, repeat |
+| `copilot-review-cycle` | Full review cycle - request review, read comments, fix code, commit, repeat |
 | `pr-reviewer`          | FFC-specific PR review checklist (naming, security, a11y, static export)    |
 
 **Invoke**: Claude auto-selects agents based on task description. You can also say "use the pipeline-validator agent" explicitly.
@@ -1018,7 +1018,7 @@ Project-level hooks in `.claude/settings.json`:
 | ------------- | ------------- | --------------------------------- |
 | `PostToolUse` | `Write\|Edit` | Auto-run Prettier on edited files |
 
-Hooks run automatically — no approval needed. They ensure formatting compliance without manual `npm run format`.
+Hooks run automatically - no approval needed. They ensure formatting compliance without manual `npm run format`.
 
 ### Available Hook Events
 
@@ -1032,7 +1032,7 @@ Hooks run automatically — no approval needed. They ensure formatting complianc
 
 Claude Code operates under a tiered permission system configured in `~/.claude/settings.json`.
 
-### Denied (43 rules) — blocked entirely
+### Denied (43 rules) - blocked entirely
 
 - Git destructive: force push, reset --hard, clean, filter-branch
 - Secret leakage: any bash with API_TOKEN, SECRET, PRIVATE_KEY, PASSWORD
@@ -1042,12 +1042,12 @@ Claude Code operates under a tiered permission system configured in `~/.claude/s
 - GitHub merge via MCP (forces human approval)
 - Calendar event deletion
 
-### Prompts (18 tools) — requires approval each time
+### Prompts (18 tools) - requires approval each time
 
 - Computer Use: clicks, typing, key presses, drag, clipboard write, open app
 - Chrome: form fills, JS execution, file upload, click actions
 
-### Auto-allowed (500+ tools) — runs without prompting
+### Auto-allowed (500+ tools) - runs without prompting
 
 - All GitHub MCP read/write (local npx server)
 - All Cloudflare create/read/update (NOT delete)
@@ -1065,6 +1065,8 @@ Claude Code operates under a tiered permission system configured in `~/.claude/s
 ### Dependency Risk Chart
 
 _(Metrics snapshot as of April 2026. See tracking [issue #783](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/783) for the original source.)_
+
+<<<<<<< HEAD
 
 #### MCP Servers
 
@@ -1103,17 +1105,19 @@ _Note: Python scripts in scripts/analysis/ are functional -- no urgency._
 | Prolific API v1  | Prolific      | **No official SDK** (REST only) | `scripts/analysis/tabs_api.py` + `src/lib/prolific-api.ts`  | **Medium** -- custom client, API stable |
 | Qualtrics API v3 | Qualtrics/SAP | **No official SDK** (REST only) | `scripts/analysis/tabs_api.py` + `src/lib/qualtrics-api.ts` | **Medium** -- custom client, API stable |
 
+**Rule**: Prefer official sources. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics - neither company provides official SDKs or MCP servers.
+
 ## Resources
 
 ### Making of TABS Documentation
 
 The live website documents this infrastructure at `/making-of-tabs/`:
 
-- `/making-of-tabs/ai-assisted-development` — How AI agents build and maintain the site
-- `/making-of-tabs/development-workflow` — CI/CD pipeline, merge queue, automated testing
-- `/making-of-tabs/integrations/` — Cloudflare, GitHub, Google Analytics, Prolific, Qualtrics
-- `/making-of-tabs/data-analysis` — Analysis pipeline, psychometrics, quality audits
-- `/making-of-tabs/reproducible-analysis` — Reproducibility documentation
+- `/making-of-tabs/ai-assisted-development` - How AI agents build and maintain the site
+- `/making-of-tabs/development-workflow` - CI/CD pipeline, merge queue, automated testing
+- `/making-of-tabs/integrations/` - Cloudflare, GitHub, Google Analytics, Prolific, Qualtrics
+- `/making-of-tabs/data-analysis` - Analysis pipeline, psychometrics, quality audits
+- `/making-of-tabs/reproducible-analysis` - Reproducibility documentation
 
 ### Project Documentation
 

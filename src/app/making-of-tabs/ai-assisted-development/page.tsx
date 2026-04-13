@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'AI-Assisted Development — Making of TABS',
+  title: 'AI-Assisted Development - Making of TABS',
   description:
-    'How the TABS project uses AI coding agents — Claude, GPT-4o, GitHub Copilot, and Gemini — to build and maintain its website, with honest lessons on what works and what does not.',
+    'How the TABS project uses AI coding agents - Claude, GPT-4o, GitHub Copilot, and Gemini - to build and maintain its website, with honest lessons on what works and what does not.',
   alternates: {
     canonical: '/making-of-tabs/ai-assisted-development',
   },
@@ -19,7 +19,7 @@ const AIAssistedDevelopmentPage = () => {
         <section className="mb-10 text-gray-800">
           <p className="mb-6">
             The TABS website is built almost entirely with AI coding agents working in a 3-agent
-            setup (Copilot, Jules, and Claude). This is not a marketing claim — it is a literal
+            setup (Copilot, Jules, and Claude). This is not a marketing claim - it is a literal
             description of how code gets written. A human defines the goal, an AI agent researches
             the codebase, writes the implementation, and a different AI reviews the result. The
             human approves, requests changes, or redirects. This page documents exactly how that
@@ -103,7 +103,7 @@ const AIAssistedDevelopmentPage = () => {
               <div>
                 <h3 className={H3_CLASSES}>Human Opens an Issue</h3>
                 <p>
-                  Every change starts as a GitHub Issue. The human describes the goal — fix a bug,
+                  Every change starts as a GitHub Issue. The human describes the goal - fix a bug,
                   add a page, refactor a component. Parent issues can have sub-tasks for larger
                   initiatives.
                 </p>
@@ -119,7 +119,7 @@ const AIAssistedDevelopmentPage = () => {
                 <p>
                   The human tells an AI agent (usually Claude) what to build. The agent reads the
                   codebase, understands the patterns, creates a feature branch, writes the code,
-                  runs tests, and pushes the branch — all within the IDE.
+                  runs tests, and pushes the branch - all within the IDE.
                 </p>
               </div>
             </div>
@@ -159,7 +159,7 @@ const AIAssistedDevelopmentPage = () => {
               <div>
                 <h3 className={H3_CLASSES}>Fix, Re-review, Merge</h3>
                 <p>
-                  Review comments get addressed — the same or a different AI agent reads the
+                  Review comments get addressed - the same or a different AI agent reads the
                   feedback, makes fixes, pushes again, and requests another review. Once reviews are
                   clean and CI is green, the human approves the merge.
                 </p>
@@ -189,7 +189,7 @@ const AIAssistedDevelopmentPage = () => {
                 <tr className="border-b border-gray-100">
                   <td className="p-3 font-mono text-xs">AGENTS.md</td>
                   <td className="p-3">
-                    General instructions for all AI coding agents — architecture, naming
+                    General instructions for all AI coding agents - architecture, naming
                     conventions, testing requirements, API integrations
                   </td>
                   <td className="p-3">All agents</td>
@@ -197,7 +197,7 @@ const AIAssistedDevelopmentPage = () => {
                 <tr className="border-b border-gray-100">
                   <td className="p-3 font-mono text-xs">CLAUDE.md</td>
                   <td className="p-3">
-                    Claude-specific instructions — strengths to leverage, IDE capabilities, MCP
+                    Claude-specific instructions - strengths to leverage, IDE capabilities, MCP
                     integration details, terminal access patterns
                   </td>
                   <td className="p-3">Claude</td>
@@ -205,7 +205,7 @@ const AIAssistedDevelopmentPage = () => {
                 <tr className="border-b border-gray-100">
                   <td className="p-3 font-mono text-xs">GEMINI.md</td>
                   <td className="p-3">
-                    Gemini-specific instructions — optimized for Google&apos;s agent capabilities
+                    Gemini-specific instructions - optimized for Google&apos;s agent capabilities
                     and context window
                   </td>
                   <td className="p-3">Gemini</td>
@@ -213,7 +213,7 @@ const AIAssistedDevelopmentPage = () => {
                 <tr className="border-b border-gray-100">
                   <td className="p-3 font-mono text-xs">.github/copilot-instructions.md</td>
                   <td className="p-3">
-                    GitHub Copilot instructions — automatically loaded by Copilot Chat and code
+                    GitHub Copilot instructions - automatically loaded by Copilot Chat and code
                     review, covers full project context
                   </td>
                   <td className="p-3">GitHub Copilot</td>
@@ -223,7 +223,7 @@ const AIAssistedDevelopmentPage = () => {
           </div>
 
           <p className="mb-4">
-            These files are &quot;meta-documentation&quot; — documentation that teaches AI how to
+            These files are &quot;meta-documentation&quot; - documentation that teaches AI how to
             read documentation. They are version-controlled alongside the code and updated whenever
             the project&apos;s conventions change. This creates a virtuous cycle: better instruction
             files produce better AI output, which reveals what the instruction files are missing.
@@ -243,7 +243,7 @@ const AIAssistedDevelopmentPage = () => {
               <h3 className="text-lg font-bold text-gray-900 mb-2">GitHub MCP</h3>
               <p className="text-sm text-gray-700 mb-3">
                 Allows agents to create issues, open pull requests, request reviews, search code,
-                and check CI status — all without leaving the conversation. The agent can manage the
+                and check CI status - all without leaving the conversation. The agent can manage the
                 full issue-to-merge lifecycle.
               </p>
             </div>
@@ -252,7 +252,7 @@ const AIAssistedDevelopmentPage = () => {
               <h3 className="text-lg font-bold text-gray-900 mb-2">Qualtrics MCP</h3>
               <p className="text-sm text-gray-700 mb-3">
                 Connects agents to the Qualtrics survey platform via OAuth. Agents can list surveys,
-                inspect definitions, and manage survey operations — useful for the annual survey
+                inspect definitions, and manage survey operations - useful for the annual survey
                 rollover process.
               </p>
             </div>
@@ -275,43 +275,43 @@ const AIAssistedDevelopmentPage = () => {
 
           <ul className="list-disc pl-6 space-y-3 mb-6">
             <li>
-              <strong>Prettier formatting</strong> — enforced in CI; code that does not match the
+              <strong>Prettier formatting</strong> - enforced in CI; code that does not match the
               project style is rejected
             </li>
             <li>
-              <strong>ESLint</strong> — catches code quality issues; new errors fail the build
+              <strong>ESLint</strong> - catches code quality issues; new errors fail the build
             </li>
             <li>
-              <strong>Jest unit tests</strong> — 124+ tests covering components and utilities
+              <strong>Jest unit tests</strong> - 124+ tests covering components and utilities
             </li>
             <li>
-              <strong>jest-axe accessibility</strong> — automated WCAG compliance checks that catch
+              <strong>jest-axe accessibility</strong> - automated WCAG compliance checks that catch
               missing ARIA labels, incorrect roles, and color contrast issues
             </li>
             <li>
-              <strong>Static build</strong> — the entire site must build successfully as a static
+              <strong>Static build</strong> - the entire site must build successfully as a static
               export
             </li>
             <li>
-              <strong>Playwright E2E</strong> — four parallel shards testing real browser
+              <strong>Playwright E2E</strong> - four parallel shards testing real browser
               interactions across the full site
             </li>
             <li>
-              <strong>CodeQL security scanning</strong> — GitHub&apos;s code analysis catches
+              <strong>CodeQL security scanning</strong> - GitHub&apos;s code analysis catches
               security vulnerabilities
             </li>
             <li>
-              <strong>Copilot code review</strong> — automated review catching logical errors,
+              <strong>Copilot code review</strong> - automated review catching logical errors,
               unused code, misleading comments, and consistency issues
             </li>
             <li>
-              <strong>Lighthouse CI</strong> — performance, accessibility, and SEO scoring on every
+              <strong>Lighthouse CI</strong> - performance, accessibility, and SEO scoring on every
               merge to main
             </li>
           </ul>
 
           <p>
-            These guardrails mean that AI can write code aggressively — the safety net catches
+            These guardrails mean that AI can write code aggressively - the safety net catches
             problems before they reach users.
           </p>
         </section>
@@ -324,27 +324,27 @@ const AIAssistedDevelopmentPage = () => {
             <h3 className={H3_CLASSES}>Where AI Excels</h3>
             <ul className="list-disc pl-6 space-y-2 mb-4">
               <li>
-                <strong>Boilerplate and scaffolding</strong> — creating new pages, components, and
+                <strong>Boilerplate and scaffolding</strong> - creating new pages, components, and
                 test files following established patterns
               </li>
               <li>
-                <strong>Multi-file refactoring</strong> — renaming, restructuring, and moving code
+                <strong>Multi-file refactoring</strong> - renaming, restructuring, and moving code
                 across many files consistently
               </li>
               <li>
-                <strong>Writing tests</strong> — generating unit and E2E tests with good coverage of
+                <strong>Writing tests</strong> - generating unit and E2E tests with good coverage of
                 edge cases
               </li>
               <li>
-                <strong>Documentation</strong> — writing clear, structured technical documentation
+                <strong>Documentation</strong> - writing clear, structured technical documentation
                 and inline comments
               </li>
               <li>
-                <strong>Accessibility fixes</strong> — identifying and fixing ARIA issues, semantic
+                <strong>Accessibility fixes</strong> - identifying and fixing ARIA issues, semantic
                 HTML problems, and keyboard navigation gaps
               </li>
               <li>
-                <strong>Code review response</strong> — reading review comments and implementing
+                <strong>Code review response</strong> - reading review comments and implementing
                 precise fixes
               </li>
             </ul>
@@ -354,7 +354,7 @@ const AIAssistedDevelopmentPage = () => {
             <h3 className={H3_CLASSES}>Where AI Struggles</h3>
             <ul className="list-disc pl-6 space-y-2 mb-4">
               <li>
-                <strong>Merge strategy failures</strong> — squash merging stale branches can
+                <strong>Merge strategy failures</strong> - squash merging stale branches can
                 silently revert dozens of previously merged PRs. We learned this the hard way when a
                 single squash merge{' '}
                 <Link
@@ -365,21 +365,21 @@ const AIAssistedDevelopmentPage = () => {
                 </Link>
               </li>
               <li>
-                <strong>Nuanced design decisions</strong> — visual layout choices, color palette
+                <strong>Nuanced design decisions</strong> - visual layout choices, color palette
                 decisions, and UX trade-offs still need human judgment
               </li>
               <li>
-                <strong>Cross-session context</strong> — agents lose context between conversations;
+                <strong>Cross-session context</strong> - agents lose context between conversations;
                 the instruction files partially solve this, but complex multi-day work requires
                 human continuity
               </li>
               <li>
-                <strong>External API quirks</strong> — when an API behaves unexpectedly (like
+                <strong>External API quirks</strong> - when an API behaves unexpectedly (like
                 Qualtrics rejecting a valid-looking request), agents can get stuck in loops trying
                 the same approach
               </li>
               <li>
-                <strong>Knowing when to stop</strong> — agents sometimes over-engineer solutions or
+                <strong>Knowing when to stop</strong> - agents sometimes over-engineer solutions or
                 make unnecessary &quot;improvements&quot; that the human did not request
               </li>
             </ul>
@@ -392,13 +392,13 @@ const AIAssistedDevelopmentPage = () => {
           <p className="mb-6">
             This approach allows a small team to maintain a 149+ page website with comprehensive
             testing, daily automated reports, and multiple API integrations. Tasks that would take
-            hours of manual coding — creating six new pages with consistent styling, breadcrumbs,
-            metadata, sitemap entries, and navigation updates — can be completed in a single
+            hours of manual coding - creating six new pages with consistent styling, breadcrumbs,
+            metadata, sitemap entries, and navigation updates - can be completed in a single
             conversation.
           </p>
           <p className="mb-6">
             The key insight is not that AI writes perfect code. It does not. The key insight is that
-            with good guardrails — CI, automated review, accessibility checks — the imperfect code
+            with good guardrails - CI, automated review, accessibility checks - the imperfect code
             gets caught and fixed before it matters. The velocity gain comes from the AI handling
             the mechanical work while the human focuses on direction and quality judgment.
           </p>
@@ -409,7 +409,7 @@ const AIAssistedDevelopmentPage = () => {
           <h2 className={H2_CLASSES}>Stories from Development</h2>
           <p className="mb-6">
             Real moments from the TABS development process that illustrate how multi-agent AI
-            development works in practice — the wins and the failures.
+            development works in practice - the wins and the failures.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
