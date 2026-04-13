@@ -23,6 +23,19 @@ interface TOCItem {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Shared layout constants                                            */
+/* ------------------------------------------------------------------ */
+
+/** Width of the desktop sidebar in pixels */
+const SIDEBAR_WIDTH = 210
+
+/** Minimum gap between article content and sidebar in pixels */
+const SIDEBAR_GAP = 24
+
+/** Minimum right-margin needed to show the desktop sidebar */
+const SIDEBAR_MIN_SPACE = SIDEBAR_WIDTH + SIDEBAR_GAP
+
+/* ------------------------------------------------------------------ */
 /*  Component                                                         */
 /* ------------------------------------------------------------------ */
 
@@ -60,19 +73,28 @@ export default function ArticleTOC() {
 
   /* ---------- track article position for TOC placement ---------- */
   useEffect(() => {
-    const TOC_WIDTH = 210
-    const TOC_GAP = 24
+    let rafId: number | null = null
     const update = () => {
       const article = document.querySelector('article')
       if (!article) return
       const rect = article.getBoundingClientRect()
       const rightSpace = window.innerWidth - rect.right
-      setCanShowDesktop(rightSpace >= TOC_WIDTH + TOC_GAP)
-      setTocLeft(rect.right + TOC_GAP)
+      setCanShowDesktop(rightSpace >= SIDEBAR_MIN_SPACE)
+      setTocLeft(rect.right + SIDEBAR_GAP)
+    }
+    const onResize = () => {
+      if (rafId != null) return
+      rafId = requestAnimationFrame(() => {
+        rafId = null
+        update()
+      })
     }
     update()
-    window.addEventListener('resize', update)
-    return () => window.removeEventListener('resize', update)
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('resize', onResize)
+      if (rafId != null) cancelAnimationFrame(rafId)
+    }
   }, [])
 
   /* ---------- scan headings on mount ---------- */
@@ -153,7 +175,7 @@ export default function ArticleTOC() {
           style={{
             top: `${headerH + 40}px`,
             left: `${tocLeft}px`,
-            width: '210px',
+            width: `${SIDEBAR_WIDTH}px`,
           }}
         >
           <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">

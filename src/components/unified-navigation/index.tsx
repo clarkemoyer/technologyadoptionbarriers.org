@@ -33,6 +33,12 @@ const DEFAULT_HEADER_HEIGHT = 80
 const SCROLL_MARGIN_GAP = 20
 /** Minimum gap in pixels between the sidebar bottom and the viewport/footer edge */
 const MIN_BOTTOM_GAP = 20
+/** Width of the desktop sidebar in pixels */
+const SIDEBAR_WIDTH = 210
+/** Minimum gap between article content and sidebar in pixels */
+const SIDEBAR_GAP = 24
+/** Minimum right-margin needed to show the desktop sidebar */
+const SIDEBAR_MIN_SPACE = SIDEBAR_WIDTH + SIDEBAR_GAP
 
 /** Recursively check if any descendant has isCurrent set */
 function hasCurrentDescendant(items: SeriesNavItem[]): boolean {
@@ -70,19 +76,28 @@ export default function UnifiedNavigation({
 
   // Track article position to place desktop sidebar without overlapping content
   useEffect(() => {
-    const NAV_WIDTH = 210
-    const NAV_GAP = 24
+    let rafId: number | null = null
     const update = () => {
       const article = document.querySelector('article')
       if (!article) return
       const rect = article.getBoundingClientRect()
       const rightSpace = window.innerWidth - rect.right
-      setCanShowDesktop(rightSpace >= NAV_WIDTH + NAV_GAP)
-      setTocLeft(rect.right + NAV_GAP)
+      setCanShowDesktop(rightSpace >= SIDEBAR_MIN_SPACE)
+      setTocLeft(rect.right + SIDEBAR_GAP)
+    }
+    const onResize = () => {
+      if (rafId != null) return
+      rafId = requestAnimationFrame(() => {
+        rafId = null
+        update()
+      })
     }
     update()
-    window.addEventListener('resize', update)
-    return () => window.removeEventListener('resize', update)
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('resize', onResize)
+      if (rafId != null) cancelAnimationFrame(rafId)
+    }
   }, [])
 
   // Track footer position so the sidebar never overlaps it
@@ -319,7 +334,7 @@ export default function UnifiedNavigation({
             top: `${effectiveHeaderH + 40}px`,
             bottom: `${footerOffset}px`,
             left: `${tocLeft}px`,
-            width: '210px',
+            width: `${SIDEBAR_WIDTH}px`,
           }}
         >
           <div className="space-y-6 h-full overflow-y-auto pr-2">
