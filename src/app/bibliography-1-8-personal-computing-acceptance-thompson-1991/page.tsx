@@ -545,34 +545,51 @@ const BibliographyArticlePage = () => {
                 expectations about benefits and career implications. 7
               </li>
               <li>
-                <strong>Following Models or Theories Following Models:</strong> Taylor and Todd
+                <strong>Following Models or Theories:</strong> Following Models: Taylor and Todd
                 (1995) - Understanding Information Technology Usage: A Test of Competing Models;
                 Goodhue and Thompson (1995) - Task-Technology Fit and Individual Performance;
-                numerous subsequent technology adoption models building on these foundations
+                numerous subsequent technology adoption models building on these foundations.
                 Following Theories: Subsequent refinements of the Technology Acceptance Model (TAM);
                 extensions incorporating social influences and organizational factors; models
-                examining utilization patterns rather than mere adoption Series Navigation This
-                article is part of a Technology Adoption Models Literature Review series: 1. Ram
-                (1987) - A Model of Innovation Resistance 2. Thompson et al. (1991) - Toward a
-                Conceptual Model of Personal Computing Utilization 3. Taylor and Todd (1995) -
-                Understanding Information Technology Usage: A Test of Competing Models 4. Goodhue
-                and Thompson (1995) - Task- Technology Fit and Individual Performance References
-                1.Thompson, R. L., Higgins, C. A., & Howell, J. M. (1991). Toward a conceptual model
-                of personal computing utilization. MIS Quarterly, 15(1), 125-143. 2.Triandis, H. C.
-                (1980). Values, attitudes, and interpersonal behavior. Nebraska Symposium on
-                Motivation, 1979. Lincoln, NE: University of Nebraska Press. 3.Davis, F. D. (1989).
-                Perceived usefulness, ease of use, and user acceptance of information technology.
-                MIS Quarterly, 13(3), 319-340. 4.Davis, F. D., Bagozzi, R. P., & Warsaw, P. R.
-                (1989)
-              </li>
-              <li>
-                <strong>User acceptance of computer technology:</strong> A comparison of two
-                theoretical models. Management Science, 35(8), 982-1003. 5.Fishbein, M., & Ajzen, I.
-                (1975). Belief, attitude, intention and behavior: An introduction to theory and
-                research. Reading, MA: Addison-Wesley. 6.Porter, L. W., & Lawler, E. E. (1968).
-                Managerial attitudes and performance. Homewood, IL: Irwin-Dorsey
+                examining utilization patterns rather than mere adoption.
               </li>
             </ul>
+          </section>
+
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal pl-6 space-y-3 text-gray-800">
+              <li>
+                Thompson, R. L., Higgins, C. A., &amp; Howell, J. M. (1991). Toward a conceptual
+                model of personal computing utilization. <em>MIS Quarterly</em>, 15(1), 125-143.
+              </li>
+              <li>
+                Triandis, H. C. (1980). Values, attitudes, and interpersonal behavior.{' '}
+                <em>Nebraska Symposium on Motivation, 1979</em>. Lincoln, NE: University of Nebraska
+                Press.
+              </li>
+              <li>
+                Davis, F. D. (1989). Perceived usefulness, ease of use, and user acceptance of
+                information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
+              </li>
+              <li>
+                Davis, F. D., Bagozzi, R. P., &amp; Warsaw, P. R. (1989). User acceptance of
+                computer technology: A comparison of two theoretical models.{' '}
+                <em>Management Science</em>, 35(8), 982-1003.
+              </li>
+              <li>
+                Fishbein, M., &amp; Ajzen, I. (1975).{' '}
+                <em>
+                  Belief, attitude, intention and behavior: An introduction to theory and research
+                </em>
+                . Reading, MA: Addison-Wesley.
+              </li>
+              <li>
+                Porter, L. W., &amp; Lawler, E. E. (1968).{' '}
+                <em>Managerial attitudes and performance</em>. Homewood, IL: Irwin-Dorsey.
+              </li>
+            </ol>
           </section>
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.

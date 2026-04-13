@@ -586,24 +586,14 @@ const BibliographyArticlePage = () => {
               </li>
               <li>
                 <strong>Following Models or Theories:</strong> Following Models: Prospect Theory
-                extensions examining reference-dependent preferences Behavioral economics models of
-                choice and decision-making Technology adoption models incorporating status quo
-                effects Innovation diffusion models accounting for adoption barriers Consumer
-                switching cost and loyalty models Following Theories: Behavioral decision research
-                examining individual decision-making Organizational change management theory
-                Economic models incorporating behavioral realism Loss aversion and reference
-                dependence research Psychological commitment and cognitive dissonance theory
-                extensions Series Navigation This article is part of a Technology Adoption
-                literature review series: 1
-              </li>
-              <li>
-                <strong>A Model of Adoption of Technology in Households:</strong> Brown and
-                Venkatesh, 2005 2
-              </li>
-              <li>
-                <strong>Understanding Information Systems Continuance:</strong> An Expectation-
-                Confirmation Model (Bhattacherjee, 2001) 3. Status Quo Bias in Decision Making
-                (Samuelson and Zeckhauser, 1988) References
+                extensions examining reference-dependent preferences, behavioral economics models of
+                choice and decision-making, technology adoption models incorporating status quo
+                effects, innovation diffusion models accounting for adoption barriers, consumer
+                switching cost and loyalty models. Following Theories: Behavioral decision research
+                examining individual decision-making, organizational change management theory,
+                economic models incorporating behavioral realism, loss aversion and reference
+                dependence research, psychological commitment and cognitive dissonance theory
+                extensions.
               </li>
             </ul>
           </section>

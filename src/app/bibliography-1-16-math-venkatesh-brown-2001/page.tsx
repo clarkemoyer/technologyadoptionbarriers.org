@@ -507,49 +507,67 @@ const BibliographyArticlePage = () => {
             <ul className={BODY_LIST_CLASSES}>
               <li>
                 <strong>Following Models or Theories:</strong> Following Models: Unified Theory of
-                Acceptance and Use of Technology (UTAUT) extensions to household contexts Models
-                examining smart home technology adoption Models of mobile device adoption in
-                household settings Extended TAM applications incorporating household decision-making
-                variables Following Theories: Subsequent household technology adoption research
-                Internet of Things adoption literature Smart home and home automation adoption
-                studies Digital divide research informed by household adoption perspectives Series
-                Navigation This article is part of a Technology Adoption literature review series: 1
-              </li>
-              <li>
-                <strong>A Model of Adoption of Technology in Households:</strong> Brown and
-                Venkatesh, 2005 2
-              </li>
-              <li>
-                <strong>Understanding Information Systems Continuance:</strong> An Expectation-
-                Confirmation Model (Bhattacherjee, 2001) 3. Status Quo Bias in Decision Making
-                (Samuelson and Zeckhauser, 1988) References 1.Ajzen, I. “The Theory of Planned
-                Behavior.” Organizational Behavior and Human Decision Processes 50, no. 2 (1991):
-                179-211. 2.Brown, S. A., and Venkatesh, V. “A Model of Adoption of Technology in
-                Households: A Baseline Model Test and Extension Incorporating Household Life Cycle.”
-                MIS Quarterly 29, no. 3 (2005): 399-426. 3.Davis, F. D. “Perceived Usefulness,
-                Perceived Ease of Use, and User Acceptance of Information Technology.” MIS Quarterly
-                13, no. 3 (1989): 319-340. 4.Fishbein, M., and Ajzen, I. Belief, Attitude, Intention
-                and Behavior: An Introduction to Theory and Research. Reading, MA: Addison-Wesley,
-                1975. 5.Rogers, E. M. Diffusion of Innovations. 4th ed. New York: Free Press, 1995.
-                6.Venkatesh, V. “Determinants of Perceived Ease of Use: Integrating Control,
-                Intrinsic Motivation, and Emotion into the Technology Acceptance Model.” Information
-                Systems Research 11, no. 4 (2000): 342-365. 7.Venkatesh, V., and Brown, S. A. “A
-                Longitudinal Investigation of Personal Computers in Homes: Adoption Determinants and
-                Emerging Challenges.” MIS Quarterly 25, no. 1 (2001): 71-102. 8.Venkatesh, V., and
-                Davis, F. D. “A Model of the Antecedents of Perceived Ease of Use: Development and
-                Test.” Decision Sciences 27, no. 3 (1996): 451-481. 9.Norman, D. A. The Design of
-                Everyday Things
-              </li>
-              <li>
-                <strong>New York:</strong> Doubleday, 1998. 10.Thompson, R. L., Higgins, C. A., and
-                Howell, J. M. “Personal Computing: Toward a Conceptual Model of Utilization.” MIS
-                Quarterly 15, no. 1 (1991): 124-143
-              </li>
-              <li>
-                <strong>Value-Based Adoption of Mobile Internet:</strong> An Empirical Investigation
-                - Kim, Chan, and Gupta 2007 1
+                Acceptance and Use of Technology (UTAUT) extensions to household contexts, models
+                examining smart home technology adoption, models of mobile device adoption in
+                household settings, extended TAM applications incorporating household
+                decision-making variables. Following Theories: Subsequent household technology
+                adoption research, Internet of Things adoption literature, smart home and home
+                automation adoption studies, digital divide research informed by household adoption
+                perspectives.
               </li>
             </ul>
+          </section>
+
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal pl-6 space-y-3 text-gray-800">
+              <li>
+                Ajzen, I. (1991). The theory of planned behavior.{' '}
+                <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179-211.
+              </li>
+              <li>
+                Brown, S. A., &amp; Venkatesh, V. (2005). A model of adoption of technology in
+                households: A baseline model test and extension incorporating household life cycle.{' '}
+                <em>MIS Quarterly</em>, 29(3), 399-426.
+              </li>
+              <li>
+                Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user
+                acceptance of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
+              </li>
+              <li>
+                Fishbein, M., &amp; Ajzen, I. (1975).{' '}
+                <em>
+                  Belief, attitude, intention and behavior: An introduction to theory and research
+                </em>
+                . Reading, MA: Addison-Wesley.
+              </li>
+              <li>
+                Rogers, E. M. (1995). <em>Diffusion of innovations</em> (4th ed.). New York: Free
+                Press.
+              </li>
+              <li>
+                Venkatesh, V. (2000). Determinants of perceived ease of use: Integrating control,
+                intrinsic motivation, and emotion into the Technology Acceptance Model.{' '}
+                <em>Information Systems Research</em>, 11(4), 342-365.
+              </li>
+              <li>
+                Venkatesh, V., &amp; Brown, S. A. (2001). A longitudinal investigation of personal
+                computers in homes: Adoption determinants and emerging challenges.{' '}
+                <em>MIS Quarterly</em>, 25(1), 71-102.
+              </li>
+              <li>
+                Venkatesh, V., &amp; Davis, F. D. (1996). A model of the antecedents of perceived
+                ease of use: Development and test. <em>Decision Sciences</em>, 27(3), 451-481.
+              </li>
+              <li>
+                Norman, D. A. (1998). <em>The design of everyday things</em>. New York: Doubleday.
+              </li>
+              <li>
+                Thompson, R. L., Higgins, C. A., &amp; Howell, J. M. (1991). Personal computing:
+                Toward a conceptual model of utilization. <em>MIS Quarterly</em>, 15(1), 124-143.
+              </li>
+            </ol>
           </section>
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
