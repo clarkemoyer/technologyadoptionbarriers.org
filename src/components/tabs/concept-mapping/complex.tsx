@@ -373,7 +373,7 @@ function ItemCard({
         </div>
       )}
 
-      {/* All 15 fields as definition-list */}
+      {/* 14 of 15 fields as definition-list (Survey Item rendered as card heading above) */}
       <dl>
         <FieldRow label="Section / Primary Construct" value={row['Section / Primary Construct']} />
         <FieldRow label="Sub-Construct / Grouping" value={row['Sub-Construct / Grouping']} />
