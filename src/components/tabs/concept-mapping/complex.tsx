@@ -417,6 +417,8 @@ function ItemCard({
                 )
               })}
             </span>
+          ) : sourceLink === 'N/A' ? (
+            <span className="text-gray-500">N/A</span>
           ) : (
             <span className="text-gray-400">-</span>
           )}
