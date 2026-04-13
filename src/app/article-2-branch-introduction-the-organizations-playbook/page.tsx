@@ -170,8 +170,8 @@ const OrganizationsPlaybookPage = () => {
               Maturity Model for Software, Version 1.1. Carnegie Mellon University.
             </li>
             <li>
-              Curley, M. (2016). The IT Capability Maturity Frameworkâ„¢ (IT-CMFâ„¢) 2nd Edition.
-              Van Haren Publishing.
+              Curley, M. (2016). The IT Capability Maturity Framework™ (IT-CMF™) 2nd Edition. Van
+              Haren Publishing.
             </li>
             <li>
               Pollock, N., &amp; Williams, R. (2016). How Industry Analysts Shape the Digital
