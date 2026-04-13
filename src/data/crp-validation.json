@@ -48,12 +48,12 @@
     },
     "cfa": {
       "construct": "Barriers",
-      "chi2": null,
-      "df": null,
-      "chi2_p": null,
-      "cfi": null,
-      "tli": null,
-      "rmsea": null,
+      "chi2": 376.183,
+      "df": 135,
+      "chi2_p": 0.0,
+      "cfi": 0.766,
+      "tli": 0.7348,
+      "rmsea": 0.0967,
       "srmr": null
     },
     "inter_item": {
@@ -110,12 +110,12 @@
     },
     "cfa": {
       "construct": "Readiness",
-      "chi2": null,
-      "df": null,
-      "chi2_p": null,
-      "cfi": null,
-      "tli": null,
-      "rmsea": null,
+      "chi2": 203.253,
+      "df": 119,
+      "chi2_p": 0.0,
+      "cfi": 0.9297,
+      "tli": 0.9196,
+      "rmsea": 0.0627,
       "srmr": null
     },
     "inter_item": {
@@ -163,12 +163,12 @@
     },
     "cfa": {
       "construct": "Maturity",
-      "chi2": null,
-      "df": null,
-      "chi2_p": null,
-      "cfi": null,
-      "tli": null,
-      "rmsea": null,
+      "chi2": 32.147,
+      "df": 20,
+      "chi2_p": 0.0418,
+      "cfi": 0.981,
+      "tli": 0.9733,
+      "rmsea": 0.0565,
       "srmr": null
     },
     "inter_item": {
@@ -247,14 +247,14 @@
     }
   },
   "barriers_4f_cfa": {
-    "chi2": null,
-    "df": null,
-    "chi2_p": null,
-    "cfi": null,
-    "tli": null,
-    "rmsea": null,
-    "aic": null,
-    "bic": null
+    "chi2": 307.835,
+    "df": 129,
+    "chi2_p": 0.0,
+    "cfi": 0.8265,
+    "tli": 0.7942,
+    "rmsea": 0.0852,
+    "aic": 80.79,
+    "bic": 217.61
   },
   "factor_analysis": {
     "efa_factors": [
@@ -440,8 +440,9 @@
       "kmo_above_060": true,
       "bartlett_significant": true,
       "cfa_cfi_above_090": false,
+      "cfa_rmsea_below_008": false,
       "pass_count": 6,
-      "total_criteria": 9
+      "total_criteria": 10
     },
     "Readiness": {
       "alpha_above_070": true,
@@ -452,9 +453,10 @@
       "split_half_above_070": true,
       "kmo_above_060": true,
       "bartlett_significant": true,
-      "cfa_cfi_above_090": false,
-      "pass_count": 7,
-      "total_criteria": 9
+      "cfa_cfi_above_090": true,
+      "cfa_rmsea_below_008": true,
+      "pass_count": 9,
+      "total_criteria": 10
     },
     "Maturity": {
       "alpha_above_070": true,
@@ -465,9 +467,10 @@
       "split_half_above_070": true,
       "kmo_above_060": true,
       "bartlett_significant": true,
-      "cfa_cfi_above_090": false,
-      "pass_count": 7,
-      "total_criteria": 9
+      "cfa_cfi_above_090": true,
+      "cfa_rmsea_below_008": true,
+      "pass_count": 9,
+      "total_criteria": 10
     }
   },
   "metadata": {
