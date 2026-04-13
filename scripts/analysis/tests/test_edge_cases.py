@@ -20,7 +20,7 @@ from _helpers import make_qualtrics_csv, MINIMAL_HEADERS, make_clean_row
 
 
 # ═══════════════════════════════════════════════════════════════
-# tabs_v2_analysis.py — uncovered branches
+# tabs_v2_analysis.py - uncovered branches
 # ═══════════════════════════════════════════════════════════════
 
 from tabs_v2_analysis import (
@@ -89,7 +89,7 @@ class TestAnalysisEdgeCases:
 
 
 # ═══════════════════════════════════════════════════════════════
-# tabs_v2_advanced.py — uncovered branches
+# tabs_v2_advanced.py - uncovered branches
 # ═══════════════════════════════════════════════════════════════
 
 PROD_CSV = str(Path(__file__).parent / "test_data_production_format.csv")
@@ -145,7 +145,7 @@ class TestAdvancedEdgeCases:
 
 
 # ═══════════════════════════════════════════════════════════════
-# tabs_v2_psychometrics.py — uncovered branches
+# tabs_v2_psychometrics.py - uncovered branches
 # ═══════════════════════════════════════════════════════════════
 
 class TestPsychometricsEdgeCases:
@@ -257,7 +257,7 @@ class TestPsychometricsEdgeCases:
 
 
 # ═══════════════════════════════════════════════════════════════
-# tabs_v2_quality_audit.py — uncovered branches
+# tabs_v2_quality_audit.py - uncovered branches
 # ═══════════════════════════════════════════════════════════════
 
 class TestQualityEdgeCases:
@@ -288,7 +288,7 @@ class TestQualityEdgeCases:
 
 
 # ═══════════════════════════════════════════════════════════════
-# tabs_v2_data_audit.py — uncovered branches
+# tabs_v2_data_audit.py - uncovered branches
 # ═══════════════════════════════════════════════════════════════
 
 from tabs_v2_data_audit import compute_disposition
@@ -349,7 +349,7 @@ class TestDataAuditEdgeCases:
 
 
 # ═══════════════════════════════════════════════════════════════
-# enrich_qualtrics_csv.py — uncovered error branches
+# enrich_qualtrics_csv.py - uncovered error branches
 # ═══════════════════════════════════════════════════════════════
 
 from enrich_qualtrics_csv import enrich
@@ -398,7 +398,7 @@ class TestEnrichEdgeCases:
 
 
 # ═══════════════════════════════════════════════════════════════
-# tabs_api.py — uncovered error branches
+# tabs_api.py - uncovered error branches
 # ═══════════════════════════════════════════════════════════════
 
 class TestAPIEdgeCases:

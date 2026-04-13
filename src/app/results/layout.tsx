@@ -5,18 +5,10 @@ import Breadcrumbs from '@/components/breadcrumbs'
 import PrevNextCards from '@/components/prev-next-cards'
 import ReadingProgressBar from '@/components/reading-progress-bar'
 import UnifiedNavigation, { type SeriesNavItem } from '@/components/unified-navigation'
-import {
-  makingOfTabsSeries,
-  flattenMakingOfTabsSeries,
-  type MakingOfTabsItem,
-} from '@/data/making-of-tabs-series'
+import { resultsSeries, flattenResultsSeries, type ResultsSeriesItem } from '@/data/results-series'
 import { normalizePath } from '@/lib/normalizePath'
 
-interface MakingOfTabsNavProps {
-  children: React.ReactNode
-}
-
-function mapToNavItems(items: MakingOfTabsItem[], currentPath: string): SeriesNavItem[] {
+function mapToNavItems(items: ResultsSeriesItem[], currentPath: string): SeriesNavItem[] {
   return items.map((item) => ({
     title: item.title,
     href: item.href,
@@ -26,13 +18,13 @@ function mapToNavItems(items: MakingOfTabsItem[], currentPath: string): SeriesNa
   }))
 }
 
-export function MakingOfTabsNav({ children }: MakingOfTabsNavProps) {
+export default function ResultsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const currentPath = normalizePath(pathname)
 
-  const seriesNavItems = mapToNavItems(makingOfTabsSeries, currentPath)
+  const seriesNavItems = mapToNavItems(resultsSeries, currentPath)
 
-  const flat = flattenMakingOfTabsSeries()
+  const flat = flattenResultsSeries()
   const currentIndex = flat.findIndex((item) => normalizePath(item.href) === currentPath)
   const prev = currentIndex > 0 ? flat[currentIndex - 1] : null
   const next = currentIndex !== -1 && currentIndex < flat.length - 1 ? flat[currentIndex + 1] : null
@@ -44,7 +36,7 @@ export function MakingOfTabsNav({ children }: MakingOfTabsNavProps) {
         {children}
         <PrevNextCards prev={prev} next={next} className="mt-12" />
       </div>
-      <UnifiedNavigation seriesItems={seriesNavItems} seriesLabel="Making of TABS" />
+      <UnifiedNavigation seriesItems={seriesNavItems} seriesLabel="Results" />
       <ReadingProgressBar />
     </>
   )

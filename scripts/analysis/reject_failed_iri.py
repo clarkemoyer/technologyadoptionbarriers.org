@@ -161,7 +161,7 @@ def main():
     # ── Execute or dry run ──
     if dry_run:
         print("================================================================")
-        print("  DRY RUN — no submissions will be rejected")
+        print("  DRY RUN - no submissions will be rejected")
         print(f"  Would reject: {len(records)} participants")
         print("  Set DRY_RUN=false and CONFIRM_REJECT=REJECT to execute")
         print("================================================================")
@@ -176,7 +176,7 @@ def main():
         for r in records:
             sub_id = pid_to_sub_id.get(r["pid"])
             if not sub_id:
-                print(f"  WARNING: No submission found for PID {r['pid']} — skipping")
+                print(f"  WARNING: No submission found for PID {r['pid']} - skipping")
                 not_found.append(r["pid"])
                 continue
             print(f"  Rejecting {r['pid']} (submission {sub_id})...")
@@ -195,7 +195,7 @@ def main():
     _append_step_summary("\n".join([
         "## Prolific Submission Rejection (Failed IRI)",
         "",
-        "> **DESTRUCTIVE OPERATION** — rejected participants will NOT be paid.",
+        "> **DESTRUCTIVE OPERATION** - rejected participants will NOT be paid.",
         "",
         f"- **Run time (UTC):** {run_time}",
         f"- **Study:** {study_name} (`{study_id}`)",

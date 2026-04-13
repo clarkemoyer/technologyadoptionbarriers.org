@@ -50,7 +50,7 @@ else:
     _CONSTANTS = {}
 
 # Survey blocks for partial straightlining detection
-# Use substantive item counts only — IRI items have predetermined correct
+# Use substantive item counts only - IRI items have predetermined correct
 # answers and must NOT be included in within-person SD calculations.
 # Including IRIs artificially inflates variance and masks straightlining.
 # See Issue #735 for the root-cause analysis.
@@ -356,7 +356,7 @@ def parse_csv(csv_path: str) -> List[Dict[str, Any]]:
                 rows_by_pid[pid] = disposition_row
 
     if duplicate_count > 0:
-        print(f"Dedup: {duplicate_count} duplicate PID(s) found — using latest attempt for each.")
+        print(f"Dedup: {duplicate_count} duplicate PID(s) found - using latest attempt for each.")
 
     # Return sorted by PID
     return sorted(rows_by_pid.values(), key=lambda r: r["PROLIFIC_PID"])

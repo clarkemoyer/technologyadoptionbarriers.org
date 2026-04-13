@@ -125,7 +125,7 @@ Prettier is integrated with the pre-commit hook (via Husky):
 3. Only the files that were originally staged before the hook ran are automatically re-staged after formatting
 4. Your commit proceeds with properly formatted versions of the files you had staged
 
-**No manual intervention required!** Just make your changes and commit—formatting happens automatically.
+**No manual intervention required!** Just make your changes and commit; formatting happens automatically.
 
 **Key Benefits**:
 

@@ -1,7 +1,7 @@
 # Qualtrics Survey Flow Export (read-only)
 #
 # Dumps the live Survey Flow JSON for inspection / debugging.
-# No data is modified — this is a GET-only operation.
+# No data is modified - this is a GET-only operation.
 #
 # Outputs:
 #   1. Flow JSON printed to the workflow log (for quick review).
