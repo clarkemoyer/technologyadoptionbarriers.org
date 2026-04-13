@@ -582,30 +582,76 @@ const BibliographyArticlePage = () => {
                 technology will naturally be adopted if merely made available, leaders must actively
                 work to overcome the psychological and economic barriers that sustain status quo
                 positions. This requires understanding status quo bias as a systematic phenomenon
-                requiring deliberate countermeasures, not merely as individual quirks. 7
+                requiring deliberate countermeasures, not merely as individual quirks.
               </li>
               <li>
-                <strong>Following Models or Theories:</strong> Following Models: Prospect Theory
-                extensions examining reference-dependent preferences Behavioral economics models of
-                choice and decision-making Technology adoption models incorporating status quo
-                effects Innovation diffusion models accounting for adoption barriers Consumer
-                switching cost and loyalty models Following Theories: Behavioral decision research
-                examining individual decision-making Organizational change management theory
-                Economic models incorporating behavioral realism Loss aversion and reference
-                dependence research Psychological commitment and cognitive dissonance theory
-                extensions Series Navigation This article is part of a Technology Adoption
-                literature review series: 1
-              </li>
-              <li>
-                <strong>A Model of Adoption of Technology in Households:</strong> Brown and
-                Venkatesh, 2005 2
-              </li>
-              <li>
-                <strong>Understanding Information Systems Continuance:</strong> An Expectation-
-                Confirmation Model (Bhattacherjee, 2001) 3. Status Quo Bias in Decision Making
-                (Samuelson and Zeckhauser, 1988) References
+                <strong>Following Models or Theories:</strong> <em>Following Models:</em>
+                <ul className="list-disc pl-6 mt-2 space-y-1">
+                  <li>Prospect Theory extensions examining reference-dependent preferences</li>
+                  <li>Behavioral economics models of choice and decision-making</li>
+                  <li>Technology adoption models incorporating status quo effects</li>
+                  <li>Innovation diffusion models accounting for adoption barriers</li>
+                  <li>Consumer switching cost and loyalty models</li>
+                </ul>
+                <em>Following Theories:</em>
+                <ul className="list-disc pl-6 mt-2 space-y-1">
+                  <li>Behavioral decision research examining individual decision-making</li>
+                  <li>Organizational change management theory</li>
+                  <li>Economic models incorporating behavioral realism</li>
+                  <li>Loss aversion and reference dependence research</li>
+                  <li>Psychological commitment and cognitive dissonance theory extensions</li>
+                </ul>
               </li>
             </ul>
+          </section>
+
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm">
+              <li>
+                Ajzen, I. &quot;The Theory of Planned Behavior.&quot;{' '}
+                <em>Organizational Behavior and Human Decision Processes</em> 50, no. 2 (1991):
+                179-211.
+              </li>
+              <li>
+                Festinger, L. <em>A Theory of Cognitive Dissonance</em>. Stanford, CA: Stanford
+                University Press, 1957.
+              </li>
+              <li>
+                Kahneman, D., and Tversky, A. &quot;Prospect Theory: An Analysis of Decision Under
+                Risk.&quot; <em>Econometrica</em> 47, no. 2 (1979): 263-291.
+              </li>
+              <li>
+                Kahneman, D., and Tversky, A. &quot;The Psychology of Preferences.&quot;{' '}
+                <em>Scientific American</em> 246, no. 1 (1982): 160-173.
+              </li>
+              <li>
+                Samuelson, W., and Zeckhauser, R. &quot;Status Quo Bias in Decision Making.&quot;{' '}
+                <em>Journal of Risk and Uncertainty</em> 1, no. 1 (1988): 7-59.
+              </li>
+              <li>
+                Thaler, R. H. &quot;Mental Accounting and Consumer Choice.&quot;{' '}
+                <em>Marketing Science</em> 4, no. 3 (1985): 199-214.
+              </li>
+              <li>
+                Tversky, A., and Kahneman, D. &quot;Loss Aversion in Riskless Choice: A
+                Reference-Dependent Model.&quot; <em>Quarterly Journal of Economics</em> 106, no. 4
+                (1991): 1039-1061.
+              </li>
+              <li>
+                von Neumann, J., and Morgenstern, O. <em>Theory of Games and Economic Behavior</em>.
+                Princeton, NJ: Princeton University Press, 1944.
+              </li>
+              <li>
+                Thaler, R. H. <em>Mental Accounting: Working Memory and Consumer Choice</em>. New
+                York: Russell Sage Foundation, 2000.
+              </li>
+              <li>
+                Langer, E. J. &quot;The Illusion of Control.&quot;{' '}
+                <em>Journal of Personality and Social Psychology</em> 32, no. 2 (1975): 311-328.
+              </li>
+            </ol>
           </section>
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.

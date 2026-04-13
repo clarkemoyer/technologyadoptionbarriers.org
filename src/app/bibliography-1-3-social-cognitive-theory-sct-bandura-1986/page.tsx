@@ -632,83 +632,99 @@ const BibliographyArticlePage = () => {
                 advocate for adopted technologies, demonstrate learning and adaptation to new
                 systems, and acknowledge their own learning processes. Leader modeling of technology
                 adoption and learning creates powerful vicarious experiences and cultural signals
-                that adoption is valued and expected. 7
+                that adoption is valued and expected.
               </li>
               <li>
-                <strong>Following Models or Theories Following Models:</strong> Technology
-                Acceptance Model (TAM) - Davis, 1989 Unified Theory of Acceptance and Use of
-                Technology (UTAUT) - Venkatesh et al., 2003 Technology Acceptance Model 3 (TAM3) -
-                Venkatesh & Bala, 2008 Expectancy-Value Theory applications to technology
-                Self-Determination Theory applications to technology adoption Following Theories:
-                Extensions of SCT specifically addressing technology (computer self- efficacy)
-                Motivational theories integrating self-efficacy Organizational behavior theories
-                incorporating efficacy beliefs Training and development literature using SCT
-                frameworks Series Navigation This article is part of a comprehensive series
-                examining foundational and contemporary models of technology adoption. The series
-                progresses through theoretical foundations, early models, and contemporary
-                frameworks: Foundational Psychological Theories: - Social Cognitive Theory (Bandura,
-                1986) - Current Article - Theory of Reasoned Action (Fishbein & Ajzen, 1975) Early
-                Technology Adoption Models: - Technology Acceptance Model (Davis, 1989) - Innovation
-                Diffusion Theory (Rogers, 1983/2003) - Theory of Planned Behavior (Ajzen, 1991)
-                Contemporary Integrated Models: - Unified Theory of Acceptance and Use of Technology
-                (UTAUT) - Venkatesh et al., 2003 - Technology Acceptance Model 3 (TAM3) - Venkatesh
-                & Bala, 2008 Emerging and Specialized Models: - Extended UTAUT - Venkatesh & Bala,
-                2008 - Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) - Venkatesh et
-                al., 2012 - Consumer-focused and context-specific adoption models Readers should
-                consult the full series for comprehensive coverage of technology adoption literature
-                and to understand how these models build upon, integrate, and extend one another.
-                References 1.Bandura, A. (1986)
-              </li>
-              <li>
-                <strong>Social foundations of thought and action:</strong> A social cognitive theory
-                . Prentice-Hall. 2.Bandura, A. (1997)
-              </li>
-              <li>
-                <strong>Self-efficacy:</strong> The exercise of control . W.H. Freeman. 3.Bandura,
-                A. (2001)
-              </li>
-              <li>
-                <strong>Social cognitive theory:</strong> An agentic perspective. Annual Review of
-                Psychology , 52, 1-26. 4.Davis, F. D. (1989). Perceived usefulness, perceived ease
-                of use, and user acceptance of information technology. MIS Quarterly, 13(3), 319-
-                340. 5.Venkatesh, V., Morris, M. G., Davis, G. B., & Davis, F. D. (2003)
-              </li>
-              <li>
-                <strong>User acceptance of information technology:</strong> Toward a unified view.
-                MIS Quarterly, 27(3), 425-478. 6.Compeau, D. R., & Higgins, C. A. (1995)
-              </li>
-              <li>
-                <strong>Computer self-efficacy:</strong> Development of a measure and initial test.
-                MIS Quarterly, 19(2), 189- 211. 7.Compeau, D. R., Higgins, C. A., & Huff, S. (1999).
-                Social cognitive theory and individual reactions to computing technology: A
-                longitudinal study. Journal of Applied Psychology , 84(6), 811-821. 8.Marakas, G.
-                M., Yi, M. Y., & Johnson, R. D. (1998)
-              </li>
-              <li>
-                <strong>
-                  The multilevel and multifaceted character of computer self-efficacy:
-                </strong>{' '}
-                Toward clarification of the construct and an integrative framework. Information
-                Systems Research, 9(2), 126-163. 9.Gist, M. E., & Mitchell, T. R. (1992)
-              </li>
-              <li>
-                <strong>Self-efficacy:</strong> A theoretical analysis of its determinants and
-                malleability. Academy of Management Review , 17(2), 183-211. 10.Agarwal, R., &
-                Prasad, J. (1999). Are individual differences germane to the acceptance of new
-                information technologies? Decision Sciences , 30(2), 361-391. 11.Ajzen, I. (1991).
-                The theory of planned behavior. Organizational Behavior and Human Decision Processes
-                , 50(2), 179-211. 12.Fishbein, M., & Ajzen, I. (1975). Belief, attitude, intention,
-                and behavior: An introduction to theory and research . Addison-Wesley. 13.Zuboff, S.
-                (1988)
-              </li>
-              <li>
-                <strong>In the age of the smart machine:</strong> The future of work and power.
-                Basic Books
-              </li>
-              <li>
-                <strong>Word Count:</strong> Approximately 5,500 words
+                <strong>Following Models or Theories:</strong> <em>Following Models:</em>
+                <ul className="list-disc pl-6 mt-2 space-y-1">
+                  <li>Technology Acceptance Model (TAM) - Davis, 1989</li>
+                  <li>
+                    Unified Theory of Acceptance and Use of Technology (UTAUT) - Venkatesh et al.,
+                    2003
+                  </li>
+                  <li>Technology Acceptance Model 3 (TAM3) - Venkatesh and Bala, 2008</li>
+                  <li>Expectancy-Value Theory applications to technology</li>
+                  <li>Self-Determination Theory applications to technology adoption</li>
+                </ul>
+                <em>Following Theories:</em>
+                <ul className="list-disc pl-6 mt-2 space-y-1">
+                  <li>
+                    Extensions of SCT specifically addressing technology (computer self-efficacy)
+                  </li>
+                  <li>Motivational theories integrating self-efficacy</li>
+                  <li>Organizational behavior theories incorporating efficacy beliefs</li>
+                  <li>Training and development literature using SCT frameworks</li>
+                </ul>
               </li>
             </ul>
+          </section>
+
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm">
+              <li>
+                Bandura, A. (1986).{' '}
+                <em>Social foundations of thought and action: A social cognitive theory</em>.
+                Prentice-Hall.
+              </li>
+              <li>
+                Bandura, A. (1997). <em>Self-efficacy: The exercise of control</em>. W.H. Freeman.
+              </li>
+              <li>
+                Bandura, A. (2001). Social cognitive theory: An agentic perspective.{' '}
+                <em>Annual Review of Psychology</em>, 52, 1-26.
+              </li>
+              <li>
+                Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user
+                acceptance of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
+              </li>
+              <li>
+                Venkatesh, V., Morris, M. G., Davis, G. B., and Davis, F. D. (2003). User acceptance
+                of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
+                425-478.
+              </li>
+              <li>
+                Compeau, D. R., and Higgins, C. A. (1995). Computer self-efficacy: Development of a
+                measure and initial test. <em>MIS Quarterly</em>, 19(2), 189-211.
+              </li>
+              <li>
+                Compeau, D. R., Higgins, C. A., and Huff, S. (1999). Social cognitive theory and
+                individual reactions to computing technology: A longitudinal study.{' '}
+                <em>Journal of Applied Psychology</em>, 84(6), 811-821.
+              </li>
+              <li>
+                Marakas, G. M., Yi, M. Y., and Johnson, R. D. (1998). The multilevel and
+                multifaceted character of computer self-efficacy: Toward clarification of the
+                construct and an integrative framework. <em>Information Systems Research</em>, 9(2),
+                126-163.
+              </li>
+              <li>
+                Gist, M. E., and Mitchell, T. R. (1992). Self-efficacy: A theoretical analysis of
+                its determinants and malleability. <em>Academy of Management Review</em>, 17(2),
+                183-211.
+              </li>
+              <li>
+                Agarwal, R., and Prasad, J. (1999). Are individual differences germane to the
+                acceptance of new information technologies? <em>Decision Sciences</em>, 30(2),
+                361-391.
+              </li>
+              <li>
+                Ajzen, I. (1991). The theory of planned behavior.{' '}
+                <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179-211.
+              </li>
+              <li>
+                Fishbein, M., and Ajzen, I. (1975).{' '}
+                <em>
+                  Belief, attitude, intention, and behavior: An introduction to theory and research
+                </em>
+                . Addison-Wesley.
+              </li>
+              <li>
+                Zuboff, S. (1988).{' '}
+                <em>In the age of the smart machine: The future of work and power</em>. Basic Books.
+              </li>
+            </ol>
           </section>
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
