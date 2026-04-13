@@ -2,16 +2,30 @@
 
 This document outlines the recurring maintenance tasks required to keep the TABS infrastructure secure, performant, and aligned with evolving AI and protocol standards.
 
-## Recurring Tasks
+## What Dependabot Handles (Automated)
 
-### Quarterly Dependency Freshness Check
+npm packages and GitHub Actions versions are managed automatically by Dependabot. No manual intervention is needed unless a PR fails CI or requires a major version migration.
+
+- **Config**: `.github/dependabot.yml`
+- **Docs**: [DEPENDABOT.md](../DEPENDABOT.md)
+- **Schedule**: Weekly (Mondays 09:00 UTC)
+- **View open PRs**: Filter by `label:dependencies` in the repo's PR list
+- **Security fixes**: Immediate PRs when vulnerabilities are detected (bypasses weekly schedule)
+
+## What Requires Manual Review (Quarterly)
+
+The following are **not** tracked by Dependabot and require manual quarterly checks.
+
+### Quarterly Non-npm Dependency Check
 
 **Schedule:** January, April, July, October (First week)
 
-1. **Scan Dependencies**: Run `npm outdated` and `pip list --outdated`.
-2. **Audit Findings**: Document the current status in `EXTERNAL_DEPENDENCIES.md`.
-3. **Update Core Tools**: Ensure `gh` CLI and MCP SDKs meet the minimum requirements in `CLAUDE.md`.
-4. **Plan Upgrades**: Create issues for major version upgrades that require testing.
+1. **MCP Server Versions**: Check `.vscode/mcp.json` and `claude_desktop_config.json` pins against latest releases from each MCP server repo.
+2. **Python Tools (`uvx`)**: Verify pinned versions (e.g., `pyzotero[mcp]==1.11.0`) against PyPI. Run `pip index versions <package>` to check.
+3. **`gh` CLI**: Compare `gh --version` against [cli/cli releases](https://github.com/cli/cli/releases). Minimum: 2.67.0+ (2.89.0+ for newer agent features).
+4. **MCP Protocol SEPs**: Review [modelcontextprotocol.io/seps](https://modelcontextprotocol.io/seps) for newly finalized SEPs that affect our integrations.
+5. **Document Findings**: Update the non-npm dependency table in `EXTERNAL_DEPENDENCIES.md`.
+6. **Plan Upgrades**: Create issues for updates that require testing.
 
 ### Quarterly Security Review
 
@@ -39,8 +53,9 @@ Monitor the following channels for announcements related to the Model Context Pr
 
 ## Versioning Policy
 
-- **Minor/Patch Updates**: Apply immediately after verification via CI.
-- **Major Updates**: Require a dedicated feature branch and full E2E validation.
+- **npm Minor/Patch Updates**: Dependabot PRs - merge after CI passes.
+- **npm Major Updates**: Dependabot opens individual PRs - require a dedicated review and full E2E validation.
+- **Non-npm Updates**: Manual quarterly review per the checklist above.
 - **MCP SEPs**: Standardize on "Final" SEPs; experimental SEPs require maintainer approval.
 
 ## Governance

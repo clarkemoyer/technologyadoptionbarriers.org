@@ -4,7 +4,7 @@ Welcome, Claude! This document provides specific instructions for working on the
 
 ## About This Project
 
-You're working on a **Next.js 16.2.1+ + TypeScript** website for Technology Adoption Barriers, a nonprofit focused on documenting and addressing technology adoption challenges.
+You're working on a **Next.js + TypeScript** website for Technology Adoption Barriers, a nonprofit focused on documenting and addressing technology adoption challenges.
 
 **Key Facts:**
 
@@ -45,27 +45,25 @@ npm run test:e2e    # Playwright E2E tests
 
 TABS tracks rapidly evolving AI and protocol standards under the Linux Foundation AI & Data (AAIF).
 
-### Minimum Tool Versions
+### npm Dependencies (Automated)
+
+npm packages (Next.js, React, TypeScript, Tailwind, etc.) are tracked automatically by Dependabot. See `.github/dependabot.yml` and [DEPENDABOT.md](./DEPENDABOT.md). Do not hard-code version floors here - check `package.json` for current versions.
+
+### Non-npm Tool Versions (Manual)
 
 - **GitHub CLI (`gh`)**: 2.67.0+ for `gh agent-task list` and existing monitoring automation; 2.89.0+ only for newer `gh agent-task` subcommands and agentic review features
 - **MCP Protocol**:
   - [SEP-1699](https://modelcontextprotocol.io/seps/1699-support-sse-polling-via-server-side-disconnect): SSE polling and server-side disconnect (Resumability)
   - [SEP-1865](https://modelcontextprotocol.io/seps/1865-mcp-apps-interactive-user-interfaces-for-mcp): MCP Apps (Interactive UIs / "Server Cards")
+- **Python tools via `uvx`**: Must be strictly pinned (e.g., `uvx --from 'pyzotero[mcp]==1.11.0' zotero-mcp`)
 
-### Core Dependencies
-
-- **Next.js**: 16.2.1+
-- **React**: 19.2.4+
-- **TypeScript**: 6.0.2+
-- **Tailwind CSS**: 4.1.12+
-
-Agents should verify these versions using `gh --version` and checking `package.json` before starting complex infrastructure tasks.
+These are not tracked by Dependabot and require manual quarterly review. See [docs/MAINTENANCE.md](./docs/MAINTENANCE.md) and [EXTERNAL_DEPENDENCIES.md](./EXTERNAL_DEPENDENCIES.md).
 
 ## Architecture Overview
 
 ### Tech Stack
 
-- **Framework**: Next.js 16.2.1+ with App Router
+- **Framework**: Next.js with App Router (see `package.json` for current version)
 - **Language**: TypeScript (strict mode) for the website; **Python** is the primary language for analysis and operational scripts
 - **Styling**: Tailwind CSS
 - **Testing**: Jest + Testing Library, Playwright, jest-axe
