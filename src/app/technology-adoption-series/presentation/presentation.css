@@ -5,6 +5,7 @@
 
 /* Hide site chrome when presenting */
 #header,
+#sidebar,
 footer,
 [data-cookie-consent] {
   display: none !important;
