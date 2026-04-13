@@ -209,6 +209,30 @@ function teachingToGroups(): SidebarGroup[] {
     })
   }
 
+  groups.push({
+    title: 'Presentations',
+    links: [
+      { title: 'Full Deck (Standard)', href: `${baseSlug}/presentation` },
+      { title: 'Full Deck (4K)', href: `${baseSlug}/presentation/4k` },
+      { title: 'Visual Gallery', href: `${baseSlug}/visual-gallery` },
+    ],
+  })
+
+  groups.push({
+    title: 'Focused Briefings',
+    links: [
+      { title: 'Lifecycle Positioning', href: `${baseSlug}/lifecycle-positioning` },
+      {
+        title: 'Lifecycle Positioning Presentation (Standard)',
+        href: `${baseSlug}/lifecycle-positioning/presentation`,
+      },
+      {
+        title: 'Lifecycle Positioning Presentation (4K)',
+        href: `${baseSlug}/lifecycle-positioning/presentation/4k`,
+      },
+    ],
+  })
+
   groups.unshift({
     title: 'Series Overview',
     links: [{ title: 'Teaching Series Overview', href: baseSlug }],
