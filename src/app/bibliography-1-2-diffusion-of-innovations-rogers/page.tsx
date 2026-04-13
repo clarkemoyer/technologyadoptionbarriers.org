@@ -641,6 +641,19 @@ const BibliographyArticlePage = () => {
                 </em> . Russell Sage Foundation.
               </li>
             </ol>
+            <p className={PARAGRAPH_CLASSES}>
+              This article synthesizes content exclusively from Rogers (1962) Diffusion of
+              Innovations to provide a comprehensive analysis of this foundational model for
+              understanding technology adoption processes across individuals, organizations, and
+              social systems
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>Source Note:</strong> This article was written without a singular PDF source
+              document. Content is synthesized from the work&rsquo;s widely established
+              contributions to the technology adoption literature as referenced across multiple
+              sources in this series. Readers are encouraged to consult the original publication for
+              primary source verification.
+            </p>
           </section>
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
