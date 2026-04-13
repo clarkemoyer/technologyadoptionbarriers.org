@@ -136,7 +136,7 @@ for f in "$ARTIFACTS_DIR"/message-metrics-*/message-output.txt; do
       TOTAL_SENT=$((TOTAL_SENT + ${SENT:-0}))
       TOTAL_FAILED=$((TOTAL_FAILED + ${FAILED:-0}))
     else
-      # No participants matched this disposition — show 0/0/0/0 so it still appears in report
+      # No participants matched this disposition - show 0/0/0/0 so it still appears in report
       MSG_ROWS="$MSG_ROWS
 | $DISP | 0 | 0 | 0 | 0 |"
     fi
@@ -163,23 +163,23 @@ new_msgs = int(os.environ.get('TOTAL_SENT', '0'))
 ae_awaiting = dbs.get('AUTO-EXCLUDE', {}).get('AWAITING REVIEW', 0)
 if ae_awaiting > 0:
     if new_msgs == 0:
-        recs.append(f'| ⏳ Waiting | **{ae_awaiting} AUTO-EXCLUDE** awaiting review | All messaged with return-offer — waiting on participants to return. Reject if no response by deadline. |')
+        recs.append(f'| ⏳ Waiting | **{ae_awaiting} AUTO-EXCLUDE** awaiting review | All messaged with return-offer - waiting on participants to return. Reject if no response by deadline. |')
     else:
-        recs.append(f'| 🔴 Critical | **{ae_awaiting} AUTO-EXCLUDE** awaiting review | Send return-offer messages or reject — these failed multiple quality checks |')
+        recs.append(f'| 🔴 Critical | **{ae_awaiting} AUTO-EXCLUDE** awaiting review | Send return-offer messages or reject - these failed multiple quality checks |')
 
-# Priority 2: Any FLAG with AWAITING REVIEW — need manual decision
+# Priority 2: Any FLAG with AWAITING REVIEW - need manual decision
 for disp in ['FLAG-SINGLE-IRI', 'FLAG-SMEAL', 'FLAG-SPEED', 'FLAG-PARTIAL-STRAIGHTLINING', 'FLAG-RECAPTCHA']:
     n = dbs.get(disp, {}).get('AWAITING REVIEW', 0)
     if n > 0:
         guidance = {
-            'FLAG-SINGLE-IRI': 'Review IRI answer — approve if borderline, message if unclear',
-            'FLAG-SMEAL': 'Review completion time — approve if IRI checks all passed',
-            'FLAG-SPEED': 'Review — fast but all IRIs passed; likely approvable',
-            'FLAG-PARTIAL-STRAIGHTLINING': 'Review response variance — approve if answers show engagement',
-            'FLAG-RECAPTCHA': 'Review reCAPTCHA score — approve if other quality signals OK',
+            'FLAG-SINGLE-IRI': 'Review IRI answer - approve if borderline, message if unclear',
+            'FLAG-SMEAL': 'Review completion time - approve if IRI checks all passed',
+            'FLAG-SPEED': 'Review - fast but all IRIs passed; likely approvable',
+            'FLAG-PARTIAL-STRAIGHTLINING': 'Review response variance - approve if answers show engagement',
+            'FLAG-RECAPTCHA': 'Review reCAPTCHA score - approve if other quality signals OK',
         }.get(disp, 'Manual review needed')
         if new_msgs == 0:
-            recs.append(f'| ⏳ Waiting | **{n} {disp}** awaiting review | Already messaged — check for replies, then approve or reject |')
+            recs.append(f'| ⏳ Waiting | **{n} {disp}** awaiting review | Already messaged - check for replies, then approve or reject |')
         else:
             recs.append(f'| 🟡 Action | **{n} {disp}** awaiting review | {guidance} |')
 
@@ -191,7 +191,7 @@ if ae_approved > 0:
 # Priority 4: INCOMPLETE still awaiting
 inc_awaiting = dbs.get('INCOMPLETE', {}).get('AWAITING REVIEW', 0)
 if inc_awaiting > 0:
-    recs.append(f'| 🔵 Low | **{inc_awaiting} INCOMPLETE** awaiting review | Likely abandoned — consider requesting return |')
+    recs.append(f'| 🔵 Low | **{inc_awaiting} INCOMPLETE** awaiting review | Likely abandoned - consider requesting return |')
 
 # Summary counts
 total_awaiting = sum(r.get('AWAITING REVIEW', 0) for r in dbs.values())
@@ -207,7 +207,7 @@ if recs:
     print('')
     print(f'**Summary:** {total_awaiting} total awaiting review, {total_approved} approved, {total_returned} returned, {total_rejected} rejected')
 else:
-    print('No actions needed — all dispositions have been processed.')
+    print('No actions needed - all dispositions have been processed.')
 RECEOF
   ) || RECOMMENDATIONS=""
 fi
@@ -233,19 +233,19 @@ fi
 WARNINGS=""
 if [ "${TRIAGE_RESULT:-}" = "failure" ]; then
   WARNINGS="$WARNINGS
-> ⚠️ **Export & Triage failed** — triage counts may be stale."
+> ⚠️ **Export & Triage failed** - triage counts may be stale."
 fi
 if [ "${APPROVE_RESULT_STATUS:-}" = "failure" ]; then
   WARNINGS="$WARNINGS
-> ⚠️ **Auto-Approve failed** — CLEAN submissions may not have been approved."
+> ⚠️ **Auto-Approve failed** - CLEAN submissions may not have been approved."
 fi
 if [ "${MESSAGE_RESULT:-}" = "failure" ]; then
   WARNINGS="$WARNINGS
-> ⚠️ **Messaging failed** — some FLAG participants may not have been contacted."
+> ⚠️ **Messaging failed** - some FLAG participants may not have been contacted."
 fi
 if [ "${DASHBOARD_RESULT:-}" = "failure" ] || [ "$HAS_DASHBOARD" = false ]; then
   WARNINGS="$WARNINGS
-> ⚠️ **Dashboard data unavailable** — Prolific status counts and deltas may be incomplete."
+> ⚠️ **Dashboard data unavailable** - Prolific status counts and deltas may be incomplete."
 fi
 
 DASHBOARD_NOTE=""

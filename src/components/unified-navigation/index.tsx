@@ -112,7 +112,7 @@ export default function UnifiedNavigation({
   const effectiveHeaderH = headerH || DEFAULT_HEADER_HEIGHT
   const scrollMargin = `${effectiveHeaderH + SCROLL_MARGIN_GAP}px`
 
-  // Scan article for H2 headings — ensure unique IDs
+  // Scan article for H2 headings - ensure unique IDs
   useEffect(() => {
     const article = document.querySelector('article')
     if (!article) return
@@ -142,7 +142,7 @@ export default function UnifiedNavigation({
     setHeadings(items)
   }, [pathname, scrollMargin])
 
-  // Scroll spy with IntersectionObserver — rootMargin tracks dynamic header height
+  // Scroll spy with IntersectionObserver - rootMargin tracks dynamic header height
   useEffect(() => {
     if (typeof IntersectionObserver === 'undefined') return
     const article = document.querySelector('article')

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'SEO Strategy Roadmap — Making of TABS',
+  title: 'SEO Strategy Roadmap - Making of TABS',
   description: 'This page has moved. See the consolidated SEO Transparency page.',
   alternates: {
     canonical: '/making-of-tabs/seo',
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const StrategyStubPage = () => {
   return (
-    <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
+    <div className="pt-20 sm:pt-[120px] bg-white">
       <div className="max-w-2xl mx-auto px-4 py-16 text-center text-gray-700">
         <p className="text-lg mb-4">
           This page has been consolidated into the{' '}
@@ -28,7 +28,7 @@ const StrategyStubPage = () => {
           Go to Strategy Roadmap ↓
         </Link>
       </div>
-    </main>
+    </div>
   )
 }
 
