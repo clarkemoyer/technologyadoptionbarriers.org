@@ -483,22 +483,48 @@ const GlossaryPage = () => {
 
         {/* ── Navigation ── */}
         <section className="border-t border-gray-200 pt-8 mt-8">
-          <div className="flex flex-wrap gap-4 text-sm font-sans">
-            <Link href="/results/crp-2026/validation" className="text-blue-600 hover:underline">
-              Instrument Validation Results &rarr;
-            </Link>
-            <Link
-              href="/results/crp-2026/factor-analysis"
-              className="text-blue-600 hover:underline"
-            >
-              Factor Analysis &rarr;
-            </Link>
-            <Link href="/results/crp-2026/reliability" className="text-blue-600 hover:underline">
-              Scale Reliability &rarr;
-            </Link>
-            <Link href="/results/crp-2026" className="text-blue-600 hover:underline">
-              &larr; CRP 2026 Overview
-            </Link>
+          <div className="space-y-4 text-sm font-sans">
+            <div>
+              <p className="mb-2 font-medium text-gray-700">Shared / Full Dataset Results</p>
+              <div className="flex flex-wrap gap-4">
+                <Link href="/results/validation" className="text-blue-600 hover:underline">
+                  Instrument Validation Results &rarr;
+                </Link>
+                <Link href="/results/factor-analysis" className="text-blue-600 hover:underline">
+                  Factor Analysis &rarr;
+                </Link>
+                <Link href="/results/reliability" className="text-blue-600 hover:underline">
+                  Scale Reliability &rarr;
+                </Link>
+                <Link href="/results" className="text-blue-600 hover:underline">
+                  &larr; Results Overview
+                </Link>
+              </div>
+            </div>
+
+            <div>
+              <p className="mb-2 font-medium text-gray-700">CRP 2026 Results</p>
+              <div className="flex flex-wrap gap-4">
+                <Link href="/results/crp-2026/validation" className="text-blue-600 hover:underline">
+                  CRP 2026 Validation &rarr;
+                </Link>
+                <Link
+                  href="/results/crp-2026/factor-analysis"
+                  className="text-blue-600 hover:underline"
+                >
+                  CRP 2026 Factor Analysis &rarr;
+                </Link>
+                <Link
+                  href="/results/crp-2026/reliability"
+                  className="text-blue-600 hover:underline"
+                >
+                  CRP 2026 Reliability &rarr;
+                </Link>
+                <Link href="/results/crp-2026" className="text-blue-600 hover:underline">
+                  &larr; CRP 2026 Overview
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
       </article>

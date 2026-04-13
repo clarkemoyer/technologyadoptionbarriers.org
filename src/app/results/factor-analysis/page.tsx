@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
 }
 
-/* ── Barrier item labels (from crp-validation.json) ── */
+/* ── Barrier item labels (from live-validation.json) ── */
 const BARRIER_ITEMS: Record<string, string> = Object.fromEntries(
   validationData.factor_analysis.barrier_names.map((name, i) => [`B${i + 1}`, name])
 )
@@ -56,7 +56,7 @@ const THEORY_GROUPS = [
   },
 ]
 
-/* ── EFA 2-factor solution (from crp-validation.json) ── */
+/* ── EFA 2-factor solution (from live-validation.json) ── */
 const EFA_COLORS = [
   { color: 'bg-indigo-50 border-indigo-400', headerColor: 'bg-indigo-600' },
   { color: 'bg-pink-50 border-pink-400', headerColor: 'bg-pink-600' },
@@ -86,7 +86,7 @@ const EFA_FACTORS = validationData.factor_analysis.efa_factors.map((f, idx) => {
   }
 })
 
-/* ── Forced 3-group split of F1 (from crp-validation.json) ── */
+/* ── Forced 3-group split of F1 (from live-validation.json) ── */
 const THREE_GROUP_COLORS = [
   { color: 'bg-violet-50 border-violet-400', headerColor: 'bg-violet-600' },
   { color: 'bg-cyan-50 border-cyan-400', headerColor: 'bg-cyan-600' },
@@ -186,13 +186,14 @@ const FactorAnalysisPage = () => {
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
-            The {validationData.metadata.n_barriers}-item TABS Barriers scale was developed through
-            a concept-mapping process that identified four theoretical sub-constructs. Exploratory
-            Factor Analysis (EFA) on the full TABS dataset (N=
-            {validationData.metadata.n_total}, listwise valid N=
-            {validationData.Barriers.n_listwise}) reveals a statistically supported 2-factor
-            structure, with an exploratory 3-group decomposition available for practitioner-oriented
-            reporting. This page walks through each level of the hierarchy.
+            The TABS Barriers scale includes {validationData.metadata.n_barriers} items and was
+            developed through a concept-mapping process that identified four theoretical
+            sub-constructs. Exploratory Factor Analysis (EFA) on the full TABS dataset reveals a
+            statistically supported 2-factor structure. The full dataset included{' '}
+            {validationData.metadata.n_total} responses, with {validationData.Barriers.n_listwise}{' '}
+            listwise valid responses for the factor analysis. An exploratory 3-group decomposition
+            is also available for practitioner-oriented reporting. This page walks through each
+            level of the hierarchy.
           </p>
           <p className="text-sm text-gray-500 font-sans mb-6">
             See the{' '}
