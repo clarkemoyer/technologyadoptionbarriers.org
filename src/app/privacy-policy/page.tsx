@@ -76,7 +76,42 @@ export default function PrivacyPolicy() {
           </ul>
 
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500] mt-[1em]">
-            <strong>3.2. Embedded Content from Other Websites</strong>
+            <strong>3.4. Microsoft Forms - Application Forms</strong>
+          </p>
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
+            We use Microsoft Forms (forms.office.com) for our research project application process.
+            When you submit an application through our website:
+          </p>
+          <ul className="list-inside list-disc space-y-[4px] pb-[1em]">
+            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
+              <strong>Data Collected:</strong> Information you provide in the application form
+              (name, email, organization details, etc.)
+            </li>
+            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
+              <strong>Third-Party Processing:</strong> Microsoft Forms is a service provided by
+              Microsoft Corporation. Your form submissions are processed according to
+              Microsoft&apos;s privacy policies.
+            </li>
+            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
+              <strong>Additional Third-Party Services:</strong> Microsoft Forms may use additional
+              services (including HubSpot) for form analytics and feedback collection. These are
+              controlled by Microsoft, not Technology Adoption Barriers Survey (TABS).
+            </li>
+            <li className="text-[14px] text-gray-500 leading-[24px] font-[500]">
+              <strong>Privacy Policy:</strong> Review Microsoft&apos;s privacy practices at{' '}
+              <a
+                href="https://privacy.microsoft.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-tabs-link underline"
+              >
+                https://privacy.microsoft.com/
+              </a>
+            </li>
+          </ul>
+
+          <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500] mt-[1em]">
+            <strong>3.5. Embedded Content from Other Websites</strong>
           </p>
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             Articles on this site may include embedded content (e.g., videos, images, articles).
@@ -306,7 +341,7 @@ export default function PrivacyPolicy() {
             </li>
           </ol>
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
-            Your information may be transferred to, and maintained on, computers located outside of
+            Your information may be transferred to—and maintained on—computers located outside of
             your state, province, country, or other governmental jurisdiction where data protection
             laws may differ:
           </p>

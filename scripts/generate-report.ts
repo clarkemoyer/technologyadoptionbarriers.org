@@ -89,7 +89,7 @@ async function generateReport() {
     }
 
     // --- Verified human visitors ---
-    // Production hostname only - excludes localhost/CI/Playwright/AI test traffic.
+    // Production hostname only – excludes localhost/CI/Playwright/AI test traffic.
     // We use the hostname breakdown (already fetched above) and extract the
     // production row directly, since GA4 dimensionFilter does not reliably
     // apply with this client library version.

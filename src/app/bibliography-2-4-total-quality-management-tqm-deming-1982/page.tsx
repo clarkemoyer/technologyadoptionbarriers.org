@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Total Quality Management (TQM) - Deming (1982)',
+  title: 'Bibliography: Total Quality Management (TQM) – Deming (1982)',
   description:
     "An exploration of W. Edwards Deming's Total Quality Management philosophy, a foundational framework for understanding how management systems, continuous improvement, and organizational culture drive quality and technology adoption success.",
 }

@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Business Process Redesign (BPR) - Davenport & Short (1990)',
+  title: 'Bibliography: Business Process Redesign (BPR) – Davenport & Short (1990)',
   description:
     'An exploration of the Business Process Redesign framework by Davenport and Short, which established how information technology enables radical redesign of core business processes for competitive advantage.',
 }

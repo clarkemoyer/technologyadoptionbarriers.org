@@ -38,11 +38,11 @@
       "Measurement Objective": "Respondent's level of involvement in strategic technology adoption decisions.",
       "Item Code / Variable Name": "A1b / Demo_DecisionAuth",
       "Variable Type": "Categorical (Ordinal)",
-      "Theoretical Grounding (Source)": "Rogers (2003) - Innovation-Decision Types (Optional, Collective, Authority)",
+      "Theoretical Grounding (Source)": "Rogers (2003) — Innovation-Decision Types (Optional, Collective, Authority)",
       "APA Citation (Full)": "Rogers, E. M. (2003). Diffusion of innovations (5th ed.). Free Press.",
       "RIS Citation": "TY  - BOOK\nAU  - Rogers, Everett M.\nTI  - Diffusion of Innovations\nET  - 5th\nPY  - 2003\nPB  - Free Press\nCY  - New York, NY\nSN  - 9780743222099\nER  -",
       "Source Link (URL/DOI)": "N/A",
-      "Scale Type / Response Options": "Categorical (5 options): I am the primary decision-maker for technology adoption in my area of responsibility; I am one of several key decision-makers who collectively decide on technology adoption; I provide significant input and recommendations, but final decisions are made by others; I have limited involvement - I primarily implement technology decisions made by leadership; I have no direct involvement in technology adoption decisions",
+      "Scale Type / Response Options": "Categorical (5 options): I am the primary decision-maker for technology adoption in my area of responsibility; I am one of several key decision-makers who collectively decide on technology adoption; I provide significant input and recommendations, but final decisions are made by others; I have limited involvement — I primarily implement technology decisions made by leadership; I have no direct involvement in technology adoption decisions",
       "Qualtrics QID / Export Tag": "QID237 / Q2_DecisionAuth",
       "Relationship to Other Items": ""
     },

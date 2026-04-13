@@ -13,7 +13,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'Bibliography: Technology-Organization-Environment (TOE) Framework - Tornatzky, Fleischer & Chakrabarti (1990)',
+    'Bibliography: Technology-Organization-Environment (TOE) Framework – Tornatzky, Fleischer & Chakrabarti (1990)',
   description:
     'An exploration of the Technology-Organization-Environment (TOE) Framework by Tornatzky, Fleischer, and Chakrabarti, a foundational model for understanding organizational technology adoption through three comprehensive contextual dimensions.',
 }

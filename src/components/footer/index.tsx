@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
   ]
 
   return (
-    <footer id="site-footer" className="w-full bg-black text-white">
+    <footer className="w-full bg-black text-white">
       {/* Contact/CTA Section - Merged from BottomCTA */}
       <div
         id="contact"
@@ -269,7 +269,7 @@ const Footer: React.FC = () => {
                   href={branch.slug}
                   className="text-gray-400 hover:text-white text-sm py-1 block"
                 >
-                  {branch.title.split(' - ')[0].trim()}
+                  {branch.title.split('–')[0].trim()}
                 </Link>
               ))}
               <Link

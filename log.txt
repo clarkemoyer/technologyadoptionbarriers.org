@@ -1,0 +1,257 @@
+﻿Fetch Survey Questions	Set up job	∩╗┐2026-03-31T01:39:23.7419676Z Current runner version: '2.333.0'
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7443441Z ##[group]Runner Image Provisioner
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7444235Z Hosted Compute Agent
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7445264Z Version: 20260213.493
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7445906Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7446561Z Build Date: 2026-02-13T00:28:41Z
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7447338Z Worker ID: {3a147748-95e2-4eeb-ad94-c30ccf74c7ef}
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7448033Z Azure Region: eastus
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7448528Z ##[endgroup]
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7449987Z ##[group]Operating System
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7450591Z Ubuntu
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7451064Z 24.04.4
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7451647Z LTS
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7452069Z ##[endgroup]
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7452557Z ##[group]Runner Image
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7453144Z Image: ubuntu-24.04
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7453621Z Version: 20260323.65.1
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7454978Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260323.65/images/ubuntu/Ubuntu2404-Readme.md
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7456738Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260323.65
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7457716Z ##[endgroup]
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7458689Z ##[group]GITHUB_TOKEN Permissions
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7460683Z Contents: read
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7461312Z Metadata: read
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7461822Z ##[endgroup]
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7463780Z Secret source: Actions
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7465080Z Prepare workflow directory
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.7981401Z Prepare all required actions
+Fetch Survey Questions	Set up job	2026-03-31T01:39:23.8019169Z Getting action download info
+Fetch Survey Questions	Set up job	2026-03-31T01:39:24.0807002Z Download action repository 'actions/checkout@v6' (SHA:de0fac2e4500dabe0009e67214ff5f5447ce83dd)
+Fetch Survey Questions	Set up job	2026-03-31T01:39:24.2088951Z Download action repository 'actions/setup-node@v6' (SHA:53b83947a5a98c8d113130e565377fae1a50d02f)
+Fetch Survey Questions	Set up job	2026-03-31T01:39:24.3940299Z Complete job name: Fetch Survey Questions
+Fetch Survey Questions	Checkout repository	∩╗┐2026-03-31T01:39:24.4573911Z ##[group]Run actions/checkout@v6
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4574994Z with:
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4575513Z   repository: clarkemoyer/technologyadoptionbarriers.org
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4576300Z   token: ***
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4576691Z   ssh-strict: true
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4577074Z   ssh-user: git
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4577469Z   persist-credentials: true
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4577936Z   clean: true
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4578324Z   sparse-checkout-cone-mode: true
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4578801Z   fetch-depth: 1
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4579177Z   fetch-tags: false
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4579675Z   show-progress: true
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4580108Z   lfs: false
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4580468Z   submodules: false
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4580866Z   set-safe-directory: true
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4581521Z env:
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4582076Z   QUALTRICS_API_TOKEN: ***
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4582586Z   QUALTRICS_BASE_URL: https://yul1.qualtrics.com
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4583159Z   QUALTRICS_SURVEY_ID: SV_bkMopd73A8fzfwO
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.4583646Z ##[endgroup]
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5496826Z Syncing repository: clarkemoyer/technologyadoptionbarriers.org
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5498673Z ##[group]Getting Git version info
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5499631Z Working directory is '/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org'
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5500869Z [command]/usr/bin/git version
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5534330Z git version 2.53.0
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5557382Z ##[endgroup]
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5570914Z Temporarily overriding HOME='/home/runner/work/_temp/ea41ed1d-3730-4596-a88d-0eb9acb61585' before making global git config changes
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5572678Z Adding repository directory to the temporary git global config as a safe directory
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5575873Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5607282Z Deleting the contents of '/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org'
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5611063Z ##[group]Initializing the repository
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5615968Z [command]/usr/bin/git init /home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5709997Z hint: Using 'master' as the name for the initial branch. This default branch name
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5711738Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5712815Z hint: to use in all of your new repositories, which will suppress this warning,
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5713549Z hint: call:
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5713912Z hint:
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5714649Z hint: 	git config --global init.defaultBranch <name>
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5715360Z hint:
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5715917Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5716787Z hint: 'development'. The just-created branch can be renamed via this command:
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5717476Z hint:
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5717846Z hint: 	git branch -m <name>
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5718280Z hint:
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5718852Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5720087Z Initialized empty Git repository in /home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org/.git/
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5723458Z [command]/usr/bin/git remote add origin https://github.com/clarkemoyer/technologyadoptionbarriers.org
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5753386Z ##[endgroup]
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5754835Z ##[group]Disabling automatic garbage collection
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5758129Z [command]/usr/bin/git config --local gc.auto 0
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5787670Z ##[endgroup]
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5788883Z ##[group]Setting up auth
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5789791Z Removing SSH command configuration
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5795512Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.5826330Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.6117993Z Removing HTTP extra header
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.6122669Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.6150671Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.6359019Z Removing includeIf entries pointing to credentials config files
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.6364920Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.6393453Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.6610881Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-4c604aa1-12d5-42f2-9fc7-2fbf4b18860f.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.6646561Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org/.git.path /home/runner/work/_temp/git-credentials-4c604aa1-12d5-42f2-9fc7-2fbf4b18860f.config
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.6676831Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-4c604aa1-12d5-42f2-9fc7-2fbf4b18860f.config
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.6708484Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-4c604aa1-12d5-42f2-9fc7-2fbf4b18860f.config
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.6739111Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-4c604aa1-12d5-42f2-9fc7-2fbf4b18860f.config
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.6764920Z ##[endgroup]
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.6766146Z ##[group]Fetching the repository
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:24.6774824Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +98d2399a9400ed1e34d2f2cc25d52feadeff15a6:refs/remotes/origin/main
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.8102329Z From https://github.com/clarkemoyer/technologyadoptionbarriers.org
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.8104734Z  * [new ref]         98d2399a9400ed1e34d2f2cc25d52feadeff15a6 -> origin/main
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.8138805Z [command]/usr/bin/git branch --list --remote origin/main
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.8173730Z   origin/main
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.8186573Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.8207004Z 98d2399a9400ed1e34d2f2cc25d52feadeff15a6
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.8212634Z ##[endgroup]
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.8214238Z ##[group]Determining the checkout info
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.8216460Z ##[endgroup]
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.8219075Z [command]/usr/bin/git sparse-checkout disable
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.8258509Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.8286477Z ##[group]Checking out the ref
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.8289840Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.9796235Z Switched to a new branch 'main'
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.9798033Z branch 'main' set up to track 'origin/main'.
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.9821623Z ##[endgroup]
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.9863178Z [command]/usr/bin/git log -1 --format=%H
+Fetch Survey Questions	Checkout repository	2026-03-31T01:39:25.9886354Z 98d2399a9400ed1e34d2f2cc25d52feadeff15a6
+Fetch Survey Questions	Verify Qualtrics configuration	∩╗┐2026-03-31T01:39:26.0103361Z ##[group]Run set -euo pipefail
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0104928Z [36;1mset -euo pipefail[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0106080Z [36;1m[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0107140Z [36;1mif [[ -z "${QUALTRICS_API_TOKEN:-}" ]]; then[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0109556Z [36;1m  echo "ERROR: QUALTRICS_API_TOKEN is not set. Configure this secret in the 'qualtrics-prod' environment." >&2[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0111876Z [36;1m  exit 1[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0112850Z [36;1mfi[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0113773Z [36;1m[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0114951Z [36;1mif [[ -z "${QUALTRICS_BASE_URL:-}" ]]; then[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0117320Z [36;1m  echo "ERROR: QUALTRICS_BASE_URL is not set. Configure this variable in the 'qualtrics-prod' environment." >&2[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0119562Z [36;1m  exit 1[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0120462Z [36;1mfi[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0121327Z [36;1m[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0122283Z [36;1mif [[ -z "${QUALTRICS_SURVEY_ID:-}" ]]; then[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0125232Z [36;1m  echo "ERROR: QUALTRICS_SURVEY_ID is not set. Configure this variable in the 'qualtrics-prod' environment or pass workflow input survey_id." >&2[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0127956Z [36;1m  exit 1[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0128840Z [36;1mfi[0m
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0160708Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0162114Z env:
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0163756Z   QUALTRICS_API_TOKEN: ***
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0165265Z   QUALTRICS_BASE_URL: https://yul1.qualtrics.com
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0166597Z   QUALTRICS_SURVEY_ID: SV_bkMopd73A8fzfwO
+Fetch Survey Questions	Verify Qualtrics configuration	2026-03-31T01:39:26.0167749Z ##[endgroup]
+Fetch Survey Questions	Setup Node.js	∩╗┐2026-03-31T01:39:26.0408559Z ##[group]Run actions/setup-node@v6
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.0409570Z with:
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.0410288Z   node-version: 20
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.0411082Z   cache: npm
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.0411880Z   check-latest: false
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.0412985Z   token: ***
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.0413785Z   package-manager-cache: true
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.0414880Z env:
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.0415931Z   QUALTRICS_API_TOKEN: ***
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.0416966Z   QUALTRICS_BASE_URL: https://yul1.qualtrics.com
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.0418157Z   QUALTRICS_SURVEY_ID: SV_bkMopd73A8fzfwO
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.0419169Z ##[endgroup]
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.1896742Z Found in cache @ /opt/hostedtoolcache/node/20.20.1/x64
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.1899595Z ##[group]Environment details
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.4557817Z node: v20.20.1
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.4558371Z npm: 10.8.2
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.4558590Z yarn: 1.22.22
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.4559166Z ##[endgroup]
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.4575175Z [command]/opt/hostedtoolcache/node/20.20.1/x64/bin/npm config get cache
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.5726107Z /home/runner/.npm
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:26.6530622Z Cache hit for: node-cache-Linux-x64-npm-980248380ba02610e22d9fee59e2115b4a992fa554a270fa47e1cb2840067ae7
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:27.6893308Z Received 273540999 of 290318215 (94.2%), 260.6 MBs/sec
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:27.7615606Z Received 290318215 of 290318215 (100.0%), 259.2 MBs/sec
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:27.7622272Z Cache Size: ~277 MB (290318215 B)
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:27.7686525Z [command]/usr/bin/tar -xf /home/runner/work/_temp/782e1395-942c-4597-9811-c294cdf38f46/cache.tzst -P -C /home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org --use-compress-program unzstd
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:28.5491741Z Cache restored successfully
+Fetch Survey Questions	Setup Node.js	2026-03-31T01:39:28.5618431Z Cache restored from key: node-cache-Linux-x64-npm-980248380ba02610e22d9fee59e2115b4a992fa554a270fa47e1cb2840067ae7
+Fetch Survey Questions	Install dependencies	∩╗┐2026-03-31T01:39:28.5874217Z ##[group]Run npm ci
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:28.5874767Z [36;1mnpm ci[0m
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:28.5912751Z shell: /usr/bin/bash -e {0}
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:28.5913025Z env:
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:28.5913405Z   QUALTRICS_API_TOKEN: ***
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:28.5913698Z   QUALTRICS_BASE_URL: https://yul1.qualtrics.com
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:28.5914025Z   QUALTRICS_SURVEY_ID: SV_bkMopd73A8fzfwO
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:28.5914288Z ##[endgroup]
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:35.5981764Z npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:36.7590937Z npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.1813642Z
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.1814679Z > technologyadoptionbarriers-org@0.3.1 prepare
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.1815104Z > husky
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.1815298Z
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.2627900Z
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.2628544Z added 1156 packages, and audited 1157 packages in 24s
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.2629079Z
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.2629738Z 230 packages are looking for funding
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.2630232Z   run `npm fund` for details
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.2677362Z
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.2677927Z 7 vulnerabilities (4 low, 1 moderate, 2 high)
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.2678341Z
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.2678616Z To address all issues, run:
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.2679083Z   npm audit fix
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.2679318Z
+Fetch Survey Questions	Install dependencies	2026-03-31T01:39:52.2679538Z Run `npm audit` for details.
+Fetch Survey Questions	Fetch Questions	∩╗┐2026-03-31T01:39:52.3763234Z ##[group]Run npx --no-install tsx scripts/fetch-qualtrics-questions.ts
+Fetch Survey Questions	Fetch Questions	2026-03-31T01:39:52.3763787Z [36;1mnpx --no-install tsx scripts/fetch-qualtrics-questions.ts[0m
+Fetch Survey Questions	Fetch Questions	2026-03-31T01:39:52.3791261Z shell: /usr/bin/bash -e {0}
+Fetch Survey Questions	Fetch Questions	2026-03-31T01:39:52.3791497Z env:
+Fetch Survey Questions	Fetch Questions	2026-03-31T01:39:52.3791854Z   QUALTRICS_API_TOKEN: ***
+Fetch Survey Questions	Fetch Questions	2026-03-31T01:39:52.3792149Z   QUALTRICS_BASE_URL: https://yul1.qualtrics.com
+Fetch Survey Questions	Fetch Questions	2026-03-31T01:39:52.3792454Z   QUALTRICS_SURVEY_ID: SV_bkMopd73A8fzfwO
+Fetch Survey Questions	Fetch Questions	2026-03-31T01:39:52.3792706Z ##[endgroup]
+Fetch Survey Questions	Fetch Questions	2026-03-31T01:39:53.0072221Z ≡ƒöì Connecting to Qualtrics API (https://yul1.qualtrics.com)...
+Fetch Survey Questions	Fetch Questions	2026-03-31T01:39:53.0072895Z ≡ƒôè Fetching questions for survey: SV_bkMopd73A8fzfwO
+Fetch Survey Questions	Fetch Questions	2026-03-31T01:39:53.0073128Z
+Fetch Survey Questions	Fetch Questions	2026-03-31T01:39:53.6788942Z Γ¥î Error fetching Qualtrics data: TypeError: Cannot convert undefined or null to object
+Fetch Survey Questions	Fetch Questions	2026-03-31T01:39:53.6790002Z     at Function.values (<anonymous>)
+Fetch Survey Questions	Fetch Questions	2026-03-31T01:39:53.6791639Z     at main (/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org/scripts/fetch-qualtrics-questions.ts:22:30)
+Fetch Survey Questions	Fetch Questions	2026-03-31T01:39:53.6793607Z     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Fetch Survey Questions	Fetch Questions	2026-03-31T01:39:53.7474900Z ##[error]Process completed with exit code 1.
+Fetch Survey Questions	Add failure summary	∩╗┐2026-03-31T01:39:53.7521678Z ##[group]Run {
+Fetch Survey Questions	Add failure summary	2026-03-31T01:39:53.7521939Z [36;1m{[0m
+Fetch Survey Questions	Add failure summary	2026-03-31T01:39:53.7522182Z [36;1m  echo "## Fetch Qualtrics Questions workflow failed"[0m
+Fetch Survey Questions	Add failure summary	2026-03-31T01:39:53.7522492Z [36;1m  echo[0m
+Fetch Survey Questions	Add failure summary	2026-03-31T01:39:53.7522922Z [36;1m  echo '- Ensure the `QUALTRICS_API_TOKEN` secret is configured for the `qualtrics-prod` environment.'[0m
+Fetch Survey Questions	Add failure summary	2026-03-31T01:39:53.7523915Z [36;1m  echo '- Ensure `QUALTRICS_BASE_URL` and `QUALTRICS_SURVEY_ID` are set as environment variables (or pass workflow input `survey_id`).'[0m
+Fetch Survey Questions	Add failure summary	2026-03-31T01:39:53.7524860Z [36;1m  echo "- Review the logs for details (Fetch Questions step)."[0m
+Fetch Survey Questions	Add failure summary	2026-03-31T01:39:53.7525208Z [36;1m} >> "$GITHUB_STEP_SUMMARY"[0m
+Fetch Survey Questions	Add failure summary	2026-03-31T01:39:53.7551860Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Fetch Survey Questions	Add failure summary	2026-03-31T01:39:53.7552179Z env:
+Fetch Survey Questions	Add failure summary	2026-03-31T01:39:53.7552537Z   QUALTRICS_API_TOKEN: ***
+Fetch Survey Questions	Add failure summary	2026-03-31T01:39:53.7552810Z   QUALTRICS_BASE_URL: https://yul1.qualtrics.com
+Fetch Survey Questions	Add failure summary	2026-03-31T01:39:53.7553116Z   QUALTRICS_SURVEY_ID: SV_bkMopd73A8fzfwO
+Fetch Survey Questions	Add failure summary	2026-03-31T01:39:53.7553402Z ##[endgroup]
+Fetch Survey Questions	Post Checkout repository	∩╗┐2026-03-31T01:39:53.7699064Z Post job cleanup.
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.8465440Z [command]/usr/bin/git version
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.8501988Z git version 2.53.0
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.8543111Z Temporarily overriding HOME='/home/runner/work/_temp/fd4f9e52-94a1-4f05-88c0-06ccfb76c206' before making global git config changes
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.8545010Z Adding repository directory to the temporary git global config as a safe directory
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.8549696Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.8578730Z Removing SSH command configuration
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.8584737Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.8643087Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.8862559Z Removing HTTP extra header
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.8868572Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.8902192Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9116286Z Removing includeIf entries pointing to credentials config files
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9121716Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9143714Z includeif.gitdir:/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org/.git.path
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9145762Z includeif.gitdir:/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org/.git/worktrees/*.path
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9146857Z includeif.gitdir:/github/workspace/.git.path
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9147575Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9152758Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org/.git.path
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9173067Z /home/runner/work/_temp/git-credentials-4c604aa1-12d5-42f2-9fc7-2fbf4b18860f.config
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9183149Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org/.git.path /home/runner/work/_temp/git-credentials-4c604aa1-12d5-42f2-9fc7-2fbf4b18860f.config
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9214963Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org/.git/worktrees/*.path
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9235115Z /home/runner/work/_temp/git-credentials-4c604aa1-12d5-42f2-9fc7-2fbf4b18860f.config
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9243793Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/technologyadoptionbarriers.org/technologyadoptionbarriers.org/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-4c604aa1-12d5-42f2-9fc7-2fbf4b18860f.config
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9272241Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9292794Z /github/runner_temp/git-credentials-4c604aa1-12d5-42f2-9fc7-2fbf4b18860f.config
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9301398Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-4c604aa1-12d5-42f2-9fc7-2fbf4b18860f.config
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9331417Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9351612Z /github/runner_temp/git-credentials-4c604aa1-12d5-42f2-9fc7-2fbf4b18860f.config
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9361108Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-4c604aa1-12d5-42f2-9fc7-2fbf4b18860f.config
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9391557Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Fetch Survey Questions	Post Checkout repository	2026-03-31T01:39:53.9601717Z Removing credentials config '/home/runner/work/_temp/git-credentials-4c604aa1-12d5-42f2-9fc7-2fbf4b18860f.config'
+Fetch Survey Questions	Complete job	∩╗┐2026-03-31T01:39:53.9732989Z Cleaning up orphan processes

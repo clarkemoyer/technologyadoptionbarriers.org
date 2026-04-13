@@ -3,7 +3,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Cloud & AI Frameworks Review - Making of TABS',
+  title: 'Cloud & AI Frameworks Review — Making of TABS',
   description: 'Gemini 3.1 Pro validity check of modern cloud and AI adoption frameworks in TABS.',
   alternates: {
     canonical:
@@ -78,7 +78,7 @@ export default function Page() {
           </p>
           <p className="mb-4">
             The recently released NIST AI RMF (2023) is accurately summarized. The four core
-            functions - Govern, Map, Measure, and Manage - are correctly identified, and the
+            functions—Govern, Map, Measure, and Manage—are correctly identified, and the
             framework&apos;s focus on trustworthiness characteristics (validity, reliability,
             safety, security, privacy, fairness) is factually sound.
           </p>

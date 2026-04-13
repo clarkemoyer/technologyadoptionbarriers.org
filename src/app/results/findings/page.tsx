@@ -13,7 +13,7 @@ import LastUpdated from '@/components/last-updated'
 import EffectSizeChart from '@/components/effect-size-chart'
 
 export const metadata: Metadata = {
-  title: 'Key Findings - TABS Results',
+  title: 'Key Findings — TABS Results',
   description:
     'Effect sizes, cross-tabulations, t-tests, and ANOVA from the Technology Adoption Barriers Survey, computed independently across four result groups.',
   alternates: {
@@ -93,13 +93,13 @@ const PRIMARY_GROUPS = [
 ]
 
 const fmt = (val: number | null | undefined, decimals: number = 2): string => {
-  if (val === null || val === undefined) return ' - '
+  if (val === null || val === undefined) return '—'
   const prefix = val > 0 ? '+' : ''
   return prefix + val.toFixed(decimals)
 }
 
 const formatPValue = (p: number | null | undefined): string => {
-  if (p === null || p === undefined) return ' - '
+  if (p === null || p === undefined) return '—'
   return p < 0.001 ? '<.001' : p.toFixed(3)
 }
 
@@ -107,7 +107,7 @@ const formatAnovaDf = (
   dfBetween: number | null | undefined,
   dfWithin: number | null | undefined
 ): string => {
-  if (dfBetween == null || dfWithin == null) return ' - '
+  if (dfBetween == null || dfWithin == null) return '—'
   return `${dfBetween}, ${dfWithin}`
 }
 
@@ -177,7 +177,7 @@ const FindingsPage = () => {
                 className={`border-l-4 ${group.color} bg-gray-50 rounded-lg p-5 mb-6`}
               >
                 <h3 className={H3_CLASSES}>
-                  {group.label} (N={sample?.n ?? ' - '})
+                  {group.label} (N={sample?.n ?? '—'})
                 </h3>
 
                 {hasEffects ? (
@@ -185,7 +185,7 @@ const FindingsPage = () => {
                     {/* Tech vs Non-Tech */}
                     <div>
                       <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
-                        Technical (CIO/CTO) vs Non-Technical - n=
+                        Technical (CIO/CTO) vs Non-Technical — n=
                         {effects['tech_vs_nontech'].tech_n} vs n=
                         {effects['tech_vs_nontech'].nontech_n}
                       </h4>
@@ -235,10 +235,10 @@ const FindingsPage = () => {
                               <tr key={construct} className="border-b border-gray-200">
                                 <td className="py-1.5 px-2 font-medium capitalize">{construct}</td>
                                 <td className="py-1.5 px-2 text-right font-mono">
-                                  {vals.tech_mean?.toFixed(4) ?? ' - '}
+                                  {vals.tech_mean?.toFixed(4) ?? '—'}
                                 </td>
                                 <td className="py-1.5 px-2 text-right font-mono">
-                                  {vals.nontech_mean?.toFixed(4) ?? ' - '}
+                                  {vals.nontech_mean?.toFixed(4) ?? '—'}
                                 </td>
                                 <td className="py-1.5 px-2 text-right font-mono font-semibold">
                                   {fmt(vals.d)}
@@ -258,7 +258,7 @@ const FindingsPage = () => {
                       Object.keys(effects['large_vs_small'].constructs ?? {}).length > 0 && (
                         <div>
                           <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
-                            Large Org (5000+) vs Small/Medium - n=
+                            Large Org (5000+) vs Small/Medium — n=
                             {effects['large_vs_small'].large_n} vs n=
                             {effects['large_vs_small'].small_medium_n}
                           </h4>
@@ -310,10 +310,10 @@ const FindingsPage = () => {
                                       {construct}
                                     </td>
                                     <td className="py-1.5 px-2 text-right font-mono">
-                                      {vals.large_mean?.toFixed(4) ?? ' - '}
+                                      {vals.large_mean?.toFixed(4) ?? '—'}
                                     </td>
                                     <td className="py-1.5 px-2 text-right font-mono">
-                                      {vals.small_medium_mean?.toFixed(4) ?? ' - '}
+                                      {vals.small_medium_mean?.toFixed(4) ?? '—'}
                                     </td>
                                     <td className="py-1.5 px-2 text-right font-mono font-semibold">
                                       {fmt(vals.d)}
@@ -361,7 +361,7 @@ const FindingsPage = () => {
                 className={`border-l-4 ${group.color} bg-gray-50 rounded-lg p-5 mb-6`}
               >
                 <h3 className={H3_CLASSES}>
-                  {group.label} (N={sample?.n ?? ' - '})
+                  {group.label} (N={sample?.n ?? '—'})
                 </h3>
 
                 {hasData ? (
@@ -387,13 +387,13 @@ const FindingsPage = () => {
                                   <td className="py-1.5 px-2 font-medium">{row.group}</td>
                                   <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
                                   <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.barrier_mean?.toFixed(2) ?? ' - '}
+                                    {row.barrier_mean?.toFixed(2) ?? '—'}
                                   </td>
                                   <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.readiness_mean?.toFixed(2) ?? ' - '}
+                                    {row.readiness_mean?.toFixed(2) ?? '—'}
                                   </td>
                                   <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.maturity_mean?.toFixed(2) ?? ' - '}
+                                    {row.maturity_mean?.toFixed(2) ?? '—'}
                                   </td>
                                 </tr>
                               ))}
@@ -426,13 +426,13 @@ const FindingsPage = () => {
                                   <td className="py-1.5 px-2 font-medium">{row.group}</td>
                                   <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
                                   <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.barrier_mean?.toFixed(2) ?? ' - '}
+                                    {row.barrier_mean?.toFixed(2) ?? '—'}
                                   </td>
                                   <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.readiness_mean?.toFixed(2) ?? ' - '}
+                                    {row.readiness_mean?.toFixed(2) ?? '—'}
                                   </td>
                                   <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.maturity_mean?.toFixed(2) ?? ' - '}
+                                    {row.maturity_mean?.toFixed(2) ?? '—'}
                                   </td>
                                 </tr>
                               ))}
@@ -478,8 +478,8 @@ const FindingsPage = () => {
                         <h4 className="font-sans font-semibold text-gray-700 text-sm mb-2">
                           Welch&rsquo;s t-test: Technical vs Non-Technical
                           <span className="text-gray-500 font-normal ml-2">
-                            (n<sub>tech</sub>={inf.t_tests_tech_vs_nontech.tech_n ?? ' - '}, n
-                            <sub>non-tech</sub>={inf.t_tests_tech_vs_nontech.nontech_n ?? ' - '})
+                            (n<sub>tech</sub>={inf.t_tests_tech_vs_nontech.tech_n ?? '—'}, n
+                            <sub>non-tech</sub>={inf.t_tests_tech_vs_nontech.nontech_n ?? '—'})
                           </span>
                         </h4>
                         <div className="overflow-x-auto">
@@ -499,10 +499,10 @@ const FindingsPage = () => {
                                   <tr key={construct} className={vals.sig ? 'bg-green-50' : ''}>
                                     <td className="p-2 border-b capitalize">{construct}</td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.t?.toFixed(3) ?? ' - '}
+                                      {vals.t?.toFixed(3) ?? '—'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.df?.toFixed(1) ?? ' - '}
+                                      {vals.df?.toFixed(1) ?? '—'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
                                       {formatPValue(vals.p)}
@@ -525,8 +525,8 @@ const FindingsPage = () => {
                         <h4 className="font-sans font-semibold text-gray-700 text-sm mb-2">
                           Welch&rsquo;s t-test: Large vs Small/Medium Org
                           <span className="text-gray-500 font-normal ml-2">
-                            (n<sub>large</sub>={inf.t_tests_large_vs_small.large_n ?? ' - '}, n
-                            <sub>sm/med</sub>={inf.t_tests_large_vs_small.small_medium_n ?? ' - '})
+                            (n<sub>large</sub>={inf.t_tests_large_vs_small.large_n ?? '—'}, n
+                            <sub>sm/med</sub>={inf.t_tests_large_vs_small.small_medium_n ?? '—'})
                           </span>
                         </h4>
                         <div className="overflow-x-auto">
@@ -546,10 +546,10 @@ const FindingsPage = () => {
                                   <tr key={construct} className={vals.sig ? 'bg-green-50' : ''}>
                                     <td className="p-2 border-b capitalize">{construct}</td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.t?.toFixed(3) ?? ' - '}
+                                      {vals.t?.toFixed(3) ?? '—'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.df?.toFixed(1) ?? ' - '}
+                                      {vals.df?.toFixed(1) ?? '—'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
                                       {formatPValue(vals.p)}
@@ -592,7 +592,7 @@ const FindingsPage = () => {
                                   <tr key={construct} className={vals.sig ? 'bg-green-50' : ''}>
                                     <td className="p-2 border-b capitalize">{construct}</td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.f?.toFixed(3) ?? ' - '}
+                                      {vals.f?.toFixed(3) ?? '—'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
                                       {formatAnovaDf(vals.df_between, vals.df_within)}
@@ -638,7 +638,7 @@ const FindingsPage = () => {
                                   <tr key={construct} className={vals.sig ? 'bg-green-50' : ''}>
                                     <td className="p-2 border-b capitalize">{construct}</td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.f?.toFixed(3) ?? ' - '}
+                                      {vals.f?.toFixed(3) ?? '—'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
                                       {formatAnovaDf(vals.df_between, vals.df_within)}

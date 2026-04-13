@@ -13,7 +13,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: CMMI - Capability Maturity Model Integration (Chrissis et al., 2005)',
+  title: 'Bibliography: CMMI – Capability Maturity Model Integration (Chrissis et al., 2005)',
   description:
     'An in-depth overview of the Capability Maturity Model Integration (CMMI) framework developed by Chrissis, Konrad, and Shrum at Carnegie Mellon SEI, covering its five maturity levels, process areas, and relevance to technology adoption and organizational process improvement.',
 }

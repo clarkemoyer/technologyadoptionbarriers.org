@@ -2,7 +2,7 @@
  * Diagnostic: verify raw Qualtrics export columns using proper CSV parsing.
  *
  * Environment variables:
- *   INPUT_PATH - Path to the raw Qualtrics CSV export (required)
+ *   INPUT_PATH – Path to the raw Qualtrics CSV export (required)
  */
 
 import { readFileSync } from 'node:fs'

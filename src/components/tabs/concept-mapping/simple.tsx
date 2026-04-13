@@ -62,7 +62,7 @@ const TRUNCATE_LENGTH = 120
 /** Descriptions shown in column header tooltips */
 const COLUMN_DESCRIPTIONS: Partial<Record<string, string>> = {
   'Section / Primary Construct':
-    'The major survey section (A-E) and primary theoretical construct this item belongs to.',
+    'The major survey section (A–E) and primary theoretical construct this item belongs to.',
   'Sub-Construct / Grouping':
     'The more specific thematic grouping within the section (e.g., "Strategic Leadership & Governance").',
   'Survey Item (Question Text)': 'The exact question text presented to survey respondents.',
@@ -106,7 +106,7 @@ function ExpandableCell({ value, header }: { value: string; header: string }) {
   const shouldTruncate = EXPANDABLE_COLUMNS.has(header) && value.length > TRUNCATE_LENGTH
 
   if (!value) {
-    return <span className="text-gray-400">-</span>
+    return <span className="text-gray-400">—</span>
   }
 
   if (isUrl(value)) {

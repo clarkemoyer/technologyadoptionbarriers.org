@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""create_crp_dataset.py - Build the final CRP public dataset (N=200).
+"""create_crp_dataset.py — Build the final CRP public dataset (N=200).
 
 Selects N=200 responses from Prolific Accepted participants using a
 three-tier quality-based selection strategy, then de-identifies the
@@ -8,7 +8,7 @@ result for ScholarSphere deposit.
 Tier Selection Strategy
 =======================
 
-  Tier 1 - Conservative Clean (auto-include all)
+  Tier 1 — Conservative Clean (auto-include all)
       Prolific APPROVED + ALL quality checks:
         - All 3 IRI attention checks correct
         - Duration >= 540 s (Smeal eDBA benchmark)
@@ -17,13 +17,13 @@ Tier Selection Strategy
         - No partial straightlining (within-person SD >= 0.5 in all blocks)
         - No auth flags (Auth_LLM and Auth_Bots not LOW or MIXED)
 
-  Tier 2 - Flexible Clean surplus (auto-include all)
+  Tier 2 — Flexible Clean surplus (auto-include all)
       Prolific APPROVED + basic quality (all 3 IRIs + duration >= 480 s)
       that did NOT qualify for Tier 1.
 
-  Tier 3 - Quality-ranked fill (top N remaining)
+  Tier 3 — Quality-ranked fill (top N remaining)
       Remaining Prolific APPROVED responses ranked by composite quality
-      score (0-100 pts):
+      score (0–100 pts):
 
         Indicator                  Weight  Scoring
         ─────────────────────────  ──────  ──────────────────────────────────
@@ -36,9 +36,9 @@ Tier Selection Strategy
 
       The three independent authenticity/bot-detection systems are weighted
       equally at the platform level:
-        - Google reCAPTCHA (15 pts) - browser-level bot detection
-        - Prolific Auth (15 pts) - behavioral LLM and bot detection
-        - Qualtrics Straightlining (15 pts combined) - response pattern quality
+        - Google reCAPTCHA (15 pts) — browser-level bot detection
+        - Prolific Auth (15 pts) — behavioral LLM and bot detection
+        - Qualtrics Straightlining (15 pts combined) — response pattern quality
 
       Tie-breaking: IRI count desc → Duration desc → ResponseId alphabetical
 
@@ -76,16 +76,16 @@ from datetime import datetime
 from pathlib import Path
 
 # ─────────────────────────────────────────────────────────────
-# Configuration - mirrors tabs_v2_analysis.py exactly
+# Configuration — mirrors tabs_v2_analysis.py exactly
 # ─────────────────────────────────────────────────────────────
 
 V2_START = "2026-03-23 14:00:00"
 PROLIFIC_TEST_ID = "R_1QK12IJpHjC3wd6"
 
-MIN_DURATION_PIPELINE_CLEAN = 540   # 9 min - Smeal eDBA benchmark
-MIN_DURATION_CLEAN = 480            # 8 min - flexible clean threshold
-MIN_DURATION_ALL = 120              # 2 min - extreme speeder cutoff
-SPEED_FLAG_THRESHOLD = 300          # 5 min - speed flag
+MIN_DURATION_PIPELINE_CLEAN = 540   # 9 min — Smeal eDBA benchmark
+MIN_DURATION_CLEAN = 480            # 8 min — flexible clean threshold
+MIN_DURATION_ALL = 120              # 2 min — extreme speeder cutoff
+SPEED_FLAG_THRESHOLD = 300          # 5 min — speed flag
 SMEAL_UPPER = 540                   # upper bound of Smeal window
 
 RECAPTCHA_THRESHOLD = 0.5
@@ -113,7 +113,7 @@ WEIGHT_PARTIAL_STRAIGHTLINING = 7
 IRI_SCORE_MAP = {0: 0, 1: 8, 2: 22, 3: 35}
 DURATION_CAP = 900  # 15 min cap for normalization
 
-# PII detection patterns - mirrors deidentify_tabs_data.py
+# PII detection patterns — mirrors deidentify_tabs_data.py
 PII_PATTERNS = [
     (re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b"), "email address"),
     (re.compile(r"\b\d{3}[-.]?\d{3}[-.]?\d{4}\b"), "phone number"),
@@ -146,7 +146,7 @@ PROLIFIC_LINKAGE_COLUMNS = [
 
 
 # ─────────────────────────────────────────────────────────────
-# Data helpers - mirrors tabs_v2_analysis.py
+# Data helpers — mirrors tabs_v2_analysis.py
 # ─────────────────────────────────────────────────────────────
 
 
@@ -197,7 +197,7 @@ def is_finished(row: list[str], idx: dict[str, int]) -> bool:
 
 
 def iri_correct_count(row: list[str], idx: dict[str, int]) -> int:
-    """Count correct IRI attention checks (0-3)."""
+    """Count correct IRI attention checks (0–3)."""
     correct = 0
     if get_val(row, idx, BARRIER_IRI) == IRI_BARRIER_ANSWER:
         correct += 1
@@ -345,7 +345,7 @@ def classify_disposition(row: list[str], idx: dict[str, int]) -> str:
 
 
 def compute_quality_score(row: list[str], idx: dict[str, int]) -> float:
-    """Compute composite quality score (0-100) for Tier 3 ranking.
+    """Compute composite quality score (0–100) for Tier 3 ranking.
 
     Components:
       IRI Correct Count          35 pts  (0→0, 1→8, 2→22, 3→35)
@@ -355,8 +355,8 @@ def compute_quality_score(row: list[str], idx: dict[str, int]) -> float:
       No Full Straightlining      8 pts  count==0 → 8, else 0
       No Partial Straightlining   7 pts  no block SD<0.5 → 7, else 0
 
-    The three independent authenticity/bot-detection systems - Google
-    reCAPTCHA, Prolific Auth, and Qualtrics Straightlining - are weighted
+    The three independent authenticity/bot-detection systems — Google
+    reCAPTCHA, Prolific Auth, and Qualtrics Straightlining — are weighted
     equally at the platform level (15 pts each).
     """
     score = 0.0
@@ -375,14 +375,14 @@ def compute_quality_score(row: list[str], idx: dict[str, int]) -> float:
     recaptcha = get_recaptcha_score(row, idx)
     score += recaptcha * WEIGHT_RECAPTCHA
 
-    # Auth (15 pts) - equal weight to reCAPTCHA as independent platform signal
+    # Auth (15 pts) — equal weight to reCAPTCHA as independent platform signal
     llm_flag, bots_flag = has_auth_flag(row, idx)
     if not llm_flag and not bots_flag:
-        score += WEIGHT_AUTH        # 15 - neither flagged
+        score += WEIGHT_AUTH        # 15 — neither flagged
     elif llm_flag and bots_flag:
-        score += 0                  #  0 - both flagged
+        score += 0                  #  0 — both flagged
     else:
-        score += 5                  #  5 - one flagged
+        score += 5                  #  5 — one flagged
 
     # Full straightlining (8 pts)
     if get_straightlining_count(row, idx) == 0:
@@ -513,7 +513,7 @@ def select_crp_sample(
     tier12_ids = tier1_ids | {p["response_id"] for p in tier2}
 
     # Tier 3: Remaining Accepted, ranked by quality score
-    # Filter out incomplete or extremely short responses - they passed Prolific
+    # Filter out incomplete or extremely short responses — they passed Prolific
     # approval but are not usable for analysis (no substantive item data).
     tier3_pool = [p for p in accepted
                   if p["response_id"] not in tier12_ids
@@ -615,7 +615,7 @@ def generate_manifest(profiles: list[dict], target_n: int) -> str:
 
     # ── FLAG-SPEED detail (user specifically requested this) ──
     speed_responses = [p for p in tier3 if p["disposition"] == "FLAG-SPEED"]
-    w("\n\n  FLAG-SPEED DETAIL (Speed Only - all 3 IRIs correct, duration < 300s)")
+    w("\n\n  FLAG-SPEED DETAIL (Speed Only — all 3 IRIs correct, duration < 300s)")
     w(f"  Total FLAG-SPEED in Tier 3: {len(speed_responses)}")
     if speed_responses:
         w(f"\n  {'ResponseId':<20} {'Score':>6} {'Dur(s)':>7} {'reCAPTCHA':>10} "
@@ -650,7 +650,7 @@ def generate_manifest(profiles: list[dict], target_n: int) -> str:
             s = sum(1 for x in selected_scores if lo <= x <= hi) if hi == 100 else sum(1 for x in selected_scores if lo <= x < hi)
             e = sum(1 for x in excluded_scores if lo <= x <= hi) if hi == 100 else sum(1 for x in excluded_scores if lo <= x < hi)
             if s + e > 0:
-                w(f"  {lo:>3}-{hi:<3}        {s:>9} {e:>9} {s + e:>6}")
+                w(f"  {lo:>3}–{hi:<3}        {s:>9} {e:>9} {s + e:>6}")
 
         if tier3_selected:
             cutoff = min(p["quality_score"] for p in tier3_selected)
@@ -660,11 +660,11 @@ def generate_manifest(profiles: list[dict], target_n: int) -> str:
             w(f"  Highest excluded score:          {max_excluded:.2f}")
 
         # Summary stats
-        w(f"\n  Selected  - min: {min(selected_scores):.2f}, "
+        w(f"\n  Selected  — min: {min(selected_scores):.2f}, "
           f"max: {max(selected_scores):.2f}, "
           f"mean: {sum(selected_scores) / len(selected_scores):.2f}")
         if excluded_scores:
-            w(f"  Excluded  - min: {min(excluded_scores):.2f}, "
+            w(f"  Excluded  — min: {min(excluded_scores):.2f}, "
               f"max: {max(excluded_scores):.2f}, "
               f"mean: {sum(excluded_scores) / len(excluded_scores):.2f}")
 
@@ -678,7 +678,7 @@ def generate_manifest(profiles: list[dict], target_n: int) -> str:
       f"{'─' * 8} {'─' * 8} {'─' * 3} {'─' * 4}")
 
     for p in sorted(accepted, key=lambda x: (x["tier"] or 99, -x["quality_score"])):
-        tier_str = str(p["tier"]) if p["tier"] else " - "
+        tier_str = str(p["tier"]) if p["tier"] else "—"
         sel_str = "Y" if p["selected"] else "N"
         auth_llm = "FLAG" if p["llm_flag"] else "PASS"
         auth_bot = "FLAG" if p["bots_flag"] else "PASS"
@@ -817,7 +817,7 @@ def write_csv(
 def write_pii_report(path: Path, flags: list[dict]) -> None:
     """Write the PII review report."""
     with open(path, "w", encoding="utf-8") as f:
-        f.write("PII REVIEW REPORT - CRP DATASET\n")
+        f.write("PII REVIEW REPORT — CRP DATASET\n")
         f.write(f"Generated: {datetime.utcnow().isoformat()}Z\n")
         f.write(f"Total flags: {len(flags)}\n")
         f.write("=" * 72 + "\n\n")
@@ -849,7 +849,7 @@ def deidentify_selected(
     output_dir.mkdir(parents=True, exist_ok=True)
     rows = rows_to_dicts(selected_rows, headers)
 
-    # Step 1: PII scan - always run, even in dry-run
+    # Step 1: PII scan — always run, even in dry-run
     print("\n--- De-identification Step 1: Free-text PII scan ---")
     available_text_cols = [c for c in FREE_TEXT_COLUMNS if c in headers]
     pii_flags = scan_pii(rows, available_text_cols)
@@ -862,9 +862,9 @@ def deidentify_selected(
 
     if dry_run:
         if pii_flags:
-            print("\n[DRY RUN] PII scan complete - flags found (exit code 1). Review the report above.")
+            print("\n[DRY RUN] PII scan complete — flags found (exit code 1). Review the report above.")
         else:
-            print("\n[DRY RUN] PII scan complete - no flags found (exit code 0).")
+            print("\n[DRY RUN] PII scan complete — no flags found (exit code 0).")
         return 1 if pii_flags else 0
 
     if pii_flags and not skip_review:
@@ -935,7 +935,7 @@ def deidentify_selected(
     # Audit log
     log_path = output_dir / "deidentification_log.txt"
     with open(log_path, "w", encoding="utf-8") as f:
-        f.write("DE-IDENTIFICATION AUDIT LOG - CRP DATASET\n")
+        f.write("DE-IDENTIFICATION AUDIT LOG — CRP DATASET\n")
         f.write("=" * 72 + "\n\n")
         f.write(f"Timestamp: {datetime.utcnow().isoformat()}Z\n")
         f.write(f"Output SHA-256: {output_hash}\n")
@@ -1053,14 +1053,14 @@ def main() -> int:
     print("\n--- Generating selection manifest ---")
     manifest = generate_manifest(profiles, args.target_n)
 
-    # Save manifest (confidential - contains ResponseIds and auth flags)
+    # Save manifest (confidential — contains ResponseIds and auth flags)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     manifest_path = args.output_dir / "selection_manifest_CONFIDENTIAL.txt"
     with open(manifest_path, "w", encoding="utf-8") as f:
         f.write(manifest)
     print(f"  Summary: selected {len(selected)} responses for target N={args.target_n}.")
     print(f"  Manifest saved: {manifest_path}")
-    print("  (Full manifest withheld from stdout - contains confidential ResponseIds.)")
+    print("  (Full manifest withheld from stdout — contains confidential ResponseIds.)")
 
     # ── De-identify ──
     print("\n" + "=" * 78)
@@ -1088,10 +1088,10 @@ def main() -> int:
         if args.dry_run:
             print("  [DRY RUN] Selection manifest and PII scan complete.")
         else:
-            print("  CRP DATASET PAUSED - PII review required")
+            print("  CRP DATASET PAUSED — PII review required")
             print("  Review pii_review_report_CONFIDENTIAL.txt, then re-run with --skip-review.")
     else:
-        print("  CRP DATASET FAILED - PII detected in output")
+        print("  CRP DATASET FAILED — PII detected in output")
         print("  Review pii_review_report_CONFIDENTIAL.txt and re-run.")
     print("=" * 78)
 

@@ -8,10 +8,10 @@ Used when a rejection should be reversed so the participant can be offered
 a voluntary return instead.
 
 Environment variables:
-  PROLIFIC_API_TOKEN  - Prolific API token (required)
-  STUDY_ID            - Prolific study ID (required)
-  PID_LIST            - Comma-separated PIDs to unreject (required)
-  DRY_RUN             - When "false", unreject live (default: true)
+  PROLIFIC_API_TOKEN  – Prolific API token (required)
+  STUDY_ID            – Prolific study ID (required)
+  PID_LIST            – Comma-separated PIDs to unreject (required)
+  DRY_RUN             – When "false", unreject live (default: true)
 """
 
 import os
@@ -69,7 +69,7 @@ def main():
             not_found += 1
             continue
         if sub["status"] != "REJECTED":
-            print(f"  SKIP: {pid} - status is {sub['status']} (not REJECTED)")
+            print(f"  SKIP: {pid} — status is {sub['status']} (not REJECTED)")
             skipped += 1
             continue
 
@@ -81,7 +81,7 @@ def main():
                 prolific_unreject(sub["id"], api_token)
                 unrejected += 1
             except Exception as e:
-                print(f"  FAILED: {pid} - {e}")
+                print(f"  FAILED: {pid} — {e}")
                 failed += 1
 
     print()

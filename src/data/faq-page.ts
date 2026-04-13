@@ -76,20 +76,20 @@ export const faqCategories: FaqCategory[] = [
     id: 'the-survey',
     title: 'The Survey',
     description:
-      'Everything about taking the survey - who should participate, how long it takes, and what happens with your responses.',
+      'Everything about taking the survey — who should participate, how long it takes, and what happens with your responses.',
     icon: '📋',
     items: [
       {
         id: 'who-should-take',
         question: 'Who should take the TABS survey?',
         answer:
-          'Anyone involved in technology decisions within an organization - IT leaders, department heads, project managers, end users, consultants, educators, and executives. The more diverse the respondents, the richer the insights.',
+          'Anyone involved in technology decisions within an organization — IT leaders, department heads, project managers, end users, consultants, educators, and executives. The more diverse the respondents, the richer the insights.',
       },
       {
         id: 'how-long-survey',
         question: 'How long does the survey take?',
         answer:
-          'The survey typically takes 20-25 minutes to complete. It is designed to be thorough enough to produce meaningful data while respecting your time.',
+          'The survey typically takes 20–25 minutes to complete. It is designed to be thorough enough to produce meaningful data while respecting your time.',
       },
       {
         id: 'what-questions',
@@ -235,7 +235,7 @@ export const faqCategories: FaqCategory[] = [
     id: 'getting-involved',
     title: 'Getting Involved',
     description:
-      'Ways to support the TABS mission - from taking the survey to volunteering or contributing.',
+      'Ways to support the TABS mission — from taking the survey to volunteering or contributing.',
     icon: '🤝',
     items: [
       {

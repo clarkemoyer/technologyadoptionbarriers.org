@@ -12,7 +12,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'Bibliography: Model of Adoption of Technology in Households (MATH) - Venkatesh & Brown (2001)',
+    'Bibliography: Model of Adoption of Technology in Households (MATH) – Venkatesh & Brown (2001)',
   description:
     'Deep dive into Model of Adoption of Technology in Households (MATH) by Susan A. Brown and Viswanath Venkatesh (2005), exploring its foundational contributions to technology adoption research.',
 }
@@ -22,7 +22,7 @@ const BibliographyArticlePage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Model of Adoption of Technology in Households (MATH) - Venkatesh & Brown (2001)
+          Model of Adoption of Technology in Households (MATH) – Venkatesh & Brown (2001)
         </h1>
 
         {/* Model Identification */}

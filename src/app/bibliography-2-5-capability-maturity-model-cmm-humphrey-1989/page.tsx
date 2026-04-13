@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Capability Maturity Model (CMM) - Humphrey (1989)',
+  title: 'Bibliography: Capability Maturity Model (CMM) – Humphrey (1989)',
   description:
     "An exploration of Watts S. Humphrey's Capability Maturity Model, a foundational framework for assessing and improving software development capability through five distinct maturity levels.",
 }

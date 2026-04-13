@@ -2,16 +2,16 @@
  * Send a thank-you message to approved participants.
  *
  * Environment:
- *   PROLIFIC_API_TOKEN  - Prolific API token (required)
- *   STUDY_ID            - Prolific study ID (required)
- *   PID_LIST            - Comma-separated PIDs to message (required)
- *   DRY_RUN             - When "false", send messages live (default: true)
+ *   PROLIFIC_API_TOKEN  – Prolific API token (required)
+ *   STUDY_ID            – Prolific study ID (required)
+ *   PID_LIST            – Comma-separated PIDs to message (required)
+ *   DRY_RUN             – When "false", send messages live (default: true)
  */
 
 import { sendMessage, listUserMessages, listStudySubmissions } from '../src/lib/prolific-api'
 
 const THANK_YOU_MESSAGE =
-  'Hi, thank you for participating in our Technology Adoption Barriers Survey and for taking the time to respond to our review message. Your submission has been approved. We appreciate your thoughtful engagement and the insights you shared - they are valuable to our research. Thank you again for your contribution!'
+  'Hi, thank you for participating in our Technology Adoption Barriers Survey and for taking the time to respond to our review message. Your submission has been approved. We appreciate your thoughtful engagement and the insights you shared — they are valuable to our research. Thank you again for your contribution!'
 
 const SIGNATURE = 'Your submission has been approved'
 
@@ -62,7 +62,7 @@ async function main() {
       const status = statusMap.get(pid)
       if (status && status !== 'APPROVED') {
         skippedNotApproved++
-        console.log(`  SKIP ${pid} - status is ${status} (not APPROVED)`)
+        console.log(`  SKIP ${pid} — status is ${status} (not APPROVED)`)
         continue
       }
 
@@ -72,7 +72,7 @@ async function main() {
         (m) => m.data?.study_id === studyId && m.body.includes(SIGNATURE)
       )
       if (alreadySent) {
-        console.log(`  SKIP ${pid} - already received thank-you`)
+        console.log(`  SKIP ${pid} — already received thank-you`)
         skipped++
         continue
       }

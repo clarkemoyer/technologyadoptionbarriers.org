@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Business Process Reengineering (BPR) - Hammer & Champy (1993)',
+  title: 'Bibliography: Business Process Reengineering (BPR) – Hammer & Champy (1993)',
   description:
     "An exploration of Hammer and Champy's Business Process Reengineering framework, the influential manifesto for radical organizational transformation through fundamental process redesign enabled by information technology.",
 }

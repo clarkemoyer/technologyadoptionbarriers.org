@@ -2,11 +2,11 @@
  * Send a custom message to a specific participant.
  *
  * Environment:
- *   PROLIFIC_API_TOKEN  - Prolific API token (required)
- *   STUDY_ID            - Prolific study ID (required)
- *   PID                 - Participant ID to message (required)
- *   MESSAGE             - Message body to send (required)
- *   DRY_RUN             - When "false", send live (default: true)
+ *   PROLIFIC_API_TOKEN  – Prolific API token (required)
+ *   STUDY_ID            – Prolific study ID (required)
+ *   PID                 – Participant ID to message (required)
+ *   MESSAGE             – Message body to send (required)
+ *   DRY_RUN             – When "false", send live (default: true)
  */
 
 import { sendMessage } from '../src/lib/prolific-api'
@@ -42,7 +42,7 @@ async function main() {
   console.log('')
 
   if (dryRun) {
-    console.log('DRY RUN - message not sent')
+    console.log('DRY RUN — message not sent')
   } else {
     await sendMessage(studyId, pid, message, token)
     console.log('Message sent successfully')

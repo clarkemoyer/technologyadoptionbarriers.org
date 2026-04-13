@@ -13,7 +13,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: TOGAF - The Open Group Architecture Framework (1995)',
+  title: 'Bibliography: TOGAF – The Open Group Architecture Framework (1995)',
   description:
     'An in-depth review of TOGAF (The Open Group Architecture Framework), covering its Architecture Development Method, four domains, enterprise-wide technology adoption guidance, internal and external validity, and relevance to overcoming technology adoption barriers.',
 }

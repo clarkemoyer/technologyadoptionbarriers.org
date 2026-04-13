@@ -76,16 +76,14 @@ describe('ConceptMappingSummary component', () => {
       expect(screen.getByLabelText('gray section indicator')).toBeInTheDocument()
     })
 
-    it('should render hyphen placeholder for null attention checks', () => {
+    it('should render em-dash for null attention checks', () => {
       render(<ConceptMappingSummary />)
 
       const table = screen.getByRole('table')
       const rows = within(table).getAllByRole('row')
       // Header + 6 data rows + total = 8 rows; Section A is row index 1
       const sectionARow = rows[1]
-      // Column order: Section(0), QuestionType(1), SubstantiveItems(2), AttentionChecks(3), ScaleMethod(4)
-      const cells = within(sectionARow).getAllByRole('cell')
-      expect(cells[3]).toHaveTextContent('-')
+      expect(within(sectionARow).getByText('—')).toBeInTheDocument()
     })
   })
 

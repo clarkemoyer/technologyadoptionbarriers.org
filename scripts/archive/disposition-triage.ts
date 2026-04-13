@@ -6,8 +6,8 @@
  * a disposition CSV with only computed flags and identifiers.
  *
  * Environment variables:
- *   INPUT_PATH   - Path to the raw Qualtrics CSV export (required)
- *   OUTPUT_PATH  - Path to write the disposition CSV (required)
+ *   INPUT_PATH   – Path to the raw Qualtrics CSV export (required)
+ *   OUTPUT_PATH  – Path to write the disposition CSV (required)
  */
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'

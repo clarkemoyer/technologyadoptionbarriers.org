@@ -9,12 +9,12 @@
  * to the GitHub Issues REST API for older CLI versions.
  *
  * Environment variables:
- *   GH_TOKEN     - GitHub personal access token (required)
- *   REPO_NAME    - owner/repo slug (defaults to GITHUB_REPOSITORY)
- *   STALE_HOURS  - hours of inactivity before a task is "stalled" (default: 24)
- *   RETRIGGER    - "true" to re-trigger stalled tasks by re-assigning copilot
- *   TARGET_ISSUE - issue number to process exclusively when re-running/debugging
- *   DRY_RUN      - "true" to report findings without performing write operations
+ *   GH_TOKEN     – GitHub personal access token (required)
+ *   REPO_NAME    – owner/repo slug (defaults to GITHUB_REPOSITORY)
+ *   STALE_HOURS  – hours of inactivity before a task is "stalled" (default: 24)
+ *   RETRIGGER    – "true" to re-trigger stalled tasks by re-assigning copilot
+ *   TARGET_ISSUE – issue number to process exclusively when re-running/debugging
+ *   DRY_RUN      – "true" to report findings without performing write operations
  */
 
 import { execSync } from 'child_process'
@@ -139,7 +139,7 @@ function tryAgentTaskList(): AgentTask[] | null {
  * `copilot` (the Copilot coding agent's login).
  */
 function listViaIssuesApi(): AgentTask[] {
-  console.log('  (gh agent-task not available - using Issues API fallback)')
+  console.log('  (gh agent-task not available — using Issues API fallback)')
   const raw = ghJsonArray<any>(
     `api repos/${REPO}/issues?assignee=copilot&state=open&per_page=100 --paginate`
   )
@@ -246,7 +246,7 @@ function getCiStatus(repo: string, headSha: string): 'pass' | 'fail' | 'pending'
     if (status.state === 'failure' || status.state === 'error') return 'fail'
     if (status.state === 'pending') return 'pending'
   } catch {
-    // ignore - may not have legacy status
+    // ignore — may not have legacy status
   }
   try {
     // Check runs (modern CI)
@@ -296,7 +296,7 @@ function retriggerTask(task: AgentTask): void {
     gh(`api repos/${REPO}/issues/${task.number}/assignees -X DELETE -f "assignees[]=copilot"`)
     // Re-add copilot assignee to trigger a new agent session
     gh(`api repos/${REPO}/issues/${task.number}/assignees -X POST -f "assignees[]=copilot"`)
-    // Add a comment so the history is clear - write body to temp file to avoid shell escaping issues
+    // Add a comment so the history is clear — write body to temp file to avoid shell escaping issues
     const body =
       `**Agent Task Monitor:** This task was automatically re-triggered because ` +
       `no activity was detected for more than ${STALE_HOURS} hours. ` +
@@ -328,12 +328,12 @@ function issueCell(task: AgentTask): string {
 
 /** Render a PR status as a Markdown link (or dash if no PR). */
 function prCell(prStatus: PrStatus | null): string {
-  return prStatus ? `[#${prStatus.prNumber}](${prStatus.prUrl})` : ' - '
+  return prStatus ? `[#${prStatus.prNumber}](${prStatus.prUrl})` : '—'
 }
 
 /** Render CI status as an emoji + label (or dash if no PR). */
 function ciCell(prStatus: PrStatus | null): string {
-  return prStatus ? `${ciEmoji(prStatus.ciStatus)} ${prStatus.ciStatus}` : ' - '
+  return prStatus ? `${ciEmoji(prStatus.ciStatus)} ${prStatus.ciStatus}` : '—'
 }
 
 function buildReport(reports: TaskReport[]): string {
@@ -447,7 +447,7 @@ async function main() {
     const idle = idleHours(task.updatedAt)
     const isStalled = idle >= STALE_HOURS
     console.log(
-      `  #${task.number} "${task.title.slice(0, 60)}" - idle: ${idle.toFixed(1)}h${isStalled ? ' ⚠️ STALLED' : ''}`
+      `  #${task.number} "${task.title.slice(0, 60)}" — idle: ${idle.toFixed(1)}h${isStalled ? ' ⚠️ STALLED' : ''}`
     )
 
     // Find associated PR and check CI

@@ -5,9 +5,9 @@
  * joined with the Qualtrics disposition CSV to enrich the triage pipeline.
  *
  * Environment variables:
- *   PROLIFIC_API_TOKEN  - Prolific API token (required)
- *   STUDY_ID            - Prolific study ID (required)
- *   OUTPUT_PATH         - Path to write the auth-checks CSV (optional, defaults to stdout)
+ *   PROLIFIC_API_TOKEN  – Prolific API token (required)
+ *   STUDY_ID            – Prolific study ID (required)
+ *   OUTPUT_PATH         – Path to write the auth-checks CSV (optional, defaults to stdout)
  *
  * Usage:
  *   PROLIFIC_API_TOKEN=xxx STUDY_ID=yyy npx tsx scripts/fetch-prolific-auth-checks.ts

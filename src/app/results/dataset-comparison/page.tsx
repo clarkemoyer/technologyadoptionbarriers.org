@@ -12,7 +12,7 @@ import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
-  title: 'Dataset Comparison - TABS Results',
+  title: 'Dataset Comparison — TABS Results',
   description:
     'Side-by-side comparison of all statistics across the four primary result groups of the Technology Adoption Barriers Survey.',
   alternates: {
@@ -40,7 +40,7 @@ const PRIMARY_GROUPS = [
 ]
 
 const fmt = (val: number | null | undefined, decimals: number = 4): string => {
-  if (val === null || val === undefined || !isFinite(val)) return ' - '
+  if (val === null || val === undefined || !isFinite(val)) return '—'
   return val.toFixed(decimals)
 }
 
@@ -116,7 +116,7 @@ const DatasetComparisonPage = () => {
                       <td className="p-3 border-b">{i + 1}</td>
                       <td className="p-3 border-b font-medium">{group.label}</td>
                       <td className="text-right p-3 border-b font-mono font-semibold">
-                        {sample?.n ?? ' - '}
+                        {sample?.n ?? '—'}
                       </td>
                       <td className="p-3 border-b text-gray-600 text-xs">{desc}</td>
                     </tr>
@@ -178,7 +178,7 @@ const DatasetComparisonPage = () => {
                             key={`delta-${g.key}`}
                             className={`text-right p-2 border-b font-mono ${isLarge ? 'bg-amber-50 text-amber-800 font-semibold' : 'text-gray-500'}`}
                           >
-                            {delta != null ? `${delta >= 0 ? '+' : ''}${delta.toFixed(4)}` : ' - '}
+                            {delta != null ? `${delta >= 0 ? '+' : ''}${delta.toFixed(4)}` : '—'}
                           </td>
                         )
                       })}
@@ -223,16 +223,16 @@ const DatasetComparisonPage = () => {
                   const nontech = tvn?.non_technical ?? 0
                   const other = tvn?.other ?? 0
                   const total = tech + nontech + other
-                  const pctTech = total > 0 ? ((tech / total) * 100).toFixed(1) : ' - '
+                  const pctTech = total > 0 ? ((tech / total) * 100).toFixed(1) : '—'
                   return (
                     <tr key={group.key} className={group.color}>
                       <td className="p-2 border-b font-medium">{group.label}</td>
-                      <td className="text-right p-2 border-b font-mono">{total ?? ' - '}</td>
-                      <td className="text-right p-2 border-b font-mono">{tech ?? ' - '}</td>
-                      <td className="text-right p-2 border-b font-mono">{nontech ?? ' - '}</td>
-                      <td className="text-right p-2 border-b font-mono">{other ?? ' - '}</td>
+                      <td className="text-right p-2 border-b font-mono">{total || '—'}</td>
+                      <td className="text-right p-2 border-b font-mono">{tech || '—'}</td>
+                      <td className="text-right p-2 border-b font-mono">{nontech || '—'}</td>
+                      <td className="text-right p-2 border-b font-mono">{other || '—'}</td>
                       <td className="text-right p-2 border-b font-mono">
-                        {pctTech !== ' - ' ? `${pctTech}%` : ' - '}
+                        {pctTech !== '—' ? `${pctTech}%` : '—'}
                       </td>
                     </tr>
                   )
@@ -248,10 +248,10 @@ const DatasetComparisonPage = () => {
                 <tr className="bg-gray-100">
                   <th className="text-left p-2 border-b">Result Group</th>
                   <th className="text-right p-2 border-b">&lt;100</th>
-                  <th className="text-right p-2 border-b">100-499</th>
-                  <th className="text-right p-2 border-b">500-999</th>
-                  <th className="text-right p-2 border-b">1000-4999</th>
-                  <th className="text-right p-2 border-b">5000-9999</th>
+                  <th className="text-right p-2 border-b">100–499</th>
+                  <th className="text-right p-2 border-b">500–999</th>
+                  <th className="text-right p-2 border-b">1000–4999</th>
+                  <th className="text-right p-2 border-b">5000–9999</th>
                   <th className="text-right p-2 border-b">10000+</th>
                 </tr>
               </thead>
@@ -265,7 +265,7 @@ const DatasetComparisonPage = () => {
                       <td className="p-2 border-b font-medium">{group.label}</td>
                       {ORG_SIZE_ORDER.map((s) => (
                         <td key={s} className="text-right p-2 border-b font-mono">
-                          {sizes[s] ?? ' - '}
+                          {sizes[s] || '—'}
                         </td>
                       ))}
                     </tr>
@@ -349,7 +349,7 @@ const DatasetComparisonPage = () => {
                         <td className="p-2 border-b">{label}</td>
                         <td className="p-2 border-b text-right font-mono">{fmt(r?.chi2, 2)}</td>
                         <td className="p-2 border-b text-right font-mono">
-                          {r?.df != null ? r.df : ' - '}
+                          {r?.df != null ? r.df : '—'}
                         </td>
                         <td className="p-2 border-b text-right font-mono">{fmt(r?.p_value, 4)}</td>
                         <td className="p-2 border-b">{getInterpretation(r?.p_value)}</td>
@@ -404,7 +404,7 @@ const DatasetComparisonPage = () => {
                             <td className="p-2 border-b font-medium">{group.label}</td>
                             {dist.labels.map((lbl) => (
                               <td key={lbl} className="text-right p-2 border-b font-mono">
-                                {counts[lbl] != null ? counts[lbl] : ' - '}
+                                {counts[lbl] != null ? counts[lbl] : '—'}
                               </td>
                             ))}
                           </tr>
@@ -453,7 +453,7 @@ const DatasetComparisonPage = () => {
                       const c = constructs?.[construct] as Record<string, number | null> | undefined
                       return (
                         <td key={group.key} className="text-right p-2 border-b font-mono">
-                          {c?.d != null ? c.d.toFixed(3) : ' - '}
+                          {c?.d != null ? c.d.toFixed(3) : '—'}
                         </td>
                       )
                     })}
@@ -490,7 +490,7 @@ const DatasetComparisonPage = () => {
                       const c = constructs?.[construct] as Record<string, number | null> | undefined
                       return (
                         <td key={group.key} className="text-right p-2 border-b font-mono">
-                          {c?.d != null ? c.d.toFixed(3) : ' - '}
+                          {c?.d != null ? c.d.toFixed(3) : '—'}
                         </td>
                       )
                     })}

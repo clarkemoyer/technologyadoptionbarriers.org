@@ -10,7 +10,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Model of Innovation Resistance - Ram & Sheth (1989)',
+  title: 'Bibliography: Model of Innovation Resistance – Ram & Sheth (1989)',
   description:
     'Deep dive into A Model of Innovation Resistance by Sundaresan Ram (1987), exploring its foundational contributions to technology adoption research.',
 }
@@ -19,7 +19,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Model of Innovation Resistance - Ram & Sheth (1989)</h1>
+        <h1 className={H1_CLASSES}>Model of Innovation Resistance – Ram & Sheth (1989)</h1>
 
         {/* Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -72,15 +72,15 @@ const BibliographyArticlePage = () => {
               sometimes failed in markets while technically inferior solutions succeeded. The
               Betamax videocassette recorder, for example, offered better technical quality than VHS
               but failed to achieve market adoption. Innovation researchers recognized that
-              understanding resistance was as important as understanding acceptance - that
-              resistance often reflected legitimate concerns rather than irrational conservatism.
-              Ram grounded his work in consumer behavior and adoption research, hypothesizing that
-              individuals evaluate innovations through multiple lenses: functional risk (will the
-              innovation perform promised functions?), social risk (what will others think of my
-              adoption?), psychological risk (does adoption conflict with my self-image?), and
-              economic risk (is the cost justified?). Rather than treating resistance as a barrier
-              to overcome, Ram posited that resistance reflected meaningful concerns that should be
-              understood and addressed.
+              understanding resistance was as important as understanding acceptance—that resistance
+              often reflected legitimate concerns rather than irrational conservatism. Ram grounded
+              his work in consumer behavior and adoption research, hypothesizing that individuals
+              evaluate innovations through multiple lenses: functional risk (will the innovation
+              perform promised functions?), social risk (what will others think of my adoption?),
+              psychological risk (does adoption conflict with my self-image?), and economic risk (is
+              the cost justified?). Rather than treating resistance as a barrier to overcome, Ram
+              posited that resistance reflected meaningful concerns that should be understood and
+              addressed.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               The model was specifically motivated by several observations: First, many innovations
@@ -158,8 +158,8 @@ const BibliographyArticlePage = () => {
               risk may overcome resistance through pricing changes, financing options, or value
               demonstration Innovations creating psychological risk may require positioning or
               marketing reframing to align with adopter self-concepts The logical consistency of
-              these paths - showing how each resistance type suggests different mitigation
-              strategies - provides theoretical validity evidence. Empirical Pattern Consistency
+              these paths—showing how each resistance type suggests different mitigation
+              strategies—provides theoretical validity evidence. Empirical Pattern Consistency
               Multiple studies of consumer innovations showed consistent patterns: resistance was
               not randomly distributed but concentrated in particular resistance dimensions based on
               innovation characteristics.
@@ -167,7 +167,7 @@ const BibliographyArticlePage = () => {
             <p className={PARAGRAPH_CLASSES}>
               Food innovations created social and psychological risks. Financial innovations created
               functional risks (complexity) and psychological risks (security concerns). This
-              pattern consistency supports theoretical validity - different innovation types create
+              pattern consistency supports theoretical validity—different innovation types create
               predictable resistance profiles rather than random resistance patterns.
             </p>
           </section>
@@ -213,11 +213,11 @@ const BibliographyArticlePage = () => {
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Validation of Risk Dimensions Each resistance dimension was tested for distinctness
-              and predictive validity: Functional risk was distinct from other risks - innovations
+              and predictive validity: Functional risk was distinct from other risks—innovations
               could be functionally risky without being economically risky Social risk operated
-              independently - innovations could create social concerns without functional problems
-              Psychological risk was distinct - innovations could conflict with self-concept without
-              creating functional or economic concerns Economic risk was independent - innovations
+              independently—innovations could create social concerns without functional problems
+              Psychological risk was distinct—innovations could conflict with self-concept without
+              creating functional or economic concerns Economic risk was independent—innovations
               could be economically risky without other risk types The independence and distinctness
               of dimensions was confirmed through empirical testing, validating the comprehensive
               framework.
@@ -303,13 +303,13 @@ const BibliographyArticlePage = () => {
               Resistance Type: Determine which resistance dimension most strongly inhibits adoption.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              Different innovations create different resistance profiles - economically risky
+              Different innovations create different resistance profiles—economically risky
               innovations require different mitigation than functionally risky ones. 2.Allocate
               Resources to Highest-Impact Mitigation: Organizations should prioritize addressing the
               strongest resistance factor rather than attempting to address all factors equally.
               3.Sequence Mitigation Efforts: Ram suggests that functional risk often requires
-              addressing first - if potential adopters doubt functionality, other risk dimensions
-              may be moot. Only after functional viability is established does economic risk become
+              addressing first—if potential adopters doubt functionality, other risk dimensions may
+              be moot. Only after functional viability is established does economic risk become
               salient. 4.Segment Risk Profiles: Different adopter segments may have different
               resistance profiles. Younger consumers might be less concerned about social risk;
               lower-income consumers particularly sensitive to economic risk. Targeted mitigation
@@ -395,7 +395,7 @@ const BibliographyArticlePage = () => {
               tested with diverse innovations, and consistent support for the four resistance
               dimensions across different product categories strengthens confidence in the
               framework. 7.Recognition of Heterogeneous Resistance: The model acknowledges that
-              different individuals have different resistance profiles - what creates strong
+              different individuals have different resistance profiles—what creates strong
               resistance for one person may create weak resistance for another. This heterogeneity
               insight prevents oversimplification. 8.Integration with Consumer Behavior Theory:
               Grounding in established consumer behavior concepts (perceived risk, cost-benefit

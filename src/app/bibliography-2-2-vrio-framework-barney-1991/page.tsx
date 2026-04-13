@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: VRIO Framework - Barney (1991)',
+  title: 'Bibliography: VRIO Framework – Barney (1991)',
   description:
     "An exploration of Jay Barney's VRIO Framework for analyzing firm resources and sustained competitive advantage, providing practical criteria for evaluating which organizational capabilities drive technology adoption success.",
 }
@@ -56,7 +56,7 @@ const VRIOFrameworkPage = () => {
             Advantage&rdquo; in the Journal of Management, creating what would become one of the
             most widely applied frameworks in strategic management: the VRIO Framework. Building on
             Wernerfelt&rsquo;s 1984 Resource-Based View, Barney addressed a critical gap that had
-            limited the practical application of resource-based thinking - the lack of clear,
+            limited the practical application of resource-based thinking—the lack of clear,
             operational criteria for determining which resources truly create sustained competitive
             advantage.
           </p>
@@ -84,7 +84,7 @@ const VRIOFrameworkPage = () => {
               What characteristics must a firm&rsquo;s resources and capabilities possess in order
               to create sustained competitive advantage?
             </em>{' '}
-            This was not merely a theoretical question - it was deeply practical. Managers needed
+            This was not merely a theoretical question—it was deeply practical. Managers needed
             guidance on which resources deserved significant investment, which capabilities should
             be the focus of organizational development, and which resources represented true
             strategic advantages versus simply competencies that all industry competitors possessed.
@@ -92,7 +92,7 @@ const VRIOFrameworkPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Without systematic criteria for resource evaluation, the RBV framework risked being
             dismissed as too vague and theoretical for practical application. Barney responded to
-            criticism that RBV frameworks lacked falsifiability and precision - that any resource
+            criticism that RBV frameworks lacked falsifiability and precision—that any resource
             leading to superior performance could be retroactively labeled as rare and inimitable,
             making the theory tautological. By specifying conditions more precisely and creating an
             operational framework, Barney made the RBV more rigorous and applicable.
@@ -124,9 +124,9 @@ const VRIOFrameworkPage = () => {
             A resource is valuable when it enables a firm to exploit opportunities or neutralize
             threats in its environment. This criterion directly addresses whether a resource
             contributes to competitive positioning in the firm&rsquo;s specific market context.
-            Resources that do not create value - that do not help the firm increase revenues,
-            decrease costs, or improve competitive positioning - represent competitive disadvantages
-            regardless of their other characteristics.
+            Resources that do not create value—that do not help the firm increase revenues, decrease
+            costs, or improve competitive positioning—represent competitive disadvantages regardless
+            of their other characteristics.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Value is context-dependent: a resource valuable in one competitive environment may not
@@ -142,7 +142,7 @@ const VRIOFrameworkPage = () => {
           </h3>
           <p className={PARAGRAPH_CLASSES}>
             A resource is rare when few competitors possess it. Resources that are valuable but
-            widely available in the industry do not create competitive advantage - they create
+            widely available in the industry do not create competitive advantage—they create
             competitive parity. All firms possessing the resource can neutralize competitive threats
             or exploit opportunities equally, meaning the resource becomes a requirement for
             competing but not a source of advantage.
@@ -199,7 +199,7 @@ const VRIOFrameworkPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             This criterion distinguishes the VRIO framework from earlier RBV formulations by
-            explicitly recognizing that resources do not automatically create advantage - the
+            explicitly recognizing that resources do not automatically create advantage—the
             organization must be configured to capture value from its resources. Firms with
             valuable, rare, and inimitable resources may still fail to achieve competitive advantage
             if organizational dysfunction, poor coordination, or misaligned incentives prevent
@@ -314,7 +314,7 @@ const VRIOFrameworkPage = () => {
             explicitly recognizing that resources do not automatically create advantage. The
             framework acknowledges that effective resource deployment requires appropriate
             organizational structures, management systems, and capabilities. This recognition helps
-            organizations understand why resource acquisition alone is insufficient - they must also
+            organizations understand why resource acquisition alone is insufficient—they must also
             develop organizational capacity to exploit resources.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -340,8 +340,8 @@ const VRIOFrameworkPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Difficulty in Imitation Assessment:</strong> Determining whether resources are
-            truly difficult to imitate can be challenging in practice. Causal ambiguity - one source
-            of imitation difficulty - means even the firm possessing the resource may not fully
+            truly difficult to imitate can be challenging in practice. Causal ambiguity—one source
+            of imitation difficulty—means even the firm possessing the resource may not fully
             understand why it creates value or whether competitors could replicate it. Organizations
             may overestimate the inimitability of their resources because they underestimate
             competitors&rsquo; capabilities or fail to recognize alternative approaches competitors
@@ -365,9 +365,9 @@ const VRIOFrameworkPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Potential for Tautological Reasoning:</strong> Critics note that the framework
-            can become somewhat circular - resources that lead to superior performance are
-            identified as meeting VRIO criteria, but the primary evidence that resources meet VRIO
-            criteria is that they lead to superior performance. This circularity can reduce the
+            can become somewhat circular—resources that lead to superior performance are identified
+            as meeting VRIO criteria, but the primary evidence that resources meet VRIO criteria is
+            that they lead to superior performance. This circularity can reduce the
             framework&rsquo;s predictive power and make it difficult to falsify empirically.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -446,7 +446,7 @@ const VRIOFrameworkPage = () => {
             <strong>Conduct VRIO Assessments Before Technology Adoption:</strong> Leaders should
             systematically assess technologies using VRIO criteria before committing to adoption. Is
             the technology valuable in our specific competitive context? Does it address real
-            competitive threats or opportunities? Is it rare - do competitors already have it or can
+            competitive threats or opportunities? Is it rare—do competitors already have it or can
             they easily acquire it? Can competitors imitate or substitute for the technology? Is our
             organization structured to capture advantage from the technology? This prospective VRIO
             assessment helps identify whether technology adoption is likely to create competitive

@@ -11,7 +11,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Theory of Planned Behavior (TPB) - Ajzen (1991)',
+  title: 'Bibliography: Theory of Planned Behavior (TPB) – Ajzen (1991)',
   description:
     'Deep dive into Theory of Planned Behavior by Icek Ajzen (1991), exploring its foundational contributions to technology adoption research.',
 }
@@ -20,7 +20,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Theory of Planned Behavior (TPB) - Ajzen (1991)</h1>
+        <h1 className={H1_CLASSES}>Theory of Planned Behavior (TPB) – Ajzen (1991)</h1>
 
         {/* Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -44,7 +44,7 @@ const BibliographyArticlePage = () => {
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
               Ajzen, I. (1991). The theory of planned behavior. Organizational Behavior and Human
-              Decision Processes, 50 (2), 179-211.
+              Decision Processes, 50 (2), 179–211.
             </p>
           </div>
         </section>
@@ -69,19 +69,19 @@ const BibliographyArticlePage = () => {
               limitations, environmental obstacles, or structural barriers.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              Ajzen recognized that many significant behaviors - including technology adoption -
-              involve elements beyond complete volitional control. While individuals might intend to
-              adopt a technology, environmental factors, organizational policies, technical
-              infrastructure, prerequisite knowledge or skills, or other people’s actions might
-              prevent successful adoption. The original TRA’s inability to incorporate these control
-              factors represented a significant theoretical and practical limitation. The Theory of
-              Planned Behavior was explicitly constructed to overcome this limitation by adding a
-              third predictor variable: perceived behavioral control. By incorporating the extent to
-              which individuals believe they can successfully perform behavior, even when facing
+              Ajzen recognized that many significant behaviors—including technology adoption—involve
+              elements beyond complete volitional control. While individuals might intend to adopt a
+              technology, environmental factors, organizational policies, technical infrastructure,
+              prerequisite knowledge or skills, or other people’s actions might prevent successful
+              adoption. The original TRA’s inability to incorporate these control factors
+              represented a significant theoretical and practical limitation. The Theory of Planned
+              Behavior was explicitly constructed to overcome this limitation by adding a third
+              predictor variable: perceived behavioral control. By incorporating the extent to which
+              individuals believe they can successfully perform behavior, even when facing
               obstacles, the TPB created a more nuanced and comprehensive model applicable to
               behaviors where volitional control varies. Ajzen’s motivation also reflected broader
               theoretical ambitions. The Theory of Planned Behavior aimed to provide a general
-              framework explaining intentional behavior across diverse domains - not just technology
+              framework explaining intentional behavior across diverse domains—not just technology
               adoption but also health behaviors, educational achievements, environmental actions,
               interpersonal relationships, and organizational behaviors.
             </p>
@@ -411,7 +411,7 @@ const BibliographyArticlePage = () => {
               control due to overconfidence, pessimism, or inaccurate self-assessment. The model
               provides limited guidance for ensuring perceived control measures reflect actual
               control versus biased perceptions. This creates ambiguity regarding what perceived
-              behavioral control actually predicts - behavior directly or behavior constrained by
+              behavioral control actually predicts—behavior directly or behavior constrained by
               actual control.
             </p>
             <ul className={BODY_LIST_CLASSES}>
@@ -419,8 +419,8 @@ const BibliographyArticlePage = () => {
                 <strong>Limited attention to structural barriers:</strong> While the TPB
                 acknowledges perceived behavioral control, the model treats structural and
                 environmental barriers primarily through individuals’ perceptions of them. Real
-                structural barriers - lack of technology infrastructure, regulatory prohibitions,
-                economic constraints, organizational policies - may prevent adoption regardless of
+                structural barriers—lack of technology infrastructure, regulatory prohibitions,
+                economic constraints, organizational policies—may prevent adoption regardless of
                 individual control perceptions. An individual might accurately perceive extremely
                 low control due to massive real barriers, but the model provides limited guidance on
                 removing those structural barriers. The focus on individual psychology potentially
@@ -526,8 +526,8 @@ const BibliographyArticlePage = () => {
               </li>
               <li>
                 <strong>Focus on behavioral intention:</strong> While earlier theories recognized
-                intentions as behavior antecedents, the TPB elevated intention as central construct
-                - the immediate determinant of behavior. This focus on intention as primary
+                intentions as behavior antecedents, the TPB elevated intention as central
+                construct—the immediate determinant of behavior. This focus on intention as primary
                 mechanism meant that all other factors affect behavior through intention
                 modification (except perceived behavioral control which also has direct effects).
                 This conceptualization shifted focus from proximal behavior determinants toward the
@@ -582,7 +582,7 @@ const BibliographyArticlePage = () => {
                 pressure from supervisors, peers, professional colleagues, or organizational
                 leaders. When influential organizational figures do not advocate or model technology
                 adoption, adoption rates decline substantially. Normative barriers include active
-                resistance from important referents - when supervisors discourage adoption, peers
+                resistance from important referents—when supervisors discourage adoption, peers
                 discourage change, or professional networks resist particular technologies, adoption
                 becomes socially costly. Workers adopting technologies their peer groups reject face
                 social exclusion, ridicule, or conflict. Professional communities that resist

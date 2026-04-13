@@ -1,8 +1,8 @@
 # On-Page SEO Audit & Technical Review
 
 **Last Updated:** 2026-03-23
-**Related Issue:** [#480 - On-Page SEO Audit & Technical Review](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/480)
-**Parent Issue:** [#473 - SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
+**Related Issue:** [#480 — On-Page SEO Audit & Technical Review](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/480)
+**Parent Issue:** [#473 — SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
 **Companion Documents:** [Competitor Profiles](./competitor-profiles.md) · [Competitive SERP Benchmarking](./competitive-serp-benchmarking.md)
 
 ---
@@ -49,23 +49,23 @@
 
 This document presents a comprehensive on-page SEO audit of technologyadoptionbarriers.org (TABS), reviewing 120+ pages across all major content categories: homepage, article series, bibliography entries, teaching series, organizational pages, personas, and legal/policy pages.
 
-**Overall SEO Health: Good** - The site has a strong SEO foundation with 98.3% metadata coverage, proper heading hierarchy, comprehensive sitemap generation, and well-configured robots directives. The Lighthouse CI workflow warns when the SEO score falls below a 95% threshold.
+**Overall SEO Health: Good** — The site has a strong SEO foundation with 98.3% metadata coverage, proper heading hierarchy, comprehensive sitemap generation, and well-configured robots directives. The Lighthouse CI workflow warns when the SEO score falls below a 95% threshold.
 
 **Key strengths:**
 
-1. **Comprehensive metadata coverage** - 118 of 120 pages (98.3%) export metadata with titles and descriptions
-2. **Proper heading hierarchy** - All audited pages use correct H1 → H2 → H3 structure with no duplicate H1 tags
-3. **Complete sitemap** - `src/app/sitemap.ts` dynamically generates entries for all discoverable pages with proper priority tiers
-4. **Well-structured robots.txt** - Allows full crawling with explicit sitemap reference
-5. **Performance optimizations** - Preconnect hints, DNS prefetch, critical LCP image preloading in root layout
+1. **Comprehensive metadata coverage** — 118 of 120 pages (98.3%) export metadata with titles and descriptions
+2. **Proper heading hierarchy** — All audited pages use correct H1 → H2 → H3 structure with no duplicate H1 tags
+3. **Complete sitemap** — `src/app/sitemap.ts` dynamically generates entries for all discoverable pages with proper priority tiers
+4. **Well-structured robots.txt** — Allows full crawling with explicit sitemap reference
+5. **Performance optimizations** — Preconnect hints, DNS prefetch, critical LCP image preloading in root layout
 
 **Key issues requiring attention:**
 
-1. **Title tag length optimization** - 79 of 120 pages (65.8%) exceed 60 characters when the `| TABS` suffix is appended, risking SERP truncation
-2. **Meta description length** - 43 of 118 pages (36.4%) exceed 160 characters, leading to truncated descriptions in search results
-3. **Limited structured data** - Only 1 of 120 pages has JSON-LD markup (Organization schema on `/media`)
-4. **Missing metadata on client components** - 2 client pages have no metadata exports (`/technology-adoption-series/visual-gallery` and `/tabs-presentation`); dynamic routes such as `/start/[role]` and `/technology-adoption-series/[slide]` define metadata via `generateMetadata()` and are covered
-5. **Limited page-specific social sharing tags** - Only 2 pages override root-level OpenGraph/Twitter metadata
+1. **Title tag length optimization** — 79 of 120 pages (65.8%) exceed 60 characters when the `| TABS` suffix is appended, risking SERP truncation
+2. **Meta description length** — 43 of 118 pages (36.4%) exceed 160 characters, leading to truncated descriptions in search results
+3. **Limited structured data** — Only 1 of 120 pages has JSON-LD markup (Organization schema on `/media`)
+4. **Missing metadata on client components** — 2 client pages have no metadata exports (`/technology-adoption-series/visual-gallery` and `/tabs-presentation`); dynamic routes such as `/start/[role]` and `/technology-adoption-series/[slide]` define metadata via `generateMetadata()` and are covered
+5. **Limited page-specific social sharing tags** — Only 2 pages override root-level OpenGraph/Twitter metadata
 
 **Total recommendations: 20** (3 critical, 5 high, 8 medium, 4 low)
 
@@ -80,8 +80,8 @@ All page routes under `src/app/` were audited, covering the following content ca
 | Category                                   | Page Count  | Examples                                                           |
 | ------------------------------------------ | ----------- | ------------------------------------------------------------------ |
 | Homepage                                   | 1           | `/`                                                                |
-| Article series (Branch 1 - Individual)     | 8           | `/article-1-1-*` through `/article-1-7-*`                          |
-| Article series (Branch 2 - Organizational) | 8           | `/article-2-1-*` through `/article-2-7-*`                          |
+| Article series (Branch 1 — Individual)     | 8           | `/article-1-1-*` through `/article-1-7-*`                          |
+| Article series (Branch 2 — Organizational) | 8           | `/article-2-1-*` through `/article-2-7-*`                          |
 | Bibliography (Individual models)           | 21          | `/bibliography-1-1-*` through `/bibliography-1-21-*`               |
 | Bibliography (Organizational models)       | 19          | `/bibliography-2-1-*` through `/bibliography-2-19-*`               |
 | Teaching series                            | 3+ dynamic  | `/technology-adoption-series/*`                                    |
@@ -115,7 +115,7 @@ All page routes under `src/app/` were audited, covering the following content ca
 | #    | Finding                                                                           | Severity    | Category  | Status      | Recommendation                                      |
 | ---- | --------------------------------------------------------------------------------- | ----------- | --------- | ----------- | --------------------------------------------------- |
 | F-01 | 79 pages have titles exceeding 60 chars (with &#124; TABS suffix)                 | 🟡 Medium   | Meta Tags | Needs Fix   | Shorten titles or adjust template suffix            |
-| F-02 | 43 pages have meta descriptions exceeding 160 chars                               | 🟡 Medium   | Meta Tags | Needs Fix   | Trim descriptions to 150-160 chars                  |
+| F-02 | 43 pages have meta descriptions exceeding 160 chars                               | 🟡 Medium   | Meta Tags | Needs Fix   | Trim descriptions to 150–160 chars                  |
 | F-03 | 2 pages missing metadata exports entirely (`visual-gallery`, `tabs-presentation`) | 🔴 Critical | Meta Tags | Needs Fix   | Add metadata exports to these pages                 |
 | F-04 | Only 2 pages override OG/Twitter tags                                             | 🟡 Medium   | Meta Tags | Opportunity | Add page-specific social metadata to key pages      |
 | F-05 | Root layout canonical set to `/` only                                             | 🟢 Low      | Meta Tags | Acceptable  | Per-page canonicals recommended for dual deployment |
@@ -149,7 +149,7 @@ All page routes under `src/app/` were audited, covering the following content ca
 
 ### 1.1 Title Tags
 
-**Implementation:** `src/app/layout.tsx` (lines 23-27)
+**Implementation:** `src/app/layout.tsx` (lines 23–27)
 
 ```typescript
 title: {
@@ -166,29 +166,29 @@ The root layout defines a default title and a `%s | TABS` template. Individual p
 | -------------------------------------------- | -------------------------------------------------------- | -------------------- |
 | Pages with unique titles                     | 118/120 (98.3%)                                          | ✅ Good              |
 | Pages missing titles                         | 2 (see [Appendix A](#appendix-a-pages-missing-metadata)) | 🔴 Critical          |
-| Titles within 50-60 char range (with suffix) | 29/120 (24.2%)                                           | 🟡 Needs Improvement |
+| Titles within 50–60 char range (with suffix) | 29/120 (24.2%)                                           | 🟡 Needs Improvement |
 | Titles exceeding 60 chars (with suffix)      | 79/120 (65.8%)                                           | 🟡 Needs Improvement |
 
-**Title length distribution (including `| TABS` suffix - 7 chars):**
+**Title length distribution (including `| TABS` suffix — 7 chars):**
 
 | Length Range | Count | %     | Assessment                         |
 | ------------ | ----- | ----- | ---------------------------------- |
-| < 30 chars   | 0     | 0%    | -                                  |
-| 30-49 chars  | 12    | 10%   | ⚠️ Short (could use more keywords) |
-| 50-60 chars  | 29    | 24.2% | ✅ Optimal                         |
-| 61-70 chars  | 24    | 20%   | ⚠️ Slightly long                   |
-| 71-80 chars  | 26    | 21.7% | 🟡 May truncate                    |
+| < 30 chars   | 0     | 0%    | —                                  |
+| 30–49 chars  | 12    | 10%   | ⚠️ Short (could use more keywords) |
+| 50–60 chars  | 29    | 24.2% | ✅ Optimal                         |
+| 61–70 chars  | 24    | 20%   | ⚠️ Slightly long                   |
+| 71–80 chars  | 26    | 21.7% | 🟡 May truncate                    |
 | > 80 chars   | 29    | 24.2% | 🔴 Will truncate                   |
 
 **Examples of overly long titles (with `| TABS` suffix):**
 
 | Page                                   | Title with Suffix                                                                                                         | Length    |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | --------- |
-| `/bibliography-2-6-toe-framework-*`    | Bibliography: Technology-Organization-Environment (TOE) Framework - Tornatzky, Fleischer & Chakrabarti (1990) &#124; TABS | 116 chars |
-| `/article-1-4-the-grand-unification-*` | Article 1.4: The Grand Unification - The Unified Theory of Acceptance and Use of Technology (UTAUT) &#124; TABS           | 106 chars |
-| `/bibliography-1-15-unified-theory-*`  | Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) - Venkatesh et al. (2003) &#124; TABS            | 105 chars |
+| `/bibliography-2-6-toe-framework-*`    | Bibliography: Technology-Organization-Environment (TOE) Framework – Tornatzky, Fleischer & Chakrabarti (1990) &#124; TABS | 116 chars |
+| `/article-1-4-the-grand-unification-*` | Article 1.4: The Grand Unification – The Unified Theory of Acceptance and Use of Technology (UTAUT) &#124; TABS           | 106 chars |
+| `/bibliography-1-15-unified-theory-*`  | Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) – Venkatesh et al. (2003) &#124; TABS            | 105 chars |
 
-**Recommendation (F-01):** Shorten long titles by abbreviating common terms (e.g., "Bibliography:" → "Bib:", use acronyms for well-known models). Alternatively, consider shortening the template suffix from `| TABS` to ` - TABS` or removing it for pages where the title alone exceeds 55 chars.
+**Recommendation (F-01):** Shorten long titles by abbreviating common terms (e.g., "Bibliography:" → "Bib:", use acronyms for well-known models). Alternatively, consider shortening the template suffix from `| TABS` to ` — TABS` or removing it for pages where the title alone exceeds 55 chars.
 
 ---
 
@@ -202,7 +202,7 @@ The root layout defines a default title and a `%s | TABS` template. Individual p
 | --------------------------------- | --------------- | -------------------- |
 | Pages with descriptions           | 118/120 (98.3%) | ✅ Good              |
 | Pages missing descriptions        | 2               | 🔴 Critical          |
-| Descriptions within 150-160 chars | 75/118 (63.6%)  | ✅ Good              |
+| Descriptions within 150–160 chars | 75/118 (63.6%)  | ✅ Good              |
 | Descriptions exceeding 160 chars  | 43/118 (36.4%)  | 🟡 Needs Improvement |
 
 **Examples of overly long descriptions:**
@@ -213,15 +213,15 @@ The root layout defines a default title and a `%s | TABS` template. Individual p
 | `/bibliography-2-18-microsoft-cloud-*` | 314    | An exploration of the Microsoft Cloud Adoption Framework for Azure (CAF)...             |
 | `/bibliography-2-19-microsoft-ai-*`    | 303    | An exploration of Microsoft AI Adoption Framework (April 2025)...                       |
 | `/bibliography-1-15-unified-theory-*`  | 224    | Deep dive into the Unified Theory of Acceptance and Use of Technology (UTAUT)...        |
-| `/article-2-1-the-strategic-lens-*`    | 198    | An analysis of core management and strategic theories - TOE, RBV, VRIO...               |
+| `/article-2-1-the-strategic-lens-*`    | 198    | An analysis of core management and strategic theories—TOE, RBV, VRIO...                 |
 | `/faq`                                 | 196    | Find answers to over 40 frequently asked questions...                                   |
 
 **Pages missing descriptions entirely:**
 
-1. `src/app/technology-adoption-series/visual-gallery/page.tsx` - Client component, no metadata export
-2. `src/app/tabs-presentation/page.tsx` - Client component, no metadata export
+1. `src/app/technology-adoption-series/visual-gallery/page.tsx` — Client component, no metadata export
+2. `src/app/tabs-presentation/page.tsx` — Client component, no metadata export
 
-**Recommendation (F-02):** Trim descriptions to 150-160 characters. Focus on the most compelling value proposition and include a call-to-action. Descriptions over 160 chars will be truncated by Google with "..." which reduces click-through rates.
+**Recommendation (F-02):** Trim descriptions to 150–160 characters. Focus on the most compelling value proposition and include a call-to-action. Descriptions over 160 chars will be truncated by Google with "..." which reduces click-through rates.
 
 **Recommendation (F-03):** Add metadata exports to the 2 client component pages listed in [Appendix A](#appendix-a-pages-missing-metadata). For client components, use a separate `layout.tsx` or a page wrapper that exports metadata.
 
@@ -229,7 +229,7 @@ The root layout defines a default title and a `%s | TABS` template. Individual p
 
 ### 1.3 OpenGraph & Twitter Card Tags
 
-**Implementation:** `src/app/layout.tsx` (lines 56-80)
+**Implementation:** `src/app/layout.tsx` (lines 56–80)
 
 The root layout provides site-wide OG and Twitter Card defaults:
 
@@ -298,7 +298,7 @@ The root layout sets a site-wide canonical to `/`. Individual pages can override
 
 ### 1.5 Hreflang Tags
 
-**Finding:** No hreflang tags are implemented. ✅ **Not needed** - the site is English-only with no international language variants.
+**Finding:** No hreflang tags are implemented. ✅ **Not needed** — the site is English-only with no international language variants.
 
 ---
 
@@ -306,14 +306,14 @@ The root layout sets a site-wide canonical to `/`. Individual pages can override
 
 ### 2.1 H1 Tag Usage
 
-**Finding: ✅ Compliant** - All 120 pages use exactly one H1 tag per page. No duplicate H1s were found.
+**Finding: ✅ Compliant** — All 120 pages use exactly one H1 tag per page. No duplicate H1s were found.
 
 **H1 tag patterns by page category:**
 
 | Category          | H1 Pattern                            | Example                                                                        |
 | ----------------- | ------------------------------------- | ------------------------------------------------------------------------------ |
-| Articles          | `Article [X.Y]: [Title] - [Subtitle]` | "Article 1.1: The Bedrock - Foundational Theories That Shaped Tech Acceptance" |
-| Bibliography      | `[Model Name] - [Author] ([Year])`    | "Technology Readiness Index (TRI) - Parasuraman (2000)"                        |
+| Articles          | `Article [X.Y]: [Title] – [Subtitle]` | "Article 1.1: The Bedrock – Foundational Theories That Shaped Tech Acceptance" |
+| Bibliography      | `[Model Name] – [Author] ([Year])`    | "Technology Readiness Index (TRI) – Parasuraman (2000)"                        |
 | Teaching Series   | Descriptive title                     | "Technology Adoption Teaching Series"                                          |
 | For Organizations | Role-specific                         | "For Professional Organizations"                                               |
 | Policy/Legal      | Simple title                          | "Contribution Policy"                                                          |
@@ -325,28 +325,28 @@ The root layout sets a site-wide canonical to `/`. Individual pages can override
 
 ### 2.2 Heading Hierarchy
 
-**Finding: ✅ Compliant** - All sampled pages maintain proper heading hierarchy (H1 → H2 → H3). No heading level skips (e.g., H1 → H3) were detected.
+**Finding: ✅ Compliant** — All sampled pages maintain proper heading hierarchy (H1 → H2 → H3). No heading level skips (e.g., H1 → H3) were detected.
 
 **Sample hierarchy analysis:**
 
 **Article 1.1** (`/article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance/page.tsx`):
 
 - H1: Article title (1)
-- H2: Section headings (7) - Introduction, TRA, Social Cognitive Theory, etc.
+- H2: Section headings (7) — Introduction, TRA, Social Cognitive Theory, etc.
 - No H3 used (flat structure appropriate for article length)
 
 **Content Architecture** (`/making-of-tabs/content-architecture/page.tsx`):
 
 - H1: "Content Architecture" (1)
-- H2: Major sections (7) - Overview, Design Principles, etc.
-- H3: Sub-sections (4) - specific topics within H2 sections
+- H2: Major sections (7) — Overview, Design Principles, etc.
+- H3: Sub-sections (4) — specific topics within H2 sections
 - ✅ Proper H1 → H2 → H3 nesting
 
 ---
 
 ### 2.3 Heading Keyword Usage
 
-**Finding: ✅ Good** - Headings contain relevant keywords naturally.
+**Finding: ✅ Good** — Headings contain relevant keywords naturally.
 
 **Keyword presence in H1 tags:**
 
@@ -388,14 +388,14 @@ Page types by content depth:
 
 | Category                  | Typical Content Length         | Assessment                    |
 | ------------------------- | ------------------------------ | ----------------------------- |
-| Article pages             | 3,000-8,000 words              | ✅ Comprehensive              |
-| Bibliography entries      | 2,000-5,000 words              | ✅ Thorough academic analysis |
-| For-Organizations pages   | 500-1,500 words                | ✅ Appropriate for audience   |
-| Policy/Legal pages        | 1,000-3,000 words              | ✅ Standard                   |
+| Article pages             | 3,000–8,000 words              | ✅ Comprehensive              |
+| Bibliography entries      | 2,000–5,000 words              | ✅ Thorough academic analysis |
+| For-Organizations pages   | 500–1,500 words                | ✅ Appropriate for audience   |
+| Policy/Legal pages        | 1,000–3,000 words              | ✅ Standard                   |
 | Homepage (via components) | 1,500+ words across 8 sections | ✅ Rich                       |
-| Teaching series slides    | 300-800 words per slide        | ✅ Appropriate for format     |
+| Teaching series slides    | 300–800 words per slide        | ✅ Appropriate for format     |
 
-**Note on architecture:** Some `page.tsx` files appear short (15-27 lines) because they import and render components. For example, `src/app/page.tsx` (18 lines) renders `<TABSHome />`, which assembles 8 substantial component sections. This is a proper Next.js App Router pattern, not thin content.
+**Note on architecture:** Some `page.tsx` files appear short (15–27 lines) because they import and render components. For example, `src/app/page.tsx` (18 lines) renders `<TABSHome />`, which assembles 8 substantial component sections. This is a proper Next.js App Router pattern, not thin content.
 
 ---
 
@@ -407,11 +407,11 @@ Page types by content depth:
 
 | Linking Pattern        | Implementation                                                            | Assessment               |
 | ---------------------- | ------------------------------------------------------------------------- | ------------------------ |
-| Primary navigation     | `src/components/header/index.tsx` - mega-menu with nested items           | ✅ Comprehensive         |
-| Footer links           | `src/components/footer/index.tsx` - legal, policy, social links           | ✅ Standard              |
-| Series navigation      | `src/components/series-navigation/index.tsx` - prev/next article links    | ✅ Good for crawlability |
-| Teaching series nav    | `src/components/teaching-series-navigation/index.tsx` - slide progression | ✅ Good                  |
-| Blog cards             | `src/components/ui/blog-card.tsx` - article preview cards                 | ✅ Good                  |
+| Primary navigation     | `src/components/header/index.tsx` — mega-menu with nested items           | ✅ Comprehensive         |
+| Footer links           | `src/components/footer/index.tsx` — legal, policy, social links           | ✅ Standard              |
+| Series navigation      | `src/components/series-navigation/index.tsx` — prev/next article links    | ✅ Good for crawlability |
+| Teaching series nav    | `src/components/teaching-series-navigation/index.tsx` — slide progression | ✅ Good                  |
+| Blog cards             | `src/components/ui/blog-card.tsx` — article preview cards                 | ✅ Good                  |
 | Bibliography back-link | All bibliography pages → comprehensive bibliography                       | ✅ Present               |
 
 **Gaps identified:**
@@ -441,7 +441,7 @@ Page types by content depth:
 | Academic descriptive | `alt="The Tech Adoption Triangle: Organizational, User, and Consumer Adoption"` | technology-adoption-models                 |
 | Icon labels          | `alt="Plus"`, `alt="Minus"`, `alt="linkedin icon"`                              | FAQ accordion, team cards                  |
 
-**Assessment:** Image alt text follows good practices - dynamic text for content images, descriptive text for informational images, and functional labels for interactive icons. The `jest-axe` accessibility tests in `__tests__/` enforce alt text presence at test time.
+**Assessment:** Image alt text follows good practices — dynamic text for content images, descriptive text for informational images, and functional labels for interactive icons. The `jest-axe` accessibility tests in `__tests__/` enforce alt text presence at test time.
 
 **Minor improvement opportunity:** Some icon alt texts like `alt="Plus"` and `alt="Minus"` could be more descriptive (e.g., `alt="Expand answer"` and `alt="Collapse answer"`) for better accessibility and SEO, though this is a minor point since these are decorative controls.
 
@@ -458,7 +458,7 @@ Page types by content depth:
 | Sitemap generates at `/sitemap.xml` | ✅ Pass | Force-static generation                                       |
 | All page routes included            | ✅ Pass | Cross-referenced against `src/app/` directories               |
 | Dynamic routes resolved             | ✅ Pass | Teaching series and persona pages generated from data         |
-| Priority tiers assigned             | ✅ Pass | 1.0 (home) → 0.9 (barriers) → 0.7-0.8 (content) → 0.3 (legal) |
+| Priority tiers assigned             | ✅ Pass | 1.0 (home) → 0.9 (barriers) → 0.7–0.8 (content) → 0.3 (legal) |
 | `changeFrequency` set               | ✅ Pass | Weekly (home), monthly (content), yearly (legal)              |
 | `lastModified` set                  | ✅ Pass | Set to current build date                                     |
 | BasePath support                    | ✅ Pass | Dynamic `NEXT_PUBLIC_BASE_PATH` handling                      |
@@ -505,7 +505,7 @@ Page types by content depth:
 
 | Category       | Threshold | Type | Assessment                                 |
 | -------------- | --------- | ---- | ------------------------------------------ |
-| Performance    | ≥ 55%     | Warn | ⚠️ Low threshold - consider raising to 70% |
+| Performance    | ≥ 55%     | Warn | ⚠️ Low threshold — consider raising to 70% |
 | Accessibility  | ≥ 90%     | Warn | ✅ Good                                    |
 | Best Practices | ≥ 65%     | Warn | ⚠️ Could be higher                         |
 | SEO            | ≥ 95%     | Warn | ✅ Excellent                               |
@@ -517,8 +517,8 @@ Page types by content depth:
 | DNS prefetch       | `src/app/layout.tsx` | `<link rel="dns-prefetch">` for GTM, Zeffy, Idealist  |
 | Preconnect         | `src/app/layout.tsx` | `<link rel="preconnect">` for GTM, Zeffy              |
 | LCP image preload  | `src/app/layout.tsx` | `<link rel="preload" as="image">` for hero WebP image |
-| Static export      | `next.config.ts`     | `output: 'export'` - pre-rendered HTML                |
-| Unoptimized images | `next.config.ts`     | `unoptimized: true` - no server-side processing       |
+| Static export      | `next.config.ts`     | `output: 'export'` — pre-rendered HTML                |
+| Unoptimized images | `next.config.ts`     | `unoptimized: true` — no server-side processing       |
 | WebP format        | `public/Images/`     | Hero image uses `.webp` format                        |
 
 **Recommendation:** Consider raising the Lighthouse performance threshold from 55% to at least 70% as the site matures. The static export architecture should naturally produce high performance scores.
@@ -541,13 +541,13 @@ Page types by content depth:
 
 ### 4.5 Structured Data & Schema.org
 
-**Finding: 🔴 Critical gap** - Only 1 of 120 pages has JSON-LD structured data.
+**Finding: 🔴 Critical gap** — Only 1 of 120 pages has JSON-LD structured data.
 
 **Current implementation:**
 
 | Page     | Schema Type    | File                                   |
 | -------- | -------------- | -------------------------------------- |
-| `/media` | `Organization` | `src/app/media/page.tsx` (lines 44-66) |
+| `/media` | `Organization` | `src/app/media/page.tsx` (lines 44–66) |
 
 **Schema markup present:**
 
@@ -591,8 +591,8 @@ Page types by content depth:
 | Length Range | Count | Assessment                   |
 | ------------ | ----- | ---------------------------- |
 | < 30 chars   | 25    | ✅ Short and clean           |
-| 30-50 chars  | 35    | ✅ Good                      |
-| 51-75 chars  | 40    | ✅ Acceptable                |
+| 30–50 chars  | 35    | ✅ Good                      |
+| 51–75 chars  | 40    | ✅ Acceptable                |
 | > 75 chars   | 20    | ⚠️ Long (see examples below) |
 
 **Longest URLs (top 5):**
@@ -626,13 +626,13 @@ Page types by content depth:
 
 ### 4.8 Static Export Considerations
 
-**Configuration:** `next.config.ts` - `output: 'export'`
+**Configuration:** `next.config.ts` — `output: 'export'`
 
 | Feature                         | Availability     | Impact on SEO                                      |
 | ------------------------------- | ---------------- | -------------------------------------------------- |
 | Pre-rendered HTML               | ✅ Available     | ✅ Fast crawling, immediate content availability   |
 | Server-side redirects           | ❌ Not available | ⚠️ Must use client-side or hosting-level redirects |
-| Dynamic API routes              | ❌ Not available | N/A - static site doesn't need them                |
+| Dynamic API routes              | ❌ Not available | N/A — static site doesn't need them                |
 | Incremental Static Regeneration | ❌ Not available | ⚠️ Content updates require full rebuild            |
 | Middleware                      | ❌ Not available | N/A                                                |
 | Image optimization              | ❌ Not available | ⚠️ Images served unoptimized (mitigated by WebP)   |
@@ -649,7 +649,7 @@ Page types by content depth:
 
 ### Recommended Schema Implementations
 
-#### Priority 1: Homepage - Organization + WebSite Schema
+#### Priority 1: Homepage — Organization + WebSite Schema
 
 **File:** `src/app/page.tsx` or `src/app/tabs-home/index.tsx`
 
@@ -679,7 +679,7 @@ Page types by content depth:
 
 **Impact:** Enables Knowledge Panel and brand SERP features.
 
-#### Priority 2: FAQ Page - FAQPage Schema
+#### Priority 2: FAQ Page — FAQPage Schema
 
 **File:** `src/app/faq/page.tsx`
 
@@ -702,7 +702,7 @@ Page types by content depth:
 
 **Impact:** Enables FAQ rich results in SERPs, significantly increasing page real estate and CTR.
 
-#### Priority 3: Article Series - Article Schema
+#### Priority 3: Article Series — Article Schema
 
 **Files:** All `src/app/article-*-*/page.tsx` files (16 pages)
 
@@ -710,7 +710,7 @@ Page types by content depth:
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "Article 1.1: The Bedrock - Foundational Theories That Shaped Tech Acceptance",
+  "headline": "Article 1.1: The Bedrock – Foundational Theories That Shaped Tech Acceptance",
   "description": "An overview of pre-TAM theories...",
   "author": {
     "@type": "Organization",
@@ -733,7 +733,7 @@ Page types by content depth:
 
 **Impact:** Enables article rich results, improves content categorization for Google.
 
-#### Priority 4: Bibliography Entries - ScholarlyArticle Schema
+#### Priority 4: Bibliography Entries — ScholarlyArticle Schema
 
 **Files:** All `src/app/bibliography-*-*/page.tsx` files (40 pages)
 
@@ -741,7 +741,7 @@ Page types by content depth:
 {
   "@context": "https://schema.org",
   "@type": "ScholarlyArticle",
-  "name": "Technology Acceptance Model (TAM) - Davis (1989)",
+  "name": "Technology Acceptance Model (TAM) – Davis (1989)",
   "author": {
     "@type": "Person",
     "name": "Fred D. Davis"
@@ -756,7 +756,7 @@ Page types by content depth:
 
 **Impact:** Improves academic search visibility, connects content to Google Scholar index.
 
-#### Priority 5: Teaching Series - Course / LearningResource Schema
+#### Priority 5: Teaching Series — Course / LearningResource Schema
 
 **Files:** `src/app/technology-adoption-series/page.tsx` and sub-pages
 
@@ -851,7 +851,7 @@ Page types by content depth:
 ```
 Home > Technology Adoption Models > Article 1.1: The Bedrock
 Home > Making of TABS > Integrations > Qualtrics
-Home > Bibliography > TAM - Davis (1989)
+Home > Bibliography > TAM – Davis (1989)
 ```
 
 ### 6.4 "You Might Also Like" Sections
@@ -866,41 +866,41 @@ Home > Bibliography > TAM - Davis (1989)
 
 | #    | Recommendation                                                                                                                                                                    | Affected Pages | Effort | Impact                                                           |
 | ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ------ | ---------------------------------------------------------------- |
-| R-01 | Add metadata exports to the 2 client component pages missing them (`visual-gallery`, `tabs-presentation`); dynamic routes `[slide]` and `[role]` already use `generateMetadata()` | 2 pages        | Low    | High - Missing titles/descriptions eliminate SERP visibility     |
-| R-02 | Implement JSON-LD structured data on homepage (Organization + WebSite schema) and FAQ page (FAQPage schema)                                                                       | 2 pages        | Medium | High - Enables rich results and Knowledge Panel features         |
-| R-03 | Add BreadcrumbList schema to article series, bibliography, and making-of-tabs hierarchical pages                                                                                  | 80+ pages      | Medium | High - Enables breadcrumb SERP display and improves crawlability |
+| R-01 | Add metadata exports to the 2 client component pages missing them (`visual-gallery`, `tabs-presentation`); dynamic routes `[slide]` and `[role]` already use `generateMetadata()` | 2 pages        | Low    | High — Missing titles/descriptions eliminate SERP visibility     |
+| R-02 | Implement JSON-LD structured data on homepage (Organization + WebSite schema) and FAQ page (FAQPage schema)                                                                       | 2 pages        | Medium | High — Enables rich results and Knowledge Panel features         |
+| R-03 | Add BreadcrumbList schema to article series, bibliography, and making-of-tabs hierarchical pages                                                                                  | 80+ pages      | Medium | High — Enables breadcrumb SERP display and improves crawlability |
 
 ### 🟠 High (5)
 
 | #    | Recommendation                                                       | Affected Pages | Effort | Impact                                                         |
 | ---- | -------------------------------------------------------------------- | -------------- | ------ | -------------------------------------------------------------- |
-| R-04 | Add Article schema to all 16 article series pages                    | 16 pages       | Medium | Medium-High - Improves content categorization                  |
-| R-05 | Add FAQPage schema to the FAQ page using existing FAQ data structure | 1 page         | Low    | High - FAQ rich results dramatically increase SERP real estate |
-| R-06 | Add ScholarlyArticle schema to 40 bibliography pages                 | 40 pages       | Medium | Medium - Improves academic search visibility                   |
-| R-07 | Add Course/LearningResource schema to teaching series                | 3+ pages       | Low    | Medium - Targets educational search intent                     |
-| R-08 | Trim 43 meta descriptions to 150-160 characters                      | 43 pages       | Medium | Medium - Prevents SERP truncation, improves CTR                |
+| R-04 | Add Article schema to all 16 article series pages                    | 16 pages       | Medium | Medium-High — Improves content categorization                  |
+| R-05 | Add FAQPage schema to the FAQ page using existing FAQ data structure | 1 page         | Low    | High — FAQ rich results dramatically increase SERP real estate |
+| R-06 | Add ScholarlyArticle schema to 40 bibliography pages                 | 40 pages       | Medium | Medium — Improves academic search visibility                   |
+| R-07 | Add Course/LearningResource schema to teaching series                | 3+ pages       | Low    | Medium — Targets educational search intent                     |
+| R-08 | Trim 43 meta descriptions to 150–160 characters                      | 43 pages       | Medium | Medium — Prevents SERP truncation, improves CTR                |
 
 ### 🟡 Medium (8)
 
 | #    | Recommendation                                                       | Affected Pages | Effort | Impact                                               |
 | ---- | -------------------------------------------------------------------- | -------------- | ------ | ---------------------------------------------------- |
-| R-09 | Optimize 79 title tags that exceed 60 chars with suffix              | 79 pages       | High   | Medium - Prevents SERP title truncation              |
-| R-10 | Add page-specific OpenGraph/Twitter metadata to top 10 pages         | 10 pages       | Low    | Medium - Improves social sharing appearance          |
-| R-11 | Implement cross-linking between related bibliography entries         | 40 pages       | Medium | Medium - Creates topical clusters                    |
-| R-12 | Add inline links from articles to corresponding bibliography entries | 16 pages       | Medium | Medium - Improves crawl depth and topical relevance  |
-| R-13 | Create breadcrumb navigation component for visual hierarchy          | Site-wide      | Medium | Medium - Improves UX and crawlability                |
-| R-14 | Add explicit canonical URLs to top 20 highest-value pages            | 20 pages       | Low    | Medium - Prevents dual-deployment duplicate indexing |
-| R-15 | Create dedicated OG social sharing image (1200×630px)                | 1 asset        | Low    | Low-Medium - Improves social share appearance        |
-| R-16 | Add "Related Content" sections to article and bibliography pages     | 56 pages       | High   | Medium - Increases page views and session duration   |
+| R-09 | Optimize 79 title tags that exceed 60 chars with suffix              | 79 pages       | High   | Medium — Prevents SERP title truncation              |
+| R-10 | Add page-specific OpenGraph/Twitter metadata to top 10 pages         | 10 pages       | Low    | Medium — Improves social sharing appearance          |
+| R-11 | Implement cross-linking between related bibliography entries         | 40 pages       | Medium | Medium — Creates topical clusters                    |
+| R-12 | Add inline links from articles to corresponding bibliography entries | 16 pages       | Medium | Medium — Improves crawl depth and topical relevance  |
+| R-13 | Create breadcrumb navigation component for visual hierarchy          | Site-wide      | Medium | Medium — Improves UX and crawlability                |
+| R-14 | Add explicit canonical URLs to top 20 highest-value pages            | 20 pages       | Low    | Medium — Prevents dual-deployment duplicate indexing |
+| R-15 | Create dedicated OG social sharing image (1200×630px)                | 1 asset        | Low    | Low-Medium — Improves social share appearance        |
+| R-16 | Add "Related Content" sections to article and bibliography pages     | 56 pages       | High   | Medium — Increases page views and session duration   |
 
 ### 🟢 Low (4)
 
 | #    | Recommendation                                                | Affected Pages | Effort | Impact                                   |
 | ---- | ------------------------------------------------------------- | -------------- | ------ | ---------------------------------------- |
-| R-17 | Consider shortening longest URLs (>75 chars) for future pages | N/A (guidance) | N/A    | Low - Existing URLs are well-established |
-| R-18 | Raise Lighthouse performance threshold from 55% to 70%        | CI config      | Low    | Low - Monitoring improvement             |
-| R-19 | Raise Lighthouse best practices threshold from 65% to 80%     | CI config      | Low    | Low - Monitoring improvement             |
-| R-20 | Document static export SEO limitations and workarounds        | 1 doc          | Low    | Low - Team knowledge                     |
+| R-17 | Consider shortening longest URLs (>75 chars) for future pages | N/A (guidance) | N/A    | Low — Existing URLs are well-established |
+| R-18 | Raise Lighthouse performance threshold from 55% to 70%        | CI config      | Low    | Low — Monitoring improvement             |
+| R-19 | Raise Lighthouse best practices threshold from 65% to 80%     | CI config      | Low    | Low — Monitoring improvement             |
+| R-20 | Document static export SEO limitations and workarounds        | 1 doc          | Low    | Low — Team knowledge                     |
 
 ---
 
@@ -910,8 +910,8 @@ Home > Bibliography > TAM - Davis (1989)
 | -------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | `/technology-adoption-series/visual-gallery` | `src/app/technology-adoption-series/visual-gallery/page.tsx` | Client component (`'use client'`), no metadata export          | Add metadata via a parent `layout.tsx` or refactor to export metadata separately |
 | `/tabs-presentation`                         | `src/app/tabs-presentation/page.tsx`                         | Client component (`'use client'`), no metadata export          | Add metadata via a parent `layout.tsx` or refactor to export metadata separately |
-| `/start/[role]`                              | `src/app/start/[role]/page.tsx`                              | Uses `generateMetadata` - ✅ metadata IS generated dynamically | No fix needed - verify build output                                              |
-| `/technology-adoption-series/[slide]`        | `src/app/technology-adoption-series/[slide]/page.tsx`        | Uses `generateMetadata` - ✅ metadata IS generated dynamically | No fix needed - verify build output                                              |
+| `/start/[role]`                              | `src/app/start/[role]/page.tsx`                              | Uses `generateMetadata` — ✅ metadata IS generated dynamically | No fix needed — verify build output                                              |
+| `/technology-adoption-series/[slide]`        | `src/app/technology-adoption-series/[slide]/page.tsx`        | Uses `generateMetadata` — ✅ metadata IS generated dynamically | No fix needed — verify build output                                              |
 
 **Note:** The `[role]` and `[slide]` dynamic routes use `generateMetadata()` functions, which correctly generate metadata at build time. Only `visual-gallery` and `tabs-presentation` are truly missing metadata.
 
@@ -923,18 +923,18 @@ Home > Bibliography > TAM - Davis (1989)
 
 | Page                                   | Full Title (with suffix)                                                                                                  | Chars | Issue                |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ----- | -------------------- |
-| `/bibliography-2-6-toe-framework-*`    | Bibliography: Technology-Organization-Environment (TOE) Framework - Tornatzky, Fleischer & Chakrabarti (1990) &#124; TABS | 116   | 🔴 Far exceeds limit |
-| `/article-1-4-the-grand-unification-*` | Article 1.4: The Grand Unification - The Unified Theory of Acceptance and Use of Technology (UTAUT) &#124; TABS           | 106   | 🔴 Far exceeds limit |
-| `/bibliography-1-15-unified-theory-*`  | Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) - Venkatesh et al. (2003) &#124; TABS            | 105   | 🔴 Far exceeds limit |
-| `/article-2-1-the-strategic-lens-*`    | Article 2.1: The Strategic Lens - Foundational Theories for Organizational Adoption &#124; TABS                           | 92    | 🔴 Exceeds limit     |
-| `/article-2-4-the-blueprint-*`         | Article 2.4: The Blueprint for Enterprise - A Survey of Architecture Frameworks &#124; TABS                               | 88    | 🟡 Exceeds limit     |
+| `/bibliography-2-6-toe-framework-*`    | Bibliography: Technology-Organization-Environment (TOE) Framework – Tornatzky, Fleischer & Chakrabarti (1990) &#124; TABS | 116   | 🔴 Far exceeds limit |
+| `/article-1-4-the-grand-unification-*` | Article 1.4: The Grand Unification – The Unified Theory of Acceptance and Use of Technology (UTAUT) &#124; TABS           | 106   | 🔴 Far exceeds limit |
+| `/bibliography-1-15-unified-theory-*`  | Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) – Venkatesh et al. (2003) &#124; TABS            | 105   | 🔴 Far exceeds limit |
+| `/article-2-1-the-strategic-lens-*`    | Article 2.1: The Strategic Lens – Foundational Theories for Organizational Adoption &#124; TABS                           | 92    | 🔴 Exceeds limit     |
+| `/article-2-4-the-blueprint-*`         | Article 2.4: The Blueprint for Enterprise – A Survey of Architecture Frameworks &#124; TABS                               | 88    | 🟡 Exceeds limit     |
 
 **Optimization strategies:**
 
-1. **Abbreviate "Bibliography:" to "Bib:"** - saves 10 chars per bibliography page
-2. **Remove article numbering from title** - "The Bedrock - Foundational Theories" instead of "Article 1.1: The Bedrock - Foundational Theories" - saves 14+ chars
-3. **Use acronyms** - "UTAUT" instead of "Unified Theory of Acceptance and Use of Technology (UTAUT)" - saves 50+ chars
-4. **Shorten suffix** - ` -  TABS` (7 chars) instead of `| TABS` (7 chars) - no savings, but consider removing suffix for pages already over 55 chars
+1. **Abbreviate "Bibliography:" to "Bib:"** — saves 10 chars per bibliography page
+2. **Remove article numbering from title** — "The Bedrock – Foundational Theories" instead of "Article 1.1: The Bedrock – Foundational Theories" — saves 14+ chars
+3. **Use acronyms** — "UTAUT" instead of "Unified Theory of Acceptance and Use of Technology (UTAUT)" — saves 50+ chars
+4. **Shorten suffix** — `— TABS` (7 chars) instead of `| TABS` (7 chars) — no savings, but consider removing suffix for pages already over 55 chars
 
 ---
 
@@ -948,13 +948,13 @@ Home > Bibliography > TAM - Davis (1989)
 | `/bibliography-2-18-microsoft-cloud-*` | 314   | An exploration of the Microsoft Cloud Adoption Framework for Azure (CAF), including its strategic approach to cloud migration...           |
 | `/bibliography-2-19-microsoft-ai-*`    | 303   | An exploration of Microsoft AI Adoption Framework (April 2025), covering responsible AI governance...                                      |
 | `/bibliography-1-15-unified-theory-*`  | 224   | Deep dive into the Unified Theory of Acceptance and Use of Technology (UTAUT) by Venkatesh et al...                                        |
-| `/article-2-1-the-strategic-lens-*`    | 198   | An analysis of core management and strategic theories - TOE, RBV, VRIO, Dynamic Capabilities...                                            |
+| `/article-2-1-the-strategic-lens-*`    | 198   | An analysis of core management and strategic theories—TOE, RBV, VRIO, Dynamic Capabilities...                                              |
 | `/faq`                                 | 196   | Find answers to over 40 frequently asked questions about the Technology Adoption Barriers Survey...                                        |
 | `/page` (homepage)                     | 187   | Technology Adoption Barriers Survey (TABS) collects insights from organizational leaders...                                                |
 
 **Optimization guidelines:**
 
-- **Target 150-155 characters** - leaves room for Google's display without truncation
-- **Front-load the value proposition** - put the most important keywords and information first
-- **End with a CTA when possible** - "Learn more", "Explore the model", "Take the survey"
-- **Use active voice** - "Discover how TAM explains..." rather than "An exploration of..."
+- **Target 150–155 characters** — leaves room for Google's display without truncation
+- **Front-load the value proposition** — put the most important keywords and information first
+- **End with a CTA when possible** — "Learn more", "Explore the model", "Take the survey"
+- **Use active voice** — "Discover how TAM explains..." rather than "An exploration of..."

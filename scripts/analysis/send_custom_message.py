@@ -5,11 +5,11 @@ Send a custom message to a specific participant.
 Python port of scripts/send-custom-message.ts.
 
 Environment variables:
-  PROLIFIC_API_TOKEN  - Prolific API token (required)
-  STUDY_ID            - Prolific study ID (required)
-  PID                 - Participant ID to message (required)
-  MESSAGE             - Message body to send (required)
-  DRY_RUN             - When "false", send live (default: true)
+  PROLIFIC_API_TOKEN  – Prolific API token (required)
+  STUDY_ID            – Prolific study ID (required)
+  PID                 – Participant ID to message (required)
+  MESSAGE             – Message body to send (required)
+  DRY_RUN             – When "false", send live (default: true)
 """
 
 import os
@@ -44,7 +44,7 @@ def main():
     print()
 
     if dry_run:
-        print("DRY RUN - message not sent")
+        print("DRY RUN — message not sent")
     else:
         prolific_send_message(study_id, pid, message, api_token)
         print("Message sent successfully")

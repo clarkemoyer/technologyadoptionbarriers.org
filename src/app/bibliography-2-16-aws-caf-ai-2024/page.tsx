@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: AWS Cloud Adoption Framework for AI/ML (CAF-AI) - AWS (2024)',
+  title: 'Bibliography: AWS Cloud Adoption Framework for AI/ML (CAF-AI) – AWS (2024)',
   description:
     'An exploration of the AWS Cloud Adoption Framework for Artificial Intelligence, Machine Learning, and Generative AI (CAF-AI), a comprehensive organizational framework published by Amazon Web Services in 2024 for guiding enterprise AI adoption.',
 }

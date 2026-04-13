@@ -5,7 +5,7 @@ import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
-  title: 'Results - TABS',
+  title: 'Results — TABS',
   description:
     'Survey results from the Technology Adoption Barriers Survey: sample demographics, descriptive statistics, scale reliability, sensitivity analysis, and open data.',
   alternates: {
@@ -15,9 +15,9 @@ export const metadata: Metadata = {
 
 const ResultsPage = () => {
   const conservativeN =
-    sensitivityData.samples.find((s) => s.key === 'conservative_clean')?.n ?? ' - '
-  const prolificN = sensitivityData.samples.find((s) => s.key === 'prolific_accepted')?.n ?? ' - '
-  const totalN = sensitivityData.samples.find((s) => s.key === 'v2_all')?.n ?? ' - '
+    sensitivityData.samples.find((s) => s.key === 'conservative_clean')?.n ?? '—'
+  const prolificN = sensitivityData.samples.find((s) => s.key === 'prolific_accepted')?.n ?? '—'
+  const totalN = sensitivityData.samples.find((s) => s.key === 'v2_all')?.n ?? '—'
 
   const alphaBarriers = sensitivityData.metrics.find((m) => m.key === 'alpha_barriers')?.values
     ?.conservative_clean
@@ -28,7 +28,7 @@ const ResultsPage = () => {
   const alphaValues = [alphaBarriers, alphaReadiness, alphaMaturity].filter(
     (v): v is number => typeof v === 'number' && isFinite(v)
   )
-  const minAlphaDisplay = alphaValues.length === 3 ? Math.min(...alphaValues).toFixed(2) : ' - '
+  const minAlphaDisplay = alphaValues.length === 3 ? Math.min(...alphaValues).toFixed(2) : '—'
 
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -92,7 +92,7 @@ const ResultsPage = () => {
               {
                 title: 'Sample & Demographics',
                 href: '/results/sample',
-                desc: 'Participant roles, org sizes, and profit models - broken down per result group.',
+                desc: 'Participant roles, org sizes, and profit models — broken down per result group.',
                 border: 'border-blue-200',
                 bg: 'bg-blue-50',
                 titleColor: 'text-blue-900',
@@ -110,7 +110,7 @@ const ResultsPage = () => {
               {
                 title: 'Descriptive Statistics',
                 href: '/results/descriptive',
-                desc: 'Grand means, SDs, and inter-construct correlations - computed per result group.',
+                desc: 'Grand means, SDs, and inter-construct correlations — computed per result group.',
                 border: 'border-green-200',
                 bg: 'bg-green-50',
                 titleColor: 'text-green-900',

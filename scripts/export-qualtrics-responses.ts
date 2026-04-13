@@ -5,10 +5,10 @@
  * Uses Node.js built-in zlib (no external ZIP library needed).
  *
  * Environment variables:
- *   QUALTRICS_API_TOKEN  - Qualtrics API token (required)
- *   QUALTRICS_BASE_URL   - Qualtrics data center base URL (required)
- *   QUALTRICS_SURVEY_ID  - Survey ID to export (required)
- *   OUTPUT_PATH          - Path to write the extracted CSV (required)
+ *   QUALTRICS_API_TOKEN  – Qualtrics API token (required)
+ *   QUALTRICS_BASE_URL   – Qualtrics data center base URL (required)
+ *   QUALTRICS_SURVEY_ID  – Survey ID to export (required)
+ *   OUTPUT_PATH          – Path to write the extracted CSV (required)
  */
 
 import { exportSurveyResponses } from '../src/lib/qualtrics-api'
@@ -17,7 +17,7 @@ import { dirname, basename } from 'node:path'
 import { inflateRawSync } from 'node:zlib'
 
 /**
- * Minimal ZIP extraction - finds the first .csv entry and inflates it.
+ * Minimal ZIP extraction — finds the first .csv entry and inflates it.
  * Supports only DEFLATE (method 8) and STORED (method 0) entries.
  */
 function extractCsvFromZip(zipBuffer: Buffer): string {
