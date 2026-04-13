@@ -22,7 +22,7 @@ const Article21Page = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Article 2.1: The Strategic Lens – Foundational Theories for Organizational Adoption
+          Article 2.1: The Strategic Lens &ndash; Foundational Theories for Organizational Adoption
         </h1>
 
         <section className={SECTION_CLASSES}>
@@ -40,8 +40,9 @@ const Article21Page = () => {
             understand not just whether to adopt technology, but why adoption matters and how
             technology investments connect to broader competitive strategy. We move beyond
             implementation mechanics to examine the strategic thinking that should precede
-            implementation–the intellectual foundations that distinguish technology investments that
-            create lasting competitive value from those that merely consume resources.
+            implementation&ndash;the intellectual foundations that distinguish technology
+            investments that create lasting competitive value from those that merely consume
+            resources.
           </p>
 
           <h2 className={H2_CLASSES}>
@@ -73,21 +74,21 @@ const Article21Page = () => {
             organizational culture. A small startup with limited capital faces different technology
             adoption constraints than a large enterprise. An organization with strong information
             technology capabilities can implement more sophisticated systems than one relying
-            primarily on vendor support. Culture matters profoundly–organizations with cultures
-            emphasizing innovation and experimentation approach technology adoption differently than
-            those with traditional, conservative cultures. The organizational context asks: Do we
-            have the resources and expertise to implement this technology? Is our organizational
-            culture receptive to the changes this technology requires?
+            primarily on vendor support. Culture matters profoundly&ndash;organizations with
+            cultures emphasizing innovation and experimentation approach technology adoption
+            differently than those with traditional, conservative cultures. The organizational
+            context asks: Do we have the resources and expertise to implement this technology? Is
+            our organizational culture receptive to the changes this technology requires?
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The environmental context addresses competitive pressures, industry dynamics, and
             regulatory requirements. When competitors adopt technology successfully, organizations
             face pressure to follow. Regulatory requirements sometimes mandate technology adoption.
-            Industry shifts create imperatives for technology change–the shift to digital business
-            models, for example, became an environmental imperative for many traditional industries.
-            The environmental context asks: Are our competitors ahead of us technologically? Do
-            regulatory changes require technology adoption? Is this technology essential for
-            competitive survival?
+            Industry shifts create imperatives for technology change&ndash;the shift to digital
+            business models, for example, became an environmental imperative for many traditional
+            industries. The environmental context asks: Are our competitors ahead of us
+            technologically? Do regulatory changes require technology adoption? Is this technology
+            essential for competitive survival?
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The TOE framework helps organizations think holistically about technology adoption. A
@@ -118,10 +119,10 @@ const Article21Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             Wernerfelt&apos;s insight was both simple and revolutionary: firms should be understood
             not through their products and market positions, but through their resource endowments.
-            Some firms possess superior resources–tangible assets like manufacturing facilities or
-            real estate, and intangible assets like brand names, technical knowledge, skilled
-            personnel, and efficient processes. These resources, when deployed strategically, create
-            competitive advantage.
+            Some firms possess superior resources&ndash;tangible assets like manufacturing
+            facilities or real estate, and intangible assets like brand names, technical knowledge,
+            skilled personnel, and efficient processes. These resources, when deployed
+            strategically, create competitive advantage.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             For technology adoption specifically, the RBV reframes the question from &quot;What
@@ -136,8 +137,8 @@ const Article21Page = () => {
             This distinction proves critical in practice. Many organizations adopt &quot;best
             practice&quot; technologies simply because competitors do or because consultants
             recommend them. The RBV suggests this approach often creates merely competitive parity.
-            Technology adoption should be strategic–aimed at strengthening distinctive capabilities
-            that competitors cannot easily replicate.
+            Technology adoption should be strategic&ndash;aimed at strengthening distinctive
+            capabilities that competitors cannot easily replicate.
           </p>
 
           <h2 className={H2_CLASSES}>
@@ -146,8 +147,8 @@ const Article21Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             But the RBV, while powerful, lacked operational clarity. Barney&apos;s 1991 VRIO
             framework addressed this gap by specifying exactly what characteristics make
-            resources–including technology-based resources–capable of creating sustained competitive
-            advantage [3].
+            resources&ndash;including technology-based resources&ndash;capable of creating sustained
+            competitive advantage [3].
           </p>
           <p className={PARAGRAPH_CLASSES}>
             For a technology or technology-enabled capability to create sustained competitive
@@ -155,20 +156,20 @@ const Article21Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Valuable (V): </strong>The technology must enable the organization to implement
-            strategies that create value–either by exploiting market opportunities or neutralizing
-            competitive threats. A technology that improves internal efficiency but does not
-            translate to customer benefits or cost advantages has limited value. Leaders should ask:
-            Does this technology address what the market actually values? Will customers reward us
-            for implementing this?
+            strategies that create value&ndash;either by exploiting market opportunities or
+            neutralizing competitive threats. A technology that improves internal efficiency but
+            does not translate to customer benefits or cost advantages has limited value. Leaders
+            should ask: Does this technology address what the market actually values? Will customers
+            reward us for implementing this?
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Rare (R): </strong>The technology or the capability to deploy it must not be
             possessed by most competitors. If all competitors can readily purchase and implement the
-            same technology, it provides no competitive advantage–only competitive parity. However,
-            implementing ERP systems in ways competitors have not imagined–perhaps integrating them
-            with distinctive customer insights or supply chain practices competitors lack–can create
-            value. Leaders should ask: If we implement this technology, will competitors be able to
-            quickly match our capability?
+            same technology, it provides no competitive advantage&ndash;only competitive parity.
+            However, implementing ERP systems in ways competitors have not imagined&ndash;perhaps
+            integrating them with distinctive customer insights or supply chain practices
+            competitors lack&ndash;can create value. Leaders should ask: If we implement this
+            technology, will competitors be able to quickly match our capability?
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Inimitable (I): </strong>Competitors should find it difficult or impossible to
@@ -206,7 +207,7 @@ const Article21Page = () => {
             environments, sustained competitive advantage comes not from possessing valuable
             resources but from the capability to continuously sense market and technological
             changes, seize new opportunities, and reconfigure organizational assets in response to
-            environmental change–what they termed dynamic capabilities [4].
+            environmental change&ndash;what they termed dynamic capabilities [4].
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Dynamic capabilities operate across three dimensions. Sensing capability involves
@@ -249,10 +250,10 @@ const Article21Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Consider insurance claims processing. Traditionally, claims moved sequentially through
-            multiple departments. Technology enabled radical redesign–modern claims systems could
-            provide claims representatives with comprehensive information systems access, enabling
-            them to handle entire claims processes independently. Cycle times dropped from weeks to
-            days.
+            multiple departments. Technology enabled radical redesign&ndash;modern claims systems
+            could provide claims representatives with comprehensive information systems access,
+            enabling them to handle entire claims processes independently. Cycle times dropped from
+            weeks to days.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             For leaders contemplating technology adoption, BPR thinking suggests important strategic
@@ -262,25 +263,26 @@ const Article21Page = () => {
             eliminate those fragmentation problems?
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            BPR thinking cautions against technology determinism–the assumption that technology
-            should drive organizational change. Rather, organizations should first envision how they
-            should ideally operate, then ask what technology is required to enable that vision.
+            BPR thinking cautions against technology determinism&ndash;the assumption that
+            technology should drive organizational change. Rather, organizations should first
+            envision how they should ideally operate, then ask what technology is required to enable
+            that vision.
           </p>
 
           <h2 className={H2_CLASSES}>Integrating Strategic and Operational Perspectives</h2>
           <p className={PARAGRAPH_CLASSES}>
-            These foundational frameworks–TOE, RBV, VRIO, dynamic capabilities, and BPR–represent
-            the intellectual foundations that should guide organizational technology adoption
-            decisions. They move beyond &quot;Should we buy this system?&quot; to deeper strategic
-            questions: What competitive position are we trying to create? What distinctive resources
-            do we possess or want to develop? Can this technology create advantage that persists
-            beyond short-term competitive parity?
+            These foundational frameworks&ndash;TOE, RBV, VRIO, dynamic capabilities, and
+            BPR&ndash;represent the intellectual foundations that should guide organizational
+            technology adoption decisions. They move beyond &quot;Should we buy this system?&quot;
+            to deeper strategic questions: What competitive position are we trying to create? What
+            distinctive resources do we possess or want to develop? Can this technology create
+            advantage that persists beyond short-term competitive parity?
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Organizations that ground technology adoption in these strategic frameworks typically
-            make better investments than those that adopt technology reactively–responding to vendor
-            pitches, following competitor moves, or pursuing &quot;best practices&quot; without
-            strategic thinking.
+            make better investments than those that adopt technology reactively&ndash;responding to
+            vendor pitches, following competitor moves, or pursuing &quot;best practices&quot;
+            without strategic thinking.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Taken together, these frameworks provide a strategic lens through which organizations

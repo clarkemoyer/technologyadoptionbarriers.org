@@ -341,7 +341,7 @@ function Visual06_TechnologyLifecyclePositioningDiagram({ mode }: { mode?: 'hd' 
      - Cyan shaded zone = Target "sweet spot" (Leading Edge → Mainstream)
      Data validated against Slide 7 risk table:
        Bleeding Edge=Very High, Leading=High, Mainstream=Low,
-       Trending Behind=Medium, End of Support=High–Very High */
+       Trending Behind=Medium, End of Support=High&ndash;Very High */
   const stages = [
     { x: 120, label: 'Bleeding Edge', sub: 'Experimental' },
     { x: 230, label: 'Leading Edge', sub: 'Proven concepts' },
@@ -489,7 +489,12 @@ function Visual07_LifecycleStagesMatrix() {
     },
     { stage: 'Mainstream', risk: 'Low', tone: 'good', posture: 'Best practices, predictable' },
     { stage: 'Trending Behind', risk: 'Medium', tone: 'warn', posture: 'Modernization planning' },
-    { stage: 'End of Support+', risk: 'High–Very High', tone: 'bad', posture: 'Forced migration' },
+    {
+      stage: 'End of Support+',
+      risk: 'High&ndash;Very High',
+      tone: 'bad',
+      posture: 'Forced migration',
+    },
   ]
   return (
     <div className="flex h-full items-center justify-center">
@@ -1242,7 +1247,7 @@ function Visual25_DeepDiveLifecycleCycles() {
   )
 }
 
-// ── Visual components for optional deep-dives (18–23) ──────
+// ── Visual components for optional deep-dives (18&ndash;23) ──────
 
 function Visual18_DeepDiveTechStackComparison() {
   const examples = [
@@ -1799,8 +1804,8 @@ function LifecycleTimelineChart({
 
         {/* Phase duration reference */}
         <text x="800" y="860" textAnchor="middle" fontSize="13" fill="#64748b" fontStyle="italic">
-          Rogers (2003): Innovators 2.5% → Early Majority at ~16% cumulative takes 2–8 years; full
-          S-curve spans 15–40+ years
+          Rogers (2003): Innovators 2.5% → Early Majority at ~16% cumulative takes 2&ndash;8 years;
+          full S-curve spans 15&ndash;40+ years
         </text>
       </svg>
     </div>

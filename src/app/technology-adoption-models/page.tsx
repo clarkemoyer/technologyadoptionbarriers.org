@@ -19,8 +19,8 @@ const ModelsPage = () => {
         </h1>
 
         <p className="mb-3 sm:mb-6">
-          “Getting a new idea adopted, even when it has obvious advantages, is often very
-          difficult.” – Everett M. Rogers, Diffusion of Innovations [1]
+          &ldquo;Getting a new idea adopted, even when it has obvious advantages, is often very
+          difficult.&rdquo; &ndash; Everett M. Rogers, Diffusion of Innovations [1]
         </p>
 
         <p className="mb-3 sm:mb-6">
@@ -33,13 +33,13 @@ const ModelsPage = () => {
 
         <p className="mb-3 sm:mb-6">
           Welcome to a multi-part blog series dedicated to exploring this critical landscape. Our
-          central question is this: What is the bridge between a technology’s potential and its
-          realized value? The answer is not a single blueprint but a complex interplay of human
+          central question is this: What is the bridge between a technology&rsquo;s potential and
+          its realized value? The answer is not a single blueprint but a complex interplay of human
           psychology, organizational strategy, and market dynamics. This series is designed to serve
           as your comprehensive guide, charting the intellectual history and practical application
           of the most influential technology adoption models and frameworks. We will journey from
           the foundational theories of social psychology to the prescriptive, actionable playbooks
-          used by today’s leading cloud and AI providers.
+          used by today&rsquo;s leading cloud and AI providers.
         </p>
 
         <section className="mb-6 sm:mb-10 text-gray-800">
@@ -67,20 +67,20 @@ const ModelsPage = () => {
             strategy and operations, where the C-Suite makes high-stakes decisions. The central
             question here is: How does our organization decide to invest in, implement, and
             integrate a technology to achieve strategic goals? This perspective examines the
-            powerful forces at play–such as competitive and environmental pressures [2], the search
-            for a sustainable advantage through strategic resource allocation [3], and the immense
-            challenge of re-engineering established workflows [4]. It is the strategic umbrella
-            under which all other adoption activities occur.
+            powerful forces at play&ndash;such as competitive and environmental pressures [2], the
+            search for a sustainable advantage through strategic resource allocation [3], and the
+            immense challenge of re-engineering established workflows [4]. It is the strategic
+            umbrella under which all other adoption activities occur.
           </p>
 
           <h3 className={H3_CLASSES}>2. User Adoption: The Internal Challenge</h3>
           <p className="mb-3 sm:mb-6">
-            This domain focuses on the micro-level, employee-centric view within the organization’s
-            walls. This is the realm of psychology, change management, and human-computer
-            interaction. The core inquiry is: What cognitive and social drivers lead our employees
-            to intend to use, and then actually use, a new system to perform their jobs? This
-            perspective dissects the personal calculus of an employee evaluating a new CRM, an
-            engineer learning a new development platform, or a project manager using a new
+            This domain focuses on the micro-level, employee-centric view within the
+            organization&rsquo;s walls. This is the realm of psychology, change management, and
+            human-computer interaction. The core inquiry is: What cognitive and social drivers lead
+            our employees to intend to use, and then actually use, a new system to perform their
+            jobs? This perspective dissects the personal calculus of an employee evaluating a new
+            CRM, an engineer learning a new development platform, or a project manager using a new
             collaboration tool. It is a deeply human-centric view, focused on attitudes, beliefs,
             and intentions that are precursors to behavior, as captured in foundational theories [5,
             6], influential models like the Technology Acceptance Model (TAM) [7], and their major
@@ -93,10 +93,10 @@ const ModelsPage = () => {
             world of marketing, product design, and consumer behavior. The question shifts to: What
             motivates an external customer to adopt and integrate our technology into their lives?
             This involves understanding market needs, pricing, user experience (UX), and the social
-            dynamics of consumer choice [1]. Whether it’s a new mobile app, a smart home device, or
-            a SaaS platform for small businesses, the drivers here–such as hedonic motivation and
-            price value–are fundamentally different from those in a mandatory corporate environment
-            [9].
+            dynamics of consumer choice [1]. Whether it&rsquo;s a new mobile app, a smart home
+            device, or a SaaS platform for small businesses, the drivers here&ndash;such as hedonic
+            motivation and price value&ndash;are fundamentally different from those in a mandatory
+            corporate environment [9].
           </p>
         </section>
 
@@ -124,9 +124,9 @@ const ModelsPage = () => {
           <p className="mb-3 sm:mb-6">
             The study of User and Consumer Adoption grew out of broad social psychology theories.
             Researchers refined these into focused models like the influential Technology Acceptance
-            Model (TAM) [7] to explain the internal user’s journey, and later extended them with
-            concepts like Hedonic Motivation and Price Value to better understand the consumer’s
-            decision [9].
+            Model (TAM) [7] to explain the internal user&rsquo;s journey, and later extended them
+            with concepts like Hedonic Motivation and Price Value to better understand the
+            consumer&rsquo;s decision [9].
           </p>
           <p className="mb-3 sm:mb-6">
             The study of Organizational Adoption, by contrast, has its roots in strategic
@@ -160,24 +160,24 @@ const ModelsPage = () => {
           </figure>
 
           <p className="mb-3 sm:mb-6">
-            Branch 1: The User’s &amp; Consumer’s Journey will delve into the evolution of
-            individual acceptance models, covering both the internal employee and the external
+            Branch 1: The User&rsquo;s &amp; Consumer&rsquo;s Journey will delve into the evolution
+            of individual acceptance models, covering both the internal employee and the external
             customer. We will trace the path from foundational psychological theories, through the
             game-changing simplicity of TAM, to the comprehensive unified theories of today.
           </p>
           <p className="mb-3 sm:mb-6">
-            Branch 2: The Organization’s Playbook will explore the frameworks that guide firm-level
-            adoption. We will examine the core strategic theories, the rise of maturity models for
-            process improvement, and the modern, prescriptive frameworks for navigating complex
-            cloud, cybersecurity, and AI transformations.
+            Branch 2: The Organization&rsquo;s Playbook will explore the frameworks that guide
+            firm-level adoption. We will examine the core strategic theories, the rise of maturity
+            models for process improvement, and the modern, prescriptive frameworks for navigating
+            complex cloud, cybersecurity, and AI transformations.
           </p>
           <p className="mb-3 sm:mb-6">
-            By understanding the interplay between the organization’s strategic intent, the internal
-            user’s acceptance, and the external consumer’s choice, we can begin to build that
-            critical bridge between technological potential and realized value. As we embark on this
-            journey, we invite you to consider a central tension we will explore: In an era of
-            prescriptive, top-down implementation frameworks, how much do the classic psychological
-            drivers of individual user adoption still matter?
+            By understanding the interplay between the organization&rsquo;s strategic intent, the
+            internal user&rsquo;s acceptance, and the external consumer&rsquo;s choice, we can begin
+            to build that critical bridge between technological potential and realized value. As we
+            embark on this journey, we invite you to consider a central tension we will explore: In
+            an era of prescriptive, top-down implementation frameworks, how much do the classic
+            psychological drivers of individual user adoption still matter?
           </p>
         </section>
 
@@ -195,7 +195,7 @@ const ModelsPage = () => {
             </li>
             <li>
               Barney, J. (1991). Firm resources and sustained competitive advantage. Journal of
-              Management, 17(1), 99–120.{' '}
+              Management, 17(1), 99&ndash;120.{' '}
               <a
                 href="https://doi.org/10.1177/014920639101700108"
                 target="_blank"
@@ -227,7 +227,7 @@ const ModelsPage = () => {
             </li>
             <li>
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
-              of information technology. MIS Quarterly, 13(3), 319–340.{' '}
+              of information technology. MIS Quarterly, 13(3), 319&ndash;340.{' '}
               <a
                 href="https://doi.org/10.2307/249008"
                 target="_blank"
@@ -252,7 +252,7 @@ const ModelsPage = () => {
             <li>
               Venkatesh, V., Thong, J. Y. L., &amp; Xu, X. (2012). Consumer acceptance and use of
               information technology: Extending the unified theory of acceptance and use of
-              technology. MIS Quarterly, 36(1), 157–178.{' '}
+              technology. MIS Quarterly, 36(1), 157&ndash;178.{' '}
               <a
                 href="https://doi.org/10.2307/41410412"
                 target="_blank"

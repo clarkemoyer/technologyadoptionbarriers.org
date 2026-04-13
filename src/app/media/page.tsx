@@ -373,10 +373,11 @@ const MediaPage = () => {
                 <h2 className="text-3xl font-bold">Media Inquiries</h2>
                 <p className="mt-4 text-lg text-gray-700">
                   For interview requests, quotes, or background information, contact our team.
-                  Please include your outlet, deadline, and the specific topic(s) you’re covering.
+                  Please include your outlet, deadline, and the specific topic(s) you&rsquo;re
+                  covering.
                 </p>
                 <p className="mt-3 text-sm text-gray-600">
-                  Typical response time: 1–3 business days.
+                  Typical response time: 1&ndash;3 business days.
                 </p>
                 <a
                   href="mailto:contact@technologyadoptionbarriers.org"
@@ -425,11 +426,11 @@ const MediaPage = () => {
                       The Technology Adoption Barriers Survey (TABS) is a research initiative
                       focused on understanding the real-world barriers organizations face when
                       adopting new technologies. Barriers to adoption can reduce the value of
-                      technology investments and negatively affect an enterprise’s ability to obtain
-                      or maintain competitive advantage. TABS gathers perspectives from senior
-                      leaders and practitioners to build updated, empirically grounded insights on
-                      what blocks successful adoption and what organizational capabilities enable
-                      it.
+                      technology investments and negatively affect an enterprise&rsquo;s ability to
+                      obtain or maintain competitive advantage. TABS gathers perspectives from
+                      senior leaders and practitioners to build updated, empirically grounded
+                      insights on what blocks successful adoption and what organizational
+                      capabilities enable it.
                     </p>
                   </div>
 
@@ -484,8 +485,9 @@ const MediaPage = () => {
                   <div>
                     <h3 className="text-lg font-semibold">Media Coverage & Updates</h3>
                     <p className="mt-2 text-gray-700">
-                      Media coverage and research updates will be posted here as they’re published.
-                      If you’d like to be notified, contact us with “Media updates” in the subject.
+                      Media coverage and research updates will be posted here as they&rsquo;re
+                      published. If you&rsquo;d like to be notified, contact us with &ldquo;Media
+                      updates&rdquo; in the subject.
                     </p>
                   </div>
                   <div>

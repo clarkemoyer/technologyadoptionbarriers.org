@@ -21,7 +21,7 @@ const BibliographyArticlePage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Technology Readiness and Acceptance Model (TRAM) – Lin et al. (2007)
+          Technology Readiness and Acceptance Model (TRAM) &ndash; Lin et al. (2007)
         </h1>
 
         {/* Model Identification */}
@@ -66,29 +66,30 @@ const BibliographyArticlePage = () => {
               motivation stemmed from the observation that the two models captured different aspects
               of technology adoption that needed to be integrated. The Technology Acceptance Model
               focuses on perceived usefulness and ease of use of specific information technology
-              systems—what might be termed “system-specific” perceptions.
+              systems&mdash;what might be termed &ldquo;system-specific&rdquo; perceptions.
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>
-                <strong>The model asks:</strong> “Will someone adopt THIS particular technology
-                based on their beliefs about its usefulness and usability?” However, TAM does not
-                account for more general, dispositional characteristics that predispose individuals
-                toward technology adoption across contexts. In contrast, the Technology Readiness
-                Index measures individual predispositions toward technology adoption in general,
-                independent of specific systems. The TRI captures general beliefs about technology,
-                fundamental attitudes toward technology, and personality-like characteristics that
-                influence overall technology propensity. However, the TRI does not account for how
-                specific technology characteristics or system- specific perceptions influence
-                adoption decisions. The authors recognized that technology adoption decisions are
-                influenced by both types of factors: general technology readiness (dispositional
-                predispositions) and system-specific perceptions (usefulness and ease of use). An
-                individual with high general technology readiness might not adopt a specific
-                technology if they perceive it as not useful for their purposes. Conversely, an
-                individual with low technology readiness might be unlikely to adopt a technology
-                even if it is perceived as highly useful and easy to use, because their general
-                technology anxiety or skepticism prevents them from seriously considering adoption.
-                The theoretical development of TRAM was motivated by the need to understand how
-                these two types of factors interact to influence technology adoption
+                <strong>The model asks:</strong> &ldquo;Will someone adopt THIS particular
+                technology based on their beliefs about its usefulness and usability?&rdquo;
+                However, TAM does not account for more general, dispositional characteristics that
+                predispose individuals toward technology adoption across contexts. In contrast, the
+                Technology Readiness Index measures individual predispositions toward technology
+                adoption in general, independent of specific systems. The TRI captures general
+                beliefs about technology, fundamental attitudes toward technology, and
+                personality-like characteristics that influence overall technology propensity.
+                However, the TRI does not account for how specific technology characteristics or
+                system- specific perceptions influence adoption decisions. The authors recognized
+                that technology adoption decisions are influenced by both types of factors: general
+                technology readiness (dispositional predispositions) and system-specific perceptions
+                (usefulness and ease of use). An individual with high general technology readiness
+                might not adopt a specific technology if they perceive it as not useful for their
+                purposes. Conversely, an individual with low technology readiness might be unlikely
+                to adopt a technology even if it is perceived as highly useful and easy to use,
+                because their general technology anxiety or skepticism prevents them from seriously
+                considering adoption. The theoretical development of TRAM was motivated by the need
+                to understand how these two types of factors interact to influence technology
+                adoption
               </li>
               <li>
                 <strong>The authors sought to answer questions such as:</strong> Does technology
@@ -121,7 +122,7 @@ const BibliographyArticlePage = () => {
             </ul>
           </section>
           <section className="mb-6">
-            <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
+            <h3 className={H3_CLASSES}>How was the model&rsquo;s internal validity tested?</h3>
             <p className={PARAGRAPH_CLASSES}>
               The internal validity of the TRAM model was rigorously tested through structural
               equation modeling (SEM) analysis on data collected from a sample of 308 Internet users
@@ -142,7 +143,7 @@ const BibliographyArticlePage = () => {
               extracted (AVE) for each construct. All items loaded on their intended constructs with
               loadings exceeding the .50 threshold, and AVE values exceeded .50 for most constructs,
               indicating that items successfully measured their respective latent constructs.
-              Cronbach’s alpha coefficients demonstrated adequate internal consistency for all
+              Cronbach&rsquo;s alpha coefficients demonstrated adequate internal consistency for all
               measures, with values ranging from .71 to .87, meeting the .70 minimum threshold for
               acceptable reliability. Discriminant validity was examined by assessing whether
               correlations between constructs were less than the square root of the average variance
@@ -179,8 +180,8 @@ const BibliographyArticlePage = () => {
                 structure provided a reasonable representation of the relationships among variables.
                 Mediation analysis examined whether perceived usefulness and ease of use mediated
                 the effects of technology readiness dimensions on intention to use. Using Baron and
-                Kenny’s approach to testing mediation, the analysis examined: (1) effects of TRI
-                dimensions on intention to use with perceived usefulness and ease of use in the
+                Kenny&rsquo;s approach to testing mediation, the analysis examined: (1) effects of
+                TRI dimensions on intention to use with perceived usefulness and ease of use in the
                 model (direct effects), (2) effects of TRI dimensions on perceived usefulness and
                 ease of use (predictor effects), and (3) effects of perceived usefulness and ease of
                 use on intention to use (mediator effects). The pattern of effects indicated that
@@ -200,14 +201,14 @@ const BibliographyArticlePage = () => {
             </ul>
           </section>
           <section className="mb-6">
-            <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
+            <h3 className={H3_CLASSES}>How was the model&rsquo;s external validity tested?</h3>
             <p className={PARAGRAPH_CLASSES}>
               External validity of the TRAM model was demonstrated through multiple approaches
-              examining whether the model’s predictions aligned with actual technology adoption
-              behavior and whether findings generalized beyond the immediate sample. The primary
-              validity evidence came from the relationship between intention to use and actual
-              adoption behavior. While the study primarily measured intention to use rather than
-              actual use, the construct of adoption intention has been extensively validated in
+              examining whether the model&rsquo;s predictions aligned with actual technology
+              adoption behavior and whether findings generalized beyond the immediate sample. The
+              primary validity evidence came from the relationship between intention to use and
+              actual adoption behavior. While the study primarily measured intention to use rather
+              than actual use, the construct of adoption intention has been extensively validated in
               prior research as a strong predictor of actual technology adoption behavior. The
               establishment of this relationship in the original TAM research provided validity
               evidence applicable to the current study. Convergent validity with existing frameworks
@@ -219,14 +220,14 @@ const BibliographyArticlePage = () => {
             <p className={PARAGRAPH_CLASSES}>
               The effects of technology readiness dimensions were consistent with expected
               relationships from TRI theory. This consistency with established literature supported
-              the external validity of the TRAM integration. The model’s ability to predict variance
-              in adoption intention provided validity evidence. The TRAM model explained
+              the external validity of the TRAM integration. The model&rsquo;s ability to predict
+              variance in adoption intention provided validity evidence. The TRAM model explained
               approximately 55% of the variance in online shopping adoption intention (R² = .55).
               This explained variance was substantially higher than typical TAM-only models (which
               typically explain 30-50% of variance) and comparable to the best- performing extended
               TAM models in existing literature. The increased explanatory power provided evidence
               that the TRAM integration captured meaningful additional variance attributable to
-              technology readiness. Segmentation analysis examined whether the TRAM model’s
+              technology readiness. Segmentation analysis examined whether the TRAM model&rsquo;s
               predictions differed meaningfully across different customer segments based on
               technology readiness profiles.
             </p>
@@ -250,11 +251,11 @@ const BibliographyArticlePage = () => {
               patterns emerging across gender groups, supporting the generalizability of the model
               across this demographic dimension. While some minor differences appeared in effect
               magnitudes across subgroups, the overall pattern of relationships remained consistent.
-              The model’s internal validity and the consistency of findings with prior literature on
-              both TAM and TRI provided cross-validation evidence. Because TRAM integrates two
-              well-established models that have been extensively validated in prior research,
-              evidence supporting those component models provided indirect validation for the TRAM
-              integration.
+              The model&rsquo;s internal validity and the consistency of findings with prior
+              literature on both TAM and TRI provided cross-validation evidence. Because TRAM
+              integrates two well-established models that have been extensively validated in prior
+              research, evidence supporting those component models provided indirect validation for
+              the TRAM integration.
             </p>
           </section>
           <section className="mb-6">
@@ -317,18 +318,19 @@ const BibliographyArticlePage = () => {
               each segment.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              A message emphasizing “innovative technology with cutting-edge artificial
-              intelligence” will resonate with Explorers but alienate Skeptics. A message
-              emphasizing “simple, reliable, and proven to work” will appeal to lower-readiness
-              segments but may not motivate innovation-seeking customers. Multi-channel marketing
-              campaigns with different messages for different segments are more effective than one-
-              size-fits-all messaging. The model suggests organizations should consider timing of
-              technology introduction. Markets with low average technology readiness may require
-              gradual introduction with heavy emphasis on training, support, and reassurance.
-              Markets with high average technology readiness can adopt technology more rapidly with
-              less intensive support requirements. Understanding a market’s technology readiness
-              profile informs realistic adoption timelines and resource planning. Organizations
-              should use TRAM to inform user training and support program development.
+              A message emphasizing &ldquo;innovative technology with cutting-edge artificial
+              intelligence&rdquo; will resonate with Explorers but alienate Skeptics. A message
+              emphasizing &ldquo;simple, reliable, and proven to work&rdquo; will appeal to
+              lower-readiness segments but may not motivate innovation-seeking customers.
+              Multi-channel marketing campaigns with different messages for different segments are
+              more effective than one- size-fits-all messaging. The model suggests organizations
+              should consider timing of technology introduction. Markets with low average technology
+              readiness may require gradual introduction with heavy emphasis on training, support,
+              and reassurance. Markets with high average technology readiness can adopt technology
+              more rapidly with less intensive support requirements. Understanding a market&rsquo;s
+              technology readiness profile informs realistic adoption timelines and resource
+              planning. Organizations should use TRAM to inform user training and support program
+              development.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Training programs should address both technology readiness (anxiety, confidence,
@@ -395,38 +397,39 @@ const BibliographyArticlePage = () => {
               alone. Second, the integrated model significantly improves explanatory power. By
               capturing variance attributable to both general technology readiness and
               system-specific perceptions, TRAM explains approximately 55% of variance in adoption
-              intention—substantially more than typical TAM-only models. This improved explanatory
-              power indicates that the integration captures meaningful theoretical ground. Third,
-              TRAM preserves the strengths of both component models while addressing their
-              limitations. The TAM remains valuable for understanding system-specific perceptions,
-              and TRI remains valuable for understanding general technology predispositions.
+              intention&mdash;substantially more than typical TAM-only models. This improved
+              explanatory power indicates that the integration captures meaningful theoretical
+              ground. Third, TRAM preserves the strengths of both component models while addressing
+              their limitations. The TAM remains valuable for understanding system-specific
+              perceptions, and TRI remains valuable for understanding general technology
+              predispositions.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Rather than replacing either model, TRAM shows how they complement each other. Fourth,
               the model provides practical guidance for technology implementation. Organizations can
               use TRAM to diagnose whether adoption barriers are primarily technology
               readiness-based or system-specific, allowing targeted interventions. This diagnostic
-              capability has direct practical utility. Fifth, the TRAM model’s theoretical
+              capability has direct practical utility. Fifth, the TRAM model&rsquo;s theoretical
               specification of how technology readiness influences the adoption process provides
               insights for product development and marketing strategy. Understanding that technology
               readiness operates upstream, influencing how users perceive technology
               characteristics, has implications for both system design and communication strategy.
               Sixth, the empirical validation through structural equation modeling provides rigorous
-              evidence for the model’s relationships. The testing of alternative specifications and
-              the demonstration of superior fit for the integrated model strengthens confidence in
-              the TRAM approach.
+              evidence for the model&rsquo;s relationships. The testing of alternative
+              specifications and the demonstration of superior fit for the integrated model
+              strengthens confidence in the TRAM approach.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Seventh, TRAM acknowledges that technology adoption is multifaceted, requiring
               attention to both dispositional characteristics and system-specific factors. This
-              realistic recognition of adoption complexity enhances the model’s credibility.
+              realistic recognition of adoption complexity enhances the model&rsquo;s credibility.
             </p>
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
             <p className={PARAGRAPH_CLASSES}>
               Despite significant contributions, TRAM has identifiable limitations. First, while the
-              model improves upon TAM’s explanatory power, it still explains only about 55% of
+              model improves upon TAM&rsquo;s explanatory power, it still explains only about 55% of
               variance in adoption intention. Substantial variance remains unexplained, suggesting
               other factors beyond those captured in TRAM influence adoption decisions. Second, the
               study was conducted in Taiwan with online shopping as the adoption context. The
@@ -497,12 +500,13 @@ const BibliographyArticlePage = () => {
               alone. TRAM differs from the Unified Theory of Acceptance and Use of Technology
               (UTAUT) by Venkatesh et al. (2003) in its focus on technology readiness specifically.
               While UTAUT incorporates social influence and facilitating conditions alongside
-              perceived usefulness and ease of use, TRAM’s specific contribution is integrating
-              technology readiness as a critical antecedent to technology acceptance processes. The
-              theoretical contribution of TRAM lies in showing that technology adoption cannot be
-              adequately understood through either system-specific perceptions alone or individual
-              predispositions alone. The integration of both perspectives provides superior
-              explanatory power and practical utility. 6. Barriers Identification Section:
+              perceived usefulness and ease of use, TRAM&rsquo;s specific contribution is
+              integrating technology readiness as a critical antecedent to technology acceptance
+              processes. The theoretical contribution of TRAM lies in showing that technology
+              adoption cannot be adequately understood through either system-specific perceptions
+              alone or individual predispositions alone. The integration of both perspectives
+              provides superior explanatory power and practical utility. 6. Barriers Identification
+              Section:
             </p>
           </section>
           <section className="mb-6">
@@ -559,15 +563,15 @@ const BibliographyArticlePage = () => {
                 individuals with high technology readiness may not adopt a system they perceive as
                 offering little value. For online shopping, the barrier might manifest as concerns
                 that shopping online provides no advantage over traditional shopping, or that online
-                shopping doesn’t meet specific shopping needs. Perceived Low Ease of Use represents
-                a barrier where the specific system is perceived as difficult, complex, or requiring
-                substantial learning effort. Even individuals with high technology readiness may
-                resist adopting a system that appears difficult to learn and use. Poor interface
-                design, unclear functionality, and complex workflows create this barrier. Lack of
-                Relevant Experience with similar technologies represents a barrier to adoption.
-                Individuals without prior experience using related technologies have no mental
-                models for how to interact with the new system. They face greater uncertainty about
-                whether they can successfully use the system and higher perceived learning
+                shopping doesn&rsquo;t meet specific shopping needs. Perceived Low Ease of Use
+                represents a barrier where the specific system is perceived as difficult, complex,
+                or requiring substantial learning effort. Even individuals with high technology
+                readiness may resist adopting a system that appears difficult to learn and use. Poor
+                interface design, unclear functionality, and complex workflows create this barrier.
+                Lack of Relevant Experience with similar technologies represents a barrier to
+                adoption. Individuals without prior experience using related technologies have no
+                mental models for how to interact with the new system. They face greater uncertainty
+                about whether they can successfully use the system and higher perceived learning
                 requirements
               </li>
               <li>

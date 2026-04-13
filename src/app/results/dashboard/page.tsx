@@ -562,8 +562,9 @@ const DispositionDashboardPage = () => {
 
                       {/* Correlations for this dataset */}
                       <div className="mt-2 text-xs text-gray-600">
-                        <strong>Correlations:</strong> B–R = {fmt2(getVal('corr_br', group.key))},
-                        B–M = {fmt2(getVal('corr_bm', group.key))}, R–M ={' '}
+                        <strong>Correlations:</strong> B&ndash;R ={' '}
+                        {fmt2(getVal('corr_br', group.key))}, B&ndash;M ={' '}
+                        {fmt2(getVal('corr_bm', group.key))}, R&ndash;M ={' '}
                         {fmt2(getVal('corr_rm', group.key))}
                       </div>
                     </div>

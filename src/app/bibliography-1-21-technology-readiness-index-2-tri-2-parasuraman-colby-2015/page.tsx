@@ -20,7 +20,7 @@ const BibliographyArticlePage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Technology Readiness Index 2.0 (TRI 2.0) – Parasuraman & Colby (2015)
+          Technology Readiness Index 2.0 (TRI 2.0) &ndash; Parasuraman & Colby (2015)
         </h1>
 
         {/* Model Identification */}
@@ -87,15 +87,15 @@ const BibliographyArticlePage = () => {
               differently than originally intended as the technology environment evolved. An
               inherent challenge with a scale measuring technology readiness is that technology
               itself changes over time, creating tension between maintaining measurement consistency
-              across time and ensuring the scale’s continued relevance. The authors recognized that
-              while the core constructs underlying technology readiness (Optimism, Innovativeness,
-              Discomfort, and Insecurity) remained valid, the scale needed adjustment to capture
-              emerging technology themes and remain resonant with contemporary populations.
-              Additionally, the authors sought to streamline the scale. The original 36- item
-              instrument, while psychometrically sound, was lengthy for survey applications.
-              Researchers and practitioners often preferred shorter instruments that could be
-              incorporated into larger survey batteries or administered in contexts where survey
-              length was constrained.
+              across time and ensuring the scale&rsquo;s continued relevance. The authors recognized
+              that while the core constructs underlying technology readiness (Optimism,
+              Innovativeness, Discomfort, and Insecurity) remained valid, the scale needed
+              adjustment to capture emerging technology themes and remain resonant with contemporary
+              populations. Additionally, the authors sought to streamline the scale. The original
+              36- item instrument, while psychometrically sound, was lengthy for survey
+              applications. Researchers and practitioners often preferred shorter instruments that
+              could be incorporated into larger survey batteries or administered in contexts where
+              survey length was constrained.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               The goal was to develop a more concise version that would retain the reliability and
@@ -112,13 +112,13 @@ const BibliographyArticlePage = () => {
             </p>
             <p className={PARAGRAPH_CLASSES}>
               One of the key strengths of the TRI 1.0 was its applicability to real business
-              problems— customer segmentation, marketing strategy, product development decisions.
-              The new version needed to maintain this practical utility while becoming more
-              efficient in terms of length and clarity.
+              problems&mdash; customer segmentation, marketing strategy, product development
+              decisions. The new version needed to maintain this practical utility while becoming
+              more efficient in terms of length and clarity.
             </p>
           </section>
           <section className="mb-6">
-            <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
+            <h3 className={H3_CLASSES}>How was the model&rsquo;s internal validity tested?</h3>
             <p className={PARAGRAPH_CLASSES}>
               The development of TRI 2.0 employed a rigorous two-phase research approach that tested
               internal validity throughout the process. The first phase was qualitative and
@@ -129,7 +129,7 @@ const BibliographyArticlePage = () => {
               conversations about technology adoption and use. Approximately 317 comments were
               gathered from forum participants discussing technology motivators, inhibitors, and
               various aspects of technology adoption. The qualitative research examined what
-              respondents believed were “cutting-edge” technologies in both personal and
+              respondents believed were &ldquo;cutting-edge&rdquo; technologies in both personal and
               occupational spheres, what motivated them to try new technologies, and what made them
               hesitant about new technology adoption.
             </p>
@@ -156,9 +156,9 @@ const BibliographyArticlePage = () => {
               Using Varimax rotation and examining eigenvalues, a four-factor solution emerged that
               explained 44% of the total variance across items. Principal component factor analysis
               confirmed a four-factor structure consistent with the original TRI model. Reliability
-              coefficients (Cronbach’s alpha) were computed for each dimension, ranging from .68 to
-              .90 across the four factors. Internal consistency analysis examined item-to-total
-              correlations and factor loadings.
+              coefficients (Cronbach&rsquo;s alpha) were computed for each dimension, ranging from
+              .68 to .90 across the four factors. Internal consistency analysis examined
+              item-to-total correlations and factor loadings.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Items with weak loadings (below .30), ambiguous cross-loadings, or low item-to-total
@@ -190,7 +190,7 @@ const BibliographyArticlePage = () => {
             </p>
           </section>
           <section className="mb-6">
-            <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
+            <h3 className={H3_CLASSES}>How was the model&rsquo;s external validity tested?</h3>
             <p className={PARAGRAPH_CLASSES}>
               External validity of TRI 2.0 was demonstrated through multiple validation approaches.
               First, the scale was validated against actual technology adoption and usage behaviors.
@@ -219,10 +219,10 @@ const BibliographyArticlePage = () => {
               Segmentation validity was assessed by examining whether TRI-based customer segments
               differed meaningfully on multiple behavioral criteria. Using latent class analysis,
               the authors derived five distinct consumer segments based on their TR profiles: (1)
-              Skeptics (38% of consumers)— detached, cautious about technology; (2) Explorers
-              (18%)—high motivation and low inhibition; (3) Avoiders (16%)—high resistance and low
-              motivation; (4) Pioneers (16%)—strong positive and negative views; and (5) Hesitators
-              (13%)—low innovativeness.
+              Skeptics (38% of consumers)&mdash; detached, cautious about technology; (2) Explorers
+              (18%)&mdash;high motivation and low inhibition; (3) Avoiders (16%)&mdash;high
+              resistance and low motivation; (4) Pioneers (16%)&mdash;strong positive and negative
+              views; and (5) Hesitators (13%)&mdash;low innovativeness.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               These segments showed dramatically different demographic characteristics and
@@ -266,26 +266,26 @@ const BibliographyArticlePage = () => {
               Rather than assuming all customers have similar technology attitudes and needs,
               organizations can identify which segments exist in their customer base and what
               proportions they represent. For each identified segment, the model instructs
-              organizations to develop tailored marketing approaches. Explorers—characterized by
-              high motivation and low inhibition—respond to messages emphasizing innovation,
-              cutting-edge features, and technological sophistication. These early adopters should
-              receive information about advanced functionality and serve as target users for new
-              feature rollouts.
+              organizations to develop tailored marketing approaches. Explorers&mdash;characterized
+              by high motivation and low inhibition&mdash;respond to messages emphasizing
+              innovation, cutting-edge features, and technological sophistication. These early
+              adopters should receive information about advanced functionality and serve as target
+              users for new feature rollouts.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              Skeptics—characterized by detached ambivalence—require messages emphasizing
-              reliability, proven track record, ease of use, and support availability. These
-              customers are unmoved by technology innovation rhetoric and require reassurance that
-              the system is trustworthy and simple. Pioneers—holding strong positive and negative
-              views simultaneously— require balanced messaging that acknowledges both the benefits
-              and limitations of technology. These customers appreciate transparency about
-              trade-offs and appreciate vendors who address rather than ignore concerns. Avoiders
-              require strong emphasis on simplicity, support, and non-technology alternatives. These
-              customers need assurance that human service options remain available and that
-              technology is optional. Hesitators require demonstrations of value and manageable
-              learning curves, with phased adoption pathways that allow gradual transition to
-              technology. The model instructs organizations to use TR segmentation for product
-              development and service design.
+              Skeptics&mdash;characterized by detached ambivalence&mdash;require messages
+              emphasizing reliability, proven track record, ease of use, and support availability.
+              These customers are unmoved by technology innovation rhetoric and require reassurance
+              that the system is trustworthy and simple. Pioneers&mdash;holding strong positive and
+              negative views simultaneously&mdash; require balanced messaging that acknowledges both
+              the benefits and limitations of technology. These customers appreciate transparency
+              about trade-offs and appreciate vendors who address rather than ignore concerns.
+              Avoiders require strong emphasis on simplicity, support, and non-technology
+              alternatives. These customers need assurance that human service options remain
+              available and that technology is optional. Hesitators require demonstrations of value
+              and manageable learning curves, with phased adoption pathways that allow gradual
+              transition to technology. The model instructs organizations to use TR segmentation for
+              product development and service design.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Different customer segments have different requirements. High-TR customers value
@@ -325,14 +325,14 @@ const BibliographyArticlePage = () => {
               into each TR segment, what channels different segments prefer, and what types of
               support different segments require. This informs decisions about resource allocation
               to different service channels and the types of support programs to develop. TRI 2.0 is
-              intended for competitive analysis and positioning. Understanding competitors’ target
-              TR segments and marketing strategies to those segments can inform positioning
+              intended for competitive analysis and positioning. Understanding competitors&rsquo;
+              target TR segments and marketing strategies to those segments can inform positioning
               decisions. Organizations may choose to focus on under-served segments (e.g., skeptics)
               or double down on well- served segments (e.g., explorers), depending on competitive
               dynamics.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              The model is designed for cross-cultural market entry decisions. The scale’s
+              The model is designed for cross-cultural market entry decisions. The scale&rsquo;s
               translations and validation across multiple countries enable organizations entering
               new markets to assess technology readiness of target populations. This information
               informs decisions about whether technology-based service delivery is viable in a
@@ -347,17 +347,18 @@ const BibliographyArticlePage = () => {
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
             <p className={PARAGRAPH_CLASSES}>
-              TRI 2.0 measures individuals’ propensity to embrace and use cutting-edge technologies
-              for accomplishing goals in home and work contexts. The updated model maintains the
-              four fundamental dimensions of the original TRI while streamlining the measurement
-              items and updating content to reflect contemporary technology landscapes. Optimism (4
-              items): A positive view of technology and a belief that it offers increased control,
-              flexibility, and efficiency. Items reflect beliefs that new technologies contribute to
-              better quality of life, give more freedom and mobility, make life more productive, and
-              provide access to new entertainment and services. Innovativeness (4 items): A tendency
-              to be a technology pioneer and thought leader. Items reflect being sought for advice
-              on technologies, acquiring new technology early, enjoying technological challenges,
-              and staying current with technological developments.
+              TRI 2.0 measures individuals&rsquo; propensity to embrace and use cutting-edge
+              technologies for accomplishing goals in home and work contexts. The updated model
+              maintains the four fundamental dimensions of the original TRI while streamlining the
+              measurement items and updating content to reflect contemporary technology landscapes.
+              Optimism (4 items): A positive view of technology and a belief that it offers
+              increased control, flexibility, and efficiency. Items reflect beliefs that new
+              technologies contribute to better quality of life, give more freedom and mobility,
+              make life more productive, and provide access to new entertainment and services.
+              Innovativeness (4 items): A tendency to be a technology pioneer and thought leader.
+              Items reflect being sought for advice on technologies, acquiring new technology early,
+              enjoying technological challenges, and staying current with technological
+              developments.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Discomfort (4 items): A perceived lack of control and feeling overwhelmed by
@@ -379,15 +380,15 @@ const BibliographyArticlePage = () => {
               TRI 2.0 retains the fundamental strengths of the original TRI while addressing
               identified limitations. First, the streamlined 16-item format (compared to the
               original 36 items) substantially reduces respondent burden while maintaining reliable
-              measurement of the four underlying constructs. Cronbach’s alpha values for the four
-              dimensions range from .70 to .83, which meets or exceeds the minimum .70 threshold
-              recommended for acceptable reliability. This parsimonious length makes TRI 2.0 more
-              practical for incorporation into larger research studies and business applications.
-              Second, the updated items address the temporal specificity problem of the original TRI
-              by using more timeless language and removing references to obsolete technologies or
-              outdated practices. Items focus on fundamental aspects of technology readiness rather
-              than specific technological implementations. This reduces the need for frequent
-              updating and increases the scale’s longevity.
+              measurement of the four underlying constructs. Cronbach&rsquo;s alpha values for the
+              four dimensions range from .70 to .83, which meets or exceeds the minimum .70
+              threshold recommended for acceptable reliability. This parsimonious length makes TRI
+              2.0 more practical for incorporation into larger research studies and business
+              applications. Second, the updated items address the temporal specificity problem of
+              the original TRI by using more timeless language and removing references to obsolete
+              technologies or outdated practices. Items focus on fundamental aspects of technology
+              readiness rather than specific technological implementations. This reduces the need
+              for frequent updating and increases the scale&rsquo;s longevity.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Third, TRI 2.0 maintains the multidimensional structure that captures the paradoxical
@@ -411,8 +412,8 @@ const BibliographyArticlePage = () => {
               stable despite the 13-year interval and dramatic technology changes. This suggests the
               model captures enduring aspects of technology readiness. Seventh, the scale functions
               effectively as a normative benchmark. Organizations can assess their customer
-              population’s TR and compare against published norms to understand their market’s
-              technology readiness relative to the general population.
+              population&rsquo;s TR and compare against published norms to understand their
+              market&rsquo;s technology readiness relative to the general population.
             </p>
           </section>
           <section className="mb-6">
@@ -426,9 +427,9 @@ const BibliographyArticlePage = () => {
               show somewhat weak average variance extracted (AVE) relative to the motivator
               dimensions. While the scale still meets acceptable standards for convergent validity,
               the inhibitor dimensions show lower internal consistency than ideal. The authors note
-              in their analysis that “the subscales for the inhibitor dimensions of discomfort and
-              insecurity are somewhat weak on some psychometric criteria, especially while these
-              dimensions do represent a set of homogeneous attributes.” This suggests room for
+              in their analysis that &ldquo;the subscales for the inhibitor dimensions of discomfort
+              and insecurity are somewhat weak on some psychometric criteria, especially while these
+              dimensions do represent a set of homogeneous attributes.&rdquo; This suggests room for
               further refinement of these dimensions.
             </p>
             <p className={PARAGRAPH_CLASSES}>
@@ -469,11 +470,12 @@ const BibliographyArticlePage = () => {
               contemporary technology landscapes. Items referencing obsolete technologies or
               outdated pricing structures have been replaced with more contemporary language.
               However, the underlying conceptual dimensions remain unchanged. The fundamental
-              structure of technology readiness—as consisting of motivator dimensions (Optimism,
-              Innovativeness) and inhibitor dimensions (Discomfort, Insecurity)—remains consistent
-              between versions. Unlike the Technology Acceptance Model, which measures perceived
-              usefulness and ease of use for specific systems, TRI 2.0 (like TRI 1.0) measures
-              general, dispositional technology readiness applicable across contexts.
+              structure of technology readiness&mdash;as consisting of motivator dimensions
+              (Optimism, Innovativeness) and inhibitor dimensions (Discomfort,
+              Insecurity)&mdash;remains consistent between versions. Unlike the Technology
+              Acceptance Model, which measures perceived usefulness and ease of use for specific
+              systems, TRI 2.0 (like TRI 1.0) measures general, dispositional technology readiness
+              applicable across contexts.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               The model is not system-specific; rather, it measures individual propensities that
@@ -496,15 +498,15 @@ const BibliographyArticlePage = () => {
               TRI 2.0 identifies barriers to technology adoption through its two inhibitor
               dimensions and provides nuanced understanding of how these barriers manifest across
               different customer segments. Discomfort represents the first major category of
-              barriers—psychological barriers related to perceived complexity and loss of control
-              over technology. The updated TRI 2.0 captures this through concerns about inadequate
-              technical support when problems arise, perception that technology systems are too
-              complex, difficulty troubleshooting technology problems, and feelings that technology
-              systems are invasive or intrusive into personal life. These discomfort-based barriers
-              manifest in multiple ways. Some consumers worry about pressing the wrong buttons or
-              making mistakes when using technology. Others feel overwhelmed by the learning curve
-              required to use new systems. Still others fear appearing incompetent if they cannot
-              quickly figure out how to use technology.
+              barriers&mdash;psychological barriers related to perceived complexity and loss of
+              control over technology. The updated TRI 2.0 captures this through concerns about
+              inadequate technical support when problems arise, perception that technology systems
+              are too complex, difficulty troubleshooting technology problems, and feelings that
+              technology systems are invasive or intrusive into personal life. These
+              discomfort-based barriers manifest in multiple ways. Some consumers worry about
+              pressing the wrong buttons or making mistakes when using technology. Others feel
+              overwhelmed by the learning curve required to use new systems. Still others fear
+              appearing incompetent if they cannot quickly figure out how to use technology.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               The discomfort barrier is particularly salient for older consumers or those with
@@ -512,15 +514,16 @@ const BibliographyArticlePage = () => {
               successfully use systems. The discomfort barrier extends to concerns about technology
               support and recovery from errors. Consumers worry whether they can reach adequate
               technical support when problems occur and whether support personnel will be patient
-              and helpful. The concern that “technical support lines are not helpful because they
-              don’t explain things in terms you understand” represents a significant barrier for
-              many consumers who fear that support, when needed, may not actually resolve their
-              problems. Insecurity represents the second major category of barriers—trust-based
-              barriers related to privacy, security, and skepticism about technology benefits. TRI
-              2.0 captures insecurity through concerns about privacy and information security in
-              technology transactions, reluctance to conduct financial transactions through
-              technology-based channels, skepticism about whether new technologies actually solve
-              problems, and general safety concerns about technology use.
+              and helpful. The concern that &ldquo;technical support lines are not helpful because
+              they don&rsquo;t explain things in terms you understand&rdquo; represents a
+              significant barrier for many consumers who fear that support, when needed, may not
+              actually resolve their problems. Insecurity represents the second major category of
+              barriers&mdash;trust-based barriers related to privacy, security, and skepticism about
+              technology benefits. TRI 2.0 captures insecurity through concerns about privacy and
+              information security in technology transactions, reluctance to conduct financial
+              transactions through technology-based channels, skepticism about whether new
+              technologies actually solve problems, and general safety concerns about technology
+              use.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               These insecurity-based barriers manifest as fundamental distrust of technology
@@ -530,26 +533,26 @@ const BibliographyArticlePage = () => {
               innovations deliver promised benefits or that technological solutions actually improve
               their lives in meaningful ways. Insecurity barriers are particularly salient for
               financial and health-related technologies where the consequences of malfunction or
-              breach are significant. The concern that “information I send over the Internet might
-              be seen by other people” reflects legitimate security concerns that serve as barriers
-              to adoption of online banking, shopping, and other technology- mediated transactions.
-              The research identified that economic barriers remain significant for some
-              populations.
+              breach are significant. The concern that &ldquo;information I send over the Internet
+              might be seen by other people&rdquo; reflects legitimate security concerns that serve
+              as barriers to adoption of online banking, shopping, and other technology- mediated
+              transactions. The research identified that economic barriers remain significant for
+              some populations.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               While not explicitly captured in the four dimensions, cost represents a real barrier
-              for cost-conscious consumers. The earlier TRI research had identified that “the high
-              cost of acquiring these [technologies] is actually very discouraging” for some
-              consumers. While TRI 2.0 doesn’t directly measure cost sensitivity, consumers with low
-              income or high cost concerns may delay or avoid technology adoption regardless of
-              their attitudes toward technology. Social barriers also emerged in the research. Some
-              consumers feel social pressure to adopt technologies that are becoming commonplace in
-              their social circles, creating stress between their personal comfort level and social
-              expectations. Conversely, some consumers are isolated from technology adoption if they
-              lack peer groups adopting similar technologies. Difference in technology adoption from
-              peers can create social discomfort or feelings of being “left behind.” Knowledge and
-              experience barriers remain significant despite not being explicitly captured as a
-              separate dimension.
+              for cost-conscious consumers. The earlier TRI research had identified that &ldquo;the
+              high cost of acquiring these [technologies] is actually very discouraging&rdquo; for
+              some consumers. While TRI 2.0 doesn&rsquo;t directly measure cost sensitivity,
+              consumers with low income or high cost concerns may delay or avoid technology adoption
+              regardless of their attitudes toward technology. Social barriers also emerged in the
+              research. Some consumers feel social pressure to adopt technologies that are becoming
+              commonplace in their social circles, creating stress between their personal comfort
+              level and social expectations. Conversely, some consumers are isolated from technology
+              adoption if they lack peer groups adopting similar technologies. Difference in
+              technology adoption from peers can create social discomfort or feelings of being
+              &ldquo;left behind.&rdquo; Knowledge and experience barriers remain significant
+              despite not being explicitly captured as a separate dimension.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Consumers without prior experience with related technologies lack mental models for
@@ -568,12 +571,12 @@ const BibliographyArticlePage = () => {
             <p className={PARAGRAPH_CLASSES}>
               Some individuals fear that relying on technology might create unhealthy dependency or
               that personal skills might become devalued if machines can perform similar functions.
-              These existential concerns about technology’s role in society and human agency
-              represent deeper psychological barriers. Rapid change barriers also emerged—the
+              These existential concerns about technology&rsquo;s role in society and human agency
+              represent deeper psychological barriers. Rapid change barriers also emerged&mdash;the
               concern that any technology purchased today will be obsolete in a short time period.
               For some consumers, this creates reluctance to invest in technology or to commit to
-              learning systems that may quickly become outdated. The “moving target” nature of
-              technology innovation creates anxiety for some potential adopters.
+              learning systems that may quickly become outdated. The &ldquo;moving target&rdquo;
+              nature of technology innovation creates anxiety for some potential adopters.
             </p>
           </section>
           <section className="mb-6">
@@ -603,12 +606,12 @@ const BibliographyArticlePage = () => {
               Rather than forcing discomfort-oriented customers to use automated systems,
               organizations should maintain human service options. This safety net reduces anxiety
               and allows customers to gradually transition to technology at their own pace.
-              Importantly, providing human alternatives doesn’t undermine technology adoption; it
-              facilitates adoption by reducing anxiety. Offer gradual adoption pathways that allow
-              customers to start with simple functionality and progressively adopt more advanced
-              features as they develop confidence. Rather than overwhelming customers with full
-              system complexity, staged rollouts of features and functionality allow incremental
-              learning.
+              Importantly, providing human alternatives doesn&rsquo;t undermine technology adoption;
+              it facilitates adoption by reducing anxiety. Offer gradual adoption pathways that
+              allow customers to start with simple functionality and progressively adopt more
+              advanced features as they develop confidence. Rather than overwhelming customers with
+              full system complexity, staged rollouts of features and functionality allow
+              incremental learning.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               For Insecurity-oriented customers , organizations should: Emphasize security features

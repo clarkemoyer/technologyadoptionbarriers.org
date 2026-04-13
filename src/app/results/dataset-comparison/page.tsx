@@ -250,10 +250,10 @@ const DatasetComparisonPage = () => {
                 <tr className="bg-gray-100">
                   <th className="text-left p-2 border-b">Result Group</th>
                   <th className="text-right p-2 border-b">&lt;100</th>
-                  <th className="text-right p-2 border-b">100–499</th>
-                  <th className="text-right p-2 border-b">500–999</th>
-                  <th className="text-right p-2 border-b">1000–4999</th>
-                  <th className="text-right p-2 border-b">5000–9999</th>
+                  <th className="text-right p-2 border-b">100&ndash;499</th>
+                  <th className="text-right p-2 border-b">500&ndash;999</th>
+                  <th className="text-right p-2 border-b">1000&ndash;4999</th>
+                  <th className="text-right p-2 border-b">5000&ndash;9999</th>
                   <th className="text-right p-2 border-b">10000+</th>
                 </tr>
               </thead>

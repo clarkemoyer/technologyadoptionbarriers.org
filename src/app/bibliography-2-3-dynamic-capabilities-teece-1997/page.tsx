@@ -99,10 +99,10 @@ const DynamicCapabilitiesPage = () => {
             technological turbulence, and rapidly changing markets (exemplified by the information
             technology, telecommunications, and biotechnology sectors), traditional competitive
             advantage grounded in stable, inimitable resource positions was insufficient. Firms
-            needed different capabilities—not just the ability to exploit existing resources but the
-            ability to sense market opportunities and threats, to seize opportunities through
-            organizational restructuring, and to continuously reconfigure organizational assets and
-            resources in response to environmental change.
+            needed different capabilities&mdash;not just the ability to exploit existing resources
+            but the ability to sense market opportunities and threats, to seize opportunities
+            through organizational restructuring, and to continuously reconfigure organizational
+            assets and resources in response to environmental change.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Additionally, the framework was motivated by observation that many firms failed to adapt
@@ -207,7 +207,8 @@ const DynamicCapabilitiesPage = () => {
             management thinking, shifting focus from what resources the organization currently
             possesses to how organizations develop new resources and transform existing resources as
             environments change. This shift from static to dynamic represents a fundamental
-            reorientation—from what the organization has to what the organization can do and become.
+            reorientation&mdash;from what the organization has to what the organization can do and
+            become.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             While earlier frameworks focused on resource stocks (what the organization possesses),
@@ -288,7 +289,7 @@ const DynamicCapabilitiesPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             However, the framework also acknowledges the constraints imposed by path
-            dependence—organizational capabilities and competitive positions are shaped by
+            dependence&mdash;organizational capabilities and competitive positions are shaped by
             historical development paths and previous resource commitments. Some capabilities can be
             readily changed while others are constrained by historical choices, investments, and
             organizational commitments. Understanding these path dependencies helps organizations
@@ -386,7 +387,7 @@ const DynamicCapabilitiesPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The Dynamic Capabilities Framework has important connections to organizational learning
             theory and innovation research. The framework suggests that organizations develop
-            dynamic capabilities through organizational learning processes—by systematically
+            dynamic capabilities through organizational learning processes&mdash;by systematically
             learning from experience, capturing learning in organizational routines, and
             continuously improving capabilities. This connection to learning theory enriches
             understanding of how dynamic capabilities develop over time.

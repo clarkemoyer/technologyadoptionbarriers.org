@@ -24,7 +24,7 @@ const Article17Page = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Article 1.7: Are You Ready? – The Role of Technology Readiness (TRI &amp; TRAM)
+          Article 1.7: Are You Ready? &ndash; The Role of Technology Readiness (TRI &amp; TRAM)
         </h1>
 
         <section className={SECTION_CLASSES}>
@@ -83,36 +83,36 @@ const Article17Page = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Freedom versus enslavement</strong>–technology offers freedom and flexibility,
-              yet creates dependency and loss of autonomy.
+              <strong>Freedom versus enslavement</strong>&ndash;technology offers freedom and
+              flexibility, yet creates dependency and loss of autonomy.
             </li>
             <li>
-              <strong>Control versus chaos</strong>–technology can enhance personal control and
-              organization, yet creates confusion and information overload.
+              <strong>Control versus chaos</strong>&ndash;technology can enhance personal control
+              and organization, yet creates confusion and information overload.
             </li>
             <li>
-              <strong>Competence versus incompetence</strong>–technology can enhance personal
+              <strong>Competence versus incompetence</strong>&ndash;technology can enhance personal
               capability, yet creates feelings of inadequacy and incompetence.
             </li>
             <li>
-              <strong>Innovation versus obsolescence</strong>–technology enables innovation and
-              staying current, yet obsoletes people&apos;s existing skills and knowledge.
+              <strong>Innovation versus obsolescence</strong>&ndash;technology enables innovation
+              and staying current, yet obsoletes people&apos;s existing skills and knowledge.
             </li>
             <li>
-              <strong>Assimilation versus alienation</strong>–technology connects people, yet
+              <strong>Assimilation versus alienation</strong>&ndash;technology connects people, yet
               creates isolation and fragmentation.
             </li>
             <li>
-              <strong>Intelligence versus stupidity</strong>–technology demonstrates human
+              <strong>Intelligence versus stupidity</strong>&ndash;technology demonstrates human
               ingenuity, yet devalues human intelligence.
             </li>
             <li>
-              <strong>Efficiency versus laziness</strong>–technology enables productivity, yet
+              <strong>Efficiency versus laziness</strong>&ndash;technology enables productivity, yet
               encourages passive consumption.
             </li>
             <li>
-              <strong>Progress versus destruction</strong>–technology advances human progress, yet
-              creates risks and destruction.
+              <strong>Progress versus destruction</strong>&ndash;technology advances human progress,
+              yet creates risks and destruction.
             </li>
           </ul>
 
@@ -123,7 +123,7 @@ const Article17Page = () => {
             gestalt of often-contradictory beliefs and attitudes. Some individuals resolve these
             paradoxes by emphasizing benefits and minimizing concerns (high overall technology
             readiness). Others emphasize concerns and discount benefits (low overall technology
-            readiness). Still others hold contradictory positions simultaneously–believing in
+            readiness). Still others hold contradictory positions simultaneously&ndash;believing in
             benefits while fearing drawbacks.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -153,12 +153,13 @@ const Article17Page = () => {
           <h3 className={H3_CLASSES}>Multi-Dimensional Independence</h3>
           <p className={PARAGRAPH_CLASSES}>
             Critically, the TRI measures these dimensions as relatively independent characteristics.
-            An individual can be simultaneously high in optimism and high in discomfort–believing
-            that technology offers tremendous benefits while also feeling overwhelmed by complexity.
-            An individual can be high in innovativeness but low in optimism–enjoying the challenge
-            of mastering new technologies without believing they offer meaningful life benefits.
-            This multi-dimensional structure captures the paradoxical nature of technology attitudes
-            that single-dimensional scales cannot represent.
+            An individual can be simultaneously high in optimism and high in
+            discomfort&ndash;believing that technology offers tremendous benefits while also feeling
+            overwhelmed by complexity. An individual can be high in innovativeness but low in
+            optimism&ndash;enjoying the challenge of mastering new technologies without believing
+            they offer meaningful life benefits. This multi-dimensional structure captures the
+            paradoxical nature of technology attitudes that single-dimensional scales cannot
+            represent.
           </p>
 
           <h3 className={H3_CLASSES}>Validation and Predictive Power</h3>
@@ -200,20 +201,22 @@ const Article17Page = () => {
             privacy concerns, dependency concerns, and distraction concerns. The quantitative phase
             involved developing new items addressing contemporary themes while maintaining the
             original four-dimensional structure. Through factor analysis and item refinement, the
-            authors developed a streamlined 16-item scale–4 items per dimension–that retained the
-            reliability and validity of the original while substantially reducing respondent burden.
+            authors developed a streamlined 16-item scale&ndash;4 items per dimension&ndash;that
+            retained the reliability and validity of the original while substantially reducing
+            respondent burden.
           </p>
 
           <h3 className={H3_CLASSES}>Stability Despite Change</h3>
           <p className={PARAGRAPH_CLASSES}>
             The key innovation of TRI 2.0 was demonstrating that the underlying structure of
-            technology readiness–the four dimensions and their relationships–remained stable despite
-            dramatic technological and societal changes. Comparison of equivalent items from TRI 1.0
-            (measured in 1999) and TRI 2.0 (measured in 2012) showed that the constructs measured
-            remained consistent despite the 13-year interval. The fundamental aspects of technology
-            readiness–optimism about benefits, innovativeness as a characteristic, discomfort with
-            complexity, and insecurity about safety–persisted as salient dimensions shaping
-            technology adoption even as the specific technologies and concerns evolved.
+            technology readiness&ndash;the four dimensions and their relationships&ndash;remained
+            stable despite dramatic technological and societal changes. Comparison of equivalent
+            items from TRI 1.0 (measured in 1999) and TRI 2.0 (measured in 2012) showed that the
+            constructs measured remained consistent despite the 13-year interval. The fundamental
+            aspects of technology readiness&ndash;optimism about benefits, innovativeness as a
+            characteristic, discomfort with complexity, and insecurity about safety&ndash;persisted
+            as salient dimensions shaping technology adoption even as the specific technologies and
+            concerns evolved.
           </p>
 
           <h3 className={H3_CLASSES}>Five Consumer Segments</h3>
@@ -224,25 +227,26 @@ const Article17Page = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Skeptics (38% of consumers)</strong>–detached and cautious about technology,
-              neither optimistic nor particularly innovative, low in both motivation dimensions.
+              <strong>Skeptics (38% of consumers)</strong>&ndash;detached and cautious about
+              technology, neither optimistic nor particularly innovative, low in both motivation
+              dimensions.
             </li>
             <li>
-              <strong>Explorers (18%)</strong>–high in optimism and innovativeness, low in inhibitor
-              dimensions, enthusiastically embracing technological innovation.
+              <strong>Explorers (18%)</strong>&ndash;high in optimism and innovativeness, low in
+              inhibitor dimensions, enthusiastically embracing technological innovation.
             </li>
             <li>
-              <strong>Avoiders (16%)</strong>–high in both discomfort and insecurity, low in
+              <strong>Avoiders (16%)</strong>&ndash;high in both discomfort and insecurity, low in
               optimism, actively resisting technology adoption.
             </li>
             <li>
-              <strong>Pioneers (16%)</strong>–holding simultaneously strong positive views
+              <strong>Pioneers (16%)</strong>&ndash;holding simultaneously strong positive views
               (optimism, innovativeness) and strong negative views (discomfort, insecurity),
               embodying the technology paradoxes most intensely.
             </li>
             <li>
-              <strong>Hesitators (13%)</strong>–low in innovativeness even if moderately optimistic,
-              cautious about being early adopters.
+              <strong>Hesitators (13%)</strong>&ndash;low in innovativeness even if moderately
+              optimistic, cautious about being early adopters.
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
@@ -281,31 +285,31 @@ const Article17Page = () => {
             The TRAM research conducted on online shopping adoption demonstrated this mechanism
             empirically. Individual differences in the four technology readiness dimensions
             predicted perceived usefulness and perceived ease of use of online shopping systems.
-            Optimism, for instance, positively predicted perceived usefulness–optimistic individuals
-            tended to perceive online shopping as more useful than skeptical individuals, even
-            controlling for actual system characteristics. Discomfort negatively predicted perceived
-            ease of use–individuals high in discomfort perceived online shopping as more difficult
-            and complex, even for straightforward transactions.
+            Optimism, for instance, positively predicted perceived usefulness&ndash;optimistic
+            individuals tended to perceive online shopping as more useful than skeptical
+            individuals, even controlling for actual system characteristics. Discomfort negatively
+            predicted perceived ease of use&ndash;individuals high in discomfort perceived online
+            shopping as more difficult and complex, even for straightforward transactions.
           </p>
 
           <h3 className={H3_CLASSES}>Direct and Indirect Effects</h3>
           <p className={PARAGRAPH_CLASSES}>
             More importantly, TRAM showed that technology readiness influenced adoption intention
             both directly and indirectly through perceived usefulness and ease of use. The{' '}
-            <strong>indirect path</strong>–technology readiness → perceived usefulness and ease of
-            use → adoption intention–captured the mechanism where readiness shapes perception, which
-            shapes adoption decisions. The <strong>direct path</strong>
-            –technology readiness → adoption intention–captured residual effects where readiness
-            influences adoption above and beyond effects mediated through perception.
+            <strong>indirect path</strong>&ndash;technology readiness → perceived usefulness and
+            ease of use → adoption intention&ndash;captured the mechanism where readiness shapes
+            perception, which shapes adoption decisions. The <strong>direct path</strong>
+            &ndash;technology readiness → adoption intention&ndash;captured residual effects where
+            readiness influences adoption above and beyond effects mediated through perception.
           </p>
 
           <h3 className={H3_CLASSES}>Multi-Level Barriers</h3>
           <p className={PARAGRAPH_CLASSES}>
             The practical implication is profound: adoption barriers exist at multiple levels. At
-            the perception level, system-specific characteristics matter–perceived usefulness and
-            ease of use influence adoption decisions. At the disposition level, general technology
-            readiness matters–optimistic individuals are more likely to adopt, while
-            discomfort-oriented individuals are more resistant. Addressing adoption barriers
+            the perception level, system-specific characteristics matter&ndash;perceived usefulness
+            and ease of use influence adoption decisions. At the disposition level, general
+            technology readiness matters&ndash;optimistic individuals are more likely to adopt,
+            while discomfort-oriented individuals are more resistant. Addressing adoption barriers
             requires attention to both levels. An organization can improve perceived ease of use
             through superior interface design, but if target users have high discomfort, they may
             still resist adoption because of general anxiety about technology. Conversely, building
@@ -315,13 +319,13 @@ const Article17Page = () => {
 
           <h3 className={H3_CLASSES}>Increased Explanatory Power</h3>
           <p className={PARAGRAPH_CLASSES}>
-            TRAM explained approximately 55% of variance in adoption intention–substantially more
-            than typical TAM-only models explaining 30–50% of variance. This increased explanatory
-            power demonstrated that integrating personality-based technology readiness captured
-            meaningful additional variance in adoption. Different segments required different
-            strategic responses: for high-readiness segments, emphasizing system sophistication and
-            innovative features resonated, while for low-readiness segments, emphasizing simplicity
-            and reliability proved necessary.
+            TRAM explained approximately 55% of variance in adoption intention&ndash;substantially
+            more than typical TAM-only models explaining 30&ndash;50% of variance. This increased
+            explanatory power demonstrated that integrating personality-based technology readiness
+            captured meaningful additional variance in adoption. Different segments required
+            different strategic responses: for high-readiness segments, emphasizing system
+            sophistication and innovative features resonated, while for low-readiness segments,
+            emphasizing simplicity and reliability proved necessary.
           </p>
         </section>
 
@@ -337,13 +341,13 @@ const Article17Page = () => {
           <h3 className={H3_CLASSES}>Technology is Affective and Psychological</h3>
           <p className={PARAGRAPH_CLASSES}>
             First, it demonstrates that technology is fundamentally affective and psychological, not
-            just instrumental. How people <em>feel</em> about technology–whether they are excited or
-            anxious, confident or insecure–shapes adoption as powerfully as whether they believe the
-            technology is useful. This explains patterns that purely rational utilitarian models
-            struggle to address. Someone might rationally understand that a technology is useful and
-            easy to use, yet emotionally resist adoption because of anxiety or distrust. Someone
-            might be enthusiastic about technology generally, making them willing to try new systems
-            despite uncertain utility or ease of use.
+            just instrumental. How people <em>feel</em> about technology&ndash;whether they are
+            excited or anxious, confident or insecure&ndash;shapes adoption as powerfully as whether
+            they believe the technology is useful. This explains patterns that purely rational
+            utilitarian models struggle to address. Someone might rationally understand that a
+            technology is useful and easy to use, yet emotionally resist adoption because of anxiety
+            or distrust. Someone might be enthusiastic about technology generally, making them
+            willing to try new systems despite uncertain utility or ease of use.
           </p>
 
           <h3 className={H3_CLASSES}>Personality and Disposition Matter</h3>
@@ -361,15 +365,15 @@ const Article17Page = () => {
           <h3 className={H3_CLASSES}>Profound Heterogeneity in Orientations</h3>
           <p className={PARAGRAPH_CLASSES}>
             Third, technology readiness research reveals profound heterogeneity in how different
-            people approach technology. The five segments identified in TRI 2.0–skeptics, explorers,
-            avoiders, pioneers, and hesitators–are not minor variations in a generally similar
-            population. They represent fundamentally different orientations toward technology.
-            Explorers (18%) eagerly embrace technological innovation and seek out cutting-edge
-            technologies. Avoiders (16%) actively resist technology and prefer human alternatives.
-            Skeptics (38%) are detached and cautious, neither enthusiastically embracing nor
-            actively rejecting technology. Pioneers (16%) hold contradictory views, simultaneously
-            excited and worried. Hesitators (13%) are willing to adopt but reluctant to be early
-            adopters.
+            people approach technology. The five segments identified in TRI 2.0&ndash;skeptics,
+            explorers, avoiders, pioneers, and hesitators&ndash;are not minor variations in a
+            generally similar population. They represent fundamentally different orientations toward
+            technology. Explorers (18%) eagerly embrace technological innovation and seek out
+            cutting-edge technologies. Avoiders (16%) actively resist technology and prefer human
+            alternatives. Skeptics (38%) are detached and cautious, neither enthusiastically
+            embracing nor actively rejecting technology. Pioneers (16%) hold contradictory views,
+            simultaneously excited and worried. Hesitators (13%) are willing to adopt but reluctant
+            to be early adopters.
           </p>
 
           <h3 className={H3_CLASSES}>Segment-Specific Strategies Required</h3>
@@ -457,14 +461,14 @@ const Article17Page = () => {
           <h3 className={H3_CLASSES}>Contemporary Applications</h3>
           <p className={PARAGRAPH_CLASSES}>
             Contemporary applications of technology readiness frameworks continue expanding.
-            Research applies TRI to emerging technologies–artificial intelligence adoption,
-            autonomous vehicle acceptance, smart home technology adoption–demonstrating that
+            Research applies TRI to emerging technologies&ndash;artificial intelligence adoption,
+            autonomous vehicle acceptance, smart home technology adoption&ndash;demonstrating that
             readiness continues predicting adoption across technological contexts. Cross-cultural
             research examines how technology readiness profiles vary across national cultures and
             whether the four-dimensional structure holds universally. Applied research develops
-            interventions to build technology readiness in specific populations–training programs to
-            reduce discomfort, communication strategies to enhance optimism, support systems to
-            address insecurity.
+            interventions to build technology readiness in specific populations&ndash;training
+            programs to reduce discomfort, communication strategies to enhance optimism, support
+            systems to address insecurity.
           </p>
         </section>
 
@@ -474,26 +478,26 @@ const Article17Page = () => {
           </h2>
           <p className={PARAGRAPH_CLASSES}>
             Technology readiness research demonstrates that individual dispositions toward
-            technology–optimism, innovativeness, discomfort, and insecurity–are not peripheral
-            factors but fundamental determinants of technology adoption. Understanding adoption
-            requires understanding both what technologies offer (usefulness and ease of use) and how
-            people are disposed toward technology generally (technology readiness).
+            technology&ndash;optimism, innovativeness, discomfort, and insecurity&ndash;are not
+            peripheral factors but fundamental determinants of technology adoption. Understanding
+            adoption requires understanding both what technologies offer (usefulness and ease of
+            use) and how people are disposed toward technology generally (technology readiness).
           </p>
           <p className={PARAGRAPH_CLASSES}>
             For practitioners implementing technology, this means adoption strategies must be
             multi-dimensional. Improving system characteristics (functionality, usability,
             reliability) addresses the technology side. Understanding and building technology
             readiness addresses the individual side. Neither alone is sufficient. Organizations that
-            attend to both dimensions–creating useful, usable systems while building population
-            readiness–achieve higher adoption and better outcomes than those attending to only one
-            dimension.
+            attend to both dimensions&ndash;creating useful, usable systems while building
+            population readiness&ndash;achieve higher adoption and better outcomes than those
+            attending to only one dimension.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             For researchers, technology readiness provides a bridge between general adoption models
             and individual psychology. It explains variance that usefulness and ease of use cannot
             capture. It provides theoretical grounding for why adoption varies systematically across
             individuals facing identical technologies and contexts. And it offers pathways for
-            intervention–readiness is not fixed, so understanding how to build it provides
+            intervention&ndash;readiness is not fixed, so understanding how to build it provides
             actionable guidance.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -515,20 +519,20 @@ const Article17Page = () => {
             <li>
               Parasuraman, A. (2000). Technology readiness index (TRI): A multiple-item scale to
               measure readiness to embrace new technologies. <em>Journal of Service Research</em>,
-              2(4), 307–320.
+              2(4), 307&ndash;320.
             </li>
             <li>
               Parasuraman, A., &amp; Colby, C. L. (2015). An updated and streamlined technology
-              readiness index: TRI 2.0. <em>Journal of Service Research</em>, 18(1), 59–74.
+              readiness index: TRI 2.0. <em>Journal of Service Research</em>, 18(1), 59&ndash;74.
             </li>
             <li>
               Lin, C.-H., Shih, H.-Y., &amp; Sher, P. J. (2007). Integrating technology readiness
               into technology acceptance: The TRAM model. <em>Psychology &amp; Marketing</em>,
-              24(7), 641–657.
+              24(7), 641&ndash;657.
             </li>
             <li>
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
-              of information technology. <em>MIS Quarterly</em>, 13(3), 319–340.
+              of information technology. <em>MIS Quarterly</em>, 13(3), 319&ndash;340.
             </li>
             <li>
               Rogers, E. M. (1962). <em>Diffusion of innovations</em>. Free Press.
@@ -536,12 +540,12 @@ const Article17Page = () => {
             <li>
               Mick, D. G., &amp; Fournier, S. (1998). Paradoxes of technology: Consumer cognizance,
               emotions, and coping strategies. <em>Journal of Consumer Research</em>, 25(2),
-              123–143.
+              123&ndash;143.
             </li>
             <li>
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
               of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425–478.
+              425&ndash;478.
             </li>
           </ol>
         </section>

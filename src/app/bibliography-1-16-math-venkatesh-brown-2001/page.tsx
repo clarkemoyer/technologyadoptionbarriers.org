@@ -22,7 +22,7 @@ const BibliographyArticlePage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Model of Adoption of Technology in Households (MATH) – Venkatesh & Brown (2001)
+          Model of Adoption of Technology in Households (MATH) &ndash; Venkatesh & Brown (2001)
         </h1>
 
         {/* Model Identification */}
@@ -92,7 +92,7 @@ const BibliographyArticlePage = () => {
             </p>
           </section>
           <section className="mb-6">
-            <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
+            <h3 className={H3_CLASSES}>How was the model&rsquo;s internal validity tested?</h3>
             <p className={PARAGRAPH_CLASSES}>
               Brown and Venkatesh employed a comprehensive research methodology to test the internal
               validity of MATH. The study utilized a field survey design conducted with a sample of
@@ -100,12 +100,13 @@ const BibliographyArticlePage = () => {
               market for them or considering adoption. The researchers developed measurement
               instruments based on established scales from technology acceptance and consumer
               behavior literature. Constructs were operationalized using multi-item scales with
-              seven-point Likert scale response options, anchored from “strongly disagree” to
-              “strongly agree.” The measurement development process involved careful consideration
-              of item wording to ensure applicability to household decision- makers rather than
-              organizational users. The questionnaire focused on the primary decision-maker in the
-              household, specifically instructing respondents to consider the household’s overall
-              perspective while recognizing that some disagreement might exist among family members.
+              seven-point Likert scale response options, anchored from &ldquo;strongly
+              disagree&rdquo; to &ldquo;strongly agree.&rdquo; The measurement development process
+              involved careful consideration of item wording to ensure applicability to household
+              decision- makers rather than organizational users. The questionnaire focused on the
+              primary decision-maker in the household, specifically instructing respondents to
+              consider the household&rsquo;s overall perspective while recognizing that some
+              disagreement might exist among family members.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               This approach acknowledged the reality that household technology decisions often
@@ -120,11 +121,11 @@ const BibliographyArticlePage = () => {
               perceived ease of use, self- efficacy, cost, applications for use, status gains, and
               behavioral intention. The researchers tested whether these constructs demonstrated the
               predicted relationships with adoption intention and whether these relationships were
-              consistent with the theoretical model’s specifications.
+              consistent with the theoretical model&rsquo;s specifications.
             </p>
           </section>
           <section className="mb-6">
-            <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
+            <h3 className={H3_CLASSES}>How was the model&rsquo;s external validity tested?</h3>
             <p className={PARAGRAPH_CLASSES}>
               The external validity of MATH was tested through a longitudinal extension that
               incorporated household life cycle stages. While the baseline model examined household
@@ -134,16 +135,16 @@ const BibliographyArticlePage = () => {
               recognizing that households in different life stages (such as young couples without
               children, families with dependent children, mature households, or empty nester
               households) might demonstrate different adoption patterns and be influenced by
-              different factors. This extension examined whether the baseline model’s relationships
-              held consistently across these different household types or whether adoption drivers
-              varied systematically. The longitudinal design allowed the researchers to examine
-              adoption trajectories over time and how household transitions (such as children
-              leaving home or changes in household composition) influenced technology adoption
-              decisions.
+              different factors. This extension examined whether the baseline model&rsquo;s
+              relationships held consistently across these different household types or whether
+              adoption drivers varied systematically. The longitudinal design allowed the
+              researchers to examine adoption trajectories over time and how household transitions
+              (such as children leaving home or changes in household composition) influenced
+              technology adoption decisions.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               By testing the model across different household life cycle stages, the authors
-              demonstrated the model’s applicability beyond a single household type. The field
+              demonstrated the model&rsquo;s applicability beyond a single household type. The field
               survey approach itself contributed to external validity by collecting data from actual
               households making real technology adoption decisions rather than relying on laboratory
               settings or hypothetical scenarios. The sample composition, while focused on
@@ -177,9 +178,9 @@ const BibliographyArticlePage = () => {
               The model indicates that factors such as perceived ease of use, applications for home
               use, status gains, and social influences vary in importance across household types.
               This suggests that adoption strategies should be differentiated based on household
-              composition and life cycle stage. The model’s extension incorporating household life
-              cycle is particularly valuable for targeting adoption efforts. Young families with
-              children may be motivated by different factors than mature households or empty
+              composition and life cycle stage. The model&rsquo;s extension incorporating household
+              life cycle is particularly valuable for targeting adoption efforts. Young families
+              with children may be motivated by different factors than mature households or empty
               nesters.
             </p>
             <p className={PARAGRAPH_CLASSES}>
@@ -208,18 +209,18 @@ const BibliographyArticlePage = () => {
               technology as understandable and learnable.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              Self- efficacy captures households’ confidence in their ability to use technology
-              competently, recognizing that many household members may lack technical experience.
-              Cost considerations are measured through multiple items examining perceived cost,
-              including whether computers are affordable, available at reasonable prices, and
-              represent big-ticket purchases. The model also includes a declining cost construct,
-              measuring perceptions about whether computer costs are decreasing over time. Social
-              influences are captured through constructs measuring friends and family influences,
-              workplace referents’ influences, secondary sources’ influences (such as television and
-              radio), and workplace referents’ influences. These measure both interpersonal
-              influences from social networks and media influences. Fear and concern are measured
-              through constructs capturing fear of technological advances and perceived risk,
-              reflecting anxieties about rapid technological change.
+              Self- efficacy captures households&rsquo; confidence in their ability to use
+              technology competently, recognizing that many household members may lack technical
+              experience. Cost considerations are measured through multiple items examining
+              perceived cost, including whether computers are affordable, available at reasonable
+              prices, and represent big-ticket purchases. The model also includes a declining cost
+              construct, measuring perceptions about whether computer costs are decreasing over
+              time. Social influences are captured through constructs measuring friends and family
+              influences, workplace referents&rsquo; influences, secondary sources&rsquo; influences
+              (such as television and radio), and workplace referents&rsquo; influences. These
+              measure both interpersonal influences from social networks and media influences. Fear
+              and concern are measured through constructs capturing fear of technological advances
+              and perceived risk, reflecting anxieties about rapid technological change.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Behavioral intention is measured through items assessing whether household members
@@ -252,46 +253,47 @@ const BibliographyArticlePage = () => {
               strategies. Fourth, the model successfully integrates insights from multiple
               theoretical traditions. By drawing on technology acceptance literature, consumer
               behavior research, and household decision-making studies, MATH synthesizes diverse
-              knowledge streams into a coherent framework. This integration enriches the model’s
-              explanatory power and practical applicability. Fifth, the empirical validation through
-              field survey research with actual household decision-makers enhances the model’s
-              credibility. Testing the model with households actually considering computer purchases
-              provides more reliable insights than laboratory settings or organizational analogues.
+              knowledge streams into a coherent framework. This integration enriches the
+              model&rsquo;s explanatory power and practical applicability. Fifth, the empirical
+              validation through field survey research with actual household decision-makers
+              enhances the model&rsquo;s credibility. Testing the model with households actually
+              considering computer purchases provides more reliable insights than laboratory
+              settings or organizational analogues.
             </p>
           </section>
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
             <p className={PARAGRAPH_CLASSES}>
-              Despite its contributions, MATH also exhibits notable limitations: First, the model’s
-              focus on computer adoption in the early 2000s limits its generalizability to
-              contemporary technology adoption contexts. While the core principles may transfer to
-              other household technologies, the specific operationalization of constructs reflects
-              concerns most salient to computer adoption during that historical period. As
-              technology and household contexts have evolved substantially since 2005, some of the
-              model’s specific elements may be less relevant to contemporary smart home technology,
-              mobile device adoption, or emerging technologies. Second, the model may underspecify
-              the complexity of household decision- making dynamics. While the survey methodology
-              seeks to capture the primary decision-maker’s perspective, actual household decisions
-              often involve negotiation among multiple family members with different preferences and
-              priorities.
+              Despite its contributions, MATH also exhibits notable limitations: First, the
+              model&rsquo;s focus on computer adoption in the early 2000s limits its
+              generalizability to contemporary technology adoption contexts. While the core
+              principles may transfer to other household technologies, the specific
+              operationalization of constructs reflects concerns most salient to computer adoption
+              during that historical period. As technology and household contexts have evolved
+              substantially since 2005, some of the model&rsquo;s specific elements may be less
+              relevant to contemporary smart home technology, mobile device adoption, or emerging
+              technologies. Second, the model may underspecify the complexity of household decision-
+              making dynamics. While the survey methodology seeks to capture the primary
+              decision-maker&rsquo;s perspective, actual household decisions often involve
+              negotiation among multiple family members with different preferences and priorities.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              The model’s aggregation of household perspectives may obscure important heterogeneity
-              in preferences and decision processes within households. Third, the measurement
-              approach relying on single survey administration captures intentions rather than
-              actual adoption behavior. While behavioral intention is a established predictor of
-              behavior, the model’s reliance on stated intentions rather than behavioral outcomes
-              introduces potential measurement limitations. Stated intentions may not perfectly
-              predict actual adoption decisions, particularly when circumstances change or when
-              household dynamics involve complex negotiations. Fourth, the model may not adequately
-              capture the role of interpersonal influence dynamics within households. While the
-              model includes measures of social influences from friends and family, it may not fully
-              capture the dynamics of spousal or family member disagreement, the influence of
-              children on household technology decisions, or the negotiation processes through which
-              household consensus is achieved.
+              The model&rsquo;s aggregation of household perspectives may obscure important
+              heterogeneity in preferences and decision processes within households. Third, the
+              measurement approach relying on single survey administration captures intentions
+              rather than actual adoption behavior. While behavioral intention is a established
+              predictor of behavior, the model&rsquo;s reliance on stated intentions rather than
+              behavioral outcomes introduces potential measurement limitations. Stated intentions
+              may not perfectly predict actual adoption decisions, particularly when circumstances
+              change or when household dynamics involve complex negotiations. Fourth, the model may
+              not adequately capture the role of interpersonal influence dynamics within households.
+              While the model includes measures of social influences from friends and family, it may
+              not fully capture the dynamics of spousal or family member disagreement, the influence
+              of children on household technology decisions, or the negotiation processes through
+              which household consensus is achieved.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              Fifth, the model’s focus on non-adopters or potential adopters may limit its
+              Fifth, the model&rsquo;s focus on non-adopters or potential adopters may limit its
               applicability to understanding adoption patterns among those already using household
               technology or considering replacement/upgrade decisions. The decision processes and
               influencing factors for initial adoption may differ substantially from those for
@@ -317,28 +319,28 @@ const BibliographyArticlePage = () => {
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Older models treat adoption as an individual-level phenomenon without considering how
-              household circumstances shape technology needs and priorities. MATH’s extension
+              household circumstances shape technology needs and priorities. MATH&rsquo;s extension
               examining adoption across different household life cycle stages acknowledges that
               household context is central to understanding adoption decisions. Fourth, MATH
               explicitly measures cost considerations in household technology adoption. While
               organizational technology adoption models typically assume cost is not a primary
               barrier (as organizational purchasing decisions are made collectively), household
-              adoption directly involves consumer cost sensitivity. MATH’s inclusion of cost-related
-              constructs reflects the reality that price is a significant consideration in household
-              purchasing decisions. Fifth, MATH integrates multiple social influence pathways
-              explicitly. While older models recognized social influence, MATH distinguishes among
-              friends and family influences, workplace referents, media influences, and secondary
-              sources.
+              adoption directly involves consumer cost sensitivity. MATH&rsquo;s inclusion of
+              cost-related constructs reflects the reality that price is a significant consideration
+              in household purchasing decisions. Fifth, MATH integrates multiple social influence
+              pathways explicitly. While older models recognized social influence, MATH
+              distinguishes among friends and family influences, workplace referents, media
+              influences, and secondary sources.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               This differentiation acknowledges the diverse sources from which households receive
               adoption information and influence. Sixth, MATH measures self-efficacy and fear of
               technology explicitly. Rather than assuming all potential adopters have similar
               confidence and comfort with technology, the model recognizes that self-efficacy
-              (confidence in one’s ability to use technology) and fear of technological advancement
-              influence adoption decisions. This reflects understanding that household members,
-              particularly older adults, may lack technical skills and experience anxiety about
-              technology. 6. Barriers Identification Section:
+              (confidence in one&rsquo;s ability to use technology) and fear of technological
+              advancement influence adoption decisions. This reflects understanding that household
+              members, particularly older adults, may lack technical skills and experience anxiety
+              about technology. 6. Barriers Identification Section:
             </p>
           </section>
           <section className="mb-6">
@@ -364,7 +366,7 @@ const BibliographyArticlePage = () => {
               household technology use. If consumers cannot identify how a computer would support
               household activities, personal productivity, or household management, they lack
               motivation to adopt. The model specifically measures applications for personal use,
-              household support activities, children’s uses, work-related applications, and
+              household support activities, children&rsquo;s uses, work-related applications, and
               entertainment applications. Households that do not perceive computers as useful for
               these domains face a fundamental barrier to adoption. Perceived complexity and ease of
               use barriers prevent adoption among those intimidated by technology. Many household
@@ -431,10 +433,10 @@ const BibliographyArticlePage = () => {
               understanding what activities and household needs are most salient to different
               household types and demonstrating how technology supports these needs. Marketing
               communications should emphasize concrete household applications such as household
-              management, children’s education, entertainment, communication, and work-related uses.
-              Organizations and marketers should tailor messages about usefulness to specific
-              household segments, emphasizing applications most relevant to each segment’s life
-              stage and circumstances. For families with children, emphasizing educational
+              management, children&rsquo;s education, entertainment, communication, and work-related
+              uses. Organizations and marketers should tailor messages about usefulness to specific
+              household segments, emphasizing applications most relevant to each segment&rsquo;s
+              life stage and circumstances. For families with children, emphasizing educational
               applications and entertainment may be most effective. For older adults, emphasizing
               communication with family members and health management applications may be more
               salient. The model suggests that generic arguments about computer usefulness are less
@@ -448,12 +450,13 @@ const BibliographyArticlePage = () => {
               adoption drivers. Technology designers should prioritize usability, creating intuitive
               interfaces requiring minimal technical knowledge. Support systems should be readily
               available and user- friendly. Organizations and retailers should offer training
-              programs that build household members’ confidence in their ability to use computers
-              effectively. Such training should address the specific concerns of different user
-              populations, such as older adults, and should emphasize that computers are learnable
-              tools rather than mysterious devices requiring special expertise. The model suggests
-              that creating welcoming, non- threatening learning environments where households can
-              develop technical skills gradually is crucial for reducing self-efficacy barriers.
+              programs that build household members&rsquo; confidence in their ability to use
+              computers effectively. Such training should address the specific concerns of different
+              user populations, such as older adults, and should emphasize that computers are
+              learnable tools rather than mysterious devices requiring special expertise. The model
+              suggests that creating welcoming, non- threatening learning environments where
+              households can develop technical skills gradually is crucial for reducing
+              self-efficacy barriers.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               To address fear and anxiety barriers, leaders should take a reassuring, educational
@@ -522,28 +525,29 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>Understanding Information Systems Continuance:</strong> An Expectation-
                 Confirmation Model (Bhattacherjee, 2001) 3. Status Quo Bias in Decision Making
-                (Samuelson and Zeckhauser, 1988) References 1.Ajzen, I. “The Theory of Planned
-                Behavior.” Organizational Behavior and Human Decision Processes 50, no. 2 (1991):
-                179-211. 2.Brown, S. A., and Venkatesh, V. “A Model of Adoption of Technology in
-                Households: A Baseline Model Test and Extension Incorporating Household Life Cycle.”
-                MIS Quarterly 29, no. 3 (2005): 399-426. 3.Davis, F. D. “Perceived Usefulness,
-                Perceived Ease of Use, and User Acceptance of Information Technology.” MIS Quarterly
-                13, no. 3 (1989): 319-340. 4.Fishbein, M., and Ajzen, I. Belief, Attitude, Intention
-                and Behavior: An Introduction to Theory and Research. Reading, MA: Addison-Wesley,
-                1975. 5.Rogers, E. M. Diffusion of Innovations. 4th ed. New York: Free Press, 1995.
-                6.Venkatesh, V. “Determinants of Perceived Ease of Use: Integrating Control,
-                Intrinsic Motivation, and Emotion into the Technology Acceptance Model.” Information
-                Systems Research 11, no. 4 (2000): 342-365. 7.Venkatesh, V., and Brown, S. A. “A
-                Longitudinal Investigation of Personal Computers in Homes: Adoption Determinants and
-                Emerging Challenges.” MIS Quarterly 25, no. 1 (2001): 71-102. 8.Venkatesh, V., and
-                Davis, F. D. “A Model of the Antecedents of Perceived Ease of Use: Development and
-                Test.” Decision Sciences 27, no. 3 (1996): 451-481. 9.Norman, D. A. The Design of
-                Everyday Things
+                (Samuelson and Zeckhauser, 1988) References 1.Ajzen, I. &ldquo;The Theory of Planned
+                Behavior.&rdquo; Organizational Behavior and Human Decision Processes 50, no. 2
+                (1991): 179-211. 2.Brown, S. A., and Venkatesh, V. &ldquo;A Model of Adoption of
+                Technology in Households: A Baseline Model Test and Extension Incorporating
+                Household Life Cycle.&rdquo; MIS Quarterly 29, no. 3 (2005): 399-426. 3.Davis, F. D.
+                &ldquo;Perceived Usefulness, Perceived Ease of Use, and User Acceptance of
+                Information Technology.&rdquo; MIS Quarterly 13, no. 3 (1989): 319-340. 4.Fishbein,
+                M., and Ajzen, I. Belief, Attitude, Intention and Behavior: An Introduction to
+                Theory and Research. Reading, MA: Addison-Wesley, 1975. 5.Rogers, E. M. Diffusion of
+                Innovations. 4th ed. New York: Free Press, 1995. 6.Venkatesh, V. &ldquo;Determinants
+                of Perceived Ease of Use: Integrating Control, Intrinsic Motivation, and Emotion
+                into the Technology Acceptance Model.&rdquo; Information Systems Research 11, no. 4
+                (2000): 342-365. 7.Venkatesh, V., and Brown, S. A. &ldquo;A Longitudinal
+                Investigation of Personal Computers in Homes: Adoption Determinants and Emerging
+                Challenges.&rdquo; MIS Quarterly 25, no. 1 (2001): 71-102. 8.Venkatesh, V., and
+                Davis, F. D. &ldquo;A Model of the Antecedents of Perceived Ease of Use: Development
+                and Test.&rdquo; Decision Sciences 27, no. 3 (1996): 451-481. 9.Norman, D. A. The
+                Design of Everyday Things
               </li>
               <li>
                 <strong>New York:</strong> Doubleday, 1998. 10.Thompson, R. L., Higgins, C. A., and
-                Howell, J. M. “Personal Computing: Toward a Conceptual Model of Utilization.” MIS
-                Quarterly 15, no. 1 (1991): 124-143
+                Howell, J. M. &ldquo;Personal Computing: Toward a Conceptual Model of
+                Utilization.&rdquo; MIS Quarterly 15, no. 1 (1991): 124-143
               </li>
               <li>
                 <strong>Value-Based Adoption of Mobile Internet:</strong> An Empirical Investigation

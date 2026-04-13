@@ -335,7 +335,7 @@ const QualtricsIntegrationPage = () => {
               >
                 Prolific Integration
               </Link>{' '}
-              - participant recruitment and the Qualtrics–Prolific bridge
+              - participant recruitment and the Qualtrics&ndash;Prolific bridge
             </li>
             <li>
               <Link

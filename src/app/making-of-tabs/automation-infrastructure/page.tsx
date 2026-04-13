@@ -360,8 +360,8 @@ const AutomationInfrastructurePage = () => {
             <li>Agent pushes a branch and opens a PR, which triggers CI.</li>
             <li>CI (format, lint, tests, build, E2E) runs automatically and posts status.</li>
             <li>
-              Human marks the PR as “Ready for review” - Copilot PR Review reads the diff and posts
-              comments.
+              Human marks the PR as &ldquo;Ready for review&rdquo; - Copilot PR Review reads the
+              diff and posts comments.
             </li>
             <li>Copilot coding agent (or Claude) reads the review comments and pushes fixes.</li>
             <li>CI re-runs; if green, human reviews the final diff and approves.</li>

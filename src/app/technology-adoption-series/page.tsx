@@ -107,8 +107,8 @@ export default async function TechnologyAdoptionSeriesPage() {
 
         <p className="mb-6">
           This series turns the presentation deck into a set of standalone articles. Each page is
-          one “slide” worth of content, expanded into a readable reference you can share, link to,
-          and revisit.
+          one &ldquo;slide&rdquo; worth of content, expanded into a readable reference you can
+          share, link to, and revisit.
         </p>
 
         <section className="mb-10">
@@ -215,7 +215,7 @@ export default async function TechnologyAdoptionSeriesPage() {
             {optionalSlides.length ? (
               <details className="rounded border border-gray-200 bg-gray-50 p-4">
                 <summary className="cursor-pointer text-sm font-semibold text-gray-900">
-                  Optional deep dives (Slides 17–24)
+                  Optional deep dives (Slides 17&ndash;24)
                 </summary>
                 <div className="mt-6 space-y-10">
                   {optionalSlides.map((slide) => {

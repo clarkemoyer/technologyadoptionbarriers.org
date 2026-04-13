@@ -20,7 +20,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Decomposed TPB – Taylor & Todd (1995)</h1>
+        <h1 className={H1_CLASSES}>Decomposed TPB &ndash; Taylor & Todd (1995)</h1>
 
         {/* Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -57,15 +57,15 @@ const BibliographyArticlePage = () => {
               Taylor and Todd developed their competing models framework to address fundamental
               ambiguities and theoretical gaps in information technology adoption research. By the
               mid-1990s, multiple theoretical frameworks had been proposed to explain IT
-              adoption—Davis’s Technology Acceptance Model (TAM), the Theory of Planned Behavior
-              (TPB), Thompson et al.’s expected consequences model, and others. However, no
-              comprehensive empirical comparison existed to determine which framework provided
-              superior explanatory power or how different theoretical approaches related to one
-              another. The authors note in their introduction that “different theoretical models
-              have been applied to predict IT usage” but “little research has compared alternative
-              models.” This research gap meant that IS researchers and practitioners lacked clear
-              guidance about which theories offered the most robust understanding of technology
-              adoption.
+              adoption&mdash;Davis&rsquo;s Technology Acceptance Model (TAM), the Theory of Planned
+              Behavior (TPB), Thompson et al.&rsquo;s expected consequences model, and others.
+              However, no comprehensive empirical comparison existed to determine which framework
+              provided superior explanatory power or how different theoretical approaches related to
+              one another. The authors note in their introduction that &ldquo;different theoretical
+              models have been applied to predict IT usage&rdquo; but &ldquo;little research has
+              compared alternative models.&rdquo; This research gap meant that IS researchers and
+              practitioners lacked clear guidance about which theories offered the most robust
+              understanding of technology adoption.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Organizations also lacked a coherent framework for understanding which factors truly
@@ -76,28 +76,28 @@ const BibliographyArticlePage = () => {
               greater explanatory power? (3) What underlying mechanisms explain why individuals
               adopt or resist information technologies? The motivation was also grounded in
               theoretical development. The Technology Acceptance Model (TAM) had become increasingly
-              influential but also increasingly critiqued. Critics argued that TAM’s two primary
-              constructs—Perceived Usefulness (PU) and Perceived Ease of Use (PEOU)— might be too
-              simplified and that the theory neglected important factors like social influences,
-              control beliefs, and consequences.
+              influential but also increasingly critiqued. Critics argued that TAM&rsquo;s two
+              primary constructs&mdash;Perceived Usefulness (PU) and Perceived Ease of Use
+              (PEOU)&mdash; might be too simplified and that the theory neglected important factors
+              like social influences, control beliefs, and consequences.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Other frameworks like the Theory of Planned Behavior incorporated additional
               constructs, but their applicability to IT adoption was less established. Taylor and
-              Todd sought to test whether richer, more complex models would outperform Davis’s
-              simpler TAM. They hypothesized that “the TPB and an extended TAM model would predict
-              usage better than a simple TAM model” because additional constructs capture neglected
-              influences. They posited that understanding IT adoption required examining not only
-              individual perceptions of technology (PU and PEOU) but also social influences, control
-              factors, consequences, and motivational variables. The research was conducted using
-              two distinct technologies in two organizational contexts: email use among MBA students
-              and new information system adoption among academic faculty. This multi-technology,
-              multi-context approach allowed the authors to examine whether findings generalized
-              across different IT adoption scenarios.
+              Todd sought to test whether richer, more complex models would outperform Davis&rsquo;s
+              simpler TAM. They hypothesized that &ldquo;the TPB and an extended TAM model would
+              predict usage better than a simple TAM model&rdquo; because additional constructs
+              capture neglected influences. They posited that understanding IT adoption required
+              examining not only individual perceptions of technology (PU and PEOU) but also social
+              influences, control factors, consequences, and motivational variables. The research
+              was conducted using two distinct technologies in two organizational contexts: email
+              use among MBA students and new information system adoption among academic faculty.
+              This multi-technology, multi-context approach allowed the authors to examine whether
+              findings generalized across different IT adoption scenarios.
             </p>
           </section>
           <section className="mb-6">
-            <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
+            <h3 className={H3_CLASSES}>How was the model&rsquo;s internal validity tested?</h3>
             <p className={PARAGRAPH_CLASSES}>
               Taylor and Todd employed rigorous quantitative methodology with two separate studies
               to establish internal validity: Study 1: Email Adoption Among MBA Students The
@@ -108,25 +108,25 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>They measured seven core constructs through multi-item scales:</strong>{' '}
                 Perceived Usefulness (PU): Five items measuring whether email would improve
-                job/academic performance, with Cronbach’s alpha = .94 Perceived Ease of Use (PEOU):
-                Four items assessing perceived learning difficulty and ease of interaction, alpha =
-                .88 Attitude Toward Use: Three items measuring overall evaluations of email, alpha =
-                .93 Subjective Norm: Four items measuring perceived social pressure to use email,
-                alpha = .75 Perceived Behavioral Control (PBC): Four items assessing ability and
-                resources for email use, alpha = .87 Behavioral Intention: Three items measuring
+                job/academic performance, with Cronbach&rsquo;s alpha = .94 Perceived Ease of Use
+                (PEOU): Four items assessing perceived learning difficulty and ease of interaction,
+                alpha = .88 Attitude Toward Use: Three items measuring overall evaluations of email,
+                alpha = .93 Subjective Norm: Four items measuring perceived social pressure to use
+                email, alpha = .75 Perceived Behavioral Control (PBC): Four items assessing ability
+                and resources for email use, alpha = .87 Behavioral Intention: Three items measuring
                 intent to use, alpha = .93 Actual Usage: Measured directly through email system
                 logs, providing objective behavioral data The researchers established internal
                 validity through multiple techniques: Convergent and Discriminant Validity: The
                 authors examined factor loadings and construct correlations. All measurement items
                 loaded significantly on their hypothesized constructs (t-values &gt; 2.0), and
-                constructs showed appropriate correlations with one another—related enough to
+                constructs showed appropriate correlations with one another&mdash;related enough to
                 indicate common underlying domain but distinct enough to represent separate
                 dimensions
               </li>
               <li>
-                <strong>Scale Reliability:</strong> Cronbach’s alpha coefficients ranged from .75 to
-                .94, demonstrating acceptable reliability. The relatively high alphas indicated that
-                measurement items consistently measured each construct
+                <strong>Scale Reliability:</strong> Cronbach&rsquo;s alpha coefficients ranged from
+                .75 to .94, demonstrating acceptable reliability. The relatively high alphas
+                indicated that measurement items consistently measured each construct
               </li>
               <li>
                 <strong>Measurement Model Assessment:</strong> The authors compared structural
@@ -164,12 +164,12 @@ const BibliographyArticlePage = () => {
             </ul>
           </section>
           <section className="mb-6">
-            <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
+            <h3 className={H3_CLASSES}>How was the model&rsquo;s external validity tested?</h3>
             <p className={PARAGRAPH_CLASSES}>
               Taylor and Todd employed a two-study design specifically to strengthen external
-              validity claims: Multi-Technology Approach: Study 1 examined email adoption—a
+              validity claims: Multi-Technology Approach: Study 1 examined email adoption&mdash;a
               relatively optional technology where use provided immediate benefits but was not
-              mandatory. Study 2 examined a new information system—a more mandatory technology
+              mandatory. Study 2 examined a new information system&mdash;a more mandatory technology
               implemented as part of organizational operations. This contrast allowed testing
               whether models generalized across voluntary versus mandated adoption contexts. The
               different technological characteristics created two distinct adoption scenarios: email
@@ -199,11 +199,11 @@ const BibliographyArticlePage = () => {
                 reported intentions, both studies measured actual usage: Study 1: Email usage
                 measured through system logs showing frequency and duration of email interaction
                 Study 2: Usage measured through three-item self-report scale of frequency and
-                intensity (though this was less objective than Study 1) The authors note that “usage
-                was measured more directly in Study 1 through system logs… [while Study 2 used]
-                perceptual measures of usage frequency and intensity.” This difference represents a
-                limitation for Study 2’s external validity but allows comparison of findings across
-                objective and subjective measurement approaches
+                intensity (though this was less objective than Study 1) The authors note that
+                &ldquo;usage was measured more directly in Study 1 through system logs… [while Study
+                2 used] perceptual measures of usage frequency and intensity.&rdquo; This difference
+                represents a limitation for Study 2&rsquo;s external validity but allows comparison
+                of findings across objective and subjective measurement approaches
               </li>
               <li>
                 <strong>Replication of Patterns:</strong> The authors explicitly designed Study 2 to
@@ -235,12 +235,13 @@ const BibliographyArticlePage = () => {
               Taylor and Todd provided managerial guidance for using their findings to understand
               and facilitate IT adoption: Model Selection and Assessment: Organizations can use the
               competing models framework to select which theoretical perspective best matches their
-              adoption context. The authors note that “the extended TAM model performed comparably
-              to the TPB model in predicting usage” and suggest that organizations should assess
-              which factors dominate in their specific context. For mandatory technologies or
-              contexts with strong organizational control, extended TAM elements prove sufficient.
-              For voluntary or discretionary technologies, additional consideration of subjective
-              norms and perceived behavioral control offers greater insight.
+              adoption context. The authors note that &ldquo;the extended TAM model performed
+              comparably to the TPB model in predicting usage&rdquo; and suggest that organizations
+              should assess which factors dominate in their specific context. For mandatory
+              technologies or contexts with strong organizational control, extended TAM elements
+              prove sufficient. For voluntary or discretionary technologies, additional
+              consideration of subjective norms and perceived behavioral control offers greater
+              insight.
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>
@@ -251,8 +252,9 @@ const BibliographyArticlePage = () => {
                 redesign become priorities. If social factors (subjective norms) are inhibitory,
                 organizational communication and champion strategies become essential. The framework
                 guides practitioners to diagnose which specific factors constrain adoption in their
-                organization. “Understanding which factors most strongly predict usage in particular
-                contexts allows targeted intervention” on the most consequential barriers
+                organization. &ldquo;Understanding which factors most strongly predict usage in
+                particular contexts allows targeted intervention&rdquo; on the most consequential
+                barriers
               </li>
               <li>
                 <strong>Expectation Setting About Adoption Patterns:</strong> The models provide
@@ -270,19 +272,19 @@ const BibliographyArticlePage = () => {
                 <strong>Intervention Sequencing:</strong> The models suggest an intervention
                 sequence. First, reduce Perceived Ease of Use barriers through training, simplified
                 interfaces, and accessible support. As users gain capability, Perceived Usefulness
-                becomes increasingly salient—systems that are easier to use are perceived as more
-                useful. Then, as individuals develop intentions to use systems, social norms and
-                organizational support become important for sustaining usage
+                becomes increasingly salient&mdash;systems that are easier to use are perceived as
+                more useful. Then, as individuals develop intentions to use systems, social norms
+                and organizational support become important for sustaining usage
               </li>
               <li>
                 <strong>Normative Strategy Differentiation:</strong> For voluntary technology
-                adoption, Taylor and Todd suggest that “subjective norms significantly predict
-                behavioral intention” indicating that “opinion leaders, peer champions, and visible
-                organizational support matter.” Managers should systematically cultivate these
-                social influences. For mandatory technologies, the findings suggest that usefulness
-                and ease of use dominate, though social factors still contribute. Organizations
-                implementing mandatory systems can rely less on social persuasion and more on
-                ensuring the systems genuinely improve work processes and are easy to use
+                adoption, Taylor and Todd suggest that &ldquo;subjective norms significantly predict
+                behavioral intention&rdquo; indicating that &ldquo;opinion leaders, peer champions,
+                and visible organizational support matter.&rdquo; Managers should systematically
+                cultivate these social influences. For mandatory technologies, the findings suggest
+                that usefulness and ease of use dominate, though social factors still contribute.
+                Organizations implementing mandatory systems can rely less on social persuasion and
+                more on ensuring the systems genuinely improve work processes and are easy to use
               </li>
               <li>
                 <strong>Comparative Model Assessment:</strong> Organizations can apply each
@@ -305,7 +307,7 @@ const BibliographyArticlePage = () => {
                 <strong>Implementation Planning:</strong> For new IT implementations, organizations
                 can use the competing models framework to design multi-faceted adoption strategies:
                 System Design Phase: Prioritize both usefulness (functionality) and ease of use
-                (interface design) based on the models’ emphasis on these factors Training and
+                (interface design) based on the models&rsquo; emphasis on these factors Training and
                 Support Design: Design training to build both Perceived Ease of Use and
                 understanding of Perceived Usefulness Organizational Communication: Build subjective
                 norms supporting adoption through visible champion endorsement and management
@@ -321,54 +323,55 @@ const BibliographyArticlePage = () => {
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What does the model measure?</h3>
             <p className={PARAGRAPH_CLASSES}>
-              Taylor and Todd’s framework operationalizes multiple constructs across different
+              Taylor and Todd&rsquo;s framework operationalizes multiple constructs across different
               theoretical perspectives: Core TAM Constructs: 1.Perceived Usefulness (PU):
               Operationalized through five items measuring whether the technology improves job
               performance, increases productivity, and enhances effectiveness.
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>
-                <strong>Example items:</strong> “Using [system] would improve my performance” and “I
-                would find [system] useful in my job.” Measurement uses 5-point scales. Cronbach’s
-                alpha = .94 (Study 1) and .89 (Study 2). 2.Perceived Ease of Use (PEOU): Measured
-                through four items assessing difficulty of learning, interaction ease, and skill
-                requirements
+                <strong>Example items:</strong> &ldquo;Using [system] would improve my
+                performance&rdquo; and &ldquo;I would find [system] useful in my job.&rdquo;
+                Measurement uses 5-point scales. Cronbach&rsquo;s alpha = .94 (Study 1) and .89
+                (Study 2). 2.Perceived Ease of Use (PEOU): Measured through four items assessing
+                difficulty of learning, interaction ease, and skill requirements
               </li>
               <li>
-                <strong>Example items:</strong> “Learning to operate [system] is easy for me” and “I
-                would find [system] easy to use.” Cronbach’s alpha = .88 (Study 1) and .81 (Study
-                2). 3.Attitude Toward Use (ATT): Three items measuring overall evaluative response
-                to the technology
+                <strong>Example items:</strong> &ldquo;Learning to operate [system] is easy for
+                me&rdquo; and &ldquo;I would find [system] easy to use.&rdquo; Cronbach&rsquo;s
+                alpha = .88 (Study 1) and .81 (Study 2). 3.Attitude Toward Use (ATT): Three items
+                measuring overall evaluative response to the technology
               </li>
               <li>
-                <strong>Example items:</strong> “I like working with [system]” and “Using [system]
-                is pleasant.” Cronbach’s alpha = .93 (Study 1)
+                <strong>Example items:</strong> &ldquo;I like working with [system]&rdquo; and
+                &ldquo;Using [system] is pleasant.&rdquo; Cronbach&rsquo;s alpha = .93 (Study 1)
               </li>
               <li>
                 <strong>TPB-Specific Constructs:</strong> 4.Subjective Norm (SN): Four items
                 measuring perceived social pressure and opinions of relevant others
               </li>
               <li>
-                <strong>Example items:</strong> “People who are important to me would think I should
-                use [system]” and “My supervisor thinks I should use [system].” Cronbach’s alpha =
-                .75 (Study 1) and .78 (Study 2). 5.Perceived Behavioral Control (PBC): Four items
-                measuring perceived ability to use the system and availability of resources
+                <strong>Example items:</strong> &ldquo;People who are important to me would think I
+                should use [system]&rdquo; and &ldquo;My supervisor thinks I should use
+                [system].&rdquo; Cronbach&rsquo;s alpha = .75 (Study 1) and .78 (Study 2).
+                5.Perceived Behavioral Control (PBC): Four items measuring perceived ability to use
+                the system and availability of resources
               </li>
               <li>
-                <strong>Example items:</strong> “I would have the resources necessary to use
-                [system]” and “I would have the knowledge necessary to use [system].” Cronbach’s
-                alpha = .87 (Study 1) and .74 (Study 2)
+                <strong>Example items:</strong> &ldquo;I would have the resources necessary to use
+                [system]&rdquo; and &ldquo;I would have the knowledge necessary to use
+                [system].&rdquo; Cronbach&rsquo;s alpha = .87 (Study 1) and .74 (Study 2)
               </li>
               <li>
                 <strong>Dependent Variables:</strong> 6.Behavioral Intention (BI): Three items
                 measuring likelihood and willingness to use the technology
               </li>
               <li>
-                <strong>Example items:</strong> “I intend to use [system]” and “I will use
-                [system].” Cronbach’s alpha = .93 (Study 1) and .95 (Study 2). 7.Actual Usage: In
-                Study 1, objective system logs measuring frequency and duration of email system
-                access. In Study 2, three self-report items measuring usage frequency and intensity,
-                with alpha = .78
+                <strong>Example items:</strong> &ldquo;I intend to use [system]&rdquo; and &ldquo;I
+                will use [system].&rdquo; Cronbach&rsquo;s alpha = .93 (Study 1) and .95 (Study 2).
+                7.Actual Usage: In Study 1, objective system logs measuring frequency and duration
+                of email system access. In Study 2, three self-report items measuring usage
+                frequency and intensity, with alpha = .78
               </li>
               <li>
                 <strong>Integration Mechanisms:</strong> The framework measures how these constructs
@@ -385,19 +388,19 @@ const BibliographyArticlePage = () => {
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
             <p className={PARAGRAPH_CLASSES}>
-              Taylor and Todd’s competing models framework possesses several important strengths:
-              1.Rigorous Comparative Analysis: The research systematically compares multiple
-              theoretical frameworks using consistent methodology across both models and studies.
-              This comparative approach is more sophisticated than testing single models in
+              Taylor and Todd&rsquo;s competing models framework possesses several important
+              strengths: 1.Rigorous Comparative Analysis: The research systematically compares
+              multiple theoretical frameworks using consistent methodology across both models and
+              studies. This comparative approach is more sophisticated than testing single models in
               isolation, providing evidence-based guidance about which theories provide superior
               explanations. 2.Multi-Study Validation: The two-study design with different
               technologies (email versus integrated information system) and populations (students
               versus faculty) provides stronger evidence than single-study research. When similar
               findings emerge across contexts, confidence in generalization increases substantially.
-              3.Objective and Subjective Behavior Measurement: Study 1’s measurement of actual email
-              usage through system logs represents a methodological strength. Rather than relying
-              solely on self-reported intentions or usage, the authors measured actual behavior
-              directly, addressing a persistent limitation in IT adoption research. 4.Clear
+              3.Objective and Subjective Behavior Measurement: Study 1&rsquo;s measurement of actual
+              email usage through system logs represents a methodological strength. Rather than
+              relying solely on self-reported intentions or usage, the authors measured actual
+              behavior directly, addressing a persistent limitation in IT adoption research. 4.Clear
               Practical Guidance: The paper translates theoretical findings into managerial
               implications.
             </p>
@@ -433,54 +436,55 @@ const BibliographyArticlePage = () => {
           <section className="mb-6">
             <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
             <p className={PARAGRAPH_CLASSES}>
-              Despite its strengths, Taylor and Todd’s framework has notable limitations: 1.Study 1
-              Sample Size and Population: The email study used only 108 MBA students, a relatively
-              small sample from a highly educated, motivated population. MBA students likely have
-              greater computer skills and education than typical IT users, potentially limiting
-              generalizability to broader populations. This narrow population reduces external
-              validity. 2.Study 2 Subjective Usage Measurement: While Study 1 used objective system
-              logs, Study 2 relied on self-reported usage frequency and intensity. Self-report
-              measures are subject to social desirability bias, memory errors, and honest
-              disagreement about usage patterns. The authors acknowledge this difference but do not
-              fully address the validity implications. 3.Cross-Sectional Design: Both studies
+              Despite its strengths, Taylor and Todd&rsquo;s framework has notable limitations:
+              1.Study 1 Sample Size and Population: The email study used only 108 MBA students, a
+              relatively small sample from a highly educated, motivated population. MBA students
+              likely have greater computer skills and education than typical IT users, potentially
+              limiting generalizability to broader populations. This narrow population reduces
+              external validity. 2.Study 2 Subjective Usage Measurement: While Study 1 used
+              objective system logs, Study 2 relied on self-reported usage frequency and intensity.
+              Self-report measures are subject to social desirability bias, memory errors, and
+              honest disagreement about usage patterns. The authors acknowledge this difference but
+              do not fully address the validity implications. 3.Cross-Sectional Design: Both studies
               captured single time points rather than tracking adoption longitudinally.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               The models show associations between constructs but cannot definitively establish
-              causality. Reverse causality is possible—for example, frequent users might develop
-              higher Perceived Usefulness perceptions rather than high usefulness perceptions
-              driving usage. 4.Limited Context Variety: While two studies provide more context than
-              one, both occur in university settings. Generalization to corporate, government, or
-              other organizational contexts is unclear. Different organizational cultures,
-              technology maturity levels, and adoption pressures might create different adoption
-              dynamics. 5.Incomplete Model Specification: The paper does not address how models
-              might be moderated by individual differences (e.g., computer anxiety, technology
-              experience, age, education). Different individuals might weight constructs
+              causality. Reverse causality is possible&mdash;for example, frequent users might
+              develop higher Perceived Usefulness perceptions rather than high usefulness
+              perceptions driving usage. 4.Limited Context Variety: While two studies provide more
+              context than one, both occur in university settings. Generalization to corporate,
+              government, or other organizational contexts is unclear. Different organizational
+              cultures, technology maturity levels, and adoption pressures might create different
+              adoption dynamics. 5.Incomplete Model Specification: The paper does not address how
+              models might be moderated by individual differences (e.g., computer anxiety,
+              technology experience, age, education). Different individuals might weight constructs
               differently, suggesting that a single model specification may not fit all users
               equally well. 6.Limited Examination of Intention-Behavior Gap: While the models
               predict behavioral intention well, the transition from intention to actual usage
               remains incompletely explained.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              The authors acknowledge that “behavioral intention is a more proximal predictor of
-              usage than attitude” but note variance in usage even among those with high intentions.
-              7.Technology Characteristics Underspecified: The model does not examine how technology
-              characteristics (complexity, compatibility with existing systems, relative advantage)
-              might moderate relationships between constructs. Simple technologies might show
-              different adoption dynamics than complex ones. 8.Social Influence Operationalization:
-              Subjective norm measurement focuses on perceived social pressure but may not fully
-              capture the rich social influence processes around technology adoption. Peer learning,
-              informal training, and observational learning might operate differently than normative
-              social influence suggests. 9.Perceived Behavioral Control Limitations: PBC measurement
-              focuses on resource availability and capability beliefs but may not fully capture
-              actual behavioral control or objective constraints.
+              The authors acknowledge that &ldquo;behavioral intention is a more proximal predictor
+              of usage than attitude&rdquo; but note variance in usage even among those with high
+              intentions. 7.Technology Characteristics Underspecified: The model does not examine
+              how technology characteristics (complexity, compatibility with existing systems,
+              relative advantage) might moderate relationships between constructs. Simple
+              technologies might show different adoption dynamics than complex ones. 8.Social
+              Influence Operationalization: Subjective norm measurement focuses on perceived social
+              pressure but may not fully capture the rich social influence processes around
+              technology adoption. Peer learning, informal training, and observational learning
+              might operate differently than normative social influence suggests. 9.Perceived
+              Behavioral Control Limitations: PBC measurement focuses on resource availability and
+              capability beliefs but may not fully capture actual behavioral control or objective
+              constraints.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Organizational policies, system access, and technical infrastructure represent
               objective controls not fully captured by perceptual measures. 10.Limited Examination
               of System Quality: The models treat Perceived Usefulness as a perception-based
               construct influenced only by other perceptions. They do not directly measure objective
-              system quality, functionality, or performance. A system’s actual benefits might
+              system quality, functionality, or performance. A system&rsquo;s actual benefits might
               diverge substantially from perceptions, yet the models focus only on perceptions.
               11.Insufficient Attention to Experience Effects: The models do not examine how
               findings might differ at different adoption lifecycle stages. Early adoption when
@@ -491,20 +495,21 @@ const BibliographyArticlePage = () => {
           <section className="mb-6">
             <h3 className={H3_CLASSES}>How does this model differ from older models?</h3>
             <p className={PARAGRAPH_CLASSES}>
-              Taylor and Todd’s work represents significant theoretical evolution from earlier
+              Taylor and Todd&rsquo;s work represents significant theoretical evolution from earlier
               technology adoption frameworks: 1.Comparative Rather Than Single-Theory Approach:
               Earlier research typically proposed and tested single theories in isolation. Taylor
               and Todd explicitly compared TAM, TPB, and integrated approaches, providing
               evidence-based theory prioritization rather than assumption-based positioning.
-              2.Integration of TAM and TPB: While Davis’s TAM and Ajzen’s TPB were developed in
-              different contexts, Taylor and Todd demonstrated that both frameworks apply to IT
-              adoption and can be integrated. This integration showed that theories from different
-              research traditions can complement one another, advancing theoretical sophistication.
-              3.Explicit Testing of Extended TAM: Earlier TAM research had limited attention to
-              social influences (subjective norms). Taylor and Todd formally tested whether adding
-              subjective norms to TAM improved explanatory power, addressing a recognized
-              theoretical limitation. 4.Multi-Technology Validation: Earlier technology adoption
-              research often tested single technologies (email adoption, database adoption, etc.).
+              2.Integration of TAM and TPB: While Davis&rsquo;s TAM and Ajzen&rsquo;s TPB were
+              developed in different contexts, Taylor and Todd demonstrated that both frameworks
+              apply to IT adoption and can be integrated. This integration showed that theories from
+              different research traditions can complement one another, advancing theoretical
+              sophistication. 3.Explicit Testing of Extended TAM: Earlier TAM research had limited
+              attention to social influences (subjective norms). Taylor and Todd formally tested
+              whether adding subjective norms to TAM improved explanatory power, addressing a
+              recognized theoretical limitation. 4.Multi-Technology Validation: Earlier technology
+              adoption research often tested single technologies (email adoption, database adoption,
+              etc.).
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Testing whether frameworks generalize across email and information systems
@@ -516,9 +521,9 @@ const BibliographyArticlePage = () => {
               between constructs. Taylor and Todd specified multiple pathways through which
               variables influence outcomes (e.g., PEOU affects intention both directly and
               indirectly through attitude and usefulness), revealing mechanistic complexity.
-              7.Systematic Model Comparison: The paper’s structured comparison of model fit indices
-              across different specifications provided evidence-based guidance about theory
-              selection—advancing beyond authors championing their preferred theory.
+              7.Systematic Model Comparison: The paper&rsquo;s structured comparison of model fit
+              indices across different specifications provided evidence-based guidance about theory
+              selection&mdash;advancing beyond authors championing their preferred theory.
               8.Population-Specific Validation: By testing models across different user populations
               and technologies, Taylor and Todd acknowledged that adoption might vary by context
               while also seeking universal principles applying across contexts.
@@ -529,7 +534,7 @@ const BibliographyArticlePage = () => {
               What Barriers to Technology Adoption does the model identify?
             </h3>
             <p className={PARAGRAPH_CLASSES}>
-              Taylor and Todd’s competing models framework identifies multiple categories of
+              Taylor and Todd&rsquo;s competing models framework identifies multiple categories of
               barriers affecting IT adoption, organized across individual perceptions, social
               influences, and control factors: 1. Perceived Usefulness Barriers (Individual
               Cognitive Barriers) The model identifies low Perceived Usefulness as a fundamental
@@ -569,19 +574,19 @@ const BibliographyArticlePage = () => {
                 Study 1, -.51 in Study 2, indicating that more complex systems are perceived as less
                 useful) suggests that complex systems undermine both adoption paths. •Inadequate
                 Training and Support: Without accessible training and technical support, users face
-                high barriers to developing competence. The model’s findings about PEOU suggest that
-                barriers to learning will significantly constrain adoption. •System Instability or
-                Technical Problems: If systems are unstable, unreliable, or frequently unavailable,
-                users perceive low ease of use despite objectively straightforward interfaces.
-                Technical issues compound learning burdens. •Insufficient Documentation and Help
-                Resources: When reference materials are unclear or help systems are unhelpful, users
-                perceive higher difficulty in system operation. 3. Social Influence Barriers
-                (Normative and Social Barriers) The model identifies negative subjective norms as
-                significant adoption barriers: •Peer Resistance or Skepticism: When respected
-                colleagues resist or question system adoption, social norms inhibit individual
-                adoption. The model shows subjective norm significantly predicts behavioral
-                intention (path = .13 in Study 1, .16 in Study 2), suggesting that peer opposition
-                constitutes a barrier
+                high barriers to developing competence. The model&rsquo;s findings about PEOU
+                suggest that barriers to learning will significantly constrain adoption. •System
+                Instability or Technical Problems: If systems are unstable, unreliable, or
+                frequently unavailable, users perceive low ease of use despite objectively
+                straightforward interfaces. Technical issues compound learning burdens.
+                •Insufficient Documentation and Help Resources: When reference materials are unclear
+                or help systems are unhelpful, users perceive higher difficulty in system operation.
+                3. Social Influence Barriers (Normative and Social Barriers) The model identifies
+                negative subjective norms as significant adoption barriers: •Peer Resistance or
+                Skepticism: When respected colleagues resist or question system adoption, social
+                norms inhibit individual adoption. The model shows subjective norm significantly
+                predicts behavioral intention (path = .13 in Study 1, .16 in Study 2), suggesting
+                that peer opposition constitutes a barrier
               </li>
             </ul>
           </section>

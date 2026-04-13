@@ -278,7 +278,7 @@ export default function PrivacyPolicy() {
           <ol className="list-decimal list-inside pb-[1em]" start={10}>
             <li>
               <h2 className="text-[26px] leading-[26px] font-[700] text-gray-800 mb-[10px]">
-                <strong>Children’s Privacy</strong>
+                <strong>Children&rsquo;s Privacy</strong>
               </h2>
             </li>
           </ol>

@@ -29,11 +29,12 @@ export default function TermsOfService() {
             Introduction
           </h1>
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
-            Welcome to Technology Adoption Barriers Survey (TABS)! These Terms of Service (“Terms”)
-            govern your access to and use of our website, services, and platforms (collectively,
-            “Services”), provided by Technology Adoption Barriers Survey (TABS) (“we,” “us,” or
-            “our”). By accessing or using our Services, you agree to be bound by these Terms. If you
-            do not agree to these Terms, please do not use our Services.
+            Welcome to Technology Adoption Barriers Survey (TABS)! These Terms of Service
+            (&ldquo;Terms&rdquo;) govern your access to and use of our website, services, and
+            platforms (collectively, &ldquo;Services&rdquo;), provided by Technology Adoption
+            Barriers Survey (TABS) (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;). By
+            accessing or using our Services, you agree to be bound by these Terms. If you do not
+            agree to these Terms, please do not use our Services.
           </p>
 
           {/* Eligibility */}
@@ -153,12 +154,12 @@ export default function TermsOfService() {
             Disclaimer of Warranties
           </h1>
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
-            Our Services are provided on an “as is” and “as available” basis. Technology Adoption
-            Barriers Survey (TABS) makes no representations or warranties of any kind, express or
-            implied, regarding the use or the results of our Services in terms of accuracy,
-            reliability, or otherwise. Technology Adoption Barriers Survey (TABS) disclaims all
-            warranties, express or implied, including, but not limited to, implied warranties of
-            merchantability, fitness for a particular purpose, and non-infringement.
+            Our Services are provided on an &ldquo;as is&rdquo; and &ldquo;as available&rdquo;
+            basis. Technology Adoption Barriers Survey (TABS) makes no representations or warranties
+            of any kind, express or implied, regarding the use or the results of our Services in
+            terms of accuracy, reliability, or otherwise. Technology Adoption Barriers Survey (TABS)
+            disclaims all warranties, express or implied, including, but not limited to, implied
+            warranties of merchantability, fitness for a particular purpose, and non-infringement.
           </p>
 
           {/* Limitation of Liability */}
@@ -195,9 +196,9 @@ export default function TermsOfService() {
           <p className="text-[14px] text-gray-500 pb-[10px] leading-[24px] font-[500]">
             You agree to indemnify, defend, and hold harmless Technology Adoption Barriers Survey
             (TABS), its officers, directors, employees, and agents, from and against any and all
-            claims, liabilities, damages, losses, and expenses, including reasonable attorneys’
-            fees, arising out of or in any way connected with your access to or use of our Services,
-            or your violation of these Terms.
+            claims, liabilities, damages, losses, and expenses, including reasonable
+            attorneys&rsquo; fees, arising out of or in any way connected with your access to or use
+            of our Services, or your violation of these Terms.
           </p>
 
           {/* Governing Law */}

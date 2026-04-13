@@ -53,7 +53,7 @@ const StartPage = () => {
                   <p className="text-[16px] text-gray-600 mb-[5px]">{persona.title}</p>
                   <div className="mt-auto pt-[15px]">
                     <span className="text-tabs-primary font-semibold text-[14px] group-hover:underline">
-                      Learn more â†’
+                      Learn more â†&rsquo;
                     </span>
                   </div>
                 </div>

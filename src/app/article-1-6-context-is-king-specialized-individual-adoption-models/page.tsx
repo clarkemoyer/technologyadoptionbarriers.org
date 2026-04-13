@@ -23,19 +23,19 @@ const Article16Page = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Article 1.6: Context is King – Specialized Individual Adoption Models
+          Article 1.6: Context is King &ndash; Specialized Individual Adoption Models
         </h1>
 
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Introduction: The Limits of Universal Models</h2>
           <p className={PARAGRAPH_CLASSES}>
             As researchers refined technology adoption frameworks throughout the 1990s and early
-            2000s, they pursued increasingly universal models–theories explaining adoption across
-            diverse technologies, user populations, and organizational contexts. The Technology
-            Acceptance Model demonstrated that perceived usefulness and ease of use predict adoption
-            across systems from email to enterprise resource planning. The Unified Theory of
-            Acceptance and Use of Technology integrated eight models into a comprehensive framework
-            explaining adoption across organizational and demographic contexts.
+            2000s, they pursued increasingly universal models&ndash;theories explaining adoption
+            across diverse technologies, user populations, and organizational contexts. The
+            Technology Acceptance Model demonstrated that perceived usefulness and ease of use
+            predict adoption across systems from email to enterprise resource planning. The Unified
+            Theory of Acceptance and Use of Technology integrated eight models into a comprehensive
+            framework explaining adoption across organizational and demographic contexts.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Yet even as these unifying frameworks succeeded at predicting adoption broadly, they
@@ -50,8 +50,8 @@ const Article16Page = () => {
             These questions motivated development of specialized adoption models addressing
             context-specific factors that general frameworks minimized or overlooked. Rather than
             seeking universal applicability, these models deliberately focused on particular
-            adoption domains–organizational work tasks, household environments, personal value
-            alignment–where contextual factors shaped adoption processes in distinctive ways.
+            adoption domains&ndash;organizational work tasks, household environments, personal value
+            alignment&ndash;where contextual factors shaped adoption processes in distinctive ways.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             This article examines three influential specialized models: the Task-Technology Fit
@@ -102,23 +102,23 @@ const Article16Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             This finding flipped conventional adoption wisdom on its head. Organizations typically
-            measure adoption success through utilization rates–how many employees use the system,
-            how frequently, how extensively. But Goodhue and Thompson demonstrated that utilization
-            without fit is largely wasted effort. A person forced to conduct their work through an
-            inadequate system may become more &ldquo;efficient&rdquo; at working around its
-            limitations, but the technology itself provides little performance benefit.
+            measure adoption success through utilization rates&ndash;how many employees use the
+            system, how frequently, how extensively. But Goodhue and Thompson demonstrated that
+            utilization without fit is largely wasted effort. A person forced to conduct their work
+            through an inadequate system may become more &ldquo;efficient&rdquo; at working around
+            its limitations, but the technology itself provides little performance benefit.
           </p>
 
           <h3 className={H3_CLASSES}>The Framework: Three Core Determinants</h3>
           <p className={PARAGRAPH_CLASSES}>
             The task-technology fit framework identifies three core determinants of whether a
-            technology will improve performance. <strong>Task characteristics</strong>–the
-            complexity, variety, interdependence, and information requirements of the work–define
-            what capabilities a technology must possess. Complex tasks requiring integration of
-            diverse information sources demand more sophisticated technology. Simple, routine tasks
-            may be adequately supported by straightforward technology.{' '}
-            <strong>Technology characteristics</strong>–functionality, reliability, data quality,
-            and user interface–define what the system can actually do.{' '}
+            technology will improve performance. <strong>Task characteristics</strong>&ndash;the
+            complexity, variety, interdependence, and information requirements of the
+            work&ndash;define what capabilities a technology must possess. Complex tasks requiring
+            integration of diverse information sources demand more sophisticated technology. Simple,
+            routine tasks may be adequately supported by straightforward technology.{' '}
+            <strong>Technology characteristics</strong>&ndash;functionality, reliability, data
+            quality, and user interface&ndash;define what the system can actually do.{' '}
             <strong>Task-technology fit </strong>itself represents the degree of alignment between
             task requirements and technology capabilities.
           </p>
@@ -184,13 +184,13 @@ const Article16Page = () => {
             MATH integrates insights from multiple theoretical traditions. It retains the TAM
             framework&apos;s emphasis on perceived usefulness and ease of use but extends it
             significantly. The model incorporates <strong>hedonic outcomes</strong>
-            –entertainment value, enjoyment, fun–recognizing that household technology adoption is
-            motivated not just by practical utility but by pleasure. It measures{' '}
+            &ndash;entertainment value, enjoyment, fun&ndash;recognizing that household technology
+            adoption is motivated not just by practical utility but by pleasure. It measures{' '}
             <strong>cost considerations </strong>explicitly, acknowledging that price sensitivity is
             central to household purchasing decisions in ways it is not in organizational technology
-            adoption. It identifies <strong>self-efficacy</strong>–confidence in one&apos;s ability
-            to use technology–as critical to household adoption, recognizing that many household
-            members lack technical expertise. And it incorporates{' '}
+            adoption. It identifies <strong>self-efficacy</strong>&ndash;confidence in one&apos;s
+            ability to use technology&ndash;as critical to household adoption, recognizing that many
+            household members lack technical expertise. And it incorporates{' '}
             <strong>normative influences </strong>from friends, family, secondary sources, and
             workplace referents, capturing the social context in which household adoption occurs.
           </p>
@@ -200,12 +200,13 @@ const Article16Page = () => {
             Perhaps most innovatively, MATH incorporates <strong>household life cycle </strong>as a
             fundamental moderator of adoption decisions and drivers. Young couples without children
             face different technology needs and priorities than families with dependent children or
-            mature households preparing for retirement. The availability of applicable uses–what the
-            technology can do for the household&apos;s specific needs–varies by life stage.
-            Teenagers in the household increase demand for entertainment applications; young
-            children increase demand for educational applications; working parents increase demand
-            for household management applications. The same technology may be perceived as essential
-            in one household life stage and unnecessary in another.
+            mature households preparing for retirement. The availability of applicable
+            uses&ndash;what the technology can do for the household&apos;s specific
+            needs&ndash;varies by life stage. Teenagers in the household increase demand for
+            entertainment applications; young children increase demand for educational applications;
+            working parents increase demand for household management applications. The same
+            technology may be perceived as essential in one household life stage and unnecessary in
+            another.
           </p>
 
           <h3 className={H3_CLASSES}>Context Shapes Adoption</h3>
@@ -235,7 +236,7 @@ const Article16Page = () => {
           <h3 className={H3_CLASSES}>Household-Specific Barriers</h3>
           <p className={PARAGRAPH_CLASSES}>
             MATH also identifies barriers specific to household adoption.{' '}
-            <strong>Cost barriers </strong>are direct and salient–families making purchasing
+            <strong>Cost barriers </strong>are direct and salient&ndash;families making purchasing
             decisions with limited discretionary income directly perceive the price impact.{' '}
             <strong>Perceived usefulness barriers </strong>emerge when households cannot identify
             how technology serves their specific needs. <strong>Ease of use barriers</strong>{' '}
@@ -244,10 +245,10 @@ const Article16Page = () => {
             for older household members who perceive technology as advancing faster than they can
             learn. <strong>Self-efficacy barriers </strong>reflect confidence gaps that
             organizational mandates can override but household choice cannot.{' '}
-            <strong>Social barriers </strong>operate differently than in organizations–not everyone
-            in the household may share enthusiasm for technology adoption, and disagreement about
-            whether a technology is worth the cost and learning effort can prevent household-level
-            adoption.
+            <strong>Social barriers </strong>operate differently than in organizations&ndash;not
+            everyone in the household may share enthusiasm for technology adoption, and disagreement
+            about whether a technology is worth the cost and learning effort can prevent
+            household-level adoption.
           </p>
         </section>
 
@@ -297,8 +298,8 @@ const Article16Page = () => {
             The VAM model proposes that individuals evaluate technologies not just through
             utilitarian lenses but through value lenses. When mobile internet adoption aligns with
             what an individual values, adoption occurs. When adoption would undermine personal
-            values, resistance emerges–regardless of whether the technology is useful and easy to
-            use. Someone who deeply values family time and tradition may reject mobile internet
+            values, resistance emerges&ndash;regardless of whether the technology is useful and easy
+            to use. Someone who deeply values family time and tradition may reject mobile internet
             because they perceive it as undermining these values, even if colleagues report it is
             useful and easy to use.
           </p>
@@ -410,10 +411,11 @@ const Article16Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             When technologies engage fundamentally with how people live their lives and what they
-            value–health technologies, communication platforms, lifestyle applications–Value-Based
-            Adoption thinking reveals why different segments adopt for different reasons and why
-            some segments resist technologies that others embrace. Markets should be understood
-            through value segmentation rather than demographic segmentation alone.
+            value&ndash;health technologies, communication platforms, lifestyle
+            applications&ndash;Value-Based Adoption thinking reveals why different segments adopt
+            for different reasons and why some segments resist technologies that others embrace.
+            Markets should be understood through value segmentation rather than demographic
+            segmentation alone.
           </p>
 
           <h3 className={H3_CLASSES}>The Complementarity of General and Specialized Models</h3>
@@ -422,9 +424,9 @@ const Article16Page = () => {
             UTAUT, and related models identify adoption drivers operating broadly across contexts.
             Specialized models identify additional context-specific factors that matter in
             particular domains. A comprehensive understanding of adoption in a specific context
-            often requires integrating both perspectives–understanding general adoption mechanisms
-            while recognizing how context shapes their operation and introduces additional
-            considerations.
+            often requires integrating both perspectives&ndash;understanding general adoption
+            mechanisms while recognizing how context shapes their operation and introduces
+            additional considerations.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             For researchers, this suggests that theory development should balance parsimony and
@@ -448,8 +450,8 @@ const Article16Page = () => {
             Looking Ahead: The Integration of Person, Context, and Technology
           </h2>
           <p className={PARAGRAPH_CLASSES}>
-            The specialized models examined in this article–Task-Technology Fit, the Model of
-            Adoption of Technology in Households, and Value-Based Adoption–represent important
+            The specialized models examined in this article&ndash;Task-Technology Fit, the Model of
+            Adoption of Technology in Households, and Value-Based Adoption&ndash;represent important
             advances in understanding how context shapes technology adoption. They move beyond
             one-size-fits-all frameworks to recognize that adoption dynamics differ systematically
             across work contexts, household contexts, and value contexts.
@@ -458,17 +460,18 @@ const Article16Page = () => {
             Yet even these specialized models focus primarily on situational and contextual factors.
             Task-Technology Fit emphasizes the match between tasks and technology. MATH emphasizes
             household characteristics and life cycle. VAM emphasizes personal values. What remains
-            relatively unexplored is the role of stable individual differences–personality
-            characteristics, dispositional traits, and general orientations toward technology–that
-            shape how individuals approach technology adoption across diverse contexts.
+            relatively unexplored is the role of stable individual differences&ndash;personality
+            characteristics, dispositional traits, and general orientations toward
+            technology&ndash;that shape how individuals approach technology adoption across diverse
+            contexts.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             This gap motivated development of technology readiness frameworks examining how
             individual dispositions and personality characteristics toward technology act as
             fundamental antecedents influencing adoption across contexts. The next article in this
-            series explores how technology readiness–individuals&apos; propensity to embrace and use
-            new technologies for accomplishing goals–provides crucial insight into adoption patterns
-            that purely situational models struggle to address.
+            series explores how technology readiness&ndash;individuals&apos; propensity to embrace
+            and use new technologies for accomplishing goals&ndash;provides crucial insight into
+            adoption patterns that purely situational models struggle to address.
           </p>
         </section>
 
@@ -479,26 +482,26 @@ const Article16Page = () => {
           <ol className={REFERENCES_OL_CLASSES}>
             <li>
               Goodhue, D. L., &amp; Thompson, R. L. (1995). Task-technology fit and individual
-              performance. <em>MIS Quarterly</em>, 19(2), 213–236.
+              performance. <em>MIS Quarterly</em>, 19(2), 213&ndash;236.
             </li>
             <li>
               Brown, S. A., &amp; Venkatesh, V. (2005). A model of adoption of technology in
               households: A baseline model test and extension incorporating household life cycle.{' '}
-              <em>MIS Quarterly</em>, 29(3), 399–426.
+              <em>MIS Quarterly</em>, 29(3), 399&ndash;426.
             </li>
             <li>
               Kim, H.-W., Chan, H. C., &amp; Gupta, S. (2007). Value-based adoption of mobile
               internet: An empirical investigation. <em>Decision Support Systems</em>, 43(1),
-              111–126.
+              111&ndash;126.
             </li>
             <li>
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
-              of information technology. <em>MIS Quarterly</em>, 13(3), 319–340.
+              of information technology. <em>MIS Quarterly</em>, 13(3), 319&ndash;340.
             </li>
             <li>
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
               of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425–478.
+              425&ndash;478.
             </li>
             <li>
               Rogers, E. M. (1962). <em>Diffusion of innovations</em>. Free Press.

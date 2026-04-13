@@ -63,7 +63,7 @@ const ProlificIntegrationPage = () => {
 
         {/* ── How It Connects ── */}
         <section className="mb-12 text-gray-800">
-          <h2 className={H2_CLASSES}>The Qualtrics–Prolific Bridge</h2>
+          <h2 className={H2_CLASSES}>The Qualtrics&ndash;Prolific Bridge</h2>
 
           <div className="mb-8">
             <h3 className={H3_CLASSES}>Participant Flow</h3>

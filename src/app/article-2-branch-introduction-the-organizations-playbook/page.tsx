@@ -22,23 +22,25 @@ const OrganizationsPlaybookPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Article 2: Branch Introduction – The Organization’s Playbook</h1>
+        <h1 className={H1_CLASSES}>
+          Article 2: Branch Introduction &ndash; The Organization&rsquo;s Playbook
+        </h1>
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
-            Having thoroughly explored the psychological and cognitive drivers of the individual’s
-            adoption journey, we now pivot our focus from the micro to the macro. We ascend from the
-            user’s desktop to the C-Suite, shifting our lens from the personal calculus of
-            acceptance to the strategic imperatives of the organization. Welcome to the second major
-            branch of our series: The Organization’s Playbook.
+            Having thoroughly explored the psychological and cognitive drivers of the
+            individual&rsquo;s adoption journey, we now pivot our focus from the micro to the macro.
+            We ascend from the user&rsquo;s desktop to the C-Suite, shifting our lens from the
+            personal calculus of acceptance to the strategic imperatives of the organization.
+            Welcome to the second major branch of our series: The Organization&rsquo;s Playbook.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Here, the central question is no longer “Will an individual use this technology?” but
-            rather, “How does our organization decide to invest in, implement, and integrate a
-            technology to achieve strategic goals?” This is the realm of high-stakes capital
-            allocation, competitive maneuvering, operational overhaul, and systemic risk management.
-            If the user’s journey is a story of psychology, the organization’s playbook is a story
-            of strategy.
+            Here, the central question is no longer &ldquo;Will an individual use this
+            technology?&rdquo; but rather, &ldquo;How does our organization decide to invest in,
+            implement, and integrate a technology to achieve strategic goals?&rdquo; This is the
+            realm of high-stakes capital allocation, competitive maneuvering, operational overhaul,
+            and systemic risk management. If the user&rsquo;s journey is a story of psychology, the
+            organization&rsquo;s playbook is a story of strategy.
           </p>
         </section>
 
@@ -62,27 +64,27 @@ const OrganizationsPlaybookPage = () => {
           <h2 className={H2_CLASSES}>From Theory to Frameworks: A Narrative Arc</h2>
           <p className={PARAGRAPH_CLASSES}>
             The evolution of organizational adoption guidance follows a distinct path, moving from
-            high-level academic theories that explain the “why” to detailed, prescriptive frameworks
-            that dictate the “how.”
+            high-level academic theories that explain the &ldquo;why&rdquo; to detailed,
+            prescriptive frameworks that dictate the &ldquo;how.&rdquo;
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>The Strategic “Why”: </strong>The intellectual foundation for organizational
-              adoption lies in strategic management theory. Foundational frameworks like the
-              Technology-Organization-Environment (TOE) framework [2] provided a lens for
+              <strong>The Strategic &ldquo;Why&rdquo;: </strong>The intellectual foundation for
+              organizational adoption lies in strategic management theory. Foundational frameworks
+              like the Technology-Organization-Environment (TOE) framework [2] provided a lens for
               understanding the external and internal forces that prompt a firm to consider a new
               technology. Meanwhile, the Resource-Based View (RBV) of the firm [3] framed technology
               as a potential source of sustained competitive advantage, providing a powerful
               strategic justification for investment.
             </li>
             <li>
-              <strong>The Procedural “How”: </strong>As organizations began to invest heavily in
-              software and IT, the focus shifted from why they should adopt to how they could do so
-              effectively and repeatably. This led to the rise of maturity models, most famously the
-              Capability Maturity Model (CMM) [4] and its successor, CMMI. While these focused on
-              process improvement, frameworks like the IT-Capability Maturity Framework (IT-CMF) [5]
-              took a more holistic, business-oriented view, providing a comprehensive tool for
-              managing the entire IT function as a value-adding business unit.
+              <strong>The Procedural &ldquo;How&rdquo;: </strong>As organizations began to invest
+              heavily in software and IT, the focus shifted from why they should adopt to how they
+              could do so effectively and repeatably. This led to the rise of maturity models, most
+              famously the Capability Maturity Model (CMM) [4] and its successor, CMMI. While these
+              focused on process improvement, frameworks like the IT-Capability Maturity Framework
+              (IT-CMF) [5] took a more holistic, business-oriented view, providing a comprehensive
+              tool for managing the entire IT function as a value-adding business unit.
             </li>
             <li>
               <strong>The Influence of the Intermediary: </strong>Parallel to the development of
@@ -106,15 +108,15 @@ const OrganizationsPlaybookPage = () => {
               building systems to building them securely and resiliently.
             </li>
             <li>
-              <strong>The Prescriptive “What”: Cloud and AI Playbooks: </strong>The modern era is
-              characterized by the rise of highly detailed, prescriptive playbooks from the
-              technology vendors themselves. Major cloud providers created comprehensive guides like
-              the AWS Cloud Adoption Framework (CAF) [10] and the Microsoft Cloud Adoption Framework
-              for Azure to navigate digital transformation. Most recently, this trend has extended
-              to the AI Frontier, with emerging frameworks like Microsoft’s AI Adoption Framework
-              [11] designed to address the unique challenges of adopting artificial intelligence,
-              machine learning, and generative AI, focusing on issues like data readiness, model
-              governance, and responsible AI principles.
+              <strong>The Prescriptive &ldquo;What&rdquo;: Cloud and AI Playbooks: </strong>The
+              modern era is characterized by the rise of highly detailed, prescriptive playbooks
+              from the technology vendors themselves. Major cloud providers created comprehensive
+              guides like the AWS Cloud Adoption Framework (CAF) [10] and the Microsoft Cloud
+              Adoption Framework for Azure to navigate digital transformation. Most recently, this
+              trend has extended to the AI Frontier, with emerging frameworks like Microsoft&rsquo;s
+              AI Adoption Framework [11] designed to address the unique challenges of adopting
+              artificial intelligence, machine learning, and generative AI, focusing on issues like
+              data readiness, model governance, and responsible AI principles.
             </li>
           </ul>
         </section>
@@ -123,7 +125,7 @@ const OrganizationsPlaybookPage = () => {
           <h2 className={H2_CLASSES}>Roadmap for this Branch</h2>
           <p className={PARAGRAPH_CLASSES}>
             This narrative arc provides the structure for the articles in this branch. Our
-            exploration of the organization’s playbook is organized as follows:
+            exploration of the organization&rsquo;s playbook is organized as follows:
           </p>
           <p className={PARAGRAPH_CLASSES}>
             We will begin by exploring the core strategic theories that guide organizational tech
@@ -155,7 +157,7 @@ const OrganizationsPlaybookPage = () => {
             </li>
             <li>
               Barney, J. (1991). Firm resources and sustained competitive advantage. Journal of
-              Management, 17(1), 99–120.{' '}
+              Management, 17(1), 99&ndash;120.{' '}
               <a
                 href="https://doi.org/10.1177/014920639101700108"
                 target="_blank"
