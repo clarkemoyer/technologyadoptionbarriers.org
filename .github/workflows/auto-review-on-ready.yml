@@ -17,6 +17,8 @@ env:
 jobs:
   dispatch-review:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
     if: github.event.pull_request.draft == false
     steps:
       - name: Dispatch review cycle
