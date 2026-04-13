@@ -559,30 +559,33 @@ const BibliographyArticlePage = () => {
             <h2 className={H2_CLASSES}>References</h2>
             <ol className="list-decimal pl-6 space-y-3 text-gray-800">
               <li>
-                Ajzen, I. (1991). The theory of planned behavior.{' '}
-                <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179-211.
+                Ajzen, I. &ldquo;The Theory of Planned Behavior.&rdquo;{' '}
+                <em>Organizational Behavior and Human Decision Processes</em> 50, no. 2 (1991):
+                179-211.
               </li>
               <li>
-                Bhattacherjee, A. (2001). Understanding information systems continuance: An
-                expectation-confirmation model. <em>MIS Quarterly</em>, 25(3), 351-370.
+                Bhattacherjee, A. &ldquo;Understanding Information Systems Continuance: An
+                Expectation-Confirmation Model.&rdquo; <em>MIS Quarterly</em> 25, no. 3 (2001):
+                351-370.
               </li>
               <li>
-                Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user
-                acceptance of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
+                Davis, F. D. &ldquo;Perceived Usefulness, Perceived Ease of Use, and User Acceptance
+                of Information Technology.&rdquo; <em>MIS Quarterly</em> 13, no. 3 (1989): 319-340.
               </li>
               <li>
-                Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1989). User acceptance of
-                computer technology: A comparison of two theoretical models.{' '}
-                <em>Management Science</em>, 35(8), 982-1003.
+                Davis, F. D., Bagozzi, R. P., and Warshaw, P. R. &ldquo;User Acceptance of Computer
+                Technology: A Comparison of Two Theoretical Models.&rdquo;{' '}
+                <em>Management Science</em> 35, no. 8 (1989): 982-1003.
               </li>
               <li>
-                Oliver, R. L. (1980). A cognitive model of the antecedents and consequences of
-                satisfaction decisions. <em>Journal of Marketing Research</em>, 17(4), 460-469.
+                Oliver, R. L. &ldquo;A Cognitive Model of the Antecedents and Consequences of
+                Satisfaction Decisions.&rdquo; <em>Journal of Marketing Research</em> 17, no. 4
+                (1980): 460-469.
               </li>
               <li>
-                Mathieson, K. (1991). Predicting user intentions: Comparing the Technology
-                Acceptance Model with the Theory of Planned Behavior.{' '}
-                <em>Information Systems Research</em>, 2(3), 173-191.
+                Mathieson, K. &ldquo;Predicting User Intentions: Comparing the Technology Acceptance
+                Model with the Theory of Planned Behavior.&rdquo;{' '}
+                <em>Information Systems Research</em> 2, no. 3 (1991): 173-191
               </li>
             </ol>
           </section>

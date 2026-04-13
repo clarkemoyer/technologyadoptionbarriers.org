@@ -619,7 +619,7 @@ const BibliographyArticlePage = () => {
             <h2 className={H2_CLASSES}>References</h2>
             <ol className="list-decimal pl-6 space-y-3 text-gray-800">
               <li>
-                Rogers, E. M. (1962). <em>Diffusion of innovations</em>. The Free Press.
+                Rogers, E. M. (1962). <em>Diffusion of innovations</em> . The Free Press.
               </li>
               <li>
                 Rogers, E. M., &amp; Shoemaker, F. F. (1971).{' '}
@@ -630,7 +630,7 @@ const BibliographyArticlePage = () => {
                 Rogers, E. M. (1983). <em>Diffusion of innovations</em> (3rd ed.). The Free Press.
               </li>
               <li>
-                Tarde, G. (1890). <em>The laws of imitation</em>. Henry Holt.
+                Tarde, G. (1890). <em>The laws of imitation</em> . Henry Holt.
               </li>
               {/* prettier-ignore */}
               <li>
@@ -638,7 +638,7 @@ const BibliographyArticlePage = () => {
                 <em>
                   Health, culture, and community: Case studies of public reactions to health
                   programs
-                </em>. Russell Sage Foundation.
+                </em> . Russell Sage Foundation.
               </li>
             </ol>
           </section>

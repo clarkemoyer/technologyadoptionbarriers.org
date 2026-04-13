@@ -587,7 +587,7 @@ const BibliographyArticlePage = () => {
               </li>
               <li>
                 Porter, L. W., &amp; Lawler, E. E. (1968).{' '}
-                <em>Managerial attitudes and performance</em>. Homewood, IL: Irwin-Dorsey.
+                <em>Managerial attitudes and performance</em>. Homewood, IL: Irwin-Dorsey
               </li>
             </ol>
           </section>

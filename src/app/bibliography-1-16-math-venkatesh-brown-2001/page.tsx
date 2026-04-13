@@ -523,49 +523,50 @@ const BibliographyArticlePage = () => {
             <h2 className={H2_CLASSES}>References</h2>
             <ol className="list-decimal pl-6 space-y-3 text-gray-800">
               <li>
-                Ajzen, I. (1991). The theory of planned behavior.{' '}
-                <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179-211.
+                Ajzen, I. &ldquo;The Theory of Planned Behavior.&rdquo;{' '}
+                <em>Organizational Behavior and Human Decision Processes</em> 50, no. 2 (1991):
+                179-211.
               </li>
               <li>
-                Brown, S. A., &amp; Venkatesh, V. (2005). A model of adoption of technology in
-                households: A baseline model test and extension incorporating household life cycle.{' '}
-                <em>MIS Quarterly</em>, 29(3), 399-426.
+                Brown, S. A., and Venkatesh, V. &ldquo;A Model of Adoption of Technology in
+                Households: A Baseline Model Test and Extension Incorporating Household Life
+                Cycle.&rdquo; <em>MIS Quarterly</em> 29, no. 3 (2005): 399-426.
               </li>
               <li>
-                Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user
-                acceptance of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
+                Davis, F. D. &ldquo;Perceived Usefulness, Perceived Ease of Use, and User Acceptance
+                of Information Technology.&rdquo; <em>MIS Quarterly</em> 13, no. 3 (1989): 319-340.
               </li>
               {/* prettier-ignore */}
               <li>
-                Fishbein, M., &amp; Ajzen, I. (1975).{' '}
-                <em>
-                  Belief, attitude, intention and behavior: An introduction to theory and research
-                </em>. Reading, MA: Addison-Wesley.
+                Fishbein, M., and Ajzen, I. <em>Belief, Attitude, Intention and Behavior: An Introduction to Theory and Research</em>. Reading, MA: Addison-Wesley, 1975.
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Rogers, E. M. <em>Diffusion of Innovations</em>. 4th ed. New York: Free Press, 1995.
               </li>
               <li>
-                Rogers, E. M. (1995). <em>Diffusion of innovations</em> (4th ed.). New York: Free
-                Press.
+                Venkatesh, V. &ldquo;Determinants of Perceived Ease of Use: Integrating Control,
+                Intrinsic Motivation, and Emotion into the Technology Acceptance Model.&rdquo;{' '}
+                <em>Information Systems Research</em> 11, no. 4 (2000): 342-365.
               </li>
               <li>
-                Venkatesh, V. (2000). Determinants of perceived ease of use: Integrating control,
-                intrinsic motivation, and emotion into the Technology Acceptance Model.{' '}
-                <em>Information Systems Research</em>, 11(4), 342-365.
+                Venkatesh, V., and Brown, S. A. &ldquo;A Longitudinal Investigation of Personal
+                Computers in Homes: Adoption Determinants and Emerging Challenges.&rdquo;{' '}
+                <em>MIS Quarterly</em> 25, no. 1 (2001): 71-102.
               </li>
               <li>
-                Venkatesh, V., &amp; Brown, S. A. (2001). A longitudinal investigation of personal
-                computers in homes: Adoption determinants and emerging challenges.{' '}
-                <em>MIS Quarterly</em>, 25(1), 71-102.
+                Venkatesh, V., and Davis, F. D. &ldquo;A Model of the Antecedents of Perceived Ease
+                of Use: Development and Test.&rdquo; <em>Decision Sciences</em> 27, no. 3 (1996):
+                451-481.
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Norman, D. A. <em>The Design of Everyday Things</em>. New York: Doubleday, 1998.
               </li>
               <li>
-                Venkatesh, V., &amp; Davis, F. D. (1996). A model of the antecedents of perceived
-                ease of use: Development and test. <em>Decision Sciences</em>, 27(3), 451-481.
-              </li>
-              <li>
-                Norman, D. A. (1998). <em>The design of everyday things</em>. New York: Doubleday.
-              </li>
-              <li>
-                Thompson, R. L., Higgins, C. A., &amp; Howell, J. M. (1991). Personal computing:
-                Toward a conceptual model of utilization. <em>MIS Quarterly</em>, 15(1), 124-143.
+                Thompson, R. L., Higgins, C. A., and Howell, J. M. &ldquo;Personal Computing: Toward
+                a Conceptual Model of Utilization.&rdquo; <em>MIS Quarterly</em> 15, no. 1 (1991):
+                124-143
               </li>
             </ol>
           </section>

@@ -652,17 +652,18 @@ const BibliographyArticlePage = () => {
           <section className={SECTION_CLASSES}>
             <h2 className={H2_CLASSES}>References</h2>
             <ol className="list-decimal pl-6 space-y-3 text-gray-800">
+              {/* prettier-ignore */}
               <li>
                 Bandura, A. (1986).{' '}
-                <em>Social foundations of thought and action: A social cognitive theory</em>.
-                Prentice-Hall.
+                <em>Social foundations of thought and action: A social cognitive theory</em>
+                . Prentice-Hall.
               </li>
               <li>
-                Bandura, A. (1997). <em>Self-efficacy: The exercise of control</em>. W.H. Freeman.
+                Bandura, A. (1997). <em>Self-efficacy: The exercise of control</em> . W.H. Freeman.
               </li>
               <li>
                 Bandura, A. (2001). Social cognitive theory: An agentic perspective.{' '}
-                <em>Annual Review of Psychology</em>, 52, 1-26.
+                <em>Annual Review of Psychology</em> , 52, 1-26.
               </li>
               <li>
                 Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user
@@ -680,7 +681,7 @@ const BibliographyArticlePage = () => {
               <li>
                 Compeau, D. R., Higgins, C. A., &amp; Huff, S. (1999). Social cognitive theory and
                 individual reactions to computing technology: A longitudinal study.{' '}
-                <em>Journal of Applied Psychology</em>, 84(6), 811-821.
+                <em>Journal of Applied Psychology</em> , 84(6), 811-821.
               </li>
               <li>
                 Marakas, G. M., Yi, M. Y., &amp; Johnson, R. D. (1998). The multilevel and
@@ -690,28 +691,29 @@ const BibliographyArticlePage = () => {
               </li>
               <li>
                 Gist, M. E., &amp; Mitchell, T. R. (1992). Self-efficacy: A theoretical analysis of
-                its determinants and malleability. <em>Academy of Management Review</em>, 17(2),
+                its determinants and malleability. <em>Academy of Management Review</em> , 17(2),
                 183-211.
               </li>
               <li>
                 Agarwal, R., &amp; Prasad, J. (1999). Are individual differences germane to the
-                acceptance of new information technologies? <em>Decision Sciences</em>, 30(2),
+                acceptance of new information technologies? <em>Decision Sciences</em> , 30(2),
                 361-391.
               </li>
               <li>
                 Ajzen, I. (1991). The theory of planned behavior.{' '}
-                <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179-211.
+                <em>Organizational Behavior and Human Decision Processes</em> , 50(2), 179-211.
               </li>
               {/* prettier-ignore */}
               <li>
                 Fishbein, M., &amp; Ajzen, I. (1975).{' '}
                 <em>
                   Belief, attitude, intention, and behavior: An introduction to theory and research
-                </em>. Addison-Wesley.
+                </em>
+                . Addison-Wesley.
               </li>
               <li>
                 Zuboff, S. (1988).{' '}
-                <em>In the age of the smart machine: The future of work and power</em>. Basic Books.
+                <em>In the age of the smart machine: The future of work and power</em>. Basic Books
               </li>
             </ol>
           </section>
