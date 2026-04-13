@@ -310,7 +310,7 @@ function assignCopilotToFix(
   // older gh CLI versions that don't support the agent-task subcommand.
   const agentBody = [
     `Please fix the following Copilot review comments on PR #${prNumber} (branch \`${headBranch}\`).\n`,
-    `Push fixes as a new commit to branch \`${headBranch}\` or open a sub-PR targeting it.\n`,
+    `Push the fixes as a new commit to this PR branch. Do NOT create a separate PR or issue.\n`,
     `**Review Comments:**\n`,
     commentList,
   ].join('\n')
