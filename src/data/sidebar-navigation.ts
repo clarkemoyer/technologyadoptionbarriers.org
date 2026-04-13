@@ -234,9 +234,9 @@ function surveyToGroups(): SidebarGroup[] {
     {
       title: 'Concept Mapping',
       links: [
+        { title: 'Summary', href: '/concept-mapping/summary' },
         { title: 'Simple Concept Map', href: '/concept-mapping/simple' },
         { title: 'Complex Concept Map', href: '/concept-mapping/complex' },
-        { title: 'Summary', href: '/concept-mapping/summary' },
       ],
     },
   ]

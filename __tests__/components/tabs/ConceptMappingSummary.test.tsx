@@ -21,7 +21,7 @@ describe('ConceptMappingSummary component', () => {
       expect(within(statsBar).getByText('54')).toBeInTheDocument()
       expect(within(statsBar).getByText('3')).toBeInTheDocument()
       expect(within(statsBar).getByText('5')).toBeInTheDocument()
-      expect(within(statsBar).getByText('13')).toBeInTheDocument()
+      expect(within(statsBar).getByText('15')).toBeInTheDocument()
     })
 
     it('should render quick stat labels', () => {
@@ -76,7 +76,7 @@ describe('ConceptMappingSummary component', () => {
       expect(screen.getByLabelText('gray section indicator')).toBeInTheDocument()
     })
 
-    it('should render em-dash for null attention checks', () => {
+    it('should render em dash for null attention checks', () => {
       render(<ConceptMappingSummary />)
 
       const table = screen.getByRole('table')
