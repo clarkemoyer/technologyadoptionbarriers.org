@@ -343,7 +343,8 @@ jobs:
 
           # Old Making of TABS pages → Results section
           check_redirect "${SITE_URL}/making-of-tabs/data-analysis" "/results/data-quality" "/making-of-tabs/data-analysis"
-          check_redirect "${SITE_URL}/making-of-tabs/cmo-survey" "/results/cmo-survey" "/making-of-tabs/cmo-survey"
+          # CMO Survey moved TO making-of-tabs (PR #1516), old results path redirects there
+          check_redirect "${SITE_URL}/results/cmo-survey" "/making-of-tabs/cmo-survey" "/results/cmo-survey"
           check_redirect "${SITE_URL}/making-of-tabs/reproducible-analysis" "/results/reproducibility" "/making-of-tabs/reproducible-analysis"
           check_redirect "${SITE_URL}/making-of-tabs/integrations/prolific/dashboard" "/results/dashboard" "/making-of-tabs/.../prolific/dashboard"
           check_redirect "${SITE_URL}/barriers/survey-stats" "/results/survey-stats" "/barriers/survey-stats"
