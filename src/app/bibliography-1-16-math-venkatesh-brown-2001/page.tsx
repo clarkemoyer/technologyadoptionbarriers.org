@@ -535,12 +535,12 @@ const BibliographyArticlePage = () => {
                 Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user
                 acceptance of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
               </li>
+              {/* prettier-ignore */}
               <li>
                 Fishbein, M., &amp; Ajzen, I. (1975).{' '}
                 <em>
                   Belief, attitude, intention and behavior: An introduction to theory and research
-                </em>
-                . Reading, MA: Addison-Wesley.
+                </em>. Reading, MA: Addison-Wesley.
               </li>
               <li>
                 Rogers, E. M. (1995). <em>Diffusion of innovations</em> (4th ed.). New York: Free

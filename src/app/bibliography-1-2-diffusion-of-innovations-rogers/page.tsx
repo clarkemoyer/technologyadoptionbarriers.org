@@ -632,13 +632,13 @@ const BibliographyArticlePage = () => {
               <li>
                 Tarde, G. (1890). <em>The laws of imitation</em>. Henry Holt.
               </li>
+              {/* prettier-ignore */}
               <li>
                 Wellin, E. (1955). Water boiling in a Peruvian village. In B. D. Paul (Ed.),{' '}
                 <em>
                   Health, culture, and community: Case studies of public reactions to health
                   programs
-                </em>
-                . Russell Sage Foundation.
+                </em>. Russell Sage Foundation.
               </li>
             </ol>
           </section>

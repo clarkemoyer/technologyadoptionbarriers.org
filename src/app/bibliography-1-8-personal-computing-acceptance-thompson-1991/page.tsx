@@ -578,12 +578,12 @@ const BibliographyArticlePage = () => {
                 computer technology: A comparison of two theoretical models.{' '}
                 <em>Management Science</em>, 35(8), 982-1003.
               </li>
+              {/* prettier-ignore */}
               <li>
                 Fishbein, M., &amp; Ajzen, I. (1975).{' '}
                 <em>
                   Belief, attitude, intention and behavior: An introduction to theory and research
-                </em>
-                . Reading, MA: Addison-Wesley.
+                </em>. Reading, MA: Addison-Wesley.
               </li>
               <li>
                 Porter, L. W., &amp; Lawler, E. E. (1968).{' '}

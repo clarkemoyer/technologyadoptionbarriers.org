@@ -702,12 +702,12 @@ const BibliographyArticlePage = () => {
                 Ajzen, I. (1991). The theory of planned behavior.{' '}
                 <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179-211.
               </li>
+              {/* prettier-ignore */}
               <li>
                 Fishbein, M., &amp; Ajzen, I. (1975).{' '}
                 <em>
                   Belief, attitude, intention, and behavior: An introduction to theory and research
-                </em>
-                . Addison-Wesley.
+                </em>. Addison-Wesley.
               </li>
               <li>
                 Zuboff, S. (1988).{' '}

@@ -553,10 +553,11 @@ const BibliographyArticlePage = () => {
                 Berry, L. L. (1981). The employee as customer. <em>Journal of Retail Banking</em>,
                 3(1), 33-40.
               </li>
+              {/* prettier-ignore */}
               <li>
                 Bitner, M. J., et al. (2000). Self-service technologies: Understanding customer
-                satisfaction with technology-based service encounters. <em>Journal of Marketing</em>
-                , 64(3), 138-149.
+                satisfaction with technology-based service encounters. <em>Journal of Marketing</em>,
+                64(3), 138-149.
               </li>
               <li>
                 Churchill Jr., G. A. (1979). A paradigm for developing better measures of marketing
