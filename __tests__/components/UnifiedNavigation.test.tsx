@@ -82,13 +82,66 @@ describe('UnifiedNavigation', () => {
     expect(screen.getByRole('navigation', { name: /page navigation/i })).toBeInTheDocument()
   })
 
-  it('renders mobile FAB button when viewport is too narrow for desktop sidebar', () => {
-    // Simulate a narrow viewport so the desktop sidebar cannot fit
+  it('renders mobile FAB button when right-side space is too small for desktop sidebar', () => {
     const originalInnerWidth = window.innerWidth
     Object.defineProperty(window, 'innerWidth', { value: 200, configurable: true })
+
+    const article = document.querySelector('article')
+    expect(article).not.toBeNull()
+
+    if (!article) {
+      throw new Error('Expected article element to exist for layout test')
+    }
+
+    article.getBoundingClientRect = jest.fn(() => ({
+      x: 0,
+      y: 0,
+      width: 190,
+      height: 100,
+      top: 0,
+      right: 190,
+      bottom: 100,
+      left: 0,
+      toJSON: () => ({}),
+    }))
+
     try {
       render(<UnifiedNavigation seriesItems={[{ title: 'Page 1', href: '/page-1' }]} />)
       expect(screen.getByRole('button', { name: /navigation/i })).toBeInTheDocument()
+      expect(screen.queryByRole('navigation', { name: /page navigation/i })).not.toBeInTheDocument()
+    } finally {
+      Object.defineProperty(window, 'innerWidth', { value: originalInnerWidth, configurable: true })
+    }
+  })
+
+  it('renders desktop navigation when right-side space is large enough for the sidebar', () => {
+    const originalInnerWidth = window.innerWidth
+    Object.defineProperty(window, 'innerWidth', { value: 1200, configurable: true })
+
+    const article = document.querySelector('article')
+    expect(article).not.toBeNull()
+
+    if (!article) {
+      throw new Error('Expected article element to exist for layout test')
+    }
+
+    // rightSpace = 1200 - 900 = 300 >= SIDEBAR_MIN_SPACE (234)
+    article.getBoundingClientRect = jest.fn(() => ({
+      x: 0,
+      y: 0,
+      width: 900,
+      height: 100,
+      top: 0,
+      right: 900,
+      bottom: 100,
+      left: 0,
+      toJSON: () => ({}),
+    }))
+
+    try {
+      render(<UnifiedNavigation seriesItems={[{ title: 'Page 1', href: '/page-1' }]} />)
+      expect(screen.getByRole('navigation', { name: /page navigation/i })).toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /navigation/i })).not.toBeInTheDocument()
     } finally {
       Object.defineProperty(window, 'innerWidth', { value: originalInnerWidth, configurable: true })
     }

@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { SIDEBAR_WIDTH, SIDEBAR_GAP, SIDEBAR_MIN_SPACE } from '@/lib/sidebar-constants'
 
 /* ------------------------------------------------------------------ */
 /*  Utility                                                           */
@@ -21,19 +22,6 @@ interface TOCItem {
   id: string
   text: string
 }
-
-/* ------------------------------------------------------------------ */
-/*  Shared layout constants                                            */
-/* ------------------------------------------------------------------ */
-
-/** Width of the desktop sidebar in pixels */
-const SIDEBAR_WIDTH = 210
-
-/** Minimum gap between article content and sidebar in pixels */
-const SIDEBAR_GAP = 24
-
-/** Minimum right-margin needed to show the desktop sidebar */
-const SIDEBAR_MIN_SPACE = SIDEBAR_WIDTH + SIDEBAR_GAP
 
 /* ------------------------------------------------------------------ */
 /*  Component                                                         */
@@ -59,6 +47,8 @@ export default function ArticleTOC() {
   const [tocLeft, setTocLeft] = useState(0)
   const [canShowDesktop, setCanShowDesktop] = useState(false)
   const observerRef = useRef<IntersectionObserver | null>(null)
+  const prevCanShowDesktopRef = useRef(false)
+  const prevTocLeftRef = useRef(0)
 
   /* ---------- track header height (shrinks on scroll) ---------- */
   useEffect(() => {
@@ -79,8 +69,16 @@ export default function ArticleTOC() {
       if (!article) return
       const rect = article.getBoundingClientRect()
       const rightSpace = window.innerWidth - rect.right
-      setCanShowDesktop(rightSpace >= SIDEBAR_MIN_SPACE)
-      setTocLeft(rect.right + SIDEBAR_GAP)
+      const nextCanShow = rightSpace >= SIDEBAR_MIN_SPACE
+      const nextLeft = rect.right + SIDEBAR_GAP
+      if (nextCanShow !== prevCanShowDesktopRef.current) {
+        prevCanShowDesktopRef.current = nextCanShow
+        setCanShowDesktop(nextCanShow)
+      }
+      if (nextLeft !== prevTocLeftRef.current) {
+        prevTocLeftRef.current = nextLeft
+        setTocLeft(nextLeft)
+      }
     }
     const onResize = () => {
       if (rafId != null) return
@@ -240,6 +238,7 @@ export default function ArticleTOC() {
           )}
 
           <button
+            type="button"
             onClick={() => setMobileOpen((o) => !o)}
             aria-expanded={mobileOpen}
             aria-label="Table of contents"
