@@ -8,6 +8,7 @@ import {
   REFERENCES_H2_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
+import Citation from '@/components/ui/citation'
 import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
@@ -405,22 +406,31 @@ const Article27Page = () => {
           <h2 className={REFERENCES_H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li>
-              Amazon Web Services. (2024). AWS Cloud Adoption Framework for Artificial Intelligence,
-              Machine Learning, and Generative AI. AWS Whitepaper, November 2024.
+              Amazon Web Services. (2024).{' '}
+              <em>
+                AWS Cloud Adoption Framework for Artificial Intelligence, Machine Learning, and
+                Generative AI.
+              </em>{' '}
+              AWS Whitepaper, November 2024.{' '}
+              <Citation url="https://docs.aws.amazon.com/whitepapers/latest/aws-caf-for-ai-ml/aws-caf-for-ai-ml.html" />
             </li>
             <li>
-              NIST. (2023). Artificial Intelligence Risk Management Framework (AI RMF 1.0). National
-              Institute of Standards and Technology.
+              NIST. (2023). <em>Artificial Intelligence Risk Management Framework (AI RMF 1.0).</em>{' '}
+              National Institute of Standards and Technology.{' '}
+              <Citation doi="10.6028/NIST.AI.100-1" />
             </li>
             <li>
-              Microsoft. (2025). Microsoft AI adoption â€“ Cloud Adoption Framework. Microsoft Learn
-              and AI Adoption Guidance.
+              Microsoft. (2025). Microsoft AI adoption &mdash; Cloud Adoption Framework.{' '}
+              <em>Microsoft Learn and AI Adoption Guidance.</em>{' '}
+              <Citation url="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/ai/" />
             </li>
-            <li>Rogers, E. M. (1962). Diffusion of Innovations. Free Press.</li>
+            <li>
+              Rogers, E. M. (1962). <em>Diffusion of Innovations.</em> Free Press.
+            </li>
             <li>
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
-              of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425â€“478.
+              of information technology: Toward a unified view. <em>MIS Quarterly, 27</em>(3),
+              425&ndash;478. <Citation doi="10.2307/30036540" />
             </li>
           </ol>
         </section>

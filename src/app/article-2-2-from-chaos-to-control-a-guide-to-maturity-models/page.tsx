@@ -8,6 +8,7 @@ import {
   REFERENCES_H2_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
+import Citation from '@/components/ui/citation'
 import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
@@ -396,22 +397,30 @@ const Article22Page = () => {
         <section className="pt-8 border-t border-gray-200">
           <h2 className={REFERENCES_H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
-            <li>Humphrey, W. S. (1989). Managing the software process. Addison-Wesley.</li>
             <li>
-              Chrissis, M. B., Konrad, M., &amp; Shrum, S. (2005). CMMI: Guidelines for process
-              integration and product improvement. Addison-Wesley.
+              Humphrey, W. S. (1989). <em>Managing the software process.</em> Addison-Wesley.
             </li>
             <li>
-              Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF) â€“ The
-              building block framework. Van Haren Publishing.
+              Chrissis, M. B., Konrad, M., &amp; Shrum, S. (2005).{' '}
+              <em>CMMI: Guidelines for process integration and product improvement.</em>{' '}
+              Addison-Wesley.
+            </li>
+            <li>
+              Innovation Value Institute. (2016).{' '}
+              <em>
+                IT capability maturity framework (IT-CMF) &mdash; The building block framework.
+              </em>{' '}
+              Van Haren Publishing.
             </li>
             <li>
               Cooper, R. B., &amp; Zmud, R. W. (1990). Information technology implementation
-              research: A technological diffusion approach. Management Science, 36(2), 123-139.
+              research: A technological diffusion approach. <em>Management Science, 36</em>(2),
+              123&ndash;139. <Citation doi="10.1287/mnsc.36.2.123" />
             </li>
             <li>
-              Paulk, M. C., et al. (1993). Capability maturity model for software, version 1.1.
-              Carnegie Mellon.
+              Paulk, M. C., Curtis, B., Chrissis, M. B., &amp; Weber, C. V. (1993).{' '}
+              <em>Capability maturity model for software, version 1.1</em> (CMU/SEI-93-TR-024).
+              Carnegie Mellon University, Software Engineering Institute.
             </li>
           </ol>
         </section>

@@ -8,6 +8,7 @@ import {
   REFERENCES_H2_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
+import Citation from '@/components/ui/citation'
 import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
@@ -299,29 +300,28 @@ const Article23Page = () => {
         <section className="pt-8 border-t border-gray-200">
           <h2 className={REFERENCES_H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
-            <li>Fenn, J. (1995). When to leap on the hype cycle. Gartner.</li>
+            <li>
+              Fenn, J. (1995). <em>When to leap on the hype cycle.</em> Gartner.
+            </li>
             <li>
               Gartner. (2025). Gartner Hype Cycle research methodology. Retrieved from{' '}
-              <a
-                href="https://www.gartner.com/en/research/methodologies/gartner-hype-cycle"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                https://www.gartner.com/en/research/methodologies/gartner-hype-cycle
-              </a>
+              <Citation url="https://www.gartner.com/en/research/methodologies/gartner-hype-cycle" />
             </li>
             <li>
-              Linden, A., &amp; Fenn, J. (2003). Understanding Gartner&apos;s Hype Cycles. Gartner.
+              Linden, A., &amp; Fenn, J. (2003). <em>Understanding Gartner&apos;s Hype Cycles.</em>{' '}
+              Gartner.
             </li>
-            <li>Rogers, E. M. (1962). Diffusion of innovations. Free Press.</li>
             <li>
-              Tornatzky, L. G., &amp; Fleischer, M. (1990). The processes of technological
-              innovation. Lexington Books.
+              Rogers, E. M. (1962). <em>Diffusion of innovations.</em> Free Press.
+            </li>
+            <li>
+              Tornatzky, L. G., &amp; Fleischer, M. (1990).{' '}
+              <em>The processes of technological innovation.</em> Lexington Books.
             </li>
             <li>
               Teece, D. J., Pisano, G., &amp; Shuen, A. (1997). Dynamic capabilities and strategic
-              management. Strategic Management Journal, 18(S1), 509-533.
+              management. <em>Strategic Management Journal, 18</em>(S1), 509&ndash;533.{' '}
+              <Citation doi="10.1002/(SICI)1097-0266(199708)18:7<509::AID-SMJ882>3.0.CO;2-Z" />
             </li>
           </ol>
         </section>

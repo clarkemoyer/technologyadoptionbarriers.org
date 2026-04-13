@@ -8,6 +8,7 @@ import {
   REFERENCES_H2_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
+import Citation from '@/components/ui/citation'
 import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
@@ -318,22 +319,30 @@ const Article24Page = () => {
           <h2 className={REFERENCES_H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li>
-              U.S. Department of Defense. (1996). Technical Architecture Framework for Information
-              Management (TAFIM) Version 3.0. Volume 2: Technical Reference Model. Defense
-              Information Systems Agency.
-            </li>
-            <li>The Open Group. (2018). The TOGAF Standard, Version 9.2. Van Haren Publishing.</li>
-            <li>
-              U.S. Department of Defense. (2003). Department of Defense Architecture Framework
-              (DoDAF) Version 1.0. Office of the Deputy Secretary of Defense.
+              U.S. Department of Defense. (1996).{' '}
+              <em>
+                Technical Architecture Framework for Information Management (TAFIM) Version 3.0.
+                Volume 2: Technical Reference Model.
+              </em>{' '}
+              Defense Information Systems Agency.
             </li>
             <li>
-              Object Management Group. (2017). Unified Architecture Framework (UAF) Specification.
-              OMG.
+              The Open Group. (2018). <em>The TOGAF&reg; Standard, Version 9.2.</em> Van Haren
+              Publishing.
             </li>
             <li>
-              Zachman, J. A. (1987). A framework for information systems architecture. IBM Systems
-              Journal, 26(3), 276-292.
+              U.S. Department of Defense. (2003).{' '}
+              <em>Department of Defense Architecture Framework (DoDAF) Version 1.0.</em> Office of
+              the Deputy Secretary of Defense.
+            </li>
+            <li>
+              Object Management Group. (2017).{' '}
+              <em>Unified Architecture Framework (UAF) Specification.</em> OMG.
+            </li>
+            <li>
+              Zachman, J. A. (1987). A framework for information systems architecture.{' '}
+              <em>IBM Systems Journal, 26</em>(3), 276&ndash;292.{' '}
+              <Citation doi="10.1147/sj.263.0276" />
             </li>
           </ol>
         </section>

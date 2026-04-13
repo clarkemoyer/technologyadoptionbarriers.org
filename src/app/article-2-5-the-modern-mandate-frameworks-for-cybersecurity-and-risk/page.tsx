@@ -8,6 +8,7 @@ import {
   REFERENCES_H2_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
+import Citation from '@/components/ui/citation'
 import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
@@ -304,19 +305,28 @@ const Article25Page = () => {
           <h2 className={REFERENCES_H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li>
-              NIST. (2018). Risk Management Framework for Information Systems and Organizations (SP
-              800-37, Rev. 2). National Institute of Standards and Technology.
+              NIST. (2018).{' '}
+              <em>
+                Risk Management Framework for Information Systems and Organizations: A System Life
+                Cycle Approach for Security and Privacy
+              </em>{' '}
+              (SP 800-37, Rev. 2). National Institute of Standards and Technology.{' '}
+              <Citation doi="10.6028/NIST.SP.800-37r2" />
             </li>
             <li>
-              NIST. (2018). Framework for Improving Critical Infrastructure Cybersecurity, Version
-              1.1. National Institute of Standards and Technology.
+              NIST. (2018).{' '}
+              <em>Framework for Improving Critical Infrastructure Cybersecurity, Version 1.1.</em>{' '}
+              National Institute of Standards and Technology.{' '}
+              <Citation doi="10.6028/NIST.CSWP.04162018" />
             </li>
             <li>
-              U.S. Department of Defense. (n.d.). Cybersecurity Maturity Model Certification (CMMC)
-              2.0. DoD Contract Management Guidance.
+              U.S. Department of Defense. (n.d.).{' '}
+              <em>Cybersecurity Maturity Model Certification (CMMC) 2.0.</em> DoD Contract
+              Management Guidance. <Citation url="https://www.acq.osd.mil/cmmc/" />
             </li>
             <li>
-              ISO/IEC. (2022). ISO/IEC 27001:2022 â€“ Information Security Management Systems.
+              ISO/IEC. (2022).{' '}
+              <em>ISO/IEC 27001:2022 &mdash; Information Security Management Systems.</em>{' '}
               International Organization for Standardization.
             </li>
           </ol>
