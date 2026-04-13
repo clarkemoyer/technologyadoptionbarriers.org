@@ -52,7 +52,7 @@ export default function UnifiedNavigation({
   const [activeId, setActiveId] = useState<string>('')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [footerOffset, setFooterOffset] = useState(MIN_BOTTOM_GAP)
-  const { canShowDesktop, tocLeft } = useSidebarPlacement()
+  const { canShowDesktop, tocLeft } = useSidebarPlacement(pathname)
   const panelRef = useRef<HTMLDivElement>(null)
   const footerOffsetRef = useRef(MIN_BOTTOM_GAP)
   const rafIdRef = useRef<number | null>(null)

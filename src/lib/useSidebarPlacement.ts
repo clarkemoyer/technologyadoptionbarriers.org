@@ -1,7 +1,12 @@
 'use client'
 
 import { useState, useLayoutEffect, useRef } from 'react'
-import { SIDEBAR_GAP, SIDEBAR_MIN_SPACE } from '@/lib/sidebar-constants'
+import {
+  SIDEBAR_GAP,
+  SIDEBAR_WIDTH,
+  SIDEBAR_EDGE_PADDING,
+  SIDEBAR_MIN_SPACE,
+} from '@/lib/sidebar-constants'
 
 /**
  * Measures the space to the right of the first `<article>` element and
@@ -13,9 +18,14 @@ import { SIDEBAR_GAP, SIDEBAR_MIN_SPACE } from '@/lib/sidebar-constants'
  * updates. In Next.js App Router, the initial server-rendered HTML still
  * uses the default mobile state until hydration completes.
  *
+ * Accepts an optional `pathname` so the hook re-runs when the route
+ * changes — necessary for components that persist across client-side
+ * navigations (e.g., rendered from a shared layout) where the
+ * `<article>` element/rect can change without a window resize.
+ *
  * Returns `{ canShowDesktop, tocLeft }`.
  */
-export function useSidebarPlacement() {
+export function useSidebarPlacement(pathname?: string) {
   const [canShowDesktop, setCanShowDesktop] = useState(false)
   const [tocLeft, setTocLeft] = useState(0)
   const prevCanShowDesktopRef = useRef(false)
@@ -41,7 +51,7 @@ export function useSidebarPlacement() {
       const viewportWidth = window.visualViewport?.width ?? document.documentElement.clientWidth
       const rightSpace = viewportWidth - rect.right
       const nextCanShow = rightSpace >= SIDEBAR_MIN_SPACE
-      const maxLeft = Math.max(SIDEBAR_GAP, viewportWidth - SIDEBAR_MIN_SPACE)
+      const maxLeft = Math.max(SIDEBAR_GAP, viewportWidth - SIDEBAR_WIDTH - SIDEBAR_EDGE_PADDING)
       const nextLeft = Math.min(rect.right + SIDEBAR_GAP, maxLeft)
       if (nextCanShow !== prevCanShowDesktopRef.current) {
         prevCanShowDesktopRef.current = nextCanShow
@@ -67,7 +77,7 @@ export function useSidebarPlacement() {
       window.removeEventListener('resize', onResize)
       if (rafId !== null) cancelAnimationFrame(rafId)
     }
-  }, [])
+  }, [pathname])
 
   return { canShowDesktop, tocLeft }
 }

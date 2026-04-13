@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { SIDEBAR_WIDTH } from '@/lib/sidebar-constants'
 import { useSidebarPlacement } from '@/lib/useSidebarPlacement'
 
@@ -40,12 +41,13 @@ interface TOCItem {
  * Zero props required.
  */
 export default function ArticleTOC() {
+  const pathname = usePathname()
   const [items, setItems] = useState<TOCItem[]>([])
   const [activeId, setActiveId] = useState<string>('')
   const [progress, setProgress] = useState(0)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [headerH, setHeaderH] = useState(80)
-  const { canShowDesktop, tocLeft } = useSidebarPlacement()
+  const { canShowDesktop, tocLeft } = useSidebarPlacement(pathname)
   const observerRef = useRef<IntersectionObserver | null>(null)
 
   /* ---------- track header height (shrinks on scroll) ---------- */
