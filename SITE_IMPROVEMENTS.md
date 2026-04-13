@@ -21,7 +21,7 @@ The following items were previously tracked here and are now **complete**:
 - ✅ **"For Organizations" mega menu** - Category pages accessible from navigation (PR #225, Issue #224)
 - ✅ **Brand color centralization** - Tailwind tokens replace scattered hex values (PR #291, Issue #290)
 - ✅ **GitHub Sponsors integration** - Stripe-backed donations live at three site locations (PR #320, Issue #99)
-- ✅ **Content credibility audit** - 9-section review of all user-facing content (PRs #304–#312, Issue #294)
+- ✅ **Content credibility audit** - 9-section review of all user-facing content (PRs #304-#312, Issue #294)
 - ✅ **Prolific footer survey link** - Direct participant recruitment link (PR #233, Issue #232)
 
 ## Current Priorities

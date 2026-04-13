@@ -229,10 +229,10 @@ const DatasetComparisonPage = () => {
                   return (
                     <tr key={group.key} className={group.color}>
                       <td className="p-2 border-b font-medium">{group.label}</td>
-                      <td className="text-right p-2 border-b font-mono">{total || '-'}</td>
-                      <td className="text-right p-2 border-b font-mono">{tech || '-'}</td>
-                      <td className="text-right p-2 border-b font-mono">{nontech || '-'}</td>
-                      <td className="text-right p-2 border-b font-mono">{other || '-'}</td>
+                      <td className="text-right p-2 border-b font-mono">{total ?? '-'}</td>
+                      <td className="text-right p-2 border-b font-mono">{tech ?? '-'}</td>
+                      <td className="text-right p-2 border-b font-mono">{nontech ?? '-'}</td>
+                      <td className="text-right p-2 border-b font-mono">{other ?? '-'}</td>
                       <td className="text-right p-2 border-b font-mono">
                         {pctTech !== '-' ? `${pctTech}%` : '-'}
                       </td>
@@ -267,7 +267,7 @@ const DatasetComparisonPage = () => {
                       <td className="p-2 border-b font-medium">{group.label}</td>
                       {ORG_SIZE_ORDER.map((s) => (
                         <td key={s} className="text-right p-2 border-b font-mono">
-                          {sizes[s] || '-'}
+                          {sizes[s] ?? '-'}
                         </td>
                       ))}
                     </tr>
