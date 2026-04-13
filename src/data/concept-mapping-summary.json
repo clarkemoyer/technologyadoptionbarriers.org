@@ -86,7 +86,7 @@
     },
     {
       "date": "2026-04-12",
-      "note": "Replaced all citations with validated source from rebuild pipeline. 44 rows updated with specific dual citations, proper DOIs, and Zotero cross-references. Fixed missing Minor Barrier scale point in B10. Added Zotero Key(s) and Zotero Status columns to complex view (mappedFields 13 to 15)."
+      "note": "Replaced all citations with validated source from rebuild pipeline. 44 rows updated with specific dual citations, proper DOIs, and Zotero cross-references. Fixed missing Minor Barrier scale point in B14 (Barrier_PrivacyRisk). Added Zotero Key(s) and Zotero Status columns to complex view (mappedFields 13 to 15)."
     }
   ]
 }

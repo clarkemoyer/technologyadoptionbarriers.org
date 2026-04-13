@@ -43,8 +43,7 @@ const EXPANDABLE_COLUMNS = new Set([
 ])
 
 /**
- * Column max-widths so sparse columns (e.g. RIS Citation, mostly N/A) shrink
- * and content-heavy columns get more space. Applied via inline style.
+ * Column max-widths for the 7-column simple view. Applied via inline style.
  */
 const COLUMN_MAX_WIDTHS: Partial<Record<(typeof conceptMappingData.headers)[number], string>> = {
   'Item Code / Variable Name': '120px',
