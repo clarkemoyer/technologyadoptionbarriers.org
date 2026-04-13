@@ -181,15 +181,15 @@ const VERDICT_ROWS: { label: string; vals: (boolean | null)[] }[] = (() => {
     {
       label: 'CFA CFI \u2265 .90',
       vals: getVals((c) => {
-        const cfi = (validationData[c] as { cfa: { cfi: number | null } }).cfa.cfi
-        return cfi !== null ? verdicts[c].cfa_cfi_above_090 : null
+        const cfi = validationData[c]?.cfa?.cfi
+        return cfi != null ? verdicts[c].cfa_cfi_above_090 : null
       }),
     },
     {
       label: 'CFA RMSEA \u2264 .08',
       vals: getVals((c) => {
-        const rmsea = (validationData[c] as { cfa: { rmsea: number | null } }).cfa.rmsea
-        return rmsea !== null ? rmsea <= 0.08 : null
+        const rmsea = validationData[c]?.cfa?.rmsea
+        return rmsea != null ? rmsea <= 0.08 : null
       }),
     },
     {
