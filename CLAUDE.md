@@ -1060,16 +1060,50 @@ Claude Code operates under a tiered permission system configured in `~/.claude/s
 
 ## Dependency Provenance
 
-All MCP servers and API dependencies are tracked for provenance risk. See [issue #783](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/783) for the full chart.
+**Rule**: Only adopt from official sources or well-audited community projects. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics — neither company provides official SDKs or MCP servers.
 
-### Risk Tiers
+### Dependency Risk Chart
 
-| Tier         | Criteria                                                 | Examples                                                       |
-| ------------ | -------------------------------------------------------- | -------------------------------------------------------------- |
-| **Low**      | Official, from the company, actively maintained          | GitHub MCP, Cloudflare MCP, Google Analytics MCP, `googleapis` |
-| **Medium**   | Community but mature (100+ stars, multiple contributors) | `peter-evans/create-pull-request`, Google Search Console MCP   |
-| **High**     | Community, single maintainer, or stale                   | Qualtrics MCP (academic), R Statistics MCP (stale)             |
-| **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` (deprecated)             |
+_(Metrics snapshot as of April 2026. See tracking [issue #783](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/783) for the original source.)_
+
+<<<<<<< HEAD
+
+#### MCP Servers
+
+| Dependency                                                    | Publisher              | Official?    | Stars        | Last Activity | Risk                                          |
+| ------------------------------------------------------------- | ---------------------- | ------------ | ------------ | ------------- | --------------------------------------------- |
+| GitHub MCP (`github/github-mcp-server`)                       | GitHub, Inc.           | **Yes**      | 28,565       | Mar 2026      | **Low**                                       |
+| Cloudflare MCP (`cloudflare/mcp-server-cloudflare`)           | Cloudflare             | **Yes**      | 3,586        | Mar 2026      | **Low**                                       |
+| Cloudflare Code Mode (`cloudflare/mcp`)                       | Cloudflare             | **Yes**      | 318          | Apr 2026      | **Low** (new)                                 |
+| Google Analytics MCP (`googleanalytics/google-analytics-mcp`) | Google                 | **Yes**      | 1,734        | Mar 2026      | **Low**                                       |
+| Microsoft Learn MCP (`MicrosoftDocs/mcp`)                     | Microsoft              | **Yes**      | 1,520        | Apr 2026      | **Low**                                       |
+| `@modelcontextprotocol/server-github` (npm)                   | Anthropic (deprecated) | Was official | 83K monorepo | Feb 2026      | **Medium** -- deprecated, migrate             |
+| Google Search Console (`AminForou/mcp-gsc`)                   | Community              | No           | 616          | Apr 2026      | **Medium**                                    |
+| Google Search Console (`ahonn/mcp-server-gsc`)                | Community              | No           | 199          | Feb 2026      | **Medium**                                    |
+| Qualtrics MCP (`yrvelez/qualtrics-mcp-server`)                | Community (academic)   | No           | 17           | Mar 2026      | **High** -- 3 contributors, single maintainer |
+| R Statistics (`finite-sample/rmcp`)                           | Community              | No           | 201          | Dec 2025      | **High** -- stale 4+ months, 2 contributors   |
+| Prolific MCP (`SeanAlexanderHarris/prolific-mcp`)             | **MISSING**            | No           | N/A          | N/A           | **CRITICAL** -- repo does not exist on GitHub |
+| Qualtrics/SAP Official MCP                                    | Qualtrics/SAP          | N/A          | N/A          | N/A           | **Monitor** -- SAP is AAIF member             |
+| Prolific Official MCP                                         | Prolific               | N/A          | N/A          | N/A           | **Monitor** -- None exists                    |
+
+#### npm Packages and GitHub Actions
+
+| Dependency                           | Publisher | Official? | Stars | Last Release | Risk                                          |
+| ------------------------------------ | --------- | --------- | ----- | ------------ | --------------------------------------------- |
+| `@google-analytics/data`             | Google    | **Yes**   | --    | Oct 2025     | **Low**                                       |
+| `googleapis` (Search Console)        | Google    | **Yes**   | --    | Feb 2026     | **Low**                                       |
+| `actions/upload-artifact` v7         | GitHub    | **Yes**   | 4,014 | Feb 2026     | **Low**                                       |
+| `actions/download-artifact` v8       | GitHub    | **Yes**   | 1,810 | Mar 2026     | **Low**                                       |
+| `peter-evans/create-pull-request` v8 | Community | No        | 2,731 | Jan 2026     | **Low** -- extremely mature, 30+ contributors |
+
+#### API Clients (REST, no SDK)
+
+_Note: Python scripts in scripts/analysis/ are functional -- no urgency._
+
+| API              | Provider      | Official SDK?                   | Our Client                                                  | Risk                                    |
+| ---------------- | ------------- | ------------------------------- | ----------------------------------------------------------- | --------------------------------------- |
+| Prolific API v1  | Prolific      | **No official SDK** (REST only) | `scripts/analysis/tabs_api.py` + `src/lib/prolific-api.ts`  | **Medium** -- custom client, API stable |
+| Qualtrics API v3 | Qualtrics/SAP | **No official SDK** (REST only) | `scripts/analysis/tabs_api.py` + `src/lib/qualtrics-api.ts` | **Medium** -- custom client, API stable |
 
 **Rule**: Prefer official sources. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics - neither company provides official SDKs or MCP servers.
 
