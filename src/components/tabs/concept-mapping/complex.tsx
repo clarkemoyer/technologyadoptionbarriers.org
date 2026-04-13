@@ -406,21 +406,24 @@ function ItemCard({
         <FieldRow label="Source Link">
           {sourceLink && sourceLink !== 'N/A' ? (
             <span className="flex flex-wrap gap-1">
-              {sourceLink.split('||').map((part, i) => {
-                const trimmed = part.trim()
-                return isUrl(trimmed) ? (
-                  <LinkBadge key={i} url={trimmed} />
-                ) : (
-                  <span key={i} className="text-sm text-gray-800">
-                    {trimmed}
-                  </span>
-                )
-              })}
+              {sourceLink
+                .split('||')
+                .map((part) => part.trim())
+                .filter(Boolean)
+                .map((trimmed, i) =>
+                  isUrl(trimmed) ? (
+                    <LinkBadge key={i} url={trimmed} />
+                  ) : (
+                    <span key={i} className="text-sm text-gray-800">
+                      {trimmed}
+                    </span>
+                  )
+                )}
             </span>
           ) : sourceLink === 'N/A' ? (
             <span className="text-gray-500">N/A</span>
           ) : (
-            <span className="text-gray-400">-</span>
+            <span className="text-gray-400">—</span>
           )}
         </FieldRow>
         <FieldRow label="Scale Type / Response Options">
