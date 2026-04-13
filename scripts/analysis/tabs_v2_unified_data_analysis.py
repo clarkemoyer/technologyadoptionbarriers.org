@@ -2684,7 +2684,7 @@ def run_validation(df, skip=False, crp200=False):
             "kmo_above_060": (efa_data.get('kmo_model') or 0) >= 0.60,
             "bartlett_significant": efa_data.get('bartlett_p', 1.0) < 0.05 if efa_data.get('bartlett_p') is not None else False,
             "cfa_cfi_above_090": (cfa_data.get('cfi') or 0) >= 0.90,
-            "cfa_rmsea_below_008": (cfa_data.get('rmsea') or 1) <= 0.08,
+            "cfa_rmsea_below_008": cfa_data['rmsea'] <= 0.08 if cfa_data.get('rmsea') is not None else False,
         }
         # Count only boolean-like pass/fail results, while still accepting numpy.bool_
         v["pass_count"] = count_bool_true(v)

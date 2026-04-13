@@ -428,13 +428,61 @@ const has4fCfaData =
   BARRIERS_4F_CFA.chi2 != null
 
 /** Placeholder shown when CFA data is not yet available. */
-const CfaUnavailable = () => (
-  <p className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded px-3 py-2 font-sans">
-    CFA fit indices are not yet available. They will be populated once the analysis pipeline runs
-    with the <code className="text-xs bg-amber-100 px-1 rounded">semopy</code> CFA library
-    installed.
-  </p>
+const CfaUnavailable = ({ error }: { error?: string | null }) => (
+  <div className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded px-3 py-2 font-sans">
+    <p>CFA fit indices are not yet available.</p>
+    {error && (
+      <p className="mt-1 text-xs text-amber-600">
+        Reason: <code className="bg-amber-100 px-1 rounded">{error}</code>
+      </p>
+    )}
+  </div>
 )
+
+/** N/A badge for missing CFA indices — matches the summary table style. */
+const NaBadge = () => (
+  <span className="inline-block px-2 py-0.5 rounded text-xs font-bold bg-gray-100 text-gray-500">
+    N/A
+  </span>
+)
+
+/** Verdict for a higher-is-better CFA index; renders N/A when null. */
+const CfaHigherVerdict = ({
+  val,
+  good,
+  acceptable,
+}: {
+  val: number | null
+  good: number
+  acceptable: number
+}) =>
+  val == null ? (
+    <NaBadge />
+  ) : (
+    <Verdict
+      pass={val >= acceptable}
+      label={val >= good ? 'Good' : val >= acceptable ? 'Acceptable' : 'Poor'}
+    />
+  )
+
+/** Verdict for a lower-is-better CFA index; renders N/A when null. */
+const CfaLowerVerdict = ({
+  val,
+  good,
+  acceptable,
+}: {
+  val: number | null
+  good: number
+  acceptable: number
+}) =>
+  val == null ? (
+    <NaBadge />
+  ) : (
+    <Verdict
+      pass={val <= acceptable}
+      label={val <= good ? 'Good' : val <= acceptable ? 'Acceptable' : 'Poor'}
+    />
+  )
 
 /* ── CFA Summary Card ── */
 const CFACard = ({ c }: { c: ConstructValidation }) => (
@@ -469,16 +517,7 @@ const CFACard = ({ c }: { c: ConstructValidation }) => (
               </td>
               <td className="py-1.5 text-right font-mono font-bold">{fmt(c.cfa_cfi)}</td>
               <td className="py-1.5 text-right">
-                <Verdict
-                  pass={(c.cfa_cfi ?? 0) >= 0.9}
-                  label={
-                    (c.cfa_cfi ?? 0) >= 0.95
-                      ? 'Good'
-                      : (c.cfa_cfi ?? 0) >= 0.9
-                        ? 'Acceptable'
-                        : 'Poor'
-                  }
-                />
+                <CfaHigherVerdict val={c.cfa_cfi} good={0.95} acceptable={0.9} />
               </td>
             </tr>
             <tr className="border-b">
@@ -492,16 +531,7 @@ const CFACard = ({ c }: { c: ConstructValidation }) => (
               </td>
               <td className="py-1.5 text-right font-mono font-bold">{fmt(c.cfa_tli)}</td>
               <td className="py-1.5 text-right">
-                <Verdict
-                  pass={(c.cfa_tli ?? 0) >= 0.9}
-                  label={
-                    (c.cfa_tli ?? 0) >= 0.95
-                      ? 'Good'
-                      : (c.cfa_tli ?? 0) >= 0.9
-                        ? 'Acceptable'
-                        : 'Poor'
-                  }
-                />
+                <CfaHigherVerdict val={c.cfa_tli} good={0.95} acceptable={0.9} />
               </td>
             </tr>
             <tr>
@@ -515,22 +545,22 @@ const CFACard = ({ c }: { c: ConstructValidation }) => (
               </td>
               <td className="py-1.5 text-right font-mono font-bold">{fmt(c.cfa_rmsea)}</td>
               <td className="py-1.5 text-right">
-                <Verdict
-                  pass={(c.cfa_rmsea ?? 1) <= 0.08}
-                  label={
-                    (c.cfa_rmsea ?? 1) <= 0.06
-                      ? 'Good'
-                      : (c.cfa_rmsea ?? 1) <= 0.08
-                        ? 'Acceptable'
-                        : 'Poor'
-                  }
-                />
+                <CfaLowerVerdict val={c.cfa_rmsea} good={0.06} acceptable={0.08} />
               </td>
             </tr>
           </tbody>
         </table>
       ) : (
-        <CfaUnavailable />
+        <CfaUnavailable
+          error={
+            (
+              validationData[c.construct as 'Barriers' | 'Readiness' | 'Maturity']?.cfa as Record<
+                string,
+                unknown
+              >
+            )?.error as string | undefined
+          }
+        />
       )}
     </div>
   </div>
@@ -701,16 +731,7 @@ const ValidationPage = () => {
                         {fmt(BARRIERS_4F_CFA.cfi)}
                       </td>
                       <td className="text-right px-3 py-1.5 border">
-                        <Verdict
-                          pass={(BARRIERS_4F_CFA.cfi ?? 0) >= 0.9}
-                          label={
-                            (BARRIERS_4F_CFA.cfi ?? 0) >= 0.95
-                              ? 'Good'
-                              : (BARRIERS_4F_CFA.cfi ?? 0) >= 0.9
-                                ? 'Acceptable'
-                                : 'Poor'
-                          }
-                        />
+                        <CfaHigherVerdict val={BARRIERS_4F_CFA.cfi} good={0.95} acceptable={0.9} />
                       </td>
                     </tr>
                     <tr>
@@ -719,16 +740,7 @@ const ValidationPage = () => {
                         {fmt(BARRIERS_4F_CFA.tli)}
                       </td>
                       <td className="text-right px-3 py-1.5 border">
-                        <Verdict
-                          pass={(BARRIERS_4F_CFA.tli ?? 0) >= 0.9}
-                          label={
-                            (BARRIERS_4F_CFA.tli ?? 0) >= 0.95
-                              ? 'Good'
-                              : (BARRIERS_4F_CFA.tli ?? 0) >= 0.9
-                                ? 'Acceptable'
-                                : 'Poor'
-                          }
-                        />
+                        <CfaHigherVerdict val={BARRIERS_4F_CFA.tli} good={0.95} acceptable={0.9} />
                       </td>
                     </tr>
                     <tr className="bg-gray-50">
@@ -737,15 +749,10 @@ const ValidationPage = () => {
                         {fmt(BARRIERS_4F_CFA.rmsea)}
                       </td>
                       <td className="text-right px-3 py-1.5 border">
-                        <Verdict
-                          pass={(BARRIERS_4F_CFA.rmsea ?? 1) <= 0.08}
-                          label={
-                            (BARRIERS_4F_CFA.rmsea ?? 1) <= 0.06
-                              ? 'Good'
-                              : (BARRIERS_4F_CFA.rmsea ?? 1) <= 0.08
-                                ? 'Acceptable'
-                                : 'Poor'
-                          }
+                        <CfaLowerVerdict
+                          val={BARRIERS_4F_CFA.rmsea}
+                          good={0.06}
+                          acceptable={0.08}
                         />
                       </td>
                     </tr>
@@ -778,7 +785,13 @@ const ValidationPage = () => {
               </p>
             </>
           ) : (
-            <CfaUnavailable />
+            <CfaUnavailable
+              error={
+                (validationData.barriers_4f_cfa as Record<string, unknown>)?.error as
+                  | string
+                  | undefined
+              }
+            />
           )}
         </section>
 
