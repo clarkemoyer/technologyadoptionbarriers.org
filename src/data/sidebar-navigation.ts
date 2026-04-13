@@ -211,7 +211,7 @@ function teachingToGroups(): SidebarGroup[] {
     links: [
       { title: 'Lifecycle Positioning', href: `${baseSlug}/lifecycle-positioning` },
       {
-        title: 'Lifecycle Positioning Presentation',
+        title: 'Lifecycle Positioning Presentation (Standard)',
         href: `${baseSlug}/lifecycle-positioning/presentation`,
       },
       {
