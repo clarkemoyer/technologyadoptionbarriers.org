@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { outfit, plusJakartaSans, firaCode } from '@/lib/fonts'
 
 export const metadata: Metadata = {
-  title: 'Technology Lifecycle Positioning — Slide Deck',
+  title: 'Technology Lifecycle Positioning - Slide Deck',
   description:
     'A focused slide deck on technology lifecycle positioning: the dual-curve model, real-world timeline examples, and lifecycle cycles.',
 }

@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: zotero-prod
     steps:
-      - name: Test Zotero API — list top-level collections (read-only)
+      - name: Test Zotero API - list top-level collections (read-only)
         run: |
           echo "Testing Zotero API with user ${{ vars.ZOTERO_USER_ID }}..."
           RESPONSE=$(curl -s -w "\n%{http_code}" \
@@ -27,5 +27,5 @@ jobs:
           fi
 
           COUNT=$(echo "$BODY" | jq 'length')
-          echo "✅ Zotero API is working — found $COUNT top-level collections"
+          echo "✅ Zotero API is working - found $COUNT top-level collections"
           echo "$BODY" | jq '.[].data | {key, name, numItems}'
