@@ -49,6 +49,7 @@ export interface SidebarSection {
 function resultsToGroups(items: ResultsSeriesItem[]): SidebarGroup[] {
   const crp2026 = items.find((i) => i.title === 'CRP 2026')
   const fullDataset = items.find((i) => i.title === 'TABS Full Dataset')
+  const shared = items.find((i) => i.title === 'Shared')
 
   const crpLinks: SidebarLink[] = [
     { title: 'CRP Overview & Download', href: '/results/crp-2026' },
@@ -60,6 +61,9 @@ function resultsToGroups(items: ResultsSeriesItem[]): SidebarGroup[] {
     ...(fullDataset?.children?.map((c) => ({ title: c.title, href: c.href })) ?? []),
   ]
 
+  const sharedLinks: SidebarLink[] =
+    shared?.children?.map((c) => ({ title: c.title, href: c.href })) ?? []
+
   const dashboardLinks: SidebarLink[] = items
     .filter((i) => !i.children && i.href !== '/results')
     .map((i) => ({ title: i.title, href: i.href }))
@@ -67,6 +71,7 @@ function resultsToGroups(items: ResultsSeriesItem[]): SidebarGroup[] {
   return [
     { title: 'CRP 2026 Dataset', links: crpLinks },
     { title: 'Live Results (Updated Daily)', links: liveLinks },
+    { title: 'Shared Resources', links: sharedLinks },
     { title: 'Dashboards & Comparisons', links: dashboardLinks },
   ]
 }

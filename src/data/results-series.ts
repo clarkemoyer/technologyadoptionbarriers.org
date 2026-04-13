@@ -37,8 +37,15 @@ export const resultsSeries: ResultsSeriesItem[] = [
       { title: 'Instrument Validation', href: '/results/validation' },
     ],
   },
-  { title: 'Statistics Glossary', href: '/results/glossary' },
-  { title: 'Reproducibility', href: '/results/reproducibility' },
+  {
+    title: 'Shared',
+    href: '/results',
+    isGroup: true,
+    children: [
+      { title: 'Statistics Glossary', href: '/results/glossary' },
+      { title: 'Reproducibility', href: '/results/reproducibility' },
+    ],
+  },
   { title: 'Dashboard', href: '/results/dashboard' },
   { title: 'Dataset Comparison', href: '/results/dataset-comparison' },
   { title: 'Survey Statistics', href: '/results/survey-stats' },
