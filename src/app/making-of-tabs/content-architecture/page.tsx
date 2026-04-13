@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Content Architecture — Making of TABS',
+  title: 'Content Architecture - Making of TABS',
   description:
-    'How the TABS site is organized — 149+ statically generated pages, data-driven content, SEO strategy, responsive design, and the static export approach.',
+    'How the TABS site is organized - 149+ statically generated pages, data-driven content, SEO strategy, responsive design, and the static export approach.',
   alternates: {
     canonical: '/making-of-tabs/content-architecture',
   },
@@ -33,27 +33,27 @@ const ContentArchitecturePage = () => {
             <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
               output: &apos;export&apos;
             </code>{' '}
-            — every page is pre-rendered to static HTML at build time. There is no server. The
+            - every page is pre-rendered to static HTML at build time. There is no server. The
             entire site is a collection of HTML, CSS, and JavaScript files hosted on GitHub Pages.
           </p>
 
           <h3 className={H3_CLASSES}>Why Static Export?</h3>
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li>
-              <strong>Performance</strong> — pages load instantly from a CDN with no server
+              <strong>Performance</strong> - pages load instantly from a CDN with no server
               round-trip
             </li>
             <li>
-              <strong>Security</strong> — no server to compromise; the attack surface is minimal
+              <strong>Security</strong> - no server to compromise; the attack surface is minimal
             </li>
             <li>
-              <strong>Cost</strong> — GitHub Pages hosting is free for open source projects
+              <strong>Cost</strong> - GitHub Pages hosting is free for open source projects
             </li>
             <li>
-              <strong>Reliability</strong> — no database, no server processes, no downtime
+              <strong>Reliability</strong> - no database, no server processes, no downtime
             </li>
             <li>
-              <strong>Simplicity</strong> — deployment is copying files; rollback is redeploying a
+              <strong>Simplicity</strong> - deployment is copying files; rollback is redeploying a
               previous build
             </li>
           </ul>
@@ -62,15 +62,15 @@ const ContentArchitecturePage = () => {
           <p className="mb-4">Static export means we cannot use some Next.js features:</p>
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li>
-              No API routes — external APIs (Qualtrics, Prolific) are called from GitHub Actions
+              No API routes - external APIs (Qualtrics, Prolific) are called from GitHub Actions
               workflows instead
             </li>
             <li>
-              No server-side rendering — all data must be available at build time or fetched
+              No server-side rendering - all data must be available at build time or fetched
               client-side
             </li>
             <li>
-              No Next.js Image optimization — we use standard{' '}
+              No Next.js Image optimization - we use standard{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">&lt;img&gt;</code> tags with
               the <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">assetPath()</code>{' '}
               helper
@@ -132,34 +132,34 @@ const ContentArchitecturePage = () => {
 
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li>
-              <strong>Team members</strong> — JSON files in{' '}
+              <strong>Team members</strong> - JSON files in{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">src/data/team/</code>,
               aggregated by <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">team.ts</code>
             </li>
             <li>
-              <strong>FAQs</strong> — JSON files in{' '}
+              <strong>FAQs</strong> - JSON files in{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">src/data/faqs/</code>,
               aggregated by <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">faqs.ts</code>
             </li>
             <li>
-              <strong>Testimonials</strong> — JSON files in{' '}
+              <strong>Testimonials</strong> - JSON files in{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
                 src/data/testimonials/
               </code>
             </li>
             <li>
-              <strong>Impact metrics</strong> — live data in{' '}
+              <strong>Impact metrics</strong> - live data in{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">src/data/impact.json</code>,
               updated by the daily Google Analytics workflow
             </li>
             <li>
-              <strong>Survey metrics</strong> — statistics in{' '}
+              <strong>Survey metrics</strong> - statistics in{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
                 src/data/qualtrics-metrics.json
               </code>
             </li>
             <li>
-              <strong>Article series</strong> — navigation ordering and metadata in{' '}
+              <strong>Article series</strong> - navigation ordering and metadata in{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
                 technology-adoption-models-series.ts
               </code>
@@ -176,7 +176,7 @@ const ContentArchitecturePage = () => {
 
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li>
-              <strong>Kebab-case URLs</strong> — all route folders use hyphens (
+              <strong>Kebab-case URLs</strong> - all route folders use hyphens (
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">/privacy-policy</code>, not{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">/PrivacyPolicy</code>
               ), following{' '}
@@ -190,23 +190,23 @@ const ContentArchitecturePage = () => {
               </a>
             </li>
             <li>
-              <strong>Metadata on every page</strong> — title, description, and canonical URL via
+              <strong>Metadata on every page</strong> - title, description, and canonical URL via
               Next.js Metadata API
             </li>
             <li>
-              <strong>Dynamic sitemap</strong> — generated at build time with all 149+ routes,
+              <strong>Dynamic sitemap</strong> - generated at build time with all 149+ routes,
               correct change frequencies, and priorities
             </li>
             <li>
-              <strong>Robots.txt</strong> — programmatically generated to allow search engine
+              <strong>Robots.txt</strong> - programmatically generated to allow search engine
               crawling
             </li>
             <li>
-              <strong>Semantic HTML</strong> — proper heading hierarchy (h1 → h2 → h3), landmark
+              <strong>Semantic HTML</strong> - proper heading hierarchy (h1 → h2 → h3), landmark
               regions, and structured content
             </li>
             <li>
-              <strong>Canonical URLs</strong> — prevent duplicate content between custom domain and
+              <strong>Canonical URLs</strong> - prevent duplicate content between custom domain and
               GitHub Pages deployment
             </li>
           </ul>
@@ -221,26 +221,26 @@ const ContentArchitecturePage = () => {
 
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li>
-              <strong>Mobile-first</strong> — base styles target mobile; breakpoints add desktop
+              <strong>Mobile-first</strong> - base styles target mobile; breakpoints add desktop
               enhancements
             </li>
             <li>
-              <strong>Breakpoints</strong> —{' '}
+              <strong>Breakpoints</strong> -{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">sm</code> (640px),{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">md</code> (768px),{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">lg</code> (1024px),{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">xl</code> (1280px)
             </li>
             <li>
-              <strong>Mobile navigation</strong> — slide-out panel with overlay, replacing the
+              <strong>Mobile navigation</strong> - slide-out panel with overlay, replacing the
               desktop dropdown menu
             </li>
             <li>
-              <strong>Flexible grids</strong> — content reflows from single column (mobile) to
+              <strong>Flexible grids</strong> - content reflows from single column (mobile) to
               multi-column (desktop)
             </li>
             <li>
-              <strong>Touch targets</strong> — buttons and links have minimum 44×44px touch areas on
+              <strong>Touch targets</strong> - buttons and links have minimum 44×44px touch areas on
               mobile
             </li>
           </ul>
@@ -288,7 +288,7 @@ const ContentArchitecturePage = () => {
             <div className="p-4 rounded-lg border border-gray-200 bg-gray-50">
               <h3 className="text-base font-semibold text-gray-900 mb-1">Custom Domain</h3>
               <p className="text-sm text-gray-600 mb-2">technologyadoptionbarriers.org</p>
-              <p className="text-sm text-gray-500">No basePath — assets at root</p>
+              <p className="text-sm text-gray-500">No basePath - assets at root</p>
             </div>
             <div className="p-4 rounded-lg border border-gray-200 bg-gray-50">
               <h3 className="text-base font-semibold text-gray-900 mb-1">GitHub Pages</h3>

@@ -165,7 +165,7 @@ npx tsx scripts/qualtrics-dump-flow.ts
 # Output: .vscode/qualtrics-flow.<surveyId>.json
 ```
 
-### Branch Logic — tenant-specific field reference
+### Branch Logic - tenant-specific field reference
 
 When building Survey Flow Branch elements via the API, the JSON structure varies across Qualtrics tenants. The values below were captured from the TABS production tenant and are what the `PUT` endpoint validates:
 

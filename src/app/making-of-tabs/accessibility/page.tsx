@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Accessibility & Inclusive Design — Making of TABS',
+  title: 'Accessibility & Inclusive Design - Making of TABS',
   description:
-    'How the TABS project approaches web accessibility — automated testing with jest-axe, WCAG AA compliance, keyboard navigation, and the accessibility-first review process.',
+    'How the TABS project approaches web accessibility - automated testing with jest-axe, WCAG AA compliance, keyboard navigation, and the accessibility-first review process.',
   alternates: {
     canonical: '/making-of-tabs/accessibility',
   },
@@ -20,7 +20,7 @@ const AccessibilityPage = () => {
           <p className="mb-6">
             A research project about technology adoption barriers has a particular obligation to be
             accessible to everyone. If someone cannot use our website because of a disability, we
-            have failed at the most basic level. Accessibility is not a feature we add at the end —
+            have failed at the most basic level. Accessibility is not a feature we add at the end -
             it is tested automatically in every pull request and enforced in code review.
           </p>
         </section>
@@ -43,23 +43,23 @@ const AccessibilityPage = () => {
 
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li>
-              <strong>Color contrast</strong> — text meets minimum contrast ratios against
+              <strong>Color contrast</strong> - text meets minimum contrast ratios against
               backgrounds (4.5:1 for normal text, 3:1 for large text)
             </li>
             <li>
-              <strong>Keyboard navigation</strong> — every interactive element is reachable and
+              <strong>Keyboard navigation</strong> - every interactive element is reachable and
               operable using only a keyboard
             </li>
             <li>
-              <strong>Screen reader support</strong> — content is structured with semantic HTML and
+              <strong>Screen reader support</strong> - content is structured with semantic HTML and
               appropriate ARIA attributes
             </li>
             <li>
-              <strong>Text alternatives</strong> — all images have descriptive alt text; all icons
+              <strong>Text alternatives</strong> - all images have descriptive alt text; all icons
               have accessible labels
             </li>
             <li>
-              <strong>Focus indicators</strong> — visible focus outlines on all interactive elements
+              <strong>Focus indicators</strong> - visible focus outlines on all interactive elements
               using <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">focus-visible</code>{' '}
               styles
             </li>
@@ -107,7 +107,7 @@ it('has no accessibility violations', async () => {
 
           <p className="mb-6">
             This runs in CI on every pull request. If a component introduces an accessibility
-            violation — a missing ARIA label, an incorrect role, a form input without a label — the
+            violation - a missing ARIA label, an incorrect role, a form input without a label - the
             test fails and the PR cannot be merged.
           </p>
 
@@ -279,7 +279,7 @@ it('has no accessibility violations', async () => {
               <strong>Tab order</strong> follows visual reading order (left-to-right, top-to-bottom)
             </li>
             <li>
-              <strong>Focus trapping</strong> in modal dialogs — Tab cycles within the dialog until
+              <strong>Focus trapping</strong> in modal dialogs - Tab cycles within the dialog until
               it is closed
             </li>
             <li>
@@ -290,7 +290,7 @@ it('has no accessibility violations', async () => {
               navigation
             </li>
             <li>
-              <strong>Visible focus indicators</strong> — all interactive elements show a clear blue
+              <strong>Visible focus indicators</strong> - all interactive elements show a clear blue
               ring when focused via keyboard (using Tailwind&apos;s{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">focus-visible</code>{' '}
               utilities)
@@ -307,18 +307,18 @@ it('has no accessibility violations', async () => {
 
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li>
-              <strong>PR accessibility checklist</strong> — every pull request template includes an
+              <strong>PR accessibility checklist</strong> - every pull request template includes an
               accessibility section that reviewers must check
             </li>
             <li>
-              <strong>Copilot review</strong> — automated reviews specifically flag ARIA and
+              <strong>Copilot review</strong> - automated reviews specifically flag ARIA and
               accessibility issues
             </li>
             <li>
-              <strong>Lighthouse CI</strong> — accessibility scoring on every merge to main
+              <strong>Lighthouse CI</strong> - accessibility scoring on every merge to main
             </li>
             <li>
-              <strong>Manual testing</strong> — periodic keyboard-only and screen reader testing of
+              <strong>Manual testing</strong> - periodic keyboard-only and screen reader testing of
               critical paths
             </li>
           </ul>

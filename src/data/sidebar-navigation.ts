@@ -1,5 +1,5 @@
 /**
- * Sidebar Navigation — Single source of truth for all site navigation.
+ * Sidebar Navigation - Single source of truth for all site navigation.
  *
  * Replaces nav data previously scattered across:
  * - header/index.tsx (inline menuItems)
@@ -153,15 +153,27 @@ function modelsToGroups(): SidebarGroup[] {
     })),
   ]
 
-  const bibLinks: SidebarLink[] = series.bibliography
-    ? [{ title: 'Series Bibliography', href: series.bibliography.slug }]
-    : []
+  const bibOverviewLinks: SidebarLink[] = [
+    { title: 'Comprehensive Bibliography', href: series.bibliography.slug },
+  ]
+
+  const bibIndividualLinks: SidebarLink[] = series.bibliographyArticles.individual.map((a) => ({
+    title: a.title,
+    href: a.slug,
+  }))
+
+  const bibOrgLinks: SidebarLink[] = series.bibliographyArticles.organizational.map((a) => ({
+    title: a.title,
+    href: a.slug,
+  }))
 
   return [
     { title: 'Series Overview', links: overview },
     { title: "Branch 1: The User's Journey", links: branch1Links },
     { title: "Branch 2: The Organization's Playbook", links: branch2Links },
-    { title: 'Bibliography', links: bibLinks },
+    { title: 'Bibliography', links: bibOverviewLinks },
+    { title: '📚 Individual Models', links: bibIndividualLinks },
+    { title: '🏢 Organizational Models', links: bibOrgLinks },
   ].filter((g) => g.links.length > 0)
 }
 
@@ -201,6 +213,30 @@ function teachingToGroups(): SidebarGroup[] {
       })),
     })
   }
+
+  groups.push({
+    title: 'Presentations',
+    links: [
+      { title: 'Full Deck (Standard)', href: `${baseSlug}/presentation` },
+      { title: 'Full Deck (4K)', href: `${baseSlug}/presentation/4k` },
+      { title: 'Visual Gallery', href: `${baseSlug}/visual-gallery` },
+    ],
+  })
+
+  groups.push({
+    title: 'Focused Briefings',
+    links: [
+      { title: 'Lifecycle Positioning', href: `${baseSlug}/lifecycle-positioning` },
+      {
+        title: 'Lifecycle Positioning Presentation (Standard)',
+        href: `${baseSlug}/lifecycle-positioning/presentation`,
+      },
+      {
+        title: 'Lifecycle Positioning Presentation (4K)',
+        href: `${baseSlug}/lifecycle-positioning/presentation/4k`,
+      },
+    ],
+  })
 
   groups.unshift({
     title: 'Series Overview',

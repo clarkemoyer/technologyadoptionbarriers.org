@@ -134,7 +134,7 @@ jobs:
             console.log('Submission ID:', sub.id, 'Status:', sub.status);
 
             if (sub.status !== 'AWAITING REVIEW') {
-              console.log('Cannot request return — status is', sub.status);
+              console.log('Cannot request return - status is', sub.status);
               process.exit(1);
             }
 

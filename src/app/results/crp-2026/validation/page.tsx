@@ -23,7 +23,7 @@ import {
   CFACard,
 } from '@/components/results/validation/ValidationCards'
 export const metadata: Metadata = {
-  title: 'Instrument Validation — TABS CRP 2026',
+  title: 'Instrument Validation - TABS CRP 2026',
   description:
     'Comprehensive psychometric validation of the 43-item TABS instrument at N=200: reliability, factor analysis, convergent and discriminant validity, item diagnostics, and normality assessment.',
   alternates: {
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   CRP-200 VALIDATION DATA — imported from crp-validation.json
+   CRP-200 VALIDATION DATA - imported from crp-validation.json
    All values come from src/data/crp-validation.json, which the
    daily pipeline generates by extracting the `validation` section
    from tabs_v2_unified_data_analysis.py for the frozen N=200 dataset.
@@ -46,7 +46,7 @@ const ITEM_COUNTS: Record<string, number> = {
   Maturity: validationData.metadata.n_maturity,
 }
 
-// Derived from validationData.metadata.constructs — typed as literal union
+// Derived from validationData.metadata.constructs - typed as literal union
 // for safe indexing into validationData's top-level keys.
 const CONSTRUCT_NAMES = validationData.metadata.constructs as (
   | 'Barriers'

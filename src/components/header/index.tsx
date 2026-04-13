@@ -11,7 +11,7 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const TAKE_TABS_URL = TABS_WEBSITE_QUALTRICS_SURVEY_URL
 
 /**
- * Slim header bar — Logo + Search + CTA.
+ * Slim header bar - Logo + Search + CTA.
  *
  * All page-level navigation has moved to the persistent Sidebar component.
  * Mobile: hamburger in the header opens sidebar overlay.
@@ -26,7 +26,7 @@ const Header: React.FC = () => {
       className="sticky top-0 z-50 flex h-14 w-full items-center bg-white shadow-sm"
     >
       <div className="mx-auto flex w-full max-w-[4096px] items-center gap-4 px-3 sm:px-4 lg:px-6">
-        {/* Mobile hamburger — triggers sidebar overlay */}
+        {/* Mobile hamburger - triggers sidebar overlay */}
         <button
           className="lg:hidden shrink-0 rounded p-1.5 text-slate-700 hover:bg-slate-100 transition-colors"
           onClick={openMobile}
@@ -55,12 +55,12 @@ const Header: React.FC = () => {
           />
         </Link>
 
-        {/* Search — hidden on small mobile, visible from sm+ */}
+        {/* Search - hidden on small mobile, visible from sm+ */}
         <div className="hidden sm:block sm:max-w-md">
           <SearchInput />
         </div>
 
-        {/* Spacer — pushes CTA to far right */}
+        {/* Spacer - pushes CTA to far right */}
         <div className="flex-1" />
 
         {/* Primary CTA */}

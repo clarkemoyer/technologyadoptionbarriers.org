@@ -181,7 +181,7 @@ describe('GoogleSearchConsoleClient', () => {
     })
 
     const client = new GoogleSearchConsoleClient()
-    // Verify it doesn't throw — defaults to production URL
+    // Verify it doesn't throw - defaults to production URL
     expect(client).toBeDefined()
   })
 })

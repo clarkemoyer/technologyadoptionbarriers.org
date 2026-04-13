@@ -27,7 +27,7 @@ from collections import Counter
 # ─────────────────────────────────────────────────────────────
 
 V2_START = "2026-03-23 14:00:00"
-# Prolific live test of V2 instrument (2026-03-23 09:07 AM, COO, 876s) — valid V2 response
+# Prolific live test of V2 instrument (2026-03-23 09:07 AM, COO, 876s) - valid V2 response
 PROLIFIC_TEST_ID = 'R_1QK12IJpHjC3wd6'
 
 # Duration thresholds for sample definitions
@@ -41,7 +41,7 @@ IRI_THRESHOLD_RELAXED = 2      # at least 2 of 3 IRIs correct
 RECAPTCHA_THRESHOLD = 0.5
 PARTIAL_STRAIGHTLINING_SD_THRESHOLD = 0.5
 
-# Scale maps — verified against actual Qualtrics CSV response values
+# Scale maps - verified against actual Qualtrics CSV response values
 BARRIER_SCALE = {
     "Not a Barrier": 1, "Minor Barrier": 2, "Moderate Barrier": 3,
     "Significant Barrier": 4, "Major Barrier": 5
@@ -57,7 +57,7 @@ MATURITY_SCALE = {
     "Level 5: Optimizing/Innovating": 5
 }
 
-# Column definitions — from Qualtrics export
+# Column definitions - from Qualtrics export
 BARRIER_COLS = [f"Q10-28_Barriers_{i}" for i in range(1, 19)]
 BARRIER_IRI = "Q10-28_Barriers_19"
 READINESS_COLS = [f"Q47-64_Readiness_{i}" for i in range(1, 18)]
@@ -70,7 +70,7 @@ IRI_BARRIER_ANSWER = "Major Barrier"
 IRI_READINESS_ANSWER = "Low Readiness/Capability"
 IRI_MATURITY_ANSWER = "Level 2: Developing/Repeatable"
 
-# Item names — verified against CSV subheader row
+# Item names - verified against CSV subheader row
 BARRIER_NAMES = [
     "Resistance to Change", "Lack of Leadership Support", "Risk-Averse Culture",
     "Insufficient Workforce Skills", "Inadequate Training", "High Implementation Cost",
@@ -191,7 +191,7 @@ _OTHER_ROLE_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r'\b(cto|chief technology officer)\b', re.IGNORECASE), 'Technical'),
     (re.compile(r'\b(ciso|chief information security officer|chief security officer)\b', re.IGNORECASE), 'Technical'),
     (re.compile(r'\bchief (information|technology|security|data|digital|analytics|innovation|artificial)\b', re.IGNORECASE), 'Technical'),
-    # "Vice President of {technical domain}" — must precede the generic VP catch-all
+    # "Vice President of {technical domain}" - must precede the generic VP catch-all
     (re.compile(r'\b(vp|vice president) of (it|information technology|engineering|technology|information|security|data|software|infrastructure|cyber|digital|analytics)\b', re.IGNORECASE), 'Technical'),
     (re.compile(r'\b(svp|evp|avp|senior vice president|executive vice president|assistant vice president) of (it|information technology|engineering|technology|information|security|data|software|infrastructure|cyber|digital|analytics)\b', re.IGNORECASE), 'Technical'),
     (re.compile(r'\bdirector of (it|information technology|engineering|technology|information|security|data|software|infrastructure|cyber|digital)\b', re.IGNORECASE), 'Technical'),
@@ -203,7 +203,7 @@ _OTHER_ROLE_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r'\b(online learning|e-learning|digital learning)\b', re.IGNORECASE), 'Technical'),
     # ── Non-Technical ───────────────────────────────────────────────────────
     (re.compile(r'\bchief (executive|financial|operating|human|marketing|revenue|strategy|product|privacy|legal|compliance)\b', re.IGNORECASE), 'Non-Technical'),
-    # "VP/Vice President of {non-technical domain}" — must precede the generic VP catch-all
+    # "VP/Vice President of {non-technical domain}" - must precede the generic VP catch-all
     (re.compile(r'\b(vp|vice president|svp|evp|avp) of (finance|financial|operations|human resources|hr|marketing|sales|strategy|legal|compliance|product)\b', re.IGNORECASE), 'Non-Technical'),
     # Generic VP / Vice President without a technical qualifier → Non-Technical
     (re.compile(r'\b(vice president|vp|svp|evp|avp|senior vp|executive vp)\b', re.IGNORECASE), 'Non-Technical'),
@@ -867,15 +867,15 @@ def filter_samples(data, idx):
     """Create sample cuts from V2 data, grounded in Prolific operational reality.
 
     Sample hierarchy:
-      1. Conservative Clean — Prolific APPROVED + passes ALL quality checks
+      1. Conservative Clean - Prolific APPROVED + passes ALL quality checks
                               (all 3 IRIs, duration >= 540s, reCAPTCHA >= 0.5,
                               no straightlining, no partial straightlining, auth pass)
-      2. Flexible Clean     — Prolific APPROVED + passes basic quality checks
-                              (all 3 IRIs, duration >= 480s) — includes manually
+      2. Flexible Clean     - Prolific APPROVED + passes basic quality checks
+                              (all 3 IRIs, duration >= 480s) - includes manually
                               reviewed FLAG responses that were approved
-      3. Prolific Accepted  — All deduplicated V2 responses with Prolific APPROVED status (matches Prolific UI exactly)
-      4. All V2 Finished    — Finished + duration >= 120s
-      5. All V2             — All V2 responses including incomplete
+      3. Prolific Accepted  - All deduplicated V2 responses with Prolific APPROVED status (matches Prolific UI exactly)
+      4. All V2 Finished    - Finished + duration >= 120s
+      5. All V2             - All V2 responses including incomplete
 
     Constraint: Conservative Clean ⊆ Flexible Clean ⊆ Prolific Accepted
 
@@ -886,7 +886,7 @@ def filter_samples(data, idx):
     v2_all_rows = [r for r in data if r[idx['StartDate']] >= V2_START
                    or ('ResponseId' in idx and r[idx['ResponseId']] == PROLIFIC_TEST_ID)]
 
-    # Deduplicate by PROLIFIC_PID — prefer completed (Finished=TRUE/1) over incomplete.
+    # Deduplicate by PROLIFIC_PID - prefer completed (Finished=TRUE/1) over incomplete.
     # If a participant has both a completed response and an incomplete retake,
     # keep the completed one (the retake shouldn't overwrite valid data).
     # Among completed responses, latest row wins.
@@ -911,9 +911,9 @@ def filter_samples(data, idx):
                     and r[finished_idx_col].strip().upper() in ('TRUE', '1')
                 )
                 if new_finished or not existing_finished:
-                    # New row is finished, or existing wasn't — take new
+                    # New row is finished, or existing wasn't - take new
                     by_pid[pid] = r
-                # else: existing is finished but new isn't — keep existing
+                # else: existing is finished but new isn't - keep existing
         v2 = list(by_pid.values())
     else:
         v2 = v2_all_rows
@@ -924,7 +924,7 @@ def filter_samples(data, idx):
 
     # Prolific Accepted = ALL deduplicated V2 responses with Prolific APPROVED status.
     # Must match the Prolific UI "Approved" count exactly (currently 206).
-    # Includes incomplete/short responses — Prolific approved them, so they count.
+    # Includes incomplete/short responses - Prolific approved them, so they count.
     # Clean samples apply quality filters on top of this.
     prolific_accepted = [r for r in v2 if _get_prolific_status(r, idx) == 'APPROVED']
 
@@ -1179,7 +1179,7 @@ def print_effect_sizes(rows, idx):
         d, d_cil, d_ciu = cohens_d(hb, lb)
         hbm, _ = mean_sd(hb)
         lbm, _ = mean_sd(lb)
-        print(f"\n  Budget Adequacy — High (n={len(high_budget)}) vs Low (n={len(low_budget)}):")
+        print(f"\n  Budget Adequacy - High (n={len(high_budget)}) vs Low (n={len(low_budget)}):")
         if d is not None:
             hbm_str = f"{hbm:.2f}" if hbm is not None else "NA"
             lbm_str = f"{lbm:.2f}" if lbm is not None else "NA"
@@ -1249,7 +1249,7 @@ def print_cross_tabs(rows, idx):
 def print_sensitivity(cuts, idx):
     """Print sensitivity analysis across all sample cuts."""
     print(f"\n{'=' * 78}")
-    print("  SENSITIVITY ANALYSIS — ALL SAMPLE DEFINITIONS")
+    print("  SENSITIVITY ANALYSIS - ALL SAMPLE DEFINITIONS")
     print("=" * 78)
 
     col_width = 12
@@ -1487,7 +1487,7 @@ def sensitivity_to_json(cuts, idx):
         """Compute SURVEY demographics breakdown for a set of rows.
 
         These are organizational/role-based demographics from Qualtrics survey
-        responses (Q1_Role, Q4_OrgSize, Q5_ProfitModel) — NOT Prolific platform
+        responses (Q1_Role, Q4_OrgSize, Q5_ProfitModel) - NOT Prolific platform
         demographics (age, sex, ethnicity, etc.).
         """
         if not rows:
@@ -1788,7 +1788,7 @@ def sensitivity_to_json(cuts, idx):
 
         Returns None when the required sample groups ('Conservative Clean',
         'Flexible Clean', 'Prolific Accepted', 'All V2 Finished') are not all
-        present in cuts_list — callers must guard against None.
+        present in cuts_list - callers must guard against None.
 
         Otherwise returns a dict with 'role', 'organization_size', 'profit_model'
         (each {ok, chi2, p_value, df, error}) and 'profit_model_distribution'.
@@ -1813,7 +1813,7 @@ def sensitivity_to_json(cuts, idx):
         cuts_by_label = {sample_label: rows for sample_label, rows in cuts_list}
         missing_labels = [label for label in required_labels if label not in cuts_by_label]
         if missing_labels:
-            # Not all required groups are present — skip the analysis gracefully.
+            # Not all required groups are present - skip the analysis gracefully.
             return None
         main_cuts = [(label, cuts_by_label[label]) for label in required_labels]
 
@@ -1886,7 +1886,7 @@ def sensitivity_to_json(cuts, idx):
     if fba_result is not None:
         result["filter_bias_analysis"] = fba_result
 
-    # Role category metadata — sourced from OTHER_ROLE_CATEGORIES_PATTERNS so the UI
+    # Role category metadata - sourced from OTHER_ROLE_CATEGORIES_PATTERNS so the UI
     # stays consistent with the pipeline without duplicating category names.
     result["role_categories"] = [
         {

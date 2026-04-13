@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Unified Models Review — Making of TABS',
+  title: 'Unified Models Review - Making of TABS',
   description: 'Gemini 3.1 Pro validity check of unified adoption models in TABS.',
   alternates: {
     canonical: '/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-1-unified-models',

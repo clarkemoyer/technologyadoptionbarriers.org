@@ -4,7 +4,7 @@ name: Daily Pipeline (Analysis + Operations)
 # Replaces the separate analysis-pipeline.yml (09:00) and
 # daily-disposition-processing.yml (11:00) with a single chained workflow.
 #
-# All jobs are linked by `needs:` — each phase starts immediately when its
+# All jobs are linked by `needs:` - each phase starts immediately when its
 # dependencies finish. Total wall-clock time is ~10-15 min instead of 2+ hours.
 #
 # Data flow:
@@ -15,11 +15,11 @@ name: Daily Pipeline (Analysis + Operations)
 #   Phase 5: Create daily report issue with deltas
 #
 # Safety: Only approves CLEAN (all checks passed) and sends review
-# messages. Does NOT reject anyone — all rejections require manual trigger.
+# messages. Does NOT reject anyone - all rejections require manual trigger.
 
 on:
   schedule:
-    - cron: '30 10 * * *' # Daily at 10:30 UTC (6:30am ET) — results ready by 7:00am ET
+    - cron: '30 10 * * *' # Daily at 10:30 UTC (6:30am ET) - results ready by 7:00am ET
   workflow_dispatch:
 
 concurrency:
@@ -137,7 +137,7 @@ jobs:
 
           # Check 1: already in current checkout
           if [ -f "$CRP_CSV" ]; then
-            echo "CRP dataset already exists in checkout — skipping to preserve frozen snapshot"
+            echo "CRP dataset already exists in checkout - skipping to preserve frozen snapshot"
             echo "produced=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -145,7 +145,7 @@ jobs:
           # Check 2: already on origin/main (covers workflow_dispatch from non-main branch)
           git fetch --no-tags --depth=1 origin "main:refs/remotes/origin/main" 2>/dev/null || true
           if git show "origin/main:$CRP_CSV" >/dev/null 2>&1; then
-            echo "CRP dataset already exists on origin/main — skipping to preserve frozen snapshot"
+            echo "CRP dataset already exists on origin/main - skipping to preserve frozen snapshot"
             echo "produced=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -153,7 +153,7 @@ jobs:
           # Check 3: already on pending daily-pipeline PR branch (not yet merged)
           git fetch --no-tags --depth=1 origin "$PIPELINE_BRANCH:refs/remotes/origin/$PIPELINE_BRANCH" 2>/dev/null || true
           if git show "origin/$PIPELINE_BRANCH:$CRP_CSV" >/dev/null 2>&1; then
-            echo "CRP dataset already exists on origin/$PIPELINE_BRANCH — skipping to preserve frozen snapshot"
+            echo "CRP dataset already exists on origin/$PIPELINE_BRANCH - skipping to preserve frozen snapshot"
             echo "produced=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -193,7 +193,7 @@ jobs:
           print(f"  Filtered rows: {len(data)} (expected {len(selected_ids)})")
 
           if len(data) != len(selected_ids):
-              print(f"  ERROR: Row count mismatch — expected {len(selected_ids)}, got {len(data)}", file=sys.stderr)
+              print(f"  ERROR: Row count mismatch - expected {len(selected_ids)}, got {len(data)}", file=sys.stderr)
               sys.exit(1)
 
           with output.open("w", newline="", encoding="utf-8") as f:
@@ -210,7 +210,7 @@ jobs:
             cp "${{ runner.temp }}/crp-output/TABS_V2_CRP_public_dataset.csv" \
                "${{ runner.temp }}/crp-public/TABS_V2_CRP_2026_public_dataset.csv"
           else
-            echo "CRP public CSV not found — skipping"
+            echo "CRP public CSV not found - skipping"
           fi
 
       # ── Unified Analysis: LIVE dataset ─────────────────────────
@@ -255,7 +255,7 @@ jobs:
             exit 1
           fi
           if [ ! -f "$ENRICHED_CSV" ]; then
-            echo "::error::Enriched Qualtrics CSV not found — cannot join auth flags"
+            echo "::error::Enriched Qualtrics CSV not found - cannot join auth flags"
             exit 1
           fi
           python3 - <<PY
@@ -358,7 +358,7 @@ jobs:
           set -euo pipefail
           CRP_CSV="${{ runner.temp }}/crp-enriched-for-analysis.csv"
           if [ ! -f "$CRP_CSV" ]; then
-            echo "::error::Enriched CRP CSV not found — CRP enrichment step must have failed"
+            echo "::error::Enriched CRP CSV not found - CRP enrichment step must have failed"
             exit 1
           fi
           python scripts/analysis/tabs_v2_unified_data_analysis.py \
@@ -405,7 +405,7 @@ jobs:
           retention-days: 7
           if-no-files-found: warn
 
-      # Full unified JSON — internal only, never committed to repo
+      # Full unified JSON - internal only, never committed to repo
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -602,7 +602,7 @@ jobs:
       - name: Stage CRP files into repo
         run: |
           set -euo pipefail
-          # CRP public CSV — only staged on first build (produced=true)
+          # CRP public CSV - only staged on first build (produced=true)
           if [ -f "${{ runner.temp }}/crp-csv/TABS_V2_CRP_2026_public_dataset.csv" ]; then
             mkdir -p public/datasets
             cp "${{ runner.temp }}/crp-csv/TABS_V2_CRP_2026_public_dataset.csv" \
@@ -610,7 +610,7 @@ jobs:
             echo "  Staged: public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
           fi
 
-          # CRP analysis JSONs — MUST exist, produced daily
+          # CRP analysis JSONs - MUST exist, produced daily
           if [ ! -f "${{ runner.temp }}/crp-json/crp-sensitivity-analysis.json" ]; then
             echo "::error::crp-sensitivity-analysis.json missing from CRP analysis results"
             exit 1

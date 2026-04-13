@@ -332,7 +332,7 @@ def main():
         pid = (row[pid_idx] if pid_idx < len(row) else "").strip()
         disposition = (row[disp_idx] if disp_idx < len(row) else "").strip()
 
-        # Match disposition — compound filters need sub-type matching
+        # Match disposition - compound filters need sub-type matching
         matches = False
         iri_fail = int(row[iri_fail_idx]) if iri_fail_idx < len(row) and row[iri_fail_idx].strip().isdigit() else 0
         speed = int(row[speed_idx]) if speed_idx < len(row) and row[speed_idx].strip().isdigit() else 0
@@ -436,15 +436,15 @@ def main():
 
         for r in filtered:
             try:
-                # Check submission status — require known status
+                # Check submission status - require known status
                 sub_status = status_map.get(r["pid"])
                 if not sub_status:
                     skipped_not_found += 1
-                    print(f"  SKIPPED {r['pid']} — not found in study submissions")
+                    print(f"  SKIPPED {r['pid']} - not found in study submissions")
                     continue
                 if sub_status in SKIP_STATUSES:
                     skipped_actioned += 1
-                    print(f"  SKIPPED {r['pid']} — submission is {sub_status}")
+                    print(f"  SKIPPED {r['pid']} - submission is {sub_status}")
                     continue
 
                 # Check if already received this message type
@@ -457,12 +457,12 @@ def main():
                 already_sent = any(signature in (m.get("body") or "") for m in study_msgs)
                 if already_sent:
                     skipped_messaged += 1
-                    print(f"  SKIPPED {r['pid']} — already received this {r['disposition']} message")
+                    print(f"  SKIPPED {r['pid']} - already received this {r['disposition']} message")
                     continue
                 if study_msgs:
                     print(
                         f"  NOTE: {r['pid']} has {len(study_msgs)} existing message(s) "
-                        "but none match this disposition type — sending new message"
+                        "but none match this disposition type - sending new message"
                     )
 
                 print(f"  Sending message to {r['pid']}...")
@@ -480,7 +480,7 @@ def main():
             f"| SKIPPED (already messaged): {skipped_messaged} | FAILED: {failed}"
         )
 
-    # ── Step summary (aggregate counts only — no PIDs for participant privacy) ──
+    # ── Step summary (aggregate counts only - no PIDs for participant privacy) ──
     if dry_run:
         results_lines = [
             f"- **Would message:** {len(filtered)} participants",
