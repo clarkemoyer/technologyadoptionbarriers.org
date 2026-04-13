@@ -146,22 +146,22 @@ const Article24Page = () => {
             address:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Business Architecture</strong> defines how the organization structures itself to
+            <strong>Business Architecture </strong>defines how the organization structures itself to
             deliver value. It addresses organizational functions, processes, and the information
             those processes require.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Data Architecture</strong> defines what information the organization must
+            <strong>Data Architecture </strong>defines what information the organization must
             manage, how that information is structured, and how information flows through the
             organization.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Application Architecture</strong> defines what applications the organization
+            <strong>Application Architecture </strong>defines what applications the organization
             needs to deliver required functions and manage required information. It identifies which
             applications are needed, what each application does, and how applications interact.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Technology Architecture</strong> defines the infrastructure–computing platforms,
+            <strong>Technology Architecture </strong>defines the infrastructure–computing platforms,
             networks, storage, security capabilities–required to support applications and data [2].
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -181,15 +181,15 @@ const Article24Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>DoDAF defined three major view categories:</p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Operational Views</strong> showed how the organization performed its operations,
+            <strong>Operational Views </strong>showed how the organization performed its operations,
             what functions were necessary, and how information flowed through operations.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Systems Views</strong> showed what systems supported those operations, how
+            <strong>Systems Views </strong>showed what systems supported those operations, how
             systems interacted, and what capabilities systems provided.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Technical Views</strong> showed the standards and technology choices supporting
+            <strong>Technical Views </strong>showed the standards and technology choices supporting
             systems.
           </p>
           <p className={PARAGRAPH_CLASSES}>

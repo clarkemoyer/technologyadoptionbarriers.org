@@ -99,37 +99,37 @@ const Article26Page = () => {
             organizational concerns:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Business Perspective</strong> addresses business-focused cloud adoption
+            <strong>Business Perspective </strong>addresses business-focused cloud adoption
             concerns: how cloud adoption aligns with business strategy, how to communicate business
             value to stakeholders, how to establish governance ensuring that cloud investments
             deliver business value, how to manage cloud spending, and how to track return on
             investment [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>People Perspective</strong> addresses workforce-related concerns: building
+            <strong>People Perspective </strong>addresses workforce-related concerns: building
             organizational capabilities and skills necessary for cloud adoption, developing training
             programs, restructuring organizational roles, building cloud expertise, managing career
             transitions as roles change, and ensuring organizational culture embraces cloud adoption
             [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Governance Perspective</strong> addresses decision-making and control concerns:
+            <strong>Governance Perspective </strong>addresses decision-making and control concerns:
             establishing governance structures for cloud decisions, managing risks, ensuring
             compliance with regulatory requirements, managing IT portfolio, and making coherent
             investment decisions [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Platform Perspective</strong> addresses technology concerns: designing cloud
+            <strong>Platform Perspective </strong>addresses technology concerns: designing cloud
             platform architecture, selecting cloud services, managing cloud infrastructure, ensuring
             security and reliability, and building cloud operational capabilities [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Security Perspective</strong> addresses security-specific concerns: implementing
+            <strong>Security Perspective </strong>addresses security-specific concerns: implementing
             controls ensuring cloud systems are secure, managing data security, ensuring compliance
             with security standards, and establishing security governance [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Operations Perspective</strong> addresses how organizations should operate cloud
+            <strong>Operations Perspective </strong>addresses how organizations should operate cloud
             systems differently from traditional on-premises operations: establishing new
             operational processes, defining service monitoring and management approaches, developing
             incident response capabilities, and establishing financial management for cloud
@@ -175,26 +175,26 @@ const Article26Page = () => {
             The ETF structures transformation into four distinct phases:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Prioritize</strong> focuses on identifying transformation opportunities,
+            <strong>Prioritize </strong>focuses on identifying transformation opportunities,
             understanding the path forward, assessing organizational readiness, and establishing
             business cases for transformation investment. Organizations clarify what they are trying
             to achieve, what business problems cloud should solve, and what value should be
             realized.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Ready</strong> focuses on preparing the organization for transformation:
+            <strong>Ready </strong>focuses on preparing the organization for transformation:
             building governance structures, establishing cross-functional leadership, assessing
             capability gaps, establishing transformation programs, and building foundational
             capabilities [2].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Enable</strong> focuses on building the organizational capabilities, skills, and
+            <strong>Enable </strong>focuses on building the organizational capabilities, skills, and
             capacity necessary for cloud operations and business transformation. Organizations
             invest in workforce development, establish Cloud Centers of Excellence, implement
             experiential learning programs, and build operational competency.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Transform</strong> focuses on the actual transformation: incubating new
+            <strong>Transform </strong>focuses on the actual transformation: incubating new
             approaches through pilots, scaling successful approaches across the organization,
             managing organizational change, and embedding new ways of working into regular business
             operations [2].
@@ -220,28 +220,28 @@ const Article26Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>The Microsoft framework specifies these phases [3]:</p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Define Strategy</strong> addresses foundational questions about why the
+            <strong>Define Strategy </strong>addresses foundational questions about why the
             organization is adopting cloud, what business outcomes cloud should enable, and what
             organizational changes are necessary.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Plan</strong> involves creating detailed adoption plans specifying what should
+            <strong>Plan </strong>involves creating detailed adoption plans specifying what should
             be migrated first, what dependencies exist, and what resources are required.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Ready</strong> involves preparing the organization–establishing governance,
+            <strong>Ready </strong>involves preparing the organization–establishing governance,
             building technical readiness, ensuring organizational readiness.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Adopt</strong> involves the actual migration and implementation–moving
+            <strong>Adopt </strong>involves the actual migration and implementation–moving
             applications and data to cloud, establishing cloud operations.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Govern</strong> involves establishing governance and controls ensuring cloud
+            <strong>Govern </strong>involves establishing governance and controls ensuring cloud
             systems operate securely, comply with requirements, and deliver expected value [3].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Manage</strong> involves establishing operational management practices ensuring
+            <strong>Manage </strong>involves establishing operational management practices ensuring
             cloud systems remain secure, reliable, and cost-optimized.
           </p>
           <p className={PARAGRAPH_CLASSES}>

@@ -97,40 +97,40 @@ const Article25Page = () => {
             The NIST RMF specifies a structured process for managing information security risk [1]:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Prepare</strong> involves establishing the context for security management.
+            <strong>Prepare </strong>involves establishing the context for security management.
             Organizations assess their risk environment, establish organizational risk tolerance,
             define organizational roles and responsibilities for security, and identify which
             information systems are critical to organizational success.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Categorize</strong> involves classifying information systems based on the impact
+            <strong>Categorize </strong>involves classifying information systems based on the impact
             their compromise, loss, or degradation would have on organizational operations. A system
             whose failure would significantly disrupt critical operations requires stronger security
             controls than systems whose failure would create minor inconvenience.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Select</strong> involves selecting appropriate security controls based on
+            <strong>Select </strong>involves selecting appropriate security controls based on
             categorization and risk assessment. If a system is categorized as high-impact,
             organizations select stronger controls than for low-impact systems.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Implement</strong> involves actually implementing selected security controls
+            <strong>Implement </strong>involves actually implementing selected security controls
             within the organization&apos;s information systems.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Assess</strong> involves evaluating whether implemented controls are actually
+            <strong>Assess </strong>involves evaluating whether implemented controls are actually
             effective. Organizations assess whether controls are designed correctly, implemented
             correctly, and operating effectively [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Authorize</strong> involves senior management formally accepting residual risk
+            <strong>Authorize </strong>involves senior management formally accepting residual risk
             and authorizing continued system operation. Rather than assuming perfect security, the
             RMF acknowledges that all systems operate with some residual risk. Senior leaders must
             formally accept that risk based on understanding the controls in place and the residual
             vulnerabilities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Monitor</strong> involves continuously monitoring systems to ensure controls
+            <strong>Monitor </strong>involves continuously monitoring systems to ensure controls
             remain effective and to detect security incidents early [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -153,29 +153,29 @@ const Article25Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>The CSF specifies five core functions [2]:</p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Identify</strong> involves understanding organizational assets, systems, and
+            <strong>Identify </strong>involves understanding organizational assets, systems, and
             data. Organizations cannot protect what they do not know they have. Many organizations
             struggle with asset visibility–they do not have complete inventories of systems,
             applications, and data. The Identify function requires organizations to establish
             comprehensive understanding of what they are trying to protect.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Protect</strong> involves implementing security controls to prevent unauthorized
+            <strong>Protect </strong>involves implementing security controls to prevent unauthorized
             access, theft, damage, or disruption. This function includes access controls,
             encryption, security awareness training, and other preventive measures.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Detect</strong> involves identifying when security incidents have occurred.
+            <strong>Detect </strong>involves identifying when security incidents have occurred.
             Detection is critical because prevention is never perfect; attackers will sometimes
             breach defenses. Organizations must have capabilities to notice when breaches occur so
             they can respond before significant damage is done.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Respond</strong> involves responding to detected incidents. This includes
+            <strong>Respond </strong>involves responding to detected incidents. This includes
             containment, eradication, and notification [2].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Recover</strong> involves recovering from security incidents and restoring
+            <strong>Recover </strong>involves recovering from security incidents and restoring
             systems to normal operation.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -204,15 +204,15 @@ const Article25Page = () => {
             CMMC specifies maturity levels building upon NIST standards [3]:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Level 1 (Foundational)</strong> requires implementation of basic security
+            <strong>Level 1 (Foundational) </strong>requires implementation of basic security
             practices covering areas like access control, identification, and incident response.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Level 2 (Advanced)</strong> requires more sophisticated practices like
+            <strong>Level 2 (Advanced) </strong>requires more sophisticated practices like
             configuration management, vulnerability assessment, and risk assessment.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Levels 3–5 (Progressive)</strong> require progressively more sophisticated
+            <strong>Levels 3–5 (Progressive) </strong>require progressively more sophisticated
             practices appropriate to organizations handling highly sensitive information or
             operating in critical infrastructure contexts [3].
           </p>

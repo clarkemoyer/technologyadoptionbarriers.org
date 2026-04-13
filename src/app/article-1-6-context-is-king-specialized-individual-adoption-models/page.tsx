@@ -119,7 +119,7 @@ const Article16Page = () => {
             may be adequately supported by straightforward technology.{' '}
             <strong>Technology characteristics</strong>–functionality, reliability, data quality,
             and user interface–define what the system can actually do.{' '}
-            <strong>Task-technology fit</strong> itself represents the degree of alignment between
+            <strong>Task-technology fit </strong>itself represents the degree of alignment between
             task requirements and technology capabilities.
           </p>
 
@@ -186,18 +186,18 @@ const Article16Page = () => {
             significantly. The model incorporates <strong>hedonic outcomes</strong>
             –entertainment value, enjoyment, fun–recognizing that household technology adoption is
             motivated not just by practical utility but by pleasure. It measures{' '}
-            <strong>cost considerations</strong> explicitly, acknowledging that price sensitivity is
+            <strong>cost considerations </strong>explicitly, acknowledging that price sensitivity is
             central to household purchasing decisions in ways it is not in organizational technology
             adoption. It identifies <strong>self-efficacy</strong>–confidence in one&apos;s ability
             to use technology–as critical to household adoption, recognizing that many household
             members lack technical expertise. And it incorporates{' '}
-            <strong>normative influences</strong> from friends, family, secondary sources, and
+            <strong>normative influences </strong>from friends, family, secondary sources, and
             workplace referents, capturing the social context in which household adoption occurs.
           </p>
 
           <h3 className={H3_CLASSES}>The Role of Household Life Cycle</h3>
           <p className={PARAGRAPH_CLASSES}>
-            Perhaps most innovatively, MATH incorporates <strong>household life cycle</strong> as a
+            Perhaps most innovatively, MATH incorporates <strong>household life cycle </strong>as a
             fundamental moderator of adoption decisions and drivers. Young couples without children
             face different technology needs and priorities than families with dependent children or
             mature households preparing for retirement. The availability of applicable uses–what the
@@ -235,16 +235,16 @@ const Article16Page = () => {
           <h3 className={H3_CLASSES}>Household-Specific Barriers</h3>
           <p className={PARAGRAPH_CLASSES}>
             MATH also identifies barriers specific to household adoption.{' '}
-            <strong>Cost barriers</strong> are direct and salient–families making purchasing
+            <strong>Cost barriers </strong>are direct and salient–families making purchasing
             decisions with limited discretionary income directly perceive the price impact.{' '}
-            <strong>Perceived usefulness barriers</strong> emerge when households cannot identify
+            <strong>Perceived usefulness barriers </strong>emerge when households cannot identify
             how technology serves their specific needs. <strong>Ease of use barriers</strong>{' '}
             operate particularly strongly when household members lack technical expertise.{' '}
-            <strong>Fear and anxiety about technology advancement</strong> prove salient, especially
+            <strong>Fear and anxiety about technology advancement </strong>prove salient, especially
             for older household members who perceive technology as advancing faster than they can
-            learn. <strong>Self-efficacy barriers</strong> reflect confidence gaps that
+            learn. <strong>Self-efficacy barriers </strong>reflect confidence gaps that
             organizational mandates can override but household choice cannot.{' '}
-            <strong>Social barriers</strong> operate differently than in organizations–not everyone
+            <strong>Social barriers </strong>operate differently than in organizations–not everyone
             in the household may share enthusiasm for technology adoption, and disagreement about
             whether a technology is worth the cost and learning effort can prevent household-level
             adoption.
@@ -279,16 +279,16 @@ const Article16Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             VAM draws on Schwartz&apos;s comprehensive theory of human values, which identifies
             distinct value dimensions that motivate human behavior.{' '}
-            <strong>Achievement values</strong> emphasize success, ambition, and accomplishment.{' '}
-            <strong>Self-direction values</strong> emphasize autonomy, independence, and control.{' '}
-            <strong>Benevolence values</strong> emphasize helping others and community welfare.{' '}
-            <strong>Hedonic values</strong> emphasize pleasure, enjoyment, and fun.{' '}
-            <strong>Stimulation values</strong> emphasize excitement and novelty.{' '}
-            <strong>Security values</strong> emphasize safety, stability, and protection.{' '}
-            <strong>Conformity values</strong> emphasize social order and obligation.{' '}
-            <strong>Tradition values</strong> emphasize cultural preservation.{' '}
-            <strong>Universalism values</strong> emphasize understanding, environmental protection,
-            and concern for all humanity. <strong>Power values</strong> emphasize status, influence,
+            <strong>Achievement values </strong>emphasize success, ambition, and accomplishment.{' '}
+            <strong>Self-direction values </strong>emphasize autonomy, independence, and control.{' '}
+            <strong>Benevolence values </strong>emphasize helping others and community welfare.{' '}
+            <strong>Hedonic values </strong>emphasize pleasure, enjoyment, and fun.{' '}
+            <strong>Stimulation values </strong>emphasize excitement and novelty.{' '}
+            <strong>Security values </strong>emphasize safety, stability, and protection.{' '}
+            <strong>Conformity values </strong>emphasize social order and obligation.{' '}
+            <strong>Tradition values </strong>emphasize cultural preservation.{' '}
+            <strong>Universalism values </strong>emphasize understanding, environmental protection,
+            and concern for all humanity. <strong>Power values </strong>emphasize status, influence,
             and prestige.
           </p>
 
@@ -316,7 +316,7 @@ const Article16Page = () => {
 
           <h3 className={H3_CLASSES}>Perceived Value as the Central Construct</h3>
           <p className={PARAGRAPH_CLASSES}>
-            VAM introduces <strong>perceived value</strong> as the central mediating construct
+            VAM introduces <strong>perceived value </strong>as the central mediating construct
             between beliefs and adoption intention. Perceived value represents the overall
             assessment of a technology&apos;s worth based on perceptions of what is received
             (benefits) and what is given (costs). Benefits include not just functional utility but

@@ -67,7 +67,7 @@ const OrganizationsPlaybookPage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>The Strategic “Why”:</strong> The intellectual foundation for organizational
+              <strong>The Strategic “Why”: </strong>The intellectual foundation for organizational
               adoption lies in strategic management theory. Foundational frameworks like the
               Technology-Organization-Environment (TOE) framework [2] provided a lens for
               understanding the external and internal forces that prompt a firm to consider a new
@@ -76,7 +76,7 @@ const OrganizationsPlaybookPage = () => {
               strategic justification for investment.
             </li>
             <li>
-              <strong>The Procedural “How”:</strong> As organizations began to invest heavily in
+              <strong>The Procedural “How”: </strong>As organizations began to invest heavily in
               software and IT, the focus shifted from why they should adopt to how they could do so
               effectively and repeatably. This led to the rise of maturity models, most famously the
               Capability Maturity Model (CMM) [4] and its successor, CMMI. While these focused on
@@ -85,7 +85,7 @@ const OrganizationsPlaybookPage = () => {
               managing the entire IT function as a value-adding business unit.
             </li>
             <li>
-              <strong>The Influence of the Intermediary:</strong> Parallel to the development of
+              <strong>The Influence of the Intermediary: </strong>Parallel to the development of
               academic and vendor frameworks, a powerful ecosystem of industry analysts and
               consultants emerged to guide executive decision-making. Firms like Gartner
               institutionalized technology evaluation through tools like the Hype Cycle and the
@@ -95,7 +95,7 @@ const OrganizationsPlaybookPage = () => {
               adoption strategies.
             </li>
             <li>
-              <strong>The Blueprint and the Mandate: Architecture and Risk:</strong> As enterprise
+              <strong>The Blueprint and the Mandate: Architecture and Risk: </strong>As enterprise
               IT became more complex, the need for a coherent blueprint became critical. This led to
               the development of enterprise architecture frameworks like The Open Group Architecture
               Framework (TOGAF) [7] to align business and technology strategy. Simultaneously, as
@@ -106,7 +106,7 @@ const OrganizationsPlaybookPage = () => {
               building systems to building them securely and resiliently.
             </li>
             <li>
-              <strong>The Prescriptive “What”: Cloud and AI Playbooks:</strong> The modern era is
+              <strong>The Prescriptive “What”: Cloud and AI Playbooks: </strong>The modern era is
               characterized by the rise of highly detailed, prescriptive playbooks from the
               technology vendors themselves. Major cloud providers created comprehensive guides like
               the AWS Cloud Adoption Framework (CAF) [10] and the Microsoft Cloud Adoption Framework
@@ -185,9 +185,7 @@ const OrganizationsPlaybookPage = () => {
                 https://doi.org/10.1093/acprof:oso/9780198704621.001.0001
               </a>
             </li>
-            <li>
-              The Open Group. (2018). The TOGAFÂ® Standard, Version 9.2. Van Haren Publishing.
-            </li>
+            <li>The Open Group. (2018). The TOGAF® Standard, Version 9.2. Van Haren Publishing.</li>
             <li>
               National Institute of Standards and Technology. (2018). Risk Management Framework for
               Information Systems and Organizations: A System Life Cycle Approach for Security and

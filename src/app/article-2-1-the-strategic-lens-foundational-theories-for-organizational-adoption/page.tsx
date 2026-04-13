@@ -154,7 +154,7 @@ const Article21Page = () => {
             advantage, it must be:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Valuable (V):</strong> The technology must enable the organization to implement
+            <strong>Valuable (V): </strong>The technology must enable the organization to implement
             strategies that create value–either by exploiting market opportunities or neutralizing
             competitive threats. A technology that improves internal efficiency but does not
             translate to customer benefits or cost advantages has limited value. Leaders should ask:
@@ -162,7 +162,7 @@ const Article21Page = () => {
             for implementing this?
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Rare (R):</strong> The technology or the capability to deploy it must not be
+            <strong>Rare (R): </strong>The technology or the capability to deploy it must not be
             possessed by most competitors. If all competitors can readily purchase and implement the
             same technology, it provides no competitive advantage–only competitive parity. However,
             implementing ERP systems in ways competitors have not imagined–perhaps integrating them
@@ -171,7 +171,7 @@ const Article21Page = () => {
             quickly match our capability?
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Inimitable (I):</strong> Competitors should find it difficult or impossible to
+            <strong>Inimitable (I): </strong>Competitors should find it difficult or impossible to
             replicate the competitive advantage the technology creates. Imitation becomes difficult
             for several reasons: causal ambiguity (competitors observe advantage but cannot
             understand why), social complexity (advantage emerges from how technology integrates
@@ -180,7 +180,7 @@ const Article21Page = () => {
             historical circumstances competitors cannot recreate).
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Organized (O):</strong> The organization must actually be structured, managed,
+            <strong>Organized (O): </strong>The organization must actually be structured, managed,
             and designed to capture the potential advantage from the technology. Even if a
             technology is valuable, rare, and inimitable, the organization may fail to benefit if
             its structures, systems, incentives, and management practices do not enable effective

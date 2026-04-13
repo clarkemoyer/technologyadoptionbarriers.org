@@ -112,7 +112,7 @@ const Article27Page = () => {
             foundational capabilities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Business Perspective</strong> in CAF-AI addresses AI strategy and business
+            <strong>Business Perspective </strong>in CAF-AI addresses AI strategy and business
             opportunity identification. Rather than simply asking &quot;should we adopt
             cloud?&quot;, organizations must ask &quot;what business problems should AI solve? What
             competitive advantages can AI enable? Which business processes should be augmented or
@@ -122,7 +122,7 @@ const Article27Page = () => {
             this strategic assessment [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>People Perspective</strong> in CAF-AI addresses the unique workforce challenges
+            <strong>People Perspective </strong>in CAF-AI addresses the unique workforce challenges
             AI adoption creates. This includes developing ML Fluency–shared understanding across the
             organization about what AI can and cannot do, how AI systems learn from data, what
             ethical considerations AI raises. It includes Workforce Transformation–identifying how
@@ -134,7 +134,7 @@ const Article27Page = () => {
             learning, and empowering teams to innovate with AI [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Governance Perspective</strong> in CAF-AI addresses how organizations should
+            <strong>Governance Perspective </strong>in CAF-AI addresses how organizations should
             govern AI systems. This is fundamentally different from cloud governance. Cloud
             governance typically addresses cost control, security, and compliance. AI governance
             additionally addresses responsible use of AI: ensuring AI systems do not embed biases,
@@ -146,7 +146,7 @@ const Article27Page = () => {
             organizational risk tolerance [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Platform Perspective</strong> in CAF-AI addresses the technical infrastructure
+            <strong>Platform Perspective </strong>in CAF-AI addresses the technical infrastructure
             required for AI. This includes Data Architecture–ensuring organizations have
             high-quality data organized in ways AI systems can use effectively. This includes MLOps
             capability–establishing processes for managing AI model lifecycles: developing models,
@@ -156,7 +156,7 @@ const Article27Page = () => {
             services necessary to support AI workloads [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Security Perspective</strong> in CAF-AI addresses security concerns specific to
+            <strong>Security Perspective </strong>in CAF-AI addresses security concerns specific to
             AI. Beyond traditional information security concerns, AI security includes addressing
             potential attacks on AI systems–attackers deliberately providing data designed to cause
             AI models to malfunction or to manipulate model outputs. Security includes managing data
@@ -164,7 +164,7 @@ const Article27Page = () => {
             cannot inadvertently expose sensitive information in their outputs.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Operations Perspective</strong> in CAF-AI addresses how organizations should
+            <strong>Operations Perspective </strong>in CAF-AI addresses how organizations should
             operate AI systems differently from traditional software systems. AI systems require
             continuous monitoring to ensure model accuracy and fairness. AI systems may
             drift–performance degrading over time as underlying data distributions change.
@@ -234,13 +234,13 @@ const Article27Page = () => {
             Responsible AI frameworks typically address multiple dimensions:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Fairness</strong> ensures AI systems do not discriminate against protected
+            <strong>Fairness </strong>ensures AI systems do not discriminate against protected
             groups or produce disparate impacts. This requires understanding potential sources of
             bias in training data, identifying protected characteristics systems might use to
             discriminate, and implementing approaches mitigating bias.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Transparency and Explainability</strong> address whether stakeholders understand
+            <strong>Transparency and Explainability </strong>address whether stakeholders understand
             how AI systems make decisions. Some AI systems (particularly complex deep learning
             systems) operate as &quot;black boxes&quot; where even developers cannot fully explain
             why the system made a particular decision. Responsible AI frameworks specify that
@@ -248,19 +248,19 @@ const Article27Page = () => {
             understand limitations on explainability.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Accountability</strong> ensures organizations take responsibility for AI system
+            <strong>Accountability </strong>ensures organizations take responsibility for AI system
             outcomes. This includes establishing clear ownership, creating decision-making
             authority, ensuring sufficient oversight, and being prepared to intervene if AI systems
             operate outside acceptable parameters.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Robustness and Safety</strong> ensure AI systems function reliably and do not
+            <strong>Robustness and Safety </strong>ensure AI systems function reliably and do not
             cause unintended harms. This includes testing AI systems against adversarial attacks,
             ensuring AI systems fail safely if they encounter unexpected situations, and preventing
             AI systems from operating outside intended domains.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Privacy and Data Governance</strong> ensure that AI systems protect sensitive
+            <strong>Privacy and Data Governance </strong>ensure that AI systems protect sensitive
             information used in training, that organizations respect individuals&apos; privacy
             rights, and that data used in AI systems is properly governed [1].
           </p>

@@ -56,24 +56,24 @@ const BibliographyPage = () => {
           </p>
           <ol className={BODY_OL_CLASSES}>
             <li>
-              <strong>Individual Model Articles:</strong> New dedicated pages for each of the 21
+              <strong>Individual Model Articles: </strong>New dedicated pages for each of the 21
               individual technology adoption models, featuring detailed histories, methodologies,
               and validation approaches. Click any model to explore in depth.
             </li>
             <li>
-              <strong>Organizational Model Articles:</strong> New dedicated pages for the
+              <strong>Organizational Model Articles: </strong>New dedicated pages for the
               organizational-level frameworks (Branch 2: The Organization&rsquo;s Playbook),
               covering strategic and resource-based theories underpinning enterprise technology
               adoption. Click any framework to explore in depth.
             </li>
             <li>
-              <strong>Inventory Dashboard (Quick Scan):</strong> Located immediately below, this
+              <strong>Inventory Dashboard (Quick Scan): </strong>Located immediately below, this
               section provides a high-level list of all unique titles and authors in a side-by-side
               comparison. Use this for a fast &ldquo;at-a-glance&rdquo; verification of the scope
               and coverage of each track.
             </li>
             <li>
-              <strong>Detailed APA Reference Lists:</strong> Located further down, these sections
+              <strong>Detailed APA Reference Lists: </strong>Located further down, these sections
               provide the complete, APA-formatted citations for every entry, separated by track. Use
               these for academic referencing and verification of source authority.
             </li>
