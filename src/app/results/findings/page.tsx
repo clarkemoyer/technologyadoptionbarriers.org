@@ -1,3 +1,4 @@
+import React from 'react'
 import type { Metadata } from 'next'
 import {
   ARTICLE_CLASSES,
@@ -9,6 +10,7 @@ import {
 } from '@/lib/articleStyles'
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
+import itemStatsData from '@/data/item-stats.json'
 import LastUpdated from '@/components/last-updated'
 import EffectSizeChart from '@/components/effect-size-chart'
 import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
@@ -119,6 +121,39 @@ const dSize = (d: number | null | undefined): string => {
   if (abs < 0.5) return 'small'
   if (abs < 0.8) return 'medium'
   return 'large'
+}
+
+interface ItemStat {
+  mean: number | null
+  sd: number | null
+  n: number
+}
+
+interface ItemEntry {
+  col: string
+  name: string
+  groups: Record<string, ItemStat>
+  max_delta: number | null
+}
+
+interface ItemStatsConstruct {
+  items: ItemEntry[]
+}
+
+interface ItemStatsData {
+  last_updated: string | null
+  constructs: Record<string, ItemStatsConstruct>
+}
+
+const itemStats = itemStatsData as ItemStatsData
+
+/** Return a Tailwind bg-color class for a sensitivity delta (0-4 scale). */
+const deltaColor = (delta: number | null): string => {
+  if (delta === null) return 'bg-gray-50'
+  if (delta >= 0.5) return 'bg-red-100'
+  if (delta >= 0.3) return 'bg-amber-100'
+  if (delta >= 0.15) return 'bg-yellow-50'
+  return 'bg-green-50'
 }
 
 const FindingsPage = () => {
@@ -653,6 +688,134 @@ const FindingsPage = () => {
               </div>
             )
           })}
+        </section>
+
+        {/* ── Per-Item Statistics ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Per-Item Statistics</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Mean, standard deviation, and N for every individual survey item, computed independently
+            for each of the four primary result groups. The{' '}
+            <span className="font-semibold">Sensitivity</span> column shows the maximum absolute
+            difference in item means across groups - items highlighted in{' '}
+            <span className="inline-block w-3 h-3 rounded-sm bg-amber-100 align-middle" /> amber or{' '}
+            <span className="inline-block w-3 h-3 rounded-sm bg-red-100 align-middle" /> red warrant
+            closer inspection.
+          </p>
+
+          {(['barriers', 'readiness', 'maturity'] as const).map((constructKey) => {
+            const construct = itemStats.constructs[constructKey]
+            const hasData =
+              construct?.items?.length > 0 &&
+              construct.items.some((item) =>
+                PRIMARY_GROUPS.some((g) => (item.groups[g.key]?.n ?? 0) > 0)
+              )
+
+            const CONSTRUCT_LABELS: Record<string, string> = {
+              barriers: 'Barriers',
+              readiness: 'Readiness',
+              maturity: 'Maturity',
+            }
+
+            return (
+              <div key={constructKey} className="mb-10">
+                <h3 className={H3_CLASSES}>{CONSTRUCT_LABELS[constructKey]}</h3>
+
+                {hasData ? (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-xs border-collapse font-sans">
+                      <thead>
+                        <tr className="bg-gray-100">
+                          <th className="border border-gray-300 px-3 py-2 text-left font-semibold sticky left-0 bg-gray-100 min-w-[180px]">
+                            Item
+                          </th>
+                          {PRIMARY_GROUPS.map((g) => (
+                            <th
+                              key={g.key}
+                              colSpan={3}
+                              className="border border-gray-300 px-2 py-2 text-center font-semibold"
+                            >
+                              {g.label}
+                            </th>
+                          ))}
+                          <th className="border border-gray-300 px-2 py-2 text-center font-semibold">
+                            Sensitivity
+                          </th>
+                        </tr>
+                        <tr className="bg-gray-50 text-gray-500">
+                          <th className="border border-gray-300 px-3 py-1 sticky left-0 bg-gray-50" />
+                          {PRIMARY_GROUPS.map((g) => (
+                            <React.Fragment key={g.key}>
+                              <th className="border border-gray-300 px-2 py-1 text-right font-medium">
+                                M
+                              </th>
+                              <th className="border border-gray-300 px-2 py-1 text-right font-medium">
+                                SD
+                              </th>
+                              <th className="border border-gray-300 px-2 py-1 text-right font-medium">
+                                N
+                              </th>
+                            </React.Fragment>
+                          ))}
+                          <th className="border border-gray-300 px-2 py-1 text-center font-medium">
+                            Delta
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {construct.items.map((item) => {
+                          const rowBg = deltaColor(item.max_delta)
+                          return (
+                            <tr key={item.col} className={`${rowBg} border-b border-gray-200`}>
+                              <td className="border border-gray-300 px-3 py-1.5 font-medium sticky left-0 bg-inherit">
+                                {item.name}
+                              </td>
+                              {PRIMARY_GROUPS.map((g) => {
+                                const stat = item.groups[g.key]
+                                return (
+                                  <React.Fragment key={g.key}>
+                                    <td className="border border-gray-300 px-2 py-1.5 text-right font-mono">
+                                      {stat?.mean !== null && stat?.mean !== undefined
+                                        ? stat.mean.toFixed(2)
+                                        : '-'}
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1.5 text-right font-mono text-gray-500">
+                                      {stat?.sd !== null && stat?.sd !== undefined
+                                        ? stat.sd.toFixed(2)
+                                        : '-'}
+                                    </td>
+                                    <td className="border border-gray-300 px-2 py-1.5 text-right font-mono text-gray-500">
+                                      {stat?.n ?? '-'}
+                                    </td>
+                                  </React.Fragment>
+                                )
+                              })}
+                              <td className="border border-gray-300 px-2 py-1.5 text-center font-mono font-semibold">
+                                {item.max_delta !== null && item.max_delta !== undefined
+                                  ? item.max_delta.toFixed(2)
+                                  : '-'}
+                              </td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <p className="text-sm text-red-600 font-medium mt-2">
+                    {DATA_UNAVAILABLE} Per-item statistics unavailable. Run{' '}
+                    <code className="bg-gray-100 px-1 rounded">generate_item_stats.py</code> against
+                    the production dataset.
+                  </p>
+                )}
+              </div>
+            )
+          })}
+
+          <p className="text-xs text-gray-500 mt-2">
+            Sensitivity (Delta): max minus min item mean across the four groups. Green = Delta less
+            than 0.15, yellow = 0.15-0.30, amber = 0.30-0.50, red = Delta 0.50 or greater.
+          </p>
         </section>
 
         {/* ── Completed Analyses ── */}
