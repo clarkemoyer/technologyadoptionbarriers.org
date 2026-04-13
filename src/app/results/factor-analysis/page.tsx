@@ -8,14 +8,14 @@ import {
   PARAGRAPH_CLASSES,
 } from '@/lib/articleStyles'
 import Link from 'next/link'
-import validationData from '@/data/crp-validation.json'
+import validationData from '@/data/live-validation.json'
 import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 export const metadata: Metadata = {
-  title: 'Barrier Factor Structure — TABS CRP 2026',
+  title: 'Barrier Factor Structure - TABS Full Dataset',
   description:
-    'Hierarchical factor analysis of the 18-item TABS Barriers scale showing theory-based groupings, EFA-derived 2-factor structure, and exploratory 3-group decomposition at N=200.',
+    'Hierarchical factor analysis of the 18-item TABS Barriers scale showing theory-based groupings, EFA-derived 2-factor structure, and exploratory 3-group decomposition using the full dataset.',
   alternates: {
-    canonical: '/results/crp-2026/factor-analysis',
+    canonical: '/results/factor-analysis',
   },
 }
 
@@ -188,7 +188,7 @@ const FactorAnalysisPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The {validationData.metadata.n_barriers}-item TABS Barriers scale was developed through
             a concept-mapping process that identified four theoretical sub-constructs. Exploratory
-            Factor Analysis (EFA) on the CRP-200 frozen dataset (N=
+            Factor Analysis (EFA) on the full TABS dataset (N=
             {validationData.metadata.n_total}, listwise valid N=
             {validationData.Barriers.n_listwise}) reveals a statistically supported 2-factor
             structure, with an exploratory 3-group decomposition available for practitioner-oriented
@@ -200,7 +200,7 @@ const FactorAnalysisPage = () => {
               Statistics Glossary
             </Link>{' '}
             for definitions of all psychometric terms used on this page, or the{' '}
-            <Link href="/results/crp-2026/validation" className="text-blue-600 hover:underline">
+            <Link href="/results/validation" className="text-blue-600 hover:underline">
               Instrument Validation
             </Link>{' '}
             page for the full results across all three constructs.
@@ -408,7 +408,7 @@ const FactorAnalysisPage = () => {
           ) : (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 font-sans text-sm mb-6">
               <p className="text-red-600 font-medium">
-                {DATA_UNAVAILABLE} 3-group decomposition data missing from crp-validation.json (
+                {DATA_UNAVAILABLE} 3-group decomposition data missing from live-validation.json (
                 <code className="font-mono">three_groups</code>). Check the daily pipeline workflow.
               </p>
             </div>
@@ -522,17 +522,17 @@ const FactorAnalysisPage = () => {
         {/* ── Navigation ── */}
         <section className="border-t border-gray-200 pt-8 mt-8">
           <div className="flex flex-wrap gap-4 text-sm font-sans">
-            <Link href="/results/crp-2026/validation" className="text-blue-600 hover:underline">
+            <Link href="/results/validation" className="text-blue-600 hover:underline">
               Instrument Validation Results &rarr;
             </Link>
             <Link href="/results/glossary" className="text-blue-600 hover:underline">
               Statistics Glossary &rarr;
             </Link>
-            <Link href="/results/crp-2026/reliability" className="text-blue-600 hover:underline">
+            <Link href="/results/reliability" className="text-blue-600 hover:underline">
               Scale Reliability &rarr;
             </Link>
-            <Link href="/results/crp-2026" className="text-blue-600 hover:underline">
-              &larr; CRP 2026 Overview
+            <Link href="/results" className="text-blue-600 hover:underline">
+              &larr; Results Overview
             </Link>
           </div>
         </section>

@@ -410,7 +410,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/results/cmo-survey`,
+      url: `${baseUrl}/making-of-tabs/cmo-survey`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
@@ -480,6 +480,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/factor-analysis`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/validation`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/glossary`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
     },
     // Start / persona pages
     {
@@ -557,7 +575,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
-    // /making-of-tabs/cmo-survey → /results/cmo-survey (redirect)
+    // CMO Survey now lives at /making-of-tabs/cmo-survey (moved from /results/cmo-survey)
     {
       url: `${baseUrl}/making-of-tabs/integrations`,
       lastModified: now,

@@ -401,6 +401,7 @@ jobs:
           path: |
             ${{ runner.temp }}/sensitivity-analysis.json
             ${{ runner.temp }}/data-audit.json
+            ${{ runner.temp }}/live-validation.json
           retention-days: 7
           if-no-files-found: warn
 
@@ -629,7 +630,7 @@ jobs:
       - name: Compute files to format
         id: format_files
         run: |
-          FILES="src/data/sensitivity-analysis.json src/data/data-audit.json src/data/disposition-summary.json"
+          FILES="src/data/sensitivity-analysis.json src/data/data-audit.json src/data/disposition-summary.json src/data/live-validation.json"
           if [ -f "src/data/crp-sensitivity-analysis.json" ]; then
             FILES="$FILES src/data/crp-sensitivity-analysis.json"
           fi

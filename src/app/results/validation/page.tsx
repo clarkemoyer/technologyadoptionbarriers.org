@@ -8,21 +8,21 @@ import {
   PARAGRAPH_CLASSES,
 } from '@/lib/articleStyles'
 import Link from 'next/link'
-import validationData from '@/data/crp-validation.json'
+import validationData from '@/data/live-validation.json'
 export const metadata: Metadata = {
-  title: 'Instrument Validation — TABS CRP 2026',
+  title: 'Instrument Validation - TABS Full Dataset',
   description:
-    'Comprehensive psychometric validation of the 43-item TABS instrument at N=200: reliability, factor analysis, convergent and discriminant validity, item diagnostics, and normality assessment.',
+    'Comprehensive psychometric validation of the 43-item TABS instrument using the full dataset: reliability, factor analysis, convergent and discriminant validity, item diagnostics, and normality assessment.',
   alternates: {
-    canonical: '/results/crp-2026/validation',
+    canonical: '/results/validation',
   },
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   CRP-200 VALIDATION DATA — imported from crp-validation.json
-   All values come from src/data/crp-validation.json, which the
+   FULL DATASET VALIDATION DATA — imported from live-validation.json
+   All values come from src/data/live-validation.json, which the
    daily pipeline generates by extracting the `validation` section
-   from tabs_v2_unified_data_analysis.py for the frozen N=200 dataset.
+   from tabs_v2_unified_data_analysis.py for the full live dataset.
 ══════════════════════════════════════════════════════════════════ */
 
 const N_CLEAN = validationData.metadata.n_total
@@ -574,8 +574,8 @@ const ValidationPage = () => {
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             This page presents the comprehensive psychometric validation of the 43-item TABS
-            instrument (18 Barriers + 17 Readiness + 8 Maturity) using the CRP-200 frozen dataset.
-            All computations are produced by the open-source{' '}
+            instrument (18 Barriers + 17 Readiness + 8 Maturity) using the full TABS dataset. All
+            computations are produced by the open-source{' '}
             <code className="text-sm bg-gray-100 px-1.5 py-0.5 rounded font-mono">
               tabs_v2_validation.py
             </code>{' '}
@@ -587,10 +587,7 @@ const ValidationPage = () => {
               Statistics Glossary
             </Link>
             . See also{' '}
-            <Link
-              href="/results/crp-2026/factor-analysis"
-              className="text-blue-600 hover:underline"
-            >
+            <Link href="/results/factor-analysis" className="text-blue-600 hover:underline">
               Factor Analysis
             </Link>{' '}
             for the hierarchical barrier factor structure.
@@ -663,10 +660,7 @@ const ValidationPage = () => {
           <p className="text-sm text-gray-500 font-sans">
             Barriers extract 2 factors (Internal/Organizational + External/Compliance). Readiness
             and Maturity are each unidimensional. See{' '}
-            <Link
-              href="/results/crp-2026/factor-analysis"
-              className="text-blue-600 hover:underline"
-            >
+            <Link href="/results/factor-analysis" className="text-blue-600 hover:underline">
               Factor Analysis
             </Link>{' '}
             for the full loading matrix and hierarchical decomposition.
@@ -1082,20 +1076,17 @@ const ValidationPage = () => {
         {/* ── Navigation ── */}
         <section className="border-t border-gray-200 pt-8 mt-8">
           <div className="flex flex-wrap gap-4 text-sm font-sans">
-            <Link
-              href="/results/crp-2026/factor-analysis"
-              className="text-blue-600 hover:underline"
-            >
+            <Link href="/results/factor-analysis" className="text-blue-600 hover:underline">
               Factor Analysis &rarr;
             </Link>
             <Link href="/results/glossary" className="text-blue-600 hover:underline">
               Statistics Glossary &rarr;
             </Link>
-            <Link href="/results/crp-2026/reliability" className="text-blue-600 hover:underline">
+            <Link href="/results/reliability" className="text-blue-600 hover:underline">
               Scale Reliability &rarr;
             </Link>
-            <Link href="/results/crp-2026" className="text-blue-600 hover:underline">
-              &larr; CRP 2026 Overview
+            <Link href="/results" className="text-blue-600 hover:underline">
+              &larr; Results Overview
             </Link>
           </div>
         </section>
