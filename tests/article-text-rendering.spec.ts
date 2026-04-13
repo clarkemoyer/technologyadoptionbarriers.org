@@ -21,16 +21,21 @@ import { test, expect } from '@playwright/test'
  * Regex that matches the most common UTF-8 → CP-1252 mojibake sequences.
  *
  * Explanation of the alternation groups:
- *   â€"   en-dash  (e2 80 93)
- *   â€"   em-dash  (e2 80 94)   — same visual, different trailing byte
+ *   â€"   en-dash  (e2 80 93)  — trailing byte 0x93 renders as " in CP-1252
+ *   â€"   em-dash  (e2 80 94)  — trailing byte 0x94 renders as " in CP-1252
  *   â€œ   left double quote  (e2 80 9c)
- *   â€   right double quote (e2 80 9d) — â€ followed by \u009D control
+ *   â€\u009D  right double quote (e2 80 9d) — â€ followed by control char
  *   â€˜   left single quote  (e2 80 98)
  *   â€™   right single quote (e2 80 99)
+ *   â†   right-arrow mojibake prefix (e2 86)
  *   Ã + letter  accented-Latin mojibake  (c3 xx)
+ *
+ * Note: en-dash and em-dash mojibake share the same visible prefix (â€")
+ * because their trailing bytes (0x93 and 0x94) both render as curly quotes
+ * in CP-1252. The regex uses â€[\u0093\u0094] to match both distinctly.
  */
 const MOJIBAKE_PATTERN =
-  /â€"|â€"|â€œ|â€\u009d|â€˜|â€™|Ã[©¨¼¶¤±²³µ¹ºÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ]/
+  /â€[\u0093\u0094]|â€œ|â€\u009d|â€˜|â€™|â†|Ã[©¨¼¶¤±²³µ¹ºÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ]/
 
 /** Representative article pages to check. */
 const ARTICLE_PAGES = [
@@ -60,7 +65,7 @@ test.describe('Article text rendering — encoding smoke tests', () => {
     })
   }
 
-  test('meta charset is declared within first 1024 bytes', async ({ page }) => {
+  test('meta charset utf-8 tag is present', async ({ page }) => {
     await page.goto(ARTICLE_PAGES[0])
 
     // Verify charset meta tag exists

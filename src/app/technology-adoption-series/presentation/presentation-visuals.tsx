@@ -491,7 +491,7 @@ function Visual07_LifecycleStagesMatrix() {
     { stage: 'Trending Behind', risk: 'Medium', tone: 'warn', posture: 'Modernization planning' },
     {
       stage: 'End of Support+',
-      risk: 'High&ndash;Very High',
+      risk: 'High\u2013Very High',
       tone: 'bad',
       posture: 'Forced migration',
     },

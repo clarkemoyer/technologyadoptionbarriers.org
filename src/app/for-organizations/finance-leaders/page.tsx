@@ -108,7 +108,7 @@ const FinanceLeadersPage = () => {
             <div className="bg-green-50 p-[30px] rounded-[12px] border-2 border-green-200">
               <div className="text-[48px] mb-[15px]">
                 <span role="img" aria-label="Risk">
-                  âš&ndash;ï¸
+                  ⚖️
                 </span>
               </div>
               <h3 className="text-[22px] font-bold text-gray-900 mb-[15px]">Risk Assessment</h3>
@@ -208,7 +208,7 @@ const FinanceLeadersPage = () => {
                     rel="noopener noreferrer"
                     className="inline-block px-[25px] py-[12px] bg-green-600 hover:bg-green-700 text-white rounded-[6px] font-semibold text-[14px] transition-colors text-center md:text-left whitespace-nowrap"
                   >
-                    Visit Website â†&rsquo;
+                    Visit Website &rarr;
                   </a>
                 </div>
               </div>

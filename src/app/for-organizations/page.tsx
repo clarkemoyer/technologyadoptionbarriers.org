@@ -173,7 +173,7 @@ const ForOrganizationsPage = () => {
                 <span
                   className={`inline-block px-[25px] py-[12px] ${persona.color} text-white rounded-[6px] font-bold text-[16px] transition-colors`}
                 >
-                  Learn More â†&rsquo;
+                  Learn More &rarr;
                 </span>
               </Link>
             ))}

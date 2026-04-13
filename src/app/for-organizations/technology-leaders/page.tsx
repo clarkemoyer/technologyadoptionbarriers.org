@@ -219,7 +219,7 @@ const TechnologyLeadersPage = () => {
                     rel="noopener noreferrer"
                     className="inline-block px-[25px] py-[12px] bg-blue-600 hover:bg-blue-700 text-white rounded-[6px] font-semibold text-[14px] transition-colors text-center md:text-left whitespace-nowrap"
                   >
-                    Visit Website â†&rsquo;
+                    Visit Website &rarr;
                   </a>
                 </div>
               </div>
