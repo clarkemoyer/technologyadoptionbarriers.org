@@ -743,7 +743,7 @@ const SlideVisual = ({ slideNumber }: { slideNumber: number }) => {
       },
       {
         title: 'Resilient operations',
-        body: 'Works in degraded conditions so users don&rsquo;t need workarounds.',
+        body: 'Works in degraded conditions so users don\u2019t need workarounds.',
       },
     ]
 
