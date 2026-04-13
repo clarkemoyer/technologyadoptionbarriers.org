@@ -427,6 +427,10 @@ const has4fCfaData =
   BARRIERS_4F_CFA.rmsea != null ||
   BARRIERS_4F_CFA.chi2 != null
 
+/** Safely extract a CFA error message from the raw validation data. */
+const getCfaError = (source: Record<string, unknown>): string | undefined =>
+  (source as Record<string, unknown>)?.error as string | undefined
+
 /** Placeholder shown when CFA data is not yet available. */
 const CfaUnavailable = ({ error }: { error?: string | null }) => (
   <div className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded px-3 py-2 font-sans">
@@ -552,14 +556,12 @@ const CFACard = ({ c }: { c: ConstructValidation }) => (
         </table>
       ) : (
         <CfaUnavailable
-          error={
-            (
-              validationData[c.construct as 'Barriers' | 'Readiness' | 'Maturity']?.cfa as Record<
-                string,
-                unknown
-              >
-            )?.error as string | undefined
-          }
+          error={getCfaError(
+            validationData[c.construct as 'Barriers' | 'Readiness' | 'Maturity']?.cfa as Record<
+              string,
+              unknown
+            >
+          )}
         />
       )}
     </div>
@@ -786,11 +788,7 @@ const ValidationPage = () => {
             </>
           ) : (
             <CfaUnavailable
-              error={
-                (validationData.barriers_4f_cfa as Record<string, unknown>)?.error as
-                  | string
-                  | undefined
-              }
+              error={getCfaError(validationData.barriers_4f_cfa as Record<string, unknown>)}
             />
           )}
         </section>
