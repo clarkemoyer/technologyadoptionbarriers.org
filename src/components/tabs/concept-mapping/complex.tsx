@@ -265,7 +265,7 @@ function FieldRow({
     <div className="py-2 sm:grid sm:grid-cols-[200px_1fr] gap-2 border-b border-gray-100 last:border-0">
       <dt className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{label}</dt>
       <dd className="mt-1 sm:mt-0 text-sm text-gray-800 break-words">
-        {children ?? (value || <span className="text-gray-400">-</span>)}
+        {children ?? (value || <span className="text-gray-400">—</span>)}
       </dd>
     </div>
   )
