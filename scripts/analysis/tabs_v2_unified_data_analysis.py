@@ -995,15 +995,25 @@ def run_cfa(data, model_spec, construct_name):
         mod = semopy.Model(model_spec)
         mod.fit(d)
         fit_stats = semopy.calc_stats(mod)
-        result['chi2'] = round(float(fit_stats.loc['chi2', 'Value']), 3) if 'chi2' in fit_stats.index else None
-        result['df'] = int(fit_stats.loc['DoF', 'Value']) if 'DoF' in fit_stats.index else None
-        result['chi2_p'] = round(float(fit_stats.loc['chi2 p-value', 'Value']), 4) if 'chi2 p-value' in fit_stats.index else None
-        result['cfi'] = round(float(fit_stats.loc['CFI', 'Value']), 4) if 'CFI' in fit_stats.index else None
-        result['tli'] = round(float(fit_stats.loc['TLI', 'Value']), 4) if 'TLI' in fit_stats.index else None
-        result['rmsea'] = round(float(fit_stats.loc['RMSEA', 'Value']), 4) if 'RMSEA' in fit_stats.index else None
-        result['srmr'] = round(float(fit_stats.loc['SRMR', 'Value']), 4) if 'SRMR' in fit_stats.index else None
-        result['aic'] = round(float(fit_stats.loc['AIC', 'Value']), 2) if 'AIC' in fit_stats.index else None
-        result['bic'] = round(float(fit_stats.loc['BIC', 'Value']), 2) if 'BIC' in fit_stats.index else None
+        # semopy 2.x returns stats as *columns* with a single 'Value' row;
+        # handle both orientations so the code works regardless of version.
+        if 'Value' in fit_stats.index and 'CFI' not in fit_stats.index:
+            # Stats are columns, 'Value' is the row label (semopy ≥2.x)
+            def _stat(name):
+                return float(fit_stats.loc['Value', name]) if name in fit_stats.columns else None
+        else:
+            # Stats are row labels (hypothetical older layout)
+            def _stat(name):
+                return float(fit_stats.loc[name, 'Value']) if name in fit_stats.index else None
+        result['chi2'] = round(_stat('chi2'), 3) if _stat('chi2') is not None else None
+        result['df'] = int(_stat('DoF')) if _stat('DoF') is not None else None
+        result['chi2_p'] = round(_stat('chi2 p-value'), 4) if _stat('chi2 p-value') is not None else None
+        result['cfi'] = round(_stat('CFI'), 4) if _stat('CFI') is not None else None
+        result['tli'] = round(_stat('TLI'), 4) if _stat('TLI') is not None else None
+        result['rmsea'] = round(_stat('RMSEA'), 4) if _stat('RMSEA') is not None else None
+        result['srmr'] = round(_stat('SRMR'), 4) if _stat('SRMR') is not None else None
+        result['aic'] = round(_stat('AIC'), 2) if _stat('AIC') is not None else None
+        result['bic'] = round(_stat('BIC'), 2) if _stat('BIC') is not None else None
         est_std = mod.inspect(std_est=True)
         loadings = est_std[(est_std['op'] == '~') & (est_std['Est. Std'].notna())]
         result['standardized_loadings'] = {
