@@ -240,9 +240,11 @@ const FactorAnalysisPage = () => {
             Horn&rsquo;s Parallel Analysis compared actual eigenvalues against the 95th percentile
             of random-data eigenvalues and retained exactly two factors. The two factors explain a
             cumulative {(validationData.Barriers.efa.total_variance * 100).toFixed(1)}% of variance.
-            Factor correlations (r = .
-            {validationData.factor_analysis.factor_correlation.toFixed(3).slice(2)}) confirm the
-            oblique rotation was appropriate.
+            Factor correlations (r ={' '}
+            {validationData.factor_analysis.factor_correlation
+              .toFixed(3)
+              .replace(/^(-?)0\./, '$1.')}
+            ) confirm the oblique rotation was appropriate.
           </p>
 
           <div className="overflow-x-auto mb-6">
