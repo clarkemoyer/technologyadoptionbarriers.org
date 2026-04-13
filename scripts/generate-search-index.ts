@@ -239,7 +239,14 @@ function extractVisibleText(source: string): string {
     .replace(/\b\w+\.\w+/g, ' ')
     // Remove residual angle-bracket fragments, parens, brackets noise
     .replace(/[<>(){}[\]]/g, ' ')
-    // Remove remaining HTML entities
+    // Resolve common HTML entities to text; strip any remaining ones
+    .replace(/&ndash;/g, '\u2013')
+    .replace(/&mdash;/g, '\u2014')
+    .replace(/&ldquo;/g, '\u201C')
+    .replace(/&rdquo;/g, '\u201D')
+    .replace(/&lsquo;/g, '\u2018')
+    .replace(/&rsquo;/g, '\u2019')
+    .replace(/&amp;/g, '&')
     .replace(/&[a-z]+;/g, ' ')
     // Strip email addresses to avoid centralizing scrapeable contact details
     .replace(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi, ' ')
