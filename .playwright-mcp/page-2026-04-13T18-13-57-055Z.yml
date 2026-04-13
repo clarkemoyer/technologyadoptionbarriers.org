@@ -1,0 +1,1021 @@
+- generic [active] [ref=e1]:
+    - link "Skip to main content" [ref=e2] [cursor=pointer]:
+        - /url: '#main-content'
+    - generic [ref=e3]:
+        - banner [ref=e4]:
+            - generic [ref=e5]:
+                - link "TABS Logo" [ref=e6] [cursor=pointer]:
+                    - /url: /
+                    - img "TABS Logo" [ref=e7]
+                - search "Site search" [ref=e9]:
+                    - generic [ref=e10]:
+                        - combobox "Search site" [ref=e11]
+                        - img [ref=e12]
+                - link "Take the TABS" [ref=e14] [cursor=pointer]:
+                    - /url: https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO?SOURCE=TABS_Website&COMPLETE_URL=https%3A%2F%2Ftechnologyadoptionbarriers.org%2Fsurvey-complete
+        - generic [ref=e15]:
+            - complementary "Site navigation" [ref=e16]:
+                - navigation "Main site navigation" [ref=e17]:
+                    - list [ref=e18]:
+                        - listitem [ref=e19]:
+                            - link "Home" [ref=e20] [cursor=pointer]:
+                                - /url: /
+                                - generic [ref=e21]: 🏠
+                                - generic [ref=e22]: Home
+                        - listitem [ref=e23]:
+                            - button "Survey" [ref=e24]:
+                                - generic [ref=e25]: 📋
+                                - generic [ref=e26]: Survey
+                        - listitem [ref=e27]:
+                            - button "Results" [expanded] [ref=e28]:
+                                - generic [ref=e29]: 📊
+                                - generic [ref=e30]: Results
+                        - listitem [ref=e31]:
+                            - button "Models" [ref=e32]:
+                                - generic [ref=e33]: 📚
+                                - generic [ref=e34]: Models
+                        - listitem [ref=e35]:
+                            - button "Teaching" [ref=e36]:
+                                - generic [ref=e37]: 🎓
+                                - generic [ref=e38]: Teaching
+                        - listitem [ref=e39]:
+                            - button "Making of TABS" [ref=e40]:
+                                - generic [ref=e41]: 🔧
+                                - generic [ref=e42]: Making of TABS
+                        - listitem [ref=e43]:
+                            - button "About" [ref=e44]:
+                                - generic [ref=e45]: ℹ️
+                                - generic [ref=e46]: About
+                - separator [ref=e47]
+                - generic [ref=e48]:
+                    - button "CRP 2026 Dataset" [expanded] [ref=e49]:
+                        - generic [ref=e50]: CRP 2026 Dataset
+                        - img [ref=e51]
+                    - list [ref=e54]:
+                        - listitem [ref=e55]:
+                            - link "CRP Overview & Download" [ref=e56] [cursor=pointer]:
+                                - /url: /results/crp-2026/
+                        - listitem [ref=e57]:
+                            - link "Sample & Demographics" [ref=e58] [cursor=pointer]:
+                                - /url: /results/crp-2026/sample/
+                        - listitem [ref=e59]:
+                            - link "Descriptive Statistics" [ref=e60] [cursor=pointer]:
+                                - /url: /results/crp-2026/descriptive/
+                        - listitem [ref=e61]:
+                            - link "Sensitivity Analysis" [ref=e62] [cursor=pointer]:
+                                - /url: /results/crp-2026/sensitivity/
+                        - listitem [ref=e63]:
+                            - link "Scale Reliability" [ref=e64] [cursor=pointer]:
+                                - /url: /results/crp-2026/reliability/
+                        - listitem [ref=e65]:
+                            - link "Key Findings" [ref=e66] [cursor=pointer]:
+                                - /url: /results/crp-2026/findings/
+                        - listitem [ref=e67]:
+                            - link "Data Quality" [ref=e68] [cursor=pointer]:
+                                - /url: /results/crp-2026/data-quality/
+                        - listitem [ref=e69]:
+                            - link "Factor Analysis" [ref=e70] [cursor=pointer]:
+                                - /url: /results/crp-2026/factor-analysis/
+                        - listitem [ref=e71]:
+                            - link "Instrument Validation" [ref=e72] [cursor=pointer]:
+                                - /url: /results/crp-2026/validation/
+                        - listitem [ref=e73]:
+                            - link "Statistics Glossary" [ref=e74] [cursor=pointer]:
+                                - /url: /results/crp-2026/glossary/
+                - generic [ref=e75]:
+                    - button "Live Results (Updated Daily)" [ref=e76]:
+                        - generic [ref=e77]: Live Results (Updated Daily)
+                        - img [ref=e78]
+                    - list [ref=e80]:
+                        - listitem [ref=e81]:
+                            - link "Results Overview" [ref=e82] [cursor=pointer]:
+                                - /url: /results/
+                        - listitem [ref=e83]:
+                            - link "Sample & Demographics" [ref=e84] [cursor=pointer]:
+                                - /url: /results/sample/
+                        - listitem [ref=e85]:
+                            - link "Descriptive Statistics" [ref=e86] [cursor=pointer]:
+                                - /url: /results/descriptive/
+                        - listitem [ref=e87]:
+                            - link "Scale Reliability" [ref=e88] [cursor=pointer]:
+                                - /url: /results/reliability/
+                        - listitem [ref=e89]:
+                            - link "Sensitivity Analysis" [ref=e90] [cursor=pointer]:
+                                - /url: /results/sensitivity/
+                        - listitem [ref=e91]:
+                            - link "Key Findings" [ref=e92] [cursor=pointer]:
+                                - /url: /results/findings/
+                        - listitem [ref=e93]:
+                            - link "Data Quality" [ref=e94] [cursor=pointer]:
+                                - /url: /results/data-quality/
+                        - listitem [ref=e95]:
+                            - link "Reproducibility" [ref=e96] [cursor=pointer]:
+                                - /url: /results/reproducibility/
+                - generic [ref=e97]:
+                    - button "Dashboards & Comparisons" [ref=e98]:
+                        - generic [ref=e99]: Dashboards & Comparisons
+                        - img [ref=e100]
+                    - list [ref=e102]:
+                        - listitem [ref=e103]:
+                            - link "Dashboard" [ref=e104] [cursor=pointer]:
+                                - /url: /results/dashboard/
+                        - listitem [ref=e105]:
+                            - link "Dataset Comparison" [ref=e106] [cursor=pointer]:
+                                - /url: /results/dataset-comparison/
+                        - listitem [ref=e107]:
+                            - link "Survey Statistics" [ref=e108] [cursor=pointer]:
+                                - /url: /results/survey-stats/
+                        - listitem [ref=e109]:
+                            - link "CMO Survey" [ref=e110] [cursor=pointer]:
+                                - /url: /results/cmo-survey/
+            - main [ref=e111]:
+                - generic [ref=e112]:
+                    - navigation "Breadcrumb" [ref=e113]:
+                        - list [ref=e114]:
+                            - listitem [ref=e115]:
+                                - link "Results" [ref=e116] [cursor=pointer]:
+                                    - /url: /results/
+                                - text: ›
+                            - listitem [ref=e117]:
+                                - link "CRP 2026" [ref=e118] [cursor=pointer]:
+                                    - /url: /results/crp-2026/
+                                - text: ›
+                            - listitem [ref=e119]: Instrument Validation
+                    - article [ref=e121]:
+                        - heading "Instrument Validation" [level=1] [ref=e122]
+                        - generic [ref=e123]:
+                            - generic [ref=e124]: 'Published: April 2026'
+                            - generic [ref=e125]: N = 200
+                        - generic [ref=e126]:
+                            - paragraph [ref=e127]:
+                                - text: This page presents the comprehensive psychometric validation of the 43-item TABS instrument (18 Barriers + 17 Readiness + 8 Maturity) using the CRP-200 frozen dataset. All computations are produced by the open-source
+                                - code [ref=e128]: tabs_v2_validation.py
+                                - text: script (Appendix N) and are fully reproducible.
+                            - paragraph [ref=e129]:
+                                - text: Terms are linked to the
+                                - link "Statistics Glossary" [ref=e130] [cursor=pointer]:
+                                    - /url: /results/crp-2026/glossary/
+                                - text: . See also
+                                - link "Factor Analysis" [ref=e131] [cursor=pointer]:
+                                    - /url: /results/crp-2026/factor-analysis/
+                                - text: for the hierarchical barrier factor structure.
+                        - generic [ref=e132]:
+                            - heading "1. Reliability" [level=2] [ref=e133]
+                            - paragraph [ref=e134]: Five complementary reliability measures confirm strong internal consistency across all three TABS constructs. Every construct exceeds the .80 threshold for good reliability.
+                            - generic [ref=e135]:
+                                - generic [ref=e136]:
+                                    - generic [ref=e137]:
+                                        - text: Barriers
+                                        - generic [ref=e138]: (18 items, N=192)
+                                    - table [ref=e140]:
+                                        - rowgroup [ref=e141]:
+                                            - row "Cronbach’s α 0.8728 95% CI [0.845, 0.898]" [ref=e142]:
+                                                - cell "Cronbach’s α" [ref=e143]:
+                                                    - link "Cronbach’s α" [ref=e144] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#cronbach-alpha
+                                                - cell "0.8728" [ref=e145]
+                                                - cell "95% CI [0.845, 0.898]" [ref=e146]
+                                            - row "McDonald’s ω 0.8729" [ref=e147]:
+                                                - cell "McDonald’s ω" [ref=e148]:
+                                                    - link "McDonald’s ω" [ref=e149] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#mcdonalds-omega
+                                                - cell "0.8729" [ref=e150]
+                                                - cell [ref=e151]
+                                            - row "Composite Reliability 0.8729 Good" [ref=e152]:
+                                                - cell "Composite Reliability" [ref=e153]:
+                                                    - link "Composite Reliability" [ref=e154] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#composite-reliability
+                                                - cell "0.8729" [ref=e155]
+                                                - cell "Good" [ref=e156]:
+                                                    - generic [ref=e157]: Good
+                                            - row "AVE 0.2886 < .50 (CR compensates)" [ref=e158]:
+                                                - cell "AVE" [ref=e159]:
+                                                    - link "AVE" [ref=e160] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#ave
+                                                - cell "0.2886" [ref=e161]
+                                                - cell "< .50 (CR compensates)" [ref=e162]:
+                                                    - generic [ref=e163]: < .50 (CR compensates)
+                                            - row "Split-Half (Spearman-Brown) 0.8962" [ref=e164]:
+                                                - cell "Split-Half (Spearman-Brown)" [ref=e165]:
+                                                    - link "Split-Half (Spearman-Brown)" [ref=e166] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#split-half
+                                                - cell "0.8962" [ref=e167]
+                                                - cell [ref=e168]
+                                - generic [ref=e169]:
+                                    - generic [ref=e170]:
+                                        - text: Readiness
+                                        - generic [ref=e171]: (17 items, N=181)
+                                    - table [ref=e173]:
+                                        - rowgroup [ref=e174]:
+                                            - row "Cronbach’s α 0.9171 95% CI [0.898, 0.934]" [ref=e175]:
+                                                - cell "Cronbach’s α" [ref=e176]:
+                                                    - link "Cronbach’s α" [ref=e177] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#cronbach-alpha
+                                                - cell "0.9171" [ref=e178]
+                                                - cell "95% CI [0.898, 0.934]" [ref=e179]
+                                            - row "McDonald’s ω 0.9183" [ref=e180]:
+                                                - cell "McDonald’s ω" [ref=e181]:
+                                                    - link "McDonald’s ω" [ref=e182] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#mcdonalds-omega
+                                                - cell "0.9183" [ref=e183]
+                                                - cell [ref=e184]
+                                            - row "Composite Reliability 0.9183 Good" [ref=e185]:
+                                                - cell "Composite Reliability" [ref=e186]:
+                                                    - link "Composite Reliability" [ref=e187] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#composite-reliability
+                                                - cell "0.9183" [ref=e188]
+                                                - cell "Good" [ref=e189]:
+                                                    - generic [ref=e190]: Good
+                                            - row "AVE 0.4001 < .50 (CR compensates)" [ref=e191]:
+                                                - cell "AVE" [ref=e192]:
+                                                    - link "AVE" [ref=e193] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#ave
+                                                - cell "0.4001" [ref=e194]
+                                                - cell "< .50 (CR compensates)" [ref=e195]:
+                                                    - generic [ref=e196]: < .50 (CR compensates)
+                                            - row "Split-Half (Spearman-Brown) 0.9121" [ref=e197]:
+                                                - cell "Split-Half (Spearman-Brown)" [ref=e198]:
+                                                    - link "Split-Half (Spearman-Brown)" [ref=e199] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#split-half
+                                                - cell "0.9121" [ref=e200]
+                                                - cell [ref=e201]
+                                - generic [ref=e202]:
+                                    - generic [ref=e203]:
+                                        - text: Maturity
+                                        - generic [ref=e204]: (8 items, N=191)
+                                    - table [ref=e206]:
+                                        - rowgroup [ref=e207]:
+                                            - row "Cronbach’s α 0.8847 95% CI [0.858, 0.908]" [ref=e208]:
+                                                - cell "Cronbach’s α" [ref=e209]:
+                                                    - link "Cronbach’s α" [ref=e210] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#cronbach-alpha
+                                                - cell "0.8847" [ref=e211]
+                                                - cell "95% CI [0.858, 0.908]" [ref=e212]
+                                            - row "McDonald’s ω 0.8857" [ref=e213]:
+                                                - cell "McDonald’s ω" [ref=e214]:
+                                                    - link "McDonald’s ω" [ref=e215] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#mcdonalds-omega
+                                                - cell "0.8857" [ref=e216]
+                                                - cell [ref=e217]
+                                            - row "Composite Reliability 0.8857 Good" [ref=e218]:
+                                                - cell "Composite Reliability" [ref=e219]:
+                                                    - link "Composite Reliability" [ref=e220] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#composite-reliability
+                                                - cell "0.8857" [ref=e221]
+                                                - cell "Good" [ref=e222]:
+                                                    - generic [ref=e223]: Good
+                                            - row "AVE 0.4934 < .50 (CR compensates)" [ref=e224]:
+                                                - cell "AVE" [ref=e225]:
+                                                    - link "AVE" [ref=e226] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#ave
+                                                - cell "0.4934" [ref=e227]
+                                                - cell "< .50 (CR compensates)" [ref=e228]:
+                                                    - generic [ref=e229]: < .50 (CR compensates)
+                                            - row "Split-Half (Spearman-Brown) 0.8957" [ref=e230]:
+                                                - cell "Split-Half (Spearman-Brown)" [ref=e231]:
+                                                    - link "Split-Half (Spearman-Brown)" [ref=e232] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#split-half
+                                                - cell "0.8957" [ref=e233]
+                                                - cell [ref=e234]
+                            - table [ref=e236]:
+                                - rowgroup [ref=e237]:
+                                    - row "Measure Barriers Readiness Maturity" [ref=e238]:
+                                        - columnheader "Measure" [ref=e239]
+                                        - columnheader "Barriers" [ref=e240]
+                                        - columnheader "Readiness" [ref=e241]
+                                        - columnheader "Maturity" [ref=e242]
+                                - rowgroup [ref=e243]:
+                                    - row "Cronbach's α 0.8728 0.9171 0.8847" [ref=e244]:
+                                        - cell "Cronbach's α" [ref=e245]
+                                        - cell "0.8728" [ref=e246]
+                                        - cell "0.9171" [ref=e247]
+                                        - cell "0.8847" [ref=e248]
+                                    - row "McDonald's ω 0.8729 0.9183 0.8857" [ref=e249]:
+                                        - cell "McDonald's ω" [ref=e250]
+                                        - cell "0.8729" [ref=e251]
+                                        - cell "0.9183" [ref=e252]
+                                        - cell "0.8857" [ref=e253]
+                                    - row "Composite Reliability 0.8729 0.9183 0.8857" [ref=e254]:
+                                        - cell "Composite Reliability" [ref=e255]
+                                        - cell "0.8729" [ref=e256]
+                                        - cell "0.9183" [ref=e257]
+                                        - cell "0.8857" [ref=e258]
+                                    - row "AVE 0.2886 0.4001 0.4934" [ref=e259]:
+                                        - cell "AVE" [ref=e260]
+                                        - cell "0.2886" [ref=e261]
+                                        - cell "0.4001" [ref=e262]
+                                        - cell "0.4934" [ref=e263]
+                                    - row "Split-Half 0.8962 0.9121 0.8957" [ref=e264]:
+                                        - cell "Split-Half" [ref=e265]
+                                        - cell "0.8962" [ref=e266]
+                                        - cell "0.9121" [ref=e267]
+                                        - cell "0.8957" [ref=e268]
+                        - generic [ref=e269]:
+                            - heading "2. Exploratory Factor Analysis" [level=2] [ref=e270]
+                            - paragraph [ref=e271]: EFA was conducted on each construct independently using Maximum Likelihood estimation with Promax oblique rotation. The number of factors was determined by Horn’s Parallel Analysis comparing actual eigenvalues against 95th-percentile random data eigenvalues.
+                            - generic [ref=e272]:
+                                - generic [ref=e273]:
+                                    - generic [ref=e274]: Barriers EFA
+                                    - table [ref=e276]:
+                                        - rowgroup [ref=e277]:
+                                            - row "KMO 0.851 Meritorious" [ref=e278]:
+                                                - cell "KMO" [ref=e279]:
+                                                    - link "KMO" [ref=e280] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#kmo
+                                                - cell "0.851" [ref=e281]
+                                                - cell "Meritorious" [ref=e282]:
+                                                    - generic [ref=e283]: Meritorious
+                                            - row "Bartlett’s χ² 1135.5 p < .001" [ref=e284]:
+                                                - cell "Bartlett’s χ²" [ref=e285]:
+                                                    - link "Bartlett’s χ²" [ref=e286] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#bartlett
+                                                - cell "1135.5" [ref=e287]
+                                                - cell "p < .001" [ref=e288]
+                                            - row "Parallel Analysis Factors 2" [ref=e289]:
+                                                - cell "Parallel Analysis Factors" [ref=e290]:
+                                                    - link "Parallel Analysis Factors" [ref=e291] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#parallel-analysis
+                                                - cell "2" [ref=e292]
+                                                - cell [ref=e293]
+                                            - row "Variance Explained 39.9%" [ref=e294]:
+                                                - cell "Variance Explained" [ref=e295]:
+                                                    - link "Variance Explained" [ref=e296] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#variance-explained
+                                                - cell "39.9%" [ref=e297]
+                                                - cell [ref=e298]
+                                            - row "Top Eigenvalues 5.87, 1.90, 1.15, 1.01" [ref=e299]:
+                                                - cell "Top Eigenvalues" [ref=e300]:
+                                                    - link "Top Eigenvalues" [ref=e301] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#eigenvalue
+                                                - cell "5.87, 1.90, 1.15, 1.01" [ref=e302]
+                                - generic [ref=e303]:
+                                    - generic [ref=e304]: Readiness EFA
+                                    - table [ref=e306]:
+                                        - rowgroup [ref=e307]:
+                                            - row "KMO 0.927 Marvelous" [ref=e308]:
+                                                - cell "KMO" [ref=e309]:
+                                                    - link "KMO" [ref=e310] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#kmo
+                                                - cell "0.927" [ref=e311]
+                                                - cell "Marvelous" [ref=e312]:
+                                                    - generic [ref=e313]: Marvelous
+                                            - row "Bartlett’s χ² 1279.0 p < .001" [ref=e314]:
+                                                - cell "Bartlett’s χ²" [ref=e315]:
+                                                    - link "Bartlett’s χ²" [ref=e316] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#bartlett
+                                                - cell "1279.0" [ref=e317]
+                                                - cell "p < .001" [ref=e318]
+                                            - row "Parallel Analysis Factors 1" [ref=e319]:
+                                                - cell "Parallel Analysis Factors" [ref=e320]:
+                                                    - link "Parallel Analysis Factors" [ref=e321] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#parallel-analysis
+                                                - cell "1" [ref=e322]
+                                                - cell [ref=e323]
+                                            - row "Variance Explained 40.0%" [ref=e324]:
+                                                - cell "Variance Explained" [ref=e325]:
+                                                    - link "Variance Explained" [ref=e326] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#variance-explained
+                                                - cell "40.0%" [ref=e327]
+                                                - cell [ref=e328]
+                                            - row "Top Eigenvalues 7.39, 1.07, 0.97, 0.89" [ref=e329]:
+                                                - cell "Top Eigenvalues" [ref=e330]:
+                                                    - link "Top Eigenvalues" [ref=e331] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#eigenvalue
+                                                - cell "7.39, 1.07, 0.97, 0.89" [ref=e332]
+                                - generic [ref=e333]:
+                                    - generic [ref=e334]: Maturity EFA
+                                    - table [ref=e336]:
+                                        - rowgroup [ref=e337]:
+                                            - row "KMO 0.912 Marvelous" [ref=e338]:
+                                                - cell "KMO" [ref=e339]:
+                                                    - link "KMO" [ref=e340] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#kmo
+                                                - cell "0.912" [ref=e341]
+                                                - cell "Marvelous" [ref=e342]:
+                                                    - generic [ref=e343]: Marvelous
+                                            - row "Bartlett’s χ² 650.1 p < .001" [ref=e344]:
+                                                - cell "Bartlett’s χ²" [ref=e345]:
+                                                    - link "Bartlett’s χ²" [ref=e346] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#bartlett
+                                                - cell "650.1" [ref=e347]
+                                                - cell "p < .001" [ref=e348]
+                                            - row "Parallel Analysis Factors 1" [ref=e349]:
+                                                - cell "Parallel Analysis Factors" [ref=e350]:
+                                                    - link "Parallel Analysis Factors" [ref=e351] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#parallel-analysis
+                                                - cell "1" [ref=e352]
+                                                - cell [ref=e353]
+                                            - row "Variance Explained 49.3%" [ref=e354]:
+                                                - cell "Variance Explained" [ref=e355]:
+                                                    - link "Variance Explained" [ref=e356] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#variance-explained
+                                                - cell "49.3%" [ref=e357]
+                                                - cell [ref=e358]
+                                            - row "Top Eigenvalues 4.44, 0.72, 0.64, 0.57" [ref=e359]:
+                                                - cell "Top Eigenvalues" [ref=e360]:
+                                                    - link "Top Eigenvalues" [ref=e361] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#eigenvalue
+                                                - cell "4.44, 0.72, 0.64, 0.57" [ref=e362]
+                            - paragraph [ref=e363]:
+                                - text: Barriers extract 2 factors (Internal/Organizational + External/Compliance). Readiness and Maturity are each unidimensional. See
+                                - link "Factor Analysis" [ref=e364] [cursor=pointer]:
+                                    - /url: /results/crp-2026/factor-analysis/
+                                - text: for the full loading matrix and hierarchical decomposition.
+                        - generic [ref=e365]:
+                            - heading "3. Confirmatory Factor Analysis" [level=2] [ref=e366]
+                            - paragraph [ref=e367]: CFA tests whether the EFA-derived factor structure fits the data when specified as a confirmatory model. Single-factor models were fit for each construct, plus a 4-factor model for Barriers using the concept-mapping sub-constructs.
+                            - generic [ref=e368]:
+                                - generic [ref=e369]:
+                                    - generic [ref=e370]: Barriers CFA (Single-Factor)
+                                    - table [ref=e372]:
+                                        - rowgroup [ref=e373]:
+                                            - row "N 192" [ref=e374]:
+                                                - cell "N" [ref=e375]
+                                                - cell "192" [ref=e376]
+                                                - cell [ref=e377]
+                                            - row "χ² (df) 376.2 (135) p < .001" [ref=e378]:
+                                                - cell "χ² (df)" [ref=e379]
+                                                - cell "376.2 (135)" [ref=e380]
+                                                - cell "p < .001" [ref=e381]
+                                            - row "CFI 0.766 Poor" [ref=e382]:
+                                                - cell "CFI" [ref=e383]:
+                                                    - link "CFI" [ref=e384] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#cfi
+                                                - cell "0.766" [ref=e385]
+                                                - cell "Poor" [ref=e386]:
+                                                    - generic [ref=e387]: Poor
+                                            - row "TLI 0.735 Poor" [ref=e388]:
+                                                - cell "TLI" [ref=e389]:
+                                                    - link "TLI" [ref=e390] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#tli
+                                                - cell "0.735" [ref=e391]
+                                                - cell "Poor" [ref=e392]:
+                                                    - generic [ref=e393]: Poor
+                                            - row "RMSEA 0.097 Poor" [ref=e394]:
+                                                - cell "RMSEA" [ref=e395]:
+                                                    - link "RMSEA" [ref=e396] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#rmsea
+                                                - cell "0.097" [ref=e397]
+                                                - cell "Poor" [ref=e398]:
+                                                    - generic [ref=e399]: Poor
+                                - generic [ref=e400]:
+                                    - generic [ref=e401]: Readiness CFA (Single-Factor)
+                                    - table [ref=e403]:
+                                        - rowgroup [ref=e404]:
+                                            - row "N 181" [ref=e405]:
+                                                - cell "N" [ref=e406]
+                                                - cell "181" [ref=e407]
+                                                - cell [ref=e408]
+                                            - row "χ² (df) 203.3 (119) p < .001" [ref=e409]:
+                                                - cell "χ² (df)" [ref=e410]
+                                                - cell "203.3 (119)" [ref=e411]
+                                                - cell "p < .001" [ref=e412]
+                                            - row "CFI 0.930 Acceptable" [ref=e413]:
+                                                - cell "CFI" [ref=e414]:
+                                                    - link "CFI" [ref=e415] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#cfi
+                                                - cell "0.930" [ref=e416]
+                                                - cell "Acceptable" [ref=e417]:
+                                                    - generic [ref=e418]: Acceptable
+                                            - row "TLI 0.920 Acceptable" [ref=e419]:
+                                                - cell "TLI" [ref=e420]:
+                                                    - link "TLI" [ref=e421] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#tli
+                                                - cell "0.920" [ref=e422]
+                                                - cell "Acceptable" [ref=e423]:
+                                                    - generic [ref=e424]: Acceptable
+                                            - row "RMSEA 0.063 Acceptable" [ref=e425]:
+                                                - cell "RMSEA" [ref=e426]:
+                                                    - link "RMSEA" [ref=e427] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#rmsea
+                                                - cell "0.063" [ref=e428]
+                                                - cell "Acceptable" [ref=e429]:
+                                                    - generic [ref=e430]: Acceptable
+                                - generic [ref=e431]:
+                                    - generic [ref=e432]: Maturity CFA (Single-Factor)
+                                    - table [ref=e434]:
+                                        - rowgroup [ref=e435]:
+                                            - row "N 191" [ref=e436]:
+                                                - cell "N" [ref=e437]
+                                                - cell "191" [ref=e438]
+                                                - cell [ref=e439]
+                                            - row "χ² (df) 32.1 (20) p 0.042" [ref=e440]:
+                                                - cell "χ² (df)" [ref=e441]
+                                                - cell "32.1 (20)" [ref=e442]
+                                                - cell "p 0.042" [ref=e443]
+                                            - row "CFI 0.981 Good" [ref=e444]:
+                                                - cell "CFI" [ref=e445]:
+                                                    - link "CFI" [ref=e446] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#cfi
+                                                - cell "0.981" [ref=e447]
+                                                - cell "Good" [ref=e448]:
+                                                    - generic [ref=e449]: Good
+                                            - row "TLI 0.973 Good" [ref=e450]:
+                                                - cell "TLI" [ref=e451]:
+                                                    - link "TLI" [ref=e452] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#tli
+                                                - cell "0.973" [ref=e453]
+                                                - cell "Good" [ref=e454]:
+                                                    - generic [ref=e455]: Good
+                                            - row "RMSEA 0.057 Good" [ref=e456]:
+                                                - cell "RMSEA" [ref=e457]:
+                                                    - link "RMSEA" [ref=e458] [cursor=pointer]:
+                                                        - /url: /results/crp-2026/glossary/#rmsea
+                                                - cell "0.057" [ref=e459]
+                                                - cell "Good" [ref=e460]:
+                                                    - generic [ref=e461]: Good
+                            - heading "Barriers 4-Factor CFA (Concept-Mapping Sub-Constructs)" [level=3] [ref=e462]
+                            - table [ref=e464]:
+                                - rowgroup [ref=e465]:
+                                    - row "Index Value Verdict" [ref=e466]:
+                                        - columnheader "Index" [ref=e467]
+                                        - columnheader "Value" [ref=e468]
+                                        - columnheader "Verdict" [ref=e469]
+                                - rowgroup [ref=e470]:
+                                    - row "χ² (df) 307.8 (129) p < .001" [ref=e471]:
+                                        - cell "χ² (df)" [ref=e472]
+                                        - cell "307.8 (129)" [ref=e473]
+                                        - cell "p < .001" [ref=e474]
+                                    - row "CFI 0.827 Poor" [ref=e475]:
+                                        - cell "CFI" [ref=e476]
+                                        - cell "0.827" [ref=e477]
+                                        - cell "Poor" [ref=e478]:
+                                            - generic [ref=e479]: Poor
+                                    - row "TLI 0.794 Poor" [ref=e480]:
+                                        - cell "TLI" [ref=e481]
+                                        - cell "0.794" [ref=e482]
+                                        - cell "Poor" [ref=e483]:
+                                            - generic [ref=e484]: Poor
+                                    - row "RMSEA 0.085 Poor" [ref=e485]:
+                                        - cell "RMSEA" [ref=e486]
+                                        - cell "0.085" [ref=e487]
+                                        - cell "Poor" [ref=e488]:
+                                            - generic [ref=e489]: Poor
+                                    - row "AIC 80.8 Lower is better" [ref=e490]:
+                                        - cell "AIC" [ref=e491]
+                                        - cell "80.8" [ref=e492]
+                                        - cell "Lower is better" [ref=e493]
+                                    - row "BIC 217.6 Lower is better" [ref=e494]:
+                                        - cell "BIC" [ref=e495]
+                                        - cell "217.6" [ref=e496]
+                                        - cell "Lower is better" [ref=e497]
+                            - paragraph [ref=e498]: The 4-factor model (CFI = 0.827) improves over the single-factor model (CFI = 0.766) but remains below the .90 threshold, consistent with the EFA finding that 2 factors (not 4) best represent the data. Full CFA with cross-validation is planned at N=500.
+                        - generic [ref=e499]:
+                            - heading "4. Discriminant Validity" [level=2] [ref=e500]
+                            - paragraph [ref=e501]: 'Discriminant validity assesses whether the three TABS constructs are empirically distinct from one another. Two complementary methods are used: HTMT and the Fornell-Larcker criterion.'
+                            - heading "HTMT Ratios" [level=3] [ref=e502]
+                            - table [ref=e504]:
+                                - rowgroup [ref=e505]:
+                                    - row "Construct Pair HTMT 95% Bootstrap CI < .85 < .90" [ref=e506]:
+                                        - columnheader "Construct Pair" [ref=e507]
+                                        - columnheader "HTMT" [ref=e508]
+                                        - columnheader "95% Bootstrap CI" [ref=e509]
+                                        - columnheader "< .85" [ref=e510]
+                                        - columnheader "< .90" [ref=e511]
+                                - rowgroup [ref=e512]:
+                                    - row "Barriers-Readiness 0.498 [0.402, 0.655] Pass Pass" [ref=e513]:
+                                        - cell "Barriers-Readiness" [ref=e514]
+                                        - cell "0.498" [ref=e515]
+                                        - cell "[0.402, 0.655]" [ref=e516]
+                                        - cell "Pass" [ref=e517]:
+                                            - generic [ref=e518]: Pass
+                                        - cell "Pass" [ref=e519]:
+                                            - generic [ref=e520]: Pass
+                                    - row "Barriers-Maturity 0.441 [0.367, 0.554] Pass Pass" [ref=e521]:
+                                        - cell "Barriers-Maturity" [ref=e522]
+                                        - cell "0.441" [ref=e523]
+                                        - cell "[0.367, 0.554]" [ref=e524]
+                                        - cell "Pass" [ref=e525]:
+                                            - generic [ref=e526]: Pass
+                                        - cell "Pass" [ref=e527]:
+                                            - generic [ref=e528]: Pass
+                                    - row "Readiness-Maturity 0.804 [0.714, 0.881] Pass Pass" [ref=e529]:
+                                        - cell "Readiness-Maturity" [ref=e530]
+                                        - cell "0.804" [ref=e531]
+                                        - cell "[0.714, 0.881]" [ref=e532]
+                                        - cell "Pass" [ref=e533]:
+                                            - generic [ref=e534]: Pass
+                                        - cell "Pass" [ref=e535]:
+                                            - generic [ref=e536]: Pass
+                            - heading "Fornell-Larcker Criterion" [level=3] [ref=e537]
+                            - table [ref=e539]:
+                                - rowgroup [ref=e540]:
+                                    - row "Pair √AVE1 √AVE2 |r| Pass" [ref=e541]:
+                                        - columnheader "Pair" [ref=e542]
+                                        - columnheader "√AVE1" [ref=e543]:
+                                            - text: √AVE
+                                            - subscript [ref=e544]: '1'
+                                        - columnheader "√AVE2" [ref=e545]:
+                                            - text: √AVE
+                                            - subscript [ref=e546]: '2'
+                                        - columnheader "|r|" [ref=e547]
+                                        - columnheader "Pass" [ref=e548]
+                                - rowgroup [ref=e549]:
+                                    - row "Barriers-Readiness 0.537 0.632 0.381 Pass" [ref=e550]:
+                                        - cell "Barriers-Readiness" [ref=e551]
+                                        - cell "0.537" [ref=e552]
+                                        - cell "0.632" [ref=e553]
+                                        - cell "0.381" [ref=e554]
+                                        - cell "Pass" [ref=e555]:
+                                            - generic [ref=e556]: Pass
+                                    - row "Barriers-Maturity 0.537 0.702 0.316 Pass" [ref=e557]:
+                                        - cell "Barriers-Maturity" [ref=e558]
+                                        - cell "0.537" [ref=e559]
+                                        - cell "0.702" [ref=e560]
+                                        - cell "0.316" [ref=e561]
+                                        - cell "Pass" [ref=e562]:
+                                            - generic [ref=e563]: Pass
+                                    - row "Readiness-Maturity 0.632 0.702 0.719 Fail" [ref=e564]:
+                                        - cell "Readiness-Maturity" [ref=e565]
+                                        - cell "0.632" [ref=e566]
+                                        - cell "0.702" [ref=e567]
+                                        - cell "0.719" [ref=e568]
+                                        - cell "Fail" [ref=e569]:
+                                            - generic [ref=e570]: Fail
+                            - generic [ref=e571]:
+                                - paragraph [ref=e572]: Readiness-Maturity Overlap (r = .719)
+                                - paragraph [ref=e573]: 'The Fornell-Larcker criterion fails for the Readiness-Maturity pair, while HTMT (.804) passes the .85 threshold. This reflects their shared “organizational capability” dimension: Readiness originates from the TRI/adoption literature and Maturity from CMMI/IT governance. Both scales provide distinct value to their respective practitioner communities despite measuring overlapping variance, and the HTMT result suggests the constructs remain distinguishable under that criterion.'
+                        - generic [ref=e574]:
+                            - heading "5. Construct Correlations" [level=2] [ref=e575]
+                            - table [ref=e577]:
+                                - rowgroup [ref=e578]:
+                                    - row "Construct Barriers Readiness Maturity" [ref=e579]:
+                                        - columnheader "Construct" [ref=e580]
+                                        - columnheader "Barriers" [ref=e581]
+                                        - columnheader "Readiness" [ref=e582]
+                                        - columnheader "Maturity" [ref=e583]
+                                - rowgroup [ref=e584]:
+                                    - row "Barriers 1.000 -0.381 -0.316" [ref=e585]:
+                                        - rowheader "Barriers" [ref=e586]
+                                        - cell "1.000" [ref=e587]
+                                        - cell "-0.381" [ref=e588]
+                                        - cell "-0.316" [ref=e589]
+                                    - row "Readiness -0.381 1.000 0.719" [ref=e590]:
+                                        - rowheader "Readiness" [ref=e591]
+                                        - cell "-0.381" [ref=e592]
+                                        - cell "1.000" [ref=e593]
+                                        - cell "0.719" [ref=e594]
+                                    - row "Maturity -0.316 0.719 1.000" [ref=e595]:
+                                        - rowheader "Maturity" [ref=e596]
+                                        - cell "-0.316" [ref=e597]
+                                        - cell "0.719" [ref=e598]
+                                        - cell "1.000" [ref=e599]
+                            - paragraph [ref=e600]: 'Barriers correlate negatively with both Readiness (r = -.381) and Maturity (r = -.316), as expected: organizations with higher readiness and maturity perceive fewer barriers. Readiness and Maturity are positively correlated (r = .719), reflecting overlapping organizational capability constructs.'
+                        - generic [ref=e601]:
+                            - heading "6. Item Diagnostics" [level=2] [ref=e602]
+                            - heading "Flagged Items" [level=3] [ref=e603]
+                            - paragraph [ref=e604]: 'Items are flagged if their corrected item-total correlation falls below .30, or if deleting them would increase Cronbach’s alpha. The current validation summary reports whether any items fall below the CITC threshold and the minimum observed CITC:'
+                            - generic [ref=e605]:
+                                - paragraph [ref=e606]: At least one Barriers item falls below the CITC threshold (minimum CITC = .28).
+                                - paragraph [ref=e607]: This item’s CITC score falls below the conventional .30 threshold. The current validation summary does not identify which item produced the minimum CITC, so no item-specific rationale is reported here. Review the full item statistics in the pipeline output for details.
+                            - heading "Inter-Item Correlation Summary" [level=3] [ref=e608]
+                            - table [ref=e610]:
+                                - rowgroup [ref=e611]:
+                                    - row "Construct Mean r Min r Max r SD" [ref=e612]:
+                                        - columnheader "Construct" [ref=e613]
+                                        - columnheader "Mean r" [ref=e614]
+                                        - columnheader "Min r" [ref=e615]
+                                        - columnheader "Max r" [ref=e616]
+                                        - columnheader "SD" [ref=e617]
+                                - rowgroup [ref=e618]:
+                                    - row "Barriers 0.277 -0.05 0.67 0.12" [ref=e619]:
+                                        - cell "Barriers" [ref=e620]
+                                        - cell "0.277" [ref=e621]
+                                        - cell "-0.05" [ref=e622]
+                                        - cell "0.67" [ref=e623]
+                                        - cell "0.12" [ref=e624]
+                                    - row "Readiness 0.397 0.19 0.61 0.07" [ref=e625]:
+                                        - cell "Readiness" [ref=e626]
+                                        - cell "0.397" [ref=e627]
+                                        - cell "0.19" [ref=e628]
+                                        - cell "0.61" [ref=e629]
+                                        - cell "0.07" [ref=e630]
+                                    - row "Maturity 0.490 0.35 0.61 0.06" [ref=e631]:
+                                        - cell "Maturity" [ref=e632]
+                                        - cell "0.490" [ref=e633]
+                                        - cell "0.35" [ref=e634]
+                                        - cell "0.61" [ref=e635]
+                                        - cell "0.06" [ref=e636]
+                            - paragraph [ref=e637]: 'Optimal mean inter-item correlation: 0.15 to 0.50 (Clark & Watson, 1995). All three constructs fall within this range.'
+                        - generic [ref=e638]:
+                            - heading "7. Validation Summary" [level=2] [ref=e639]
+                            - table [ref=e641]:
+                                - rowgroup [ref=e642]:
+                                    - row "Criterion Barriers Readiness Maturity" [ref=e643]:
+                                        - columnheader "Criterion" [ref=e644]
+                                        - columnheader "Barriers" [ref=e645]
+                                        - columnheader "Readiness" [ref=e646]
+                                        - columnheader "Maturity" [ref=e647]
+                                - rowgroup [ref=e648]:
+                                    - row "Internal Consistency (α ≥ .70) Pass Pass Pass" [ref=e649]:
+                                        - cell "Internal Consistency (α ≥ .70)" [ref=e650]
+                                        - cell "Pass" [ref=e651]:
+                                            - generic [ref=e652]: Pass
+                                        - cell "Pass" [ref=e653]:
+                                            - generic [ref=e654]: Pass
+                                        - cell "Pass" [ref=e655]:
+                                            - generic [ref=e656]: Pass
+                                    - row "Composite Reliability (CR ≥ .70) Pass Pass Pass" [ref=e657]:
+                                        - cell "Composite Reliability (CR ≥ .70)" [ref=e658]
+                                        - cell "Pass" [ref=e659]:
+                                            - generic [ref=e660]: Pass
+                                        - cell "Pass" [ref=e661]:
+                                            - generic [ref=e662]: Pass
+                                        - cell "Pass" [ref=e663]:
+                                            - generic [ref=e664]: Pass
+                                    - row "Convergent Validity (AVE ≥ .50) Fail Fail Fail" [ref=e665]:
+                                        - cell "Convergent Validity (AVE ≥ .50)" [ref=e666]
+                                        - cell "Fail" [ref=e667]:
+                                            - generic [ref=e668]: Fail
+                                        - cell "Fail" [ref=e669]:
+                                            - generic [ref=e670]: Fail
+                                        - cell "Fail" [ref=e671]:
+                                            - generic [ref=e672]: Fail
+                                    - row "AVE Compensated by CR > .70 Pass Pass Pass" [ref=e673]:
+                                        - cell "AVE Compensated by CR > .70" [ref=e674]
+                                        - cell "Pass" [ref=e675]:
+                                            - generic [ref=e676]: Pass
+                                        - cell "Pass" [ref=e677]:
+                                            - generic [ref=e678]: Pass
+                                        - cell "Pass" [ref=e679]:
+                                            - generic [ref=e680]: Pass
+                                    - row "KMO ≥ .60 Pass Pass Pass" [ref=e681]:
+                                        - cell "KMO ≥ .60" [ref=e682]
+                                        - cell "Pass" [ref=e683]:
+                                            - generic [ref=e684]: Pass
+                                        - cell "Pass" [ref=e685]:
+                                            - generic [ref=e686]: Pass
+                                        - cell "Pass" [ref=e687]:
+                                            - generic [ref=e688]: Pass
+                                    - row "CFA CFI ≥ .90 Fail Pass Pass" [ref=e689]:
+                                        - cell "CFA CFI ≥ .90" [ref=e690]
+                                        - cell "Fail" [ref=e691]:
+                                            - generic [ref=e692]: Fail
+                                        - cell "Pass" [ref=e693]:
+                                            - generic [ref=e694]: Pass
+                                        - cell "Pass" [ref=e695]:
+                                            - generic [ref=e696]: Pass
+                                    - row "CFA RMSEA ≤ .08 Fail Pass Pass" [ref=e697]:
+                                        - cell "CFA RMSEA ≤ .08" [ref=e698]
+                                        - cell "Fail" [ref=e699]:
+                                            - generic [ref=e700]: Fail
+                                        - cell "Pass" [ref=e701]:
+                                            - generic [ref=e702]: Pass
+                                        - cell "Pass" [ref=e703]:
+                                            - generic [ref=e704]: Pass
+                                    - row "HTMT < .85 (all pairs) Pass Pass Pass" [ref=e705]:
+                                        - cell "HTMT < .85 (all pairs)" [ref=e706]
+                                        - cell "Pass" [ref=e707]:
+                                            - generic [ref=e708]: Pass
+                                        - cell "Pass" [ref=e709]:
+                                            - generic [ref=e710]: Pass
+                                        - cell "Pass" [ref=e711]:
+                                            - generic [ref=e712]: Pass
+                                    - row "No CITC < .30 flags Fail Pass Pass" [ref=e713]:
+                                        - cell "No CITC < .30 flags" [ref=e714]
+                                        - cell "Fail" [ref=e715]:
+                                            - generic [ref=e716]: Fail
+                                        - cell "Pass" [ref=e717]:
+                                            - generic [ref=e718]: Pass
+                                        - cell "Pass" [ref=e719]:
+                                            - generic [ref=e720]: Pass
+                            - paragraph [ref=e721]: The TABS instrument demonstrates strong reliability (all α > .85, all CR > .87) and adequate factor structure at N=200. Readiness and Maturity show excellent CFA fit as unidimensional scales. Barriers is inherently multi-dimensional (2-factor EFA), so single-factor CFA fit is expected to be poor. All HTMT ratios pass the conservative .85 threshold. Any item-level flags (CITC < .30) are retained for substantive reasons. AVE values below .50 are compensated by CR > .80 per Fornell & Larcker (1981) and are typical for broad, multi-faceted organizational behavior constructs.
+                        - generic [ref=e723]:
+                            - link "Factor Analysis →" [ref=e724] [cursor=pointer]:
+                                - /url: /results/crp-2026/factor-analysis/
+                            - link "Statistics Glossary →" [ref=e725] [cursor=pointer]:
+                                - /url: /results/crp-2026/glossary/
+                            - link "Scale Reliability →" [ref=e726] [cursor=pointer]:
+                                - /url: /results/crp-2026/reliability/
+                            - link "← CRP 2026 Overview" [ref=e727] [cursor=pointer]:
+                                - /url: /results/crp-2026/
+                    - navigation "Previous and next pages" [ref=e728]:
+                        - link "← Previous Factor Analysis" [ref=e729] [cursor=pointer]:
+                            - /url: /results/crp-2026/factor-analysis/
+                            - generic [ref=e730]: ← Previous
+                            - generic [ref=e731]: Factor Analysis
+                        - link "Next → Statistics Glossary" [ref=e732] [cursor=pointer]:
+                            - /url: /results/crp-2026/glossary/
+                            - generic [ref=e733]: Next →
+                            - generic [ref=e734]: Statistics Glossary
+                - navigation "Page navigation" [ref=e735]:
+                    - generic [ref=e736]:
+                        - generic [ref=e737]:
+                            - paragraph [ref=e738]: Results
+                            - list [ref=e739]:
+                                - listitem [ref=e740]:
+                                    - link "Results Overview" [ref=e741] [cursor=pointer]:
+                                        - /url: /results/
+                                - listitem [ref=e742]:
+                                    - group [ref=e743]:
+                                        - generic "CRP 2026" [ref=e744] [cursor=pointer]:
+                                            - generic [ref=e745]: ▶
+                                            - generic [ref=e746]: CRP 2026
+                                        - link "CRP 2026" [ref=e747] [cursor=pointer]:
+                                            - /url: /results/crp-2026/
+                                        - list [ref=e749]:
+                                            - listitem [ref=e750]:
+                                                - link "Sample & Demographics" [ref=e751] [cursor=pointer]:
+                                                    - /url: /results/crp-2026/sample/
+                                            - listitem [ref=e752]:
+                                                - link "Descriptive Statistics" [ref=e753] [cursor=pointer]:
+                                                    - /url: /results/crp-2026/descriptive/
+                                            - listitem [ref=e754]:
+                                                - link "Sensitivity Analysis" [ref=e755] [cursor=pointer]:
+                                                    - /url: /results/crp-2026/sensitivity/
+                                            - listitem [ref=e756]:
+                                                - link "Scale Reliability" [ref=e757] [cursor=pointer]:
+                                                    - /url: /results/crp-2026/reliability/
+                                            - listitem [ref=e758]:
+                                                - link "Key Findings" [ref=e759] [cursor=pointer]:
+                                                    - /url: /results/crp-2026/findings/
+                                            - listitem [ref=e760]:
+                                                - link "Data Quality" [ref=e761] [cursor=pointer]:
+                                                    - /url: /results/crp-2026/data-quality/
+                                            - listitem [ref=e762]:
+                                                - link "Factor Analysis" [ref=e763] [cursor=pointer]:
+                                                    - /url: /results/crp-2026/factor-analysis/
+                                            - listitem [ref=e764]:
+                                                - link "Instrument Validation" [ref=e765] [cursor=pointer]:
+                                                    - /url: /results/crp-2026/validation/
+                                            - listitem [ref=e766]:
+                                                - link "Statistics Glossary" [ref=e767] [cursor=pointer]:
+                                                    - /url: /results/crp-2026/glossary/
+                                - listitem [ref=e768]:
+                                    - group [ref=e769]:
+                                        - generic "TABS Full Dataset" [ref=e770] [cursor=pointer]:
+                                            - generic [ref=e771]: ▶
+                                            - generic [ref=e772]: TABS Full Dataset
+                                - listitem [ref=e773]:
+                                    - link "Dashboard" [ref=e774] [cursor=pointer]:
+                                        - /url: /results/dashboard/
+                                - listitem [ref=e775]:
+                                    - link "Dataset Comparison" [ref=e776] [cursor=pointer]:
+                                        - /url: /results/dataset-comparison/
+                                - listitem [ref=e777]:
+                                    - link "Survey Statistics" [ref=e778] [cursor=pointer]:
+                                        - /url: /results/survey-stats/
+                                - listitem [ref=e779]:
+                                    - link "CMO Survey" [ref=e780] [cursor=pointer]:
+                                        - /url: /results/cmo-survey/
+                        - separator [ref=e781]
+                        - generic [ref=e782]:
+                            - paragraph [ref=e783]: On this page
+                            - list [ref=e784]:
+                                - listitem [ref=e785]:
+                                    - link "1. Reliability" [ref=e786] [cursor=pointer]:
+                                        - /url: '#1-reliability'
+                                - listitem [ref=e787]:
+                                    - link "2. Exploratory Factor Analysis" [ref=e788] [cursor=pointer]:
+                                        - /url: '#2-exploratory-factor-analysis'
+                                - listitem [ref=e789]:
+                                    - link "3. Confirmatory Factor Analysis" [ref=e790] [cursor=pointer]:
+                                        - /url: '#3-confirmatory-factor-analysis'
+                                - listitem [ref=e791]:
+                                    - link "4. Discriminant Validity" [ref=e792] [cursor=pointer]:
+                                        - /url: '#4-discriminant-validity'
+                                - listitem [ref=e793]:
+                                    - link "5. Construct Correlations" [ref=e794] [cursor=pointer]:
+                                        - /url: '#5-construct-correlations'
+                                - listitem [ref=e795]:
+                                    - link "6. Item Diagnostics" [ref=e796] [cursor=pointer]:
+                                        - /url: '#6-item-diagnostics'
+                                - listitem [ref=e797]:
+                                    - link "7. Validation Summary" [ref=e798] [cursor=pointer]:
+                                        - /url: '#7-validation-summary'
+        - contentinfo [ref=e801]:
+            - generic [ref=e803]:
+                - heading "Get in Touch. Get Involved." [level=2] [ref=e804]
+                - paragraph [ref=e805]: Do not hesitate to reach out with any question or to become part of the project.
+                - generic [ref=e806]:
+                    - generic [ref=e807]:
+                        - generic [ref=e808]: Location
+                        - text: State College PA
+                    - generic [ref=e810]:
+                        - generic [ref=e811]: Phone
+                        - link "(520) 222 8104" [ref=e812] [cursor=pointer]:
+                            - /url: tel:5202228104
+                    - generic [ref=e814]:
+                        - generic [ref=e815]: Email
+                        - link "contact@technologyadoptionbarriers.org" [ref=e816] [cursor=pointer]:
+                            - /url: mailto:contact@technologyadoptionbarriers.org
+                - generic [ref=e817]:
+                    - link "TAKE THE TABS" [ref=e818] [cursor=pointer]:
+                        - /url: https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO?SOURCE=TABS_Website&COMPLETE_URL=https%3A%2F%2Ftechnologyadoptionbarriers.org%2Fsurvey-complete
+                    - link "SUPPORT TABS" [ref=e819] [cursor=pointer]:
+                        - /url: https://github.com/sponsors/clarkemoyer
+            - generic [ref=e821]:
+                - paragraph [ref=e822]:
+                    - strong [ref=e823]: 'NOTE:'
+                    - text: Content on this site has used AI. This includes video, audio, image, and text generation capabilities from multiple models. Reach out to Clarke Moyer at 520-222-8104 with any questions on methods.
+                - paragraph [ref=e824]:
+                    - strong [ref=e825]: 'NOTE:'
+                    - text: This project is in Draft. Not all items have been fully validated or properly cited. If you find any gaps in citation or content issues, please reach out to Clarke Moyer 520-222-8104
+            - generic [ref=e827]:
+                - generic [ref=e828]:
+                    - generic [ref=e829]:
+                        - heading "Main" [level=3] [ref=e830]
+                        - link "Home" [ref=e831] [cursor=pointer]:
+                            - /url: /
+                        - link "Take the TABS" [ref=e832] [cursor=pointer]:
+                            - /url: https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO?SOURCE=TABS_Website&COMPLETE_URL=https%3A%2F%2Ftechnologyadoptionbarriers.org%2Fsurvey-complete
+                        - link "Prolific participant? Start survey" [ref=e833] [cursor=pointer]:
+                            - /url: https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO?PROLIFIC_PID=tabs_prolific_web&STUDY_ID=tabs_prolific_web&SESSION_ID=tabs_prolific_web
+                        - link "Get Involved" [ref=e834] [cursor=pointer]:
+                            - /url: /get-involved/
+                        - link "Barriers" [ref=e835] [cursor=pointer]:
+                            - /url: /barriers/
+                        - link "Media" [ref=e836] [cursor=pointer]:
+                            - /url: /media/
+                    - generic [ref=e837]:
+                        - heading "Results" [level=3] [ref=e838]
+                        - link "Overview" [ref=e839] [cursor=pointer]:
+                            - /url: /results/
+                        - link "Sample & Demographics" [ref=e840] [cursor=pointer]:
+                            - /url: /results/sample/
+                        - link "Descriptive Statistics" [ref=e841] [cursor=pointer]:
+                            - /url: /results/descriptive/
+                        - link "Scale Reliability" [ref=e842] [cursor=pointer]:
+                            - /url: /results/reliability/
+                        - link "Sensitivity Analysis" [ref=e843] [cursor=pointer]:
+                            - /url: /results/sensitivity/
+                        - link "Prolific Dashboard" [ref=e844] [cursor=pointer]:
+                            - /url: /results/dashboard/
+                        - link "Open Data" [ref=e845] [cursor=pointer]:
+                            - /url: /results/reproducibility/
+                    - generic [ref=e846]:
+                        - heading "For Leaders" [level=3] [ref=e847]
+                        - link "Overview" [ref=e848] [cursor=pointer]:
+                            - /url: /start/
+                        - link "Chief Executive Officer (CEO)" [ref=e849] [cursor=pointer]:
+                            - /url: /start/ceo/
+                        - link "Chief Financial Officer (CFO)" [ref=e850] [cursor=pointer]:
+                            - /url: /start/cfo/
+                        - link "Chief Information Officer (CIO)" [ref=e851] [cursor=pointer]:
+                            - /url: /start/cio/
+                        - link "Chief Information Security Officer (CISO)" [ref=e852] [cursor=pointer]:
+                            - /url: /start/ciso/
+                        - link "Chief Operating Officer (COO)" [ref=e853] [cursor=pointer]:
+                            - /url: /start/coo/
+                        - link "Chief Marketing Officer (CMO)" [ref=e854] [cursor=pointer]:
+                            - /url: /start/cmo/
+                        - link "Chief Technology Officer (CTO)" [ref=e855] [cursor=pointer]:
+                            - /url: /start/cto/
+                        - link "Chief Strategy Officer (CSO)" [ref=e856] [cursor=pointer]:
+                            - /url: /start/cso/
+                        - link "Chief Human Resources Officer (CHRO)" [ref=e857] [cursor=pointer]:
+                            - /url: /start/chro/
+                        - link "Chief Revenue Officer (CRO)" [ref=e858] [cursor=pointer]:
+                            - /url: /start/cro/
+                        - link "Other Senior Leadership Role (Other)" [ref=e859] [cursor=pointer]:
+                            - /url: /start/other/
+                    - generic [ref=e860]:
+                        - heading "For Organizations" [level=3] [ref=e861]
+                        - link "Overview" [ref=e862] [cursor=pointer]:
+                            - /url: /for-organizations/
+                        - link "Executive Leaders" [ref=e863] [cursor=pointer]:
+                            - /url: /for-organizations/executive-leaders/
+                        - link "Technology Leaders" [ref=e864] [cursor=pointer]:
+                            - /url: /for-organizations/technology-leaders/
+                        - link "Finance Leaders" [ref=e865] [cursor=pointer]:
+                            - /url: /for-organizations/finance-leaders/
+                        - link "Operations Leaders" [ref=e866] [cursor=pointer]:
+                            - /url: /for-organizations/operations-leaders/
+                    - generic [ref=e867]:
+                        - heading "Models & Research" [level=3] [ref=e868]
+                        - link "Series Overview" [ref=e869] [cursor=pointer]:
+                            - /url: /technology-adoption-models/
+                        - link "The User's Journey" [ref=e870] [cursor=pointer]:
+                            - /url: /article-1-branch-introduction-the-users-journey/
+                        - link "The Organization's Playbook" [ref=e871] [cursor=pointer]:
+                            - /url: /article-2-branch-introduction-the-organizations-playbook/
+                        - link "Bibliography" [ref=e872] [cursor=pointer]:
+                            - /url: /article-bibliography-comprehensive-series-bibliography/
+                - list [ref=e874]:
+                    - listitem [ref=e875]:
+                        - link "Cookie Policy" [ref=e876] [cursor=pointer]:
+                            - /url: /cookie-policy/
+                    - listitem [ref=e877]:
+                        - link "Privacy Policy" [ref=e878] [cursor=pointer]:
+                            - /url: /privacy-policy/
+                    - listitem [ref=e879]:
+                        - link "Terms of Service" [ref=e880] [cursor=pointer]:
+                            - /url: /terms-of-service/
+                    - listitem [ref=e881]:
+                        - link "Contribution Policy" [ref=e882] [cursor=pointer]:
+                            - /url: /contribution-policy/
+                    - listitem [ref=e883]:
+                        - link "Vulnerability Disclosure" [ref=e884] [cursor=pointer]:
+                            - /url: /vulnerability-disclosure-policy/
+                    - listitem [ref=e885]:
+                        - link "Security Acknowledgements" [ref=e886] [cursor=pointer]:
+                            - /url: /security-acknowledgements/
+                - generic [ref=e887]: © 2026 Clarke Moyer all rights reserved. Credit to Smeal and the PSU DBA program.
+                - generic [ref=e888]:
+                    - link "LinkedIn" [ref=e889] [cursor=pointer]:
+                        - /url: https://www.linkedin.com/in/clarkemoyer/
+                        - img [ref=e890]
+                    - link "GitHub" [ref=e892] [cursor=pointer]:
+                        - /url: https://github.com/clarkemoyer/technologyadoptionbarriers.org
+                        - img [ref=e893]
+    - alert [ref=e895]

@@ -1084,8 +1084,6 @@ Claude Code operates under a tiered permission system configured in `~/.claude/s
 
 _(Metrics snapshot as of April 2026. See tracking [issue #783](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/783) for the original source.)_
 
-<<<<<<< HEAD
-
 #### MCP Servers
 
 | Dependency                                                    | Publisher              | Official?    | Stars        | Last Activity | Risk                                          |
