@@ -1,11 +1,11 @@
 {
-  "title": "TABS Survey Structure Summary — V2 (from Qualtrics QSF Export, March 2026)",
+  "title": "TABS Survey Structure Summary - V2 (from Qualtrics QSF Export, March 2026)",
   "quickStats": {
     "totalItems": 57,
     "substantiveItems": 54,
     "attentionChecks": 3,
     "sections": 5,
-    "mappedFields": 13
+    "mappedFields": 15
   },
   "columns": [
     "Section",
@@ -83,6 +83,10 @@
     {
       "date": "2026-03-27",
       "note": "Added Rogers (2003) citation for Q1b (A1b / Demo_DecisionAuth). Updated items_with_citations count."
+    },
+    {
+      "date": "2026-04-12",
+      "note": "Replaced all citations with validated source from rebuild pipeline. 44 rows updated with specific dual citations, proper DOIs, and Zotero cross-references. Fixed missing Minor Barrier scale point in B14 / Barrier_PrivacyRisk, the privacy item. Added Zotero Key(s) and Zotero Status columns to complex view (mappedFields 13 to 15)."
     }
   ]
 }
