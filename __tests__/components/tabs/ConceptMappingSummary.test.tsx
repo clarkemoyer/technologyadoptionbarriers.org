@@ -21,7 +21,7 @@ describe('ConceptMappingSummary component', () => {
       expect(within(statsBar).getByText('54')).toBeInTheDocument()
       expect(within(statsBar).getByText('3')).toBeInTheDocument()
       expect(within(statsBar).getByText('5')).toBeInTheDocument()
-      expect(within(statsBar).getByText('13')).toBeInTheDocument()
+      expect(within(statsBar).getByText('15')).toBeInTheDocument()
     })
 
     it('should render quick stat labels', () => {
@@ -83,7 +83,7 @@ describe('ConceptMappingSummary component', () => {
       const rows = within(table).getAllByRole('row')
       // Header + 6 data rows + total = 8 rows; Section A is row index 1
       const sectionARow = rows[1]
-      expect(within(sectionARow).getByText('—')).toBeInTheDocument()
+      expect(within(sectionARow).getByText('-')).toBeInTheDocument()
     })
   })
 
