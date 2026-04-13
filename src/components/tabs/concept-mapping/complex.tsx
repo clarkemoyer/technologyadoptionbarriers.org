@@ -444,7 +444,7 @@ function ItemCard({
               )}
             </span>
           ) : (
-            <span className="text-gray-400">-</span>
+            <span className="text-gray-400">—</span>
           )}
         </FieldRow>
         <FieldRow label="Zotero Key(s)" value={row['Zotero Key(s)']} />
