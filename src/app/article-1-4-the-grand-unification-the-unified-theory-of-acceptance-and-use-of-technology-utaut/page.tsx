@@ -80,7 +80,7 @@ const Article14Page = () => {
             integration had created theoretical confusion.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The <strong>Technology Acceptance Model (TAM)</strong> dominated organizational contexts
+            The <strong>Technology Acceptance Model (TAM) </strong>dominated organizational contexts
             since Davis&apos;s 1989 work. TAM proposed that perceived usefulness and perceived ease
             of use were the primary predictors of technology adoption, filtering through attitudes
             and behavioral intentions. This elegant simplicity resonated with practitioners and
@@ -88,14 +88,14 @@ const Article14Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Yet other traditions offered competing visions. The{' '}
-            <strong>Theory of Planned Behavior</strong> emphasized that perceived behavioral
+            <strong>Theory of Planned Behavior </strong>emphasized that perceived behavioral
             control–individuals&apos; confidence in their ability to execute behaviors–was critical
             alongside attitudes and subjective norms. This framework produced evidence that
             behavioral control sometimes exceeded ease of use in predictive power. Was TAM missing
             something fundamental?
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The <strong>Diffusion of Innovations</strong> perspective, rooted in Rogers&apos;s
+            The <strong>Diffusion of Innovations </strong>perspective, rooted in Rogers&apos;s
             classic framework, emphasized characteristics of innovations themselves–relative
             advantage, compatibility, complexity, trialability, and observability. This approach
             examined how innovation characteristics determined diffusion rates across populations
@@ -103,14 +103,14 @@ const Article14Page = () => {
             rather than individual decision-making psychology emphasized by acceptance models.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The <strong>Motivational Model</strong> brought consumer behavior and
+            The <strong>Motivational Model </strong>brought consumer behavior and
             intrinsic-extrinsic motivation theory into technology adoption, proposing that both
             practical motivations (extrinsic rewards) and inherent enjoyment (intrinsic motivation)
             drove adoption. This suggested that hedonic dimensions mattered alongside utilitarian
             concerns–a critical insight that TAM and related models minimized.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The <strong>Model of PC Utilization</strong> emphasized technology fit–whether
+            The <strong>Model of PC Utilization </strong>emphasized technology fit–whether
             innovations matched job requirements and task demands. It highlighted complexity not
             merely as a perceptual variable but as an objective characteristic of systems, and
             incorporated job relevance as a primary adoption driver. This perspective suggested
@@ -154,39 +154,39 @@ const Article14Page = () => {
             consensus hidden beneath surface-level theoretical disagreements.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The <strong>Theory of Reasoned Action</strong> provided foundational principles
+            The <strong>Theory of Reasoned Action </strong>provided foundational principles
             articulated by Fishbein and Ajzen: behavioral intentions are determined by attitudes
             toward the behavior and subjective norms (perceptions of what important others believe).
             This framework established that both individual evaluation and social influence
             determine behavior.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The <strong>Technology Acceptance Model</strong> operationalized TRA specifically for
+            The <strong>Technology Acceptance Model </strong>operationalized TRA specifically for
             technology contexts, proposing that perceived usefulness and perceived ease of use were
             the primary attitude determinants. TAM demonstrated that these two variables captured
             most of the variance that broader attitude constructs measured in TRA.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The <strong>Theory of Planned Behavior</strong> extended TRA by adding perceived
+            The <strong>Theory of Planned Behavior </strong>extended TRA by adding perceived
             behavioral control–individuals&apos; confidence in their ability to perform behaviors.
             TPB recognized that intentions do not always translate to behavior; perceived capability
             to execute intentions was required. Some individuals might intend to use technology but
             believe themselves incapable, preventing use.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The <strong>Motivational Model</strong> brought motivation theory into technology
+            The <strong>Motivational Model </strong>brought motivation theory into technology
             adoption, distinguishing extrinsic motivation (performing activities for instrumental
             value) from intrinsic motivation (performing activities for inherent satisfaction). This
             framework expanded adoption drivers beyond pure utility to include entertainment value
             and enjoyment.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The <strong>Combined TAM-TPB Model</strong> represented an early integration effort,
+            The <strong>Combined TAM-TPB Model </strong>represented an early integration effort,
             combining TAM&apos;s simplicity with behavioral control insights, creating a hybrid that
             sometimes outperformed either constituent model.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The <strong>Model of PC Utilization</strong> emphasized job relevance and complexity as
+            The <strong>Model of PC Utilization </strong>emphasized job relevance and complexity as
             determinants of personal computer adoption. Rather than treating ease of use as a
             general individual perception, MPCU highlighted how technology&apos;s fit to specific
             job requirements determined adoption.
@@ -219,7 +219,7 @@ const Article14Page = () => {
 
           <h3 className={H3_CLASSES}>Performance Expectancy: The Strongest Predictor</h3>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Performance expectancy</strong> represents the degree to which individuals
+            <strong>Performance expectancy </strong>represents the degree to which individuals
             believe that using a system will help them attain gains in job performance. This
             construct synthesizes several seemingly different variables from preceding models:
           </p>
@@ -256,7 +256,7 @@ const Article14Page = () => {
 
           <h3 className={H3_CLASSES}>Effort Expectancy: The Experience-Moderated Variable</h3>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Effort expectancy</strong> represents the degree of ease associated with system
+            <strong>Effort expectancy </strong>represents the degree of ease associated with system
             use. This construct synthesizes:
           </p>
           <ul className={BODY_LIST_CLASSES}>
@@ -292,7 +292,7 @@ const Article14Page = () => {
 
           <h3 className={H3_CLASSES}>Social Influence: Context-Dependent and Mandate-Moderated</h3>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Social influence</strong> represents the degree to which individuals perceive
+            <strong>Social influence </strong>represents the degree to which individuals perceive
             that important others believe they should use a new system. This construct synthesizes:
           </p>
           <ul className={BODY_LIST_CLASSES}>
@@ -328,7 +328,7 @@ const Article14Page = () => {
 
           <h3 className={H3_CLASSES}>Facilitating Conditions: The Enabler of Actual Use</h3>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Facilitating conditions</strong> represent the degree to which individuals
+            <strong>Facilitating conditions </strong>represent the degree to which individuals
             believe that organizational and technical infrastructure exist to support use of the
             system. This construct synthesizes:
           </p>
@@ -510,28 +510,28 @@ const Article14Page = () => {
             thinking:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Parsimony and Integration:</strong> By demonstrating that eight diverse models
+            <strong>Parsimony and Integration: </strong>By demonstrating that eight diverse models
             converged on four core variables, UTAUT achieved theoretical parsimony while improving
             explanatory power. The research explained approximately 70% of variance in behavioral
             intention compared to approximately 50% for traditional TAM. This integration reduced
             conceptual fragmentation without sacrificing explanatory power.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Moderating Context Effects:</strong> By identifying how gender, age, experience,
+            <strong>Moderating Context Effects: </strong>By identifying how gender, age, experience,
             and voluntariness moderated adoption relationships, UTAUT provided actionable guidance
             that adoption is not uniform. Different user populations and contexts show different
             adoption patterns. This recognition prevented oversimplified one-size-fits-all adoption
             strategies.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Behavior Prediction:</strong> UTAUT extended beyond intention to directly
+            <strong>Behavior Prediction: </strong>UTAUT extended beyond intention to directly
             predict actual use behavior, addressing longstanding criticism that intention-based
             models could not explain the intention-behavior gap. The explicit examination of
             facilitating conditions as direct behavior predictors provided more realistic adoption
             understanding.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Empirical Validation Across Diverse Contexts:</strong> The research tested UTAUT
+            <strong>Empirical Validation Across Diverse Contexts: </strong>The research tested UTAUT
             across multiple organizations, technology types, and user populations, demonstrating
             that core relationships held across substantial diversity. This cross-validation
             strengthened confidence that UTAUT captured fundamental adoption principles rather than
@@ -572,7 +572,7 @@ const Article14Page = () => {
             Despite UTAUT&apos;s significance, limitations qualify its scope and applicability:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Organizational Context Specificity:</strong> UTAUT was developed and tested in
+            <strong>Organizational Context Specificity: </strong>UTAUT was developed and tested in
             mandatory organizational technology adoption contexts. Organizations implement systems
             as part of business operations; employees have limited choice about whether to
             participate. This context differs substantially from voluntary consumer technology
@@ -580,7 +580,7 @@ const Article14Page = () => {
             consumer contexts remained uncertain until subsequent extensions like UTAUT2.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Complexity of Moderating Relationships:</strong> While UTAUT identified gender,
+            <strong>Complexity of Moderating Relationships: </strong>While UTAUT identified gender,
             age, experience, and voluntariness as moderators, real-world adoption involves more
             complex moderation. Organizational culture, individual differences beyond demographics,
             technology characteristics, and implementation approach likely moderate adoption
@@ -588,20 +588,20 @@ const Article14Page = () => {
             thinking about moderation without exhaustively mapping all moderating relationships.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Static Rather Than Dynamic:</strong> UTAUT presents a snapshot of adoption at
+            <strong>Static Rather Than Dynamic: </strong>UTAUT presents a snapshot of adoption at
             particular points in time. How adoption evolves over extended implementation periods,
             how relationships among variables change as users gain experience, and how
             organizational and technology changes affect adoption over years remain less fully
             specified.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Measurement and Operationalization:</strong> Different research applying UTAUT
+            <strong>Measurement and Operationalization: </strong>Different research applying UTAUT
             has operationalized the core constructs variably, creating challenges in comparing
             findings across studies. Standardized measurement instruments would strengthen the
             research base.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Individual Heterogeneity:</strong> While UTAUT identifies some individual
+            <strong>Individual Heterogeneity: </strong>While UTAUT identifies some individual
             differences through moderating variables, substantial heterogeneity in adoption patterns
             likely remains unexplained. Why some individuals in the same demographic group and
             organizational context show dramatically different adoption patterns requires
@@ -614,37 +614,37 @@ const Article14Page = () => {
             guidance across implementation stages:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Pre-Implementation:</strong> Ensure strong business case development
+            <strong>Pre-Implementation: </strong>Ensure strong business case development
             demonstrating clear performance benefits. This primary adoption driver requires concrete
             evidence that technology will improve job performance, increase productivity, reduce
             costs, or deliver other valued outcomes.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Training and Support Planning:</strong> Recognize that effort expectancy
+            <strong>Training and Support Planning: </strong>Recognize that effort expectancy
             concerns–particularly among older and less-experienced workers–justify substantial
             training and support investment. User support should not be an afterthought; it should
             be proportionate to the complexity of systems and the experience levels of user
             populations.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Stakeholder Engagement:</strong> In mandatory adoption contexts, secure visible
+            <strong>Stakeholder Engagement: </strong>In mandatory adoption contexts, secure visible
             leadership support and establish peer champions. Social influence proves powerful when
             organizational leadership and respected colleagues demonstrate adoption commitment.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Infrastructure Readiness:</strong> Verify that facilitating conditions are
+            <strong>Infrastructure Readiness: </strong>Verify that facilitating conditions are
             adequate before launch. Insufficient training capacity, inadequate help desk resources,
             poor system integration, or bandwidth limitations create bottlenecks that prevent
             translating favorable intentions into actual use.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Segmented Approaches:</strong> Tailor implementation approaches to different
+            <strong>Segmented Approaches: </strong>Tailor implementation approaches to different
             user segments. Younger, experienced users need different support than older,
             less-experienced users. High-performers requiring minimal performance benefits need
             different communication than workers skeptical about technology value.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Sustained Implementation:</strong> Recognize that adoption extends beyond
+            <strong>Sustained Implementation: </strong>Recognize that adoption extends beyond
             initial deployment. As users gain experience, moderating effects of age and experience
             change. Organizations should adjust support and communication as the adoption lifecycle
             progresses.

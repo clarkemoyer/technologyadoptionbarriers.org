@@ -57,23 +57,23 @@ const FoundationalTheoriesPage = () => {
           </p>
           <ol className={BODY_OL_CLASSES}>
             <li>
-              <strong>Relative Advantage:</strong> The degree to which an innovation is perceived as
+              <strong>Relative Advantage: </strong>The degree to which an innovation is perceived as
               better than the idea it supersedes.
             </li>
             <li>
-              <strong>Compatibility:</strong> The degree to which an innovation is perceived as
+              <strong>Compatibility: </strong>The degree to which an innovation is perceived as
               consistent with existing values, past experiences, and needs.
             </li>
             <li>
-              <strong>Complexity:</strong> The degree to which an innovation is perceived as
+              <strong>Complexity: </strong>The degree to which an innovation is perceived as
               difficult to understand and use.
             </li>
             <li>
-              <strong>Trialability:</strong> The degree to which an innovation may be experimented
+              <strong>Trialability: </strong>The degree to which an innovation may be experimented
               with on a limited basis.
             </li>
             <li>
-              <strong>Observability:</strong> The degree to which the results of an innovation are
+              <strong>Observability: </strong>The degree to which the results of an innovation are
               visible to others.
             </li>
           </ol>
@@ -83,23 +83,23 @@ const FoundationalTheoriesPage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Innovators (2.5%):</strong> Venturesome risk-takers who are the very first to
+              <strong>Innovators (2.5%): </strong>Venturesome risk-takers who are the very first to
               adopt an innovation.
             </li>
             <li>
-              <strong>Early Adopters (13.5%):</strong> Respected social leaders and opinion makers
+              <strong>Early Adopters (13.5%): </strong>Respected social leaders and opinion makers
               who adopt early but with more discretion than innovators.
             </li>
             <li>
-              <strong>Early Majority (34%):</strong> Deliberate individuals who adopt new ideas just
+              <strong>Early Majority (34%): </strong>Deliberate individuals who adopt new ideas just
               before the average member of a system.
             </li>
             <li>
-              <strong>Late Majority (34%):</strong> Skeptical individuals who adopt an innovation
+              <strong>Late Majority (34%): </strong>Skeptical individuals who adopt an innovation
               only after a majority of people have tried it.
             </li>
             <li>
-              <strong>Laggards (16%):</strong> Traditionalists who are the last to adopt an
+              <strong>Laggards (16%): </strong>Traditionalists who are the last to adopt an
               innovation, often with suspicion.
             </li>
           </ul>
@@ -117,12 +117,12 @@ const FoundationalTheoriesPage = () => {
           </p>
           <ol className={BODY_OL_CLASSES}>
             <li>
-              <strong>Attitude Toward the Behavior:</strong> The individual’s positive or negative
+              <strong>Attitude Toward the Behavior: </strong>The individual’s positive or negative
               feelings about performing the behavior. This is shaped by their behavioral beliefs
               (e.g., “Using this new software will make me more productive”).
             </li>
             <li>
-              <strong>Subjective Norm:</strong> The individual’s perception of the social pressure
+              <strong>Subjective Norm: </strong>The individual’s perception of the social pressure
               to perform or not perform the behavior. This is shaped by their normative beliefs
               (e.g., “My manager and respected colleagues think I should use this new software”).
             </li>
@@ -143,7 +143,7 @@ const FoundationalTheoriesPage = () => {
             added a critical third determinant of behavioral intention:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>1. Perceived Behavioral Control (PBC):</strong> An individual’s perception of
+            <strong>1. Perceived Behavioral Control (PBC): </strong>An individual’s perception of
             the ease or difficulty of performing the behavior. This construct accounts for the
             presence or absence of requisite resources and opportunities (e.g., “I have the time,
             training, and technical support needed to learn this system”).
@@ -164,15 +164,15 @@ const FoundationalTheoriesPage = () => {
           </p>
           <ol className={BODY_OL_CLASSES}>
             <li>
-              <strong>Personal Factors:</strong> An individual’s cognitive, affective, and
+              <strong>Personal Factors: </strong>An individual’s cognitive, affective, and
               biological attributes (e.g., self-efficacy, knowledge).
             </li>
             <li>
-              <strong>Environmental Factors:</strong> The external social and physical environment
+              <strong>Environmental Factors: </strong>The external social and physical environment
               (e.g., social norms, access to resources).
             </li>
             <li>
-              <strong>Behavior:</strong> The individual’s actions.
+              <strong>Behavior: </strong>The individual’s actions.
             </li>
           </ol>
           <p className={PARAGRAPH_CLASSES}>
@@ -190,11 +190,11 @@ const FoundationalTheoriesPage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Extrinsic Motivation:</strong> The drive to perform a behavior because it is
+              <strong>Extrinsic Motivation: </strong>The drive to perform a behavior because it is
               perceived to be instrumental in achieving valued outcomes (e.g., usefulness).
             </li>
             <li>
-              <strong>Intrinsic Motivation:</strong> The drive to perform a behavior for its own
+              <strong>Intrinsic Motivation: </strong>The drive to perform a behavior for its own
               sake, simply for the pleasure and satisfaction derived from the process (e.g.,
               enjoyment).
             </li>

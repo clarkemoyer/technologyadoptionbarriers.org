@@ -72,7 +72,7 @@ const Article13Page = () => {
             mechanisms:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Subjective Norm:</strong> This represents what users believe important others
+            <strong>Subjective Norm: </strong>This represents what users believe important others
             think they should do. A manager saying &ldquo;this system is important for our
             department&rdquo; or colleagues saying &ldquo;I am finding this really useful&rdquo;
             creates normative pressure that shapes usefulness perceptions. But critically, the
@@ -91,7 +91,7 @@ const Article13Page = () => {
             and have already adopted the system.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Image:</strong> The degree to which system use enhances one&apos;s professional
+            <strong>Image: </strong>The degree to which system use enhances one&apos;s professional
             status or image. This proved more influential than many researchers anticipated. Using a
             cutting-edge system, demonstrating technological sophistication, or being seen as an
             early adopter can enhance professional standing. When this image enhancement is salient,
@@ -105,7 +105,7 @@ const Article13Page = () => {
             shaping perceived usefulness:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Job Relevance:</strong> The degree to which users perceive that the system
+            <strong>Job Relevance: </strong>The degree to which users perceive that the system
             applies to their actual job responsibilities. A system might be technically capable but
             irrelevant to a user&apos;s primary work. A document management system is highly
             relevant for administrative staff but less relevant for salespeople whose primary work
@@ -113,7 +113,7 @@ const Article13Page = () => {
             perceptions increase dramatically.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Output Quality:</strong> The degree to which systems produce outputs meeting
+            <strong>Output Quality: </strong>The degree to which systems produce outputs meeting
             organizational standards for quality and accuracy. A system might be designed to improve
             productivity, but if its outputs lack accuracy or require extensive manual correction,
             perceived usefulness diminishes. Conversely, when systems consistently produce
@@ -121,7 +121,7 @@ const Article13Page = () => {
             enhancing performance.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Result Demonstrability:</strong> The ease and tangibility with which system
+            <strong>Result Demonstrability: </strong>The ease and tangibility with which system
             benefits can be demonstrated and communicated. Some system benefits are immediately
             visible–a spreadsheet calculation that would take hours manually completes in seconds.
             Other benefits are diffuse or long-term–gradual improvements in data consistency across
@@ -164,7 +164,7 @@ const Article13Page = () => {
             of use–foundational factors determining how easily users perceive system use:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Computer Self-Efficacy:</strong> This represents individual confidence in
+            <strong>Computer Self-Efficacy: </strong>This represents individual confidence in
             one&apos;s ability to use computers effectively. Users with high computer
             self-efficacy–those who believe they can learn computer systems, troubleshoot problems,
             and use technology flexibly–perceive systems as easier to use. Conversely, users with
@@ -178,7 +178,7 @@ const Article13Page = () => {
             system is easy for experienced technology users but difficult for technophobes.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Perceptions of External Control:</strong> This captures the degree to which
+            <strong>Perceptions of External Control: </strong>This captures the degree to which
             users believe they have resources and support to use systems effectively. External
             control encompasses:
           </p>
@@ -195,7 +195,7 @@ const Article13Page = () => {
             decreases because users doubt they can resolve problems independently.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Intrinsic Motivation:</strong> The degree to which system use is inherently
+            <strong>Intrinsic Motivation: </strong>The degree to which system use is inherently
             enjoyable, playful, or engaging. Systems perceived as engaging or interesting are
             perceived as easier to use. This reflects a psychological principle: when we enjoy an
             activity, we perceive it as requiring less effort. Conversely, when we find activities
@@ -212,13 +212,13 @@ const Article13Page = () => {
             TAM 3 also identified factors that adjust perceived ease of use during use:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Perceived Enjoyment:</strong> The affective response during actual system use.
+            <strong>Perceived Enjoyment: </strong>The affective response during actual system use.
             Even if initial perceptions of ease are moderate, if users find the experience enjoyable
             as they interact with systems, ease of use perceptions improve. Conversely, if
             interaction is frustrating, ease perceptions decline.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Objective Usability:</strong> The actual system design quality. While TAM
+            <strong>Objective Usability: </strong>The actual system design quality. While TAM
             emphasizes perceptions, objective design characteristics matter. Well-designed
             interfaces with intuitive navigation reduce cognitive load and objectively make systems
             easier to use. Poor design objectively increases required effort. While perceptions are
@@ -231,19 +231,19 @@ const Article13Page = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>System Flexibility:</strong> Systems that can be customized to user
+              <strong>System Flexibility: </strong>Systems that can be customized to user
               preferences are perceived as easier
             </li>
             <li>
-              <strong>System Aesthetics:</strong> Visual design, layout quality, and overall
+              <strong>System Aesthetics: </strong>Visual design, layout quality, and overall
               presentation influence perceived ease
             </li>
             <li>
-              <strong>Consistency:</strong> Consistent design patterns across system functions
+              <strong>Consistency: </strong>Consistent design patterns across system functions
               reduce cognitive load
             </li>
             <li>
-              <strong>Feedback Mechanisms:</strong> Systems providing clear feedback on user actions
+              <strong>Feedback Mechanisms: </strong>Systems providing clear feedback on user actions
               reduce uncertainty and perceived effort
             </li>
           </ul>
