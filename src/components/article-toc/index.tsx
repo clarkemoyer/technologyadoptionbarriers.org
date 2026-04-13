@@ -1,7 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { SIDEBAR_WIDTH, SIDEBAR_GAP, SIDEBAR_MIN_SPACE } from '@/lib/sidebar-constants'
+import { SIDEBAR_WIDTH } from '@/lib/sidebar-constants'
+import { useSidebarPlacement } from '@/lib/useSidebarPlacement'
 
 /* ------------------------------------------------------------------ */
 /*  Utility                                                           */
@@ -44,11 +45,8 @@ export default function ArticleTOC() {
   const [progress, setProgress] = useState(0)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [headerH, setHeaderH] = useState(80)
-  const [tocLeft, setTocLeft] = useState(0)
-  const [canShowDesktop, setCanShowDesktop] = useState(false)
+  const { canShowDesktop, tocLeft } = useSidebarPlacement()
   const observerRef = useRef<IntersectionObserver | null>(null)
-  const prevCanShowDesktopRef = useRef(false)
-  const prevTocLeftRef = useRef(0)
 
   /* ---------- track header height (shrinks on scroll) ---------- */
   useEffect(() => {
@@ -59,40 +57,6 @@ export default function ArticleTOC() {
     })
     ro.observe(header)
     return () => ro.disconnect()
-  }, [])
-
-  /* ---------- track article position for TOC placement ---------- */
-  useEffect(() => {
-    let rafId: number | null = null
-    const update = () => {
-      const article = document.querySelector('article')
-      if (!article) return
-      const rect = article.getBoundingClientRect()
-      const rightSpace = window.innerWidth - rect.right
-      const nextCanShow = rightSpace >= SIDEBAR_MIN_SPACE
-      const nextLeft = rect.right + SIDEBAR_GAP
-      if (nextCanShow !== prevCanShowDesktopRef.current) {
-        prevCanShowDesktopRef.current = nextCanShow
-        setCanShowDesktop(nextCanShow)
-      }
-      if (nextLeft !== prevTocLeftRef.current) {
-        prevTocLeftRef.current = nextLeft
-        setTocLeft(nextLeft)
-      }
-    }
-    const onResize = () => {
-      if (rafId != null) return
-      rafId = requestAnimationFrame(() => {
-        rafId = null
-        update()
-      })
-    }
-    update()
-    window.addEventListener('resize', onResize)
-    return () => {
-      window.removeEventListener('resize', onResize)
-      if (rafId != null) cancelAnimationFrame(rafId)
-    }
   }, [])
 
   /* ---------- reset mobile panel when switching to desktop ---------- */

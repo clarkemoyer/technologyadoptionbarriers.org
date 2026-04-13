@@ -4,7 +4,8 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { slugify } from '@/lib/slugify'
-import { SIDEBAR_WIDTH, SIDEBAR_GAP, SIDEBAR_MIN_SPACE } from '@/lib/sidebar-constants'
+import { SIDEBAR_WIDTH } from '@/lib/sidebar-constants'
+import { useSidebarPlacement } from '@/lib/useSidebarPlacement'
 
 export interface SeriesNavItem {
   title: string
@@ -51,13 +52,10 @@ export default function UnifiedNavigation({
   const [activeId, setActiveId] = useState<string>('')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [footerOffset, setFooterOffset] = useState(MIN_BOTTOM_GAP)
-  const [tocLeft, setTocLeft] = useState(0)
-  const [canShowDesktop, setCanShowDesktop] = useState(false)
+  const { canShowDesktop, tocLeft } = useSidebarPlacement()
   const panelRef = useRef<HTMLDivElement>(null)
   const footerOffsetRef = useRef(MIN_BOTTOM_GAP)
   const rafIdRef = useRef<number | null>(null)
-  const prevCanShowDesktopRef = useRef(false)
-  const prevTocLeftRef = useRef(0)
 
   // Track header height (with feature detection for ResizeObserver)
   useEffect(() => {
@@ -69,40 +67,6 @@ export default function UnifiedNavigation({
     })
     ro.observe(header)
     return () => ro.disconnect()
-  }, [])
-
-  // Track article position to place desktop sidebar without overlapping content
-  useEffect(() => {
-    let rafId: number | null = null
-    const update = () => {
-      const article = document.querySelector('article')
-      if (!article) return
-      const rect = article.getBoundingClientRect()
-      const rightSpace = window.innerWidth - rect.right
-      const nextCanShow = rightSpace >= SIDEBAR_MIN_SPACE
-      const nextLeft = rect.right + SIDEBAR_GAP
-      if (nextCanShow !== prevCanShowDesktopRef.current) {
-        prevCanShowDesktopRef.current = nextCanShow
-        setCanShowDesktop(nextCanShow)
-      }
-      if (nextLeft !== prevTocLeftRef.current) {
-        prevTocLeftRef.current = nextLeft
-        setTocLeft(nextLeft)
-      }
-    }
-    const onResize = () => {
-      if (rafId != null) return
-      rafId = requestAnimationFrame(() => {
-        rafId = null
-        update()
-      })
-    }
-    update()
-    window.addEventListener('resize', onResize)
-    return () => {
-      window.removeEventListener('resize', onResize)
-      if (rafId != null) cancelAnimationFrame(rafId)
-    }
   }, [])
 
   // Track footer position so the sidebar never overlaps it
