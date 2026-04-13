@@ -1,12 +1,12 @@
 # CFA Null Values Investigation Summary
 
 **Date:** 2026-04-13
-**PR:** #[number] - Fix CFA blank page / CRP data
-**Commits:** b3d6258, d5a4f13, 8da2139
+**Issue:** [#1482](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/1482)
+**PR:** [#1483](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pull/1483)
 
 ## TL;DR
 
-**The fix in commit b3d6258 IS correct.** Semopy IS available and working in the pipeline. The null CFA values in `crp-validation.json` exist because:
+**The fix in this branch IS correct.** Semopy IS available and working in the pipeline. The null CFA values in `crp-validation.json` exist because:
 
 1. Main branch still has the old buggy code (DataFrame axis mismatch)
 2. Daily pipeline runs from main → generates nulls
@@ -196,8 +196,8 @@ The null values persist only because the fix hasn't been merged to main yet. Thi
 
 ## References
 
-- **PR:** Fix CFA blank page / CRP data
-- **Issue:** [Original issue number]
+- **Issue:** [#1482](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/1482)
+- **PR:** [#1483](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pull/1483)
 - **Workflow:** `.github/workflows/daily-pipeline.yml`
 - **Analysis Script:** `scripts/analysis/tabs_v2_unified_data_analysis.py`
 - **Test Suite:** `scripts/analysis/tests/test_run_cfa.py`
