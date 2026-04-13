@@ -139,8 +139,8 @@ const CORR_MATRIX: Record<string, Record<string, number>> = validationData.const
 
 const BARRIERS_4F_CFA = validationData.barriers_4f_cfa
 
-/** Validation summary rows derived from crp-validation.json verdicts. */
-const VERDICT_ROWS: { label: string; vals: boolean[] }[] = (() => {
+/** Validation summary rows derived from crp-validation.json verdicts block. */
+const VERDICT_ROWS: { label: string; vals: (boolean | null)[] }[] = (() => {
   const constructs = ['Barriers', 'Readiness', 'Maturity'] as const
   type ConstructKey = (typeof constructs)[number]
   const verdicts = validationData.verdicts as Record<
@@ -151,10 +151,12 @@ const VERDICT_ROWS: { label: string; vals: boolean[] }[] = (() => {
       ave_above_050: boolean
       kmo_above_060: boolean
       cfa_cfi_above_090: boolean
+      cfa_rmsea_below_008?: boolean
       itc_all_above_030: boolean
     }
   >
-  const getVals = (fn: (c: ConstructKey) => boolean): boolean[] => constructs.map(fn)
+  const getVals = (fn: (c: ConstructKey) => boolean | null): (boolean | null)[] =>
+    constructs.map(fn)
 
   return [
     {
@@ -179,13 +181,16 @@ const VERDICT_ROWS: { label: string; vals: boolean[] }[] = (() => {
     },
     {
       label: 'CFA CFI \u2265 .90',
-      vals: getVals((c) => verdicts[c].cfa_cfi_above_090),
+      vals: getVals((c) => {
+        const cfi = validationData[c]?.cfa?.cfi
+        return cfi != null ? verdicts[c].cfa_cfi_above_090 : null
+      }),
     },
     {
       label: 'CFA RMSEA \u2264 .08',
       vals: getVals((c) => {
-        const rmsea = (validationData[c] as { cfa: { rmsea: number | null } }).cfa.rmsea
-        return rmsea !== null && rmsea <= 0.08
+        const rmsea = validationData[c]?.cfa?.rmsea
+        return rmsea != null ? (verdicts[c].cfa_rmsea_below_008 ?? rmsea <= 0.08) : null
       }),
     },
     {
@@ -411,6 +416,78 @@ const EFACard = ({ c }: { c: ConstructValidation }) => (
   </div>
 )
 
+/** True when at least one CFA fit index is non-null. */
+const hasCfaData = (c: ConstructValidation): boolean =>
+  c.cfa_cfi != null || c.cfa_tli != null || c.cfa_rmsea != null || c.cfa_chi2 != null
+
+/** True when at least one fit index in the 4-factor CFA block is non-null. */
+const has4fCfaData =
+  BARRIERS_4F_CFA.cfi != null ||
+  BARRIERS_4F_CFA.tli != null ||
+  BARRIERS_4F_CFA.rmsea != null ||
+  BARRIERS_4F_CFA.chi2 != null
+
+/** Safely extract a CFA error message from the raw validation data. */
+const getCfaError = (source: Record<string, unknown>): string | undefined =>
+  (source as Record<string, unknown>)?.error as string | undefined
+
+/** Placeholder shown when CFA data is not yet available. */
+const CfaUnavailable = ({ error }: { error?: string | null }) => (
+  <div className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded px-3 py-2 font-sans">
+    <p>CFA fit indices are not yet available.</p>
+    {error && (
+      <p className="mt-1 text-xs text-amber-600">
+        Reason: <code className="bg-amber-100 px-1 rounded">{error}</code>
+      </p>
+    )}
+  </div>
+)
+
+/** N/A badge for missing CFA indices — matches the summary table style. */
+const NaBadge = () => (
+  <span className="inline-block px-2 py-0.5 rounded text-xs font-bold bg-gray-100 text-gray-500">
+    N/A
+  </span>
+)
+
+/** Verdict for a higher-is-better CFA index; renders N/A when null. */
+const CfaHigherVerdict = ({
+  val,
+  good,
+  acceptable,
+}: {
+  val: number | null
+  good: number
+  acceptable: number
+}) =>
+  val == null ? (
+    <NaBadge />
+  ) : (
+    <Verdict
+      pass={val >= acceptable}
+      label={val >= good ? 'Good' : val >= acceptable ? 'Acceptable' : 'Poor'}
+    />
+  )
+
+/** Verdict for a lower-is-better CFA index; renders N/A when null. */
+const CfaLowerVerdict = ({
+  val,
+  good,
+  acceptable,
+}: {
+  val: number | null
+  good: number
+  acceptable: number
+}) =>
+  val == null ? (
+    <NaBadge />
+  ) : (
+    <Verdict
+      pass={val <= acceptable}
+      label={val <= good ? 'Good' : val <= acceptable ? 'Acceptable' : 'Poor'}
+    />
+  )
+
 /* ── CFA Summary Card ── */
 const CFACard = ({ c }: { c: ConstructValidation }) => (
   <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
@@ -418,91 +495,75 @@ const CFACard = ({ c }: { c: ConstructValidation }) => (
       {c.construct} CFA (Single-Factor)
     </div>
     <div className="p-4">
-      <table className="w-full text-sm font-sans border-collapse">
-        <tbody>
-          <tr className="border-b">
-            <td className="py-1.5 text-gray-600">N</td>
-            <td className="py-1.5 text-right font-mono">{c.n_valid}</td>
-            <td />
-          </tr>
-          <tr className="border-b">
-            <td className="py-1.5 text-gray-600">&chi;&sup2; (df)</td>
-            <td className="py-1.5 text-right font-mono">
-              {fmt(c.cfa_chi2, 1)} ({c.cfa_df})
-            </td>
-            <td className="py-1.5 text-right text-xs text-gray-400">p {pFmt(c.cfa_p)}</td>
-          </tr>
-          <tr className="border-b">
-            <td className="py-1.5 text-gray-600">
-              <Link
-                href="/results/crp-2026/glossary#cfi"
-                className="hover:text-blue-600 hover:underline"
-              >
-                CFI
-              </Link>
-            </td>
-            <td className="py-1.5 text-right font-mono font-bold">{fmt(c.cfa_cfi)}</td>
-            <td className="py-1.5 text-right">
-              <Verdict
-                pass={(c.cfa_cfi ?? 0) >= 0.9}
-                label={
-                  (c.cfa_cfi ?? 0) >= 0.95
-                    ? 'Good'
-                    : (c.cfa_cfi ?? 0) >= 0.9
-                      ? 'Acceptable'
-                      : 'Poor'
-                }
-              />
-            </td>
-          </tr>
-          <tr className="border-b">
-            <td className="py-1.5 text-gray-600">
-              <Link
-                href="/results/crp-2026/glossary#tli"
-                className="hover:text-blue-600 hover:underline"
-              >
-                TLI
-              </Link>
-            </td>
-            <td className="py-1.5 text-right font-mono font-bold">{fmt(c.cfa_tli)}</td>
-            <td className="py-1.5 text-right">
-              <Verdict
-                pass={(c.cfa_tli ?? 0) >= 0.9}
-                label={
-                  (c.cfa_tli ?? 0) >= 0.95
-                    ? 'Good'
-                    : (c.cfa_tli ?? 0) >= 0.9
-                      ? 'Acceptable'
-                      : 'Poor'
-                }
-              />
-            </td>
-          </tr>
-          <tr>
-            <td className="py-1.5 text-gray-600">
-              <Link
-                href="/results/crp-2026/glossary#rmsea"
-                className="hover:text-blue-600 hover:underline"
-              >
-                RMSEA
-              </Link>
-            </td>
-            <td className="py-1.5 text-right font-mono font-bold">{fmt(c.cfa_rmsea)}</td>
-            <td className="py-1.5 text-right">
-              <Verdict
-                pass={(c.cfa_rmsea ?? 1) <= 0.08}
-                label={
-                  (c.cfa_rmsea ?? 1) <= 0.06
-                    ? 'Good'
-                    : (c.cfa_rmsea ?? 1) <= 0.08
-                      ? 'Acceptable'
-                      : 'Poor'
-                }
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      {hasCfaData(c) ? (
+        <table className="w-full text-sm font-sans border-collapse">
+          <tbody>
+            <tr className="border-b">
+              <td className="py-1.5 text-gray-600">N</td>
+              <td className="py-1.5 text-right font-mono">{c.n_valid}</td>
+              <td />
+            </tr>
+            <tr className="border-b">
+              <td className="py-1.5 text-gray-600">&chi;&sup2; (df)</td>
+              <td className="py-1.5 text-right font-mono">
+                {fmt(c.cfa_chi2, 1)} ({c.cfa_df})
+              </td>
+              <td className="py-1.5 text-right text-xs text-gray-400">p {pFmt(c.cfa_p)}</td>
+            </tr>
+            <tr className="border-b">
+              <td className="py-1.5 text-gray-600">
+                <Link
+                  href="/results/crp-2026/glossary#cfi"
+                  className="hover:text-blue-600 hover:underline"
+                >
+                  CFI
+                </Link>
+              </td>
+              <td className="py-1.5 text-right font-mono font-bold">{fmt(c.cfa_cfi)}</td>
+              <td className="py-1.5 text-right">
+                <CfaHigherVerdict val={c.cfa_cfi} good={0.95} acceptable={0.9} />
+              </td>
+            </tr>
+            <tr className="border-b">
+              <td className="py-1.5 text-gray-600">
+                <Link
+                  href="/results/crp-2026/glossary#tli"
+                  className="hover:text-blue-600 hover:underline"
+                >
+                  TLI
+                </Link>
+              </td>
+              <td className="py-1.5 text-right font-mono font-bold">{fmt(c.cfa_tli)}</td>
+              <td className="py-1.5 text-right">
+                <CfaHigherVerdict val={c.cfa_tli} good={0.95} acceptable={0.9} />
+              </td>
+            </tr>
+            <tr>
+              <td className="py-1.5 text-gray-600">
+                <Link
+                  href="/results/crp-2026/glossary#rmsea"
+                  className="hover:text-blue-600 hover:underline"
+                >
+                  RMSEA
+                </Link>
+              </td>
+              <td className="py-1.5 text-right font-mono font-bold">{fmt(c.cfa_rmsea)}</td>
+              <td className="py-1.5 text-right">
+                <CfaLowerVerdict val={c.cfa_rmsea} good={0.06} acceptable={0.08} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      ) : (
+        <CfaUnavailable
+          error={getCfaError(
+            validationData[c.construct as 'Barriers' | 'Readiness' | 'Maturity']?.cfa as Record<
+              string,
+              unknown
+            >
+          )}
+        />
+      )}
     </div>
   </div>
 )
@@ -639,112 +700,97 @@ const ValidationPage = () => {
           </div>
 
           <h3 className={H3_CLASSES}>Barriers 4-Factor CFA (Concept-Mapping Sub-Constructs)</h3>
-          <div className="overflow-x-auto mb-4">
-            <table className="w-full text-sm font-sans border-collapse">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th scope="col" className="text-left px-3 py-2 border">
-                    Index
-                  </th>
-                  <th scope="col" className="text-right px-3 py-2 border">
-                    Value
-                  </th>
-                  <th scope="col" className="text-right px-3 py-2 border">
-                    Verdict
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="px-3 py-1.5 border">&chi;&sup2; (df)</td>
-                  <td className="text-right px-3 py-1.5 border font-mono">
-                    {fmt(BARRIERS_4F_CFA.chi2, 1)} ({BARRIERS_4F_CFA.df})
-                  </td>
-                  <td className="text-right px-3 py-1.5 border text-xs text-gray-400">
-                    p {pFmt(BARRIERS_4F_CFA.chi2_p)}
-                  </td>
-                </tr>
-                <tr className="bg-gray-50">
-                  <td className="px-3 py-1.5 border">CFI</td>
-                  <td className="text-right px-3 py-1.5 border font-mono font-bold">
-                    {fmt(BARRIERS_4F_CFA.cfi)}
-                  </td>
-                  <td className="text-right px-3 py-1.5 border">
-                    <Verdict
-                      pass={(BARRIERS_4F_CFA.cfi ?? 0) >= 0.9}
-                      label={
-                        (BARRIERS_4F_CFA.cfi ?? 0) >= 0.95
-                          ? 'Good'
-                          : (BARRIERS_4F_CFA.cfi ?? 0) >= 0.9
-                            ? 'Acceptable'
-                            : 'Poor'
-                      }
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-3 py-1.5 border">TLI</td>
-                  <td className="text-right px-3 py-1.5 border font-mono font-bold">
-                    {fmt(BARRIERS_4F_CFA.tli)}
-                  </td>
-                  <td className="text-right px-3 py-1.5 border">
-                    <Verdict
-                      pass={(BARRIERS_4F_CFA.tli ?? 0) >= 0.9}
-                      label={
-                        (BARRIERS_4F_CFA.tli ?? 0) >= 0.95
-                          ? 'Good'
-                          : (BARRIERS_4F_CFA.tli ?? 0) >= 0.9
-                            ? 'Acceptable'
-                            : 'Poor'
-                      }
-                    />
-                  </td>
-                </tr>
-                <tr className="bg-gray-50">
-                  <td className="px-3 py-1.5 border">RMSEA</td>
-                  <td className="text-right px-3 py-1.5 border font-mono font-bold">
-                    {fmt(BARRIERS_4F_CFA.rmsea)}
-                  </td>
-                  <td className="text-right px-3 py-1.5 border">
-                    <Verdict
-                      pass={(BARRIERS_4F_CFA.rmsea ?? 1) <= 0.08}
-                      label={
-                        (BARRIERS_4F_CFA.rmsea ?? 1) <= 0.06
-                          ? 'Good'
-                          : (BARRIERS_4F_CFA.rmsea ?? 1) <= 0.08
-                            ? 'Acceptable'
-                            : 'Poor'
-                      }
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-3 py-1.5 border">AIC</td>
-                  <td className="text-right px-3 py-1.5 border font-mono">
-                    {fmt(BARRIERS_4F_CFA.aic, 1)}
-                  </td>
-                  <td className="text-right px-3 py-1.5 border text-xs text-gray-400">
-                    Lower is better
-                  </td>
-                </tr>
-                <tr className="bg-gray-50">
-                  <td className="px-3 py-1.5 border">BIC</td>
-                  <td className="text-right px-3 py-1.5 border font-mono">
-                    {fmt(BARRIERS_4F_CFA.bic, 1)}
-                  </td>
-                  <td className="text-right px-3 py-1.5 border text-xs text-gray-400">
-                    Lower is better
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p className="text-sm text-gray-500 font-sans">
-            The 4-factor model (CFI = {fmt(BARRIERS_4F_CFA.cfi)}) improves over the single-factor
-            model (CFI = {fmt(CONSTRUCTS[0].cfa_cfi)}) but remains below the .90 threshold,
-            consistent with the EFA finding that 2 factors (not 4) best represent the data. Full CFA
-            with cross-validation is planned at N=500.
-          </p>
+          {has4fCfaData ? (
+            <>
+              <div className="overflow-x-auto mb-4">
+                <table className="w-full text-sm font-sans border-collapse">
+                  <thead>
+                    <tr className="bg-gray-100">
+                      <th scope="col" className="text-left px-3 py-2 border">
+                        Index
+                      </th>
+                      <th scope="col" className="text-right px-3 py-2 border">
+                        Value
+                      </th>
+                      <th scope="col" className="text-right px-3 py-2 border">
+                        Verdict
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="px-3 py-1.5 border">&chi;&sup2; (df)</td>
+                      <td className="text-right px-3 py-1.5 border font-mono">
+                        {fmt(BARRIERS_4F_CFA.chi2, 1)} ({BARRIERS_4F_CFA.df})
+                      </td>
+                      <td className="text-right px-3 py-1.5 border text-xs text-gray-400">
+                        p {pFmt(BARRIERS_4F_CFA.chi2_p)}
+                      </td>
+                    </tr>
+                    <tr className="bg-gray-50">
+                      <td className="px-3 py-1.5 border">CFI</td>
+                      <td className="text-right px-3 py-1.5 border font-mono font-bold">
+                        {fmt(BARRIERS_4F_CFA.cfi)}
+                      </td>
+                      <td className="text-right px-3 py-1.5 border">
+                        <CfaHigherVerdict val={BARRIERS_4F_CFA.cfi} good={0.95} acceptable={0.9} />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-1.5 border">TLI</td>
+                      <td className="text-right px-3 py-1.5 border font-mono font-bold">
+                        {fmt(BARRIERS_4F_CFA.tli)}
+                      </td>
+                      <td className="text-right px-3 py-1.5 border">
+                        <CfaHigherVerdict val={BARRIERS_4F_CFA.tli} good={0.95} acceptable={0.9} />
+                      </td>
+                    </tr>
+                    <tr className="bg-gray-50">
+                      <td className="px-3 py-1.5 border">RMSEA</td>
+                      <td className="text-right px-3 py-1.5 border font-mono font-bold">
+                        {fmt(BARRIERS_4F_CFA.rmsea)}
+                      </td>
+                      <td className="text-right px-3 py-1.5 border">
+                        <CfaLowerVerdict
+                          val={BARRIERS_4F_CFA.rmsea}
+                          good={0.06}
+                          acceptable={0.08}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-1.5 border">AIC</td>
+                      <td className="text-right px-3 py-1.5 border font-mono">
+                        {fmt(BARRIERS_4F_CFA.aic, 1)}
+                      </td>
+                      <td className="text-right px-3 py-1.5 border text-xs text-gray-400">
+                        Lower is better
+                      </td>
+                    </tr>
+                    <tr className="bg-gray-50">
+                      <td className="px-3 py-1.5 border">BIC</td>
+                      <td className="text-right px-3 py-1.5 border font-mono">
+                        {fmt(BARRIERS_4F_CFA.bic, 1)}
+                      </td>
+                      <td className="text-right px-3 py-1.5 border text-xs text-gray-400">
+                        Lower is better
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-sm text-gray-500 font-sans">
+                The 4-factor model (CFI = {fmt(BARRIERS_4F_CFA.cfi)}) improves over the
+                single-factor model (CFI = {fmt(CONSTRUCTS[0].cfa_cfi)}) but remains below the .90
+                threshold, consistent with the EFA finding that 2 factors (not 4) best represent the
+                data. Full CFA with cross-validation is planned at N=500.
+              </p>
+            </>
+          ) : (
+            <CfaUnavailable
+              error={getCfaError(validationData.barriers_4f_cfa as Record<string, unknown>)}
+            />
+          )}
         </section>
 
         {/* ══ SECTION 4: DISCRIMINANT VALIDITY ══ */}
@@ -1020,7 +1066,13 @@ const ValidationPage = () => {
                     <td className="px-3 py-1.5 border">{row.label}</td>
                     {row.vals.map((v, j) => (
                       <td key={j} className="text-center px-3 py-1.5 border">
-                        <Verdict pass={v} />
+                        {v === null ? (
+                          <span className="inline-block px-2 py-0.5 rounded text-xs font-bold bg-gray-100 text-gray-500">
+                            N/A
+                          </span>
+                        ) : (
+                          <Verdict pass={v} />
+                        )}
                       </td>
                     ))}
                   </tr>
