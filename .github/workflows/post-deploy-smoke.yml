@@ -341,8 +341,9 @@ jobs:
 
           : > /tmp/redirect-results.txt
 
-          # Old Making of TABS pages → Results section
+          # Legacy redirects between Making of TABS and Results sections
           check_redirect "${SITE_URL}/making-of-tabs/data-analysis" "/results/data-quality" "/making-of-tabs/data-analysis"
+          # CMO Survey legacy making-of-tabs path redirects to the canonical results page
           check_redirect "${SITE_URL}/making-of-tabs/cmo-survey" "/results/cmo-survey" "/making-of-tabs/cmo-survey"
           check_redirect "${SITE_URL}/making-of-tabs/reproducible-analysis" "/results/reproducibility" "/making-of-tabs/reproducible-analysis"
           check_redirect "${SITE_URL}/making-of-tabs/integrations/prolific/dashboard" "/results/dashboard" "/making-of-tabs/.../prolific/dashboard"
