@@ -442,12 +442,17 @@ const FactorAnalysisPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* Sort by computed dominant factor: items with higher |f1| first, then |f2| */}
+                {/* Sort by dominant factor first (F1 before F2), then by magnitude within each group */}
                 {[...loadingsMatrix]
                   .sort((a, b) => {
                     const aDom = getDominantFactor(a)
                     const bDom = getDominantFactor(b)
-                    return aDom === bDom ? 0 : aDom === 'F1' ? -1 : 1
+                    if (aDom !== bDom) {
+                      return aDom === 'F1' ? -1 : 1
+                    }
+                    const aMagnitude = aDom === 'F1' ? Math.abs(a.f1) : Math.abs(a.f2)
+                    const bMagnitude = bDom === 'F1' ? Math.abs(b.f1) : Math.abs(b.f2)
+                    return bMagnitude - aMagnitude
                   })
                   .map((row, i) => {
                     const dominantFactor = getDominantFactor(row)
