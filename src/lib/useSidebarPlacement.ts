@@ -38,9 +38,11 @@ export function useSidebarPlacement() {
         return
       }
       const rect = article.getBoundingClientRect()
-      const rightSpace = window.innerWidth - rect.right
+      const viewportWidth = window.visualViewport?.width ?? document.documentElement.clientWidth
+      const rightSpace = viewportWidth - rect.right
       const nextCanShow = rightSpace >= SIDEBAR_MIN_SPACE
-      const nextLeft = rect.right + SIDEBAR_GAP
+      const maxLeft = Math.max(SIDEBAR_GAP, viewportWidth - SIDEBAR_MIN_SPACE)
+      const nextLeft = Math.min(rect.right + SIDEBAR_GAP, maxLeft)
       if (nextCanShow !== prevCanShowDesktopRef.current) {
         prevCanShowDesktopRef.current = nextCanShow
         setCanShowDesktop(nextCanShow)

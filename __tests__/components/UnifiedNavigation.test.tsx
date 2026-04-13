@@ -28,6 +28,8 @@ jest.mock('next/navigation', () => ({
 }))
 
 describe('UnifiedNavigation', () => {
+  let originalClientWidth: number
+
   beforeEach(() => {
     const header = document.createElement('div')
     header.id = 'header'
@@ -39,12 +41,24 @@ describe('UnifiedNavigation', () => {
     h2.textContent = 'Test Section'
     article.appendChild(h2)
     document.body.appendChild(article)
+
+    // jsdom's clientWidth defaults to 0; set a realistic viewport so the
+    // desktop sidebar variant renders (rightSpace = 1024 - 0 = 1024 >= 250).
+    originalClientWidth = document.documentElement.clientWidth
+    Object.defineProperty(document.documentElement, 'clientWidth', {
+      value: 1024,
+      configurable: true,
+    })
   })
 
   afterEach(() => {
     document.getElementById('header')?.remove()
     document.querySelector('article')?.remove()
     document.getElementById('site-footer')?.remove()
+    Object.defineProperty(document.documentElement, 'clientWidth', {
+      value: originalClientWidth,
+      configurable: true,
+    })
   })
 
   it('renders nothing when no series items and no headings detected yet', () => {
@@ -84,7 +98,12 @@ describe('UnifiedNavigation', () => {
 
   it('renders mobile FAB button when right-side space is too small for desktop sidebar', () => {
     const originalInnerWidth = window.innerWidth
+    const originalClientWidth = document.documentElement.clientWidth
     Object.defineProperty(window, 'innerWidth', { value: 200, configurable: true })
+    Object.defineProperty(document.documentElement, 'clientWidth', {
+      value: 200,
+      configurable: true,
+    })
 
     const article = document.querySelector('article')
     expect(article).not.toBeNull()
@@ -111,12 +130,21 @@ describe('UnifiedNavigation', () => {
       expect(screen.queryByRole('navigation', { name: /page navigation/i })).not.toBeInTheDocument()
     } finally {
       Object.defineProperty(window, 'innerWidth', { value: originalInnerWidth, configurable: true })
+      Object.defineProperty(document.documentElement, 'clientWidth', {
+        value: originalClientWidth,
+        configurable: true,
+      })
     }
   })
 
   it('renders desktop navigation when right-side space is large enough for the sidebar', () => {
     const originalInnerWidth = window.innerWidth
+    const originalClientWidth = document.documentElement.clientWidth
     Object.defineProperty(window, 'innerWidth', { value: 1200, configurable: true })
+    Object.defineProperty(document.documentElement, 'clientWidth', {
+      value: 1200,
+      configurable: true,
+    })
 
     const article = document.querySelector('article')
     expect(article).not.toBeNull()
@@ -125,7 +153,7 @@ describe('UnifiedNavigation', () => {
       throw new Error('Expected article element to exist for layout test')
     }
 
-    // rightSpace = 1200 - 900 = 300 >= SIDEBAR_MIN_SPACE (234)
+    // rightSpace = 1200 - 900 = 300 >= SIDEBAR_MIN_SPACE (250)
     article.getBoundingClientRect = jest.fn(() => ({
       x: 0,
       y: 0,
@@ -144,6 +172,10 @@ describe('UnifiedNavigation', () => {
       expect(screen.queryByRole('button', { name: /navigation/i })).not.toBeInTheDocument()
     } finally {
       Object.defineProperty(window, 'innerWidth', { value: originalInnerWidth, configurable: true })
+      Object.defineProperty(document.documentElement, 'clientWidth', {
+        value: originalClientWidth,
+        configurable: true,
+      })
     }
   })
 
@@ -162,6 +194,8 @@ describe('UnifiedNavigation', () => {
 })
 
 describe('UnifiedNavigation — footer-aware bottom offset', () => {
+  let originalClientWidth: number
+
   beforeEach(() => {
     const header = document.createElement('div')
     header.id = 'header'
@@ -171,6 +205,14 @@ describe('UnifiedNavigation — footer-aware bottom offset', () => {
     const article = document.createElement('article')
     document.body.appendChild(article)
 
+    // jsdom's clientWidth defaults to 0; set a realistic viewport so the
+    // desktop sidebar variant renders (rightSpace = 1024 - 0 = 1024 >= 250).
+    originalClientWidth = document.documentElement.clientWidth
+    Object.defineProperty(document.documentElement, 'clientWidth', {
+      value: 1024,
+      configurable: true,
+    })
+
     global.ResizeObserver = MockResizeObserver as unknown as typeof ResizeObserver
     global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver
   })
@@ -179,6 +221,10 @@ describe('UnifiedNavigation — footer-aware bottom offset', () => {
     document.getElementById('header')?.remove()
     document.querySelector('article')?.remove()
     document.getElementById('site-footer')?.remove()
+    Object.defineProperty(document.documentElement, 'clientWidth', {
+      value: originalClientWidth,
+      configurable: true,
+    })
     jest.restoreAllMocks()
   })
 
