@@ -1,5 +1,6 @@
 /* HIDE SITE HEADER AND FOOTER FOR PRESENTATION */
 #header,
+#sidebar,
 footer {
   display: none !important;
 }
