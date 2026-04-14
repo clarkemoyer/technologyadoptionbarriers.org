@@ -16,8 +16,13 @@ import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
    TYPES
 ══════════════════════════════════════════════════════════════════ */
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnyValidationData = any
+/** Legacy flat format (pre-#1544) or new per-sample format. */
+type LegacyValidationData = {
+  metadata: { n_total: number; crp200_mode: boolean; [key: string]: unknown }
+  [key: string]: unknown
+}
+
+type AnyValidationData = NormalizedData | LegacyValidationData
 
 type SampleEntry = {
   key: string
@@ -58,22 +63,23 @@ type NormalizedData = {
 ══════════════════════════════════════════════════════════════════ */
 
 function normalizeData(data: AnyValidationData): NormalizedData {
-  if (data.samples && Array.isArray(data.samples)) {
+  if ('samples' in data && Array.isArray(data.samples)) {
     return data as NormalizedData
   }
-  const isCrp = data.metadata?.crp200_mode ?? false
+  const legacy = data as LegacyValidationData
+  const isCrp = legacy.metadata?.crp200_mode ?? false
   return {
     samples: [
       {
+        ...(legacy as unknown as SampleEntry),
         key: isCrp ? 'crp_200' : 'legacy',
         label: isCrp ? 'CRP-200' : 'Legacy Filter',
         description: isCrp
           ? 'Frozen CRP dataset (N=200, tiered selection)'
           : 'Pre-#1544 unnamed sample',
-        n: data.metadata?.n_total ?? 0,
+        n: legacy.metadata?.n_total ?? 0,
         adequacy: 'unknown',
         adequacy_note: '',
-        ...data,
       },
     ],
     primary_sample: isCrp ? 'crp_200' : 'legacy',

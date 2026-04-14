@@ -76,21 +76,21 @@ type ValidationDataLegacy = {
   [key: string]: unknown
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnyValidationData = any
+type AnyValidationData = ValidationDataNew | ValidationDataLegacy
 
 /* ══════════════════════════════════════════════════════════════════
    DATA NORMALIZATION (handles old flat format + new per-sample format)
 ══════════════════════════════════════════════════════════════════ */
 
 function normalizeValidationData(data: AnyValidationData): ValidationDataNew {
-  if (data.samples && Array.isArray(data.samples)) {
+  if ('samples' in data && Array.isArray(data.samples)) {
     return data as ValidationDataNew
   }
   // Legacy flat format: wrap in single-sample structure
   const legacy = data as ValidationDataLegacy
   const isCrp = legacy.metadata?.crp200_mode ?? false
   const entry: SampleEntry = {
+    ...(legacy as unknown as SampleEntry),
     key: isCrp ? 'crp_200' : 'legacy',
     label: isCrp ? 'CRP-200' : 'Legacy Filter',
     description: isCrp
@@ -100,10 +100,6 @@ function normalizeValidationData(data: AnyValidationData): ValidationDataNew {
     n_to_param_ratio: Math.round(((legacy.metadata?.n_total ?? 0) / 46) * 10) / 10,
     adequacy: 'unknown',
     adequacy_note: 'Sample size adequacy was not tracked in the pre-#1544 pipeline format.',
-    ...(legacy as unknown as Omit<
-      SampleEntry,
-      'key' | 'label' | 'description' | 'n' | 'n_to_param_ratio' | 'adequacy' | 'adequacy_note'
-    >),
   }
   return {
     samples: [entry],
